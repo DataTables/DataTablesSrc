@@ -422,7 +422,7 @@ this.fnGetData = function( src, col )
 			api.row( src ).data();
 	}
 
-	return api.data();
+	return api.data().toArray();
 };
 
 
