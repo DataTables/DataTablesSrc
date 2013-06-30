@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Pipelining data to reduce Ajax calls for paging</title>
+<js><![CDATA[
+
+$.fn.dataTable.pipeline = function ( data, drawCallback, settings ) {
+	// @todo
+};
+
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"processing": true,
+		"serverSide": true,
+		"ajax": $.fn.dataTable.pipeline
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+Sever-side processing can be quite hard on your server, since it makes an Ajax call to the server for every draw request that is made. On heavy load sides, you could potentially end up DDOSing your own server with your own applications!
+
+This example shows one technique to reduce the number of Ajax calls that are made to the server by caching more data than is needed for each draw. This is done by intercepting the Ajax call and routing it through a data cache, using the data from the cache is available, and making the Ajax request if not.
+
+Keep in mind that this caching is for paging only; the pipeline must be cleared for other interactions such as sorting and filtering since the full data set, when using server-side processing, is only available at the server.
+
+]]></info>
+
+</dt-example>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Automatic addition of row ID attributes</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"processing": true,
+		"serverSide": true,
+		"ajax": "scripts/id.php"
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+Often when using server-side processing you will find that it can be useful to have a specific ID on each row (the primary key value from the database for example). By assigning the ID you want to apply to each row using the property `DT_RowId` of the data source object for each row, DataTables will automatically add it for you.
+
+In addition to `DT_RowId` there are two other properties which perform similar actions: `DT_RowClass` and `DT_RowData`:
+
+* {string} `DT_RowId` - Add an ID to the _TR_ element
+* {string} `DT_RowClass` - Add a class name to the _TR_ element
+* {object} `DT_RowData` - Add HTML5 _data-_ attributes to the _TR_ element. This is an object of key / value pairs which are assigned as data attributes to the _TR_ element.
+
+This example below shows both `DT_RowId` and `DT_RowClass` being used to add information to the table.
+
+]]></info>
+
+</dt-example>

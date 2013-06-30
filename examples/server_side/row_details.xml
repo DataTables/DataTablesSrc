@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax-details" order="">
+
+<css lib="datatables" />
+<css><![CDATA[
+td.details-control {
+	background: url('../examples_support/details_open.png') no-repeat center center;
+	cursor: pointer;
+}
+tr.details td.details-control {
+	background: url('../examples_support/details_close.png') no-repeat center center;
+}
+]]></css>
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>POST data</title>
+<js><![CDATA[
+
+function formatDetails ( data ) {
+	return 'Rendering engine: '+data.engine+' '+data.version+'<br>'+
+		'The child row can contain any data you wish, including links, images, inner tables etc.';
+}
+
+$(document).ready(function() {
+	var dt = $('#example').DataTable( {
+		"processing": true,
+		"serverSide": true,
+		"ajax": "scripts/objects.php",
+		"columnDefs: [ 
+			{
+				"targets":        0,
+				"class":          "details-control",
+				"sortable":       false,
+				"data":           null,
+				"defaultContent": ""
+			},
+			{ "data": "engine" },
+			{ "data": "browser" },
+			{ "data": "platform" },
+			{ "data": "version" },
+			{ "data": "grade" }
+		],
+		"sorting": [[1, 'asc']]
+	} );
+
+	$('#example tbody').on('click', 'tr td:first-child', function () {
+		var tr = $(this).parents('tr');
+		var row = dt.row( tr );
+
+		if ( row.child.isShown() ) {
+			tr.removeClass( 'details' );
+			row.child.hide();
+		}
+		else {
+			tr.addClass( 'details' );
+			row.child( formatDetails( row.data() ).show();
+		}
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+This example shows the use of DataTables' ability to show and hide child rows which are attached to a parent row in the host table. This is often used to show additional information about a row, particularly when you wish to convey more information about a row than there is space for in the host table.
+
+The example below shows server-side processing being used with the first column having an event listener attached to it which will toggle the child row's display. This is set up using `dt-init columns.data` and `dt-init columns.defaultContent`, in combination with CSS to show an empty cell with a background image which can be clicked upon.
+
+The event handler makes use of the `dt-api row().child` methods to firstly check if a row is already displayed, and if so hide it, if not show it. The content of the child row is, in this example, defined by the `formatDetails()` function, but you would replace that with whatever you wanted to show the content required, possibly including, for example, an Ajax call to the server to obtain the extra information to show.
+
+]]></info>
+
+</dt-example>

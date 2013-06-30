@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax" order="7">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>AJAX deferred rendering example</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"ajax": "sources/arrays.txt",
+		"deferRender": true
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+When working with large data sources, you might seek to improve the speed at which DataTables runs. One method to do this is to make use of the built-in deferred rendering option in DataTables with the `dt-init deferRender` option.
+
+When deferred rendering is enabled, rather than having DataTables create all _TR_ and _TD_ nodes required for the table when the data is loaded, DataTables will only create the nodes required for each individual display at the time of that display being drawn on the page (these nodes are then retained in case they are needed again so they aren't created multiple times). This can give a significant performance increase, since a lot less work is done at initialisation time.
+
+The example below shows DataTables with deferred rendering enabled. For this small example you'll likely notice no difference, but larger tables can seriously benefit from simply enabling this parameter.
+
+]]></info>
+
+</dt-example>

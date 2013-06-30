@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax" order="4">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Nested object data (arrays)</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"ajax": "sources/objects_subarrays.txt",
+		"columns": [
+			{ "data": "engine" },
+			{ "data": "browser" },
+			{ "data": "platform[, ]" },
+			{ "data": "details.0" },
+			{ "data": "details.1" }
+		]
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+Information read from an Ajax data source can be arbitrarily complex, but still be displayed by DataTables through the `dt-init columns.data` option. The `dt-init columns.data` has the ability to read information not only from objects, but also from arrays using the same dotted object syntax as for objects, but additionally, when working with an array data source `dt-init columns.data` can process the data to combine and display the data in simple forms (more complex forms can be defined by using `dt-init columns.data` as a function).
+
+This example shows two different aspects of using `dt-init columns.data` to read arrays:
+
+* The _Platform_ column is sourced from an array of items, which are automatically concatenated together. This is done by using array bracket syntax, with the characters between the brackets being used as the glue between elements (e.g. `platform[, ]`).
+* The _Version_ and _Grade_ columns are read directly from array elements using dotted object notation (e.g. `details.0`).
+
+]]></info>
+
+</dt-example>

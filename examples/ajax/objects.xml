@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax" order="2">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Ajax data source (objects)</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"ajax": "sources/objects.txt",
+		"columns": [
+			{ "data": "engine" },
+			{ "data": "browser" },
+			{ "data": "platform" },
+			{ "data": "version" },
+			{ "data": "grade" }
+		]
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+To try and make life easy, by default, DataTables will expect an array of arrays for its data source, with an entry in each row's array for each cell. However, you may wish to have DataTables use an array of objects as its data source (i.e. each row has its data described by an object). This can be done quite simply by using the `dt-init columns.data` option which tells DataTables which property to use from the data source object.
+
+In this example the Ajax source returns an array of objects, which DataTables uses to display the table.
+
+]]></info>
+
+</dt-example>

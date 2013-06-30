@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>JSONP data source for remote domains</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"processing": true,
+		"serverSide": true,
+		"ajax": {
+			"url": "scripts/jsonp.php",
+			"dataType": "jsonp"
+		}
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+[JSONP](http://bob.pythonmac.org/archives/2005/12/05/remote-json-jsonp/) is a method to allow the use of JSON data from any server (this allows for the XSS protection that browsers use when loading Ajax data from a remote source). Using JSONP allows DataTables to load server-side sourced data from any domain and is quite simply done with the `dataType` option of the `dt-init ajax` initialisation option.
+
+When given as an object, the `dt-init ajax` option maps directly onto the [jQuery ajax](http://api.jquery.com/jQuery.ajax/) options (i.e. any option that can be used in jQuery's Ajax function can also be used in DataTable's `dt-init ajax` option).
+
+The example below shows `dt-init ajax` being used with the `dataType` option set to retrieve JSONP data for server-side processing in DataTables.
+
+
+]]></info>
+
+</dt-example>

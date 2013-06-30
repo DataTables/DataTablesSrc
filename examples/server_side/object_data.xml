@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Object data source</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"processing": true,
+		"serverSide": true,
+		"ajax": "scripts/objects.php",
+		"columns": [
+			{ "data": "engine" },
+			{ "data": "browser" },
+			{ "data": "platform" },
+			{ "data": "version" },
+			{ "data": "grade" }
+		]
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+The default data format that DataTables expects for server-side processing is a 2D array of data (rows by columns). However, this is often not flexible enough for either the server-side environment, or you might want to convey more information in the data source than is necessary to show in the table (row IDs from the database for example). For these situations DataTables supports the reading of data for objects as well as arrays.
+
+In this example the server responds with an array of objects, where DataTables will look up and use each property that is specified by the `dt-init columns.data` property given for each column.
+
+]]></info>
+
+</dt-example>

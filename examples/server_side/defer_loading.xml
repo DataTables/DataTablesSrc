@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax-1st-page" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Deferred loading of data</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"processing": true,
+		"serverSide": true,
+		"ajax": "scripts/server_processing.php",
+		"deferLoading": 57
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+When using DataTables with server-side processing, the default behaviour is to have DataTables automatically make an Ajax call and load the data, removing anything which might have already been in the table. However, this behaviour might not always be desirable when the first page of the table has already been preloaded in the HTML (which you might do to ensure accessibility or for performance reasons).
+
+This automatic Ajax call to get the first page of data can be overridden by using the `dt-init deferLoading` initialisation property. It serves two purposes, firstly to indicate that deferred loading is required, but also to tell DataTables how many records there are in the full table, in this case 57 (this allows the information element and pagination to be displayed correctly).
+
+In the example below, the HTML page already has the first 10 rows of data available it in, so we use `dt-init deferLoading` to tell DataTables that this data is available and that it should wait for under interaction (sorting, paging etc) before making an Ajax call.
+
+]]></info>
+
+</dt-example>

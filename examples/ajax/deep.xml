@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax" order="3">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Nested object data (objects)</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"processing": true,
+		"ajax": "sources/deep.txt",
+		"columns": [
+			{ "data": "engine" },
+			{ "data": "browser" },
+			{ "data": "platform.inner" },
+			{ "data": "platform.details.0" },
+			{ "data": "platform.details.1" }
+		]
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+The ability of DataTables to read arbitrary object properties as a column data source through the `dt-init columns.data` option is extended to _n_ levels of objects, through the use of standard Javascript dotted object notation. For example in this example `platform.details.0` refers to the first element of the array "details", of the object "platform", for each column. Any level of 'dots' can be used.
+
+The example below shows DataTables reading information for the columns of the last three columns of the table from nested object properties.
+
+]]></info>
+
+</dt-example>
