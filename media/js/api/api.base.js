@@ -412,7 +412,7 @@ _Api.prototype = /** @lends DataTables.Api */{
 		var a = [];
 
 		if ( _arrayProto.map ) {
-			a = _arrayProto.map( this, fn, this );
+			a = _arrayProto.map.call( this, fn, this );
 		}
 		else {
 			// Compatibility for browsers without EMCA-252-5 (JS 1.6)
