@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="ajax" order="1">
+<dt-example table-type="html" order="2">
 
 <css lib="datatables" />
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>Ajax data source (arrays)</title>
+<title>Ajax sourced data</title>
 <js><![CDATA[
+
 $(document).ready(function() {
 	$('#example').dataTable( {
-		"ajax": "sources/arrays.txt"
+		"ajax": '../ajax/sources/arrays.txt'
 	} );
 } );
+
 ]]></js>
 
 <info><![CDATA[

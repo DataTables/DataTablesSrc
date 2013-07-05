@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="1">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>DOM sourced data</title>
+<js><![CDATA[
+
+$(document).ready(function() {
+	$('#example').dataTable();
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+The foundation for DataTables is progressive enhancement, so it is very adept at reading table information directly from the DOM. This example shows how easy it is to add filtering, sorting and paging to your HTML table by initialising DataTables on it.
+
+]]></info>
+
+</dt-example>

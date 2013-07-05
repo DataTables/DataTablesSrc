@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="ajax" order="1">
+<dt-example table-type="ajax" order="4">
 
 <css lib="datatables" />
 <js lib="jquery" />
@@ -11,7 +11,7 @@ $(document).ready(function() {
 	$('#example').dataTable( {
 		"processing": true,
 		"serverSide": true,
-		"ajax": "scripts/server_processing.php"
+		"ajax": "../server_side/scripts/server_processing.php"
 	} );
 } );
 ]]></js>
