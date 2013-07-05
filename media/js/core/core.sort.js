@@ -355,7 +355,7 @@ function _fnSortData( settings, idx )
 
 		if ( ! row._aSortData[idx] || customSort ) {
 			cellData = customSort ?
-				customData : // If there was a custom sort function, use data from there
+				customData[i] : // If there was a custom sort function, use data from there
 				_fnGetCellData( settings, i, idx, 'sort' );
 
 			row._aSortData[ idx ] = formatter ?
