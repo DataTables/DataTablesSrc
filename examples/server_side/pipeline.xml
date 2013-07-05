@@ -8,10 +8,106 @@
 <title>Pipelining data to reduce Ajax calls for paging</title>
 <js><![CDATA[
 
+// Pipelining function for DataTables. To be used to the `ajax` option of DataTables
 $.fn.dataTable.pipeline = function ( data, drawCallback, settings ) {
-	// @todo
+	var conf = $.fn.dataTable.pipeline.conf;
+
+	var ajax = false;
+	var requestStart = data.iDisplayStart;
+	var requestLength = data.iDisplayLength;
+	var requestEnd = requestStart + requestLength;
+	conf.displayStart = requestStart;
+	
+	if ( conf.lower < 0 || requestStart < conf.lower || requestEnd > conf.upper ) {
+		// outside pipeline
+		ajax = true;
+	}
+	else {
+		// have any of the properties changed (sorting etc)
+		$.each( data, function ( key, val ) {
+			if ( key !== 'iDisplayStart' && key !== 'iDisplayLength' && key !== 'sEcho' ) {
+				if ( val !== conf.lastRequest[ key ] ) {
+					ajax = true;
+				}
+			}
+		} );
+	}
+	
+	// Store the request for checking next time around
+	conf.lastRequest = $.extend( true, {}, data );
+
+	if ( ajax ) {
+		// Need data from the server
+		if ( requestStart < conf.lower ) {
+			requestStart = requestStart - (requestLength*(conf.pages-1));
+
+			if ( requestStart < 0 ) {
+				requestStart = 0;
+			}
+		}
+		
+		conf.lower = requestStart;
+		conf.upper = requestStart + (requestLength * conf.pages);
+
+		data.iDisplayStart = requestStart;
+		data.iDisplayLength = requestLength*conf.pages;
+		
+		settings.jqXHR = $.ajax( {
+			"url": conf.url,
+			"data": data,
+			"dataType": "json",
+			"cache": false,
+			"success": function ( json ) {
+				conf.lastJson = $.extend(true, {}, json);
+				
+				if ( conf.lower != requestStart ) {
+					json.aaData.splice( 0, requestStart-conf.lower );
+				}
+				json.aaData.splice( requestLength, json.aaData.length );
+
+				
+				drawCallback( json );
+			}
+		} );
+	}
+	else {
+		json = $.extend( true, {}, conf.lastJson );
+		json.sEcho = data.sEcho; // Update the echo for each response
+		json.aaData.splice( 0, requestStart-conf.lower );
+		json.aaData.splice( requestLength, json.aaData.length );
+
+		drawCallback(json);
+	}
 };
 
+$.fn.dataTable.pipeline.conf = {
+	//
+	// Configuration options:
+	//
+
+	// Number of pages to cache in the pipeline
+	pages: 5,
+
+	// Source URL for the script
+	url: 'scripts/server_processing.php',
+
+
+	//
+	// Internal state variables
+	//
+	lower: -1,
+	upper: null,
+	lastRequest: null,
+	lastJson: null
+};
+
+
+// Helper function for should you ever want to flush the cache
+$.fn.dataTable.pipeline.clear = function () {
+	$.fn.dataTable.pipeline.conf.lower = -1;
+}
+
+// DataTables initialisation
 $(document).ready(function() {
 	$('#example').dataTable( {
 		"processing": true,
@@ -19,13 +115,14 @@ $(document).ready(function() {
 		"ajax": $.fn.dataTable.pipeline
 	} );
 } );
+
 ]]></js>
 
 <info><![CDATA[
 
-Sever-side processing can be quite hard on your server, since it makes an Ajax call to the server for every draw request that is made. On heavy load sides, you could potentially end up DDOSing your own server with your own applications!
+Sever-side processing can be quite hard on your server, since it makes an Ajax call to the server for every draw request that is made. On heavy load sides, you could potentially end up DDoSing your own server with your own applications!
 
-This example shows one technique to reduce the number of Ajax calls that are made to the server by caching more data than is needed for each draw. This is done by intercepting the Ajax call and routing it through a data cache, using the data from the cache is available, and making the Ajax request if not.
+This example shows one technique to reduce the number of Ajax calls that are made to the server by caching more data than is needed for each draw. This is done by intercepting the Ajax call and routing it through a data cache, using the data from the cache is available, and making the Ajax request if not. This intercept of the Ajax request is performed by giving the `dt-init ajax` option as a function. This function then performs the logic of deciding if another Ajax call is needed, or if data from the cache can be used.
 
 Keep in mind that this caching is for paging only; the pipeline must be cleared for other interactions such as sorting and filtering since the full data set, when using server-side processing, is only available at the server.
 
