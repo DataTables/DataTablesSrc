@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Events</title>
+<js><![CDATA[
+
+$(document).ready(function() {
+	$('#example').dataTable();
+	
+	$('#example tbody').on('click', 'tr', function () {
+		var title;
+		var tds = $('td', this);
+		var browser = tds.eq(1).text();
+		var grade = tds.eq(4).text();
+		
+		if ( grade == "A" )
+			title =  browser+' will provide a first class (A) level of CSS support.';
+		else if ( grade == "C" )
+			title = browser+' will provide a core (C) level of CSS support.';
+		else if ( grade == "X" )
+			title = browser+' does not provide CSS support or has a broken implementation. Block CSS.';
+		else
+			title = browser+' will provide an undefined level of CSS support.';
+		
+		alert( title );
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+Events assigned to the table can be exceptionally useful for user interaction, however you must be aware that DataTables will add and remove rows from the DOM as they are needed (i.e. when paging only the visible elements are actually available in the DOM). As such, this can lead to the odd hiccup when working with events.
+
+One of the best ways of dealing with this is through the use of delegated events with jQuery's `on` method, as shown in this example.
+
+]]></info>
+
+</dt-example>

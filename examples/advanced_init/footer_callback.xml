@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Footer callback</title>
+<js><![CDATA[
+
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"footerCallback": function ( row, data, start, end, display ) {
+			var api = this.api();
+
+			// Total over all pages
+			var marketTotal = api
+				.column( 4 )
+				.data()
+				.reduce( function (a, b) {
+					return parseFloat( a ) + parseFloat( b );
+				} );
+
+			// Total over this page
+			var pageTotal = api
+				.column( 4, { page: 'current'} )
+				.data()
+				.reduce( function (a, b) {
+					return parseFloat( a ) + parseFloat( b );
+				} );
+
+			// Update footer
+			$('th:eq(1)', row).html(
+				pageTotal.toFixed(1) +'% ( '+ marketTotal.toFixed(0) +'% total)'
+			);
+		}
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+Through the use of the header and footer callback manipulation functions provided by DataTables (`dt-init headerCallback` and `dt-init footerCallback`), it is possible to perform some powerful and useful data manipulation functions, such as summarising data in the table.
+
+The example below shows a footer callback being used to total the data for a column (both the visible and the hidden data) using the `dt-api column().data() API method.
+
+]]></info>
+
+</dt-example>

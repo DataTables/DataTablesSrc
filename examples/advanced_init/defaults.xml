@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Defaults</title>
+<js><![CDATA[
+
+$.extend( $.fn.dataTable.defaults, {
+	"filter": false,
+	"sort": false
+} );
+
+
+$(document).ready(function() {
+	$('#example').dataTable();
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+When working with DataTables over multiple pages it is often useful to set the initialisation defaults to common values (for example you might want to set `dt-init dom` to a common value so all tables get the same layout). This can be done using the `$.fn.dataTable.defaults` object. This object will take all the same parameters as the DataTables initialisation object, but in this case you are setting the default for all future initialisations of DataTables.
+
+This example shows the filtering and sorting features of DataTables being disabled by default, which is reflected in the table when it is initialised.
+
+]]></info>
+
+</dt-example>

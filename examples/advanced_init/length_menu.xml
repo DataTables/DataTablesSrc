@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Page length options</title>
+<js><![CDATA[
+
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+It is possible to easily customise the options shown in the length menu (by default at the top left of the table) using the `dt-init lengthMenu` initialisation option.
+
+This parameter can take one of two forms:
+
+* A 1D array of options which will be used for both the displayed option and the value, or
+* A 2D array in which the first array is used to define the value options and the second array the displayed options (useful for language strings such as 'All').
+
+The example below shows a 2D array being used to include a "Show all" records option.
+
+]]></info>
+
+</dt-example>

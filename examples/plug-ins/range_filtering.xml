@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="4">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Sorting plug-ins (with type detection)</title>
+<js><![CDATA[
+
+/* Custom filtering function which will filter data in column four between two values */
+$.fn.dataTableExt.afnFiltering.push(
+	function( settings, data, dataIndex ) {
+		var min = $('#min').val() * 1;
+		var max = $('#max').val() * 1;
+		var version = parseFloat( data[3] ) || 0;
+
+		if ( ( min == '' && max == '' ) ||
+			 ( min == '' && version < max ) ||
+			 ( min < version && '' == max ) ||
+			 ( min < version && version < max ) )
+		{
+			return true;
+		}
+		return false;
+	}
+);
+
+$(document).ready(function() {
+	var table = $('#example').DataTable();
+	
+	// Event listener to the two range filtering inputs to redraw on input
+	$('#min, #max').keyup( function() {
+		table.draw();
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+There may be occasions when you wish to filter data presented to the end user in your own manner, common examples are number range filtering (in between two numbers) and date range filtering. DataTables provide an API method to add your own filtering functions, `$.fn.dataTableExt.afnFiltering`. This is an array of functions (push your own onto it) which will will be run at table draw time to see if a particular row should be included or not.
+
+This example shows a filter being performed on the version column in the data, based upon two inputs.
+
+]]></info>
+
+<demo-html>
+	<table border="0" cellspacing="5" cellpadding="5">
+		<tr>
+			<td>Minimum engine version:</td>
+			<td><input type="text" id="min" name="min" /></td>
+		</tr>
+		<tr>
+			<td>Maximum engine version:</td>
+			<td><input type="text" id="max" name="max" /></td>
+		</tr>
+	</table>
+</demo-html>
+
+</dt-example>

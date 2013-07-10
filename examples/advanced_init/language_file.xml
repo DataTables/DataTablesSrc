@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Language file</title>
+<js><![CDATA[
+
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"language": {
+			"url": "../examples_support/de_DE.txt"
+		}
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+As well as being able to pass language information to DataTables through the `dt-init language` initialisation option, you can also store the language information in a file, which DataTables can load by Ajax.
+
+The following example shows DataTables reading a German language file.
+
+]]></info>
+
+</dt-example>

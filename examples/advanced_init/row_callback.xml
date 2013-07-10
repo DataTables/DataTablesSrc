@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Row created callback</title>
+<js><![CDATA[
+
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"createdRow": function ( row, data, index ) {
+			if ( data[4] == 'A' ) {
+				$('td', row).eq(4).html('<b>A</b>');
+			}
+		}
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+The following example shows how a callback function can be used to format a particular row at draw time. For each row that is generated for display, the `dt-init createdRow` function is called once and once only. It is passed the create row node which can then be modified.
+
+In this case a trivial example of making the 'grade' column bold if the grade is 'A' is shown. Note that `dt-init column.render` and `dt-init column.createdCell` could also be used in a way which will also generate an identical result, but this is just for example of `dt-init createdRow`!
+
+]]></info>
+
+</dt-example>

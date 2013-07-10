@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Multiple table control elements</title>
+<js><![CDATA[
+
+
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"sDom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>'
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+As is described by the basic DOM positioning example you can use the `dt-init dom` initialisation parameter to move DataTables features around the table to where you want them. In addition to this, you can also use `dt-init dom` to create multiple instances of these table controls. Simply include the feature's identification letter where you want it to appear, as many times as you wish, and the controls will all sync up.
+
+This is shown in the demo below where for four key build-in features are duplicated above and below the table. Note that obviously the table ('t') should be included only once.
+
+]]></info>
+
+</dt-example>

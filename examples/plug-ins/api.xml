@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="1">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>API plug-in methods</title>
+<js><![CDATA[
+
+$.fn.dataTable.Api.register( 'column().data().sum()', function () {
+	return this.reduce( function (a, b) {
+		var x = parseFloat( a ) || 0;
+		var y = parseFloat( b ) || 0;
+		return x + y;
+	} );
+} );
+
+/* Init the table and fire off a call to get the hidden nodes. */
+$(document).ready(function() {
+	var table = $('#example').DataTable();
+	
+	$('<button>Click to sum all rows</button>')
+		.prependTo( '#demo' )
+		.on( 'click', function () {
+			alert( 'Column sum is: '+ table.column( 3 ).data().sum() );
+		} );
+
+	$('<button>Click to sum visible rows</button>')
+		.prependTo( '#demo' )
+		.on( 'click', function () {
+			alert( 'Column sum is: '+ table.column( 3, {page:'current'} ).data().sum() );
+		} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+The DataTables API is designed to be fully extensible, with custom functions being very easy to add using the `$.fn.dataTable.Api.register` function. This function takes two arguments; the first being the name of the method to be added and its chaining hierarchy, and the second the function itself.
+
+This example shows how a `sum()` method can easily be added to the Api so you can get the sum of a column in a single call: `table.column().data().sum()`. Due to the chaining of the methods, this allows `sum()` to very easily give the sum for any selected column, and to limit the sum to just the current page, filtered data or all pages. This is done using the options for the `dt-api column()` method and the options for its selectors.
+
+For more information about sorting plug-ins; creating them and their requirements, please refer to the plug-in development documentation.
+
+]]></info>
+
+</dt-example>

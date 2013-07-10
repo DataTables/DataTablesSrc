@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html-comma" order="2">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Sorting plug-ins (with type detection)</title>
+<js><![CDATA[
+
+$.fn.dataTableExt.aTypes.unshift(
+	function ( d ) {
+		return /^[\-\d,]+$/.test( d ) ? 'numeric-comma' : null;
+	}
+);
+
+$.fn.dataTableExt.oSort['numeric-comma-pre'] = function ( d ) {
+	return parseFloat( d.replace(/,/g, '.') ) || 0;
+};
+
+
+$(document).ready(function() {
+	$('#example').dataTable();
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+Although DataTables will sort a number of data types using the built in methods, When dealing with more complex formatted data, it can be desirable to define the sorting order yourself. Using plug-in sorting functions, you have have DataTables sort data in any manner you wish.
+
+Formatted data of a particular kind can be automatically detected and a suitable sorting plug-in assigned to it by making use of DataTables' plug-in type detection abilities. For complete information about type detection and sorting plug-ins; creating them and their requirements, please refer to the plug-in development documentation.
+
+This example shows sorting with a comma for a decimal place, as is often used in parts of Europe with automatic type detection.
+
+A wide variety of ready made sorting plug-ins can be found on [the DataTables plug-ins page](//datatables.net/plug-ins/sorting).
+
+]]></info>
+
+</dt-example>

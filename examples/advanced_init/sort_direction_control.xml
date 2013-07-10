@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Row grouping</title>
+<js><![CDATA[
+
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"aoColumns": [
+			null,
+			{ "sorting": [ "asc" ] },
+			{ "sorting": [ "desc", "asc", "asc" ] },
+			{ "sorting": [ "desc" ] },
+			null
+		]
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+At times you may wish to change the default sorting direction for columns (some or all of them) to be 'descending' rather than DataTables' default ascending. This can be done through the use of the `dt-init columns.sorting` initialisation parameter. This parameter also allows you to limit the sorting to a single direction, or you could add complex behaviour to the sorting interaction.
+
+The example below shows:
+
+* Column 1 - default sorting
+* Column 2 - ascending sorting only
+* Column 3 - descending sorting, followed by ascending and then ascending again
+* Column 4 - descending sorting only
+* Column 5 - default sorting
+
+It's worth noting that I don't have a good use case for when you might what to mix such complex sorting behaviour into a single table, but the example shows how these options can be use and therefore applied across all columns.
+
+]]></info>
+
+</dt-example>

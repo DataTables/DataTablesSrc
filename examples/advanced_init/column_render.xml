@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Column rendering</title>
+<js><![CDATA[
+
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"columnDefs": [ 
+			{
+				// The `data` parameter refers to the data for the cell (defined by the
+				// `data` option, which defaults to the column being worked with, in
+				// this case `data: 0`.
+				"render": function ( data, type, row ) {
+					return data +' '+ row[3];
+				},
+				"targets": 0
+			},
+			{ "visible": false,  "targets": [ 3 ] }
+		]
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+Each column has an optional rendering control called `dt-init columns.render` which can be used to process the content of each cell before the data is used. `dt-init columns.render` has a wide array of options available to it for rendering different types of data orthogonally (sorting, filtering, display etc), but it can be used very simply to manipulate the content of a cell, as shown here.
+
+This example shows the rendering engine version combined with the rendering engine name in the first column, hiding the version column. This technique can be useful for adding links, assigning colours based on content rules and any other form of text manipulation you require.
+
+]]></info>
+
+</dt-example>
