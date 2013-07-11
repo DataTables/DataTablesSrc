@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="foundation" />
+<css lib="datatables-foundation" />
+<js lib="jquery" />
+<js lib="datatables" />
+<js lib="datatables-foundation" />
+
+<title>Foundation</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable();
+} );
+]]></js>
+
+<info><![CDATA[
+
+DataTables can integrate seamlessly with (Foundation)[http://foundation.zurb.com/] using Foundations's (table styling options)[http://foundation.zurb.com/docs/components/tables.html] to present a consistent interface with your Foundation driven site / app.
+
+DataTables' Foundation integration also provides a renderer for the pagination control in DataTables to ensure that the pagination of the table is also styled consistently by Foundation.
+
+This integration is done simply by including the DataTables Foundation files (CSS and JS) which will set the defaults needed for DataTables to be initialised as normal, as shown in this examples.
+
+]]></info>
+
+</dt-example>

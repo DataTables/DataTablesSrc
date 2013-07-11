@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Base style</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable();
+} );
+]]></js>
+
+<info><![CDATA[
+
+The DataTables default style file has a number of features which can be enabled based on the class name of the table. These features are:
+
+* `stripe` - Zebra striped rows
+* `cell-border` - Cells with a border
+* `row-border` - Rows with a border (only one of `cell-border` and `row-border` should be used for a single table.
+* `sort-column` - Highlight the cells in the column currently being sorted upon
+* `hover` - Highlight a row when hovered over
+
+These classes can be combined (simply assign multiple classes to the table) to build up the styling that you want for your table.
+
+The `display` class is a short-cut for specifying the `stripe hover sort-column row-border` as the class name for a table. This is shown in the example below.
+
+]]></info>
+
+</dt-example>

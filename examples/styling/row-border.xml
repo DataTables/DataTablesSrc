@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" table-class="row-border" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Base style - row borders</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable();
+} );
+]]></js>
+
+<info><![CDATA[
+
+This example shows DataTables with just the `row-border` class specified, which can create a pleasing, minimalist, interface for your tables.
+
+]]></info>
+
+</dt-example>

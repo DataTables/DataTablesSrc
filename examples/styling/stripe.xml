@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" table-class="stripe" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Base style - stripe</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable();
+} );
+]]></js>
+
+<info><![CDATA[
+
+This example shows DataTables with just the `stripe` class specified. Typically you would want to use the `row-border` feature class as well, but this example shows just the row striping.
+
+]]></info>
+
+</dt-example>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="jqueryui" />
+<css lib="datatables-jqueryui" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>jQuery UI ThemeRoller</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable( {
+		jQueryUI: true
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+DataTables has built in support for (jQuery UI ThemeRoller)[http://jqueryui.com/themeroller/] which makes it very easy to style your tables to match other jQuery UI components. To enable the jQuery UI styling of DataTables, simply include the jQuery stylesheet, DataTables' additions for the jQuery stylesheet (to add row styling etc) and set the `dt-init jQueryUI` initialisation for your table.
+
+Please note that the `dt-init jQueryUI` option is deprecated in DataTables 1.10. In DataTables 1.11 it will be replaced with a styling plug-in, matching how Bootstrap and Foundation styles are integrated into DataTables.
+
+]]></info>
+
+</dt-example>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" table-class="sort-column" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Base style - sort-column</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable();
+} );
+]]></js>
+
+<info><![CDATA[
+
+This example shows DataTables with just the `sort-column` class specified. Typically you would want to use the `stripe` feature class in addition to `sort-column` (possibly `hover` as well), but this example shows just the sorted column highlighting.
+
+]]></info>
+
+</dt-example>
