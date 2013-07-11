@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="jqueryui" />
+<css lib="datatables-jqueryui" />
+<js lib="jquery" />
+<js lib="jquery-ui" />
+<js lib="datatables" />
+
+<title>Scrolling and jQuery UI tabs</title>
+<js><![CDATA[
+
+$(document).ready(function() {
+	$("#tabs").tabs( {
+		"show": function(event, ui) {
+			var table = $.fn.dataTable.tables( true );
+
+			if ( table.length > 0 ) {
+				$(table).DataTable().columns.adjust();
+			}
+		}
+	} );
+	
+	$('table.display').dataTable( {
+		"scrollY": "200px",
+		"scrollCollapse": true,
+		"paginate": false,
+		"jQueryUI": true
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+This example shows how DataTables with scrolling can be used together with jQuery UI tabs (or indeed any other method whereby the table is in a hidden, `display:none`, element when it is initialised). The reason this requires special consideration, is that when the DataTable is initialised in a hidden element the browser doesn't have any measurements with which to give the DataTable, and this will result in the misalignment of columns when scrolling is enabled.
+
+This misalignment can be corrected by the `dt-api columns.adjust()` method when the table is made visible (i.e. it has dimensions).
+
+This example shows how the jQuery UI `show` event can be used to trigger this method call. The visible tables on the page are selected using the static `dt-api-static tables()` method and passing the result to `dt-api columns.adjust()`.
+
+]]></info>
+
+</dt-example>

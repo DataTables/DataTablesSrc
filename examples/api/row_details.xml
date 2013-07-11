@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html-details" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Child rows (show extra / detailed information)</title>
+<js><![CDATA[
+
+/* Formatting function for row details */
+function format ( data ) {
+	return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+		'<tr><td>Rendering engine:</td><td>'+data.engine+' '+data.grade+'</td></tr>' +
+		'<tr><td>Link to source:</td><td>Could provide a link here</td></tr>' +
+		'<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>' +
+	'</table>';
+}
+
+$(document).ready(function() {
+	var table = $('#example').DataTable( {
+		"ajax": "../ajax/sources/objects.txt",
+		"columns": [
+			{
+				"sortable": false,
+				"className": 'icon',
+				"defaultContent": ''
+			},
+			{ "data": "engine" },
+			{ "data": "browser" },
+			{ "data": "platform" },
+			{ "data": "version" },
+			{ "data": "grade" }
+		],
+		"sorting": [[1, 'asc']]
+	} );
+	
+	// Add event listener for opening and closing details
+	$('#example tbody').on('click', 'td.icon', function () {
+		var tr = $(this).parents('tr');
+		var row = table.row( tr );
+
+		if ( row.child.isShown() ) {
+			// This row is already open - close it
+			row.child.hide();
+			tr.removeClass('shown');
+		}
+		else {
+			// Open this row
+			row.child( format(row.data()) ).show();
+			tr.addClass('shown');
+		}
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+The DataTables API has a number of methods available for attaching child rows to a *parent* row in the DataTable. This can be used to show additional information about a row, useful for cases where you wish to convey more information about a row than there is space for in the host table.
+
+The example below makes use of the `dt-api row().child` methods to firstly check if a row is already displayed, and if so hide it (`dt-api row().child.hide()`), otherwise show it (`dt-api row().child.show()`). The content of the child row is, in this example, defined by the `formatDetails()` function, but you would replace that with whatever you wanted to show the content required, possibly including, for example, an Ajax call to the server to obtain the extra information to show.
+
+]]></info>
+
+</dt-example>

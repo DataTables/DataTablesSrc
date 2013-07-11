@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Row selection (multiple rows)</title>
+<js><![CDATA[
+
+$(document).ready(function() {
+	var table = $('#example').dataTable();
+
+	$('#example tbody').on( 'click', 'tr', function () {
+		$(this).toggleClass('row_selected');
+	} );
+
+	$('#button').click( function () {
+		alert( table.rows('.row_selected').data().length +' row(s) selected' );
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+It can be quite useful at times to provide the user with the option to select rows in a DataTable. This can be done by simply using a click event to add/remove a class on the table rows. The `dt-api rows().data()` method can then be used to get the data for the selected rows. In this case it is simply counting the number of selected rows, but much more complex interactions can easily be developed.
+
+If you are looking for a more complete row selection option (TableTools for DataTables)[http://datatables.net/extras/tabletools] provides a complete API for selecting rows and acting upon those selected rows.
+
+]]></info>
+
+<demo-html>
+	<button id="button">Row count</button>
+</demo-html>
+
+</dt-example>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html-short" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Add rows</title>
+<js><![CDATA[
+
+$(document).ready(function() {
+	var t = $('#example').DataTable();
+	var counter = 1;
+
+	$('#addRow').on( 'click', function () {
+		t.row.add( [
+			counter +'.1',
+			counter +'.2',
+			counter +'.3',
+			counter +'.4',
+			counter +'.5'
+		] ).draw();
+
+		counter++;
+	} );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+New rows can be added to a DataTable very easily using the `dt-api row.add()` API methods. Simply call the API function with the data that is to be used for the new row (be it an array or object). Multiple rows can be added using the `dt-api rows.add()` method (note the plural).
+
+Note that in order to see the new row in the table you must call the `dt-api draw()` method, which is easily done through the chaining that the DataTables API makes use of.
+
+This example shows a single row being added each time the button below is clicked upon.
+
+]]></info>
+
+<demo-html>
+	<button id="addRow">Add new row</button>
+</demo-html>
+
+</dt-example>

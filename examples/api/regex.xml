@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Filtering API (regular expressions)</title>
+<js><![CDATA[
+
+function filterGlobal ()
+{
+	$('#example').DataTable().search( 
+		$("#global_filter").val(),
+		$("#global_regex")[0].checked, 
+		$("#global_smart")[0].checked
+	);
+}
+
+function filterColumn ( i )
+{
+	$('#example').DataTable().column( i ).search( 
+		$("#col"+(i+1)+"_filter").val(),
+		$("#col"+(i+1)+"_regex")[0].checked, 
+		$("#col"+(i+1)+"_smart")[0].checked
+	);
+}
+
+$(document).ready(function() {
+	$('#example').dataTable();
+	
+	$("#global_filter").keyup( filterGlobal );
+	$("#global_regex").click( filterGlobal );
+	$("#global_smart").click( filterGlobal );
+	
+	$("#col1_filter").keyup( function() { filterColumn( 0 ); } );
+	$("#col1_regex").click(  function() { filterColumn( 0 ); } );
+	$("#col1_smart").click(  function() { filterColumn( 0 ); } );
+	
+	$("#col2_filter").keyup( function() { filterColumn( 1 ); } );
+	$("#col2_regex").click(  function() { filterColumn( 1 ); } );
+	$("#col2_smart").click(  function() { filterColumn( 1 ); } );
+	
+	$("#col3_filter").keyup( function() { filterColumn( 2 ); } );
+	$("#col3_regex").click(  function() { filterColumn( 2 ); } );
+	$("#col3_smart").click(  function() { filterColumn( 2 ); } );
+	
+	$("#col4_filter").keyup( function() { filterColumn( 3 ); } );
+	$("#col4_regex").click(  function() { filterColumn( 3 ); } );
+	$("#col4_smart").click(  function() { filterColumn( 3 ); } );
+	
+	$("#col5_filter").keyup( function() { filterColumn( 4 ); } );
+	$("#col5_regex").click(  function() { filterColumn( 4 ); } );
+	$("#col5_smart").click(  function() { filterColumn( 4 ); } );
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+Filtering a table is one of the most common user interactions with a DataTables table, and DataTables provides a number of methods for you to control this interaction. There are APIs for the global filter (`dt-api search()`) and for each individual column (`dt-api column().search()`.
+
+Each filter (global or column) can be marked as a regular expression (allowing you to create very complex interactions) and as a smart filter or not. When smart filtering is enabled on a particular filter, DataTables will modify the user input string to a complex regular expression which can make filtering more intuitive.
+
+This example allows you to "play" with the various filtering options that DataTables provides.
+
+]]></info>
+
+<demo-html>
+	<table cellpadding="0" cellspacing="0" border="0">
+		<thead>
+			<tr>
+				<th>Target</th>
+				<th>Filter text</th>
+				<th>Treat as regex</th>
+				<th>Use smart filter</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr id="filter_global">
+				<td align="center">Global filtering</td>
+				<td align="center"><input type="text"     name="global_filter" id="global_filter" /></td>
+				<td align="center"><input type="checkbox" name="global_regex"  id="global_regex" /></td>
+				<td align="center"><input type="checkbox" name="global_smart"  id="global_smart" checked="checked" /></td>
+			</tr>
+			<tr id="filter_col1">
+				<td align="center">Column 1</td>
+				<td align="center"><input type="text"     name="col1_filter" id="col1_filter" /></td>
+				<td align="center"><input type="checkbox" name="col1_regex"  id="col1_regex" /></td>
+				<td align="center"><input type="checkbox" name="col1_smart"  id="col1_smart" checked="checked" /></td>
+			</tr>
+			<tr id="filter_col2">
+				<td align="center">Column 2</td>
+				<td align="center"><input type="text"     name="col2_filter" id="col2_filter" /></td>
+				<td align="center"><input type="checkbox" name="col2_regex"  id="col2_regex" /></td>
+				<td align="center"><input type="checkbox" name="col2_smart"  id="col2_smart" checked="checked" /></td>
+			</tr>
+			<tr id="filter_col3">
+				<td align="center">Column 3</td>
+				<td align="center"><input type="text"     name="col3_filter" id="col3_filter" /></td>
+				<td align="center"><input type="checkbox" name="col3_regex"  id="col3_regex" /></td>
+				<td align="center"><input type="checkbox" name="col3_smart"  id="col3_smart" checked="checked" /></td>
+			</tr>
+			<tr id="filter_col4">
+				<td align="center">Column 4</td>
+				<td align="center"><input type="text"     name="col4_filter" id="col4_filter" /></td>
+				<td align="center"><input type="checkbox" name="col4_regex"  id="col4_regex" /></td>
+				<td align="center"><input type="checkbox" name="col4_smart"  id="col4_smart" checked="checked" /></td>
+			</tr>
+			<tr id="filter_col5">
+				<td align="center">Column 5</td>
+				<td align="center"><input type="text"     name="col5_filter" id="col5_filter" /></td>
+				<td align="center"><input type="checkbox" name="col5_regex"  id="col5_regex" /></td>
+				<td align="center"><input type="checkbox" name="col5_smart"  id="col5_smart" checked="checked" /></td>
+			</tr>
+		</tbody>
+	</table>
+</demo-html>
+
+</dt-example>
