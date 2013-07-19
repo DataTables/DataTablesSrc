@@ -211,14 +211,14 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
 		force = true;
 	}
 
+	// Check if any of the rows were invalidated
+	invalidated = _fnFilterData( settings );
+
 	// If the input is blank - we just want the full data set
 	if ( input.length <= 0 ) {
 		settings.aiDisplay = displayMaster.slice();
 	}
 	else {
-		// Check if any of the rows were invalidated
-		invalidated = _fnFilterData( settings );
-
 		// New search - start from the master array
 		if ( invalidated ||
 			 force ||
@@ -324,7 +324,7 @@ function _fnFilterData ( settings )
 				filterData.push( cellData );
 			}
 
-			row._aFilterCells = filterData;
+			row._aFilterData = filterData;
 			row._sFilterRow = filterData.join('  ');
 			wasInvalidated = true;
 		}

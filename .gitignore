@@ -1,6 +1,3 @@
-extras
-docs
-cdn
-media/js/jquery.dataTables.min.js
+build
 .DS_Store
-Plugins
+css/.sass-cache

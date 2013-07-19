@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-DataTables has most features enabled by default, so all you need to do to use it with one of your own tables is to call the construction function. Filtering, sorting, paging etc goodness will be immediately added to the table!
+DataTables has most features enabled by default, `dt-init paging` so `none` all `tag tr` you need to do to use it with one of your own tables is to call the construction function. Filtering, sorting, paging etc goodness will be immediately added to the table!
 
 ]]></info>
 

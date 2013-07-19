@@ -208,7 +208,7 @@ var _row_selector_indexes = function ( settings, opts )
 			a.push( displayFiltered[i] );
 		}
 	}
-	else if ( order == 'current' ) {
+	else if ( order == 'current' || order == 'applied' ) {
 		a = filter == 'none' ?
 			displayMaster.slice() :                      // no filter
 			filter == 'applied' ?

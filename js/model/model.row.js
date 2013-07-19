@@ -55,12 +55,12 @@ DataTable.models.oRow = {
 	 *  @default null
 	 *  @private
 	 */
-	"_aFilterCells": null,
+	"_aFilterData": null,
 
 	/**
 	 * Filtering data cache. This is the same as the cell filtering cache, but
 	 * in this case a string rather than an array. This is easily computed with
-	 * a join on `_aFilterCells`, but is provided as a cache so the join isn't
+	 * a join on `_aFilterData`, but is provided as a cache so the join isn't
 	 * needed on every search (memory traded for performance)
 	 *  @type array
 	 *  @default null

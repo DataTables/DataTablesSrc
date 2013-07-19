@@ -110,6 +110,15 @@ _api.registerPlural( 'columns().data()', 'column().data()', function () {
 } );
 
 
+_api.registerPlural( 'columns().cache()', 'column().cache()', function ( type ) {
+	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
+		return _pluck_order( settings.aoData, rows,
+			type === 'filter' ? '_aFilterData' : '_aSortData', column
+		);
+	} );
+} );
+
+
 _api.registerPlural( 'columns().nodes()', 'columns().nodes()', function () {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
 		return _pluck_order( settings.aoData, rows, 'anCells', column ) ;
