@@ -8,6 +8,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BASE_DIR="${SCRIPT_DIR}/.."
 BUILD_DIR="${BASE_DIR}/build"
 
+SYNC_BRANCH="1_10_wip"
 VERSION=$(grep " * @version     " ${BASE_DIR}/js/DataTables.js | awk -F" " '{ print $3 }')
 CMD=$1
 
@@ -17,9 +18,24 @@ if [ "$2" = "debug" ]; then
 fi
 
 
+function echo_section {
+	# Cyan
+	echo "\033[0;36m  ${1}\033[0m"
+}
+
+function echo_msg {
+	# Green
+	echo "\033[0;32m    ${1}\033[0m"
+}
+
+function echo_error {
+	# Red
+	echo "\033[0;31m  ${1}\033[0m"
+}
+
 
 function build_js {
-	echo "  JS"
+	echo_section "JS"
 	SRC_DIR="${BASE_DIR}/js"
 	OUT_DIR="${BUILD_DIR}/js"
 	OUT_FILE="${OUT_DIR}/jquery.dataTables.js"
@@ -56,19 +72,19 @@ function build_js {
 	mv DataTables.js.build $OUT_FILE
 
 	if [ ! $DEBUG ]; then
-		echo "/*! DataTables $VERSION
+		echo_section "/*! DataTables $VERSION
  * ©2008-$(date +%Y) Allan Jardine - datatables.net/license
  */" > $OUT_MIN_FILE
 
-		echo "  JS min"
+		echo_section "JS min"
 		java -jar $CLOSURE --js $OUT_FILE >> $OUT_MIN_FILE
-		echo "    File size: $(ls -l $OUT_MIN_FILE | awk -F" " '{ print $5 }')"
+		echo_msg "File size: $(ls -l $OUT_MIN_FILE | awk -F" " '{ print $5 }')"
 	fi
 }
 
 
 function build_css {
-	echo "  CSS"
+	echo_section "CSS"
 	SRC_DIR="${BASE_DIR}/css"
 	OUT_DIR="${BUILD_DIR}/css"
 	OUT_FILE="${OUT_DIR}/jquery.dataTables.css"
@@ -84,15 +100,15 @@ function build_css {
 	sass --scss --stop-on-error --style expanded jquery.dataTables.scss > $OUT_FILE
 
 	if [ ! $DEBUG ]; then
-		echo "  CSS min"
+		echo_section "CSS min"
 		sass --scss --stop-on-error --style compressed jquery.dataTables.scss > $OUT_MIN_FILE
-		echo "    File size: $(ls -l $OUT_MIN_FILE | awk -F" " '{ print $5 }')"
+		echo_msg "File size: $(ls -l $OUT_MIN_FILE | awk -F" " '{ print $5 }')"
 	fi
 }
 
 
 function build_images {
-	echo "  Images"
+	echo_section "Images"
 	SRC_DIR="${BASE_DIR}/images"
 	OUT_DIR="${BUILD_DIR}/images"
 	OUT_FILE="${OUT_DIR}/jquery.dataTables.css"
@@ -109,15 +125,101 @@ function build_images {
 
 
 
+# Use the latest JS, CSS etc in the DataTables build repo
+# Assumes that the files have already been built
+function build_repo {
+	echo_section "Deploying to build repo"
+	update_build_repo
 
-cd $BASE_DIR
+	cp $BUILD_DIR/js/jquery.dataTables.js ${BUILD_DIR}/DataTables/media/js/
+	if [ ! $DEBUG ]; then
+		cp $BUILD_DIR/js/jquery.dataTables.min.js ${BUILD_DIR}/DataTables/media/js/
+	fi
+
+	cp $BUILD_DIR/css/jquery.dataTables.css ${BUILD_DIR}/DataTables/media/css/
+	if [ ! $DEBUG ]; then
+		cp $BUILD_DIR/css/jquery.dataTables.min.css ${BUILD_DIR}/DataTables/media/css/
+	fi
+
+	cp -r $BUILD_DIR/images ${BUILD_DIR}/DataTables/media/
+}
+
+
+# Build the DataTables/DataTables distribution
+function build_repo_sync {
+	echo_section "Syncing build repo to source repo"
+	update_build_repo
+
+	LAST_HASH=$(cat ${BUILD_DIR}/DataTables/.datatables-commit-sync)
+
+	# Get the commits between the latest commit that the build repo was synced
+	# to and the head
+	COMMITS=$(git log --format=format:%H --reverse ${LAST_HASH}..HEAD)
+
+	if [ "$COMMITS" = "" ]; then
+		echo_msg "Build repo up to date"
+	else
+		for HASH in $COMMITS; do
+			echo_msg "Committing changes from $HASH"
+			git checkout $HASH
+
+			COMMIT_MESSAGE=$(git log -1 --format=format:%B $HASH)
+
+			build_repo
+
+			cd ${BUILD_DIR}/DataTables
+			echo $HASH > .datatables-commit-sync
+
+			git commit -a -m "$COMMIT_MESSAGE"
+
+			cd - > /dev/null 2>&1
+		done
+
+		# Push latest changes up to origin
+		cd ${BUILD_DIR}/DataTables
+		git push origin $SYNC_BRANCH
+		cd - > /dev/null 2>&1
+	fi
+
+	git checkout $SYNC_BRANCH
+}
+
+
+function update_build_repo {
+	if [ ! -d "${BUILD_DIR}/DataTables" ]; then
+		echo_msg "Checking out DataTables/DataTables"
+		cd $BUILD_DIR
+		git clone git@github.com:DataTables/DataTables.git
+		cd - > /dev/null 2>&1
+	else 
+		echo_msg "Updating build repo"
+	fi
+
+	# This will throw away local changes in the build file...
+	# Don't change files in it!
+	cd $BUILD_DIR/DataTables
+	git pull origin $SYNC_BRANCH
+	git checkout -f $SYNC_BRANCH
+	cd - > /dev/null 2>&1
+}
+
 
 
 #
 # Main script
 #
+cd $BASE_DIR
+
+# Sanity check that the working branch is going to build correctly
+CURR_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+if [ $SYNC_BRANCH != $CURR_BRANCH ]; then
+	echo_error "Working branch ($CURR_BRANCH) is not the same as the script branch ($SYNC_BRANCH)"
+	echo_error "Exiting..."
+	exit
+fi
+
 echo ""
-echo "  DataTables build ($VERSION)"
+echo_section "DataTables build ($VERSION) - branch: $SYNC_BRANCH"
 echo ""
 
 
@@ -135,6 +237,7 @@ case "$1" in
 		build_js
 		build_css
 		build_images
+		build_repo
 		;;
 
 	"examples")
@@ -154,7 +257,13 @@ case "$1" in
 	"deploy")
 		build_deploy
 		;;
+
+	"sync")
+		build_repo_sync
+		;;
 esac
+
+
 
 
 
@@ -263,7 +372,7 @@ esac
 
 
 echo ""
-echo "  Done"
+echo_section "Done"
 echo ""
 
 
