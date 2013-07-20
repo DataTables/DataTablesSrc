@@ -159,29 +159,42 @@ function build_repo_sync {
 	if [ "$COMMITS" = "" ]; then
 		echo_msg "Build repo up to date"
 	else
+		CHANGES=0
+
 		for HASH in $COMMITS; do
-			echo_msg "Committing changes from $HASH"
-			git checkout $HASH
+			echo_msg "Checking changes from $HASH"
+			git checkout --quiet $HASH
 
 			COMMIT_MESSAGE=$(git log -1 --format=format:%B $HASH)
 
 			build_repo
 
 			cd ${BUILD_DIR}/DataTables
-			echo $HASH > .datatables-commit-sync
+			
+			git diff --quiet
+			if [ $? -eq 1 ]; then
+				echo_msg "Committing changes"
 
-			git commit -a -m "$COMMIT_MESSAGE"
+				echo $HASH > .datatables-commit-sync
+				git commit -a -m "$COMMIT_MESSAGE"
+				CHANGES=1
+			else
+				echo_msg "No build changes"
+			fi
 
 			cd - > /dev/null 2>&1
 		done
 
 		# Push latest changes up to origin
-		cd ${BUILD_DIR}/DataTables
-		git push origin $SYNC_BRANCH
-		cd - > /dev/null 2>&1
+		if [ $CHANGES -eq 1 ]; then
+			echo_msg "Pushing changes in build repo up to origin"
+			cd ${BUILD_DIR}/DataTables
+			git push --quiet origin $SYNC_BRANCH
+			cd - > /dev/null 2>&1
+		fi
 	fi
 
-	git checkout $SYNC_BRANCH
+	git checkout --quiet $SYNC_BRANCH
 }
 
 
@@ -192,14 +205,14 @@ function update_build_repo {
 		git clone git@github.com:DataTables/DataTables.git
 		cd - > /dev/null 2>&1
 	else 
-		echo_msg "Updating build repo"
+		echo_msg "Pulling latest changes for build repo from origin"
 	fi
 
 	# This will throw away local changes in the build file...
 	# Don't change files in it!
 	cd $BUILD_DIR/DataTables
-	git pull origin $SYNC_BRANCH
-	git checkout -f $SYNC_BRANCH
+	git pull --quiet origin $SYNC_BRANCH
+	git checkout --quiet -f $SYNC_BRANCH
 	cd - > /dev/null 2>&1
 }
 
