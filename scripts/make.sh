@@ -48,6 +48,7 @@ function build_js {
 
 	cd $SRC_DIR
 
+	OLD_IFS=$IFS
 	IFS='%'
 	cp DataTables.js DataTables.js.build
 	grep "require(" DataTables.js.build > /dev/null
@@ -80,6 +81,8 @@ function build_js {
 		java -jar $CLOSURE --js $OUT_FILE >> $OUT_MIN_FILE
 		echo_msg "File size: $(ls -l $OUT_MIN_FILE | awk -F" " '{ print $5 }')"
 	fi
+
+	IFS=$OLD_IFS
 }
 
 
@@ -142,6 +145,9 @@ function build_repo {
 	fi
 
 	cp -r $BUILD_DIR/images ${BUILD_DIR}/DataTables/media/
+
+	# Create the manifest files for the various package managers
+	build_descriptors
 }
 
 
@@ -195,6 +201,16 @@ function build_repo_sync {
 	fi
 
 	git checkout --quiet $SYNC_BRANCH
+}
+
+
+function build_descriptors {
+	echo_msg "Updating package descriptors"
+
+	for FILE in $(ls ${BASE_DIR}/descriptors); do
+		cat ${BASE_DIR}/descriptors/${FILE} | \
+			sed -e "s/\_VERSION\_/${VERSION}/g" > ${BUILD_DIR}/DataTables/${FILE}
+	done
 }
 
 
@@ -325,63 +341,6 @@ esac
 # 	fi
 # fi
 # 
-# 
-# # Back to DataTables root dir
-# cd ../..
-# 
-# #
-# # Packaging files
-# #
-# cat <<EOF > package.json
-# {
-# 	"name": "DataTables",
-# 	"version": "${VERSION}",
-# 	"title": "DataTables",
-# 	"author": {
-# 		"name": "Allan Jardine",
-# 		"url": "http://sprymedia.co.uk"
-# 	},
-# 	"licenses": [
-# 		{
-# 			"type": "BSD",
-# 			"url": "http://datatables.net/license_bsd"
-# 		},
-# 		{
-# 			"type": "GPLv2",
-# 			"url": "http://datatables.net/license_gpl2"
-# 		}
-# 	],
-# 	"dependencies": {
-# 		"jquery": "1.4 - 1.8"
-# 	},
-# 	"description": "DataTables enhances HTML tables with the ability to sort, filter and page the data in the table very easily. It provides a comprehensive API and set of configuration options, allowing you to consume data from virtually any data source.",
-# 	"keywords": [
-# 		"DataTables",
-# 		"DataTable",
-# 		"table",
-# 		"grid",
-# 		"filter",
-# 		"sort",
-# 		"page",
-# 		"internationalisable"
-# 	],
-# 	"homepage": "http://datatables.net"
-# }
-# EOF
-# 
-# cat <<EOF > component.json
-# {
-# 	"name": "DataTables",
-# 	"version": "${VERSION}",
-# 	"main": [
-# 		"./media/js/jquery.dataTables.js",
-# 		"./media/css/jquery.dataTables.css"
-# 	],
-# 	"dependencies": {
-# 		"jquery": "~1.8.0"
-# 	}
-# }
-# EOF
 
 
 echo ""
