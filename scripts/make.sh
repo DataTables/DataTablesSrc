@@ -232,6 +232,29 @@ function update_build_repo {
 	cd - > /dev/null 2>&1
 }
 
+function usage {
+	echo "  Usage: make.sh <cmd> [debug]
+
+    where <cmd> is one of:
+
+      build    - Create the build repo from the current source files. Will
+                 automatically make the calls to to build the 'js' and 'css'
+                 targets. The created repo is in 'build/DataTables'
+
+      js       - Create the DataTables Javascript file
+
+      css      - Create the DataTables CSS files
+
+      sync     - Synchronise the DataTables/DataTables build repo to the source
+                 repo
+
+      examples - Build the examples
+
+      test     - Build the unit tests
+
+    and the optional 'debug' parameter can be used to disable JS and CSS
+    compression for faster development build times."
+}
 
 
 #
@@ -283,13 +306,12 @@ case "$1" in
 		build_css
 		;;
 
-	"deploy")
-		build_deploy
-		;;
-
 	"sync")
 		build_repo_sync
 		;;
+
+	*)
+		usage
 esac
 
 
