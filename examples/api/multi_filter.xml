@@ -22,7 +22,8 @@ $(document).ready(function() {
 	$("#example tfoot input").on( 'keyup change', function () {
 		table
 			.column( $(this).parent().index()+':visible' )
-			.search( this.value );
+			.search( this.value )
+			.draw();
 	} );
 } );
 

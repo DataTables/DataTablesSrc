@@ -15,7 +15,9 @@ $(document).ready(function() {
 		var select = $('<select><option value=""></option></select>')
 			.appendTo( this )
 			.on( 'change', function () {
-				table.column( i ).search( $(this).val() );
+				table.column( i )
+					.search( $(this).val() )
+					.draw();
 			} );
 
 		table.column( i ).data().unique().sort().each( function ( d, j ) {
