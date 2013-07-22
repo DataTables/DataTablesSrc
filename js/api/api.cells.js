@@ -67,6 +67,15 @@ _api.register( 'cells().data()', function () {
 } );
 
 
+_api.registerPlural( 'cells().cache()', 'cell().cache()', function ( type ) {
+	type = type === 'filter' ? '_aFilterData' : '_aSortData';
+
+	return this.iterator( 'cell', function ( settings, row, column ) {
+		return settings.aoData[ row ][ type ][ column ];
+	} );
+} );
+
+
 _api.registerPlural( 'cells().index()', 'cell().index()', function () {
 	return this.iterator( 'cell', function ( settings, row, column ) {
 		return {
