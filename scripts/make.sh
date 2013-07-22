@@ -134,6 +134,10 @@ function build_repo {
 	echo_section "Deploying to build repo"
 	update_build_repo
 
+	build_js
+	build_css
+	build_images
+
 	cp $BUILD_DIR/js/jquery.dataTables.js ${BUILD_DIR}/DataTables/media/js/
 	if [ ! $DEBUG ]; then
 		cp $BUILD_DIR/js/jquery.dataTables.min.js ${BUILD_DIR}/DataTables/media/js/
@@ -168,8 +172,8 @@ function build_repo_sync {
 		CHANGES=0
 
 		for HASH in $COMMITS; do
-			echo_msg "Checking changes from $HASH"
-			git checkout --quiet $HASH
+			echo_msg "Checking if there are build changes resulting from commit $HASH"
+			git checkout $HASH
 
 			COMMIT_MESSAGE=$(git log -1 --format=format:%B $HASH)
 
@@ -289,9 +293,6 @@ case "$1" in
 		;;
 
 	"build")
-		build_js
-		build_css
-		build_images
 		build_repo
 		;;
 
