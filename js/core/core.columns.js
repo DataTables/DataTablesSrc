@@ -298,7 +298,7 @@ function _fnColumnOrdering ( oSettings )
  */
 function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 {
-	var i, iLen, j, jLen, k, kLen;
+	var i, iLen, j, jLen, k, kLen, def;
 
 	// Column definitions with aTargets
 	if ( aoColDefs )
@@ -306,8 +306,13 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 		/* Loop over the definitions array - loop in reverse so first instance has priority */
 		for ( i=aoColDefs.length-1 ; i>=0 ; i-- )
 		{
+			def = aoColDefs[i];
+
 			/* Each definition can target multiple columns, as it is an array */
-			var aTargets = aoColDefs[i].targets || aoColDefs[i].aTargets;
+			var aTargets = def.targets !== undefined ?
+				def.targets :
+				def.aTargets;
+
 			if ( ! $.isArray( aTargets ) )
 			{
 				aTargets = [ aTargets ];
@@ -324,12 +329,12 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 					}
 
 					/* Integer, basic index */
-					fn( aTargets[j], aoColDefs[i] );
+					fn( aTargets[j], def );
 				}
 				else if ( typeof aTargets[j] === 'number' && aTargets[j] < 0 )
 				{
 					/* Negative integer, right to left column counting */
-					fn( oSettings.aoColumns.length+aTargets[j], aoColDefs[i] );
+					fn( oSettings.aoColumns.length+aTargets[j], def );
 				}
 				else if ( typeof aTargets[j] === 'string' )
 				{
@@ -339,7 +344,7 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 						if ( aTargets[j] == "_all" ||
 						     $(oSettings.aoColumns[k].nTh).hasClass( aTargets[j] ) )
 						{
-							fn( k, aoColDefs[i] );
+							fn( k, def );
 						}
 					}
 				}
