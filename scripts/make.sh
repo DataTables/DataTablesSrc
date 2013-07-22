@@ -177,7 +177,10 @@ function build_repo_sync {
 
 			cd ${BUILD_DIR}/DataTables
 			
-			git diff --quiet
+			# git appears to have a bug whereby --quiet doesn't work immediately
+			# after files have been generated. Running twice fixes
+			git diff --quiet --exit-code
+			git diff --quiet --exit-code
 			if [ $? -eq 1 ]; then
 				echo_msg "Committing changes"
 
