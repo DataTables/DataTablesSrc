@@ -24,18 +24,6 @@ _Api.register( 'tables()', function ( selector ) {
 } );
 
 
-/**
- * Get the DOM nodes for the `table` elements from the current API context.
- * @return {DataTable.Api} New Api instance containing the DOM nodes for the
- *   tables.
- */
-_Api.register( 'tables().nodes()', function () {
-	return this.iterator( 'table', function ( settings, i ) {
-		return settings.nTable;
-	} );
-} );
-
-
 _Api.register( 'table()', function ( selector ) {
 	var tables = this.tables( selector );
 	var ctx = tables.context;
@@ -49,13 +37,31 @@ _Api.register( 'table()', function ( selector ) {
 } );
 
 
-_Api.register( 'table().node()', function () {
-	var ctx = this.context;
+_Api.registerPlural( 'tables().nodes()', 'table().node()' , function () {
+	return this.iterator( 'table', function ( ctx ) {
+		return ctx.nTable;
+	} );
+} );
 
-	if ( ctx.length ) {
-		return ctx[0].nTable;
-	}
-	// return undefined;
+
+_Api.registerPlural( 'tables().body()', 'table().body()' , function () {
+	return this.iterator( 'table', function ( ctx ) {
+		return ctx.nTBody;
+	} );
+} );
+
+
+_Api.registerPlural( 'tables().head()', 'table().head()' , function () {
+	return this.iterator( 'table', function ( ctx ) {
+		return ctx.nTHead;
+	} );
+} );
+
+
+_Api.registerPlural( 'tables().foot()', 'table().foot()' , function () {
+	return this.iterator( 'table', function ( ctx ) {
+		return ctx.nTFoot;
+	} );
 } );
 
 
