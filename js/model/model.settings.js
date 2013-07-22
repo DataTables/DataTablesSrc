@@ -347,7 +347,6 @@ DataTable.models.oSettings = {
 	 * <ul>
 	 *   <li>Index 0 - column number</li>
 	 *   <li>Index 1 - current sorting direction</li>
-	 *   <li>Index 2 - index of asSorting for this column</li>
 	 * </ul>
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.

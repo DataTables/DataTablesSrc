@@ -201,6 +201,73 @@ function _fnSortAria ( settings )
 
 
 /**
+ * Function to run on user sort request
+ *  @param {object} settings dataTables settings object
+ *  @param {node} attachTo node to attach the handler to
+ *  @param {int} colIdx column sorting index
+ *  @param {boolean} [append=false] Append the requested sort to the existing
+ *    sort if true (i.e. multi-column sort)
+ *  @param {function} [callback] callback function
+ *  @memberof DataTable#oApi
+ */
+function _fnSortListener ( settings, colIdx, append, callback )
+{
+	var col = settings.aoColumns[ colIdx ];
+	var sorting = settings.aaSorting;
+	var asSorting = col.asSorting;
+	var nextSortIdx;
+	var next = function ( a ) {
+		var idx = a._idx;
+		if ( idx === undefined ) {
+			idx = $.inArray( a[1], asSorting );
+		}
+
+		return idx+1 >= asSorting.length ? 0 : idx+1;
+	};
+
+	// If appending the sort then we are multi-column sorting
+	if ( append && settings.oFeatures.bSortMulti ) {
+		// Are we already doing some kind of sort on this column?
+		var sortIdx = $.inArray( colIdx, _pluck(sorting, '0') );
+
+		if ( sortIdx !== -1 ) {
+			// Yes, modify the sort
+			nextSortIdx = next( sorting[sortIdx] );
+
+			sorting[sortIdx][1] = asSorting[ nextSortIdx ];
+			sorting[sortIdx]._idx = nextSortIdx;
+		}
+		else {
+			// No sort on this column yet
+			sorting.push( [ colIdx, asSorting[0], 0 ] );
+			sorting[sorting.length-1]._idx = 0;
+		}
+	}
+	else if ( sorting[0][0] == colIdx ) {
+		// Single column - already sorting on this column, modify the sort
+		nextSortIdx = next( sorting[0] );
+
+		sorting[0][1] = asSorting[ nextSortIdx ];
+		sorting[0]._idx = nextSortIdx;
+	}
+	else {
+		// Single column - sort only on this column
+		sorting.length = 0;
+		sorting.push( [ colIdx, asSorting[0] ] );
+		sorting[0]._idx = 0;
+	}
+
+	// Run the sort by calling a full redraw
+	_fnReDraw( settings );
+
+	// callback used for async user interaction
+	if ( typeof callback == 'function' ) {
+		callback( settings );
+	}
+}
+
+
+/**
  * Attach a sort handler (click) to a node
  *  @param {object} settings dataTables settings object
  *  @param {node} attachTo node to attach the handler to
@@ -211,8 +278,6 @@ function _fnSortAria ( settings )
 function _fnSortAttachListener ( settings, attachTo, colIdx, callback )
 {
 	var col = settings.aoColumns[ colIdx ];
-	var sorting = settings.aaSorting;
-	var asSorting = col.asSorting;
 
 	_fnBindAction( attachTo, {}, function (e) {
 		/* If the column is not sortable - don't to anything */
@@ -224,68 +289,9 @@ function _fnSortAttachListener ( settings, attachTo, colIdx, callback )
 
 		// Use a timeout to allow the processing display to be shown.
 		setTimeout( function() {
-			var nextSort;
-
-			// If the shift key is pressed then we are multiple column sorting
-			if ( e.shiftKey && settings.oFeatures.bSortMulti ) {
-				// Are we already doing some kind of sort on this column?
-				var curr = _pluck( sorting, '0' );
-				var idx = $.inArray( colIdx, curr );
-
-				if ( idx !== -1 ) {
-					// Yes, modify the sort
-					if ( sorting[idx][0] == colIdx ) {
-						nextSort = sorting[idx][2] + 1;
-
-						if ( ! asSorting[ nextSort ] ) {
-							// Reached the end of the sorting options, remove from multi-col sort
-							sorting.splice( idx, 1 );
-						}
-						else {
-							// Move onto next sorting direction
-							sorting[idx][1] = asSorting[ nextSort ];
-							sorting[idx][2] = nextSort;
-						}
-					}
-				}
-				else {
-					// No sort on this column yet
-					sorting.push( [ colIdx, asSorting[0], 0 ] );
-				}
-			}
-			else
-			{
-				// If no shift key then single column sort
-				if ( sorting.length == 1 && sorting[0][0] == colIdx ) {
-					// Already sorting on this column, modify the sort
-					nextSort = sorting[0][2] + 1;
-
-					if ( ! asSorting[ nextSort ] ) {
-						nextSort = 0;
-					}
-
-					sorting[0][1] = asSorting[ nextSort ];
-					sorting[0][2] = nextSort;
-				}
-				else {
-					// Sort only on this column
-					sorting.length = 0;
-					sorting.push( [ colIdx, asSorting[0], 0 ] );
-				}
-			}
-
-			// Run the sort by calling a full redraw
-			_fnReDraw( settings );
-
-			if ( !settings.oFeatures.bServerSide ) {
-				_fnProcessingDisplay( settings, false );
-			}
+			_fnSortListener( settings, colIdx, e.shiftKey, callback );
+			_fnProcessingDisplay( settings, false );
 		}, 0 );
-
-		// callback used for async user interaction
-		if ( typeof callback == 'function' ) {
-			callback( settings );
-		}
 	} );
 }
 

@@ -327,37 +327,16 @@ if ( oInit.bStateSave )
 
 /*
  * Sorting
- * Check the aaSorting array
  * @todo For modularisation (1.11) this needs to do into a sort start up handler
  */
-for ( i=0, iLen=oSettings.aaSorting.length ; i<iLen ; i++ )
+
+// If aaSorting is not defined, then we use the first indicator in asSorting
+// in case that has been altered, so the default sort reflects that option
+if ( oInit.aaSorting === undefined )
 {
-	if ( oSettings.aaSorting[i][0] >= oSettings.aoColumns.length )
+	for ( i=0, iLen=oSettings.aaSorting.length ; i<iLen ; i++ )
 	{
-		oSettings.aaSorting[i][0] = 0;
-	}
-	var oColumn = oSettings.aoColumns[ oSettings.aaSorting[i][0] ];
-
-	/* Add a default sorting index */
-	if ( oSettings.aaSorting[i][2] === undefined )
-	{
-		oSettings.aaSorting[i][2] = 0;
-	}
-
-	/* If aaSorting is not defined, then we use the first indicator in asSorting */
-	if ( oInit.aaSorting === undefined )
-	{
-		oSettings.aaSorting[i][1] = oColumn.asSorting[0];
-	}
-
-	/* Set the current sorting index based on aoColumns.asSorting */
-	for ( j=0, jLen=oColumn.asSorting.length ; j<jLen ; j++ )
-	{
-		if ( oSettings.aaSorting[i][1] == oColumn.asSorting[j] )
-		{
-			oSettings.aaSorting[i][2] = j;
-			break;
-		}
+		oSettings.aaSorting[i][1] = oSettings.aoColumns[ i ].asSorting[0];
 	}
 }
 

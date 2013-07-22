@@ -43,6 +43,9 @@ function _fnSaveState ( oSettings )
  */
 function _fnLoadState ( oSettings, oInit )
 {
+	var i, ien;
+	var columns = oSettings.aoColumns;
+
 	if ( !oSettings.oFeatures.bStateSave )
 	{
 		return;
@@ -69,7 +72,7 @@ function _fnLoadState ( oSettings, oInit )
 	}
 
 	// Number of columns have changed - all bets are off, no restore of settings
-	if ( oSettings.aoColumns.length !== oData.aoSearchCols.length ) {
+	if ( columns.length !== oData.aoSearchCols.length ) {
 		return;
 	}
 
@@ -80,15 +83,17 @@ function _fnLoadState ( oSettings, oInit )
 	oSettings._iDisplayStart    = oData.iStart;
 	oSettings.iInitDisplayStart = oData.iStart;
 	oSettings._iDisplayLength   = oData.iLength;
-	oSettings.aaSorting         = oData.aaSorting.slice();
+	oSettings.aaSorting         = $.map( oData.aaSorting, function (d) {
+		return d[0] >= columns.length ? [ 0, columns[i].asSorting[0] ] : d;
+	} );
 
 	/* Search filtering  */
 	$.extend( oSettings.oPreviousSearch, oData.oSearch );
 	$.extend( true, oSettings.aoPreSearchCols, oData.aoSearchCols );
 
 	/* Column visibility state */
-	for ( var i=0 ; i<oData.abVisCols.length ; i++ ) {
-		oSettings.aoColumns[i].bVisible = oData.abVisCols[i];
+	for ( i=0, ien=oData.abVisCols.length ; i<ien ; i++ ) {
+		columns[i].bVisible = oData.abVisCols[i];
 	}
 
 	_fnCallbackFire( oSettings, 'aoStateLoaded', 'stateLoaded', [oSettings, oData] );
