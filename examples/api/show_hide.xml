@@ -5,24 +5,23 @@
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>Row selection and deletion (single row)</title>
+<title>Show / hide columns dynamically</title>
 <js><![CDATA[
 
 $(document).ready(function() {
-	var table = $('#example').DataTable();
-
-	$('#example tbody').on( 'click', 'tr', function () {
-		if ( $(this).hasClass('row_selected') ) {
-			$(this).removeClass('row_selected');
-		}
-		else {
-			table.$('tr.row_selected').removeClass('row_selected');
-			$(this).addClass('row_selected');
-		}
+	var table = $('#example').DataTable( {
+		"scrollY": "200px",
+		"paginate": false
 	} );
 
-	$('#button').click( function () {
-		table.row('.row_selected').remove().draw( false );
+	$('a.toggle-vis').on( 'click', function (e) {
+		e.preventDefault();
+
+		// Get the column API object
+		var column = table.column( $(this).attr('data-column') );
+
+		// Toggle the visibility
+		column.visible( ! column.visible() );
 	} );
 } );
 
@@ -39,11 +38,11 @@ If you are looking for a more complete column visibility interaction controls (C
 ]]></info>
 
 <demo-html>
-	<a href="javascript:void(0);" onclick="showHide(0);">Toggle column 1<br /></a>
-	<a href="javascript:void(0);" onclick="showHide(1);">Toggle column 2<br /></a>
-	<a href="javascript:void(0);" onclick="showHide(2);">Toggle column 3<br /></a>
-	<a href="javascript:void(0);" onclick="showHide(3);">Toggle column 4<br /></a>
-	<a href="javascript:void(0);" onclick="showHide(4);">Toggle column 5<br /></a>
+	<a class="toggle-vis" data-column="0">Toggle column 1<br /></a>
+	<a class="toggle-vis" data-column="1">Toggle column 2<br /></a>
+	<a class="toggle-vis" data-column="2">Toggle column 3<br /></a>
+	<a class="toggle-vis" data-column="3">Toggle column 4<br /></a>
+	<a class="toggle-vis" data-column="4">Toggle column 5<br /></a>
 </demo-html>
 
 </dt-example>
