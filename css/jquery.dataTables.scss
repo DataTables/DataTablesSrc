@@ -17,10 +17,10 @@ $table-row-background: #ffffff;
 $table-control-color: #333;
 
 // Highlight colour of the paging button for the current page
-$table-paging-button-active: #000;
+$table-paging-button-active: #dcdcdc;
 
 // Hover colour of paging buttons on mouse over
-$table-paging-button-hover: #dcdcdc;
+$table-paging-button-hover: #111;
 
 
 
@@ -292,12 +292,12 @@ table.dataTable {
 			cursor: pointer;
 			*cursor: hand;
 
-			color: #333 !important;
+			color: $table-control-color !important;
 			border: 1px solid transparent;
 
 			&.current,
 			&.current:hover {
-				color: white !important;
+				color: $table-control-color !important;
 				border: 1px solid $table-paging-button-active;
 				@include gradient(
 					lighten($table-paging-button-active, 28%),
@@ -315,6 +315,7 @@ table.dataTable {
 			}
 
 			&:hover {
+				color: white !important;
 				border: 1px solid $table-paging-button-hover;
 				@include gradient(
 					lighten($table-paging-button-hover, 28%),
