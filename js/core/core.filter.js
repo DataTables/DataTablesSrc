@@ -133,7 +133,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
  */
 function _fnFilterCustom( oSettings )
 {
-	var afnFilters = DataTable.ext.afnFiltering;
+	var afnFilters = DataTable.ext.filter;
 	var aiFilterColumns = _fnGetColumns( oSettings, 'bSearchable' );
 
 	for ( var i=0, iLen=afnFilters.length ; i<iLen ; i++ )
@@ -207,7 +207,7 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
 	var display, invalidated, i;
 
 	// Need to take account of custom filtering functions - always filter
-	if ( DataTable.ext.afnFiltering.length !== 0 ) {
+	if ( DataTable.ext.filter.length !== 0 ) {
 		force = true;
 	}
 
@@ -290,7 +290,7 @@ function _fnFilterData ( settings )
 	var columns = settings.aoColumns;
 	var column;
 	var i, j, ien, jen, filterData, cellData, row;
-	var fomatters = DataTable.ext.ofnSearch;
+	var fomatters = DataTable.ext.type.filter;
 	var wasInvalidated = false;
 
 	for ( i=0, ien=settings.aoData.length ; i<ien ; i++ ) {

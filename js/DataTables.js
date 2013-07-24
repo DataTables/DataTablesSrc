@@ -154,7 +154,6 @@
 	 *  @namespace
 	 */
 	DataTable.models = {};
-	require('model.ext.js');
 	require('model.search.js');
 	require('model.row.js');
 	require('model.column.js');
@@ -172,8 +171,7 @@
 	 *  @namespace
 	 *  @extends DataTable.models.ext
 	 */
-	DataTable.ext = $.extend( true, {}, DataTable.models.ext );
-	DataTable.ext.renderer = {};
+	require('ext.js');
 	require('ext.classes.js');
 	require('ext.paging.js');
 	require('ext.sorting.js');

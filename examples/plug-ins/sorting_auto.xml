@@ -8,13 +8,13 @@
 <title>Sorting plug-ins (with type detection)</title>
 <js><![CDATA[
 
-$.fn.dataTableExt.aTypes.unshift(
+$.fn.dataTable.ext.type.detect.unshift(
 	function ( d ) {
 		return /^[\-\d,]+$/.test( d ) ? 'numeric-comma' : null;
 	}
 );
 
-$.fn.dataTableExt.oSort['numeric-comma-pre'] = function ( d ) {
+$.fn.dataTable.ext.type.sort['numeric-comma-pre'] = function ( d ) {
 	return parseFloat( d.replace(/,/g, '.') ) || 0;
 };
 

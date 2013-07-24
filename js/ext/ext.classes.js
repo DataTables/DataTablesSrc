@@ -1,5 +1,5 @@
 
-$.extend( DataTable.ext.oStdClasses, {
+$.extend( DataTable.ext.classes, {
 	"sTable": "dataTable",
 
 	/* Paging buttons */
@@ -71,7 +71,7 @@ var _stateDefault = _empty + 'ui-state-default';
 var _sortIcon     = _empty + 'css_right ui-icon ui-icon-';
 var _headerFooter = _empty + 'fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix';
 
-$.extend( DataTable.ext.oJUIClasses, DataTable.ext.oStdClasses, {
+$.extend( DataTable.ext.oJUIClasses, DataTable.ext.classes, {
 	/* Full numbers paging buttons */
 	"sPageButton":         "fg-button ui-button "+_stateDefault,
 	"sPageButtonActive":   "ui-state-disabled",

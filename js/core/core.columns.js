@@ -248,7 +248,7 @@ function _fnGetColumns( oSettings, sParam )
  */
 function _fnDetectType( sData )
 {
-	var aTypes = DataTable.ext.aTypes;
+	var aTypes = DataTable.ext.type.detect;
 	var iLen = aTypes.length;
 
 	for ( var i=0 ; i<iLen ; i++ )

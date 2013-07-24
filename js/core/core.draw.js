@@ -573,10 +573,10 @@ function _fnAddOptionsHtml ( oSettings )
 			nTmp = _fnFeatureHtmlPaginate( oSettings );
 			iPushFeature = 1;
 		}
-		else if ( DataTable.ext.aoFeatures.length !== 0 )
+		else if ( DataTable.ext.feature.length !== 0 )
 		{
 			/* Plug-in features */
-			var aoFeatures = DataTable.ext.aoFeatures;
+			var aoFeatures = DataTable.ext.feature;
 			for ( var k=0, kLen=aoFeatures.length ; k<kLen ; k++ )
 			{
 				if ( cOption == aoFeatures[k].cFeature )

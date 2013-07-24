@@ -2,7 +2,7 @@
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Note that most of the paging logic is done in
- * DataTable.ext.oPagination
+ * DataTable.ext.pager
  */
 
 /**
@@ -20,7 +20,7 @@ function _fnFeatureHtmlPaginate ( settings )
 
 	var
 		type   = settings.sPaginationType,
-		plugin = DataTable.ext.oPagination[ type ],
+		plugin = DataTable.ext.pager[ type ],
 		modern = typeof plugin === 'function',
 		redraw = function( settings ) {
 			_fnDraw( settings );
@@ -51,7 +51,7 @@ function _fnFeatureHtmlPaginate ( settings )
 						i, ien;
 
 					for ( i=0, ien=features.p.length ; i<ien ; i++ ) {
-						_fnRenderer( settings, 'paging' )(
+						_fnRenderer( settings, 'pageButton' )(
 							settings, features.p[i], i, buttons, page, pages
 						);
 					}

@@ -1,4 +1,4 @@
-$.extend( DataTable.ext.oSort, {
+$.extend( DataTable.ext.type.sort, {
 	/*
 	 * text sorting
 	 */

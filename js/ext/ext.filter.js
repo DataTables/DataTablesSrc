@@ -6,7 +6,7 @@
 var __filter_lines = /[\r\n]/g;
 var __filter_html = /[\r\n]/g;
 
-$.extend( DataTable.ext.ofnSearch, {
+$.extend( DataTable.ext.type.filter, {
 	html: function ( data ) {
 		return data
 			.replace( __filter_lines, " " )

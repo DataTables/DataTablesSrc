@@ -2,7 +2,7 @@
 
 // Built in type detection. See model.ext.aTypes for information about
 // what is required from this methods.
-$.extend( DataTable.ext.aTypes, [
+$.extend( DataTable.ext.type.detect, [
 	// Numeric data type
 	function ( data )
 	{

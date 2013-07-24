@@ -9,14 +9,14 @@
  * Create a wrapper function for exporting an internal functions to an external API.
  *  @param {string} sFunc API function name
  *  @returns {function} wrapped function
- *  @memberof DataTable#oApi
+ *  @memberof DataTable#internal
  */
 function _fnExternApiFunc (sFunc)
 {
 	return function() {
 		var aArgs = [_fnSettingsFromNode(this[DataTable.ext.iApiIndex])].concat(
 			Array.prototype.slice.call(arguments) );
-		return DataTable.ext.oApi[sFunc].apply( this, aArgs );
+		return DataTable.ext.internal[sFunc].apply( this, aArgs );
 	};
 }
 
@@ -28,7 +28,7 @@ function _fnExternApiFunc (sFunc)
  * (check the upgrade notes).
  *  @namespace
  */
-this.oApi = {
+this.internal = {
 	"_fnExternApiFunc": _fnExternApiFunc,
 	"_fnInitialise": _fnInitialise,
 	"_fnInitComplete": _fnInitComplete,
@@ -110,9 +110,9 @@ this.oApi = {
 	"_fnAjaxDataSrc": _fnAjaxDataSrc
 };
 
-$.extend( DataTable.ext.oApi, this.oApi );
+$.extend( DataTable.ext.internal, this.internal );
 
-for ( var sFunc in DataTable.ext.oApi )
+for ( var sFunc in DataTable.ext.internal )
 {
 	if ( sFunc )
 	{

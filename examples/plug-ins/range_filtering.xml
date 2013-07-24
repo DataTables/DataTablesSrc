@@ -9,7 +9,7 @@
 <js><![CDATA[
 
 /* Custom filtering function which will filter data in column four between two values */
-$.fn.dataTableExt.afnFiltering.push(
+$.fn.dataTable.ext.filter.push(
 	function( settings, data, dataIndex ) {
 		var min = $('#min').val() * 1;
 		var max = $('#max').val() * 1;
@@ -39,7 +39,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-There may be occasions when you wish to filter data presented to the end user in your own manner, common examples are number range filtering (in between two numbers) and date range filtering. DataTables provide an API method to add your own filtering functions, `$.fn.dataTableExt.afnFiltering`. This is an array of functions (push your own onto it) which will will be run at table draw time to see if a particular row should be included or not.
+There may be occasions when you wish to filter data presented to the end user in your own manner, common examples are number range filtering (in between two numbers) and date range filtering. DataTables provide an API method to add your own filtering functions, `$.fn.dataTable.ext.filter`. This is an array of functions (push your own onto it) which will will be run at table draw time to see if a particular row should be included or not.
 
 This example shows a filter being performed on the version column in the data, based upon two inputs.
 

@@ -35,7 +35,11 @@ function _fnLog( settings, level, msg, tn )
 	}
 
 	if ( ! level  ) {
-		if ( DataTable.ext.sErrMode == 'alert' ) {
+		// Backwards compatibility pre 1.10
+		var ext = DataTable.ext;
+		var type = ext.sErrMode || ext.errMode;
+
+		if ( type == 'alert' ) {
 			alert( msg );
 		}
 		else {

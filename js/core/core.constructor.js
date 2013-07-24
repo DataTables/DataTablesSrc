@@ -65,7 +65,7 @@ for ( i=0, iLen=allSettings.length ; i<iLen ; i++ )
 /* Ensure the table has an ID - required for accessibility */
 if ( sId === null || sId === "" )
 {
-	sId = "DataTables_Table_"+(DataTable.ext._oExternConfig.iNextUnique++);
+	sId = "DataTables_Table_"+(DataTable.ext._unique++);
 	this.id = sId;
 }
 
@@ -184,7 +184,7 @@ if ( oInit.bJQueryUI )
 }
 else
 {
-	$.extend( oSettings.oClasses, DataTable.ext.oStdClasses, oInit.oClasses );
+	$.extend( oSettings.oClasses, DataTable.ext.classes, oInit.oClasses );
 }
 $(this).addClass( oSettings.oClasses.sTable );
 

@@ -3,7 +3,7 @@
 (function() {
 
 
-var extPagination = DataTable.ext.oPagination;
+var extPagination = DataTable.ext.pager;
 
 function _numbers ( page, pages ) {
 	var
@@ -62,7 +62,7 @@ $.extend( extPagination, {
 
 
 $.extend( true, DataTable.ext.renderer, {
-	paging: {
+	pageButton: {
 		_: function ( settings, host, idx, buttons, page, pages ) {
 			var classes = settings.oClasses;
 			var lang = settings.oLanguage.oPaginate;
