@@ -28,7 +28,7 @@ function _fnExternApiFunc (sFunc)
  * (check the upgrade notes).
  *  @namespace
  */
-this.internal = {
+this.oApi = this.internal = {
 	"_fnExternApiFunc": _fnExternApiFunc,
 	"_fnInitialise": _fnInitialise,
 	"_fnInitComplete": _fnInitComplete,

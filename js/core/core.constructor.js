@@ -72,7 +72,7 @@ if ( sId === null || sId === "" )
 /* Create the settings object for this table and set some of the default parameters */
 var oSettings = $.extend( true, {}, DataTable.models.oSettings, {
 	"nTable":        this,
-	"oApi":          _that.oApi,
+	"oApi":          _that.internal,
 	"oInit":         oInit,
 	"sDestroyWidth": $(this)[0].style.width,
 	"sInstance":     sId,
