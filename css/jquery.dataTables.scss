@@ -298,7 +298,7 @@ table.dataTable {
 			&.current,
 			&.current:hover {
 				color: $table-control-color !important;
-				border: 1px solid $table-paging-button-active;
+				border: 1px solid darken( $table-paging-button-active, 7% );
 				@include gradient(
 					lighten($table-paging-button-active, 28%),
 					$table-paging-button-active
