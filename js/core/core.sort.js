@@ -133,7 +133,7 @@ function _fnSort ( oSettings )
 			// methods.
 			displayMaster.sort( function ( a, b ) {
 				var
-					x, y, k, l, test, sort,
+					x, y, k, l, test, sort, fn,
 					len=aSort.length,
 					dataA = aoData[a]._aSortData,
 					dataB = aoData[b]._aSortData;
@@ -144,7 +144,8 @@ function _fnSort ( oSettings )
 					x = dataA[ sort.col ];
 					y = dataB[ sort.col ];
 
-					test = oExtSort[ sort.type+"-"+sort.dir ]( x, y );
+					fn = oExtSort[ sort.type+"-"+sort.dir ] || oExtSort[ "string-"+sort.dir ];
+					test = fn( x, y );
 					if ( test !== 0 ) {
 						return test;
 					}
