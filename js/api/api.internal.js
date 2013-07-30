@@ -75,7 +75,6 @@ this.oApi = this.internal = {
 	"_fnGetWidestNode": _fnGetWidestNode,
 	"_fnGetMaxLenString": _fnGetMaxLenString,
 	"_fnStringToCss": _fnStringToCss,
-	"_fnDetectType": _fnDetectType,
 	"_fnSettingsFromNode": _fnSettingsFromNode,
 	"_fnGetDataMaster": _fnGetDataMaster,
 	"_fnEscapeRegex": _fnEscapeRegex,

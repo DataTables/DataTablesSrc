@@ -43,7 +43,6 @@ function _fnSort ( oSettings )
 	var
 		i, ien, iLen, j, jLen, k, kLen,
 		sDataType, nTh,
-		aSort = [],
 		aiOrig = [],
 		oExtSort = DataTable.ext.type.sort,
 		aoData = oSettings.aoData,
@@ -52,9 +51,13 @@ function _fnSort ( oSettings )
 		formatters = 0,
 		nestedSort = oSettings.aaSortingFixed.concat( oSettings.aaSorting ),
 		sortCol,
-		displayMaster = oSettings.aiDisplayMaster;
+		displayMaster = oSettings.aiDisplayMaster,
+		aSort = _fnSortFlatten( oSettings );
 
-	aSort = _fnSortFlatten( oSettings );
+	// Resolve any column types that are unknown due to addition or invalidation
+	// @todo Can this be moved into a 'data-ready' handler which is called when
+	//   data is going to be used in the table?
+	_fnColumnTypes( oSettings );
 
 	for ( i=0, ien=aSort.length ; i<ien ; i++ ) {
 		sortCol = aSort[i];

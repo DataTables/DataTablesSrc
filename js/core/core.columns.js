@@ -73,11 +73,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 			oOptions.mData = oOptions.mDataProp;
 		}
 
-		if ( oOptions.sType !== undefined )
-		{
-			oCol.sType = oOptions.sType;
-			oCol._bAutoType = false;
-		}
+		oCol._sManualType = oOptions.sType;
 
 		// `class` is a reserved word in Javascript, so we need to provide
 		// the ability to use a valid name for the camel case input
@@ -240,28 +236,56 @@ function _fnGetColumns( oSettings, sParam )
 }
 
 
-/**
- * Get the sort type based on an input string
- *  @param {string} sData data we wish to know the type of
- *  @returns {string} type (defaults to 'string' if no type can be detected)
- *  @memberof DataTable#oApi
- */
-function _fnDetectType( sData )
+function _fnColumnTypes ( settings )
 {
-	var aTypes = DataTable.ext.type.detect;
-	var iLen = aTypes.length;
+	var columns = settings.aoColumns;
+	var data = settings.aoData;
+	var types = DataTable.ext.type.detect;
+	var i, ien, j, jen, k, ken;
+	var col, cell, detectedType, cache;
 
-	for ( var i=0 ; i<iLen ; i++ )
-	{
-		var sType = aTypes[i]( sData );
-		if ( sType !== null )
-		{
-			return sType;
+	// For each column, spin over the 
+	for ( i=0, ien=columns.length ; i<ien ; i++ ) {
+		col = columns[i];
+		cache = [];
+
+		if ( ! col.sType && col._sManualType ) {
+			col.sType = col._sManualType;
+		}
+		else if ( ! col.sType ) {
+			for ( j=0, jen=types.length ; j<jen ; j++ ) {
+				for ( k=0, ken=data.length ; k<ken ; k++ ) {
+					// Use a cache array so we only need to get the type data
+					// from the formatter once (when using multiple detectors)
+					if ( cache[k] === undefined ) {
+						cache[k] = _fnGetCellData( settings, k, i, 'type' );
+					}
+
+					detectedType = types[j]( cache[k] );
+
+					// Doesn't match, so break early, since this type can't
+					// apply to this column
+					if ( ! detectedType ) {
+						break;
+					}
+				}
+
+				// Type is valid for all data points in the column - use this
+				// type
+				if ( detectedType ) {
+					col.sType = detectedType;
+					break;
+				}
+			}
+
+			// Fall back - if no type was detected, always use string
+			if ( ! col.sType ) {
+				col.sType = 'string';
+			}
 		}
 	}
-
-	return 'string';
 }
+
 
 
 /**

@@ -98,6 +98,10 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 		oPrevSearch.bCaseInsensitive = oFilter.bCaseInsensitive;
 	};
 
+	// Resolve any column types that are unknown due to addition or invalidation
+	// @todo As per sort - can this be moved into an event handler?
+	_fnColumnTypes( oSettings );
+
 	/* In server-side processing all filtering is done by the server, so no point hanging around here */
 	if ( !oSettings.oFeatures.bServerSide )
 	{

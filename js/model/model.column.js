@@ -54,13 +54,13 @@ DataTable.models.oColumn = {
 	"bVisible": null,
 
 	/**
-	 * Flag to indicate to the type detection method if the automatic type
-	 * detection should be used, or if a column type (sType) has been specified
-	 *  @type boolean
-	 *  @default true
+	 * Store for manual type assignment using the `column.type` option. This
+	 * is held in store so we can manipulate the column's `sType` property.
+	 *  @type string
+	 *  @default null
 	 *  @private
 	 */
-	"_bAutoType": true,
+	"_sManualType": null,
 
 	/**
 	 * Flag to indicate if HTML5 data attributes should be used as the data

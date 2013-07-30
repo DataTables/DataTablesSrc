@@ -123,7 +123,7 @@ _api.register( 'cell().data()', function ( data ) {
 
 	// Set
 	_fnSetCellData( ctx[0], cell[0].row, cell[0].column, data );
-	_fnInvalidateRow( ctx[0], cell[0].row, 'data' );
+	_fnInvalidateRow( ctx[0], cell[0].row, 'data', cell[0].column );
 
 	return this;
 } );

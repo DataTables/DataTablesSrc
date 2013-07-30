@@ -13,8 +13,6 @@
  */
 function _fnAddData ( oSettings, aDataIn, nTr, anTds )
 {
-	var oCol;
-
 	/* Create the object for storing information about this new row */
 	var iRow = oSettings.aoData.length;
 	var oData = $.extend( true, {}, DataTable.models.oRow, {
@@ -26,31 +24,11 @@ function _fnAddData ( oSettings, aDataIn, nTr, anTds )
 
 	/* Create the cells */
 	var nTd, sThisType;
-	for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
+	var columns = oSettings.aoColumns;
+	for ( var i=0, iLen=columns.length ; i<iLen ; i++ )
 	{
-		oCol = oSettings.aoColumns[i];
-
 		_fnSetCellData( oSettings, iRow, i, _fnGetCellData( oSettings, iRow, i ) );
-
-		/* See if we should auto-detect the column type */
-		if ( oCol._bAutoType && oCol.sType != 'string' )
-		{
-			/* Attempt to auto detect the type - same as _fnGatherData() */
-			var sVarType = _fnGetCellData( oSettings, iRow, i, 'type' );
-			if ( sVarType !== null && sVarType !== '' )
-			{
-				sThisType = _fnDetectType( sVarType );
-				if ( oCol.sType === null )
-				{
-					oCol.sType = sThisType;
-				}
-				else if ( oCol.sType != sThisType && oCol.sType != "html" )
-				{
-					/* String is always the 'fallback' option */
-					oCol.sType = 'string';
-				}
-			}
-		}
+		columns[i].sType = null;
 	}
 
 	/* Add to the display array */
@@ -513,9 +491,10 @@ function _fnDeleteIndex( a, iTarget, splice )
  *   the sort and filter methods can subscribe to it. That will required
  *   initialisation options for sorting, which is why it is not already baked in
  */
-function _fnInvalidateRow( settings, rowIdx, src )
+function _fnInvalidateRow( settings, rowIdx, src, column )
 {
 	var row = settings.aoData[ rowIdx ];
+	var i, ien;
 
 	// Are we reading last data from DOM or the data object?
 	if ( src === 'dom' || (! src && row.src === 'dom') ) {
@@ -526,13 +505,25 @@ function _fnInvalidateRow( settings, rowIdx, src )
 		// Reading from data object, update the DOM
 		var cells = row.anCells;
 
-		for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
+		for ( i=0, ien=cells.length ; i<ien ; i++ ) {
 			cells[i].innerHTML = _fnGetCellData( settings, rowIdx, i, 'display' );
 		}
 	}
 
 	row._aSortData = null;
 	row._aFilterData = null;
+
+	// Invalidate the type for a specific column (if given) or all columns since
+	// the data might have changed
+	var cols = settings.aoColumns;
+	if ( column !== undefined ) {
+		cols[ column ].sType = null;
+	}
+	else {
+		for ( i=0, ien=cols.length ; i<ien ; i++ ) {
+			cols[i].sType = null;
+		}
+	}
 }
 
 
