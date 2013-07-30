@@ -79,7 +79,6 @@ this.oApi = this.internal = {
 	"_fnGetDataMaster": _fnGetDataMaster,
 	"_fnEscapeRegex": _fnEscapeRegex,
 	"_fnDeleteIndex": _fnDeleteIndex,
-	"_fnColumnOrdering": _fnColumnOrdering,
 	"_fnLog": _fnLog,
 	"_fnClearTable": _fnClearTable,
 	"_fnSaveState": _fnSaveState,

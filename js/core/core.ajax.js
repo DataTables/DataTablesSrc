@@ -136,7 +136,7 @@ function _fnAjaxParameters( oSettings )
 
 	param( 'sEcho',          oSettings.iDraw );
 	param( 'iColumns',       iColumns );
-	param( 'sColumns',       _fnColumnOrdering(oSettings) );
+	param( 'sColumns',       _pluck( aoColumns, 'sName' ).join(',') );
 	param( 'iDisplayStart',  oSettings._iDisplayStart );
 	param( 'iDisplayLength', oSettings.oFeatures.bPaginate !== false ?
 		oSettings._iDisplayLength : -1

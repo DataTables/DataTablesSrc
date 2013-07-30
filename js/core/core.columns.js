@@ -287,28 +287,6 @@ function _fnColumnTypes ( settings )
 }
 
 
-
-/**
- * Get the column ordering that DataTables expects
- *  @param {object} oSettings dataTables settings object
- *  @returns {string} comma separated list of names
- *  @memberof DataTable#oApi
- */
-function _fnColumnOrdering ( oSettings )
-{
-	var sNames = '';
-	for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
-	{
-		sNames += oSettings.aoColumns[i].sName+',';
-	}
-	if ( sNames.length == iLen )
-	{
-		return "";
-	}
-	return sNames.slice(0, -1);
-}
-
-
 /**
  * Take the column definitions and static columns arrays and calculate how
  * they relate to column indexes. The callback function will then apply the
