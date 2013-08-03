@@ -264,8 +264,10 @@ function _fnColumnTypes ( settings )
 					detectedType = types[j]( cache[k] );
 
 					// Doesn't match, so break early, since this type can't
-					// apply to this column
-					if ( ! detectedType ) {
+					// apply to this column. Also, HTML is a special case since
+					// it is so similar to `string`. Just a single match is
+					// needed for a column to be html type
+					if ( ! detectedType || detectedType === 'html' ) {
 						break;
 					}
 				}
