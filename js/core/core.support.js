@@ -86,46 +86,6 @@ function _fnMap( ret, src, name, mappedName )
 
 
 /**
- * Extend objects - very similar to jQuery.extend, but deep copy objects, and shallow
- * copy arrays. The reason we need to do this, is that we don't want to deep copy array
- * init values (such as aaSorting) since the dev wouldn't be able to override them, but
- * we do want to deep copy objects.
- *  @param {object} oOut Object to extend
- *  @param {object} oExtender Object from which the properties will be applied to oOut
- *  @returns {object} oOut Reference, just for convenience - oOut === the return.
- *  @memberof DataTable#oApi
- *  @todo This doesn't take account of arrays inside the deep copied objects.
- */
-function _fnExtend( oOut, oExtender )
-{
-	var val;
-
-	for ( var prop in oExtender )
-	{
-		if ( oExtender.hasOwnProperty(prop) )
-		{
-			val = oExtender[prop];
-
-			if ( $.isPlainObject( val ) )
-			{
-				if ( ! oOut[prop] )
-				{
-					oOut[prop] = {};
-				}
-				$.extend( true, oOut[prop], val );
-			}
-			else
-			{
-				oOut[prop] = val;
-			}
-		}
-	}
-
-	return oOut;
-}
-
-
-/**
  * Bind an event handers to allow a click or return key to activate the callback.
  * This is good for accessibility since a return on the keyboard will have the
  * same effect as a click, if the element has focus.
