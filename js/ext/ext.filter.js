@@ -8,13 +8,15 @@ var __filter_html = /[\r\n]/g;
 
 $.extend( DataTable.ext.type.filter, {
 	html: function ( data ) {
-		return data
-			.replace( __filter_lines, " " )
-			.replace( __filter_html, "" );
+		return typeof data === 'string' ?
+			data
+				.replace( __filter_lines, " " )
+				.replace( __filter_html, "" ) :
+			'';
 	},
 
 	string: function ( data ) {
-		return data.replace ?
+		return typeof data === 'string' ?
 			data.replace( __filter_lines, " " ) :
 			data;
 	}
