@@ -13,6 +13,9 @@ $table-body-border: 1px solid #ddd;
 // calculated automatically)
 $table-row-background: #ffffff;
 
+// Row colour, when selected (tr.selected)
+$table-row-selected: #B0BED9;
+
 // Text colour of the interaction control elements (info, filter, paging etc)
 $table-control-color: #333;
 
@@ -173,9 +176,17 @@ table.dataTable {
 	&.display tbody {
 		tr.odd {
 			background-color: shade($table-row-background, 2.35%); // shade by f9
+
+			&.selected {
+				background-color: shade($table-row-selected, 2.35%);
+			}
 		}
 		tr.even {
 			background-color: $table-row-background;
+
+			&.selected {
+				background-color: $table-row-selected;
+			}
 		}
 	}
 
@@ -187,6 +198,10 @@ table.dataTable {
 		tr.odd:hover,
 		tr.even:hover {
 			background-color: shade($table-row-background, 3.6%); // shade by f5
+
+			&.selected {
+				background-color: shade($table-row-selected, 3.6%);
+			}
 		}
 	}
 
@@ -200,50 +215,56 @@ table.dataTable {
 			tr>.sorting_3 {
 				background-color: shade($table-row-background, 2%); // shade by fa
 			}
+
+			tr.selected>.sorting_1,
+			tr.selected>.sorting_2,
+			tr.selected>.sorting_3 {
+				background-color: shade($table-row-selected, 2%);
+			}
 		}
 	}
 
 	&.display tbody,
 	&.sort-column.stripe tbody {
-		tr.odd > .sorting_1 {
-			background-color: shade($table-row-background, 5.4%); // shade by f1
-		}
-		tr.odd > .sorting_2 {
-			background-color: shade($table-row-background, 4.7%); // shade by f3;
-		}
-		tr.odd > .sorting_3 {
-			background-color: shade($table-row-background, 3.9%); // shade by f5
+		tr.odd {
+			>.sorting_1 { background-color: shade($table-row-background, 5.4%); } // shade by f1
+			>.sorting_2 { background-color: shade($table-row-background, 4.7%); } // shade by f3
+			>.sorting_3 { background-color: shade($table-row-background, 3.9%); } // shade by f5
+
+			&.selected {
+				>.sorting_1 { background-color: shade($table-row-selected, 5.4%); }
+				>.sorting_2 { background-color: shade($table-row-selected, 4.7%); }
+				>.sorting_3 { background-color: shade($table-row-selected, 3.9%); }
+			}
 		}
 
-		tr.even > .sorting_1 {
-			background-color: shade($table-row-background, 2%); // shade by fa
-		}
-		tr.even > .sorting_2 {
-			background-color: shade($table-row-background, 1.2%); // shade by fc
-		}
-		tr.even > .sorting_3 {
-			background-color: shade($table-row-background, 0.4%); // shade by fe
+		tr.even {
+			>.sorting_1 { background-color: shade($table-row-background, 2%); } // shade by fa
+			>.sorting_2 { background-color: shade($table-row-background, 1.2%); } // shade by fc
+			>.sorting_3 { background-color: shade($table-row-background, 0.4%); } // shade by fe
+			
+			&.selected {
+				>.sorting_1 { background-color: shade($table-row-selected, 2%); }
+				>.sorting_2 { background-color: shade($table-row-selected, 1.2%); }
+				>.sorting_3 { background-color: shade($table-row-selected, 0.4%); }
+			}
 		}
 	}
 
 	&.display tbody,
 	&.sort-column.hover tbody {
-		tr:hover > .sorting_1,
-		tr.odd:hover > .sorting_1,
-		tr.even:hover > .sorting_1 {
-			background-color: shade($table-row-background, 8.2%); // shade by ea
-		}
+		tr:hover,
+		tr.odd:hover,
+		tr.even:hover {
+			>.sorting_1 { background-color: shade($table-row-background, 8.2%); } // shade by ea
+			>.sorting_2 { background-color: shade($table-row-background, 7.5%); } // shade by ec
+			>.sorting_3 { background-color: shade($table-row-background, 6.3%); } // shade by ef
 
-		tr:hover > .sorting_2,
-		tr.odd:hover > .sorting_2,
-		tr.even:hover > .sorting_2 {
-			background-color: shade($table-row-background, 7.5%); // shade by ec
-		}
-
-		tr:hover > .sorting_3,
-		tr.odd:hover > .sorting_3,
-		tr.even:hover > .sorting_3 {
-			background-color: shade($table-row-background, 6.3%); // shade by ef
+			&.selected {
+				>.sorting_1 { background-color: shade($table-row-selected, 8.2%); }
+				>.sorting_2 { background-color: shade($table-row-selected, 7.5%); }
+				>.sorting_3 { background-color: shade($table-row-selected, 6.3%); }
+			}
 		}
 	}
 }
