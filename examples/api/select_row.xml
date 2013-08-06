@@ -12,11 +12,11 @@ $(document).ready(function() {
 	var table = $('#example').dataTable();
 
 	$('#example tbody').on( 'click', 'tr', function () {
-		$(this).toggleClass('row_selected');
+		$(this).toggleClass('selected');
 	} );
 
 	$('#button').click( function () {
-		alert( table.rows('.row_selected').data().length +' row(s) selected' );
+		alert( table.rows('.selected').data().length +' row(s) selected' );
 	} );
 } );
 

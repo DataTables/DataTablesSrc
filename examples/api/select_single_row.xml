@@ -12,17 +12,17 @@ $(document).ready(function() {
 	var table = $('#example').DataTable();
 
 	$('#example tbody').on( 'click', 'tr', function () {
-		if ( $(this).hasClass('row_selected') ) {
-			$(this).removeClass('row_selected');
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
 		}
 		else {
-			table.$('tr.row_selected').removeClass('row_selected');
-			$(this).addClass('row_selected');
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
 		}
 	} );
 
 	$('#button').click( function () {
-		table.row('.row_selected').remove().draw( false );
+		table.row('.selected').remove().draw( false );
 	} );
 } );
 
