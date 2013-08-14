@@ -148,22 +148,30 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 /**
  * Adjust the table column widths for new data. Note: you would probably want to
  * do a redraw after calling this function!
- *  @param {object} oSettings dataTables settings object
+ *  @param {object} settings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnAdjustColumnSizing ( oSettings )
+function _fnAdjustColumnSizing ( settings )
 {
 	/* Not interested in doing column width calculation if auto-width is disabled */
-	if ( oSettings.oFeatures.bAutoWidth !== false )
+	if ( settings.oFeatures.bAutoWidth !== false )
 	{
-		_fnCalculateColumnWidths( oSettings );
-		for ( var i=0 , iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
+		var columns = settings.aoColumns;
+
+		_fnCalculateColumnWidths( settings );
+		for ( var i=0 , iLen=columns.length ; i<iLen ; i++ )
 		{
-			oSettings.aoColumns[i].nTh.style.width = oSettings.aoColumns[i].sWidth;
+			columns[i].nTh.style.width = columns[i].sWidth;
 		}
 	}
 
-	_fnCallbackFire( oSettings, null, 'column-sizing', [oSettings] );
+	var scroll = settings.oScroll;
+	if ( scroll.sY !== '' || scroll.sX !== '')
+	{
+		_fnScrollDraw( settings );
+	}
+
+	_fnCallbackFire( settings, null, 'column-sizing', [settings] );
 }
 
 

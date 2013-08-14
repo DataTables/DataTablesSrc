@@ -35,30 +35,33 @@ function _fnConvertToWidth ( sWidth, nParent )
  */
 function _fnCalculateColumnWidths ( oSettings )
 {
-	var iTableWidth = oSettings.nTable.offsetWidth;
+	var table = oSettings.nTable;
+	var columns = oSettings.aoColumns;
+	var column;
+	var iTableWidth = table.offsetWidth;
 	var iUserInputs = 0;
 	var iTmpWidth;
 	var iVisibleColumns = 0;
-	var iColums = oSettings.aoColumns.length;
+	var iColums = columns.length;
 	var i, iIndex, iCorrector, iWidth;
 	var oHeaders = $('th', oSettings.nTHead);
-	var widthAttr = oSettings.nTable.getAttribute('width');
-	var nWrapper = oSettings.nTable.parentNode;
+	var widthAttr = table.getAttribute('width');
+	var nWrapper = table.parentNode;
 
 	/* Convert any user input sizes into pixel sizes */
 	for ( i=0 ; i<iColums ; i++ )
 	{
-		if ( oSettings.aoColumns[i].bVisible )
+		if ( columns[i].bVisible )
 		{
 			iVisibleColumns++;
 
-			if ( oSettings.aoColumns[i].sWidth !== null )
+			if ( columns[i].sWidth !== null )
 			{
-				iTmpWidth = _fnConvertToWidth( oSettings.aoColumns[i].sWidthOrig,
+				iTmpWidth = _fnConvertToWidth( columns[i].sWidthOrig,
 					nWrapper );
 				if ( iTmpWidth !== null )
 				{
-					oSettings.aoColumns[i].sWidth = _fnStringToCss( iTmpWidth );
+					columns[i].sWidth = _fnStringToCss( iTmpWidth );
 				}
 
 				iUserInputs++;
@@ -73,12 +76,12 @@ function _fnCalculateColumnWidths ( oSettings )
 	if ( iColums == oHeaders.length && iUserInputs === 0 && iVisibleColumns == iColums &&
 		oSettings.oScroll.sX === "" && oSettings.oScroll.sY === "" )
 	{
-		for ( i=0 ; i<oSettings.aoColumns.length ; i++ )
+		for ( i=0 ; i<columns.length ; i++ )
 		{
 			iTmpWidth = $(oHeaders[i]).width();
 			if ( iTmpWidth !== null )
 			{
-				oSettings.aoColumns[i].sWidth = _fnStringToCss( iTmpWidth );
+				columns[i].sWidth = _fnStringToCss( iTmpWidth );
 			}
 		}
 	}
@@ -90,7 +93,7 @@ function _fnCalculateColumnWidths ( oSettings )
 		 * calculating table widths.
 		 */
 		var
-			nCalcTmp = oSettings.nTable.cloneNode( false ),
+			nCalcTmp = table.cloneNode( false ),
 			nTheadClone = oSettings.nTHead.cloneNode(true),
 			nBody = document.createElement( 'tbody' ),
 			nTr = document.createElement( 'tr' ),
@@ -121,12 +124,13 @@ function _fnCalculateColumnWidths ( oSettings )
 		iCorrector = 0;
 		for ( i=0 ; i<iColums ; i++ )
 		{
-			var oColumn = oSettings.aoColumns[i];
-			if ( oColumn.bVisible && oColumn.sWidthOrig !== null && oColumn.sWidthOrig !== "" )
+			column = columns[i];
+
+			if ( column.bVisible && column.sWidthOrig !== null && column.sWidthOrig !== "" )
 			{
-				nThs[i-iCorrector].style.width = _fnStringToCss( oColumn.sWidthOrig );
+				nThs[i-iCorrector].style.width = _fnStringToCss( column.sWidthOrig );
 			}
-			else if ( oColumn.bVisible )
+			else if ( column.bVisible )
 			{
 				nThs[i-iCorrector].style.width = "";
 			}
@@ -139,15 +143,17 @@ function _fnCalculateColumnWidths ( oSettings )
 		/* Find the biggest td for each column and put it into the table */
 		for ( i=0 ; i<iColums ; i++ )
 		{
-			if ( oSettings.aoColumns[i].bVisible )
+			column = columns[i];
+
+			if ( column.bVisible )
 			{
 				var nTd = _fnGetWidestNode( oSettings, i );
 				if ( nTd !== null )
 				{
 					nTd = nTd.cloneNode(true);
-					if ( oSettings.aoColumns[i].sContentPadding !== "" )
+					if ( column.sContentPadding !== "" )
 					{
-						nTd.innerHTML += oSettings.aoColumns[i].sContentPadding;
+						nTd.innerHTML += column.sContentPadding;
 					}
 					nTr.appendChild( nTd );
 				}
@@ -205,17 +211,19 @@ function _fnCalculateColumnWidths ( oSettings )
 		{
 			var iTotal = 0;
 			iCorrector = 0;
-			for ( i=0 ; i<oSettings.aoColumns.length ; i++ )
+			for ( i=0 ; i<columns.length ; i++ )
 			{
-				if ( oSettings.aoColumns[i].bVisible )
+				column = columns[i];
+
+				if ( column.bVisible )
 				{
-					if ( oSettings.aoColumns[i].sWidthOrig === null )
+					if ( column.sWidthOrig === null )
 					{
 						iTotal += $(oNodes[iCorrector]).outerWidth();
 					}
 					else
 					{
-						iTotal += parseInt(oSettings.aoColumns[i].sWidth.replace('px',''), 10) +
+						iTotal += parseInt(column.sWidth.replace('px',''), 10) +
 							($(oNodes[iCorrector]).outerWidth() - $(oNodes[iCorrector]).width());
 					}
 					iCorrector++;
@@ -223,42 +231,73 @@ function _fnCalculateColumnWidths ( oSettings )
 			}
 
 			nCalcTmp.style.width = _fnStringToCss( iTotal );
-			oSettings.nTable.style.width = _fnStringToCss( iTotal );
+			table.style.width = _fnStringToCss( iTotal );
 		}
 
 		iCorrector = 0;
-		for ( i=0 ; i<oSettings.aoColumns.length ; i++ )
+		for ( i=0 ; i<columns.length ; i++ )
 		{
-			if ( oSettings.aoColumns[i].bVisible )
+			column = columns[i];
+
+			if ( column.bVisible )
 			{
 				iWidth = $(oNodes[iCorrector]).width();
+
 				if ( iWidth !== null && iWidth > 0 )
 				{
-					oSettings.aoColumns[i].sWidth = _fnStringToCss( iWidth );
+					column.sWidth = _fnStringToCss( iWidth );
 				}
 				iCorrector++;
 			}
 		}
 
 		var cssWidth = $(nCalcTmp).css('width');
-		oSettings.nTable.style.width = (cssWidth.indexOf('%') !== -1) ?
+		table.style.width = (cssWidth.indexOf('%') !== -1) ?
 		    cssWidth : _fnStringToCss( $(nCalcTmp).outerWidth() );
 		nCalcTmp.parentNode.removeChild( nCalcTmp );
 	}
 
 	if ( widthAttr )
 	{
-		oSettings.nTable.style.width = _fnStringToCss( widthAttr );
+		table.style.width = _fnStringToCss( widthAttr );
 
-		if ( ! oSettings._attachedResizing &&
-			(oSettings.oScroll.sY !== '' || oSettings.oScroll.sX !== '') )
+		if ( ! oSettings._reszEvt )
 		{
-			$(window).bind('resize.DT-'+oSettings.sInstance, function () {
-				_fnScrollDraw( oSettings );
-			} );
-			oSettings._attachedResizing = true;
+			$(window).bind('resize.DT-'+oSettings.sInstance, throttle( function () {
+				_fnAdjustColumnSizing( oSettings );
+			} ) );
+
+			oSettings._reszEvt = true;
 		}
 	}
+}
+
+
+// @todo Move into a private functions file or make a proper DT function of it
+function throttle( fn ) {
+	var
+		frequency = 200,
+		last,
+		timer;
+
+	return function () {
+		var
+			now = +new Date(),
+			args = arguments;
+
+		if ( last && now < last + frequency ) {
+			clearTimeout( timer );
+
+			timer = setTimeout( function () {
+				last = now;
+				fn();
+			}, frequency );
+		}
+		else {
+			last = now;
+			fn();
+		}
+	};
 }
 
 
