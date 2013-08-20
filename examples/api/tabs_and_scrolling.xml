@@ -12,12 +12,8 @@
 
 $(document).ready(function() {
 	$("#tabs").tabs( {
-		"show": function(event, ui) {
-			var table = $.fn.dataTable.tables( true );
-
-			if ( table.length > 0 ) {
-				$(table).DataTable().columns.adjust();
-			}
+		"activate": function(event, ui) {
+			$( $.fn.dataTable.tables( true ) ).DataTable().columns.adjust();
 		}
 	} );
 	
