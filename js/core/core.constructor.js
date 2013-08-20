@@ -401,9 +401,6 @@ if ( tbody.length === 0 )
 	this.appendChild( tbody[0] );
 }
 oSettings.nTBody = tbody[0];
-oSettings.nTBody.setAttribute( "role", "alert" );
-oSettings.nTBody.setAttribute( "aria-live", "polite" );
-oSettings.nTBody.setAttribute( "aria-relevant", "all" );
 
 var tfoot = $(this).children('tfoot');
 if ( tfoot.length === 0 && captions.length > 0 && (oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "") )

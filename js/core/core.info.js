@@ -8,7 +8,11 @@ function _fnFeatureHtmlInfo ( settings )
 {
 	var
 		tid = settings.sTableId,
-		nodes = settings.aanFeatures.i;
+		nodes = settings.aanFeatures.i,
+		n = $('<div/>', {
+			'class': settings.oClasses.sInfo,
+			'id': ! nodes ? tid+'_info' : null
+		} );
 
 	if ( ! nodes ) {
 		// Update display on each draw
@@ -17,14 +21,16 @@ function _fnFeatureHtmlInfo ( settings )
 			"sName": "information"
 		} );
 
+		n
+			.attr( 'role', 'alert' )
+			.attr( 'aria-live', 'polite' )
+			.attr( 'aria-relevant', 'all' );
+
 		// Table is described by our info div
 		$(settings.nTable).attr( 'aria-describedby', tid+'_info' );
 	}
 
-	return $('<div/>', {
-		'class': settings.oClasses.sInfo,
-		'id': ! nodes ? tid+'_info' : null
-	} )[0];
+	return n[0];
 }
 
 
