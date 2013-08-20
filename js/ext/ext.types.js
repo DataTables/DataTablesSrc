@@ -27,6 +27,10 @@ var _stripHtml = function ( d ) {
 };
 
 var _htmlNumeric = function ( d, formatted ) {
+	if ( _empty( d ) ) {
+		return true;
+	}
+
 	var html = _isHtml( d );
 	return ! html ?
 		null :
