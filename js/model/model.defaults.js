@@ -1681,10 +1681,19 @@ DataTable.defaults = {
 
 
 		/**
-		 * This string gives information to the end user about the information that
-		 * is current on display on the page. The _START_, _END_ and _TOTAL_
-		 * variables are all dynamically replaced as the table display updates, and
-		 * can be freely moved or removed as the language requirements change.
+		 * This string gives information to the end user about the information
+		 * that is current on display on the page. The following tokens can be
+		 * used in the string and will be dynamically replaced as the table
+		 * display updates. This tokens can be placed anywhere in the string, or
+		 * removed as needed by the language requires:
+		 *
+		 * * `\_START\_` - Display index of the first record on the current page
+		 * * `\_END\_` - Display index of the last record on the current page
+		 * * `\_TOTAL\_` - Number of records in the table after filtering
+		 * * `\_MAX\_` - Number of records in the table without filtering
+		 * * `\_PAGE\_` - Current page number
+		 * * `\_PAGES\_` - Total number of pages of data in the table
+		 *
 		 *  @type string
 		 *  @default Showing _START_ to _END_ of _TOTAL_ entries
 		 *
@@ -1695,7 +1704,7 @@ DataTable.defaults = {
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "language": {
-		 *          "info": "Got a total of _TOTAL_ entries to show (_START_ to _END_)"
+		 *          "info": "Showing page _PAGE_ of _PAGES_"
 		 *        }
 		 *      } );
 		 *    } );
