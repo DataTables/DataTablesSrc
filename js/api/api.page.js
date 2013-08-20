@@ -67,7 +67,7 @@ _Api.register( 'page.info()', function ( action ) {
 		all        = len === -1;
 
 	return {
-		"page":           all ? 0 : Math.ceil( start / len ),
+		"page":           all ? 0 : Math.floor( start / len ),
 		"pages":          all ? 1 : Math.ceil( visRecords / len ),
 		"start":          start,
 		"end":            settings.fnDisplayEnd(),
