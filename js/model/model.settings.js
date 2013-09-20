@@ -629,6 +629,13 @@ DataTable.models.oSettings = {
 	"jqXHR": null,
 
 	/**
+	 * JSON returned from the server in the last Ajax request
+	 *  @type object
+	 *  @default undefined
+	 */
+	"json": undefined,
+
+	/**
 	 * Function to get the server-side data.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.

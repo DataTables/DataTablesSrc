@@ -50,6 +50,7 @@ function _fnBuildAjax( oSettings, data, fn )
 				oSettings.oApi._fnLog( oSettings, 0, json.sError );
 			}
 
+			oSettings.json = json;
 			$(instance).trigger('xhr', [oSettings, json]);
 			fn( json );
 		},

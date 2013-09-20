@@ -36,11 +36,7 @@ _Api.register( 'ajax.json()', function () {
 	var ctx = this.context;
 
 	if ( ctx.length > 0 ) {
-		var xhr = ctx[0].jqXHR;
-
-		if ( xhr ) {
-			return $.parseJSON( xhr.responseText );
-		}
+		return this.context.json;
 	}
 
 	// else return undefined;
