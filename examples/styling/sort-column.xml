@@ -2,15 +2,13 @@
 <dt-example table-type="html" table-class="sort-column" order="6">
 
 <css lib="datatables" />
-<js lib="jquery" />
-<js lib="datatables" />
-
-<title>Base style - sort-column</title>
-<js><![CDATA[
+<js lib="jquery datatables"><![CDATA[
 $(document).ready(function() {
 	$('#example').dataTable();
 } );
 ]]></js>
+
+<title>Base style - sort-column</title>
 
 <info><![CDATA[
 

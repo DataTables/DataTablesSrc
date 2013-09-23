@@ -6,7 +6,7 @@ JSDOC="/usr/local/jsdoc/jsdoc"
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BASE_DIR="${SCRIPT_DIR}/.."
-BUILD_DIR="${BASE_DIR}/build"
+BUILD_DIR="${BASE_DIR}/built"
 
 SYNC_BRANCH="1_10_wip"
 VERSION=$(grep " * @version     " ${BASE_DIR}/js/DataTables.js | awk -F" " '{ print $3 }')
@@ -92,6 +92,8 @@ function build_css {
 	OUT_DIR="${BUILD_DIR}/css"
 	OUT_FILE="${OUT_DIR}/jquery.dataTables.css"
 	OUT_MIN_FILE="${OUT_DIR}/jquery.dataTables.min.css"
+	OUT_JUI_FILE="${OUT_DIR}/jquery.dataTables_themeroller.css"
+	OUT_JUI_MIN_FILE="${OUT_DIR}/jquery.dataTables_themeroller.min.css"
 
 	if [ -d $OUT_DIR ]; then
 		rm -r $OUT_DIR
@@ -101,10 +103,12 @@ function build_css {
 	cd $SRC_DIR
 
 	sass --scss --stop-on-error --style expanded jquery.dataTables.scss > $OUT_FILE
+	sass --scss --stop-on-error --style expanded jquery.dataTables_themeroller.scss > $OUT_JUI_FILE
 
 	if [ ! $DEBUG ]; then
 		echo_section "CSS min"
 		sass --scss --stop-on-error --style compressed jquery.dataTables.scss > $OUT_MIN_FILE
+		sass --scss --stop-on-error --style compressed jquery.dataTables_themeroller.scss > $OUT_JUI_MIN_FILE
 		echo_msg "File size: $(ls -l $OUT_MIN_FILE | awk -F" " '{ print $5 }')"
 	fi
 }
@@ -124,6 +128,27 @@ function build_images {
 
 	cp $SRC_DIR/*.png $OUT_DIR
 	cp $SRC_DIR/*.ico $OUT_DIR
+}
+
+
+function build_examples {
+	echo_section "Examples"
+
+	SRC_DIR="${BASE_DIR}/examples"
+	OUT_DIR="${BUILD_DIR}/examples"
+	TEMPLATE_DIR="${BASE_DIR}/build/templates"
+
+	if [ -e $OUT_DIR ]; then
+		rm -Rf $OUT_DIR
+	fi
+
+	# Transform in place
+	cp -r $SRC_DIR $OUT_DIR
+	php ${BASE_DIR}/build/examples.php \
+		$OUT_DIR \
+		../../media \
+		${TEMPLATE_DIR}/example_index.html \
+		${TEMPLATE_DIR}/example.html
 }
 
 
@@ -149,6 +174,10 @@ function build_repo {
 	fi
 
 	cp -r $BUILD_DIR/images ${BUILD_DIR}/DataTables/media/
+	if [ -e ${BUILD_DIR}/DataTables/examples ]; then
+		rm -Rf ${BUILD_DIR}/DataTables/examples
+	fi
+	cp -r $BUILD_DIR/examples ${BUILD_DIR}/DataTables/examples
 
 	# Create the manifest files for the various package managers
 	build_descriptors
@@ -234,7 +263,7 @@ function update_build_repo {
 	# This will throw away local changes in the build file...
 	# Don't change files in it!
 	cd $BUILD_DIR/DataTables
-	git pull --quiet origin $SYNC_BRANCH
+	#git pull --quiet origin $SYNC_BRANCH
 	git checkout --quiet -f $SYNC_BRANCH
 	cd - > /dev/null 2>&1
 }
@@ -246,7 +275,7 @@ function usage {
 
       build    - Create the build repo from the current source files. Will
                  automatically make the calls to to build the 'js' and 'css'
-                 targets. The created repo is in 'build/DataTables'
+                 targets. The created repo is in 'built/DataTables'
 
       js       - Create the DataTables Javascript file
 
@@ -282,8 +311,8 @@ echo_section "DataTables build ($VERSION) - branch: $SYNC_BRANCH"
 echo ""
 
 
-if [ ! -d build ]; then
-	mkdir build
+if [ ! -d $BUILD_DIR ]; then
+	mkdir $BUILD_DIR
 fi
 
 case "$1" in
@@ -297,6 +326,7 @@ case "$1" in
 		;;
 
 	"examples")
+		build_examples
 		;;
 
 	"test")

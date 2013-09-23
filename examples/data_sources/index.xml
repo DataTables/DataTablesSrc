@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example order="0">
+
+<title>Data sources</title>
+
+<info><![CDATA[
+
+DataTables obtain data from four different fundamental sources:
+
+* HTML document (DOM)
+* Javascript (array / objects)
+* Ajax sourced data with client-side processing
+* Ajax sourced data with server-side processing
+
+Where DataTables reads the data to use in the table from depends upon how the table is initialised. The examples in this section show these four different data source types.
+
+]]></info>
+
+</dt-example>

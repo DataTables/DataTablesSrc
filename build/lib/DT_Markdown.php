@@ -1,5 +1,5 @@
 <?php
-require_once('markdown_extended.php') or die('Run ./make.sh thirdparty');
+require_once('markdown_extended.php');// or die('Run ./make.sh thirdparty');
 
 /*
  * Extensions to Markdown Extra Extended, specifically for the DataTables
@@ -28,7 +28,6 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 			'/^(dt\-init |dt\-api |tag |path )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
-				print_r( $matches );
 
 				if ( $matches[1] === 'dt-init ' ) {
 					$formatted =

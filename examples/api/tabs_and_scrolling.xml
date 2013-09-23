@@ -4,7 +4,7 @@
 <css lib="jqueryui" />
 <css lib="datatables-jqueryui" />
 <js lib="jquery" />
-<js lib="jquery-ui" />
+<js lib="jqueryui" />
 <js lib="datatables" />
 
 <title>Scrolling and jQuery UI tabs</title>

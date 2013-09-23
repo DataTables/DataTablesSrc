@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example order="0">
+
+<title>Styling</title>
+
+<info><![CDATA[
+
+When using DataTables, you want your tables to fit in with your site / app to make the end user experience as seamless as possible. For this reason, DataTables provides an easy to customise core stylesheet, which has a number of features that you can enable or disable as you required. Additionally there are a number of integration packages which can be used to fit DataTables into a site which uses some of the popular CSS libraries such as Twitter Bootstrap and Foundation. Or of course you can craft your own CSS to fit it into your site perfectly!
+
+This section includes examples of how DataTables can be styled using these methods.
+
+]]></info>
+
+</dt-example>

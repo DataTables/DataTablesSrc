@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example order="0">
+
+<title>API</title>
+
+<info><![CDATA[
+
+The real power of DataTables can be exploited through the use of the API that it presents. The DataTables API is designed to be simple, consistent and easy to use. The examples in this section show how the API may be used.
+
+]]></info>
+
+</dt-example>
