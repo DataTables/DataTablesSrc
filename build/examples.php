@@ -23,6 +23,7 @@ $dir_order = array(
  */
 $shortopts  = "c:";  // CSS library (added to the predefined libraries)
 $shortopts .= "j:";  // JS library (added to the predefined libraries)
+$shortopts .= "l:";  // Libraries to add to the XML library list
 $shortopts .= "m:";  // Media library (DataTables and jQuery)
 $shortopts .= "o:";  // Input / Output directory (replaces the XML files)
 $shortopts .= "t:";  // Example template
@@ -31,6 +32,7 @@ $shortopts .= "u:";  // Example index template
 $longopts  = array(
 	"css:",
 	"js:",
+	"libs:",
 	"media:",
 	"output:",
 	"template:",
@@ -45,6 +47,10 @@ $dir_input = '';
 $dir_media = '';
 $file_index_template = '';
 $file_example_template = '';
+$additional_libs = array(
+	'css' => array(),
+	'js'  => array()
+);
 
 
 /*
@@ -64,6 +70,15 @@ foreach ($options as $key => $value) {
 		case "js":
 			$a = explode(':', $value);
 			DT_Example::$lookup_libraries['js'][$a[0]] = realpath( $a[1] );
+			break;
+
+		case "l":
+		case "libs":
+			$a = explode(' ', $value);
+			for ( $i=0 ; $i<count($a) ; $i++ ) {
+				$b = explode(':', $a[$i]);
+				$additional_libs[ $b[0] ][] = $b[1];
+			}
 			break;
 
 		case "m":
@@ -113,7 +128,7 @@ $examples = array();
 
 
 // Read the files into the examples array
-read_structure( $examples, $dir_input, $file_index_template, $file_example_template );
+read_structure( $examples, $dir_input, $file_index_template, $file_example_template, $additional_libs );
 
 // Remove any directories without examples
 tidy_structure( $examples, $dir_order );
@@ -127,7 +142,7 @@ process_structure( $examples );
 
 
 
-function read_structure ( &$examples, $dir, $index_template, $example_template )
+function read_structure ( &$examples, $dir, $index_template, $example_template, $additional_libs )
 {
 	$dh = opendir( $dir );
 
@@ -149,7 +164,7 @@ function read_structure ( &$examples, $dir, $index_template, $example_template )
 				'path'  => $dir
 			);
 
-			read_structure( $sub['files'], $dir.'/'.$file, $index_template, $example_template );
+			read_structure( $sub['files'], $dir.'/'.$file, $index_template, $example_template, $additional_libs );
 			$examples[] = $sub;
 		}
 		else if ( $fileParts['extension'] === 'xml' ) {
@@ -160,7 +175,8 @@ function read_structure ( &$examples, $dir, $index_template, $example_template )
 					$example_template,
 				function ( $path ) use ( $dir, $fileParts ) {
 					return path_resolve( $dir.'/'.$fileParts['filename'].'.html', $path );
-				}
+				},
+				$additional_libs
 			);
 			$examples[] = array(
 				'type'  => 'file',
@@ -336,8 +352,10 @@ function build_toc_category ( $category, $current=null )
 		) ."\n";
 	}
 
-	return '<h3><a href="'.$link.'">'.$category['title'].'</a></h3>'.
-		'<ul class="toc'.($inCategory ? ' active' : '').'">'.$out.'</ul>';
+	return '<div class="toc-group">'.
+			'<h3><a href="'.$link.'">'.$category['title'].'</a></h3>'.
+			'<ul class="toc'.($inCategory ? ' active' : '').'">'.$out.'</ul>'.
+		'</div>';
 }
 
 

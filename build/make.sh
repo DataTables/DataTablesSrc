@@ -150,7 +150,8 @@ function build_examples {
 		-t ${TEMPLATE_DIR}/example.html \
 		-c "demo:${OUT_DIR}/resources/demo.css" \
 		-j "demo:${OUT_DIR}/resources/demo.js" \
-		-m "${BUILD_DIR}/media"
+		-m "${BUILD_DIR}/media" \
+		-l "css:demo js:jquery js:demo"
 }
 
 

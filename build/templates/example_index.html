@@ -4,16 +4,41 @@
 		<meta charset="utf-8">
 		<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico" />
 
+		{css-libs}
+		{js-libs}
 		<title>DataTables examples - {title}</title>
 	</head>
 	<body class="dt-example">
-		<div class="dt-example-container">
-			<h1>DataTables examples - {title}</h1>
-			{info}
-
+		<div class="container">
 			<section>
-				{toc}
+				<h1>DataTables example <span>- {title}</span></h1>
+				<div class="info">
+					{info}
+				</div>
 			</section>
 		</div>
+
+		<section>
+			<div class="footer">
+				<div class="gradient"></div>
+				<div class="liner">
+					<div class="toc">
+						{toc}
+					</div>
+
+					<div class="epilogue">
+						<p>
+							Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
+							Additionally, there are a wide range of <a href="http://www.datatables.net/extras">extras</a> and <a href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.
+						</p>
+						
+						<p class="copyright">
+							DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> &copy; 2007-2013<br>
+							DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
 	</body>
 </html>

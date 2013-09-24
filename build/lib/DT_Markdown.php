@@ -32,20 +32,20 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				if ( $matches[1] === 'dt-init ' ) {
 					$formatted =
 						'<a href="//datatables.net/init/'.urlencode($matches[2]).'">'.
-							'<code>'.$html.'</code>'.
+							'<code class="option" title="Initialisation option">'.$html.'</code>'.
 						'</a>';
 				}
 				else if ( $matches[1] === 'dt-api ' ) {
 					$formatted =
 						'<a href="//datatables.net/api/'.urlencode($matches[2]).'">'.
-							'<code>'.$html.'</code>'.
+							'<code class="api" title="API method">'.$html.'</code>'.
 						'</a>';
 				}
 				else if ( $matches[1] === 'tag ' ) {
-					$formatted = '<code class="tag">'.$html.'</code>';
+					$formatted = '<code class="tag" title="HTML tag">'.$html.'</code>';
 				}
 				else if ( $matches[1] === 'path ' ) {
-					$formatted = '<code class="path">'.$html.'</code>';
+					$formatted = '<code class="path" title="File path">'.$html.'</code>';
 				}
 				else {
 					$formatted = '<code>'.$html.'</code>';

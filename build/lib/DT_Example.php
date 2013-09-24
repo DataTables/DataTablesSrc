@@ -20,8 +20,10 @@ class DT_Example
 
 	private $_path_resolver = null;
 
+	private $_additional_libs = null;
 
-	function __construct ( $file=null, $template=null, $path_resolver=null )
+
+	function __construct ( $file=null, $template=null, $path_resolver=null, $libs=array() )
 	{
 		if ( $file !== null ) {
 			$this->file( $file );
@@ -39,6 +41,8 @@ class DT_Example
 			'css' => array(),
 			'js'  => array()
 		);
+
+		$this->_additional_libs = $libs;
 
 		$this->_data = json_decode( file_get_contents(
 			dirname(__FILE__).'/../data.json'
@@ -86,10 +90,18 @@ class DT_Example
 		$xml = $this->_xml;
 
 		// Resolve CSS libraries
-		$this->_resolve_libs( 'css', $xml->css );
+		$this->_resolve_xml_libs( 'css', $xml->css );
 
 		// Resolve JS libraries
-		$this->_resolve_libs( 'js', $xml->js );
+		$this->_resolve_xml_libs( 'js', $xml->js );
+
+		if ( isset( $this->_additional_libs['css'] ) ) {
+			$this->_resolve_libs( 'css', $this->_additional_libs['css'] );
+		}
+
+		if ( isset( $this->_additional_libs['js'] ) ) {
+			$this->_resolve_libs( 'js', $this->_additional_libs['js'] );
+		}
 
 		// Build data
 		$tableHtml = $this->_build_table( (string)$xml['table-type'] );
@@ -106,6 +118,8 @@ class DT_Example
 		$template = str_replace( '{css-libs}', $this->_format_libs( 'css' ), $template );
 		$template = str_replace( '{js-libs}',  $this->_format_libs( 'js' ),  $template );
 		$template = str_replace( '{table}',    $tableHtml,                   $template );
+
+
 
 		if ( isset( $opts['toc'] ) ) {
 			$template = str_replace( '{toc}', $opts['toc'], $template );
@@ -361,25 +375,39 @@ class DT_Example
 	}
 
 
-	private function _resolve_libs ( $type, $libs )
+	private function _resolve_xml_libs ( $type, $libs )
 	{
-		$host = &$this->_libs[ $type ];
-		$srcLibs = DT_Example::$lookup_libraries[ $type ];
+		$a = array();
 
 		foreach( $libs as $lib ) {
 			if ( isset( $lib['lib'] ) ) {
 				$split_attr = explode( ' ', (string)$lib['lib'] );
 
 				for ( $i=0, $ien=count($split_attr) ; $i<$ien ; $i++ ) {
-					$srcLib = $split_attr[$i];
-
-					if ( isset( $srcLibs[ $srcLib ] ) ) {
-						$host[] = $srcLibs[ $srcLib ];
-					}
-					else {
-						throw new Exception("Unknown {$type} library: ".$srcLib, 1);
-					}
+					$a[] = $split_attr[$i];
 				}
+			}
+		}
+
+		$this->_resolve_libs( $type, $a );
+	}
+
+
+	private function _resolve_libs ( $type, $libs )
+	{
+		$host = &$this->_libs[ $type ];
+		$srcLibs = DT_Example::$lookup_libraries[ $type ];
+
+		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
+			$srcLib = $libs[$i];
+
+			if ( isset( $srcLibs[ $srcLib ] ) ) {
+				if ( ! in_array( $srcLibs[ $srcLib ], $host ) ) {
+					$host[] = $srcLibs[ $srcLib ];
+				}
+			}
+			else {
+				throw new Exception("Unknown {$type} library: ".$srcLib, 1);
 			}
 		}
 	}
@@ -516,7 +544,7 @@ DT_Example::$tables['html-complex-header'] = array(
 	'header'  => function () {
 		return '<thead>'.
 				'<tr>'.
-					'<th>Name</th>'.
+					'<th rowspan="2">Name</th>'.
 					'<th colspan="2">HR Information</th>'.
 					'<th colspan="3">Contact</th>'.
 				'</tr>'.
