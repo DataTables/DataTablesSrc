@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="html-office-edin|html-office-london" order="5">
 
-<css lib="datatables" />
+<css lib="datatables">
+	div.dataTables_wrapper {
+		margin-bottom: 3em;
+	}
+</css>
 <js lib="jquery" />
 <js lib="datatables" />
 
 <title>Multiple tables</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('.dataTable').dataTable();
+	$('table.display').dataTable();
 } );
 ]]></js>
 
@@ -16,9 +20,9 @@ $(document).ready(function() {
 
 Often you might wish to initialise multiple tables with a single statement. This is trivially done by using a jQuery selector which will pick up multiple tables.
 
-All tables are completely independent (i.e. user controlled paging on one table does not effect the others), but they do share the initialisation parameters given (for example if you specific the Spanish language file, all tables will be shown in Spanish).
+The tables are independent for user control (i.e. user controlled paging on one table does not effect the others), but they do share the initialisation parameters given (for example if you specific the Spanish language file, all tables will be shown in Spanish). Additionally, the API can be used to manipulate both together, or independently.
 
-The example below shows multiple tables initialised with a single line of code, through the use of the `.dataTable` selector (i.e. select all elements which have the class of `dataTable`.
+The example below shows two tables initialised with a single line of code, through the use of the `table.display` selector (i.e. select all elements which have the class of `table.display` (which is suitable in this example, you might wish to use a different selector).
 
 ]]></info>
 

@@ -25,7 +25,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	{
 		$that = $this;
 		$text = preg_replace_callback(
-			'/^(dt\-init |dt\-api |tag |path )?(.*)$/m',
+			'/^(dt\-init |dt\-api |tag |path |string )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
 
@@ -46,6 +46,9 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				}
 				else if ( $matches[1] === 'path ' ) {
 					$formatted = '<code class="path" title="File path">'.$html.'</code>';
+				}
+				else if ( $matches[1] === 'string ' ) {
+					$formatted = '<code class="string" title="String">'.$html.'</code>';
 				}
 				else {
 					$formatted = '<code>'.$html.'</code>';

@@ -18,7 +18,7 @@ When using tables to display data, you will often wish to display column informa
 
 Each column must have one TH cell which is unique to it for the listeners to be added. By default DataTables will use the bottom unique cell for the column to attach the sort listener, if more than one cell for a column if found. The `dt-init sortCellsTop` option can be used to tell DataTables to use the top cell if you prefer.
 
-The example shown below has the core browser information grouped together.
+The example shown below has two sets of grouped information, grouped by colspan in the header.
 
 ]]></info>
 

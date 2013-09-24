@@ -22,7 +22,7 @@ This example shows the DataTables table body scrolling in the vertical direction
 
 To enable y-scrolling simply set the `dt-init scrollY` parameter to be whatever you want the container wrapper's height to be (any CSS measurement is acceptable, or just a number which is treated as pixels).
 
-Note also that the `dt-init scrollCollapse` option is enabled in this example. This will have the container match the height of the rows shown in the table if that height is smaller than the given height by the `dt-init scrollY`.
+Note also that the `dt-init scrollCollapse` option is enabled in this example. This will have the container match the height of the rows shown in the table if that height is smaller than that given height by the `dt-init scrollY`.
 
 ]]></info>
 

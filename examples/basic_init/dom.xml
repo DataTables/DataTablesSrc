@@ -43,11 +43,11 @@ This results in the following DOM structure:
 
 ```
 <div class="wrapper">
-	{filter}
-	{length}
-	{info}
-	{paging}
-	{table}
+	{ filter }
+	{ length }
+	{ info }
+	{ paging }
+	{ table }
 </div>
 ```
 
@@ -62,13 +62,13 @@ This results in the following DOM structure:
 
 ```
 <div>
-	{length}
-	{filter}
+	{ length }
+	{ filter }
 	<div>
-		{table}
+		{ table }
 	</div>
-	{info}
-	{paging}
+	{ info }
+	{ paging }
 </div>
 ```
 

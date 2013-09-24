@@ -80,6 +80,10 @@ div.info {
 	column-rule: 1px solid #F3F3F3;
 }
 
+div.info li {
+	margin-top: 0.75em;
+}
+
 div.footer {
 	position: relative;
 	margin-top: 5em;
@@ -154,5 +158,17 @@ code.tag {
 
 code.api {
 	color: #0c199c;
+	background-color: #f4f5fc;
 	border: 1px solid #c6cbe9;
+}
+
+code.string {
+	color: #e8941e;
+	background-color: #fcf8f1;
+	border: 1px solid #f7e4c9;
+}
+
+code.multiline {
+	display: inline-block;
+	width: 95%;
 }

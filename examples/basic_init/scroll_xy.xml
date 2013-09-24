@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="14">
+<dt-example table-type="html-wide" order="14">
 
 <css lib="datatables" />
 <css>
 	th, td { white-space: nowrap; }
-	#demo { width: 600px; }
+	div.dataTables_wrapper {
+		width: 800px;
+		margin: 0 auto;
+	}
 </css>
 <js lib="jquery" />
 <js lib="datatables" />
@@ -14,7 +17,7 @@
 $(document).ready(function() {
 	$('#example').dataTable( {
 		"scrollY": 200,
-		"scrollX": "100%"
+		"scrollX": true
 	} );
 } );
 ]]></js>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="4">
+<dt-example table-type="html-split-name" order="4">
 
 <css lib="datatables" />
 <js lib="jquery" />
@@ -13,6 +13,12 @@ $(document).ready(function() {
 		columnDefs: [ {
 			targets: [ 0 ],
 			dataSort: [ 0, 1 ]
+		}, {
+			targets: [ 1 ],
+			dataSort: [ 1, 0 ]
+		}, {
+			targets: [ 4 ],
+			dataSort: [ 4, 0 ]
 		} ]
 	} );
 } );
@@ -27,9 +33,9 @@ DataTables allows sorting by multiple columns at the same time, which can be act
 * Using the `dt-init sorting` option to specify a multiple column sort by default (for example `[ [0,'asc'], [1,'asc'] ]`).
 * Through the `dt-api order()` API method.
 
-The ability for the user to shift click to sort multiple columns can be disabled through the `dt-init sortMulti` option.
+Note that, the ability for the user to shift click to sort multiple columns can be disabled through the `dt-init sortMulti` option.
 
-The example below shows the first column having a secondary sort applied to the second column in the table.
+The example below shows the first column having a secondary sort applied to the second column in the table, vice-versa for the second column being tied directly to the first and the salary column to the first name column.
 
 ]]></info>
 

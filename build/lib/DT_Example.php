@@ -454,6 +454,22 @@ DT_Example::$tables['html-comma'] = array(
 );
 
 
+DT_Example::$tables['html-wide'] = array(
+	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'age', 'start_date', 'salary', 'extn', 'email' ),
+	'header'  => true,
+	'footer'  => false,
+	'body'    => true
+);
+
+
+DT_Example::$tables['html-split-name'] = array(
+	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'salary' ),
+	'header'  => true,
+	'footer'  => false,
+	'body'    => true
+);
+
+
 DT_Example::$tables['ajax-details'] = array(
 	'columns' => array( '', 'name', 'position', 'office', 'age', 'salary' ),
 	'header'  => true,
@@ -471,7 +487,7 @@ DT_Example::$tables['html-index'] = array(
 
 
 DT_Example::$tables['html-office-edin'] = array(
-	'columns' => array( '', 'name', 'position', 'office', 'age', 'salary' ),
+	'columns' => array( 'name', 'position', 'office', 'age', 'salary' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => true,
@@ -482,7 +498,7 @@ DT_Example::$tables['html-office-edin'] = array(
 
 
 DT_Example::$tables['html-office-london'] = array(
-	'columns' => array( '', 'name', 'position', 'office', 'age', 'salary' ),
+	'columns' => array( 'name', 'position', 'office', 'age', 'salary' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => true,

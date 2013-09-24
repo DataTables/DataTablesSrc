@@ -32,7 +32,7 @@ The column that is hidden is still part of the table and can be made visible thr
 
 Furthermore, as the hidden data is still part of the table, it can still, optionally, be filtered upon allowing the user access to that data (for example 'tag' information for a row entry might used).
 
-In the table below both the platform and engine version columns have been hidden, the former is searchable, the latter is not.
+In the table below both the office and age version columns have been hidden, the former is searchable, the latter is not.
 
 ]]></info>
 

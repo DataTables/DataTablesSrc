@@ -173,8 +173,10 @@ function build_repo {
 	fi
 
 	cp $BUILD_DIR/css/jquery.dataTables.css ${BUILD_DIR}/DataTables/media/css/
+	cp $BUILD_DIR/css/jquery.dataTables_themeroller.css ${BUILD_DIR}/DataTables/media/css/
 	if [ ! $DEBUG ]; then
 		cp $BUILD_DIR/css/jquery.dataTables.min.css ${BUILD_DIR}/DataTables/media/css/
+		cp $BUILD_DIR/css/jquery.dataTables_themeroller.min.css ${BUILD_DIR}/DataTables/media/css/
 	fi
 
 	cp -r $BUILD_DIR/images ${BUILD_DIR}/DataTables/media/

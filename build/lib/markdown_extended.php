@@ -103,7 +103,7 @@ class MarkdownExtraExtended_Parser extends MarkdownExtra_Parser {
 		//$codeblock = "<pre><code>$codeblock</code></pre>";
 		//$cb = "<pre><code";
 		$cb = empty($matches[3]) ? "<pre><code" : "<pre class=\"linenums:$matches[3]\"><code"; 
-		$cb .= empty($matches[2]) ? ">" : " class=\"language-$matches[2]\">";
+		$cb .= empty($matches[2]) ? " class=\"multiline\">" : " class=\"multiline language-$matches[2]\">";
 		$cb .= "$codeblock</code></pre>";
 		return "\n\n".$this->hashBlock($cb)."\n\n";
 	}
