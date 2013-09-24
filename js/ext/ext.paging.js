@@ -44,7 +44,7 @@ $.extend( extPagination, {
 	},
 
 	full: function ( page, pages ) {
-		return [  'previous', 'previous', 'next', 'next' ];
+		return [  'first', 'previous', 'next', 'last' ];
 	},
 
 	simple_numbers: function ( page, pages ) {
