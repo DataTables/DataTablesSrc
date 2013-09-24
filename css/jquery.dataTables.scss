@@ -395,5 +395,14 @@ table.dataTable {
 		*margin-top: -1px;
 		-webkit-overflow-scrolling: touch;
 	}
-}
 
+	// Self clear the wrapper
+	&:after {
+		visibility: hidden;
+		display: block;
+		content: "";
+		clear: both;
+		height: 0;
+	}
+	zoom: 1; // Poor old IE
+}
