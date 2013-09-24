@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="">
+<dt-example table-type="html" order="1">
 
 <css lib="datatables" />
 <js lib="jquery" />
@@ -17,15 +17,19 @@ $(document).ready(function() {
 		var browser = tds.eq(1).text();
 		var grade = tds.eq(4).text();
 		
-		if ( grade == "A" )
+		if ( grade == "A" ) {
 			title =  browser+' will provide a first class (A) level of CSS support.';
-		else if ( grade == "C" )
+		}
+		else if ( grade == "C" ) {
 			title = browser+' will provide a core (C) level of CSS support.';
-		else if ( grade == "X" )
+		}
+		else if ( grade == "X" ) {
 			title = browser+' does not provide CSS support or has a broken implementation. Block CSS.';
-		else
+		}
+		else {
 			title = browser+' will provide an undefined level of CSS support.';
-		
+		}
+
 		alert( title );
 	} );
 } );
