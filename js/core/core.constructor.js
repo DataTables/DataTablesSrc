@@ -200,6 +200,9 @@ if ( oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "" )
 {
 	oSettings.oScroll.iBarWidth = _fnScrollBarWidth();
 }
+if ( oSettings.oScroll.sX === true ) { // Easy initialisation of x-scrolling
+	oSettings.oScroll.sX = '100%';
+}
 
 if ( oSettings.iInitDisplayStart === undefined )
 {

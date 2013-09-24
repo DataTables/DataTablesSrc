@@ -2093,12 +2093,14 @@ DataTable.defaults = {
 
 
 	/**
-	 * Enable horizontal scrolling. When a table is too wide to fit into a certain
-	 * layout, or you have a large number of columns in the table, you can enable
-	 * x-scrolling to show the table in a viewport, which can be scrolled. This
-	 * property can be any CSS unit, or a number (in which case it will be treated
-	 * as a pixel measurement).
-	 *  @type string
+	 * Enable horizontal scrolling. When a table is too wide to fit into a
+	 * certain layout, or you have a large number of columns in the table, you
+	 * can enable x-scrolling to show the table in a viewport, which can be
+	 * scrolled. This property can be `true` which will allow the table to
+	 * scroll horizontally when needed, or any CSS unit, or a number (in which
+	 * case it will be treated as a pixel measurement). Setting as simply `true`
+	 * is recommended.
+	 *  @type boolean|string
 	 *  @default <i>blank string - i.e. disabled</i>
 	 *
 	 *  @dtopt Features
@@ -2107,7 +2109,7 @@ DataTable.defaults = {
 	 *  @example
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
-	 *        "scrollX": "100%",
+	 *        "scrollX": true,
 	 *        "scrollCollapse": true
 	 *      } );
 	 *    } );
