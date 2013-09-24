@@ -145,10 +145,12 @@ function build_examples {
 	# Transform in place
 	cp -r $SRC_DIR $OUT_DIR
 	php ${BASE_DIR}/build/examples.php \
-		$OUT_DIR \
-		../../media \
-		${TEMPLATE_DIR}/example_index.html \
-		${TEMPLATE_DIR}/example.html
+		-o $OUT_DIR \
+		-u ${TEMPLATE_DIR}/example_index.html \
+		-t ${TEMPLATE_DIR}/example.html \
+		-c "demo:${OUT_DIR}/resources/demo.css" \
+		-j "demo:${OUT_DIR}/resources/demo.js" \
+		-m "${BUILD_DIR}/media"
 }
 
 
@@ -162,6 +164,7 @@ function build_repo {
 	build_js
 	build_css
 	build_images
+	build_examples
 
 	cp $BUILD_DIR/js/jquery.dataTables.js ${BUILD_DIR}/DataTables/media/js/
 	if [ ! $DEBUG ]; then

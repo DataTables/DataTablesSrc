@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html-details" order="">
+<dt-example table-type="ajax-details" order="">
 
 <css lib="datatables" />
 <js lib="jquery" />
@@ -8,12 +8,22 @@
 <title>Child rows (show extra / detailed information)</title>
 <js><![CDATA[
 
-/* Formatting function for row details */
-function format ( data ) {
-	return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-		'<tr><td>Rendering engine:</td><td>'+data.engine+' '+data.grade+'</td></tr>' +
-		'<tr><td>Link to source:</td><td>Could provide a link here</td></tr>' +
-		'<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>' +
+/* Formatting function for row details - modify as you need */
+function format ( d ) {
+	// `d` is the original data object for the row
+	return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+		'<tr>'+
+			'<td>Full name:</td>'+
+			'<td>'+d.first_name+' '+d.last_name+'</td>'+
+		'</tr>'+
+		'<tr>'+
+			'<td>E-mail:</td>'+
+			'<td><a href="mailto:'+d.email+'>'+d.email+'</a></td>'+
+		'</tr>'+
+		'<tr>'+
+			'<td>Extra info:</td>'+
+			'<td>And any further details here (images etc)...</td>'+
+		'</tr>'+
 	'</table>';
 }
 
@@ -26,11 +36,11 @@ $(document).ready(function() {
 				"className": 'icon',
 				"defaultContent": ''
 			},
-			{ "data": "engine" },
-			{ "data": "browser" },
-			{ "data": "platform" },
-			{ "data": "version" },
-			{ "data": "grade" }
+			{ "data": "name" },
+			{ "data": "age" },
+			{ "data": "position" },
+			{ "data": "office" },
+			{ "data": "salary" }
 		],
 		"sorting": [[1, 'asc']]
 	} );

@@ -5,6 +5,9 @@ require_once('DT_Markdown.php');
 
 class DT_Example
 {
+	static $tables = array();
+	static $lookup_libraries = array();
+
 	private $_file = null;
 
 	private $_data = null;
@@ -15,44 +18,10 @@ class DT_Example
 
 	private $_libs = null; // 2D array with js and css arrays
 
-	private $_mediaPath = null;
-
-	private $_tables = array(
-		'html' => array(
-			'columns' => array( 'name', 'age', 'position', 'office', 'start_date', 'salary' ),
-			'header'  => true,
-			'footer'  => true,
-			'body'    => true
-		),
-		'ajax' => array(
-			'columns' => array( 'name', 'age', 'position', 'office', 'start_date', 'salary' ),
-			'header'  => true,
-			'footer'  => true,
-			'body'    => false
-		),
-		'html-comma' => array(
-			'columns' => array( 'name', 'age', 'position', 'office', 'start_date', 'salary-comma' ),
-			'header'  => true,
-			'footer'  => true,
-			'body'    => true
-		)
-	);
-
-	private $_libraries_lookup = array(
-		'css' => array(
-			'datatables'          => 'css/jquery.dataTables.css',
-			'datatables-jqueryui' => 'css/jquery.dataTables_themeroller.css',
-			'jqueryui'            => '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css'
-		),
-		'js' => array(
-			'jquery'     => 'js/jquery.js',
-			'datatables' => 'js/jquery.dataTables.js',
-			'jqueryui'   => '//code.jquery.com/ui/1.10.3/jquery-ui.js'
-		)
-	);
+	private $_path_resolver = null;
 
 
-	function __construct ( $file=null, $template=null, $mediaPath='' )
+	function __construct ( $file=null, $template=null, $path_resolver=null )
 	{
 		if ( $file !== null ) {
 			$this->file( $file );
@@ -62,7 +31,9 @@ class DT_Example
 			$this->template( $template );
 		}
 
-		$this->_mediaPath = $mediaPath;
+		if ( $path_resolver !== null ) {
+			$this->_path_resolver = $path_resolver;
+		}
 
 		$this->_libs = array(
 			'css' => array(),
@@ -180,7 +151,16 @@ class DT_Example
 
 	private function _column( $name, $type, $row=null )
 	{
+		if ( is_callable( $name ) ) {
+			return $name( $type, $row );
+		}
+
 		switch( $name ) {
+			case '':
+				if      ( $type === 'title' ) { return ''; }
+				else if ( $type === 'data' )  { return ''; }
+				break;
+
 			case 'name':
 				if      ( $type === 'title' ) { return 'Name'; }
 				else if ( $type === 'data' )  { return $row['first_name'].' '.$row['last_name']; }
@@ -211,11 +191,6 @@ class DT_Example
 				else if ( $type === 'data' )  { return '$'.number_format($row['salary']); }
 				break;
 
-			case 'salary-comma':
-				if      ( $type === 'title' ) { return 'Salary'; }
-				else if ( $type === 'data' )  { return '$'.number_format($row['salary'], 0, ',', '.'); }
-				break;
-
 			case 'start_date':
 				if      ( $type === 'title' ) { return 'Start date'; }
 				else if ( $type === 'data' )  { return $row['start_date']; }
@@ -223,7 +198,7 @@ class DT_Example
 
 			case 'extn':
 				if      ( $type === 'title' ) { return 'Extn.'; }
-				else if ( $type === 'data' )  { return $row['extn']; }
+				else if ( $type === 'data' )  { return $row['extn.']; }
 				break;
 
 			case 'email':
@@ -237,16 +212,27 @@ class DT_Example
 				break;
 
 			default:
-				throw new Exception("Unkown column: ".$name, 1);
+				throw new Exception("Unknown column: ".$name, 1);
 				break;
 		}
 	}
 
-	// @todo multiple tables by using | separator
+
 	private function _build_table ( $type )
 	{
 		if ( $type === '' || $type === null ) {
 			return '';
+		}
+
+		if ( strpos($type, '|') ) {
+			$a = explode('|', $type);
+			$t = '';
+
+			for ( $i=0, $ien=count($a) ; $i<$ien ; $i++ ) {
+				$t .= $this->_build_table( $a[$i] );
+			}
+
+			return $t;
 		}
 
 		$id = 'example';
@@ -259,48 +245,67 @@ class DT_Example
 			$class = (string)$this->_xml['table-class'];
 		}
 
-		if ( ! isset( $this->_tables[ $type ] ) ) {
+		if ( ! isset( DT_Example::$tables[ $type ] ) ) {
 			throw new Exception("Unknown table type: ".$type, 1);
 		}
-		$construction = $this->_tables[ $type ];
+		$construction = DT_Example::$tables[ $type ];
 		$columns = $construction['columns'];
 
-		$t = '<table id="'.$id.'" class="'.$class.'" width="100%">';
+		$t = '<table id="'.$id.'" class="'.$class.'" cellspacing="0" width="100%">';
 
 		// Build the header
-		$t .= '<thead>';
 		if ( $construction['header'] ) {
-			$cells = '';
-			for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
-				$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
+			if ( is_callable( $construction['header'] ) ) {
+				$t .= $construction['header']();
 			}
-			$t .= '<tr>'.$cells.'</tr>';
-		}
-		$t .= '</thead>';
-		
-		// Footer
-		$t .= '<tfoot>';
-		if ( $construction['footer'] ) {
-			$cells = '';
-			for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
-				$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
-			}
-			$t .= '<tr>'.$cells.'</tr>';
-		}
-		$t .= '</tfoot>';
-		
-		// Body
-		$t .= '<tbody>';
-		if ( $construction['body'] ) {
-			for ( $j=0, $jen=count($this->_data) ; $j<$jen ; $j++ ) {
+			else {
 				$cells = '';
 				for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
-					$cells .= '<td>'.$this->_column( $columns[$i], 'data', $this->_data[$j] ).'</td>';
+					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
 				}
+				$t .= '<thead>';
 				$t .= '<tr>'.$cells.'</tr>';
+				$t .= '</thead>';
 			}
 		}
-		$t .= '</tbody>';
+		
+		// Footer
+		if ( $construction['footer'] ) {
+			if ( is_callable( $construction['footer'] ) ) {
+				$t .= $construction['footer']();
+			}
+			else {
+				$cells = '';
+				for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
+					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
+				}
+				$t .= '<tfoot>';
+				$t .= '<tr>'.$cells.'</tr>';
+				$t .= '</tfoot>';
+			}
+		}
+		
+		// Body
+		if ( $construction['body'] ) {
+			if ( is_callable( $construction['body'] ) ) {
+				$t .= $construction['body']();
+			}
+			else {
+				$t .= '<tbody>';
+				for ( $j=0, $jen=count($this->_data) ; $j<$jen ; $j++ ) {
+					if ( isset( $construction['filter'] ) && $construction['filter']($this->_data[$j]) === false ) {
+						continue;
+					}
+
+					$cells = '';
+					for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
+						$cells .= '<td>'.$this->_column( $columns[$i], 'data', $this->_data[$j] ).'</td>';
+					}
+					$t .= '<tr>'.$cells.'</tr>';
+				}
+				$t .= '</tbody>';
+			}
+		}
 		
 
 		$t .= '</table>';
@@ -340,8 +345,8 @@ class DT_Example
 		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
 			$file = $libs[$i]; // needs a path
 
-			if ( strpos($file, '/') !== 0 ) {
-				$file = $this->_mediaPath.'/'.$file;
+			if ( strpos($file, '//') !== 0 ) {
+				$file = call_user_func( $this->_path_resolver, $file );
 			}
 
 			if ( $type === 'js' ) {
@@ -359,7 +364,7 @@ class DT_Example
 	private function _resolve_libs ( $type, $libs )
 	{
 		$host = &$this->_libs[ $type ];
-		$srcLibs = $this->_libraries_lookup[ $type ];
+		$srcLibs = DT_Example::$lookup_libraries[ $type ];
 
 		foreach( $libs as $lib ) {
 			if ( isset( $lib['lib'] ) ) {
@@ -381,3 +386,149 @@ class DT_Example
 }
 
 
+DT_Example::$lookup_libraries['css'] = array(
+	'jqueryui'              => '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css',
+	'bootstrap'             => '//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css',
+	'datatables-bootstrap'  => '//raw.github.com/DataTables/Plugins/master/integration/bootstrap/3/dataTables.bootstrap.css',
+	'foundation'            => '//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.1/css/foundation.min.css',
+	'datatables-foundation' => '//raw.github.com/DataTables/Plugins/master/integration/foundation/dataTables.foundation.css'
+);
+
+
+DT_Example::$lookup_libraries['js'] = array(
+	'jqueryui'              => '//code.jquery.com/ui/1.10.3/jquery-ui.js',
+	'datatables-bootstrap'  => '//raw.github.com/DataTables/Plugins/master/integration/bootstrap/3/dataTables.bootstrap.js',
+	'datatables-foundation' => '//raw.github.com/DataTables/Plugins/master/integration/foundation/dataTables.foundation.js',
+);
+
+
+DT_Example::$tables['html'] = array(
+	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+DT_Example::$tables['ajax'] = array(
+	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
+DT_Example::$tables['html-comma'] = array(
+	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', function ( $type, $row ) {
+		return $type === 'title' ? 'Salary' : '$'.number_format($row['salary'], 0, ',', '.');
+	} ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+
+DT_Example::$tables['ajax-details'] = array(
+	'columns' => array( '', 'name', 'position', 'office', 'age', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
+
+DT_Example::$tables['html-index'] = array(
+	'columns' => array( '', 'name', 'position', 'office', 'age', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+
+DT_Example::$tables['html-office-edin'] = array(
+	'columns' => array( '', 'name', 'position', 'office', 'age', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true,
+	'filter'  => function ( $data ) {
+		return $data['office'] === 'Edinburgh';
+	}
+);
+
+
+DT_Example::$tables['html-office-london'] = array(
+	'columns' => array( '', 'name', 'position', 'office', 'age', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true,
+	'filter'  => function ( $data ) {
+		return $data['office'] === 'London';
+	}
+);
+
+
+DT_Example::$tables['html-add-api'] = array(
+	'columns' => array(
+		function () { return 'Column 1'; },
+		function () { return 'Column 2'; },
+		function () { return 'Column 3'; },
+		function () { return 'Column 4'; },
+		function () { return 'Column 5'; }
+	),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true,
+	'filter'  => function ( $data ) {
+		return false;
+	}
+);
+
+
+DT_Example::$tables['html-form'] = array(
+	'columns' => array(
+		'name',
+		function ($type, $row) { return $type == 'title' ?
+			'Age' :
+			'<input type="text" id="row-'.$row['id'].'-age" value="'.$row['age'].'">';
+		},
+		function ($type, $row) { return $type == 'title' ?
+			'Position' :
+			'<input type="text" id="row-'.$row['id'].'-position" value="'.$row['position'].'">';
+		},
+		function ($type, $row) {
+			$c = 'selected="selected"';
+			return $type == 'title' ?
+				'Office' :
+				'<select size="1" id="row-'.$row['id'].'-office">'.
+					'<option value="Edinburgh" '    .($row['office'] === 'Edinburgh' ? $c : '').    '>Edinburgh</option>'.
+					'<option value="London" '       .($row['office'] === 'London' ? $c : '').       '>London</option>'.
+					'<option value="New York" '     .($row['office'] === 'New York' ? $c : '').     '>New York</option>'.
+					'<option value="San Francisco" '.($row['office'] === 'San Francisco' ? $c : '').'>San Francisco</option>'.
+					'<option value="Tokyo" '        .($row['office'] === 'Tokyo' ? $c : '').        '>Tokyo</option>'.
+				'</select>';
+		}
+	),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+
+DT_Example::$tables['html-complex-header'] = array(
+	'columns' => array( 'name', 'position', 'salary', 'office', 'extn', 'email' ),
+	'header'  => function () {
+		return '<thead>'.
+				'<tr>'.
+					'<th>Name</th>'.
+					'<th colspan="2">HR Information</th>'.
+					'<th colspan="3">Contact</th>'.
+				'</tr>'.
+				'<tr>'.
+					'<th>Position</th>'.
+					'<th>Salary</th>'.
+					'<th>Office</th>'.
+					'<th>Extn.</th>'.
+					'<th>E-mail</th>'.
+				'</tr>'.
+			'</thead>';
+	},
+	'footer'  => true,
+	'body'    => true
+);

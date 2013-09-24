@@ -17,8 +17,8 @@ tr.details td.details-control {
 <title>POST data</title>
 <js><![CDATA[
 
-function formatDetails ( data ) {
-	return 'Rendering engine: '+data.engine+' '+data.version+'<br>'+
+function format ( d ) {
+	return 'Full name: '+d.first_name+' '+d.last_name+'<br>'+
 		'The child row can contain any data you wish, including links, images, inner tables etc.';
 }
 
@@ -35,11 +35,11 @@ $(document).ready(function() {
 				"data":           null,
 				"defaultContent": ""
 			},
-			{ "data": "engine" },
-			{ "data": "browser" },
-			{ "data": "platform" },
-			{ "data": "version" },
-			{ "data": "grade" }
+			{ "data": "name" },
+			{ "data": "age" },
+			{ "data": "position" },
+			{ "data": "office" },
+			{ "data": "salary" }
 		],
 		"sorting": [[1, 'asc']]
 	} );
@@ -54,7 +54,7 @@ $(document).ready(function() {
 		}
 		else {
 			tr.addClass( 'details' );
-			row.child( formatDetails( row.data() ).show();
+			row.child( format( row.data() ).show();
 		}
 	} );
 } );

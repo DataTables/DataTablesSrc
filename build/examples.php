@@ -2,33 +2,10 @@
 
 require( 'lib/DT_Example.php' );
 
-// if ( $argc !== 5 ) {
-// 	echo 'Wrong usage';
-//	exit;
-// }
 
-// argv[1] - examples location - this will remove the XML files!
-//         - this allows a bash `cp -r` and then work on the copy
-$dir_input = realpath( $argv[1] );
-if ( $dir_input === false ) {
-	throw new Exception('Media path does not exist: '.$argv[1], 1);
-}
-
-// argv[2] - js and css directory name (at the same level as the examples folder)
-$dir_media = $argv[2];
-
-// argv[3] - index template file
-$file_index_template = realpath( $argv[3] );
-if ( $file_index_template === false ) {
-	throw new Exception('Media path does not exist: '.$argv[3], 1);
-}
-
-// argv[4] - example template file
-$file_example_template = realpath( $argv[4] );
-if ( $file_example_template === false ) {
-	throw new Exception('Media path does not exist: '.$argv[4], 1);
-}
-
+/*
+ * Configuration options
+ */
 $dir_order = array(
 	'basic_init',
 	'advanced_init',
@@ -39,6 +16,86 @@ $dir_order = array(
 	'api',
 	'plug-ins'
 );
+
+
+/*
+ * Command line options
+ */
+$shortopts  = "c:";  // CSS library (added to the predefined libraries)
+$shortopts .= "j:";  // JS library (added to the predefined libraries)
+$shortopts .= "m:";  // Media library (DataTables and jQuery)
+$shortopts .= "o:";  // Input / Output directory (replaces the XML files)
+$shortopts .= "t:";  // Example template
+$shortopts .= "u:";  // Example index template
+
+$longopts  = array(
+	"css:",
+	"js:",
+	"media:",
+	"output:",
+	"template:",
+	"index-template:"
+);
+
+
+/*
+ * Initial settings
+ */
+$dir_input = '';
+$dir_media = '';
+$file_index_template = '';
+$file_example_template = '';
+
+
+/*
+ * Command line options
+ */
+$options = getopt( $shortopts, $longopts );
+
+foreach ($options as $key => $value) {
+	switch( $key ) {
+		case "c":
+		case "css":
+			$a = explode(':', $value);
+			DT_Example::$lookup_libraries['css'][$a[0]] = realpath( $a[1] );
+			break;
+
+		case "j":
+		case "js":
+			$a = explode(':', $value);
+			DT_Example::$lookup_libraries['js'][$a[0]] = realpath( $a[1] );
+			break;
+
+		case "m":
+		case "media":
+			$dir_media = path_simplify( $value );
+			break;
+
+		case "o":
+		case "output":
+			$dir_input = $value;
+			break;
+
+		case "t":
+		case "template":
+			$file_example_template = realpath( $value );
+			break;
+
+		case "u":
+		case "index-template":
+			$file_index_template = realpath( $value );
+			break;
+	}
+}
+
+// Default libraries
+DT_Example::$lookup_libraries['css']['datatables']          = $dir_media.'/css/jquery.dataTables.css';
+DT_Example::$lookup_libraries['css']['datatables-jqueryui'] = $dir_media.'/css/jquery.dataTables_themeroller.css';
+
+DT_Example::$lookup_libraries['js']['jquery']      = $dir_media.'/js/jquery.js';
+DT_Example::$lookup_libraries['js']['datatables']  = $dir_media.'/js/jquery.dataTables.js';
+
+//print_r( DT_Example::$lookup_libraries );
 
 // Structure
 //   "type"  => "file",
@@ -56,7 +113,7 @@ $examples = array();
 
 
 // Read the files into the examples array
-read_structure( $examples, $dir_input, $dir_media, $file_index_template, $file_example_template );
+read_structure( $examples, $dir_input, $file_index_template, $file_example_template );
 
 // Remove any directories without examples
 tidy_structure( $examples, $dir_order );
@@ -66,20 +123,11 @@ toc_structure( $examples );
 process_structure( $examples );
 
 
-//dump_structure( $examples );
-
-
-// Build a table of contents
-
-
-// Transform the examples
-
-// $example = new DT_Example( $argv[1] );
-// echo $example->transform( '../example.html' );
 
 
 
-function read_structure ( &$examples, $dir, $dir_media, $index_template, $example_template )
+
+function read_structure ( &$examples, $dir, $index_template, $example_template )
 {
 	$dh = opendir( $dir );
 
@@ -101,7 +149,7 @@ function read_structure ( &$examples, $dir, $dir_media, $index_template, $exampl
 				'path'  => $dir
 			);
 
-			read_structure( $sub['files'], $dir.'/'.$file, $dir_media, $index_template, $example_template );
+			read_structure( $sub['files'], $dir.'/'.$file, $index_template, $example_template );
 			$examples[] = $sub;
 		}
 		else if ( $fileParts['extension'] === 'xml' ) {
@@ -110,7 +158,9 @@ function read_structure ( &$examples, $dir, $dir_media, $index_template, $exampl
 				$fileParts['filename'] === 'index' ?
 					$index_template :
 					$example_template,
-				$dir_media
+				function ( $path ) use ( $dir, $fileParts ) {
+					return path_resolve( $dir.'/'.$fileParts['filename'].'.html', $path );
+				}
 			);
 			$examples[] = array(
 				'type'  => 'file',
@@ -332,6 +382,9 @@ function toc_structure ( &$examples )
 
 function path_resolve( $from, $to )
 {
+	$from = path_simplify( $from );
+	$to = path_simplify( $to );
+
 	// some compatibility fixes for Windows paths
 	$from = is_dir($from) ? rtrim($from, '\/') . '/' : $from;
 	$to   = is_dir($to)   ? rtrim($to, '\/') . '/'   : $to;
@@ -368,5 +421,24 @@ function path_resolve( $from, $to )
 	}
 
 	return implode('/', $relPath);
+}
+
+
+function path_simplify( $path )
+{
+	$out = array();
+	$a = explode('/', $path);
+
+	for ( $i=count($a)-1 ; $i>= 0 ; $i-- ) {
+		if ( $a[$i] !== '..' ) {
+			array_unshift( $out, $a[$i] );
+		}
+		else {
+			// Skip the next path as well
+			$i--;
+		}
+	}
+
+	return implode( '/', $out);
 }
 
