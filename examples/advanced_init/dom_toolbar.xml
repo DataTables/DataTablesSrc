@@ -27,11 +27,11 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-DataTables inserts DOM elements around the table to control DataTables features, and you can make use of this mechanism as well to insert your own custom elements. In this example a `div` with a class of 'toolbar' is created using `dt-init dom`, with which HTML is inserted to create the toolbar. You could put whatever HTML you want into the toolbar and add event handlers etc.
+DataTables inserts DOM elements around the table to control DataTables features, and you can make use of this mechanism as well to insert your own custom elements. In this example a `tag div` with a class of 'toolbar' is created using `dt-init dom`, with which HTML is inserted to create the toolbar. You could put whatever HTML you want into the toolbar and add event handlers etc.
 
-For more complex features, or for creating reusable plug-ins, DataTables also has a feature plug-in API available, which can be used to create plug-ins which are used in a table by a single character reference in the `dt-init dom` option (like the built in option of `f` refers to 'filtering input', you could have an `F` option which creates your own filtering input control, custom to your app).
+For more complex features, or for creating reusable plug-ins, DataTables also has a feature plug-in API available, which can be used to create plug-ins which are used in a table by a single character reference in the `dt-init dom` option (like the built in option of `string f` refers to 'filtering input', you could have an `string F` option which creates your own filtering input control, custom to your app).
 
-(TableTools)[https://datatables.net/extras/tabletools] is a feature plug-in for DataTables which adds buttons into a toolbar for a table, which controls such as copy to clipboard, export and custom buttons.
+[TableTools](https://datatables.net/extras/tabletools) is a feature plug-in for DataTables which adds buttons into a toolbar for a table, which controls such as copy to clipboard, export and custom buttons.
 
 ]]></info>
 

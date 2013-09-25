@@ -12,7 +12,7 @@ $(document).ready(function() {
 	$('#example').dataTable( {
 		"columnDefs": [ {
 			"visible": false,
-			"targets": 2
+			"targets": -1
 		} ]
 	} );
 } );
@@ -27,7 +27,7 @@ In addition to the basic behaviour, DataTables can also take colspan and rowspan
 
 Note that each column must have at least one unique cell (i.e. a cell without colspan) so DataTables can use that cell to detect the column and use it to apply sorting.
 
-The example below shows a header spanning multiple cells, with one of the columns that the span covers being hidden.
+The example below shows a header spanning multiple cells over the contact information, with one of the columns that the span covers being hidden.
 
 ]]></info>
 

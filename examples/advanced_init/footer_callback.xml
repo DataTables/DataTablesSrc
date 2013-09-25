@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="9">
+<dt-example table-type="html-total-footer" order="9">
 
-<css lib="datatables" />
+<css lib="datatables">
+	th { white-space: nowrap; }
+</css>
 <js lib="jquery" />
 <js lib="datatables" />
 
@@ -12,13 +14,19 @@ $(document).ready(function() {
 	$('#example').dataTable( {
 		"footerCallback": function ( row, data, start, end, display ) {
 			var api = this.api();
+			var intVal = function ( i ) {
+				return typeof i === 'string' ?
+					i.replace(/[\$,]/g, '')*1 :
+					typeof i === 'number' ?
+						i : 0;
+			};
 
 			// Total over all pages
-			var marketTotal = api
+			var total = api
 				.column( 4 )
 				.data()
 				.reduce( function (a, b) {
-					return parseFloat( a ) + parseFloat( b );
+					return intVal(a) + intVal(b);
 				} );
 
 			// Total over this page
@@ -26,12 +34,12 @@ $(document).ready(function() {
 				.column( 4, { page: 'current'} )
 				.data()
 				.reduce( function (a, b) {
-					return parseFloat( a ) + parseFloat( b );
+					return intVal(a) + intVal(b);
 				} );
 
 			// Update footer
 			$('th:eq(1)', row).html(
-				pageTotal.toFixed(1) +'% ( '+ marketTotal.toFixed(0) +'% total)'
+				'$'+pageTotal +' ( $'+ total +' total)'
 			);
 		}
 	} );

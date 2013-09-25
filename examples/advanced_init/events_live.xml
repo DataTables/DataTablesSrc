@@ -12,25 +12,8 @@ $(document).ready(function() {
 	$('#example').dataTable();
 	
 	$('#example tbody').on('click', 'tr', function () {
-		var title;
-		var tds = $('td', this);
-		var browser = tds.eq(1).text();
-		var grade = tds.eq(4).text();
-		
-		if ( grade == "A" ) {
-			title =  browser+' will provide a first class (A) level of CSS support.';
-		}
-		else if ( grade == "C" ) {
-			title = browser+' will provide a core (C) level of CSS support.';
-		}
-		else if ( grade == "X" ) {
-			title = browser+' does not provide CSS support or has a broken implementation. Block CSS.';
-		}
-		else {
-			title = browser+' will provide an undefined level of CSS support.';
-		}
-
-		alert( title );
+		var name = $('td', this).eq(0).text();
+		alert( 'You clicked on '+name+'\'s row' );
 	} );
 } );
 

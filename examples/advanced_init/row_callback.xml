@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="html" order="8">
 
-<css lib="datatables" />
+<css lib="datatables">
+	td.highlight {
+		font-weight: bold;
+		color: blue;
+	}
+</css>
 <js lib="jquery" />
 <js lib="datatables" />
 
@@ -11,8 +16,8 @@
 $(document).ready(function() {
 	$('#example').dataTable( {
 		"createdRow": function ( row, data, index ) {
-			if ( data[4] == 'A' ) {
-				$('td', row).eq(4).html('<b>A</b>');
+			if ( data[5].replace(/[\$,]/g, '') * 1 > 4000 ) {
+				$('td', row).eq(5).addClass('highlight');
 			}
 		}
 	} );
@@ -24,7 +29,7 @@ $(document).ready(function() {
 
 The following example shows how a callback function can be used to format a particular row at draw time. For each row that is generated for display, the `dt-init createdRow` function is called once and once only. It is passed the create row node which can then be modified.
 
-In this case a trivial example of making the 'grade' column bold if the grade is 'A' is shown. Note that `dt-init column.render` and `dt-init column.createdCell` could also be used in a way which will also generate an identical result, but this is just for example of `dt-init createdRow`!
+In this case a trivial example of making the 'salary' column blue and bold by adding a CSS class to the container cell if the salary is greater than $4,000. Note that `dt-init createdCell` could also be used to create exactly the same effect.
 
 ]]></info>
 

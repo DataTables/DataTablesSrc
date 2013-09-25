@@ -113,13 +113,18 @@ class DT_Example
 			throw new Exception("Template file {$template} not found}", 1);
 		}
 
-		$template = str_replace( '{title}',    (string)$xml->title,          $template );
-		$template = str_replace( '{info}',     DT_Markdown( $xml->info ),    $template );
-		$template = str_replace( '{css-libs}', $this->_format_libs( 'css' ), $template );
-		$template = str_replace( '{js-libs}',  $this->_format_libs( 'js' ),  $template );
-		$template = str_replace( '{table}',    $tableHtml,                   $template );
+		$template = str_replace( '{title}',     (string)$xml->title,          $template );
+		$template = str_replace( '{info}',      DT_Markdown( $xml->info ),    $template );
+		$template = str_replace( '{css-libs}',  $this->_format_libs( 'css' ), $template );
+		$template = str_replace( '{js-libs}',   $this->_format_libs( 'js' ),  $template );
+		$template = str_replace( '{table}',     $tableHtml,                   $template );
 
-
+		if ( isset( $xml->{'demo-html'} ) ) {
+			$template = str_replace( '{demo-html}', $this->innerXML($xml->{'demo-html'}), $template );
+		}
+		else {
+			$template = str_replace( '{demo-html}', '', $template );
+		}
 
 		if ( isset( $opts['toc'] ) ) {
 			$template = str_replace( '{toc}', $opts['toc'], $template );
@@ -134,6 +139,15 @@ class DT_Example
 		$template = preg_replace( '/\t<style type="text\/css">\n\n\t<\/style>/m', "", $template );
 
 		return $template;
+	}
+
+	private function innerXML( $node )
+	{
+		$content = '';
+		foreach( $node->children() as $child ) {
+			$content .= $child->asXml();
+		}
+		return $content;
 	}
 
 
@@ -466,6 +480,21 @@ DT_Example::$tables['html-split-name'] = array(
 	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'salary' ),
 	'header'  => true,
 	'footer'  => false,
+	'body'    => true
+);
+
+
+DT_Example::$tables['html-total-footer'] = array(
+	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'salary' ),
+	'header'  => true,
+	'footer'  => function () {
+		return '<tfoot>'.
+				'<tr>'.
+					'<th colspan="4" style="text-align:right">Total:</th>'.
+					'<th></th>'.
+				'</tr>'.
+			'</tfoot>';
+	},
 	'body'    => true
 );
 

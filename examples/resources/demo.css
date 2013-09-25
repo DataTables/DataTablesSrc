@@ -125,6 +125,16 @@ div.toc-group {
 	width: 100%;
 }
 
+div.box {
+	overflow: auto;
+	height: 8em;
+	padding: 1em;
+	color: #444;
+	background-color: #fcfcfc;
+	border: 1px solid #e0e0e0;
+	margin-bottom: 2em;
+}
+
 
 code {
 	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -153,6 +163,7 @@ code.path {
 
 code.tag {
 	color: #095c05;
+	background-color: #f5fcf5;
 	border: 1px solid #D6E9C6;
 }
 
@@ -160,6 +171,12 @@ code.api {
 	color: #0c199c;
 	background-color: #f4f5fc;
 	border: 1px solid #c6cbe9;
+}
+
+code.event {
+	color: #2a839e;
+	background-color: #f5fafb;
+	border: 1px solid #a8ddec;
 }
 
 code.string {

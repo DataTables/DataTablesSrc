@@ -8,13 +8,13 @@
 <title>DataTables events</title>
 <js><![CDATA[
 
-function eventFired( type ) {
-	var n = $('demo_info')[0];
-	n.innerHTML += '<div>'+type+' event - '+new Date().getTime()+'</div>';
-	n.scrollTop = n.scrollHeight;		
-}
-
 $(document).ready(function() {
+	var eventFired = function ( type ) {
+		var n = $('#demo_info')[0];
+		n.innerHTML += '<div>'+type+' event - '+new Date().getTime()+'</div>';
+		n.scrollTop = n.scrollHeight;		
+	}
+
 	$('#example')
 		.on( 'sort',   function () { eventFired( 'Sort' ); } )
 		.on( 'filter', function () { eventFired( 'Filter' ); } )
@@ -28,12 +28,12 @@ $(document).ready(function() {
 
 DataTables fires a number of custom events which you can bind to in the standard jQuery fashion, allowing your code to perform custom actions when these events occur.
 
-This example shows the use of the `sort`, `filter` and `page` events and will add a notification that the event fired to an element on the page to show that they have indeed fired.
+This example shows the use of the `dt-event sort`, `dt-event filter` and `dt-event page` events by adding a notification that the event fired to an element on the page to show that they have indeed fired.
 
 ]]></info>
 
 <demo-html>
-	<div id="demo_info"></div>
+	<div id="demo_info" class="box"> </div>
 </demo-html>
 
 </dt-example>
