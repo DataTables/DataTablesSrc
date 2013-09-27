@@ -31,7 +31,7 @@ $(document).ready(function() {
 
 A fairly common requirement for highly interactive tables which are displayed on the web is to have a column which with a 'counter' for the row number. This column should not be sortable, and will change dynamically as the sorting and filtering applied to the table is altered by the end user.
 
-This example shows how this can be achieved with DataTables, where the first column is the counter column, and is updated when sorting or filtering occurs. This is done by listening for the `sort` and `filter` events emitted by the table. When these events are detected the `dt-api column().nodes()` method is used to get the TD/TH nodes for the target column and the `each()` helper function used to iterate over each, which have their contents updated as needed. Note that the `filter` and `order` options are using in the `dt-api column()` method to get the nodes in the current order and with the current filter applied.
+This example shows how this can be achieved with DataTables, where the first column is the counter column, and is updated when sorting or filtering occurs. This is done by listening for the `sort` and `filter` events emitted by the table. When these events are detected the `dt-api column().nodes()` method is used to get the TD/TH nodes for the target column and the `each()` helper function used to iterate over each, which have their contents updated as needed. Note that the `filter` and `order` options are using in the `dt-api column()` method to get the nodes in the current order and with the currently applied filter.
 
 ]]></info>
 

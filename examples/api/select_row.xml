@@ -9,7 +9,7 @@
 <js><![CDATA[
 
 $(document).ready(function() {
-	var table = $('#example').dataTable();
+	var table = $('#example').DataTable();
 
 	$('#example tbody').on( 'click', 'tr', function () {
 		$(this).toggleClass('selected');
@@ -24,9 +24,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-It can be quite useful at times to provide the user with the option to select rows in a DataTable. This can be done by simply using a click event to add/remove a class on the table rows. The `dt-api rows().data()` method can then be used to get the data for the selected rows. In this case it is simply counting the number of selected rows, but much more complex interactions can easily be developed.
+It can be quite useful at times to provide the user with the option to select rows in a DataTable. This can be done by simply using a click event to add / remove a class on the table rows. The `dt-api rows().data()` method can then be used to get the data for the selected rows. In this case it is simply counting the number of selected rows, but much more complex interactions can easily be developed.
 
-If you are looking for a more complete row selection option (TableTools for DataTables)[http://datatables.net/extras/tabletools] provides a complete API for selecting rows and acting upon those selected rows.
+If you are looking for a more complete row selection option [TableTools for DataTables](http://datatables.net/extras/tabletools) provides a complete API for selecting rows and acting upon those selected rows.
 
 ]]></info>
 

@@ -33,16 +33,20 @@ This example shows how you can make use of the `dt-api column().visible()` API m
 
 In addition to this, groups of columns can be shown and hidden at the same time using the `dt-api columns()` method to select multiple columns and then using the `dt-api columns().visible()` method to set their state.
 
-If you are looking for a more complete column visibility interaction controls (ColVis for DataTables)[http://datatables.net/extras/colvis] provides a complete interface for allowing the user to show and hide columns in the table.
+If you are looking for a more complete column visibility interaction controls [ColVis for DataTables](http://datatables.net/extras/colvis) provides a complete interface for allowing the user to show and hide columns in the table.
 
 ]]></info>
 
 <demo-html>
-	<a class="toggle-vis" data-column="0">Toggle column 1<br /></a>
-	<a class="toggle-vis" data-column="1">Toggle column 2<br /></a>
-	<a class="toggle-vis" data-column="2">Toggle column 3<br /></a>
-	<a class="toggle-vis" data-column="3">Toggle column 4<br /></a>
-	<a class="toggle-vis" data-column="4">Toggle column 5<br /></a>
+	<div>
+		Toggle column:
+		<a class="toggle-vis" data-column="0">Name</a> - 
+		<a class="toggle-vis" data-column="1">Position</a> -
+		<a class="toggle-vis" data-column="2">Office</a> -
+		<a class="toggle-vis" data-column="3">Age</a> -
+		<a class="toggle-vis" data-column="4">Start date</a> -
+		<a class="toggle-vis" data-column="5">Salary</a>
+	</div>
 </demo-html>
 
 </dt-example>

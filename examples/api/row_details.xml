@@ -37,9 +37,9 @@ $(document).ready(function() {
 				"defaultContent": ''
 			},
 			{ "data": "name" },
-			{ "data": "age" },
 			{ "data": "position" },
 			{ "data": "office" },
+			{ "data": "age" },
 			{ "data": "salary" }
 		],
 		"sorting": [[1, 'asc']]

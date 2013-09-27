@@ -26,6 +26,7 @@ h1 span {
 }
 
 a {
+	cursor: pointer;
 	color: #0063DC;
 	text-decoration: none;
 }

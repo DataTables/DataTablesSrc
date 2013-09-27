@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 	$("#example tfoot th").each( function ( i ) {
 		var select = $('<select><option value=""></option></select>')
-			.appendTo( this )
+			.appendTo( $(this).empty() )
 			.on( 'change', function () {
 				table.column( i )
 					.search( $(this).val() )
@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-This example is almost identical to text based individual column example and provides the same functionality, but in this case using `select` input controls.
+This example is almost identical to text based individual column example and provides the same functionality, but in this case using `tag select` input controls.
 
 After the table is initialised, the API is used to build the `tag select` inputs through the use of the `dt-api column().data()` method to get the data for each column in turn. The helper methods `dt-api unique()` and `dt-api sort()` are also used to reduce the data for set input to unique and ordered elements. Finally the `change` event from the `tag select` input is used to trigger a column search using the `dt-api column().search()` method.
 

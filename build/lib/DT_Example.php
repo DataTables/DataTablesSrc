@@ -559,17 +559,17 @@ DT_Example::$tables['html-form'] = array(
 		'name',
 		function ($type, $row) { return $type == 'title' ?
 			'Age' :
-			'<input type="text" id="row-'.$row['id'].'-age" value="'.$row['age'].'">';
+			'<input type="text" id="row-'.$row['id'].'-age" name="row-'.$row['id'].'-age" value="'.$row['age'].'">';
 		},
 		function ($type, $row) { return $type == 'title' ?
 			'Position' :
-			'<input type="text" id="row-'.$row['id'].'-position" value="'.$row['position'].'">';
+			'<input type="text" id="row-'.$row['id'].'-position" name="row-'.$row['id'].'-position" value="'.$row['position'].'">';
 		},
 		function ($type, $row) {
 			$c = 'selected="selected"';
 			return $type == 'title' ?
 				'Office' :
-				'<select size="1" id="row-'.$row['id'].'-office">'.
+				'<select size="1" id="row-'.$row['id'].'-office" name="row-'.$row['id'].'-office">'.
 					'<option value="Edinburgh" '    .($row['office'] === 'Edinburgh' ? $c : '').    '>Edinburgh</option>'.
 					'<option value="London" '       .($row['office'] === 'London' ? $c : '').       '>London</option>'.
 					'<option value="New York" '     .($row['office'] === 'New York' ? $c : '').     '>New York</option>'.

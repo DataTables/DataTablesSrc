@@ -32,7 +32,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-New rows can be added to a DataTable very easily using the `dt-api row.add()` API methods. Simply call the API function with the data that is to be used for the new row (be it an array or object). Multiple rows can be added using the `dt-api rows.add()` method (note the plural).
+New rows can be added to a DataTable very easily using the `dt-api row.add()` API method. Simply call the API function with the data that is to be used for the new row (be it an array or object). Multiple rows can be added using the `dt-api rows.add()` method (note the plural).
 
 Note that in order to see the new row in the table you must call the `dt-api draw()` method, which is easily done through the chaining that the DataTables API makes use of.
 
