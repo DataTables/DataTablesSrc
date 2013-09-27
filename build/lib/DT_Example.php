@@ -460,7 +460,7 @@ DT_Example::$tables['ajax'] = array(
 
 DT_Example::$tables['html-comma'] = array(
 	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', function ( $type, $row ) {
-		return $type === 'title' ? 'Salary' : '$'.number_format($row['salary'], 0, ',', '.');
+		return $type === 'title' ? 'Salary' : '$'.number_format($row['salary'], 0, ',', '.').',00';
 	} ),
 	'header'  => true,
 	'footer'  => true,
