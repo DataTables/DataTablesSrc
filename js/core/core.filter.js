@@ -227,8 +227,10 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
 		if ( invalidated ||
 			 force ||
 			 prevSearch.length > input.length ||
-			 input.indexOf(prevSearch) !== 0 )
-		{
+			 input.indexOf(prevSearch) !== 0 ||
+			 settings.bSorted // On resort, the display master needs to be
+			                  // re-filtered since indexes will have changed
+		) {
 			settings.aiDisplay = displayMaster.slice();
 		}
 
