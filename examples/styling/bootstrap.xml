@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="9">
+<dt-example table-type="html" table-class="table table-striped table-bordered" order="9">
 
-<css lib="bootstrap" />
-<css lib="datatables-bootstrap" />
-<js lib="jquery" />
-<js lib="datatables" />
-<js lib="datatables-bootstrap" />
+<css lib="bootstrap datatables-bootstrap">
+	body { font-size: 140%; }
+</css>
+<js lib="jquery datatables datatables-bootstrap" />
 
 <title>Bootstrap</title>
 <js><![CDATA[
@@ -16,7 +15,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-DataTables can integrate seamlessly with (Bootstrap)[http://twitter.github.io/bootstrap/] using Bootstrap's (table styling options)[http://twitter.github.io/bootstrap/base-css.html#tables] to present a consistent interface with your Bootstrap driven site / app.
+DataTables can integrate seamlessly with [Bootstrap](http://twitter.github.io/bootstrap/) using Bootstrap's [table styling options](http://twitter.github.io/bootstrap/base-css.html#tables) to present a consistent interface with your Bootstrap driven site / app.
 
 DataTables' Bootstrap integration also provides a renderer for the pagination control in DataTables to ensure that the pagination of the table is also styled consistently by Bootstrap.
 

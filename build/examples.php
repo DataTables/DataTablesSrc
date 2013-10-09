@@ -110,6 +110,12 @@ DT_Example::$lookup_libraries['css']['datatables-jqueryui'] = $dir_media.'/css/j
 DT_Example::$lookup_libraries['js']['jquery']      = $dir_media.'/js/jquery.js';
 DT_Example::$lookup_libraries['js']['datatables']  = $dir_media.'/js/jquery.dataTables.js';
 
+// Temporary libraries until the DT CDN is up
+DT_Example::$lookup_libraries['css']['datatables-bootstrap'] = path_simplify( $dir_media.'/../examples/resources/bootstrap/3/dataTables.bootstrap.css' );
+DT_Example::$lookup_libraries['js']['datatables-bootstrap']  = path_simplify( $dir_media.'/../examples/resources/bootstrap/3/dataTables.bootstrap.js' );
+DT_Example::$lookup_libraries['css']['datatables-foundation'] = path_simplify( $dir_media.'/../examples/resources/foundation/dataTables.foundation.css' );
+DT_Example::$lookup_libraries['js']['datatables-foundation']  = path_simplify( $dir_media.'/../examples/resources/foundation/dataTables.foundation.js' );
+
 //print_r( DT_Example::$lookup_libraries );
 
 // Structure

@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-This example shows DataTables with just the `stripe` class specified. Typically you would want to use the `row-border` feature class as well, but this example shows just the row striping.
+This example shows DataTables with just the `stripe` class specified.
 
 ]]></info>
 

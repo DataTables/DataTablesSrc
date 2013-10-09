@@ -431,16 +431,12 @@ class DT_Example
 DT_Example::$lookup_libraries['css'] = array(
 	'jqueryui'              => '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css',
 	'bootstrap'             => '//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css',
-	'datatables-bootstrap'  => '//raw.github.com/DataTables/Plugins/master/integration/bootstrap/3/dataTables.bootstrap.css',
-	'foundation'            => '//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.1/css/foundation.min.css',
-	'datatables-foundation' => '//raw.github.com/DataTables/Plugins/master/integration/foundation/dataTables.foundation.css'
+	'foundation'            => '//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.1/css/foundation.min.css'
 );
 
 
 DT_Example::$lookup_libraries['js'] = array(
-	'jqueryui'              => '//code.jquery.com/ui/1.10.3/jquery-ui.js',
-	'datatables-bootstrap'  => '//raw.github.com/DataTables/Plugins/master/integration/bootstrap/3/dataTables.bootstrap.js',
-	'datatables-foundation' => '//raw.github.com/DataTables/Plugins/master/integration/foundation/dataTables.foundation.js',
+	'jqueryui'              => '//code.jquery.com/ui/1.10.3/jquery-ui.js'
 );
 
 
