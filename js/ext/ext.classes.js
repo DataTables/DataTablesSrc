@@ -31,14 +31,11 @@ $.extend( DataTable.ext.classes, {
 	"sSortableNone": "sorting_disabled",
 	"sSortColumn": "sorting_", /* Note that an int is postfixed for the sorting order */
 
-	// Deprecated
-	"sSortJUIAsc": "",
-	"sSortJUIDesc": "",
-	"sSortJUI": "",
-	"sSortJUIAscAllowed": "",
-	"sSortJUIDescAllowed": "",
-	"sSortJUIWrapper": "",
-	"sSortIcon": "",
+	/* Filtering */
+	"sFilterInput": "",
+
+	/* Page length */
+	"sLengthSelect": "",
 
 	/* Scrolling */
 	"sScrollWrapper": "dataTables_scroll",
@@ -53,6 +50,13 @@ $.extend( DataTable.ext.classes, {
 	"sFooterTH": "",
 
 	// Deprecated
+	"sSortJUIAsc": "",
+	"sSortJUIDesc": "",
+	"sSortJUI": "",
+	"sSortJUIAscAllowed": "",
+	"sSortJUIDescAllowed": "",
+	"sSortJUIWrapper": "",
+	"sSortIcon": "",
 	"sJUIHeader": "",
 	"sJUIFooter": ""
 } );

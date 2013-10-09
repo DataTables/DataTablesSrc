@@ -9,10 +9,14 @@ function _fnFeatureHtmlFilter ( oSettings )
 {
 	var oPreviousSearch = oSettings.oPreviousSearch;
 
+	// @todo Surely this can be cleaned up!?!
+	var klass = 'class="'+oSettings.oClasses.sFilterInput+'"';
 	var sSearchStr = oSettings.oLanguage.sSearch;
 	sSearchStr = (sSearchStr.indexOf('_INPUT_') !== -1) ?
 	  sSearchStr.replace('_INPUT_', '<input type="search" />') :
-	  sSearchStr==="" ? '<input type="search" />' : sSearchStr+' <input type="search" />';
+	  sSearchStr==="" ?
+		'<input type="search" '+klass+' />' :
+		sSearchStr+' <input type="search" '+klass+'/>';
 
 	var nFilter = document.createElement( 'div' );
 	nFilter.className = oSettings.oClasses.sFilter;

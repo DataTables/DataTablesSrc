@@ -24,6 +24,7 @@ function _fnFeatureHtmlLength ( settings )
 	}
 
 	var
+		classes  = settings.oClasses,
 		tableId  = settings.sTableId,
 		menu     = settings.aLengthMenu,
 		d2       = $.isArray( menu[0] ),
@@ -32,14 +33,15 @@ function _fnFeatureHtmlLength ( settings )
 
 	var select = $('<select/>', {
 		'name':          tableId+'_length',
-		'aria-controls': tableId
+		'aria-controls': tableId,
+		'class':         classes.sLengthSelect
 	} );
 
 	for ( var i=0, ien=lengths.length ; i<ien ; i++ ) {
 		select[0][ i ] = new Option( language[i], lengths[i] );
 	}
 
-	var div = $('<div><label/></div>').addClass( settings.oClasses.sLength );
+	var div = $('<div><label/></div>').addClass( classes.sLength );
 	if ( ! settings.aanFeatures.l ) {
 		div[0].id = tableId+'_length';
 	}
