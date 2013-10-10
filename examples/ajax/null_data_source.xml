@@ -8,13 +8,18 @@
 <title>Generated content for a column</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable( {
-		"ajax": "sources/arrays.txt",
+	var table = $('#example').DataTable( {
+		"ajax": "data/arrays.txt",
 		"columnDefs": [ {
 			"targets": -1,
 			"data": null,
 			"defaultContent": "<button>Click!</button>"
 		} ]
+	} );
+
+	$('#example tbody').on( 'click', 'button', function () {
+		var data = table.row( $(this).parents('tr') ).data();
+		alert( data[0] +"'s salary is: "+ data[ 5 ] );
 	} );
 } );
 ]]></js>
@@ -23,12 +28,12 @@ $(document).ready(function() {
 
 In some tables you might wish to have some content generated automatically. This can be done in a number of ways:
 
-* `dt-init columns.render` for content that is dynamic
-* `dt-init columns.defaultContent` for static content
+* `dt-init columns.render` for content that is dynamic (i.e. based upon the row's data)
+* `dt-init columns.defaultContent` for static content (i.e. simple strings)
 
-This examples shows the use of `dt-init columns.defaultContent` to create a _button_ element in the last column of the table. There is no action taken on a click of the buttons in this example, but I'm sure you can see how jQuery listeners could be used to perform custom actions.
+This examples shows the use of `dt-init columns.defaultContent` to create a _button_ element in the last column of the table. A simple jQuery `click` event listener is used to watch for clicks on the row, and when activated uses the `dt-api row().data()` method to get the data for the row and show a bit of information about it in an `alert` box. This is a simple use case, but it can be built up to be arbitrarily complex.
 
-Note also that the `dt-init columns.data` option for the column has been set to `null` to indicate that the column has no information that should be sourced from the Ajax data source object.
+Note also that the `dt-init columns.data` option for the column has been set to `null` to indicate that the column has no information that should be obtained data source object.
 
 ]]></info>
 

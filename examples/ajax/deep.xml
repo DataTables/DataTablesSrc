@@ -10,13 +10,14 @@
 $(document).ready(function() {
 	$('#example').dataTable( {
 		"processing": true,
-		"ajax": "sources/deep.txt",
+		"ajax": "data/objects_deep.txt",
 		"columns": [
-			{ "data": "engine" },
-			{ "data": "browser" },
-			{ "data": "platform.inner" },
-			{ "data": "platform.details.0" },
-			{ "data": "platform.details.1" }
+			{ "data": "name" },
+			{ "data": "hr.position" },
+			{ "data": "contact.0" },
+			{ "data": "contact.1" },
+			{ "data": "hr.start_date" },
+			{ "data": "hr.salary" }
 		]
 	} );
 } );
@@ -24,9 +25,26 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-The ability of DataTables to read arbitrary object properties as a column data source through the `dt-init columns.data` option is extended to _n_ levels of objects, through the use of standard Javascript dotted object notation. For example in this example `platform.details.0` refers to the first element of the array "details", of the object "platform", for each column. Any level of 'dots' can be used.
+DataTables has the ability to use data from almost data JSON data source through the use of the `dt-init columns.data` option. In its simplest case, it can be used to read arbitrary object properties, but can also be extended to _n_ levels of nested objects / arrays through the use of standard Javascript dotted object notation. Each dot (`.`) in the `dt-init columns.data` option represents another object level.
 
-The example below shows DataTables reading information for the columns of the last three columns of the table from nested object properties.
+In this example `hr.position` refers to the `position` property of the `hr` object in the row's data source object, while `contact.0` refers to the first element of the `contact` array. Any number of dots can be used to obtain deeply nested data.
+
+The example below shows DataTables reading information for the columns from nested objects and arrays, where the structure of the row's data source in this example is:
+
+```
+{
+    "name": "Tiger Nixon",
+    "hr": {
+        "position": "System Architect",
+        "salary": "$3,120",
+        "start_date": "2011/04/25"
+    },
+    "contact": [
+        "Edinburgh",
+        "5421"
+    ]
+}
+```
 
 ]]></info>
 

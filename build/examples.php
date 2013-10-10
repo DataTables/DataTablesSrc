@@ -143,8 +143,139 @@ toc_structure( $examples );
 
 process_structure( $examples );
 
+json_files( $dir_input );
+
 //dump_structure( $examples );
 
+
+
+
+// Create the JSON files needed for the Ajax examples
+function json_files ( $out_dir )
+{
+	$out_dir = $out_dir.'/ajax/data';
+
+	if ( ! is_dir( $out_dir ) ) {
+		mkdir( $out_dir );
+	}
+
+	$json = json_decode(
+		file_get_contents( dirname(__FILE__).'/data.json' ),
+		true
+	);
+
+	// Plain arrays
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$out[] = [
+			$json[$i]['first_name'].' '.$json[$i]['last_name'],
+			$json[$i]['position'],
+			$json[$i]['office'],
+			$json[$i]['extn'],
+			$json[$i]['start_date'],
+			'$'.number_format($json[$i]['salary'])
+		];
+	}
+
+	file_put_contents(
+		$out_dir.'/arrays.txt',
+		json_encode( array( 'aaData' => $out ), JSON_PRETTY_PRINT )
+	);
+
+	// Custom property
+	file_put_contents(
+		$out_dir.'/arrays_custom_prop.txt',
+		json_encode( array( 'demo' => $out ), JSON_PRETTY_PRINT )
+	);
+
+	// Arrays with sub objects
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$out[] = [
+			$json[$i]['first_name'].' '.$json[$i]['last_name'],
+			'hr' => [
+				'position'   => $json[$i]['position'],
+				'salary'     => '$'.number_format($json[$i]['salary']),
+				'start_date' => $json[$i]['start_date']
+			],
+			'contact' => [
+				'office' => $json[$i]['office'],
+				'extn'    => $json[$i]['extn']
+			]
+		];
+	}
+
+	file_put_contents(
+		$out_dir.'/arrays_subobjects.txt',
+		json_encode( array( 'aaData' => $out ), JSON_PRETTY_PRINT )
+	);
+	
+	// Simple object base case
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$out[] = [
+			'name'       => $json[$i]['first_name'] .' '. $json[$i]['last_name'],
+			'position'   => $json[$i]['position'],
+			'salary'     => '$'.number_format($json[$i]['salary']),
+			'start_date' => $json[$i]['start_date'],
+			'office'     => $json[$i]['office'],
+			'extn'        => $json[$i]['extn']
+		];
+	}
+
+	file_put_contents(
+		$out_dir.'/objects.txt',
+		json_encode( array( 'aaData' => $out ), JSON_PRETTY_PRINT )
+	);
+	
+	// Objects with no nested property
+	file_put_contents(
+		$out_dir.'/objects_root_array.txt',
+		json_encode( $out, JSON_PRETTY_PRINT )
+	);
+
+	// Objects with sub objects and arrays
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$out[] = [
+			'name' => $json[$i]['first_name'].' '.$json[$i]['last_name'],
+			'hr' => [
+				'position'   => $json[$i]['position'],
+				'salary'     => '$'.number_format($json[$i]['salary']),
+				'start_date' => $json[$i]['start_date']
+			],
+			'contact' => [
+				$json[$i]['office'],
+				$json[$i]['extn']
+			]
+		];
+	}
+
+	file_put_contents(
+		$out_dir.'/objects_deep.txt',
+		json_encode( array( 'aaData' => $out ), JSON_PRETTY_PRINT )
+	);
+
+	// Objects with sub objects
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$out[] = [
+			'name'       => [ $json[$i]['last_name'], $json[$i]['first_name'] ],
+			'hr'         => [
+				$json[$i]['position'],
+				'$'.number_format($json[$i]['salary']),
+				$json[$i]['start_date']
+			],
+			'office'     => $json[$i]['office'],
+			'extn'        => $json[$i]['extn']
+		];
+	}
+
+	file_put_contents(
+		$out_dir.'/objects_subarrays.txt',
+		json_encode( array( 'aaData' => $out ), JSON_PRETTY_PRINT )
+	);
+}
 
 
 

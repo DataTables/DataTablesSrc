@@ -226,7 +226,7 @@ class DT_Example
 
 			case 'extn':
 				if      ( $type === 'title' ) { return 'Extn.'; }
-				else if ( $type === 'data' )  { return $row['extn.']; }
+				else if ( $type === 'data' )  { return $row['extn']; }
 				break;
 
 			case 'email':
@@ -448,7 +448,7 @@ DT_Example::$tables['html'] = array(
 );
 
 DT_Example::$tables['ajax'] = array(
-	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', 'salary' ),
+	'columns' => array( 'name', 'position', 'office', 'extn', 'start_date', 'salary' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => false
