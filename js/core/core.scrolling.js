@@ -320,6 +320,7 @@ function _fnScrollDraw ( settings )
 		$(footerSrcEls).height(0);
 	}
 
+
 	/*
 	 * 3. Apply the measurements
 	 */
