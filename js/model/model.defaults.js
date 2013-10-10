@@ -680,31 +680,6 @@ DataTable.defaults = {
 
 
 	/**
-	 * Enable infinite scrolling for DataTables (to be used in combination with
-	 * `scrollY`). Infinite scrolling means that DataTables will continually load
-	 * data as a user scrolls through a table, which is very useful for large
-	 * dataset. This cannot be used with pagination, which is automatically
-	 * disabled. *Note*: the Scroller extra for DataTables is recommended in
-	 * in preference to this option.
-	 *  @type boolean
-	 *  @default false
-	 *
-	 *  @dtopt Features
-	 *  @name DataTable.defaults.scrollInfinite
-	 *
-	 *  @example
-	 *    $(document).ready( function() {
-	 *      $('#example').dataTable( {
-	 *        "scrollInfinite": true,
-	 *        "scrollCollapse": true,
-	 *        "scrollY": "200px"
-	 *      } );
-	 *    } );
-	 */
-	"bScrollInfinite": false,
-
-
-	/**
 	 * Configure DataTables to use server-side processing. Note that the
 	 * `ajaxSource` parameter must also be given in order to give DataTables a
 	 * source to obtain the required data for each draw.
@@ -1411,31 +1386,6 @@ DataTable.defaults = {
 	 *    } )
 	 */
 	"iDisplayStart": 0,
-
-
-	/**
-	 * The scroll gap is the amount of scrolling that is left to go before
-	 * DataTables will load the next 'page' of data automatically when using
-	 * `scrollInfinite`. You typically want a gap which is big enough that the
-	 * scrolling will be smooth for the user, while not so large that it will
-	 * load more data than need.
-	 *  @type int
-	 *  @default 100
-	 *
-	 *  @dtopt Options
-	 *  @name DataTable.defaults.scrollLoadGap
-	 *
-	 *  @example
-	 *    $(document).ready( function() {
-	 *      $('#example').dataTable( {
-	 *        "scrollInfinite": true,
-	 *        "scrollCollapse": true,
-	 *        "scrollY": "200px",
-	 *        "scrollLoadGap": 50
-	 *      } );
-	 *    } );
-	 */
-	"iScrollLoadGap": 100,
 
 
 	/**

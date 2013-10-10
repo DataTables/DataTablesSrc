@@ -394,15 +394,7 @@ function _fnDraw( oSettings )
 
 	var body = $(oSettings.nTBody);
 
-	/* When doing infinite scrolling, only remove child rows when sorting, filtering or start
-	 * up. When not infinite scroll, always do it.
-	 */
-	if ( !oSettings.oScroll.bInfinite || !oSettings._bInitComplete ||
-		oSettings.bSorted || oSettings.bFiltered )
-	{
-		body.children().detach();
-	}
-
+	body.children().detach();
 	body.append( $(anRows) );
 
 	/* Call all required callback functions for the end of a draw */

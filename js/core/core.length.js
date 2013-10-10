@@ -19,10 +19,6 @@ function _fnLengthChange ( settings, val )
  */
 function _fnFeatureHtmlLength ( settings )
 {
-	if ( settings.oScroll.bInfinite ) {
-		return null;
-	}
-
 	var
 		classes  = settings.oClasses,
 		tableId  = settings.sTableId,

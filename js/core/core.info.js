@@ -83,7 +83,7 @@ function _fnInfoMacros ( settings, str )
 	// internally
 	var
 		formatter  = settings.fnFormatNumber,
-		start      = settings.oScroll.bInfinite ? 1 : settings._iDisplayStart+1,
+		start      = settings._iDisplayStart+1,
 		len        = settings._iDisplayLength,
 		vis        = settings.fnRecordsDisplay(),
 		all        = len === -1;

@@ -13,11 +13,6 @@
  */
 function _fnFeatureHtmlPaginate ( settings )
 {
-	if ( settings.oScroll.bInfinite )
-	{
-		return null;
-	}
-
 	var
 		type   = settings.sPaginationType,
 		plugin = DataTable.ext.pager[ type ],

@@ -141,28 +141,6 @@ function _fnFeatureHtmlTable ( oSettings )
 		"sName": "scrolling"
 	} );
 
-	/* Infinite scrolling event handlers */
-	if ( oSettings.oScroll.bInfinite )
-	{
-		$(nScrollBody).scroll( function() {
-			/* Use a blocker to stop scrolling from loading more data while other data is still loading */
-			if ( !oSettings.bDrawing && $(this).scrollTop() !== 0 )
-			{
-				/* Check if we should load the next data set */
-				if ( $(this).scrollTop() + $(this).height() >
-					$(oSettings.nTable).height() - oSettings.oScroll.iLoadGap )
-				{
-					/* Only do the redraw if we have to - we might be at the end of the data */
-					if ( oSettings.fnDisplayEnd() < oSettings.fnRecordsDisplay() )
-					{
-						_fnPageChange( oSettings, 'next' );
-						_fnDraw( oSettings );
-					}
-				}
-			}
-		} );
-	}
-
 	oSettings.nScrollHead = nScrollHead;
 	oSettings.nScrollFoot = nScrollFoot;
 

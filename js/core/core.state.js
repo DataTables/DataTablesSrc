@@ -13,10 +13,10 @@ function _fnSaveState ( oSettings )
 	}
 
 	/* Store the interesting variables */
-	var i, iLen, bInfinite=oSettings.oScroll.bInfinite;
+	var i, iLen;
 	var oState = {
 		"iCreate":      new Date().getTime(),
-		"iStart":       bInfinite ? 0 : oSettings._iDisplayStart,
+		"iStart":       oSettings._iDisplayStart,
 		"iLength":      oSettings._iDisplayLength,
 		"aaSorting":    $.extend( true, [], oSettings.aaSorting ),
 		"oSearch":      $.extend( true, {}, oSettings.oPreviousSearch ),

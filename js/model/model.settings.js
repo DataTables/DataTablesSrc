@@ -166,31 +166,12 @@ DataTable.models.oSettings = {
 		"bCollapse": null,
 
 		/**
-		 * Infinite scrolling enablement flag. Now deprecated in favour of
-		 * using the Scroller plug-in.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
-		 */
-		"bInfinite": null,
-
-		/**
 		 * Width of the scrollbar for the web-browser's platform. Calculated
 		 * during table initialisation.
 		 *  @type int
 		 *  @default 0
 		 */
 		"iBarWidth": 0,
-
-		/**
-		 * Space (in pixels) between the bottom of the scrolling container and
-		 * the bottom of the scrolling viewport before the next page is loaded
-		 * when using infinite scrolling.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
-		 *  @type int
-		 */
-		"iLoadGap": null,
 
 		/**
 		 * Viewport width for horizontal scrolling. Horizontal scrolling is

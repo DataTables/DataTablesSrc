@@ -219,10 +219,7 @@ function _fnAjaxUpdateDraw ( oSettings, json )
 		oSettings.iDraw = json.sEcho * 1;
 	}
 
-	if ( !oSettings.oScroll.bInfinite || oSettings.bSorted || oSettings.bFiltered )
-	{
-		_fnClearTable( oSettings );
-	}
+	_fnClearTable( oSettings );
 	oSettings._iRecordsTotal = parseInt(json.iTotalRecords, 10);
 	oSettings._iRecordsDisplay = parseInt(json.iTotalDisplayRecords, 10);
 
