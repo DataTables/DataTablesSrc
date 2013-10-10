@@ -173,15 +173,16 @@ DataTable.defaults = {
 	 *   not return anything from the function. This supersedes `fnServerParams`
 	 *   from DataTables 1.9-.
 	 *
-	 * * `dataSrc` - By default DataTables will look for the property 'aaData'
-	 *   when obtaining data from an Ajax source or for server-side processing -
-	 *   this parameter allows that property to be changed. You can use
-	 *   Javascript dotted object notation to get a data source for multiple
-	 *   levels of nesting, or it my be used as a function. As a function it
-	 *   takes a single parameter, the JSON returned from the server, which can
-	 *   be manipulated as required, with the returned value being that used by
-	 *   DataTables as the data source for the table. This supersedes
-	 *   `sAjaxDataProp` from DataTables 1.9-.
+	 * * `dataSrc` - By default DataTables will look for the property `data` (or
+	 *   `aaData` for compatibility with DataTables 1.9-) when obtaining data
+	 *   from an Ajax source or for server-side processing - this parameter
+	 *   allows that property to be changed. You can use Javascript dotted
+	 *   object notation to get a data source for multiple levels of nesting, or
+	 *   it my be used as a function. As a function it takes a single parameter,
+	 *   the JSON returned from the server, which can be manipulated as
+	 *   required, with the returned value being that used by DataTables as the
+	 *   data source for the table. This supersedes `sAjaxDataProp` from
+	 *   DataTables 1.9-.
 	 *
 	 * * `success` - Should not be overridden it is used internally in
 	 *   DataTables. To manipulate / transform the data returned by the server
@@ -215,14 +216,14 @@ DataTable.defaults = {
 	 *
 	 * @example
 	 *   // Get JSON data from a file via Ajax.
-	 *   // Note DataTables expects data in the form `{ aaData: [ ...data... ] }` by default).
+	 *   // Note DataTables expects data in the form `{ data: [ ...data... ] }` by default).
 	 *   $('#example').dataTable( {
 	 *     "ajax": "data.json"
 	 *   } );
 	 *
 	 * @example
 	 *   // Get JSON data from a file via Ajax, using `dataSrc` to change
-	 *   // `aaData` to `tableData` (i.e. `{ aaData: [ ...data... ] }`)
+	 *   // `data` to `tableData` (i.e. `{ tableData: [ ...data... ] }`)
 	 *   $('#example').dataTable( {
 	 *     "ajax": {
 	 *       "url": "data.json",
@@ -1974,12 +1975,13 @@ DataTable.defaults = {
 	 * __Deprecated__ The functionality provided by this parameter has now been
 	 * superseded by that provided through `ajax`, which should be used instead.
 	 *
-	 * By default DataTables will look for the property 'aaData' when obtaining
-	 * data from an Ajax source or for server-side processing - this parameter
-	 * allows that property to be changed. You can use Javascript dotted object
-	 * notation to get a data source for multiple levels of nesting.
+	 * By default DataTables will look for the property `data` (or `aaData` for
+	 * compatibility with DataTables 1.9-) when obtaining data from an Ajax
+	 * source or for server-side processing - this parameter allows that
+	 * property to be changed. You can use Javascript dotted object notation to
+	 * get a data source for multiple levels of nesting.
 	 *  @type string
-	 *  @default aaData
+	 *  @default data
 	 *
 	 *  @dtopt Options
 	 *  @dtopt Server-side
@@ -1987,7 +1989,7 @@ DataTable.defaults = {
 	 *
 	 *  @deprecated 1.10. Please use `ajax` for this functionality now.
 	 */
-	"sAjaxDataProp": "aaData",
+	"sAjaxDataProp": "data",
 
 
 	/**
@@ -1997,8 +1999,6 @@ DataTable.defaults = {
 	 * You can instruct DataTables to load data from an external
 	 * source using this parameter (use aData if you want to pass data in you
 	 * already have). Simply provide a url a JSON object can be obtained from.
-	 * This object must include the parameter `aaData` which is the data source
-	 * for the table.
 	 *  @type string
 	 *  @default null
 	 *

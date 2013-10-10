@@ -179,7 +179,7 @@ function json_files ( $out_dir )
 
 	file_put_contents(
 		$out_dir.'/arrays.txt',
-		json_encode( array( 'aaData' => $out ), JSON_PRETTY_PRINT )
+		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
 	);
 
 	// Custom property
@@ -207,7 +207,7 @@ function json_files ( $out_dir )
 
 	file_put_contents(
 		$out_dir.'/arrays_subobjects.txt',
-		json_encode( array( 'aaData' => $out ), JSON_PRETTY_PRINT )
+		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
 	);
 	
 	// Simple object base case
@@ -225,7 +225,7 @@ function json_files ( $out_dir )
 
 	file_put_contents(
 		$out_dir.'/objects.txt',
-		json_encode( array( 'aaData' => $out ), JSON_PRETTY_PRINT )
+		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
 	);
 	
 	// Objects with no nested property
@@ -253,7 +253,7 @@ function json_files ( $out_dir )
 
 	file_put_contents(
 		$out_dir.'/objects_deep.txt',
-		json_encode( array( 'aaData' => $out ), JSON_PRETTY_PRINT )
+		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
 	);
 
 	// Objects with sub objects
@@ -273,7 +273,7 @@ function json_files ( $out_dir )
 
 	file_put_contents(
 		$out_dir.'/objects_subarrays.txt',
-		json_encode( array( 'aaData' => $out ), JSON_PRETTY_PRINT )
+		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
 	);
 }
 
