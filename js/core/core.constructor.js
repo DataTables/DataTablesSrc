@@ -148,8 +148,7 @@ _fnMap( oSettings.oScroll, oInit, [
 	[ "sScrollX", "sX" ],
 	[ "sScrollXInner", "sXInner" ],
 	[ "sScrollY", "sY" ],
-	[ "bScrollCollapse", "bCollapse" ],
-	[ "bScrollAutoCss", "bAutoCss" ]
+	[ "bScrollCollapse", "bCollapse" ]
 ] );
 _fnMap( oSettings.oLanguage, oInit, "fnInfoCallback" );
 

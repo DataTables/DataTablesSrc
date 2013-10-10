@@ -147,16 +147,6 @@ DataTable.models.oSettings = {
 	 */
 	"oScroll": {
 		/**
-		 * Indicate if DataTables should be allowed to set the padding / margin
-		 * etc for the scrolling header elements or not. Typically you will want
-		 * this.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
-		 */
-		"bAutoCss": null,
-
-		/**
 		 * When the table is shorter in height than sScrollY, collapse the
 		 * table container down to the height of the table (when true).
 		 * Note that this parameter will be set by the initialisation routine. To
