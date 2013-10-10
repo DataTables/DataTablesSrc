@@ -288,6 +288,10 @@ table.dataTable {
 	.dataTables_filter {
 		float: right;
 		text-align: right;
+
+		input {
+			margin-left: 0.5em;
+		}
 	}
 
 	// Table info
