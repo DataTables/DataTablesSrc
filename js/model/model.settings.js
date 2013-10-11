@@ -852,5 +852,12 @@ DataTable.models.oSettings = {
 	 *  @type array
 	 *  @default []
 	 */
-	"aLastSort": []
+	"aLastSort": [],
+
+	/**
+	 * Stored plug-in instances
+	 *  @type object
+	 *  @default {}
+	 */
+	"oPlugins": {}
 };
