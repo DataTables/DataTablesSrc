@@ -80,7 +80,7 @@ DataTable.isDataTable = DataTable.fnIsDataTable = function ( table )
  *  @dtopt API-Static
  *
  *  @example
- *    $.each( $.fn.dataTable.fnTables(true), function () {
+ *    $.each( $.fn.dataTable.tables(true), function () {
  *      $(table).DataTable().columns.adjust();
  *    } );
  */
@@ -95,5 +95,34 @@ DataTable.tables = DataTable.fnTables = function ( visible )
 	} );
 
 	return out;
+};
+
+
+// Private property used for sorting the construct event listeners
+DataTable._initQueue = [];
+
+/**
+ * Listen for a static event from DataTables. Currently only one event is
+ * available: `construct` which is fired whenever a new table is created. This
+ * is for plug-ins to be able to automatically initialise themselves when a
+ * table is created.
+ *
+ *  @param {string} ev Event to listen for. Currently only `construct` is
+ *    available.
+ *  @param {function} fn Function to be executed on event occurrence. A single
+ *    parameter is passed in, the settings object for the new table.
+ *  @static
+ *  @dtopt API-Static
+ *
+ *  @example
+ *    $.fn.dataTable.on( 'construct', function ( settings ) {
+ *      alert( 'A new table was created' );
+ *    } );
+ */
+DataTable.on = function ( ev, fn )
+{
+	if ( ev === 'construct' ) {
+		DataTable._initQueue.push( fn );
+	}
 };
 

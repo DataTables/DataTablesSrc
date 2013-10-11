@@ -96,5 +96,9 @@ function _fnInitComplete ( settings, json )
 	}
 
 	_fnCallbackFire( settings, 'aoInitComplete', 'init', [settings, json] );
+
+	$.each( DataTable._initQueue, function ( i, fn ) {
+		fn( settings );
+	} );
 }
 
