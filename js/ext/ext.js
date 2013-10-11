@@ -139,11 +139,28 @@ DataTable.ext = {
 	 * anything other than a plug-in (and even then, try to avoid if possible).
 	 * The internal function may change between releases.
 	 *
-	 * externally
 	 *  @type object
 	 *  @default {}
 	 */
 	internal: {},
+
+
+	/**
+	 * Legacy configuration options. Enable and disable legacy options that
+	 * are available in DataTables.
+	 *
+	 *  @type object
+	 */
+	legacy: {
+		/**
+		 * Enable / disable DataTables 1.9 compatible server-side processing
+		 * requests
+		 *
+		 *  @type boolean
+		 *  @default false
+		 */
+		ajax: false
+	},
 
 
 	/**
