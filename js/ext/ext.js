@@ -13,7 +13,7 @@
  *
  *  @namespace
  */
-DataTable.ext = {
+DataTable.ext = _ext = {
 	/**
 	 * Element class names
 	 *
@@ -467,21 +467,15 @@ DataTable.ext = {
 //
 // Backwards compatibility. Alias to pre 1.10 Hungarian notation counter parts
 //
-(function () {
-
-var ext = DataTable.ext;
-
-$.extend( ext, {
-	afnFiltering: ext.filter,
-	aTypes:       ext.type.detect,
-	ofnSearch:    ext.type.filter,
-	oSort:        ext.type.sort,
-	afnSortData:  ext.sort,
-	aoFeatures:   ext.feature,
-	oApi:         ext.internal,
-	oStdClasses:  ext.classes,
-	oPagination:  ext.pager
+$.extend( _ext, {
+	afnFiltering: _ext.filter,
+	aTypes:       _ext.type.detect,
+	ofnSearch:    _ext.type.filter,
+	oSort:        _ext.type.sort,
+	afnSortData:  _ext.sort,
+	aoFeatures:   _ext.feature,
+	oApi:         _ext.internal,
+	oStdClasses:  _ext.classes,
+	oPagination:  _ext.pager
 } );
-
-}());
 

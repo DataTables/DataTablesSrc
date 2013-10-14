@@ -1,10 +1,5 @@
 
 
-(/** @lends <global> */function() {
-
-var _Api = DataTable.Api;
-
-
 /**
  * Get the current page index.
  *
@@ -24,7 +19,7 @@ var _Api = DataTable.Api;
  *    * `last` - Jump to the last page.
  * @returns {DataTables.Api} this
  */
-_Api.register( 'page()', function ( action ) {
+_api_register( 'page()', function ( action ) {
 	if ( action === undefined ) {
 		return this.page.info().page; // not an expensive call
 	}
@@ -54,7 +49,7 @@ _Api.register( 'page()', function ( action ) {
  *  * `recordsDisplay` - Data set length once the current filtering criterion
  *    are applied.
  */
-_Api.register( 'page.info()', function ( action ) {
+_api_register( 'page.info()', function ( action ) {
 	if ( this.context.length === 0 ) {
 		return undefined;
 	}
@@ -89,7 +84,7 @@ _Api.register( 'page.info()', function ( action ) {
  * @param {integer} Page length to set. Use `-1` to show all records.
  * @returns {DataTables.Api} this
  */
-_Api.register( 'page.len()', function ( len ) {
+_api_register( 'page.len()', function ( len ) {
 	// Note that we can't call this function 'length()' because `length`
 	// is a Javascript property of functions which defines how many arguments
 	// the function expects.
@@ -104,7 +99,4 @@ _Api.register( 'page.len()', function ( len ) {
 		_fnLengthChange( settings, len );
 	} );
 } );
-
-
-}());
 

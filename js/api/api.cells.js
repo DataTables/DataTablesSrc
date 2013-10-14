@@ -1,11 +1,51 @@
 
 
-(/** @lends <global> */function() {
 
-var _api = DataTable.Api;
+var __cell_selector = function ( settings, selector, opts )
+{
+	var data = settings.aoData;
+	var rows = _selector_row_indexes( settings, opts );
+	var cells = _pluck_order( data, rows, 'anCells' );
+	var allCells = $( [].concat.apply([], cells) );
+	var row;
+	var columns = settings.aoColumns.length;
+	var a, i, ien, j;
+
+	return _selector_run( selector, function ( s ) {
+		if ( ! s ) {
+			// All cells
+			a = [];
+
+			for ( i=0, ien=rows.length ; i<ien ; i++ ) {
+				row = rows[i];
+
+				for ( j=0 ; j<columns ; j++ ) {
+					a.push( {
+						row: row,
+						column: j
+					} );
+				}
+			}
+
+			return a;
+		}
+
+		// jQuery filtered cells
+		return allCells.filter( s ).map( function (i, el) {
+			row = el.parentNode._DT_RowIndex;
+
+			return {
+				row: row,
+				column: $.inArray( el, data[ row ].anCells )
+			};
+		} );
+	} );
+};
 
 
-_api.register( 'cells()', function ( rowSelector, columnSelector, opts ) {
+
+
+_api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 	// Argument shifting
 	if ( $.isPlainObject( rowSelector ) ) {
 		opts = rowSelector;
@@ -19,7 +59,7 @@ _api.register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 	// Cell selector
 	if ( columnSelector === null || columnSelector === undefined ) {
 		return this.iterator( 'table', function ( settings ) {
-			return _cell_selector( settings, rowSelector, _selector_opts( opts ) );
+			return __cell_selector( settings, rowSelector, _selector_opts( opts ) );
 		} );
 	}
 
@@ -53,21 +93,21 @@ _api.register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 } );
 
 
-_api.registerPlural( 'cells().nodes()', 'cell().nodes()', function () {
+_api_registerPlural( 'cells().nodes()', 'cell().nodes()', function () {
 	return this.iterator( 'cell', function ( settings, row, column ) {
 		return settings.aoData[ row ].anCells[ column ];
 	} );
 } );
 
 
-_api.register( 'cells().data()', function () {
+_api_register( 'cells().data()', function () {
 	return this.iterator( 'cell', function ( settings, row, column ) {
 		return _fnGetCellData( settings, row, column );
 	} );
 } );
 
 
-_api.registerPlural( 'cells().cache()', 'cell().cache()', function ( type ) {
+_api_registerPlural( 'cells().cache()', 'cell().cache()', function ( type ) {
 	type = type === 'filter' ? '_aFilterData' : '_aSortData';
 
 	return this.iterator( 'cell', function ( settings, row, column ) {
@@ -76,7 +116,7 @@ _api.registerPlural( 'cells().cache()', 'cell().cache()', function ( type ) {
 } );
 
 
-_api.registerPlural( 'cells().index()', 'cell().index()', function () {
+_api_registerPlural( 'cells().index()', 'cell().index()', function () {
 	return this.iterator( 'cell', function ( settings, row, column ) {
 		return {
 			row: row,
@@ -87,7 +127,7 @@ _api.registerPlural( 'cells().index()', 'cell().index()', function () {
 } );
 
 
-_api.register( [
+_api_register( [
 	'cells().invalidate()',
 	'cell().invalidate()'
 ], function ( src ) {
@@ -104,13 +144,13 @@ _api.register( [
 
 
 
-_api.register( 'cell()', function ( rowSelector, columnSelector, opts ) {
+_api_register( 'cell()', function ( rowSelector, columnSelector, opts ) {
 	return _selector_first( this.cells( rowSelector, columnSelector, opts ) );
 } );
 
 
 
-_api.register( 'cell().data()', function ( data ) {
+_api_register( 'cell().data()', function ( data ) {
 	var ctx = this.context;
 	var cell = this[0];
 
@@ -127,8 +167,4 @@ _api.register( 'cell().data()', function ( data ) {
 
 	return this;
 } );
-
-
-
-}());
 

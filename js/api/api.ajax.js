@@ -1,10 +1,6 @@
 
 
-(/** @lends <global> */function() {
-
-var _Api = DataTable.Api;
-
-var _reload = function ( settings, holdPosition, callback ) {
+var __reload = function ( settings, holdPosition, callback ) {
 	if ( settings.oFeatures.bServerSide ) {
 		_fnReDraw( settings, holdPosition );
 	}
@@ -36,7 +32,7 @@ var _reload = function ( settings, holdPosition, callback ) {
  *
  * @return {object} JSON received from the server.
  */
-_Api.register( 'ajax.json()', function () {
+_api_register( 'ajax.json()', function () {
 	var ctx = this.context;
 
 	if ( ctx.length > 0 ) {
@@ -56,9 +52,9 @@ _Api.register( 'ajax.json()', function () {
  *   called, which is why the pagination reset is the default action.
  * @returns {DataTables.Api} this
  */
-_Api.register( 'ajax.reload()', function ( callback, resetPaging ) {
+_api_register( 'ajax.reload()', function ( callback, resetPaging ) {
 	return this.iterator( 'table', function (settings) {
-		_reload( settings, resetPaging===false, callback );
+		__reload( settings, resetPaging===false, callback );
 	} );
 } );
 
@@ -75,7 +71,7 @@ _Api.register( 'ajax.reload()', function ( callback, resetPaging ) {
  * @param {string} url URL to set.
  * @returns {DataTables.Api} this
  */
-_Api.register( 'ajax.url()', function ( url ) {
+_api_register( 'ajax.url()', function ( url ) {
 	var ctx = this.context;
 
 	if ( url === undefined ) {
@@ -116,14 +112,11 @@ _Api.register( 'ajax.url()', function ( url ) {
  *
  * @returns {DataTables.Api} this
  */
-_Api.register( 'ajax.url().load()', function ( callback ) {
+_api_register( 'ajax.url().load()', function ( callback ) {
 	// Same as a reload, but makes sense to present it for easy access after a
 	// url change
 	return this.iterator( 'table', function ( ctx ) {
-		_reload( ctx, undefined, callback );
+		__reload( ctx, undefined, callback );
 	} );
 } );
-
-
-}());
 

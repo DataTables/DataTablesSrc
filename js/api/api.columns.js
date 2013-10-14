@@ -1,10 +1,75 @@
 
 
-(/** @lends <global> */function() {
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Columns
+ *
+ * {integer}           - column index
+ * "{integer}"         - column index
+ * "{integer}:visIdx"  - visible column index (i.e. translate to column index)
+ * "{integer}:visible" - alias for {integer}:visIdx
+ * "{string}"          - column name
+ * "{string}:jq"       - jQuery selector on column header nodes
+ *
+ */
 
-var _api = DataTable.Api;
+// can be an array of these items, comma separated list, or an array of comma
+// separated lists
 
-var _setColumnVis = function ( settings, column, vis ) {
+var __re_column_selector = /^(.*):(jq|visIdx|visible)$/;
+
+var __column_selector = function ( settings, selector, opts )
+{
+	var
+		columns = settings.aoColumns,
+		names = _pluck( columns, 'sName' ),
+		nodes = _pluck( columns, 'nTh' );
+
+	return _selector_run( selector, function ( s ) {
+		var selInt = _intVal( s );
+
+		if ( s === '' ) {
+			// All columns
+			return _range( settings.aoColumns.length );
+		}
+		else if ( selInt !== null ) {
+			// Integer selector
+			return [ selInt ];
+		}
+		else {
+			var match = s.match( __re_column_selector );
+
+			if ( match ) {
+				switch( match[2] ) {
+					case 'visIdx':
+					case 'visible':
+						// Visible index given, convert to column index
+						return [ _fnVisibleToColumnIndex( settings, parseInt( match[1], 10 ) ) ];
+
+					case 'jq':
+						// jQuery selector on the TH elements for the columns
+						return $( nodes )
+							.filter( match[1] )
+							.map( function () {
+								return $.inArray( this, nodes ); // `nodes` is column index complete and in order
+							} )
+							.toArray();
+				}
+			}
+			else {
+				// match by name. `names` is column index complete and in order
+				return $.map( names, function (name, i) {
+					return name === s ? i : null;
+				} );
+			}
+		}
+	} );
+};
+
+
+
+
+
+var __setColumnVis = function ( settings, column, vis ) {
 	var
 		cols = settings.aoColumns,
 		col  = cols[ column ],
@@ -70,7 +135,7 @@ var _setColumnVis = function ( settings, column, vis ) {
 /**
  *
  */
-_api.register( 'columns()', function ( selector, opts ) {
+_api_register( 'columns()', function ( selector, opts ) {
 	// argument shifting
 	if ( selector === undefined ) {
 		selector = '';
@@ -83,7 +148,7 @@ _api.register( 'columns()', function ( selector, opts ) {
 	opts = _selector_opts( opts );
 
 	var inst = this.iterator( 'table', function ( settings ) {
-		return _column_selector( settings, selector, opts );
+		return __column_selector( settings, selector, opts );
 	} );
 
 	// Want argument shifting here and in _row_selector?
@@ -97,7 +162,7 @@ _api.register( 'columns()', function ( selector, opts ) {
 /**
  *
  */
-_api.registerPlural( 'columns().header()', 'column().header()', function ( selector, opts ) {
+_api_registerPlural( 'columns().header()', 'column().header()', function ( selector, opts ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return settings.aoColumns[column].nTh;
 	} );
@@ -107,7 +172,7 @@ _api.registerPlural( 'columns().header()', 'column().header()', function ( selec
 /**
  *
  */
-_api.registerPlural( 'columns().data()', 'column().data()', function () {
+_api_registerPlural( 'columns().data()', 'column().data()', function () {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
 		var a = [];
 		for ( var row=0, ien=rows.length ; row<ien ; row++ ) {
@@ -118,7 +183,7 @@ _api.registerPlural( 'columns().data()', 'column().data()', function () {
 } );
 
 
-_api.registerPlural( 'columns().cache()', 'column().cache()', function ( type ) {
+_api_registerPlural( 'columns().cache()', 'column().cache()', function ( type ) {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
 		return _pluck_order( settings.aoData, rows,
 			type === 'filter' ? '_aFilterData' : '_aSortData', column
@@ -127,7 +192,7 @@ _api.registerPlural( 'columns().cache()', 'column().cache()', function ( type ) 
 } );
 
 
-_api.registerPlural( 'columns().nodes()', 'columns().nodes()', function () {
+_api_registerPlural( 'columns().nodes()', 'columns().nodes()', function () {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
 		return _pluck_order( settings.aoData, rows, 'anCells', column ) ;
 	} );
@@ -135,15 +200,15 @@ _api.registerPlural( 'columns().nodes()', 'columns().nodes()', function () {
 
 
 
-_api.registerPlural( 'columns().visible()', 'column().visible()', function ( vis ) {
+_api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis ) {
 	return this.iterator( 'column', function ( settings, column ) {
-		return _setColumnVis( settings, column, vis );
+		return __setColumnVis( settings, column, vis );
 	} );
 } );
 
 
 
-_api.registerPlural( 'columns().index()', 'column().index()', function ( type ) {
+_api_registerPlural( 'columns().index()', 'column().index()', function ( type ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return type === 'visible' ?
 			_fnColumnIndexToVisible( settings, column ) :
@@ -152,20 +217,20 @@ _api.registerPlural( 'columns().index()', 'column().index()', function ( type ) 
 } );
 
 
-// _api.register( 'columns().show()', function () {
+// _api_register( 'columns().show()', function () {
 // 	var selector = this.selector;
 // 	return this.columns( selector.cols, selector.opts ).visible( true );
 // } );
 
 
-// _api.register( 'columns().hide()', function () {
+// _api_register( 'columns().hide()', function () {
 // 	var selector = this.selector;
 // 	return this.columns( selector.cols, selector.opts ).visible( false );
 // } );
 
 
 
-_api.register( 'columns.adjust()', function () {
+_api_register( 'columns.adjust()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		_fnAdjustColumnSizing( settings );
 	} );
@@ -173,7 +238,7 @@ _api.register( 'columns.adjust()', function () {
 
 
 // Convert from one column index type, to another type
-_api.register( 'column.index()', function ( type, idx ) {
+_api_register( 'column.index()', function ( type, idx ) {
 	if ( this.context.length !== 0 ) {
 		var ctx = this.context[0];
 
@@ -187,11 +252,7 @@ _api.register( 'column.index()', function ( type, idx ) {
 } );
 
 
-
-_api.register( 'column()', function ( selector, opts ) {
+_api_register( 'column()', function ( selector, opts ) {
 	return _selector_first( this.columns( selector, opts ) );
 } );
-
-
-}());
 

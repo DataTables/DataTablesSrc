@@ -1,8 +1,35 @@
 
+/**
+ * Selector for HTML tables. Apply the given selector to the give array of
+ * DataTables settings objects.
+ *
+ * @param {string|integer} [selector] jQuery selector string or integer
+ * @param  {array} Array of DataTables settings objects to be filtered
+ * @return {array}
+ * @ignore
+ */
+var __table_selector = function ( selector, a )
+{
+	// Integer is used to pick out a table by index
+	if ( typeof selector === 'number' ) {
+		return [ a[ selector ] ];
+	}
 
-(/** @lends <global> */function() {
+	// Perform a jQuery selector on the table nodes
+	var nodes = $.map( a, function (el, i) {
+		return el.nTable;
+	} );
 
-var _Api = DataTable.Api;
+	return $(nodes)
+		.filter( selector )
+		.map( function (i) {
+			// Need to translate back from the table node to the settings
+			var idx = $.inArray( this, nodes );
+			return a[ idx ];
+		} )
+		.toArray();
+};
+
 
 
 /**
@@ -16,15 +43,15 @@ var _Api = DataTable.Api;
  *   select multiple tables or as an integer to select a single table.
  * @returns {DataTable.Api} Returns a new API instance if a selector is given.
  */
-_Api.register( 'tables()', function ( selector ) {
+_api_register( 'tables()', function ( selector ) {
 	// A new instance is created if there was a selector specified
 	return selector ?
-		new _Api( _table_selector( selector, this.context ) ) :
+		new _Api( __table_selector( selector, this.context ) ) :
 		this;
 } );
 
 
-_Api.register( 'table()', function ( selector ) {
+_api_register( 'table()', function ( selector ) {
 	var tables = this.tables( selector );
 	var ctx = tables.context;
 
@@ -37,33 +64,30 @@ _Api.register( 'table()', function ( selector ) {
 } );
 
 
-_Api.registerPlural( 'tables().nodes()', 'table().node()' , function () {
+_api_registerPlural( 'tables().nodes()', 'table().node()' , function () {
 	return this.iterator( 'table', function ( ctx ) {
 		return ctx.nTable;
 	} );
 } );
 
 
-_Api.registerPlural( 'tables().body()', 'table().body()' , function () {
+_api_registerPlural( 'tables().body()', 'table().body()' , function () {
 	return this.iterator( 'table', function ( ctx ) {
 		return ctx.nTBody;
 	} );
 } );
 
 
-_Api.registerPlural( 'tables().head()', 'table().head()' , function () {
+_api_registerPlural( 'tables().head()', 'table().head()' , function () {
 	return this.iterator( 'table', function ( ctx ) {
 		return ctx.nTHead;
 	} );
 } );
 
 
-_Api.registerPlural( 'tables().foot()', 'table().foot()' , function () {
+_api_registerPlural( 'tables().foot()', 'table().foot()' , function () {
 	return this.iterator( 'table', function ( ctx ) {
 		return ctx.nTFoot;
 	} );
 } );
-
-
-}());
 

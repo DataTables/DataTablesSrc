@@ -1,17 +1,71 @@
 
 
-(/** @lends <global> */function() {
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Rows
+ *
+ * {}          - no selector - use all available rows
+ * {integer}   - row aoData index
+ * {node}      - TR node
+ * {string}    - jQuery selector to apply to the TR elements
+ * {array}     - jQuery array of nodes, or simply an array of TR nodes
+ *
+ */
 
-var _api = DataTable.Api;
 
+var __row_selector = function ( settings, selector, opts )
+{
+	return _selector_run( selector, function ( sel ) {
+		var selInt = _intVal( sel );
 
+		// Short cut - selector is a number and no options provided (default is
+		// all records, so no need to check if the index is in there, since it
+		// must be - dev error if the index doesn't exist).
+		if ( selInt !== null && ! opts ) {
+			return [ selInt ];
+		}
 
+		var rows = _selector_row_indexes( settings, opts );
+
+		if ( selInt !== null && $.inArray( selInt, rows ) !== -1 ) {
+			// Selector - integer
+			return [ selInt ];
+		}
+		else if ( ! sel ) {
+			// Selector - none
+			return rows;
+		}
+
+		// Get nodes in the order from the `rows` array (can't use `pluck`) @todo - use pluck_order
+		var nodes = [];
+		for ( var i=0, ien=rows.length ; i<ien ; i++ ) {
+			nodes.push( settings.aoData[ rows[i] ].nTr );
+		}
+
+		if ( sel.nodeName ) {
+			// Selector - node
+			if ( $.inArray( sel, nodes ) !== -1 ) {
+				return [ sel._DT_RowIndex ];// sel is a TR node that is in the table
+										// and DataTables adds a prop for fast lookup
+			}
+		}
+
+		// Selector - jQuery selector string, array of nodes or jQuery object/
+		// As jQuery's .filter() allows jQuery objects to be passed in filter,
+		// it also allows arrays, so this will cope with all three options
+		return $(nodes)
+			.filter( sel )
+			.map( function () {
+				return this._DT_RowIndex;
+			} )
+			.toArray();
+	} );
+};
 
 
 /**
  *
  */
-_api.register( 'rows()', function ( selector, opts ) {
+_api_register( 'rows()', function ( selector, opts ) {
 	// argument shifting
 	if ( selector === undefined ) {
 		selector = '';
@@ -24,10 +78,10 @@ _api.register( 'rows()', function ( selector, opts ) {
 	opts = _selector_opts( opts );
 
 	var inst = this.iterator( 'table', function ( settings ) {
-		return _row_selector( settings, selector, opts );
+		return __row_selector( settings, selector, opts );
 	} );
 
-	// Want argument shifting here and in _row_selector?
+	// Want argument shifting here and in __row_selector?
 	inst.selector.rows = selector;
 	inst.selector.opts = opts;
 
@@ -35,7 +89,7 @@ _api.register( 'rows()', function ( selector, opts ) {
 } );
 
 
-_api.registerPlural( 'rows().nodes()', 'row().node()' , function () {
+_api_registerPlural( 'rows().nodes()', 'row().node()' , function () {
 	return this.iterator( 'row', function ( settings, row ) {
 		// use pluck order on an array rather - rows gives an array, row gives it individually
 		return settings.aoData[ row ].nTr || undefined;
@@ -43,33 +97,33 @@ _api.registerPlural( 'rows().nodes()', 'row().node()' , function () {
 } );
 
 
-_api.register( 'rows().data()', function ( data ) {
+_api_register( 'rows().data()', function ( data ) {
 	return this.iterator( true, 'rows', function ( settings, rows ) {
 		return _pluck_order( settings.aoData, rows, '_aData' );
 	} );
 } );
 
-_api.registerPlural( 'rows().cache()', 'row().cache()', function ( type ) {
+_api_registerPlural( 'rows().cache()', 'row().cache()', function ( type ) {
 	return this.iterator( 'row', function ( settings, row ) {
 		return type === 'filter' ? row._aFilterData : row._aSortData;
 	} );
 } );
 
-_api.registerPlural( 'rows().invalidate()', 'row().invalidate()', function ( src ) {
+_api_registerPlural( 'rows().invalidate()', 'row().invalidate()', function ( src ) {
 	return this.iterator( 'row', function ( settings, row ) {
 		_fnInvalidateRow( settings, row, src );
 	} );
 } );
 
 
-_api.registerPlural( 'rows().index()', 'row().index()', function ( src ) {
+_api_registerPlural( 'rows().index()', 'row().index()', function ( src ) {
 	return this.iterator( 'row', function ( settings, row ) {
 		return row;
 	} );
 } );
 
 
-_api.registerPlural( 'rows().remove()', 'row().remove()', function () {
+_api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 	var that = this;
 
 	return this.iterator( 'row', function ( settings, row, thatIdx ) {
@@ -98,7 +152,7 @@ _api.registerPlural( 'rows().remove()', 'row().remove()', function () {
 } );
 
 
-_api.register( 'rows.add()', function ( rows ) {
+_api_register( 'rows.add()', function ( rows ) {
 	var newRows = this.iterator( 'table', function ( settings ) {
 			var row, i, ien;
 			var out = [];
@@ -132,12 +186,12 @@ _api.register( 'rows.add()', function ( rows ) {
 /**
  *
  */
-_api.register( 'row()', function ( selector, opts ) {
+_api_register( 'row()', function ( selector, opts ) {
 	return _selector_first( this.rows( selector, opts ) );
 } );
 
 
-_api.register( 'row().data()', function ( data ) {
+_api_register( 'row().data()', function ( data ) {
 	var ctx = this.context;
 
 	if ( data === undefined ) {
@@ -157,7 +211,7 @@ _api.register( 'row().data()', function ( data ) {
 } );
 
 
-_api.register( 'row.add()', function ( row ) {
+_api_register( 'row.add()', function ( row ) {
 	// Allow a jQuery object to be passed in - only a single row is added from
 	// it though - the first element in the set
 	if ( row instanceof $ && row.length ) {
@@ -174,8 +228,4 @@ _api.register( 'row.add()', function ( row ) {
 	// Return an Api.rows() extended instance, with the newly added row selected
 	return this.row( rows[0] );
 } );
-
-
-
-}());
 

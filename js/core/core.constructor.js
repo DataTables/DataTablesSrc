@@ -2,7 +2,7 @@
 var i=0, iLen, j, jLen, k, kLen;
 var sId = this.getAttribute( 'id' );
 var bInitHandedOff = false;
-var defaults = DataTable.defaults
+var defaults = DataTable.defaults;
 var oInitEmpty = oInit === undefined ? true : false;
 
 
@@ -18,8 +18,7 @@ _fnCamelToHungarian( defaults, defaults, true );
 _fnCamelToHungarian( defaults.column, defaults.column, true );
 
 /* Setting up the initialisation object */
-if ( !oInit )
-{
+if ( !oInit ) {
 	oInit = {};
 }
 _fnCamelToHungarian( defaults, oInit );

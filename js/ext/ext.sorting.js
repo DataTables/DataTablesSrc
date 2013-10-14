@@ -1,5 +1,6 @@
 
-var _numericReplace = function ( d, re1, re2 ) {
+
+var __numericReplace = function ( d, re1, re2 ) {
 	if ( !d || d === '-' ) {
 		return -Infinity;
 	}
@@ -28,25 +29,25 @@ $.extend( DataTable.ext.type.sort, {
 	// Plain numbers
 	"numeric-pre": function ( d )
 	{
-		return _numericReplace( d );
+		return __numericReplace( d );
 	},
 
 	// Formatted numbers
 	"numeric-fmt-pre": function ( d )
 	{
-		return _numericReplace( d, _re_formatted_numeric );
+		return __numericReplace( d, _re_formatted_numeric );
 	},
 
 	// HTML numeric
 	"html-numeric-pre": function ( d )
 	{
-		return _numericReplace( d, _re_html );
+		return __numericReplace( d, _re_html );
 	},
 
 	// HTML numeric, formatted
 	"html-numeric-fmt-pre": function ( d )
 	{
-		return _numericReplace( d, _re_html, _re_formatted_numeric );
+		return __numericReplace( d, _re_html, _re_formatted_numeric );
 	},
 
 	// html

@@ -1,6 +1,4 @@
 
-(/** @lends <global> */function() {
-
 
 /**
  * Computed structure of the DataTables API, defined by the options passed to
@@ -38,16 +36,7 @@
  * @type {Array}
  * @ignore
  */
-var _apiStruct = [];
-
-
-/**
- * Api object reference.
- *
- * @type object
- * @ignore
- */
-var _Api;
+var __apiStruct = [];
 
 
 /**
@@ -56,7 +45,7 @@ var _Api;
  * @type object
  * @ignore
  */
-var _arrayProto = Array.prototype;
+var __arrayProto = Array.prototype;
 
 
 
@@ -113,43 +102,6 @@ var _toSettings = function ( mixed )
 		} );
 	}
 };
-
-
-/**
- * Find the unique elements in a source array.
- *
- * @param  {array} src Source array
- * @return {array} Array of unique items
- * @ignore
- */
-var _unique = function ( src )
-{
-	// A faster unique method is to use object keys to identify used values,
-	// but this doesn't work with arrays or objects, which we must also
-	// consider. See jsperf.com/compare-array-unique-versions/4 for more
-	// information.
-	var
-		out = [],
-		val,
-		i, ien=src.length,
-		j, k=0;
-
-	again: for ( i=0 ; i<ien ; i++ ) {
-		val = src[i];
-
-		for ( j=0 ; j<k ; j++ ) {
-			if ( out[j] === val ) {
-				continue again;
-			}
-		}
-
-		out.push( val );
-		k++;
-	}
-
-	return out;
-};
-
 
 
 /**
@@ -246,7 +198,7 @@ DataTable.Api = _Api = function ( context, data )
 		opts: null
 	};
 
-	_Api.extend( this, this, _apiStruct );
+	_Api.extend( this, this, __apiStruct );
 };
 
 
@@ -263,7 +215,7 @@ _Api.prototype = /** @lends DataTables.Api */{
 	 * @returns {DataTables.Api} New API instance, comprising of the combined
 	 *   array.
 	 */
-	concat:  _arrayProto.concat,
+	concat:  __arrayProto.concat,
 
 
 	context: [], // array of table settings objects
@@ -271,9 +223,9 @@ _Api.prototype = /** @lends DataTables.Api */{
 
 	each: function ( fn )
 	{
-		if ( _arrayProto.forEach ) {
+		if ( __arrayProto.forEach ) {
 			// Where possible, use the built-in forEach
-			_arrayProto.forEach.call( this, fn, this );
+			__arrayProto.forEach.call( this, fn, this );
 		}
 		else {
 			// Compatibility for browsers without EMCA-252-5 (JS 1.6)
@@ -291,8 +243,8 @@ _Api.prototype = /** @lends DataTables.Api */{
 	{
 		var a = [];
 
-		if ( _arrayProto.filter ) {
-			a = _arrayProto.filter.call( this, fn, this );
+		if ( __arrayProto.filter ) {
+			a = __arrayProto.filter.call( this, fn, this );
 		}
 		else {
 			// Compatibility for browsers without EMCA-252-5 (JS 1.6)
@@ -317,7 +269,7 @@ _Api.prototype = /** @lends DataTables.Api */{
 	},
 
 
-	indexOf: _arrayProto.indexOf || function (obj, start)
+	indexOf: __arrayProto.indexOf || function (obj, start)
 	{
 		for ( var i=(start || 0), ien=this.length ; i<ien ; i++ ) {
 			if ( this[i] === obj ) {
@@ -365,7 +317,7 @@ _Api.prototype = /** @lends DataTables.Api */{
 				items = this[i];
 
 				if ( type === 'column-rows' ) {
-					rows = _row_selector_indexes( context[i], selector.opts );
+					rows = _selector_row_indexes( context[i], selector.opts );
 				}
 
 				for ( j=0, jen=items.length ; j<jen ; j++ ) {
@@ -397,7 +349,7 @@ _Api.prototype = /** @lends DataTables.Api */{
 	},
 
 
-	lastIndexOf: _arrayProto.lastIndexOf || function (obj, start)
+	lastIndexOf: __arrayProto.lastIndexOf || function (obj, start)
 	{
 		// Bit cheeky...
 		return this.indexOf.apply( this.toArray.reverse(), arguments );
@@ -411,8 +363,8 @@ _Api.prototype = /** @lends DataTables.Api */{
 	{
 		var a = [];
 
-		if ( _arrayProto.map ) {
-			a = _arrayProto.map.call( this, fn, this );
+		if ( __arrayProto.map ) {
+			a = __arrayProto.map.call( this, fn, this );
 		}
 		else {
 			// Compatibility for browsers without EMCA-252-5 (JS 1.6)
@@ -432,14 +384,14 @@ _Api.prototype = /** @lends DataTables.Api */{
 		} );
 	},
 
-	pop:     _arrayProto.pop,
+	pop:     __arrayProto.pop,
 
 
-	push:    _arrayProto.push,
+	push:    __arrayProto.push,
 
 
 	// Does not return an API instance
-	reduce: _arrayProto.reduce || function ( fn, init )
+	reduce: __arrayProto.reduce || function ( fn, init )
 	{
 		var
 			value,
@@ -466,7 +418,7 @@ _Api.prototype = /** @lends DataTables.Api */{
 	},
 
 
-	reduceRight: _arrayProto.reduceRight || function ( fn, init )
+	reduceRight: __arrayProto.reduceRight || function ( fn, init )
 	{
 		var
 			value,
@@ -492,25 +444,25 @@ _Api.prototype = /** @lends DataTables.Api */{
 		return value;
 	},
 
-	reverse: _arrayProto.reverse,
+	reverse: __arrayProto.reverse,
 
 
 	// Object with rows, columns and opts
 	selector: null,
 
 
-	shift:   _arrayProto.shift,
+	shift:   __arrayProto.shift,
 
 
-	sort:    _arrayProto.sort, // ? name - order?
+	sort:    __arrayProto.sort, // ? name - order?
 
 
-	splice:  _arrayProto.splice,
+	splice:  __arrayProto.splice,
 
 
 	toArray: function ()
 	{
-		return _arrayProto.slice.call( this );
+		return __arrayProto.slice.call( this );
 	},
 
 
@@ -520,7 +472,7 @@ _Api.prototype = /** @lends DataTables.Api */{
 	},
 
 
-	unshift: _arrayProto.unshift
+	unshift: __arrayProto.unshift
 };
 
 
@@ -596,7 +548,7 @@ _Api.extend = function ( scope, obj, ext )
 //       }
 //     ]
 
-_Api.register = function ( name, val )
+_Api.register = _api_register = function ( name, val )
 {
 	if ( $.isArray( name ) ) {
 		for ( var j=0, jen=name.length ; j<jen ; j++ ) {
@@ -608,7 +560,7 @@ _Api.register = function ( name, val )
 	var
 		i, ien,
 		heir = name.split('.'),
-		struct = _apiStruct,
+		struct = __apiStruct,
 		key, method;
 
 	var find = function ( src, name ) {
@@ -654,7 +606,7 @@ _Api.register = function ( name, val )
 };
 
 
-_Api.registerPlural = function ( pluralName, singularName, val ) {
+_Api.registerPlural = _api_registerPlural = function ( pluralName, singularName, val ) {
 	_Api.register( pluralName, val );
 
 	_Api.register( singularName, function () {
@@ -678,7 +630,4 @@ _Api.registerPlural = function ( pluralName, singularName, val ) {
 		return ret;
 	} );
 };
-
-
-}());
 

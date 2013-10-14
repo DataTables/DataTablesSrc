@@ -1,8 +1,5 @@
 
 
-(function() {
-
-
 var extPagination = DataTable.ext.pager;
 
 function _numbers ( page, pages ) {
@@ -146,7 +143,4 @@ $.extend( true, DataTable.ext.renderer, {
 		}
 	}
 } );
-
-
-}());
 

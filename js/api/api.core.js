@@ -1,14 +1,9 @@
 
 
-(/** @lends <global> */function() {
-
-var _api = DataTable.Api;
-
-
 /**
  *
  */
-_api.register( '$()', function ( selector, opts ) {
+_api_register( '$()', function ( selector, opts ) {
 	var
 		rows   = this.rows( opts ).nodes(), // Get all rows
 		jqRows = $(rows);
@@ -22,7 +17,7 @@ _api.register( '$()', function ( selector, opts ) {
 
 // jQuery functions to operate on the tables
 $.each( [ 'on', 'one', 'off' ], function (i, key) {
-	_api.register( key+'()', function ( /* ... */ ) {
+	_api_register( key+'()', function ( /* ... */ ) {
 		var inst = $( this.tables().nodes() );
 		inst[key].apply( inst, arguments );
 		return this;
@@ -30,26 +25,26 @@ $.each( [ 'on', 'one', 'off' ], function (i, key) {
 } );
 
 
-_api.register( 'clear()', function () {
+_api_register( 'clear()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		_fnClearTable( settings );
 	} );
 } );
 
 
-_api.register( 'settings()', function () {
+_api_register( 'settings()', function () {
 	return new _api( this.context, this.context );
 } );
 
 
-_api.register( 'data()', function () {
+_api_register( 'data()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		return _pluck( settings.aoData, '_aData' );
 	} ).flatten();
 } );
 
 
-_api.register( 'plugin()', function ( type ) {
+_api_register( 'plugin()', function ( type ) {
 	var ctx = this.context;
 
 	if ( ! ctx.length ) {
@@ -65,7 +60,7 @@ _api.register( 'plugin()', function ( type ) {
 			plugins;
 } );
 
-_api.register( 'plugin.register()', function ( type, inst ) {
+_api_register( 'plugin.register()', function ( type, inst ) {
 	return this.iterator( 'table', function ( settings ) {
 		var plugins = settings.oPlugins;
 
@@ -77,7 +72,7 @@ _api.register( 'plugin.register()', function ( type, inst ) {
 	} );
 } );
 
-_api.register( 'plugin.deregister()', function ( type, inst ) {
+_api_register( 'plugin.deregister()', function ( type, inst ) {
 	return this.iterator( 'table', function ( settings ) {
 		var plugins = settings.oPlugins[ type ];
 
@@ -92,7 +87,7 @@ _api.register( 'plugin.deregister()', function ( type, inst ) {
 } );
 
 
-_api.register( 'destroy()', function ( remove ) {
+_api_register( 'destroy()', function ( remove ) {
 	remove = remove || false;
 
 	return this.iterator( 'table', function ( settings ) {
@@ -117,7 +112,7 @@ _api.register( 'destroy()', function ( remove ) {
 
 		// If not being removed from the document, make all columns visible
 		if ( ! remove ) {
-			new _api( settings ).columns().visible( true );
+			new _Api( settings ).columns().visible( true );
 		}
 
 		// Blitz all DT events
@@ -191,8 +186,4 @@ _api.register( 'destroy()', function ( remove ) {
 		}
 	} );
 } );
-
-
-
-}());
 

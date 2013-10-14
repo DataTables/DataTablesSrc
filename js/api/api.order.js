@@ -1,10 +1,5 @@
 
 
-(/** @lends <global> */function() {
-
-var _Api = DataTable.Api;
-
-
 /**
  * Get current ordering (sorting) that has been applied to the table.
  *
@@ -33,7 +28,7 @@ var _Api = DataTable.Api;
  * @param {array} order 2D array of sorting information to be applied.
  * @returns {DataTables.Api} this
  */
-_Api.register( 'order()', function ( order, dir ) {
+_api_register( 'order()', function ( order, dir ) {
 	var ctx = this.context;
 
 	if ( order === undefined ) {
@@ -70,7 +65,7 @@ _Api.register( 'order()', function ( order, dir ) {
  * @param {function} [callback] callback function when sort is run
  * @returns {DataTables.Api} this
  */
-_Api.register( 'order.listener()', function ( node, column, callback ) {
+_api_register( 'order.listener()', function ( node, column, callback ) {
 	return this.iterator( 'table', function ( settings ) {
 		_fnSortAttachListener( settings, node, column, callback );
 	} );
@@ -78,7 +73,7 @@ _Api.register( 'order.listener()', function ( node, column, callback ) {
 
 
 // Order by the selected column(s)
-_Api.register( [
+_api_register( [
 	'columns().order()',
 	'column().order()'
 ], function ( dir ) {
@@ -94,7 +89,4 @@ _Api.register( [
 		settings.aaSorting = sort;
 	} );
 } );
-
-
-}());
 

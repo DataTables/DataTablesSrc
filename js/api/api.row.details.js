@@ -1,11 +1,6 @@
 
 
-(/** @lends <global> */function() {
-
-var _api = DataTable.Api;
-
-
-var details_add = function ( ctx, row, data, klass )
+var __details_add = function ( ctx, row, data, klass )
 {
 	// Convert to array of TR elements
 	var rows = [];
@@ -40,7 +35,7 @@ var details_add = function ( ctx, row, data, klass )
 };
 
 
-var details_display = function ( show ) {
+var __details_display = function ( show ) {
 	var ctx = this.context;
 
 	if ( ctx.length && this.length ) {
@@ -55,7 +50,7 @@ var details_display = function ( show ) {
 				row._details.remove();
 			}
 
-			details_events( ctx[0] );
+			__details_events( ctx[0] );
 		}
 	}
 
@@ -63,7 +58,7 @@ var details_display = function ( show ) {
 };
 
 
-var details_events = function ( settings )
+var __details_events = function ( settings )
 {
 	var table = $(settings.nTable);
 
@@ -105,7 +100,7 @@ var details_events = function ( settings )
 //  tr
 //  string
 //  jQuery or array of any of the above
-_api.register( 'row().child()', function ( data, klass ) {
+_api_register( 'row().child()', function ( data, klass ) {
 	var ctx = this.context;
 
 	if ( ! data ) {
@@ -116,27 +111,27 @@ _api.register( 'row().child()', function ( data, klass ) {
 	}
 	else if ( ctx.length && this.length ) {
 		// set
-		details_add( ctx[0], ctx[0].aoData[ this[0] ], data, klass );
+		__details_add( ctx[0], ctx[0].aoData[ this[0] ], data, klass );
 	}
 
 	return this;
 } );
 
-_api.register( [
+_api_register( [
 	'row().child.show()',
 	'row().child().show()'
 ], function () {
-	details_display.call( this, true );
+	__details_display.call( this, true );
 } );
 
-_api.register( [
+_api_register( [
 	'row().child.hide()',
 	'row().child().hide()'
 ], function () {
-	details_display.call( this, false );
+	__details_display.call( this, false );
 } );
 
-_api.register( 'row().child.isShown()', function () {
+_api_register( 'row().child.isShown()', function () {
 	var ctx = this.context;
 
 	if ( ctx.length && this.length ) {
@@ -145,7 +140,4 @@ _api.register( 'row().child.isShown()', function () {
 	}
 	return false;
 } );
-
-
-}());
 

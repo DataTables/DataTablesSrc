@@ -1,45 +1,5 @@
 
 
-var _re_formatted_numeric = /[',$£€¥]/g;
-var _re_html = /<.*?>/g;
-
-
-var _empty = function ( d ) {
-	return !d || d === '-' ? true : false;
-};
-
-
-var _isNumber = function ( d, formatted ) {
-	if ( formatted && typeof d === 'string' ) {
-		d = d.replace( _re_formatted_numeric, '' );
-	}
-
-	return !d || d==='-' || (!isNaN( parseFloat(d) ) && isFinite( d ));
-};
-
-// A string without HTML in it can be considered to be HTML still
-var _isHtml = function ( d ) {
-	return !d || typeof d === 'string';
-};
-
-var _stripHtml = function ( d ) {
-	return d.replace( _re_html, '' );
-};
-
-var _htmlNumeric = function ( d, formatted ) {
-	if ( _empty( d ) ) {
-		return true;
-	}
-
-	var html = _isHtml( d );
-	return ! html ?
-		null :
-		_isNumber( _stripHtml( d ), formatted ) ?
-			true :
-			null;
-};
-
-
 // Built in type detection. See model.ext.aTypes for information about
 // what is required from this methods.
 $.extend( DataTable.ext.type.detect, [

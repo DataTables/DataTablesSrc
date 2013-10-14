@@ -3,8 +3,6 @@
 // Filter formatting functions. See model.ext.ofnSearch for information about
 // what is required from these methods.
 
-var __filter_lines = /[\r\n]/g;
-var __filter_html = /[\r\n]/g;
 
 $.extend( DataTable.ext.type.filter, {
 	html: function ( data ) {
@@ -12,8 +10,8 @@ $.extend( DataTable.ext.type.filter, {
 			'' :
 			typeof data === 'string' ?
 				data
-					.replace( __filter_lines, " " )
-					.replace( __filter_html, "" ) :
+					.replace( _re_new_lines, " " )
+					.replace( _re_html, "" ) :
 				'';
 	},
 
@@ -21,7 +19,7 @@ $.extend( DataTable.ext.type.filter, {
 		return _empty(data) ?
 			'' :
 			typeof data === 'string' ?
-				data.replace( __filter_lines, " " ) :
+				data.replace( _re_new_lines, " " ) :
 				data;
 	}
 } );

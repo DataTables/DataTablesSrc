@@ -105,10 +105,10 @@ this._ = function ( sSelector, oOpts )
 this.api = function ( traditional )
 {
 	return traditional ?
-		new DataTable.Api(
-			_fnSettingsFromNode( this[DataTable.ext.iApiIndex] )
+		new _Api(
+			_fnSettingsFromNode( this[ _ext.iApiIndex ] )
 		) :
-		new DataTable.Api( this );
+		new _Api( this );
 };
 
 
@@ -638,7 +638,7 @@ this.fnSetColumnVis = function ( iCol, bShow, bRedraw )
  */
 this.fnSettings = function()
 {
-	return _fnSettingsFromNode( this[DataTable.ext.iApiIndex] );
+	return _fnSettingsFromNode( this[_ext.iApiIndex] );
 };
 
 
@@ -746,5 +746,5 @@ this.fnUpdate = function( mData, mRow, iColumn, bRedraw, bAction )
  *      alert( oTable.fnVersionCheck( '1.9.0' ) );
  *    } );
  */
-this.fnVersionCheck = DataTable.ext.fnVersionCheck;
+this.fnVersionCheck = _ext.fnVersionCheck;
 

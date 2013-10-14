@@ -1,10 +1,5 @@
 
 
-(/** @lends <global> */function() {
-
-var _api = DataTable.Api;
-
-
 /**
  * Redraw the tables in the current context.
  *
@@ -13,12 +8,9 @@ var _api = DataTable.Api;
  *   called, which is why the pagination reset is the default action.
  * @returns {DataTables.Api} this
  */
-_api.register( 'draw()', function ( resetPaging ) {
+_api_register( 'draw()', function ( resetPaging ) {
 	return this.iterator( 'table', function ( settings ) {
 		_fnReDraw( settings, resetPaging===false );
 	} );
 } );
-
-
-}());
 

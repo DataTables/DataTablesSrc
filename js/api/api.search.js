@@ -1,14 +1,6 @@
 
 
-(/** @lends <global> */function() {
-
-var _api = DataTable.Api;
-var _null_or_undefined = function ( param ) {
-	return param === null || param === undefined;
-};
-
-
-_api.register( 'search()', function ( input, regex, smart, caseInsen ) {
+_api_register( 'search()', function ( input, regex, smart, caseInsen ) {
 	return this.iterator( 'table', function ( settings ) {
 		if ( ! settings.oFeatures.bFilter ) {
 			return;
@@ -24,7 +16,7 @@ _api.register( 'search()', function ( input, regex, smart, caseInsen ) {
 } );
 
 
-_api.register( [
+_api_register( [
 	'columns().search()',
 	'column().search()'
 ], function ( input, regex, smart, caseInsen ) {
@@ -43,7 +35,4 @@ _api.register( [
 		_fnFilterComplete( settings, settings.oPreviousSearch, 1 );
 	} );
 } );
-
-
-}());
 
