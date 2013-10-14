@@ -454,6 +454,13 @@ DT_Example::$tables['ajax'] = array(
 	'body'    => false
 );
 
+DT_Example::$tables['ssp'] = array(
+	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
 DT_Example::$tables['html-comma'] = array(
 	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', function ( $type, $row ) {
 		return $type === 'title' ? 'Salary' : '$'.number_format($row['salary'], 0, ',', '.').',00';

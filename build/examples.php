@@ -145,8 +145,68 @@ process_structure( $examples );
 
 json_files( $dir_input );
 
+sql_files( $dir_input );
+
 //dump_structure( $examples );
 
+
+
+
+// Create the JSON files needed for the Ajax examples
+function sql_files ( $out_dir )
+{
+	$out_dir = $out_dir.'/server_side/scripts';
+
+	$json = json_decode(
+		file_get_contents( dirname(__FILE__).'/data.json' ),
+		true
+	);
+
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$out[] = "( ".
+			    $json[$i]['id'].", ".
+			"'".$json[$i]['first_name']."', ".
+			"'".$json[$i]['last_name']."', ".
+			    $json[$i]['age'].", ".
+			"'".$json[$i]['position']."', ".
+			    $json[$i]['salary'].", ".
+			"'".$json[$i]['start_date']."', ".
+			    $json[$i]['extn'].", ".
+			"'".$json[$i]['email']."', ".
+			"'".$json[$i]['office']."' ".
+		")";
+	}
+
+	$values = join( ",\n\t\t", $out );
+	$str = <<<EOD
+# DataTables server-side processing example database structure and dataTables
+
+DROP TABLE IF EXISTS `datatables-demo`;
+
+CREATE TABLE `datatables-demo` (
+  `id`         int(10) NOT NULL auto_increment,
+  `first_name` varchar(250) NOT NULL default '',
+  `last_name`  varchar(250) NOT NULL default '',
+  `position`   varchar(250) NOT NULL default '',
+  `email`      varchar(250) NOT NULL default '',
+  `office`     varchar(250) NOT NULL default '',
+  `start_date` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `age`        int(8),
+  `salary`     int(8),
+  `extn`       int(8),
+  PRIMARY KEY  (`id`)
+);
+
+INSERT
+	INTO `datatables-demo`
+		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
+	VALUES
+		$values;
+EOD;
+
+	file_put_contents( $out_dir.'/data.sql', $str );
+}
 
 
 
