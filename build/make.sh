@@ -158,8 +158,10 @@ function build_examples {
 		-t ${TEMPLATE_DIR}/example.html \
 		-c "demo:${OUT_DIR}/resources/demo.css" \
 		-j "demo:${OUT_DIR}/resources/demo.js" \
+		-c "syntax:${OUT_DIR}/resources/syntax/shCore.css" \
+		-j "syntax:${OUT_DIR}/resources/syntax/shCore.js" \
 		-m "${BUILD_DIR}/media" \
-		-l "css:demo js:jquery js:demo"
+		-l "css:syntax css:demo js:syntax js:jquery js:demo"
 }
 
 

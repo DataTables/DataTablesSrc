@@ -133,8 +133,10 @@ class DT_Example
 		$template = $this->_htmlTidy( $template );
 
 		// After the tidy to preserve white space as tidy "cleans" it up
-		$template = str_replace( '{css}',      $this->_plain( 'css' ),       $template );
-		$template = str_replace( '{js}',       $this->_plain( 'js' ),        $template );
+		$template = str_replace( '{css}',       $this->_plain( 'css' ), $template );
+		$template = str_replace( '{js}',        $this->_plain( 'js' ),  $template );
+		$template = str_replace( '{css-esc}',   htmlspecialchars( trim($this->_plain( 'css' )) ), $template );
+		$template = str_replace( '{js-esc}',    htmlspecialchars( trim($this->_plain( 'js' )) ),  $template );
 
 		$template = preg_replace( '/\t<style type="text\/css">\n\n\t<\/style>/m', "", $template );
 

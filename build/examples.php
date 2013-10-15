@@ -53,6 +53,18 @@ $additional_libs = array(
 );
 
 
+function multiple ( $value, $fn )
+{
+	if ( is_array( $value ) ) {
+		for ( $i=0, $ien=count($value) ; $i<$ien ; $i++ ) {
+			$fn( $value[$i] );
+		}
+	}
+	else {
+		$fn( $value );
+	}
+}
+
 /*
  * Command line options
  */
@@ -62,14 +74,18 @@ foreach ($options as $key => $value) {
 	switch( $key ) {
 		case "c":
 		case "css":
-			$a = explode(':', $value);
-			DT_Example::$lookup_libraries['css'][$a[0]] = realpath( $a[1] );
+			multiple( $value, function ( $val ) {
+				$a = explode(':', $val);
+				DT_Example::$lookup_libraries['css'][$a[0]] = realpath( $a[1] );
+			} );
 			break;
 
 		case "j":
 		case "js":
-			$a = explode(':', $value);
-			DT_Example::$lookup_libraries['js'][$a[0]] = realpath( $a[1] );
+			multiple( $value, function ( $val ) {
+				$a = explode(':', $val);
+				DT_Example::$lookup_libraries['js'][$a[0]] = realpath( $a[1] );
+			} );
 			break;
 
 		case "l":
@@ -364,7 +380,7 @@ function read_structure ( &$examples, $dir, $index_template, $example_template, 
 			read_structure( $sub['files'], $dir.'/'.$file, $index_template, $example_template, $additional_libs );
 			$examples[] = $sub;
 		}
-		else if ( $fileParts['extension'] === 'xml' ) {
+		else if ( isset($fileParts['extension']) && $fileParts['extension'] === 'xml' ) {
 			$example = new DT_Example(
 				$dir.'/'.$file,
 				$fileParts['filename'] === 'index' ?

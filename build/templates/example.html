@@ -7,11 +7,11 @@
 		<title>DataTables example - {title}</title>
 
 		{css-libs}
-		<style type="text/css">
+		<style type="text/css" class="init">
 {css}
 		</style>
 		{js-libs}
-		<script type="text/javascript" language="javascript">
+		<script type="text/javascript" language="javascript" class="init">
 {js}
 		</script>
 	</head>
@@ -22,12 +22,38 @@
 				<div class="info">
 					{info}
 				</div>
-			</section>
 
-			<section>
 				{demo-html}
 				{table}
+
+				<ul class="tabs">
+					<li class="active">Javascript</li>
+					<li>HTML</li>
+					<li>CSS</li>
+					<li>Ajax data</li>
+					<li>Library files</li>
+				</ul>
+
+				<div class="tabs">
+					<div class="js">
+						<pre class="brush: js;">{js-esc}</pre>
+					</div>
+					<div class="table">
+
+					</div>
+					<div class="css">
+						<pre class="brush: js;">{css-esc}</pre>
+					</div>
+					<div class="ajax">
+
+					</div>
+					<div>
+{lib-files}
+					</div>
+				</div>
 			</section>
+
+
 		</div>
 
 		<section>

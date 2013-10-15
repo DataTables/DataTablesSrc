@@ -85,6 +85,10 @@ div.info li {
 	margin-top: 0.75em;
 }
 
+div.info p:first-child {
+	margin-top: 0;
+}
+
 div.footer {
 	position: relative;
 	margin-top: 5em;
@@ -190,3 +194,48 @@ code.multiline {
 	display: inline-block;
 	width: 95%;
 }
+
+
+ul.tabs {
+	height: 40px;
+	margin: 20px 20px 0 0;
+}
+
+
+ul.tabs li {
+	display: block;
+	float: left;
+	padding: 0 20px;
+	height: 40px;
+	font-size: 1.2em;
+	margin: 0 5px;
+	cursor: pointer;
+	line-height: 40px;
+	color: #121e32;
+	border: 1px solid white;
+	border-bottom: none;
+	margin-top: -1px;
+}
+
+ul.tabs li.active {
+	border: 1px solid #B0BED9;
+	border-bottom: 1px solid white;
+	margin-top: 0;
+}
+
+ul.tabs li:hover {
+	background-color: #f4f6fa;
+}
+
+div.tabs>div {
+	padding: 0 20px;
+	border: 1px solid #B0BED9;
+	margin-top: 1px;
+	display: none;
+}
+
+div.tabs>div h1 {
+	border-bottom: none;
+	margin-top: 1em;
+}
+
