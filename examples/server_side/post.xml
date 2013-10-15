@@ -15,7 +15,15 @@ $(document).ready(function() {
 		"ajax": {
 			"url": "scripts/post.php",
 			"type": "POST"
-		}
+		},
+		"columns": [
+			{ "data": "first_name" },
+			{ "data": "last_name" },
+			{ "data": "position" },
+			{ "data": "office" },
+			{ "data": "start_date" },
+			{ "data": "salary" }
+		]
 	} );
 } );
 ]]></js>
@@ -26,7 +34,7 @@ By default, the Ajax request that DataTables makes to obtain server-side process
 
 When given as an object, the `dt-init ajax` option maps directly onto the [jQuery ajax](http://api.jquery.com/jQuery.ajax/) options (i.e. any option that can be used in jQuery's Ajax function can also be used in DataTable's `dt-init ajax` option).
 
-The example below shows `dt-init ajax` being used with the `type` option set to 'POST' to make a POST request rather than GET.
+The example below shows `dt-init ajax` being used with the `type` option set to `string POST` to make a POST request.
 
 ]]></info>
 

@@ -26,15 +26,15 @@ $primaryKey = 'id';
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
-// parameter represents the DataTables column identifier. In this case simple
-// indexes
+// parameter represents the DataTables column identifier. In this case object
+// parameter names
 $columns = array(
-	array( 'db' => 'first_name', 'dt' => 0 ),
-	array( 'db' => 'last_name',  'dt' => 1 ),
-	array( 'db' => 'position',   'dt' => 2 ),
-	array( 'db' => 'office',     'dt' => 3 ),
-	array( 'db' => 'start_date', 'dt' => 4 ),
-	array( 'db' => 'salary',     'dt' => 5 )
+	array( 'db' => 'first_name', 'dt' => 'first_name' ),
+	array( 'db' => 'last_name',  'dt' => 'last_name' ),
+	array( 'db' => 'position',   'dt' => 'position' ),
+	array( 'db' => 'office',     'dt' => 'office' ),
+	array( 'db' => 'start_date', 'dt' => 'start_date' ),
+	array( 'db' => 'salary',     'dt' => 'salary' )
 );
 
 // SQL server connection information
@@ -64,9 +64,9 @@ $bindings = array();
 $db = SSP::sql_connect( $sql_details );
 
 // Build the SQL query string from the request
-$limit = SSP::limit( $_GET, $columns );
-$order = SSP::order( $_GET, $columns );
-$where = SSP::filter( $_GET, $columns, $bindings );
+$limit = SSP::limit( $_POST, $columns );
+$order = SSP::order( $_POST, $columns );
+$where = SSP::filter( $_POST, $columns, $bindings );
 
 // Main query to actually get the data
 $data = SSP::sql_exec( $db, $bindings,
@@ -95,7 +95,7 @@ $recordsTotal = $resTotalLength[0][0];
  * Output
  */
 $output = array(
-	"draw"            => intval( $_GET['draw'] ),
+	"draw"            => intval( $_POST['draw'] ),
 	"recordsTotal"    => intval( $recordsTotal ),
 	"recordsFiltered" => intval( $recordsFiltered ),
 	"data" => array()

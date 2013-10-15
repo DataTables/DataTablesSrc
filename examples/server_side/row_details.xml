@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="ajax-details" order="6">
+<dt-example table-type="ssp-details" order="6">
 
-<css lib="datatables" />
-<css><![CDATA[
+<css lib="datatables"><![CDATA[
 td.details-control {
-	background: url('../examples_support/details_open.png') no-repeat center center;
+	background: url('../resources/details_open.png') no-repeat center center;
 	cursor: pointer;
 }
 tr.details td.details-control {
-	background: url('../examples_support/details_close.png') no-repeat center center;
+	background: url('../resources/details_close.png') no-repeat center center;
 }
 ]]></css>
-<js lib="jquery" />
-<js lib="datatables" />
+<js lib="jquery datatables" />
 
-<title>POST data</title>
+<title>Row details</title>
 <js><![CDATA[
 
 function format ( d ) {
 	return 'Full name: '+d.first_name+' '+d.last_name+'<br>'+
+	    'Salary: '+d.salary+'<br>'+
 		'The child row can contain any data you wish, including links, images, inner tables etc.';
 }
 
@@ -27,19 +26,17 @@ $(document).ready(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax": "scripts/objects.php",
-		"columnDefs: [ 
+		"columns": [ 
 			{
-				"targets":        0,
 				"class":          "details-control",
 				"sortable":       false,
 				"data":           null,
 				"defaultContent": ""
 			},
-			{ "data": "name" },
-			{ "data": "age" },
+			{ "data": "first_name" },
+			{ "data": "last_name" },
 			{ "data": "position" },
-			{ "data": "office" },
-			{ "data": "salary" }
+			{ "data": "office" }
 		],
 		"sorting": [[1, 'asc']]
 	} );
@@ -54,7 +51,7 @@ $(document).ready(function() {
 		}
 		else {
 			tr.addClass( 'details' );
-			row.child( format( row.data() ).show();
+			row.child( format( row.data() ) ).show();
 		}
 	} );
 } );
@@ -66,7 +63,7 @@ This example shows the use of DataTables' ability to show and hide child rows wh
 
 The example below shows server-side processing being used with the first column having an event listener attached to it which will toggle the child row's display. This is set up using `dt-init columns.data` and `dt-init columns.defaultContent`, in combination with CSS to show an empty cell with a background image which can be clicked upon.
 
-The event handler makes use of the `dt-api row().child` methods to firstly check if a row is already displayed, and if so hide it, if not show it. The content of the child row is, in this example, defined by the `formatDetails()` function, but you would replace that with whatever you wanted to show the content required, possibly including, for example, an Ajax call to the server to obtain the extra information to show.
+The event handler makes use of the `dt-api row().child` methods to firstly check if a row is already displayed, and if so hide it, if not show it. The content of the child row is, in this example, defined by the `formatDetails()` function, but you would replace that with whatever you wanted to show the content required, possibly including, for example, an Ajax call to the server to obtain the extra information to show. Note that the format details function has access to the full data source object for the row, including information that is not actually shown in the table (the salary parameter for example).
 
 ]]></info>
 

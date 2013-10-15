@@ -14,10 +14,10 @@ $(document).ready(function() {
 	$("#example").dataTable({
 		"processing": true,
 		"serverSide": true,
-		"ajax": "scripts/id.php",
+		"ajax": "scripts/ids-arrays.php",
 		"rowCallback": function( row, data, displayIndex ) {
 			if ( $.inArray(data.DT_RowId, selected) !== -1 ) {
-				$(row).addClass('row_selected');
+				$(row).addClass('selected');
 			}
 		}
 	});
@@ -32,7 +32,7 @@ $(document).ready(function() {
 			selected.splice( index, 1 );
 		}
 
-		$(this).toggleClass('row_selected');
+		$(this).toggleClass('selected');
 	} );
 } );
 
@@ -40,9 +40,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-When you want to detail with user selectable rows and DataTables, it is relatively simple when using DOM based data - but when using server-side processing, DataTables doesn't retain DOM row elements over pages / filtering etc. As such, you will need to keep a track of which rows a user as selected and mark them as selected on each draw.
+When you want to have user selectable rows in DataTables, it is relatively trivial when using DOM based data - but when using server-side processing, DataTables doesn't retain DOM row elements over pages / filtering etc. As such, you will need to keep a track of which rows a user as selected and mark them as selected on each draw.
 
-This is shown in this demo, which uses a unique ID assigned to the TR element (this is done automatically through the use of the `DT_RowId` special property returned as part of the object given by the server for each row).
+This is shown in this demo, which uses a unique ID assigned to the TR element (this is done automatically through the use of the `DT_RowId` special property returned as part of the object given by the server for each row) to track which rows are selected and reselect them is appropriate on a draw.
 
 ]]></info>
 

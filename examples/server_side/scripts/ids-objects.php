@@ -26,18 +26,18 @@ $primaryKey = 'id';
 
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
-// parameter represents the DataTables column identifier. In this case simple
-// indexes
+// parameter represents the DataTables column identifier - in this case object
+// parameter names
 $columns = array(
-	array( 'db' => 'first_name', 'dt' => 0 ),
-	array( 'db' => 'last_name',  'dt' => 1 ),
-	array( 'db' => 'position',   'dt' => 2 ),
-	array( 'db' => 'office',     'dt' => 3 ),
-	array( 'db' => 'start_date', 'dt' => 4 ),
-	array( 'db' => 'salary',     'dt' => 5 )
+	array( 'db' => 'id',         'dt' => 'DT_RowId' ),
+	array( 'db' => 'first_name', 'dt' => 'first_name' ),
+	array( 'db' => 'last_name',  'dt' => 'last_name' ),
+	array( 'db' => 'position',   'dt' => 'position' ),
+	array( 'db' => 'office',     'dt' => 'office' ),
+	array( 'db' => 'start_date', 'dt' => 'start_date' ),
+	array( 'db' => 'salary',     'dt' => 'salary' )
 );
 
-// SQL server connection information
 $sql_details = array(
 	'user' => '',
 	'pass' => '',

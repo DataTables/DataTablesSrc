@@ -461,6 +461,103 @@ DT_Example::$tables['ssp'] = array(
 	'body'    => false
 );
 
+DT_Example::$tables['ssp-1st-page'] = array(
+	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => function () {
+		return <<<EOD
+		<tr class="odd">
+			<td>Angelica</td>
+			<td>Ramos</td>
+			<td>System Architect</td>
+			<td>London</td>
+			<td>9th Oct 09</td>
+			<td>$2,875</td>
+		</tr>
+		<tr class=" even">
+			<td>Ashton</td>
+			<td>Cox</td>
+			<td>Technical Author</td>
+			<td>San Francisco</td>
+			<td>12th Jan 09</td>
+			<td>$4,800</td>
+		</tr>
+		<tr class=" odd">
+			<td>Bradley</td>
+			<td>Greer</td>
+			<td>Software Engineer</td>
+			<td>London</td>
+			<td>13th Oct 12</td>
+			<td>$3,120</td>
+		</tr>
+		<tr class=" even">
+			<td>Brenden</td>
+			<td>Wagner</td>
+			<td>Software Engineer</td>
+			<td>San Francisco</td>
+			<td>7th Jun 11</td>
+			<td>$3,750</td>
+		</tr>
+		<tr class=" odd">
+			<td>Brielle</td>
+			<td>Williamson</td>
+			<td>Integration Specialist</td>
+			<td>New York</td>
+			<td>2nd Dec 12</td>
+			<td>$4,525</td>
+		</tr>
+		<tr class=" even">
+			<td>Bruno</td>
+			<td>Nash</td>
+			<td>Software Engineer</td>
+			<td>London</td>
+			<td>3rd May 11</td>
+			<td>$4,200</td>
+		</tr>
+		<tr class=" odd">
+			<td>Caesar</td>
+			<td>Vance</td>
+			<td>Technical Author</td>
+			<td>New York</td>
+			<td>12th Dec 11</td>
+			<td>$4,965</td>
+		</tr>
+		<tr class=" even">
+			<td>Cara</td>
+			<td>Stevens</td>
+			<td>Sales Assistant</td>
+			<td>New York</td>
+			<td>6th Dec 11</td>
+			<td>$4,800</td>
+		</tr>
+		<tr class=" odd">
+			<td>Cedric</td>
+			<td>Kelly</td>
+			<td>Javascript Developer</td>
+			<td>Edinburgh</td>
+			<td>29th Mar 12</td>
+			<td>$3,600</td>
+		</tr>
+		<tr class=" even">
+			<td>Charde</td>
+			<td>Marshall</td>
+			<td>Regional Director</td>
+			<td>San Francisco</td>
+			<td>16th Oct 08</td>
+			<td>$5,300</td>
+		</tr>
+EOD;
+	}
+);
+
+DT_Example::$tables['ssp-details'] = array(
+	'columns' => array( '', 'first_name', 'last_name', 'position', 'office' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
 DT_Example::$tables['html-comma'] = array(
 	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', function ( $type, $row ) {
 		return $type === 'title' ? 'Salary' : '$'.number_format($row['salary'], 0, ',', '.').',00';
@@ -503,7 +600,7 @@ DT_Example::$tables['html-total-footer'] = array(
 
 
 DT_Example::$tables['ajax-details'] = array(
-	'columns' => array( '', 'name', 'position', 'office', 'age', 'salary' ),
+	'columns' => array( '', 'name', 'position', 'office', 'salary' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => false

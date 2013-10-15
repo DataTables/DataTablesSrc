@@ -27,8 +27,9 @@ $primaryKey = 'id';
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
-// indexes
+// indexes + the primary key column for the id
 $columns = array(
+	array( 'db' => 'id',         'dt' => 'DT_RowId' ),
 	array( 'db' => 'first_name', 'dt' => 0 ),
 	array( 'db' => 'last_name',  'dt' => 1 ),
 	array( 'db' => 'position',   'dt' => 2 ),
@@ -63,7 +64,7 @@ require( 'ssp.class.php' );
 $bindings = array();
 $db = SSP::sql_connect( $sql_details );
 
-// Build the SQL query string from the request
+// Main query to actually get the data
 $limit = SSP::limit( $_GET, $columns );
 $order = SSP::order( $_GET, $columns );
 $where = SSP::filter( $_GET, $columns, $bindings );

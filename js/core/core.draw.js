@@ -319,6 +319,7 @@ function _fnDraw( oSettings )
 	{
 		oSettings.bDeferLoading = false;
 		oSettings.iDraw++;
+		_fnProcessingDisplay( oSettings, false );
 	}
 	else if ( !bServerSide )
 	{

@@ -37,7 +37,6 @@ $columns = array(
 	array( 'db' => 'salary',     'dt' => 5 )
 );
 
-// SQL server connection information
 $sql_details = array(
 	'user' => '',
 	'pass' => '',
@@ -126,5 +125,5 @@ for ( $i=0, $ien=count($data) ; $i<$ien ; $i++ ) {
 	$output['data'][] = $row;
 }
 
-echo json_encode( $output );
+echo $_GET['callback'].'('.json_encode( $output ).');';
 

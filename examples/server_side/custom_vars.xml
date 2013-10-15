@@ -25,10 +25,10 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-It can often be useful to send extra information to the server when utilising DataTables' server-side processing option. This is done by using the `dt-init ajax` option's `data` option which can be used in one of two different ways:
+It can often be useful to send extra information to the server when utilising DataTables' server-side processing option. This is done by using the `dt-init ajax` option's `data` parameter which can be used in one of two different ways:
 
-* `object` - An object of key value pairs which contain the additional data to send to the server.
-* `function` - A function which will manipulate the data object to send to the server, adding values as required.
+* `object` - An object data to send to the server. This is useful for adding static data to the request.
+* `function` - A function which will manipulate the data object to send to the server, adding values as required. Using the `data` parameter as a function allows the additional data to evaluated and added to the request at the time the request is made.
 
 The example below shows server-side processing being used with an extra parameter being sent to the server by using the `ajax.data` option as a function.
 

@@ -13,11 +13,12 @@ $(document).ready(function() {
 		"serverSide": true,
 		"ajax": "scripts/objects.php",
 		"columns": [
-			{ "data": "engine" },
-			{ "data": "browser" },
-			{ "data": "platform" },
-			{ "data": "version" },
-			{ "data": "grade" }
+			{ "data": "first_name" },
+			{ "data": "last_name" },
+			{ "data": "position" },
+			{ "data": "office" },
+			{ "data": "start_date" },
+			{ "data": "salary" }
 		]
 	} );
 } );

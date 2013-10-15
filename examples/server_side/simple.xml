@@ -22,7 +22,7 @@ There are many ways to get your data into DataTables, and if you are working wit
 
 Server-side processing is enabled by setting the `dt-init serverSide` option to `true` and providing an Ajax data source through the `dt-init ajax` option.
 
-This example shows a very simple table, matching the other examples, but in this instance using server-side processing.
+This example shows a very simple table, matching the other client-side processing examples, but in this instance using server-side processing.
 
 ]]></info>
 

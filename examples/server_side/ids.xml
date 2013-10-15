@@ -11,7 +11,15 @@ $(document).ready(function() {
 	$('#example').dataTable( {
 		"processing": true,
 		"serverSide": true,
-		"ajax": "scripts/id.php"
+		"ajax": "scripts/ids-objects.php",
+		"columns": [
+			{ "data": "first_name" },
+			{ "data": "last_name" },
+			{ "data": "position" },
+			{ "data": "office" },
+			{ "data": "start_date" },
+			{ "data": "salary" }
+		]
 	} );
 } );
 ]]></js>
@@ -26,7 +34,7 @@ In addition to `DT_RowId` there are two other properties which perform similar a
 * {string} `DT_RowClass` - Add a class name to the _TR_ element
 * {object} `DT_RowData` - Add HTML5 _data-_ attributes to the _TR_ element. This is an object of key / value pairs which are assigned as data attributes to the _TR_ element.
 
-This example below shows both `DT_RowId` and `DT_RowClass` being used to add information to the table.
+This example below shows `DT_RowId` being used to add information to the table. In addition objects are used as the data source for the rows.
 
 ]]></info>
 

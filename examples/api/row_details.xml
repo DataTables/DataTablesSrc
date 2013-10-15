@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="ajax-details" order="5">
 
-<css lib="datatables" />
-<js lib="jquery" />
-<js lib="datatables" />
+<css lib="datatables"><![CDATA[
+td.details-control {
+	background: url('../resources/details_open.png') no-repeat center center;
+	cursor: pointer;
+}
+tr.details td.details-control {
+	background: url('../resources/details_close.png') no-repeat center center;
+}
+]]></css>
+<js lib="jquery datatables" />
 
 <title>Child rows (show extra / detailed information)</title>
 <js><![CDATA[
@@ -14,11 +21,11 @@ function format ( d ) {
 	return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
 		'<tr>'+
 			'<td>Full name:</td>'+
-			'<td>'+d.first_name+' '+d.last_name+'</td>'+
+			'<td>'+d.name+'</td>'+
 		'</tr>'+
 		'<tr>'+
-			'<td>E-mail:</td>'+
-			'<td><a href="mailto:'+d.email+'>'+d.email+'</a></td>'+
+			'<td>Extension number:</td>'+
+			'<td>'+d.extn+'</td>'+
 		'</tr>'+
 		'<tr>'+
 			'<td>Extra info:</td>'+
@@ -29,24 +36,24 @@ function format ( d ) {
 
 $(document).ready(function() {
 	var table = $('#example').DataTable( {
-		"ajax": "../ajax/sources/objects.txt",
+		"ajax": "../ajax/data/objects.txt",
 		"columns": [
 			{
-				"sortable": false,
-				"className": 'icon',
+				"class":          'details-control',
+				"sortable":       false,
+				"data":           null,
 				"defaultContent": ''
 			},
 			{ "data": "name" },
 			{ "data": "position" },
 			{ "data": "office" },
-			{ "data": "age" },
 			{ "data": "salary" }
 		],
 		"sorting": [[1, 'asc']]
 	} );
 	
 	// Add event listener for opening and closing details
-	$('#example tbody').on('click', 'td.icon', function () {
+	$('#example tbody').on('click', 'td.details-control', function () {
 		var tr = $(this).parents('tr');
 		var row = table.row( tr );
 
