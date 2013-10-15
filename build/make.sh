@@ -72,6 +72,14 @@ function build_js {
 
 	mv DataTables.js.build $OUT_FILE
 
+	# JSHint
+	jshint --config $SCRIPT_DIR/jshint.config $OUT_FILE
+	if [ $? -eq 0 ]; then
+		echo_msg "JSHint passed"
+	else
+		echo_error "JSHint failed"
+	fi
+
 	if [ ! $DEBUG ]; then
 		echo_section "/*! DataTables $VERSION
  * ©2008-$(date +%Y) Allan Jardine - datatables.net/license
