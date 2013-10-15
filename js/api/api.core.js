@@ -33,7 +33,7 @@ _api_register( 'clear()', function () {
 
 
 _api_register( 'settings()', function () {
-	return new _api( this.context, this.context );
+	return new _Api( this.context, this.context );
 } );
 
 
