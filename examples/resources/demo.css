@@ -91,7 +91,7 @@ div.info p:first-child {
 
 div.footer {
 	position: relative;
-	margin-top: 5em;
+	margin-top: 3em;
 	border-top: 1px solid #999;
 	background-color: #eee;
 }
@@ -218,20 +218,28 @@ ul.tabs li {
 }
 
 ul.tabs li.active {
-	border: 1px solid #B0BED9;
+	border: 1px solid #ccc;
 	border-bottom: 1px solid white;
 	margin-top: 0;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 
 ul.tabs li:hover {
-	background-color: #f4f6fa;
+	background-color: #fafafa;
+}
+
+ul.tabs li.active:hover {
+	background-color: white;
 }
 
 div.tabs>div {
 	padding: 0 20px;
-	border: 1px solid #B0BED9;
+	border: 1px solid #ccc;
 	margin-top: 1px;
 	display: none;
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px #bbb;
 }
 
 div.tabs>div h1 {

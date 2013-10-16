@@ -22,6 +22,8 @@ class DT_Example
 
 	private $_additional_libs = null;
 
+	private $_xml_libs = null;
+
 
 	function __construct ( $file=null, $template=null, $path_resolver=null, $libs=array() )
 	{
@@ -38,6 +40,11 @@ class DT_Example
 		}
 
 		$this->_libs = array(
+			'css' => array(),
+			'js'  => array()
+		);
+
+		$this->_xml_libs = array(
 			'css' => array(),
 			'js'  => array()
 		);
@@ -113,11 +120,13 @@ class DT_Example
 			throw new Exception("Template file {$template} not found}", 1);
 		}
 
-		$template = str_replace( '{title}',     (string)$xml->title,          $template );
-		$template = str_replace( '{info}',      DT_Markdown( $xml->info ),    $template );
-		$template = str_replace( '{css-libs}',  $this->_format_libs( 'css' ), $template );
-		$template = str_replace( '{js-libs}',   $this->_format_libs( 'js' ),  $template );
-		$template = str_replace( '{table}',     $tableHtml,                   $template );
+		$template = str_replace( '{title}',         (string)$xml->title,             $template );
+		$template = str_replace( '{info}',          DT_Markdown( $xml->info ),       $template );
+		$template = str_replace( '{css-libs}',      $this->_format_libs('css'),      $template );
+		$template = str_replace( '{js-libs}',       $this->_format_libs('js'),       $template );
+		$template = str_replace( '{css-lib-files}', $this->_format_lib_files('css'), $template );
+		$template = str_replace( '{js-lib-files}', $this->_format_lib_files('js'),   $template );
+		$template = str_replace( '{table}',        $tableHtml,                       $template );
 
 		if ( isset( $xml->{'demo-html'} ) ) {
 			$template = str_replace( '{demo-html}', $this->innerXML($xml->{'demo-html'}), $template );
@@ -401,6 +410,7 @@ class DT_Example
 
 				for ( $i=0, $ien=count($split_attr) ; $i<$ien ; $i++ ) {
 					$a[] = $split_attr[$i];
+					$this->_xml_libs[ $type ][] = $split_attr[$i];
 				}
 			}
 		}
@@ -427,18 +437,41 @@ class DT_Example
 			}
 		}
 	}
+
+
+	private function _format_lib_files ( $type )
+	{
+		// List of libraries files so the user can see what specifically is
+		// needed for a given example
+		$str = '<ul>';
+
+		$libs = $this->_xml_libs[ $type ];
+		if ( count( $libs ) ) {
+			for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
+				$file = DT_Example::$lookup_libraries[ $type ][ $libs[$i] ];
+				$path = strpos($file, '//') !== 0 ?
+					call_user_func( $this->_path_resolver, $file ) :
+					$file;
+				$str .= '<li><a href="'.$path.'">'.$path.'</a></li>';
+			}
+			$str .= '</li>';
+		}
+
+		$str .= '</ul>';
+		return $str;
+	}
 }
 
 
 DT_Example::$lookup_libraries['css'] = array(
-	'jqueryui'              => '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css',
-	'bootstrap'             => '//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css',
-	'foundation'            => '//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.1/css/foundation.min.css'
+	'jqueryui'   => '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css',
+	'bootstrap'  => '//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css',
+	'foundation' => '//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.1/css/foundation.min.css'
 );
 
 
 DT_Example::$lookup_libraries['js'] = array(
-	'jqueryui'              => '//code.jquery.com/ui/1.10.3/jquery-ui.js'
+	'jqueryui' => '//code.jquery.com/ui/1.10.3/jquery-ui.js'
 );
 
 

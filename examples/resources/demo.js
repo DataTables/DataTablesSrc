@@ -14,8 +14,9 @@ $(document).ready( function () {
 	};
 
 	// css
-	if ( $.trim( $('div.tabs div.css pre').text() ) === '' ) {
-		$('ul.tabs li').eq(2).css('display', 'none');
+	var cssContainer = $('div.tabs div.css');
+	if ( $.trim( cssContainer.find('pre').text() ) === '' ) {
+		cssContainer.find('pre, p:eq(0), div').css('display', 'none');
 	}
 
 	// init html
@@ -35,9 +36,16 @@ $(document).ready( function () {
 
 		var show = function ( str ) {
 			ajaxTab.css( 'display', 'block' );
-			$('div.tabs div.ajax')
-				.empty()
-				.append( '<pre class="brush: js;">'+JSON.stringify( str, null, 2 )+'</pre>' );
+			$('div.tabs div.ajax pre').remove();
+
+			// Old IE :-|
+			try {
+				str = JSON.stringify( str, null, 2 );
+			} catch ( e ) {}
+
+			$('div.tabs div.ajax').append(
+				'<pre class="brush: js;">'+str+'</pre>'
+			);
 			SyntaxHighlighter.highlight( {}, $('div.tabs div.ajax pre')[0] );
 		};
 
