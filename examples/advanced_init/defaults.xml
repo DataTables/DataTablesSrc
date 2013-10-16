@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="12">
+<dt-example table-type="html" order="9">
 
 <css lib="datatables" />
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>Defaults</title>
+<title>Setting defaults</title>
 <js><![CDATA[
 
 $.extend( $.fn.dataTable.defaults, {

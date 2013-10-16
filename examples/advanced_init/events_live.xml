@@ -5,7 +5,7 @@
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>Events</title>
+<title>DOM / jQuery events</title>
 <js><![CDATA[
 
 $(document).ready(function() {

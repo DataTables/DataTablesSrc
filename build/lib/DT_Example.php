@@ -205,6 +205,15 @@ class DT_Example
 				else if ( $type === 'data' )  { return $row['first_name'].' '.$row['last_name']; }
 				break;
 
+			case 'name-attr':
+				if      ( $type === 'title' ) { return 'Name'; }
+				else if ( $type === 'data' )  {
+					return '<td data-filter="'.$row['first_name'].' '.$row['last_name'].'">'.
+						substr($row['first_name'], 0, 1).'. '.$row['last_name'].
+						'</td>';
+				}
+				break;
+
 			case 'first_name':
 				if      ( $type === 'title' ) { return 'First name'; }
 				else if ( $type === 'data' )  { return $row['first_name']; }
@@ -228,6 +237,11 @@ class DT_Example
 			case 'salary':
 				if      ( $type === 'title' ) { return 'Salary'; }
 				else if ( $type === 'data' )  { return '$'.number_format($row['salary']); }
+				break;
+
+			case 'salary-attr':
+				if      ( $type === 'title' ) { return 'Salary'; }
+				else if ( $type === 'data' )  { return '<td data-sort="'.$row['salary'].'">$'.number_format($row['salary']).'/m</td>'; }
 				break;
 
 			case 'start_date':
@@ -338,7 +352,14 @@ class DT_Example
 
 					$cells = '';
 					for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
-						$cells .= '<td>'.$this->_column( $columns[$i], 'data', $this->_data[$j] ).'</td>';
+						$cell = $this->_column( $columns[$i], 'data', $this->_data[$j] );
+
+						if ( strpos( $cell, '<td' ) === 0 ) {
+							$cells .= $cell;
+						}
+						else {
+							$cells .= '<td>'.$cell.'</td>';
+						}
 					}
 					$t .= '<tr>'.$cells.'</tr>';
 				}
@@ -477,6 +498,13 @@ DT_Example::$lookup_libraries['js'] = array(
 
 DT_Example::$tables['html'] = array(
 	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+DT_Example::$tables['html5'] = array(
+	'columns' => array( 'name-attr', 'position', 'office', 'age', 'start_date', 'salary-attr' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => true

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="10">
+<dt-example table-type="html" order="14">
 
 <css lib="datatables" />
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>Row grouping</title>
+<title>Sort direction control</title>
 <js><![CDATA[
 
 $(document).ready(function() {
