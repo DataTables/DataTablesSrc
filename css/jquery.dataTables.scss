@@ -48,7 +48,6 @@ $table-paging-button-hover: #111;
 	background:         linear-gradient(to bottom, $from 0%, $to 100%); /* W3C */
 }
 
-
 /*
  * Table styles
  */
@@ -269,6 +268,15 @@ table.dataTable {
 	}
 }
 
+// Its not uncommon to use * {border-box} now, but it messes up the column width
+// calculations, so use content-box for the table and cells
+table.dataTable,
+table.dataTable th,
+table.dataTable td {
+	-webkit-box-sizing: content-box;
+	   -moz-box-sizing: content-box;
+	        box-sizing: content-box;
+}
 
 
 /*
