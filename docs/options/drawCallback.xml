@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="callback">
+	<name>drawCallback</name>
+	<summary>Function that is called every time DataTables performs a draw.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>drawCallback( settings )</signature>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>It can be useful to take an action on every draw event of the table - for example you might want to update an external control with the newly displayed data, or  with server-side processing is enabled you might want to assign events to the newly created elements. This callback is designed for exactly that purpose and will execute on every draw.</description>
+
+	<example title="Notify whenever DataTables does a draw"><![CDATA[
+$('#example').dataTable( {
+	"drawCallback": function( settings ) {
+		alert( 'DataTables has redrawn the table' );
+	}
+} );
+]]></example>
+
+	<example title="Use API method in the callback to get the data for the rows in the draw"><![CDATA[
+$('#example').dataTable( {
+	"drawCallback": function( settings ) {
+		var api = this.api();
+
+		// Output the data for the visible rows to the browser's console
+		console.log( api.rows( {page:'current'} ).data() );
+	}
+} );
+]]></example>
+
+	<related type="api">draw()</related>
+</dt-option>
