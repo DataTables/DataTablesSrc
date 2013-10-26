@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>data</name>
+	<summary>Data to use as the display data for the table.</summary>
+	<since>1.10</since>
+
+	<type type="array" />
+
+	<description>
+		DataTables can obtain the data it is to display in the table table's body from a number of sources, including being passed in as an array of row data using this initialisation parameter. As with other dynamic data sources, arrays or objects can be used for the data source for each row, with `dt-init columns.data` employed to read from specific object properties.
+
+		Using this initialisation option can be useful when creating a table from a Javascript data source, or from a custom Ajax data get.
+
+		Note that if `dt-init data` is specified, the data given in the array will replace any information that was found in the table's DOM when initialised.
+	</description>
+
+	<example title="Using a 2D array data source"><![CDATA[
+$('#example').dataTable( {
+	"data": [
+		[ "Tiger Nixon", "System Architect", "$3,120", "2011/04/25", "Edinburgh", 5421 ],
+		[ "Garrett Winters", "Director", "$8,422", "2011/07/25", "Edinburgh", 8422 ],
+		// ...
+	]
+} );
+]]></example>
+
+	<example title="Using an array of objects as a data source"><![CDATA[
+
+$('#example').dataTable( {
+	"data": [
+		{
+			"name":       "Tiger Nixon",
+			"position":   "System Architect",
+			"salary":     "$3,120",
+			"start_date": "2011/04/25",
+			"office":     "Edinburgh",
+			"extn":       5421
+		},
+		{
+			"name": "Garrett Winters",
+			"position": "Director",
+			"salary": "5300",
+			"start_date": "2011/07/25",
+			"office": "Edinburgh",
+			"extn": "8422"
+		},
+		// ...
+	],
+	"columns": [
+		{ "data": "name" },
+		{ "data": "position" },
+		{ "data": "office" },
+		{ "data": "extn" },
+		{ "data": "start_date" },
+		{ "data": "salary" }
+	]
+} );
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="option">columns.data</related>
+	<related type="api">row.add()</related>
+	<related type="api">rows.add()</related>
+</dt-option>

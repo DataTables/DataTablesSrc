@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>ajax</name>
+	<summary></summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<type type="object" />
+	<type type="function" />
+
+	<description>
+	</description>
+
+	<example title=""><![CDATA[
+]]></example>
+
+	<related type="option">serverSide</related>
+	<related type="api">ajax.json()</related>
+	<related type="api">ajax.reload()</related>
+	<related type="api">ajax.url()</related>
+</dt-option>

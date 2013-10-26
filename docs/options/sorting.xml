@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>sorting</name>
+	<summary>Initial sort to apply to the table</summary>
+	<since>1.10</since>
+
+	<type type="array" defailt="[[0, 'asc']]" />
+
+	<description>
+		If sorting is enabled, then DataTables will perform a first pass sort during initialisation. Using this parameter you can define which column(s) the sort is performed upon, and the sorting direction. The `dt-init sorting` can take two forms:
+
+		* An array with two entries:
+		  * Column index to sort upon
+		  * Direction so sort to apply (`string asc` or `string desc`)
+		* An array of arrays, each inner array with the two options above. This allows a multi-column sort to be defined as the initial state.
+	</description>
+
+	<example title="No initial sort"><![CDATA[
+$('#example').dataTable( {
+	"sorting": []
+} );
+]]></example>
+
+	<example title="Sortng on column index 1 (second column) initially"><![CDATA[
+$('#example').dataTable( {
+	"sorting": [ 1, 'asc' ]
+} );
+]]></example>
+
+	<example title="Multi-column sorting as the initial state"><![CDATA[
+$('#example').dataTable( {
+	"sorting": [[ 0, 'asc' ], [ 1, 'asc' ]]
+} );
+]]></example>
+
+	<related type="option">sort</related>
+	<related type="option">sortingFixed</related>
+	<related type="option">columns.sortable</related>
+	<related type="option">columns.dataSort</related>
+	<related type="api">order()</related>
+</dt-option>
