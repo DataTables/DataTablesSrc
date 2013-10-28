@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>displayLength</name>
+	<summary>Change the initial page length (number of rows per page)</summary>
+	<since>1.10</since>
+
+	<type type="integer" />
+	<default value="10" />
+
+	<description>
+		Number of rows to display on a single page when using pagination.
+
+		If `dt-init lengthChange` is feature enabled (it is by default) then the end user will be able to override the value set here to a custom setting using a pop-up menu (see `dt-init lengthMenu`).
+	</description>
+
+	<example title="Show 50 records per page"><![CDATA[
+$('#example').dataTable( {
+  "displayLength": 50
+} );
+]]></example>
+
+	<related type="option">lengthChange</related>
+	<related type="option">lengthMenu</related>
+	<related type="option">paginate</related>
+	<related type="api">page()</related>
+	<related type="api">page.info()</related>
+	<related type="api">page.len()</related>
+</dt-option>

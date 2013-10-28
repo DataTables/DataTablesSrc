@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.paginate</name>
+	<summary>Pagination specific language strings</summary>
+	<since>1.10</since>
+
+	<type type="object" />
+
+	<description>
+		Pagination string used by DataTables for the built-in pagination control types.
+	</description>
+
+	<related type="option">language</related>
+	<related type="option">language.paginate.first</related>
+	<related type="option">language.paginate.last</related>
+	<related type="option">language.paginate.next</related>
+	<related type="option">language.paginate.previous</related>
+</dt-option>

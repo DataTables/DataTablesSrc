@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.processing</name>
+	<summary>Processing indicator string</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="Processing..." />
+
+	<description>
+		Text that is displayed when the table is processing a user action (usually a sort command or similar).
+	</description>
+
+	<example title="Set processing information text"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+     "processing": "DataTables is currently busy"
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.loadingRecords</related>
+</dt-option>

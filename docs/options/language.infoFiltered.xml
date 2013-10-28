@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.infoFiltered</name>
+	<summary>Appended string to the summary information when the table is filtered</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="(filtered from _MAX_ total entries)" />
+
+	<description>
+		When a user filters the information in a table, this string is appended to the information (`info`) to give an idea of how strong the filtering is.
+
+		The token `_MAX_` is dynamically updated - see `dt-init language.info` for information about all available tokens.
+	</description>
+
+	<example title="Alter the filtering information summary string"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "infoFiltered": " - filtered from _MAX_ records"
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.info</related>
+	<related type="option">language.infoEmpty</related>
+	<related type="option">language.infoPostFix</related>
+	<related type="option">language.infoThousands</related>
+</dt-option>

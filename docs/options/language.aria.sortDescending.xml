@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.aria.sortDescending</name>
+	<summary>Language strings used for WAI-ARIA specific attributes</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value=": activate to sort column descending" />
+
+	<description>
+		ARIA label that is added to the table headers when the column may be  sorted descending by activing the column (click or return when focused).
+
+		Note that the column header text is prefixed to this string. 
+	</description>
+
+	<example title="Set ARIA sort descending string"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "aria": {
+       "sortDescending": " - click/return to sort descending"
+    }
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.aria</related>
+	<related type="option">language.aria.sortAscending</related>
+</dt-option>

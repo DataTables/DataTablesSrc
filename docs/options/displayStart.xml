@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>displayStart</name>
+	<summary>Initial paging start point</summary>
+	<since>1.10</since>
+
+	<type type="integer" />
+	<default value="0" />
+
+	<description>
+		Define the starting point for data display when using DataTables with pagination (`dt-init paginate`).
+
+		Note that this parameter is the number of records (counting from 0), rather than the page number, so if you have 10 records per page and want to start on the third page, it should be `20` rather than 2 or 3.
+	</description>
+
+	<example title="Show row 20 as the first row in the table on startup"><![CDATA[
+$('#example').dataTable( {
+  "displayStart": 20
+} );
+]]></example>
+
+	<related type="option">lengthChange</related>
+	<related type="option">paginate</related>
+	<related type="api">page()</related>
+	<related type="api">page.info()</related>
+</dt-option>

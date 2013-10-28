@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.zeroRecords</name>
+	<summary>Table empty as a result of filtering string</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="No matching records found" />
+
+	<description>
+		Text shown inside the table records when the is no information to be displayed after filtering.
+
+		Note that `dt-init language.emptyTable` is shown when there is simply no information in the table at all (regardless of filtering), while this parameter is used for when the table is empty due to filtering.
+	</description>
+
+	<example title="Set zero records string"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "zeroRecords": "No records to display"
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.emptyTable</related>
+	<related type="option">filter</related>
+	<related type="api">search()</related>
+</dt-option>

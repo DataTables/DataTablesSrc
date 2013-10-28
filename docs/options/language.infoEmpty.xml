@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.infoEmpty</name>
+	<summary>Table summary information string used when the table is empty or records</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="Showing 0 to 0 of 0 entries" />
+
+	<description>
+		Display information string for when the table is empty. Typically the format of this string should match `info`.
+	</description>
+
+	<example title="Show page count"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "infoEmpty": "No entries to show"
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.info</related>
+	<related type="option">language.infoFiltered</related>
+	<related type="option">language.infoPostFix</related>
+	<related type="option">language.infoThousands</related>
+</dt-option>

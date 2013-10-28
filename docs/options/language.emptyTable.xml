@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.emptyTable</name>
+	<summary>Table has no records string</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="No data available in table" />
+
+	<description>
+		This string is shown in preference to `dt-init language.zeroRecords` when the table is empty of data (regardless of filtering) - i.e. there are zero records in the table. 
+
+		Note that this is an optional parameter. If it is not given, the value of `dt-init language.zeroRecords` will be used instead (either the default or given value).
+	</description>
+
+	<example title="Set emptyTable string"><![CDATA[
+$('#example').dataTable( {
+	"language": {
+      "emptyTable": "No data available in table"
+    }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.infoEmpty</related>
+	<related type="option">language.zeroRecords</related>
+</dt-option>

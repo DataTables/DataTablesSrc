@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.search</name>
+	<summary>Search input string</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="Search:" />
+
+	<description>
+		Sets the string that is used for DataTables filtering input control.
+
+		The token `string _INPUT_`, if used in the string, is replaced with the HTML text box for the filtering input allowing control over where it appears in the string. If `string _INPUT_` is not given then the input box is appended to the string automatically.
+	</description>
+
+	<example title="Input text box will be appended at the end automatically"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "search": "Filter records:"
+  }
+} );
+]]></example>
+
+	<example title="Specify where the filter should appear"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "search": "Apply filter _INPUT_ to table"
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">filter</related>
+	<related type="api">search()</related>
+</dt-option>

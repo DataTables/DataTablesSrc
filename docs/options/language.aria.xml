@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.aria</name>
+	<summary>Language strings used for WAI-ARIA specific attributes</summary>
+	<since>1.10</since>
+
+	<type type="object" />
+
+	<description>
+		Strings that are used for WAI-ARIA labels and controls only (these are not actually visible on the page, but will be read by screen readers, and thus must be internationalised as well).
+	</description>
+
+	<related type="option">language</related>
+	<related type="option">language.aria.sortAscending</related>
+	<related type="option">language.aria.sortDescending</related>
+</dt-option>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.lengthMenu</name>
+	<summary>Page length options string</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="Show _MENU_ entries" />
+
+	<description>
+		Detail the action that will be taken when the drop down menu for the pagination length option is changed. The token `string _MENU_` is replaced with a default select list of 10, 25, 50 and 100 (or any other value specified by `dt-init lengthMenu`), and can be replaced with a custom select list if required.
+	</description>
+
+	<example title="Language change only"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "lengthMenu": "Display _MENU_ records"
+  }
+} );
+]]></example>
+
+	<example title="Language and options change (you'd be better off useing `lengthMenu` though!"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "lengthMenu": 'Display <select>'+
+      '<option value="10">10</option>'+
+      '<option value="20">20</option>'+
+      '<option value="30">30</option>'+
+      '<option value="40">40</option>'+
+      '<option value="50">50</option>'+
+      '<option value="-1">All</option>'+
+      '</select> records'
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">lengthChange</related>
+	<related type="option">lengthMenu</related>
+	<related type="api">page.len()</related>
+</dt-option>

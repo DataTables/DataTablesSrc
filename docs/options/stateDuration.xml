@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>stateDuration</name>
+	<summary>Saved state validity duration</summary>
+	<since>1.10</since>
+
+	<type type="integer" />
+	<default value="7200" />
+
+	<description>
+		Duration for which the saved state information is considered valid. After this period has elapsed the state will be returned to the default.
+
+		Please note that the value is given in seconds.
+	</description>
+
+	<example title="Set state duration to 1 day"><![CDATA[
+$('#example').dataTable( {
+  "stateSave": true,
+  "stateDuration": 60*60*24;
+} );
+]]></example>
+
+	<related type="option">stateSave</related>
+</dt-option>

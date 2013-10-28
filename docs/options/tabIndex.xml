@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>tabIndex</name>
+	<summary>Initial paging start point</summary>
+	<since>1.10</since>
+
+	<type type="integer" />
+	<default value="0" />
+
+	<description>
+		By default DataTables allows keyboard navigation of the table (sorting, paging, and filtering) by adding a `tabindex` attribute to the required elements. This allows the end user to tab through the controls and press the enter key to activate them, allowing the table controls to be accessible without a mouse.
+
+		The default tabindex is 0, meaning that the tab follows the flow of the document. You can overrule this using this parameter if you wish. Use a value of -1 to disable built-in keyboard navigation, although this is not recommended for accessibility reasons.
+	</description>
+
+	<example title=""><![CDATA[
+$('#example').dataTable( {
+  "tabIndex": 1
+} );
+]]></example>
+
+	<related type="option">sort</related>
+	<related type="option">paginate</related>
+	<related type="option">filter</related>
+</dt-option>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.loadingRecords</name>
+	<summary>Loading information display string - shown when Ajax loading data</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="Loading..." />
+
+	<description>
+		When using Ajax sourced data and during the first draw when DataTables is gathering the data, this message is shown in an empty row in the table to indicate to the end user the the data is being loaded. Note that this parameter is not used when loading data by server-side processing, just Ajax sourced data with client-side processing.
+	</description>
+
+	<example title="Set loading information text"><![CDATA[
+$('#example').dataTable( {
+  "ajax": "json.txt",
+  "language": {
+     "loadingRecords": "Please wait - loading..."
+  }
+} );
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="option">language</related>
+	<related type="option">language.zeroRecords</related>
+</dt-option>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language</name>
+	<summary>Language configuration options for DataTables</summary>
+	<since>1.10</since>
+
+	<type type="object" />
+
+	<description>
+		All strings that DataTables uses in its user interface are defined in this object, allowing you to modified them individually or completely replace them all as required. This ensures that DataTables is fully internationalisable as strings for any language can be used.
+
+		The default language options for DataTables are shown below for reference. Additionally there are a wide range of translations readily available on this site, in the [internationalisation plug-ins](//datatables.net/plug-ins/i18n).
+
+		For information about each individual parameter, please see its documentation document.
+
+		```
+		{
+		    "emptyTable":     "No data available in table",
+		    "info":           "Showing _START_ to _END_ of _TOTAL_ entries",
+		    "infoEmpty":      "Showing 0 to 0 of 0 entries",
+		    "infoFiltered":   "(filtered from _MAX_ total entries)",
+		    "infoPostFix":    "",
+		    "infoThousands":  ",",
+		    "lengthMenu":     "Show _MENU_ entries",
+		    "loadingRecords": "Loading...",
+		    "processing":     "Processing...",
+		    "search":         "Search:",
+		    "zeroRecords":    "No matching records found",
+		    "paginate": {
+		        "first":      "First",
+		        "last":       "Last",
+		        "next":       "Next",
+		        "previous":   "Previous"
+		    },
+		    "aria": {
+		        "sortAscending":  ": activate to sort column ascending",
+		        "sortDescending": ": activate to sort column descending"
+		    }
+		}
+		```
+	</description>
+
+	<related type="option">language.emptyTable</related>
+	<related type="option">language.info</related>
+	<related type="option">language.infoEmpty</related>
+	<related type="option">language.infoFiltered</related>
+	<related type="option">language.infoPostFix</related>
+	<related type="option">language.infoThousands</related>
+	<related type="option">language.lengthMenu</related>
+	<related type="option">language.loadingRecords</related>
+	<related type="option">language.processing</related>
+	<related type="option">language.search</related>
+	<related type="option">language.zeroRecords</related>
+	<related type="option">language.paginate</related>
+	<related type="option">language.paginate.first</related>
+	<related type="option">language.paginate.last</related>
+	<related type="option">language.paginate.next</related>
+	<related type="option">language.paginate.previous</related>
+	<related type="option">language.aria</related>
+	<related type="option">language.aria.sortAscending</related>
+	<related type="option">language.aria.sortDescending</related>
+</dt-option>

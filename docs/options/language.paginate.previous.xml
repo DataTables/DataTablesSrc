@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.paginate.previous</name>
+	<summary>Pagination 'previous' button string</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="Previous" />
+
+	<description>
+		Text to use for the 'previous' pagination button (to take the user to the previous page).
+	</description>
+
+	<example title="Set text for pagination 'previous' button"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "paginate": {
+      "previous": "Previous page"
+    }
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.paginate</related>
+	<related type="option">language.paginate.first</related>
+	<related type="option">language.paginate.next</related>
+	<related type="option">language.paginate.last</related>
+</dt-option>

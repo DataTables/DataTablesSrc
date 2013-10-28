@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.infoThousands</name>
+	<summary>Thousands separator</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="," />
+
+	<description>
+		DataTables' built in number formatter (`dt-init formatNumber`) is used to format large numbers that are used in the table information. By default a comma is used, but this can be trivially changed to any other character you wish with this parameter, suitable for any locality, or set to an empty string if you do not which to have a thousands separator character.
+	</description>
+
+	<example title="Set thousands separator to be a quote mark"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "infoThousands": "'"
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.info</related>
+	<related type="option">language.infoEmpty</related>
+	<related type="option">language.infoFiltered</related>
+	<related type="option">language.infoPostFix</related>
+	<related type="option">formatNumber</related>
+</dt-option>

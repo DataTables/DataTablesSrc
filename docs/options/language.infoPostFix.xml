@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.infoPostFix</name>
+	<summary>String to append to all other summary information strings</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="<i>Empty string</i>" />
+
+	<description>
+		If can be useful to append extra information to the info string at times, and this variable does exactly that.
+
+		This string will be appended to the `dt-init langauge.info` (`dt-init langauge.infoEmpty` and `dt-init langauge.infoFiltered` in whatever combination they are being used) at all times.
+	</description>
+
+	<example title="Postfix string to the information summary"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "infoPostFix": "All records shown are derived from real information."
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.info</related>
+	<related type="option">language.infoEmpty</related>
+	<related type="option">language.infoFiltered</related>
+	<related type="option">language.infoThousands</related>
+</dt-option>

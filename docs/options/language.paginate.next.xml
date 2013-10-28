@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.paginate.next</name>
+	<summary>Pagination 'next' button string</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="Next" />
+
+	<description>
+		Text to use for the 'next' pagination button (to take the user to the next page).
+	</description>
+
+	<example title="Set text for pagination 'next' button"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "paginate": {
+      "next": "Next page"
+    }
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.paginate</related>
+	<related type="option">language.paginate.first</related>
+	<related type="option">language.paginate.last</related>
+	<related type="option">language.paginate.previous</related>
+</dt-option>

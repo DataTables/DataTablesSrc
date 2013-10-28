@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.url</name>
+	<summary>Load language information from remote file</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+
+	<description>
+		All of the language options DataTables provides can be stored in a file on the server, which DataTables will look up if this parameter is passed. The file must be a valid JSON file, and the object it contains has the same properties as the `dt-init language` object in the initialiser object.
+
+		There are a wide range of translations readily available on this site, in the [internationalisation plug-ins](//datatables.net/plug-ins/i18n).
+	</description>
+
+	<example title="Load language information from a remote file"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "url": "/dataTables/i18n/de_de.lang"
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+</dt-option>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.paginate.first</name>
+	<summary>Pagination 'first' button string</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="First" />
+
+	<description>
+		Text used when the pagination control shows the button to take the user to the first page.
+	</description>
+
+	<example title="Set text for pagination 'first' button"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "paginate": {
+      "first": "First page"
+    }
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.paginate</related>
+	<related type="option">language.paginate.last</related>
+	<related type="option">language.paginate.next</related>
+	<related type="option">language.paginate.previous</related>
+</dt-option>

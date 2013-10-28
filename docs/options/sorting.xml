@@ -4,7 +4,8 @@
 	<summary>Initial sort to apply to the table</summary>
 	<since>1.10</since>
 
-	<type type="array" defailt="[[0, 'asc']]" />
+	<type type="array" />
+	<default value="[[0, 'asc']]" />
 
 	<description>
 		If sorting is enabled, then DataTables will perform a first pass sort during initialisation. Using this parameter you can define which column(s) the sort is performed upon, and the sorting direction. The `dt-init sorting` can take two forms:
