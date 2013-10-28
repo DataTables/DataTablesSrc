@@ -1,17 +1,173 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-option group="option">
+<dt-option group="data">
 	<name>ajax</name>
-	<summary></summary>
+	<summary>Load data for the table's content from an Ajax source</summary>
 	<since>1.10</since>
 
-	<type type="string" />
-	<type type="object" />
-	<type type="function" />
+	<type type="string">
+		<description>
+			In its simplest form, `dt-init ajax`, when given as a string will simply load the data from the given remote file. Note that DataTables expects the table data to be an array of items in the `data` parameter of the object (use the `dataSrc` option of `dt-init ajax` as an object, below, if your data is formatted differently):
+
+			```
+			{
+				"data": [
+					// row 1 data source,
+					// row 2 data source,
+					// etc
+				]
+			}
+			```
+
+			DataTables can use objects or arrays in almost any format as the data source for each row through use of the `dt-init columns.data` option. The default is to use an array data source.
+
+			Simple example:
+
+			```
+			$('#example').dataTable( {
+			  "ajax": "data.json"
+			} );
+			```
+		</description>
+	</type>
+
+	<type type="object">
+		<description>
+			As an object, the `dt-init ajax` object is passed to [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) allowing fine control of the Ajax request. DataTables has a number of default parameters which you can override using this option. Please refer to the [jQuery documentation](http://api.jquery.com/jQuery.ajax/) for a full description of the options available, although the following parameters provide additional options in DataTables or require special consideration:
+
+			* `data` - As with jQuery, `data` can be provided as an object, but as an extension, it can also provided as a function to manipulate the data DataTables sends to the server. The function takes a single parameter, an object of parameters with the values that DataTables has readied for sending. An object may be returned which will be merged into the DataTables defaults, or you can add the items to the object that was passed in and not return anything from the function. This supersedes `fnServerParams` from DataTables 1.9-.
+
+			* `dataSrc` - By default DataTables will look for the property `data` (or `aaData` for compatibility with DataTables 1.9-) when obtaining data from an Ajax source or for server-side processing - this parameter allows that property to be changed, through two different forms:
+
+			  * As a string - define the property from the object to read. Note that if your Ajax source simply returns an array of data to display, rather than an object, set this parameter to be an empty string. Additionally you can use Javascript dotted object notation to get a data source for multiple levels of object / array nesting.
+
+			  * As a function - As a function it takes a single parameter, the JSON returned from the server, which can be manipulated as required. The returned value from the function is what will be used by DataTables as the data source for the table.
+
+			  This supersedes `sAjaxDataProp` from DataTables 1.9-.
+
+			* `success` - Must _not_ be overridden as it is used internally in DataTables. To manipulate / transform the data returned by the server use `ajax.dataSrc` (above), or use `ajax` as a function (below).
+
+			Simple example:
+
+			```
+			$('#example').dataTable( {
+			  "ajax": {
+			    "url": "data.json",
+			    "type": "POST"
+			  }
+			} );
+			```
+		</description>
+	</type>
+
+	<type type="function">
+		<signature>ajax( data, callback, settings )</signature>
+		<parameter type="object" name="data">
+			Data to send to the server
+		</parameter>
+		<parameter type="function" name="callback">
+			Callback function that must be executed when the required data has been obtained. That data should be passed into the callback as the only parameter
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<scope>HTML table element</scope>
+		<description>
+			As a function, making the Ajax call is left up to yourself allowing complete control of the Ajax request. Indeed, if desired, a method other than Ajax could be used to obtain the required data, such as Web storage or an AIR database.
+
+			When the data has been obtained from the data source, the second parameter (`callback` here) should be called with a single parameter passed in - the data to use to draw the table.
+
+			Simple example:
+
+			```
+			$('#example').dataTable( {
+			  "ajax": function (data, callback, settings) {
+			    callback(
+			      JSON.parse( localStorage.getItem('dataTablesData') )
+			    );
+			  }
+			} );
+			```
+		</description>
+	</type>
 
 	<description>
+		DataTables can obtain the data it is to display in the table table's body from a number of sources, including from an Ajax data source, using this initialisation parameter. As with other dynamic data sources, arrays or objects can be used for the data source for each row, with `dt-init columns.data` employed to read from specific object properties.
+
+		The `ajax` property has three different modes of operation, depending on how it is defined. These are:
+
+		* `string` - Set the URL from where the data should be loaded from.
+		* `object` - Define properties for `jQuery.ajax`.
+		* `function` - Custom data get function
 	</description>
 
-	<example title=""><![CDATA[
+	<example title="Get JSON data from a file via Ajax."><![CDATA[
+$('#example').dataTable( {
+  "ajax": "data.json"
+} );
+]]></example>
+
+	<example title="Get JSON data from a file via Ajax, using `dataSrc` to change `data` to `tableData` (i.e. `{ tableData: [ ...data... ] }`)"><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "dataSrc": "tableData"
+  }
+} );
+]]></example>
+
+	<example title="Get JSON data from a file via Ajax, using `dataSrc` to read data from a plain array rather than an array in an object"><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "dataSrc": ""
+  }
+} );
+]]></example>
+
+	<example title="Send request as POST"><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "type": "POST"
+  }
+} );
+]]></example>
+
+	<example title="Add data to the request"><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "data": function ( d ) {
+      return {
+        "extra_search": $('#extra').val()
+      };
+    }
+  }
+} );
+]]></example>
+
+	<example title="Manipulate the data returned from the server - add a link to data (note this can, should, be done using `render` for the column - this is just a simple example of how the data can be manipulated)."><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "dataSrc": function ( json ) {
+      for ( var i=0, ien=json.length ; i<ien ; i++ ) {
+        json[i][0] = '<a href="/message/'+json[i][0]+'>View message</a>';
+      }
+      return json;
+    }
+  }
+} );
+]]></example>
+
+	<example title="Get the data from localStorage (could interface with a form for adding, editing and removing rows)."><![CDATA[
+$('#example').dataTable( {
+  "ajax": function (data, callback, settings) {
+    callback(
+      JSON.parse( localStorage.getItem('dataTablesData') )
+    );
+  }
+} );
 ]]></example>
 
 	<related type="option">serverSide</related>

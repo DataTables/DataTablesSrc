@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="callback">
+	<name>initCallback</name>
+	<summary>Initialisation complete callback.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>initCallback( settings, json )</signature>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="object" name="json">
+			JSON data retrieved from the server if the `ajax` option was set. Otherwise `undefined`.
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		It can often be useful to know when your table has fully been initialised and data loaded, particularly when using an `dt-init ajax` data source. In such a case, the table will complete its initial run before the data has been loaded (Ajax is asynchronous after all!) so this callback is provided to let you know when the data is fully loaded.
+
+		Additionally the callback is passed in the JSON data received from the server when Ajax loading data, which can be useful for configuring components connected to your table, for example [Editor fields](//editor.datatables.net).
+	</description>
+
+	<example title="Show an alert when the table has fully loaded"><![CDATA[
+$('#example').dataTable( {
+  "initComplete": function(settings, json) {
+    alert( 'DataTables has finished its initialisation.' );
+  }
+} );
+]]></example>
+
+	<example title="Show a loading message while the table is being initialised (`processing` will do this as well)"><![CDATA[
+$('<div class="loading">Loading</div>').appendTo('body);
+
+$('#example').dataTable( {
+  "initComplete": function( settings, json ) {
+    $('div.loading').remove();
+  }
+} );
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="option">drawCallback</related>
+</dt-option>

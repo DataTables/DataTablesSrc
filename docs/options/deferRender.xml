@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>deferRender</name>
+	<summary>Feature control deferred rendering for additional speed of initialisation.</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default value="false" />
+
+	<description>
+		By default, when DataTables loads data from an Ajax or Javascript data source (`dt-init ajax` and `dt-init data` respectively) it will create all HTML elements needed up-front. When working with large data sets, this operation can take a not-insignificant amount of time, particularly in older browsers such as IE6-8. This option allows DataTables to create the nodes (rows and cells in the table body) only when they are needed for a draw.
+
+		As an example to help illustrate this, if you load a data set with 10,000 rows, but a paging display length of only 10 records, rather than create all 10,000 rows, when deferred rendering is enabled, DataTables will create only 10. When the end user then sorts, pages or filters the data the rows needed for the next display will be created automatically. This effectively spreads the load of creating the rows across the life time of the page.
+
+		Note that when enabled, it goes without saying that not all nodes will always be available in the table, so when working with API methods such as `dt-api columns().nodes()` you must take this into account. Below shows an example of how to use jQuery delegated events to handle such a situation.
+	</description>
+
+	<example title="Enable deferred rendering"><![CDATA[
+$('#example').dataTable( {
+  "ajax": "sources/arrays.txt",
+  "deferRender": true
+} );
+]]></example>
+
+	<example title="Events with deferred rendering"><![CDATA[
+$('#example tbody').on( 'click', 'td', function () {
+	alert( 'Clicked on: '+this.innerHTML );
+} );
+
+$('#example').dataTable( {
+  "ajax": "sources/arrays.txt",
+  "deferRender": true
+} );
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="option">data</related>
+</dt-option>

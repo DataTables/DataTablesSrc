@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="callback">
+	<name>stateLoadParams</name>
+	<summary>State loaded - data manipulation callback</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>stateLoadParams( settings, data )</signature>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="object" name="data">
+			Data to save. The data comes from `dt-init stateSaveParams`
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		Callback which allows modification of the saved state prior to loading that state. This callback is called when the table is loading state from the stored data, but prior to the settings object being modified by the saved state.
+
+		Note that the `dt-init stateLoadCallback` option is used to define where and how to load the state, while this function is used to manipulate the data once it has been retrieved from storage.
+
+		Further note that for plug-in authors, you should use the `dt-event stateLoadParams` event to load parameters for a plug-in.
+	</description>
+
+	<example title="Remove a saved filter, so saved filtering is never loaded"><![CDATA[
+$('#example').dataTable( {
+  "stateSave": true,
+  "stateLoadParams": function (settings, data) {
+    data.oSearch.sSearch = "";
+  }
+} );
+]]></example>
+
+	<example title="Disallow state loading by returning false"><![CDATA[
+$('#example').dataTable( {
+  "stateSave": true,
+  "stateLoadParams": function (settings, data) {
+    return false;
+  }
+} );
+]]></example>
+
+	<related type="option">stateSave</related>
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+	<related type="option">stateSaveParams</related>
+</dt-option>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="callback">
+	<name>infoCallback</name>
+	<summary>Table summary information display callback.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>infoCallback( settings, start, end, max, total, pre )</signature>
+		<parameter type="object" name="thead">
+			DataTables settings object
+		</parameter>
+		<parameter type="integer" name="start">
+			Starting position in data for the draw
+		</parameter>
+		<parameter type="integer" name="end">
+			End position in data for the draw
+		</parameter>
+		<parameter type="integer" name="max">
+			Total number of rows in the table (regardless of filtering)
+		</parameter>
+		<parameter type="integer" name="total">
+			Total number of rows in the data set, after filtering
+		</parameter>
+		<parameter type="array" name="pre">
+			The string that DataTables has formatted using it's own rules
+		</parameter>
+		<returns type="string">
+			The string to be displayed in the information element.
+		</returns>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		The information element can be used to convey information about the current state of the table. Although the internationalisation options presented by DataTables are quite capable of dealing with most customisations, there may be times where you wish to customise the string further. This callback allows you to do exactly that.
+
+		Please note that if the `dt-init info` option id disable in the initialisation, this callback function is not fired.
+	</description>
+
+	<example title="Show start to end indexes in the information element"><![CDATA[
+$('#example').dataTable( {
+  "infoCallback": function( settings, start, end, max, total, pre ) {
+    return start +" to "+ end;
+  }
+} );
+]]></example>
+
+	<example title="Use the API in the callback to show page count"><![CDATA[
+$('#example').dataTable( {
+  "infoCallback": function( settings, start, end, max, total, pre ) {
+    var api = this.api();
+    var pageInfo = api.page.info();
+
+    return 'Page '+ (pageInfo+1) +' of '+ pageInfo.pages;
+  }
+} );
+]]></example>
+
+	<related type="option">info</related>
+	<related type="option">language.info</related>
+	<related type="api">page.info()</related>
+</dt-option>

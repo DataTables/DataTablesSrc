@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="callback">
+	<name>stateLoaded</name>
+	<summary>State loaded callback.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>stateLoaded( settings, data )</signature>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="object" name="data">
+			Data to save. The data comes from `dt-init stateSaveParams`
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		Callback that is fired once the state has been loaded (`dt-init stateLoadCallback`) and the saved data manipulated (if required - `dt-init stateLoadParams`).
+
+		This callback is useful if you simply wish to know information from the saved state, without getting into the inner workings of where and how the state information has been saved. For example it can be useful for populating custom filter inputs.
+	</description>
+
+	<example title="Display the saved global filter"><![CDATA[
+$('#example').dataTable( {
+  "stateSave": true,
+  "stateLoaded": function (settings, data) {
+    alert( 'Saved filter was: '+data.oSearch.sSearch );
+  }
+} );
+]]></example>
+
+	<related type="option">stateSave</related>
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+	<related type="option">stateLoadParams</related>
+	<related type="option">stateSaveParams</related>
+</dt-option>

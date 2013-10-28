@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>stateSave</name>
+	<summary>Feature control state saving (pagination, filtering etc).</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default>false</default>
+
+	<description>
+		Enable or disable state saving. When enabled HTML5's `localStorage` will be used to save table display information such as pagination information, display length, filtering and sorting. As such when the end user reloads the page the display display will match what thy had previously set up.
+
+		Note that due to the use of `localStorage` as the method for storing state data, state saving is not supported in IE6 or 7 by default. If state saving is required in those browsers, use `dt-init stateSaveCallback` and `dt-init stateLoadCallback` to provide a storage solution such as cookies.
+	</description>
+
+	<example title="Enable state saving"><![CDATA[
+$('#example').dataTable( {
+  "stateSave": true
+} );
+]]></example>
+
+	<related type="option">iStateDuration</related>
+	<related type="option">stateSaveParams</related>
+	<related type="option">stateLoadParams</related>
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+</dt-option>

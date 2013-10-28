@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columnDefs</name>
+	<summary>Set column definition initialisation properties.</summary>
+	<since>1.10</since>
+
+	<type type="array" />
+
+	<description>
+		Very similar to `dt-init columns`, this parameter allows you to assign specific options to columns in the table, although in this case the column options defined can be applied to one or more columns. Additionally, not every column need be specified, unlike `dt-init columns`.
+
+		This parameter is an array of column definition objects, where the options available exactly match those for `dt-init columns` (see below for list of options in the related links).
+
+		In addition to the column property options, `dt-init columnDefs` requires a `targets` property to be set in each definition object. This `targets` property tells DataTables which column(s) the definition should be applied to. It can be:
+
+		* 0 or a positive integer - column index counting from the left
+		* A negative integer - column index counting from the right
+		* A string - class name will be matched on the TH for the column
+		* The string "_all" - all columns (i.e. assign a default)
+
+		Additionally, `targets` can be either a single option from the list above, or an array of options (the different types can be mixed in the array if required). For example `targets: [ -1, -2 ]` would target the last and second last columns in the table.
+	</description>
+
+	<example title="Disable filtering on the first column"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [ {
+      "targets": 0,
+      "searchable": false
+    } ]
+} );
+]]></example>
+
+	<related type="option">columns</related>
+	<related type="api">column()</related>
+	<related type="api">columns()</related>
+</dt-option>

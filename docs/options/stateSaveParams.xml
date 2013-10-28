@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="callback">
+	<name>stateSaveParams</name>
+	<summary>State save - data manipulation callback</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>stateSaveParams( settings, data )</signature>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="object" name="data">
+			Data to save. The data comes from `dt-init stateSaveParams`
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		Callback which allows modification of the parameters to be saved for the DataTables state saving (`dt-init stateSave`), prior to the data actually being saved. This callback is called every time DataTables requests that the state be saved.
+
+		Note that the `dt-init stateSaveCallback` option is used to define where and how to store the state, while this function is used to manipulate the data before it is entered into storage.
+
+		Further note that for plug-in authors, you should use the `dt-event stateSaveParams` event to add extra parameters to the state storage object if required.
+	</description>
+
+	<example title="Remove a saved filter, so filtering is never saved"><![CDATA[
+$('#example').dataTable( {
+  "stateSave": true,
+  "stateSaveParams": function (settings, data) {
+    data.oSearch.sSearch = "";
+  }
+} );
+]]></example>
+
+	<related type="option">stateSave</related>
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+	<related type="option">stateLoadParams</related>
+</dt-option>

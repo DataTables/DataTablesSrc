@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="options">
+	<name>retrieve</name>
+	<summary>Retrieve an existing DataTables instance.</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default>false</default>
+
+	<description>
+		Retrieve the DataTables object for the given selector. Note that if the table has already been initialised, this parameter will cause DataTables to simply return the object that has already been set up - it will not take account of any changes you might have made to the initialisation object passed to DataTables (setting this parameter to true is an acknowledgement that you understand this!).
+
+		The `dt-init destroy` option can be used to reinitialise a table with different options if required.
+	</description>
+
+	<example title="Retrieve DataTable instance for an exisiting table"><![CDATA[
+$(document).ready( function() {
+  initTable();
+  tableActions();
+} );
+
+function initTable () {
+  return $('#example').dataTable( {
+    "scrollY": "200px",
+    "paginate": false,
+    "retrieve": true
+  } );
+}
+
+function tableActions () {
+  var table = initTable();
+
+  // perform API operations with `table`
+  // ...
+}
+]]></example>
+
+	<related type="option">destroy</related>
+	<related type="api">destroy()</related>
+</dt-option>

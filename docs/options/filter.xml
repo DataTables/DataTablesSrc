@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>filter</name>
+	<summary>Feature control filtering abilities</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default value="true" />
+
+	<description>
+		This option allows the filtering abilities of DataTables to be enabled or disabled. Filtering in DataTables is "smart" in that it allows the end user to input multiple words (space separated) and will match a row containing those words, even if not in the order that was specified (this allow matching across multiple columns).
+
+		Note that if you wish to use filtering in DataTables this must remain `true` - to remove the default filtering input box whilst retaining filtering abilities (for example you might use the `dt-api search()` method), use the `dt-init dom` option.
+	</description>
+
+	<example title="Disable smart width calculations"><![CDATA[
+$('#example').dataTable( {
+  "autoWidth": false
+} );
+]]></example>
+
+	<related type="option">columns.searchable</related>
+	<related type="option">search</related>
+	<related type="option">searchCols</related>
+	<related type="api">search()</related>
+	<related type="api">column().search()</related>
+</dt-option>

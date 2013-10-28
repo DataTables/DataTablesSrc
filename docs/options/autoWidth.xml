@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>autoWidth</name>
+	<summary>Feature control DataTables' smart column width handling</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default value="true" />
+
+	<description>
+		Enable or disable automatic column width calculation. This can be disabled as an optimisation (it takes a finite amount of time to calculate the widths) if the tables widths are passed in using `dt-init columns.width`.
+	</description>
+
+	<example title="Disable smart width calculations"><![CDATA[
+$('#example').dataTable( {
+  "autoWidth": false
+} );
+]]></example>
+
+	<related type="option">columns.width</related>
+	<related type="api">columns.adjust()</related>
+</dt-option>

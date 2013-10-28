@@ -7,7 +7,9 @@
 	<type type="boolean" />
 	<default>true</default>
 
-	<description>DataTables can split the rows in tables into individual pages, which is an efficient method of showing a large number of records in a small space. The end user is provided with controls to request the display of different data as the navigate through the data. This feature is enabled by default, but if you wish to disable it, you may do so with this parameter.</description>
+	<description>
+		DataTables can split the rows in tables into individual pages, which is an efficient method of showing a large number of records in a small space. The end user is provided with controls to request the display of different data as the navigate through the data. This feature is enabled by default, but if you wish to disable it, you may do so with this parameter.
+	</description>
 
 	<example title="Disable pagination"><![CDATA[
 $('#example').dataTable( {

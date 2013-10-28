@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>info</name>
+	<summary>Feature control table information display field</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default value="true" />
+
+	<description>
+		Disable will show information about the table including information about filtered data if that action is being performed. This option allows that feature to be enabled or disabled.
+
+		Note that by default the information display is shown below the table on the left, but this can be controlled using `dt-init dom` and CSS).
+	</description>
+
+	<example title="Disable information display"><![CDATA[
+$('#example').dataTable( {
+  "info": false
+} );
+]]></example>
+
+	<related type="option">language.info</related>
+	<related type="option">language.infoEmpty</related>
+	<related type="option">language.infoFiltered</related>
+	<related type="option">infoCallback</related>
+</dt-option>

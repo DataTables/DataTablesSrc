@@ -438,7 +438,7 @@ DataTable.defaults = {
 	 *  @example
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
-	 *        "ajaxSource": "sources/arrays.txt",
+	 *        "ajax": "sources/arrays.txt",
 	 *        "deferRender": true
 	 *      } );
 	 *    } );
@@ -660,7 +660,7 @@ DataTable.defaults = {
 
 	/**
 	 * Configure DataTables to use server-side processing. Note that the
-	 * `ajaxSource` parameter must also be given in order to give DataTables a
+	 * `ajax` parameter must also be given in order to give DataTables a
 	 * source to obtain the required data for each draw.
 	 *  @type boolean
 	 *  @default false
@@ -826,7 +826,7 @@ DataTable.defaults = {
 	 *  @example
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
-	 *        "fnDrawCallback": function( settings ) {
+	 *        "drawCallback": function( settings ) {
 	 *          alert( 'DataTables has redrawn the table' );
 	 *        }
 	 *      } );
@@ -837,7 +837,7 @@ DataTable.defaults = {
 
 	/**
 	 * Identical to fnHeaderCallback() but for the table footer this function
-	 * allows you to modify the table footer on every 'draw' even.
+	 * allows you to modify the table footer on every 'draw' event.
 	 *  @type function
 	 *  @param {node} foot "TR" element for the footer
 	 *  @param {array} data Full table data (as derived from the original HTML)
@@ -854,8 +854,8 @@ DataTable.defaults = {
 	 *  @example
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
-	 *        "footerCallback": function( foot, data, start, end, display ) {
-	 *          foot.getElementsByTagName('th')[0].innerHTML = "Starting index is "+start;
+	 *        "footerCallback": function( tfoot, data, start, end, display ) {
+	 *          tfoot.getElementsByTagName('th')[0].innerHTML = "Starting index is "+start;
 	 *        }
 	 *      } );
 	 *    } )
@@ -949,7 +949,7 @@ DataTable.defaults = {
 	 *
 	 *  @example
 	 *    $('#example').dataTable( {
-	 *      "infoCallback": function( settings, start, end, nax, total, pre ) {
+	 *      "infoCallback": function( settings, start, end, max, total, pre ) {
 	 *        return start +" to "+ end;
 	 *      }
 	 *    } );

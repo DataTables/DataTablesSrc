@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>sort</name>
+	<summary>Feature control sorting abilities in DataTables.</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default>true</default>
+
+	<description>
+		Enable or disable sorting of columns - it is as simple as that! DataTables, by default, allows end users to click on the header cell for each column, sorting by that column. This ability to sort can be disabled using this option.
+
+		Note that the ability to add or remove sorting of individual columns can be disabled by the `dt-init columns.sortable` option for each column. This parameter is a global option - when disabled, there are no sorting actions applied by DataTables at all.
+	</description>
+
+	<example title="Disable sorting in the table"><![CDATA[
+$('#example').dataTable( {
+  "sort": false
+} );
+]]></example>
+
+	<related type="option">columns.sortable</related>
+	<related type="option">sorting</related>
+	<related type="option">sortingFixed</related>
+	<related type="option">sortMulti</related>
+	<related type="option">sortClasses</related>
+	<related type="api">order()</related>
+	<related type="api">column().order()</related>
+	<related type="api">columns().order()</related>
+</dt-option>

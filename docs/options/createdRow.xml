@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="callback">
+	<name>createdRow</name>
+	<summary>Callback for whenever a TR element is created for the table's body.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>createdRow( row, data, dataIndex )</signature>
+		<parameter type="node" name="row">
+			`tag TR` row element that has just been created
+		</parameter>
+		<parameter type="array|object" name="data">
+			Raw data source (array or object) for this row
+		</parameter>
+		<parameter type="integer" name="dataIndex">
+			The index of the row in DataTables' internal storage.
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		This callback is executed when a `tag TR` element is created (and all `tag TD` child elements have been inserted), or registered if using a DOM source, allowing manipulation of the `tag TR` element.
+
+		This is particularly useful when using deferred rendering (`dt-init deferRender`) or server-side processing (`dt-init serverSide`) so you can add events, class name information or otherwise format the row when it is created.
+	</description>
+
+	<example title="Add a cass to the row, conditionally based on the row's data"><![CDATA[
+$('#example').dataTable( {
+  "createdRow": function( row, data, dataIndex ) {
+    if ( data[4] == "A" ) {
+      $(row).class( 'important' );
+    }
+  }
+} );
+]]></example>
+
+	<related type="option">data</related>
+	<related type="option">deferRender</related>
+	<related type="option">serverSide</related>
+	<related type="option">columns.createdCell</related>
+</dt-option>

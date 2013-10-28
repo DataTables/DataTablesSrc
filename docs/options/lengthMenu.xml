@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="options">
+	<name>lengthMenu</name>
+	<summary>Change the options in the page length `select` list.</summary>
+	<since>1.10</since>
+
+	<type type="array" />
+	<default>[ 10, 25, 50, 100 ]</default>
+
+	<description>
+		This parameter allows you to readily specify the entries in the length drop down `select` list that DataTables shows when pagination is enabled. It can be either:
+
+		 * 1D array of integer values which will be used for both the displayed option and the value to use for the display length, or
+
+		 * 2D array which will use the first inner array as the page length values and the second inner array as the displayed options. This is useful for language strings such as 'All').
+
+		The page length values must always be integer values `> 0`, with the sole exception of `-1`. When `-1` is used as a value this tells DataTables to disable pagination (i.e. display all rows).
+
+		Note that the `dt-init displayLength` property will be automatically set to the first value given in this array, unless `dt-init displayLength` is also provided.
+	</description>
+
+	<example title="Show options 10, 25, 50, 75 and 100 records"><![CDATA[
+$('#example').dataTable( {
+  "lengthMenu": [ 10, 25, 50, 75, 100 ]
+} );
+]]></example>
+
+	<example title="Show options 10, 25, 50 and all records"><![CDATA[
+$('#example').dataTable( {
+  "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+} );
+]]></example>
+
+	<related type="option">paginate</related>
+	<related type="option">lengthChange</related>
+	<related type="option">displayLength</related>
+	<related type="api">page()</related>
+	<related type="api">page.info()</related>
+	<related type="api">page.len()</related>
+</dt-option>

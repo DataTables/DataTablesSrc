@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="callback">
+	<name>formatNumber</name>
+	<summary>Number formatting callback function.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>formatNumber( toFormat )</signature>
+		<parameter type="integer" name="formatNumber">
+			Number to be formatted
+		</parameter>
+		<returns type="string">
+			Formatted string for DataTables to show the number
+		</returns>
+		<scope>HTML table element</scope>
+	</type>
+	<default>Shows numbers grouped as thousands with a comma separator</default>
+
+	<description>
+		DataTables will display numbers in a few different locations when drawing information about a table, for example in the table's information element and the pagination controls. When working with large numbers it is often useful to format it for readability by separating the thousand units - for example 1 million is rendered as "1,000,000", allowing the user to see at a glance what order of magnitude the number shows.
+
+		This function allows complete control over how that formatting is performed. By default DataTables will use the character specified in `dt-init language.infoThousands` (in turn, that, by default, is a comma) as the thousands separator.
+	</description>
+
+	<example title="Show large numbers with a `'` separator"><![CDATA[
+$('#example').dataTable( {
+  "formatNumber": function ( toFormat ) {
+    return toFormat.toString().replace(
+      /\B(?=(\d{3})+(?!\d))/g, "'"
+    );
+  };
+} );
+]]></example>
+
+	<related type="option">language.info</related>
+	<related type="option">language.infoThousands</related>
+	<related type="option">infoCallback</related>
+</dt-option>

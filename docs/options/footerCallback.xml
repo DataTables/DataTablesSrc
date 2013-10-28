@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="callback">
+	<name>footerCallback</name>
+	<summary>Footer display callback function.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>footerCallback( tfoot, data, start, end, display )</signature>
+		<parameter type="node" name="tfoot">
+			`tag TFOOT` element of the table's footer
+		</parameter>
+		<parameter type="array" name="data">
+			Full data array of the table. Note that this is in data index order. Use the `display` parameter for the current display order.
+		</parameter>
+		<parameter type="integer" name="start">
+			Index for the current display starting point in the display array
+		</parameter>
+		<parameter type="integer" name="end">
+			Index for the current display ending point in the display array
+		</parameter>
+		<parameter type="array" name="display">
+			Index array to translate the visual position to the full data array
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		Identical to `dt-init headerCallback` but for the table footer this function allows you to modify the table footer on every 'draw' event.
+
+		Note that if the table does not have a `tag TFOOT` element, it this callback will not be fired.
+	</description>
+
+	<example title="Alter the content of the footer on callback"><![CDATA[
+$('#example').dataTable( {
+  "footerCallback": function( tfoot, data, start, end, display ) {
+    $(tfoot).find('th').eq(0).html( "Starting index is "+start );
+  }
+} );
+]]></example>
+
+	<example title="Use the API to sum a specific column and output"><![CDATA[
+$('#example').dataTable( {
+  "footerCallback": function( tfoot, data, start, end, display ) {
+    var api = this.api();
+    $( api.column( 5 ).footer() ).html(
+    	api.column( 5 ).data().reduce( function ( a, b ) {
+    		return a + b;
+    	} );
+    );
+  }
+} );
+]]></example>
+
+	<related type="option">headerCallback</related>
+	<related type="option">drawCallback</related>
+	<related type="api">columns().footer()</related>
+	<related type="api">column().footer()</related>
+</dt-option>

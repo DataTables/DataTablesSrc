@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="callback">
+	<name>headerCallback</name>
+	<summary>Header display callback function.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>headerCallback( thead, data, start, end, display )</signature>
+		<parameter type="node" name="thead">
+			`tag THEAD` element of the table's header
+		</parameter>
+		<parameter type="array" name="data">
+			Full data array of the table. Note that this is in data index order. Use the `display` parameter for the current display order.
+		</parameter>
+		<parameter type="integer" name="start">
+			Index for the current display starting point in the display array
+		</parameter>
+		<parameter type="integer" name="end">
+			Index for the current display ending point in the display array
+		</parameter>
+		<parameter type="array" name="display">
+			Index array to translate the visual position to the full data array
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		This function is called on every 'draw' event (i.e. when a filter, sort or page event is initiated by the end user or the API), and allows you to dynamically modify the header row. This can be used to calculate and display useful information about the table.
+	</description>
+
+	<example title="Show information about the records being displayed"><![CDATA[
+$('#example').dataTable( {
+  "footerCallback": function( thead, data, start, end, display ) {
+    $(thead).find('th').eq(0).html( 'Displaying '+(end-start)+' records' );
+  }
+} );
+]]></example>
+
+	<related type="option">footerCallback</related>
+	<related type="option">drawCallback</related>
+	<related type="api">columns().header()</related>
+	<related type="api">column().header()</related>
+</dt-option>

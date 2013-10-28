@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>stripeClasses</name>
+	<summary>Set the zebra stripe class names for the rows in the table.</summary>
+	<since>1.10</since>
+
+	<type type="array" />
+
+	<description>
+		An array of CSS classes that should be applied to displayed rows, in sequence. This array may be of any length, and DataTables will apply each class sequentially, looping when required.
+
+		Note that by default this option will take the values determined by the `$.fn.dataTable.ext.classes.stripe*` options (these are `string odd` and `string even` by default).
+	</description>
+
+	<example title="Use three stripe classes"><![CDATA[
+$('#example').dataTable( {
+  "stripeClasses": [ 'strip1', 'strip2', 'strip3' ]
+} );
+]]></example>
+</dt-option>

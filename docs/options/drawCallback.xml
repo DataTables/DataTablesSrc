@@ -12,7 +12,9 @@
 		<scope>HTML table element</scope>
 	</type>
 
-	<description>It can be useful to take an action on every draw event of the table - for example you might want to update an external control with the newly displayed data, or  with server-side processing is enabled you might want to assign events to the newly created elements. This callback is designed for exactly that purpose and will execute on every draw.</description>
+	<description>
+		It can be useful to take an action on every draw event of the table - for example you might want to update an external control with the newly displayed data, or  with server-side processing is enabled you might want to assign events to the newly created elements. This callback is designed for exactly that purpose and will execute on every draw.
+	</description>
 
 	<example title="Notify whenever DataTables does a draw"><![CDATA[
 $('#example').dataTable( {

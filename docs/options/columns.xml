@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns</name>
+	<summary>Set column specific initialisation properties.</summary>
+	<since>1.10</since>
+
+	<type type="array" />
+
+	<description>
+		The `dt-init columns` option in the initialisation parameter allows you to define details about the way individual columns behave. For a full list of column options that can be set, please see the related parameters below.
+
+		Note that if you use `dt-init columns` to define your columns, you _must_ have an entry in the array for every single column that you have in your table (these can be null if you don't which to specify any options).
+	</description>
+
+	<example title="Disable filtering on the first column"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    { "searchable": false },
+    null,
+    null,
+    null,
+    null
+  ]
+} );
+]]></example>
+
+	<related type="option">columnDefs</related>
+	<related type="api">column()</related>
+	<related type="api">columns()</related>
+</dt-option>

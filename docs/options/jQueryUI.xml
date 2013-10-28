@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>jQueryUI</name>
+	<summary>Use markup and classes for the table to be themed by jQuery UI ThemeRoller.</summary>
+	<since>1.10</since>
+	<deprecated>1.10 - To be removed in v1.11, where upon this functionality will be provided by a plug-in.</deprecated>
+
+	<type type="boolean" />
+	<default value="false" />
+
+	<description>
+		DataTables can be styled by a number of CSS library packages, included jQuery UI, Twitter Bootstrap and Foundation. Although Bootstrap, Foundation and other libraries require a plug-in, jQuery UI ThemeRoller support is built into DataTables and can be enabled simply with this parameter. When enabled, DataTables will use markup and classes created for jQuery UI ThemeRoller, making it very easy to integrate your tables with jQuery UI.
+
+		When enabled, you will likely want to load the `jquery.dataTables_themeroller.css` file that is included in the DataTables package (`path media/css`) as ThemeRoller does not provide all of the styles needed by DataTables.
+
+		Note that this feature is deprecated in DataTables 1.10 and will be removed in 1.11, where upon this feature will be provided by plug-ins, matching the other style libraries.
+	</description>
+
+	<example title="Enable jQuery UI ThemeRoller support"><![CDATA[
+$('#example').dataTable( {
+  "jQueryUI": true
+} );
+]]></example>
+</dt-option>

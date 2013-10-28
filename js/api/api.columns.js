@@ -172,6 +172,16 @@ _api_registerPlural( 'columns().header()', 'column().header()', function ( selec
 /**
  *
  */
+_api_registerPlural( 'columns().footer()', 'column().footer()', function ( selector, opts ) {
+	return this.iterator( 'column', function ( settings, column ) {
+		return settings.aoColumns[column].nTf;
+	} );
+} );
+
+
+/**
+ *
+ */
 _api_registerPlural( 'columns().data()', 'column().data()', function () {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
 		var a = [];

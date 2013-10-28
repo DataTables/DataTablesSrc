@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>columnDefs</name>
+	<summary>Set column definition initialisation properties.</summary>
+	<since>1.10</since>
+
+	<type type="array" />
+
+	<description>
+		Basically the same as the `dt-init search` option, but in this case for individual columns, rather than the global filter, this option defined the filtering to apply to the table during initialisation.
+
+		The array must be of the same size as the number of columns, and each element be an object with the parameters `search` and `escapeRegex` (the latter is optional). 'null' is also accepted and the default will be used.
+	</description>
+
+	<example title="Set initial filtering on second and fourth columns"><![CDATA[
+$('#example').dataTable( {
+  "searchCols": [
+    null,
+    { "search": "My filter" },
+    null,
+    { "search": "^[0-9]", "escapeRegex": false }
+  ]
+} );
+]]></example>
+
+	<related type="option">filter</related>
+	<related type="option">search</related>
+	<related type="option">columns.searchable</related>
+	<related type="api">column().search()</related>
+	<related type="api">columns().search()</related>
+</dt-option>
