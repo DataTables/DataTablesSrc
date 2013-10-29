@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="options">
+	<name>search.regex</name>
+	<summary>Enable / disable escaping of regular expression characters in the search term.</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default value="false" />
+
+	<description>
+		Regular expressions can be used to build fantastically complex filtering terms, but also it is perfectly valid for users to enter characters such as `string *` into the filter, so a decision needs to be made if you wish to escape regular expression special characters or not. This option controls that ability in DataTables.
+
+		It is simply a flag to indicate if the search term should be interpreted as a regular expression (`true`) or not (`false`) and therefore and special regex characters escaped.
+	</description>
+
+	<example title="Treat search inputs as regular expressions"><![CDATA[
+$('#example').dataTable( {
+  "search": {
+    "regex": true
+  }
+} );
+]]></example>
+
+	<related type="option">filter</related>
+	<related type="option">searchCols</related>
+	<related type="option">search</related>
+	<related type="option">search.search</related>
+	<related type="option">search.caseInsensitive</related>
+	<related type="option">search.smart</related>
+	<related type="api">search()</related>
+	<related type="api">columns().search()</related>
+</dt-option>

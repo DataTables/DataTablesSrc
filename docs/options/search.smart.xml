@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="options">
+	<name>search.smart</name>
+	<summary>Enable / disable DataTables' smart filtering</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default value="true" />
+
+	<description>
+		DataTables' built-in filtering is "smart" in that it breaks the user's input into individual words and then matches those words in any position and in any order in the table (rather than simple doing a simple string compare).
+
+		Although this can significantly enhance usability of the filtering feature, it uses a complex regular expression to perform this task, and as such it can interfere with a custom regular expression input if you enable that option (`dt-init search.regex`). As such, this option is provided to disable this smart filtering ability.
+	</description>
+
+	<example title="Disable smart filtering"><![CDATA[
+$('#example').dataTable( {
+  "search": {
+    "smart": false
+  }
+} );
+]]></example>
+
+	<related type="option">filter</related>
+	<related type="option">searchCols</related>
+	<related type="option">search</related>
+	<related type="option">search.search</related>
+	<related type="option">search.caseInsensitive</related>
+	<related type="option">search.regex</related>
+	<related type="api">search()</related>
+	<related type="api">columns().search()</related>
+</dt-option>

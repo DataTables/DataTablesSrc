@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>scrollY</name>
+	<summary>Vertical scrolling</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+
+	<description>
+		Enable vertical scrolling. Vertical scrolling will constrain the DataTable to the given height, and enable scrolling for any data which overflows the current viewport. This can be used as an alternative to paging to display a lot of data in a small area (although paging and scrolling can both be enabled at the same time if desired). This property can be any CSS unit, or a number (in which case it will be treated as a pixel measurement).
+	</description>
+
+	<example title="Enable vertical scrolling with pagination disabled"><![CDATA[
+$('#example').dataTable( {
+  "scrollY": "200px",
+  "scrollCollapse": true,
+  "paginate": false
+} );
+]]></example>
+
+	<related type="option">paginate</related>
+	<related type="option">scrollX</related>
+	<related type="option">scrollCollapse</related>
+</dt-option>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="options">
+	<name>dom</name>
+	<summary>Define the table control elements to appear on the page and in what order</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default value="lfrtip"><![CDATA[
+		Note that the default is changed to be `<"H"lfr>t<"F"ip>` when the `dt-init jQueryUI` option is enabled.
+]]></default>
+
+	<description>
+		DataTables will add a number of elements around the table to both control the table and show additional information about it. The position of these elements on screen are controlled by a combination of their order in the document (DOM) and the CSS applied to the elements. This parameter is used to control their ordering and additional mark-up surrounding them in the DOM.
+
+		Each table control element in DataTables has a single letter associated with it, and that letter it used in this `dt-init dom` configuration option to indicate where that element will appear in the document order.
+
+		The built-in table control elements in DataTables are:
+
+        * l` - `l`ength changing input control
+        * f` - `f`iltering input
+        * t` - The `t`able!
+        * i` - Table `i`nformation summary
+        * p` - `p`agination control
+        * r` - p`r`ocessing display element
+
+        Each option can be specified multiple times (with the exception of the table itself), which can be used to have table controls both above and below the table. DataTables will automatically synchronise these multiple controls.
+
+        In addition to the above control options, there are two constants DataTables understands (note that these two options are depreciated in 1.10 and will be removed in 1.11 along side the separation of the `dt-init jQueryUI` option into its own theme file):
+
+        * `H` - jQueryUI theme "header" classes (`string fg-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix`)
+        * `F` - jQueryUI theme "footer" classes (`string fg-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix`)
+
+        Further to these options, you can also specify additional `tag div` elements to be inserted into the document, which can be used for styling / nesting of the control elements. To add tags, the following syntax is expected:
+
+          * `&lt;` and `&gt;` - div element
+          * `&lt;"class"` and `&gt;` - div with a class
+          * `&lt;"#id"` and `&gt;` - div with an ID
+
+        Finally, DataTables feature plug-ins can be developed to add additional features to DataTables and often will make use of this option, adding new letters to the DataTables core features. For example [TableTools](//datatables.net/extras/tabletools) adds the `T` option to `dt-init dom` to specify where table control buttons should be inserted into the table.
+
+        Note, I am aware that this is the most complex option in DataTables and it takes a fair amount of understanding! DataTables 1.11 will revamp this option to make it easier to use.
+    </description>
+
+	<example title="No filtering input control"><![CDATA[
+/* Results in:
+    <div class="wrapper">
+      {length}
+      {processing}
+      {table}
+      {information}
+      {pagination}
+    </div>
+*/
+$('#example').dataTable( {
+  "dom": 'lrtip'
+} );
+]]></example>
+
+	<example title="Simpler wrapper element"><![CDATA[
+/* Results in:
+    <div class="wrapper">
+      {filter}
+      {length}
+      {information}
+      {pagination}
+      {table}
+    </div>
+*/
+$('#example').dataTable( {
+  "dom": '<"wrapper"flipt>'
+} );
+]]></example>
+
+	<example title="Length and filter above, information and pagination below table"><![CDATA[
+/* Results in:
+    <div>
+      {length}
+      {filter}
+      <div>
+        {table}
+      </div>
+      {information}
+      {pagination}
+    </div>
+*/
+$('#example').dataTable( {
+  "dom": '<lf<t>ip>'
+} );
+]]></example>
+
+	<example title="Table summary in header, filtering, length and processing in footer, with a clearing element."><![CDATA[
+/* Results in:
+    <div class="top">
+      {information}
+    </div>
+    {processing}
+    {table}
+    <div class="bottom">
+      {filter}
+      {length}
+      {pagination}
+    </div>
+    <div class="clear"></div>
+*/
+$('#example').dataTable( {
+  "dom": '<"top"i>rt<"bottom"flp><"clear">'
+} );
+]]></example>
+
+	<related type="option">filter</related>
+	<related type="option">info</related>
+	<related type="option">sort</related>
+	<related type="option">processing</related>
+	<related type="option">paginate</related>
+</dt-option>

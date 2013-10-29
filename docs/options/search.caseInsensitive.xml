@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="options">
+	<name>search.caseInsensitive</name>
+	<summary>Control case-sensitive filtering option.</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default>true</default>
+
+	<description>
+		Flag to indicate if the filtering should be case insensitive or not.
+	</description>
+
+	<example title="Filter using case-sensitive matching"><![CDATA[
+$('#example').dataTable( {
+  "search": {
+    "caseInsensitive": false
+  }
+} );
+]]></example>
+
+	<related type="option">filter</related>
+	<related type="option">searchCols</related>
+	<related type="option">search</related>
+	<related type="option">search.search</related>
+	<related type="option">search.regex</related>
+	<related type="option">search.smart</related>
+	<related type="api">search()</related>
+	<related type="api">columns().search()</related>
+</dt-option>

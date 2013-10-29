@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="options">
+	<name>search.search</name>
+	<summary>Set an initial filtering condition on the table.</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+
+	<description>
+		Flag to indicate if the filtering should be case insensitive or not. Note that if an initial filter is supplied, it will be shown in the DataTables filtering input control.
+	</description>
+
+	<example title="Set an initial filter"><![CDATA[
+$('#example').dataTable( {
+  "search": {
+    "search": "Fred"
+  }
+} );
+]]></example>
+
+	<related type="option">filter</related>
+	<related type="option">searchCols</related>
+	<related type="option">search</related>
+	<related type="option">search.caseInsensitive</related>
+	<related type="option">search.regex</related>
+	<related type="option">search.smart</related>
+	<related type="api">search()</related>
+	<related type="api">columns().search()</related>
+</dt-option>

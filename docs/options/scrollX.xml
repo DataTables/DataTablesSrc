@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>scrollX</name>
+	<summary>Horizontal scrolling</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default value="false" />
+
+	<description>
+		Enable horizontal scrolling. When a table is too wide to fit into a certain layout, or you have a large number of columns in the table, you can enable horizontal (x) scrolling to show the table in a viewport, which can be scrolled.
+
+		This property can be `true` which will allow the table to scroll horizontally when needed (recommended), or any CSS unit, or a number (in which case it will be treated as a pixel measurement).
+	</description>
+
+	<example title="Enable horizontal scrolling"><![CDATA[
+$('#example').dataTable( {
+  "scrollX": true
+} );
+]]></example>
+
+	<related type="option">scrollY</related>
+	<related type="option">scrollCollapse</related>
+</dt-option>
