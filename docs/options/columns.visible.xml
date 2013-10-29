@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.visible</name>
+	<summary>Enable or disable the display of this column</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default value="true" />
+
+	<description>
+		DataTables and show and hide columns dynamically through use of this option and the `dt-api column().visible()` / `dt-api columns().visible()` methods. This option can be used to get the initial visibility state of the column, with the API methods used to alter that state at a later time.
+
+		This can be particularly useful if your table holds a large number of columns and you wish the user to have the ability to control which columns they can see, or you have data in the table that the end user shouldn't see (for example a database ID column).
+	</description>
+
+	<example title="Hide the first column with `dt-init columnDefs`"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [
+    { "visible": false, "targets": 0 }
+  ]
+} );
+]]></example>
+
+	<example title="Hide the first column with `dt-init columns`"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    { "visible": false },
+    null,
+    null,
+    null,
+    null
+  ] } );
+} );
+]]></example>
+
+	<related type="option">scrollX</related>
+	<related type="api">column().visible()</related>
+	<related type="api">columns().visible()</related>
+</dt-option>

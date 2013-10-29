@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.sorting</name>
+	<summary>Sort direction application order</summary>
+	<since>1.10</since>
+
+	<type type="array" />
+	<default value="[ 'asc', 'desc' ]" />
+
+	<description>
+		You can control the default sorting direction, and even alter the behaviour of the sort handler (i.e. only allow ascending sorting etc) using this parameter.
+	</description>
+
+	<example title="Using `sorting` to define sorting order with `dt-init columnDefs`"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [
+    { "sorting": [ "asc" ], "targets": [ 1 ] },
+    { "sorting": [ "desc", "asc", "asc" ], "targets": [ 2 ] },
+    { "sorting": [ "desc" ], "targets": [ 3 ] }
+  ]
+} );
+]]></example>
+
+	<example title="Using `sorting` to define sorting order with `dt-init columns`"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    null,
+    { "sorting": [ "asc" ] },
+    { "sorting": [ "desc", "asc", "asc" ] },
+    { "sorting": [ "desc" ] },
+    null
+  ]
+} );
+]]></example>
+
+	<related type="option">sort</related>
+	<related type="option">sorting</related>
+	<related type="api">order()</related>
+	<related type="api">column().order()</related>
+	<related type="api">columns().order()</related>
+</dt-option>

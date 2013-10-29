@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.defaultContent</name>
+	<summary>Set default, static, content for a column</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+
+	<description>
+		Often you may with to have static content in a column, for example simple edit and / or delete buttons, which have events assigned to them. This option is available for those use cases - creating static content for a column. If you wish to create dynamic content (i.e. based on other data in the row), the `dt-init columns.render` option should be used.
+
+		Additionally, this option can be useful when loading JSON data, as the value set here will be used if the cell value from the JSON is found to be null (for example, you might set a default string of `string Not available`.
+	</description>
+
+	<example title="Create an edit button in the last column with `dt-init columnDefs`"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [
+    {
+      "data": null,
+      "defaultContent": "<button>Edit</button>",
+      "targets": -1
+    }
+  ]
+} );
+]]></example>
+
+	<example title="Create an edit button in the last column with `dt-init columns`"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    null,
+    null,
+    null,
+    {
+      "data": null,
+      "defaultContent": "<button>Edit</button>"
+    }
+  ]
+} );
+]]></example>
+
+	<related type="option">columns.data</related>
+	<related type="option">columns.render</related>
+</dt-option>

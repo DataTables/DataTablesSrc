@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.searchable</name>
+	<summary>Enable or disable filtering on the data in this column</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default value="true" />
+
+	<description>
+		Using this parameter, you can defined if DataTables should include this column in the filterable data in the table. You may want use this option to display filtering on generated columns such as 'Edit' and 'Delete' buttons for example.
+	</description>
+
+	<example title="Disable filtering on the first column with `dt-init columnDefs`"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [
+    { "searchable": false, "targets": 0 }
+  ]
+} );
+]]></example>
+
+	<example title="Disable filtering on the first column with `dt-init columns`"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    { "searchable": false },
+    null,
+    null,
+    null,
+    null
+  ] } );
+} );
+]]></example>
+
+	<related type="option">filter</related>
+	<related type="option">search</related>
+	<related type="api">search()</related>
+	<related type="api">column().search()</related>
+	<related type="api">columns().search()</related>
+</dt-option>

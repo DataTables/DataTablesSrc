@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.render</name>
+	<summary>Render (process) the data for use in the table</summary>
+	<since>1.10</since>
+
+	<type type="integer">
+		<description>
+			Treated as an array index for the data source. This is the default that DataTables uses (incrementally increased for each column).
+		</description>
+	</type>
+	<type type="string">
+		<description>
+			Read an object property from the data source. There are three 'special' options that can be used in the string to alter how DataTables reads the data from the source object:
+
+			* `.` - Dotted Javascript notation. Just as you use a `.` in Javascript to read from nested objects, so to can the options specified in `data`. For example: `browser.version` or `browser.name`. If your object parameter name contains a period, use `\\` to escape it - i.e. `first\\.name`.
+			
+			* `[]` - Array notation. DataTables can automatically combine data from and array source, joining the data with the characters provided between the two brackets. For example: `name[, ]` would provide a comma-space separated list from the source array. If no characters are provided between the brackets, the original array source is returned.
+
+			* `()` - Function notation. Adding `()` to the end of a parameter will execute a function of the name given. For example: `browser()` for a simple function on the data source, `browser.version()` for a function in a nested property or even `browser().version` to get an object property if the function called returns an object. Note that function notation is recommended for use in `dt-init columns.render` rather than `dt-init columns.data` as it is much simpler to use as a renderer.
+		</description>
+	</type>
+	<type type="object">
+		<description>
+			Use different data for the different data types requested by DataTables (`string filter`, `string display`, `string type` or `string sort`). The property names of the object is the data type the property refers to and the value can defined using an integer, string or function using the same rules as `dt-init columns.render` normally does. Note that an `string _` option _must_ be specified. This is the default value to use if you haven't specified a value for the data type requested by DataTables.
+
+			As an example you might use:
+
+			```
+			"render": {
+				"_": "phone",
+				"filter": "phone_filter",
+				"display": "phone_display"
+			}
+			```
+		</description>
+	</type>
+	<type type="function">
+		<signature>render( data, type, row )</signature>
+		<parameter type="node" name="cell">
+			The data for the cell (based on `dt-init columns.data`)
+		</parameter>
+		<parameter type="node" name="cellData">
+			The type call data requested - this will be 'filter', 'display', 'type' or 'sort'.
+		</parameter>
+		<parameter type="node" name="rowData">
+			The full data source for the row (not based on `dt-init columns.data`)
+		</parameter>
+		<returns>
+			The return value from the function is what will be used for the data requested.
+		</returns>
+		<description>
+			If a function is given, it will be executed whenever DataTables needs to get the data for a cell in the column. Note that this function might be called multiple times, as DataTables will call it for the different data types that it needs - sorting, filtering and display.
+		</description>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		This property is the rendering partner to `dt-init columns.data` and it is suggested that when you want to manipulate data for display (including filtering, sorting etc) without altering the underlying data for the table, use this property. `render` can be considered to be the the read only companion to `data` which is read / write (then as such more complex). Like `data` this option can be given in a number of different ways to effect its behaviour as described above.
+	</description>
+
+	<example title="Create a comma separated list from an array of objects"><![CDATA[
+$('#example').dataTable( {
+  "ajaxSource": "sources/deep.txt",
+  "columns": [
+    { "data": "engine" },
+    { "data": "browser" },
+    {
+      "data": "platform",
+      "render": "[, ].name"
+    }
+  ]
+} );
+]]></example>
+
+	<example title="As an object, extracting different data for the different types"><![CDATA[
+// This would be used with a data source such as:
+//   { "phone": 5552368, "phone_filter": "5552368 555-2368", "phone_display": "555-2368" }
+// Here the `phone` integer is used for sorting and type detection, while `phone_filter`
+// (which has both forms) is used for filtering for if a user inputs either format, while
+// the formatted phone number is the one that is shown in the table.
+$('#example').dataTable( {
+  "columnDefs": [ {
+    "targets": 0,
+    "data": null, // Use the full data source object for the renderer's source
+    "render": {
+      "_": "phone",
+      "filter": "phone_filter",
+      "display": "phone_display"
+    }
+  } ]
+} );
+]]></example>
+
+	<example title="Use as a function to create a link from the data source"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [ {
+    "targets": 0,
+    "data": "download_link",
+    "render": function ( data, type, full ) {
+      return '<a href="'+data+'">Download</a>';
+    }
+  } ]
+} );
+]]></example>
+
+	<related type="option">columns.data</related>
+</dt-option>

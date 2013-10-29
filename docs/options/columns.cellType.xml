@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.cellType</name>
+	<summary>Cell type to be created for a column</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="td" />
+
+	<description>
+		Change the cell type created for the column - either `tag TD` cells or `tag TH` cells.
+
+		This can be useful as `tag TH` cells have semantic meaning in the table body, allowing them to act as a header for a row (you may wish to add `scope='row'` to the `tag TH` elements using `dt-init columns.createdCell` option).
+	</description>
+
+	<example title="Have the first column use TH cells`"><![CDATA[
+$('#example').dataTable( {
+  "ajax": "json.txt",
+  "columnDefs": [ {
+    "targets": 0,
+    "cellType": "th"
+  } ]
+} );
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="option">columns.createdCell</related>
+</dt-option>

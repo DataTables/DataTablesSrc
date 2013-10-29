@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.name</name>
+	<summary>Set default, static, content for a column</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+
+	<description>
+    When working with DataTables' API, it is very common to want to be able to address individual columns so you can work with them (you wish to sum the numeric content of a column for example). DataTables has two basic methods of addressing columns:
+
+    * As a column index (automatically assigned when the table is initialised)
+    * With a name - assigned using this option!
+
+    This can make working with columns in the API very easy - for example to access the data from the column named `string location` you would use `table.column( 'location' ).data()`. For more information about column selectors, please see the `dt-api column()` documentation.
+	</description>
+
+	<example title="Setting column names with `dt-init columnDefs`"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [
+    { "name": "engine",   "targets": 0 },
+    { "name": "browser",  "targets": 1 },
+    { "name": "platform", "targets": 2 },
+    { "name": "version",  "targets": 3 },
+    { "name": "grade",    "targets": 4 }
+  ]
+} );
+]]></example>
+
+	<example title="Setting column names with `dt-init columns`"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    { "name": "engine" },
+    { "name": "browser" },
+    { "name": "platform" },
+    { "name": "version" },
+    { "name": "grade" }
+  ]
+} );
+]]></example>
+
+  <related type="api">column()</related>
+  <related type="api">columns()</related>
+  <related type="api">column().index()</related>
+  <related type="api">columns().index()</related>
+</dt-option>
