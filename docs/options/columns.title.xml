@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.title</name>
+	<summary>Set the column title</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+  <default>
+    Value read from the column's header cell.
+  </default>
+
+	<description>
+    The titles of columns are typically read directly from the DOM (from the cells in the `tag THEAD` element), but it can often be useful to either override existing values, or have DataTables actually construct a header with column titles for you (for example if there is not `tag THEAD` element in the table before DataTables is constructed). This option is available to provide that ability.
+
+    Please note that when constructing a header, DataTables can only construct a simple header with a single cell for each column. Complex headers with `colspan` and `rowspan` attributes must either already be defined in the document, or be constructed using standard DOM / jQuery methods.
+	</description>
+
+	<example title="Set the first column's title with `dt-init columnDefs`"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [
+    { "title": "My column title", "targets": 0 }
+  ]
+} );
+]]></example>
+
+	<example title="Set the first column's title with `dt-init columns`"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    { "title": "My column title" },
+    null,
+    null,
+    null,
+    null
+  ]
+} );
+]]></example>
+
+  <related type="api">column().title()</related>
+  <related type="api">columns().title()</related>
+</dt-option>

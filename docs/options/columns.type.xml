@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.type</name>
+	<summary>Set the column type - used for filtering and sorting string processing</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+  <default>
+    Auto-detected from raw data.
+  </default>
+
+	<description>
+    When working with the different types of data (filtering, sorting, display etc), DataTables can process the data used for the display in each cell in a manual suitable for the function being performed. For example, HTML tags will be removed from the strings used for filter matching, while sort formatting may remove currency symbols to allow currency values to be sorted numerically.
+
+    DataTables has a number of built in types which are automatically detected:
+
+    * `date` - Date / time values. Note that DataTables' built in date parsing uses Javascript's `Date.parse()` method which supports only a [very limited subset of dates](http://blog.dygraphs.com/2012/03/javascript-and-dates-what-mess.html). Additional date format support can be added through the use of plug-ins.
+      * Sorting - sorted chronologically
+      * Filtering - no effect
+
+    * `numeric` - Simple number sorting.
+      * Sorting - sorted numerically
+      * Filtering - no effect
+
+    * `numeric-fmt` - Numeric sorting of formatted numbers. Numbers which are formatted with thousands separators or currency symbols will be sorted numerically automatically by DataTables.
+      * Supported currency symbols are `$`, `£`, `€` and `¥`.
+      * Supported thousands separators are `'` and `,`. 
+      * Sorting - sorted numerically
+      * Filtering - no effect
+
+    * `html-numeric` - As per the `numeric` option, but with HTML tags also in the data.
+      * Sorting - sorted numerically
+      * Filtering - HTML tags removed from filtering string
+
+    * `html-numeric-fmt` - As per the `numeric-fmt` option, but with HTML tags also in the data.
+      * Sorting - sorted numerically
+      * Filtering - HTML tags removed from filtering string
+
+    * `string` - Fall back type if the data in the column does not match the requirements for the other data types (above).
+      * Sorting - no effect
+      * Filtering - no effect
+
+    It is expected that the above options will cover the majority of data types used with DataTables, however, data is flexible and comes in many forms, so additional types with different effects can be added through the use of plug-ins. This provides the ability to sort almost any data format imaginable!
+
+    As an optimisation, if you know the column type in advance, you can set the value using this option, saving DataTables from running its auto detection routine.
+	</description>
+
+	<example title="Set the first column's type manually with `dt-init columnDefs`"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [
+    { "type": "html", "targets": 0 }
+  ]
+} );
+]]></example>
+
+	<example title="Set the first column's type manually with `dt-init columns`"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    { "type": "html" },
+    null,
+    null,
+    null,
+    null
+  ]
+} );
+]]></example>
+
+  <related type="option">sort</related>
+  <related type="option">filter</related>
+</dt-option>
