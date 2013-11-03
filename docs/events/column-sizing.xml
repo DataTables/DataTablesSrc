@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>column-sizing</name>
+	<summary>Column sizing event - fired when the column widths are recalculated.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>function( e, settings )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		This event is fired whenever DataTables adjusts the column widths in the table and can be used by plug-ins to adjust any additional DOM elements they might have drawn on the page to take account of those changes.
+	</description>
+
+	<example title="Notify when the column widths are recalculated"><![CDATA[
+$('#example').dataTable();
+
+$('#example').on( 'column-sizing', function ( e, settings ) {
+	console.log( 'Column width recalculated in table' );
+} );
+]]></example>
+
+	<related type="option">autoWidth</related>
+	<related type="api">columns.adjust()</related>
+</dt-option>

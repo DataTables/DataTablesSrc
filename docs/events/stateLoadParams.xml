@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>stateLoadParams</name>
+	<summary>State load event - fired when loading state from storage.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>function( e, settings, json )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="object" name="data">
+			State information read from storage
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		The `dt-event stateLoadParams` event is the event compliment of the `dt-init stateLoadParams` initialisation option. As with the callback, the event is fired when the table is loading state from the stored data, but prior to that read data being applied to the data table. This allows modification of the saved state data.
+
+		The `dt-event stateLoadParams` event is fired at the same point as `dt-init stateLoadCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
+	</description>
+
+	<example title="Remove a saved filter from the saved state data"><![CDATA[
+$('#example')
+	.dataTable()
+	.on( 'stateLoadParams', function (e, settings, data) {
+		data.oSearch.sSearch = "";
+	} );
+]]></example>
+
+	<related type="option">stateSave</related>
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+	<related type="option">stateLoadParams</related>
+	<related type="event">stateSaveParams</related>
+	<related type="event">stateLoaded</related>
+</dt-option>

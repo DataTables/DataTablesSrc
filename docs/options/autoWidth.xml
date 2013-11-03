@@ -19,4 +19,5 @@ $('#example').dataTable( {
 
 	<related type="option">columns.width</related>
 	<related type="api">columns.adjust()</related>
+	<related type="event">column-sizing</related>
 </dt-option>

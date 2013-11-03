@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>xhr</name>
+	<summary>Ajax event - fired when an Ajax request is completed</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>function( e, settings, json )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="boolean" name="json">
+			Data returned from the server
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		When working with Ajax data, it is often useful to know when DataTables has completed the loading of data, so you can either manipulate that data into the format DataTables expects based upon its configuration (`dt-init columns.data`) or so you can use the data contained in the JSON response from the server for other parts of the page.
+
+		This event can be seen as the event compliment to the `dt-init ajax` `dataSrc` option (which can also be used to manipulate and intercept the data from the Ajax request). Generally you would want to do data manipulation in the `dataSrc` callback and use events for intercepting the data.
+
+		Note that this event is called before DataTables has processed the new data from the server, so the returned data will not have been drawn on page when this event fires.
+	</description>
+
+	<example title="Use a custom property returned from the server in another DOM element"><![CDATA[
+$('#example')
+	.on('xhr', function ( e, settings, json ) {
+		for ( var i=0, ien=json.aaData.length ; i<ien ; i++ ) {
+			json.aaData[i].sum = json.aaData[i].one + json.aaData[i].two;
+		}
+		// Note no return - manipulate the data directly in the JSON object.
+	} )
+	.dataTable( {
+		ajax: "data.json"
+	} );
+]]></example>
+
+	<example title="Pre-process the data returned from the server"><![CDATA[
+$('#example')
+	.on('xhr', function ( e, settings, json ) {
+		$('#status').html( json.status );
+	} )
+	.dataTable( {
+		ajax: "data.json"
+	} );
+
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="api">ajax.json()</related>
+	<related type="api">ajax.url()</related>
+	<related type="api">ajax.reload()</related>
+</dt-option>

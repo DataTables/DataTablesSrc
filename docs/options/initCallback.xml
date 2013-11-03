@@ -16,7 +16,7 @@
 	</type>
 
 	<description>
-		It can often be useful to know when your table has fully been initialised and data loaded, particularly when using an `dt-init ajax` data source. In such a case, the table will complete its initial run before the data has been loaded (Ajax is asynchronous after all!) so this callback is provided to let you know when the data is fully loaded.
+		It can often be useful to know when your table has fully been initialised, data loaded and drawn, particularly when using an `dt-init ajax` data source. In such a case, the table will complete its initial run before the data has been loaded (Ajax is asynchronous after all!) so this callback is provided to let you know when the data is fully loaded.
 
 		Additionally the callback is passed in the JSON data received from the server when Ajax loading data, which can be useful for configuring components connected to your table, for example [Editor fields](//editor.datatables.net).
 	</description>
@@ -41,4 +41,5 @@ $('#example').dataTable( {
 
 	<related type="option">ajax</related>
 	<related type="option">drawCallback</related>
+	<related type="event">init</related>
 </dt-option>

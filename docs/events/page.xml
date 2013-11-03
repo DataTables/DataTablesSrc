@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>page</name>
+	<summary>Page change event - fired when the table's paging is updated.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>function( e, settings )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		The `dt-event page` event is fired the table's paging state changes. This can be the end user selecting the page to view or the page length from the built-in controls, or when the page state is altered by the API (`dt-api page()`).
+
+		Note that the `dt-event page` will be fired before the table has been redrawn with the updated data.
+	</description>
+
+	<example title="Show information about the current page using the API"><![CDATA[
+$('#example').dataTable();
+
+$('#example').on( 'page', function () {
+	var info = this.api().page.info();
+	$('#pageInfo').html( 'Showing page: '+info.page+' of '+info.pages );
+} );
+]]></example>
+
+	<related type="option">paginate</related>
+	<related type="option">paginateType</related>
+	<related type="api">page()</related>
+	<related type="api">page.info()</related>
+	<related type="api">page.len()</related>
+	<related type="event">length</related>
+</dt-option>

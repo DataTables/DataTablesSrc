@@ -47,5 +47,6 @@ $('#example').dataTable( {
 	<related type="option">stateSave</related>
 	<related type="option">stateLoadCallback</related>
 	<related type="option">stateLoadParams</related>
+	<related type="option">stateLoaded</related>
 	<related type="option">stateSaveParams</related>
 </dt-option>

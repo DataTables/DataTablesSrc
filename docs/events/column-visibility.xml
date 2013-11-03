@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>column-visibility</name>
+	<summary>Column visibility event - fired when the visibility of a column changes.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>function( e, settings, column, state )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="object" name="column">
+			Column index that has changed state
+		</parameter>
+		<parameter type="object" name="state">
+			Column visibility state: `false` if column now hidden, or `true` if visible
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		This event is fired whenever a column's visibility is altered through the `dt-api column().visible()` method and can be useful for plug-ins which work with columns to identify changes in column visibility state and update their own state to take account of the change.
+	</description>
+
+	<example title="Notify when column visiblity is changed"><![CDATA[
+$('#example').dataTable();
+
+$('#example').on( 'column-visibility', function ( e, settings, column, state ) {
+	console.log(
+		'Column '+ column +' has changed to '+ (state ? 'visible' : 'hidden')
+	);
+} );
+]]></example>
+
+	<related type="option">columns.visible</related>
+	<related type="api">column().visible()</related>
+	<related type="api">columns().visible()</related>
+</dt-option>

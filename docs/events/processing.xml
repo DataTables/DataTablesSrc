@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>processing</name>
+	<summary>Processing event - fired when DataTables is processing data</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>function( e, settings, processing )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="boolean" name="processing">
+			Processing flag: `true` when processing, `false` otherwise.
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		This event is fired when DataTables is doing some kind of processing - be it, sorting, filtering or any other kind of data processing. It can be used to indicate to the end user that there is something happening, or that something has finished.
+
+		Note that this event is used by DataTables' `dt-init processing` display option, and can be useful if you want to replace the DataTables built-in processing indicator with a custom indicator - one which is used in other parts of your application for example.
+	</description>
+
+	<example title="Show / hide notification of table processing"><![CDATA[
+$('#example')
+	.on( 'processing', function ( e, settings, processing ) {
+		$('#processingIndicator').css( 'display', processing ? 'display' : 'none' );
+	} )
+	.dataTable();
+]]></example>
+
+	<related type="option">processing</related>
+</dt-option>
