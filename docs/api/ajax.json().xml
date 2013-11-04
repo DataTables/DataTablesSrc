@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>ajax.json()</name>
+	<summary>Get the latest JSON data obtained from the last Ajax request DataTables made</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>ajax.json()</signature>
+		<returns type="object">
+			Last Ajax data loaded from the server
+		</returns>
+	</type>
+
+	<description>
+		It can often be useful to be able to read the JSON response from a DataTables request to the server for data to summarise data, or obtain data that was also returned in the response but isn't directly used by the DataTable (this is a good technique to use where otherwise multiple Ajax requests would be needed, to help improve performance). This method is provided to give access to that data.
+
+		Note that if the API instance references multiple DataTable instances, only the JSON data from the first table in the selection will be returned. Use the `dt-api table()` method to obtain an API instance for a specific DataTable is you are working with multiple tables.
+	</description>
+
+	<example title="Show an indiciation of how many rows are loaded"><![CDATA[
+var table = $('#example').DataTable( {
+	ajax: "data.json"
+} );
+
+table.on( 'xhr', function () {
+	var json = table.ajax.json();
+	alert( json.data.length +' row(s) were loaded' );
+} );
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="api">ajax.json()</related>
+	<related type="api">ajax.url()</related>
+	<related type="api">ajax.url().load()</related>
+	<related type="api">ajax.reload()</related>
+	<related type="event">xhr</related>
+</dt-option>

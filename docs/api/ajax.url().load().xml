@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>ajax.url().load()</name>
+	<summary>Load data from the newly set data source URL</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>ajax.url().load( callback )</signature>
+		<parameter type="function" name="callback" default="null">
+			Function which is executed when the data as been reloaded and the table fully redrawn. The function is given a single parameter - the JSON data returned by the server, and expects no return.
+		</parameter>
+		<returns type="DataTables.Api">
+			DataTables.Api instance
+		</returns>
+	</type>
+
+	<description>
+		Trigger a load of an Ajax data source when a URl has been set using the `dt-api ajax.url()` method.
+
+		Note `dt-api ajax.url()` must be used a setter to set the URL, not a getter for this `load()` method to be available in the returned object.
+	</description>
+
+	<example title="Set the Ajax URL and load the data from the new source immediately"><![CDATA[
+var table = $('#example').DataTable( {
+	ajax: "data.json"
+} );
+
+table.ajax.url( 'newData.json' ).load();
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="api">ajax.json()</related>
+	<related type="api">ajax.url()</related>
+	<related type="api">ajax.url().load()</related>
+	<related type="api">ajax.reload()</related>
+	<related type="event">xhr</related>
+</dt-option>

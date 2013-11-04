@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>ajax.url()</name>
+	<summary>Reload the table data from the Ajax data source</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>ajax.url()</signature>
+		<returns type="string">
+			URL set as the Ajax data source for the table.
+
+			Note that if the Api instance refers to multiple tables, only the Ajax data source URL of the first table in the instance is returned. Use `dt-api table()` if you require to select a specific table from a set.
+		</returns>
+	</type>
+
+	<type type="function">
+		<signature>ajax.url( url )</signature>
+		<parameter type="string" name="url">
+			URL to set to be the Ajax data source for the table.
+		</parameter>
+		<returns type="DataTables.Api">
+			DataTables.Api instance
+		</returns>
+	</type>
+
+	<description>
+		While the `dt-api ajax.reload()` option makes it very easy to simply reload data from the existing data source, there are times when you want to change the data source URL. This method is design to fit that purpose. It can also be used to retrieve the currently set Ajax data source URL for a table.
+
+		Note that when setting a URL you will normally want to chain the `dt-api ajax.url().load()` method to immediately load the newly set data source URL - using `dt-api ajax.url()` method alone does not trigger an Ajax request, it mearly sets the Ajax data source URL.
+	</description>
+
+	<example title="Get the current Ajax data source URL"><![CDATA[
+var table = $('#example').DataTable( {
+	ajax: 'data.json'
+} );
+
+alert( 'Data source: '+table.ajax.url() ); // Will show 'Data source: data.json'
+]]></example>
+
+	<example title="Set the Ajax URL and load the data from the new source immediately"><![CDATA[
+var table = $('#example').DataTable( {
+	ajax: "data.json"
+} );
+
+table.ajax.url( 'newData.json' ).load();
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="api">ajax.json()</related>
+	<related type="api">ajax.url()</related>
+	<related type="api">ajax.url().load()</related>
+	<related type="api">ajax.reload()</related>
+	<related type="event">xhr</related>
+</dt-option>
