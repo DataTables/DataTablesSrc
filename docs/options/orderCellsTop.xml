@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>orderCellsTop</name>
+	<summary>Control which cell the order event handler will be applied to in a column</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default>false</default>
+
+	<description><![CDATA[
+		Allows control over whether DataTables should use the top (`true`) unique cell that is found for a single column, or the bottom (`false` - default) to attach the default order listener. This is useful when using complex headers.
+
+		Consider for example the following HTML header:
+
+		```
+			<thead>
+				<tr>
+					<td rowspan="2">1</td>
+					<td>2.1</td>
+				</tr>
+				<tr>
+					<td>2.2</td>
+				</tr>
+			</thead>
+		```
+
+		In this case, when `dt-init orderCellsTop` is `false` (default) the cells `string 1` and `string 2.2` will have the order event listener applied to them. If `dt-init orderCellsTop` is `true` then `string 1` and `string 2.1` will have the order event listeners applied to them.
+]]></description>
+
+	<example title="Use the top cells in a complex header for ordering"><![CDATA[
+$('#example').dataTable( {
+  "orderCellsTop": true
+} );
+]]></example>
+
+	<related type="option">ordering</related>
+	<related type="option">order</related>
+	<related type="api">order()</related>
+</dt-option>

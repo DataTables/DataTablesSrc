@@ -54,4 +54,4 @@ $('#example')
 	<related type="api">ajax.json()</related>
 	<related type="api">ajax.url()</related>
 	<related type="api">ajax.reload()</related>
-</dt-option>
+</dt-event>

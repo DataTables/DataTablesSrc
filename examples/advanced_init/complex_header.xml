@@ -25,7 +25,7 @@ Complex headers (using colspan / rowspan) can be used to group columns of simila
 
 In addition to the basic behaviour, DataTables can also take colspan and rowspans into account when working with hidden columns. The colspan and rowspan attributes for each cell are automatically calculated and rendered on the page for you. This allows the `dt-init columns.visible` option and `dt-api column().visible()` method to take into account rowspan / colspan cells, drawing the header correctly.
 
-Note that each column must have at least one unique cell (i.e. a cell without colspan) so DataTables can use that cell to detect the column and use it to apply sorting.
+Note that each column must have at least one unique cell (i.e. a cell without colspan) so DataTables can use that cell to detect the column and use it to apply ordering.
 
 The example below shows a header spanning multiple cells over the contact information, with one of the columns that the span covers being hidden.
 

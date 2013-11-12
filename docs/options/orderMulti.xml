@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>orderMulti</name>
+	<summary>Multiple column ordering ability control.</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+	<default>true</default>
+
+	<description>
+		When ordering is enabled (`dt-init ordering`), by default DataTables allows users to sort multiple columns by shift clicking upon the header cell for each column. Although this can be quite useful for users, it can also increase the complexity of the order, potentiality increasing the processing time of ordering the data. Therefore, this option is provided to allow this shift-click multiple column ability.
+
+		Note that disabling this ability does not impede your ability as a developer to do multiple column ordering using `dt-init columns.orderData`, `dt-init order` or `dt-api order()`, it just disallows the user from performing their own multi-column order.
+	</description>
+
+	<example title="Disable multiple column ordering ability"><![CDATA[
+$('#example').dataTable( {
+  "orderMulti": false
+} );
+]]></example>
+
+	<related type="option">columns.orderData</related>
+	<related type="option">columns.orderable</related>
+	<related type="option">ordering</related>
+	<related type="option">order</related>
+	<related type="option">orderFixed</related>
+	<related type="api">order()</related>
+	<related type="api">column().order()</related>
+	<related type="api">columns().order()</related>
+</dt-option>

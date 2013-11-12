@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="options">
-	<name>paginationType</name>
+	<name>pagingType</name>
 	<summary>Pagination button display options</summary>
 	<since>1.10</since>
 
@@ -22,11 +22,11 @@
 
 	<example title="Use the `full_numbers` type of pagination control"><![CDATA[
 $('#example').dataTable( {
-  "paginationType": "full_numbers"
+  "pagingType": "full_numbers"
 } );
 ]]></example>
 
   <related type="option">dom</related>
-  <related type="option">paginate</related>
+  <related type="option">paging</related>
   <related type="api">page()</related>
 </dt-option>

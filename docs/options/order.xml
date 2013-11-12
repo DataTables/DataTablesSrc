@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>order</name>
+	<summary>Initial order (sort) to apply to the table</summary>
+	<since>1.10</since>
+
+	<type type="array" />
+	<default value="[[0, 'asc']]" />
+
+	<description>
+		If ordering is enabled (`dt-init ordering`), then DataTables will perform a first pass order during initialisation. Using this parameter you can define which column(s) the order is performed upon, and the ordering direction. The `dt-init order` option can take two forms:
+
+		* An array with two entries:
+		  * Column index to order upon
+		  * Direction so order to apply (`string asc` or `string desc`)
+		* An array of arrays, each inner array with the two options above. This allows a multi-column order to be defined as the initial state.
+	</description>
+
+	<example title="No initial order"><![CDATA[
+$('#example').dataTable( {
+	"order": []
+} );
+]]></example>
+
+	<example title="Sortng on column index 1 (second column) initially"><![CDATA[
+$('#example').dataTable( {
+	"order": [ 1, 'asc' ]
+} );
+]]></example>
+
+	<example title="Multi-column ordering as the initial state"><![CDATA[
+$('#example').dataTable( {
+	"order": [[ 0, 'asc' ], [ 1, 'asc' ]]
+} );
+]]></example>
+
+	<related type="option">ordering</related>
+	<related type="option">orderFixed</related>
+	<related type="option">columns.orderable</related>
+	<related type="option">columns.orderData</related>
+	<related type="api">order()</related>
+</dt-option>

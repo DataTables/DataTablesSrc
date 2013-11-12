@@ -205,7 +205,7 @@ table.dataTable {
 
 
 	// Sort column highlighting - add "hover" class to the table to activate
-	&.sort-column,
+	&.order-column,
 	&.display {
 		tbody {
 			tr>.sorting_1,
@@ -223,7 +223,7 @@ table.dataTable {
 	}
 
 	&.display tbody,
-	&.sort-column.stripe tbody {
+	&.order-column.stripe tbody {
 		tr.odd {
 			>.sorting_1 { background-color: shade($table-row-background, 5.4%); } // shade by f1
 			>.sorting_2 { background-color: shade($table-row-background, 4.7%); } // shade by f3
@@ -250,7 +250,7 @@ table.dataTable {
 	}
 
 	&.display tbody,
-	&.sort-column.hover tbody {
+	&.order-column.hover tbody {
 		tr:hover,
 		tr.odd:hover,
 		tr.even:hover {

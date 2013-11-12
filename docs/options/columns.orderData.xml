@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="columns">
-	<name>columns.dataSort</name>
-	<summary>Define multiple column sorting as the default sort for a column</summary>
+	<name>columns.orderData</name>
+	<summary>Define multiple column ordering as the default order for a column</summary>
 	<since>1.10</since>
 
 	<type type="integer">
-		<description>A single column index to sort upon</description>
+		<description>A single column index to order upon</description>
 	</type>
 	<type type="array">
 		<description>Multiple column indexes to define multi-column sorting</description>
@@ -15,35 +15,35 @@
 	</default>
 
 	<description>
-		Allows a column's sorting to take multiple columns into account when doing a sort.
+		Allows a column's sorting to take multiple columns into account when doing a order.
 
 		For example with first name / last name columns next to each other, it is intuitive that they would be linked together to multi-column sort.
 	</description>
 
-	<example title="Using `dataSort` to define multi-column sorting with `dt-init columnDefs`"><![CDATA[
+	<example title="Using `orderData` to define multi-column sorting with `dt-init columnDefs`"><![CDATA[
 $('#example').dataTable( {
   "columnDefs": [
-    { "dataSort": [ 0, 1 ],    "targets": 0 },
-    { "dataSort": 0,           "targets": 1 },
-    { "dataSort": [ 2, 3, 4 ], "targets": 2 }
+    { "orderData": [ 0, 1 ],    "targets": 0 },
+    { "orderData": 0,           "targets": 1 },
+    { "orderData": [ 2, 3, 4 ], "targets": 2 }
   ]
 } );
 ]]></example>
 
-	<example title="Using `dataSort` to define multi-column sorting with `dt-init columns`"><![CDATA[
+	<example title="Using `orderData` to define multi-column sorting with `dt-init columns`"><![CDATA[
 $('#example').dataTable( {
   "columns": [
-    { "dataSort": [ 0, 1 ] },
-    { "dataSort": 0, },
-    { "dataSort": [ 2, 3, 4 ] },
+    { "orderData": [ 0, 1 ] },
+    { "orderData": 0, },
+    { "orderData": [ 2, 3, 4 ] },
     null,
     null
   ]
 } );
 ]]></example>
 
-	<related type="option">sort</related>
-	<related type="option">sorting</related>
+	<related type="option">ordering</related>
+	<related type="option">order</related>
 	<related type="api">order()</related>
 	<related type="api">column().order()</related>
 	<related type="api">columns().order()</related>

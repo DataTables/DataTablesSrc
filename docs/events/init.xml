@@ -35,4 +35,4 @@ $('#example')
 ]]></example>
 
 	<related type="option">initCallback</related>
-</dt-option>
+</dt-event>

@@ -25,9 +25,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-In order to perform paging, sorting, filter etc, DataTables can remove rows and cells from the document (i.e. those rows / cells which are not needed are not inserted into the document). This increases performance and compatibility, however, it means that submitting forms which span multiple pages requires a little bit of additional work to get the information that is not in the document any longer.
+In order to perform paging, ordering, searching etc, DataTables can remove rows and cells from the document (i.e. those rows / cells which are not needed are not inserted into the document). This increases performance and compatibility, however, it means that submitting forms which span multiple pages requires a little bit of additional work to get the information that is not in the document any longer.
 
-The `dt-api $()` method can be used to get nodes from the document regardless of paging, sorting etc. This example shows `dt-api $()` being used to get all `tag input` elements from the table.
+The `dt-api $()` method can be used to get nodes from the document regardless of paging, ordering etc. This example shows `dt-api $()` being used to get all `tag input` elements from the table.
 
 In the example a simple `alert()` is used to show the information from the form, but an Ajax call to the server with the form data could easily be performed.
 

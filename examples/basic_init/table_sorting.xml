@@ -5,22 +5,22 @@
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>Default sorting</title>
+<title>Default ordering (sorting)</title>
 <js><![CDATA[
 $(document).ready(function() {
 	$('#example').dataTable( {
-		"sorting": [[ 3, "desc" ]]
+		"order": [[ 3, "desc" ]]
 	} );
 } );
 ]]></js>
 
 <info><![CDATA[
 
-With DataTables you can alter the sorting characteristics of the table at initialisation time. Using the `dt-init sorting` initialisation parameter, you can set the table to display the data in exactly the order that you want.
+With DataTables you can alter the ordering characteristics of the table at initialisation time. Using the `dt-init order` initialisation parameter, you can set the table to display the data in exactly the order that you want.
 
-The `dt-init sorting` parameter is an array of arrays where the first value of the inner array is the column to sort on, and the second is `string 'asc'` (ascending sorting) or `string 'desc'` (descending sorting) as required. `dt-init sorting` is a 2D array to allow multi-column sorting to be defined.
+The `dt-init order` parameter is an array of arrays where the first value of the inner array is the column to order on, and the second is `string 'asc'` (ascending ordering) or `string 'desc'` (descending ordering) as required. `dt-init order` is a 2D array to allow multi-column ordering to be defined.
 
-The table below is sorted (descending) by the Age column.
+The table below is ordered (descending) by the Age column.
 
 ]]></info>
 

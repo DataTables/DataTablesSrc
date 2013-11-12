@@ -34,11 +34,11 @@ $.fn.dataTable.pipeline = function ( opts ) {
 			// outside cached data - need to make a request
 			ajax = true;
 		}
-		else if ( JSON.stringify( request.sort )    !== JSON.stringify( cacheLastRequest.sort ) ||
+		else if ( JSON.stringify( request.order )   !== JSON.stringify( cacheLastRequest.order ) ||
 		          JSON.stringify( request.columns ) !== JSON.stringify( cacheLastRequest.columns ) ||
-		          JSON.stringify( request.filter )  !== JSON.stringify( cacheLastRequest.filter )
+		          JSON.stringify( request.search )  !== JSON.stringify( cacheLastRequest.search )
 		) {
-			// properties changed (sorting, columns, filters)
+			// properties changed (ordering, columns, searching)
 			ajax = true;
 		}
 		
@@ -112,7 +112,7 @@ Sever-side processing can be quite hard on your server, since it makes an Ajax c
 
 This example shows one technique to reduce the number of Ajax calls that are made to the server by caching more data than is needed for each draw. This is done by intercepting the Ajax call and routing it through a data cache control; using the data from the cache if available, and making the Ajax request if not. This intercept of the Ajax request is performed by giving the `dt-init ajax` option as a function. This function then performs the logic of deciding if another Ajax call is needed, or if data from the cache can be used.
 
-Keep in mind that this caching is for paging only; the pipeline must be cleared for other interactions such as sorting and filtering since the full data set, when using server-side processing, is only available at the server.
+Keep in mind that this caching is for paging only; the pipeline must be cleared for other interactions such as ordering and searching since the full data set, when using server-side processing, is only available at the server.
 
 ]]></info>
 

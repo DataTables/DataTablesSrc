@@ -5,7 +5,7 @@
 
 <info><![CDATA[
 
-DataTables can read data from a server via Ajax, while still performing filtering, sorting, paging etc on the client-side. This is done through use of the `dt-init ajax` option, which has a number of options to customise how the data is retrieved from the server.
+DataTables can read data from a server via Ajax, while still performing searching, ordering, paging etc on the client-side. This is done through use of the `dt-init ajax` option, which has a number of options to customise how the data is retrieved from the server.
 
 The examples in this section demonstrate the use of Ajax loading data in DataTables, with client-side processing.
 

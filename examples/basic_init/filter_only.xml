@@ -9,8 +9,8 @@
 <js><![CDATA[
 $(document).ready(function() {
 	$('#example').dataTable( {
-		"paginate": false,
-		"sort":     false,
+		"paging":   false,
+		"ordering": false,
 		"info":     false
 	} );
 } );

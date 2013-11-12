@@ -33,4 +33,4 @@ $('#example')
 ]]></example>
 
 	<related type="option">processing</related>
-</dt-option>
+</dt-event>

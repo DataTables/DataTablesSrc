@@ -36,4 +36,4 @@ $('#example').on( 'length', function ( e, settings, len ) {
 	<related type="api">page.info()</related>
 	<related type="api">page.len()</related>
 	<related type="event">page</related>
-</dt-option>
+</dt-event>

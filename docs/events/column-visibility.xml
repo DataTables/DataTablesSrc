@@ -38,4 +38,4 @@ $('#example').on( 'column-visibility', function ( e, settings, column, state ) {
 	<related type="option">columns.visible</related>
 	<related type="api">column().visible()</related>
 	<related type="api">columns().visible()</related>
-</dt-option>
+</dt-event>

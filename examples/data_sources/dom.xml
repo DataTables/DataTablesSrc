@@ -16,7 +16,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-The foundation for DataTables is progressive enhancement, so it is very adept at reading table information directly from the DOM. This example shows how easy it is to add filtering, sorting and paging to your HTML table by initialising DataTables on it.
+The foundation for DataTables is progressive enhancement, so it is very adept at reading table information directly from the DOM. This example shows how easy it is to add searching, ordering and paging to your HTML table by initialising DataTables on it.
 
 ]]></info>
 

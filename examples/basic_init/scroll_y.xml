@@ -11,7 +11,7 @@ $(document).ready(function() {
 	$('#example').dataTable( {
 		"scrollY":        "200px",
 		"scrollCollapse": true,
-		"paginate":       false
+		"paging":         false
 	} );
 } );
 ]]></js>

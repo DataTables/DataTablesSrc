@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="features">
-	<name>paginate</name>
+	<name>paging</name>
 	<summary>Enable or disable table pagination.</summary>
 	<since>1.10</since>
 
@@ -13,13 +13,13 @@
 
 	<example title="Disable pagination"><![CDATA[
 $('#example').dataTable( {
-	"paginate": false
+	"paging": false
 } );
 ]]></example>
 
 	<related type="option">info</related>
 	<related type="option">lengthChange</related>
 	<related type="option">lengthMenu</related>
-	<related type="option">paginationType</related>
+	<related type="option">pagingType</related>
 	<related type="api">page()</related>
 </dt-option>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>orderFixed</name>
+	<summary>Ordering to always be applied to the table</summary>
+	<since>1.10</since>
+
+	<type type="array" />
+
+	<description>
+		The option works in tandem with the `dt-init order` option, and is identical in its usage, but differs in that the sorting defined in this option will always be applied to the table before any user selected sorting.
+
+		This may be useful if you a column (visible or hidden) which must always be sorted upon first - a priority order or index column for example, or for grouping similar rows together.
+	</description>
+
+	<example title="The first column will always be sorted upon first"><![CDATA[
+$('#example').dataTable( {
+	"orderFixed": [ 0, 'asc' ]
+} );
+]]></example>
+
+	<related type="option">ordering</related>
+	<related type="option">order</related>
+	<related type="option">columns.orderable</related>
+	<related type="option">columns.orderData</related>
+	<related type="api">order()</related>
+</dt-option>

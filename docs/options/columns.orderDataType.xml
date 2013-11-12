@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.orderDataType</name>
+	<summary>Live DOM sorting type assignment</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+
+	<description>
+    DataTables' primary order method (the `dt-init ordering` feature) makes use of data that has been cached in memory rather than reading the data directly from the DOM every time an order is performed for performance reasons (reading from the DOM is inherently slow). However, there are times when you do actually want to read directly from the DOM, acknowledging that there will be a performance hit, for example when you have form elements in the table and the end user can alter the values. This configuration option is provided to allow plug-ins to provide this capability in DataTables.
+
+    Please note that there are no `dt-init columns.orderDataType` plug-ins built into DataTables, they must be added separately. See [the DataTables sorting plug-ins page](//datatables.net/plug-ins/sorting) for further information.
+	</description>
+
+	<example title="Set live data sort type with `dt-init columnDefs`"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [
+    { "orderDataType": "dom-text", "targets": [ 2, 3 ] },
+    { "type": "numeric", "targets": 3 },
+    { "orderDataType": "dom-select", "targets": 4 },
+    { "orderDataType": "dom-checkbox", "targets": 5 }
+  ]
+} );
+]]></example>
+
+	<example title="Set live data sort type with `dt-init columns`"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    null,
+    null,
+    { "orderDataType": "dom-text" },
+    { "orderDataType": "dom-text", "type": "numeric" },
+    { "orderDataType": "dom-select" },
+    { "orderDataType": "dom-checkbox" }
+  ]
+} );
+]]></example>
+
+  <related type="option">ordering</related>
+  <related type="option">columns.type</related>
+</dt-option>

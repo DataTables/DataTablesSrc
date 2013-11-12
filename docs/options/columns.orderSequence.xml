@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.orderSequence</name>
+	<summary>Order direction application sequence</summary>
+	<since>1.10</since>
+
+	<type type="array" />
+	<default value="[ 'asc', 'desc' ]" />
+
+	<description>
+		You can control the default ordering direction, and even alter the behaviour of the order handler (i.e. only allow ascending sorting etc) using this parameter.
+	</description>
+
+	<example title="Using `orderSequence` to define the applied order sequence with `dt-init columnDefs`"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [
+    { "orderSequence": [ "asc" ], "targets": [ 1 ] },
+    { "orderSequence": [ "desc", "asc", "asc" ], "targets": [ 2 ] },
+    { "orderSequence": [ "desc" ], "targets": [ 3 ] }
+  ]
+} );
+]]></example>
+
+	<example title="Using `orderSequence` to define the applied order sequence with `dt-init columns`"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    null,
+    { "orderSequence": [ "asc" ] },
+    { "orderSequence": [ "desc", "asc", "asc" ] },
+    { "orderSequence": [ "desc" ] },
+    null
+  ]
+} );
+]]></example>
+
+	<related type="option">ordering</related>
+	<related type="option">order</related>
+	<related type="api">order()</related>
+	<related type="api">column().order()</related>
+	<related type="api">columns().order()</related>
+</dt-option>

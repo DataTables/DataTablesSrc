@@ -38,4 +38,4 @@ $('#example')
 	<related type="option">stateLoadParams</related>
 	<related type="event">stateSaveParams</related>
 	<related type="event">stateLoaded</related>
-</dt-option>
+</dt-event>

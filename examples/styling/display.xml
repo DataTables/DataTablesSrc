@@ -19,12 +19,12 @@ The DataTables default style file has a number of features which can be enabled 
 * `stripe` - Zebra striped rows
 * `cell-border` - Cells with a border
 * `row-border` - Rows with a border (only one of `cell-border` and `row-border` should be used for a single table.
-* `sort-column` - Highlight the cells in the column currently being sorted upon
+* `order-column` - Highlight the cells in the column currently being ordering upon
 * `hover` - Highlight a row when hovered over
 
 These classes can be combined (simply assign multiple classes to the table) to build up the styling that you want for your table.
 
-The `display` class is a short-cut for specifying the `stripe hover sort-column row-border` as the class name for a table. This is shown in the example below.
+The `display` class is a short-cut for specifying the `stripe hover order-column row-border` as the class name for a table. This is shown in the example below.
 
 ]]></info>
 

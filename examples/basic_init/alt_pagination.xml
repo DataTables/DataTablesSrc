@@ -9,14 +9,14 @@
 <js><![CDATA[
 $(document).ready(function() {
 	$('#example').dataTable( {
-		"paginationType": "full_numbers"
+		"pagingType": "full_numbers"
 	} );
 } );
 ]]></js>
 
 <info><![CDATA[
 
-The default page control presented by DataTables (forward and backward buttons with up to 7 page numbers in-between) is fine for most situations, but there are cases where you may wish to customise the options presented to the end user. This is done through DataTables' extensible pagination mechanism, the `dt-init paginationType` option.
+The default page control presented by DataTables (forward and backward buttons with up to 7 page numbers in-between) is fine for most situations, but there are cases where you may wish to customise the options presented to the end user. This is done through DataTables' extensible pagination mechanism, the `dt-init pagingType` option.
 
 There are four built-in options for which pagination controls DataTables should show:
 

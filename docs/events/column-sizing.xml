@@ -29,4 +29,4 @@ $('#example').on( 'column-sizing', function ( e, settings ) {
 
 	<related type="option">autoWidth</related>
 	<related type="api">columns.adjust()</related>
-</dt-option>
+</dt-event>

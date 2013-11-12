@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-event>
-	<name>filter</name>
-	<summary>Filter event - fired when the table is filtered.</summary>
+	<name>search</name>
+	<summary>Search event - fired when the table is filtered.</summary>
 	<since>1.10</since>
 
 	<type type="function">
@@ -16,25 +16,25 @@
 	</type>
 
 	<description>
-		The `dt-event filter` event is fired whenever the table's filtering is triggered by the global search or columns search options, including calls from the API (`dt-api search()` for example). Additionally, a full redraw (by calling the `dt-api draw()`) method will cause the table to be re-filtered.
+		The `dt-event search` event is fired whenever the table's searching is triggered by the global search or columns search options, including calls from the API (`dt-api search()` for example). Additionally, a full redraw (by calling the `dt-api draw()`) method will cause the table to be re-searched.
 
-		Note that the `dt-event filter` will be fired before the table has been redrawn with the updated filtered data, although the data will internally have been filtered.
+		Note that the `dt-event search` will be fired before the table has been redrawn with the updated filtered data, although the data will internally have been filtered.
 	</description>
 
 	<example title="Update an external input with filtering information using the API"><![CDATA[
 $('#example').dataTable();
 
-$('#example').on( 'filter', function () {
+$('#example').on( 'search', function () {
 	var api = this.api();
-	$('#filterInfo').html( 'Currently applied global filter: '+api.search() );
+	$('#filterInfo').html( 'Currently applied global search: '+api.search() );
 } );
 ]]></example>
 
-	<related type="option">filter</related>
+	<related type="option">searching</related>
 	<related type="option">search</related>
 	<related type="option">columns.searchable</related>
 	<related type="api">draw()</related>
 	<related type="api">search()</related>
 	<related type="api">column().search()</related>
 	<related type="api">columns().search()</related>
-</dt-option>
+</dt-event>

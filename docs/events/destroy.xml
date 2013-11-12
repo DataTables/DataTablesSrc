@@ -35,4 +35,4 @@ $('#example').on( 'destroy', function ( e, settings ) {
 
 	<related type="option">destroy</related>
 	<related type="api">destroy()</related>
-</dt-option>
+</dt-event>

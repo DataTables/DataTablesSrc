@@ -20,7 +20,7 @@ $(document).ready(function() {
 	$('table.display').dataTable( {
 		"scrollY": "200px",
 		"scrollCollapse": true,
-		"paginate": false,
+		"paging": false,
 		"jQueryUI": true
 	} );
 } );

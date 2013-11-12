@@ -11,7 +11,7 @@
 $(document).ready(function() {
 	var table = $('#example').DataTable( {
 		"scrollY": "200px",
-		"paginate": false
+		"paging": false
 	} );
 
 	$('a.toggle-vis').on( 'click', function (e) {

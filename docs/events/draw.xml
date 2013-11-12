@@ -31,4 +31,4 @@ $('#example').on( 'draw', function () {
 
 	<related type="option">drawCallback</related>
 	<related type="api">draw()</related>
-</dt-option>
+</dt-event>
