@@ -36,4 +36,5 @@ $('#example').dataTable( {
 ]]></example>
 
 	<related type="api">draw()</related>
+	<related type="event">draw</related>
 </dt-option>

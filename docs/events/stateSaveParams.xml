@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>stateSaveParams</name>
+	<summary>State save event - fired when saving table state information.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>function( e, settings, data )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="object" name="data">
+			State information to be saved
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		The `dt-event stateSaveParams` event is the event compliment of the `dt-init stateSaveParams` initialisation option. As with the callback, the event is fired when the table has changed state a new state save is required.
+
+		This event allows modification of the state saving object prior to actually doing the save, including addition or other state properties (for plug-ins) or modification of a DataTables core property.
+
+		The `dt-event stateSaveParams` event is fired at the same point as `dt-init stateSaveCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
+	</description>
+
+	<example title="Remove a saved filter, so filtering is never saved"><![CDATA[
+$('#example')
+	.dataTable()
+	.on( 'stateSaveParams', function (e, settings, data) {
+		data.oSearch.sSearch = "";
+	} );
+]]></example>
+
+	<related type="option">stateSave</related>
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+	<related type="option">stateLoadParams</related>
+	<related type="event">stateLoadParams</related>
+	<related type="event">stateLoaded</related>
+</dt-option>

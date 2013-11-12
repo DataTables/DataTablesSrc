@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>destroy</name>
+	<summary>Table destroy event - fired when a table is destroyed.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>function( e, settings )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		The `dt-event destroy` event is fired when a DataTable is torn down, to be replaced with an enhanced HTML table (or simply removed from the DOM altogether). This can be used to remove bound events, added DOM nodes etc and can be particularly useful for plug-in authors.
+
+		This event is fired when the DataTable is destroyed by calling `dt-api destroy` API method or passing the `dt-init destroy`  parameter in the initialisation object.
+	</description>
+
+	<example title="Remove bound events on table destroy"><![CDATA[
+$('#example')
+	.dataTable()
+	.on( 'click', 'td', function () {
+		alert( this.innerHTML );
+	} );
+
+$('#example').on( 'destroy', function ( e, settings ) {
+	$(this).off( 'click', 'td' );
+} );
+]]></example>
+
+	<related type="option">destroy</related>
+	<related type="api">destroy()</related>
+</dt-option>

@@ -29,4 +29,5 @@ $('#example').dataTable( {
 	<related type="retrieve">retrieve</related>
 	<related type="api">destroy</related>
 	<related type="api">ajax.reload()</related>
+	<related type="event">destroy</related>
 </dt-option>

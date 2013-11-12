@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>stateLoaded</name>
+	<summary>State loaded event - fired once state has been loaded and applied.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>function( e, settings, json )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="object" name="data">
+			State information read from storage
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		The `dt-event stateLoaded` event differs from the `dt-event stateLoadParams` in that it is fired after the state has been loaded and applied to the table (internally - the effects will not yet have been drawn onto the page upon execution of this event). This this case, the state object cannot be modified, while with `dt-event stateLoadParams` it can be. This event is usual for custom or plug-in parameters being loaded and applied from the state storage.
+
+		The `dt-event stateLoaded` event is the event compliment of the `dt-init stateLoaded` callback initialisation option. The event is fired at the same time as the callback (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
+	</description>
+
+	<example title="Show custom saved data in an input element"><![CDATA[
+$('#example')
+	.dataTable()
+	.on( 'stateLoaded', function (e, settings, data) {
+		$('#myInput').val( data.myCustomValue );
+	} );
+]]></example>
+
+	<related type="option">stateSave</related>
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+	<related type="option">stateLoadParams</related>
+	<related type="option">stateLoaded</related>
+	<related type="event">stateSaveParams</related>
+	<related type="event">stateLoadParams</related>
+</dt-option>
