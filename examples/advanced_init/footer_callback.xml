@@ -14,6 +14,7 @@ $(document).ready(function() {
 	$('#example').dataTable( {
 		"footerCallback": function ( row, data, start, end, display ) {
 			var api = this.api();
+			// Remove the formatting to get integer data for summation
 			var intVal = function ( i ) {
 				return typeof i === 'string' ?
 					i.replace(/[\$,]/g, '')*1 :
@@ -38,7 +39,7 @@ $(document).ready(function() {
 				} );
 
 			// Update footer
-			$('th:eq(1)', row).html(
+			$( api.column( 4 ).footer() ).html(
 				'$'+pageTotal +' ( $'+ total +' total)'
 			);
 		}
@@ -51,7 +52,7 @@ $(document).ready(function() {
 
 Through the use of the header and footer callback manipulation functions provided by DataTables (`dt-init headerCallback` and `dt-init footerCallback`), it is possible to perform some powerful and useful data manipulation functions, such as summarising data in the table.
 
-The example below shows a footer callback being used to total the data for a column (both the visible and the hidden data) using the `dt-api column().data() API method.
+The example below shows a footer callback being used to total the data for a column (both the visible and the hidden data) using the `dt-api column().data()` API method and `dt-api column().footer()` for writing the value into the footer.
 
 ]]></info>
 
