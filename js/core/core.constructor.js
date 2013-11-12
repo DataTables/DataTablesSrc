@@ -13,6 +13,10 @@ if ( this.nodeName.toLowerCase() != 'table' )
 	return;
 }
 
+/* Backwards compatibility for the defaults */
+_fnCompatOpts( defaults );
+_fnCompatCols( defaults.column );
+
 /* Convert the camel-case defaults to Hungarian */
 _fnCamelToHungarian( defaults, defaults, true );
 _fnCamelToHungarian( defaults.column, defaults.column, true );
@@ -84,6 +88,8 @@ allSettings.push( oSettings );
 oSettings.oInstance = (_that.length===1) ? _that : $(this).dataTable();
 
 // Backwards compatibility, before we apply all the defaults
+_fnCompatOpts( oInit );
+
 if ( oInit.oLanguage )
 {
 	_fnLanguageCompat( oInit.oLanguage );
@@ -300,19 +306,23 @@ _fnApplyColumnDefs( oSettings, oInit.aoColumnDefs, aoColumnsInit, function (iCol
  * attributes are found
  */
 if ( rowOne.length ) {
+	var a = function ( cell, name ) {
+		return cell.getAttribute( 'data-'+name ) ? name : null;
+	};
+
 	$.each( _fnGetRowElements( oSettings, rowOne[0] ).cells, function (i, cell) {
 		var col = oSettings.aoColumns[i];
 
 		if ( col.mData === i ) {
-			var sort = cell.getAttribute('data-sort');
-			var filter = cell.getAttribute('data-filter');
+			var sort = a( cell, 'sort' ) || a( cell, 'order' );
+			var filter = a( cell, 'filter' ) || a( cell, 'search' );
 
 			if ( sort !== null || filter !== null ) {
 				col.mData = {
 					_:      i+'.display',
-					sort:   sort !== null   ? i+'.@data-sort'   : undefined,
-					type:   sort !== null   ? i+'.@data-sort'   : undefined,
-					filter: filter !== null ? i+'.@data-filter' : undefined
+					sort:   sort !== null   ? i+'.@data-'+sort   : undefined,
+					type:   sort !== null   ? i+'.@data-'+sort   : undefined,
+					filter: filter !== null ? i+'.@data-'+filter : undefined
 				};
 
 				_fnColumnOptions( oSettings, i );

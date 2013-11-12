@@ -11,13 +11,15 @@
  */
 DataTable.defaults.column = {
 	/**
-	 * Allows a column's sorting to take multiple columns into account when
-	 * doing a sort. For example first name / last name columns make sense to
-	 * do a multi-column sort over the two columns.
-	 *  @type array
+	 * Define which column(s) an order will occur on for this column. This
+	 * allows a column's ordering to take multiple columns into account when
+	 * doing a sort or use the data from a different column. For example first
+	 * name / last name columns make sense to do a multi-column sort over the
+	 * two columns.
+	 *  @type array|int
 	 *  @default null <i>Takes the value of the column index automatically</i>
 	 *
-	 *  @name DataTable.defaults.column.dataSort
+	 *  @name DataTable.defaults.column.orderData
 	 *  @dtopt Columns
 	 *
 	 *  @example
@@ -25,9 +27,9 @@ DataTable.defaults.column = {
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
 	 *        "columnDefs": [
-	 *          { "dataSort": [ 0, 1 ], "targets": [ 0 ] },
-	 *          { "dataSort": [ 1, 0 ], "targets": [ 1 ] },
-	 *          { "dataSort": [ 2, 3, 4 ], "targets": [ 2 ] }
+	 *          { "orderData": [ 0, 1 ], "targets": [ 0 ] },
+	 *          { "orderData": [ 1, 0 ], "targets": [ 1 ] },
+	 *          { "orderData": 2, "targets": [ 2 ] }
 	 *        ]
 	 *      } );
 	 *    } );
@@ -37,9 +39,9 @@ DataTable.defaults.column = {
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
 	 *        "columns": [
-	 *          { "dataSort": [ 0, 1 ] },
-	 *          { "dataSort": [ 1, 0 ] },
-	 *          { "dataSort": [ 2, 3, 4 ] },
+	 *          { "orderData": [ 0, 1 ] },
+	 *          { "orderData": [ 1, 0 ] },
+	 *          { "orderData": 2 },
 	 *          null,
 	 *          null
 	 *        ]
@@ -47,16 +49,17 @@ DataTable.defaults.column = {
 	 *    } );
 	 */
 	"aDataSort": null,
+	"iDataSort": -1,
 
 
 	/**
-	 * You can control the default sorting direction, and even alter the behaviour
-	 * of the sort handler (i.e. only allow ascending sorting etc) using this
-	 * parameter.
+	 * You can control the default ordering direction, and even alter the
+	 * behaviour of the sort handler (i.e. only allow ascending ordering etc)
+	 * using this parameter.
 	 *  @type array
 	 *  @default [ 'asc', 'desc' ]
 	 *
-	 *  @name DataTable.defaults.column.sorting
+	 *  @name DataTable.defaults.column.orderSequence
 	 *  @dtopt Columns
 	 *
 	 *  @example
@@ -64,9 +67,9 @@ DataTable.defaults.column = {
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
 	 *        "columnDefs": [
-	 *          { "sorting": [ "asc" ], "targets": [ 1 ] },
-	 *          { "sorting": [ "desc", "asc", "asc" ], "targets": [ 2 ] },
-	 *          { "sorting": [ "desc" ], "targets": [ 3 ] }
+	 *          { "orderSequence": [ "asc" ], "targets": [ 1 ] },
+	 *          { "orderSequence": [ "desc", "asc", "asc" ], "targets": [ 2 ] },
+	 *          { "orderSequence": [ "desc" ], "targets": [ 3 ] }
 	 *        ]
 	 *      } );
 	 *    } );
@@ -77,9 +80,9 @@ DataTable.defaults.column = {
 	 *      $('#example').dataTable( {
 	 *        "columns": [
 	 *          null,
-	 *          { "sorting": [ "asc" ] },
-	 *          { "sorting": [ "desc", "asc", "asc" ] },
-	 *          { "sorting": [ "desc" ] },
+	 *          { "orderSequence": [ "asc" ] },
+	 *          { "orderSequence": [ "desc", "asc", "asc" ] },
+	 *          { "orderSequence": [ "desc" ] },
 	 *          null
 	 *        ]
 	 *      } );
@@ -122,11 +125,11 @@ DataTable.defaults.column = {
 
 
 	/**
-	 * Enable or disable sorting on this column.
+	 * Enable or disable ordering on this column.
 	 *  @type boolean
 	 *  @default true
 	 *
-	 *  @name DataTable.defaults.column.sortable
+	 *  @name DataTable.defaults.column.orderable
 	 *  @dtopt Columns
 	 *
 	 *  @example
@@ -134,7 +137,7 @@ DataTable.defaults.column = {
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
 	 *        "columnDefs": [
-	 *          { "sortable": false, "targets": [ 0 ] }
+	 *          { "orderable": false, "targets": [ 0 ] }
 	 *        ] } );
 	 *    } );
 	 *
@@ -143,7 +146,7 @@ DataTable.defaults.column = {
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
 	 *        "columns": [
-	 *          { "sortable": false },
+	 *          { "orderable": false },
 	 *          null,
 	 *          null,
 	 *          null,
@@ -217,43 +220,6 @@ DataTable.defaults.column = {
 	 *    } );
 	 */
 	"fnCreatedCell": null,
-
-
-	/**
-	 * The column index (starting from 0!) that you wish a sort to be performed
-	 * upon when this column is selected for sorting. This can be used for sorting
-	 * on hidden columns for example.
-	 *  @type int
-	 *  @default -1 <i>Use automatically calculated column index</i>
-	 *
-	 *  @name DataTable.defaults.column.dataSort
-	 *  @dtopt Columns
-	 *
-	 *  @example
-	 *    // Using `columnDefs`
-	 *    $(document).ready( function() {
-	 *      $('#example').dataTable( {
-	 *        "columnDefs": [
-	 *          { "dataSort": 1, "targets": [ 0 ] }
-	 *        ]
-	 *      } );
-	 *    } );
-	 *
-	 *  @example
-	 *    // Using `columns`
-	 *    $(document).ready( function() {
-	 *      $('#example').dataTable( {
-	 *        "columns": [
-	 *          { "dataSort": 1 },
-	 *          null,
-	 *          null,
-	 *          null,
-	 *          null
-	 *        ]
-	 *      } );
-	 *    } );
-	 */
-	"iDataSort": -1,
 
 
 	/**
@@ -739,14 +705,14 @@ DataTable.defaults.column = {
 
 
 	/**
-	 * Defines a data source type for the sorting which can be used to read
+	 * Defines a data source type for the ordering which can be used to read
 	 * real-time information from the table (updating the internally cached
-	 * version) prior to sorting. This allows sorting to occur on user editable
-	 * elements such as form inputs.
+	 * version) prior to ordering. This allows ordering to occur on user
+	 * editable elements such as form inputs.
 	 *  @type string
 	 *  @default std
 	 *
-	 *  @name DataTable.defaults.column.sortDataType
+	 *  @name DataTable.defaults.column.orderDataType
 	 *  @dtopt Columns
 	 *
 	 *  @example
@@ -754,10 +720,10 @@ DataTable.defaults.column = {
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
 	 *        "columnDefs": [
-	 *          { "sortDataType": "dom-text", "targets": [ 2, 3 ] },
+	 *          { "orderDataType": "dom-text", "targets": [ 2, 3 ] },
 	 *          { "type": "numeric", "targets": [ 3 ] },
-	 *          { "sortDataType": "dom-select", "targets": [ 4 ] },
-	 *          { "sortDataType": "dom-checkbox", "targets": [ 5 ] }
+	 *          { "orderDataType": "dom-select", "targets": [ 4 ] },
+	 *          { "orderDataType": "dom-checkbox", "targets": [ 5 ] }
 	 *        ]
 	 *      } );
 	 *    } );
@@ -769,10 +735,10 @@ DataTable.defaults.column = {
 	 *        "columns": [
 	 *          null,
 	 *          null,
-	 *          { "sortDataType": "dom-text" },
-	 *          { "sortDataType": "dom-text", "type": "numeric" },
-	 *          { "sortDataType": "dom-select" },
-	 *          { "sortDataType": "dom-checkbox" }
+	 *          { "orderDataType": "dom-text" },
+	 *          { "orderDataType": "dom-text", "type": "numeric" },
+	 *          { "orderDataType": "dom-select" },
+	 *          { "orderDataType": "dom-checkbox" }
 	 *        ]
 	 *      } );
 	 *    } );
@@ -817,13 +783,13 @@ DataTable.defaults.column = {
 
 
 	/**
-	 * The type allows you to specify how the data for this column will be sorted.
-	 * Four types (string, numeric, date and html (which will strip HTML tags
-	 * before sorting)) are currently available. Note that only date formats
-	 * understood by Javascript's Date() object will be accepted as type date. For
-	 * example: "Mar 26, 2008 5:03 PM". May take the values: 'string', 'numeric',
-	 * 'date' or 'html' (by default). Further types can be adding through
-	 * plug-ins.
+	 * The type allows you to specify how the data for this column will be
+	 * ordered. Four types (string, numeric, date and html (which will strip
+	 * HTML tags before ordering)) are currently available. Note that only date
+	 * formats understood by Javascript's Date() object will be accepted as type
+	 * date. For example: "Mar 26, 2008 5:03 PM". May take the values: 'string',
+	 * 'numeric', 'date' or 'html' (by default). Further types can be adding
+	 * through plug-ins.
 	 *  @type string
 	 *  @default null <i>Auto-detected from raw data</i>
 	 *

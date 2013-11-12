@@ -4,7 +4,7 @@
 // what is required from these methods.
 
 
-$.extend( DataTable.ext.type.filter, {
+$.extend( DataTable.ext.type.search, {
 	html: function ( data ) {
 		return _empty(data) ?
 			'' :

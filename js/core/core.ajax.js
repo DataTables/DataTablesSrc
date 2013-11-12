@@ -163,10 +163,10 @@ function _fnAjaxParameters( settings )
 	var d = {
 		draw:    settings.iDraw,
 		columns: [],
-		sort:    [],
+		order:   [],
 		start:   displayStart,
 		length:  displayLength,
-		filter:  {
+		search:  {
 			value: preSearch.sSearch,
 			regex: preSearch.bRegex
 		}
@@ -181,8 +181,8 @@ function _fnAjaxParameters( settings )
 			data:       dataProp,
 			name:       column.sName,
 			searchable: column.bSearchable,
-			sortable:   column.bSortable,
-			filter:     {
+			orderable:  column.bSortable,
+			search:     {
 				value: columnSearch.sSearch,
 				regex: columnSearch.bRegex
 			}
@@ -202,7 +202,7 @@ function _fnAjaxParameters( settings )
 	}
 
 	$.each( sort, function ( i, val ) {
-		d.sort.push( { column: val.col, dir: val.dir } );
+		d.order.push( { column: val.col, dir: val.dir } );
 
 		param( 'iSortCol_'+i, val.col );
 		param( 'sSortDir_'+i, val.dir );

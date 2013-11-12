@@ -24,7 +24,7 @@ function _fnSortFlatten ( settings )
 				dir:       nestedSort[i][1],
 				index:     nestedSort[i][2],
 				type:      sType,
-				formatter: DataTable.ext.type.sort[ sType+"-pre" ]
+				formatter: DataTable.ext.type.order[ sType+"-pre" ]
 			} );
 		}
 	}
@@ -44,7 +44,7 @@ function _fnSort ( oSettings )
 		i, ien, iLen, j, jLen, k, kLen,
 		sDataType, nTh,
 		aiOrig = [],
-		oExtSort = DataTable.ext.type.sort,
+		oExtSort = DataTable.ext.type.order,
 		aoData = oSettings.aoData,
 		aoColumns = oSettings.aoColumns,
 		aDataSort, data, iCol, sType, oSort,
@@ -160,6 +160,7 @@ function _fnSort ( oSettings )
 
 	/* Tell the draw function that we have sorted the data */
 	oSettings.bSorted = true;
+	_fnCallbackFire( oSettings, null, 'order', [oSettings] );
 }
 
 
@@ -344,7 +345,7 @@ function _fnSortData( settings, idx )
 {
 	// Custom sorting function - provided by the sort data type
 	var column = settings.aoColumns[ idx ];
-	var customSort = DataTable.ext.sort[ column.sSortDataType ];
+	var customSort = DataTable.ext.order[ column.sSortDataType ];
 	var customData;
 
 	if ( customSort ) {
@@ -355,7 +356,7 @@ function _fnSortData( settings, idx )
 
 	// Use / populate cache
 	var row, cellData;
-	var formatter = DataTable.ext.type.sort[ column.sType+"-pre" ];
+	var formatter = DataTable.ext.type.order[ column.sType+"-pre" ];
 
 	for ( var i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
 		row = settings.aoData[i];

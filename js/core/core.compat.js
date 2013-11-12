@@ -101,6 +101,54 @@ function _fnLanguageCompat( oLanguage )
 
 
 /**
+ * Map one parameter onto another
+ *  @param {object} o Object to map
+ *  @param {*} knew The new parameter name
+ *  @param {*} old The old parameter name
+ */
+var _fnCompatMap = function ( o, knew, old ) {
+	if ( o[ knew ] !== undefined ) {
+		o[ old ] = o[ knew ];
+	}
+};
+
+
+/**
+ * Provide backwards compatibility for the main DT options. Note that the new
+ * options are mapped onto the old parameters, so this is an external interface
+ * change only.
+ *  @param {object} init Object to map
+ */
+function _fnCompatOpts ( init )
+{
+	_fnCompatMap( init, 'ordering',      'bSort' );
+	_fnCompatMap( init, 'orderMulti',    'bSortMulti' );
+	_fnCompatMap( init, 'orderClasses',  'bSortClasses' );
+	_fnCompatMap( init, 'orderCellsTop', 'bSortCellsTop' );
+	_fnCompatMap( init, 'order',         'aaSorting' );
+	_fnCompatMap( init, 'orderFixed',    'aaSortingFixed' );
+	_fnCompatMap( init, 'paging',        'bPaginate' );
+	_fnCompatMap( init, 'pagingType',    'sPaginationType' );
+	_fnCompatMap( init, 'searching',     'bFilter' );
+}
+
+
+/**
+ * Provide backwards compatibility for column options. Note that the new options
+ * are mapped onto the old parameters, so this is an external interface change
+ * only.
+ *  @param {object} init Object to map
+ */
+function _fnCompatCols ( init )
+{
+	_fnCompatMap( init, 'orderable',     'bSortable' );
+	_fnCompatMap( init, 'orderData',     'aDataSort' );
+	_fnCompatMap( init, 'orderSequence', 'asSorting' );
+	_fnCompatMap( init, 'orderDataType', 'sortDataType' );
+}
+
+
+/**
  * Browser feature detection for capabilities, quirks
  *  @param {object} settings dataTables settings object
  *  @memberof DataTable#oApi

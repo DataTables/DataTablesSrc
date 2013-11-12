@@ -19,7 +19,7 @@ var __numericReplace = function ( d, re1, re2 ) {
 };
 
 
-$.extend( DataTable.ext.type.sort, {
+$.extend( DataTable.ext.type.order, {
 	// Dates
 	"date-pre": function ( d )
 	{

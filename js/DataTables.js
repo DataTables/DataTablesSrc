@@ -4,7 +4,7 @@
 
 /**
  * @summary     DataTables
- * @description Paginate, search and sort HTML tables
+ * @description Paginate, search and order HTML tables
  * @version     1.10.0-dev
  * @file        jquery.dataTables.js
  * @author      Allan Jardine (www.sprymedia.co.uk)
@@ -204,9 +204,9 @@
 	 */
 
 	/**
-	 * Filter event, fired when the filtering applied to the table (using the
-	 * built-in global filter, or column filters) is altered.
-	 *  @name DataTable#filter
+	 * Search event, fired when the searching applied to the table (using the
+	 * built-in global search, or column filters) is altered.
+	 *  @name DataTable#search
 	 *  @event
 	 *  @param {event} e jQuery event object
 	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
@@ -221,8 +221,8 @@
 	 */
 
 	/**
-	 * Sort event, fired when the sorting applied to the table is altered.
-	 *  @name DataTable#sort
+	 * Order event, fired when the ordering applied to the table is altered.
+	 *  @name DataTable#order
 	 *  @event
 	 *  @param {event} e jQuery event object
 	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
@@ -275,8 +275,8 @@
 
 	/**
 	 * Processing event, fired when DataTables is doing some kind of processing
-	 * (be it, sort, filter or anything else). It can be used to indicate to the
-	 * end user that there is something happening, or that something has
+	 * (be it, order, searcg or anything else). It can be used to indicate to
+	 * the end user that there is something happening, or that something has
 	 * finished.
 	 *  @name DataTable#processing
 	 *  @event

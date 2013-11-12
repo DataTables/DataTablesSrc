@@ -84,29 +84,29 @@ DataTable.defaults = {
 
 
 	/**
-	 * If sorting is enabled, then DataTables will perform a first pass sort on
-	 * initialisation. You can define which column(s) the sort is performed upon,
-	 * and the sorting direction, with this variable. The `sorting` array should
-	 * contain an array for each column to be sorted initially containing the
-	 * column's index and a direction string ('asc' or 'desc').
+	 * If ordering is enabled, then DataTables will perform a first pass sort on
+	 * initialisation. You can define which column(s) the sort is performed
+	 * upon, and the sorting direction, with this variable. The `sorting` array
+	 * should contain an array for each column to be sorted initially containing
+	 * the column's index and a direction string ('asc' or 'desc').
 	 *  @type array
 	 *  @default [[0,'asc']]
 	 *
 	 *  @dtopt Option
-	 *  @name DataTable.defaults.sorting
+	 *  @name DataTable.defaults.order
 	 *
 	 *  @example
 	 *    // Sort by 3rd column first, and then 4th column
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
-	 *        "sorting": [[2,'asc'], [3,'desc']]
+	 *        "order": [[2,'asc'], [3,'desc']]
 	 *      } );
 	 *    } );
 	 *
 	 *    // No initial sorting
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
-	 *        "sorting": []
+	 *        "order": []
 	 *      } );
 	 *    } );
 	 */
@@ -116,20 +116,20 @@ DataTable.defaults = {
 	/**
 	 * This parameter is basically identical to the `sorting` parameter, but
 	 * cannot be overridden by user interaction with the table. What this means
-	 * is that you could have a column (visible or hidden) which the sorting will
-	 * always be forced on first - any sorting after that (from the user) will
-	 * then be performed as required. This can be useful for grouping rows
+	 * is that you could have a column (visible or hidden) which the sorting
+	 * will always be forced on first - any sorting after that (from the user)
+	 * will then be performed as required. This can be useful for grouping rows
 	 * together.
 	 *  @type array
 	 *  @default null
 	 *
 	 *  @dtopt Option
-	 *  @name DataTable.defaults.sortingFixed
+	 *  @name DataTable.defaults.orderFixed
 	 *
 	 *  @example
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
-	 *        "sortingFixed": [[0,'asc']]
+	 *        "orderFixed": [[0,'asc']]
 	 *      } );
 	 *    } )
 	 */
@@ -486,12 +486,12 @@ DataTable.defaults = {
 	 *  @default true
 	 *
 	 *  @dtopt Features
-	 *  @name DataTable.defaults.filter
+	 *  @name DataTable.defaults.searching
 	 *
 	 *  @example
 	 *    $(document).ready( function () {
 	 *      $('#example').dataTable( {
-	 *        "filter": false
+	 *        "searching": false
 	 *      } );
 	 *    } );
 	 */
@@ -563,12 +563,12 @@ DataTable.defaults = {
 	 *  @default true
 	 *
 	 *  @dtopt Features
-	 *  @name DataTable.defaults.paginate
+	 *  @name DataTable.defaults.paging
 	 *
 	 *  @example
 	 *    $(document).ready( function () {
 	 *      $('#example').dataTable( {
-	 *        "paginate": false
+	 *        "paging": false
 	 *      } );
 	 *    } );
 	 */
@@ -687,12 +687,12 @@ DataTable.defaults = {
 	 *  @default true
 	 *
 	 *  @dtopt Features
-	 *  @name DataTable.defaults.sort
+	 *  @name DataTable.defaults.ordering
 	 *
 	 *  @example
 	 *    $(document).ready( function () {
 	 *      $('#example').dataTable( {
-	 *        "sort": false
+	 *        "ordering": false
 	 *      } );
 	 *    } );
 	 */
@@ -706,13 +706,13 @@ DataTable.defaults = {
 	 *  @default true
 	 *
 	 *  @dtopt Options
-	 *  @name DataTable.defaults.sortMulti
+	 *  @name DataTable.defaults.orderMulti
 	 *
 	 *  @example
 	 *    // Disable multiple column sorting ability
 	 *    $(document).ready( function () {
 	 *      $('#example').dataTable( {
-	 *        "sortMulti": false
+	 *        "orderMulti": false
 	 *      } );
 	 *    } );
 	 */
@@ -727,12 +727,12 @@ DataTable.defaults = {
 	 *  @default false
 	 *
 	 *  @dtopt Options
-	 *  @name DataTable.defaults.sortCellsTop
+	 *  @name DataTable.defaults.orderCellsTop
 	 *
 	 *  @example
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
-	 *        "sortCellsTop": true
+	 *        "orderCellsTop": true
 	 *      } );
 	 *    } );
 	 */
@@ -749,12 +749,12 @@ DataTable.defaults = {
 	 *  @default true
 	 *
 	 *  @dtopt Features
-	 *  @name DataTable.defaults.sortClasses
+	 *  @name DataTable.defaults.orderClasses
 	 *
 	 *  @example
 	 *    $(document).ready( function () {
 	 *      $('#example').dataTable( {
-	 *        "sortClasses": false
+	 *        "orderClasses": false
 	 *      } );
 	 *    } );
 	 */
@@ -2009,12 +2009,12 @@ DataTable.defaults = {
 	 *  @default simple_numbers
 	 *
 	 *  @dtopt Options
-	 *  @name DataTable.defaults.paginationType
+	 *  @name DataTable.defaults.pagingType
 	 *
 	 *  @example
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
-	 *        "paginationType": "full_numbers"
+	 *        "pagingType": "full_numbers"
 	 *      } );
 	 *    } )
 	 */

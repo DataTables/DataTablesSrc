@@ -76,16 +76,16 @@ DataTable.ext = _ext = {
 
 
 	/**
-	 * Row filtering.
+	 * Row searching.
 	 * 
-	 * This method of filtering is complimentary to the default type based
-	 * filtering, and a lot more comprehensive as it allows you complete control
-	 * over the filtering logic. Each element in this array is a function
+	 * This method of searching is complimentary to the default type based
+	 * searching, and a lot more comprehensive as it allows you complete control
+	 * over the searching logic. Each element in this array is a function
 	 * (parameters described below) that is called for every row in the table,
-	 * and your logic decides if it should be included in the filtered data set
+	 * and your logic decides if it should be included in the searching data set
 	 * or not.
 	 *
-	 * Filtering functions have the following input parameters:
+	 * Searching functions have the following input parameters:
 	 *
 	 * 1. `{object}` DataTables settings object: see
 	 *    {@link DataTable.models.oSettings}
@@ -97,17 +97,21 @@ DataTable.ext = _ext = {
 	 *
 	 * And the following return is expected:
 	 *
-	 * * {boolean} Include the row in the filtered result set (true) or not
+	 * * {boolean} Include the row in the searched result set (true) or not
 	 *   (false)
+	 *
+	 * Note that as with the main search ability in DataTables, technically this
+	 * is "filtering", since it is subtractive. However, for consistency in
+	 * naming we call it searching here.
 	 *
 	 *  @type array
 	 *  @default []
 	 *
 	 *  @example
-	 *    // The following example shows custom filtering being applied to the
+	 *    // The following example shows custom search being applied to the
 	 *    // fourth column (i.e. the data[3] index) based on two input values
 	 *    // from the end-user, matching the data in a certain range.
-	 *    $.fn.dataTable.ext.filter.push(
+	 *    $.fn.dataTable.ext.search.push(
 	 *      function( settings, data, dataIndex ) {
 	 *        var min = document.getElementById('min').value * 1;
 	 *        var max = document.getElementById('max').value * 1;
@@ -129,7 +133,7 @@ DataTable.ext = _ext = {
 	 *      }
 	 *    );
 	 */
-	filter: [],
+	search: [],
 
 
 	/**
@@ -218,23 +222,23 @@ DataTable.ext = _ext = {
 
 
 	/**
-	 * Sorting plug-ins - custom data source
+	 * Ordering plug-ins - custom data source
 	 * 
-	 * The extension options for sorting of data available here is complimentary
-	 * to the default type based sorting that DataTables typically uses. It
+	 * The extension options for ordering of data available here is complimentary
+	 * to the default type based ordering that DataTables typically uses. It
 	 * allows much greater control over the the data that is being used to
-	 * sort a column, but is necessarily therefore more complex.
+	 * order a column, but is necessarily therefore more complex.
 	 * 
-	 * This type of sorting is useful if you want to do sorting based on data
+	 * This type of ordering is useful if you want to do ordering based on data
 	 * live from the DOM (for example the contents of an 'input' element) rather
 	 * than just the static string that DataTables knows of.
 	 * 
 	 * The way these plug-ins work is that you create an array of the values you
-	 * wish to be sorted for the column in question and then return that array.
-	 * The data in the array much be in the index order of the rows in the table
-	 * (not the currently sorted order!). Which sort data gathering function is
-	 * run here depends on the `sortDataType` parameter that is used for the
-	 * column (if any).
+	 * wish to be ordering for the column in question and then return that
+	 * array. The data in the array much be in the index order of the rows in
+	 * the table (not the currently ordering order!). Which order data gathering
+	 * function is run here depends on the `dt-init columns.orderDataType`
+	 * parameter that is used for the column (if any).
 	 *
 	 * The functions defined take two parameters:
 	 *
@@ -244,20 +248,20 @@ DataTable.ext = _ext = {
 	 *
 	 * Each function is expected to return an array:
 	 *
-	 * * `{array}` Data for the column to be sorted upon
+	 * * `{array}` Data for the column to be ordering upon
 	 *
 	 *  @type array
 	 *
 	 *  @example
-	 *    // Sort using `input` node values
-	 *    $.fn.dataTable.ext.sort['dom-text'] = function  ( settings, col )
+	 *    // Ordering using `input` node values
+	 *    $.fn.dataTable.ext.order['dom-text'] = function  ( settings, col )
 	 *    {
 	 *      return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
 	 *        return $('input', td).val();
 	 *      } );
 	 *    }
 	 */
-	sort: [],
+	order: [],
 
 
 	/**
@@ -265,7 +269,7 @@ DataTable.ext = _ext = {
 	 *
 	 * Each column in DataTables has a type assigned to it, either by automatic
 	 * detection or by direct assignment using the `type` option for the column.
-	 * The type of a column will effect how it is sorted and filtered (plug-ins
+	 * The type of a column will effect how it is ordering and search (plug-ins
 	 * can also make use of the column type if required).
 	 *
 	 * @namespace
@@ -310,57 +314,57 @@ DataTable.ext = _ext = {
 
 
 		/**
-		 * Type based filter formatting.
+		 * Type based search formatting.
 		 *
-		 * The type based filtering functions can be used to pre-format the
-		 * data to be filtered up. For example, it can be used to strip HTML
-		 * tags or to de-format telephone numbers for numeric only filtering.
+		 * The type based searching functions can be used to pre-format the
+		 * data to be search on. For example, it can be used to strip HTML
+		 * tags or to de-format telephone numbers for numeric only searching.
 		 *
-		 * Note that is a filter is not defined for a column of a given type,
-		 * no filter formatting will be performed.
+		 * Note that is a search is not defined for a column of a given type,
+		 * no search formatting will be performed.
 		 * 
-		 * Pre-processing of filtering data plug-ins - When you assign the sType
+		 * Pre-processing of searching data plug-ins - When you assign the sType
 		 * for a column (or have it automatically detected for you by DataTables
 		 * or a type detection plug-in), you will typically be using this for
-		 * custom sorting, but it can also be used to provide custom filtering
+		 * custom sorting, but it can also be used to provide custom searching
 		 * by allowing you to pre-processing the data and returning the data in
-		 * the format that should be filtered upon. This is done by adding
+		 * the format that should be searched upon. This is done by adding
 		 * functions this object with a parameter name which matches the sType
 		 * for that target column. This is the corollary of <i>afnSortData</i>
-		 * for filtering data.
+		 * for searching data.
 		 *
 		 * The functions defined take a single parameter:
 		 *
-	     *  1. `{*}` Data from the column cell to be prepared for filtering
+	     *  1. `{*}` Data from the column cell to be prepared for searching
 		 *
 		 * Each function is expected to return:
 		 *
-		 * * `{string|null}` Formatted string that will be used for the filtering.
+		 * * `{string|null}` Formatted string that will be used for the searching.
 		 *
 		 *  @type object
 		 *  @default {}
 		 *
 		 *  @example
-		 *    $.fn.dataTable.ext.type.filter['title-numeric'] = function ( d ) {
+		 *    $.fn.dataTable.ext.type.search['title-numeric'] = function ( d ) {
 		 *      return d.replace(/\n/g," ").replace( /<.*?>/g, "" );
 		 *    }
 		 */
-		filter: {},
+		search: {},
 
 
 		/**
-		 * Type based sorting.
+		 * Type based ordering.
 		 *
-		 * The column type tells DataTables what sorting to apply to the table
-		 * when a column is sorted upon. The sort for each type that is defined,
+		 * The column type tells DataTables what ordering to apply to the table
+		 * when a column is sorted upon. The order for each type that is defined,
 		 * is defined by the functions available in this object.
 		 *
-		 * Each sorting option can be described by three properties added to
+		 * Each ordering option can be described by three properties added to
 		 * this object:
 		 *
 		 * * `{type}-pre` - Pre-formatting function
-		 * * `{type}-asc` - Ascending sort function
-		 * * `{type}-desc` - Descending sort function
+		 * * `{type}-asc` - Ascending order function
+		 * * `{type}-desc` - Descending order function
 		 *
 		 * All three can be used together, only `{type}-pre` or only
 		 * `{type}-asc` and `{type}-desc` together. It is generally recommended
@@ -370,7 +374,7 @@ DataTable.ext = _ext = {
 		 *
 		 * `{type}-pre`: Functions defined take a single parameter:
 		 *
-	     *  1. `{*}` Data from the column cell to be prepared for sorting
+	     *  1. `{*}` Data from the column cell to be prepared for ordering
 		 *
 		 * And return:
 		 *
@@ -384,7 +388,7 @@ DataTable.ext = _ext = {
 		 *
 		 * And returning:
 		 *
-		 * * `{*}` Sorting match: <0 if first parameter should be sorted lower
+		 * * `{*}` Ordering match: <0 if first parameter should be sorted lower
 		 *   than the second parameter, ===0 if the two parameters are equal and
 		 *   >0 if the first parameter should be sorted height than the second
 		 *   parameter.
@@ -393,8 +397,8 @@ DataTable.ext = _ext = {
 		 *  @default {}
 		 *
 		 *  @example
-		 *    // Numeric sorting of formatted numbers with a pre-formatter
-		 *    $.extend( $.fn.dataTable.ext.type.sort, {
+		 *    // Numeric ordering of formatted numbers with a pre-formatter
+		 *    $.extend( $.fn.dataTable.ext.type.order, {
 		 *      "string-pre": function(x) {
 		 *        a = (a === "-" || a === "") ? 0 : a.replace( /[^\d\-\.]/g, "" );
 		 *        return parseFloat( a );
@@ -402,8 +406,8 @@ DataTable.ext = _ext = {
 		 *    } );
 		 *
 		 *  @example
-		 *    // Case-sensitive string sorting, with no pre-formatting method
-		 *    $.extend( $.fn.dataTable.ext.sort, {
+		 *    // Case-sensitive string ordering, with no pre-formatting method
+		 *    $.extend( $.fn.dataTable.ext.order, {
 		 *      "string-case-asc": function(x,y) {
 		 *        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
 		 *      },
@@ -412,7 +416,7 @@ DataTable.ext = _ext = {
 		 *      }
 		 *    } );
 		 */
-		sort: {}
+		order: {}
 	},
 
 	/**
@@ -470,8 +474,8 @@ DataTable.ext = _ext = {
 $.extend( _ext, {
 	afnFiltering: _ext.filter,
 	aTypes:       _ext.type.detect,
-	ofnSearch:    _ext.type.filter,
-	oSort:        _ext.type.sort,
+	ofnSearch:    _ext.type.search,
+	oSort:        _ext.type.order,
 	afnSortData:  _ext.sort,
 	aoFeatures:   _ext.feature,
 	oApi:         _ext.internal,

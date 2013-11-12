@@ -115,7 +115,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 
 	/* Tell the draw function we have been filtering */
 	oSettings.bFiltered = true;
-	$(oSettings.oInstance).trigger('filter', oSettings);
+	$(oSettings.oInstance).trigger('filter search', oSettings);
 }
 
 
@@ -126,7 +126,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
  */
 function _fnFilterCustom( oSettings )
 {
-	var afnFilters = DataTable.ext.filter;
+	var afnFilters = DataTable.ext.search;
 	var aiFilterColumns = _fnGetColumns( oSettings, 'bSearchable' );
 
 	for ( var i=0, iLen=afnFilters.length ; i<iLen ; i++ )
@@ -200,7 +200,7 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
 	var display, invalidated, i;
 
 	// Need to take account of custom filtering functions - always filter
-	if ( DataTable.ext.filter.length !== 0 ) {
+	if ( DataTable.ext.search.length !== 0 ) {
 		force = true;
 	}
 
@@ -286,7 +286,7 @@ function _fnFilterData ( settings )
 	var columns = settings.aoColumns;
 	var column;
 	var i, j, ien, jen, filterData, cellData, row;
-	var fomatters = DataTable.ext.type.filter;
+	var fomatters = DataTable.ext.type.search;
 	var wasInvalidated = false;
 
 	for ( i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
