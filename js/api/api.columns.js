@@ -218,7 +218,7 @@ _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis
 
 
 
-_api_registerPlural( 'columns().index()', 'column().index()', function ( type ) {
+_api_registerPlural( 'columns().indexes()', 'column().index()', function ( type ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return type === 'visible' ?
 			_fnColumnIndexToVisible( settings, column ) :

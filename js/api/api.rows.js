@@ -116,7 +116,7 @@ _api_registerPlural( 'rows().invalidate()', 'row().invalidate()', function ( src
 } );
 
 
-_api_registerPlural( 'rows().index()', 'row().index()', function ( src ) {
+_api_registerPlural( 'rows().indexes()', 'row().index()', function ( src ) {
 	return this.iterator( 'row', function ( settings, row ) {
 		return row;
 	} );
