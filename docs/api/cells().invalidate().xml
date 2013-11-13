@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="cells">
+	<name>cells().invalidate()</name>
+	<summary>Invalidate the data held in DataTables for the selected cells</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>cells().invalidate()</signature>
+		<description>Invalidate information in the selected cells</description>
+		<returns type="DataTables.Api">DataTables API instance with selected cell references in the result set</returns>
+	</type>
+
+	<description>
+		DataTables holds cached information about the contents of each cell in the table to increase performance of table operations such as ordering and searching. If you were to modify the contents of a cell (for DOM data source tables) or the array / object values (for Ajax / JS source tables) DataTables wouldn't know that this has happened. This method can be used to tell DataTables to re-read the information from the data source for the row (be it from the DOM or objects / arrays - whatever the original data source was).
+
+		This provides an alternative to using `dt-api cell().data()` and `dt-api row().data()` when changing cell values. Typically the `data` methods are preferred over the invalidation methods, as they use less code, but where the invalidation methods really shine is when the data source for the table are external objects which can be updated using that objects own methods.
+
+		Note that this method actually invalidates the data for the whole row that the target cell(s) are in. This is due to how DataTables performs the invalidation internally. In practice it should have no effect unless you didn't want DataTables to be aware of one update, but not another.
+	</description>
+
+	<example title="Modify a cell's content using jQuery and then invalidate the data held by DataTables"><![CDATA[
+var table = $('#example').DataTable();
+var td = $('#example tbody td:eq(0)');
+
+td.html( 'Updated' );
+table.cell( td ).invalidate().draw();
+
+]]></example>
+
+	<related type="api">cell().invalidate()</related>
+	<related type="api">cell().data()</related>
+	<related type="api">rows().invalidate()</related>
+	<related type="api">columns().invalidate()</related>
+</dt-api>

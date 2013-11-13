@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="cells">
+	<name>cells()</name>
+	<summary>Select multiple cells from a table.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>cells( [ modifier ] )</signature>
+		<description>Select all cells</description>
+		<parameter type="selector-modifier" name="modifier" default="">
+			Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected cells</returns>
+	</type>
+	<type type="function">
+		<signature>cells( cellSelector [, modifier ] )</signature>
+		<description>Select cells found by a cell selector</description>
+		<parameter type="cell-selector" name="cellSelector">
+			Cell selector.
+		</parameter>
+		<parameter type="selector-modifier" name="modifier" default="">
+			Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected cells</returns>
+	</type>
+	<type type="function">
+		<signature>cells( rowSelector, columnSelector [, modifier ] )</signature>
+		<description>Select cells found by both row and column selectors</description>
+		<parameter type="row-selector" name="rowSelector">
+			Row selector, used to specify which rows the cells should be taken from.
+		</parameter>
+		<parameter type="columns-selector" name="columnSelector">
+			Column selector, used to specify which columns the cells should be taken from.
+		</parameter>
+		<parameter type="selector-modifier" name="modifier" default="">
+			Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected cells</returns>
+	</type>
+
+	<description>
+		This method provides the ability to select multiple cells to work with in a DataTable, with its chained methods providing the ability to get the data from the cell, the nodes and to invalidate the data, among other actions.
+
+		While `dt-api cell()` provides access to single cells, this `dt-api cells()` method is used to allow multiple cells to be manipulated or modified at the same time.
+
+		The method has three forms, reflecting the fact the cells can be selected in multiple different ways as your implementation demands:
+
+		* All cells (no parameters, or just a `dt-type selector-modifier` option)
+		* Cell selector
+		* Cross product between row and column selectors
+	</description>
+
+	<example title=""><![CDATA[
+]]></example>
+
+	<related type="api">cell()</related>
+</dt-api>

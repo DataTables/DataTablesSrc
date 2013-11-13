@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="cells">
+	<name>cells().index()</name>
+	<summary>Get index information about the selected cell</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>cells().indexes()</signature>
+		<description>Get row, column and visible column index information</description>
+		<returns type="object">Object with index information for the selected cell. See below for the object structure.</returns>
+	</type>
+
+	<description>
+		DataTables stores the data for rows and columns in internally indexes which it can utilise for fast operation of ordering, searching etc. It can be useful at times to know what these indexes are, as they can be used for efficient selectors in the `dt-api row()`, `dt-api column()` and other API methods which use selectors.
+
+		Usefully this method also provides the visible column index as well as the column data index, as columns can be added and removed from the document dynamically.
+
+		The data structure returned for the cell in the result set, selected by `dt-api cell()` is:
+
+		```
+		{
+			"row":           integer, // Row index
+			"column":        integer, // Column data index 
+			"columnVisible": integer  // Column visible index
+		}
+		```
+	</description>
+
+	<example title="Alert the visible column index (count) for the cell clicked on"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'td', function () {
+	alert( 'Clicked on cell in visible column: '+table.cell( this ).index().columnVisible );
+} );
+]]></example>
+
+	<example title="Use row index in a row selector to add a class to the clicked on row"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'td', function () {
+	var rowIdx = table
+		.cell( this )
+		.index().row;
+
+	table
+		.rows( rowIdx )
+		.nodes()
+		.to$()
+		.addClass( 'clicked' );
+} );
+]]></example>
+
+	<related type="api">cells().indexes()</related>
+	<related type="api">row().index()</related>
+	<related type="api">column().index()</related>
+	<related type="api">column.index()</related>
+</dt-api>

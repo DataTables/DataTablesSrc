@@ -10,7 +10,6 @@
 			Reset (default) or hold the current paging position. A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>
-		<scope>DataTables API instance</scope>
 	</type>
 
 	<description>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="cells">
+	<name>cells().cache()</name>
+	<summary>Get the DataTables cached data for the selected cells</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>cells().cache( type )</signature>
+		<description>Get cached data of the cache type specified</description>
+		<parameter type="string" name="type">
+			Specify which cache the data should be read from. Can take one of two values: `dt-string search` or `dt-string order`
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with the cached data for each selected cell in the result set</returns>
+	</type>
+
+	<description>
+		DataTables caches data for searching and ordering in order for those operations to run as quickly as possible when they are required. Sometimes it can be useful to get the data that DataTables has cached for these operations, for example when creating a `select` list to provide a column based filter.
+
+		It should be noted that this method is required as DataTables has the ability to use different data for its different operations (searching, ordering, display etc). `dt-api cells().data()` provides access to the original data. If you aren't using orthogonal data for the different operations of DataTables, then this method is of limited used.
+
+		Note that this method is primarily aimed at plug-in developers who require access to the internal data that DataTables has stored.
+	</description>
+
+	<example title="Build a filtering select list using the data from a single column"><![CDATA[
+var table = $('#example').DataTable();
+
+// Create the select list and search operation
+var select = $('<select />')
+	.appendTo( 'body' )
+	.on( 'change', function () {
+		table
+			.column( 0 )
+			.search( $(this).val() )
+			.draw();
+	} );
+
+// Get the search data for the first column and add to the select list
+var data = table
+	.cells( '', 0 )
+	.cache( 'search' )
+	.sort()
+	.unique()
+	.each( function ( d ) {
+		select.append( $('<option value="'+d+'">'+d+'</option>') );
+	} );
+]]></example>
+
+	<related type="api">cell().cache()</related>
+</dt-api>

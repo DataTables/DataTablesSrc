@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="cells">
+	<name>cell().node()</name>
+	<summary>Get the DOM element for the selected cell</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>cell().node()</signature>
+		<description>Get the DOM element for the selected cell</description>
+		<returns type="node">The `dt-tag TD` / `dt-tag TH` cell the selector resolved to</returns>
+	</type>
+
+	<description>
+		This method, used in-combination with the `dt-api cell()` method (and therefore the various selector forms that it allows) will obtain the DOM node for the selected cell, allowing it to be directly manipulated.
+	</description>
+
+	<example title="Select a single cell using a jQuery ID selector and add a class"><![CDATA[
+var table = $('#example').DataTable();
+
+var cell = table
+	.cell( "#importantCell" )
+	.node();
+
+$( cell ).addClass( 'warning' );
+
+]]></example>
+
+	<related type="api">cells().nodes()</related>
+</dt-api>

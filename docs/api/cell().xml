@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="cells">
+	<name>cells()</name>
+	<summary>Select a single cell from a table.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>cell( cellSelector [, modifier ] )</signature>
+		<description>Select the cell found by a cell selector</description>
+		<parameter type="cell-selector" name="cellSelector">
+			Cell selector.
+		</parameter>
+		<parameter type="selector-modifier" name="modifier" default="">
+			Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected cells</returns>
+	</type>
+	<type type="function">
+		<signature>cell( rowSelector, columnSelector [, modifier ] )</signature>
+		<description>Select the cell found from both row and column selectors</description>
+		<parameter type="row-selector" name="rowSelector">
+			Row selector, used to specify which row the cell should be taken from.
+		</parameter>
+		<parameter type="columns-selector" name="columnSelector">
+			Column selector, used to specify which column the cell should be taken from.
+		</parameter>
+		<parameter type="selector-modifier" name="modifier" default="">
+			Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected cell</returns>
+	</type>
+
+	<description>
+		Select an individual cell to work with from a DataTable, with its chained methods providing the ability to get / set the data in the cell, work with it node directly and other actions.
+
+		Note that this method selects a single cell. If the selectors provided resolve to multiple cells in this method, the result will be truncated to just a single cell. If you need to work with multiple cells, the `dt-api cells()` method is available with the same selection options.
+
+		The method has two forms, reflecting the fact the cells can be selected in multiple different ways as your implementation demands:
+
+		* Cell selector
+		* Cross product between row and column selectors
+	</description>
+
+	<example title=""><![CDATA[
+]]></example>
+
+	<related type="api">cells()</related>
+</dt-api>

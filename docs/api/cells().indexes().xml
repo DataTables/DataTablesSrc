@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="cells">
+	<name>cells().indexes()</name>
+	<summary>Get index information about the selected cells</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>cells().indexes()</signature>
+		<description>Get row, column and visible column index information</description>
+		<returns type="DataTables.Api">DataTables API instance with cell index information in the result set</returns>
+	</type>
+
+	<description>
+		DataTables stores the data for rows and columns in internally indexes which it can utilise for fast operation of ordering, searching etc. It can be useful at times to know what these indexes are, as they can be used for efficient selectors in the `dt-api rows()`, `dt-api columns()` and other API methods which use selectors.
+
+		Usefully this method also provides the visible column index as well as the column data index, as columns can be added and removed from the document dynamically.
+
+		The data structure returned for each cell in the result set from the `dt-api cells()` selection method is:
+
+		```
+		{
+			"row":           integer, // Row index
+			"column":        integer, // Column data index 
+			"columnVisible": integer  // Column visible index
+		}
+		```
+	</description>
+
+	<example title="Get column indexes for every cell which contains the value '21'"><![CDATA[
+var table = $('#example').DataTable();
+
+var columns = table
+	.cells( ':contains("21")' )
+	.indexes()
+	.pluck( 'column' )
+	.sort()
+	.unique();
+
+alert( 'Columns containing 21: '+columns.join(', ') );
+]]></example>
+
+	<related type="api">cell().index()</related>
+	<related type="api">rows().indexes()</related>
+	<related type="api">columns().indexes()</related>
+	<related type="api">column.index()</related>
+</dt-api>

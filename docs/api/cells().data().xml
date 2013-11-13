@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="cells">
+	<name>cells().data()</name>
+	<summary>Get data for the selected cells</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>cells().data()</signature>
+		<description>Get the data for the selected cells</description>
+		<returns type="DataTables.Api">DataTables API instance with the data for each selected cell in the result set</returns>
+	</type>
+
+	<description>
+		This method is used to obtain the data from the cells retrieved by the selector used in the `dt-api cells()` call.
+
+		Note that unlike its singular counter part (`dt-api cell().data()`) this method does not have a 'set' form. It can only be used to retrieve data.
+	</description>
+
+	<example title="Get the data for all cells which have a class of 'info'"><![CDATA[
+var table = $('#example').DataTable();
+
+var data = table
+	.cells( ".info" )
+	.data();
+
+console.log( data );
+
+]]></example>
+
+	<related type="api">cell().data()</related>
+</dt-api>

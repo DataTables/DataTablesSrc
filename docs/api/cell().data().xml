@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="cells">
+	<name>cell().data()</name>
+	<summary>Get / set data for the selected cell</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>cell().data()</signature>
+		<description>Get the data for the selected cell</description>
+		<returns type="*">Data from the cell</returns>
+	</type>
+	<type type="function">
+		<signature>cell().data( set )</signature>
+		<description>Set the data for the selected cell</description>
+		<parameter type="*" name="set">
+			Value to assign to the data for the cell
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected cell as the result set</returns>
+	</type>
+
+	<description>
+		This method is used to work with the data in the cell retrieved by the selector used in the `dt-api cell()` call. It can be used to get the existing data, or set a new value.
+	</description>
+
+	<example title="Alert the data from a cell when it is clicked upon"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'td', function () {
+	alert( table.cell( this ).data() );
+} );
+
+]]></example>
+
+	<example title="Increment the data in a cell by 1 when clicked upon"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'td', function () {
+	var cell = table.cell( this );
+	cell.data( cell.data() + 1 ).draw();
+	// note - call draw() to update the table's draw state with the new data
+} );
+
+]]></example>
+
+	<related type="api">cells().data()</related>
+</dt-api>

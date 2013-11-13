@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="cells">
+	<name>cell().cache()</name>
+	<summary>Get the DataTables cached data for the selected cell</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>cell().cache( type )</signature>
+		<description>Get cached data of the cache type specified</description>
+		<parameter type="string" name="type">
+			Specify which cache the data should be read from. Can take one of two values: `dt-string search` or `dt-string order`
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with the cached data for each selected cell in the result set</returns>
+	</type>
+
+	<description>
+		DataTables caches data for searching and ordering in order for those operations to run as quickly as possible when they are required. Sometimes it can be useful to get the data that DataTables has cached for these operations, access to which is provided by this method.
+
+		It should be noted that this method is required as DataTables has the ability to use different data for its different operations (searching, ordering, display etc). `dt-api cell().data()` provides access to the original data. If you aren't using orthogonal data for the different operations of DataTables, then this method is of limited used.
+
+		Note that this method is primarily aimed at plug-in developers who require access to the internal data that DataTables has stored.
+	</description>
+
+	<example title="Alert the "><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'td', function () {
+	alert( table.cell( this ).cache( 'order' ) );
+} );
+]]></example>
+
+	<related type="api">cells().cache()</related>
+</dt-api>
