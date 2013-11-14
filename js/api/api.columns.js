@@ -3,8 +3,10 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Columns
  *
- * {integer}           - column index
- * "{integer}"         - column index
+ * {integer}           - column index >= 0 (count from left)
+ * "{integer}"         - column index >= 0 (count from left)
+ * {integer}           - column index < 0 (count from right)
+ * "{integer}"         - column index < 0 (count from right)
  * "{integer}:visIdx"  - visible column index (i.e. translate to column index)
  * "{integer}:visible" - alias for {integer}:visIdx
  * "{string}"          - column name
@@ -33,7 +35,10 @@ var __column_selector = function ( settings, selector, opts )
 		}
 		else if ( selInt !== null ) {
 			// Integer selector
-			return [ selInt ];
+			return [ selInt >= 0 ?
+				selInt : // Count from left
+				columns.length + selInt // Count from right (+ because its a negative value)
+			];
 		}
 		else {
 			var match = s.match( __re_column_selector );
