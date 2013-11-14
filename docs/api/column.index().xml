@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column.index()</name>
+	<summary>Convert between column index formats</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>column.index( type, index )</signature>
+		<description>Convert from the input column index type to that required.</description>
+		<parameter type="string" name="type">
+			The type on conversion that should take place:
+
+			* `dt-string fromVisible` or `dt-string toData` to convert from a visible index to the columns' data index.
+			* `dt-string fromData` or `dt-string toVisible` to convert from a data index to the columns' visible index.
+		</parameter>
+		<parameter type="ineger" name="index">
+			The index to be converted
+		</parameter>
+		<returns type="integer">Calculated column index</returns>
+	</type>
+
+	<description>
+		When working with the DOM you will typically be using the visible indexes of columns, since that is the information available in the DOM (when a column is hidden by DataTables, it is removed completely from the DOM, to be re-inserted in future if required to become visible again by `dt-api column().visible()`). However, when working with the raw data of the table, you will typically want to work with the column data index. This method is provided to convert between the two formats.
+	</description>
+
+	<example title="Show column index information about a clicked upon column"><![CDATA[
+var table = $('#example').DataTable();
+
+table.column( 0 ).visible( false );
+
+$('#example tbody').on( 'click', 'td', function () {
+	var visIdx = $(this).index();
+	var dataIdx = table.column.index( 'fromVisible', visIdx );
+
+	alert( 'Column data index: '+dataIdx+', and visible index: '+visIdx );
+} );
+]]></example>
+
+</dt-api>

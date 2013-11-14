@@ -16,7 +16,7 @@
 	<description>
 		DataTables caches data for searching and ordering in order for those operations to run as quickly as possible when they are required. Sometimes it can be useful to get the data that DataTables has cached for these operations, access to which is provided by this method.
 
-		It should be noted that this method is required as DataTables has the ability to use different data for its different operations (searching, ordering, display etc). `dt-api cell().data()` provides access to the original data. If you aren't using orthogonal data for the different operations of DataTables, then this method is of limited used.
+		It should be noted that this method is required as DataTables has the ability to use different data for its different operations (searching, ordering, display etc) - see `dt-init columns.data` and `dt-init columns.render` for further information. `dt-api cell().data()` provides access to the original data. If you aren't using orthogonal data for the different operations of DataTables, then this method is of limited used.
 
 		Note that this method is primarily aimed at plug-in developers who require access to the internal data that DataTables has stored.
 	</description>

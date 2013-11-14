@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column().data()</name>
+	<summary>Get the data for the cells in the selected column.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>column().data()</signature>
+		<description>Obtain the data for the column from the selector</description>
+		<returns type="DataTables.Api">DataTables API instance with data for each cell in the selected columns in the result set. This is a 1D array with each entry being the data for the cells from the selected column.</returns>
+	</type>
+
+	<description>
+		This method is used to get the data used for the cells in the column matched by the selector from DataTables.
+
+		Please note that the order of the data in the returned array and which rows the data is obtained from (searched rows, visible rows etc) is controlled by the `dt-type selector-modifier` option of the `dt-api column()` selector used to get the selected column.
+
+		Additionally, if the selector used in `dt-api column()` matches more than one column, the result set will be truncated to a single column - the first one in the result set.
+	</description>
+
+	<example title="Sum the data for column 4"><![CDATA[
+var table = $('#example').DataTable();
+
+alert( 'Column 4 sum: '+
+	table
+		.column( 4 )
+		.data()
+		.reduce( function (a,b) {
+			return a + b;
+		} );
+);
+]]></example>
+
+	<related type="api">columns().data()</related>
+</dt-api>

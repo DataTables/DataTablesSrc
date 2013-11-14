@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>columns().indexes()</name>
+	<summary>Get the column indexes of the selected columns.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>columns().indexes( [type] )</signature>
+		<description>Get the column indexes of the selected columns.</description>
+		<parameter type="string" name="type" default="data">
+			Specify if you want to get the column data index (default) or the visible index (`dt-string visible`).
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected columns' indexes in the result set.</returns>
+	</type>
+
+	<description>
+		DataTables stores the data for rows and columns in internally indexes which it can utilise for fast operation of ordering, searching etc. It can be useful at times to know what these indexes are, as they can be used for efficient selectors in the `dt-api rows()`, `dt-api columns()` and other API methods which use selectors.
+
+		This method is used to retrieve the indexes of the selected columns. By default it will return the column data index (i.e. column visibility is not taken into consideration), but by passing `dt-string visible` as the first parameter to the method, the returned indexes will be the columns' visible index, which does take into account hidden columns (for example if column 0 is hidden, all following columns would have their visible index shifted by 1).
+	</description>
+
+	<related type="api">column().index()</related>
+</dt-api>

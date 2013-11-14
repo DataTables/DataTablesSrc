@@ -29,7 +29,7 @@
 		<parameter type="row-selector" name="rowSelector">
 			Row selector, used to specify which rows the cells should be taken from.
 		</parameter>
-		<parameter type="columns-selector" name="columnSelector">
+		<parameter type="column-selector" name="columnSelector">
 			Column selector, used to specify which columns the cells should be taken from.
 		</parameter>
 		<parameter type="selector-modifier" name="modifier" default="">

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column().nodes()</name>
+	<summary>Get the cell nodes for the selected column.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>column().nodes()</signature>
+		<description>Obtain the `dt-tag th` / `dt-tag td` nodes for the selected column</description>
+		<returns type="DataTables.Api">DataTables API instance with each cell's node from the selected columns in the result set. This is a 1D array with each entry being the node for the cells from the selected column.</returns>
+	</type>
+
+	<description>
+		This method is used to get the nodes of for the cells (`dt-tag th` / `dt-tag td` elements) in the column matched by the selector.
+
+		Please note that the order of the nodes in the returned array and which rows the nodes are obtained from (searched rows, visible rows etc) is controlled by the `dt-type selector-modifier` option of the `dt-api columns()` selector used to get the selected columns.
+
+		Furthermore, please be aware that using `dt-init deferRender` will cause some nodes to be created only when they are required for display, so they might not be immediately available when this method is called.
+
+		Additionally, if the selector used in `dt-api column()` matches more than one column, the result set will be truncated to a single column - the first one in the result set.
+	</description>
+
+	<example title="Add a class to the right most column in the table"><![CDATA[
+var table = $('#example').DataTable();
+
+table
+	.column( -1 )
+	.nodes()
+	.to$()      // Convert to a jQuery object
+	.addClass( 'ready' );
+);
+]]></example>
+
+	<related type="api">columns().nodes()</related>
+</dt-api>

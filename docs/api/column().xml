@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column()</name>
+	<summary>Select a single column from a table.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>column( columnSelector [, modifier ] )</signature>
+		<description>Select the column found by a the column selector</description>
+		<parameter type="cell-selector" name="columnSelector">
+			Column selector.
+		</parameter>
+		<parameter type="selector-modifier" name="modifier" default="">
+			Option used to specify how the content's of the selected columns should be ordered, and if paging or filtering in the table should be taken into account. This is only useful for operations which involve rows, such as `dt-api column().nodes()` and `dt-api column().data()`.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected column in the result set.</returns>
+	</type>
+
+	<description>
+		Select an individual column to work with from a DataTable, with its chained methods providing the ability to get work with the column, taking actions such as toggling its visibility or obtaining the data from the column.
+
+		Note that this method selects a single column. If the selector provided resolves to multiple columns, the result will be truncated to just a single columns - the first one found. If you need to work with multiple columns, the `dt-api columns()` method is available with the same selection options.
+	</description>
+
+	<example title=""><![CDATA[
+]]></example>
+
+	<related type="api">column()</related>
+</dt-api>

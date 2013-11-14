@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>columns().visible()</name>
+	<summary>Change the visibility of the selected columns.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>columns().visible( show )</signature>
+		<description>Set the visibility of the selected columns.</description>
+		<parameter type="string" name="show">
+			Specify if the columns should be visible (`true`) or not (`false`).
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected columns in the result set.</returns>
+	</type>
+
+	<description>
+		Showing and hiding columns in a DataTable can be quite handy, particularly when showing tables with a large information density. This method allows the visibility of columns to be changed on-the-fly.
+	</description>
+
+	<example title="Hide all columns with a class of '.detail'"><![CDATA[
+var table = $('#example').DataTable();
+
+table.columns( '.detail:jq' ).visible( false );
+]]></example>
+
+	<related type="api">column().visible()</related>
+</dt-api>

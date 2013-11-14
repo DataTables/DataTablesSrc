@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>columns.adjust()</name>
+	<summary>Recalculate the column widths</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>columns.adjust()</signature>
+		<description>Recalculate the column widths for layout.</description>
+		<returns type="DataTables.Api">DataTables API instance.</returns>
+	</type>
+
+	<description>
+		Like HTML tables, DataTables attempts to layout tables in an optimal format based on the data in the cells. As the data changes, it can sometimes be useful to recalculate this layout. Additionally DataTables makes extensive use of the dimensions of DOM elements in the table which scrolling is enabled (to align the columns) so if a table is hidden when initialised the height / width of the table elements will be unavailable.
+
+		This method is provided to have DataTables recalculate the columns sizes, based on the data in the table and the size applied to the columns (in the DOM, CSS or through the `dt-init columns.width` parameter). Call it when the table becomes visible if hidden when initialised (for example in a tab) or when the data changes significantly.
+
+		DataTables will automatically call this method on the window `resize` event to keep the columns in sync with the re-flowed layout.
+	</description>
+
+	<example title="Adjust the column sizes of a newly shown table"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#container').css( 'display', 'block' );
+table.columns.adjust().draw();
+]]></example>
+
+	<related type="init">columns.width</related>
+	<related type="init">autoWidth</related>
+</dt-api>

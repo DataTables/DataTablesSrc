@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column().header()</name>
+	<summary>Get the header node for the selected column.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>column().header()</signature>
+		<description>Get the header `dt-tag th` / `dt-tag td` cell for a column.</description>
+		<returns type="node">The header cell for the selected column.</returns>
+	</type>
+
+	<description>
+		This method can be used to obtain (and therefore modify) the header cell used for a column. This may be a `dt-tag th` or `dt-tag td` element depending on the HTML for your table.
+
+		The cell return is the one used by DataTables for adding the ordering click listener. If you have multiple cells in a header (i.e. multiple rows), which one DataTables uses as the primary header cell is defined by the `dt-init orderCellsTop` option.
+
+		Note that if the selector used in `dt-api column()` matches more than one column, the result set will be truncated to a single column - the first one in the result set.
+	</description>
+
+	<example title="Alert the name of the column for a cell that was clicked on"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'td', function () {
+	var idx = table.cell( this ).index().column;
+	var title = table.column( idx ).header();
+
+	alert( 'Column title clicked on: '+$(title).html() );
+} );
+]]></example>
+
+	<related type="api">columns().header()</related>
+</dt-api>

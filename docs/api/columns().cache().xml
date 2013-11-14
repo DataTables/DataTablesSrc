@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>columns().cache()</name>
+	<summary>Get the DataTables cached data for the selected columns.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>columns().cache( type )</signature>
+		<description>Obtain the data for the columns from the selector</description>
+		<parameter type="string" name="type">
+			Specify which cache the data should be read from. Can take one of two values: `dt-string search` or `dt-string order`
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with data for each cell in the selected columns in the result set. This is a 2D array with the top level array entries for each column matched by the `dt-api columns()` selector.</returns>
+	</type>
+
+	<description>
+		DataTables caches data for searching and ordering in order for those operations to run as quickly as possible when they are required. Sometimes it can be useful to get the data that DataTables has cached for these operations, for example when creating a `select` list to provide a column based filter.
+
+		It should be noted that this method is required as DataTables has the ability to use different data for its different operations (searching, ordering, display etc) - see `dt-init columns.data` and `dt-init columns.render` for further information. `dt-api columns().data()` provides access to the original data. If you aren't using orthogonal data for the different operations of DataTables, then this method is of limited used.
+
+		Please note that the order of the data in the returned array and which rows the data is obtained from (searched rows, visible rows etc) is controlled by the `dt-type selector-modifier` option of the `dt-api column()` selector used to get the selected column.
+
+		Note that this method is primarily aimed at plug-in developers who require access to the internal data that DataTables has stored.
+	</description>
+
+	<example title="Build a filter for each column with a `select-filter` class."><![CDATA[
+var table = $('#example').DataTable();
+
+table.columns( '.select-filter' ).flatten().each( function ( colIdx ) {
+	// Create the select list and search operation
+	var select = $('<select />')
+		.appendTo(
+			table.column(colIdx).footer()
+		)
+		.on( 'change', function () {
+			table
+				.column( colIdx )
+				.search( $(this).val() )
+				.draw();
+		} );
+
+	// Get the search data for the first column and add to the select list
+	table
+		.column( colIdx )
+		.cache( 'search' )
+		.sort()
+		.unique()
+		.each( function ( d ) {
+			select.append( $('<option value="'+d+'">'+d+'</option>') );
+		} );
+} );
+
+]]></example>
+
+	<related type="api">column().cache()</related>
+</dt-api>
