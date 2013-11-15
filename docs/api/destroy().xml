@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>destroy()</name>
+	<summary>Destroy the DataTables in the current context.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>destroy( [ remove ] )</signature>
+		<description>Restore the tables in the current context to it's original state in the DOM by removing all of DataTables enhancements, alterations to the DOM structure of the table and event listeners.</description>
+		<parameter type="boolean" name="remove" default="false">
+			Completely remove the table from the DOM (`true`) or leave it in the DOM in its original plain un-enhanced HTML state (default, `false`).
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		DataTables adds a number of HTML elements, event listeners and other modifications in order to enhance the original HTML table with the features of DataTables. This method can be used to remove those enhancements and return the table to its original un-enhanced state, with the data shown in the table.
+
+		This function can be useful if you require to destroy and create new tables based on new criteria with different initialisation settings or a different number of columns in the table, as they cannot be change on-the-fly through the API. If you do not require to make changes to the features of the table and simply alter the data contained in the table, then consider using the `dt-api clear()`, `dt-api json.url()` and `dt-api rows.add()` methods.
+
+		Destroying a table is necessary to prevent memory leaks if you do wish to replace one table with another.
+	</description>
+
+	<example title="Destroy an exisiting table on a button click"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#tableDestroy').on( 'click', function () {
+	table.destroy();
+} );
+]]></example>
+
+	<related type="init">destroy</related>
+</dt-api>
