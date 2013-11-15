@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="order">
+	<name>order.listener()</name>
+	<summary>Add an ordering listener to an element, for a given column.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>order.listener( node, column, callback )</signature>
+		<description>Attach an ordering listener to a specified element</description>
+		<parameter type="node|jQuery|string" name="node">
+			Selector / node to pick the elements on the page to which the ordering listener should be attached. This can be a DOM node, a jQuery collection of nodes or a jQuery selector string.
+		</parameter>
+		<parameter type="index" name="column">
+			Column data index of the column that that a click on this node will order the table upon
+		</parameter>
+		<parameter type="function" name="callback">
+			Callback function that is executed whenever the ordering performed by the listener is completed, when the listener is activated. No parameters are passed in and no return is expected.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with the current order in the result set</returns>
+	</type>
+
+	<description>
+		This method provides the ability to attach ordering listeners to any DOM element on the page. This is the same method as DataTables uses internally for the ordering listeners which are attached to the header cells for each column, and as such provides the same functionality (i.e. click to order, shift click to multi-column order etc).
+
+		Although not a common method to be used, it can be useful for allowing sorting to be triggered externally from the table (equally `dt-api order()` and its columns counterparts could also be used).
+
+		Note that unlike `dt-api order()` and `dt-api columns().order()` when the ordering listener attached by this function is activated, it will cause the table to redraw automatically - i.e. there is no need to call `dt-api draw()`.
+	</description>
+
+	<example title="Sort on column 1, when '#sorter' element is clicked upon"><![CDATA[
+var table = $('#example').dataTable();
+
+table.order.listener( '#sorter', 1 );
+]]></example>
+
+	<related type="option">order</related>
+	<related type="option">ordering</related>
+	<related type="api">order()</related>
+	<related type="api">column().order()</related>
+	<related type="api">columns().order()</related>
+</dt-api>

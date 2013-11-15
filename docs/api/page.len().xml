@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="paging">
+	<name>page()</name>
+	<summary>Get / set the table's page length.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>page.len()</signature>
+		<description>Get the page length of the table. Note that if multiple tables are available in the API's context, the page length of the first table in the context will be used. Use `dt-api table()` if you are working with multiple tables in a single API context.</description>
+		<returns type="integer">Current page length. Note that `-1` indicates that all records are shown.</returns>
+	</type>
+	<type type="function">
+		<signature>page.len( set )</signature>
+		<description>Set the page length to be used for the display</description>
+		<parameter type="integer" name="set">
+			Page length to set. use `-1` to show all records.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		This method is used quite simply to get and set the length of the paging used by DataTables for display. Please note that this is only relevant when `dt-init paging` is enabled in the table.
+
+		The special number `-1` can be used as a set parameter, and returned by the get format of this function to indicate that all rows in the DataTable will be displayed.
+
+		Please be aware that this method sets the page to be shown - it does not actually perform the re-display of the table. In order to have the newly set page shown use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api page()` method's returned object - for example `table.page( 0 ).draw();`.
+	</description>
+
+	<example title="Allow user to click on two elements to select if all records should be shown or just 10."><![CDATA[
+var table = $('#example').DataTable();
+
+$('#all').on( 'click', function () {
+	table.page.len( -1 ).draw();
+} );
+
+$('#_10').on( 'click', function () {
+	table.page.len( 10 ).draw();
+} );
+]]></example>
+
+	<related type="init">paging</related>
+	<related type="init">displayLength</related>
+	<related type="init">lengthChange</related>
+	<related type="api">page.info()</related>
+</dt-api>

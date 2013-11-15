@@ -6,6 +6,7 @@
 
 	<type type="function">
 		<signature>draw( [reset] )</signature>
+		<description>Redraw the DataTables in the current context updating ordering, searching and paging as required.</description>
 		<parameter type="boolean" name="reset" default="true">
 			Reset (default) or hold the current paging position. A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
 		</parameter>
@@ -35,8 +36,14 @@ var table = $('#example').DataTable();
 
 // Sort by column 1 and then re-draw
 table
-	.sort( [[ 1, 'asc' ]] )
+	.order( [[ 1, 'asc' ]] )
 	.draw( false );
+]]></example>
+
+	<example title="Change the table's page and then redraw"><![CDATA[
+var table = $('#example').DataTable();
+
+table.page( 'next' ).draw( false );
 ]]></example>
 
 	<related type="option">drawCallback</related>

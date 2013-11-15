@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns order">
+	<name>columns().order()</name>
+	<summary>Order the table by the selected columns.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>columns().order( direction )</signature>
+		<description>Order the table, in the direction specified, by the columns selected by the `dt-api columns()` selector.</description>
+		<parameter type="string" name="direction">
+			Direction of sort to apply to the selected columns - `dt-string desc` (descending) or `dt-string asc` (ascending). Note this one direction is applied to all columns from the selector.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		This method provides a useful alternative to the `dt-api order()` method, allowing you to select the columns that you want to be ordered using the flexible `dt-api columns()` selector and having them ordered in the direction specified.
+
+		Multi-column ordering is achieved by ensuring that the column selector matches multiple columns (single column ordering is performed if only one column is matched, or by using the `dt-api column().order()` method). The order of the matched columns defines the priority sequence in which the ordering of the table is applied.
+
+		Please be aware that this method sets the ordering to apply to the table - it does not actually perform the order. In order to have the order performed, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api order()` method's returned object - for example `table.order([0, 'desc']).draw();`.
+	</description>
+
+	<example title="Sort by all columns with the class '.status'"><![CDATA[
+var table = $('#example').DataTable();
+
+table.columns( '.status:jq' ).order( 'desc' );
+]]></example>
+
+	<related type="option">order</related>
+	<related type="option">ordering</related>
+	<related type="api">order()</related>
+	<related type="api">column().order()</related>
+</dt-api>

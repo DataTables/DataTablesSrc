@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="paging">
+	<name>page()</name>
+	<summary>Get / set the current page of the table.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>page()</signature>
+		<description>Get the current page of the table. Note that if multiple tables are available in the API's context, the current page index of the first table in the context will be used. Use `dt-api table()` if you are working with multiple tables in a single API context.</description>
+		<returns type="integer">Currently displayed page number</returns>
+	</type>
+	<type type="function">
+		<signature>page( set )</signature>
+		<description>Set the page to be displayed by the table</description>
+		<parameter type="string|integer" name="set">
+			This parameter can take two forms:
+
+			* integer - The page index to jump to (0 is the first page!)
+			* string - An action to take:
+			  * `first` - Jump to first page.
+			  * `next` - Jump to the next page
+			  * `previous` - Jump to previous page
+			  * `last` - Jump to the last page.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		Paging is a core feature of DataTables, and this method provides external control over the page which the table is displaying. This can be useful if you want to provide custom paging controls for your table, external to the built-in paging control options or the paging plug-in options.
+		
+		Note that if you attempt to show a page which does not exist using the set format of this method, DataTables will not throw an error, but rather reset the paging to the first page.
+
+		Please be aware that this method sets the page to be shown - it does not actually perform the re-display of the table. In order to have the newly set page shown use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api page()` method's returned object - for example `table.page( 0 ).draw();`.
+	</description>
+
+	<example title="Custom paging controls for next / previous pages"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#next').on( 'click', function () {
+	table.page( 'next' ).draw();
+} );
+
+$('#previous').on( 'click', function () {
+	table.page( 'previous' ).draw();
+} );
+]]></example>
+
+	<related type="init">paging</related>
+	<related type="api">page.len()</related>
+</dt-api>

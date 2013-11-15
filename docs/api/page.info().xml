@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="paging">
+	<name>page.info()</name>
+	<summary>Get paging information about the table</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>page.info()</signature>
+		<description>Get information about the table's paging state. Note that if multiple tables are available in the API's context, the page length of the first table in the context will be used. Use `dt-api table()` if you are working with multiple tables in a single API context.</description>
+		<returns type="object">Object (described below) with information about the table's paging state.</returns>
+	</type>
+
+	<description>
+		The paging state of the table can often be useful to understand what data is being displayed in a table at any given time - indeed it can even be useful when `dt-init paging` is disabled to get information about the number of records in the table.
+
+		This method provides information about the table's paging state, and information about the number of records in the table (both total and in the search result set).
+
+		The returned object has the following properties:
+
+		* `page` - Current page index (zero based - i.e. the first page is `0`)
+		* `pages` - Total number of pages
+		* `start` - Display index for the first record shown on the current page
+		* `end` - Display index for the last record shown on the current page
+		* `length` - Display length (number of records). Note that generally `start
+		  + length = end`, but this is not always true, for example if there are
+		  only 2 records to show on the final page, with a length of 10.
+		* `recordsTotal` - Full data set length
+		* `recordsDisplay` - Data set length once the current search criteria has been applied.
+
+		Example returned object:
+
+		```
+		{
+			"page": 1,
+			"pages": 6,
+			"start": 10,
+			"end": 20,
+			"length": 10,
+			"recordsTotal": 57,
+			"recordsDisplay": 57
+		}
+		```
+	</description>
+
+	<example title="Get the current page and number of records in the table"><![CDATA[
+var table = $('#example').DataTable();
+var info = table.page.info();
+
+$('#tableInfo').html(
+	'Currently showing page '+(info.page+1)+' of '+info.pages+' pages.'
+);
+]]></example>
+
+	<related type="init">paging</related>
+	<related type="api">page.len()</related>
+</dt-api>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="order">
+	<name>order()</name>
+	<summary>Redraw the table.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>order()</signature>
+		<description>Get the current ordering of the table. If there is more than one table in the API's context, the ordering of the first table will be returned. Use `dt-api table()` if you require the ordering of a different table in the API's context.</description>
+		<returns type="DataTables.Api">DataTables API instance with the current order in the result set</returns>
+	</type>
+	<type type="function">
+		<signature>order( order [, ...] )</signature>
+		<description>Set the ordering to apply to the table using 1D ordering arrays. Note this doesn't actually perform the order, but rather queues it up - use `dt-api draw()` to perform the ordering.</description>
+		<parameter type="array" name="order">
+			An array in the format `[ columnIndex, "asc|desc" ]` (e.g. `[ 1, "desc" ]` to order by the second column descending).
+		</parameter>
+		<parameter type="array" name="..." default="">
+			Additional arrays in the same format as the first parameter, allowing multi-column sorting. As many or as few additional arrays can be added as additional parameters, as your requirements demand.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+	<type type="function">
+		<signature>order( order )</signature>
+		<description>Set the ordering to apply to the table using a 2D ordering array. Note this doesn't actually perform the order, but rather queues it up - use `dt-api draw()` to perform the ordering.</description>
+		<parameter type="array" name="order">
+			An array in the same format as the 1D array format of this method, above, but with multiple entries in the top level array, allowing multi-column sorting to be defined.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		This method provides information and control over the ordering that has been applied to the DataTables in the API's context.
+
+		Ordering information is stored by DataTables in a 2D array format:
+
+		```
+		[
+			[ colIdx_1, orderingDirection_1 ],
+			[ colIdx_2, orderingDirection_2 ],
+			...,
+			[ colIdx_n, orderingDirection_n ]
+		]
+		```
+
+		where `colIdx_x` is the column data index of the column whose data is used to perform the ordering, and `orderingDirection_n` is the direction of the ordering (`dt-string desc` (descending) or `dt-string asc` (ascending)) - note that these _must_ be lower-case.
+
+		Using this format, DataTables can achieve single column ordering (i.e. just use one entry in the top level array), or multi-column ordering to the *n*th column (multiple entries in the array).
+
+		For convenience, this method allows multi-column ordering to be performed by passing in either multiple 1D ordering arrays or a 2D ordering array. When retrieving the ordering information from the table, a 2D ordering array is always returned.
+
+		Please be aware that this method sets the ordering to apply to the table - it does not actually perform the order. In order to have the order performed, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api order()` method's returned object - for example `table.order([0, 'desc']).draw();`.
+	</description>
+
+	<example title="Get the current ordering of the table"><![CDATA[
+var table = $('#example').DataTable();
+var order = table.order();
+
+alert( 'Column '+order[0][0]+' is the ordering column' );
+]]></example>
+
+	<example title="Set the ordering using a 1D array"><![CDATA[
+var table = $('#example').DataTable();
+
+// Sort by column 1 and then re-draw
+table
+	.order( [ 1, 'asc' ] )
+	.draw();
+]]></example>
+
+	<example title="Set the ordering using multiple 1D arrays to achieve multi-column sorting"><![CDATA[
+var table = $('#example').DataTable();
+
+// Sort by columns 1 and 2 and redraw
+table
+	.order( [ 1, 'asc' ], [ 2, 'asc' ] )
+	.draw();
+]]></example>
+
+	<example title="Use a 2D array to achieve multi-column sorting (matching the example above in functionality)"><![CDATA[
+var table = $('#example').DataTable();
+
+// Sort by columns 1 and 2 and redraw
+table
+	.order( [[ 1, 'asc' ], [ 2, 'asc' ]] )
+	.draw();
+]]></example>
+
+	<related type="option">order</related>
+	<related type="option">ordering</related>
+</dt-api>
