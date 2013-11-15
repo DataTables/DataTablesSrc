@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>data()</name>
+	<summary>Get the data for the whole table.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>data()</signature>
+		<description>Retrieve the data for the whole table, in row index order.</description>
+		<returns type="DataTables.Api">DataTables API instance with the data for each row from the table in the result set.</returns>
+	</type>
+
+	<description>
+		This method provides access to the raw data that is used for each row in the tables in the API's context. The result set contains the raw data (be it arrays or objects), which each row defined by an entry in the API's result set. The order of the rows in the row data index (i.e. the order the data was originally read into the table).
+
+		If you modify the data contained in the returned array, ensure that you use the `dt-api rows().invalidate()`, `dt-api columns().invalidate()` or any of the other invalidation methods to cause DataTables to notice the change and re-read the data source.
+
+		Please note that the `dt-api rows().data()` method can also provide full access to this data, but in a more flexible manner as it allows row ordering, paging and searching modifications in the result set through the `dt-type selector-modifier` options object. For example `rows({'order':'index'}).data()` is exactly the same as `data()` - both are in data index order, while `rows().data()` will return the full data set, but in the current display order (as defined by `dt-api order()`).
+	</description>
+
+	<example title="Show an alert with how many rows of data are in the table"><![CDATA[
+var table = $('#example').DataTable();
+
+alert( 'There are'+table.data().length+' row(s) of data in this table' );
+]]></example>
+
+	<example title="Modify the data and then invalidate the display to redraw"><![CDATA[
+var table = $('#example').DataTable();
+
+// Increment a counter for each row
+table.data().each( function (d) {
+	d.counter++;
+} );
+
+// Invalidate all rows and redraw
+table.rows().invalidate().draw();
+]]></example>
+
+	<related type="api">clear()</related>
+	<related type="api">row.add()</related>
+	<related type="api">rows.add()</related>
+</dt-api>

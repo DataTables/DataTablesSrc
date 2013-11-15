@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>on()</name>
+	<summary>Table events listener.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>on( event, callback )</signature>
+		<description>Listen for events from tables and fire a callback when they occur</description>
+		<parameter type="string" name="event">
+			Event to listen for. Multiple events can be listened for using a space separator and events can be namespaced, just like with `jQuery().on()`.
+		</parameter>
+		<parameter type="function" name="callback">
+			Event callback handler. For the argument list passed in, please refer to the documentation for the event that you are using.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		DataTables can trigger a number of events which can be useful for taking action when DataTables performs those events. For example, it is often useful to know when an Ajax event occurs (`dt-event xhr`), so you can add additional data to the JSON payload.
+
+		DataTables provides three methods for working with DataTables events, matching the core jQuery event methods:
+
+		* `dt-api on()` - Listen for events
+		* `dt-api off()` - Stop listening for events
+		* `dt-api one()` - Listen for a single event.
+
+		This `dt-api on()` method is used to start listening for DataTables events. Simply pass in the event you wish to listen for an provide a callback function which will be activated when the event is triggered by DataTables.
+	</description>
+
+	<example title="Log a console message on each `dt-event xhr` event"><![CDATA[
+var table = $('#example').DataTable( {
+	ajax: "/data.json"
+} );
+
+table.on( 'xhr', function ( e, settings, json ) {
+	console.log( 'Ajax event occurred. Returned data: ', json );
+} );
+]]></example>
+
+	<related type="api">off()</related>
+	<related type="api">one()</related>
+</dt-api>

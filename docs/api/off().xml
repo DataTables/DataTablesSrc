@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>off()</name>
+	<summary>Table events removal.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>off( event [, callback] )</signature>
+		<description>Remove event listeners that have previously been added with `dt-api on()`.</description>
+		<parameter type="string" name="event">
+			Event name to remove. Multiple events can be removed for using a space separator or namespacing, just as with `jQuery().off()`.
+		</parameter>
+		<parameter type="function" name="callback" default="">
+			Specific callback function to remove if you want to unbind a single event listener. If not given, all events which match the event name / namespace given in the first parameter will be removed.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		DataTables can trigger a number of events which can be useful for taking action when DataTables performs those events. For example, it is often useful to know when an Ajax event occurs (`dt-event xhr`), so you can add additional data to the JSON payload.
+
+		DataTables provides three methods for working with DataTables events, matching the core jQuery event methods:
+
+		* `dt-api on()` - Listen for events
+		* `dt-api off()` - Stop listening for events
+		* `dt-api one()` - Listen for a single event.
+
+		This `dt-api off()` method is used to remove a listener that has already been attached to a DataTables. Simply pass in the event you wish to remove the listener, and optionally the specific function if you want to remove only a single event listener.
+	</description>
+
+	<example title="Listen for only the first `dt-event xhr` event from DataTables"><![CDATA[
+var table = $('#example').DataTable( {
+	ajax: "/data",
+	serverSide: true
+} );
+
+table.on( 'xhr', function ( e, settings, json ) {
+	table.off( 'xhr' );
+	console.log( 'Ajax event occurred. Returned data: ', json );
+} );
+
+// note that this is the same effect as using `table.one(...);`
+]]></example>
+
+	<related type="api">on()</related>
+	<related type="api">one()</related>
+</dt-api>

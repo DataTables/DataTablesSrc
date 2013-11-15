@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>settings()</name>
+	<summary>Obtain the table's settings object</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>settings()</signature>
+		<description>Get the settings object for the table's in the API instance's context.</description>
+		<returns type="DataTables.Api">DataTables API instance with the settings objects for the tables in the context in the result set</returns>
+	</type>
+
+	<description>
+		DataTables keeps information about the state of each table in an individual settings object. This object is unique to each table, and each table has only one settings object, even if there are multiple references to the table (i.e. multiple API instances).
+
+		The information in this object is generally considered to be private and should not be used directly. It absolutely should not have settings written to unless you know the DataTables internals well enough to know the effect of what writing to a property will have.
+
+		Generally speaking, use the information from the documented public API methods rather than that in this settings object, as the properties in it may change between versions. If you must use a settings object parameter, use an API plug-in to obtain the data, so in future you can update just that plug-in if the parameters do change in a future version of DataTables.
+
+		This method is provided for plug-in authors who do require access to the internal settings of a table.
+	</description>
+</dt-api>

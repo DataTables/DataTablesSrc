@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>clear()</name>
+	<summary>Clear the table off all data.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>clear()</signature>
+		<description>Simply remove all rows of data from the table.</description>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		This method simply removes all rows from the DataTables, resulting in a data length set of 0. New data might then be added using the `dt-api rows.add()` method.
+
+		Please be aware that this method will not automatically redraw the table with an empty data set. In order to redraw the table use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api clear()` method's returned object - for example `table.clear().draw();`. This is useful for performance when you would want to immediately add new rows to the table - you would only call the `dt-api draw()` method once all required rows have been added to help improve performance.
+	</description>
+
+	<example title="Clear the table of all data"><![CDATA[
+var table = $('#example').DataTable();
+
+table
+	.clear()
+	.draw();
+]]></example>
+
+	<related type="api">data()</related>
+	<related type="api">row.add()</related>
+	<related type="api">rows.add()</related>
+</dt-api>
