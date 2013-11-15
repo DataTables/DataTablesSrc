@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="tables">
+	<name>table().body()</name>
+	<summary>Get the `dt-tag tbody` node for the table in the API's context</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>table().body()</signature>
+		<description>Get the `dt-tag tbody` node</description>
+		<returns type="node">HTML `dt-tag tbody` node.</returns>
+	</type>
+
+	<description>
+		DataTables and its plug-ins can create additional tables in the document. For example when scrolling is enable, the table is split into three individual tables, the footer, footer and body in order to provide cross-browser scrolling, while FixedHeader / FixedColumns create cloned tables for static positioning.
+
+		This method, and its plural counterpart, are provided to give easy access to the original `dt-tag tbody` element for DOM manipulation.
+	</description>
+
+	<example title="Add a class to the original `dt-tag tbody` element"><![CDATA[
+var table = $('#example').DataTable( {
+	scrollX: "100%"
+} );
+
+$( tables.table().body() )
+	.addClass( 'highlight' );
+]]></example>
+
+	<related type="api">tables().body()</related>
+</dt-api>

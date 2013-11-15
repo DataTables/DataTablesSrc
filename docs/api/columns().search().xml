@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns search">
+	<name>columns().search()</name>
+	<summary>Search for data the selected columns.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>columns().search()</signature>
+		<description>Get the currently applied column search.</description>
+		<returns type="DataTables.Api">Api instance with the applied search terms for the selected columns in the result set.</returns>
+	</type>
+	<type type="function">
+		<signature>columns().search( input [, regex[ , smart[ , caseInsen ]]] )</signature>
+		<description>Set the search term for the columns from the selector. Note this doesn't actually perform the search, but rather queues it up - use `dt-api draw()` to perform the search and display the result.</description>
+		<parameter type="string" name="input">
+			Search string to apply to the selected columns.
+		</parameter>
+		<parameter type="boolean" name="regex" default="false">
+			Treat as a regular expression (`true`) or not (default, `false`).
+		</parameter>
+		<parameter type="boolean" name="smart" default="true">
+			Perform smart search (default, `true`) or not (`false`). Note that to perform a "smart" search, DataTables uses regular expressions, so if you pass a regular expression in as the second parameter to this method, you will likely want to disable smart searching so the two different regular expressions don't conflict.
+		</parameter>
+		<parameter type="boolean" name="caseInsen" default="true">
+			Do case-insensitive matching (default, `true`) or not (`false`).
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		While `dt-api search()` provides the ability to search globally across the table, this method, as its singular counterpart, provide the ability to search for data on specific columns.
+
+		DataTables does not have any column search controls built-in as there are so many different ways that column specific data could be searched, but this method makes adding custom column search controls super easy. The examples below show how it may be used.
+
+		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term is a search to avoid naming overlap with the `dt-api filter` helper method.
+
+		Please be aware that this method sets the search to apply to the table only - it does not actually perform the search. In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api columns().search()` method's returned object - for example `table.columns( [0, 1] ).search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
+	</description>
+
+	<example title="Apply a search to multiple columns"><![CDATA[
+var table = $('#example').DataTable();
+
+table
+	.columns( '.status:jq' )
+	.search( 'Important' )
+	.draw();
+]]></example>
+
+	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
+var table = $('#example').DataTable();
+
+table.columns( '.select-filter' ).flatten().each( function ( colIdx ) {
+	// Create the select list and search operation
+	var select = $('<select />')
+		.appendTo(
+			table.column(colIdx).footer()
+		)
+		.on( 'change', function () {
+			table
+				.column( colIdx )
+				.search( $(this).val() )
+				.draw();
+		} );
+
+	// Get the search data for the first column and add to the select list
+	table
+		.column( colIdx )
+		.cache( 'search' )
+		.sort()
+		.unique()
+		.each( function ( d ) {
+			select.append( $('<option value="'+d+'">'+d+'</option>') );
+		} );
+} );
+
+]]></example>
+
+	<related type="option">searching</related>
+	<related type="option">columns.searchable</related>
+	<related type="api">search()</related>
+	<related type="api">column().search()</related>
+</dt-api>

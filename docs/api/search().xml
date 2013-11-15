@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="search">
+	<name>search()</name>
+	<summary>Search for data in the table.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>search()</signature>
+		<description>Get the currently applied global search. If there is more than one table in the API's context, the search term of the first table will be returned. Use `dt-api table()` if you require the search term of a different table in the API's context.</description>
+		<returns type="string">The currently applied global search. This may be an empty string if no search is applied.</returns>
+	</type>
+	<type type="function">
+		<signature>search( input [, regex[ , smart[ , caseInsen ]]] )</signature>
+		<description>Set the global search to use on the table. Note this doesn't actually perform the search, but rather queues it up - use `dt-api draw()` to perform the search and display the result.</description>
+		<parameter type="string" name="input">
+			Search string to apply to the table.
+		</parameter>
+		<parameter type="boolean" name="regex" default="false">
+			Treat as a regular expression (`true`) or not (default, `false`).
+		</parameter>
+		<parameter type="boolean" name="smart" default="true">
+			Perform smart search (default, `true`) or not (`false`). Note that to perform a "smart" search, DataTables uses regular expressions, so if you pass a regular expression in as the second parameter to this method, you will likely want to disable smart searching so the two different regular expressions don't conflict.
+		</parameter>
+		<parameter type="boolean" name="caseInsen" default="true">
+			Do case-insensitive matching (default, `true`) or not (`false`).
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		The ability to search a table for data is core to the concept of DataTables, as it allows data to be easily accessed by users. This method provides the ability to control the global search of a table through the API. The global search is performed across all searchable columns (see `dt-init columns.searchable` to disable searching for certain columns). If data is found matching in any column, then the whole row is matched and shown in the result set. Searching on individual columns can be performed using the `dt-api columns().search()` and `dt-api column().search()` methods.
+
+		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term is a search to avoid naming overlap with the `dt-api filter` helper method.
+
+		Please be aware that this method sets the search to apply to the table only - it does not actually perform the search. In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api search()` method's returned object - for example `table.search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
+	</description>
+
+	<example title="Search the table using a custom input"><![CDATA[
+var table = $('#example').DataTable();
+
+// #myInput is a <input type="text"> element
+$('#myInput').on( 'keyup', function () {
+	table.search( this.value ).draw();
+} );
+]]></example>
+
+	<related type="option">searching</related>
+	<related type="option">columns.searchable</related>
+	<related type="api">columns().search()</related>
+	<related type="api">column().search()</related>
+</dt-api>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="tables">
+	<name>tables().nodes()</name>
+	<summary>Get the `dt-tag table` nodes for the tables in the API's context</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>tables().nodes()</signature>
+		<description>Get the `dt-tag table` nodes</description>
+		<returns type="DataTables.Api">DataTables API instance with the table nodes from the selected tables in the result set.</returns>
+	</type>
+
+	<description>
+		DataTables and its plug-ins can create additional `dt-tag table` elements in the document (for example when scrolling is enable, the table is split into three individual tables, the header, footer and body in order to provide cross-browser scrolling). However, you may wish to obtain the original table node that belongs to the DataTable. This method, and its singular counterpart, is provided for that purpose.
+	</description>
+
+	<example title="Add a class to all main table nodes"><![CDATA[
+var tables = $('.dataTable').DataTable( {
+	scrollX: "100%"
+} );
+
+tables
+	.tables()
+	.nodes()
+	.to$()
+	.addClass( 'highlight' );
+]]></example>
+
+	<related type="api">table().node()</related>
+</dt-api>

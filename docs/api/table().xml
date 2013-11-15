@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="tables">
+	<name>table()</name>
+	<summary>Select a table based on a selector from the API's context</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>table( selector )</signature>
+		<description>Select a table based on the given selector</description>
+		<parameter type="table-selector" name="selector">
+			Table selector to select which table you want to operate on.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected table in its context.</returns>
+	</type>
+
+	<description>
+		The DataTables API can operate on multiple tables at a single time - the tables in the "context". As a quick example `$('.dataTable').DataTable().search('Fred').draw();` will filter all tables which were found by the class `dataTable`.
+
+		The context of an API instance defines which DataTable tables the API will operate on and this method provides one way to control what tables are in that context.
+
+		This ability to operate on multiple tables can be particularly useful if you have many tables on a single page, but you might also wish to reduce the table's in the API's context to operate on just one, or some other subset of the tables.
+
+		If you are working with single table API instances only, then this method will be of limited use to you! It is really only appropriate when working with multiple tables. Additionally, please note that there is no option that this selector can perform over using jQuery directly on the DOM to select tables. It is mainly provided for convenience and completeness of the API.
+
+		Note that if the selector used matches more than one table in API's context, the returned API instance's context will be truncated to the first matched table.
+	</description>
+
+	<example title="Apply an order to the second table in the API's context"><![CDATA[
+var tables = $('.dataTable').DataTable();
+
+tables.table( 1 ).order( [ 3, 'asc' ] ).draw();
+]]></example>
+
+	<example title="Find the table with the #admin from an API instance and apply a global search to them."><![CDATA[
+var tables = $('.dataTable').DataTable();
+
+tables.table('#admin').search( 'Important' ).draw();
+
+// Note that:
+//   $('#admin').DataTable().search('Important').draw();
+// would also have achieved the same effect
+]]></example>
+
+	<related type="api">tables()</related>
+</dt-api>

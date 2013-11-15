@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="tables">
+	<name>tables().header()</name>
+	<summary>Get the `dt-tag thead` nodes for the tables in the API's context</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>tables().header()</signature>
+		<description>Get the `dt-tag thead` nodes</description>
+		<returns type="DataTables.Api">DataTables API instance with the table header nodes from the selected tables in the result set.</returns>
+	</type>
+
+	<description>
+		DataTables and its plug-ins can create additional tables in the document. For example when scrolling is enable, the table is split into three individual tables, the header, footer and body in order to provide cross-browser scrolling, while FixedHeader / FixedColumns create cloned tables for static positioning.
+
+		This method, and its singular counterpart, are provided to give easy access to the original `dt-tag thead` elements for DOM manipulation.
+	</description>
+
+	<example title="Add a class to the original `dt-tag thead` element"><![CDATA[
+var tables = $('.dataTable').DataTable( {
+	scrollX: "100%"
+} );
+
+tables
+	.tables()
+	.header()
+	.to$()
+	.addClass( 'highlight' );
+]]></example>
+
+	<related type="api">table().header()</related>
+</dt-api>
