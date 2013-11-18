@@ -22,13 +22,15 @@
 		The `dt-event init` event is the event compliment of the `dt-init initCallback` initialisation option. Like the callback, the `dt-event init` event is called when your table has fully been initialised, data loaded and drawn, particularl when using an `dt-init ajax` data source. In such a case, the table will complete its initial run before the data has been loaded (Ajax is asynchronous after all!) so this callback is provided to let you know when the data is fully loaded.
 
 		The `dt-event init` event is fired at the same point as `dt-init initCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Show information about the current sort using the API"><![CDATA[
 console.log( 'Table initialisation start: '+new Date().getTime() );
 
 $('#example')
-	.on( 'init', function () {
+	.on( 'init.dt', function () {
 		console.log( 'Table initialisation complete: '+new Date().getTime() );
 	} )
 	.dataTable();

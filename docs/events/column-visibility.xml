@@ -23,12 +23,14 @@
 
 	<description>
 		This event is fired whenever a column's visibility is altered through the `dt-api column().visible()` method and can be useful for plug-ins which work with columns to identify changes in column visibility state and update their own state to take account of the change.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Notify when column visiblity is changed"><![CDATA[
 $('#example').dataTable();
 
-$('#example').on( 'column-visibility', function ( e, settings, column, state ) {
+$('#example').on( 'column-visibility.dt', function ( e, settings, column, state ) {
 	console.log(
 		'Column '+ column +' has changed to '+ (state ? 'visible' : 'hidden')
 	);

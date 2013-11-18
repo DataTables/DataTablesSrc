@@ -19,6 +19,8 @@
 		The `dt-event destroy` event is fired when a DataTable is torn down, to be replaced with an enhanced HTML table (or simply removed from the DOM altogether). This can be used to remove bound events, added DOM nodes etc and can be particularly useful for plug-in authors.
 
 		This event is fired when the DataTable is destroyed by calling `dt-api destroy` API method or passing the `dt-init destroy`  parameter in the initialisation object.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Remove bound events on table destroy"><![CDATA[
@@ -28,7 +30,7 @@ $('#example')
 		alert( this.innerHTML );
 	} );
 
-$('#example').on( 'destroy', function ( e, settings ) {
+$('#example').on( 'destroy.dt', function ( e, settings ) {
 	$(this).off( 'click', 'td' );
 } );
 ]]></example>

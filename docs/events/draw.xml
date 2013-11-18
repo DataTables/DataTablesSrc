@@ -19,12 +19,14 @@
 		It can be useful to take an action on every draw event of the table - for example you might want to update an external control with the newly displayed data, or  with server-side processing is enabled you might want to assign events to the newly created elements. This event is available to give exactly this information.
 
 		The `dt-event draw` event is fired whenever the table is redrawn on the page, at the same point as `dt-init drawCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Log to console on each draw"><![CDATA[
 $('#example').dataTable();
 
-$('#example').on( 'draw', function () {
+$('#example').on( 'draw.dt', function () {
 	console.log( 'Redraw occurred at: '+new Date().getTime() );
 } );
 ]]></example>

@@ -20,12 +20,14 @@
 
 	<description>
 		The `dt-event length` event is fired whenever the table's page length is changed. This can be through user interaction with the built in page length control, or via the API.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Write to console on page length change"><![CDATA[
 $('#example').dataTable();
 
-$('#example').on( 'length', function ( e, settings, len ) {
+$('#example').on( 'length.dt', function ( e, settings, len ) {
 	console.log( 'New page length: '+len );
 } );
 ]]></example>

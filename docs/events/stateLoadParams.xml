@@ -22,12 +22,14 @@
 		The `dt-event stateLoadParams` event is the event compliment of the `dt-init stateLoadParams` initialisation option. As with the callback, the event is fired when the table is loading state from the stored data, but prior to that read data being applied to the data table. This allows modification of the saved state data.
 
 		The `dt-event stateLoadParams` event is fired at the same point as `dt-init stateLoadCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Remove a saved filter from the saved state data"><![CDATA[
 $('#example')
 	.dataTable()
-	.on( 'stateLoadParams', function (e, settings, data) {
+	.on( 'stateLoadParams.dt', function (e, settings, data) {
 		data.oSearch.sSearch = "";
 	} );
 ]]></example>

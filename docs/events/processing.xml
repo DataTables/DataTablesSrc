@@ -22,11 +22,13 @@
 		This event is fired when DataTables is doing some kind of processing - be it, sorting, filtering or any other kind of data processing. It can be used to indicate to the end user that there is something happening, or that something has finished.
 
 		Note that this event is used by DataTables' `dt-init processing` display option, and can be useful if you want to replace the DataTables built-in processing indicator with a custom indicator - one which is used in other parts of your application for example.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Show / hide notification of table processing"><![CDATA[
 $('#example')
-	.on( 'processing', function ( e, settings, processing ) {
+	.on( 'processing.dt', function ( e, settings, processing ) {
 		$('#processingIndicator').css( 'display', processing ? 'display' : 'none' );
 	} )
 	.dataTable();

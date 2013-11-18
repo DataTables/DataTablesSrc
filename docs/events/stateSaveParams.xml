@@ -24,12 +24,14 @@
 		This event allows modification of the state saving object prior to actually doing the save, including addition or other state properties (for plug-ins) or modification of a DataTables core property.
 
 		The `dt-event stateSaveParams` event is fired at the same point as `dt-init stateSaveCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Remove a saved filter, so filtering is never saved"><![CDATA[
 $('#example')
 	.dataTable()
-	.on( 'stateSaveParams', function (e, settings, data) {
+	.on( 'stateSaveParams.dt', function (e, settings, data) {
 		data.oSearch.sSearch = "";
 	} );
 ]]></example>

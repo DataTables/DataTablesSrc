@@ -19,12 +19,14 @@
 		The `dt-event search` event is fired whenever the table's searching is triggered by the global search or columns search options, including calls from the API (`dt-api search()` for example). Additionally, a full redraw (by calling the `dt-api draw()`) method will cause the table to be re-searched.
 
 		Note that the `dt-event search` will be fired before the table has been redrawn with the updated filtered data, although the data will internally have been filtered.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Update an external input with filtering information using the API"><![CDATA[
 $('#example').dataTable();
 
-$('#example').on( 'search', function () {
+$('#example').on( 'search.dt', function () {
 	var api = this.api();
 	$('#filterInfo').html( 'Currently applied global search: '+api.search() );
 } );

@@ -17,12 +17,14 @@
 
 	<description>
 		This event is fired whenever DataTables adjusts the column widths in the table and can be used by plug-ins to adjust any additional DOM elements they might have drawn on the page to take account of those changes.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Notify when the column widths are recalculated"><![CDATA[
 $('#example').dataTable();
 
-$('#example').on( 'column-sizing', function ( e, settings ) {
+$('#example').on( 'column-sizing.dt', function ( e, settings ) {
 	console.log( 'Column width recalculated in table' );
 } );
 ]]></example>
