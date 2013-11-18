@@ -1,9 +1,8 @@
-/*global oInit,_that*/
+/*global oInit,_that,emptyInit*/
 var i=0, iLen, j, jLen, k, kLen;
 var sId = this.getAttribute( 'id' );
 var bInitHandedOff = false;
 var defaults = DataTable.defaults;
-var oInitEmpty = oInit === undefined ? true : false;
 
 
 /* Sanity check */
@@ -22,9 +21,6 @@ _fnCamelToHungarian( defaults, defaults, true );
 _fnCamelToHungarian( defaults.column, defaults.column, true );
 
 /* Setting up the initialisation object */
-if ( !oInit ) {
-	oInit = {};
-}
 _fnCamelToHungarian( defaults, oInit );
 
 /* Check to see if we are re-initialising a table */
@@ -37,7 +33,7 @@ for ( i=0, iLen=allSettings.length ; i<iLen ; i++ )
 		var bRetrieve = oInit.bRetrieve !== undefined ? oInit.bRetrieve : defaults.bRetrieve;
 		var bDestroy = oInit.bDestroy !== undefined ? oInit.bDestroy : defaults.bDestroy;
 
-		if ( oInitEmpty || bRetrieve )
+		if ( emptyInit || bRetrieve )
 		{
 			return allSettings[i].oInstance;
 		}
@@ -103,13 +99,12 @@ if ( oInit.aLengthMenu && ! oInit.iDisplayLength )
 }
 
 // Apply the defaults and init options to make a single init object will all
-// options defined from defaults and instance options. Note that the aaData
-// option is removed then re-added to ensure the original data reference is
-// retained. Even if undefined the code below is safe
-var tmpData = oInit.aaData;
-delete oInit.aaData;
-oInit = $.extend( true, {}, defaults, oInit );
-oInit.aaData = tmpData;
+// options defined from defaults and instance options. Note that the aaData must
+// be retained to keep data reference. All other references are broken
+oInit = _save_data( oInit, function () {
+	return $.extend( true, {}, defaults, oInit );
+} );
+
 
 // Map the initialisation options onto the settings object
 _fnMap( oSettings.oFeatures, oInit, [

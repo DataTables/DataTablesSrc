@@ -99,13 +99,28 @@
 	require('core.state.js');
 	require('core.support.js');
 
-	DataTable = function( oInit )
+	DataTable = function( options )
 	{
 		require('api.methods.js');
 		require('api.internal.js');
 
 		var _that = this;
+		var emptyInit = options === undefined;
+		var len = this.length;
+
+		if ( emptyInit ) {
+			options = {};
+		}
+
 		this.each(function() {
+			// For each initialisation we want to give it a clean initialisation
+			// object that can be bashed around
+			var oInit = len > 1 ? // optimisation for single table case
+				_save_data( options, function () {
+					return $.extend( true, {}, options );
+				} ) :
+				options;
+
 			require('core.constructor.js');
 		} );
 		_that = null;
