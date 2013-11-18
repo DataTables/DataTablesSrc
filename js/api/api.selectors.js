@@ -35,8 +35,14 @@ var _selector_opts = function ( opts )
 		opts = {};
 	}
 
+	// Backwards compatibility for 1.9- which used the terminology filter rather
+	// than search
+	if ( opts.filter && ! opts.search ) {
+		opts.search = opts.filter;
+	}
+
 	return {
-		filter: opts.filter || 'none',
+		search: opts.search || 'none',
 		order:  opts.order  || 'current',
 		page:   opts.page   || 'all'
 	};
@@ -72,12 +78,12 @@ var _selector_row_indexes = function ( settings, opts )
 		displayMaster = settings.aiDisplayMaster;
 
 	var
-		filter = opts.filter,  // none, applied, removed
-		order  = opts.order,   // current, index (original - compatibility with 1.9)
-		page   = opts.page;    // all, page
+		search = opts.search,  // none, applied, removed
+		order  = opts.order,   // applied, current, index (original - compatibility with 1.9)
+		page   = opts.page;    // all, current
 
 	// Current page implies that order=current and fitler=applied, since it is
-	// fairly senseless otherwise, regardless of what order and filter actually
+	// fairly senseless otherwise, regardless of what order and search actually
 	// are
 	if ( page == 'current' )
 	{
@@ -86,24 +92,24 @@ var _selector_row_indexes = function ( settings, opts )
 		}
 	}
 	else if ( order == 'current' || order == 'applied' ) {
-		a = filter == 'none' ?
-			displayMaster.slice() :                      // no filter
-			filter == 'applied' ?
-				displayFiltered.slice() :                // applied filter
-				$.map( displayMaster, function (el, i) { // removed filter
+		a = search == 'none' ?
+			displayMaster.slice() :                      // no search
+			search == 'applied' ?
+				displayFiltered.slice() :                // applied search
+				$.map( displayMaster, function (el, i) { // removed search
 					return $.inArray( el, displayFiltered ) === -1 ? el : null;
 				} );
 	}
 	else if ( order == 'index' || order == 'original' ) {
 		for ( i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
-			if ( filter == 'none' ) {
+			if ( search == 'none' ) {
 				a.push( i );
 			}
 			else { // applied | removed
 				tmp = $.inArray( i, displayFiltered );
 
-				if ((tmp === -1 && filter == 'removed') ||
-					(tmp === 1  && filter == 'applied') )
+				if ((tmp === -1 && search == 'removed') ||
+					(tmp === 1  && search == 'applied') )
 				{
 					a.push( i );
 				}
