@@ -16,7 +16,7 @@
 
 		The page length values must always be integer values `> 0`, with the sole exception of `-1`. When `-1` is used as a value this tells DataTables to disable pagination (i.e. display all rows).
 
-		Note that the `dt-init displayLength` property will be automatically set to the first value given in this array, unless `dt-init displayLength` is also provided.
+		Note that the `dt-init pageLength` property will be automatically set to the first value given in this array, unless `dt-init pageLength` is also provided.
 	</description>
 
 	<example title="Show options 10, 25, 50, 75 and 100 records"><![CDATA[
@@ -33,7 +33,7 @@ $('#example').dataTable( {
 
 	<related type="option">paginate</related>
 	<related type="option">lengthChange</related>
-	<related type="option">displayLength</related>
+	<related type="option">pageLength</related>
 	<related type="api">page()</related>
 	<related type="api">page.info()</related>
 	<related type="api">page.len()</related>

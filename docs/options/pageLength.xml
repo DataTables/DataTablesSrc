@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="option">
-	<name>displayLength</name>
+	<name>pageLength</name>
 	<summary>Change the initial page length (number of rows per page)</summary>
 	<since>1.10</since>
 
@@ -15,7 +15,7 @@
 
 	<example title="Show 50 records per page"><![CDATA[
 $('#example').dataTable( {
-  "displayLength": 50
+  "pageLength": 50
 } );
 ]]></example>
 

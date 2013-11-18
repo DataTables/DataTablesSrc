@@ -39,7 +39,7 @@ $('#_10').on( 'click', function () {
 ]]></example>
 
 	<related type="init">paging</related>
-	<related type="init">displayLength</related>
+	<related type="init">pageLength</related>
 	<related type="init">lengthChange</related>
 	<related type="api">page.info()</related>
 </dt-api>

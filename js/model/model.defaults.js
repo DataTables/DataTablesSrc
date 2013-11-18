@@ -301,8 +301,8 @@ DataTable.defaults = {
 	 * position as the value, and the array in the second position as the
 	 * displayed options (useful for language strings such as 'All').
 	 *
-	 * Note that the `displayLength` property will be automatically set to the
-	 * first value given in this array, unless `displayLength` is also provided.
+	 * Note that the `pageLength` property will be automatically set to the
+	 * first value given in this array, unless `pageLength` is also provided.
 	 *  @type array
 	 *  @default [ 10, 25, 50, 100 ]
 	 *
@@ -1334,12 +1334,12 @@ DataTable.defaults = {
 	 *  @default 10
 	 *
 	 *  @dtopt Options
-	 *  @name DataTable.defaults.displayLength
+	 *  @name DataTable.defaults.pageLength
 	 *
 	 *  @example
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
-	 *        "displayLength": 50
+	 *        "pageLength": 50
 	 *      } );
 	 *    } )
 	 */
