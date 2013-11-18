@@ -17,9 +17,16 @@ _api_register( '$()', function ( selector, opts ) {
 
 // jQuery functions to operate on the tables
 $.each( [ 'on', 'one', 'off' ], function (i, key) {
-	_api_register( key+'()', function ( /* ... */ ) {
+	_api_register( key+'()', function ( /* event, handler */ ) {
+		var args = Array.prototype.slice.call(arguments);
+
+		// Add the `dt` namespace automatically if it isn't already present
+		if ( args[0].indexOf( '.dt' ) === -1 ) {
+			args[0] += '.dt';
+		}
+
 		var inst = $( this.tables().nodes() );
-		inst[key].apply( inst, arguments );
+		inst[key].apply( inst, args );
 		return this;
 	} );
 } );
@@ -44,6 +51,7 @@ _api_register( 'data()', function () {
 } );
 
 
+// Remove plugin methods
 _api_register( 'plugin()', function ( type ) {
 	var ctx = this.context;
 

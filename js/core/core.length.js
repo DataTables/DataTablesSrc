@@ -7,7 +7,7 @@ function _fnLengthChange ( settings, val )
 	_fnLengthOverflow( settings );
 
 	// Fire length change event
-	$(settings.oInstance).trigger( 'length', [settings, len] );
+	_fnCallbackFire( settings, null, 'length', [settings, len] );
 }
 
 

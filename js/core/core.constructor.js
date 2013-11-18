@@ -372,8 +372,7 @@ if ( oSettings.oFeatures.bSort )
 				sortedColumns[ val.col ] = val.dir;
 			} );
 
-			$(oSettings.nTable).trigger('sort', [oSettings, aSort, sortedColumns]);
-
+			_fnCallbackFire( oSettings, null, 'sort', [oSettings, aSort, sortedColumns] );
 			_fnSortingClasses( oSettings );
 			_fnSortAria( oSettings );
 		}

@@ -54,7 +54,7 @@ function _fnBuildAjax( oSettings, data, fn )
 			}
 
 			oSettings.json = json;
-			$(instance).trigger('xhr', [oSettings, json]);
+			_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json] );
 			fn( json );
 		},
 		"dataType": "json",

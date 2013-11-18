@@ -115,7 +115,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 
 	/* Tell the draw function we have been filtering */
 	oSettings.bFiltered = true;
-	$(oSettings.oInstance).trigger('filter search', oSettings);
+	_fnCallbackFire( oSettings, null, 'search', [oSettings] );
 }
 
 

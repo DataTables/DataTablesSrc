@@ -29,6 +29,6 @@ function _fnProcessingDisplay ( settings, show )
 		$(settings.aanFeatures.r).css( 'visibility', show ? 'visible' : 'hidden' );
 	}
 
-	$(settings.oInstance).trigger('processing', [settings, show]);
+	_fnCallbackFire( settings, null, 'processing', [settings, show] );
 }
 
