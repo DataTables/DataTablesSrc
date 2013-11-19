@@ -5,8 +5,11 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>cells().invalidate()</signature>
+		<signature>cells().invalidate( [ source ] )</signature>
 		<description>Invalidate information in the selected cells</description>
+		<parameter type="string" name="source" default="auto">
+			Data source to read the new data from. By default, DataTables will automatically read the new data for the cell from the same source as it was originally read (i.e. DOM sourced or Javascript sourced) but this parameter can be used to override that and tell DataTables specifically which should be used to read in the new data. This might be useful if you are Ajax loading data but use the DOM to modify the contents of cells.
+		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with selected cell references in the result set</returns>
 	</type>
 
@@ -30,5 +33,4 @@ table.cell( td ).invalidate().draw();
 	<related type="api">cell().invalidate()</related>
 	<related type="api">cell().data()</related>
 	<related type="api">rows().invalidate()</related>
-	<related type="api">columns().invalidate()</related>
 </dt-api>

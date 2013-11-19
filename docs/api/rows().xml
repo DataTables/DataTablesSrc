@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>rows()</name>
+	<summary>Select multiple rows from a table.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>rows( [ modifier ] )</signature>
+		<description>Select all rows</description>
+		<parameter type="selector-modifier" name="modifier" default="">
+			Option used to specify how the rows should be ordered, and if paging or search options in the table should be taken into account.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected rows</returns>
+	</type>
+	<type type="function">
+		<signature>rows( rowSelector [, modifier ] )</signature>
+		<description>Select rows found by a row selector</description>
+		<parameter type="row-selector" name="rowSelector">
+			Row selector.
+		</parameter>
+		<parameter type="selector-modifier" name="modifier" default="">
+			Option used to specify how the rows should be ordered, and if paging or search options in the table should be taken into account.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected rows in the result set</returns>
+	</type>
+
+	<description>
+		Working with rows is a fundamental part of DataTables, and you want to be able to easily select the rows that you want from the table. This method is the rows counter part to the `dt-api columns()` and `dt-api cells()` methods for working with columns and cells in the table, respectively. Using a selector and the `dt-type selector-modifier` option the rows at the table can be obtained with this method's own chained methods providing the ability to get the data from the rows, the row nodes and to invalidate the data, among other actions.
+
+		While this `dt-api rows()` method provides access to multiple rows with a single call, its plural counterpart `dt-api row()` is used to select and manipulate a single row at a time, allowing finer gain control and additional methods not available in the plural method such as updating data and working with child rows.
+
+		The method has two forms, reflecting the fact the rows can be selected in multiple different ways as your implementation demands:
+
+		* All rows (no parameters, or just a `dt-type selector-modifier` option)
+		* Row selector
+	</description>
+
+	<example title=""><![CDATA[
+]]></example>
+
+	<related type="api">row()</related>
+</dt-api>

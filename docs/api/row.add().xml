@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>row.add()</name>
+	<summary>Add a new row to the table.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>row.add( data )</signature>
+		<description>Add a new row to the table using the given data</description>
+		<description>Select a row found by a row selector</description>
+		<parameter type="array|object" name="data">
+			Data to use for the new row. This may be an array, object or Javascript object instance, but must be in the same format as the other data in the table (i.e. if your table uses objects, pass in an object here!).
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with the newly added row in its result set.</returns>
+	</type>
+
+	<description>
+		Adding new data to a table is central to the concept of being able to dynamically control the content of a DataTable, and this method provides the ability to do exactly that. It will add a single row at a time - for addition of multiple rows, either call this method multiple times, or use this method's plural counterpart: `dt-api rows.add()`.
+
+		This method will add the data to the table internally, but does not visually update the tables display to account for this new data. In order to have the table's display updated, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api row.add()` method's returned object - for example `table.row.add( [ 1, 2, 3, 4 ] ).draw();`. This is done to allow easy optimisation of the table where multiple rows can be added before the table is redrawn.
+	</description>
+
+	<example title="Simply add a new row to the table and redraw"><![CDATA[
+var table = $('#example').DataTable();
+
+table.row.add( {
+		"name":       "Tiger Nixon",
+		"position":   "System Architect",
+		"salary":     "$3,120",
+		"start_date": "2011/04/25",
+		"office":     "Edinburgh",
+		"extn":       "5421"
+	} ).draw();
+]]></example>
+
+	<example title="Add a row and get its newly created node to highlight that it was newly added"><![CDATA[
+var table = $('#example').DataTable();
+
+var rowNode = table
+	.row.add( [ 'Fiona White', 32, 'Edinburgh' ] )
+	.draw()
+	.node();
+
+$( rowNode )
+	.css( 'color', 'red' )
+	.animate( { color: 'black' } );
+
+]]></example>
+
+	<related type="api">rows.add()</related>
+</dt-api>

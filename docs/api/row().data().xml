@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>row().data()</name>
+	<summary>Get / set the data for the selected rows.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>row().data()</signature>
+		<description>Get the data for the selected row</description>
+		<returns type="array|object">Data source object for the data source of the row. This will be an array if you use DOM sourced data, otherwise it will be the array / object / instance that is used to populate the table with data.</returns>
+	</type>
+	<type type="function">
+		<signature>row().data( d )</signature>
+		<description>Set the data for the selected row</description>
+		<parameter type="array|object" name="d">
+			Data to use for the row. This may be an array, object or Javascript object instance, but must be in the same format as the other data in the table (i.e. if your table uses objects, pass in an object here!).
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with the rows retrieved by the selector in the result set.</returns>
+	</type>
+
+	<description>
+		This method is used to work with the data in the row retrieved by the `dt-api row()` selector used. It can be used to get existing data, or set new data to be used for the row.
+
+		Note that when used as a setter, this method sets the data to apply to the table, but does not visually update the tables display to account for this new data. In order to have the table's display updated, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api row().data()` method's returned object - for example `table.row( 0, 0 ).data( 'Updated' ).draw();`. This is done to allow easy optimisation of the table where successive updates can be applied before the table is redrawn.
+	</description>
+
+	<example title="Get the data for a single row when clicked upon"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'tr', function () {
+	console.log( table.row( this ).data() );
+} );
+
+]]></example>
+
+	<example title="Increase a counter when a row is clicked on"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'tr', function () {
+	var d = table.row( this ).data();
+	
+	d.counter++;
+
+	table
+		.row( this )
+		.data( d )
+		.draw();
+} );
+
+// Note that row().invalidate() could also be used for this example case
+
+]]></example>
+
+	<example title="Update all rows in the table, redrawing only when complete"><![CDATA[
+var table = $('#example').DataTable();
+
+table.rows().indexes().each( function (idx) {
+	var d = table.row( idx ).data();
+
+	d.counter++;
+
+	table.row( idx ).data( d );
+} );
+
+// Draw once all updates are done
+table.draw();
+
+]]></example>
+
+
+	<related type="api">rows().data()</related>
+	<related type="api">cell().data()</related>
+</dt-api>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>rows().invalidate()</name>
+	<summary>Invalidate the data held in DataTables for the selected rows</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>rows().invalidate( [ source ] )</signature>
+		<description>Invalidate information in the selected rows</description>
+		<parameter type="string" name="source" default="auto">
+			Data source to read the new data from. By default, DataTables will automatically read the new data for the row from the same source as it was originally read (i.e. DOM sourced or Javascript sourced) but this parameter can be used to override that and tell DataTables specifically which should be used to read in the new data. This might be useful if you are Ajax loading data but use the DOM to modify the contents of cells.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected row references in the result set</returns>
+	</type>
+
+	<description>
+		DataTables holds cached information about the contents of each cell in the table to increase performance of table operations such as ordering and searching. If you were to modify the contents of a cell (for DOM data source tables) or the array / object values (for Ajax / JS source tables) DataTables wouldn't know that this has happened. This method can be used to tell DataTables to re-read the information from the data source for the row (be it from the DOM or objects / arrays - whatever the original data source was).
+
+		This provides an alternative to using `dt-api row().data()` and `dt-api cell().data()` when changing cell values. Typically the `data` methods are preferred over the invalidation methods, as they use less code, but where the invalidation methods really shine is when the data source for the table are external objects which can be updated using that objects own methods.
+	</description>
+
+	<example title="Modify a cell's content using jQuery and then invalidate the row held by DataTables"><![CDATA[
+var table = $('#example').DataTable();
+var tr = $('#example tbody td:eq(0)');
+
+tr.find('td:eq(0)').html( 'Updated' );
+table
+	.rows( tr )
+	.invalidate()
+	.draw();
+]]></example>
+
+	<example title="Using a data object instances and invalidate to update the table after external data changes"><![CDATA[
+var pupils = [
+	new Pupil(),
+	new Pupil(),
+	new Pupil(),
+	new Pupil()
+];
+
+// Create table with data set
+var table = $('#example').DataTable( {
+	data: pupils
+} );
+
+// Modify the data in the data set
+pupils[0].name( 'Fred Green' );
+pupils[3].name( 'Fiona Wilder' );
+
+// Invalidate and redraw all rows
+table
+	.rows()
+	.invalidate()
+	.draw();
+]]></example>
+
+	<related type="api">cells().invalidate()</related>
+	<related type="api">row().invalidate()</related>
+</dt-api>

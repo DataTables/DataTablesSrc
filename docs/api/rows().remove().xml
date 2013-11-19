@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>rows().remove()</name>
+	<summary>Delete the selected rows from the DataTable.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>rows().remove()</signature>
+		<description>Delete the selected rows.</description>
+		<returns type="DataTables.Api">DataTables API instance.</returns>
+	</type>
+
+	<description>
+		This method (and its singular counterpart, `dt-api row().remove()`) removes the selected rows from the DataTable completely, deleting the allocated memory for data and nodes from the browser.
+
+		Please be aware that this method removes the data from the table internally but that action won't be visually shown until the  `dt-api draw()` method is called to update the display. This method can called simply as a chained method of the `dt-api rows().remove()` method's returned object - for example `table.rows().remove().draw();`. This method is used to reduce the number of draws required if multiple rows are being deleted for optimisation.
+	</description>
+
+	<example title="Delete all rows with the class `selected` from the table"><![CDATA[
+var table = $('#example').DataTable();
+
+var rows = table
+	.rows( '.selected' )
+	.remove()
+	.draw();
+]]></example>
+
+	<example title="Remove all rows from a table (this is the same effect as using `dt-api clear()`"><![CDATA[
+var table = $('#example').DataTable();
+
+var rows = table
+	.rows()
+	.remove()
+	.draw();
+]]></example>
+
+	<related type="api">row().remove()</related>
+	<related type="api">clear()</related>
+</dt-api>

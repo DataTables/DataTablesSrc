@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>row().remove()</name>
+	<summary>Delete the selected row from the DataTable.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>row().remove()</signature>
+		<description>Delete the selected row.</description>
+		<returns type="node">`dt-tag tr` row node.</returns>
+	</type>
+
+	<description>
+		This method (and its plural counterpart, `dt-api rows().remove()`) will remove the selected row from the DataTable completely, deleting the allocated memory for data and node from the browser.
+
+		Please be aware that this method removes the data from the table internally but that action won't be visually shown until the  `dt-api draw()` method is called to update the display. This method can called simply as a chained method of the `dt-api rows().remove()` method's returned object - for example `table.rows().remove().draw();`. This method is used to reduce the number of draws required if multiple rows are being deleted for optimisation.
+	</description>
+
+	<example title="Delete a row when a delete icon is clicked upon in the row"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'img.icon-delete', function () {
+	table
+		.row( $(this).parents('tr') )
+		.remove()
+		.draw();
+} );
+]]></example>
+
+	<example title="Trnasfer a row from one table to another (note that this is for DOM sourced tables, use `dt-api row().data()` for other data sources)"><![CDATA[
+var table1 = $('#example1').DataTable();
+var table2 = $('#example2').DataTable();
+
+$('#example tbody').on( 'click', 'img.icon-transfer', function () {
+	var row = table1.row( $(this).parents('tr') );
+	var rowNode = row.node();
+	row.remove();
+
+	table2
+		.row.add( rowNode )
+		.draw();
+} );
+]]></example>
+
+	<related type="api">rows().remove()</related>
+	<related type="api">clear()</related>
+</dt-api>

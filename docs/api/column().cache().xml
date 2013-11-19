@@ -5,12 +5,12 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>columns().cache( type )</signature>
+		<signature>column().cache( type )</signature>
 		<description>Obtain the data for the column from the selector</description>
 		<parameter type="string" name="type">
 			Specify which cache the data should be read from. Can take one of two values: `dt-string search` or `dt-string order`
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with data for each cell in the selected columns in the result set. This is a 1D array with each entry being the data for the cells from the selected column.</returns>
+		<returns type="DataTables.Api">DataTables API instance with data for each cell in the selected column in the result set. This is a 1D array with each entry being the data for the cells from the selected column.</returns>
 	</type>
 
 	<description>

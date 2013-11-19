@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>row()</name>
+	<summary>Select a single row from a table.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>row( rowSelector [, modifier ] )</signature>
+		<description>Select a row found by a row selector</description>
+		<parameter type="row-selector" name="rowSelector">
+			Row selector.
+		</parameter>
+		<parameter type="selector-modifier" name="modifier" default="">
+			Option used to specify how the rows should be ordered, and if paging or search options in the table should be taken into account.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance with selected row in the result set</returns>
+	</type>
+
+	<description>
+		Working with rows is a fundamental part of DataTables, and you want to be able to easily select the rows that you want from the table. This method is the rows counter part to the `dt-api columns()` and `dt-api cells()` methods for working with columns and cells in the table, respectively. Using a selector and the `dt-type selector-modifier` option the rows at the table can be obtained with this method's own chained methods providing the ability to get the data from the rows, the row nodes and to invalidate the data, among other actions.
+
+		Note that if the selector used matches multiple rows, this method will truncate the result to contain just one row, the first matched one. If you require to work with multiple rows at the same time for group manipulation, please use this method's plural counterpart `dt-api rows()` which can select and manipulate multiple rows. 
+	</description>
+
+	<example title=""><![CDATA[
+]]></example>
+
+	<related type="api">rows()</related>
+</dt-api>

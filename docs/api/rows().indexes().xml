@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>rows().indexes()</name>
+	<summary>Get the row indexes of the selected rows.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>rows().indexes()</signature>
+		<description>Get the rows indexes of the selected rows.</description>
+		<returns type="DataTables.Api">DataTables API instance with selected row indexes in the result set.</returns>
+	</type>
+
+	<description>
+		DataTables stores the data for rows and columns in internally indexes which it can utilise for fast operation of ordering, searching etc. It can be useful at times to know what these indexes are, as they can be used for efficient selectors in the `dt-api rows()`, `dt-api columns()` and other API methods which use selectors.
+
+		This method is used to retrieve the indexes of the selected rows which can then be used as part of a selector to update data.
+	</description>
+
+	<example title="Use the indexes in a rows selector to get the data"><![CDATA[
+var table = $('#example').DataTable();
+
+var rows = table.rows( '.selected' ).indexes();
+var data = table.rows( rows ).data();
+
+// Note that you could use `table.rows( '.selected' ).data() here as well!
+// This is just an example showing how indexes can be used!
+
+]]></example>
+
+	<related type="api">row().index()</related>
+</dt-api>

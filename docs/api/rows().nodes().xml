@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>rows().nodes()</name>
+	<summary>Get the row `dt-tag TR` nodes for the selected rows.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>rows().nodes()</signature>
+		<description>Obtain the `dt-tag tr` nodes for the selected rows</description>
+		<returns type="DataTables.Api">DataTables API instance with each row's node from the selected rows in the result set.</returns>
+	</type>
+
+	<description>
+		This method is used to get the nodes of for the row `dt-tag tr` nodes in the rows matched by the selector.
+
+		Please note that the order of the nodes in the returned array and which rows the nodes are obtained from (searched rows, visible rows etc) is controlled by the `dt-type selector-modifier` option of the `dt-api rows()` selector used to get the selected rows.
+
+		Furthermore, please be aware that using `dt-init deferRender` will cause some nodes to be created only when they are required for display, so they might not be immediately available when this method is called.
+	</description>
+
+	<example title="Remove a class from all rows which have that class currently"><![CDATA[
+var table = $('#example').DataTable();
+
+table
+	.rows( '.ready' )
+	.nodes()
+	.to$()      // Convert to a jQuery object
+	.removeClass( 'ready' );
+);
+]]></example>
+
+	<related type="api">row().node()</related>
+</dt-api>

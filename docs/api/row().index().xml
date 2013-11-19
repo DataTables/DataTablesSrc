@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>row().index()</name>
+	<summary>Get the row index of the selected row.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>row().index()</signature>
+		<description>Get the row index of the row column.</description>
+		<returns type="integer">Row index</returns>
+	</type>
+
+	<description>
+		DataTables stores the data for rows and columns in internally indexes which it can utilise for fast operation of ordering, searching etc. It can be useful at times to know what these indexes are, as they can be used for efficient selectors in the `dt-api row()`, `dt-api column()` and other API methods which use selectors.
+
+		This method is used to retrieve the indexes of the selected rows which can then be used as part of a selector to update data.
+	</description>
+
+	<example title="Show an alert with the row index that was clicked upon"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'tr', function () {
+	alert( 'Row index: '+table.row( this ).index() );
+} );
+]]></example>
+
+	<example title="Use the selected row as part of a `dt-api cells()` selector."><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'tr', function () {
+	var idx = table
+		.row( this )
+		.index();
+
+	table
+		.cell( idx, 0 ) // note that you could actually pass in 'this' as the row selector!
+		.data( 'Updated' )
+		.draw();
+} );
+]]></example>
+
+	<related type="api">rows().indexes()</related>
+</dt-api>

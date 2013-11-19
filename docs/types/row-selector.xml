@@ -1,0 +1,6 @@
+
+{}          - no selector - use all available rows
+{integer}   - row aoData index
+{node}      - TR node
+{string}    - jQuery selector to apply to the TR elements
+{array}     - jQuery array of nodes, or simply an array of TR nodes
