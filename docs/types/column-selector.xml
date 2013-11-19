@@ -1,9 +1,6 @@
 
-{integer}           - column index >= 0 (count from left)
-"{integer}"         - column index >= 0 (count from left)
-{integer}           - column index < 0 (count from right)
-"{integer}"         - column index < 0 (count from right)
-"{integer}:visIdx"  - visible column index (i.e. translate to column index)
-"{integer}:visible" - alias for {integer}:visIdx
+{integer}           - column index (>=0 count from left, <0 count from right)
+"{integer}:visIdx"  - visible column index (i.e. translate to column index)  (>=0 count from left, <0 count from right)
+"{integer}:visible" - alias for {integer}:visIdx  (>=0 count from left, <0 count from right)
 "{string}:name"     - column name
 "{string}"          - jQuery selector on column header nodes
