@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows-children">
+	<name>row().child().show()</name>
+	<summary>Make newly defined child rows visible</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>row().child().show()</signature>
+		<description>Show the child row(s) of a parent row</description>
+		<returns type="DataTables.Api">DataTables API instance.</returns>
+	</type>
+
+	<description>
+		When using `dt-api row().child()` to attach child rows to a parent row, you will often want to make the child rows immediately visible. This method provides that ability as a simple chaining method.
+
+		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called immanently after. The child row(s) are inserted into the table without requiring that DataTables redraw.
+	</description>
+
+	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on('click', 'td.details-control', function () {
+	var tr = $(this).parents('tr');
+	var row = table.row( tr );
+
+	if ( row.child.isShown() ) {
+		// This row is already open - close it
+		row.child.hide();
+		tr.removeClass('shown');
+	}
+	else {
+		// Open this row (the format() function would return the data to be shown)
+		row.child( format(row.data()) ).show();
+		tr.addClass('shown');
+	}
+} );
+
+]]></example>
+
+</dt-api>

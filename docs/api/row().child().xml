@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows-children">
+	<name>row().child()</name>
+	<summary>Set / set the child rows of the selected main table row</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>row().child()</signature>
+		<description>Get the child row(s) that have been set for a parent row</description>
+		<returns type="jQuery|undefined">jQuery object with the child rows for the parent row in its result set, or `undefined` if there are no child rows set for the parent yet.</returns>
+	</type>
+
+	<type type="function">
+		<signature>row().child( data [, className ] )</signature>
+		<description>Set the data to show in the child row(s). Note that calling this method will replace any child rows which are already attached to the parent row.</description>
+		<parameter type="string|node|jQuery|array" name="data">
+			The data to be shown in the child row can be given in multiple different ways:
+
+			* `string` - As a string, a single child row is create and the data is inserted into a single cell in that child row.
+			* `node` - As a `dt-tag tr` element, the `dt-tag tr` element is used as the child row. This can be useful it you wish to define multiple columns in the child row.
+			* `jQuery` - A jQuery object with nodes to be added. If there are multiple elements in the jQuery result set, they are added as multiple rows. If the node is `dt-tag tr` element it is treated a the child row, otherwise a row and cell are automatically created and the node from the jQuery result set inserted into it.
+			* `array` - Multiple child rows can be added at a single time by passing any of the above options in as an array. For example you might pass in an array with two string elements in it to create two child rows with the string content used for each.
+		</parameter>
+		<parameter type="string" name="className">
+			Class name that is added to the cell node(s) of the child row(s). This is useful to add additional styling information to the child row to indicate that while it is part of the table's data, it is additional information beyond what is normally shown.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		DataTables has the ability to show child rows for each row (termed a "parent row" in this documentation to distinguish from the child rows). This child rows are attached to each parent row, and can be used, for example, to provide extra information about the parent row, or an editing form. The child rows will always be placed immediately after a parent row (if the child rows are designated to be visible, using the `dt-api row().child.show()` method), regardless of ordering, search terms applied to the table etc. If a parent row is not available in the DataTables' current view, the child rows will not be visible either.
+
+		The contents of the child rows are entirely independent of the main table (other than their position in the document). Ordering, searching etc applied to the table has no effect on the order of the child rows. Each child row is typically contains a single cell, which has a `colspan` attribute set to span the full table width, so the content of the cell covers the full table width. However, it is also possible to pass in a `dt-tag tr` element which has multiple cells (one for each column in the table) to show the child row data in the same column structure as the main table.
+
+		A parent row can have one or more child rows attached to it at a time. However, child rows are treated as one entity by the API, which is to say that they can either all be shown, or all hidden.
+
+		Note that this method does not automatically make the added child row visible. Use the `dt-api row().child().show()` chained method (or `dt-api row().child.show()` as required).
+	</description>
+
+	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on('click', 'td.details-control', function () {
+	var tr = $(this).parents('tr');
+	var row = table.row( tr );
+
+	if ( row.child.isShown() ) {
+		// This row is already open - close it
+		row.child.hide();
+		tr.removeClass('shown');
+	}
+	else {
+		// Open this row (the format() function would return the data to be shown)
+		row.child( format(row.data()) ).show();
+		tr.addClass('shown');
+	}
+} );
+
+]]></example>
+
+	<example title="Create multiple child rows for a single row in the table - the first visible row."><![CDATA[
+var table = $('#example').DataTable();
+
+table.row( ':eq(0)' ).child( [
+		'First child row',
+		'Second child row',
+		'Third child row'
+	] )
+	.show();
+
+]]></example>
+
+	<example title="Add a child row to all rows, passing in a jQuery created `dt-tag tr` element and show all child rows"><![CDATA[
+var table = $('#example').DataTable();
+
+table.rows().flatten().each( function (rowIdx) {
+	table
+		.row( rowIdx )
+		.child(
+			$(
+				'<tr>'+
+					'<td>'+rowIdx+'.1</td>'+
+					'<td>'+rowIdx+'.2</td>'+
+					'<td>'+rowIdx+'.3</td>'+
+					'<td>'+rowIdx+'.4</td>'
+				'</tr>'
+			)
+		)
+		.show();
+} );
+
+]]></example>
+
+</dt-api>

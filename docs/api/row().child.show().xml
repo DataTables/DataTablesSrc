@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows-children">
+	<name>row().child.show()</name>
+	<summary>Make the child row(s) of a parent row visible</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>row().child.show()</signature>
+		<description>Show the child row(s) of a parent row</description>
+		<returns type="DataTables.Api">DataTables API instance.</returns>
+	</type>
+
+	<description>
+		This method can be used to make the child rows of a parent row visible at any time. Child rows can be attached using `dt-api row().child()` but do not have to be made immediately visible. This method provides the option of making those child rows which have already been attached visible.
+
+		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called immanently after. The child row(s) are inserted into the table without requiring that DataTables redraw.
+	</description>
+
+	<example title="Create detail rows initially, but don't show them until the row is clicked upon"><![CDATA[
+var table = $('#example').DataTable();
+
+table.rows().flatten().each( function (rowIdx) {
+	table.row( rowIdx ).child( 'Row details for row: '+rowIdx );
+} );
+
+$('#example tbody').on( 'click', 'tr', function () {
+	var child = table.row( this ).child;
+
+	if ( child.isShown() ) {
+		child.hide();
+	}
+	else {
+		child.show();
+	}
+} );
+
+]]></example>
+
+</dt-api>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows-children">
+	<name>row().child.isShown()</name>
+	<summary>Check if </summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>row().child.isShown()</signature>
+		<description>Check if the child rows of a parent row are visible</description>
+		<returns type="boolean">`true` if child rows are visible, `false` otherwise.</returns>
+	</type>
+
+	<description>
+		When working which child rows in DataTables, you may often wish to know if a parent row's child rows are visible or not. This method provides exactly that ability, returning a boolean value indicating if the child rows are visible or not.
+	</description>
+
+	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on('click', 'td.details-control', function () {
+	var tr = $(this).parents('tr');
+	var row = table.row( tr );
+
+	if ( row.child.isShown() ) {
+		// This row is already open - close it
+		row.child.hide();
+		tr.removeClass('shown');
+	}
+	else {
+		// Open this row (the format() function would return the data to be shown)
+		row.child( format(row.data()) ).show();
+		tr.addClass('shown');
+	}
+} );
+
+]]></example>
+
+</dt-api>

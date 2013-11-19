@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows-children">
+	<name>row().child().hide()</name>
+	<summary>Hide child rows after creating new child rows</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>row().child().hide()</signature>
+		<description>Hide the child row(s) of a parent row</description>
+		<returns type="DataTables.Api">DataTables API instance.</returns>
+	</type>
+
+	<description>
+		The `dt-api row().child()` method, when used to set the child row's data, will retain the state of the child row visibility. So if the parent row's children are visible, they will continue to be so after setting use `dt-api row().child()` to set a new value. This method provides a chaining option to quickly and easily hide the child rows after setting the new child row data.
+
+		It is worth saying that this method is probably of limited use, but it is included in the API for completeness!
+
+		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called immanently after. The child row(s) are inserted into the table without requiring that DataTables redraw.
+	</description>
+
+	<example title="Hide a child row immediately after setting its value"><![CDATA[
+var table = $('#example').DataTable();
+
+// Show an initial child row
+table
+	.row( ':eq(0)' )
+	.child( 'Extra information...' )
+	.show();
+
+// Change the information and hide - without the hide() call the changed
+// information would be visible due to the show() above.
+table
+	.row( ':eq(0)' )
+	.child( 'Different information' )
+	.hide()
+
+]]></example>
+
+</dt-api>
