@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>flatten()</name>
+	<summary>Flatten a 2D array structured API instance to a 1D array structure.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>flatten()</signature>
+		<description>Reduce a 2D array structured API instance to a 1D array structure.</description>
+		<returns type="DataTables.Api">New API instance with the 2D array values reduced to a 1D array.</returns>
+	</type>
+
+	<description>
+		This method will reduce a 2D array structure to a simple 1D structure, which can be particularly useful when working with the plural methods such as `dt-api rows()` and `dt-api columns()` which can return 2D structures data (for example in the columns data, each column has its own array of information).
+
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+	</description>
+
+	<example title="Get the data from two columns in a single array"><![CDATA[
+var table = $('#example').DataTable();
+
+var data = table
+	.columns( [0, 1] )
+	.data()
+	.flatten();
+
+]]></example>
+
+</dt-api>

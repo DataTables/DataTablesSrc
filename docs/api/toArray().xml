@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>toArray()</name>
+	<summary>Create a native Javascript array object from an API instance.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>toArray()</signature>
+		<description>Create a native Javascript array from an API instance.</description>
+		<returns type="array">Javascript array which contains the values from the API instance's result set.</returns>
+	</type>
+
+	<description>
+		The DataTables API object provides a lot of the methods that you would expect to find in a native Javascript array and generally acts a lot like an array, but there are times when you want to work directly with a Javascript array rather than a DataTables API instance. This method can be used to create a native Javascript array which contains the same items as contained in the API instance's result set.
+
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+	</description>
+
+	<example title="Get a plain array of data from a column"><![CDATA[
+var table = $('#example').DataTable();
+
+var plainArray = table
+	.column( 0 )
+	.data()
+	.toArray();
+
+]]></example>
+
+</dt-api>

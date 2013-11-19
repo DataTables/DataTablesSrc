@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>toJQuery()</name>
+	<summary>Convert the API instance to a jQuery object, with the objects from the instance's result set in the jQuery result set.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>toJQuery()</signature>
+		<description>Create a jQuery object from an API instance.</description>
+		<returns type="jQuery">jQuery object which contains the values from the API instance's result set.</returns>
+	</type>
+
+	<description>
+		This method will create a jQuery object from the contents of the API instance's result set. This of primary use when working with the `nodes()` functions of the API such as `dt-api rows().nodes()` and `dt-api column().nodes()`, where it can be useful to easily convert the API instance into an jQuery object, working with the nodes using the chaining methods provided by jQuery.
+
+		Please note that `dt-api to$()` and `dt-api toJQuery()` are identical in functionality. Both methods are provided to cater for the two common forms of how jQuery is used.
+	</description>
+
+	<example title="Add a class to a specific column in the DataTable"><![CDATA[
+var table = $('#example').DataTable();
+
+table
+	.column( 0 )
+	.nodes()
+	.toJQuery()
+	.addClass( 'ready' );
+
+]]></example>
+
+</dt-api>

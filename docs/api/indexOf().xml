@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>indexOf()</name>
+	<summary>Find the first instance of a value in the API instance's result set.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>indexOf( value )</signature>
+		<description>Find the first instance of a value in the API instance's result set.</description>
+		<parameter type="*" name="value">
+			Value to find in the instance's result set.
+		</parameter>
+		<returns type="integer">The index of the item in the result set, or -1 if not found.</returns>
+	</type>
+
+	<description>
+		It is often very useful to know if a value is in a result set, and further, what its position is in the result set if it is present. This method provides exactly that ability, searching for the value given, starting from index 0 (see `dt-api lastIndexOf()` for starting at the end of the array) and giving its position in the result set.
+
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+
+		In this case, this method is a proxy for the Javascript `Array.prototype.indexOf` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `indexOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf). In browsers which do not support `indexOf` natively, a polyfill is provided to allow this DataTables method to operate as expected.
+	</description>
+
+	<example title="Find an item in a column of data"><![CDATA[
+var table = $('#example').DataTable();
+
+var index = table
+	.column( 0 )
+	.data()
+	.indexOf( 21 );
+
+if ( index < 0 ) {
+	alert( '21 was not found in the result set' );
+}
+else {
+	alert( '21 was found at index: '+index );
+}
+
+]]></example>
+
+</dt-api>

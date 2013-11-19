@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>push()</name>
+	<summary>Add one or more items to the end of an API instance's result set.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>push( value_1 [, value_2 [, ...] ] )</signature>
+		<description>Add one or more items to the end of an API instance's result set.</description>
+		<parameter type="*" name="value_1">
+			Item to add to the API instance's result set.
+		</parameter>
+		<parameter type="*" name="value_2">
+			Additional item(s) to add to the API instance's result set. Use as many parameters as you require to add additional items.
+		</parameter>
+		<returns type="integer">The length of the modified API instance</returns>
+	</type>
+
+	<description>
+		Just as with Javascript arrays', since the DataTables API object is "array like", items can be added to a result set using this method. *Pushing* an item onto an API instance adds it to the end of the result set. Items can be added at the start of the result set using `dt-api unshift()` if required.
+
+		This method is a proxy for the Javascript `Array.prototype.push` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `push`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push).
+	</description>
+
+	<example title="Add a value to an array returned for a column's data."><![CDATA[
+var table = $('#example').DataTable();
+
+var data = table
+	.column( 0 )
+	.data();
+
+data.push( 'Fini' );
+
+]]></example>
+
+</dt-api>

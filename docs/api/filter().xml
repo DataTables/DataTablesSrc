@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>filter()</name>
+	<summary>Create a new API instance with all elements from the result set which pass a given test.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>filter( fn )</signature>
+		<description>Iterate over the result set of an API instance and test each item, creating a new instance from those items which pass.</description>
+		<parameter type="function" name="fn">
+			Callback function which is called for each item in the API instance result set. The callback is called with three parameters:
+
+			* The element value
+			* The element index in the result set
+			* The API instance being traversed
+
+			The callback should return `true` if the value is to be included in the new instance's own result set, and false otherwise.
+		</parameter>
+		<returns type="DataTables.Api">New API instance with the values from the result set which passed the test in the callback.</returns>
+	</type>
+
+	<description>
+		The `dt-api filter()` method provides a way of filtering out content in an API instance's result set which does not pass the criteria set by the provided callback method. This method should not be confused with `dt-api search()` which is used to search for records in the DataTable.
+
+		When working with the plural methods such as `dt-api rows()` and `dt-api columns()` you may wish to use the `dt-api flatten()` utility method to reduce the API instance from a 2D array to a 1D array which can be iterated over using this method.
+
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+
+		In this case, this method is a proxy for the Javascript `Array.prototype.filter` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter). In browsers which do not support `filter` natively, a polyfill is provided to allow this DataTables method to operate as expected.
+	</description>
+
+	<example title="Filter data from a column, which is greater than 20"><![CDATA[
+var table = $('#example').DataTable();
+
+var filteredData = table
+	.column( 0 )
+	.data()
+	.filter( function ( value, index ) {
+		return value > 20 ? true : false;
+	} );
+
+]]></example>
+
+</dt-api>

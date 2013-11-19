@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>reverse()</name>
+	<summary>Reverse the result set of the API instance.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>reverse()</signature>
+		<description>Reverse the result set of the API instance and return the original array.</description>
+		<returns type="DataTables.Api">The original API instance with the result set in reversed order.</returns>
+	</type>
+
+	<description>
+		This method will quite simply take the elements in an API instance's result set and reverse the order of those element, in place. This is particularly used when used with the `dt-api sort()` method.
+
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+
+		In this case, this method is a proxy for the Javascript `Array.prototype.reverse` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `reverse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse).
+	</description>
+
+	<example title="Sort and reverse the data froma column"><![CDATA[
+var table = $('#example').DataTable();
+
+var data = table
+	.column( 0 )
+	.data()
+	.sort()
+	.reverse();
+
+]]></example>
+
+</dt-api>

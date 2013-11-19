@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>unique()</name>
+	<summary>Create a new API instance containing only the unique items from a the elements in an instance's result set.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>unique()</signature>
+		<description>Create a new API instance containing only the unique items from a the elements in an instance's result set.</description>
+		<returns type="DataTables.Api">New Api instance which contains the unique items from the original instance's result set, in its own result set.</returns>
+	</type>
+
+	<description>
+		It is often useful to know what data is available in a result set, with duplicate items removed (for example creating a `dt-tag select` list for use as a search input). Although unique items can be found quite trivially with a loop, this utility function provides that ability for you in one simple method.
+
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+	</description>
+
+	<example title="Get the unique data from a column"><![CDATA[
+var table = $('#example').DataTable();
+
+table
+	.column( 0 )
+	.data()
+	.unique();
+
+]]></example>
+
+</dt-api>

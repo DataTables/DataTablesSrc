@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>pluck()</name>
+	<summary>Create a new API instance with the value of a property from the objects in the current result set.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>pluck( property )</signature>
+		<description>Iterate over the result set of an API instance, creating a new API instance from the values retrieved from the original elements.</description>
+		<parameter type="string|integer" name="property">
+			Object property name to use from the element in the original result set for the new result set. This will typically be a string with the target property name, but can also be an array index if working with arrays.
+		</parameter>
+		<returns type="DataTables.Api">New API instance with the values in the result retrieved from the source object properties defined by the property being plucked.</returns>
+	</type>
+
+	<description>
+		When working with objects you may often find that you want an array containing just one property of the source object. This typically involves writing a trivial loop to create that array, although here, that loop is performed in this method, reducing the amount of code required to a trivial function call to get the data required.
+
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+	</description>
+
+	<example title="Pluck the name property from the data objects for the table rows"><![CDATA[
+var table = $('#example').DataTable(
+	"data": [
+		{
+			"name": "Tiger Nixon",
+			"position": "System Architect",
+			"salary": "$3,120",
+			"start_date": "2011/04/25",
+			"office": "Edinburgh",
+			"extn": "5421"
+		},
+		{
+			"name": "Garrett Winters",
+			"position": "Director",
+			"salary": "$5,300",
+			"start_date": "2011/07/25",
+			"office": "Edinburgh",
+			"extn": "8422"
+		},
+		{
+			"name": "Ashton Cox",
+			"position": "Technical Author",
+			"salary": "$4,800",
+			"start_date": "2009/01/12",
+			"office": "San Francisco",
+			"extn": "1562"
+		}
+	],
+	"columns": [
+		{ "data": "name" },
+		{ "data": "position" },
+		{ "data": "office" },
+		{ "data": "extn" },
+		{ "data": "start_date" },
+		{ "data": "salary" }
+	]
+);
+
+var names = table
+	.rows()
+	.data()
+	.pluck( 'name' );
+
+]]></example>
+
+</dt-api>

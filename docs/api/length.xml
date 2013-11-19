@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>length</name>
+	<summary>Number of elements in an API instance's result set.</summary>
+	<since>1.10</since>
+
+	<type type="integer" />
+
+	<description>
+		This option defines the number of elements that are stored in an API instance's result set.
+
+		This property makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+
+		In this case, this property is basically the same as the `Array.length` property. For more information about the original property, please refer to the [Mozilla MDN documentation for `length`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length).
+	</description>
+
+	<example title="Use `length` to determine how many rows there are in the table"><![CDATA[
+var table = $('#example').DataTable();
+
+alert(
+	'Number of row entries: '+
+	table
+		.column( 0 )
+		.data()
+		.length
+);
+
+]]></example>
+
+</dt-api>

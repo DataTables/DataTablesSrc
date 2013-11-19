@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>splice()</name>
+	<summary>Modify the contents of an Api instance's result set, adding or removing items from it as required.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>splice( index, howMany [, value_1 [, ... ] ] )</signature>
+		<description>Modify the contents of an Api instance's result set, adding or removing items from it as required.</description>
+		<parameter type="integer" name="index">
+			Index at which to start modifying the Api instance's result set.
+		</parameter>
+		<parameter type="integer" name="howMany">
+			Number of elements to remove from the result set. This can be 0 if you wish to only add new items.
+		</parameter>
+		<parameter type="*" name="value_1">
+			Item to add to the result set at the index specified by the first parameter. Multiple items can be added in a single call by adding them as additional parameters.
+		</parameter>
+		<returns type="Array">An array of the items which were removed. If no elements were removed, an empty array is returned.</returns>
+	</type>
+
+	<description>
+		The methods of `dt-api pop()`, `dt-api shift()` etc can be useful to modify an Api instance's result set, but they are restricted to operating at the start of the end of the result set. This method can be used to modify the result set at any point.
+
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+
+		In this case, this method is a proxy for the Javascript `Array.prototype.splice` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `splice`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice).
+	</description>
+
+	<example title="Search for a value using `dt-api indexOf()` and replace it using `dt-api splice()` if found."><![CDATA[
+var table = $('#example').DataTable();
+
+// Get column data
+var data = table
+	.column( 0 )
+	.data();
+
+// Find the first instance of `32`
+var idx = data.indexOf( 32 );
+
+// Replace with `33`
+if ( idx >= 0 ) {
+	data.splice( idx, 1, 33 );
+}
+
+]]></example>
+
+</dt-api>

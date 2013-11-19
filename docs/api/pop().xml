@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>pop()</name>
+	<summary>Remove the last item from an API instance's result set.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>pop()</signature>
+		<description>Remove the last item from an API instance's result set.</description>
+		<returns type="*">Item removed form the result set (was previously the last item in the result set).</returns>
+	</type>
+
+	<description>
+		Just as with Javascript arrays', since the DataTables API object is "array like", items can be removed from a result set using this method. *Popping* a result, pops it off the end. The API instance's result set is reduced in length by 1 and the item that was removed is returned from the function call. `dt-api shift()` can be used to perform the same action, but at the start of the array, if required.
+
+		This method is a proxy for the Javascript `Array.prototype.pop` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `pop`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop).
+	</description>
+
+	<example title="Get the last item from a column."><![CDATA[
+var table = $('#example').DataTable();
+
+var data = table
+	.column( 0 )
+	.data();
+
+var lastItem = data.pop();
+
+alert( 'Last item in the result set was: '+lastItem );
+
+]]></example>
+
+</dt-api>

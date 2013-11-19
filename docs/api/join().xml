@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>join()</name>
+	<summary>Join the elements in the result set into a string.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>join( separator )</signature>
+		<description>Join the elements in the API instance's result set into a string.</description>
+		<parameter type="string" name="separator">
+			The string that will be used to separate each element of the result set.
+		</parameter>
+		<returns type="string">Contents of the instance's result set joined together as a single string.</returns>
+	</type>
+
+	<description>
+		This method operates in exactly the same way as the Javascript array `join` method, combining the contents of the array (in this case the API instance) into a single string.
+
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+
+		In this case, this method is a proxy for the Javascript `Array.prototype.join` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for concat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).
+	</description>
+
+	<example title="Create a comma separated string of the data in a column"><![CDATA[
+var table = $('#example').DataTable();
+
+var combinedData = table
+	.column( 0 )
+	.data()
+	.join( ', ' );
+
+]]></example>
+
+</dt-api>
