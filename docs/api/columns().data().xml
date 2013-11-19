@@ -34,7 +34,7 @@ $('#listData').html(
 var table = $('#example').DataTable();
 
 var idx = table
-	.columns( '.check:jq' )
+	.columns( '.check' )
 	.data()
 	.flatten() // Flatten the 2D array into a 1D array of data
 	.indexOf( 'Yes' );

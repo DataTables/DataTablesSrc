@@ -20,7 +20,7 @@
 	<example title="Hide all columns with a class of '.detail'"><![CDATA[
 var table = $('#example').DataTable();
 
-table.columns( '.detail:jq' ).visible( false );
+table.columns( '.detail' ).visible( false );
 ]]></example>
 
 	<related type="api">column().visible()</related>

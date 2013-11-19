@@ -5,5 +5,5 @@
 "{integer}"         - column index < 0 (count from right)
 "{integer}:visIdx"  - visible column index (i.e. translate to column index)
 "{integer}:visible" - alias for {integer}:visIdx
-"{string}"          - column name
-"{string}:jq"       - jQuery selector on column header nodes
+"{string}:name"     - column name
+"{string}"          - jQuery selector on column header nodes

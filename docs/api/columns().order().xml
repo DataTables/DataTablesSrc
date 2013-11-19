@@ -24,7 +24,7 @@
 	<example title="Sort by all columns with the class '.status'"><![CDATA[
 var table = $('#example').DataTable();
 
-table.columns( '.status:jq' ).order( 'desc' );
+table.columns( '.status' ).order( 'desc' );
 ]]></example>
 
 	<related type="option">order</related>

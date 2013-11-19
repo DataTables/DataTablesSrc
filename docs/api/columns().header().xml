@@ -20,7 +20,7 @@
 var table = $('#example').DataTable();
 
 table
-	.columns( '.highlight:jq' )
+	.columns( '.highlight' )
 	.header()
 	.to$()
 	.removeClass( 'highlight' );

@@ -41,7 +41,7 @@
 var table = $('#example').DataTable();
 
 table
-	.columns( '.status:jq' )
+	.columns( '.status' )
 	.search( 'Important' )
 	.draw();
 ]]></example>
