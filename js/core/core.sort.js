@@ -160,7 +160,6 @@ function _fnSort ( oSettings )
 
 	/* Tell the draw function that we have sorted the data */
 	oSettings.bSorted = true;
-	_fnCallbackFire( oSettings, null, 'order', [oSettings] );
 }
 
 

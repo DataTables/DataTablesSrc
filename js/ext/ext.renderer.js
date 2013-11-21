@@ -6,7 +6,7 @@ $.extend( true, DataTable.ext.renderer, {
 			// No additional mark-up required
 
 			// Attach a sort listener to update on sort
-			$(settings.nTable).on( 'sort', function ( e, settings, sorting, columns ) {
+			$(settings.nTable).on( 'order.dt', function ( e, settings, sorting, columns ) {
 				cell
 					.removeClass(
 						column.sSortingClass +' '+
@@ -31,7 +31,7 @@ $.extend( true, DataTable.ext.renderer, {
 				.appendTo( cell );
 
 			// Attach a sort listener to update on sort
-			$(settings.nTable).on( 'sort', function ( e, settings, sorting, columns ) {
+			$(settings.nTable).on( 'order.dt', function ( e, settings, sorting, columns ) {
 				cell
 					.removeClass( classes.sSortAsc +" "+classes.sSortDesc )
 					.addClass( columns[ idx ] == 'asc' ?

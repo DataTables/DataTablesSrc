@@ -367,7 +367,7 @@ if ( oSettings.oFeatures.bSort )
 				sortedColumns[ val.col ] = val.dir;
 			} );
 
-			_fnCallbackFire( oSettings, null, 'sort', [oSettings, aSort, sortedColumns] );
+			_fnCallbackFire( oSettings, null, 'order', [oSettings, aSort, sortedColumns] );
 			_fnSortingClasses( oSettings );
 			_fnSortAria( oSettings );
 		}
