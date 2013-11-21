@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page>
+	<title>Technical notes</title>
+
+	<summary>
+	<![CDATA[
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+The following collection of technical notes contain information about the errors that DataTables can report, additional information about error states which are not directly reported by the Javascript (such as CSS rendering issues) and general topics of interest when working with DataTables (often extensions to forum discussion answers).
+
+If you have encountered an issue that you think would benefit from a detailed explanation, please post a request in the [forums](/forums), or [send me a message](/contact).
+
+
+## Technical notes
+
+{category-navigation}
+
+	]]>
+	</content>
+</dt-page>

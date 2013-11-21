@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page>
+	<title></title>
+
+	<css lib="datatables" />
+	<js lib="jquery datatables">
+	<![CDATA[
+		$(document).ready( function () {
+
+		} );
+	]]>
+	</js>
+
+	<summary>
+	<![CDATA[
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+	]]>
+	</content>
+</dt-page>
