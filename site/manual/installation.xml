@@ -34,7 +34,7 @@ DataTables has only one library dependency (other software upon which it relies 
 For DataTables to be able to enhance an HTML table, the table must be valid, well formatted HTML, with a header (`dt-tag thead`) and a body (`dt-tag tbody`). An optional footer (`dt-tag tfoot`) can also be used.
 
 ```html
-<table id="table_id">
+<table id="table_id" class="display">
     <thead>
         <tr>
             <th>Column 1</th>
