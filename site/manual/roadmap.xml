@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="12">
+	<title>Development roadmap</title>
+
+	<summary>
+	<![CDATA[
+
+DataTables is a constantly evolving project, with new capabilities and options regularly being added to the core library and its supporting plug-ins. This document sets out the long term vision for DataTables, describing the features and abilities of upcoming versions.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+DataTables is a constantly evolving project, with new capabilities and options regularly being added to the library and its supporting plug-ins. Rather than new features being added to the core on-the-fly, there is a long term plan for DataTables and how we get there is well mapped out. There are a lot of exciting developments planned for DataTables and your feedback on where DataTables is going is always very welcome.
+
+If you are interested in sponsoring DataTables development, please do [get in touch](/contact) to discuss how your assistance can help DataTables move forwards.
+
+
+## Mission statement
+
+> To enhance the accessibility of data in HTML tables.
+
+Note that the word "accessibility" in this context is used to refer to data consumption by all users of an HTML table. As a result, DataTables is focused on ensuring that data is beautifully presented, in a readable and usable manner for end users, while presenting the tools that developers need to create such a table.
+
+Along with the mission statement, the following four keywords steer DataTables code development:
+
+* Modular
+* Capable
+* Fast
+* Extensible
+
+
+## Versions
+
+The following lists the planned major versions of DataTables, detailing the areas that these updates will focus on, including new features and API updates.
+
+### v1.10 - [now in beta!](/download)
+
+API update. The DataTables API has not significantly changed since the first release, other than the addition of a few new methods. This release will focus on making the API much more approachable for developers new to the library, while also making the API more capable and extensible for current developers.
+
+* Redesigned API
+  * New methods will focus on how you expect to use the table:
+    * row.data
+    * row.add
+    * column.data
+    * column.visibility
+    * filter
+    * filter.column
+    * etc
+  * All of the old methods will be provided through an abstraction layer to ensure backwards compatibility is maintained!
+  * No more Hungarian notation in the API
+  * Plug-ins - new methods can easily be created and added to the API
+* Methods called on table collections will be applied to all tables in the collection
+* Improved jQuery compatibility - where nodes can be passed into a method, jQuery objects will also be supported
+* Improved column referencing - where a column index can be passed in, `sName` could be used to reference a named column
+
+### v1.11
+
+Modularisation. DataTables 1.9 started us down the path to full modularisation of DataTables, and this release's primary goal will be to complete this work. With the core features broken into independent modules, DataTables will be entirely configurable for how you want to use it, in terms of what code is included. For example, at the moment DataTables is one large core file when downloaded, but you might want only the server-side processing module. With this release you will be able to customise DataTables so that only server-side processing is included, saving a very significant amount of file space. Equally, if you didn't wish to use the filtering module DataTables has by default, that can be replaced with a custom filtering implementation.
+
+* Sorting and filtering independence from columns - although mDataProp provides a lot of options, if you wish to sort or filter on data, currently that data must be placed into a column - this release will remove that dependence.
+* sDom update - sDom is very useful, but also rather difficult to understand, particularly when a complex configuration is used!
+* Renderers - the modules included in DataTables core will provide customisable renderers and post rendering hooks, for where HTML is output, allowing complete customisation of the controls. For example for this would allow customisation of the table headers to have an `&lt;i&gt;` tag to use for the sorting icon.
+* Live Dom sorting / filtering - a better solution than `sortDataType`!
+
+### v1.12
+
+Likely completion of the 1.x series of DataTables, before moving to 2.x development.
+
+* Instance based filtering and sorting extensibility modules, rather than the current global methods
+* Filtering and sorting core features as pluggable modules, so they can be replaced completely by other methods. One example is to use web-workers to background the processing 'threads', rather than blocking the UI.
+* Customer builder - an online selection list of features and plug-ins that you can select from to build a customised version of DataTables.
+
+
+## Web-site / documentation
+
+Solid documentation is extremely important for a library such as DataTables, and a lot of work has thus far to ensure that the documentation is both relevant and useful for developers, particularly with v1.9. There is a strong commitment to keep the documentation at as high a standard as possible.
+
+In the same vain, the documentation for DataTables is tightly tied to the DataTables.net web-site and this will be updated to improve accessibility of the documentation.
+
+
+## Backwards compatibility
+
+All software developers know the pain of upgrading a library and realising that the API has changed. For this reason, the DataTables project is committed to ensuring backwards compatibility as much as possible in the 1.x series, so you'll get no nasty surprises when upgrading!
+
+
+## Extras
+
+Extras such as [Editor](//editor.datatables.net) for DataTables each have their own roadmap and will be developed in tandem with DataTables core, but not as part of the core (they are independent from the core after all!).
+
+	]]>
+	</content>
+</dt-page>
