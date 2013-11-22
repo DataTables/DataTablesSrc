@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page comments="yes">
+	<title>Events</title>
+
+	<summary>
+	<![CDATA[
+
+Knowing when DataTables has performed an operation can often play an important role in a complex and dynamic web-application. For this reason, DataTables will fire custom DOM events, which can be listened for using [jQuery's on()](http://api.jquery.com/on/) method, and the `dt` namespace.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+It can often be useful to know when DataTables has performed a particular operation, for example a page draw, so other dependent elements can be updated to take account of the change. To provide this ability, DataTables will fire custom DOM events which can be listened for, and then acted upon, using either the `dt-api on()` method or [jQuery's `on()`](http://api.jquery.com/on/) method. DataTables' custom events work in exactly the same way as standard DOM events, and allow event driven actions, which is particularly useful for plug-ins.
+
+For a full list of the events that DataTables will trigger, please refer to the [event reference documentation](/reference/events).
+
+## Listening for events
+
+As noted above, you can use either the `dt-api on()` or [jQuery's `on()`](http://api.jquery.com/on/) method to listen for events. `dt-api on()` works in exactly the same way as `$().on()`, which provision for namespaces and multiple events.
+
+**Please be aware that all DataTables events are triggered with the `dt` namespace.** This namespacing of events is to prevent clashes with custom events triggered by other Javascript libraries. As such, you should append `.dt` to the name of the event(s) that you are listening for (when using `dt-api on()` the namespace is automatically appended if required). Because of the way namespaces work in jQuery, you can use the `dt` namespace and your own custom namespace(s) if you wish to use a namespace.
+
+For example, to listen for the draw event in a DataTable:
+
+```js
+var table = $('#example').DataTable();
+
+table.on( 'draw', function () {
+	alert( 'Table redrawn' );
+} );
+```
+
+This could also be written as:
+
+```js
+$('#example').on( 'draw.dt', function () {
+	alert( 'Table redraw' );
+} );
+```
+
+Note the use of the `dt` namespace when using the jQuery `on()` method, while the `dt-api on()` method will automatically append the namespace for you.
+
+
+## Removing events
+
+As with `$().on()` DataTables events can be remove with `dt-api off()` and [`$().off()`](http://api.jquery.com/off/). It is important to remove events from objects which no longer exist (before they are destroyed) to allow the Javascript engine's garbage collector to release the memory allocated for the events and the objects it has attached to.
+
+Further to this, a single event can be listened for with `dt-api one()` or [`$().one()`](http://api.jquery.com/one/), where the event handler will be removed immediately after the event has been triggered for the first time.
+
+
+## Bubbling
+
+As with typical DOM events, the DataTables custom events bubble up through the document, so you can listen for events using the delegate form of `$().on()` or on other elements which are higher up the DOM tree.
+
+This can be useful, for example, to know when a new DataTable has been created, which can be listened for using the `dt-event init` event thus:
+
+```js
+$(document).on( 'init.dt', function ( e, settings ) {
+	var api = new $.fn.dataTable.Api( settings );
+
+	console.log( 'New DataTable created:', api.table().node() );
+} );
+```
+
+Similarly, this method could also be useful with the `dt-event json` event which will let you know what JSON data was returned from the server from the last DataTables initiated Ajax query.
+
+A full list of the events that DataTables can trigger is available in the [event reference documentation](/reference/events).
+	]]>
+	</content>
+</dt-page>

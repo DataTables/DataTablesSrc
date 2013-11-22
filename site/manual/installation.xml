@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-page>
+<dt-page comments="yes">
 	<title>Installation</title>
 
 	<summary>
@@ -111,7 +111,7 @@ That's almost it! We've got the HTML table we want to enhance, and we've got all
 
 ```js
 $(document).ready( function () {
-    $('#table_id').dataTable();
+    $('#table_id').DataTable();
 } );
 ```
 

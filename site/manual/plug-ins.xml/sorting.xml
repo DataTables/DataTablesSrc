@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-page comments="yes">
-	<title>3. Cannot reinitialise DataTable</title>
+	<title>Sorting plug-in development</title>
 
 	<summary>
 	<![CDATA[
@@ -10,6 +10,8 @@
 
 	<content>
 	<![CDATA[
+
+Documentation for DataTables 1.10 still under development... Please bear with me while the gaps are filled in!
 
 	]]>
 	</content>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page comments="yes">
+	<title>Internationalisation</title>
+
+	<summary>
+	<![CDATA[
+
+DataTables adds several controls to a document when it enhances a table, many of which utilise language strings in one way or another to convey the usage to the end user. These default strings are in English, but can easily be translated into other language, or the strings customised. There are over 50 translations provided by the community ready to be used.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+DataTables adds several controls to a document when it enhances a table, many of which utilise language strings in one way or another to convey the usage to the end user. These default strings are in English, but can easily be translated into other language, or customised to suit the exact styling of the data represented by your table.
+
+There are over 50 translations provided by the community [ready to be used](/plug-ins/i18n) making integration of DataTables into your native language super easy!
+
+
+## Configuration
+
+The language options used by DataTables are configured through the `dt-api language` configuration option. This is an object with the strings used by each part of DataTables described by a parameter. The full list of language options is available in the `dt-api language` documentation reference.
+
+The language options are configured in exactly the same way as the [other configuration options](/manual/options) in DataTables, as part of the initialisation object. This example shows how the search string can be altered:
+
+
+```js
+$('#example').DataTable( {
+	language: {
+		search: "Search in table:"
+	}
+} );
+
+As with the other initialisation options, you can chance as many or as few of the options as you wish. Those you don't provide a value for will use the DataTables defaults. This example shows every language option used to display the DataTables interface in French:
+
+```js
+$('#example').DataTable( {
+	language: {
+		"processing":     "Traitement en cours...",
+		"search":         "Rechercher&nbsp;:",
+		"sLengthMenu":    "Afficher _MENU_ &eacute;l&eacute;ments",
+		"info":           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+		"infoEmpty":      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+		"infoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+		"infoPostFix":    "",
+		"loadingRecords": "Chargement en cours...",
+		"zeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+		"emptyTable":     "Aucune donnée disponible dans le tableau",
+		"paginate": {
+			"first":      "Premier",
+			"previous":   "Pr&eacute;c&eacute;dent",
+			"next":       "Suivant",
+			"last":       "Dernier"
+		},
+		"aria": {
+			"sortAscending":  ": activer pour trier la colonne par ordre croissant",
+			"sortDescending": ": activer pour trier la colonne par ordre décroissant"
+		}
+	}
+} );
+```
+
+
+## Ajax loading a translation
+
+For convenience, DataTables provides the option of loading language information from a remote file via Ajax. This is configured through the `dt-init language.url` option. For example we might have:
+
+```js
+$('#example').DataTable( {
+	language: {
+		url: '/localisation/fr_FR.json'
+	}
+} );
+```
+
+As with the other options in `dt-init language` the file loaded by Ajax can specify as many or as few options as you require for the DataTables language option. Any options which are not specified will use the DataTables default values.
+
+
+## Available translations
+
+The DataTables community have collectively submitted more than 50 translations of the default English language strings, which are readily available for you to use in your project. These are available in the [plug-ins section of this site](/plug-ins/i18n).
+
+	]]>
+	</content>
+</dt-page>
