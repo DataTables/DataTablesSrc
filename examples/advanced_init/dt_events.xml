@@ -16,9 +16,9 @@ $(document).ready(function() {
 	}
 
 	$('#example')
-		.on( 'order',  function () { eventFired( 'order' ); } )
-		.on( 'search', function () { eventFired( 'Filter' ); } )
-		.on( 'page',   function () { eventFired( 'Page' ); } )
+		.on( 'order.dt',  function () { eventFired( 'Order' ); } )
+		.on( 'search.dt', function () { eventFired( 'Search' ); } )
+		.on( 'page.dt',   function () { eventFired( 'Page' ); } )
 		.dataTable();
 } );
 
@@ -26,7 +26,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-DataTables fires a number of custom events which you can bind to in the standard jQuery fashion, allowing your code to perform custom actions when these events occur.
+DataTables fires a number of custom events which you can bind to in the standard jQuery fashion (although note that the namespace `dt` _must_ be used), allowing your code to perform custom actions when these events occur.
+
+All custom events fired by DataTables are fired with the namespace `dt` in order to prevent conflicts arising with other jQuery plug-ins which also fire events. The DataTables `dt-api on()` method can be used like the jQuery `on()` method, but will automatically append the `dt` namespace if required.
 
 This example shows the use of the `dt-event sort`, `dt-event search` and `dt-event page` events by adding a notification that the event fired to an element on the page to show that they have indeed fired.
 
