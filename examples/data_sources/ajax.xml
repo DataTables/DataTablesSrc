@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="2">
+<dt-example table-type="ajax" order="2">
 
 <css lib="datatables" />
 <js lib="jquery" />
@@ -10,7 +10,7 @@
 
 $(document).ready(function() {
 	$('#example').dataTable( {
-		"ajax": '../ajax/sources/arrays.txt'
+		"ajax": '../ajax/data/arrays.txt'
 	} );
 } );
 
