@@ -55,6 +55,7 @@ table.columns( '.select-filter' ).flatten().each( function ( colIdx ) {
 		.appendTo(
 			table.column(colIdx).footer()
 		)
+		.append( $('<option value=""></option>') )
 		.on( 'change', function () {
 			table
 				.column( colIdx )
