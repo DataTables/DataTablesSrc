@@ -99,11 +99,8 @@ if ( oInit.aLengthMenu && ! oInit.iDisplayLength )
 }
 
 // Apply the defaults and init options to make a single init object will all
-// options defined from defaults and instance options. Note that the aaData must
-// be retained to keep data reference. All other references are broken
-oInit = _save_data( oInit, function () {
-	return $.extend( true, {}, defaults, oInit );
-} );
+// options defined from defaults and instance options.
+oInit = _fnExtend( $.extend( true, {}, defaults ), oInit );
 
 
 // Map the initialisation options onto the settings object

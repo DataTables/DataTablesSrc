@@ -178,34 +178,3 @@ var _unique = function ( src )
 	return out;
 };
 
-
-/**
- * Clone an object (the clone is done in the callback so the parameters can be
- * defined externally and with a closure), while preserving the references to
- * the parameters `data` and `aaData`. This is required during the
- * initialisation of DataTables so that each table that is initialisation (if
- * multiple are at the same time) get clean objects, while keeping the data
- * reference if there is one).
- *
- * @param  {object} src Source object to preserve the data property of
- * @param  {function} fn Cloning function
- * @return {object} Copied object
- * @ignore
- */
-var _save_data = function ( o, fn ) {
-	var d1 = o.aaData;
-	var d2 = o.data;
-
-	delete o.aaData;
-	delete o.data;
-
-	var out = fn();
-
-	o.aaData = d1;
-	out.aaData = d1;
-	o.data = d2;
-	out.data = d2;
-
-	return out;
-};
-

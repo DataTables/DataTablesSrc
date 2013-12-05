@@ -115,10 +115,9 @@
 		this.each(function() {
 			// For each initialisation we want to give it a clean initialisation
 			// object that can be bashed around
+			var o = {};
 			var oInit = len > 1 ? // optimisation for single table case
-				_save_data( options, function () {
-					return $.extend( true, {}, options );
-				} ) :
+				_fnExtend( o, options, true ) :
 				options;
 
 			require('core.constructor.js');
