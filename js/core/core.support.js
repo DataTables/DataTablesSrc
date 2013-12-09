@@ -111,6 +111,9 @@ function _fnExtend( out, extender, breakRefs )
 			val = extender[prop];
 
 			if ( $.isPlainObject( val ) ) {
+				if ( ! $.isPlainObject( out[prop] ) ) {
+					out[prop] = {};
+				}
 				$.extend( true, out[prop], val );
 			}
 			else if ( breakRefs && prop !== 'data' && prop !== 'aaData' && $.isArray(val) ) {
