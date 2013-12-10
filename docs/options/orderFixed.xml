@@ -4,10 +4,27 @@
 	<summary>Ordering to always be applied to the table</summary>
 	<since>1.10</since>
 
-	<type type="array" />
+	<type type="array">
+		<description>
+			Prefix ordering.
+
+			When given as an array, the ordering specified by `dt-init orderFixed` will be applied as a prefix order. The format of the array is the same as for the `dt-init order` option, and can be a 1D array for a single column order, or a 2D array for a multi-column order.
+		</description>
+	</type>
+	<type type="object">
+		<description>
+			Prefix and / or postfix ordering.
+
+			When given as an object, the `pre` and / or `post` parameters can be used to specify prefix and / or postfix ordering, respectively. neither option is required, so you can specify the option that you need only.
+
+			As with the simple array format, the format of the arrays used are the same as for the `dt-init order` option, and can be a 1D array for a single column order, or a 2D array for a multi-column order.
+		</description>
+	</type>
 
 	<description>
-		The option works in tandem with the `dt-init order` option, and is identical in its usage, but differs in that the sorting defined in this option will always be applied to the table before any user selected sorting.
+		The option works in tandem with the `dt-init order` option which provides an initial ordering state for the table which can then be modified by the user clicking on column headings, while the ordering specified by this option will always be applied to the table, regardless of user interaction.
+
+		This fixed ordering can be applied before or after the user's own ordering criteria using the two different forms of this option (array or object).
 
 		This may be useful if you a column (visible or hidden) which must always be sorted upon first - a priority order or index column for example, or for grouping similar rows together.
 	</description>
@@ -15,6 +32,31 @@
 	<example title="The first column will always be sorted upon first"><![CDATA[
 $('#example').dataTable( {
 	"orderFixed": [ 0, 'asc' ]
+} );
+]]></example>
+
+	<example title="As above, the first colum is fixed ordering, but in object form"><![CDATA[
+$('#example').dataTable( {
+	"orderFixed": {
+		"pre": [ 0, 'asc' ]
+	}
+} );
+]]></example>
+
+	<example title="The first and second column will always be ordered upon last (postfix) - note how a 2D array is used to specify multiple columns for postfix ordering."><![CDATA[
+$('#example').dataTable( {
+	"orderFixed": {
+		"post": [[ 0, 'asc' ], [ 1, 'asc' ]]
+	}
+} );
+]]></example>
+
+	<example title="Both postfix and prefix options specified"><![CDATA[
+$('#example').dataTable( {
+	"orderFixed": {
+		"pre": [ 0, 'asc' ],
+		"post": [ 1, 'asc' ]
+	}
 } );
 ]]></example>
 

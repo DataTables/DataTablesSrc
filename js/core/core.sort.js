@@ -8,7 +8,35 @@ function _fnSortFlatten ( settings )
 		aiOrig = [],
 		aoColumns = settings.aoColumns,
 		aDataSort, iCol, sType,
-		nestedSort = settings.aaSortingFixed.concat( settings.aaSorting );
+		fixed = settings.aaSortingFixed,
+		fixedObj = $.isPlainObject( fixed ),
+		nestedSort = [],
+		add = function ( a ) {
+			if ( a.length && ! $.isArray( a[0] ) ) {
+				// 1D array
+				nestedSort.push( a );
+			}
+			else {
+				// 2D array
+				nestedSort.push.apply( nestedSort, a );
+			}
+		};
+
+	// Build the sort array, with pre-fix and post-fix options if they have been
+	// specified
+	if ( $.isArray( fixed ) ) {
+		add( fixed );
+	}
+
+	if ( fixedObj && fixed.pre ) {
+		add( fixed.pre );
+	}
+
+	add( settings.aaSorting );
+
+	if (fixedObj && fixed.post ) {
+		add( fixed.post );
+	}
 
 	for ( i=0 ; i<nestedSort.length ; i++ )
 	{
@@ -49,7 +77,6 @@ function _fnSort ( oSettings )
 		aoColumns = oSettings.aoColumns,
 		aDataSort, data, iCol, sType, oSort,
 		formatters = 0,
-		nestedSort = oSettings.aaSortingFixed.concat( oSettings.aaSorting ),
 		sortCol,
 		displayMaster = oSettings.aiDisplayMaster,
 		aSort = _fnSortFlatten( oSettings );
