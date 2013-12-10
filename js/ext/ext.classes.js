@@ -1,6 +1,7 @@
 
 $.extend( DataTable.ext.classes, {
 	"sTable": "dataTable",
+	"sNoFooter": "no-footer",
 
 	/* Paging buttons */
 	"sPageButton": "paginate_button",

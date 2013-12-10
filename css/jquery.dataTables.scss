@@ -267,6 +267,11 @@ table.dataTable {
 			}
 		}
 	}
+
+	&.no-footer {
+		border-bottom: $table-header-border;
+		margin-bottom: 0.5em;
+	}
 }
 
 // Its not uncommon to use * {border-box} now, but it messes up the column width

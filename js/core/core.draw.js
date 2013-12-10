@@ -154,7 +154,7 @@ function _fnBuildHead( oSettings )
 	if ( tfoot !== null ) {
 		var cells = oSettings.aoFooter[0];
 
-		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
+		for ( i=0, ien=cells.length ; i<ien ; i++ ) {
 			column = columns[i];
 			column.nTf = cells[i].cell;
 
