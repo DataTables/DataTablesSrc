@@ -1,0 +1,8 @@
+License information for DataTables.
+
+DataTables source code is available under the MIT license - see license-mit.txt.
+
+DataTables documentation and examples are available under the Creative Commons
+Attribution-ShareAlike 4.0 license - see license-cc-by-sa4.txt
+
+Please see http://datatables.net/license for further information.
