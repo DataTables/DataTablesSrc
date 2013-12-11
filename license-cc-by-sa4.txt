@@ -1,4 +1,4 @@
-This CC BY-SA 4.0 license applies to the DataTables documentation, web-site content and examples contained in the `docs`, `site` and `examples` directories, respectively, unless otherwise noted in a specific file.
+This CC BY-SA 4.0 license applies to the DataTables documentation and web-site content contained in the `docs` and `site` directories, respectively, unless otherwise noted in a specific file.
 
 http://creativecommons.org/licenses/by-sa/4.0/legalcode
 
