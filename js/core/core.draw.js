@@ -369,7 +369,7 @@ function _fnDraw( oSettings )
 	{
 		/* Table is empty - create a row with an empty message in it */
 		var sZero = oLang.sZeroRecords;
-		if ( oSettings.iDraw == 1 && oSettings.sAjaxSource !== null && !bServerSide )
+		if ( oSettings.iDraw == 1 && (oSettings.sAjaxSource || oSettings.ajax) && !bServerSide )
 		{
 			sZero = oLang.sLoadingRecords;
 		}
