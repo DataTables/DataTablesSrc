@@ -99,7 +99,7 @@ function _fnSort ( oSettings )
 	}
 
 	/* No sorting required if server-side or no sorting array */
-	if ( !oSettings.oFeatures.bServerSide && aSort.length !== 0 )
+	if ( _fnDataSource( oSettings ) != 'ssp' && aSort.length !== 0 )
 	{
 		// Create a value - key array of the current row positions such that we can use their
 		// current position during the sort, if values match, in order to perform stable sorting

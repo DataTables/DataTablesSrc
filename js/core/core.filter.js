@@ -92,7 +92,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 	_fnColumnTypes( oSettings );
 
 	/* In server-side processing all filtering is done by the server, so no point hanging around here */
-	if ( !oSettings.oFeatures.bServerSide )
+	if ( _fnDataSource( oSettings ) != 'ssp' )
 	{
 		/* Global filter */
 		_fnFilter( oSettings, oInput.sSearch, iForce, oInput.bRegex, oInput.bSmart, oInput.bCaseInsensitive );

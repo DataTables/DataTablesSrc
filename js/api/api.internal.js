@@ -118,7 +118,8 @@ this.oApi = this.internal = {
 	_fnCallbackReg: _fnCallbackReg,
 	_fnCallbackFire: _fnCallbackFire,
 	_fnLengthOverflow: _fnLengthOverflow,
-	_fnRenderer: _fnRenderer
+	_fnRenderer: _fnRenderer,
+	_fnDataSource: _fnDataSource
 };
 
 $.extend( DataTable.ext.internal, this.internal );

@@ -424,7 +424,7 @@ if ( oInit.aaData )
 		_fnAddData( oSettings, oInit.aaData[ i ] );
 	}
 }
-else if ( oSettings.bDeferLoading || (oSettings.sAjaxSource === null && oSettings.ajax === null) )
+else if ( oSettings.bDeferLoading || _fnDataSource( oSettings ) == 'dom' )
 {
 	/* Grab the data from the page - only do this when deferred loading or no Ajax
 	 * source since there is no point in reading the DOM data if we are then going

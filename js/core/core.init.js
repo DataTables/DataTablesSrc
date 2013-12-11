@@ -48,9 +48,10 @@ function _fnInitialise ( settings )
 	_fnReDraw( settings );
 
 	// Server-side processing init complete is done by _fnAjaxUpdateDraw
-	if ( ! features.bServerSide ) {
+	var dataSrc = _fnDataSource( settings );
+	if ( dataSrc != 'ssp' ) {
 		// if there is an ajax source load the data
-		if ( settings.sAjaxSource || settings.ajax ) {
+		if ( dataSrc == 'ajax' ) {
 			_fnBuildAjax( settings, [], function(json) {
 				var aData = _fnAjaxDataSrc( settings, json );
 

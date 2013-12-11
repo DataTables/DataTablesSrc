@@ -251,3 +251,23 @@ function _fnRenderer( settings, type )
 	return host._;
 }
 
+
+/**
+ * Detect the data source being used for the table. Used to simplify the code
+ * a little (ajax) and to make it compress a little smaller.
+ *
+ *  @param {object} settings dataTables settings object
+ *  @returns {string} Data source
+ *  @memberof DataTable#oApi
+ */
+function _fnDataSource ( settings )
+{
+	if ( settings.oFeatures.bServerSide ) {
+		return 'ssp';
+	}
+	else if ( settings.ajax || settings.sAjaxSource ) {
+		return 'ajax';
+	}
+	return 'dom';
+}
+

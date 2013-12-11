@@ -773,8 +773,8 @@ DataTable.models.oSettings = {
 	 */
 	"fnRecordsTotal": function ()
 	{
-		return this.oFeatures.bServerSide ?
-			parseInt(this._iRecordsTotal, 10) :
+		return _fnDataSource( this ) == 'ssp' ?
+			this._iRecordsTotal * 1 :
 			this.aiDisplayMaster.length;
 	},
 
@@ -784,8 +784,8 @@ DataTable.models.oSettings = {
 	 */
 	"fnRecordsDisplay": function ()
 	{
-		return this.oFeatures.bServerSide ?
-			parseInt(this._iRecordsDisplay, 10) :
+		return _fnDataSource( this ) == 'ssp' ?
+			this._iRecordsDisplay * 1 :
 			this.aiDisplay.length;
 	},
 

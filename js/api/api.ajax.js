@@ -1,7 +1,7 @@
 
 
 var __reload = function ( settings, holdPosition, callback ) {
-	if ( settings.oFeatures.bServerSide ) {
+	if ( _fnDataSource( settings ) == 'ssp' ) {
 		_fnReDraw( settings, holdPosition );
 	}
 	else {

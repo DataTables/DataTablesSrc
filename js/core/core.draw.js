@@ -294,7 +294,7 @@ function _fnDraw( oSettings )
 	var iOpenRows = oSettings.aoOpenRows.length;
 	var oLang = oSettings.oLanguage;
 	var iInitDisplayStart = oSettings.iInitDisplayStart;
-	var bServerSide = oSettings.oFeatures.bServerSide;
+	var bServerSide = _fnDataSource( oSettings ) == 'ssp';
 	var aiDisplay = oSettings.aiDisplay;
 
 	oSettings.bDrawing = true;
@@ -369,7 +369,7 @@ function _fnDraw( oSettings )
 	{
 		/* Table is empty - create a row with an empty message in it */
 		var sZero = oLang.sZeroRecords;
-		if ( oSettings.iDraw == 1 && (oSettings.sAjaxSource || oSettings.ajax) && !bServerSide )
+		if ( oSettings.iDraw == 1 &&  _fnDataSource( oSettings ) == 'ajax' )
 		{
 			sZero = oLang.sLoadingRecords;
 		}
