@@ -82,7 +82,7 @@ function build_js {
 
 	if [ ! $DEBUG ]; then
 		echo "/*! DataTables $VERSION
- * ©2008-$(date +%Y) Allan Jardine - datatables.net/license
+ * ©2008-$(date +%Y) SpryMedia Ltd - datatables.net/license
  */" > $OUT_MIN_FILE
 
 		echo_section "JS min"
