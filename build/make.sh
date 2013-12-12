@@ -8,7 +8,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BASE_DIR="${SCRIPT_DIR}/.."
 BUILD_DIR="${BASE_DIR}/built"
 
-SYNC_BRANCH="1_10_wip"
+SYNC_BRANCH="master"
 VERSION=$(grep " * @version     " ${BASE_DIR}/js/DataTables.js | awk -F" " '{ print $3 }')
 CMD=$1
 
