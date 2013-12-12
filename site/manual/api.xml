@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-page order="5" comments="yes">
+<dt-page order="5" comments="yes" main-nav="yes">
 	<title>API</title>
 
 	<summary>
