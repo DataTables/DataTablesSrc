@@ -47,13 +47,13 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 							'<code class="event" title="Event">'.$html.'</code>'.
 						'</a>';
 				}
-				else if ( $matches[1] === 'tag ' ) {
+				else if ( $matches[1] === 'tag ' || $matches[1] === 'dt-tag ' ) {
 					$formatted = '<code class="tag" title="HTML tag">'.$html.'</code>';
 				}
-				else if ( $matches[1] === 'path ' ) {
+				else if ( $matches[1] === 'path ' || $matches[1] === 'dt-path ' ) {
 					$formatted = '<code class="path" title="File path">'.$html.'</code>';
 				}
-				else if ( $matches[1] === 'string ' ) {
+				else if ( $matches[1] === 'string ' || $matches[1] === 'dt-string ' ) {
 					$formatted = '<code class="string" title="String">'.$html.'</code>';
 				}
 				else {
