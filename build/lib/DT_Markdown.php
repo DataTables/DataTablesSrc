@@ -67,5 +67,37 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 
 		return $text;
 	}
+
+	// Automatically add anchor tags to headers
+	function _doHeaders_callback_setext($matches) {
+		if ($matches[3] == '-' && preg_match('{^- }', $matches[1]))
+			return $matches[0];
+		$level = $matches[3]{0} == '=' ? 1 : 2;
+		$attr  = $this->_doHeaders_attr($id =& $matches[2]);
+
+		$text = $this->runSpanGamut($matches[1]);
+		$anchor = $this->_doHeaderAnchor( $text );
+		$block =
+			'<a name="'.$anchor.'"></a>'.
+			"<h$level$attr data-anchor=\"".$anchor."\">".$text."</h$level>";
+		return "\n" . $this->hashBlock($block) . "\n\n";
+	}
+
+	function _doHeaders_callback_atx($matches) {
+		$level = strlen($matches[1]);
+		$attr  = $this->_doHeaders_attr($id =& $matches[3]);
+
+		$text = $this->runSpanGamut($matches[2]);
+		$anchor = $this->_doHeaderAnchor( $text );
+		$block =
+			'<a name="'.$anchor.'"></a>'.
+			"<h$level$attr data-anchor=\"".$anchor."\">".$text."</h$level>";
+		return "\n" . $this->hashBlock($block) . "\n\n";
+	}
+
+
+	function _doHeaderAnchor( $text ) {
+		return str_replace(' ', '-', $text);
+	}
 }
 ?>
