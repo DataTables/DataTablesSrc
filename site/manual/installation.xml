@@ -84,7 +84,7 @@ To include DataTables on your page simply include the following HTML:
 <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
  
 <!-- DataTables -->
-<script type="text/javascript" charset="utf8" src=//cdn.datatables.net/{dt-release-version}/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/{dt-release-version}/js/jquery.dataTables.js"></script>
 ```
 
 ### Local installation
@@ -101,7 +101,7 @@ Simply [download the latest version](/download) of DataTables and upzip the down
 <script type="text/javascript" charset="utf8" src="/{dt-release-version}/js/jquery.js"></script>
  
 <!-- DataTables -->
-<script type="text/javascript" charset="utf8" src=/{dt-release-version}/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="/{dt-release-version}/js/jquery.dataTables.js"></script>
 ```
 
 
