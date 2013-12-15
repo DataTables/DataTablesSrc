@@ -107,7 +107,7 @@ So if you want to use one of the selector methods to select multiple items, use 
 
 [API reference documentation](/reference/api) contains an example for each API method, along with a details description of what it does, what it returns and what parameters it will accept, but lets form the concepts described above into a detailed, line-by-line example of how the DataTables API can be used. In this case we create a `dt-tag select` element in the footer cell of each column in the table, which contains the data from that column and will be used for searching the table.
 
-```
+```js
 var table = $('#example').DataTable();
 
 table.columns().flatten().each( function ( colIdx ) {

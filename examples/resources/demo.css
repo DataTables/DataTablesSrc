@@ -142,8 +142,8 @@ div.box {
 
 
 code {
-	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-	padding: 2px 4px;
+	font-family: "Source Code Pro", Consolas, Menlo, Monaco, "Courier New", monospace;
+	padding: 1px 4px;
 	font-size: 0.8em;
 
 	color: #444;
