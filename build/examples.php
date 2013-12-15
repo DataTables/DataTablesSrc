@@ -52,6 +52,19 @@ $additional_libs = array(
 	'js'  => array()
 );
 
+// Default libraries
+DT_Example::$lookup_libraries['css']['datatables']          = $dir_media.'/css/jquery.dataTables.css';
+DT_Example::$lookup_libraries['css']['datatables-jqueryui'] = $dir_media.'/css/jquery.dataTables_themeroller.css';
+
+DT_Example::$lookup_libraries['js']['jquery']      = $dir_media.'/js/jquery.js';
+DT_Example::$lookup_libraries['js']['datatables']  = $dir_media.'/js/jquery.dataTables.js';
+
+// Temporary libraries until the DT CDN is up
+DT_Example::$lookup_libraries['css']['datatables-bootstrap'] = path_simplify( $dir_media.'/../examples/resources/bootstrap/3/dataTables.bootstrap.css' );
+DT_Example::$lookup_libraries['js']['datatables-bootstrap']  = path_simplify( $dir_media.'/../examples/resources/bootstrap/3/dataTables.bootstrap.js' );
+DT_Example::$lookup_libraries['css']['datatables-foundation'] = path_simplify( $dir_media.'/../examples/resources/foundation/dataTables.foundation.css' );
+DT_Example::$lookup_libraries['js']['datatables-foundation']  = path_simplify( $dir_media.'/../examples/resources/foundation/dataTables.foundation.js' );
+
 
 function multiple ( $value, $fn )
 {
@@ -65,6 +78,7 @@ function multiple ( $value, $fn )
 	}
 }
 
+
 /*
  * Command line options
  */
@@ -76,7 +90,15 @@ foreach ($options as $key => $value) {
 		case "css":
 			multiple( $value, function ( $val ) {
 				$a = explode(':', $val);
-				DT_Example::$lookup_libraries['css'][$a[0]] = realpath( $a[1] );
+
+				if ( strpos($a[1], '//') === 0 ) {
+					DT_Example::$lookup_libraries['css'][$a[0]] = $a[1];
+				}
+				else {
+					$get = explode('?', $a[1]);
+					DT_Example::$lookup_libraries['css'][$a[0]] =
+						realpath( $get[0] ).( count($get)>1 ? '?'.$get[1] : '' );
+				}
 			} );
 			break;
 
@@ -84,7 +106,15 @@ foreach ($options as $key => $value) {
 		case "js":
 			multiple( $value, function ( $val ) {
 				$a = explode(':', $val);
-				DT_Example::$lookup_libraries['js'][$a[0]] = realpath( $a[1] );
+
+				if ( strpos($a[1], '//') === 0 ) {
+					DT_Example::$lookup_libraries['js'][$a[0]] = $a[1];
+				}
+				else {
+					$get = explode('?', $a[1]);
+					DT_Example::$lookup_libraries['js'][$a[0]] =
+						realpath( $get[0] ).( count($get)>1 ? '?'.$get[1] : '' );
+				}
 			} );
 			break;
 
@@ -118,19 +148,6 @@ foreach ($options as $key => $value) {
 			break;
 	}
 }
-
-// Default libraries
-DT_Example::$lookup_libraries['css']['datatables']          = $dir_media.'/css/jquery.dataTables.css';
-DT_Example::$lookup_libraries['css']['datatables-jqueryui'] = $dir_media.'/css/jquery.dataTables_themeroller.css';
-
-DT_Example::$lookup_libraries['js']['jquery']      = $dir_media.'/js/jquery.js';
-DT_Example::$lookup_libraries['js']['datatables']  = $dir_media.'/js/jquery.dataTables.js';
-
-// Temporary libraries until the DT CDN is up
-DT_Example::$lookup_libraries['css']['datatables-bootstrap'] = path_simplify( $dir_media.'/../examples/resources/bootstrap/3/dataTables.bootstrap.css' );
-DT_Example::$lookup_libraries['js']['datatables-bootstrap']  = path_simplify( $dir_media.'/../examples/resources/bootstrap/3/dataTables.bootstrap.js' );
-DT_Example::$lookup_libraries['css']['datatables-foundation'] = path_simplify( $dir_media.'/../examples/resources/foundation/dataTables.foundation.css' );
-DT_Example::$lookup_libraries['js']['datatables-foundation']  = path_simplify( $dir_media.'/../examples/resources/foundation/dataTables.foundation.js' );
 
 //print_r( DT_Example::$lookup_libraries );
 
@@ -613,6 +630,11 @@ function toc_structure ( &$examples )
 
 function path_resolve( $from, $to )
 {
+	//echo $from.'   '.$to."\n";
+	if ( ! $to ) {
+		echo "Empty $ to\n";
+		return '';
+	}
 	$from = path_simplify( $from );
 	$to = path_simplify( $to );
 
