@@ -25,7 +25,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	{
 		$that = $this;
 		$text = preg_replace_callback(
-			'/^(dt\-init |dt\-api |dt\-event |tag |path |string )?(.*)$/m',
+			'/^(dt\-init |dt\-api |dt\-event |dt\-tag |tag |dt\-path |path |dt\-string |string )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
 
