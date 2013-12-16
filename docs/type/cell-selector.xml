@@ -1,6 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type>
+	<description>
 falsy (all strings)
 node
 jQuery selector string
 array of jQuery selector strings
 array of nodes
 jQuery object
+	</description>
+</dt-type>

@@ -1,6 +1,12 @@
-
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type>
+	<description>
+<![CDATA[
 {integer}           - column index (>=0 count from left, <0 count from right)
 "{integer}:visIdx"  - visible column index (i.e. translate to column index)  (>=0 count from left, <0 count from right)
 "{integer}:visible" - alias for {integer}:visIdx  (>=0 count from left, <0 count from right)
 "{string}:name"     - column name
 "{string}"          - jQuery selector on column header nodes
+]]>
+	</description>
+</dt-type>

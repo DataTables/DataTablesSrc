@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-event>
+<dt-api>
 	<name>ajax.url()</name>
 	<summary>Reload the table data from the Ajax data source</summary>
 	<since>1.10</since>
@@ -51,4 +51,4 @@ table.ajax.url( 'newData.json' ).load();
 	<related type="api">ajax.url().load()</related>
 	<related type="api">ajax.reload()</related>
 	<related type="event">xhr</related>
-</dt-option>
+</dt-api>

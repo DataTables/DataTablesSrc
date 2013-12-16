@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type>
+	<description>
+<![CDATA[
+integer - table index
+node - table node
+string - jQuery selector
+]]>
+	</description>
+</dt-type>

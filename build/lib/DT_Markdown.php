@@ -25,26 +25,32 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	{
 		$that = $this;
 		$text = preg_replace_callback(
-			'/^(dt\-init |dt\-api |dt\-event |dt\-tag |tag |dt\-path |path |dt\-string |string )?(.*)$/m',
+			'/^(dt\-init |dt\-api |dt\-event |dt\-tag |tag |dt\-path |dt\-type |path |dt\-string |string )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
 
 				if ( $matches[1] === 'dt-init ' ) {
 					$formatted =
-						'<a href="//datatables.net/init/'.urlencode($matches[2]).'">'.
+						'<a href="//datatables.net/reference/option/'.$this->_doUrlEncode($matches[2]).'">'.
 							'<code class="option" title="Initialisation option">'.$html.'</code>'.
 						'</a>';
 				}
 				else if ( $matches[1] === 'dt-api ' ) {
 					$formatted =
-						'<a href="//datatables.net/api/'.urlencode($matches[2]).'">'.
+						'<a href="//datatables.net/reference/api/'.$this->_doUrlEncode($matches[2]).'">'.
 							'<code class="api" title="API method">'.$html.'</code>'.
 						'</a>';
 				}
 				else if ( $matches[1] === 'dt-event ' ) {
 					$formatted =
-						'<a href="//datatables.net/event/'.urlencode($matches[2]).'">'.
+						'<a href="//datatables.net/reference/event/'.$this->_doUrlEncode($matches[2]).'">'.
 							'<code class="event" title="Event">'.$html.'</code>'.
+						'</a>';
+				}
+				else if ( $matches[1] === 'dt-type ' ) {
+					$formatted =
+						'<a href="//datatables.net/reference/type/'.$this->_doUrlEncode($matches[2]).'">'.
+							'<code class="type" title="Parameter type">'.$html.'</code>'.
 						'</a>';
 				}
 				else if ( $matches[1] === 'tag ' || $matches[1] === 'dt-tag ' ) {
@@ -66,6 +72,14 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		);
 
 		return $text;
+	}
+
+	function _doUrlEncode ( $url ) {
+		// rfc3986 says that ( and ) and valid in a URL and it makes the methods look nicer
+		$str = urlencode( $url );
+		$str = str_replace('%28', '(', $str);
+		$str = str_replace('%29', ')', $str);
+		return $str;
 	}
 
 	// Automatically add anchor tags to headers

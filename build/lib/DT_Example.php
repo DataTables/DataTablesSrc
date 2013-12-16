@@ -125,8 +125,9 @@ class DT_Example
 		$template = str_replace( '{css-libs}',      $this->_format_libs('css'),      $template );
 		$template = str_replace( '{js-libs}',       $this->_format_libs('js'),       $template );
 		$template = str_replace( '{css-lib-files}', $this->_format_lib_files('css'), $template );
-		$template = str_replace( '{js-lib-files}', $this->_format_lib_files('js'),   $template );
-		$template = str_replace( '{table}',        $tableHtml,                       $template );
+		$template = str_replace( '{js-lib-files}',  $this->_format_lib_files('js'),  $template );
+		$template = str_replace( '{table}',         $tableHtml,                      $template );
+		$template = str_replace( '{year}',          date('Y'),                       $template );
 
 		if ( isset( $xml->{'demo-html'} ) ) {
 			$template = str_replace( '{demo-html}', $this->innerXML($xml->{'demo-html'}), $template );

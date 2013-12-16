@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-event>
+<dt-api>
 	<name>ajax.json()</name>
 	<summary>Get the latest JSON data obtained from the last Ajax request DataTables made</summary>
 	<since>1.10</since>
@@ -34,4 +34,4 @@ table.on( 'xhr', function () {
 	<related type="api">ajax.url().load()</related>
 	<related type="api">ajax.reload()</related>
 	<related type="event">xhr</related>
-</dt-option>
+</dt-api>

@@ -26,7 +26,7 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-	<related type="retrieve">retrieve</related>
+	<related type="init">retrieve</related>
 	<related type="api">destroy</related>
 	<related type="api">ajax.reload()</related>
 	<related type="event">destroy</related>

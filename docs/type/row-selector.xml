@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type>
+	<description>
+<![CDATA[
+{}          - no selector - use all available rows
+{integer}   - row aoData index
+{node}      - TR node
+{string}    - jQuery selector to apply to the TR elements
+{array}     - jQuery array of nodes, or simply an array of TR nodes
+]]>
+	</description>
+</dt-type>

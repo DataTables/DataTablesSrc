@@ -16,4 +16,4 @@
 	<related type="api">ajax.url().load()</related>
 	<related type="api">ajax.reload()</related>
 	<related type="event">xhr</related>
-</dt-option>
+</dt-api>
