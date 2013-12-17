@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-api group="paging">
+<dt-api group="core">
 	<name>page()</name>
 	<summary>Get / set the current page of the table.</summary>
 	<since>1.10</since>

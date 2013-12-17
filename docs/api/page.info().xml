@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-api group="paging">
+<dt-api group="core">
 	<name>page.info()</name>
 	<summary>Get paging information about the table</summary>
 	<since>1.10</since>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-api group="order">
+<dt-api group="core">
 	<name>order.listener()</name>
 	<summary>Add an ordering listener to an element, for a given column.</summary>
 	<since>1.10</since>

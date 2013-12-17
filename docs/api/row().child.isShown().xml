@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-api group="rows-children">
+<dt-api group="rows">
 	<name>row().child.isShown()</name>
-	<summary>Check if </summary>
+	<summary>Check if the child rows of a parent row are visible</summary>
 	<since>1.10</since>
 
 	<type type="function">

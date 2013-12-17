@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-api group="rows-children">
+<dt-api group="rows">
 	<name>row().child()</name>
 	<summary>Set / set the child rows of the selected main table row</summary>
 	<since>1.10</since>

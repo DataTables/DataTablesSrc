@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-option group="options">
+<dt-option group="option">
 	<name>pagingType</name>
 	<summary>Pagination button display options</summary>
 	<since>1.10</since>

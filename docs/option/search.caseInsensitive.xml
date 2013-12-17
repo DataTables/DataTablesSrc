@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-option group="options">
+<dt-option group="option">
 	<name>search.caseInsensitive</name>
 	<summary>Control case-sensitive filtering option.</summary>
 	<since>1.10</since>

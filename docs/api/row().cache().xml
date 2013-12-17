@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="rows">
 	<name>row().cache()</name>
-	<summary>Get the DataTables cached data for the selected riw.</summary>
+	<summary>Get the DataTables cached data for the selected row.</summary>
 	<since>1.10</since>
 
 	<type type="function">

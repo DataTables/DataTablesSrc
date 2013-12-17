@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-option group="options">
+<dt-option group="option">
 	<name>search.smart</name>
 	<summary>Enable / disable DataTables' smart filtering</summary>
 	<since>1.10</since>

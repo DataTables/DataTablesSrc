@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-api group="columns order">
+<dt-api group="columns">
 	<name>column().order()</name>
 	<summary>Order the table by the selected column.</summary>
 	<since>1.10</since>
