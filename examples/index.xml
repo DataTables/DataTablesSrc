@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example order="0">
+
+<title>Index</title>
+
+<info><![CDATA[
+
+One of the best ways of learning how to do anything new (including software APIs!) is to get your hands dirty as quickly as possible. These examples will show you how to perform tasks ranging from something as simple as applying DataTables to an HTML table, right the way through to doing server-side processing with pipelining and custom plug-in functions.
+
+]]></info>
+
+</dt-example>
