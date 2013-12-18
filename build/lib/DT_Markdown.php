@@ -21,6 +21,14 @@ function DT_Markdown($text, $default_claases = array()){
 }
 
 class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
+	function DT_Markdown_Parser()
+	{
+		$this->block_gamut['doColumns'] = 13;
+		$this->block_gamut['doGrid'] = 12;
+		parent::MarkdownExtra_Parser();
+	}
+
+
 	function makeCodeSpan( $code )
 	{
 		$that = $this;
@@ -112,6 +120,74 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 
 	function _doHeaderAnchor( $text ) {
 		return str_replace(' ', '-', $text);
+	}
+
+
+
+	function doGrid ( $text ) {
+		$that = $this;
+		$text = preg_replace_callback('
+			{
+				^
+				# 1: Opening marker
+				(
+					\|{3,} # Marker: three or more pipes
+				)
+
+				# 2: Content
+				(
+					(?>
+						(?!\1 [ ]* \n)	# Not a closing marker.
+						.*\n+
+					)+
+				)
+				
+				# Closing marker.
+				\1 [ ]* \n
+			}xm',
+			function ($matches) use ($that) {
+				$grid = '<div class="grid">'.$this->runBlockGamut($matches[2]).'</div>';
+				return "\n\n".$that->hashBlock($grid)."\n\n";
+			},
+			$text
+		);
+		
+		return $text;
+	}
+
+
+	function doColumns ( $text ) {
+		$that = $this;
+		$text = preg_replace_callback('
+			{
+				^
+				# 1: Opening marker
+				(
+					\|{2} # Marker: two pipes
+				)
+
+				# 2: Column class
+				[ ]?(.*?) [ ]* \n # Whitespace and newline following marker.
+				
+				# 3: Content
+				(
+					(?>
+						(?!\1 [ ]* \n)	# Not a closing marker.
+						.*\n+
+					)+
+				)
+				
+				# Closing marker.
+				\1 [ ]* \n
+			}xm',
+			function ($matches) use ($that) {
+				$column = '<div class="unit w-'.$matches[2].'">'.$this->runBlockGamut($matches[3]).'</div>';
+				return "\n\n".$that->hashBlock($column)."\n\n";
+			},
+			$text
+		);
+		
+		return $text;
 	}
 }
 ?>

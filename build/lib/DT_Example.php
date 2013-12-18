@@ -111,7 +111,7 @@ class DT_Example
 		}
 
 		// Build data
-		$tableHtml = $this->_build_table( (string)$xml['table-type'] );
+		$tableHtml = $this->build_table( (string)$xml['table-type'] );
 
 		//echo $tableHtml;
 		
@@ -272,7 +272,7 @@ class DT_Example
 	}
 
 
-	private function _build_table ( $type )
+	public function build_table ( $type )
 	{
 		if ( $type === '' || $type === null ) {
 			return '';
@@ -283,7 +283,7 @@ class DT_Example
 			$t = '';
 
 			for ( $i=0, $ien=count($a) ; $i<$ien ; $i++ ) {
-				$t .= $this->_build_table( $a[$i] );
+				$t .= $this->build_table( $a[$i] );
 			}
 
 			return $t;
