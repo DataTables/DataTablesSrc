@@ -39,6 +39,7 @@ $longopts  = array(
 	"index-template:"
 );
 
+$options = getopt( $shortopts, $longopts );
 
 /*
  * Initial settings
@@ -51,6 +52,13 @@ $additional_libs = array(
 	'css' => array(),
 	'js'  => array()
 );
+
+if ( isset( $options['m'] ) ) {
+	$dir_media = $options['m'];
+}
+else if ( isset( $options['media'] ) ) {
+	$dir_media = $options['media'];
+}
 
 // Default libraries
 DT_Example::$lookup_libraries['css']['datatables']          = $dir_media.'/css/jquery.dataTables.css';
@@ -82,7 +90,6 @@ function multiple ( $value, $fn )
 /*
  * Command line options
  */
-$options = getopt( $shortopts, $longopts );
 
 foreach ($options as $key => $value) {
 	switch( $key ) {
