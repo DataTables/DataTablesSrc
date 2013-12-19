@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-page order="1" comments="yes" main-nav="yes">
-	<title>Styling</title>
+	<title>Default styling options</title>
+
+	<css>
+		th, td code { white-space: nowrap; }
+	</css>
 
 	<js>
+	<![CDATA[
 $(document).ready( function () {
-	$('table.display').DataTable( {
+	$('table.demo').DataTable( {
 		paging: false,
 		searching: false,
-		lengthChange: false
-		info: false
+		lengthChange: false,
+		info: false,
+		destroy: true
 	} );
 } );
+	]]>
 	</js>
 
 	<summary>
@@ -44,9 +51,11 @@ You can use any combination of these class names to built up the table style you
 Each option is demonstrated individually in an example table below, so you can see each how each component will style the table. Remember that you can add multiple classes to each table, for example you have have `class="stripe hover"` to have a table which shows both row striping and mouse hover styling.
 
 
-## `display` - Short-hand for `stripe`, `hover`, `row-border` and `order-column`.
+## `display`
 
-<table class="display" width="100%">
+Short-hand for `stripe`, `hover`, `row-border` and `order-column`.
+
+<table class="demo display" width="100%">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -104,9 +113,11 @@ Each option is demonstrated individually in an example table below, so you can s
 </table>
 
 
-## `stripe` - Row striping.
+## `stripe`
 
-<table class="stripe" width="100%">
+Row striping.
+
+<table class="demo stripe" width="100%">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -164,9 +175,11 @@ Each option is demonstrated individually in an example table below, so you can s
 </table>
 
 
-## `hover` - Row highlighting on mouse hover
+## `hover`
 
-<table class="hover" width="100%">
+Row highlighting on mouse hover
+
+<table class="demo hover" width="100%">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -224,9 +237,11 @@ Each option is demonstrated individually in an example table below, so you can s
 </table>
 
 
-## `cell-border` - Border around all four side of each cell
+## `cell-border`
 
-<table class="cell-border" width="100%">
+Border around all four side of each cell
+
+<table class="demo cell-border" width="100%">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -284,9 +299,11 @@ Each option is demonstrated individually in an example table below, so you can s
 </table>
 
 
-## `row-border` - Border on the rows only
+## `row-border`
 
-<table class="row-border" width="100%">
+Border on the rows only
+
+<table class="demo row-border" width="100%">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -344,9 +361,11 @@ Each option is demonstrated individually in an example table below, so you can s
 </table>
 
 
-## `order-column` - Highlight the ordering column
+## `order-column`
 
-<table class="order-column" width="100%">
+Highlight the ordering column
+
+<table class="demo order-column" width="100%">
 	<thead>
 		<tr>
 			<th>Name</th>
