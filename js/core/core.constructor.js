@@ -361,7 +361,7 @@ if ( oSettings.oFeatures.bSort )
 			var sortedColumns = {};
 
 			$.each( aSort, function (i, val) {
-				sortedColumns[ val.col ] = val.dir;
+				sortedColumns[ val.src ] = val.dir;
 			} );
 
 			_fnCallbackFire( oSettings, null, 'order', [oSettings, aSort, sortedColumns] );

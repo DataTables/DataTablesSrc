@@ -7,7 +7,7 @@ function _fnSortFlatten ( settings )
 		aSort = [],
 		aiOrig = [],
 		aoColumns = settings.aoColumns,
-		aDataSort, iCol, sType,
+		aDataSort, iCol, sType, srcCol,
 		fixed = settings.aaSortingFixed,
 		fixedObj = $.isPlainObject( fixed ),
 		nestedSort = [],
@@ -40,7 +40,8 @@ function _fnSortFlatten ( settings )
 
 	for ( i=0 ; i<nestedSort.length ; i++ )
 	{
-		aDataSort = aoColumns[ nestedSort[i][0] ].aDataSort;
+		srcCol = nestedSort[i][0];
+		aDataSort = aoColumns[ srcCol ].aDataSort;
 
 		for ( k=0, kLen=aDataSort.length ; k<kLen ; k++ )
 		{
@@ -48,6 +49,7 @@ function _fnSortFlatten ( settings )
 			sType = aoColumns[ iCol ].sType || 'string';
 
 			aSort.push( {
+				src:       srcCol,
 				col:       iCol,
 				dir:       nestedSort[i][1],
 				index:     nestedSort[i][2],
@@ -345,7 +347,7 @@ function _fnSortingClasses( settings )
 	if ( features.bSort && features.bSortClasses ) {
 		// Remove old sorting classes
 		for ( i=0, ien=oldSort.length ; i<ien ; i++ ) {
-			colIdx = oldSort[i].col;
+			colIdx = oldSort[i].src;
 
 			// Remove column sorting
 			$( _pluck( settings.aoData, 'anCells', colIdx ) )
@@ -354,7 +356,7 @@ function _fnSortingClasses( settings )
 
 		// Add new column sorting
 		for ( i=0, ien=sort.length ; i<ien ; i++ ) {
-			colIdx = sort[i].col;
+			colIdx = sort[i].src;
 
 			$( _pluck( settings.aoData, 'anCells', colIdx ) )
 				.addClass( sortClass + (i<2 ? i+1 : 3) );
