@@ -162,9 +162,7 @@ table.dataTable {
 		}
 
 		tr:first-child th,
-		tr:first-child td,
-		tr:last-child th,
-		tr:last-child td {
+		tr:first-child td {
 			border-top: none;
 		}
 	}
