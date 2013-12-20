@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>ajax</name>
+	<summary>Namespace for Ajax methods</summary>
+	<since>1.10</since>
+
+	<type type="object" />
+
+	<description>
+		Ajax obtained data in DataTables is often a very convenient way of working with large data sets as it allows decoupling of the data retrieval methods from the display. At initialisation time the Ajax data options are controlled using the `dt-init ajax` option, while after initialisation the API provides a number of methods for obtaining the loaded data, altering the settings and loading new data.
+
+		This property is a static object of the DataTables API which is used simply to provide a namespace to its child methods, which are used to control the Ajax operations DataTables can provide, and retrieve the data retrieved by Ajax requests.
+
+		Please refer to the documentation for each of those methods for details on how they operate.
+	</description>
+
+	<example title="Show an indiciation of how many rows are loaded"><![CDATA[
+var table = $('#example').DataTable( {
+	ajax: "data.json"
+} );
+
+table.on( 'xhr', function () {
+	var json = table.ajax.json();
+	alert( json.data.length +' row(s) were loaded' );
+} );
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="api">ajax.json()</related>
+	<related type="api">ajax.url()</related>
+	<related type="api">ajax.url().load()</related>
+	<related type="api">ajax.reload()</related>
+	<related type="event">xhr</related>
+</dt-api>
