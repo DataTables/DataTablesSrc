@@ -117,6 +117,14 @@ table.dataTable {
 	 * Body styles
 	 */
 	tbody {
+		tr {
+			background-color: $table-row-background;
+
+			&.selected {
+				background-color: $table-row-selected;
+			}
+		}
+
 		th,
 		td {
 			padding: 8px 10px;
@@ -176,13 +184,6 @@ table.dataTable {
 
 			&.selected {
 				background-color: shade($table-row-selected, 2.35%);
-			}
-		}
-		tr.even {
-			background-color: $table-row-background;
-
-			&.selected {
-				background-color: $table-row-selected;
 			}
 		}
 	}
