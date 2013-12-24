@@ -11,6 +11,9 @@
 	<content>
 	<![CDATA[
 
+[Twitter Bootstrap](http://twitter.github.com/bootstrap) is a CSS framework that lets you quickly and easily build a user interface that has a unified look and feel. The great news is that it is actually quite easy to integrate Bootstrap and DataTables such that your fully featured DataTables will match the same look and feel of the rest of your site.
+
+
 
 
 	]]>
