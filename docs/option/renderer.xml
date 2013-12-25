@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>renderer</name>
+	<summary>Display component renderer types</summary>
+	<since>1.10</since>
+
+	<type type="string">
+		<description>
+			Attempt to use renderers of this name for all available renderers. If a renderer is not found matching this name for the renderer type requested, the default renderer will be used.
+		</description>
+	</type>
+
+	<type type="object">
+		<description>
+			Specify specific renderers for the different renderer types. For a list of the available renderer types, please see the documentation below.
+		</description>
+	</type>
+
+	<description>
+		DataTables adds some complex components to your HTML page, such as the pagination control. The business logic used to calculate information should be displayed (what buttons in the case of the pagination buttons) is core to DataTables and generally doesn't vary how the buttons are actually displayed does based on the styling requirements of the page. For example the pagination buttons might be displayed as `dt-tag li` elements in a `dt-tag ul` list, or simply as a collection of `dt-tag a` buttons.
+
+		This ability to use different renderers, while maintaining the same core business logic, is fundamental to how DataTables provides integration options for CSS frameworks such as Bootstrap, Foundation and jQuery UI, customising the HTML it uses to fit the requirements of each framework.
+
+		This parameter controls which renderers will be used. The value given will be used is such a renderer exists, otherwise the default renderer will be used. Additional renderers can be added by plug-ins.
+
+		DataTables currently supports two different types of renderers:
+
+		* `header` - header cell renderer
+		* `pageButton` - pagination buttons
+
+		This list will likely expand significantly in future versions of DataTables!
+	</description>
+
+	<example title="Using the Bootstrap plug-in renderer"><![CDATA[
+$('#example').dataTable( {
+	renderer: "bootstrap"
+} );
+]]></example>
+
+	<example title="Specifying a specific renderer type for each available operation"><![CDATA[
+$('#example').dataTable( {
+	renderer: {
+		"header": "jqueryui",
+		"pageButton": "bootstrap"
+	}
+} );
+]]></example>
+
+	<related type="option">pagingType</related>
+</dt-option>

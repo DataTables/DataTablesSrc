@@ -2109,7 +2109,25 @@ DataTable.defaults = {
 	 *
 	 *  @deprecated 1.10. Please use `ajax` for this functionality now.
 	 */
-	"sServerMethod": "GET"
+	"sServerMethod": "GET",
+
+
+	/**
+	 * DataTables makes use of renderers when displaying HTML elements for
+	 * a table. These renderers can be added or modified by plug-ins to
+	 * generate suitable mark-up for a site. For example the Bootstrap
+	 * integration plug-in for DataTables uses a paging button renderer to
+	 * display pagination buttons in the mark-up required by Bootstrap.
+	 *
+	 * For further information about the renderers available see
+	 * DataTable.ext.renderer
+	 *  @type string|object
+	 *  @default null
+	 *
+	 *  @name DataTable.defaults.renderer
+	 *
+	 */
+	"renderer": null
 };
 
 _fnHungarianMap( DataTable.defaults );
