@@ -62,7 +62,6 @@ else if ( isset( $options['media'] ) ) {
 
 // Default libraries
 DT_Example::$lookup_libraries['css']['datatables']          = $dir_media.'/css/jquery.dataTables.css';
-DT_Example::$lookup_libraries['css']['datatables-jqueryui'] = $dir_media.'/css/jquery.dataTables_themeroller.css';
 
 DT_Example::$lookup_libraries['js']['jquery']      = $dir_media.'/js/jquery.js';
 DT_Example::$lookup_libraries['js']['datatables']  = $dir_media.'/js/jquery.dataTables.js';
@@ -72,6 +71,8 @@ DT_Example::$lookup_libraries['css']['datatables-bootstrap'] = path_simplify( $d
 DT_Example::$lookup_libraries['js']['datatables-bootstrap']  = path_simplify( $dir_media.'/../examples/resources/bootstrap/3/dataTables.bootstrap.js' );
 DT_Example::$lookup_libraries['css']['datatables-foundation'] = path_simplify( $dir_media.'/../examples/resources/foundation/dataTables.foundation.css' );
 DT_Example::$lookup_libraries['js']['datatables-foundation']  = path_simplify( $dir_media.'/../examples/resources/foundation/dataTables.foundation.js' );
+DT_Example::$lookup_libraries['css']['datatables-jqueryui'] = path_simplify( $dir_media.'/../examples/resources/jqueryui/dataTables.jqueryui.css' );
+DT_Example::$lookup_libraries['js']['datatables-jqueryui']  = path_simplify( $dir_media.'/../examples/resources/jqueryui/dataTables.jqueryui.js' );
 
 
 function multiple ( $value, $fn )

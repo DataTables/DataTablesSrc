@@ -3,7 +3,7 @@
 	<name>jQueryUI</name>
 	<summary>Use markup and classes for the table to be themed by jQuery UI ThemeRoller.</summary>
 	<since>1.10</since>
-	<deprecated>1.10 - To be removed in v1.11, where upon this functionality will be provided by a plug-in.</deprecated>
+	<deprecated>1.10 - To be removed in v1.11, where upon this functionality will be provided by a plug-in. See DataTables [styling options](//datatables.net/manual/styling/jqueryui) for more information.</deprecated>
 
 	<type type="boolean" />
 	<default value="false" />
@@ -13,7 +13,7 @@
 
 		When enabled, you will likely want to load the `jquery.dataTables_themeroller.css` file that is included in the DataTables package (`path media/css`) as ThemeRoller does not provide all of the styles needed by DataTables.
 
-		Note that this feature is deprecated in DataTables 1.10 and will be removed in 1.11, where upon this feature will be provided by plug-ins, matching the other style libraries.
+		Note that this feature is deprecated in DataTables 1.10 and will be removed in 1.11, where upon this feature will be provided by plug-ins, matching the other style libraries. Please see the [DataTables jQuery UI styling documentation](//datatables.net/manual/styling/jqueryui) for more information about the new method of styling the table using jQuery UI.
 	</description>
 
 	<example title="Enable jQuery UI ThemeRoller support"><![CDATA[

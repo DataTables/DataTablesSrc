@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="html" order="8">
 
-<css lib="jqueryui" />
-<css lib="datatables-jqueryui" />
-<js lib="jquery" />
-<js lib="datatables" />
+<css lib="jqueryui datatables-jqueryui" />
+<js lib="jquery datatables datatables-jqueryui" />
 
 <title>jQuery UI ThemeRoller</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable( {
-		jQueryUI: true
-	} );
+	$('#example').dataTable();
 } );
 ]]></js>
 
 <info><![CDATA[
 
-DataTables has built in support for (jQuery UI ThemeRoller)[http://jqueryui.com/themeroller/] which makes it very easy to style your tables to match other jQuery UI components. To enable the jQuery UI styling of DataTables, simply include the jQuery stylesheet, DataTables' additions for the jQuery stylesheet (to add row styling etc) and set the `dt-init jQueryUI` initialisation for your table.
+DataTables has the ability to integrate seamlessly with almost any styling library, and integration files are provided for several of the popular styling libraries, including [jQuery UI](//jqueryui.com).
 
-Please note that the `dt-init jQueryUI` option is deprecated in DataTables 1.10. In DataTables 1.11 it will be replaced with a styling plug-in, matching how Bootstrap and Foundation styles are integrated into DataTables.
+To have your table styles integrate with jQuery UI's ThemeRoller styles, simply include the DataTables CSS and JS integration files for jQuery UI, as shown in this example. Note also that because jQuery doesn't provide table styles like some other CSS frameworks, the CSS integration file does add this styling information.
+
+Please note that DataTables 1.10- actually has built-in support for jQuery UI styling integration through the `dt-init jQueryUI` option. However, this option is deprecated in DataTables 1.10 and will be removed DataTables 1.11, matching how styling integration is provided for other libraries - a more modular, maintainable and extensible method. The method presented on this page is the method that will be use in future.
 
 ]]></info>
 
