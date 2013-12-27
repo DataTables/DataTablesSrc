@@ -632,6 +632,14 @@ DT_Example::$tables['html-comma'] = array(
 );
 
 
+DT_Example::$tables['html-thin'] = array(
+	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'salary' ),
+	'header'  => true,
+	'footer'  => false,
+	'body'    => true
+);
+
+
 DT_Example::$tables['html-wide'] = array(
 	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'age', 'start_date', 'salary', 'extn', 'email' ),
 	'header'  => true,
