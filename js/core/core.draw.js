@@ -21,26 +21,16 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 	{
 		nTr = nTrIn || document.createElement('tr');
 
+		row.nTr = nTr;
+		row.anCells = cells;
+
 		/* Use a private property on the node to allow reserve mapping from the node
 		 * to the aoData array for fast look up
 		 */
 		nTr._DT_RowIndex = iRow;
 
 		/* Special parameters can be given by the data source to be used on the row */
-		if ( rowData.DT_RowId )
-		{
-			nTr.id = rowData.DT_RowId;
-		}
-
-		if ( rowData.DT_RowClass )
-		{
-			nTr.className += ' '+rowData.DT_RowClass;
-		}
-
-		if ( rowData.DT_RowData )
-		{
-			$(nTr).data( rowData.DT_RowData );
-		}
+		_fnRowAttributes( row );
 
 		/* Process each column */
 		for ( i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
@@ -80,10 +70,44 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			}
 		}
 
-		row.nTr = nTr;
-		row.anCells = cells;
-
 		_fnCallbackFire( oSettings, 'aoRowCreatedCallback', null, [nTr, rowData, iRow] );
+	}
+}
+
+
+/**
+ * Add attributes to a row based on the special `DT_*` parameters in a data
+ * source object.
+ *  @param {object} DataTables row object for the row to be modified
+ *  @memberof DataTable#oApi
+ */
+function _fnRowAttributes( row )
+{
+	var tr = row.nTr;
+	var data = row._aData;
+
+	if ( tr ) {
+		if ( data.DT_RowId ) {
+			tr.id = data.DT_RowId;
+		}
+
+		console.log( '_fnRowAttributes', row, data.DT_RowClass );
+		if ( data.DT_RowClass ) {
+			// Remove any classes added by DT_RowClass before
+			var a = data.DT_RowClass.split(' ');
+			row.__rowc = row.__rowc ?
+				_unique( row.__rowc.concat( a ) ) :
+				a;
+
+			console.log( row.__rowc );
+			$(tr)
+				.removeClass( row.__rowc.join(' ') )
+				.addClass( data.DT_RowClass );
+		}
+
+		if ( data.DT_RowData ) {
+			$(tr).data( data.DT_RowData );
+		}
 	}
 }
 

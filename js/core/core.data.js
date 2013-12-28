@@ -532,6 +532,9 @@ function _fnInvalidateRow( settings, rowIdx, src, column )
 			cols[i].sType = null;
 		}
 	}
+
+	// Update DataTables special `DT_*` attributes for the row
+	_fnRowAttributes( row );
 }
 
 
