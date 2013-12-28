@@ -261,7 +261,7 @@ DataTable.ext = _ext = {
 	 *      } );
 	 *    }
 	 */
-	order: [],
+	order: {},
 
 
 	/**
@@ -476,7 +476,7 @@ $.extend( _ext, {
 	aTypes:       _ext.type.detect,
 	ofnSearch:    _ext.type.search,
 	oSort:        _ext.type.order,
-	afnSortData:  _ext.sort,
+	afnSortData:  _ext.order,
 	aoFeatures:   _ext.feature,
 	oApi:         _ext.internal,
 	oStdClasses:  _ext.classes,
