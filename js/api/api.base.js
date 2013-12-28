@@ -261,13 +261,8 @@ _Api.prototype = /** @lends DataTables.Api */{
 
 	flatten: function ()
 	{
-		var a = this.length && $.isArray( this[0] ) ?
-			this.reduce( function ( a, b ) {
-				return a.concat( b );
-			} ) :
-			this;
-
-		return new _Api( this.context, a );
+		var a = [];
+		return new _Api( this.context, a.concat.apply( a, this ) );
 	},
 
 
