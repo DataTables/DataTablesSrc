@@ -26,12 +26,12 @@ Both files are both available on the DataTables CDN (below) or you can obtain th
 
 <div class="cdn">
 	<span>CSS</span>
-	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/jqueryui/3/dataTables.jqueryui.css" readonly">
+	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/jqueryui/dataTables.jqueryui.css" readonly">
 </div>
 
 <div class="cdn">
 	<span>JS</span>
-	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/jqueryui/3/dataTables.jqueryui.js" readonly">
+	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/jqueryui/dataTables.jqueryui.js" readonly">
 </div>
 
 
@@ -39,7 +39,7 @@ Both files are both available on the DataTables CDN (below) or you can obtain th
 
 An example of a DataTable styled by jQuery UI is shown below.
 
-<iframe border="0" src="jqueryui-simple.html" width="100%" height="400"></iframe>
+<iframe border="0" frameBorder="0" src="jqueryui-simple.html" width="100%" height="510"></iframe>
 <p><a href="jqueryui-simple.html" target="_blank">View example in a new window.</a></p>
 
 

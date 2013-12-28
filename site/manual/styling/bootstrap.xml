@@ -39,7 +39,7 @@ Both files are both available on the DataTables CDN (below) or you can obtain th
 
 An example of a DataTable styled by Bootstrap is shown below.
 
-<iframe border="0" src="bootstrap-simple.html" width="100%" height="400"></iframe>
+<iframe border="0" frameBorder="0" src="bootstrap-simple.html" width="100%" height="510"></iframe>
 <p><a href="bootstrap-simple.html" target="_blank">View example in a new window.</a></p>
 
 
