@@ -26,12 +26,12 @@ Both files are both available on the DataTables CDN (below) or you can obtain th
 
 <div class="cdn">
 	<span>CSS</span>
-	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/jqueryui/3/dataTables.jqueryui.css" readonly">
+	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/jqueryui/dataTables.jqueryui.css" readonly">
 </div>
 
 <div class="cdn">
 	<span>JS</span>
-	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/jqueryui/3/dataTables.jqueryui.js" readonly">
+	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/jqueryui/dataTables.jqueryui.js" readonly">
 </div>
 
 
