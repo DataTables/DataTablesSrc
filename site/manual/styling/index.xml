@@ -11,6 +11,10 @@
 	<content>
 	<![CDATA[
 
+It is important to style the DataTables enhanced tables in a manner which suits your design, so the tables fit in seamlessly with the rest of your site / app. To this end, DataTables provided a number of options for styling the tables, from the [default DataTables stylesheet](classes) which has a number of built-in optional features, to integration with some of the most widely used CSS frameworks available.
+
+This section in the documentation details how the look and feel of DataTables can very quickly and easily before changed to suit your needs.
+
 {category-navigation}
 
 	]]>

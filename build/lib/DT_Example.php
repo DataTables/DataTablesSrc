@@ -633,7 +633,7 @@ DT_Example::$tables['html-comma'] = array(
 
 
 DT_Example::$tables['html-thin'] = array(
-	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'salary' ),
+	'columns' => array( 'name', 'position', 'office', 'salary' ),
 	'header'  => true,
 	'footer'  => false,
 	'body'    => true
