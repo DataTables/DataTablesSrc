@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-page comments="yes" order="6">
-	<title>6. Possible column misalignment</title>
+	<title>6. Warning: Possible column misalignment</title>
 
 	<summary>
 	<![CDATA[
@@ -10,6 +10,22 @@
 
 	<content>
 	<![CDATA[
+
+
+
+## Meaning
+
+
+
+
+## Diagnosis
+
+
+
+
+## Resolution
+
+
 
 	]]>
 	</content>

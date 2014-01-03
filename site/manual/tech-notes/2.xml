@@ -1,15 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-page comments="yes" order="2">
-	<title>2. Non-table node initialisation</title>
+	<title>2. Warning: Non-table node initialisation</title>
 
 	<summary>
 	<![CDATA[
+
+DataTables will initialise only on an HTML `dt-tag table` element. Running DataTables on any other element type will result in an error, as detailed here.
 
 	]]>
 	</summary>
 
 	<content>
 	<![CDATA[
+
+DataTables will initialise only on an HTML `dt-tag table` element. Running DataTables on any other element type will result in an error.
+
+
+## Meaning
+
+If you attempt to initialise DataTables on any other type of element, rather than failing silently, you will receive an error from DataTables stating:
+
+> DataTables warning: Non-table node initialisation (`{tag}`).
+
+where `{tag}` is replaced with the node name (i.e. `dt-tag div`, `dt-tag h3` etc) of the element that was used to try and initialise the table.
+
+
+## Diagnosis
+
+When it occurs, this error is normally due to a selector error in the jQuery selector that was used to initialise the DataTable. This might be simply from a selector pointing to the wrong element type or the selector being too broad.
+
+As an example of these two cases, if we consider the HTML:
+
+```html
+<div id="demo" class="display">
+	<table class="display">...</table>
+</div>
+```
+
+Then the following selectors will result in an error:
+
+```js
+// Select wrong element
+// Error as #demo is the `div` element
+$('#demo').dataTable()
+
+// Selector too broad.
+// Error as `.display` is applied to both the div and the table
+$('.display').dataTable(); 
+```
+
+
+## Resolution
+
+If you encounter this error, inspect your code where you are selecting the nodes to transform into DataTables with the `$().dataTables()` method and refine the selectors used to select only table nodes, or correct any mistakes in the existing selectors.
+
+
 
 	]]>
 	</content>

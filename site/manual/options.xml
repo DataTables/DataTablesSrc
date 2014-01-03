@@ -5,6 +5,8 @@
 	<summary>
 	<![CDATA[
 
+DataTables as a huge range of options available, which you can use to customise the way that it will present its interface, and the features available, to the end user. This section of the manual details how this configuration can be performed. A full list of the options available is available in the [options reference](/reference/options) section of this web-site.
+
 	]]>
 	</summary>
 

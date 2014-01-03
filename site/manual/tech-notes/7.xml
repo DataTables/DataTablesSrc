@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-page comments="yes" order="7">
-	<title>7. Ajax error</title>
+	<title>7. Warning: Ajax error</title>
 
 	<summary>
 	<![CDATA[
@@ -10,6 +10,22 @@
 
 	<content>
 	<![CDATA[
+
+
+
+## Meaning
+
+
+
+
+## Diagnosis
+
+
+
+
+## Resolution
+
+
 
 	]]>
 	</content>
