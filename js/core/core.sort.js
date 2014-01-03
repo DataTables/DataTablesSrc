@@ -324,7 +324,12 @@ function _fnSortAttachListener ( settings, attachTo, colIdx, callback )
 		// Use a timeout to allow the processing display to be shown.
 		setTimeout( function() {
 			_fnSortListener( settings, colIdx, e.shiftKey, callback );
-			_fnProcessingDisplay( settings, false );
+
+			// In server-side processing, the draw callback will remove the
+			// processing display
+			if ( _fnDataSource( settings ) !== 'ssp' ) {
+				_fnProcessingDisplay( settings, false );
+			}
 		}, 0 );
 	} );
 }
