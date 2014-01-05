@@ -5,6 +5,8 @@
 	<summary>
 	<![CDATA[
 
+It is important to style the DataTables enhanced tables in a manner which suits your design, so the tables fit in seamlessly with the rest of your site / app. To this end, DataTables provided a number of options for styling the tables, including its own customisable CSS, integration with CSS frameworks such Bootstrap and Foundation and pre-built themes.
+
 	]]>
 	</summary>
 

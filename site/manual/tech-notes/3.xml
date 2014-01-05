@@ -1,15 +1,141 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-page comments="yes" order="3">
-	<title>3. Cannot reinitialise DataTable</title>
+	<title>3. Warning: Cannot reinitialise DataTable</title>
 
 	<summary>
 	<![CDATA[
+
+DataTables cannot have their features dynamically altered by passing in additional options to the DataTables constructor. Once the table has been created it can be manipulated only through the [API](/reference/api). Passing in new parameters will result in an error.
 
 	]]>
 	</summary>
 
 	<content>
 	<![CDATA[
+
+DataTables has a wide range of [configuration options](/reference/options) which can be used to customise the table at initialisation time, but only at initialisation time. After a DataTable has been initialised any attempt to use these options will result in an error.
+
+
+## Meaning
+
+Simply put, DataTables does not allow initialisation options to be altered at any time other than at initialisation time. Any manipulation of the table after initialisation must be done through the [API](/reference/api) and trying to set the initialisation options once the table has already been initialised will result in the error:
+
+> DataTables warning: table id=`{id}` - Cannot reinitialise DataTable.
+
+where `{id}` is replaced with the DOM id of the table that has triggered the error.
+
+
+## Diagnosis
+
+This error is triggered by passing in options to a DataTables constructor object when the DataTable instance for the selected node has already been initialised. For example:
+
+```js
+$('#example').dataTable( {
+	paging: false
+} );
+
+
+$('#example').dataTable( {
+	searching: false
+} );
+```
+
+will result in an error when the second block of code is run, since `#example` is already initialised as a DataTable.
+
+
+
+## Resolution
+
+There are a number of ways that this error can crop up in code, so there also a number of different methods that can be used to resole the issue, depending upon exactly what you are trying to achieve.
+
+
+### Single initialisation
+
+If you want to make use of multiple DataTables initialisation options, simply apply them all together to the table. In the case of the example error above, where we try to disable paging and searching we would use:
+
+```js
+$('#example').dataTable( {
+	paging: false,
+	searching: false
+} );
+```
+
+For more information on initialisation of DataTables and the options available, please refer to the [initialisation options manual](/manual/option).
+
+
+### Object instance retrieval
+
+This error can often occur when trying to obtain a reference to the DataTable for working with the API. For example, you might have a function which will always try to create a DataTable instance by passing in options when created. Then you make a modification which calls this function on a table which has already been initialised and you get this error.
+
+In such a case, you will want to use the `$.fn.dataTable.isDataTable()` static method. This can be used to check if a table is a DataTable or not already:
+
+```js
+if ( $.fn.dataTable.isDataTable( '#example' ) ) {
+	table = $('#example').DataTable();
+}
+else {
+	table = $('#example').DataTable( {
+		paging: false
+	} );
+}
+```
+
+### retrieve
+
+In acknowledgement that the above code structure isn't always particularly attractive, DataTables as a `dt-init retrieve` option which can be used to tell DataTables that you are aware that the initialisation options can't be changed after initialisation, and that should that occur, that you just want the DataTable instance to be returned.
+
+This optional parameter can provide a short-cut to the explicit check using `$.fn.dataTable.isDataTable()` as above when obtaining a DataTables instance:
+
+```js
+table = $('#example').DataTable( {
+	retrieve: true,
+	paging: false
+} );
+```
+
+### destroy
+
+Sometimes you really will want to change the initialisation parameters of the table for cases where the API simply doesn't provide the options that you need. This can be done in one of two different ways, each of which are essentially the same, but with an explicit method and short-cut option, as above.
+
+The basis for altering the initialisation parameters, is that you need to destroy the old table and then create a new one with your new options. This has a very significant performance hit on the page, since a lot of calculations and DOM manipulation is involved, so if you can avoid this, and use the API, that is very strongly encouraged!
+
+DataTables provides a `dt-api destroy()` method to destroy an old table, so you would be able to initialise a new one in its place. For example:
+
+```js
+table = $('#example').DataTable( {
+	paging: false
+} );
+
+table.destroy();
+
+table = $('#example').DataTable( {
+	searching: false
+} );
+```
+
+Note that paging will be enabled in the second initialisation here as it is a completely new DataTable and paging is not explicitly disabled!
+
+As a short-cut, like the `dt-init retrieve` option, there is also a `dt-init destroy` option that can be used to DataTables that you know that it is going to destroy the existing table to apply the new options. As such, the above destroy example could be shortened to be:
+
+```js
+$('#example').DataTable( {
+	paging: false
+} );
+
+$('#example').DataTable( {
+	destroy: true,
+	searching: false
+} );
+```
+
+The `dt-init retrieve` and `dt-init destroy` options are mutually exclusive and cannot be used together (doing so will result in undefined behaviour).
+
+
+## Reason
+
+The reason that DataTables initialisation options cannot be changed dynamically after initialisation is that it would add a large amount of code to the core code base to add this ability (for example dynamically enabling and disabling scrolling would be quite complex). The result is that this ability is not available to keep the DataTables core code as lean as possible. As noted above, if it is essential for you to be able to dynamically enable and disable features, the `dt-init destroy` option can be used, noting the performance impact that this will have.
+
+
 
 	]]>
 	</content>

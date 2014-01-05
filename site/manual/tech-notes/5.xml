@@ -1,15 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-page comments="yes" order="5">
-	<title>5. Unknown paging action</title>
+	<title>5. Warning: Unknown paging action</title>
 
 	<summary>
 	<![CDATA[
+
+This warning will occur if the `dt-api page()` method is called with an action that is not known to DataTables.
 
 	]]>
 	</summary>
 
 	<content>
 	<![CDATA[
+
+The built-in `dt-api page()` method has a number of options for changing the page, for example you can pass in the string `dt-string next` to jump to the next page. This error occurs when the option passed in is not known.
+
+
+## Meaning
+
+Quite simply, the option passed into `dt-api page()` is not a known action. In this case you will receive the warning:
+
+> Unknown paging action: {action}
+
+where `{action}` is replaced with the option given to `dt-api page()` that is doesn't know.
+
+
+
+## Diagnosis
+
+The key to resolving this issue to to find we you are calling the `dt-api page()` method and checking what you are passing into the function as an action.
+
+
+
+## Resolution
+
+To resolve this issue, please ensure that you are passing in a valid option as described in the `dt-api page()` documentation.
+
+
 
 	]]>
 	</content>
