@@ -150,9 +150,43 @@ If the server didn't reply to the Ajax request with valid JSON data, we need to 
 
 Modern browsers all come with built in developer tools, which can be used to find out what data the server is responding to the DataTables Ajax request with. Instructions on how to do this with your browser are shown below.
 
+
 #### Safari
 
-Safari steps
+|||
+||1-4
+![Safari debugging - step 1](/media/images/tn/1/safari-1.png "lightbox")
+1. Open preferences
+||
+||1-4
+![Safari debugging - step 2](/media/images/tn/1/safari-2.png "lightbox")
+2. Enable developer menu
+||
+||1-4
+![Safari debugging - step 3](/media/images/tn/1/safari-3.png "lightbox")
+3. Show page resources
+||
+||1-4
+![Safari debugging - step 4](/media/images/tn/1/safari-4.png "lightbox")
+4. Ajax response
+||
+|||
+
+1. By default Safari hides its built-in developer tools. If you don't have a _Develop_ menu shown in Safari it needs to be enabled. If you do, jump to step 3.
+  * Open the Safari menu and select _Preferences..._
+2. Enable the developer menu in the _Advanced_ tab
+  * Click the _Advanced_ tab in the Preferences window
+  * Check the box for _Show Develop menu in menu bar_ option
+  * Close the preferences - the _Develop_ menu will now be shown
+3. View the resources the page has loaded
+  * Select the _Show Page Resources_ option from the _Develop_ menu.
+  * The developer console will show at the bottom of the page
+  * Reload the page so Safari can capture all network requests
+4. Details about the Ajax request are shown.
+  * Safari will show a list of all resources (images, scripts etc) which have been loaded for the page. Locate the Ajax request that has been made to the server and click it. Safari will show detailed information about the request.
+  * Note that on pages with a large number of resources, Safari will group the resources by type into folders. If this happens on your site, look for the "XHRs" folder for the Ajax requests.
+
+Please note that these instructions were written with Safari 7 as the version used. Newer versions might have slightly different steps.
 
 
 #### Chrome
@@ -192,7 +226,6 @@ Please note that these instructions were written with Chrome 31 Mac as the versi
 
 
 #### Firefox
-
 
 |||
 ||1-4

@@ -5,25 +5,293 @@
 	<summary>
 	<![CDATA[
 
+When DataTables encounters a general or unknown error when making an Ajax request, this warning message is show. It requires digging into information about the Ajax request to understand why it failed, as detailed in this tech note.
+
 	]]>
 	</summary>
+
+  <js>
+  <![CDATA[
+
+$(document).ready( function () {
+  $("img[title='lightbox']")
+    .css( 'width', '100%' )
+    .removeAttr( 'title' )
+    .addClass( 'lightbox' )
+    .click( function () {
+      $.slimbox( this.src, this.getAttribute('alt') );
+    } );
+
+  $('h4:contains("Safari")')
+    .nextUntil( 'h4' )
+    .addBack()
+    .css( 'display', $.browser.safari ? 'block' : 'none' );
+
+  $('h4:contains("Chrome")')
+    .nextUntil( 'h4' )
+    .addBack()
+    .css( 'display', $.browser.chrome ? 'block' : 'none' );
+
+  $('h4:contains("IE")')
+    .nextUntil( 'h4' )
+    .addBack()
+    .css( 'display', $.browser.msie ? 'block' : 'none' );
+
+  $('h4:contains("Firefox")')
+    .nextUntil( 'h4' )
+    .addBack()
+    .css( 'display', $.browser.mozilla ? 'block' : 'none' );
+
+  $('h4:contains("Opera")')
+    .nextUntil( 'h3' )
+    .addBack()
+    .css( 'display', $.browser.opera ? 'block' : 'none' );
+
+  _site.cacheHeaderPositions();
+} );
+
+  ]]>
+  </js>
 
 	<content>
 	<![CDATA[
 
+When using the `dt-init ajax` option to load data for DataTables, a general error can be triggered if the server responds with anything other than a valid HTTP 2xx response. The error given is:
+
+> DataTables warning: table id=`{id}` - Ajax error
+
+where `{id}` is the DOM id of the table that triggered the error.
 
 
 ## Meaning
 
+This occurs when jQuery falls into its [`error`](http://api.jquery.com/jQuery.ajax/#error) callback handler (this callback built into DataTables), which will typically occur when the server responds with anything other than a 2xx HTTP status code. For example the server might respond with `404 Not Found` indicating that the file requested is not available at the given URL, or `500 Internal Error` which indicates that the server encountered an error while processing the request.
+
+DataTables will fire a specific error for the case where the request from the server is a valid return (`200 Ok` for example), but not valid JSON - see [technical note 1](1) for more information. This error (7) indicates a general error, as stated above.
 
 
 
 ## Diagnosis
 
+If the server didn't reply to the Ajax request with a 2xx status code, we need to know what it did reply with, so we can take corrective action. So discovering what that reply was will be the starting point for resolving the issue full.
+
+
+### Server data
+
+Modern browsers all come with built in developer tools, which can be used to find out what data the server is responding to the DataTables Ajax request with. Instructions on how to do this with your browser are shown below.
+
+
+#### Safari
+
+|||
+||1-5
+![Safari debugging - step 1](/media/images/tn/7/safari-1.png "lightbox")
+1. Open preferences
+||
+||1-5
+![Safari debugging - step 2](/media/images/tn/7/safari-2.png "lightbox")
+2. Enable developer menu
+||
+||1-5
+![Safari debugging - step 3](/media/images/tn/7/safari-3.png "lightbox")
+3. Show error console
+||
+||1-5
+![Safari debugging - step 4](/media/images/tn/7/safari-4.png "lightbox")
+4. The error console
+||
+||1-5
+![Safari debugging - step 4](/media/images/tn/7/safari-5.png "lightbox")
+5. Ajax response
+||
+|||
+
+1. By default Safari hides its built-in developer tools. If you don't have a _Develop_ menu shown in Safari it needs to be enabled. If you do, jump to step 3.
+  * Open the Safari menu and select _Preferences..._
+2. Enable the developer menu in the _Advanced_ tab
+  * Click the _Advanced_ tab in the Preferences window
+  * Check the box for _Show Develop menu in menu bar_ option
+  * Close the preferences - the _Develop_ menu will now be shown
+3. View the error console
+  * Select the _Show Error Console_ option from the _Develop_ menu.
+  * The developer console will show at the bottom of the page
+4. Any errors encountered on the page are shown in the developer console
+  * Safari logs general Ajax errors to the developer console - in the example shown above a `404 Not Found` error.
+5. Additional information can also be found in the _Resources_ tab.
+  * Click the _Resources_ tab
+  * Reload the page so Safari can capture all network requests
+  * Safari will show a list of all resources (images, scripts etc) which have been loaded for the page. Locate the Ajax request that has been made to the server and click it. Safari will show detailed information about the request.
+  * Note that on pages with a large number of resources, Safari will group the resources by type into folders. If this happens on your site, look for the "XHRs" folder for the Ajax requests.
+
+Please note that these instructions were written with Safari 7 as the version used. Newer versions might have slightly different steps.
+
+
+#### Chrome
+
+|||
+||1-4
+![Chrome debugging - step 1](/media/images/tn/1/chrome-1.png "lightbox")
+1. Open debugger
+||
+||1-4
+![Chrome debugging - step 2](/media/images/tn/1/chrome-2.png "lightbox")
+2. Console displayed
+||
+||1-4
+![Chrome debugging - step 3](/media/images/tn/1/chrome-3.png "lightbox")
+3. Show Network tab
+||
+||1-4
+![Chrome debugging - step 4](/media/images/tn/1/chrome-4.png "lightbox")
+4. Ajax response
+||
+|||
+
+1. To access the Chrome's developer console:
+  * Mac: Access the _View > Developer > JavaScript Console_ menu option.
+  * Windows: Click the Chrome menu (to the right of the address bar) and select _Tools > Javascript console_.
+2. The Console_ is shown at the bottom of the current browser window.
+  * If a general error has occurred, it will be shown here
+3. More detailed information can be obtained from the network panel will show all of the requests made by Chrome to load the page.
+  * Refresh the page to allow Chrome to capture all requests
+  * Click the _XHR_ option at the bottom of the window to reduce the requests to just the Ajax (XHR) requests.
+4. Details about the Ajax request are shown.
+  * Double click the Ajax requests made, including the one which is resulting in an error - a 404 error in this case.
+
+Please note that these instructions were written with Chrome 31 Mac as the version used. Newer versions, or those on different platforms might have slightly different steps.
+
+
+#### Firefox
+
+|||
+||1-4
+![Firefox debugging - step 1](/media/images/tn/1/firefox-1.png "lightbox")
+1. Open debugger
+||
+||1-4
+![Firefox debugging - step 2](/media/images/tn/1/firefox-2.png "lightbox")
+2. Network requests
+||
+||1-4
+![Firefox debugging - step 3](/media/images/tn/1/firefox-3.png "lightbox")
+3. Ajax requests
+||
+||1-4
+![Firefox debugging - step 4](/media/images/tn/1/firefox-4.png "lightbox")
+4. Ajax response
+||
+|||
+
+1. To access the developer tools in Firefox:
+  * Mac: Access the _Tools > Web Developer > Network_ menu option.
+  * Windows: Click the Firefox menu (top left of the window) and select _Web Developer Network_ option.
+2. The _Developer tools_ are shown at the bottom of the current browser window.
+  * Refresh the page to allow Firefox to capture all requests
+3. The network panel will show all of the requests made by Firefox to load the page.
+  * Click the _XHR_ option at the bottom of the window to reduce the requests to just the Ajax (XHR) requests.
+  * The red glowing button indicates an error occurred.
+4. Further details about the Ajax request are shown.
+  * Double click the Ajax request made by DataTables to view detailed information about the request, including error information.
+
+Please note that these instructions were written with Firefox 26 Windows as the version used. Newer versions, or those on different platforms might have slightly different steps.
+
+
+#### IE
+
+|||
+||1-5
+![IE debugging - step 1](/media/images/tn/1/ie-1.png "lightbox")
+1. Open debugger
+||
+||1-5
+![IE debugging - step 2](/media/images/tn/1/ie-2.png "lightbox")
+2. Element inspector
+||
+||1-5
+![IE debugging - step 3](/media/images/tn/1/ie-3.png "lightbox")
+3. Show Network tab
+||
+||1-5
+![IE debugging - step 4](/media/images/tn/1/ie-4.png "lightbox")
+4. Ajax response
+||
+||1-5
+![IE debugging - step 4](/media/images/tn/1/ie-5.png "lightbox")
+4. Ajax response
+||
+|||
+
+1. To access the developer tools in IE:
+  * Press F12 or,
+  * Click the tools menu (top right, a cog icon) and select the _F12 developer tools_ option.
+2. The _Developer tools_ are shown at the bottom of the current browser window. IE will show the document tree by default.
+  * Click on the _Network_ tab to view network requests
+3. IE requires that network traffic be specifically tracked, which we want here.
+  * Click the _Start capturing_ button to capture network requests
+  * Refresh the page to allow IE to capture all requests
+4. The network panel will show all of the requests made by IE to load the page.
+  * Find the Ajax request made by DataTables - it will likely be at or near the bottom of the request list
+  * In this case IE is showing that the file requested as not found.
+5. Details about the Ajax request are shown.
+  * Double click the request to view detailed information about the request.
+
+Please note that these instructions were written with IE 10 as the version used. Newer versions might have slightly different steps.
+
+
+#### Opera
+
+|||
+||1-4
+![Opera debugging - step 1](/media/images/tn/1/opera-1.png "lightbox")
+1. Open debugger
+||
+||1-4
+![Opera debugging - step 2](/media/images/tn/1/opera-2.png "lightbox")
+2. Element inspector
+||
+||1-4
+![Opera debugging - step 3](/media/images/tn/1/opera-3.png "lightbox")
+3. Show Network tab
+||
+||1-4
+![Opera debugging - step 4](/media/images/tn/1/opera-4.png "lightbox")
+4. Ajax response
+||
+|||
+
+1. To access the developer tools in Opera:
+  * Mac: Right click or _ctrl_ click the document and select the _Inspect element_ option.
+  * Windows: Right click the document and select the _Inspect element_ option.
+2. The _Developer tools_ are shown at the bottom of the current browser window. Opera will show information about the element that was clicked on.
+  * Click on the _Console_ tab to view console messages logged by Opera
+3. The error console is shown, with logged errors displayed
+  * In this case it is showing that the requested file cannot be found.
+4. Detailed information about the Ajax request can be found in the _Network_ tab.
+  * Click the _Network_ tab in the developer tools
+  * Reload the page to ensure Opera can capture all requests for the page
+  * Locate the request which is in error and double click it to view detailed information.
+
+Please note that these instructions were written with Opera 18 Mac as the version used. Newer versions, or those on different platforms might have slightly different steps.
 
 
 
 ## Resolution
+
+Once you have followed the instructions above you will know what error the server is responding with for the Ajax request.
+
+The most common errors are:
+
+* 404 - Not Found.
+  * The URL requested was not found on the server.
+  * Check for typos in the file name in the `dt-init ajax` parameter and in your file on the server.
+* 500 - Internal Error.
+  * The server encountered an error while responding to the request.
+  * Check the server's error log for information as to why this error occurred.
+* Origin not allowed by Access-Control-Allow-Origin.
+  * A request has been made to page on a different domain from the domain which the current page has been loaded from.
+  * Browsers have security measures built in to prevent loading of external scripts - for example on `http://localhost` you cannot Ajax load a script from `http://google.com` without special measures.
+  * If you are using a single domain, ensure you are specifying a relative or absolute path without a domain name (i.e. don't start the URL with `http(s)://`).
+  * Use [JSONP](/examples/server_side/jsonp) or some other cross domain access technology such as a proxy script on your server.
 
 
 
