@@ -43,7 +43,7 @@ $(document).ready( function () {
     .css( 'display', $.browser.mozilla ? 'block' : 'none' );
 
   $('h4:contains("Opera")')
-    .nextUntil( 'h3' )
+    .nextUntil( 'h2' )
     .addBack()
     .css( 'display', $.browser.opera ? 'block' : 'none' );
 
@@ -74,9 +74,6 @@ DataTables will fire a specific error for the case where the request from the se
 ## Diagnosis
 
 If the server didn't reply to the Ajax request with a 2xx status code, we need to know what it did reply with, so we can take corrective action. So discovering what that reply was will be the starting point for resolving the issue full.
-
-
-### Server data
 
 Modern browsers all come with built in developer tools, which can be used to find out what data the server is responding to the DataTables Ajax request with. Instructions on how to do this with your browser are shown below.
 
