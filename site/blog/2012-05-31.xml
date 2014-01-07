@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>Inline editing</title>
+	<date>2012-05-31 21:45</date>
+
+	<summary>
+	<![CDATA[
+
+In modern web-applications, one common use for tables is to show a grid of information which can be modified by the end user - a typical [CRUD (Create, Read, Update, Delete)](http://en.wikipedia.org/wiki/Create,_read,_update_and_delete) scenario. One example of this is a list of users for the web-app where the administrator can update user details on-the-fly in the table view.
+
+There are a million and one different ways to present the editing interface for this table. In this article we explore having the editing elements inline in the table rows.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+> Update: If you are looking for a complete editing solution for DataTables [Editor](http://editor.datatables.net) is now available and can add editing abilities to your tables in minutes.
+
+> This blog post was written before the release of DataTables 1.10, and does not make use of the new API and features in 1.10. It is left for reference, but please refer to the [manual](/manual) for instructions on how to use DataTables.
+
+In modern web-applications, one common use for tables is to show a grid of information which can be modified by the end user - a typical [CRUD (Create, Read, Update, Delete)](http://en.wikipedia.org/wiki/Create,_read,_update_and_delete) scenario. One example of this is a list of users for the web-app where the administrator can update user details on-the-fly in the table view.
+
+There are a million and one different ways to present the editing interface for this table, and which method you wish you use will depend on how you want it to interface with the rest of your web-site / app. You might wish to have a lightbox editing form floating on top of the table, or you could use a [cell at a time](http://datatables.net/examples/api/editable.html) approach using a library like [jEditable](http://www.appelsiini.net/projects/jeditable). Typically I've shied away from providing an editing plug-in for DataTables because how it should be implemented will vary significantly from situation to situation and one size does not fit all here.
+
+Fortunately with DataTables is very easy to create a CRUD interface which is tailored to your specific setup using the [DataTables API](http://datatables.net/api). In this example I will show how to create an interface which provides inline editing of a whole row. What we end up with at the end of this tutorial is shown below:
+
+<iframe src="http://datatables.net/media/blog/inline-editing/iframe.html" height="400" width="100%" style="overflow: hidden; border: none"></iframe>
+
+### The table
+
+As always we need a table as the starting point. For this I'll base the table we are going to make editable on my standard table of [Conditional-CSS's browser support](http://conditional-css.com) with two extra columns, one for an editing button and one for a delete button. These can of course be styled or customised (images etc) as you wish. I'll also add a link for creating a new row just above the table. The markup is shown below:
+
+```html
+&lt;p&gt;&lt;a id="new" href=""&gt;Add new row&lt;/a&gt;&lt;/p&gt;
+&lt;table cellpadding="0" cellspacing="0" border="0" class="display" id="example"&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;Rendering engine&lt;/th&gt;
+			&lt;th&gt;Browser&lt;/th&gt;
+			&lt;th&gt;Platform(s)&lt;/th&gt;
+			&lt;th&gt;Engine version&lt;/th&gt;
+			&lt;th&gt;CSS grade&lt;/th&gt;
+			&lt;th&gt;Edit&lt;/th&gt;
+			&lt;th&gt;Delete&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+		&lt;tr class="odd gradeX"&gt;
+			&lt;td&gt;Trident&lt;/td&gt;
+			&lt;td&gt;Internet Explorer 4.0&lt;/td&gt;
+			&lt;td&gt;Win 95+&lt;/td&gt;
+			&lt;td class="center"&gt;4&lt;/td&gt;
+			&lt;td class="center"&gt;X&lt;/td&gt;
+			&lt;td&gt;&lt;a class="edit" href=""&gt;Edit&lt;/a&gt;&lt;/td&gt;
+			&lt;td&gt;&lt;a class="delete" href=""&gt;Delete&lt;/a&gt;&lt;/td&gt;
+		&lt;/tr&gt;
+		...
+	&lt;/tbody&gt;
+&lt;/table&gt;
+```
+
+The DataTables initialisation for this is trivial:
+
+```js
+	$(document).ready(function() {
+		var oTable = $('#example').dataTable();
+	} );
+```
+
+### Edit mode
+
+Of the three editing functions (create, edit and delete) the edit function is the first that we will tackle here. My method for doing this is to simply replace the content of each cell in the row to be made editable with an _input_ tag, and it's value set to the content of the cell. This will not have any effect on the functions that DataTables provides, such as sorting and filtering, since DataTables maintains an internal cache of the data from the cell (for faster data access) - so we can do whatever we need to the DOM element.
+
+The function for this is quite simple:
+
+```js
+function editRow ( oTable, nRow )
+{
+	var aData = oTable.fnGetData(nRow);
+	var jqTds = $('>td', nRow);
+	jqTds[0].innerHTML = '<input type="text" value="'+aData[0]+'">';
+	jqTds[1].innerHTML = '<input type="text" value="'+aData[1]+'">';
+	jqTds[2].innerHTML = '<input type="text" value="'+aData[2]+'">';
+	jqTds[3].innerHTML = '<input type="text" value="'+aData[3]+'">';
+	jqTds[4].innerHTML = '<input type="text" value="'+aData[4]+'">';
+	jqTds[5].innerHTML = '[Save]()';
+}
+```
+
+As you can see the function editRow() takes two parameters:
+
+*   1. oTable - The DataTables instance
+*   2. nRow - The TR node for the row to be edited
+
+For each cell which can be edited in the row we insert the input tag and set it's value (through the use of [fnGetData](http://datatables.net/api#fnGetData) to get the data for the row). Note that the 'edit' link is also updated to now say 'save', indicating to the end user what action will be performed when it is clicked again. Obviously this is a very simple case and it can be readily be expanded to include _select_ elements or any other kind of input you would wish to use.
+
+```js
+function saveRow ( oTable, nRow )
+{
+	var jqInputs = $('input', nRow);
+	oTable.fnUpdate( jqInputs[0].value, nRow, 0, false );
+	oTable.fnUpdate( jqInputs[1].value, nRow, 1, false );
+	oTable.fnUpdate( jqInputs[2].value, nRow, 2, false );
+	oTable.fnUpdate( jqInputs[3].value, nRow, 3, false );
+	oTable.fnUpdate( jqInputs[4].value, nRow, 4, false );
+	oTable.fnUpdate( '[Edit]()', nRow, 5, false );
+	oTable.fnDraw();
+}
+```
+
+To save the information that has been edited by the user back into the table (so it can then be sorted and filtered as normal) we use the [fnUpdate](http://datatables.net/api#fnUpdate) API method. fnUpdate will write the value given to the TD cell node, effectively replacing the _input_ element that we inserted in the _editRow_ function with the new value. Note that the forth parameter passed to fnUpdate is _false_ to indicate to DataTables that it should not redraw the table - otherwise we would be doing a full redraw six times here, when just once, after all updates have been completed, is enough.
+
+Now we have the edit and save functions, we need to add suitable event handlers to the document to call them. To do this we attach a [live](http://api.jquery.com/live/) event handler to the _a_ tags in the edit cells, which will decide what actions to take. There are three states we can be in when the 'edit' cell is clicked:
+
+*   No row currently being edited
+*   This row is being edited and should be saved
+*   A different row is being edited - the edit should be cancelled and this row edited
+
+To keep track of which row is being edited we have a variable called _nEditing_ to store a reference to it - from this we can decide what state we are in. As a result we can create the following for our initialisation code:
+
+```js
+$(document).ready(function() {
+	var oTable = $('#example').dataTable();
+	var nEditing = null;
+
+	$('#example a.edit').live('click', function (e) {
+		e.preventDefault();
+
+		/* Get the row as a parent of the link that was clicked on */
+		var nRow = $(this).parents('tr')[0];
+
+		if ( nEditing !== null &amp;&amp; nEditing != nRow ) {
+			/* A different row is being edited - the edit should be cancelled and this row edited */
+			restoreRow( oTable, nEditing );
+			editRow( oTable, nRow );
+			nEditing = nRow;
+		}
+		else if ( nEditing == nRow &amp;&amp; this.innerHTML == "Save" ) {
+			/* This row is being edited and should be saved */
+			saveRow( oTable, nEditing );
+			nEditing = null;
+		}
+		else {
+			/* No row currently being edited */
+			editRow( oTable, nRow );
+			nEditing = nRow;
+		}
+	} );
+} );
+```
+
+### Adding rows
+
+That's the complex part out of the way - all downhill from here! To add a new row to the table, DataTables provides the [fnAddData](http://datatables.net/api#fnAddData) API method. We can make use of this, in combination with the _editRow_ function from above to create a new row and immediately place it into editing mode. Here we attach the event handler to the special link at the top of the table, inside the document ready function:
+
+```js
+$('#new').click( function (e) {
+	e.preventDefault();
+
+	var aiNew = oTable.fnAddData( [ '', '', '', '', '', 
+		'[Edit]()', '[Delete]()' ] );
+	var nRow = oTable.fnGetNodes( aiNew[0] );
+	editRow( oTable, nRow );
+	nEditing = nRow;
+} );
+```
+
+There are two points to consider here: firstly fnAddData returns an array of indexes, each of which points to the row information that was stored in DataTables for the new row (it's an array since fnAddData can add more than one row at a time). From this index we can use [fnGetNodes](http://datatables.net/api#fnGetNodes) to obtain the _tr_ element to make editable. Secondly we set the _nEditing_ variable to be the new row so the edit/save handler knows that it should be saved when clicked on.
+
+### Deleting rows
+
+To wrap up the three editing functions we just need to add the option to delete rows from the table now, and this is easily accomplished using the [fnDeleteRow](http://datatables.net/api#fnDeleteRow) API method that DataTables presents - just pass in a reference to the row to be deleted:
+
+```js
+$('#example a.delete').live('click', function (e) {
+	e.preventDefault();
+
+	var nRow = $(this).parents('tr')[0];
+	oTable.fnDeleteRow( nRow );
+} );
+```
+
+### Conclusion
+
+In this article I've presented one possible method for how a CRUD interface can be built up in DataTables. The implementation shown here is intentionally kept simple in order to show the use of the DataTables API, and to show that this kind of interface can be readily built and customised for your site / app.
+
+*   [Full working example](http://datatables.net/media/blog/inline-editing/complete.html)
+
+It is worth noting there are a number of limitations to the implementation, and areas where it can be improved:
+
+*   Data is not saved to the server at the moment, just the local DataTables instance - so a reload takes the table back to it's original state. An XHR call to the server would be needed to save the user input information into a database (in _saveRow_).
+*   The number of columns and which columns can be edited is hard coded - it would be nice to be able to specify an array of column indexes noting which columns should be editable.
+*   Input type is limited to just text input at the moment - options such as _select_ inputs would be desirable.
+*   UI improvements such as automatic focus and save on 'return' could be implemented to make life easier for the end user.
+
+I rather feel that this has the beginnings of a plug-in written all over it - anyone fancy taking up the challenge of building this up into a full plug-in for DataTables? :-)
+
+[Comments and discussion on this post](http://datatables.net/forums/comments.php?DiscussionID=5200) in the forum.
+
+	]]>
+	</content>
+</dt-page>

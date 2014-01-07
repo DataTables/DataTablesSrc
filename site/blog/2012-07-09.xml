@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>Orthogonal data</title>
+	<date>2012-07-09 09:00</date>
+
+	<summary>
+	<![CDATA[
+
+Data is complex. Not only will data displayed in your tables have rules relating how each data point corresponds to the others in your table, but also each data point itself can take multiple forms. Consider for example currency data; for display it might be shown formatted with a currency sign and thousand separators, while sorting should happen numerically and searching on the data will accept either form. In this post we'll examine how DataTables can use different forms of single data points to present a complex data set in an intuitive manner for the user of the table.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+> This blog post was written before the release of DataTables 1.10, and therefore is outdated in areas. 1.10, for example can use `dt-init columns.render` as well as `dt-init columns.data`. This post is left for reference, but please refer to the [manual](/manual) for instructions on how to use DataTables.
+
+Data is complex. Not only will data displayed in your tables have rules relating how each data point corresponds to the others in your table, but also each data point itself can take multiple forms. Consider for example currency data; for display it might be shown formatted with a currency sign and thousand separators, while sorting should happen numerically and searching on the data will accept either form. In this post we'll examine how DataTables can use different forms of single data points to present a complex data set in an intuitive manner for the user of the table.
+
+DataTables has four built-in data operations, each of which can potentially use an independent data source. These four operations are:
+
+*   Display
+*   Sorting
+*   Type detection
+*   Filtering
+
+By default DataTables will use the same data for all four operations, but with DataTables 1.9 this can easily be modified.
+
+## _mData_ as a function
+
+DataTables 1.8 introduced a new property called [mData](/ref#mData) which allows DataTables to use virtually any JSON object as a data source for a table (discussed at length in the blog post [Extended data source options with DataTables](/blog/Extended_data_source_options_with_DataTables)), and DataTables 1.9 builds upon this property to allow orthogonal data to be used for the different data types that DataTables works with.
+
+In DataTables 1.9 _mData_ can be given as a function, with DataTables telling you what operation it is requesting data for. This allows you to process the data accordingly and return the data for the requested data type. Additionally, in order to make the initialisation of DataTables as clean as possible when using _mData_ as a function, data can also be set with this function. Accordingly the function for _mData_ is passed three parameters:
+
+*   _{array|object}_ The data source for the row
+*   _{string}_ The type call data requested - this will be 'set' when setting data or 'filter', 'display', 'type', 'sort' or undefined when gathering data. Note that when undefined is given for the type DataTables expects to get the raw data for the object back
+*   _{*}_ Data to set when the second parameter is 'set'.
+
+The return value from the function is not required when 'set' is the type of call, but otherwise the return is what will be used for the data requested.
+
+## Currency example
+
+Let's build an example _mData_ function for our currency example. Note that for efficiency, since the 'set' action occurs only once (unless the data is updated in future), we store three different forms of the data on the 'set' action which allows very fast lookup of each data type (trading memory for speed). From this we can build our function like this:
+
+```js
+function ( data, type, val ) {
+	if (type === 'set') {
+		// Store the base value
+		data.price = val;
+
+		// Display is formatted with a dollar sign and number formatting
+		data.price_display = val==="" ? "" : "$"+numberFormat(val);
+
+		// Filtering can occur on the formatted number, or the value alone
+		data.price_filter  = val==="" ? "" : data.price_display+" "+val;
+		return;
+	}
+	else if (type === 'display') {
+		return data.price_display;
+	}
+	else if (type === 'filter') {
+		return data.price_filter;
+	}
+	// 'sort', 'type' and undefined all just use the integer
+	return data.price;
+}
+```
+
+It can be seen how any formatting can be applied to our data in this function and how any data property from the source data can be accessed and used (mathematical calculations could be performed, or the data could be pre-formatted on the server for Ajax sourced data for example). In the function above we use a formatting function (_numberFormat_) to add thousand separators to format each number for readability.
+
+You can see [this example running](/media/blog/orthogonal_data/currency.html), with [full source code](/media/blog/orthogonal_data/currency.js) for the demonstration.
+
+## Building it up
+
+No doubt you can see how the currency example just scratches the surface of what is possible when using _mData_ as a function. Other use cases include the formatting of telephone numbers, dates and any other data that might be displayed differently from how it is sorted or filtered.
+
+The example below shows a four column table with:
+
+*   Name - no extra processing
+*   Phone - telephone number which is formatted for display and filtering
+*   Salary - currency column which uses the function shown above
+*   Join date - a date column that allows complex filtering by different date formats. For example although the date is shown as YYYY/MM/DD, try filtering the table on "December" - the filter value is dynamically computed from the data source.
+
+<iframe src="/media/blog/orthogonal_data/full.html" height="350" width="100%" style="overflow: hidden; border: none"></iframe>
+
+[View Javascript source](/media/blog/orthogonal_data/full.js)
+
+## Relationship to _fnRender_
+
+If you've worked with DataTables before, you might notice that there is a significant degree of overlap between _mData_ as discussed here, and [fnRender](/ref#fnRender). _fnRender_ has been in DataTables since v1.0 and provides only the 'display' aspect of the newer _mData_ functionality. As such, _fnRender_ is now considered to be outmoded and replaced by _mData_ as a function. _fnRender_ is still available in DataTables as it can be convenient and for backwards compatibility, but in general, _mData_ usage is now encouraged in preference to _fnRender_.
+
+## Conclusion
+
+We've seen here how complex data used in tables can be, with even individual data points having multiple possible forms depending on the use case for the data. Using _mData_ as a function in DataTables lets us to readily build simple data handling functions that allows us to exploit the complexity of our data to the fullest benefit for the user of the table, presenting an intuitive interface that simply works.
+
+	]]>
+	</content>
+</dt-page>

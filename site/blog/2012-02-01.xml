@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>Twitter Bootstrap 2</title>
+	<date>2012-02-01 12:00</date>
+
+	<summary>
+	<![CDATA[
+
+The [Twitter Bootstrap](http://twitter.github.com/bootstrap) folks have just released v2 of their UI framework that has a number of improvements on the v1 series. However, as might be expected from a major upgrade there are also a few API changes. As such, this post is an update to my [original article for Bootstrap 1.4](/blog/Twitter_Bootstrap) to show how DataTables can be used with Bootstrap 2.
+
+There are a number of changes that effect the DataTables integration in Bootstrap 2:
+
+*   Name change for the table classes
+*   The grid has been changed from 16 to 12 columns
+*   Classes for table sorting have been removed
+*   Form elements are not laid out slightly differently
+*   Minor changes to the table CSS
+
+The paging styling has stayed more or less the same in Bootstrap 2 so fortunately we don't need to modify that at all from my original post.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+> Update: Bootstrap integration with DataTables is now formalised in the [styling section](/manual/styling/bootstrap) of the manual.
+
+The [Twitter Bootstrap](http://twitter.github.com/bootstrap) folks have just released v2 of their UI framework that has a number of improvements on the v1 series. However, as might be expected from a major upgrade there are also a few API changes. As such, this post is an update to my [original article for Bootstrap 1.4](/blog/Twitter_Bootstrap) to show how DataTables can be used with Bootstrap 2.
+
+There are a number of changes that effect the DataTables integration in Bootstrap 2:
+
+*   Name change for the table classes
+*   The grid has been changed from 16 to 12 columns
+*   Classes for table sorting have been removed
+*   Form elements are not laid out slightly differently
+*   Minor changes to the table CSS
+
+The paging styling has stayed more or less the same in Bootstrap 2 so fortunately we don't need to modify that at all from my original post.
+
+## Layout
+
+This is a nice trivial change to start with. The [table class names in Bootstrap 2](http://twitter.github.com/bootstrap/base-css.html#tables) have been made more consistent. You can select which classes you want for your table, but in my demo I've used:
+
+```html
+&lt;table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example"&gt;
+```
+
+Next up is the display grid: to define the grid layout for the DataTables control elements, previously we had used "span8" elements to denote half width elements, but with the change to 12 columns in Bootstrap we just need to change to using "span6". So our DataTables initialisation looks like:
+
+```js
+$(document).ready(function() {
+    $('#example').dataTable( {
+        "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>"
+    } );
+} );
+```
+
+We also need to set a new class on the DataTables wrapper element in order to make the form elements appear inline rather than as a block (the table filtering input and length selector are effected by this. To do this we simply extend the "sWrapper" class option for the DataTable:
+
+```js
+$.extend( $.fn.dataTableExt.oStdClasses, {
+	"sWrapper": "dataTables_wrapper form-inline"
+} );
+```
+
+## Sorting
+
+Bootstrap v2 has dropped support for TableSorter as a table library and as a result the sorting classes have been removed. As such we need to define our own sort styling, which we can do in exactly the same way as we do in DataTables' own CSS files (the images are available in the DataTables distribution zip file in media/images):
+
+```css
+table.table thead .sorting,
+table.table thead .sorting_asc,
+table.table thead .sorting_desc,
+table.table thead .sorting_asc_disabled,
+table.table thead .sorting_desc_disabled {
+	cursor: pointer;
+	*cursor: hand;
+}
+
+table.table thead .sorting { background: url('images/sort_both.png') no-repeat center right; }
+table.table thead .sorting_asc { background: url('images/sort_asc.png') no-repeat center right; }
+table.table thead .sorting_desc { background: url('images/sort_desc.png') no-repeat center right; }
+
+table.table thead .sorting_asc_disabled { background: url('images/sort_asc_disabled.png') no-repeat center right; }
+table.table thead .sorting_desc_disabled { background: url('images/sort_desc_disabled.png') no-repeat center right; }
+```
+
+## Tidy up
+
+Finally there are two modifications to my integration CSS from the 1.4 file to complete our styling:
+
+*   Remove the width from the _dataTables_length_ and _dataTables_filter_ classes. The updates in Bootstrap mean that these are no longer needed.
+*   The table class I had before had "margin: 1em 0;" but witht he changes, the visual flow is now better with "margin-bottom: 6px !important;"
+
+## And we are done
+
+<iframe src="/media/blog/bootstrap_2/" height="500" width="100%" style="overflow: hidden; border: none"></iframe>
+
+*   [Open example in its own page](/media/blog/bootstrap_2/)
+*   [Javascript file](/media/blog/bootstrap_2/DT_bootstrap.js)
+*   [CSS file](/media/blog/bootstrap_2/DT_bootstrap.css)
+
+Enjoy!
+
+ 
+
+	]]>
+	</content>
+</dt-page>

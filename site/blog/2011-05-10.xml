@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>Creating beautiful and functional tables with DataTables</title>
+	<date>2011-05-10 17:45</date>
+
+	<summary>
+	<![CDATA[
+
+DataTables has a wealth of features enabled by default (as can be seen in the [zero-configuration example](/release-datatables/examples/basic_init/zero_config.html)) but the example stylesheets that come in the DataTables package are intentionally rather basic, and there will be times you wish to integrate the look and feel of the table a lot more than the default style allows.
+
+Fortunately styling a DataTables table is actually a relatively simple prospect and I'll show how to build the style up so that your table looks like the one shown below in this post. In this post I'll use only very basic initialisation of DataTables and concentrate on just nice CSS styling! I'll be building on the fine work of [Inayaili de Leon](http://webdesignernotebook.com/css/a-beautiful-table/) for this example, and we will end up with a table which looks like this:
+
+<iframe src="/media/blog/beautiful_tables/complete.html" height="600" width="100%" style="overflow: hidden; border: none"></iframe>
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+Update - 13th February 2012: This article was updated for DataTables 1.9 which uses _A_ tags rather than _SPAN_ for pagination controls.
+
+DataTables has a wealth of features enabled by default (as can be seen in the [zero-configuration example](http://datatables.net/release-datatables/examples/basic_init/zero_config.html)) but the example stylesheets that come in the DataTables package are intentionally rather basic, and there will be times you wish to integrate the look and feel of the table a lot more than the default style allows.
+
+Fortunately styling a DataTables table is actually a relatively simple prospect and I'll show how to build the style up so that your table looks like the one shown below in this post. In this post I'll use only very basic initialisation of DataTables and concentrate on just nice CSS styling! I'll be building on the fine work of [Inayaili de Leon](http://webdesignernotebook.com/css/a-beautiful-table/) for this example, and we will end up with a table which looks like this:
+
+<iframe src="http://datatables.net/media/blog/beautiful_tables/complete.html" height="600" width="100%" style="overflow: hidden; border: none"></iframe>
+
+### The table
+
+First things first - we need a table to show. You'll no doubt have your own that you wish to style, but in this example I'm going to use some statistics from the Scottish Government about [student numbers](http://www.scotland.gov.uk/Publications/2011/03/25132517/15). Not the most inspiring of information perhaps, but a perfect example of a statistics table which can be presented on a web-site. The basic unstyled and unscripted table looks like this:
+
+```html
+&lt;table id="example" border="0" cellpadding="0" cellspacing="0" class="pretty"&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th rowspan="2"&gt;Local authority&lt;/th&gt;
+			&lt;th colspan="7"&gt;Scottish domiciled students in HE&lt;/th&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;th&gt;2005-06&lt;/th&gt;
+			&lt;th&gt;2006-07&lt;/th&gt;
+			&lt;th&gt;2007-08&lt;/th&gt;
+			&lt;th&gt;2008-09&lt;/th&gt;
+			&lt;th&gt;2009-10&lt;/th&gt;
+			&lt;th&gt;% change&lt;br&gt;over last year&lt;/th&gt;
+			&lt;th&gt;% change&lt;br&gt;since 2005-06&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tfoot&gt;
+		&lt;tr&gt;
+			&lt;th scope="row"&gt;Total&lt;/th&gt;
+			&lt;td&gt;212.920&lt;/td&gt;
+			&lt;td&gt;214.860&lt;/td&gt;
+			&lt;td&gt;206.390&lt;/td&gt;
+			&lt;td&gt;207.535&lt;/td&gt;
+			&lt;td&gt;213.210&lt;/td&gt;
+			&lt;td&gt;2.7&lt;/td&gt;
+			&lt;td&gt;0.1&lt;/td&gt;
+		&lt;/tr&gt;
+	&lt;/tfoot&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;th scope="row"&gt;Aberdeen City&lt;/th&gt;
+			&lt;td&gt;9.750&lt;/td&gt;
+			&lt;td&gt;9.850&lt;/td&gt;
+			&lt;td&gt;9.945&lt;/td&gt;
+			&lt;td&gt;9.945&lt;/td&gt;
+			&lt;td&gt;10.080&lt;/td&gt;
+			&lt;td&gt;1.4&lt;/td&gt;
+			&lt;td&gt;3.4&lt;/td&gt;
+		&lt;/tr&gt;
+		...
+	&lt;/tbody&gt;
+&lt;/table&gt;
+```
+
+Note that because of the TH elements in the table body rows, this example uses [DataTables 1.8](/new/1.8), where the ability to consume TH elements in the body is a new feature. The full basic page that we are going to work with is [available here](/media/blog/beautiful_tables/plain.html).
+
+### Style and scripting base
+
+In order to preserve our sanity and provide a common baseline for styling the table, I'm going to include the [YUI 3 reset stylesheet](http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css). This stylesheet basically strips the built-in default styles from a viewing web-browser to give a common starting point for styling across all browsers. This is particularly useful with tables since browsers can often have different defaults styles for various elements. This reset stylesheet is included using the following HTML:
+
+```html
+&lt;link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css"&gt;
+```
+
+I've also added some basic styles to my page in order to provide a little bit of a framework for us to work with (font-size, content width etc).
+
+Next we include and execute the Javascript required to enhance the table with DataTables. This is done by including jQuery and DataTables, followed by initialising DataTables. In this particular case I've chosen to use the built-in "full_numbers" pagination style by specifying the [sPaginationType](/usage/options#sPaginationType) parameter. This is all the Javascript that we need to setup our table.
+
+```js
+&lt;script type="text/javascript" language="javascript" src="../../media/js/jquery.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" language="javascript" src="../../media/js/jquery.dataTables.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" charset="utf-8"&gt;
+	$(document).ready(function() {
+		$('#example').dataTable( {
+			"sPaginationType": "full_numbers"
+		} );
+	} );
+&lt;/script&gt;
+```
+
+*   [Base table - YUI reset, page styles and DataTables initialisation](/media/blog/beautiful_tables/base.html)
+*   [Base CSS](/media/blog/beautiful_tables/base.css)
+
+### DataTables framework
+
+Now we can actually start styling our table and its components. The first thing to look at here is the positioning of the various table controls that are added by DataTables. These are the elements which control and show information about the table:
+
+*   Table length control - DIV class "dataTables_length"
+*   Filtering input - DIV class "dataTables_filter"
+*   Information output - DIV class "dataTables_info"
+*   Pagination controls - DIV class "dataTables_paginate"
+
+The order of these elements in the DOM is controlled by the [sDom](/usage/options#sDom) parameter, which can directly effect how you will style the elements. In this case we are using the default setting for _sDom_ so the order is the same as the list above, with the table inserted between the filtering and information elements. To position the various control elements we can float them into position using the following CSS. Note I've also included highlighting colours to make it easy to see where each element is. In additional this I've included a little padding for the various elements, so they visually fit around the table nicely.
+
+```css
+div.dataTables_length {
+	float: left;
+	background-color: red;
+}
+
+div.dataTables_filter {
+	float: right;
+	background-color: green;
+}
+
+div.dataTables_info {
+	float: left;
+	background-color: blue;
+}
+
+div.dataTables_paginate {
+	float: right;
+	background-color: yellow;
+}
+
+div.dataTables_length,
+div.dataTables_filter,
+div.dataTables_paginate,
+div.dataTables_info {
+	padding: 6px;
+}
+```
+
+Also because we are using floating elements we need to consider clearing them. In this case the table needs to clear the paging length and filtering inputs, while any content that follows the table needs to clear the pagination and information elements. For the former we can use a simple _clear: both_, but for the latter we can use a [self-clearing technique](http://www.webtoolkit.info/css-clearfix.html).
+
+```css
+table.pretty {
+	clear: both;
+}
+
+/* Self clearing - */
+div.dataTables_wrapper:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+html[xmlns] .dataTables_wrapper { display: block; }
+* html .dataTables_wrapper { height: 1%; }
+```
+
+*   [DataTables control elements positioned](/media/blog/beautiful_tables/datatables_framework.html)
+*   [Control elements CSS](/media/blog/beautiful_tables/datatables_framework.css)
+
+### Table styles
+
+Next up is adding styles to the table itself so that is actually starts to look quite good. In the first instance we want to set the table width to be 100% of the DataTables container element (since by default the browser will contract its width to the minimum required size, as can be seeing in the above example). Then we want to add some padding and a white border to the cells in the table. Note that the YUI reset stylesheet sets _table { border-collapse: collapse }_ so we don't need to worry about cell borders being wider than 1px.
+
+```css
+table.pretty {
+	width: 100%;
+	clear: both;
+}
+
+table.pretty td,
+table.pretty th {
+	padding: 5px;
+	border: 1px solid #fff;
+}
+```
+
+For the header cells we simply want to add a background colour and align the text to the center of the cells. We do this thus:
+
+```css
+/* Header cells */
+table.pretty thead th {
+	text-align: center;
+	background: #66a9bd;
+}
+```
+
+In the table body we have a mix of TH and TD elements to give semantic meaning to the table's markup. This can also be very useful for visual styling allowing the CSS selectors to target cells as we need. In this case the TH elements, which give the row header and the TD elements for the row contents are to be given background colours and different text alignments. Note also that DataTables adds 'odd' and 'even' classes to the TR elements in the table allowing zebra stripes to added easily to the table (in this case we just use the 'odd' class).
+
+```css
+/* Body cells */
+table.pretty tbody th {
+	text-align: left;
+	background: #91c5d4;
+}
+
+table.pretty tbody td {
+	text-align: center;
+	background: #d5eaf0;
+}
+
+table.pretty tbody tr.odd td { 
+	background: #bcd9e1;
+}
+```
+
+The footer, like the body, has a mix of TH and TD elements again to provide semantic meaning. Like the other cells in the table we add a background colour - in this case a green colour, to give emphasis that this row has importance.
+
+```css
+/* Footer cells */	
+table.pretty tfoot th {
+	background: #b0cc7f;
+	text-align: left;
+}
+
+table.pretty tfoot td {
+	background: #d7e1c5;
+	text-align: center;
+	font-weight: bold;
+}
+```
+
+Finally we add a background colour to the DIV element that DataTables puts onto the page to contain the table and all of its control elements. This effectively provides a header and footer to the table:
+
+```css
+div.dataTables_wrapper {
+	background-color: #719ba7;
+}
+```
+
+*   [Table with cell styling applied](/media/blog/beautiful_tables/cell_styles.html)
+*   [Table cell styles](/media/blog/beautiful_tables/cell_styles.css)
+
+### Sorting and paging
+
+We are nearly there - so very close! Just two more points to consider: the sorting and paging controls of the table that DataTables adds. For the sorting, this is visually controlled by the classes by the classes that DataTables has put onto the TH elements for each column.
+
+*   th.sorting_asc - table is sorted on this column - ascending
+*   th.sorting_desc - table is sorted on this column - descending
+*   th.sorting - table can be sorted on this column
+
+To show this visually, we can use a background image to indicate that a column is being sorted upon or that the column can be sorted by clicking on it.</p>
+
+```css
+table.pretty thead th.sorting_asc {
+	background: #66A9BD url('images/sort_asc.png') no-repeat right center;
+}
+
+table.pretty thead th.sorting_desc {
+	background: #66A9BD url('images/sort_desc.png') no-repeat right center;
+}
+
+table.pretty thead th.sorting {
+	background: #66A9BD url('images/sort_both.png') no-repeat right center;
+}
+```
+
+The pagination control is slightly more complicated to style, but again still primarily about padding and colours. DataTables uses a number of classes to aid styling:
+
+*   a.paginate_button - class given to elements used for pagination controls (i.e. each button)
+*   a.paginate_active - class given to the element that shows which page we are currently on in the table (note that this will replace the paginate_button class).
+*   a.paginate_button_disabled - class added to elements which will have no effect when clicked upon (for example the 'first' page when you are already on the first page).
+
+Here we make the _A_ elements act more like buttons by having them use _display: inline-block_ and adding styles to make the cursor change into a hand when hovered over. Note also that a fixed width for the numbered buttons (_div.dataTables_paginate span>a_) is set in order to provide a consistent view and target for those buttons. Finally note that the information element (_div.dataTables_info_) needs a little extra top padding in order to align it correctly with the pagination buttons.
+
+```css
+a.paginate_button,
+a.paginate_active {
+	display: inline-block;
+	background-color: #608995;
+	padding: 2px 6px;
+	margin-left: 2px;
+	cursor: pointer;
+	*cursor: hand;
+}
+
+a.paginate_active {
+	background-color: transparent;
+	border: 1px solid black;
+}
+
+a.paginate_button_disabled {
+	color: #3d6672;
+}
+.paging_full_numbers a:active {
+	outline: none
+}
+.paging_full_numbers a:hover {
+	text-decoration: none;
+}
+
+div.dataTables_paginate span>a {
+	width: 15px;
+	text-align: center;
+}
+
+div.dataTables_info {
+	padding: 9px 6px 6px 6px;
+}
+```
+
+*   [Fully styled table](/media/blog/beautiful_tables/complete.html)
+*   [Completed CSS](/media/blog/beautiful_tables/complete.css)
+
+### Conclusion
+
+We've seen in this post how a table can be styled to be attractive, distinctive and functional through the use of DataTables and some basic CSS. With the basic framework shown here, the styles can be easily modified to integrate smoothly with your web-site. Drop a message into the forum with some of the styles that you come up with!
+
+*   [ZIP of all files in this example](/media/blog/beautiful_tables/styled_table.zip)
+
+I hope you've enjoyed this post! There is [a thread in the forum for comments and discussion on this post](/forums/comments.php?DiscussionID=4963).
+
+	]]>
+	</content>
+</dt-page>

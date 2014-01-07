@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="no">
+	<title>Blog</title>
+
+	<css>
+		div.date,
+		ul.blog_link_list li span {
+			float: right;
+			color: #555;
+		}
+	</css>
+
+	<content>
+	<![CDATA[
+
+The DataTables blog is where I share my musing on DataTables and its related software. Thoughts, experiments and information abound!
+
+## Recent posts
+
+{blog-index}
+
+	]]>
+	</content>
+</dt-page>

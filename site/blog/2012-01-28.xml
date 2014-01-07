@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>Microsoft CDN</title>
+	<date>2012-01-28 06:00</date>
+
+	<summary>
+	<![CDATA[
+
+When using Javascript libraries such as DataTables you want your users to be able to get the software as quickly as possible and one way to help achieve this goal is to use a [Content Delivery Network (CDN)](http://en.wikipedia.org/wiki/Content_delivery_network). CDNs provide edge servers that are tuned to provide media files with very low latency to web-browsers, and as a user receives a file from the CDN the browser will cache it for reuse. This means that different sites using the same Javascript library can share a large performance improvement since the browser does not need to download the same file from different servers for each site.
+
+Microsoft have very kindly offered to [host DataTables on their CDN](http://www.asp.net/ajaxlibrary/CDN.ashx#jQuery_DataTables_Releases_on_the_CDN_6) allowing you, as developers using DataTables, to take advantage of their CDN and all the advantages that go with it.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+When using Javascript libraries such as DataTables you want your users to be able to get the software as quickly as possible and one way to help achieve this goal is to use a [Content Delivery Network (CDN)](http://en.wikipedia.org/wiki/Content_delivery_network). CDNs provide edge servers that are tuned to provide media files with very low latency to web-browsers, and as a user receives a file from the CDN the browser will cache it for reuse. This means that different sites using the same Javascript library can share a large performance improvement since the browser does not need to download the same file from different servers for each site.
+
+Microsoft have very kindly offered to [host DataTables on their CDN](http://www.asp.net/ajaxlibrary/CDN.ashx#jQuery_DataTables_Releases_on_the_CDN_6) allowing you, as developers using DataTables, to take advantage of their CDN and all the advantages that go with it. Scott Guthrie of Microsoft has [a blog post introducing the Microsoft CDN](http://weblogs.asp.net/scottgu/archive/2009/09/15/announcing-the-microsoft-ajax-cdn.aspx) and explaining how it works.
+
+With DataTables available on the [Microsoft CDN](http://www.asp.net/ajaxlibrary/CDN.ashx), it is now wonderfully easy to use DataTables on your site, while also taking advantage of the benefits of using a CDN as media repository. You don't even need to include any media files on your own server!
+
+To include DataTables on your page simply include the following HTML:
+
+```js
+&lt;!-- DataTables CSS --&gt;
+&lt;link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"&gt;
+
+&lt;!-- jQuery --&gt;
+&lt;script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- DataTables --&gt;
+&lt;script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"&gt;&lt;/script&gt;
+```
+
+Then you can initialise DataTables as you would when including the script from any other server:
+
+<pre class="brush: js; font-size: 75%">
+$(document).ready(function(){
+  $('#example').dataTable();
+});
+```
+
+## Files
+
+There are four files which will be of primary interest to you when using DataTables from the CDN:
+
+*   [jquery.dataTables.js](http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js) - DataTables - unminified. This is particularly useful for debugging.
+*   [jquery.dataTables.min.js](http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js) - DataTables - minified. Generally speaking this is the Javascript file to use for deployments.
+*   [jquery.dataTables.css](http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css) - Base line CSS for DataTables. This file provides basic positioning of DataTables control elements and styling of the table. The class of "dataTable" should be added to any table that you wish to use as a DataTables (this will be done automatically with DataTables 1.9).
+*   [jquery.dataTables_themeroller.css](http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables_themeroller.css) - Base line CSS for DataTables when used with ThemeRoller. Very similar to jquery.dataTables.css, with a few additions for integrating the table fully with ThemeRoller themes.
+
+The [other files](http://www.asp.net/ajaxlibrary/CDNjQueryDataTables191.ashx) that are available on the CDN are image files for the CSS and will be included automatically, as required.
+
+## Example
+
+The table below is an example of a DataTable which is using DataTables as provided by the Microsoft CDN:
+
+<iframe src="/media/blog/cdn/index.html" height="350" width="100%" style="overflow: hidden; border: none"></iframe>
+
+[Open demo in a standalone page](/media/blog/cdn/)
+
+## Conclusion
+
+I'd like to take this opportunity to thank Microsoft and the Ajax CDN team for giving DataTables a new home on their CDN! I'm really looking forward to seeing how DataTables is used from this fantastic new resource.
+
+	]]>
+	</content>
+</dt-page>

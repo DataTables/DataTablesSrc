@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="no">
+	<title>New features release notes</title>
+
+	<content>
+	<![CDATA[
+
+Significant new features and changes for each major release of DataTables are documented here.
+
+## Major releases
+
+{category-navigation}
+
+	]]>
+	</content>
+</dt-page>

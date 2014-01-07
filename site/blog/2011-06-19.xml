@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>Drill-down rows</title>
+	<date>2011-06-19 15:30</date>
+
+	<summary>
+	<![CDATA[
+
+<style type="text/css" title="currentStyle">
+table.display td.details { border: 0; padding: 0; background-color: #ccc; }
+div.innerDetails { display: none }
+</style>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+    var anOpen = [];
+    var sImageUrl = "/release-datatables/examples/examples_support/";
+
+    var oTable = $('#example').dataTable( {
+    	"bProcessing": true,
+    	"sAjaxSource": "/release-datatables/examples/ajax/sources/objects.txt",
+    	"aoColumns": [
+    		{ 
+    		 "mDataProp": null, 
+    		 "sClass": "control center", 
+    		 "sDefaultContent": '![]()'
+    		},
+    		{ "mDataProp": "engine" },
+    		{ "mDataProp": "browser" },
+    		{ "mDataProp": "grade" }
+    	]
+    } );
+
+    $('#example td.control').live( 'click', function () {
+       var nTr = this.parentNode;
+       var i = $.inArray( nTr, anOpen );
+
+       if ( i === -1 ) {
+          $('img', this).attr( 'src', sImageUrl+"details_close.png" );
+          var nDetailsRow = oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+          $('div.innerDetails', nDetailsRow).slideDown();
+          anOpen.push( nTr );
+        }
+        else {
+          $('img', this).attr( 'src', sImageUrl+"details_open.png" );
+           $('div.innerDetails', $(nTr).next()[0]).slideUp( function () {
+             oTable.fnClose( nTr );
+             anOpen.splice( i, 1 );
+           } );
+         }
+     } );
+	} );
+
+	function fnFormatDetails( oTable, nTr )
+	{
+	  var oData = oTable.fnGetData( nTr );
+		var sOut = 
+		   '<div class="innerDetails">'+
+		      '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+		         '<tr><td>Rendering engine:</td><td>'+oData.engine+'</td></tr>'+
+		         '<tr><td>Browser:</td><td>'+oData.browser+'</td></tr>'+
+		         '<tr><td>Platform:</td><td>'+oData.platform+'</td></tr>'+
+		         '<tr><td>Version:</td><td>'+oData.version+'</td></tr>'+
+		         '<tr><td>Grade:</td><td>'+oData.grade+'</td></tr>'+
+		      '</table>'+
+		   '</div>';
+		return sOut;
+   }
+</script>
+
+Tables are the perfect solution to show summary data which can be readily tabulated. However, often you will want to provide the end user of your web-site / app with the ability to drill down into the data in the table and show more detailed information. This can help clean up the interface and stop the end user being overwhelmed by information and give them more control.
+
+DataTables provides two API methods to attach a details row to a parent in the table; [fnOpen](http://datatables.net/api#fnOpen) to show the extra data and its reciprocal [fnClose](http://datatables.net/api#fnClose) to remove it. The data which is shown in the details row can be more or less whatever you wish as _fnOpen_ will accept a DOM node or HTML string. In this example I'll show an inner table being used which is animated open and closed.
+
+This example also shows the new [mDataProp](http://datatables.net/usage/columns#mDataProp) option included in DataTables 1.8 in action. How you the data for the details row is obtained can be done in a number of different ways, including Ajax or a DOM source. In this example through the use of mDataProp and DataTables consuming a JSON object for the table display, we can use the original object that is given to the table, showing information that is not in the default view of the table.
+
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Rendering engine</th>
+			<th>Browser</th>
+			<th>CSS grade</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+<div class="clear"></div>
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+> Update: This blog post was written before the release of DataTables 1.10, and therefore does not make use of the new API or features used by the latest DataTables releases.
+
+<style type="text/css" title="currentStyle">
+table.display td.details { border: 0; padding: 0; background-color: #ccc; }
+div.innerDetails { display: none }
+</style>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+    var anOpen = [];
+    var sImageUrl = "/release-datatables/examples/examples_support/";
+
+    var oTable = $('#example').dataTable( {
+    	"bProcessing": true,
+    	"sAjaxSource": "/release-datatables/examples/ajax/sources/objects.txt",
+    	"aoColumns": [
+    		{ 
+    		 "mDataProp": null, 
+    		 "sClass": "control center", 
+    		 "sDefaultContent": '![]()'
+    		},
+    		{ "mDataProp": "engine" },
+    		{ "mDataProp": "browser" },
+    		{ "mDataProp": "grade" }
+    	]
+    } );
+
+    $('#example td.control').live( 'click', function () {
+       var nTr = this.parentNode;
+       var i = $.inArray( nTr, anOpen );
+
+       if ( i === -1 ) {
+          $('img', this).attr( 'src', sImageUrl+"details_close.png" );
+          var nDetailsRow = oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+          $('div.innerDetails', nDetailsRow).slideDown();
+          anOpen.push( nTr );
+        }
+        else {
+          $('img', this).attr( 'src', sImageUrl+"details_open.png" );
+           $('div.innerDetails', $(nTr).next()[0]).slideUp( function () {
+             oTable.fnClose( nTr );
+             anOpen.splice( i, 1 );
+           } );
+         }
+     } );
+	} );
+
+	function fnFormatDetails( oTable, nTr )
+	{
+	  var oData = oTable.fnGetData( nTr );
+		var sOut = 
+		   '<div class="innerDetails">'+
+		      '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+		         '<tr><td>Rendering engine:</td><td>'+oData.engine+'</td></tr>'+
+		         '<tr><td>Browser:</td><td>'+oData.browser+'</td></tr>'+
+		         '<tr><td>Platform:</td><td>'+oData.platform+'</td></tr>'+
+		         '<tr><td>Version:</td><td>'+oData.version+'</td></tr>'+
+		         '<tr><td>Grade:</td><td>'+oData.grade+'</td></tr>'+
+		      '</table>'+
+		   '</div>';
+		return sOut;
+   }
+</script>
+
+Tables are the perfect solution to show summary data which can be readily tabulated. However, often you will want to provide the end user of your web-site / app with the ability to drill down into the data in the table and show more detailed information. This can help clean up the interface and stop the end user being overwhelmed by information and give them more control.
+
+DataTables provides two API methods to attach a details row to a parent in the table; [fnOpen](http://datatables.net/api#fnOpen) to show the extra data and its reciprocal [fnClose](http://datatables.net/api#fnClose) to remove it. The data which is shown in the details row can be more or less whatever you wish as _fnOpen_ will accept a DOM node or HTML string. In this example I'll show an inner table being used which is animated open and closed.
+
+This example also shows the new [mDataProp](http://datatables.net/usage/columns#mDataProp) option included in DataTables 1.8 in action. How you the data for the details row is obtained can be done in a number of different ways, including Ajax or a DOM source. In this example through the use of mDataProp and DataTables consuming a JSON object for the table display, we can use the original object that is given to the table, showing information that is not in the default view of the table.
+
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Rendering engine</th>
+			<th>Browser</th>
+			<th>CSS grade</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+<div class="clear"></div>
+
+## The table
+
+As per usual I'll use my standard set to show in the table, but in this case only three of the five columns will be shown by default - the remaining information will be shown in the details display. Note also that there is a spare column at the start of the table which is used for the show / hide details row that the end user can click on to control the display.
+
+```html
+&lt;table cellpadding="0" cellspacing="0" border="0" class="display" id="example"&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;&lt;/th&gt;
+			&lt;th&gt;Rendering engine&lt;/th&gt;
+			&lt;th&gt;Browser&lt;/th&gt;
+			&lt;th&gt;CSS grade&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;&lt;/tbody&gt;
+&lt;/table&gt;
+```
+
+The data source looks like this:
+
+```js
+{ "aaData": [
+	{
+		"engine": "Trident",
+		"browser": "Internet Explorer 4.0",
+		"platform": "Win 95+",
+		"version": "4",
+		"grade": "X"
+	},
+	{
+		"engine": "Trident",
+		"browser": "Internet Explorer 5.0",
+		"platform": "Win 95+",
+		"version": "5",
+		"grade": "C"
+	},
+	...
+] }
+```
+
+And the DataTables initialisation is fairly simple with the use of _mDataProp_. Note that the first column has an _mDataProp_ value of null, and [sDefaultContent](http://datatables.net/usage/columns#sDefaultContent) is given to have DataTables render a static string.
+
+```js
+$(document).ready(function() {
+  var anOpen = [];
+	var sImageUrl = "/release-datatables/examples/examples_support/";
+
+	var oTable = $('#example').dataTable( {
+		"bProcessing": true,
+		"sAjaxSource": "/release-datatables/examples/ajax/sources/objects.txt",
+		"aoColumns": [
+			{ 
+			   "mDataProp": null, 
+			   "sClass": "control center", 
+			   "sDefaultContent": '&lt;img src="'+sImageUrl+'details_open.png'+'"&gt;'
+			},
+			{ "mDataProp": "engine" },
+			{ "mDataProp": "browser" },
+			{ "mDataProp": "grade" }
+		]
+	} );
+} );
+```
+
+## View control
+
+Now that we've got the table being displayed we need to add an event handler to the control button, to call _fnOpen_ and _fnClose_ as required. Here we will keep a reference to any TR rows that we 'open' in the array anOpen - in this manner we can use [$.inArray](http://api.jquery.com/jQuery.inArray/) to see if the row should be opened or if it is already open and thus to close it. We also update the control image to show a 'close' button to give the end user extra information about what the controls will do which clicked on.
+
+Note also the function _fnFormatDetails_ which is used to build up the string which is given to _fnOpen_ for display. We use [fnGetData](http://datatables.net/api#fnGetData) to obtain the original data object for the row to get the information for the display (as noted before you can get this data any way you wish).
+
+```js
+$('#example td.control').live( 'click', function () {
+   var nTr = this.parentNode;
+   var i = $.inArray( nTr, anOpen );
+
+   if ( i === -1 ) {
+      $('img', this).attr( 'src', sImageUrl+"details_close.png" );
+      oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+      anOpen.push( nTr );
+    }
+    else {
+      $('img', this).attr( 'src', sImageUrl+"details_open.png" );
+      oTable.fnClose( nTr );
+      anOpen.splice( i, 1 );
+    }
+} );
+
+function fnFormatDetails( oTable, nTr )
+{
+  var oData = oTable.fnGetData( nTr );
+  var sOut = 
+    '&lt;div class="innerDetails"&gt;'+
+      '&lt;table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;"&gt;'+
+        '&lt;tr&gt;&lt;td&gt;Rendering engine:&lt;/td&gt;&lt;td&gt;'+oData.engine+'&lt;/td&gt;&lt;/tr&gt;'+
+        '&lt;tr&gt;&lt;td&gt;Browser:&lt;/td&gt;&lt;td&gt;'+oData.browser+'&lt;/td&gt;&lt;/tr&gt;'+
+        '&lt;tr&gt;&lt;td&gt;Platform:&lt;/td&gt;&lt;td&gt;'+oData.platform+'&lt;/td&gt;&lt;/tr&gt;'+
+        '&lt;tr&gt;&lt;td&gt;Version:&lt;/td&gt;&lt;td&gt;'+oData.version+'&lt;/td&gt;&lt;/tr&gt;'+
+        '&lt;tr&gt;&lt;td&gt;Grade:&lt;/td&gt;&lt;td&gt;'+oData.grade+'&lt;/td&gt;&lt;/tr&gt;'+
+      '&lt;/table&gt;'+
+    '&lt;/div&gt;';
+  return sOut;
+}
+```
+
+## Animation
+
+So that's the table fully functional - but let's add in a little animation to make it smoother for the end user. The jQuery functions [$().slideDown](http://api.jquery.com/slideDown/) and [$().slideUp](http://api.jquery.com/slideUp/) are used for the animation. Note that in _fnFormatDetails_ I've put a wrapper element with a class of "innerDetails" which is the element we will animate. _fnOpen_ returns a reference to the TR node which is appended to the table for the details row, which we use as part of the selector to get the element needed.
+
+The updated control code is shown below:
+
+```js
+$('#example td.control').live( 'click', function () {
+  var nTr = this.parentNode;
+  var i = $.inArray( nTr, anOpen );
+
+  if ( i === -1 ) {
+    $('img', this).attr( 'src', sImageUrl+"details_close.png" );
+    var nDetailsRow = oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+    $('div.innerDetails', nDetailsRow).slideDown();
+    anOpen.push( nTr );
+  }
+  else {
+    $('img', this).attr( 'src', sImageUrl+"details_open.png" );
+    $('div.innerDetails', $(nTr).next()[0]).slideUp( function () {
+      oTable.fnClose( nTr );
+      anOpen.splice( i, 1 );
+    } );
+  }
+} );
+```
+
+Finally, to get the animation to work correctly, we need to hide the information wrapper element by default and let jQuery handle its display:
+
+```css
+div.innerDetails { display: none }
+```
+
+## Conclusion
+
+Showing drill-down data using _fnOpen_ can be a very useful interaction with a table, and is highly customisable as shown in this example. The triggering of the display, what is shown in the display and data source for the information can all be tightly integrated into your setup.
+
+As usual there is a [thread in the forum for comments and discussion](/forums/comments.php?DiscussionID=5401) on this post.
+
+	]]>
+	</content>
+</dt-page>

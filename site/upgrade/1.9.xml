@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="2" comments="no">
+	<title>Upgrading to DataTables 1.9 from 1.8</title>
+
+	<summary>
+	<![CDATA[
+
+Although DataTables 1.9 has seen a major amount of work on the internal method and structure of the program as a whole, one of the primary goals has been to ensure backwards compatibility is retained. There are only two minor changes that are not 100% backwards compatible, one requiring a little CSS to rectify and the other is state saving customisation.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+Although DataTables 1.9 has seen a major amount of work on the internal method and structure of the program as a whole, one of the primary goals has been to ensure backwards compatibility is retained. There are only two minor changes that are not 100% backwards compatible, one requiring a little CSS to rectify and the other is state saving customisation.
+
+
+## Pagination
+
+* Two button pagination:
+  * The default two button pagination now uses **A** tags, rather than **DIV** tags and also now includes the language string 'Previous' and 'Next'. This is done in order to enhance the accessibility of the tables. The [CSS found here](1.9_two_button.css) can be used to update your stylesheets to take account of this change.
+* Full numbers pagination:
+  * The full numbers pagination now uses **A** tags, rather than **SPAN** tags to enhance the accessibility of the tables. The [CSS found here](1.9_full_numbers.css) can be used to update your stylesheets to take account of this change.
+
+
+## State saving / ColReorder
+
+*   DataTables 1.9 has a much improved API for state customisation, but it has meant removing the old parameters _fnStateLoadCallback_ and _fnStateSaveCallback_. There is a [blog post detailing these changes](/blog/localStorage_for_state_saving) and how the new options can be used.
+*   Note that if you are using ColReorder with state saving enabled, you must also update ColReorder to the latest version.
+
+
+## Initialisation options
+
+* [fnCreatedCell](/docs/DataTables/1.9.0/DataTable.models.oColumn.html#fnCreatedCell) - new column option, very similar to fnRender, but called when the TD cell is created.
+* [fnCreatedRow](/docs/DataTables/1.9.0/DataTable.models.oColumn.html#fnCreatedRow) - like fnCreatedCell, but operating on the TR row. Lets you know when a new row has been created so you can act on it.
+* [mDataProp](/docs/DataTables/1.9.0/DataTable.defaults.columns.html#mDataProp) - new 2nd parameter passed if mDataProp is a function - telling you what the data request type is.
+* [aDataSort](/docs/DataTables/1.9.0/DataTable.defaults.columns.html#aDataSort) - Define multi-column sorting for a single column (i.e. when that column is sorted, the multi-column sort will occur).
+* [fnStateSave](/docs/DataTables/1.9.0/DataTable.defaults.html#fnStateSave) - Define the logic to save the state
+* [fnStateLoad](/docs/DataTables/1.9.0/DataTable.defaults.html#fnStateLoad) - Define the logic to load the state
+* [fnStateLoaded](/docs/DataTables/1.9.0/DataTable.defaults.html#fnStateLoaded) - Notification that state has been loaded
+* [fnStateSaveParams](/docs/DataTables/1.9.0/DataTable.defaults.html#fnStateSaveParams) - Modify the state object that is to be saved
+* [fnStateLoadParams](/docs/DataTables/1.9.0/DataTable.defaults.html#fnStateLoadParams) - Modify the state object that has been loaded, prior to reloading the state.
+* [fnRowCallback](/docs/DataTables/1.9.0/DataTable.defaults.html#fnRowCallback) - No need to return the TR element now.
+* [fnRender](/docs/DataTables/1.9.0/DataTable.defaults.html#fnRender) - Passed in a second parameter now, the value of the cell being operated on from the original data source.
+* [iTabIndex](/docs/DataTables/1.9.0/DataTable.defaults.html#iTabIndex) - tabindex attribute value that is applied to the table controls to allow keyboard accessibility.
+* [oLanguage.oAria.sSortAscending](/docs/DataTables/1.9.0/DataTable.defaults.oLanguage.oAria.html#sSortAscending) - language string that is applied to the ARIA label to indicate that sorting activation will cause an ascending sort.
+* [oLanguage.oAria.sSortDescending](/docs/DataTables/1.9.0/DataTable.defaults.oLanguage.oAria.html#sSortDescending) - language string that is applied to the ARIA label to indicate that sorting activation will cause an descending sort.
+
+
+## API methods
+
+* [$](/docs/DataTables/1.9.0/DataTable.html#$) - new API method which will perform a jQuery selector action on the contents of the table body.
+* [_](/docs/DataTables/1.9.0/DataTable.html#_) - very similar to the new $ function, but in this case will return an array of data from the matching nodes, rather than the nodes themselves.
+* [fnIsOpen](/docs/DataTables/1.9.0/DataTable.html#fnIsOpen) - new API method that will check is a TR element is 'open' or not.
+* [fnFilter](/docs/DataTables/1.9.0/DataTable.html#fnFilter) - new 6th parameter to allow control over case-sensitive filtering options.
+* [fnDestroy](/docs/DataTables/1.9.0/DataTable.html#fnDestroy) - new 1st parameter which, when set to true, will cause the table to be completely removed from the page, rather than being re-inserted in the original position.
+* [fnGetData](/docs/DataTables/1.9.0/DataTable.html#fnGetData) - now also accepts TD/TH elements to be passed in (in addition to the already supported TR elements). Returned data is that for the TD/TH cell.
+
+
+## Deprecated methods
+
+* Using **sName** to order columns with server-side processing or Ajax sourced data is now deprecated and will be removed in the next major version of DataTables. The **mDataProp** option introduced in v1.8 offers much greater flexibility and should be used in preference to **sName** reordering. The **sName** parameter will remain to reference columns.
+* _asStripClasses_ contains a typo. Only the correct spelling _asStripeClasses_ will be supported in future.
+
+If you do happen to encounter any other issues during the upgrade process, please let me know in the [forums](/forums/).
+
+	]]>
+	</content>
+</dt-page>

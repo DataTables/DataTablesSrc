@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>DataTables 1.8</title>
+	<date>2011-06-04 16:30</date>
+
+	<summary>
+	<![CDATA[
+
+It gives me great pleasure to announce the release of DataTables 1.8.0. This update provides a significant update to the capabilities of DataTables, with emphasis on making it much easier and more complete for you as the developers using DataTables to work with. There are no new features specifically targeted at the end user, this is all about the developers!
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+It gives me great pleasure to announce the release of DataTables 1.8.0. This update provides a significant update to the capabilities of DataTables, with emphasis on making it much easier and more complete for you as the developers using DataTables to work with. There are no new features specifically targeted at the end user, this is all about the developers!
+
+* [Download](/download)
+
+The major new features of this 1.8 release are:
+
+*   **Extended data source options**:
+  * [Server-side processing with objects demo](/release-datatables/examples/server_side/object_data.html) |		[Ajax source with objects demo](/release-datatables/examples/ajax/objects.html) |		[Objects with sub-arrays demo](/release-datatables/examples/ajax/objects_subarrays.html) |		[Deep data source demo](/release-datatables/examples/ajax/deep.html)
+  * Previously when using Ajax, DataTables required a simple 2D array of data for the table, with strict requirements on length. DataTables 1.8 now allows you to give it an array of objects (or still of arrays), with any number of properties you wish. To access the property for a column, use the **mDataProp** option for the target column. This can be either an integer for an array index (the default) or a string for an object property. Additionally you can use dotted object notation in the string to specify a nested object (of any depth) - for example "object.prop". This is very useful for storing meta information such as either details rows (fnOpen) or database IDs. There is a [blog post](/blog/Extended_data_source_options_with_DataTables) discussing this new feature.
+*   **Deferred rendering** (performance):
+  * [Referred rendering demo](/release-datatables/examples/ajax/defer_render.html)
+  * When using Ajax or Javascript sourced data, there is now the option to defer (**bDeferRender** set to true, default false) the creation of the table row and cell DOM elements until they are actually needed for a given page draw. As a result, the provides a massive speed boost during initialisation since your browser doesn't need to create nodes for the table. This allows Ajax sourced tables to deal with many thousands of rows with ease. Note that this has no effect on DOM sourced data, and server-side processing is better suited for many millions of rows.
+*   **Complex headers**:
+  * [Colspan with hidden columns demo](/release-datatables/examples/advanced_init/complex_header.html)
+  * 1.8 introduces super flexible column headers and table footers support. Previously column visibility was not supported with headers which have colspan/rowspan anywhere in them, but now you can group columns and show/hide them as you wish. This is tightly integrated to the core and thus allows the ColVis extra and others to 'just work' with complex headers.
+*   **Progressive enhancement** (TH elements in the table body):
+  * With DataTables 1.8, it is now possible to use TH elements in the table's TBODY, which is important from a progressive enhancement point of view since the TH elements have semantic meaning. Additionally it can make the table easier to style with CSS selectors.
+*   [Full list of new features](/new/1.8)
+
+A good deal of work has been put in to ensuring that this update of DataTables is as backwards compatible as possible with 1.7.x, so the upgrade process should be as simple as dropping in the new Javascript source file. There have been a few internal changes which might be of interest if you are a plug-in developer; [documented here](/upgrade/1.8) along with a full list of the new initialisation options for DataTables.
+
+## In numbers
+
+Work started on the 1.8.x DataTables feature set on 6th March and cumulates in this 1.8.0 release on 4th June - almost 3 months of development. There have been:
+
+*   28 new features added
+*   5 changing updates
+*   41 bug fixes
+*   97 individual commits
+*   3KB larger than 1.7.6 when minified
+*   1034 new line added in DataTables and 574 deleted
+*   304 files changed in the package
+
+The first version of DataTables was written in March 2008 and DataTables.net was launched with v1.4 a year later. Since that time the use of the site has grown smoothly over time:
+
+![Site usage](/media/blog/1.8/site_usage.png)
+
+DataTables.net currently gets around 6'000 visits per day (on week days) and we are closing in on 1 million page views per month. DataTables has enjoyed a very organic growth and I wish to offer huge thanks to the whole community for your support of DataTables!
+
+## Future work
+
+This 1.8 release builds on all of the releases that have gone before it, with excellent feedback in the forum on how it can be improved. The feature set that DataTables and its plug-ins now offer provide a very capable and extensible development environment for working with tables in a web-browser and we have a fantastic and helpful community in the forum and on the wider web.
+
+Looking beyond 1.8, like all software developers I'm never quite happy (!), and there are a number of areas where I realise DataTables can be improved. I made a number of decisions way back in 2008 about the architecture of DataTables which I now think are somewhat limiting, but changing them will require a significant change to the API. As such what I plan to do is start development of DataTables 2.0 in the near future. This will basically be a rewrite of the core software, providing the same feature set as DataTables 1.8, while at the same time 1.8 will branched and supported with bug fix releases of the 1.8 series made available as and when needed.
+
+The main goals of 2.0 will be:
+
+*   Significantly improved documentation
+*   Speed
+*   Much easier integration for developers and plug-ins
+*   Streamlined API and options
+*   Simplified CSS classes
+*   Extensibility enhancements through events etc
+
+As much as I wish it could, obviously this can't happen overnight since it will take a fair amount of effort, and the amount of time I can spend on the project is limited, but I'm really looking forward to building on 1.8 and moving forward with 2.0.
+
+## 1.8
+
+I hope you all enjoy using DataTables 1.8 and find the new features offered in this update useful! Please remember that it does take a lot of time and effort to develop and support DataTables, so if you like using DataTables and find it useful, consider making a [donation](/donate) to help with the future development of the software.
+
+There is a [discussion thread in the forum for DataTables 1.8](/forums/comments.php?DiscussionID=5240). Please feel free to leave some feedback on the release (if you wish to report a bug, please post it in a new thread).
+
+Enjoy!
+
+	]]>
+	</content>
+</dt-page>

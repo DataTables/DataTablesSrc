@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico" />
+		
+		<title>DataTables example</title>
+		<style type="text/css" title="currentStyle">
+			@import "/release-datatables/media/css/demo_page.css";
+			@import "/release-datatables/media/css/demo_table.css";
+			td input { width: 100% }
+			#example_wrapper { min-height: 0; }
+		</style>
+		<script type="text/javascript" language="javascript" src="/release-datatables/media/js/jquery.js"></script>
+		<script type="text/javascript" language="javascript" src="/release-datatables/media/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			function restoreRow ( oTable, nRow )
+			{
+				var aData = oTable.fnGetData(nRow);
+				var jqTds = $('>td', nRow);
+				
+				for ( var i=0, iLen=jqTds.length ; i<iLen ; i++ ) {
+					oTable.fnUpdate( aData[i], nRow, i, false );
+				}
+				
+				oTable.fnDraw();
+			}
+			
+			function editRow ( oTable, nRow )
+			{
+				var aData = oTable.fnGetData(nRow);
+				var jqTds = $('>td', nRow);
+				jqTds[0].innerHTML = '<input type="text" value="'+aData[0]+'">';
+				jqTds[1].innerHTML = '<input type="text" value="'+aData[1]+'">';
+				jqTds[2].innerHTML = '<input type="text" value="'+aData[2]+'">';
+				jqTds[3].innerHTML = '<input type="text" value="'+aData[3]+'">';
+				jqTds[4].innerHTML = '<input type="text" value="'+aData[4]+'">';
+				jqTds[5].innerHTML = '<a class="edit" href="">Save</a>';
+			}
+			
+			function saveRow ( oTable, nRow )
+			{
+				var jqInputs = $('input', nRow);
+				oTable.fnUpdate( jqInputs[0].value, nRow, 0, false );
+				oTable.fnUpdate( jqInputs[1].value, nRow, 1, false );
+				oTable.fnUpdate( jqInputs[2].value, nRow, 2, false );
+				oTable.fnUpdate( jqInputs[3].value, nRow, 3, false );
+				oTable.fnUpdate( jqInputs[4].value, nRow, 4, false );
+				oTable.fnUpdate( '<a class="edit" href="">Edit</a>', nRow, 5, false );
+				oTable.fnDraw();
+			}
+			
+			$(document).ready(function() {
+				var oTable = $('#example').dataTable();
+				var nEditing = null;
+				
+				$('#new').click( function (e) {
+					e.preventDefault();
+					
+					var aiNew = oTable.fnAddData( [ '', '', '', '', '', 
+						'<a class="edit" href="">Edit</a>', '<a class="delete" href="">Delete</a>' ] );
+					var nRow = oTable.fnGetNodes( aiNew[0] );
+					editRow( oTable, nRow );
+					nEditing = nRow;
+				} );
+				
+				$('#example a.delete').live('click', function (e) {
+					e.preventDefault();
+					
+					var nRow = $(this).parents('tr')[0];
+					oTable.fnDeleteRow( nRow );
+				} );
+				
+				$('#example a.edit').live('click', function (e) {
+					e.preventDefault();
+					
+					/* Get the row as a parent of the link that was clicked on */
+					var nRow = $(this).parents('tr')[0];
+					
+					if ( nEditing !== null && nEditing != nRow ) {
+						/* Currently editing - but not this row - restore the old before continuing to edit mode */
+						restoreRow( oTable, nEditing );
+						editRow( oTable, nRow );
+						nEditing = nRow;
+					}
+					else if ( nEditing == nRow && this.innerHTML == "Save" ) {
+						/* Editing this row and want to save it */
+						saveRow( oTable, nEditing );
+						nEditing = null;
+					}
+					else {
+						/* No edit in progress - let's start one */
+						editRow( oTable, nRow );
+						nEditing = nRow;
+					}
+				} );
+			} );
+		</script>
+	</head>
+	<body id="dt_example">
+		<div id="container">
+			<div class="full_width big">
+				DataTables - full row editing example
+			</div>
+			
+			<h1>Preamble</h1>
+			<p>This example shows how full row editing can be achieved with DataTables in a manner which can be readily customised. Please see <a href="http://datatables.net/blog/Inline_editing">the blog post describing this example</a> for further information.</p>
+			
+			<h1>Live example</h1>
+			<div id="demo">
+<p><a id="new" href="">Add new row</a></p>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+	<thead>
+		<tr>
+			<th>Rendering engine</th>
+			<th>Browser</th>
+			<th>Platform(s)</th>
+			<th>Engine version</th>
+			<th>CSS grade</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="odd gradeX">
+			<td>Trident</td>
+			<td>Internet Explorer 4.0</td>
+			<td>Win 95+</td>
+			<td class="center"> 4</td>
+			<td class="center">X</td>
+			<td><a class="edit" href="">Edit</a></td>
+			<td><a class="delete" href="">Delete</a></td>
+		</tr>
+		<tr class="even gradeC">
+			<td>Trident</td>
+			<td>Internet Explorer 5.0</td>
+			<td>Win 95+</td>
+			<td class="center">5</td>
+			<td class="center">C</td>
+			<td><a class="edit" href="">Edit</a></td>
+			<td><a class="delete" href="">Delete</a></td>
+		</tr>
+		<tr class="odd gradeA">
+			<td>Trident</td>
+			<td>Internet Explorer 5.5</td>
+			<td>Win 95+</td>
+			<td class="center">5.5</td>
+			<td class="center">A</td>
+			<td><a class="edit" href="">Edit</a></td>
+			<td><a class="delete" href="">Delete</a></td>
+		</tr>
+	</tbody>
+</table>
+			</div>
+			<div class="spacer"></div>
+			
+			
+			<h1>Initialisation code</h1>
+			<pre>function restoreRow ( oTable, nRow )
+{
+	var aData = oTable.fnGetData(nRow);
+	var jqTds = $('&gt;td', nRow);
+	
+	for ( var i=0, iLen=jqTds.length ; i&lt;iLen ; i++ ) {
+		oTable.fnUpdate( aData[i], nRow, i, false );
+	}
+	
+	oTable.fnDraw();
+}
+
+function editRow ( oTable, nRow )
+{
+	var aData = oTable.fnGetData(nRow);
+	var jqTds = $('&gt;td', nRow);
+	jqTds[0].innerHTML = '&lt;input type="text" value="'+aData[0]+'"&gt;';
+	jqTds[1].innerHTML = '&lt;input type="text" value="'+aData[1]+'"&gt;';
+	jqTds[2].innerHTML = '&lt;input type="text" value="'+aData[2]+'"&gt;';
+	jqTds[3].innerHTML = '&lt;input type="text" value="'+aData[3]+'"&gt;';
+	jqTds[4].innerHTML = '&lt;input type="text" value="'+aData[4]+'"&gt;';
+	jqTds[5].innerHTML = '&lt;a class="edit" href=""&gt;Save&lt;/a&gt;';
+}
+
+function saveRow ( oTable, nRow )
+{
+	var jqInputs = $('input', nRow);
+	oTable.fnUpdate( jqInputs[0].value, nRow, 0, false );
+	oTable.fnUpdate( jqInputs[1].value, nRow, 1, false );
+	oTable.fnUpdate( jqInputs[2].value, nRow, 2, false );
+	oTable.fnUpdate( jqInputs[3].value, nRow, 3, false );
+	oTable.fnUpdate( jqInputs[4].value, nRow, 4, false );
+	oTable.fnUpdate( '&lt;a class="edit" href=""&gt;Edit&lt;/a&gt;', nRow, 5, false );
+	oTable.fnDraw();
+}
+
+$(document).ready(function() {
+	var oTable = $('#example').dataTable();
+	var nEditing = null;
+	
+	$('#new').click( function (e) {
+		e.preventDefault();
+		
+		var aiNew = oTable.fnAddData( [ '', '', '', '', '', 
+			'&lt;a class="edit" href=""&gt;Edit&lt;/a&gt;', '&lt;a class="delete" href=""&gt;Delete&lt;/a&gt;' ] );
+		var nRow = oTable.fnGetNodes( aiNew[0] );
+		editRow( oTable, nRow );
+		nEditing = nRow;
+	} );
+	
+	$('#example a.delete').live('click', function (e) {
+		e.preventDefault();
+		
+		var nRow = $(this).parents('tr')[0];
+		oTable.fnDeleteRow( nRow );
+	} );
+	
+	$('#example a.edit').live('click', function (e) {
+		e.preventDefault();
+		
+		/* Get the row as a parent of the link that was clicked on */
+		var nRow = $(this).parents('tr')[0];
+		
+		if ( nEditing !== null &amp;&amp; nEditing != nRow ) {
+			/* Currently editing - but not this row - restore the old before continuing to edit mode */
+			restoreRow( oTable, nEditing );
+			editRow( oTable, nRow );
+			nEditing = nRow;
+		}
+		else if ( nEditing == nRow &amp;&amp; this.innerHTML == "Save" ) {
+			/* Editing this row and want to save it */
+			saveRow( oTable, nEditing );
+			nEditing = null;
+		}
+		else {
+			/* No edit in progress - let's start one */
+			editRow( oTable, nRow );
+			nEditing = nRow;
+		}
+	} );
+} );</pre>
+			
+			
+			<div id="footer" class="clear" style="text-align:center;">
+				<p>
+					Please refer to the <a href="http://www.datatables.net/usage">DataTables documentation</a> for full information about its API properties and methods.<br>
+					Additionally, there are a wide range of <a href="http://www.datatables.net/extras">extras</a> and <a href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.
+				</p>
+				
+				<span style="font-size:10px;">
+					DataTables designed and created by <a href="http://www.sprymedia.co.uk">Allan Jardine</a> &copy; 2007-2011<br>
+					DataTables is dual licensed under the <a href="http://www.datatables.net/license_gpl2">GPL v2 license</a> or a <a href="http://www.datatables.net/license_bsd">BSD (3-point) license</a>.
+				</span>
+			</div>
+		</div>
+	</body>
+</html>
