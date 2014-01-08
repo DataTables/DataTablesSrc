@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="no">
+	<title nav="Type detection">Type detection plug-ins</title>
+
+	<content>
+	<![CDATA[
+
+When a DataTable is initialised, each column is scanned automatically for the type of data it contains, which in turn allows DataTables to apply the require type of sorting function. There are three built-in types (string, date and numeric) but this can readily be expanded using the functions below. This can make installed a sorting plug-in much easier since you need not specify the `dt-init columns.type` for the column - it will be picked up automatically.
+
+## How to use
+
+To use of one of the plug-in type detections functions below, you simply need to include it and its counterpart sorting function, in the Javascript available for your page, after you load the DataTables library, but before you initialise the DataTable. Then all you need to do is initialise the DataTable and the type will be automatically detected. As an example the code below makes use of the [numeric comma type detection](numeric-comma) and sorting functions, saved into two different files for clarity ([live example](/examples/plug-ins/sorting_auto)):
+
+```html
+<script type="text/javascript" src="jquery.dataTables.js"></script>
+<script type="text/javascript" src="dataTables.numericCommaSort.js"></script>
+<script type="text/javascript" src="dataTables.numericCommaTypeDetect.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').dataTable();
+    } );
+</script>
+```
+
+## Plug-ins
+
+{plugins-type-detection}
+
+
+	]]>
+	</content>
+</dt-page>

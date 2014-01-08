@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="no">
+	<title>Plug-ins</title>
+
+	<content>
+	<![CDATA[
+
+While DataTables has a lot of flexibility built-in by default, there might come a time when you wish to add your own features or overrule some of what DataTables does internally. This is possible through the plug-in architecture that DataTables provides for developers. This section of the DataTables site provides plug-ins of various types, which the authors have kindly released for public consumption. If you have any you would also like to share, please [get in touch](/contact) or send a [Github pull request](https://github.com/DataTables/Plugins/).
+
+* [API](api)
+* [Ordering](ordering)
+* [Type detection](type-detection)
+* [Searching](searching)
+* [Pagination](pagination)
+* [Internationalisation](i18n)
+
+
+## Extras (feature enhancing plug-ins)
+
+As well as the type specific plug-ins presented in this section of the site, there are a number of [first class plug-ins](/extras) for DataTables which add additional abilities and interaction options to DataTables, such as reordering columns, adding toolbars, and much more. These are available in the [extras section](/extras) of this site.
+
+	]]>
+	</content>
+</dt-page>
