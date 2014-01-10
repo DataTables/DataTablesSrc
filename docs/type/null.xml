@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="js">
+	<name>null</name>
+	<summary>Javascript `null` type</summary>
+
+	<description>
+	<![CDATA[
+
+Javascript has the `null` type built-in as a literal value, and is often used to represent the absence of data. `null` and `dt-type undefined` are similar in this regard, but null typically shows that a value has been assigned, even if it is empty.
+
+A detailed description of `null` is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting a `null` value, or a method returning a `null` value, it indicates that a literal `null` is expected / returned (not to be confused with `dt-type undefined` or `false` which are different values).
+
+	]]>
+	</description>
+</dt-type>

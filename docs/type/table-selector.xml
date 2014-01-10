@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
+	<name>table-selector</name>
+	<summary>Selector options for tables.</summary>
+
 	<description>
-<![CDATA[
+	<![CDATA[
 integer - table index
 node - table node
 string - jQuery selector
-]]>
+	]]>
 	</description>
 </dt-type>

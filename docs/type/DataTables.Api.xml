@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="dt">
+	<name>DataTables.Api</name>
+	<summary>DataTables API object instance</summary>
+
+	<description>
+	<![CDATA[
+
+
+	]]>
+	</description>
+</dt-type>

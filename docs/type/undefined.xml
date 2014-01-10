@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="js">
+	<name>undefined</name>
+	<summary>Javascript `undefined` type</summary>
+
+	<description>
+	<![CDATA[
+
+Javascript uses its `undefined` data type to indicate that no value has been assigned / returned to a parameter or from a function. `undefined` and `dt-type null` are similar, but null shows that a value has been assigned, even if it is empty.
+
+A detailed description of `undefined` is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting a `undefined` value, or a method returning a `undefined` value, it indicates that `undefined` is expected / returned (not to be confused with `dt-type null` or `false` which are different values).
+
+	]]>
+	</description>
+</dt-type>

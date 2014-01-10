@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="js">
+	<name>string</name>
+	<summary>Javascript `String` type</summary>
+
+	<description>
+	<![CDATA[
+
+A string is simply a sequence of characters. A string is created using the syntax `""` or `''` in Javascript.
+
+A detailed description of the `String` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting a string type, or a method returning a string type, it indicates that a `string` is expected / returned.
+
+	]]>
+	</description>
+</dt-type>

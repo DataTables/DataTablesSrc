@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
+	<name>cell-selector</name>
+	<summary>Selector options for cells.</summary>
+
 	<description>
+	<![CDATA[
 falsy (all strings)
 node
 jQuery selector string
 array of jQuery selector strings
 array of nodes
 jQuery object
+	]]>
 	</description>
 </dt-type>

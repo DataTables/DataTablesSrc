@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
+	<name>row-selector</name>
+	<summary>Selector options for rows.</summary>
+
 	<description>
 <![CDATA[
 {}          - no selector - use all available rows

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="js">
+	<name>boolean</name>
+	<summary>Javascript `Boolean` type</summary>
+
+	<description>
+	<![CDATA[
+
+Javascript has the boolean values `true` and `false` values built in as primitives. These are used to indicate a boolean state for a variable / condition.
+
+A detailed description of the `Boolean` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting a boolean type, or a method returning a boolean type, it indicates that a boolean value is accepted / returned.
+
+	]]>
+	</description>
+</dt-type>

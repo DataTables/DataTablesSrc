@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="js">
+	<name>jQuery</name>
+	<summary>jQuery object instance</summary>
+
+	<description>
+	<![CDATA[
+
+A `jQuery` instance is an instance of the [jQuery](http://api.jquery.com/Types/#jQuery) object. Although, technically, this is an object primitive, is it useful to define this type to indicate where a jQuery instance is expected / returned.
+
+A `jQuery` instance is created from the `jQuery` (often aliased to `$`) constructor - for example `$('#example')`. The jQuery object provides a number of methods for operating on the DOM elements in the document.
+
+A full description of the `jQuery` type is available in the [jQuery documentation](http://api.jquery.com/Types/#jQuery).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting a jQuery type, or a method returning a jQuery type, it indicates that a jQuery value is accepted / returned.
+
+
+	]]>
+	</description>
+</dt-type>

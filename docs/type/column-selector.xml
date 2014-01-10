@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
+	<name>column-selector</name>
+	<summary>Selector options for columns.</summary>
+
 	<description>
 <![CDATA[
 {integer}           - column index (>=0 count from left, <0 count from right)

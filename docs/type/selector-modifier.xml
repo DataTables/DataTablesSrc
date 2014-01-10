@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="dt">
+	<name>selector-modifier</name>
+	<summary>Options for how the row, column and cell selector should operate on rows.</summary>
+
+	<description>
+	<![CDATA[
+
+
+
+	]]>
+	</description>
+</dt-type>
