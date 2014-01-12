@@ -5,11 +5,139 @@
 
 	<description>
 <![CDATA[
-{}          - no selector - use all available rows
-{integer}   - row aoData index
-{node}      - TR node
-{string}    - jQuery selector to apply to the TR elements
-{array}     - jQuery array of nodes, or simply an array of TR nodes
+
+The DataTables `dt-api rows()` and `dt-api row()` (also optionally `dt-api cells()` and `dt-api cell()`) methods provide the ability to select rows from the table. What rows are selected and how the selector actually operates is controlled by this `dt-type row-selector` data type.
+
+### Options
+
+The row selector can be given in a number of different forms, to make it easy to apply to your data and use case:
+
+* No selector - Select all rows
+* `dt-type integer` - Row index selector
+* `dt-type string` - jQuery selector
+* `dt-type node` - `dt-tag tr` element selector
+* `dt-type jQuery` - jQuery object of row nodes
+* `dt-type array` - Array containing any combination of the above options
+
+
+## No selector
+
+If no selector is given (more specifically `dt-type undefined`), then all rows are selected.
+
+###### Get data for all rows in the table:
+
+```js
+var table = $('#example').DataTable();
+var allData = table.rows().data();
+```
+
+
+## integer
+
+DataTables stores each row internally with a row index for fast look up of row information. When the selector is given as an integer, this value represents a row index (`dt-api rows().indexes()` / `dt-api row().index()`).
+
+###### Row index 0 data:
+
+```js
+var table = $('#example').DataTable();
+var data = table.row( 0 ).data();
+```
+
+###### Find data using row indexes:
+
+```js
+var table = $('#example').DataTable();
+
+// Find indexes of rows which have `Yes` in the second column
+var indexes = table.rows().flatten().filter( function (rowIdx) {
+	return table.cell( rowidx, 1 ).data() === 'Yes' ? true : false;
+} );
+
+// Add a class to those rows using an index selector
+table.rows( indexes )
+	.nodes()
+	.to$()
+	.addClass( 'highlight' );
+```
+
+
+## string
+
+When the selector is given as a string, it is treated as a [jQuery selector](http://api.jquery.com/category/selectors/) that operates on the `dt-tag tr` elements in the table. For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](http://api.jquery.com/category/selectors/).
+
+Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
+
+###### Select a single row by id:
+
+```js
+var table = $('#example').DataTable();
+var row = table.row('#row-42');
+```
+
+###### Select rows by class name:
+
+```js
+var table = $('#example').DataTable();
+var rows = table.rows('.priority');
+```
+
+###### Select rows by two class name selectors:
+
+```js
+var table = $('#example').DataTable();
+var rows = table.rows('.important, .intermediate');
+```
+
+
+## node
+
+`dt-tag tr` DOM elements can be given as a row selector to select a row in the DataTabels API from that DOM element. This can be useful for getting data from a row, or performing other row based operations, when you have only the DOM node for reference, for example in an event handler.
+
+###### Get the data for a row that was clicked upon:
+
+```js
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'tr', function () {
+  var rowData = table.row( this ).data();
+  // ... do something with `rowData`
+} );
+```
+
+
+## jQuery
+
+Very similar to the above `node` type (since a jQuery object is an _array-like_ list of DOM nodes), a jQuery instance can be given as a row selector, with any nodes which are selected by jQuery and match those available in the table selected.
+
+###### Get data from rows in a jQuery instance:
+
+```js
+var rows = $('tr.immediate');
+var table = $('#example').DataTable();
+
+var rowData = table.rows( rows ).data();
+```
+
+
+## array
+
+Any combination of the above options can be given as selector together, providing a method to select multiple rows, or to mix selector types, by simply providing the selector options you want in an array.
+
+###### Get the data for two rows, based on id:
+
+```js
+var table = $('#example').DataTable();
+var data = table.rows( ['#row-42', '#row-91'] ).data();
+```
+
+###### Mix `row-selector` types - id and class selector
+
+```js
+var table = $('#example').DataTable();
+var data = table.rows( ['#row-42', '.important'] ).data();
+```
+
+
 ]]>
 	</description>
 </dt-type>
