@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-page order="3" comments="yes">
+<dt-page order="7" comments="yes">
 	<title>Orthogonal data</title>
 
 	<summary>
 	<![CDATA[
 
-Documentation still being developed. Please bare with me!
+Data is complex. Each data point in your table can potentially take multiple forms (for example a currency data point might be `$1'200` for display and `1200` for ordering). DataTables has the ability to use different data for its different data processes; what we term _orthogonal data_.
 
 	]]>
 	</summary>
@@ -13,7 +13,129 @@ Documentation still being developed. Please bare with me!
 	<content>
 	<![CDATA[
 
-Documentation still being developed. Please bare with me!
+Data is complex. Not only will data displayed in your tables have rules relating how each data point corresponds to the others in your table, but also each data point itself can take multiple forms. Consider for example currency data; for display it might be shown formatted with a currency sign and thousand separators, while sorting should happen numerically and searching on the data will accept either form. 
+
+In DataTables we term this _orthogonal data_.
+
+DataTables has four built-in data operations, each of which can potentially use an orthogonal (independent) data source. These four operations are:
+
+* `dt-string display` - Display data
+* `dt-string sort` - Data used for ordering
+* `dt-string filter` - Data used for searching
+* `dt-string type` - Type detection data
+
+By default DataTables will use the same data for all four operations, but this can easily be modified using the `dt-init data` and `dt-init render` initialisation option, or HTML 5 `data-*` attributes.
+
+
+## Data source
+
+Orthogonal data for a table can be provided through the data source array / object (note, objects are _much_ easier to work with, since you don't need to remember array indexes!) as predefined values (typically this is done with `dt-init ajax` loaded data or a Javascript provided data source), or they can be computed on-the-fly as they are needed.
+
+### Predefined values
+
+If your data source has the orthogonal data that you wish to display already available in it, DataTables can make use of this directly by providing the `dt-init columns.data` and / or `dt-init columns.render` options as objects.
+
+Consider for example the following date structure - note that the `start_date` object has a nicely formatted `display` property which will be used for display of the data in the table, but also a `timestamp` property. This is useful in this case since the format selected for the date display is not easily sortable:
+
+```js
+{
+    "name":       "Tiger Nixon",
+    "position":   "System Architect",
+    "start_date": {
+    	"display": "Mon 25th Apr 11",
+    	"timestamp": "1303682400"
+    },
+    "office":     "Edinburgh"
+}
+```
+
+To use the data in this format in the table we might use the following options for a `dt-init columns` or `dt-init columnDefs` column description:
+
+```js
+{
+	data: 'start_date',
+	render: {
+		_: 'display',
+		sort: 'timestamp'
+	}
+}
+```
+
+Note that the `_` property __must__ be defined when using `dt-init columns.data` or `dt-init columns.render` as an object. The `_` property is the 'fallback' if a data option has not been defined (there is no `display` option in the above object for example).
+
+[See this example in action](/examples/ajax/orthogonal-data).
+
+
+### Computed values
+
+If your data source does not contain pre-formatted orthogonal data, the `dt-init columns.data` and `dt-init columns.render` options can be provided as functions. These functions would be used to compute the data required for display.
+
+For example, consider the following data structure:
+
+```js
+{
+    "name":       "Tiger Nixon",
+    "position":   "System Architect",
+    "start_date": "1303682400",
+    "office":     "Edinburgh"
+}
+```
+
+Although the start date is in a nice format for the computer to use, it is virtually useless for humans. To resolve this we can compute the value to be displayed using `dt-init columns.render` as a function - the `dt-init columns.data` option tells the renderer what data to use:
+
+```js
+{
+	data: 'start_date',
+	render: function ( data, type, row ) {
+		// If display or filter data is requested, format the date
+		if ( type === 'display' || type === 'filter' ) {
+			var d = new Date( data * 1000 );
+			return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
+		}
+
+		// Otherwise its type detection or sorting data, for which we want
+		// to use the integer, so just return that, unaltered
+		return data;
+	}
+}
+```
+
+Full information on using `dt-init columns.render` can be found in [the reference documentation](/reference/option/columns.render).
+
+
+
+## HTML 5
+
+The above approach of using orthogonal data from a data source is great if you are `dt-init ajax` loading the data, but it isn't so useful if your table already exists in HTML. For this, DataTables supports [`data-*` attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#data-*), which can be used to hold information visible in the DOM, but not to the end user.
+
+DataTables will automatically detect the following attributes on HTML cells:
+
+* `data-sort` and `data-order` - for ordering data
+* `data-filter` or `data-search` - for search data
+
+For example, consider the following HTML table row:
+
+```html
+<tr>
+    <td data-search="Tiger Nixon">T. Nixon</td>
+    <td>System Architect</td>
+    <td>Edinburgh</td>
+    <td>61</td>
+    <td data-order="1303682400">Mon 25th Apr 11</td>
+    <td data-order="3120">$3,120/m</td>
+</tr>
+```
+
+Note that:
+
+* The first column has a `data-search` attribute, allowing for a full name search in this case, while the display shows an abbreviated form.
+* The fifth column has a date which is not directly sortable, so `data-order` is used to provide the unix time representation for ordering.
+* The sixth column also uses `data-order`, in this case to provide a numeric form of a formatted number.
+
+In order for the HTML 5 `data-*` attribute detection and processing to work correctly, all cells in a column must have the same attribute available. Without this, DataTables will give a warning.
+
+[See this example in action](/examples/advanced_init/html5-data-attributes.html)
+
 
 	]]>
 	</content>

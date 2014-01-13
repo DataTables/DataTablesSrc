@@ -376,6 +376,28 @@ function json_files ( $out_dir )
 		$out_dir.'/objects_subarrays.txt',
 		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
 	);
+
+	// Orthogonal date data
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$t = strtotime( $json[$i]['start_date'] );
+		$out[] = [
+			'name'       => $json[$i]['first_name'] .' '. $json[$i]['last_name'],
+			'position'   => $json[$i]['position'],
+			'salary'     => '$'.number_format($json[$i]['salary']),
+			'start_date' => array(
+				'display'   => date('D jS M y', $t),
+				'timestamp' => date('U', $t)
+			),
+			'office'     => $json[$i]['office'],
+			'extn'       => $json[$i]['extn']
+		];
+	}
+
+	file_put_contents(
+		$out_dir.'/orthogonal.txt',
+		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
+	);
 }
 
 

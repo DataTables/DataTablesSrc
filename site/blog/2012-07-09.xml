@@ -14,7 +14,7 @@ Data is complex. Not only will data displayed in your tables have rules relating
 	<content>
 	<![CDATA[
 
-> This blog post was written before the release of DataTables 1.10, and therefore is outdated in areas. 1.10, for example can use `dt-init columns.render` as well as `dt-init columns.data`. This post is left for reference, but please refer to the [manual](/manual) for instructions on how to use DataTables.
+> This blog post was written before the release of DataTables 1.10, and therefore is outdated in areas. 1.10, for example can use `dt-init columns.render` as well as `dt-init columns.data`. This post is left for reference, but please refer to the [orthogonal data section of the manual](/manual/orthogonal-data) for instructions on how to use DataTables with orthogonal data.
 
 Data is complex. Not only will data displayed in your tables have rules relating how each data point corresponds to the others in your table, but also each data point itself can take multiple forms. Consider for example currency data; for display it might be shown formatted with a currency sign and thousand separators, while sorting should happen numerically and searching on the data will accept either form. In this post we'll examine how DataTables can use different forms of single data points to present a complex data set in an intuitive manner for the user of the table.
 

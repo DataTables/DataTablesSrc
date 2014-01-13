@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax" order="5">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Orthogonal data</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable( {
+		ajax: "data/orthogonal.txt",
+		columns: [
+			{ data: "name" },
+			{ data: "position" },
+			{ data: "office" },
+			{ data: "extn" },
+			{ data: {
+				_:    "start_date.display",
+				sort: "start_date.timestamp"
+			} },
+			{ data: "salary" }
+		]
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+To try and make life easy, by default, DataTables expects arrays to be used as the data source for rows in the table. However, this isn't always useful, and you may wish to have DataTables use objects as the data source for each row (i.e. each row has its data described by an object) as this can make working with the data much more understandable, particularly if you are using the API and you don't need to keep track of array indexes.
+
+This can be done quite simply by using the `dt-init columns.data` option which you use to tell DataTables which property to use from the data source object for each column.
+
+In this example the Ajax source returns an array of objects, which DataTables uses to display the table. The structure of the row's data source in this example is:
+
+```
+{
+    "name":       "Tiger Nixon",
+    "position":   "System Architect",
+    "salary":     "$3,120",
+    "start_date": {
+    	"display": "Mon 25th Apr 11",
+    	"timestamp": "1303682400"
+    },
+    "office":     "Edinburgh",
+    "extn":       "5421"
+}
+```
+
+]]></info>
+
+</dt-example>

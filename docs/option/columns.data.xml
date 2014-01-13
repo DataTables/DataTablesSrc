@@ -26,6 +26,21 @@
 			* `dt-init columns.render` - When null is used for the `data` option and the `render` option is specified for the column, the whole data source for the row is used for the renderer.
 		</description>
 	</type>
+	<type type="object">
+		<description>
+			Use different data for the different data types requested by DataTables (`string filter`, `string display`, `string type` or `string sort`). The property names of the object is the data type the property refers to and the value can defined using an integer, string or function using the same rules as `dt-init columns.data` normally does. Note that an `string _` option _must_ be specified. This is the default value to use if you haven't specified a value for the data type requested by DataTables.
+
+			As an example you might use:
+
+			```
+			"data": {
+				"_": "phone",
+				"filter": "phone_filter",
+				"display": "phone_display"
+			}
+			```
+		</description>
+	</type>
 	<type type="function">
 		<signature>data( data, type, row )</signature>
 		<parameter type="node" name="cell">

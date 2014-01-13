@@ -27,10 +27,11 @@
 			As an example you might use:
 
 			```
+			"data": "phone",
 			"render": {
-				"_": "phone",
-				"filter": "phone_filter",
-				"display": "phone_display"
+				"_": "plain",
+				"filter": "filter",
+				"display": "display"
 			}
 			```
 		</description>
@@ -75,7 +76,7 @@ $('#example').dataTable( {
 
 	<example title="As an object, extracting different data for the different types"><![CDATA[
 // This would be used with a data source such as:
-//   { "phone": 5552368, "phone_filter": "5552368 555-2368", "phone_display": "555-2368" }
+//   { "phone": 5552368, "phone_filter": "5552368 555-2368", "phone_display": "555-2368", ... }
 // Here the `phone` integer is used for sorting and type detection, while `phone_filter`
 // (which has both forms) is used for filtering for if a user inputs either format, while
 // the formatted phone number is the one that is shown in the table.
@@ -87,6 +88,22 @@ $('#example').dataTable( {
       "_": "phone",
       "filter": "phone_filter",
       "display": "phone_display"
+    }
+  } ]
+} );
+]]></example>
+
+	<example title="As above, with with the `phone` information as an object"><![CDATA[
+// This would be used with a data source such as:
+//   "phone": { "plain": 5552368, "filter": "5552368 555-2368", "display": "555-2368" }
+$('#example').dataTable( {
+  "columnDefs": [ {
+    "targets": 0,
+    "data": 'phone',
+    "render": {
+      "_": "plain",
+      "filter": "filter",
+      "display": "display"
     }
   } ]
 } );
