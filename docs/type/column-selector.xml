@@ -5,12 +5,6 @@
 
 	<description>
 <![CDATA[
-{integer}           - column index (>=0 count from left, <0 count from right)
-"{integer}:visIdx"  - visible column index (i.e. translate to column index)  (>=0 count from left, <0 count from right)
-"{integer}:visible" - alias for {integer}:visIdx  (>=0 count from left, <0 count from right)
-"{string}:name"     - column name
-"{string}"          - jQuery selector on column header nodes
-
 
 The DataTables `dt-api columns()` and `dt-api column()` (also optionally `dt-api cells()` and `dt-api cell()`) methods provide the ability to select columns from the table. Which columns are selected and how the selector actually operates is controlled by this `dt-type column-selector` data type.
 
