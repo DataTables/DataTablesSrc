@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="2" comments="no">
+	<title>Upgrading to DataTables 1.9 from 1.8</title>
+
+	<summary>
+	<![CDATA[
+
+Although DataTables 1.9 has seen a major amount of work on the internal method and structure of the program as a whole, one of the primary goals has been to ensure backwards compatibility is retained. There are only two minor changes that are not 100% backwards compatible, one requiring a little CSS to rectify and the other is state saving customisation.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+As with all 1.x releases of DataTables, backwards compatibility is a key aim of the upgrade. We want DataTables to simply drop into your current site so you can get the benefits of the new features with the minimum of fuss.
+
+Having said that, there are a number of points that must be taken into consideration when upgrading DataTables to 1.10 from 1.9 or earlier (see [previous update notes](/upgrade) for earlier versions).
+
+
+## Pagination
+
+DataTables 1.10 has significantly upgraded the paging controls of DataTables (see `dt-init pagingType`), a consequence of which is that the old built-in `two_button` form of paging has been removed.
+
+If you are using the `two_button` pagination control, and wish to continue doing so (rather than using the `simple` option in 1.10, which provides the same buttons, but has more consistent class names for hte buttons), an [integration file is available](1.10_two_button.js). Simply include this file in your document, after you load DataTables but before you initialise your table and the `two_button` pagination will be restored exactly as it was in 1.9 (including class names etc).
+
+
+
+## API Plug-ins
+
+If you are using any API plug-ins, they may need to be updated for 1.10 as a few internal functions have changed - some of which may have been used by plug-ins.
+
+The [plug-ins available on this site](/plug-ins/api) have all been updated to operate correctly with DataTables 1.10 and if you are using these plug-ins, will simply drop into place.
+
+
+
+## Removed features
+
+The above improvements have been made possible by the removal of three features of DataTables 1.9- which were deprecated in 1.9 and scheduled for removal in 1.10.
+
+### fnRender
+
+The old `fnRender` option provided a method of manipulating a cell when it was created. however, it was provided with a confusing list of options as its arguments, and required a particular structure in DataTables internally that caused performance issues. Removal of `fnRender` has lead to a significant improvement in performance of DataTables with large data sets and the ability to provide object instances to DataTables as data source objects (for example Knockout observable objects).
+
+In place of `fnRender` the `dt-init columns.render` and `dt-init columns.createdCell` options are available, providing more flexibility and a more consistent interface.
+
+
+### bScrollInfinite
+
+The built-in ability of DataTables 1.9 to show an infinitely scrolling grid through the `bScrollInfinite` option has been removed due to the inconsistencies it caused in the API. Removal has also helped simply the internal code significantly.
+
+In place of `bScrollInfinite`, the [Scroller](/scroller) extra for DataTables is recommended.
+
+
+### Cookie based state saving
+
+Cookie based state saving has been replaced with `localStorage` based state saving in DataTables 1.10. Cookie's, with their 4KiB limit were very limited, and incurred a performance penalty since they were part of every HTTP request. `localStorage` is much faster and more flexible, and is used as the default storage for state information in DataTables 1.10.
+
+`localStorage` is not available in IE6/7. As such, the built-in state saving of DataTables is not available in these browsers, in which the state saving will silently fail. The `dt-init stateLoad` and `dt-init stateSave` parameters can be used to provide a suitable function if you wish to use cookies.
+
+## Other issues?
+
+If you do happen to encounter any other issues during the upgrade process, please let me know in the [forums](/forums/) so it can be addressed or fully documented as required.
+
+	]]>
+	</content>
+</dt-page>
