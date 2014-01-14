@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="js">
+	<name>function</name>
+	<summary>Javascript `Function`</summary>
+
+	<description>
+	<![CDATA[
+
+Functions are a key component of any programming language, particularly in Javascript which treats functions as first class objects. Functions are created using the construct `function () {}`, `function name () {}` or `new Function()`.
+
+A detailed description of the `Function` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting a function type, or a method returning a function type, it indicates that a function can be passed in (be it as a function assigned to a variable, or an anonymous function) / returned.
+
+Functions in DataTables are frequently used for callbacks. For example, using an anonymous function which is executed whenever DataTables performs a draw action (`dt-init drawCallback`):
+
+```js
+$('#example').DataTable( {
+	drawCallback: function () {
+		console.log( 'Table redrawn '+new Date() );
+	}
+} );
+```
+
+Same example assigning the function to a variable:
+
+```js
+var draw = function () {
+	console.log( 'Table redrawn '+new Date() );
+};
+
+$('#example').DataTable( {
+	drawCallback: draw
+} );
+```
+
+And finally, the same example using a named function:
+
+```js
+function draw () {
+	console.log( 'Table redrawn '+new Date() );
+};
+
+$('#example').DataTable( {
+	drawCallback: draw
+} );
+```
+
+	]]>
+	</description>
+</dt-type>

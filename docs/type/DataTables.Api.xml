@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="dt">
+	<name>DataTables.Api</name>
+	<summary>DataTables API object instance</summary>
+
+	<description>
+	<![CDATA[
+
+The DataTables API provides the ability to programmatically control one or more DataTable tables through the extensive array of methods that it implements. Many methods the API implements return an API instance themselves, providing the ability to [chain](http://en.wikipedia.org/wiki/Method_chaining) methods, thus allowing the API to be both compact and very expressive. As such, we define this `dt-type DataTables.Api` data type to be clear when a method provides an API instance as its return value.
+
+
+## API structure
+
+The API object is _array-like_, in that it has a `length` property, elements in its result set can be access using Javascript array notation (`[]`) and it provides many (although not all) of the same methods as an `dt-type array` (for example `dt-api push()` and `dt-api indexOf()`).
+
+
+## Accessing the API
+
+New API instances can be created in one of three ways:
+
+* `$( selector ).DataTable();` - DataTables constructor
+* `$( selector ).dataTable().api();` - DataTables jQuery constructor
+* `new $.fn.dataTable.Api( selector );` - Direct initialisation
+
+The result from each is an instance of the DataTables API object which has the tables found by the selector in its context. In all three cases `selector` is a [jQuery selector](http://api.jquery.com/category/selectors/).
+
+It is important to note the difference between `$( selector ).DataTable()` and `$( selector ).dataTable()`. The former returns a DataTables API instance, while the latter returns a `dt-type jQuery` object. An `api()` method is added to the jQuery object so you can easily access the API, but the jQuery object can be useful for manipulating the table node, as you would with any other jQuery instance (such as using `addClass()` etc).
+
+###### $( selector ).DataTable(); example
+
+```js
+var table = $('#myTable').DataTable();
+
+// Search for a data point
+table.search( 'Fiona' ).draw();
+```
+
+
+###### $( selector ).dataTable(); example
+
+```js
+var table = $('#myTable').dataTable().api();
+
+// Jump to the next page of data
+table.page('next').draw(false);
+```
+
+
+###### new $.fn.dataTable.Api( selector );
+
+```js
+var table = new $.fn.dataTable.Api( '#myTable' );
+
+// Get data from the first row
+var data = table.rows().data()[0]; // same as row(0).data()
+```
+
+
+## Further information
+
+Use the following resources to explore the DataTables API further:
+
+* [API manual](/manual/api) - detailed usage and explanation of the API terminology
+* [API reference](/reference/api) - list of all API methods available
+* [API plug-ins](/plug-ins/api) - community provided plug-ins to extend the API's capabilities
+
+	]]>
+	</description>
+</dt-type>

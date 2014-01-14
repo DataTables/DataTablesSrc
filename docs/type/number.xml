@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="js">
+	<name>number</name>
+	<summary>Javascript `Number` type</summary>
+
+	<description>
+	<![CDATA[
+
+Numbers in Javascript (both integers and floating point numbers) are stored in the `number` type.
+
+A detailed description of the `Number` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting a number type, or a method returning a number type, it indicates that a numeric value is accepted / returned. We define a special type of `dt-type integer` as a sub-set of `number`s which accept only integer values. As such `number` types can be either integers or floating point numbers.
+
+	]]>
+	</description>
+</dt-type>

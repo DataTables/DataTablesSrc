@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="1" comments="no">
+	<title>New in DataTables 1.10</title>
+
+	<summary>
+	<![CDATA[
+
+DataTables 1.10 is the result of a huge amount of work seeking to improve the DataTables experience for both you the developers using DataTables, and the end users using the tables you create. It features a number of very exciting new features such as an entirely new API, camelCase notation and this new web-site you are using!
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+DataTables 1.10 is the result of a huge amount of work seeking to improve the DataTables experience for both you the developers using DataTables, and the end users using the tables you create.
+
+
+## Major new features
+
+DataTables 1.10 sees a number of exciting new features, including:
+
+### New API
+
+This is the biggest change in DataTables since it was originally released! An entirely new API is available in DataTables 1.10, which has [a wealth of methods available](/reference/api). Building upon years of experience and knowing what the old API was typically used for, the new API is modern, well thought out, clean, simple and expressive.
+
+The new API can be access through the constructor:
+
+```js
+var table = $('#myTable').DataTable();
+```
+
+(note that capital **D** in `DataTable`). A lower case **d** will return a jQuery object, augmented with the API methods of DataTables 1.9. This new API is fully backwards compatible and the old API can continue to be used. However, it is recommended you use the new API if at all possible (you'll much prefer it!).
+
+The [manual](/manual/api) describes the new API and how to use it in detail.
+
+
+### Camel case notation
+
+Previous versions of DataTables used Hungarian notation for its public APIs. This was very much not in tune with the rest of the Javascript community, and a considerable source of friction to adoption. With 1.10, DataTables now accepts both camelCase notation and the original Hungarian notation for parameter, with camelCase being the preferred, and documented, option. As with the API this change is fully backwards compatible.
+
+
+### New web-site
+
+Documentation is a key feature of a software library, regardless of the actual features of the library. While the DataTables documentation has always been quite good for an open source library, the goal is to make the documentation the best it can possibly be, rather than just good. To this end, the DataTables site has been entirely redesigned and the majority of the documentation rewritten and entirely updated for DataTables 1.10. The site is now primarily split into:
+
+* [Manual](/manual) - General overview of how to use DataTables and its primary features
+* [Reference](/reference) - Detailed information about each option, API method and event DataTables provides
+
+There are a number of other sections such as the [examples](/examples), [extras](/extras) and [plug-ins](/plug-ins), but the manual and reference are the corner stones of the DataTables documentation.
+
+Many pages also now have the ability to post comments on them, so you can share useful information with other developers who are using DataTables.
+
+
+### New stylesheet
+
+The DataTables stylesheet has been entirely rewritten to provide a modern look for your tables, which is feature rich and is easy to customise. The DataTables stylesheet provides a number of styling options through the [class names assigned to a DataTable](/manual/styling/classes). Additionally, [an online style customiser](/manual/styling/theme-creator) is now available, which allows the column scheme of your table to be changed through a simple web-interface.
+
+Styling with [Bootstrap](/manual/styling/bootstrap), [Foundation](/manual/styling/foundation) and [jQuery UI](/manual/styling/jqueryui) are also now thoroughly documented in the new site and are a key component of DataTables going forward.
+
+
+
+## Other features
+
+As well as the major changes detailed above, there are a number of new, smaller, but none-the-less important features in DataTables 1.10.
+
+
+### Built-in pagination improvements
+
+The build-in pagination controls have been extended to show ellipsis where there is a discontinuity between numbers, representing that numerical gap in a visual manner to the end user. This is to aid accessibility in consuming the data that is shown. The built-in paging options have also been expanded to include four options:
+
+* `string simple` - 'Previous' and 'Next' buttons only
+* `string simple_numbers` - 'Previous' and 'Next' buttons, plus page numbers
+* `string full` - 'First', 'Previous', 'Next' and 'Last' buttons
+* `string full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
+
+See `dt-init pagingType` for more information.
+
+
+### HTML 5 `data-*` attribute support
+
+[Orthogonal data](/manual/orthogonal-data) is an important part of any complex table, providing the ability to perform different operations on different representations of the same data. DataTables 1.10 provides the ability to use HTML 5 `data-*` attributes to provide orthogonal data for processing. [An example is available showing this](/examples/advanced_init/html5-data-attributes.html).
+
+
+### Improved built-in sorting and type detection
+
+DataTables ability to automatically detect and sort different data types has been expanded in this release to include the most commonly added plug-ins prior to 1.10. Specifically DataTables can how detect and sort:
+
+* Formatted numeric data (e.g. `1,200`)
+* Currency data (e.g. `$3,500`)
+* Percentage information (e.g. `95%`)
+* Numeric data with HTML wrapping (e.g. `<span>4,500</span>`)
+
+Many [sorting plug-ins](/plug-ins/sorting) will still be very useful, but this extended ability of DataTables will mean new plug-ins are required in the vast majority of cases.
+
+
+### Performance
+
+Always a key aspect of a software library is its performance. This release of DataTables improves performance for large data sets significantly due to a number of internal changes (made possible by the removal of `fnRender` - see below).
+
+
+### Easier ajax handling
+
+Ajax configurable in DataTables is vastly improved in 1.10 through the new `dt-init ajax` property. This new option can be given as an object that will map directly on to the jQuery Ajax object that DataTables uses to request data from the server, providing the full array of [jQuery.ajax options](http://api.jquery.com/jQuery.ajax/). For example to make a POST request:
+
+```js
+$('#myTable').DataTable( {
+  ajax: {
+    url: '/data',
+    type: 'POST'
+  }
+} );
+```
+
+Combined with the new `dt-api ajax.reload()` and `dt-api ajax.url()` methods, Ajax data is much easier to work with in DataTables 1.10.
+
+
+### Right-to-left layout support
+
+DataTables now supports documents which are laid out with the `direction: rtl` option in CSS. Some browsers will show scrollbars on the left of a scrolling container when laid out in this fashion, which previously caused issues, but is now fully supported in DataTables 1.10.
+
+
+
+## Removed
+
+The above improvements have been made possible by the removal of three features of DataTables 1.9- which were deprecated in 1.9 and scheduled for removal in 1.10.
+
+### fnRender
+
+The old `fnRender` option provided a method of manipulating a cell when it was created. however, it was provided with a confusing list of options as its arguments, and required a particular structure in DataTables internally that caused performance issues. Removal of `fnRender` has lead to a significant improvement in performance of DataTables with large data sets and the ability to provide object instances to DataTables as data source objects (for example Knockout observable objects).
+
+In place of `fnRender` the `dt-init columns.render` and `dt-init columns.createdCell` options are available, providing more flexibility and a more consistent interface.
+
+
+### bScrollInfinite
+
+The built-in ability of DataTables 1.9 to show an infinitely scrolling grid through the `bScrollInfinite` option has been removed due to the inconsistencies it caused in the API. Removal has also helped simply the internal code significantly.
+
+In place of `bScrollInfinite`, the [Scroller](/scroller) extra for DataTables is recommended.
+
+
+### Cookie based state saving
+
+Cookie based state saving has been replaced with `localStorage` based state saving in DataTables 1.10. Cookie's, with their 4KiB limit were very limited, and incurred a performance penalty since they were part of every HTTP request. `localStorage` is much faster and more flexible, and is used as the default storage for state information in DataTables 1.10.
+
+`localStorage` is not available in IE6/7. As such, the built-in state saving of DataTables is not available in these browsers, in which the state saving will silently fail. The `dt-init stateLoad` and `dt-init stateSave` parameters can be used to provide a suitable function if you wish to use cookies.
+
+	]]>
+	</content>
+</dt-page>

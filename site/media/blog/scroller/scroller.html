@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico" />
+		
+		<title>DataTables example</title>
+		<style type="text/css" title="currentStyle">
+			@import "/release-datatables/media/css/demo_page.css";
+			@import "/release-datatables/media/css/demo_table.css";
+			td { white-space: nowrap; }
+.dataTables_wrapper { min-height: 0; }
+		</style>
+		<script type="text/javascript" language="javascript" src="/release-datatables/media/js/jquery.js"></script>
+		<script type="text/javascript" language="javascript" src="/release-datatables/media/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" language="javascript" src="/release-datatables/extras/Scroller/media/js/dataTables.scroller.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				var oTable = $('#example').dataTable( {
+					"sScrollY": "200px",
+					"sAjaxSource": "/release-datatables/extras/Scroller/media/data/2500.txt",
+					"sDom": "frtiS",
+					"bDeferRender": true
+				} );
+			} );
+		</script>
+	</head>
+	<body id="dt_example">
+		<div id="container" style="width:960px">
+			
+			<div id="demo">
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>First name</th>
+			<th>Last name</th>
+			<th>ZIP</th>
+			<th width="33%">Country</th>
+		</tr>
+	</thead>
+</table>
+			</div>
+		</div>
+	</body>
+</html>

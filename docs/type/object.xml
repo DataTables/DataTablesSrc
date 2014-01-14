@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="js">
+	<name>object</name>
+	<summary>Javascript `Object` type</summary>
+
+	<description>
+	<![CDATA[
+
+Javascript's native `Object` type is used to create sets of information, containing data of any Javascript data type. Objects are created using: `{}` or `new Object()`.
+
+A detailed description of the `Array` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting an object type, or a method returning an object type, it indicates that a native `object` is expected / returned.
+
+Note that typically the objects used by DataTables will be of the _plain object_ (`{}`) variety, particularly when working with data sets to display in the table, however, Javascript also treats object instances created by the `new` keyword as objects. DataTables will also accept object instances where `object` is shown as the data type.
+
+	]]>
+	</description>
+</dt-type>

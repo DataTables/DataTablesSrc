@@ -5,6 +5,8 @@
 	<summary>
 	<![CDATA[
 
+Technical notes contain information about DataTables that doesn't quite fit into the flow of the rest of the documentation, explaining error messages, technical decisions of the implementation of DataTables and detailed explanations of other general topics of interest when working with DataTables.
+
 	]]>
 	</summary>
 

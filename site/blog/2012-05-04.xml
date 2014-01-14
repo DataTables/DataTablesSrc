@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>Introducing Editor</title>
+	<date>2012-05-04 10:15</date>
+
+	<summary>
+	<![CDATA[
+
+The primary goal of DataTables has always been to make data sets, no matter how complex, easy to access and get information from. DataTables has come along way from its origins, and with the latest plug-in for DataTables we are taking it even further - I'm delighted to introduce: [Editor](http://editor.datatables.net). With Editor, previously read-only tables can very easily be made into read / write tables.
+
+Tables are intrinsically complex, due to the number of options that can be used to customise them and the data that they show. Building an editing interface that reflects your table could be a time consuming prospect, but with Editor making tables editable is now super easy to do. 
+
+DataTables has always had a capable API, and Editor integrates tightly with that API to provide everything you need, including UI controls, to present an editing interface to your end users. Building on five years of experience of working with dynamic DataTables enhanced tables, Editor is designed to fit in with almost every design and can be readily extended through the use of field and display plug-ins.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+The primary goal of DataTables has always been to make data sets, no matter how complex, easy to access and get information from. DataTables has come along way from its origins, and with the latest plug-in for DataTables we are taking it even further - I'm delighted to introduce: [Editor](http://editor.datatables.net). With Editor, previously read-only tables can very easily be made into read / write tables.
+
+Tables are intrinsically complex, due to the number of options that can be used to customise them and the data that they show. Building an editing interface that reflects your table could be a time consuming prospect, but with Editor making tables editable is now super easy to do. 
+
+DataTables has always had a capable API, and Editor integrates tightly with that API to provide everything you need, including UI controls, to present an editing interface to your end users. Building on five years of experience of working with dynamic DataTables enhanced tables, Editor is designed to fit in with almost every design and can be readily extended through the use of field and display plug-ins.
+
+## Generator
+
+Even although getting started with Editor's API is straight forward, you might want to get an editable table up on your site as quickly as possible - for this there is [Generator](http://editor.datatables.net/generator). You provide Generator details about the table to edit and it will return everything needed to put the editable table onto your own server (HTML, Javascript, SQL and server-side scripts). This can save countless hours of development time, and you are using the power of the DataTables library with the flexibility of Editor to produce a highly configurable, editable DataTable with the minimum of effort!
+
+Once you've entered the table and form information into Editor, you are able to download a customised package, based on your input. You then update this package to your server and get Editor running almost immediately. You can also see the HTML, Javascript, SQL and server-side scripts that Generator produces individually, so you can apply those to your web-site directly if you already have DataTables/Editor available on your server.
+
+A [tutorial is available](http://editor.datatables.net/tutorials/generator) detailing the process of using Generator.
+
+## License
+
+It should be made clear that although Editor is the first commercial plug-in for DataTables it has no effect on the licensing of DataTables itself and the other plug-ins. DataTables is open source under the GPLv2 and BSD licenses and will remain so. Bear in mind that when purchasing Editor, you will get not only excellent editing abilities for DataTables, but it also help to support DataTables core and push development of the whole integrated suite forward.
+
+Full information, including FAQs, can be found on the [Editor purchase](http://editor.datatables.net/purchase/) page.
+
+## On your marks, Get set, Edit!
+
+Editor has its own web-site to document the software and also has a number of tutorials to help you get started with Editor, so get started with Editor now:
+
+Enjoy using Editor!
+
+	]]>
+	</content>
+</dt-page>

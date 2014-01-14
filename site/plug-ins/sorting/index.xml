@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="no">
+	<title nav="Sorting">Sorting plug-ins</title>
+
+	<content>
+	<![CDATA[
+
+DataTables provides two APIs for sorting information in a table:
+
+ * Type based sorting
+ * Custom data source sorting
+
+By far the most commonly used of these two types is "type based sorting" and is the one you are most likely to want to use if just starting out with DataTables.
+
+
+## Type based sorting
+
+The main DataTables package includes sorting functions for strings, dates, numeric and currency data, but you may very well wish to order data in some other manner, for example date formats not built in. The sorting functions below provide a wealth of different sorting methods that can be used with DataTables.
+
+It is also worth noting that sorting function go hand-in-hand with [type detection plug-ins](/plug-ins/type-detection), and many of the sorting plug-ins below has a corresponding type detection function to make installation very easy.
+
+
+### How to use
+
+To add the ability to sort specific data types, using the plug-in functions below, you simply need to include the plug-in's code in the Javascript available for your page, after you load the DataTables library, but before you initialise the DataTable. Then using the `dt-init columns.type` parameter for the column you want to have this sorting type applied to, set it to the value needed for the plug-in (this isn't needed if you use a [type detection plug-ins](/plug-ins/type-detection) for the sorting type.
+
+The following example shows how the [numeric comma sorting plug-in](numeric-comma) (saved to a file) can be used with a DataTable, sorting on the fourth column ([live example](/examples/plug-ins/sorting_manual)):
+
+```html
+<script type="text/javascript" src="jquery.dataTables.js"></script>
+<script type="text/javascript" src="dataTables.numericComma.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').dataTable( {
+            "columnDefs": [
+                { "type": "numeric-comma", targets: 3 }
+            ]
+        } );
+    } );
+</script>
+```
+
+### Plug-ins
+
+{plugins-sorting-type}
+
+
+
+## Custom data source sorting
+
+Custom data source sorting plug-ins allow complete control of the data that is to be sorted. Typically this is used to retrieve data live from the DOM just prior to the table being sorted, to perform sorting on data that can be updated by the end-user or by some other script.
+
+You can also use type based sorting in-combination with custom data source sorting as the data returned by the custom data source sorting plug-in is processed in exactly the same way as automatically retrieved data.
+
+Please note that custom data source sorting plug-ins will often query the DOM for information which can degrade performance. Thus, if it is possible for you to use type based sorting (above) or [orthogonal data](/manual/orthogonal-data), it is recommended that you do so.
+
+
+### How to use
+
+To make use of the custom data source sorting plug-ins below, you simply need to include the plug-in's code in the Javascript available for your page, after you load the DataTables library, but before you initialise the DataTable. You also need to specify the `dt-init columns.orderDataType` parameter for the column, to tell it which plug-in function to use.
+
+The example below shows the use of multiple custom data source plug-ins, and also it's use in-combination with `dt-init columns.type` ([live example](/examples/plug-ins/dom_sort)):
+
+```html
+<script type="text/javascript" src="jquery.dataTables.js"></script>
+<script type="text/javascript" src="dataTables.dataSourcePlugins.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').dataTable( {
+            "columns": [
+                null,
+                null,
+                { "orderDataType": "dom-text" },
+                { "orderDataType": "dom-text", "type": "numeric" },
+                { "orderDataType": "dom-select" },
+                { "orderDataType": "dom-checkbox" }
+            ]
+        } );
+    } );
+</script>
+```
+
+### Plug-ins
+
+The custom data source functions are used to update the cached data in DataTables, so sorting can occur on columns with user input information.
+
+{plugins-sorting-custom}
+
+
+	]]>
+	</content>
+</dt-page>

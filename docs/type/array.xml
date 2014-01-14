@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="js">
+	<name>array</name>
+	<summary>Javascript `Array` type</summary>
+
+	<description>
+	<![CDATA[
+
+Javascript's native `Array` type is used to create list like objects. Arrays are created using: `[]` or `new Array()`.
+
+A detailed description of the `Array` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting an array type, or a method returning an array type, it indicates that a native `Array` object is expected / returned.
+
+	]]>
+	</description>
+</dt-type>

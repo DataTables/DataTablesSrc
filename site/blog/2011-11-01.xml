@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>Site updates - JS Bin and more</title>
+	<date>2011-11-01 16:30</date>
+
+	<summary>
+	<![CDATA[
+
+Its an exciting time this November. Along with some significant changes in my own circumstances I've been hard at work on number of updates for the DataTables site, which I'm really pleased to be able to announce with this post.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+Its an exciting time this November. Along with some significant changes in my own circumstances I've been hard at work on number of updates for the DataTables site, which I'm really pleased to be able to announce with this post.
+
+The most significant addition to the site is the new [DataTables Live](http://live.datatables.net/) site, which is built upon [JS Bin](http://jsbin.com). JS Bin allows live editing, testing and sharing of code on the site, which I've tailored for DataTables (for example press 'esc' to get code-completion hints, including DataTables API methods and initialisation options).
+
+I'll increasingly be using the Live site myself when answering support questions in the forums. I would also ask that if you have a question about a DataTables setup or a bug to report, please set up a Live example as it will make the whole process much quicker!
+
+You will also be able to see that I've updated the syntax highlighter used on this site, and the DataTables examples. The code blocks now all have a "Edit in JS Bin" link, which when clicked on will import the code into the DataTables Live site, allowing you to quickly get an example running. It should be noted that not all code examples will work in JS Bin off the bat - they might need some custom setup, but the majority should work immediately.
+
+Other updates to the site include automatic linking of API and initialisation options in forum posts to the [DataTables reference](/ref), making reference that little bit easier. There are also a few other tidy ups in the documentation and software behind the site.
+
+As for myself, I now join the ranks of full-time freelancers. If you would like to work with me on any projects you have (involving DataTables integration or otherwise), please do [get in touch](http://sprymedia.co.uk/contact)!
+
+Exciting times indeed!
+
+	]]>
+	</content>
+</dt-page>

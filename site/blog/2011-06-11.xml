@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>Introducing Scroller</title>
+	<date>2011-06-11 09:15</date>
+
+	<summary>
+	<![CDATA[
+
+As part of DataTables 1.8 release a new plug-in called "Scroller" was introduced as part of the download package. Scroller is an implementation of virtual scrolling for DataTables, which presents a vertically scrolling table, scrolling the full height of the table, but drawing only the rows which are necessary for the visible display, leading to a huge performance increase. This is quite an exciting plug-in for DataTables not only for the performance increase, but also because it effectively provide a new user interaction with the table, allowing full scrolling of very large data sets.
+
+The basic aim of Scroller is to have a vertically scrolling table, where the scrollbar for the table directly represents the position of the visible data in the full data set. This can of course already be achieved with DataTables as shown in the [y-scrolling](/release-datatables/examples/basic_init/scroll_y.html) example, however, this method requires every single row to be created and drawn in the DOM. When considering many thousands of rows, this can ask a lot of the browser's Javascript engine. One possible solution which is built into DataTables is [infinite scrolling](/release-datatables/examples/basic_init/scroll_y_infinite.html), but here the scrollbar doesn't accurately represent the full data set. Thus Scroller is presented to provide the main goal, while making use of the new features in DataTables 1.8 to maintain the performance of the table.
+
+An example of a DataTable with 2'500 rows being loaded from an Ajax source is shown below:
+
+<iframe src="//datatables.net/media/blog/scroller/scroller.html" height="330" width="100%" style="overflow: hidden; border: none"></iframe>
+
+Development of Scroller was sponsored by [John Wiley & Sons, Inc.](http://wiley.com) - a huge thank you to them for their support of the DataTables project!
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+As part of DataTables 1.8 release a new plug-in called "Scroller" was introduced as part of the download package. Scroller is an implementation of virtual scrolling for DataTables, which presents a vertically scrolling table, scrolling the full height of the table, but drawing only the rows which are necessary for the visible display, leading to a huge performance increase. This is quite an exciting plug-in for DataTables not only for the performance increase, but also because it effectively provide a new user interaction with the table, allowing full scrolling of very large data sets.
+
+The basic aim of Scroller is to have a vertically scrolling table, where the scrollbar for the table directly represents the position of the visible data in the full data set. This can of course already be achieved with DataTables as shown in the [y-scrolling](/release-datatables/examples/basic_init/scroll_y.html) example, however, this method requires every single row to be created and drawn in the DOM. When considering many thousands of rows, this can ask a lot of the browser's Javascript engine. One possible solution which is built into DataTables is [infinite scrolling](/release-datatables/examples/basic_init/scroll_y_infinite.html), but here the scrollbar doesn't accurately represent the full data set. Thus Scroller is presented to provide the main goal, while making use of the new features in DataTables 1.8 to maintain the performance of the table.
+
+An example of a DataTable with 2'500 rows being loaded from an Ajax source is shown below:
+
+<iframe src="//datatables.net/media/blog/scroller/scroller.html" height="310" width="100%" style="overflow: hidden; border: none"></iframe>
+
+Development of Scroller was sponsored by [John Wiley & Sons, Inc.](http://wiley.com) - a huge thank you to them for their support of the DataTables project!
+
+## How it works
+
+There are three key areas which come together to allow Scroller to do what it does. These are:
+
+*   Forced scrolling
+*   Scrolling position and drawing
+*   Deferred rendering
+
+### Forced scrolling
+
+The first thing we want Scroller to do is to have the DataTables scrolling element be forced to scroll the entire height of the table. Not all rows will be drawn of course, but the end user doesn't need to know that - they are looking through a viewport at the table which is being dynamically redrawn and repositioned (discussed in the next section). The height of the scrolling is obtained quite simply by the height of the rows * the number of rows.
+
+With this information we can then insert a &lt;div&gt; into the DataTables scrolling element and set its height to force the scrolling to match that which would be used if the full table was drawn. On each draw of the table this height is recalculated and adjusted as required, so it will maintain the correct scrolling proportions when the table is filtered or data is added / removed from the table.
+
+You'll note here that there is a constraint on Scroller that it assumes all rows are of equal height. This allows positional calculations to be made on-the-fly without pre-rendering all rows. As such steps must be taken to ensure that each row is indeed the same height as all others. If you know your data won't wrap, then that's absolutely fine, if it might then you might consider adding:
+
+```css
+th, td { white-space: nowrap; }
+</pre>
+
+to your CSS, or wrapping the content of the cells in a &lt;div&gt; and setting overflow: hidden; on those elements. Scroller won't "break" if all rows aren't the same height, but the row height calculation will be slightly off, resulting in possible jerkiness for the end user when the table is being scrolled.
+
+### Scrolling position and drawing
+
+Since DataTables uses the &lt;table&gt; tag to build and display the table data, the information in the display must be consecutive, i.e. we can't draw rows 1, 10 and 100 only, we must draw rows 1, 2, 3... Thus in order to achieve the effect we want, what we can do is change the position of the table in the viewport. In the figure below, the conceptual full table is illustrated in (a). The visible part of the table is that which is seen through the viewport, shown in red (b). From this we can readily see how what part of the table is visible in the viewport can be changed by simply changing the position of the table (c).
+
+In order to provide a smooth experience for the end user we don't want to just draw only the visible part of the table, since we would then need to redraw it for every scroll event, taking up processor time. To address this Scroller will draw the table past the scrolling start and end points (d) and only redraw the table when the scrolling approaches the edge of the rendered data (e) and (f).
+
+![Illustration of how Scroller works](/media/blog/scroller/scroller.png)
+
+Using this method Scroller can calculate the exact position of any row in the table and reposition the table as required to display that row. The drawing of the table is controlled by the DataTables API; simply setting the draw start point and drawing 3x the number of rows needed for the visible area (i.e. the before + after scrolling buffers and the visible data). Scroller presents a [number of API methods and parameters](/docs/Scroller/) to give information about the table and to control its display.
+
+### Deferred rendering
+
+Deferred rendering is a [new feature](/new/1.8) in DataTables 1.8 whereby TR and TD nodes are not created until they are actually needed for display on screen. Although the creation of each individual element doesn't take all that long, it does take a finite amount of time, and when you consider that a table with 2'500 rows and 5 columns has 12'500 TD cells to be created it becomes apparent that creating them all at the same time will take a significant amount of time, becoming more obvious as more rows are added. Deferred rendering neatly side-steps this by breaking the rendering down to do only rows that are needed when they are needed. This feature can be enabled using the [bDeferRender](/usage/features#bDeferRender) initialisation option in your table.
+
+## Data sources
+
+Scroller will work with any [data source supported by DataTables](/usage/#data_sources). When used with a DOM data source, the deferred rendering option of DataTables will have no effect on performance (since the browser will already have created the elements), so for maximum speed on large tables, it is recommended that one of the other options is utilised. With server-side processing Scroller will only request an update from the server when the scrolling is stopped by the end user - this prevents your own sever-side DDoSing your server with too many requests for draw information!
+
+## Conclusion
+
+We've seen here a new plug-in for DataTables which introduces virtual scrolling, giving a new dynamic to large datasets in a scrolling DataTable. While consideration must be made for the height of rows in the table, the benefits of using Scroller with DataTables 1.8 are significant over previous methods if you are looking for a large scrolling table.
+
+*   [Examples](/extras/scroller/examples)
+*   [API documentation](/docs/Scroller/)
+*   [Download Scroller (as part of DataTables 1.8)](/releases/DataTables-1.8.0.zip)
+*   [Download Scroller (individual package)](/releases/Scroller-1.0.0.zip)
+
+As always there is a [thread in the forum for comments and discussion](/forums/comments.php?DiscussionID=5311) on this post.
+
+	]]>
+	</content>
+</dt-page>

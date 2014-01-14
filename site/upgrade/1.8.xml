@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="3" comments="no">
+	<title>Upgrading to DataTables 1.8 from 1.7</title>
+
+	<summary>
+	<![CDATA[
+
+DataTables 1.8 has been developed with backwards compatibility in mind and as such it should be a drop in replacement for the majority of developers. With that in mind, there are a few small issues which you should be aware of, particularly if developing plug-ins.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+
+DataTables 1.8 has been developed with backwards compatibility in mind and as such it should be a drop in replacement for the majority of developers. With that in mind, there are a few small issues which you should be aware of, particularly if developing plug-ins.
+
+## Common upgrade issues
+
+* FixedColumns:
+  * If you are using multiple rows in your thead or tfoot elements, the handling for this has changed for DataTables 1.8, and this has a knock on effect on the FixedColumns extra. Please update to the latest [version of FixedColumns](/download) (2.0.1+).
+* ColReorder:
+  * ColReorder must be updated to work fully with DataTables 1.8 due to the new method for laying out of the header and footer. It will "appear" to work most of the time but ColVis integration will fail without a ColReorder update. Please update to the latest [version of ColReorder](/download) (1.0.3+).
+* `bSortCellsTop`:
+  * Previously DataTables would automatically add the sorting handler to the top unique cell found for each column. In 1.8, with its improved complex header abilities, this is now applied automatically to the bottom most cell (the most common position for this kind of event handler). Using the property **bSortCellsTop**, set to true, the original behaviour can be restored.
+
+
+## New initialisation options
+
+* [bDeferRender](/usage/features#bDeferRender) - Deferred rendering
+* [mDataSource](/usage/columns#mDataSource) - Data source configuration
+* [iDeferLoading](/usage/options#iDeferLoading) - Defer the first XHR when server-side processing and use the data already in the table for the first draw
+* [bSortCellsTop](/usage/options#bSortCellsTop) - control what cell in the header should be used for the click to sort option
+* [sDefaultContent](/usage/columns#sDefaultContent) - default content to use for the cell if mDataProp or the data itself is null
+* [fnPreDrawCallback](/usage/callbacks#fnPreDrawCallback) - Callback allowing a draw to be cancelled
+* [sLoadingRecords](/usage/i18n#oLanguage.sLoadingRecords) - Show a loading message in the empty table row (rather than "No records" as was the case in 1.7) when using Ajax sourced data. For server-side processing, just put your loading message into the plain HTML.
+
+
+## API method updates
+
+* [fnOpen](/api#fnOpen) - 2nd parameter can now be a node or jQuery object as well as a plain string
+* [fnGetData](/api#fnGetData) - new 2nd parameter to get data for a column in the target row
+* [fnUpdate](/api#fnUpdate) - First parameter can be an object when using data source options (mDataProp)
+
+
+## Changes for plug-in and API developers
+
+* `anThExtra` and `anTfExtra`:
+  * These properties, which were part of the column definitions objects in aoColumns, have now been removed as they are no longer needed for the DataTables internal cache. An reference to them in a plug-in will cause an error to occur.
+* fnGetNodes:
+  * Due to the new deferred rendering ability in 1.8, fnGetNodes will now only return nodes which have been created. This means that you could receive a sub-set of the total possible TR elements, if you are using deferred rendering.
+
+If you do happen to encounter any other issues during the upgrade process, please let me know in the [forums](/forums/).
+
+	]]>
+	</content>
+</dt-page>

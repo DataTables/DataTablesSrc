@@ -1,11 +1,112 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
+	<name>cell-selector</name>
+	<summary>Selector options for cells.</summary>
+
 	<description>
-falsy (all strings)
-node
-jQuery selector string
-array of jQuery selector strings
-array of nodes
-jQuery object
+<![CDATA[
+
+The DataTables `dt-api cells()` and `dt-api cell()` methods provide the ability to select individual cells from the table. What cells are selected and how the selector actually operates is controlled by this `dt-type cell-selector` data type.
+
+### Options
+
+The cell selector can be given in a number of different forms, to make it easy to apply to your data and use case:
+
+* No selector - Select all cells
+* `dt-type string` - jQuery selector
+* `dt-type node` - `dt-tag td` / `dt-tag th` element selector
+* `dt-type jQuery` - jQuery object of cell nodes
+* `dt-type array` - Array containing any combination of the above options
+
+
+## No selector
+
+If no selector is given (more specifically `dt-type undefined`), then all cells are selected.
+
+###### Get the nodes for all cells in the table:
+
+```js
+var table = $('#example').DataTable();
+var cells = table.cells().nodes();
+```
+
+
+## string
+
+When the selector is given as a string, it is treated as a [jQuery selector](http://api.jquery.com/category/selectors/) that operates on the `dt-tag td` and `dt-tag th` elements in the table's `dt-tag tbody`. For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](http://api.jquery.com/category/selectors/).
+
+Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
+
+###### Get data from a single cell by id:
+
+```js
+var table = $('#example').DataTable();
+var data = table.cell('#cell-2-42').data();
+```
+
+###### Select cells by class name:
+
+```js
+var table = $('#example').DataTable();
+var cells = table.cells('.priority');
+```
+
+###### Select cells by two class name selectors:
+
+```js
+var table = $('#example').DataTable();
+var cells = table.cells('.important, .intermediate');
+```
+
+
+## node
+
+`dt-tag td` and `dt-tag th` DOM elements can be given as a cell selector to select a cell in the DataTabels API from that DOM element. This can be useful for getting data from a cell directly, or performing other cell based operations, when you have only the DOM node for reference, for example in an event handler.
+
+###### Get the data for a cell that was clicked upon:
+
+```js
+var table = $('#example').DataTable();
+
+$('#example tbody').on( 'click', 'td', function () {
+  var cellData = table.cell( this ).data();
+  // ... do something with `cellData`
+} );
+```
+
+
+## jQuery
+
+Very similar to the above `node` type (since a jQuery object is an _array-like_ list of DOM nodes), a jQuery instance can be given as a cell selector, with any nodes which are selected by jQuery and match those available in the table's `dt-tag tbody` selected.
+
+###### Get data from cells in a jQuery instance:
+
+```js
+var cells = $('td.immediate');
+var table = $('#example').DataTable();
+
+var cellData = table.cells( cells ).data();
+```
+
+
+## array
+
+Any combination of the above options can be given as selector together, providing a method to select multiple cells, or to mix selector types, by simply providing the selector options you want in an array.
+
+###### Get the data for two cells, based on id:
+
+```js
+var table = $('#example').DataTable();
+var data = table.cells( ['#cell-1-42', '#cell-1-91'] ).data();
+```
+
+###### Mix `cell-selector` types - id and class selector
+
+```js
+var table = $('#example').DataTable();
+var data = table.cells( ['#cell-1-42', '.important'] ).data();
+```
+
+	]]>
 	</description>
 </dt-type>

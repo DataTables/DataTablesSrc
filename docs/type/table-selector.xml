@@ -1,10 +1,137 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
+	<name>table-selector</name>
+	<summary>Selector options for tables.</summary>
+
 	<description>
-<![CDATA[
-integer - table index
-node - table node
-string - jQuery selector
-]]>
+	<![CDATA[
+
+The DataTables `dt-api tables()` and `dt-api table()` methods provide the ability to select the full set, or a subset, of the tables that are held in an API instance's context. The context of an API instance is the DataTables that the instance will act upon when an operation is performed using the methods available (for example, a page can be changed for multiple tables with a single call). For more information about how the API operates, please refer to the [API manual](/manual/api).
+
+Most API calls will operate on all tables in the API's context automatically, but the `dt-api tables()` and `dt-api table()` methods can be used to select a subset of those tables. What are selected and how the selector actually operates is controlled by this `dt-type table-selector` data type.
+
+### Options
+
+The table selector can be given in a number of different forms, to make it easy to apply to your data and use case:
+
+* No selector - Select all tables
+* `dt-type integer` - Table index selector
+* `dt-type string` - jQuery selector
+* `dt-type node` - `dt-tag table` element selector
+* `dt-type jQuery` - jQuery object of table nodes
+* `dt-type array` - Array containing any combination of the above options
+
+
+
+## No selector
+
+If no selector is given (more specifically `dt-type undefined`), then all tables are selected.
+
+###### Get the data from all tables in the current context:
+
+```js
+var tables = $('.dataTable').DataTable();
+var allData = tables.tables().rows().data();
+
+// note that the above is the same as:
+// tables.rows().data(); as `rows()` operates on
+// all tables in the current context!
+```
+
+
+## integer
+
+If an integer is given for the table selector, then the table with that index in the context is selected.
+
+###### Get the nodes of the first table in the current context:
+
+```js
+var tables = $('.dataTable').DataTable();
+var data = tables.table( 0 ).data();
+```
+
+
+## string
+
+When the selector is given as a string, it is treated as a [jQuery selector](http://api.jquery.com/category/selectors/) that operates on the `dt-tag table` elements themselves. For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](http://api.jquery.com/category/selectors/).
+
+Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
+
+###### Select tables by class name:
+
+```js
+var tables = $('.dataTable').DataTable();
+tables
+	.tables('.cell-selector')
+	.page( 'next' )
+	.draw( false );
+```
+
+###### Select table by ID:
+
+```js
+var tables = $('.dataTable').DataTable();
+var table = table.table('#example');
+```
+
+###### Select two tables by ID:
+
+```js
+var tables = $('.dataTable').DataTable();
+table.tables('#clients, #owners');
+```
+
+
+## node
+
+`dt-tag tables` DOM elements can be given as a table selector to select a table in the DataTabels API from that DOM element. This can be useful for getting data from a row, or performing other row based operations, when you have only the DOM node for reference, for example in an event handler.
+
+###### Get the data for the table that was clicked upon:
+
+```js
+var tables = $('.dataTable').DataTable();
+
+$('.dataTable tbody').on( 'click', 'tr', function () {
+	var tableData = tables.table( this.parentNode.parentNode );
+  // ... do something with `tableData`
+} );
+```
+
+
+## jQuery
+
+Very similar to the above `node` type (since a jQuery object is an _array-like_ list of DOM nodes), a jQuery instance can be given as a table selector, with any nodes which are selected by jQuery and match those available in the API instance's context.
+
+###### Get the data for the table that was clicked upon:
+
+```js
+var tables = $('.dataTable').DataTable();
+
+$('.dataTable tbody').on( 'click', 'tr', function () {
+	var tableData = tables.table( $(this).parents('table') );
+  // ... do something with `tableData`
+} );
+```
+
+
+## array
+
+Any combination of the above options can be given as selector together, providing a method to select multiple tables, or to mix selector types, by simply providing the selector options you want in an array.
+
+###### Get the data for two tables, based on id:
+
+```js
+var tables = $('.dataTable').DataTable();
+var data = tables.tables( ['#table-1', '#table-3'] ).data();
+```
+
+###### Mix `table-selector` types - id and class selector
+
+```js
+var tables = $('.dataTable').DataTable();
+var data = table.tables( ['#table-1', '.important'] ).data();
+```
+
+	]]>
 	</description>
 </dt-type>

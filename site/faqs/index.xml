@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="no">
+	<title>Frequently Asked Questions</title>
+
+	<content>
+	<![CDATA[
+
+DataTables is a complex piece of software and undoubtedly questions will arise from it's use. Some of these questions have already been posed and answered, and most common of which are shown here.
+
+
+## Getting help
+
+**Q. I have a question - how can I get help?**  
+A. The best place to get help for DataTables is on this site. There is extensive documentation on DataTables in the [manual](/manual), [reference](/reference), [examples](/examples), these FAQs and in the [forum](/forums). If you can't find the answer to your question on the site already, please post it in the [forum](/forums). When posting a question about an existing table, please link to a test case showing the issue, or at the very least use the [DataTables debugger](http://debug.datatables.net) to provide information about the table.
+
+**Q. I need to get an answer to this question as soon as possible!**  
+A. Post your question in the forum as normal, and then use the [support](/support) page to purchase a support package for DataTables. Purchasing support ensures you will receive assistance with the problem you are having, and also helps support the DataTables project as a whole.
+
+**Q. How quickly can I expect a reply to my forum post?**  
+A. The best way to ensure that you get a reply to your question is to [purchase a support option](/support). Posting a test case will also ensure that all the information required for the problem is available. Response times will of course vary, but one will come normally within a day, but it can sometimes take longer. If this is the case please don't be offended!
+
+
+
+## Most common FAQs
+
+**Q. My events don't work on the second page**
+A. When attaching events to cells in a table controlled by DataTables, you need to be careful how it is done. Because DataTables removes nodes from the DOM, events applied with a static event listener might not be able to bind themselves to all nodes in the table. To over come this, simply use jQuery delegated event listener options, [as shown in this example](/examples/advanced_init/events_live.html). Additionally, you use my [Visual Event](http://www.sprymedia.co.uk/article/Visual+Event+2) bookmarklet to help debug event issues.
+
+**Q. I get a JSON parsing error**  
+A. This is due to incorrect JSON data being passed back from the server. Please refer to [this technical note](/manual/tech-notes/1) on how to debug and resolve this issue.
+
+**Q. "Requested unknown parameter" error**  
+A. When DataTables requests a property that is not present in the data source for the table, you get this error. It can be caused by specifying an incorrect number of columns, missing parameters and colspan / rowspan in the body. Please refer to [this technical note](/manual/tech-notes/4) on how to debug and resolve this issue.
+
+**Q. I get a Javascript error in IE, but not in Firefox, Chrome etc.**  
+A. The majority of the time, this is caused by a 'floating' comma at the end of an array. IE will throw a warning for this, other will automatically delete it.
+
+**Q. I append a row to the table using DOM/jQuery, but it is removed on redraw.**  
+A. The issue here is that DataTables doesn't _know_ about your manipulation of the DOM structure - i.e. it doesn't know that you've added a new row, and when it does a redraw it will remove the unknown row. To add, edit or delete information from a DataTable you must use the [DataTables API](/manual/api) (specifically the `dt-api row.add()`, `dt-api row().update()` and `dt-api row().remove()` methods methods to add, edit and delete rows.
+
+
+## General initialisation
+
+**Q. DataTables is running slow. How can I speed it up?**  
+A. There are several ways in which you can speed up DataTables. The method you are using for loading the data will typically have the most significant impact on performance.
+
+* Client-side processing - DOM sourced data: ~5'000 rows. Speed options: `dt-init orderClasses`.
+* Client-side processing - Ajax sourced data (`dt-init ajax`): ~50'000 rows. Speed options: `dt-init deferRender`
+* Server-side processing (`dt-init serverSide`): millions of rows.
+
+Note that older browsers such as IE6/7 might have lower numbers than those given above. Additionally, if you are using Firefox and using Firebug, turn off Firebug as this can have a negative impact on performance.
+
+**Q. My table isn't working!?**  
+A. Have you got a `dt-tag thead` and `dt-tag tbody` defined as DataTables requires ([manual - installation](/manual/installation))? Is your HTML valid ([W3C validator](http://validator.w3.org/))? Are you seeing any Javascript errors?
+
+**Q. My styles aren't showing up / my table isn't styled.**  
+A. Have you included the demo CSS for DataTables on your page (and got the paths correct!)?
+
+**Q. How can I move the table controls?**  
+A. You can move the elements that DataTables puts around the table by using the `dt-init dom` initialisation parameter.
+
+
+
+## Server-side processing
+
+**Q. Its not working... (stuck on _Processing_)**  
+A. This is usually down to incorrect JSON data being passed back from the server. Please refer to [this technical note](/manual/tech-notes/1) on how to debug and resolve this issue.
+
+**Q. Its still not working...**  
+A. The next most common reason for server-side processing not working is the `draw` variable not being returned as it was set in the request. DataTables uses `draw` to keep a draw count, so this is an important parameter. See [server-side usage](/manual/server-side).
+
+**Q. Pagination is not enabled, or the information text shows the wrong data set count**  
+A. This is likely to be caused by the incorrect use of `recordsFiltered`. `recordsFiltered` is the total number of records in the data set after filtering - not just the data array length (which DataTables can do itself!). So if you have no filtering `recordsFiltered` should be exactly the same as `recordsTotal`. See [server-side usage](/manual/server-side).
+
+**Q. My events aren't being applied**  
+A. What happens is that for each draw, DataTables will create the required display nodes (TR, TD etc), so old events are lost. You can either use delegated events (preferable) [like in this example](/examples/advanced_init/events_live.html), or `dt-init drawCallback` to re-add the events on each draw. You can also use [Visual Event](http://www.sprymedia.co.uk/article/Visual+Event) bookmarklet to help debug event issues.
+
+
+
+## Licensing
+
+**Q. DataTables is great! How much is it?**  
+A. DataTables is free, open source software that you can download and use for whatever purpose you wish, on any and as many sites you want. It is free for you to use! DataTables is available under the [MIT](/license_mit), with which you must comply (to do this, basically keep the copyright notices in the software).
+
+**Q. Really - its free, even for commercial sites?!**  
+A. Yes! I'm very proud of what has been achieved with DataTables and the fantastic community that has helped it to get to where it is today, and I'm delighted to make it available as open source. Obviously if you benefit from DataTables then any reciprocation is very welcome, be it as a plug-in for DataTables, a donation to future development or a blog post saying you enjoy using DataTables.
+
+**Q. We can't use MIT licensed software. What do we do?**  
+A. In the rare case that you can't use DataTables under its available license, please [get in touch](/contact) to discuss alternative licensing arrangements.
+
+
+
+## Development FAQs
+
+**Q. This is great software - how can contribute?**  
+* Write about DataTables on your blog and spread the word!
+* Create [plug-ins](/plug-ins) for DataTables which can be show-cased on this site.
+* Answer support questions in the forums.
+* Contribute patches to any bugs you find - test for bugs.
+
+**Q. Can I pay for integration support?**  
+A. Yes! There are [support packages](/support) for DataTables integration available.
+
+**Q. I have created a plug-in - how can I share it with everyone else?**  
+A. Please [send it to me](/contact) direct, or post it in the forum.
+
+**Q. I think I have found a bug - how do I report it?**  
+A. Please post your bug, along with as a full test case showing how to recreate the issue in the [forum](/forums).
+
+
+
+	]]>
+	</content>
+</dt-page>

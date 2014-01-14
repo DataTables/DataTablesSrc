@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="no">
+	<title nav="Pagination">Pagination plug-ins</title>
+
+	<content>
+	<![CDATA[
+
+The style of the pagination options that DataTables presents to the end-user can greatly effect the look and feel of your table, as well as, of course, the interaction behaviour. DataTables has four built in paging control types (`dt-init pagingType`), and through the pagination plug-ins below you can add additional options.
+
+
+## How to use
+
+To use a pagination plug-in you must include the pagination plug-in code from the plug-ins available below, after you load the DataTables library, but before you initialise the DataTable. When initialising the DataTable, you must also tell it to make use of this plug-in, rather than using the default, by setting the `dt-init pagingType` to the value required by the plug-in.
+
+As an example the code below makes use of the scrolling pagination plug-in saved into a file:
+
+```html
+<script type="text/javascript" src="jquery.dataTables.js"></script>
+<script type="text/javascript" src="dataTables.scrollingPagination.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').dataTable( {
+            "paginationType": "scrolling"
+        } );
+    } );
+</script>
+```
+
+## Plug-ins
+
+{plugins-pagination}
+
+
+	]]>
+	</content>
+</dt-page>

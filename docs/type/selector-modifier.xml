@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="dt">
+	<name>selector-modifier</name>
+	<summary>Options for how the row, column and cell selector should operate on rows.</summary>
+
+	<description>
+	<![CDATA[
+
+When working with the selectors in `dt-api rows()`, `dt-api columns()` and `dt-api cells()` (and their singular counterparts) you will want to know, and be able to control, basic aspects of how DataTables treats the rows, such as the order they are processed in, and what set of rows the selector should act upon. This `dt-type selector-modifier` type provides exactly that ability and can optionally be used in any of the functions that uses a selector.
+
+
+### Options
+
+Fundamentally `dt-type selector-modifier` is an object with three properties. These properties, including their default values are:
+
+```js
+{
+    order:  'current', // 'current', 'applied', 'index',  'original'
+    search: 'none',    // 'none',    'applied', 'removed'
+    page:   'all'      // 'all',     'current'
+}
+```
+
+
+## order
+
+The `order` modifier provides the ability to control which order the rows are processed in. This can have an effect on the return from chained functions - for example `dt-api column().data()` can return the data for the column in the order that the table currently shows the data, or in the original data order.
+
+* `dt-string current` (default) - Process the rows in the order currently applied to the table.
+* `dt-string index` - Process the rows in their data index order (the order the data was originally read into the table).
+* `dt-string applied` - Alias of `current`.
+* `dt-string original` - Alias of `original` for backwards compatibility.
+
+###### Get the data from a column in the applied order:
+
+Note that since the `dt-type selector-modifier` is optional, and `dt-string applied` is the default value for the column, the example below is the same as: `table.column( 3 ).data();` - it just sets the `order` parameter explicitly.
+
+```js
+var table = $('#example').DataTable();
+table.column( 3, {order:'current'} ).data();
+```
+
+###### Get the data from a column in data index order:
+
+```js
+var table = $('#example').DataTable();
+table.column( 3, {order:'index'} ).data();
+```
+
+
+## search
+
+The `search` modifier provides the ability to govern which rows are used by the selector using the search options that are applied to the table.
+
+* `dt-string none` (default) - Do not take searching into account (i.e. all rows are used)
+* `dt-string applied` - Use only rows which match the current search applied to the table
+* `dt-string removed` - Use only rows that have been removed from the table by the search applied.
+
+Note that for backwards compatibility, the `search` term can also be provided as the property `filter`. If both are provided, the `search` term is used in preference.
+
+###### Get the `dt-tag tr` elements for rows which match the search term applied to the table, in index order:
+
+```js
+var table = $('#example').DataTable();
+table.rows( {order:'index', search:'applied'} ).nodes();
+```
+
+###### Get removes which have been removed from the search:
+
+```js
+var table = $('#example').DataTable();
+table.rows( {search:'removed'} ).nodes();
+```
+
+
+## page
+
+The `page` modifier allows you to control if the selector should consider all data in the table, regardless of paging, or if only the rows in the currently disabled page should be used.
+
+* `dt-string all` (default) - Use the rows from all pages
+* `dt-string current` - Use the rows from only the currently displayed page.
+
+**Important**: Setting `page` to be `dt-string current` implicitly sets `order=current` and `search=applied`. The `dt-string current` option doesn't make sense otherwise! These implied `order` and `search` values cannot be overridden by explicitly setting them.
+
+###### Get the data for the rows on the current page only:
+
+```js
+var table = $('#example').DataTable();
+table.rows( {page:'current'} ).data();
+```
+
+
+	]]>
+	</description>
+</dt-type>

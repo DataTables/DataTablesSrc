@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>Twitter Bootstrap</title>
+	<date>2011-12-08 12:30</date>
+
+	<summary>
+	<![CDATA[
+
+[Twitter Bootstrap](http://twitter.github.com/bootstrap) is a CSS framework that lets you quickly and easily build a user interface that has a unified look and feel. The great news is that it is actually quite easy to integrate Bootstrap and DataTables such that your fully featured DataTables will match the same look and feel of the rest of your site. In this article I'll show how you can integrate Bootstrap and DataTables together.
+
+There are three basic areas we need to look at to complete the integration:
+
+*   Layout
+*   Sorting controls
+*   Pagination
+
+## Layout
+
+Bootstrap, as you would expect for a CSS library, has a well defined grid system. We want to use this grid system to layout a standard DataTable with the length changing and filtering controls above the table and the table information and pagination controls below the table. To do this we will use the [sDom](/ref#sDom) DataTables initialisation parameter to have DataTables create the markup needed. So we start with ([see this example running](/media/blog/bootstrap/001.html)):
+
+```js
+$(document).ready(function() {
+  $('#example').dataTable( {
+    "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>"
+  } );
+} );
+```
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+> Update 2: Bootstrap integration with DataTables is now formalised in the [styling section](/manual/styling/bootstrap) of the manual.
+
+> Update: [A new blog post is available](/blog/Twitter_Bootstrap_2), building on this one, describing how to integrate DataTables and Twitter Bootstrap 2.0.
+
+[Twitter Bootstrap](http://twitter.github.com/bootstrap) is a CSS framework that lets you quickly and easily build a user interface that has a unified look and feel. The great news is that it is actually quite easy to integrate Bootstrap and DataTables such that your fully featured DataTables will match the same look and feel of the rest of your site. In this article I'll show how you can integrate Bootstrap and DataTables together.
+
+There are three basic areas we need to look at to complete the integration:
+
+*   Layout
+*   Sorting controls
+*   Pagination
+
+## Layout
+
+Bootstrap, as you would expect for a CSS library, has a well defined grid system. We want to use this grid system to layout a standard DataTable with the length changing and filtering controls above the table and the table information and pagination controls below the table. To do this we will use the [sDom](/ref#sDom) DataTables initialisation parameter to have DataTables create the markup needed. So we start with ([see this example running](/media/blog/bootstrap/001.html)):
+
+```js
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>"
+	} );
+} );
+```
+
+This will create our basic grid, but we also need to provide a little extra CSS to lay the elements out exactly as we want for the DataTable. For this we add the following CSS that will add the positional information we want, and override one or two Bootstrap styles that interrupt the visual flow of the table ([see this example running](/media/blog/bootstrap/002.html)):
+
+```css
+div.dataTables_length label {
+	width: 460px;
+	float: left;
+	text-align: left;
+}
+
+div.dataTables_length select {
+	width: 75px;
+}
+
+div.dataTables_filter label {
+	float: right;
+	width: 460px;
+}
+
+div.dataTables_info {
+	padding-top: 8px;
+}
+
+div.dataTables_paginate {
+	float: right;
+	margin: 0;
+}
+
+table {
+	margin: 1em 0;
+	clear: both;
+}
+```
+
+## Sorting
+
+That's our basic layout done - easy thus far! Next we want to add some visual sorting feedback. Both DataTables and Bootstrap use classes to indicate that a particular column is currently being sorted on, or is sortable. The only thing is, unsurprisingly, that they don't both use the same classes out of the box. So what we need to do is alter the default classes that DataTables will apply to the column headers. This is easily done with the _$.fn.dataTableExt.oStdClasses_ object which contains the default classes DataTables will use.
+
+To modify the classes we can simply 'extend' the object with the classes we do want for Bootstrap ([see this example running](/media/blog/bootstrap/003.html)):
+
+```js
+$.extend( $.fn.dataTableExt.oStdClasses, {
+	"sSortAsc": "header headerSortDown",
+	"sSortDesc": "header headerSortUp",
+	"sSortable": "header"
+} );
+```
+
+## Pagination
+
+Bootstrap has styles for [pagination controls](http://twitter.github.com/bootstrap/#navigation) already available. However the markup used for the controls is a little different from the default that DataTables will insert into the document. To this end I've created a [pagination plug-in](/plug-ins/pagination#bootstrap) that will create the markup needed for Bootstrap. This plug-in is the most complex part of the integration with Bootstrap, and I won't explore the inner workings of it in this article (there is [developer documentation](/development/pagination) for paging plug-ins and the [forums](/forums) if you have any questions about how it works), but will save that for a future post.
+
+The plug-in is [available in this file](/media/blog/bootstrap/paging.js) and you simply need to include it on the page where you wish to use DataTables and Bootstrap together. Then it is simply a matter of activating the plug-in for your table with the [sPaginationType](/ref#sPaginationType) initialisation parameter ([see this example running](/media/blog/bootstrap/004.html)):
+
+```js
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>"
+		"sPaginationType": "bootstrap"
+	} );
+} );
+```
+
+## Conclusion
+
+In my final table shown below, I've included a little customisation of the length options language string to complete the integration (using the [sLengthMenu parameter](/ref#sLengthMenu)). And there we have it, a DataTable that is fully integrated with Twitter Bootstrap!
+
+Enjoy! There is [a thread in the forum for comments and discussion on this post](/forums/discussion/7637) should you wish to add anything or have any questions.
+
+<iframe src="/media/blog/bootstrap/" height="600" width="100%" style="overflow: hidden; border: none"></iframe>
+
+[Open example in its own page](/media/blog/bootstrap/)
+
+	]]>
+	</content>
+</dt-page>

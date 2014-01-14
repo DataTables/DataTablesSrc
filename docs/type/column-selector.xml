@@ -1,12 +1,186 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
+	<name>column-selector</name>
+	<summary>Selector options for columns.</summary>
+
 	<description>
 <![CDATA[
-{integer}           - column index (>=0 count from left, <0 count from right)
-"{integer}:visIdx"  - visible column index (i.e. translate to column index)  (>=0 count from left, <0 count from right)
-"{integer}:visible" - alias for {integer}:visIdx  (>=0 count from left, <0 count from right)
-"{string}:name"     - column name
-"{string}"          - jQuery selector on column header nodes
+
+The DataTables `dt-api columns()` and `dt-api column()` (also optionally `dt-api cells()` and `dt-api cell()`) methods provide the ability to select columns from the table. Which columns are selected and how the selector actually operates is controlled by this `dt-type column-selector` data type.
+
+### Options
+
+The column selector can be given in a number of different forms, to make it easy to apply to your data and use case:
+
+* No selector - Select all columns
+* `dt-type integer` - Column index selector
+* `dt-string {integer}:visIdx` - Column visible index selector (e.g. `3:visIdx`)
+* `dt-string {integer}:visible` - Alias of `dt-string {integer}:visIdx`.
+* `dt-string {string}:name` - Column name selector, from `dt-init columns.name` (e.g. `salary:name`)
+* `dt-type string` - jQuery selector
+* `dt-type node` - `dt-tag th` / `dt-tag td` element selector from the column headers
+* `dt-type jQuery` - jQuery object of the column header nodes
+* `dt-type array` - Array containing any combination of the above options
+
+
+## No selector
+
+If no selector is given (more specifically `dt-type undefined`), then all columns are selected.
+
+###### Get data for all columns in the table:
+
+```js
+var table = $('#example').DataTable();
+var allData = table.columns().data();
+```
+
+
+## integer
+
+DataTables stores each column internally with a column index for fast look up of column information. When the selector is given as an integer, this value represents a column data index (`dt-api columns().indexes()` / `dt-api column().index()`).
+
+Note that this is the column _data index_ and not the _visible index_. The _data index_ is fixed regardless of column visibility, while the _visible index_ will change as the visibility of columns are changed (see below for a visible index selector).
+
+###### Column data index 0 data:
+
+```js
+var table = $('#example').DataTable();
+var data = table.column( 0 ).data();
+```
+
+
+## {integer}:visIdx
+
+The visible index of a column is the index when hidden columns are taken into account. This can be useful when working with event handlers and some columns are hidden, or can be hidden by the end user. This selector is simply a modification of the above `integer` type with the string `dt-string :visIdx` (or `dt-string :visible`) postfixed. For example: `3:visIdx`.
+
+###### Get the data for a column that was clicked on:
+
+```js
+var table = $('#example').DataTable( {
+	columnDefs: [
+		{ visible: false, targets: 1 }
+	]
+} );
+
+$('#example tbody').on( 'click', 'td', function () {
+	var columnData = table
+		.column( $(this).index()+':visIdx' )
+		.data();
+} );
+```
+
+
+## {string}:name
+
+DataTables provides the ability to assign a name to columns through the `dt-init columns.name` option, which can be very useful for giving columns a human readable representation. The `:name` selector provides the ability to selector columns based on the assigned name.
+
+This selector is simply a string (the column name) with `dt-string :name` postfixed. For example `salary:name`.
+
+Note that assigned column names need not be unique (although that you would normally wish them to be so). If a selector is given which matches multiple columns from the same name they will all be selected.
+
+###### Get the data for a named column:
+
+```js
+var table = $('#example').DataTable( {
+	columns: [
+		{ name: 'first-name' },
+		{ name: 'last-name' },
+		{ name: 'position' },
+		{ name: 'location' },
+		{ name: 'salary' }
+	]
+} );
+
+// Get salary column data
+table.column( 'salary:name' ).data();
+```
+
+
+## string
+
+When the selector is given as a string, it is treated as a [jQuery selector](http://api.jquery.com/category/selectors/) that operates on the `dt-tag th` and `dt-tag td` elements of the column headers in the table.
+
+Each column has only one cell which is used as the column header - see `dt-init orderCellsTop` for information on how DataTables selected the cells to use for the column headers, if there is more than one possible cell for each column header in the table's `dt-tag thead` element.
+
+For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](http://api.jquery.com/category/selectors/).
+
+Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
+
+###### Select a single column by id:
+
+```js
+var table = $('#example').DataTable();
+var column = table.column('#column-3');
+```
+
+###### Select columns by class name:
+
+```js
+var table = $('#example').DataTable();
+var columns = table.columns('.priority');
+```
+
+###### Select column by contents:
+
+```js
+var table = $('#example').DataTable();
+var column = table.column(':contains(Salary)');
+```
+
+
+## node
+
+`dt-tag th` and `dt-tag td` DOM elements can be given as a column selector to select a column in the DataTabels API from that DOM element (as above, this selector applies to the cells which are used for the column headers, not necessarily all cells in the header if there are multiple rows).
+
+This can be useful for getting data from a column, or performing other column based operations, when you have only the DOM node for reference, for example in an event handler.
+
+###### Get the data for a column that was clicked upon:
+
+```js
+var table = $('#example').DataTable();
+
+$('#example thead').on( 'click', 'th', function () {
+  var columnData = table.column( this ).data();
+  // ... do something with `columnData`
+} );
+```
+
+
+## jQuery
+
+Very similar to the above `node` type (since a jQuery object is an _array-like_ list of DOM nodes), a jQuery instance can be given as a column selector, with any nodes which are selected by jQuery and match those available in the table's header cells.
+
+Please note that when working with a jQuery selected set of columns and hidden columns, jQuery itself will not select the column header cells which have been hidden (as DataTables removes them from the document when the column is hidden). To overcome this is problem, use the `string` option above which does not suffer from this issue and allows a jQuery selector to be used.
+
+###### Get data from columns in a jQuery instance:
+
+```js
+var columns = $('#example thead th.immediate');
+var table = $('#example').DataTable();
+
+var columnData = table.columns( columns ).data();
+```
+
+
+## array
+
+Any combination of the above options can be given as selector together, providing a method to select multiple columns, or to mix selector types, by simply providing the selector options you want in an array.
+
+###### Get the data for two columns, based on column index:
+
+```js
+var table = $('#example').DataTable();
+var data = table.columns( [0, 1] ).data();
+```
+
+###### Mix `column-selector` types - index and class selector
+
+```js
+var table = $('#example').DataTable();
+var data = table.columns( [0, '.important'] ).data();
+```
+
+
 ]]>
 	</description>
 </dt-type>

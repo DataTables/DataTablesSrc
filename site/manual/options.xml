@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-page order="4" comments="yes" main-nav="yes">
+<dt-page order="3" comments="yes" main-nav="yes">
 	<title>Options</title>
 
 	<summary>
 	<![CDATA[
 
-DataTables as a huge range of options available, which you can use to customise the way that it will present its interface, and the features available, to the end user. This section of the manual details how this configuration can be performed. A full list of the options available is available in the [options reference](/reference/options) section of this web-site.
+DataTables as a huge range of options available, which you can use to customise the way that it will present its interface, and the features available, to the end user. This section of the manual details how this configuration can be performed. A full list of the options available is available in the [options reference](/reference/option) section of this web-site.
 
 	]]>
 	</summary>
@@ -26,9 +26,9 @@ $('#example').DataTable( {
 } );
 ```
 
-This uses the `dt-init paging` option to disable paging on the table.
+This uses the `dt-init paging` option to disable paging for the table.
 
-Lets say you want to enable scrolling in the table - you would use the `dt-init scrollY` option:
+Let's say you want to enable scrolling in the table - you would use the `dt-init scrollY` option:
 
 ```js
 $('#example').DataTable( {
@@ -47,7 +47,7 @@ $('#example').DataTable( {
 
 The object being passed in is just a standard Javascript object and can be treated as such. Add as many options as you wish!
 
-For the full range of configuration options available for DataTables, please refer to the [options reference](/reference/options) section of this web-site.
+For the full range of configuration options available for DataTables, please refer to the [options reference](/reference/option) section of this web-site.
 
 
 ## Common options
@@ -61,7 +61,7 @@ Some of the options you might find particularly useful are:
 * `dt-init scrollX` - Horizontal scrolling
 * `dt-init scrollY` - Vertical scrolling
 
-There are many many more (90+) options available for DataTables to configure it exactly how you need. Please see the [options reference](/reference/options) for the full list of options available.
+There are many many more (90+) options available for DataTables to configure it exactly how you need. Please see the [options reference](/reference/option) for the full list of options available.
 
 
 ## Setting defaults

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>DataTables debugger</title>
+	<date>2012-02-26 10:45</date>
+
+	<summary>
+	<![CDATA[
+
+As with any complex piece of software, DataTables has a huge range of configuration options and debugging the application when you encounter a problem can be quite a daunting prospect. Also, when asking for help from myself or anyone else in the forum or else where, we need as much information as possible, but succinctly presented, to be able to help solve the issue. To address these issues, I've created a [debugger for DataTables](http://debug.datatables.net).
+
+The form that this debugger takes is as a [bookmarklet](http://en.wikipedia.org/wiki/Bookmarklet). When run on a web-page that uses DataTables, the bookmarklet will gather information about the tables on the page and upload that information to the DataTables server.
+
+When complete, you will be given a unique six character identification code for your newly created debug record, which can be used to view the information about your table. This information view will show a summary of information about the tables and software on your web-page - allowing easy access to the configuration of the table. For example: [this debug record](http://debug.datatables.net/efuzil) shows the information gathered from the table on the DataTables.net home page.
+
+To get started with using the debugger, please visit the debugger home page:
+
+*   [DataTables debugger](http://debug.datatables.net)
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+As with any complex piece of software, DataTables has a huge range of configuration options and debugging the application when you encounter a problem can be quite a daunting prospect. Also, when asking for help from myself or anyone else in the forum or else where, we need as much information as possible, but succinctly presented, to be able to help solve the issue. To address these issues, I've created a [debugger for DataTables](http://debug.datatables.net).
+
+The form that this debugger takes is as a [bookmarklet](http://en.wikipedia.org/wiki/Bookmarklet). When run on a web-page that uses DataTables, the bookmarklet will gather information about the tables on the page and upload that information to the DataTables server.
+
+When complete, you will be given a unique six character identification code for your newly created debug record, which can be used to view the information about your table. This information view will show a summary of information about the tables and software on your web-page - allowing easy access to the configuration of the table. For example: [this debug record](http://debug.datatables.net/efuzil) shows the information gathered from the table on the DataTables.net home page.
+
+To get started with using the debugger, please visit the debugger home page:
+
+*   [DataTables debugger](http://debug.datatables.net)
+
+## Requesting support
+
+When posting a question about a DataTable in the forum, I would ask that you please use the debugger on your table and give the unique debugging code in your question. This will allow the information that will be needed to help answer your question will be immediately available to anyone answering the question.
+
+Having said that, the debugger is not going to immediately provide the solution to every issue! For example it will not show how you are calling API methods, nor will it be suitable for questions about the capabilities or features of DataTables, so additional information might still be required.
+
+## Privacy
+
+The information uploaded to the server includes all of the data in the DataTables on your page. As this could potentially include sensitive information, there is a button at the bottom of the debugger viewer which will allow you to delete the debug record permanently from the server. Only the person who submits the debug record to the server will have the option of deleting the record.
+
+## Future work
+
+I'm really excited about the new debugger as an addition to the DataTables software suite as it can provide a huge amount of information about DataTables usage very easily. At the moment the debug viewer is limited to basically being a read only view of the table state, but in future it could very well be expanded to suggest solutions to common issues with a table in the state that is found. Additionally it will be able to provide me with information about how DataTables is being used, allowing future development to focus on improving the most common usage areas.
+
+The DataTables debugger is more of an information gather and display system than a traditional debugger at the moment, as it cannot break on an error in the software. Ultimately, a debug version of DataTables could be created that would integrate tightly with the debugger, allowing us to see what API calls are made, what event are triggered, etc.
+
+## Discussion
+
+As always, there is a [forum discussion for this blog post](/forums/discussion/8731). Your thoughts and feedback on the new debugger are very welcome.
+
+	]]>
+	</content>
+</dt-page>

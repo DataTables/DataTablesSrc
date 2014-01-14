@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-page order="5" comments="yes" main-nav="yes">
+<dt-page order="4" comments="yes" main-nav="yes">
 	<title>API</title>
 
 	<summary>
@@ -44,7 +44,7 @@ A new DataTables API instance can be obtained for one or more tables in one of t
 
 The result from each is an instance of the DataTables API object which has the tables found by the selector in its context.
 
-It is important to note the difference between `$( selector ).DataTable()` and `$( selector ).dataTable()`. The former returns a DataTables API instance, while the latter returns a jQuery object. An `api()` method is added to the jQuery object so you can easily access the API, but the jQuery object can be useful for manipulating the table node, as you would with any other jQuery instance (such as using `addClass()` etc).
+It is important to note the difference between `$( selector ).DataTable()` and `$( selector ).dataTable()`. The former returns a DataTables API instance, while the latter returns a `dt-type jQuery` object. An `api()` method is added to the jQuery object so you can easily access the API, but the jQuery object can be useful for manipulating the table node, as you would with any other jQuery instance (such as using `addClass()` etc).
 
 
 ## Chaining

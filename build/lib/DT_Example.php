@@ -209,7 +209,7 @@ class DT_Example
 			case 'name-attr':
 				if      ( $type === 'title' ) { return 'Name'; }
 				else if ( $type === 'data' )  {
-					return '<td data-filter="'.$row['first_name'].' '.$row['last_name'].'">'.
+					return '<td data-search="'.$row['first_name'].' '.$row['last_name'].'">'.
 						substr($row['first_name'], 0, 1).'. '.$row['last_name'].
 						'</td>';
 				}
@@ -242,12 +242,20 @@ class DT_Example
 
 			case 'salary-attr':
 				if      ( $type === 'title' ) { return 'Salary'; }
-				else if ( $type === 'data' )  { return '<td data-sort="'.$row['salary'].'">$'.number_format($row['salary']).'/m</td>'; }
+				else if ( $type === 'data' )  { return '<td data-order="'.$row['salary'].'">$'.number_format($row['salary']).'/m</td>'; }
 				break;
 
 			case 'start_date':
 				if      ( $type === 'title' ) { return 'Start date'; }
 				else if ( $type === 'data' )  { return $row['start_date']; }
+				break;
+
+			case 'start_date-attr':
+				if      ( $type === 'title' ) { return 'Start date'; }
+				else if ( $type === 'data' )  {
+					$t = strtotime( $row['start_date'] );
+					return '<td data-order="'.date('U', $t).'">'.date('D jS M y', $t).'</td>';
+				}
 				break;
 
 			case 'extn':
@@ -505,7 +513,7 @@ DT_Example::$tables['html'] = array(
 );
 
 DT_Example::$tables['html5'] = array(
-	'columns' => array( 'name-attr', 'position', 'office', 'age', 'start_date', 'salary-attr' ),
+	'columns' => array( 'name-attr', 'position', 'office', 'age', 'start_date-attr', 'salary-attr' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => true
