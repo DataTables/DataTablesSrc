@@ -87,6 +87,8 @@ $('#example').dataTable( {
 
 Which would result in a table such as:
 
+| Name | Position | Office | Age | Start date | Salary |
+| ---- | -------- | ------ | --- | ---------- | ------ |
 | Tiger Nixon | System Architect | Edinburgh | 5421 | 2011/04/25 | $3,120 |
 | Garrett Winters | Director | Edinburgh | 8422 | 2011/07/25 | $5,300 |
 
@@ -138,6 +140,8 @@ $('#example').dataTable( {
 
 Which would result in a table such as:
 
+| Name | Position | Office | Age | Start date | Salary |
+| ---- | -------- | ------ | --- | ---------- | ------ |
 | Tiger Nixon | System Architect | $3,120 | Edinburgh |
 | Garrett Winters | Director | $5,300 | Edinburgh |
 
@@ -175,6 +179,8 @@ Note that `office` is a method of the class above, while `name`, `position` and 
 
 Like the objects data source option above, this would result in a table such as:
 
+| Name | Position | Office | Age | Start date | Salary |
+| ---- | -------- | ------ | --- | ---------- | ------ |
 | Tiger Nixon | System Architect | $3,120 | Edinburgh |
 | Garrett Winters | Director | $5,300 | Edinburgh |
 

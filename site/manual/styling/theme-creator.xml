@@ -249,7 +249,7 @@ The DataTables stylesheet is written in [SCSS](//sass-lang.com/), making it very
 			<label>Row selected:</label>
 			<div>
 				<input name="row-selected" type="text" value="#b0bed9" class="colour-picker" />
-				<span>We a row is selected using <a href="/extras/tabletools">TableTools</a> this is the background colour it will receive. Like the row background colour, it is automatically tinted to fit in with the other features of the stylesheet.</span>
+				<span>When a row is selected using <a href="/extras/tabletools">TableTools</a> this is the background colour it will receive. Like the row background colour, it is automatically tinted to fit in with the other features of the stylesheet.</span>
 			</div>
 			<div class="clear"></div>
 		</div>

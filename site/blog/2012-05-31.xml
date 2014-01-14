@@ -33,32 +33,32 @@ Fortunately with DataTables is very easy to create a CRUD interface which is tai
 As always we need a table as the starting point. For this I'll base the table we are going to make editable on my standard table of [Conditional-CSS's browser support](http://conditional-css.com) with two extra columns, one for an editing button and one for a delete button. These can of course be styled or customised (images etc) as you wish. I'll also add a link for creating a new row just above the table. The markup is shown below:
 
 ```html
-&lt;p&gt;&lt;a id="new" href=""&gt;Add new row&lt;/a&gt;&lt;/p&gt;
-&lt;table cellpadding="0" cellspacing="0" border="0" class="display" id="example"&gt;
-	&lt;thead&gt;
-		&lt;tr&gt;
-			&lt;th&gt;Rendering engine&lt;/th&gt;
-			&lt;th&gt;Browser&lt;/th&gt;
-			&lt;th&gt;Platform(s)&lt;/th&gt;
-			&lt;th&gt;Engine version&lt;/th&gt;
-			&lt;th&gt;CSS grade&lt;/th&gt;
-			&lt;th&gt;Edit&lt;/th&gt;
-			&lt;th&gt;Delete&lt;/th&gt;
-		&lt;/tr&gt;
-	&lt;/thead&gt;
-	&lt;tbody&gt;
-		&lt;tr class="odd gradeX"&gt;
-			&lt;td&gt;Trident&lt;/td&gt;
-			&lt;td&gt;Internet Explorer 4.0&lt;/td&gt;
-			&lt;td&gt;Win 95+&lt;/td&gt;
-			&lt;td class="center"&gt;4&lt;/td&gt;
-			&lt;td class="center"&gt;X&lt;/td&gt;
-			&lt;td&gt;&lt;a class="edit" href=""&gt;Edit&lt;/a&gt;&lt;/td&gt;
-			&lt;td&gt;&lt;a class="delete" href=""&gt;Delete&lt;/a&gt;&lt;/td&gt;
-		&lt;/tr&gt;
+<p><a id="new" href="">Add new row</a></p>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+	<thead>
+		<tr>
+			<th>Rendering engine</th>
+			<th>Browser</th>
+			<th>Platform(s)</th>
+			<th>Engine version</th>
+			<th>CSS grade</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="odd gradeX">
+			<td>Trident</td>
+			<td>Internet Explorer 4.0</td>
+			<td>Win 95+</td>
+			<td class="center">4</td>
+			<td class="center">X</td>
+			<td><a class="edit" href="">Edit</a></td>
+			<td><a class="delete" href="">Delete</a></td>
+		</tr>
 		...
-	&lt;/tbody&gt;
-&lt;/table&gt;
+	</tbody>
+</table>
 ```
 
 The DataTables initialisation for this is trivial:

@@ -51,7 +51,7 @@ Bootstrap, as you would expect for a CSS library, has a well defined grid system
 ```js
 $(document).ready(function() {
 	$('#example').dataTable( {
-		"sDom": "&lt;'row'&lt;'span8'l&gt;&lt;'span8'f&gt;r&gt;t&lt;'row'&lt;'span8'i&gt;&lt;'span8'p&gt;&gt;"
+		"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>"
 	} );
 } );
 ```
@@ -112,7 +112,7 @@ The plug-in is [available in this file](/media/blog/bootstrap/paging.js) and you
 ```js
 $(document).ready(function() {
 	$('#example').dataTable( {
-		"sDom": "&lt;'row'&lt;'span8'l&gt;&lt;'span8'f&gt;r&gt;t&lt;'row'&lt;'span8'i&gt;&lt;'span8'p&gt;&gt;"
+		"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>"
 		"sPaginationType": "bootstrap"
 	} );
 } );

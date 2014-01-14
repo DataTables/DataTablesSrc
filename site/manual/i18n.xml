@@ -31,6 +31,7 @@ $('#example').DataTable( {
 		search: "Search in table:"
 	}
 } );
+```
 
 As with the other initialisation options, you can chance as many or as few of the options as you wish. Those you don't provide a value for will use the DataTables defaults. This example shows every language option used to display the DataTables interface in French:
 

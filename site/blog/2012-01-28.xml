@@ -25,14 +25,14 @@ With DataTables available on the [Microsoft CDN](http://www.asp.net/ajaxlibrary/
 To include DataTables on your page simply include the following HTML:
 
 ```js
-&lt;!-- DataTables CSS --&gt;
-&lt;link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"&gt;
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
 
-&lt;!-- jQuery --&gt;
-&lt;script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"&gt;&lt;/script&gt;
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
 
-&lt;!-- DataTables --&gt;
-&lt;script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"&gt;&lt;/script&gt;
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
 ```
 
 Then you can initialise DataTables as you would when including the script from any other server:

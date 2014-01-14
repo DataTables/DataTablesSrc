@@ -31,48 +31,48 @@ Fortunately styling a DataTables table is actually a relatively simple prospect 
 First things first - we need a table to show. You'll no doubt have your own that you wish to style, but in this example I'm going to use some statistics from the Scottish Government about [student numbers](http://www.scotland.gov.uk/Publications/2011/03/25132517/15). Not the most inspiring of information perhaps, but a perfect example of a statistics table which can be presented on a web-site. The basic unstyled and unscripted table looks like this:
 
 ```html
-&lt;table id="example" border="0" cellpadding="0" cellspacing="0" class="pretty"&gt;
-	&lt;thead&gt;
-		&lt;tr&gt;
-			&lt;th rowspan="2"&gt;Local authority&lt;/th&gt;
-			&lt;th colspan="7"&gt;Scottish domiciled students in HE&lt;/th&gt;
-		&lt;/tr&gt;
-		&lt;tr&gt;
-			&lt;th&gt;2005-06&lt;/th&gt;
-			&lt;th&gt;2006-07&lt;/th&gt;
-			&lt;th&gt;2007-08&lt;/th&gt;
-			&lt;th&gt;2008-09&lt;/th&gt;
-			&lt;th&gt;2009-10&lt;/th&gt;
-			&lt;th&gt;% change&lt;br&gt;over last year&lt;/th&gt;
-			&lt;th&gt;% change&lt;br&gt;since 2005-06&lt;/th&gt;
-		&lt;/tr&gt;
-	&lt;/thead&gt;
-	&lt;tfoot&gt;
-		&lt;tr&gt;
-			&lt;th scope="row"&gt;Total&lt;/th&gt;
-			&lt;td&gt;212.920&lt;/td&gt;
-			&lt;td&gt;214.860&lt;/td&gt;
-			&lt;td&gt;206.390&lt;/td&gt;
-			&lt;td&gt;207.535&lt;/td&gt;
-			&lt;td&gt;213.210&lt;/td&gt;
-			&lt;td&gt;2.7&lt;/td&gt;
-			&lt;td&gt;0.1&lt;/td&gt;
-		&lt;/tr&gt;
-	&lt;/tfoot&gt;
-	&lt;tbody&gt;
-		&lt;tr&gt;
-			&lt;th scope="row"&gt;Aberdeen City&lt;/th&gt;
-			&lt;td&gt;9.750&lt;/td&gt;
-			&lt;td&gt;9.850&lt;/td&gt;
-			&lt;td&gt;9.945&lt;/td&gt;
-			&lt;td&gt;9.945&lt;/td&gt;
-			&lt;td&gt;10.080&lt;/td&gt;
-			&lt;td&gt;1.4&lt;/td&gt;
-			&lt;td&gt;3.4&lt;/td&gt;
-		&lt;/tr&gt;
+<table id="example" border="0" cellpadding="0" cellspacing="0" class="pretty">
+	<thead>
+		<tr>
+			<th rowspan="2">Local authority</th>
+			<th colspan="7">Scottish domiciled students in HE</th>
+		</tr>
+		<tr>
+			<th>2005-06</th>
+			<th>2006-07</th>
+			<th>2007-08</th>
+			<th>2008-09</th>
+			<th>2009-10</th>
+			<th>% change<br>over last year</th>
+			<th>% change<br>since 2005-06</th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<th scope="row">Total</th>
+			<td>212.920</td>
+			<td>214.860</td>
+			<td>206.390</td>
+			<td>207.535</td>
+			<td>213.210</td>
+			<td>2.7</td>
+			<td>0.1</td>
+		</tr>
+	</tfoot>
+	<tbody>
+		<tr>
+			<th scope="row">Aberdeen City</th>
+			<td>9.750</td>
+			<td>9.850</td>
+			<td>9.945</td>
+			<td>9.945</td>
+			<td>10.080</td>
+			<td>1.4</td>
+			<td>3.4</td>
+		</tr>
 		...
-	&lt;/tbody&gt;
-&lt;/table&gt;
+	</tbody>
+</table>
 ```
 
 Note that because of the TH elements in the table body rows, this example uses [DataTables 1.8](/new/1.8), where the ability to consume TH elements in the body is a new feature. The full basic page that we are going to work with is [available here](/media/blog/beautiful_tables/plain.html).
@@ -82,7 +82,7 @@ Note that because of the TH elements in the table body rows, this example uses [
 In order to preserve our sanity and provide a common baseline for styling the table, I'm going to include the [YUI 3 reset stylesheet](http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css). This stylesheet basically strips the built-in default styles from a viewing web-browser to give a common starting point for styling across all browsers. This is particularly useful with tables since browsers can often have different defaults styles for various elements. This reset stylesheet is included using the following HTML:
 
 ```html
-&lt;link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css"&gt;
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
 ```
 
 I've also added some basic styles to my page in order to provide a little bit of a framework for us to work with (font-size, content width etc).
@@ -90,15 +90,15 @@ I've also added some basic styles to my page in order to provide a little bit of
 Next we include and execute the Javascript required to enhance the table with DataTables. This is done by including jQuery and DataTables, followed by initialising DataTables. In this particular case I've chosen to use the built-in "full_numbers" pagination style by specifying the [sPaginationType](/usage/options#sPaginationType) parameter. This is all the Javascript that we need to setup our table.
 
 ```js
-&lt;script type="text/javascript" language="javascript" src="../../media/js/jquery.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" language="javascript" src="../../media/js/jquery.dataTables.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" charset="utf-8"&gt;
+<script type="text/javascript" language="javascript" src="../../media/js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../../media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
 		$('#example').dataTable( {
 			"sPaginationType": "full_numbers"
 		} );
 	} );
-&lt;/script&gt;
+</script>
 ```
 
 *   [Base table - YUI reset, page styles and DataTables initialisation](/media/blog/beautiful_tables/base.html)
