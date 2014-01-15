@@ -175,7 +175,7 @@ _api_register( 'rows.add()', function ( rows ) {
 	// Return an Api.rows() extended instance, so rows().nodes() etc can be used
 	var modRows = this.rows( -1 );
 	modRows.pop();
-	modRows.push.apply( modRows, newRows );
+	modRows.push.apply( modRows, newRows.toArray() );
 
 	return modRows;
 } );

@@ -48,8 +48,6 @@ var __apiStruct = [];
 var __arrayProto = Array.prototype;
 
 
-
-
 /**
  * Abstraction for `context` parameter of the `Api` constructor to allow it to
  * take several different forms for ease of use.
@@ -99,7 +97,7 @@ var _toSettings = function ( mixed )
 		return jq.map( function(i) {
 			idx = $.inArray( this, tables );
 			return idx !== -1 ? settings[idx] : null;
-		} );
+		} ).toArray();
 	}
 };
 
@@ -188,7 +186,7 @@ DataTable.Api = _Api = function ( context, data )
 
 	// Initial data
 	if ( data ) {
-		this.push.apply( this, data );
+		this.push.apply( this, data.toArray ? data.toArray() : data );
 	}
 
 	// selector
@@ -262,7 +260,7 @@ _Api.prototype = /** @lends DataTables.Api */{
 	flatten: function ()
 	{
 		var a = [];
-		return new _Api( this.context, a.concat.apply( a, this ) );
+		return new _Api( this.context, a.concat.apply( a, this.toArray() ) );
 	},
 
 
@@ -486,8 +484,6 @@ _Api.prototype = /** @lends DataTables.Api */{
 
 	unshift: __arrayProto.unshift
 };
-
-
 
 
 _Api.extend = function ( scope, obj, ext )
