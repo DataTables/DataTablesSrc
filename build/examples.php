@@ -11,10 +11,21 @@ $dir_order = array(
 	'advanced_init',
 	'styling',
 	'data_sources',
+	'api',
 	'ajax',
 	'server_side',
-	'api',
 	'plug-ins'
+);
+
+$dir_names = array(
+	'basic_init'    => "Basic initialisation",
+	'advanced_init' => "Advanced initialisation",
+	'styling'       => "Styling",
+	'data_sources'  => "Data sources",
+	'api'           => "API",
+	'ajax'          => "Ajax",
+	'server_side'   => "Server-side",
+	'plug-ins'      => "Plug-ins"
 );
 
 
@@ -404,6 +415,7 @@ function json_files ( $out_dir )
 
 function read_structure ( &$examples, $dir, $index_template, $example_template, $additional_libs )
 {
+	global $dir_names;
 	$dh = opendir( $dir );
 
 	while (($file = readdir($dh)) !== false) {
@@ -420,7 +432,7 @@ function read_structure ( &$examples, $dir, $index_template, $example_template, 
 				'order' => 0,
 				'files' => array(),
 				'toc'   => '',
-				'title' => ucwords( str_replace('_', ' ', $file) ),
+				'title' => isset($dir_names[$file]) ? $dir_names[$file] : ucwords( str_replace('_', ' ', $file) ),
 				'path'  => $dir
 			);
 

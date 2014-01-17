@@ -5,7 +5,7 @@
 	<summary>
 	<![CDATA[
 
-[Bootstrap](http://twitter.github.com/bootstrap) is a CSS framework that lets you quickly and easily build a user interface that has a unified look and feel. DataTables ability to be styled through any CSS framework gives us the ability to provide direct integration with Bootstrap for DataTables to get beautiful tables very easily.
+[Bootstrap](https://github.com/twbs/bootstrap) is a CSS framework that lets you quickly and easily build a user interface that has a unified look and feel. DataTables ability to be styled through any CSS framework gives us the ability to provide direct integration with Bootstrap for DataTables to get beautiful tables very easily.
 
 	]]>
 	</summary>
@@ -13,7 +13,7 @@
 	<content>
 	<![CDATA[
 
-[Bootstrap](http://twitter.github.com/bootstrap) is a CSS framework that lets you quickly and easily build a user interface that has a unified look and feel. The great news is that it is very easy to integrate Bootstrap and DataTables such that your fully featured DataTables will match the same look and feel of the rest of your site.
+[Bootstrap](https://github.com/twbs/bootstrap) is a CSS framework that lets you quickly and easily build a user interface that has a unified look and feel. The great news is that it is very easy to integrate Bootstrap and DataTables such that your fully featured DataTables will match the same look and feel of the rest of your site.
 
 Bootstrap provides a [number of options](http://getbootstrap.com/css/#tables) for styling HTML tables, giving you flexibility over the table, while ensuring they look very slick, along with the rest of your site. The DataTables / Bootstrap integration ensures that you can use all of these features as well as the enhancements that DataTables makes to a plain HTML table.
 

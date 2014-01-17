@@ -5,7 +5,7 @@
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>DOM sourced data</title>
+<title>HTML (DOM) sourced data</title>
 <js><![CDATA[
 
 $(document).ready(function() {
@@ -16,7 +16,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-The foundation for DataTables is progressive enhancement, so it is very adept at reading table information directly from the DOM. This example shows how easy it is to add searching, ordering and paging to your HTML table by initialising DataTables on it.
+The foundation for DataTables is progressive enhancement, so it is very adept at reading table information directly from the DOM. This example shows how easy it is to add searching, ordering and paging to your HTML table by simply running DataTables on it.
+
+For further and more complex examples of using DataTables with DOM sourced data, please refer to the [basic initialisation](../basic_init) and [advanced](../advanced_init) examples.
 
 ]]></info>
 

@@ -5,14 +5,14 @@
 
 <info><![CDATA[
 
-DataTables obtain data from four different fundamental sources:
+DataTables can obtain data from four different fundamental sources:
 
 * HTML document (DOM)
 * Javascript (array / objects)
 * Ajax sourced data with client-side processing
 * Ajax sourced data with server-side processing
 
-Where DataTables reads the data to use in the table from depends upon how the table is initialised. The examples in this section show these four different data source types.
+Which of these options is used to populate the table with data depends upon how the table is initialised. The examples in this section show these four different data source types.
 
 ]]></info>
 
