@@ -5,7 +5,7 @@
 	<summary>
 	<![CDATA[
 
-Server-side processing allows DataTables to leverage the abilities and shear power of database engines directly, to allow them to do the heavy work of ordering, searching and paging data. This is done by making an Ajax call for each page to be displayed by DataTables and is suited for very large datasets.
+Server-side processing allows DataTables to leverage the abilities and sheer power of database engines directly, to allow them to do the heavy work of ordering, searching and paging data. This is done by making an Ajax call for each page to be displayed by DataTables and is suited for very large datasets.
 
 	]]>
 	</summary>

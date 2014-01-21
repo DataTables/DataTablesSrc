@@ -5,7 +5,7 @@
 	<summary>
 	<![CDATA[
 
-Data is complex, and all data is different. As such, DataTables has a wealth of options which can be used to configure how it will obtain the data to display in the table, and how it processes that data. This section of the manual describes the options to configure DataTables to read data from your data source.
+Data is complex, and all data is different. Accordingly, DataTables has a wealth of options which can be used to configure how it will obtain the data to display in the table, and how it processes that data. This section of the manual describes the options to configure DataTables to read data from your data source.
 
 	]]>
 	</summary>
@@ -13,7 +13,7 @@ Data is complex, and all data is different. As such, DataTables has a wealth of 
 	<content>
 	<![CDATA[
 
-Data is complex, and all data is different. As such, DataTables has a wealth of options which can be used to configure how it will obtain the data to display in the table, and how it processes that data.
+Data is complex, and all data is different. Accordingly, DataTables has a wealth of options which can be used to configure how it will obtain the data to display in the table, and how it processes that data.
 
 There are three core concepts in how DataTables handles data, which are discussed in detail on this page:
 
