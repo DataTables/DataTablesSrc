@@ -328,9 +328,17 @@ function usage {
 
       test     - Build the unit tests
 
-      autofill - AutoFill extension
+      extension <ext> [debug] - Extension to build where <ext> is one of:
+        - AutoFill
+        - ColVis
+        - ColReorder
+        - FixedColumns
+        - FixedHeader
+        - KeyTable
+        - Scroller
+        - TableTools
 
-    and the optional 'debug' parameter can be used to disable JS and CSS
+    and the optional [debug] parameter can be used to disable JS and CSS
     compression for faster development build times."
 }
 
