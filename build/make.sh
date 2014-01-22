@@ -1,8 +1,6 @@
 #!/bin/sh
 
-
-CLOSURE="/usr/local/closure_compiler/compiler.jar"
-JSDOC="/usr/local/jsdoc/jsdoc"
+. include.sh
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BASE_DIR="${SCRIPT_DIR}/.."
@@ -11,27 +9,12 @@ BUILD_DIR="${BASE_DIR}/built"
 SYNC_BRANCH="master"
 VERSION=$(grep " * @version     " ${BASE_DIR}/js/DataTables.js | awk -F" " '{ print $3 }')
 CMD=$1
+SUBCMD=$2
 
 DEBUG=""
-if [ "$2" = "debug" ]; then
+if [ "$SUBCMD" = "debug" -o "$3" = "debug" ]; then
 	DEBUG=1
 fi
-
-
-function echo_section {
-	# Cyan
-	echo "\033[0;36m  ${1}\033[0m"
-}
-
-function echo_msg {
-	# Green
-	echo "\033[0;32m    ${1}\033[0m"
-}
-
-function echo_error {
-	# Red
-	echo "\033[0;31m  ${1}\033[0m"
-}
 
 
 function build_js {
@@ -284,6 +267,47 @@ function update_build_repo {
 	cd - > /dev/null 2>&1
 }
 
+
+function extensions_dirs {
+	if [ ! -d ${BASE_DIR}/extensions ]; then
+		mkdir ${BASE_DIR}/extensions
+	fi
+
+	if [ ! -d ${BUILD_DIR}/DataTables/extensions ]; then
+		mkdir ${BUILD_DIR}/DataTables/extensions
+	fi
+}
+
+
+function build_extension {
+	EXTENSION=$1
+
+	echo_section "Building DataTables extension $EXTENSION"
+
+	extensions_dirs
+	cd ${BASE_DIR}/extensions
+
+	if [ ! -d ${BASE_DIR}/extensions/${EXTENSION} ]; then
+		echo_msg "Cloning $EXTENSION from GitHub" 
+		git clone git@github.com:DataTables/${EXTENSION}.git
+	fi
+
+	if [ -e ${BASE_DIR}/extensions/${EXTENSION}/make.sh ]; then
+		# If there is a make file, then leave it to the extension to do its own
+		# build and copy files into place
+		echo_msg "Running $EXTENSION build script"
+		sh ${BASE_DIR}/extensions/${EXTENSION}/make.sh \
+			${BUILD_DIR}/DataTables/extensions/${EXTENSION} $DEBUG
+	else
+		# Otherwise, just copy the whole lot over
+		echo_msg "Copying $EXTENSION files into place"
+		rsync -r ${BASE_DIR}/extensions/${EXTENSION} \
+			${BUILD_DIR}/DataTables/extensions
+	fi
+}
+
+
+
 function usage {
 	echo "  Usage: make.sh <cmd> [debug]
 
@@ -303,6 +327,8 @@ function usage {
       examples - Build the examples
 
       test     - Build the unit tests
+
+      autofill - AutoFill extension
 
     and the optional 'debug' parameter can be used to disable JS and CSS
     compression for faster development build times."
@@ -360,59 +386,14 @@ case "$1" in
 		build_repo_sync
 		;;
 
+	"extension")
+		build_extension $SUBCMD
+		;;
+
 	*)
 		usage
 esac
 
-
-
-
-
-
-# if [ "$CMD" != "debug" ]; then
-# 	if [ "$CMD" = "jshint" -o "$CMD" = "" -o "$CMD" = "cdn" ]; then
-# 		echo "  -- Skipping JS Hint"
-# 		# echo "  JSHint"
-# 		# jshint --config ../../scripts/jshint.config $MAIN_FILE
-# 		# if [ $? -ne 0 ]; then
-# 		# 	echo "    Errors occured - exiting"
-# 		# 	exit 1
-# 		# else
-# 		# 	echo "    Pass" 
-# 		# fi
-# 	fi
-# 
-# 	if [ "$CMD" = "compress" -o "$CMD" = "" -o "$CMD" = "cdn" ]; then
-# 		echo "  Minification"
-# 		echo "/*! DataTables $VERSION
-#  * ©2008-2013 Allan Jardine - datatables.net/license
-#  */" > $MIN_FILE 
-# 
-# 		java -jar $CLOSURE --js $MAIN_FILE >> $MIN_FILE
-# 		echo "    Min JS file size: $(ls -l $MIN_FILE | awk -F" " '{ print $5 }')"
-# 	fi
-# 
-# 	if [ "$CMD" = "docs" -o "$CMD" = "" ]; then
-# 		echo "  Documentation"
-# 		$JSDOC -d ../../docs -t JSDoc-DataTables $MAIN_FILE
-# 	fi
-# 
-# 	if [ "$CMD" = "cdn" ]; then
-# 		echo "  CDN"
-# 		if [ -d ../../cdn ]; then
-# 			rm -Rf ../../cdn
-# 		fi
-# 		mkdir ../../cdn
-# 		mkdir ../../cdn/css
-# 		cp $MAIN_FILE ../../cdn
-# 		cp $MIN_FILE ../../cdn
-# 		cp ../css/jquery.dataTables.css ../../cdn/css
-# 		cp ../css/jquery.dataTables_themeroller.css ../../cdn/css
-# 		cp -r ../images ../../cdn/
-# 		rm ../../cdn/images/Sorting\ icons.psd
-# 	fi
-# fi
-# 
 
 
 echo ""

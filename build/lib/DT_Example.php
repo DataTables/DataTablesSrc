@@ -120,6 +120,12 @@ class DT_Example
 			throw new Exception("Template file {$template} not found}", 1);
 		}
 
+		$software = 'DataTables';
+		if ( isset( $xml->title['lib'] ) ) {
+			$software = $xml->title['lib'];
+		}
+
+		$template = str_replace( '{software}',      $software,                       $template );
 		$template = str_replace( '{title}',         (string)$xml->title,             $template );
 		$template = str_replace( '{info}',          DT_Markdown( $xml->info ),       $template );
 		$template = str_replace( '{css-libs}',      $this->_format_libs('css'),      $template );
