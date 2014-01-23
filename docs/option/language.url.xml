@@ -10,6 +10,8 @@
 		All of the language options DataTables provides can be stored in a file on the server, which DataTables will look up if this parameter is passed. The file must be a valid JSON file, and the object it contains has the same properties as the `dt-init language` object in the initialiser object.
 
 		There are a wide range of translations readily available on this site, in the [internationalisation plug-ins](//datatables.net/plug-ins/i18n).
+
+		Note that when this parameter is set, DataTables' initialisation will be asynchronous due to the Ajax data load. That is to say that the table will not be drawn until the Ajax request as completed. As such, any actions that require the table to have completed its initialisation should be placed into the `dt-init initComplete` callback.
 	</description>
 
 	<example title="Load language information from a remote file"><![CDATA[
@@ -20,5 +22,24 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
+	<example title=""><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "url": "/dataTables/i18n/de_de.lang"
+  },
+  "initComplete": function () {
+  	var api = this.api();
+
+  	// Put the sum of column 5 into the footer cell
+  	$( api.column( 5 ).footer() ).html(
+  		api.column( 5 ).data().reduce( function (a, b) {
+  			return a + b;
+  		} )
+  	);
+  }
+} );
+]]></example>
+
 	<related type="option">language</related>
+	<related type="option">initComplete</related>
 </dt-option>
