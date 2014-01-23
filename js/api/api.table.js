@@ -56,11 +56,9 @@ _api_register( 'table()', function ( selector ) {
 	var ctx = tables.context;
 
 	// Truncate to the first matched table
-	if ( ctx.length ) {
-		ctx.length = 1;
-	}
-
-	return tables;
+	return ctx.length ?
+		new _Api( ctx[0] ) :
+		tables;
 } );
 
 
