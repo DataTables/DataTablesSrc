@@ -76,7 +76,10 @@ var _toSettings = function ( mixed )
 		return el.nTable;
 	} );
 
-	if ( mixed.nTable && mixed.oApi ) {
+	if ( ! mixed ) {
+		return [];
+	}
+	else if ( mixed.nTable && mixed.oApi ) {
 		// DataTables settings object
 		return [ mixed ];
 	}
