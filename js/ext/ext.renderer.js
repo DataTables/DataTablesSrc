@@ -2,26 +2,29 @@
 
 $.extend( true, DataTable.ext.renderer, {
 	header: {
-		_: function ( settings, cell, column, idx, classes ) {
+		_: function ( settings, cell, column, classes ) {
 			// No additional mark-up required
-
 			// Attach a sort listener to update on sort
 			$(settings.nTable).on( 'order.dt', function ( e, settings, sorting, columns ) {
+				var colIdx = column.idx;
+
 				cell
 					.removeClass(
 						column.sSortingClass +' '+
 						classes.sSortAsc +' '+
 						classes.sSortDesc
 					)
-					.addClass( columns[ idx ] == 'asc' ?
-						classes.sSortAsc : columns[ idx ] == 'desc' ?
+					.addClass( columns[ colIdx ] == 'asc' ?
+						classes.sSortAsc : columns[ colIdx ] == 'desc' ?
 							classes.sSortDesc :
 							column.sSortingClass
 					);
 			} );
 		},
 
-		jqueryui: function ( settings, cell, column, idx, classes ) {
+		jqueryui: function ( settings, cell, column, classes ) {
+			var colIdx = column.idx;
+
 			$('<div/>')
 				.addClass( classes.sSortJUIWrapper )
 				.append( cell.contents() )
@@ -34,8 +37,8 @@ $.extend( true, DataTable.ext.renderer, {
 			$(settings.nTable).on( 'order.dt', function ( e, settings, sorting, columns ) {
 				cell
 					.removeClass( classes.sSortAsc +" "+classes.sSortDesc )
-					.addClass( columns[ idx ] == 'asc' ?
-						classes.sSortAsc : columns[ idx ] == 'desc' ?
+					.addClass( columns[ colIdx ] == 'asc' ?
+						classes.sSortAsc : columns[ colIdx ] == 'desc' ?
 							classes.sSortDesc :
 							column.sSortingClass
 					);
@@ -49,8 +52,8 @@ $.extend( true, DataTable.ext.renderer, {
 						classes.sSortJUIAscAllowed +" "+
 						classes.sSortJUIDescAllowed
 					)
-					.addClass( columns[ idx ] == 'asc' ?
-						classes.sSortJUIAsc : columns[ idx ] == 'desc' ?
+					.addClass( columns[ colIdx ] == 'asc' ?
+						classes.sSortJUIAsc : columns[ colIdx ] == 'desc' ?
 							classes.sSortJUIDesc :
 							column.sSortingClassJUI
 					);

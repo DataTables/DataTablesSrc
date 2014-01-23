@@ -14,7 +14,8 @@ function _fnAddColumn( oSettings, nTh )
 		"nTh": nTh ? nTh : document.createElement('th'),
 		"sTitle":    oDefaults.sTitle    ? oDefaults.sTitle    : nTh ? nTh.innerHTML : '',
 		"aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
-		"mData": oDefaults.mData ? oDefaults.mData : iCol
+		"mData": oDefaults.mData ? oDefaults.mData : iCol,
+		idx: iCol
 	} );
 	oSettings.aoColumns.push( oCol );
 

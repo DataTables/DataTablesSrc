@@ -1,6 +1,5 @@
 
 
-
 /**
  * Template object for the column information object in DataTables. This object
  * is held in the settings aoColumns array and contains all the information that
@@ -13,6 +12,14 @@
  *  @namespace
  */
 DataTable.models.oColumn = {
+	/**
+	 * Column index. This could be worked out on-the-fly with $.inArray, but it
+	 * is faster to just hold it as a variable
+	 *  @type integer
+	 *  @default null
+	 */
+	"idx": null,
+
 	/**
 	 * A list of the columns that sorting should occur on when this column
 	 * is sorted. That this property is an array allows multi-column sorting

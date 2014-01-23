@@ -154,7 +154,7 @@ function _fnBuildHead( oSettings )
 		}
 
 		_fnRenderer( oSettings, 'header' )(
-			oSettings, cell, column, i, classes
+			oSettings, cell, column, classes
 		);
 	}
 
