@@ -406,6 +406,18 @@ table.dataTable td {
 	// Scrolling
 	.dataTables_scroll {
 		clear: both;
+
+		table.no-footer {
+			margin-bottom: 0;
+		}
+
+		div.dataTables_scrollHead table.no-footer {
+			border-bottom: none;
+		}
+
+		div.dataTables_scrollBody table.no-footer {
+			margin-bottom: 0.5em;
+		}
 	}
 
 	.dataTables_scrollBody {

@@ -158,7 +158,7 @@ function _fnCalculateColumnWidths ( oSettings )
 	// allows the table sizing to automatically adjust when the window is
 	// resized. Use the width attr rather than CSS, since we can't know if the
 	// CSS is a relative value or absolute - DOM read is always px.
-	if ( tableWidthAttr ) {
+	if ( tableWidthAttr || scrollX ) {
 		table.style.width = _fnStringToCss( tableWidthAttr );
 
 		if ( ! oSettings._reszEvt ) {

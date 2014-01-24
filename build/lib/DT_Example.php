@@ -662,6 +662,22 @@ DT_Example::$tables['html-wide'] = array(
 );
 
 
+DT_Example::$tables['html-wide-index'] = array(
+	'columns' => array( '', 'first_name', 'last_name', 'position', 'office', 'age', 'start_date', 'salary', 'extn', 'email' ),
+	'header'  => true,
+	'footer'  => false,
+	'body'    => true
+);
+
+
+DT_Example::$tables['html-wide-footer'] = array(
+	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'age', 'start_date', 'salary', 'extn', 'email' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+
 DT_Example::$tables['html-split-name'] = array(
 	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'salary' ),
 	'header'  => true,
@@ -790,4 +806,12 @@ DT_Example::$tables['html-complex-header'] = array(
 	},
 	'footer'  => true,
 	'body'    => true
+);
+
+
+DT_Example::$tables['empty'] = array(
+	'columns' => array(),
+	'header'  => false,
+	'footer'  => false,
+	'body'    => false
 );
