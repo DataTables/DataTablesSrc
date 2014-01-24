@@ -30,7 +30,7 @@ For a full list of the methods that are available to DataTables, please refer to
 In order to keep the documentation of the API succinct, a number of terms are used to describe, or refer to, aspects of the API. These are defined here:
 
 * Instance - an instance of the API is a single object instance which refers to a specific set of DataTable tables (i.e. is the the result of `new Api()`).
-* Result set - the data held by the API instance. The DataTables API instances are "array like" in that they hold data in the same way as a plain Javascript array (and thus can be accessed using array `[]` notation) and has many of the same method available (`dt-api sort()` and `dt-api push()` for example). This is much in the same way as jQuery is array like in nature.
+* Result set - the data held by the API instance. The DataTables API instances are "array like" in that they hold data in the same way as a plain Javascript array (and thus can be accessed using array `[]` notation) and has many of the same methods available (`dt-api sort()` and `dt-api push()` for example). This is much in the same way as jQuery is array like in nature.
 * Context - the context of an API instance describes the DataTables that the API instance has a link to. Each API instance can refer to one or more DataTables tables, with the ability to act upon those tables (see below for further information).
 
 
@@ -73,7 +73,7 @@ Where the DataTables API departs from jQuery's chaining method is that DataTable
 
 All top level methods of the API will always be available, at all levels of nesting of the API. For example `dt-api draw()` is a top level method, but it can be called after a row is removed from the table: `table.row( selector ).remove().draw();`.
 
-Please note that not all methods will return an API instance for chaining. In some cases, returning a the API instance for chaining wouldn't be appropriate, such as `dt-api cell().node()` to get a `dt-tag td` / `dt-tag th` element. The [API reference documentation](/reference/api) contains full details for each method on what it will return.
+Please note that not all methods will return an API instance for chaining. In some cases, returning the API instance for chaining wouldn't be appropriate, such as `dt-api cell().node()` to get a `dt-tag td` / `dt-tag th` element. The [API reference documentation](/reference/api) contains full details for each method on what it will return.
 
 
 ## Multiple tables
@@ -86,7 +86,7 @@ var tables = $('.dataTable').DataTable();
 table.page( 'next' ).draw( false );
 ```
 
-This code will select all tables in the document with the class `dataTable` and jump to the next page (using `dt-api page()`).
+This code will select all tables in the document with the class `dataTable` and jump them all to their next page of data display (using `dt-api page()`).
 
 Equally, an API instance can refer to a single table if required, simply by altering the jQuery selector used to create the API instance: `$('#myTable').DataTable();` will create an API instance with a single table in its context for example.
 
@@ -105,7 +105,7 @@ So if you want to use one of the selector methods to select multiple items, use 
 
 ## Example - column filter
 
-[API reference documentation](/reference/api) contains an example for each API method, along with a details description of what it does, what it returns and what parameters it will accept, but lets form the concepts described above into a detailed, line-by-line example of how the DataTables API can be used. In this case we create a `dt-tag select` element in the footer cell of each column in the table, which contains the data from that column and will be used for searching the table.
+[API reference documentation](/reference/api) contains an example for each API method, along with a detailed description of what it does, what it returns and what parameters it will accept; but let's form the concepts described above into a detailed, line-by-line example of how the DataTables API can be used. In this case we create a `dt-tag select` element in the footer cell of each column in the table, which contains the data from that column and will be used for searching the table.
 
 ```js
 var table = $('#example').DataTable();

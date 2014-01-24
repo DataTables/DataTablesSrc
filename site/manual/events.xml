@@ -19,7 +19,7 @@ For a full list of the events that DataTables will trigger, please refer to the 
 
 ## Listening for events
 
-As noted above, you can use either the `dt-api on()` or [jQuery's `on()`](http://api.jquery.com/on/) method to listen for events. `dt-api on()` works in exactly the same way as `$().on()`, which provision for namespaces and multiple events.
+As noted above, you can use either the `dt-api on()` or [jQuery's `on()`](http://api.jquery.com/on/) method to listen for events. `dt-api on()` works in exactly the same way as `$().on()`, with provision for namespaces and multiple events.
 
 **Please be aware that all DataTables events are triggered with the `dt` namespace.** This namespacing of events is to prevent clashes with custom events triggered by other Javascript libraries. As such, you should append `.dt` to the name of the event(s) that you are listening for (when using `dt-api on()` the namespace is automatically appended if required). Because of the way namespaces work in jQuery, you can use the `dt` namespace and your own custom namespace(s) if you wish to use a namespace.
 
@@ -46,7 +46,7 @@ Note the use of the `dt` namespace when using the jQuery `on()` method, while th
 
 ## Removing events
 
-As with `$().on()` DataTables events can be remove with `dt-api off()` and [`$().off()`](http://api.jquery.com/off/). It is important to remove events from objects which no longer exist (before they are destroyed) to allow the Javascript engine's garbage collector to release the memory allocated for the events and the objects it has attached to.
+As with `$().on()` DataTables events can be removed with `dt-api off()` and [`$().off()`](http://api.jquery.com/off/). It is important to remove events from objects which no longer exist (before they are destroyed) to allow the Javascript engine's garbage collector to release the memory allocated for the events and the objects it has attached to.
 
 Further to this, a single event can be listened for with `dt-api one()` or [`$().one()`](http://api.jquery.com/one/), where the event handler will be removed immediately after the event has been triggered for the first time.
 

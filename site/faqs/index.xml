@@ -23,8 +23,8 @@ A. The best way to ensure that you get a reply to your question is to [purchase 
 
 ## Most common FAQs
 
-**Q. My events don't work on the second page**
-A. When attaching events to cells in a table controlled by DataTables, you need to be careful how it is done. Because DataTables removes nodes from the DOM, events applied with a static event listener might not be able to bind themselves to all nodes in the table. To over come this, simply use jQuery delegated event listener options, [as shown in this example](/examples/advanced_init/events_live.html). Additionally, you use my [Visual Event](http://www.sprymedia.co.uk/article/Visual+Event+2) bookmarklet to help debug event issues.
+**Q. My events don't work on the second page**  
+A. When attaching events to cells in a table controlled by DataTables, you need to be careful how it is done. Because DataTables removes nodes from the DOM, events applied with a static event listener might not be able to bind themselves to all nodes in the table. To overcome this, simply use jQuery delegated event listener options, [as shown in this example](/examples/advanced_init/events_live.html). Additionally, you could use my [Visual Event](http://www.sprymedia.co.uk/article/Visual+Event+2) bookmarklet to help debug event issues.
 
 **Q. I get a JSON parsing error**  
 A. This is due to incorrect JSON data being passed back from the server. Please refer to [this technical note](/manual/tech-notes/1) on how to debug and resolve this issue.
@@ -33,10 +33,10 @@ A. This is due to incorrect JSON data being passed back from the server. Please 
 A. When DataTables requests a property that is not present in the data source for the table, you get this error. It can be caused by specifying an incorrect number of columns, missing parameters and colspan / rowspan in the body. Please refer to [this technical note](/manual/tech-notes/4) on how to debug and resolve this issue.
 
 **Q. I get a Javascript error in IE, but not in Firefox, Chrome etc.**  
-A. The majority of the time, this is caused by a 'floating' comma at the end of an array. IE will throw a warning for this, other will automatically delete it.
+A. The majority of the time, this is caused by a 'floating' comma at the end of an array. IE will throw a warning for this, other browsers automatically delete it.
 
 **Q. I append a row to the table using DOM/jQuery, but it is removed on redraw.**  
-A. The issue here is that DataTables doesn't _know_ about your manipulation of the DOM structure - i.e. it doesn't know that you've added a new row, and when it does a redraw it will remove the unknown row. To add, edit or delete information from a DataTable you must use the [DataTables API](/manual/api) (specifically the `dt-api row.add()`, `dt-api row().update()` and `dt-api row().remove()` methods methods to add, edit and delete rows.
+A. The issue here is that DataTables doesn't _know_ about your manipulation of the DOM structure - i.e. it doesn't know that you've added a new row, and when it does a redraw it will remove the unknown row. To add, edit or delete information from a DataTable you must use the [DataTables API](/manual/api) (specifically the `dt-api row.add()`, `dt-api row().update()` and `dt-api row().remove()` methods to add, edit and delete rows.
 
 
 ## General initialisation
@@ -92,7 +92,8 @@ A. In the rare case that you can't use DataTables under its available license, p
 
 ## Development FAQs
 
-**Q. This is great software - how can contribute?**  
+**Q. This is great software - how can contribute?**
+
 * Write about DataTables on your blog and spread the word!
 * Create [plug-ins](/plug-ins) for DataTables which can be show-cased on this site.
 * Answer support questions in the forums.
@@ -105,7 +106,7 @@ A. Yes! There are [support packages](/support) for DataTables integration availa
 A. Please [send it to me](/contact) direct, or post it in the forum.
 
 **Q. I think I have found a bug - how do I report it?**  
-A. Please post your bug, along with as a full test case showing how to recreate the issue in the [forum](/forums).
+A. Please post your bug, along with a full test case showing how to recreate the issue in the [forum](/forums).
 
 
 

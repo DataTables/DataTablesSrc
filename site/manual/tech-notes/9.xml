@@ -27,9 +27,9 @@ JS Bin is particularly useful for DataTables when:
 
 ## Using JS Bin
 
-Actually using JS Bin is very simply, simply load [http://live.datatables.net](http://live.datatables.net) in your browser and start customising the HTML / Javascript / CSS as required. The buttons at the top of the browser window allow you to select what code is shown, and an option to see the final output.
+Actually using JS Bin is very simple; simply load [http://live.datatables.net](http://live.datatables.net) in your browser and start customising the HTML / Javascript / CSS as required. The buttons at the top of the browser window allow you to select what code is shown, and an option to see the final output.
 
-To share a created bin click the _Share_ menu at the top of the browser window and copy the URL shown. Simply add that URL to your forum post, e-mail or otherwise share it and other developers will be able to review your example.
+To share a created bin click the _Share_ menu at the top of the browser window and copy the URL shown. Add that URL to your forum post, e-mail or otherwise share it and other developers will be able to review your example.
 
 ### Libraries / extras
 
@@ -55,10 +55,10 @@ The Ajax data used in the DataTables [Ajax examples](/examples/ajax) can be incl
 
 The scripts used for the [server-side processing examples](/examples/server_side) can be included from `dt-path /ssp` or `dt-path /examples/server_side/scripts` (the former is simply an alias for the later). The scripts available include are:
 
-* `dt-path server_processing.txt` - Array of arrays data source ([example](http://live.datatables.net/ssp-arrays/1/))
-* `dt-path objects.txt` - Array of objects data source ([example](http://live.datatables.net/ssp-objects/1/))
-* `dt-path post.txt` - Using HTTP _POST_ data ([example](http://live.datatables.net/ssp-post/1/))
-* `dt-path ids-objects.txt` - Adding IDs to rows automatically with object based data ([example](http://live.datatables.net/ssp-ids/1/)).
+* `dt-path server_processing.php` - Array of arrays data source ([example](http://live.datatables.net/ssp-arrays/1/))
+* `dt-path objects.php` - Array of objects data source ([example](http://live.datatables.net/ssp-objects/1/))
+* `dt-path post.php` - Using HTTP _POST_ data ([example](http://live.datatables.net/ssp-post/1/))
+* `dt-path ids-objects.php` - Adding IDs to rows automatically with object based data ([example](http://live.datatables.net/ssp-ids/1/)).
 
 
 

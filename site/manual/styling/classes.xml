@@ -23,7 +23,7 @@ $(document).ready( function () {
 	<summary>
 	<![CDATA[
 
-The default DataTables stylesheet presents a number of different features which you can optionally enable by assigning different class names to your HTML tables, such as row or cell bordering, striped rows and hover row highlighting. The most common set of options can be enabled simply using the `display` class, but any combination can be used.
+The default DataTables stylesheet presents a number of different features which you can optionally enable by assigning different class names to your HTML tables, such as row or cell bordering, striped rows and hover row highlighting. The most common set of options can be enabled simply by using the `display` class, but any combination can be used.
 
 	]]>
 	</summary>

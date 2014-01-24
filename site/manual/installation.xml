@@ -117,12 +117,12 @@ $(document).ready( function () {
 
 If you've used jQuery before, you will recognise the form of this script: we wait for the document to be fully ready, and then select the table we want, and run the DataTables function on it.
 
-That's it! DataTables will adding ordering, searching, paging and information to your table by default, providing the end user of your web-site with the ability to control the display of the table and find the information that they want from it as quickly as possible.
+That's it! DataTables will add ordering, searching, paging and information to your table by default, providing the end user of your web-site with the ability to control the display of the table and find the information that they want from it as quickly as possible.
 
 
 ## Next steps
 
-With the basics of how to get DataTables going under your belt, you might now want to explore some of the options that is can provide in order to enhance your tables even further. To explore the world of DataTables further your could:
+With the basics of how to get DataTables going under your belt, you might now want to explore some of the options that it can provide in order to enhance your tables even further. To explore the world of DataTables further you could:
 
 * [Customise the DataTables options](/manual/options) to suit your needs.
 * [Use the API](/manual/api) to access and control the table programmatically.

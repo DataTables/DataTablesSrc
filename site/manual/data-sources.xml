@@ -39,7 +39,7 @@ Client-side processing is the default operating mode of DataTables as it is easy
 
 Where server-side processing comes into play is when you have very large quantities of data that you wish to display in the table (millions of rows for example). At these levels, sending the data to the client, and then having Javascript process the data can involve noticeable overhead, resulting in poor performance of the end application. In server-side processing mode, all ordering, searching etc of the data is handed off to the server which can make use of the database engines available there, which are highly tuned for exactly these kinds of operations. Each 'draw' (page) of data involves making an Ajax request to the server. Although each Ajax request might take a fraction of a second to complete, this approach might be preferable to a large wait up-front as all data loads.
 
-Server-side processing is enabled by the `dt-init serverSide` option, and full documentation for how server-side processing operates is available [its section of this manual](/manual/server-side).
+Server-side processing is enabled by the `dt-init serverSide` option, and full documentation for how server-side processing operates is available in [its section of this manual](/manual/server-side).
 
 
 ## Data types
@@ -50,7 +50,7 @@ Data, in Javascript can take three basic forms which are repeatable for the data
 * Objects - `{}`
 * Instances - `new MyClass()`
 
-DataTables can consume data from any of these options using the `dt-init columns.data` and `dt-init columns.render` options. The default mode of operation is an array, since it requires zero configuration, but objects and instances can be useful as they are more initiative when working with complex data.
+DataTables can consume data from any of these options using the `dt-init columns.data` and `dt-init columns.render` options. The default mode of operation is an array, since it requires zero configuration, but objects and instances can be useful as they are more intuitive when working with complex data.
 
 ### Arrays
 
@@ -95,7 +95,7 @@ Which would result in a table such as:
 
 ### Objects
 
-Objects are great for intuitive use in a slightly different way from arrays. If you are actively working with the data through [the API](/manual/api) objects can make obtaining a particular piece of data very easy as you need only use a propery name, rather than remembering which array index a that data is in (for example `data.name`, rather than `data[0]`).
+Objects are great for intuitive use in a slightly different way from arrays. If you are actively working with the data through [the API](/manual/api), objects can make obtaining a particular piece of data very easy as you need only use a propery name, rather than remembering which array index that data is in (for example `data.name`, rather than `data[0]`).
 
 Objects can also contain more information than is required for the DataTable display, which can be very useful for operating on the data (for example including a database primary key which is not visible to the end user).
 
@@ -140,8 +140,8 @@ $('#example').dataTable( {
 
 Which would result in a table such as:
 
-| Name | Position | Office | Age | Start date | Salary |
-| ---- | -------- | ------ | --- | ---------- | ------ |
+| Name | Position | Salary | Office |
+| ---- | -------- | ------ | ------ |
 | Tiger Nixon | System Architect | $3,120 | Edinburgh |
 | Garrett Winters | Director | $5,300 | Edinburgh |
 
@@ -179,8 +179,8 @@ Note that `office` is a method of the class above, while `name`, `position` and 
 
 Like the objects data source option above, this would result in a table such as:
 
-| Name | Position | Office | Age | Start date | Salary |
-| ---- | -------- | ------ | --- | ---------- | ------ |
+| Name | Position | Salary | Office |
+| ---- | -------- | ------ | ------ |
 | Tiger Nixon | System Architect | $3,120 | Edinburgh |
 | Garrett Winters | Director | $5,300 | Edinburgh |
 
@@ -228,7 +228,7 @@ Ajax sourced data is much like Javascript sourced data, but DataTables will make
 
 Like Javascript sourced data, Ajax sourced data can be in the form of objects or arrays (see above), but not, in this case, instances (since they cannot be represented in JSON).
 
-[Server-side processing](/manual/server-side) as discussed above, is a special form of Ajax sourced data, whereby the data to be shown for each view in the DataTable is retrieved by an Ajax request only when that view is required for display to the user. This allows the power of the database engine on servers to be utilised for large data sets. For more information about server-side processing, and how it can be implemented, please refer [its documentation in this manual](/manual/server-side).
+[Server-side processing](/manual/server-side) as discussed above, is a special form of Ajax sourced data, whereby the data to be shown for each view in the DataTable is retrieved by an Ajax request only when that view is required for display to the user. This allows the power of the database engine on servers to be utilised for large data sets. For more information about server-side processing, and how it can be implemented, please refer to [its documentation in this manual](/manual/server-side).
 
 	]]>
 	</content>
