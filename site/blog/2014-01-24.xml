@@ -33,6 +33,8 @@ Actually using JS Bin is very simple; simply load [http://live.datatables.net](h
 
 To share a created bin click the _Share_ menu at the top of the browser window and copy the URL shown. Add that URL to your forum post, e-mail or otherwise share it and other developers will be able to review your example.
 
+For further information about how to use the DataTables live site, including pre-made templates for loading Ajax and server-side processing data, please refer to [technical note 9](/tn/9).
+
 
 ## Thank you
 
