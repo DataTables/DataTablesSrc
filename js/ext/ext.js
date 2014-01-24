@@ -161,9 +161,9 @@ DataTable.ext = _ext = {
 		 * requests
 		 *
 		 *  @type boolean
-		 *  @default false
+		 *  @default null
 		 */
-		ajax: false
+		ajax: null
 	},
 
 

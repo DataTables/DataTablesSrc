@@ -238,8 +238,17 @@ function _fnAjaxParameters( settings )
 	}
 
 	data.__legacy = true;
-	return settings.sAjaxSource || DataTable.ext.legacy.ajax ?
-		data : d;
+
+	// If the legacy.ajax parameter is null, then we automatically decide which
+	// form to use, based on sAjaxSource
+	var legacy = DataTable.ext.legacy.ajax;
+	if ( legacy === null ) {
+		return settings.sAjaxSource ? data : d;
+	}
+
+	// Otherwise, if legacy has been specified then we use that to decide on the
+	// form
+	return legacy ? data : d;
 }
 
 
