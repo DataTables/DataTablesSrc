@@ -6,7 +6,7 @@
 
 	<type type="string">
 		<description>
-			In its simplest form, `dt-init ajax`, when given as a string will simply load the data from the given remote file. Note that DataTables expects the table data to be an array of items in the `data` parameter of the object (use the `dataSrc` option of `dt-init ajax` as an object, below, if your data is formatted differently):
+			In its simplest form, `dt-init ajax`, when given as a string will simply load the data from the given remote file. Note that DataTables expects the table data to be an array of items in the `data` parameter of the object (use the `dt-init ajax.dataSrc` option of `dt-init ajax` as an object, if your data is formatted differently):
 
 			```
 			{
@@ -35,16 +35,11 @@
 			As an object, the `dt-init ajax` object is passed to [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) allowing fine control of the Ajax request. DataTables has a number of default parameters which you can override using this option. Please refer to the [jQuery documentation](http://api.jquery.com/jQuery.ajax/) for a full description of the options available, although the following parameters provide additional options in DataTables or require special consideration:
 
 			* `data` - As with jQuery, `data` can be provided as an object, but as an extension, it can also provided as a function to manipulate the data DataTables sends to the server. The function takes a single parameter, an object of parameters with the values that DataTables has readied for sending. An object may be returned which will be merged into the DataTables defaults, or you can add the items to the object that was passed in and not return anything from the function. This supersedes `fnServerParams` from DataTables 1.9-.
-
-			* `dataSrc` - By default DataTables will look for the property `data` (or `aaData` for compatibility with DataTables 1.9-) when obtaining data from an Ajax source or for server-side processing - this parameter allows that property to be changed, through two different forms:
-
+			* `dataSrc` (`dt-init ajax.dataSrc`) - By default DataTables will look for the property `data` (or `aaData` for compatibility with DataTables 1.9-) when obtaining data from an Ajax source or for server-side processing - this parameter allows that property to be changed, through two different forms:
 			  * As a string - define the property from the object to read. Note that if your Ajax source simply returns an array of data to display, rather than an object, set this parameter to be an empty string. Additionally you can use Javascript dotted object notation to get a data source for multiple levels of object / array nesting.
-
 			  * As a function - As a function it takes a single parameter, the JSON returned from the server, which can be manipulated as required. The returned value from the function is what will be used by DataTables as the data source for the table.
-
-			  This supersedes `sAjaxDataProp` from DataTables 1.9-.
-
-			* `success` - Must _not_ be overridden as it is used internally in DataTables. To manipulate / transform the data returned by the server use `ajax.dataSrc` (above), or use `ajax` as a function (below).
+			  * This supersedes `sAjaxDataProp` from DataTables 1.9-.
+			* `success` - Must _not_ be overridden as it is used internally in DataTables. To manipulate / transform the data returned by the server use `dt-init ajax.dataSrc` (above), or use `ajax` as a function (below).
 
 			Simple example:
 

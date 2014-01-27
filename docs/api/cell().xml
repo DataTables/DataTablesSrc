@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="cells">
-	<name>cells()</name>
+	<name>cell()</name>
 	<summary>Select a single cell from a table.</summary>
 	<since>1.10</since>
 

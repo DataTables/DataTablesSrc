@@ -24,7 +24,7 @@ DataTables has four built-in data operations, each of which can potentially use 
 * `dt-string filter` - Data used for searching
 * `dt-string type` - Type detection data
 
-By default DataTables will use the same data for all four operations, but this can easily be modified using the `dt-init data` and `dt-init render` initialisation option, or HTML 5 `data-*` attributes.
+By default DataTables will use the same data for all four operations, but this can easily be modified using the `dt-init data` and `dt-init columns.render` initialisation option, or HTML 5 `data-*` attributes.
 
 
 ## Data source

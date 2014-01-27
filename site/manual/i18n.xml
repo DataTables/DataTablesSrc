@@ -20,7 +20,7 @@ There are over 50 translations provided by the community [ready to be used](/plu
 
 ## Configuration
 
-The language options used by DataTables are configured through the `dt-api language` configuration option. This is an object with the strings used by each part of DataTables described by a parameter. The full list of language options is available in the `dt-api language` documentation reference.
+The language options used by DataTables are configured through the `dt-init language` configuration option. This is an object with the strings used by each part of DataTables described by a parameter. The full list of language options is available in the `dt-init language` documentation reference.
 
 The language options are configured in exactly the same way as the [other configuration options](/manual/options) in DataTables, as part of the initialisation object. This example shows how the search string can be altered:
 

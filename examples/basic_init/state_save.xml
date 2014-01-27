@@ -21,7 +21,7 @@ The built in state saving method uses the HTML5 `localStorage` API for efficient
 
 Additionally, note also that the duration for which the saved state is valid and can be used to restore the table state can be set using the `dt-init stateDuration` initialisation parameter (2 hours by default).
 
-The example below simply shows state saving enabled in DataTables with the `dt-init saveSave` option.
+The example below simply shows state saving enabled in DataTables with the `dt-init stateSave` option.
 
 ]]></info>
 

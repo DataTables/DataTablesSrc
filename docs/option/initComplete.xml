@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="callback">
-	<name>initCallback</name>
+	<name>initComplete</name>
 	<summary>Initialisation complete callback.</summary>
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>initCallback( settings, json )</signature>
+		<signature>initComplete( settings, json )</signature>
 		<parameter type="object" name="settings">
 			DataTables settings object
 		</parameter>

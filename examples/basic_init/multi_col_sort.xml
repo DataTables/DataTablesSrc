@@ -29,11 +29,11 @@ $(document).ready(function() {
 DataTables allows ordering by multiple columns at the same time, which can be activated in a number of different ways:
 
 * User shift click on a column (added the clicked column as a secondary, tertiary etc ordering column).
-* On a per-column basis (i.e. order by a specific column and then a secondary column if the data in the first column is identical), through the `dt-init orderData` option.
-* Using the `dt-init orderData` option to specify a multiple column order by default (for example `[ [0,'asc'], [1,'asc'] ]`).
+* On a per-column basis (i.e. order by a specific column and then a secondary column if the data in the first column is identical), through the `dt-init columns.orderData` option.
+* Using the `dt-init columns.orderData` option to specify a multiple column order by default (for example `[ [0,'asc'], [1,'asc'] ]`).
 * Through the `dt-api order()` API method.
 
-Note that, the ability for the user to shift click to order multiple columns can be disabled through the `dt-init orderMutli` option.
+Note that, the ability for the user to shift click to order multiple columns can be disabled through the `dt-init orderMulti` option.
 
 The example below shows the first column having a secondary order applied to the second column in the table, vice-versa for the second column being tied directly to the first and the salary column to the first name column.
 

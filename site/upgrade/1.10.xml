@@ -49,14 +49,14 @@ In place of `fnRender` the `dt-init columns.render` and `dt-init columns.created
 
 The built-in ability of DataTables 1.9 to show an infinitely scrolling grid through the `bScrollInfinite` option has been removed due to the inconsistencies it caused in the API. Removal has also helped simply the internal code significantly.
 
-In place of `bScrollInfinite`, the [Scroller](/scroller) extra for DataTables is recommended.
+In place of `bScrollInfinite`, the [Scroller](/extensions/scroller) extra for DataTables is recommended.
 
 
 ### Cookie based state saving
 
 Cookie based state saving has been replaced with `localStorage` based state saving in DataTables 1.10. Cookie's, with their 4KiB limit were very limited, and incurred a performance penalty since they were part of every HTTP request. `localStorage` is much faster and more flexible, and is used as the default storage for state information in DataTables 1.10.
 
-`localStorage` is not available in IE6/7. As such, the built-in state saving of DataTables is not available in these browsers, in which the state saving will silently fail. The `dt-init stateLoad` and `dt-init stateSave` parameters can be used to provide a suitable function if you wish to use cookies.
+`localStorage` is not available in IE6/7. As such, the built-in state saving of DataTables is not available in these browsers, in which the state saving will silently fail. The `dt-init stateLoadCallback` and `dt-init stateSaveCallback` parameters can be used to provide a suitable function if you wish to use cookies.
 
 ## Other issues?
 

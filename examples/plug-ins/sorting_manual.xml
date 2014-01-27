@@ -31,7 +31,7 @@ This is done by using the `dt-init columns.type` parameter, in combination with 
 
 This example shows ordering with a comma for a decimal place, as is often used in parts of Europe.
 
-A wide variety of ready made ordering plug-ins can be found on [the DataTables plug-ins page](//datatables.net/plug-ins/order).
+A wide variety of ready made ordering plug-ins can be found on [the DataTables plug-ins page](//datatables.net/plug-ins/sorting).
 
 ]]></info>
 

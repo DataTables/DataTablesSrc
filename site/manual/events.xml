@@ -15,7 +15,7 @@ Knowing when DataTables has performed an operation can often play an important r
 
 It can often be useful to know when DataTables has performed a particular operation, for example a page draw, so other dependent elements can be updated to take account of the change. To provide this ability, DataTables will fire custom DOM events which can be listened for, and then acted upon, using either the `dt-api on()` method or [jQuery's `on()`](http://api.jquery.com/on/) method. DataTables' custom events work in exactly the same way as standard DOM events, and allow event driven actions, which is particularly useful for plug-ins.
 
-For a full list of the events that DataTables will trigger, please refer to the [event reference documentation](/reference/events).
+For a full list of the events that DataTables will trigger, please refer to the [event reference documentation](/reference/event).
 
 ## Listening for events
 
@@ -65,9 +65,9 @@ $(document).on( 'init.dt', function ( e, settings ) {
 } );
 ```
 
-Similarly, this method could also be useful with the `dt-event json` event which will let you know what JSON data was returned from the server from the last DataTables initiated Ajax query.
+Similarly, this method could also be useful with the `dt-event ajax` event which will let you know what JSON data was returned from the server from the last DataTables initiated Ajax query.
 
-A full list of the events that DataTables can trigger is available in the [event reference documentation](/reference/events).
+A full list of the events that DataTables can trigger is available in the [event reference documentation](/reference/event).
 	]]>
 	</content>
 </dt-page>

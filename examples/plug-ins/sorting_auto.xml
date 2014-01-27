@@ -33,7 +33,7 @@ Formatted data of a particular kind can be automatically detected and a suitable
 
 This example shows ordering with a comma for a decimal place, as is often used in parts of Europe with automatic type detection.
 
-A wide variety of ready made ordering plug-ins can be found on [the DataTables plug-ins page](//datatables.net/plug-ins/order).
+A wide variety of ready made ordering plug-ins can be found on [the DataTables plug-ins page](//datatables.net/plug-ins/sorting).
 
 ]]></info>
 

@@ -14,7 +14,7 @@ DataTables is a powerful Javascript library for adding interaction features to H
 	<content>
 	<![CDATA[
 
-> Update: The DataTables manual now has an [installing](/manual/installing) section which details how to get up and running with DataTables quickly and easily. This blog post was written prior to the release of DataTables 1.10 and therefore is outdated in areas, but is left for historic reference.
+> Update: The DataTables manual now has an [installing](/manual/installation) section which details how to get up and running with DataTables quickly and easily. This blog post was written prior to the release of DataTables 1.10 and therefore is outdated in areas, but is left for historic reference.
 
 DataTables is a powerful Javascript library for adding interaction features to HTML tables, and while simplicity is a core design principle for the project as a whole, it can be quite daunting to get started. In this article I'll introduce the basic concepts that you will need to know to get going with DataTables, and you will find that in a very short space of time you'll be able to create advanced table controls, tuned to your specific requirements.
 

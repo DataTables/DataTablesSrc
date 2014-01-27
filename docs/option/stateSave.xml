@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>stateSave</name>
+	<summary>State saving - restore table state on page reload</summary>
+	<since>1.10</since>
+
+	<type type="boolean" />
+
+	<description>
+		Enable or disable state saving. When enabled a cookie will be used to save table display information such as pagination information, display length, filtering and sorting. As such when the end user reloads the page the display will match what they had previously set up.
+	</description>
+
+	<example title="Enable state saving"><![CDATA[
+$('#example').dataTable( {
+  stateSave: true
+} );
+]]></example>
+
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+	<related type="option">stateLoaded</related>
+	<related type="option">stateLoadParams</related>
+	<related type="option">stateSaveParams</related>
+</dt-option>

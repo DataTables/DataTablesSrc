@@ -61,7 +61,7 @@ Note that DataTables can actually generate the `dt-tag thead` and `dt-tag tbody`
 
 ## Including Javascript / CSS
 
-The key part of the installation of DataTables is including the DataTables source files on your page. As noted at the top of this page, this simply involves including the DataTables Javascript and CSS files. The CSS file is actually optional, but it provides default styling for your table to make it look good with minimum effort. See the [styling reference](/reference/styling) if you want write your own stylesheet, or the [style theme creator](/manual/styling/theme-creator) if you want to customise the colours of the default DataTables CSS.
+The key part of the installation of DataTables is including the DataTables source files on your page. As noted at the top of this page, this simply involves including the DataTables Javascript and CSS files. The CSS file is actually optional, but it provides default styling for your table to make it look good with minimum effort. See the [style theme creator](/manual/styling/theme-creator) if you want to customise the colours of the default DataTables CSS.
 
 The required files can be installed in one of two different ways:
 

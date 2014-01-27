@@ -13,7 +13,7 @@ DataTables cannot have their features dynamically altered by passing in addition
 	<content>
 	<![CDATA[
 
-DataTables has a wide range of [configuration options](/reference/options) which can be used to customise the table at initialisation time, but only at initialisation time. After a DataTable has been initialised any attempt to use these options will result in an error.
+DataTables has a wide range of [configuration options](/reference/option) which can be used to customise the table at initialisation time, but only at initialisation time. After a DataTable has been initialised any attempt to use these options will result in an error.
 
 
 ## Meaning
@@ -60,7 +60,7 @@ $('#example').dataTable( {
 } );
 ```
 
-For more information on initialisation of DataTables and the options available, please refer to the [initialisation options manual](/manual/option).
+For more information on initialisation of DataTables and the options available, please refer to the [initialisation options manual](/manual/options).
 
 
 ### Object instance retrieval

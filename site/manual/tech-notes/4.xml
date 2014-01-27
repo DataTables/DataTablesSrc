@@ -50,7 +50,7 @@ When `{parameter}` is an integer, DataTables is looking for data from an array. 
 
 ### Parameter is a string
 
-If `{parameter}` is shown as a string, this will typically indicate that you have used `dt-init column.data` or `dt-init column.render` to pull data out of an object, be it Ajax loaded or from the client-side. For example the error message in read: _Requested unknown parameter 'Name' for row 0_. This will indicate that a column which uses `dt-init column.data` has been unable to obtain valid data to display - for example:
+If `{parameter}` is shown as a string, this will typically indicate that you have used `dt-init columns.data` or `dt-init columns.render` to pull data out of an object, be it Ajax loaded or from the client-side. For example the error message in read: _Requested unknown parameter 'Name' for row 0_. This will indicate that a column which uses `dt-init columns.data` has been unable to obtain valid data to display - for example:
 
 ```js
 { data: 'Name' }

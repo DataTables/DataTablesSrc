@@ -31,11 +31,11 @@ State saving in DataTables is done by saving a JSON string to a cookie, allowing
 
 However, actually working with these options was far from intuitive and they have now been replaced by five new initialisation options which cleanly separate the act of actually saving and loading data (_fnStateSave_ and _fnStateLoad_), defining and modifying what parameters to save and load (_fnStateSaveParams_ and _fnStateLoadParams_), and also notification when the state has been loaded (_fnStateLoaded_).
 
-*   [fnStateSave](/docs/DataTables/1.9.beta.2/DataTable.defaults.html#fnStateSave) - Define the logic to save the state
-*   [fnStateLoad](/docs/DataTables/1.9.beta.2/DataTable.defaults.html#fnStateLoad) - Define the logic to load the state
-*   [fnStateLoaded](/docs/DataTables/1.9.beta.2/DataTable.defaults.html#fnStateLoaded) - Notification that state has been loaded
-*   [fnStateSaveParams](/docs/DataTables/1.9.beta.2/DataTable.defaults.html#fnStateSaveParams) - Modify the state object that is to be saved
-*   [fnStateLoadParams](/docs/DataTables/1.9.beta.2/DataTable.defaults.html#fnStateLoadParams) - Modify the state object that has been loaded, prior to reloading the state.
+*   [fnStateSave](//datatables.net/docs/DataTables/1.9.4/DataTable.defaults.html#fnStateSave) - Define the logic to save the state
+*   [fnStateLoad](//datatables.net/docs/DataTables/1.9.4/DataTable.defaults.html#fnStateLoad) - Define the logic to load the state
+*   [fnStateLoaded](//datatables.net/docs/DataTables/1.9.4/DataTable.defaults.html#fnStateLoaded) - Notification that state has been loaded
+*   [fnStateSaveParams](//datatables.net/docs/DataTables/1.9.4/DataTable.defaults.html#fnStateSaveParams) - Modify the state object that is to be saved
+*   [fnStateLoadParams](//datatables.net/docs/DataTables/1.9.4/DataTable.defaults.html#fnStateLoadParams) - Modify the state object that has been loaded, prior to reloading the state.
 
 The parameters that are passed to each function are fully defined in the documentation linked to above. One major advantage of these new functions is that they will give you a Javascript object to work with, rather than a string that had to be manipulated as before making life much easier! The default for _fnStateSave_ and _fnStateLoad_ is to use the internal cookie saving code still, but as you will see below this can be trivially changed to save state anyway you wish.
 
@@ -80,8 +80,6 @@ $(document).ready(function() {
 ```
 
 Using this method it is easy to see how you might extend this to store the state in a database on the server using Ajax (if you do, then note that the fnStateLoad Ajax call must be synchronous since there is no callback provided for an asynchronous request).
-
-You can see [this example running live](/beta/1.9/examples/advanced_init/localstorage.html) in the DataTables examples.
 
 ## Conclusion
 

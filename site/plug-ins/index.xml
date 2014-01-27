@@ -8,9 +8,9 @@
 While DataTables has a lot of flexibility built-in by default, there might come a time when you wish to add your own features or overrule some of what DataTables does internally. This is possible through the plug-in architecture that DataTables provides for developers. This section of the DataTables site provides plug-ins of various types, which the authors have kindly released for public consumption. If you have any you would also like to share, please [get in touch](/contact) or send a [Github pull request](https://github.com/DataTables/Plugins/).
 
 * [API](api)
-* [Ordering](ordering)
+* [Ordering](sorting)
 * [Type detection](type-detection)
-* [Searching](searching)
+* [Searching](filtering)
 * [Pagination](pagination)
 * [Internationalisation](i18n)
 

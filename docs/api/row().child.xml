@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>row().child</name>
+	<summary>Row child method namespace</summary>
+	<since>1.10</since>
+
+	<type type="object" />
+
+	<description>
+		DataTables has the ability to show child rows for each row (termed a "parent row" in this documentation to distinguish from the child rows). This child rows are attached to each parent row, and can be used, for example, to provide extra information about the parent row, or an editing form. The child rows will always be placed immediately after a parent row (if the child rows are designated to be visible, using the `dt-api row().child.show()` method), regardless of ordering, search terms applied to the table etc. If a parent row is not available in the DataTables' current view, the child rows will not be visible either.
+
+		This property is a static object of the DataTables API which is used simply to provide a namespace to its child methods, which are used to control the child row operations in DataTables.
+
+		Please refer to the documentation for each of those methods for details on how they operate.
+	</description>
+
+	<related type="api">row().child()</related>
+	<related type="api">row().child().hide()</related>
+	<related type="api">row().child().show()</related>
+	<related type="api">row().child.hide()</related>
+	<related type="api">row().child.isShown()</related>
+	<related type="api">row().child.show()</related>
+
+</dt-api>

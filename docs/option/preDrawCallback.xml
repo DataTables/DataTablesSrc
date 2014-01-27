@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>initCallback( settings, json )</signature>
+		<signature>preDrawCallback( settings, json )</signature>
 		<parameter type="object" name="settings">
 			DataTables settings object
 		</parameter>

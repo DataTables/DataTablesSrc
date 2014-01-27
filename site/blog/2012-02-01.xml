@@ -26,7 +26,7 @@ The paging styling has stayed more or less the same in Bootstrap 2 so fortunatel
 
 > Update: Bootstrap integration with DataTables is now formalised in the [styling section](/manual/styling/bootstrap) of the manual.
 
-The [Twitter Bootstrap](http://twitter.github.com/bootstrap) folks have just released v2 of their UI framework that has a number of improvements on the v1 series. However, as might be expected from a major upgrade there are also a few API changes. As such, this post is an update to my [original article for Bootstrap 1.4](/blog/Twitter_Bootstrap) to show how DataTables can be used with Bootstrap 2.
+The [Twitter Bootstrap](http://getbootstrap.com/) folks have just released v2 of their UI framework that has a number of improvements on the v1 series. However, as might be expected from a major upgrade there are also a few API changes. As such, this post is an update to my [original article for Bootstrap 1.4](/blog/Twitter_Bootstrap) to show how DataTables can be used with Bootstrap 2.
 
 There are a number of changes that effect the DataTables integration in Bootstrap 2:
 

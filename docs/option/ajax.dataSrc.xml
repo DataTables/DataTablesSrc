@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="data">
+	<name>ajax.dataSrc</name>
+	<summary>Data property or manipulation method for table data</summary>
+	<since>1.10</since>
+
+	<type type="string">
+		<description>
+			As a string, `dataSrc` defines the property from the data source object (i.e. that returned by the Ajax request) to read.
+
+			Note that if your Ajax source simply returns an array of data to display, rather than an object, set this parameter to be an empty string.
+
+			Additionally you can use Javascript dotted object notation to get a data source for multiple levels of object / array nesting.
+		</description>
+	</type>
+
+	<type type="function">
+		<signature>ajax.dataSrc( data )</signature>
+		<parameter type="object" name="data">
+			Data returned from the server for the Ajax request
+		</parameter>
+		<returns type="array">
+			Array of data that DataTables is to use to draw the table
+		</returns>
+		<description>
+			As a function `dataSrc` provides the ability to manipulate the data returned from the server from one form into another. For example, if your data is split over multiple arrays you might combine it into a single array to return for processing and display by DataTables.
+
+			In this form `dataSrc` can be used to transform any data source, such as non-JSON data (XML, YAML, etc) into the Javascript array that DataTables expects.
+		</description>
+	</type>
+
+	<description>
+		The `dt-init ajax` option basically inherits all of the options made available by [jQuery.ajax](http://api.jquery.com/jQuery.ajax/), but we provide the extra option of `dataSrc` to provide the ability to alter what data DataTables will read from the JSON return from the server, or to manipulate the data from one form into another (be it JSON to another form of JSON, XML, YAML etc). This is done because the `success` option of `dt-init ajax` **should not** be altered - DataTables uses it internally to execute the table draw when the data load is complete.
+	</description>
+
+	<default>`dt-string data` property of the data source object (or `dt-string aaData` if `dt-string data` is not present for backwards compatibility).</default>
+
+	<example title="Get JSON data from a file via Ajax, using `dataSrc` to change `data` to `tableData` (i.e. `{ tableData: [ ...data... ] }`)"><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "dataSrc": "tableData"
+  }
+} );
+]]></example>
+
+	<example title="Get JSON data from a file via Ajax, using `dataSrc` to read data from a plain array rather than an array in an object"><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "dataSrc": ""
+  }
+} );
+]]></example>
+
+	<example title="Manipulate the data returned from the server - add a link to data (note this can, should, be done using `render` for the column - this is just a simple example of how the data can be manipulated)."><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "dataSrc": function ( json ) {
+      for ( var i=0, ien=json.length ; i<ien ; i++ ) {
+        json[i][0] = '<a href="/message/'+json[i][0]+'>View message</a>';
+      }
+      return json;
+    }
+  }
+} );
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="api">ajax.json()</related>
+	<related type="api">ajax.reload()</related>
+	<related type="api">ajax.url()</related>
+</dt-option>

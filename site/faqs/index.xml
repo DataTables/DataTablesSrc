@@ -36,7 +36,7 @@ A. When DataTables requests a property that is not present in the data source fo
 A. The majority of the time, this is caused by a 'floating' comma at the end of an array. IE will throw a warning for this, other browsers automatically delete it.
 
 **Q. I append a row to the table using DOM/jQuery, but it is removed on redraw.**  
-A. The issue here is that DataTables doesn't _know_ about your manipulation of the DOM structure - i.e. it doesn't know that you've added a new row, and when it does a redraw it will remove the unknown row. To add, edit or delete information from a DataTable you must use the [DataTables API](/manual/api) (specifically the `dt-api row.add()`, `dt-api row().update()` and `dt-api row().remove()` methods to add, edit and delete rows.
+A. The issue here is that DataTables doesn't _know_ about your manipulation of the DOM structure - i.e. it doesn't know that you've added a new row, and when it does a redraw it will remove the unknown row. To add, edit or delete information from a DataTable you must use the [DataTables API](/manual/api) (specifically the `dt-api row.add()`, `dt-api row().data()` and `dt-api row().remove()` methods to add, edit and delete rows.
 
 
 ## General initialisation

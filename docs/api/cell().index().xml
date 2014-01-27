@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="cells">
-	<name>cells().index()</name>
+	<name>cell().index()</name>
 	<summary>Get index information about the selected cell</summary>
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>cells().indexes()</signature>
+		<signature>cell().index()</signature>
 		<description>Get row, column and visible column index information</description>
 		<returns type="object">Object with index information for the selected cell. See below for the object structure.</returns>
 	</type>

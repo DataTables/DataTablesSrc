@@ -25,7 +25,7 @@ There are four built-in options for which pagination controls DataTables should 
 * `string full` - 'First', 'Previous', 'Next' and 'Last' buttons
 * `string full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
 
-The language strings of 'First', 'Previous' etc can be optionally through the internationalisation options of DataTables; `dt-init language.first`, `dt-init language.previous` etc.
+The language strings of 'First', 'Previous' etc can be optionally through the internationalisation options of DataTables; `dt-init language.paginate.first`, `dt-init language.paginate.previous` etc.
 
 Additional options for the buttons that are shown can be added through the use of pagination type plug-ins. Furthermore, how the buttons are actually shown can be altered through the use of plug-in pagination renderers.
 
