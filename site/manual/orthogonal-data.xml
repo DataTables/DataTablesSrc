@@ -93,8 +93,9 @@ Although the start date is in a nice format for the computer to use, it is virtu
 			return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
 		}
 
-		// Otherwise its type detection or sorting data, for which we want
-		// to use the integer, so just return that, unaltered
+		// Otherwise the data type requested (`type`) is type detection or
+		// sorting data, for which we want to use the integer, so just return
+		// that, unaltered
 		return data;
 	}
 }

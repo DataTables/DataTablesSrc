@@ -15,9 +15,9 @@ While DataTables has a lot of flexibility built-in by default, there might come 
 * [Internationalisation](i18n)
 
 
-## Extras (feature enhancing plug-ins)
+## Extensions (feature enhancing plug-ins)
 
-As well as the type specific plug-ins presented in this section of the site, there are a number of [first class plug-ins](/extras) for DataTables which add additional abilities and interaction options to DataTables, such as reordering columns, adding toolbars, and much more. These are available in the [extras section](/extras) of this site.
+As well as the type specific plug-ins presented in this section of the site, there are a number of [extensions](/extensions) for DataTables which add additional abilities and interaction options to DataTables, such as reordering columns, adding toolbars, and much more. These are available in the [extensions section](/extensions) of this site.
 
 	]]>
 	</content>
