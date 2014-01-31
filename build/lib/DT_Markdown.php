@@ -25,6 +25,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	{
 		$this->block_gamut['doColumns'] = 13;
 		$this->block_gamut['doGrid'] = 12;
+		$this->block_gamut['doPullQuotes'] = 61;
 		parent::MarkdownExtra_Parser();
 	}
 
@@ -129,6 +130,36 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		return str_replace(' ', '-', $text);
 	}
 
+
+	// Pull quotes - same as quotes using `>` but uses `<` and the `aside` tag
+	function doPullQuotes($text) {
+		$text = preg_replace_callback('/
+			(?>^[ ]*<[ ]?
+				(?:\((.+?)\))?
+				[ ]*(.+\n(?:.+\n)*)
+			)+	
+			/xm',
+			array(&$this, '_doPullQuotes_callback'), $text);
+
+		return $text;
+	}
+	
+	function _doPullQuotes_callback($matches) {
+		$cite = $matches[1];
+		$bq = '< ' . $matches[2];
+		# trim one level of quoting - trim whitespace-only lines
+		$bq = preg_replace('/^[ ]*<[ ]?|^[ ]+$/m', '', $bq);
+		$bq = $this->runBlockGamut($bq);		# recurse
+
+		$bq = preg_replace('/^/m', "  ", $bq);
+		# These leading spaces cause problem with <pre> content, 
+		# so we need to fix that:
+		$bq = preg_replace_callback('{(\s*<pre>.+?</pre>)}sx', 
+			array(&$this, '_doBlockQuotes_callback2'), $bq);
+		
+		$res = "<aside>\n$bq\n</aside>";
+		return "\n". $this->hashBlock($res)."\n\n";
+	}
 
 
 	function doGrid ( $text ) {
