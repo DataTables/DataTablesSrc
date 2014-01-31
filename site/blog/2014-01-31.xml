@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>HTML 5 Clipboard and File APIs</title>
+	<date>2014-01-31 16:16</date>
+
+	<summary>
+	<![CDATA[
+
+[TableTools](/extensions/tabletools) adds copy-to-clipboard and save-to-file exporting abilities to DataTables, via simple to use buttons that the end user can click upon to activate. These two abilities, however, are provided by Flash, due to the fact that there is no API available in the DOM to give this ability.
+
+However, two new APIs that are in development at the W3C, the [Clipboard API](http://www.w3.org/TR/clipboard-apis/) and [File Writer API](http://www.w3.org/TR/file-writer-api/), might finally provide us with the tools required to be able to do away with Flash completely.
+
+It will be a while before these APIs trickle down into the browsers and have enough users that we can deploy it as the primary interface for TableTools, but in this blog post I take a look at what the future holds in these two APIs.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+One of the most common questions I receive about [TableTools](/extensions/tabletools) is if it is possible to remove the Flash dependency. Until recently, the answer has been _no_, but now there might be light at the end of the tunnel due to new APIs proposed by the W3C.
+
+TableTools uses Flash for two purposes:
+
+* Copy to clipboard
+* Save data to local file
+
+Currently there is no API implemented in the various browsers that will provide the functionality we need in TableTools to provide these two basic abilities without Flash. However, APIs that will perform these tasks are in development at the W3C and will hopefully trickle down to the browsers before too long.
+
+A word of warning before we continue - this post was written based on the information in specification documents that are _Editor's Draft_ and _Working Draft_ status, as [defined by the W3C](http://www.w3.org/2005/10/Process-20051014/tr). It is possible that the specifications might change in future.
+
+## Clipboard API
+
+The first API of interest to us is the [Clipboard API](http://www.w3.org/TR/clipboard-apis/). The current specification primarily focuses upon the events `copy`, `cut` and `paste` with the ability to listen for these events through a well defined API - the `ClipboardEvent` objects.
+
+The latest [editors draft](http://dev.w3.org/2006/webapi/clipops/clipops.html#semi-trusted-event) adds the ability to create these events - termed _synthetic events_, thanks to [a bug](https://www.w3.org/Bugs/Public/show_bug.cgi?id=23235) filed by James Greene of the [ZeroClipboard project](https://github.com/zeroclipboard/ZeroClipboard) which TableTools currently uses.
+
+With these synthetic events, we have the ability to create a new `ClipboardEvent` object and trigger it like any other DOM event. These clipboard events are termed _semi-trusted_ so your browser will ask you if you want to allow the domain to use clipboard operations, in much the same way pages might currently ask you if you will allow them to use your location for the GeoLocation APIs.
+
+As an example of the proposed API, TableTools would be able to use the following to copy table information, in a CSV format to the clipboard:
+
+```js
+$(button).on( 'click', function (e) {
+	var data = table
+		.data()
+		.map( function (row) {
+			return row.join(',');
+		} )
+		.join( '\n' );
+
+	var clip = new ClipboardEvent( 'copy' );
+	clip.clipboardData.setData( 'text/plain', data );
+	clip.preventDefault();
+
+	e.target.dispatchEvent( clip );
+} );
+```
+
+This is of course a simplified case, as it doesn't provide many of the configuration options TableTools provides, but it shows how simple it will be for us to make use of this excellent new API.
+
+
+## File API
+
+The ability to be able to create files, on demand, in Javascript, is the cornerstone of the second new API that we are interested in for TableTools - the [File Writer API](http://www.w3.org/TR/file-writer-api/).
+
+There are already a few methods to be able to create and save files in HTML including using the `data://` pseudo protocol, but these have limitations such as not working in old browsers, not always being able to name the file and none with the succinct and easy to use syntax of the Flash `FileReference` API. The new File Writer API, however, will provide exactly this for us in Javascript.
+
+At the time of writing the File Writer API defines a [`saveAs` global function](http://www.w3.org/TR/file-writer-api/#examples) (I would suggest that this is likely to change before the specification is finalised due to the likelihood of introducing a name clash) which simply takes a [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) and the file name to save the data from the blob as.
+
+Returning to our example of saving CSV data from a table again, to save to a local file the code is now:
+
+
+```js
+$(button).on( 'click', function (e) {
+	var data = table
+		.data()
+		.map( function (row) {
+			return row.join(',');
+		} )
+		.join( '\n' );
+
+	saveAs(
+		new Blob( [data], {type : 'text/csv'},
+		'My file.csv'
+	);
+} );
+```
+
+Although still a working draft, the File Writer API is a bit more progressed that the Clipboard API, and Microsoft already have [an implementation in IE10+](http://msdn.microsoft.com/en-us/library/ie/hh772332(v=vs.85).aspx). Other browsers don't yet have this ability, but shim layers such as [FileSaver from Eli Grey](https://github.com/eligrey/FileSaver.js) provide this capability in many browsers.
+
+
+## Conclusion
+
+It has long been frustrating in a web-development world that has turned its back on Flash so completely, to have to reply upon Flash to be able to do simple tasks such as copy-to-clipboard and save-to-file in TableTools. However, with these two specifications moving forward at the W3C, and the hope that the browser developers will implement them soon, the day when TableTools no longer requires Flash, might not be too far away.
+
+
+	]]>
+	</content>
+</dt-page>
