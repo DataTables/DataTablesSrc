@@ -63,11 +63,6 @@ table.dataTable {
 	 */
 	thead,
 	tfoot {
-		th,
-		td {
-			padding: 10px 18px;
-		}
-
 		th {
 			font-weight: bold;
 		}
@@ -75,6 +70,7 @@ table.dataTable {
 
 	thead th,
 	thead td {
+		padding: 10px 18px;
 		border-bottom: $table-header-border;
 
 		&:active {
@@ -84,6 +80,7 @@ table.dataTable {
 
 	tfoot th,
 	tfoot td {
+		padding: 10px 18px 6px 18px;
 		border-top: $table-header-border;
 	}
 
@@ -269,7 +266,6 @@ table.dataTable {
 
 	&.no-footer {
 		border-bottom: $table-header-border;
-		margin-bottom: 0.5em;
 	}
 }
 
@@ -311,13 +307,14 @@ table.dataTable td {
 	.dataTables_info {
 		clear: both;
 		float: left;
-		padding-top: 0.55em;
+		padding-top: 0.755em;
 	}
 
 	// Paging
 	.dataTables_paginate {
 		float: right;
 		text-align: right;
+		padding-top: 0.25em;
 
 		.paginate_button {
 			box-sizing: border-box;
@@ -406,17 +403,11 @@ table.dataTable td {
 	// Scrolling
 	.dataTables_scroll {
 		clear: both;
+		border-bottom: $table-header-border;
 
-		table.no-footer {
-			margin-bottom: 0;
-		}
-
-		div.dataTables_scrollHead table.no-footer {
-			border-bottom: none;
-		}
-
+		div.dataTables_scrollHead table.no-footer,
 		div.dataTables_scrollBody table.no-footer {
-			margin-bottom: 0.5em;
+			border-bottom: none;
 		}
 	}
 
