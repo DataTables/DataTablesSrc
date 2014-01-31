@@ -50,7 +50,19 @@ function js_compress {
 		DIR=$(dirname $1)
 
 		echo_msg "JS compressing $FILE.js"
-		java -jar $CLOSURE --js $DIR/$FILE.js > $DIR/$FILE.min.js
+
+		# Closure Compiler doesn't support "important" comments so we add a
+		# @license jsdoc comment to the license block to preserve it
+		cp $DIR/$FILE.js /tmp/$FILE.js
+		perl -i -0pe "s/^\/\*! (.*)$/\/** \@license \$1/s" /tmp/$FILE.js
+
+		java -jar $CLOSURE --charset 'utf-8' --js /tmp/$FILE.js > /tmp/$FILE.min.js
+
+		# And add the important comment back in
+		perl -i -0pe "s/^\/\*/\/*!/s" /tmp/$FILE.min.js
+
+		mv /tmp/$FILE.min.js $DIR/$FILE.min.js
+		rm /tmp/$FILE.js
 	fi
 }
 

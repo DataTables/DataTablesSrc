@@ -809,6 +809,24 @@ DT_Example::$tables['html-complex-header'] = array(
 );
 
 
+DT_Example::$tables['scroller'] = array(
+	'columns' => array(),
+	'header'  => function () {
+		return '<thead>'.
+				'<tr>'.
+					'<th>ID</th>'.
+					'<th>First name</th>'.
+					'<th>Last name</th>'.
+					'<th>ZIP / Post code</th>'.
+					'<th>Country</th>'.
+				'</tr>'.
+			'</thead>';
+	},
+	'footer'  => false,
+	'body'    => false
+);
+
+
 DT_Example::$tables['empty'] = array(
 	'columns' => array(),
 	'header'  => false,
