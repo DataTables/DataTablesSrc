@@ -115,9 +115,17 @@ $(document).ready( function () {
 } );
 ```
 
+< # Upgrade note:
+<
+< If you are upgrading from DataTables 1.9 or earlier, you might notice that a capital `D` is used to initialise the DataTable here. `$().DataTable()` returns a [DataTables API instance](/reference/type/DataTables.Api), while `$().dataTable()` will also initialise a DataTable, but returns a [jQuery object](/reference/type/jQuery).
+<
+< Please refer to the [API manual](api) for further information.
+
 If you've used jQuery before, you will recognise the form of this script: we wait for the document to be fully ready, and then select the table we want, and run the DataTables function on it.
 
 That's it! DataTables will add ordering, searching, paging and information to your table by default, providing the end user of your web-site with the ability to control the display of the table and find the information that they want from it as quickly as possible.
+
+If you want to customise your DataTable, this can be done by specifying configuration parameters in an object passed to the `DataTable()` function. For information on how to use these configuration parameter, please refer to the [options manual page](options).
 
 
 ## Next steps

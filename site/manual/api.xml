@@ -13,16 +13,16 @@ The DataTables API presents a wealth of options for accessing the data contained
 	<content>
 	<![CDATA[
 
-DataTables has an extensive API which can be used to access the data contained in the table and otherwise manipulate the table after initialisation has completed. The DataTables API is designed to reflect the structure of the data in the table, and the ways that you will typically want to interact with the table. As such the API is broken into six key areas for working with the table and its data:
+DataTables has an extensive API which can be used to access the data contained in the table and otherwise manipulate the table after initialisation has completed. The DataTables API is designed to reflect the structure of the data in the table, and the ways that you will typically want to interact with the table. As such the API is composed of six key areas for working with the table and its data:
 
-* Tables - working with tables and its main components - `dt-api tables()` and `dt-api table()`
-* Columns - working with columns - `dt-api columns()` and `dt-api columns()`
-* Rows - working with rows - `dt-api rows()` and `dt-api row()`
-* Cells - working with cells - `dt-api cells()` and `dt-api cell()`
-* Core - general table methods such as `dt-api draw()`
-* Utilities - data manipulation methods such as `dt-api unique()` for working with the data in the result set.
+* Tables
+* Columns
+* Rows
+* Cells
+* Core
+* Utilities
 
-For a full list of the methods that are available to DataTables, please refer to the [API reference](/reference/api) available on this site.
+For a full list of the methods that are available to DataTables, please refer to the [API reference section](/reference/api).
 
 
 ## Terminology
@@ -30,11 +30,17 @@ For a full list of the methods that are available to DataTables, please refer to
 In order to keep the documentation of the API succinct, a number of terms are used to describe, or refer to, aspects of the API. These are defined here:
 
 * Instance - an instance of the API is a single object instance which refers to a specific set of DataTable tables (i.e. is the the result of `new Api()`).
-* Result set - the data held by the API instance. The DataTables API instances are "array like" in that they hold data in the same way as a plain Javascript array (and thus can be accessed using array `[]` notation) and has many of the same methods available (`dt-api sort()` and `dt-api push()` for example). This is much in the same way as jQuery is array like in nature.
+* Result set - the data held by the API instance. DataTables API instances are "array like" in that they hold data in the same way as a plain Javascript array (and thus can be accessed using array `[]` notation) and have many of the same methods available (`dt-api sort()` and `dt-api push()` for example). This is much in the same way as jQuery is array like in nature.
 * Context - the context of an API instance describes the DataTables that the API instance has a link to. Each API instance can refer to one or more DataTables tables, with the ability to act upon those tables (see below for further information).
 
 
 ## Accessing the API
+
+< # Upgrade note:
+< 
+< The DataTables API in v1.9 and earlier was be accessed using <code>$().dataTable().<i>method</i>()</code>. This was done by extending the jQuery object with the DataTables API methods.
+< 
+< The old API is [still available](//legacy.datatables.net/api) in DataTables 1.10 for backwards compatibility, but the new API (see left) is now preferred as it presents much greater flexibility and improved functionality.
 
 A new DataTables API instance can be obtained for one or more tables in one of three different ways:
 
@@ -44,12 +50,12 @@ A new DataTables API instance can be obtained for one or more tables in one of t
 
 The result from each is an instance of the DataTables API object which has the tables found by the selector in its context.
 
-It is important to note the difference between `$( selector ).DataTable()` and `$( selector ).dataTable()`. The former returns a DataTables API instance, while the latter returns a `dt-type jQuery` object. An `api()` method is added to the jQuery object so you can easily access the API, but the jQuery object can be useful for manipulating the table node, as you would with any other jQuery instance (such as using `addClass()` etc).
+It is important to note the difference between `$( selector ).DataTable()` and `$( selector ).dataTable()`. The former returns a DataTables API instance, while the latter returns a `dt-type jQuery` object. An `api()` method is added to the jQuery object so you can easily access the API, but the jQuery object can be useful for manipulating the table node, as you would with any other jQuery instance (such as using `addClass()`, etc.).
 
 
 ## Chaining
 
-Like jQuery, the DataTables API makes heavy use of chaining, with many of the DataTables methods returning the API instance itself, so you can immediately call another API method. For example:
+Like jQuery, the DataTables API makes extensive use of chaining, with many, but not all, of the DataTables methods returning the API instance itself, so you can immediately call another API method. For example:
 
 ```js
 var table = $('#example').DataTable();
@@ -78,12 +84,12 @@ Please note that not all methods will return an API instance for chaining. In so
 
 ## Multiple tables
 
-DataTables API instances can refer to multiple tables in their context. The API will treat each table in an instance's context as the same. For example:
+DataTables API instances can refer to multiple tables in their context. The API treats each table in a context as the same. For example:
 
 ```js
 var tables = $('.dataTable').DataTable();
 
-table.page( 'next' ).draw( false );
+tables.page( 'next' ).draw( false );
 ```
 
 This code will select all tables in the document with the class `dataTable` and jump them all to their next page of data display (using `dt-api page()`).
@@ -144,7 +150,7 @@ table.columns().flatten().each( function ( colIdx ) {
 * Lines 20 - 21 - The utility methods `dt-api sort()` and `dt-api unique()` are used to reduce the data to a nicely ordered list that you would want to present to your end users.
 * Lines 22 - 24 - A search term option is added to our `dt-tag select` list, ready for use.
 
-As you'll be able to see, the DataTables API is extremely flexible, and provides a wide range of options for accessing and manipulating the table. Please see the [API reference documentation](/reference/api) for a full list of the methods that are available. Furthermore, plug-ins such as [Editor](//editor.datatables.net) can extend the API with custom methods such as `row().edit()` and `cell().edit()` among other options.
+As you can see, the DataTables API is extremely flexible, and provides a wide range of options for accessing and manipulating the table. Please see the [API reference documentation](/reference/api) for a full list of the methods that are available. Furthermore, plug-ins such as [Editor](//editor.datatables.net) can extend the API with custom methods such as `row().edit()` and `cell().edit()` among other options.
 
 	]]>
 	</content>

@@ -48,7 +48,7 @@ API update. The DataTables API has not significantly changed since the first rel
     * column.visibility
     * filter
     * filter.column
-    * etc
+    * etc.
   * All of the old methods will be provided through an abstraction layer to ensure backwards compatibility is maintained!
   * No more Hungarian notation in the API
   * Plug-ins - new methods can easily be created and added to the API

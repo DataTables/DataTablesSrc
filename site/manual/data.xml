@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-page order="2" comments="yes" main-nav="yes">
-	<title>Data sources</title>
+	<title>Data</title>
 
 	<summary>
 	<![CDATA[
@@ -24,12 +24,26 @@ There are three core concepts in how DataTables handles data, which are discusse
 
 ## Processing modes
 
-DataTables has two different modes of processing data - i.e. how the ordering, searching etc of data is performed. These are:
+DataTables has two different modes of processing data (ordering, searching, etc. of data):
 
-* Client-side processing - all data processing is performed in the browser
-* Server-side processing - all data processing is performed on the server
+* Client-side processing - the full data set is loaded up-front and data processing is done in the browser.
+* Server-side processing - an Ajax request is made for every table redraw, with only the data required for each display returned. The data processing is performed on the server.
 
-Each has its own advantages and disadvantages, but the key indicator for which mode you should select is based on the number of rows in your table. As a rule of thumb, if you are working with less than 10'000 rows, use client-side processing, for greater than 100'000 rows, use server-side processing. In-between is a grey area where you will need to make a decision based upon the data you wish to display!
+< # Client-side processing:
+<
+< * Full dataset is loaded up-front
+< * Data can be read from DOM, JS data source or via Ajax
+< * Data processing is performed in the browser
+< * For small to medium data sets
+< 
+< # Points to consider:
+<
+< * Time to download the full dataset
+< * Complex ordering on large data sets can slow the browser down
+
+Each has its own advantages and disadvantages, but the key indicator for which mode you should select is based on the number of rows in your table. As a rule of thumb, if you are working with less than 10'000 rows, use client-side processing, for greater than 100'000 rows, use server-side processing. In-between is a grey area where you will need to make a decision based upon the nature of your app and the data you wish to display!
+
+Please note that the two processing modes are mutually exclusive - they cannot be used at the same time, nor is it possible to dynamically change from one mode to the other.
 
 ### Client-side processing
 
@@ -37,24 +51,38 @@ Client-side processing is the default operating mode of DataTables as it is easy
 
 ### Server-side processing
 
-Where server-side processing comes into play is when you have very large quantities of data that you wish to display in the table (millions of rows for example). At these levels, sending the data to the client, and then having Javascript process the data can involve noticeable overhead, resulting in poor performance of the end application. In server-side processing mode, all ordering, searching etc of the data is handed off to the server which can make use of the database engines available there, which are highly tuned for exactly these kinds of operations. Each 'draw' (page) of data involves making an Ajax request to the server. Although each Ajax request might take a fraction of a second to complete, this approach might be preferable to a large wait up-front as all data loads.
+< # Server-side processing:
+<
+< * Ajax request made for every redraw
+< * Only the data needed is loaded
+< * Server performs the processing
+< * Ideal for large data sets
+< 
+< # Points to consider:
+<
+< * Latency of Ajax requests
+< * Can your server handle the load of lots of requests?
+
+Where server-side processing comes into play is when you have very large quantities of data that you wish to display in the table (millions of rows for example). At these levels, sending the data to the client, and then having Javascript process the data can involve noticeable overhead, resulting in poor performance of the end application. In server-side processing mode, all ordering, searching, etc. of the data is handed off to the server which can make use of the database engines available there, which are highly tuned for exactly these kinds of operations. Each page of data (referred to as a _draw_ in DataTables terminology) involves making an Ajax request to the server. Although each Ajax request might take a fraction of a second to complete, this approach might be preferable to a large wait up-front as all data loads.
 
 Server-side processing is enabled by the `dt-init serverSide` option, and full documentation for how server-side processing operates is available in [its section of this manual](/manual/server-side).
 
 
-## Data types
+## Data source types
 
-Data, in Javascript can take three basic forms which are repeatable for the data to display in a DataTable:
+The main data source used for a DataTable must always be an array (it is created automatically when using DOM sourced data). Each item in that array will define a row to be displayed and DataTables can use three basic Javascript data types as the data source for the rows:
 
 * Arrays - `[]`
 * Objects - `{}`
 * Instances - `new MyClass()`
 
-DataTables can consume data from any of these options using the `dt-init columns.data` and `dt-init columns.render` options. The default mode of operation is an array, since it requires zero configuration, but objects and instances can be useful as they are more intuitive when working with complex data.
+DataTables can consume data from any of these options using the `dt-init columns.data` and `dt-init columns.render` options. The default mode of operation is an array, but objects and instances can be useful as they are typically more intuitive when working with complex data.
 
 ### Arrays
 
-Arrays are easy to work with in a DataTable as the mapping between array elements to the column the data appears in is performed simply by the column index reading the array element value in that position. As such, when using arrays as your data source, the number of elements in each array must be equal to the number of columns in the table. For example, for a 6 column table you might have:
+Arrays are easy to work with in a DataTable as the mapping between array elements to the column the data appears in is performed simply by the column index reading the array element value in that position. For example, the first table column maps to the first array element for the row's data source, etc.
+
+Due to this, when using arrays as your data source, the number of elements in each array must be equal to the number of columns in the table. For example, for a 6 column table you might have:
 
 ```js
 var data = [
@@ -80,15 +108,15 @@ var data = [
 And the table initialisation:
 
 ```js
-$('#example').dataTable( {
+$('#example').DataTable( {
 	data: data
 } );
 ```
 
 Which would result in a table such as:
 
-| Name | Position | Office | Age | Start date | Salary |
-| ---- | -------- | ------ | --- | ---------- | ------ |
+| Name | Position | Office | Extn. | Start date | Salary |
+| ---- | -------- | ------ | ----- | ---------- | ------ |
 | Tiger Nixon | System Architect | Edinburgh | 5421 | 2011/04/25 | $3,120 |
 | Garrett Winters | Director | Edinburgh | 8422 | 2011/07/25 | $5,300 |
 
@@ -124,10 +152,10 @@ Object based data may look like:
 ]
 ```
 
-And the table initialisation (note that only 4 columns are defined and the order of the data is easily defined by changing where each property is used, rather than needing to reorder the source objects):
+And the table initialisation (note that only 4 columns are defined and that data displayed in each column is easily defined by changing where each property is used, rather than needing to reorder the source objects as would be the case with an array data source):
 
 ```js
-$('#example').dataTable( {
+$('#example').DataTable( {
 	data: data,
 	columns: [
 		{ data: 'name' },
@@ -147,7 +175,7 @@ Which would result in a table such as:
 
 ### Instances
 
-It can be quite useful to have DataTables display information from Javascript object instances, as these instances define abstract methods which can be used to update data. For example you might have an `Employee` class, or a `Car` class etc depending on the data you are modelling. Instances can be used in DataTables in much the same way as objects - simply pass in your object and give the method or property name to `dt-init columns.data` for the data for each column.
+It can be quite useful to have DataTables display information from Javascript object instances, as these instances define abstract methods which can be used to update data. For example you might have an `Employee` class, or a `Car` class, etc. depending on the data you are modelling. Instances can be used in DataTables in much the same way as objects - simply pass in your object and give the method or property name to `dt-init columns.data` for the data for each column.
 
 ```js
 function Employee ( name, position, salary, office ) {
@@ -161,28 +189,28 @@ function Employee ( name, position, salary, office ) {
 	}
 };
 
-$('#example').dataTable( {
+$('#example').DataTable( {
 	data: [
 		new Employee( "Tiger Nixon", "System Architect", "$3,120", "Edinburgh" ),
-		new Employee( "Garrett Winters", "Director", "$5,300", "Edinburgh" ),
+		new Employee( "Garrett Winters", "Director", "$5,300", "Edinburgh" )
 	],
 	columns: [
 		{ data: 'name' },
-		{ data: 'position' },
 		{ data: 'salary' },
-		{ data: 'office' }
+		{ data: 'office' },
+		{ data: 'position' }
 	]
 } );
 ```
 
 Note that `office` is a method of the class above, while `name`, `position` and `salary` are properties. DataTables will automatically realise that there is a function, execute it and use the returned value for the cell (note you could also use the syntax `office()` to be explicit that a function is used - see `dt-init columns.data` for further information).
 
-Like the objects data source option above, this would result in a table such as:
+Similar the objects data source option above, although in this case the `Position` column is shown at the end of the table to show that the properties can be ready in any order, this would result in a table such as:
 
-| Name | Position | Salary | Office |
-| ---- | -------- | ------ | ------ |
-| Tiger Nixon | System Architect | $3,120 | Edinburgh |
-| Garrett Winters | Director | $5,300 | Edinburgh |
+| Name | Salary | Office | Position |
+| ---- | ------ | ------ | -------- |
+| Tiger Nixon | $3,120 | Edinburgh | System Architect |
+| Garrett Winters | $5,300 | Edinburgh | Director |
 
 
 ## Data sources
@@ -214,7 +242,7 @@ DataTables will automatically detect:
 * Ordering data: `data-order` and `data-sort` attributes
 * Search data: `data-search` and `data-filter` attributes.
 
-See the manual entry for [orthogonal data](/manual/orthogonal-data) for further information.
+See the manual entry for [orthogonal data](/manual/orthogonal-data#HTML-5) for further information.
 
 ### Javascript
 
@@ -228,7 +256,7 @@ Ajax sourced data is much like Javascript sourced data, but DataTables will make
 
 Like Javascript sourced data, Ajax sourced data can be in the form of objects or arrays (see above), but not, in this case, instances (since they cannot be represented in JSON).
 
-[Server-side processing](/manual/server-side) as discussed above, is a special form of Ajax sourced data, whereby the data to be shown for each view in the DataTable is retrieved by an Ajax request only when that view is required for display to the user. This allows the power of the database engine on servers to be utilised for large data sets. For more information about server-side processing, and how it can be implemented, please refer to [its documentation in this manual](/manual/server-side).
+[Server-side processing](/manual/server-side) as discussed above, is a special form of Ajax sourced data, whereby the data to be shown for each page in the DataTable is retrieved by an Ajax request only when that page is required for display to the user. This allows the power of the database engine on servers to be utilised for large data sets. For more information about server-side processing, and how it can be implemented, please refer to [its documentation in this manual](/manual/server-side).
 
 	]]>
 	</content>
