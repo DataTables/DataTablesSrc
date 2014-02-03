@@ -76,9 +76,9 @@ Likely completion of the 1.x series of DataTables, before moving to 2.x developm
 
 ## Web-site / documentation
 
-Solid documentation is extremely important for a library such as DataTables, and a lot of work has thus far to ensure that the documentation is both relevant and useful for developers, particularly with v1.9. There is a strong commitment to keep the documentation at as high a standard as possible.
+Solid documentation is extremely important for a library such as DataTables, and a lot of work has been done thus far to ensure that the documentation is both relevant and useful for developers, particularly with v1.9. There is a strong commitment to keep the documentation at as high a standard as possible.
 
-In the same vain, the documentation for DataTables is tightly tied to the DataTables.net web-site and this will be updated to improve accessibility of the documentation.
+In the same vein, the documentation for DataTables is tightly tied to the DataTables.net web-site and this will be updated to improve accessibility of the documentation.
 
 
 ## Backwards compatibility
