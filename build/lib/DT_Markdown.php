@@ -134,7 +134,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	// Pull quotes - same as quotes using `>` but uses `<` and the `aside` tag
 	function doPullQuotes($text) {
 		$text = preg_replace_callback('/
-			(?>^[ ]*<[ ]?
+			(?>^[ ]*<\ [ ]?
 				(?:\((.+?)\))?
 				[ ]*(.+\n(?:.+\n)*)
 			)+	
