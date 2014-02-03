@@ -146,7 +146,7 @@ function build_examples {
 		-c "syntax:${OUT_DIR}/resources/syntax/shCore.css" \
 		-j "syntax:${OUT_DIR}/resources/syntax/shCore.js" \
 		-m "${BUILD_DIR}/media" \
-		-l "css:syntax css:demo js:syntax js:demo"
+		-l "js:jquery css:syntax css:demo js:syntax js:demo"
 }
 
 
