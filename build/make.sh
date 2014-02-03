@@ -73,6 +73,8 @@ function build_js {
 		echo_msg "File size: $(ls -l $OUT_MIN_FILE | awk -F" " '{ print $5 }')"
 	fi
 
+	cp jquery.js $OUT_DIR
+
 	IFS=$OLD_IFS
 }
 
@@ -160,6 +162,7 @@ function build_repo {
 	build_images
 	build_examples
 
+	cp $BUILD_DIR/js/jquery.js ${BUILD_DIR}/DataTables/media/js/
 	cp $BUILD_DIR/js/jquery.dataTables.js ${BUILD_DIR}/DataTables/media/js/
 	if [ ! $DEBUG ]; then
 		cp $BUILD_DIR/js/jquery.dataTables.min.js ${BUILD_DIR}/DataTables/media/js/
