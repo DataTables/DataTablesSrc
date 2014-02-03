@@ -89,13 +89,11 @@ _api_register( 'rows()', function ( selector, opts ) {
 } );
 
 
-_api_registerPlural( 'rows().nodes()', 'row().node()' , function () {
+_api_register( 'rows().nodes()', function () {
 	return this.iterator( 'row', function ( settings, row ) {
-		// use pluck order on an array rather - rows gives an array, row gives it individually
 		return settings.aoData[ row ].nTr || undefined;
 	} );
 } );
-
 
 _api_register( 'rows().data()', function () {
 	return this.iterator( true, 'rows', function ( settings, rows ) {
@@ -116,13 +114,11 @@ _api_registerPlural( 'rows().invalidate()', 'row().invalidate()', function ( src
 	} );
 } );
 
-
 _api_registerPlural( 'rows().indexes()', 'row().index()', function () {
 	return this.iterator( 'row', function ( settings, row ) {
 		return row;
 	} );
 } );
-
 
 _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 	var that = this;
@@ -209,6 +205,15 @@ _api_register( 'row().data()', function ( data ) {
 	_fnInvalidateRow( ctx[0], this[0], 'data' );
 
 	return this;
+} );
+
+
+_api_register( 'row().node()', function () {
+	var ctx = this.context;
+
+	return ctx.length && this.length ?
+		ctx[0].aoData[ this[0] ].nTr || null :
+		null;
 } );
 
 
