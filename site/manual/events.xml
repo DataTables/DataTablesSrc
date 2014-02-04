@@ -65,7 +65,7 @@ $(document).on( 'init.dt', function ( e, settings ) {
 } );
 ```
 
-Similarly, this method could also be useful with the `dt-event ajax` event which will let you know what JSON data was returned from the server from the last DataTables initiated Ajax query.
+Similarly, this method could also be useful with the `dt-event xhr` event which will let you know what JSON data was returned from the server from the last DataTables initiated Ajax query.
 
 A full list of the events that DataTables can trigger is available in the [event reference documentation](/reference/event).
 	]]>

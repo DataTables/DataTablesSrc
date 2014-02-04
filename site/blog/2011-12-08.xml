@@ -6,7 +6,7 @@
 	<summary>
 	<![CDATA[
 
-[Twitter Bootstrap](http://twitter.github.com/bootstrap) is a CSS framework that lets you quickly and easily build a user interface that has a unified look and feel. The great news is that it is actually quite easy to integrate Bootstrap and DataTables such that your fully featured DataTables will match the same look and feel of the rest of your site. In this article I'll show how you can integrate Bootstrap and DataTables together.
+[Twitter Bootstrap](http://getbootstrap.com) is a CSS framework that lets you quickly and easily build a user interface that has a unified look and feel. The great news is that it is actually quite easy to integrate Bootstrap and DataTables such that your fully featured DataTables will match the same look and feel of the rest of your site. In this article I'll show how you can integrate Bootstrap and DataTables together.
 
 There are three basic areas we need to look at to complete the integration:
 
@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 > Update: [A new blog post is available](/blog/Twitter_Bootstrap_2), building on this one, describing how to integrate DataTables and Twitter Bootstrap 2.0.
 
-[Twitter Bootstrap](http://twitter.github.com/bootstrap) is a CSS framework that lets you quickly and easily build a user interface that has a unified look and feel. The great news is that it is actually quite easy to integrate Bootstrap and DataTables such that your fully featured DataTables will match the same look and feel of the rest of your site. In this article I'll show how you can integrate Bootstrap and DataTables together.
+[Twitter Bootstrap](http://getbootstrap.com) is a CSS framework that lets you quickly and easily build a user interface that has a unified look and feel. The great news is that it is actually quite easy to integrate Bootstrap and DataTables such that your fully featured DataTables will match the same look and feel of the rest of your site. In this article I'll show how you can integrate Bootstrap and DataTables together.
 
 There are three basic areas we need to look at to complete the integration:
 
@@ -105,7 +105,7 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 
 ## Pagination
 
-Bootstrap has styles for [pagination controls](http://twitter.github.com/bootstrap/#navigation) already available. However the markup used for the controls is a little different from the default that DataTables will insert into the document. To this end I've created a [pagination plug-in](/plug-ins/pagination#bootstrap) that will create the markup needed for Bootstrap. This plug-in is the most complex part of the integration with Bootstrap, and I won't explore the inner workings of it in this article (there is [developer documentation](/development/pagination) for paging plug-ins and the [forums](/forums) if you have any questions about how it works), but will save that for a future post.
+Bootstrap has styles for [pagination controls](http://getbootstrap.com/components/#pagination) already available. However the markup used for the controls is a little different from the default that DataTables will insert into the document. To this end I've created a [pagination plug-in](/plug-ins/pagination#bootstrap) that will create the markup needed for Bootstrap. This plug-in is the most complex part of the integration with Bootstrap, and I won't explore the inner workings of it in this article (there is [developer documentation](/development/pagination) for paging plug-ins and the [forums](/forums) if you have any questions about how it works), but will save that for a future post.
 
 The plug-in is [available in this file](/media/blog/bootstrap/paging.js) and you simply need to include it on the page where you wish to use DataTables and Bootstrap together. Then it is simply a matter of activating the plug-in for your table with the [sPaginationType](/ref#sPaginationType) initialisation parameter ([see this example running](/media/blog/bootstrap/004.html)):
 
