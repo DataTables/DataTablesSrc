@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-page order="0" comments="yes">
+	<title>DataTables 1.10 beta</title>
+	<date>2014-02-04 16:25</date>
+
+	<summary>
+	<![CDATA[
+
+It is with great pleasure that today I release DataTables 1.10.0-beta.1; the first beta release of the next generation of DataTables which is brimming with new features, improvements to performance and enhanced ease of use for both yourselves, the developers using DataTables and your end users.
+
+DataTables 1.10 has been 15 months in the making with 468 git commits to the core software and building on the everything that I have learned from how DataTables is used over the last six year. This is the most significant update to DataTables since its original release - and I'm very excited about it!
+
+In this post I'll highlight some of the new features in 1.10 and get you started using it. In future posts, I'll provide more detailed examples of how the features of DataTables can be used.
+
+	]]>
+	</summary>
+
+	<content>
+	<![CDATA[
+
+It is with great pleasure that today I release DataTables 1.10.0-beta.1; the first beta release of the next generation of DataTables which is brimming with new features, improvements to performance and enhanced ease of use for both yourselves, the developers using DataTables and your end users.
+
+DataTables 1.10 has been 15 months in the making with 468 git commits to the core software and building on the everything that I have learned from how DataTables is used over the last six year. This is the most significant update to DataTables since its original release - and I'm very excited about it!
+
+In this post I'll highlight some of the new features in 1.10 and get you started using it. In future posts, I'll provide more detailed examples of how the features of DataTables can be used.
+
+## Quick start
+
+If you are keen to just get going with DataTables 1.10, you can download the full package on [the downloads page](//next.datatables.net/download). A key goal of DataTables 1.10 has been backwards compatibility, so if you are already using an older version of DataTable you can just drop 1.10 into your application and it will start working. Please do check the [upgrade notes though](//next.datatables.net/upgrade/1.10) as a couple of deprecated features have been removed (`fnRender` and `bScrollInfinite`).
+
+
+## Major new features
+
+DataTables 1.10 is all about making it easier, for yourselves, the developers using DataTables, to produce high quality interactive tables for your end users. A detailed list of the [new features is available](//next.datatables.net/new/1.10), but in this blog post I'll cover the key highlights.
+
+### camelCase notation
+
+DataTables, since its inception, has used Hungarian notation for its public APIs. This was very much not in tune with the rest of the Javascript community, and a considerable source of friction to adoption.
+
+With 1.10, DataTables now accepts both camelCase notation and the original Hungarian notation for all of its public APIs, with camelCase being the preferred, and documented, access method. This change is fully backwards compatible - you can keep using the old style if you wish, but going forwards, all documentation and examples will be in camelCase. Further information about this change is [available in the naming upgrade document](//next.datatables.net/upgrade/1.10-naming).
+
+
+### API
+
+DataTables 1.10 provides an entirely new API, which is [thoroughly documented](/reference/api), consistent, concise, flexible and expressive. The new API is designed to reflect the structure of the data in the table and the ways that you will typically want to interact with the table; cells, rows, columns etc. Many of the features that you used to require a plug-in for are also now built into the core API (`dt-api ajax.reload()` for example to reload the table's data by Ajax).
+
+To access the new API, use the constructor:
+
+```js
+var table = $('#myTable').DataTable();
+```
+
+It is very important to note the difference between `$().dataTable()` and `$().DataTable()`:
+
+* `$().dataTable()` will return a jQuery object with the selected HTML nodes in its context. This operates in just the same way as any other jQuery plug-in, and is how DataTables 1.9 and earlier operate.
+* `$().DataTable()` will return a DataTables API instance, with the selected table(s) in its context. The API instance provides a [wide range of methods](/reference/api) that can be used to manipulate the table.
+
+A [new manual page is available](/manual/api) which introduces the new API, explaining the terms used, how it can be accessed, used and builds up a complex example. The new API represents the biggest single change to DataTables since its first release, and I'm really excited to see it being used.
+
+
+### New site
+
+Documentation is a key aspect to any software library and I fully recognise how important it is to anyone using DataTables, and how frustrating it can be if the documentation you want is not available. The DataTables documentation has always been _good_, but never _brilliant_. With the release of DataTables 1.10 this is set to change.
+
+The DataTables site has received a [complete overhaul](//next.datatables.net), with a [new manual](/manual) section giving an overview of how the various pieces of DataTables fit together, including a [quick start installation guide](/manual/installation) to get you up and running with DataTables in no time. A new [reference section](/reference) provides the detailed information that you will need for using the [options](//next.datatables.net/reference/option), [events](/reference/event) and [APIs](/reference/api) of DataTables.
+
+As well as improving the content, the site upgrade also focuses on page speed. Page load times will be significantly faster now, as the site is served from static pages rather than using database queries.
+
+Many of the the documentation pages also feature the ability to add comments to them, so you can share useful advice and tips with other developers; a particular way of using a given API method might be something that you found useful and would like to share with others for example. These comments are moderated, and I will be very strict about accepting them for publication to ensure that they are relevant - questions, for example (which should be asked in the [forums](/forums)) will be deleted without notification.
+
+The new site will be available on the [next.datatables.net](//next.datatables.net) sub-domain until DataTables 1.10.0 is released, at which point it will replace the existing site. When that happens, the existing site will be moved to [legacy.datatables.net](//legacy.datatables.net) should you need to access the documentation for DataTables 1.9.
+
+
+### CDN
+
+Alongside the new DataTables site, there is now a [DataTables specific CDN](//cdn.datatables.net/). The DataTables CDN includes an archive of all DataTables and extension releases for you to be able to use without needing to install any software on your own servers. A Content Distribution Network (CDN) is a store of files which do not change, makes heavy use of browser caching and employs network edge servers to keep the download time for the files to a minimum.
+
+The DataTables CDN is [powered by CloudFlare](https://www.cloudflare.com) to ensure that it is always available when you need it, and that the files are served to your end users as quickly as possible.
+
+
+### Other features
+
+There are many other new features in DataTables 1.10 such as the [improved styling](//manual/styling), HTML 5 `data-*` attributes for [orthogonal data](/manual/orthogonal-data), additional sorting types (currency, percentage, formatted numbers) and an enhanced paging control. I won't desrcibe them all here, but [further information is available in the 1.10 release notes](//next.datatables.net/new/1.10).
+
+
+## Towards 1.10.0
+
+This first beta release of DataTables 1.10 is a key step towards 1.10.0 final being released. It is _beta_ software, so it is advised that you don't yet use it for production sites, but please do try it out and [let us know how you get on](/forums), reporting any issues that you might find.
+
+While 1.10.0-beta.1 is feature complete, there are a couple of items still to be completed before 1.10.0 can be released:
+
+* Unit tests to be updated for 1.10
+* Forums to be upgraded for the new site
+* Development documentation for the new site
+* Reduce core code size (1.10.0-beta.1 is ~3KiB larger than 1.9.4, and although a lot of work has been done already on reducing the core size, it is important to keep the file size to a minimum).
+
+It is expected that the beta cycle will be approximately one month with DataTables 1.10.0 being released alongside [Editor 1.3](//editor.datatables.net) in March.
+
+
+## Thanks
+
+I'd like to give special thanks to several people who have helped me immensely in the process of getting DataTables 1.10 and the new site ready for beta:
+
+* _NetaisLLC_
+* _tangerine_
+* Patrik Lindström
+
+Thank you!
+
+
+	]]>
+	</content>
+</dt-page>
