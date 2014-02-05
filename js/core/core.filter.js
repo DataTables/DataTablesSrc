@@ -24,27 +24,33 @@ function _fnFeatureHtmlFilter ( settings )
 		} )
 		.append( $('<label/>' ).append( str ) );
 
+	var searchFn = function() {
+		/* Update all other filter input elements for the new display */
+		var n = features.f;
+		var val = !this.value ? "" : this.value; // mental IE8 fix :-(
+
+		/* Now do the filter */
+		if ( val != previousSearch.sSearch ) {
+			_fnFilterComplete( settings, {
+				"sSearch": val,
+				"bRegex": previousSearch.bRegex,
+				"bSmart": previousSearch.bSmart ,
+				"bCaseInsensitive": previousSearch.bCaseInsensitive
+			} );
+
+			// Need to redraw, without resorting
+			settings._iDisplayStart = 0;
+			_fnDraw( settings );
+		}
+	};
 	var jqFilter = $('input[type="search"]', filter)
 		.val( previousSearch.sSearch.replace('"','&quot;') )
-		.bind( 'keyup.DT search.DT input.DT paste.DT cut.DT', function(e) {
-			/* Update all other filter input elements for the new display */
-			var n = features.f;
-			var val = !this.value ? "" : this.value; // mental IE8 fix :-(
-
-			/* Now do the filter */
-			if ( val != previousSearch.sSearch ) {
-				_fnFilterComplete( settings, {
-					"sSearch": val,
-					"bRegex": previousSearch.bRegex,
-					"bSmart": previousSearch.bSmart ,
-					"bCaseInsensitive": previousSearch.bCaseInsensitive
-				} );
-
-				// Need to redraw, without resorting
-				settings._iDisplayStart = 0;
-				_fnDraw( settings );
-			}
-		} )
+		.bind(
+			'keyup.DT search.DT input.DT paste.DT cut.DT',
+			_fnDataSource( settings ) === 'ssp' ?
+				_fnThrottle( searchFn, 400 ):
+				searchFn
+		)
 		.bind( 'keypress.DT', function(e) {
 			/* Prevent form submission */
 			if ( e.keyCode == 13 ) {

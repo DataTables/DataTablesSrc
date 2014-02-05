@@ -172,28 +172,40 @@ function _fnCalculateColumnWidths ( oSettings )
 }
 
 
-function _fnThrottle( fn ) {
+/**
+ * Throttle the calls to a function. Arguments and context are maintained for
+ * the throttled function
+ *  @param {function} fn Function to be called
+ *  @param {int} [freq=200] call frequency in mS
+ *  @returns {function} wrapped function
+ *  @memberof DataTable#oApi
+ */
+function _fnThrottle( fn, freq ) {
 	var
-		frequency = 200,
+		frequency = freq || 200,
 		last,
 		timer;
 
 	return function () {
 		var
-			now = +new Date(),
+			that = this,
+			now  = +new Date(),
 			args = arguments;
 
 		if ( last && now < last + frequency ) {
 			clearTimeout( timer );
 
 			timer = setTimeout( function () {
-				last = now;
-				fn();
+				last = undefined;
+				fn.apply( that, args );
 			}, frequency );
+		}
+		else if ( last ) {
+			last = now;
+			fn.apply( that, args );
 		}
 		else {
 			last = now;
-			fn();
 		}
 	};
 }
