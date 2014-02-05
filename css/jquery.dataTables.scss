@@ -407,6 +407,16 @@ table.dataTable td {
 		div.dataTables_scrollBody {
 			*margin-top: -1px;
 			-webkit-overflow-scrolling: touch;
+
+			th > div.dataTables_sizing,
+			td > div.dataTables_sizing {
+				// Hide the element used to wrap the content in the header for
+				// the body scrolling table
+				height: 0;
+				overflow: hidden;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
 		}
 	}
 
