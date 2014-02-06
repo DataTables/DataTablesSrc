@@ -30,18 +30,20 @@
 		
 		Note that if you attempt to show a page which does not exist using the set format of this method, DataTables will not throw an error, but rather reset the paging to the first page.
 
-		Please be aware that this method sets the page to be shown - it does not actually perform the re-display of the table. In order to have the newly set page shown use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api page()` method's returned object - for example `table.page( 0 ).draw();`.
+		Please be aware that this method sets the page to be shown - it does not actually perform the re-display of the table. In order to have the newly set page shown use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api page()` method's returned object - for example `table.page( 0 ).draw( false );`.
+
+		Additionally note that you should pass `false` as the first parameter to `dt-api draw()` to have it do a standing redraw. Without this parameter, `dt-api draw()` will do a full draw resulting in the paging being reset back to the first page!
 	</description>
 
 	<example title="Custom paging controls for next / previous pages"><![CDATA[
 var table = $('#example').DataTable();
 
 $('#next').on( 'click', function () {
-	table.page( 'next' ).draw();
+	table.page( 'next' ).draw( false );
 } );
 
 $('#previous').on( 'click', function () {
-	table.page( 'previous' ).draw();
+	table.page( 'previous' ).draw( false );
 } );
 ]]></example>
 
