@@ -59,7 +59,7 @@ Please note that custom data source sorting plug-ins will often query the DOM fo
 
 To make use of the custom data source sorting plug-ins below, you simply need to include the plug-in's code in the Javascript available for your page, after you load the DataTables library, but before you initialise the DataTable. You also need to specify the `dt-init columns.orderDataType` parameter for the column, to tell it which plug-in function to use.
 
-The example below shows the use of multiple custom data source plug-ins, and also it's use in-combination with `dt-init columns.type` ([live example](/examples/plug-ins/dom_sort)):
+The example below shows the use of multiple custom data source plug-ins, and also its use in-combination with `dt-init columns.type` ([live example](/examples/plug-ins/dom_sort)):
 
 ```html
 <script type="text/javascript" src="jquery.dataTables.js"></script>

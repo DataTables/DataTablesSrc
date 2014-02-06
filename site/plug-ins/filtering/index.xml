@@ -54,7 +54,7 @@ Row based search provides you with complete control over a row - whether it is i
 
 To add the functionality provided by the row based search plug-ins below, you simply need to include it in the Javascript available for your page. Include it after you load the DataTables library, but before you initialise the DataTable.
 
-These filters are global and will be applied whenever DataTables applies it's own filtering.
+These filters are global and will be applied whenever DataTables applies its own filtering.
 
 In the following example the range filtering plug-in is saved to a file, and used in the DataTable which is initialised. Note also that an event listener is attached to two `dt-tag input`'s, which will cause the table to redraw, and thus filter the new data:
 

@@ -31,9 +31,9 @@ Actually using JS Bin is very simple; simply load [http://live.datatables.net](h
 
 To share a created bin click the _Share_ menu at the top of the browser window and copy the URL shown. Add that URL to your forum post, e-mail or otherwise share it and other developers will be able to review your example.
 
-### Libraries / extras
+### Libraries / extensions
 
-One of the customisations made for the DataTables JS Bin is to provide the ability to directly include DataTables core files and its [extras](/extras). To use a specific version of DataTables or an extras, simply select the _Add library_ menu at the top of the browser and the required code will be added to the document.
+One of the customisations made for the DataTables JS Bin is to provide the ability to directly include DataTables core files and its [extensions](/extensions). To use a specific version of DataTables or an extras, simply select the _Add library_ menu at the top of the browser and the required code will be added to the document.
 
 If you are looking for a specific version of DataTables or an extras which is not shown in the _Add library_ menu, the code can be found on the [DataTables CDN](//cdn.datatables.net) and included from there.
 

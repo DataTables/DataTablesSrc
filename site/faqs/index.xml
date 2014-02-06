@@ -5,7 +5,7 @@
 	<content>
 	<![CDATA[
 
-DataTables is a complex piece of software and undoubtedly questions will arise from it's use. Some of these questions have already been posed and answered, and most common of which are shown here.
+DataTables is a complex piece of software and undoubtedly questions will arise from its use. Some of these questions have already been posed and answered, and most common of which are shown here.
 
 
 ## Getting help
@@ -63,10 +63,10 @@ A. You can move the elements that DataTables puts around the table by using the 
 
 ## Server-side processing
 
-**Q. Its not working... (stuck on _Processing_)**  
+**Q. It's not working... (stuck on _Processing_)**  
 A. This is usually down to incorrect JSON data being passed back from the server. Please refer to [this technical note](/manual/tech-notes/1) on how to debug and resolve this issue.
 
-**Q. Its still not working...**  
+**Q. It's still not working...**  
 A. The next most common reason for server-side processing not working is the `draw` variable not being returned as it was set in the request. DataTables uses `draw` to keep a draw count, so this is an important parameter. See [server-side usage](/manual/server-side).
 
 **Q. Pagination is not enabled, or the information text shows the wrong data set count**  
@@ -82,7 +82,7 @@ A. What happens is that for each draw, DataTables will create the required displ
 **Q. DataTables is great! How much is it?**  
 A. DataTables is free, open source software that you can download and use for whatever purpose you wish, on any and as many sites you want. It is free for you to use! DataTables is available under the [MIT](/license_mit), with which you must comply (to do this, basically keep the copyright notices in the software).
 
-**Q. Really - its free, even for commercial sites?!**  
+**Q. Really - it's free, even for commercial sites?!**  
 A. Yes! I'm very proud of what has been achieved with DataTables and the fantastic community that has helped it to get to where it is today, and I'm delighted to make it available as open source. Obviously if you benefit from DataTables then any reciprocation is very welcome, be it as a plug-in for DataTables, a donation to future development or a blog post saying you enjoy using DataTables.
 
 **Q. We can't use MIT licensed software. What do we do?**  

@@ -13,7 +13,7 @@
 		<parameter type="DataTables.Api" name="b" default="">
 			Additional API instance(s) to concatenate to the initial instance.
 		</parameter>
-		<returns type="DataTables.Api">New API instance with the values from all pass in instances concainated into its result set.</returns>
+		<returns type="DataTables.Api">New API instance with the values from all pass in instances concatenated into its result set.</returns>
 	</type>
 
 	<description>

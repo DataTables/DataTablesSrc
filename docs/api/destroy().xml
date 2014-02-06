@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>destroy( [ remove ] )</signature>
-		<description>Restore the tables in the current context to it's original state in the DOM by removing all of DataTables enhancements, alterations to the DOM structure of the table and event listeners.</description>
+		<description>Restore the tables in the current context to its original state in the DOM by removing all of DataTables enhancements, alterations to the DOM structure of the table and event listeners.</description>
 		<parameter type="boolean" name="remove" default="false">
 			Completely remove the table from the DOM (`true`) or leave it in the DOM in its original plain un-enhanced HTML state (default, `false`).
 		</parameter>

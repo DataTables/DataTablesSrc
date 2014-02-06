@@ -9,7 +9,7 @@
 	<description>
 		Ajax obtained data in DataTables is often a very convenient way of working with large data sets as it allows decoupling of the data retrieval methods from the display. At initialisation time the Ajax data options are controlled using the `dt-init ajax` option, while after initialisation the API provides a number of methods for obtaining the loaded data, altering the settings and loading new data.
 
-		This property is a static object of the DataTables API which is used simply to provide a namespace to its child methods, which are used to control the Ajax operations DataTables can provide, and retrieve the data retrieved by Ajax requests.
+		This property is a static object of the DataTables API which is used simply to provide a namespace for its child methods, which are used to control the Ajax operations DataTables can provide, and retrieve the data retrieved by Ajax requests.
 
 		Please refer to the documentation for each of those methods for details on how they operate.
 	</description>

@@ -33,7 +33,7 @@ DataTables 1.7 is quite an exciting release for the number of new features that 
 
         *   Calling with no parameters - **$(...).dataTable();** - This will simply return the DataTables object for the selector, or create a new table if no existing table is found.
     *   Retrieving with an initialisation object - **$(...).dataTable({"bRetrieve":true, ...});** - It is not possible to alter the table parameters after initialisation like this, but it is useful to be able to just use a single call to $().dataTable(). Setting bRetrieve to true, tells DataTables that you acknowledge this.
-    *   Reinitialising the table - **$(...).dataTable({"bDestroy":true, ...});** - Actually, it is possible to reinitialise the table, but its fairly brutal. This will destroy the old table and then initialise a new one.
+    *   Reinitialising the table - **$(...).dataTable({"bDestroy":true, ...});** - Actually, it is possible to reinitialise the table, but it's fairly brutal. This will destroy the old table and then initialise a new one.
     *   Otherwise - an alert will warning you of what is happening.
 
 ## User visible features
@@ -75,7 +75,7 @@ DataTables 1.7 is quite an exciting release for the number of new features that 
 * Don't redraw option in fnDeleteRow:
   * When deleting more than one row at a time, it is now possible to tell the table not to redraw when calling fnDeleteRow (third parameter - boolean), making the action much faster. After you have deleted the rows required, just then call fnDraw to update the table to take account of the changes.
 * Malformed JSON warning:
-  * Built in JSON parsing in jQuery 1.4, rather than using eval, is superb, but when it can't parse a JSON string it will simply call it's error function, rather than throwing a warning to the user. As such prior to DataTables 1.7 this would fail silently and could be quite confusing. Now DataTables will 'alert' an error telling you what has happened.
+  * Built in JSON parsing in jQuery 1.4, rather than using eval, is superb, but when it can't parse a JSON string it will simply call its error function, rather than throwing a warning to the user. As such prior to DataTables 1.7 this would fail silently and could be quite confusing. Now DataTables will 'alert' an error telling you what has happened.
 * Specify a cookie prefix:
   * At times you might wish you use your own cookie prefix for storing state, rather than the default. This can now be done using **sCookiePrefix**. The cookie handling infrastructure in DataTables 1.7 has been rewritten to cope with a large number of state saving cookies, which could before cause server errors when hitting the 4KiB limit. DataTables now uses smart handling to avoid this.
 

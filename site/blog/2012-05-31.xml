@@ -71,7 +71,7 @@ The DataTables initialisation for this is trivial:
 
 ### Edit mode
 
-Of the three editing functions (create, edit and delete) the edit function is the first that we will tackle here. My method for doing this is to simply replace the content of each cell in the row to be made editable with an _input_ tag, and it's value set to the content of the cell. This will not have any effect on the functions that DataTables provides, such as sorting and filtering, since DataTables maintains an internal cache of the data from the cell (for faster data access) - so we can do whatever we need to the DOM element.
+Of the three editing functions (create, edit and delete) the edit function is the first that we will tackle here. My method for doing this is to simply replace the content of each cell in the row to be made editable with an _input_ tag, and its value set to the content of the cell. This will not have any effect on the functions that DataTables provides, such as sorting and filtering, since DataTables maintains an internal cache of the data from the cell (for faster data access) - so we can do whatever we need to the DOM element.
 
 The function for this is quite simple:
 
@@ -94,7 +94,7 @@ As you can see the function editRow() takes two parameters:
 *   1. oTable - The DataTables instance
 *   2. nRow - The TR node for the row to be edited
 
-For each cell which can be edited in the row we insert the input tag and set it's value (through the use of [fnGetData](http://datatables.net/api#fnGetData) to get the data for the row). Note that the 'edit' link is also updated to now say 'save', indicating to the end user what action will be performed when it is clicked again. Obviously this is a very simple case and it can be readily be expanded to include _select_ elements or any other kind of input you would wish to use.
+For each cell which can be edited in the row we insert the input tag and set its value (through the use of [fnGetData](http://datatables.net/api#fnGetData) to get the data for the row). Note that the 'edit' link is also updated to now say 'save', indicating to the end user what action will be performed when it is clicked again. Obviously this is a very simple case and it can be readily be expanded to include _select_ elements or any other kind of input you would wish to use.
 
 ```js
 function saveRow ( oTable, nRow )
@@ -190,7 +190,7 @@ In this article I've presented one possible method for how a CRUD interface can 
 
 It is worth noting there are a number of limitations to the implementation, and areas where it can be improved:
 
-*   Data is not saved to the server at the moment, just the local DataTables instance - so a reload takes the table back to it's original state. An XHR call to the server would be needed to save the user input information into a database (in _saveRow_).
+*   Data is not saved to the server at the moment, just the local DataTables instance - so a reload takes the table back to its original state. An XHR call to the server would be needed to save the user input information into a database (in _saveRow_).
 *   The number of columns and which columns can be edited is hard coded - it would be nice to be able to specify an array of column indexes noting which columns should be editable.
 *   Input type is limited to just text input at the moment - options such as _select_ inputs would be desirable.
 *   UI improvements such as automatic focus and save on 'return' could be implemented to make life easier for the end user.

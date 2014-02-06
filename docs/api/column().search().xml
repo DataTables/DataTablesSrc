@@ -28,7 +28,7 @@
 	</type>
 
 	<description>
-		While `dt-api search()` provides the ability to search globally across the table, this method, as its plural counterpart, provide the ability to search for data on a specific column.
+		While `dt-api search()` provides the ability to search globally across the table, this method, and its plural counterpart, provide the ability to search for data on a specific column.
 
 		DataTables does not have any column search controls built-in as there are so many different ways that column specific data could be searched, but this method makes adding custom column search controls super easy. The examples below show how it may be used.
 
