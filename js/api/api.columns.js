@@ -115,7 +115,7 @@ var __setColumnVis = function ( settings, column, vis ) {
 	}
 	else {
 		// Remove column
-		$( _pluck( settings.aoData, 'anCells', column ) ).remove();
+		$( _pluck( settings.aoData, 'anCells', column ) ).detach();
 
 		col.bVisible = false;
 		_fnDrawHead( settings, settings.aoHeader );

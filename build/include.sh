@@ -66,6 +66,46 @@ function js_compress {
 	fi
 }
 
+# $1 - string - Full path to input file
+# $2 - string - Full path to use for the output file
+function js_require {
+	IN_FILE=$(basename $1)
+	DIR=$(dirname $1)
+	OUT=$2
+	CURR_DIR=$(pwd)
+
+	cd $DIR
+
+	OLD_IFS=$IFS
+	IFS='%'
+
+	cp $IN_FILE $IN_FILE.build
+	grep "require(" $IN_FILE.build > /dev/null
+
+	while [ $? -eq 0 ]; do
+		REQUIRE=$(grep "require(" $IN_FILE.build | head -n 1)
+
+		SPACER=$(echo ${REQUIRE} | cut -d r -f 1)
+		FILE=$(echo ${REQUIRE} | sed -e "s#^.*require('##g" -e "s#');##")
+		DIR=$(echo ${FILE} | cut -d \. -f 1)
+
+		sed "s#^#${SPACER}#" < ${DIR}/${FILE} > ${DIR}/${FILE}.build
+
+		sed -e "/${REQUIRE}/r ${DIR}/${FILE}.build" -e "/${REQUIRE}/d" < $IN_FILE.build > $IN_FILE.out
+		mv $IN_FILE.out $IN_FILE.build
+
+		rm ${DIR}/${FILE}.build
+
+		grep "require(" $IN_FILE.build > /dev/null
+	done
+
+	mv $IN_FILE.build $OUT
+
+	IFS=$OLD_IFS
+
+	cd $CURR_DIR
+}
+
 # Process XML example files into HTML files - in place! The XML files will be
 # removed.
 #
