@@ -25,7 +25,7 @@
 
         Each option can be specified multiple times (with the exception of the table itself), which can be used to have table controls both above and below the table. DataTables will automatically synchronise these multiple controls.
 
-        In addition to the above control options, there are two constants DataTables understands (note that these two options are depreciated in 1.10 and will be removed in 1.11 along side the separation of the `dt-init jQueryUI` option into its own theme file):
+        In addition to the above control options, there are two constants DataTables understands (note that these two options are deprecated in 1.10 and will be removed in 1.11 along side the separation of the `dt-init jQueryUI` option into its own theme file):
 
         * `H` - jQueryUI theme "header" classes (`string fg-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix`)
         * `F` - jQueryUI theme "footer" classes (`string fg-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix`)
