@@ -19,7 +19,7 @@
 	<description>
 		DataTables will display numbers in a few different locations when drawing information about a table, for example in the table's information element and the pagination controls. When working with large numbers it is often useful to format it for readability by separating the thousand units - for example 1 million is rendered as "1,000,000", allowing the user to see at a glance what order of magnitude the number shows.
 
-		This function allows complete control over how that formatting is performed. By default DataTables will use the character specified in `dt-init language.infoThousands` (in turn, that, by default, is a comma) as the thousands separator.
+		This function allows complete control over how that formatting is performed. By default DataTables will use the character specified in `dt-init language.thousands` (in turn, that, by default, is a comma) as the thousands separator.
 	</description>
 
 	<example title="Show large numbers with a `'` separator"><![CDATA[
@@ -33,6 +33,6 @@ $('#example').dataTable( {
 ]]></example>
 
 	<related type="option">language.info</related>
-	<related type="option">language.infoThousands</related>
+	<related type="option">language.thousands</related>
 	<related type="option">infoCallback</related>
 </dt-option>

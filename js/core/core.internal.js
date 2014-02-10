@@ -20,9 +20,13 @@ var _Api; // DataTable.Api
 var _api_register; // DataTable.Api.register
 var _api_registerPlural; // DataTable.Api.registerPlural
 
+var _re_dic = {};
 var _re_new_lines = /[\r\n]/g;
 var _re_html = /<.*?>/g;
 var _re_date_start = /^[\d\+\-a-zA-Z]/;
+
+// Escape regular expression special characters
+var _re_escape_regex = new RegExp( '(\\' + [ '/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-' ].join('|\\') + ')', 'g' );
 
 // U+2009 is thin space and U+202F is narrow no-break space, both used in many
 // standards as thousands separators
@@ -39,9 +43,23 @@ var _intVal = function ( s ) {
 	return !isNaN(integer) && isFinite(s) ? integer : null;
 };
 
+var _numToDecimal = function ( num, decimalPoint ) {
+	// Cache created regular expressions for speed as this function is called often
+	if ( ! _re_dic[ decimalPoint ] ) {
+		_re_dic[ decimalPoint ] = new RegExp( _fnEscapeRegex( decimalPoint ), 'g' );
+	}
+	return num.replace( /\./g, '' ).replace( _re_dic[ decimalPoint ], '.' );
+};
 
-var _isNumber = function ( d, formatted ) {
-	if ( formatted && typeof d === 'string' ) {
+
+var _isNumber = function ( d, decimalPoint, formatted ) {
+	var strType = typeof d === 'string';
+
+	if ( decimalPoint && strType ) {
+		d = _numToDecimal( d, decimalPoint );
+	}
+
+	if ( formatted && strType ) {
 		d = d.replace( _re_formatted_numeric, '' );
 	}
 
@@ -55,7 +73,7 @@ var _isHtml = function ( d ) {
 };
 
 
-var _htmlNumeric = function ( d, formatted ) {
+var _htmlNumeric = function ( d, decimalPoint, formatted ) {
 	if ( _empty( d ) ) {
 		return true;
 	}
@@ -63,7 +81,7 @@ var _htmlNumeric = function ( d, formatted ) {
 	var html = _isHtml( d );
 	return ! html ?
 		null :
-		_isNumber( _stripHtml( d ), formatted ) ?
+		_isNumber( _stripHtml( d ), decimalPoint, formatted ) ?
 			true :
 			null;
 };

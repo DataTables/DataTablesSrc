@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="i18n">
-	<name>language.infoThousands</name>
+	<name>language.thousands</name>
 	<summary>Thousands separator</summary>
 	<since>1.10</since>
 
@@ -14,12 +14,13 @@
 	<example title="Set thousands separator to be a quote mark"><![CDATA[
 $('#example').dataTable( {
   "language": {
-    "infoThousands": "'"
+    "thousands": "'"
   }
 } );
 ]]></example>
 
 	<related type="option">language</related>
+	<related type="option">language.decimal</related>
 	<related type="option">language.info</related>
 	<related type="option">language.infoEmpty</related>
 	<related type="option">language.infoFiltered</related>

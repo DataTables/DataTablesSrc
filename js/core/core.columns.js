@@ -288,7 +288,7 @@ function _fnColumnTypes ( settings )
 						cache[k] = _fnGetCellData( settings, k, i, 'type' );
 					}
 
-					detectedType = types[j]( cache[k] );
+					detectedType = types[j]( cache[k], settings );
 
 					// Doesn't match, so break early, since this type can't
 					// apply to this column. Also, HTML is a special case since

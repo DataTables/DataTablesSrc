@@ -277,9 +277,7 @@ function _fnFilterCreateSearch( sSearch, bRegex, bSmart, bCaseInsensitive )
  */
 function _fnEscapeRegex ( sVal )
 {
-	var acEscape = [ '/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-' ];
-	var reReplace = new RegExp( '(\\' + acEscape.join('|\\') + ')', 'g' );
-	return sVal.replace(reReplace, '\\$1');
+	return sVal.replace( _re_escape_regex, '\\$1' );
 }
 
 

@@ -282,9 +282,14 @@ DataTable.ext = _ext = {
 		 * a column's type, making initialisation of DataTables super easy, even
 		 * when complex data is in the table.
 		 *
-		 * The functions defined take a single parameter:
+		 * The functions defined take two parameters:
 		 *
 	     *  1. `{*}` Data from the column cell to be analysed
+	     *  2. `{settings}` DataTables settings object. This can be used to
+	     *     perform context specific type detection - for example detection
+	     *     based on language settings such as using a comma for a decimal
+	     *     place. Generally speaking the options from the settings will not
+	     *     be required
 		 *
 		 * Each function is expected to return:
 		 *
@@ -296,7 +301,7 @@ DataTable.ext = _ext = {
 		 *  @example
 		 *    // Currency type detection plug-in:
 		 *    $.fn.dataTable.ext.type.detect.push(
-		 *      function ( data ) {
+		 *      function ( data, settings ) {
 		 *        // Check the numeric part
 		 *        if ( ! $.isNumeric( data.substring(1) ) ) {
 		 *          return null;

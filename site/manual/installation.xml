@@ -13,7 +13,7 @@ How to get DataTables up and running on your web-site. This section details the 
 	<content>
 	<![CDATA[
 
-DataTables is a powerful Javascript library for adding interaction features to HTML tables, and while simplicity is a core design principle for the project as a whole, it can appear quite daunting to get started. However, taking those first steps and getting DataTables running on your web-site is actually quite straight forward as you need only include two files additional files for your page:
+DataTables is a powerful Javascript library for adding interaction features to HTML tables, and while simplicity is a core design principle for the project as a whole, it can appear quite daunting to get started. However, taking those first steps and getting DataTables running on your web-site is actually quite straight forward as you need only include two files additional in your page:
 
 * The DataTables Javascript file
 * The DataTables CSS file

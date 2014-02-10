@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.decimal</name>
+	<summary>Decimal place character</summary>
+	<since>1.10</since>
+
+	<type type="string" />
+	<default value="" />
+
+	<description>
+	<![CDATA[
+		A dot (`.`) is used to mark the decimal place in Javascript, however, [many parts of the world use a comma](http://en.wikipedia.org/wiki/Decimal_mark) (`,`) and other characters such as the Unicode decimal separator (<code>&#x2396;</code>) or a dash (`-`) are often used to show the decimal place in a displayed number.
+
+		When reading such numbers, Javascript won't automatically recognise them as numbers, however, DataTables' type detection and sorting methods can be instructed through the `dt-init language.decimal` option which character is used as the decimal place in your numbers. This will be used to correctly adjust DataTables' type detection and sorting algorithms to sort numbers in your table.
+
+		This option is a little unusual as DataTables will never display a formatted, floating point number (it has no need to!) so this option only effects how it parses the read data (none of the other language options have this ability).
+
+		Any character can be set as the decimal place using this option, although the decimal place used in a single table must be consistent (i.e. numbers with a dot decimal place and comma decimal place cannot both appear in the same table as the two types are ambiguous). Different tables on the same page can use different decimal characters if required.
+
+		When given as an empty string (as this parameter is by default) a dot (`.`) is assumed to be the character used for the decimal place.
+	]]>
+	</description>
+
+	<example title="Detect and sort numbers which use a comma as a decimal place"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "decimal": ","
+  }
+} );
+]]></example>
+
+	<example title="Detect and sort numbers which use a dash as a decimal place"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "decimal": "-",
+	"thousands": "."
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.thousands</related>
+</dt-option>

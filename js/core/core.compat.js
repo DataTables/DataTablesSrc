@@ -77,25 +77,35 @@ function _fnCamelToHungarian ( src, user, force )
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnLanguageCompat( oLanguage )
+function _fnLanguageCompat( lang )
 {
-	var oDefaults = DataTable.defaults.oLanguage;
-	var zeroRecords = oLanguage.sZeroRecords;
+	var defaults = DataTable.defaults.oLanguage;
+	var zeroRecords = lang.sZeroRecords;
 
 	/* Backwards compatibility - if there is no sEmptyTable given, then use the same as
 	 * sZeroRecords - assuming that is given.
 	 */
-	if ( !oLanguage.sEmptyTable && zeroRecords &&
-		oDefaults.sEmptyTable === "No data available in table" )
+	if ( ! lang.sEmptyTable && zeroRecords &&
+		defaults.sEmptyTable === "No data available in table" )
 	{
-		_fnMap( oLanguage, oLanguage, 'sZeroRecords', 'sEmptyTable' );
+		_fnMap( lang, lang, 'sZeroRecords', 'sEmptyTable' );
 	}
 
 	/* Likewise with loading records */
-	if ( !oLanguage.sLoadingRecords && zeroRecords &&
-		oDefaults.sLoadingRecords === "Loading..." )
+	if ( ! lang.sLoadingRecords && zeroRecords &&
+		defaults.sLoadingRecords === "Loading..." )
 	{
-		_fnMap( oLanguage, oLanguage, 'sZeroRecords', 'sLoadingRecords' );
+		_fnMap( lang, lang, 'sZeroRecords', 'sLoadingRecords' );
+	}
+
+	// Old parameter name of the thousands separator mapped onto the new
+	if ( lang.sInfoThousands ) {
+		lang.sThousands = lang.sInfoThousands;
+	}
+
+	var decimal = lang.sDecimal;
+	if ( decimal ) {
+		_addNumericSort( decimal );
 	}
 }
 

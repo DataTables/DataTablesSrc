@@ -20,7 +20,7 @@
 		    "infoEmpty":      "Showing 0 to 0 of 0 entries",
 		    "infoFiltered":   "(filtered from _MAX_ total entries)",
 		    "infoPostFix":    "",
-		    "infoThousands":  ",",
+		    "thousands":      ",",
 		    "lengthMenu":     "Show _MENU_ entries",
 		    "loadingRecords": "Loading...",
 		    "processing":     "Processing...",
@@ -45,7 +45,7 @@
 	<related type="option">language.infoEmpty</related>
 	<related type="option">language.infoFiltered</related>
 	<related type="option">language.infoPostFix</related>
-	<related type="option">language.infoThousands</related>
+	<related type="option">language.thousands</related>
 	<related type="option">language.lengthMenu</related>
 	<related type="option">language.loadingRecords</related>
 	<related type="option">language.processing</related>

@@ -111,7 +111,7 @@ class DT_Example
 		}
 
 		// Build data
-		$tableHtml = $this->build_table( (string)$xml['table-type'] );
+		$tableHtml = $this->build_table( (string)($xml['table-type']) );
 
 		//echo $tableHtml;
 		
@@ -288,6 +288,10 @@ class DT_Example
 
 	public function build_table ( $type )
 	{
+		if ( isset( $this->_xml->{'custom-table'} ) ) {
+			return $this->innerXML( $this->_xml->{'custom-table'} );
+		}
+
 		if ( $type === '' || $type === null ) {
 			return '';
 		}
@@ -507,7 +511,8 @@ DT_Example::$lookup_libraries['css'] = array(
 
 
 DT_Example::$lookup_libraries['js'] = array(
-	'jqueryui' => '//code.jquery.com/ui/1.10.3/jquery-ui.js'
+	'jqueryui'  => '//code.jquery.com/ui/1.10.3/jquery-ui.js',
+	'bootstrap' => '//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js',
 );
 
 
@@ -830,6 +835,22 @@ DT_Example::$tables['scroller'] = array(
 DT_Example::$tables['empty'] = array(
 	'columns' => array(),
 	'header'  => false,
+	'footer'  => false,
+	'body'    => false
+);
+
+
+DT_Example::$tables['todo'] = array(
+	'columns' => array(),
+	'header'  => function () {
+		return '<thead>'.
+				'<tr>'.
+					'<th>Priority</th>'.
+					'<th>Item</th>'.
+					'<th>Status</th>'.
+				'</tr>'.
+			'</thead>';
+	},
 	'footer'  => false,
 	'body'    => false
 );

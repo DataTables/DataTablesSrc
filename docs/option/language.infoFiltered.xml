@@ -25,5 +25,5 @@ $('#example').dataTable( {
 	<related type="option">language.info</related>
 	<related type="option">language.infoEmpty</related>
 	<related type="option">language.infoPostFix</related>
-	<related type="option">language.infoThousands</related>
+	<related type="option">language.thousands</related>
 </dt-option>

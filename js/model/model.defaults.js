@@ -879,7 +879,7 @@ DataTable.defaults = {
 	 *
 	 *  @example
 	 *    // Format a number using a single quote for the separator (note that
-	 *    // this can also be done with the language.infoThousands option)
+	 *    // this can also be done with the language.thousands option)
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
 	 *        "formatNumber": function ( toFormat ) {
@@ -893,7 +893,7 @@ DataTable.defaults = {
 	"fnFormatNumber": function ( toFormat ) {
 		return toFormat.toString().replace(
 			/\B(?=(\d{3})+(?!\d))/g,
-			this.oLanguage.sInfoThousands
+			this.oLanguage.sThousands
 		);
 	},
 
@@ -1685,26 +1685,57 @@ DataTable.defaults = {
 
 
 		/**
-		 * DataTables has a build in number formatter (`formatNumber`) which is used
-		 * to format large numbers that are used in the table information. By
-		 * default a comma is used, but this can be trivially changed to any
-		 * character you wish with this parameter.
+		 * This decimal place operator is a little different from the other
+		 * language options since DataTables doesn't output floating point
+		 * numbers, so it won't ever use this for display of a number. Rather,
+		 * what this parameter does is modify the sort methods of the table so
+		 * that numbers which are in a format which has a character other than
+		 * a period (`.`) as a decimal place will be sorted numerically.
+		 *
+		 * Note that numbers with different decimal places cannot be shown in
+		 * the same table and still be sortable, the table must be consistent.
+		 * However, multiple different tables on the page can use different
+		 * decimal place characters.
 		 *  @type string
-		 *  @default ,
+		 *  @default 
 		 *
 		 *  @dtopt Language
-		 *  @name DataTable.defaults.language.infoThousands
+		 *  @name DataTable.defaults.language.decimal
 		 *
 		 *  @example
 		 *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "language": {
-		 *          "infoThousands": "'"
+		 *          "decimal": ","
+		 *          "thousands": "."
 		 *        }
 		 *      } );
 		 *    } );
 		 */
-		"sInfoThousands": ",",
+		"sDecimal": "",
+
+
+		/**
+		 * DataTables has a build in number formatter (`formatNumber`) which is
+		 * used to format large numbers that are used in the table information.
+		 * By default a comma is used, but this can be trivially changed to any
+		 * character you wish with this parameter.
+		 *  @type string
+		 *  @default ,
+		 *
+		 *  @dtopt Language
+		 *  @name DataTable.defaults.language.thousands
+		 *
+		 *  @example
+		 *    $(document).ready( function() {
+		 *      $('#example').dataTable( {
+		 *        "language": {
+		 *          "thousands": "'"
+		 *        }
+		 *      } );
+		 *    } );
+		 */
+		"sThousands": ",",
 
 
 		/**

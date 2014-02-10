@@ -1,8 +1,15 @@
 
 
-var __numericReplace = function ( d, re1, re2 ) {
+var __numericReplace = function ( d, decimalPlace, re1, re2 ) {
 	if ( !d || d === '-' ) {
 		return -Infinity;
+	}
+
+	// If a decimal place other than `.` is used, it needs to be given to the
+	// function so we can detect it and replace with a `.` which is the only
+	// decimal place Javascript recognises - it is not locale aware.
+	if ( decimalPlace ) {
+		d = _numToDecimal( d, decimalPlace );
 	}
 
 	if ( d.replace ) {
@@ -19,48 +26,55 @@ var __numericReplace = function ( d, re1, re2 ) {
 };
 
 
-$.extend( DataTable.ext.type.order, {
+// Add the numeric 'deformatting' functions for sorting. This is done in a
+// function to provide an easy ability for the language options to add
+// additional methods if a non-period decimal place is used.
+function _addNumericSort ( decimalPlace ) {
+	$.each(
+		{
+			// Plain numbers
+			"num": function ( d ) {
+				return __numericReplace( d, decimalPlace );
+			},
+
+			// Formatted numbers
+			"num-fmt": function ( d ) {
+				return __numericReplace( d, decimalPlace, _re_formatted_numeric );
+			},
+
+			// HTML numeric
+			"html-num": function ( d ) {
+				return __numericReplace( d, decimalPlace, _re_html );
+			},
+
+			// HTML numeric, formatted
+			"html-num-fmt": function ( d ) {
+				return __numericReplace( d, decimalPlace, _re_html, _re_formatted_numeric );
+			}
+		},
+		function ( key, fn ) {
+			_ext.type.order[ key+decimalPlace+'-pre' ] = fn;
+		}
+	);
+}
+
+
+// Default sort methods
+$.extend( _ext.type.order, {
 	// Dates
-	"date-pre": function ( d )
-	{
+	"date-pre": function ( d ) {
 		return Date.parse( d ) || 0;
 	},
 
-	// Plain numbers
-	"numeric-pre": function ( d )
-	{
-		return __numericReplace( d );
-	},
-
-	// Formatted numbers
-	"numeric-fmt-pre": function ( d )
-	{
-		return __numericReplace( d, _re_formatted_numeric );
-	},
-
-	// HTML numeric
-	"html-numeric-pre": function ( d )
-	{
-		return __numericReplace( d, _re_html );
-	},
-
-	// HTML numeric, formatted
-	"html-numeric-fmt-pre": function ( d )
-	{
-		return __numericReplace( d, _re_html, _re_formatted_numeric );
-	},
-
 	// html
-	"html-pre": function ( a )
-	{
+	"html-pre": function ( a ) {
 		return a.replace ?
 			a.replace( /<.*?>/g, "" ).toLowerCase() :
 			a+'';
 	},
 
 	// string
-	"string-pre": function ( a )
-	{
+	"string-pre": function ( a ) {
 		return typeof a === 'string' ?
 			a.toLowerCase() :
 			! a || ! a.toString ?
@@ -70,13 +84,15 @@ $.extend( DataTable.ext.type.order, {
 
 	// string-asc and -desc are retained only for compatibility with the old
 	// sort methods
-	"string-asc": function ( x, y )
-	{
+	"string-asc": function ( x, y ) {
 		return ((x < y) ? -1 : ((x > y) ? 1 : 0));
 	},
 
-	"string-desc": function ( x, y )
-	{
+	"string-desc": function ( x, y ) {
 		return ((x < y) ? 1 : ((x > y) ? -1 : 0));
 	}
 } );
+
+
+// Numeric sorting types - order doesn't matter here
+_addNumericSort( '' );
