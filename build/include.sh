@@ -44,7 +44,10 @@ function css_compress {
 # same directory as the uncompressed file, but with `.min.js` as the extension.
 #
 # $1 - string - Full path to the file to compress
+# $2 - string - Enable ('on' - default) errors or disable ('off')
 function js_compress {
+	LOG=$2
+
 	if [ -z "$DEBUG" ]; then
 		FILE=$(basename $1 .js)
 		DIR=$(dirname $1)
@@ -56,7 +59,14 @@ function js_compress {
 		cp $DIR/$FILE.js /tmp/$FILE.js
 		perl -i -0pe "s/^\/\*! (.*)$/\/** \@license \$1/s" /tmp/$FILE.js
 
-		java -jar $CLOSURE --charset 'utf-8' --js /tmp/$FILE.js > /tmp/$FILE.min.js
+		rm /tmp/closure_error.log
+		java -jar $CLOSURE --charset 'utf-8' --js /tmp/$FILE.js > /tmp/$FILE.min.js 2> /tmp/closure_error.log
+
+		if [ -e /tmp/closure_error.log ]; then
+			if [ -z "$LOG" -o "$LOG" = "on" ]; then
+				cat /tmp/closure_error.log
+			fi
+		fi
 
 		# And add the important comment back in
 		perl -i -0pe "s/^\/\*/\/*!/s" /tmp/$FILE.min.js
