@@ -23,7 +23,7 @@ $('#listData').html(
 	table
 		.columns( 0 )
 		.data()
-		.flatten()    // Flatten the 2D array into a 1D array of data
+		.eq( 0 )      // Reduce the 2D array into a 1D array of data
 		.sort()       // Sort data alphabetically
 		.unique()     // Reduce to unique values
 		.join( '<br>' )
@@ -36,7 +36,7 @@ var table = $('#example').DataTable();
 var idx = table
 	.columns( '.check' )
 	.data()
-	.flatten() // Flatten the 2D array into a 1D array of data
+	.eq( 0 ) // Reduce the 2D array into a 1D array of data
 	.indexOf( 'Yes' );
 
 if ( idx === -1 ) {

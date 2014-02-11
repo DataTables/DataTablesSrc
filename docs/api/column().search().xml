@@ -52,7 +52,7 @@ $('#column3_search').on( 'keyup', function () {
 	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
 var table = $('#example').DataTable();
 
-table.columns( '.select-filter' ).flatten().each( function ( colIdx ) {
+table.columns( '.select-filter' ).eq( 0 ).each( function ( colIdx ) {
 	// Create the select list and search operation
 	var select = $('<select />')
 		.appendTo(

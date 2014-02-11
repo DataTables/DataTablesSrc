@@ -73,7 +73,7 @@ table.row( ':eq(0)' ).child( [
 	<example title="Add a child row to all rows, passing in a jQuery created `dt-tag tr` element and show all child rows"><![CDATA[
 var table = $('#example').DataTable();
 
-table.rows().flatten().each( function (rowIdx) {
+table.rows().eq( 0 ).each( function (rowIdx) {
 	table
 		.row( rowIdx )
 		.child(

@@ -82,11 +82,19 @@ var _selector_row_indexes = function ( settings, opts )
 		order  = opts.order,   // applied, current, index (original - compatibility with 1.9)
 		page   = opts.page;    // all, current
 
-	// Current page implies that order=current and fitler=applied, since it is
-	// fairly senseless otherwise, regardless of what order and search actually
-	// are
-	if ( page == 'current' )
-	{
+	if ( _fnDataSource( settings ) == 'ssp' ) {
+		// In server-side processing mode, most options are irrelevant since
+		// rows not shown don't exist and the index order is the applied order
+		// Removed is a special case - for consistency just return an empty
+		// array
+		return search === 'removed' ?
+			[] :
+			_range( 0, displayMaster.length );
+	}
+	else if ( page == 'current' ) {
+		// Current page implies that order=current and fitler=applied, since it is
+		// fairly senseless otherwise, regardless of what order and search actually
+		// are
 		for ( i=settings._iDisplayStart, ien=settings.fnDisplayEnd() ; i<ien ; i++ ) {
 			a.push( displayFiltered[i] );
 		}

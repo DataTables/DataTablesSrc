@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>eq()</name>
+	<summary>Reduce an Api instance to a single context and result set.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>eq( idx )</signature>
+		<description>
+			Reduce an API instance to a single context and result set, based on a given index. This can be useful for simplifying some interactions with the API.
+		</description>
+		<parameter type="integer" name="idx">
+			Index to select
+		</parameter>
+		<returns type="DataTables.Api|null">
+			New DataTables API instance with the context and result set containing the table and data for the index specified, or null if no matching index was available.
+		</returns>
+	</type>
+
+	<description>
+		The DataTables API is designed to work with multiple tables (_contexts_) in a single API instance, which can often be useful, but there times when you want to work with just a single table and benefit from the reduced complexity that invites (a scalar rather than vector).
+
+		The API's selectors methods will all provide their result sets in a 2D array format, with the outer array used to identify each table in the context, while the inner array contains that table's results from the selector. You can readily loop over each table if needed, but if you are using just a single table, this method can be used to reduce the API instance to just the table in question.
+
+		As an illustrative example, the `dt-api rows()` method will return the 2D array format described above, with the the inner array data containing the row indexes selected. For simple manipulation of a single table we want just a 1D array which contains the selected row indexes, and the API instance's context set to the table in question. This is exactly the ability the `dt-api eq()` method provides.
+	</description>
+
+	<example title="Add a class to a row, based on a conditional expression"><![CDATA[
+var table = $('#example').DataTable();
+
+table.rows().eq( 0 ).each( function (idx) {
+	var row = table.row( idx );
+
+	if ( row.data().grade === 'A' ) {
+		row.node().to$().addClass( 'gradeA' );
+	}
+} );
+]]></example>
+
+	<example title="Display the child rows for all rows in the table"><![CDATA[
+var table = $('#example').DataTable();
+
+table.rows().eq( 0 ).each( function (idx) {
+	table.row( idx ).child.show();
+} );
+]]></example>
+</dt-api>

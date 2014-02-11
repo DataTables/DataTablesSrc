@@ -244,6 +244,16 @@ _Api.prototype = /** @lends DataTables.Api */{
 	},
 
 
+	eq: function ( idx )
+	{
+		var ctx = this.context;
+
+		return ctx.length > idx ?
+			new _Api( ctx[idx], this[idx] ) :
+			null;
+	},
+
+
 	filter: function ( fn )
 	{
 		var a = [];

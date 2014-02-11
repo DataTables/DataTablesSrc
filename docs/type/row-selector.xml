@@ -49,7 +49,7 @@ var data = table.row( 0 ).data();
 var table = $('#example').DataTable();
 
 // Find indexes of rows which have `Yes` in the second column
-var indexes = table.rows().flatten().filter( function (rowIdx) {
+var indexes = table.rows().eq( 0 ).filter( function (rowIdx) {
 	return table.cell( rowidx, 1 ).data() === 'Yes' ? true : false;
 } );
 

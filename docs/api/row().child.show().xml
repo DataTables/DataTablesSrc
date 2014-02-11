@@ -19,7 +19,7 @@
 	<example title="Create detail rows initially, but don't show them until the row is clicked upon"><![CDATA[
 var table = $('#example').DataTable();
 
-table.rows().flatten().each( function (rowIdx) {
+table.rows().eq( 0 ).each( function (rowIdx) {
 	table.row( rowIdx ).child( 'Row details for row: '+rowIdx );
 } );
 

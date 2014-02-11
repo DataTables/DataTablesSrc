@@ -60,28 +60,28 @@ var __details_display = function ( show ) {
 
 var __details_events = function ( settings )
 {
-	var table = $(settings.nTable);
+	var api = new _Api( settings );
 	var namespace = '.dt.DT_details';
+	var drawEvent = 'draw'+namespace;
+	var colvisEvent = 'column-visibility'+namespace;
 
-	table.off('draw'+namespace);
-	table.off('column-visibility'+namespace);
+	api.off( drawEvent +' '+ colvisEvent );
 
 	if ( _pluck( settings.aoData, '_details' ).length > 0 ) {
 		// On each draw, insert the required elements into the document
-		table.on('draw'+namespace, function () {
-			table.find('tbody tr').each( function () {
-				// Look up the row index for each row and append open row
-				var rowIdx = _fnNodeToDataIndex( settings, this );
-				var row = settings.aoData[ rowIdx ];
+		api.on( drawEvent, function () {
+			api.rows( {page:'current'} ).eq(0).each( function (idx) {
+				// Internal data grab
+				var row = settings.aoData[ idx ];
 
 				if ( row._detailsShow ) {
-					row._details.insertAfter( this );
+					row._details.insertAfter( row.nTr );
 				}
 			} );
 		} );
 
 		// Column visibility change - update the colspan
-		table.on( 'column-visibility'+namespace, function ( e, settings, idx, vis ) {
+		api.on( colvisEvent, function ( e, settings, idx, vis ) {
 			// Update the colspan for the details rows (note, only if it already has
 			// a colspan)
 			var row, visible = _fnVisbleColumns( settings );
