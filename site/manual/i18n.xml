@@ -63,7 +63,7 @@ $('#example').DataTable( {
 ```
 
 
-## Ajax loading a translation
+### Ajax loading a translation
 
 For convenience, DataTables provides the option of loading language information from a remote file via Ajax. This is configured through the `dt-init language.url` option. For example we might have:
 
@@ -78,9 +78,29 @@ $('#example').DataTable( {
 As with the other options in `dt-init language` the file loaded by Ajax can specify as many or as few options as you require for the DataTables language option. Any options which are not specified will use the DataTables default values.
 
 
+## Ordering of numeric data
+
+Numeric data is often presented formatted according to certain rules, such as a given  character for a decimal place, a thousands separator and an identification of the numeric type such as a currency symbol. DataTables will automatically detect numeric data types such as currency, percentage values, and values with thousands separators, but by default these all work with a dot (`.`) as the decimal place, as this is how numbers are represented in Javascript.
+
+DataTables has the ability to use any character as the decimal place for numeric data through the `dt-init language.decimal` option, providing full numeric type detection and ordering for any form of numeric data. For example,[ many parts of the world use a comma](http://en.wikipedia.org/wiki/Decimal_mark) (`,`) as the decimal place, Unicode defines the decimal separator character (<code>&#x2396;</code>), and a dash (`-`) is sometimes used in financial documents, etc.
+
+By using the `dt-init language.decimal` option you can tell DataTables what character to look for as the decimal place in the data in your table, so ordering of that data can occur correctly.
+
+As with all language parameters in DataTables, `dt-init language.decimal` can be defined in the initialisation of the table or in a language file which is loaded by Ajax (shown above).
+
+```js
+$('#example').DataTable( {
+	language: {
+		decimal: ",",
+	}
+} );
+```
+
 ## Available translations
 
 The DataTables community have collectively submitted more than 50 translations of the default English language strings, which are readily available for you to use in your project. These are available in the [plug-ins section of this site](/plug-ins/i18n).
+
+
 
 	]]>
 	</content>
