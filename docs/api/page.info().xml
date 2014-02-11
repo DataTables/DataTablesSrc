@@ -29,7 +29,7 @@
 
 		Example returned object:
 
-		```
+		```js
 		{
 			"page": 1,
 			"pages": 6,

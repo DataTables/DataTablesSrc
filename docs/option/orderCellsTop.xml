@@ -12,7 +12,7 @@
 
 		Consider for example the following HTML header:
 
-		```
+		```html
 			<thead>
 				<tr>
 					<td rowspan="2">1</td>

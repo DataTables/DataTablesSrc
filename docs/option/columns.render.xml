@@ -26,7 +26,7 @@
 
 			As an example you might use:
 
-			```
+			```js
 			"data": "phone",
 			"render": {
 				"_": "plain",

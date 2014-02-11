@@ -8,7 +8,7 @@
 		<description>
 			In its simplest form, `dt-init ajax`, when given as a string will simply load the data from the given remote file. Note that DataTables expects the table data to be an array of items in the `data` parameter of the object (use the `dt-init ajax.dataSrc` option of `dt-init ajax` as an object, if your data is formatted differently):
 
-			```
+			```js
 			{
 				"data": [
 					// row 1 data source,
@@ -22,7 +22,7 @@
 
 			Simple example:
 
-			```
+			```js
 			$('#example').dataTable( {
 			  "ajax": "data.json"
 			} );
@@ -43,7 +43,7 @@
 
 			Simple example:
 
-			```
+			```js
 			$('#example').dataTable( {
 			  "ajax": {
 			    "url": "data.json",
@@ -73,7 +73,7 @@
 
 			Simple example:
 
-			```
+			```js
 			$('#example').dataTable( {
 			  "ajax": function (data, callback, settings) {
 			    callback(

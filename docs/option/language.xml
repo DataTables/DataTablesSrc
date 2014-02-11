@@ -13,7 +13,7 @@
 
 		For information about each individual parameter, please see its documentation document.
 
-		```
+		```js
 		{
 		    "emptyTable":     "No data available in table",
 		    "info":           "Showing _START_ to _END_ of _TOTAL_ entries",

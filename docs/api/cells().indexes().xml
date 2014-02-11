@@ -17,7 +17,7 @@
 
 		The data structure returned for each cell in the result set from the `dt-api cells()` selection method is:
 
-		```
+		```js
 		{
 			"row":           integer, // Row index
 			"column":        integer, // Column data index 

@@ -32,7 +32,7 @@
 
 			As an example you might use:
 
-			```
+			```js
 			"data": {
 				"_": "phone",
 				"filter": "phone_filter",

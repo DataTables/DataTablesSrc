@@ -34,7 +34,7 @@
 
 		Ordering information is stored by DataTables in a 2D array format:
 
-		```
+		```js
 		[
 			[ colIdx_1, orderingDirection_1 ],
 			[ colIdx_2, orderingDirection_2 ],
