@@ -98,14 +98,17 @@ DT_Example::$lookup_libraries['js' ]['scroller']        = path_simplify( $dir_me
 DT_Example::$lookup_libraries['css']['tabletools']      = path_simplify( $dir_media.'/../extensions/TableTools/css/dataTables.tableTools.css' );
 DT_Example::$lookup_libraries['js' ]['tabletools']      = path_simplify( $dir_media.'/../extensions/TableTools/js/dataTables.tableTools.js' );
 
-// Temporary libraries until the DT CDN is up
-DT_Example::$lookup_libraries['css']['datatables-bootstrap']  = path_simplify( $dir_media.'/../examples/resources/bootstrap/3/dataTables.bootstrap.css' );
-DT_Example::$lookup_libraries['js' ]['datatables-bootstrap']  = path_simplify( $dir_media.'/../examples/resources/bootstrap/3/dataTables.bootstrap.js' );
+
+$versions = json_decode( file_get_contents( 'http://datatables.net/feeds/versions.php' ), true );
+$pluginsHash = $versions['Plugins']['release']['version'];
+
+DT_Example::$lookup_libraries['css']['datatables-bootstrap']  = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/bootstrap/3/dataTables.bootstrap.css';
+DT_Example::$lookup_libraries['js' ]['datatables-bootstrap']  = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/bootstrap/3/dataTables.bootstrap.js';
 DT_Example::$lookup_libraries['js' ]['editor-bootstrap']      = path_simplify( $dir_media.'/../extensions/Editor/examples/support/bootstrap/dataTables/dataTables.editor.bootstrap.js' );
-DT_Example::$lookup_libraries['css']['datatables-foundation'] = path_simplify( $dir_media.'/../examples/resources/foundation/dataTables.foundation.css' );
-DT_Example::$lookup_libraries['js' ]['datatables-foundation'] = path_simplify( $dir_media.'/../examples/resources/foundation/dataTables.foundation.js' );
-DT_Example::$lookup_libraries['css']['datatables-jqueryui']   = path_simplify( $dir_media.'/../examples/resources/jqueryui/dataTables.jqueryui.css' );
-DT_Example::$lookup_libraries['js' ]['datatables-jqueryui']   = path_simplify( $dir_media.'/../examples/resources/jqueryui/dataTables.jqueryui.js' );
+DT_Example::$lookup_libraries['css']['datatables-foundation'] = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/foundation/3/dataTables.foundation.css';
+DT_Example::$lookup_libraries['js' ]['datatables-foundation'] = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/foundation/3/dataTables.foundation.js';
+DT_Example::$lookup_libraries['css']['datatables-jqueryui']   = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/jqueryui/dataTables.jqueryui.css';
+DT_Example::$lookup_libraries['js' ]['datatables-jqueryui']   = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/jqueryui/dataTables.jqueryui.js';
 
 
 function multiple ( $value, $fn )
