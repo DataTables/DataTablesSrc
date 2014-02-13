@@ -207,6 +207,11 @@ class DT_Example
 				else if ( $type === 'data' )  { return ''; }
 				break;
 
+			case 'id':
+				if      ( $type === 'title' ) { return 'ID'; }
+				else if ( $type === 'data' )  { return $row['id']; }
+				break;
+
 			case 'name':
 				if      ( $type === 'title' ) { return 'Name'; }
 				else if ( $type === 'data' )  { return $row['first_name'].' '.$row['last_name']; }
@@ -358,6 +363,10 @@ class DT_Example
 		}
 		
 		// Body
+		$rowIds = isset( $this->_xml['row-ids'] ) ?
+			($this->_xml['row-ids'] == 'yes' ? true : false) :
+			false;
+
 		if ( $construction['body'] ) {
 			if ( is_callable( $construction['body'] ) ) {
 				$t .= $construction['body']();
@@ -380,7 +389,13 @@ class DT_Example
 							$cells .= '<td>'.$cell.'</td>';
 						}
 					}
-					$t .= '<tr>'.$cells.'</tr>';
+
+					if ( $rowIds ) {
+						$t .= '<tr id="row_'.$this->_data[$j]['id'].'">'.$cells.'</tr>';
+					}
+					else {
+						$t .= '<tr>'.$cells.'</tr>';
+					}
 				}
 				$t .= '</tbody>';
 			}
@@ -550,86 +565,86 @@ DT_Example::$tables['ssp-1st-page'] = array(
 	'footer'  => true,
 	'body'    => function () {
 		return <<<EOD
-		<tr class="odd">
-			<td>Angelica</td>
-			<td>Ramos</td>
-			<td>System Architect</td>
-			<td>London</td>
-			<td>9th Oct 09</td>
-			<td>$2,875</td>
-		</tr>
-		<tr class=" even">
-			<td>Ashton</td>
-			<td>Cox</td>
-			<td>Technical Author</td>
-			<td>San Francisco</td>
-			<td>12th Jan 09</td>
-			<td>$4,800</td>
-		</tr>
-		<tr class=" odd">
-			<td>Bradley</td>
-			<td>Greer</td>
-			<td>Software Engineer</td>
-			<td>London</td>
-			<td>13th Oct 12</td>
-			<td>$3,120</td>
-		</tr>
-		<tr class=" even">
-			<td>Brenden</td>
-			<td>Wagner</td>
-			<td>Software Engineer</td>
-			<td>San Francisco</td>
-			<td>7th Jun 11</td>
-			<td>$3,750</td>
-		</tr>
-		<tr class=" odd">
-			<td>Brielle</td>
-			<td>Williamson</td>
-			<td>Integration Specialist</td>
-			<td>New York</td>
-			<td>2nd Dec 12</td>
-			<td>$4,525</td>
-		</tr>
-		<tr class=" even">
-			<td>Bruno</td>
-			<td>Nash</td>
-			<td>Software Engineer</td>
-			<td>London</td>
-			<td>3rd May 11</td>
-			<td>$4,200</td>
-		</tr>
-		<tr class=" odd">
-			<td>Caesar</td>
-			<td>Vance</td>
-			<td>Technical Author</td>
-			<td>New York</td>
-			<td>12th Dec 11</td>
-			<td>$4,965</td>
-		</tr>
-		<tr class=" even">
-			<td>Cara</td>
-			<td>Stevens</td>
-			<td>Sales Assistant</td>
-			<td>New York</td>
-			<td>6th Dec 11</td>
-			<td>$4,800</td>
-		</tr>
-		<tr class=" odd">
-			<td>Cedric</td>
-			<td>Kelly</td>
-			<td>Javascript Developer</td>
-			<td>Edinburgh</td>
-			<td>29th Mar 12</td>
-			<td>$3,600</td>
-		</tr>
-		<tr class=" even">
-			<td>Charde</td>
-			<td>Marshall</td>
-			<td>Regional Director</td>
-			<td>San Francisco</td>
-			<td>16th Oct 08</td>
-			<td>$5,300</td>
-		</tr>
+<tr class="odd">
+    <td class="sorting_1">Airi Satou</td>
+    <td>Accountant</td>
+    <td>Tokyo</td>
+    <td>33</td>
+    <td>2008/11/28</td>
+    <td>$162,700</td>
+</tr>
+<tr class="even">
+    <td class="sorting_1">Angelica Ramos</td>
+    <td>Chief Executive Officer (CEO)</td>
+    <td>London</td>
+    <td>47</td>
+    <td>2009/10/09</td>
+    <td>$1,200,000</td>
+</tr>
+<tr class="odd">
+    <td class="sorting_1">Ashton Cox</td>
+    <td>Junior Technical Author</td>
+    <td>San Francisco</td>
+    <td>66</td>
+    <td>2009/01/12</td>
+    <td>$86,000</td>
+</tr>
+<tr class="even">
+    <td class="sorting_1">Bradley Greer</td>
+    <td>Software Engineer</td>
+    <td>London</td>
+    <td>41</td>
+    <td>2012/10/13</td>
+    <td>$132,000</td>
+</tr>
+<tr class="odd">
+    <td class="sorting_1">Brenden Wagner</td>
+    <td>Software Engineer</td>
+    <td>San Francisco</td>
+    <td>28</td>
+    <td>2011/06/07</td>
+    <td>$206,850</td>
+</tr>
+<tr class="even">
+    <td class="sorting_1">Brielle Williamson</td>
+    <td>Integration Specialist</td>
+    <td>New York</td>
+    <td>61</td>
+    <td>2012/12/02</td>
+    <td>$372,000</td>
+</tr>
+<tr class="odd">
+    <td class="sorting_1">Bruno Nash</td>
+    <td>Software Engineer</td>
+    <td>London</td>
+    <td>38</td>
+    <td>2011/05/03</td>
+    <td>$163,500</td>
+</tr>
+<tr class="even">
+    <td class="sorting_1">Caesar Vance</td>
+    <td>Pre-Sales Support</td>
+    <td>New York</td>
+    <td>21</td>
+    <td>2011/12/12</td>
+    <td>$106,450</td>
+</tr>
+<tr class="odd">
+    <td class="sorting_1">Cara Stevens</td>
+    <td>Sales Assistant</td>
+    <td>New York</td>
+    <td>46</td>
+    <td>2011/12/06</td>
+    <td>$145,600</td>
+</tr>
+<tr class="even">
+    <td class="sorting_1">Cedric Kelly</td>
+    <td>Senior Javascript Developer</td>
+    <td>Edinburgh</td>
+    <td>22</td>
+    <td>2012/03/29</td>
+    <td>$433,060</td>
+</tr>"
 EOD;
 	}
 );
@@ -712,6 +727,15 @@ DT_Example::$tables['ajax-details'] = array(
 	'footer'  => true,
 	'body'    => false
 );
+
+
+DT_Example::$tables['ajax-thin'] = array(
+	'columns' => array( 'name', 'position', 'office', 'salary' ),
+	'header'  => true,
+	'footer'  => false,
+	'body'    => false
+);
+
 
 
 DT_Example::$tables['html-index'] = array(
