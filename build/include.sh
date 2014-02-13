@@ -37,6 +37,8 @@ function css_compress {
 
 		echo_msg "CSS compressing $FILE.css"
 		sass --scss --stop-on-error --style compressed $DIR/$FILE.css > $DIR/$FILE.min.css
+		
+		echo_msg "  File size: $(ls -l $DIR/$FILE.min.css | awk -F" " '{ print $5 }')"
 	fi
 }
 
@@ -73,6 +75,8 @@ function js_compress {
 
 		mv /tmp/$FILE.min.js $DIR/$FILE.min.js
 		rm /tmp/$FILE.js
+
+		echo_msg "  File size: $(ls -l $DIR/$FILE.min.js | awk -F" " '{ print $5 }')"
 	fi
 }
 
