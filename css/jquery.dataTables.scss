@@ -343,6 +343,7 @@ table.dataTable td {
 			&.disabled,
 			&.disabled:hover,
 			&.disabled:active {
+				cursor: default;
 				color: #666 !important;
 				border: 1px solid transparent;
 				background: transparent;
