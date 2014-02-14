@@ -29,7 +29,7 @@ function _fnExternApiFunc (fn)
  * between versions.
  *  @namespace
  */
-this.oApi = this.internal = {
+$.extend( DataTable.ext.internal, {
 	_fnExternApiFunc: _fnExternApiFunc,
 	_fnBuildAjax: _fnBuildAjax,
 	_fnAjaxUpdate: _fnAjaxUpdate,
@@ -124,13 +124,5 @@ this.oApi = this.internal = {
 	_fnCalculateEnd: function () {} // Used by a lot of plug-ins, but redundant
 	                                // in 1.10, so this dead-end function is
 	                                // added to prevent errors
-};
-
-$.extend( DataTable.ext.internal, this.internal );
-
-for ( var fn in DataTable.ext.internal ) {
-	if ( fn ) {
-		this[fn] = _fnExternApiFunc(fn);
-	}
-}
+} );
 

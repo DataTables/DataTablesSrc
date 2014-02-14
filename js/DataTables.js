@@ -100,7 +100,6 @@
 	DataTable = function( options )
 	{
 		require('api.methods.js');
-		require('api.internal.js');
 
 		var _that = this;
 		var emptyInit = options === undefined;
@@ -108,6 +107,15 @@
 
 		if ( emptyInit ) {
 			options = {};
+		}
+
+		this.oApi = this.internal = _ext.internal;
+
+		// Extend with old style plug-in API methods
+		for ( var fn in DataTable.ext.internal ) {
+			if ( fn ) {
+				this[fn] = _fnExternApiFunc(fn);
+			}
 		}
 
 		this.each(function() {
@@ -194,6 +202,7 @@
 	require('ext.types.js');
 	require('ext.filter.js');
 	require('ext.renderer.js');
+	require('api.internal.js');
 
 	// jQuery access
 	$.fn.dataTable = DataTable;
