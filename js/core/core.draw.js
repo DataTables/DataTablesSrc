@@ -47,7 +47,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			}
 
 			/* Add user defined class */
-			if ( oCol.sClass !== null )
+			if ( oCol.sClass )
 			{
 				nTd.className += ' '+oCol.sClass;
 			}
