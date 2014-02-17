@@ -5,7 +5,7 @@
 	<summary>
 	<![CDATA[
 
-DataTables has a huge range of options available, which you can use to customise the way that it will present its interface, and the features available, to the end user. This section of the manual details how this configuration can be performed. A full list of the options available is shown in the [options reference](/reference/option) section of this web-site.
+DataTables' huge range of options can be used to customise the way that it will present its interface, and the features available, to the end user. This section of the manual details how this configuration can be performed. A full list of the options available is shown in the [options reference](/reference/option) section of this web-site.
 
 	]]>
 	</summary>
@@ -13,7 +13,7 @@ DataTables has a huge range of options available, which you can use to customise
 	<content>
 	<![CDATA[
 
-DataTables has a huge range of options available, which you can use to customise the way that it will present its interface, and the features available, to the end user. This is done through its configuration options, which are set at initialisation time in the table.
+DataTables' huge range of options can be used to customise the way that it will present its interface, and the features available, to the end user. This is done through its configuration options, which are set at initialisation time in the table.
 
 
 ## Setting options
@@ -60,8 +60,7 @@ Some of the options you might find particularly useful are:
 * `dt-init columns.data` - Data source options for a column
 * `dt-init scrollX` - Horizontal scrolling
 * `dt-init scrollY` - Vertical scrolling
-
-There are many more options (90+) available for DataTables to configure it exactly how you need. Please see the [options reference](/reference/option) for the full list of options available.
+* [Full list of options](/reference/option)
 
 
 ## Setting defaults

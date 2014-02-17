@@ -18,7 +18,7 @@ DataTables is a powerful Javascript library for adding interaction features to H
 * The DataTables Javascript file
 * The DataTables CSS file
 
-There are other files available such as [Editor](//editor.datatables.net) for adding editing abilities, and [other plug-ins](/extras), which can be used to extend the feature set of DataTables, but basically, all you need to do is include these two files to get up an running!
+There are other files available such as [Editor](//editor.datatables.net) for adding editing abilities, and [other plug-ins](/extras), which can be used to extend the feature set of DataTables, but basically, all you need to do is include these two files to get up and running!
 
 
 ## Requirements
@@ -91,7 +91,7 @@ To include DataTables on your page simply include the following HTML:
 
 If you prefer not to use a CDN, and instead have the files hosted on your own server (this can be beneficial for cases when you want to optimise for performance, where you can combine all Javascript and CSS files into just one file each, reducing network overhead), or if you want to modify the files at all, it is just as simple to get going with DataTables.
 
-Simply [download the latest version](/download) of DataTables and upzip the downloaded file and followed by uploading it to your web-server. You will then have a directory such as `dt-path DataTables-{dt-release-version}` available on your server. Then include DataTables on your page using the following HTML:
+Simply [download the latest version](/download) of DataTables, upzip and upload to your web-server. You will then have a directory such as `dt-path DataTables-{dt-release-version}` available on your server. Then include DataTables on your page using the following HTML:
 
 ```html
 <!-- DataTables CSS -->
@@ -107,7 +107,7 @@ Simply [download the latest version](/download) of DataTables and upzip the down
 
 ## Initialising DataTables
 
-That's almost it! We've got the HTML table we want to enhance, and we've got all the software and styles we need. All we need to do now is to tell DataTables to actually work its magic on the table. This is done with a few lines of Javascript:
+That's almost it! We've got the HTML table we want to enhance, and we've got all the software and styles we need. All that is now required is to to tell DataTables to actually work its magic on the table. This is done with a few lines of Javascript:
 
 ```js
 $(document).ready( function () {
@@ -123,14 +123,14 @@ $(document).ready( function () {
 
 If you've used jQuery before, you will recognise the form of this script: we wait for the document to be fully ready, and then select the table we want, and run the DataTables function on it.
 
-That's it! DataTables will add ordering, searching, paging and information to your table by default, providing the end user of your web-site with the ability to control the display of the table and find the information that they want from it as quickly as possible.
+That's it! DataTables will add ordering, searching, paging and information to your table by default, giving your end users the ability to find the information they want as quickly as possible.
 
 If you want to customise your DataTable, this can be done by specifying configuration parameters in an object passed to the `DataTable()` function. For information on how to use these configuration parameter, please refer to the [options manual page](options).
 
 
 ## Next steps
 
-With the basics of how to get DataTables going under your belt, you might now want to explore some of the options that it can provide in order to enhance your tables even further. To explore the world of DataTables further you could:
+With the basics of how to get DataTables going under your belt, you might now want to explore some of the other options to enhance your tables further:
 
 * [Customise the DataTables options](/manual/options) to suit your needs.
 * [Use the API](/manual/api) to access and control the table programmatically.

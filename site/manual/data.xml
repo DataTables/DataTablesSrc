@@ -41,7 +41,7 @@ DataTables has two different modes of processing data (ordering, searching, etc.
 < * Time to download the full dataset
 < * Complex ordering on large data sets can slow the browser down
 
-Each has its own advantages and disadvantages, but the key indicator for which mode you should select is based on the number of rows in your table. As a rule of thumb, if you are working with less than 10'000 rows use client-side processing, for greater than 100'000 rows use server-side processing. In-between is a grey area where you will need to make a decision based upon the nature of your app and the data you wish to display!
+Each has its own advantages and disadvantages, but the key indicator for which mode you should select is based on the number of rows in your table. As a rule of thumb, if you are working with less than 10,000 rows use client-side processing, for greater than 100,000 rows use server-side processing. In-between is a grey area where you will need to make a decision based upon the nature of your app and the data you wish to display!
 
 Please note that the two processing modes are mutually exclusive - they cannot be used at the same time, nor is it possible to dynamically change from one mode to the other.
 
@@ -63,7 +63,7 @@ Client-side processing is the default operating mode of DataTables as it is easy
 < * Latency of Ajax requests
 < * Can your server handle the load of lots of requests?
 
-Where server-side processing comes into play is when you have very large quantities of data that you wish to display in the table (millions of rows for example). At these levels, sending the data to the client, and then having Javascript process the data can involve noticeable overhead, resulting in poor performance of the end application. In server-side processing mode, all ordering, searching, etc. of the data is handed off to the server which can make use of the database engines available there, which are highly tuned for exactly these kinds of operations. Each page of data (referred to as a _draw_ in DataTables terminology) involves making an Ajax request to the server. Although each Ajax request might take a fraction of a second to complete, this approach might be preferable to a large wait up-front as all data loads.
+Where server-side processing comes into play is when you have very large quantities of data that you wish to display in the table (millions of rows for example). At these levels, sending the data to the client, and then having Javascript process the data can involve noticeable overhead, will result in poor performance of the end application. In server-side processing mode, all ordering, searching, etc. of the data is handed off to the server which can make use of the database engines available there, which are highly tuned for exactly these kinds of operations. Each page of data (referred to as a _draw_ in DataTables terminology) involves making an Ajax request to the server. Although each Ajax request might take a fraction of a second to complete, this approach might be preferable to a large wait up-front as all data loads.
 
 Server-side processing is enabled by the `dt-init serverSide` option, and full documentation for how server-side processing operates is available in [its section of this manual](/manual/server-side).
 
@@ -205,7 +205,7 @@ $('#example').DataTable( {
 
 Note that `office` is a method of the class above, while `name`, `position` and `salary` are properties. DataTables will automatically realise that there is a function, execute it and use the returned value for the cell (note you could also use the syntax `office()` to be explicit that a function is used - see `dt-init columns.data` for further information).
 
-Similar the object based data source method above, although in this case the `Position` column is shown at the end of the table to show that the properties can be read in any order, this would result in a table such as:
+Like the object based data source method above, although in this case the `Position` column is shown at the end of the table to show that the properties can be read in any order, this would result in a table such as:
 
 | Name | Salary | Office | Position |
 | ---- | ------ | ------ | -------- |
@@ -256,7 +256,7 @@ Ajax sourced data is much like Javascript sourced data, but DataTables will make
 
 Like Javascript sourced data, Ajax sourced data can be in the form of objects or arrays (see above), but not, in this case, instances (since they cannot be represented in JSON).
 
-[Server-side processing](/manual/server-side) as discussed above, is a special form of Ajax sourced data, whereby the data to be shown for each page in the DataTable is retrieved by an Ajax request only when that page is required for display to the user. This allows the power of the database engine on servers to be utilised for large data sets. For more information about server-side processing, and how it can be implemented, please refer to [its documentation in this manual](/manual/server-side).
+[Server-side processing](/manual/server-side) as discussed above is a special form of Ajax sourced data, whereby the data to be shown for each page in the DataTable is retrieved by an Ajax request only when that page is required for display to the user. This allows the power of the database engine on servers to be utilised for large data sets. For more information about server-side processing, and how it can be implemented, please refer to [its documentation in this manual](/manual/server-side).
 
 	]]>
 	</content>
