@@ -324,11 +324,12 @@ if ( rowOne.length ) {
 	} );
 }
 
+var features = oSettings.oFeatures;
 
 /* Must be done after everything which can be overridden by the state saving! */
 if ( oInit.bStateSave )
 {
-	oSettings.oFeatures.bStateSave = true;
+	features.bStateSave = true;
 	_fnLoadState( oSettings, oInit );
 	_fnCallbackReg( oSettings, 'aoDrawCallback', _fnSaveState, 'state_save' );
 }
@@ -354,7 +355,7 @@ if ( oInit.aaSorting === undefined )
  */
 _fnSortingClasses( oSettings );
 
-if ( oSettings.oFeatures.bSort )
+if ( features.bSort )
 {
 	_fnCallbackReg( oSettings, 'aoDrawCallback', function () {
 		if ( oSettings.bSorted ) {
@@ -366,10 +367,13 @@ if ( oSettings.oFeatures.bSort )
 			} );
 
 			_fnCallbackFire( oSettings, null, 'order', [oSettings, aSort, sortedColumns] );
-			_fnSortingClasses( oSettings );
 			_fnSortAria( oSettings );
 		}
 	} );
+}
+
+if ( _fnDataSource( oSettings ) === 'ssp' || features.bDeferRender ) {
+	_fnCallbackReg( oSettings, 'aoDrawCallback', _fnSortingClasses, 'sc' );
 }
 
 
