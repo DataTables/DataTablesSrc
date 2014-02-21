@@ -16,6 +16,7 @@ The cell selector can be given in a number of different forms, to make it easy t
 * `dt-type string` - jQuery selector
 * `dt-type node` - `dt-tag td` / `dt-tag th` element selector
 * `dt-type jQuery` - jQuery object of cell nodes
+* `dt-type object` - DataTables cell indexes (`row` and `column` properties)
 * `dt-type array` - Array containing any combination of the above options
 
 
@@ -86,6 +87,24 @@ var cells = $('td.immediate');
 var table = $('#example').DataTable();
 
 var cellData = table.cells( cells ).data();
+
+
+## Object
+
+Similar to the `dt-type row-selector` and `dt-type column-selector`, `dt-type cell-selector` can also use indexes to select individual cells, but in this case an object is used which has `row` and `column` properties, each of which is set to the row and column index, respectively, for the cell to be selected.
+
+Although not particularly useful as a primary selector method, this can be very useful for selecting individual cells based on a `dt-api cells()` call - see the example below.
+
+###### Loop over all cells, adding a class if the data for the cell is greater than a given value.
+
+```js
+table.cells().eq(0).each( function ( cellIdx, i ) {
+	var cell = table.cell( cellIdx );
+
+	if ( cell.data() > 10 ) {
+		$(cell.node()).addClass( 'important' );
+	}
+} );
 ```
 
 
