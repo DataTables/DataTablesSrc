@@ -53,7 +53,6 @@ $.extend( DataTable.ext.internal, {
 	_fnAddTr: _fnAddTr,
 	_fnNodeToDataIndex: _fnNodeToDataIndex,
 	_fnNodeToColumnIndex: _fnNodeToColumnIndex,
-	_fnGetRowData: _fnGetRowData,
 	_fnGetCellData: _fnGetCellData,
 	_fnSetCellData: _fnSetCellData,
 	_fnSplitObjNotation: _fnSplitObjNotation,

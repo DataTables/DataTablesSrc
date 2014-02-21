@@ -131,28 +131,19 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnFilterCustom( oSettings )
+function _fnFilterCustom( settings )
 {
-	var afnFilters = DataTable.ext.search;
-	var aiFilterColumns = _fnGetColumns( oSettings, 'bSearchable' );
+	var filters = DataTable.ext.search;
+	var displayRows = settings.aiDisplay;
+	var row, rowIdx;
 
-	for ( var i=0, iLen=afnFilters.length ; i<iLen ; i++ )
-	{
-		var iCorrector = 0;
-		for ( var j=0, jLen=oSettings.aiDisplay.length ; j<jLen ; j++ )
-		{
-			var iDisIndex = oSettings.aiDisplay[j-iCorrector];
-			var bTest = afnFilters[i](
-				oSettings,
-				_fnGetRowData( oSettings, iDisIndex, 'filter', aiFilterColumns ),
-				iDisIndex
-			);
+	for ( var i=0, iLen=filters.length ; i<iLen ; i++ ) {
+		for ( var j=displayRows.length-1 ; j>=0 ; j-- ) {
+			rowIdx = displayRows[ j ];
+			row = settings.aoData[ rowIdx ];
 
-			/* Check if we should use this row based on the filtering function */
-			if ( !bTest )
-			{
-				oSettings.aiDisplay.splice( j-iCorrector, 1 );
-				iCorrector++;
+			if ( ! filters[i]( settings, row._aFilterData, rowIdx, row._aData ) ) {
+				displayRows.splice( j, 1 );
 			}
 		}
 	}
