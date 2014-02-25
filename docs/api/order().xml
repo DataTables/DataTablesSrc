@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="core">
 	<name>order()</name>
-	<summary>Redraw the table.</summary>
+	<summary>Get / set the ordering applied to the table.</summary>
 	<since>1.10</since>
 
 	<type type="function">
