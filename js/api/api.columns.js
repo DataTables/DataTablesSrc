@@ -223,7 +223,9 @@ _api_registerPlural( 'columns().nodes()', 'column().nodes()', function () {
 
 _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis ) {
 	return this.iterator( 'column', function ( settings, column ) {
-		return __setColumnVis( settings, column, vis );
+		return vis === undefined ?
+			settings.aoColumns[ column ].bVisible :
+			__setColumnVis( settings, column, vis );
 	} );
 } );
 
