@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="feature">
-	<name>search</name>
+	<name>searching</name>
 	<summary>Feature control search (filtering) abilities</summary>
 	<since>1.10</since>
 

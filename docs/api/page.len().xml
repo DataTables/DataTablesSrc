@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="core">
-	<name>page()</name>
+	<name>page.len()</name>
 	<summary>Get / set the table's page length.</summary>
 	<since>1.10</since>
 

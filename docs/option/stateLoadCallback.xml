@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="callback">
-	<name>stateSaveCallback</name>
-	<summary>Save the table state.</summary>
+	<name>stateLoadCallback</name>
+	<summary>Callback that defines where and how a saved state should be loaded.</summary>
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>stateSaveCallback( settings, data )</signature>
+		<signature>stateLoadCallback( settings )</signature>
 		<parameter type="object" name="settings">
 			DataTables settings object
 		</parameter>
-		<parameter type="object" name="data">
-			Data to save. The data comes from `dt-init stateSaveParams`
-		</parameter>
+		<returns type="object">
+			Data retrieved from storage containing the saved state (from `dt-init stateSaveCallback`)
+		</returns>
 		<scope>HTML table element</scope>
 	</type>
 
 	<description>
-		DataTables can save the state of the table (paging, filtering etc) when the `dt-init stateSave` option is enabled, and by default it will use HTML5's `localStorage` to save the state into. This callback method allows you to change where the state is saved (for example you might wish to use `localSession` or cookies).
+		With this callback you can define where, and how, the state of a table is loaded from. By default DataTables will load from `localStorage` but you might wish to use a server-side database or cookies as your implementation requirements demand.
 
-		Please note that this method is required only to store the data given to it. The `dt-init stateSaveParams` method is used to manipulate the data that is to actually be saved.
-
-		This callback works hand-in-hand with `dt-init stateLoadCallback`. This method saves the state while `dt-init stateSaveCallback` will load it from where this callback has saved it.
+		Note that this callback works hand-in-hand with `dt-init stateLoadCallback`. This callback saves the state into storage while `dt-init stateLoadCallback` loads it when the table is reloaded. The parameters that are actually to be saved for the state are the domain of the `dt-init stateSaveParams` callback option.
 	</description>
 
-	<example title="Save state on a server with Ajax"><![CDATA[
+	<example title="Load state from a server via Sjax"><![CDATA[
 $('#example').dataTable( {
   "stateSave": true,
-  "stateSaveCallback": function (settings, data) {
-    // Send an Ajax request to the server with the state object
+  "stateLoadCallback": function (settings) {
+    var o;
+
+    // Send an Ajax request to the server to get the data. Note that
+    // this is a synchronous request since the data is expected back from the
+    // function
     $.ajax( {
-      "url": "/state_save",
-      "data": data,
+      "url": "/state_load",
+      "async": false,
       "dataType": "json",
-      "method": "POST"
-      "success": function () {}
+      "success": function (json) {
+        o = json;
+      }
     } );
+
+    return o;
   }
 } );
 ]]></example>
 
 	<related type="option">stateSave</related>
-	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
 	<related type="option">stateLoadParams</related>
 	<related type="option">stateLoaded</related>
 	<related type="option">stateSaveParams</related>
