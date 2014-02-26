@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="callback">
 	<name>stateSaveCallback</name>
-	<summary>Save the table state.</summary>
+	<summary>Callback that defines how the table state is stored and where.</summary>
 	<since>1.10</since>
 
 	<type type="function">
