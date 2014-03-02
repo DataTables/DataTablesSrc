@@ -28,7 +28,7 @@
 $('#example').dataTable( {
   "createdRow": function( row, data, dataIndex ) {
     if ( data[4] == "A" ) {
-      $(row).aadClass( 'important' );
+      $(row).addClass( 'important' );
     }
   }
 } );
