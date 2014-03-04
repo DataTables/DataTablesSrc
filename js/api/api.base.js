@@ -174,7 +174,6 @@ DataTable.Api = _Api = function ( context, data )
 	var settings = [];
 	var ctxSettings = function ( o ) {
 		var a = _toSettings( o );
-			console.log( a );
 		if ( a ) {
 			settings.push.apply( settings, a );
 		}
