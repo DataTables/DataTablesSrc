@@ -104,7 +104,8 @@ $pluginsHash = $versions['Plugins']['release']['version'];
 
 DT_Example::$lookup_libraries['css']['datatables-bootstrap']  = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/bootstrap/3/dataTables.bootstrap.css';
 DT_Example::$lookup_libraries['js' ]['datatables-bootstrap']  = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/bootstrap/3/dataTables.bootstrap.js';
-DT_Example::$lookup_libraries['js' ]['editor-bootstrap']      = path_simplify( $dir_media.'/../extensions/Editor/examples/support/bootstrap/dataTables/dataTables.editor.bootstrap.js' );
+DT_Example::$lookup_libraries['css']['editor-bootstrap']      = path_simplify( $dir_media.'/../extensions/Editor/examples/support/bootstrap/editor.bootstrap.css' );
+DT_Example::$lookup_libraries['js' ]['editor-bootstrap']      = path_simplify( $dir_media.'/../extensions/Editor/examples/support/bootstrap/editor.bootstrap.js' );
 DT_Example::$lookup_libraries['css']['datatables-foundation'] = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/foundation/3/dataTables.foundation.css';
 DT_Example::$lookup_libraries['js' ]['datatables-foundation'] = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/foundation/3/dataTables.foundation.js';
 DT_Example::$lookup_libraries['css']['datatables-jqueryui']   = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/jqueryui/dataTables.jqueryui.css';
