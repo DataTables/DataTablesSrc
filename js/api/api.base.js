@@ -89,7 +89,7 @@ var _toSettings = function ( mixed )
 		return idx !== -1 ? [ settings[idx] ] : null;
 	}
 	else if ( mixed && typeof mixed.settings === 'function' ) {
-		return mixed.settings();
+		return mixed.settings().toArray();
 	}
 	else if ( typeof mixed === 'string' ) {
 		// jQuery selector
@@ -174,6 +174,7 @@ DataTable.Api = _Api = function ( context, data )
 	var settings = [];
 	var ctxSettings = function ( o ) {
 		var a = _toSettings( o );
+			console.log( a );
 		if ( a ) {
 			settings.push.apply( settings, a );
 		}
