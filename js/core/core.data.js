@@ -493,8 +493,10 @@ function _fnInvalidateRow( settings, rowIdx, src, column )
 		// Reading from data object, update the DOM
 		var cells = row.anCells;
 
-		for ( i=0, ien=cells.length ; i<ien ; i++ ) {
-			cells[i].innerHTML = _fnGetCellData( settings, rowIdx, i, 'display' );
+		if ( cells ) {
+			for ( i=0, ien=cells.length ; i<ien ; i++ ) {
+				cells[i].innerHTML = _fnGetCellData( settings, rowIdx, i, 'display' );
+			}
 		}
 	}
 
