@@ -26,7 +26,7 @@
 		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
-	<example title="Show / hide notification of table processing"><![CDATA[
+	<example title="Show / hide notification of table processing (where `#example` is the DataTable)"><![CDATA[
 $('#example')
 	.on( 'processing.dt', function ( e, settings, processing ) {
 		$('#processingIndicator').css( 'display', processing ? 'display' : 'none' );
