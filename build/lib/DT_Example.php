@@ -253,7 +253,7 @@ class DT_Example
 
 			case 'salary-attr':
 				if      ( $type === 'title' ) { return 'Salary'; }
-				else if ( $type === 'data' )  { return '<td data-order="'.$row['salary'].'">$'.number_format($row['salary']).'/m</td>'; }
+				else if ( $type === 'data' )  { return '<td data-order="'.$row['salary'].'">$'.number_format($row['salary']).'/y</td>'; }
 				break;
 
 			case 'start_date':

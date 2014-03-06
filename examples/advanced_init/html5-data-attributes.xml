@@ -16,14 +16,14 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-DataTables can use different data for different actions (display, ordering and searcgubg) which can be immensely powerful for transforming data in the display to be intuitive for the end user, while using different, or more complex data, for other actions. For example, if a table contains a formatted telephone number in the format `xxx-xxxx`, intuitively a user might search for the number but without a dash. Using orthogonal data for searching allows both forms of the telephone number to be used, while only the nicely formatted number is displayed in the table.
+DataTables can use different data for different actions (display, ordering and searching) which can be immensely powerful for transforming data in the display to be intuitive for the end user, while using different, or more complex data, for other actions. For example, if a table contains a formatted telephone number in the format `xxx-xxxx`, intuitively a user might search for the number but without a dash. Using orthogonal data for searching allows both forms of the telephone number to be used, while only the nicely formatted number is displayed in the table.
 
 One method in which DataTables can obtain this orthogonal data for its different actions is through [custom HTML5 data attributes](http://www.w3.org/html/wg/drafts/html/master/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes). DataTables will automatically detect four different attributes on the HTML elements:
 
 * `data-sort` or `data-order` - for ordering data
 * `data-filter` or `data-search` - for search data
 
-This example shows the use of `data-sort` and `data-filter` attributes. In this case the first column has been formatted so the first name has abbreviated, but the full name is still searchable (search for "Bruno" for example). Additionally, although the last column contains non-numeric data in it (`/m`) the column will correctly order numerically as the `data-sort` / `data-order` attribute is set on the column with plain numeric data.
+This example shows the use of `data-sort` and `data-filter` attributes. In this case the first column has been formatted so the first name has abbreviated, but the full name is still searchable (search for "Bruno" for example). Additionally, although the last column contains non-numeric data in it (`/y`) the column will correctly order numerically as the `data-sort` / `data-order` attribute is set on the column with plain numeric data.
 
 ]]></info>
 
