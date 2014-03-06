@@ -202,6 +202,7 @@
 	require('ext.types.js');
 	require('ext.filter.js');
 	require('ext.renderer.js');
+	require('ext.helpers.js');
 	require('api.internal.js');
 
 	// jQuery access
