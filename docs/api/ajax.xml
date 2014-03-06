@@ -27,6 +27,7 @@ table.on( 'xhr', function () {
 
 	<related type="option">ajax</related>
 	<related type="api">ajax.json()</related>
+	<related type="api">ajax.params()</related>
 	<related type="api">ajax.url()</related>
 	<related type="api">ajax.url().load()</related>
 	<related type="api">ajax.reload()</related>

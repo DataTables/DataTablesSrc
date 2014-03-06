@@ -51,6 +51,20 @@ _api_register( 'ajax.json()', function () {
 
 
 /**
+ * Get the data submitted in the last Ajax request
+ */
+_api_register( 'ajax.params()', function () {
+	var ctx = this.context;
+
+	if ( ctx.length > 0 ) {
+		return ctx[0].oAjaxData;
+	}
+
+	// else return undefined;
+} );
+
+
+/**
  * Reload tables from the Ajax data source. Note that this function will
  * automatically re-draw the table when the remote data has been loaded.
  *

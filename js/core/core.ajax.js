@@ -87,6 +87,9 @@ function _fnBuildAjax( oSettings, data, fn )
 		}
 	};
 
+	// Store the data submitted for the API
+	oSettings.oAjaxData = data;
+
 	if ( oSettings.fnServerData )
 	{
 		// DataTables 1.9- compatibility

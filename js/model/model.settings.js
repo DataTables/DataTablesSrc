@@ -607,6 +607,13 @@ DataTable.models.oSettings = {
 	"json": undefined,
 
 	/**
+	 * Data submitted as part of the last Ajax request
+	 *  @type object
+	 *  @default undefined
+	 */
+	"oAjaxData": undefined,
+
+	/**
 	 * Function to get the server-side data.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.

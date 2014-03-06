@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>ajax.params()</name>
+	<summary>Get the data submitted by DataTables to the server in the last Ajax request</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>ajax.params()</signature>
+		<returns type="object|undefined">
+			Data submitted in the last Ajax request. If no Ajax request has been made, `dt-type undefined` is returned.
+		</returns>
+	</type>
+
+	<description>
+		It can sometimes be useful to know what data was used in the last Ajax request submitted to the server. This method provides that ability by simply returning the data object that was used in the last Ajax request DataTables made.
+
+		The data object stored is the resulting object once the `dt-init ajax.data` option has been fully evaluated, so any custom parameters are also stored.
+
+		This object is considered to be read-only, as writing values to it will have no impact upon any DataTables operation - it is provided solely for the use of the API.
+	</description>
+
+	<example title="Show the search term on each Ajax request"><![CDATA[
+var table = $('#example').DataTable( {
+	ajax: "data.json",
+	serverSide: true
+} );
+
+table.on( 'xhr', function () {
+	var data = table.ajax.params();
+	alert( 'Search term was: '+data.search.value );
+} );
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="api">ajax.json()</related>
+	<related type="api">ajax.url()</related>
+	<related type="api">ajax.url().load()</related>
+	<related type="api">ajax.reload()</related>
+	<related type="event">xhr</related>
+</dt-api>
