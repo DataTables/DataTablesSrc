@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="data">
+	<name>ajax.data</name>
+	<summary>Add or modify data submitted to the server upon an Ajax request</summary>
+	<since>1.10</since>
+
+	<type type="object">
+		<description>
+			As an object, the `dt-init ajax.data` option is used to extend the data object that DataTables constructs internally to submit to the server. This provides an easy method of adding additional, static, parameters to the data to be end to the server. For dynamically calculated values, use `dt-init ajax.data` as a function (see below).
+		</description>
+	</type>
+
+	<type type="function">
+		<signature>ajax.data( data )</signature>
+		<parameter type="object" name="data">
+			Data that DataTables has constructed for the request. This will include server-side processing parameters if you are using the `dt-init serverSide` option.
+		</parameter>
+		<returns type="object|undefined">
+			If there is no return value from the function (i.e. `dt-type undefined`) then the original data object passed into the function by DataTables will be used for the request (the function may have manipulated its values).
+
+			If an object is returned, then that object will be used as the data for the request. It will not be merged with the original data object constructed by DataTables.
+		</returns>
+		<description>
+			As a function, the `dt-init ajax.data` option can be used to modify the data DataTables submits to the server upon an Ajax request, by manipulating the original data object DataTables constructs internally, or by replacing it completely.
+
+			This provides the ability to submit additional information to the server upon an Ajax request, with the function being executed upon each Ajax request, allowing values to be dynamically calculated. For example, a value could be read from a text input field to act as an additional search option.
+		</description>
+	</type>
+
+	<description>
+		When making an Ajax request to the server, DataTables will construct a data object internally, with the data it requires to be sent to the server for the request. What this data contains will depend upon the processing mode DataTables is operating in:
+
+		* For client-side processing no additional data is submitted to the server
+		* For server-side processing (`dt-init serverSide`) the draw request parameters are submitted - see the [server-side processing manual](//datatables.net/manual/server-side).
+
+		The `dt-init ajax.data` option provides the ability to add additional data to the request, or to modify the data object being submitted if required.
+
+		In principle it operates in exactly the same way as jQuery's `$.ajax.data` property, in that it can be given as an object with parameters and values to submit, but DataTables extends this by also providing it with the ability to be a function, to allow the data to be re-evaluated upon each Ajax request (see above).
+	</description>
+
+	<example title="Add an extra parameter (`user_id` in this case), of a static value to the data submitted"><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "data": {
+    	"used_id": 451
+    }
+  }
+} );
+]]></example>
+
+	<example title="Add data to the request by manipulating the data object (no return from the function)"><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "data": function ( d ) {
+    	d.extra_search = $('#extra').val();
+    }
+  }
+} );
+]]></example>
+
+	<example title="Add data to the request (returning an object)"><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "data": function ( d ) {
+      return $.extend( {}, d, {
+        "extra_search": $('#extra').val()
+      } );
+    }
+  }
+} );
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="api">ajax.json()</related>
+	<related type="api">ajax.reload()</related>
+	<related type="api">ajax.url()</related>
+</dt-option>
