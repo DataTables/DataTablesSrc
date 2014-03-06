@@ -16,12 +16,12 @@
 
     The built-in table control elements in DataTables are:
 
-    * l` - `l`ength changing input control
-    * f` - `f`iltering input
-    * t` - The `t`able!
-    * i` - Table `i`nformation summary
-    * p` - `p`agination control
-    * r` - p`r`ocessing display element
+    * `l` - `l`ength changing input control
+    * `f` - `f`iltering input
+    * `t` - The `t`able!
+    * `i` - Table `i`nformation summary
+    * `p` - `p`agination control
+    * `r` - p`r`ocessing display element
 
     Each option can be specified multiple times (with the exception of the table itself), which can be used to have table controls both above and below the table. DataTables will automatically synchronise these multiple controls.
 
