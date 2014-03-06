@@ -22,7 +22,9 @@
 	</type>
 	<type type="object">
 		<description>
-			Use different data for the different data types requested by DataTables (`string filter`, `string display`, `string type` or `string sort`). The property names of the object is the data type the property refers to and the value can defined using an integer, string or function using the same rules as `dt-init columns.render` normally does. Note that an `string _` option _must_ be specified. This is the default value to use if you haven't specified a value for the data type requested by DataTables.
+			Use different data for the different data types requested by DataTables (`string filter`, `string display`, `string type` or `string sort`). The property names of the object is the data type the property refers to and the value can defined using an integer, string or function using the same rules as `dt-init columns.render` normally does.
+
+			Note that an `string _` option can optionally be specified. This is the default value to use if you haven't specified a value for the data type requested by DataTables. If there is no option for the data type requested that the `string _` option has not been specified, the data pointed to by the `dt-init columns.data` option will be used.
 
 			As an example you might use:
 
