@@ -4,7 +4,7 @@
 	<summary>Define the table control elements to appear on the page and in what order</summary>
 	<since>1.10</since>
 
-	<type type="boolean" />
+	<type type="string" />
 	<default value="lfrtip"><![CDATA[
 		Note that the default is changed to be `<"H"lfr>t<"F"ip>` when the `dt-init jQueryUI` option is enabled.
 ]]></default>
