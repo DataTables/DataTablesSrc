@@ -372,10 +372,11 @@ if ( features.bSort )
 	} );
 }
 
-if ( _fnDataSource( oSettings ) === 'ssp' || features.bDeferRender ) {
-	_fnCallbackReg( oSettings, 'aoDrawCallback', _fnSortingClasses, 'sc' );
-}
-
+_fnCallbackReg( oSettings, 'aoDrawCallback', function () {
+	if ( oSettings.bSorted || _fnDataSource( oSettings ) === 'ssp' || features.bDeferRender ) {
+		_fnSortingClasses( oSettings );
+	}
+}, 'sc' );
 
 
 /*
