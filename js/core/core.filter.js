@@ -43,7 +43,7 @@ function _fnFeatureHtmlFilter ( settings )
 			_fnDraw( settings );
 		}
 	};
-	var jqFilter = $('input[type="search"]', filter)
+	var jqFilter = $('input', filter)
 		.val( previousSearch.sSearch.replace('"','&quot;') )
 		.bind(
 			'keyup.DT search.DT input.DT paste.DT cut.DT',
