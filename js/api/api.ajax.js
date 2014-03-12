@@ -6,8 +6,9 @@ var __reload = function ( settings, holdPosition, callback ) {
 	}
 	else {
 		// Trigger xhr
+		_fnProcessingDisplay( settings, true );
+
 		_fnBuildAjax( settings, [], function( json ) {
-			// xxx can this be reduced?
 			_fnClearTable( settings );
 
 			var data = _fnAjaxDataSrc( settings, json );
@@ -16,6 +17,7 @@ var __reload = function ( settings, holdPosition, callback ) {
 			}
 
 			_fnReDraw( settings, holdPosition );
+			_fnProcessingDisplay( settings, false );
 		} );
 	}
 
@@ -25,7 +27,6 @@ var __reload = function ( settings, holdPosition, callback ) {
 		var api = new _Api( settings );
 
 		api.one( 'draw', function () {
-			console.log( api.ajax.json() );
 			callback( api.ajax.json() );
 		} );
 	}
