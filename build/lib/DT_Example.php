@@ -171,12 +171,14 @@ class DT_Example
 
 	private function _htmlTidy( $html )
 	{
+		$hasEmptyTbody = strpos( $html, '<tbody/>' );
 		$tidy = new tidy();
 		$tidy->parseString( $html, array(
 			'indent' => 2,
 			'indent-spaces' => 4,
 			'new-blocklevel-tags' => 'section',
 			'new-pre-tags' => 'script',
+			'new-empty-tags' => 'tbody',
 			'output-html' => 1,
 			'wrap' => 120
 		) );
@@ -192,6 +194,13 @@ class DT_Example
 		$str = preg_replace( '/\n\n<html>/m', "\n<html>", $str );
 		$str = preg_replace( '/    /m', "\t", $str );
 		//$str = preg_replace( '/^\n+|^[\t\s]*\n+/m', '', $tidy );
+
+		// HTML tidy removes the empty tbody tag if there is one, with no option
+		// of keeping it, so we have to work around
+		if ( $hasEmptyTbody !== false ) {
+			$str = str_replace( '</thead>', "</thead>\n\t\t\t\t<tbody/>", $str);
+		}
+
 		return $str;
 	}
 

@@ -30,45 +30,142 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	}
 
 
+	function _docLink ( $software, $type, $item, $html )
+	{
+		switch ( $software ) {
+			case 'af':
+				$host = '//datatables.net/extensions/autofill/reference';
+				$tag = 'AF';
+				$lang = 'AutoFill';
+				break;
+
+			case 'cr':
+				$host = '//datatables.net/extensions/colreorder/reference';
+				$tag = 'CR';
+				$lang = 'ColReorder';
+				break;
+
+			case 'cv':
+				$host = '//datatables.net/extensions/colvis/reference';
+				$tag = 'CV';
+				$lang = 'ColVis';
+				break;
+
+			case 'e':
+				$host = '//editor.datatables.net/reference';
+				$tag = 'E';
+				$lang = 'Editor';
+				break;
+
+			case 'fc':
+				$host = '//datatables.net/extensions/fixedcolumns/reference';
+				$tag = 'FC';
+				$lang = 'FixedColumns';
+				break;
+
+			case 'fh':
+				$host = '//datatables.net/extensions/fixedheader/reference';
+				$tag = 'FH';
+				$lang = 'FixedHeader';
+				break;
+
+			case 'kt':
+				$host = '//datatables.net/extensions/keytable/reference';
+				$tag = 'KT';
+				$lang = 'KeyTable';
+				break;
+
+			case 's':
+				$host = '//datatables.net/extensions/scroller/reference';
+				$tag = 'S';
+				$lang = 'Scroller';
+				break;
+
+			case 'tt':
+				$host = '//datatables.net/extensions/tabletools/reference';
+				$tag = 'TT';
+				$lang = 'TableTools';
+				break;
+			
+			default:
+				$host = '//datatables.net/reference';
+				$tag = 'DT';
+				$lang = 'DataTables';
+				break;
+		}
+
+		switch ( $type ) {
+			case 'init':
+				$klass = 'option';
+				$lang .= ' initialisation option';
+				break;
+
+			case 'api':
+				$klass = 'api';
+				$lang .= ' API method';
+				break;
+
+			case 'event':
+				$klass = 'event';
+				$lang .= ' event';
+				break;
+
+			case 'type':
+				$klass = 'type';
+				$lang .= ' parameter type';
+				break;
+
+			case 'field':
+				$klass = 'field';
+				$lang .= ' field type';
+				break;
+
+			default;
+				break;
+		}
+
+		return '<a href="'.$host.'/'.$klass.'/'.$this->_doUrlEncode($item).'">'.
+				'<code class="'.$klass.'" title="'.$lang.'">'.$html.
+					'<span>'.$tag.'</span>'.
+				'</code>'.
+			'</a>';
+	}
+
+
 	function makeCodeSpan( $code )
 	{
 		$that = $this;
 		$text = preg_replace_callback(
-			'/^(dt\-init |dt\-api |dt\-event |dt\-tag |tag |dt\-path |dt\-type |path |dt\-string |string )?(.*)$/m',
+			'/^([a-z]{1,2}\-init |[a-z]{1,2}\-api |[a-z]{1,2}\-event |[a-z]{1,2}\-type |e\-field |dt\-tag |tag |dt\-path |path |dt\-string |string )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
 
-				if ( $matches[1] === 'dt-init ' ) {
-					$formatted =
-						'<a href="//datatables.net/reference/option/'.$this->_doUrlEncode($matches[2]).'">'.
-							'<code class="option" title="Initialisation option">'.$html.'</code>'.
-						'</a>';
+				$flags    = explode('-', trim($matches[1]));
+				$software = count( $flags ) > 1 ? $flags[0] : null;
+				$tags     = count( $flags ) > 1 ? $flags[1] : $flags[0];
+
+				if ( $tags === 'init' ) {
+					$formatted = $this->_docLink( $software, 'init', $matches[2], $html );
 				}
-				else if ( $matches[1] === 'dt-api ' ) {
-					$formatted =
-						'<a href="//datatables.net/reference/api/'.$this->_doUrlEncode($matches[2]).'">'.
-							'<code class="api" title="API method">'.$html.'</code>'.
-						'</a>';
+				else if ( $tags === 'api' ) {
+					$formatted = $this->_docLink( $software, 'api', $matches[2], $html );
 				}
-				else if ( $matches[1] === 'dt-event ' ) {
-					$formatted =
-						'<a href="//datatables.net/reference/event/'.$this->_doUrlEncode($matches[2]).'">'.
-							'<code class="event" title="Event">'.$html.'</code>'.
-						'</a>';
+				else if ( $tags === 'event' ) {
+					$formatted = $this->_docLink( $software, 'event', $matches[2], $html );
 				}
-				else if ( $matches[1] === 'dt-type ' ) {
-					$formatted =
-						'<a href="//datatables.net/reference/type/'.$this->_doUrlEncode($matches[2]).'">'.
-							'<code class="type" title="Parameter type">'.$html.'</code>'.
-						'</a>';
+				else if ( $tags === 'type' ) {
+					$formatted = $this->_docLink( $software, 'type', $matches[2], $html );
 				}
-				else if ( $matches[1] === 'tag ' || $matches[1] === 'dt-tag ' ) {
+				else if ( $tags === 'field' ) {
+					$formatted = $this->_docLink( $software, 'field', $matches[2], $html );
+				}
+				else if ( $matches[1] === 'tag' || $matches[1] === 'dt-tag' ) {
 					$formatted = '<code class="tag" title="HTML tag">'.$html.'</code>';
 				}
-				else if ( $matches[1] === 'path ' || $matches[1] === 'dt-path ' ) {
+				else if ( $matches[1] === 'path' || $matches[1] === 'dt-path' ) {
 					$formatted = '<code class="path" title="File path">'.$html.'</code>';
 				}
-				else if ( $matches[1] === 'string ' || $matches[1] === 'dt-string ' ) {
+				else if ( $matches[1] === 'string' || $matches[1] === 'dt-string' ) {
 					$formatted = '<code class="string" title="String">'.$html.'</code>';
 				}
 				else {
