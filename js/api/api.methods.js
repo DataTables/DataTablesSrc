@@ -423,7 +423,7 @@ this.fnGetData = function( src, col )
 			api.row( src ).data();
 	}
 
-	return api.data().toArray();
+	return api.data().flatten().toArray();
 };
 
 
@@ -451,7 +451,7 @@ this.fnGetNodes = function( iRow )
 
 	return iRow !== undefined ?
 		api.row( iRow ).node() :
-		api.rows().nodes().toArray();
+		api.rows().nodes().flatten().toArray();
 };
 
 
