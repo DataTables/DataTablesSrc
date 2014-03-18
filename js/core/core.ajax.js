@@ -81,7 +81,7 @@ function _fnBuildAjax( oSettings, data, fn )
 			if ( error == "parsererror" ) {
 				log( oSettings, 0, 'Invalid JSON response', 1 );
 			}
-			else {
+			else if ( xhr.readyState === 4 ) {
 				log( oSettings, 0, 'Ajax error', 7 );
 			}
 
