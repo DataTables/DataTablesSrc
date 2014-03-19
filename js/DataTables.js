@@ -99,7 +99,7 @@
 
 	DataTable = function( options )
 	{
-		require('api.methods.js');
+		require('api.legacy.js');
 
 		var _that = this;
 		var emptyInit = options === undefined;
