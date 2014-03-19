@@ -420,7 +420,7 @@ this.fnGetData = function( src, col )
 
 		return col !== undefined || type == 'td' || type == 'th' ?
 			api.cell( src, col ).data() :
-			api.row( src ).data();
+			api.row( src ).data() || null;
 	}
 
 	return api.data().flatten().toArray();
