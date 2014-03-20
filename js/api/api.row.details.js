@@ -132,6 +132,7 @@ _api_register( [
 	'row().child().show()'
 ], function () {
 	__details_display.call( this, true );
+	return this;
 } );
 
 _api_register( [
@@ -139,6 +140,7 @@ _api_register( [
 	'row().child().hide()'
 ], function () {
 	__details_display.call( this, false );
+	return this;
 } );
 
 _api_register( 'row().child.isShown()', function () {
