@@ -57,7 +57,7 @@ function _fnFeatureHtmlLength ( settings )
 		} );
 
 	// Update node value whenever anything changes the table's length
-	$(settings.nTable).bind( 'length', function (e, s, len) {
+	$(settings.nTable).bind( 'length.dt.DT', function (e, s, len) {
 		select.val( len );
 	} );
 
