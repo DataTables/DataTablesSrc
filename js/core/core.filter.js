@@ -316,6 +316,9 @@ function _fnFilterData ( settings )
 					cellData = __filter_div_textContent ?
 						__filter_div.textContent :
 						__filter_div.innerText;
+				}
+
+				if ( cellData.replace ) {
 					cellData = cellData.replace(/[\r\n]/g, '');
 				}
 
