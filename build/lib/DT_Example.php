@@ -674,6 +674,24 @@ DT_Example::$tables['html-comma'] = array(
 	'body'    => true
 );
 
+DT_Example::$tables['html-grade'] = array(
+	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', function ( $type, $row ) {
+		if ( $type === 'title' ) {
+			return 'Salary';
+		}
+		else if ( $row['salary'] < 350000 ) {
+			return 'Low';
+		}
+		else if ( $row['salary'] < 650000 ) {
+			return 'Medium';
+		}
+		return 'High';
+	} ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
 
 DT_Example::$tables['html-thin'] = array(
 	'columns' => array( 'name', 'position', 'office', 'salary' ),

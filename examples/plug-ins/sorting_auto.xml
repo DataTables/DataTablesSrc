@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html-comma" order="2">
+<dt-example table-type="html-grade" order="2">
 
 <css lib="datatables" />
 <js lib="jquery" />
@@ -10,12 +10,19 @@
 
 $.fn.dataTable.ext.type.detect.unshift(
 	function ( d ) {
-		return /^[\-\d,]+$/.test( d ) ? 'numeric-comma' : null;
+		return d === 'Low' || d === 'Medium' || d === 'High' ?
+			'salary-grade' :
+			null;
 	}
 );
 
-$.fn.dataTable.ext.type.order['numeric-comma-pre'] = function ( d ) {
-	return parseFloat( d.replace(/,/g, '.') ) || 0;
+$.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
+	switch ( d ) {
+		case 'Low':    return 1;
+		case 'Medium': return 2;
+		case 'High':   return 3;
+	}
+	return 0;
 };
 
 
@@ -31,7 +38,7 @@ Although DataTables will automatically order data from a number of different dat
 
 Formatted data of a particular kind can be automatically detected and a suitable ordering plug-in assigned to it by making use of DataTables' plug-in type detection abilities. For complete information about type detection and ordering plug-ins; creating them and their requirements, please refer to the plug-in development documentation.
 
-This example shows ordering with a comma for a decimal place, as is often used in parts of Europe with automatic type detection.
+This example shows ordering with using an enumerated type.
 
 A wide variety of ready made ordering plug-ins can be found on [the DataTables plug-ins page](//datatables.net/plug-ins/sorting).
 
