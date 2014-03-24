@@ -92,7 +92,10 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 			oOptions.mData = oOptions.mDataProp;
 		}
 
-		oCol._sManualType = oOptions.sType;
+		if ( oOptions.sType )
+		{
+			oCol._sManualType = oOptions.sType;
+		}
 
 		// `class` is a reserved word in Javascript, so we need to provide
 		// the ability to use a valid name for the camel case input
