@@ -6,7 +6,7 @@
 
 	<type type="object">
 		<description>
-			As an object, the `dt-init ajax.data` option is used to extend the data object that DataTables constructs internally to submit to the server. This provides an easy method of adding additional, static, parameters to the data to be end to the server. For dynamically calculated values, use `dt-init ajax.data` as a function (see below).
+			As an object, the `dt-init ajax.data` option is used to extend the data object that DataTables constructs internally to submit to the server. This provides an easy method of adding additional, static, parameters to the data to be sent to the server. For dynamically calculated values, use `dt-init ajax.data` as a function (see below).
 		</description>
 	</type>
 
@@ -43,7 +43,7 @@ $('#example').dataTable( {
   "ajax": {
     "url": "data.json",
     "data": {
-    	"used_id": 451
+    	"user_id": 451
     }
   }
 } );

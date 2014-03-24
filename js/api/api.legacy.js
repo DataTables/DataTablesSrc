@@ -569,7 +569,7 @@ this.fnOpen = function( nTr, mHtml, sClass )
 		.row( nTr )
 		.child( mHtml, sClass )
 		.show()
-		.node();
+		.child()[0];
 };
 
 
