@@ -68,9 +68,11 @@ $.extend( _ext.type.order, {
 
 	// html
 	"html-pre": function ( a ) {
-		return a.replace ?
-			a.replace( /<.*?>/g, "" ).toLowerCase() :
-			a+'';
+		return ! a ?
+			'' :
+			a.replace ?
+				a.replace( /<.*?>/g, "" ).toLowerCase() :
+				a+'';
 	},
 
 	// string
