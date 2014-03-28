@@ -15,9 +15,9 @@
 		Note that if you wish to use the search abilities of DataTables this must remain `true` - to remove the default search input box whilst retaining searching abilities (for example you might use the `dt-api search()` method), use the `dt-init dom` option.
 	</description>
 
-	<example title="Disable smart width calculations"><![CDATA[
+	<example title="Disable searching abilities in DataTables"><![CDATA[
 $('#example').dataTable( {
-  "autoWidth": false
+  "searching": false
 } );
 ]]></example>
 
