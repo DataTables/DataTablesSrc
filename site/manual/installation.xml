@@ -95,13 +95,13 @@ Simply [download the latest version](/download) of DataTables, upzip and upload 
 
 ```html
 <!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="/{dt-release-version}/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="/DataTables-{dt-release-version}/css/jquery.dataTables.css">
  
 <!-- jQuery -->
-<script type="text/javascript" charset="utf8" src="/{dt-release-version}/js/jquery.js"></script>
+<script type="text/javascript" charset="utf8" src="/DataTables-{dt-release-version}/js/jquery.js"></script>
  
 <!-- DataTables -->
-<script type="text/javascript" charset="utf8" src="/{dt-release-version}/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="/DataTables-{dt-release-version}/js/jquery.dataTables.js"></script>
 ```
 
 

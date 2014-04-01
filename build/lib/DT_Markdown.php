@@ -159,13 +159,13 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				else if ( $tags === 'field' ) {
 					$formatted = $this->_docLink( $software, 'field', $matches[2], $html );
 				}
-				else if ( $matches[1] === 'tag' || $matches[1] === 'dt-tag' ) {
+				else if ( $tags === 'tag' || $tags === 'dt-tag' ) {
 					$formatted = '<code class="tag" title="HTML tag">'.$html.'</code>';
 				}
-				else if ( $matches[1] === 'path' || $matches[1] === 'dt-path' ) {
+				else if ( $tags === 'path' || $tags === 'dt-path' ) {
 					$formatted = '<code class="path" title="File path">'.$html.'</code>';
 				}
-				else if ( $matches[1] === 'string' || $matches[1] === 'dt-string' ) {
+				else if ( $tags === 'string' || $tags === 'dt-string' ) {
 					$formatted = '<code class="string" title="String">'.$html.'</code>';
 				}
 				else {
