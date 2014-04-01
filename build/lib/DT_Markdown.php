@@ -23,6 +23,7 @@ function DT_Markdown($text, $default_claases = array()){
 class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	function DT_Markdown_Parser()
 	{
+		$this->block_gamut['doPhp'] = 9;
 		$this->block_gamut['doColumns'] = 13;
 		$this->block_gamut['doGrid'] = 12;
 		$this->block_gamut['doPullQuotes'] = 61;
@@ -120,6 +121,11 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				$lang .= ' field type';
 				break;
 
+			case 'display':
+				$klass = 'display';
+				$lang .= ' display type';
+				break;
+
 			default;
 				break;
 		}
@@ -136,7 +142,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	{
 		$that = $this;
 		$text = preg_replace_callback(
-			'/^([a-z]{1,2}\-init |[a-z]{1,2}\-api |[a-z]{1,2}\-event |[a-z]{1,2}\-type |e\-field |dt\-tag |tag |dt\-path |path |dt\-string |string )?(.*)$/m',
+			'/^([a-z]{1,2}\-init |[a-z]{1,2}\-api |[a-z]{1,2}\-event |[a-z]{1,2}\-type |e\-field |e\-display |dt\-tag |tag |dt\-path |path |dt\-string |string )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
 
@@ -158,6 +164,9 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				}
 				else if ( $tags === 'field' ) {
 					$formatted = $this->_docLink( $software, 'field', $matches[2], $html );
+				}
+				else if ( $tags === 'display' ) {
+					$formatted = $this->_docLink( $software, 'display', $matches[2], $html );
 				}
 				else if ( $tags === 'tag' || $tags === 'dt-tag' ) {
 					$formatted = '<code class="tag" title="HTML tag">'.$html.'</code>';
@@ -324,5 +333,26 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		
 		return $text;
 	}
+
+
+	function doPhp ( $text ) {
+		$that = $this;
+		$text = preg_replace_callback('/
+			(?>^\?[ ]?
+				(?:\((.+?)\))?
+				[ ]*(.+\n(?:.+\n)*)
+			)+	
+			/xm',
+			function ($matches) use ($that) {
+				$bq = preg_replace('/^\?[ ]?/m', '', $matches[0]);
+				$hashed = $that->hashBlock( "<?php\n{$bq}?>" );
+
+				return "\n". $hashed ."\n\n";
+			}
+			,
+			$text
+		);
+
+		return $text;
+	}
 }
-?>
