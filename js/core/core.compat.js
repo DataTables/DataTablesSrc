@@ -23,6 +23,7 @@ function _fnHungarianMap ( o )
 			newKey = key.replace( match[0], match[2].toLowerCase() );
 			map[ newKey ] = key;
 
+			//console.log( key, match );
 			if ( match[1] === 'o' )
 			{
 				_fnHungarianMap( o[key] );
@@ -47,8 +48,7 @@ function _fnHungarianMap ( o )
  */
 function _fnCamelToHungarian ( src, user, force )
 {
-	if ( ! src._hungarianMap )
-	{
+	if ( ! src._hungarianMap ) {
 		_fnHungarianMap( src );
 	}
 
@@ -59,11 +59,12 @@ function _fnCamelToHungarian ( src, user, force )
 
 		if ( hungarianKey !== undefined && (force || user[hungarianKey] === undefined) )
 		{
-			user[hungarianKey] = user[ key ];
-
 			if ( hungarianKey.charAt(0) === 'o' )
 			{
 				_fnCamelToHungarian( src[hungarianKey], user[key] );
+			}
+			else {
+				src[hungarianKey] = user[ key ];
 			}
 		}
 	} );
