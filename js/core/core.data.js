@@ -490,7 +490,7 @@ function _fnInvalidateRow( settings, rowIdx, src, column )
 	// Are we reading last data from DOM or the data object?
 	if ( src === 'dom' || ((! src || src === 'auto') && row.src === 'dom') ) {
 		// Read the data from the DOM
-		row._aData = _fnGetRowElements( settings, row.nTr ).data;
+		row._aData = _fnGetRowElements( settings, row ).data;
 	}
 	else {
 		// Reading from data object, update the DOM
@@ -528,7 +528,8 @@ function _fnInvalidateRow( settings, rowIdx, src, column )
  * cells that are in the row.
  *
  * @param {object} settings DataTables settings object
- * @param {node} TR element from which to read data
+ * @param {node|object} TR element from which to read data or existing row
+ *   object from which to re-read the data from the cells
  * @returns {object} Object with two parameters: `data` the data read, in
  *   document order, and `cells` and array of nodes (they can be useful to the
  *   caller, so rather than needing a second traversal to get them, just return
@@ -555,33 +556,48 @@ function _fnGetRowElements( settings, row )
 		}
 	};
 
-	while ( td ) {
-		name = td.nodeName.toUpperCase();
+	var cellProcess = function ( cell ) {
+		col = columns[i];
+		contents = $.trim(cell.innerHTML);
 
-		if ( name == "TD" || name == "TH" ) {
-			col = columns[i];
-			contents = $.trim(td.innerHTML);
+		if ( col && col._bAttrSrc ) {
+			o = {
+				display: contents
+			};
 
-			if ( col && col._bAttrSrc ) {
-				o = {
-					display: contents
-				};
+			attr( col.mData.sort, o, cell );
+			attr( col.mData.type, o, cell );
+			attr( col.mData.filter, o, cell );
 
-				attr( col.mData.sort, o, td );
-				attr( col.mData.type, o, td );
-				attr( col.mData.filter, o, td );
-
-				d.push( o );
-			}
-			else {
-				d.push( contents );
-			}
-
-			tds.push( td );
-			i++;
+			d.push( o );
+		}
+		else {
+			d.push( contents );
 		}
 
-		td = td.nextSibling;
+		tds.push( cell );
+		i++;
+	};
+
+	if ( td ) {
+		// `tr` element passed in
+		while ( td ) {
+			name = td.nodeName.toUpperCase();
+
+			if ( name == "TD" || name == "TH" ) {
+				cellProcess( td );
+			}
+
+			td = td.nextSibling;
+		}
+	}
+	else {
+		// Existing row object passed in
+		tds = row.anCells;
+		
+		for ( var j=0, jen=tds.length ; j<jen ; j++ ) {
+			cellProcess( tds[j] );
+		}
 	}
 
 	return {
