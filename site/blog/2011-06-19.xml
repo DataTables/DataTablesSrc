@@ -92,7 +92,7 @@ This example also shows the new [mDataProp](http://datatables.net/usage/columns#
 	<content>
 	<![CDATA[
 
-> Update: This blog post was written before the release of DataTables 1.10, and therefore does not make use of the new API or features used by the latest DataTables releases.
+> Update: This blog post was written before the release of DataTables 1.10, and therefore does not make use of the new API or features used by the latest DataTables releases. It also uses a legacy version of jQuery and some parts might need to be updated if you wish to use this code.
 
 <style type="text/css" title="currentStyle">
 table.display td.details { border: 0; padding: 0; background-color: #ccc; }
