@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="columns">
 	<name>columns.name</name>
-	<summary>Set default, static, content for a column</summary>
+	<summary>Set a descriptive name for a column</summary>
 	<since>1.10</since>
 
 	<type type="string" />
