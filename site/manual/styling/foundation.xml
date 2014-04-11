@@ -26,12 +26,12 @@ Both files are both available on the DataTables CDN (below) or you can obtain th
 
 <div class="cdn">
 	<span>CSS</span>
-	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/foundation/3/dataTables.foundation.css" readonly">
+	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/foundation/dataTables.foundation.css" readonly>
 </div>
 
 <div class="cdn">
 	<span>JS</span>
-	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/foundation/3/dataTables.foundation.js" readonly">
+	<input type="text" value="//cdn.datatables.net/plug-ins/{plugins-release-version}/integration/foundation/dataTables.foundation.js" readonly>
 </div>
 
 
