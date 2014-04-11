@@ -33,6 +33,34 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 
 	function _docLink ( $software, $type, $item, $html )
 	{
+		// For 'type' links, we override the software
+		if ( $type === 'type' ) {
+			if ( in_array( $item, array(
+					'button-options',
+					'form-options',
+					'field-options',
+					'DataTables.Editor',
+					'DataTables.Editor.Field'
+				) ) !== false )
+			{
+				$software = 'e';
+			}
+			else if ( in_array( $item, array(
+					'cell-selector',
+					'row-selector',
+					'column-selector',
+					'table-selector',
+					'DataTables.Api',
+					'selector-modifier',
+				) ) !== false )
+			{
+				$software = 'dt';
+			}
+			else {
+				$software = 'js';
+			}
+		}
+
 		switch ( $software ) {
 			case 'af':
 				$host = '//datatables.net/extensions/autofill/reference';
@@ -86,6 +114,12 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				$host = '//datatables.net/extensions/tabletools/reference';
 				$tag = 'TT';
 				$lang = 'TableTools';
+				break;
+			
+			case 'js': // JS type
+				$host = '//datatables.net/reference';
+				$tag = 'JS';
+				$lang = 'Javascript';
 				break;
 			
 			default:
@@ -142,7 +176,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	{
 		$that = $this;
 		$text = preg_replace_callback(
-			'/^([a-z]{1,2}\-init |[a-z]{1,2}\-api |[a-z]{1,2}\-event |[a-z]{1,2}\-type |e\-field |e\-display |dt\-tag |tag |dt\-path |path |dt\-string |string )?(.*)$/m',
+			'/^([a-z]{1,2}\-init |[a-z]{1,2}\-api |[a-z]{1,2}\-event |[a-z]{1,2}\-type |e\-field |e\-display |[dt]?\-tag |tag |[dt]?\-path |path |[dt]?\-string |string )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
 

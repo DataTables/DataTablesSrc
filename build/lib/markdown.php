@@ -316,6 +316,11 @@ class Markdown_Parser {
 		# Convert all tabs to spaces.
 		$text = $this->detab($text);
 
+		# Need the fenced code blocks to run before the HTML hash, since the
+		# code blocks can contain HTML that we don't want to encode outside the
+		# code block
+		$text = $this->doFencedCodeBlocks($text);
+
 		# Turn block-level HTML blocks into hash entries
 		$text = $this->hashHTMLBlocks($text);
 
