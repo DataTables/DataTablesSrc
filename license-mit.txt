@@ -1,6 +1,6 @@
 This MIT license applies to the DataTables source code, in the `js`, `css`, `images` and `examples` directories.
 
-Copyright (c) 2008-2013 SpryMedia Limited
+Copyright (c) 2008-2014 SpryMedia Limited
 http://datatables.net
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
