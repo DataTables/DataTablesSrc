@@ -94,10 +94,10 @@ function js_require {
 	IFS='%'
 
 	cp $IN_FILE $IN_FILE.build
-	grep "require(" $IN_FILE.build > /dev/null
+	grep "require('" $IN_FILE.build > /dev/null
 
 	while [ $? -eq 0 ]; do
-		REQUIRE=$(grep "require(" $IN_FILE.build | head -n 1)
+		REQUIRE=$(grep "require('" $IN_FILE.build | head -n 1)
 
 		SPACER=$(echo ${REQUIRE} | cut -d r -f 1)
 		FILE=$(echo ${REQUIRE} | sed -e "s#^.*require('##g" -e "s#');##")
@@ -110,7 +110,7 @@ function js_require {
 
 		rm ${DIR}/${FILE}.build
 
-		grep "require(" $IN_FILE.build > /dev/null
+		grep "require('" $IN_FILE.build > /dev/null
 	done
 
 	mv $IN_FILE.build $OUT

@@ -34,10 +34,10 @@ function build_js {
 	OLD_IFS=$IFS
 	IFS='%'
 	cp DataTables.js DataTables.js.build
-	grep "require(" DataTables.js.build > /dev/null
+	grep "require('" DataTables.js.build > /dev/null
 
 	while [ $? -eq 0 ]; do
-		REQUIRE=$(grep "require(" DataTables.js.build | head -n 1)
+		REQUIRE=$(grep "require('" DataTables.js.build | head -n 1)
 
 		SPACER=$(echo ${REQUIRE} | cut -d r -f 1)
 		FILE=$(echo ${REQUIRE} | sed -e "s#^.*require('##g" -e "s#');##")
@@ -50,7 +50,7 @@ function build_js {
 
 		rm ${DIR}/${FILE}.build
 
-		grep "require(" DataTables.js.build > /dev/null
+		grep "require('" DataTables.js.build > /dev/null
 	done
 
 	mv DataTables.js.build $OUT_FILE
