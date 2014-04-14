@@ -38,7 +38,9 @@ var __column_selector = function ( settings, selector, opts )
 			];
 		}
 		else {
-			var match = s.match( __re_column_selector );
+			var match = typeof match === 'string' ?
+				s.match( __re_column_selector ) :
+				'';
 
 			if ( match ) {
 				switch( match[2] ) {
