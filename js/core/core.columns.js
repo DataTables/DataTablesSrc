@@ -9,8 +9,6 @@ function _fnAddColumn( oSettings, nTh )
 	var oDefaults = DataTable.defaults.column;
 	var iCol = oSettings.aoColumns.length;
 	var oCol = $.extend( {}, DataTable.models.oColumn, oDefaults, {
-		"sSortingClass": oSettings.oClasses.sSortable,
-		"sSortingClassJUI": oSettings.oClasses.sSortJUI,
 		"nTh": nTh ? nTh : document.createElement('th'),
 		"sTitle":    oDefaults.sTitle    ? oDefaults.sTitle    : nTh ? nTh.innerHTML : '',
 		"aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
@@ -163,6 +161,11 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 	{
 		oCol.sSortingClass = oClasses.sSortableDesc;
 		oCol.sSortingClassJUI = oClasses.sSortJUIDescAllowed;
+	}
+	else
+	{
+		oCol.sSortingClass = oClasses.sSortable;
+		oCol.sSortingClassJUI = oClasses.sSortJUI;
 	}
 }
 
