@@ -21,8 +21,12 @@ function DT_Markdown($text, $default_claases = array()){
 }
 
 class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
-	function DT_Markdown_Parser()
+	function DT_Markdown_Parser( $options )
 	{
+		if ( isset( $options['nohtml'] ) ) {
+			$this->no_markup = $options['nohtml'];
+		}
+		
 		$this->block_gamut['doPhp'] = 9;
 		$this->block_gamut['doColumns'] = 13;
 		$this->block_gamut['doGrid'] = 12;
