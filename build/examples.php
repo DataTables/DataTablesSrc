@@ -262,7 +262,8 @@ if ( $create_data_files ) {
 
 
 
-// Create the JSON files needed for the Ajax examples
+// Create the SQL files needed for the Ajax examples - need to create files for
+// all of the database types supported by Editor
 function sql_files ( $out_dir )
 {
 	$out_dir = $out_dir.'/server_side/scripts';
@@ -289,33 +290,119 @@ function sql_files ( $out_dir )
 	}
 
 	$values = join( ",\n\t\t", $out );
+
+	// MySQL style
 	$str = <<<EOD
-# DataTables server-side processing example database structure and dataTables
+--
+-- DataTables Ajax and server-side processing database (MySQL)
+--
 
-DROP TABLE IF EXISTS `datatables-demo`;
+DROP TABLE IF EXISTS `datatables_demo`;
 
-CREATE TABLE `datatables-demo` (
-  `id`         int(10) NOT NULL auto_increment,
-  `first_name` varchar(250) NOT NULL default '',
-  `last_name`  varchar(250) NOT NULL default '',
-  `position`   varchar(250) NOT NULL default '',
-  `email`      varchar(250) NOT NULL default '',
-  `office`     varchar(250) NOT NULL default '',
-  `start_date` timestamp DEFAULT CURRENT_TIMESTAMP,
-  `age`        int(8),
-  `salary`     int(8),
-  `extn`       int(8),
-  PRIMARY KEY  (`id`)
+CREATE TABLE `datatables_demo` (
+	`id`         int(10) NOT NULL auto_increment,
+	`first_name` varchar(250) NOT NULL default '',
+	`last_name`  varchar(250) NOT NULL default '',
+	`position`   varchar(250) NOT NULL default '',
+	`email`      varchar(250) NOT NULL default '',
+	`office`     varchar(250) NOT NULL default '',
+	`start_date` timestamp DEFAULT CURRENT_TIMESTAMP,
+	`age`        int(8),
+	`salary`     int(8),
+	`extn`       int(8),
+	PRIMARY KEY  (`id`)
 );
 
-INSERT
-	INTO `datatables-demo`
+INSERT INTO `datatables_demo`
 		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
 	VALUES
 		$values;
 EOD;
+	file_put_contents( $out_dir.'/mysql.sql', $str.$values );
 
-	file_put_contents( $out_dir.'/data.sql', $str );
+	// Postgres style
+	$str = <<<EOD
+--
+-- DataTables Ajax and server-side processing database (Postgres)
+--
+DROP TABLE IF EXISTS datatables_demo;
+
+CREATE TABLE datatables_demo (
+	id         serial,
+	first_name text NOT NULL default '',
+	last_name  text NOT NULL default '',
+	position   text NOT NULL default '',
+	email      text NOT NULL default '',
+	office     text NOT NULL default '',
+	start_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+	age        integer,
+	salary     integer,
+	extn       integer,
+	PRIMARY KEY (id)
+);
+
+INSERT INTO datatables_demo
+		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
+	VALUES
+		$values;
+EOD;
+	file_put_contents( $out_dir.'/postgres.sql', $str.$values );
+
+	// SQLite style
+	$str = <<<EOD
+--
+-- DataTables Ajax and server-side processing database (SQLite)
+--
+DROP TABLE IF EXISTS datatables_demo;
+
+CREATE TABLE datatables_demo (
+	id         integer primary key,
+	first_name text NOT NULL default '',
+	last_name  text NOT NULL default '',
+	position   text NOT NULL default '',
+	email      text NOT NULL default '',
+	office     text NOT NULL default '',
+	start_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+	age        integer,
+	salary     integer,
+	extn       integer
+);
+
+INSERT INTO datatables_demo
+		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
+	VALUES
+		$values;
+EOD;
+	file_put_contents( $out_dir.'/sqlite.sql', $str.$values );
+
+	// SQLServer style
+	$str = <<<EOD
+--
+-- DataTables Ajax and server-side processing database (SQL Server)
+--
+IF OBJECT_ID('dbo.datatables_demo', 'U') IS NOT NULL
+  DROP TABLE dbo.datatables_demo;
+
+CREATE TABLE datatables_demo (
+	id         int NOT NULL identity,
+	first_name varchar(250) NOT NULL default '',
+	last_name  varchar(250) NOT NULL default '',
+	position   varchar(250) NOT NULL default '',
+	email      varchar(250) NOT NULL default '',
+	office     varchar(250) NOT NULL default '',
+	start_date datetime DEFAULT GETDATE(),
+	age        int,
+	salary     int,
+	extn       int,
+	PRIMARY KEY (id)
+);
+
+INSERT INTO datatables_demo
+		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
+	VALUES
+		$values;
+EOD;
+	file_put_contents( $out_dir.'/sqlserver.sql', $str.$values );
 }
 
 
@@ -730,9 +817,8 @@ function toc_structure ( &$examples )
 
 function path_resolve( $from, $to )
 {
-	//echo $from.'   '.$to."\n";
 	if ( ! $to ) {
-		echo "Empty $ to\n";
+		echo "Path - Empty to ($from)\n";
 		return '';
 	}
 	$from = path_simplify( $from );
