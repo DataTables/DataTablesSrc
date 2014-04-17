@@ -479,7 +479,6 @@ function _fnAddOptionsHtml ( oSettings )
 
 	// All DataTables are wrapped in a div
 	var insert = $('<div/>', {
-		role:    'grid',
 		id:      oSettings.sTableId+'_wrapper',
 		'class': classes.sWrapper + (oSettings.nTFoot ? '' : ' '+classes.sNoFooter)
 	} );
