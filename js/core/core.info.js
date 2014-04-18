@@ -22,9 +22,8 @@ function _fnFeatureHtmlInfo ( settings )
 		} );
 
 		n
-			.attr( 'role', 'alert' )
-			.attr( 'aria-live', 'polite' )
-			.attr( 'aria-relevant', 'all' );
+			.attr( 'role', 'status' )
+			.attr( 'aria-live', 'polite' );
 
 		// Table is described by our info div
 		$(settings.nTable).attr( 'aria-describedby', tid+'_info' );
