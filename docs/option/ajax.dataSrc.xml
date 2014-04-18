@@ -61,7 +61,7 @@ $('#example').dataTable( {
       for ( var i=0, ien=json.length ; i<ien ; i++ ) {
         json[i][0] = '<a href="/message/'+json[i][0]+'>View message</a>';
       }
-      return json;
+      return json.data;
     }
   }
 } );
