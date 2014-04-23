@@ -40,13 +40,13 @@
 	</type>
 	<type type="function">
 		<signature>render( data, type, row )</signature>
-		<parameter type="node" name="cell">
+		<parameter type="node" name="data">
 			The data for the cell (based on `dt-init columns.data`)
 		</parameter>
-		<parameter type="node" name="cellData">
+		<parameter type="node" name="type">
 			The type call data requested - this will be 'filter', 'display', 'type' or 'sort'.
 		</parameter>
-		<parameter type="node" name="rowData">
+		<parameter type="node" name="row">
 			The full data source for the row (not based on `dt-init columns.data`)
 		</parameter>
 		<returns>

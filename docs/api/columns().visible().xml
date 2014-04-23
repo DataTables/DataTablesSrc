@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>column().visible()</signature>
+		<signature>columns().visible()</signature>
 		<description>Get the visibility of the selected columns.</description>
 		<returns type="DataTables.Api">API instance with the result set containing a boolean value for each column the selector matched. The boolean values indicate: `true` if the column is visible, `false` if it is not.</returns>
 	</type>
