@@ -1027,7 +1027,7 @@ class Markdown_Parser {
 		$list .= "\n";
 		$result = $this->processListItems($list, $marker_any_re);
 		
-		$result = $this->hashBlock("<$list_type>\n" . $result . "</$list_type>");
+		$result = $this->hashBlock("<$list_type class=\"markdown\">\n" . $result . "</$list_type>");
 		return "\n". $result ."\n\n";
 	}
 
@@ -2382,7 +2382,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 		$col_count	= count($headers);
 		
 		# Write column headers.
-		$text = "<table class=\"basic\">\n";
+		$text = "<table class=\"basic markdown\">\n";
 		$text .= "<thead>\n";
 		$text .= "<tr>\n";
 		foreach ($headers as $n => $header)
