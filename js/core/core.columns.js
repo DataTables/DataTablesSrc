@@ -6,6 +6,7 @@
  */
 function _fnAddColumn( oSettings, nTh )
 {
+	// Add column to aoColumns array
 	var oDefaults = DataTable.defaults.column;
 	var iCol = oSettings.aoColumns.length;
 	var oCol = $.extend( {}, DataTable.models.oColumn, oDefaults, {
@@ -17,33 +18,13 @@ function _fnAddColumn( oSettings, nTh )
 	} );
 	oSettings.aoColumns.push( oCol );
 
-	/* Add a column specific filter */
-	if ( oSettings.aoPreSearchCols[ iCol ] === undefined || oSettings.aoPreSearchCols[ iCol ] === null )
-	{
-		oSettings.aoPreSearchCols[ iCol ] = $.extend( true, {}, DataTable.models.oSearch );
-	}
-	else
-	{
-		var oPre = oSettings.aoPreSearchCols[ iCol ];
+	// Add search object for column specific search. Note that the `searchCols[ iCol ]`
+	// passed into extend can be undefined. This allows the user to give a default
+	// with only some of the parameters defined, and also not give a default
+	var searchCols = oSettings.aoPreSearchCols;
+	searchCols[ iCol ] = $.extend( {}, DataTable.models.oSearch, searchCols[ iCol ] );
 
-		/* Don't require that the user must specify bRegex, bSmart or bCaseInsensitive */
-		if ( oPre.bRegex === undefined )
-		{
-			oPre.bRegex = true;
-		}
-
-		if ( oPre.bSmart === undefined )
-		{
-			oPre.bSmart = true;
-		}
-
-		if ( oPre.bCaseInsensitive === undefined )
-		{
-			oPre.bCaseInsensitive = true;
-		}
-	}
-
-	/* Use the column options function to initialise classes etc */
+	// Use the default column options function to initialise classes etc
 	_fnColumnOptions( oSettings, iCol, null );
 }
 
@@ -269,6 +250,11 @@ function _fnGetColumns( oSettings, sParam )
 }
 
 
+/**
+ * Calculate the 'type' of a column
+ *  @param {object} settings dataTables settings object
+ *  @memberof DataTable#oApi
+ */
 function _fnColumnTypes ( settings )
 {
 	var columns = settings.aoColumns;
@@ -336,6 +322,7 @@ function _fnColumnTypes ( settings )
 function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 {
 	var i, iLen, j, jLen, k, kLen, def;
+	var columns = oSettings.aoColumns;
 
 	// Column definitions with aTargets
 	if ( aoColDefs )
@@ -360,7 +347,7 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 				if ( typeof aTargets[j] === 'number' && aTargets[j] >= 0 )
 				{
 					/* Add columns that we don't yet know about */
-					while( oSettings.aoColumns.length <= aTargets[j] )
+					while( columns.length <= aTargets[j] )
 					{
 						_fnAddColumn( oSettings );
 					}
@@ -371,15 +358,15 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 				else if ( typeof aTargets[j] === 'number' && aTargets[j] < 0 )
 				{
 					/* Negative integer, right to left column counting */
-					fn( oSettings.aoColumns.length+aTargets[j], def );
+					fn( columns.length+aTargets[j], def );
 				}
 				else if ( typeof aTargets[j] === 'string' )
 				{
 					/* Class name matching on TH element */
-					for ( k=0, kLen=oSettings.aoColumns.length ; k<kLen ; k++ )
+					for ( k=0, kLen=columns.length ; k<kLen ; k++ )
 					{
 						if ( aTargets[j] == "_all" ||
-						     $(oSettings.aoColumns[k].nTh).hasClass( aTargets[j] ) )
+						     $(columns[k].nTh).hasClass( aTargets[j] ) )
 						{
 							fn( k, def );
 						}

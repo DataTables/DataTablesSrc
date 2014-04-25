@@ -26,7 +26,7 @@ function _fnFeatureHtmlProcessing ( settings )
 function _fnProcessingDisplay ( settings, show )
 {
 	if ( settings.oFeatures.bProcessing ) {
-		$(settings.aanFeatures.r).css( 'visibility', show ? 'visible' : 'hidden' );
+		$(settings.aanFeatures.r).css( 'display', show ? 'block' : 'none' );
 	}
 
 	_fnCallbackFire( settings, null, 'processing', [settings, show] );

@@ -1128,7 +1128,7 @@ DataTable.defaults = {
 	"fnStateLoadCallback": function ( settings ) {
 		try {
 			return JSON.parse(
-				localStorage.getItem('DataTables_'+settings.sInstance+'_'+window.location.pathname)
+				localStorage.getItem('DataTables_'+settings.sInstance+'_'+location.pathname)
 			);
 		} catch (e) {}
 	},
@@ -1228,7 +1228,7 @@ DataTable.defaults = {
 	"fnStateSaveCallback": function ( settings, data ) {
 		try {
 			localStorage.setItem(
-				'DataTables_'+settings.sInstance+'_'+window.location.pathname,
+				'DataTables_'+settings.sInstance+'_'+location.pathname,
 				JSON.stringify(data)
 			);
 		} catch (e) {}

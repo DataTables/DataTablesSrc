@@ -163,13 +163,15 @@ _fnCallbackReg( oSettings, 'aoFooterCallback',     oInit.fnFooterCallback,    'u
 _fnCallbackReg( oSettings, 'aoInitComplete',       oInit.fnInitComplete,      'user' );
 _fnCallbackReg( oSettings, 'aoPreDrawCallback',    oInit.fnPreDrawCallback,   'user' );
 
+var oClasses = oSettings.oClasses;
+
 // @todo Remove in 1.11
 if ( oInit.bJQueryUI )
 {
 	/* Use the JUI classes object for display. You could clone the oStdClasses object if
 	 * you want to have multiple tables with multiple independent classes
 	 */
-	$.extend( oSettings.oClasses, DataTable.ext.oJUIClasses, oInit.oClasses );
+	$.extend( oClasses, DataTable.ext.oJUIClasses, oInit.oClasses );
 
 	if ( oInit.sDom === defaults.sDom && defaults.sDom === "lfrtip" )
 	{
@@ -186,9 +188,9 @@ if ( oInit.bJQueryUI )
 }
 else
 {
-	$.extend( oSettings.oClasses, DataTable.ext.classes, oInit.oClasses );
+	$.extend( oClasses, DataTable.ext.classes, oInit.oClasses );
 }
-$(this).addClass( oSettings.oClasses.sTable );
+$(this).addClass( oClasses.sTable );
 
 /* Calculate the scroll bar width and cache it for use later on */
 if ( oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "" )
@@ -242,8 +244,8 @@ else
 if ( oInit.asStripeClasses === null )
 {
 	oSettings.asStripeClasses =[
-		oSettings.oClasses.sStripeOdd,
-		oSettings.oClasses.sStripeEven
+		oClasses.sStripeOdd,
+		oClasses.sStripeEven
 	];
 }
 
@@ -344,9 +346,10 @@ if ( oInit.bStateSave )
 // in case that has been altered, so the default sort reflects that option
 if ( oInit.aaSorting === undefined )
 {
-	for ( i=0, iLen=oSettings.aaSorting.length ; i<iLen ; i++ )
+	var sorting = oSettings.aaSorting;
+	for ( i=0, iLen=sorting.length ; i<iLen ; i++ )
 	{
-		oSettings.aaSorting[i][1] = oSettings.aoColumns[ i ].asSorting[0];
+		sorting[i][1] = oSettings.aoColumns[ i ].asSorting[0];
 	}
 }
 
@@ -415,7 +418,7 @@ if ( tfoot.length === 0 && captions.length > 0 && (oSettings.oScroll.sX !== "" |
 }
 
 if ( tfoot.length === 0 || tfoot.children().length === 0 ) {
-	$(this).addClass( oSettings.oClasses.sNoFooter );
+	$(this).addClass( oClasses.sNoFooter );
 }
 else if ( tfoot.length > 0 ) {
 	oSettings.nTFoot = tfoot[0];

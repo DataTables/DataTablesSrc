@@ -408,56 +408,15 @@ _Api.prototype = /** @lends DataTables.Api */{
 	// Does not return an API instance
 	reduce: __arrayProto.reduce || function ( fn, init )
 	{
-		var
-			value,
-			isSet = false;
-
-		if ( arguments.length > 1 ) {
-			value = init;
-			isSet = true;
-		}
-
-		for ( var i=0, ien=this.length ; i<ien ; i++ ) {
-			if ( ! this.hasOwnProperty(i) ) {
-				continue;
-			}
-
-			value = isSet ?
-				fn( value, this[i], i, this ) :
-				this[i];
-
-			isSet = true;
-		}
-
-		return value;
+		return _fnReduce( this, fn, init, 0, this.length, 1 );
 	},
 
 
 	reduceRight: __arrayProto.reduceRight || function ( fn, init )
 	{
-		var
-			value,
-			isSet = false;
-
-		if ( arguments.length > 1 ) {
-			value = init;
-			isSet = true;
-		}
-
-		for ( var i=this.length-1 ; i>=0 ; i-- ) {
-			if ( ! this.hasOwnProperty(i) ) {
-				continue;
-			}
-
-			value = isSet ?
-				fn( value, this[i], i, this ) :
-				this[i];
-
-			isSet = true;
-		}
-
-		return value;
+		return _fnReduce( this, fn, init, this.length-1, -1, -1 );
 	},
+
 
 	reverse: __arrayProto.reverse,
 
