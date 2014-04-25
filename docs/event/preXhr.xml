@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>preXhr</name>
+	<summary>Ajax event - fired before an Ajax request is made</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>function( e, settings, json )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="object" name="data">
+			Data that will be sent to the server in an object form
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		This event is triggered _prior_ to DataTables making an Ajax request to the server for data, and is thus the counterpart to the `dt-event xhr` event which is triggered _after_ the Ajax request has successfully returned data from the server.
+
+		The `dt-event preXhr` event is designed for use by plug-in authors who can listen for this event in their extension and send any additional data that might be required. It is very similar to the `dt-init ajax.data` in this ability, with that option typically being used by those writing initialisation code for their table, rather than plug-in authors.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+	</description>
+
+	<example title="Send additional data to the server on an Ajax request using an event"><![CDATA[
+$('#example')
+	.on('preXhr.dt', function ( e, settings, data ) {
+		data.sessionId = $('#sessionId').val();
+	} )
+	.dataTable( {
+		ajax: "data.json"
+	} );
+
+// Note that `ajax.data` could also be used to perform this action in this case
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="option">ajax.data</related>
+	<related type="api">ajax.json()</related>
+	<related type="event">xhr</related>
+</dt-event>

@@ -12,7 +12,7 @@
 		<parameter type="object" name="settings">
 			DataTables settings object
 		</parameter>
-		<parameter type="boolean" name="json">
+		<parameter type="object" name="json">
 			Data returned from the server
 		</parameter>
 		<scope>HTML table element</scope>
@@ -21,7 +21,7 @@
 	<description>
 		When working with Ajax data, it is often useful to know when DataTables has completed the loading of data, so you can either manipulate that data into the format DataTables expects based upon its configuration (`dt-init columns.data`) or so you can use the data contained in the JSON response from the server for other parts of the page.
 
-		This event can be seen as the event compliment to the `dt-init ajax` `dataSrc` option (which can also be used to manipulate and intercept the data from the Ajax request). Generally you would want to do data manipulation in the `dataSrc` callback and use events for intercepting the data.
+		This event can be seen as the event compliment to the `dt-init ajax.dataSrc` option (which can also be used to manipulate and intercept the data from the Ajax request). Generally you would want to do data manipulation in the `dataSrc` callback and use events for intercepting the data.
 
 		Note that this event is called before DataTables has processed the new data from the server, so the returned data will not have been drawn on page when this event fires.
 
@@ -56,4 +56,5 @@ $('#example')
 	<related type="api">ajax.json()</related>
 	<related type="api">ajax.url()</related>
 	<related type="api">ajax.reload()</related>
+	<related type="event">preXhr</related>
 </dt-event>

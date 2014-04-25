@@ -93,6 +93,9 @@ function _fnBuildAjax( oSettings, data, fn )
 	// Store the data submitted for the API
 	oSettings.oAjaxData = data;
 
+	// Allow plug-ins and external processes to modify the data
+	_fnCallbackFire( oSettings, null, 'preXhr', [oSettings, data] );
+
 	if ( oSettings.fnServerData )
 	{
 		// DataTables 1.9- compatibility
