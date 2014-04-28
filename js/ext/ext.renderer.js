@@ -47,7 +47,7 @@ $.extend( true, DataTable.ext.renderer, {
 					);
 
 				cell
-					.find( 'span' )
+					.find( 'span.'+classes.sSortIcon )
 					.removeClass(
 						classes.sSortJUIAsc +" "+
 						classes.sSortJUIDesc +" "+
@@ -64,4 +64,3 @@ $.extend( true, DataTable.ext.renderer, {
 		}
 	}
 } );
-
