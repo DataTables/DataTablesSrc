@@ -38,7 +38,7 @@ var __column_selector = function ( settings, selector, opts )
 			];
 		}
 		else {
-			var match = typeof match === 'string' ?
+			var match = typeof s === 'string' ?
 				s.match( __re_column_selector ) :
 				'';
 
