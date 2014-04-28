@@ -180,7 +180,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	{
 		$that = $this;
 		$text = preg_replace_callback(
-			'/^([a-z]{1,2}\-init |[a-z]{1,2}\-api |[a-z]{1,2}\-event |[a-z]{1,2}\-type |e\-field |e\-display |[dt]?\-tag |tag |[dt]?\-path |path |[dt]?\-string |string )?(.*)$/m',
+			'/^([a-z]{1,2}\-init |[a-z]{1,2}\-api |[a-z]{1,2}\-event |[a-z]{1,2}\-type |e\-field |e\-display |[dt]*\-tag |tag |[dt]*\-path |path |[dt]*\-string |string )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
 
@@ -206,13 +206,13 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				else if ( $tags === 'display' ) {
 					$formatted = $this->_docLink( $software, 'display', $matches[2], $html );
 				}
-				else if ( $tags === 'tag' || $tags === 'dt-tag' ) {
+				else if ( $tags === 'tag' || $tags === 'dt-tag' || $tags === '-tag' ) {
 					$formatted = '<code class="tag" title="HTML tag">'.$html.'</code>';
 				}
-				else if ( $tags === 'path' || $tags === 'dt-path' ) {
+				else if ( $tags === 'path' || $tags === 'dt-path' || $tags === '-path' ) {
 					$formatted = '<code class="path" title="File path">'.$html.'</code>';
 				}
-				else if ( $tags === 'string' || $tags === 'dt-string' ) {
+				else if ( $tags === 'string' || $tags === 'dt-string' || $tags === '-string' ) {
 					$formatted = '<code class="string" title="String">'.$html.'</code>';
 				}
 				else {
