@@ -320,6 +320,8 @@ function _fnSortAttachListener ( settings, attachTo, colIdx, callback )
 	var col = settings.aoColumns[ colIdx ];
 
 	_fnBindAction( attachTo, {}, function (e) {
+		e.preventDefault();
+
 		/* If the column is not sortable - don't to anything */
 		if ( col.bSortable === false ) {
 			return;
