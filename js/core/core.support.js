@@ -146,12 +146,14 @@ function _fnBindAction( n, oData, fn )
 				fn(e);
 			} )
 		.bind( 'keypress.DT', oData, function (e){
-			if ( e.which === 13 ) {
-				fn(e);
-			} } )
+				if ( e.which === 13 ) {
+					e.preventDefault();
+					fn(e);
+				}
+			} )
 		.bind( 'selectstart.DT', function () {
-			/* Take the brutal approach to cancelling text selection */
-			return false;
+				/* Take the brutal approach to cancelling text selection */
+				return false;
 			} );
 }
 
