@@ -10,13 +10,24 @@
 	<description>
 		Duration for which the saved state information is considered valid. After this period has elapsed the state will be returned to the default.
 
-		Please note that the value is given in seconds.
+		This option is also used to indicate to DataTables if `localStorage` or `sessionStorage` should be used for storing the table's state. When set to `-1` `sessionStorage` will be used, while for 0 or greater `localStorage` will be used.
+
+		The difference between the two storage APIs is that `sessionStorage` retains data only for the current session (i..e the current browser window). For more information on these two HTML APIs please refer to the [Mozilla Storage documentation](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage).
+
+		Please note that the value is given in seconds. The value `0` is a _special_ value as it indicates that the state can be stored and retrieved indefinitely with no time limit.
 	</description>
 
 	<example title="Set state duration to 1 day"><![CDATA[
 $('#example').dataTable( {
   "stateSave": true,
-  "stateDuration": 60*60*24;
+  "stateDuration": 60 * 60 * 24
+} );
+]]></example>
+
+	<example title="Use `sessionStorage`"><![CDATA[
+$('#example').dataTable( {
+  "stateSave": true,
+  "stateDuration": -1
 } );
 ]]></example>
 

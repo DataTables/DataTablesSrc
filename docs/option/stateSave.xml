@@ -7,7 +7,11 @@
 	<type type="boolean" />
 
 	<description>
-		Enable or disable state saving. When enabled a cookie will be used to save table display information such as pagination information, display length, filtering and sorting. As such when the end user reloads the page the display will match what they had previously set up.
+		Enable or disable state saving. When enabled aDataTables will storage state information such as pagination position, display length, filtering and sorting. When the end user reloads the page the table's state will be altered to match what they had previously set up.
+
+		Data storage for the state information in the browser is performed by use of the `localStorage` or `sessionStorage` HTML5 APIs. The `dt-init stateDuration` indicated to DataTables which API should be used (`localStorage`: 0 or greater, or `sessionStorage`: -1).
+
+		Please note that the use of the HTML5 APIs for data storage means that the built in state saving option **will not work with IE6/7** as these browsers do not support these APIs. Alternative options of using cookies or saving the state on the server through Ajax can be used through the `dt-init stateSaveCallback` and `dt-init stateLoadCallback` options.
 	</description>
 
 	<example title="Enable state saving"><![CDATA[

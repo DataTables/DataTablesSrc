@@ -1128,7 +1128,9 @@ DataTable.defaults = {
 	"fnStateLoadCallback": function ( settings ) {
 		try {
 			return JSON.parse(
-				localStorage.getItem('DataTables_'+settings.sInstance+'_'+location.pathname)
+				(settings.iStateDuration === -1 ? sessionStorage : localStorage).getItem(
+					'DataTables_'+settings.sInstance+'_'+location.pathname
+				)
 			);
 		} catch (e) {}
 	},
@@ -1227,9 +1229,9 @@ DataTable.defaults = {
 	 */
 	"fnStateSaveCallback": function ( settings, data ) {
 		try {
-			localStorage.setItem(
+			(settings.iStateDuration === -1 ? sessionStorage : localStorage).setItem(
 				'DataTables_'+settings.sInstance+'_'+location.pathname,
-				JSON.stringify(data)
+				JSON.stringify( data )
 			);
 		} catch (e) {}
 	},
