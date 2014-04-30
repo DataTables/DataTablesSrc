@@ -318,7 +318,7 @@ INSERT INTO `datatables_demo`
 	VALUES
 		$values;
 EOD;
-	file_put_contents( $out_dir.'/mysql.sql', $str.$values );
+	file_put_contents( $out_dir.'/mysql.sql', $str );
 
 	// Postgres style
 	$str = <<<EOD
@@ -346,7 +346,7 @@ INSERT INTO datatables_demo
 	VALUES
 		$values;
 EOD;
-	file_put_contents( $out_dir.'/postgres.sql', $str.$values );
+	file_put_contents( $out_dir.'/postgres.sql', $str );
 
 	// SQLite style
 	$str = <<<EOD
@@ -373,7 +373,7 @@ INSERT INTO datatables_demo
 	VALUES
 		$values;
 EOD;
-	file_put_contents( $out_dir.'/sqlite.sql', $str.$values );
+	file_put_contents( $out_dir.'/sqlite.sql', $str );
 
 	// SQLServer style
 	$str = <<<EOD
@@ -402,7 +402,7 @@ INSERT INTO datatables_demo
 	VALUES
 		$values;
 EOD;
-	file_put_contents( $out_dir.'/sqlserver.sql', $str.$values );
+	file_put_contents( $out_dir.'/sqlserver.sql', $str );
 }
 
 
