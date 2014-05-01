@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="option">
 	<name>deferLoading</name>
-	<summary>Saved state validity duration</summary>
+	<summary>Delay the loading of server-side data until second draw</summary>
 	<since>1.10</since>
 
 	<type type="integer">
