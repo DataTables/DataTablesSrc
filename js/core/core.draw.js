@@ -487,6 +487,7 @@ function _fnAddOptionsHtml ( oSettings )
 		'class': classes.sWrapper + (oSettings.nTFoot ? '' : ' '+classes.sNoFooter)
 	} );
 
+	oSettings.nHolding = holding[0];
 	oSettings.nTableWrapper = insert[0];
 	oSettings.nTableReinsertBefore = oSettings.nTable.nextSibling;
 
