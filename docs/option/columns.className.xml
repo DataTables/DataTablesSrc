@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="columns">
-	<name>columns.class</name>
+	<name>columns.className</name>
 	<summary>Class to assign to each cell in the column</summary>
 	<since>1.10</since>
 
@@ -10,18 +10,18 @@
 		Quite simply this option adds a class to each cell in a column, regardless of if the table source is from DOM, Javascript or Ajax. This can be useful for styling columns.
 	</description>
 
-	<example title="Using `class` to assign a class to the cells in the first column with `dt-init columnDefs`"><![CDATA[
+	<example title="Using `className` to assign a class to the cells in the first column with `dt-init columnDefs`"><![CDATA[
 $('#example').dataTable( {
   "columnDefs": [
-    { "class": "my_class", "targets": [ 0 ] }
+    { className: "my_class", "targets": [ 0 ] }
   ]
 } );
 ]]></example>
 
-	<example title="Using `class` to assign a class to the cells in the first column with `dt-init columns`"><![CDATA[
+	<example title="Using `className` to assign a class to the cells in the first column with `dt-init columns`"><![CDATA[
 $('#example').dataTable( {
   "columns": [
-    { "class": "my_class" },
+    { className: "my_class" },
     null,
     null,
     null,

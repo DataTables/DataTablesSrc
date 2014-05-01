@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="option">
 	<name>tabIndex</name>
-	<summary>Initial paging start point</summary>
+	<summary>Tab index control for keyboard navigation</summary>
 	<since>1.10</since>
 
 	<type type="integer" />

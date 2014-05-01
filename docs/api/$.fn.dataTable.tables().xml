@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>$.fn.dataTable.tables()</name>
+	<summary>Get all DataTables on the page</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>tables( [ visible ] )</signature>
+		<description>Get all DataTable tables that have been initialised - optionally you can select to get only currently visible tables.</description>
+		<param type="boolean" name="visible" default="false">
+			Flag to indicate if you want all tables on the page should be returned, or visible tables only.
+		</param>
+		<returns type="array">Array containing all matching DataTables</returns>
+	</type>
+
+	<description>
+		It can be useful to be able to get a list of the existing DataTables on a page, particularly in situations where the table has scrolling enabled and needs to have its column widths adjusted when it is made visible. This method provides that ability.
+
+		Please note that this is a **static** function and is accessed through the `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
+	</description>
+
+	<example title="Adjust the column widths of all visible tables"><![CDATA[
+
+var tables = $.fn.dataTable.tables(true);
+$( tables ).DataTable().columns.adjust();
+
+]]></example>
+
+</dt-api>
