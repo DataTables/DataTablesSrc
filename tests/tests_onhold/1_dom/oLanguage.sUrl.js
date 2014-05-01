@@ -23,7 +23,7 @@ $(document).ready( function () {
 			oSession.fnRestore();
 			oTable = $('#example').dataTable( {
 				"oLanguage": {
-					"sUrl": "../../../examples/examples_support/de_DE.txt"
+					"sUrl": "../../../examples/resources/de_DE.txt"
 				}
 			} );
 			oSettings = oTable.fnSettings();

@@ -9,13 +9,13 @@ $(document).ready( function () {
 	oTest.fnTest( 
 		"Check that the default data is sane",
 		null,
-		function () { return oSettings.asDataSearch.join(' ').match(/4.0/g).length == 3; }
+		function () { return $('#example tbody td:eq(1)').text() == 'Firefox 1.0'; }
 	);
 	
 	oTest.fnTest( 
 		"Remove the first data row, and check that hte search data has been updated",
-		function () { oTable.fnDeleteRow( 0 ); },
-		function () { return oSettings.asDataSearch.join(' ').match(/4.0/g).length == 2; }
+		function () { oTable.fnDeleteRow( $('#example tbody tr')[0] ); },
+		function () { return $('#example tbody td:eq(1)').text() == 'Firefox 1.5'; }
 	);
 	
 	oTest.fnTest( 

@@ -10,7 +10,7 @@ $(document).ready( function () {
 		"No fixed sorting by default",
 		null,
 		function () {
-			return oSettings.aaSortingFixed == null;
+			return oSettings.aaSortingFixed.length === 0;
 		}
 	);
 	

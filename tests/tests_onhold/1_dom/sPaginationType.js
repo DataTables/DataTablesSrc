@@ -7,21 +7,21 @@ $(document).ready( function () {
 	var oSettings = oTable.fnSettings();
 	
 	oTest.fnTest( 
-		"Check two button paging is the default",
+		"Check simple numbers paging is the default",
 		null,
-		function () { return oSettings.sPaginationType == "two_button"; }
+		function () { return oSettings.sPaginationType == "simple_numbers"; }
 	);
 	
 	oTest.fnTest( 
 		"Check class is applied",
 		null,
-		function () { return $('#example_paginate').hasClass('paging_two_button'); }
+		function () { return $('#example_paginate').hasClass('paging_simple_numbers'); }
 	);
 	
 	oTest.fnTest( 
-		"Two A elements are in the wrapper",
+		"8 A elements are in the wrapper for test data",
 		null,
-		function () { return $('#example_paginate a').length == 2; }
+		function () { return $('#example_paginate a').length == 8; }
 	);
 	
 	oTest.fnTest( 
@@ -39,19 +39,19 @@ $(document).ready( function () {
 	oTest.fnTest( 
 		"Previous button is disabled",
 		null,
-		function () { return $('#example_previous').hasClass('paginate_disabled_previous'); }
+		function () { return $('#example_previous').hasClass('disabled'); }
 	);
 	
 	oTest.fnTest( 
 		"Next button is enabled",
 		null,
-		function () { return $('#example_next').hasClass('paginate_enabled_next'); }
+		function () { return ! $('#example_next').hasClass('disabled'); }
 	);
 	
 	/* Don't test paging - that's done by the zero config test script. */
 	
 	
-	/* Two buttons paging */
+	/* Full buttons paging */
 	oTest.fnTest( 
 		"Can enabled full numbers paging",
 		function () {
@@ -89,8 +89,8 @@ $(document).ready( function () {
 	oTest.fnTest( 
 		"Go to two pages previous",
 		function () {
-			nPrevious.click();
-			nPrevious.click();
+			$('div.dataTables_paginate a.previous').click();
+			$('div.dataTables_paginate a.previous').click();
 		},
 		function () {
 			return document.getElementById('example_info').innerHTML == "Showing 31 to 40 of 57 entries";
@@ -100,7 +100,7 @@ $(document).ready( function () {
 	oTest.fnTest( 
 		"Next (second last) page",
 		function () {
-			nNext.click();
+			$('div.dataTables_paginate a.next').click();
 		},
 		function () {
 			return document.getElementById('example_info').innerHTML == "Showing 41 to 50 of 57 entries";
@@ -110,7 +110,7 @@ $(document).ready( function () {
 	oTest.fnTest( 
 		"Jump to first page",
 		function () {
-			nFirst.click();
+			$('div.dataTables_paginate a.first').click();
 		},
 		function () {
 			return document.getElementById('example_info').innerHTML == "Showing 1 to 10 of 57 entries";

@@ -18,7 +18,7 @@ $(document).ready( function () {
 		"Default sorting is first column asc",
 		null,
 		function () {
-			return oSettings.aaSorting[0].length == 3 && oSettings.aaSorting[0][0] == 0 &&
+			return oSettings.aaSorting[0].length == 2 && oSettings.aaSorting[0][0] == 0 &&
 				oSettings.aaSorting[0][1] == 'asc';
 		}
 	);

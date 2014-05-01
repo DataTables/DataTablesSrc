@@ -78,9 +78,10 @@ $(document).ready( function () {
 		"null source",
 		function () {
 			fn = table.oApi._fnGetObjectDataFn( null );
-			test = fn( [false, false, true, false] );
+			tmp = [false, false, true, false];
+			test = fn( tmp );
 		},
-		function () { return test===null }
+		function () { return test===tmp }
 	);
 
 	// nested objects
