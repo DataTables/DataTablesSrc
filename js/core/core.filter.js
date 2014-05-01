@@ -93,6 +93,10 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 		oPrevSearch.bSmart = oFilter.bSmart;
 		oPrevSearch.bCaseInsensitive = oFilter.bCaseInsensitive;
 	};
+	var fnRegex = function ( o ) {
+		// Backwards compatibility with the bEscapeRegex option
+		return o.bEscapeRegex !== undefined ? !o.bEscapeRegex : o.bRegex;
+	};
 
 	// Resolve any column types that are unknown due to addition or invalidation
 	// @todo As per sort - can this be moved into an event handler?
@@ -102,13 +106,13 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 	if ( _fnDataSource( oSettings ) != 'ssp' )
 	{
 		/* Global filter */
-		_fnFilter( oSettings, oInput.sSearch, iForce, oInput.bRegex, oInput.bSmart, oInput.bCaseInsensitive );
+		_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive );
 		fnSaveFilter( oInput );
 
 		/* Now do the individual column filter */
 		for ( var i=0 ; i<aoPrevSearch.length ; i++ )
 		{
-			_fnFilterColumn( oSettings, aoPrevSearch[i].sSearch, i, aoPrevSearch[i].bRegex,
+			_fnFilterColumn( oSettings, aoPrevSearch[i].sSearch, i, fnRegex(aoPrevSearch[i]),
 				aoPrevSearch[i].bSmart, aoPrevSearch[i].bCaseInsensitive );
 		}
 
