@@ -189,22 +189,22 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				$tags     = count( $flags ) > 1 ? $flags[1] : $flags[0];
 
 				if ( $tags === 'init' ) {
-					$formatted = $this->_docLink( $software, 'init', $matches[2], $html );
+					$formatted = $that->_docLink( $software, 'init', $matches[2], $html );
 				}
 				else if ( $tags === 'api' ) {
-					$formatted = $this->_docLink( $software, 'api', $matches[2], $html );
+					$formatted = $that->_docLink( $software, 'api', $matches[2], $html );
 				}
 				else if ( $tags === 'event' ) {
-					$formatted = $this->_docLink( $software, 'event', $matches[2], $html );
+					$formatted = $that->_docLink( $software, 'event', $matches[2], $html );
 				}
 				else if ( $tags === 'type' ) {
-					$formatted = $this->_docLink( $software, 'type', $matches[2], $html );
+					$formatted = $that->_docLink( $software, 'type', $matches[2], $html );
 				}
 				else if ( $tags === 'field' ) {
-					$formatted = $this->_docLink( $software, 'field', $matches[2], $html );
+					$formatted = $that->_docLink( $software, 'field', $matches[2], $html );
 				}
 				else if ( $tags === 'display' ) {
-					$formatted = $this->_docLink( $software, 'display', $matches[2], $html );
+					$formatted = $that->_docLink( $software, 'display', $matches[2], $html );
 				}
 				else if ( $tags === 'tag' || $tags === 'dt-tag' || $tags === '-tag' ) {
 					$formatted = '<code class="tag" title="HTML tag">'.$html.'</code>';
