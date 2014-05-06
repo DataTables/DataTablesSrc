@@ -10,7 +10,7 @@
 	<description>
 		This option allows the search abilities of DataTables to be enabled or disabled. Searching in DataTables is "smart" in that it allows the end user to input multiple words (space separated) and will match a row containing those words, even if not in the order that was specified (this allow matching across multiple columns).
 
-		Please be aware that technically the search in DataTables is actually a filter, since it is subtractive, removing data from the data set as the input becomes more complex. It is named "search" here, and else where in the DataTables API for consistency and to ensure there are no conflicts with other methods of a similar name (specific the `dt-api filter` API method).
+		Please be aware that technically the search in DataTables is actually a filter, since it is subtractive, removing data from the data set as the input becomes more complex. It is named "search" here, and else where in the DataTables API for consistency and to ensure there are no conflicts with other methods of a similar name (specific the `dt-api filter()` API method).
 
 		Note that if you wish to use the search abilities of DataTables this must remain `true` - to remove the default search input box whilst retaining searching abilities (for example you might use the `dt-api search()` method), use the `dt-init dom` option.
 	</description>
