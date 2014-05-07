@@ -12,7 +12,7 @@
     * As a column index (automatically assigned when the table is initialised)
     * With a name - assigned using this option!
 
-    This can make working with columns in the API very easy - for example to access the data from the column named `string location` you would use `table.column( 'location' ).data()`. For more information about column selectors, please see the `dt-api column()` documentation.
+    This can make working with columns in the API very easy - for example to access the data from the column named `string location` you would use `table.column( 'location:name' ).data()` - append the string `-string :name` to indicate to DataTables that it should perform a column name selector operation. For more information about column selectors, please see the `dt-api column()` documentation.
 	</description>
 
 	<example title="Setting column names with `dt-init columnDefs`"><![CDATA[
