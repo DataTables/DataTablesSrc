@@ -25,6 +25,22 @@ $('#example').dataTable( {
 ]]></example>
 
 	<related type="option">columnDefs</related>
+	<related type="option">columns.cellType</related>
+	<related type="option">columns.className</related>
+	<related type="option">columns.contentPadding</related>
+	<related type="option">columns.createdCell</related>
+	<related type="option">columns.data</related>
+	<related type="option">columns.defaultContent</related>
+	<related type="option">columns.name</related>
+	<related type="option">columns.orderable</related>
+	<related type="option">columns.orderData</related>
+	<related type="option">columns.orderDataType</related>
+	<related type="option">columns.render</related>
+	<related type="option">columns.searchable</related>
+	<related type="option">columns.title</related>
+	<related type="option">columns.type</related>
+	<related type="option">columns.visible</related>
+	<related type="option">columns.width</related>
 	<related type="api">column()</related>
 	<related type="api">columns()</related>
 </dt-option>
