@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="columns">
-	<name>columnDefs.target</name>
+	<name>columnDefs.targets</name>
 	<summary>Assign a column definition to one or more columns.</summary>
 	<since>1.10</since>
 
