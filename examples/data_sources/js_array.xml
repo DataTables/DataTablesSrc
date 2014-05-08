@@ -94,7 +94,7 @@ A `<table>` must be available on the page for DataTables to use. This examples s
 ]]></info>
 
 <demo-html>
-	<div id="demo"></div>
+	<div id="demo"> </div>
 </demo-html>
 
 </dt-example>
