@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columnDefs.target</name>
+	<summary>Assign a column definition to one or more columns.</summary>
+	<since>1.10</since>
+
+	<type type="array|string|integer" />
+
+	<description>
+		The `dt-init columnDefs` option allows a column definition object to be defined and then assigned to one or more columns in a DataTable, regardless of the order of the column definitions array, or the order of the columns in the table.
+
+		This `dt-init columnDefs.target` option provides the information required by DataTables for which columns in the table the column definition object should be applied.
+
+		It can be:
+
+		* 0 or a positive integer - column index counting from the left
+		* A negative integer - column index counting from the right
+		* A string - class name will be matched on the TH for the column (without a leading `.`)
+		* The string "_all" - all columns (i.e. assign a default)
+
+		Additionally, `targets` can be either a single option from the list above, or an array of options (the different types can be mixed in the array if required). For example `targets: [ -1, -2 ]` would target the last and second last columns in the table.
+
+		Please note that unlike all other column configuration options which can be applied to be `dt-init columns` and `dt-init columnDefs`, the `dt-init columnDefs.target` option can only be used in `dt-init columnDefs`.
+	</description>
+
+	<example title="Disable filtering on the first column"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [ {
+      "targets": 0,
+      "searchable": false
+    } ]
+} );
+]]></example>
+
+	<example title="Disable sorting on the first and third columns"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [ {
+      "targets": [ 0, 2 ],
+      "orderable": false
+    } ]
+} );
+]]></example>
+
+	<example title="Disable ordering on columns which have a class of 'nosort'"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [ {
+      "targets": 'nosort',
+      "orderable": false
+    } ]
+} );
+]]></example>
+
+	<related type="option">columnDefs</related>
+	<related type="api">column()</related>
+	<related type="api">columns()</related>
+</dt-option>
