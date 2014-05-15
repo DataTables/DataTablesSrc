@@ -70,6 +70,6 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-  <related type="option">sort</related>
-  <related type="option">filter</related>
+  <related type="option">ordering</related>
+  <related type="option">searching</related>
 </dt-option>
