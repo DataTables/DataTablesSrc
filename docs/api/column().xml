@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>column( columnSelector [, modifier ] )</signature>
 		<description>Select the column found by a the column selector</description>
-		<parameter type="cell-selector" name="columnSelector">
+		<parameter type="column-selector" name="columnSelector">
 			Column selector.
 		</parameter>
 		<parameter type="selector-modifier" name="modifier" default="">
