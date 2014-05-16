@@ -11,7 +11,7 @@
 
 		This parameter is an array of column definition objects, where the options available exactly match those for `dt-init columns` (see below for list of options in the related links).
 
-		In addition to the column property options, `dt-init columnDefs` requires a `targets` property to be set in each definition object (`dt-init columnDefs.target). This `targets` property tells DataTables which column(s) the definition should be applied to. It can be:
+		In addition to the column property options, `dt-init columnDefs` requires a `targets` property to be set in each definition object (`dt-init columnDefs.targets`). This `targets` property tells DataTables which column(s) the definition should be applied to. It can be:
 
 		* 0 or a positive integer - column index counting from the left
 		* A negative integer - column index counting from the right
@@ -30,7 +30,7 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-	<related type="option">columnDefs.target</related>
+	<related type="option">columnDefs.targets</related>
 	<related type="option">columns</related>
 	<related type="option">columns.cellType</related>
 	<related type="option">columns.className</related>
