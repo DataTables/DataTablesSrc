@@ -266,7 +266,7 @@ function _fnSortListener ( settings, colIdx, append, callback )
 
 	// Convert to 2D array if needed
 	if ( typeof sorting[0] === 'number' ) {
-		sorting = [ sorting ];
+		sorting = settings.aaSorting = [ sorting ];
 	}
 
 	// If appending the sort then we are multi-column sorting
