@@ -107,16 +107,16 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		attrTest(mDataSrc.sort) || attrTest(mDataSrc.type) || attrTest(mDataSrc.filter)
 	);
 
-	oCol.fnGetData = function (oData, sSpecific) {
-		var innerData = mData( oData, sSpecific );
+	oCol.fnGetData = function (rowData, type, meta) {
+		var innerData = mData( rowData, type, undefined, meta );
 
-		if ( oCol.mRender && (sSpecific && sSpecific !== '') )
-		{
-			return mRender( innerData, sSpecific, oData );
-		}
-		return innerData;
+		return mRender && type ?
+			mRender( innerData, type, rowData, meta ) :
+			innerData;
 	};
-	oCol.fnSetData = _fnSetObjectDataFn( mDataSrc );
+	oCol.fnSetData = function ( rowData, val, meta ) {
+		return _fnSetObjectDataFn( mDataSrc )( rowData, val, meta );
+	};
 
 	/* Feature sorting overrides column specific when off */
 	if ( !oSettings.oFeatures.bSort )

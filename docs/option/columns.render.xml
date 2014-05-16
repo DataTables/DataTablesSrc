@@ -39,7 +39,7 @@
 		</description>
 	</type>
 	<type type="function">
-		<signature>render( data, type, row )</signature>
+		<signature>render( data, type, row, meta )</signature>
 		<parameter type="node" name="data">
 			The data for the cell (based on `dt-init columns.data`)
 		</parameter>
@@ -48,6 +48,13 @@
 		</parameter>
 		<parameter type="node" name="row">
 			The full data source for the row (not based on `dt-init columns.data`)
+		</parameter>
+		<parameter type="object" name="meta" since="1.10.1">
+			An object that contains additional information about the cell being requested. This object contains the following properties:
+
+			* `row` - The row index for the requested cell. See `dt-api row().index()`.
+			* `col` - The column index for the requested cell. See `dt-api column().index()`.
+			* `settings` - The DataTables settings object for the table in question. This can be used to obtain an API instance if required.
 		</parameter>
 		<returns>
 			The return value from the function is what will be used for the data requested.
@@ -116,7 +123,7 @@ $('#example').dataTable( {
   "columnDefs": [ {
     "targets": 0,
     "data": "download_link",
-    "render": function ( data, type, full ) {
+    "render": function ( data, type, full, meta ) {
       return '<a href="'+data+'">Download</a>';
     }
   } ]

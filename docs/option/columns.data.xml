@@ -42,15 +42,22 @@
 		</description>
 	</type>
 	<type type="function">
-		<signature>data( data, type, row )</signature>
-		<parameter type="node" name="cell">
-			The `tag TD` node that has been created
+		<signature>data( row, type, set, meta )</signature>
+		<parameter type="array|object" name="row">
+			The data for the whole row
 		</parameter>
-		<parameter type="node" name="cellData">
-			The data for the cell
+		<parameter type="string" name="type">
+			The data type requested for the cell
 		</parameter>
-		<parameter type="node" name="rowData">
-			Data source object / array for the whole row
+		<parameter type="*" name="set">
+			Value to set if the `type` parameter is `-string set`. Otherwise, `-type undefined`.
+		</parameter>
+		<parameter type="object" name="meta" since="1.10.1">
+			An object that contains additional information about the cell being requested. This object contains the following properties:
+
+			* `row` - The row index for the requested cell. See `dt-api row().index()`.
+			* `col` - The column index for the requested cell. See `dt-api column().index()`.
+			* `settings` - The DataTables settings object for the table in question. This can be used to obtain an API instance if required.
 		</parameter>
 		<returns>
 			The return value from the function is not required when 'set' is the type of call, but otherwise the return is what will be used for the data requested.
@@ -67,7 +74,7 @@
 	<description>
 		This property can be used to read data from any data source property, including deeply nested objects / properties. `data` can be given in a number of different ways which effect its behaviour as documented above.
 
-		Note that `data` is a getter and setter option. If you just require formatting of data for output, you will likely want to use `dt-init columns.render` which is simply a getter and thus simpler to use!
+		Note that `data` is a getter and setter option. If you just require formatting of data for output, you will likely want to use `dt-init columns.render` which is simply a getter and thus much simpler to use!
 	</description>
 
 	<example title="Read table data from objects"><![CDATA[
@@ -119,22 +126,22 @@ $('#example').dataTable( {
 $('#example').dataTable( {
   "columnDefs": [ {
     "targets": 0,
-    "data": function ( source, type, val ) {
+    "data": function ( row, type, val, meta ) {
       if (type === 'set') {
-        source.price = val;
+        row.price = val;
         // Store the computed dislay and filter values for efficiency
-        source.price_display = val=="" ? "" : "$"+numberFormat(val);
-        source.price_filter  = val=="" ? "" : "$"+numberFormat(val)+" "+val;
+        row.price_display = val=="" ? "" : "$"+numberFormat(val);
+        row.price_filter  = val=="" ? "" : "$"+numberFormat(val)+" "+val;
         return;
       }
       else if (type === 'display') {
-        return source.price_display;
+        return row.price_display;
       }
       else if (type === 'filter') {
-        return source.price_filter;
+        return row.price_filter;
       }
       // 'sort', 'type' and undefined all just use the integer
-      return source.price;
+      return row.price;
     }
   } ]
 } );
