@@ -575,7 +575,6 @@ function _fnGetRowElements( settings, row )
 			d.push( contents );
 		}
 
-		tds.push( cell );
 		i++;
 	};
 
@@ -586,6 +585,7 @@ function _fnGetRowElements( settings, row )
 
 			if ( name == "TD" || name == "TH" ) {
 				cellProcess( td );
+				tds.push( td );
 			}
 
 			td = td.nextSibling;
