@@ -5,11 +5,7 @@
 <js lib="jquery datatables">
 <![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable( {
-		columnDefs: [
-			{ targets: 0, width: '50px' }
-		]
-	} );
+	$('#example').dataTable();
 } );
 ]]>
 </js>

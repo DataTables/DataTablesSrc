@@ -204,7 +204,6 @@ function _fnCallbackFire( settings, callbackArr, e, args )
 	}
 
 	if ( e !== null ) {
-		console.log( e+'.dt' );
 		$(settings.nTable).trigger( e+'.dt', args );
 	}
 
