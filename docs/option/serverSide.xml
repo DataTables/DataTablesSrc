@@ -16,7 +16,7 @@
 
 		By default DataTables operates in client-side processing mode, but can be switched to server-side processing mode using this option. Server-side processing is useful when working with large data sets (typically >50'000 records) as it means a database engine can be used to perform the sorting etc calculations - operations that modern database engines are highly optimised for, allowing use of DataTables with massive data sets (millions of rows).
 
-		When operating in server-side processing mode, DataTables will send parameters to the server indicating what data it needs (what page, what filters are applied etc), and also expects certain parameters back in order that it has all the information required to display the table. The client-server communication protocol DataTables uses is [detailed in the DataTables documentation](//datatables.net/usage/server-side).
+		When operating in server-side processing mode, DataTables will send parameters to the server indicating what data it needs (what page, what filters are applied etc), and also expects certain parameters back in order that it has all the information required to display the table. The client-server communication protocol DataTables uses is [detailed in the DataTables documentation](//datatables.net/manual/server-side).
 	</description>
 
 	<example title="Enable server-side processing"><![CDATA[

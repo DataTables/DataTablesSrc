@@ -54,7 +54,8 @@ function _fnCalculateColumnWidths ( oSettings )
 		// Otherwise construct a single row table with the widest node in the
 		// data, assign any user defined widths, then insert it into the DOM and
 		// allow the browser to do all the hard work of calculating table widths
-		var tmpTable = $( table.cloneNode( false ) )
+		var tmpTable = $(table).clone() // don't use cloneNode - IE8 will remove events on the main table
+			.empty()
 			.css( 'visibility', 'hidden' )
 			.removeAttr( 'id' )
 			.append( $(oSettings.nTHead).clone( false ) )

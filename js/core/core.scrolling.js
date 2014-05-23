@@ -441,8 +441,9 @@ function _fnScrollDraw ( settings )
 	/* Adjust the position of the header in case we loose the y-scrollbar */
 	divBody.scroll();
 
-	/* If sorting or filtering has occurred, jump the scrolling back to the top */
-	if ( settings.bSorted || settings.bFiltered ) {
+	// If sorting or filtering has occurred, jump the scrolling back to the top
+	// only if we aren't holding the position
+	if ( (settings.bSorted || settings.bFiltered) && ! settings._drawHold ) {
 		divBodyEl.scrollTop = 0;
 	}
 }

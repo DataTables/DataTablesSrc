@@ -461,11 +461,14 @@ function _fnReDraw( settings, holdPosition )
 		settings.aiDisplay = settings.aiDisplayMaster.slice();
 	}
 
+	settings._drawHold = holdPosition;
 	if ( holdPosition !== true ) {
 		settings._iDisplayStart = 0;
 	}
 
 	_fnDraw( settings );
+
+	settings._drawHold = false;
 }
 
 

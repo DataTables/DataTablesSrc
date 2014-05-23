@@ -193,7 +193,7 @@ function _fnCallbackReg( oSettings, sStore, fn, sName )
  *      trigger
  *  @memberof DataTable#oApi
  */
-function _fnCallbackFire( settings, callbackArr, event, args )
+function _fnCallbackFire( settings, callbackArr, e, args )
 {
 	var ret = [];
 
@@ -203,8 +203,9 @@ function _fnCallbackFire( settings, callbackArr, event, args )
 		} );
 	}
 
-	if ( event !== null ) {
-		$(settings.nTable).trigger( event+'.dt', args );
+	if ( e !== null ) {
+		console.log( e+'.dt' );
+		$(settings.nTable).trigger( e+'.dt', args );
 	}
 
 	return ret;
