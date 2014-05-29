@@ -10,7 +10,7 @@ When working with the selectors in `dt-api rows()`, `dt-api columns()` and `dt-a
 
 ### Server-side processing
 
-Special note on server-side processing: When using DataTables in server-side processing mode (`dt-init serverServer`) the `dt-type selector-modifier` has very little effect on the rows selected since all processing (ordering, search etc) is performed at the server. Therefore, the only rows that exist on the client-side are those shown in the table at any one time, and the selector can only select those rows which are on the current page.
+Special note on server-side processing: When using DataTables in server-side processing mode (`dt-init serverSide`) the `dt-type selector-modifier` has very little effect on the rows selected since all processing (ordering, search etc) is performed at the server. Therefore, the only rows that exist on the client-side are those shown in the table at any one time, and the selector can only select those rows which are on the current page.
 
 
 ### Options
