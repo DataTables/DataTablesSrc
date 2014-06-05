@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="html" order="2">
 
-<css lib="datatables" />
+<css lib="datatables">
+	tfoot input {
+		width: 100%;
+		padding: 3px;
+		box-sizing: border-box;
+	}
+</css>
 <js lib="jquery" />
 <js lib="datatables" />
 
@@ -17,13 +23,15 @@ $(document).ready(function() {
 
 	// DataTable
 	var table = $('#example').DataTable();
-	
+
 	// Apply the filter
-	$("#example tfoot input").on( 'keyup change', function () {
-		table
-			.column( $(this).parent().index()+':visible' )
-			.search( this.value )
-			.draw();
+	table.columns().eq( 0 ).each( function ( colIdx ) {
+		$( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+			table
+				.column( colIdx )
+				.search( this.value )
+				.draw();
+		} );
 	} );
 } );
 

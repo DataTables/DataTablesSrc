@@ -19,7 +19,9 @@
 			Treat as a regular expression (`true`) or not (default, `false`).
 		</parameter>
 		<parameter type="boolean" name="smart" default="true">
-			Perform smart search (default, `true`) or not (`false`). Note that to perform a "smart" search, DataTables uses regular expressions, so if you pass a regular expression in as the second parameter to this method, you will likely want to disable smart searching so the two different regular expressions don't conflict.
+			Perform smart search (default, `true`) or not (`false`). See below for a description of smart searching.
+
+			Note that to perform a smart search, DataTables uses regular expressions, so if enable regular expressions using the second parameter to this method, you will likely want to disable smart searching as the two regular expressions might otherwise conflict and cause unexpected results.
 		</parameter>
 		<parameter type="boolean" name="caseInsen" default="true">
 			Do case-insensitive matching (default, `true`) or not (`false`).
@@ -30,7 +32,15 @@
 	<description>
 		The ability to search a table for data is core to the concept of DataTables, as it allows data to be easily accessed by users. This method provides the ability to control the global search of a table through the API. The global search is performed across all searchable columns (see `dt-init columns.searchable` to disable searching for certain columns). If data is found matching in any column, then the whole row is matched and shown in the result set. Searching on individual columns can be performed using the `dt-api columns().search()` and `dt-api column().search()` methods.
 
-		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term is a search to avoid naming overlap with the `dt-api filter` helper method.
+		DataTables has a built in search algorithm referred to as "smart" searching and is designed to make searching the table data, easy to use for the end user. A smart search in DataTables provides the following abilities:
+
+		* Match words out of order. For example if you search for `-string Allan Fife` it would match a row containing the words `-string Allan` and `-string Fife`, regardless of the order or position that they appear in the table.
+		* Partial word matching. As DataTables provides on-the-fly filtering with immediate feedback to the user, parts of words can be matched in the result set. For example `-string All` will match `-string Allan`.
+		* Preserved text. DataTables 1.10 adds the ability to search for an exact phrase by enclosing the search text in double quotes. For example `-string "Allan Fife"` will match only text which contains the phrase `-string Allan Fife`. It will not match `-string Allan is in Fife`.
+
+		The smart search ability of DataTables is performed using a regular expression and can be enabled or disabled using the third parameter of this method. If you wish to use a custom regular expression, for example to perform whole word exact matching, you would need to enable the regular expression option (second parameter) and disable the smart search option (third parameter) to ensure that the two do not conflict.
+
+		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term is a search to avoid naming conflict with the `dt-api filter` helper method.
 
 		Please be aware that this method sets the search to apply to the table only - it does not actually perform the search. In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api search()` method's returned object - for example `table.search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
 	</description>

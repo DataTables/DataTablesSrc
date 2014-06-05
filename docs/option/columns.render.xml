@@ -130,5 +130,19 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
+	<example title="Show ellipsis for long strings"><![CDATA[
+$('#example').dataTable( {
+  "columnDefs": [ {
+    "targets": 4,
+    "data": "description",
+    "render": function ( data, type, full, meta ) {
+      return type === 'display' && data.length > 40 ?
+      	'<span title="'+data+'">'+data.substr( 0, 38 )+'...</span>' :
+      	data;
+    }
+  } ]
+} );
+]]></example>
+
 	<related type="option">columns.data</related>
 </dt-option>
