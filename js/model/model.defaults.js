@@ -1862,6 +1862,17 @@ DataTable.defaults = {
 
 
 		/**
+		 * Assign a `placeholder` attribute to the search `input` element
+		 *  @type string
+		 *  @default 
+		 *
+		 *  @dtopt Language
+		 *  @name DataTable.defaults.language.searchPlaceholder
+		 */
+		"sSearchPlaceholder": "",
+
+
+		/**
 		 * All of the language information can be stored in a file on the
 		 * server-side, which DataTables will look up if this parameter is passed.
 		 * It must store the URL of the language file, which is in a JSON format,

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.searchPlaceholder</name>
+	<summary>Search input element placeholder attribute</summary>
+	<since>1.10.1</since>
+
+	<type type="string" />
+	<default value="">
+		The default value for this parameter is an empty string, meaning that it will not be visible to the end user.
+	</default>
+
+	<description>
+		HTML 5 introduces a [placeholder](https://developer.mozilla.org/en/docs/Web/HTML/Element/Input#attr-placeholder) attribute for `-tag input type="text"` elements to provide informational text for an input control when it has no value.
+
+		This parameter can be used to set a value for the placeholder attribute in a DataTable's search input.
+	</description>
+
+	<example title="Set a placeholder"><![CDATA[
+$('#example').dataTable( {
+	language: {
+		searchPlaceholder: "Search records"
+	}
+} );
+]]></example>
+
+	<example title="Search input with no label - just the placeholder"><![CDATA[
+$('#example').dataTable( {
+	language: {
+		search: "_INPUT_",
+		searchPlaceholder: "Search..."
+	}
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">searching</related>
+	<related type="option">language.search</related>
+	<related type="api">search()</related>
+</dt-option>
