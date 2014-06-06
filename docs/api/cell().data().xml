@@ -21,7 +21,7 @@
 	<description>
 		This method is used to work with the data in the cell retrieved by the selector used in the `dt-api cell()` call. It can be used to get the existing data, or set a new value.
 
-		Note that when used as a setter, this method sets the data to apply to the table, but does not visually update the tables display to account for this new data. In order to have the table's display updated, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api cell().data()` method's returned object - for example `table.cell( 0, 0 ).data( 'Updated' ).draw();`.
+		Note that when used as a setter, this method sets the data to apply to the table, but does not update the table's internal caches of data until the `dt-api draw()` method is called. This can be done simply as a chained method of the `dt-api cell().data()` method's returned object - for example `table.cell( 0, 0 ).data( 'Updated' ).draw();`.
 	</description>
 
 	<example title="Alert the data from a cell when it is clicked upon"><![CDATA[
