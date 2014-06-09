@@ -36,7 +36,7 @@ DataTable.render = {
 				d = parseFloat( d );
 				var intPart = parseInt( d, 10 );
 				var floatPart = precision ?
-					(decimal+(d - intPart).toFixed( precision )).substring( 2 ):
+					decimal+(d - intPart).toFixed( precision ).substring( 2 ):
 					'';
 
 				return (prefix||'') +
