@@ -119,7 +119,7 @@ var _selector_row_indexes = function ( settings, opts )
 				tmp = $.inArray( i, displayFiltered );
 
 				if ((tmp === -1 && search == 'removed') ||
-					(tmp === 1  && search == 'applied') )
+					(tmp >= 0   && search == 'applied') )
 				{
 					a.push( i );
 				}
