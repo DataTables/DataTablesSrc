@@ -866,7 +866,7 @@ class Markdown_Parser {
 		$alt_text = $this->encodeAttribute($alt_text);
 		if (isset($this->urls[$link_id])) {
 			$url = $this->encodeAttribute($this->urls[$link_id]);
-			$result = "<img src=\"$url\" alt=\"$alt_text\"";
+			$result = "<img src=\"$url\" alt=\"$alt_text\" class=\"markdown\"";
 			if (isset($this->titles[$link_id])) {
 				$title = $this->titles[$link_id];
 				$title = $this->encodeAttribute($title);
@@ -890,7 +890,7 @@ class Markdown_Parser {
 
 		$alt_text = $this->encodeAttribute($alt_text);
 		$url = $this->encodeAttribute($url);
-		$result = "<img src=\"$url\" alt=\"$alt_text\"";
+		$result = "<img src=\"$url\" alt=\"$alt_text\" class=\"markdown\"";
 		if (isset($title)) {
 			$title = $this->encodeAttribute($title);
 			$result .=  " title=\"$title\""; # $title already quoted
