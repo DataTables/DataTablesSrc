@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="tables">
-	<name>table().containers()</name>
+	<name>tables().containers()</name>
 	<summary>Get the `-tag div` container nodes for the tables in the API's context</summary>
 	<since>1.10.1</since>
 
