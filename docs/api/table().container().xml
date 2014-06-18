@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="tables">
+	<name>table().container()</name>
+	<summary>Get the `-tag div` container node for the table in the API's context</summary>
+	<since>1.10.1</since>
+
+	<type type="function">
+		<signature>table().container()</signature>
+		<description>Get the `-tag div` container node</description>
+		<returns type="node">HTML `-tag div` node.</returns>
+	</type>
+
+	<description>
+		DataTables places the main table and all of the various component display controls for the table inside a container element, a `-tag div` element with a class of `-string dataTables_wrapper` (by default).
+
+		This method, and its plural counterpart, provide the ability to obtain that container node, which can be used by plug-in authors to add additional controls to the table.
+	</description>
+
+	<example title="Add a class to a single table container node"><![CDATA[
+var table = $('#example').DataTable();
+
+$( tables.table().container() )
+	.addClass( 'selectable' );
+]]></example>
+
+	<related type="api">tables().containers()</related>
+</dt-api>

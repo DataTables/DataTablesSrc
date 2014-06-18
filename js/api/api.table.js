@@ -89,3 +89,10 @@ _api_registerPlural( 'tables().footer()', 'table().footer()' , function () {
 	} );
 } );
 
+
+_api_registerPlural( 'tables().containers()', 'table().container()' , function () {
+	return this.iterator( 'table', function ( ctx ) {
+		return ctx.nTableWrapper;
+	} );
+} );
+
