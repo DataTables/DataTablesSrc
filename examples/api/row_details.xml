@@ -59,7 +59,7 @@ $(document).ready(function() {
 
 		if ( row.child.isShown() ) {
 			// This row is already open - close it
-			row.child.hide();
+			row.child( false );
 			tr.removeClass('shown');
 		}
 		else {

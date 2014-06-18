@@ -44,26 +44,42 @@ var __details_add = function ( ctx, row, data, klass )
 };
 
 
-var __details_display = function ( show ) {
-	var ctx = this.context;
+var __details_remove = function ( api )
+{
+	var ctx = api.context;
 
-	if ( ctx.length && this.length ) {
-		var row = ctx[0].aoData[ this[0] ];
+	if ( ctx.length && api.length ) {
+		var row = ctx[0].aoData[ api[0] ];
+
+		if ( row._details ) {
+			row._details.remove();
+
+			row._detailsShow = undefined;
+			row._details = undefined;
+		}
+	}
+};
+
+
+var __details_display = function ( api, show ) {
+	var ctx = api.context;
+
+	if ( ctx.length && api.length ) {
+		var row = ctx[0].aoData[ api[0] ];
 
 		if ( row._details ) {
 			row._detailsShow = show;
+
 			if ( show ) {
 				row._details.insertAfter( row.nTr );
 			}
 			else {
-				row._details.remove();
+				row._details.detach();
 			}
 
 			__details_events( ctx[0] );
 		}
 	}
-
-	return this;
 };
 
 
@@ -73,15 +89,17 @@ var __details_events = function ( settings )
 	var namespace = '.dt.DT_details';
 	var drawEvent = 'draw'+namespace;
 	var colvisEvent = 'column-visibility'+namespace;
+	var destroyEvent = 'destroy'+namespace;
+	var data = settings.aoData;
 
-	api.off( drawEvent +' '+ colvisEvent );
+	api.off( drawEvent +' '+ colvisEvent +' '+ destroyEvent );
 
-	if ( _pluck( settings.aoData, '_details' ).length > 0 ) {
+	if ( _pluck( data, '_details' ).length > 0 ) {
 		// On each draw, insert the required elements into the document
 		api.on( drawEvent, function () {
 			api.rows( {page:'current'} ).eq(0).each( function (idx) {
 				// Internal data grab
-				var row = settings.aoData[ idx ];
+				var row = data[ idx ];
 
 				if ( row._detailsShow ) {
 					row._details.insertAfter( row.nTr );
@@ -95,22 +113,36 @@ var __details_events = function ( settings )
 			// a colspan)
 			var row, visible = _fnVisbleColumns( settings );
 
-			for ( var i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
-				row = settings.aoData[i];
+			for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+				row = data[i];
 
 				if ( row._details ) {
 					row._details.children('td[colspan]').attr('colspan', visible );
 				}
 			}
 		} );
+
+		// Table destroyed - nuke any child rows
+		api.on( destroyEvent, function () {
+			for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+				if ( data[i]._details ) {
+					__details_remove( data[i] );
+				}
+			}
+		} );
 	}
 };
+
+// Strings for the method names to help minification
+var _emp = '';
+var _child_obj = _emp+'row().child';
+var _child_mth = _child_obj+'()';
 
 // data can be:
 //  tr
 //  string
 //  jQuery or array of any of the above
-_api_register( 'row().child()', function ( data, klass ) {
+_api_register( _child_mth, function ( data, klass ) {
 	var ctx = this.context;
 
 	if ( data === undefined ) {
@@ -118,6 +150,14 @@ _api_register( 'row().child()', function ( data, klass ) {
 		return ctx.length && this.length ?
 			ctx[0].aoData[ this[0] ]._details :
 			undefined;
+	}
+	else if ( data === true ) {
+		// show
+		this.child.show();
+	}
+	else if ( data === false ) {
+		// remove
+		__details_remove( this );
 	}
 	else if ( ctx.length && this.length ) {
 		// set
@@ -127,23 +167,35 @@ _api_register( 'row().child()', function ( data, klass ) {
 	return this;
 } );
 
+
 _api_register( [
-	'row().child.show()',
-	'row().child().show()'
-], function () {
-	__details_display.call( this, true );
+	_child_obj+'.show()',
+	_child_mth+'.show()' // only when `child()` was called with parameters (without
+], function ( show ) {   // it returns an object and this method is not executed)
+	__details_display( this, true );
 	return this;
 } );
 
+
 _api_register( [
-	'row().child.hide()',
-	'row().child().hide()'
-], function () {
-	__details_display.call( this, false );
+	_child_obj+'.hide()',
+	_child_mth+'.hide()' // only when `child()` was called with parameters (without
+], function () {         // it returns an object and this method is not executed)
+	__details_display( this, false );
 	return this;
 } );
 
-_api_register( 'row().child.isShown()', function () {
+
+_api_register( [
+	_child_obj+'.remove()',
+	_child_mth+'.remove()' // only when `child()` was called with parameters (without
+], function () {           // it returns an object and this method is not executed)
+	__details_remove( this );
+	return this;
+} );
+
+
+_api_register( _child_obj+'.isShown()', function () {
 	var ctx = this.context;
 
 	if ( ctx.length && this.length ) {

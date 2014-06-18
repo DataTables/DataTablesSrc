@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="rows">
-	<name>row().child().show()</name>
-	<summary>Make newly defined child rows visible</summary>
-	<since>1.10</since>
+	<name>row().child().remove()</name>
+	<summary>Destroy child row(s) for the selected parent row</summary>
+	<since>1.10.1</since>
 
 	<type type="function">
-		<signature>row().child().show()</signature>
-		<description>Show the child row(s) of a parent row</description>
+		<signature>row().child().remove()</signature>
+		<description>Remove child row(s) from display and release any allocated memory</description>
 		<returns type="DataTables.Api">DataTables API instance.</returns>
 	</type>
 
 	<description>
-		When using `dt-api row().child()` to attach child rows to a parent row, you will often want to make the child rows immediately visible. This method provides that ability as a simple chaining method.
+		This method is used to remove child row(s) from a parent row, removing them from the displayed table (if they are currently displayed) and releasing the memory allocated for these rows.
 
 		Please note that this method is only available when `dt-api row().child()` is called with a parameter set. This is because `dt-api row().child()` will return the child rows if called with no parameters, which is either a `-type jQuery jQuery` object or `-type undefined`. When called with a parameter `dt-api row().child()` returns a `-type DataTables.Api` instance. If you need to display a child row without any parameters being set use `dt-api row().child.show()`.
 
@@ -26,8 +26,8 @@ $('#example tbody').on('click', 'td.details-control', function () {
 	var row = table.row( tr );
 
 	if ( row.child.isShown() ) {
-		// This row is already open - close it
-		row.child.hide();
+		// This row is already open - remove it
+		row.child( false ).remove();
 		tr.removeClass('shown');
 	}
 	else {

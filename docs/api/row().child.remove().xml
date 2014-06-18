@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>row().child.remove()</name>
+	<summary>Destroy child row(s) for the selected parent row</summary>
+	<since>1.10.1</since>
+
+	<type type="function">
+		<signature>row().child.remove()</signature>
+		<description>Remove child row(s) from display and release any allocated memory</description>
+		<returns type="DataTables.Api">DataTables API instance.</returns>
+	</type>
+
+	<description>
+		This method is used to remove child row(s) from a parent row, removing them from the displayed table (if they are currently displayed) and releasing the memory allocated for these rows.
+
+		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called immanently after. The child row(s) are inserted into the table without requiring that DataTables redraw.
+	</description>
+
+	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example tbody').on('click', 'td.details-control', function () {
+	var tr = $(this).parents('tr');
+	var row = table.row( tr );
+
+	if ( row.child.isShown() ) {
+		// This row is already open - remove it
+		row.child.remove();
+		tr.removeClass('shown');
+	}
+	else {
+		// Open this row (the format() function would return the data to be shown)
+		row.child( format(row.data()) ).show();
+		tr.addClass('shown');
+	}
+} );
+
+]]></example>
+
+</dt-api>
