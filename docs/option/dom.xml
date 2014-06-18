@@ -107,9 +107,9 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-	<related type="option">filter</related>
+	<related type="option">searching</related>
 	<related type="option">info</related>
-	<related type="option">sort</related>
+	<related type="option">ordering</related>
 	<related type="option">processing</related>
-	<related type="option">paginate</related>
+	<related type="option">paging</related>
 </dt-option>
