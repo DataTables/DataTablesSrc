@@ -35,7 +35,9 @@
 			* `array` - Multiple child rows can be added at a single time by passing any of the above options in as an array. For example you might pass in an array with two string elements in it to create two child rows with the string content used for each.
 		</parameter>
 		<parameter type="string" name="className">
-			Class name that is added to the cell node(s) of the child row(s). This is useful to add additional styling information to the child row to indicate that while it is part of the table's data, it is additional information beyond what is normally shown.
+			Class name that is added to the `-tag td` cell node(s) of the child row(s). As of 1.10.1 it is also added to the `-tag tr` row node of the child row(s).
+
+			This is useful to add additional styling information to the child row to indicate that while it is part of the table's data, it is additional information beyond what is normally shown.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>
 	</type>
