@@ -42,6 +42,17 @@ function css_compress {
 	fi
 }
 
+# Compile a SASS file
+#
+# $1 - string - Full path to the file to compile
+function scss_compile {
+	FILE=$(basename $1 .scss)
+	DIR=$(dirname $1)
+
+	echo_msg "SCSS compiling $FILE.scss"
+	sass --scss --stop-on-error --style expanded $DIR/$FILE.scss > $DIR/$FILE.css
+}
+
 # Will compress a JS file using Closure compiler, saving the new file into the
 # same directory as the uncompressed file, but with `.min.js` as the extension.
 #
