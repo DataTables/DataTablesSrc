@@ -38,7 +38,7 @@ $dir_names = array(
 	'bubble-editing' => 'Bubble editing',
 	'inline-editing' => 'Inline editing',
 	'standalone'     => 'Standalone'
-);
+); // for extensions example ordering, see below
 
 
 /*
@@ -120,8 +120,8 @@ $pluginsHash = $versions['Plugins']['release']['version'];
 
 DT_Example::$lookup_libraries['css']['datatables-bootstrap']  = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/bootstrap/3/dataTables.bootstrap.css';
 DT_Example::$lookup_libraries['js' ]['datatables-bootstrap']  = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/bootstrap/3/dataTables.bootstrap.js';
-DT_Example::$lookup_libraries['css']['datatables-foundation'] = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/foundation/3/dataTables.foundation.css';
-DT_Example::$lookup_libraries['js' ]['datatables-foundation'] = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/foundation/3/dataTables.foundation.js';
+DT_Example::$lookup_libraries['css']['datatables-foundation'] = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/foundation/dataTables.foundation.css';
+DT_Example::$lookup_libraries['js' ]['datatables-foundation'] = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/foundation/dataTables.foundation.js';
 DT_Example::$lookup_libraries['css']['datatables-jqueryui']   = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/jqueryui/dataTables.jqueryui.css';
 DT_Example::$lookup_libraries['js' ]['datatables-jqueryui']   = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/jqueryui/dataTables.jqueryui.js';
 DT_Example::$lookup_libraries['css']['font-awesome']          = '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css';
@@ -225,6 +225,22 @@ foreach ($options as $key => $value) {
 		default:
 			break;
 	}
+}
+
+if ( strpos( $dir_input, 'Responsive' ) ) {
+	$dir_order = array(
+		'initialisation',
+		'display-control',
+		'child-rows',
+		'styling'
+	);
+
+	$dir_names = array(
+		'initialisation'  => "Basic initialisation",
+		'display-control' => "Display control",
+		'child-rows'      => "Child rows",
+		'styling'         => "Styling"
+	);
 }
 
 //print_r( DT_Example::$lookup_libraries );

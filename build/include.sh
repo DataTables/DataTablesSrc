@@ -139,7 +139,7 @@ function js_require {
 function examples_process {
 	php ${DT_SRC}/build/examples.php \
 		-d \
-		-o $OUT_DIR \
+		-o $1 \
 		-u ${DT_SRC}/build/templates/example_index.html \
 		-t ${DT_SRC}/build/templates/example.html \
 		-c "demo:${DT_BUILT}/examples/resources/demo.css" \
