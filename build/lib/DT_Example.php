@@ -760,6 +760,14 @@ DT_Example::$tables['ajax-details'] = array(
 );
 
 
+DT_Example::$tables['html-details'] = array(
+	'columns' => array( '', 'first_name', 'last_name', 'position', 'office', 'age', 'start_date', 'salary', 'extn' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+
 DT_Example::$tables['ajax-thin'] = array(
 	'columns' => array( 'name', 'position', 'office', 'salary' ),
 	'header'  => true,
