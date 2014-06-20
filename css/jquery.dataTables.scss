@@ -267,6 +267,29 @@ table.dataTable {
 	&.no-footer {
 		border-bottom: $table-header-border;
 	}
+
+	&.no-wrap {
+		th, td {
+			white-space: nowrap;
+		}
+	}
+
+	&.compact {
+		thead th,
+		thead td {
+			padding: 5px 9px;
+		}
+
+		tfoot th,
+		tfoot td {
+			padding: 5px 9px 3px 9px;
+		}
+
+		tbody th,
+		tbody td {
+			padding: 4px 5px;
+		}
+	}
 }
 
 // Its not uncommon to use * {border-box} now, but it messes up the column width

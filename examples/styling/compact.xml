@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="4" table-class="display compact">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Base style - compact</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').dataTable();
+} );
+]]></js>
+
+<info><![CDATA[
+
+The `compact` class is used to reduce the amount of white-space the default styling for the DataTable uses, increasing the information density on screen, as shown below.
+
+]]></info>
+
+</dt-example>

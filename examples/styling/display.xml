@@ -16,13 +16,14 @@ $(document).ready(function() {
 
 The DataTables default style file has a number of features which can be enabled based on the class name of the table. These features are:
 
-* `stripe` - Zebra striped rows
 * `cell-border` - Cells with a border
-* `row-border` - Rows with a border (only one of `cell-border` and `row-border` should be used for a single table.
-* `order-column` - Highlight the cells in the column currently being ordering upon
+* `compact` - Increase the data density by reducing the cell padding
 * `hover` - Highlight a row when hovered over
+* `order-column` - Highlight the cells in the column currently being ordering upon
+* `row-border` - Rows with a border
+* `stripe` - Zebra striped rows
 
-These classes can be combined (simply assign multiple classes to the table) to build up the styling that you want for your table.
+These classes can be combined (simply assign multiple classes to the table) to build up the styling that you want for your table. For more information on the options in the DataTables stylesheet, please [refer to the DataTables styling manual](//datatables.net/manual/styling/classes)
 
 The `display` class is a short-cut for specifying the `stripe hover order-column row-border` as the class name for a table. This is shown in the example below.
 
