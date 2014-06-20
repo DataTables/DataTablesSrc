@@ -23,7 +23,8 @@ var _api_registerPlural; // DataTable.Api.registerPlural
 var _re_dic = {};
 var _re_new_lines = /[\r\n]/g;
 var _re_html = /<.*?>/g;
-var _re_date_start = /^[\d\+\-a-zA-Z]/;
+var _re_date_start = /^[\w\+\-]/;
+var _re_date_end = /[\w\+\-]$/;
 
 // Escape regular expression special characters
 var _re_escape_regex = new RegExp( '(\\' + [ '/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-' ].join('|\\') + ')', 'g' );

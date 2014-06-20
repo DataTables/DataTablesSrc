@@ -14,10 +14,10 @@ $.extend( DataTable.ext.type.detect, [
 	// Dates (only those recognised by the browser's Date.parse)
 	function ( d, settings )
 	{
-		// V8 will remove any unknown characters at the start of the expression,
-		// leading to false matches such as `$245.12` being a valid date. See
-		// forum thread 18941 for detail.
-		if ( d && ! _re_date_start.test(d) ) {
+		// V8 will remove any unknown characters at the start and end of the
+		// expression, leading to false matches such as `$245.12` or `10%` being
+		// a valid date. See forum thread 18941 for detail.
+		if ( d && ( ! _re_date_start.test(d) || ! _re_date_end.test(d) ) ) {
 			return null;
 		}
 		var parsed = Date.parse(d);
