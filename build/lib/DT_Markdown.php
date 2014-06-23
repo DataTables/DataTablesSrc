@@ -107,6 +107,12 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				$tag = 'KT';
 				$lang = 'KeyTable';
 				break;
+			
+			case 'r': //
+				$host = '//datatables.net/extensions/responsive/reference';
+				$tag = 'R';
+				$lang = 'Responsive';
+				break;
 
 			case 's':
 				$host = '//datatables.net/extensions/scroller/reference';
