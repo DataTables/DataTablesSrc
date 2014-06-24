@@ -49,7 +49,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		oCol.sWidthOrig = th.attr('width') || null;
 
 		// Style attribute
-		var t = (th.attr('style') || '').match(/width:\s*(\d+[pxem%])/);
+		var t = (th.attr('style') || '').match(/width:\s*(\d+[pxem%]+)/);
 		if ( t ) {
 			oCol.sWidthOrig = t[1];
 		}
