@@ -62,15 +62,17 @@ function _fnFeatureHtmlFilter ( settings )
 		.attr('aria-controls', tableId);
 
 	// Update the input elements whenever the table is filtered
-	$(settings.nTable).on( 'search.dt.DT', function () {
-		// IE9 throws an 'unknown error' if document.activeElement is used
-		// inside an iframe or frame...
-		try {
-			if ( jqFilter[0] !== document.activeElement ) {
-				jqFilter.val( previousSearch.sSearch );
+	$(settings.nTable).on( 'search.dt.DT', function ( ev, s ) {
+		if ( settings === s ) {
+			// IE9 throws an 'unknown error' if document.activeElement is used
+			// inside an iframe or frame...
+			try {
+				if ( jqFilter[0] !== document.activeElement ) {
+					jqFilter.val( previousSearch.sSearch );
+				}
 			}
+			catch ( e ) {}
 		}
-		catch ( e ) {}
 	} );
 
 	return filter[0];

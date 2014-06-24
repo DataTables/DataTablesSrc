@@ -96,7 +96,11 @@ var __details_events = function ( settings )
 
 	if ( _pluck( data, '_details' ).length > 0 ) {
 		// On each draw, insert the required elements into the document
-		api.on( drawEvent, function () {
+		api.on( drawEvent, function ( e, ctx ) {
+			if ( settings !== ctx ) {
+				return;
+			}
+
 			api.rows( {page:'current'} ).eq(0).each( function (idx) {
 				// Internal data grab
 				var row = data[ idx ];
@@ -108,10 +112,14 @@ var __details_events = function ( settings )
 		} );
 
 		// Column visibility change - update the colspan
-		api.on( colvisEvent, function ( e, settings, idx, vis ) {
+		api.on( colvisEvent, function ( e, ctx, idx, vis ) {
+			if ( settings !== ctx ) {
+				return;
+			}
+
 			// Update the colspan for the details rows (note, only if it already has
 			// a colspan)
-			var row, visible = _fnVisbleColumns( settings );
+			var row, visible = _fnVisbleColumns( ctx );
 
 			for ( var i=0, ien=data.length ; i<ien ; i++ ) {
 				row = data[i];
@@ -123,7 +131,11 @@ var __details_events = function ( settings )
 		} );
 
 		// Table destroyed - nuke any child rows
-		api.on( destroyEvent, function () {
+		api.on( destroyEvent, function ( e, ctx ) {
+			if ( settings !== ctx ) {
+				return;
+			}
+
 			for ( var i=0, ien=data.length ; i<ien ; i++ ) {
 				if ( data[i]._details ) {
 					__details_remove( data[i] );

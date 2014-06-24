@@ -8,7 +8,11 @@ $.extend( true, DataTable.ext.renderer, {
 			// `DT` namespace will allow the event to be removed automatically
 			// on destroy, while the `dt` namespaced event is the one we are
 			// listening for
-			$(settings.nTable).on( 'order.dt.DT', function ( e, settings, sorting, columns ) {
+			$(settings.nTable).on( 'order.dt.DT', function ( e, ctx, sorting, columns ) {
+				if ( settings !== ctx ) { // need to check this this is the host
+					return;               // table, not a nested one
+				}
+
 				var colIdx = column.idx;
 
 				cell
@@ -37,7 +41,11 @@ $.extend( true, DataTable.ext.renderer, {
 				.appendTo( cell );
 
 			// Attach a sort listener to update on sort
-			$(settings.nTable).on( 'order.dt.DT', function ( e, settings, sorting, columns ) {
+			$(settings.nTable).on( 'order.dt.DT', function ( e, ctx, sorting, columns ) {
+				if ( settings !== ctx ) {
+					return;
+				}
+
 				cell
 					.removeClass( classes.sSortAsc +" "+classes.sSortDesc )
 					.addClass( columns[ colIdx ] == 'asc' ?
