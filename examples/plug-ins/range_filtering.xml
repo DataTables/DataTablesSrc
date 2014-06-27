@@ -11,14 +11,14 @@
 /* Custom filtering function which will search data in column four between two values */
 $.fn.dataTable.ext.search.push(
 	function( settings, data, dataIndex ) {
-		var min = $('#min').val() * 1;
-		var max = $('#max').val() * 1;
+		var min = parseInt( $('#min').val(), 10 );
+		var max = parseInt( $('#max').val(), 10 );
 		var age = parseFloat( data[3] ) || 0; // use data for the age column
 
-		if ( ( min == '' && max == '' ) ||
-			 ( min == '' && age <= max ) ||
-			 ( min <= age && '' == max ) ||
-			 ( min <= age && age <= max ) )
+		if ( ( isNaN( min ) && isNaN( max ) ) ||
+			 ( isNaN( min ) && age <= max ) ||
+			 ( min <= age   && isNaN( max ) ) ||
+			 ( min <= age   && age <= max ) )
 		{
 			return true;
 		}
