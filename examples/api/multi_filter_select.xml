@@ -15,8 +15,10 @@ $(document).ready(function() {
 		var select = $('<select><option value=""></option></select>')
 			.appendTo( $(this).empty() )
 			.on( 'change', function () {
+				var val = $(this).val();
+
 				table.column( i )
-					.search( '^'+$(this).val()+'$', true, false )
+					.search( val ? '^'+$(this).val()+'$' : val, true, false )
 					.draw();
 			} );
 
