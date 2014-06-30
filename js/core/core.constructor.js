@@ -12,6 +12,11 @@ if ( this.nodeName.toLowerCase() != 'table' )
 	return;
 }
 
+// Simple HTML5 data attribute support for the table as a whole
+// takes advantage of camel-case options and jQuery data attribute
+// parsing <http://api.jquery.com/data/#data-html5>
+oInit = $.extend(true, {}, $(this).data(), oInit);
+
 /* Backwards compatibility for the defaults */
 _fnCompatOpts( defaults );
 _fnCompatCols( defaults.column );
