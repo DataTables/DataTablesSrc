@@ -5,28 +5,31 @@
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnSaveState ( oSettings )
+function _fnSaveState ( settings )
 {
-	if ( !oSettings.oFeatures.bStateSave || oSettings.bDestroying )
+	if ( !settings.oFeatures.bStateSave || settings.bDestroying )
 	{
 		return;
 	}
 
 	/* Store the interesting variables */
-	var i, iLen;
-	var oState = {
-		"iCreate":      +new Date(),
-		"iStart":       oSettings._iDisplayStart,
-		"iLength":      oSettings._iDisplayLength,
-		"aaSorting":    $.extend( true, [], oSettings.aaSorting ),
-		"oSearch":      $.extend( true, {}, oSettings.oPreviousSearch ),
-		"aoSearchCols": $.extend( true, [], oSettings.aoPreSearchCols ),
-		"abVisCols":    _pluck( oSettings.aoColumns, 'bVisible' )
+	var state = {
+		time:    +new Date(),
+		start:   settings._iDisplayStart,
+		length:  settings._iDisplayLength,
+		order:   $.extend( true, [], settings.aaSorting ),
+		search:  _fnSearchToCamel( settings.oPreviousSearch ),
+		columns: $.map( settings.aoColumns, function ( col, i ) {
+			return {
+				visible: col.bVisible,
+				search: _fnSearchToCamel( settings.aoPreSearchCols[i] )
+			};
+		} )
 	};
 
-	_fnCallbackFire( oSettings, "aoStateSaveParams", 'stateSaveParams', [oSettings, oState] );
+	_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
 
-	oSettings.fnStateSaveCallback.call( oSettings.oInstance, oSettings, oState );
+	settings.fnStateSaveCallback.call( settings.oInstance, settings, state );
 }
 
 
@@ -36,65 +39,71 @@ function _fnSaveState ( oSettings )
  *  @param {object} oInit DataTables init object so we can override settings
  *  @memberof DataTable#oApi
  */
-function _fnLoadState ( oSettings, oInit )
+function _fnLoadState ( settings, oInit )
 {
 	var i, ien;
-	var columns = oSettings.aoColumns;
+	var columns = settings.aoColumns;
 
-	if ( ! oSettings.oFeatures.bStateSave ) {
+	if ( ! settings.oFeatures.bStateSave ) {
 		return;
 	}
 
-	var oData = oSettings.fnStateLoadCallback.call( oSettings.oInstance, oSettings );
-	if ( !oData ) {
+	var state = settings.fnStateLoadCallback.call( settings.oInstance, settings );
+	if ( ! state || ! state.time ) {
 		return;
 	}
 
 	/* Allow custom and plug-in manipulation functions to alter the saved data set and
 	 * cancelling of loading by returning false
 	 */
-	var abStateLoad = _fnCallbackFire( oSettings, 'aoStateLoadParams', 'stateLoadParams', [oSettings, oData] );
+	var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, state] );
 	if ( $.inArray( false, abStateLoad ) !== -1 ) {
 		return;
 	}
 
 	/* Reject old data */
-	var duration = oSettings.iStateDuration;
-	if ( duration > 0 && oData.iCreate < +new Date() - (duration*1000) ) {
+	var duration = settings.iStateDuration;
+	if ( duration > 0 && state.time < +new Date() - (duration*1000) ) {
 		return;
 	}
 
 	// Number of columns have changed - all bets are off, no restore of settings
-	if ( columns.length !== oData.aoSearchCols.length ) {
+	if ( columns.length !== state.columns.length ) {
 		return;
 	}
 
-	/* Store the saved state so it might be accessed at any time */
-	oSettings.oLoadedState = $.extend( true, {}, oData );
+	// Store the saved state so it might be accessed at any time
+	settings.oLoadedState = $.extend( true, {}, state );
 
-	/* Restore key features */
-	oSettings._iDisplayStart    = oData.iStart;
-	oSettings.iInitDisplayStart = oData.iStart;
-	oSettings._iDisplayLength   = oData.iLength;
-	oSettings.aaSorting = [];
+	// Restore key features - todo - for 1.11 this needs to be done by
+	// subscribed events
+	settings._iDisplayStart    = state.start;
+	settings.iInitDisplayStart = state.start;
+	settings._iDisplayLength   = state.length;
+	settings.aaSorting = [];
 
-	$.each( oData.aaSorting, function ( i, col ) {
-		oSettings.aaSorting.push( col[0] >= columns.length ?
+	// Order
+	$.each( state.order, function ( i, col ) {
+		settings.aaSorting.push( col[0] >= columns.length ?
 			[ 0, col[1] ] :
 			col
 		);
 	} );
 
-	/* Search filtering  */
-	$.extend( oSettings.oPreviousSearch, oData.oSearch );
-	$.extend( true, oSettings.aoPreSearchCols, oData.aoSearchCols );
+	// Search
+	$.extend( settings.oPreviousSearch, _fnSearchToHung( state.search ) );
 
-	/* Column visibility state */
-	var visColumns = oData.abVisCols;
-	for ( i=0, ien=visColumns.length ; i<ien ; i++ ) {
-		columns[i].bVisible = visColumns[i];
+	// Columns
+	for ( i=0, ien=state.columns.length ; i<ien ; i++ ) {
+		var col = state.columns[i];
+
+		// Visibility
+		columns[i].bVisible = col.visible;
+
+		// Search
+		$.extend( settings.aoPreSearchCols[i], _fnSearchToHung( col.search ) );
 	}
 
-	_fnCallbackFire( oSettings, 'aoStateLoaded', 'stateLoaded', [oSettings, oData] );
+	_fnCallbackFire( settings, 'aoStateLoaded', 'stateLoaded', [settings, state] );
 }
 

@@ -359,3 +359,40 @@ function _fnFilterData ( settings )
 	return wasInvalidated;
 }
 
+
+/**
+ * Convert from the internal Hungarian notation to camelCase for external
+ * interaction
+ *  @param {object} obj Object to convert
+ *  @returns {object} Inverted object
+ *  @memberof DataTable#oApi
+ */
+function _fnSearchToCamel ( obj )
+{
+	return {
+		search:          obj.sSearch,
+		smart:           obj.bSmart,
+		regex:           obj.bRegex,
+		caseInsensitive: obj.bCaseInsensitive
+	};
+}
+
+
+
+/**
+ * Convert from camelCase notation to the internal Hungarian. We could use the
+ * Hungarian convert function here, but this is cleaner
+ *  @param {object} obj Object to convert
+ *  @returns {object} Inverted object
+ *  @memberof DataTable#oApi
+ */
+function _fnSearchToHung ( obj )
+{
+	return {
+		sSearch:          obj.search,
+		bSmart:           obj.smart,
+		bRegex:           obj.regex,
+		bCaseInsensitive: obj.caseInsensitive
+	};
+}
+

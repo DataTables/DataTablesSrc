@@ -16,7 +16,7 @@
 	</type>
 
 	<description>
-		Callback which allows modification of the parameters to be saved for the DataTables state saving (`dt-init stateSave`), prior to the data actually being saved. This callback is called every time DataTables requests that the state be saved.
+		Callback which allows modification of the parameters to be saved for the DataTables state saving (`dt-init stateSave`), prior to the data actually being saved. This callback is called every time DataTables requests that the state be saved. For the format of the data that is stored, please refer to the `dt-init stateSaveCallback` documentation.
 
 		Note that the `dt-init stateSaveCallback` option is used to define where and how to store the state, while this function is used to manipulate the data before it is entered into storage.
 
