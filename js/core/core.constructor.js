@@ -302,6 +302,17 @@ _fnApplyColumnDefs( oSettings, oInit.aoColumnDefs, aoColumnsInit, function (iCol
 	_fnColumnOptions( oSettings, iCol, oDef );
 } );
 
+// Simple HTML5 data attribute support for table columns
+// takes advantage of camel-case options and jQuery data attribute
+// parsing <http://api.jquery.com/data/#data-html5>
+$.each( anThs, function( iCol ) {
+	var oDataAttrs = $(this).data();
+	if ( ! $.isEmptyObject(oDataAttrs) )
+	{
+		_fnColumnOptions( oSettings, iCol, oDataAttrs );
+	}
+} );
+			
 /* HTML5 attribute detection - build an mData object automatically if the
  * attributes are found
  */
