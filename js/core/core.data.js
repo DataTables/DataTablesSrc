@@ -509,7 +509,7 @@ function _fnInvalidateRow( settings, rowIdx, src, column )
 				// This is very frustrating, but in IE if you just write directly
 				// to innerHTML, and elements that are overwritten are GC'ed,
 				// even if there is a reference to them elsewhere
-				while ( cell.childNodes ) {
+				while ( cell.childNodes.length ) {
 					cell.removeChild( cell.firstChild );
 				}
 
