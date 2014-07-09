@@ -29,6 +29,7 @@ function _fnSaveState ( settings )
 
 	_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
 
+	settings.oSavedState = state;
 	settings.fnStateSaveCallback.call( settings.oInstance, settings, state );
 }
 

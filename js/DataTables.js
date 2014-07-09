@@ -145,6 +145,7 @@
 	require('api.cells.js');
 	require('api.order.js');
 	require('api.search.js');
+	require('api.state.js');
 	require('api.static.js');
 	require('api.core.js');
 

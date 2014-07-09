@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>state.clear()</name>
+	<summary>Clear the saved state of the table.</summary>
+	<since>1.10.1</since>
+
+	<type type="function">
+		<signature>state.clear()</signature>
+		<description>Create the saved state of the table</description>
+		<returns type="DataTables.Api">The API instance that was used, available for chaining.</returns>
+	</type>
+
+	<description>
+		This method provides the ability to destroy a DataTables saved state which can be useful during development, or potentially when logging a user out if you want to clear the saved state before the state expires (`dt-init stateDuration`).
+
+		This method will trigger a DataTables state save but with an empty object (i.e. `{}`), effectively erasing any existing state data.
+
+		Note that if DataTables saves state after this method is called, the state will be stored again (a draw is the most common method of triggering a state save).
+	</description>
+
+	<example title="Clear the table state and reload the page"><![CDATA[
+
+table.state.clear();
+window.location.reload();
+
+]]></example>
+
+	<related type="api">state()</related>
+	<related type="api">state.loaded()</related>
+	<related type="api">state.save()</related>
+	<related type="option">stateSave</related>
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+	<related type="option">stateLoadParams</related>
+	<related type="option">stateSaveParams</related>
+	<related type="option">stateLoaded</related>
+	<related type="event">stateLoaded</related>
+	<related type="event">stateLoadParams</related>
+	<related type="event">stateSaveParams</related>
+</dt-api>

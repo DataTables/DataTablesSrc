@@ -34,10 +34,15 @@ $('#example')
 	} );
 ]]></example>
 
+	<related type="api">state()</related>
+	<related type="api">state.clear()</related>
+	<related type="api">state.loaded()</related>
+	<related type="api">state.save()</related>
 	<related type="option">stateSave</related>
 	<related type="option">stateSaveCallback</related>
-	<related type="option">stateLoadCallback</related>
 	<related type="option">stateLoadParams</related>
-	<related type="event">stateSaveParams</related>
+	<related type="option">stateLoaded</related>
+	<related type="option">stateSaveParams</related>
 	<related type="event">stateLoaded</related>
+	<related type="event">stateSaveParams</related>
 </dt-event>

@@ -558,6 +558,13 @@ DataTable.models.oSettings = {
 	"aoStateLoad": [],
 
 	/**
+	 * State that was saved. Useful for back reference
+	 *  @type object
+	 *  @default null
+	 */
+	"oSavedState": null,
+
+	/**
 	 * State that was loaded. Useful for back reference
 	 *  @type object
 	 *  @default null

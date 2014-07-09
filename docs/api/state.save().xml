@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>state.save()</name>
+	<summary>Trigger a state save.</summary>
+	<since>1.10.1</since>
+
+	<type type="function">
+		<signature>state.save()</signature>
+		<description>Trigger a state save</description>
+		<returns type="DataTables.Api">The API instance that was used, available for chaining.</returns>
+	</type>
+
+	<description>
+		This method is primarily made available for plug-in authors who wish to be able to add information to the DataTables state saving object (through `dt-event stateSaveParams`) and want to be able to trigger a save save to save information specific to their plug-in.
+
+		As an example, a column filter plug-in might trigger a state save when the input values for the filter are altered by the end user. This enables the author to reliably restore the state of their plug-in when the table is next initialised (`dt-api state.loaded()`).
+	</description>
+
+	<example title="Jump to the next page and save state (the `page()` method does not trigger a state save itself)"><![CDATA[
+
+table.page('next');
+table.state.save();
+
+]]></example>
+
+	<related type="api">state()</related>
+	<related type="api">state.clear()</related>
+	<related type="api">state.loaded()</related>
+	<related type="option">stateSave</related>
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+	<related type="option">stateLoadParams</related>
+	<related type="option">stateSaveParams</related>
+	<related type="option">stateLoaded</related>
+	<related type="event">stateLoaded</related>
+	<related type="event">stateLoadParams</related>
+	<related type="event">stateSaveParams</related>
+</dt-api>
