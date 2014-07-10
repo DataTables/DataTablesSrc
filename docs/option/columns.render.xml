@@ -66,7 +66,15 @@
 	</type>
 
 	<description>
-		This property is the rendering partner to `dt-init columns.data` and it is suggested that when you want to manipulate data for display (including filtering, sorting etc) without altering the underlying data for the table, use this property. `render` can be considered to be the the read only companion to `data` which is read / write (then as such more complex). Like `data` this option can be given in a number of different ways to effect its behaviour as described above.
+		<![CDATA[
+		This property is the rendering partner to `dt-init columns.data` and it is suggested that when you want to manipulate data for display (including filtering, sorting etc) without altering the underlying data for the table, use this property. `render` can be considered to be the the read only companion to `data` which is read / write (then as such more complex). Like `data` this option can be given in a number of different ways to effect its behaviour as described below.
+
+		The data that is resolved to for a data point (between this option and `dt-init columns.data`) to will be used by DataTables for the requested data, with three special cases:
+
+		* `-type undefined` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, an error will be given.
+		* `-type null` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty sting will be used. `-type null` will be used for all other data types.
+		* `-type function` - the function will be executed and the returned value used. As of DataTables <span class="since">1.10.1</span> the function will be executed in the same scope as the data object for the row. The result of this is that an object instance can be used as the data source for a row. See the examples below for how to use an instance with DataTables.
+		]]>
 	</description>
 
 	<example title="Create a comma separated list from an array of objects"><![CDATA[
@@ -141,6 +149,43 @@ $('#example').dataTable( {
       	data;
     }
   } ]
+} );
+]]></example>
+
+
+	<example title="Using an object instance as the data source for the row"><![CDATA[
+function Person( name, age, position ) {
+	this._name     = name;
+	this._age      = age;
+	this._position = position;
+
+	this.name = function () {
+		return this._name;
+	};
+
+	this.age = function () {
+		return this._age;
+	};
+
+	this.position = function () {
+		return this._position;
+	};
+}
+
+
+$(document).ready(function() {
+	var table = $('#example').DataTable({
+		columns: [
+			{ data: null, render: 'name' },
+			{ data: null, render: 'age' },
+			{ data: null, render: 'position' }
+		]
+	});
+
+	table.row.add( new Person( 'Airi Satou',     33, 'Accountant' ) );
+	table.row.add( new Person( 'Angelica Ramos', 47, 'Chief Executive Officer (CEO)' ) );
+	table.row.add( new Person( 'Ashton Cox',     66, 'Junior Technical Author' ) );
+	table.draw();
 } );
 ]]></example>
 

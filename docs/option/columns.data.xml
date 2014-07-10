@@ -72,9 +72,17 @@
 	</default>
 
 	<description>
-		This property can be used to read data from any data source property, including deeply nested objects / properties. `data` can be given in a number of different ways which effect its behaviour as documented above.
+		<![CDATA[
+		This property can be used to read data from any data source property, including deeply nested objects / properties. `data` can be given in a number of different ways which effect its behaviour as documented below.
 
-		Note that `data` is a getter and setter option. If you just require formatting of data for output, you will likely want to use `dt-init columns.render` which is simply a getter and thus much simpler to use!
+		The data that is resolved to for a data point (between this option and `dt-init columns.render`) to will be used by DataTables for the requested data, with three special cases:
+
+		* `-type undefined` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, an error will be given.
+		* `-type null` - If `dt-init columms.render` is used, the data passed to the rendering function will be the original data source for the row. If there is no renderer the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty sting will be used. `-type null` will be used for all other data types.
+		* `-type function` - the function will be executed and the returned value used. As of DataTables <span class="since">1.10.1</span> the function will be executed in the same scope as the data object for the row. The result of this is that an object instance can be used as the data source for a row.
+
+		Note that `data` is both a getter and setter option. If you just require formatting of data for output, you will likely want to use `dt-init columns.render` which is simply a getter and thus much simpler to use!
+		]]>
 	</description>
 
 	<example title="Read table data from objects"><![CDATA[
