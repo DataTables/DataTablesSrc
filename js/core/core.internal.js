@@ -35,7 +35,7 @@ var _re_formatted_numeric = /[',$£€¥%\u2009\u202F]/g;
 
 
 var _empty = function ( d ) {
-	return !d || d === '-' ? true : false;
+	return !d || d === true || d === '-' ? true : false;
 };
 
 
@@ -68,13 +68,13 @@ var _isNumber = function ( d, decimalPoint, formatted ) {
 		d = d.replace( _re_formatted_numeric, '' );
 	}
 
-	return !d || d==='-' || (!isNaN( parseFloat(d) ) && isFinite( d ));
+	return _empty( d ) || (!isNaN( parseFloat(d) ) && isFinite( d ));
 };
 
 
 // A string without HTML in it can be considered to be HTML still
 var _isHtml = function ( d ) {
-	return !d || typeof d === 'string';
+	return _empty( d ) || typeof d === 'string';
 };
 
 

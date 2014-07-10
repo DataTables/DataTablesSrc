@@ -7,7 +7,7 @@
 $.extend( DataTable.ext.type.search, {
 	html: function ( data ) {
 		return _empty(data) ?
-			'' :
+			data :
 			typeof data === 'string' ?
 				data
 					.replace( _re_new_lines, " " )
@@ -17,7 +17,7 @@ $.extend( DataTable.ext.type.search, {
 
 	string: function ( data ) {
 		return _empty(data) ?
-			'' :
+			data :
 			typeof data === 'string' ?
 				data.replace( _re_new_lines, " " ) :
 				data;

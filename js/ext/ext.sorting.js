@@ -68,7 +68,7 @@ $.extend( _ext.type.order, {
 
 	// html
 	"html-pre": function ( a ) {
-		return ! a ?
+		return _empty(a) ?
 			'' :
 			a.replace ?
 				a.replace( /<.*?>/g, "" ).toLowerCase() :
@@ -77,11 +77,15 @@ $.extend( _ext.type.order, {
 
 	// string
 	"string-pre": function ( a ) {
-		return typeof a === 'string' ?
-			a.toLowerCase() :
-			! a || ! a.toString ?
-				'' :
-				a.toString();
+		// This is a little complex, but faster than always calling toString,
+		// http://jsperf.com/tostring-v-check
+		return _empty(a) ?
+			'' :
+			typeof a === 'string' ?
+				a.toLowerCase() :
+				! a.toString ?
+					'' :
+					a.toString();
 	},
 
 	// string-asc and -desc are retained only for compatibility with the old
