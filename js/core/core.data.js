@@ -39,8 +39,8 @@ function _fnAddData ( oSettings, aDataIn, nTr, anTds )
 	/* Add to the display array */
 	oSettings.aiDisplayMaster.push( iRow );
 
-	/* Create the DOM information */
-	if ( !oSettings.oFeatures.bDeferRender )
+	/* Create the DOM information, or register it if already present */
+	if ( nTr || ! oSettings.oFeatures.bDeferRender )
 	{
 		_fnCreateTr( oSettings, iRow, nTr, anTds );
 	}
