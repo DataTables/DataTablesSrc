@@ -10,7 +10,7 @@
 			The `tag TD` node that has been created
 		</parameter>
 		<parameter type="node" name="cellData">
-			The data that will be displayed in the cell. If you use `dt-init columns.render` to modify the data, the modified data will be given here. If you need to access the raw data, use the `rowData` parameter for this function.
+			Cell data. If you use `dt-init columns.render` to modify the data, use `$(cell).html()` to get and modify the rendered data. The information given here is the original and unmodified data from the data source.
 		</parameter>
 		<parameter type="node" name="rowData">
 			Data source object / array for the whole row
