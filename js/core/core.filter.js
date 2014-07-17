@@ -347,9 +347,9 @@ function _fnFilterData ( settings )
 					if ( cellData.replace ) {
 						cellData = cellData.replace(/[\r\n]/g, '');
 					}
-
-					filterData.push( cellData );
 				}
+
+				filterData.push( cellData );
 			}
 
 			row._aFilterData = filterData;
