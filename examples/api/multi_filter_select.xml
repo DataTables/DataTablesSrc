@@ -5,7 +5,7 @@
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>Individual column filtering (select inputs)</title>
+<title>Individual column searching (select inputs)</title>
 <js><![CDATA[
 
 $(document).ready(function() {
