@@ -9,7 +9,7 @@ var _selector_run = function ( selector, select )
 
 	// Can't just check for isArray here, as an API or jQuery instance might be
 	// given with their array like look
-	if ( ! selector || typeof selector === 'string' || selector.length === undefined ) {
+	if ( ! selector || typeof selector === 'function' || typeof selector === 'string' || selector.length === undefined ) {
 		selector = [ selector ];
 	}
 
