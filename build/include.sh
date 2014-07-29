@@ -6,6 +6,11 @@ CLOSURE="/usr/local/closure_compiler/compiler.jar"
 JSDOC="/usr/local/jsdoc/jsdoc"
 
 
+# $1 - string - file to get the version from
+function version_from_file {
+	echo $(grep " * @version     " $1 | awk -F" " '{ print $3 }')
+}
+
 # $1 - string - section name to echo
 function echo_section {
 	# Cyan
