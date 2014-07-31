@@ -18,11 +18,11 @@
       * Sorting - sorted chronologically
       * Filtering - no effect
 
-    * `numeric` - Simple number sorting.
+    * `num` - Simple number sorting.
       * Sorting - sorted numerically
       * Filtering - no effect
 
-    * `numeric-fmt` - Numeric sorting of formatted numbers. Numbers which are formatted with thousands separators, currency symbols or a percentage indicator will be sorted numerically automatically by DataTables.
+    * `num-fmt` - Numeric sorting of formatted numbers. Numbers which are formatted with thousands separators, currency symbols or a percentage indicator will be sorted numerically automatically by DataTables.
       * Supported built-in currency symbols are `$`, `£`, `€` and `¥`.
       * Supported built-in thousands separators are `'` and `,`. 
       * Examples:
@@ -33,11 +33,11 @@
       * Sorting - sorted numerically
       * Filtering - no effect
 
-    * `html-numeric` - As per the `numeric` option, but with HTML tags also in the data.
+    * `html-num` - As per the `num` option, but with HTML tags also in the data.
       * Sorting - sorted numerically
       * Filtering - HTML tags removed from filtering string
 
-    * `html-numeric-fmt` - As per the `numeric-fmt` option, but with HTML tags also in the data.
+    * `html-num-fmt` - As per the `num-fmt` option, but with HTML tags also in the data.
       * Sorting - sorted numerically
       * Filtering - HTML tags removed from filtering string
 
