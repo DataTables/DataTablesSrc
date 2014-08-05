@@ -377,6 +377,7 @@ EOD;
 	file_put_contents( $out_dir.'/mysql.sql', $str );
 
 	// Postgres style
+	$next = count($json) + 1;
 	$str = <<<EOD
 --
 -- DataTables Ajax and server-side processing database (Postgres)
@@ -401,6 +402,8 @@ INSERT INTO datatables_demo
 		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
 	VALUES
 		$values;
+
+ALTER SEQUENCE datatables_demo_id_seq RESTART WITH {$next};
 EOD;
 	file_put_contents( $out_dir.'/postgres.sql', $str );
 
