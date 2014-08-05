@@ -1,5 +1,3 @@
-
-
 /**
  * DataTables settings object - this holds all the information needed for a
  * given table, including configuration, data and current application of the
@@ -873,5 +871,12 @@ DataTable.models.oSettings = {
 	 *  @type object
 	 *  @default {}
 	 */
-	"oPlugins": {}
+	"oPlugins": {},
+
+	/**
+	 * Search throttling delay
+	 *  @type int
+	 *  @default null
+	 */
+	"searchDelay": null
 };
