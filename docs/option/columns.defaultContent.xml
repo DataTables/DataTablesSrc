@@ -7,7 +7,7 @@
 	<type type="string" />
 
 	<description>
-		Often you may with to have static content in a column, for example simple edit and / or delete buttons, which have events assigned to them. This option is available for those use cases - creating static content for a column. If you wish to create dynamic content (i.e. based on other data in the row), the `dt-init columns.render` option should be used.
+		Often you may wish to have static content in a column, for example simple edit and / or delete buttons, which have events assigned to them. This option is available for those use cases - creating static content for a column. If you wish to create dynamic content (i.e. based on other data in the row), the `dt-init columns.render` option should be used.
 
 		Additionally, this option can be useful when loading JSON data, as the value set here will be used if the cell value from the JSON is found to be null (for example, you might set a default string of `string Not available`.
 	</description>

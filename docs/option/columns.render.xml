@@ -67,9 +67,9 @@
 
 	<description>
 		<![CDATA[
-		This property is the rendering partner to `dt-init columns.data` and it is suggested that when you want to manipulate data for display (including filtering, sorting etc) without altering the underlying data for the table, use this property. `render` can be considered to be the the read only companion to `data` which is read / write (then as such more complex). Like `data` this option can be given in a number of different ways to effect its behaviour as described below.
+		This property is the rendering partner to `dt-init columns.data` and it is suggested that when you want to manipulate data for display (including filtering, sorting etc) without altering the underlying data for the table, use this property. `render` can be considered to be the the read only companion to `data` which is read / write (then as such more complex). Like `data` this option can be given in a number of different ways to affect its behaviour as described below.
 
-		The data that is resolved to for a data point (between this option and `dt-init columns.data`) to will be used by DataTables for the requested data, with three special cases:
+		The data that is resolved to for a data point (between this option and `dt-init columns.data`) that will be used by DataTables for the requested data, with three special cases:
 
 		* `-type undefined` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, an error will be given.
 		* `-type null` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty sting will be used. `-type null` will be used for all other data types.
@@ -110,7 +110,7 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-	<example title="As above, with with the `phone` information as an object"><![CDATA[
+	<example title="As above, with the `phone` information as an object"><![CDATA[
 // This would be used with a data source such as:
 //   "phone": { "plain": 5552368, "filter": "5552368 555-2368", "display": "555-2368" }
 $('#example').dataTable( {
