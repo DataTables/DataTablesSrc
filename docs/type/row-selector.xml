@@ -50,7 +50,7 @@ var table = $('#example').DataTable();
 
 // Find indexes of rows which have `Yes` in the second column
 var indexes = table.rows().eq( 0 ).filter( function (rowIdx) {
-	return table.cell( rowidx, 1 ).data() === 'Yes' ? true : false;
+	return table.cell( rowIdx, 1 ).data() === 'Yes' ? true : false;
 } );
 
 // Add a class to those rows using an index selector
