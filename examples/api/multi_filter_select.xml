@@ -9,22 +9,28 @@
 <js><![CDATA[
 
 $(document).ready(function() {
-	var table = $('#example').DataTable();
+	$('#example').DataTable( {
+		initComplete: function () {
+			var api = this.api();
 
-	$("#example tfoot th").each( function ( i ) {
-		var select = $('<select><option value=""></option></select>')
-			.appendTo( $(this).empty() )
-			.on( 'change', function () {
-				var val = $(this).val();
+			api.columns().indexes().flatten().each( function ( i ) {
+				var column = api.column( i );
+																		console.log( i );
+				var select = $('<select><option value=""></option></select>')
+					.appendTo( $(column.footer()).empty() )
+					.on( 'change', function () {
+						var val = $(this).val();
 
-				table.column( i )
-					.search( val ? '^'+$(this).val()+'$' : val, true, false )
-					.draw();
+						column
+							.search( val ? '^'+$(this).val()+'$' : val, true, false )
+							.draw();
+					} );
+
+				column.data().unique().sort().each( function ( d, j ) {
+					select.append( '<option value="'+d+'">'+d+'</option>' )
+				} );
 			} );
-
-		table.column( i ).data().unique().sort().each( function ( d, j ) {
-			select.append( '<option value="'+d+'">'+d+'</option>' )
-		} );
+		}
 	} );
 } );
 
@@ -37,6 +43,8 @@ This example is almost identical to text based individual column example and pro
 After the table is initialised, the API is used to build the `tag select` inputs through the use of the `dt-api column().data()` method to get the data for each column in turn. The helper methods `dt-api unique()` and `dt-api sort()` are also used to reduce the data for set input to unique and ordered elements. Finally the `change` event from the `tag select` input is used to trigger a column search using the `dt-api column().search()` method.
 
 Note that the `dt-api column().search()` method in this particular case performs an exact match through the use of a custom regular expression and disabling DataTables built in smart searching. For more information on the search options in DataTables API please refer to the documentation for `dt-api search()` and `dt-api column().search()`.
+
+Note also that this example shows the use of `dt-init initComplete` a callback function that is triggered when the table has fully loaded. Use of this callback isn't actually required in this example since the data is available in the table on load, but in the case of Ajax loaded data, `dt-init initComplete` is useful to execute code after the data has been loaded.
 
 ]]></info>
 
