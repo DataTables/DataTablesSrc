@@ -30,7 +30,7 @@
 $('#example')
 	.dataTable()
 	.on( 'stateLoadParams.dt', function (e, settings, data) {
-		data.oSearch.sSearch = "";
+		data.search.search = "";
 	} );
 ]]></example>
 

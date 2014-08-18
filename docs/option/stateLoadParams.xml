@@ -27,7 +27,7 @@
 $('#example').dataTable( {
   "stateSave": true,
   "stateLoadParams": function (settings, data) {
-    data.oSearch.sSearch = "";
+    data.search.search = "";
   }
 } );
 ]]></example>

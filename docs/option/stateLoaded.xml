@@ -25,7 +25,7 @@
 $('#example').dataTable( {
   "stateSave": true,
   "stateLoaded": function (settings, data) {
-    alert( 'Saved filter was: '+data.oSearch.sSearch );
+    alert( 'Saved filter was: '+data.search.search );
   }
 } );
 ]]></example>
