@@ -22,7 +22,51 @@
 			DataTables.Api instance
 		</returns>
 	</type>
+	
+	<type type="function">
+		<signature>ajax.url(function(data, callback, settings) {})</signature>
+		<parameter type="object" name="data">
+			Data to send to the server
+		</parameter>
+		<parameter type="function" name="callback">
+			Callback function that must be executed when the required data has been obtained. That data should be passed into the callback as the only parameter
+		</parameter>
+		<parameter type="object" name="settings">
+			DataTables settings object
+		</parameter>
+		<scope>HTML table element</scope>
+		<description>
+			As a function, making the Ajax call is left up to yourself allowing complete control of the Ajax request. Indeed, if desired, a method other than Ajax could be used to obtain the required data, such as Web storage or an AIR database.
 
+			When the data has been obtained from the data source, the second parameter (`callback` here) should be called with a single parameter passed in - the data to use to draw the table.
+
+			Simple example:
+
+			```js
+			$('#example').dataTable().api().ajax.url(function(data, callback, settings) {
+				var draw = data.draw;
+				var pageSize = data.length;
+				var url = "/api/search";
+				
+				var request = {
+					"size" : pageSize,
+					"page" : 0,
+				};
+				
+				jQuery.ajax({
+					"dataType" : 'json',
+					"type" : "GET",
+					"url" : url,
+					"data" : request,
+					"success" : function(json) {
+						// convert your JSON response object...
+						callback(json);
+					}
+				});
+			});
+			```
+		</description>
+	</type>
 	<description>
 		While the `dt-api ajax.reload()` option makes it very easy to simply reload data from the existing data source, there are times when you want to change the data source URL. This method is design to fit that purpose. It can also be used to retrieve the currently set Ajax data source URL for a table.
 
