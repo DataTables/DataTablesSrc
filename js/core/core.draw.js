@@ -384,7 +384,9 @@ function _fnDraw( oSettings )
 				}
 			}
 
-			/* Row callback functions - might want to manipulate the row */
+			// Row callback functions - might want to manipulate the row
+			// iRowCount and j are not currently documented. Are they at all
+			// useful?
 			_fnCallbackFire( oSettings, 'aoRowCallback', null,
 				[nRow, aoData._aData, iRowCount, j] );
 

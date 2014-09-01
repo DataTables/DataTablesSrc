@@ -15,7 +15,7 @@ $(document).ready(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax": "scripts/ids-arrays.php",
-		"rowCallback": function( row, data, displayIndex ) {
+		"rowCallback": function( row, data ) {
 			if ( $.inArray(data.DT_RowId, selected) !== -1 ) {
 				$(row).addClass('selected');
 			}
