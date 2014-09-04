@@ -365,7 +365,7 @@ CREATE TABLE `datatables_demo` (
 	`start_date` timestamp DEFAULT CURRENT_TIMESTAMP,
 	`age`        int(8),
 	`salary`     int(8),
-	`extn`       int(8),
+	`extn`       varchar(8) NOT NULL default '',
 	PRIMARY KEY  (`id`)
 );
 
@@ -394,7 +394,7 @@ CREATE TABLE datatables_demo (
 	start_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
 	age        integer,
 	salary     integer,
-	extn       integer,
+	extn       text NOT NULL default '',
 	PRIMARY KEY (id)
 );
 
@@ -424,7 +424,7 @@ CREATE TABLE datatables_demo (
 	start_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
 	age        integer,
 	salary     integer,
-	extn       integer
+	extn       text NOT NULL default ''
 );
 
 INSERT INTO datatables_demo
@@ -452,7 +452,7 @@ CREATE TABLE datatables_demo (
 	start_date datetime DEFAULT GETDATE(),
 	age        int,
 	salary     int,
-	extn       int,
+	extn       varchar(8) NOT NULL default '',
 	PRIMARY KEY (id)
 );
 
