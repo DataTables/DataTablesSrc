@@ -1,7 +1,7 @@
 
 
 var __numericReplace = function ( d, decimalPlace, re1, re2 ) {
-	if ( !d || d === '-' ) {
+	if ( d !== 0 && (!d || d === '-') ) {
 		return -Infinity;
 	}
 
