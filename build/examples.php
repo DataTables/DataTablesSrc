@@ -456,10 +456,14 @@ CREATE TABLE datatables_demo (
 	PRIMARY KEY (id)
 );
 
+SET IDENTITY_INSERT datatables_demo ON;
+
 INSERT INTO datatables_demo
 		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
 	VALUES
 		$values;
+
+SET IDENTITY_INSERT datatables_demo OFF;
 EOD;
 	file_put_contents( $out_dir.'/sqlserver.sql', $str );
 }
