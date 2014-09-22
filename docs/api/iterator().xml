@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>iterator()</name>
+	<summary>Iterate over a result set of table, row, column or cell indexes</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>iterator( [flatten,] type, callback )</signature>
+		<description>Iterate over a result set of table, row, column or cell indexes</description>
+		<param name="flatten" type="boolean" default="false">If `true` the result set of the returned API instance will be a 1D array (i.e. flattened into a single array). If `false` (or not specified) each result will be concatenated to the instance's result set. Note that this is only relevant if you are returning arrays from the callback.</param>
+		<param name="type" type="string">Iterator type - see above for the options</param>
+		<param name="callback" type="function">Callback function that is executed on each iteration. For the parameters passed to the function, please refer to the documentation above. As of <span class="since">1.10.3</span> this is executed in the scope of an API instance which has its context set to only the table in question.</param>
+		<returns type="DataTables.Api">Original API instance if the callback returns no result (i.e. `undefined`) or a new API instance with the result set being the results from the callback, in order of execution.</returns>
+	</type>
+
+	<description>
+		When working with collections of DataTables indexes (such as those placed into the result set by `dt-api tables()`, `dt-api rows()`, `dt-api columns()` and `dt-api cells()`) you often wish to loop over the indexes an perform some kind of operation on the element that each index points to. While this can easily be accomplished with a `for` loop or two, this method can help to simplify and reduce the code by performing those loops for you.
+
+		There are a number of loop types available (specified by the `type` parameter), and these loop types also effect the parameters that are passed into the callback function:
+
+		* `table` - loop over the context's (i.e. the tables) for the instance
+		  1. Table settings object
+		* `columns` - loop over each item in the result set
+		  1. Table settings object
+		  2. Result set item
+		  3. Loop counter
+		* `column` - loop over each table and column in the result set
+		  1. Table settings object
+		  2. Column index
+		  3. Table counter (outer)
+		  4. Column counter (inner)
+		* `column-rows` - loop over each table, column and row in the result set applying `dt-type selector-modifier`.
+		  1. Table settings object
+		  2. Column index
+		  3. Table counter (outer)
+		  4. Column counter (inner)
+		  5. Row indexes
+		* `rows` - loop over each item in the result set
+		  1. Table settings object
+		  2. Result set item
+		  3. Loop counter
+		* `row` - loop over each table and row in the result set
+		  1. Table settings object
+		  2. Row index
+		  3. Table counter (outer)
+		  4. Row counter (inner)
+		* `cell` - loop over each table and cell in the result set
+		  1. Table settings object
+		  2. Row index
+		  3. Column index
+		  4. Table counter (outer)
+		  5. Cell counter (inner)
+
+		The return from the callback effects the return value of this method. If the callback always returns `undefined` this method will return the original API instance which can be used for chaining. If a value is returned from the callback a new API instance is created and its own result set is set to the values returned by the callbacks.
+
+		Note as of <span class="since">DataTables 1.10.3</span> the callback function is executed in the scope of a DataTables API instance that as the context of only the table described by the first parameter passed into the function. This can make accessing API method for that specific table much easier.
+	</description>
+
+	<example title="Add a class to each row in a table"><![CDATA[
+
+table.rows().iterator( 'row', function ( context, index ) {
+	$( this.row( index ).node() ).addClass( 'lowlight' );
+} );
+
+]]></example>
+</dt-api>
