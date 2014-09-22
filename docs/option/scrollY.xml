@@ -14,11 +14,11 @@
 $('#example').dataTable( {
   "scrollY": "200px",
   "scrollCollapse": true,
-  "paginate": false
+  "paging": false
 } );
 ]]></example>
 
-	<related type="option">paginate</related>
+	<related type="option">paging</related>
 	<related type="option">scrollX</related>
 	<related type="option">scrollCollapse</related>
 </dt-option>
