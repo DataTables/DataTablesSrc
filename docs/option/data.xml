@@ -7,7 +7,7 @@
 	<type type="array" />
 
 	<description>
-		DataTables can obtain the data it is to display in the table table's body from a number of sources, including being passed in as an array of row data using this initialisation parameter. As with other dynamic data sources, arrays or objects can be used for the data source for each row, with `dt-init columns.data` employed to read from specific object properties.
+		DataTables can obtain the data it is to display in the table's body from a number of sources, including being passed in as an array of row data using this initialisation parameter. As with other dynamic data sources, arrays or objects can be used for the data source for each row, with `dt-init columns.data` employed to read from specific object properties.
 
 		Using this initialisation option can be useful when creating a table from a Javascript data source, or from a custom Ajax data get.
 
