@@ -51,7 +51,7 @@ var _numToDecimal = function ( num, decimalPoint ) {
 	if ( ! _re_dic[ decimalPoint ] ) {
 		_re_dic[ decimalPoint ] = new RegExp( _fnEscapeRegex( decimalPoint ), 'g' );
 	}
-	return typeof num === 'string' ?
+	return typeof num === 'string' && decimalPoint !== '.' ?
 		num.replace( /\./g, '' ).replace( _re_dic[ decimalPoint ], '.' ) :
 		num;
 };
