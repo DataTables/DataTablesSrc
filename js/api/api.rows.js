@@ -49,6 +49,15 @@ var __row_selector = function ( settings, selector, opts )
 			}
 		}
 
+		// if the selector is a function then it wraps it into a new function that will then attach the data object to it
+
+		if ( typeof sel === 'function' ) {
+			var _sel = sel;
+			sel = function( idx, node ){
+				return _sel.call( this, idx, node, settings.aoData[ this._DT_RowIndex ]._aData );
+			}
+		}
+
 		// Selector - jQuery selector string, array of nodes or jQuery object/
 		// As jQuery's .filter() allows jQuery objects to be passed in filter,
 		// it also allows arrays, so this will cope with all three options
