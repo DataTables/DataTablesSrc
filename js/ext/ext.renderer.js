@@ -30,8 +30,6 @@ $.extend( true, DataTable.ext.renderer, {
 		},
 
 		jqueryui: function ( settings, cell, column, classes ) {
-			var colIdx = column.idx;
-
 			$('<div/>')
 				.addClass( classes.sSortJUIWrapper )
 				.append( cell.contents() )
@@ -45,6 +43,8 @@ $.extend( true, DataTable.ext.renderer, {
 				if ( settings !== ctx ) {
 					return;
 				}
+
+				var colIdx = column.idx;
 
 				cell
 					.removeClass( classes.sSortAsc +" "+classes.sSortDesc )
