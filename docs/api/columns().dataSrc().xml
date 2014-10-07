@@ -18,13 +18,10 @@
 		Generally the singular representation of this method, `dt-init column().dataSrc()`, is likely to be more useful for authors. This method is included for completeness in the API.
 	</description>
 
-	<example title="Sum the data for column 4"><![CDATA[
+	<example title="Get the data source for columns 0 and 1"><![CDATA[
 var table = $('#example').DataTable();
 
-$('#example').on( 'click', 'tbody td', function () {
-	var idx = table.cell(this).index().column;
-	alert( 'Data source: '+table.column( idx ).dataSrc() );
-} );
+alert( 'Data source: '+table.columns( [0, 1] ).dataSrc().join(' ') );
 ]]></example>
 
 	<related type="api">columns().data()</related>
