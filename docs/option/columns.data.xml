@@ -57,7 +57,7 @@
 
 			* `row` - The row index for the requested cell. See `dt-api row().index()`.
 			* `col` - The column index for the requested cell. See `dt-api column().index()`.
-			* `settings` - The DataTables settings object for the table in question. This can be used to obtain an API instance if required.
+			* `settings` - The `dt-type DataTables.Settings` object for the table in question. This can be used to obtain an API instance if required.
 		</parameter>
 		<returns>
 			The return value from the function is not required when 'set' is the type of call, but otherwise the return is what will be used for the data requested.

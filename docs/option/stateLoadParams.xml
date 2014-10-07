@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>stateLoadParams( settings, data )</signature>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="data">
