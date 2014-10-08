@@ -47,5 +47,9 @@ var data = table
 	} );
 ]]></example>
 
+	<related type="api">cells().render()</related>
+	<related type="api">cells().invalidate()</related>
 	<related type="api">cell().cache()</related>
+	<related type="api">cell().render()</related>
+	<related type="api">cell().invalidate()</related>
 </dt-api>

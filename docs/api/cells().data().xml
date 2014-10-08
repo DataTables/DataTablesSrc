@@ -28,4 +28,5 @@ console.log( data );
 ]]></example>
 
 	<related type="api">cell().data()</related>
+	<related type="api">cells().render()</related>
 </dt-api>

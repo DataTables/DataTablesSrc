@@ -31,7 +31,12 @@ $('#example tbody').on( 'click', 'td', function () {
 
 ]]></example>
 
+	<related type="api">cells().cache()</related>
+	<related type="api">cells().data()</related>
+	<related type="api">cells().render()</related>
 	<related type="api">cells().invalidate()</related>
+	<related type="api">cell().cache()</related>
 	<related type="api">cell().data()</related>
+	<related type="api">cell().render()</related>
 	<related type="api">row().invalidate()</related>
 </dt-api>
