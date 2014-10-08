@@ -183,7 +183,7 @@ function _fnCalculateColumnWidths ( oSettings )
  */
 function _fnThrottle( fn, freq ) {
 	var
-		frequency = freq || 200,
+		frequency = freq !== undefined ? freq : 200,
 		last,
 		timer;
 
