@@ -280,9 +280,12 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 		 * ^(?=.*?\bone\b)(?=.*?\btwo three\b)(?=.*?\bfour\b).*$
 		 */
 		var a = $.map( search.match( /"[^"]+"|[^ ]+/g ) || '', function ( word ) {
-			return word.charAt(0) === '"' ?
-				word.match( /^"(.*)"$/ )[1] :
-				word;
+			if ( word.charAt(0) === '"' ) {
+				var m = word.match( /^"(.*)"$/ );
+				word = m ? m[1] : word;
+			}
+
+			return word.replace('"', '');
 		} );
 
 		search = '^(?=.*?'+a.join( ')(?=.*?' )+').*$';
