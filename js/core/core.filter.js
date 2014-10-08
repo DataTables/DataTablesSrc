@@ -29,7 +29,6 @@ function _fnFeatureHtmlFilter ( settings )
 		/* Update all other filter input elements for the new display */
 		var n = features.f;
 		var val = !this.value ? "" : this.value; // mental IE8 fix :-(
-
 		/* Now do the filter */
 		if ( val != previousSearch.sSearch ) {
 			_fnFilterComplete( settings, {
@@ -50,7 +49,7 @@ function _fnFeatureHtmlFilter ( settings )
 		.bind(
 			'keyup.DT search.DT input.DT paste.DT cut.DT',
 			_fnDataSource( settings ) === 'ssp' ?
-				_fnThrottle( searchFn, 400 ):
+				_fnThrottle( searchFn, (settings.searchDelay || 400)):
 				searchFn
 		)
 		.bind( 'keypress.DT', function(e) {
@@ -263,13 +262,13 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 	search = regex ?
 		search :
 		_fnEscapeRegex( search );
-	
+
 	if ( smart ) {
 		/* For smart filtering we want to allow the search to work regardless of
 		 * word order. We also want double quoted text to be preserved, so word
 		 * order is important - a la google. So this is what we want to
 		 * generate:
-		 * 
+		 *
 		 * ^(?=.*?\bone\b)(?=.*?\btwo three\b)(?=.*?\bfour\b).*$
 		 */
 		var a = $.map( search.match( /"[^"]+"|[^ ]+/g ) || '', function ( word ) {
@@ -403,4 +402,3 @@ function _fnSearchToHung ( obj )
 		bCaseInsensitive: obj.caseInsensitive
 	};
 }
-

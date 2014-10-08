@@ -1699,7 +1699,7 @@ DataTable.defaults = {
 		 * However, multiple different tables on the page can use different
 		 * decimal place characters.
 		 *  @type string
-		 *  @default 
+		 *  @default
 		 *
 		 *  @dtopt Language
 		 *  @name DataTable.defaults.language.decimal
@@ -1864,7 +1864,7 @@ DataTable.defaults = {
 		/**
 		 * Assign a `placeholder` attribute to the search `input` element
 		 *  @type string
-		 *  @default 
+		 *  @default
 		 *
 		 *  @dtopt Language
 		 *  @name DataTable.defaults.language.searchPlaceholder
@@ -2047,7 +2047,7 @@ DataTable.defaults = {
 	 * * `full` - 'First', 'Previous', 'Next' and 'Last' buttons
 	 * * `full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus
 	 *   page numbers
-	 *  
+	 *
 	 * Further methods can be added using {@link DataTable.ext.oPagination}.
 	 *  @type string
 	 *  @default simple_numbers
@@ -2155,7 +2155,6 @@ DataTable.defaults = {
 	 */
 	"sServerMethod": "GET",
 
-
 	/**
 	 * DataTables makes use of renderers when displaying HTML elements for
 	 * a table. These renderers can be added or modified by plug-ins to
@@ -2171,8 +2170,25 @@ DataTable.defaults = {
 	 *  @name DataTable.defaults.renderer
 	 *
 	 */
-	"renderer": null
+	"renderer": null,
+
+  /**
+   * DataTables, as of v1.10, has built in search throttling for tables that
+   * use server-side processing. The default delay time for this throttling
+   * is 400ms, unless overriden below.
+	 *  @type int
+	 *  @default null
+	 *
+	 *  @dtopt Options
+	 *  @name DataTable.defaults.searchDelay
+	 *  @example
+	 *    $(document).ready( function() {
+	 *      $('#example').dataTable( {
+	 *        "searchDelay": 800
+	 *      } );
+	 *    } )
+  */
+	"searchDelay": null
 };
 
 _fnHungarianMap( DataTable.defaults );
-
