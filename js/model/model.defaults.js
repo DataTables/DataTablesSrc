@@ -2039,6 +2039,26 @@ DataTable.defaults = {
 
 
 	/**
+	 * Search delay option. This will throttle full table searches that use the
+	 * DataTables provided search input element (it does not effect calls to
+	 * `dt-api search()`, providing a delay before the search is made.
+	 *  @type integer
+	 *  @default 0
+	 *
+	 *  @dtopt Options
+	 *  @name DataTable.defaults.searchDelay
+	 *
+	 *  @example
+	 *    $(document).ready( function() {
+	 *      $('#example').dataTable( {
+	 *        "searchDelay": 200
+	 *      } );
+	 *    } )
+	 */
+	"searchDelay": null,
+
+
+	/**
 	 * DataTables features four different built-in options for the buttons to
 	 * display for pagination control:
 	 *

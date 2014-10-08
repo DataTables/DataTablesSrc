@@ -18,7 +18,7 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-	<related type="option">filter</related>
+	<related type="option">search</related>
 	<related type="option">searchCols</related>
 	<related type="option">search</related>
 	<related type="option">search.caseInsensitive</related>

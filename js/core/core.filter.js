@@ -44,13 +44,20 @@ function _fnFeatureHtmlFilter ( settings )
 			_fnDraw( settings );
 		}
 	};
+
+	var searchDelay = settings.searchDelay !== null ?
+		settings.searchDelay :
+		_fnDataSource( settings ) === 'ssp' ?
+			400 :
+			0;
+
 	var jqFilter = $('input', filter)
 		.val( previousSearch.sSearch )
 		.attr( 'placeholder', language.sSearchPlaceholder )
 		.bind(
 			'keyup.DT search.DT input.DT paste.DT cut.DT',
-			_fnDataSource( settings ) === 'ssp' ?
-				_fnThrottle( searchFn, 400 ):
+			searchDelay ?
+				_fnThrottle( searchFn, searchDelay ) :
 				searchFn
 		)
 		.bind( 'keypress.DT', function(e) {
