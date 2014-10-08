@@ -118,6 +118,12 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		return _fnSetObjectDataFn( mDataSrc )( rowData, val, meta );
 	};
 
+	// Indicate if DataTables should read DOM data as an object or array
+	// Used in _fnGetRowElements
+	if ( typeof mDataSrc !== 'number' ) {
+		oSettings._rowReadObject = true;
+	}
+
 	/* Feature sorting overrides column specific when off */
 	if ( !oSettings.oFeatures.bSort )
 	{
