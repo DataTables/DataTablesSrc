@@ -23,7 +23,6 @@ function _fnHungarianMap ( o )
 			newKey = key.replace( match[0], match[2].toLowerCase() );
 			map[ newKey ] = key;
 
-			//console.log( key, match );
 			if ( match[1] === 'o' )
 			{
 				_fnHungarianMap( o[key] );
