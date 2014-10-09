@@ -9,7 +9,7 @@
 	<description>
 		Enable vertical scrolling. Vertical scrolling will constrain the DataTable to the given height, and enable scrolling for any data which overflows the current viewport. This can be used as an alternative to paging to display a lot of data in a small area (although paging and scrolling can both be enabled at the same time if desired).
 
-		The value given here can be any CSS unit, or a number (in which case it will be treated as a pixel measurement) and us applied to the table body (i.e. it does not take into account the header or footer height directly).
+		The value given here can be any CSS unit, or a number (in which case it will be treated as a pixel measurement) and is applied to the table body (i.e. it does not take into account the header or footer height directly).
 	</description>
 
 	<example title="Enable vertical scrolling with pagination disabled"><![CDATA[
