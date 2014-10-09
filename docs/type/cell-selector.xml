@@ -15,6 +15,7 @@ The cell selector can be given in a number of different forms, to make it easy t
 * No selector - Select all cells
 * `dt-type string` - jQuery selector
 * `dt-type node` - `dt-tag td` / `dt-tag th` element selector
+* `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
 * `dt-type jQuery` - jQuery object of cell nodes
 * `dt-type object` - DataTables cell indexes (`row` and `column` properties)
 * `dt-type array` - Array containing any combination of the above options
@@ -73,6 +74,41 @@ $('#example tbody').on( 'click', 'td', function () {
   var cellData = table.cell( this ).data();
   // ... do something with `cellData`
 } );
+```
+
+
+## Function
+
+< # Version requirement
+<
+< Using a function as a cell selector requires DataTables 1.10.3 or newer.
+
+For complete control over which cells are selected, it is possible to provide a function with logic you've defined to perform the selection. That logic can be as simple or as complex as you wish, performing the selection by simply returning `true` if the cell should be included in the selected results and `false` if not.
+
+That can be particularly useful for finding cells based on the data they contain, or based on properties of the cell node.
+
+The function receives three parameters:
+
+1. Cell index - see `dt-api cell().index()`
+2. Cell data - see `dt-api cell().data()`. Note that this is the original data for the cell, not the rendered data if you are using `dt-init columns.render`
+3. Cell node - see `dt-api cell().node()`. Note that this may be `null` if you are using `dt-init deferRender`.
+
+The function is called once for every cell that can be selected, based on the `dt-type selector-modifier` options, which also defines the order of the cells for the called function.
+
+###### Get the nodes for all cells that contain `1`:
+
+```js
+var table = $('#example').DataTable();
+
+var ones = table
+	.cells( function ( idx, data, node ) {
+		return data == 1 ?
+			true : false;
+	} )
+	.nodes();
+
+// Add a class to the cells
+ones.to$().addClass('highlight');
 ```
 
 

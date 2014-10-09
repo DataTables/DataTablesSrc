@@ -16,6 +16,7 @@ var __row_selector = function ( settings, selector, opts )
 {
 	return _selector_run( selector, function ( sel ) {
 		var selInt = _intVal( sel );
+		var i, ien;
 
 		// Short cut - selector is a number and no options provided (default is
 		// all records, so no need to check if the index is in there, since it
@@ -35,14 +36,19 @@ var __row_selector = function ( settings, selector, opts )
 			return rows;
 		}
 
-		// Get nodes in the order from the `rows` array (can't use `pluck`) @todo - use pluck_order
-		var nodes = [];
-		for ( var i=0, ien=rows.length ; i<ien ; i++ ) {
-			nodes.push( settings.aoData[ rows[i] ].nTr );
+		// Get nodes in the order from the `rows` array
+		var nodes = _pluck_order( settings.aoData, rows, 'nTr' );
+
+		// Selector - function
+		if ( typeof sel === 'function' ) {
+			return $.map( rows, function (idx) {
+				var row = settings.aoData[ idx ];
+				return sel( idx, row._aData, row.nTr ) ? idx : null;
+			} );
 		}
 
+		// Selector - node
 		if ( sel.nodeName ) {
-			// Selector - node
 			if ( $.inArray( sel, nodes ) !== -1 ) {
 				return [ sel._DT_RowIndex ];// sel is a TR node that is in the table
 										// and DataTables adds a prop for fast lookup

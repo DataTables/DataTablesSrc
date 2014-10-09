@@ -9,31 +9,48 @@ var __cell_selector = function ( settings, selector, opts )
 	var allCells = $( [].concat.apply([], cells) );
 	var row;
 	var columns = settings.aoColumns.length;
-	var a, i, ien, j;
+	var a, i, ien, j, o, host;
 
 	return _selector_run( selector, function ( s ) {
-		if ( s === null || s === undefined ) {
-			// All cells
+		var fnSelector = typeof s === 'function';
+
+		if ( s === null || s === undefined || fnSelector ) {
+			// All cells and function selectors
 			a = [];
 
 			for ( i=0, ien=rows.length ; i<ien ; i++ ) {
 				row = rows[i];
 
 				for ( j=0 ; j<columns ; j++ ) {
-					a.push( {
+					o = {
 						row: row,
 						column: j
-					} );
+					};
+
+					if ( fnSelector ) {
+						// Selector - function
+						host = settings.aoData[ row ];
+
+						if ( s( o, _fnGetCellData(settings, row, j), host.anCells[j] ) ) {
+							a.push( o );
+						}
+					}
+					else {
+						// Selector - all
+						a.push( o );
+					}
 				}
 			}
 
 			return a;
 		}
-		else if ( $.isPlainObject( s ) ) {
+		
+		// Selector - index
+		if ( $.isPlainObject( s ) ) {
 			return [s];
 		}
 
-		// jQuery filtered cells
+		// Selector - jQuery filtered cells
 		return allCells
 			.filter( s )
 			.map( function (i, el) {
