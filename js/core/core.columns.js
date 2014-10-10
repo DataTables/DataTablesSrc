@@ -288,11 +288,18 @@ function _fnColumnTypes ( settings )
 
 					detectedType = types[j]( cache[k], settings );
 
-					// Doesn't match, so break early, since this type can't
-					// apply to this column. Also, HTML is a special case since
-					// it is so similar to `string`. Just a single match is
-					// needed for a column to be html type
-					if ( ! detectedType || detectedType === 'html' ) {
+					// If null, then this type can't apply to this column, so
+					// rather than testing all cells, break out. There is an
+					// exception for the last type which is `html`. We need to
+					// scan all rows since it is possible to mix string and HTML
+					// types
+					if ( ! detectedType && j !== types.length-1 ) {
+						break;
+					}
+
+					// Only a single match is needed for html type since it is
+					// bottom of the pile and very similar to string
+					if ( detectedType === 'html' ) {
 						break;
 					}
 				}
