@@ -2,6 +2,10 @@
 
 // Filter formatting functions. See model.ext.ofnSearch for information about
 // what is required from these methods.
+// 
+// Note that additional search methods are added for the html numbers and
+// html formatted numbers by `_addNumericSort()` when we know what the decimal
+// place is
 
 
 $.extend( DataTable.ext.type.search, {

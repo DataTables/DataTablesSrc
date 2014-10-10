@@ -200,9 +200,9 @@
 	require('ext.js');
 	require('ext.classes.js');
 	require('ext.paging.js');
-	require('ext.sorting.js');
 	require('ext.types.js');
 	require('ext.filter.js');
+	require('ext.sorting.js');
 	require('ext.renderer.js');
 	require('ext.helpers.js');
 	require('api.internal.js');
