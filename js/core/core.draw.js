@@ -43,7 +43,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			// Need to create the HTML if new, or if a rendering function is defined
 			if ( !nTrIn || oCol.mRender || oCol.mData !== i )
 			{
-				nTd.innerHTML = _fnGetCellData( oSettings, iRow, i, 'display' );
+				_fnGetCellData.call(nTd, oSettings, iRow, i, 'display' );
 			}
 
 			/* Add user defined class */

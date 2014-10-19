@@ -117,11 +117,23 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 	var col            = settings.aoColumns[colIdx];
 	var rowData        = settings.aoData[rowIdx]._aData;
 	var defaultContent = col.sDefaultContent;
-	var cellData       = col.fnGetData( rowData, type, {
+	var meta		   = {
 		settings: settings,
-		row:      rowIdx,
-		col:      colIdx
-	} );
+		row:	  rowIdx,
+		col:	  colIdx
+	};
+	var cellData = col.fnGetData.call(this, rowData, type, meta);
+
+	//compatability stuff
+	if( type === 'display' ) {
+		if(cellData === undefined) {
+			//default behaviour with newCellRender, nothting to do here...
+			return;
+		} else {
+			//compatability: set node content to return value, if there is one
+			this.innerHTML = cellData;
+		}
+	}
 
 	if ( cellData === undefined ) {
 		if ( settings.iDrawError != draw && defaultContent === null ) {
@@ -143,7 +155,7 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 		return cellData.call( rowData );
 	}
 
-	if ( cellData === null && type == 'display' ) {
+	if ( cellData === null && ( type === 'display' || type === 'adjust' ) ) {
 		return '';
 	}
 	return cellData;
@@ -192,10 +204,11 @@ function _fnSplitObjNotation( str )
  * Return a function that can be used to get data from a source object, taking
  * into account the ability to use nested objects as a source
  *  @param {string|int|function} mSource The data source for the object
+ *  @param {object} oSettings dataTables settings object
  *  @returns {function} Data get function
  *  @memberof DataTable#oApi
  */
-function _fnGetObjectDataFn( mSource )
+function _fnGetObjectDataFn( mSource, oSettings )
 {
 	if ( $.isPlainObject( mSource ) )
 	{
@@ -203,14 +216,21 @@ function _fnGetObjectDataFn( mSource )
 		var o = {};
 		$.each( mSource, function (key, val) {
 			if ( val ) {
-				o[key] = _fnGetObjectDataFn( val );
+				o[key] = _fnGetObjectDataFn( val, oSettings );
 			}
 		} );
+
+		//backwards compatibility
+		if(oSettings === undefined && oSettings.newCellRender !== true) {
+			if(o.adjust === undefined && o.display !== undefined) {
+				o.adjust = o.display;
+			}
+		}
 
 		return function (data, type, row, meta) {
 			var t = o[type] || o._;
 			return t !== undefined ?
-				t(data, type, row, meta) :
+				t.call(this, data, type, row, meta) :
 				data;
 		};
 	}
@@ -223,9 +243,16 @@ function _fnGetObjectDataFn( mSource )
 	}
 	else if ( typeof mSource === 'function' )
 	{
-		return function (data, type, row, meta) {
-			return mSource( data, type, row, meta );
-		};
+		if(oSettings !== undefined && oSettings.newCellRender === true) {
+			return function (data, type, row, meta) {
+				return mSource.call( this, data, type, row, meta );
+			};
+		} else {
+			return function (data, type, row, meta) {
+				//backwards-compatability
+				return mSource.call( this, data, type === 'adjust' ? 'display' : type, row, meta );
+			};
+		}
 	}
 	else if ( typeof mSource === 'string' && (mSource.indexOf('.') !== -1 ||
 		      mSource.indexOf('[') !== -1 || mSource.indexOf('(') !== -1) )
@@ -236,7 +263,7 @@ function _fnGetObjectDataFn( mSource )
 		 * return. This allows entire objects to be missing and sDefaultContent to
 		 * be used if defined, rather than throwing an error
 		 */
-		var fetchData = function (data, type, src) {
+		var fetchData = function (data, src) {
 			var arrayNotation, funcNotation, out, innerSrc;
 
 			if ( src !== "" )
@@ -266,7 +293,7 @@ function _fnGetObjectDataFn( mSource )
 
 						// Traverse each entry in the array getting the properties requested
 						for ( var j=0, jLen=data.length ; j<jLen ; j++ ) {
-							out.push( fetchData( data[j], type, innerSrc ) );
+							out.push( fetchData( data[j], innerSrc ) );
 						}
 
 						// If a string is given in between the array notation indicators, that
@@ -297,14 +324,14 @@ function _fnGetObjectDataFn( mSource )
 			return data;
 		};
 
-		return function (data, type) { // row and meta also passed, but not used
-			return fetchData( data, type, mSource );
+		return function (data) { // type, row and meta also passed, but not used
+			return fetchData( data, mSource );
 		};
 	}
 	else
 	{
 		/* Array or flat object mapping */
-		return function (data, type) { // row and meta also passed, but not used
+		return function (data) { // type, row and meta also passed, but not used
 			return data[mSource];
 		};
 	}
@@ -514,7 +541,7 @@ function _fnInvalidateRow( settings, rowIdx, src, column )
 					cell.removeChild( cell.firstChild );
 				}
 
-				cells[i].innerHTML = _fnGetCellData( settings, rowIdx, i, 'display' );
+				_fnGetCellData.call(cells[i], settings, rowIdx, i, 'display' );
 			}
 		}
 	}

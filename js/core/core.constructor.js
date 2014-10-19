@@ -136,6 +136,7 @@ _fnMap( oSettings, oInit, [
 	"fnStateLoadCallback",
 	"fnStateSaveCallback",
 	"renderer",
+	"newCellRender",
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
 	[ "oSearch", "oPreviousSearch" ],
 	[ "aoSearchCols", "aoPreSearchCols" ],
