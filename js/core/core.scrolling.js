@@ -81,12 +81,12 @@ function _fnFeatureHtmlTable ( settings )
 							headerClone
 								.removeAttr('id')
 								.css( 'margin-left', 0 )
+								.append( captionSide === 'top' ? caption : null )
 								.append(
 									table.children('thead')
 								)
 						)
 				)
-				.append( captionSide === 'top' ? caption : null )
 		)
 		.append(
 			$(_div, { 'class': classes.sScrollBody } )
@@ -112,12 +112,12 @@ function _fnFeatureHtmlTable ( settings )
 							footerClone
 								.removeAttr('id')
 								.css( 'margin-left', 0 )
+								.append( captionSide === 'bottom' ? caption : null )
 								.append(
 									table.children('tfoot')
 								)
 						)
 				)
-				.append( captionSide === 'bottom' ? caption : null )
 		);
 	}
 
