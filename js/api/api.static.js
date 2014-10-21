@@ -86,7 +86,7 @@ DataTable.isDataTable = DataTable.fnIsDataTable = function ( table )
  */
 DataTable.tables = DataTable.fnTables = function ( visible )
 {
-	return jQuery.map( DataTable.settings, function (o) {
+	return $.map( DataTable.settings, function (o) {
 		if ( !visible || (visible && $(o.nTable).is(':visible')) ) {
 			return o.nTable;
 		}
