@@ -26,6 +26,7 @@ $('#example').dataTable( {
 	<related type="api">state.save()</related>
 	<related type="option">stateSaveCallback</related>
 	<related type="option">stateDuration</related>
+	<related type="option">stateLoadCallback</related>
 	<related type="option">stateLoadParams</related>
 	<related type="option">stateLoaded</related>
 	<related type="option">stateSaveParams</related>
