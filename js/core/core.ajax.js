@@ -100,7 +100,7 @@ function _fnBuildAjax( oSettings, data, fn )
 	{
 		// DataTables 1.9- compatibility
 		oSettings.fnServerData.call( instance,
-			oSettings.sAjaxSource,
+			ajax || oSettings.sAjaxSource,
 			$.map( data, function (val, key) { // Need to convert back to 1.9 trad format
 				return { name: key, value: val };
 			} ),
