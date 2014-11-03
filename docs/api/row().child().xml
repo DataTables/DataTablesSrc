@@ -99,7 +99,7 @@ table.rows().eq( 0 ).each( function (rowIdx) {
 					'<td>'+rowIdx+'.1</td>'+
 					'<td>'+rowIdx+'.2</td>'+
 					'<td>'+rowIdx+'.3</td>'+
-					'<td>'+rowIdx+'.4</td>'
+					'<td>'+rowIdx+'.4</td>'+
 				'</tr>'
 			)
 		)
