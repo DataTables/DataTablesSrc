@@ -36,9 +36,6 @@ var __row_selector = function ( settings, selector, opts )
 			return rows;
 		}
 
-		// Get nodes in the order from the `rows` array
-		var nodes = _pluck_order( settings.aoData, rows, 'nTr' );
-
 		// Selector - function
 		if ( typeof sel === 'function' ) {
 			return $.map( rows, function (idx) {
@@ -47,11 +44,16 @@ var __row_selector = function ( settings, selector, opts )
 			} );
 		}
 
+		// Get nodes in the order from the `rows` array with null values removed
+		var nodes = _removeEmpty(
+			_pluck_order( settings.aoData, rows, 'nTr' )
+		);
+
 		// Selector - node
 		if ( sel.nodeName ) {
 			if ( $.inArray( sel, nodes ) !== -1 ) {
-				return [ sel._DT_RowIndex ];// sel is a TR node that is in the table
-										// and DataTables adds a prop for fast lookup
+				return [ sel._DT_RowIndex ]; // sel is a TR node that is in the table
+				                             // and DataTables adds a prop for fast lookup
 			}
 		}
 
@@ -85,7 +87,7 @@ _api_register( 'rows()', function ( selector, opts ) {
 
 	var inst = this.iterator( 'table', function ( settings ) {
 		return __row_selector( settings, selector, opts );
-	} );
+	}, 1 );
 
 	// Want argument shifting here and in __row_selector?
 	inst.selector.rows = selector;
@@ -98,32 +100,32 @@ _api_register( 'rows()', function ( selector, opts ) {
 _api_register( 'rows().nodes()', function () {
 	return this.iterator( 'row', function ( settings, row ) {
 		return settings.aoData[ row ].nTr || undefined;
-	} );
+	}, 1 );
 } );
 
 _api_register( 'rows().data()', function () {
 	return this.iterator( true, 'rows', function ( settings, rows ) {
 		return _pluck_order( settings.aoData, rows, '_aData' );
-	} );
+	}, 1 );
 } );
 
 _api_registerPlural( 'rows().cache()', 'row().cache()', function ( type ) {
 	return this.iterator( 'row', function ( settings, row ) {
 		var r = settings.aoData[ row ];
 		return type === 'search' ? r._aFilterData : r._aSortData;
-	} );
+	}, 1 );
 } );
 
 _api_registerPlural( 'rows().invalidate()', 'row().invalidate()', function ( src ) {
 	return this.iterator( 'row', function ( settings, row ) {
 		_fnInvalidateRow( settings, row, src );
-	} );
+	}, 1 );
 } );
 
 _api_registerPlural( 'rows().indexes()', 'row().index()', function () {
 	return this.iterator( 'row', function ( settings, row ) {
 		return row;
-	} );
+	}, 1 );
 } );
 
 _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
@@ -172,7 +174,7 @@ _api_register( 'rows.add()', function ( rows ) {
 			}
 
 			return out;
-		} );
+		}, 1 );
 
 	// Return an Api.rows() extended instance, so rows().nodes() etc can be used
 	var modRows = this.rows( -1 );

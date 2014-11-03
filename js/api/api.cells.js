@@ -5,7 +5,7 @@ var __cell_selector = function ( settings, selector, opts )
 {
 	var data = settings.aoData;
 	var rows = _selector_row_indexes( settings, opts );
-	var cells = _pluck_order( data, rows, 'anCells' );
+	var cells = _removeEmpty( _pluck_order( data, rows, 'anCells' ) );
 	var allCells = $( [].concat.apply([], cells) );
 	var row;
 	var columns = settings.aoColumns.length;
@@ -111,7 +111,7 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 		}
 
 		return a;
-	} );
+	}, 1 );
 
 	$.extend( cells.selector, {
 		cols: columnSelector,
@@ -125,15 +125,18 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 
 _api_registerPlural( 'cells().nodes()', 'cell().node()', function () {
 	return this.iterator( 'cell', function ( settings, row, column ) {
-		return settings.aoData[ row ].anCells[ column ];
-	} );
+		var cells = settings.aoData[ row ].anCells;
+		return cells ?
+			cells[ column ] :
+			undefined;
+	}, 1 );
 } );
 
 
 _api_register( 'cells().data()', function () {
 	return this.iterator( 'cell', function ( settings, row, column ) {
 		return _fnGetCellData( settings, row, column );
-	} );
+	}, 1 );
 } );
 
 
@@ -142,14 +145,14 @@ _api_registerPlural( 'cells().cache()', 'cell().cache()', function ( type ) {
 
 	return this.iterator( 'cell', function ( settings, row, column ) {
 		return settings.aoData[ row ][ type ][ column ];
-	} );
+	}, 1 );
 } );
 
 
 _api_registerPlural( 'cells().render()', 'cell().render()', function ( type ) {
 	return this.iterator( 'cell', function ( settings, row, column ) {
 		return _fnGetCellData( settings, row, column, type );
-	} );
+	}, 1 );
 } );
 
 
@@ -160,7 +163,7 @@ _api_registerPlural( 'cells().indexes()', 'cell().index()', function () {
 			column: column,
 			columnVisible: _fnColumnIndexToVisible( settings, column )
 		};
-	} );
+	}, 1 );
 } );
 
 

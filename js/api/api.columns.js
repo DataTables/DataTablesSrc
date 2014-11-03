@@ -181,7 +181,7 @@ _api_register( 'columns()', function ( selector, opts ) {
 
 	var inst = this.iterator( 'table', function ( settings ) {
 		return __column_selector( settings, selector, opts );
-	} );
+	}, 1 );
 
 	// Want argument shifting here and in _row_selector?
 	inst.selector.cols = selector;
@@ -197,7 +197,7 @@ _api_register( 'columns()', function ( selector, opts ) {
 _api_registerPlural( 'columns().header()', 'column().header()', function ( selector, opts ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return settings.aoColumns[column].nTh;
-	} );
+	}, 1 );
 } );
 
 
@@ -207,7 +207,7 @@ _api_registerPlural( 'columns().header()', 'column().header()', function ( selec
 _api_registerPlural( 'columns().footer()', 'column().footer()', function ( selector, opts ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return settings.aoColumns[column].nTf;
-	} );
+	}, 1 );
 } );
 
 
@@ -215,14 +215,14 @@ _api_registerPlural( 'columns().footer()', 'column().footer()', function ( selec
  *
  */
 _api_registerPlural( 'columns().data()', 'column().data()', function () {
-	return this.iterator( 'column-rows', __columnData );
+	return this.iterator( 'column-rows', __columnData, 1 );
 } );
 
 
 _api_registerPlural( 'columns().dataSrc()', 'column().dataSrc()', function () {
 	return this.iterator( 'column', function ( settings, column ) {
 		return settings.aoColumns[column].mData;
-	} );
+	}, 1 );
 } );
 
 
@@ -231,14 +231,14 @@ _api_registerPlural( 'columns().cache()', 'column().cache()', function ( type ) 
 		return _pluck_order( settings.aoData, rows,
 			type === 'search' ? '_aFilterData' : '_aSortData', column
 		);
-	} );
+	}, 1 );
 } );
 
 
 _api_registerPlural( 'columns().nodes()', 'column().nodes()', function () {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
 		return _pluck_order( settings.aoData, rows, 'anCells', column ) ;
-	} );
+	}, 1 );
 } );
 
 
@@ -248,7 +248,7 @@ _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis
 		return vis === undefined ?
 			settings.aoColumns[ column ].bVisible :
 			__setColumnVis( settings, column, vis, calc );
-	} );
+	}, 1 );
 } );
 
 
@@ -258,7 +258,7 @@ _api_registerPlural( 'columns().indexes()', 'column().index()', function ( type 
 		return type === 'visible' ?
 			_fnColumnIndexToVisible( settings, column ) :
 			column;
-	} );
+	}, 1 );
 } );
 
 
@@ -278,7 +278,7 @@ _api_registerPlural( 'columns().indexes()', 'column().index()', function ( type 
 _api_register( 'columns.adjust()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		_fnAdjustColumnSizing( settings );
-	} );
+	}, 1 );
 } );
 
 

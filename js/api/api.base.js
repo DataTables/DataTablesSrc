@@ -287,8 +287,8 @@ _Api.prototype = /** @lends DataTables.Api */{
 		return -1;
 	},
 
-	// Internal only at the moment - relax?
-	iterator: function ( flatten, type, fn ) {
+	// Note that `alwaysNew` is internal - use iteratorNew externally
+	iterator: function ( flatten, type, fn, alwaysNew ) {
 		var
 			a = [], ret,
 			i, ien, j, jen,
@@ -298,6 +298,7 @@ _Api.prototype = /** @lends DataTables.Api */{
 
 		// Argument shifting
 		if ( typeof flatten === 'string' ) {
+			alwaysNew = fn;
 			fn = type;
 			type = flatten;
 			flatten = false;
@@ -347,7 +348,7 @@ _Api.prototype = /** @lends DataTables.Api */{
 			}
 		}
 
-		if ( a.length ) {
+		if ( a.length || alwaysNew ) {
 			var api = new _Api( context, flatten ? a.concat.apply( [], a ) : a );
 			var apiSelector = api.selector;
 			apiSelector.rows = selector.rows;
