@@ -10,6 +10,8 @@
 	<type type="array">
 		<description>As an array, this also enables deferred loading, while the first data index tells DataTables how many rows are in the filtered result set, and the second how many in the full data set without filtering applied.</description>
 	</type>
+	
+	<default value="false" />
 
 	<description>
 		When using server-side processing, the default mode of operation for DataTables is to simply throw away any data that currently exists in the table and make a request to the server to get the first page of data to display. This is fine for an empty table, but if you already have the first page of data displayed in the plain HTML, it is a waste of resources. As such, this option exists to allow you to instruct DataTables to not make that initial request, rather it will use the data already on the page (no sorting etc will be applied to it).
