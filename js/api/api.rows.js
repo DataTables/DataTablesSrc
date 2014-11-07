@@ -118,8 +118,8 @@ _api_registerPlural( 'rows().cache()', 'row().cache()', function ( type ) {
 
 _api_registerPlural( 'rows().invalidate()', 'row().invalidate()', function ( src ) {
 	return this.iterator( 'row', function ( settings, row ) {
-		_fnInvalidateRow( settings, row, src );
-	}, 1 );
+		_fnInvalidate( settings, row, src );
+	} );
 } );
 
 _api_registerPlural( 'rows().indexes()', 'row().index()', function () {
@@ -210,7 +210,7 @@ _api_register( 'row().data()', function ( data ) {
 	ctx[0].aoData[ this[0] ]._aData = data;
 
 	// Automatically invalidate
-	_fnInvalidateRow( ctx[0], this[0], 'data' );
+	_fnInvalidate( ctx[0], this[0], 'data' );
 
 	return this;
 } );

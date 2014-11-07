@@ -26,7 +26,7 @@
 
 		This provides an alternative to using `dt-api cell().data()` and `dt-api row().data()` when changing cell values. Typically the `data` methods are preferred over the invalidation methods, as they use less code, but where the invalidation methods really shine is when the data source for the table are external objects which can be updated using that objects own methods.
 
-		Note that this method actually invalidates the data for the whole row that the target cell is in. This is due to how DataTables performs the invalidation internally. In practice it should have no effect unless you didn't want DataTables to be aware of one update, but not another.
+		Prior to <span class="since">DataTables 1.10.4</span> this method actually invalidated the whole row. As of <span class="since">1.10.4</span> only the cell in question is invalidated.
 	</description>
 
 	<example title="Increment a cell's value and then invalidate and redraw the table"><![CDATA[

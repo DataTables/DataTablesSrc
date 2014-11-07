@@ -167,27 +167,17 @@ _api_registerPlural( 'cells().indexes()', 'cell().index()', function () {
 } );
 
 
-_api_register( [
-	'cells().invalidate()',
-	'cell().invalidate()'
-], function ( src ) {
-	var selector = this.selector;
-
-	// Use the rows method of the instance to perform the invalidation, rather
-	// than doing it here. This avoids needing to handle duplicate rows from
-	// the cells.
-	this.rows( selector.rows, selector.opts ).invalidate( src );
-
-	return this;
+_api_registerPlural( 'cells().invalidate()', 'cell().invalidate()', function ( src ) {
+	return this.iterator( 'cell', function ( settings, row, column ) {
+		_fnInvalidate( settings, row, src, column );
+	} );
 } );
-
 
 
 
 _api_register( 'cell()', function ( rowSelector, columnSelector, opts ) {
 	return _selector_first( this.cells( rowSelector, columnSelector, opts ) );
 } );
-
 
 
 _api_register( 'cell().data()', function ( data ) {
@@ -203,7 +193,7 @@ _api_register( 'cell().data()', function ( data ) {
 
 	// Set
 	_fnSetCellData( ctx[0], cell[0].row, cell[0].column, data );
-	_fnInvalidateRow( ctx[0], cell[0].row, 'data', cell[0].column );
+	_fnInvalidate( ctx[0], cell[0].row, 'data', cell[0].column );
 
 	return this;
 } );
