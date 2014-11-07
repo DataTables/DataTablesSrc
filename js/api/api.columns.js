@@ -245,10 +245,11 @@ _api_registerPlural( 'columns().nodes()', 'column().nodes()', function () {
 
 _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis, calc ) {
 	return this.iterator( 'column', function ( settings, column ) {
-		return vis === undefined ?
-			settings.aoColumns[ column ].bVisible :
-			__setColumnVis( settings, column, vis, calc );
-	}, 1 );
+		if ( vis === undefined ) {
+			return settings.aoColumns[ column ].bVisible;
+		} // else
+		__setColumnVis( settings, column, vis, calc );
+	} );
 } );
 
 
