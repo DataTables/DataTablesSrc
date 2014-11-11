@@ -201,12 +201,9 @@ function _fnThrottle( fn, freq ) {
 				fn.apply( that, args );
 			}, frequency );
 		}
-		else if ( last ) {
-			last = now;
-			fn.apply( that, args );
-		}
 		else {
 			last = now;
+			fn.apply( that, args );
 		}
 	};
 }
