@@ -29,7 +29,7 @@
 
 	<example title="Modify a cell's content using jQuery and then invalidate the row held by DataTables"><![CDATA[
 var table = $('#example').DataTable();
-var tr = $('#example tbody td:eq(0)');
+var tr = $('#example tbody tr:eq(0)');
 
 tr.find('td:eq(0)').html( 'Updated' );
 table
