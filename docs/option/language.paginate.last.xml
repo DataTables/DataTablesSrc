@@ -15,7 +15,7 @@
 $('#example').dataTable( {
   "language": {
     "paginate": {
-      "next": "Last page"
+      "last": "Last page"
     }
   }
 } );
