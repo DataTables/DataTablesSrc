@@ -29,7 +29,7 @@ var column = table.column( 0 );
 $( column.footer() ).html(
 	column.data().reduce( function (a,b) {
 		return a+b;
-	} );
+	} )
 );
 ]]></example>
 
