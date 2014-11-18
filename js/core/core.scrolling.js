@@ -128,7 +128,7 @@ function _fnFeatureHtmlTable ( settings )
 
 	// When the body is scrolled, then we also want to scroll the headers
 	if ( scrollX ) {
-		$(scrollBody).scroll( function (e) {
+		$(scrollBody).on( 'scroll.DT', function (e) {
 			var scrollLeft = this.scrollLeft;
 
 			scrollHead.scrollLeft = scrollLeft;
