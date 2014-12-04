@@ -69,7 +69,7 @@ class MarkdownExtraExtended_Parser extends MarkdownExtra_Parser {
 					~{3,}|`{3,} # Marker: three tilde or more.
 				)
 				
-				[ ]?(\w+)?(?:,[ ]?(\d+))?[ ]* \n # Whitespace and newline following marker.
+				[ ]?([\w\#]+)?(?:,[ ]?(\d+))?[ ]* \n # Whitespace and newline following marker.
 				
 				# 3: Content
 				(
