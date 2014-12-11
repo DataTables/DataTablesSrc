@@ -10,7 +10,7 @@
   </default>
 
 	<description>
-    When working with the different types of data (filtering, sorting, display etc), DataTables can process the data used for the display in each cell in a manual suitable for the function being performed. For example, HTML tags will be removed from the strings used for filter matching, while sort formatting may remove currency symbols to allow currency values to be sorted numerically.
+    When operating in client-side processing mode, DataTables can process the data used for the display in each cell in a manual suitable for the action being performed. For example, HTML tags will be removed from the strings used for filter matching, while sort formatting may remove currency symbols to allow currency values to be sorted numerically. The formatting action performed to _normalise_ the data so it can be ordered and searched depends upon the column's _type_.
 
     DataTables has a number of built in types which are automatically detected:
 
@@ -48,6 +48,8 @@
     It is expected that the above options will cover the majority of data types used with DataTables, however, data is flexible and comes in many forms, so additional types with different effects can be added through the use of plug-ins. This provides the ability to sort almost any data format imaginable!
 
     As an optimisation, if you know the column type in advance, you can set the value using this option, saving DataTables from running its auto detection routine.
+
+    Please note that if you are using server-side processing (`dt-init serverSide`) this option has no effect since the ordering and search actions are performed by a server-side script.
 	</description>
 
 	<example title="Set the first column's type manually with `dt-init columnDefs`"><![CDATA[
