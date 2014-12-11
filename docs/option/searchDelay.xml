@@ -4,7 +4,7 @@
 	<summary>Set a throttle frequency for searching</summary>
 	<since>1.10.3</since>
 
-	<type type="object" />
+	<type type="integer" />
 	<default value="null">
 		When given as `null` DataTables will automatically assign a value that is suitable for the processing mode that the DataTable is operating in:
 
