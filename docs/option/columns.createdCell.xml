@@ -9,16 +9,16 @@
 		<parameter type="node" name="cell">
 			The `tag TD` node that has been created
 		</parameter>
-		<parameter type="node" name="cellData">
+		<parameter type="*" name="cellData">
 			Cell data. If you use `dt-init columns.render` to modify the data, use `$(cell).html()` to get and modify the rendered data. The information given here is the original and unmodified data from the data source.
 		</parameter>
-		<parameter type="node" name="rowData">
+		<parameter type="*" name="rowData">
 			Data source object / array for the whole row
 		</parameter>
-		<parameter type="node" name="rowIndex">
+		<parameter type="integer" name="rowIndex">
 			DataTables' internal index for the row
 		</parameter>
-		<parameter type="node" name="colIndex">
+		<parameter type="integer" name="colIndex">
 			DataTables' internal index for the column
 		</parameter>
 		<scope>HTML table element</scope>
