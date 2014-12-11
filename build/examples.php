@@ -788,7 +788,7 @@ function build_toc ( $examples, $example, $category )
 		$out = '';
 
 		for ( $i=0, $ien=count($examples) ; $i<$ien ; $i++ ) {
-			if ( $examples[$i]['type'] === 'dir' ) {
+			if ( $examples[$i]['type'] === 'dir' && $examples[$i]['name'] !== 'private' ) {
 				$out .= build_toc_category( $examples[$i], $example );
 			}
 		}

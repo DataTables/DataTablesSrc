@@ -184,7 +184,7 @@ class DT_Example
 			'new-pre-tags' => 'script',
 			'new-empty-tags' => 'tbody',
 			'output-html' => 1,
-			'wrap' => 120
+			'wrap' => 180
 		) );
 		$tidy->cleanRepair();
 
@@ -500,6 +500,9 @@ class DT_Example
 					$host[] = $srcLibs[ $srcLib ];
 				}
 			}
+			else if ( strpos($srcLib, '/') === 0 ) {
+				$host[] = $srcLib;
+			}
 			else {
 				throw new Exception("Unknown {$type} library: ".$srcLib, 1);
 			}
@@ -512,11 +515,15 @@ class DT_Example
 		// List of libraries files so the user can see what specifically is
 		// needed for a given example
 		$str = '<ul>';
+		$lookup = DT_Example::$lookup_libraries[ $type ];
 
 		$libs = $this->_xml_libs[ $type ];
 		if ( count( $libs ) ) {
 			for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
-				$file = DT_Example::$lookup_libraries[ $type ][ $libs[$i] ];
+				$file = isset( $lookup[ $libs[$i] ] ) ?
+					$lookup[ $libs[$i] ] :
+					$libs[$i];
+
 				$path = strpos($file, '//') !== 0 ?
 					call_user_func( $this->_path_resolver, $file ) :
 					$file;
