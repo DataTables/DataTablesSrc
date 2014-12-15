@@ -7,7 +7,7 @@
 	<type type="string" />
 
 	<description>
-		Flag to indicate if the filtering should be case insensitive or not. Note that if an initial filter is supplied, it will be shown in the DataTables filtering input control.
+		Search term that should be applied to the table.
 	</description>
 
 	<example title="Set an initial filter"><![CDATA[

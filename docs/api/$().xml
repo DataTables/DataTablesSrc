@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>$( selector [, modifier ] )</signature>
 		<description>Perform a jQuery selector on the rows and contents of the rows in the tables' `dt-tag tbody` elements.</description>
-		<parameter type="node|jQuery|string" name="selector" default="true">
+		<parameter type="node|jQuery|string" name="selector">
 			[jQuery selector](http://api.jquery.com/jQuery/#jQuery1) to perform on the nodes inside the table's tbody tag.
 		</parameter>
 		<parameter type="selector-modifier" name="modifier" default="">
