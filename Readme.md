@@ -16,7 +16,7 @@ This separation allows developers who simply want to use DataTables as is, to do
 
 ## Building
 
-DataTables can be built using the `make.sh` script in the `/scripts` directory of this repo. Simply check out the repo and run `make.sh --help` to get a full list of the options available for the build process. `make.sh build` will be the most common (with `make.sh build debug` available for quick testing - it skips the minification steps for speed).
+DataTables can be built using the `make.sh` script in the `/build` directory of this repo. Simply check out the repo and run `make.sh --help` to get a full list of the options available for the build process. `make.sh build` will be the most common (with `make.sh build debug` available for quick testing - it skips the minification steps for speed).
 
 A number of programs are required out your computer to be able to build DataTables:
 
@@ -24,8 +24,9 @@ A number of programs are required out your computer to be able to build DataTabl
 * PHP 5.4+
 * JSHint 2.1+
 * Closure compiler
+* ImageOptim
 
-A Mac or Linux environment is assumed in the build script - Windows builds are not currently supported.  
+A Mac environment is assumed in the build script - Windows/Linux builds are not currently supported.  
 
 
 ## Documentation
