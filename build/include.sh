@@ -29,6 +29,12 @@ function echo_error {
 	echo "\033[0;31m  ${1}\033[0m"
 }
 
+### Will compress Images using ImageOptim lossless Compression
+function compress_images {
+	echo_msg "Starting Lossless compression of images"
+	/Applications/ImageOptim.app/Contents/MacOS/ImageOptim ../images/ .
+}
+
 # Will compress a CSS file using SASS, saving the new file into the same
 # directory as the uncompressed file, but with `.min.css` as the extension.
 #
@@ -42,7 +48,7 @@ function css_compress {
 
 		echo_msg "CSS compressing $FILE.css"
 		sass --scss --stop-on-error --style compressed $DIR/$FILE.css > $DIR/$FILE.min.css
-		
+
 		echo_msg "  File size: $(ls -l $DIR/$FILE.min.css | awk -F" " '{ print $5 }')"
 	fi
 }
@@ -154,4 +160,3 @@ function examples_process {
 		-m "${DT_BUILT}/media" \
 		-l "css:syntax css:demo js:syntax js:demo"
 }
-

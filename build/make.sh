@@ -160,6 +160,7 @@ function build_repo {
 	build_js
 	build_css
 	build_images
+	compress_images
 	build_examples
 
 	cp $BUILD_DIR/js/jquery.js ${BUILD_DIR}/DataTables/media/js/
@@ -211,7 +212,7 @@ function build_repo_sync {
 			build_repo
 
 			cd ${BUILD_DIR}/DataTables
-			
+
 			# git appears to have a bug whereby --quiet doesn't work immediately
 			# after files have been generated. Running twice fixes
 			git diff --quiet --exit-code
@@ -258,7 +259,7 @@ function update_build_repo {
 		cd $BUILD_DIR
 		git clone git@github.com:DataTables/DataTables.git
 		cd - > /dev/null 2>&1
-	else 
+	else
 		echo_msg "Pulling latest changes for build repo from origin"
 	fi
 
@@ -291,7 +292,7 @@ function build_extension {
 	cd ${BASE_DIR}/extensions
 
 	if [ ! -d ${BASE_DIR}/extensions/${EXTENSION} ]; then
-		echo_msg "Cloning $EXTENSION from GitHub" 
+		echo_msg "Cloning $EXTENSION from GitHub"
 		git clone git@github.com:DataTables/${EXTENSION}.git
 	fi
 
@@ -410,5 +411,3 @@ esac
 echo ""
 echo_section "Done"
 echo ""
-
-
