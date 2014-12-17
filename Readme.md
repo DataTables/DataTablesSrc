@@ -16,7 +16,7 @@ This separation allows developers who simply want to use DataTables as is, to do
 
 ## Building
 
-DataTables can be built using the `make.sh` script in the `/scripts` directory of this repo. Simply check out the repo and run `make.sh --help` to get a full list of the options available for the build process. `make.sh build` will be the most common (with `make.sh build debug` available for quick testing - it skips the minification steps for speed).
+DataTables can be built using the `make.sh` script in the `/build` directory of this repo. Simply check out the repo and run `make.sh --help` to get a full list of the options available for the build process. `make.sh build` will be the most common (with `make.sh build debug` available for quick testing - it skips the minification steps for speed).
 
 A number of programs are required out your computer to be able to build DataTables:
 
