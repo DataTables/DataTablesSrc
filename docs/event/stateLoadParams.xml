@@ -9,7 +9,7 @@
 		<parameter type="object" name="e">
 			jQuery event object
 		</parameter>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="data">
@@ -19,7 +19,7 @@
 	</type>
 
 	<description>
-		The `dt-event stateLoadParams` event is the event compliment of the `dt-init stateLoadParams` initialisation option. As with the callback, the event is fired when the table is loading state from the stored data, but prior to that read data being applied to the data table. This allows modification of the saved state data.
+		The `dt-event stateLoadParams` event is the event compliment of the `dt-init stateLoadParams` initialisation option. As with the callback, the event is fired when the table is loading state from the stored data, but prior to that read data being applied to the data table. This allows modification of the saved state data. For the format of the data that is stored, please refer to the `dt-init stateSaveCallback` documentation.
 
 		The `dt-event stateLoadParams` event is fired at the same point as `dt-init stateLoadCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
 
@@ -30,14 +30,19 @@
 $('#example')
 	.dataTable()
 	.on( 'stateLoadParams.dt', function (e, settings, data) {
-		data.oSearch.sSearch = "";
+		data.search.search = "";
 	} );
 ]]></example>
 
+	<related type="api">state()</related>
+	<related type="api">state.clear()</related>
+	<related type="api">state.loaded()</related>
+	<related type="api">state.save()</related>
 	<related type="option">stateSave</related>
 	<related type="option">stateSaveCallback</related>
-	<related type="option">stateLoadCallback</related>
 	<related type="option">stateLoadParams</related>
-	<related type="event">stateSaveParams</related>
+	<related type="option">stateLoaded</related>
+	<related type="option">stateSaveParams</related>
 	<related type="event">stateLoaded</related>
+	<related type="event">stateSaveParams</related>
 </dt-event>

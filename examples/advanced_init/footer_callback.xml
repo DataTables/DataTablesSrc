@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html-total-footer" order="12">
+<dt-example table-type="html-total-footer" order="13">
 
 <css lib="datatables">
 	th { white-space: nowrap; }
@@ -24,20 +24,20 @@ $(document).ready(function() {
 			};
 
 			// Total over all pages
-			data = api.column( 4 ).data();
-			total = data.length ?
-				data.reduce( function (a, b) {
-						return intVal(a) + intVal(b);
-				} ) :
-				0;
+			total = api
+				.column( 4 )
+				.data()
+				.reduce( function (a, b) {
+					return intVal(a) + intVal(b);
+				} );
 
 			// Total over this page
-			data = api.column( 4, { page: 'current'} ).data();
-			pageTotal = data.length ?
-				data.reduce( function (a, b) {
-						return intVal(a) + intVal(b);
-				} ) :
-				0;
+			pageTotal = api
+				.column( 4, { page: 'current'} )
+				.data()
+				.reduce( function (a, b) {
+					return intVal(a) + intVal(b);
+				}, 0 );
 
 			// Update footer
 			$( api.column( 4 ).footer() ).html(

@@ -5,12 +5,9 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>preDrawCallback( settings, json )</signature>
-		<parameter type="object" name="settings">
+		<signature>preDrawCallback( settings )</signature>
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
-		</parameter>
-		<parameter type="object" name="json">
-			JSON data retrieved from the server if the `ajax` option was set. Otherwise `undefined`.
 		</parameter>
 		<scope>HTML table element</scope>
 	</type>

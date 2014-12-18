@@ -14,7 +14,19 @@
 // can be an array of these items, comma separated list, or an array of comma
 // separated lists
 
-var __re_column_selector = /^(.*):(name|visIdx|visible)$/;
+var __re_column_selector = /^(.+):(name|visIdx|visible)$/;
+
+
+// r1 and r2 are redundant - but it means that the parameters match for the
+// iterator callback in columns().data()
+var __columnData = function ( settings, column, r1, r2, rows ) {
+	var a = [];
+	for ( var row=0, ien=rows.length ; row<ien ; row++ ) {
+		a.push( _fnGetCellData( settings, rows[row], column ) );
+	}
+	return a;
+};
+
 
 var __column_selector = function ( settings, selector, opts )
 {
@@ -26,63 +38,74 @@ var __column_selector = function ( settings, selector, opts )
 	return _selector_run( selector, function ( s ) {
 		var selInt = _intVal( s );
 
+		// Selector - all
 		if ( s === '' ) {
-			// All columns
 			return _range( columns.length );
 		}
-		else if ( selInt !== null ) {
-			// Integer selector
+		
+		// Selector - index
+		if ( selInt !== null ) {
 			return [ selInt >= 0 ?
 				selInt : // Count from left
 				columns.length + selInt // Count from right (+ because its a negative value)
 			];
 		}
-		else {
-			var match = typeof s === 'string' ?
-				s.match( __re_column_selector ) :
-				'';
+		
+		// Selector = function
+		if ( typeof s === 'function' ) {
+			var rows = _selector_row_indexes( settings, opts );
 
-			if ( match ) {
-				switch( match[2] ) {
-					case 'visIdx':
-					case 'visible':
-						var idx = parseInt( match[1], 10 );
-						// Visible index given, convert to column index
-						if ( idx < 0 ) {
-							// Counting from the right
-							var visColumns = $.map( columns, function (col,i) {
-								return col.bVisible ? i : null;
-							} );
-							return [ visColumns[ visColumns.length + idx ] ];
-						}
-						// Counting from the left
-						return [ _fnVisibleToColumnIndex( settings, idx ) ];
+			return $.map( columns, function (col, idx) {
+				return s(
+						idx,
+						__columnData( settings, idx, 0, 0, rows ),
+						nodes[ idx ]
+					) ? idx : null;
+			} );
+		}
 
-					case 'name':
-						// match by name. `names` is column index complete and in order
-						return $.map( names, function (name, i) {
-							return name === match[1] ? i : null;
+		// jQuery or string selector
+		var match = typeof s === 'string' ?
+			s.match( __re_column_selector ) :
+			'';
+
+		if ( match ) {
+			switch( match[2] ) {
+				case 'visIdx':
+				case 'visible':
+					var idx = parseInt( match[1], 10 );
+					// Visible index given, convert to column index
+					if ( idx < 0 ) {
+						// Counting from the right
+						var visColumns = $.map( columns, function (col,i) {
+							return col.bVisible ? i : null;
 						} );
-				}
+						return [ visColumns[ visColumns.length + idx ] ];
+					}
+					// Counting from the left
+					return [ _fnVisibleToColumnIndex( settings, idx ) ];
+
+				case 'name':
+					// match by name. `names` is column index complete and in order
+					return $.map( names, function (name, i) {
+						return name === match[1] ? i : null;
+					} );
 			}
-			else {
-				// jQuery selector on the TH elements for the columns
-				return $( nodes )
-					.filter( s )
-					.map( function () {
-						return $.inArray( this, nodes ); // `nodes` is column index complete and in order
-					} )
-					.toArray();
-			}
+		}
+		else {
+			// jQuery selector on the TH elements for the columns
+			return $( nodes )
+				.filter( s )
+				.map( function () {
+					return $.inArray( this, nodes ); // `nodes` is column index complete and in order
+				} )
+				.toArray();
 		}
 	} );
 };
 
 
-
-
-
-var __setColumnVis = function ( settings, column, vis ) {
+var __setColumnVis = function ( settings, column, vis, recalc ) {
 	var
 		cols = settings.aoColumns,
 		col  = cols[ column ],
@@ -125,12 +148,14 @@ var __setColumnVis = function ( settings, column, vis ) {
 	_fnDrawHead( settings, settings.aoHeader );
 	_fnDrawHead( settings, settings.aoFooter );
 
-	// Automatically adjust column sizing
-	_fnAdjustColumnSizing( settings );
+	if ( recalc === undefined || recalc ) {
+		// Automatically adjust column sizing
+		_fnAdjustColumnSizing( settings );
 
-	// Realign columns for scrolling
-	if ( settings.oScroll.sX || settings.oScroll.sY ) {
-		_fnScrollDraw( settings );
+		// Realign columns for scrolling
+		if ( settings.oScroll.sX || settings.oScroll.sY ) {
+			_fnScrollDraw( settings );
+		}
 	}
 
 	_fnCallbackFire( settings, null, 'column-visibility', [settings, column, vis] );
@@ -156,7 +181,7 @@ _api_register( 'columns()', function ( selector, opts ) {
 
 	var inst = this.iterator( 'table', function ( settings ) {
 		return __column_selector( settings, selector, opts );
-	} );
+	}, 1 );
 
 	// Want argument shifting here and in _row_selector?
 	inst.selector.cols = selector;
@@ -172,7 +197,7 @@ _api_register( 'columns()', function ( selector, opts ) {
 _api_registerPlural( 'columns().header()', 'column().header()', function ( selector, opts ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return settings.aoColumns[column].nTh;
-	} );
+	}, 1 );
 } );
 
 
@@ -182,7 +207,7 @@ _api_registerPlural( 'columns().header()', 'column().header()', function ( selec
 _api_registerPlural( 'columns().footer()', 'column().footer()', function ( selector, opts ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return settings.aoColumns[column].nTf;
-	} );
+	}, 1 );
 } );
 
 
@@ -190,13 +215,14 @@ _api_registerPlural( 'columns().footer()', 'column().footer()', function ( selec
  *
  */
 _api_registerPlural( 'columns().data()', 'column().data()', function () {
-	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
-		var a = [];
-		for ( var row=0, ien=rows.length ; row<ien ; row++ ) {
-			a.push( _fnGetCellData( settings, rows[row], column, '' ) );
-		}
-		return a;
-	} );
+	return this.iterator( 'column-rows', __columnData, 1 );
+} );
+
+
+_api_registerPlural( 'columns().dataSrc()', 'column().dataSrc()', function () {
+	return this.iterator( 'column', function ( settings, column ) {
+		return settings.aoColumns[column].mData;
+	}, 1 );
 } );
 
 
@@ -205,23 +231,24 @@ _api_registerPlural( 'columns().cache()', 'column().cache()', function ( type ) 
 		return _pluck_order( settings.aoData, rows,
 			type === 'search' ? '_aFilterData' : '_aSortData', column
 		);
-	} );
+	}, 1 );
 } );
 
 
 _api_registerPlural( 'columns().nodes()', 'column().nodes()', function () {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
 		return _pluck_order( settings.aoData, rows, 'anCells', column ) ;
-	} );
+	}, 1 );
 } );
 
 
 
-_api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis ) {
+_api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis, calc ) {
 	return this.iterator( 'column', function ( settings, column ) {
-		return vis === undefined ?
-			settings.aoColumns[ column ].bVisible :
-			__setColumnVis( settings, column, vis );
+		if ( vis === undefined ) {
+			return settings.aoColumns[ column ].bVisible;
+		} // else
+		__setColumnVis( settings, column, vis, calc );
 	} );
 } );
 
@@ -232,7 +259,7 @@ _api_registerPlural( 'columns().indexes()', 'column().index()', function ( type 
 		return type === 'visible' ?
 			_fnColumnIndexToVisible( settings, column ) :
 			column;
-	} );
+	}, 1 );
 } );
 
 
@@ -252,7 +279,7 @@ _api_registerPlural( 'columns().indexes()', 'column().index()', function ( type 
 _api_register( 'columns.adjust()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		_fnAdjustColumnSizing( settings );
-	} );
+	}, 1 );
 } );
 
 

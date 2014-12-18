@@ -59,7 +59,10 @@ DataTable.isDataTable = DataTable.fnIsDataTable = function ( table )
 	var is = false;
 
 	$.each( DataTable.settings, function (i, o) {
-		if ( o.nTable === t || o.nScrollHead === t || o.nScrollFoot === t ) {
+		if ( o.nTable === t ||
+			$('table', o.nScrollHead)[0] === t ||
+			$('table', o.nScrollFoot)[0] === t
+		) {
 			is = true;
 		}
 	} );
@@ -86,11 +89,43 @@ DataTable.isDataTable = DataTable.fnIsDataTable = function ( table )
  */
 DataTable.tables = DataTable.fnTables = function ( visible )
 {
-	return jQuery.map( DataTable.settings, function (o) {
+	return $.map( DataTable.settings, function (o) {
 		if ( !visible || (visible && $(o.nTable).is(':visible')) ) {
 			return o.nTable;
 		}
 	} );
+};
+
+
+/**
+ * DataTables utility methods
+ * 
+ * This namespace provides helper methods that DataTables uses internally to
+ * create a DataTable, but which are not exclusively used only for DataTables.
+ * These methods can be used by extension authors to save the duplication of
+ * code.
+ *
+ *  @namespace
+ */
+DataTable.util = {
+	/**
+	 * Throttle the calls to a function. Arguments and context are maintained
+	 * for the throttled function.
+	 *
+	 * @param {function} fn Function to be called
+	 * @param {integer} freq Call frequency in mS
+	 * @return {function} Wrapped function
+	 */
+	throttle: _fnThrottle,
+
+
+	/**
+	 * Escape a string such that it can be used in a regular expression
+	 *
+	 *  @param {string} sVal string to escape
+	 *  @returns {string} escaped string
+	 */
+	escapeRegex: _fnEscapeRegex
 };
 
 

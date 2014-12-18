@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>state()</name>
+	<summary>Get the last saved state of the table</summary>
+	<since>1.10.1</since>
+
+	<type type="function">
+		<signature>state()</signature>
+		<description>Get the last saved state of the table</description>
+		<returns type="object">State saved object</returns>
+	</type>
+
+	<description>
+		When state saving is enabled (`dt-init stateSave`) it can be useful to know what state has been saved for a table an any one specific moment. This method provides the ability to get the last data object that has been stored in by the state saving mechanism.
+
+		The data object has the following format, but please be aware that plug-ins and extensions to DataTables can modify this structure by adding data as they require for their own state information.
+		
+		```js
+		{
+			"time":   {number}               // Time stamp of when the object was created
+			"start":  {number}               // Display start point
+			"length": {number}               // Page length
+			"order":  {array}                // 2D array of column ordering information (see `order` option)
+			"search": {
+				"search":          {string}  // Search term
+				"regex":           {boolean} // Indicate if the search term should be treated as regex or not
+				"smart":           {boolean} // Flag to enable DataTables smart search
+				"caseInsensitive": {boolean} // Case insensitive flag
+			},
+			"columns" [
+				{
+					"visible": {boolean}     // Column visibility
+					"search":  {}            // Object containing column search information. Same structure as `search` above
+				}
+			]
+		}
+		```
+
+		Please note that this method gives the last saved state, which is not necessarily the current state. For example the `dt-api page()` method will not automatically trigger a state save. Calling `dt-api draw()` will trigger a state save, or use `dt-api state.save()`.
+	</description>
+
+	<example title="Get the saved page length from the state object"><![CDATA[
+
+alert( 'Saved page length is: '+ table.state().length );
+
+]]></example>
+
+	<related type="api">state.clear()</related>
+	<related type="api">state.loaded()</related>
+	<related type="api">state.save()</related>
+	<related type="option">stateSave</related>
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+	<related type="option">stateLoadParams</related>
+	<related type="option">stateSaveParams</related>
+	<related type="option">stateLoaded</related>
+	<related type="event">stateLoaded</related>
+	<related type="event">stateLoadParams</related>
+	<related type="event">stateSaveParams</related>
+</dt-api>

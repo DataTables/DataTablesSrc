@@ -23,7 +23,7 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-	<related type="option">filter</related>
+	<related type="option">search</related>
 	<related type="option">search</related>
 	<related type="option">columns.searchable</related>
 	<related type="api">column().search()</related>

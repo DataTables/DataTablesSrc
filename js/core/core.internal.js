@@ -35,7 +35,7 @@ var _re_formatted_numeric = /[',$£€¥%\u2009\u202F]/g;
 
 
 var _empty = function ( d ) {
-	return !d || d === '-' ? true : false;
+	return !d || d === true || d === '-' ? true : false;
 };
 
 
@@ -51,7 +51,7 @@ var _numToDecimal = function ( num, decimalPoint ) {
 	if ( ! _re_dic[ decimalPoint ] ) {
 		_re_dic[ decimalPoint ] = new RegExp( _fnEscapeRegex( decimalPoint ), 'g' );
 	}
-	return typeof num === 'string' ?
+	return typeof num === 'string' && decimalPoint !== '.' ?
 		num.replace( /\./g, '' ).replace( _re_dic[ decimalPoint ], '.' ) :
 		num;
 };
@@ -68,13 +68,13 @@ var _isNumber = function ( d, decimalPoint, formatted ) {
 		d = d.replace( _re_formatted_numeric, '' );
 	}
 
-	return !d || d==='-' || (!isNaN( parseFloat(d) ) && isFinite( d ));
+	return _empty( d ) || (!isNaN( parseFloat(d) ) && isFinite( d ));
 };
 
 
 // A string without HTML in it can be considered to be HTML still
 var _isHtml = function ( d ) {
-	return !d || typeof d === 'string';
+	return _empty( d ) || typeof d === 'string';
 };
 
 
@@ -128,7 +128,9 @@ var _pluck_order = function ( a, order, prop, prop2 )
 	// is essential here
 	if ( prop2 !== undefined ) {
 		for ( ; i<ien ; i++ ) {
-			out.push( a[ order[i] ][ prop ][ prop2 ] );
+			if ( a[ order[i] ][ prop ] ) {
+				out.push( a[ order[i] ][ prop ][ prop2 ] );
+			}
 		}
 	}
 	else {
@@ -157,6 +159,20 @@ var _range = function ( len, start )
 
 	for ( var i=start ; i<end ; i++ ) {
 		out.push( i );
+	}
+
+	return out;
+};
+
+
+var _removeEmpty = function ( a )
+{
+	var out = [];
+
+	for ( var i=0, ien=a.length ; i<ien ; i++ ) {
+		if ( a[i] ) { // careful - will remove all falsy values!
+			out.push( a[i] );
+		}
 	}
 
 	return out;

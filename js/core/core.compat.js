@@ -23,7 +23,6 @@ function _fnHungarianMap ( o )
 			newKey = key.replace( match[0], match[2].toLowerCase() );
 			map[ newKey ] = key;
 
-			//console.log( key, match );
 			if ( match[1] === 'o' )
 			{
 				_fnHungarianMap( o[key] );
@@ -149,6 +148,18 @@ function _fnCompatOpts ( init )
 	_fnCompatMap( init, 'pagingType',    'sPaginationType' );
 	_fnCompatMap( init, 'pageLength',    'iDisplayLength' );
 	_fnCompatMap( init, 'searching',     'bFilter' );
+
+	// Column search objects are in an array, so it needs to be converted
+	// element by element
+	var searchCols = init.aoSearchCols;
+
+	if ( searchCols ) {
+		for ( var i=0, ien=searchCols.length ; i<ien ; i++ ) {
+			if ( searchCols[i] ) {
+				_fnCamelToHungarian( DataTable.models.oSearch, searchCols[i] );
+			}
+		}
+	}
 }
 
 

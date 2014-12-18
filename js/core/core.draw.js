@@ -65,7 +65,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			if ( oCol.fnCreatedCell )
 			{
 				oCol.fnCreatedCell.call( oSettings.oInstance,
-					nTd, _fnGetCellData( oSettings, iRow, i, 'display' ), rowData, iRow, i
+					nTd, _fnGetCellData( oSettings, iRow, i ), rowData, iRow, i
 				);
 			}
 		}
@@ -105,6 +105,10 @@ function _fnRowAttributes( row )
 			$(tr)
 				.removeClass( row.__rowc.join(' ') )
 				.addClass( data.DT_RowClass );
+		}
+
+		if ( data.DT_RowAttr ) {
+			$(tr).attr( data.DT_RowAttr );
 		}
 
 		if ( data.DT_RowData ) {
@@ -384,7 +388,9 @@ function _fnDraw( oSettings )
 				}
 			}
 
-			/* Row callback functions - might want to manipulate the row */
+			// Row callback functions - might want to manipulate the row
+			// iRowCount and j are not currently documented. Are they at all
+			// useful?
 			_fnCallbackFire( oSettings, 'aoRowCallback', null,
 				[nRow, aoData._aData, iRowCount, j] );
 

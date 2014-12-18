@@ -82,4 +82,5 @@ table.columns( '.select-filter' ).eq( 0 ).each( function ( colIdx ) {
 	<related type="option">columns.searchable</related>
 	<related type="api">search()</related>
 	<related type="api">columns().search()</related>
+	<related type="api">$.fn.dataTable.util.escapeRegex()</related>
 </dt-api>

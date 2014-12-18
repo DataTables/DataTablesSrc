@@ -46,7 +46,7 @@ $(document).ready(function() {
 		"columns": [
 			null,
 			{ "orderDataType": "dom-text-numeric" },
-			{ "orderDataType": "dom-text" },
+			{ "orderDataType": "dom-text", type: 'string' },
 			{ "orderDataType": "dom-select" }
 		]
 	} );

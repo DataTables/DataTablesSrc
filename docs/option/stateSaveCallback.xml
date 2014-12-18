@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>stateSaveCallback( settings, data )</signature>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="data">
@@ -18,9 +18,32 @@
 	<description>
 		DataTables can save the state of the table (paging, filtering etc) when the `dt-init stateSave` option is enabled, and by default it will use HTML5's `localStorage` to save the state into. This callback method allows you to change where the state is saved (for example you might wish to use a server-side database or cookies).
 
-		The information stored is type sensitive - that is, the data type of the data given by DataTables must be preserved. For example the `start` parameter must be a `-type number` data type.
+		The data given to the function is an object which has the following structure:
 
-		Please note that this method is required only to store the data given to it. The `dt-init stateSaveParams` method is used to manipulate the data that is to actually be saved.
+		```js
+		{
+			"time":   {number}               // Time stamp of when the object was created
+			"start":  {number}               // Display start point
+			"length": {number}               // Page length
+			"order":  {array}                // 2D array of column ordering information (see `order` option)
+			"search": {
+				"search":          {string}  // Search term
+				"regex":           {boolean} // Indicate if the search term should be treated as regex or not
+				"smart":           {boolean} // Flag to enable DataTables smart search
+				"caseInsensitive": {boolean} // Case insensitive flag
+			},
+			"columns" [
+				{
+					"visible": {boolean}     // Column visibility
+					"search":  {}            // Object containing column search information. Same structure as `search` above
+				}
+			]
+		}
+		```
+
+		Note that additional extensions can add extra information to this structure, or you may use `dt-init stateSaveParams` or `dt-event stateSaveParams` to add your own parameters. Also the information stored is type sensitive - that is, the data type of the data given by DataTables must be preserved. For example the `start` parameter must be a `-type number` data type.
+
+		This method is required only to store the data given to it. The `dt-init stateSaveParams` method is used to manipulate the data that is to actually be saved.
 
 		This callback works hand-in-hand with `dt-init stateLoadCallback`. This method saves the state while `dt-init stateSaveCallback` will load it from where this callback has saved it.
 	</description>
@@ -34,16 +57,23 @@ $('#example').dataTable( {
       "url": "/state_save",
       "data": data,
       "dataType": "json",
-      "method": "POST"
+      "type": "POST"
       "success": function () {}
     } );
   }
 } );
 ]]></example>
 
+	<related type="api">state()</related>
+	<related type="api">state.clear()</related>
+	<related type="api">state.loaded()</related>
+	<related type="api">state.save()</related>
 	<related type="option">stateSave</related>
-	<related type="option">stateSaveCallback</related>
 	<related type="option">stateLoadParams</related>
 	<related type="option">stateLoaded</related>
+	<related type="option">stateLoadCallback</related>
 	<related type="option">stateSaveParams</related>
+	<related type="event">stateLoaded</related>
+	<related type="event">stateLoadParams</related>
+	<related type="event">stateSaveParams</related>
 </dt-option>

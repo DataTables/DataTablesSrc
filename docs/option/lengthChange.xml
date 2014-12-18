@@ -12,7 +12,7 @@
 
 		Note that by default the control is shown at the top left of the table. That can be controlled using `dt-init dom` and CSS.
 
-		Additionally, if pagination is disabled using the `dt-init paginate` option, this option is automatically disabled since it has no relevance when the is no pagination.
+		Additionally, if pagination is disabled using the `dt-init paging` option, this option is automatically disabled since it has no relevance when the is no pagination.
 	</description>
 
 	<example title="Disable user ability to change number of records per page"><![CDATA[

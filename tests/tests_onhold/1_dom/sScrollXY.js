@@ -59,5 +59,23 @@ $(document).ready( function () {
 		function () { return $('div.dataTables_scrollBody').scrollLeft() == $('div.dataTables_scrollFoot').scrollLeft(); }
 	);
 	
+	oTest.fnTest( 
+		"Don't throw an error if initialising again on id selected element",
+		function () {
+			$('#example').dataTable();
+		},
+		function () { return true; }
+	);
+	
+	oTest.fnTest( 
+		"Don't throw an error if initialising again on tag name selected element - picking up header table as well",
+		function () {
+			$('table.dataTable').dataTable();
+		},
+		function () { return true; }
+	);
+
+	
+	
 	oTest.fnComplete();
 } );

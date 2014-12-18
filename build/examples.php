@@ -100,25 +100,25 @@ if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['js' ]['jquery']          = '//code.jquery.com/jquery-1.11.1.min.js';
 	DT_Example::$lookup_libraries['css']['datatables']      = '//cdn.datatables.net/'.$versions['DataTables']['release']['version'].'/css/jquery.dataTables.css';
 	DT_Example::$lookup_libraries['js' ]['datatables']      = '//cdn.datatables.net/'.$versions['DataTables']['release']['version'].'/js/jquery.dataTables.min.js';
-	DT_Example::$lookup_libraries['css']['autofill']        = '//cdn.datatables.net/autoFill/'.$versions['AutoFill']['release']['version'].'/css/dataTables.autoFill.css';
-	DT_Example::$lookup_libraries['js' ]['autofill']        = '//cdn.datatables.net/autoFill/'.$versions['AutoFill']['release']['version'].'/js/dataTables.autoFill.min.js';
-	DT_Example::$lookup_libraries['css']['colreorder']      = '//cdn.datatables.net/colReorder/'.$versions['ColReorder']['release']['version'].'/css/dataTables.colReorder.css';
-	DT_Example::$lookup_libraries['js' ]['colreorder']      = '//cdn.datatables.net/colReorder/'.$versions['ColReorder']['release']['version'].'/js/dataTables.colReorder.min.js';
-	DT_Example::$lookup_libraries['css']['colvis']          = '//cdn.datatables.net/colVis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
-	DT_Example::$lookup_libraries['css']['colvis-jqueryui'] = '//cdn.datatables.net/colVis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colvis.jqueryui.css';
-	DT_Example::$lookup_libraries['js' ]['colvis']          = '//cdn.datatables.net/colVis/'.$versions['ColVis']['release']['version'].'/js/dataTables.colVis.min.js';
-	DT_Example::$lookup_libraries['css']['fixedcolumns']    = '//cdn.datatables.net/fixedColumns/'.$versions['FixedColumns']['release']['version'].'/css/dataTables.fixedColumns.css';
-	DT_Example::$lookup_libraries['js' ]['fixedcolumns']    = '//cdn.datatables.net/fixedColumns/'.$versions['FixedColumns']['release']['version'].'/js/dataTables.fixedColumns.min.js';
-	DT_Example::$lookup_libraries['css']['fixedheader']     = '//cdn.datatables.net/fixedHeader/'.$versions['FixedHeader']['release']['version'].'/css/dataTables.fixedHeader.css';
-	DT_Example::$lookup_libraries['js' ]['fixedheader']     = '//cdn.datatables.net/fixedHeader/'.$versions['FixedHeader']['release']['version'].'/js/dataTables.fixedHeader.min.js';
-	DT_Example::$lookup_libraries['css']['keytable']        = '//cdn.datatables.net/keyTable/'.$versions['KeyTable']['release']['version'].'/css/dataTables.keyTable.css';
-	DT_Example::$lookup_libraries['js' ]['keytable']        = '//cdn.datatables.net/keyTable/'.$versions['KeyTable']['release']['version'].'/js/dataTables.keyTable.min.js';
+	DT_Example::$lookup_libraries['css']['autofill']        = '//cdn.datatables.net/autofill/'.$versions['AutoFill']['release']['version'].'/css/dataTables.autoFill.css';
+	DT_Example::$lookup_libraries['js' ]['autofill']        = '//cdn.datatables.net/autofill/'.$versions['AutoFill']['release']['version'].'/js/dataTables.autoFill.min.js';
+	DT_Example::$lookup_libraries['css']['colreorder']      = '//cdn.datatables.net/colreorder/'.$versions['ColReorder']['release']['version'].'/css/dataTables.colReorder.css';
+	DT_Example::$lookup_libraries['js' ]['colreorder']      = '//cdn.datatables.net/colreorder/'.$versions['ColReorder']['release']['version'].'/js/dataTables.colReorder.min.js';
+	DT_Example::$lookup_libraries['css']['colvis']          = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
+	DT_Example::$lookup_libraries['css']['colvis-jqueryui'] = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colvis.jqueryui.css';
+	DT_Example::$lookup_libraries['js' ]['colvis']          = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/js/dataTables.colVis.min.js';
+	DT_Example::$lookup_libraries['css']['fixedcolumns']    = '//cdn.datatables.net/fixedcolumns/'.$versions['FixedColumns']['release']['version'].'/css/dataTables.fixedColumns.css';
+	DT_Example::$lookup_libraries['js' ]['fixedcolumns']    = '//cdn.datatables.net/fixedcolumns/'.$versions['FixedColumns']['release']['version'].'/js/dataTables.fixedColumns.min.js';
+	DT_Example::$lookup_libraries['css']['fixedheader']     = '//cdn.datatables.net/fixedheader/'.$versions['FixedHeader']['release']['version'].'/css/dataTables.fixedHeader.css';
+	DT_Example::$lookup_libraries['js' ]['fixedheader']     = '//cdn.datatables.net/fixedheader/'.$versions['FixedHeader']['release']['version'].'/js/dataTables.fixedHeader.min.js';
+	DT_Example::$lookup_libraries['css']['keytable']        = '//cdn.datatables.net/keytable/'.$versions['KeyTable']['release']['version'].'/css/dataTables.keyTable.css';
+	DT_Example::$lookup_libraries['js' ]['keytable']        = '//cdn.datatables.net/keytable/'.$versions['KeyTable']['release']['version'].'/js/dataTables.keyTable.min.js';
 	DT_Example::$lookup_libraries['css']['responsive']      = '//cdn.datatables.net/responsive/'.$versions['Responsive']['release']['version'].'/css/dataTables.responsive.css';
 	DT_Example::$lookup_libraries['js' ]['responsive']      = '//cdn.datatables.net/responsive/'.$versions['Responsive']['release']['version'].'/js/dataTables.responsive.min.js';
 	DT_Example::$lookup_libraries['css']['scroller']        = '//cdn.datatables.net/scroller/'.$versions['Scroller']['release']['version'].'/css/dataTables.scroller.css';
 	DT_Example::$lookup_libraries['js' ]['scroller']        = '//cdn.datatables.net/scroller/'.$versions['Scroller']['release']['version'].'/js/dataTables.scroller.min.js';
-	DT_Example::$lookup_libraries['css']['tabletools']      = '//cdn.datatables.net/tableTools/'.$versions['TableTools']['release']['version'].'/css/dataTables.tableTools.css';
-	DT_Example::$lookup_libraries['js' ]['tabletools']      = '//cdn.datatables.net/tableTools/'.$versions['TableTools']['release']['version'].'/js/dataTables.tableTools.min.js';
+	DT_Example::$lookup_libraries['css']['tabletools']      = '//cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/css/dataTables.tableTools.css';
+	DT_Example::$lookup_libraries['js' ]['tabletools']      = '//cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/js/dataTables.tableTools.min.js';
 
 	DT_Example::$lookup_libraries['css']['datatables-bootstrap']  = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/bootstrap/3/dataTables.bootstrap.css';
 	DT_Example::$lookup_libraries['js' ]['datatables-bootstrap']  = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/bootstrap/3/dataTables.bootstrap.js';
@@ -365,7 +365,7 @@ CREATE TABLE `datatables_demo` (
 	`start_date` timestamp DEFAULT CURRENT_TIMESTAMP,
 	`age`        int(8),
 	`salary`     int(8),
-	`extn`       int(8),
+	`extn`       varchar(8) NOT NULL default '',
 	PRIMARY KEY  (`id`)
 );
 
@@ -377,6 +377,7 @@ EOD;
 	file_put_contents( $out_dir.'/mysql.sql', $str );
 
 	// Postgres style
+	$next = count($json) + 1;
 	$str = <<<EOD
 --
 -- DataTables Ajax and server-side processing database (Postgres)
@@ -393,7 +394,7 @@ CREATE TABLE datatables_demo (
 	start_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
 	age        integer,
 	salary     integer,
-	extn       integer,
+	extn       text NOT NULL default '',
 	PRIMARY KEY (id)
 );
 
@@ -401,6 +402,8 @@ INSERT INTO datatables_demo
 		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
 	VALUES
 		$values;
+
+ALTER SEQUENCE datatables_demo_id_seq RESTART WITH {$next};
 EOD;
 	file_put_contents( $out_dir.'/postgres.sql', $str );
 
@@ -421,7 +424,7 @@ CREATE TABLE datatables_demo (
 	start_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
 	age        integer,
 	salary     integer,
-	extn       integer
+	extn       text NOT NULL default ''
 );
 
 INSERT INTO datatables_demo
@@ -449,14 +452,18 @@ CREATE TABLE datatables_demo (
 	start_date datetime DEFAULT GETDATE(),
 	age        int,
 	salary     int,
-	extn       int,
+	extn       varchar(8) NOT NULL default '',
 	PRIMARY KEY (id)
 );
+
+SET IDENTITY_INSERT datatables_demo ON;
 
 INSERT INTO datatables_demo
 		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
 	VALUES
 		$values;
+
+SET IDENTITY_INSERT datatables_demo OFF;
 EOD;
 	file_put_contents( $out_dir.'/sqlserver.sql', $str );
 }
@@ -781,7 +788,7 @@ function build_toc ( $examples, $example, $category )
 		$out = '';
 
 		for ( $i=0, $ien=count($examples) ; $i<$ien ; $i++ ) {
-			if ( $examples[$i]['type'] === 'dir' ) {
+			if ( $examples[$i]['type'] === 'dir' && $examples[$i]['name'] !== 'private' ) {
 				$out .= build_toc_category( $examples[$i], $example );
 			}
 		}

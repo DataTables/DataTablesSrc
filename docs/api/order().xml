@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>order()</signature>
 		<description>Get the current ordering of the table. If there is more than one table in the API's context, the ordering of the first table will be returned. Use `dt-api table()` if you require the ordering of a different table in the API's context.</description>
-		<returns type="DataTables.Api">DataTables API instance with the current order in the result set</returns>
+		<returns type="array">Array of arrays containing information about the currently applied sort. This 2D array is the same format as the array used for setting the order to apply to the table (see below).</returns>
 	</type>
 	<type type="function">
 		<signature>order( order [, ...] )</signature>
@@ -43,7 +43,7 @@
 		]
 		```
 
-		where `colIdx_x` is the column data index of the column whose data is used to perform the ordering, and `orderingDirection_n` is the direction of the ordering (`dt-string desc` (descending) or `dt-string asc` (ascending)) - note that these _must_ be lower-case.
+		where `colIdx_x` is the column data index of the column whose data is used to perform the ordering, and `orderingDirection_n` is the direction of the ordering (`dt-string desc` (descending) or `dt-string asc` (ascending)) - note that these _must_ be lower-case. The column index is zero based - i.e. the first column in the table is index `0`, the second index `1` etc.
 
 		Using this format, DataTables can achieve single column ordering (i.e. just use one entry in the top level array), or multi-column ordering to the *n*th column (multiple entries in the array).
 

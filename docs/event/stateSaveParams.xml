@@ -9,7 +9,7 @@
 		<parameter type="object" name="e">
 			jQuery event object
 		</parameter>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="data">
@@ -19,7 +19,7 @@
 	</type>
 
 	<description>
-		The `dt-event stateSaveParams` event is the event compliment of the `dt-init stateSaveParams` initialisation option. As with the callback, the event is fired when the table has changed state a new state save is required.
+		The `dt-event stateSaveParams` event is the event compliment of the `dt-init stateSaveParams` initialisation option. As with the callback, the event is fired when the table has changed state a new state save is required. For the format of the data that is stored, please refer to the `dt-init stateSaveCallback` documentation.
 
 		This event allows modification of the state saving object prior to actually doing the save, including addition or other state properties (for plug-ins) or modification of a DataTables core property.
 
@@ -32,14 +32,19 @@
 $('#example')
 	.dataTable()
 	.on( 'stateSaveParams.dt', function (e, settings, data) {
-		data.oSearch.sSearch = "";
+		data.search.search = "";
 	} );
 ]]></example>
 
+	<related type="api">state()</related>
+	<related type="api">state.clear()</related>
+	<related type="api">state.loaded()</related>
+	<related type="api">state.save()</related>
 	<related type="option">stateSave</related>
 	<related type="option">stateSaveCallback</related>
-	<related type="option">stateLoadCallback</related>
 	<related type="option">stateLoadParams</related>
-	<related type="event">stateLoadParams</related>
+	<related type="option">stateLoaded</related>
+	<related type="option">stateSaveParams</related>
 	<related type="event">stateLoaded</related>
+	<related type="event">stateLoadParams</related>
 </dt-event>

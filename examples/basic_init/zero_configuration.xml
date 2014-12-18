@@ -5,7 +5,7 @@
 <js lib="jquery datatables">
 <![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable();
+	$('#example').DataTable();
 } );
 ]]>
 </js>

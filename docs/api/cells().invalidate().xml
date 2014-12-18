@@ -8,7 +8,15 @@
 		<signature>cells().invalidate( [ source ] )</signature>
 		<description>Invalidate information in the selected cells</description>
 		<parameter type="string" name="source" default="auto">
-			Data source to read the new data from. By default, DataTables will automatically read the new data for the cell from the same source as it was originally read (i.e. DOM sourced or Javascript sourced) but this parameter can be used to override that and tell DataTables specifically which should be used to read in the new data. This might be useful if you are Ajax loading data but use the DOM to modify the contents of cells.
+			Data source to read the new data from.
+
+			By default, DataTables will automatically read the new data for the row from the same source as it was originally read (i.e. DOM sourced or Javascript sourced) but this parameter can be used to override that and tell DataTables specifically which should be used to read in the new data. This might be useful if you are Ajax loading data but use the DOM to modify the contents of cells.
+
+			This property can take the values:
+
+			* `-string auto` - use original data source
+			* `-string data` - use the Javascript data structure
+			* `-string dom` - use the data currently held in the DOM
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with selected cell references in the result set</returns>
 	</type>
@@ -18,7 +26,7 @@
 
 		This provides an alternative to using `dt-api cell().data()` and `dt-api row().data()` when changing cell values. Typically the `data` methods are preferred over the invalidation methods, as they use less code, but where the invalidation methods really shine is when the data source for the table are external objects which can be updated using that objects own methods.
 
-		Note that this method actually invalidates the data for the whole row that the target cell(s) are in. This is due to how DataTables performs the invalidation internally. In practice it should have no effect unless you didn't want DataTables to be aware of one update, but not another.
+		Prior to <span class="since">DataTables 1.10.4</span> this method actually invalidated the whole row for the selected cells. As of <span class="since">1.10.4</span> only the cells in question are invalidated.
 	</description>
 
 	<example title="Modify a cell's content using jQuery and then invalidate the data held by DataTables"><![CDATA[
@@ -30,7 +38,10 @@ table.cell( td ).invalidate().draw();
 
 ]]></example>
 
-	<related type="api">cell().invalidate()</related>
+	<related type="api">cells().data()</related>
+	<related type="api">cells().render()</related>
 	<related type="api">cell().data()</related>
+	<related type="api">cell().invalidate()</related>
+	<related type="api">cell().render()</related>
 	<related type="api">rows().invalidate()</related>
 </dt-api>

@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>infoCallback( settings, start, end, max, total, pre )</signature>
-		<parameter type="object" name="thead">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="integer" name="start">
@@ -21,7 +21,7 @@
 		<parameter type="integer" name="total">
 			Total number of rows in the data set, after filtering
 		</parameter>
-		<parameter type="array" name="pre">
+		<parameter type="string" name="pre">
 			The string that DataTables has formatted using its own rules
 		</parameter>
 		<returns type="string">

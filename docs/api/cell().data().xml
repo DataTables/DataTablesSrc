@@ -22,6 +22,8 @@
 		This method is used to work with the data in the cell retrieved by the selector used in the `dt-api cell()` call. It can be used to get the existing data, or set a new value.
 
 		Note that when used as a setter, this method sets the data to apply to the table, but does not update the table's internal caches of data until the `dt-api draw()` method is called. This can be done simply as a chained method of the `dt-api cell().data()` method's returned object - for example `table.cell( 0, 0 ).data( 'Updated' ).draw();`.
+
+		Moreover, although the internal cache is not updated until the next draw, the change to the cell's content is visible immediately upon calling this method as a setter, as it writes to the cell's content using `innerHTML`.
 	</description>
 
 	<example title="Alert the data from a cell when it is clicked upon"><![CDATA[
@@ -44,5 +46,9 @@ $('#example tbody').on( 'click', 'td', function () {
 
 ]]></example>
 
+	<related type="api">cells().cache()</related>
 	<related type="api">cells().data()</related>
+	<related type="api">cells().render()</related>
+	<related type="api">cell().cache()</related>
+	<related type="api">cell().render()</related>
 </dt-api>

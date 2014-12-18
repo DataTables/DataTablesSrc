@@ -9,7 +9,7 @@
 		<parameter type="object" name="e">
 			jQuery event object
 		</parameter>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="integer" name="len">

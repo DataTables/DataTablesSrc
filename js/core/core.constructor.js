@@ -28,28 +28,32 @@ _fnCamelToHungarian( defaults.column, defaults.column, true );
 /* Setting up the initialisation object */
 _fnCamelToHungarian( defaults, oInit );
 
+console.log( 'init' );
+
 /* Check to see if we are re-initialising a table */
 var allSettings = DataTable.settings;
 for ( i=0, iLen=allSettings.length ; i<iLen ; i++ )
 {
+	var s = allSettings[i];
+
 	/* Base check on table node */
-	if ( allSettings[i].nTable == this )
+	if ( s.nTable == this || s.nTHead.parentNode == this || (s.nTFoot && s.nTFoot.parentNode == this) )
 	{
 		var bRetrieve = oInit.bRetrieve !== undefined ? oInit.bRetrieve : defaults.bRetrieve;
 		var bDestroy = oInit.bDestroy !== undefined ? oInit.bDestroy : defaults.bDestroy;
 
 		if ( emptyInit || bRetrieve )
 		{
-			return allSettings[i].oInstance;
+			return s.oInstance;
 		}
 		else if ( bDestroy )
 		{
-			allSettings[i].oInstance.fnDestroy();
+			s.oInstance.fnDestroy();
 			break;
 		}
 		else
 		{
-			_fnLog( allSettings[i], 0, 'Cannot reinitialise DataTable', 3 );
+			_fnLog( s, 0, 'Cannot reinitialise DataTable', 3 );
 			return;
 		}
 	}
@@ -59,7 +63,7 @@ for ( i=0, iLen=allSettings.length ; i<iLen ; i++ )
 	 * instance by simply deleting it. This is under the assumption that the table has been
 	 * destroyed by other methods. Anyone using non-id selectors will need to do this manually
 	 */
-	if ( allSettings[i].sTableId == this.id )
+	if ( s.sTableId == this.id )
 	{
 		allSettings.splice( i, 1 );
 		break;
@@ -141,6 +145,7 @@ _fnMap( oSettings, oInit, [
 	"fnStateLoadCallback",
 	"fnStateSaveCallback",
 	"renderer",
+	"searchDelay",
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
 	[ "oSearch", "oPreviousSearch" ],
 	[ "aoSearchCols", "aoPreSearchCols" ],
@@ -222,26 +227,31 @@ if ( oInit.iDeferLoading !== null )
 }
 
 /* Language definitions */
-if ( oInit.oLanguage.sUrl !== "" )
+var oLanguage = oSettings.oLanguage;
+$.extend( true, oLanguage, oInit.oLanguage );
+
+if ( oLanguage.sUrl !== "" )
 {
 	/* Get the language definitions from a file - because this Ajax call makes the language
 	 * get async to the remainder of this function we use bInitHandedOff to indicate that
 	 * _fnInitialise will be fired by the returned Ajax handler, rather than the constructor
 	 */
-	oSettings.oLanguage.sUrl = oInit.oLanguage.sUrl;
-	$.getJSON( oSettings.oLanguage.sUrl, null, function( json ) {
-		_fnLanguageCompat( json );
-		_fnCamelToHungarian( defaults.oLanguage, json );
-		$.extend( true, oSettings.oLanguage, oInit.oLanguage, json );
-		_fnInitialise( oSettings );
+	$.ajax( {
+		dataType: 'json',
+		url: oLanguage.sUrl,
+		success: function ( json ) {
+			_fnLanguageCompat( json );
+			_fnCamelToHungarian( defaults.oLanguage, json );
+			$.extend( true, oLanguage, json );
+			_fnInitialise( oSettings );
+		},
+		error: function () {
+			// Error occurred loading language file, continue on as best we can
+			_fnInitialise( oSettings );
+		}
 	} );
 	bInitHandedOff = true;
 }
-else
-{
-	$.extend( true, oSettings.oLanguage, oInit.oLanguage );
-}
-
 
 /*
  * Stripes
@@ -318,7 +328,7 @@ $.each( anThs, function( iCol ) {
  */
 if ( rowOne.length ) {
 	var a = function ( cell, name ) {
-		return cell.getAttribute( 'data-'+name ) ? name : null;
+		return cell.getAttribute( 'data-'+name ) !== null ? name : null;
 	};
 
 	$.each( _fnGetRowElements( oSettings, rowOne[0] ).cells, function (i, cell) {

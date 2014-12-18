@@ -38,7 +38,7 @@
 		* Partial word matching. As DataTables provides on-the-fly filtering with immediate feedback to the user, parts of words can be matched in the result set. For example `-string All` will match `-string Allan`.
 		* Preserved text. DataTables 1.10 adds the ability to search for an exact phrase by enclosing the search text in double quotes. For example `-string "Allan Fife"` will match only text which contains the phrase `-string Allan Fife`. It will not match `-string Allan is in Fife`.
 
-		The smart search ability of DataTables is performed using a regular expression and can be enabled or disabled using the third parameter of this method. If you wish to use a custom regular expression, for example to perform whole word exact matching, you would need to enable the regular expression option (second parameter) and disable the smart search option (third parameter) to ensure that the two do not conflict.
+		The smart search ability of DataTables is performed using a regular expression and can be enabled or disabled using the third parameter of this method. If you wish to use a custom regular expression, for example to perform whole word exact matching, you would need to enable the regular expression option (second parameter) and disable the smart search option (third parameter) to ensure that the two do not conflict. DataTables provides a utility method (`dt-api $.fn.dataTable.util.escapeRegex()`) to escape regular expression special characters, which can be useful if you mix user input with regular expressions.
 
 		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term is a search to avoid naming conflict with the `dt-api filter` helper method.
 
@@ -58,4 +58,5 @@ $('#myInput').on( 'keyup', function () {
 	<related type="option">columns.searchable</related>
 	<related type="api">columns().search()</related>
 	<related type="api">column().search()</related>
+	<related type="api">$.fn.dataTable.util.escapeRegex()</related>
 </dt-api>

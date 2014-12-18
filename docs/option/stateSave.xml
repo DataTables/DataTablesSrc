@@ -5,6 +5,7 @@
 	<since>1.10</since>
 
 	<type type="boolean" />
+	<default value="false" />
 
 	<description>
 		Enable or disable state saving. When enabled aDataTables will storage state information such as pagination position, display length, filtering and sorting. When the end user reloads the page the table's state will be altered to match what they had previously set up.
@@ -20,9 +21,17 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
+	<related type="api">state()</related>
+	<related type="api">state.clear()</related>
+	<related type="api">state.loaded()</related>
+	<related type="api">state.save()</related>
 	<related type="option">stateSaveCallback</related>
+	<related type="option">stateDuration</related>
 	<related type="option">stateLoadCallback</related>
-	<related type="option">stateLoaded</related>
 	<related type="option">stateLoadParams</related>
+	<related type="option">stateLoaded</related>
 	<related type="option">stateSaveParams</related>
+	<related type="event">stateLoaded</related>
+	<related type="event">stateLoadParams</related>
+	<related type="event">stateSaveParams</related>
 </dt-option>

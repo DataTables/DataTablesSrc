@@ -9,7 +9,7 @@
 		<parameter type="object" name="e">
 			jQuery event object
 		</parameter>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="boolean" name="processing">
@@ -29,7 +29,7 @@
 	<example title="Show / hide notification of table processing (where `#example` is the DataTable)"><![CDATA[
 $('#example')
 	.on( 'processing.dt', function ( e, settings, processing ) {
-		$('#processingIndicator').css( 'display', processing ? 'display' : 'none' );
+		$('#processingIndicator').css( 'display', processing ? 'block' : 'none' );
 	} )
 	.dataTable();
 ]]></example>

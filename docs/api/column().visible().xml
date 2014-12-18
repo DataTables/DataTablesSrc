@@ -11,10 +11,13 @@
 	</type>
 
 	<type type="function">
-		<signature>column().visible( show )</signature>
+		<signature>column().visible( show [, redrawCalculations ] )</signature>
 		<description>Set the visibility of the selected column.</description>
 		<parameter type="boolean" name="show">
 			Specify if the column should be visible (`true`) or not (`false`).
+		</parameter>
+		<parameter type="boolean" name="redrawCalculations" default="true">
+			Indicate if DataTables should recalculate the column layout (`true` - default) or not (`false`). Typically this would be left as the default value, but it can be useful to disable when using the method in a loop - so the calculations are performed on every call as they can hamper performance.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with selected column in the result set.</returns>
 	</type>
@@ -35,6 +38,15 @@ alert( 'Column index 0 is '+
 var table = $('#example').DataTable();
 
 table.column( 0 ).visible( false );
+]]></example>
+
+	<example title="Hide multiple columns using `redrawCalculations` to improve performance"><![CDATA[
+var table = $('#example').DataTable();
+
+for ( var i=0 ; i<4 ; i++ ) {
+	table.column( i ).visible( false, false );
+}
+table.columns.adjust().draw( false ); // adjust column sizing and redraw
 ]]></example>
 
 	<related type="api">columns().visible()</related>

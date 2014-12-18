@@ -62,7 +62,7 @@
 		<parameter type="function" name="callback">
 			Callback function that must be executed when the required data has been obtained. That data should be passed into the callback as the only parameter
 		</parameter>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<scope>HTML table element</scope>
@@ -86,7 +86,7 @@
 	</type>
 
 	<description>
-		DataTables can obtain the data it is to display in the table table's body from a number of sources, including from an Ajax data source, using this initialisation parameter. As with other dynamic data sources, arrays or objects can be used for the data source for each row, with `dt-init columns.data` employed to read from specific object properties.
+		DataTables can obtain the data that it is to display in the table body from a number of sources, including from an Ajax data source, using this initialisation parameter. As with other dynamic data sources, arrays or objects can be used for the data source for each row, with `dt-init columns.data` employed to read from specific object properties.
 
 		The `ajax` property has three different modes of operation, depending on how it is defined. These are:
 

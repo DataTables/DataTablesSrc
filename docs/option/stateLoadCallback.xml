@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>stateLoadCallback( settings )</signature>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<returns type="object">
@@ -16,7 +16,7 @@
 	</type>
 
 	<description>
-		With this callback you can define where, and how, the state of a table is loaded from. By default DataTables will load from `localStorage` but you might wish to use a server-side database or cookies as your implementation requirements demand.
+		With this callback you can define where, and how, the state of a table is loaded from. By default DataTables will load from `localStorage` but you might wish to use a server-side database or cookies as your implementation requirements demand. For the format of the data that is stored, please refer to the `dt-init stateSaveCallback` documentation.
 
 		Note that this callback works hand-in-hand with `dt-init stateLoadCallback`. This callback saves the state into storage while `dt-init stateLoadCallback` loads it when the table is reloaded. The parameters that are actually to be saved for the state are the domain of the `dt-init stateSaveParams` callback option.
 	</description>
@@ -44,9 +44,16 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
+	<related type="api">state()</related>
+	<related type="api">state.clear()</related>
+	<related type="api">state.loaded()</related>
+	<related type="api">state.save()</related>
 	<related type="option">stateSave</related>
-	<related type="option">stateLoadCallback</related>
+	<related type="option">stateSaveCallback</related>
 	<related type="option">stateLoadParams</related>
 	<related type="option">stateLoaded</related>
 	<related type="option">stateSaveParams</related>
+	<related type="event">stateLoaded</related>
+	<related type="event">stateLoadParams</related>
+	<related type="event">stateSaveParams</related>
 </dt-option>

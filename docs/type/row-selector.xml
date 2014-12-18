@@ -16,6 +16,7 @@ The row selector can be given in a number of different forms, to make it easy to
 * `dt-type integer` - Row index selector
 * `dt-type string` - jQuery selector
 * `dt-type node` - `dt-tag tr` element selector
+* `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
 * `dt-type jQuery` - jQuery object of row nodes
 * `dt-type array` - Array containing any combination of the above options
 
@@ -50,7 +51,7 @@ var table = $('#example').DataTable();
 
 // Find indexes of rows which have `Yes` in the second column
 var indexes = table.rows().eq( 0 ).filter( function (rowIdx) {
-	return table.cell( rowidx, 1 ).data() === 'Yes' ? true : false;
+	return table.cell( rowIdx, 1 ).data() === 'Yes' ? true : false;
 } );
 
 // Add a class to those rows using an index selector
@@ -102,6 +103,38 @@ $('#example tbody').on( 'click', 'tr', function () {
   var rowData = table.row( this ).data();
   // ... do something with `rowData`
 } );
+```
+
+
+## Function
+
+< # Version requirement
+<
+< Using a function as a row selector requires DataTables 1.10.3 or newer.
+
+For complete control over which rows are selected, it is possible to provide a function with logic you've defined to perform the selection. That logic can be as simple or as complex as you wish, performing the selection by simply returning `true` if the row should be included in the selected results and `false` if not.
+
+That can be particularly useful for finding rows based on the data contained in the rows, or based on properties of the nodes.
+
+The function receives three parameters:
+
+1. Row index - see `dt-api row().index()`
+2. Row data - see `dt-api row().data()`. Note that this is the original data object for the row, not the rendered data if you are using `dt-init columns.render`
+3. Row node - see `dt-api row().node()`. Note that this may be `null` if you are using `dt-init deferRender`.
+
+The function is called once for every row that can be selected, based on the `dt-type selector-modifier` options, which also defines the order of the rows for the called function.
+
+###### Get the data all rows that have a `first_name` starting with `A`:
+
+```js
+var table = $('#example').DataTable();
+
+var names = table
+	.rows( function ( idx, data, node ) {
+		return data.first_name.charAt(0) === 'A' ?
+			true : false;
+	} )
+	.data();
 ```
 
 

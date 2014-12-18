@@ -39,8 +39,8 @@ function _fnAddData ( oSettings, aDataIn, nTr, anTds )
 	/* Add to the display array */
 	oSettings.aiDisplayMaster.push( iRow );
 
-	/* Create the DOM information */
-	if ( !oSettings.oFeatures.bDeferRender )
+	/* Create the DOM information, or register it if already present */
+	if ( nTr || ! oSettings.oFeatures.bDeferRender )
 	{
 		_fnCreateTr( oSettings, iRow, nTr, anTds );
 	}
@@ -111,16 +111,16 @@ function _fnNodeToColumnIndex( oSettings, iRow, n )
  *  @returns {*} Cell data
  *  @memberof DataTable#oApi
  */
-function _fnGetCellData( settings, rowIdx, coliDx, type )
+function _fnGetCellData( settings, rowIdx, colIdx, type )
 {
 	var draw           = settings.iDraw;
-	var col            = settings.aoColumns[coliDx];
+	var col            = settings.aoColumns[colIdx];
 	var rowData        = settings.aoData[rowIdx]._aData;
 	var defaultContent = col.sDefaultContent;
 	var cellData       = col.fnGetData( rowData, type, {
 		settings: settings,
 		row:      rowIdx,
-		col:      coliDx
+		col:      colIdx
 	} );
 
 	if ( cellData === undefined ) {
@@ -138,8 +138,9 @@ function _fnGetCellData( settings, rowIdx, coliDx, type )
 		cellData = defaultContent;
 	}
 	else if ( typeof cellData === 'function' ) {
-		// If the data source is a function, then we run it and use the return
-		return cellData();
+		// If the data source is a function, then we run it and use the return,
+		// executing in the scope of the data object (for instances)
+		return cellData.call( rowData );
 	}
 
 	if ( cellData === null && type == 'display' ) {
@@ -480,61 +481,75 @@ function _fnDeleteIndex( a, iTarget, splice )
  * the cached data is next requested. Also update from the data source object.
  *
  * @param {object} settings DataTables settings object
- * @param  {int}    rowIdx   Row index to invalidate
+ * @param {int}    rowIdx   Row index to invalidate
+ * @param {string} [src]    Source to invalidate from: undefined, 'auto', 'dom'
+ *     or 'data'
+ * @param {int}    [colIdx] Column index to invalidate. If undefined the whole
+ *     row will be invalidated
  * @memberof DataTable#oApi
  *
  * @todo For the modularisation of v1.11 this will need to become a callback, so
  *   the sort and filter methods can subscribe to it. That will required
  *   initialisation options for sorting, which is why it is not already baked in
  */
-function _fnInvalidateRow( settings, rowIdx, src, column )
+function _fnInvalidate( settings, rowIdx, src, colIdx )
 {
 	var row = settings.aoData[ rowIdx ];
 	var i, ien;
+	var cellWrite = function ( cell, col ) {
+		// This is very frustrating, but in IE if you just write directly
+		// to innerHTML, and elements that are overwritten are GC'ed,
+		// even if there is a reference to them elsewhere
+		while ( cell.childNodes.length ) {
+			cell.removeChild( cell.firstChild );
+		}
+
+		cell.innerHTML = _fnGetCellData( settings, rowIdx, col, 'display' );
+	};
 
 	// Are we reading last data from DOM or the data object?
 	if ( src === 'dom' || ((! src || src === 'auto') && row.src === 'dom') ) {
 		// Read the data from the DOM
-		row._aData = _fnGetRowElements( settings, row ).data;
+		row._aData = _fnGetRowElements(
+				settings, row, colIdx, colIdx === undefined ? undefined : row._aData
+			)
+			.data;
 	}
 	else {
 		// Reading from data object, update the DOM
 		var cells = row.anCells;
-		var cell;
 
 		if ( cells ) {
-			for ( i=0, ien=cells.length ; i<ien ; i++ ) {
-				cell = cells[i];
-
-				// This is very frustrating, but in IE if you just write directly
-				// to innerHTML, and elements that are overwritten are GC'ed,
-				// even if there is a reference to them elsewhere
-				while ( cell.childNodes ) {
-					cell.removeChild( cell.firstChild );
+			if ( colIdx !== undefined ) {
+				cellWrite( cells[colIdx], colIdx );
+			}
+			else {
+				for ( i=0, ien=cells.length ; i<ien ; i++ ) {
+					cellWrite( cells[i], i );
 				}
-
-				cells[i].innerHTML = _fnGetCellData( settings, rowIdx, i, 'display' );
 			}
 		}
 	}
 
+	// For both row and cell invalidation, the cached data for sorting and
+	// filtering is nulled out
 	row._aSortData = null;
 	row._aFilterData = null;
 
 	// Invalidate the type for a specific column (if given) or all columns since
 	// the data might have changed
 	var cols = settings.aoColumns;
-	if ( column !== undefined ) {
-		cols[ column ].sType = null;
+	if ( colIdx !== undefined ) {
+		cols[ colIdx ].sType = null;
 	}
 	else {
 		for ( i=0, ien=cols.length ; i<ien ; i++ ) {
 			cols[i].sType = null;
 		}
-	}
 
-	// Update DataTables special `DT_*` attributes for the row
-	_fnRowAttributes( row );
+		// Update DataTables special `DT_*` attributes for the row
+		_fnRowAttributes( row );
+	}
 }
 
 
@@ -545,56 +560,75 @@ function _fnInvalidateRow( settings, rowIdx, src, column )
  * @param {object} settings DataTables settings object
  * @param {node|object} TR element from which to read data or existing row
  *   object from which to re-read the data from the cells
+ * @param {int} [colIdx] Optional column index
+ * @param {array|object} [d] Data source object. If `colIdx` is given then this
+ *   parameter should also be given and will be used to write the data into.
+ *   Only the column in question will be written
  * @returns {object} Object with two parameters: `data` the data read, in
  *   document order, and `cells` and array of nodes (they can be useful to the
  *   caller, so rather than needing a second traversal to get them, just return
  *   them from here).
  * @memberof DataTable#oApi
  */
-function _fnGetRowElements( settings, row )
+function _fnGetRowElements( settings, row, colIdx, d )
 {
 	var
-		d = [],
 		tds = [],
 		td = row.firstChild,
 		name, col, o, i=0, contents,
-		columns = settings.aoColumns;
+		columns = settings.aoColumns,
+		objectRead = settings._rowReadObject;
 
-	var attr = function ( str, data, td  ) {
+	// Allow the data object to be passed in, or construct
+	d = d || objectRead ? {} : [];
+
+	var attr = function ( str, td  ) {
 		if ( typeof str === 'string' ) {
 			var idx = str.indexOf('@');
 
 			if ( idx !== -1 ) {
-				var src = str.substring( idx+1 );
-				o[ '@'+src ] = td.getAttribute( src );
+				var attr = str.substring( idx+1 );
+				var setter = _fnSetObjectDataFn( str );
+				setter( d, td.getAttribute( attr ) );
 			}
 		}
 	};
 
+	// Read data from a cell and store into the data object
 	var cellProcess = function ( cell ) {
-		col = columns[i];
-		contents = $.trim(cell.innerHTML);
+		if ( colIdx === undefined || colIdx === i ) {
+			col = columns[i];
+			contents = $.trim(cell.innerHTML);
 
-		if ( col && col._bAttrSrc ) {
-			o = {
-				display: contents
-			};
+			if ( col && col._bAttrSrc ) {
+				var setter = _fnSetObjectDataFn( col.mData._ );
+				setter( d, contents );
 
-			attr( col.mData.sort, o, cell );
-			attr( col.mData.type, o, cell );
-			attr( col.mData.filter, o, cell );
-
-			d.push( o );
-		}
-		else {
-			d.push( contents );
+				attr( col.mData.sort, cell );
+				attr( col.mData.type, cell );
+				attr( col.mData.filter, cell );
+			}
+			else {
+				// Depending on the `data` option for the columns the data can
+				// be read to either an object or an array.
+				if ( objectRead ) {
+					if ( ! col._setter ) {
+						// Cache the setter function
+						col._setter = _fnSetObjectDataFn( col.mData );
+					}
+					col._setter( d, contents );
+				}
+				else {
+					d[i] = contents;
+				}
+			}
 		}
 
 		i++;
 	};
 
 	if ( td ) {
-		// `tr` element passed in
+		// `tr` element was passed in
 		while ( td ) {
 			name = td.nodeName.toUpperCase();
 

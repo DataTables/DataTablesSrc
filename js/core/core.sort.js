@@ -48,11 +48,15 @@ function _fnSortFlatten ( settings )
 			iCol = aDataSort[k];
 			sType = aoColumns[ iCol ].sType || 'string';
 
+			if ( nestedSort[i]._idx === undefined ) {
+				nestedSort[i]._idx = $.inArray( nestedSort[i][1], aoColumns[iCol].asSorting );
+			}
+
 			aSort.push( {
 				src:       srcCol,
 				col:       iCol,
 				dir:       nestedSort[i][1],
-				index:     nestedSort[i][2],
+				index:     nestedSort[i]._idx,
 				type:      sType,
 				formatter: DataTable.ext.type.order[ sType+"-pre" ]
 			} );
@@ -255,13 +259,17 @@ function _fnSortListener ( settings, colIdx, append, callback )
 	var sorting = settings.aaSorting;
 	var asSorting = col.asSorting;
 	var nextSortIdx;
-	var next = function ( a ) {
+	var next = function ( a, overflow ) {
 		var idx = a._idx;
 		if ( idx === undefined ) {
 			idx = $.inArray( a[1], asSorting );
 		}
 
-		return idx+1 >= asSorting.length ? 0 : idx+1;
+		return idx+1 < asSorting.length ?
+			idx+1 :
+			overflow ?
+				null :
+				0;
 	};
 
 	// Convert to 2D array if needed
@@ -276,10 +284,15 @@ function _fnSortListener ( settings, colIdx, append, callback )
 
 		if ( sortIdx !== -1 ) {
 			// Yes, modify the sort
-			nextSortIdx = next( sorting[sortIdx] );
+			nextSortIdx = next( sorting[sortIdx], true );
 
-			sorting[sortIdx][1] = asSorting[ nextSortIdx ];
-			sorting[sortIdx]._idx = nextSortIdx;
+			if ( nextSortIdx === null ) {
+				sorting.splice( sortIdx, 1 );
+			}
+			else {
+				sorting[sortIdx][1] = asSorting[ nextSortIdx ];
+				sorting[sortIdx]._idx = nextSortIdx;
+			}
 		}
 		else {
 			// No sort on this column yet

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>state.loaded()</name>
+	<summary>Get the table state that was loaded during initialisation.</summary>
+	<since>1.10.1</since>
+
+	<type type="function">
+		<signature>state.loaded()</signature>
+		<description>Get the table state that was loaded during initialisation</description>
+		<returns type="object">State saved object. See `dt-api state()` for the object format.</returns>
+	</type>
+
+	<description>
+		This method is primarily made available for plug-in authors who wish to get the state of a DataTable when it is initialised to restore state saved functionality of their own plug-in.
+
+		The structure of the object returned by this method matches the state object, as defined by `dt-api state()`.
+	</description>
+
+	<example title="Listen for DataTables initialisation and get the state"><![CDATA[
+
+$(document).on( 'init.dt', function ( e, settings ) {
+	var api = new $.fn.dataTable.Api( settings );
+	var state = api.state.loaded();
+
+	// ... use `state` to restore information
+} );
+
+]]></example>
+
+	<related type="api">state()</related>
+	<related type="api">state.clear()</related>
+	<related type="api">state.save()</related>
+	<related type="option">stateSave</related>
+	<related type="option">stateSaveCallback</related>
+	<related type="option">stateLoadCallback</related>
+	<related type="option">stateLoadParams</related>
+	<related type="option">stateSaveParams</related>
+	<related type="option">stateLoaded</related>
+	<related type="event">stateLoaded</related>
+	<related type="event">stateLoadParams</related>
+	<related type="event">stateSaveParams</related>
+</dt-api>

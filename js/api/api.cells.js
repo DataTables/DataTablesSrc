@@ -5,35 +5,52 @@ var __cell_selector = function ( settings, selector, opts )
 {
 	var data = settings.aoData;
 	var rows = _selector_row_indexes( settings, opts );
-	var cells = _pluck_order( data, rows, 'anCells' );
+	var cells = _removeEmpty( _pluck_order( data, rows, 'anCells' ) );
 	var allCells = $( [].concat.apply([], cells) );
 	var row;
 	var columns = settings.aoColumns.length;
-	var a, i, ien, j;
+	var a, i, ien, j, o, host;
 
 	return _selector_run( selector, function ( s ) {
-		if ( ! s ) {
-			// All cells
+		var fnSelector = typeof s === 'function';
+
+		if ( s === null || s === undefined || fnSelector ) {
+			// All cells and function selectors
 			a = [];
 
 			for ( i=0, ien=rows.length ; i<ien ; i++ ) {
 				row = rows[i];
 
 				for ( j=0 ; j<columns ; j++ ) {
-					a.push( {
+					o = {
 						row: row,
 						column: j
-					} );
+					};
+
+					if ( fnSelector ) {
+						// Selector - function
+						host = settings.aoData[ row ];
+
+						if ( s( o, _fnGetCellData(settings, row, j), host.anCells[j] ) ) {
+							a.push( o );
+						}
+					}
+					else {
+						// Selector - all
+						a.push( o );
+					}
 				}
 			}
 
 			return a;
 		}
-		else if ( $.isPlainObject( s ) ) {
+		
+		// Selector - index
+		if ( $.isPlainObject( s ) ) {
 			return [s];
 		}
 
-		// jQuery filtered cells
+		// Selector - jQuery filtered cells
 		return allCells
 			.filter( s )
 			.map( function (i, el) {
@@ -54,8 +71,8 @@ var __cell_selector = function ( settings, selector, opts )
 _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 	// Argument shifting
 	if ( $.isPlainObject( rowSelector ) ) {
-		// If passing in a cell index
-		if ( rowSelector.row ) {
+		// Indexes
+		if ( typeof rowSelector.row !== undefined ) {
 			opts = columnSelector;
 			columnSelector = null;
 		}
@@ -94,7 +111,7 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 		}
 
 		return a;
-	} );
+	}, 1 );
 
 	$.extend( cells.selector, {
 		cols: columnSelector,
@@ -108,15 +125,18 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 
 _api_registerPlural( 'cells().nodes()', 'cell().node()', function () {
 	return this.iterator( 'cell', function ( settings, row, column ) {
-		return settings.aoData[ row ].anCells[ column ];
-	} );
+		var cells = settings.aoData[ row ].anCells;
+		return cells ?
+			cells[ column ] :
+			undefined;
+	}, 1 );
 } );
 
 
 _api_register( 'cells().data()', function () {
 	return this.iterator( 'cell', function ( settings, row, column ) {
 		return _fnGetCellData( settings, row, column );
-	} );
+	}, 1 );
 } );
 
 
@@ -125,7 +145,14 @@ _api_registerPlural( 'cells().cache()', 'cell().cache()', function ( type ) {
 
 	return this.iterator( 'cell', function ( settings, row, column ) {
 		return settings.aoData[ row ][ type ][ column ];
-	} );
+	}, 1 );
+} );
+
+
+_api_registerPlural( 'cells().render()', 'cell().render()', function ( type ) {
+	return this.iterator( 'cell', function ( settings, row, column ) {
+		return _fnGetCellData( settings, row, column, type );
+	}, 1 );
 } );
 
 
@@ -136,31 +163,21 @@ _api_registerPlural( 'cells().indexes()', 'cell().index()', function () {
 			column: column,
 			columnVisible: _fnColumnIndexToVisible( settings, column )
 		};
+	}, 1 );
+} );
+
+
+_api_registerPlural( 'cells().invalidate()', 'cell().invalidate()', function ( src ) {
+	return this.iterator( 'cell', function ( settings, row, column ) {
+		_fnInvalidate( settings, row, src, column );
 	} );
 } );
-
-
-_api_register( [
-	'cells().invalidate()',
-	'cell().invalidate()'
-], function ( src ) {
-	var selector = this.selector;
-
-	// Use the rows method of the instance to perform the invalidation, rather
-	// than doing it here. This avoids needing to handle duplicate rows from
-	// the cells.
-	this.rows( selector.rows, selector.opts ).invalidate( src );
-
-	return this;
-} );
-
 
 
 
 _api_register( 'cell()', function ( rowSelector, columnSelector, opts ) {
 	return _selector_first( this.cells( rowSelector, columnSelector, opts ) );
 } );
-
 
 
 _api_register( 'cell().data()', function ( data ) {
@@ -176,7 +193,7 @@ _api_register( 'cell().data()', function ( data ) {
 
 	// Set
 	_fnSetCellData( ctx[0], cell[0].row, cell[0].column, data );
-	_fnInvalidateRow( ctx[0], cell[0].row, 'data', cell[0].column );
+	_fnInvalidate( ctx[0], cell[0].row, 'data', cell[0].column );
 
 	return this;
 } );

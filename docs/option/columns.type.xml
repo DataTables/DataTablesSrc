@@ -10,7 +10,7 @@
   </default>
 
 	<description>
-    When working with the different types of data (filtering, sorting, display etc), DataTables can process the data used for the display in each cell in a manual suitable for the function being performed. For example, HTML tags will be removed from the strings used for filter matching, while sort formatting may remove currency symbols to allow currency values to be sorted numerically.
+    When operating in client-side processing mode, DataTables can process the data used for the display in each cell in a manual suitable for the action being performed. For example, HTML tags will be removed from the strings used for filter matching, while sort formatting may remove currency symbols to allow currency values to be sorted numerically. The formatting action performed to _normalise_ the data so it can be ordered and searched depends upon the column's _type_.
 
     DataTables has a number of built in types which are automatically detected:
 
@@ -18,11 +18,11 @@
       * Sorting - sorted chronologically
       * Filtering - no effect
 
-    * `numeric` - Simple number sorting.
+    * `num` - Simple number sorting.
       * Sorting - sorted numerically
       * Filtering - no effect
 
-    * `numeric-fmt` - Numeric sorting of formatted numbers. Numbers which are formatted with thousands separators, currency symbols or a percentage indicator will be sorted numerically automatically by DataTables.
+    * `num-fmt` - Numeric sorting of formatted numbers. Numbers which are formatted with thousands separators, currency symbols or a percentage indicator will be sorted numerically automatically by DataTables.
       * Supported built-in currency symbols are `$`, `£`, `€` and `¥`.
       * Supported built-in thousands separators are `'` and `,`. 
       * Examples:
@@ -33,11 +33,11 @@
       * Sorting - sorted numerically
       * Filtering - no effect
 
-    * `html-numeric` - As per the `numeric` option, but with HTML tags also in the data.
+    * `html-num` - As per the `num` option, but with HTML tags also in the data.
       * Sorting - sorted numerically
       * Filtering - HTML tags removed from filtering string
 
-    * `html-numeric-fmt` - As per the `numeric-fmt` option, but with HTML tags also in the data.
+    * `html-num-fmt` - As per the `num-fmt` option, but with HTML tags also in the data.
       * Sorting - sorted numerically
       * Filtering - HTML tags removed from filtering string
 
@@ -48,6 +48,8 @@
     It is expected that the above options will cover the majority of data types used with DataTables, however, data is flexible and comes in many forms, so additional types with different effects can be added through the use of plug-ins. This provides the ability to sort almost any data format imaginable!
 
     As an optimisation, if you know the column type in advance, you can set the value using this option, saving DataTables from running its auto detection routine.
+
+    Please note that if you are using server-side processing (`dt-init serverSide`) this option has no effect since the ordering and search actions are performed by a server-side script.
 	</description>
 
 	<example title="Set the first column's type manually with `dt-init columnDefs`"><![CDATA[

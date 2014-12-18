@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="core">
 	<name>clear()</name>
-	<summary>Clear the table off all data.</summary>
+	<summary>Clear the table of all data.</summary>
 	<since>1.10</since>
 
 	<type type="function">

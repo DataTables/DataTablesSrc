@@ -9,7 +9,7 @@
 		<parameter type="function" name="callback" default="null">
 			Function which is executed when the data as been reloaded and the table fully redrawn. The function is given a single parameter - the JSON data returned by the server, and expects no return.
 		</parameter>
-		<parameter type="function" name="resetPaging" default="true">
+		<parameter type="boolean" name="resetPaging" default="true">
 			Reset (default action or `true`) or hold the current paging position (`false`). A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
 		</parameter>
 		<returns type="DataTables.Api">
@@ -21,13 +21,23 @@
 		In an environment where the data shown in the table can be updated at the server-side, it is often useful to be able to reload the table, showing the latest data. This method provides exactly that ability, making an Ajax request to the already defined URL (use `dt-api ajax.url()` if you need to alter the URL).
 	</description>
 
-	<example title="Reload the table data every 30 seconds"><![CDATA[
+	<example title="Reload the table data every 30 seconds (paging reset)"><![CDATA[
 var table = $('#example').DataTable( {
 	ajax: "data.json"
 } );
 
 setInterval( function () {
 	table.ajax.reload();
+}, 30000 );
+]]></example>
+
+	<example title="Reload the table data every 30 seconds (paging retained)"><![CDATA[
+var table = $('#example').DataTable( {
+	ajax: "data.json"
+} );
+
+setInterval( function () {
+	table.ajax.reload( null, false ); // user paging is not reset on reload
 }, 30000 );
 ]]></example>
 

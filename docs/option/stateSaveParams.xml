@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>stateSaveParams( settings, data )</signature>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="data">
@@ -16,7 +16,7 @@
 	</type>
 
 	<description>
-		Callback which allows modification of the parameters to be saved for the DataTables state saving (`dt-init stateSave`), prior to the data actually being saved. This callback is called every time DataTables requests that the state be saved.
+		Callback which allows modification of the parameters to be saved for the DataTables state saving (`dt-init stateSave`), prior to the data actually being saved. This callback is called every time DataTables requests that the state be saved. For the format of the data that is stored, please refer to the `dt-init stateSaveCallback` documentation.
 
 		Note that the `dt-init stateSaveCallback` option is used to define where and how to store the state, while this function is used to manipulate the data before it is entered into storage.
 
@@ -27,15 +27,21 @@
 $('#example').dataTable( {
   "stateSave": true,
   "stateSaveParams": function (settings, data) {
-    data.oSearch.sSearch = "";
+    data.search.search = "";
   }
 } );
 ]]></example>
 
+	<related type="api">state()</related>
+	<related type="api">state.clear()</related>
+	<related type="api">state.loaded()</related>
+	<related type="api">state.save()</related>
 	<related type="option">stateSave</related>
 	<related type="option">stateSaveCallback</related>
 	<related type="option">stateLoadCallback</related>
 	<related type="option">stateLoadParams</related>
 	<related type="option">stateLoaded</related>
+	<related type="event">stateLoaded</related>
+	<related type="event">stateLoadParams</related>
 	<related type="event">stateSaveParams</related>
 </dt-option>
