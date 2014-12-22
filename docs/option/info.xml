@@ -8,7 +8,7 @@
 	<default value="true" />
 
 	<description>
-		Disable will show information about the table including information about filtered data if that action is being performed. This option allows that feature to be enabled or disabled.
+		When this option is enabled, Datatables will show information about the table including information about filtered data if that action is being performed. This option allows that feature to be enabled or disabled.
 
 		Note that by default the information display is shown below the table on the left, but this can be controlled using `dt-init dom` and CSS).
 	</description>
