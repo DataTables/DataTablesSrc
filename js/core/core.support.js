@@ -39,11 +39,16 @@ function _fnLog( settings, level, msg, tn )
 		var ext = DataTable.ext;
 		var type = ext.sErrMode || ext.errMode;
 
+		_fnCallbackFire( settings, null, 'error', [ settings, tn, msg ] );
+
 		if ( type == 'alert' ) {
 			alert( msg );
 		}
-		else {
+		else if ( type == 'throw' ) {
 			throw new Error(msg);
+		}
+		else if ( typeof type == 'function' ) {
+			type( settings, tn, msg );
 		}
 	}
 	else if ( window.console && console.log ) {
