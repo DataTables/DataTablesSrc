@@ -8,9 +8,11 @@
 	<default value="true" />
 
 	<description>
-		When pagination is enabled, this option will display an option for the end user to change number of records to be shown per page. The options shown in the list are controlled by the `dt-init lengthMenu` configuration option.
+		When pagination is enabled, this option will control the display an option for the end user to change number of records to be shown per page. The options shown in the list are controlled by the `dt-init lengthMenu` configuration option.
 
 		Note that by default the control is shown at the top left of the table. That can be controlled using `dt-init dom` and CSS.
+
+		If this option is disabled (`false`) the length change input control is removed - although the `dt-api page.len()` method can still be used if you wish to programmatically change the page size and `dt-init pageLength` can be used to specify the initial page length. Paging itself is not effected.
 
 		Additionally, if pagination is disabled using the `dt-init paging` option, this option is automatically disabled since it has no relevance when the is no pagination.
 	</description>
@@ -24,5 +26,6 @@ $('#example').dataTable( {
 	<related type="option">dom</related>
 	<related type="option">lengthMenu</related>
 	<related type="option">language.lengthMenu</related>
+	<related type="option">pageLength</related>
 	<related type="api">page.len()</related>
 </dt-option>
