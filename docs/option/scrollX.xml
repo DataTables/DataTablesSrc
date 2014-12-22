@@ -4,7 +4,12 @@
 	<summary>Horizontal scrolling</summary>
 	<since>1.10</since>
 
-	<type type="boolean" />
+	<type type="boolean">
+		<description>
+			* `false` - No horizontal scrolling
+			* `true` - Enable horizontal scrolling in the table
+		</description>
+	</type>
 	<default value="false" />
 
 	<description>
