@@ -15,10 +15,12 @@
 		<parameter type="object" name="data">
 			Data that DataTables has constructed for the request. This will include server-side processing parameters if you are using the `dt-init serverSide` option.
 		</parameter>
-		<returns type="object|undefined">
+		<returns type="object|string|undefined">
 			If there is no return value from the function (i.e. `dt-type undefined`) then the original data object passed into the function by DataTables will be used for the request (the function may have manipulated its values).
 
-			If an object is returned, then that object will be used as the data for the request. It will not be merged with the original data object constructed by DataTables.
+			If an object is returned, then that object will be used as the data for the request. It will not be merged with the original data object constructed by DataTables before being sent.
+
+			If a string is returned, this string it will be used in the Ajax request body rather than individual HTTP parameters being sent. This is particularly useful for sending JSON encoded data in the request body so the server can decode it directly, rather than individual HTTP parameters being sent. See example below for how to use `JSON.stringify()` to achieve this.
 		</returns>
 		<description>
 			As a function, the `dt-init ajax.data` option can be used to modify the data DataTables submits to the server upon an Ajax request, by manipulating the original data object DataTables constructs internally, or by replacing it completely.
@@ -68,6 +70,18 @@ $('#example').dataTable( {
       return $.extend( {}, d, {
         "extra_search": $('#extra').val()
       } );
+    }
+  }
+} );
+]]></example>
+
+	<example title="Submit data as JSON in the request body"><![CDATA[
+$('#example').dataTable( {
+  "ajax": {
+    "url": "data.json",
+    "contentType": "application/json",
+    "data": function ( d ) {
+      return JSON.stringify( d );
     }
   }
 } );
