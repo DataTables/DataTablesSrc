@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="columns">
 	<name>columns().search()</name>
-	<summary>Search for data the selected columns.</summary>
+	<summary>Search for data in the selected columns.</summary>
 	<since>1.10</since>
 
 	<type type="function">
