@@ -25,7 +25,7 @@
 	</type>
 
 	<description>
-		This is a callback function that is executed whenever a cell is created (Ajax source, etc) or read from a DOM source. It can be used as a compliment to `dt-init columns.render` allowing modification of the cell's DOM element (add background colour for example) when the element is created (cells may not be immediately created on table initialisation if `dt-init deferRender` is enabled, or if rows are dynamically added using the API (`dt-api rows.add()`).
+		This is a callback function that is executed whenever a cell is created (Ajax source, etc) or read from a DOM source. It can be used as a complement to `dt-init columns.render` allowing modification of the cell's DOM element (add background colour for example) when the element is created (cells may not be immediately created on table initialisation if `dt-init deferRender` is enabled, or if rows are dynamically added using the API (`dt-api rows.add()`).
 
 		This is the counterpart callback for rows, which use the `dt-init createdRow` option.
 	</description>
