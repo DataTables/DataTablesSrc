@@ -17,11 +17,9 @@
     * `date` - Date / time values. Note that DataTables' built in date parsing uses Javascript's `Date.parse()` method which supports only a [very limited subset of dates](http://blog.dygraphs.com/2012/03/javascript-and-dates-what-mess.html). Additional date format support can be added through the use of plug-ins.
       * Sorting - sorted chronologically
       * Filtering - no effect
-
     * `num` - Simple number sorting.
       * Sorting - sorted numerically
       * Filtering - no effect
-
     * `num-fmt` - Numeric sorting of formatted numbers. Numbers which are formatted with thousands separators, currency symbols or a percentage indicator will be sorted numerically automatically by DataTables.
       * Supported built-in currency symbols are `$`, `£`, `€` and `¥`.
       * Supported built-in thousands separators are `'` and `,`. 
@@ -32,15 +30,15 @@
         * 40% - sorted as 40
       * Sorting - sorted numerically
       * Filtering - no effect
-
     * `html-num` - As per the `num` option, but with HTML tags also in the data.
       * Sorting - sorted numerically
       * Filtering - HTML tags removed from filtering string
-
     * `html-num-fmt` - As per the `num-fmt` option, but with HTML tags also in the data.
       * Sorting - sorted numerically
       * Filtering - HTML tags removed from filtering string
-
+    * `html` - Basic string processing for HTML tags
+      * Sorting - sorted with HTML tags removed
+      * Filtering - HTML tags removed from filtering string
     * `string` - Fall back type if the data in the column does not match the requirements for the other data types (above).
       * Sorting - no effect
       * Filtering - no effect
