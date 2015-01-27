@@ -317,6 +317,10 @@ function _fnStringToCss( s )
 			'0px' :
 			s+'px';
 	}
+	
+	if (typeof s.match == 'undefined') {
+		return null;
+	}
 
 	// Check it has a unit character already
 	return s.match(/\d$/) ?
