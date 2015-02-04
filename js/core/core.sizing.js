@@ -20,7 +20,7 @@ function _fnCalculateColumnWidths ( oSettings )
 		columnCount = columns.length,
 		visibleColumns = _fnGetColumns( oSettings, 'bVisible' ),
 		headerCells = $('th', oSettings.nTHead),
-		tableWidthAttr = table.getAttribute('width'),
+		tableWidthAttr = table.style.width || table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentNode,
 		userInputs = false,
 		i, column, columnIdx, width, outerWidth;
