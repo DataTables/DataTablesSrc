@@ -27,7 +27,7 @@ $('#example tbody').on( 'click', 'img.icon-delete', function () {
 } );
 ]]></example>
 
-	<example title="Trnasfer a row from one table to another (note that this is for DOM sourced tables, use `dt-api row().data()` for other data sources)"><![CDATA[
+	<example title="Transfer a row from one table to another (note that this is for DOM sourced tables, use `dt-api row().data()` for other data sources)"><![CDATA[
 var table1 = $('#example1').DataTable();
 var table2 = $('#example2').DataTable();
 
