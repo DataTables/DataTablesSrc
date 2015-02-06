@@ -3,6 +3,7 @@ var i=0, iLen, j, jLen, k, kLen;
 var sId = this.getAttribute( 'id' );
 var bInitHandedOff = false;
 var defaults = DataTable.defaults;
+var $this = $(this);
 
 
 /* Sanity check */
@@ -21,7 +22,9 @@ _fnCamelToHungarian( defaults, defaults, true );
 _fnCamelToHungarian( defaults.column, defaults.column, true );
 
 /* Setting up the initialisation object */
-_fnCamelToHungarian( defaults, oInit );
+_fnCamelToHungarian( defaults, $.extend( oInit, $this.data() ) );
+
+
 
 /* Check to see if we are re-initialising a table */
 var allSettings = DataTable.settings;
@@ -75,7 +78,7 @@ var oSettings = $.extend( true, {}, DataTable.models.oSettings, {
 	"nTable":        this,
 	"oApi":          _that.internal,
 	"oInit":         oInit,
-	"sDestroyWidth": $(this)[0].style.width,
+	"sDestroyWidth": $this[0].style.width,
 	"sInstance":     sId,
 	"sTableId":      sId
 } );
@@ -83,7 +86,7 @@ allSettings.push( oSettings );
 
 // Need to add the instance after the instance after the settings object has been added
 // to the settings array, so we can self reference the table instance if more than one
-oSettings.oInstance = (_that.length===1) ? _that : $(this).dataTable();
+oSettings.oInstance = (_that.length===1) ? _that : $this.dataTable();
 
 // Backwards compatibility, before we apply all the defaults
 _fnCompatOpts( oInit );
@@ -193,7 +196,7 @@ else
 {
 	$.extend( oClasses, DataTable.ext.classes, oInit.oClasses );
 }
-$(this).addClass( oClasses.sTable );
+$this.addClass( oClasses.sTable );
 
 /* Calculate the scroll bar width and cache it for use later on */
 if ( oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "" )
@@ -399,25 +402,25 @@ _fnCallbackReg( oSettings, 'aoDrawCallback', function () {
 _fnBrowserDetect( oSettings );
 
 // Work around for Webkit bug 83867 - store the caption-side before removing from doc
-var captions = $(this).children('caption').each( function () {
-	this._captionSide = $(this).css('caption-side');
+var captions = $this.children('caption').each( function () {
+	this._captionSide = $this.css('caption-side');
 } );
 
-var thead = $(this).children('thead');
+var thead = $this.children('thead');
 if ( thead.length === 0 )
 {
 	thead = $('<thead/>').appendTo(this);
 }
 oSettings.nTHead = thead[0];
 
-var tbody = $(this).children('tbody');
+var tbody = $this.children('tbody');
 if ( tbody.length === 0 )
 {
 	tbody = $('<tbody/>').appendTo(this);
 }
 oSettings.nTBody = tbody[0];
 
-var tfoot = $(this).children('tfoot');
+var tfoot = $this.children('tfoot');
 if ( tfoot.length === 0 && captions.length > 0 && (oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "") )
 {
 	// If we are a scrolling table, and no footer has been given, then we need to create
@@ -426,7 +429,7 @@ if ( tfoot.length === 0 && captions.length > 0 && (oSettings.oScroll.sX !== "" |
 }
 
 if ( tfoot.length === 0 || tfoot.children().length === 0 ) {
-	$(this).addClass( oClasses.sNoFooter );
+	$this.addClass( oClasses.sNoFooter );
 }
 else if ( tfoot.length > 0 ) {
 	oSettings.nTFoot = tfoot[0];

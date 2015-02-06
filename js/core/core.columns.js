@@ -25,7 +25,7 @@ function _fnAddColumn( oSettings, nTh )
 	searchCols[ iCol ] = $.extend( {}, DataTable.models.oSearch, searchCols[ iCol ] );
 
 	// Use the default column options function to initialise classes etc
-	_fnColumnOptions( oSettings, iCol, null );
+	_fnColumnOptions( oSettings, iCol, $(nTh).data() );
 }
 
 

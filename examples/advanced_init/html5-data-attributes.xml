@@ -5,11 +5,11 @@
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>HTML5 data-* attributes</title>
+<title>HTML5 data-* attributes - cell data</title>
 <js><![CDATA[
 
 $(document).ready(function() {
-	$('#example').dataTable();
+	$('#example').DataTable();
 } );
 
 ]]></js>
