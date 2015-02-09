@@ -8,7 +8,13 @@
 	<default value="Previous" />
 
 	<description>
+		<![CDATA[
+		
 		Text to use for the 'previous' pagination button (to take the user to the previous page).
+		
+		Note that DataTables writes this property to the document as HTML, so you can use HTML tags in the language string, but HTML entities such as `<` and `>` should be encoded as `&lt;` and `&gt;` respectively.
+
+		]]>
 	</description>
 
 	<example title="Set text for pagination 'previous' button"><![CDATA[
