@@ -8,12 +8,12 @@
 	<default value="[[0, 'asc']]" />
 
 	<description>
-		If ordering is enabled (`dt-init ordering`), then DataTables will perform a first pass order during initialisation. Using this parameter you can define which column(s) the order is performed upon, and the ordering direction. The `dt-init order` option can take two forms:
+		If ordering is enabled (`dt-init ordering`), then DataTables will perform a first pass order during initialisation. Using this parameter you can define which column(s) the order is performed upon, and the ordering direction. The `dt-init order` must be an array of arrays, each inner array comprised of two elements:
 
-		* An array with two entries:
-		  * Column index to order upon
-		  * Direction so order to apply (`string asc` or `string desc`)
-		* An array of arrays, each inner array with the two options above. This allows a multi-column order to be defined as the initial state.
+		* Column index to order upon
+		* Direction so order to apply (`string asc` or `string desc`)
+
+		This 2D array structure allows a multi-column order to be defined as the initial state should it be required.
 	</description>
 
 	<example title="No initial order"><![CDATA[
@@ -22,11 +22,6 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-	<example title="Sortng on column index 1 (second column) initially"><![CDATA[
-$('#example').dataTable( {
-	"order": [ 1, 'asc' ]
-} );
-]]></example>
 
 	<example title="Multi-column ordering as the initial state"><![CDATA[
 $('#example').dataTable( {
