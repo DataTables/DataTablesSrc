@@ -84,8 +84,11 @@ function _fnCalculateColumnWidths ( oSettings )
 				columnIdx = visibleColumns[i];
 				column = columns[ columnIdx ];
 
-				$( _fnGetWidestNode( oSettings, columnIdx ) )
-					.clone( false )
+				var td = (column.sWidth && !column.bResizable) ?
+					$( '<td />', {style: 'width='+column.sWidth+' !important;'} ) :
+					$( _fnGetWidestNode( oSettings, columnIdx ) );
+
+				td.clone( false )
 					.append( column.sContentPadding )
 					.appendTo( tr );
 			}
@@ -94,7 +97,7 @@ function _fnCalculateColumnWidths ( oSettings )
 		// Table has been built, attach to the document so we can work with it
 		tmpTable.appendTo( tableContainer );
 
-		// When scrolling (X or Y) we want to set the width of the table as 
+		// When scrolling (X or Y) we want to set the width of the table as
 		// appropriate. However, when not scrolling leave the table width as it
 		// is. This results in slightly different, but I think correct behaviour
 		if ( scrollX && scrollXInner ) {
