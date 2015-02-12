@@ -538,17 +538,10 @@ class DT_Example
 }
 
 
-DT_Example::$lookup_libraries['css'] = array(
-	'jqueryui'   => '//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css',
-	'bootstrap'  => '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css',
-	'foundation' => '//cdnjs.cloudflare.com/ajax/libs/foundation/4.3.1/css/foundation.min.css'
-);
+DT_Example::$lookup_libraries['css'] = array();
 
 
-DT_Example::$lookup_libraries['js'] = array(
-	'jqueryui'  => '//code.jquery.com/ui/1.10.3/jquery-ui.js',
-	'bootstrap' => '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
-);
+DT_Example::$lookup_libraries['js'] = array();
 
 
 DT_Example::$tables['html'] = array(

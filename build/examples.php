@@ -159,15 +159,24 @@ else {
 	DT_Example::$lookup_libraries['js' ]['datatables-jqueryui']   = path_simplify( $dir_media.'/../extensions/Plugins/integration/jqueryui/dataTables.jqueryui.js' );
 }
 
-DT_Example::$lookup_libraries['css']['editor']           = path_simplify( $dir_media.'/../extensions/Editor/css/dataTables.editor.css' );
-DT_Example::$lookup_libraries['js' ]['editor']           = path_simplify( $dir_media.'/../extensions/Editor/js/dataTables.editor.js' );
-DT_Example::$lookup_libraries['css']['editor-bootstrap'] = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/bootstrap/editor.bootstrap.css' );
-DT_Example::$lookup_libraries['js' ]['editor-bootstrap'] = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/bootstrap/editor.bootstrap.js' );
-DT_Example::$lookup_libraries['css']['editor-jqueryui']  = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/jqueryui/editor.jqueryui.css' );
-DT_Example::$lookup_libraries['js' ]['editor-jqueryui']  = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/jqueryui/editor.jqueryui.js' );
+// Editor build
+DT_Example::$lookup_libraries['css']['editor']            = path_simplify( $dir_media.'/../extensions/Editor/css/dataTables.editor.css' );
+DT_Example::$lookup_libraries['js' ]['editor']            = path_simplify( $dir_media.'/../extensions/Editor/js/dataTables.editor.js' );
+DT_Example::$lookup_libraries['css']['editor-bootstrap']  = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/bootstrap/editor.bootstrap.css' );
+DT_Example::$lookup_libraries['js' ]['editor-bootstrap']  = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/bootstrap/editor.bootstrap.js' );
+DT_Example::$lookup_libraries['css']['editor-foundation'] = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/foundation/editor.foundation.css' );
+DT_Example::$lookup_libraries['js' ]['editor-foundation'] = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/foundation/editor.foundation.js' );
+DT_Example::$lookup_libraries['css']['editor-jqueryui']   = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/jqueryui/editor.jqueryui.css' );
+DT_Example::$lookup_libraries['js' ]['editor-jqueryui']   = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/jqueryui/editor.jqueryui.js' );
 
+// Styling libraries
+DT_Example::$lookup_libraries['js' ]['jqueryui']     = '//code.jquery.com/ui/1.11.2/jquery-ui.js';
+DT_Example::$lookup_libraries['css']['jqueryui']     = '//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css';
+DT_Example::$lookup_libraries['js' ]['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js';
+DT_Example::$lookup_libraries['css']['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css';
+DT_Example::$lookup_libraries['js' ]['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js';
+DT_Example::$lookup_libraries['css']['foundation']   = '//cdn.jsdelivr.net/foundation/5.5.1/css/foundation.min.css';
 DT_Example::$lookup_libraries['css']['font-awesome'] = '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css';
-
 
 
 function multiple ( $value, $fn )
