@@ -88,7 +88,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		/* iDataSort to be applied (backwards compatibility), but aDataSort will take
 		 * priority if defined
 		 */
-		if ( typeof oOptions.iDataSort === 'number' )
+		if ( oOptions.iDataSort !== undefined )
 		{
 			oCol.aDataSort = [ oOptions.iDataSort ];
 		}
