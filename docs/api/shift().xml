@@ -25,7 +25,7 @@ var data = table
 
 var firstItem = data.shift();
 
-alert( 'Last item in the result set was: '+firstItem );
+alert( 'First item in the result set was: '+firstItem );
 
 ]]></example>
 
