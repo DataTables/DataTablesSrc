@@ -57,7 +57,7 @@ $('#example').dataTable( {
       "url": "/state_save",
       "data": data,
       "dataType": "json",
-      "type": "POST"
+      "type": "POST",
       "success": function () {}
     } );
   }
