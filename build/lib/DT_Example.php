@@ -138,6 +138,8 @@ class DT_Example
 		$template = str_replace( '{js-lib-files}',  $this->_format_lib_files('js'),  $template );
 		$template = str_replace( '{table}',         $tableHtml,                      $template );
 		$template = str_replace( '{year}',          date('Y'),                       $template );
+		$template = str_replace( '{table-class}',   $software,                       $template );
+		$template = str_replace( '{body-class}',    isset( $xml['body-class'] ) ? (string)$xml['body-class'] : '', $template );
 
 		if ( isset( $xml->{'demo-html'} ) ) {
 			$template = str_replace( '{demo-html}', $this->innerXML($xml->{'demo-html'}), $template );

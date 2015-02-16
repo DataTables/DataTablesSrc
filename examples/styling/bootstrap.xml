@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" table-class="table table-striped table-bordered" order="9">
+<dt-example table-type="html" table-class="table table-striped table-bordered" body-class="bootstrap" order="9">
 
 <css lib="bootstrap datatables-bootstrap">
 	body { font-size: 140%; }
