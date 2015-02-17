@@ -85,7 +85,7 @@ $.extend( true, DataTable.ext.renderer, {
 
 						switch ( button ) {
 							case 'ellipsis':
-								container.append('<span>&hellip;</span>');
+								container.append('<span>&#x2026;</span>');
 								break;
 
 							case 'first':
