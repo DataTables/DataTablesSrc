@@ -11,9 +11,12 @@
 	</type>
 
 	<type type="function">
-		<signature>ajax.data( data )</signature>
+		<signature>ajax.data( data, settings )</signature>
 		<parameter type="object" name="data">
 			Data that DataTables has constructed for the request. This will include server-side processing parameters if you are using the `dt-init serverSide` option.
+		</parameter>
+		<parameter type="object" name="settings" since="1.10.6">
+			DataTables settings object (`dt-type DataTables.Settings`).
 		</parameter>
 		<returns type="object|string|undefined">
 			If there is no return value from the function (i.e. `dt-type undefined`) then the original data object passed into the function by DataTables will be used for the request (the function may have manipulated its values).
