@@ -1,5 +1,3 @@
-
-
 /**
  * Create an Ajax call based on the table's settings, taking into account that
  * parameters can have multiple forms, and backwards compatibility.
@@ -284,6 +282,7 @@ function _fnAjaxUpdateDraw ( settings, json )
 		return json[old] !== undefined ? json[old] : json[modern];
 	};
 
+	var data = _fnAjaxDataSrc( settings, json );
 	var draw            = compat( 'sEcho',                'draw' );
 	var recordsTotal    = compat( 'iTotalRecords',        'recordsTotal' );
 	var recordsFiltered = compat( 'iTotalDisplayRecords', 'recordsFiltered' );
@@ -300,7 +299,6 @@ function _fnAjaxUpdateDraw ( settings, json )
 	settings._iRecordsTotal   = parseInt(recordsTotal, 10);
 	settings._iRecordsDisplay = parseInt(recordsFiltered, 10);
 
-	var data = _fnAjaxDataSrc( settings, json );
 	for ( var i=0, ien=data.length ; i<ien ; i++ ) {
 		_fnAddData( settings, data[i] );
 	}
@@ -342,4 +340,3 @@ function _fnAjaxDataSrc ( oSettings, json )
 		_fnGetObjectDataFn( dataSrc )( json ) :
 		json;
 }
-
