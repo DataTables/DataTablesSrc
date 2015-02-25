@@ -20,10 +20,15 @@ function _fnCalculateColumnWidths ( oSettings )
 		columnCount = columns.length,
 		visibleColumns = _fnGetColumns( oSettings, 'bVisible' ),
 		headerCells = $('th', oSettings.nTHead),
-		tableWidthAttr = table.style.width || table.getAttribute('width'), // from DOM element
+		tableWidthAttr = table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentNode,
 		userInputs = false,
 		i, column, columnIdx, width, outerWidth;
+
+	var styleWidth = table.style.width;
+	if ( styleWidth && styleWidth.indexOf('%') !== -1 ) {
+		tableWidthAttr = styleWidth;
+	}
 
 	/* Convert any user input sizes into pixel sizes */
 	for ( i=0 ; i<visibleColumns.length ; i++ ) {
