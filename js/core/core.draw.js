@@ -105,6 +105,12 @@ function _fnRowAttributes( row )
 	                tr.classList.remove( row.__rowc.join(' ') );
 	                tr.classList.add( data.DT_RowClass );
 		}
+		
+		if ( data.DT_RowAttr ) {
+			$.each(data.DT_RowAttr, function(attr, value) {
+				return tr.setAttribute(attr, value);
+			});
+		}
 
 		if ( data.DT_RowData ) {
 	                $.each( data.DT_RowData, function( attr, value ) {
