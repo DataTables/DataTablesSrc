@@ -91,30 +91,25 @@ function _fnRowAttributes( row )
 	var data = row._aData;
 
 	if ( tr ) {
-		var tr = row.nTr;
-		var data = row._aData;
-	
-		if ( tr ) {
-			if ( data.DT_RowId ) {
-				tr.id = data.DT_RowId;
-			}
-	
-			if ( data.DT_RowClass ) {
-				// Remove any classes added by DT_RowClass before
-				var a = data.DT_RowClass.split(' ');
-				row.__rowc = row.__rowc ?
-					_unique( row.__rowc.concat( a ) ) :
-					a;
+		if ( data.DT_RowId ) {
+			tr.id = data.DT_RowId;
+		}
 
-		                tr.classList.remove( row.__rowc.join(' ') );
-		                tr.classList.add( data.DT_RowClass );
-			}
+		if ( data.DT_RowClass ) {
+			// Remove any classes added by DT_RowClass before
+			var a = data.DT_RowClass.split(' ');
+			row.__rowc = row.__rowc ?
+				_unique( row.__rowc.concat( a ) ) :
+				a;
 
-			if ( data.DT_RowData ) {
-		                $.each( data.DT_RowData, function( attr, value ) {
-		                	return tr.setAttribute( 'data-' + attr, value );
-		                });
-			}
+	                tr.classList.remove( row.__rowc.join(' ') );
+	                tr.classList.add( data.DT_RowClass );
+		}
+
+		if ( data.DT_RowData ) {
+	                $.each( data.DT_RowData, function( attr, value ) {
+	                	return tr.setAttribute( 'data-' + attr, value );
+	                });
 		}
 	}
 }
