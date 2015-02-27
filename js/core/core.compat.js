@@ -231,7 +231,7 @@ function _fnBrowserDetect( settings )
 
 	// In rtl text layout, some browsers (most, but not all) will place the
 	// scrollbar on the left, rather than the right.
-	browser.bScrollbarLeft = test.offset().left !== 1;
+	browser.bScrollbarLeft = Math.round( test.offset().left ) !== 1;
 
 	n.remove();
 }
