@@ -23,7 +23,7 @@
 	<example title="Add two new rows to the table and redraw"><![CDATA[
 var table = $('#example').DataTable();
 
-table.row.add( [ {
+table.rows.add( [ {
 		"name":       "Tiger Nixon",
 		"position":   "System Architect",
 		"salary":     "$3,120",
