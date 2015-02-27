@@ -40,6 +40,10 @@ function _fnBuildAjax( oSettings, data, fn )
 	var ajaxData;
 	var ajax = oSettings.ajax;
 	var instance = oSettings.oInstance;
+	var callback = function ( json ) {
+		_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json] );
+		fn( json );
+	};
 
 	if ( $.isPlainObject( ajax ) && ajax.data )
 	{
@@ -68,8 +72,7 @@ function _fnBuildAjax( oSettings, data, fn )
 			}
 
 			oSettings.json = json;
-			_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json] );
-			fn( json );
+			callback( json );
 		},
 		"dataType": "json",
 		"cache": false,
@@ -102,7 +105,7 @@ function _fnBuildAjax( oSettings, data, fn )
 			$.map( data, function (val, key) { // Need to convert back to 1.9 trad format
 				return { name: key, value: val };
 			} ),
-			fn,
+			callback,
 			oSettings
 		);
 	}
@@ -116,7 +119,7 @@ function _fnBuildAjax( oSettings, data, fn )
 	else if ( $.isFunction( ajax ) )
 	{
 		// Is a function - let the caller define what needs to be done
-		oSettings.jqXHR = ajax.call( instance, data, fn, oSettings );
+		oSettings.jqXHR = ajax.call( instance, data, callback, oSettings );
 	}
 	else
 	{

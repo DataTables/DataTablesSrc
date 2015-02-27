@@ -82,6 +82,8 @@
 			  }
 			} );
 			```
+
+			Note that as of DataTables 1.10.6 the `dt-event xhr` event will be triggered when a function is used for `dt-init ajax` (even if there is no Ajax request). Prior to 1.10.6 no event would have been triggered.
 		</description>
 	</type>
 
