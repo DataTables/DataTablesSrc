@@ -90,27 +90,36 @@ table.dataTable {
 
 	// Sorting
 	thead {
+		.sorting,
 		.sorting_asc,
-		.sorting_desc,
-		.sorting {
+		.sorting_desc {
 			cursor: pointer;
 			*cursor: hand;
 		}
 
+		.sorting,
+		.sorting_asc,
+		.sorting_desc,
+		.sorting_asc_disabled,
+		.sorting_desc_disabled {
+			background-repeat: no-repeat;
+			background-position: center right;
+		}
+
 		.sorting {
-			background: url('../images/sort_both.png') no-repeat center right;
+			background-image: url('../images/sort_both.png');
 		}
 		.sorting_asc {
-			background: url('../images/sort_asc.png') no-repeat center right;
+			background-image: url('../images/sort_asc.png');
 		}
 		.sorting_desc {
-			background: url('../images/sort_desc.png') no-repeat center right;
+			background-image: url('../images/sort_desc.png');
 		}
 		.sorting_asc_disabled {
-			background: url('../images/sort_asc_disabled.png') no-repeat center right;
+			background-image: url('../images/sort_asc_disabled.png');
 		}
 		.sorting_desc_disabled {
-			background: url('../images/sort_desc_disabled.png') no-repeat center right;
+			background-image: url('../images/sort_desc_disabled.png');
 		}
 	}
 
