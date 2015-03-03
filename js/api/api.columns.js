@@ -164,9 +164,6 @@ var __setColumnVis = function ( settings, column, vis, recalc ) {
 };
 
 
-/**
- *
- */
 _api_register( 'columns()', function ( selector, opts ) {
 	// argument shifting
 	if ( selector === undefined ) {
@@ -190,41 +187,27 @@ _api_register( 'columns()', function ( selector, opts ) {
 	return inst;
 } );
 
-
-/**
- *
- */
 _api_registerPlural( 'columns().header()', 'column().header()', function ( selector, opts ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return settings.aoColumns[column].nTh;
 	}, 1 );
 } );
 
-
-/**
- *
- */
 _api_registerPlural( 'columns().footer()', 'column().footer()', function ( selector, opts ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return settings.aoColumns[column].nTf;
 	}, 1 );
 } );
 
-
-/**
- *
- */
 _api_registerPlural( 'columns().data()', 'column().data()', function () {
 	return this.iterator( 'column-rows', __columnData, 1 );
 } );
-
 
 _api_registerPlural( 'columns().dataSrc()', 'column().dataSrc()', function () {
 	return this.iterator( 'column', function ( settings, column ) {
 		return settings.aoColumns[column].mData;
 	}, 1 );
 } );
-
 
 _api_registerPlural( 'columns().cache()', 'column().cache()', function ( type ) {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
@@ -234,14 +217,11 @@ _api_registerPlural( 'columns().cache()', 'column().cache()', function ( type ) 
 	}, 1 );
 } );
 
-
 _api_registerPlural( 'columns().nodes()', 'column().nodes()', function () {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
 		return _pluck_order( settings.aoData, rows, 'anCells', column ) ;
 	}, 1 );
 } );
-
-
 
 _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis, calc ) {
 	return this.iterator( 'column', function ( settings, column ) {
@@ -252,8 +232,6 @@ _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis
 	} );
 } );
 
-
-
 _api_registerPlural( 'columns().indexes()', 'column().index()', function ( type ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return type === 'visible' ?
@@ -262,28 +240,12 @@ _api_registerPlural( 'columns().indexes()', 'column().index()', function ( type 
 	}, 1 );
 } );
 
-
-// _api_register( 'columns().show()', function () {
-// 	var selector = this.selector;
-// 	return this.columns( selector.cols, selector.opts ).visible( true );
-// } );
-
-
-// _api_register( 'columns().hide()', function () {
-// 	var selector = this.selector;
-// 	return this.columns( selector.cols, selector.opts ).visible( false );
-// } );
-
-
-
 _api_register( 'columns.adjust()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		_fnAdjustColumnSizing( settings );
 	}, 1 );
 } );
 
-
-// Convert from one column index type, to another type
 _api_register( 'column.index()', function ( type, idx ) {
 	if ( this.context.length !== 0 ) {
 		var ctx = this.context[0];
@@ -296,7 +258,6 @@ _api_register( 'column.index()', function ( type, idx ) {
 		}
 	}
 } );
-
 
 _api_register( 'column()', function ( selector, opts ) {
 	return _selector_first( this.columns( selector, opts ) );

@@ -19,8 +19,8 @@
 	<example title="Create detail rows initially, but don't show them until the row is clicked upon"><![CDATA[
 var table = $('#example').DataTable();
 
-table.rows().eq( 0 ).each( function (rowIdx) {
-	table.row( rowIdx ).child( 'Row details for row: '+rowIdx );
+table.rows().every( function () {
+	this.child( 'Row details for row: '+this.index() );
 } );
 
 $('#example tbody').on( 'click', 'tr', function () {

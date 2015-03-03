@@ -11,10 +11,8 @@
 $(document).ready(function() {
 	$('#example').DataTable( {
 		initComplete: function () {
-			var api = this.api();
-
-			api.columns().indexes().flatten().each( function ( i ) {
-				var column = api.column( i );
+			this.api().columns().every( function () {
+				var column = this;
 				var select = $('<select><option value=""></option></select>')
 					.appendTo( $(column.footer()).empty() )
 					.on( 'change', function () {

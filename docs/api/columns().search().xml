@@ -61,10 +61,11 @@ $('#example tfoot th').each( function () {
 var table = $('#example').DataTable();
 
 // Apply the filter
-table.columns().eq( 0 ).each( function ( colIdx ) {
-	$( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
-		table
-			.column( colIdx )
+table.columns().every( function () {
+	var column = this;
+
+	$( 'input', this.footer() ).on( 'keyup change', function () {
+		column
 			.search( this.value )
 			.draw();
 	} );
@@ -72,27 +73,25 @@ table.columns().eq( 0 ).each( function ( colIdx ) {
 
 ]]></example>
 
-
-	<example title="Build a `-tag select` search for each column with a `select-filter` class. Note that this performs an exact match for data in the table."><![CDATA[
+	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
 var table = $('#example').DataTable();
 
-table.columns( '.select-filter' ).eq( 0 ).each( function ( colIdx ) {
+table.columns( '.select-filter' ).every( function () {
+	var that = this;
+
 	// Create the select list and search operation
 	var select = $('<select />')
 		.appendTo(
-			table.column(colIdx).footer()
+			this.footer()
 		)
-		.append( $('<option value=""></option>') )
 		.on( 'change', function () {
-			table
-				.column( colIdx )
-				.search( '^'+$(this).val()+'$', true, false )
+			that
+				.search( $(this).val() )
 				.draw();
 		} );
 
 	// Get the search data for the first column and add to the select list
-	table
-		.column( colIdx )
+	this
 		.cache( 'search' )
 		.sort()
 		.unique()

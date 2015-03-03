@@ -25,25 +25,25 @@
 		Note that this method is primarily aimed at plug-in developers who require access to the internal data that DataTables has stored.
 	</description>
 
-	<example title="Build a filter for each column with a `select-filter` class."><![CDATA[
+	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
 var table = $('#example').DataTable();
 
-table.columns( '.select-filter' ).eq( 0 ).each( function ( colIdx ) {
+table.columns( '.select-filter' ).every( function () {
+	var that = this;
+
 	// Create the select list and search operation
 	var select = $('<select />')
 		.appendTo(
-			table.column(colIdx).footer()
+			this.footer()
 		)
 		.on( 'change', function () {
-			table
-				.column( colIdx )
+			that
 				.search( $(this).val() )
 				.draw();
 		} );
 
 	// Get the search data for the first column and add to the select list
-	table
-		.column( colIdx )
+	this
 		.cache( 'search' )
 		.sort()
 		.unique()

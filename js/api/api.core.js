@@ -153,3 +153,14 @@ _api_register( 'destroy()', function ( remove ) {
 	} );
 } );
 
+
+// Add the `every()` method for rows, columns and cells in a compact form
+$.each( [ 'column', 'row', 'cell' ], function ( i, type ) {
+	_api_register( type+'s().every()', function ( fn ) {
+		return this.iterator( type, function ( settings, idx, idx2 ) {
+			// idx2 is undefined for rows and columns.
+			fn.call( new _Api( settings )[ type ]( idx, idx2 ) );
+		} );
+	} );
+} );
+

@@ -70,9 +70,6 @@ var __row_selector = function ( settings, selector, opts )
 };
 
 
-/**
- *
- */
 _api_register( 'rows()', function ( selector, opts ) {
 	// argument shifting
 	if ( selector === undefined ) {
@@ -95,7 +92,6 @@ _api_register( 'rows()', function ( selector, opts ) {
 
 	return inst;
 } );
-
 
 _api_register( 'rows().nodes()', function () {
 	return this.iterator( 'row', function ( settings, row ) {

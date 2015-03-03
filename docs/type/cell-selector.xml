@@ -134,11 +134,9 @@ Although not particularly useful as a primary selector method, this can be very 
 ###### Loop over all cells, adding a class if the data for the cell is greater than a given value.
 
 ```js
-table.cells().eq(0).each( function ( cellIdx, i ) {
-	var cell = table.cell( cellIdx );
-
-	if ( cell.data() > 10 ) {
-		$(cell.node()).addClass( 'important' );
+table.cells().every( function () {
+	if ( this.data() > 10 ) {
+		$(this.node()).addClass( 'important' );
 	}
 } );
 ```

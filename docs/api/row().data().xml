@@ -54,12 +54,12 @@ $('#example tbody').on( 'click', 'tr', function () {
 	<example title="Update all rows in the table, redrawing only when complete"><![CDATA[
 var table = $('#example').DataTable();
 
-table.rows().indexes().each( function (idx) {
-	var d = table.row( idx ).data();
+table.rows().every( function () {
+	var d = this.data();
 
-	d.counter++;
+	d.counter++; // update data source for the row
 
-	table.row( idx ).data( d );
+	this.invalidate(); // invalidate the data DataTables has cached for this row
 } );
 
 // Draw once all updates are done
