@@ -72,13 +72,15 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 	// Argument shifting
 	if ( $.isPlainObject( rowSelector ) ) {
 		// Indexes
-		if ( typeof rowSelector.row !== undefined ) {
-			opts = columnSelector;
-			columnSelector = null;
-		}
-		else {
+		if ( rowSelector.row === undefined ) {
+			// Selector options in first parameter
 			opts = rowSelector;
 			rowSelector = null;
+		}
+		else {
+			// Cell index objects in first parameter
+			opts = columnSelector;
+			columnSelector = null;
 		}
 	}
 	if ( $.isPlainObject( columnSelector ) ) {
