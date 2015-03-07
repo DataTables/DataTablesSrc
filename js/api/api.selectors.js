@@ -5,11 +5,12 @@ var _selector_run = function ( selector, select )
 {
 	var
 		out = [], res,
-		a, i, ien, j, jen;
+		a, i, ien, j, jen,
+		selectorType = typeof selector;
 
 	// Can't just check for isArray here, as an API or jQuery instance might be
 	// given with their array like look
-	if ( ! selector || typeof selector === 'string' || selector.length === undefined ) {
+	if ( ! selector || selectorType === 'string' || selectorType === 'function' || selector.length === undefined ) {
 		selector = [ selector ];
 	}
 

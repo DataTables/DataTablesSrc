@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>stateSaveCallback( settings, data )</signature>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="data">
@@ -57,7 +57,7 @@ $('#example').dataTable( {
       "url": "/state_save",
       "data": data,
       "dataType": "json",
-      "method": "POST"
+      "type": "POST",
       "success": function () {}
     } );
   }
@@ -71,6 +71,7 @@ $('#example').dataTable( {
 	<related type="option">stateSave</related>
 	<related type="option">stateLoadParams</related>
 	<related type="option">stateLoaded</related>
+	<related type="option">stateLoadCallback</related>
 	<related type="option">stateSaveParams</related>
 	<related type="event">stateLoaded</related>
 	<related type="event">stateLoadParams</related>

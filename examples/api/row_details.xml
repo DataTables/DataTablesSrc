@@ -39,7 +39,7 @@ $(document).ready(function() {
 		"ajax": "../ajax/data/objects.txt",
 		"columns": [
 			{
-				"class":          'details-control',
+				"className":      'details-control',
 				"orderable":      false,
 				"data":           null,
 				"defaultContent": ''

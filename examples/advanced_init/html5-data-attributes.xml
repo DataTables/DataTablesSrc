@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html5" order="7">
+<dt-example table-type="html5" order="8">
 
 <css lib="datatables" />
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>HTML5 data-* attributes</title>
+<title>HTML5 data-* attributes - cell data</title>
 <js><![CDATA[
 
 $(document).ready(function() {
-	$('#example').dataTable();
+	$('#example').DataTable();
 } );
 
 ]]></js>

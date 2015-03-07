@@ -90,16 +90,15 @@ table.row( ':eq(0)' ).child( [
 	<example title="Add a child row to all rows, passing in a jQuery created `dt-tag tr` element and show all child rows"><![CDATA[
 var table = $('#example').DataTable();
 
-table.rows().eq( 0 ).each( function (rowIdx) {
-	table
-		.row( rowIdx )
+table.rows().every( function () {
+	this
 		.child(
 			$(
 				'<tr>'+
 					'<td>'+rowIdx+'.1</td>'+
 					'<td>'+rowIdx+'.2</td>'+
 					'<td>'+rowIdx+'.3</td>'+
-					'<td>'+rowIdx+'.4</td>'
+					'<td>'+rowIdx+'.4</td>'+
 				'</tr>'
 			)
 		)

@@ -26,8 +26,8 @@ var __numericReplace = function ( d, decimalPlace, re1, re2 ) {
 };
 
 
-// Add the numeric 'deformatting' functions for sorting. This is done in a
-// function to provide an easy ability for the language options to add
+// Add the numeric 'deformatting' functions for sorting and search. This is done
+// in a function to provide an easy ability for the language options to add
 // additional methods if a non-period decimal place is used.
 function _addNumericSort ( decimalPlace ) {
 	$.each(
@@ -53,7 +53,13 @@ function _addNumericSort ( decimalPlace ) {
 			}
 		},
 		function ( key, fn ) {
+			// Add the ordering method
 			_ext.type.order[ key+decimalPlace+'-pre' ] = fn;
+
+			// For HTML types add a search formatter that will strip the HTML
+			if ( key.match(/^html\-/) ) {
+				_ext.type.search[ key+decimalPlace ] = _ext.type.search.html;
+			}
 		}
 	);
 }

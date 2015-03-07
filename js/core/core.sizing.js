@@ -20,10 +20,15 @@ function _fnCalculateColumnWidths ( oSettings )
 		columnCount = columns.length,
 		visibleColumns = _fnGetColumns( oSettings, 'bVisible' ),
 		headerCells = $('th', oSettings.nTHead),
-		tableWidthAttr = table.getAttribute('width'),
+		tableWidthAttr = table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentNode,
 		userInputs = false,
 		i, column, columnIdx, width, outerWidth;
+
+	var styleWidth = table.style.width;
+	if ( styleWidth && styleWidth.indexOf('%') !== -1 ) {
+		tableWidthAttr = styleWidth;
+	}
 
 	/* Convert any user input sizes into pixel sizes */
 	for ( i=0 ; i<visibleColumns.length ; i++ ) {
@@ -183,7 +188,7 @@ function _fnCalculateColumnWidths ( oSettings )
  */
 function _fnThrottle( fn, freq ) {
 	var
-		frequency = freq || 200,
+		frequency = freq !== undefined ? freq : 200,
 		last,
 		timer;
 
@@ -201,12 +206,9 @@ function _fnThrottle( fn, freq ) {
 				fn.apply( that, args );
 			}, frequency );
 		}
-		else if ( last ) {
-			last = now;
-			fn.apply( that, args );
-		}
 		else {
 			last = now;
+			fn.apply( that, args );
 		}
 	};
 }

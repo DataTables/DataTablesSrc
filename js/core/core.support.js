@@ -39,11 +39,16 @@ function _fnLog( settings, level, msg, tn )
 		var ext = DataTable.ext;
 		var type = ext.sErrMode || ext.errMode;
 
+		_fnCallbackFire( settings, null, 'error', [ settings, tn, msg ] );
+
 		if ( type == 'alert' ) {
 			alert( msg );
 		}
-		else {
+		else if ( type == 'throw' ) {
 			throw new Error(msg);
+		}
+		else if ( typeof type == 'function' ) {
+			type( settings, tn, msg );
 		}
 	}
 	else if ( window.console && console.log ) {
@@ -219,10 +224,13 @@ function _fnLengthOverflow ( settings )
 		len = settings._iDisplayLength;
 
 	/* If we have space to show extra rows (backing up from the end point - then do so */
-	if (start >= end) 
+	if ( start >= end )
 	{
 		start = end - len;
 	}
+
+	// Keep the start record on the current page
+	start -= (start % len);
 
 	if ( len === -1 || start < 0 )
 	{

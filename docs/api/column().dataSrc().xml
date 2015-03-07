@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column().dataSrc()</name>
+	<summary>Get the data source property for the selected column.</summary>
+	<since>1.10.3</since>
+
+	<type type="function">
+		<signature>column().dataSrc()</signature>
+		<description>Get the data source property for the selected column</description>
+		<returns type="integer|string|function">Data source parameter as configured by `dt-init columns.data`</returns>
+	</type>
+
+	<description>
+		DataTables has the ability to read data from a variety of complex data sources through use of the `dt-init columns.data` option. This method provides the ability to retrieve that setting after initialisation based on a column selector (see `dt-type column-selector`).
+
+		The value of `dt-init columns.data` that was set during initialisation (including the default of a column index integer) will be returned by this method, including functions (unevaluated). It is important to note that how `dt-init columns.render` is set has no effect on the return value of this method, which is used only for retrieving the value of `dt-init columns.data`.
+
+		It is not possible at this time to use this method as a setter - the data source for a column cannot be changed after initialisation.
+	</description>
+
+	<example title="Get the data source for a column that was clicked on"><![CDATA[
+var table = $('#example').DataTable();
+
+$('#example').on( 'click', 'tbody td', function () {
+	var idx = table.cell(this).index().column;
+	alert( 'Data source: '+table.column( idx ).dataSrc() );
+} );
+]]></example>
+
+	<related type="api">columns().data()</related>
+	<related type="api">columns().dataSrc()</related>
+	<related type="api">column().data()</related>
+</dt-api>

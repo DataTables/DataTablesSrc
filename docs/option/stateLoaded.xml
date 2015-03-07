@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>stateLoaded( settings, data )</signature>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="data">
@@ -39,6 +39,7 @@ $('#example').dataTable( {
 	<related type="option">stateLoadParams</related>
 	<related type="option">stateLoaded</related>
 	<related type="option">stateSaveParams</related>
+	<related type="option">stateLoadCallback</related>
 	<related type="event">stateLoadParams</related>
 	<related type="event">stateSaveParams</related>
 </dt-option>

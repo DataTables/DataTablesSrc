@@ -25,10 +25,11 @@ $(document).ready(function() {
 	var table = $('#example').DataTable();
 
 	// Apply the search
-	table.columns().eq( 0 ).each( function ( colIdx ) {
-		$( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
-			table
-				.column( colIdx )
+	table.columns().every( function () {
+		var that = this;
+
+		$( 'input', this.footer() ).on( 'keyup change', function () {
+			that
 				.search( this.value )
 				.draw();
 		} );
@@ -43,7 +44,7 @@ The searching functionality that is provided by DataTables is very useful for qu
 
 DataTables has the ability to apply searching to a specific column through the `dt-api column().search()` method (note that the name of the method is `search` not `filter` since `dt-api filter()` is used to apply a filter to a result set).
 
-The column searches are cumulative, so you can apply multiple individual column searchs, in addition to the global search, allowing complex searching options to be presented to the user.
+The column searches are cumulative, so you can apply multiple individual column searches, in addition to the global search, allowing complex searching options to be presented to the user.
 
 This examples shows text elements being used with the `dt-api column().search()` method to add input controls in the footer of the table for each column. Note that the `*index*:visible` option is used for the column selector to ensure that the `dt-api column()` method takes into account any hidden columns when selecting the column to act upon.
 

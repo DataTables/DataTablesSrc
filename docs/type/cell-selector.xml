@@ -15,6 +15,7 @@ The cell selector can be given in a number of different forms, to make it easy t
 * No selector - Select all cells
 * `dt-type string` - jQuery selector
 * `dt-type node` - `dt-tag td` / `dt-tag th` element selector
+* `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
 * `dt-type jQuery` - jQuery object of cell nodes
 * `dt-type object` - DataTables cell indexes (`row` and `column` properties)
 * `dt-type array` - Array containing any combination of the above options
@@ -76,6 +77,41 @@ $('#example tbody').on( 'click', 'td', function () {
 ```
 
 
+## Function
+
+< # Version requirement
+<
+< Using a function as a cell selector requires DataTables 1.10.3 or newer.
+
+For complete control over which cells are selected, it is possible to provide a function with logic you've defined to perform the selection. That logic can be as simple or as complex as you wish, performing the selection by simply returning `true` if the cell should be included in the selected results and `false` if not.
+
+That can be particularly useful for finding cells based on the data they contain, or based on properties of the cell node.
+
+The function receives three parameters:
+
+1. Cell index - see `dt-api cell().index()`
+2. Cell data - see `dt-api cell().data()`. Note that this is the original data for the cell, not the rendered data if you are using `dt-init columns.render`
+3. Cell node - see `dt-api cell().node()`. Note that this may be `null` if you are using `dt-init deferRender`.
+
+The function is called once for every cell that can be selected, based on the `dt-type selector-modifier` options, which also defines the order of the cells for the called function.
+
+###### Get the nodes for all cells that contain `1`:
+
+```js
+var table = $('#example').DataTable();
+
+var ones = table
+	.cells( function ( idx, data, node ) {
+		return data == 1 ?
+			true : false;
+	} )
+	.nodes();
+
+// Add a class to the cells
+ones.to$().addClass('highlight');
+```
+
+
 ## jQuery
 
 Very similar to the above `node` type (since a jQuery object is an _array-like_ list of DOM nodes), a jQuery instance can be given as a cell selector, with any nodes which are selected by jQuery and match those available in the table's `dt-tag tbody` selected.
@@ -98,11 +134,9 @@ Although not particularly useful as a primary selector method, this can be very 
 ###### Loop over all cells, adding a class if the data for the cell is greater than a given value.
 
 ```js
-table.cells().eq(0).each( function ( cellIdx, i ) {
-	var cell = table.cell( cellIdx );
-
-	if ( cell.data() > 10 ) {
-		$(cell.node()).addClass( 'important' );
+table.cells().every( function () {
+	if ( this.data() > 10 ) {
+		$(this.node()).addClass( 'important' );
 	}
 } );
 ```

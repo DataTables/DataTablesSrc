@@ -15,6 +15,17 @@
  */
 DataTable.ext = _ext = {
 	/**
+	 * Buttons. For use with the Buttons extension for DataTables. This is
+	 * defined here so other extensions can define buttons regardless of load
+	 * order. It is _not_ used by DataTables core.
+	 *
+	 *  @type object
+	 *  @default {}
+	 */
+	buttons: {},
+
+
+	/**
 	 * Element class names
 	 *
 	 *  @type object
@@ -26,10 +37,10 @@ DataTable.ext = _ext = {
 	/**
 	 * Error reporting.
 	 * 
-	 * How should DataTables report an error. Can take the value 'alert' or
-	 * 'throw'
+	 * How should DataTables report an error. Can take the value 'alert',
+	 * 'throw', 'none' or a function.
 	 *
-	 *  @type string
+	 *  @type string|function
 	 *  @default alert
 	 */
 	errMode: "alert",

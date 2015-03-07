@@ -23,9 +23,8 @@
 	<example title="Sum all columns which have a class of `.sum` and put the sum into its footer cell"><![CDATA[
 var table = $('#example').DataTable();
 
-table.columns( '.sum' ).each( function ( el ) {
-	var sum = table
-		.column( el )
+table.columns( '.sum' ).every( function () {
+	var sum = this
 		.data()
 		.reduce( function (a,b) {
 			return a + b;

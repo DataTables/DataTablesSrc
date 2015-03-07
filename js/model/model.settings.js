@@ -512,6 +512,13 @@ DataTable.models.oSettings = {
 	"sDom": null,
 
 	/**
+	 * Search delay (in mS)
+	 *  @type integer
+	 *  @default null
+	 */
+	"searchDelay": null,
+
+	/**
 	 * Which type of pagination should be used.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.

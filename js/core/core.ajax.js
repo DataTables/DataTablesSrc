@@ -1,5 +1,3 @@
-
-
 /**
  * Create an Ajax call based on the table's settings, taking into account that
  * parameters can have multiple forms, and backwards compatibility.
@@ -42,16 +40,20 @@ function _fnBuildAjax( oSettings, data, fn )
 	var ajaxData;
 	var ajax = oSettings.ajax;
 	var instance = oSettings.oInstance;
+	var callback = function ( json ) {
+		_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json] );
+		fn( json );
+	};
 
 	if ( $.isPlainObject( ajax ) && ajax.data )
 	{
 		ajaxData = ajax.data;
 
 		var newData = $.isFunction( ajaxData ) ?
-			ajaxData( data ) :  // fn can manipulate data or return an object
-			ajaxData;           // object or array to merge
+			ajaxData( data, oSettings ) :  // fn can manipulate data or return
+			ajaxData;                      // an object object or array to merge
 
-		// If the function returned an object, use that alone
+		// If the function returned something, use that alone
 		data = $.isFunction( ajaxData ) && newData ?
 			newData :
 			$.extend( true, data, newData );
@@ -70,8 +72,7 @@ function _fnBuildAjax( oSettings, data, fn )
 			}
 
 			oSettings.json = json;
-			_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json] );
-			fn( json );
+			callback( json );
 		},
 		"dataType": "json",
 		"cache": false,
@@ -104,7 +105,7 @@ function _fnBuildAjax( oSettings, data, fn )
 			$.map( data, function (val, key) { // Need to convert back to 1.9 trad format
 				return { name: key, value: val };
 			} ),
-			fn,
+			callback,
 			oSettings
 		);
 	}
@@ -118,7 +119,7 @@ function _fnBuildAjax( oSettings, data, fn )
 	else if ( $.isFunction( ajax ) )
 	{
 		// Is a function - let the caller define what needs to be done
-		oSettings.jqXHR = ajax.call( instance, data, fn, oSettings );
+		oSettings.jqXHR = ajax.call( instance, data, callback, oSettings );
 	}
 	else
 	{
@@ -284,9 +285,10 @@ function _fnAjaxUpdateDraw ( settings, json )
 		return json[old] !== undefined ? json[old] : json[modern];
 	};
 
+	var data = _fnAjaxDataSrc( settings, json );
 	var draw            = compat( 'sEcho',                'draw' );
 	var recordsTotal    = compat( 'iTotalRecords',        'recordsTotal' );
-	var rocordsFiltered = compat( 'iTotalDisplayRecords', 'recordsFiltered' );
+	var recordsFiltered = compat( 'iTotalDisplayRecords', 'recordsFiltered' );
 
 	if ( draw ) {
 		// Protect against out of sequence returns
@@ -298,9 +300,8 @@ function _fnAjaxUpdateDraw ( settings, json )
 
 	_fnClearTable( settings );
 	settings._iRecordsTotal   = parseInt(recordsTotal, 10);
-	settings._iRecordsDisplay = parseInt(rocordsFiltered, 10);
+	settings._iRecordsDisplay = parseInt(recordsFiltered, 10);
 
-	var data = _fnAjaxDataSrc( settings, json );
 	for ( var i=0, ien=data.length ; i<ien ; i++ ) {
 		_fnAddData( settings, data[i] );
 	}
@@ -342,4 +343,3 @@ function _fnAjaxDataSrc ( oSettings, json )
 		_fnGetObjectDataFn( dataSrc, oSettings )( json ) :
 		json;
 }
-

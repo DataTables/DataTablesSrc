@@ -11,7 +11,7 @@
 	</type>
 	<type type="string">
 		<description>
-			Read an object property from the data source. There are three 'special' options that can be used in the string to alter how DataTables reads the data from the source object:
+			Read and write an object property to and from the data source. There are three 'special' options that can be used in the string to alter how DataTables reads the data from the source object:
 
 			* `.` - Dotted Javascript notation. Just as you use a `.` in Javascript to read from nested objects, so to can the options specified in `data`. For example: `browser.version` or `browser.name`. If your object parameter name contains a period, use `\\` to escape it - i.e. `first\\.name`.
 			* `[]` - Array notation. DataTables can automatically combine data from and array source, joining the data with the characters provided between the two brackets. For example: `name[, ]` would provide a comma-space separated list from the source array. If no characters are provided between the brackets, the original array source is returned.
@@ -57,7 +57,7 @@
 
 			* `row` - The row index for the requested cell. See `dt-api row().index()`.
 			* `col` - The column index for the requested cell. See `dt-api column().index()`.
-			* `settings` - The DataTables settings object for the table in question. This can be used to obtain an API instance if required.
+			* `settings` - The `dt-type DataTables.Settings` object for the table in question. This can be used to obtain an API instance if required.
 		</parameter>
 		<returns>
 			The return value from the function is not required when 'set' is the type of call, but otherwise the return is what will be used for the data requested.
@@ -73,15 +73,17 @@
 
 	<description>
 		<![CDATA[
-		This property can be used to read data from any data source property, including deeply nested objects / properties. `data` can be given in a number of different ways which effect its behaviour as documented below.
+		This property can be used to read and write data to and from any data source property, including deeply nested objects / properties. `data` can be given in a number of different ways which effect its behaviour as documented below.
 
 		The data that is resolved to for a data point (between this option and `dt-init columns.render`) to will be used by DataTables for the requested data, with three special cases:
 
 		* `-type undefined` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, an error will be given.
-		* `-type null` - If `dt-init columms.render` is used, the data passed to the rendering function will be the original data source for the row. If there is no renderer the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty sting will be used. `-type null` will be used for all other data types.
+		* `-type null` - If `dt-init columns.render` is used, the data passed to the rendering function will be the original data source for the row. If there is no renderer the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty sting will be used. `-type null` will be used for all other data types.
 		* `-type function` - the function will be executed and the returned value used. As of DataTables <span class="since">1.10.1</span> the function will be executed in the same scope as the data object for the row. The result of this is that an object instance can be used as the data source for a row.
 
 		Note that `data` is both a getter and setter option. If you just require formatting of data for output, you will likely want to use `dt-init columns.render` which is simply a getter and thus much simpler to use!
+
+		As of DataTables 1.10.3 this option can be used with a DOM sourced data to instruct DataTables where to write the data read for each column to in a data source object. By default DataTables will store the data in an array, but using this option you can provide object property names which describe the structure of the object to use ([example](/examples/advanced_init/object_dom_read.html)).
 		]]>
 	</description>
 
@@ -127,6 +129,21 @@ $('#example').dataTable( {
     { "data": "platform.details.0" },
     { "data": "platform.details.1" }
   ]
+} );
+]]></example>
+
+	<example title="Read a DOM sourced table into data objects"><![CDATA[
+$(document).ready(function() {
+	$('#example').DataTable({
+		"columns": [
+			{ "data": "name" },
+			{ "data": "position" },
+			{ "data": "office" },
+			{ "data": "age" },
+			{ "data": "start_date" },
+			{ "data": "salary" }
+		]
+	});
 } );
 ]]></example>
 

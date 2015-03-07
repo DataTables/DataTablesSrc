@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>error</name>
+	<summary>Error event - An error has occurred during DataTables' processing of data.</summary>
+	<since>1.10.5</since>
+
+	<type type="function">
+		<signature>function( e, settings, techNote, message )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="DataTables.Settings" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="integer" name="techNote">
+			Tech note error number - use `http://datatables.net/tn/{techNote}` to look up a description
+		</parameter>
+		<parameter type="string" name="message">
+			Description of error
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		Error control is an important consideration in any complex application, and DataTables provides this event to allow you to hook your application's own error handling into DataTables. For example you could trigger an Ajax call that will log an error for investigation, or use the error event to show a custom error message to the end user.
+
+		This event goes hand in hand with the `$.fn.dataTable.ext.errMode` option which controls how DataTables handles errors. That static option can take one of four values:
+
+		* `-string alert` (default) - Alert the error
+		* `-string throw` - Throw a Javascript error
+		* `-string none` - Do nothing (you would want to use this `dt-event error` in this case)
+		* `function` - A function common to all DataTables on the page that is called when an error occurs.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+	</description>
+
+	<example title="Use the event as a custom error handler"><![CDATA[
+$.fn.dataTable.ext.errMode = 'none';
+
+$('#example')
+	.on( 'error.dt', function ( e, settings, techNote, message ) {
+		console.log( 'An error has been reported by DataTables: ', message );
+	} )
+	.DataTable();
+
+]]></example>
+
+</dt-event>

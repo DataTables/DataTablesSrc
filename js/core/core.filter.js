@@ -44,13 +44,20 @@ function _fnFeatureHtmlFilter ( settings )
 			_fnDraw( settings );
 		}
 	};
+
+	var searchDelay = settings.searchDelay !== null ?
+		settings.searchDelay :
+		_fnDataSource( settings ) === 'ssp' ?
+			400 :
+			0;
+
 	var jqFilter = $('input', filter)
 		.val( previousSearch.sSearch )
 		.attr( 'placeholder', language.sSearchPlaceholder )
 		.bind(
 			'keyup.DT search.DT input.DT paste.DT cut.DT',
-			_fnDataSource( settings ) === 'ssp' ?
-				_fnThrottle( searchFn, 400 ):
+			searchDelay ?
+				_fnThrottle( searchFn, searchDelay ) :
 				searchFn
 		)
 		.bind( 'keypress.DT', function(e) {
@@ -273,9 +280,12 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 		 * ^(?=.*?\bone\b)(?=.*?\btwo three\b)(?=.*?\bfour\b).*$
 		 */
 		var a = $.map( search.match( /"[^"]+"|[^ ]+/g ) || '', function ( word ) {
-			return word.charAt(0) === '"' ?
-				word.match( /^"(.*)"$/ )[1] :
-				word;
+			if ( word.charAt(0) === '"' ) {
+				var m = word.match( /^"(.*)"$/ );
+				word = m ? m[1] : word;
+			}
+
+			return word.replace('"', '');
 		} );
 
 		search = '^(?=.*?'+a.join( ')(?=.*?' )+').*$';
@@ -286,7 +296,7 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 
 
 /**
- * scape a string such that it can be used in a regular expression
+ * Escape a string such that it can be used in a regular expression
  *  @param {string} sVal string to escape
  *  @returns {string} escaped string
  *  @memberof DataTable#oApi

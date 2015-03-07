@@ -81,12 +81,12 @@ function _fnFeatureHtmlTable ( settings )
 							headerClone
 								.removeAttr('id')
 								.css( 'margin-left', 0 )
+								.append( captionSide === 'top' ? caption : null )
 								.append(
 									table.children('thead')
 								)
 						)
 				)
-				.append( captionSide === 'top' ? caption : null )
 		)
 		.append(
 			$(_div, { 'class': classes.sScrollBody } )
@@ -112,12 +112,12 @@ function _fnFeatureHtmlTable ( settings )
 							footerClone
 								.removeAttr('id')
 								.css( 'margin-left', 0 )
+								.append( captionSide === 'bottom' ? caption : null )
 								.append(
 									table.children('tfoot')
 								)
 						)
 				)
-				.append( captionSide === 'bottom' ? caption : null )
 		);
 	}
 
@@ -128,7 +128,7 @@ function _fnFeatureHtmlTable ( settings )
 
 	// When the body is scrolled, then we also want to scroll the headers
 	if ( scrollX ) {
-		$(scrollBody).scroll( function (e) {
+		$(scrollBody).on( 'scroll.DT', function (e) {
 			var scrollLeft = this.scrollLeft;
 
 			scrollHead.scrollLeft = scrollLeft;

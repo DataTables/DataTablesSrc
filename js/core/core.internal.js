@@ -51,7 +51,7 @@ var _numToDecimal = function ( num, decimalPoint ) {
 	if ( ! _re_dic[ decimalPoint ] ) {
 		_re_dic[ decimalPoint ] = new RegExp( _fnEscapeRegex( decimalPoint ), 'g' );
 	}
-	return typeof num === 'string' ?
+	return typeof num === 'string' && decimalPoint !== '.' ?
 		num.replace( /\./g, '' ).replace( _re_dic[ decimalPoint ], '.' ) :
 		num;
 };
@@ -128,7 +128,9 @@ var _pluck_order = function ( a, order, prop, prop2 )
 	// is essential here
 	if ( prop2 !== undefined ) {
 		for ( ; i<ien ; i++ ) {
-			out.push( a[ order[i] ][ prop ][ prop2 ] );
+			if ( a[ order[i] ][ prop ] ) {
+				out.push( a[ order[i] ][ prop ][ prop2 ] );
+			}
 		}
 	}
 	else {
@@ -157,6 +159,20 @@ var _range = function ( len, start )
 
 	for ( var i=start ; i<end ; i++ ) {
 		out.push( i );
+	}
+
+	return out;
+};
+
+
+var _removeEmpty = function ( a )
+{
+	var out = [];
+
+	for ( var i=0, ien=a.length ; i<ien ; i++ ) {
+		if ( a[i] ) { // careful - will remove all falsy values!
+			out.push( a[i] );
+		}
 	}
 
 	return out;

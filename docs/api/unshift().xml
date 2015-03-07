@@ -10,7 +10,7 @@
 		<parameter type="*" name="value_1">
 			Item to add to the API instance's result set.
 		</parameter>
-		<parameter type="*" name="value_2">
+		<parameter type="*" name="value_2" default="undefined">
 			Additional item(s) to add to the API instance's result set. Use as many parameters as you require to add additional items.
 		</parameter>
 		<returns type="integer">The length of the modified API instance</returns>

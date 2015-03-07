@@ -65,34 +65,34 @@ _api_register( 'table()', function ( selector ) {
 _api_registerPlural( 'tables().nodes()', 'table().node()' , function () {
 	return this.iterator( 'table', function ( ctx ) {
 		return ctx.nTable;
-	} );
+	}, 1 );
 } );
 
 
 _api_registerPlural( 'tables().body()', 'table().body()' , function () {
 	return this.iterator( 'table', function ( ctx ) {
 		return ctx.nTBody;
-	} );
+	}, 1 );
 } );
 
 
 _api_registerPlural( 'tables().header()', 'table().header()' , function () {
 	return this.iterator( 'table', function ( ctx ) {
 		return ctx.nTHead;
-	} );
+	}, 1 );
 } );
 
 
 _api_registerPlural( 'tables().footer()', 'table().footer()' , function () {
 	return this.iterator( 'table', function ( ctx ) {
 		return ctx.nTFoot;
-	} );
+	}, 1 );
 } );
 
 
 _api_registerPlural( 'tables().containers()', 'table().container()' , function () {
 	return this.iterator( 'table', function ( ctx ) {
 		return ctx.nTableWrapper;
-	} );
+	}, 1 );
 } );
 

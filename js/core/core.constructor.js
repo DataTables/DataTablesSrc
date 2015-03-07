@@ -3,6 +3,7 @@ var i=0, iLen, j, jLen, k, kLen;
 var sId = this.getAttribute( 'id' );
 var bInitHandedOff = false;
 var defaults = DataTable.defaults;
+var $this = $(this);
 
 
 /* Sanity check */
@@ -21,30 +22,34 @@ _fnCamelToHungarian( defaults, defaults, true );
 _fnCamelToHungarian( defaults.column, defaults.column, true );
 
 /* Setting up the initialisation object */
-_fnCamelToHungarian( defaults, oInit );
+_fnCamelToHungarian( defaults, $.extend( oInit, $this.data() ) );
+
+
 
 /* Check to see if we are re-initialising a table */
 var allSettings = DataTable.settings;
 for ( i=0, iLen=allSettings.length ; i<iLen ; i++ )
 {
+	var s = allSettings[i];
+
 	/* Base check on table node */
-	if ( allSettings[i].nTable == this )
+	if ( s.nTable == this || s.nTHead.parentNode == this || (s.nTFoot && s.nTFoot.parentNode == this) )
 	{
 		var bRetrieve = oInit.bRetrieve !== undefined ? oInit.bRetrieve : defaults.bRetrieve;
 		var bDestroy = oInit.bDestroy !== undefined ? oInit.bDestroy : defaults.bDestroy;
 
 		if ( emptyInit || bRetrieve )
 		{
-			return allSettings[i].oInstance;
+			return s.oInstance;
 		}
 		else if ( bDestroy )
 		{
-			allSettings[i].oInstance.fnDestroy();
+			s.oInstance.fnDestroy();
 			break;
 		}
 		else
 		{
-			_fnLog( allSettings[i], 0, 'Cannot reinitialise DataTable', 3 );
+			_fnLog( s, 0, 'Cannot reinitialise DataTable', 3 );
 			return;
 		}
 	}
@@ -54,7 +59,7 @@ for ( i=0, iLen=allSettings.length ; i<iLen ; i++ )
 	 * instance by simply deleting it. This is under the assumption that the table has been
 	 * destroyed by other methods. Anyone using non-id selectors will need to do this manually
 	 */
-	if ( allSettings[i].sTableId == this.id )
+	if ( s.sTableId == this.id )
 	{
 		allSettings.splice( i, 1 );
 		break;
@@ -70,18 +75,19 @@ if ( sId === null || sId === "" )
 
 /* Create the settings object for this table and set some of the default parameters */
 var oSettings = $.extend( true, {}, DataTable.models.oSettings, {
-	"nTable":        this,
-	"oApi":          _that.internal,
-	"oInit":         oInit,
-	"sDestroyWidth": $(this)[0].style.width,
+	"sDestroyWidth": $this[0].style.width,
 	"sInstance":     sId,
 	"sTableId":      sId
 } );
+oSettings.nTable = this;
+oSettings.oApi   = _that.internal;
+oSettings.oInit  = oInit;
+
 allSettings.push( oSettings );
 
 // Need to add the instance after the instance after the settings object has been added
 // to the settings array, so we can self reference the table instance if more than one
-oSettings.oInstance = (_that.length===1) ? _that : $(this).dataTable();
+oSettings.oInstance = (_that.length===1) ? _that : $this.dataTable();
 
 // Backwards compatibility, before we apply all the defaults
 _fnCompatOpts( oInit );
@@ -137,6 +143,7 @@ _fnMap( oSettings, oInit, [
 	"fnStateSaveCallback",
 	"renderer",
 	"newCellRender",
+	"searchDelay",
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
 	[ "oSearch", "oPreviousSearch" ],
 	[ "aoSearchCols", "aoPreSearchCols" ],
@@ -191,7 +198,7 @@ else
 {
 	$.extend( oClasses, DataTable.ext.classes, oInit.oClasses );
 }
-$(this).addClass( oClasses.sTable );
+$this.addClass( oClasses.sTable );
 
 /* Calculate the scroll bar width and cache it for use later on */
 if ( oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "" )
@@ -218,26 +225,31 @@ if ( oInit.iDeferLoading !== null )
 }
 
 /* Language definitions */
-if ( oInit.oLanguage.sUrl !== "" )
+var oLanguage = oSettings.oLanguage;
+$.extend( true, oLanguage, oInit.oLanguage );
+
+if ( oLanguage.sUrl !== "" )
 {
 	/* Get the language definitions from a file - because this Ajax call makes the language
 	 * get async to the remainder of this function we use bInitHandedOff to indicate that
 	 * _fnInitialise will be fired by the returned Ajax handler, rather than the constructor
 	 */
-	oSettings.oLanguage.sUrl = oInit.oLanguage.sUrl;
-	$.getJSON( oSettings.oLanguage.sUrl, null, function( json ) {
-		_fnLanguageCompat( json );
-		_fnCamelToHungarian( defaults.oLanguage, json );
-		$.extend( true, oSettings.oLanguage, oInit.oLanguage, json );
-		_fnInitialise( oSettings );
+	$.ajax( {
+		dataType: 'json',
+		url: oLanguage.sUrl,
+		success: function ( json ) {
+			_fnLanguageCompat( json );
+			_fnCamelToHungarian( defaults.oLanguage, json );
+			$.extend( true, oLanguage, json );
+			_fnInitialise( oSettings );
+		},
+		error: function () {
+			// Error occurred loading language file, continue on as best we can
+			_fnInitialise( oSettings );
+		}
 	} );
 	bInitHandedOff = true;
 }
-else
-{
-	$.extend( true, oSettings.oLanguage, oInit.oLanguage );
-}
-
 
 /*
  * Stripes
@@ -252,7 +264,7 @@ if ( oInit.asStripeClasses === null )
 
 /* Remove row stripe classes if they are already on the table row */
 var stripeClasses = oSettings.asStripeClasses;
-var rowOne = $('tbody tr:eq(0)', this);
+var rowOne = $('tbody tr', this).eq(0);
 if ( $.inArray( true, $.map( stripeClasses, function(el, i) {
 	return rowOne.hasClass(el);
 } ) ) !== -1 ) {
@@ -303,7 +315,7 @@ _fnApplyColumnDefs( oSettings, oInit.aoColumnDefs, aoColumnsInit, function (iCol
  */
 if ( rowOne.length ) {
 	var a = function ( cell, name ) {
-		return cell.getAttribute( 'data-'+name ) ? name : null;
+		return cell.getAttribute( 'data-'+name ) !== null ? name : null;
 	};
 
 	$.each( _fnGetRowElements( oSettings, rowOne[0] ).cells, function (i, cell) {
@@ -392,25 +404,25 @@ _fnCallbackReg( oSettings, 'aoDrawCallback', function () {
 _fnBrowserDetect( oSettings );
 
 // Work around for Webkit bug 83867 - store the caption-side before removing from doc
-var captions = $(this).children('caption').each( function () {
-	this._captionSide = $(this).css('caption-side');
+var captions = $this.children('caption').each( function () {
+	this._captionSide = $this.css('caption-side');
 } );
 
-var thead = $(this).children('thead');
+var thead = $this.children('thead');
 if ( thead.length === 0 )
 {
 	thead = $('<thead/>').appendTo(this);
 }
 oSettings.nTHead = thead[0];
 
-var tbody = $(this).children('tbody');
+var tbody = $this.children('tbody');
 if ( tbody.length === 0 )
 {
 	tbody = $('<tbody/>').appendTo(this);
 }
 oSettings.nTBody = tbody[0];
 
-var tfoot = $(this).children('tfoot');
+var tfoot = $this.children('tfoot');
 if ( tfoot.length === 0 && captions.length > 0 && (oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "") )
 {
 	// If we are a scrolling table, and no footer has been given, then we need to create
@@ -419,7 +431,7 @@ if ( tfoot.length === 0 && captions.length > 0 && (oSettings.oScroll.sX !== "" |
 }
 
 if ( tfoot.length === 0 || tfoot.children().length === 0 ) {
-	$(this).addClass( oClasses.sNoFooter );
+	$this.addClass( oClasses.sNoFooter );
 }
 else if ( tfoot.length > 0 ) {
 	oSettings.nTFoot = tfoot[0];

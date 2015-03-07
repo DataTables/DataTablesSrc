@@ -9,7 +9,7 @@
 		<parameter type="function" name="callback" default="null">
 			Function which is executed when the data as been reloaded and the table fully redrawn. The function is given a single parameter - the JSON data returned by the server, and expects no return.
 		</parameter>
-		<parameter type="function" name="resetPaging" default="true">
+		<parameter type="boolean" name="resetPaging" default="true">
 			Reset (default action or `true`) or hold the current paging position (`false`). A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
 		</parameter>
 		<returns type="DataTables.Api">

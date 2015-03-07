@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="10">
+<dt-example table-type="html" order="11">
 
 <css lib="datatables">
 	td.highlight {
@@ -16,7 +16,7 @@
 $(document).ready(function() {
 	$('#example').dataTable( {
 		"createdRow": function ( row, data, index ) {
-			if ( data[5].replace(/[\$,]/g, '') * 1 > 4000 ) {
+			if ( data[5].replace(/[\$,]/g, '') * 1 > 150000 ) {
 				$('td', row).eq(5).addClass('highlight');
 			}
 		}

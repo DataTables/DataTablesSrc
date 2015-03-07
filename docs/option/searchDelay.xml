@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>searchDelay</name>
+	<summary>Set a throttle frequency for searching</summary>
+	<since>1.10.3</since>
+
+	<type type="integer" />
+	<default value="null">
+		When given as `null` DataTables will automatically assign a value that is suitable for the processing mode that the DataTable is operating in:
+
+		* Instant - client-side processing
+		* 400mS - server-side processing
+	</default>
+
+	<description>
+		The built in DataTables global search (by default at the top right of every DataTable)will instantly search the table on every keypress when in client-side processing mode and reduce the search call frequency automatically to 400mS when in server-side processing mode. This call frequency (throttling) can be controlled using the `dt-init searchDelay` parameter for both client-side and server-side processing.
+
+		Being able to control the call frequency has a number of uses:
+
+		* Older browsers and slower computers can have their processing load reduced by reducing the search frequency
+		* Fewer table redraws while search can be less distracting for the user
+		* Reduce the load on the server when using server-side processing by making fewer calls
+		* Conversely, you can speed up the search when using server-side processing by reducing the default of 400mS to instant (`0`).
+
+		As with many other parts of DataTables, it is up to yourself how you configure it to suit your needs!
+
+		The value given for `dt-init searchDelay` is in milliseconds (mS).
+
+		Please note that this option effects only the built in global search box that DataTables provides. It does not effect the `dt-api search()` or `dt-api column().search()` methods at all. If you wish to be able to throttle calls to those API methods use the utility method `dt-api $.fn.dataTable.util.throttle()`.
+	</description>
+
+	<example title="Set a 350mS throttle for searching"><![CDATA[
+$('#example').DataTable( {
+  searchDelay: 350
+} );
+]]></example>
+
+	<related type="option">search</related>
+</dt-option>

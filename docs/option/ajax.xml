@@ -62,12 +62,12 @@
 		<parameter type="function" name="callback">
 			Callback function that must be executed when the required data has been obtained. That data should be passed into the callback as the only parameter
 		</parameter>
-		<parameter type="object" name="settings">
+		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<scope>HTML table element</scope>
 		<description>
-			As a function, making the Ajax call is left up to yourself allowing complete control of the Ajax request. Indeed, if desired, a method other than Ajax could be used to obtain the required data, such as Web storage or an AIR database.
+			As a function, making the Ajax call is left up to yourself allowing complete control of the Ajax request. Indeed, if desired, a method other than Ajax could be used to obtain the required data, such as Web storage or a Firebase database.
 
 			When the data has been obtained from the data source, the second parameter (`callback` here) should be called with a single parameter passed in - the data to use to draw the table.
 
@@ -82,6 +82,8 @@
 			  }
 			} );
 			```
+
+			Note that as of DataTables 1.10.6 the `dt-event xhr` event will be triggered when a function is used for `dt-init ajax` (even if there is no Ajax request). Prior to 1.10.6 no event would have been triggered.
 		</description>
 	</type>
 

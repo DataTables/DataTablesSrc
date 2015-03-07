@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="dt">
+	<name>DataTables.Settings</name>
+	<summary>DataTables settings object</summary>
+
+	<description>
+	<![CDATA[
+
+DataTables stores the configuration and data for each table in a _settings object_. The structure of this object is considered to be **private** in terms of the DataTables API and reading or writing to the values in the object is **not supported**. The property names and values contained within the object can, will and do change between versions!
+
+Based on the above warning you might be scared off from the object entirely, but actually it can be quite useful. As it contains the information needed to describe a DataTable fully, DataTables will often pass this object into callback methods to provide a description of the table in question which can then be used with an API constructor (see `dt-type DataTables.Api`) to create a new API object for the table. For example:
+
+```js
+var api = new $.fn.dataTable.Api( settings );
+```
+
+The above will create an API instance for the table that is referenced by the `settings` object in question.
+
+Consider a more complete example using `dt-init drawCallback`:
+
+```js
+$('#example').dataTable( {
+	"drawCallback": function( settings ) {
+		var api = new $.fn.dataTable( settings );
+
+		// Output the data for the visible rows to the browser's console
+		// You might do something more useful with it!
+		console.log( api.rows( {page:'current'} ).data() );
+	}
+} );
+```
+
+	]]>
+	</description>
+</dt-type>

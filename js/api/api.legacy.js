@@ -335,8 +335,8 @@ this.fnDestroy = function ( remove )
 this.fnDraw = function( complete )
 {
 	// Note that this isn't an exact match to the old call to _fnDraw - it takes
-	// into account the new data, but can old position.
-	this.api( true ).draw( ! complete );
+	// into account the new data, but can hold position.
+	this.api( true ).draw( complete );
 };
 
 

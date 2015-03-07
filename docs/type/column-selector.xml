@@ -19,6 +19,7 @@ The column selector can be given in a number of different forms, to make it easy
 * `dt-string {string}:name` - Column name selector, from `dt-init columns.name` (e.g. `salary:name`)
 * `dt-type string` - jQuery selector
 * `dt-type node` - `dt-tag th` / `dt-tag td` element selector from the column headers
+* `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
 * `dt-type jQuery` - jQuery object of the column header nodes
 * `dt-type array` - Array containing any combination of the above options
 
@@ -143,6 +144,36 @@ $('#example thead').on( 'click', 'th', function () {
   var columnData = table.column( this ).data();
   // ... do something with `columnData`
 } );
+```
+
+
+## Function
+
+< # Version requirement
+<
+< Using a function as a column selector requires DataTables 1.10.3 or newer.
+
+For complete control over which columns are selected, it is possible to provide a function with logic you've defined to perform the selection. That logic can be as simple or as complex as you wish, performing the selection by simply returning `true` if the column should be included in the selected results and `false` if not.
+
+The function receives three parameters:
+
+1. Column index - see `dt-api column().index()`
+2. Column data - see `dt-api column().data()`. Note that this is an array of data with one entry for each cell in the selected column. The data uses is the original data for the cells, not the rendered data if you are using `dt-init columns.render`
+3. Column node - see `dt-api column().header()`. Note that this is not the cells in the table body. Use `dt-api column().nodes()` if you require that information.
+
+The function is called once for every column that can be selected, based on the `dt-type selector-modifier` options, which also defines the order of the data passed in as the second argument for the called function.
+
+###### Get the data for all columns that contain the string `Active`:
+
+```js
+var table = $('#example').DataTable();
+
+var active = table
+	.columns( function ( idx, data, node ) {
+		return $.inArray( 'Active', data ) !== -1 ?
+			true : false;
+	} )
+	.data();
 ```
 
 

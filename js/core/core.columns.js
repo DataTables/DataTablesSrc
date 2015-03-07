@@ -25,7 +25,7 @@ function _fnAddColumn( oSettings, nTh )
 	searchCols[ iCol ] = $.extend( {}, DataTable.models.oSearch, searchCols[ iCol ] );
 
 	// Use the default column options function to initialise classes etc
-	_fnColumnOptions( oSettings, iCol, null );
+	_fnColumnOptions( oSettings, iCol, $(nTh).data() );
 }
 
 
@@ -88,7 +88,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		/* iDataSort to be applied (backwards compatibility), but aDataSort will take
 		 * priority if defined
 		 */
-		if ( typeof oOptions.iDataSort === 'number' )
+		if ( oOptions.iDataSort !== undefined )
 		{
 			oCol.aDataSort = [ oOptions.iDataSort ];
 		}
@@ -117,6 +117,12 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 	oCol.fnSetData = function ( rowData, val, meta ) {
 		return _fnSetObjectDataFn( mDataSrc )( rowData, val, meta );
 	};
+
+	// Indicate if DataTables should read DOM data as an object or array
+	// Used in _fnGetRowElements
+	if ( typeof mDataSrc !== 'number' ) {
+		oSettings._rowReadObject = true;
+	}
 
 	/* Feature sorting overrides column specific when off */
 	if ( !oSettings.oFeatures.bSort )
@@ -282,11 +288,18 @@ function _fnColumnTypes ( settings )
 
 					detectedType = types[j]( cache[k], settings );
 
-					// Doesn't match, so break early, since this type can't
-					// apply to this column. Also, HTML is a special case since
-					// it is so similar to `string`. Just a single match is
-					// needed for a column to be html type
-					if ( ! detectedType || detectedType === 'html' ) {
+					// If null, then this type can't apply to this column, so
+					// rather than testing all cells, break out. There is an
+					// exception for the last type which is `html`. We need to
+					// scan all rows since it is possible to mix string and HTML
+					// types
+					if ( ! detectedType && j !== types.length-1 ) {
+						break;
+					}
+
+					// Only a single match is needed for html type since it is
+					// bottom of the pile and very similar to string
+					if ( detectedType === 'html' ) {
 						break;
 					}
 				}
