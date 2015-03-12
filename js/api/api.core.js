@@ -44,6 +44,12 @@ _api_register( 'settings()', function () {
 } );
 
 
+_api_register( 'init()', function () {
+	var ctx = this.context;
+	return ctx.length ? ctx[0].oInit : null;
+} );
+
+
 _api_register( 'data()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		return _pluck( settings.aoData, '_aData' );

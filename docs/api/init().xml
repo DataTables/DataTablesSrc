@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>init()</name>
+	<summary>Get the initialisation options used for the table.</summary>
+	<since>1.10.6</since>
+
+	<type type="function">
+		<signature>init()</signature>
+		<description>Get the initialisation options used for the table.</description>
+		<returns type="object">Configuration object</returns>
+	</type>
+
+	<description>
+		This method provides access to the initialisation object that was used to create the DataTable. Its intended use is for plug-in authors who wish to be able to provide custom options for their DataTables plug-in in the standard configuration object.
+
+		When developing with this method keep in mind that the DataTables options are all all optional. They may or may not exist in this object. It is generally not expected that you would check the values of the built-in options (`dt-init paging` for example), but rather for custom objects.
+
+		The object returned should not be written to. Any changes made will not be detected by DataTables and could potentially lead to unpredictable results. Therefore the returned object should be considered to be read-only.
+
+		This method is not multi-table aware - it will return the configuration object used for the first table in the context if there is more than one table - use the `dt-api iterator()` method if you require the configuration objects from all tables in a multi-table context.
+
+		Finally, due to the way DataTables works internally for backwards compatibility, this object will likely contain both camelCase initialisation options and Hungarian notation versions of the same parameters. It is strongly recommended that for custom parameters you use only the camelCase options as this is how DataTables is documented for v1.10+.
+	</description>
+
+	<example title="Listen for the `dt-event init` and check to see if a feature should be initialised based on the options given in the initialisation object."><![CDATA[
+
+$(document).on( 'init.dt', function ( e, settings ) {
+	var api = new $.fn.dataTable.Api( settings );
+
+	if ( api.init().pageResize ||
+		 $.fn.dataTable.defaults.pageResize )
+	{
+		new PageResize( api );
+	}
+} );
+
+]]></example>
+</dt-api>
