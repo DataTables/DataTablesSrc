@@ -33,6 +33,10 @@ DataTable.render = {
 	number: function ( thousands, decimal, precision, prefix ) {
 		return {
 			display: function ( d ) {
+				if ( typeof d !== 'number' && typeof d !== 'string' ) {
+					return d;
+				}
+
 				var negative = d < 0 ? '-' : '';
 				d = Math.abs( parseFloat( d ) );
 
