@@ -33,7 +33,7 @@ The `order` modifier provides the ability to control which order the rows are pr
 * `dt-string current` (default) - Process the rows in the order currently applied to the table.
 * `dt-string index` - Process the rows in their data index order (the order the data was originally read into the table).
 * `dt-string applied` - Alias of `current`.
-* `dt-string original` - Alias of `original` for backwards compatibility.
+* `dt-string original` - Alias of `index` for backwards compatibility.
 
 ###### Get the data from a column in the applied order:
 
