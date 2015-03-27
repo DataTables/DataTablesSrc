@@ -12,6 +12,8 @@
 
 		Data storage for the state information in the browser is performed by use of the `localStorage` or `sessionStorage` HTML5 APIs. The `dt-init stateDuration` indicated to DataTables which API should be used (`localStorage`: 0 or greater, or `sessionStorage`: -1).
 
+		Information is stored using the table's DOM `id` to be able to uniquely identify each table's state data. If the table's `id` changes the state information will be lost.
+
 		Please note that the use of the HTML5 APIs for data storage means that the built in state saving option **will not work with IE6/7** as these browsers do not support these APIs. Alternative options of using cookies or saving the state on the server through Ajax can be used through the `dt-init stateSaveCallback` and `dt-init stateLoadCallback` options.
 	</description>
 
