@@ -71,14 +71,14 @@ tables
 
 ```js
 var tables = $('.dataTable').DataTable();
-var table = table.table('#example');
+var table = tables.table('#example');
 ```
 
 ###### Select two tables by ID:
 
 ```js
 var tables = $('.dataTable').DataTable();
-table.tables('#clients, #owners');
+tables.tables('#clients, #owners');
 ```
 
 
@@ -93,7 +93,7 @@ var tables = $('.dataTable').DataTable();
 
 $('.dataTable tbody').on( 'click', 'tr', function () {
 	var tableData = tables.table( this.parentNode.parentNode );
-  // ... do something with `tableData`
+	// ... do something with `tableData`
 } );
 ```
 
