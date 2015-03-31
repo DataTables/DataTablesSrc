@@ -67,9 +67,11 @@
 
 	<description>
 		<![CDATA[
-		This property is the rendering partner to `dt-init columns.data` and it is suggested that when you want to manipulate data for display (including filtering, sorting etc) without altering the underlying data for the table, use this property. `render` can be considered to be the the read only companion to `data` which is read / write (then as such more complex). Like `data` this option can be given in a number of different ways to affect its behaviour as described below.
+		This property will modify the data that is used by DataTables for various operations as it is read from the data source. `dt-init columns.render` can be considered to be the the read only companion to `dt-init columns.data` which is read / write (and therefore more complex). Like `dt-init columns.data` this option can be given in a number of different ways to affect its behaviour as described below.
 
-		The data that is resolved to for a data point (between this option and `dt-init columns.data`) that will be used by DataTables for the requested data, with three special cases:
+		The data that is returned by the `dt-init columns.render` option (regardless of if it is used as a function, integer or string) is what DataTables will use for the requested data type (this is called the _resolved data_). DataTables ability to request different data for its different operations is referred to as [orthogonal data](//datatables.net/manual/orthogonal-data) and allows different forms of the same data to be used for different operations (for example, a date might be given formatted for an end user for display and search, but in an integer form for ordering).
+
+		There are three special values that `dt-init columns.render` can resolve to:
 
 		* `-type undefined` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, an error will be given.
 		* `-type null` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty sting will be used. `-type null` will be used for all other data types.
