@@ -33,5 +33,6 @@ $('#example').dataTable( {
 	<related type="option">orderFixed</related>
 	<related type="option">columns.orderable</related>
 	<related type="option">columns.orderData</related>
+	<related type="option">columns.orderSequence</related>
 	<related type="api">order()</related>
 </dt-option>
