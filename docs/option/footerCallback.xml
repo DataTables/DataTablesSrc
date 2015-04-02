@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>footerCallback( tfoot, data, start, end, display )</signature>
 		<parameter type="node" name="tfoot">
-			`tag TFOOT` element of the table's footer
+			`-tag tfoot` element of the table's footer
 		</parameter>
 		<parameter type="array" name="data">
 			Full data array of the table. Note that this is in data index order. Use the `display` parameter for the current display order.
@@ -27,7 +27,7 @@
 	<description>
 		Identical to `dt-init headerCallback` but for the table footer this function allows you to modify the table footer on every 'draw' event.
 
-		Note that if the table does not have a `tag TFOOT` element, it this callback will not be fired.
+		Note that if the table does not have a `-tag tfoot` element, it this callback will not be fired.
 	</description>
 
 	<example title="Alter the content of the footer on callback"><![CDATA[
@@ -45,7 +45,7 @@ $('#example').dataTable( {
     $( api.column( 5 ).footer() ).html(
     	api.column( 5 ).data().reduce( function ( a, b ) {
     		return a + b;
-    	} );
+    	} )
     );
   }
 } );
