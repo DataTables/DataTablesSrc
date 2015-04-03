@@ -64,6 +64,8 @@
 		</returns>
 		<description>
 			The function given will be executed whenever DataTables needs to set or get the data for a cell in the column.
+
+			Please note that DataTables will call the function as a _setter_ when a new row is added only when the row's data is read from the DOM (i.e. the table is initialised on a pre-populated HTML table). The function is not called as setter when the data is source from Javascript or Ajax under the assumption that the data is already in the format required.
 		</description>
 		<scope>HTML table element</scope>
 	</type>
@@ -154,7 +156,7 @@ $('#example').dataTable( {
     "data": function ( row, type, val, meta ) {
       if (type === 'set') {
         row.price = val;
-        // Store the computed dislay and filter values for efficiency
+        // Store the computed display and filter values for efficiency
         row.price_display = val=="" ? "" : "$"+numberFormat(val);
         row.price_filter  = val=="" ? "" : "$"+numberFormat(val)+" "+val;
         return;
