@@ -78,9 +78,9 @@ function _fnLoadState ( settings, oInit )
 
 	// Restore key features - todo - for 1.11 this needs to be done by
 	// subscribed events
-	settings._iDisplayStart    = state.start;
-	settings.iInitDisplayStart = state.start;
-	settings._iDisplayLength   = state.length;
+	if(state.start != undefined)  { settings._iDisplayStart    = state.start; }
+	if(state.start != undefined)  { settings.iInitDisplayStart = state.start; }
+	if(state.length != undefined) { settings._iDisplayLength   = state.length; }
 	settings.aaSorting = [];
 
 	// Order
@@ -99,7 +99,7 @@ function _fnLoadState ( settings, oInit )
 		var col = state.columns[i];
 
 		// Visibility
-		columns[i].bVisible = col.visible;
+		if(col.visible != undefined) { columns[i].bVisible = col.visible; }
 
 		// Search
 		$.extend( settings.aoPreSearchCols[i], _fnSearchToHung( col.search ) );
