@@ -21,11 +21,12 @@
       * Sorting - sorted numerically
       * Filtering - no effect
     * `num-fmt` - Numeric sorting of formatted numbers. Numbers which are formatted with thousands separators, currency symbols or a percentage indicator will be sorted numerically automatically by DataTables.
-      * Supported built-in currency symbols are `$`, `£`, `€` and `¥`.
+      * Supported built-in currency symbols are `$`, `£`, `€`, `¥` and `R$`.
       * Supported built-in thousands separators are `'` and `,`. 
       * Examples:
         * $100,000 - sorted as `100000`
         * £10'000 - sorted as `10000`
+        * R$1000 - sorted as `1000`
         * 5'000 - sorted as 5000
         * 40% - sorted as 40
       * Sorting - sorted numerically
