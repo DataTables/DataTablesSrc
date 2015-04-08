@@ -16,7 +16,7 @@
 
 			No return value is expected.
 		</parameter>
-		<returns type="DataTables.Api">New API instance with the values from all pass in instances concatenated into its result set.</returns>
+		<returns type="DataTables.Api">Original API instance that was used. For chaining.</returns>
 	</type>
 
 	<description>
