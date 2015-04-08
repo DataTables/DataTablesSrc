@@ -7,10 +7,10 @@
 	<type type="function">
 		<signature>iterator( [flatten,] type, callback [, returns ] )</signature>
 		<description>Iterate over a result set of table, row, column or cell indexes</description>
-		<param name="flatten" type="boolean" default="false">If `true` the result set of the returned API instance will be a 1D array (i.e. flattened into a single array). If `false` (or not specified) each result will be concatenated to the instance's result set. Note that this is only relevant if you are returning arrays from the callback.</param>
-		<param name="type" type="string">Iterator type - see above for the options</param>
-		<param name="callback" type="function">Callback function that is executed on each iteration. For the parameters passed to the function, please refer to the documentation above. As of <span class="since">1.10.3</span> this is executed in the scope of an API instance which has its context set to only the table in question.</param>
-		<param name="returns" type="boolean" default="false"><span class="since">1.10.4</span>. Indicate if the callback function will return values or not. If set to `true` a new API instance will be returns with the return values from the callback function in its result set. If not set, or `false` the original instance will be returned for chaining, if no values are returned by the callback method.</param>
+		<parameter name="flatten" type="boolean" default="false">If `true` the result set of the returned API instance will be a 1D array (i.e. flattened into a single array). If `false` (or not specified) each result will be concatenated to the instance's result set. Note that this is only relevant if you are returning arrays from the callback.</parameter>
+		<parameter name="type" type="string">Iterator type - see above for the options</parameter>
+		<parameter name="callback" type="function">Callback function that is executed on each iteration. For the parameters passed to the function, please refer to the documentation above. As of <span class="since">1.10.3</span> this is executed in the scope of an API instance which has its context set to only the table in question.</parameter>
+		<parameter name="returns" type="boolean" default="false"><span class="since">1.10.4</span>. Indicate if the callback function will return values or not. If set to `true` a new API instance will be returns with the return values from the callback function in its result set. If not set, or `false` the original instance will be returned for chaining, if no values are returned by the callback method.</parameter>
 		<returns type="DataTables.Api">Original API instance if the callback returns no result (i.e. `undefined`) or a new API instance with the result set being the results from the callback, in order of execution.</returns>
 	</type>
 
