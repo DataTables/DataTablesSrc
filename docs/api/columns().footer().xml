@@ -30,7 +30,7 @@ table.columns( '.sum' ).every( function () {
 			return a + b;
 		} );
 
-	$(el).html( 'Sum: '+sum );
+	$( this.footer() ).html( 'Sum: '+sum );
 } );
 ]]></example>
 

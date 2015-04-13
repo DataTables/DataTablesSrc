@@ -21,8 +21,7 @@ var table = $('#example').DataTable( {
 	scrollX: "100%"
 } );
 
-$( tables.table().footer() )
-	.addClass( 'highlight' );
+$( table.table().footer() ).addClass( 'highlight' );
 ]]></example>
 
 	<related type="api">tables().footer()</related>
