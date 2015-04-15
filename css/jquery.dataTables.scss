@@ -192,9 +192,7 @@ table.dataTable {
 	// Hover classes - add "hover" class to the table to activate
 	&.hover tbody,
 	&.display tbody {
-		tr:hover,
-		tr.odd:hover,
-		tr.even:hover {
+		tr:hover {
 			background-color: shade($table-row-background, 3.6%); // shade by f5
 
 			&.selected {
@@ -251,9 +249,7 @@ table.dataTable {
 
 	&.display tbody,
 	&.order-column.hover tbody {
-		tr:hover,
-		tr.odd:hover,
-		tr.even:hover {
+		tr:hover {
 			>.sorting_1 { background-color: shade($table-row-background, 8.2%); } // shade by ea
 			>.sorting_2 { background-color: shade($table-row-background, 7.5%); } // shade by ec
 			>.sorting_3 { background-color: shade($table-row-background, 6.3%); } // shade by ef
