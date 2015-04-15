@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>any()</name>
+	<summary>Determine if there are any entries in the result set</summary>
+	<since>1.10.7</since>
+
+	<type type="function">
+		<signature>any()</signature>
+		<description>Get a boolean value to indicate if there are any entries in the API instance's result set (i.e. any data, selected rows, etc).</description>
+		<returns type="boolean">`true` if there there is one or more items in the result set, `false` otherwise.</returns>
+	</type>
+
+	<description>
+		It can be useful to known if an API instance contains any data so you can determine what action to take. For example, knowing if the table has any data in it, if a row selector finds any rows or if specific data is available in the table.
+
+		While with a standard Javascript `-type array` you can simply test for the `length` property being 0, that isn't always true with the DataTables API object as it is multi-table aware. This means that it can contain arrays of information from multiple tables, which may themselves be empty.
+
+		This method provides a quick method to check if there are any results available in the API instance. It's result could also be determined by using the `dt-api flatten()` method and then checking the resulting length (i.e. `api.flatten().length !== 0`).
+	</description>
+
+	<example title="Check if there are any rows with the class `selected`"><![CDATA[
+var table = $('#example').DataTable();
+
+if ( table.rows( '.selected' ).any() ) {
+	alert( 'Rows are selected' );
+}
+
+]]></example>
+
+	<example title="Find if the table has any data"><![CDATA[
+var table = $('#example').DataTable();
+
+if ( ! table.data().any() ) {
+	alert( 'Empty table' );
+}
+
+]]></example>
+
+</dt-api>
