@@ -202,7 +202,7 @@ table.dataTable {
 	}
 
 
-	// Sort column highlighting - add "hover" class to the table to activate
+	// Sort column highlighting - add "order-column" class to the table to activate
 	&.order-column,
 	&.display {
 		tbody {
