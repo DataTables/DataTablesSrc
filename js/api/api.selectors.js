@@ -68,6 +68,7 @@ var _selector_first = function ( inst )
 			// Assign the first element to the first item in the instance
 			// and truncate the instance and context
 			inst[0] = inst[i];
+			inst[0].length = 1;
 			inst.length = 1;
 			inst.context = [ inst.context[i] ];
 
