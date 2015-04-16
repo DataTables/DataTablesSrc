@@ -14,7 +14,7 @@
 
 var __row_selector = function ( settings, selector, opts )
 {
-	return _selector_run( selector, function ( sel ) {
+	var run = function ( sel ) {
 		var selInt = _intVal( sel );
 		var i, ien;
 
@@ -66,7 +66,9 @@ var __row_selector = function ( settings, selector, opts )
 				return this._DT_RowIndex;
 			} )
 			.toArray();
-	} );
+	};
+
+	return _selector_run( 'row', selector, run, settings, opts );
 };
 
 

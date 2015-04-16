@@ -1,7 +1,7 @@
 
 
 
-var _selector_run = function ( selector, select )
+var _selector_run = function ( type, selector, selectFn, settings, opts )
 {
 	var
 		out = [], res,
@@ -20,11 +20,19 @@ var _selector_run = function ( selector, select )
 			[ selector[i] ];
 
 		for ( j=0, jen=a.length ; j<jen ; j++ ) {
-			res = select( typeof a[j] === 'string' ? $.trim(a[j]) : a[j] );
+			res = selectFn( typeof a[j] === 'string' ? $.trim(a[j]) : a[j] );
 
 			if ( res && res.length ) {
 				out.push.apply( out, res );
 			}
+		}
+	}
+
+	// selector extensions
+	var ext = _ext.selector[ type ];
+	if ( ext.length ) {
+		for ( i=0, ien=ext.length ; i<ien ; i++ ) {
+			out = ext[i]( settings, opts, out );
 		}
 	}
 
@@ -40,15 +48,15 @@ var _selector_opts = function ( opts )
 
 	// Backwards compatibility for 1.9- which used the terminology filter rather
 	// than search
-	if ( opts.filter && ! opts.search ) {
+	if ( opts.filter && opts.search === undefined ) {
 		opts.search = opts.filter;
 	}
 
-	return {
-		search: opts.search || 'none',
-		order:  opts.order  || 'current',
-		page:   opts.page   || 'all'
-	};
+	return $.extend( {
+		search: 'none',
+		order: 'current',
+		page: 'all'
+	}, opts );
 };
 
 

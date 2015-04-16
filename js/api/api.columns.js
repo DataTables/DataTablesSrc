@@ -35,7 +35,7 @@ var __column_selector = function ( settings, selector, opts )
 		names = _pluck( columns, 'sName' ),
 		nodes = _pluck( columns, 'nTh' );
 
-	return _selector_run( selector, function ( s ) {
+	var run = function ( s ) {
 		var selInt = _intVal( s );
 
 		// Selector - all
@@ -101,7 +101,9 @@ var __column_selector = function ( settings, selector, opts )
 				} )
 				.toArray();
 		}
-	} );
+	};
+
+	return _selector_run( 'column', selector, run, settings, opts );
 };
 
 

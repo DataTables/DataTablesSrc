@@ -11,7 +11,7 @@ var __cell_selector = function ( settings, selector, opts )
 	var columns = settings.aoColumns.length;
 	var a, i, ien, j, o, host;
 
-	return _selector_run( selector, function ( s ) {
+	var run = function ( s ) {
 		var fnSelector = typeof s === 'function';
 
 		if ( s === null || s === undefined || fnSelector ) {
@@ -62,7 +62,9 @@ var __cell_selector = function ( settings, selector, opts )
 				};
 			} )
 			.toArray();
-	} );
+	};
+
+	return _selector_run( 'cell', selector, run, settings, opts );
 };
 
 

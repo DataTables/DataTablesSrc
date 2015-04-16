@@ -148,6 +148,37 @@ DataTable.ext = _ext = {
 
 
 	/**
+	 * Selector extensions
+	 *
+	 * The `selector` option can be used to extend the options available for the
+	 * selector modifier options (`selector-modifier` object data type) that
+	 * each of the three built in selector types offer (row, column and cell +
+	 * their plural counterparts). For example the Select extension uses this
+	 * mechanism to provide an option to select only rows, columns and cells
+	 * that have been marked as selected by the end user (`{selected: true}`),
+	 * which can be used in conjunction with the existing built in selector
+	 * options.
+	 *
+	 * Each property is an array to which functions can be pushed. The functions
+	 * take three attributes:
+	 *
+	 * * Settings object for the host table
+	 * * Options object (`selector-modifier` object type)
+	 * * Array of selected item indexes
+	 *
+	 * The return is an array of the resulting item indexes after the custom
+	 * selector has been applied.
+	 *
+	 *  @type object
+	 */
+	selector: {
+		cell: [],
+		column: [],
+		row: []
+	},
+
+
+	/**
 	 * Internal functions, exposed for used in plug-ins.
 	 * 
 	 * Please note that you should not need to use the internal methods for
