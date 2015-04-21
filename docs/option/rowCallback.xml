@@ -5,12 +5,15 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>rowCallback( row, data )</signature>
+		<signature>rowCallback( row, data, index )</signature>
 		<parameter type="node" name="row">
 			`tag TR` element being inserted into the document.
 		</parameter>
 		<parameter type="array|object" name="data">
 			Data source for the row (array or object)
+		</parameter>
+		<parameter type="integer" name="index">
+			DataTables' internal index for the row - see `dt-api row().index()`.
 		</parameter>
 		<scope>HTML table element</scope>
 	</type>
@@ -23,7 +26,7 @@
 
 	<example title="Highlight cells based on their content"><![CDATA[
 $('#example').dataTable( {
-  "rowCallback": function( row, data ) {
+  "rowCallback": function( row, data, index ) {
     // Bold the grade for all 'A' grade browsers
     if ( data[4] == "A" ) {
       $('td:eq(4)', row).html( '<b>A</b>' );
