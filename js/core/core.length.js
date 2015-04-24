@@ -37,12 +37,12 @@ function _fnFeatureHtmlLength ( settings )
 		select[0][ i ] = new Option( language[i], lengths[i] );
 	}
 
-	var div = $('<div><label/></div>').addClass( classes.sLength );
+	var div = $('<div></div>').addClass( classes.sLength );
 	if ( ! settings.aanFeatures.l ) {
 		div[0].id = tableId+'_length';
 	}
 
-	div.children().append(
+	div.append(
 		settings.oLanguage.sLengthMenu.replace( '_MENU_', select[0].outerHTML )
 	);
 
