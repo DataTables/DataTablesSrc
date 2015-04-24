@@ -141,6 +141,7 @@ _fnMap( oSettings, oInit, [
 	"iTabIndex",
 	"fnStateLoadCallback",
 	"fnStateSaveCallback",
+	"fnPreFilterCallback",
 	"renderer",
 	"searchDelay",
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
