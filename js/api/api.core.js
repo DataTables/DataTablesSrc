@@ -170,3 +170,22 @@ $.each( [ 'column', 'row', 'cell' ], function ( i, type ) {
 	} );
 } );
 
+
+// i18n method for extensions to be able to use the language object from the
+// DataTable
+_api_register( 'i18n()', function ( token, def, plural ) {
+	var ctx = this.context[0];
+	var resolved = _fnGetObjectDataFn( token )( ctx.oLanguage );
+
+	if ( resolved === undefined ) {
+		resolved = def;
+	}
+
+	if ( plural !== undefined && $.isPlainObject( resolved ) ) {
+		resolved = resolved[ plural ] !== undefined ?
+			resolved[ plural ] :
+			resolved._;
+	}
+
+	return resolved.replace( '%d', plural ); // nb: plural might be undefined,
+} );

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>i18n()</name>
+	<summary>Internationalisation token lookup.</summary>
+	<since>1.10.7</since>
+
+	<type type="function">
+		<signature>i18n( token, def [, numeric ] )</signature>
+		<description>Look up a language token that was defined in the DataTables' `dt-init language` initialisation object.</description>
+		<parameter type="string" name="token">
+			The language token to lookup from the language object. The token should be given in Javascript dotted object notation (as a _string_) which will be used by DataTables to lookup the resulting value. This value follows the same rules as `dt-init columns.data` as a string.
+		</parameter>
+		<parameter type="object|string" name="def">
+			The default value to use if the DataTables initialisation has not specified a value. This can be a string for simple cases, or an object for plurals.
+
+			In the case of plurals, a parameter named `_` **must** be defined - this is the default. For numbers where you wish to have special strings (for example a singular form in English or a dual in Arabic) the number should be defined as the parameter name. If there is no parameter defined for the number requested, the default will be used.
+
+			The characters `%d` will be replaced in the string by the value given for the `numeric` parameter passed to this function.
+		</parameter>
+		<parameter type="integer" name="numeric" default="undefined">
+			If handling numeric output, the number to be presented should be given in this parameter. If not numeric operator is required (for example button label text) this parameter is not required.
+		</parameter>
+		<returns type="string">Resulting internationalised string</returns>
+	</type>
+
+	<description>
+		This method is designed for use by plug-in and extension developers building upon DataTables, where the software will present language strings to end users. It provides the ability to use the `dt-init language` configuration object as a single point of configuration for language strings and then look up values from that object. Defaults should be provided for cases where the developer has not provided their own string.
+
+		The `dt-api i18n()` method also provides basic support for singular, plural, dual, etc forms that must be taken into account when considering internationalisation. This is done by providing an object that contains the keys of the form to be used, as well as a default.
+
+		Consider for example the following object:
+
+		```js
+		{
+			_: "%d rows selected",
+			0: "Click a row to select",
+			1: "1 row selected"
+		}
+		```
+
+		In the case where `0` is passed in as the numeric value (third parameter) the _"Click a row to select"_ string will be used. For `1`, the _"1 row selected"_ string will be used. For all other values the default `_` parameter's value will be used with the `%d` replaced by the numeric value. For languages that use a dual form add a `2` parameter, etc.
+
+		It should be noted that internationalisation (_i18n_ for short) / localisation (_l10n_ for short) [is hard](http://search.cpan.org/dist/Locale-Maketext/lib/Locale/Maketext/TPJ13.pod#A_Localization_Horror_Story:_It_Could_Happen_To_You). This method provides good support for basic internationalisation in DataTables and its components, but not complete support. Complete support is outside the scope of the DataTables library at this time and is a full project itself!
+	</description>
+
+	<example title="Simple string lookup with no use defined string (i.e. use default)"><![CDATA[
+
+var table = $('#myTable').DataTable();
+
+// Will show "Copy to clipboard"
+alert(
+	table.i18n( 'buttons.copy', 'Copy to clipboard' )
+);
+
+]]></example>
+
+	<example title="As above, but with a developer defined value"><![CDATA[
+
+var table = $('#myTable').DataTable( {
+	language: {
+		buttons: {
+			copy: "Click to copy"
+		}
+	}
+} );
+
+// Will show "Click to copy"
+alert(
+	table.i18n( 'buttons.copy', 'Copy to clipboard' )
+);
+
+]]></example>
+
+	<example title="Plural form with no developer defined options"><![CDATA[
+
+var table = $('#myTable').DataTable();
+
+// Will show "0 rows selected"
+alert(
+	table.i18n( 'select.rows', {
+		_: '%d rows selected',
+		1: '1 row selected'
+	}, 0 )
+);
+
+// Will show "1 row selected"
+alert(
+	table.i18n( 'select.rows', {
+		_: '%d rows selected',
+		1: '1 row selected'
+	}, 1 )
+);
+
+// Will show "4 rows selected"
+alert(
+	table.i18n( 'select.rows', {
+		_: '%d rows selected',
+		1: '1 row selected'
+	}, 4 )
+);
+
+]]></example>
+
+	<example title="Plural form with developer defined options"><![CDATA[
+
+var table = $('#myTable').DataTable( {
+	language: {
+		select: {
+			rows: {
+				_: '%d rows selected',
+				0: 'Click a row to select',
+				1: 'Just one row selected'
+			}
+		}
+	}
+} );
+
+// Will show "Click a row to select"
+alert(
+	table.i18n( 'select.rows', {
+		_: '%d rows selected',
+		1: '1 row selected'
+	}, 0 )
+);
+
+// Will show "Just one row selected"
+alert(
+	table.i18n( 'select.rows', {
+		_: '%d rows selected',
+		1: '1 row selected'
+	}, 1 )
+);
+
+// Will show "4 rows selected"
+alert(
+	table.i18n( 'select.rows', {
+		_: '%d rows selected',
+		1: '1 row selected'
+	}, 4 )
+);
+
+]]></example>
+
+	<related type="option">language</related>
+</dt-api>

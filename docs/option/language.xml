@@ -11,7 +11,7 @@
 
 		The default language options for DataTables are shown below for reference. Additionally there are a wide range of translations readily available on this site, in the [internationalisation plug-ins](//datatables.net/plug-ins/i18n).
 
-		For information about each individual parameter, please see its documentation document.
+		The following is the default object that DataTables uses for its language strings (for information about each individual parameter, please see its individual documentation document):
 
 		```js
 		{
@@ -38,6 +38,8 @@
 		    }
 		}
 		```
+
+		As of DataTables 1.10.7 the new `dt-api i18n()` method can be used by plug-in authors to access language information from the `dt-init language` object. As such the list of parameters available here is not exhaustive - please refer to the documentation for the plug-in if it makes use of the `dt-api i18n()` method for full information about the parameters it can use.
 	</description>
 
 	<related type="option">language.emptyTable</related>
@@ -59,4 +61,5 @@
 	<related type="option">language.aria</related>
 	<related type="option">language.aria.sortAscending</related>
 	<related type="option">language.aria.sortDescending</related>
+	<related type="api">i18n()</related>
 </dt-option>

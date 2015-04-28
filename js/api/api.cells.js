@@ -31,7 +31,7 @@ var __cell_selector = function ( settings, selector, opts )
 						// Selector - function
 						host = settings.aoData[ row ];
 
-						if ( s( o, _fnGetCellData(settings, row, j), host.anCells[j] ) ) {
+						if ( s( o, _fnGetCellData(settings, row, j), host.anCells ? host.anCells[j] : null ) ) {
 							a.push( o );
 						}
 					}
