@@ -34,7 +34,4 @@ $('#example').dataTable( {
   ]
 } );
 ]]></example>
-
-  <related type="api">column().title()</related>
-  <related type="api">columns().title()</related>
 </dt-option>
