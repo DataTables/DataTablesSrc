@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>function( e, settings, json )</signature>
+		<signature>function( e, settings, json, xhr )</signature>
 		<parameter type="object" name="e">
 			jQuery event object
 		</parameter>
@@ -13,7 +13,10 @@
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="json">
-			Data returned from the server
+			Data returned from the server. This will be `-type null` if triggered by the Ajax error callback.
+		</parameter>
+		<parameter type="object" name="xhr" since="1.10.7">
+			[jQuery XHR](http://api.jquery.com/Types/#jqXHR) object that can be used to access the low level Ajax options.
 		</parameter>
 		<scope>HTML table element</scope>
 	</type>
@@ -24,6 +27,8 @@
 		This event can be seen as the event compliment to the `dt-init ajax.dataSrc` option (which can also be used to manipulate and intercept the data from the Ajax request). Generally you would want to do data manipulation in the `dataSrc` callback and use events for intercepting the data.
 
 		Note that this event is called before DataTables has processed the new data from the server, so the returned data will not have been drawn on page when this event fires.
+
+		Additionally, as of DataTables 1.10.7 this event is triggered by both success and error conditions when the Ajax request completed (i.e. it is always triggered regardless of the outcome of the Ajax request). Prior to 1.10.7 it was only triggered by a successful request. The `json` parameter (3th passed in) for the event handler will be `null` if an error has occurred and the `xhr` parameter (4th) can be used to determine the error details if required.
 
 		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>

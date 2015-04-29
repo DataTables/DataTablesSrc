@@ -41,7 +41,7 @@ function _fnBuildAjax( oSettings, data, fn )
 	var ajax = oSettings.ajax;
 	var instance = oSettings.oInstance;
 	var callback = function ( json ) {
-		_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json] );
+		_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json, oSettings.jqXHR] );
 		fn( json );
 	};
 
@@ -78,8 +78,9 @@ function _fnBuildAjax( oSettings, data, fn )
 		"cache": false,
 		"type": oSettings.sServerMethod,
 		"error": function (xhr, error, thrown) {
-			var log = oSettings.oApi._fnLog;
+			_fnCallbackFire( oSettings, null, 'xhr', [oSettings, null, oSettings.jqXHR] );
 
+			var log = oSettings.oApi._fnLog;
 			if ( error == "parsererror" ) {
 				log( oSettings, 0, 'Invalid JSON response', 1 );
 			}
