@@ -11,6 +11,7 @@ class DT_Example
 {
 	static $tables = array();
 	static $lookup_libraries = array();
+	static $components = array();
 
 	private $_file = null;
 
@@ -99,19 +100,30 @@ class DT_Example
 	public function transform ( $opts )
 	{
 		$xml = $this->_xml;
+		$framework = isset( $xml['framework'] ) ?
+			(string)$xml['framework'] :
+			'datatables';
+
+		$bodyClass = isset( $xml['body-class'] ) ?
+			(string)$xml['body-class'] :
+			'';
+
+		if ( $framework !== 'datatables' ) {
+			$bodyClass .= ' dt-example-'.$framework;
+		}
 
 		// Resolve CSS libraries
-		$this->_resolve_xml_libs( 'css', $xml->css );
+		$this->_resolve_xml_libs( $framework, 'css', $xml->css );
 
 		// Resolve JS libraries
-		$this->_resolve_xml_libs( 'js', $xml->js );
+		$this->_resolve_xml_libs( $framework, 'js', $xml->js );
 
 		if ( isset( $this->_additional_libs['css'] ) ) {
-			$this->_resolve_libs( 'css', $this->_additional_libs['css'] );
+			$this->_resolve_libs( $framework, 'css', $this->_additional_libs['css'] );
 		}
 
 		if ( isset( $this->_additional_libs['js'] ) ) {
-			$this->_resolve_libs( 'js', $this->_additional_libs['js'] );
+			$this->_resolve_libs( $framework, 'js', $this->_additional_libs['js'] );
 		}
 
 		// Build data
@@ -139,7 +151,7 @@ class DT_Example
 		$template = str_replace( '{table}',         $tableHtml,                      $template );
 		$template = str_replace( '{year}',          date('Y'),                       $template );
 		$template = str_replace( '{table-class}',   $software,                       $template );
-		$template = str_replace( '{body-class}',    isset( $xml['body-class'] ) ? (string)$xml['body-class'] : '', $template );
+		$template = str_replace( '{body-class}',    $bodyClass ? $bodyClass : '',    $template );
 
 		if ( isset( $xml->{'demo-html'} ) ) {
 			$template = str_replace( '{demo-html}', $this->innerXML($xml->{'demo-html'}), $template );
@@ -206,6 +218,11 @@ class DT_Example
 		if ( $hasEmptyTbody !== false ) {
 			$str = str_replace( '</thead>', "</thead>\n\t\t\t\t<tbody/>", $str);
 		}
+
+		// Replace whatever doctype HTML tidy has defined with an HTML5 doc type
+		// HTML tody will modify the doctype based on its own internal rules, and
+		// will not just preserve the given doctype
+		$str = preg_replace( '/<!doctype.*?>/i', '<!DOCTYPE html>', $str );
 
 		return $str;
 	}
@@ -470,7 +487,7 @@ class DT_Example
 	}
 
 
-	private function _resolve_xml_libs ( $type, $libs )
+	private function _resolve_xml_libs ( $framework, $type, $libs )
 	{
 		$a = array();
 
@@ -485,30 +502,74 @@ class DT_Example
 			}
 		}
 
-		$this->_resolve_libs( $type, $a );
+		$this->_resolve_libs( $framework, $type, $a );
 	}
 
 
-	private function _resolve_libs ( $type, $libs )
+	private function _resolve_libs ( $framework, $type, $libs )
 	{
-		$host = &$this->_libs[ $type ];
+		$exampleLibs = &$this->_libs[ $type ];
 		$srcLibs = DT_Example::$lookup_libraries[ $type ];
 
 		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
-			$srcLib = $libs[$i];
+			$lib = $libs[$i];
 
-			if ( isset( $srcLibs[ $srcLib ] ) ) {
-				if ( ! in_array( $srcLibs[ $srcLib ], $host ) ) {
-					$host[] = $srcLibs[ $srcLib ];
+			if ( strpos($lib, '/') === 0 ) {
+				$exampleLibs[] = $lib;
+			}
+			else if ( isset( DT_Example::$components[ $lib ] ) ) {
+				$res = $this->_resolve_framework_lib( $framework, $type, $lib );
+
+				for ( $j=0, $jen=count($res) ; $j<$jen ; $j++ ) {
+					$exampleLibs[] = $res[$j];
 				}
 			}
-			else if ( strpos($srcLib, '/') === 0 ) {
-				$host[] = $srcLib;
+			else if ( isset( $srcLibs[ $lib ] ) ) {
+				if ( ! in_array( $srcLibs[ $lib ], $exampleLibs ) ) {
+					$exampleLibs[] = $srcLibs[ $lib ];
+				}
 			}
 			else {
-				throw new Exception("Unknown {$type} library: ".$srcLib, 1);
+				throw new Exception("Unknown {$type} library: ".$lib, 1);
 			}
 		}
+	}
+
+
+	private function _resolve_framework_lib ( $framework, $type, $lib )
+	{
+		$out = [];
+		$component = DT_Example::$components[ $lib ];
+		$path = $component['path'];
+		$filename = $component['filename'];
+
+		if ( $type === 'js' ) {
+			$jsBaseFilename = $lib === 'datatables' ?
+				'jquery' :
+				'dataTables';
+
+			// Always include the core Javascript file.
+			$out[] = $path.'/js/'.$jsBaseFilename.'.'.$filename.'.js';
+
+			// Possibly include a framework Javascript file. If the framework is
+			// DataTables, then there will be no override JS file.
+			if ( $framework !== 'datatables' && $component['framework']['js'] ) {
+				$out[] = $path.'/js/'.$filename.'.'.$framework.'.js';
+			}
+		}
+		else if ( $type === 'css' ) {
+			// Possibly include a framework Javascript file. The DataTables
+			// framework option is a special case as its file name is slightly
+			// different
+			if ( $framework === 'datatables' && $lib === 'datatables' ) {
+				$out[] = $path.'/css/jquery.'.$filename.'.css';
+			}
+			else if ( $component['framework']['css'] ) {
+				$out[] = $path.'/css/'.$filename.'.'.$framework.'.css';
+			}
+		}
+
+		return $out;
 	}
 
 
@@ -517,21 +578,27 @@ class DT_Example
 		// List of libraries files so the user can see what specifically is
 		// needed for a given example
 		$str = '<ul>';
-		$lookup = DT_Example::$lookup_libraries[ $type ];
+		$libs = $this->_libs[ $type ];
 
-		$libs = $this->_xml_libs[ $type ];
-		if ( count( $libs ) ) {
-			for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
-				$file = isset( $lookup[ $libs[$i] ] ) ?
-					$lookup[ $libs[$i] ] :
-					$libs[$i];
+		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
+			$file = $libs[$i];
 
-				$path = strpos($file, '//') !== 0 ?
-					call_user_func( $this->_path_resolver, $file ) :
-					$file;
-				$str .= '<li><a href="'.$path.'">'.$path.'</a></li>';
+			// Ignore these files - they are used for the demo only
+			if ( strpos($file, 'shCore.css') !== false ||
+				 strpos($file, 'demo.css') !== false ||
+				 strpos($file, 'editor-demo.css') !== false ||
+				 strpos($file, 'shCore.js') !== false ||
+				 strpos($file, 'demo.js') !== false ||
+				 strpos($file, 'editor-demo.js') !== false
+			) {
+				continue;
 			}
-			$str .= '</li>';
+
+			$path = strpos($file, '//') !== 0 ?
+				call_user_func( $this->_path_resolver, $file ) :
+				$file;
+
+			$str .= '<li><a href="'.$path.'">'.$path.'</a></li>';
 		}
 
 		$str .= '</ul>';

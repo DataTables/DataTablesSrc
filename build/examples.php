@@ -96,14 +96,43 @@ $versions = json_decode( file_get_contents( is_file('/tmp/dt-versions') ?
 );
 $pluginsHash = $versions['Plugins']['release']['version'];
 
+
+
+//DT_Example::$components['datatables'] = [
+//	'path' => path_simplify( $dir_media ),
+//	'filename' => 'dataTables',
+//	'framework' => [
+//		'css' => true,
+//		'js' => true
+//	]
+//];
+
+DT_Example::$components['buttons'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/Buttons' ),
+	'filename' => 'buttons',
+	'framework' => [
+		'css' => true,
+		'js' => true
+	]
+];
+
+DT_Example::$components['select'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/Select' ),
+	'filename' => 'select',
+	'framework' => [
+		'css' => true,
+		'js' => false
+	]
+];
+
+
+
 if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['js' ]['jquery']          = '//code.jquery.com/jquery-1.11.1.min.js';
 	DT_Example::$lookup_libraries['css']['datatables']      = '//cdn.datatables.net/'.$versions['DataTables']['release']['version'].'/css/jquery.dataTables.css';
 	DT_Example::$lookup_libraries['js' ]['datatables']      = '//cdn.datatables.net/'.$versions['DataTables']['release']['version'].'/js/jquery.dataTables.min.js';
 	DT_Example::$lookup_libraries['css']['autofill']        = '//cdn.datatables.net/autofill/'.$versions['AutoFill']['release']['version'].'/css/dataTables.autoFill.css';
 	DT_Example::$lookup_libraries['js' ]['autofill']        = '//cdn.datatables.net/autofill/'.$versions['AutoFill']['release']['version'].'/js/dataTables.autoFill.min.js';
-	DT_Example::$lookup_libraries['css']['buttons']         = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/css/buttons.dataTables.css';
-	DT_Example::$lookup_libraries['js' ]['buttons']         = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/dataTables.buttons.min.js';
 	DT_Example::$lookup_libraries['css']['colreorder']      = '//cdn.datatables.net/colreorder/'.$versions['ColReorder']['release']['version'].'/css/dataTables.colReorder.css';
 	DT_Example::$lookup_libraries['js' ]['colreorder']      = '//cdn.datatables.net/colreorder/'.$versions['ColReorder']['release']['version'].'/js/dataTables.colReorder.min.js';
 	DT_Example::$lookup_libraries['css']['colvis']          = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
@@ -119,8 +148,6 @@ if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['js' ]['responsive']      = '//cdn.datatables.net/responsive/'.$versions['Responsive']['release']['version'].'/js/dataTables.responsive.min.js';
 	DT_Example::$lookup_libraries['css']['scroller']        = '//cdn.datatables.net/scroller/'.$versions['Scroller']['release']['version'].'/css/dataTables.scroller.css';
 	DT_Example::$lookup_libraries['js' ]['scroller']        = '//cdn.datatables.net/scroller/'.$versions['Scroller']['release']['version'].'/js/dataTables.scroller.min.js';
-	DT_Example::$lookup_libraries['css']['select']          = '//cdn.datatables.net/select/'.$versions['Select']['release']['version'].'/css/select.dataTables.css';
-	DT_Example::$lookup_libraries['js' ]['select']          = '//cdn.datatables.net/select/'.$versions['Select']['release']['version'].'/js/dataTables.select.min.js';
 	DT_Example::$lookup_libraries['css']['tabletools']      = '//cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/css/dataTables.tableTools.css';
 	DT_Example::$lookup_libraries['js' ]['tabletools']      = '//cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/js/dataTables.tableTools.min.js';
 
@@ -137,8 +164,6 @@ else {
 	DT_Example::$lookup_libraries['js' ]['datatables']      = $dir_media.'/js/jquery.dataTables.js';
 	DT_Example::$lookup_libraries['css']['autofill']        = path_simplify( $dir_media.'/../extensions/AutoFill/css/dataTables.autoFill.css' );
 	DT_Example::$lookup_libraries['js' ]['autofill']        = path_simplify( $dir_media.'/../extensions/AutoFill/js/dataTables.autoFill.js' );
-	DT_Example::$lookup_libraries['css']['buttons']         = path_simplify( $dir_media.'/../extensions/Buttons/css/buttons.dataTables.css' );
-	DT_Example::$lookup_libraries['js' ]['buttons']         = path_simplify( $dir_media.'/../extensions/Buttons/js/dataTables.buttons.js' );
 	DT_Example::$lookup_libraries['css']['colreorder']      = path_simplify( $dir_media.'/../extensions/ColReorder/css/dataTables.colReorder.css' );
 	DT_Example::$lookup_libraries['js' ]['colreorder']      = path_simplify( $dir_media.'/../extensions/ColReorder/js/dataTables.colReorder.js' );
 	DT_Example::$lookup_libraries['css']['colvis']          = path_simplify( $dir_media.'/../extensions/ColVis/css/dataTables.colVis.css' );
@@ -154,8 +179,6 @@ else {
 	DT_Example::$lookup_libraries['js' ]['responsive']      = path_simplify( $dir_media.'/../extensions/Responsive/js/dataTables.responsive.js' );
 	DT_Example::$lookup_libraries['css']['scroller']        = path_simplify( $dir_media.'/../extensions/Scroller/css/dataTables.scroller.css' );
 	DT_Example::$lookup_libraries['js' ]['scroller']        = path_simplify( $dir_media.'/../extensions/Scroller/js/dataTables.scroller.js' );
-	DT_Example::$lookup_libraries['css']['select']          = path_simplify( $dir_media.'/../extensions/Select/css/select.dataTables.css' );
-	DT_Example::$lookup_libraries['js' ]['select']          = path_simplify( $dir_media.'/../extensions/Select/js/dataTables.select.js' );
 	DT_Example::$lookup_libraries['css']['tabletools']      = path_simplify( $dir_media.'/../extensions/TableTools/css/dataTables.tableTools.css' );
 	DT_Example::$lookup_libraries['js' ]['tabletools']      = path_simplify( $dir_media.'/../extensions/TableTools/js/dataTables.tableTools.js' );
 	
