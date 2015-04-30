@@ -68,7 +68,7 @@ function _fnBuildAjax( oSettings, data, fn )
 		"success": function (json) {
 			var error = json.error || json.sError;
 			if ( error ) {
-				oSettings.oApi._fnLog( oSettings, 0, error );
+				_fnLog( oSettings, 0, error );
 			}
 
 			oSettings.json = json;
@@ -78,14 +78,15 @@ function _fnBuildAjax( oSettings, data, fn )
 		"cache": false,
 		"type": oSettings.sServerMethod,
 		"error": function (xhr, error, thrown) {
-			_fnCallbackFire( oSettings, null, 'xhr', [oSettings, null, oSettings.jqXHR] );
+			var ret = _fnCallbackFire( oSettings, null, 'xhr', [oSettings, null, oSettings.jqXHR] );
 
-			var log = oSettings.oApi._fnLog;
-			if ( error == "parsererror" ) {
-				log( oSettings, 0, 'Invalid JSON response', 1 );
-			}
-			else if ( xhr.readyState === 4 ) {
-				log( oSettings, 0, 'Ajax error', 7 );
+			if ( $.inArray( true, ret ) === -1 ) {
+				if ( error == "parsererror" ) {
+					_fnLog( oSettings, 0, 'Invalid JSON response', 1 );
+				}
+				else if ( xhr.readyState === 4 ) {
+					_fnLog( oSettings, 0, 'Ajax error', 7 );
+				}
 			}
 
 			_fnProcessingDisplay( oSettings, false );

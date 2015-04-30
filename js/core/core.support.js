@@ -192,13 +192,13 @@ function _fnCallbackReg( oSettings, sStore, fn, sName )
  *  @param {object} settings dataTables settings object
  *  @param {string} callbackArr Name of the array storage for the callbacks in
  *      oSettings
- *  @param {string} event Name of the jQuery custom event to trigger. If null no
- *      trigger is fired
+ *  @param {string} eventName Name of the jQuery custom event to trigger. If
+ *      null no trigger is fired
  *  @param {array} args Array of arguments to pass to the callback function /
  *      trigger
  *  @memberof DataTable#oApi
  */
-function _fnCallbackFire( settings, callbackArr, e, args )
+function _fnCallbackFire( settings, callbackArr, eventName, args )
 {
 	var ret = [];
 
@@ -208,8 +208,12 @@ function _fnCallbackFire( settings, callbackArr, e, args )
 		} );
 	}
 
-	if ( e !== null ) {
-		$(settings.nTable).trigger( e+'.dt', args );
+	if ( eventName !== null ) {
+		var e = $.Event( eventName+'.dt' );
+
+		$(settings.nTable).trigger( e, args );
+
+		ret.push( e.result );
 	}
 
 	return ret;
