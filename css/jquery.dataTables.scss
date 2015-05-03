@@ -30,6 +30,11 @@ $table-paging-button-hover: #111 !default;
 // Colour to use when shading
 $table-shade: black !default;
 
+// jQuery UI stylesheet imports this one - there are just two places where we
+// don't want DataTabels default styles assigned for jQuery UI, so rather than
+// duplicating the whole file, this is the best option
+$jqueryui: false !default;
+
 
 //
 // Functions / mixins
@@ -75,7 +80,10 @@ table.dataTable {
 	thead th,
 	thead td {
 		padding: 10px 18px;
-		border-bottom: $table-header-border;
+
+		@if not $jqueryui { // jQuery UI defines its own border
+			border-bottom: $table-header-border;
+		}
 
 		&:active {
 			outline: none;
@@ -85,41 +93,46 @@ table.dataTable {
 	tfoot th,
 	tfoot td {
 		padding: 10px 18px 6px 18px;
-		border-top: $table-header-border;
+
+		@if not $jqueryui { // jQuery UI defines its own border
+			border-top: $table-header-border;
+		}
 	}
 
 	// Sorting
-	thead {
-		.sorting,
-		.sorting_asc,
-		.sorting_desc {
-			cursor: pointer;
-			*cursor: hand;
-		}
+	@if not $jqueryui { // jQuery UI defines its own sort icons
+		thead {
+			.sorting,
+			.sorting_asc,
+			.sorting_desc {
+				cursor: pointer;
+				*cursor: hand;
+			}
 
-		.sorting,
-		.sorting_asc,
-		.sorting_desc,
-		.sorting_asc_disabled,
-		.sorting_desc_disabled {
-			background-repeat: no-repeat;
-			background-position: center right;
-		}
+			.sorting,
+			.sorting_asc,
+			.sorting_desc,
+			.sorting_asc_disabled,
+			.sorting_desc_disabled {
+				background-repeat: no-repeat;
+				background-position: center right;
+			}
 
-		.sorting {
-			background-image: url('../images/sort_both.png');
-		}
-		.sorting_asc {
-			background-image: url('../images/sort_asc.png');
-		}
-		.sorting_desc {
-			background-image: url('../images/sort_desc.png');
-		}
-		.sorting_asc_disabled {
-			background-image: url('../images/sort_asc_disabled.png');
-		}
-		.sorting_desc_disabled {
-			background-image: url('../images/sort_desc_disabled.png');
+			.sorting {
+				background-image: url('../images/sort_both.png');
+			}
+			.sorting_asc {
+				background-image: url('../images/sort_asc.png');
+			}
+			.sorting_desc {
+				background-image: url('../images/sort_desc.png');
+			}
+			.sorting_asc_disabled {
+				background-image: url('../images/sort_asc_disabled.png');
+			}
+			.sorting_desc_disabled {
+				background-image: url('../images/sort_desc_disabled.png');
+			}
 		}
 	}
 

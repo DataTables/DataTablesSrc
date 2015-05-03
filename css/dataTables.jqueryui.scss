@@ -1,0 +1,80 @@
+
+
+// jQuery UI doesn't provide any table styling options of its own, so we include
+// the DataTables default styling options and override the few styles that need
+// to be changed
+$jqueryui: true;
+@import 'jquery.dataTables.scss';
+
+
+table.dataTable {
+	// Sorting
+	thead {
+		th div.DataTables_sort_wrapper {
+			position: relative;
+
+			span {
+				position: absolute;
+				top: 50%;
+				margin-top: -8px;
+				right: -13px;
+			}
+		}
+	}
+
+	thead,
+	tfoot {
+		th.ui-state-default {
+			border-right-width: 0;
+
+			&:last-child {
+				border-right-width: 1px;
+			}
+		}
+	}
+}
+
+/*
+ * Control feature layout
+ */
+.dataTables_wrapper {
+	// Paging
+	.dataTables_paginate {
+		.fg-button {
+			box-sizing: border-box;
+			display: inline-block;
+			min-width: 1.5em;
+			padding: 0.5em;
+			margin-left: 2px;
+			text-align: center;
+			text-decoration: none !important;
+			cursor: pointer;
+			*cursor: hand;
+
+			color: $table-control-color !important;
+			border: 1px solid transparent;
+
+			&:active {
+				outline: none;
+			}
+		}
+
+		.fg-button:first-child {
+			border-top-left-radius: 3px;
+			border-bottom-left-radius: 3px;
+		}
+
+		.fg-button:last-child {
+			border-top-right-radius: 3px;
+			border-bottom-right-radius: 3px;
+		}
+	}
+
+	.ui-widget-header {
+		font-weight: normal;
+	}
+
+	.ui-toolbar {
+		padding: 8px;
+	}
+}

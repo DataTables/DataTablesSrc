@@ -63,17 +63,10 @@ function build_js {
 		echo_error "JSHint failed"
 	fi
 
-	if [ ! $DEBUG ]; then
-		echo "/*! DataTables $VERSION
- * ©2008-$(date +%Y) SpryMedia Ltd - datatables.net/license
- */" > $OUT_MIN_FILE
-
-		echo_section "JS min"
-		java -jar $CLOSURE --js $OUT_FILE >> $OUT_MIN_FILE
-		echo_msg "File size: $(ls -l $OUT_MIN_FILE | awk -F" " '{ print $5 }')"
-	fi
+	js_compress $OUT_FILE
 
 	cp jquery.js $OUT_DIR
+	cp integration/* $OUT_DIR
 
 	IFS=$OLD_IFS
 }
@@ -83,10 +76,6 @@ function build_css {
 	echo_section "CSS"
 	SRC_DIR="${BASE_DIR}/css"
 	OUT_DIR="${BUILD_DIR}/css"
-	OUT_FILE="${OUT_DIR}/jquery.dataTables.css"
-	OUT_MIN_FILE="${OUT_DIR}/jquery.dataTables.min.css"
-	OUT_JUI_FILE="${OUT_DIR}/jquery.dataTables_themeroller.css"
-	OUT_JUI_MIN_FILE="${OUT_DIR}/jquery.dataTables_themeroller.min.css"
 
 	if [ -d $OUT_DIR ]; then
 		rm -r $OUT_DIR
@@ -95,15 +84,11 @@ function build_css {
 
 	cd $SRC_DIR
 
-	sass --scss --stop-on-error --style expanded jquery.dataTables.scss > $OUT_FILE
-	sass --scss --stop-on-error --style expanded jquery.dataTables_themeroller.scss > $OUT_JUI_FILE
-
-	if [ ! $DEBUG ]; then
-		echo_section "CSS min"
-		sass --scss --stop-on-error --style compressed jquery.dataTables.scss > $OUT_MIN_FILE
-		sass --scss --stop-on-error --style compressed jquery.dataTables_themeroller.scss > $OUT_JUI_MIN_FILE
-		echo_msg "File size: $(ls -l $OUT_MIN_FILE | awk -F" " '{ print $5 }')"
-	fi
+	for file in $(find $SRC_DIR -name "*.scss"); do
+		filename=$(basename $file .scss)
+		sass --scss --stop-on-error --style expanded $file > $OUT_DIR/$filename.css
+		css_compress $OUT_DIR/$filename.css
+	done
 }
 
 
@@ -162,18 +147,8 @@ function build_repo {
 	build_images
 	build_examples
 
-	cp $BUILD_DIR/js/jquery.js ${BUILD_DIR}/DataTables/media/js/
-	cp $BUILD_DIR/js/jquery.dataTables.js ${BUILD_DIR}/DataTables/media/js/
-	if [ ! $DEBUG ]; then
-		cp $BUILD_DIR/js/jquery.dataTables.min.js ${BUILD_DIR}/DataTables/media/js/
-	fi
-
-	cp $BUILD_DIR/css/jquery.dataTables.css ${BUILD_DIR}/DataTables/media/css/
-	cp $BUILD_DIR/css/jquery.dataTables_themeroller.css ${BUILD_DIR}/DataTables/media/css/
-	if [ ! $DEBUG ]; then
-		cp $BUILD_DIR/css/jquery.dataTables.min.css ${BUILD_DIR}/DataTables/media/css/
-		cp $BUILD_DIR/css/jquery.dataTables_themeroller.min.css ${BUILD_DIR}/DataTables/media/css/
-	fi
+	cp $BUILD_DIR/js/* ${BUILD_DIR}/DataTables/media/js/
+	cp $BUILD_DIR/css/* ${BUILD_DIR}/DataTables/media/css/
 
 	cp -r $BUILD_DIR/images ${BUILD_DIR}/DataTables/media/
 	if [ -e ${BUILD_DIR}/DataTables/examples ]; then

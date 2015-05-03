@@ -98,14 +98,14 @@ $pluginsHash = $versions['Plugins']['release']['version'];
 
 
 
-//DT_Example::$components['datatables'] = [
-//	'path' => path_simplify( $dir_media ),
-//	'filename' => 'dataTables',
-//	'framework' => [
-//		'css' => true,
-//		'js' => true
-//	]
-//];
+DT_Example::$components['datatables'] = [
+	'path' => path_simplify( $dir_media ),
+	'filename' => 'dataTables',
+	'framework' => [
+		'css' => true,
+		'js' => true
+	]
+];
 
 DT_Example::$components['buttons'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/Buttons' ),
