@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html-wide" order="13">
+<dt-example table-type="html-wide" table-class="display nowrap" order="13">
 
 <css lib="datatables" />
 <css>
-	th, td { white-space: nowrap; }
 	div.dataTables_wrapper {
 		width: 800px;
 		margin: 0 auto;
