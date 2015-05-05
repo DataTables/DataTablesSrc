@@ -17,7 +17,7 @@ table.dataTable {
 				position: absolute;
 				top: 50%;
 				margin-top: -8px;
-				right: -13px;
+				right: -18px;
 			}
 		}
 	}
@@ -76,5 +76,11 @@ table.dataTable {
 
 	.ui-toolbar {
 		padding: 8px;
+	}
+
+	&.no-footer {
+		.dataTables_scrollBody {
+			border-bottom: none;
+		}
 	}
 }

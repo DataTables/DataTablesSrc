@@ -125,40 +125,6 @@ DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, b
 };
 
 
-/*
- * TableTools Foundation compatibility
- * Required TableTools 2.1+
- */
-if ( DataTable.TableTools ) {
-	// Set the classes that TableTools uses to something suitable for Foundation
-	$.extend( true, DataTable.TableTools.classes, {
-		"container": "DTTT button-group",
-		"buttons": {
-			"normal": "button small",
-			"disabled": "disabled"
-		},
-		"collection": {
-			"container": "DTTT_dropdown dropdown-menu",
-			"buttons": {
-				"normal": "",
-				"disabled": "disabled"
-			}
-		},
-		"select": {
-			"row": "active"
-		}
-	} );
-
-	// Have the collection use a bootstrap compatible dropdown
-	$.extend( true, DataTable.TableTools.DEFAULTS.oTags, {
-		"collection": {
-			"container": "ul",
-			"button": "li",
-			"liner": "a"
-		}
-	} );
-}
-
 }; // /factory
 
 

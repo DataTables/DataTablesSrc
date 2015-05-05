@@ -57,43 +57,44 @@ div.dataTables_wrapper {
 
 // Sorting
 table.dataTable thead {
-	thead {
-		th, td {
-			&:active {
-				outline: none;
-			}
-		}
+	th,
+	td {
+		padding-right: 1.5rem;
 
-		.sorting,
-		.sorting_asc,
-		.sorting_desc {
-			cursor: pointer;
+		&:active {
+			outline: none;
 		}
+	}
 
-		.sorting,
-		.sorting_asc,
-		.sorting_desc,
-		.sorting_asc_disabled,
-		.sorting_desc_disabled {
-			background-repeat: no-repeat;
-			background-position: center right;
-		}
+	.sorting,
+	.sorting_asc,
+	.sorting_desc {
+		cursor: pointer;
+	}
 
-		.sorting {
-			background-image: url('../images/sort_both.png');
-		}
-		.sorting_asc {
-			background-image: url('../images/sort_asc.png');
-		}
-		.sorting_desc {
-			background-image: url('../images/sort_desc.png');
-		}
-		.sorting_asc_disabled {
-			background-image: url('../images/sort_asc_disabled.png');
-		}
-		.sorting_desc_disabled {
-			background-image: url('../images/sort_desc_disabled.png');
-		}
+	.sorting,
+	.sorting_asc,
+	.sorting_desc,
+	.sorting_asc_disabled,
+	.sorting_desc_disabled {
+		background-repeat: no-repeat;
+		background-position: center right;
+	}
+
+	.sorting {
+		background-image: url('../images/sort_both.png');
+	}
+	.sorting_asc {
+		background-image: url('../images/sort_asc.png');
+	}
+	.sorting_desc {
+		background-image: url('../images/sort_desc.png');
+	}
+	.sorting_asc_disabled {
+		background-image: url('../images/sort_asc_disabled.png');
+	}
+	.sorting_desc_disabled {
+		background-image: url('../images/sort_desc_disabled.png');
 	}
 }
 
