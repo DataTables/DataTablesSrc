@@ -116,6 +116,15 @@ DT_Example::$components['buttons'] = [
 	]
 ];
 
+DT_Example::$components['fixedcolumns'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/FixedColumns' ),
+	'filename' => 'fixedColumns',
+	'framework' => [
+		'css' => true,
+		'js' => false
+	]
+];
+
 DT_Example::$components['select'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/Select' ),
 	'filename' => 'select',
@@ -138,8 +147,6 @@ if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['css']['colvis']          = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
 	DT_Example::$lookup_libraries['css']['colvis-jqueryui'] = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colvis.jqueryui.css';
 	DT_Example::$lookup_libraries['js' ]['colvis']          = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/js/dataTables.colVis.min.js';
-	DT_Example::$lookup_libraries['css']['fixedcolumns']    = '//cdn.datatables.net/fixedcolumns/'.$versions['FixedColumns']['release']['version'].'/css/dataTables.fixedColumns.css';
-	DT_Example::$lookup_libraries['js' ]['fixedcolumns']    = '//cdn.datatables.net/fixedcolumns/'.$versions['FixedColumns']['release']['version'].'/js/dataTables.fixedColumns.min.js';
 	DT_Example::$lookup_libraries['css']['fixedheader']     = '//cdn.datatables.net/fixedheader/'.$versions['FixedHeader']['release']['version'].'/css/dataTables.fixedHeader.css';
 	DT_Example::$lookup_libraries['js' ]['fixedheader']     = '//cdn.datatables.net/fixedheader/'.$versions['FixedHeader']['release']['version'].'/js/dataTables.fixedHeader.min.js';
 	DT_Example::$lookup_libraries['css']['keytable']        = '//cdn.datatables.net/keytable/'.$versions['KeyTable']['release']['version'].'/css/dataTables.keyTable.css';
@@ -169,8 +176,6 @@ else {
 	DT_Example::$lookup_libraries['css']['colvis']          = path_simplify( $dir_media.'/../extensions/ColVis/css/dataTables.colVis.css' );
 	DT_Example::$lookup_libraries['css']['colvis-jqueryui'] = path_simplify( $dir_media.'/../extensions/ColVis/css/dataTables.colvis.jqueryui.css' );
 	DT_Example::$lookup_libraries['js' ]['colvis']          = path_simplify( $dir_media.'/../extensions/ColVis/js/dataTables.colVis.js' );
-	DT_Example::$lookup_libraries['css']['fixedcolumns']    = path_simplify( $dir_media.'/../extensions/FixedColumns/css/dataTables.fixedColumns.css' );
-	DT_Example::$lookup_libraries['js' ]['fixedcolumns']    = path_simplify( $dir_media.'/../extensions/FixedColumns/js/dataTables.fixedColumns.js' );
 	DT_Example::$lookup_libraries['css']['fixedheader']     = path_simplify( $dir_media.'/../extensions/FixedHeader/css/dataTables.fixedHeader.css' );
 	DT_Example::$lookup_libraries['js' ]['fixedheader']     = path_simplify( $dir_media.'/../extensions/FixedHeader/js/dataTables.fixedHeader.js' );
 	DT_Example::$lookup_libraries['css']['keytable']        = path_simplify( $dir_media.'/../extensions/KeyTable/css/dataTables.keyTable.css' );
