@@ -5,6 +5,12 @@
 CLOSURE="/usr/local/closure_compiler/compiler.jar"
 JSDOC="/usr/local/jsdoc/jsdoc"
 
+FRAMEWORKS=(
+	'bootstrap'
+	'foundation'
+	'jqueryui'
+)
+
 
 # $1 - string - file to get the version from
 function version_from_file {
@@ -35,7 +41,6 @@ function echo_error {
 # $1 - string - Full path to the file to compress
 function css_compress {
 	# Only compresses CSS at the moment
-	# TODO extend to support SCSS as well
 	if [ -z "$DEBUG" ]; then
 		FILE=$(basename $1 .css)
 		DIR=$(dirname $1)
@@ -47,7 +52,7 @@ function css_compress {
 	fi
 }
 
-# Compile a SASS file
+# Compile a SCSS file
 #
 # $1 - string - Full path to the file to compile
 function scss_compile {
@@ -56,6 +61,44 @@ function scss_compile {
 
 	echo_msg "SCSS compiling $FILE.scss"
 	sass --scss --stop-on-error --style expanded $DIR/$FILE.scss > $DIR/$FILE.css
+}
+
+# Compile SCSS files for a specific extension and the supported frameworks
+#
+# $1 - string - Extension name (camelCase)
+# $2 - string Build directory where the CSS files should be created
+function css_frameworks {
+	EXTN=$1
+	DIR=$2
+
+	for FRAMEWORK in ${FRAMEWORKS[*]}; do
+		if [ -e $DIR/$1.$FRAMEWORK.scss ]; then
+			scss_compile $DIR/$EXTN.$FRAMEWORK.scss
+			rm $DIR/$EXTN.$FRAMEWORK.scss
+		fi
+	done
+
+	# DataTables isn't in the framework list for the Javascript aspect
+	# Compile last as the other frameworks may include it as a base
+	if [ -e $DIR/$1.dataTables.scss ]; then
+		scss_compile $DIR/$EXTN.dataTables.scss
+		rm $DIR/$EXTN.dataTables.scss
+	fi
+}
+
+# Compress JS files for a specific extension and the supported frameworks
+#
+# $1 - string - Extension name (camelCase)
+# $2 - string Build directory where the JS min files should be created
+function js_frameworks {
+	EXTN=$1
+	DIR=$2
+
+	for FRAMEWORK in ${FRAMEWORKS[*]}; do
+		if [ -e $DIR/$1.$FRAMEWORK.js ]; then
+			js_compress $DIR/$EXTN.$FRAMEWORK.js
+		fi
+	done
 }
 
 # Will compress a JS file using Closure compiler, saving the new file into the
