@@ -16,7 +16,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-When customising DataTables for your own usage, you might find that the default position of the feature elements (filter input etc) is not quite to your liking. To address this issue DataTables takes inspiration from the CSS 3 Advanced Layout Module and provides the `dt-init dom` initialisation parameter which can be set to indicate where you which particular features to appear in the DOM. You can also specify `div` wrapping containers (with an id and / or class) to provide complete layout flexibility.
+When customising DataTables for your own usage, you might find that the default position of the feature elements (filter input etc) is not quite to your liking. To address this issue DataTables takes inspiration from the CSS 3 Advanced Layout Module and provides the `dt-init dom` initialisation parameter which can be set to indicate where you wish particular features to appear in the DOM. You can also specify `div` wrapping containers (with an id and / or class) to provide complete layout flexibility.
 
 Each HTML control element presented by DataTables is denoted by a single character in the `dt-init dom` option. For example the `l` option is used for the `L`ength changing input option.
 
