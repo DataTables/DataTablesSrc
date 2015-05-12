@@ -116,9 +116,45 @@ DT_Example::$components['buttons'] = [
 	]
 ];
 
+DT_Example::$components['colvis'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/ColVis' ),
+	'filename' => 'colVis',
+	'framework' => [
+		'css' => false,
+		'js' => false
+	]
+];
+
+DT_Example::$components['editor'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/Editor' ),
+	'filename' => 'editor',
+	'framework' => [
+		'css' => true,
+		'js' => true
+	]
+];
+
 DT_Example::$components['fixedcolumns'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/FixedColumns' ),
 	'filename' => 'fixedColumns',
+	'framework' => [
+		'css' => true,
+		'js' => false
+	]
+];
+
+DT_Example::$components['fixedheader'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/FixedHeader' ),
+	'filename' => 'fixedHeader',
+	'framework' => [
+		'css' => true,
+		'js' => false
+	]
+];
+
+DT_Example::$components['responsive'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/Responsive' ),
+	'filename' => 'responsive',
 	'framework' => [
 		'css' => true,
 		'js' => false
@@ -138,21 +174,12 @@ DT_Example::$components['select'] = [
 
 if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['js' ]['jquery']          = '//code.jquery.com/jquery-1.11.1.min.js';
-	DT_Example::$lookup_libraries['css']['datatables']      = '//cdn.datatables.net/'.$versions['DataTables']['release']['version'].'/css/jquery.dataTables.css';
-	DT_Example::$lookup_libraries['js' ]['datatables']      = '//cdn.datatables.net/'.$versions['DataTables']['release']['version'].'/js/jquery.dataTables.min.js';
 	DT_Example::$lookup_libraries['css']['autofill']        = '//cdn.datatables.net/autofill/'.$versions['AutoFill']['release']['version'].'/css/dataTables.autoFill.css';
 	DT_Example::$lookup_libraries['js' ]['autofill']        = '//cdn.datatables.net/autofill/'.$versions['AutoFill']['release']['version'].'/js/dataTables.autoFill.min.js';
 	DT_Example::$lookup_libraries['css']['colreorder']      = '//cdn.datatables.net/colreorder/'.$versions['ColReorder']['release']['version'].'/css/dataTables.colReorder.css';
 	DT_Example::$lookup_libraries['js' ]['colreorder']      = '//cdn.datatables.net/colreorder/'.$versions['ColReorder']['release']['version'].'/js/dataTables.colReorder.min.js';
-	DT_Example::$lookup_libraries['css']['colvis']          = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
-	DT_Example::$lookup_libraries['css']['colvis-jqueryui'] = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colvis.jqueryui.css';
-	DT_Example::$lookup_libraries['js' ]['colvis']          = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/js/dataTables.colVis.min.js';
-	DT_Example::$lookup_libraries['css']['fixedheader']     = '//cdn.datatables.net/fixedheader/'.$versions['FixedHeader']['release']['version'].'/css/dataTables.fixedHeader.css';
-	DT_Example::$lookup_libraries['js' ]['fixedheader']     = '//cdn.datatables.net/fixedheader/'.$versions['FixedHeader']['release']['version'].'/js/dataTables.fixedHeader.min.js';
 	DT_Example::$lookup_libraries['css']['keytable']        = '//cdn.datatables.net/keytable/'.$versions['KeyTable']['release']['version'].'/css/dataTables.keyTable.css';
 	DT_Example::$lookup_libraries['js' ]['keytable']        = '//cdn.datatables.net/keytable/'.$versions['KeyTable']['release']['version'].'/js/dataTables.keyTable.min.js';
-	DT_Example::$lookup_libraries['css']['responsive']      = '//cdn.datatables.net/responsive/'.$versions['Responsive']['release']['version'].'/css/dataTables.responsive.css';
-	DT_Example::$lookup_libraries['js' ]['responsive']      = '//cdn.datatables.net/responsive/'.$versions['Responsive']['release']['version'].'/js/dataTables.responsive.min.js';
 	DT_Example::$lookup_libraries['css']['scroller']        = '//cdn.datatables.net/scroller/'.$versions['Scroller']['release']['version'].'/css/dataTables.scroller.css';
 	DT_Example::$lookup_libraries['js' ]['scroller']        = '//cdn.datatables.net/scroller/'.$versions['Scroller']['release']['version'].'/js/dataTables.scroller.min.js';
 	DT_Example::$lookup_libraries['css']['tabletools']      = '//cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/css/dataTables.tableTools.css';
@@ -167,21 +194,12 @@ if ( isset( $options['cdn'] ) ) {
 }
 else {
 	DT_Example::$lookup_libraries['js' ]['jquery']          = $dir_media.'/js/jquery.js';
-	DT_Example::$lookup_libraries['css']['datatables']      = $dir_media.'/css/jquery.dataTables.css';
-	DT_Example::$lookup_libraries['js' ]['datatables']      = $dir_media.'/js/jquery.dataTables.js';
 	DT_Example::$lookup_libraries['css']['autofill']        = path_simplify( $dir_media.'/../extensions/AutoFill/css/dataTables.autoFill.css' );
 	DT_Example::$lookup_libraries['js' ]['autofill']        = path_simplify( $dir_media.'/../extensions/AutoFill/js/dataTables.autoFill.js' );
 	DT_Example::$lookup_libraries['css']['colreorder']      = path_simplify( $dir_media.'/../extensions/ColReorder/css/dataTables.colReorder.css' );
 	DT_Example::$lookup_libraries['js' ]['colreorder']      = path_simplify( $dir_media.'/../extensions/ColReorder/js/dataTables.colReorder.js' );
-	DT_Example::$lookup_libraries['css']['colvis']          = path_simplify( $dir_media.'/../extensions/ColVis/css/dataTables.colVis.css' );
-	DT_Example::$lookup_libraries['css']['colvis-jqueryui'] = path_simplify( $dir_media.'/../extensions/ColVis/css/dataTables.colvis.jqueryui.css' );
-	DT_Example::$lookup_libraries['js' ]['colvis']          = path_simplify( $dir_media.'/../extensions/ColVis/js/dataTables.colVis.js' );
-	DT_Example::$lookup_libraries['css']['fixedheader']     = path_simplify( $dir_media.'/../extensions/FixedHeader/css/dataTables.fixedHeader.css' );
-	DT_Example::$lookup_libraries['js' ]['fixedheader']     = path_simplify( $dir_media.'/../extensions/FixedHeader/js/dataTables.fixedHeader.js' );
 	DT_Example::$lookup_libraries['css']['keytable']        = path_simplify( $dir_media.'/../extensions/KeyTable/css/dataTables.keyTable.css' );
 	DT_Example::$lookup_libraries['js' ]['keytable']        = path_simplify( $dir_media.'/../extensions/KeyTable/js/dataTables.keyTable.js' );
-	DT_Example::$lookup_libraries['css']['responsive']      = path_simplify( $dir_media.'/../extensions/Responsive/css/dataTables.responsive.css' );
-	DT_Example::$lookup_libraries['js' ]['responsive']      = path_simplify( $dir_media.'/../extensions/Responsive/js/dataTables.responsive.js' );
 	DT_Example::$lookup_libraries['css']['scroller']        = path_simplify( $dir_media.'/../extensions/Scroller/css/dataTables.scroller.css' );
 	DT_Example::$lookup_libraries['js' ]['scroller']        = path_simplify( $dir_media.'/../extensions/Scroller/js/dataTables.scroller.js' );
 	DT_Example::$lookup_libraries['css']['tabletools']      = path_simplify( $dir_media.'/../extensions/TableTools/css/dataTables.tableTools.css' );
@@ -194,16 +212,6 @@ else {
 	DT_Example::$lookup_libraries['css']['datatables-jqueryui']   = path_simplify( $dir_media.'/../extensions/Plugins/integration/jqueryui/dataTables.jqueryui.css' );
 	DT_Example::$lookup_libraries['js' ]['datatables-jqueryui']   = path_simplify( $dir_media.'/../extensions/Plugins/integration/jqueryui/dataTables.jqueryui.js' );
 }
-
-// Editor build
-DT_Example::$lookup_libraries['css']['editor']            = path_simplify( $dir_media.'/../extensions/Editor/css/dataTables.editor.css' );
-DT_Example::$lookup_libraries['js' ]['editor']            = path_simplify( $dir_media.'/../extensions/Editor/js/dataTables.editor.js' );
-DT_Example::$lookup_libraries['css']['editor-bootstrap']  = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/bootstrap/editor.bootstrap.css' );
-DT_Example::$lookup_libraries['js' ]['editor-bootstrap']  = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/bootstrap/editor.bootstrap.js' );
-DT_Example::$lookup_libraries['css']['editor-foundation'] = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/foundation/editor.foundation.css' );
-DT_Example::$lookup_libraries['js' ]['editor-foundation'] = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/foundation/editor.foundation.js' );
-DT_Example::$lookup_libraries['css']['editor-jqueryui']   = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/jqueryui/editor.jqueryui.css' );
-DT_Example::$lookup_libraries['js' ]['editor-jqueryui']   = path_simplify( $dir_media.'/../extensions/Editor/examples/resources/jqueryui/editor.jqueryui.js' );
 
 // Styling libraries
 DT_Example::$lookup_libraries['js' ]['jqueryui']     = '//code.jquery.com/ui/1.11.2/jquery-ui.js';
@@ -323,6 +331,19 @@ if ( strpos( $dir_input, 'Responsive' ) ) {
 		'display-control' => "Display control",
 		'child-rows'      => "Child rows",
 		'styling'         => "Styling"
+	);
+}
+else if ( strpos( $dir_input, 'FixedHeader' ) ) {
+	$dir_order = array(
+		'options',
+		'styling',
+		'integration'
+	);
+
+	$dir_names = array(
+		'options'     => "Initialisation and options",
+		'styling'     => "Styling",
+		'integration' => "Integration with other DataTables extensions"
 	);
 }
 
