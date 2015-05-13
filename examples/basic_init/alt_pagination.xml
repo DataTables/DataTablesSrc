@@ -20,6 +20,7 @@ The default page control presented by DataTables (forward and backward buttons w
 
 There are four built-in options for which pagination controls DataTables should show:
 
+* `string numbers` - Page number buttons only
 * `string simple` - 'Previous' and 'Next' buttons only
 * `string simple_numbers` - 'Previous' and 'Next' buttons, plus page numbers
 * `string full` - 'First', 'Previous', 'Next' and 'Last' buttons
