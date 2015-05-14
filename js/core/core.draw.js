@@ -32,6 +32,8 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 		/* Special parameters can be given by the data source to be used on the row */
 		_fnRowAttributes( row );
 
+        _fnCallbackFire( oSettings, 'aoRowPreRowPopulate', null, [nTr, rowData, iRow] );
+
 		/* Process each column */
 		for ( i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
 		{
@@ -169,7 +171,7 @@ function _fnBuildHead( oSettings )
 	if ( createHeader ) {
 		_fnDetectHeader( oSettings.aoHeader, thead );
 	}
-	
+
 	/* ARIA role for the rows */
  	$(thead).find('>tr').attr('role', 'row');
 

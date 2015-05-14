@@ -387,6 +387,13 @@ DataTable.models.oSettings = {
 	 */
 	"aoDrawCallback": [],
 
+    /**
+     * Array of callback functions for row created function
+     *  @type array
+     *  @default []
+     */
+    "aoRowPreRowPopulate": [],
+
 	/**
 	 * Array of callback functions for row created function
 	 *  @type array

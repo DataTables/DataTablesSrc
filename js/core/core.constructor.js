@@ -164,6 +164,7 @@ _fnCallbackReg( oSettings, 'aoStateSaveParams',    oInit.fnStateSaveParams,   'u
 _fnCallbackReg( oSettings, 'aoStateLoadParams',    oInit.fnStateLoadParams,   'user' );
 _fnCallbackReg( oSettings, 'aoStateLoaded',        oInit.fnStateLoaded,       'user' );
 _fnCallbackReg( oSettings, 'aoRowCallback',        oInit.fnRowCallback,       'user' );
+_fnCallbackReg( oSettings, 'aoRowPreRowPopulate',  oInit.fnPreRowPopulate,    'user' );
 _fnCallbackReg( oSettings, 'aoRowCreatedCallback', oInit.fnCreatedRow,        'user' );
 _fnCallbackReg( oSettings, 'aoHeaderCallback',     oInit.fnHeaderCallback,    'user' );
 _fnCallbackReg( oSettings, 'aoFooterCallback',     oInit.fnFooterCallback,    'user' );
