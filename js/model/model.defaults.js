@@ -786,6 +786,33 @@ DataTable.defaults = {
 	"bStateSave": false,
 
 
+    /**
+     * This function is called immediately before column data is populated
+     * into a row, allowing manipulation of the row data prior to td generation.
+     *  @type function
+     *  @param {node} row "TR" element for the current row
+     *  @param {array} data Raw data array for this row
+     *  @param {int} dataIndex The index of this row in the internal aoData array
+     *
+     *  @dtopt Callbacks
+     *  @name DataTable.defaults.preRowPopulate
+     *
+     *  @example
+     *    $(document).ready( function() {
+     *      $('#example').dataTable( {
+     *        "preRowPopulate": function( row, data, dataIndex ) {
+     *          var $dtRow = this.api().row(row);
+     *          // swap this row data if matches some condition
+     *          if ( data.a == "b" )
+     *          {
+     *            $dtRow.data({a: "a"});
+     *          }
+     *        }
+     *      } );
+     *    } );
+     */
+    "fnPreRowPopulate": null,
+
 	/**
 	 * This function is called when a TR element is created (and all TD child
 	 * elements have been inserted), or registered if using a DOM source, allowing
@@ -1699,7 +1726,7 @@ DataTable.defaults = {
 		 * However, multiple different tables on the page can use different
 		 * decimal place characters.
 		 *  @type string
-		 *  @default 
+		 *  @default
 		 *
 		 *  @dtopt Language
 		 *  @name DataTable.defaults.language.decimal
@@ -1864,7 +1891,7 @@ DataTable.defaults = {
 		/**
 		 * Assign a `placeholder` attribute to the search `input` element
 		 *  @type string
-		 *  @default 
+		 *  @default
 		 *
 		 *  @dtopt Language
 		 *  @name DataTable.defaults.language.searchPlaceholder
@@ -2067,7 +2094,7 @@ DataTable.defaults = {
 	 * * `full` - 'First', 'Previous', 'Next' and 'Last' buttons
 	 * * `full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus
 	 *   page numbers
-	 *  
+	 *
 	 * Further methods can be added using {@link DataTable.ext.oPagination}.
 	 *  @type string
 	 *  @default simple_numbers
