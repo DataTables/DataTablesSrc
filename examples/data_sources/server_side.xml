@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="ajax" order="4">
+<dt-example table-type="ssp" order="4">
 
 <css lib="datatables" />
 <js lib="jquery" />
