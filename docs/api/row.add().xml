@@ -8,8 +8,8 @@
 		<signature>row.add( data )</signature>
 		<description>Add a new row to the table using the given data</description>
 		<description>Select a row found by a row selector</description>
-		<parameter type="array|object" name="data">
-			Data to use for the new row. This may be an array, object or Javascript object instance, but must be in the same format as the other data in the table (i.e. if your table uses objects, pass in an object here!).
+		<parameter type="array|object|node" name="data">
+			Data to use for the new row. This may be an array, object, Javascript object instance or a `-tag tr` element. If a data structure is used (i.e. array or object) it must be in the same format as the other data in the table (i.e. if your table uses objects, pass in an object with the same properties here!).
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with the newly added row in its result set.</returns>
 	</type>
