@@ -480,7 +480,7 @@ class DT_Example
 		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
 			$file = $libs[$i]; // needs a path
 
-			if ( strpos($file, '//') !== 0 ) {
+			if ( strpos($file, '//') !== 0 && strpos($file, './') !== 0 ) {
 				$file = call_user_func( $this->_path_resolver, $file );
 			}
 
@@ -530,7 +530,7 @@ class DT_Example
 		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
 			$lib = $libs[$i];
 
-			if ( strpos($lib, '/') === 0 ) {
+			if ( strpos($lib, '/') === 0 || strpos($lib, '.') === 0 ) {
 				$exampleLibs[] = $lib;
 			}
 			else if ( isset( DT_Example::$components[ $lib ] ) ) {
