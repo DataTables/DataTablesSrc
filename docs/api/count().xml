@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>count()</name>
+	<summary>Get the number of elements that are contained in an API instance</summary>
+	<since>1.10.8</since>
+
+	<type type="function">
+		<signature>count()</signature>
+		<description>Get the number of entries in an API instance's result set, regardless of multi-table grouping (e.g. any data, selected rows, etc).</description>
+		<returns type="integer">The number of items in the API instance's result set</returns>
+	</type>
+
+	<description>
+		If can sometimes be useful to know how many items are contained in an API's result set - a function that is provided by this method.
+
+		It is important to note that the `length` property cannot simply be reliably used itself to determine if the API result set contains any elements or not as the DataTables API is multi-table aware and the result set consists of nested arrays. Therefore we must flatten arrays before being able to use the `length` property. This method does exactly that (i.e. it is a shortcut for `api.flatten().length`).
+	</description>
+
+	<example title="Count how many rows there are with the class `selected`"><![CDATA[
+var table = $('#example').DataTable();
+
+alert( 'Rows '+table.rows( '.selected' ).count()+' are selected' );
+
+]]></example>
+
+	<example title="Count the number of data entries (i.e. rows) in a table"><![CDATA[
+var table = $('#example').DataTable();
+
+if ( ! table.data().count() ) {
+	alert( 'Empty table' );
+}
+
+]]></example>
+
+	<related>dt-api any()</related>
+</dt-api>
