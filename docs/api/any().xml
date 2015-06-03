@@ -36,4 +36,5 @@ if ( ! table.data().any() ) {
 
 ]]></example>
 
+	<related>dt-api count()</related>
 </dt-api>
