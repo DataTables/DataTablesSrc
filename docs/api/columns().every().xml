@@ -6,7 +6,18 @@
 
 	<type type="function">
 		<signature>columns().every( fn )</signature>
-		<description>Iterate over each selected column, with the function context set to be the column in question</description>
+		<description>Iterate over each selected columns</description>
+		<parameter type="function" name="fn">
+			Function to execute for every column selected. The function's content is set to be an API instance for the column in question.
+
+			As of DataTables 1.10.8 the function is passed the following parameters:
+
+			1. Column index
+			2. Table loop counter
+			3. Column loop counter
+
+			No return value is expected or acted upon.
+		</parameter>
 		<returns type="DataTables.Api">DataTables API instance of the selected columns.</returns>
 	</type>
 

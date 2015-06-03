@@ -6,7 +6,19 @@
 
 	<type type="function">
 		<signature>cells().every( fn )</signature>
-		<description>Iterate over each selected cell, with the function context set to be the cell in question. This function is not passed any parameters and no return value is expected.</description>
+		<description>Iterate over each selected cell</description>
+		<parameter type="function" name="fn">
+			Function to execute for every cell selected. The function's content is set to be an API instance for the cell in question.
+
+			As of DataTables 1.10.8 the function is passed the following parameters:
+
+			1. Cell's row index
+			2. Cell's column index
+			3. Table loop counter
+			4. Cell loop counter
+
+			No return value is expected or acted upon.
+		</parameter>
 		<returns type="DataTables.Api">DataTables API instance of the selected cells.</returns>
 	</type>
 

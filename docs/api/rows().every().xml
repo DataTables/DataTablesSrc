@@ -6,7 +6,18 @@
 
 	<type type="function">
 		<signature>rows().every( fn )</signature>
-		<description>Iterate over each selected row, with the function context set to be the row in question</description>
+		<description>Iterate over each selected row</description>
+		<parameter type="function" name="fn">
+			Function to execute for every row selected. The function's content is set to be an API instance for the row in question.
+
+			As of DataTables 1.10.8 the function is passed the following parameters:
+
+			1. Row index
+			2. Table loop counter
+			3. Row loop counter
+
+			No return value is expected or acted upon.
+		</parameter>
 		<returns type="DataTables.Api">DataTables API instance of the selected rows.</returns>
 	</type>
 
