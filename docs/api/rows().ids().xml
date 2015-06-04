@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>rows().ids()</name>
+	<summary>Get the ids of the selected rows.</summary>
+	<since>1.10.8</since>
+
+	<type type="function">
+		<signature>rows().ids( [ hash ] )</signature>
+		<description>Get the ids of the selected rows.</description>
+		<parameter name="hash" type="boolean" default="false">
+			* `true` - Append a hash (`#`) to the start of each row id. This can be useful for then using the ids as selectors
+			* `false` - Do not modify the id value.
+		</parameter>
+		<returns type="DataTable.Api">Api instance with the selected rows in its result set.</returns>
+	</type>
+
+	<description>
+		This method can be used to get the id's of the rows selected by the `dt-api rows()` method, as specified by the row's data and the `dt-init rowId` option. Optionally it can also prepend a hash (`#`) to the ids allowing them to then easily be used as selectors.
+
+		**Important** This method does not read the DOM id for the `-tag tr` elements, but rather gets the row id from the row's data source (location specified by `dt-init rowId`).
+	</description>
+
+	<related>dt-init rowId</related>
+	<related>dt-api row().id()</related>
+	<related>dt-api rows().ids()</related>
+</dt-api>

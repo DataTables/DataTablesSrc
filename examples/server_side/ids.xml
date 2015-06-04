@@ -26,13 +26,14 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-Often when using server-side processing you will find that it can be useful to have a specific ID on each row (the primary key value from the database for example). By assigning the ID you want to apply to each row using the property `DT_RowId` of the data source object for each row, DataTables will automatically add it for you.
+Often when using server-side processing you will find that it can be useful to have a specific ID on each row (the primary key value from the database for example). By assigning the ID you want to apply to each row using the property `DT_RowId` of the data source object for each row (this property name can be configured using the `dt-init idSrc` option), DataTables will automatically add it for you (note that this will work for Ajax and Javascript loaded data as well as for server-side processing).
 
-In addition to `DT_RowId` there are two other properties which perform similar actions: `DT_RowClass` and `DT_RowData`:
+In addition to `DT_RowId` there are other properties which perform similar actions:
 
-* {string} `DT_RowId` - Add an ID to the _TR_ element
-* {string} `DT_RowClass` - Add a class name to the _TR_ element
-* {object} `DT_RowData` - Add HTML5 _data-_ attributes to the _TR_ element. This is an object of key / value pairs which are assigned as data attributes to the _TR_ element.
+* {string} `DT_RowId` - Add an ID to the `-tag tr` element
+* {string} `DT_RowClass` - Add a class name to the `-tag tr` element
+* {object} `DT_RowData` - Add HTML5 _data-_ attributes to the `-tag tr` element. This is an object of key / value pairs which are assigned as data attributes to the `-tag tr` element.
+* {object} `DT_RowAttr` - Add attributes to the `-tag tr` element. This is an object of key / value pairs which are assigned as attributes to the `-tag tr` element.
 
 This example below shows `DT_RowId` being used to add information to the table. In addition objects are used as the data source for the rows.
 

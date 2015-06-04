@@ -126,6 +126,12 @@ _api_registerPlural( 'rows().indexes()', 'row().index()', function () {
 	}, 1 );
 } );
 
+_api_registerPlural( 'rows().ids()', 'row().id()', function ( hash ) {
+	return this.iterator( 'row', function ( settings, row ) {
+		return (hash ? '#' : '') + settings.rowId( settings.aoData[ row ]._aData );
+	}, 1 );
+} );
+
 _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 	var that = this;
 

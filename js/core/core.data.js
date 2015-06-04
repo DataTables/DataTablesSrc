@@ -548,7 +548,7 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 		}
 
 		// Update DataTables special `DT_*` attributes for the row
-		_fnRowAttributes( row );
+		_fnRowAttributes( settings, row );
 	}
 }
 

@@ -2191,7 +2191,18 @@ DataTable.defaults = {
 	 *  @name DataTable.defaults.renderer
 	 *
 	 */
-	"renderer": null
+	"renderer": null,
+
+
+	/**
+	 * Set the data property name that DataTables should use to get a row's id
+	 * to set as the `id` property in the node.
+	 *  @type string
+	 *  @default DT_RowId
+	 *
+	 *  @name DataTable.defaults.rowId
+	 */
+	"rowId": "DT_RowId",
 };
 
 _fnHungarianMap( DataTable.defaults );

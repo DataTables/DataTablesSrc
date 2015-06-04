@@ -880,5 +880,12 @@ DataTable.models.oSettings = {
 	 *  @type object
 	 *  @default {}
 	 */
-	"oPlugins": {}
+	"oPlugins": {},
+
+	/**
+	 * Function used to get a row's id from the row's data
+	 *  @type function
+	 *  @default null
+	 */
+	"rowId": null
 };

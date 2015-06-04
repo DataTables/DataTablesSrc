@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="rows">
+	<name>row().id()</name>
+	<summary>Get the id of the selected row.</summary>
+	<since>1.10.8</since>
+
+	<type type="function">
+		<signature>row().id( [ hash ] )</signature>
+		<description>Get the id of the selected row.</description>
+		<parameter name="hash" type="boolean" default="false">
+			* `true` - Append a hash (`#`) to the start of the row id. This can be useful for then using the id as a selector
+			* `false` - Do not modify the id value.
+		</parameter>
+		<returns type="string">Row id</returns>
+	</type>
+
+	<description>
+		This method can be used to get a row's id, as specified by the row's data and the `dt-init rowId` option. Optionally it can also prepend a hash (`#`) to the row id allowing it to then easily be used as a selector.
+
+		**Important** This method does not read the DOM id for the `-tag tr` element, but rather gets the row id from the row's data source (location specified by `dt-init rowId`).
+	</description>
+
+	<example title="Click handler that shows row id"><![CDATA[
+
+var table = $('#myTable').DataTable();
+
+$('#myTable').on( 'click', 'tr', function () {
+	var id = table.row( this ).id();
+
+	alert( 'Clicked row id '+id );
+} );
+
+]]></example>
+
+	<related>dt-init rowId</related>
+	<related>dt-api row().id()</related>
+	<related>dt-api rows().ids()</related>
+</dt-api>
