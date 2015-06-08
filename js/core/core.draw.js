@@ -160,7 +160,7 @@ function _fnBuildHead( oSettings )
 			}
 		}
 
-		if ( column.sTitle != cell.html() ) {
+		if ( column.sTitle != cell[0].innerHTML ) {
 			cell.html( column.sTitle );
 		}
 
