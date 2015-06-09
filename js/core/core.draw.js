@@ -632,6 +632,7 @@ function _fnAddOptionsHtml ( oSettings )
 
 	/* Built our DOM structure - replace the holding div with what we want */
 	holding.replaceWith( insert );
+	oSettings.nHolding = null;
 }
 
 
