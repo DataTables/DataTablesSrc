@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event bubbles="true">
+	<name>preInit</name>
+	<summary>Initialisation started event - triggered immediately before data load.</summary>
+	<since>1.10.8</since>
+
+	<type type="function">
+		<signature>function( e, settings )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="DataTables.Settings" name="settings">
+			DataTables settings object
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		This event is emitted by DataTables when a table is being initialised and is about to request data. At the point of being fired the table will have its columns and features initialised, but no data will have been loaded (either by Ajax, or reading from the DOM).
+
+		Its primary purpose is to allow authors of extensions to DataTables be add a listener to the document so some action can be taken before data is loaded (for example modifying the amount of data to be loaded).
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+	</description>
+
+	<example title="Set the data length to display to be 20 items"><![CDATA[
+
+$(document).on( 'preInit.dt', function (e, settings) {
+	var api = new $.fn.dataTable.Api( settings );
+
+	api.page.len( 20 );
+} );
+
+$('#example').DataTable();
+	
+]]></example>
+
+	<related>dt-init initComplete</related>
+	<related>dt-event init</related>
+</dt-event>

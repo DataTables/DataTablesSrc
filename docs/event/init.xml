@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-event>
 	<name>init</name>
-	<summary>Initialisation complete event - fired when DataTables has been fully initialised.</summary>
+	<summary>Initialisation complete event - fired when DataTables has been fully initialised and data loaded.</summary>
 	<since>1.10</since>
 
 	<type type="function">
@@ -19,7 +19,7 @@
 	</type>
 
 	<description>
-		The `dt-event init` event is the event compliment of the `dt-init initComplete` initialisation option. Like the callback, the `dt-event init` event is called when your table has fully been initialised, data loaded and drawn, particularl when using an `dt-init ajax` data source. In such a case, the table will complete its initial run before the data has been loaded (Ajax is asynchronous after all!) so this callback is provided to let you know when the data is fully loaded.
+		The `dt-event init` event is the event compliment of the `dt-init initComplete` initialisation option. Like the callback, the `dt-event init` event is called when your table has fully been initialised, data loaded and drawn, which can be particularly useful when using an `dt-init ajax` data source. In such a case, the table will complete its initial run before the data has been loaded (Ajax is asynchronous after all!) so this callback is provided to let you know when the data is fully loaded.
 
 		The `dt-event init` event is fired at the same point as `dt-init initComplete` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
 
@@ -36,5 +36,6 @@ $('#example')
 	.dataTable();
 ]]></example>
 
-	<related type="option">initComplete</related>
+	<related>dt-init initComplete</related>
+	<related>dt-event preInit</related>
 </dt-event>
