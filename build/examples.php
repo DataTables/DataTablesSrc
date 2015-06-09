@@ -161,6 +161,15 @@ DT_Example::$components['responsive'] = [
 	]
 ];
 
+DT_Example::$components['scroller'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/Scroller' ),
+	'filename' => 'scroller',
+	'framework' => [
+		'css' => true,
+		'js' => false
+	]
+];
+
 DT_Example::$components['select'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/Select' ),
 	'filename' => 'select',
@@ -180,8 +189,6 @@ if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['js' ]['colreorder']      = '//cdn.datatables.net/colreorder/'.$versions['ColReorder']['release']['version'].'/js/dataTables.colReorder.min.js';
 	DT_Example::$lookup_libraries['css']['keytable']        = '//cdn.datatables.net/keytable/'.$versions['KeyTable']['release']['version'].'/css/dataTables.keyTable.css';
 	DT_Example::$lookup_libraries['js' ]['keytable']        = '//cdn.datatables.net/keytable/'.$versions['KeyTable']['release']['version'].'/js/dataTables.keyTable.min.js';
-	DT_Example::$lookup_libraries['css']['scroller']        = '//cdn.datatables.net/scroller/'.$versions['Scroller']['release']['version'].'/css/dataTables.scroller.css';
-	DT_Example::$lookup_libraries['js' ]['scroller']        = '//cdn.datatables.net/scroller/'.$versions['Scroller']['release']['version'].'/js/dataTables.scroller.min.js';
 	DT_Example::$lookup_libraries['css']['tabletools']      = '//cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/css/dataTables.tableTools.css';
 	DT_Example::$lookup_libraries['js' ]['tabletools']      = '//cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/js/dataTables.tableTools.min.js';
 
@@ -200,8 +207,6 @@ else {
 	DT_Example::$lookup_libraries['js' ]['colreorder']      = path_simplify( $dir_media.'/../extensions/ColReorder/js/dataTables.colReorder.js' );
 	DT_Example::$lookup_libraries['css']['keytable']        = path_simplify( $dir_media.'/../extensions/KeyTable/css/dataTables.keyTable.css' );
 	DT_Example::$lookup_libraries['js' ]['keytable']        = path_simplify( $dir_media.'/../extensions/KeyTable/js/dataTables.keyTable.js' );
-	DT_Example::$lookup_libraries['css']['scroller']        = path_simplify( $dir_media.'/../extensions/Scroller/css/dataTables.scroller.css' );
-	DT_Example::$lookup_libraries['js' ]['scroller']        = path_simplify( $dir_media.'/../extensions/Scroller/js/dataTables.scroller.js' );
 	DT_Example::$lookup_libraries['css']['tabletools']      = path_simplify( $dir_media.'/../extensions/TableTools/css/dataTables.tableTools.css' );
 	DT_Example::$lookup_libraries['js' ]['tabletools']      = path_simplify( $dir_media.'/../extensions/TableTools/js/dataTables.tableTools.js' );
 	
