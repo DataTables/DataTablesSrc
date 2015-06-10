@@ -27,7 +27,7 @@ function _fnSettingsFromNode ( table )
 function _fnLog( settings, level, msg, tn )
 {
 	msg = 'DataTables warning: '+
-		(settings!==null ? 'table id='+settings.sTableId+' - ' : '')+msg;
+		(settings ? 'table id='+settings.sTableId+' - ' : '')+msg;
 
 	if ( tn ) {
 		msg += '. For more information about this error, please see '+
@@ -39,7 +39,9 @@ function _fnLog( settings, level, msg, tn )
 		var ext = DataTable.ext;
 		var type = ext.sErrMode || ext.errMode;
 
-		_fnCallbackFire( settings, null, 'error', [ settings, tn, msg ] );
+		if ( settings ) {
+			_fnCallbackFire( settings, null, 'error', [ settings, tn, msg ] );
+		}
 
 		if ( type == 'alert' ) {
 			alert( msg );
