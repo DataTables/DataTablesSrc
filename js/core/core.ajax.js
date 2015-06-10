@@ -111,7 +111,7 @@ function _fnBuildAjax( oSettings, data, fn )
 			oSettings
 		);
 	}
-	else if ( oSettings.sAjaxSource || typeof ajax === 'string' )
+	else if ( ( oSettings.sAjaxSource && !ajax ) || typeof ajax === 'string' )
 	{
 		// DataTables 1.9- compatibility
 		oSettings.jqXHR = $.ajax( $.extend( baseAjax, {
