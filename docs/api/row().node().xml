@@ -23,7 +23,7 @@ var table = $('#example').DataTable();
 
 table
 	.row( '#row-4' )
-	.nodes()
+	.node()
 	.to$()      // Convert to a jQuery object
 	.addClass( 'ready' );
 );
