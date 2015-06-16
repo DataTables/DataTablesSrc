@@ -11,7 +11,7 @@
 		Enable or disable the display of a 'processing' indicator when the table is being processed (e.g. a sort). This is particularly useful for tables with large amounts of data where it can take a noticeable amount of time to sort the entries.
 	</description>
 
-	<example title="Disable pagination"><![CDATA[
+	<example title="Enable processing display"><![CDATA[
 $('#example').dataTable( {
 	"processing": true
 } );
