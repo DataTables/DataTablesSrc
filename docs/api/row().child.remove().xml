@@ -13,7 +13,7 @@
 	<description>
 		This method is used to remove child row(s) from a parent row, removing them from the displayed table (if they are currently displayed) and releasing the memory allocated for these rows.
 
-		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called immanently after. The child row(s) are inserted into the table without requiring that DataTables redraw.
+		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called for the resulting change to be displayed. The child row(s) are inserted into the table without requiring that DataTables redraw.
 	</description>
 
 	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[

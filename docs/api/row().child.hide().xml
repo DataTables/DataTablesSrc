@@ -13,7 +13,7 @@
 	<description>
 		This method can be used to make the child rows of a parent row hidden at any time. When child row(s) are set as hidden they are not detached from the parent row, but rather simply not drawn on the page. This method provides a way of hiding a row at any required time.
 
-		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called immanently after. The child row(s) are inserted into the table without requiring that DataTables redraw.
+		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called for the resulting change to be displayed. The child row(s) are inserted into the table without requiring that DataTables redraw.
 	</description>
 
 	<example title="Create detail rows initially, but don't show them until the row is clicked upon and hide on second click"><![CDATA[

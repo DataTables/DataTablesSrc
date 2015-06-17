@@ -13,7 +13,7 @@
 	<description>
 		This method can be used to make the child rows of a parent row visible at any time. Child rows can be attached using `dt-api row().child()` but do not have to be made immediately visible. This method provides the option of making those child rows which have already been attached visible.
 
-		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called immanently after. The child row(s) are inserted into the table without requiring that DataTables redraw.
+		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called for the resulting change to be displayed. The child row(s) are inserted into the table without requiring that DataTables redraw.
 	</description>
 
 	<example title="Create detail rows initially, but don't show them until the row is clicked upon"><![CDATA[
