@@ -21,7 +21,7 @@ Consider a more complete example using `dt-init drawCallback`:
 ```js
 $('#example').dataTable( {
 	"drawCallback": function( settings ) {
-		var api = new $.fn.dataTable( settings );
+		var api = new $.fn.dataTable.Api( settings );
 
 		// Output the data for the visible rows to the browser's console
 		// You might do something more useful with it!
