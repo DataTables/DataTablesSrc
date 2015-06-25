@@ -30,7 +30,7 @@ DataTables allows ordering by multiple columns at the same time, which can be ac
 
 * User shift click on a column (added the clicked column as a secondary, tertiary etc ordering column).
 * On a per-column basis (i.e. order by a specific column and then a secondary column if the data in the first column is identical), through the `dt-init columns.orderData` option.
-* Using the `dt-init columns.orderData` option to specify a multiple column order by default (for example `[ [0,'asc'], [1,'asc'] ]`).
+* Using the `dt-init columns.orderData` option to specify a multiple column order by default (for example `[ 0, 1 ]`).
 * Through the `dt-api order()` API method.
 
 Note that, the ability for the user to shift click to order multiple columns can be disabled through the `dt-init orderMulti` option.
