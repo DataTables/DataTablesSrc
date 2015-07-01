@@ -22,10 +22,11 @@ function _fnFeatureHtmlLength ( settings )
 	var
 		classes  = settings.oClasses,
 		tableId  = settings.sTableId,
-		menu     = settings.aLengthMenu,
-		d2       = $.isArray( menu[0] ),
-		lengths  = d2 ? menu[0] : menu,
-		language = d2 ? menu[1] : menu;
+		layout   = settings.oLanguage.sLengthMenu,
+		entries  = settings.aLengthMenu,
+		d2       = $.isArray( entries[0] ),
+		lengths  = d2 ? entries[0] : entries,
+		language = d2 ? entries[1] : entries;
 
 	var select = $('<select/>', {
 		'name':          tableId+'_length',
@@ -37,13 +38,16 @@ function _fnFeatureHtmlLength ( settings )
 		select[0][ i ] = new Option( language[i], lengths[i] );
 	}
 
-	var div = $('<div><label/></div>').addClass( classes.sLength );
+	var hasMarkup = !!(layout.match(/<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)/));
+	var div = hasMarkup ? $('<div></div>') : $('<div><label/></div>');
+	div = div.addClass(classes.sLength);
 	if ( ! settings.aanFeatures.l ) {
 		div[0].id = tableId+'_length';
 	}
 
-	div.children().append(
-		settings.oLanguage.sLengthMenu.replace( '_MENU_', select[0].outerHTML )
+	var context = hasMarkup ? div : div.children();
+	context.append(
+		layout.replace( '_MENU_', select[0].outerHTML )
 	);
 
 	// Can't use `select` variable as user might provide their own and the
