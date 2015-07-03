@@ -26,6 +26,7 @@
 		  only 2 records to show on the final page, with a length of 10.
 		* `recordsTotal` - Full data set length
 		* `recordsDisplay` - Data set length once the current search criteria has been applied.
+		* `serverSide` - A boolean value that indicates if the table is operating in server-side processing mode or not (`dt-init serverSide`). This can be useful when working with paging and the API as index results can be offset by the display start point.
 
 		Example returned object:
 
@@ -37,7 +38,8 @@
 			"end": 20,
 			"length": 10,
 			"recordsTotal": 57,
-			"recordsDisplay": 57
+			"recordsDisplay": 57,
+			"serverSide": false
 		}
 		```
 	</description>
