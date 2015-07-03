@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="cells">
 	<name>cell().render()</name>
-	<summary>Get rendered data for a cel</summary>
+	<summary>Get rendered data for a cell</summary>
 	<since>1.10.3</since>
 
 	<type type="function">
