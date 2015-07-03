@@ -107,6 +107,15 @@ DT_Example::$components['datatables'] = [
 	]
 ];
 
+DT_Example::$components['autofill'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/AutoFill' ),
+	'filename' => 'autoFill',
+	'framework' => [
+		'css' => true,
+		'js' => true
+	]
+];
+
 DT_Example::$components['buttons'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/Buttons' ),
 	'filename' => 'buttons',
@@ -116,11 +125,11 @@ DT_Example::$components['buttons'] = [
 	]
 ];
 
-DT_Example::$components['colvis'] = [
-	'path' => path_simplify( $dir_media.'/../extensions/ColVis' ),
-	'filename' => 'colVis',
+DT_Example::$components['colreorder'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/ColReorder' ),
+	'filename' => 'colreorder',
 	'framework' => [
-		'css' => false,
+		'css' => true,
 		'js' => false
 	]
 ];
@@ -152,9 +161,27 @@ DT_Example::$components['fixedheader'] = [
 	]
 ];
 
+DT_Example::$components['keytable'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/KeyTable' ),
+	'filename' => 'keyTable',
+	'framework' => [
+		'css' => true,
+		'js' => false
+	]
+];
+
 DT_Example::$components['responsive'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/Responsive' ),
 	'filename' => 'responsive',
+	'framework' => [
+		'css' => true,
+		'js' => false
+	]
+];
+
+DT_Example::$components['rowreorder'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/RowReorder' ),
+	'filename' => 'rowReorder',
 	'framework' => [
 		'css' => true,
 		'js' => false
@@ -183,14 +210,10 @@ DT_Example::$components['select'] = [
 
 if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['js' ]['jquery']          = '//code.jquery.com/jquery-1.11.1.min.js';
-	DT_Example::$lookup_libraries['css']['autofill']        = '//cdn.datatables.net/autofill/'.$versions['AutoFill']['release']['version'].'/css/dataTables.autoFill.css';
-	DT_Example::$lookup_libraries['js' ]['autofill']        = '//cdn.datatables.net/autofill/'.$versions['AutoFill']['release']['version'].'/js/dataTables.autoFill.min.js';
-	DT_Example::$lookup_libraries['css']['colreorder']      = '//cdn.datatables.net/colreorder/'.$versions['ColReorder']['release']['version'].'/css/dataTables.colReorder.css';
-	DT_Example::$lookup_libraries['js' ]['colreorder']      = '//cdn.datatables.net/colreorder/'.$versions['ColReorder']['release']['version'].'/js/dataTables.colReorder.min.js';
-	DT_Example::$lookup_libraries['css']['keytable']        = '//cdn.datatables.net/keytable/'.$versions['KeyTable']['release']['version'].'/css/dataTables.keyTable.css';
-	DT_Example::$lookup_libraries['js' ]['keytable']        = '//cdn.datatables.net/keytable/'.$versions['KeyTable']['release']['version'].'/js/dataTables.keyTable.min.js';
 	DT_Example::$lookup_libraries['css']['tabletools']      = '//cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/css/dataTables.tableTools.css';
 	DT_Example::$lookup_libraries['js' ]['tabletools']      = '//cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/js/dataTables.tableTools.min.js';
+
+	DT_Example::$lookup_libraries['js' ]['buttons-flash']   = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.flash.min.js';
 
 	DT_Example::$lookup_libraries['css']['datatables-bootstrap']  = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/bootstrap/3/dataTables.bootstrap.css';
 	DT_Example::$lookup_libraries['js' ]['datatables-bootstrap']  = '//cdn.datatables.net/plug-ins/'.$pluginsHash.'/integration/bootstrap/3/dataTables.bootstrap.js';
@@ -201,15 +224,13 @@ if ( isset( $options['cdn'] ) ) {
 }
 else {
 	DT_Example::$lookup_libraries['js' ]['jquery']          = $dir_media.'/js/jquery.js';
-	DT_Example::$lookup_libraries['css']['autofill']        = path_simplify( $dir_media.'/../extensions/AutoFill/css/dataTables.autoFill.css' );
-	DT_Example::$lookup_libraries['js' ]['autofill']        = path_simplify( $dir_media.'/../extensions/AutoFill/js/dataTables.autoFill.js' );
-	DT_Example::$lookup_libraries['css']['colreorder']      = path_simplify( $dir_media.'/../extensions/ColReorder/css/dataTables.colReorder.css' );
-	DT_Example::$lookup_libraries['js' ]['colreorder']      = path_simplify( $dir_media.'/../extensions/ColReorder/js/dataTables.colReorder.js' );
-	DT_Example::$lookup_libraries['css']['keytable']        = path_simplify( $dir_media.'/../extensions/KeyTable/css/dataTables.keyTable.css' );
-	DT_Example::$lookup_libraries['js' ]['keytable']        = path_simplify( $dir_media.'/../extensions/KeyTable/js/dataTables.keyTable.js' );
 	DT_Example::$lookup_libraries['css']['tabletools']      = path_simplify( $dir_media.'/../extensions/TableTools/css/dataTables.tableTools.css' );
 	DT_Example::$lookup_libraries['js' ]['tabletools']      = path_simplify( $dir_media.'/../extensions/TableTools/js/dataTables.tableTools.js' );
-	
+	DT_Example::$lookup_libraries['js' ]['buttons-flash']   = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.flash.js' );
+	DT_Example::$lookup_libraries['js' ]['buttons-html5']   = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.html5.js' );
+	DT_Example::$lookup_libraries['js' ]['buttons-print']   = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.print.js' );
+	DT_Example::$lookup_libraries['js' ]['buttons-colvis']  = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.colVis.js' );
+
 	DT_Example::$lookup_libraries['css']['datatables-bootstrap']  = path_simplify( $dir_media.'/../extensions/Plugins/integration/bootstrap/3/dataTables.bootstrap.css' );
 	DT_Example::$lookup_libraries['js' ]['datatables-bootstrap']  = path_simplify( $dir_media.'/../extensions/Plugins/integration/bootstrap/3/dataTables.bootstrap.js' );
 	DT_Example::$lookup_libraries['css']['datatables-foundation'] = path_simplify( $dir_media.'/../extensions/Plugins/integration/foundation/dataTables.foundation.css' );
@@ -227,6 +248,9 @@ DT_Example::$lookup_libraries['js' ]['foundation']   = '//cdnjs.cloudflare.com/a
 DT_Example::$lookup_libraries['css']['foundation']   = '//cdn.jsdelivr.net/foundation/5.5.1/css/foundation.min.css';
 DT_Example::$lookup_libraries['css']['font-awesome'] = '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css';
 
+DT_Example::$lookup_libraries['js']['jszip'] = '//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js';
+DT_Example::$lookup_libraries['js']['pdfmake'] = '//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js';
+DT_Example::$lookup_libraries['js']['vfsfonts'] = '//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js';
 
 function multiple ( $value, $fn )
 {
@@ -412,7 +436,8 @@ function sql_files ( $out_dir )
 			"'".$json[$i]['start_date']."', ".
 			    $json[$i]['extn'].", ".
 			"'".$json[$i]['email']."', ".
-			"'".$json[$i]['office']."' ".
+			"'".$json[$i]['office']."', ".
+			    $json[$i]['sequence']." ".
 		")";
 	}
 
@@ -433,15 +458,17 @@ CREATE TABLE `datatables_demo` (
 	`position`   varchar(250) NOT NULL default '',
 	`email`      varchar(250) NOT NULL default '',
 	`office`     varchar(250) NOT NULL default '',
-	`start_date` timestamp DEFAULT CURRENT_TIMESTAMP,
+	`start_date` datetime default CURRENT_TIMESTAMP,
 	`age`        int(8),
 	`salary`     int(8),
+	`seq`        int(8),
 	`extn`       varchar(8) NOT NULL default '',
-	PRIMARY KEY  (`id`)
+	PRIMARY KEY  (`id`),
+	INDEX (`seq`)
 );
 
 INSERT INTO `datatables_demo`
-		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
+		( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) 
 	VALUES
 		$values;
 EOD;
@@ -462,15 +489,16 @@ CREATE TABLE datatables_demo (
 	position   text NOT NULL default '',
 	email      text NOT NULL default '',
 	office     text NOT NULL default '',
-	start_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+	start_date timestamp without time zone default CURRENT_TIMESTAMP,
 	age        integer,
 	salary     integer,
+	seq        integer,
 	extn       text NOT NULL default '',
 	PRIMARY KEY (id)
 );
 
 INSERT INTO datatables_demo
-		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
+		( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) 
 	VALUES
 		$values;
 
@@ -492,14 +520,15 @@ CREATE TABLE datatables_demo (
 	position   text NOT NULL default '',
 	email      text NOT NULL default '',
 	office     text NOT NULL default '',
-	start_date timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+	start_date timestamp without time zone default CURRENT_TIMESTAMP,
 	age        integer,
 	salary     integer,
+	seq        integer,
 	extn       text NOT NULL default ''
 );
 
 INSERT INTO datatables_demo
-		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
+		( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) 
 	VALUES
 		$values;
 EOD;
@@ -510,8 +539,8 @@ EOD;
 --
 -- DataTables Ajax and server-side processing database (SQL Server)
 --
-IF OBJECT_ID('dbo.datatables_demo', 'U') IS NOT NULL
-  DROP TABLE dbo.datatables_demo;
+IF OBJECT_ID('datatables_demo', 'U') IS NOT NULL
+  DROP TABLE datatables_demo;
 
 CREATE TABLE datatables_demo (
 	id         int NOT NULL identity,
@@ -520,9 +549,10 @@ CREATE TABLE datatables_demo (
 	position   varchar(250) NOT NULL default '',
 	email      varchar(250) NOT NULL default '',
 	office     varchar(250) NOT NULL default '',
-	start_date datetime DEFAULT GETDATE(),
+	start_date datetime default GETDATE(),
 	age        int,
 	salary     int,
+	seq        int,
 	extn       varchar(8) NOT NULL default '',
 	PRIMARY KEY (id)
 );
@@ -530,7 +560,7 @@ CREATE TABLE datatables_demo (
 SET IDENTITY_INSERT datatables_demo ON;
 
 INSERT INTO datatables_demo
-		( id, first_name, last_name, age, position, salary, start_date, extn, email, office ) 
+		( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) 
 	VALUES
 		$values;
 
