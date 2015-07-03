@@ -316,6 +316,11 @@ class DT_Example
 				else if ( $type === 'data' )  { return $row['office']; }
 				break;
 
+			case 'sequence':
+				if      ( $type === 'title' ) { return 'Seq.'; }
+				else if ( $type === 'data' )  { return $row['sequence']; }
+				break;
+
 			default:
 				throw new Exception("Unknown column: ".$name, 1);
 				break;
@@ -643,8 +648,22 @@ DT_Example::$tables['html5'] = array(
 	'body'    => true
 );
 
+DT_Example::$tables['sequence'] = array(
+	'columns' => array( 'sequence', 'name', 'position', 'office', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
 DT_Example::$tables['ajax'] = array(
 	'columns' => array( 'name', 'position', 'office', 'extn', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
+DT_Example::$tables['ajax-sequence'] = array(
+	'columns' => array( 'sequence', 'name', 'position', 'office', 'start_date', 'salary' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => false
