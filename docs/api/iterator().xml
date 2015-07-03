@@ -23,6 +23,7 @@
 
 		* `table` - loop over the context's (i.e. the tables) for the instance
 		  1. Table settings object
+		  2. Loop counter
 		* `columns` - loop over each item in the result set
 		  1. Table settings object
 		  2. Result set item
