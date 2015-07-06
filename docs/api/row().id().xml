@@ -11,7 +11,7 @@
 			* `true` - Append a hash (`#`) to the start of the row id. This can be useful for then using the id as a selector
 			* `false` - Do not modify the id value.
 		</parameter>
-		<returns type="string">Row id</returns>
+		<returns type="string">Row id. If the row does not have an id available `-type undefined` will be returned.</returns>
 	</type>
 
 	<description>

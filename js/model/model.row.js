@@ -87,5 +87,14 @@ DataTable.models.oRow = {
 	 *  @default null
 	 *  @private
 	 */
-	"src": null
+	"src": null,
+
+	/**
+	 * Index in the aoData array. This saves an indexOf lookup when we have the
+	 * object, but want to know the index
+	 *  @type integer
+	 *  @default -1
+	 *  @private
+	 */
+	"idx": -1
 };

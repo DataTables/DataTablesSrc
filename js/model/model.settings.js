@@ -273,6 +273,13 @@ DataTable.models.oSettings = {
 	"aiDisplayMaster": [],
 
 	/**
+	 * Map of row ids to data indexes
+	 *  @type object
+	 *  @default {}
+	 */
+	"aIds": {},
+
+	/**
 	 * Store information about each column that is in use
 	 *  @type array
 	 *  @default []

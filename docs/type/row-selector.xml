@@ -14,6 +14,7 @@ The row selector can be given in a number of different forms, to make it easy to
 
 * No selector - Select all rows
 * `dt-type integer` - Row index selector
+* `dt-type string` - ID selector
 * `dt-type string` - jQuery selector
 * `dt-type node` - `dt-tag tr` element selector
 * `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
@@ -62,11 +63,13 @@ table.rows( indexes )
 ```
 
 
-## string
+## string - #ID
 
-When the selector is given as a string, it is treated as a [jQuery selector](http://api.jquery.com/category/selectors/) that operates on the `dt-tag tr` elements in the table. For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](http://api.jquery.com/category/selectors/).
+DataTables row selector is optimised for IDs as it is natural to wish to select rows by unique information. This is distinct from a jQuery selector as DataTables can optimise this selector type so as to not involve the DOM - also allowing an id row selector to operate on rows which have not yet had their DOM nodes created (when using `dt-init deferRender` for extra speed).
 
-Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
+With dynamically sourced data, the id assigned to the row is identifier using the `dt-init rowId` option. The data used as the id can be of any value, although it must be unique in the table.
+
+To use an id selector, simply prefix the id value for the row you wish to select with a number sign: `#`. The value that follows is taken as the id. Unlike jQuery this value does __not__ need to be escaped - although this means that an id selector must be used alone (e.g. a class name cannot also be used), it does make is much easier to use for complex data.
 
 ###### Select a single row by id:
 
@@ -74,6 +77,20 @@ Note that just like jQuery selector, is it possible to supply multiple selectors
 var table = $('#example').DataTable();
 var row = table.row('#row-42');
 ```
+
+###### Select multiple rows by id:
+
+```js
+var table = $('#example').DataTable();
+var rows = table.rows( [ '#row-42', '#row-51' ] );
+```
+
+
+## string
+
+When the selector is given as a string, it is treated as a [jQuery selector](http://api.jquery.com/category/selectors/) that operates on the `dt-tag tr` elements in the table. For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](http://api.jquery.com/category/selectors/).
+
+Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
 
 ###### Select rows by class name:
 

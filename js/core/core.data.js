@@ -16,7 +16,8 @@ function _fnAddData ( oSettings, aDataIn, nTr, anTds )
 	/* Create the object for storing information about this new row */
 	var iRow = oSettings.aoData.length;
 	var oData = $.extend( true, {}, DataTable.models.oRow, {
-		src: nTr ? 'dom' : 'data'
+		src: nTr ? 'dom' : 'data',
+		idx: iRow
 	} );
 
 	oData._aData = aDataIn;
@@ -38,6 +39,11 @@ function _fnAddData ( oSettings, aDataIn, nTr, anTds )
 
 	/* Add to the display array */
 	oSettings.aiDisplayMaster.push( iRow );
+
+	var id = oSettings.rowId( aDataIn );
+	if ( id !== undefined ) {
+		oSettings.aIds[ id ] = oData;
+	}
 
 	/* Create the DOM information, or register it if already present */
 	if ( nTr || ! oSettings.oFeatures.bDeferRender )

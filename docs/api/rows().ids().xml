@@ -11,7 +11,7 @@
 			* `true` - Append a hash (`#`) to the start of each row id. This can be useful for then using the ids as selectors
 			* `false` - Do not modify the id value.
 		</parameter>
-		<returns type="DataTable.Api">Api instance with the selected rows in its result set.</returns>
+		<returns type="DataTable.Api">Api instance with the selected rows in its result set. If a row does not have an id available `-type undefined` will be returned as the value.</returns>
 	</type>
 
 	<description>
