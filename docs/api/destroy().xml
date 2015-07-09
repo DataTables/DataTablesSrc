@@ -9,6 +9,8 @@
 		<description>Restore the tables in the current context to its original state in the DOM by removing all of DataTables enhancements, alterations to the DOM structure of the table and event listeners.</description>
 		<parameter type="boolean" name="remove" default="false">
 			Completely remove the table from the DOM (`true`) or leave it in the DOM in its original plain un-enhanced HTML state (default, `false`).
+
+			When set to `true`, as of v1.10.8, DataTables will use the [`jQuery .remove()` method](https://api.jquery.com/remove/) to remove the table from the page - this results in any events that are bound to the table elements being automatically removed by jQuery. If set to `false` custom events are not removed from the table - only the events that DataTables itself attached to the table.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>
 	</type>
