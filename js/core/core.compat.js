@@ -201,7 +201,7 @@ function _fnBrowserDetect( settings )
 	// Scrolling feature / quirks detection
 	var n = $('<div/>')
 		.css( {
-			position: 'absolute',
+			position: 'fixed',
 			top: 0,
 			left: 0,
 			height: 1,
