@@ -37,6 +37,9 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 
 	function _docLink ( $software, $type, $item, $html )
 	{
+		$host = '//datatables.net/reference';
+		$lang = '';
+
 		// For 'type' links, we override the software
 		if ( $type === 'type' ) {
 			if ( in_array( $item, array(
@@ -67,74 +70,64 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 
 		switch ( $software ) {
 			case 'af':
-				$host = '//datatables.net/extensions/autofill/reference';
-				$tag = 'AF';
 				$lang = 'AutoFill';
 				break;
 
+			case 'b':
+				$lang = 'Buttons';
+				break;
+
 			case 'cr':
-				$host = '//datatables.net/extensions/colreorder/reference';
-				$tag = 'CR';
 				$lang = 'ColReorder';
 				break;
 
 			case 'cv':
-				$host = '//datatables.net/extensions/colvis/reference';
-				$tag = 'CV';
 				$lang = 'ColVis';
 				break;
 
 			case 'e':
 				$host = '//editor.datatables.net/reference';
-				$tag = 'E';
 				$lang = 'Editor';
 				break;
 
 			case 'fc':
-				$host = '//datatables.net/extensions/fixedcolumns/reference';
-				$tag = 'FC';
 				$lang = 'FixedColumns';
 				break;
 
 			case 'fh':
-				$host = '//datatables.net/extensions/fixedheader/reference';
-				$tag = 'FH';
 				$lang = 'FixedHeader';
 				break;
 
 			case 'kt':
-				$host = '//datatables.net/extensions/keytable/reference';
-				$tag = 'KT';
 				$lang = 'KeyTable';
 				break;
 			
-			case 'r': //
-				$host = '//datatables.net/extensions/responsive/reference';
-				$tag = 'R';
+			case 'r':
 				$lang = 'Responsive';
+				break;
+			
+			case 'rr':
+				$lang = 'RowReorder';
 				break;
 
 			case 's':
-				$host = '//datatables.net/extensions/scroller/reference';
-				$tag = 'S';
+			case 'sc':
 				$lang = 'Scroller';
 				break;
 
+			case 'se':
+				$lang = 'Select';
+				break;
+
 			case 'tt':
-				$host = '//datatables.net/extensions/tabletools/reference';
-				$tag = 'TT';
 				$lang = 'TableTools';
 				break;
 			
 			case 'js': // JS type
-				$host = '//datatables.net/reference';
-				$tag = 'JS';
 				$lang = 'Javascript';
 				break;
 			
 			default:
-				$host = '//datatables.net/reference';
-				$tag = 'DT';
 				$lang = 'DataTables';
 				break;
 		}
@@ -170,14 +163,17 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				$lang .= ' display type';
 				break;
 
+			case 'button':
+				$klass = 'button';
+				$lang .= ' button type';
+				break;
+
 			default;
 				break;
 		}
 
 		return '<a href="'.$host.'/'.$klass.'/'.$this->_doUrlEncode($item).'">'.
-				'<code class="'.$klass.'" title="'.$lang.'">'.$html.
-					'<span>'.$tag.'</span>'.
-				'</code>'.
+				'<code class="'.$klass.'" title="'.$lang.'">'.$html.'</code>'.
 			'</a>';
 	}
 
@@ -186,7 +182,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	{
 		$that = $this;
 		$text = preg_replace_callback(
-			'/^([a-z]{1,2}\-init |[a-z]{1,2}\-api |[a-z]{1,2}\-event |[a-z]{1,2}\-type |e\-field |e\-display |[dt]*\-tag |tag |[dt]*\-path |path |[dt]*\-string |string )?(.*)$/m',
+			'/^([a-z]{0,2}\-init |[a-z]{0,2}\-api |[a-z]{0,2}\-event |[a-z]{0,2}\-type |[a-z]{0,2}\-button |e\-field |e\-display |[dt]*\-tag |tag |[dt]*\-path |path |[dt]*\-string |string )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
 
@@ -211,6 +207,9 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				}
 				else if ( $tags === 'display' ) {
 					$formatted = $that->_docLink( $software, 'display', $matches[2], $html );
+				}
+				else if ( $tags === 'button' ) {
+					$formatted = $that->_docLink( $software, 'button', $matches[2], $html );
 				}
 				else if ( $tags === 'tag' || $tags === 'dt-tag' || $tags === '-tag' ) {
 					$formatted = '<code class="tag" title="HTML tag">'.$html.'</code>';
