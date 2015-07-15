@@ -82,7 +82,7 @@
 		FROM   testData
 		LIMIT  2000
 	";
-	$rResult = mysql_query( $sQuery, $gaSql['link'] ) or die(mysql_error());
+	$rResult = mysql_query( $sQuery, $gaSql['link'] ) or die('SQL error');
 	while ( $aRow = mysql_fetch_array( $rResult ) )
 	{
 		echo '<tr>';
