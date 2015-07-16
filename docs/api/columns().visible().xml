@@ -32,7 +32,7 @@ var table = $('#example').DataTable();
 // Hide a column
 table.column( 1 ).visible( false );
 
-alert( 'Table's column visibility are set to: '+table.columns().visible().join(', ') );
+alert( 'Table\'s column visibility are set to: '+table.columns().visible().join(', ') );
 ]]></example>
 
 	<example title="Hide all columns with a class of '.detail'"><![CDATA[
