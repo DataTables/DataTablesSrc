@@ -12,6 +12,34 @@
 		Additionally, this option can be useful when loading JSON data, as the value set here will be used if the cell value from the JSON is found to be null (for example, you might set a default string of `string Not available`.
 	</description>
 
+  <example title="Show an information message for a field that can have a `null` or `undefined` value"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    null,
+    null,
+    null,
+    {
+      "data": "first_name", // can be null or undefined
+      "defaultContent": "<i>Not set</i>"
+    }
+  ]
+} );
+]]></example>
+
+  <example title="Show an empty string when a field's value is `null` or `undefined` value"><![CDATA[
+$('#example').dataTable( {
+  "columns": [
+    null,
+    null,
+    null,
+    {
+      "data": "office", // can be null or undefined
+      "defaultContent": ""
+    }
+  ]
+} );
+]]></example>
+
 	<example title="Create an edit button in the last column with `dt-init columnDefs`"><![CDATA[
 $('#example').dataTable( {
   "columnDefs": [
