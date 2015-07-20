@@ -30,7 +30,7 @@
 
 	<example title="Show information about the records being displayed"><![CDATA[
 $('#example').dataTable( {
-  "footerCallback": function( thead, data, start, end, display ) {
+  "headerCallback": function( thead, data, start, end, display ) {
     $(thead).find('th').eq(0).html( 'Displaying '+(end-start)+' records' );
   }
 } );
