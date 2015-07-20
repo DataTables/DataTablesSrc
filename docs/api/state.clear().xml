@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>state.clear()</signature>
-		<description>Create the saved state of the table</description>
+		<description>Clear the saved state of the table</description>
 		<returns type="DataTables.Api">The API instance that was used, available for chaining.</returns>
 	</type>
 
