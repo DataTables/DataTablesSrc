@@ -58,7 +58,7 @@
 	<example title="Add a child row to all rows, passing in a jQuery created `dt-tag tr` element and show all child rows"><![CDATA[
 var table = $('#example').DataTable();
 
-table.rows().every( function () {
+table.rows().every( function ( rowIdx ) {
 	this
 		.child(
 			$(
