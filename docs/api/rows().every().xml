@@ -44,7 +44,7 @@
 		Using `dt-api rows().every()` this can be rewritten as:
 
 		```js
-		table.rows().every( function () {
+		table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
 			var data = this.data();
 			// ... do something with data(), or this.node(), etc
 		} );
@@ -58,7 +58,7 @@
 	<example title="Add a child row to all rows, passing in a jQuery created `dt-tag tr` element and show all child rows"><![CDATA[
 var table = $('#example').DataTable();
 
-table.rows().every( function ( rowIdx ) {
+table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
 	this
 		.child(
 			$(
@@ -78,7 +78,7 @@ table.rows().every( function ( rowIdx ) {
 	<example title="Update all rows in the table, redrawing only when complete"><![CDATA[
 var table = $('#example').DataTable();
 
-table.rows().every( function () {
+table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
 	var d = this.data();
 
 	d.counter++; // update data source for the row
