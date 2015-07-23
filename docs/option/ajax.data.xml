@@ -83,6 +83,7 @@ $('#example').dataTable( {
   "ajax": {
     "url": "data.json",
     "contentType": "application/json",
+    "type": "POST",
     "data": function ( d ) {
       return JSON.stringify( d );
     }
