@@ -43,7 +43,7 @@ DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, b
 		var clickHandler = function ( e ) {
 			e.preventDefault();
 			if ( e.data.action !== 'ellipsis' ) {
-				api.page( e.data.action ).draw( false );
+				api.page( e.data.action ).draw( 'page' );
 			}
 		};
 
