@@ -32,18 +32,18 @@
 
 		Please be aware that this method sets the page to be shown - it does not actually perform the re-display of the table. In order to have the newly set page shown use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api page()` method's returned object - for example `table.page( 0 ).draw( false );`.
 
-		Additionally note that you should pass `false` as the first parameter to `dt-api draw()` to have it do a standing redraw. Without this parameter, `dt-api draw()` will do a full draw resulting in the paging being reset back to the first page!
+		Additionally note that you should pass `false` or `-string page` as the first parameter to `dt-api draw()` to have it do a standing redraw. Without this parameter, `dt-api draw()` will do a full draw resulting in the paging being reset back to the first page!
 	</description>
 
 	<example title="Custom paging controls for next / previous pages"><![CDATA[
 var table = $('#example').DataTable();
 
 $('#next').on( 'click', function () {
-	table.page( 'next' ).draw( false );
+	table.page( 'next' ).draw( 'page' );
 } );
 
 $('#previous').on( 'click', function () {
-	table.page( 'previous' ).draw( false );
+	table.page( 'previous' ).draw( 'page' );
 } );
 ]]></example>
 

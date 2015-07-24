@@ -5,10 +5,16 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>draw( [reset] )</signature>
-		<description>Redraw the DataTables in the current context updating ordering, searching and paging as required.</description>
-		<parameter type="boolean" name="reset" default="true">
-			Reset (default) or hold the current paging position. A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
+		<signature>draw( [paging] )</signature>
+		<description>Redraw the DataTables in the current context, optionally updating ordering, searching and paging as required.</description>
+		<parameter type="boolean|string" name="paging" default="true">
+			This parameter is used to determine what kind of draw DataTables will perform. There are three options available:
+
+			* `-string full-reset` or `true` (default) - the ordering and search will be recalculated and the rows redrawn in their new positions. The paging will be reset back to the first page.
+			* `-string full-hold` or `false` - the ordering and search will be recalculated and the rows redrawn in their new positions. The paging will **not** be reset - i.e. the current page will still be shown.
+			* `-string page` - ordering and search will not be updated and the paging position held where is was. This is useful for paging (i.e. `dt-api page()`) when data has not been changed between draws.
+
+			Please note that the string options require <span class="since">DataTables 1.10.8</span> or newer. Previous versions support only the boolean option.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>
 	</type>
@@ -18,7 +24,7 @@
 
 		A draw is not performed automatically by most DataTables API actions to allow grouping of actions (for example adding multiple rows is more efficient if you group them. Keep in mind that due to the chaining nature of the DataTables API calling the `dt-api draw()` method is just a case of adding `.draw()` to your other API method calls, as shown in the examples below.
 
-		Note that calling `dt-api draw()` will result in a full re-sort and re-filter of the table being performed.
+		Note that calling `dt-api draw()` with any option other than the first parameter being `-string page` will result in a full re-order and re-search of the table being performed. The `-string page` option is provided when you wish the table to be updated but for these actions not to occur (for example a page change does not require a full re-order / re-search).
 	</description>
 
 	<example title="Filter the table based on a custom input and redraw"><![CDATA[
@@ -40,10 +46,10 @@ table
 	.draw( false );
 ]]></example>
 
-	<example title="Change the table's page and then redraw"><![CDATA[
+	<example title="Change the table's page and then redraw (using the `-string page` option)"><![CDATA[
 var table = $('#example').DataTable();
 
-table.page( 'next' ).draw( false );
+table.page( 'next' ).draw( 'page' );
 ]]></example>
 
 	<related type="option">drawCallback</related>
