@@ -92,9 +92,9 @@ function _fnInitComplete ( settings, json )
 {
 	settings._bInitComplete = true;
 
-	// On an Ajax load we now have data and therefore want to apply the column
-	// sizing
-	if ( json ) {
+	// When data was added after the initialisation (data or Ajax) we need to
+	// calculate the column sizing
+	if ( json || settings.oInit.aaData ) {
 		_fnAdjustColumnSizing( settings );
 	}
 

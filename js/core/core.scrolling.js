@@ -276,32 +276,17 @@ function _fnScrollDraw ( settings )
 		) {
 			tableStyle.width = _fnStringToCss( table.outerWidth() - barWidth);
 		}
-	}
-	else
-	{
-		// x scrolling
-		if ( scrollXInner !== "" ) {
-			// x scroll inner has been given - use it
-			tableStyle.width = _fnStringToCss(scrollXInner);
-		}
-		else if ( sanityWidth == divBody.width() && divBody.height() < table.height() ) {
-			// There is y-scrolling - try to take account of the y scroll bar
-			tableStyle.width = _fnStringToCss( sanityWidth-barWidth );
-			if ( table.outerWidth() > sanityWidth-barWidth ) {
-				// Not possible to take account of it
-				tableStyle.width = _fnStringToCss( sanityWidth );
-			}
-		}
-		else {
-			// When all else fails
-			tableStyle.width = _fnStringToCss( sanityWidth );
-		}
-	}
 
-	// Recalculate the sanity width - now that we've applied the required width,
-	// before it was a temporary variable. This is required because the column
-	// width calculation is done before this table DOM is created.
-	sanityWidth = table.outerWidth();
+		// Recalculate the sanity width
+		sanityWidth = table.outerWidth();
+	}
+	else if ( scrollXInner !== "" ) {
+		// legacy x scroll inner has been given - use it
+		tableStyle.width = _fnStringToCss(scrollXInner);
+
+		// Recalculate the sanity width
+		sanityWidth = table.outerWidth();
+	}
 
 	// Hidden header should have zero height, so remove padding and borders. Then
 	// set the width based on the real headers

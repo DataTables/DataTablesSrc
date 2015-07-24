@@ -47,11 +47,9 @@ function _fnCalculateColumnWidths ( oSettings )
 	 * the web- browser. No custom sizes can be set in order for this to happen,
 	 * nor scrolling used
 	 */
-	if ( ie67 || (
-			! userInputs && ! scrollX && ! scrollY &&
-			columnCount == _fnVisbleColumns( oSettings ) &&
-			columnCount == headerCells.length
-		)
+	if ( ! userInputs && ! scrollX && ! scrollY &&
+	     columnCount == _fnVisbleColumns( oSettings ) &&
+	     columnCount == headerCells.length
 	) {
 		for ( i=0 ; i<columnCount ; i++ ) {
 			columns[i].sWidth = _fnStringToCss( headerCells.eq(i).width() );
@@ -118,19 +116,16 @@ function _fnCalculateColumnWidths ( oSettings )
 		else if ( scrollX ) {
 			tmpTable.css( 'width', 'auto' );
 
-			if ( tmpTable.width() < tableContainer.offsetWidth ) {
-				tmpTable.width( tableContainer.offsetWidth );
+			if ( tmpTable.width() < tableContainer.clientWidth ) {
+				tmpTable.width( tableContainer.clientWidth );
 			}
 		}
 		else if ( scrollY ) {
-			tmpTable.width( tableContainer.offsetWidth );
+			tmpTable.width( tableContainer.clientWidth );
 		}
 		else if ( tableWidthAttr ) {
 			tmpTable.width( tableWidthAttr );
 		}
-
-		// Take into account the y scrollbar
-		_fnScrollingWidthAdjust( oSettings, tmpTable[0] );
 
 		// Browsers need a bit of a hand when a width is assigned to any columns
 		// when x-scrolling as they tend to collapse the table to the min-width,
@@ -256,27 +251,6 @@ function _fnConvertToWidth ( width, parent )
 	n.remove();
 
 	return val;
-}
-
-
-/**
- * Adjust a table's width to take account of vertical scroll bar
- *  @param {object} oSettings dataTables settings object
- *  @param {node} n table node
- *  @memberof DataTable#oApi
- */
-
-function _fnScrollingWidthAdjust ( settings, n )
-{
-	var scroll = settings.oScroll;
-
-	if ( scroll.sX || scroll.sY ) {
-		// When y-scrolling only, we want to remove the width of the scroll bar
-		// so the table + scroll bar will fit into the area available, otherwise
-		// we fix the table at its current size with no adjustment
-		var correction = ! scroll.sX ? scroll.iBarWidth : 0;
-		n.style.width = _fnStringToCss( $(n).outerWidth() - correction );
-	}
 }
 
 
