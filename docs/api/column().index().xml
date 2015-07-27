@@ -10,7 +10,7 @@
 		<parameter type="string" name="type" default="data">
 			Specify if you want to get the column data index (default) or the visible index (`dt-string visible`).
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with selected column index in the result set.</returns>
+		<returns type="integer">The column index for the selected column.</returns>
 	</type>
 
 	<description>

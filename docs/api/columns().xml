@@ -14,8 +14,8 @@
 	</type>
 	<type type="function">
 		<signature>columns( columnSelector [, modifier ] )</signature>
-		<description>Select columns found by a cell selector</description>
-		<parameter type="cell-selector" name="columnSelector">
+		<description>Select columns found by a column selector</description>
+		<parameter type="column-selector" name="columnSelector">
 			Column selector.
 		</parameter>
 		<parameter type="selector-modifier" name="modifier" default="">
@@ -29,7 +29,7 @@
 
 		While `dt-api column()` provides access to a single column, this `dt-api columns()` method is used to allow multiple columns to be manipulated or modified at the same time.
 
-		The method has two forms, reflecting the fact the cells can be selected in multiple different ways as your implementation demands:
+		The method has two forms, reflecting the fact the columns can be selected in multiple different ways as your implementation demands:
 
 		* All columns (no parameters, or just a `dt-type selector-modifier` option)
 		* Columns selector (and optional `dt-type selector-modifier`)
