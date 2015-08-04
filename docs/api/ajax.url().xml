@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="core">
 	<name>ajax.url()</name>
-	<summary>Reload the table data from the Ajax data source</summary>
+	<summary>Get / set the URL that DataTables uses to Ajax fetch data</summary>
 	<since>1.10</since>
 
 	<type type="function">
