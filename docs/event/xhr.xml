@@ -38,7 +38,7 @@
 
 	<example title="Use a custom property returned from the server in another DOM element"><![CDATA[
 $('#example')
-	.on('xhr.dt', function ( e, settings, json ) {
+	.on('xhr.dt', function ( e, settings, json, xhr ) {
 		for ( var i=0, ien=json.aaData.length ; i<ien ; i++ ) {
 			json.aaData[i].sum = json.aaData[i].one + json.aaData[i].two;
 		}
@@ -51,7 +51,7 @@ $('#example')
 
 	<example title="Pre-process the data returned from the server"><![CDATA[
 $('#example')
-	.on('xhr.dt', function ( e, settings, json ) {
+	.on('xhr.dt', function ( e, settings, json, xhr ) {
 		$('#status').html( json.status );
 	} )
 	.dataTable( {
