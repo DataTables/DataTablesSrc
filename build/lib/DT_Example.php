@@ -12,6 +12,7 @@ class DT_Example
 	static $tables = array();
 	static $lookup_libraries = array();
 	static $components = array();
+	static $components_cdn = false;
 
 	private $_file = null;
 
@@ -485,7 +486,11 @@ class DT_Example
 		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
 			$file = $libs[$i]; // needs a path
 
-			if ( strpos($file, '//') !== 0 && strpos($file, './') !== 0 ) {
+			if ( strpos($file, '//') !== 0 &&
+				 strpos($file, './') !== 0 &&
+				 strpos($file, 'http://') !== 0 &&
+				 strpos($file, 'https://') !== 0
+			) {
 				$file = call_user_func( $this->_path_resolver, $file );
 			}
 
@@ -564,6 +569,17 @@ class DT_Example
 		$path = $component['path'];
 		$filename = $component['filename'];
 
+		if ( DT_Example::$components_cdn ) {
+			$path = 'https://cdn.datatables.net';
+
+			if ( $lib === 'datatables' ) {
+				$path .= '/'.$component['release'];
+			}
+			else {
+				$path .= '/'.$lib.'/'.$component['release'];
+			}
+		}
+
 		if ( $type === 'js' ) {
 			$jsBaseFilename = $lib === 'datatables' ?
 				'jquery' :
@@ -615,7 +631,7 @@ class DT_Example
 				continue;
 			}
 
-			$path = strpos($file, '//') !== 0 ?
+			$path = strpos($file, '//') !== 0 && strpos($file, 'https://') !== 0 ?
 				call_user_func( $this->_path_resolver, $file ) :
 				$file;
 
