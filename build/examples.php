@@ -252,7 +252,7 @@ DT_Example::$lookup_libraries['css']['jqueryui']     = '//code.jquery.com/ui/1.1
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js';
 DT_Example::$lookup_libraries['css']['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css';
 DT_Example::$lookup_libraries['js' ]['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js';
-DT_Example::$lookup_libraries['css']['foundation']   = '//cdn.jsdelivr.net/foundation/5.5.2/css/foundation.min.css';
+DT_Example::$lookup_libraries['css']['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css';
 DT_Example::$lookup_libraries['css']['font-awesome'] = '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css';
 DT_Example::$lookup_libraries['js']['jszip']         = '//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js';
 DT_Example::$lookup_libraries['js']['pdfmake']       = '//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js';
@@ -732,6 +732,11 @@ function read_structure ( &$examples, $dir, $index_template, $example_template, 
 {
 	global $dir_names;
 	$dh = opendir( $dir );
+
+	if ( $dh === false ) {
+		echo "Warning: Can't read: $dir\n";
+		return;
+	}
 
 	while (($file = readdir($dh)) !== false) {
 		if ( $file == '.' || $file == '..' ) {

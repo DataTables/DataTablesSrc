@@ -569,7 +569,7 @@ class DT_Example
 		$path = $component['path'];
 		$filename = $component['filename'];
 
-		if ( DT_Example::$components_cdn ) {
+		if ( DT_Example::$components_cdn && $lib !== 'editor' ) {
 			$path = 'https://cdn.datatables.net';
 
 			if ( $lib === 'datatables' ) {
@@ -580,18 +580,22 @@ class DT_Example
 			}
 		}
 
+		$min = DT_Example::$components_cdn ?
+			'.min' :
+			'';
+
 		if ( $type === 'js' ) {
 			$jsBaseFilename = $lib === 'datatables' ?
 				'jquery' :
 				'dataTables';
 
 			// Always include the core Javascript file.
-			$out[] = $path.'/js/'.$jsBaseFilename.'.'.$filename.'.js';
+			$out[] = $path.'/js/'.$jsBaseFilename.'.'.$filename.$min.'.js';
 
 			// Possibly include a framework Javascript file. If the framework is
 			// DataTables, then there will be no override JS file.
 			if ( $framework !== 'datatables' && $component['framework']['js'] ) {
-				$out[] = $path.'/js/'.$filename.'.'.$framework.'.js';
+				$out[] = $path.'/js/'.$filename.'.'.$framework.$min.'.js';
 			}
 		}
 		else if ( $type === 'css' ) {
@@ -599,10 +603,10 @@ class DT_Example
 			// framework option is a special case as its file name is slightly
 			// different
 			if ( $framework === 'datatables' && $lib === 'datatables' ) {
-				$out[] = $path.'/css/jquery.'.$filename.'.css';
+				$out[] = $path.'/css/jquery.'.$filename.$min.'.css';
 			}
 			else if ( $component['framework']['css'] ) {
-				$out[] = $path.'/css/'.$filename.'.'.$framework.'.css';
+				$out[] = $path.'/css/'.$filename.'.'.$framework.$min.'.css';
 			}
 		}
 
