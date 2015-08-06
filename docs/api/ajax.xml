@@ -14,7 +14,7 @@
 		Please refer to the documentation for each of those methods for details on how they operate.
 	</description>
 
-	<example title="Show an indiciation of how many rows are loaded"><![CDATA[
+	<example title="Show an indication of how many rows are loaded"><![CDATA[
 var table = $('#example').DataTable( {
 	ajax: "data.json"
 } );
