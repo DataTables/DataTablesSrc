@@ -10,6 +10,7 @@ function _fnInitialise ( settings )
 	var i, iLen, iAjaxStart=settings.iInitDisplayStart;
 	var columns = settings.aoColumns, column;
 	var features = settings.oFeatures;
+	var deferLoading = settings.bDeferLoading; // value modified by the draw
 
 	/* Ensure that the table data is fully initialised */
 	if ( ! settings.bInitialised ) {
@@ -51,7 +52,7 @@ function _fnInitialise ( settings )
 
 	// Server-side processing init complete is done by _fnAjaxUpdateDraw
 	var dataSrc = _fnDataSource( settings );
-	if ( dataSrc != 'ssp' ) {
+	if ( dataSrc != 'ssp' || deferLoading ) {
 		// if there is an ajax source load the data
 		if ( dataSrc == 'ajax' ) {
 			_fnBuildAjax( settings, [], function(json) {
