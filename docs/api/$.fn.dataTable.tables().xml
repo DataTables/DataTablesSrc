@@ -7,14 +7,14 @@
 	<type type="function">
 		<signature>tables( [ visible ] )</signature>
 		<description>Get all DataTable tables that have been initialised - optionally you can select to get only currently visible tables and / or retrieve the tables as API instances.</description>
-		<param type="boolean|object" name="visible" default="false">
+		<parameter type="boolean|object" name="visible" default="false">
 			As a boolean value this options is used to indicate if you want all tables on the page should be returned (`false`), or visible tables only (`true`).
 
 			Since 1.10.8 this option can also be given as an object which has the following optional parameters:
 
 			* `-type boolean` `visible` - Get only visible tables (`true`) or all tables regardless of visibility (`false`).
 			* `-type boolean` `api` - Return a `-type DataTable.Api` instance for the selected tables or an `-type array`
-		</param>
+		</parameter>
 		<returns type="array|DataTable.Api">Array or DataTables API instance containing all matching DataTables</returns>
 	</type>
 
