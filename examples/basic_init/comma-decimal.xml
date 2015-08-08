@@ -8,7 +8,7 @@
 <title>Language - Comma decimal place</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"language": {
 			"decimal": ",",
 			"thousands": "."

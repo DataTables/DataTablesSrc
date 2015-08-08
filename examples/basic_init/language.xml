@@ -8,7 +8,7 @@
 <title>Language options</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"language": {
 			"lengthMenu": "Display _MENU_ records per page",
 			"zeroRecords": "Nothing found - sorry",

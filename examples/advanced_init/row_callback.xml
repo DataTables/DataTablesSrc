@@ -14,7 +14,7 @@
 <js><![CDATA[
 
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"createdRow": function ( row, data, index ) {
 			if ( data[5].replace(/[\$,]/g, '') * 1 > 150000 ) {
 				$('td', row).eq(5).addClass('highlight');

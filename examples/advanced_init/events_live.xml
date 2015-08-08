@@ -9,7 +9,7 @@
 <js><![CDATA[
 
 $(document).ready(function() {
-	$('#example').dataTable();
+	$('#example').DataTable();
 	
 	$('#example tbody').on('click', 'tr', function () {
 		var name = $('td', this).eq(0).text();

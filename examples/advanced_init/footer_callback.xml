@@ -11,7 +11,7 @@
 <js><![CDATA[
 
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"footerCallback": function ( row, data, start, end, display ) {
 			var api = this.api(), data;
 

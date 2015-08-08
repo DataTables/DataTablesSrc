@@ -8,7 +8,7 @@
 <title>JSONP data source for remote domains</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"processing": true,
 		"serverSide": true,
 		"ajax": {

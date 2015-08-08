@@ -9,7 +9,7 @@
 <js><![CDATA[
 
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"initComplete": function () {
 			var api = this.api();
 			api.$('td').click( function () {

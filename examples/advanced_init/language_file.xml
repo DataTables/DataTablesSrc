@@ -9,7 +9,7 @@
 <js><![CDATA[
 
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"language": {
 			"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
 		}

@@ -17,7 +17,7 @@
 <js><![CDATA[
 
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"dom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>'
 	} );
 } );

@@ -12,7 +12,7 @@
 <title>Multiple tables</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('table.display').dataTable();
+	$('table.display').DataTable();
 } );
 ]]></js>
 

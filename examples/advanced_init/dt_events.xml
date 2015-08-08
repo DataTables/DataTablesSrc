@@ -19,7 +19,7 @@ $(document).ready(function() {
 		.on( 'order.dt',  function () { eventFired( 'Order' ); } )
 		.on( 'search.dt', function () { eventFired( 'Search' ); } )
 		.on( 'page.dt',   function () { eventFired( 'Page' ); } )
-		.dataTable();
+		.DataTable();
 } );
 
 ]]></js>

@@ -12,7 +12,7 @@
 <title>Flexible table width</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable();
+	$('#example').DataTable();
 } );
 ]]></js>
 

@@ -14,7 +14,7 @@
 <title>Scroll - horizontal</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"scrollX": true
 	} );
 } );

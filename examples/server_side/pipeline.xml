@@ -127,7 +127,7 @@ $.fn.dataTable.Api.register( 'clearPipeline()', function () {
 // DataTables initialisation
 //
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"processing": true,
 		"serverSide": true,
 		"ajax": $.fn.dataTable.pipeline( {

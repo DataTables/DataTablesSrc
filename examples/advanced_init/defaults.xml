@@ -15,7 +15,7 @@ $.extend( $.fn.dataTable.defaults, {
 
 
 $(document).ready(function() {
-	$('#example').dataTable();
+	$('#example').DataTable();
 } );
 
 ]]></js>

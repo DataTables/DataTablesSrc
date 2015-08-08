@@ -7,7 +7,7 @@
 <title>jQuery UI ThemeRoller</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable();
+	$('#example').DataTable();
 } );
 ]]></js>
 

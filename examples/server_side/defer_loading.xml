@@ -8,7 +8,7 @@
 <title>Deferred loading of data</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"processing": true,
 		"serverSide": true,
 		"ajax": "scripts/server_processing.php",

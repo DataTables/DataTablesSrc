@@ -11,7 +11,7 @@
 $(document).ready(function() {
 	var selected = [];
 
-	$("#example").dataTable({
+	$("#example").DataTable({
 		"processing": true,
 		"serverSide": true,
 		"ajax": "scripts/ids-arrays.php",

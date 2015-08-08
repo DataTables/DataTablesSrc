@@ -8,7 +8,7 @@
 <title>Scroll - vertical</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"scrollY":        "200px",
 		"scrollCollapse": true,
 		"paging":         false

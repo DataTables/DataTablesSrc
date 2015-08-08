@@ -27,7 +27,7 @@ $.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
 
 
 $(document).ready(function() {
-	$('#example').dataTable();
+	$('#example').DataTable();
 } );
 
 ]]></js>

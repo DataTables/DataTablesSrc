@@ -9,7 +9,7 @@
 <js><![CDATA[
 
 $(document).ready(function() {
-	$('#example').dataTable( {
+	$('#example').DataTable( {
 		"columnDefs": [ 
 			{
 				// The `data` parameter refers to the data for the cell (defined by the
