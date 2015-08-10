@@ -91,6 +91,7 @@ function _fnFeatureHtmlTable ( settings )
 		.append(
 			$(_div, { 'class': classes.sScrollBody } )
 				.css( {
+					position: 'relative',
 					overflow: 'auto',
 					height: size( scrollY ),
 					width: size( scrollX )

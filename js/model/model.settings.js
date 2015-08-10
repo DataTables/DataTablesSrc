@@ -227,7 +227,14 @@ DataTable.models.oSettings = {
 		 *  @type boolean
 		 *  @default false
 		 */
-		"bScrollbarLeft": false
+		"bScrollbarLeft": false,
+
+		/**
+		 * Flag for if `getBoundingClientRect` is fully supported or not
+		 *  @type boolean
+		 *  @default false
+		 */
+		"bBounding": false
 	},
 
 

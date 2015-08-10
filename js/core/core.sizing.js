@@ -24,7 +24,8 @@ function _fnCalculateColumnWidths ( oSettings )
 		tableContainer = table.parentNode,
 		userInputs = false,
 		i, column, columnIdx, width, outerWidth,
-		ie67 = oSettings.oBrowser.bScrollOversize;
+		browser = oSettings.oBrowser,
+		ie67 = browser.bScrollOversize;
 
 	var styleWidth = table.style.width;
 	if ( styleWidth && styleWidth.indexOf('%') !== -1 ) {
@@ -104,8 +105,24 @@ function _fnCalculateColumnWidths ( oSettings )
 			}
 		}
 
-		// Table has been built, attach to the document so we can work with it
-		tmpTable.appendTo( tableContainer );
+		// Table has been built, attach to the document so we can work with it.
+		// A holding element is used, positioned at the top of the container
+		// with minimal height, so it has no effect on if the container scrolls
+		// or not. Otherwise it might trigger scrolling when it actually isn't
+		// needed
+		var holder = $('<div/>').css( scrollX || scrollY ?
+				{
+					position: 'absolute',
+					top: 0,
+					left: 0,
+					height: 1,
+					right: 0,
+					overflow: 'hidden'
+				} :
+				{}
+			)
+			.append( tmpTable )
+			.appendTo( tableContainer );
 
 		// When scrolling (X or Y) we want to set the width of the table as 
 		// appropriate. However, when not scrolling leave the table width as it
@@ -138,7 +155,12 @@ function _fnCalculateColumnWidths ( oSettings )
 
 			for ( i=0 ; i<visibleColumns.length ; i++ ) {
 				column = columns[ visibleColumns[i] ];
-				outerWidth = $(headerCells[i]).outerWidth();
+
+				// Much prefer to use getBoundingClientRect due to its sub-pixel
+				// resolution, but IE8- do not support the width property.
+				outerWidth = browser.bBounding ?
+					headerCells[i].getBoundingClientRect().width :
+					$(headerCells[i]).outerWidth();
 
 				total += column.sWidthOrig === null ?
 					outerWidth :
@@ -162,7 +184,7 @@ function _fnCalculateColumnWidths ( oSettings )
 		table.style.width = _fnStringToCss( tmpTable.css('width') );
 
 		// Finished with the table - ditch it
-		tmpTable.remove();
+		holder.remove();
 	}
 
 	// If there is a width attr, we want to attach an event listener which

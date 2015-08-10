@@ -238,6 +238,9 @@ function _fnBrowserDetect( settings )
 	// scrollbar on the left, rather than the right.
 	browser.bScrollbarLeft = Math.round( test.offset().left ) !== 1;
 
+	// IE8- don't provide height and width for getBoundingClientRect
+	browser.bBounding = n[0].getBoundingClientRect().width ? true : false;
+
 	n.remove();
 }
 
