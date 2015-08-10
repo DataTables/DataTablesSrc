@@ -446,11 +446,12 @@ table.dataTable td {
 
 			color: $table-control-color !important;
 			border: 1px solid transparent;
+			border-radius: 2px;
 
 			&.current,
 			&.current:hover {
 				color: $table-control-color !important;
-				border: 1px solid darken( $table-paging-button-active, 7% );
+				border: 1px solid darken( $table-paging-button-active, 27% );
 				@include gradient(
 					lighten($table-paging-button-active, 28%),
 					$table-paging-button-active
