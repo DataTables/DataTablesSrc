@@ -172,6 +172,10 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				break;
 		}
 
+		if ( $html === '*' && $klass === 'type' ) {
+			return '<code>Any</code>';
+		}
+
 		return '<a href="'.$host.'/'.$klass.'/'.$this->_doUrlEncode($item).'">'.
 				'<code class="'.$klass.'" title="'.$lang.'">'.$html.'</code>'.
 			'</a>';
