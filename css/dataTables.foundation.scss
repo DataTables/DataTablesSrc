@@ -5,6 +5,13 @@ table.dataTable {
 	max-width: none !important;
 	width: 100%;
 
+	td,
+	th {
+		-webkit-box-sizing: content-box;
+		-moz-box-sizing: content-box;
+		box-sizing: content-box;
+	}
+
 	// Style options for the table. Foundation provides its own, but it is also
 	// useful to have a few more for DataTables
 	&.nowrap {
