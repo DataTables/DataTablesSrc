@@ -61,6 +61,8 @@ function scss_compile {
 
 	echo_msg "SCSS compiling $FILE.scss"
 	sass --scss --stop-on-error --style expanded $DIR/$FILE.scss > $DIR/$FILE.css
+
+	css_compress $DIR/$FILE.css
 }
 
 # Compile SCSS files for a specific extension and the supported frameworks
