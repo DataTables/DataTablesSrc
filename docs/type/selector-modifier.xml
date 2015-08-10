@@ -15,18 +15,23 @@ Special note on server-side processing: When using DataTables in server-side pro
 
 ### Options
 
-Fundamentally `dt-type selector-modifier` is an object with three properties. These properties, including their default values are:
+Fundamentally `dt-type selector-modifier` is an object with three built-in properties that can be used, and this can be extended by extensions such as [Select](/extensions/select). These properties, including their default values are:
 
 ```js
 {
-    order:  'current', // 'current', 'applied', 'index',  'original'
-    search: 'none',    // 'none',    'applied', 'removed'
-    page:   'all'      // 'all',     'current'
+	// DataTables core
+    order:  'current',  // 'current', 'applied', 'index',  'original'
+    page:   'all',      // 'all',     'current'
+    search: 'none',     // 'none',    'applied', 'removed'
+
+    // Extension - Select
+    selected: undefined // true, false, undefined
 }
 ```
 
+## Built-in options
 
-## order
+### order
 
 The `order` modifier provides the ability to control which order the rows are processed in. This can have an effect on the return from chained functions - for example `dt-api column().data()` can return the data for the column in the order that the table currently shows the data, or in the original data order.
 
@@ -40,19 +45,36 @@ The `order` modifier provides the ability to control which order the rows are pr
 Note that since the `dt-type selector-modifier` is optional, and `dt-string applied` is the default value for the column, the example below is the same as: `table.column( 3 ).data();` - it just sets the `order` parameter explicitly.
 
 ```js
-var table = $('#example').DataTable();
+var table = $('#myTable').DataTable();
 table.column( 3, {order:'current'} ).data();
 ```
 
 ###### Get the data from a column in data index order:
 
 ```js
-var table = $('#example').DataTable();
+var table = $('#myTable').DataTable();
 table.column( 3, {order:'index'} ).data();
 ```
 
 
-## search
+### page
+
+The `page` modifier allows you to control if the selector should consider all data in the table, regardless of paging, or if only the rows in the currently disabled page should be used.
+
+* `dt-string all` (default) - Use the rows from all pages
+* `dt-string current` - Use the rows from only the currently displayed page.
+
+**Important**: Setting `page` to be `dt-string current` implicitly sets `order=current` and `search=applied`. The `dt-string current` option doesn't make sense otherwise! These implied `order` and `search` values cannot be overridden by explicitly setting them.
+
+###### Get the data for the rows on the current page only:
+
+```js
+var table = $('#myTable').DataTable();
+table.rows( {page:'current'} ).data();
+```
+
+
+### search
 
 The `search` modifier provides the ability to govern which rows are used by the selector using the search options that are applied to the table.
 
@@ -65,33 +87,42 @@ Note that for backwards compatibility, the `search` term can also be provided as
 ###### Get the `dt-tag tr` elements for rows which match the search term applied to the table, in index order:
 
 ```js
-var table = $('#example').DataTable();
+var table = $('#myTable').DataTable();
 table.rows( {order:'index', search:'applied'} ).nodes();
 ```
 
 ###### Get removes which have been removed from the search:
 
 ```js
-var table = $('#example').DataTable();
+var table = $('#myTable').DataTable();
 table.rows( {search:'removed'} ).nodes();
 ```
 
 
-## page
 
-The `page` modifier allows you to control if the selector should consider all data in the table, regardless of paging, or if only the rows in the currently disabled page should be used.
+## Extensions
 
-* `dt-string all` (default) - Use the rows from all pages
-* `dt-string current` - Use the rows from only the currently displayed page.
+The following property requires the [Select extension](/extensions/select) to be loaded in order to be able to operate.
 
-**Important**: Setting `page` to be `dt-string current` implicitly sets `order=current` and `search=applied`. The `dt-string current` option doesn't make sense otherwise! These implied `order` and `search` values cannot be overridden by explicitly setting them.
 
-###### Get the data for the rows on the current page only:
+### selected
+
+The [Select extension](/extensions/select) for DataTables provides the ability to select items in the table (rows, columns and cells), and so it is important to be able to retrieve the items that the user has selected so you can perform some action on them.
+
+This option takes a boolean value, although it can also be `undefined`, which it is by default:
+
+* `-type undefined` (default) - No selection modification is performed
+* `true` - Only items that have been selected are retrieved
+* `false` - Only items that have _not_ been selected are retrieved.
+
+###### Get the data for the selected rows:
 
 ```js
-var table = $('#example').DataTable();
-table.rows( {page:'current'} ).data();
+var table = $('#myTable').DataTable();
+table.rows( {selected:true} ).data();
 ```
+
+Additional information about this property can be found in the [Select manual](/extensions/select/integration).
 
 
 	]]>
