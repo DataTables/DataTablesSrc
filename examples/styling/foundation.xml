@@ -7,10 +7,7 @@
 <title>Foundation</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').DataTable( {
-		scrollY: 200,
-		paging: false
-	} );
+	$('#example').DataTable();
 } );
 ]]></js>
 

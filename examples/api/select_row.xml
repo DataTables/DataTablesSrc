@@ -26,7 +26,7 @@ $(document).ready(function() {
 
 It can be quite useful at times to provide the user with the option to select rows in a DataTable. This can be done by simply using a click event to add / remove a class on the table rows. The `dt-api rows().data()` method can then be used to get the data for the selected rows. In this case it is simply counting the number of selected rows, but much more complex interactions can easily be developed.
 
-If you are looking for a more complete row selection option [TableTools for DataTables](http://datatables.net/extras/tabletools) provides a complete API for selecting rows and acting upon those selected rows.
+If you are looking for a more complete and easier to use row selection option, check out the [Select extension](https://datatables.net/extras/select) provides an API that is fully integrated with DataTables for selecting rows and acting upon those selected rows.
 
 ]]></info>
 

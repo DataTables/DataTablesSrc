@@ -9,11 +9,11 @@
 <js><![CDATA[
 
 $(document).ready(function() {
-	$('#example').DataTable();
+	var table = $('#example').DataTable();
 	
 	$('#example tbody').on('click', 'tr', function () {
-		var name = $('td', this).eq(0).text();
-		alert( 'You clicked on '+name+'\'s row' );
+		var data = table.row( this ).data();
+		alert( 'You clicked on '+data[0]+'\'s row' );
 	} );
 } );
 
@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 Events assigned to the table can be exceptionally useful for user interaction, however you must be aware that DataTables will add and remove rows from the DOM as they are needed (i.e. when paging only the visible elements are actually available in the DOM). As such, this can lead to the odd hiccup when working with events.
 
-One of the best ways of dealing with this is through the use of delegated events with jQuery's `on` method, as shown in this example.
+One of the best ways of dealing with this is through the use of delegated events with jQuery's `on` method, as shown in this example. This example also uses the DataTables `dt-api row().data()` method to retrieve information about the selected row - the row's data so we can show it in the `alert` message in this case.
 
 ]]></info>
 

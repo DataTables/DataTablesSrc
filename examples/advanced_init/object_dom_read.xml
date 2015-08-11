@@ -33,12 +33,12 @@ In the example shown here, the data read from each row in the table is read into
 
 ```js
 {
-	"name":       "...",
-	"position":   "...",
-	"office":     "...",
-	"age":        "...",
+	"name": "...",
+	"position": "...",
+	"office": "...",
+	"age": "...",
 	"start_date": "...",
-	"salary":     "..."
+	"salary": "..."
 }
 ```
 

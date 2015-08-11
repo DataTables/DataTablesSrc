@@ -26,7 +26,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-As is described by the basic DOM positioning example you can use the `dt-init dom` initialisation parameter to move DataTables features around the table to where you want them. In addition to this, you can also use `dt-init dom` to create multiple instances of these table controls. Simply include the feature's identification letter where you want it to appear, as many times as you wish, and the controls will all sync up (note that obviously the table ('t') should be included only once).
+As is described by the basic DOM positioning example you can use the `dt-init dom` initialisation parameter to move DataTables features around the table to where you want them.
+
+In addition to this, you can also use `dt-init dom` to create multiple instances of these table controls. Simply include the feature's identification letter where you want it to appear, as many times as you wish, and the controls will all sync up (note that obviously the table (`-string t`) should be included only once).
 
 This is shown in the demo below where for four key build-in features are duplicated above and below the table.
 

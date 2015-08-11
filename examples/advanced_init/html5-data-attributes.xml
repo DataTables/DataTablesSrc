@@ -23,7 +23,7 @@ One method in which DataTables can obtain this orthogonal data for its different
 * `data-sort` or `data-order` - for ordering data
 * `data-filter` or `data-search` - for search data
 
-This example shows the use of `data-sort` and `data-filter` attributes. In this case the first column has been formatted so the first name has abbreviated, but the full name is still searchable (search for "Bruno" for example). Additionally, although the last column contains non-numeric data in it (`/y`) the column will correctly order numerically as the `data-sort` / `data-order` attribute is set on the column with plain numeric data.
+This example shows the use of `data-sort` and `data-filter` attributes. In this case the first column has been formatted so the first name has abbreviated, but the full name is still searchable (search for "Bruno" for example). Additionally, although the last column contains non-numeric data in it, the column will correctly order numerically as the `data-sort` / `data-order` attribute is set on the column with plain numeric data.
 
 ]]></info>
 

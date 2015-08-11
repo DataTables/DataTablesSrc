@@ -41,6 +41,8 @@ In this example the Ajax source returns an array of objects, which DataTables us
 }
 ```
 
+For more details on loading a DataTable with Ajax data, please refer to the [Ajax section of the manual](https://datatables.net/manual/ajax).
+
 ]]></info>
 
 </dt-example>

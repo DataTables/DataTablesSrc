@@ -26,7 +26,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-There are times when you might find it useful to display only a sub-set of the information that was available in the original table. For example you might want to reduce the amount of data shown on screen to make it clearer for the user. This is done through the `dt-init columns.visible` column option.
+There are times when you might find it useful to display only a sub-set of the information that was available in the original table. For example you might want to reduce the amount of data shown on screen to make it clearer for the user (consider also using the [Responsive extension](https://datatables.net/extensions/responsive) for this). This is done through the `dt-init columns.visible` column option.
 
 The column that is hidden is still part of the table and can be made visible through the `api column().visible()` API method at a future time if you wish to have columns which can be shown and hidden.
 

@@ -35,6 +35,8 @@ The example below shows DataTables loading data for a table from arrays as the d
 ]
 ```
 
+For more details on loading a DataTable with Ajax data, please refer to the [Ajax section of the manual](https://datatables.net/manual/ajax).
+
 ]]></info>
 
 </dt-example>

@@ -29,6 +29,8 @@ The `dt-init ajax.dataSrc` has a number of ways in which it can be used:
 
 The example below shows `dt-init ajax.dataSrc` being used as a string to get the data from a different source property, in this case `string demo` but it could be any value, included a nested property by using standard dotted Javascript object notation.
 
+For more details on loading a DataTable with Ajax data, please refer to the [Ajax section of the manual](https://datatables.net/manual/ajax).
+
 
 ]]></info>
 

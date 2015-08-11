@@ -33,7 +33,7 @@ This example shows how you can make use of the `dt-api column().visible()` API m
 
 In addition to this, groups of columns can be shown and hidden at the same time using the `dt-api columns()` method to select multiple columns and then using the `dt-api columns().visible()` method to set their state.
 
-If you are looking for a more complete column visibility interaction controls [ColVis for DataTables](http://datatables.net/extras/colvis) provides a complete interface for allowing the user to show and hide columns in the table.
+If you are looking for a more complete column visibility interaction controls, check out the [Buttons extension for DataTables](https://datatables.net/extras/buttons) provides a comprehensive module for column visibility control.
 
 ]]></info>
 

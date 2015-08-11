@@ -34,7 +34,7 @@ This example shows a modification of the multiple row selection example, where j
 
 Also shown is the `dt-api row().remove()` method which will delete a row from a table, and the `dt-api draw()` method with `false ` as its first parameter. This will redraw the table keeping the current paging (without the `false` parameter the paging would be reset to the first page).
 
-If you are looking for a more complete row selection option [TableTools for DataTables](http://datatables.net/extras/tabletools) provides a complete API for selecting rows and acting upon those selected rows.
+If you are looking for a more complete and easier to use row selection option, check out the [Select extension](https://datatables.net/extras/select) provides an API that is fully integrated with DataTables for selecting rows and acting upon those selected rows.
 
 ]]></info>
 
