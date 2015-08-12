@@ -901,5 +901,12 @@ DataTable.models.oSettings = {
 	 *  @type function
 	 *  @default null
 	 */
+	"rowIdFn": null,
+
+	/**
+	 * Data location where to store a row's id
+	 *  @type string
+	 *  @default null
+	 */
 	"rowId": null
 };

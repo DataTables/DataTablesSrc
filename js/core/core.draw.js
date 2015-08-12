@@ -92,7 +92,7 @@ function _fnRowAttributes( settings, row )
 	var data = row._aData;
 
 	if ( tr ) {
-		var id = settings.rowId( data );
+		var id = settings.rowIdFn( data );
 
 		if ( id ) {
 			tr.id = id;

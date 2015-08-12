@@ -153,7 +153,7 @@ _api_registerPlural( 'rows().ids()', 'row().id()', function ( hash ) {
 	// `iterator` will drop undefined values, but in this case we want them
 	for ( var i=0, ien=context.length ; i<ien ; i++ ) {
 		for ( var j=0, jen=this[i].length ; j<jen ; j++ ) {
-			var id = context[i].rowId( context[i].aoData[ this[i][j] ]._aData );
+			var id = context[i].rowIdFn( context[i].aoData[ this[i][j] ]._aData );
 			a.push( (hash === true ? '#' : '' )+ id );
 		}
 	}

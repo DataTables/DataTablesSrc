@@ -143,6 +143,7 @@ _fnMap( oSettings, oInit, [
 	"fnStateSaveCallback",
 	"renderer",
 	"searchDelay",
+	"rowId",
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
 	[ "oSearch", "oPreviousSearch" ],
 	[ "aoSearchCols", "aoPreSearchCols" ],
@@ -170,7 +171,7 @@ _fnCallbackReg( oSettings, 'aoFooterCallback',     oInit.fnFooterCallback,    'u
 _fnCallbackReg( oSettings, 'aoInitComplete',       oInit.fnInitComplete,      'user' );
 _fnCallbackReg( oSettings, 'aoPreDrawCallback',    oInit.fnPreDrawCallback,   'user' );
 
-oSettings.rowId = _fnGetObjectDataFn( oInit.rowId );
+oSettings.rowIdFn = _fnGetObjectDataFn( oInit.rowId );
 
 var oClasses = oSettings.oClasses;
 

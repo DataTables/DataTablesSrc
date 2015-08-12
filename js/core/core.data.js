@@ -40,7 +40,7 @@ function _fnAddData ( oSettings, aDataIn, nTr, anTds )
 	/* Add to the display array */
 	oSettings.aiDisplayMaster.push( iRow );
 
-	var id = oSettings.rowId( aDataIn );
+	var id = oSettings.rowIdFn( aDataIn );
 	if ( id !== undefined ) {
 		oSettings.aIds[ id ] = oData;
 	}
@@ -653,6 +653,12 @@ function _fnGetRowElements( settings, row, colIdx, d )
 		for ( var j=0, jen=tds.length ; j<jen ; j++ ) {
 			cellProcess( tds[j] );
 		}
+	}
+
+	// Read the ID from the DOM if present
+	var id = row.getAttribute( 'id' );
+	if ( id ) {
+		_fnSetObjectDataFn( settings.rowId )( d, id );
 	}
 
 	return {
