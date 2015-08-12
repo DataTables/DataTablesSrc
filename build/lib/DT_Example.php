@@ -584,6 +584,11 @@ class DT_Example
 			'.min' :
 			'';
 
+		// DataTables uses a capital in the file name
+		if ( $framework === 'datatables' ) {
+			$framework = 'dataTables';
+		}
+
 		if ( $type === 'js' ) {
 			$jsBaseFilename = $lib === 'datatables' ?
 				'jquery' :
@@ -594,7 +599,7 @@ class DT_Example
 
 			// Possibly include a framework Javascript file. If the framework is
 			// DataTables, then there will be no override JS file.
-			if ( $framework !== 'datatables' && $component['framework']['js'] ) {
+			if ( $framework !== 'dataTables' && $component['framework']['js'] ) {
 				$out[] = $path.'/js/'.$filename.'.'.$framework.$min.'.js';
 			}
 		}
@@ -602,7 +607,7 @@ class DT_Example
 			// Possibly include a framework Javascript file. The DataTables
 			// framework option is a special case as its file name is slightly
 			// different
-			if ( $framework === 'datatables' && $lib === 'datatables' ) {
+			if ( $framework === 'dataTables' && $lib === 'datatables' ) {
 				$out[] = $path.'/css/jquery.'.$filename.$min.'.css';
 			}
 			else if ( $component['framework']['css'] ) {
