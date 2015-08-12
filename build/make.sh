@@ -68,6 +68,9 @@ function build_js {
 	cp jquery.js $OUT_DIR
 	cp integration/* $OUT_DIR
 
+	# Compress the integration files
+	js_frameworks dataTables $OUT_DIR
+
 	IFS=$OLD_IFS
 }
 
