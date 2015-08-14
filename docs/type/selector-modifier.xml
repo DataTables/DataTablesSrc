@@ -59,7 +59,7 @@ table.column( 3, {order:'index'} ).data();
 
 ### page
 
-The `page` modifier allows you to control if the selector should consider all data in the table, regardless of paging, or if only the rows in the currently disabled page should be used.
+The `page` modifier allows you to control if the selector should consider all data in the table, regardless of paging, or if only the rows in the currently displayed page should be used.
 
 * `dt-string all` (default) - Use the rows from all pages
 * `dt-string current` - Use the rows from only the currently displayed page.
