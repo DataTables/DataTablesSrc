@@ -86,7 +86,9 @@ function _fnCalculateColumnWidths ( oSettings )
 
 		for ( i=0 ; i<visibleColumns.length ; i++ ) {
 			column = columns[ visibleColumns[i] ];
-
+			if ( !headerCells[i] ) {
+		        	continue;
+	                }
 			headerCells[i].style.width = column.sWidthOrig !== null && column.sWidthOrig !== '' ?
 				_fnStringToCss( column.sWidthOrig ) :
 				'';
