@@ -8,7 +8,7 @@
 		<signature>draw( [paging] )</signature>
 		<description>Redraw the DataTables in the current context, optionally updating ordering, searching and paging as required.</description>
 		<parameter type="boolean|string" name="paging" default="true">
-			This parameter is used to determine what kind of draw DataTables will perform. There are three options available:
+			This parameter is used to determine what kind of draw DataTables will perform. There are three options available (note that the string options require DataTables 1.10.8 or newer):
 
 			* `-string full-reset` or `true` (default) - the ordering and search will be recalculated and the rows redrawn in their new positions. The paging will be reset back to the first page.
 			* `-string full-hold` or `false` - the ordering and search will be recalculated and the rows redrawn in their new positions. The paging will **not** be reset - i.e. the current page will still be shown.
