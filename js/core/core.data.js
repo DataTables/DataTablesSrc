@@ -656,9 +656,14 @@ function _fnGetRowElements( settings, row, colIdx, d )
 	}
 
 	// Read the ID from the DOM if present
-	var id = row.getAttribute( 'id' );
-	if ( id ) {
-		_fnSetObjectDataFn( settings.rowId )( d, id );
+	var rowNode = td ? row : row.nTr;
+
+	if ( rowNode ) {
+		var id = rowNode.getAttribute( 'id' );
+
+		if ( id ) {
+			_fnSetObjectDataFn( settings.rowId )( d, id );
+		}
 	}
 
 	return {
