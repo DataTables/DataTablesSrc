@@ -133,7 +133,7 @@ DT_Example::$components['buttons'] = [
 DT_Example::$components['colreorder'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/ColReorder' ),
 	'release' => $versions['ColReorder']['release']['version'],
-	'filename' => 'colreorder',
+	'filename' => 'colReorder',
 	'framework' => [
 		'css' => true,
 		'js' => false
@@ -229,7 +229,7 @@ if ( isset( $options['cdn'] ) ) {
 
 	DT_Example::$lookup_libraries['js' ]['buttons-flash']   = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.flash.min.js';
 	DT_Example::$lookup_libraries['js' ]['buttons-html5']   = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.html5.min.js';
-	DT_Example::$lookup_libraries['js' ]['buttons-colvis']  = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.colvis.min.js';
+	DT_Example::$lookup_libraries['js' ]['buttons-colvis']  = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.colVis.min.js';
 	DT_Example::$lookup_libraries['js' ]['buttons-print']   = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.print.min.js';
 }
 else {
