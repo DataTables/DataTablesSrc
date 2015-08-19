@@ -10,6 +10,10 @@ table.dataTable {
 		-webkit-box-sizing: content-box;
 		-moz-box-sizing: content-box;
 		box-sizing: content-box;
+
+		&.dataTables_empty {
+			text-align: center;
+		}
 	}
 
 	// Style options for the table. Foundation provides its own, but it is also
