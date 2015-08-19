@@ -206,7 +206,9 @@ _Api = function ( context, data )
 
 DataTable.Api = _Api;
 
-_Api.prototype = /** @lends DataTables.Api */{
+// Don't destroy the existing prototype, just extend it. Required for jQuery 2's
+// isPlainObject.
+$.extend( _Api.prototype, {
 	any: function ()
 	{
 		return this.count() !== 0;
@@ -452,7 +454,7 @@ _Api.prototype = /** @lends DataTables.Api */{
 
 
 	unshift: __arrayProto.unshift
-};
+} );
 
 
 _Api.extend = function ( scope, obj, ext )
