@@ -4,7 +4,10 @@
 
 CLOSURE="/usr/local/closure_compiler/compiler.jar"
 JSDOC="/usr/local/jsdoc/jsdoc"
+JSHINT="/usr/bin/jshint"
 
+
+# CSS styling frameworks that DataTables supports
 FRAMEWORKS=(
 	'bootstrap'
 	'foundation'
@@ -20,19 +23,19 @@ function version_from_file {
 # $1 - string - section name to echo
 function echo_section {
 	# Cyan
-	echo "\033[0;36m  ${1}\033[0m"
+	printf "\033[0;36m  %s\033[0m \n" "$1"
 }
 
 # $1 - string - message to echo
 function echo_msg {
 	# Green
-	echo "\033[0;32m    ${1}\033[0m"
+	printf "\033[0;32m    %s\033[0m \n" "$1"
 }
 
 # $1 - string - error to echo
 function echo_error {
 	# Red
-	echo "\033[0;31m  ${1}\033[0m"
+	printf "\033[0;31m  %s\033[0m \n" "$1"
 }
 
 # Will compress a CSS file using SASS, saving the new file into the same

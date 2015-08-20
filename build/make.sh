@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 . include.sh
 
@@ -56,11 +56,16 @@ function build_js {
 	mv DataTables.js.build $OUT_FILE
 
 	# JSHint
-	jshint --config $SCRIPT_DIR/jshint.config $OUT_FILE
-	if [ $? -eq 0 ]; then
-		echo_msg "JSHint passed"
+	if [ -e $JSHINT ]; then
+		$JSHINT --config $SCRIPT_DIR/jshint.config $OUT_FILE
+
+		if [ $? -eq 0 ]; then
+			echo_msg "JSHint passed"
+		else
+			echo_error "JSHint failed"
+		fi
 	else
-		echo_error "JSHint failed"
+		echo_error "JSHint not installed at $JSHINT - skipping"
 	fi
 
 	js_compress $OUT_FILE
@@ -311,12 +316,16 @@ function usage {
 
       extension <ext> [debug] - Extension to build where <ext> is one of:
         - AutoFill
+        - Buttons
         - ColVis
         - ColReorder
         - FixedColumns
         - FixedHeader
         - KeyTable
+        - RowReorder
+        - Responsive
         - Scroller
+        - Select
         - TableTools
 
     and the optional [debug] parameter can be used to disable JS and CSS

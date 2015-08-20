@@ -190,6 +190,10 @@ class DT_Example
 
 	private function _htmlTidy( $html )
 	{
+		if ( ! class_exists( 'tidy' ) ) {
+			return $html;
+		}
+
 		$hasEmptyTbody = strpos( $html, '<tbody/>' );
 		$tidy = new tidy();
 		$tidy->parseString( $html, array(
