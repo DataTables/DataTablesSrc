@@ -13,9 +13,9 @@
 			Since 1.10.8 this option can also be given as an object which has the following optional parameters:
 
 			* `-type boolean` `visible` - Get only visible tables (`true`) or all tables regardless of visibility (`false`).
-			* `-type boolean` `api` - Return a `-type DataTable.Api` instance for the selected tables or an `-type array`
+			* `-type boolean` `api` - Return a `-type DataTables.Api` instance for the selected tables or an `-type array`
 		</parameter>
-		<returns type="array|DataTable.Api">Array or DataTables API instance containing all matching DataTables</returns>
+		<returns type="array|DataTables.Api">Array or DataTables API instance containing all matching DataTables</returns>
 	</type>
 
 	<description>
