@@ -173,6 +173,9 @@ _fnCallbackReg( oSettings, 'aoPreDrawCallback',    oInit.fnPreDrawCallback,   'u
 
 oSettings.rowIdFn = _fnGetObjectDataFn( oInit.rowId );
 
+/* Browser support detection */
+_fnBrowserDetect( oSettings );
+
 var oClasses = oSettings.oClasses;
 
 // @todo Remove in 1.11
@@ -202,11 +205,6 @@ else
 }
 $this.addClass( oClasses.sTable );
 
-/* Calculate the scroll bar width and cache it for use later on */
-if ( oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "" )
-{
-	oSettings.oScroll.iBarWidth = _fnScrollBarWidth();
-}
 
 if ( oSettings.iInitDisplayStart === undefined )
 {
@@ -398,9 +396,6 @@ _fnCallbackReg( oSettings, 'aoDrawCallback', function () {
  * Final init
  * Cache the header, body and footer as required, creating them if needed
  */
-
-/* Browser support detection */
-_fnBrowserDetect( oSettings );
 
 // Work around for Webkit bug 83867 - store the caption-side before removing from doc
 var captions = $this.children('caption').each( function () {

@@ -234,7 +234,14 @@ DataTable.models.oSettings = {
 		 *  @type boolean
 		 *  @default false
 		 */
-		"bBounding": false
+		"bBounding": false,
+
+		/**
+		 * Browser scrollbar width
+		 *  @type integer
+		 *  @default 0
+		 */
+		"barWidth": 0
 	},
 
 

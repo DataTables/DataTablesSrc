@@ -346,37 +346,3 @@ function _fnStringToCss( s )
 		s;
 }
 
-
-/**
- * Get the width of a scroll bar in this browser being used
- *  @returns {int} width in pixels
- *  @memberof DataTable#oApi
- */
-function _fnScrollBarWidth ()
-{
-	// On first run a static variable is set, since this is only needed once.
-	// Subsequent runs will just use the previously calculated value
-	var width = DataTable.__scrollbarWidth;
-
-	if ( width === undefined ) {
-		var sizer = $('<p/>').css( {
-				position: 'absolute',
-				top: 0,
-				left: 0,
-				width: '100%',
-				height: 150,
-				padding: 0,
-				overflow: 'scroll',
-				visibility: 'hidden'
-			} )
-			.appendTo('body');
-
-		width = sizer[0].offsetWidth - sizer[0].clientWidth;
-		DataTable.__scrollbarWidth = width;
-
-		sizer.remove();
-	}
-
-	return width;
-}
-
