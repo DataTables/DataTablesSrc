@@ -53,7 +53,11 @@ function _fnCalculateColumnWidths ( oSettings )
 	     columnCount == headerCells.length
 	) {
 		for ( i=0 ; i<columnCount ; i++ ) {
-			columns[i].sWidth = _fnStringToCss( headerCells.eq(i).width() );
+			var colIdx = _fnVisibleToColumnIndex( oSettings, i );
+
+			if ( colIdx ) {
+				columns[ colIdx ].sWidth = _fnStringToCss( headerCells.eq(i).width() );
+			}
 		}
 	}
 	else
