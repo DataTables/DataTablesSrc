@@ -78,9 +78,13 @@ div.dataTables_wrapper {
 
 // Sorting - using Glyphicons
 table.dataTable thead {
-	 > tr > th,
-	 > tr > td {
-		padding-right: 30px;
+	> tr > th,
+	> tr > td {
+		&.sorting_asc,
+		&.sorting_desc,
+		&.sorting {
+			padding-right: 30px;
+		}
 
 		&:active {
 			outline: none;

@@ -68,9 +68,13 @@ div.dataTables_wrapper {
 
 // Sorting
 table.dataTable thead {
-	th,
-	td {
-		padding-right: 1.5rem;
+	> tr > th,
+	> tr > td {
+		&.sorting_asc,
+		&.sorting_desc,
+		&.sorting {
+			padding-right: 1.5rem;
+		}
 
 		&:active {
 			outline: none;
