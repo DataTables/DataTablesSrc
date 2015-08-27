@@ -315,7 +315,7 @@ if ( rowOne.length ) {
 		return cell.getAttribute( 'data-'+name ) !== null ? name : null;
 	};
 
-	$.each( _fnGetRowElements( oSettings, rowOne[0] ).cells, function (i, cell) {
+	$( rowOne[0] ).children('th, td').each( function (i, cell) {
 		var col = oSettings.aoColumns[i];
 
 		if ( col.mData === i ) {
