@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="rows">
 	<name>row().data()</name>
-	<summary>Get / set the data for the selected rows.</summary>
+	<summary>Get / set the data for the selected row.</summary>
 	<since>1.10</since>
 
 	<type type="function">
@@ -15,7 +15,7 @@
 		<parameter type="array|object" name="d">
 			Data to use for the row. This may be an array, object or Javascript object instance, but must be in the same format as the other data in the table (i.e. if your table uses objects, pass in an object here!).
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with the rows retrieved by the selector in the result set.</returns>
+		<returns type="DataTables.Api">DataTables API instance with the row retrieved by the selector in the result set.</returns>
 	</type>
 
 	<description>
