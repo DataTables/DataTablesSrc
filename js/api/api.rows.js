@@ -166,6 +166,7 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 
 	this.iterator( 'row', function ( settings, row, thatIdx ) {
 		var data = settings.aoData;
+		var rowData = data[ row ];
 
 		data.splice( row, 1 );
 
@@ -183,6 +184,12 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 
 		// Check for an 'overflow' they case for displaying the table
 		_fnLengthOverflow( settings );
+
+		// Remove the row's ID reference if there is one
+		var id = settings.rowIdFn( rowData._aData );
+		if ( id !== undefined ) {
+			delete settings.aIds[ id ];
+		}
 	} );
 
 	this.iterator( 'table', function ( settings ) {
