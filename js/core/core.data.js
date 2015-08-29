@@ -345,6 +345,11 @@ function _fnSetObjectDataFn( mSource )
 	{
 		/* Like the get, we need to get data from a nested object */
 		var setData = function (data, val, src) {
+			// early return on null values
+			if (val === null)
+			{
+				return;
+			}
 			var a = _fnSplitObjNotation( src ), b;
 			var aLast = a[a.length-1];
 			var arrayNotation, funcNotation, o, innerSrc;
