@@ -342,6 +342,6 @@ function _fnAjaxDataSrc ( oSettings, json )
 	}
 
 	return dataSrc !== "" ?
-		_fnGetObjectDataFn( dataSrc )( json ) :
+		_fnGetObjectDataFn( dataSrc, oSettings )( json ) :
 		json;
 }

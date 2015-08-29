@@ -295,9 +295,14 @@ function _fnGetWidestNode( settings, colIdx )
 	}
 
 	var data = settings.aoData[ idx ];
-	return ! data.nTr ? // Might not have been created when deferred rendering
-		$('<td/>').html( _fnGetCellData( settings, idx, colIdx, 'display' ) )[0] :
-		data.anCells[ colIdx ];
+	if(data.nTr) {
+		return data.anCells[ colIdx ];
+	} else {
+		// Might not have been created when deferred rendering
+		var tempTd = document.createElement("td");
+		_fnGetCellData.call( tempTd, settings, idx, colIdx, 'display' );
+		return tempTd;
+	}
 }
 
 
@@ -313,7 +318,7 @@ function _fnGetMaxLenString( settings, colIdx )
 	var s, max=-1, maxIdx = -1;
 
 	for ( var i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
-		s = _fnGetCellData( settings, i, colIdx, 'display' )+'';
+		s = _fnGetCellData( settings, i, colIdx, 'adjust' )+'';
 		s = s.replace( __re_html_remove, '' );
 
 		if ( s.length > max ) {

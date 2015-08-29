@@ -97,8 +97,8 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 
 	/* Cache the data get and set functions for speed */
 	var mDataSrc = oCol.mData;
-	var mData = _fnGetObjectDataFn( mDataSrc );
-	var mRender = oCol.mRender ? _fnGetObjectDataFn( oCol.mRender ) : null;
+	var mData = _fnGetObjectDataFn( mDataSrc, oSettings );
+	var mRender = oCol.mRender ? _fnGetObjectDataFn( oCol.mRender, oSettings ) : null;
 
 	var attrTest = function( src ) {
 		return typeof src === 'string' && src.indexOf('@') !== -1;
@@ -111,7 +111,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		var innerData = mData( rowData, type, undefined, meta );
 
 		return mRender && type ?
-			mRender( innerData, type, rowData, meta ) :
+			mRender.call( this, innerData, type, rowData, meta ) :
 			innerData;
 	};
 	oCol.fnSetData = function ( rowData, val, meta ) {

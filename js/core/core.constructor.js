@@ -142,6 +142,7 @@ _fnMap( oSettings, oInit, [
 	"fnStateLoadCallback",
 	"fnStateSaveCallback",
 	"renderer",
+	"newCellRender",
 	"searchDelay",
 	"rowId",
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
