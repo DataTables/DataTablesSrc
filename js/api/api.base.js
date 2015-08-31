@@ -173,7 +173,7 @@ _Api = function ( context, data )
 	var ctxSettings = function ( o ) {
 		var a = _toSettings( o );
 		if ( a ) {
-			settings.push.apply( settings, a );
+			settings = settings.concat( a );
 		}
 	};
 
@@ -191,7 +191,7 @@ _Api = function ( context, data )
 
 	// Initial data
 	if ( data ) {
-		this.push.apply( this, data.toArray ? data.toArray() : data );
+		$.merge( this, data );
 	}
 
 	// selector

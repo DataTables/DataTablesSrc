@@ -168,7 +168,7 @@ function _fnFilterCustom( settings )
 		// So the array reference doesn't break set the results into the
 		// existing array
 		displayRows.length = 0;
-		displayRows.push.apply( displayRows, rows );
+		$.merge( displayRows, rows );
 	}
 }
 

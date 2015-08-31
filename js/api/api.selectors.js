@@ -23,7 +23,7 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 			res = selectFn( typeof a[j] === 'string' ? $.trim(a[j]) : a[j] );
 
 			if ( res && res.length ) {
-				out.push.apply( out, res );
+				out = out.concat( res );
 			}
 		}
 	}

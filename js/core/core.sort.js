@@ -18,7 +18,7 @@ function _fnSortFlatten ( settings )
 			}
 			else {
 				// 2D array
-				nestedSort.push.apply( nestedSort, a );
+				$.merge( nestedSort, a );
 			}
 		};
 
