@@ -50,7 +50,7 @@ $('#example').dataTable( {
     var api = this.api();
     var pageInfo = api.page.info();
 
-    return 'Page '+ (pageInfo+1) +' of '+ pageInfo.pages;
+    return 'Page '+ (pageInfo.page+1) +' of '+ pageInfo.pages;
   }
 } );
 ]]></example>
