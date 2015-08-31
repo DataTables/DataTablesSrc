@@ -36,7 +36,7 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 		}
 	}
 
-	return out;
+	return _unique( out );
 };
 
 
