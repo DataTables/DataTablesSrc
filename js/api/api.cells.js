@@ -29,7 +29,7 @@ var __cell_selector = function ( settings, selector, opts )
 
 					if ( fnSelector ) {
 						// Selector - function
-						host = settings.aoData[ row ];
+						host = data[ row ];
 
 						if ( s( o, _fnGetCellData(settings, row, j), host.anCells ? host.anCells[j] : null ) ) {
 							a.push( o );
@@ -54,7 +54,19 @@ var __cell_selector = function ( settings, selector, opts )
 		return allCells
 			.filter( s )
 			.map( function (i, el) {
-				row = el.parentNode._DT_RowIndex;
+				if ( el.parentNode ) {
+					row = el.parentNode._DT_RowIndex;
+				}
+				else {
+					// If no parent node, then the cell is hidden and we'll need
+					// to traverse the array to find it
+					for ( i=0, ien=data.length ; i<ien ; i++ ) {
+						if ( $.inArray( el, data[i].anCells ) !== -1 ) {
+							row = i;
+							break;
+						}
+					}
+				}
 
 				return {
 					row: row,
