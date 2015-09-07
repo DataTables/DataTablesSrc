@@ -8,7 +8,7 @@
 		<description>
 			Prefix ordering.
 
-			When given as an array, the ordering specified by `dt-init orderFixed` will be applied as a prefix order. The format of the array is the same as for the `dt-init order` option, and can be a 1D array for a single column order, or a 2D array for a multi-column order.
+			When given as an array, the ordering specified by `dt-init orderFixed` will be applied as a prefix order. The format of the array is described above.
 		</description>
 	</type>
 	<type type="object">
@@ -17,16 +17,23 @@
 
 			When given as an object, the `pre` and / or `post` parameters can be used to specify prefix and / or postfix ordering, respectively. neither option is required, so you can specify the option that you need only.
 
-			As with the simple array format, the format of the arrays used are the same as for the `dt-init order` option, and can be a 1D array for a single column order, or a 2D array for a multi-column order.
+			As with the simple array option, the format of the arrays used described above.
 		</description>
 	</type>
 
 	<description>
 		The option works in tandem with the `dt-init order` option which provides an initial ordering state for the table which can then be modified by the user clicking on column headings, while the ordering specified by this option will always be applied to the table, regardless of user interaction.
 
-		This fixed ordering can be applied before or after the user's own ordering criteria using the two different forms of this option (array or object).
+		This fixed ordering can be applied before (`pre`) or after (`post`) the user's own ordering criteria using the two different forms of this option (array or object) described below.
 
-		This may be useful if you a column (visible or hidden) which must always be sorted upon first - a priority order or index column for example, or for grouping similar rows together.
+		The values that are used to describe the ordering conditions for the table are given as two element arrays:
+
+		* Column index to order upon
+		* Direction so order to apply (`-string asc` for ascending order or `-string desc` for descending order).
+
+		It is also possible to give a set of nested arrays (i.e. arrays in arrays) to allow multi-column ordering to be assigned.
+
+		This option can be useful if you a column (visible or hidden) which must always be sorted upon first - a priority order or index column for example, or for grouping similar rows together.
 	</description>
 
 	<example title="The first column will always be sorted upon first"><![CDATA[

@@ -11,7 +11,7 @@
 		If ordering is enabled (`dt-init ordering`), then DataTables will perform a first pass order during initialisation. Using this parameter you can define which column(s) the order is performed upon, and the ordering direction. The `dt-init order` must be an array of arrays, each inner array comprised of two elements:
 
 		* Column index to order upon
-		* Direction so order to apply (`string asc` or `string desc`)
+		* Direction so order to apply (`-string asc` for ascending order or `-string desc` for descending order).
 
 		This 2D array structure allows a multi-column order to be defined as the initial state should it be required.
 	</description>
