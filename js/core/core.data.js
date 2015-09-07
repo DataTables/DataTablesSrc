@@ -669,7 +669,7 @@ function _fnGetRowElements( settings, row, colIdx, d )
 	}
 
 	// Read the ID from the DOM if present
-	var rowNode = td ? row : row.nTr;
+	var rowNode = row.firstChild ? row : row.nTr;
 
 	if ( rowNode ) {
 		var id = rowNode.getAttribute( 'id' );
