@@ -40,6 +40,19 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		$host = '//datatables.net/reference';
 		$lang = '';
 
+		if ( strpos($item, '|') !== false ) {
+			$a = explode('|', $item);
+			$s = array();
+
+			for ( $i=0, $ien=count($a) ; $i<$ien ; $i++ ) {
+				$s[] = self::_docLink( $software, $type, $a[$i],
+					htmlspecialchars(trim($a[$i]), ENT_NOQUOTES)
+				);
+			}
+
+			return implode(' or ', $s);
+		}
+
 		// For 'type' links, we override the software
 		if ( $type === 'type' ) {
 			if ( in_array( $item, array(
