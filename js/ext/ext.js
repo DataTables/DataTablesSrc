@@ -35,6 +35,14 @@ DataTable.ext = _ext = {
 
 
 	/**
+	 * DataTables build type (expanded by the download builder)
+	 *
+	 *  @type string
+	 */
+	builder: "-source-",
+
+
+	/**
 	 * Error reporting.
 	 * 
 	 * How should DataTables report an error. Can take the value 'alert',
