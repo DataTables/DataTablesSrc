@@ -22,7 +22,7 @@
 			$aScripts = explode( ":", $_GET['scripts'] );
 			for ( $i=0 ; $i<count($aScripts) ; $i++ )
 			{
-				echo '<script type="text/javascript" language="javascript" src="../'.$aScripts[$i].'?rand='.rand().'"></script>'."\n";
+				echo '<script type="text/javascript" language="javascript" src="../'.htmlentities($aScripts[$i]).'?rand='.rand().'"></script>'."\n";
 			}
 		?>
 	</head>
