@@ -5,7 +5,9 @@
 	<since>1.10</since>
 
 	<type type="string" />
-	<default value="" />
+	<default value="">
+		An empty string value, as is the default here, causes DataTables to use a dot (`.`) as the decimal point.
+	</default>
 
 	<description>
 	<![CDATA[
