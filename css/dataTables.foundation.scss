@@ -28,6 +28,8 @@ table.dataTable {
 
 // DataTables' built in feature elements
 div.dataTables_wrapper {
+	position: relative;
+
 	div.dataTables_length {
 		label {
 			float: left;
@@ -62,6 +64,17 @@ div.dataTables_wrapper {
 	div.dataTables_paginate {
 		float: right;
 		margin: 0;
+	}
+
+	div.dataTables_processing {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 200px;
+		margin-left: -100px;
+		margin-top: -26px;
+		text-align: center;
+		padding: 1rem 0;
 	}
 }
 
