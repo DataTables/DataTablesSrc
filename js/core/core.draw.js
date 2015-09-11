@@ -38,6 +38,8 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			oCol = oSettings.aoColumns[i];
 
 			nTd = nTrIn ? anTds[i] : document.createElement( oCol.sCellType );
+			nTd._DT_CellIndex = { row: iRow, column: i };
+			
 			cells.push( nTd );
 
 			// Need to create the HTML if new, or if a rendering function is defined
