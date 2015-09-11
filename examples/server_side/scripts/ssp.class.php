@@ -78,6 +78,34 @@ class SSP {
 
 		return $conn;
 	}
+	
+	
+	/**
+	 * Find the correct column name
+	 *
+	 * This is for the custom method. 
+	 * With a column table called 'gallery_image' and a column name like "image_name"
+	 * it will search first for column_name.image_name and 
+	 * then for column_name.any_name AS image_name
+	 * and it will change the $column['db'] string for gallery_image`.`image_name
+	 * so it will be posible for inner joins, group functions, cases, etc
+	 *
+	 *  @param  array $select SELECT statement from the custom method
+	 *  @param  array $columns Column information array
+	 *  @return array $columns Column information array with the correct columns
+	 */
+	static function correct_column_db_name($select, $column){
+		
+		preg_match("/(\w*)\.".$column['db']."/", $select, $output);
+		if (count($output) > 0)
+			$column['db'] = $output[1].'`.`'.$column['db'];
+		
+		preg_match("/(\w*)\.(\w*)[^,]* AS ".$column['db']."/", $select, $output);
+		if (count($output) > 0)
+			$column['db'] = $output[1].'`.`'.$output[2];
+		
+		return $column;
+	}
 
 
 	/**
@@ -108,9 +136,10 @@ class SSP {
 	 *
 	 *  @param  array $request Data sent to server by DataTables
 	 *  @param  array $columns Column information array
+	 *  @param  array $select SELECT statement from the custom method
 	 *  @return string SQL order by clause
 	 */
-	static function order ( $request, $columns )
+	static function order ( $request, $columns, $select = null)
 	{
 		$order = '';
 
@@ -125,6 +154,9 @@ class SSP {
 
 				$columnIdx = array_search( $requestColumn['data'], $dtColumns );
 				$column = $columns[ $columnIdx ];
+				
+				if ($select != null)
+					$column = self::correct_column_db_name($select, $column);
 
 				if ( $requestColumn['orderable'] == 'true' ) {
 					$dir = $request['order'][$i]['dir'] === 'asc' ?
@@ -155,21 +187,27 @@ class SSP {
 	 *  @param  array $columns Column information array
 	 *  @param  array $bindings Array of values for PDO bindings, used in the
 	 *    sql_exec() function
+	 *  @param  array $select SELECT statement from the custom method
 	 *  @return string SQL where clause
 	 */
-	static function filter ( $request, $columns, &$bindings )
+	static function filter ( $request, $columns, &$bindings, $select = null)
 	{
 		$globalSearch = array();
 		$columnSearch = array();
 		$dtColumns = self::pluck( $columns, 'dt' );
+		
 
 		if ( isset($request['search']) && $request['search']['value'] != '' ) {
 			$str = $request['search']['value'];
 
 			for ( $i=0, $ien=count($request['columns']) ; $i<$ien ; $i++ ) {
 				$requestColumn = $request['columns'][$i];
+				
 				$columnIdx = array_search( $requestColumn['data'], $dtColumns );
 				$column = $columns[ $columnIdx ];
+				
+				if ($select != null)
+					$column = self::correct_column_db_name($select, $column);
 
 				if ( $requestColumn['searchable'] == 'true' ) {
 					$binding = self::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
@@ -183,6 +221,9 @@ class SSP {
 			$requestColumn = $request['columns'][$i];
 			$columnIdx = array_search( $requestColumn['data'], $dtColumns );
 			$column = $columns[ $columnIdx ];
+			
+			if ($select != null)
+				$column = self::correct_column_db_name($select, $column);
 
 			$str = $requestColumn['search']['value'];
 
@@ -364,10 +405,12 @@ class SSP {
 	/**
 	 * The difference between this method and the `complex` one, is that you can
 	 * do custom queries to the database like joins, count, sum, etc, Example:
-	 *
+	 *	
 	 *	$select = '	gallery_image.id AS id,
 	 *				gallery.name,
 	 *				gallery_image.name AS image_name,
+	 *				(CASE  WHEN gallery_image.id > 16 THEN true ELSE false END) AS is_new,
+	 *				(CASE  WHEN gallery_image.id <= 16 THEN true ELSE false END) AS is_old,
 	 *				gallery_image.image,
 	 *				gallery.date,
 	 *				gallery.category,
@@ -387,10 +430,11 @@ class SSP {
 	 *  @param  array $columns Column information array
 	 *  @param  string $whereResult WHERE condition to apply to the result set
 	 *  @param  string $whereAll WHERE condition to apply to all queries
+	 *  @param  string $groupBy GROUP BY condition to apply to all queries
 	 *  @return array          Server-side processing response array
 	 */
 	
-	static function custom ( $request, $conn, $select, $from, $primaryKey, $columns, $whereResult=null, $whereAll=null )
+	static function custom ( $request, $conn, $select, $from, $primaryKey, $columns, $whereResult=null, $whereAll=null, $groupBy = '' )
 	{
 		$bindings = array();
 		$db = self::db( $conn );
@@ -400,8 +444,8 @@ class SSP {
 
 		// Build the SQL query string from the request
 		$limit = self::limit( $request, $columns );
-		$order = self::order( $request, $columns );
-		$where = self::filter( $request, $columns, $bindings );
+		$order = self::order( $request, $columns, $select );
+		$where = self::filter( $request, $columns, $bindings, $select );
 
 		$whereResult = self::_flatten( $whereResult );
 		$whereAll = self::_flatten( $whereAll );
@@ -419,13 +463,17 @@ class SSP {
 
 			$whereAllSql = 'WHERE '.$whereAll;
 		}
-
+		
+		if ($groupBy != '')
+			$groupBy = 'GROUP BY '.$groupBy;
+		
 		// Main query to actually get the data
 		$data = self::sql_exec( $db, $bindings,
 			"SELECT SQL_CALC_FOUND_ROWS 
 				$select 
 			FROM $from 
 				$where 
+				$groupBy 
 				$order 
 				$limit"
 		);
