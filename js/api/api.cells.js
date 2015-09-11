@@ -54,24 +54,10 @@ var __cell_selector = function ( settings, selector, opts )
 		return allCells
 			.filter( s )
 			.map( function (i, el) {
-				if ( el.parentNode ) {
-					row = el.parentNode._DT_RowIndex;
-				}
-				else {
-					// If no parent node, then the cell is hidden and we'll need
-					// to traverse the array to find it
-					for ( i=0, ien=data.length ; i<ien ; i++ ) {
-						if ( $.inArray( el, data[i].anCells ) !== -1 ) {
-							row = i;
-							break;
-						}
-					}
-				}
-
 				return {
-					row: row,
-					column: $.inArray( el, data[ row ].anCells )
-				};
++					    row: el._DT_CellIndex.row,
++					    column: el._DT_CellIndex.column
+ 					};
 			} )
 			.toArray();
 	};
