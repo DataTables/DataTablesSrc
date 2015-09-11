@@ -175,8 +175,7 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 			if ( data[i].nTr !== null ) {
 				data[i].nTr._DT_RowIndex = i;
 			}
-			if (!data[i].anCells) continue;
-+
+			if (data[i].anCells !== null) {
 +				for (var j = 0, jen = data[i].anCells.length; j < jen; j++) {
 +				    if (data[i].anCells[j]) {
 +				        if (data[i].anCells[j]._DT_CellIndex) {
@@ -184,6 +183,7 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 +				        }
 +				    }
 +				}
+			}
 		}
 
 		// Delete from the display arrays
