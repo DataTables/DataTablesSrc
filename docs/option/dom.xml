@@ -37,9 +37,9 @@
 
     Further to these options, you can also specify additional `tag div` elements to be inserted into the document, which can be used for styling / nesting of the control elements. To add tags, the following syntax is expected:
 
-    * `&lt;` and `&gt;` - div element
-    * `&lt;"class"` and `&gt;` - div with a class
-    * `&lt;"#id"` and `&gt;` - div with an ID
+    * `<` and `>` - div element
+    * `<"class"` and `>` - div with a class
+    * `<"#id"` and `>` - div with an ID
 
     ### Styling
 
