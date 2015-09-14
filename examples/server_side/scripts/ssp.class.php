@@ -16,13 +16,6 @@
  */
 
 
-// REMOVE THIS BLOCK - used for DataTables test environment only!
-$file = $_SERVER['DOCUMENT_ROOT'].'/datatables/mysql.php';
-if ( is_file( $file ) ) {
-	include( $file );
-}
-
-
 class SSP {
 	/**
 	 * Create the data output array for the DataTables rows
@@ -96,7 +89,7 @@ class SSP {
 	 */
 	static function correct_column_db_name($select, $column){
 		
-		preg_match("/(\w*)\.".$column['db']."/", $select, $output);
+		preg_match("/(\w*)\.".$column['db']."(,|$)/", $select, $output);
 		if (count($output) > 0)
 			$column['db'] = $output[1].'`.`'.$column['db'];
 		
@@ -477,7 +470,7 @@ class SSP {
 				$order 
 				$limit"
 		);
-
+		
 		// Data set length after filtering
 		$resFilterLength = self::sql_exec( $db, 
 			"SELECT FOUND_ROWS()" 
@@ -486,10 +479,20 @@ class SSP {
 		
 		// Total data set length
 		$resTotalLength = self::sql_exec( $db, $bindings,
-			"SELECT COUNT($primaryKey)
-			 FROM $from ".
-			$whereAllSql
+			"SELECT 
+				COUNT($primaryKey)
+			 FROM 
+				$from 
+				$whereAllSql 
+				$groupBy"
 		);
+		
+		// Select the real total data length when GROUP BY is added
+		if ($groupBy != '')
+			$resTotalLength = self::sql_exec( $db, 
+				"SELECT FOUND_ROWS()" 
+			);
+		
 		$recordsTotal = $resTotalLength[0][0];
 
 		/*
