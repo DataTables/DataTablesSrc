@@ -72,4 +72,5 @@ $('#example').dataTable( {
 	<related type="option">columns.orderable</related>
 	<related type="option">columns.orderData</related>
 	<related type="api">order()</related>
+	<related type="api">order.fixed()</related>
 </dt-option>
