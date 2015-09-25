@@ -29,6 +29,7 @@ class DT_Example
 	private $_additional_libs = null;
 
 	private $_xml_libs = null;
+	private $_tidy_error = null;
 
 
 	function __construct ( $file=null, $template=null, $path_resolver=null, $libs=array() )
@@ -191,6 +192,10 @@ class DT_Example
 	private function _htmlTidy( $html )
 	{
 		if ( ! class_exists( 'tidy' ) ) {
+			if ( ! $this->_tidy_error ) {
+				echo "No html tidy - skipping\n";
+				$this->_tidy_error = true;
+			}
 			return $html;
 		}
 
