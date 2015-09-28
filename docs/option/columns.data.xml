@@ -65,6 +65,8 @@
 		<description>
 			The function given will be executed whenever DataTables needs to set or get the data for a cell in the column.
 
+			This function might be called multiple times, as DataTables will call it for the different data types that it needs - sorting, filtering and display.
+
 			Please note that DataTables will call the function as a _setter_ when a new row is added only when the row's data is read from the DOM (i.e. the table is initialised on a pre-populated HTML table). The function is not called as setter when the data is source from Javascript or Ajax under the assumption that the data is already in the format required.
 		</description>
 		<scope>HTML table element</scope>
