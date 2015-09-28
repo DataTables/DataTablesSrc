@@ -24,7 +24,10 @@
 	<example title="Sort by the first visible column"><![CDATA[
 var table = $('#example').DataTable();
 
-table.column( '0:visible' ).order( 'asc' );
+table
+	.column( '0:visible' )
+	.order( 'asc' )
+	.draw();
 ]]></example>
 
 	<related type="option">order</related>

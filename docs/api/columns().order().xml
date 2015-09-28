@@ -24,7 +24,10 @@
 	<example title="Sort by all columns with the class '.status'"><![CDATA[
 var table = $('#example').DataTable();
 
-table.columns( '.status' ).order( 'desc' );
+table
+	.columns( '.status' )
+	.order( 'desc' )
+	.draw();
 ]]></example>
 
 	<related type="option">order</related>
