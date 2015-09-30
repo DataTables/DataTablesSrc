@@ -186,7 +186,7 @@ DT_Example::$components['responsive'] = [
 	'filename' => 'responsive',
 	'framework' => [
 		'css' => true,
-		'js' => false
+		'js' => true
 	]
 ];
 
@@ -356,7 +356,8 @@ foreach ($options as $key => $value) {
 if ( strpos( $dir_input, 'Responsive' ) ) {
 	$dir_order = array(
 		'initialisation',
-		'display-control',
+		'display-types',
+		'column-control',
 		'child-rows',
 		'styling'
 	);
