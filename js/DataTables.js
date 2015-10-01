@@ -31,7 +31,7 @@
 
 	if ( typeof define === 'function' && define.amd ) {
 		// Define as an AMD module if possible
-		define( 'datatables', ['jquery'], factory );
+		define( ['jquery'], factory );
 	}
 	else if ( typeof exports === 'object' ) {
 		// Node/CommonJS
@@ -83,27 +83,27 @@
 	 */
 	var DataTable;
 
-	require('core.internal.js');
-	require('core.compat.js');
-	require('core.columns.js');
-	require('core.data.js');
-	require('core.draw.js');
-	require('core.ajax.js');
-	require('core.filter.js');
-	require('core.info.js');
-	require('core.init.js');
-	require('core.length.js');
-	require('core.page.js');
-	require('core.processing.js');
-	require('core.scrolling.js');
-	require('core.sizing.js');
-	require('core.sort.js');
-	require('core.state.js');
-	require('core.support.js');
+	_buildInclude('core.internal.js');
+	_buildInclude('core.compat.js');
+	_buildInclude('core.columns.js');
+	_buildInclude('core.data.js');
+	_buildInclude('core.draw.js');
+	_buildInclude('core.ajax.js');
+	_buildInclude('core.filter.js');
+	_buildInclude('core.info.js');
+	_buildInclude('core.init.js');
+	_buildInclude('core.length.js');
+	_buildInclude('core.page.js');
+	_buildInclude('core.processing.js');
+	_buildInclude('core.scrolling.js');
+	_buildInclude('core.sizing.js');
+	_buildInclude('core.sort.js');
+	_buildInclude('core.state.js');
+	_buildInclude('core.support.js');
 
 	DataTable = function( options )
 	{
-		require('api.legacy.js');
+		_buildInclude('api.legacy.js');
 
 		var _that = this;
 		var emptyInit = options === undefined;
@@ -130,27 +130,27 @@
 				_fnExtend( o, options, true ) :
 				options;
 
-			require('core.constructor.js');
+			_buildInclude('core.constructor.js');
 		} );
 		_that = null;
 		return this;
 	};
 
-	require('api.base.js');
-	require('api.table.js');
-	require('api.draw.js');
-	require('api.page.js');
-	require('api.ajax.js');
-	require('api.selectors.js');
-	require('api.rows.js');
-	require('api.row.details.js');
-	require('api.columns.js');
-	require('api.cells.js');
-	require('api.order.js');
-	require('api.search.js');
-	require('api.state.js');
-	require('api.static.js');
-	require('api.core.js');
+	_buildInclude('api.base.js');
+	_buildInclude('api.table.js');
+	_buildInclude('api.draw.js');
+	_buildInclude('api.page.js');
+	_buildInclude('api.ajax.js');
+	_buildInclude('api.selectors.js');
+	_buildInclude('api.rows.js');
+	_buildInclude('api.row.details.js');
+	_buildInclude('api.columns.js');
+	_buildInclude('api.cells.js');
+	_buildInclude('api.order.js');
+	_buildInclude('api.search.js');
+	_buildInclude('api.state.js');
+	_buildInclude('api.static.js');
+	_buildInclude('api.core.js');
 
 	/**
 	 * Version string for plug-ins to check compatibility. Allowed format is
@@ -183,12 +183,12 @@
 	 *  @namespace
 	 */
 	DataTable.models = {};
-	require('model.search.js');
-	require('model.row.js');
-	require('model.column.js');
-	require('model.defaults.js');
-	require('model.defaults.columns.js');
-	require('model.settings.js');
+	_buildInclude('model.search.js');
+	_buildInclude('model.row.js');
+	_buildInclude('model.column.js');
+	_buildInclude('model.defaults.js');
+	_buildInclude('model.defaults.columns.js');
+	_buildInclude('model.settings.js');
 
 	/**
 	 * Extension object for DataTables that is used to provide all extension
@@ -200,15 +200,15 @@
 	 *  @namespace
 	 *  @extends DataTable.models.ext
 	 */
-	require('ext.js');
-	require('ext.classes.js');
-	require('ext.paging.js');
-	require('ext.types.js');
-	require('ext.filter.js');
-	require('ext.sorting.js');
-	require('ext.renderer.js');
-	require('ext.helpers.js');
-	require('api.internal.js');
+	_buildInclude('ext.js');
+	_buildInclude('ext.classes.js');
+	_buildInclude('ext.paging.js');
+	_buildInclude('ext.types.js');
+	_buildInclude('ext.filter.js');
+	_buildInclude('ext.sorting.js');
+	_buildInclude('ext.renderer.js');
+	_buildInclude('ext.helpers.js');
+	_buildInclude('api.internal.js');
 
 	// jQuery access
 	$.fn.dataTable = DataTable;
