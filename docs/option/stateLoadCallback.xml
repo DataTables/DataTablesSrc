@@ -18,7 +18,7 @@
 	<description>
 		With this callback you can define where, and how, the state of a table is loaded from. By default DataTables will load from `localStorage` but you might wish to use a server-side database or cookies as your implementation requirements demand. For the format of the data that is stored, please refer to the `dt-init stateSaveCallback` documentation.
 
-		Note that this callback works hand-in-hand with `dt-init stateLoadCallback`. This callback saves the state into storage while `dt-init stateLoadCallback` loads it when the table is reloaded. The parameters that are actually to be saved for the state are the domain of the `dt-init stateSaveParams` callback option.
+		Note that this callback works hand-in-hand with `dt-init stateSaveCallback`. This callback loads the state from storage when the table is reloaded while `dt-init stateSaveCallback` saves it.
 	</description>
 
 	<example title="Load state from a server via Sjax"><![CDATA[
