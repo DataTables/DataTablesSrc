@@ -8,6 +8,7 @@
 		<signature>draw( [paging] )</signature>
 		<description>Redraw the DataTables in the current context, optionally updating ordering, searching and paging as required.</description>
 		<parameter type="boolean|string" name="paging" default="true">
+			<![CDATA[
 			This parameter is used to determine what kind of draw DataTables will perform. There are three options available (note that the string options require DataTables 1.10.8 or newer):
 
 			* `-string full-reset` or `true` (default) - the ordering and search will be recalculated and the rows redrawn in their new positions. The paging will be reset back to the first page.
@@ -15,6 +16,7 @@
 			* `-string page` - ordering and search will not be updated and the paging position held where is was. This is useful for paging (i.e. `dt-api page()`) when data has not been changed between draws.
 
 			Please note that the string options require <span class="since">DataTables 1.10.8</span> or newer. Previous versions support only the boolean option.
+			]]>
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>
 	</type>
