@@ -338,14 +338,6 @@ function usage {
 #
 cd $BASE_DIR
 
-# Sanity check that the working branch is going to build correctly
-CURR_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-if [ $SYNC_BRANCH != $CURR_BRANCH ]; then
-	echo_error "Working branch ($CURR_BRANCH) is not the same as the script branch ($SYNC_BRANCH)"
-	echo_error "Exiting..."
-	exit
-fi
-
 echo ""
 echo_section "DataTables build ($VERSION) - branch: $SYNC_BRANCH"
 echo ""
@@ -381,6 +373,14 @@ case "$1" in
 		;;
 
 	"sync")
+		# Sanity check that the working branch is going to build correctly
+		CURR_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+		if [ $SYNC_BRANCH != $CURR_BRANCH ]; then
+			echo_error "Working branch ($CURR_BRANCH) is not the same as the script branch ($SYNC_BRANCH)"
+			echo_error "Exiting..."
+			exit
+		fi
+
 		build_repo_sync
 		;;
 
