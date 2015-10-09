@@ -531,6 +531,11 @@ table.dataTable td {
 			*margin-top: -1px;
 			-webkit-overflow-scrolling: touch;
 
+			th, td {
+				// Setting v-align baseline can cause the headers to be visible
+				vertical-align: middle;
+			}
+
 			th > div.dataTables_sizing,
 			td > div.dataTables_sizing {
 				// Hide the element used to wrap the content in the header for
