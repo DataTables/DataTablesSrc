@@ -24,7 +24,10 @@ Fundamentally `dt-type selector-modifier` is an object with three built-in prope
     page:   'all',      // 'all',     'current'
     search: 'none',     // 'none',    'applied', 'removed'
 
-    // Extension - Select
+    // Extension - KeyTable (v2.1+) - cells only
+    focused: undefined, // true, false, undefined
+
+    // Extension - Select (v1.0+)
     selected: undefined // true, false, undefined
 }
 ```
@@ -102,10 +105,34 @@ table.rows( {search:'removed'} ).nodes();
 
 ## Extensions
 
-The following property requires the [Select extension](/extensions/select) to be loaded in order to be able to operate.
+The following options describe behaviour that can be added to DataTables core through the use of its [extensions](/extensions). These extensions provide tight integration with the DataTables API and these options can be working with the extensions feel a natural part of DataTables.
+
+
+### focused (cells only)
+
+< This option requires the [KeyTable extension](/extensions/keytable) to be loaded in order to be able to operate (v2.1 or newer).
+
+[KeyTable](/extensions/keytable) provides the ability to focus on a particular cell in the DataTable, and as such it can often be useful to know which cell is focused, and equally which cells do not have focus.
+
+Please note that this option can only be used in conjunction with the `dt-api cells()` and `dt-api cell()` methods. Using it with the row or column selectors will have no effect.
+
+This option takes a boolean value, although it can also be `undefined`, which it is by default:
+
+* `-type undefined` (default) - No selection modification is performed
+* `true` - Only the focused cell will be selected
+* `false` - Only cells which _do not_ have focus will be selected.
+
+###### Get the data for the focused cell:
+
+```js
+var table = $('#myTable').DataTable();
+table.cell( {focused:true} ).data();
+```
 
 
 ### selected
+
+< This option requires the [Select extension](/extensions/select) to be loaded in order to be able to operate.
 
 The [Select extension](/extensions/select) for DataTables provides the ability to select items in the table (rows, columns and cells), and so it is important to be able to retrieve the items that the user has selected so you can perform some action on them.
 
