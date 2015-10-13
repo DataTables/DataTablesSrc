@@ -167,22 +167,26 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 	this.iterator( 'row', function ( settings, row, thatIdx ) {
 		var data = settings.aoData;
 		var rowData = data[ row ];
+		var i, ien, j, jen;
+		var loopRow, loopCells;
 
 		data.splice( row, 1 );
 
-		// Update the _DT_RowIndex parameter on all rows in the table
-		for ( var i=0, ien=data.length ; i<ien ; i++ ) {
-			if ( data[i].nTr !== null ) {
-				data[i].nTr._DT_RowIndex = i;
+		// Update the cached indexes
+		for ( i=0, ien=data.length ; i<ien ; i++ ) {
+			loopRow = data[i];
+			loopCells = loopRow.anCells;
+
+			// Rows
+			if ( loopRow.nTr !== null ) {
+				loopRow.nTr._DT_RowIndex = i;
 			}
-			if (data[i].anCells !== null) {
-+				for (var j = 0, jen = data[i].anCells.length; j < jen; j++) {
-+				    if (data[i].anCells[j]) {
-+				        if (data[i].anCells[j]._DT_CellIndex) {
-+				            data[i].anCells[j]._DT_CellIndex.row = i;
-+				        }
-+				    }
-+				}
+
+			// Cells
+			if ( loopCells !== null ) {
+				for ( j=0, jen=loopCells.length ; j<jen ; j++ ) {
+					loopCells[j]._DT_CellIndex.row = i;
+				}
 			}
 		}
 

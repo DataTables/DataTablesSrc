@@ -54,10 +54,10 @@ var __cell_selector = function ( settings, selector, opts )
 		return allCells
 			.filter( s )
 			.map( function (i, el) {
-				return {
-+					    row: el._DT_CellIndex.row,
-+					    column: el._DT_CellIndex.column
- 					};
+				return { // use a new object, in case someone changes the values
+					row:    el._DT_CellIndex.row,
+					column: el._DT_CellIndex.column
+ 				};
 			} )
 			.toArray();
 	};
