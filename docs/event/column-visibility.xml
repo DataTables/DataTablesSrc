@@ -18,6 +18,11 @@
 		<parameter type="object" name="state">
 			Column visibility state: `false` if column now hidden, or `true` if visible
 		</parameter>
+		<parameter type="boolean|undefined" name="recalc" since="1.10.10">
+			Column width recalculation: `false` if no column width calculation was performed when the column was hidden (i.e. the second parameter of `dt-api column().visible()` was `false`), otherwise, `true` or `undefined` indicating that the column widths were recalculated.
+
+			This can be useful to improve performance when the visibility of multiple columns is modified. The `dt-api columns.adjust()` method should be called once all columns have had their visibility state set.
+		</parameter>
 		<scope>HTML table element</scope>
 	</type>
 

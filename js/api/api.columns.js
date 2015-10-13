@@ -160,7 +160,7 @@ var __setColumnVis = function ( settings, column, vis, recalc ) {
 		}
 	}
 
-	_fnCallbackFire( settings, null, 'column-visibility', [settings, column, vis] );
+	_fnCallbackFire( settings, null, 'column-visibility', [settings, column, vis, recalc] );
 
 	_fnSaveState( settings );
 };
