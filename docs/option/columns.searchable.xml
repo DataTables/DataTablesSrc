@@ -31,7 +31,6 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-	<related type="option">filter</related>
 	<related type="option">search</related>
 	<related type="api">search()</related>
 	<related type="api">column().search()</related>
