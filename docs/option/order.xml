@@ -16,7 +16,7 @@
 		This 2D array structure allows a multi-column order to be defined as the initial state should it be required.
 	</description>
 
-	<example title="No initial order"><![CDATA[
+	<example title="No ordering applied by DataTables during initialisation. The rows are shown in the order they are read by DataTables (i.e. the original order from the DOM if DOM sourced, or the array of data if Ajax / data sourced)"><![CDATA[
 $('#example').dataTable( {
 	"order": []
 } );
