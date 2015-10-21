@@ -38,7 +38,8 @@ $dir_names = array(
 	'extensions'     => 'DataTables extensions',
 	'bubble-editing' => 'Bubble editing',
 	'inline-editing' => 'Inline editing',
-	'standalone'     => 'Standalone'
+	'standalone'     => 'Standalone',
+	'dates'          => "Dates and time"
 ); // for extensions example ordering, see below
 
 
@@ -257,6 +258,7 @@ DT_Example::$lookup_libraries['css']['font-awesome'] = '//cdnjs.cloudflare.com/a
 DT_Example::$lookup_libraries['js']['jszip']         = '//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js';
 DT_Example::$lookup_libraries['js']['pdfmake']       = '//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js';
 DT_Example::$lookup_libraries['js']['vfsfonts']      = '//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js';
+DT_Example::$lookup_libraries['js']['moment']        = '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js';
 
 function multiple ( $value, $fn )
 {
