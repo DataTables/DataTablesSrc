@@ -25,10 +25,10 @@ table.dataTable {
 	thead,
 	tfoot {
 		th.ui-state-default {
-			border-right-width: 0;
+			border-left-width: 0;
 
-			&:last-child {
-				border-right-width: 1px;
+			&:first-child {
+				border-left-width: 1px;
 			}
 		}
 	}
