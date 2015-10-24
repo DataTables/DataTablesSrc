@@ -41,9 +41,9 @@ var table = $('#example').DataTable( {
 	data: pupils
 } );
 
-var row1 = table.row( 0 ).data();
+var rows = table.rows( 0 ).data();
 
-alert( 'Pupil name in the first row is: '+ row1.name() );
+alert( 'Pupil name in the first row is: '+ rows[0].name() );
 ]]></example>
 
 	<related type="api">row().data()</related>
