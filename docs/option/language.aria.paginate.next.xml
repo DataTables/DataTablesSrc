@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.aria.paginate.next</name>
+	<summary>WAI-ARIA label for the _next_ pagination button</summary>
+	<since>1.10.10</since>
+
+	<type type="string" />
+	<default>
+		There is no default value for this option as the `dt-init language.paginate.next` option contains a string by default.
+	</default>
+
+	<description>
+		Set the ARIA label attribute for the _next_ pagination button. This can be particularly useful for cases where you wish to show an icon such as `»` or `›` in the button itself, while retaining full accessibility.
+	</description>
+
+	<example title="Use icons for the previous and next buttons with ARIA label text"><![CDATA[
+$('#example').DataTable( {
+	language: {
+		paginate: {
+			previous: '‹',
+			next:     '›'
+		},
+		aria: {
+			paginate: {
+				previous: 'Previous',
+				next:     'Next'
+			}
+		}
+	}
+} );
+]]></example>
+
+	<related type="option">language.aria.paginate</related>
+	<related type="option">language.paginate.next</related>
+</dt-option>

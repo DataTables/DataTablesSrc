@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.aria.paginate</name>
+	<summary>WAI-ARIA labels for pagination buttons</summary>
+	<since>1.10.10</since>
+
+	<type type="object" />
+
+	<description>
+		This object contains the properties that can be used for the ARIA label attributes that are applied to the pagination controls in DataTables. This can be useful when you use the `dt-init language.paginate` options to alter the default pagination button text to show icons rather than text, as the ARIA label attributes ensure that accessibility will still be retained.
+
+		Please note that as the DataTables `dt-init language.paginate` options contain plain text, there is no need for ARIA label attributes, thus this object does not contain any default strings.
+	</description>
+
+	<example title="Define full paging language options as icons with ARIA label text"><![CDATA[
+$('#example').DataTable( {
+	pagingType: 'full',
+	language: {
+		paginate: {
+			first:    '«',
+			previous: '‹',
+			next:     '›',
+			last:     '»'
+		},
+		aria: {
+			paginate: {
+				first:    'First',
+				previous: 'Previous',
+				next:     'Next',
+				last:     'Last'
+			}
+		}
+	}
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.aria.paginate.next</related>
+	<related type="option">language.aria.paginate.previous</related>
+	<related type="option">language.aria.paginate.first</related>
+	<related type="option">language.aria.paginate.last</related>
+</dt-option>
