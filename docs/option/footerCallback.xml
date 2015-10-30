@@ -45,7 +45,7 @@ $('#example').dataTable( {
     $( api.column( 5 ).footer() ).html(
     	api.column( 5 ).data().reduce( function ( a, b ) {
     		return a + b;
-    	} )
+    	}, 0 )
     );
   }
 } );
