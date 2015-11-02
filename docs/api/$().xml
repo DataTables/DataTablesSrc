@@ -21,7 +21,7 @@
 
 		To provide an easy method to continue using jQuery on these elements, so you can select elements regardless of searching, paging or any other feature of DataTables this method is provided.
 
-		The selector given to the `dt-api $()` method will be run on all of the `dt-tag tr` elements in the table, and their child elements, with the found elements being returned as a jQuery object.
+		The selector given to the `dt-api $()` method will be run on all of the `dt-tag tr` elements in the table, and their descendent elements, with the found elements being returned as a jQuery object.
 	</description>
 
 	<example title="Find all cells with content's 'High' and add a class"><![CDATA[
