@@ -94,6 +94,19 @@ function _fnCalculateColumnWidths ( oSettings )
 			headerCells[i].style.width = column.sWidthOrig !== null && column.sWidthOrig !== '' ?
 				_fnStringToCss( column.sWidthOrig ) :
 				'';
+
+			// For scrollX we need to force the column width otherwise the
+			// browser will collapse it. If this width is smaller than the
+			// width the column requires, then it will have no effect
+			if ( column.sWidthOrig && scrollX ) {
+				$( headerCells[i] ).append( $('<div/>').css( {
+					width: column.sWidthOrig,
+					margin: 0,
+					padding: 0,
+					border: 0,
+					height: 1
+				} ) );
+			}
 		}
 
 		// Find the widest cell for each column and put it into the table
@@ -136,8 +149,11 @@ function _fnCalculateColumnWidths ( oSettings )
 		}
 		else if ( scrollX ) {
 			tmpTable.css( 'width', 'auto' );
+			tmpTable.removeAttr('width');
 
-			if ( tmpTable.width() < tableContainer.clientWidth ) {
+			// If there is no width attribute or style, then allow the table to
+			// collapse
+			if ( tmpTable.width() < tableContainer.clientWidth && tableWidthAttr ) {
 				tmpTable.width( tableContainer.clientWidth );
 			}
 		}

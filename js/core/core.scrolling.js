@@ -31,17 +31,6 @@ function _fnFeatureHtmlTable ( settings )
 		return !s ? null : _fnStringToCss( s );
 	};
 
-	// This is fairly messy, but with x scrolling enabled, if the table has a
-	// width attribute, regardless of any width applied using the column width
-	// options, the browser will shrink or grow the table as needed to fit into
-	// that 100%. That would make the width options useless. So we remove it.
-	// This is okay, under the assumption that width:100% is applied to the
-	// table in CSS (it is in the default stylesheet) which will set the table
-	// width as appropriate (the attribute and css behave differently...)
-	if ( scroll.sX && table.attr('width') === '100%' ) {
-		table.removeAttr('width');
-	}
-
 	if ( ! footer.length ) {
 		footer = null;
 	}
