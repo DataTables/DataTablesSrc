@@ -30,16 +30,7 @@ $dir_names = array(
 	'api'           => "API",
 	'ajax'          => "Ajax",
 	'server_side'   => "Server-side",
-	'plug-ins'      => "Plug-ins",
-
-	// For Editor
-	'simple'         => 'Simple initialisation',
-	'advanced'       => 'Advanced initialisation',
-	'extensions'     => 'DataTables extensions',
-	'bubble-editing' => 'Bubble editing',
-	'inline-editing' => 'Inline editing',
-	'standalone'     => 'Standalone',
-	'dates'          => "Dates and time"
+	'plug-ins'      => "Plug-ins"
 ); // for extensions example ordering, see below
 
 
@@ -355,7 +346,56 @@ foreach ($options as $key => $value) {
 	}
 }
 
-if ( strpos( $dir_input, 'Responsive' ) ) {
+if ( strpos( $dir_input, 'Editor' ) ) {
+	$dir_order = array(
+		'simple',
+		'advanced',
+		'extensions',
+		'dates',
+		'inline-editing',
+		'bubble-editing',
+		'api',
+		'standalone',
+		'styling',
+		'plug-ins',
+		'private'
+	);
+
+	$dir_names = array(
+		'simple'          => 'Simple initialisation',
+		'advanced'        => 'Advanced initialisation',
+		'extensions'      => 'DataTables extensions',
+		'dates'           => "Dates and time",
+		'bubble-editing'  => 'Bubble editing',
+		'inline-editing'  => 'Inline editing',
+		'api'             => 'API',
+		'standalone'      => 'Standalone',
+		'styling'         => 'Styling',
+		'plug-ins'        => 'Plug-ins'
+	);
+}
+else if ( strpos( $dir_input, 'Buttons' ) ) {
+	$dir_order = array(
+		'initialisation',
+		'html5',
+		'flash',
+		'column_visibility',
+		'print',
+		'api',
+		'styling'
+	);
+
+	$dir_names = array(
+		'initialisation'    => "Basic initialisation",
+		'html5'             => "HTML 5 data export",
+		'flash'             => "Flash data export",
+		'column_visibility' => 'Column visibility',
+		'print'             => 'Print',
+		'api'               => 'API',
+		'styling'           => "Styling",
+	);
+}
+else if ( strpos( $dir_input, 'Responsive' ) ) {
 	$dir_order = array(
 		'initialisation',
 		'display-types',
@@ -818,19 +858,19 @@ function tidy_structure ( &$examples, $order )
 
 	// Order the top level directories
 	usort( $examples, function ( $a, $b ) use( $order ) {
-		if ( $a['type'] === 'file' && $b['type'] === 'file' ) {
-			return 0;
-		}
-		else if ( $a['type'] === 'file' || $b['type'] === 'file' ) {
-			return -1;
-		}
-		else {
+		//if ( $a['type'] === 'file' && $b['type'] === 'file' ) {
+		//	return 0;
+		//}
+		//else if ( $a['type'] === 'file' || $b['type'] === 'file' ) {
+		//	return -1;
+		//}
+		//else {
 			$idxA = array_search( $a['name'], $order );
 			$idxB = array_search( $b['name'], $order );
 
 			return $idxA === $idxB ? 0 :
 				$idxA < $idxB ? -1 : 1;
-		}
+		//}
 	} );
 }
 
