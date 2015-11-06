@@ -51,7 +51,6 @@ table.dataTable {
 			cursor: pointer;
 			*cursor: hand;
 
-			color: $table-control-color !important;
 			border: 1px solid transparent;
 
 			&:active {
@@ -82,5 +81,13 @@ table.dataTable {
 		.dataTables_scrollBody {
 			border-bottom: none;
 		}
+	}
+
+	.dataTables_length,
+	.dataTables_filter,
+	.dataTables_info,
+	.dataTables_processing,
+	.dataTables_paginate {
+		color: inherit;
 	}
 }
