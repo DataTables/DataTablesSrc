@@ -15,7 +15,7 @@
 
 			* `.` - Dotted Javascript notation. Just as you use a `.` in Javascript to read from nested objects, so you can use the options specified in `data`. For example: `browser.version` or `browser.name`. If your object parameter name contains a period, use `\\` to escape it - i.e. `first\\.name`.
 			
-			* `[]` - Array notation. DataTables can automatically combine data from an array source, joining the data with the characters provided between the two brackets. For example: `name[, ]` would provide a comma-space separated list from the source array. If no characters are provided between the brackets, the original array source is returned.
+			* `[]` - Array notation. DataTables can automatically combine data from an array source, joining the data with the characters provided between the two brackets. For example: `name[, ]` would provide a comma-space separated list from the source array. If no characters are provided between the brackets, the original array source is returned. See above for further information on array access.
 
 			* `()` - Function notation. Adding `()` to the end of a parameter will execute a function of the name given. For example: `browser()` for a simple function on the data source, `browser.version()` for a function in a nested property or even `browser().version` to get an object property if the function called returns an object. Note that function notation is recommended for use in `dt-init columns.render` rather than `dt-init columns.data` as it is much simpler to use as a renderer.
 		</description>
@@ -76,6 +76,28 @@
 		* `-type undefined` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, an error will be given.
 		* `-type null` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty sting will be used. `-type null` will be used for all other data types.
 		* `-type function` - the function will be executed and the returned value used. As of DataTables <span class="since">1.10.1</span> the function will be executed in the same scope as the data object for the row. The result of this is that an object instance can be used as the data source for a row. See the examples below for how to use an instance with DataTables.
+
+
+		### Array access
+
+		When used as a string (see below), this option can be used to obtain multiple data points from an array or access specifically just one element in an array. It is important to understand the difference between the two forms if you wish to access array based data inside a row's data object.
+
+		* Use one or more properties from an array - use `[]` notation
+		* Obtain a single element from the array only - use dotted notation - e.g. `.0` to access the first element in the array.
+
+		Consider for example this data structure:
+
+		```js
+		"access": [
+		  { "id": "1", "name": "Printer" },
+		  { "id": "3", "name": "Desktop" },
+		  { "id": "4", "name": "VMs" }
+		]
+		```
+
+		To display the `name` property from the objects in the array, in a single cell, use `access[, ].name` - this will concatenate the names separated by `, ` - e.g. in this case the result would be `-string Printer, Desktop, VMs`. 
+
+		To access a single property from an array use `.{index}`. Using the above JSON again, to display just the first name from the access array use `access.0.name` - e.g. in this case the result would be `Printer`.
 		]]>
 	</description>
 
