@@ -16,7 +16,7 @@
 		<parameter type="*" name="value_1" default="undefined">
 			Item to add to the result set at the index specified by the first parameter. Multiple items can be added in a single call by adding them as additional parameters.
 		</parameter>
-		<returns type="Array">An array of the items which were removed. If no elements were removed, an empty array is returned.</returns>
+		<returns type="array">An array of the items which were removed. If no elements were removed, an empty array is returned.</returns>
 	</type>
 
 	<description>

@@ -32,8 +32,8 @@ $('#example').on( 'length.dt', function ( e, settings, len ) {
 } );
 ]]></example>
 
-	<related type="option">paginate</related>
-	<related type="option">paginateType</related>
+	<related type="option">paging</related>
+	<related type="option">pagingType</related>
 	<related type="api">page()</related>
 	<related type="api">page.info()</related>
 	<related type="api">page.len()</related>

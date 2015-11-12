@@ -23,6 +23,6 @@ $('#example').dataTable( {
 
 	<related type="option">language</related>
 	<related type="option">language.emptyTable</related>
-	<related type="option">filter</related>
+	<related type="option">search</related>
 	<related type="api">search()</related>
 </dt-option>

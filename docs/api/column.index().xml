@@ -13,7 +13,7 @@
 			* `dt-string fromVisible` or `dt-string toData` to convert from a visible index to the columns' data index.
 			* `dt-string fromData` or `dt-string toVisible` to convert from a data index to the columns' visible index.
 		</parameter>
-		<parameter type="ineger" name="index">
+		<parameter type="integer" name="index">
 			The index to be converted
 		</parameter>
 		<returns type="integer">Calculated column index</returns>

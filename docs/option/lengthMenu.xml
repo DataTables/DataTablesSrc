@@ -31,7 +31,7 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-	<related type="option">paginate</related>
+	<related type="option">paging</related>
 	<related type="option">lengthChange</related>
 	<related type="option">pageLength</related>
 	<related type="api">page()</related>

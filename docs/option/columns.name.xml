@@ -42,5 +42,5 @@ $('#example').dataTable( {
   <related type="api">column()</related>
   <related type="api">columns()</related>
   <related type="api">column().index()</related>
-  <related type="api">columns().index()</related>
+  <related type="api">columns().indexes()</related>
 </dt-option>

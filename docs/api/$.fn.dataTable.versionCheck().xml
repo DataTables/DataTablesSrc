@@ -14,7 +14,7 @@
 	</type>
 
 	<description>
-		This method provides the ability for plug-in developers to check a required version number against the running version of DataTables. For example, a plug-in such as [TableTools](/extensions/TableTools) might require DataTables 1.9.2 or newer. This method provides the ability to check that.
+		This method provides the ability for plug-in developers to check a required version number against the running version of DataTables. For example, a plug-in such as [Buttons](/extensions/buttons) might require DataTables 1.10.7 or newer. This method provides the ability to check that.
 
 		Please note that this is a **static** function and is accessed through the `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
 	</description>

@@ -346,7 +346,7 @@ foreach ($options as $key => $value) {
 	}
 }
 
-if ( strpos( $dir_input, 'Editor' ) ) {
+if ( stripos( $dir_input, 'Editor' ) ) {
 	$dir_order = array(
 		'simple',
 		'advanced',
@@ -374,7 +374,7 @@ if ( strpos( $dir_input, 'Editor' ) ) {
 		'plug-ins'        => 'Plug-ins'
 	);
 }
-else if ( strpos( $dir_input, 'Buttons' ) ) {
+else if ( stripos( $dir_input, 'Buttons' ) ) {
 	$dir_order = array(
 		'initialisation',
 		'html5',
@@ -395,7 +395,7 @@ else if ( strpos( $dir_input, 'Buttons' ) ) {
 		'styling'           => "Styling",
 	);
 }
-else if ( strpos( $dir_input, 'Responsive' ) ) {
+else if ( stripos( $dir_input, 'Responsive' ) ) {
 	$dir_order = array(
 		'initialisation',
 		'display-types',
@@ -411,7 +411,7 @@ else if ( strpos( $dir_input, 'Responsive' ) ) {
 		'styling'         => "Styling"
 	);
 }
-else if ( strpos( $dir_input, 'FixedHeader' ) ) {
+else if ( stripos( $dir_input, 'FixedHeader' ) ) {
 	$dir_order = array(
 		'options',
 		'styling',

@@ -15,7 +15,7 @@
 
 		The value of `dt-init columns.data` that was set during initialisation (including the default of a column index integer) will be returned by this method, including functions (unevaluated). It is important to note that how `dt-init columns.render` is set has no effect on the return value of this method, which is used only for retrieving the value of `dt-init columns.data`.
 
-		Generally the singular representation of this method, `dt-init column().dataSrc()`, is likely to be more useful for authors. This method is included for completeness in the API.
+		Generally the singular representation of this method, `dt-api column().dataSrc()`, is likely to be more useful for authors. This method is included for completeness in the API.
 	</description>
 
 	<example title="Get the data source for columns 0 and 1"><![CDATA[
