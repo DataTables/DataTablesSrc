@@ -16,9 +16,29 @@
 		* 0 or a positive integer - column index counting from the left
 		* A negative integer - column index counting from the right
 		* A string - class name will be matched on the TH for the column
-		* The string "_all" - all columns (i.e. assign a default)
+		* The string `-string _all` - all columns (i.e. assign a default)
 
 		Additionally, `targets` can be either a single option from the list above, or an array of options (the different types can be mixed in the array if required). For example `targets: [ -1, -2 ]` would target the last and second last columns in the table.
+
+		### Conflict resolution
+
+		As `dt-init columnsDefs` allows columns to be columns to be defined one or more times in different column definition objects (typically to define different aspects of the columns) conflicts can arise whereby a single property might be defined with different values for the same column. Likewise, this situation could also occur when `dt-init columns` is used at the same time. DataTables uses the following rules to resolve such conflicts:
+
+		1. A property defined in `dt-init columns` will _always_ take priority over any value for that property defined in `dt-init columnDefs`.
+		2. Properties which are higher in the `dt-init columnDefs` array will take priority over those below.
+
+		Consider for example the following table:
+
+		```js
+		var table = $('#myTable').DataTable( {
+			columnDefs: [
+				{ targets: [0, 1], visible: true},
+				{ targets: '_all', visible: false }
+			]
+		} );
+  		```
+
+  		The first and second columns will be visible in the table while all others will be hidden.
 	</description>
 
 	<example title="Disable filtering on the first column"><![CDATA[
