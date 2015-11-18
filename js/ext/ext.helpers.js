@@ -6,6 +6,12 @@
  * to make working with DataTables a little bit easier.
  */
 
+var __htmlEscapeEntities = function ( d ) {
+	return typeof d === 'string' ?
+		d.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') :
+		d;
+};
+
 /**
  * Helpers for `columns.render`.
  *
@@ -44,9 +50,10 @@ DataTable.render = {
 				var flo = parseFloat( d );
 
 				// If NaN then there isn't much formatting that we can do - just
-				// return immediately
+				// return immediately, escaping any HTML (this was supposed to
+				// be a number after all)
 				if ( isNaN( flo ) ) {
-					return d;
+					return __htmlEscapeEntities( d );
 				}
 
 				d = Math.abs( flo );
@@ -68,11 +75,7 @@ DataTable.render = {
 
 	text: function () {
 		return {
-			display: function ( d ) {
-				return typeof d === 'string' ?
-					d.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') :
-					d;
-			}
+			display: __htmlEscapeEntities
 		};
 	}
 };
