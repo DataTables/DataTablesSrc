@@ -12,7 +12,7 @@
 
 		This is done by the addition of the classes `sorting\_1`, `sorting\_2` and `sorting\_3` to the columns which are currently being ordered on. The integer value indicates the level of sorting when mutli-column sorting. If more than 3 columns are being ordered upon, the `sorting\_3` class is repeated.
 
-		Please note that this feature can effect performance, particularly in old browsers and when there are a lot of rows to be displayed as it is manipulating a large number of DOM elements. As such, this option is available as a feature switch to allow this feature to be disabled with working with old browsers or large data sets.
+		Please note that this feature can affect performance, particularly in old browsers and when there are a lot of rows to be displayed as it is manipulating a large number of DOM elements. As such, this option is available as a feature switch to allow this feature to be disabled with working with old browsers or large data sets.
 ]]></description>
 
 	<example title="Disable column sorting classes"><![CDATA[
