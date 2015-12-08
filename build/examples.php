@@ -243,6 +243,8 @@ DT_Example::$lookup_libraries['js' ]['jqueryui']     = '//code.jquery.com/ui/1.1
 DT_Example::$lookup_libraries['css']['jqueryui']     = '//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css';
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js';
 DT_Example::$lookup_libraries['css']['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css';
+DT_Example::$lookup_libraries['js' ]['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/js/foundation.min.js';
+DT_Example::$lookup_libraries['css']['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/css/foundation.min.css';
 DT_Example::$lookup_libraries['js' ]['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js';
 DT_Example::$lookup_libraries['css']['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css';
 DT_Example::$lookup_libraries['css']['font-awesome'] = '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css';
@@ -507,7 +509,7 @@ CREATE TABLE `datatables_demo` (
 	`position`   varchar(250) NOT NULL default '',
 	`email`      varchar(250) NOT NULL default '',
 	`office`     varchar(250) NOT NULL default '',
-	`start_date` datetime default CURRENT_TIMESTAMP,
+	`start_date` datetime default NULL,
 	`age`        int(8),
 	`salary`     int(8),
 	`seq`        int(8),
@@ -538,7 +540,7 @@ CREATE TABLE datatables_demo (
 	position   text NOT NULL default '',
 	email      text NOT NULL default '',
 	office     text NOT NULL default '',
-	start_date timestamp without time zone default CURRENT_TIMESTAMP,
+	start_date timestamp without time zone default NULL,
 	age        integer,
 	salary     integer,
 	seq        integer,
@@ -569,7 +571,7 @@ CREATE TABLE datatables_demo (
 	position   text NOT NULL default '',
 	email      text NOT NULL default '',
 	office     text NOT NULL default '',
-	start_date timestamp without time zone default CURRENT_TIMESTAMP,
+	start_date timestamp without time zone default NULL,
 	age        integer,
 	salary     integer,
 	seq        integer,
@@ -598,7 +600,7 @@ CREATE TABLE datatables_demo (
 	position   varchar(250) NOT NULL default '',
 	email      varchar(250) NOT NULL default '',
 	office     varchar(250) NOT NULL default '',
-	start_date datetime default GETDATE(),
+	start_date datetime default NULL,
 	age        int,
 	salary     int,
 	seq        int,
