@@ -36,9 +36,9 @@
 				{ targets: '_all', visible: false }
 			]
 		} );
-  		```
+		```
 
-  		The first and second columns will be visible in the table while all others will be hidden.
+		The first and second columns will be visible in the table while all others will be hidden.
 	</description>
 
 	<example title="Disable filtering on the first column"><![CDATA[
