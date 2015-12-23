@@ -153,11 +153,6 @@ var __setColumnVis = function ( settings, column, vis, recalc ) {
 	if ( recalc === undefined || recalc ) {
 		// Automatically adjust column sizing
 		_fnAdjustColumnSizing( settings );
-
-		// Realign columns for scrolling
-		if ( settings.oScroll.sX || settings.oScroll.sY ) {
-			_fnScrollDraw( settings );
-		}
 	}
 
 	_fnCallbackFire( settings, null, 'column-visibility', [settings, column, vis, recalc] );
