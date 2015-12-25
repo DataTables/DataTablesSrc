@@ -7,7 +7,7 @@ Please direct support requests to the [DataTables forums](https://datatables.net
 
 If you are thinking of contributing code to DataTables, first of all, thank you! All fixes, patches and enhancements to DataTables are very warmly welcomed. In order to keep thing manageable, there are a number of guidelines that should be followed in order to ensure that your modification is included in DataTables as quickly as possible:
 
-1. Make contributions in the DataTables/DataTablesSrc repo. Changes to the built files in the built repo (DataTables/DataTables) will not be accepted since they would be overwritten by the next build!
+1. Make contributions in the [DataTables/DataTablesSrc](https://github.com/DataTables/DataTablesSrc) repo. Changes to the built files in the built repo ([DataTables/DataTables](https://github.com/DataTables/DataTables)) will not be accepted since they would be overwritten by the next build!
 
 2. Follow the style of the code in the existing files. They might not be to everyone's tastes, but consistency is key for a mature project like DataTables. DataTables doesn't have a coding standards document, but simple common sense of following the same style as in the existing files is ideal. For example use tabs not spaces (as you will see all source files use tabs).
 
