@@ -28,7 +28,7 @@ A number of programs are required out your computer to be able to build DataTabl
 * [Sass](http://sass-lang.com/install)
 
 
-A Mac or Linux environment is assumed in the build script - Windows builds are not currently supported. Check the [`/build/install.sh`](build/install.sh) script to make sure that `jsdoc`, `jshint`, and the `closure-compiler` are installed in the correct locations – you can either move them or set up symbolic links if they are not. 
+A Mac or Linux environment is assumed in the build script - Windows builds are not currently supported. Check the [`/build/install.sh`](build/install.sh) script to make sure that the `jsdoc`, `jshint`, and `closure-compiler` programs are installed in the correct locations – you can either move them or set up symbolic links if they are not. 
 
 **Important Note**: Be sure to commit any changes you've made **before** running `make.sh build` or they will be overwritten by whatever the latest commit is in the repo.
 
