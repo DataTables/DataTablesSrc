@@ -20,7 +20,7 @@
 	</type>
 
 	<description>
-		The `dt-api filter()` method provides a way of filtering out content in an API instance's result set which does not pass the criteria set by the provided callback method. This method should not be confused with `dt-api search()` which is used to search for records in the DataTable.
+		The `dt-api filter()` method provides a way of filtering out content in an API instance's result set which does not pass the criteria set by the provided callback method. **This method should not be confused with `dt-api search()` which is used to search for records in the DataTable** - i.e. the filter method does not change the rows that are displayed in the DataTable.
 
 		When working with the plural methods such as `dt-api rows()` and `dt-api columns()` you may wish to use the `dt-api eq()` utility method to reduce the API instance from a 2D array to a 1D array which can be iterated over using this method.
 
