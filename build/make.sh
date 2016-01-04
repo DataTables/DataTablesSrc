@@ -239,7 +239,7 @@ function update_build_repo {
 	if [ ! -d "${BUILD_DIR}/DataTables" ]; then
 		echo_msg "Checking out DataTables/DataTables"
 		cd $BUILD_DIR
-		git clone git@github.com:DataTables/DataTables.git
+		git clone https://github.com/DataTables/DataTables.git
 		cd - > /dev/null 2>&1
 	else 
 		echo_msg "Pulling latest changes for build repo from origin"
@@ -275,7 +275,7 @@ function build_extension {
 
 	if [ ! -d ${BASE_DIR}/extensions/${EXTENSION} ]; then
 		echo_msg "Cloning $EXTENSION from GitHub" 
-		git clone git@github.com:DataTables/${EXTENSION}.git
+		git clone https@github.com:DataTables/${EXTENSION}.git
 	fi
 
 	if [ -e ${BASE_DIR}/extensions/${EXTENSION}/make.sh ]; then
