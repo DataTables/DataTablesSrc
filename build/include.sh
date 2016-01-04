@@ -3,7 +3,6 @@
 #
 
 CLOSURE="/usr/local/closure_compiler/compiler.jar"
-JSDOC="/usr/local/jsdoc/jsdoc"
 JSHINT="/usr/bin/jshint"
 
 
