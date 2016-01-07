@@ -166,7 +166,7 @@ $.extend( true, DataTable.ext.renderer, {
 
 			attach( $(host).empty(), buttons );
 
-			if ( activeEl ) {
+			if ( activeEl !== undefined ) {
 				$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
 			}
 		}
