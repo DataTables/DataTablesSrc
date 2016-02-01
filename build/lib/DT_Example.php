@@ -374,7 +374,7 @@ class DT_Example
 			(string)$this->_xml['framework'] :
 			'datatables';
 
-		if ( $framework === 'bootstrap' ) {
+		if ( strpos($framework, 'bootstrap') !== false ) {
 			$class = str_replace('display', 'table table-striped table-bordered', $class);
 		}
 
