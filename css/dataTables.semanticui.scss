@@ -1,0 +1,57 @@
+/*
+ * Styling for DataTables with Semantic UI
+ */
+
+table.dataTable.table {
+	margin: 0;
+
+	td,
+	th {
+		-webkit-box-sizing: content-box;
+		-moz-box-sizing: content-box;
+		box-sizing: content-box;
+
+		&.dataTables_empty {
+			text-align: center;
+		}
+	}
+
+	// Style options for the table. Semantic UI provides its own, but it is also
+	// useful to have a few more for DataTables
+	&.nowrap {
+		th,
+		td {
+			white-space: nowrap;
+		}
+	}
+}
+
+
+// DataTables' built in feature elements
+div.dataTables_wrapper {
+	div.dataTables_filter {
+		input {
+			margin-left: 0.5em;
+		}
+	}
+
+	div.dataTables_info {
+		padding-top: 13px;
+		white-space: nowrap;
+	}
+
+	div.dataTables_processing {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 200px;
+		margin-left: -100px;
+		text-align: center;
+	}
+
+	div.row.dt-table {
+		padding: 0;
+	}
+}
+
+// TODO - Sorting icons

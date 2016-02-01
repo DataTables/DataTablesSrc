@@ -15,7 +15,7 @@ $(document).ready(function() {
 
 As with Bootstrap 3, DataTables can also be integrated seamlessly with Bootstrap 4. At the time of writing this example Bootstrap 4 was at the alpha stage, so things can, and probably still will change before DataTables integration with Bootstrap 4 is complete.
 
-This integration is done simply by including the DataTables Bootstrap 4 files (CSS and JS) which will set the defaults needed for DataTables to be initialised as normal, as shown in this examples.
+This integration is done simply by including the DataTables Bootstrap 4 files (CSS and JS) which will set the defaults needed for DataTables to be initialised as normal, as shown in this examples. These integration libraries are not currently available in the DataTables download builder, but will become so when Bootstrap 4 is released. Until then they need to be included from source.
 
 ]]></info>
 

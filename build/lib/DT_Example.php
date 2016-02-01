@@ -377,6 +377,9 @@ class DT_Example
 		if ( strpos($framework, 'bootstrap') !== false ) {
 			$class = str_replace('display', 'table table-striped table-bordered', $class);
 		}
+		else if ( strpos($framework, 'semanticui') !== false ) {
+			$class = str_replace('display', 'ui celled table', $class);
+		}
 
 		if ( ! isset( DT_Example::$tables[ $type ] ) ) {
 			throw new Exception("Unknown table type: ".$type, 1);

@@ -12,6 +12,7 @@ FRAMEWORKS=(
 	'bootstrap4'
 	'foundation'
 	'jqueryui'
+	'semanticui'
 )
 
 
