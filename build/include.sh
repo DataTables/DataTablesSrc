@@ -13,6 +13,7 @@ FRAMEWORKS=(
 	'foundation'
 	'jqueryui'
 	'semanticui'
+	'material'
 )
 
 

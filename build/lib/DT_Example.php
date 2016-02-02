@@ -380,6 +380,9 @@ class DT_Example
 		else if ( strpos($framework, 'semanticui') !== false ) {
 			$class = str_replace('display', 'ui celled table', $class);
 		}
+		else if ( strpos($framework, 'material') !== false ) {
+			$class = str_replace('display', 'mdl-data-table', $class);
+		}
 
 		if ( ! isset( DT_Example::$tables[ $type ] ) ) {
 			throw new Exception("Unknown table type: ".$type, 1);

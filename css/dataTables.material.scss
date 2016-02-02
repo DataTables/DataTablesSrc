@@ -1,0 +1,101 @@
+
+
+
+
+// DataTables' built in feature elements
+div.dataTables_wrapper {
+	div.dataTables_length {
+
+	}
+
+	div.dataTables_filter {
+		text-align: right;
+
+		input {
+			margin-left: 0.5em;
+		}
+	}
+
+	div.dataTables_info {
+		padding-top: 10px;
+		white-space: nowrap;
+	}
+
+	div.dataTables_processing {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 200px;
+		margin-left: -100px;
+		text-align: center;
+	}
+
+	div.dataTables_paginate {
+	    text-align: right;
+	}
+
+	div.mdl-grid.dt-table {
+		padding-top: 0;
+		padding-bottom: 0;
+
+		> div.mdl-cell {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	}
+}
+
+
+// Sorting - using :before and :after with UTF8 characters
+table.dataTable thead {
+	> tr > th,
+	> tr > td {
+		&.sorting_asc,
+		&.sorting_desc,
+		&.sorting {
+			padding-right: 30px;
+		}
+
+		&:active {
+			outline: none;
+		}
+	}
+
+	.sorting,
+	.sorting_asc,
+	.sorting_desc,
+	.sorting_asc_disabled,
+	.sorting_desc_disabled {
+		cursor: pointer;
+		position: relative;
+
+		&:before,
+		&:after {
+			position: absolute;
+			bottom: 11px;
+			display: block;
+			opacity: 0.3;
+			font-size: 1.3em;
+		}
+
+		&:before {
+			right: 1em;
+			content: "\2191"; // up arrow - ascending
+		}
+
+		&:after {
+			right: 0.5em;
+			content: "\2193"; // down arrow - descending
+		}
+	}
+
+	.sorting_asc:before,
+	.sorting_desc:after {
+		opacity: 1;
+	}
+
+	.sorting_asc_disabled:before,
+	.sorting_desc_disabled:after {
+		opacity: 0;
+	}
+}
