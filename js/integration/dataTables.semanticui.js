@@ -66,7 +66,7 @@ $.extend( true, DataTable.defaults, {
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
 	sWrapper:      "dataTables_wrapper dt-semanticUI",
-	// sFilterInput:  "form-control input-sm",
+	sFilter:       "dataTables_filter ui input",
 	// sLengthSelect: "form-control input-sm",
 	sProcessing:   "dataTables_processing ui segment",
 	sPageButton:   "paginate_button item"

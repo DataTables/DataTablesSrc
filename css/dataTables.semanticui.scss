@@ -5,6 +5,38 @@
 table.dataTable.table {
 	margin: 0;
 
+	// Sorting icons using Semantic UI's built in icons (Font Awesome)
+	thead th,
+	thead td {
+		position: relative;
+
+		&.sorting:after,
+		&.sorting_asc:after,
+		&.sorting_desc:after {
+			position: absolute;
+			top: 12px;
+			right: 8px;
+			display: block;
+			font-family: Icons;
+		}
+
+		&.sorting:after {
+			content: "\f0dc";
+			color: #ddd;
+			font-size: 0.8em;
+			padding-top: 0.12em;
+		}
+
+		&.sorting_asc:after {
+			content: "\f0de";
+		}
+
+		&.sorting_desc:after {
+			content: "\f0dd";
+		}
+	}
+
+	// Easier calculations
 	td,
 	th {
 		-webkit-box-sizing: content-box;
@@ -29,6 +61,10 @@ table.dataTable.table {
 
 // DataTables' built in feature elements
 div.dataTables_wrapper {
+	div.dataTables_length {
+		padding-top: 8px;
+	}
+
 	div.dataTables_filter {
 		input {
 			margin-left: 0.5em;
@@ -53,5 +89,3 @@ div.dataTables_wrapper {
 		padding: 0;
 	}
 }
-
-// TODO - Sorting icons
