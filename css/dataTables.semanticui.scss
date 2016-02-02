@@ -62,7 +62,9 @@ table.dataTable.table {
 // DataTables' built in feature elements
 div.dataTables_wrapper {
 	div.dataTables_length {
-		padding-top: 8px;
+		.ui.selection.dropdown {
+			min-width: 0;
+		}
 	}
 
 	div.dataTables_filter {

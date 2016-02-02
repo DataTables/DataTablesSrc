@@ -67,7 +67,6 @@ $.extend( true, DataTable.defaults, {
 $.extend( DataTable.ext.classes, {
 	sWrapper:      "dataTables_wrapper dt-semanticUI",
 	sFilter:       "dataTables_filter ui input",
-	// sLengthSelect: "form-control input-sm",
 	sProcessing:   "dataTables_processing ui segment",
 	sPageButton:   "paginate_button item"
 } );
@@ -188,6 +187,21 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 		$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
 	}
 };
+
+
+// Javascript enhancements on table initialisation
+$(document).on( 'init.dt', function (e, ctx) {
+	if ( e.namespace !== 'dt' ) {
+		return;
+	}
+
+	// Length menu drop down
+	if ( $.fn.dropdown ) {
+		var api = new $.fn.dataTable.Api( ctx );
+
+		$( 'div.dataTables_length select', api.table().container() ).dropdown();
+	}
+} );
 
 
 return DataTable;

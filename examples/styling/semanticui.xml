@@ -2,7 +2,7 @@
 <dt-example table-type="html" order="12" framework="semanticui">
 
 <css lib="datatables" />
-<js lib="jquery datatables" />
+<js lib="jquery datatables semanticui" />
 
 <title>Semantic UI</title>
 <js><![CDATA[
