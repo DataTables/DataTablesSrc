@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="10" framework="material">
+<dt-example table-type="html" order="14" framework="material">
 
 <css lib="datatables" />
 <js lib="jquery datatables" />
