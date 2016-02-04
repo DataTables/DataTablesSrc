@@ -72,7 +72,7 @@ var __cell_selector = function ( settings, selector, opts )
 		return host.length ?
 			[ {
 				row: host.data('dt-row'),
-				column: host.data('dt-column'),
+				column: host.data('dt-column')
 			} ] :
 			[];
 	};
