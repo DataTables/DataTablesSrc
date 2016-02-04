@@ -432,6 +432,19 @@ else if ( stripos( $dir_input, 'FixedHeader' ) ) {
 		'integration' => "Integration with other DataTables extensions"
 	);
 }
+else if ( stripos( $dir_input, 'FixedColumns' ) ) {
+	$dir_order = array(
+		'initialisation',
+		'integration',
+		'styling'
+	);
+
+	$dir_names = array(
+		'initialisation' => "Initialisation and options",
+		'integration'    => "Integration with other DataTables extensions",
+		'styling'        => "Styling"
+	);
+}
 
 //print_r( DT_Example::$lookup_libraries );
 
