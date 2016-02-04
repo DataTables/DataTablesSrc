@@ -16,7 +16,10 @@ The row selector can be given in a number of different forms, to make it easy to
 * `dt-type integer` - Row index selector
 * `dt-type string` - ID selector
 * `dt-type string` - jQuery selector
-* `dt-type node` - `dt-tag tr` element selector
+* `dt-type node` - This may be one of the following:
+  * `-tag tr` - table row element
+  * `-tag td` - table cell element (<span class="since">Since: 1.10.11</span>)
+  * Any element which has a `data-dt-row` attribute assigned to it, or a parent (<span class="since">Since: 1.10.11</span>). This can be used by extensions such as FixedColumns and Responsive to allow easy row selection.
 * `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
 * `dt-type jQuery` - jQuery object of row nodes
 * `dt-type array` - Array containing any combination of the above options

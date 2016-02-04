@@ -51,7 +51,7 @@ var __cell_selector = function ( settings, selector, opts )
 		}
 
 		// Selector - jQuery filtered cells
-		return allCells
+		var jqResult = allCells
 			.filter( s )
 			.map( function (i, el) {
 				return { // use a new object, in case someone changes the values
@@ -60,6 +60,21 @@ var __cell_selector = function ( settings, selector, opts )
  				};
 			} )
 			.toArray();
+
+		if ( jqResult.length || ! s.nodeName ) {
+			return jqResult;
+		}
+
+		// Otherwise the selector is a node, and there is one last option - the
+		// element might be a child of an element which has dt-row and dt-column
+		// data attributes
+		host = $(s).closest('*[data-dt-row]');
+		return host.length ?
+			[ {
+				row: host.data('dt-row'),
+				column: host.data('dt-column'),
+			} ] :
+			[];
 	};
 
 	return _selector_run( 'cell', selector, run, settings, opts );

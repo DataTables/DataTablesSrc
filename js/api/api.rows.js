@@ -51,9 +51,17 @@ var __row_selector = function ( settings, selector, opts )
 
 		// Selector - node
 		if ( sel.nodeName ) {
-			if ( $.inArray( sel, nodes ) !== -1 ) {
-				return [ sel._DT_RowIndex ]; // sel is a TR node that is in the table
-				                             // and DataTables adds a prop for fast lookup
+			if ( sel._DT_RowIndex !== undefined ) {
+				return [ sel._DT_RowIndex ]; // Property added by DT for fast lookup
+			}
+			else if ( sel._DT_CellIndex ) {
+				return [ sel._DT_CellIndex.row ];
+			}
+			else {
+				var host = $(sel).closest('*[data-dt-row]');
+				return host.length ?
+					[ host.data('dt-row') ] :
+					[];
 			}
 		}
 

@@ -14,7 +14,9 @@ The cell selector can be given in a number of different forms, to make it easy t
 
 * No selector - Select all cells
 * `dt-type string` - jQuery selector
-* `dt-type node` - `dt-tag td` / `dt-tag th` element selector
+* `dt-type node` - This may be one of the following:
+  * `-tag td` / `-tag th` cell
+  * Any element which has both a `data-dt-row` and `data-dt-column` attribute assigned to it, or a parent (<span class="since">Since: 1.10.11</span>). This can be used by extensions such as FixedColumns and Responsive to allow easy column selection.
 * `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
 * `dt-type jQuery` - jQuery object of cell nodes
 * `dt-type object` - DataTables cell indexes (`row` and `column` properties)

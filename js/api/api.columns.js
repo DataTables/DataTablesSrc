@@ -90,17 +90,35 @@ var __column_selector = function ( settings, selector, opts )
 					return $.map( names, function (name, i) {
 						return name === match[1] ? i : null;
 					} );
+
+				default:
+					return [];
 			}
 		}
-		else {
-			// jQuery selector on the TH elements for the columns
-			return $( nodes )
-				.filter( s )
-				.map( function () {
-					return $.inArray( this, nodes ); // `nodes` is column index complete and in order
-				} )
-				.toArray();
+
+		// Cell in the table body
+		if ( s.nodeName && s._DT_CellIndex ) {
+			return [ s._DT_CellIndex.column ];
 		}
+
+		// jQuery selector on the TH elements for the columns
+		var jqResult = $( nodes )
+			.filter( s )
+			.map( function () {
+				return $.inArray( this, nodes ); // `nodes` is column index complete and in order
+			} )
+			.toArray();
+
+		if ( jqResult.length || ! s.nodeName ) {
+			return jqResult;
+		}
+
+		// Otherwise a node which might have a `dt-column` data attribute, or be
+		// a child or such an element
+		var host = $(s).closest('*[data-dt-column]');
+		return host.length ?
+			[ host.data('dt-column') ] :
+			[];
 	};
 
 	return _selector_run( 'column', selector, run, settings, opts );
