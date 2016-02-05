@@ -1,0 +1,47 @@
+Contributors to DataTables - ordered by date of first contribution:
+
+SpryMedia Limited <@DataTables>
+<@kcivey>
+<@ghostd>
+<@mbp>
+<@michalporeba>
+<@Petah>
+<@thegrandpoobah>
+<@jerrykan>
+<@nnguyen>
+<@iBiryukov>
+<@kycook>
+<@timtucker>
+<@rikkert>
+<@cirosantilli>
+<@Tiax>
+<@DukeAstar>
+<@benn0r>
+<@zeitiger>
+<@theUniC>
+<@nifr>
+<@jdufresne>
+<@TonyaSolaris>
+<@malinow>
+<@masteradhoc>
+<@lloy0076>
+<@maxgalbu>
+<@sbine>
+<@msakhawat>
+<@netaisllc>
+<@zackkatz>
+<@bjmiller>
+<@dylancwood>
+<@abrom>
+<@cookieguru>
+<@nathanstitt>
+<@cdaringe>
+<@simonbrent>
+<@ieaglle>
+<@jfktrey>
+<@gauravmak>
+<@strang91>
+<@gaillafr>
+<@adilapapaya>
+<@frank-carnovale>
+Google Inc. <@jthsiao>
