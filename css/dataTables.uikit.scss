@@ -1,191 +1,196 @@
+
 table.dataTable {
-  clear: both;
-  margin-top: 6px !important;
-  margin-bottom: 6px !important;
-  max-width: none !important;
-  td, th {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-  }
-  td.dataTables_empty, th.dataTables_empty {
-    text-align: center;
-  }
-  &.nowrap {
-    th, td {
-      white-space: nowrap;
-    }
-  }
+	clear: both;
+	margin-top: 6px !important;
+	margin-bottom: 6px !important;
+	max-width: none !important;
+
+	td,
+	th {
+		-webkit-box-sizing: content-box;
+		-moz-box-sizing: content-box;
+		box-sizing: content-box;
+
+		&.dataTables_empty {
+			text-align: center;
+		}
+	}
+
+	// Style options for the table. Foundation provides its own, but it is also
+	// useful to have a few more for DataTables
+	&.nowrap {
+		th,
+		td {
+			white-space: nowrap;
+		}
+	}
 }
 
-div.dataTables_wrapper div {
-  &.dataTables_length {
-    label {
-      font-weight: normal;
-      text-align: left;
-      white-space: nowrap;
-    }
-    select {
-      width: 75px;
-      display: inline-block;
-    }
-  }
-  &.dataTables_filter {
-    text-align: right;
-    label {
-      font-weight: normal;
-      white-space: nowrap;
-      text-align: left;
-    }
-    input {
-      margin-left: 0.5em;
-      display: inline-block;
-      width: auto;
-    }
-  }
-  &.dataTables_info {
-    padding-top: 8px;
-    white-space: nowrap;
-  }
-  &.dataTables_paginate {
-    margin: 0;
-    white-space: nowrap;
-    text-align: right;
-    ul.pagination {
-      margin: 2px 0;
-      white-space: nowrap;
-    }
-  }
-  &.dataTables_processing {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200px;
-    margin-left: -100px;
-    margin-top: -26px;
-    text-align: center;
-    padding: 1em 0;
-  }
+
+// DataTables' built in feature elements
+div.dataTables_wrapper {
+	div.row.uk-grid.dt-merge-grid {
+		margin-top: 5px;
+	}
+
+	div.dataTables_length {
+		label {
+			font-weight: normal;
+			text-align: left;
+			white-space: nowrap;
+		}
+
+		select {
+			width: 75px;
+			display: inline-block;
+		}
+	}
+
+	div.dataTables_filter {
+		text-align: right;
+
+		label {
+			font-weight: normal;
+			white-space: nowrap;
+			text-align: left;
+		}
+
+		input {
+			margin-left: 0.5em;
+			display: inline-block;
+			width: auto;
+		}
+	}
+
+	div.dataTables_info {
+		padding-top: 8px;
+		white-space: nowrap;
+	}
+
+	div.dataTables_paginate {
+		margin: 0;
+		white-space: nowrap;
+		text-align: right;
+
+		ul.pagination {
+			margin: 2px 0;
+			white-space: nowrap;
+		}
+	}
+
+	div.dataTables_processing {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 200px;
+		margin-left: -100px;
+		margin-top: -26px;
+		text-align: center;
+		padding: 1em 0;
+	}
 }
 
+
+// Sorting icons using UIKit's built in icons (Font Awesome)
 table.dataTable thead {
-  > tr > {
-    th {
-      &.sorting_asc, &.sorting_desc, &.sorting {
-        padding-right: 30px;
-      }
-    }
-    td {
-      &.sorting_asc, &.sorting_desc, &.sorting {
-        padding-right: 30px;
-      }
-    }
-    th:active, td:active {
-      outline: none;
-    }
-  }
-  .sorting, .sorting_asc, .sorting_desc, .sorting_asc_disabled, .sorting_desc_disabled {
-    cursor: pointer;
-    position: relative;
-  }
-  .sorting:after, .sorting_asc:after, .sorting_desc:after, .sorting_asc_disabled:after, .sorting_desc_disabled:after {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    display: block;
-    font-family: 'FontAwesome';
-    opacity: 0.5;
-  }
-  .sorting:after {
-    opacity: 0.2;
-    content: "\f0dc";
-    /* sort */
-  }
-  .sorting_asc:after {
-    content: "\f160";
-    /* sort-by-attributes */
-  }
-  .sorting_desc:after {
-    content: "\f161";
-    /* sort-by-attributes-alt */
-  }
-  .sorting_asc_disabled:after, .sorting_desc_disabled:after {
-    color: #eee;
-  }
+	> tr > th,
+	> tr > td {
+		position: relative;
+
+		&.sorting_asc,
+		&.sorting_desc,
+		&.sorting {
+			padding-right: 30px;
+		}
+
+		&.sorting:after,
+		&.sorting_asc:after,
+		&.sorting_desc:after {
+			position: absolute;
+			top: 7px;
+			right: 8px;
+			display: block;
+			font-family: 'FontAwesome';
+		}
+
+		&.sorting:after {
+			content: "\f0dc";
+			color: #ddd;
+			font-size: 0.8em;
+			padding-top: 0.12em;
+		}
+
+		&.sorting_asc:after {
+			content: "\f0de";
+		}
+
+		&.sorting_desc:after {
+			content: "\f0dd";
+		}
+	}
 }
 
-div {
-  &.dataTables_scrollHead table.dataTable {
-    margin-bottom: 0 !important;
-  }
-  &.dataTables_scrollBody table {
-    border-top: none;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    thead {
-      .sorting:after, .sorting_asc:after, .sorting_desc:after {
-        display: none;
-      }
-    }
-    tbody tr:first-child {
-      th, td {
-        border-top: none;
-      }
-    }
-  }
-  &.dataTables_scrollFoot table {
-    margin-top: 0 !important;
-    border-top: none;
-  }
+
+// Scrolling
+div.dataTables_scrollHead table.dataTable {
+	margin-bottom: 0 !important;
 }
 
+div.dataTables_scrollBody {
+	table {
+		border-top: none;
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+
+		thead { // Hide sort icons
+			.sorting:after,
+			.sorting_asc:after,
+			.sorting_desc:after {
+				display: none;
+			}
+		}
+
+		tbody tr:first-child th,
+		tbody tr:first-child td {
+			border-top: none;
+		}
+	}
+}
+
+div.dataTables_scrollFoot table {
+	margin-top: 0 !important;
+	border-top: none;
+}
+
+
+// Responsive
 @media screen and (max-width: 767px) {
-  div.dataTables_wrapper div {
-    &.dataTables_length, &.dataTables_filter, &.dataTables_info, &.dataTables_paginate {
-      text-align: center;
-    }
-  }
+	div.dataTables_wrapper {
+		div.dataTables_length,
+		div.dataTables_filter,
+		div.dataTables_info,
+		div.dataTables_paginate {
+			text-align: center;
+		}
+	}
 }
 
-table {
-  &.dataTable.table-condensed {
-    > thead > tr > th {
-      padding-right: 20px;
-    }
-    .sorting:after, .sorting_asc:after, .sorting_desc:after {
-      top: 6px;
-      right: 6px;
-    }
-  }
-  &.table-bordered.dataTable {
-    border-collapse: separate !important;
-    th, td {
-      border-left-width: 0;
-    }
-    th:last-child, td:last-child {
-      border-right-width: 0;
-    }
-    tbody {
-      th, td {
-        border-bottom-width: 0;
-      }
-    }
-  }
-}
 
-div {
-  &.dataTables_scrollHead table.table-bordered {
-    border-bottom-width: 0;
-  }
-  &.table-responsive > div.dataTables_wrapper > div.row {
-    margin: 0;
-    > div[class^="col-"] {
-      &:first-child {
-        padding-left: 0;
-      }
-      &:last-child {
-        padding-right: 0;
-      }
-    }
-  }
+//
+// UIKit provides a range of styling options for table's via class name
+// that we want to full support. They sometimes require some customisations
+//
+
+// Condensed
+table.dataTable.uk-table-condensed {
+	> thead > tr > th {
+		padding-right: 20px;
+	}
+
+	.sorting:after,
+	.sorting_asc:after,
+	.sorting_desc:after {
+		top: 6px;
+		right: 6px;
+	}
 }

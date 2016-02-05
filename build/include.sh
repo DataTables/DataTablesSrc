@@ -14,6 +14,7 @@ FRAMEWORKS=(
 	'jqueryui'
 	'semanticui'
 	'material'
+	'uikit'
 )
 
 

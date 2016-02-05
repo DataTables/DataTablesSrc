@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="15" framework="uikit">
+
+<css lib="datatables" />
+<js lib="jquery datatables" />
+
+<title>UIKit (Tech. preview)</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').DataTable();
+} );
+]]></js>
+
+<info><![CDATA[
+
+This example shows DataTables integrated with [UIKit](http://getuikit.com/).
+
+The DataTables integration with UIKit is still in development and not all elements might work correctly yet. Only once all of DataTables extensions fully support UIKit will the integration be complete and available via the DataTables download builder.
+
+]]></info>
+
+</dt-example>

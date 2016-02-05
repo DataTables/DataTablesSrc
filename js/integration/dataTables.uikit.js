@@ -1,14 +1,8 @@
 /*! DataTables UIkit 3 integration
- * ©2011-2015 SpryMedia Ltd - datatables.net/license
  */
 
 /**
- * DataTables integration for UIkit 3. This requires UIkit 3 and
- * DataTables 1.10 or newer.
- *
- * This file sets the defaults and adds options to DataTables to style its
- * controls using UIkit. See http://datatables.net/manual/styling/uikit
- * for further information.
+ * This is a tech preview of UIKit integration with DataTables.
  */
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
@@ -47,8 +41,8 @@ var DataTable = $.fn.dataTable;
 $.extend( true, DataTable.defaults, {
 	dom:
 		"<'row uk-grid'<'uk-width-1-2'l><'uk-width-1-2'f>>" +
-		"<'row uk-grid'<'uk-width-1-1'tr>>" +
-		"<'row uk-grid'<'uk-width-2-5'i><'uk-width-3-5'p>>",
+		"<'row uk-grid dt-merge-grid'<'uk-width-1-1'tr>>" +
+		"<'row uk-grid dt-merge-grid'<'uk-width-2-5'i><'uk-width-3-5'p>>",
 	renderer: 'uikit'
 } );
 
@@ -102,13 +96,13 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 						break;
 
 					case 'previous':
-						btnDisplay = '<i class="uk-icon-angle-double-left"></i> ' + lang.sPrevious;
+						btnDisplay = '<i class="uk-icon-angle-left"></i> ' + lang.sPrevious;
 						btnClass = (page > 0 ?
 							'' : 'uk-disabled disabled');
 						break;
 
 					case 'next':
-						btnDisplay = lang.sNext + ' <i class="uk-icon-angle-double-right"></i>';
+						btnDisplay = lang.sNext + ' <i class="uk-icon-angle-right"></i>';
 						btnClass = (page < pages-1 ?
 							'' : 'uk-disabled disabled');
 						break;
@@ -176,44 +170,6 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 		$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
 	}
 };
-
-
-/*
- * TableTools UIkit compatibility
- * Required TableTools 2.1+
- */
-if ( DataTable.TableTools ) {
-	// Set the classes that TableTools uses to something suitable for UIkit
-	$.extend( true, DataTable.TableTools.classes, {
-		"container": "DTTT uk-button-group",
-		"buttons": {
-			"normal": "uk-button",
-			"disabled": "uk-disabled"
-		},
-		"collection": {
-			"container": "DTTT_dropdown uk-dropdown",
-			"buttons": {
-				"normal": "",
-				"disabled": "uk-disabled"
-			}
-		},
-		"print": {
-			"info": "DTTT_print_info"
-		},
-		"select": {
-			"row": "uk-active"
-		}
-	} );
-
-	// Have the collection use a uikit compatible drop down
-	$.extend( true, DataTable.TableTools.DEFAULTS.oTags, {
-		"collection": {
-			"container": "ul",
-			"button": "li",
-			"liner": "a"
-		}
-	} );
-}
 
 
 return DataTable;
