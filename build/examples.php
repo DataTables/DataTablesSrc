@@ -405,6 +405,19 @@ else if ( stripos( $dir_input, 'Buttons' ) ) {
 		'styling'           => "Styling",
 	);
 }
+else if ( stripos( $dir_input, 'ColReorder' ) ) {
+	$dir_order = array(
+		'initialisation',
+		'integration',
+		'styling'
+	);
+
+	$dir_names = array(
+		'initialisation' => "Initialisation and options",
+		'integration'    => "Integration with other DataTables extensions",
+		'styling'        => "Styling"
+	);
+}
 else if ( stripos( $dir_input, 'Responsive' ) ) {
 	$dir_order = array(
 		'initialisation',
