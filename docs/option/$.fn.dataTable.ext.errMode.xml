@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="static">
+	<name>$.fn.dataTable.ext.errMode</name>
+	<summary>Set how DataTables will report detected errors</summary>
+	<since>1.10</since>
+
+	<type type="string">
+		<description>
+			Perform one of the built in error reporting actions:
+
+			* `-string alert` (default) - Alert the error
+			* `-string throw` - Throw a Javascript error
+			* `-string none` - Do nothing (you would want to use this `dt-event error` in this case)
+		</description>
+	</type>
+
+	<type type="function">
+		<signature>$.fn.dataTable.ext.errMode( settings, techNote, message )</signature>
+		<parameter type="DataTables.Settings" name="settings">
+			DataTables settings object (`dt-type DataTables.Settings`).
+		</parameter>
+		<parameter type="integer" name="techNote">
+			Technical note reference which contains detailed information about the error that has occured - this can be found at `https://datatables.net/tn/{techNote}`.
+		</parameter>
+		<parameter type="string" name="message">
+			Error message
+		</parameter>
+		<returns type="undefined">
+			No return is excepted or acted upon.
+		</returns>
+		<description>
+			As a function you may provide your own error handling, for example showing a message to the end user or reloading the page to recover from an error situation.
+		</description>
+	</type>
+
+	<description>
+		If DataTables encounters an error that it "knows about" (invalid JSON for example), it can provide useful information that describes the error and how to address it.
+
+		The default error handling is intentionally obtrusive to let developers know that there is an issue while they are writing code that interfaces with DataTables. However, this is not always what you might wish to have on your page and this static option provides the ability to control how errors are reported.
+	</description>
+
+	<example title="Have DataTables `throw` errors rather than `alert()` them."><![CDATA[
+
+$.fn.dataTable.ext.errMode = 'throw';
+
+$('#example').dataTable( {
+  ajax: 'data.json'
+} );
+]]></example>
+
+	<related>dt-event error</related>
+</dt-option>
