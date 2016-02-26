@@ -10,7 +10,7 @@
 			`tag TR` element being inserted into the document.
 		</parameter>
 		<parameter type="array|object" name="data">
-			Data source for the row (array or object)
+			Data source for the row. **Important**: This parameter is the original data source object that is used for the  row. If you are using objects, then `data` is an object - if you are using arrays, then `data` is an array. Thus how you obtain the data from this parameter will depend on how the DataTable is configured.
 		</parameter>
 		<parameter type="integer" name="index">
 			DataTables' internal index for the row - see `dt-api row().index()`.
@@ -24,10 +24,19 @@
 		This function might be used for setting the row class name or otherwise manipulating the row's `tag TR` element (although note that `dt-init createdRow can often be more efficient).
 	</description>
 
-	<example title="Highlight cells based on their content"><![CDATA[
+	<example title="Highlight cells based on their content (object data source)"><![CDATA[
 $('#example').dataTable( {
   "rowCallback": function( row, data, index ) {
-    // Bold the grade for all 'A' grade browsers
+    if ( data.grade == "A" ) {
+      $('td:eq(4)', row).html( '<b>A</b>' );
+    }
+  }
+} );
+]]></example>
+
+	<example title="Highlight cells based on their content (array data source)"><![CDATA[
+$('#example').dataTable( {
+  "rowCallback": function( row, data, index ) {
     if ( data[4] == "A" ) {
       $('td:eq(4)', row).html( '<b>A</b>' );
     }
