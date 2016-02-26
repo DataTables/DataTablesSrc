@@ -29,6 +29,8 @@
 	<description>
 		This event is fired whenever a column's visibility is altered through the `dt-api column().visible()` method and can be useful for plug-ins which work with columns to identify changes in column visibility state and update their own state to take account of the change.
 
+		**Responsive integration**: If you are using the [Responsive extension for DataTables](//datatables.net/extensions/responsive/) for DataTables, it will effect the visibility of columns, but it does not use the DataTables column visibility options, so this event will not be triggered by Responsive showing or hiding columns. Instead, use the `r-event responsive-resize` event.
+
 		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
