@@ -8,7 +8,7 @@
 	<default value="true" />
 
 	<description>
-		When pagination is enabled, this option will control the display an option for the end user to change number of records to be shown per page. The options shown in the list are controlled by the `dt-init lengthMenu` configuration option.
+		When pagination is enabled, this option will control the display of an option for the end user to change number of records to be shown per page. The options shown in the list are controlled by the `dt-init lengthMenu` configuration option.
 
 		Note that by default the control is shown at the top left of the table. That can be controlled using `dt-init dom` and CSS.
 
