@@ -151,5 +151,6 @@ $('#example').dataTable( {
 	<related type="option">info</related>
 	<related type="option">ordering</related>
 	<related type="option">processing</related>
-	<related type="option">paging</related>
+  <related type="option">paging</related>
+  <related type="option">lengthChange</related>
 </dt-option>
