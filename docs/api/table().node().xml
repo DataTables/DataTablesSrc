@@ -19,7 +19,7 @@ var table = $('#example').DataTable( {
 	scrollX: "100%"
 } );
 
-$( tables.table().node() )
+$( table.table().node() )
 	.addClass( 'highlight' );
 ]]></example>
 
