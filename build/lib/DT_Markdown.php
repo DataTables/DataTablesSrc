@@ -15,12 +15,44 @@ require_once('markdown_extended.php');// or die('Run ./make.sh thirdparty');
  *      paths)
  */
 
-function DT_Markdown($text, $default_claases = array()){
+function DT_Markdown($text, $default_claases=array(), $truncateWhiteSpace=false){
+	if ( $truncateWhiteSpace ) {
+		$text = DT_Markdown_Parser::truncateWhiteSpace( $text );
+	}
+
 	$parser = new DT_Markdown_Parser($default_claases);
 	return $parser->transform($text);
 }
 
 class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
+	// If the first line has white space, then remove that amount of white space
+	// from all lines
+	static function truncateWhiteSpace ( $str )
+	{
+		// Remove lines that have white space only
+		while ( preg_match('/^\t*\n/', $str) ) {
+			$str = preg_replace( '/^\t*\n/', '', $str );
+		}
+
+		// Split it up for line by line
+		$a = explode("\n", $str);
+
+		if ( strpos( $a[0], "\t" ) === 0 || strpos( $a[0], " " ) === 0 ) {
+			// How much white space?
+			preg_match("/^\s+/", $a[0], $match);
+
+			// Remove the same amount of white space for each line
+			if ( $match && count($match) ) {
+				for ( $i=0, $ien=count($a) ; $i<$ien ; $i++ ) {
+					$a[$i] = preg_replace( '/'.$match[0].'/', '', $a[$i], 1 );
+				}
+			}
+		}
+
+		return implode("\n", $a);
+	}
+
+
 	function DT_Markdown_Parser( $options )
 	{
 		if ( isset( $options['nohtml'] ) ) {
