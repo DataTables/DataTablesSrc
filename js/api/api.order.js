@@ -43,7 +43,7 @@ _api_register( 'order()', function ( order, dir ) {
 		// Simple column / direction passed in
 		order = [ [ order, dir ] ];
 	}
-	else if ( ! $.isArray( order[0] ) ) {
+	else if ( order.length && ! $.isArray( order[0] ) ) {
 		// Arguments passed in (list of 1D arrays)
 		order = Array.prototype.slice.call( arguments );
 	}
