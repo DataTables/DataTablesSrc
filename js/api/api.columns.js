@@ -240,13 +240,15 @@ _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis
 	} );
 
 	// Group the column visibility changes
-	if ( vis !== undefined && ( calc === undefined || calc ) ) {
-		this.columns.adjust();
-
-		// Fire the column visibility event after any recalc is done
+	if ( vis !== undefined ) {
+		// Second loop once the first is done for events
 		this.iterator( 'column', function ( settings, column ) {
 			_fnCallbackFire( settings, null, 'column-visibility', [settings, column, vis, calc] );
 		} );
+
+		if ( calc === undefined || calc ) {
+			this.columns.adjust();
+		}
 	}
 
 	return ret;
