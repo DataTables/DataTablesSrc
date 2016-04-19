@@ -667,9 +667,6 @@ class Markdown_Parser {
 	function doHardBreaks($text) {
 		# Do hard breaks:
 		// Remove double newlines that remain
-		$text = preg_replace_callback('/\n\n/',
-			array(&$this, '_doHardBreaks_callback'), $text);
-
 		return preg_replace_callback('/ {2,}\n/', 
 			array(&$this, '_doHardBreaks_callback'), $text);
 	}
