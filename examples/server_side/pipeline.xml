@@ -97,7 +97,9 @@ $.fn.dataTable.pipeline = function ( opts ) {
 					if ( cacheLower != drawStart ) {
 						json.data.splice( 0, drawStart-cacheLower );
 					}
-					json.data.splice( requestLength, json.data.length );
+					if ( requestLength >= -1 ) {
+						json.data.splice( requestLength, json.data.length );
+					}
 					
 					drawCallback( json );
 				}
