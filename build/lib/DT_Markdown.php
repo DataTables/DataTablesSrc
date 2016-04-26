@@ -297,7 +297,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		$attr  = $this->_doHeaders_attr($id =& $matches[2]);
 
 		$text = $this->runSpanGamut($matches[1]);
-		$anchor = $this->_doHeaderAnchor( $text );
+		$anchor = $this->_doHeaderAnchor( $matches[1] );
 		$block =
 			'<a name="'.$anchor.'"></a>'.
 			"<h$level$attr data-anchor=\"".$anchor."\">".$text."</h$level>";
@@ -311,7 +311,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		$text = $this->runSpanGamut($matches[2]);
 
 		if ( $level <= 3 ) {
-			$anchor = $this->_doHeaderAnchor( $text );
+			$anchor = $this->_doHeaderAnchor( $matches[2] );
 			$block =
 				'<a name="'.$anchor.'"></a>'.
 				"<h$level$attr data-anchor=\"".$anchor."\">".$text."</h$level>";
@@ -325,7 +325,9 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 
 	function _doHeaderAnchor( $text ) {
 		$text = strip_tags( $text );
-		return str_replace(' ', '-', $text);
+		$text = str_replace(' ', '-', $text);
+		$text = str_replace('`', '', $text);
+		return $text;
 	}
 
 
