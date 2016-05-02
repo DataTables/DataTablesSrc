@@ -238,7 +238,7 @@ else {
 }
 
 // Styling libraries
-DT_Example::$lookup_libraries['js' ]['jquery']       = '//code.jquery.com/jquery-1.12.0.min.js';
+DT_Example::$lookup_libraries['js' ]['jquery']       = '//code.jquery.com/jquery-1.12.3.min.js';
 DT_Example::$lookup_libraries['js' ]['jqueryui']     = '//code.jquery.com/ui/1.11.4/jquery-ui.js';
 DT_Example::$lookup_libraries['css']['jqueryui']     = '//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css';
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js';
