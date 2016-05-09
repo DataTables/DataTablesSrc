@@ -74,7 +74,14 @@
 
     ### Plug-ins
 
-    DataTables feature plug-ins can be developed to add additional features to DataTables and often will make use of this option, adding new letters to the DataTables core features. For example [TableTools](//datatables.net/extras/tabletools) adds the `T` option to `dt-init dom` to specify where table control buttons should be inserted into the table.
+    DataTables feature plug-ins can be developed to add additional features to DataTables and often will make use of this option, adding new letters to the DataTables core features. For example [Buttons](//datatables.net/extensions/buttons) adds the `B` option to `dt-init dom` to specify where table control buttons should be inserted into the table.
+
+    Currently only a single extension provides its own `dt-init dom` option, while the others can all be configured directly using the options in the DataTables constructor:
+
+    * `B` - [Buttons](/extensions/buttons)
+
+
+    ### Future development
 
     Note, I am aware that this is the most complex option in DataTables and it takes a fair amount of understanding, particularly when using the styling integration options! The plan is to revamp this option in 1.11 to make it easier to use.
     
