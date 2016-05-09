@@ -91,27 +91,7 @@
 	 *      } );
 	 *    } );
 	 */
-	var DataTable;
-
-	_buildInclude('core.internal.js');
-	_buildInclude('core.compat.js');
-	_buildInclude('core.columns.js');
-	_buildInclude('core.data.js');
-	_buildInclude('core.draw.js');
-	_buildInclude('core.ajax.js');
-	_buildInclude('core.filter.js');
-	_buildInclude('core.info.js');
-	_buildInclude('core.init.js');
-	_buildInclude('core.length.js');
-	_buildInclude('core.page.js');
-	_buildInclude('core.processing.js');
-	_buildInclude('core.scrolling.js');
-	_buildInclude('core.sizing.js');
-	_buildInclude('core.sort.js');
-	_buildInclude('core.state.js');
-	_buildInclude('core.support.js');
-
-	DataTable = function( options )
+	var DataTable = function ( options )
 	{
 		_buildInclude('api.legacy.js');
 
@@ -145,6 +125,25 @@
 		_that = null;
 		return this;
 	};
+
+	_buildInclude('core.internal.js');
+	_buildInclude('api.util.js');
+	_buildInclude('core.compat.js');
+	_buildInclude('core.columns.js');
+	_buildInclude('core.data.js');
+	_buildInclude('core.draw.js');
+	_buildInclude('core.ajax.js');
+	_buildInclude('core.filter.js');
+	_buildInclude('core.info.js');
+	_buildInclude('core.init.js');
+	_buildInclude('core.length.js');
+	_buildInclude('core.page.js');
+	_buildInclude('core.processing.js');
+	_buildInclude('core.scrolling.js');
+	_buildInclude('core.sizing.js');
+	_buildInclude('core.sort.js');
+	_buildInclude('core.state.js');
+	_buildInclude('core.support.js');
 
 	_buildInclude('api.base.js');
 	_buildInclude('api.table.js');

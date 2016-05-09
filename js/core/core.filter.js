@@ -301,12 +301,7 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
  *  @returns {string} escaped string
  *  @memberof DataTable#oApi
  */
-function _fnEscapeRegex ( sVal )
-{
-	return sVal.replace( _re_escape_regex, '\\$1' );
-}
-
-
+var _fnEscapeRegex = DataTable.util.escapeRegex;
 
 var __filter_div = $('<div>')[0];
 var __filter_div_textContent = __filter_div.textContent !== undefined;

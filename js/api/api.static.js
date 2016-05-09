@@ -109,38 +109,6 @@ DataTable.tables = DataTable.fnTables = function ( visible )
 
 
 /**
- * DataTables utility methods
- * 
- * This namespace provides helper methods that DataTables uses internally to
- * create a DataTable, but which are not exclusively used only for DataTables.
- * These methods can be used by extension authors to save the duplication of
- * code.
- *
- *  @namespace
- */
-DataTable.util = {
-	/**
-	 * Throttle the calls to a function. Arguments and context are maintained
-	 * for the throttled function.
-	 *
-	 * @param {function} fn Function to be called
-	 * @param {integer} freq Call frequency in mS
-	 * @return {function} Wrapped function
-	 */
-	throttle: _fnThrottle,
-
-
-	/**
-	 * Escape a string such that it can be used in a regular expression
-	 *
-	 *  @param {string} sVal string to escape
-	 *  @returns {string} escaped string
-	 */
-	escapeRegex: _fnEscapeRegex
-};
-
-
-/**
  * Convert from camel case parameters to Hungarian notation. This is made public
  * for the extensions to provide the same ability as DataTables core to accept
  * either the 1.9 style Hungarian notation, or the 1.10+ style camelCase
