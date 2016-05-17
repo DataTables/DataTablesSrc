@@ -30,7 +30,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Show a loading message while the table is being initialised (`processing` will do this as well)"><![CDATA[
-$('<div class="loading">Loading</div>').appendTo('body);
+$('<div class="loading">Loading</div>').appendTo('body');
 
 $('#example').dataTable( {
   "initComplete": function( settings, json ) {
