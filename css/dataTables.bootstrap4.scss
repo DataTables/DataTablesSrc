@@ -5,6 +5,7 @@ table.dataTable {
 	margin-top: 6px !important;
 	margin-bottom: 6px !important;
 	max-width: none !important;
+	border-collapse: separate !important;
 
 	td,
 	th {
@@ -209,8 +210,6 @@ table.dataTable.table-condensed {
 // width calculations when using scrolling impossible to align columns. We have
 // to use `border-collapse: separate`
 table.table-bordered.dataTable {
-	border-collapse: separate !important;
-
 	th,
 	td {
 		border-left-width: 0;
