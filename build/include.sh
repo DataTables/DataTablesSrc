@@ -8,8 +8,8 @@ JSHINT="/usr/bin/jshint"
 
 # CSS styling frameworks that DataTables supports
 FRAMEWORKS=(
-	'bootstrap'
 	'bootstrap4'
+	'bootstrap'
 	'foundation'
 	'jqueryui'
 	'semanticui'
