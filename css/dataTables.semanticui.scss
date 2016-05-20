@@ -65,6 +65,12 @@ table.dataTable.table {
 // DataTables' built in feature elements
 div.dataTables_wrapper {
 	div.dataTables_length {
+		// Match the height of the drop down when Semantic UI JS isn't present
+		select {
+			vertical-align: middle;
+			min-height: 2.7142em;
+		}
+
 		.ui.selection.dropdown {
 			min-width: 0;
 		}
