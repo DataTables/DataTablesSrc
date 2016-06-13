@@ -238,7 +238,9 @@ else {
 }
 
 // Styling libraries
-DT_Example::$lookup_libraries['js' ]['jquery']       = '//code.jquery.com/jquery-1.12.3.min.js';
+// When updating these files, make sure you also update the `karma.config` tests
+// file to match versions.
+DT_Example::$lookup_libraries['js' ]['jquery']       = '//code.jquery.com/jquery-1.12.3.js';
 DT_Example::$lookup_libraries['js' ]['jqueryui']     = '//code.jquery.com/ui/1.11.4/jquery-ui.js';
 DT_Example::$lookup_libraries['css']['jqueryui']     = '//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css';
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js';
@@ -259,7 +261,7 @@ DT_Example::$lookup_libraries['css']['font-awesome'] = '//cdnjs.cloudflare.com/a
 DT_Example::$lookup_libraries['js']['jszip']         = '//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js';
 DT_Example::$lookup_libraries['js']['pdfmake']       = '//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js';
 DT_Example::$lookup_libraries['js']['vfsfonts']      = '//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js';
-DT_Example::$lookup_libraries['js']['moment']        = '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js';
+DT_Example::$lookup_libraries['js']['moment']        = '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js';
 
 function multiple ( $value, $fn )
 {
