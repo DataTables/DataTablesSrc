@@ -1,0 +1,21 @@
+{
+	"name": "datatables.net-src",
+	"version": "1.10.12",
+	"description": "DataTables source files. Please note that this package does not include the built files. Use the `datatables.net` package!",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build-debug": "cd build; ./make.sh build debug",
+		"build": "cd build; ./make.sh build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/DataTables/DataTablesSrc.git"
+	},
+	"author": {
+		"name": "SpryMedia Ltd",
+		"url": "http://datatables.net"
+	},
+	"license": "MIT",
+	"homepage": "https://datatables.net",
+	"bugs": "https://datatables.net/forums"
+}
