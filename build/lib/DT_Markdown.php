@@ -231,7 +231,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	{
 		$that = $this;
 		$text = preg_replace_callback(
-			'/^([a-z]{0,2}\-init |[a-z]{0,2}\-api |[a-z]{0,2}\-event |[a-z]{0,2}\-type |[a-z]{0,2}\-button |e\-field |e\-display |[dt]*\-tag |tag |[dt]*\-path |path |[dt]*\-string |string )?(.*)$/m',
+			'/^([a-z]{0,2}\-init |[a-z]{0,2}\-option |[a-z]{0,2}\-api |[a-z]{0,2}\-event |[a-z]{0,2}\-type |[a-z]{0,2}\-button |e\-field |e\-display |[dt]*\-tag |tag |[dt]*\-path |path |[dt]*\-string |string )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
 
@@ -239,7 +239,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				$software = count( $flags ) > 1 ? $flags[0] : null;
 				$tags     = count( $flags ) > 1 ? $flags[1] : $flags[0];
 
-				if ( $tags === 'init' ) {
+				if ( $tags === 'init' || $tags === 'option' ) {
 					$formatted = $that->_docLink( $software, 'init', $matches[2], $html );
 				}
 				else if ( $tags === 'api' ) {
