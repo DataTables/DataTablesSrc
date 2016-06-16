@@ -23,10 +23,7 @@ describe( "Paging option", function() {
 	it( "Length control is in the DOM", function () {
 		expect( $('div.dataTables_length')[0] ).toBeInDOM();
 	} );
-
-
 	dt.html( 'basic' );
-
 	it( "Can disable paging using option", function () {
 		$('#example').DataTable( {
 			paging: false

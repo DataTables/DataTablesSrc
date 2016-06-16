@@ -10,6 +10,8 @@ module.exports = function(config) {
 
     // plugins
     plugins: [
+        require('karma-html2js-preprocessor'),
+        require('karma-jasmine-html-reporter'),
         require('./html-loader.js'),
         require('karma-jasmine-jquery'),
         require('karma-jasmine'),
@@ -32,6 +34,7 @@ module.exports = function(config) {
       { pattern: 'built/DataTables/**/*.css', included: false },
       { pattern: 'built/DataTables/**/*.png', included: false },
       'test/options/*.js',
+      'test/features/*.test.js',
       'test/html/*.html'
     ],
 
@@ -184,13 +187,14 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'base/test/html/**/*.html'   : ['html2js']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['kjhtml'],
 
 
     // web server port
