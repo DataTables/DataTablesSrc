@@ -72,13 +72,19 @@ describe( "Basic Datatables Test", function() {
       $('#example thead th:eq(3)').click();
       expect($('#example tbody td:eq(3)').html() == "66").toBeTruthy();
     });
-    it("Sorting multi-column (first click) //Couldn't get working", function () {
-      // $('#example thead th:eq(3)').click();
-      // var clickEvent = $.Event('click');
-      // clickEvent.shiftKey = event.shiftKey;
-      // $('#example thead th:eq(5)').trigger(clickEvent);
-      // expect($('#example tbody td:eq(5)').html() == "$86,000").toBeTruthy();
-      // expect($('#example tbody td:eq(3)').html() == "66").toBeTruthy();
+
+    //Error - Multi-column
+    dt.html( 'basic' );
+    it("Sorting multi-column (first click)", function () {
+      $('#example').DataTable();
+      $('#example thead th:eq(3)').click();
+      $('#example thead th:eq(3)').click();
+      var clickEvent = $.Event('click');
+      clickEvent.shiftKey = true;
+      $('#example thead th:eq(5)').trigger(clickEvent);
+
+      expect($('#example tbody td:eq(5)').html() == "$86,000").toBeTruthy();
+      expect($('#example tbody td:eq(3)').html() == "66").toBeTruthy();
     });
     dt.html( 'basic' ); //Reload basic.html
     it("Paging to second page", function () {
