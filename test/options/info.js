@@ -3,38 +3,33 @@ describe( "info option", function() {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
 	} );
-
-  dt.html( 'basic' );
-
-
+	
   describe("Check Default", function () {
-    //Check default
-
+		dt.html( 'basic' );
     it("Info div exists by default", function () {
-			$('#example').dataTable();
+      $('#example').dataTable();
       expect(document.getElementById('example_info')).toBeTruthy();
-
     });
-    dt.html( 'basic' ); //reload table
-    //Check can disable
-    it("Info can be disabled", function () {
+  });
+
+	describe("Check can disable", function () {
+		dt.html( 'basic' );
+		it("Info can be disabled", function () {
 
       $('#example').dataTable({
         'info': false
       });
-
       expect(document.getElementById('example_info')).not.toBeTruthy();
     });
+	});
 
-    dt.html( 'basic' ); //reload table
-
-    //Enable makes no difference
+	describe("Enable makes no difference", function () {
+		dt.html( 'basic' );
     it("Info enable override", function () {
-
       $('#example').dataTable( {
-				"Info": true
+				"info": true
 			} );
       expect(document.getElementById('example_info')).toBeTruthy();
     });
-  });
+	});
 } );
