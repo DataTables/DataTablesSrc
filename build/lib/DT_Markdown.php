@@ -53,7 +53,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	}
 
 
-	function DT_Markdown_Parser( $options )
+	function __construct( $options )
 	{
 		if ( isset( $options['nohtml'] ) ) {
 			$this->no_markup = $options['nohtml'];
@@ -63,7 +63,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		$this->block_gamut['doColumns'] = 13;
 		$this->block_gamut['doGrid'] = 12;
 		$this->block_gamut['doPullQuotes'] = 61;
-		parent::MarkdownExtra_Parser();
+		MarkdownExtra_Parser::__construct();
 	}
 
 
