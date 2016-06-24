@@ -58,12 +58,33 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		if ( isset( $options['nohtml'] ) ) {
 			$this->no_markup = $options['nohtml'];
 		}
-		
+
+		$this->extended_hardbreaks = isset( $options['extended_hardbreaks'] ) ?
+			$options['extended_hardbreaks'] :
+			false;
+
 		$this->block_gamut['doPhp'] = 9;
 		$this->block_gamut['doColumns'] = 13;
 		$this->block_gamut['doGrid'] = 12;
 		$this->block_gamut['doPullQuotes'] = 61;
 		parent::MarkdownExtra_Parser();
+	}
+
+	function doHardBreaks($text) {
+		if ( $this->extended_hardbreaks ) {
+			# Do hard breaks:
+			# EXTENDED: changed to allow breaks without two spaces and just one new line
+			# original code /* return preg_replace_callback('/ {2,}\n/', */
+			// Remove double newlines that remain
+			$text = preg_replace_callback('/\n\n/',
+				array(&$this, '_doHardBreaks_callback'), $text);
+
+			return preg_replace_callback('/ *\n/',
+				array(&$this, '_doHardBreaks_callback'), $text);
+		}
+
+		return preg_replace_callback('/ +\n/',
+			array(&$this, '_doHardBreaks_callback'), $text);
 	}
 
 
