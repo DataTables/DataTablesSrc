@@ -246,7 +246,7 @@ function _fnAjaxParameters( settings )
 
 	if ( features.bSort ) {
 		$.each( sort, function ( i, val ) {
-			d.order.push( { column: val.col, dir: val.dir } );
+			d.order.push( { column: val.col, type:_fnColumnIndexToColumnId(settings, val.col), dir: val.dir } );
 
 			param( 'iSortCol_'+i, val.col );
 			param( 'sSortDir_'+i, val.dir );

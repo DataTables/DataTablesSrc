@@ -1283,7 +1283,6 @@ DataTable.defaults = {
 	 */
 	"iStateDuration": 7200,
 
-
 	/**
 	 * When enabled DataTables will not make a request to the server for the first
 	 * page draw - rather it will use the data already on the page (no sorting etc
