@@ -31,7 +31,7 @@
  *
  * * `clean` - Clean up the HTML. The libraries loaded are retained, but the
  *   HTML is destroyed.
- * 
+ *
  * The `dt.html` and `dt.libs` methods are async. This is done in Jasmine's
  * testing environment by adding a test called `Load fixture` to the current
  * spec.
@@ -220,6 +220,10 @@ window.dt = {
 		}
 
 		return window.dt;
+	},
+
+	container: function() {
+		return $('#dt-test-loader-container');
 	}
 };
 

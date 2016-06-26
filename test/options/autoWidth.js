@@ -6,7 +6,7 @@ describe( "autoWidth option", function() {
 
   describe("Check Default", function () {
     	dt.html( 'basic' );
-    it("Auto Width enabled by default //Need to find out how to access api to check if autowidth is enabled", function () {
+    it("Auto Width enabled by default", function () {
       $('#example').dataTable();
       expect($('#example').DataTable().settings()[0].oFeatures.bAutoWidth).toBeTruthy();
     });

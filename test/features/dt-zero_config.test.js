@@ -73,7 +73,7 @@ describe( "Basic Datatables Test", function() {
       expect($('#example tbody td:eq(3)').html() == "66").toBeTruthy();
     });
 
-    //Error - Multi-column
+    
     dt.html( 'basic' );
     it("Sorting multi-column (first click)", function () {
       $('#example').DataTable();
@@ -87,19 +87,7 @@ describe( "Basic Datatables Test", function() {
       expect($('#example tbody td:eq(3)').html() == "66").toBeTruthy();
     });
     dt.html( 'basic' ); //Reload basic.html
-    it("Paging to second page", function () {
-      $('#example').DataTable();
-      $('#example_next').click();
-      expect($('#example tbody td:eq(1)').html() == "Regional Director").toBeTruthy();
-    });
-    it("Paging to the first page", function () {
-      $('#example_previous').click();
-      expect($('#example tbody td:eq(1)').html() == "Accountant").toBeTruthy();
-    });
-    it("Attempting to page back beyong the first page", function () {
-      $('#example_previous').click();
-      expect($('#example tbody td:eq(1)').html() == "Accountant").toBeTruthy();
-    });
+    
   }); //End Basic Tests
 
 

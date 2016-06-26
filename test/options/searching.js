@@ -57,7 +57,6 @@ describe( "searching option", function() {
     it("Searching enabled override- API", function () {
       $('#example').DataTable().search("New 3").draw();
       expect($('#example_info').html() == "Showing 1 to 5 of 5 entries (filtered from 57 total entries)").toBeTruthy();
-
     });
   });
 } );
