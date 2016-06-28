@@ -239,7 +239,7 @@ class Markdown_Parser {
 	var $predef_titles = array();
 
 
-	function Markdown_Parser() {
+	function __construct() {
 	#
 	# Constructor function. Initialize appropriate member variables.
 	#
@@ -1697,7 +1697,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	var $predef_abbr = array();
 
 
-	function MarkdownExtra_Parser() {
+	function __construct() {
 	#
 	# Constructor function. Initialize the parser object.
 	#
@@ -1723,7 +1723,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			"doAbbreviations"    => 70,
 			);
 		
-		parent::Markdown_Parser();
+		parent::__construct();
 	}
 	
 	
