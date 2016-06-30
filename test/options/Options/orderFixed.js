@@ -22,6 +22,5 @@ describe( "orderFixed option", function() {
 			$('#example thead th:eq(3)').click();
 			expect($('#example tbody td:eq(0)').html() == 'Tiger Nixon').toBe(true);
 		});
-
 	});
 });
