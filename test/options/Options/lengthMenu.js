@@ -3,7 +3,12 @@ describe( "LengthMenu", function() {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
 	} );
+	//Test the text of the menu as well.
 
+	// "aLengthMenu": [
+    //     [10, 25, 50, 100, -1],
+    //     [10, 25, 50, 100, "All"]
+    // ],
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
 		it("Check default values", function () {

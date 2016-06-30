@@ -1,4 +1,4 @@
-describe( "stateSave option", function() {
+describe( "deferLoading option", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]

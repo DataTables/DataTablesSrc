@@ -73,7 +73,7 @@ describe( "Basic Datatables Test", function() {
       expect($('#example tbody td:eq(3)').html() == "66").toBeTruthy();
     });
 
-    
+
     dt.html( 'basic' );
     it("Sorting multi-column (first click)", function () {
       $('#example').DataTable();
@@ -87,7 +87,7 @@ describe( "Basic Datatables Test", function() {
       expect($('#example tbody td:eq(3)').html() == "66").toBeTruthy();
     });
     dt.html( 'basic' ); //Reload basic.html
-    
+
   }); //End Basic Tests
 
 
