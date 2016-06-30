@@ -12,14 +12,12 @@ class MarkdownExtraExtended_Parser extends MarkdownExtra_Parser {
 	var $block_tags_re = 'figure|figcaption|p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|address|form|fieldset|iframe|hr|legend';
 	var $default_classes;
 		
-	function MarkdownExtraExtended_Parser($default_classes = array()) {
-	    $default_classes = $default_classes;
-		
+	function __construct($default_classes = array()) {
 		$this->block_gamut += array(
 			"doFencedFigures" => 7,
 		);
-		
-		parent::MarkdownExtra_Parser();
+
+		MarkdownExtra_Parser::__construct();
 	}
 	
 	function transform($text) {	
