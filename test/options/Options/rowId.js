@@ -7,10 +7,10 @@ describe( "rowId option", function() {
 	describe("Check the defaults", function () {
 		dt.html( 'empty' );
 		it("Default length is ten", function () {
-			// $('#example').dataTable( {
-			// 	"ajax": "data.txt"
-			// });
-			//expect($('#example tbody tr:eq(0)').attr('id')==='$162,700').toBe(true);
+			$('#example').dataTable( {
+				"ajax": "../data/data.txt"
+			});
+
 
 		});
 

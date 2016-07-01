@@ -6,14 +6,23 @@ describe( "Search option", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default length of scrollBody is 300", function () {
-			$('#example').dataTable( {
-
-			});
-			expect($('#example').DataTable().settings()[0].aaSortingFixed.length === 0).toBe(true);
+		it("Default values should be blank", function () {
+			$('#example').dataTable();
+			expect($('#example').DataTable().settings()[0].oPreviousSearch.sSearch === "" && $('#example').DataTable().settings()[0].oPreviousSearch.bRegex !== true).toBe(true);
 		});
-
-
+		it("Search term only in object", function () {
+			$('#example').dataTable( {
+				"search": {
+					"search": "41"
+				},
+				"destroy": true
+			});
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "Bradley Greer").toBe(true);
+		});
+		it("New search term should wipe old one", function () {
+			$('#example_filter input').val('33').keyup();
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "Airi Satou").toBe(true);
+		});
 
 	});
 
@@ -22,11 +31,70 @@ describe( "Search option", function() {
 	});
 
 	describe("search.regex option", function () {
+		dt.html( 'basic' );
+		it("Search plain text and escape regex true", function () {
+			$('#example').dataTable( {
+				"search": {
+					"search": 'Marketing',
+					"regex": false
+				}
+			});
+			expect($('#example tbody tr:eq(0) td:eq(1)').html() == "Senior Marketing Designer").toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Search plain text term and escape regex false", function () {
+			$('#example').dataTable( {
+				"search": {
+					"search": 'Designer',
+					"regex": true
+				}
 
+			});
+			expect($('#example tbody tr:eq(0) td:eq(1)').html() == "Senior Marketing Designer").toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Search regex text term and escape regex true", function () {
+			$('#example').dataTable( {
+				"search": {
+					"search": '1.*',
+					"regex": false
+				}
+			});
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "No matching records found").toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Search regex text term and escape regex false", function () {
+			$('#example').dataTable( {
+				"search": {
+					"search": '1.*',
+					"regex": true
+				}
+			});
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "Airi Satou").toBe(true);
+		});
 	});
 
 	describe("search.smart option", function () {
-
+		dt.html( 'basic' );
+		it("Check smart option turns off smart filtering", function () {
+			$('#example').dataTable( {
+				"search": {
+					"smart": false,
+					"search": "Officer 47"
+				}
+			});
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "No matching records found").toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Check with smart true", function () {
+			$('#example').dataTable( {
+				"search": {
+					"smart": true,
+					"search": "Officer 47"
+				}
+			});
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "Angelica Ramos").toBe(true);
+		});
 	});
 
 	describe("search.search", function () {
