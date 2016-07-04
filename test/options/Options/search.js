@@ -26,9 +26,6 @@ describe( "Search option", function() {
 
 	});
 
-	describe("search.caseIntensitive option", function () {
-
-	});
 
 	describe("search.regex option", function () {
 		dt.html( 'basic' );
@@ -98,6 +95,57 @@ describe( "Search option", function() {
 	});
 
 	describe("search.search", function () {
+		dt.html( 'basic' );
+		it("Set an initial global filter", function () {
+			$('#example').dataTable( {
+				"search": {
+					"search": "Officer"
+				}
+			});
+			expect($('#example_info').html() == "Showing 1 to 4 of 4 entries (filtered from 57 total entries)").toBe(true);
+		});
+	});
 
+	describe("search.caseIntensitive option", function () {
+		dt.html( 'basic' );
+		it("Search via DOM (expect false)", function () {
+			$('#example').dataTable( {
+				"search": {
+					"caseIntensitive": false
+				}
+			});
+			$('#example_filter input').val('accountant').keyup();
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "No matching records found").toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Search via API (expect false)", function () {
+			$('#example').dataTable( {
+				"search": {
+					"caseIntensitive": false
+				}
+			});
+			$('#example_filter input').val('angelica').keyup();
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "No matching records found").toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Search via DOM (expect true)", function () {
+			$('#example').dataTable( {
+				"search": {
+					"caseIntensitive": true
+				}
+			});
+			$('#example_filter input').val('Accountant').keyup();
+			expect($('#example tbody tr:eq(0) td:eq(1)').html() == "Accountant").toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Search via API (expect true)", function () {
+			$('#example').dataTable( {
+				"search": {
+					"caseIntensitive": true
+				}
+			});
+			$('#example_filter input').val('Angelica').keyup();
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "Angelica Ramos").toBe(true);
+		});
 	});
 });
