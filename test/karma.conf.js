@@ -30,15 +30,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: 'built/DataTables/**/*.js', included: false },
-      { pattern: 'built/DataTables/**/*.css', included: false },
-      { pattern: 'built/DataTables/**/*.png', included: false },
-	  'test/data/*.txt',
-      'test/options/*.js',
-	  'test/options/Options/*.js',
-	  'test/options/Features/*.js',
-      'test/features/*.test.js',
-      'test/html/*.html'
+        { pattern: 'built/DataTables/**/*.js', included: false },
+        { pattern: 'built/DataTables/**/*.css', included: false },
+        { pattern: 'built/DataTables/**/*.png', included: false },
+        { pattern: 'test/data/*.txt', included: false },
+        'test/options/*.js',
+        'test/options/Options/*.js',
+        'test/options/Features/*.js',
+        'test/features/*.test.js',
+        'test/html/*.html'
     ],
 
 
