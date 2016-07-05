@@ -106,12 +106,12 @@ describe( "Search option", function() {
 		});
 	});
 
-	describe("search.caseIntensitive option", function () {
+	describe("search.caseInsensitive option", function () {
 		dt.html( 'basic' );
 		it("Search via DOM (expect false)", function () {
 			$('#example').dataTable( {
 				"search": {
-					"caseIntensitive": false
+					"caseInsensitive": false
 				}
 			});
 			$('#example_filter input').val('accountant').keyup();
@@ -121,7 +121,7 @@ describe( "Search option", function() {
 		it("Search via API (expect false)", function () {
 			$('#example').dataTable( {
 				"search": {
-					"caseIntensitive": false
+					"caseInsensitive": false
 				}
 			});
 			$('#example_filter input').val('angelica').keyup();
@@ -131,7 +131,7 @@ describe( "Search option", function() {
 		it("Search via DOM (expect true)", function () {
 			$('#example').dataTable( {
 				"search": {
-					"caseIntensitive": true
+					"caseInsensitive": true
 				}
 			});
 			$('#example_filter input').val('Accountant').keyup();
@@ -141,7 +141,7 @@ describe( "Search option", function() {
 		it("Search via API (expect true)", function () {
 			$('#example').dataTable( {
 				"search": {
-					"caseIntensitive": true
+					"caseInsensitive": true
 				}
 			});
 			$('#example_filter input').val('Angelica').keyup();
