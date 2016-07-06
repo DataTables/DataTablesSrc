@@ -106,6 +106,7 @@ describe( "Search option", function() {
 		});
 	});
 
+<<<<<<< HEAD
 	describe("search.caseIntensitive option", function () {
 		// dt.html( 'basic' );
 		// it("Search via DOM (expect false)", function () {
@@ -127,11 +128,34 @@ describe( "Search option", function() {
 		// 	$('#example_filter input').val('angelica').keyup();
 		// 	expect($('#example tbody tr:eq(0) td:eq(0)').html() == "No matching records found").toBe(true);
 		// });
+=======
+	describe("search.caseInsensitive option", function () {
+		dt.html( 'basic' );
+		it("Search via DOM (expect false)", function () {
+			$('#example').dataTable( {
+				"search": {
+					"caseInsensitive": false
+				}
+			});
+			$('#example_filter input').val('accountant').keyup();
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "No matching records found").toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Search via API (expect false)", function () {
+			$('#example').dataTable( {
+				"search": {
+					"caseInsensitive": false
+				}
+			});
+			$('#example_filter input').val('angelica').keyup();
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "No matching records found").toBe(true);
+		});
+>>>>>>> 3f208ffd4cb1516e9936aeeff6eb8217d98f3ae5
 		dt.html( 'basic' );
 		it("Search via DOM (expect true)", function () {
 			$('#example').dataTable( {
 				"search": {
-					"caseIntensitive": true
+					"caseInsensitive": true
 				}
 			});
 			$('#example_filter input').val('Accountant').keyup();
@@ -141,7 +165,7 @@ describe( "Search option", function() {
 		it("Search via API (expect true)", function () {
 			$('#example').dataTable( {
 				"search": {
-					"caseIntensitive": true
+					"caseInsensitive": true
 				}
 			});
 			$('#example_filter input').val('Angelica').keyup();
