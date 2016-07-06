@@ -69,7 +69,7 @@ function _addNumericSort ( decimalPlace ) {
 $.extend( _ext.type.order, {
 	// Dates
 	"date-pre": function ( d ) {
-		return Date.parse( d ) || 0;
+		return Date.parse( d ) || -Infinity;
 	},
 
 	// html
