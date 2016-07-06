@@ -10,14 +10,16 @@ describe( "searchDuration Option", function() {
 				"stateSave": true,
 				"stateDuration": -1
 			} );
-			expect(sessionStorage.length >= 1).toBe(true);
+			expect(sessionStorage["DataTables_example_/debug.html"]).toBeDefined();
 		});
 		dt.html( 'basic' );
 		it("Test using localStorage", function () {
 			$('#example').dataTable( {
 				"stateSave": true,
-				"stateDuration": -1
+				"stateDuration": 1
 			} );
+			expect(localStorage['DataTables_example_/debug.html']).toBeDefined();
 		});
+		
 	});
 });
