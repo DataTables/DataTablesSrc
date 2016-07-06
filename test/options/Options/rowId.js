@@ -5,19 +5,24 @@ describe( "rowId option", function() {
 	} );
 
 	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		// it("Default length is ten", function () {
-		// 	$('#example').dataTable( {
-		// 		"saveState": true
-		// 	});
-		// 	$('#example_filter input').val(2012).keyup();
-		// 	$('#example').DataTable().destroy();
-		// 	$('#example').dataTable({
-		// 		"stateSave": true
-		// 	});
-		// 	expect($('#example_info').html() == "Showing 1 to 9 of 9 entries (filtered from 57 total entries)").toBeTruthy();
-		//
-		// });
+		dt.html( 'empty' );
+		it("Default length is ten", function () {
+
+			$('#example').dataTable({
+				ajax: '/base/test/data/data.txt',
+				"columns": [
+					{ "data": "name" },
+					{ "data": "position" },
+					{ "data": "office" },
+					{ "data": "extn" },
+					{ "data": "start_date" },
+					{ "data": "salary" }
+				],
+				rowId: "extn"
+			});
+		
+			expect($('#5407 td:eq(0)').html() === "Airi Satou").toBe(true);
+		});
 	});
 
 });

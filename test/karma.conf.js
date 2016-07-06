@@ -35,6 +35,7 @@ module.exports = function(config) {
         { pattern: 'built/DataTables/**/*.png', included: false },
         { pattern: 'test/data/*.txt', included: false },
         'test/options/*.js',
+		'test/options/columns/*.js',
         'test/options/Options/*.js',
         'test/options/Features/*.js',
         'test/features/*.test.js',
