@@ -6,7 +6,7 @@ describe( "rowId option", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'empty' );
-		it("Default length is ten", function () {
+		it("Load data", function () {
 
 			$('#example').dataTable({
 				ajax: '/base/test/data/data.txt',
@@ -20,7 +20,11 @@ describe( "rowId option", function() {
 				],
 				rowId: "extn"
 			});
-		
+
+
+		});
+
+		it("Has rowId been applied?", function () {
 			expect($('#5407 td:eq(0)').html() === "Airi Satou").toBe(true);
 		});
 	});
