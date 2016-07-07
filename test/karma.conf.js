@@ -2,6 +2,25 @@
 // Generated on Fri Jun 10 2016 13:57:39 GMT+0100 (BST)
 
 module.exports = function(config) {
+  var testFiles = 'test/*/**/*.js';
+
+  if ( process.env.DT_EXTENSION ) {
+      switch( process.env.DT_EXTENSION ) {
+        case 'AutoFill':     testFiles = 'extensions/AutoFill/test/**/*.js';     break;
+        case 'Buttons':      testFiles = 'extensions/Buttons/test/**/*.js';      break;
+        case 'ColReorder':   testFiles = 'extensions/ColReorder/test/**/*.js';   break;
+        case 'FixedColumns': testFiles = 'extensions/FixedColumns/test/**/*.js'; break;
+        case 'FixedHeader':  testFiles = 'extensions/FixedHeader/test/**/*.js';  break;
+        case 'Responsive':   testFiles = 'extensions/Responsive/test/**/*.js';   break;
+        case 'RowReorder':   testFiles = 'extensions/RowReorder/test/**/*.js';   break;
+        case 'Scroller':     testFiles = 'extensions/Scroller/test/**/*.js';     break;
+        case 'Select':       testFiles = 'extensions/Select/test/**/*.js';       break;
+
+        default:
+            throw 'Unknown extension';
+      }
+  }
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -33,13 +52,11 @@ module.exports = function(config) {
         { pattern: 'built/DataTables/**/*.js', included: false },
         { pattern: 'built/DataTables/**/*.css', included: false },
         { pattern: 'built/DataTables/**/*.png', included: false },
+        { pattern: 'built/DataTables/extensions/*/js/*.js', included: false },
+        { pattern: 'built/DataTables/extensions/*/css/*.css', included: false },
         { pattern: 'test/data/*.txt', included: false },
-        'test/options/*.js',
-		'test/options/columns/*.js',
-        'test/options/Options/*.js',
-        'test/options/Features/*.js',
-        'test/features/*.test.js',
-        'test/html/*.html'
+        { pattern: 'test/html/*.html', included: false },
+        testFiles
     ],
 
 
@@ -75,7 +92,7 @@ module.exports = function(config) {
             },
             colreorder:   {
                 pathName: 'ColReorder',
-                fileName: 'dataTables',
+                fileName: 'colReorder',
                 js: false,
                 css: true
             },

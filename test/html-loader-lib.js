@@ -95,12 +95,12 @@ function _pathResolver ( type, path, framework ) {
 		if ( path === 'datatables' ) {
 			// DataTables is a special case...
 			if ( type === 'css' ) {
-				return framework === 'datatables' ?
+				return framework === 'dataTables' ?
 					[ urlBase+'/media/css/jquery.dataTables.css' ] :
 					[ urlBase+'/media/css/dataTables.'+framework+'.css' ];
 			}
 			else {
-				return framework === 'datatables' ?
+				return framework === 'dataTables' ?
 					[ urlBase+'/media/js/jquery.dataTables.js' ] :
 					[ urlBase+'/media/js/jquery.dataTables.js', urlBase+'/media/js/dataTables.'+framework+'.js' ];
 			}
@@ -112,7 +112,7 @@ function _pathResolver ( type, path, framework ) {
 			else if ( type === 'js' ) {
 				var out = [ urlBase+'/extensions/'+lib.pathName+'/js/dataTables.'+lib.fileName+'.js'  ];
 
-				if ( lib.js && framework !== 'datatables' ) {
+				if ( lib.js && framework !== 'dataTables' ) {
 					out.push( urlBase+'/extensions/'+lib.pathName+'/js/'+lib.fileName+'.'+framework+'.js' );
 				}
 
@@ -142,7 +142,7 @@ function _loadDeps ( done, obj ) {
 	// CSS
 	if ( obj.css ) {
 		for ( i=0, ien=obj.css.length ; i<ien ; i++ ) {
-			var resolved = _pathResolver( 'css', obj.css[i], obj.framework || 'datatables' );
+			var resolved = _pathResolver( 'css', obj.css[i], obj.framework || 'dataTables' );
 			queue = queue.concat( resolved );
 		}
 	}
@@ -150,7 +150,7 @@ function _loadDeps ( done, obj ) {
 	// JS
 	if ( obj.js ) {
 		for ( i=0, ien=obj.js.length ; i<ien ; i++ ) {
-			var resolved = _pathResolver( 'js', obj.js[i], obj.framework || 'datatables' );
+			var resolved = _pathResolver( 'js', obj.js[i], obj.framework || 'dataTables' );
 			queue = queue.concat( resolved );
 		}
 	}
