@@ -8,8 +8,9 @@ describe( "renderer Option //todo", function() {
 	describe("INIT", function () {
 		it("INIT", function () {
 			$.fn.dataTable.ext.renderer.pageButton.test = function ( settings, host, idx, buttons, page, pages ) {
-			  var api = new $.fn.dataTable.Api( settings );
-			  console.log(arguments.length);
+				var api = new $.fn.dataTable.Api( settings );
+				args = arguments;
+
 
 			  // Flatten buttons array
 			  buttons = $.map( buttons, function (val, i) {
@@ -43,14 +44,24 @@ describe( "renderer Option //todo", function() {
 		console.log("loaded");
 	});
 	dt.html( 'basic' );
-	it("Are 6 arguments pass into arguments.length", function () {
+	it("Are 6 arguments passed in", function () {
 		$('#example').dataTable( {
 			renderer: {
 				"pageButton": "test"
 			}
 		} );
-		
+		expect(args.length == 6).toBe(true);
 	});
+	it("First argument is what we expect", function () {
+		expect(args[0] === $.fn.dataTableSettings[0]).toBe(true);
+	});
+	it("Second argument is what we expect", function () {
+		expect(args[1] === $('div.dataTables_paginate')[0]).toBe(true);
+	});
+	it("Third argument is what we expect", function () {
+		expect(args[2]).toBe(0);
+	});
+
 });
 
 
