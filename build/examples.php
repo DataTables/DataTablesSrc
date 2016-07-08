@@ -240,7 +240,7 @@ else {
 // Styling libraries
 // When updating these files, make sure you also update the `karma.config` tests
 // file to match versions.
-DT_Example::$lookup_libraries['js' ]['jquery']       = '//code.jquery.com/jquery-1.12.3.js';
+DT_Example::$lookup_libraries['js' ]['jquery']       = '//code.jquery.com/jquery-1.12.4.js';
 DT_Example::$lookup_libraries['js' ]['jqueryui']     = '//code.jquery.com/ui/1.11.4/jquery-ui.js';
 DT_Example::$lookup_libraries['css']['jqueryui']     = '//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css';
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js';
