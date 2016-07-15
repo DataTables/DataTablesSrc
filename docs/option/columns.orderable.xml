@@ -10,7 +10,7 @@
 	<description>
 		Using this parameter, you can remove the end user's ability to order upon a column. This might be useful for generated content columns, for example if you have 'Edit' or 'Delete' buttons in the table.
 
-		Note that this option only effects the end user's ability to order a column. Are are still able to order a column using the `dt-init order` option or the `dt-api order()` method if required.
+		Note that this option only effects the end user's ability to order a column. Developers are still able to order a column using the `dt-init order` option or the `dt-api order()` method if required.
 	</description>
 
 	<example title="Disable ordering on the first column with `dt-init columnDefs`"><![CDATA[
