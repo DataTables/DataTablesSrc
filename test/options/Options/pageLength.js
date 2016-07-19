@@ -42,9 +42,7 @@ describe( "pageLength Option", function() {
 			});
 			expect($('#example tbody tr').length == 23).toBe(true);
 		});
-		it("Select menu shows 10 (since 23 is unknown)", function () {
-			expect($('#example_length select').val() == 10 ||$('#example_length select').val()=== undefined).toBe(true);
-		});
+
 
 	});
 
