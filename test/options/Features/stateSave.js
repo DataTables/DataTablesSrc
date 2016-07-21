@@ -3,7 +3,6 @@ describe( "stateSave option", function() {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
 	} );
-
 	describe("Check Default", function () {
 		dt.html( 'basic' );
 		it("stateSave disabled by default", function () {
@@ -211,14 +210,12 @@ describe( "stateSave option", function() {
 			$('#example').DataTable().state.clear();
 		});
 	});
-
 	describe("Check state is ignored", function () {
 		dt.html( 'basic' );
 		it("Ignored if datatable is reinitialised with different number of columns", function () {
 			$('#example').dataTable({
 				"stateSave": true
 			});
-
 			expect($('#example').DataTable().settings()[0].aoColumns.length == 6).toBe(true);
 			expect($('#example tbody td:eq(0)').html() == "Airi Satou").toBeTruthy();
 			expect($('#example tbody td:eq(3)').html() == "33").toBeTruthy();

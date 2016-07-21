@@ -3,13 +3,8 @@ describe( "scrollY / X option", function() {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
 	} );
-
-
-
 	describe("XY tests", function () {
 		dt.html( 'basic' );
-
-
 		it("Header follows x-scrolling", function (done) {
 			$('body').css('white-space', 'nowrap');
 			dt.container().css('width', 400);
@@ -47,7 +42,6 @@ describe( "scrollY / X option", function() {
 		it("Filtering has no effect on x-scroll", function () {
 			expect($('div.dataTables_scrollBody').scrollLeft() == 202);
 		});
-
 		it("Full x-scroll has header track all the way with it", function (done) {
 			$('div.dataTables_scrollBody').scrollLeft(
 				$('#example').width() - $('div.dataTables_scrollBody')[0].clientWidth
@@ -60,20 +54,16 @@ describe( "scrollY / X option", function() {
 		it("Footer also tracked all the way", function () {
 			expect($('div.dataTables_scrollBody').scrollLeft() === $('div.dataTables_scrollFoot').scrollLeft());
 		});
-
 		it("Don't throw an error if initialising again on id selected element // Not sure about this one", function () {
 			$('#example').dataTable();
 			expect($('#example').dataTable()).toBeTruthy();
 		});
-
 		it("Don't throw an error if initialising again on tag name selected element- picking up header table as well", function () {
 			$('table.dataTable').dataTable();
 			expect($('table.dataTable').dataTable()).toBeTruthy();
 		});
 
 	});
-
-
 	describe("5508- Table container width doesn't change when filtering applied to scrolling table ", function () {
 		dt.html( 'basic' );
 
