@@ -8,7 +8,7 @@ $.extend( true, DataTable.ext.renderer, {
 			// `DT` namespace will allow the event to be removed automatically
 			// on destroy, while the `dt` namespaced event is the one we are
 			// listening for
-			$(settings.nTable).on( 'order.dt.DT', function ( e, ctx, column, classes ) {
+			$(settings.nTable).on( 'order.dt.DT', function ( e, ctx, sorting, columns ) {
 				if ( settings !== ctx ) { // need to check this this is the host
 					return;               // table, not a nested one
 				}
@@ -21,8 +21,8 @@ $.extend( true, DataTable.ext.renderer, {
 						classes.sSortAsc +' '+
 						classes.sSortDesc
 					)
-					.addClass( classes[ colIdx ] == 'asc' ?
-						classes.sSortAsc : classes[ colIdx ] == 'desc' ?
+					.addClass( columns[ colIdx ] == 'asc' ?
+						classes.sSortAsc : columns[ colIdx ] == 'desc' ?
 							classes.sSortDesc :
 							column.sSortingClass
 					);
@@ -39,7 +39,7 @@ $.extend( true, DataTable.ext.renderer, {
 				.appendTo( cell );
 
 			// Attach a sort listener to update on sort
-			$(settings.nTable).on( 'order.dt.DT', function ( e, ctx, column, classes ) {
+			$(settings.nTable).on( 'order.dt.DT', function ( e, ctx, sorting, columns ) {
 				if ( settings !== ctx ) {
 					return;
 				}
@@ -48,8 +48,8 @@ $.extend( true, DataTable.ext.renderer, {
 
 				cell
 					.removeClass( classes.sSortAsc +" "+classes.sSortDesc )
-					.addClass( classes[ colIdx ] == 'asc' ?
-						classes.sSortAsc : classes[ colIdx ] == 'desc' ?
+					.addClass( columns[ colIdx ] == 'asc' ?
+						classes.sSortAsc : columns[ colIdx ] == 'desc' ?
 							classes.sSortDesc :
 							column.sSortingClass
 					);
@@ -63,8 +63,8 @@ $.extend( true, DataTable.ext.renderer, {
 						classes.sSortJUIAscAllowed +" "+
 						classes.sSortJUIDescAllowed
 					)
-					.addClass( classes[ colIdx ] == 'asc' ?
-						classes.sSortJUIAsc : classes[ colIdx ] == 'desc' ?
+					.addClass( columns[ colIdx ] == 'asc' ?
+						classes.sSortJUIAsc : columns[ colIdx ] == 'desc' ?
 							classes.sSortJUIDesc :
 							column.sSortingClassJUI
 					);
