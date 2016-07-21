@@ -27,7 +27,7 @@ describe( "language.thousands option ", function() {
 			});
 		});
 		dt.html( 'numerical' );
-		it("Use an empty string to show no seperator", function () {
+		it("Use an empty string to show no seperator", function (done) {
 			$('#example').dataTable( {
 				ajax: '/base/test/data/numerical.txt',
 				columns: [
