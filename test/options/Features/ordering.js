@@ -7,7 +7,10 @@ describe( "ordering option ", function() {
 		dt.html( 'basic' );
 		it("Default should be set to true", function () {
 			$('#example').dataTable();
-			expect($('#example').DataTable().settings()[0].oFeatures.bSort && $('#example thead th:eq(0)').hasClass('sorting')).toBe(true);
+			expect($.fn.dataTable.defaults.bSort === true).toBe(true);
+		});
+		it("Default sorting has class 'sorting_asc'", function () {
+			expect($('#example thead th:eq(0)').hasClass('sorting_asc')).toBe(true);
 		});
 		dt.html( 'basic' );
 		it("Column ordering can be disabled", function () {
@@ -28,7 +31,20 @@ describe( "ordering option ", function() {
 			$('#example').dataTable( {
 				"ordering": true
 			});
-			expect($('#example thead th:eq(0)').hasClass('sorting')).toBe(true);
+			expect($('#example thead th:eq(0)').hasClass('sorting_asc')).toBe(true);
+		});
+		dt.html('basic');
+		it("'sorting_desc' is added as a class when a column is clicked on", function () {
+			$('#example').dataTable( {
+				
+			});
+
+			$('#example thead th:eq(0)').click();
+			expect($('#example thead th:eq(0)').hasClass('sorting_desc')).toBe(true);
+		});
+		it("'sorting_asc' is added as a class when a column is clicked on", function () {
+			$('#example thead th:eq(0)').click();
+			expect($('#example thead th:eq(0)').hasClass('sorting_asc')).toBe(true);
 		});
 	});
 });

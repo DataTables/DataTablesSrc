@@ -1,4 +1,4 @@
-describe( "info option", function() {
+describe( "info option- Feature", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
@@ -8,25 +8,23 @@ describe( "info option", function() {
 		dt.html( 'basic' );
 		it("Info div exists by default", function () {
 			$('#example').dataTable();
-			expect(document.getElementById('example_info')).toBeTruthy();
+			expect($('#example_info')).toBeDefined();
 		});
-	});
-	describe("Check can disable", function () {
+
 		dt.html( 'basic' );
 		it("Info can be disabled", function () {
 			$('#example').dataTable({
 				'info': false
 			});
-			expect(document.getElementById('example_info')).not.toBeTruthy();
+			expect($('#example_info').html()).not.toBeDefined();
 		});
-	});
-	describe("Enable makes no difference", function () {
+
 		dt.html( 'basic' );
 		it("Info enable override", function () {
 			$('#example').dataTable( {
 					"info": true
 				});
-				expect(document.getElementById('example_info')).toBeTruthy();
+				expect($('#example_info').html()).toBeDefined();
 		});
 	});
 } );

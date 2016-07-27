@@ -31,7 +31,7 @@ describe( "language.decimal option ", function() {
 			expect( $('#example > tbody > tr:nth-child(1) > td.sorting_1').html() == '5.46').toBe(true);
 		});
 		dt.html( 'numerical' );
-		it("Multi-column sort works", function () {
+		it("Multi-column sort works", function (done) {
 			$('#example').dataTable( {
 				ajax: '/base/test/data/numerical.txt',
 				columns: [
@@ -46,7 +46,7 @@ describe( "language.decimal option ", function() {
 					var clickEvent = $.Event('click');
 					clickEvent.shiftKey = true;
 					$('#example thead th:eq(1)').trigger(clickEvent);
-					expect( $('#example > tbody > tr:nth-child(1) > td.sorting_1').html() == '16.38').toBe(true);
+					expect( $('#example tbody tr td:eq(1)').html() == '16.38').toBe(true);
 					done();
 				}
 			});

@@ -54,6 +54,11 @@ describe( "columns.width option", function() {
 			var a2 = anThs[2].offsetWidth;
 			var a3 = anThs[3].offsetWidth;
 			var a4 = anThs[4].offsetWidth;
+			console.log(a0);
+			console.log(a1);
+			console.log(a2);
+			console.log(a3);
+			console.log(a4);
 			expect(a3>a0 && a3>a1 && a3>a2 && a3>a4).toBe(true);
 		});
 	});

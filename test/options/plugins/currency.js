@@ -24,19 +24,20 @@ describe( "currency option ", function() {
 				}
 			);
 			$.fn.dataTable.ext.type.order['currency-pre'] = function ( data ) {
-					console.log("test");
-				var expression = /((\(\$))|(\$\()/g;
 				//Check if its in the proper format
-				if(data.match(expression)){
-					//It matched - strip out parentheses & any characters we dont want and append - at front
-					data = '-' + data.replace(/[\$\(\),]/g,'');
+				if(data.match(/[\()]/g)){
+					if( data.match(/[\-]/g) !== true){
+						//It matched - strip out parentheses & any characters we dont want and append - at front
+						data = '-' + data.replace(/[\$£€c\(\),]/g,'');
+					}else{
+						//Already has a '-' so just strip out non-numeric charactors exluding '-'
+						data = data.replace(/[^\d\-\.]/g,'');
+					}
 				}else{
-					data = data.replace(/[\$\,]/g,'');
+					data = data.replace(/[\$£€\,]/g,'');
 				}
-
 				return parseInt( data, 10 );
 			};
-
 
 
 			$('#example').DataTable({
