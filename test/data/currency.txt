@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "name": "Tiger Nixon",
+      "salary": "320,800"
+    },
+	{
+	  "name": "Tiger Nixon",
+	  "salary": "320,900"
+	},
+	{
+	  "name": "Tiger Nixon",
+	  "salary": "320,700"
+	},
+	{
+      "name": "Tiger Nixon",
+      "salary": "$(320,800)"
+    },
+	{
+	  "name": "Tiger Nixon",
+	  "salary": "$(320,900)"
+	},
+	{
+	  "name": "Tiger Nixon",
+	  "salary": "$(320,700)"
+	},
+	{
+      "name": "Tiger Nixon",
+      "salary": "-320,800"
+    },
+	{
+	  "name": "Tiger Nixon",
+	  "salary": "-320,900"
+	},
+	{
+	  "name": "Tiger Nixon",
+	  "salary": "-320,700"
+	}
+  ]
+}
