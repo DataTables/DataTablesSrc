@@ -8,7 +8,7 @@ describe( "serverSide option //More tests needed", function() {
 		dt.html( 'basic' );
 		it("serverSide disabled by default", function () {
 			$('#example').dataTable();
-			expect($('#example').DataTable().settings()[0].oFeatures.bServerSide).toBe(false);
+			expect($.fn.dataTable.defaults.bServerSide).toBe(false);
 		});
 	});
 } );

@@ -6,10 +6,10 @@ describe( "Processing option", function() {
 	describe("Check Default ", function () {
 		dt.html( 'basic' );
 		it("Processing is off by default", function () {
-			expect($('#example').DataTable().settings()[0].oFeatures.bProcessing).toEqual(false);
+			expect($.fn.dataTable.defaults.bProcessing).toEqual(false);
 		});
 	});
-	describe("Check can disable", function () {
+	describe("Check can enable", function () {
 		dt.html( 'basic' );
 		it("Processing can be enabled", function () {
 			$('#example').on('processing.dt', function(e){
@@ -24,13 +24,17 @@ describe( "Processing option", function() {
 			expect(document.getElementById('example_processing')).toBeTruthy();
 		});
 	});
-	describe("Enable makes no difference", function () {
+	describe("disable makes no difference", function () {
 		dt.html( 'basic' );
 		it("Processing disabled override", function () {
 			$('#example').dataTable( {
 				"processing": false
 			});
-			expect($('#example').DataTable().settings()[0].oFeatures.bProcessing).toEqual(false);
+			$('#example').on('processing.dt', function(e){
+				expect(document.getElementById('example_processing')).toBeNull();
+			});
+
+			$('#example').off('processing.dt', function(e){});
 		});
 		it("Processing div is not in the DOM", function () {
 			expect(document.getElementById('example_processing') === null).toBeTruthy();

@@ -1,3 +1,5 @@
+
+
 describe( "Paging option", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
@@ -17,6 +19,9 @@ describe( "Paging option", function() {
 	it( "Length control is in the DOM", function () {
 		expect( $('div.dataTables_length')[0] ).toBeInDOM();
 	} );
+	it("Correct place in DOM", function () {
+		expect($('#example_paginate').prev().attr('id') == 'example_info').toBe(true);
+	});
 	dt.html( 'basic' );
 	it( "Can disable paging using option", function () {
 		$('#example').DataTable( {
@@ -48,6 +53,7 @@ describe( "Paging option", function() {
 	} );
 	dt.html( 'basic' );
 	it( "And enabled from the options", function () {
+		$.fn.dataTable.defaults.paging = true;
 		$('#example').DataTable( {
 			paging: true
 		} );

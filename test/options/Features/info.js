@@ -6,9 +6,9 @@ describe( "info option- Feature", function() {
 
 	describe("Check Default", function () {
 		dt.html( 'basic' );
-		it("Info div exists by default", function () {
+		it("Info div set to true by default", function () {
 			$('#example').dataTable();
-			expect($('#example_info')).toBeDefined();
+			expect($.fn.dataTable.defaults.bInfo).toBe(true);
 		});
 
 		dt.html( 'basic' );
@@ -25,6 +25,12 @@ describe( "info option- Feature", function() {
 					"info": true
 				});
 				expect($('#example_info').html()).toBeDefined();
+		});
+		it("Info correctly displays text", function () {
+			expect($('#example_info').html() == "Showing 1 to 10 of 57 entries").toBe(true);
+		});
+		it("example_info is in correct position in DOM", function () {
+			expect($('#example_info').prev().attr('id') == 'example').toBe(true);
 		});
 	});
 } );

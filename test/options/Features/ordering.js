@@ -26,6 +26,13 @@ describe( "ordering option ", function() {
 			$('#example thead th:eq(0)').click();
 			expect($('#example tbody tr:eq(0) td:eq(0)').html() == 'Tiger Nixon').toBe(true);
 		});
+		it("Try activate sorting via DOM- when disabled (second click)", function (done) {
+			setTimeout(function(){
+				done();
+			}, 100);
+			$('#example thead th:eq(0)').click();
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() == 'Tiger Nixon').toBe(true);
+		});
 		dt.html( 'basic' );
 		it("Enabling makes no difference", function () {
 			$('#example').dataTable( {
@@ -36,7 +43,7 @@ describe( "ordering option ", function() {
 		dt.html('basic');
 		it("'sorting_desc' is added as a class when a column is clicked on", function () {
 			$('#example').dataTable( {
-				
+
 			});
 
 			$('#example thead th:eq(0)').click();
@@ -46,5 +53,6 @@ describe( "ordering option ", function() {
 			$('#example thead th:eq(0)').click();
 			expect($('#example thead th:eq(0)').hasClass('sorting_asc')).toBe(true);
 		});
+
 	});
 });
