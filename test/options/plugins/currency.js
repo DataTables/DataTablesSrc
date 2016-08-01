@@ -38,18 +38,6 @@ describe( "currency option ", function() {
 				}
 				return parseInt( data, 10 );
 			};
-
-
-			$('#example').DataTable({
-				ajax: '/base/test/data/currency.txt',
-				columns: [
-					{ data: "name" },
-					{ data: "salary" }
-				]
-
-			});
-
-
 		});
 	});
 });
