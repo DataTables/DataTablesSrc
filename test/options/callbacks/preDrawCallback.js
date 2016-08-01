@@ -15,7 +15,7 @@ describe( "preDrawCallback option", function() {
 		it("One argument passed", function () {
 			test = -1;
 			$('#example').dataTable( {
-				"drawCallback": function() {
+				"preDrawCallback": function() {
 					test = arguments.length;
 
 				}
@@ -25,7 +25,7 @@ describe( "preDrawCallback option", function() {
 		dt.html( 'basic' );
 		it("That one argument is the settings object", function () {
 			$('#example').dataTable( {
-				"drawCallback": function (settings){
+				"preDrawCallback": function (settings){
 					test = settings;
 				}
 			});
@@ -35,7 +35,7 @@ describe( "preDrawCallback option", function() {
 		it("preDrawCallback called once on first draw", function () {
 			test = 0;
 			$('#example').dataTable( {
-				"drawCallback": function(){
+				"preDrawCallback": function(){
 					test++;
 				}
 			});
@@ -60,6 +60,7 @@ describe( "preDrawCallback option", function() {
 			} );
 			expect(test === 0).toBe(true);
 		});
+	
 	});
 
 });
