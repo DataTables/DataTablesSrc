@@ -8,7 +8,7 @@ describe( "footerCallback option", function() {
 		dt.html( 'basic' );
 		it("Default should not be true", function () {
 			$('#example').dataTable();
-			expect($('#example').DataTable().settings()[0].aoFooterCallback).not.toBe(true);
+			expect($.fn.dataTable.defaults.fnFooterCallback).not.toBe(true);
 			//$.fn.DataTable.defaults
 		});
 		dt.html( 'basic' );

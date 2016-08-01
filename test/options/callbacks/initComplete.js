@@ -9,7 +9,7 @@ describe( "initComplete Option", function() {
 		dt.html( 'basic' );
 		it("Default should not be true", function () {
 			$('#example').dataTable();
-			expect($('#example').DataTable().settings()[0].aoInitComplete).not.toBe(true);
+			expect($.fn.dataTable.defaults.fnInitComplete).not.toBe(true);
 			//$.fn.DataTable.defaults
 		});
 		dt.html( 'basic' );

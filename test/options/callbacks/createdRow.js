@@ -84,7 +84,44 @@ describe( "createdRow option", function() {
 			});
 			expect(tmp === true).toBe(true);
 		});
+		dt.html( 'basic' );
+		it("createdRow allows manipulation of TR elements", function () {
+			$('#example').dataTable( {
+				"createdRow": function( row, data, dataIndex) {
+					if( data[1] == "Accountant"){
+						$(row).addClass('unit-test');
 
+					}
+
+				}
+			});
+			expect($('#example tbody tr:eq(0)').hasClass('unit-test')).toBe(true);
+		});
+		dt.html( 'basic' );
+		it("createdRow dataIndex refers to correct rows/index", function () {
+			$('#example').dataTable( {
+				"createdRow": function( row, data, dataIndex){
+					if( dataIndex == 2){
+						console.log(row);
+						$(row).addClass('unit-test2');
+					}
+				}
+			});
+			expect($('#example tbody tr:eq(2)').hasClass('unit-test2') && $('#example tbody tr:eq(2) td').html() == "Ashton Cox").toBe(true);
+
+		});
+		var counter = 0;
+		dt.html( 'basic');
+		it("createdRow- row parameter is correct", function () {
+			$('#example').dataTable( {
+				"createdRow": function( row, data, dataIndex){
+					counter++;
+					$(row).addClass("row-"+counter);
+				}
+			});
+			expect($('#example tbody tr:eq(0)').hasClass('row-5')).toBe(true);
+
+		});
 
 	});
 

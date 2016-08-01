@@ -8,7 +8,7 @@ describe( "drawCallback option", function() {
 		dt.html( 'basic' );
 		it("Default should not be true", function () {
 			$('#example').dataTable();
-			expect($('#example').DataTable().settings()[0].aoDrawCallback).not.toBe(true);
+			expect($.fn.dataTable.defaults.fnDrawCallback).not.toBe(true);
 			//$.fn.DataTable.defaults
 		});
 		dt.html( 'basic' );

@@ -9,7 +9,7 @@ describe( "infoCallback Option", function() {
 		dt.html( 'basic' );
 		it("Default should not be true", function () {
 			$('#example').dataTable();
-			expect($('#example').DataTable().settings()[0].aoInfoCallback).not.toBe(true);
+			expect($.fn.dataTable.defaults.fnInfoCallback).not.toBe(true);
 			//$.fn.DataTable.defaults
 		});
 		dt.html( 'basic' );

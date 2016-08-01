@@ -1,4 +1,4 @@
-describe( "info option", function() {
+describe( "info option- Feature", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
@@ -6,27 +6,31 @@ describe( "info option", function() {
 
 	describe("Check Default", function () {
 		dt.html( 'basic' );
-		it("Info div exists by default", function () {
+		it("Info div set to true by default", function () {
 			$('#example').dataTable();
-			expect(document.getElementById('example_info')).toBeTruthy();
+			expect($.fn.dataTable.defaults.bInfo).toBe(true);
 		});
-	});
-	describe("Check can disable", function () {
+
 		dt.html( 'basic' );
 		it("Info can be disabled", function () {
 			$('#example').dataTable({
 				'info': false
 			});
-			expect(document.getElementById('example_info')).not.toBeTruthy();
+			expect($('#example_info').html()).not.toBeDefined();
 		});
-	});
-	describe("Enable makes no difference", function () {
+
 		dt.html( 'basic' );
 		it("Info enable override", function () {
 			$('#example').dataTable( {
 					"info": true
 				});
-				expect(document.getElementById('example_info')).toBeTruthy();
+				expect($('#example_info').html()).toBeDefined();
+		});
+		it("Info correctly displays text", function () {
+			expect($('#example_info').html() == "Showing 1 to 10 of 57 entries").toBe(true);
+		});
+		it("example_info is in correct position in DOM", function () {
+			expect($('#example_info').prev().attr('id') == 'example').toBe(true);
 		});
 	});
 } );

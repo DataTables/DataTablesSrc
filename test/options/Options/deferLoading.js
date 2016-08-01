@@ -3,7 +3,6 @@ describe( "deferLoading option", function() {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
 	} );
-
 	describe("Check the defaults", function () {
 
 	});
