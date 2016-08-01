@@ -9,7 +9,7 @@ describe( "stateLoadcallback Option", function() {
 		dt.html( 'basic' );
 		it("Default should not be true", function () {
 			$('#example').dataTable();
-			expect($('#example').DataTable().settings()[0].aoStateLoadedCallback).not.toBe(true);
+			expect($.fn.dataTable.defaults.fnStateLoadedCallback).not.toBe(true);
 			//$.fn.DataTable.defaults
 		});
 		dt.html( 'basic' );
@@ -37,7 +37,7 @@ describe( "stateLoadcallback Option", function() {
 			});
 			expect(test == $('#example').DataTable().settings()[0]).toBe(true);
 		});
-		
+
 	});
 
 

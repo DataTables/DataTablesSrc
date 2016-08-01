@@ -110,6 +110,18 @@ describe( "createdRow option", function() {
 			expect($('#example tbody tr:eq(2)').hasClass('unit-test2') && $('#example tbody tr:eq(2) td').html() == "Ashton Cox").toBe(true);
 
 		});
+		var counter = 0;
+		dt.html( 'basic');
+		it("createdRow- row parameter is correct", function () {
+			$('#example').dataTable( {
+				"createdRow": function( row, data, dataIndex){
+					counter++;
+					$(row).addClass("row-"+counter);
+				}
+			});
+			expect($('#example tbody tr:eq(0)').hasClass('row-5')).toBe(true);
+
+		});
 
 	});
 

@@ -9,7 +9,7 @@ describe( "rowCallback Option", function() {
 		dt.html( 'basic' );
 		it("Default should not be true", function () {
 			$('#example').dataTable();
-			expect($('#example').DataTable().settings()[0].aoRowCallback).not.toBe(true);
+			expect($.fn.dataTable.defaults.fnRowCallback).not.toBe(true);
 			//$.fn.DataTable.defaults
 		});
 		dt.html( 'basic' );
