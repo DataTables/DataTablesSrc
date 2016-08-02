@@ -21,6 +21,22 @@ describe( "columns.name option", function() {
 			$('#example').DataTable().search('Accountant').draw();
 			expect($('#example').DataTable.settings[0].aoColumns[1].name == "unit test").toBe(true);
 		});
+		dt.html( 'basic' );
+		it("set names using columns.name and return data of position column", function () {
+			$('#example').dataTable( {
+				"columns": [
+					{ "name": "name"},
+					{ "name": "position"},
+					{ "name": "office"},
+					{ "name": "age"},
+					{ "name": "startdate"},
+					{ "name": "salary"}
+				]
+			});
+			var test = $('#example').DataTable().column('position:name').data();
+			console.log(test[0]);
+			expect(test[0] == "Accountant").toBe(true);
+		});
 
 
 	});
