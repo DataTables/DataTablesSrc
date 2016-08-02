@@ -37,7 +37,7 @@ describe( "stateLoadcallback Option", function() {
 			});
 			expect(test == $('#example').DataTable().settings()[0]).toBe(true);
 		});
-
+		
 	});
 
 
