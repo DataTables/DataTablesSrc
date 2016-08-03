@@ -10,6 +10,7 @@ describe( "columnDefs option", function() {
 				$('#example').dataTable();
 				expect($.fn.dataTable.defaults.aoColumnDefs).toBe(null);
 		});
+
 		dt.html( 'basic' );
 		it(" '_all' targets all columns. ", function () {
 			$('#example').dataTable( {
