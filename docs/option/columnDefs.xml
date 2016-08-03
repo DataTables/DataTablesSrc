@@ -22,7 +22,7 @@
 
 		### Conflict resolution
 
-		As `dt-init columnDefs` allows columns to be columns to be defined one or more times in different column definition objects (typically to define different aspects of the columns) conflicts can arise whereby a single property might be defined with different values for the same column. Likewise, this situation could also occur when `dt-init columns` is used at the same time. DataTables uses the following rules to resolve such conflicts:
+		As `dt-init columnDefs` allows columns to be defined one or more times in different column definition objects (typically to define different aspects of the columns) conflicts can arise whereby a single property might be defined with different values for the same column. Likewise, this situation could also occur when `dt-init columns` is used at the same time. DataTables uses the following rules to resolve such conflicts:
 
 		1. A property defined in `dt-init columns` will _always_ take priority over any value for that property defined in `dt-init columnDefs`.
 		2. Properties which are higher in the `dt-init columnDefs` array will take priority over those below.

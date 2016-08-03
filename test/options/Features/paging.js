@@ -1,5 +1,3 @@
-
-
 describe( "Paging option", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
