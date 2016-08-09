@@ -56,6 +56,7 @@ module.exports = function(config) {
         { pattern: 'built/DataTables/extensions/*/css/*.css', included: false },
         { pattern: 'test/data/*.txt', included: false },
         { pattern: 'test/html/*.html', included: false },
+		{ pattern: 'test/api/*.*.js', included: true},
         testFiles
     ],
 
