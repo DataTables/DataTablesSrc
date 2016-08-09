@@ -54,13 +54,13 @@ function _fnFeatureHtmlFilter ( settings )
 	var jqFilter = $('input', filter)
 		.val( previousSearch.sSearch )
 		.attr( 'placeholder', language.sSearchPlaceholder )
-		.bind(
+		.on(
 			'keyup.DT search.DT input.DT paste.DT cut.DT',
 			searchDelay ?
 				_fnThrottle( searchFn, searchDelay ) :
 				searchFn
 		)
-		.bind( 'keypress.DT', function(e) {
+		.on( 'keypress.DT', function(e) {
 			/* Prevent form submission */
 			if ( e.keyCode == 13 ) {
 				return false;
