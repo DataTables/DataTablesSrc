@@ -184,7 +184,7 @@ this.fnAddData = function( data, redraw )
  *        "bPaginate": false
  *      } );
  *
- *      $(window).bind('resize', function () {
+ *      $(window).on('resize', function () {
  *        oTable.fnAdjustColumnSizing();
  *      } );
  *    } );

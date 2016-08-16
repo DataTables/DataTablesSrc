@@ -50,13 +50,13 @@ function _fnFeatureHtmlLength ( settings )
 	// reference is broken by the use of outerHTML
 	$('select', div)
 		.val( settings._iDisplayLength )
-		.bind( 'change.DT', function(e) {
+		.on( 'change.DT', function(e) {
 			_fnLengthChange( settings, $(this).val() );
 			_fnDraw( settings );
 		} );
 
 	// Update node value whenever anything changes the table's length
-	$(settings.nTable).bind( 'length.dt.DT', function (e, s, len) {
+	$(settings.nTable).on( 'length.dt.DT', function (e, s, len) {
 		if ( settings === s ) {
 			$('select', div).val( len );
 		}

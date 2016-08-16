@@ -88,8 +88,8 @@ _api_register( 'destroy()', function ( remove ) {
 		// Blitz all `DT` namespaced events (these are internal events, the
 		// lowercase, `dt` events are user subscribed and they are responsible
 		// for removing them
-		jqWrapper.unbind('.DT').find(':not(tbody *)').unbind('.DT');
-		$(window).unbind('.DT-'+settings.sInstance);
+		jqWrapper.off('.DT').find(':not(tbody *)').off('.DT');
+		$(window).off('.DT-'+settings.sInstance);
 
 		// When scrolling we had to break the table up - restore it
 		if ( table != thead.parentNode ) {
