@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>cell( cellSelector [, modifier ] )</signature>
+		<signature>cell( cellSelector, [ modifier ] )</signature>
 		<description>Select the cell found by a cell selector</description>
 		<parameter type="cell-selector" name="cellSelector">
 			Cell selector.
@@ -16,7 +16,7 @@
 		<returns type="DataTables.Api">DataTables API instance with selected cells</returns>
 	</type>
 	<type type="function">
-		<signature>cell( rowSelector, columnSelector [, modifier ] )</signature>
+		<signature>cell( rowSelector, columnSelector, [ modifier ] )</signature>
 		<description>Select the cell found from both row and column selectors</description>
 		<parameter type="row-selector" name="rowSelector">
 			Row selector, used to specify which row the cell should be taken from.

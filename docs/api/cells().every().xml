@@ -23,7 +23,7 @@
 	</type>
 
 	<description>
-		A often used operation with the DataTable API is to perform an operation on a collection of cells - a common action is performed on each cell, such as adding event handlers, updating data, etc. This iteration of the cells can be performed a number of ways in DataTables, each with its own advantages:
+		An often used operation with the DataTable API is to perform an operation on a collection of cells - a common action is performed on each cell, such as adding event handlers, updating data, etc. This iteration of the cells can be performed a number of ways in DataTables, each with its own advantages:
 
 		* `dt-api cells().every()`
 		* `dt-api iterator()`

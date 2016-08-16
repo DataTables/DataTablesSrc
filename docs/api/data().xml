@@ -11,7 +11,7 @@
 	</type>
 
 	<description>
-		This method provides access to the raw data that is used for each row in the tables in the API's context. The result set contains the raw data (be it arrays or objects), which each row defined by an entry in the API's result set. The order of the rows in the row data index (i.e. the order the data was originally read into the table).
+		This method provides access to the raw data that is used for each row in the tables in the API's context. The result set contains the raw data (be it arrays or objects), with each row defined by an entry in the API's result set. The order of the rows is the row data index (i.e. the order the data was originally read into the table).
 
 		If you modify the data contained in the returned array, ensure that you use the `dt-api rows().invalidate()`, `dt-api row().invalidate()` or any of the other invalidation methods to cause DataTables to notice the change and re-read the data source.
 

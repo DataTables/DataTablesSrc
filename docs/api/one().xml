@@ -25,7 +25,7 @@
 		* `dt-api off()` - Stop listening for events
 		* `dt-api one()` - Listen for a single event.
 
-		This `dt-api on()` method is used to listen for DataTables an event from DataTables and then immediately remove that event once it has fired for the first time. Simply pass in the event you wish to listen for an provide a callback function which will be activated, and then removed, when the event is triggered by DataTables.
+		This `dt-api one()` method is used to listen for DataTables an event from DataTables and then immediately remove that event once it has fired for the first time. Simply pass in the event you wish to listen for an provide a callback function which will be activated, and then removed, when the event is triggered by DataTables.
 	</description>
 
 	<example title="Listen for only the first `dt-event xhr` event from DataTables"><![CDATA[
