@@ -1,5 +1,8 @@
 // todo tests
-// 1- Not sure what we can do other than check the returned object matches what we Expects
+// - Check it exists and is a function
+// - Check it returns an API instance
+// - Check that the returned API instance contains the settings object for the table in question
+// - Check with multiple tables as well - should contain a settings object for each table
 
 describe( "core- settings()", function() {
 	dt.libs( {

@@ -1,9 +1,10 @@
 // todo tests
-// 1- Able to add an event
-// 2- Able to set back
-// 3- Has exactly two parameters
-// 4- those paremeters are of the correct type
-// 5- returns API instance
+// - Check it exists and is a function
+// - Able to add a single event
+// - Able to listen for multiple events with a single call
+// - Event handlers are correctly triggered
+// - The callback function is passed at least the event object as the first parameter (exact parameters depend upon the event)
+// - returns API instance
 
 describe( "core- on()", function() {
 	dt.libs( {

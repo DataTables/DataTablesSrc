@@ -1,8 +1,10 @@
 // todo tests
-// 1- Removes event listeners added with on()
-// 2- Callback functions properly
-// 3- Returns API instance
-// 4- Try to remove event that hasn't been added in first place?
+// - Check it exists and is a function
+// - Remove single event listener added with on()
+// - Remove multiple event listeners added with on() in a single call
+// - Add two event handlers for the same event and removed one by passing the function in as the second parameter to remove a specific function
+// - Returns API instance
+// - Try to remove event that hasn't been added in first place - should result in no error (noop)
 
 describe( "core- off()", function() {
 	dt.libs( {

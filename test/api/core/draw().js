@@ -1,7 +1,9 @@
 // todo tests
-// 1- draw() works- test that the display actually updates
-// 2- without providing a paging option then a full reorder/ research is performed
-// 3- When paging is provided reorder/research is not performed (test all 3 options)
+// - Check it exists and is a function
+// - returns API instance
+// - draw() works- test that the display actually updates
+// - without providing a paging option then a full reorder/ research is performed
+// - When paging is provided reorder/research is not performed (test all 3 string options and 2 boolean)
 
 describe( "core- draw()", function() {
 	dt.libs( {

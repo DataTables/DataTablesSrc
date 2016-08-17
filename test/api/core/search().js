@@ -1,7 +1,12 @@
 // todo tests
-// 1- search() - make sure returned value is what we Expects
-// 2- search(input...)- Set search using input,regex,smart,caseInsen
-// 3- Test paremeters for search(input...) make sure they are all of correct type etc
+// - Check it exists and is a function
+// - Returns the current search string when used as a getter (check for when there is a search string and when there isn't)
+// - Returns API instance when used as a setter
+// - Doesn't do a redraw itself
+// - Will do a smart search with just the first parameter
+// - Can do a regex search using the second parameter
+// - Third parameter disabled smart search
+// - Fourth can make the search case sensitive
 
 
 describe( "core- search()", function() {

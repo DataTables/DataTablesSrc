@@ -1,11 +1,12 @@
 // todo tests
-//1
-// ajax.url() does not itself trigger and ajax request
-//2
-// Able to set a new data source
-//3 url is of type string
-//4 Able to return the current data source url
-//5 What happens if we set the url the same as is currently set
+// - Check it exists and is a function
+// - Can get an ajax source URL for an `ajax` sourced table
+// - Can get an ajax source URL for a table that uses `ajax` as an object (i.e. `ajax.url` defines the url)
+// - Returns `undefined` for a DOM sourced table
+// - As a setter it will set the URL (then use as a getter to check it was set)
+// - As a setter it will return a DataTables API instance
+// - What happens if we set the url the same as is currently set
+// - Using `ajax.reload()` will use the new URL
 describe( "core- ajax.url()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
