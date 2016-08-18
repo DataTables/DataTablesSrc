@@ -1,7 +1,18 @@
 // todo tests
-// 1- Make sure the cells we select are iterated over only.
-// 2- Only one parameter of type function
-// 3- Test the four parameters mentioned in docs, dont understand fully how they are being passed
+// - Confirm it exists and is a function
+// - Make sure the cells we select are iterated over only.
+//   - Select 0 cells
+//   - 1 cell
+//   - A row
+//   - A column
+//   - All cells
+// - Ensure that the callback function is passed four parameters
+//   - cell row index
+//   - cell column index
+//   - table loop counter
+//   - cell loop counter
+//   - Check that they are all integers
+// - Ensure that the callback function is executed in the scope of an API instance which has the cell's index in its data set (and only that cell index)
 describe( "cells- cells().every()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],

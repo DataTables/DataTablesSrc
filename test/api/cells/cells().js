@@ -1,9 +1,24 @@
 // todo tests
-// 1- cells([modifier]) has exactly one paremeter and is of type ('selector-modifier')
-// 2- Test using no parameters, selector-modifier
-// 3- select different ammount of cells
-// 4- cells( cellSelector, [modifier]) Test for two paramets and of correct type
-// 5- cell( rowSelector)-  test all parameters then do tests using different values for each of the parameters
+// - Confirm it exists and is a function
+// - Confirm it returns an API method
+// - Select cells using just a cell selector
+//   - no selector (all cells)
+//   - string selector (jQuery)
+//   - node
+//   - function
+//   - jQuery instance
+//   - object ({row:i, column:j})
+//   - Array with combinations of the above
+// - Select cells with only a selector modifier
+//   - order
+//   - search
+//   - page
+// - Select cells using a cell selector and a selector modifier
+//   - various mixes of the above
+// - Select cells using a row and column selector
+//   - Various combinations of row and column selectors
+//   - Ensure that the selectors are cumulative
+// - Select cells using row and column selectors with selector modifier
 
 describe( "cells- cells()", function() {
 	dt.libs( {

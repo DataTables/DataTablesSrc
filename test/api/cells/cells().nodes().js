@@ -1,5 +1,7 @@
 // todo tests
-// 1- Simple tests adding classes and making sure nodes returned are correct
+// - Confirm it exists and is a function
+// - Returns an API method
+// - API method contains the nodes for the selected cells
 describe( "cells- cells().nodes()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],

@@ -1,7 +1,25 @@
 // todo tests
-// 1- Make sure select has two paremeters and are correct types
-// 2- Make sure returned cell is correct, and test with multiple cells then make sure only the first found cell is returned
-// 3- Repeat tests using rowselector
+// - Confirm it exists and is a function
+// - Confirm it returns an API method
+// - Select a cell using just a cell selector
+//   - no selector (all cells)
+//   - string selector (jQuery)
+//   - node
+//   - function
+//   - jQuery instance
+//   - object ({row:i, column:j})
+//   - Array with combinations of the above
+//   - Ensure that if the selector matches multiple cells, only a single cell is actually selected
+// - Select cells with only a selector modifier
+//   - order
+//   - search
+//   - page
+// - Select cells using a cell selector and a selector modifier
+//   - various mixes of the above
+// - Select cells using a row and column selector
+//   - Various combinations of row and column selectors
+//   - Ensure that the selectors are cumulative
+// - Select cells using row and column selectors with selector modifier
 describe( "cells- cell()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],

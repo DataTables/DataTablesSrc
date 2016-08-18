@@ -1,4 +1,5 @@
 // todo tests
+// - Confirm it exists and is a function
 // 1- Simple tests adding classes and making sure nodes returned are correct
 describe( "cells- cell().node()", function() {
 	dt.libs( {

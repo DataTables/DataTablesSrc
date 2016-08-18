@@ -1,5 +1,8 @@
 // todo tests
-// 1- Make sure it's returning cells we want, data is kept in tact.
+// - Confirm it exists and is a function
+// - Getter:
+//   - Ensure that the data from the cell is returned
+//   - Use a renderer for a column, make sure that it is the data and not the rendered value that is returned
 describe( "cells- cells().data()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
