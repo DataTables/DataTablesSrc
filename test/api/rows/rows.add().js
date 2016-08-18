@@ -1,8 +1,8 @@
 // todo tests
-// 1- Use external objects for this test...
-// 2- Test parameter and type is string /
-// 3- Make 3 seperate tests one using auto, another using data and finally using dom
-describe( "cells- cell().invalidate()", function() {
+// 1- Add row using array,object and node for data parameter
+// 2- check only 1 param and that is data.
+// 3- Add 3 rows at once, after testing adding a single row.
+describe( "rows- row.add()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]

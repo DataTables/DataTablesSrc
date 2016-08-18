@@ -1,8 +1,9 @@
 // todo tests
-// 1- Use external objects for this test...
-// 2- Test parameter and type is string /
-// 3- Make 3 seperate tests one using auto, another using data and finally using dom
-describe( "cells- cell().invalidate()", function() {
+// 1- Has exactly one param and that is of type string, accepts values of only 'search'  and 'cache'
+// 2- Data returned for both types is what we expect
+
+
+describe( "rows- rows().cache()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]

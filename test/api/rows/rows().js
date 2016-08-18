@@ -1,9 +1,10 @@
 // todo tests
-// 1- Has exactly one param and that is of type string, accepts values of only 'search'  and 'cache'
-// 2- Data returned for both types is what we expect
+// 1- Select rows, make sure returned rows are correct, test using integer(rowindex) and id selector
+// 2- Use modifer to change order upon use, also could test with a search applied
 
 
-describe( "rows- row().cache()", function() {
+
+describe( "rows- rows()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]

@@ -1,9 +1,10 @@
 // todo tests
-// 1- Has exactly one param and that is of type string, accepts values of only 'search'  and 'cache'
-// 2- Data returned for both types is what we expect
+// 1- GET- return row ID, check it matches value set in rowId option
+// 2- only one param and is type bool
+// 3- Append a hash to row id then check we can select it using a selector.
 
 
-describe( "rows- row().cache()", function() {
+describe( "rows- row().id()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]

@@ -1,8 +1,7 @@
 // todo tests
-// 1- Use external objects for this test...
-// 2- Test parameter and type is string /
-// 3- Make 3 seperate tests one using auto, another using data and finally using dom
-describe( "cells- cell().invalidate()", function() {
+// 1- Make sure returned value is an integer and it matches the row index that we would expect
+
+describe( "rows- rows().indexes()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]

@@ -1,8 +1,9 @@
 // todo tests
-// 1- Use external objects for this test...
-// 2- Test parameter and type is string /
-// 3- Make 3 seperate tests one using auto, another using data and finally using dom
-describe( "cells- cell().invalidate()", function() {
+// 1- We can use the show/hide example on the API reference page as a base, then simply detect if the child row is shown if it is then test passes.
+// 2- 
+
+
+describe( "rows- row().child().show()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]

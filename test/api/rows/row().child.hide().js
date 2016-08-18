@@ -1,8 +1,9 @@
 // todo tests
-// 1- Use external objects for this test...
-// 2- Test parameter and type is string /
-// 3- Make 3 seperate tests one using auto, another using data and finally using dom
-describe( "cells- cell().invalidate()", function() {
+// 1- Start with child rows visible, call this method and then check via dom if rows are hidden
+// 2- Start with child rows hidden, call this, should still be hidden.
+
+
+describe( "rows- row().child.hide()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
