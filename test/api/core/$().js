@@ -1,21 +1,14 @@
 // todo tests
-
-//1//
+// 
 //This test should make sure '$()' returns a jQuery object, unsure how to test for a type
+//   AJJ - Use `instanceof $` to check that is it a jQuery object
 //I can do a test to make sure it works by just calling $('#example').DataTable() after init.
-//2
-// Using $() returns selection of full table
-//3
-//Able to use selector to narrow down selection
-//4
-//Returned selection matches structure of what we would expect
-//5
-//Able to use modifier
-//6
-//Modifier returns what we expect
-//7 Run tests to make sure types for both parameters are correct
-//8 Make sure $() runs on all <tr> eleemetns and their descendents.
-
+//   AJJ - This needs to test that the method converts a DataTables API instance (i.e. a collection) to a jQuery instance (again a collection). It is only really useful the API instance contains nodes - e.g. rows().nodes()
+//
+// - Check it exists and is a function
+// - Use with rows().nodes() and it gives a jQuery object that contains all row nodes
+// - Use with rows().nodes() and a selector that will result in only a single row being included
+// - Use with rows().nodes() and a selector that will result in no nodes
 describe( "core- $()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],

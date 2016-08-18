@@ -1,7 +1,10 @@
 // todo tests
-// 1- get- returns int with currently displayed page, also test with multiple tables
-// 2- set- test with all types(int,string(first,next,previous,last))
-// 3- set- point to page that doesn't exist- should reset, no error
+// - Check it exists and is a function
+// - will return the current page as an integer (0 indexed)
+//   - check on multiple pages
+// - set - test with all types(int,string(first,next,previous,last))
+// - set - point to page that doesn't exist- should reset, no error
+// - returns an API instance
 
 
 describe( "core- page()", function() {

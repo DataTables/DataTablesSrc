@@ -1,5 +1,8 @@
 // todo tests
-// 1- Make sure the state saved object is returned
+// - Check it exists and is a function
+// - Check it returns a plain object
+// - Make sure the object returns contains the state originally loaded by the table
+//   - i.e. not the current state
 
 describe( "core- state.loaded()", function() {
 	dt.libs( {

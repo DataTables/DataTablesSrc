@@ -1,5 +1,8 @@
 // todo tests
-// 1- Trigger save, make sure its actually triggered when we call this and not before
+// - Check it exists and is a function
+// - Check it returns an API instance
+// - Check it triggers a save
+// - Check that when reloaded the table will reflect this saved state
 
 describe( "core- state.save()", function() {
 	dt.libs( {

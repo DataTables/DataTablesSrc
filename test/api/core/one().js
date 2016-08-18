@@ -1,8 +1,5 @@
 // todo tests
-// 1- Correctly listens for an event
-// 2- Removes event after successfully fired
-// 3- exactly 2 parameters and of correct type
-// 4- Returns API instance
+// Exactly the same as `on()`, but that the events added are triggered once only
 describe( "core- one()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],

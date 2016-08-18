@@ -1,8 +1,9 @@
 // todo tests
-// 1- Returns Configuration object yes/no
-// 2- Changes made to object are not detected by datatables
-// 3- interator() must be used to return cfg objects from multiple tables
-// 4- The options inside the cfg object are correct
+// - Check it exists and is a function
+// - Returns Configuration object yes/no
+// - The object returned is the original object that was passed into the DT configuration
+// - Changes made to object are not detected by datatables - AJJ: DataTables will change the object for Hungarian notation / camelCase
+// - Custom parameters can be set and accessed (i.e. are not removed)
 
 describe( "core- init()", function() {
 	dt.libs( {

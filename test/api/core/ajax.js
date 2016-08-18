@@ -1,7 +1,5 @@
 // todo tests
-//1
-// Unsure of how we can test this as it doesn't do anything itself.
-// Maybe just check the namespace/returned object is correct
+// - Its a namespace object, so just check that it exists on the API instance
 describe( "core- ajax", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],

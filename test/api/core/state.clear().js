@@ -1,8 +1,9 @@
 // todo tests
-// 1- Trigger state.clear() on default table
-// 2- Trigger after a table has been saved
-// 3- Trigger with saving disabled
-// 4- Trigger on empty table
+// - Check it exists and is a function
+// - Check it returns an API instance
+// - Trigger state.clear() on default table
+// - State is actually cleared (refresh the table and make sure the old state isn't restored)
+// - Trigger with saving disabled (noop)
 
 describe( "core- state.clear()", function() {
 	dt.libs( {
