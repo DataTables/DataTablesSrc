@@ -1,5 +1,6 @@
 // todo tests
 // - Confirm it exists and is a function
+// - Returns an API instance
 // - Make sure the cells we select are iterated over only.
 //   - Select 0 cells
 //   - 1 cell
