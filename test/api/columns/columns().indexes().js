@@ -1,10 +1,8 @@
 // todo tests
-// 1- Return column index (no visible)
-// 2- Return column index using visible parameter
-// 3- Make sure only one parameter and that is type string
-// 4- check default value of type is set to datatables
-// 5- returned values are an API instance with the index included
-// 6- Repeat tests for 2 columns
+// - Confirm it exists and is a function
+// - Returns an API index
+// - Return column index (no hidden columns)
+// - Return column index (with hidden columns)
 describe( "columns- columns().indexes()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],

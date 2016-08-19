@@ -1,7 +1,10 @@
 // todo tests
-// 1- Select columns with different types of data and make sure returned values are correct
-// 2- Select more than one column at once and make sure only the first column in the result set is returned
-// 3- Test using mutilple columns
+// - Confirm it exists and is a function
+// - Confirm it returns API instance
+// - Select a single column and confirm that the data is returned for that column
+// - Select two columns and confirm the data is returned for those two columns
+// - Select all columns and confirm the data is returned for all columns
+// - Test with both array based tables and object based tables
 describe( "columns- columns().data()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],

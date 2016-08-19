@@ -1,6 +1,7 @@
 // todo tests
-// 1- Select columns with different types of data and make sure returned values are correct
-// 2- Select more than one column at once and make sure only the first column in the result set is returned
+// - Confirm it exists and is a function
+// - Confirm it returns API instance
+// - Select a single column and confirm that the data is returned for that column
 
 describe( "columns- column().data()", function() {
 	dt.libs( {

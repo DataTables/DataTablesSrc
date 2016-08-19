@@ -1,8 +1,19 @@
 // todo tests
-// 1- Get vis and make sure bool returned is correct, test with hidden and visible column
-// 2- Exactly 2 params in setter and of correct types
-// 3- Test all configs of setter making sure the column is set correctly
-
+// - Confirm it exists and is a function
+// - Getter
+//   - Will return a boolean value
+//   - Column hidden by `columns.visible` at init returns false
+//   - Column not hidden by `columns.visible` at init returns true
+//   - Column hidden by API returns false
+//   - Column hidden at init and then made visible returns true
+// - Setter
+//   - `false` will hide a column (check header, body and footer nodes)
+//   - `true` will make a column visible (check header, body and footer nodes)
+//   - Repeat the above with:
+//     - `deferRender` and an Ajax sourced table
+//     - A table with no footer
+//     - A scrolling table with header and footer
+//     - A scrolling table with no footer
 
 describe( "columns- column().visible()", function() {
 	dt.libs( {

@@ -1,6 +1,15 @@
 // todo tests
-// 1- Make sure the correct values are returned for the column selected
-// 2- Repeat test for multiple columns
+// - Confirm it exists and is a function
+// - Confirm it returns an API instance
+//   - Even if only a single column is selected
+// - Create a table which uses the following for various columns (you might need to create multiple tables)
+//   - Integer (array based tables)
+//   - Function
+//   - String (object based tables)
+// - Select multiple columns and confirm that the data source for each selected column is:
+//   - e.g. if `columns.data` is not set it should return an integer (array based tables)
+//   - if `columns.data` is a string it should return that string
+//   - if `columns.data` is a function it should return that function, etc
 describe( "columns- columns().dataSrc()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],

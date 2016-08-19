@@ -1,6 +1,8 @@
 // todo tests
-// 1- Test when table is hidden on load make sure calcs match what we expect
-// 2- Change length of data in one columns and check new widths are correct
+// - Confirm it exists and is a function
+// - Always returns an API instance
+// - Test when table is hidden on load make sure calcs match what we expect
+// - Change length of data in one columns and check new widths are correct
 
 
 describe( "columns- columns.adjust()", function() {

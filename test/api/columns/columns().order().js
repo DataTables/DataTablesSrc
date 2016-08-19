@@ -1,11 +1,11 @@
 // todo tests
-// 1- Test using one columns setting direction
-// 2- Test using two columns
-// 3- Test using one columns setting direction the other way
-// 3.5- Test again using 2 columns
-// 4- Make sure only one parameter of type string
-// 5- make sure ordering if performed only after draw() is called
-// 6- API is returned
+// - Confirm it exists and is a function
+// - Confirm it returns an API instance
+// - Selecting 0, 1, 2 and all columns:
+//   - Will trigger ordering on the selected columns
+//     - asc
+//     - desc
+// - Make sure ordering if performed only after draw() is called
 describe( "columns- columns().order()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],

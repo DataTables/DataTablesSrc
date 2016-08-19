@@ -1,9 +1,10 @@
 // todo tests
-// 1- Test using one columns setting direction
-// 2- Test using two columns, making sure only first column counts
-// 3- Test using one columns setting direction the other way
-// 4- Make sure only one parameter of type string
-// 5- make sure ordering if performed only after draw() is called
+// - Confirm it exists and is a function
+// - Confirm it returns an API instance
+// - Will trigger ordering on the selected column
+//   - asc
+//   - desc
+// - Make sure ordering if performed only after draw() is called
 
 describe( "columns- column().order()", function() {
 	dt.libs( {

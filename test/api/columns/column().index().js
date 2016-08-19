@@ -1,8 +1,7 @@
 // todo tests
-// 1- Return column index (no visible)
-// 2- Return column index using visible parameter
-// 3- Make sure only one parameter and that is type string
-// 4- check default value of type is set to datatables
+// - Confirm it exists and is a function
+// - Return column index (no hidden columns)
+// - Return column index (with hidden columns)
 
 describe( "columns- column().index()", function() {
 	dt.libs( {

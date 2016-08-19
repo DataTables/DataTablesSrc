@@ -1,8 +1,10 @@
 // todo tests
-// 1- Make sure nodes returned are valid html
-// 2- Make sure data returned in a 2d array
-// 3- Test using deferRender
-// 4- Test using 2 columns
+// - Confirm it exists and is a function
+// - Confirm it returns an API instance
+// - Select a column - ensure that the API instance contains the nodes for that column and returned API instance is the right length
+// - Select two columns - check length / nodes
+// - Select all columns - check length / nodes
+// - Test using Ajax sourced table with deferRender
 
 describe( "columns- columns().nodes()", function() {
 	dt.libs( {

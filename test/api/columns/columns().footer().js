@@ -1,9 +1,15 @@
 // todo tests
-// 1- Test with one row in footer
-// 2- Add one row and test again, making sure only first row is returned
-// 3- Test with no footer, make sure null is returned
-// 4- make sure returned value is a node
-// 5- Repeat with multiple columns selected
+// - Confirm it exists and is a function
+// - Confirm it returns an API instance (checking contents for the following tests)
+// - One row in footer:
+//   - Select the first and last columns and get its footer cells
+//   - Select the second column only and get its footer cell
+// - Two rows in footer:
+//   - Select the first and third columns and get their footer cell - only first cells for those columns are in the result
+//   - Select the last column and get its footer cell - only first cell for that column is returned
+// - Test with no footer, make sure null is returned for all columns
+// - Test with a scrolling table that has a footer
+// - Hide columns - ensure that their footer nodes can still be accessed with this method
 
 describe( "columns- columns().footer()", function() {
 	dt.libs( {

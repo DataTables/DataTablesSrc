@@ -1,10 +1,18 @@
 // todo tests
-// 1- Could do with a test that makes sure search is actually subtractive?
-// 2- Does the search update correctly if we use search() twice before calling draw()
-// 3- does column().search() return an API instance with applied search terms
-// 4- setter has 4 parameters and all are correct types
-// 5- various tests with different parameters
-// 6- Repeat for 2 columns
+// - Confirm it exists and is a function
+// - Returns an API instance
+// - Getter:
+//   - Confirm it will contain the search values (when set by API)
+//   - Confirm it will contain the search values (when set by searchCols)
+//   - Confirm it will contain the search values (mixed)
+// - Setter:
+//   - Will apply the same search sting to all selected columns (select 0, 1, 2 and all columns)
+//   - Is not regex by default
+//   - Is smart search by default
+//   - Is case insensitive by default
+//   - Can set a regex search
+//   - Can disable smart search
+//   - Can enable case sensitively
 
 
 describe( "columns- columns().search()", function() {
