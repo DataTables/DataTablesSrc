@@ -1097,6 +1097,8 @@ DataTable.defaults = {
 	 *  @type function
 	 *  @member
 	 *  @param {object} settings DataTables settings object
+	 *  @param {object} callback Callback that can be executed when done. It
+	 *    should be passed the loaded state object.
 	 *  @return {object} The DataTables state object to be loaded
 	 *
 	 *  @dtopt Callbacks
@@ -1106,21 +1108,14 @@ DataTable.defaults = {
 	 *    $(document).ready( function() {
 	 *      $('#example').dataTable( {
 	 *        "stateSave": true,
-	 *        "stateLoadCallback": function (settings) {
-	 *          var o;
-	 *
-	 *          // Send an Ajax request to the server to get the data. Note that
-	 *          // this is a synchronous request.
+	 *        "stateLoadCallback": function (settings, callback) {
 	 *          $.ajax( {
 	 *            "url": "/state_load",
-	 *            "async": false,
 	 *            "dataType": "json",
 	 *            "success": function (json) {
-	 *              o = json;
+	 *              callback( json );
 	 *            }
 	 *          } );
-	 *
-	 *          return o;
 	 *        }
 	 *      } );
 	 *    } );

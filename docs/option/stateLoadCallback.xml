@@ -5,42 +5,67 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>stateLoadCallback( settings )</signature>
+		<signature>stateLoadCallback( settings, callback )</signature>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
-		<returns type="object">
-			Data retrieved from storage containing the saved state (from `dt-init stateSaveCallback`)
+		<parameter type="function" name="callback" since="1.10.13">
+			Callback function that should be executed when the state data is ready if loaded by Ajax or some other asynchronous method. If this option is to be used the `stateLoadCallback` method must return `-type undefined` (i.e. just don't return anything)!
+		</parameter>
+		<returns type="object|undefined">
+			If the data is loaded synchronously the return value should be the loaded state (or `null` if no data was loaded).
+
+			If the data will be loaded asynchronously (e.g. via Ajax), `-type undefined` should be returned (just don't use a return statement!) and the callback function called when the state has been loaded. Please note that this option required DataTables 1.10.13 or newer.
 		</returns>
 		<scope>HTML table element</scope>
 	</type>
 
 	<description>
-		With this callback you can define where, and how, the state of a table is loaded from. By default DataTables will load from `localStorage` but you might wish to use a server-side database or cookies as your implementation requirements demand. For the format of the data that is stored, please refer to the `dt-init stateSaveCallback` documentation.
+		With this callback you can define where, and how, the state of a table is loaded from. By default DataTables will load from [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) or [`sessionStrorage`](https://developer.mozilla.org/en/docs/Web/API/Window/sessionStorage), but for more permanent storage, you can store state in a server-side database.
+
+		Prior to DataTables 1.10.13 this method had to act synchronously, i.e. the state would be returned by the function. As of 1.10.13 it is possible to load state asynchronously via Ajax or any other async method and execute the callback function, passing in the loaded state.
+
+		To maintain backwards compatibility the state can still be returned synchronously. To use the callback method, simply don't return a value from your `-init stateLoadCallback` function. See below for examples of both use cases.
 
 		Note that this callback works hand-in-hand with `dt-init stateSaveCallback`. This callback loads the state from storage when the table is reloaded while `dt-init stateSaveCallback` saves it.
 	</description>
 
-	<example title="Load state from a server via Sjax"><![CDATA[
-$('#example').dataTable( {
-  "stateSave": true,
-  "stateLoadCallback": function (settings) {
-    var o;
+	<example title="Load state from a server via Ajax (1.10.13 or newer)"><![CDATA[
+$('#example').DataTable( {
+	stateSave: true,
+	stateLoadCallback: function (settings, callback) {
+		$.ajax( {
+			url: '/state_load',
+			async: false,
+			dataType: 'json',
+			success: function (json) {
+				callback( json );
+			}
+		} );
+	}
+} );
+]]></example>
 
-    // Send an Ajax request to the server to get the data. Note that
-    // this is a synchronous request since the data is expected back from the
-    // function
-    $.ajax( {
-      "url": "/state_load",
-      "async": false,
-      "dataType": "json",
-      "success": function (json) {
-        o = json;
-      }
-    } );
+	<example title="Load state from a server via Sjax (prior to 1.10.13)"><![CDATA[
+$('#example').DataTable( {
+	stateSave: true,
+	stateLoadCallback: function (settings) {
+		var o;
 
-    return o;
-  }
+		// Send an Ajax request to the server to get the data. Note that
+		// this is a synchronous request since the data is expected back from the
+		// function
+		$.ajax( {
+			url: '/state_load',
+			async: false,
+			dataType: 'json',
+			success: function (json) {
+				o = json;
+			}
+		} );
+
+		return o;
+	}
 } );
 ]]></example>
 
