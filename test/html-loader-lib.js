@@ -219,6 +219,10 @@ window.dt = {
 			}
 		}
 
+		if ( $ && $.fn.dataTableSettings && $.fn.dataTableSettings.length ) {
+			$.fn.dataTableSettings.length = 0;
+		}
+
 		return window.dt;
 	},
 
