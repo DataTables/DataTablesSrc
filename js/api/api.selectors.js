@@ -15,7 +15,8 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 	}
 
 	for ( i=0, ien=selector.length ; i<ien ; i++ ) {
-		a = selector[i] && selector[i].split ?
+		// Only split on simple strings - complex expressions will be jQuery selectors
+		a = selector[i] && selector[i].split && ! selector[i].match(/[\[\(:]/) ?
 			selector[i].split(',') :
 			[ selector[i] ];
 

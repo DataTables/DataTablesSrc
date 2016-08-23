@@ -34,17 +34,33 @@
 //   - Can select columns using nodes with `search: current` - confirm expected data
 
 
-describe( "columns- columns()", function() {
+describe( 'columns- columns()', function() {
+	var table;
+
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
 	} );
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
+	dt.html( 'basic' );
 
-	});
+	it( 'jQuery selector with a comma is not split', function () {
+		table = $('#example').DataTable();
 
-});
+		var cols = table.columns( ':first-child, :last-child' ).header().to$();
+
+		expect( cols.length ).toBe( 2 );
+		expect( cols.eq(0).text() ).toBe( 'Name' );
+		expect( cols.eq(1).text() ).toBe( 'Salary' );
+	} );
+
+	it( 'jQuery selector with a comma is not split, with not selector', function () {
+		var cols = table.columns( ':not(:first-child,:last-child)' ).header().to$();
+
+		expect( cols.length ).toBe( 4 );
+		expect( cols.eq(0).text() ).toBe( 'Position' );
+		expect( cols.eq(1).text() ).toBe( 'Office' );
+		expect( cols.eq(2).text() ).toBe( 'Age' );
+		expect( cols.eq(3).text() ).toBe( 'Start date' );
+	} );
+} );
