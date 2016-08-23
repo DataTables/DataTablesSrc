@@ -24,7 +24,7 @@ describe( "stateSavecallback Option", function() {
 				}
 			});
 
-			expect(test === 2).toBe(true);
+			expect(test).toBe(2);
 		});
 		dt.html( 'basic' );
 		it("First argument is the settings object", function () {

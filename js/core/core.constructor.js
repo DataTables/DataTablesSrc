@@ -449,8 +449,8 @@ var loadedInit = function () {
 if ( oInit.bStateSave )
 {
 	features.bStateSave = true;
-	_fnLoadState( oSettings, oInit, loadedInit );
 	_fnCallbackReg( oSettings, 'aoDrawCallback', _fnSaveState, 'state_save' );
+	_fnLoadState( oSettings, oInit, loadedInit );
 }
 else {
 	loadedInit();
