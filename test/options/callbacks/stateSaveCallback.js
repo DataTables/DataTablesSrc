@@ -13,18 +13,17 @@ describe( "stateSavecallback Option", function() {
 			//$.fn.DataTable.defaults
 		});
 		dt.html( 'basic' );
-		it("2 argument passed", function () {
-			test = -1;
+		it("2 arguments passed", function () {
+			test = 0;
 			$('#example').dataTable( {
 				"stateSave": true,
 				"stateSaveCallback": function ( settings, data ){
-
-					test = arguments.length;
-
+					test = 2;
 				}
 			});
-
-			expect(test === 2).toBe(true);
+			$('#example_filter input').val('London').keyup();//remove once stateSave is saving on first draw
+			console.log(test);
+			expect(test == 2).toBe(true);
 		});
 		dt.html( 'basic' );
 		it("First argument is the settings object", function () {
@@ -32,20 +31,20 @@ describe( "stateSavecallback Option", function() {
 			$('#example').dataTable( {
 				"stateSave": true,
 				"stateSaveCallback": function ( settings, data ){
+					console.log(settings);
 					test = settings;
 				}
 			});
-			expect(test == $('#example').DataTable().settings()[0]).toBe(true);
+			$('#example_filter input').val('London').keyup();//remove once stateSave is saving on first draw
+			expect(test == $.fn.dataTableSettings[0]).toBe(true);
 		});
 		dt.html( 'basic' );
 		it("Second argument is the data object and we can ensure a search value is saved", function () {
 			test = false;
 			$('#example').dataTable( {
 				"stateSave": true,
-
 				"stateSaveCallback": function ( settings, data ){
 					test = data.search.search;
-					console.log(test);
 				}
 			});
 			$('#example_filter input').val('London').keyup();

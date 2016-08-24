@@ -40,7 +40,7 @@ describe( "stateLoaded Option", function() {
 			var table = $('#example').dataTable( {
 				"stateSave": true,
 				"stateLoaded": function ( settings, data ){
-					alert( 'Saved Filter was '+ data.search.search);
+					
 				}
 			});
 			//needs more work, unsure how to reload table without refreshing page.

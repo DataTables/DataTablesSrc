@@ -1,4 +1,4 @@
-describe( "searchDuration Option", function() {
+describe( "stateDuration Option", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
@@ -20,6 +20,6 @@ describe( "searchDuration Option", function() {
 			} );
 			expect(localStorage['DataTables_example_/debug.html']).toBeDefined();
 		});
-		
+
 	});
 });

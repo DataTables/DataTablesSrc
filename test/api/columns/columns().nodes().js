@@ -14,10 +14,12 @@ describe( "columns- columns().nodes()", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default should be null", function () {
+		it("Exists and is a function", function () {
+			$('#example').dataTable();
 
+			expect($('#example').columns().nodes()).toBe('function');
 
-			});
+		});
 	});
 
 });

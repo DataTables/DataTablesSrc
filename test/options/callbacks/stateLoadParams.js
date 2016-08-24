@@ -17,14 +17,12 @@ describe( "stateLoadParams Option", function() {
 			test = -1;
 			$('#example').dataTable( {
 				"stateSave": true,
-				"stateLoadCallback": function ( settings ){
-
+				"stateLoadCallback": function ( settings, data ){
 					test = arguments.length;
-
 				}
 			});
 
-			expect(test === 1).toBe(true);
+			expect(test == 2).toBe(true);
 		});
 		dt.html( 'basic' );
 		it("First argument is the settings object", function () {
@@ -53,7 +51,7 @@ describe( "stateLoadParams Option", function() {
 			$('#example').dataTable( {
 				"staveSave": true,
 				"stateLoadParams": function ( settings, data ){
-					
+
 				}
 			});
 
