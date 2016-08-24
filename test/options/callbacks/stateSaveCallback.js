@@ -23,7 +23,8 @@ describe( "stateSavecallback Option", function() {
 			});
 			$('#example_filter input').val('London').keyup();//remove once stateSave is saving on first draw
 			console.log(test);
-			expect(test == 2).toBe(true);
+			expect(test).toBe(2);
+
 		});
 		dt.html( 'basic' );
 		it("First argument is the settings object", function () {
