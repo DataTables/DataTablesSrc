@@ -14,9 +14,15 @@ describe( "columns- columns().order()", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
-
+		it("Exists and is a function", function () {
+			var table = $('#example').DataTable();
+			expect(typeof table.columns().order).toBe('function');
+		});
+		dt.html( 'basic' );
+		it("Returns an API instance", function () {
+			var table = $('#example').DataTable();
+			expect(table.columns().order() instanceof $.fn.dataTable.Api).toBe(true);
+		});
 	});
 
 });

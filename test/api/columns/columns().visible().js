@@ -24,9 +24,15 @@ describe( "columns- columns().visible()", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
-
+		it("Exists and is a function", function () {
+			var table = $('#example').DataTable();
+			expect(typeof table.columns().visible).toBe('function');
+		});
+		dt.html( 'basic' );
+		it("Returns an API instance", function () {
+			var table = $('#example').DataTable();
+			expect(table.columns().visible() instanceof $.fn.dataTable.Api).toBe(true);
+		});
 	});
 
 });

@@ -11,8 +11,15 @@ describe( "columns- columns().indexes()", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
+		it("Exists and is a function", function () {
+			var table = $('#example').DataTable();
+			expect(typeof table.columns().indexes).toBe('function');
+		});
+		dt.html( 'basic' );
+		it("Returns an API instance", function () {
+			var table = $('#example').DataTable();
+			expect(table.columns().indexes() instanceof $.fn.dataTable.Api).toBe(true);
+		});
 
 	});
 

@@ -19,9 +19,37 @@ describe( "columns- column().cache()", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
+		it("Exists and is a function", function () {
+			var table = $('#example').DataTable();
+			expect(typeof table.column().cache).toBe('function');
+		});
+		dt.html( 'basic' );
+		it("Returns an API instance", function () {
+			var table = $('#example').DataTable();
+			expect(table.column().cache( 'search' ) instanceof $.fn.dataTable.Api).toBe(true);
+		});
+		//Order tests
+		dt.html( 'basic' );
+		it("Get cached order data (no orthogonal data)", function () {
+			var table = $('#example').DataTable();
+			$('#example thead th:eq(0)').click(); //flip around the sorting on column 0 so we know the ordering is working and being cached
+			var test = table.column(0).cache( 'order' );
+		
+			expect(test[0] === "zorita serrano").toBe(true);
+		});
 
+
+		//Search tests
+		dt.html( 'basic' );
+		it("Get cached order data (no orthogonal data)", function () {
+			var table = $('#example').DataTable();
+			table.search('Zorita').draw();
+
+			//$('#example_filter input').val('Zorita').keyup(); //flip around the sorting on column 0 so we know the ordering is working and being cached
+			var test = table.column(0).cache( 'search' );
+
+			//expect(test[0] === "zorita serrano").toBe(true);
+		});
 	});
 
 });

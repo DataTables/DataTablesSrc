@@ -1,6 +1,6 @@
 // todo tests
 // - Confirm it exists and is a function
-// - Hide column indexes 1 and -2 (i.e. second last column)
+// - Hide column indexes
 // - Using `fromVisible`
 //   - Convert visible index 0 to data
 //   - Convert visible index 1 to data (repeat for the number of visible columns in the table)
@@ -18,9 +18,24 @@ describe( "columns- column.index()", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
-
+		it("Exists and is a function", function () {
+			var table = $('#example').DataTable();
+			expect(typeof table.column().index).toBe('function');
+		});
+		dt.html( 'basic' );
+		it("Hide column- check data index", function () {
+			var table = $('#example').DataTable();
+			table.column( 0 ).visible( false );
+			var idx = table.column( 1 ).index();
+			expect(idx === 1).toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Hide column- check visible index", function () {
+			var table = $('#example').DataTable();
+			table.column( 0 ).visible( false );
+			var idx = table.column( 1 ).index( 'visible');
+			expect(idx === 0).toBe(true);
+		});
 	});
 
 });

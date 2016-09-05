@@ -18,8 +18,15 @@ describe( "columns- columns().dataSrc()", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
+		it("Exists and is a function", function () {
+			var table = $('#example').DataTable();
+			expect(typeof table.columns().dataSrc).toBe('function');
+		});
+		dt.html( 'basic' );
+		it("Returns an API instance", function () {
+			var table = $('#example').DataTable();
+			expect(table.columns().dataSrc() instanceof $.fn.dataTable.Api).toBe(true);
+		});
 
 	});
 
