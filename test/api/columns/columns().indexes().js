@@ -16,10 +16,26 @@ describe( "columns- columns().indexes()", function() {
 			expect(typeof table.columns().indexes).toBe('function');
 		});
 		dt.html( 'basic' );
-		it("Returns an API instance", function () {
+		it("Returns column index (no hidden columns)", function () {
 			var table = $('#example').DataTable();
-			expect(table.columns().indexes() instanceof $.fn.dataTable.Api).toBe(true);
+			var result = table.columns().indexes();
+			expect(result[0] === 0 && result[5] == 5).toBe(true);
 		});
+		dt.html( 'basic' );
+		it("Returns column index (hidden columns)", function () {
+			var table = $('#example').DataTable();
+			table.columns().visible( false );
+			var result = table.columns().indexes();
+			expect(result[0] === 0 && result[5] == 5).toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Returns column index (hidden columns- with visible)", function () {
+			var table = $('#example').DataTable();
+			table.columns().visible( false );
+			var result = table.columns().indexes();
+			expect(result[0] === 0 && result[5] == 5).toBe(true);
+		});
+
 
 	});
 
