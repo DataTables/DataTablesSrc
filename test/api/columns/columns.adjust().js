@@ -22,6 +22,14 @@ describe( "columns- columns.adjust()", function() {
 			var table = $('#example').DataTable();
 			expect(table.columns.adjust() instanceof $.fn.dataTable.Api).toBe(true);
 		});
+		dt.html( 'basic' );
+		it("Table hidden on load", function () {
+			$('#example').hide();
+			var table = $('#example').DataTable();
+			table.columns.adjust();
+			$('#example').show();
+			expect(table.columns.adjust() instanceof $.fn.dataTable.Api).toBe(true); //really unsure of how to do this tests
+		});
 	});
 
 });

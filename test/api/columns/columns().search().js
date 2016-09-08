@@ -63,30 +63,30 @@ describe( "columns- columns().search()", function() {
 			table.columns(0).search('Angelica');
 			expect($('#example tbody tr:eq(0) td:eq(0)').html() === "Airi Satou").toBe(true);
 		});
-		// dt.html( 'basic' );
-		// it("Will set a search string- applied only on draw()", function () {
-		// 	var table = $('#example').DataTable();
-		// 	var test = table.columns(0).search('Angelica').draw();
-		// 	expect($('#example tbody tr:eq(0) td:eq(0)').html() === "Angelica Ramos").toBe(true);
-		// });
-		// dt.html( 'basic' );
-		// it("Can set a regex search", function () {
-		// 	var table = $('#example').DataTable();
-		// 	var test = table.columns(0).search("Angelica",true).draw();
-		// 	expect($('#example tbody tr:eq(0) td:eq(0)').html() === "Angelica Ramos").toBe(true);
-		// });
-		// dt.html( 'basic' );
-		// it("Can disable smart search", function () {
-		// 	var table = $('#example').DataTable();
-		// 	var test = table.columns(0).search("Angelica",false,false).draw();
-		// 	expect($('#example tbody tr:eq(0) td:eq(0)').html() === "Angelica Ramos").toBe(true);
-		// });
-		// dt.html( 'basic' );
-		// it("Can disable case sensitivity", function () {
-		// 	var table = $('#example').DataTable();
-		// 	var test = table.columns(0).search("angelica",false,true,false).draw();
-		// 	expect($('#example tbody tr:eq(0) td:eq(0)').html() === "No matching records found").toBe(true);
-		// });
+		dt.html( 'basic' );
+		it("Will set a search string- applied only on draw()", function () {
+			var table = $('#example').DataTable();
+			var test = table.columns(0).search('Angelica').draw();
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() === "Angelica Ramos").toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Can set a regex search", function () {
+			var table = $('#example').DataTable();
+			var test = table.columns(0).search("Angelica",true).draw();
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() === "Angelica Ramos").toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Can disable smart search", function () {
+			var table = $('#example').DataTable();
+			var test = table.columns(0).search("Angelica",false,false).draw();
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() === "Angelica Ramos").toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Can disable case sensitivity", function () {
+			var table = $('#example').DataTable();
+			var test = table.columns(0).search("angelica",false,true,false).draw();
+			expect($('#example tbody tr:eq(0) td:eq(0)').html() === "No matching records found").toBe(true);
+		});
 	});
 
 });
