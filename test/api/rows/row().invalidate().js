@@ -13,9 +13,19 @@ describe( "rows- row().invalidate()", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
-
+		it("Exists and is a function", function () {
+			var table = $('#example').DataTable();
+			expect(typeof table.row().invalidate).toBe('function');
+		});
+		dt.html( 'basic' );
+		it("Returns API instance", function () {
+			var table = $('#example').DataTable();
+			expect(table.row(0).invalidate() instanceof $.fn.dataTable.Api).toBe(true);
+		});
+		dt.html( 'basic' );
+		it("Use jQuery to modify row contents, then invalidate the row held.", function () {
+			var table = $('#example').DataTable();
+		});
 	});
 
 });

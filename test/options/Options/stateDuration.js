@@ -10,6 +10,7 @@ describe( "stateDuration Option", function() {
 				"stateSave": true,
 				"stateDuration": -1
 			} );
+			$('#example_filter input').val('London').keyup();//remove once stateSave is saving on first draw
 			expect(sessionStorage["DataTables_example_/debug.html"]).toBeDefined();
 		});
 		dt.html( 'basic' );

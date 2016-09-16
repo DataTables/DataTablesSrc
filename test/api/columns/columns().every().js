@@ -1,18 +1,9 @@
 // todo tests
-// - Confirm it exists and is a function
-// - Returns an API instance
+// - Confirm it exists and is a function- done
+// - Returns an API instance - done
 // - Make sure the rows we select are iterated over only.
-//   - Select 0 columns
-//   - 1 column
-//   - 2 separate columns
-//   - All columns
-// - Ensure that the callback function is passed three parameters
-//   - column index
-//   - table loop counter
-//   - column loop counter
-//   - Check that they are all integers
 // - Ensure that the callback function is executed in the scope of an API instance which has the column's index in its data set (and only that column index)
-
+// -
 describe( "columns- columns().every()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
@@ -21,9 +12,38 @@ describe( "columns- columns().every()", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
+		it("Exists and is a function", function () {
+			var table = $('#example').DataTable();
+			expect(typeof table.columns().every).toBe('function');
+		});
+		dt.html( 'basic' );
+		it("Returns an API instance", function () {
+			var table = $('#example').DataTable();
+			var n = 0;
+			expect(table.columns().every( function(){n++;}) instanceof $.fn.dataTable.Api).toBe(true);
+		});
 
+		dt.html( 'basic' );
+		it("Every column selected is interated upon", function () {
+			var table = $('#example').DataTable();
+			var n = -1;
+			table.columns().every( function() {
+				n++;
+			});
+			expect(n).toBe(5);
+		});
+		dt.html( 'basic' );
+		it("Each API has the colum index in its dataset", function () {
+			var that= "";
+			//create array, then push index value into array.
+			var table = $('#example').DataTable();
+			table.columns().every( function() {
+				that = this; // new test that tests 'this'. push onto array what this.index is and should 0-5. Checking that this is correct.
+				that = that[0][0]; //that[0][0] is accessing the value of the index of a column
+
+			});
+			expect(that === 5).toBe(true);
+		});
 	});
 
 });
