@@ -12,9 +12,55 @@ describe( "rows- row().id()", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
-
+		it("Exists and is a function", function () {
+			var table = $('#example').DataTable();
+			expect(typeof table.row().id).toBe('function');
+		});
+		dt.html( 'basic' );
+		it("Returns String or Undefined instance", function () {
+			var table = $('#example').DataTable();
+			expect(table.row(0).id()).toBe('undefined');
+		});
+		dt.html( 'empty' );
+		it("Return row id and matches rowId option", function (done) {
+			var table = $('#example').DataTable({
+				"ajax": '/base/test/data/data.txt',
+				columns: [
+					{ data: "name" },
+					{ data: "position" },
+					{ data: "office" },
+					{ data: "extn" },
+					{ data: "start_date" },
+					{ data: "salary" }
+				],
+				rowId: 'name',
+				initComplete: function ( settings, json ) {
+					var result = table.row(0).id();
+					expect(result === "Tiger Nixon").toBe(true);
+					done();
+				}
+			});
+		});
+		dt.html( 'empty' );
+		it("Append hash, select", function (done) {
+			var table = $('#example').DataTable({
+				"ajax": '/base/test/data/data.txt',
+				columns: [
+					{ data: "name" },
+					{ data: "position" },
+					{ data: "office" },
+					{ data: "extn" },
+					{ data: "start_date" },
+					{ data: "salary" }
+				],
+				rowId: 'name',
+				initComplete: function ( settings, json ) {
+					var result = table.row(0).id(true);
+					expect(result === "#Tiger Nixon").toBe(true);
+					done();
+				}
+			});
+		});
 	});
 
 });

@@ -196,8 +196,8 @@ describe( "columns- column() (solo)", function() {
 				]
 			});
 			var result = table.column({page:'current'} ).data();
-			// console.log(Object.keys(result).length);  //Ask about this. How to get length of data not the whole object.
-			// console.log(result);
+			 //Ask about this. How to get length of data not the whole object.
+			console.log(result.count());
 			expect(result[0]).toBe("Airi Satou");
 		});
 		dt.html( 'basic' );
@@ -208,7 +208,7 @@ describe( "columns- column() (solo)", function() {
 				]
 			});
 			$('#example_filter input').val('Accountant').keyup();
-			var result = table.column({search:'applied'} ).data(); //There is no 'search: current' used applied instead
+			var result = table.column({search:'applied'} ).data(); 
 			expect(result[0]).toBe("Airi Satou");
 			expect(result[1]).toBe("Garrett Winters");
 		});

@@ -33,7 +33,7 @@ describe( "columns- column.index()", function() {
 		it("Hide column- check visible index", function () {
 			var table = $('#example').DataTable();
 			table.column( 0 ).visible( false );
-			var idx = table.column( 1 ).index( 'visible');
+			var idx = table.column.index( 'visible');
 			expect(idx === 0).toBe(true);
 		});
 	});

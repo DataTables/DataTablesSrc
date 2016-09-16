@@ -13,8 +13,15 @@ describe( "rows- row().child.isShown()", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
+		it("Exists and is a function", function () {
+			var table = $('#example').DataTable();
+			expect(typeof table.row().child.isShown).toBe('function');
+		});
+		dt.html( 'basic' );
+		it("Returns an API instance", function () {
+			var table = $('#example').DataTable();
+			expect(table.row().child.isShown() ).toBe(false);
+		});
 
 	});
 

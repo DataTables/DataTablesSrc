@@ -24,11 +24,20 @@ describe( "columns- columns.adjust()", function() {
 		});
 		dt.html( 'basic' );
 		it("Table hidden on load", function () {
-			$('#example').hide();
-			var table = $('#example').DataTable();
+			$('#dt-test-loader-container').hide();
+
+			var table = $('#example').DataTable({
+				"scrollY": 200
+			});
+			console.log($('#example').width());
+			$('#dt-test-loader-container').show();
+			$( table.table().header() ).width();
+			$( table.table().body() ).width();
+			debugger
 			table.columns.adjust();
-			$('#example').show();
-			expect(table.columns.adjust() instanceof $.fn.dataTable.Api).toBe(true); //really unsure of how to do this tests
+
+			console.log($('#example').width());
+			//first test check they are not the same, second test call adjust then check they are the same.
 		});
 	});
 

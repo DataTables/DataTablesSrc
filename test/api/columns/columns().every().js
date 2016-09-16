@@ -3,7 +3,7 @@
 // - Returns an API instance - done
 // - Make sure the rows we select are iterated over only.
 // - Ensure that the callback function is executed in the scope of an API instance which has the column's index in its data set (and only that column index)
-
+// -
 describe( "columns- columns().every()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
@@ -23,8 +23,6 @@ describe( "columns- columns().every()", function() {
 			expect(table.columns().every( function(){n++;}) instanceof $.fn.dataTable.Api).toBe(true);
 		});
 
-		//Need a hand with this test
-
 		dt.html( 'basic' );
 		it("Every column selected is interated upon", function () {
 			var table = $('#example').DataTable();
@@ -37,10 +35,12 @@ describe( "columns- columns().every()", function() {
 		dt.html( 'basic' );
 		it("Each API has the colum index in its dataset", function () {
 			var that= "";
+			//create array, then push index value into array.
 			var table = $('#example').DataTable();
 			table.columns().every( function() {
-				that = this;
+				that = this; // new test that tests 'this'. push onto array what this.index is and should 0-5. Checking that this is correct.
 				that = that[0][0]; //that[0][0] is accessing the value of the index of a column
+
 			});
 			expect(that === 5).toBe(true);
 		});
