@@ -20,17 +20,17 @@
 //   - Ensure that the selectors are cumulative
 // - Select cells using row and column selectors with selector modifier
 
-describe( "cells- cells()", function() {
+describe( 'cells: cells()', function() {
+	var table;
+
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
 	} );
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
+	dt.html( 'basic' );
 
-	});
+	it ( '' , function () {
 
-});
+	} );
+} );
