@@ -34,7 +34,7 @@ var __row_selector = function ( settings, selector, opts )
 			// Selector - integer
 			return [ selInt ];
 		}
-		else if ( ! sel ) {
+		else if ( sel === null || sel === undefined ) {
 			// Selector - none
 			return rows;
 		}

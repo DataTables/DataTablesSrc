@@ -1,19 +1,32 @@
-// todo tests
-// 1- Select row, make sure returned row is correct, test using integet(rowindex) and id selector
-// 2- Use modifer to change order upon use, also could test with a search applied
+// todo tests - write the tests...
 
+describe( 'rows: cells()', function() {
+	var table;
 
-describe( "rows- row()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
 	} );
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
+	dt.html( 'basic' );
 
-	});
+	it ( 'modifier - row index of 1, no data match' , function () {
+		table = $('#example').DataTable()
 
-});
+		// This will leave row index 4 in the display
+		table.search( 'air' ).draw();
+
+		var d = table.row( 1, { search: 'applied' } ).data();
+		expect( d ).toBe( undefined );
+	} );
+
+	it ( 'modifier - row index of 0, no data match' , function () {
+		var d = table.row( 0, { search: 'applied' } ).data();
+		expect( d ).toBe( undefined );
+	} );
+
+	it ( 'modifier - row index of 4, data match' , function () {
+		var d = table.row( 4, { search: 'applied' } ).data();
+		expect( d[0] ).toBe( 'Airi Satou' );
+	} );
+} );
