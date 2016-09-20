@@ -1,20 +1,32 @@
-// todo tests
-// 1- Select rows, make sure returned rows are correct, test using integer(rowindex) and id selector
-// 2- Use modifer to change order upon use, also could test with a search applied
+// todo tests - write the tests...
 
+describe( 'rows: rows()', function() {
+	var table;
 
-
-describe( "rows- rows()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
 	} );
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
+	dt.html( 'basic' );
 
-	});
+	it ( 'select all rows - no selector' , function () {
+		table = $('#example').DataTable()
+		expect( table.rows().count() ).toBe( 57 );
+	} );
 
-});
+	it ( 'select all rows - undefined selector' , function () {
+		table = $('#example').DataTable()
+		expect( table.rows( undefined ).count() ).toBe( 57 );
+	} );
+
+	it ( 'select all rows - null selector' , function () {
+		table = $('#example').DataTable()
+		expect( table.rows( null ).count() ).toBe( 57 );
+	} );
+
+	it ( 'select one row - 0 selector' , function () {
+		table = $('#example').DataTable()
+		expect( table.rows( 0 ).count() ).toBe( 1 );
+	} );
+} );

@@ -1,6 +1,6 @@
 // todo tests - write the tests...
 
-describe( 'rows: cells()', function() {
+describe( 'rows: row()', function() {
 	var table;
 
 	dt.libs( {
