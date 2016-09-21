@@ -223,6 +223,11 @@ window.dt = {
 			$.fn.dataTableSettings.length = 0;
 		}
 
+		// Remove the detected browser settings so they can be recomputed
+		if ( $ && $.fn.dataTable ) {
+			$.fn.dataTable.__browser = undefined;
+		}
+
 		return window.dt;
 	},
 
