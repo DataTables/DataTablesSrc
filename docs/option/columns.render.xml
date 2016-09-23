@@ -67,6 +67,10 @@
 
 	<description>
 		<![CDATA[
+		< ## General overview
+		<
+		< The documentation below is a technical reference (nitty-gritty details). For a more general overview of renderers in DataTables, including discussion of the built in renderers, please refer to the [DataTables manual on this topic](https://datatables.net/manual/data/renderers).
+
 		This property will modify the data that is used by DataTables for various operations as it is read from the data source. `dt-init columns.render` can be considered to be the the read only companion to `dt-init columns.data` which is read / write (and therefore more complex). Like `dt-init columns.data` this option can be given in a number of different ways to affect its behaviour as described below.
 
 		The data that is returned by the `dt-init columns.render` option (regardless of if it is used as a function, integer or string) is what DataTables will use for the requested data type (this is called the _resolved data_). DataTables ability to request different data for its different operations is referred to as [orthogonal data](//datatables.net/manual/orthogonal-data) and allows different forms of the same data to be used for different operations (for example, a date might be given formatted for an end user for display and search, but in an integer form for ordering).
