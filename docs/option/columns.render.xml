@@ -44,7 +44,16 @@
 			The data for the cell (based on `dt-init columns.data`)
 		</parameter>
 		<parameter type="string" name="type">
-			The type call data requested - this will be 'filter', 'display', 'type' or 'sort'.
+			The type call data requested. This is used for [DataTables' orthogonal data support](https://datatables.net/manual/data/orthogonal). This value will be one of:
+
+			* `-string filter`: Get the value that DataTables should use for filtering on this cell.
+			* `-string display`: The value to display in the table.
+			* `-string type`: Value to use for type detection. This should normally match the `-string sort` value - see [type detection plug-in documentation](https://www.datatables.net/manual/plug-ins/type-detection).
+			* `-string sort`: Get the data to use for sorting on this cell - the value returned should typically be numeric or a string, but custom plug-ins can be used - [see the plug-in documentation](https://www.datatables.net/manual/plug-ins/sorting). Note that this value is `-string sort` for legacy reasons (rather than being `order` which would be more consistent with the rest of the API).
+			* `-type undefined`: Get the original data for the cell (i.e. unmodified).
+			* Custom value: It is possible for plug-ins such as Responsive (through its `-init responsive.orthogonal` option) and Buttons (`-api buttons.exportData()`) to request custom data types specified by the developer. This can be useful in cases where you want send certain data to a particular extension.
+
+			See also the `-api cell().render()` method which can be used to execute the given rendering method at any arbitrary time.
 		</parameter>
 		<parameter type="*" name="row">
 			The full data source for the row (not based on `dt-init columns.data`)
