@@ -44,7 +44,7 @@
 			The data for the cell (based on `dt-init columns.data`)
 		</parameter>
 		<parameter type="string" name="type">
-			The type call data requested. This is used for [DataTables' orthogonal data support](https://datatables.net/manual/data/orthogonal). This value will be one of:
+			The type call data requested. This is used for [DataTables' orthogonal data support](https://datatables.net/manual/data/orthogonal-data). This value will be one of:
 
 			* `-string filter`: Get the value that DataTables should use for filtering on this cell.
 			* `-string display`: The value to display in the table.
