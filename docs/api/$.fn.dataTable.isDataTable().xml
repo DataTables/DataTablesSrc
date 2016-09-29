@@ -7,9 +7,16 @@
 	<type type="function">
 		<signature>isDataTable( table )</signature>
 		<description>Check if a `-tag table` node is a DataTable table already or not.</description>
-		<param type="string|node|jQuery" name="version">
-			The table to check. This can be given as the DOM element, a jQuery selector for the node to check, or a jQuery object containing the node to check. Note that only the first node is checked if the jQuery selector or object match multiple nodes.
-		</param>
+		<parameter type="string|node|jQuery|DataTable.Api" name="version">
+			The table to check. This can be given as one of:
+
+			* A DOM element
+			* A jQuery selector
+			* A jQuery object containing the node to check
+			* A DataTables API instance.
+
+			Note that only the first node is checked if the jQuery selector or object match multiple nodes.
+		</parameter>
 		<returns type="boolean">`true` the given table is a DataTable, `false` otherwise</returns>
 	</type>
 

@@ -58,6 +58,10 @@ DataTable.isDataTable = DataTable.fnIsDataTable = function ( table )
 	var t = $(table).get(0);
 	var is = false;
 
+	if ( table instanceof DataTable.Api ) {
+		return true;
+	}
+
 	$.each( DataTable.settings, function (i, o) {
 		var head = o.nScrollHead ? $('table', o.nScrollHead)[0] : null;
 		var foot = o.nScrollFoot ? $('table', o.nScrollFoot)[0] : null;
