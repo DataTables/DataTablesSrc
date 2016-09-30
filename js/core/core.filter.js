@@ -189,16 +189,28 @@ function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsens
 		return;
 	}
 
-	var data;
-	var display = settings.aiDisplay;
 	var rpSearch = _fnFilterCreateSearch( searchStr, regex, smart, caseInsensitive );
 
-	for ( var i=display.length-1 ; i>=0 ; i-- ) {
-		data = settings.aoData[ display[i] ]._aFilterData[ colIdx ];
+	if ( Array.prototype.filter ) {
+		settings.aiDisplay = settings.aiDisplay.filter( function ( v ) {
+			return rpSearch.test( settings.aoData[ v ]._aFilterData[ colIdx ] );
+		} );
+	}
+	else {
+		// Compatibility for browsers without EMCA-252-5 (JS 1.6)
+		var display = settings.aiDisplay;
+		var newDisplay = [];
+		var data;
 
-		if ( ! rpSearch.test( data ) ) {
-			display.splice( i, 1 );
+		for ( var i = 0, ien = display.length; i < ien; i++ ) {
+			data = settings.aoData[ display[i] ]._aFilterData[ colIdx ];
+
+			if ( rpSearch.test( data ) ) {
+				newDisplay.push( display[i] );
+			}
 		}
+
+		settings.aiDisplay = newDisplay;
 	}
 }
 
@@ -218,7 +230,7 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
 	var rpSearch = _fnFilterCreateSearch( input, regex, smart, caseInsensitive );
 	var prevSearch = settings.oPreviousSearch.sSearch;
 	var displayMaster = settings.aiDisplayMaster;
-	var display, invalidated, i;
+	var invalidated;
 
 	// Need to take account of custom filtering functions - always filter
 	if ( DataTable.ext.search.length !== 0 ) {
@@ -245,12 +257,26 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
 		}
 
 		// Search the display array
-		display = settings.aiDisplay;
+		if ( Array.prototype.filter ) {
+			settings.aiDisplay = settings.aiDisplay.filter( function ( v ) {
+				return rpSearch.test( settings.aoData[ v ]._sFilterRow );
+			} );
+		}
+		else {
+			// Compatibility for browsers without EMCA-252-5 (JS 1.6)
+			var display = settings.aiDisplay;
+			var newDisplay = [];
+			var data;
 
-		for ( i=display.length-1 ; i>=0 ; i-- ) {
-			if ( ! rpSearch.test( settings.aoData[ display[i] ]._sFilterRow ) ) {
-				display.splice( i, 1 );
+			for (var i = 0, ien = display.length; i < ien; i++) {
+				data = settings.aoData[ display[i] ]._sFilterRow;
+
+				if (rpSearch.test(data)) {
+					newDisplay.push( display[i] );
+				}
 			}
+
+			settings.aiDisplay = newDisplay;
 		}
 	}
 }
