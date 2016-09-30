@@ -387,7 +387,7 @@ var loadedInit = function () {
 
 	// Work around for Webkit bug 83867 - store the caption-side before removing from doc
 	var captions = $this.children('caption').each( function () {
-		this._captionSide = $this.css('caption-side');
+		this._captionSide = $(this).css('caption-side');
 	} );
 
 	var thead = $this.children('thead');
