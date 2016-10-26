@@ -10,14 +10,14 @@
 	<description>
 		ARIA label that is added to the table headers when the column may be sorted ascending by activating the column (click or return when focused).
 
-		Note that the column header text is prefixed to this string. 
+		The variable _HEADER_ is replaced by the column header. If not present, the column header is prefixed to this string.
 	</description>
 
 	<example title="Set ARIA sort ascending string"><![CDATA[
 $('#example').dataTable( {
   "language": {
     "aria": {
-      "sortAscending": " - click/return to sort ascending"
+      "sortAscending": "click to sort by _HEADER_ ascending"
     }
   }
 } );
