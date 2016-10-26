@@ -1417,9 +1417,10 @@ DataTable.defaults = {
 			/**
 			 * ARIA label that is added to the table headers when the column may be
 			 * sorted ascending by activing the column (click or return when focused).
-			 * Note that the column header is prefixed to this string.
+			 * The variable _HEADER_ is replaced by the column header. If not present,
+			 * the column header is prefixed to this string.
 			 *  @type string
-			 *  @default : activate to sort column ascending
+			 *  @default _HEADER_: activate to sort column ascending
 			 *
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.aria.sortAscending
@@ -1429,20 +1430,21 @@ DataTable.defaults = {
 			 *      $('#example').dataTable( {
 			 *        "language": {
 			 *          "aria": {
-			 *            "sortAscending": " - click/return to sort ascending"
+			 *            "sortAscending": "click to sort by _HEADER_ ascending"
 			 *          }
 			 *        }
 			 *      } );
 			 *    } );
 			 */
-			"sSortAscending": ": activate to sort column ascending",
+			"sSortAscending": "_HEADER_: activate to sort column ascending",
 
 			/**
 			 * ARIA label that is added to the table headers when the column may be
 			 * sorted descending by activing the column (click or return when focused).
-			 * Note that the column header is prefixed to this string.
+			 * The variable _HEADER_ is replaced by the column header. If not present,
+			 * the column header is prefixed to this string.
 			 *  @type string
-			 *  @default : activate to sort column ascending
+			 *  @default _HEADER_: activate to sort column ascending
 			 *
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.aria.sortDescending
@@ -1452,13 +1454,13 @@ DataTable.defaults = {
 			 *      $('#example').dataTable( {
 			 *        "language": {
 			 *          "aria": {
-			 *            "sortDescending": " - click/return to sort descending"
+			 *            "sortDescending": "click to sort by _HEADER_ descending"
 			 *          }
 			 *        }
 			 *      } );
 			 *    } );
 			 */
-			"sSortDescending": ": activate to sort column descending"
+			"sSortDescending": "_HEADER_: activate to sort column descending"
 		},
 
 		/**
