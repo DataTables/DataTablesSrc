@@ -654,6 +654,65 @@ INSERT INTO datatables_demo
 SET IDENTITY_INSERT datatables_demo OFF;
 EOD;
 	file_put_contents( $out_dir.'/sqlserver.sql', $str );
+
+	// Oracle style
+	$str = <<<EOD
+--
+-- DataTables Ajax and server-side processing database (SQL Server)
+--
+BEGIN
+	EditorDelObject('datatables_demo', 'TABLE');
+	EditorDelObject('datatables_demo_seq', 'SEQUENCE');
+END;
+
+CREATE TABLE datatables_demo (
+	id INT PRIMARY KEY NOT NULL,
+	first_name VARCHAR(250),
+	last_name  VARCHAR(250),
+	position   VARCHAR(250),
+	email      VARCHAR(250),
+	office     VARCHAR(250),
+	start_date DATE,
+	age        INT,
+	salary     INT,
+	seq        INT,
+	extn       VARCHAR(8)
+);
+
+CREATE SEQUENCE datatables_demo_seq;
+
+CREATE OR REPLACE TRIGGER datatables_demo_on_insert
+	BEFORE INSERT ON datatables_demo
+	FOR EACH ROW
+	BEGIN
+		SELECT datatables_demo_seq.nextval
+		INTO :new.id
+		FROM dual;
+	END;
+
+EOD;
+
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$str .= "INSERT INTO datatables_demo ".
+			"( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) ".
+			"VALUES ";
+
+		$str .= "( ".
+			    $json[$i]['id'].", ".
+			"'".$json[$i]['first_name']."', ".
+			"'".$json[$i]['last_name']."', ".
+			    $json[$i]['age'].", ".
+			"'".$json[$i]['position']."', ".
+			    $json[$i]['salary'].", ".
+			"'".date('d-M-Y', strtotime($json[$i]['start_date']))."', ".
+			    $json[$i]['extn'].", ".
+			"'".$json[$i]['email']."', ".
+			"'".$json[$i]['office']."', ".
+			    $json[$i]['sequence']." ".
+		");\n";
+	}
+
+	file_put_contents( $out_dir.'/oracle.sql', $str );
 }
 
 
