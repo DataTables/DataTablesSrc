@@ -694,11 +694,10 @@ EOD;
 
 	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
 		$str .= "INSERT INTO datatables_demo ".
-			"( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) ".
+			"( first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) ".
 			"VALUES ";
 
 		$str .= "( ".
-			    $json[$i]['id'].", ".
 			"'".$json[$i]['first_name']."', ".
 			"'".$json[$i]['last_name']."', ".
 			    $json[$i]['age'].", ".
@@ -711,6 +710,8 @@ EOD;
 			    $json[$i]['sequence']." ".
 		");\n";
 	}
+
+	$str .= "\nCOMMIT;\n";
 
 	file_put_contents( $out_dir.'/oracle.sql', $str );
 }
