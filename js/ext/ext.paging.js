@@ -55,6 +55,10 @@ $.extend( extPagination, {
 	full_numbers: function ( page, pages ) {
 		return [ 'first', 'previous', _numbers(page, pages), 'next', 'last' ];
 	},
+	
+	first_last_numbers: function (page, pages) {
+ 		return ['first', _numbers(page, pages), 'last'];
+ 	},
 
 	// For testing and plug-ins to use
 	_numbers: _numbers,

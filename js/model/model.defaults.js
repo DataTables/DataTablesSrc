@@ -2060,8 +2060,8 @@ DataTable.defaults = {
 	 * * `simple` - 'Previous' and 'Next' buttons only
 	 * * 'simple_numbers` - 'Previous' and 'Next' buttons, plus page numbers
 	 * * `full` - 'First', 'Previous', 'Next' and 'Last' buttons
-	 * * `full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus
-	 *   page numbers
+	 * * `full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
+	 * * `first_last_numbers` - 'First' and 'Last' buttons, plus page numbers
 	 *  
 	 * Further methods can be added using {@link DataTable.ext.oPagination}.
 	 *  @type string
