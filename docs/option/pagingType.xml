@@ -18,6 +18,7 @@
     * `string simple_numbers` - 'Previous' and 'Next' buttons, plus page numbers
     * `string full` - 'First', 'Previous', 'Next' and 'Last' buttons
     * `string full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
+    * `string first_last_numbers` - 'First' and 'Last' buttons, plus page numbers
      
     Further methods can be added using plug-ins.
     ]]>
