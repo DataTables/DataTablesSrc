@@ -2054,9 +2054,10 @@ DataTable.defaults = {
 
 
 	/**
-	 * DataTables features four different built-in options for the buttons to
+	 * DataTables features six different built-in options for the buttons to
 	 * display for pagination control:
 	 *
+	 * * `numbers` - Page number buttons only
 	 * * `simple` - 'Previous' and 'Next' buttons only
 	 * * 'simple_numbers` - 'Previous' and 'Next' buttons, plus page numbers
 	 * * `full` - 'First', 'Previous', 'Next' and 'Last' buttons
