@@ -21,7 +21,7 @@
 	<description>
 		This callback allows you to 'post process' each row after it have been generated for each table draw, but _before_ it is rendered into the document. This means that the contents of the row might not have dimensions (`$().width()` for example) if it is not already in the document.
 
-		This function might be used for setting the row class name or otherwise manipulating the row's `tag TR` element (although note that `dt-init createdRow can often be more efficient).
+		This function might be used for setting the row class name or otherwise manipulating the row's `-tag tr` element (although note that `dt-init createdRow` can often be more efficient).
 	</description>
 
 	<example title="Highlight cells based on their content (object data source)"><![CDATA[
