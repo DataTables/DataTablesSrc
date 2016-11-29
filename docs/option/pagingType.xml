@@ -11,13 +11,14 @@
     <![CDATA[
     The pagination option of DataTables will display a pagination control below the table (by default, its position can be changed using `dt-init dom` and CSS) with buttons that the end user can use to navigate the pages of the table. Which buttons are shown in the pagination control are defined by the option given here.
 
-    DataTables has four built-in paging button arrangements:
+    DataTables has six built-in paging button arrangements:
     
     * `string numbers` - Page number buttons only (<span class="since">1.10.8</span>)
     * `string simple` - 'Previous' and 'Next' buttons only
     * `string simple_numbers` - 'Previous' and 'Next' buttons, plus page numbers
     * `string full` - 'First', 'Previous', 'Next' and 'Last' buttons
     * `string full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
+    * `string first_last_numbers` - 'First' and 'Last' buttons, plus page numbers
      
     Further methods can be added using plug-ins.
     ]]>
