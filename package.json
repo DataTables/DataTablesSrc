@@ -12,6 +12,7 @@
     "test-autofill":     "DT_EXTENSION='AutoFill' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-buttons":      "DT_EXTENSION='Buttons' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-colreorder":   "DT_EXTENSION='ColReorder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-editor":       "DT_EXTENSION='Editor' ./node_modules/karma/bin/karma start test/karma.conf.js",
     "test-fixedcolumns": "DT_EXTENSION='FixedColumns' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-fixedheader":  "DT_EXTENSION='FixedHeader' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-responsive":   "DT_EXTENSION='Responsive' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",

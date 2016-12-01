@@ -9,6 +9,7 @@ module.exports = function(config) {
         case 'AutoFill':     testFiles = 'extensions/AutoFill/test/**/*.js';     break;
         case 'Buttons':      testFiles = 'extensions/Buttons/test/**/*.js';      break;
         case 'ColReorder':   testFiles = 'extensions/ColReorder/test/**/*.js';   break;
+        case 'Editor':       testFiles = 'extensions/Editor/test/**/*.js';       break;
         case 'FixedColumns': testFiles = 'extensions/FixedColumns/test/**/*.js'; break;
         case 'FixedHeader':  testFiles = 'extensions/FixedHeader/test/**/*.js';  break;
         case 'Responsive':   testFiles = 'extensions/Responsive/test/**/*.js';   break;

@@ -197,7 +197,16 @@ window.dt = {
 		return window.dt;
 	},
 
-	html: function ( file ) {
+	html: function ( extension, file ) {
+		if ( file === undefined ) {
+			file = extension;
+			extension = undefined;
+		}
+
+		if ( extension ) {
+			file = '../../extensions/'+extension+'/test/html/'+file;
+		}
+
 		window.it( 'Load HTML: '+file, function (done) {
 			dt.clean();
 
