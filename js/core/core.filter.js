@@ -190,16 +190,19 @@ function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsens
 	}
 
 	var data;
+	var out = [];
 	var display = settings.aiDisplay;
 	var rpSearch = _fnFilterCreateSearch( searchStr, regex, smart, caseInsensitive );
 
-	for ( var i=display.length-1 ; i>=0 ; i-- ) {
+	for ( var i=0 ; i<display.length ; i++ ) {
 		data = settings.aoData[ display[i] ]._aFilterData[ colIdx ];
 
-		if ( ! rpSearch.test( data ) ) {
-			display.splice( i, 1 );
+		if ( rpSearch.test( data ) ) {
+			out.push( i );
 		}
 	}
+
+	settings.aiDisplay = out;
 }
 
 
@@ -219,6 +222,7 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
 	var prevSearch = settings.oPreviousSearch.sSearch;
 	var displayMaster = settings.aiDisplayMaster;
 	var display, invalidated, i;
+	var filtered = [];
 
 	// Need to take account of custom filtering functions - always filter
 	if ( DataTable.ext.search.length !== 0 ) {
@@ -247,11 +251,13 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
 		// Search the display array
 		display = settings.aiDisplay;
 
-		for ( i=display.length-1 ; i>=0 ; i-- ) {
-			if ( ! rpSearch.test( settings.aoData[ display[i] ]._sFilterRow ) ) {
-				display.splice( i, 1 );
+		for ( i=0 ; i<display.length ; i++ ) {
+			if ( rpSearch.test( settings.aoData[ display[i] ]._sFilterRow ) ) {
+				filtered.push( i );
 			}
 		}
+
+		settings.aiDisplay = out;
 	}
 }
 
