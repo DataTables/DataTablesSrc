@@ -23,8 +23,10 @@ var _api_registerPlural; // DataTable.Api.registerPlural
 var _re_dic = {};
 var _re_new_lines = /[\r\n]/g;
 var _re_html = /<.*?>/g;
-var _re_date_start = /^[\w\+\-]/;
-var _re_date_end = /[\w\+\-]$/;
+
+// This is not strict ISO8601 - Date.parse() is quite lax, although
+// implementations differ between browsers.
+var _re_date = /^\d{2,4}[\.\/\-]\d{1,2}[\.\/\-]\d{1,2}([T ]{1}\d{1,2}[:\.]\d{2}([\.:]\d{2})?)?$/;
 
 // Escape regular expression special characters
 var _re_escape_regex = new RegExp( '(\\' + [ '/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-' ].join('|\\') + ')', 'g' );

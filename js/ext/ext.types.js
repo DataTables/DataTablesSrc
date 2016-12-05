@@ -14,10 +14,10 @@ $.extend( DataTable.ext.type.detect, [
 	// Dates (only those recognised by the browser's Date.parse)
 	function ( d, settings )
 	{
-		// V8 will remove any unknown characters at the start and end of the
-		// expression, leading to false matches such as `$245.12` or `10%` being
-		// a valid date. See forum thread 18941 for detail.
-		if ( d && !(d instanceof Date) && ( ! _re_date_start.test(d) || ! _re_date_end.test(d) ) ) {
+		// V8 tries _very_ hard to make a string passed into `Date.parse()`
+		// valid, so we need to use a regex to restrict date formats. Use a
+		// plug-in for anything other than ISO8601 style strings
+		if ( d && !(d instanceof Date) && ! _re_date.test(d) ) {
 			return null;
 		}
 		var parsed = Date.parse(d);
