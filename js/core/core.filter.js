@@ -198,7 +198,7 @@ function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsens
 		data = settings.aoData[ display[i] ]._aFilterData[ colIdx ];
 
 		if ( rpSearch.test( data ) ) {
-			out.push( i );
+			out.push( display[i] );
 		}
 	}
 
@@ -257,7 +257,7 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
 			}
 		}
 
-		settings.aiDisplay = out;
+		settings.aiDisplay = filtered;
 	}
 }
 
