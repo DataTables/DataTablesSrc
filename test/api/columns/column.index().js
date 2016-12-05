@@ -33,8 +33,8 @@ describe( "columns- column.index()", function() {
 		it("Hide column- check visible index", function () {
 			var table = $('#example').DataTable();
 			table.column( 0 ).visible( false );
-			var idx = table.column.index( 'visible');
-			expect(idx === 0).toBe(true);
+			var idx = table.column.index( 'fromVisible', 1 );
+			expect(idx).toBe(2);
 		});
 	});
 
