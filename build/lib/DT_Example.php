@@ -204,7 +204,7 @@ class DT_Example
 		$tidy->parseString( $html, array(
 			'indent' => 2,
 			'indent-spaces' => 4,
-			'new-blocklevel-tags' => 'section',
+			'new-blocklevel-tags' => 'section,editor-field',
 			'new-pre-tags' => 'script',
 			'new-empty-tags' => 'tbody',
 			'output-html' => 1,
