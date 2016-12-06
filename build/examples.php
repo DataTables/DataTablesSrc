@@ -240,19 +240,19 @@ else {
 // Styling libraries
 // When updating these files, make sure you also update the `karma.config` tests
 // file to match versions.
-DT_Example::$lookup_libraries['js' ]['jquery']       = '//code.jquery.com/jquery-1.12.3.js';
+DT_Example::$lookup_libraries['js' ]['jquery']       = '//code.jquery.com/jquery-1.12.4.js';
 DT_Example::$lookup_libraries['js' ]['jqueryui']     = '//code.jquery.com/ui/1.11.4/jquery-ui.js';
 DT_Example::$lookup_libraries['css']['jqueryui']     = '//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css';
-DT_Example::$lookup_libraries['js' ]['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js';
-DT_Example::$lookup_libraries['css']['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css';
+DT_Example::$lookup_libraries['js' ]['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
+DT_Example::$lookup_libraries['css']['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
 DT_Example::$lookup_libraries['js']['bootstrap4']    = '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/js/bootstrap.min.js';
 DT_Example::$lookup_libraries['css' ]['bootstrap4']  = '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.css';
-DT_Example::$lookup_libraries['js' ]['semanticui']   = '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.js';
-DT_Example::$lookup_libraries['css']['semanticui']   = '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.css';
+DT_Example::$lookup_libraries['js' ]['semanticui']   = '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js';
+DT_Example::$lookup_libraries['css']['semanticui']   = '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css';
 DT_Example::$lookup_libraries['js' ]['material']     = '//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.js';
 DT_Example::$lookup_libraries['css']['material']     = '//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css';
-DT_Example::$lookup_libraries['js' ]['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/6.1.1/foundation.min.js';
-DT_Example::$lookup_libraries['css']['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/6.1.1/foundation.min.css';
+DT_Example::$lookup_libraries['js' ]['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.js';
+DT_Example::$lookup_libraries['css']['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.css';
 DT_Example::$lookup_libraries['js' ]['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js';
 DT_Example::$lookup_libraries['css']['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css';
 DT_Example::$lookup_libraries['js' ]['uikit']        = '//cdnjs.cloudflare.com/ajax/libs/uikit/2.24.3/js/uikit.min.js';
