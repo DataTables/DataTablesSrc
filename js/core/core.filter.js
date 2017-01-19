@@ -7,6 +7,8 @@
  */
 function _fnFeatureHtmlFilter ( settings )
 {
+	var startSearch;
+	var searchInput;
 	var classes = settings.oClasses;
 	var tableId = settings.sTableId;
 	var language = settings.oLanguage;
@@ -27,8 +29,10 @@ function _fnFeatureHtmlFilter ( settings )
 
 	var searchFn = function() {
 		/* Update all other filter input elements for the new display */
+		searchInput = typeof searchInput !== 'undefined' ? searchInput : this; 
+
 		var n = features.f;
-		var val = !this.value ? "" : this.value; // mental IE8 fix :-(
+		var val = !searchInput.value ? "" : searchInput.value; // mental IE8 fix :-(
 
 		/* Now do the filter */
 		if ( val != previousSearch.sSearch ) {
@@ -51,13 +55,19 @@ function _fnFeatureHtmlFilter ( settings )
 			400 :
 			0;
 
+	var lazySearch = function() {
+		searchInput = this; 
+		clearInterval( startSearch );
+		startSearch = setTimeout(searchFn, searchDelay );
+	}
+
 	var jqFilter = $('input', filter)
 		.val( previousSearch.sSearch )
 		.attr( 'placeholder', language.sSearchPlaceholder )
 		.on(
 			'keyup.DT search.DT input.DT paste.DT cut.DT',
 			searchDelay ?
-				_fnThrottle( searchFn, searchDelay ) :
+				lazySearch :
 				searchFn
 		)
 		.on( 'keypress.DT', function(e) {
