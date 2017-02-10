@@ -146,12 +146,12 @@ div.dataTables_scrollHead table.dataTable {
 }
 
 div.dataTables_scrollBody {
-	table {
+	> table {
 		border-top: none;
 		margin-top: 0 !important;
 		margin-bottom: 0 !important;
 
-		thead { // Hide sort icons
+		> thead { // Hide sort icons
 			.sorting:after,
 			.sorting_asc:after,
 			.sorting_desc:after {
@@ -159,14 +159,14 @@ div.dataTables_scrollBody {
 			}
 		}
 
-		tbody tr:first-child th,
-		tbody tr:first-child td {
+		> tbody > tr:first-child > th,
+		> tbody > tr:first-child > td {
 			border-top: none;
 		}
 	}
 }
 
-div.dataTables_scrollFoot table {
+div.dataTables_scrollFoot > table {
 	margin-top: 0 !important;
 	border-top: none;
 }
