@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="i18n">
 	<name>language.infoEmpty</name>
-	<summary>Table summary information string used when the table is empty or records</summary>
+	<summary>Table summary information string used when the table is empty of records</summary>
 	<since>1.10</since>
 
 	<type type="string" />
