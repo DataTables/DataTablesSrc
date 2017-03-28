@@ -2,6 +2,8 @@
 
 . include.sh
 
+export DT_BUILD=1
+
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BASE_DIR="${SCRIPT_DIR}/.."
 BUILD_DIR="${BASE_DIR}/built"
@@ -409,6 +411,7 @@ case "$1" in
 esac
 
 
+unset DT_BUILD
 
 echo ""
 echo_section "Done"
