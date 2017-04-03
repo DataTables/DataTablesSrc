@@ -41,13 +41,13 @@ var filteredData = table
 
 ]]></example>
 
-	<example title="Filter data from multiple columns, to just the data that is greater than 20 through use of the `dt-api eq()` method"><![CDATA[
+	<example title="Filter data from multiple columns, getting the data points which are greater than 20 from the cells in both columns"><![CDATA[
 var table = $('#example').DataTable();
 
 var filteredData = table
 	.columns( [0, 1] )
 	.data()
-	.eq( 0 )
+	.flatten()
 	.filter( function ( value, index ) {
 		return value > 20 ? true : false;
 	} );

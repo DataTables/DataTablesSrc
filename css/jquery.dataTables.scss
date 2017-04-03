@@ -530,19 +530,21 @@ table.dataTable td {
 			*margin-top: -1px;
 			-webkit-overflow-scrolling: touch;
 
-			th, td {
-				// Setting v-align baseline can cause the headers to be visible
-				vertical-align: middle;
-			}
+			> table > thead > tr, > table > tbody > tr {
+				> th, > td {
+					// Setting v-align baseline can cause the headers to be visible
+					vertical-align: middle;
+				}
 
-			th > div.dataTables_sizing,
-			td > div.dataTables_sizing {
-				// Hide the element used to wrap the content in the header for
-				// the body scrolling table
-				height: 0;
-				overflow: hidden;
-				margin: 0 !important;
-				padding: 0 !important;
+				> th > div.dataTables_sizing,
+				> td > div.dataTables_sizing {
+					// Hide the element used to wrap the content in the header for
+					// the body scrolling table
+					height: 0;
+					overflow: hidden;
+					margin: 0 !important;
+					padding: 0 !important;
+				}
 			}
 		}
 	}
@@ -552,8 +554,8 @@ table.dataTable td {
 			border-bottom: $table-header-border;
 		}
 
-		div.dataTables_scrollHead table,
-		div.dataTables_scrollBody table {
+		div.dataTables_scrollHead > table,
+		div.dataTables_scrollBody > table {
 			border-bottom: none;
 		}
 	}

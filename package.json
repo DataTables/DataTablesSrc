@@ -16,6 +16,7 @@
     "test-fixedcolumns": "DT_EXTENSION='FixedColumns' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-fixedheader":  "DT_EXTENSION='FixedHeader' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-responsive":   "DT_EXTENSION='Responsive' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-rowgroup":     "DT_EXTENSION='RowGroup' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-rowreorder":   "DT_EXTENSION='RowReorder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-scroller":     "DT_EXTENSION='Scroller' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-select":       "DT_EXTENSION='Select' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run"

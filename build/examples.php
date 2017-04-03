@@ -182,6 +182,16 @@ DT_Example::$components['responsive'] = [
 	]
 ];
 
+DT_Example::$components['rowgroup'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/RowGroup' ),
+	'release' => '0.0.1',//$versions['RowGroup']['release']['version'],
+	'filename' => 'rowGroup',
+	'framework' => [
+		'css' => true,
+		'js' => false
+	]
+];
+
 DT_Example::$components['rowreorder'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/RowReorder' ),
 	'release' => $versions['RowReorder']['release']['version'],
@@ -658,7 +668,7 @@ EOD;
 	// Oracle style
 	$str = <<<EOD
 --
--- DataTables Ajax and server-side processing database (SQL Server)
+-- DataTables Ajax and server-side processing database (Oracle)
 --
 BEGIN
 	EditorDelObject('datatables_demo', 'TABLE');

@@ -53,7 +53,7 @@ function _fnLoadState ( settings, oInit, callback )
 
 		// Allow custom and plug-in manipulation functions to alter the saved data set and
 		// cancelling of loading by returning false
-		var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, state] );
+		var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
 		if ( $.inArray( false, abStateLoad ) !== -1 ) {
 			callback();
 			return;
@@ -73,7 +73,7 @@ function _fnLoadState ( settings, oInit, callback )
 		}
 
 		// Store the saved state so it might be accessed at any time
-		settings.oLoadedState = $.extend( true, {}, state );
+		settings.oLoadedState = $.extend( true, {}, s );
 
 		// Restore key features - todo - for 1.11 this needs to be done by
 		// subscribed events
@@ -102,7 +102,7 @@ function _fnLoadState ( settings, oInit, callback )
 		}
 
 		// Columns
-		// 
+		//
 		if ( s.columns ) {
 			for ( i=0, ien=s.columns.length ; i<ien ; i++ ) {
 				var col = s.columns[i];
@@ -119,7 +119,7 @@ function _fnLoadState ( settings, oInit, callback )
 			}
 		}
 
-		_fnCallbackFire( settings, 'aoStateLoaded', 'stateLoaded', [settings, state] );
+		_fnCallbackFire( settings, 'aoStateLoaded', 'stateLoaded', [settings, s] );
 		callback();
 	}
 

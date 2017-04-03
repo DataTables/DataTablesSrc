@@ -13,6 +13,7 @@ module.exports = function(config) {
         case 'FixedColumns': testFiles = 'extensions/FixedColumns/test/**/*.js'; break;
         case 'FixedHeader':  testFiles = 'extensions/FixedHeader/test/**/*.js';  break;
         case 'Responsive':   testFiles = 'extensions/Responsive/test/**/*.js';   break;
+        case 'RowGroup':     testFiles = 'extensions/RowGroup/test/**/*.js';     break;
         case 'RowReorder':   testFiles = 'extensions/RowReorder/test/**/*.js';   break;
         case 'Scroller':     testFiles = 'extensions/Scroller/test/**/*.js';     break;
         case 'Select':       testFiles = 'extensions/Select/test/**/*.js';       break;
@@ -121,6 +122,12 @@ module.exports = function(config) {
                 pathName: 'Responsive',
                 fileName: 'responsive',
                 js: true,
+                css: true
+            },
+            rowgroup:   {
+                pathName: 'RowGroup',
+                fileName: 'rowGroup',
+                js: false,
                 css: true
             },
             rowreorder:   {

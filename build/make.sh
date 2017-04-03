@@ -2,6 +2,8 @@
 
 . include.sh
 
+export DT_BUILD=1
+
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BASE_DIR="${SCRIPT_DIR}/.."
 BUILD_DIR="${BASE_DIR}/built"
@@ -282,7 +284,7 @@ function build_extension {
 		# If there is a make file, then leave it to the extension to do its own
 		# build and copy files into place
 		echo_msg "Running $EXTENSION build script"
-		sh ${BASE_DIR}/extensions/${EXTENSION}/make.sh \
+		bash ${BASE_DIR}/extensions/${EXTENSION}/make.sh \
 			${BUILD_DIR}/DataTables/extensions/${EXTENSION} $DEBUG
 	else
 		# Otherwise, just copy the whole lot over
@@ -314,10 +316,11 @@ function usage {
 
       test     - Build the unit tests
 
+	  all [debug] - Build DataTables core and all extensions
+
       extension <ext> [debug] - Extension to build where <ext> is one of:
         - AutoFill
         - Buttons
-        - ColVis
         - ColReorder
         - FixedColumns
         - FixedHeader
@@ -326,7 +329,6 @@ function usage {
         - Responsive
         - Scroller
         - Select
-        - TableTools
 
     and the optional [debug] parameter can be used to disable JS and CSS
     compression for faster development build times."
@@ -355,6 +357,22 @@ case "$1" in
 
 	"build")
 		build_repo
+		;;
+
+	"all")
+		build_repo
+		build_extension AutoFill
+		build_extension Buttons
+		build_extension ColReorder
+		build_extension FixedColumns
+		build_extension FixedHeader
+		build_extension KeyTable
+		build_extension Responsive
+		build_extension Scroller
+		build_extension Select
+		if [ -d ../extensions/Editor ]; then
+			build_extension Editor
+		fi
 		;;
 
 	"examples")
@@ -393,6 +411,7 @@ case "$1" in
 esac
 
 
+unset DT_BUILD
 
 echo ""
 echo_section "Done"
