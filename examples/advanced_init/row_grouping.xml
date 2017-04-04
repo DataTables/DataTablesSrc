@@ -58,6 +58,11 @@ Although DataTables doesn't have row grouping built-in (picking one of the many 
 
 In the example below the 'group' is the office location, which is based on the information in the third column (which is set to hidden). The grouping indicator is added by the `dt-init drawCallback` function, which will parse through the rows which are displayed, and enter a grouping TR element where a new group is found. A `click` event handler is added for the grouping rows to allow the grouping order to be restored as well as ordering by any other column.
 
+
+### RowGroup extension
+
+Important note: DataTables now has a [RowGroup](https://datatables.net/extensions/rowgroup) extension that provides a formal API for the abilities in this demo and extends upon them in a number of significant and useful ways. This example is retained as a useful demonstration of how the `-init drawCallback` option can be used, but for new sites that make use of row grouping, it is suggested that you use the new RowGroup extension.
+
 ]]></info>
 
 </dt-example>
