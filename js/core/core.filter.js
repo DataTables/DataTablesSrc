@@ -18,12 +18,14 @@ function _fnFeatureHtmlFilter ( settings )
 	str = str.match(/_INPUT_/) ?
 		str.replace('_INPUT_', input) :
 		str+input;
+	var hasMarkup = !!(str.match(/<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)/));
+	var content = hasMarkup ? str : $('<label/>').append(str);
 
 	var filter = $('<div/>', {
 			'id': ! features.f ? tableId+'_filter' : null,
 			'class': classes.sFilter
 		} )
-		.append( $('<label/>' ).append( str ) );
+		.append( content );
 
 	var searchFn = function() {
 		/* Update all other filter input elements for the new display */
