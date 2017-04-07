@@ -95,7 +95,9 @@ table.dataTable thead {
 
 	.sorting,
 	.sorting_asc,
-	.sorting_desc {
+	.sorting_desc,
+	.sorting_asc_disabled,
+	.sorting_desc_disabled {
 		cursor: pointer;
 	}
 
