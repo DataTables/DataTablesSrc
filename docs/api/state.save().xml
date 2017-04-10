@@ -11,7 +11,7 @@
 	</type>
 
 	<description>
-		This method is primarily made available for plug-in authors who wish to be able to add information to the DataTables state saving object (through `dt-event stateSaveParams`) and want to be able to trigger a save save to save information specific to their plug-in.
+		This method is primarily made available for plug-in authors who wish to be able to add information to the DataTables state saving object (through `dt-event stateSaveParams`) and want to be able to trigger a state save to save information specific to their plug-in.
 
 		As an example, a column filter plug-in might trigger a state save when the input values for the filter are altered by the end user. This enables the author to reliably restore the state of their plug-in when the table is next initialised (`dt-api state.loaded()`).
 	</description>
