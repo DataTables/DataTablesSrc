@@ -277,7 +277,7 @@ function build_extension {
 
 	if [ ! -d ${BASE_DIR}/extensions/${EXTENSION} ]; then
 		echo_msg "Cloning $EXTENSION from GitHub" 
-		git clone https@github.com:DataTables/${EXTENSION}.git
+		git clone git@github.com:DataTables/${EXTENSION}.git
 	fi
 
 	if [ -e ${BASE_DIR}/extensions/${EXTENSION}/make.sh ]; then
