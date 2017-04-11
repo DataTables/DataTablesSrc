@@ -184,7 +184,7 @@ DT_Example::$components['responsive'] = [
 
 DT_Example::$components['rowgroup'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/RowGroup' ),
-	'release' => '0.0.1',//$versions['RowGroup']['release']['version'],
+	'release' => $versions['RowGroup']['release']['version'],
 	'filename' => 'rowGroup',
 	'framework' => [
 		'css' => true,
