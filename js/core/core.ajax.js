@@ -178,6 +178,7 @@ function _fnAjaxParameters( settings )
 		columnCount = columns.length,
 		features = settings.oFeatures,
 		preSearch = settings.oPreviousSearch,
+        preExclude = settings.oPreviousExclude,
 		preColSearch = settings.aoPreSearchCols,
 		i, data = [], dataProp, column, columnSearch,
 		sort = _fnSortFlatten( settings ),
@@ -204,7 +205,11 @@ function _fnAjaxParameters( settings )
 		order:   [],
 		start:   displayStart,
 		length:  displayLength,
-		search:  {
+        exclude: {
+            value: preExclude.sSearch,
+            regex: preExclude.bRegex
+        },
+        search:  {
 			value: preSearch.sSearch,
 			regex: preSearch.bRegex
 		}
@@ -243,7 +248,9 @@ function _fnAjaxParameters( settings )
 		param( 'sSearch', preSearch.sSearch );
 		param( 'bRegex', preSearch.bRegex );
 	}
-
+    if ( features.bFilter ) {
+        param( 'sExclude', preExclude.sSearch );
+    }
 	if ( features.bSort ) {
 		$.each( sort, function ( i, val ) {
 			d.order.push( { column: val.col, dir: val.dir } );

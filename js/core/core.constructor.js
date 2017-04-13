@@ -114,6 +114,7 @@ _fnMap( oSettings.oFeatures, oInit, [
 	"bPaginate",
 	"bLengthChange",
 	"bFilter",
+    "bExclude",
 	"bSort",
 	"bSortMulti",
 	"bInfo",
@@ -146,6 +147,7 @@ _fnMap( oSettings, oInit, [
 	"rowId",
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
 	[ "oSearch", "oPreviousSearch" ],
+    [ "oExclude", "oPreviousExclude" ],
 	[ "aoSearchCols", "aoPreSearchCols" ],
 	[ "iDisplayLength", "_iDisplayLength" ],
 	[ "bJQueryUI", "bJUI" ]

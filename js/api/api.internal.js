@@ -73,6 +73,7 @@ $.extend( DataTable.ext.internal, {
 	_fnGetUniqueThs: _fnGetUniqueThs,
 	_fnFeatureHtmlFilter: _fnFeatureHtmlFilter,
 	_fnFilterComplete: _fnFilterComplete,
+    _fnExcludeComplete: _fnExcludeComplete,
 	_fnFilterCustom: _fnFilterCustom,
 	_fnFilterColumn: _fnFilterColumn,
 	_fnFilter: _fnFilter,

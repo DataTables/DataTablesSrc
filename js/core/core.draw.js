@@ -42,7 +42,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 				row: iRow,
 				column: i
 			};
-			
+
 			cells.push( nTd );
 
 			// Need to create the HTML if new, or if a rendering function is defined
@@ -178,7 +178,7 @@ function _fnBuildHead( oSettings )
 	if ( createHeader ) {
 		_fnDetectHeader( oSettings.aoHeader, thead );
 	}
-	
+
 	/* ARIA role for the rows */
  	$(thead).find('>tr').attr('role', 'row');
 
