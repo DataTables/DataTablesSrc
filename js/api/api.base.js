@@ -423,6 +423,11 @@ $.extend( _Api.prototype, {
 	shift:   __arrayProto.shift,
 
 
+	slice: function () {
+		return new _Api( this.context, this );
+	},
+
+
 	sort:    __arrayProto.sort, // ? name - order?
 
 

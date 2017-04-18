@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>slice()</name>
+	<summary>Create an independent copy of the API instance.</summary>
+	<since>1.10.15</since>
+
+	<type type="function">
+		<signature>slice()</signature>
+		<description>Create an independent copy of the API instance.</description>
+		<returns type="DataTable.Api">API instance</returns>
+	</type>
+
+	<description>
+		The DataTables API object is "array like" and inherits many of the same characteristics as a Javascript array. The `-api slice()` method is one of these. It provides the ability to create an independent copy of the instance so it can be manipulated without affecting the original.
+
+		This method is a proxy for the Javascript `Array.prototype.slice` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `slice`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice).
+	</description>
+
+	<example title="Modify a copy of an instance without affecting the original."><![CDATA[
+var table = $('#example').DataTable();
+
+var data = table
+	.column( 0 )
+	.data();
+
+var data2 = data.slice();
+
+data2.push( 'Fini' );
+
+// `data` is unaffected
+
+]]></example>
+
+</dt-api>
