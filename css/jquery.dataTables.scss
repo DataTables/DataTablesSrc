@@ -109,13 +109,6 @@ table.dataTable {
 			.sorting_desc_disabled {
 				cursor: pointer;
 				*cursor: hand;
-			}
-
-			.sorting,
-			.sorting_asc,
-			.sorting_desc,
-			.sorting_asc_disabled,
-			.sorting_desc_disabled {
 				background-repeat: no-repeat;
 				background-position: center right;
 			}
