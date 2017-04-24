@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>columns().names()</name>
+	<summary>Get the names for the selected columns.</summary>
+	<since>2.0.0</since>
+
+	<type type="function">
+		<signature>columns().names()</signature>
+		<description>Get the column names from the selected columns.</description>
+		<returns type="DataTable.Api">API instance that contains the column names.</returns>
+	</type>
+
+	<description>
+		This method is the plural version of the `-api column().name()` method, providing access to multiple column names with a single call. The returned object is a DataTables API instance which is "array-like" (i.e. it behaves like an array in Javascript).
+
+		Column names are typically set using the `-init columns.name` option and are not seen by the end user at all. They exist only to make access to the data in the table easier for the developer using the software.
+	</description>
+
+	<example title="Get the names for all columns"><![CDATA[
+var names = table.columns().names();
+]]></example>
+
+	<example title="Determine the index of the 'salary' column"><![CDATA[
+var index = table.columns().names().indexOf( 'Salary' );
+// Note that this could also be done using `column().index()` and a name selector
+]]></example>
+
+	<related>-init columns.name</related>
+	<related>-api column().name()</related>
+</dt-api>
