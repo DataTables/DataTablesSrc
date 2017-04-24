@@ -519,26 +519,6 @@ DataTable.defaults = {
 
 
 	/**
-	 * Enable jQuery UI ThemeRoller support (required as ThemeRoller requires some
-	 * slightly different and additional mark-up from what DataTables has
-	 * traditionally used).
-	 *  @type boolean
-	 *  @default false
-	 *
-	 *  @dtopt Features
-	 *  @name DataTable.defaults.jQueryUI
-	 *
-	 *  @example
-	 *    $(document).ready( function() {
-	 *      $('#example').dataTable( {
-	 *        "jQueryUI": true
-	 *      } );
-	 *    } );
-	 */
-	"bJQueryUI": false,
-
-
-	/**
 	 * Allows the end user to select the size of a formatted page from a select
 	 * menu (sizes are 10, 25, 50 and 100). Requires pagination (`paginate`).
 	 *  @type boolean

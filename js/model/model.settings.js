@@ -749,14 +749,6 @@ DataTable.models.oSettings = {
 	"_iRecordsDisplay": 0,
 
 	/**
-	 * Flag to indicate if jQuery UI marking and classes should be used.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
-	 *  @type boolean
-	 */
-	"bJUI": null,
-
-	/**
 	 * The classes to use for the table
 	 *  @type object
 	 *  @default {}

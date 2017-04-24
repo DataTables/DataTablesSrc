@@ -114,15 +114,6 @@ _api_register( 'destroy()', function ( remove ) {
 			classes.sSortableAsc+' '+classes.sSortableDesc+' '+classes.sSortableNone
 		);
 
-		if ( settings.bJUI ) {
-			$('th span.'+classes.sSortIcon+ ', td span.'+classes.sSortIcon, thead).detach();
-			$('th, td', thead).each( function () {
-				var wrapper = $('div.'+classes.sSortJUIWrapper, this);
-				$(this).append( wrapper.contents() );
-				wrapper.detach();
-			} );
-		}
-
 		// Add the TR elements back into the table in their original order
 		jqTbody.children().detach();
 		jqTbody.append( rows );
