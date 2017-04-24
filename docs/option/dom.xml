@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="string" />
-	<default value="lfrtip"><![CDATA[
+	<default value="lftrip"><![CDATA[
 		Note that if you use one of the styling integration options such as Bootstrap, Foundation or jQuery UI they will alter the default value for this parameter. Please see the description for the values they set.
 ]]></default>
 
@@ -27,11 +27,6 @@
     * `r` - p`r`ocessing display element
 
     Each option can be specified multiple times (with the exception of the table itself), which can be used to have table controls both above and below the table. DataTables will automatically synchronise these multiple controls.
-
-    In addition to the above control options, there are two constants DataTables understands (note that these two options are deprecated in 1.10 and will be removed in 1.11 along side the separation of the `dt-init jQueryUI` option into its own theme file):
-
-    * `H` - jQueryUI theme "header" classes (`string fg-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix`)
-    * `F` - jQueryUI theme "footer" classes (`string fg-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix`)
 
     ### Markup
 
@@ -80,6 +75,13 @@
     Currently only a single extension provides its own `dt-init dom` option, while the others can all be configured directly using the options in the DataTables constructor:
 
     * `B` - [Buttons](/extensions/buttons)
+
+
+    ### Legacy information
+
+    In DataTables prior to v2 the default for this property was `lfrtip`. The only change is that the processing element (`r`) is now after the table rather than before.
+
+    Additionally, DataTables 1.x understood `H` and `F` options in the `-init dom` property as shorthands for jQuery UI classes. These have been removed in v2.
 
 
     ### Future development
