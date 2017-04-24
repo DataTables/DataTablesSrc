@@ -507,14 +507,6 @@ DataTable.ext = _ext = {
 
 
 	/**
-	 * jQuery UI class container
-	 *  @type object
-	 *  @deprecated Since v1.10
-	 */
-	oJUIClasses: {},
-
-
-	/**
 	 * Software version
 	 *  @type string
 	 *  @deprecated Since v1.10
