@@ -12,6 +12,7 @@ function _fnFeatureHtmlFilter ( settings )
 	var language = settings.oLanguage;
 	var previousSearch = settings.oPreviousSearch;
 	var features = settings.aanFeatures;
+	var preFilterCallback = settings.fnPreFilterCallback;
 	var input = '<input type="search" class="'+classes.sFilterInput+'"/>';
 
 	var str = language.sSearch;
@@ -29,6 +30,9 @@ function _fnFeatureHtmlFilter ( settings )
 		/* Update all other filter input elements for the new display */
 		var n = features.f;
 		var val = !this.value ? "" : this.value; // mental IE8 fix :-(
+		if (preFilterCallback) {
+			val = preFilterCallback(val);
+		}
 
 		/* Now do the filter */
 		if ( val != previousSearch.sSearch ) {

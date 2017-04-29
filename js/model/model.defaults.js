@@ -1009,6 +1009,27 @@ DataTable.defaults = {
 
 
 	/**
+	 * Called when the value is obtained from the filter input and can be used to
+	 * manipulate the search string (for example, to remove accents).
+	 *  @type function
+	 *  @param {string} search value to be modified
+	 *  @returns {string} modified search value
+	 *
+	 *  @dtopt Callbacks
+	 *  @name DataTable.defaults.preFilterCallback
+	 *
+	 *  @example
+	 *    $(document).ready( function() {
+		 *      $('#example').dataTable( {
+		 *        "preFilterCallback": function( val ) {
+		 *          return removeDiacritics(val);
+		 *        }
+		 *      } );
+		 *    } );		 */
+	"fnPreFilterCallback": null,
+
+
+	/**
 	 * This function allows you to 'post process' each row after it have been
 	 * generated for each table draw, but before it is rendered on screen. This
 	 * function might be used for setting the row class name etc.
