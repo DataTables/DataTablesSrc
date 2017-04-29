@@ -111,17 +111,20 @@ function _fnRowAttributes( settings, row )
 				_unique( row.__rowc.concat( a ) ) :
 				a;
 
-			$(tr)
-				.removeClass( row.__rowc.join(' ') )
-				.addClass( data.DT_RowClass );
+	                tr.classList.remove( row.__rowc.join(' ') );
+	                tr.classList.add( data.DT_RowClass );
 		}
-
+		
 		if ( data.DT_RowAttr ) {
-			$(tr).attr( data.DT_RowAttr );
+			$.each(data.DT_RowAttr, function(attr, value) {
+				return tr.setAttribute(attr, value);
+			});
 		}
 
 		if ( data.DT_RowData ) {
-			$(tr).data( data.DT_RowData );
+	                $.each( data.DT_RowData, function( attr, value ) {
+	                	return tr.setAttribute( 'data-' + attr, value );
+	                });
 		}
 	}
 }
