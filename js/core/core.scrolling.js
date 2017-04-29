@@ -143,6 +143,14 @@ function _fnFeatureHtmlTable ( settings )
 		"sName": "scrolling"
 	} );
 
+	// On Destroy - unbind scroll event
+	settings.aoDestroyCallback.push( {
+		"sName": "_fnScrollDrawDestroy",
+		"fn": function () {
+			$(scrollBody).unbind('scroll');
+		}
+	});
+		
 	return scroller[0];
 }
 
