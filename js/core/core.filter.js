@@ -23,7 +23,7 @@ function _fnFeatureHtmlFilter ( settings )
 			'id': ! features.f ? tableId+'_filter' : null,
 			'class': classes.sFilter
 		} )
-		.append( $('<label/>' ).append( str ) );
+		append( str );
 
 	var searchFn = function() {
 		/* Update all other filter input elements for the new display */
