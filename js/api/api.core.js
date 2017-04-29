@@ -59,6 +59,27 @@ _api_register( 'data()', function () {
 } );
 
 
+/**
+ * Display the processing message. Only effective if processing option was enable
+ * at instanciation
+ *
+ *  @param {boolean} active true to show processing, false to hide processing
+ */
+_api_register( 'processing()', function ( activate ) {
+	return this.iterator( 'table', function ( settings ) {
+		_fnProcessingDisplay( settings, activate );
+	} );
+} );
+
+/**
+ * Allows to get the processing status. True if shown, false is not
+ */
+_api_register( 'isProcessing()', function () {
+	return this.iterator( 'table', function ( settings ) {
+		return $(settings.aanFeatures.r).is(":visible");
+	} )[0];
+} );
+
 _api_register( 'destroy()', function ( remove ) {
 	remove = remove || false;
 
