@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>get()</name>
+	<summary>Get the underlying data from a DataTable instance</summary>
+	<since>2.0.0</since>
+
+	<type type="function">
+		<signature>get( idx )</signature>
+		<description>
+			Get the data from a given index in a DataTables API instance.
+		</description>
+		<parameter type="integer" name="idx">
+			Index to select
+		</parameter>
+		<returns type="*">
+			The data from the given index. `-type undefined` is returned if the data doesn't exist at the given index.
+		</returns>
+	</type>
+
+	<description>
+		This method provides access to the data that is contained within a DataTables API instance. The DataTables API is _array-like_ so it is possible to access the data using array notation, but it can also be useful to use the API to more explicitly state what is happening in the code (i.e. making it more readable). It is based upon the [jQuery method of the same name](https://api.jquery.com/get/).
+
+		Please note that initially this method may appear to be similar to the `-api eq()` method, but the data the two methods operate on is different:
+
+		* `-api eq()` selects a specific DataTable from an API instance that references multiple tables
+		* `-api get()` gets the data from the API instance.
+	</description>
+
+	<example title="Get the data from the top cell in the second column, taking into account current sorting"><![CDATA[
+var table = $('#example').DataTable();
+var cellData = table.column(2, {order: 'applied'}).data().get(0);
+
+// Note that the above is functionally the same as:
+// table.column(2, {order: 'applied'}).data()[0]
+]]></example>
+
+	<example title="Get the data for the first row in the table"><![CDATA[
+var table = $('#example').DataTable();
+
+table.rows().data().get(0);
+
+// Again, this is functionally the same as:
+// table.rows().data()[0]
+]]></example>
+</dt-api>

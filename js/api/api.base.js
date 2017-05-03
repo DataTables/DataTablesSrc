@@ -243,7 +243,7 @@ $.extend( _Api.prototype, {
 
 		return ctx.length > idx ?
 			new _Api( ctx[idx], this[idx] ) :
-			null;
+			new _Api();
 	},
 
 
@@ -271,6 +271,12 @@ $.extend( _Api.prototype, {
 	{
 		var a = [];
 		return new _Api( this.context, a.concat.apply( a, this.toArray() ) );
+	},
+
+
+	get: function ( idx )
+	{
+		return this[ idx ];
 	},
 
 
