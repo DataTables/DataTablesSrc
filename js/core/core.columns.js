@@ -138,18 +138,22 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 	if ( !oCol.bSortable || (!bAsc && !bDesc) )
 	{
 		oCol.sSortingClass = oClasses.sSortableNone;
+		oCol.sSortingClassJUI = "";
 	}
 	else if ( bAsc && !bDesc )
 	{
 		oCol.sSortingClass = oClasses.sSortableAsc;
+		oCol.sSortingClassJUI = oClasses.sSortJUIAscAllowed;
 	}
 	else if ( !bAsc && bDesc )
 	{
 		oCol.sSortingClass = oClasses.sSortableDesc;
+		oCol.sSortingClassJUI = oClasses.sSortJUIDescAllowed;
 	}
 	else
 	{
 		oCol.sSortingClass = oClasses.sSortable;
+		oCol.sSortingClassJUI = oClasses.sSortJUI;
 	}
 }
 

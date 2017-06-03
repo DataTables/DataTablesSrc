@@ -27,6 +27,48 @@ $.extend( true, DataTable.ext.renderer, {
 							column.sSortingClass
 					);
 			} );
+		},
+
+		jqueryui: function ( settings, cell, column, classes ) {
+			$('<div/>')
+				.addClass( classes.sSortJUIWrapper )
+				.append( cell.contents() )
+				.append( $('<span/>')
+					.addClass( classes.sSortIcon+' '+column.sSortingClassJUI )
+				)
+				.appendTo( cell );
+
+			// Attach a sort listener to update on sort
+			$(settings.nTable).on( 'order.dt.DT', function ( e, ctx, sorting, columns ) {
+				if ( settings !== ctx ) {
+					return;
+				}
+
+				var colIdx = column.idx;
+
+				cell
+					.removeClass( classes.sSortAsc +" "+classes.sSortDesc )
+					.addClass( columns[ colIdx ] == 'asc' ?
+						classes.sSortAsc : columns[ colIdx ] == 'desc' ?
+							classes.sSortDesc :
+							column.sSortingClass
+					);
+
+				cell
+					.find( 'span.'+classes.sSortIcon )
+					.removeClass(
+						classes.sSortJUIAsc +" "+
+						classes.sSortJUIDesc +" "+
+						classes.sSortJUI +" "+
+						classes.sSortJUIAscAllowed +" "+
+						classes.sSortJUIDescAllowed
+					)
+					.addClass( columns[ colIdx ] == 'asc' ?
+						classes.sSortJUIAsc : columns[ colIdx ] == 'desc' ?
+							classes.sSortJUIDesc :
+							column.sSortingClassJUI
+					);
+			} );
 		}
 	}
 } );

@@ -537,6 +537,16 @@ function _fnAddOptionsHtml ( oSettings )
 					j++;
 				}
 
+				/* Replace jQuery UI constants @todo depreciated */
+				if ( sAttr == "H" )
+				{
+					sAttr = classes.sJUIHeader;
+				}
+				else if ( sAttr == "F" )
+				{
+					sAttr = classes.sJUIFooter;
+				}
+
 				/* The attribute can be in the format of "#id.class", "#id" or "class" This logic
 				 * breaks the string into parts and applies them as needed
 				 */

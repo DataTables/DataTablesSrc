@@ -51,5 +51,13 @@ $.extend( DataTable.ext.classes, {
 	"sFooterTH": "",
 
 	// Deprecated
-	"sSortIcon": ""
+	"sSortJUIAsc": "",
+	"sSortJUIDesc": "",
+	"sSortJUI": "",
+	"sSortJUIAscAllowed": "",
+	"sSortJUIDescAllowed": "",
+	"sSortJUIWrapper": "",
+	"sSortIcon": "",
+	"sJUIHeader": "",
+	"sJUIFooter": ""
 } );
