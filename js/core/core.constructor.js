@@ -293,7 +293,7 @@ if ( rowOne.length ) {
 	$( rowOne[0] ).children('th, td').each( function (i, cell) {
 		var col = oSettings.aoColumns[i];
 
-		if ( col.mData === i ) {
+		if ( col != null && col.mData === i ) {
 			var sort = a( cell, 'sort' ) || a( cell, 'order' );
 			var filter = a( cell, 'filter' ) || a( cell, 'search' );
 
