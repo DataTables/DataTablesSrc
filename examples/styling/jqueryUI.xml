@@ -17,8 +17,6 @@ DataTables has the ability to integrate seamlessly with almost any styling libra
 
 To have your table styles integrate with jQuery UI's ThemeRoller styles, simply include the DataTables CSS and JS integration files for jQuery UI, as shown in this example. Note also that because jQuery doesn't provide table styles like some other CSS frameworks, the CSS integration file does add this styling information.
 
-Please note that DataTables 1.10- actually has built-in support for jQuery UI styling integration through the `dt-init jQueryUI` option. However, this option is deprecated in DataTables 1.10 and will be removed DataTables 1.11, matching how styling integration is provided for other libraries - a more modular, maintainable and extensible method. The method presented on this page is the method that will be use in future.
-
 ]]></info>
 
 </dt-example>

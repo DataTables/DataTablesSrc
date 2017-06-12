@@ -147,8 +147,7 @@ _fnMap( oSettings, oInit, [
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
 	[ "oSearch", "oPreviousSearch" ],
 	[ "aoSearchCols", "aoPreSearchCols" ],
-	[ "iDisplayLength", "_iDisplayLength" ],
-	[ "bJQueryUI", "bJUI" ]
+	[ "iDisplayLength", "_iDisplayLength" ]
 ] );
 _fnMap( oSettings.oScroll, oInit, [
 	[ "sScrollX", "sX" ],
@@ -178,31 +177,7 @@ _fnBrowserDetect( oSettings );
 
 var oClasses = oSettings.oClasses;
 
-// @todo Remove in 1.11
-if ( oInit.bJQueryUI )
-{
-	/* Use the JUI classes object for display. You could clone the oStdClasses object if
-	 * you want to have multiple tables with multiple independent classes
-	 */
-	$.extend( oClasses, DataTable.ext.oJUIClasses, oInit.oClasses );
-
-	if ( oInit.sDom === defaults.sDom && defaults.sDom === "lfrtip" )
-	{
-		/* Set the DOM to use a layout suitable for jQuery UI's theming */
-		oSettings.sDom = '<"H"lfr>t<"F"ip>';
-	}
-
-	if ( ! oSettings.renderer ) {
-		oSettings.renderer = 'jqueryui';
-	}
-	else if ( $.isPlainObject( oSettings.renderer ) && ! oSettings.renderer.header ) {
-		oSettings.renderer.header = 'jqueryui';
-	}
-}
-else
-{
-	$.extend( oClasses, DataTable.ext.classes, oInit.oClasses );
-}
+$.extend( oClasses, DataTable.ext.classes, oInit.oClasses );
 $this.addClass( oClasses.sTable );
 
 
