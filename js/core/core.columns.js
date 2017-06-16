@@ -81,6 +81,9 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		{
 			oOptions.sClass = oOptions.className;
 		}
+		if ( oOptions.sClass ) {
+			th.addClass( oOptions.sClass );
+		}
 
 		$.extend( oCol, oOptions );
 		_fnMap( oCol, oOptions, "sWidth", "sWidthOrig" );
