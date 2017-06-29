@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="tables">
+	<name>caption()</name>
+	<summary>Get / set the table's caption</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>caption()</signature>
+		<description>
+			Get the contents of the `-tag caption` element for the table.
+
+			Note that if the API instance references multiple tables, only the first table in the collection will be considered for the getter.
+		</description>
+		<returns type="string">Contents of the caption element. Will be `null` if there is no caption.</returns>
+	</type>
+
+	<type type="function">
+		<signature>caption( set [, side ] )</signature>
+		<parameter type="string" name="set">
+			The value to show in the table's `-tag caption`.
+		</parameter>
+		<parameter type="string" name="side" default="undefined">
+			Typically the position of the `-tag caption` element will be defined by the [`caption-side` CSS property](https://developer.mozilla.org/en-US/docs/Web/CSS/caption-side) for the table, but this option provides the ability to set that option directly.
+
+			It can be given `-string top` or `-string bottom`. If not given at all, the position of the caption relative to the table will be defined by the page's CSS. By default in browsers this is above the table.
+		</parameter>
+		<description>
+			Set the contents of the `-tag caption` element. If the table doesn't have a `-tag caption` element, one will be created automatically.
+
+			Note that is the API instance references multiples tables, the caption will be set for all tables referenced.
+		</description>
+		<returns type="DataTable.Api">DataTables API instance for chaining.</returns>
+	</type>
+
+	<description>
+		HTML tables have an [optional element called `-tag caption`](https://developer.mozilla.org/en/docs/Web/HTML/Element/caption) which can be used to show the title of a table to the end user. This can greatly enhance accessibility since it can give a summary of the contents of the table without the end user needing to read the surrounding text.
+
+		This method is provides to control the contents of a DataTables' `-tag caption` element.
+	</description>
+
+	<example title="Set the table's caption"><![CDATA[
+var table = $('#myTable').DataTable();
+
+table.caption( 'Table 1: Class averages' );
+]]></example>
+
+	<example title="Set the table's caption and display at the bottom of the table"><![CDATA[
+var table = $('#myTable').DataTable();
+
+table.caption( 'Table 2: Year averages', 'bottom' );
+]]></example>
+
+	<related>-api caption.node()</related>
+</dt-api>

@@ -96,3 +96,43 @@ _api_registerPlural( 'tables().containers()', 'table().container()' , function (
 	}, 1 );
 } );
 
+_api_register( 'caption()', function ( value, side ) {
+	var context = this.context;
+
+	if ( value === undefined ) {
+		var caption = $(context[0].nTable).children('caption');
+
+		return caption.length && context.length ?
+			caption.html() : 
+			null;
+	}
+
+	return this.iterator( 'table', function ( ctx ) {
+		var table = $(ctx.nTable);
+		var caption = table.children('caption');
+
+		if ( caption.length ) {
+			caption.html( value );
+		}
+		else {
+			table.append( $('<caption/>').html( value ) );
+		}
+
+		if ( side ) {
+			table.children('caption').css( 'caption-side', side );
+		}
+	}, 1 );
+} );
+
+_api_register( 'caption.node()', function () {
+	var ctx = this.context;
+
+	if ( ctx.length ) {
+		var caption = $(ctx[0].nTable).children('caption');
+
+		return caption.length ?
+			caption[0] : 
+			null;
+	}
+	return null;
+} );

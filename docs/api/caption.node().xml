@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="tables">
+	<name>caption.node()</name>
+	<summary>Get the table's `-tag caption` element</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>caption.node()</signature>
+		<description>Direct access to the `-tag caption` element for the table.</description>
+		<returns type="node">HTML `-tag caption` node or null if no caption is found.</returns>
+	</type>
+
+	<description>
+		This method provides direct access to the `-tag caption` element of the DataTable, if one has been set (`-api caption()`).
+	</description>
+
+	<example title="Add a data property to the caption using jQuery"><![CDATA[
+var table = $('#myTable').DataTable();
+
+table.caption( 'Table 1: Year averages' );
+$( table.caption.node() ).data( 'total', 100 );
+]]></example>
+
+	<related>-api caption()</related>
+</dt-api>
