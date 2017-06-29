@@ -144,6 +144,7 @@ _fnMap( oSettings, oInit, [
 	"renderer",
 	"searchDelay",
 	"rowId",
+	"caption",
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
 	[ "oSearch", "oPreviousSearch" ],
 	[ "aoSearchCols", "aoPreSearchCols" ],
@@ -359,9 +360,18 @@ var loadedInit = function () {
 	 * Final init
 	 * Cache the header, body and footer as required, creating them if needed
 	 */
+	var captions = $this.children('caption');
+
+	if ( oSettings.caption ) {
+		if ( captions.length === 0 ) {
+			captions = $('<caption/>').appendTo( $this );
+		}
+
+		captions.html( oSettings.caption );
+	}
 
 	// Work around for Webkit bug 83867 - store the caption-side before removing from doc
-	var captions = $this.children('caption').each( function () {
+	captions.each( function () {
 		this._captionSide = $(this).css('caption-side');
 	} );
 

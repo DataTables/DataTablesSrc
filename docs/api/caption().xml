@@ -50,5 +50,6 @@ var table = $('#myTable').DataTable();
 table.caption( 'Table 2: Year averages', 'bottom' );
 ]]></example>
 
+	<related>-init caption</related>
 	<related>-api caption.node()</related>
 </dt-api>

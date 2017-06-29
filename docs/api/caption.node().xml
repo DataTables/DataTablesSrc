@@ -21,5 +21,6 @@ table.caption( 'Table 1: Year averages' );
 $( table.caption.node() ).data( 'total', 100 );
 ]]></example>
 
+	<related>-init caption</related>
 	<related>-api caption()</related>
 </dt-api>

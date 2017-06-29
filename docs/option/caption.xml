@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>caption</name>
+	<summary>Set a caption for the table</summary>
+	<since>2.0</since>
+
+	<type type="string" />
+	<default>
+		`null` - do not show a caption, unless there is one in the original HTML table.
+	</default>
+
+	<description>
+		HTML tables have the ability to show a caption which gives brief summary of what the contents of the table are to the end user. This is done through the [optional element called `-tag caption`](https://developer.mozilla.org/en/docs/Web/HTML/Element/caption).
+
+		If your `-tag table` has a caption tag, it will be used automatically. Setting a value using this property will cause the caption's existing value to be overwritten. If there is no `-tag caption` in the table and a value is given to this property, the caption will be created.
+
+		Please note that the position of the caption is controlled by the [CSS `caption-side` property](https://developer.mozilla.org/en-US/docs/Web/CSS/caption-side) - it can be shown above or below the table.
+	</description>
+
+	<example title="Set a caption for the table"><![CDATA[
+$('#myTable').DataTable( {
+	caption: 'Table 1: Pupil averages'
+} );
+]]></example>
+
+	<related>-api caption()</related>
+	<related>-api caption.node()</related>
+</dt-option>

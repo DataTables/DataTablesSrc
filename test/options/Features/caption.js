@@ -1,9 +1,10 @@
-describe( 'Caption tag', function() {
+describe( 'caption', function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
 		css: [ 'datatables' ]
 	} );
 
+	// Caption tag and scrolling
 	dt.html( 'basic' );
 
 	it( 'Remains in place when initialised without scrolling - top', function () {
@@ -46,5 +47,36 @@ describe( 'Caption tag', function() {
 
 		expect( $('caption')[0].parentNode ).toBe( table.table().footer().parentNode );
 		expect( $('caption').css('caption-side') ).toBe( 'bottom' );
+	} );
+
+	// Setting a caption
+	dt.html( 'basic' );
+
+	it( 'Default is null', function () {
+		expect( $.fn.dataTable.defaults.caption ).toBe( null );
+	} );
+
+	it( 'Can be set as an init option', function () {
+		var table = $('#example').DataTable( {
+			caption: 'My life as been a tapestry'
+		} );
+
+		expect( $('caption').html() ).toBe( 'My life as been a tapestry' );
+	} );
+
+	dt.html( 'basic' );
+
+	it( 'Will overwrite an existing caption', function () {
+		$('#example').append('<caption>Caption</caption>' );
+
+		var table = $('#example').DataTable( {
+			caption: 'Of rich and royal hue'
+		} );
+
+		expect( $('caption').html() ).toBe( 'Of rich and royal hue' );
+	} );
+
+	it( 'Uses the existing caption rather than adding a new one', function () {
+		expect( $('caption').length ).toBe( 1 );
 	} );
 } );

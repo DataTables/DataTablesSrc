@@ -2177,7 +2177,17 @@ DataTable.defaults = {
 	 *
 	 *  @name DataTable.defaults.rowId
 	 */
-	"rowId": "DT_RowId"
+	"rowId": "DT_RowId",
+
+
+	/**
+	 * Caption value
+	 *  @type string
+	 *  @default null
+	 *
+	 *  @name DataTable.defaults.caption
+	 */
+	"caption": null
 };
 
 _fnHungarianMap( DataTable.defaults );
