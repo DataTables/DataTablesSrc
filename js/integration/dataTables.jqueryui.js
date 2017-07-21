@@ -143,22 +143,5 @@ DataTable.ext.renderer.header.jqueryui = function ( settings, cell, column, clas
 };
 
 
-/*
- * TableTools jQuery UI compatibility
- * Required TableTools 2.1+
- */
-if ( DataTable.TableTools ) {
-	$.extend( true, DataTable.TableTools.classes, {
-		"container": "DTTT_container ui-buttonset ui-buttonset-multi",
-		"buttons": {
-			"normal": "DTTT_button ui-button ui-state-default"
-		},
-		"collection": {
-			"container": "DTTT_collection ui-buttonset ui-buttonset-multi"
-		}
-	} );
-}
-
-
 return DataTable;
 }));

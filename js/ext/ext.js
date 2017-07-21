@@ -85,8 +85,8 @@ DataTable.ext = _ext = {
 	 *
 	 *  @example
 	 *    $.fn.dataTable.ext.features.push( {
-	 *      "fnInit": function( oSettings ) {
-	 *        return new TableTools( { "oDTSettings": oSettings } );
+	 *      "fnInit": function( settings ) {
+	 *        return new Tools( { settings: settings } );
 	 *      },
 	 *      "cFeature": "T"
 	 *    } );
