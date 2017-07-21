@@ -124,9 +124,14 @@ $.extend( true, DataTable.ext.renderer, {
 								break;
 
 							default:
-								btnDisplay = button + 1;
-								btnClass = page === button ?
-									classes.sPageButtonActive : '';
+								if ( typeof button === 'number' ) {
+									btnDisplay = button + 1;
+									btnClass = page === button ?
+										classes.sPageButtonActive : '';
+								}
+								else {
+									container.append( button );
+								}
 								break;
 						}
 

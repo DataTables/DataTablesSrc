@@ -87,7 +87,7 @@ DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, b
 				attach( container, button );
 			}
 			else {
-				btnDisplay = '';
+				btnDisplay = null;
 				btnClass = '';
 				tag = null;
 
@@ -127,11 +127,16 @@ DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, b
 						break;
 
 					default:
-						btnDisplay = button + 1;
-						btnClass = page === button ?
-							'current' : '';
-						tag = page === button ?
-							null : 'a';
+						if ( typeof button === 'number' ) {
+							btnDisplay = button + 1;
+							btnClass = page === button ?
+								'current' : '';
+							tag = page === button ?
+								null : 'a';
+						}
+						else {
+							container.append( button );
+						}
 						break;
 				}
 
@@ -139,7 +144,7 @@ DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, b
 					tag = 'a';
 				}
 
-				if ( btnDisplay ) {
+				if ( btnDisplay !== null ) {
 					node = $('<li>', {
 							'class': classes.sPageButton+' '+btnClass,
 							'aria-controls': settings.sTableId,

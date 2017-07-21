@@ -96,7 +96,7 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 				attach( container, button );
 			}
 			else {
-				btnDisplay = '';
+				btnDisplay = null;
 				btnClass = '';
 
 				switch ( button ) {
@@ -130,9 +130,14 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 						break;
 
 					default:
-						btnDisplay = button + 1;
-						btnClass = page === button ?
-							'active' : '';
+						if ( typeof button === 'number' ) {
+							btnDisplay = button + 1;
+							btnClass = page === button ?
+								'active' : '';
+						}
+						else {
+							container.append( button );
+						}
 						break;
 				}
 
@@ -140,7 +145,7 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 					'a' :
 					'div';
 
-				if ( btnDisplay ) {
+				if ( btnDisplay !== null ) {
 					node = $('<'+tag+'>', {
 							'class': classes.sPageButton+' '+btnClass,
 							'id': idx === 0 && typeof button === 'string' ?

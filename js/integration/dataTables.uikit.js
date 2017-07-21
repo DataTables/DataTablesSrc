@@ -80,7 +80,7 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 				attach( container, button );
 			}
 			else {
-				btnDisplay = '';
+				btnDisplay = null;
 				btnClass = '';
 
 				switch ( button ) {
@@ -114,13 +114,18 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 						break;
 
 					default:
-						btnDisplay = button + 1;
-						btnClass = page === button ?
-							'uk-active' : '';
+						if ( typeof button === 'number' ) {
+							btnDisplay = button + 1;
+							btnClass = page === button ?
+								'uk-active' : '';
+						}
+						else {
+							container.append( button );
+						}
 						break;
 				}
 
-				if ( btnDisplay ) {
+				if ( btnDisplay !== null ) {
 					node = $('<li>', {
 							'class': classes.sPageButton+' '+btnClass,
 							'id': idx === 0 && typeof button === 'string' ?

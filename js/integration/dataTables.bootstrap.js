@@ -86,7 +86,7 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 				attach( container, button );
 			}
 			else {
-				btnDisplay = '';
+				btnDisplay = null;
 				btnClass = '';
 
 				switch ( button ) {
@@ -120,13 +120,18 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 						break;
 
 					default:
-						btnDisplay = button + 1;
-						btnClass = page === button ?
-							'active' : '';
+						if ( typeof button === 'number' ) {
+							btnDisplay = button + 1;
+							btnClass = page === button ?
+								'active' : '';
+						}
+						else {
+							container.append( button );
+						}
 						break;
 				}
 
-				if ( btnDisplay ) {
+				if ( btnDisplay !== null ) {
 					node = $('<li>', {
 							'class': classes.sPageButton+' '+btnClass,
 							'id': idx === 0 && typeof button === 'string' ?

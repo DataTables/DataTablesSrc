@@ -94,7 +94,7 @@ DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, but
 				attach( container, button );
 			}
 			else {
-				btnDisplay = '';
+				btnDisplay = null;
 				active = false;
 
 				switch ( button ) {
@@ -128,9 +128,14 @@ DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, but
 						break;
 
 					default:
-						btnDisplay = button + 1;
-						btnClass = '';
-						active = page === button;
+						if ( typeof button === 'number' ) {
+							btnDisplay = button + 1;
+							btnClass = '';
+							active = page === button;
+						}
+						else {
+							container.append( button );
+						}
 						break;
 				}
 
@@ -138,7 +143,7 @@ DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, but
 					btnClass += ' mdl-button--raised mdl-button--colored';
 				}
 
-				if ( btnDisplay ) {
+				if ( btnDisplay !== null ) {
 					node = $('<button>', {
 							'class': 'mdl-button '+btnClass,
 							'id': idx === 0 && typeof button === 'string' ?
