@@ -251,8 +251,8 @@ else {
 // When updating these files, make sure you also update the `karma.config` tests
 // file to match versions.
 DT_Example::$lookup_libraries['js' ]['jquery']       = '//code.jquery.com/jquery-1.12.4.js';
-DT_Example::$lookup_libraries['js' ]['jqueryui']     = '//code.jquery.com/ui/1.11.4/jquery-ui.js';
-DT_Example::$lookup_libraries['css']['jqueryui']     = '//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css';
+DT_Example::$lookup_libraries['js' ]['jqueryui']     = '//code.jquery.com/ui/1.12.1/jquery-ui.js';
+DT_Example::$lookup_libraries['css']['jqueryui']     = '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
 DT_Example::$lookup_libraries['css']['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
 DT_Example::$lookup_libraries['js']['bootstrap4']    = '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js';
