@@ -36,7 +36,8 @@ module.exports = function(config) {
         require('./html-loader.js'),
         require('karma-jasmine-jquery'),
         require('karma-jasmine'),
-        require('karma-chrome-launcher')
+        require('karma-chrome-launcher'),
+        require('karma-sinon')
     ],
 
 
@@ -45,7 +46,8 @@ module.exports = function(config) {
     frameworks: [
         'jasmine-jquery',
         'jasmine',
-        'html-loader'
+        'html-loader',
+        'sinon'
     ],
 
 

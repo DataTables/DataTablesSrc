@@ -3,23 +3,21 @@
   "version": "1.10.12",
   "description": "DataTables source files. Please note that this package does not include the built files. Use the `datatables.net` package!",
   "scripts": {
-    "build-debug":       "cd build; ./make.sh build debug",
-    "build":             "cd build; ./make.sh build",
-
-    "test":              "./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
-    "test-watch":        "./node_modules/karma/bin/karma start test/karma.conf.js",
-
-    "test-autofill":     "DT_EXTENSION='AutoFill' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
-    "test-buttons":      "DT_EXTENSION='Buttons' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
-    "test-colreorder":   "DT_EXTENSION='ColReorder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
-    "test-editor":       "DT_EXTENSION='Editor' ./node_modules/karma/bin/karma start test/karma.conf.js",
+    "build-debug": "cd build; ./make.sh build debug",
+    "build": "cd build; ./make.sh build",
+    "test": "./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-watch": "./node_modules/karma/bin/karma start test/karma.conf.js",
+    "test-autofill": "DT_EXTENSION='AutoFill' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-buttons": "DT_EXTENSION='Buttons' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-colreorder": "DT_EXTENSION='ColReorder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-editor": "DT_EXTENSION='Editor' ./node_modules/karma/bin/karma start test/karma.conf.js",
     "test-fixedcolumns": "DT_EXTENSION='FixedColumns' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
-    "test-fixedheader":  "DT_EXTENSION='FixedHeader' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
-    "test-responsive":   "DT_EXTENSION='Responsive' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
-    "test-rowgroup":     "DT_EXTENSION='RowGroup' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
-    "test-rowreorder":   "DT_EXTENSION='RowReorder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
-    "test-scroller":     "DT_EXTENSION='Scroller' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
-    "test-select":       "DT_EXTENSION='Select' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run"
+    "test-fixedheader": "DT_EXTENSION='FixedHeader' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-responsive": "DT_EXTENSION='Responsive' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-rowgroup": "DT_EXTENSION='RowGroup' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-rowreorder": "DT_EXTENSION='RowReorder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-scroller": "DT_EXTENSION='Scroller' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-select": "DT_EXTENSION='Select' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run"
   },
   "repository": {
     "type": "git",
@@ -36,9 +34,11 @@
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
-    "karma-jasmine": "^1.0.2",
     "karma-html2js-preprocessor": "^1.0.0",
+    "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2",
-    "karma-jasmine-jquery": "^0.1.1"
+    "karma-jasmine-jquery": "^0.1.1",
+    "karma-sinon": "^1.0.5",
+    "sinon": "^3.2.0"
   }
 }
