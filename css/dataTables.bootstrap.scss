@@ -167,13 +167,13 @@ div.dataTables_scrollBody {
 }
 
 div.dataTables_scrollFoot {
-	> table {
-		margin-top: 0 !important;
-		border-top: none;
-	}
-
 	> .dataTables_scrollFootInner {
 		box-sizing: content-box;
+
+		> table {
+			margin-top: 0 !important;
+			border-top: none;
+		}
 	}
 }
 

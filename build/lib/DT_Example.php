@@ -513,7 +513,13 @@ class DT_Example
 			}
 
 			if ( $type === 'js' ) {
-				$out[] = '<script type="text/javascript" language="javascript" src="'.$file.'"></script>';
+				$a = strpos( $file, '|' ) !== false ?
+					explode( '|', $file ) :
+					array( $file );
+
+				for ( $j=0, $jen=count($a) ; $j<$jen ; $j++ ) {
+					$out[] = '<script type="text/javascript" language="javascript" src="'.$a[$j].'"></script>';
+				}
 			}
 			else {
 				$out[] = '<link rel="stylesheet" type="text/css" href="'.$file.'">';
