@@ -12,12 +12,12 @@
 
 		These tokens can be placed anywhere in the string, or removed as needed by the language requires:
 		
-		* `\_START\_` - Display index of the first record on the current page
-		* `\_END\_` - Display index of the last record on the current page
-		* `\_TOTAL\_` - Number of records in the table after filtering
-		* `\_MAX\_` - Number of records in the table without filtering
-		* `\_PAGE\_` - Current page number
-		* `\_PAGES\_` - Total number of pages of data in the table
+		* `_START_` - Display index of the first record on the current page
+		* `_END_` - Display index of the last record on the current page
+		* `_TOTAL_` - Number of records in the table after filtering
+		* `_MAX_` - Number of records in the table without filtering
+		* `_PAGE_` - Current page number
+		* `_PAGES_` - Total number of pages of data in the table
 	</description>
 
 	<example title="Show page count"><![CDATA[
