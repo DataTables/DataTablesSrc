@@ -200,18 +200,25 @@ div.dataTables_scrollFoot {
 //
 
 // Condensed
-table.dataTable.table-condensed {
+table.dataTable.table-sm {
 	> thead > tr > th {
 		padding-right: 20px;
 	}
 
-	.sorting:after,
-	.sorting_asc:after,
-	.sorting_desc:after {
-		top: 6px;
-		right: 6px;
+	.sorting,
+	.sorting_asc,
+	.sorting_desc {
+		&:before {
+			top: 5px;
+			right: 0.85em;
+		}
+
+		&:after {
+			top: 5px;
+		}
 	}
 }
+
 
 // Frustratingly the border-collapse:collapse used by Bootstrap makes the column
 // width calculations when using scrolling impossible to align columns. We have
