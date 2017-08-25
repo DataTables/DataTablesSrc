@@ -40,7 +40,6 @@ describe('LengthMenu', function() {
 		expect(options.eq(0).text()).toBe('1');
 		expect(options.eq(1).text()).toBe('10');
 		expect(options.eq(2).text()).toBe('15');
-		console.log( options.eq(0).text(), options.get(0).value );
 
 		expect(options.get(0).value).toBe('1');
 		expect(options.get(1).value).toBe('10');
