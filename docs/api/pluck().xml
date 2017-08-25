@@ -64,4 +64,46 @@ var names = table
 
 ]]></example>
 
+	<example title="Nested data - get the `salary` data property by using `pluck()` twice."><![CDATA[
+var table = $('#example').DataTable({
+  "data": [
+    {
+      "name": "Tiger Nixon",
+      "hr": {
+        "position": "System Architect",
+        "salary": "$320,800",
+        "start_date": "2011/04/25"
+      }
+    },
+    {
+      "name": "Garrett Winters",
+      "hr": {
+        "position": "Accountant",
+        "salary": "$170,750",
+        "start_date": "2011/07/25"
+      }
+    },
+    {
+      "name": "Ashton Cox",
+      "hr": {
+        "position": "Junior Technical Author",
+        "salary": "$86,000",
+        "start_date": "2009/01/12"
+      }
+    }
+	],
+	"columns": [
+		{ "data": "name" },
+		{ "data": "hr.position" }
+	]
+);
+
+var saleries = table
+	.rows()
+	.data()
+	.pluck( 'hr' )
+	.pluck( 'salary' );
+
+]]></example>
+
 </dt-api>
