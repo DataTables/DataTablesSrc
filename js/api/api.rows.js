@@ -206,6 +206,11 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 		_fnDeleteIndex( settings.aiDisplay, row );
 		_fnDeleteIndex( that[ thatIdx ], row, false ); // maintain local indexes
 
+		// For server-side processing tables - subtract the deleted row from the count
+		if ( settings._iRecordsDisplay > 0 ) {
+			settings._iRecordsDisplay--;
+		}
+
 		// Check for an 'overflow' they case for displaying the table
 		_fnLengthOverflow( settings );
 
