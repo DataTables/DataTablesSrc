@@ -257,8 +257,8 @@ DT_Example::$lookup_libraries['js' ]['bootstrap']    = '//maxcdn.bootstrapcdn.co
 DT_Example::$lookup_libraries['css']['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
 DT_Example::$lookup_libraries['js']['bootstrap4']    = '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js|//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js';
 DT_Example::$lookup_libraries['css' ]['bootstrap4']  = '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css';
-DT_Example::$lookup_libraries['js' ]['semanticui']   = '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js';
-DT_Example::$lookup_libraries['css']['semanticui']   = '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css';
+DT_Example::$lookup_libraries['js' ]['semanticui']   = '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js';
+DT_Example::$lookup_libraries['css']['semanticui']   = '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css';
 DT_Example::$lookup_libraries['js' ]['material']     = '//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.js';
 DT_Example::$lookup_libraries['css']['material']     = '//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css';
 DT_Example::$lookup_libraries['js' ]['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.js';
@@ -269,8 +269,8 @@ DT_Example::$lookup_libraries['js' ]['uikit']        = '//cdnjs.cloudflare.com/a
 DT_Example::$lookup_libraries['css']['uikit']        = '//cdnjs.cloudflare.com/ajax/libs/uikit/2.24.3/css/uikit.min.css';
 DT_Example::$lookup_libraries['css']['font-awesome'] = '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
 DT_Example::$lookup_libraries['js']['jszip']         = '//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js';
-DT_Example::$lookup_libraries['js']['pdfmake']       = '//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js';
-DT_Example::$lookup_libraries['js']['vfsfonts']      = '//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js';
+DT_Example::$lookup_libraries['js']['pdfmake']       = '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js';
+DT_Example::$lookup_libraries['js']['vfsfonts']      = '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js';
 DT_Example::$lookup_libraries['js']['moment']        = '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js';
 
 function multiple ( $value, $fn )
@@ -792,6 +792,7 @@ function json_files ( $out_dir )
 	$out = [];
 	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
 		$out[] = [
+			'id'         => $json[$i]['id'],
 			'name'       => $json[$i]['first_name'] .' '. $json[$i]['last_name'],
 			'position'   => $json[$i]['position'],
 			'salary'     => '$'.number_format($json[$i]['salary']),

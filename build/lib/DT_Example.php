@@ -711,6 +711,13 @@ DT_Example::$tables['ajax'] = array(
 	'body'    => false
 );
 
+DT_Example::$tables['ajax-id'] = array(
+	'columns' => array( 'id', 'name', 'position', 'office', 'extn', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
 DT_Example::$tables['ajax-sequence'] = array(
 	'columns' => array( 'sequence', 'name', 'position', 'office', 'start_date', 'salary' ),
 	'header'  => true,
