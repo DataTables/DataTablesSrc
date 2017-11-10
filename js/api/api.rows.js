@@ -10,14 +10,13 @@
  * {array}     - jQuery array of nodes, or simply an array of TR nodes
  *
  */
-
-
 var __row_selector = function ( settings, selector, opts )
 {
 	var rows;
 	var run = function ( sel ) {
 		var selInt = _intVal( sel );
 		var i, ien;
+		var aoData = settings.aoData;
 
 		// Short cut - selector is a number and no options provided (default is
 		// all records, so no need to check if the index is in there, since it
@@ -42,23 +41,26 @@ var __row_selector = function ( settings, selector, opts )
 		// Selector - function
 		if ( typeof sel === 'function' ) {
 			return $.map( rows, function (idx) {
-				var row = settings.aoData[ idx ];
+				var row = aoData[ idx ];
 				return sel( idx, row._aData, row.nTr ) ? idx : null;
 			} );
 		}
 
-		// Get nodes in the order from the `rows` array with null values removed
-		var nodes = _removeEmpty(
-			_pluck_order( settings.aoData, rows, 'nTr' )
-		);
-
 		// Selector - node
 		if ( sel.nodeName ) {
-			if ( sel._DT_RowIndex !== undefined ) {
-				return [ sel._DT_RowIndex ]; // Property added by DT for fast lookup
+			var rowIdx = sel._DT_RowIndex;  // Property added by DT for fast lookup
+			var cellIdx = sel._DT_CellIndex;
+
+			if ( rowIdx !== undefined ) {
+				// Make sure that the row is actually still present in the table
+				return aoData[ rowIdx ] && aoData[ rowIdx ].nTr === sel ?
+					[ rowIdx ] :
+					[];
 			}
-			else if ( sel._DT_CellIndex ) {
-				return [ sel._DT_CellIndex.row ];
+			else if ( cellIdx ) {
+				return aoData[ cellIdx.row ] && aoData[ cellIdx.row ].nTr === sel ?
+					[ cellIdx.row ] :
+					[];
 			}
 			else {
 				var host = $(sel).closest('*[data-dt-row]');
@@ -87,6 +89,11 @@ var __row_selector = function ( settings, selector, opts )
 			// need to fall through to jQuery in case there is DOM id that
 			// matches
 		}
+		
+		// Get nodes in the order from the `rows` array with null values removed
+		var nodes = _removeEmpty(
+			_pluck_order( settings.aoData, rows, 'nTr' )
+		);
 
 		// Selector - jQuery selector string, array of nodes or jQuery object/
 		// As jQuery's .filter() allows jQuery objects to be passed in filter,
