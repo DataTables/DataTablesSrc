@@ -20,10 +20,11 @@ DataTable.util = {
 	 */
 	throttle: function ( fn, freq ) {
 		var
-			frequency = freq !== undefined ? freq : 200,
 			call,
 			that,
 			timer;
+
+		freq = freq !== undefined ? freq : 200;
 
 		function timeout() {
 			fn.apply( that, call );
@@ -34,7 +35,7 @@ DataTable.util = {
 				if ( call ) {
 					timeout();
 				}
-			}, frequency );
+			}, freq );
 		}
 
 		return function () {
