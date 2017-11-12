@@ -48,6 +48,32 @@ DataTable.util = {
 
 
 	/**
+	 * Debounce the calls to a function. Arguments and context are maintained
+	 * for the debounced function.
+	 *
+	 * @param {function} fn Function to be called
+	 * @param {integer} wait Wait after last call in mS
+	 * @return {function} Wrapped function
+	 */
+	debounce: function ( fn, wait ) {
+		var timer;
+
+		wait = wait !== undefined ? wait : 200;	
+
+		return function () {
+			var args = arguments;
+			var that = this;
+			if ( timer ) {
+			  clearTimeout(timer);
+			}
+			timer = setTimeout( function () {
+				timer = undefined;
+				fn.apply( that, args );
+			}, wait );
+		};
+	},
+
+	/**
 	 * Escape a string such that it can be used in a regular expression
 	 *
 	 *  @param {string} val string to escape
