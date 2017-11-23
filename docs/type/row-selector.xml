@@ -144,7 +144,7 @@ The function receives three parameters:
 
 The function is called once for every row that can be selected, based on the `dt-type selector-modifier` options, which also defines the order of the rows for the called function.
 
-###### Get the data all rows that have a `first_name` starting with `A`:
+###### Get the data for all rows that have a `first_name` starting with `A`:
 
 ```js
 var table = $('#example').DataTable();
