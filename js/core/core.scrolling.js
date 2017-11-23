@@ -340,14 +340,18 @@ function _fnScrollDraw ( settings )
 	// both match, but we want to hide it completely. We want to also fix their
 	// width to what they currently are
 	_fnApplyToChildren( function(nSizer, i) {
-		nSizer.innerHTML = '<div class="dataTables_sizing" style="height:0;overflow:hidden;">'+headerContent[i]+'</div>';
+		nSizer.innerHTML = '<div class="dataTables_sizing">'+headerContent[i]+'</div>';
+		nSizer.style.height = "0";
+		nSizer.style.overflow = "hidden";
 		nSizer.style.width = headerWidths[i];
 	}, headerSrcEls );
 
 	if ( footer )
 	{
 		_fnApplyToChildren( function(nSizer, i) {
-			nSizer.innerHTML = '<div class="dataTables_sizing" style="height:0;overflow:hidden;">'+footerContent[i]+'</div>';
+			nSizer.innerHTML = '<div class="dataTables_sizing">'+footerContent[i]+'</div>';
+			nSizer.style.height = "0";
+			nSizer.style.overflow = "hidden";
 			nSizer.style.width = footerWidths[i];
 		}, footerSrcEls );
 	}
