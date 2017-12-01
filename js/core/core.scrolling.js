@@ -341,8 +341,8 @@ function _fnScrollDraw ( settings )
 	// width to what they currently are
 	_fnApplyToChildren( function(nSizer, i) {
 		nSizer.innerHTML = '<div class="dataTables_sizing">'+headerContent[i]+'</div>';
-		nSizer.style.height = "0";
-		nSizer.style.overflow = "hidden";
+		nSizer.childNodes[0].style.height = "0";
+		nSizer.childNodes[0].style.overflow = "hidden";
 		nSizer.style.width = headerWidths[i];
 	}, headerSrcEls );
 
@@ -350,8 +350,8 @@ function _fnScrollDraw ( settings )
 	{
 		_fnApplyToChildren( function(nSizer, i) {
 			nSizer.innerHTML = '<div class="dataTables_sizing">'+footerContent[i]+'</div>';
-			nSizer.style.height = "0";
-			nSizer.style.overflow = "hidden";
+			nSizer.childNodes[0].style.height = "0";
+			nSizer.childNodes[0].style.overflow = "hidden";
 			nSizer.style.width = footerWidths[i];
 		}, footerSrcEls );
 	}
