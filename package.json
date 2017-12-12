@@ -7,6 +7,7 @@
     "build": "cd build; ./make.sh build",
     "test": "./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-watch": "./node_modules/karma/bin/karma start test/karma.conf.js",
+    "test-file": "DT_TESTFILE='/home/colin/datatables/src/DataTablesSrc/test/api/rows/colin.js' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-autofill": "DT_EXTENSION='AutoFill' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-buttons": "DT_EXTENSION='Buttons' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-colreorder": "DT_EXTENSION='ColReorder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",

@@ -1,6 +1,6 @@
 // todo tests - write the tests...
 
-describe('rows: row()', function() {
+describe('ColinTest', function() {
 	var table;
 	var row;
 
@@ -55,5 +55,16 @@ describe('rows: row()', function() {
 	it('Selecting by save jQuery variable does not return the row', function() {
 		expect(table.row(row).length).toBe(0);
 		expect(table.row(row).node()).toBe(null);
+	});
+
+	// colin's stuff
+	dt.html('basic');
+
+	it('Select top row and see if Airi COLIN', function() {
+		table = $('#example').DataTable();
+		console.log('fred');
+
+		var myrow = table.row(':eq(0)', { order: 'current' }).data();
+		expect(myrow[0]).toBe('Airi Satou');
 	});
 });
