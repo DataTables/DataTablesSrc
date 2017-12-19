@@ -1,4 +1,4 @@
-// todo tests
+// TK todo tests
 // - Confirm it exists and is a function
 // - Confirm it returns API instance
 // - Select a single column and confirm that the data is returned for that column
@@ -17,23 +17,29 @@ describe( "columns- columns().data()", function() {
 			var table = $('#example').DataTable();
 			expect(typeof table.columns().data).toBe('function');
 		});
+
 		dt.html( 'basic' );
+
 		it("Returns an API instance", function () {
 			var table = $('#example').DataTable();
 			expect(table.columns().data() instanceof $.fn.dataTable.Api).toBe(true);
 		});
+
 		dt.html( 'basic' );
+
 		it("Data is returned for selected column only.", function () {
 			var table = $('#example').DataTable();
 			var testData = table.columns(0).data();
 
 			expect(testData[0][0] == "Airi Satou" && testData[0][10] == "Charde Marshall").toBe(true);
 		});
+
 		dt.html( 'basic' );
+
 		it("Data is returned for two columns.", function () {
 			var table = $('#example').DataTable();
 			var testData = table.columns([0,1]).data();
-			console.log(testData);
+
 			expect(
 				testData[0][0] == "Airi Satou" &&
 				testData[0][10] == "Charde Marshall" &&
@@ -44,7 +50,7 @@ describe( "columns- columns().data()", function() {
 		it("Data is returned for all columns.", function () {
 			var table = $('#example').DataTable();
 			var testData = table.columns().data();
-			console.log(testData);
+
 			expect(
 				testData[0][0] == "Airi Satou" &&
 				testData[1][1] == "Chief Executive Officer (CEO)" &&
@@ -55,6 +61,7 @@ describe( "columns- columns().data()", function() {
 		});
 
 	});
+
 	describe("Repeated with AJAX based table", function () {
 
 				//AJAX
@@ -113,7 +120,7 @@ describe( "columns- columns().data()", function() {
 						],
 						initComplete: function ( settings, json ) {
 							var testData = table.columns().data();
-							console.log(testData);
+							
 							expect(testData[0][0] == "Airi Satou" && testData[0][10] == "Charde Marshall").toBe(true);
 							done();
 						}
@@ -160,7 +167,7 @@ describe( "columns- columns().data()", function() {
 						],
 						initComplete: function ( settings, json ) {
 							var testData = table.columns().data();
-							console.log(testData);
+							
 							expect(
 								testData[0][0] == "Airi Satou" &&
 								testData[1][1] == "Chief Executive Officer (CEO)" &&

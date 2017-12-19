@@ -4,7 +4,6 @@ describe('stateSave option', function() {
 		css: ['datatables']
 	});
 
-	// TK COLIN - tidy this one up
 	describe('Check Default', function() {
 		dt.html('basic');
 
@@ -33,14 +32,11 @@ describe('stateSave option', function() {
 			$('#example').dataTable({
 				stateSave: true
 			});
-			expect(
-				$('#example_info').html() ==
-					'Showing 1 to 9 of 9 entries (filtered from 57 total entries)'
-			).toBeTruthy();
+			expect($('#example_info').html()).toBe('Showing 1 to 9 of 9 entries (filtered from 57 total entries)');
 		});
 
 		it('Has input been entered into input element', function() {
-			expect($('#example_filter input').val() == 2012).toBeTruthy();
+			expect($('#example_filter input').val()).toBe('2012');
 		});
 
 		dt.html('basic');
@@ -58,10 +54,7 @@ describe('stateSave option', function() {
 			$('#example').dataTable({
 				stateSave: true
 			});
-			expect(
-				$('#example_info').html() ==
-					'Showing 1 to 9 of 9 entries (filtered from 57 total entries)'
-			).toBeTruthy();
+			expect($('#example_info').html()).toBe('Showing 1 to 9 of 9 entries (filtered from 57 total entries)');
 		});
 
 		describe('Single Sorting', function() {
@@ -71,9 +64,8 @@ describe('stateSave option', function() {
 					.search('')
 					.draw();
 				$('#example thead th:eq(0)').click();
-				expect(
-					$('#example tbody td:eq(0)').html() == 'Zorita Serrano'
-				).toBeTruthy();
+
+				expect($('#example tbody td:eq(0)').html()).toBe('Zorita Serrano');
 			});
 
 			it('Does sorting remain applied after page refresh', function() {
@@ -87,9 +79,9 @@ describe('stateSave option', function() {
 				$('#example').dataTable({
 					stateSave: true
 				});
-				expect(
-					$('#example tbody td:eq(0)').html() == 'Zorita Serrano'
-				).toBeTruthy();
+
+				expect($('#example tbody td:eq(0)').html()).toBe('Zorita Serrano');
+
 				$('#example')
 					.DataTable()
 					.state.clear();
@@ -97,10 +89,9 @@ describe('stateSave option', function() {
 
 			it('Single column sorting reversed', function() {
 				$('#example thead th:eq(0)').click();
-				expect(
-					$('#example tbody td:eq(0)').html() == 'Airi Satou'
-				).toBeTruthy();
+				expect($('#example tbody td:eq(0)').html()).toBe('Airi Satou');
 			});
+
 			it('Single column sorting reversed- remain applied after refresh', function() {
 				$('#example')
 					.DataTable()
@@ -108,9 +99,9 @@ describe('stateSave option', function() {
 				$('#example').dataTable({
 					stateSave: true
 				});
-				expect(
-					$('#example tbody td:eq(0)').html() == 'Airi Satou'
-				).toBeTruthy();
+
+				expect($('#example tbody td:eq(0)').html()).toBe('Airi Satou');
+
 				$('#example')
 					.DataTable()
 					.state.clear();
@@ -119,18 +110,20 @@ describe('stateSave option', function() {
 
 		describe('Multi-Column Sorting', function() {
 			dt.html('basic');
+
 			it('Does sorting function by default', function() {
 				$('#example').dataTable({
 					stateSave: true
 				});
+
 				$('#example thead th:eq(3)').click();
 				$('#example thead th:eq(3)').click();
 				var clickEvent = $.Event('click');
 				clickEvent.shiftKey = true;
 				$('#example thead th:eq(5)').trigger(clickEvent);
 
-				expect($('#example tbody td:eq(5)').html() == '$198,500').toBeTruthy();
-				expect($('#example tbody td:eq(3)').html() == '66').toBeTruthy();
+				expect($('#example tbody td:eq(5)').html()).toBe('$198,500');
+				expect($('#example tbody td:eq(3)').html()).toBe('66');
 			});
 
 			it('Does sorting remain after refresh', function() {
@@ -140,8 +133,9 @@ describe('stateSave option', function() {
 				$('#example').dataTable({
 					stateSave: true
 				});
-				expect($('#example tbody td:eq(5)').html() == '$198,500').toBeTruthy();
-				expect($('#example tbody td:eq(3)').html() == '66').toBeTruthy();
+
+				expect($('#example tbody td:eq(5)').html()).toBe('$198,500');
+				expect($('#example tbody td:eq(3)').html()).toBe('66');
 			});
 
 			it('Can we destroy the session', function() {
@@ -154,7 +148,8 @@ describe('stateSave option', function() {
 				$('#example').dataTable({
 					stateSave: true
 				});
-				expect($('#example tbody td:eq(5)').html() == '$162,700').toBeTruthy();
+
+				expect($('#example tbody td:eq(5)').html()).toBe('$162,700');
 			});
 		});
 
@@ -164,16 +159,16 @@ describe('stateSave option', function() {
 				$('#example').dataTable({
 					stateSave: true
 				});
+
 				expect($('#example tbody td:eq(0)').html()).toBe('Airi Satou');
 				expect($('#example_info').html()).toBe('Showing 1 to 10 of 57 entries');
 			});
 
 			it('Paging- Second page', function() {
 				$('#example_next').click();
+
 				expect($('#example tbody td:eq(0)').html()).toBe('Charde Marshall');
-				expect($('#example_info').html()).toBe(
-					'Showing 11 to 20 of 57 entries'
-				);
+				expect($('#example_info').html()).toBe('Showing 11 to 20 of 57 entries');
 			});
 
 			it('Paging- Second page - After refresh', function() {
@@ -183,18 +178,16 @@ describe('stateSave option', function() {
 				$('#example').dataTable({
 					stateSave: true
 				});
+
 				expect($('#example tbody td:eq(0)').html()).toBe('Charde Marshall');
-				expect($('#example_info').html()).toBe(
-					'Showing 11 to 20 of 57 entries'
-				);
+				expect($('#example_info').html()).toBe('Showing 11 to 20 of 57 entries');
 			});
 
 			it('Paging- Third page', function() {
 				$('#example_next').click();
+
 				expect($('#example tbody td:eq(0)').html()).toBe('Gloria Little');
-				expect($('#example_info').html()).toBe(
-					'Showing 21 to 30 of 57 entries'
-				);
+				expect($('#example_info').html()).toBe('Showing 21 to 30 of 57 entries');
 			});
 
 			it('Paging- Third page- After refresh', function() {
@@ -204,18 +197,16 @@ describe('stateSave option', function() {
 				$('#example').dataTable({
 					stateSave: true
 				});
+
 				expect($('#example tbody td:eq(0)').html()).toBe('Gloria Little');
-				expect($('#example_info').html()).toBe(
-					'Showing 21 to 30 of 57 entries'
-				);
+				expect($('#example_info').html()).toBe('Showing 21 to 30 of 57 entries');
 			});
 
 			it('Paging back to second page', function() {
 				$('#example_previous').click();
+
 				expect($('#example tbody td:eq(0)').html()).toBe('Charde Marshall');
-				expect($('#example_info').html()).toBe(
-					'Showing 11 to 20 of 57 entries'
-				);
+				expect($('#example_info').html()).toBe('Showing 11 to 20 of 57 entries');
 			});
 			it('Paging back to second page- After refresh', function() {
 				$('#example')
@@ -225,12 +216,11 @@ describe('stateSave option', function() {
 					stateSave: true
 				});
 				expect($('#example tbody td:eq(0)').html()).toBe('Charde Marshall');
-				expect($('#example_info').html()).toBe(
-					'Showing 11 to 20 of 57 entries'
-				);
+				expect($('#example_info').html()).toBe('Showing 11 to 20 of 57 entries');
 			});
 			it('paging back to first page', function() {
 				$('#example_previous').click();
+
 				expect($('#example tbody td:eq(0)').html()).toBe('Airi Satou');
 				expect($('#example_info').html()).toBe('Showing 1 to 10 of 57 entries');
 			});
@@ -241,6 +231,7 @@ describe('stateSave option', function() {
 				$('#example').dataTable({
 					stateSave: true
 				});
+
 				expect($('#example tbody td:eq(0)').html()).toBe('Airi Satou');
 				expect($('#example_info').html()).toBe('Showing 1 to 10 of 57 entries');
 			});
@@ -251,6 +242,7 @@ describe('stateSave option', function() {
 				$('select[name=example_length]')
 					.val('25')
 					.change();
+					
 				expect($('#example_info').html()).toBe('Showing 1 to 25 of 57 entries');
 				$('#example')
 					.DataTable()

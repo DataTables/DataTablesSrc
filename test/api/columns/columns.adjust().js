@@ -1,4 +1,4 @@
-// todo tests
+// TK todo tests
 // - Confirm it exists and is a function
 // - Always returns an API instance
 // - Test when table is hidden on load make sure calcs match what we expect
@@ -17,27 +17,34 @@ describe( "columns- columns.adjust()", function() {
 			var table = $('#example').DataTable();
 			expect(typeof table.columns.adjust).toBe('function');
 		});
+
 		dt.html( 'basic' );
+
 		it("Returns an API instance", function () {
 			var table = $('#example').DataTable();
 			expect(table.columns.adjust() instanceof $.fn.dataTable.Api).toBe(true);
 		});
+
 		dt.html( 'basic' );
+
 		it("Table hidden on load", function () {
 			$('#dt-test-loader-container').hide();
 
 			var table = $('#example').DataTable({
 				"scrollY": 200
 			});
-			console.log($('#example').width());
+
 			$('#dt-test-loader-container').show();
 			$( table.table().header() ).width();
 			$( table.table().body() ).width();
+
+			// TK COLIN what's debugger
 			debugger
 			table.columns.adjust();
 
-			console.log($('#example').width());
-			//first test check they are not the same, second test call adjust then check they are the same.
+			// TK console.log($('#example').width());
+			// TK COLIN this was left as a hole
+			// TK first test check they are not the same, second test call adjust then check they are the same.
 		});
 	});
 

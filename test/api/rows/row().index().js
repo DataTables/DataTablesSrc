@@ -16,7 +16,6 @@ describe( "rows- row().index()", function() {
 		dt.html( 'basic' );
 		it("Returns Integer instance", function () {
 			var table = $('#example').DataTable();
-			console.log(table.row(0).index());
 			expect(Number.isInteger(table.row(0).index())).toBe(true);
 		});
 
