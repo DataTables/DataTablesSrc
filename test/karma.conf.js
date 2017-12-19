@@ -3,8 +3,9 @@
 
 module.exports = function(config) {
     var testFiles = 'test/*/**/*.js';
-    
-    console.log(process.argv)
+	
+	// TK COLIN look at passing test file in on the command line
+    // console.log(process.argv)
 
     if ( process.env.DT_TESTFILE ) {
         testFiles = process.env.DT_TESTFILE;
