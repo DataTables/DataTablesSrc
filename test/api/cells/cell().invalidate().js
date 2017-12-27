@@ -23,11 +23,20 @@ describe( "cells- cell().invalidate()", function() {
 		css: [ 'datatables' ]
 	} );
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
+	describe('Check the defaults', function() {
+		dt.html('basic');
 
+		it('Exists and is a function', function() {
+			var table = $('#example').DataTable();
+			expect(typeof table.cell().invalidate).toBe('function');
+		});
+
+		it('Exists and is a function', function() {
+			var table = $('#example').DataTable();
+			expect(table.cell().invalidate() instanceof $.fn.dataTable.Api).toBe(true);
+		});
 	});
+
+	// TK colin : difference between dom and js source!?
 
 });

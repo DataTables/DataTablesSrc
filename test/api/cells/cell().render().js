@@ -1,7 +1,7 @@
 // todo tests
 // - Confirm it exists and is a function
 // - With no orthogonal data or rendering function:
-//   - Confirm it returns the data for the cell
+//   - Confirm it returns the data for the cell 
 // - With a rendering function that returns specific data only for `display`:
 //   - Confirm it returns the original data for the other three types
 //   - Confirm it returns the rendered data for `display`
@@ -37,11 +37,13 @@ describe( "cells- cell().render()", function() {
 		css: [ 'datatables' ]
 	} );
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
+	describe('Check the defaults', function() {
+		dt.html('basic');
 
+		it('Exists and is a function', function() {
+			var table = $('#example').DataTable();
+			expect(typeof table.cell().render).toBe('function');
+		});
 	});
 
 });

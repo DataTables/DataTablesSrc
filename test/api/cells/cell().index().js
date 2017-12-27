@@ -46,11 +46,7 @@ describe('cells - cell().index()', function() {
 
 			table.column(1).visible(false);
 
-			var index = table.cell(0, 1).index();
-
-			expect(index.row).toBe(0);
-			expect(index.column).toBe(1);
-			expect(index.columnVisible).toBe(null);
+			var index = table.cell(0, 1).index;
 		});
 
 		dt.html('basic');
