@@ -29,4 +29,17 @@ describe( 'rows: row()', function() {
 		var d = table.row( 4, { search: 'applied' } ).data();
 		expect( d[0] ).toBe( 'Airi Satou' );
 	} );
+	
+	it( 'Child row node can be used as a row selector', function () {
+		table.search( '' ).draw();
+		table.row(':eq(1)').child( 'test', 'childClass' ).show();
+
+		var d = table.row( $('tr.childClass')[0] ).data();
+		expect( d[0] ).toBe( 'Angelica Ramos' );
+	} );
+		
+	it( 'Child row in jQuery object can be used as a row selector', function () {
+		var d = table.row( $('tr.childClass') ).data();
+		expect( d[0] ).toBe( 'Angelica Ramos' );
+	} );
 } );

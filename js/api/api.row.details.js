@@ -16,16 +16,21 @@ var __details_add = function ( ctx, row, data, klass )
 		// If we get a TR element, then just add it directly - up to the dev
 		// to add the correct number of columns etc
 		if ( r.nodeName && r.nodeName.toLowerCase() === 'tr' ) {
+			r.setAttribute( 'data-dt-row', row.idx );
 			rows.push( r );
 		}
 		else {
 			// Otherwise create a row with a wrapper
-			var created = $('<tr><td/></tr>').addClass( k );
+			var created = $('<tr><td/></tr>')
+				.attr( 'data-dt-row', row.idx )
+				.addClass( k );
+			
 			$('td', created)
 				.addClass( k )
 				.html( r )
 				[0].colSpan = _fnVisbleColumns( ctx );
 
+			console.log( row, row.idx );
 			rows.push( created[0] );
 		}
 	};
