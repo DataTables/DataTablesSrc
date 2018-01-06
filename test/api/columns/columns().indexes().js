@@ -18,8 +18,6 @@ describe('columns - columns().indexes()', function() {
 	});
 
 	describe('Check behaviour', function() {
-		dt.html('basic');
-
 		// Note: only column 1 will be hidden in these tests
 		const hiddenColumn = 1;
 
@@ -39,6 +37,8 @@ describe('columns - columns().indexes()', function() {
 			}
 			return true;
 		}
+
+		dt.html('basic');
 
 		it('Returns column indexes (none hidden) with default', function() {
 			let table = $('#example').DataTable();
@@ -61,6 +61,8 @@ describe('columns - columns().indexes()', function() {
 			expect(checkColumns(colIdx)).toBe(true);
 		});
 
+		dt.html('basic');
+
 		it('Returns column indexes (some hidden) with default', function() {
 			let table = $('#example').DataTable();
 			table.column(hiddenColumn).visible(false);
@@ -69,6 +71,8 @@ describe('columns - columns().indexes()', function() {
 			expect(checkColumns(colIdx)).toBe(true);
 		});
 
+		dt.html('basic');
+
 		it('Returns column indexes (some hidden) with data', function() {
 			let table = $('#example').DataTable();
 			table.column(hiddenColumn).visible(false);
@@ -76,6 +80,8 @@ describe('columns - columns().indexes()', function() {
 
 			expect(checkColumns(colIdx)).toBe(true);
 		});
+
+		dt.html('basic');
 
 		it('Returns column indexes (some hidden) with visible', function() {
 			let table = $('#example').DataTable();

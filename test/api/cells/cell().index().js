@@ -24,22 +24,6 @@ describe('cells - cell().index()', function() {
 		});
 	});
 
-	describe('Returns correct row and column information', function() {
-		dt.html('basic');
-
-		it('Returns correct row information', function() {
-			var table = $('#example').DataTable();
-
-			expect(table.row(table.cell(2, 3).index().row).data()[0]).toBe('Ashton Cox');
-		});
-
-		it('Returns correct column information', function() {
-			var table = $('#example').DataTable();
-
-			expect(table.column(table.cell(2, 3).index().column).data()[0]).toBe('33');
-		});
-	});
-
 	describe('Returns correct information for hidden columns', function() {
 		dt.html('basic');
 

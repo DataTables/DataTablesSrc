@@ -1,5 +1,3 @@
-// todo tests
-// - Create a new API instance with the API with the indexes passed in as the argument to the API constructor
 describe('cells - cells().indexes()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -37,7 +35,7 @@ describe('cells - cells().indexes()', function() {
 		it('Correct cell indexes when no columns hidden', function() {
 			let table = $('#example').DataTable();
 
-			$(table.row(2).nodes()).addClass('selected');
+			$(table.row(2).node()).addClass('selected');
 			let cellIdx = table.cells('.selected', '*').indexes();
 
 			expect(cellIdx.length).toBe(6);
@@ -53,7 +51,7 @@ describe('cells - cells().indexes()', function() {
 
 		it('Correct indexes if one column is hidden', function() {
 			let table = $('#example').DataTable();
-			$(table.row(2).nodes()).addClass('selected');
+			$(table.row(2).node()).addClass('selected');
 			table.column(1).visible(false);
 
 			let cellIdx = table.cells('.selected', '*').indexes();

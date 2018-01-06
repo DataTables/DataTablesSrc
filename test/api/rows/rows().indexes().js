@@ -35,7 +35,7 @@ describe('rows- rows().indexes()', function() {
 
 		it('Correct indexes if one row is selected', function() {
 			let table = $('#example').DataTable();
-			$(table.row(2).nodes()).addClass('selected');
+			$(table.row(2).node()).addClass('selected');
 
 			let rowIdx = table.rows('.selected').indexes();
 
@@ -47,8 +47,8 @@ describe('rows- rows().indexes()', function() {
 
 		it('Correct indexes if two rows are selected', function() {
 			let table = $('#example').DataTable();
-			$(table.row(2).nodes()).addClass('selected');
-			$(table.row(4).nodes()).addClass('selected');
+			$(table.row(2).node()).addClass('selected');
+			$(table.row(4).node()).addClass('selected');
 
 			let rowIdx = table.rows('.selected').indexes();
 
