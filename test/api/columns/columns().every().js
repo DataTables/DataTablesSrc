@@ -25,7 +25,7 @@ describe('columns- columns().every()', function() {
 			let iteration = 0;
 
 			table.columns().every(function() {
-				// only check types on the first column iteration
+				// only need to check types on the first iteration
 				if (iteration++ == 0) {
 					let len = arguments.length;
 					expect(len).toBe(argumentLength);
@@ -42,30 +42,31 @@ describe('columns- columns().every()', function() {
 
 		it('Every column is iterated upon', function() {
 			let table = $('#example').DataTable();
-			let colsSeen = [];
+			let iterated = [];
 
-			table.columns().every(function(colIdx, tableCounter, colCounter) {
-				expect(this.index()).toBe(colIdx);
-				colsSeen.push(colIdx);
+			table.columns().every(function(index, tableCounter, counter) {
+				expect(this.index()).toBe(index);
+				iterated.push(index);
 			});
-			expect($.unique(colsSeen).length).toBe(table.columns().count());
+
+			expect($.unique(iterated).length).toBe(table.columns().count());
 		});
 
 		dt.html('basic');
 
 		it('Only selected columns are iterated upon', function() {
 			let table = $('#example').DataTable();
-			let colsSeen = [];
-			let colsTagged = [2, 4];
+			let iterated = [];
+			let tagged = [0, 2, 4];
 
-			for (col in colsTagged) $('#example thead th:eq(' + colsTagged[col] + ')').addClass('myTest');
-			
-			table.columns('.myTest').every(function(colIdx, tableCounter, colCounter) {
-				expect(this.index()).toBe(colIdx);
-				colsSeen.push(colIdx);
+			for (col in tagged) $('#example thead th:eq(' + tagged[col] + ')').addClass('myTest');
+
+			table.columns('.myTest').every(function(index, tableCounter, counter) {
+				expect(this.index()).toBe(index);
+				iterated.push(index);
 			});
 
-			expect(colsTagged.sort().toString() == colsSeen.sort().toString()).toBe(true);
+			expect(tagged.sort().toString() == iterated.sort().toString()).toBe(true);
 		});
 	});
 });

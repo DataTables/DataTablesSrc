@@ -38,9 +38,9 @@ describe('cells - cells().indexes()', function() {
 			$(table.row(2).node()).addClass('selected');
 			let cellIdx = table.cells('.selected', '*').indexes();
 
-			expect(cellIdx.length).toBe(6);
+			expect(cellIdx.length).toBe(table.columns().count());
 
-			for (let i = 0; i < 6; i++) {
+			for (let i = 0; i < table.columns().count(); i++) {
 				expect(cellIdx[i].row).toBe(2);
 				expect(cellIdx[i].column).toBe(i);
 				expect(cellIdx[i].columnVisible).toBe(i);
@@ -57,9 +57,9 @@ describe('cells - cells().indexes()', function() {
 			let cellIdx = table.cells('.selected', '*').indexes();
 			let columnVisible = null;
 
-			expect(cellIdx.length).toBe(6);
+			expect(cellIdx.length).toBe(table.columns().count());
 
-			for (let i = 0; i < 6; i++) {
+			for (let i = 0; i < table.columns().count(); i++) {
 				expect(cellIdx[i].row).toBe(2);
 				expect(cellIdx[i].column).toBe(i);
 
