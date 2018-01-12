@@ -18,9 +18,9 @@ describe('cells - cell().index()', function() {
 
 			expect(Object.keys(index).length).toBe(3);
 
-			expect(typeof index.row).toBe('number');
-			expect(typeof index.column).toBe('number');
-			expect(typeof index.columnVisible).toBe('number');
+			expect(Number.isInteger(index.row)).toBe(true);
+			expect(Number.isInteger(index.column)).toBe(true);
+			expect(Number.isInteger(index.columnVisible)).toBe(true);
 		});
 	});
 
@@ -46,7 +46,11 @@ describe('cells - cell().index()', function() {
 
 			table.column(1).visible(false);
 
-			var index = table.cell(0, 1).index;
+			var index = table.cell(0, 1).index();
+
+			expect(index.row).toBe(0);
+			expect(index.column).toBe(1);
+			expect(index.columnVisible).toBe(null);
 		});
 
 		dt.html('basic');
@@ -61,22 +65,6 @@ describe('cells - cell().index()', function() {
 			expect(index.row).toBe(0);
 			expect(index.column).toBe(2);
 			expect(index.columnVisible).toBe(1);
-		});
-	});
-
-	describe('Returns correct row and column information', function() {
-		dt.html('basic');
-
-		it('Returns correct row information', function() {
-			var table = $('#example').DataTable();
-
-			expect(table.row(table.cell(2, 3).index().row).data()[0]).toBe('Ashton Cox');
-		});
-
-		it('Returns correct column information', function() {
-			var table = $('#example').DataTable();
-
-			expect(table.column(table.cell(2, 3).index().column).data()[0]).toBe('33');
 		});
 	});
 });

@@ -14,11 +14,11 @@ describe( "rowId option", function() {
 					{ "data": "name" },
 					{ "data": "position" },
 					{ "data": "office" },
-					{ "data": "extn" },
+					{ "data": "age" },
 					{ "data": "start_date" },
 					{ "data": "salary" }
 				],
-				rowId: "extn"
+				rowId: "age"
 			});
 
 

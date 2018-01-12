@@ -16,7 +16,7 @@ describe('cells - cell().node()', function() {
 		expect(table.cell().node() instanceof HTMLTableCellElement).toBe(true);
 	});
 
-	it('Returns first and cell cellof first row as expected', function() {
+	it('Returns first and last cell of first row as expected', function() {
 		var table = $('#example').DataTable();
 		expect(table.cell(0, 0).node().innerText).toBe('Tiger Nixon');
 		expect(table.cell(0, table.columns().count() - 1).node().innerText).toBe('$320,800');
@@ -28,7 +28,7 @@ describe('cells - cell().node()', function() {
 		expect(table.cell(table.rows().count() - 1, table.columns().count() - 1).node().innerText).toBe('$112,000');
 	});
 
-	dt.html('basic');	
+	dt.html('basic');
 
 	it('Returns first cell as expected from before Datatables initialisation', function() {
 		var oldcells = $('#example tbody td');

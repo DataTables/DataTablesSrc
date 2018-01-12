@@ -1,49 +1,72 @@
-// todo tests
-// - Confirm it exists and is a function- done
-// - Returns an API instance - done
-// - Make sure the rows we select are iterated over only.
-// - Ensure that the callback function is executed in the scope of an API instance which has the column's index in its data set (and only that column index)
-// -
-describe( "columns- columns().every()", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+// COLIN TK add tests for multiple tables
+describe('columns- columns().every()', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Exists and is a function", function () {
-			var table = $('#example').DataTable();
+	describe('Check the defaults', function() {
+		const argumentLength = 4;
+
+		dt.html('basic');
+
+		it('Exists and is a function', function() {
+			let table = $('#example').DataTable();
 			expect(typeof table.columns().every).toBe('function');
 		});
-		dt.html( 'basic' );
-		it("Returns an API instance", function () {
-			var table = $('#example').DataTable();
-			var n = 0;
-			expect(table.columns().every( function(){n++;}) instanceof $.fn.dataTable.Api).toBe(true);
+
+		it('Returns an API instance', function() {
+			let table = $('#example').DataTable();
+			expect(table.columns().every(function() {}) instanceof $.fn.dataTable.Api).toBe(true);
 		});
 
-		dt.html( 'basic' );
-		it("Every column selected is interated upon", function () {
-			var table = $('#example').DataTable();
-			var n = -1;
-			table.columns().every( function() {
-				n++;
-			});
-			expect(n).toBe(5);
-		});
-		dt.html( 'basic' );
-		it("Each API has the colum index in its dataset", function () {
-			var that= "";
-			//create array, then push index value into array.
-			var table = $('#example').DataTable();
-			table.columns().every( function() {
-				that = this; // new test that tests 'this'. push onto array what this.index is and should 0-5. Checking that this is correct.
-				that = that[0][0]; //that[0][0] is accessing the value of the index of a column
+		it('Passes the correct parameters to the function', function() {
+			let table = $('#example').DataTable();
+			let iteration = 0;
 
+			table.columns().every(function() {
+				// only need to check types on the first iteration
+				if (iteration++ == 0) {
+					let len = arguments.length;
+					expect(len).toBe(argumentLength);
+
+					for (let i = 0; i < len - 1; i++) expect(Number.isInteger(arguments[i])).toBe(true);
+					expect(typeof arguments[len - 1]).toBe('undefined');
+				}
 			});
-			expect(that === 5).toBe(true);
 		});
 	});
 
+	describe('Check behaviour', function() {
+		dt.html('basic');
+
+		it('Every column is iterated upon', function() {
+			let table = $('#example').DataTable();
+			let iterated = [];
+
+			table.columns().every(function(index, tableCounter, counter) {
+				expect(this.index()).toBe(index);
+				iterated.push(index);
+			});
+
+			expect($.unique(iterated).length).toBe(table.columns().count());
+		});
+
+		dt.html('basic');
+
+		it('Only selected columns are iterated upon', function() {
+			let table = $('#example').DataTable();
+			let iterated = [];
+			let tagged = [0, 2, 4];
+
+			for (col in tagged) $('#example thead th:eq(' + tagged[col] + ')').addClass('myTest');
+
+			table.columns('.myTest').every(function(index, tableCounter, counter) {
+				expect(this.index()).toBe(index);
+				iterated.push(index);
+			});
+
+			expect(tagged.sort().toString() == iterated.sort().toString()).toBe(true);
+		});
+	});
 });
