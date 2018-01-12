@@ -42,9 +42,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-The searching functionality that is provided by DataTables is very useful for quickly search through the information in the table - however the search is global, and you may wish to present controls to search on specific columns only.
+The searching functionality provided by DataTables is useful for quickly search through the information in the table - however the search is global, and you may wish to present controls that search on specific columns.
 
-DataTables has the ability to apply searching to a specific column through the `dt-api column().search()` method (note that the name of the method is `search` not `filter` since `dt-api filter()` is used to apply a filter to a result set).
+DataTables has the ability to apply searching to a specific column through the `dt-api column().search()` method (note that the name of the method is `search` not `filter`, since `dt-api filter()` is used to apply a filter to a result set).
 
 The column searches are cumulative, so you can apply multiple individual column searches, in addition to the global search, allowing complex searching options to be presented to the user.
 

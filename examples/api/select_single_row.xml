@@ -30,11 +30,11 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-This example shows a modification of the multiple row selection example, where just a single can now be selected. This is done simply by checking to see if the row already has a selected class or not, and if so removing it, if not then the class is removed from any other row in the table which does have it and applied to the row to be selected.
+This example modifies the multiple row selection example by only allowing the selection of a single row. This is done by checking to see if the row already has a selected class, and if so removing it, but if not then the class is removed from all other rows in the table and then applied to the row being selected.
 
-Also shown is the `dt-api row().remove()` method which will delete a row from a table, and the `dt-api draw()` method with `false ` as its first parameter. This will redraw the table keeping the current paging (without the `false` parameter the paging would be reset to the first page).
+Also shown is the `dt-api row().remove()` method which deletes a row from a table, and the `dt-api draw()` method with `false ` as its first parameter. This will redraw the table keeping the current paging (without the `false` parameter the paging would be reset to the first page).
 
-If you are looking for a more complete and easier to use row selection option, check out the [Select extension](https://datatables.net/extras/select) provides an API that is fully integrated with DataTables for selecting rows and acting upon those selected rows.
+If you are looking for a more complete and easier to use row selection option, the [Select extension](https://datatables.net/extras/select) provides an API that is fully integrated with DataTables for selecting rows and acting upon that selection.
 
 ]]></info>
 
