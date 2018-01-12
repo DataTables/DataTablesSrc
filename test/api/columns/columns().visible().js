@@ -103,7 +103,7 @@ describe( "columns- columns().visible()", function() {
 					{ data: "name" },
 					{ data: "position" },
 					{ data: "office" },
-					{ data: "extn" },
+					{ data: "age" },
 					{ data: "start_date" },
 					{ data: "salary" }
 				],
@@ -125,7 +125,7 @@ describe( "columns- columns().visible()", function() {
 					{ data: "name" },
 					{ data: "position" },
 					{ data: "office" },
-					{ data: "extn" },
+					{ data: "age" },
 					{ data: "start_date" },
 					{ data: "salary" }
 				],
@@ -146,7 +146,7 @@ describe( "columns- columns().visible()", function() {
 					{ data: "name" },
 					{ data: "position" },
 					{ data: "office" },
-					{ data: "extn" },
+					{ data: "age" },
 					{ data: "start_date" },
 					{ data: "salary" }
 				],
@@ -170,7 +170,7 @@ describe( "columns- columns().visible()", function() {
 					{ data: "name" },
 					{ data: "position" },
 					{ data: "office" },
-					{ data: "extn" },
+					{ data: "age" },
 					{ data: "start_date" },
 					{ data: "salary" }
 				],
@@ -194,7 +194,7 @@ describe( "columns- columns().visible()", function() {
 					{ data: "name" },
 					{ data: "position" },
 					{ data: "office" },
-					{ data: "extn" },
+					{ data: "age" },
 					{ data: "start_date" },
 					{ data: "salary" }
 				],
@@ -218,7 +218,7 @@ describe( "columns- columns().visible()", function() {
 					{ data: "name" },
 					{ data: "position" },
 					{ data: "office" },
-					{ data: "extn" },
+					{ data: "age" },
 					{ data: "start_date" },
 					{ data: "salary" }
 				],
@@ -243,7 +243,7 @@ describe( "columns- columns().visible()", function() {
 					{ data: "name" },
 					{ data: "position" },
 					{ data: "office" },
-					{ data: "extn" },
+					{ data: "age" },
 					{ data: "start_date" },
 					{ data: "salary" }
 				],

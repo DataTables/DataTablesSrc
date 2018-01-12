@@ -22,9 +22,10 @@ describe('columns- column().data()', function() {
 		it('Data is returned for selected column only.', function() {
 			let table = $('#example').DataTable();
 			let testData = table.column(0).data();
-			
+
 			expect(testData[0]).toBe('Airi Satou');
 			expect(testData[2]).toBe('Ashton Cox');
+			expect(testData.count()).toBe(table.rows().count());
 			expect(testData[table.rows().count() - 1]).toBe('Zorita Serrano');
 		});
 	});
