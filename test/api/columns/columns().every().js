@@ -49,7 +49,7 @@ describe('columns- columns().every()', function() {
 				iterated.push(index);
 			});
 
-			expect($.unique(iterated).length).toBe(table.columns().count());
+			expect($.unique(iterated).length).toBe(6);
 		});
 
 		dt.html('basic');

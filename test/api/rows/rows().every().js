@@ -49,7 +49,7 @@ describe('rows- rows().every()', function() {
 				iterated.push(index);
 			});
 
-			expect($.unique(iterated).length).toBe(table.rows().count());
+			expect($.unique(iterated).length).toBe(57);
 		});
 
 		dt.html('basic');
@@ -69,4 +69,4 @@ describe('rows- rows().every()', function() {
 			expect(tagged.sort().toString() == iterated.sort().toString()).toBe(true);
 		});
 	});
-})
+});

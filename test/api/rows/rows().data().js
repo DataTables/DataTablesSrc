@@ -4,19 +4,7 @@ describe('rows- rows().data()', function() {
 		css: ['datatables']
 	});
 
-	// TK COLIN - see about putting this into a library file
-	const testRow = 2;
-	const expectedResult = ['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000'];
-	const newValue = 'New Value';
-
-	function checkResult(result, expected) {
-		expect(result[0]).toBe(expected[0]);
-		expect(result[1]).toBe(expected[1]);
-		expect(result[2]).toBe(expected[2]);
-		expect(result[3]).toBe(expected[3]);
-		expect(result[4]).toBe(expected[4]);
-		expect(result[5]).toBe(expected[5]);
-	}
+	const testRowData = ['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000'];
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
@@ -40,27 +28,28 @@ describe('rows- rows().data()', function() {
 			let table = $('#example').DataTable();
 			let rows = table.rows().data();
 
-			expect(rows.length).toBe(table.rows().count());
-			expect(rows.count()).toBe(table.cells().count());
-			checkResult(rows[testRow], expectedResult);
+			expect(rows.length).toBe(57);
+			expect(rows.count()).toBe(57 * 6);
+
+			expect(rows[2].toString()).toBe(testRowData.toString());
 		});
 
 		it('GET - DOM returns single rows', function() {
 			let table = $('#example').DataTable();
-			let rows = table.rows(testRow).data();
+			let rows = table.rows(2).data();
 
 			expect(rows.length).toBe(1);
-			expect(rows.count()).toBe(table.columns().count());
-			checkResult(rows[0], expectedResult);
+			expect(rows.count()).toBe(6);
+			expect(rows[0].toString()).toBe(testRowData.toString());
 		});
 
 		it('GET - DOM returns two rows', function() {
 			let table = $('#example').DataTable();
-			let rows = table.rows([0, testRow]).data();
+			let rows = table.rows([0, 2]).data();
 
 			expect(rows.length).toBe(2);
-			expect(rows.count()).toBe(2 * table.columns().count());
-			checkResult(rows[1], expectedResult);
+			expect(rows.count()).toBe(2 * 6);
+			expect(rows[1].toString()).toBe(testRowData.toString());
 		});
 	});
 
@@ -81,8 +70,8 @@ describe('rows- rows().data()', function() {
 				initComplete: function(settings, json) {
 					let rows = table.rows().data();
 
-					expect(rows.length).toBe(table.rows().count());
-					checkResult(Object.values(rows[testRow]), expectedResult);
+					expect(rows.length).toBe(57);
+					expect(Object.values(rows[2]).toString()).toBe(testRowData.toString());
 					done();
 				}
 			});
@@ -102,10 +91,10 @@ describe('rows- rows().data()', function() {
 					{ data: 'salary' }
 				],
 				initComplete: function(settings, json) {
-					let rows = table.rows(testRow).data();
+					let rows = table.rows(2).data();
 
 					expect(rows.length).toBe(1);
-					checkResult(Object.values(rows[0]), expectedResult);
+					expect(Object.values(rows[0]).toString()).toBe(testRowData.toString());
 					done();
 				}
 			});
@@ -125,10 +114,10 @@ describe('rows- rows().data()', function() {
 					{ data: 'salary' }
 				],
 				initComplete: function(settings, json) {
-					let rows = table.rows([0, testRow]).data();
+					let rows = table.rows([0, 2]).data();
 
 					expect(rows.length).toBe(2);
-					checkResult(Object.values(rows[1]), expectedResult);
+					expect(Object.values(rows[1]).toString()).toBe(testRowData.toString());
 					done();
 				}
 			});

@@ -23,10 +23,10 @@ describe('columns- column().data()', function() {
 			let table = $('#example').DataTable();
 			let testData = table.column(0).data();
 
+			expect(testData.count()).toBe(57);
 			expect(testData[0]).toBe('Airi Satou');
 			expect(testData[2]).toBe('Ashton Cox');
-			expect(testData.count()).toBe(table.rows().count());
-			expect(testData[table.rows().count() - 1]).toBe('Zorita Serrano');
+			expect(testData[56]).toBe('Zorita Serrano');
 		});
 	});
 });

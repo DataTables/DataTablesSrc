@@ -16,8 +16,8 @@ describe('cells - cell().index()', function() {
 			var table = $('#example').DataTable();
 			var index = table.cell().index();
 
+			expect(typeof index).toBe('object');
 			expect(Object.keys(index).length).toBe(3);
-
 			expect(Number.isInteger(index.row)).toBe(true);
 			expect(Number.isInteger(index.column)).toBe(true);
 			expect(Number.isInteger(index.columnVisible)).toBe(true);

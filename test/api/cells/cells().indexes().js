@@ -38,7 +38,7 @@ describe('cells - cells().indexes()', function() {
 			$(table.row(2).node()).addClass('selected');
 			let cellIdx = table.cells('.selected', '*').indexes();
 
-			expect(cellIdx.length).toBe(table.columns().count());
+			expect(cellIdx.length).toBe(6);
 
 			for (let i = 0; i < table.columns().count(); i++) {
 				expect(cellIdx[i].row).toBe(2);
@@ -57,7 +57,7 @@ describe('cells - cells().indexes()', function() {
 			let cellIdx = table.cells('.selected', '*').indexes();
 			let columnVisible = null;
 
-			expect(cellIdx.length).toBe(table.columns().count());
+			expect(cellIdx.length).toBe(6);
 
 			for (let i = 0; i < table.columns().count(); i++) {
 				expect(cellIdx[i].row).toBe(2);

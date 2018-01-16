@@ -35,7 +35,7 @@ describe('cells- cells().every()', function() {
 				}
 			});
 
-			expect(iteration).toBe(table.cells().count());
+			expect(iteration).toBe(57 * 6);
 		});
 	});
 
@@ -57,11 +57,8 @@ describe('cells- cells().every()', function() {
 		function tagRandomCells(numberToTag) {
 			let table = $('#example').DataTable();
 
-			let maxRow = table.rows().count();
-			let maxCol = table.columns().count();
-
 			for (let i = 0; i < numberToTag; i++) {
-				$(table.cell(Math.floor(Math.random() * maxRow), Math.floor(Math.random() * maxCol)).node()).addClass('myTest');
+				$(table.cell(Math.floor(Math.random() * 57), Math.floor(Math.random() * 6)).node()).addClass('myTest');
 			}
 		}
 
@@ -73,7 +70,7 @@ describe('cells- cells().every()', function() {
 			iteratedCells = [];
 			table.cells().every(iterateFunc);
 
-			expect($.unique(iteratedCells).length).toBe(table.cells().count());
+			expect($.unique(iteratedCells).length).toBe(57 * 6);
 		});
 
 		dt.html('basic');
@@ -127,7 +124,7 @@ describe('cells- cells().every()', function() {
 			iteratedCells = [];
 			table.cells('.myTest').every(iterateFunc);
 
-			expect($.unique(iteratedCells).length).toBe(table.rows().count());
+			expect($.unique(iteratedCells).length).toBe(57);
 		});
 
 		dt.html('basic');
@@ -140,7 +137,7 @@ describe('cells- cells().every()', function() {
 			iteratedCells = [];
 			table.cells('.myTest').every(iterateFunc);
 
-			expect($.unique(iteratedCells).length).toBe(table.columns().count());
+			expect($.unique(iteratedCells).length).toBe(6);
 		});
 
 		dt.html('basic');

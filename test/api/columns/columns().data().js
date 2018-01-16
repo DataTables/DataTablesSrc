@@ -9,19 +9,19 @@ describe('columns- columns().data()', function() {
 		let testData = table.columns(0).data();
 
 		expect(testData.length).toBe(1);
-		expect(testData.count()).toBe(table.rows().count());
+		expect(testData.count()).toBe(57);
 
 		expect(testData[0][0]).toBe('Airi Satou');
 		expect(testData[0][2]).toBe('Ashton Cox');
 		expect(testData[0][table.rows().count() - 1]).toBe('Zorita Serrano');
-	};
+	}
 
 	function checkTwoColumns() {
 		let table = $('#example').DataTable();
 		let testData = table.columns([0, 1]).data();
 
 		expect(testData.length).toBe(2);
-		expect(testData.count()).toBe(table.rows().count() * 2);
+		expect(testData.count()).toBe(57 * 2);
 
 		expect(testData[0][0]).toBe('Airi Satou');
 		expect(testData[1][0]).toBe('Accountant');
@@ -31,24 +31,20 @@ describe('columns- columns().data()', function() {
 
 		expect(testData[0][table.rows().count() - 1]).toBe('Zorita Serrano');
 		expect(testData[1][table.rows().count() - 1]).toBe('Software Engineer');
-	};
+	}
 
 	function checkAllColumns() {
 		let table = $('#example').DataTable();
 		let testData = table.columns().data();
+		const testRowData = ['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000'];
 
-		let totalColumns = table.columns().count();
+		expect(testData.length).toBe(6);
+		expect(testData.count()).toBe(57 * 6);
 
-		expect(testData.length).toBe(totalColumns);
-		expect(testData.count()).toBe(table.rows().count() * totalColumns);
-
-		expect(testData[0][2]).toBe('Ashton Cox');
-		expect(testData[1][2]).toBe('Junior Technical Author');
-		expect(testData[2][2]).toBe('San Francisco');
-		expect(testData[3][2]).toBe('66');
-		expect(testData[4][2]).toBe('2009/01/12');
-		expect(testData[5][2]).toBe('$86,000');
-	};
+		for (let i = 0; i < 6; i++) {
+			expect(testData[i][2]).toBe(testRowData[i]);
+		}
+	}
 
 	describe('Check the defaults', function() {
 		dt.html('basic');

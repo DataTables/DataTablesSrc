@@ -37,213 +37,208 @@
  * spec.
  */
 
+(function(window, jasmine) {
+	'use strict';
 
-(function (window, jasmine) {
-"use strict";
+	/**
+	 * Sequentially load the CSS and JS files. When finished called the `done`
+	 * method to tell Jasmine we are complete!
+	 */
+	function _runQueue(done, queue) {
+		var doc = window.document;
 
-/**
- * Sequentially load the CSS and JS files. When finished called the `done`
- * method to tell Jasmine we are complete!
- */
-function _runQueue ( done, queue ) {
-	var doc = window.document;
+		if (queue.length === 0) {
+			// Everything finally loaded
+			done();
+		} else {
+			var lib = queue.shift();
 
-	if ( queue.length === 0 ) {
-		// Everything finally loaded
-		done();
-	}
-	else {
-		var lib = queue.shift();
+			// CSS or JS?
+			if (lib.match(/js$/)) {
+				var script = doc.createElement('script');
+				script.onload = function() {
+					_runQueue(done, queue);
+				};
+				script.type = 'text/javascript';
+				script.src = lib;
 
-		// CSS or JS?
-		if ( lib.match(/js$/) ) {
-			var script = doc.createElement('script');
-			script.onload = function () {
-				_runQueue( done, queue );
-			};
-			script.type = 'text/javascript';
-			script.src = lib;
+				doc.body.appendChild(script);
+			} else {
+				var link = doc.createElement('link');
+				link.onload = function() {
+					_runQueue(done, queue);
+				};
+				link.type = 'text/css';
+				link.href = lib;
+				link.rel = 'stylesheet';
 
-			doc.body.appendChild( script );
-		}
-		else {
-			var link = doc.createElement('link');
-			link.onload = function () {
-				_runQueue( done, queue );
-			};
-			link.type = 'text/css';
-			link.href = lib;
-			link.rel = 'stylesheet';
-
-			doc.head.appendChild( link );
+				doc.head.appendChild(link);
+			}
 		}
 	}
-}
 
+	/**
+	 * Convert the module name to a path to load
+	 */
+	function _pathResolver(type, path, framework) {
+		var config = window.__karma__.config;
+		var libs = config.libraries;
+		var lib = libs[path];
+		var urlBase = config.htmlLoader.builtRoot;
 
-/**
- * Convert the module name to a path to load
- */
-function _pathResolver ( type, path, framework ) {
-	var config = window.__karma__.config;
-	var libs = config.libraries;
-	var lib = libs[ path ];
-	var urlBase = config.htmlLoader.builtRoot;
-
-	if ( lib.pathName ) {
-		// First party library
-		if ( path === 'datatables' ) {
-			// DataTables is a special case...
-			if ( type === 'css' ) {
-				return framework === 'dataTables' ?
-					[ urlBase+'/media/css/jquery.dataTables.css' ] :
-					[ urlBase+'/media/css/dataTables.'+framework+'.css' ];
-			}
-			else {
-				return framework === 'dataTables' ?
-					[ urlBase+'/media/js/jquery.dataTables.js' ] :
-					[ urlBase+'/media/js/jquery.dataTables.js', urlBase+'/media/js/dataTables.'+framework+'.js' ];
-			}
-		}
-		else {
-			if ( type === 'css' && lib.css ) {
-				return [ urlBase+'/extensions/'+lib.pathName+'/css/'+lib.fileName+'.'+framework+'.css' ];
-			}
-			else if ( type === 'js' ) {
-				var out = [ urlBase+'/extensions/'+lib.pathName+'/js/dataTables.'+lib.fileName+'.js'  ];
-
-				if ( lib.js && framework !== 'dataTables' ) {
-					out.push( urlBase+'/extensions/'+lib.pathName+'/js/'+lib.fileName+'.'+framework+'.js' );
+		if (lib.pathName) {
+			// First party library
+			if (path === 'datatables') {
+				// DataTables is a special case...
+				if (type === 'css') {
+					return framework === 'dataTables'
+						? [urlBase + '/media/css/jquery.dataTables.css']
+						: [urlBase + '/media/css/dataTables.' + framework + '.css'];
+				} else {
+					return framework === 'dataTables'
+						? [urlBase + '/media/js/jquery.dataTables.js']
+						: [urlBase + '/media/js/jquery.dataTables.js', urlBase + '/media/js/dataTables.' + framework + '.js'];
 				}
+			} else {
+				if (type === 'css' && lib.css) {
+					return [urlBase + '/extensions/' + lib.pathName + '/css/' + lib.fileName + '.' + framework + '.css'];
+				} else if (type === 'js') {
+					var out = [urlBase + '/extensions/' + lib.pathName + '/js/dataTables.' + lib.fileName + '.js'];
 
-				return out;
+					if (lib.js && framework !== 'dataTables') {
+						out.push(urlBase + '/extensions/' + lib.pathName + '/js/' + lib.fileName + '.' + framework + '.js');
+					}
+
+					return out;
+				}
 			}
+		} else {
+			// Third party or additional
+			return lib[type] ? lib[type] : null;
 		}
-	}
-	else {
-		// Third party or additional
-		return lib[ type ] ?
-			lib[ type ] :
-			null;
-	}
 
-	return [];
-}
-
-
-/**
- * Build a list of CSS and JS files that need to be loaded
- */
-function _loadDeps ( done, obj ) {
-	var libraries = window.__karma__.config.libraries;
-	var doc = window.document;
-	var queue = [], i, ien;
-
-	// CSS
-	if ( obj.css ) {
-		for ( i=0, ien=obj.css.length ; i<ien ; i++ ) {
-			var resolved = _pathResolver( 'css', obj.css[i], obj.framework || 'dataTables' );
-			queue = queue.concat( resolved );
-		}
+		return [];
 	}
 
-	// JS
-	if ( obj.js ) {
-		for ( i=0, ien=obj.js.length ; i<ien ; i++ ) {
-			var resolved = _pathResolver( 'js', obj.js[i], obj.framework || 'dataTables' );
-			queue = queue.concat( resolved );
-		}
-	}
+	/**
+	 * Build a list of CSS and JS files that need to be loaded
+	 */
+	function _loadDeps(done, obj) {
+		var libraries = window.__karma__.config.libraries;
+		var doc = window.document;
+		var queue = [],
+			i,
+			ien;
 
-	_runQueue( done, queue );
-}
-
-
-/**
- * Get the HTML file and insert into the testing area
- */
-function _loadHtml ( done, file ) {
-	var config = window.__karma__.config;
-	var url = config.htmlLoader.path+file+'.html';
-
-	// Create a container element
-	var doc = window.document;
-	var container = doc.createElement( 'div' );
-	container.id = 'dt-test-loader-container';
-	doc.body.appendChild( container );
-
-	// Load the HTML needed
-	var xhr = new XMLHttpRequest();
-	xhr.addEventListener( 'load', function () {
-		if ( ! xhr.responseText ) {
-			console.error( 'Could not load file: '+url );
-		}
-
-		container.innerHTML = xhr.responseText;
-
-		done();
-	} );
-	xhr.open( 'GET', url );
-	xhr.send();
-}
-
-// Publicly exposed method
-window.dt = {
-	libs: function ( obj ) {
-		window.it( 'Load libraries', function (done) {
-			_loadDeps( done, obj );
-		}, 5000 );
-
-		return window.dt;
-	},
-
-	html: function ( extension, file ) {
-		if ( file === undefined ) {
-			file = extension;
-			extension = undefined;
-		}
-
-		if ( extension ) {
-			file = '../../extensions/'+extension+'/test/html/'+file;
-		}
-
-		window.it( 'Load HTML: '+file, function (done) {
-			dt.clean();
-
-			_loadHtml( done, file );
-		}, 5000 );
-
-		return window.dt;
-	},
-
-	clean: function () {
-		if ( $ ) {
-			$('#dt-test-loader-container').remove();
-		}
-		else {
-			var el = document.getElementById('dt-test-loader-container');
-
-			if ( el ) {
-				document.body.removeChild( el );
+		// CSS
+		if (obj.css) {
+			for (i = 0, ien = obj.css.length; i < ien; i++) {
+				var resolved = _pathResolver('css', obj.css[i], obj.framework || 'dataTables');
+				queue = queue.concat(resolved);
 			}
 		}
 
-		if ( $ && $.fn.dataTableSettings && $.fn.dataTableSettings.length ) {
-			$.fn.dataTableSettings.length = 0;
+		// JS
+		if (obj.js) {
+			for (i = 0, ien = obj.js.length; i < ien; i++) {
+				var resolved = _pathResolver('js', obj.js[i], obj.framework || 'dataTables');
+				queue = queue.concat(resolved);
+			}
 		}
 
-		// Remove the detected browser settings so they can be recomputed
-		if ( $ && $.fn.dataTable ) {
-			$.fn.dataTable.__browser = undefined;
-		}
-
-		return window.dt;
-	},
-
-	container: function() {
-		return $('#dt-test-loader-container');
+		_runQueue(done, queue);
 	}
-};
 
+	/**
+	 * Get the HTML file and insert into the testing area
+	 */
+	function _loadHtml(done, file) {
+		var config = window.__karma__.config;
+		var url = config.htmlLoader.path + file + '.html';
 
-}(window, window.jasmine));
+		// Create a container element
+		var doc = window.document;
+		var container = doc.createElement('div');
+		container.id = 'dt-test-loader-container';
+		doc.body.appendChild(container);
+
+		// Load the HTML needed
+		var xhr = new XMLHttpRequest();
+		xhr.addEventListener('load', function() {
+			if (!xhr.responseText) {
+				console.error('Could not load file: ' + url);
+			}
+
+			container.innerHTML = xhr.responseText;
+
+			done();
+		});
+		xhr.open('GET', url);
+		xhr.send();
+	}
+
+	// Publicly exposed method
+	window.dt = {
+		libs: function(obj) {
+			window.it(
+				'Load libraries',
+				function(done) {
+					_loadDeps(done, obj);
+				},
+				5000
+			);
+
+			return window.dt;
+		},
+
+		html: function(extension, file) {
+			if (file === undefined) {
+				file = extension;
+				extension = undefined;
+			}
+
+			if (extension) {
+				file = '../../extensions/' + extension + '/test/html/' + file;
+			}
+
+			window.it(
+				'Load HTML: ' + file,
+				function(done) {
+					dt.clean();
+
+					_loadHtml(done, file);
+				},
+				5000
+			);
+
+			return window.dt;
+		},
+
+		clean: function() {
+			if ($) {
+				$('#dt-test-loader-container').remove();
+			} else {
+				var el = document.getElementById('dt-test-loader-container');
+
+				if (el) {
+					document.body.removeChild(el);
+				}
+			}
+
+			if ($ && $.fn.dataTableSettings && $.fn.dataTableSettings.length) {
+				$.fn.dataTableSettings.length = 0;
+			}
+
+			// Remove the detected browser settings so they can be recomputed
+			if ($ && $.fn.dataTable) {
+				$.fn.dataTable.__browser = undefined;
+			}
+
+			return window.dt;
+		},
+
+		container: function() {
+			return $('#dt-test-loader-container');
+		},
+	};
+})(window, window.jasmine);

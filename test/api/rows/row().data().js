@@ -1,21 +1,11 @@
-describe('rows- row().data()', function() {
+describe('row - row().data()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
 	});
 
-	const testRow = 2;
-	const expectedResult = ['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000'];
 	const newValue = 'New Value';
-
-	function checkResult(result, expected) {
-		expect(result[0]).toBe(expected[0]);
-		expect(result[1]).toBe(expected[1]);
-		expect(result[2]).toBe(expected[2]);
-		expect(result[3]).toBe(expected[3]);
-		expect(result[4]).toBe(expected[4]);
-		expect(result[5]).toBe(expected[5]);
-	}
+	const testRowData = ['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000'];
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
@@ -32,25 +22,35 @@ describe('rows- row().data()', function() {
 			let row = table.row().data();
 
 			expect(row instanceof Array).toBe(true);
-			expect(row.length).toBe(table.columns().count());
+			expect(row.length).toBe(6);
 		});
 
 		dt.html('basic');
 		it('GET - DOM Sourced Data - check row contents', function() {
 			let table = $('#example').DataTable();
-			checkResult(table.row(testRow).data(), expectedResult);
+			expect(
+				table
+					.row(2)
+					.data()
+					.toString()
+			).toBe(testRowData.toString());
 		});
 
 		dt.html('basic');
 		it('SET - DOM Source Data - set one cell', function() {
 			let table = $('#example').DataTable();
-			let newRow = expectedResult.slice(0); // clone the original array
+			let newRow = testRowData.slice(0); // clone the original array
 
 			newRow[0] = newValue;
-			table.row(testRow).data(newRow);
+			table.row(2).data(newRow);
 
-			expect($('#example tbody tr:eq(' + testRow + ') td:eq(0)').html()).toBe(newValue);
-			checkResult(table.row(testRow).data(), newRow);
+			expect($('#example tbody tr:eq(2) td:eq(0)').html()).toBe(newValue);
+			expect(
+				table
+					.row(2)
+					.data()
+					.toString()
+			).toBe(newRow.toString());
 		});
 	});
 
@@ -90,7 +90,7 @@ describe('rows- row().data()', function() {
 					{ data: 'salary' }
 				],
 				initComplete: function(settings, json) {
-					checkResult(Object.values(table.row(testRow).data()), expectedResult);
+					expect(Object.values(table.row(2).data()).toString(), testRowData.toString());
 					done();
 				}
 			});
@@ -110,12 +110,12 @@ describe('rows- row().data()', function() {
 				],
 				initComplete: function(settings, json) {
 					// get the old row and modify it
-					let newRow = table.row(testRow).data();
+					let newRow = table.row(2).data();
 					newRow.name = newValue;
-					table.row(testRow).data(newRow);
+					table.row(2).data(newRow);
 
-					expect($('#example tbody tr:eq(' + testRow + ') td:eq(0)').html()).toBe(newValue);
-					checkResult(Object.values(table.row(testRow).data()), Object.values(newRow));
+					expect($('#example tbody tr:eq(2) td:eq(0)').html()).toBe(newValue);
+					expect(Object.values(table.row(2).data()).toString()).toBe(Object.values(newRow).toString());
 					done();
 				}
 			});

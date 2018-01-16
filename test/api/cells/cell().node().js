@@ -19,13 +19,13 @@ describe('cells - cell().node()', function() {
 	it('Returns first and last cell of first row as expected', function() {
 		var table = $('#example').DataTable();
 		expect(table.cell(0, 0).node().innerText).toBe('Tiger Nixon');
-		expect(table.cell(0, table.columns().count() - 1).node().innerText).toBe('$320,800');
+		expect(table.cell(0, 5).node().innerText).toBe('$320,800');
 	});
 
 	it('Returns first and last cell of last row as expected', function() {
 		var table = $('#example').DataTable();
-		expect(table.cell(table.rows().count() - 1, 0).node().innerText).toBe('Donna Snider');
-		expect(table.cell(table.rows().count() - 1, table.columns().count() - 1).node().innerText).toBe('$112,000');
+		expect(table.cell(56, 0).node().innerText).toBe('Donna Snider');
+		expect(table.cell(56, 5).node().innerText).toBe('$112,000');
 	});
 
 	dt.html('basic');
