@@ -26,7 +26,6 @@ describe('cells - cells().nodes()', function() {
 				expect(nodes[i] instanceof HTMLElement).toBe(true);
 			}
 		}
-
 		dt.html('basic');
 
 		it('A single node can be returned', function() {
@@ -34,7 +33,7 @@ describe('cells - cells().nodes()', function() {
 			node = table.cells(2, 0).nodes();
 
 			checkNodes(node, 1);
-			expect(node[0].innerText).toBe('Ashton Cox');
+			expect(node[0].textContent).toBe('Ashton Cox');
 		});
 
 		dt.html('basic');
