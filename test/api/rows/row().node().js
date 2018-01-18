@@ -14,13 +14,13 @@ describe('rows - row().node()', function() {
 		});
 
 		dt.html('basic');
-		it('Returns an API instance', function() {
+		it('Returns an HTML element', function() {
 			let table = $('#example').DataTable();
 			expect(table.row().node() instanceof HTMLTableRowElement).toBe(true);
 		});
 	});
 
-	describe('Check behaviour', function() {
+	describe('Check the behaviour', function() {
 		dt.html('basic');
 		it('Return correct row', function() {
 			let table = $('#example').DataTable();

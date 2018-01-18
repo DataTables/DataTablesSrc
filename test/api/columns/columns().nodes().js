@@ -1,9 +1,3 @@
-// todo tests
-// - Confirm it exists and is a function- done
-// - Confirm it returns an API instance - done
-// - Data is returned as a 2D array
-// - Returned data includes td nodes
-
 describe('columns- columns().nodes()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -13,7 +7,7 @@ describe('columns- columns().nodes()', function() {
 	function checkNodes(nodes, length) {
 		expect(nodes.length).toBe(length);
 		for (let i = 0; i < length; i++) {
-			expect(nodes[i] instanceof HTMLElement).toBe(true);
+			expect(nodes[i] instanceof HTMLTableCellElement).toBe(true);
 		}
 	}
 
