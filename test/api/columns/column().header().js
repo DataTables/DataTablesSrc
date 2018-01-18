@@ -1,5 +1,3 @@
-// - Test with a scrolling table
-
 describe('columns - column().header()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -18,6 +16,7 @@ describe('columns - column().header()', function() {
 			let table = $('#example').DataTable();
 			expect(typeof table.column().header).toBe('function');
 		});
+
 		dt.html('basic');
 		it('Returns a node', function() {
 			let table = $('#example').DataTable();
@@ -25,7 +24,7 @@ describe('columns - column().header()', function() {
 		});
 	});
 
-	describe('Check the defaults', function() {
+	describe('Check the behaviour', function() {
 		dt.html('basic');
 		it('One row in header: Select first column return header cell', function() {
 			let table = $('#example').DataTable();
