@@ -224,15 +224,15 @@ DT_Example::$components['select'] = [
 
 // Legacy extensions
 if ( isset( $options['cdn'] ) ) {
-	DT_Example::$lookup_libraries['css']['colvis']          = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
-	DT_Example::$lookup_libraries['js' ]['colvis']          = '//cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/js/dataTables.colVis.min.js';
-	DT_Example::$lookup_libraries['css']['tabletools']      = '//cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/css/dataTables.tableTools.css';
-	DT_Example::$lookup_libraries['js' ]['tabletools']      = '//cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/js/dataTables.tableTools.min.js';
+	DT_Example::$lookup_libraries['css']['colvis']          = 'https://cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
+	DT_Example::$lookup_libraries['js' ]['colvis']          = 'https://cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/js/dataTables.colVis.min.js';
+	DT_Example::$lookup_libraries['css']['tabletools']      = 'https://cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/css/dataTables.tableTools.css';
+	DT_Example::$lookup_libraries['js' ]['tabletools']      = 'https://cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/js/dataTables.tableTools.min.js';
 
-	DT_Example::$lookup_libraries['js' ]['buttons-flash']   = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.flash.min.js';
-	DT_Example::$lookup_libraries['js' ]['buttons-html5']   = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.html5.min.js';
-	DT_Example::$lookup_libraries['js' ]['buttons-colvis']  = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.colVis.min.js';
-	DT_Example::$lookup_libraries['js' ]['buttons-print']   = '//cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.print.min.js';
+	DT_Example::$lookup_libraries['js' ]['buttons-flash']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.flash.min.js';
+	DT_Example::$lookup_libraries['js' ]['buttons-html5']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.html5.min.js';
+	DT_Example::$lookup_libraries['js' ]['buttons-colvis']  = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.colVis.min.js';
+	DT_Example::$lookup_libraries['js' ]['buttons-print']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.print.min.js';
 }
 else {
 	DT_Example::$lookup_libraries['css']['colvis']          = path_simplify( $dir_media.'/../extensions/ColVis/css/dataTables.colVis.css' );
@@ -250,29 +250,29 @@ else {
 // Styling libraries
 // When updating these files, make sure you also update the `karma.config` tests
 // file to match versions.
-DT_Example::$lookup_libraries['js' ]['jquery']       = '//code.jquery.com/jquery-1.12.4.js';
-//DT_Example::$lookup_libraries['js' ]['jquery']       = '//code.jquery.com/jquery-3.2.1.js';
-DT_Example::$lookup_libraries['js' ]['jqueryui']     = '//code.jquery.com/ui/1.12.1/jquery-ui.js';
-DT_Example::$lookup_libraries['css']['jqueryui']     = '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
-DT_Example::$lookup_libraries['js' ]['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
-DT_Example::$lookup_libraries['css']['bootstrap']    = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
-DT_Example::$lookup_libraries['js']['bootstrap4']    = '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js|//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js';
-DT_Example::$lookup_libraries['css' ]['bootstrap4']  = '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css';
-DT_Example::$lookup_libraries['js' ]['semanticui']   = '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js';
-DT_Example::$lookup_libraries['css']['semanticui']   = '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css';
-DT_Example::$lookup_libraries['js' ]['material']     = '//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.js';
-DT_Example::$lookup_libraries['css']['material']     = '//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css';
-DT_Example::$lookup_libraries['js' ]['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.js';
-DT_Example::$lookup_libraries['css']['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.css';
-DT_Example::$lookup_libraries['js' ]['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js';
-DT_Example::$lookup_libraries['css']['foundation']   = '//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css';
+DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-1.12.4.js';
+//DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-3.2.1.js';
+DT_Example::$lookup_libraries['js' ]['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/jquery-ui.js';
+DT_Example::$lookup_libraries['css']['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
+DT_Example::$lookup_libraries['js' ]['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
+DT_Example::$lookup_libraries['css']['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+DT_Example::$lookup_libraries['js']['bootstrap4']    = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js|https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js';
+DT_Example::$lookup_libraries['css' ]['bootstrap4']  = 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css';
+DT_Example::$lookup_libraries['js' ]['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js';
+DT_Example::$lookup_libraries['css']['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css';
+DT_Example::$lookup_libraries['js' ]['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.js';
+DT_Example::$lookup_libraries['css']['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css';
+DT_Example::$lookup_libraries['js' ]['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.js';
+DT_Example::$lookup_libraries['css']['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.css';
+DT_Example::$lookup_libraries['js' ]['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js';
+DT_Example::$lookup_libraries['css']['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css';
 DT_Example::$lookup_libraries['js' ]['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/js/uikit.min.js';
 DT_Example::$lookup_libraries['css']['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/css/uikit.min.css';
-DT_Example::$lookup_libraries['css']['font-awesome'] = '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
-DT_Example::$lookup_libraries['js']['jszip']         = '//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js';
-DT_Example::$lookup_libraries['js']['pdfmake']       = '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js';
-DT_Example::$lookup_libraries['js']['vfsfonts']      = '//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js';
-DT_Example::$lookup_libraries['js']['moment']        = '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js';
+DT_Example::$lookup_libraries['css']['font-awesome'] = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
+DT_Example::$lookup_libraries['js']['jszip']         = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js';
+DT_Example::$lookup_libraries['js']['pdfmake']       = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js';
+DT_Example::$lookup_libraries['js']['vfsfonts']      = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js';
+DT_Example::$lookup_libraries['js']['moment']        = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js';
 
 function multiple ( $value, $fn )
 {
