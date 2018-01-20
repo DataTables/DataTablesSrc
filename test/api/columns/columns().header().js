@@ -18,7 +18,7 @@ describe('columns - columns().header()', function() {
 		dt.html('basic');
 		it('Exists and is a function', function() {
 			let table = $('#example').DataTable();
-			expect(typeof table.column().header).toBe('function');
+			expect(typeof table.columns().header).toBe('function');
 		});
 
 		dt.html('basic');
@@ -106,7 +106,7 @@ describe('columns - columns().header()', function() {
 		});
 
 		dt.html('basic');
-		it('Hidden column at initialisation', function() {
+		it('Hidden column by API', function() {
 			let table = $('#example').DataTable();
 			table.column(2).visible(false);
 			let returnData = table.columns([0, 2]).header();
