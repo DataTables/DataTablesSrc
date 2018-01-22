@@ -12,7 +12,7 @@ DataTables can obtain data from four different fundamental sources:
 * Ajax sourced data with client-side processing
 * Ajax sourced data with server-side processing
 
-Which of these options is used to populate the table with data depends upon how the table is initialised. The examples in this section show these four different data source types.
+Which of these options is used to populate the table data depends upon how the table is initialised. The examples in this section show these four different data source types.
 
 ]]></info>
 

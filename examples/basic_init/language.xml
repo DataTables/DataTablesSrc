@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 Changing the language information displayed by DataTables is as simple as passing in a `dt-init language` object to the DataTable constructor.
 
-The example above shows a different set of English string being used, rather than the defaults.
+This example shows a different set of English string being used, rather than the defaults.
 
 ]]></info>
 

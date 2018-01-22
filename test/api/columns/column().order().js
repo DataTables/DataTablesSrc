@@ -54,7 +54,6 @@ describe('columns- column().order()', function() {
 				.draw();
 			checkNameColumn('asc');
 			expect(areColumnsSorted(['sorting_asc'])).toBe(true);
-
 		});
 
 		dt.html('basic');
@@ -84,7 +83,7 @@ describe('columns- column().order()', function() {
 				.column(1)
 				.order('desc')
 				.draw();
-			expect(areColumnsSorted([,'sorting_desc'])).toBe(true);
+			expect(areColumnsSorted([, 'sorting_desc'])).toBe(true);
 		});
 
 		dt.html('basic');
@@ -103,6 +102,7 @@ describe('columns- column().order()', function() {
 		dt.html('basic');
 		it('Can clear order', function() {
 			// TL COLIN this should go into the order tests, but shoving here for time being
+			// also have a test for ordering defined during initialised (see http://testsite.local/examples/basic_init/table_sorting.html)
 			let table = $('#example').DataTable();
 			table
 				.column(0)

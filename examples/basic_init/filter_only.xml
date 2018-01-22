@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-Disabling features that you don't wish to use for a particular table is easily done by setting a variable in the initialisation object. A full list of the options that can be used is [available in the DataTables reference](https://datatables.net/reference/option).
+Disabling features that you don't wish to use for a particular table is easily done by setting a variable in the initialisation object. The full list of available options is [available in the DataTables reference](https://datatables.net/reference/option).
 
 In the following example only the search feature is left enabled (which it is by default).
 

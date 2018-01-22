@@ -39,7 +39,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-There may be occasions when you wish to search data presented to the end user in your own manner, common examples are number range search (in between two numbers) and date range search. DataTables provide an API method to add your own search functions, `$.fn.dataTable.ext.search`. This is an array of functions (push your own onto it) which will will be run at table draw time to see if a particular row should be included or not.
+There may be occasions when you wish to search data presented to the end user in your own manner, common examples are number range searches (in between two numbers) and date range searches. DataTables provides an API method to add your own search functions, `$.fn.dataTable.ext.search`. This is an array of functions (push your own onto it) which will will be run at table draw time to see if a particular row should be included or not.
 
 This example shows a search being performed on the age column in the data, based upon two inputs.
 
