@@ -6,10 +6,7 @@ describe('columns- columns().every()', function() {
 	});
 
 	describe('Check the defaults', function() {
-		const argumentLength = 4;
-
 		dt.html('basic');
-
 		it('Exists and is a function', function() {
 			let table = $('#example').DataTable();
 			expect(typeof table.columns().every).toBe('function');
@@ -28,7 +25,7 @@ describe('columns- columns().every()', function() {
 				// only need to check types on the first iteration
 				if (iteration++ == 0) {
 					let len = arguments.length;
-					expect(len).toBe(argumentLength);
+					expect(len).toBe(4);
 
 					for (let i = 0; i < len - 1; i++) expect(Number.isInteger(arguments[i])).toBe(true);
 					expect(typeof arguments[len - 1]).toBe('undefined');
@@ -39,7 +36,6 @@ describe('columns- columns().every()', function() {
 
 	describe('Check behaviour', function() {
 		dt.html('basic');
-
 		it('Every column is iterated upon', function() {
 			let table = $('#example').DataTable();
 			let iterated = [];
@@ -53,7 +49,6 @@ describe('columns- columns().every()', function() {
 		});
 
 		dt.html('basic');
-
 		it('Only selected columns are iterated upon', function() {
 			let table = $('#example').DataTable();
 			let iterated = [];

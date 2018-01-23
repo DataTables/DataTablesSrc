@@ -38,7 +38,7 @@ Note that in order to see the new row in the table you must call the `dt-api dra
 
 This example shows a single row being added each time the button below is clicked upon.
 
-The [Editor extension](https://editor.datatables.net/) adds full table editing controls, including creating, editing and deleting rows, to a DataTable.
+The [Editor extension](https://editor.datatables.net/) adds full table editing controls to a DataTable, including creating, editing and deleting rows.
 
 ]]></info>
 
