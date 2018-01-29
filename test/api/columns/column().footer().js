@@ -1,4 +1,4 @@
-//TK COLIN - this could do with some tidying up, this is just a repetition of the footer tests
+//TK COLIN - this could do with some tidying up, this is just a repetition of the header tests
 describe('columns - column().footer()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -37,19 +37,22 @@ describe('columns - column().footer()', function() {
 			verifyFooter(table.column(-1).footer(), 'Salary');
 		});
 
-		// TK COLIN following tests are failing, have asked the master whether that's expected
-		// but either way, worth having the test with the correct expected outcome
-		// dt.html('two_footers');
-		// it('Two rows in footer: Selecting column returns bottom row', function() {
-		// 	let table = $('#example').DataTable();
-		// 	verifyFooter(table.column(0).footer(), 'Name1');
-		// });
+		/**
+		 * note the footers currently don't respond orderCellsTop (only applied to headers)
+		 * but have left in the following tests which will fail when this functionality
+		 * is added
+		 **/
+		dt.html('two_footers');
+		it('Two rows in footer: Selecting column returns bottom row', function() {
+			let table = $('#example').DataTable();
+			verifyFooter(table.column(0).footer(), 'Name');
+		});
 
-		// dt.html('two_footers');
-		// it('Two rows in footer: Selecting last column returns bottom row', function() {
-		// 	let table = $('#example').DataTable();
-		// 	verifyFooter(table.column(-1).footer(), 'Salary1');
-		// });
+		dt.html('two_footers');
+		it('Two rows in footer: Selecting last column returns bottom row', function() {
+			let table = $('#example').DataTable();
+			verifyFooter(table.column(-1).footer(), 'Salary');
+		});
 
 		dt.html('two_footers');
 		it('orderCellsTop: true- Selecting first column returns top row', function() {

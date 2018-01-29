@@ -20,7 +20,7 @@ $(document).ready(function() {
 
 Often you may want to have your table resize dynamically with the page. Typically this is done by assigning `width:100%` in your CSS, but this presents a problem for Javascript since it can be very hard to get that relative size rather than the absolute pixels. As such, if you apply the `width` attribute to the HTML table tag or inline width style (`style="width:100%"`), it will be used as the width for the table (overruling any CSS styles).
 
-This example shows a table with `width="100%"` and the container is also flexible width, so as the window is resized, the table will also resize dynamically.
+This example shows a table with `width="80%"` and the container is also flexible width, so as the window is resized, the table will also resize dynamically.
 
 ]]></info>
 

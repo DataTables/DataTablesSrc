@@ -338,7 +338,7 @@ class DT_Example
 	}
 
 
-	public function build_table ( $type )
+	public function build_table ( $type, $idIn=null )
 	{
 		if ( isset( $this->_xml->{'custom-table'} ) ) {
 			return $this->innerXML( $this->_xml->{'custom-table'} );
@@ -360,7 +360,10 @@ class DT_Example
 		}
 
 		$id = 'example';
-		if ( isset( $this->_xml['table-id'] ) ) {
+		if ( $idIn !== null ) {
+			$id = $idIn;
+		}
+		else if ( isset( $this->_xml['table-id'] ) ) {
 			$id = (string)$this->_xml['table-id'];
 		}
 

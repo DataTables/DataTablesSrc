@@ -342,8 +342,8 @@ DataTable.defaults.column = {
 	 *          { "data": "engine" },
 	 *          { "data": "browser" },
 	 *          { "data": "platform.inner" },
-	 *          { "data": "platform.details.0" },
-	 *          { "data": "platform.details.1" }
+	 *          { "data": "details.0" },
+	 *          { "data": "details.1" }
 	 *        ]
 	 *      } );
 	 *    } );

@@ -1,534 +1,290 @@
-// todo tests
-// - Confirm it exists and is a function
-// - Getter
-//   - Will return a boolean value
-//   - Column hidden by `columns.visible` at init returns false
-//   - Column not hidden by `columns.visible` at init returns true
-//   - Column hidden by API returns false
-//   - Column hidden at init and then made visible returns true
-// - Setter
-//   - `false` will hide a column (check header, body and footer nodes)
-//   - `true` will make a column visible (check header, body and footer nodes) DONE
-//   - Repeat the above with:
-//     - `deferRender` and an Ajax sourced table
-//     - A table with no footer
-//     - A scrolling table with header and footer
-//     - A scrolling table with no footer
+describe('columns - column().visible()', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-describe( "columns- column().visible()", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+	// check array for column visibility (default is visible)
+	function areColumnsInvisible(colArray) {
+		let visiblity = $('#example')
+			.DataTable()
+			.columns()
+			.visible();
+		for (let i = 0; i < 6; i++) {
+			if (visiblity[i] == colArray.includes(i)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Exists and is a function", function () {
-			var table = $('#example').DataTable();
+	// check DOM for column's header, body, and footer
+	function checkColumnHBF(column, header, body, footer) {
+		expect($('#example thead th:eq(' + column + ')').text()).toBe(header);
+		expect($('#example tbody tr:eq(' + column + ') td:eq(0)').text()).toBe(body);
+		expect($('#example tfoot th:eq(' + column + ')').text()).toBe(footer);
+	}
+
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Exists and is a function', function() {
+			let table = $('#example').DataTable();
 			expect(typeof table.column().visible).toBe('function');
 		});
 
-		//Getter
-		dt.html( 'basic' );
-		it("Will return a boolean value", function () {
-			var table = $('#example').DataTable();
-			var test = table.column().visible();
-			expect(typeof(test) == 'boolean').toBe(true);
-		});
-		dt.html( 'basic' );
-		it("Columns hidden by 'columns.visible' at init returns false", function () {
-			var table = $('#example').DataTable({
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			var test = table.column().visible();
-			expect(test).toBe(false);
-		});
-		dt.html( 'basic' );
-		it("Columns not hidden by 'columns.visible' at init returns true", function () {
-			var table = $('#example').DataTable({
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			var test = table.column(1).visible();
-			expect(test).toBe(true);
-		});
-		dt.html( 'basic' );
-		it("Column hidden at init and then made visible returns trues", function () {
-			var table = $('#example').DataTable({
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			table.column(0).visible(true);
-			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "Airi Satou").toBe(true);
-		});
-		//Setter
-		dt.html( 'basic' );
-		it("`false` will hide a column (check header, body and footer nodes)", function () {
-			var table = $('#example').DataTable();
-			table.column(0).visible(false);
-			expect(
-				$('#example thead th:eq(0)').html() !== "Name" &&
-				$('#example tbody tr:eq(0) td:eq(0)').html() !== "Airi Satou" &&
-				$('#example tfoot th:eq(0)').html() !== "Name").toBe(true);
-		});
-		dt.html( 'basic' );
-		it("`false` will hide a column (check header, body and footer nodes)", function () {
-			var table = $('#example').DataTable({
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			table.column(0).visible(true);
-			expect(
-				$('#example thead th:eq(0)').html() == "Name" &&
-				$('#example tbody tr:eq(0) td:eq(0)').html() == "Airi Satou" &&
-				$('#example tfoot th:eq(0)').html() == "Name").toBe(true);
+		dt.html('basic');
+		it('Getter returns a boolean value', function() {
+			let table = $('#example').DataTable();
+			expect(typeof table.column().visible()).toBe('boolean');
 		});
 
-		//Ajax
+		dt.html('basic');
+		it('Setter returns an API instance', function() {
+			var table = $('#example').DataTable();
+			expect(table.column().visible(true) instanceof $.fn.dataTable.Api).toBe(true);
+		});
 	});
 
-	describe("Repeated with deferRender and AJAX", function () {
-		dt.html( 'empty' );
-		it("Exists and is a function", function (done) {
-			table = $('#example').DataTable( {
-				ajax: '/base/test/data/data.txt',
-				deferRender: true,
-				columns: [
-					{ data: "name" },
-					{ data: "position" },
-					{ data: "office" },
-					{ data: "age" },
-					{ data: "start_date" },
-					{ data: "salary" }
-				],
-				initComplete: function ( settings, json ) {
-
-					done();
-				}
-			} );
-
-		});
-		dt.html( 'basic' );
-		it("Exists and is a function", function (done) {
-			table = $('#example').DataTable( {
-				ajax: '/base/test/data/data.txt',
-				deferRender: true,
-				columns: [
-					{ data: "name" },
-					{ data: "position" },
-					{ data: "office" },
-					{ data: "age" },
-					{ data: "start_date" },
-					{ data: "salary" }
-				],
-				initComplete: function ( settings, json ) {
-					expect(typeof table.column().visible).toBe('function');
-					done();
-				}
-			} );
-
+	describe('Getter', function() {
+		dt.html('basic');
+		it("Column visibility set by 'columns.visible' at init returns expected", function() {
+			let table = $('#example').DataTable({
+				columnDefs: [{ visible: false, targets: 0 }]
+			});
+			checkColumnHBF(0, 'Position', 'Accountant', 'Position');
+			expect(areColumnsInvisible([0])).toBe(true);
 		});
 
-		//Getter
-		dt.html( 'basic' );
-		it("Will return a boolean value", function (done) {
-			table = $('#example').DataTable( {
-				ajax: '/base/test/data/data.txt',
-				deferRender: true,
-				columns: [
-					{ data: "name" },
-					{ data: "position" },
-					{ data: "office" },
-					{ data: "age" },
-					{ data: "start_date" },
-					{ data: "salary" }
-				],
-				initComplete: function ( settings, json ) {
-					var test = table.column().visible();
-					expect(typeof(test) == 'boolean').toBe(true);
-					done();
-				}
-			} );
-
+		dt.html('basic');
+		it('Column hidden at init and then made visible returns true', function() {
+			let table = $('#example').DataTable({
+				columnDefs: [{ visible: false, targets: 0 }]
+			});
+			table.column(0).visible(true);
+			checkColumnHBF(0, 'Name', 'Airi Satou', 'Name');
+			expect(areColumnsInvisible([])).toBe(true);
 		});
-		dt.html( 'basic' );
-		it("Columns hidden by 'columns.visible' at init returns false", function (done) {
-			table = $('#example').DataTable( {
-				ajax: '/base/test/data/data.txt',
-				deferRender: true,
-				columns: [
-					{ data: "name" },
-					{ data: "position" },
-					{ data: "office" },
-					{ data: "age" },
-					{ data: "start_date" },
-					{ data: "salary" }
-				],
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				],
-				initComplete: function ( settings, json ) {
-					var test = table.column().visible();
-					expect(test).toBe(false);
-					done();
-				}
-			} );
+	});
+
+	describe('Setter', function() {
+		dt.html('basic');
+		it('Hide a column (check header, body and footer nodes)', function() {
+			let table = $('#example').DataTable();
+			table.column(0).visible(false);
+
+			checkColumnHBF(0, 'Position', 'Accountant', 'Position');
+			expect(areColumnsInvisible([0])).toBe(true);
 		});
 
-		dt.html( 'basic' );
-		it("Columns not hidden by 'columns.visible' at init returns true", function (done) {
-			table = $('#example').DataTable( {
+		dt.html('basic');
+		it('Unhide a column (check header, body and footer nodes)', function() {
+			let table = $('#example').DataTable({
+				columnDefs: [{ visible: false, targets: 0 }]
+			});
+
+			table.column(0).visible(true);
+
+			checkColumnHBF(0, 'Name', 'Airi Satou', 'Name');
+			expect(areColumnsInvisible([])).toBe(true);
+		});
+	});
+
+	const testColumns = [
+		{ data: 'name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'age' },
+		{ data: 'start_date' },
+		{ data: 'salary' }
+	];
+
+	describe('Getter tests with deferRender and AJAX', function() {
+		dt.html('basic');
+		it("Column visibility set by 'columns.visible' at init returns expected", function(done) {
+			table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: [
-					{ data: "name" },
-					{ data: "position" },
-					{ data: "office" },
-					{ data: "age" },
-					{ data: "start_date" },
-					{ data: "salary" }
-				],
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				],
-				initComplete: function ( settings, json ) {
-					var test = table.column(1).visible();
-					expect(test).toBe(true);
+				columns: testColumns,
+				columnDefs: [{ visible: false, targets: 0 }],
+				initComplete: function(settings, json) {
+					checkColumnHBF(0, 'Position', 'Accountant', 'Position');
+					expect(areColumnsInvisible([0])).toBe(true);
 					done();
 				}
-			} );
-
+			});
 		});
-		dt.html( 'basic' );
-		it("Column hidden at init and then made visible returns trues", function (done) {
-			table = $('#example').DataTable( {
+
+		dt.html('basic');
+		it('Column hidden at init and then made visible returns trues', function(done) {
+			table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: [
-					{ data: "name" },
-					{ data: "position" },
-					{ data: "office" },
-					{ data: "age" },
-					{ data: "start_date" },
-					{ data: "salary" }
-				],
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				],
-				initComplete: function ( settings, json ) {
+				columns: testColumns,
+				columnDefs: [{ visible: false, targets: 0 }],
+				initComplete: function(settings, json) {
 					table.column(0).visible(true);
-					expect($('#example tbody tr:eq(0) td:eq(0)').html() == "Airi Satou").toBe(true);
+					checkColumnHBF(0, 'Name', 'Airi Satou', 'Name');
+					expect(areColumnsInvisible([])).toBe(true);
 					done();
 				}
-			} );
+			});
 		});
-		//Setter
-		dt.html( 'basic' );
-		it("`false` will hide a column (check header, body and footer nodes)", function (done) {
-			table = $('#example').DataTable( {
+	});
+
+	describe('Getter tests with deferRender and AJAX', function() {
+		dt.html('basic');
+		it('Hide a column (check header, body and footer nodes)', function(done) {
+			table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: [
-					{ data: "name" },
-					{ data: "position" },
-					{ data: "office" },
-					{ data: "age" },
-					{ data: "start_date" },
-					{ data: "salary" }
-				],
-				initComplete: function ( settings, json ) {
+				columns: testColumns,
+				initComplete: function(settings, json) {
 					table.column(0).visible(false);
-					expect(
-						$('#example thead th:eq(0)').html() !== "Name" &&
-						$('#example tbody tr:eq(0) td:eq(0)').html() !== "Airi Satou" &&
-						$('#example tfoot th:eq(0)').html() !== "Name").toBe(true);
+					checkColumnHBF(0, 'Position', 'Accountant', 'Position');
+					expect(areColumnsInvisible([0])).toBe(true);
 					done();
 				}
-			} );
-
-
+			});
 		});
-		dt.html( 'basic' );
-		it("`false` will hide a column (check header, body and footer nodes)", function (done) {
-			table = $('#example').DataTable( {
+
+		dt.html('basic');
+		it('Unhide a column (check header, body and footer nodes)', function(done) {
+			table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: [
-					{ data: "name" },
-					{ data: "position" },
-					{ data: "office" },
-					{ data: "age" },
-					{ data: "start_date" },
-					{ data: "salary" }
-				],
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				],
-				initComplete: function ( settings, json ) {
+				columns: testColumns,
+				columnDefs: [{ visible: false, targets: 0 }],
+				initComplete: function(settings, json) {
 					table.column(0).visible(true);
-					expect(
-						$('#example thead th:eq(0)').html() == "Name" &&
-						$('#example tbody tr:eq(0) td:eq(0)').html() == "Airi Satou" &&
-						$('#example tfoot th:eq(0)').html() == "Name").toBe(true);
+					checkColumnHBF(0, 'Name', 'Airi Satou', 'Name');
+					expect(areColumnsInvisible([])).toBe(true);
 					done();
 				}
-			} );
-
+			});
 		});
 	});
-	describe("Tests footer removed", function () {
-		dt.html( 'no_footer' );
-		it("Exists and is a function", function () {
-			var table = $('#example').DataTable();
-			expect(typeof table.column().visible).toBe('function');
+
+	describe('Getter tests with footer removed', function() {
+		dt.html('no_footer');
+		it("Column visibility set by 'columns.visible' at init returns expected", function() {
+			let table = $('#example').DataTable({
+				columnDefs: [{ visible: false, targets: 0 }]
+			});
+			checkColumnHBF(0, 'Position', 'Accountant', '');
+			expect(areColumnsInvisible([0])).toBe(true);
 		});
 
-		//Getter
-		dt.html( 'no_footer' );
-		it("Will return a boolean value", function () {
-			var table = $('#example').DataTable();
-			var test = table.column().visible();
-			expect(typeof(test) == 'boolean').toBe(true);
-		});
-		dt.html( 'no_footer' );
-		it("Columns hidden by 'columns.visible' at init returns false", function () {
-			var table = $('#example').DataTable({
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			var test = table.column().visible();
-			expect(test).toBe(false);
-		});
-		dt.html( 'no_footer' );
-		it("Columns not hidden by 'columns.visible' at init returns true", function () {
-			var table = $('#example').DataTable({
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			var test = table.column(1).visible();
-			expect(test).toBe(true);
-		});
-		dt.html( 'no_footer' );
-		it("Column hidden at init and then made visible returns trues", function () {
-			var table = $('#example').DataTable({
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
+		dt.html('no_footer');
+		it('Column hidden at init and then made visible returns trues', function() {
+			let table = $('#example').DataTable({
+				columnDefs: [{ visible: false, targets: 0 }]
 			});
 			table.column(0).visible(true);
-			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "Airi Satou").toBe(true);
+			checkColumnHBF(0, 'Name', 'Airi Satou', '');
+			expect(areColumnsInvisible([])).toBe(true);
 		});
-		//Setter
-		dt.html( 'no_footer' );
-		it("`false` will hide a column (check header, body and footer nodes)", function () {
-			var table = $('#example').DataTable();
+	});
+
+	describe('Setter tests with footer removed', function() {
+		dt.html('no_footer');
+		it('Hide a column (check header, body and footer nodes)', function() {
+			let table = $('#example').DataTable();
 			table.column(0).visible(false);
-			expect(
-				$('#example thead th:eq(0)').html() !== "Name" &&
-				$('#example tbody tr:eq(0) td:eq(0)').html() !== "Airi Satou" &&
-				$('#example tfoot th:eq(0)').html() !== "Name").toBe(true);
-		});
-		dt.html( 'no_footer' );
-		it("`false` will hide a column (check header, body )", function () {
-			var table = $('#example').DataTable({
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			table.column(0).visible(true);
-			expect(
-				$('#example thead th:eq(0)').html() == "Name" &&
-				$('#example tbody tr:eq(0) td:eq(0)').html() == "Airi Satou").toBe(true);
-		});
-	});
-	describe("Tests with scrolling table ", function () {
-		dt.html( 'basic' );
-		it("Exists and is a function", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false
-			});
-			expect(typeof table.column().visible).toBe('function');
+			checkColumnHBF(0, 'Position', 'Accountant', '');
+			expect(areColumnsInvisible([0])).toBe(true);
 		});
 
-		//Getter
-		dt.html( 'basic' );
-		it("Will return a boolean value", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false
-			});
-			var test = table.column().visible();
-			expect(typeof(test) == 'boolean').toBe(true);
-		});
-		dt.html( 'basic' );
-		it("Columns hidden by 'columns.visible' at init returns false", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false,
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			var test = table.column().visible();
-			expect(test).toBe(false);
-		});
-		dt.html( 'basic' );
-		it("Columns not hidden by 'columns.visible' at init returns true", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false,
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			var test = table.column(1).visible();
-			expect(test).toBe(true);
-		});
-		dt.html( 'basic' );
-		it("Column hidden at init and then made visible returns trues", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false,
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
+		dt.html('no_footer');
+		it('Unhide a column (check header, body and footer nodes)', function() {
+			let table = $('#example').DataTable({
+				columnDefs: [{ visible: false, targets: 0 }]
 			});
 			table.column(0).visible(true);
-			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "Airi Satou").toBe(true);
-		});
-		//Setter
-		dt.html( 'basic' );
-		it("`false` will hide a column (check header, body and footer nodes)", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false
-			});
-			table.column(0).visible(false);
-			expect(
-				$('#example thead th:eq(0)').html() !== "Name" &&
-				$('#example tbody tr:eq(0) td:eq(0)').html() !== "Airi Satou" &&
-				$('#example tfoot th:eq(0)').html() !== "Name").toBe(true);
-		});
-		dt.html( 'basic' );
-		it("`false` will hide a column (check header, body and footer nodes)", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false,
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			table.column(0).visible(true);
-			expect(
-				$('#example thead th:eq(0)').text() == "Name" &&
-				$('#example tbody tr:eq(0) td:eq(0)').text() == "Airi Satou" &&
-				$('#example tfoot th:eq(0)').text() == "Name").toBe(true);
+			checkColumnHBF(0, 'Name', 'Airi Satou', '');
+			expect(areColumnsInvisible([])).toBe(true);
 		});
 	});
-	describe("Tests with scrolling table- no footer ", function () {
-		dt.html( 'no_footer' );
-		it("Exists and is a function", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false
-			});
-			expect(typeof table.column().visible).toBe('function');
+
+	function getScrollingTable(hideColumn = false) {
+		colDefs = hideColumn ? [{ visible: false, targets: 0 }] : [];
+		return $('#example').DataTable({
+			scrollY: '200px',
+			scrollCollapse: true,
+			paging: false,
+			columnDefs: colDefs
+		});
+	}
+
+	describe('Getter tests with scrolling table ', function() {
+		dt.html('basic');
+		it("Column visibility set by 'columns.visible' at init returns expected", function() {
+			table = getScrollingTable(true);
+			checkColumnHBF(0, 'Position', 'Accountant', 'Position');
+			expect(areColumnsInvisible([0])).toBe(true);
 		});
 
-		//Getter
-		dt.html( 'no_footer' );
-		it("Will return a boolean value", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false
-			});
-			var test = table.column().visible();
-			expect(typeof(test) == 'boolean').toBe(true);
-		});
-		dt.html( 'no_footer' );
-		it("Columns hidden by 'columns.visible' at init returns false", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false,
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			var test = table.column().visible();
-			expect(test).toBe(false);
-		});
-		dt.html( 'no_footer' );
-		it("Columns not hidden by 'columns.visible' at init returns true", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false,
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			var test = table.column(1).visible();
-			expect(test).toBe(true);
-		});
-		dt.html( 'no_footer' );
-		it("Column hidden at init and then made visible returns trues", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false,
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
+		dt.html('basic');
+		it('Column hidden at init and then made visible returns trues', function() {
+			table = getScrollingTable(true);
+
 			table.column(0).visible(true);
-			expect($('#example tbody tr:eq(0) td:eq(0)').html() == "Airi Satou").toBe(true);
-		});
-		//Setter
-		dt.html( 'no_footer' );
-		it("`false` will hide a column (check header, body and footer nodes)", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false
-			});
-			table.column(0).visible(false);
-			expect(
-				$('#example thead th:eq(0)').html() !== "Name" &&
-				$('#example tbody tr:eq(0) td:eq(0)').html() !== "Airi Satou" &&
-				$('#example tfoot th:eq(0)').html() !== "Name").toBe(true);
-		});
-		dt.html( 'no_footer' );
-		it("`false` will hide a column (check header, body and footer nodes)", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false,
-				"columnDefs": [
-					{ "visible": false, "targets": 0 }
-				]
-			});
-			table.column(0).visible(true);
-			expect(
-				$('#example thead th:eq(0)').text() == "Name" &&
-				$('#example tbody tr:eq(0) td:eq(0)').text() == "Airi Satou").toBe(true);
+			checkColumnHBF(0, 'Name', 'Airi Satou', 'Name');
+			expect(areColumnsInvisible([])).toBe(true);
 		});
 	});
-});
+
+	describe('Setter tests with scrolling table', function() {
+		dt.html('basic');
+		it('Hide a column (check header, body and footer nodes)', function() {
+			table = getScrollingTable();
+			table.column(0).visible(false);
+
+			checkColumnHBF(0, 'Position', 'Accountant', 'Position');
+			expect(areColumnsInvisible([0])).toBe(true);
+		});
+
+		dt.html('basic');
+		it('Unhide a column (check header, body and footer nodes)', function() {
+			table = getScrollingTable(true);
+			table.column(0).visible(true);
+
+			checkColumnHBF(0, 'Name', 'Airi Satou', 'Name');
+			expect(areColumnsInvisible([])).toBe(true);
+		});
+	});
+
+	describe('Getter tests with scrolling table - no footer ', function() {
+		dt.html('no_footer');
+		it("Column visibility set by 'columns.visible' at init returns expected", function() {
+			table = getScrollingTable(true);
+			checkColumnHBF(0, 'Position', 'Accountant', '');
+			expect(areColumnsInvisible([0])).toBe(true);
+		});
+
+		dt.html('no_footer');
+		it('Column hidden at init and then made visible returns trues', function() {
+			table = getScrollingTable(true);
+			table.column(0).visible(true);
+			checkColumnHBF(0, 'Name', 'Airi Satou', '');
+			expect(areColumnsInvisible([])).toBe(true);
+		});
+	});
+
+	describe('Setter tests with scrolling table - no footer ', function() {
+		dt.html('no_footer');
+		it('Hide a column (check header, body and footer nodes)', function() {
+			table = getScrollingTable();
+			table.column(0).visible(false);
+			checkColumnHBF(0, 'Position', 'Accountant', '');
+			expect(areColumnsInvisible([0])).toBe(true);
+		});
+
+		dt.html('no_footer');
+		it('Unhide a column (check header, body and footer nodes)', function() {
+			table = getScrollingTable(true);
+			table.column(0).visible(true);
+			checkColumnHBF(0, 'Name', 'Airi Satou', '');
+			expect(areColumnsInvisible([])).toBe(true);
+		});
+	});
+}); 

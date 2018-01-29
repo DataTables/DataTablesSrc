@@ -30,9 +30,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-Although DataTables will order a number of data types using the built in methods, When dealing with more complex formatted data, it can be desirable to define the ordering order yourself. Using plug-in ordering functions, you have have DataTables order data in any manner you wish.
+Although DataTables will order a number of data types using the built in methods, when dealing with more complex formatted data, it can be desirable to define the ordering order yourself. Using plug-in ordering functions, you can have DataTables order data in any manner you wish.
 
-This is done by using the `dt-init columns.type` parameter, in combination with a ordering plug-in. The ordering plug-in can be be of any level of complexity (natural ordering for example can be fairly complex while also very powerful), and is defined by attaching to the `$.fn.dataTable.ext.type.order` object. For more information about ordering plug-ins; creating them and their requirements, please refer to the plug-in development documentation.
+This is done by using the `dt-init columns.type` parameter, in combination with a ordering plug-in. The ordering plug-in can be of any level of complexity (natural ordering for example can be fairly complex while also very powerful), and is defined by attaching to the `$.fn.dataTable.ext.type.order` object. For more information about ordering plug-ins, creating them and their requirements, please refer to the plug-in development documentation.
 
 This example shows ordering with using an enumerated type.
 

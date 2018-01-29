@@ -9,6 +9,7 @@
 //   - Multiple arguments
 //   - A single 2D array
 // - As a setter it returns an API instance (for both multiple arguments and single 2D array)
+// TK COLIN - look at order by type (date/string/integer/boolean/etc)
 describe( "core- order()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],
