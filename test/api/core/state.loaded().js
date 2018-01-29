@@ -3,6 +3,8 @@
 // - Check it returns a plain object
 // - Make sure the object returns contains the state originally loaded by the table
 //   - i.e. not the current state
+// TK COLIN
+// ensure behaviour when stateSave not enabled
 
 describe( "core- state.loaded()", function() {
 	dt.libs( {

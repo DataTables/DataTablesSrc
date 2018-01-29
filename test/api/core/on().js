@@ -1,78 +1,92 @@
-// todo tests
-// - Check it exists and is a function
-// - Able to add a single event
-// - Able to listen for multiple events with a single call
-// - Event handlers are correctly triggered
-// - The callback function is passed at least the event object as the first parameter (exact parameters depend upon the event)
-// - returns API instance
+describe('core- on()', function() {
+	let table;
 
-describe( 'core- on()', function() {
-	var table;
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Exists and is a function', function() {
+			let table = $('#example').DataTable();
+			expect(typeof table.on).toBe('function');
+		});
 
-	dt.html( 'basic' );
+		dt.html('basic');
+		it('Setter returns an API instance', function() {
+			let table = $('#example').DataTable();
+			expect(table.on('draw.dt', function() {}) instanceof $.fn.dataTable.Api).toBe(true);
+		});
+	});
 
-	it( '.dt name space is automatically added when using `on`', function () {
-		var drawPass = false;
+	function checkSingleEvent(event, triggerCount, expectedCount) {
+		let drawPass = 0;
+		let table = $('#example').DataTable();
 
-		table = $('#example').DataTable();
-
-		table.on( 'draw', function () {
-			drawPass = true;
-		} );
-		table.draw();
-
-		expect( drawPass ).toBe( true );
-	} );
-
-	it( 'Name space can be passed in manually', function () {
-		var drawPass = false;
-
-		table.on( 'draw.dt', function () {
-			drawPass = true;
-		} );
-		table.draw();
-
-		expect( drawPass ).toBe( true );
-	} );
-
-	it( 'Multiple events can be subscripted with manual namespaces', function () {
-		var drawPass = false;
-		var pagePass = false;
-
-		table.on( 'draw.dt page.dt', function (e) {
-			if ( e.type === 'draw' ) {
-				drawPass = true;
+		table.on(event, function(e) {
+			if (e.type == 'draw') {
+				drawPass++;
 			}
-			else if ( e.type === 'page' ) {
-				pagePass = true;
+		});
+		for (let i = 0; i < triggerCount; i++) {
+			table.page(i + 1).draw();
+		}
+		return drawPass == expectedCount;
+	}
+
+	function checkDoubleEvent(events, triggerCount, expectedCount) {
+		let drawPass = 0;
+		let pagePass = 0;
+		let table = $('#example').DataTable();
+
+		table.on(events, function(e) {
+			if (e.type == 'draw') {
+				drawPass++;
+			} else if (e.type == 'page') {
+				pagePass++;
 			}
-		} );
-		table.page(2).draw(false);
+		});
+		for (let i = 0; i < triggerCount; i++) {
+			table.page(i + 1).draw(false);
+		}
+		return drawPass + pagePass == 2 * expectedCount;
+	}
 
-		expect( drawPass ).toBe( true );
-		expect( pagePass ).toBe( true );
-	} );
+	describe('Check the event listening', function() {
+		dt.html('basic');
+		it('.dt name space is automatically added when using `on`', function() {
+			expect(checkSingleEvent('draw', 1, 1)).toBe(true);
+		});
 
-	it( 'Multiple events can be subscripted without manual namespaces', function () {
-		var drawPass = false;
-		var pagePass = false;
+		dt.html('basic');
+		it('Name space can be passed in manually', function() {
+			expect(checkSingleEvent('draw.dt', 1, 1)).toBe(true);
+		});
 
-		table.on( 'draw page', function (e) {
-			if ( e.type === 'draw' ) {
-				drawPass = true;
-			}
-			else if ( e.type === 'page' ) {
-				pagePass = true;
-			}
-		} );
-		table.page(3).draw(false);
+		dt.html('basic');
+		it('Single event triggers multiple times', function() {
+			expect(checkSingleEvent('draw.dt', 3, 3)).toBe(true);
+		});
 
-		expect( drawPass ).toBe( true );
-		expect( pagePass ).toBe( true );
-	} );
-} );
+		dt.html('basic');
+		it('Single event doesnt trigger if not listened to', function() {
+			expect(checkSingleEvent('page.dt', 1, 0)).toBe(true);
+		});
+
+		dt.html('basic');
+		it('Multiple events can be subscribed without manual namespaces', function() {
+			expect(checkDoubleEvent('draw page', 1, 1)).toBe(true);
+		});
+
+		dt.html('basic');
+		it('Multiple events can be subscribed with manual namespaces', function() {
+			expect(checkDoubleEvent('draw.dt page.dt', 1, 1)).toBe(true);
+		});
+
+		dt.html('basic');
+		it('Multiple events trigger multiple times', function() {
+			expect(checkDoubleEvent('draw.dt page.dt', 4, 4)).toBe(true);
+		});
+	});
+});

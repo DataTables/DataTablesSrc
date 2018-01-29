@@ -4,27 +4,6 @@ describe('columns - column().visible()', function() {
 		css: ['datatables']
 	});
 
-	// check array for column visibility (default is visible)
-	function areColumnsInvisible(colArray) {
-		let visiblity = $('#example')
-			.DataTable()
-			.columns()
-			.visible();
-		for (let i = 0; i < 6; i++) {
-			if (visiblity[i] == colArray.includes(i)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	// check DOM for column's header, body, and footer
-	function checkColumnHBF(column, header, body, footer = header) {
-		expect($('#example thead th:eq(' + column + ')').text()).toBe(header);
-		expect($('#example tbody tr:eq(' + column + ') td:eq(0)').text()).toBe(body);
-		expect($('#example tfoot th:eq(' + column + ')').text()).toBe(footer);
-	}
-
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Exists and is a function', function() {
@@ -51,8 +30,8 @@ describe('columns - column().visible()', function() {
 			let table = $('#example').DataTable({
 				columnDefs: [{ visible: false, targets: 0 }]
 			});
-			checkColumnHBF(0, 'Position', 'Accountant');
-			expect(areColumnsInvisible([0])).toBe(true);
+			dt.isColumnHBFExpected(0, 'Position', 'Accountant');
+			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
 		dt.html('basic');
@@ -61,8 +40,8 @@ describe('columns - column().visible()', function() {
 				columnDefs: [{ visible: false, targets: 0 }]
 			});
 			table.column(0).visible(true);
-			checkColumnHBF(0, 'Name', 'Airi Satou');
-			expect(areColumnsInvisible([])).toBe(true);
+			dt.isColumnHBFExpected(0, 'Name', 'Airi Satou');
+			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
 
@@ -71,8 +50,8 @@ describe('columns - column().visible()', function() {
 		it('Hide a column (check header, body and footer nodes)', function() {
 			let table = $('#example').DataTable();
 			table.column(0).visible(false);
-			checkColumnHBF(0, 'Position', 'Accountant');
-			expect(areColumnsInvisible([0])).toBe(true);
+			dt.isColumnHBFExpected(0, 'Position', 'Accountant');
+			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
 		dt.html('basic');
@@ -82,8 +61,8 @@ describe('columns - column().visible()', function() {
 			});
 
 			table.column(0).visible(true);
-			checkColumnHBF(0, 'Name', 'Airi Satou');
-			expect(areColumnsInvisible([])).toBe(true);
+			dt.isColumnHBFExpected(0, 'Name', 'Airi Satou');
+			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
 
@@ -105,8 +84,8 @@ describe('columns - column().visible()', function() {
 				columns: testColumns,
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
-					checkColumnHBF(0, 'Position', 'Accountant');
-					expect(areColumnsInvisible([0])).toBe(true);
+					dt.isColumnHBFExpected(0, 'Position', 'Accountant');
+					expect(dt.areColumnsInvisible([0])).toBe(true);
 					done();
 				}
 			});
@@ -121,8 +100,8 @@ describe('columns - column().visible()', function() {
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
 					table.column(0).visible(true);
-					checkColumnHBF(0, 'Name', 'Airi Satou');
-					expect(areColumnsInvisible([])).toBe(true);
+					dt.isColumnHBFExpected(0, 'Name', 'Airi Satou');
+					expect(dt.areColumnsInvisible([])).toBe(true);
 					done();
 				}
 			});
@@ -138,8 +117,8 @@ describe('columns - column().visible()', function() {
 				columns: testColumns,
 				initComplete: function(settings, json) {
 					table.column(0).visible(false);
-					checkColumnHBF(0, 'Position', 'Accountant');
-					expect(areColumnsInvisible([0])).toBe(true);
+					dt.isColumnHBFExpected(0, 'Position', 'Accountant');
+					expect(dt.areColumnsInvisible([0])).toBe(true);
 					done();
 				}
 			});
@@ -154,8 +133,8 @@ describe('columns - column().visible()', function() {
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
 					table.column(0).visible(true);
-					checkColumnHBF(0, 'Name', 'Airi Satou');
-					expect(areColumnsInvisible([])).toBe(true);
+					dt.isColumnHBFExpected(0, 'Name', 'Airi Satou');
+					expect(dt.areColumnsInvisible([])).toBe(true);
 					done();
 				}
 			});
@@ -168,8 +147,8 @@ describe('columns - column().visible()', function() {
 			let table = $('#example').DataTable({
 				columnDefs: [{ visible: false, targets: 0 }]
 			});
-			checkColumnHBF(0, 'Position', 'Accountant', '');
-			expect(areColumnsInvisible([0])).toBe(true);
+			dt.isColumnHBFExpected(0, 'Position', 'Accountant', '');
+			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
 		dt.html('no_footer');
@@ -178,8 +157,8 @@ describe('columns - column().visible()', function() {
 				columnDefs: [{ visible: false, targets: 0 }]
 			});
 			table.column(0).visible(true);
-			checkColumnHBF(0, 'Name', 'Airi Satou', '');
-			expect(areColumnsInvisible([])).toBe(true);
+			dt.isColumnHBFExpected(0, 'Name', 'Airi Satou', '');
+			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
 
@@ -188,8 +167,8 @@ describe('columns - column().visible()', function() {
 		it('Hide a column (check header, body and footer nodes)', function() {
 			let table = $('#example').DataTable();
 			table.column(0).visible(false);
-			checkColumnHBF(0, 'Position', 'Accountant', '');
-			expect(areColumnsInvisible([0])).toBe(true);
+			dt.isColumnHBFExpected(0, 'Position', 'Accountant', '');
+			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
 		dt.html('no_footer');
@@ -198,8 +177,8 @@ describe('columns - column().visible()', function() {
 				columnDefs: [{ visible: false, targets: 0 }]
 			});
 			table.column(0).visible(true);
-			checkColumnHBF(0, 'Name', 'Airi Satou', '');
-			expect(areColumnsInvisible([])).toBe(true);
+			dt.isColumnHBFExpected(0, 'Name', 'Airi Satou', '');
+			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
 
@@ -217,16 +196,16 @@ describe('columns - column().visible()', function() {
 		dt.html('basic');
 		it("Column visibility set by 'columns.visible' at init returns expected", function() {
 			let table = getScrollingTable(true);
-			checkColumnHBF(0, 'Position', 'Accountant');
-			expect(areColumnsInvisible([0])).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant')).toBe(true);
+			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Column hidden at init and then made visible returns trues', function() {
 			let table = getScrollingTable(true);
 			table.column(0).visible(true);
-			checkColumnHBF(0, 'Name', 'Airi Satou');
-			expect(areColumnsInvisible([])).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou')).toBe(true);
+			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
 
@@ -235,8 +214,8 @@ describe('columns - column().visible()', function() {
 		it('Hide a column (check header, body and footer nodes)', function() {
 			let table = getScrollingTable();
 			table.column(0).visible(false);
-			checkColumnHBF(0, 'Position', 'Accountant');
-			expect(areColumnsInvisible([0])).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant')).toBe(true);
+			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
 		dt.html('basic');
@@ -244,8 +223,8 @@ describe('columns - column().visible()', function() {
 			let table = getScrollingTable(true);
 			table.column(0).visible(true);
 
-			checkColumnHBF(0, 'Name', 'Airi Satou');
-			expect(areColumnsInvisible([])).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou')).toBe(true);
+			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
 
@@ -253,16 +232,16 @@ describe('columns - column().visible()', function() {
 		dt.html('no_footer');
 		it("Column visibility set by 'columns.visible' at init returns expected", function() {
 			let table = getScrollingTable(true);
-			checkColumnHBF(0, 'Position', 'Accountant', '');
-			expect(areColumnsInvisible([0])).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant', '')).toBe(true);
+			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
 		dt.html('no_footer');
 		it('Column hidden at init and then made visible returns trues', function() {
 			let table = getScrollingTable(true);
 			table.column(0).visible(true);
-			checkColumnHBF(0, 'Name', 'Airi Satou', '');
-			expect(areColumnsInvisible([])).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou', '')).toBe(true);
+			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
 
@@ -271,16 +250,16 @@ describe('columns - column().visible()', function() {
 		it('Hide a column (check header, body and footer nodes)', function() {
 			let table = getScrollingTable();
 			table.column(0).visible(false);
-			checkColumnHBF(0, 'Position', 'Accountant', '');
-			expect(areColumnsInvisible([0])).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant', '')).toBe(true);
+			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
 		dt.html('no_footer');
 		it('Unhide a column (check header, body and footer nodes)', function() {
 			let table = getScrollingTable(true);
 			table.column(0).visible(true);
-			checkColumnHBF(0, 'Name', 'Airi Satou', '');
-			expect(areColumnsInvisible([])).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou', '')).toBe(true);
+			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
 });

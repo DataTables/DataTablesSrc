@@ -240,5 +240,35 @@
 		container: function() {
 			return $('#dt-test-loader-container');
 		},
+
+		/*
+		 * Below are  common functions used througout the unit tests
+		 */
+
+		// check array for column visibility (default is visible)
+		areColumnsInvisible: function(colArray) {
+			let visiblity = $('#example')
+				.DataTable()
+				.columns()
+				.visible();
+			for (let i = 0; i < 6; i++) {
+				if (visiblity[i] == colArray.includes(i)) {
+					return false;
+				}
+			}
+			return true;
+		},
+
+		// check DOM for column's header, body, and footer
+		isColumnHBFExpected: function(column, header, body, footer = header) {
+			if (
+				$('#example thead th:eq(' + column + ')').text() == header &&
+				$('#example tbody tr:eq(' + column + ') td:eq(0)').text() == body &&
+				$('#example tfoot th:eq(' + column + ')').text() == footer
+			) {
+				return true;
+			}
+			return false;
+		}
 	};
 })(window, window.jasmine);
