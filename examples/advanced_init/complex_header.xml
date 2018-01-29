@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 Complex headers (using `colspan` / `rowspan`) can be used to group columns of similar information in DataTables, creating a very powerful visual effect.
 
-In addition to the basic behaviour, DataTables can also take `colspan` and `rowspan`s into account when working with hidden columns. The `colspan` and `rowspan` attributes for each cell are automatically calculated and rendered on the page for you. This allows the `dt-init columns.visible` option and `dt-api column().visible()` method to take into account `rowspan` / `colspan` cells, drawing the header correctly.
+In addition to the basic behaviour, DataTables can also take `colspan` and `rowspan` into account when working with hidden columns. The `colspan` and `rowspan` attributes for each cell are automatically calculated and rendered on the page for you. This allows the `dt-init columns.visible` option and `dt-api column().visible()` method to take into account `rowspan` / `colspan` cells, drawing the header correctly.
 
 Note that each column must have at least one unique cell (i.e. a cell without `colspan`) so DataTables can use that cell to detect the column and use it to apply ordering.
 

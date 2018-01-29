@@ -1,6 +1,5 @@
 // todo tests
-// - Confirm it exists and is a function
-// - Always returns an API instance
+
 // - Getter
 //   - Will contain a boolean value for each of the selected columns. Consider:
 //   - Column hidden by `columns.visible` at init returns false
@@ -50,6 +49,7 @@ describe('columns - columns().visible()', function() {
 			});
 			let test = table.columns([0,1]).visible();
 			expect(test[0]).toBe(false);
+			expect(test[1]).toBe(true);
 		});
 		dt.html('basic');
 		it("Columns not hidden by 'columns.visible' at init returns true", function() {
