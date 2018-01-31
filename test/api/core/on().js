@@ -1,4 +1,4 @@
-describe('core- on()', function() {
+describe('core - on()', function() {
 	let table;
 
 	dt.libs({
@@ -18,27 +18,23 @@ describe('core- on()', function() {
 			let table = $('#example').DataTable();
 			expect(table.on('draw.dt', function() {}) instanceof $.fn.dataTable.Api).toBe(true);
 		});
+
+		dt.html('basic');
+		it('Correct args sent to the listener', function() {
+			let table = $('#example').DataTable();
+			table.on('draw.dt', function(e, arg) {
+				expect(e instanceof $.Event).toBe(true);
+				expect(typeof arg).toBe('object');
+			});
+			table.page(1).draw(false);
+		});
 	});
 
-	function checkSingleEvent(event, triggerCount, expectedCount) {
-		let drawPass = 0;
-		let table = $('#example').DataTable();
-
-		table.on(event, function(e) {
-			if (e.type == 'draw') {
-				drawPass++;
-			}
-		});
-		for (let i = 0; i < triggerCount; i++) {
-			table.page(i + 1).draw();
-		}
-		return drawPass == expectedCount;
-	}
-
-	function checkDoubleEvent(events, triggerCount, expectedCount) {
+	function checkEvents(events, triggerCount, expectedCount) {
 		let drawPass = 0;
 		let pagePass = 0;
 		let table = $('#example').DataTable();
+		let lastColumn = table.columns().count();
 
 		table.on(events, function(e) {
 			if (e.type == 'draw') {
@@ -47,46 +43,48 @@ describe('core- on()', function() {
 				pagePass++;
 			}
 		});
-		for (let i = 0; i < triggerCount; i++) {
-			table.page(i + 1).draw(false);
+		// start at column 1 as that'll trigger the first event, and loop when reach end of columns
+		for (let i = 0, col = 1; i < triggerCount; i++, col++) {
+			table.page(col).draw(false);
+			if (col == lastColumn) col = 0;
 		}
-		return drawPass + pagePass == 2 * expectedCount;
+		return drawPass + pagePass == expectedCount;
 	}
 
 	describe('Check the event listening', function() {
 		dt.html('basic');
 		it('.dt name space is automatically added when using `on`', function() {
-			expect(checkSingleEvent('draw', 1, 1)).toBe(true);
+			expect(checkEvents('draw', 1, 1)).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Name space can be passed in manually', function() {
-			expect(checkSingleEvent('draw.dt', 1, 1)).toBe(true);
+			expect(checkEvents('draw.dt', 1, 1)).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Single event triggers multiple times', function() {
-			expect(checkSingleEvent('draw.dt', 3, 3)).toBe(true);
+			expect(checkEvents('draw.dt', 30, 30)).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Single event doesnt trigger if not listened to', function() {
-			expect(checkSingleEvent('page.dt', 1, 0)).toBe(true);
+			expect(checkEvents('length.dt', 1, 0)).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Multiple events can be subscribed without manual namespaces', function() {
-			expect(checkDoubleEvent('draw page', 1, 1)).toBe(true);
+			expect(checkEvents('draw page', 1, 2)).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Multiple events can be subscribed with manual namespaces', function() {
-			expect(checkDoubleEvent('draw.dt page.dt', 1, 1)).toBe(true);
+			expect(checkEvents('draw.dt page.dt', 1, 2)).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Multiple events trigger multiple times', function() {
-			expect(checkDoubleEvent('draw.dt page.dt', 4, 4)).toBe(true);
+			expect(checkEvents('draw.dt page.dt', 10, 20)).toBe(true);
 		});
 	});
 });

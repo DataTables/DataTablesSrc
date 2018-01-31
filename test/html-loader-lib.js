@@ -269,6 +269,16 @@
 				return true;
 			}
 			return false;
-		}
+		},
+
+		// columns used during testing (used frequently)
+		testColumns: [
+			{ data: 'name' },
+			{ data: 'position' },
+			{ data: 'office' },
+			{ data: 'age' },
+			{ data: 'start_date' },
+			{ data: 'salary' }
+		],
 	};
 })(window, window.jasmine);

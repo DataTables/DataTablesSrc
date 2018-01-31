@@ -1,3 +1,4 @@
+// TK COLIN need to consider the second arg to visible - redrawCalculations - not covered here
 describe('columns - column().visible()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -66,22 +67,13 @@ describe('columns - column().visible()', function() {
 		});
 	});
 
-	const testColumns = [
-		{ data: 'name' },
-		{ data: 'position' },
-		{ data: 'office' },
-		{ data: 'age' },
-		{ data: 'start_date' },
-		{ data: 'salary' }
-	];
-
 	describe('Getter tests with deferRender and AJAX', function() {
 		dt.html('basic');
 		it("Column visibility set by 'columns.visible' at init returns expected", function(done) {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: testColumns,
+				columns: dt.testColumns,
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
 					dt.isColumnHBFExpected(0, 'Position', 'Accountant');
@@ -96,7 +88,7 @@ describe('columns - column().visible()', function() {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: testColumns,
+				columns: dt.testColumns,
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
 					table.column(0).visible(true);
@@ -114,7 +106,7 @@ describe('columns - column().visible()', function() {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: testColumns,
+				columns: dt.testColumns,
 				initComplete: function(settings, json) {
 					table.column(0).visible(false);
 					dt.isColumnHBFExpected(0, 'Position', 'Accountant');
@@ -129,7 +121,7 @@ describe('columns - column().visible()', function() {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: testColumns,
+				columns: dt.testColumns,
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
 					table.column(0).visible(true);
