@@ -64,11 +64,9 @@ describe('Basic Datatables Test', function() {
 			expect($('#example tbody td:eq(1)').html()).toBe('Technical Author');
 		});
 
-		// TK COLIN - sort this out, empty test
-		it('Sorting (third click) on second column //todo', function() {
-			// $('#example thead th:eq(1)').click();
-			// $('#example thead th:eq(1)').click();
-			// expect($('#example tbody td:eq(1)').html() == "Technical Author").toBeTruthy();
+		it('Sorting (third click) on second column', function() {
+			$('#example thead th:eq(1)').click();
+			expect($('#example tbody td:eq(1)').html()).toBe('Accountant');
 		});
 
 		it('Sorting (first click) on numeric column', function() {
@@ -89,7 +87,7 @@ describe('Basic Datatables Test', function() {
 			clickEvent.shiftKey = true;
 			$('#example thead th:eq(5)').trigger(clickEvent);
 
-			expect($('#example tbody td:eq(5)').html()).toBe('$198,500');
+			expect($('#example tbody td:eq(5)').html()).toBe('$86,000');
 			expect($('#example tbody td:eq(3)').html()).toBe('66');
 		});
 
@@ -102,8 +100,8 @@ describe('Basic Datatables Test', function() {
 			$('#example thead th:eq(5)').trigger(clickEvent);
 			$('#example thead th:eq(5)').trigger(clickEvent);
 
-			expect($('#example tbody td:eq(5)').html()).toBe('$86,000');
 			expect($('#example tbody td:eq(3)').html()).toBe('66');
+			expect($('#example tbody td:eq(5)').html()).toBe('$198,500');
 		});
 	});
 
@@ -390,8 +388,8 @@ describe('Basic Datatables Test', function() {
 				doc.getElementById('example_info').innerHTML).toBe(
 					'Showing 0 to 0 of 0 entries (filtered from 57 total entries)'
 			);
-    });
-    
+	});
+
 		it('Prefixing a filter entry with space', function() {
 			$('#example_filter input')
 				.val('Author')

@@ -97,7 +97,7 @@ describe('columns- columns().order()', function() {
 			var table = $('#example').DataTable();
 			table.columns([5,4,3,2,1,0]).order('desc').draw();
 			expect(areColumnsSorted(Array(6).fill('sorting_desc'))).toBe(true);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Thor Walton');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Angelica Ramos');
 		});
 
 		dt.html( 'basic' );

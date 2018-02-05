@@ -122,7 +122,7 @@ describe('stateSave option', function() {
 				clickEvent.shiftKey = true;
 				$('#example thead th:eq(5)').trigger(clickEvent);
 
-				expect($('#example tbody td:eq(5)').html()).toBe('$198,500');
+				expect($('#example tbody td:eq(5)').html()).toBe('$86,000');
 				expect($('#example tbody td:eq(3)').html()).toBe('66');
 			});
 
@@ -134,7 +134,7 @@ describe('stateSave option', function() {
 					stateSave: true
 				});
 
-				expect($('#example tbody td:eq(5)').html()).toBe('$198,500');
+				expect($('#example tbody td:eq(5)').html()).toBe('$86,000');
 				expect($('#example tbody td:eq(3)').html()).toBe('66');
 			});
 
