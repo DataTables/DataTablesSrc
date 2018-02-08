@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-As with Bootstrap 3, DataTables can also be integrated seamlessly with Bootstrap 4. This integration is done simply by including the DataTables Bootstrap 4 files (CSS and JS) which will set the defaults needed for DataTables to be initialised as normal, as shown in this examples.
+As with Bootstrap 3, DataTables can also be integrated seamlessly with Bootstrap 4. This integration is done simply by including the DataTables Bootstrap 4 files (CSS and JS) which sets the defaults needed for DataTables to be initialised as normal, as shown in this example.
 
 ]]></info>
 
