@@ -72,7 +72,6 @@ _api_register( 'destroy()', function ( remove ) {
 		var jqTable   = $(table);
 		var jqTbody   = $(tbody);
 		var jqWrapper = $(settings.nTableWrapper);
-		var rows      = $.map( settings.aoData, function (r) { return r.nTr; } );
 		var i, ien;
 
 		// Flag to note that the table is currently being destroyed - no action
@@ -82,67 +81,70 @@ _api_register( 'destroy()', function ( remove ) {
 		// Fire off the destroy callbacks for plug-ins etc
 		_fnCallbackFire( settings, "aoDestroyCallback", "destroy", [settings] );
 
-		// If not being removed from the document, make all columns visible
-		if ( ! remove ) {
+		if ( remove ) {
+			// Remove the DataTables generated nodes, events and classes
+			jqWrapper.remove();
+		} else {
+			// If not being removed from the document, make all columns visible
 			new _Api( settings ).columns().visible( true );
-		}
 
-		// Blitz all `DT` namespaced events (these are internal events, the
-		// lowercase, `dt` events are user subscribed and they are responsible
-		// for removing them
-		jqWrapper.off('.DT').find(':not(tbody *)').off('.DT');
-		$(window).off('.DT-'+settings.sInstance);
+			// Blitz all `DT` namespaced events (these are internal events, the
+			// lowercase, `dt` events are user subscribed and they are responsible
+			// for removing them
+			jqWrapper.off('.DT').find(':not(tbody *)').off('.DT');
+			$(window).off('.DT-'+settings.sInstance);
 
-		// When scrolling we had to break the table up - restore it
-		if ( table != thead.parentNode ) {
-			jqTable.children('thead').detach();
-			jqTable.append( thead );
-		}
+			// When scrolling we had to break the table up - restore it
+			if ( table != thead.parentNode ) {
+				jqTable.children('thead').detach();
+				jqTable.append( thead );
+			}
 
-		if ( tfoot && table != tfoot.parentNode ) {
-			jqTable.children('tfoot').detach();
-			jqTable.append( tfoot );
-		}
+			if ( tfoot && table != tfoot.parentNode ) {
+				jqTable.children('tfoot').detach();
+				jqTable.append( tfoot );
+			}
 
-		settings.aaSorting = [];
-		settings.aaSortingFixed = [];
-		_fnSortingClasses( settings );
+			settings.aaSorting = [];
+			settings.aaSortingFixed = [];
+			_fnSortingClasses( settings );
 
-		$( rows ).removeClass( settings.asStripeClasses.join(' ') );
+			var rows = $.map( settings.aoData, function (r) { return r.nTr; } );
+			$( rows ).removeClass( settings.asStripeClasses.join(' ') );
 
-		$('th, td', thead).removeClass( classes.sSortable+' '+
-			classes.sSortableAsc+' '+classes.sSortableDesc+' '+classes.sSortableNone
-		);
+			$('th, td', thead).removeClass( classes.sSortable+' '+
+				classes.sSortableAsc+' '+classes.sSortableDesc+' '+classes.sSortableNone
+			);
 
-		// Add the TR elements back into the table in their original order
-		jqTbody.children().detach();
-		jqTbody.append( rows );
+			// Add the TR elements back into the table in their original order
+			jqTbody.children().detach();
+			jqTbody.append( rows );
 
-		// Remove the DataTables generated nodes, events and classes
-		var removedMethod = remove ? 'remove' : 'detach';
-		jqTable[ removedMethod ]();
-		jqWrapper[ removedMethod ]();
+			// Remove the DataTables generated nodes, events and classes
+			jqTable.detach();
+			jqWrapper.detach();
 
-		// If we need to reattach the table to the document
-		if ( ! remove && orig ) {
-			// insertBefore acts like appendChild if !arg[1]
-			orig.insertBefore( table, settings.nTableReinsertBefore );
+			// If we need to reattach the table to the document
+			if ( orig ) {
+				// insertBefore acts like appendChild if !arg[1]
+				orig.insertBefore( table, settings.nTableReinsertBefore );
 
-			// Restore the width of the original table - was read from the style property,
-			// so we can restore directly to that
-			jqTable
-				.css( 'width', settings.sDestroyWidth )
-				.removeClass( classes.sTable );
+				// Restore the width of the original table - was read from the style property,
+				// so we can restore directly to that
+				jqTable
+					.css( 'width', settings.sDestroyWidth )
+					.removeClass( classes.sTable );
 
-			// If the were originally stripe classes - then we add them back here.
-			// Note this is not fool proof (for example if not all rows had stripe
-			// classes - but it's a good effort without getting carried away
-			ien = settings.asDestroyStripes.length;
+				// If the were originally stripe classes - then we add them back here.
+				// Note this is not fool proof (for example if not all rows had stripe
+				// classes - but it's a good effort without getting carried away
+				ien = settings.asDestroyStripes.length;
 
-			if ( ien ) {
-				jqTbody.children().each( function (i) {
-					$(this).addClass( settings.asDestroyStripes[i % ien] );
-				} );
+				if ( ien ) {
+					jqTbody.children().each( function (i) {
+						$(this).addClass( settings.asDestroyStripes[i % ien] );
+					} );
+				}
 			}
 		}
 
