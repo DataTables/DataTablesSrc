@@ -13,7 +13,7 @@
 	<description>
 		This method (and its plural counterpart, `dt-api rows().remove()`) will remove the selected row from the DataTable completely, deleting the allocated memory for data and node from the browser.
 
-		Please be aware that this method removes the data from the table internally but that action won't be visually shown until the  `dt-api draw()` method is called to update the display. This method can called simply as a chained method of the `dt-api rows().remove()` method's returned object - for example `table.rows().remove().draw();`. This method is used to reduce the number of draws required if multiple rows are being deleted for optimisation.
+		Please be aware that this method removes the data from the table internally but that action won't be visually shown until the  `dt-api draw()` method is called to update the display. This can be called simply as a chained method of the `dt-api row().remove()` method's returned object - for example `table.row().remove().draw();`. This method is used to reduce the number of draws required if multiple rows are being deleted for optimisation.
 	</description>
 
 	<example title="Delete a row when a delete icon is clicked upon in the row"><![CDATA[
