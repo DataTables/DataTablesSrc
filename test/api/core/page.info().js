@@ -1,25 +1,193 @@
-// todo tests
-// - Check it exists and is a function
-// - Returns a plain object (`$.isPlainObject()`)
-// - Examine the returned object and make sure the properties match with what we want
-// - Change to page 2 and check again
-// - Change to last page and check again
-// - Change page length and check again
-// - Show all and check again
-// - Disable paging (`paging:false`) and check again
-// - Use Ajax loaded data and check the properties
-
-describe( "core- page.info()", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
-
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
-
+// TK COLIN needs a test to verify serverSide - do as part of the Editor tests
+describe('core- page.info()', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
 	});
 
+	function getPageInfo(pageNumber, pageLength, paging = true) {
+		pageEnd = pageLength * (pageNumber + 1) > 57 ? 57 : pageLength * (pageNumber + 1);
+		pageLen = paging ? pageLength : -1;
+		pageCount = 57 % pageLength ? Math.floor(57 / pageLength) + 1 : Math.floor(57 / pageLength);
+
+		return {
+			page: pageNumber,
+			pages: pageCount,
+			start: pageLength * pageNumber,
+			end: pageEnd,
+			length: pageLen,
+			recordsTotal: 57,
+			recordsDisplay: 57,
+			serverSide: false
+		};
+	}
+
+	defaultInfo = {};
+
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Exists and is a function', function() {
+			expect(typeof $('#example').DataTable().page.info).toBe('function');
+		});
+
+		dt.html('basic');
+		it('Setter returns an API instance', function() {
+			expect(
+				$.isPlainObject(
+					$('#example')
+						.DataTable()
+						.page.info()
+				)
+			).toBe(true);
+		});
+	});
+
+	describe('Check the behaviour with default page length', function() {
+		dt.html('basic');
+		it('All good post initialisation', function() {
+			let table = $('#example').DataTable();
+			let info = table.page.info();
+
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 10)));
+		});
+
+		dt.html('basic');
+		it('All good on changing to page 2 and not drawing', function() {
+			let table = $('#example').DataTable();
+			table.page(1);
+			let info = table.page.info();
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(1, 10)));
+		});
+
+		dt.html('basic');
+		it('All good on page 2', function() {
+			let table = $('#example').DataTable();
+			table.page(1).draw(false);
+			let info = table.page.info();
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(1, 10)));
+		});
+
+		dt.html('basic');
+		it('All good on last page', function() {
+			let table = $('#example').DataTable();
+			table.page('last').draw(false);
+			let info = table.page.info();
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(5, 10)));
+		});
+	});
+
+	describe('Check the behaviour with custom page length', function() {
+		dt.html('basic');
+		it('All good post initialisation', function() {
+			let table = $('#example').DataTable({
+				pageLength: 17
+			});
+			let info = table.page.info();
+
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 17)));
+		});
+
+		it('All good on page 2', function() {
+			let table = $('#example').DataTable();
+			table.page(1).draw(false);
+			let info = table.page.info();
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(1, 17)));
+		});
+
+		it('All good on last page', function() {
+			let table = $('#example').DataTable();
+			table.page('last').draw(false);
+			let info = table.page.info();
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(3, 17)));
+		});
+	});
+
+	describe('Check the behaviour with paging disabled', function() {
+		dt.html('basic');
+		it('All good post initialisation', function() {
+			let table = $('#example').DataTable({
+				paging: false
+			});
+			let info = table.page.info();
+
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 57, false)));
+		});
+
+		dt.html('basic');
+		it('Paging disabled by  page.len(-1)', function() {
+			let table = $('#example').DataTable();
+			table.page.len(-1).draw();
+			let info = table.page.info();
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 57, false)));
+		});
+	});
+
+	describe('Check the behaviour with Ajax sourced data', function() {
+		dt.html('basic');
+		it('All good post initialisation with custom page size', function(done) {
+			let table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				deferRender: true,
+				pageLength: 17,
+				columns: dt.testColumns,
+				initComplete: function(settings, json) {
+					let info = table.page.info();
+					expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 17)));
+					done();
+				}
+			});
+		});
+
+		dt.html('basic');
+		it('All good on page 2 with custom page size', function(done) {
+			let table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				deferRender: true,
+				pageLength: 17,
+				columns: dt.testColumns,
+				initComplete: function(settings, json) {
+					table.page(2).draw(false);
+					let info = table.page.info();
+					expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(2, 17)));
+					done();
+				}
+			});
+		});
+
+		dt.html('basic');
+		it('All good on page 2 with custom page size', function(done) {
+			let table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				deferRender: true,
+				paging: false,
+				columns: dt.testColumns,
+				initComplete: function(settings, json) {
+					let info = table.page.info();
+					expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 57, false)));
+					done();
+				}
+			});
+		});
+
+		describe('Check the behaviour with other stuff', function() {
+			dt.html('basic');
+			it('Correct values when doing a search', function() {
+				let table = $('#example').DataTable();
+				table.search('Software').draw();
+				let info = table.page.info();
+
+				let expectedInfo = {
+					page: 0,
+					pages: 1,
+					start: 0,
+					end: 6,
+					length: 10,
+					recordsTotal: 57,
+					recordsDisplay: 6,
+					serverSide: false
+				};
+				expect(JSON.stringify(info)).toBe(JSON.stringify(expectedInfo));
+			});
+		});
+	});
 });
