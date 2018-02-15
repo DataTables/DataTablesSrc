@@ -21,7 +21,7 @@ var table = $('#example').DataTable( {
 	scrollX: "100%"
 } );
 
-$( tables.table().header() )
+$( table.table().header() )
 	.addClass( 'highlight' );
 ]]></example>
 
