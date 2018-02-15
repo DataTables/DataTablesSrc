@@ -1,11 +1,11 @@
 // TK COLIN needs a test to verify serverSide - do as part of the Editor tests
-describe('core- page.info()', function() {
+describe('core - page.info()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
 	});
 
-	function getPageInfo(pageNumber, pageLength, paging = true) {
+	function getExpectedPageInfo(pageNumber, pageLength, paging = true) {
 		pageEnd = pageLength * (pageNumber + 1) > 57 ? 57 : pageLength * (pageNumber + 1);
 		pageLen = paging ? pageLength : -1;
 		pageCount = 57 % pageLength ? Math.floor(57 / pageLength) + 1 : Math.floor(57 / pageLength);
@@ -21,8 +21,6 @@ describe('core- page.info()', function() {
 			serverSide: false
 		};
 	}
-
-	defaultInfo = {};
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
@@ -48,7 +46,7 @@ describe('core- page.info()', function() {
 			let table = $('#example').DataTable();
 			let info = table.page.info();
 
-			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 10)));
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(0, 10)));
 		});
 
 		dt.html('basic');
@@ -56,7 +54,7 @@ describe('core- page.info()', function() {
 			let table = $('#example').DataTable();
 			table.page(1);
 			let info = table.page.info();
-			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(1, 10)));
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(1, 10)));
 		});
 
 		dt.html('basic');
@@ -64,7 +62,7 @@ describe('core- page.info()', function() {
 			let table = $('#example').DataTable();
 			table.page(1).draw(false);
 			let info = table.page.info();
-			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(1, 10)));
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(1, 10)));
 		});
 
 		dt.html('basic');
@@ -72,7 +70,7 @@ describe('core- page.info()', function() {
 			let table = $('#example').DataTable();
 			table.page('last').draw(false);
 			let info = table.page.info();
-			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(5, 10)));
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(5, 10)));
 		});
 	});
 
@@ -84,21 +82,21 @@ describe('core- page.info()', function() {
 			});
 			let info = table.page.info();
 
-			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 17)));
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(0, 17)));
 		});
 
 		it('All good on page 2', function() {
 			let table = $('#example').DataTable();
 			table.page(1).draw(false);
 			let info = table.page.info();
-			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(1, 17)));
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(1, 17)));
 		});
 
 		it('All good on last page', function() {
 			let table = $('#example').DataTable();
 			table.page('last').draw(false);
 			let info = table.page.info();
-			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(3, 17)));
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(3, 17)));
 		});
 	});
 
@@ -110,7 +108,7 @@ describe('core- page.info()', function() {
 			});
 			let info = table.page.info();
 
-			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 57, false)));
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(0, 57, false)));
 		});
 
 		dt.html('basic');
@@ -118,7 +116,7 @@ describe('core- page.info()', function() {
 			let table = $('#example').DataTable();
 			table.page.len(-1).draw();
 			let info = table.page.info();
-			expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 57, false)));
+			expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(0, 57, false)));
 		});
 	});
 
@@ -132,7 +130,7 @@ describe('core- page.info()', function() {
 				columns: dt.testColumns,
 				initComplete: function(settings, json) {
 					let info = table.page.info();
-					expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 17)));
+					expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(0, 17)));
 					done();
 				}
 			});
@@ -148,7 +146,7 @@ describe('core- page.info()', function() {
 				initComplete: function(settings, json) {
 					table.page(2).draw(false);
 					let info = table.page.info();
-					expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(2, 17)));
+					expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(2, 17)));
 					done();
 				}
 			});
@@ -163,7 +161,7 @@ describe('core- page.info()', function() {
 				columns: dt.testColumns,
 				initComplete: function(settings, json) {
 					let info = table.page.info();
-					expect(JSON.stringify(info)).toBe(JSON.stringify(getPageInfo(0, 57, false)));
+					expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(0, 57, false)));
 					done();
 				}
 			});

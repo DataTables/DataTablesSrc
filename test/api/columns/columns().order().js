@@ -146,7 +146,7 @@ describe('columns- columns().order()', function() {
 
 		dt.html('basic');
 		it('Can clear order of multiple columns', function() {
-			// TL COLIN this should go into the order tests, but shoving here for time being
+			// TK COLIN this should go into the order tests, but shoving here for time being
 			let table = $('#example').DataTable();
 			table
 				.columns([0,1])
