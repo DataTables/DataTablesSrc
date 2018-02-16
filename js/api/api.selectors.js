@@ -125,7 +125,7 @@ var _selector_row_indexes = function ( settings, opts )
 			for ( var i=0; i<displayFiltered.length; i++ ) {
 				displayFilteredMap[displayFiltered[i]] = null;
 			}
-		 	a = $.map( displayMaster, function (el) {
+			a = $.map( displayMaster, function (el) {
 				return !displayFilteredMap.hasOwnProperty(el) ? el : null;
 			} );
 		}
