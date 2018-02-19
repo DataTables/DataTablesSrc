@@ -5,8 +5,13 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>row().child.show()</signature>
+		<signature>row().child.show( [placeBefore] )</signature>
 		<description>Show the child row(s) of a parent row</description>
+		<parameter type="boolean" name="placeBefore" default="false">
+			<![CDATA[
+			This optional parameter specifies whether the child row(s) are being  placed before or after the parent row. The latter is the default.
+			]]>
+		</parameter>
 		<returns type="DataTables.Api">DataTables API instance.</returns>
 	</type>
 
