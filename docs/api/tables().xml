@@ -34,10 +34,10 @@ var tables = $('.dataTable').DataTable();
 tables.tables( [1, 2] ).order( [ 3, 'asc' ] ).draw();
 ]]></example>
 
-	<example title="Find all tables which have a class `admin` from an API instance and apply a global search to them."><![CDATA[
+	<example title="Find all tables which have a class `admin` from an API instance and apply a global search to them"><![CDATA[
 var tables = $('.dataTable').DataTable();
 
-tables.table('.admin').search( 'Important' ).draw();
+tables.tables('.admin').search( 'Important' ).draw();
 
 // Note that:
 //   $('.dataTable.admin').DataTable().search('Important').draw();
