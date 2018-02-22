@@ -31,7 +31,7 @@ var tables = $('.dataTable').DataTable();
 tables.table( 1 ).order( [ 3, 'asc' ] ).draw();
 ]]></example>
 
-	<example title="Find the table with the #admin from an API instance and apply a global search to them."><![CDATA[
+	<example title="Find the table with the #admin from an API instance and apply a global search to it"><![CDATA[
 var tables = $('.dataTable').DataTable();
 
 tables.table('#admin').search( 'Important' ).draw();
