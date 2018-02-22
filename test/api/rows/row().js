@@ -57,6 +57,30 @@ describe('rows- row()', function() {
 		expect(table.row(row).node()).toBe(null);
 	});
 
+	// GH DataTables #1023
+	dt.html('empty');
+
+	it('Updating a row with an array of data where an id was originally present in the DOM will retain the id', function () {
+		debugger;
+		$('#example tbody').append(
+			'<tr id="trident">'+
+			'	<td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>'+
+			'</tr>'+
+			'<tr id="nottrident">'+
+			'	<td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td>'+
+			'</tr>'
+		);
+
+    	table = $('#example').DataTable();
+		table
+			.row('#trident')
+			.data([0, 0, 0, 0, 0, 0])
+			.remove()
+			.draw();
+		
+		expect(table.row('#trident').node()).toBe(null);
+	});
+
 	// TK tidy this up: colin's stuff
 	dt.html('basic');
 
