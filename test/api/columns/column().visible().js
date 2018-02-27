@@ -252,4 +252,27 @@ describe('columns - column().visible()', function() {
 			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
+
+	// Thread 48081
+	describe('Colspan is updated on empty row record ', function() {
+		dt.html('basic');
+
+		it('Colspan is correctly set on search', function() {
+			$('#example').DataTable().search('nothere').draw();
+
+			expect($('tbody tr td').attr('colspan')*1).toBe(6);
+		});
+
+		it('Colspan is reduced when columns are hidden', function() {
+			$('#example').DataTable().columns([1,2,3,4,5]).visible(false);
+
+			expect($('tbody tr td').attr('colspan')*1).toBe(1);
+		});
+
+		it('Colspan is increased when columns are show', function() {
+			$('#example').DataTable().columns([1,2,3,4]).visible(true);
+
+			expect($('tbody tr td').attr('colspan')*1).toBe(5);
+		});
+	});
 });
