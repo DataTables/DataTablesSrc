@@ -11,7 +11,6 @@ describe('tables - tables().header()', function() {
 			expect(typeof table.table().header).toBe('function');
 		});
 
-		dt.html('basic');
 		it('Returns a header node', function() {
 			let table = $('#example').DataTable();
 			let header = table.tables().header();

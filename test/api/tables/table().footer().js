@@ -11,7 +11,6 @@ describe('tables - table().footer()', function() {
 			expect(typeof table.table().footer).toBe('function');
 		});
 
-		dt.html('basic');
 		it('Returns a footer node', function() {
 			let table = $('#example').DataTable();
 			let footer = table.table().footer();

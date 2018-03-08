@@ -57,6 +57,8 @@ describe('tables - table()', function() {
 			let tables = $('.both').DataTable();
 			expect(tables.table().context.length).toBe(1);
 			expect(tables.table('.both').context.length).toBe(1);
+
+			
 			expect(tables.table('.one').context.length).toBe(1);
 		});
 
