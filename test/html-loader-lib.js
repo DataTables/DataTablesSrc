@@ -279,6 +279,6 @@
 			{ data: 'age' },
 			{ data: 'start_date' },
 			{ data: 'salary' }
-		],
+		]
 	};
 })(window, window.jasmine);

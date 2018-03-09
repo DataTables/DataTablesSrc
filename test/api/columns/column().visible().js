@@ -29,7 +29,7 @@ describe('columns - column().visible()', function() {
 			let table = $('#example').DataTable({
 				columnDefs: [{ visible: false, targets: 0 }]
 			});
-			dt.isColumnHBFExpected(0, 'Position', 'Accountant');
+			expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant')).toBe(true);
 			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
@@ -39,7 +39,7 @@ describe('columns - column().visible()', function() {
 				columnDefs: [{ visible: false, targets: 0 }]
 			});
 			table.column(0).visible(true);
-			dt.isColumnHBFExpected(0, 'Name', 'Airi Satou');
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou')).toBe(true);
 			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
@@ -49,7 +49,7 @@ describe('columns - column().visible()', function() {
 		it('Hide a column (check header, body and footer nodes)', function() {
 			let table = $('#example').DataTable();
 			table.column(0).visible(false);
-			dt.isColumnHBFExpected(0, 'Position', 'Accountant');
+			expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant')).toBe(true);
 			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
@@ -60,7 +60,7 @@ describe('columns - column().visible()', function() {
 			});
 
 			table.column(0).visible(true);
-			dt.isColumnHBFExpected(0, 'Name', 'Airi Satou');
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou')).toBe(true);
 			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
@@ -74,7 +74,7 @@ describe('columns - column().visible()', function() {
 				columns: dt.testColumns,
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
-					dt.isColumnHBFExpected(0, 'Position', 'Accountant');
+					expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant')).toBe(true);
 					expect(dt.areColumnsInvisible([0])).toBe(true);
 					done();
 				}
@@ -90,7 +90,7 @@ describe('columns - column().visible()', function() {
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
 					table.column(0).visible(true);
-					dt.isColumnHBFExpected(0, 'Name', 'Airi Satou');
+					expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou')).toBe(true);
 					expect(dt.areColumnsInvisible([])).toBe(true);
 					done();
 				}
@@ -107,7 +107,7 @@ describe('columns - column().visible()', function() {
 				columns: dt.testColumns,
 				initComplete: function(settings, json) {
 					table.column(0).visible(false);
-					dt.isColumnHBFExpected(0, 'Position', 'Accountant');
+					expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant')).toBe(true);
 					expect(dt.areColumnsInvisible([0])).toBe(true);
 					done();
 				}
@@ -123,7 +123,7 @@ describe('columns - column().visible()', function() {
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
 					table.column(0).visible(true);
-					dt.isColumnHBFExpected(0, 'Name', 'Airi Satou');
+					expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou')).toBe(true);
 					expect(dt.areColumnsInvisible([])).toBe(true);
 					done();
 				}
@@ -137,7 +137,7 @@ describe('columns - column().visible()', function() {
 			let table = $('#example').DataTable({
 				columnDefs: [{ visible: false, targets: 0 }]
 			});
-			dt.isColumnHBFExpected(0, 'Position', 'Accountant', '');
+			expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant', '')).toBe(true);
 			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
@@ -147,7 +147,7 @@ describe('columns - column().visible()', function() {
 				columnDefs: [{ visible: false, targets: 0 }]
 			});
 			table.column(0).visible(true);
-			dt.isColumnHBFExpected(0, 'Name', 'Airi Satou', '');
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou', '')).toBe(true);
 			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
@@ -157,7 +157,7 @@ describe('columns - column().visible()', function() {
 		it('Hide a column (check header, body and footer nodes)', function() {
 			let table = $('#example').DataTable();
 			table.column(0).visible(false);
-			dt.isColumnHBFExpected(0, 'Position', 'Accountant', '');
+			expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant', '')).toBe(true);
 			expect(dt.areColumnsInvisible([0])).toBe(true);
 		});
 
@@ -167,7 +167,7 @@ describe('columns - column().visible()', function() {
 				columnDefs: [{ visible: false, targets: 0 }]
 			});
 			table.column(0).visible(true);
-			dt.isColumnHBFExpected(0, 'Name', 'Airi Satou', '');
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou', '')).toBe(true);
 			expect(dt.areColumnsInvisible([])).toBe(true);
 		});
 	});
@@ -258,21 +258,30 @@ describe('columns - column().visible()', function() {
 		dt.html('basic');
 
 		it('Colspan is correctly set on search', function() {
-			$('#example').DataTable().search('nothere').draw();
+			$('#example')
+				.DataTable()
+				.search('nothere')
+				.draw();
 
-			expect($('tbody tr td').attr('colspan')*1).toBe(6);
+			expect($('tbody tr td').attr('colspan') * 1).toBe(6);
 		});
 
 		it('Colspan is reduced when columns are hidden', function() {
-			$('#example').DataTable().columns([1,2,3,4,5]).visible(false);
+			$('#example')
+				.DataTable()
+				.columns([1, 2, 3, 4, 5])
+				.visible(false);
 
-			expect($('tbody tr td').attr('colspan')*1).toBe(1);
+			expect($('tbody tr td').attr('colspan') * 1).toBe(1);
 		});
 
 		it('Colspan is increased when columns are show', function() {
-			$('#example').DataTable().columns([1,2,3,4]).visible(true);
+			$('#example')
+				.DataTable()
+				.columns([1, 2, 3, 4])
+				.visible(true);
 
-			expect($('tbody tr td').attr('colspan')*1).toBe(5);
+			expect($('tbody tr td').attr('colspan') * 1).toBe(5);
 		});
 	});
 });
