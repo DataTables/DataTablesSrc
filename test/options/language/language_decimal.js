@@ -5,23 +5,23 @@ describe('language.decimal option ', function() {
 	});
 
 	// The following test is disabled due to Manuscript #475
-	// dt.html('numerical');
-	// it('Can set global preference', function(done) {
-	// 	$.extend(true, $.fn.dataTable.defaults, {
-	// 		language: {
-	// 			decimal: '.'
-	// 		}
-	// 	});
-	// 	$('#example').dataTable({
-	// 		ajax: '/base/test/data/numerical.txt',
-	// 		columns: [{ data: 'city' }, { data: 'Score' }, { data: 'Salary' }],
-	// 		initComplete: function(settings, json) {
-	// 			$('#example thead th:eq(2)').click();
-	// 			expect($('#example tbody tr td:eq(2)').text()).toBe('$20,090.00');
-	// 			done();
-	// 		}
-	// 	});
-	// });
+	dt.html('numerical');
+	it('Can set global preference', function(done) {
+		$.extend(true, $.fn.dataTable.defaults, {
+			language: {
+				decimal: '.'
+			}
+		});
+		$('#example').dataTable({
+			ajax: '/base/test/data/numerical.txt',
+			columns: [{ data: 'city' }, { data: 'Score' }, { data: 'Salary' }],
+			initComplete: function(settings, json) {
+				$('#example thead th:eq(2)').click();
+				expect($('#example tbody tr td:eq(2)').text()).toBe('$20,090.00');
+				done();
+			}
+		});
+	});
 
 	dt.html('numerical');
 	it('Set thousands seperator', function(done) {
