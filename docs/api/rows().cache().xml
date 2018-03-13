@@ -5,10 +5,10 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>rows().cache( type )</signature>
+		<signature>rows().cache( [ type ] )</signature>
 		<description>Obtain the data for the columns rows the selector</description>
-		<parameter type="string" name="type">
-			Specify which cache the data should be read from. Can take one of two values: `dt-string search` or `dt-string order`
+		<parameter type="string" name="type" default="order">
+			Specify which cache the data should be read from. Can take one of two values: `dt-string search` or `dt-string order`. Defaults to `order` if no value is given.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with data for each cell in the selected columns in the result set. This is a 2D array with the top level array entries for each row matched by the `dt-api columns()` selector and the inner arrays representing the cached data for each column (by column data index).</returns>
 	</type>

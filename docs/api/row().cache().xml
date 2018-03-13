@@ -5,10 +5,10 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>row().cache( type )</signature>
+		<signature>row().cache( [ type ] )</signature>
 		<description>Obtain the data for the row from the selector</description>
-		<parameter type="string" name="type">
-			Specify which cache the data should be read from. Can take one of two values: `dt-string search` or `dt-string order`
+		<parameter type="string" name="type" default="order">
+			Specify which cache the data should be read from. Can take one of two values: `dt-string search` or `dt-string order`. Defaults to `order` if no value is given.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with data for each cell in the selected row in the result set. This is a 1D array with each entry being the data for the cells from the selected row.</returns>
 	</type>
@@ -23,5 +23,5 @@
 		Note that this method is primarily aimed at plug-in developers who require access to the internal data that DataTables has stored.
 	</description>
 
-	<related type="api">row().cache()</related>
+	<related type="api">rows().cache()</related>
 </dt-api>
