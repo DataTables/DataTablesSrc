@@ -4,7 +4,6 @@ describe('language.decimal option ', function() {
 		css: ['datatables']
 	});
 
-	// The following test is disabled due to Manuscript #475
 	dt.html('numerical');
 	it('Can set global preference', function(done) {
 		$.extend(true, $.fn.dataTable.defaults, {

@@ -1,4 +1,4 @@
-describe('columns- columns().order()', function() {
+describe('columns - columns().order()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
@@ -21,7 +21,6 @@ describe('columns- columns().order()', function() {
 			expect(typeof table.columns().order).toBe('function');
 		});
 
-		dt.html('basic');
 		it('Returns an API instance', function() {
 			var table = $('#example').DataTable();
 			expect(table.columns().order() instanceof $.fn.dataTable.Api).toBe(true);
