@@ -12,13 +12,11 @@ describe('columns - column().visible()', function() {
 			expect(typeof table.columns().visible).toBe('function');
 		});
 
-		dt.html('basic');
 		it('Getter returns an API instance', function() {
 			var table = $('#example').DataTable();
 			expect(table.columns().visible(true) instanceof $.fn.dataTable.Api).toBe(true);
 		});
 
-		dt.html('basic');
 		it('Setter returns an API instance', function() {
 			var table = $('#example').DataTable();
 			expect(table.columns().visible(true) instanceof $.fn.dataTable.Api).toBe(true);

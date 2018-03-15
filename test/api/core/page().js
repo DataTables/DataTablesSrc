@@ -15,7 +15,6 @@ describe('core - page()', function() {
 			expect(Number.isInteger(table.page())).toBe(true);
 		});
 
-		dt.html('basic');
 		it('Setter returns an API instance', function() {
 			let table = $('#example').DataTable();
 			expect(table.page(1) instanceof $.fn.dataTable.Api).toBe(true);
