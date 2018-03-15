@@ -242,7 +242,7 @@
 		},
 
 		/*
-		 * Below are  common functions used througout the unit tests
+		 * Below are common functions used througout the unit tests
 		 */
 
 		// check array for column visibility (default is visible)
