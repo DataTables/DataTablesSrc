@@ -23,7 +23,7 @@ When using DataTables with server-side processing, the default behaviour is to h
 
 This automatic Ajax call to get the first page of data can be overridden by using the `dt-init deferLoading` initialisation property. It serves two purposes, firstly to indicate that deferred loading is required, but also to tell DataTables how many records there are in the full table, in this case 57 (this allows the information element and pagination to be displayed correctly).
 
-In the example below, the HTML page already has the first 10 rows of data available it in, so we use `dt-init deferLoading` to tell DataTables that this data is available and that it should wait for under interaction (ordering, paging etc) before making an Ajax call.
+In the example below, the HTML page already has the first 10 rows of data available it in, so we use `dt-init deferLoading` to tell DataTables that this data is available and that it should wait for user interaction (ordering, paging etc) before making an Ajax call.
 
 ]]></info>
 
