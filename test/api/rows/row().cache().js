@@ -1,5 +1,3 @@
-// TK COLIN  Has exactly one param and that is of type string, accepts values of only 'search'  and 'cache'
-// case for this, as if param missing or not recognised it defaults to "order"
 describe('rows - row().cache()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -17,34 +15,80 @@ describe('rows - row().cache()', function() {
 			let table = $('#example').DataTable();
 			expect(table.row().cache('search') instanceof $.fn.dataTable.Api).toBe(true);
 		});
+
+		it('Defaults to "order"', function() {
+			let table = $('#example').DataTable();
+			expect(table.row(2).cache()[0]).toBe('ashton cox');
+		});
 	});
 
-	describe('Check the behaviour', function() {
+	describe('Check the behaviour (no orthogonal data)', function() {
 		dt.html('basic');
-		it('Get initial cached data (order))', function() {
+		it('Get initial cached order data', function() {
 			let table = $('#example').DataTable();
-			let test = table.row(0).cache('order');
-			expect(test[0]).toBe('tiger nixon');
+			let test = table.row(2).cache('order');
+			expect(test.length).toBe(1);
+			expect(test[0]).toBe('ashton cox');
 		});
 
-		it('Get initial cached data (search))', function() {
+		it('Get initial cached search data', function() {
 			let table = $('#example').DataTable();
-			let test = table.row(0).cache('search');
-			expect(test[0]).toBe('Tiger Nixon');
+			let test = table.row(2).cache('search');
+			expect(test.length).toBe(6);
+			expect(test[0]).toBe('Ashton Cox');
 		});
 
-		it('Get cached order data (no orthogonal data)', function() {
+		it('Get cached order data when second column used in order', function() {
 			let table = $('#example').DataTable();
-			$('#example thead th:eq(0)').click();
-			let test = table.row(0).cache('order');
-			expect(test[0]).toBe('tiger nixon');
+			var clickEvent = $.Event('click');
+			clickEvent.shiftKey = true;
+			$('#example thead th:eq(1)').trigger(clickEvent);
+			let test = table.row(2).cache('order');
+			expect(test.length).toBe(2);
+			expect(test[0]).toBe('ashton cox');
+			expect(test[1]).toBe('junior technical author');
 		});
 
-		it('Get cached search data (no orthogonal data)', function() {
+		it('Get cached search data', function() {
 			let table = $('#example').DataTable();
-			$('#example thead th:eq(0)').click();
-			let test = table.row(0).cache('search');
-			expect(test[0]).toBe('Tiger Nixon');
+			let test = table.row(2).cache('search');
+			expect(test.length).toBe(6);
+			expect(test[0]).toBe('Ashton Cox');
+		});
+	});
+
+	describe('Check the behaviour (orthogonal data)', function() {
+		dt.html('basic');
+		it('Get table data', function() {
+			let table = $('#example').DataTable({
+				columnDefs: [
+					{
+						targets: 0,
+						render: function(data, type, row, meta) {
+							if (type === 'filter') return 'Filter ' + data;
+							if (type === 'sort') return 'Sort ' + data;
+
+							return data;
+						}
+					}
+				]
+			});
+			let test = table.row(2).data();
+			expect(test[0]).toBe('Ashton Cox');
+		});
+
+		it('Get cached order data', function() {
+			let table = $('#example').DataTable();
+			let test = table.row(2).cache('order');
+			expect(test.length).toBe(1);
+			expect(test[0]).toBe('sort ashton cox');
+		});
+
+		it('Get cached search data', function() {
+			let table = $('#example').DataTable();
+			let test = table.row(2).cache('search');
+			expect(test.length).toBe(6);
+			expect(test[0]).toBe('Filter Ashton Cox');
 		});
 	});
 });
