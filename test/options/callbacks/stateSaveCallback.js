@@ -14,18 +14,17 @@ describe('stateSavecallback Option', function() {
 
 		dt.html('basic');
 		it('Correct arguments passed to callback function', function() {
-			let passed = false;
+			let called = false;
 			let table = $('#example').DataTable({
 				stateSave: true,
 				stateSaveCallback: function(settings, data) {
 					expect(arguments.length).toBe(2);
 					expect(settings.hasOwnProperty('nTable')).toBe(true);
 					expect(typeof data).toBe('object');
-					passed = true;
+					called = true;
 				}
 			});
-			table.page(1).draw();
-			expect(passed).toBe(true);
+			expect(called).toBe(true);
 		});
 
 		dt.html('basic');
@@ -39,38 +38,42 @@ describe('stateSavecallback Option', function() {
 					expect(api.rows().count()).toBe(57);
 				}
 			});
-			table.page(1).draw();
 			expect(test == $.fn.dataTableSettings[0]).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Callback function not called if stateSave disabled', function() {
-			let passed = true;
+			let called = false;
 			let table = $('#example').DataTable({
 				stateSave: false,
 				stateSaveCallback: function(settings, data) {
-					passed = false;
+					called = true;
 				}
 			});
-			table.page(1).draw();
-			expect(passed).toBe(true);
+			expect(called).toBe(false);
 		});
 
 		dt.html('basic');
 		it('Callback function not called if stateSave not specified (default is off)', function() {
-			let passed = true;
+			let called = false;
 			let table = $('#example').DataTable({
 				stateSaveCallback: function(settings, data) {
-					passed = false;
+					called = true;
 				}
 			});
-			table.page(1).draw();
-			expect(passed).toBe(true);
+			expect(called).toBe(false);
 		});
 	});
 
 	describe('Check the validity of the saved data', function() {
 		// No need to check if callback was actually called, those tests performed above
+		// Clear down save state before proceeding (otherwise old stuff may be lurking that will affect us)
+		dt.html('basic');
+		it('Clear state save', function() {
+			let table = $('#example').DataTable();
+			table.state.clear();
+		});
+
 		dt.html('basic');
 		it('Saved time is sensible', function() {
 			let table = $('#example').DataTable({
@@ -83,7 +86,6 @@ describe('stateSavecallback Option', function() {
 			table.page(1).draw();
 		});
 
-		// TK COLIN this has started failing when run en-masse, but fine if running as individual test!!!!
 		dt.html('basic');
 		it('Start position is sensible', function() {
 			let start = 0;

@@ -120,21 +120,6 @@ describe('stateLoadCallback Option', function() {
 		});
 	});
 
-	// TK COLIN duplicated from stateSaveCallback - could do with some sharing
-	// function checkColumn(data, visible, search, smart, regex, caseInsensitive) {
-	// 	if (
-	// 		data.visible == visible &&
-	// 		data.search.search == search &&
-	// 		data.search.smart == smart &&
-	// 		data.search.regex == regex &&
-	// 		data.search.caseInsensitive == caseInsensitive
-	// 	) {
-	// 		return true;
-	// 	}
-
-	// 	return false;
-	// }
-
 	describe('Reload from stateSaveCallback to ensure the same', function() {
 		dt.html('basic');
 
