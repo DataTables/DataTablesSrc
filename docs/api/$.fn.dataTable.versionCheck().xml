@@ -19,9 +19,9 @@
 		Please note that this is a **static** function and is accessed through the `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
 	</description>
 
-	<example title="Check the compatiblity of DataTables"><![CDATA[
+	<example title="Check the compatibility of DataTables"><![CDATA[
 
-if ( ! $.fn.dataTable.versionCheck( '1.9.2' ) ) {
+if ( ! $.fn.dataTable.versionCheck( '1.10.7' ) ) {
 	alert( 'A newer version of DataTables is required' );
 } 
 
