@@ -28,15 +28,9 @@ describe('core - page.info()', function() {
 			expect(typeof $('#example').DataTable().page.info).toBe('function');
 		});
 
-		dt.html('basic');
-		it('Setter returns an API instance', function() {
-			expect(
-				$.isPlainObject(
-					$('#example')
-						.DataTable()
-						.page.info()
-				)
-			).toBe(true);
+		it('Returns an object instance', function() {
+			let table = $('#example').DataTable();
+			expect($.isPlainObject(table.page.info())).toBe(true);
 		});
 	});
 

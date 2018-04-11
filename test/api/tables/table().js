@@ -11,14 +11,9 @@ describe('tables - table()', function() {
 			expect(typeof table.table).toBe('function');
 		});
 
-		it('Returns an API instance if no parameters', function() {
+		it('Returns an API instance', function() {
 			let table = $('#example').DataTable();
 			expect(table.table() instanceof $.fn.dataTable.Api).toBe(true);
-		});
-
-		it('Returns an API instance if a parameter', function() {
-			let table = $('#example').DataTable();
-			expect(table.table('#example') instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});
 
@@ -58,7 +53,6 @@ describe('tables - table()', function() {
 			expect(tables.table().context.length).toBe(1);
 			expect(tables.table('.both').context.length).toBe(1);
 
-			
 			expect(tables.table('.one').context.length).toBe(1);
 		});
 

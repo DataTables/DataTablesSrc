@@ -1,15 +1,13 @@
 // Karma configuration
 // Generated on Fri Jun 10 2016 13:57:39 GMT+0100 (BST)
-
 module.exports = function(config) {
-    var testFiles = 'test/*/**/*.js';
-	
-	// TK COLIN look at passing test file in on the command line
-    // console.log(process.argv)
+	var testFiles;
 
-    if ( process.env.DT_TESTFILE ) {
-        testFiles = process.env.DT_TESTFILE;
-    }
+	if (process.env.DT_TESTFILE) {
+		testFiles = process.env.DT_TESTFILE;
+	} else {
+		testFiles = 'test/*/**/*.js';
+	}
 
 	if (process.env.DT_EXTENSION) {
 		switch (process.env.DT_EXTENSION) {
@@ -195,36 +193,27 @@ module.exports = function(config) {
 					css: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'
 				},
 				bootstrap4: {
-					js:
-						'//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/bootstrap.min.js',
-					css:
-						'//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.css'
+					js: '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/bootstrap.min.js',
+					css: '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.css'
 				},
 				semanticui: {
-					js:
-						'//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js',
-					css:
-						'//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css'
+					js: '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js',
+					css: '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css'
 				},
 				material: {
-					js:
-						'//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.js',
-					css:
-						'//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css'
+					js: '//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.js',
+					css: '//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css'
 				},
 				foundation: {
-					js:
-						'//cdnjs.cloudflare.com/ajax/libs/foundation/6.1.1/foundation.min.js',
-					css:
-						'//cdnjs.cloudflare.com/ajax/libs/foundation/6.1.1/foundation.min.css'
+					js: '//cdnjs.cloudflare.com/ajax/libs/foundation/6.1.1/foundation.min.js',
+					css: '//cdnjs.cloudflare.com/ajax/libs/foundation/6.1.1/foundation.min.css'
 				},
 				uikit: {
 					js: '//cdnjs.cloudflare.com/ajax/libs/uikit/2.24.3/js/uikit.min.js',
 					css: '//cdnjs.cloudflare.com/ajax/libs/uikit/2.24.3/css/uikit.min.css'
 				},
 				'font-awesome': {
-					css:
-						'//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'
+					css: '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'
 				},
 				jszip: {
 					js: '//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js'
