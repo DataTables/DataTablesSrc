@@ -18,7 +18,7 @@
 		<parameter type="integer" name="displayIndex">
 			Row number in the current search set of data (i.e. over all available pages).
 		</parameter>
-		<parameter type="integer" name="index">
+		<parameter type="integer" name="dataIndex">
 			DataTables' internal index for the row - see `dt-api row().index()`.
 		</parameter>
 		<scope>HTML table element</scope>
