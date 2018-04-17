@@ -401,7 +401,7 @@ function _fnDraw( oSettings )
 			// iRowCount and j are not currently documented. Are they at all
 			// useful?
 			_fnCallbackFire( oSettings, 'aoRowCallback', null,
-				[nRow, aoData._aData, iRowCount, j] );
+				[nRow, aoData._aData, iRowCount, j, iDataIndex] );
 
 			anRows.push( nRow );
 			iRowCount++;
