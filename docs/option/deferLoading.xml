@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="integer">
-		<description>When given as an integer, this enables deferred loading, and instructs DataTables has to how many items are in the full data set.</description>
+		<description>When given as an integer, this enables deferred loading, and instructs DataTables as to how many items are in the full data set.</description>
 	</type>
 	<type type="array">
 		<description>As an array, this also enables deferred loading, while the first data index tells DataTables how many rows are in the filtered result set, and the second how many in the full data set without filtering applied.</description>
