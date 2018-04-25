@@ -1,88 +1,127 @@
-describe('LengthMenu', function() {
+describe('lengthMenu Option', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
 	});
 
-	dt.html('basic');
+	function checkText(options, expected) {
+		expect(options.length).toBe(expected.length);
 
-	it('Check default values', function() {
-		$('#example').dataTable();
+		for (let i = 0; i < options.length; i++) {
+			expect(options.eq(i).text()).toBe(expected[i]);
+		}
+	}
 
-		var options = $('select option');
-		expect(options.eq(0).text()).toBe('10');
-		expect(options.eq(1).text()).toBe('25');
-		expect(options.eq(2).text()).toBe('50');
-		expect(options.eq(3).text()).toBe('100');
-	});
+	function checkValue(options, expected) {
+		expect(options.length).toBe(expected.length);
 
-	it('Setting to default values makes no difference', function() {
-		$('#example').dataTable({
-			lengthMenu: [10, 25, 50, 100],
-			destroy: true
+		for (let i = 0; i < options.length; i++) {
+			expect(options.get(i).value).toBe(expected[i]);
+		}
+	}
+
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Check default values', function() {
+			$('#example').dataTable();
+
+			let options = $('select option');
+			checkText(options, ['10', '25', '50', '100']);
+			checkValue(options, ['10', '25', '50', '100']);
 		});
 
-		var options = $('select option');
-		expect(options.eq(0).text()).toBe('10');
-		expect(options.eq(1).text()).toBe('25');
-		expect(options.eq(2).text()).toBe('50');
-		expect(options.eq(3).text()).toBe('100');
-	});
+		dt.html('basic');
+		it('Setting to non-default values', function() {
+			$('#example').dataTable({
+				lengthMenu: [15, 30, 45, 60]
+			});
 
-	dt.html('basic');
-
-	it('Change length Menu', function() {
-		$('#example').dataTable({
-			lengthMenu: [1, 10, 15]
+			let options = $('select option');
+			checkText(options, ['15', '30', '45', '60']);
+			checkValue(options, ['15', '30', '45', '60']);
 		});
 
-		var options = $('select option');
-		expect(options.eq(0).text()).toBe('1');
-		expect(options.eq(1).text()).toBe('10');
-		expect(options.eq(2).text()).toBe('15');
+		dt.html('basic');
+		it('Change length', function() {
+			$('#example').dataTable({
+				lengthMenu: [1, 10, 15]
+			});
 
-		expect(options.get(0).value).toBe('1');
-		expect(options.get(1).value).toBe('10');
-		expect(options.get(2).value).toBe('15');
-	});
-
-	dt.html('basic');
-
-	it('Use different language strings', function() {
-		$('#example').dataTable({
-			lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']]
+			let options = $('select option');
+			checkText(options, ['1', '10', '15']);
+			checkValue(options, ['1', '10', '15']);
 		});
 
-		var options = $('select option');
-		expect(options.eq(0).text()).toBe('10');
-		expect(options.eq(1).text()).toBe('25');
-		expect(options.eq(2).text()).toBe('50');
-		expect(options.eq(3).text()).toBe('All');
+		dt.html('basic');
+		it('Use different language strings', function() {
+			$('#example').dataTable({
+				lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']]
+			});
 
-		expect(options.get(0).value).toBe('10');
-		expect(options.get(1).value).toBe('25');
-		expect(options.get(2).value).toBe('50');
-		expect(options.get(3).value).toBe('-1');
-	});
-
-	dt.html('basic');
-
-	it('Large numbers are formatted for thousands', function() {
-		$('#example').dataTable({
-			lengthMenu: [[10, 25, 50, 10000, -1], [10, 25, 50, 10000, 'All']]
+			let options = $('select option');
+			checkText(options, ['10', '25', '50', 'All']);
+			checkValue(options, ['10', '25', '50', '-1']);
 		});
 
-		var options = $('select option');
-		expect(options.eq(0).text()).toBe('10');
-		expect(options.eq(1).text()).toBe('25');
-		expect(options.eq(2).text()).toBe('50');
-		expect(options.eq(3).text()).toBe('10,000');
-		expect(options.eq(4).text()).toBe('All');
+		dt.html('basic');
+		it('Large numbers are formatted for thousands', function() {
+			$('#example').dataTable({
+				lengthMenu: [[10, 25, 50, 10000, -1], [10, 25, 50, 10000, 'All']]
+			});
 
-		expect(options.get(0).value).toBe('10');
-		expect(options.get(1).value).toBe('25');
-		expect(options.get(2).value).toBe('50');
-		expect(options.get(3).value).toBe('10000');
-		expect(options.get(4).value).toBe('-1');
+			let options = $('select option');
+			checkText(options, ['10', '25', '50', '10,000', 'All']);
+			checkValue(options, ['10', '25', '50', '10000', '-1']);
+		});
+	});
+
+	describe('Integration style tests', function() {
+		dt.html('basic');
+		it('Pagelength set to first size', function() {
+			let table = $('#example').DataTable({
+				lengthMenu: [15, 30, 45, 60]
+			});
+
+			expect(table.page.info().length).toBe(15);
+		});
+
+		dt.html('basic');
+		it('Pagelength not set to first size if pageLength set', function() {
+			let table = $('#example').DataTable({
+				lengthMenu: [15, 30, 45, 60],
+				pageLength: 12
+			});
+
+			expect(table.page.info().length).toBe(12);
+		});
+
+		dt.html('basic');
+		it('Server-side processing', function(done) {
+			let table = $('#example').DataTable({
+				processing: true,
+				serverSide: true,
+				lengthMenu: [15, 30, 45, 60],
+				ajax: function(data, callback, settings) {
+					var out = [];
+
+					for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
+						out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
+					}
+
+					setTimeout(function() {
+						callback({
+							draw: data.draw,
+							data: out,
+							recordsTotal: 5000000,
+							recordsFiltered: 5000000
+						});
+					}, 50);
+				},
+				initComplete: function(setting, json) {
+					expect(table.page.info().length).toBe(15);
+					done();
+				}
+			});
+		});
 	});
 });
