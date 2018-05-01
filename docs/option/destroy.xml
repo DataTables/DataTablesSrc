@@ -14,14 +14,13 @@
 	</description>
 
 
-	<example title="Destroy an exisiting table and create a new one"><![CDATA[
+	<example title="Destroy an existing table and create a new one"><![CDATA[
 $('#example').dataTable( {
-  "srollY": "200px"
+  "scrollY": "200px"
 } );
 
-// Some time later, recreate with just filtering (no scrolling)
+// Some time later, recreate without (no scrolling)
 $('#example').dataTable( {
-  "search": false,
   "destroy": true
 } );
 ]]></example>
