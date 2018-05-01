@@ -21,7 +21,7 @@ $('#example').dataTable( {
 
 // Some time later, recreate with just filtering (no scrolling)
 $('#example').dataTable( {
-  "filter": false,
+  "search": false,
   "destroy": true
 } );
 ]]></example>
