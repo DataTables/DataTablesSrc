@@ -1,49 +1,90 @@
-describe( "lengthChange option", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
-	describe("Check Default", function () {
-		dt.html( 'basic' );
-		it("Info div exists by default", function () {
-				$('#example').dataTable();
-				expect(document.getElementById('example_info')).toBeTruthy();
-				expect($.fn.dataTable.defaults.bLengthChange).toBe(true);
-		});
-		it("Four default options", function () {
-			expect($("select[name=example_length] option").length == 4).toBeTruthy();
-		});
-		it("Correct place in DOM by default", function () {
-			expect($('#example_length').next().attr('id') == 'example_filter').toBe(true);
+describe('lengthChange option', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
+
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Exists by default', function() {
+			$('#example').dataTable();
+			expect($('#example_length').length).toBe(1);
+			expect($.fn.dataTable.defaults.bLengthChange).toBe(true);
 		});
 
-	});
-	describe("Check can disable", function () {
-		dt.html( 'basic' );
-			it("Change length can be disabled", function () {
-				$('#example').dataTable({
-					"lengthChange": false
-				});
-				expect(document.getElementById('example_length') === null).toBeTruthy();
-			});
-		it("Information takes length disabled into account", function () {
-			expect(document.getElementById('example_info').innerHTML == "Showing 1 to 10 of 57 entries").toBeTruthy();
+		it('Correct place in DOM', function() {
+			expect(
+				$('#example_length')
+					.next()
+					.attr('id')
+			).toBe('example_filter');
 		});
-		dt.html( 'basic' );
-		it("If we disable the 'paging' option then lengthChange should be set to false by default", function () {
-			$('#example').dataTable( {
-				"paging": false
-			});
-			 expect($('#example_length').html()).not.toBeDefined();
-		});
-	});
-	describe("Enable makes no difference", function () {
-		dt.html( 'basic' );
-		it("Length change enabled override", function () {
+
+		dt.html('basic');
+		it('Enabling same as not specifying', function() {
 			$('#example').dataTable({
-				"lengthChange": true
+				lengthChange: true
 			});
-			expect(document.getElementById('example_length')).not.toBeNull();
+			expect($('#example_length').length).toBe(1);
+		});
+
+		dt.html('basic');
+		it('Can be disabled', function() {
+			$('#example').dataTable({
+				lengthChange: false
+			});
+			expect($('#example_length').length).toBe(0);
 		});
 	});
-} );
+
+	describe('Functional tests', function() {
+		dt.html('basic');
+		it('When disabled, can change page with API', function() {
+			table = $('#example').DataTable({
+				lengthChange: false
+			});
+			table.page(1);
+			expect(table.page.info().page).toBe(1);
+		});
+
+		dt.html('basic');
+		it('When disabled, can change page length with API', function() {
+			table = $('#example').DataTable({
+				lengthChange: false
+			});
+			table.page.len(25);
+			expect(table.page.info().pages).toBe(3);
+		});
+
+		dt.html('basic');
+		it('If paging disabled, lengthChange also disabled', function() {
+			$('#example').dataTable({
+				lengthChange: true,
+				paging: false
+			});
+			expect($('#example_length').length).toBe(0);
+		});
+
+		dt.html('basic');
+		it('If paging disabled, pageLength still enabled', function() {
+			$('#example').dataTable({
+				lengthChange: true,
+				pageLength: 25
+			});
+			expect(table.page.info().pages).toBe(3);
+		});
+
+		dt.html('two_tables');
+		it('When multiple tables gets expected table', function() {
+			let table1 = $('#example_one').DataTable({
+				lengthChange: true
+			});
+			let table2 = $('#example_two').DataTable({
+				lengthChange: false
+			});
+
+			expect($('#example_one_length').length).toBe(1);
+			expect($('#example_two_length').length).toBe(0);
+		});
+	});
+});
