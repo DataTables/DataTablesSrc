@@ -173,4 +173,28 @@ describe('stateLoadCallback Option', function() {
 			).toBe('["","Cox","","","Cox",""]');
 		});
 	});
+
+	// https://datatables.net/forums/discussion/comment/130261
+	describe('Two table interaction', function() {
+		dt.html('two_tables');
+
+		it('One table can load async state data while initialising the other', function(done) {
+			$('#example_one').DataTable({
+				stateSave: true,
+				stateLoadCallback: function(settings, callback) {;
+					setTimeout( function () {
+						callback();
+						done();
+					}, 2000 );
+				}
+			});
+
+			$('#example_two').DataTable({
+				stateSave: true,
+				stateLoadCallback: function(settings, callback) {
+					return {};
+				}
+			});
+		});
+	});
 });
