@@ -1,3 +1,4 @@
+// TK COLIN add some tests for multiple tables
 describe('stateSave option', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
