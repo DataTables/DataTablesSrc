@@ -32,7 +32,7 @@ describe('retrieve option', function() {
 		});
 
 		dt.html('basic');
-		it('All OK if args are different', function() {
+		it('Uses first initialisation if args are different', function() {
 			let table1 = $('#example').DataTable({
 				paging: false
 			});
