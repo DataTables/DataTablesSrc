@@ -116,6 +116,7 @@ describe('core - draw()', function() {
 		// });
 
 		// Fix test once case #477 resolved
+		dt.html('basic');
 		it('Shows sensible values in table information summary', function() {
 			let table = $('#example').DataTable();
 
