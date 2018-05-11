@@ -49,12 +49,12 @@ function _fnBuildAjax( oSettings, data, fn )
 	{
 		ajaxData = ajax.data;
 
-		var newData = $.isFunction( ajaxData ) ?
+		var newData = typeof ajaxData === 'function' ?
 			ajaxData( data, oSettings ) :  // fn can manipulate data or return
 			ajaxData;                      // an object object or array to merge
 
 		// If the function returned something, use that alone
-		data = $.isFunction( ajaxData ) && newData ?
+		data = typeof ajaxData === 'function' && newData ?
 			newData :
 			$.extend( true, data, newData );
 
@@ -118,7 +118,7 @@ function _fnBuildAjax( oSettings, data, fn )
 			url: ajax || oSettings.sAjaxSource
 		} ) );
 	}
-	else if ( $.isFunction( ajax ) )
+	else if ( typeof ajax === 'function' )
 	{
 		// Is a function - let the caller define what needs to be done
 		oSettings.jqXHR = ajax.call( instance, data, callback, oSettings );
