@@ -10,7 +10,7 @@ describe('createdRow option', function() {
 			let tmp = false;
 			$('#example').dataTable({
 				createdRow: function() {
-					if (arguments.length === 3) {
+					if (arguments.length === 4) {
 						tmp = true;
 					}
 				}
@@ -20,28 +20,26 @@ describe('createdRow option', function() {
 
 		dt.html('basic');
 		it('First argument is a TR element', function() {
-			let tmp = false;
+			let called = false;
 			$('#example').dataTable({
 				createdRow: function() {
-					if (arguments[0].nodeName === 'TR') {
-						tmp = true;
-					}
+					expect(arguments[0].nodeName).toBe('TR');
+					called = true;
 				}
 			});
-			expect(tmp).toBe(true);
+			expect(called).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Second Argument is an array with 6 elements', function() {
-			let tmp = false;
+			let called = false;
 			$('#example').dataTable({
 				createdRow: function() {
-					if (arguments[1].length === 6) {
-						tmp = true;
-					}
+					expect(arguments[1].length).toBe(6);
+					called = true;
 				}
 			});
-			expect(tmp).toBe(true);
+			expect(called).toBe(true);
 		});
 
 		dt.html('basic');
@@ -51,6 +49,21 @@ describe('createdRow option', function() {
 				createdRow: function() {
 					if (arguments[1] === $('#example').DataTable.settings[0].aoData[arguments[2]]._aData) {
 						goodRows++;
+					}
+				}
+			});
+			expect(goodRows).toBe(57);
+		});
+
+		dt.html('basic');
+		it('Fourth argument is a node list of the cells in the row', function() {
+			let goodRows = 0;
+			$('#example').dataTable({
+				createdRow: function() {
+					if (goodRows++ === 0) {
+						expect(arguments[3].length).toBe(6);
+						expect(arguments[3][0] instanceof HTMLTableCellElement).toBe(true);
+						expect($(arguments[3][0]).text()).toBe('Tiger Nixon');
 					}
 				}
 			});
