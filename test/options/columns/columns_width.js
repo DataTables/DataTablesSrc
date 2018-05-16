@@ -22,14 +22,12 @@ describe('columns.width option', function() {
 				autoWidth: false,
 				columns: [null, { width: '20%' }, { width: '30%' }, null, null, null]
 			});
-			expect(
-				$('#example thead th:eq(1)')[0].style.width == '20%' &&
-					$('#example thead th:eq(2)')[0].style.width
-			).toBe('30%');
+			expect($('#example thead th:eq(1)')[0].style.width).toBe('20%');
+			expect($('#example thead th:eq(2)')[0].style.width).toBe('30%');
 		});
 
 		dt.html('basic');
-		
+
 		it('With autowidth, it will make the smallest columns the largest with percentage width given', function() {
 			$('#example').dataTable({
 				columns: [null, null, null, { width: '40%' }, null, null]
@@ -40,7 +38,10 @@ describe('columns.width option', function() {
 			var a2 = anThs[2].offsetWidth;
 			var a3 = anThs[3].offsetWidth;
 			var a4 = anThs[4].offsetWidth;
-			expect(a3 > a0 && a3 > a1 && a3 > a2 && a3 > a4).toBe(true);
+			expect(a3 > a0).toBe(true);
+			expect(a3 > a1).toBe(true);
+			expect(a3 > a2).toBe(true);
+			expect(a3 > a4).toBe(true);
 		});
 	});
 });
