@@ -6,7 +6,6 @@ describe('columns.width option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-
 		it('With AutoWidth disabled the width for one column is applied', function() {
 			$('#example').dataTable({
 				autoWidth: false,
@@ -16,7 +15,15 @@ describe('columns.width option', function() {
 		});
 
 		dt.html('basic');
+		it('With AutoWidth disabled the width for one column is applied (columnDefs)', function() {
+			$('#example').dataTable({
+				autoWidth: false,
+				columnDefs: [{"targets": 1, "width": '40%' }]
+			});
+			expect($('#example thead th:eq(1)')[0].style.width).toBe('40%');
+		});
 
+		dt.html('basic');
 		it('With autoWidth disabled the widths for multiple columns are applied', function() {
 			$('#example').dataTable({
 				autoWidth: false,
@@ -30,7 +37,7 @@ describe('columns.width option', function() {
 
 		it('With autowidth, it will make the smallest columns the largest with percentage width given', function() {
 			$('#example').dataTable({
-				columns: [null, null, null, { width: '40%' }, null, null]
+				columns: [null, null, null, { width: '50%' }, null, null]
 			});
 			var anThs = $('#example thead th');
 			var a0 = anThs[0].offsetWidth;
