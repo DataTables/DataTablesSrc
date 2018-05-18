@@ -1,13 +1,10 @@
 // Karma configuration
 // Generated on Fri Jun 10 2016 13:57:39 GMT+0100 (BST)
 module.exports = function(config) {
-	var testFiles;
 
-	if (process.env.DT_TESTFILE) {
-		testFiles = process.env.DT_TESTFILE;
-	} else {
-		testFiles = 'test/*/**/*.js';
-	}
+	var fs = require('fs');
+	var browsers = fs.existsSync("/vagrant")? ['Chrome-headless'] : ['Chrome'];
+	var testFiles = process.env.DT_TESTFILE? process.env.DT_TESTFILE : 'test/*/**/*.js';
 
 	if (process.env.DT_EXTENSION) {
 		switch (process.env.DT_EXTENSION) {
@@ -256,7 +253,7 @@ module.exports = function(config) {
 
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: ['Chrome'],
+		browsers: browsers,
 		customLaunchers: {
 			"Chrome-headless": {
 				base: 'Chrome',
