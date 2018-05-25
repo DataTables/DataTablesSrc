@@ -5,12 +5,10 @@ describe('core - draw()', function() {
 	});
 
 	describe('Check the defaults', function() {
-		dt.html('basic');
 		it('Exists and is a function', function() {
 			expect(typeof $('#example').DataTable().draw).toBe('function');
 		});
 
-		dt.html('basic');
 		it('Returns an API instance', function() {
 			expect(
 				$('#example')
