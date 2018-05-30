@@ -70,7 +70,7 @@ describe('core - destroy()', function() {
 
 		dt.html('basic');
 		it('Check events remain if optional arg is true', function() {
-			var count = 0;
+			let count = 0;
 			$('#example').click(function() {
 				count++;
 			});
@@ -87,8 +87,8 @@ describe('core - destroy()', function() {
 	describe('Integration style tests', function() {
 		dt.html('two_tables');
 		it('When multiple tables all OK', function() {
-			table1 = $('#example_one').DataTable();
-			table2 = $('#example_two').DataTable();
+			let table1 = $('#example_one').DataTable();
+			let table2 = $('#example_two').DataTable();
 
 			table1.destroy(true);
 
