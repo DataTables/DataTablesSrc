@@ -21,17 +21,37 @@
 //   - Ensure that the selectors are cumulative
 // - Select cells using row and column selectors with selector modifier
 
-describe( 'cells: cell()', function() {
+describe('cells: cell()', function() {
 	var table;
 
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-	dt.html( 'basic' );
+	describe('modifier - page', function() {
+		dt.html('basic');
 
-	it ( '' , function () {
-		
-	} );
-} );
+		it('Row / column cell selector off page without modifier', function() {
+			table = $('#example').DataTable();
+
+			let d = table.cell(19, 0).data();
+			expect(d).toBe('Dai Rios');
+		});
+
+		it('Row / column cell selector off page with modifier', function() {
+			let d = table.cell(19, 0, { page: 'current' }).data();
+			expect(d).toBe(undefined);
+		});
+
+		it('Index cell selector off page without modifier', function() {
+			let d = table.cell({ row: 19, column: 1 }).data();
+			expect(d).toBe('Personnel Lead');
+		});
+
+		it('Index cell selector off page with modifier', function() {
+			let d = table.cell({ row: 19, column: 1 }, { page: 'current' }).data();
+			expect(d).toBe(undefined);
+		});
+	});
+});

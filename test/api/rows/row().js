@@ -47,6 +47,21 @@ describe('rows - row()', function() {
 		});
 	});
 
+	describe('Check the modifier parameter - page', function() {
+		dt.html('basic');
+		it('no modifier - select row not on the page', function() {
+			table = $('#example').DataTable();
+
+			var d = table.row(19).node();
+			expect(d.nodeName.toLowerCase()).toBe('tr');
+		});
+
+		it('modifier - select row not on the page', function() {
+			var d = table.row(0, { page: 'current' }).node();
+			expect(d).toBe(null);
+		});
+	});
+
 	describe('Check the modifier parameter (jQuery)', function() {
 		// GH #994
 		dt.html('basic');

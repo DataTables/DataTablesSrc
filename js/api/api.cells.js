@@ -47,7 +47,10 @@ var __cell_selector = function ( settings, selector, opts )
 		
 		// Selector - index
 		if ( $.isPlainObject( s ) ) {
-			return [s];
+			// Valid cell index and its in the array of selectable rows
+			return s.column !== undefined && s.row !== undefined && $.inArray( s.row, rows ) !== -1 ?
+				[s] :
+				[];
 		}
 
 		// Selector - jQuery filtered cells
