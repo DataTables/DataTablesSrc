@@ -114,11 +114,11 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 	}
 
 	// Row + column selector
-	var columns = this.columns( columnSelector, opts );
-	var rows = this.rows( rowSelector, opts );
+	var columns = this.columns( columnSelector );
+	var rows = this.rows( rowSelector );
 	var a, i, ien, j, jen;
 
-	var cells = this.iterator( 'table', function ( settings, idx ) {
+	this.iterator( 'table', function ( settings, idx ) {
 		a = [];
 
 		for ( i=0, ien=rows[idx].length ; i<ien ; i++ ) {
@@ -129,9 +129,10 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 				} );
 			}
 		}
-
-		return a;
 	}, 1 );
+
+    // Now pass through the cell selector for options
+    var cells = this.cells( a, opts );
 
 	$.extend( cells.selector, {
 		cols: columnSelector,
