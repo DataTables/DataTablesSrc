@@ -4,6 +4,14 @@
 	<summary>Select a single cell from a table.</summary>
 	<since>1.10</since>
 
+  <type type="function">
+    <signature>cell( [ modifier ] )</signature>
+    <description>Select a cell that matches the modifier</description>
+    <parameter type="selector-modifier" name="modifier" default="">
+      Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+    </parameter>
+    <returns type="DataTables.Api">DataTables API instance with selected cell</returns> 
+  </type>
 	<type type="function">
 		<signature>cell( cellSelector, [ modifier ] )</signature>
 		<description>Select the cell found by a cell selector</description>
@@ -13,7 +21,7 @@
 		<parameter type="selector-modifier" name="modifier" default="">
 			Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with selected cells</returns>
+		<returns type="DataTables.Api">DataTables API instance with selected cell</returns>
 	</type>
 	<type type="function">
 		<signature>cell( rowSelector, columnSelector, [ modifier ] )</signature>
