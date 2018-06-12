@@ -1,8 +1,3 @@
-// - Select cells using a row and column selector
-//   - Various combinations of row and column selectors
-//   - Ensure that the selectors are cumulative
-// - Select cells using row and column selectors with selector modifier
-
 describe('cells: cell()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
