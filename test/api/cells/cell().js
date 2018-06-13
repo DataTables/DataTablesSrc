@@ -5,16 +5,13 @@ describe('cells: cell()', function() {
 	});
 
 	describe('Check the defaults', function() {
+		let table;
 		it('Exists and is a function', function() {
-			expect(typeof $('#example').DataTable().cell).toBe('function');
+			table = $('#example').DataTable();
+			expect(typeof table.cell).toBe('function');
 		});
-
 		it('Returns an API instance', function() {
-			expect(
-				$('#example')
-					.DataTable()
-					.cell() instanceof $.fn.dataTable.Api
-			).toBe(true);
+			expect(table.cell() instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});
 
