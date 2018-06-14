@@ -5,9 +5,9 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>column( columnSelector [, modifier ] )</signature>
+		<signature>column( [ columnSelector ] [, modifier ] )</signature>
 		<description>Select the column found by a the column selector</description>
-		<parameter type="column-selector" name="columnSelector">
+		<parameter type="column-selector" name="columnSelector" default="">
 			Column selector.
 		</parameter>
 		<parameter type="selector-modifier" name="modifier" default="">

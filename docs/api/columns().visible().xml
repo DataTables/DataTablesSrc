@@ -29,7 +29,7 @@
 	<example title="Set column visibility for two columns"><![CDATA[
 var table = $('#example').DataTable();
 
-// Hide two columns column
+// Hide two columns
 table.columns( [1,2] ).visible( false );
 
 alert( 'Table\'s column visibility are set to: '+table.columns().visible().join(', ') );
