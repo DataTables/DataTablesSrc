@@ -76,7 +76,8 @@ DataTable.render = {
 
 	text: function () {
 		return {
-			display: __htmlEscapeEntities
+			display: __htmlEscapeEntities,
+			filter: __htmlEscapeEntities
 		};
 	}
 };
