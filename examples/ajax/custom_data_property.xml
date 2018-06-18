@@ -19,7 +19,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-When loading data from an Ajax source, by default, DataTables will look for the data to use in the `data` parameter of a returned object (e.g. `{ "data": [...] }`). This can easily be change by using the `dataSrc` option of the `dt-init ajax` initiation option.
+When loading data from an Ajax source, by default, DataTables will look for the data to use in the `data` parameter of a returned object (e.g. `{ "data": [...] }`). This can easily be changed by using the `dataSrc` option of the `dt-init ajax` initiation option.
 
 The `dt-init ajax.dataSrc` has a number of ways in which it can be used:
 
@@ -27,7 +27,7 @@ The `dt-init ajax.dataSrc` has a number of ways in which it can be used:
 * As an empty string (e.g. `dataSrc: ''`) - the data source is not an object but an array.
 * As a function (e.g. `dataSrc: function(json) {}`) - a function can be used to transform the data from one source format to another (for example you could convert from XML to a Javascript object). The value returned from the function is used as the data for the table.
 
-The example below shows `dt-init ajax.dataSrc` being used as a string to get the data from a different source property, in this case `string demo` but it could be any value, included a nested property by using standard dotted Javascript object notation.
+The example below shows `dt-init ajax.dataSrc` being used as a string to get the data from a different source property, in this case `string demo`, but it could be any value, including a nested property using standard dotted Javascript object notation.
 
 For more details on loading a DataTable with Ajax data, please refer to the [Ajax section of the manual](https://datatables.net/manual/ajax).
 

@@ -5,9 +5,9 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>column( columnSelector [, modifier ] )</signature>
+		<signature>column( [ columnSelector ] [, modifier ] )</signature>
 		<description>Select the column found by a the column selector</description>
-		<parameter type="column-selector" name="columnSelector">
+		<parameter type="column-selector" name="columnSelector" default="">
 			Column selector.
 		</parameter>
 		<parameter type="selector-modifier" name="modifier" default="">
@@ -19,7 +19,7 @@
 	<description>
 		Select an individual column to work with from a DataTable, with its chained methods providing the ability to get work with the column, taking actions such as toggling its visibility or obtaining the data from the column.
 
-		Note that this method selects a single column. If the selector provided resolves to multiple columns, the result will be truncated to just a single columns - the first one found. If you need to work with multiple columns, the `dt-api columns()` method is available with the same selection options.
+		Note that this method selects a single column. If the selector provided resolves to multiple columns, the result will be truncated to just a single column - the first one found. If you need to work with multiple columns, the `dt-api columns()` method is available with the same selection options.
 	</description>
 
 	<example title=""><![CDATA[

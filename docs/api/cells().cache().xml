@@ -5,10 +5,10 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>cells().cache( type )</signature>
+		<signature>cells().cache( [ type ] )</signature>
 		<description>Get cached data of the cache type specified</description>
-		<parameter type="string" name="type">
-			Specify which cache the data should be read from. Can take one of two values: `dt-string search` or `dt-string order`
+		<parameter type="string" name="type" default="order">
+			Specify which cache the data should be read from. Can take one of two values: `dt-string search` or `dt-string order`. Defaults to `order` if no value is given.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with the cached data for each selected cell in the result set</returns>
 	</type>

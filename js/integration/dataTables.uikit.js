@@ -167,7 +167,7 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 	catch (e) {}
 
 	attach(
-		$(host).empty().html('<ul class="uk-pagination uk-pagination-right"/>').children('ul'),
+		$(host).empty().html('<ul class="uk-pagination uk-pagination-right uk-flex-right"/>').children('ul'),
 		buttons
 	);
 

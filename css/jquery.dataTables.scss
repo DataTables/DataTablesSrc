@@ -548,7 +548,7 @@ table.dataTable td {
 			border-bottom: $table-header-border;
 		}
 
-		div.dataTables_scrollHead > table,
+		div.dataTables_scrollHead table.dataTable,
 		div.dataTables_scrollBody > table {
 			border-bottom: none;
 		}

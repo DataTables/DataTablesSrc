@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="13" framework="bootstrap4">
+<dt-example table-type="html" order="10" framework="bootstrap4">
 
 <css lib="datatables" />
 <js lib="jquery datatables" />
 
-<title>Bootstrap 4 (Tech. preview)</title>
+<title>Bootstrap 4</title>
 <js><![CDATA[
 $(document).ready(function() {
 	$('#example').DataTable();
@@ -13,11 +13,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-As with Bootstrap 3, DataTables can also be integrated seamlessly with Bootstrap 4. At the time of writing this example Bootstrap 4 was at the alpha stage, so things can, and probably still will change before DataTables integration with Bootstrap 4 is complete.
-
-This integration is done simply by including the DataTables Bootstrap 4 files (CSS and JS) which will set the defaults needed for DataTables to be initialised as normal, as shown in this examples.
-
-These integration libraries are not currently available in the DataTables download builder, but will become so when Bootstrap 4 is released. Until then they need to be included from source.
+As with Bootstrap 3, DataTables can also be integrated seamlessly with Bootstrap 4. This integration is done simply by including the DataTables Bootstrap 4 files (CSS and JS) which sets the defaults needed for DataTables to be initialised as normal, as shown in this example.
 
 ]]></info>
 

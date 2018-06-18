@@ -353,7 +353,7 @@ DataTable.ext = _ext = {
 		 *    $.fn.dataTable.ext.type.detect.push(
 		 *      function ( data, settings ) {
 		 *        // Check the numeric part
-		 *        if ( ! $.isNumeric( data.substring(1) ) ) {
+		 *        if ( ! data.substring(1).match(/[0-9]/) ) {
 		 *          return null;
 		 *        }
 		 *
@@ -504,6 +504,14 @@ DataTable.ext = _ext = {
 	 *  @deprecated Since v1.10
 	 */
 	iApiIndex: 0,
+
+
+	/**
+	 * jQuery UI class container
+	 *  @type object
+	 *  @deprecated Since v1.10
+	 */
+	oJUIClasses: {},
 
 
 	/**

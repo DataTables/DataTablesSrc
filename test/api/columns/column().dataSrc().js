@@ -62,7 +62,7 @@ describe( "columns- column().dataSrc()", function() {
 					{ data: "name" },
 					{ data: "position" },
 					{ data: "office" },
-					{ data: "extn" },
+					{ data: "age" },
 					{ data: "start_date" },
 					{ data: "salary" }
 				],

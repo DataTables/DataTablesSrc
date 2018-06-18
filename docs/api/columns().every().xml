@@ -15,6 +15,7 @@
 			1. Column index
 			2. Table loop counter
 			3. Column loop counter
+			4. Undefined (present only for consistency)
 
 			No return value is expected or acted upon.
 		</parameter>

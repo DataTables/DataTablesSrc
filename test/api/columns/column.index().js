@@ -1,41 +1,118 @@
-// todo tests
-// - Confirm it exists and is a function
-// - Hide column indexes
-// - Using `fromVisible`
-//   - Convert visible index 0 to data
-//   - Convert visible index 1 to data (repeat for the number of visible columns in the table)
-//   - Repeat the above for `toData` - should be identical results
-// - Using `fromData`
-//   - Convert data index 0 to visible index
-//   - Convert data index 1 to visible index (repeat for number of columns in the table) - should be null for hidden columns
-//   - Repeat the above for `toVisible`
+describe('columns - column.index()', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-describe( "columns- column.index()", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+	function doCheckColumns(type, indexArray) {
+		let table = $('#example').DataTable();
+		for (let pos = 0; pos < indexArray.length; pos++) {
+			expect(table.column.index(type, Number(pos))).toBe(indexArray[pos]);
+		}
+		expect(table.column.index(type, indexArray.length)).toBeNull();
+	}
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Exists and is a function", function () {
-			var table = $('#example').DataTable();
-			expect(typeof table.column().index).toBe('function');
+	// Double up the tests to avoid duplication
+	function checkColumns(type, indexArray) {
+		let fromVisible = ['fromVisible', 'toData'];
+		let fromData = ['fromData', 'toVisible'];
+		let toTest = fromVisible.includes(type) ? fromVisible : fromData;
+
+		toTest.forEach(function(testType) {
+			doCheckColumns(testType, indexArray);
 		});
-		dt.html( 'basic' );
-		it("Hide column- check data index", function () {
-			var table = $('#example').DataTable();
-			table.column( 0 ).visible( false );
-			var idx = table.column( 1 ).index();
-			expect(idx === 1).toBe(true);
-		});
-		dt.html( 'basic' );
-		it("Hide column- check visible index", function () {
-			var table = $('#example').DataTable();
-			table.column( 0 ).visible( false );
-			var idx = table.column.index( 'fromVisible', 1 );
-			expect(idx).toBe(2);
+	}
+
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Exists and is a function', function() {
+			expect(typeof $('#example').DataTable().column.index).toBe('function');
 		});
 	});
 
+	describe('Check fromVisible', function() {
+		dt.html('basic');
+		it('When all visible', function() {
+			checkColumns('fromVisible', [0, 1, 2, 3, 4, 5]);
+		});
+
+		dt.html('basic');
+		it('When none visible', function() {
+			$('#example')
+				.DataTable()
+				.columns()
+				.visible(false);
+			checkColumns('fromVisible', []);
+		});
+
+		dt.html('basic');
+		it('Hide first column - check data index', function() {
+			$('#example')
+				.DataTable()
+				.column(0)
+				.visible(false);
+			checkColumns('fromVisible', [1, 2, 3, 4, 5]);
+		});
+
+		dt.html('basic');
+		it('Hide last column - check data index', function() {
+			$('#example')
+				.DataTable()
+				.column(5)
+				.visible(false);
+			checkColumns('fromVisible', [0, 1, 2, 3, 4]);
+		});
+
+		dt.html('basic');
+		it('Hide middle columns - check data index', function() {
+			$('#example')
+				.DataTable()
+				.columns([2, 4])
+				.visible(false);
+			checkColumns('fromVisible', [0, 1, 3, 5]);
+		});
+	});
+
+	describe('Check fromData', function() {
+		dt.html('basic');
+		it('When all visible', function() {
+			checkColumns('fromData', [0, 1, 2, 3, 4, 5]);
+		});
+
+		dt.html('basic');
+		it('When none visible', function() {
+			$('#example')
+				.DataTable()
+				.columns()
+				.visible(false);
+			checkColumns('fromData', [null, null, null, null, null, null]);
+		});
+
+		dt.html('basic');
+		it('Hide first column - check data index', function() {
+			$('#example')
+				.DataTable()
+				.column(0)
+				.visible(false);
+			checkColumns('fromData', [null, 0, 1, 2, 3, 4]);
+		});
+
+		dt.html('basic');
+		it('Hide last column - check data index', function() {
+			$('#example')
+				.DataTable()
+				.column(5)
+				.visible(false);
+			checkColumns('fromData', [0, 1, 2, 3, 4, null]);
+		});
+
+		dt.html('basic');
+		it('Hide middle columns - check data index', function() {
+			$('#example')
+				.DataTable()
+				.columns([2,4])
+				.visible(false);
+			checkColumns('fromData', [0, 1, null, 2, null, 3]);
+		});
+	});
 });

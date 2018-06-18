@@ -338,7 +338,7 @@ class DT_Example
 	}
 
 
-	public function build_table ( $type )
+	public function build_table ( $type, $idIn=null )
 	{
 		if ( isset( $this->_xml->{'custom-table'} ) ) {
 			return $this->innerXML( $this->_xml->{'custom-table'} );
@@ -360,7 +360,10 @@ class DT_Example
 		}
 
 		$id = 'example';
-		if ( isset( $this->_xml['table-id'] ) ) {
+		if ( $idIn !== null ) {
+			$id = $idIn;
+		}
+		else if ( isset( $this->_xml['table-id'] ) ) {
 			$id = (string)$this->_xml['table-id'];
 		}
 
@@ -393,7 +396,7 @@ class DT_Example
 		$construction = DT_Example::$tables[ $type ];
 		$columns = $construction['columns'];
 
-		$t = '<table id="'.$id.'" class="'.$class.'" cellspacing="0" width="100%">';
+		$t = '<table id="'.$id.'" class="'.$class.'" style="width:100%">';
 
 		// Build the header
 		if ( $construction['header'] ) {
@@ -408,22 +411,6 @@ class DT_Example
 				$t .= '<thead>';
 				$t .= '<tr>'.$cells.'</tr>';
 				$t .= '</thead>';
-			}
-		}
-		
-		// Footer
-		if ( $construction['footer'] ) {
-			if ( is_callable( $construction['footer'] ) ) {
-				$t .= $construction['footer']();
-			}
-			else {
-				$cells = '';
-				for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
-					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
-				}
-				$t .= '<tfoot>';
-				$t .= '<tr>'.$cells.'</tr>';
-				$t .= '</tfoot>';
 			}
 		}
 		
@@ -466,6 +453,21 @@ class DT_Example
 			}
 		}
 		
+		// Footer
+		if ( $construction['footer'] ) {
+			if ( is_callable( $construction['footer'] ) ) {
+				$t .= $construction['footer']();
+			}
+			else {
+				$cells = '';
+				for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
+					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
+				}
+				$t .= '<tfoot>';
+				$t .= '<tr>'.$cells.'</tr>';
+				$t .= '</tfoot>';
+			}
+		}
 
 		$t .= '</table>';
 
@@ -513,7 +515,13 @@ class DT_Example
 			}
 
 			if ( $type === 'js' ) {
-				$out[] = '<script type="text/javascript" language="javascript" src="'.$file.'"></script>';
+				$a = strpos( $file, '|' ) !== false ?
+					explode( '|', $file ) :
+					array( $file );
+
+				for ( $j=0, $jen=count($a) ; $j<$jen ; $j++ ) {
+					$out[] = '<script type="text/javascript" language="javascript" src="'.$a[$j].'"></script>';
+				}
 			}
 			else {
 				$out[] = '<link rel="stylesheet" type="text/css" href="'.$file.'">';
@@ -700,6 +708,13 @@ DT_Example::$tables['sequence'] = array(
 
 DT_Example::$tables['ajax'] = array(
 	'columns' => array( 'name', 'position', 'office', 'extn', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
+DT_Example::$tables['ajax-id'] = array(
+	'columns' => array( 'id', 'name', 'position', 'office', 'extn', 'start_date', 'salary' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => false

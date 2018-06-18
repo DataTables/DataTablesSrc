@@ -44,7 +44,7 @@ When you want to have user selectable rows in DataTables, it is relatively trivi
 
 This is shown in this demo, which uses a unique ID assigned to the TR element (this is done automatically through the use of the `DT_RowId` special property returned as part of the object given by the server for each row) to track which rows are selected and reselect them is appropriate on a draw.
 
-If you are looking for a more complete and easier to use row selection option, check out the [Select extension](https://datatables.net/extras/select) provides an API that is fully integrated with DataTables for selecting rows and acting upon those selected rows.
+If you are looking for a more complete and easier to use row selection option, the [Select extension](https://datatables.net/extras/select) provides an API that is fully integrated with DataTables for selecting rows and acting upon that selection.
 
 ]]></info>
 

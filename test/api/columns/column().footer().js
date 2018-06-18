@@ -1,88 +1,106 @@
-// todo tests
-// - Confirm it exists and is a function
-// - Confirm it returns a node
-// - One row in footer:
-//   - Select the first column and get its footer cell
-//   - Select the last column and get its footer cell
-// - Two rows in footer:
-//   - Select the first column and get its footer cell - only first cell for that column is returned
-//   - Select the last column and get its footer cell - only first cell for that column is returned
-// - Test with no footer, make sure null is returned for all columns
-// - Test with a scrolling table that has a footer
-// - Hide a column - ensure that its footer node can still be accessed with this method
+//TK COLIN - this could do with some tidying up, this is just a repetition of the header tests
+describe('columns - column().footer()', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
+	function verifyFooter(footer, expectedText) {
+		expect(footer instanceof HTMLTableCellElement).toBe(true);
+		expect(footer.nodeName).toBe('TH');
+		expect(footer.textContent).toBe(expectedText);
+	}
 
-describe( "columns- column().footer()", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
-
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Exists and is a function", function () {
-			var table = $('#example').DataTable();
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Exists and is a function', function() {
+			let table = $('#example').DataTable();
 			expect(typeof table.column().footer).toBe('function');
 		});
-		dt.html( 'basic' );
-		it("Returns an API instance", function () {
-			var table = $('#example').DataTable();
+
+		dt.html('basic');
+		it('Returns a node', function() {
+			let table = $('#example').DataTable();
 			expect(table.column().footer() instanceof Node).toBe(true);
 		});
-		dt.html( 'basic' );
-		it("One row in footer: Select first column return footer cell", function () {
-			var table = $('#example').DataTable();
-			var returnData = table.column(0).footer();
-			expect(returnData.nodeName == "TH" && returnData.textContent == "Name").toBe(true);
-		});
-		dt.html( 'basic' );
-		it("One row in footer: Select last column return footer cell", function () {
-			var table = $('#example').DataTable();
-			var returnData = table.column(-1).footer();
-			expect(returnData.nodeName == "TH" && returnData.textContent == "Salary").toBe(true);
-		});
-		dt.html( 'two_footers' );
-		it("Two rows in footer: Select last column return footer cell", function () {
-			var table = $('#example').DataTable();
-			var returnData = table.column(0).footer();
-			expect(returnData.nodeName == "TH" && returnData.textContent == "Name").toBe(true);
-		});
-		dt.html( 'two_footers' );
-		it("One row in footer: Select last column return footer cell", function () {
-			var table = $('#example').DataTable();
-			var returnData = table.column(-1).footer();
-			expect(returnData.nodeName == "TH" && returnData.textContent == "Salary").toBe(true);
-		});
-		dt.html( 'no_footer' );
-		it("One row in footer: Select last column return footer cell", function () {
-			var table = $('#example').DataTable();
-			var returnData = table.column(0).footer();
-			expect(returnData).toBe(null);
-		});
+	});
+
+	describe('Check the behaviour', function() {
 		dt.html('basic');
-		it("Scrolling table with footer", function () {
-			var table = $('#example').DataTable({
-				"scrollY":        "200px",
-				"scrollCollapse": true,
-				"paging":         false
-			});
-			var returnData = table.column(0).footer();
-			expect(returnData.nodeName == "TH" && returnData.textContent == "Name").toBe(true);
+		it('One row in footer: Select first column return footer cell', function() {
+			let table = $('#example').DataTable();
+			verifyFooter(table.column(0).footer(), 'Name');
 		});
-		dt.html( 'basic' );
-		it("Hidden column", function () {
-			var table = $('#example').DataTable({
-				"columnDefs": [
+
+		dt.html('basic');
+		it('One row in footer: Select last column return footer cell', function() {
+			let table = $('#example').DataTable();
+			verifyFooter(table.column(-1).footer(), 'Salary');
+		});
+
+		/**
+		 * note the footers currently don't respond orderCellsTop (only applied to headers)
+		 * but have left in the following tests which will fail when this functionality
+		 * is added
+		 **/
+		dt.html('two_footers');
+		it('Two rows in footer: Selecting column returns bottom row', function() {
+			let table = $('#example').DataTable();
+			verifyFooter(table.column(0).footer(), 'Name');
+		});
+
+		dt.html('two_footers');
+		it('Two rows in footer: Selecting last column returns bottom row', function() {
+			let table = $('#example').DataTable();
+			verifyFooter(table.column(-1).footer(), 'Salary');
+		});
+
+		dt.html('two_footers');
+		it('orderCellsTop: true- Selecting first column returns top row', function() {
+			let table = $('#example').DataTable({
+				orderCellsTop: true
+			});
+			let returnData = table.column(0).footer();
+			verifyFooter(table.column(0).footer(), 'Name');
+		});
+
+		dt.html('two_footers');
+		it('orderCellsTop: true- Selecting last column returns top row', function() {
+			let table = $('#example').DataTable({
+				orderCellsTop: true
+			});
+			let returnData = table.column(-1).footer();
+			verifyFooter(table.column(-1).footer(), 'Salary');
+		});
+
+		dt.html('basic');
+		it('Scrolling table with footer', function() {
+			let table = $('#example').DataTable({
+				scrollY: '200px',
+				scrollCollapse: true,
+				paging: false
+			});
+			verifyFooter(table.column(0).footer(), 'Name');
+		});
+
+		dt.html('basic');
+		it('Hidden column at initialisation', function() {
+			let table = $('#example').DataTable({
+				columnDefs: [
 					{
-						"targets": [ 0 ],
-						"visible": false,
-						"searchable": false
+						targets: [2],
+						visible: false,
+						searchable: false
 					}
 				]
 			});
-			var returnData = table.column(0).footer();
-			expect(returnData.nodeName == "TH" && returnData.textContent == "Name").toBe(true);
+			verifyFooter(table.column(2).footer(), 'Office');
 		});
 
+		dt.html('basic');
+		it('Hidden column at initialisation through API', function() {
+			let table = $('#example').DataTable();
+			table.column(2).visible(false);
+			verifyFooter(table.column(2).footer(), 'Office');
+		});
 	});
-
 });

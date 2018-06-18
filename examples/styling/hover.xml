@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-This example shows DataTables with just the `hover` class specified. This class will instruct DataTables' styling to highlight a row when the mouse is hovered over it.
+This example shows DataTables with just the `hover` class specified. This class instructs DataTables' styling to highlight a row when the mouse is hovered over it.
 
 ]]></info>
 

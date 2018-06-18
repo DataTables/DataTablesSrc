@@ -187,6 +187,27 @@ function js_require {
 	cd $CURR_DIR
 }
 
+# Run JSHint over a JS file
+#
+# $1 - string - Full path to input file
+function js_hint {
+	FILE=$1
+	DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+	# JSHint
+	if [ -e $JSHINT ]; then
+		$JSHINT --config $DIR/jshint.config $FILE
+
+		if [ $? -eq 0 ]; then
+			echo_msg "JSHint passed"
+		else
+			echo_error "JSHint failed"
+		fi
+	else
+		echo_error "JSHint not installed at $JSHINT - skipping"
+	fi
+}
+
 # Process XML example files into HTML files - in place! The XML files will be
 # removed.
 #

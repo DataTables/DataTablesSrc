@@ -1,52 +1,163 @@
-describe( "drawCallback option", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+describe('drawCallback option', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default should not be true", function () {
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Default should not be true', function() {
 			$('#example').dataTable();
 			expect($.fn.dataTable.defaults.fnDrawCallback).not.toBe(true);
-			//$.fn.DataTable.defaults
 		});
-		dt.html( 'basic' );
-		it("One argument passed", function () {
-			test = -1;
-			$('#example').dataTable( {
-				"drawCallback": function() {
-					test = arguments.length;
 
+		dt.html('basic');
+		it('One argument passed', function() {
+			let test = 0;
+			$('#example').dataTable({
+				drawCallback: function() {
+					test = arguments.length;
 				}
 			});
-			expect(test == 1).toBe(true);
+			expect(test).toBe(1);
 		});
-		dt.html( 'basic' );
-		it("That one argument is the settings object", function () {
-			$('#example').dataTable( {
-				"drawCallback": function (settings){
+
+		dt.html('basic');
+		it('That one argument is the settings object', function() {
+			let table = $('#example').DataTable({
+				drawCallback: function(settings) {
 					test = settings;
 				}
 			});
-			expect($('#example').DataTable().settings()[0] == test).toBe(true);
+			expect(table.settings()[0]).toBe(test);
 		});
-		dt.html( 'basic' );
-		it("drawCallback called once on first draw", function () {
-			test = 0;
-			$('#example').dataTable( {
-				"drawCallback": function(){
-					test++;
+
+		dt.html('basic');
+		it('Context is correct', function() {
+			let test = 0;
+			$('#example').dataTable({
+				drawCallback: function() {
+					test = this.api()
+						.columns()
+						.count();
 				}
 			});
-			expect(test == 1).toBe(true);
-		});
-		it("drawCallback called once each draw thereafter as well", function () {
-			$('#example_next').click();
-			$('#example_next').click();
-			$('#example_next').click();
-			expect(test == 4).toBe(true);
+			expect(test).toBe(6);
 		});
 	});
 
+	describe('Functional tests', function() {
+		dt.html('basic');
+		it('drawCallback called after the draw', function() {
+			let test = 0;
+			$('#example').dataTable({
+				drawCallback: function() {
+					test = $('#example tbody tr').length;
+				}
+			});
+			$('#example_filter input')
+				.val('developer')
+				.keyup();
+			expect(test).toBe(8);
+		});
+
+		dt.html('basic');
+		let test = 0;
+		it('drawCallback called once on first draw', function() {
+			$('#example').dataTable({
+				drawCallback: function() {
+					test++;
+				}
+			});
+			expect(test).toBe(1);
+		});
+
+		it('drawCallback called once when paging', function() {
+			$('#example_next').click();
+			expect(test).toBe(2);
+		});
+
+		it('drawCallback called once when filtering', function() {
+			$('#example_filter input')
+				.val('Accountant')
+				.keyup();
+			expect(test).toBe(3);
+		});
+
+		it('drawCallback called once when ordering', function() {
+			$('#example thead th:eq(3)').click();
+			expect(test).toBe(4);
+		});
+	});
+
+	describe('Integration style tests', function() {
+		dt.html('basic');
+		it('Server-side processing', function(done) {
+			let test = 0;
+			let table = $('#example').DataTable({
+				processing: true,
+				serverSide: true,
+				displayStart: 20,
+				lengthMenu: [15, 30, 45, 60],
+				ajax: function(data, callback, settings) {
+					var out = [];
+
+					for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
+						out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
+					}
+
+					setTimeout(function() {
+						callback({
+							draw: data.draw,
+							data: out,
+							recordsTotal: 5000000,
+							recordsFiltered: 5000000
+						});
+					}, 50);
+				},
+				drawCallback: function() {
+					test++;
+				},
+				initComplete: function(setting, json) {
+					expect(test).toBe(1);
+					done();
+				}
+			});
+		});
+
+		dt.html('basic');
+		it('Server-side processing', function(done) {
+			let test = 0;
+			let table = $('#example').DataTable({
+				processing: true,
+				serverSide: true,
+				displayStart: 20,
+				deferRendering: true,
+				lengthMenu: [15, 30, 45, 60],
+				ajax: function(data, callback, settings) {
+					var out = [];
+
+					for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
+						out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
+					}
+
+					setTimeout(function() {
+						callback({
+							draw: data.draw,
+							data: out,
+							recordsTotal: 5000000,
+							recordsFiltered: 5000000
+						});
+					}, 50);
+				},
+				drawCallback: function() {
+					test++;
+				},
+				initComplete: function(setting, json) {
+					expect(test).toBe(1);
+					done();
+				}
+			});
+		});
+	});
 });

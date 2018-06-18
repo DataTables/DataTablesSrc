@@ -9,6 +9,18 @@
 // - Use with rows().nodes() and it gives a jQuery object that contains all row nodes
 // - Use with rows().nodes() and a selector that will result in only a single row being included
 // - Use with rows().nodes() and a selector that will result in no nodes
+
+// TK COLIN - chat with Allan
+// ```var table = $('#myTable').DataTable();
+// var cells = table.cells(null, 0);
+// var nodes = cells.nodes();
+// var nodes2 = new $.fn.dataTable.Api( '#myTable', cells.indexes() );
+// // Then nodes and nodes2 should contain the same thing
+// ```
+// you can use the result from `cells().indexes()` in a `new $.fn.dataTable.Api()`
+// That should probably be in the `$.fn.dataTable.Api` test file rather than in `cells().indexes()` though
+
+
 describe( "core- $()", function() {
 	dt.libs( {
 		js:  [ 'jquery', 'datatables' ],

@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>rows().remove()</signature>
 		<description>Delete the selected rows.</description>
-		<returns type="DataTables.Api">DataTables API instance.</returns>
+		<returns type="DataTables.Api">DataTables API instance with references for the removed rows in the result set</returns>
 	</type>
 
 	<description>

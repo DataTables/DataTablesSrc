@@ -168,7 +168,7 @@ $('#example').dataTable( {
   "columnDefs": [ {
     "targets": 0,
     "data": "download_link",
-    "render": function ( data, type, full, meta ) {
+    "render": function ( data, type, row, meta ) {
       return '<a href="'+data+'">Download</a>';
     }
   } ]
@@ -180,7 +180,7 @@ $('#example').dataTable( {
   "columnDefs": [ {
     "targets": 4,
     "data": "description",
-    "render": function ( data, type, full, meta ) {
+    "render": function ( data, type, row, meta ) {
       return type === 'display' && data.length > 40 ?
       	'<span title="'+data+'">'+data.substr( 0, 38 )+'...</span>' :
       	data;

@@ -209,6 +209,14 @@ DataTable.models.oColumn = {
 	"sSortingClass": null,
 
 	/**
+	 * Class to be applied to the header element when sorting on this column -
+	 * when jQuery UI theming is used.
+	 *  @type string
+	 *  @default null
+	 */
+	"sSortingClassJUI": null,
+
+	/**
 	 * Title of the column - what is seen in the TH element (nTh).
 	 *  @type string
 	 */

@@ -33,7 +33,7 @@ In some tables you might wish to have some content generated automatically. This
 
 This examples shows the use of `dt-init columns.defaultContent` to create a _button_ element in the last column of the table. A simple jQuery `click` event listener is used to watch for clicks on the row, and when activated uses the `dt-api row().data()` method to get the data for the row and show a bit of information about it in an `alert` box. This is a simple use case, but it can be built up to be arbitrarily complex.
 
-Note also that the `dt-init columns.data` option for the column has been set to `null` to indicate that the column has no information that should be obtained data source object.
+Note also that the `dt-init columns.data` option for the column has been set to `null` to indicate that the column has no information contained in the data source object.
 
 ]]></info>
 

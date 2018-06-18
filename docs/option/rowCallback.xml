@@ -5,14 +5,20 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>rowCallback( row, data, index )</signature>
+		<signature>rowCallback( row, data, displayNum, displayIndex, dataIndex )</signature>
 		<parameter type="node" name="row">
 			`tag TR` element being inserted into the document.
 		</parameter>
 		<parameter type="array|object" name="data">
 			Data source for the row. **Important**: This parameter is the original data source object that is used for the  row. If you are using objects, then `data` is an object - if you are using arrays, then `data` is an array. Thus how you obtain the data from this parameter will depend on how the DataTable is configured.
 		</parameter>
-		<parameter type="integer" name="index">
+		<parameter type="integer" name="displayNum">
+			Row number in the current page of displayed rows.
+		</parameter>
+		<parameter type="integer" name="displayIndex">
+			Row number in the current search set of data (i.e. over all available pages).
+		</parameter>
+		<parameter type="integer" name="dataIndex">
 			DataTables' internal index for the row - see `dt-api row().index()`.
 		</parameter>
 		<scope>HTML table element</scope>
@@ -26,7 +32,7 @@
 
 	<example title="Highlight cells based on their content (object data source)"><![CDATA[
 $('#example').dataTable( {
-  "rowCallback": function( row, data, index ) {
+  "rowCallback": function( row, data ) {
     if ( data.grade == "A" ) {
       $('td:eq(4)', row).html( '<b>A</b>' );
     }
@@ -36,7 +42,7 @@ $('#example').dataTable( {
 
 	<example title="Highlight cells based on their content (array data source)"><![CDATA[
 $('#example').dataTable( {
-  "rowCallback": function( row, data, index ) {
+  "rowCallback": function( row, data ) {
     if ( data[4] == "A" ) {
       $('td:eq(4)', row).html( '<b>A</b>' );
     }

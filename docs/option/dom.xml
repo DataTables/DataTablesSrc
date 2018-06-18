@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="string" />
-	<default value="lftrip"><![CDATA[
+	<default value="lfrtip"><![CDATA[
 		Note that if you use one of the styling integration options such as Bootstrap, Foundation or jQuery UI they will alter the default value for this parameter. Please see the description for the values they set.
 ]]></default>
 
@@ -28,6 +28,11 @@
 
     Each option can be specified multiple times (with the exception of the table itself), which can be used to have table controls both above and below the table. DataTables will automatically synchronise these multiple controls.
 
+    In addition to the above control options, there are two constants DataTables understands (note that these two options are deprecated in 1.10 and will be removed in 1.11 along side the separation of the `dt-init jQueryUI` option into its own theme file):
+
+    * `H` - jQueryUI theme "header" classes (`string fg-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix`)
+    * `F` - jQueryUI theme "footer" classes (`string fg-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix`)
+
     ### Markup
 
     Further to these options, you can also specify additional `tag div` elements to be inserted into the document, which can be used for styling / nesting of the control elements. To add tags, the following syntax is expected:
@@ -43,12 +48,20 @@
 
     The defaults for the styling integrations are:
 
-    Bootstrap:
+    Bootstrap 3:
 
     ```js
     "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
     "<'row'<'col-sm-12'tr>>" +
     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+    ```
+
+    Bootstrap 4:
+
+    ```js
+		"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+		"<'row'<'col-sm-12'tr>>" +
+		"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
     ```
 
     Foundation: 
@@ -67,21 +80,33 @@
     '<"fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-bl ui-corner-br"ip>',
     ```
 
+    Semantic UI:
+
+    ```js
+		"<'ui stackable grid'"+
+			"<'row'"+
+				"<'eight wide column'l>"+
+				"<'right aligned eight wide column'f>"+
+			">"+
+			"<'row dt-table'"+
+				"<'sixteen wide column'tr>"+
+			">"+
+			"<'row'"+
+				"<'seven wide column'i>"+
+				"<'right aligned nine wide column'p>"+
+			">"+
+		">"
+    ```
+
 
     ### Plug-ins
 
     DataTables feature plug-ins can be developed to add additional features to DataTables and often will make use of this option, adding new letters to the DataTables core features. For example [Buttons](//datatables.net/extensions/buttons) adds the `B` option to `dt-init dom` to specify where table control buttons should be inserted into the table.
 
-    Currently only a single extension provides its own `dt-init dom` option, while the others can all be configured directly using the options in the DataTables constructor:
+    The following [extensions](/extensions) can be initialised through the `-init dom` option:
 
     * `B` - [Buttons](/extensions/buttons)
-
-
-    ### Legacy information
-
-    In DataTables prior to v2 the default for this property was `lfrtip`. The only change is that the processing element (`r`) is now after the table rather than before.
-
-    Additionally, DataTables 1.x understood `H` and `F` options in the `-init dom` property as shorthands for jQuery UI classes. These have been removed in v2.
+    * `S` - [Select](/extensions/select)
 
 
     ### Future development

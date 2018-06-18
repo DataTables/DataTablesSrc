@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>preDraw</name>
+	<summary>Pre-draw event - triggered as the table is about to be redrawn.</summary>
+	<since>1.10</since>
+
+	<type type="function">
+		<signature>function( e, settings )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="DataTables.Settings" name="settings">
+			DataTables settings object
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		This event is triggered when DataTables starts its draw action (finally resulting in the `-event draw` event) and can be used to inform you of this state.
+
+		This event can also be used to cancel the draw by returning `false` from the event handler. Please note that if you do this it can leave the table in an unpredicable state as any settings are not reset to their values from before the draw action - for example using `-api order()` to change the ordering of the table, but if the draw action is cancelled the data will still have been ordered internally in DataTables, but just not displayed.
+	</description>
+
+	<example title="Log time taken to draw the page"><![CDATA[
+var table = $('#example').DataTable();
+var startTime;
+
+table
+    .on( 'preDraw', function () {
+        startTime = new Date().getTime();
+    } )
+    .on( 'draw.dt', function () {
+        console.log( 'Redraw took at: '+(new Date().getTime()-startTime)+'mS' );
+    } );
+]]></example>
+
+	<related type="option">drawCallback</related>
+	<related type="api">draw()</related>
+	<related type="event">draw</related>
+</dt-event>

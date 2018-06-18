@@ -32,13 +32,13 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-New rows can be added to a DataTable very easily using the `dt-api row.add()` API method. Simply call the API function with the data that is to be used for the new row (be it an array or object). Multiple rows can be added using the `dt-api rows.add()` method (note the plural). Data can be likewise be updated with the `dt-api row().data()` and `dt-api row().remove()` methods.
+New rows can be added to a DataTable using the `dt-api row.add()` API method. Simply call the API function with the data for the new row (be it an array or object). Multiple rows can be added using the `dt-api rows.add()` method (note the plural). Data can likewise be updated with the `dt-api row().data()` and `dt-api row().remove()` methods.
 
-Note that in order to see the new row in the table you must call the `dt-api draw()` method, which is easily done through the chaining that the DataTables API makes use of.
+Note that in order to see the new row in the table you must call the `dt-api draw()` method, which is easily done through the chaining that the DataTables API employs.
 
 This example shows a single row being added each time the button below is clicked upon.
 
-The [Editor extension](https://editor.datatables.net/) adds full table editing controls, including creating, editing and deleting rows, to a DataTable.
+The [Editor extension](https://editor.datatables.net/) adds full table editing controls to a DataTable, including creating, editing and deleting rows.
 
 ]]></info>
 

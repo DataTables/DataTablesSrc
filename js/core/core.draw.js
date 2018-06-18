@@ -76,7 +76,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			}
 		}
 
-		_fnCallbackFire( oSettings, 'aoRowCreatedCallback', null, [nTr, rowData, iRow] );
+		_fnCallbackFire( oSettings, 'aoRowCreatedCallback', null, [nTr, rowData, iRow, cells] );
 	}
 
 	// Remove once webkit bug 131819 and Chromium bug 365619 have been resolved
@@ -401,7 +401,7 @@ function _fnDraw( oSettings )
 			// iRowCount and j are not currently documented. Are they at all
 			// useful?
 			_fnCallbackFire( oSettings, 'aoRowCallback', null,
-				[nRow, aoData._aData, iRowCount, j] );
+				[nRow, aoData._aData, iRowCount, j, iDataIndex] );
 
 			anRows.push( nRow );
 			iRowCount++;
@@ -535,6 +535,16 @@ function _fnAddOptionsHtml ( oSettings )
 				{
 					sAttr += aDom[i+j];
 					j++;
+				}
+
+				/* Replace jQuery UI constants @todo depreciated */
+				if ( sAttr == "H" )
+				{
+					sAttr = classes.sJUIHeader;
+				}
+				else if ( sAttr == "F" )
+				{
+					sAttr = classes.sJUIFooter;
 				}
 
 				/* The attribute can be in the format of "#id.class", "#id" or "class" This logic

@@ -36,7 +36,6 @@ $('#example').DataTable( {
 	stateLoadCallback: function (settings, callback) {
 		$.ajax( {
 			url: '/state_load',
-			async: false,
 			dataType: 'json',
 			success: function (json) {
 				callback( json );

@@ -1,9 +1,6 @@
 
 table.dataTable {
 	clear: both;
-	margin-top: 6px !important;
-	margin-bottom: 6px !important;
-	max-width: none !important;
 
 	td,
 	th {
@@ -90,42 +87,56 @@ div.dataTables_wrapper {
 }
 
 
-// Sorting icons using UIKit's built in icons (Font Awesome)
+// Sorting - using :before and :after with UTF8 characters
 table.dataTable thead {
 	> tr > th,
 	> tr > td {
-		position: relative;
-
 		&.sorting_asc,
 		&.sorting_desc,
 		&.sorting {
 			padding-right: 30px;
 		}
 
-		&.sorting:after,
-		&.sorting_asc:after,
-		&.sorting_desc:after {
+		&:active {
+			outline: none;
+		}
+	}
+
+	.sorting,
+	.sorting_asc,
+	.sorting_desc,
+	.sorting_asc_disabled,
+	.sorting_desc_disabled {
+		cursor: pointer;
+		position: relative;
+
+		&:before,
+		&:after {
 			position: absolute;
-			top: 7px;
-			right: 8px;
+			bottom: 1.2em;
 			display: block;
-			font-family: 'FontAwesome';
+			opacity: 0.3;
 		}
 
-		&.sorting:after {
-			content: "\f0dc";
-			color: #ddd;
-			font-size: 0.8em;
-			padding-top: 0.12em;
+		&:before {
+			right: 1em;
+			content: "\2191"; // up arrow - ascending
 		}
 
-		&.sorting_asc:after {
-			content: "\f0de";
+		&:after {
+			right: 0.5em;
+			content: "\2193"; // down arrow - descending
 		}
+	}
 
-		&.sorting_desc:after {
-			content: "\f0dd";
-		}
+	.sorting_asc:before,
+	.sorting_desc:after {
+		opacity: 1;
+	}
+
+	.sorting_asc_disabled:before,
+	.sorting_desc_disabled:after {
+		opacity: 0;
 	}
 }
 

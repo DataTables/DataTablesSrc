@@ -17,7 +17,7 @@
 	<description>
 		Allows a column's sorting to take either the data from a different (often hidden) column as the data to sort, or data from multiple columns.
 
-		A common example of this is a table which contains first and last name columns next to each other, it is intuitive that they would be linked together to multi-column sort. Another example, with a single column, is the case where the data shown to the end user is not directly sortable itself (a column with images in it), but there is some meta data than can be sorted (e.g. file name) - note that [orthogonal data](/manual/data/orthogonal) is an alternative method that can be used for this.
+		A common example of this is a table which contains first and last name columns next to each other, it is intuitive that they would be linked together to multi-column sort. Another example, with a single column, is the case where the data shown to the end user is not directly sortable itself (a column with images in it), but there is some meta data than can be sorted (e.g. file name) - note that [orthogonal data](/manual/data/orthogonal-data) is an alternative method that can be used for this.
 	</description>
 
 	<example title="Using `orderData` to define multi-column sorting with `dt-init columnDefs`"><![CDATA[

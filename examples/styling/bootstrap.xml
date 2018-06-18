@@ -17,7 +17,7 @@ DataTables can integrate seamlessly with [Bootstrap 3](http://getbootstrap.com/)
 
 DataTables' Bootstrap integration also provides a renderer for the pagination control in DataTables to ensure that the pagination of the table is also styled consistently by Bootstrap.
 
-This integration is done simply by including the DataTables Bootstrap files (CSS and JS) which will set the defaults needed for DataTables to be initialised as normal, as shown in this examples.
+This integration is done simply by including the DataTables Bootstrap files (CSS and JS) which sets the defaults needed for DataTables to be initialised as normal, as shown in this example.
 
 ]]></info>
 

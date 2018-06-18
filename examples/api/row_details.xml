@@ -74,9 +74,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-The DataTables API has a number of methods available for attaching child rows to a *parent* row in the DataTable. This can be used to show additional information about a row, useful for cases where you wish to convey more information about a row than there is space for in the host table.
+The DataTables API has a number of methods for attaching child rows to a *parent* row in the DataTable. This can be used to show additional information about a row, useful for cases where you wish to convey more information about a row than there is space for in the host table.
 
-The example below makes use of the `dt-api row().child` methods to firstly check if a row is already displayed, and if so hide it (`dt-api row().child.hide()`), otherwise show it (`dt-api row().child.show()`). The content of the child row is, in this example, defined by the `formatDetails()` function, but you would replace that with whatever you wanted to show the content required, possibly including, for example, an Ajax call to the server to obtain the extra information to show.
+The example below makes use of the `dt-api row().child` methods to first check if a row is already displayed, and if so hide it (`dt-api row().child.hide()`), otherwise show it (`dt-api row().child.show()`). The content of the child row in this example is defined by the `format()` function, but you would replace that with whatever content you wanted to show, possibly including, for example, [an Ajax call to the server](https://www.datatables.net/blog/2017-03-31) to obtain any extra information.
 
 ]]></info>
 

@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-The `compact` class is used to reduce the amount of white-space the default styling for the DataTable uses, increasing the information density on screen, as shown below.
+The `compact` class reduces the amount of white-space in the default styling, increasing the information density on screen, as shown below.
 
 ]]></info>
 

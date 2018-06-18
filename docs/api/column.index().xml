@@ -8,7 +8,7 @@
 		<signature>column.index( type, index )</signature>
 		<description>Convert from the input column index type to that required.</description>
 		<parameter type="string" name="type">
-			The type on conversion that should take place:
+			The type of conversion that should take place:
 
 			* `dt-string fromVisible` or `dt-string toData` to convert from a visible index to the columns' data index.
 			* `dt-string fromData` or `dt-string toVisible` to convert from a data index to the columns' visible index.

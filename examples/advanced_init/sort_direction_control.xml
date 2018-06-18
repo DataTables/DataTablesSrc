@@ -36,7 +36,7 @@ The example below shows:
 * Column 5 - descending ordering only
 * Column 6 - default ordering
 
-It's worth noting that I don't have a good use case for when you might what to mix such complex ordering behaviour into a single table, but the example shows how these options can be use and therefore applied across all columns.
+It's worth noting that I don't have a good use case for when you might what to mix such complex ordering behaviour into a single table, but the example shows how these options can be used and therefore applied across all columns.
 
 ]]></info>
 

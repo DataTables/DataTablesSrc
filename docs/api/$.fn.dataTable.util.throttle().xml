@@ -7,12 +7,12 @@
 	<type type="function">
 		<signature>throttle( fn, [ period ] )</signature>
 		<description>Throttle the calls to a method to reduce call frequency.</description>
-		<param type="function" name="fn" default="false">
+		<parameter type="function" name="fn" default="false">
 			Function that should have its called throttled
-		</param>
-		<param type="integer" name="period" default="200">
+		</parameter>
+		<parameter type="integer" name="period" default="200">
 			Call period when throttled, in milliseconds (mS).
-		</param>
+		</parameter>
 		<returns type="function">Wrapper function that can be called and will automatically throttle calls to the passed in function to the given period.</returns>
 	</type>
 

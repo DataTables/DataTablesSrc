@@ -113,13 +113,26 @@ var _selector_row_indexes = function ( settings, opts )
 		}
 	}
 	else if ( order == 'current' || order == 'applied' ) {
-		a = search == 'none' ?
-			displayMaster.slice() :                      // no search
-			search == 'applied' ?
-				displayFiltered.slice() :                // applied search
-				$.map( displayMaster, function (el, i) { // removed search
-					return $.inArray( el, displayFiltered ) === -1 ? el : null;
-				} );
+		if ( search == 'none') {
+			a = displayMaster.slice();
+		}
+		else if ( search == 'applied' ) {
+			a = displayFiltered.slice();
+		}
+		else if ( search == 'removed' ) {
+			// O(n+m) solution by creating a hash map
+			var displayFilteredMap = {};
+
+			for ( var i=0, ien=displayFiltered.length ; i<ien ; i++ ) {
+				displayFilteredMap[displayFiltered[i]] = null;
+			}
+
+			a = $.map( displayMaster, function (el) {
+				return ! displayFilteredMap.hasOwnProperty(el) ?
+					el :
+					null;
+			} );
+		}
 	}
 	else if ( order == 'index' || order == 'original' ) {
 		for ( i=0, ien=settings.aoData.length ; i<ien ; i++ ) {

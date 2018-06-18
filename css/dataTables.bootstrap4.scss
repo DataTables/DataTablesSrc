@@ -6,6 +6,7 @@ table.dataTable {
 	margin-bottom: 6px !important;
 	max-width: none !important;
 	border-collapse: separate !important;
+	border-spacing: 0;
 
 	td,
 	th {
@@ -38,7 +39,7 @@ div.dataTables_wrapper {
 		}
 
 		select {
-			width: 75px;
+			width: auto;
 			display: inline-block;
 		}
 	}
@@ -155,6 +156,9 @@ div.dataTables_scrollBody {
 		margin-bottom: 0 !important;
 
 		thead { // Hide sort icons
+			.sorting:before,
+			.sorting_asc:before,
+			.sorting_desc:before,
 			.sorting:after,
 			.sorting_asc:after,
 			.sorting_desc:after {
@@ -169,9 +173,15 @@ div.dataTables_scrollBody {
 	}
 }
 
-div.dataTables_scrollFoot table {
-	margin-top: 0 !important;
-	border-top: none;
+div.dataTables_scrollFoot {
+	> .dataTables_scrollFootInner {
+		box-sizing: content-box;
+
+		> table {
+			margin-top: 0 !important;
+			border-top: none;
+		}
+	}
 }
 
 
@@ -194,18 +204,25 @@ div.dataTables_scrollFoot table {
 //
 
 // Condensed
-table.dataTable.table-condensed {
+table.dataTable.table-sm {
 	> thead > tr > th {
 		padding-right: 20px;
 	}
 
-	.sorting:after,
-	.sorting_asc:after,
-	.sorting_desc:after {
-		top: 6px;
-		right: 6px;
+	.sorting,
+	.sorting_asc,
+	.sorting_desc {
+		&:before {
+			top: 5px;
+			right: 0.85em;
+		}
+
+		&:after {
+			top: 5px;
+		}
 	}
 }
+
 
 // Frustratingly the border-collapse:collapse used by Bootstrap makes the column
 // width calculations when using scrolling impossible to align columns. We have

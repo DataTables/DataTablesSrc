@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 As of DataTables 1.10.5 it is now possible to define [initialisation options](//datatables.net/reference/option) using HTML5 `data-*` attributes. The attribute names are read by DataTables and used, potentially in combination with, the standard Javascript initialisation options (with the `data-*` attributes taking priority).
 
-Please note that the attribute values must contain valid JSON data or a Javascript primitive (as require by [jQuery's `$().data()` method](http://api.jquery.com/data/#data-html5) - this means that double quotes should be used inside the attribute if needed for a string (see the `data-order` example below).
+Please note that the attribute values must contain valid JSON data or a Javascript primitive, as required by [jQuery's `$().data()` method](http://api.jquery.com/data/#data-html5). This means that double quotes should be used inside the attribute if needed for a string (see the `data-order` in this example).
 
 Additionally, jQuery will convert a dashed string into the camel-case notation used by DataTables for its options. For example `data-page-length` is used to represent `dt-init pageLength`.
 

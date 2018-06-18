@@ -29,11 +29,11 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-This example shows how you can make use of the `dt-api column().visible()` API method to dynamically show and hide columns in a table. Also included here is scrolling, just to show it enabled with this API method, although that is not required for the API function to work.
+This example shows how you can make use of the `dt-api column().visible()` API method to dynamically show and hide columns in a table. Also included here is scrolling, just to show it enabled with this API method, although it's not required for the API function to work.
 
-In addition to this, groups of columns can be shown and hidden at the same time using the `dt-api columns()` method to select multiple columns and then using the `dt-api columns().visible()` method to set their state.
+In addition, groups of columns can be shown and hidden at the same time using the `dt-api columns()` method to select multiple columns and then using the `dt-api columns().visible()` method to set their state.
 
-If you are looking for a more complete column visibility interaction controls, check out the [Buttons extension for DataTables](https://datatables.net/extras/buttons) provides a comprehensive module for column visibility control.
+If you are looking for a more complete column visibility interaction controls, the [Buttons extension for DataTables](https://datatables.net/extras/buttons) provides a comprehensive module for column visibility control.
 
 ]]></info>
 

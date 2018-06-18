@@ -11,7 +11,7 @@
 	</type>
 
 	<type type="function">
-		<signature>column().visible( show [, redrawCalculations ] )</signature>
+		<signature>columns().visible( show [, redrawCalculations ] )</signature>
 		<description>Set the visibility of the selected columns.</description>
 		<parameter type="boolean" name="show">
 			Specify if the columns should be visible (`true`) or not (`false`).
@@ -26,11 +26,11 @@
 		Showing and hiding columns in a DataTable can be quite handy, particularly when showing tables with a large information density. This method allows the visibility of columns to be changed on-the-fly, or the visibility state of the columns to be read.
 	</description>
 
-	<example title="Get the visiblity status of all of the columns in the table"><![CDATA[
+	<example title="Set column visibility for two columns"><![CDATA[
 var table = $('#example').DataTable();
 
-// Hide a column
-table.column( 1 ).visible( false );
+// Hide two columns
+table.columns( [1,2] ).visible( false );
 
 alert( 'Table\'s column visibility are set to: '+table.columns().visible().join(', ') );
 ]]></example>

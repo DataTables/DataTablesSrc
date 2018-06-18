@@ -34,5 +34,6 @@ $('#example')
 	.dataTable();
 ]]></example>
 
-	<related type="option">processing</related>
+	<related>-init processing</related>
+	<related>-init language.processing</related>
 </dt-event>

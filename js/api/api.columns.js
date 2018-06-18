@@ -168,6 +168,12 @@ var __setColumnVis = function ( settings, column, vis ) {
 	_fnDrawHead( settings, settings.aoHeader );
 	_fnDrawHead( settings, settings.aoFooter );
 
+	// Update colspan for no records display. Child rows and extensions will use their own
+	// listeners to do this - only need to update the empty table item here
+	if ( ! settings.aiDisplay.length ) {
+		$(settings.nTBody).find('td[colspan]').attr('colspan', _fnVisbleColumns(settings));
+	}
+
 	_fnSaveState( settings );
 };
 
@@ -222,20 +228,6 @@ _api_registerPlural( 'columns().cache()', 'column().cache()', function ( type ) 
 		return _pluck_order( settings.aoData, rows,
 			type === 'search' ? '_aFilterData' : '_aSortData', column
 		);
-	}, 1 );
-} );
-
-_api_registerPlural( 'columns().names()', 'column().name()', function ( setter ) {
-	return this.iterator( 'column', function ( settings, column ) {
-		var col = settings.aoColumns[column];
-
-		if ( setter !== undefined ) {
-			col.sName = setter;
-			return this;
-		}
-		else {
-			return col.sName;
-		}
 	}, 1 );
 } );
 

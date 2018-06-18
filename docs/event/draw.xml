@@ -24,9 +24,9 @@
 	</description>
 
 	<example title="Log to console on each draw"><![CDATA[
-$('#example').dataTable();
+var table = $('#example').DataTable();
 
-$('#example').on( 'draw.dt', function () {
+table.on( 'draw', function () {
 	console.log( 'Redraw occurred at: '+new Date().getTime() );
 } );
 ]]></example>

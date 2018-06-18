@@ -17,7 +17,7 @@
 
 
 // REMOVE THIS BLOCK - used for DataTables test environment only!
-$file = $_SERVER['DOCUMENT_ROOT'].'/datatables/mysql.php';
+$file = $_SERVER['DOCUMENT_ROOT'].'/datatables/pdo.php';
 if ( is_file( $file ) ) {
 	include( $file );
 }
@@ -86,9 +86,10 @@ class SSP {
 	 * Construct the LIMIT clause for server-side processing SQL query
 	 *
 	 *  @param  array $request Data sent to server by DataTables
+	 *  @param  array $columns Column information array
 	 *  @return string SQL limit clause
 	 */
-	static function limit ( $request )
+	static function limit ( $request, $columns )
 	{
 		$limit = '';
 
@@ -134,7 +135,9 @@ class SSP {
 				}
 			}
 
-			$order = 'ORDER BY '.implode(', ', $orderBy);
+			if ( count( $orderBy ) ) {
+				$order = 'ORDER BY '.implode(', ', $orderBy);
+			}
 		}
 
 		return $order;
@@ -235,7 +238,7 @@ class SSP {
 		$db = self::db( $conn );
 
 		// Build the SQL query string from the request
-		$limit = self::limit( $request );
+		$limit = self::limit( $request, $columns );
 		$order = self::order( $request, $columns );
 		$where = self::filter( $request, $columns, $bindings );
 
@@ -309,7 +312,7 @@ class SSP {
 		$whereAllSql = '';
 
 		// Build the SQL query string from the request
-		$limit = self::limit( $request );
+		$limit = self::limit( $request, $columns );
 		$order = self::order( $request, $columns );
 		$where = self::filter( $request, $columns, $bindings );
 
