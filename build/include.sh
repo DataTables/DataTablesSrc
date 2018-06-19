@@ -15,6 +15,7 @@ FRAMEWORKS=(
 	'semanticui'
 	'material'
 	'uikit'
+	'dataTables'
 )
 
 
@@ -85,13 +86,6 @@ function css_frameworks {
 			rm $DIR/$EXTN.$FRAMEWORK.scss
 		fi
 	done
-
-	# DataTables isn't in the framework list for the Javascript aspect
-	# Compile last as the other frameworks may include it as a base
-	if [ -e $DIR/$1.dataTables.scss ]; then
-		scss_compile $DIR/$EXTN.dataTables.scss
-		rm $DIR/$EXTN.dataTables.scss
-	fi
 }
 
 # Compress JS files for a specific extension and the supported frameworks
