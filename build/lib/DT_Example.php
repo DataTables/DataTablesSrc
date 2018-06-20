@@ -396,7 +396,7 @@ class DT_Example
 		$construction = DT_Example::$tables[ $type ];
 		$columns = $construction['columns'];
 
-		$t = '<table id="'.$id.'" class="'.$class.'" cellspacing="0" width="100%">';
+		$t = '<table id="'.$id.'" class="'.$class.'" style="width:100%">';
 
 		// Build the header
 		if ( $construction['header'] ) {
@@ -411,22 +411,6 @@ class DT_Example
 				$t .= '<thead>';
 				$t .= '<tr>'.$cells.'</tr>';
 				$t .= '</thead>';
-			}
-		}
-		
-		// Footer
-		if ( $construction['footer'] ) {
-			if ( is_callable( $construction['footer'] ) ) {
-				$t .= $construction['footer']();
-			}
-			else {
-				$cells = '';
-				for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
-					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
-				}
-				$t .= '<tfoot>';
-				$t .= '<tr>'.$cells.'</tr>';
-				$t .= '</tfoot>';
 			}
 		}
 		
@@ -469,6 +453,21 @@ class DT_Example
 			}
 		}
 		
+		// Footer
+		if ( $construction['footer'] ) {
+			if ( is_callable( $construction['footer'] ) ) {
+				$t .= $construction['footer']();
+			}
+			else {
+				$cells = '';
+				for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
+					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
+				}
+				$t .= '<tfoot>';
+				$t .= '<tr>'.$cells.'</tr>';
+				$t .= '</tfoot>';
+			}
+		}
 
 		$t .= '</table>';
 
