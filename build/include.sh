@@ -91,7 +91,7 @@ function css_frameworks {
 # Compress JS files for a specific extension and the supported frameworks
 #
 # $1 - string - Extension name (camelCase)
-# $2 - string Build directory where the JS min files should be created
+# $2 - string - Build directory where the JS min files should be created
 function js_frameworks {
 	EXTN=$1
 	DIR=$2
