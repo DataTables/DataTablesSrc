@@ -1,4 +1,4 @@
-// test commit
+// test commit and again
 describe('destroy option', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
