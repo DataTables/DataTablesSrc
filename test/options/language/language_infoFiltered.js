@@ -23,10 +23,10 @@ describe('language.infoFiltered option', function() {
 			).toBe(true);
 		});
 		it('Can we change the value of infoFiltered- check DOM', function() {
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val('Jack')
 				.keyup();
-			expect($('#example_info').html() === 'Showing 1 to 1 of 1 entries  - filtered from 57 records').toBe(true);
+			expect($('div.dataTables_info').html() === 'Showing 1 to 1 of 1 entries  - filtered from 57 records').toBe(true);
 		});
 
 		// dt.html( 'basic' );
@@ -40,8 +40,8 @@ describe('language.infoFiltered option', function() {
 
 		// });
 		// it("User infoFiltered without macro- check DOM", function () {
-		// 	$('#example_filter input').val('Jack').keyup();
-		// 	expect($('#example_info').html() === "Showing 1 to 1 of 1 entries  - filtered from 57 records").toBe(true);
+		// 	$('div.dataTables_filter input').val('Jack').keyup();
+		// 	expect($('div.dataTables_info').html() === "Showing 1 to 1 of 1 entries  - filtered from 57 records").toBe(true);
 		// });
 		// dt.html( 'basic' );
 		// it("User infoFiltered with only macro", function () {
@@ -50,11 +50,11 @@ describe('language.infoFiltered option', function() {
 		// 			"infoFiltered": "_MAX_ _TOTAL_"
 		// 		}
 		// 	});
-		// 	$('#example_filter input').val('Jack').keyup();
+		// 	$('div.dataTables_filter input').val('Jack').keyup();
 		// 	expect($('#example').DataTable().settings()[0].oLanguage.sInfoFiltered  === "_MAX_ _TOTAL_").toBe(true);
 		// });
 		// it("User infoFiltered with only macro- check DOM", function () {
-		// 	expect($('#example_info').html() === "Showing 1 to 1 of 1 entries 57 1").toBe(true);
+		// 	expect($('div.dataTables_info').html() === "Showing 1 to 1 of 1 entries 57 1").toBe(true);
 
 		// });
 	});

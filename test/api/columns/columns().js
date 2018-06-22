@@ -237,7 +237,7 @@ describe( 'columns- columns() -solo', function() {
 				{ "name": "Name",   "targets": 0 }
 			]
 		});
-		$('#example_filter input').val('Accountant').keyup();
+		$('div.dataTables_filter input').val('Accountant').keyup();
 		var result = table.columns({search:'applied'} ).data(); //There is no 'search: current' used applied instead
 		expect(result[0][0]).toBe("Airi Satou");
 		expect(result[0][1]).toBe("Garrett Winters");
@@ -269,7 +269,7 @@ describe( 'columns- columns() -solo', function() {
 				{ "name": "Name",   "targets": 0 }
 			]
 		});
-		$('#example_filter input').val('Accountant').keyup();
+		$('div.dataTables_filter input').val('Accountant').keyup();
 		var result = table.columns( '#example thead th:eq(0)', {search:'applied'} ).data();
 		expect(result[0][0]).toBe("Airi Satou");
 	});

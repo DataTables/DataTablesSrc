@@ -55,7 +55,7 @@ describe('drawCallback option', function() {
 					test = $('#example tbody tr').length;
 				}
 			});
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val('developer')
 				.keyup();
 			expect(test).toBe(8);
@@ -78,7 +78,7 @@ describe('drawCallback option', function() {
 		});
 
 		it('drawCallback called once when filtering', function() {
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val('Accountant')
 				.keyup();
 			expect(test).toBe(3);
