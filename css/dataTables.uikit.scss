@@ -25,10 +25,6 @@ table.dataTable {
 
 // DataTables' built in feature elements
 div.dataTables_wrapper {
-	div.row.uk-grid.dt-merge-grid {
-		margin-top: 5px;
-	}
-
 	div.dataTables_length {
 		label {
 			font-weight: normal;
@@ -43,8 +39,6 @@ div.dataTables_wrapper {
 	}
 
 	div.dataTables_filter {
-		text-align: right;
-
 		label {
 			font-weight: normal;
 			white-space: nowrap;
@@ -59,14 +53,12 @@ div.dataTables_wrapper {
 	}
 
 	div.dataTables_info {
-		padding-top: 8px;
 		white-space: nowrap;
 	}
 
 	div.dataTables_paginate {
 		margin: 0;
 		white-space: nowrap;
-		text-align: right;
 
 		ul.pagination {
 			margin: 2px 0;

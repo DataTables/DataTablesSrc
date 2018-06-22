@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>layout</name>
+	<summary>Define and position the table control elements to appear on the page</summary>
+	<since>2.0.0</since>
+
+	<type type="object" />
+	<default value=""><![CDATA[
+		The default layout for DataTables is:
+
+		```js
+		{
+			topLeft: 'pageLength',
+			topRight: 'search',
+			bottomLeft: 'info',
+			bottomRight: 'paging'
+		}
+		```
+]]></default>
+
+	<description>
+    <![CDATA[
+		
+		The `-init layout` option provides the ability to control the items that surround and control the DataTable. Using an object where the parameter names provide positional information and the corresponding values telling DataTables what content to show it is possible to easily create a wide variety of layouts that suit your specific needs.
+
+
+		### Positional names
+
+		The names of the parameters in the `-init layout` object tell DataTables where it should insert the content defined by the value. The name first gives the side of the table that the control should be applied to (`-string top` or `-string bottom`), optionally followed by a number indicating the display order, and then optionally `-string Left` or `-string Right`. If neither is provided and only the table side value is given, the control will stretch the full width of the table. The formal syntax for this, in regex, is:
+
+		> (top|bottom)[0-9]*(Left|Right)?
+
+		Please see the diagram in the _DOM Structure_ section below for an illustrated example of this naming.
+
+
+		### Values
+
+		The values of the parameters in `-init layout` can be any of:
+
+		* `-type string` - A string that represents a feature provided by DataTables or a plug-in. The built in features are:
+		  * `-string info` - Table information summary
+		  * `-string pageLength` - Page length control
+		  * `-string paging` - User input control for paging
+		  * `-string search` - Search input box
+		* `-type jQuery` - A jQuery instance containing a node to insert
+		* `-type function` - A function that returns a DOM node or jQuery instance containing a node. The function will be passed in the DataTables settings object.
+		* `-type object` - A class instance that provides a `node()` method and should return the node to be inserted (DOM or jQuery). As with the `-type function` option above, this method will be passed the DataTables settings object for the table.
+		* `-type array` - An array of any of the above options, providing the ability to show multiple items next to each other.
+		* `-type null` - Show nothing in this position
+
+
+		### DOM Structure
+
+		DataTables will insert the items given into a grid (suitable for the styling framework you have selected) using the structure depicted below:
+
+		<table style="width:500px; margin: 0 auto; border-spacing:5px; border-collapse: separate; text-align: center; color: #555;">
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>top<b>N</b></i></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc" width="50%"><i>top<b>N</b>Left</i></td>
+				<td style="padding: 5px; border: 1px dashed #ccc" width="50%"><i>top<b>N</b>Right</i></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px" colspan="2">&#8942;</td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>top2</i></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc"><i>top2Left</i></td>
+				<td style="padding: 5px; border: 1px dashed #ccc"><i>top2Right</i></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>top</i></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc"><i>topLeft</i></td>
+				<td style="padding: 5px; border: 1px dashed #ccc"><i>topRight</i></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px" colspan="2"><b>DataTable</b></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottomLeft</i></td>
+				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottomRight</i></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom</i></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom2Left</i></td>
+				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom2Right</i></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom2</i></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px" colspan="2">&#8942;</td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom<b>N</b>Left</i></td>
+				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom<b>N</b>Right</i></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom<b>N</b></i></td>
+			</tr>
+		</table>
+
+		Any of the positions can be left out or set to `null` and they will not appear. For example you could only use `topN` and `bottomN` if you didn't want the table controls to be left or right aligned.
+
+    ]]>
+  </description>
+
+	<example title=""><![CDATA[
+
+]]></example>
+</dt-option>

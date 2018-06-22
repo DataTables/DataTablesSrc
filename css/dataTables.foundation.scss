@@ -31,7 +31,6 @@ div.dataTables_wrapper {
 
 	div.dataTables_length {
 		label {
-			float: left;
 			text-align: left;
 			margin-bottom: 0;
 		}
@@ -44,7 +43,6 @@ div.dataTables_wrapper {
 
 	div.dataTables_filter {
 		label {
-			float: right;
 			margin-bottom: 0;
 		}
 	
@@ -54,15 +52,6 @@ div.dataTables_wrapper {
 			margin-bottom: 0;
 			margin-left: 0.5em;
 		}
-	}
-
-	div.dataTables_info {
-		padding-top: 2px;
-	}
-
-	div.dataTables_paginate {
-		float: right;
-		margin: 0;
 	}
 
 	div.dataTables_processing {

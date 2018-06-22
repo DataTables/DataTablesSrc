@@ -1,10 +1,9 @@
 
 
-table.dataTable {
+table.dataTable.table {
 	clear: both;
-	margin-top: 6px !important;
-	margin-bottom: 6px !important;
-	max-width: none !important;
+	margin-top: 6px;
+	max-width: none;
 	border-collapse: separate !important;
 	border-spacing: 0;
 
@@ -45,8 +44,6 @@ div.dataTables_wrapper {
 	}
 
 	div.dataTables_filter {
-		text-align: right;
-
 		label {
 			font-weight: normal;
 			white-space: nowrap;
@@ -68,7 +65,6 @@ div.dataTables_wrapper {
 	div.dataTables_paginate {
 		margin: 0;
 		white-space: nowrap;
-		text-align: right;
 
 		ul.pagination {
 			margin: 2px 0;

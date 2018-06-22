@@ -2,13 +2,6 @@
 <dt-example table-type="html" order="14">
 
 <css lib="datatables" />
-<css><![CDATA[
-
-.toolbar {
-	float: left;
-}
-
-]]></css>
 <js lib="jquery" />
 <js lib="datatables" />
 
@@ -17,19 +10,19 @@
 
 $(document).ready(function() {
 	$('#example').DataTable( {
-		"dom": '<"toolbar">frtip'
+		layout: {
+			topLeft: $('<div class="toolbar"><b>Custom tool bar! Text/images etc.</b></div>')
+		}
 	} );
-
-	$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
 } );
 
 ]]></js>
 
 <info><![CDATA[
 
-DataTables inserts DOM elements around the table to control DataTables features, and you can make use of this mechanism as well to insert your own custom elements. In this example a `-tag div` with a class of '-string toolbar' is created using `dt-init dom`, and jQuery then used to insert HTML into that element to create the toolbar. You could put whatever HTML you want into the toolbar!
+DataTables inserts DOM elements around the table to control DataTables features, and you can make use of this mechanism as well to insert your own custom elements. In this example a `-tag div` with a class of '-string toolbar' is created using the `-init layout` option's ability to accept jQuery and DOM nodes in addition to the feature name strings [seen in the controls positioning example](/basic_init/dom.html).
 
-For more complex features, or for creating reusable plug-ins, DataTables also has a feature plug-in API available, which can be used to create plug-ins which are used in a table by a single character reference in the `dt-init dom` option (like the built in option of `string f` refers to 'filtering input', you could have an `string F` option which creates your own filtering input control, custom to your app).
+Using this method you can insert any controls around the table that you wish. To create reusable feature components that can be used similar to the built in ones, please refer to the feature plug-in documentation.
 
 There are a number of [extensions for DataTables](//datatables.net/extensions) that make use of this ability. For example, [Buttons](//datatables.net/extensions/buttons) is a feature plug-in for DataTables that adds buttons into a toolbar for a table (copy to clipboard, save to Excel / PDF, and more).
 

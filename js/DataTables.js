@@ -126,6 +126,10 @@
 		return this;
 	};
 
+	_buildInclude('ext.js');
+	_buildInclude('ext.classes.js');
+	_buildInclude('ext.features.js');
+
 	_buildInclude('core.internal.js');
 	_buildInclude('api.util.js');
 	_buildInclude('core.compat.js');
@@ -134,7 +138,6 @@
 	_buildInclude('core.draw.js');
 	_buildInclude('core.ajax.js');
 	_buildInclude('core.filter.js');
-	_buildInclude('core.info.js');
 	_buildInclude('core.init.js');
 	_buildInclude('core.length.js');
 	_buildInclude('core.page.js');
@@ -211,6 +214,7 @@
 	 */
 	_buildInclude('ext.js');
 	_buildInclude('ext.classes.js');
+	_buildInclude('ext.features.js');
 	_buildInclude('ext.paging.js');
 	_buildInclude('ext.types.js');
 	_buildInclude('ext.filter.js');
@@ -218,6 +222,11 @@
 	_buildInclude('ext.renderer.js');
 	_buildInclude('ext.helpers.js');
 	_buildInclude('api.internal.js');
+
+	_buildInclude('features.info.js');
+	_buildInclude('features.search.js');
+	_buildInclude('features.page.js');
+	_buildInclude('features.pageLength.js');
 
 	// jQuery access
 	$.fn.dataTable = DataTable;

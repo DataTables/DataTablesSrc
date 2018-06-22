@@ -1,34 +1,32 @@
 
-
 /**
  * Generate the node required for the processing node
- *  @param {object} settings dataTables settings object
- *  @returns {node} Processing element
- *  @memberof DataTable#oApi
+ *  @param {object} settings DataTables settings object
  */
-function _fnFeatureHtmlProcessing ( settings )
+function _processingHtml ( settings )
 {
-	return $('<div/>', {
-			'id': ! settings.aanFeatures.r ? settings.sTableId+'_processing' : null,
-			'class': settings.oClasses.sProcessing
-		} )
-		.html( settings.oLanguage.sProcessing )
-		.insertBefore( settings.nTable )[0];
+	var table = settings.nTable;
+
+	if ( settings.oFeatures.bProcessing ) {
+		var n = $('<div/>', {
+				'class': settings.oClasses.sProcessing
+			} )
+			.html( settings.oLanguage.sProcessing )
+			.insertBefore( table );
+		
+		$(table).on( 'processing.dt.DT', function (e, s, show) {
+			n.css( 'display', show ? 'block' : 'none' );
+		} );
+	}
 }
 
 
 /**
  * Display or hide the processing indicator
- *  @param {object} settings dataTables settings object
+ *  @param {object} settings DataTables settings object
  *  @param {bool} show Show the processing indicator (true) or not (false)
- *  @memberof DataTable#oApi
  */
 function _fnProcessingDisplay ( settings, show )
 {
-	if ( settings.oFeatures.bProcessing ) {
-		$(settings.aanFeatures.r).css( 'display', show ? 'block' : 'none' );
-	}
-
 	_fnCallbackFire( settings, null, 'processing', [settings, show] );
 }
-

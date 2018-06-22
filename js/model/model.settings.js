@@ -60,24 +60,6 @@ DataTable.models.oSettings = {
 		"bFilter": null,
 
 		/**
-		 * Table information element (the 'Showing x of y records' div) enable
-		 * flag.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
-		 */
-		"bInfo": null,
-
-		/**
-		 * Present a user control allowing the end user to change the page size
-		 * when pagination is enabled.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
-		 */
-		"bLengthChange": null,
-
-		/**
 		 * Pagination enabled or not. Note that if this is disabled then length
 		 * changing must also be disabled.
 		 * Note that this parameter will be set by the initialisation routine. To

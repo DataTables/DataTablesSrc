@@ -491,144 +491,173 @@ function _fnReDraw( settings, holdPosition )
 
 
 /**
- * Add the options to the page HTML for the table
- *  @param {object} oSettings dataTables settings object
- *  @memberof DataTable#oApi
+ * Convert a `layout` object given by a user to the object structure needed
+ * for the renderer. This is done twice, once for above and once for below
+ * the table. Ordering must also be considered.
+ *
+ * @param {*} settings DataTables settings object
+ * @param {*} layout Layout object to convert
+ * @param {string} side `top` or `bottom`
+ * @returns Converted array structure - one item for each row.
  */
-function _fnAddOptionsHtml ( oSettings )
+function _layoutArray ( settings, layout, side )
 {
-	var classes = oSettings.oClasses;
-	var table = $(oSettings.nTable);
-	var holding = $('<div/>').insertBefore( table ); // Holding element for speed
-	var features = oSettings.oFeatures;
+	var groups = {};
 
-	// All DataTables are wrapped in a div
-	var insert = $('<div/>', {
-		id:      oSettings.sTableId+'_wrapper',
-		'class': classes.sWrapper + (oSettings.nTFoot ? '' : ' '+classes.sNoFooter)
+	// Combine into like groups (e.g. `top`, `top2`, etc)
+	$.each( layout, function ( pos, val ) {
+		var splitPos = pos.replace(/([A-Z])/g, ' $1').split(' ');
+
+		if ( ! groups[ splitPos[0] ] ) {
+			groups[ splitPos[0] ] = {};
+		}
+
+		var align = splitPos.length === 1 ?
+			'full' :
+			splitPos[1].toLowerCase();
+		var group = groups[ splitPos[0] ];
+
+		// Transform to an object with a contents property
+		if ( $.isPlainObject( val ) ) {
+			group[ align ] = val;
+		}
+		else {
+			group[ align ] = {
+				contents: val
+			};
+		}
+
+		// And make contents an array
+		if ( ! $.isArray( group[ align ].contents ) ) {
+			group[ align ].contents = [ group[ align ].contents ];
+		}
 	} );
 
-	oSettings.nHolding = holding[0];
-	oSettings.nTableWrapper = insert[0];
-	oSettings.nTableReinsertBefore = oSettings.nTable.nextSibling;
-
-	/* Loop over the user set positioning and place the elements as needed */
-	var aDom = oSettings.sDom.split('');
-	var featureNode, cOption, nNewNode, cNext, sAttr, j;
-	for ( var i=0 ; i<aDom.length ; i++ )
-	{
-		featureNode = null;
-		cOption = aDom[i];
-
-		if ( cOption == '<' )
-		{
-			/* New container div */
-			nNewNode = $('<div/>')[0];
-
-			/* Check to see if we should append an id and/or a class name to the container */
-			cNext = aDom[i+1];
-			if ( cNext == "'" || cNext == '"' )
-			{
-				sAttr = "";
-				j = 2;
-				while ( aDom[i+j] != cNext )
-				{
-					sAttr += aDom[i+j];
-					j++;
-				}
-
-				/* The attribute can be in the format of "#id.class", "#id" or "class" This logic
-				 * breaks the string into parts and applies them as needed
-				 */
-				if ( sAttr.indexOf('.') != -1 )
-				{
-					var aSplit = sAttr.split('.');
-					nNewNode.id = aSplit[0].substr(1, aSplit[0].length-1);
-					nNewNode.className = aSplit[1];
-				}
-				else if ( sAttr.charAt(0) == "#" )
-				{
-					nNewNode.id = sAttr.substr(1, sAttr.length-1);
-				}
-				else
-				{
-					nNewNode.className = sAttr;
-				}
-
-				i += j; /* Move along the position array */
-			}
-
-			insert.append( nNewNode );
-			insert = $(nNewNode);
-		}
-		else if ( cOption == '>' )
-		{
-			/* End container div */
-			insert = insert.parent();
-		}
-		// @todo Move options into their own plugins?
-		else if ( cOption == 'l' && features.bPaginate && features.bLengthChange )
-		{
-			/* Length */
-			featureNode = _fnFeatureHtmlLength( oSettings );
-		}
-		else if ( cOption == 'f' && features.bFilter )
-		{
-			/* Filter */
-			featureNode = _fnFeatureHtmlFilter( oSettings );
-		}
-		else if ( cOption == 'r' && features.bProcessing )
-		{
-			/* pRocessing */
-			featureNode = _fnFeatureHtmlProcessing( oSettings );
-		}
-		else if ( cOption == 't' )
-		{
-			/* Table */
-			featureNode = _fnFeatureHtmlTable( oSettings );
-		}
-		else if ( cOption ==  'i' && features.bInfo )
-		{
-			/* Info */
-			featureNode = _fnFeatureHtmlInfo( oSettings );
-		}
-		else if ( cOption == 'p' && features.bPaginate )
-		{
-			/* Pagination */
-			featureNode = _fnFeatureHtmlPaginate( oSettings );
-		}
-		else if ( DataTable.ext.feature.length !== 0 )
-		{
-			/* Plug-in features */
-			var aoFeatures = DataTable.ext.feature;
-			for ( var k=0, kLen=aoFeatures.length ; k<kLen ; k++ )
-			{
-				if ( cOption == aoFeatures[k].cFeature )
-				{
-					featureNode = aoFeatures[k].fnInit( oSettings );
-					break;
-				}
-			}
+	// Filter to only the side we need
+	var filtered = $.map( groups, function ( val, pos ) {
+		if ( pos.indexOf(side) !== 0 ) {
+			return null;
 		}
 
-		/* Add to the 2D features array */
-		if ( featureNode )
-		{
-			var aanFeatures = oSettings.aanFeatures;
+		return {
+			name: pos,
+			val: val
+		};
+	} );
 
-			if ( ! aanFeatures[cOption] )
-			{
-				aanFeatures[cOption] = [];
-			}
+	// Order by item identifier
+	filtered.sort( function ( a, b ) {
+		var order1 = a.name.replace(/[^0-9]/g, '') * 1;
+		var order2 = b.name.replace(/[^0-9]/g, '') * 1;
 
-			aanFeatures[cOption].push( featureNode );
-			insert.append( featureNode );
+		return order2 - order1;
+	} );
+	
+	if ( side === 'bottom' ) {
+		filtered.reverse();
+	}
+
+	// Split into rows
+	var rows = [];
+	for ( var i=0, ien=filtered.length ; i<ien ; i++ ) {
+		if (  filtered[i].val.full ) {
+			rows.push( { full: filtered[i].val.full } );
+			_layoutResolve( settings, rows[ rows.length - 1 ] );
+
+			delete filtered[i].val.full;
+		}
+
+		if ( ! $.isEmptyObject( filtered[i].val ) ) {
+			rows.push( filtered[i].val );
+			_layoutResolve( settings, rows[ rows.length - 1 ] );
 		}
 	}
 
-	/* Built our DOM structure - replace the holding div with what we want */
-	holding.replaceWith( insert );
-	oSettings.nHolding = null;
+	return rows;
+}
+
+
+/**
+ * Convert the contents of a row's layout object to nodes that can be inserted
+ * into the document by a renderer. Execute functions, look up plug-ins, etc.
+ *
+ * @param {*} settings DataTables settings object
+ * @param {*} row Layout object for this row
+ */
+function _layoutResolve( settings, row ) {
+	var resolve = function ( item ) {
+		var line = row[ item ].contents;
+
+		for ( var i=0, ien=line.length ; i<ien ; i++ ) {
+			if ( ! line[i] ) {
+				continue;
+			}
+			else if ( typeof line[i] === 'string' ) {
+				if ( ! _ext.features[ line[i] ] ) {
+					_fnLog( settings, 0, 'Unknown feature: '+ line[i] );
+				}
+				else {
+					line[i] = _ext.features[ line[i] ]( settings );
+				}
+			}
+			else if ( typeof line[i].node === 'function' ) {
+				line[i] = line[i].node( settings );
+			}
+			else if ( typeof line[i] === 'function' ) {
+				line[i] = line[i]( settings );
+			}
+		}
+	};
+
+	$.each( row, function ( key ) {
+		resolve( key );
+	} );
+}
+
+
+/**
+ * Add the options to the page HTML for the table
+ *  @param {object} settings DataTables settings object
+ *  @memberof DataTable#oApi
+ */
+function _fnAddOptionsHtml ( settings )
+{
+	var classes = settings.oClasses;
+	var table = $(settings.nTable);
+	var top = _layoutArray( settings, settings.layout, 'top' );
+	var bottom = _layoutArray( settings, settings.layout, 'bottom' );
+	var renderer = _fnRenderer( settings, 'layout' );
+
+	// Wrapper div around everything DataTables controls
+	var insert = $('<div/>', {
+			id:      settings.sTableId+'_wrapper',
+			'class': classes.sWrapper + (settings.nTFoot ? '' : ' '+classes.sNoFooter)
+		} )
+		.insertBefore( table );
+
+	settings.nTableWrapper = insert[0];
+	settings.nTableReinsertBefore = settings.nTable.nextSibling;
+
+	// Everything above - the renderer will actually insert the contents into the document
+	for ( var i=0, ien=top.length ; i<ien ; i++ ) {
+		renderer( settings, insert, top[i] );
+	}
+
+	// The table - always the center of attention
+	renderer( settings, insert, {
+		full: {
+			table: true,
+			contents: [ _fnFeatureHtmlTable(settings) ]
+		}
+	} );
+
+	// Processing floats on top, so it isn't an inserted feature
+	_processingHtml( settings );
+
+	// Everything below
+	for ( var i=0, ien=bottom.length ; i<ien ; i++ ) {
+		renderer( settings, insert, bottom[i] );
+	}
 }
 
 

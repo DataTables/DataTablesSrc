@@ -41,14 +41,9 @@ var DataTable = $.fn.dataTable;
 
 
 var sort_prefix = 'css_right ui-icon ui-icon-';
-var toolbar_prefix = 'fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-';
 
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
-	dom:
-		'<"'+toolbar_prefix+'tl ui-corner-tr"lfr>'+
-		't'+
-		'<"'+toolbar_prefix+'bl ui-corner-br"ip>',
 	renderer: 'jqueryui'
 } );
 
@@ -141,6 +136,24 @@ DataTable.ext.renderer.header.jqueryui = function ( settings, cell, column, clas
 			);
 	} );
 };
+
+
+DataTable.ext.renderer.layout.jqueryui = function ( settings, container, items ) {
+	var row = $( '<div/>', {
+			"class": 'dataTables_layout_row fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix'
+		} )
+		.appendTo( container );
+
+	$.each( items, function (key, val) {
+		$( '<div/>', {
+				id: val.id || null,
+				"class": 'dataTables_layout_cell '+key+' '+(val.className || '')
+			} )
+			.append( val.contents )
+			.appendTo( row );
+	} );
+};
+
 
 
 return DataTable;

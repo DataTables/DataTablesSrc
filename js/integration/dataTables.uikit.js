@@ -39,10 +39,6 @@ var DataTable = $.fn.dataTable;
 
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
-	dom:
-		"<'row uk-grid'<'uk-width-1-2'l><'uk-width-1-2'f>>" +
-		"<'row uk-grid dt-merge-grid'<'uk-width-1-1'tr>>" +
-		"<'row uk-grid dt-merge-grid'<'uk-width-2-5'i><'uk-width-3-5'p>>",
 	renderer: 'uikit'
 } );
 
@@ -175,6 +171,40 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 		$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
 	}
 };
+
+
+DataTable.ext.renderer.layout.uikit = function ( settings, container, items ) {
+	var row = $( '<div/>', {
+			"class": 'uk-flex uk-flex-between'
+		} )
+		.appendTo( container );
+
+	$.each( items, function (key, val) {
+		var klass = '';
+		if ( key === 'left' ) {
+			klass += 'uk-text-left';
+		}
+		else if ( key === 'right' ) {
+			klass += 'uk-text-right';
+		}
+		else if ( key === 'full' ) {
+			if ( val.table ) {
+				klass += 'uk-width-1-1';
+			}
+			else {
+				klass += 'uk-text-center';
+			}
+		}
+
+		$( '<div/>', {
+				id: val.id || null,
+				"class": klass+' '+(val.className || '')
+			} )
+			.append( val.contents )
+			.appendTo( row );
+	} );
+};
+
 
 
 return DataTable;

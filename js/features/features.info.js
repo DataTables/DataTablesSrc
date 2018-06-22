@@ -1,24 +1,20 @@
-/**
- * Generate the node required for the info display
- *  @param {object} oSettings dataTables settings object
- *  @returns {node} Information element
- *  @memberof DataTable#oApi
- */
-function _fnFeatureHtmlInfo ( settings )
-{
+
+_ext.features.register( 'info', function ( settings ) {
 	var
 		tid = settings.sTableId,
-		nodes = settings.aanFeatures.i,
+		nodes = settings.featureInfo,
 		n = $('<div/>', {
 			'class': settings.oClasses.sInfo,
 			'id': ! nodes ? tid+'_info' : null
 		} );
 
+	// For the first info display in the table, we add a callback and aria information.
 	if ( ! nodes ) {
+		nodes = $();
+
 		// Update display on each draw
 		settings.aoDrawCallback.push( {
-			"fn": _fnUpdateInfo,
-			"sName": "information"
+			fn: _fnUpdateInfo
 		} );
 
 		n
@@ -29,9 +25,10 @@ function _fnFeatureHtmlInfo ( settings )
 		$(settings.nTable).attr( 'aria-describedby', tid+'_info' );
 	}
 
-	return n[0];
-}
+	settings.featureInfo = nodes.add(n);
 
+	return n;
+} );
 
 /**
  * Update the information elements in the display
@@ -40,12 +37,6 @@ function _fnFeatureHtmlInfo ( settings )
  */
 function _fnUpdateInfo ( settings )
 {
-	/* Show information about the table */
-	var nodes = settings.aanFeatures.i;
-	if ( nodes.length === 0 ) {
-		return;
-	}
-
 	var
 		lang  = settings.oLanguage,
 		start = settings._iDisplayStart+1,
@@ -57,7 +48,7 @@ function _fnUpdateInfo ( settings )
 			lang.sInfoEmpty;
 
 	if ( total !== max ) {
-		/* Record set after filtering */
+		// Record set after filtering
 		out += ' ' + lang.sInfoFiltered;
 	}
 
@@ -72,7 +63,7 @@ function _fnUpdateInfo ( settings )
 		);
 	}
 
-	$(nodes).html( out );
+	$(settings.featureInfo).html( out );
 }
 
 

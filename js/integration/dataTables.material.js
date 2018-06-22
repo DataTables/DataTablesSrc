@@ -45,18 +45,6 @@ var DataTable = $.fn.dataTable;
 
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
-	dom:
-		"<'mdl-grid'"+
-			"<'mdl-cell mdl-cell--6-col'l>"+
-			"<'mdl-cell mdl-cell--6-col'f>"+
-		">"+
-		"<'mdl-grid dt-table'"+
-			"<'mdl-cell mdl-cell--12-col'tr>"+
-		">"+
-		"<'mdl-grid'"+
-			"<'mdl-cell mdl-cell--4-col'i>"+
-			"<'mdl-cell mdl-cell--8-col'p>"+
-		">",
 	renderer: 'material'
 } );
 
@@ -189,6 +177,40 @@ DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, but
 	if ( activeEl !== undefined ) {
 		$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
 	}
+};
+
+
+DataTable.ext.renderer.layout.material = function ( settings, container, items ) {
+	var row = $( '<div/>', {
+			"class": 'mdl-grid'
+		} )
+		.appendTo( container );
+
+	$.each( items, function (key, val) {
+		var klass = '';
+		if ( key === 'left' ) {
+			klass += 'mdl-cell mdl-cell--6-col mdl-typography--text-left';
+		}
+		else if ( key === 'right' ) {
+			klass += 'mdl-cell mdl-cell--6-col mdl-typography--text-right';
+		}
+		else if ( key === 'full' ) {
+			klass += 'mdl-cell mdl-cell--12-col';
+			if ( ! val.table ) {
+				klass += ' mdl-typography--text-center';
+			}
+			else {
+				row.addClass( 'dt-table')
+			}
+		}
+
+		$( '<div/>', {
+				id: val.id || null,
+				"class": klass+' '+(val.className || '')
+			} )
+			.append( val.contents )
+			.appendTo( row );
+	} );
 };
 
 

@@ -9,6 +9,14 @@
 		Note that if you use one of the styling integration options such as Bootstrap, Foundation or jQuery UI they will alter the default value for this parameter. Please see the description for the values they set.
 ]]></default>
 
+  <removed version="2.0.0">
+    <![CDATA[
+      This option was removed from DataTables 2 and replaced by the `-init layout` option as a much simpler method to control the layout of elements around a DataTable.
+
+      `-init dom`, if used in DataTables 2+ will be ignored and have no effect.
+    ]]>
+  </removed>
+
 	<description>
     <![CDATA[
     DataTables will add a number of elements around the table to both control the table and show additional information about it. The position of these elements on screen are controlled by a combination of their order in the document (DOM) and the CSS applied to the elements. This parameter is used to control their ordering and additional mark-up surrounding them in the DOM.
@@ -103,11 +111,6 @@
     * `B` - [Buttons](/extensions/buttons)
     * `S` - [Select](/extensions/select)
 
-
-    ### Future development
-
-    Note, I am aware that this is the most complex option in DataTables and it takes a fair amount of understanding, particularly when using the styling integration options! The plan is to revamp this option in 1.11 to make it easier to use.
-    
     ]]>
   </description>
 

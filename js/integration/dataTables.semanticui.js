@@ -45,27 +45,13 @@ var DataTable = $.fn.dataTable;
 
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
-	dom:
-		"<'ui stackable grid'"+
-			"<'row'"+
-				"<'eight wide column'l>"+
-				"<'right aligned eight wide column'f>"+
-			">"+
-			"<'row dt-table'"+
-				"<'sixteen wide column'tr>"+
-			">"+
-			"<'row'"+
-				"<'seven wide column'i>"+
-				"<'right aligned nine wide column'p>"+
-			">"+
-		">",
 	renderer: 'semanticUI'
 } );
 
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	sWrapper:      "dataTables_wrapper dt-semanticUI",
+	sWrapper:      "dataTables_wrapper dt-semanticUI ui stackable grid",
 	sFilter:       "dataTables_filter ui input",
 	sProcessing:   "dataTables_processing ui segment",
 	sPageButton:   "paginate_button item"
@@ -211,6 +197,37 @@ $(document).on( 'init.dt', function (e, ctx) {
 	$( 'div.dataTables_filter.ui.input', api.table().container() ).removeClass('input').addClass('form');
 	$( 'div.dataTables_filter input', api.table().container() ).wrap( '<span class="ui input" />' );
 } );
+
+
+DataTable.ext.renderer.layout.semanticUI = function ( settings, container, items ) {
+	var row = $( '<div/>', {
+			"class": items.full ?
+				'row' :
+				'row'
+		} )
+		.appendTo( container );
+
+	$.each( items, function (key, val) {
+		var klass = '';
+		if ( key === 'left' ) {
+			klass += 'eight wide left floated column';
+		}
+		else if ( key === 'right' ) {
+			klass += 'eight wide right aligned floated column';
+		}
+		else if ( key === 'full' ) {
+			klass += 'center aligned sixteen wide column';
+		}
+
+		$( '<div/>', {
+				id: val.id || null,
+				"class": klass+' '+(val.className || '')
+			} )
+			.append( val.contents )
+			.appendTo( row );
+	} );
+};
+
 
 
 return DataTable;

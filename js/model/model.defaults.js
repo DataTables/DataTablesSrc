@@ -499,45 +499,6 @@ DataTable.defaults = {
 
 
 	/**
-	 * Enable or disable the table information display. This shows information
-	 * about the data that is currently visible on the page, including information
-	 * about filtered data if that action is being performed.
-	 *  @type boolean
-	 *  @default true
-	 *
-	 *  @dtopt Features
-	 *  @name DataTable.defaults.info
-	 *
-	 *  @example
-	 *    $(document).ready( function () {
-	 *      $('#example').dataTable( {
-	 *        "info": false
-	 *      } );
-	 *    } );
-	 */
-	"bInfo": true,
-
-
-	/**
-	 * Allows the end user to select the size of a formatted page from a select
-	 * menu (sizes are 10, 25, 50 and 100). Requires pagination (`paginate`).
-	 *  @type boolean
-	 *  @default true
-	 *
-	 *  @dtopt Features
-	 *  @name DataTable.defaults.lengthChange
-	 *
-	 *  @example
-	 *    $(document).ready( function () {
-	 *      $('#example').dataTable( {
-	 *        "lengthChange": false
-	 *      } );
-	 *    } );
-	 */
-	"bLengthChange": true,
-
-
-	/**
 	 * Enable or disable pagination.
 	 *  @type boolean
 	 *  @default true
@@ -1964,41 +1925,9 @@ DataTable.defaults = {
 	 * DOM you want DataTables to inject the various controls it adds to the page
 	 * (for example you might want the pagination controls at the top of the
 	 * table). DIV elements (with or without a custom class) can also be added to
-	 * aid styling. The follow syntax is used:
-	 *   <ul>
-	 *     <li>The following options are allowed:
-	 *       <ul>
-	 *         <li>'l' - Length changing</li>
-	 *         <li>'f' - Filtering input</li>
-	 *         <li>'t' - The table!</li>
-	 *         <li>'i' - Information</li>
-	 *         <li>'p' - Pagination</li>
-	 *         <li>'r' - pRocessing</li>
-	 *       </ul>
-	 *     </li>
-	 *     <li>The following constants are allowed:
-	 *       <ul>
-	 *         <li>'H' - jQueryUI theme "header" classes ('fg-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix')</li>
-	 *         <li>'F' - jQueryUI theme "footer" classes ('fg-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix')</li>
-	 *       </ul>
-	 *     </li>
-	 *     <li>The following syntax is expected:
-	 *       <ul>
-	 *         <li>'&lt;' and '&gt;' - div elements</li>
-	 *         <li>'&lt;"class" and '&gt;' - div with a class</li>
-	 *         <li>'&lt;"#id" and '&gt;' - div with an ID</li>
-	 *       </ul>
-	 *     </li>
-	 *     <li>Examples:
-	 *       <ul>
-	 *         <li>'&lt;"wrapper"flipt&gt;'</li>
-	 *         <li>'&lt;lf&lt;t&gt;ip&gt;'</li>
-	 *       </ul>
-	 *     </li>
-	 *   </ul>
+	 * aid styling. See the reference documentation for full details.
 	 *  @type string
-	 *  @default lfrtip <i>(when `jQueryUI` is false)</i> <b>or</b>
-	 *    <"H"lfr>t<"F"ip> <i>(when `jQueryUI` is true)</i>
+	 *  @default lfrtip
 	 *
 	 *  @dtopt Options
 	 *  @name DataTable.defaults.dom
@@ -2010,7 +1939,18 @@ DataTable.defaults = {
 	 *      } );
 	 *    } );
 	 */
-	"sDom": "lfrtip",
+	sDom: null,
+
+
+	/**
+	 * Table and control layout. This replaces the legacy sDom option.
+	 */
+	layout: {
+		topLeft: 'pageLength',
+		topRight: 'search',
+		bottomLeft: 'info',
+		bottomRight: 'paging'
+	},
 
 
 	/**

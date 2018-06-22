@@ -141,10 +141,7 @@ $.extend( true, DataTable.ext.renderer, {
 									'aria-controls': settings.sTableId,
 									'aria-label': aria[ button ],
 									'data-dt-idx': counter,
-									'tabindex': settings.iTabIndex,
-									'id': idx === 0 && typeof button === 'string' ?
-										settings.sTableId +'_'+ button :
-										null
+									'tabindex': settings.iTabIndex
 								} )
 								.html( btnDisplay )
 								.appendTo( container );

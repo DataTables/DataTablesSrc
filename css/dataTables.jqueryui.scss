@@ -37,7 +37,19 @@ table.dataTable {
 /*
  * Control feature layout
  */
-.dataTables_wrapper {
+div.dataTables_wrapper {
+	div.dataTables_layout_row {
+		padding: 0;
+	}
+
+	div.dataTables_layout_cell {
+		padding: 10px;
+
+		&.table {
+			padding: 0;
+		}
+	}
+
 	// Paging
 	.dataTables_paginate {
 		.fg-button {

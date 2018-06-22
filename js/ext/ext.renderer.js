@@ -70,5 +70,27 @@ $.extend( true, DataTable.ext.renderer, {
 					);
 			} );
 		}
+	},
+
+	layout: {
+		_: function ( settings, container, items ) {
+			var row = $( '<div/>', {
+					"class": 'dataTables_layout_row'
+				} )
+				.appendTo( container );
+
+			$.each( items, function (key, val) {
+				var klass = ! val.table ?
+					'dt-'+key+' ' :
+					'';
+
+				$( '<div/>', {
+						id: val.id || null,
+						"class": 'dataTables_layout_cell '+klass+(val.className || '')
+					} )
+					.append( val.contents )
+					.appendTo( row );
+			} );
+		}
 	}
 } );

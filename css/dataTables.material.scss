@@ -9,8 +9,6 @@ div.dataTables_wrapper {
 	}
 
 	div.dataTables_filter {
-		text-align: right;
-
 		input {
 			margin-left: 0.5em;
 		}
@@ -31,7 +29,9 @@ div.dataTables_wrapper {
 	}
 
 	div.dataTables_paginate {
-	    text-align: right;
+		button.mdl-button {
+			min-width: 0;
+		}
 	}
 
 	div.mdl-grid.dt-table {

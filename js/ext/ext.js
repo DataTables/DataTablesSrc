@@ -55,43 +55,17 @@ DataTable.ext = _ext = {
 
 
 	/**
-	 * Feature plug-ins.
-	 * 
-	 * This is an array of objects which describe the feature plug-ins that are
-	 * available to DataTables. These feature plug-ins are then available for
-	 * use through the `dom` initialisation option.
-	 * 
-	 * Each feature plug-in is described by an object which must have the
-	 * following properties:
-	 * 
-	 * * `fnInit` - function that is used to initialise the plug-in,
-	 * * `cFeature` - a character so the feature can be enabled by the `dom`
-	 *   instillation option. This is case sensitive.
-	 *
-	 * The `fnInit` function has the following input parameters:
-	 *
-	 * 1. `{object}` DataTables settings object: see
-	 *    {@link DataTable.models.oSettings}
-	 *
-	 * And the following return is expected:
-	 * 
-	 * * {node|null} The element which contains your feature. Note that the
-	 *   return may also be void if your plug-in does not require to inject any
-	 *   DOM elements into DataTables control (`dom`) - for example this might
-	 *   be useful when developing a plug-in which allows table control via
-	 *   keyboard entry
-	 *
-	 *  @type array
-	 *
-	 *  @example
-	 *    $.fn.dataTable.ext.features.push( {
-	 *      "fnInit": function( settings ) {
-	 *        return new Tools( { settings: settings } );
-	 *      },
-	 *      "cFeature": "T"
-	 *    } );
+	 * Legacy so v1 plug-ins don't throw js errors on load
 	 */
 	feature: [],
+
+	/**
+	 * Feature plug-ins.
+	 * 
+	 * This is an object of callbacks which provide the features for DataTables
+	 * to be initialised via the `layout` option.
+	 */
+	features: {},
 
 
 	/**

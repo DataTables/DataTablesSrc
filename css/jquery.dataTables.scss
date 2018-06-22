@@ -386,46 +386,50 @@ table.dataTable {
 table.dataTable,
 table.dataTable th,
 table.dataTable td {
-	        box-sizing: content-box;
+	box-sizing: content-box;
 }
 
 
 /*
  * Control feature layout
  */
-.dataTables_wrapper {
+div.dataTables_wrapper {
 	position: relative;
 	clear: both;
 	*zoom: 1;
 
-	// Page length options
-	.dataTables_length {
-		float: left;
+	div.dataTables_layout_row {
+		display: table;
+		clear: both;
+		width: 100%;
 	}
 
-	// Filtering input
-	.dataTables_filter {
-		float: right;
-		text-align: right;
+	div.dataTables_layout_cell {
+		display: table-cell;
+		vertical-align: middle;
+		padding: 5px 0;
 
+		&.dt-full {
+			text-align: center;
+		}
+
+		&.dt-left {
+			text-align: left;
+		}
+
+		&.dt-right {
+			text-align: right;
+		}
+	}
+
+	.dataTables_filter {
 		input {
 			margin-left: 0.5em;
 		}
 	}
 
-	// Table info
-	.dataTables_info {
-		clear: both;
-		float: left;
-		padding-top: 0.755em;
-	}
-
 	// Paging
 	.dataTables_paginate {
-		float: right;
-		text-align: right;
-		padding-top: 0.25em;
-
 		.paginate_button {
 			box-sizing: border-box;
 			display: inline-block;
@@ -567,33 +571,21 @@ table.dataTable td {
 
 
 // Collapse the two column display of the control elements when the screen is
-// small - the info and paging control get collapsed first as they are wider,
-// and then the length and filter controls
+// small
 @media screen and (max-width: 767px) {
-	.dataTables_wrapper {
-		.dataTables_info,
-		.dataTables_paginate {
-			float: none;
-			text-align: center;
+	div.dataTables_wrapper {
+		div.dataTables_layout_row {
+			display: block;
 		}
 
-		.dataTables_paginate {
-			margin-top: 0.5em;
-		}
-	}
-}
-
-@media screen and (max-width: 640px) {
-	.dataTables_wrapper {
-		.dataTables_length,
-		.dataTables_filter {
-			float: none;
-			text-align: center;
-		}
-
-		.dataTables_filter {
-			margin-top: 0.5em;
+		div.dataTables_layout_cell {
+			display: block;
+			
+			&.dt-full,
+			&.dt-left,
+			&.dt-right {
+				text-align: center;
+			}
 		}
 	}
 }
-

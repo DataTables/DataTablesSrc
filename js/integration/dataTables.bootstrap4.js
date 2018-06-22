@@ -45,10 +45,6 @@ var DataTable = $.fn.dataTable;
 
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
-	dom:
-		"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-		"<'row'<'col-sm-12'tr>>" +
-		"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 	renderer: 'bootstrap'
 } );
 
@@ -182,6 +178,29 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 	if ( activeEl !== undefined ) {
 		$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
 	}
+};
+
+
+DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items ) {
+	var row = $( '<div/>', {
+			"class": items.full ?
+				'row justify-content-md-center' :
+				'row justify-content-between'
+		} )
+		.appendTo( container );
+
+	$.each( items, function (key, val) {
+		var klass = val.table ?
+			'col-md-12' :
+			'col-md-auto';
+
+		$( '<div/>', {
+				id: val.id || null,
+				"class": klass+' '+(val.className || '')
+			} )
+			.append( val.contents )
+			.appendTo( row );
+	} );
 };
 
 

@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="html" order="5">
 
-<css lib="datatables">
-	div.dataTables_length {
-	padding-left: 2em;
-	}
-	div.dataTables_length,
-	div.dataTables_filter {
-		padding-top: 0.55em;
-	}
-</css>
+<css lib="datatables"/>
 <js lib="jquery" />
 <js lib="datatables" />
 
@@ -18,7 +10,16 @@
 
 $(document).ready(function() {
 	$('#example').DataTable( {
-		"dom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>'
+		layout: {
+			top2Left: 'pageLength',
+			top2Right: 'search',
+			topLeft: 'info',
+			topRight: 'paging',
+			bottomLeft: 'pageLength',
+			bottomRight: 'search',
+			bottom2Left: 'info',
+			bottom2Right: 'paging'
+		}
 	} );
 } );
 
@@ -26,11 +27,11 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-As is described by the basic DOM positioning example you can use the `dt-init dom` initialisation parameter to move DataTables features around the table to where you want them.
+As described in the [table control positioning example](../basic_init/dom.html) you can use the `-init layout` option to move table controls around the table to where you want them.
 
-In addition to this, you can also use `dt-init dom` to create multiple instances of these table controls. Simply include the feature's identification letter where you want it to appear, as many times as you wish, and the controls will all sync up (note that obviously the table (`-string t`) should be included only once).
+The use of each table control isn't limited to a single instance - as shown in this example you can use each one multiple times if you wish. Here the default pattern is used both above and below the table.
 
-This is shown in the demo below where the four key built-in features are duplicated above and below the table.
+Note also the syntax used in the `-init layout` object's parameter names to denote the rows in the layout - a number is used to give the row index for the display. If no number is given, this is the same as index 1 (next to the table). Both above and below the table the row indexes increase as they move away from the table.
 
 ]]></info>
 

@@ -53,10 +53,6 @@ $.extend( DataTable.ext.classes, {
 
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
-	dom:
-		"<'row grid-x'<'small-6 columns cell'l><'small-6 columns cell'f>r>"+
-		"t"+
-		"<'row grid-x'<'small-6 columns cell'i><'small-6 columns cell'p>>",
 	renderer: 'foundation'
 } );
 
@@ -174,6 +170,35 @@ DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, b
 	);
 };
 
+DataTable.ext.renderer.layout.foundation = function ( settings, container, items ) {
+	var row = $( '<div/>', {
+			"class": 'grid-x'
+		} )
+		.appendTo( container );
+
+	$.each( items, function (key, val) {
+		var klass = '';
+		if ( key === 'left' ) {
+			klass += 'cell auto text-left';
+		}
+		else if ( key === 'right' ) {
+			klass += 'cell auto text-right';
+		}
+		else if ( key === 'full' ) {
+			klass += 'cell small-12';
+			if ( ! val.table ) {
+				klass += ' text-center';
+			}
+		}
+
+		$( '<div/>', {
+				id: val.id || null,
+				"class": klass+' '+(val.className || '')
+			} )
+			.append( val.contents )
+			.appendTo( row );
+	} );
+};
 
 return DataTable;
 }));
