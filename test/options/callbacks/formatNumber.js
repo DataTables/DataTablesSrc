@@ -34,7 +34,7 @@ describe( "formatNumber Option", function() {
 					return toFormat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
  				},
 				initComplete: function ( settings, json ) {
-					expect($('#example_info').html() == "Showing 1 to 10 of 10'000 entries").toBe(true);
+					expect($('div.dataTables_info').html() == "Showing 1 to 10 of 10'000 entries").toBe(true);
 					done();
 				}
 			} );

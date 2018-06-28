@@ -10,7 +10,7 @@ describe('displayStart Option', function() {
 			let table = $('#example').DataTable();
 
 			expect(table.page.info().start).toBe(0);
-			expect($('#example_info').html()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dataTables_info').html()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		dt.html('basic');
@@ -20,7 +20,7 @@ describe('displayStart Option', function() {
 			});
 
 			expect(table.page.info().start).toBe(20);
-			expect($('#example_info').html()).toBe('Showing 21 to 30 of 57 entries');
+			expect($('div.dataTables_info').html()).toBe('Showing 21 to 30 of 57 entries');
 		});
 	});
 
@@ -33,7 +33,7 @@ describe('displayStart Option', function() {
 			});
 
 			expect(table.page.info().start).toBe(20);
-			expect($('#example_info').html()).toBe('Showing 21 to 25 of 57 entries');
+			expect($('div.dataTables_info').html()).toBe('Showing 21 to 25 of 57 entries');
 		});
 
 		dt.html('basic');
@@ -43,7 +43,7 @@ describe('displayStart Option', function() {
 			});
 
 			expect(table.page.info().start).toBe(0);
-			expect($('#example_info').html()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dataTables_info').html()).toBe('Showing 1 to 10 of 57 entries');
 		});
 	});
 
@@ -57,7 +57,7 @@ describe('displayStart Option', function() {
 			});
 
 			expect(table.page.info().start).toBe(20);
-			expect($('#example_info').html()).toBe('Showing 21 to 57 of 57 entries');
+			expect($('div.dataTables_info').html()).toBe('Showing 21 to 57 of 57 entries');
 		});
 
 		dt.html('basic');
@@ -84,7 +84,7 @@ describe('displayStart Option', function() {
 				},
 				initComplete: function(setting, json) {
 					expect(table.page.info().start).toBe(30);
-					expect($('#example_info').html()).toBe('Showing 31 to 40 of 5,000,000 entries');
+					expect($('div.dataTables_info').html()).toBe('Showing 31 to 40 of 5,000,000 entries');
 					expect($('#example tbody tr td:eq(0)').text()).toBe('30-1');
 					done();
 				}
@@ -116,7 +116,7 @@ describe('displayStart Option', function() {
 				},
 				initComplete: function(setting, json) {
 					expect(table.page.info().start).toBe(30);
-					expect($('#example_info').html()).toBe('Showing 31 to 40 of 5,000,000 entries');
+					expect($('div.dataTables_info').html()).toBe('Showing 31 to 40 of 5,000,000 entries');
 					expect($('#example tbody tr td:eq(0)').text()).toBe('30-1');
 					done();
 				}

@@ -131,7 +131,7 @@ describe('columns - column()', function() {
 			expect(table.column('theOffice:name').data()[0]).toBe('Tokyo');
 		});
 		it('Can select column using node with `search: current`', function() {
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val('Accountant')
 				.keyup();
 			expect(table.column('#example thead th:eq(0)', { search: 'applied' }).data()[0]).toBe('Airi Satou');

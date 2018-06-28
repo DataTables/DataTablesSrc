@@ -33,7 +33,7 @@ describe('core - destroy()', function() {
 			let elements = [
 				'#example_length',
 				'#example_length',
-				'#example_info',
+				'div.dataTables_info',
 				'#example_paginate',
 				//Manuscript #528: '.sorting_asc',
 				'.sorting'

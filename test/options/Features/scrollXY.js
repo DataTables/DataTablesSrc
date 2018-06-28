@@ -31,7 +31,7 @@ describe('scrollY / X option', function() {
 		});
 
 		it('Filtering results in sets y-scroll back to 0 - Testing DOM', function() {
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val(1)
 				.keyup();
 			expect($('div.dataTables_scrollHead').scrollTop()).toBe(0);
@@ -100,7 +100,7 @@ describe('scrollY / X option', function() {
 		});
 
 		it('Unaltered when filter applied', function() {
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val('47')
 				.keyup(); //Not sure about this, original test used fnFilter, tried to use filter instead but couldn't get working
 			expect($('div.dataTables_scrollBody').width()).toBe(800);

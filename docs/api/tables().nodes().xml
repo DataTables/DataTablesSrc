@@ -11,7 +11,7 @@
 	</type>
 
 	<description>
-		DataTables and its plug-ins can create additional `dt-tag table` elements in the document (for example when scrolling is enable, the table is split into three individual tables, the header, footer and body in order to provide cross-browser scrolling). However, you may wish to obtain the original table node that belongs to the DataTable. This method, and its singular counterpart, is provided for that purpose.
+		DataTables and its plug-ins can create additional `dt-tag table` elements in the document (for example when scrolling is enabled, the table is split into three individual tables, the header, footer and body in order to provide cross-browser scrolling). However, you may wish to obtain the original table node that belongs to the DataTable. This method, and its singular counterpart, is provided for that purpose.
 	</description>
 
 	<example title="Add a class to all main table nodes"><![CDATA[
