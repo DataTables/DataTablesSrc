@@ -1,62 +1,65 @@
+describe('Static method - isDataTable', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-describe( 'Static method - isDataTable', function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Exists and is a function', function() {
+			expect(typeof $.fn.dataTable.isDataTable).toBe('function');
+		});
+		it('Returns a boolean', function() {
+			expect(typeof $.fn.dataTable.isDataTable()).toBe('boolean');
+		});
+	});
 
-	var table;
+	describe('Functional tests', function() {
+		let table;
+		dt.html('basic');
+		it('Returns false before initialisation', function() {
+			expect($.fn.dataTable.isDataTable($('#example'))).toBe(false);
+		});
 
-	it( 'Exists', function () {
-		expect( typeof $.fn.dataTable.isDataTable ).toBe( 'function' );
-	} );
+		it('Accepts a DataTable table node', function() {
+			table = $('#example').DataTable();
+			expect($.fn.dataTable.isDataTable($('#example'))).toBe(true);
+		});
 
-	it( 'Accepts a DataTable table node', function () {
-		table = $('#example').DataTable();
+		it('Other nodes return false', function() {
+			expect($.fn.dataTable.isDataTable($('th').get(0))).toBe(false);
+			expect($.fn.dataTable.isDataTable($('td').get(0))).toBe(false);
+			expect($.fn.dataTable.isDataTable($('div').get(0))).toBe(false);
+		});
 
-		expect( $.fn.dataTable.isDataTable( $('#example').get(0) ) ).toBe( true );
-	} );
+		it('Can accept  a jQuery selector', function() {
+			expect($.fn.dataTable.isDataTable('table.dataTable')).toBe(true);
+			expect($.fn.dataTable.isDataTable('div')).toBe(false);
+		});
 
-	it( 'Other nodes return false', function () {
-		table = $('#example').DataTable();
+		it('Can accept a DataTable API instance', function() {
+			expect($.fn.dataTable.isDataTable(table)).toBe(true);
+			expect($.fn.dataTable.isDataTable(1)).toBe(false);
+		});
 
-		expect( $.fn.dataTable.isDataTable( $('th').get(0) ) ).toBe( false );
-		expect( $.fn.dataTable.isDataTable( $('td').get(0) ) ).toBe( false );
-		expect( $.fn.dataTable.isDataTable( $('div').get(0) ) ).toBe( false );
-	} );
+		dt.html('basic');
+		it('Returns true for the header in a scrolling table', function() {
+			table = $('#example').DataTable({
+				scrollY: 200
+			});
 
-	it( 'Can accept in a jQuery selector', function () {
-		expect( $.fn.dataTable.isDataTable( 'table.dataTable' ) ).toBe( true );
-		expect( $.fn.dataTable.isDataTable( 'div' ) ).toBe( false );
-	} );
+			var scrollingTable = $(table.table().header()).closest('table');
+			expect($.fn.dataTable.isDataTable(scrollingTable)).toBe(true);
+		});
 
-	it( 'Can accept a DataTable API instance', function () {
-		expect( $.fn.dataTable.isDataTable( table ) ).toBe( true );
-		expect( $.fn.dataTable.isDataTable( 1 ) ).toBe( false );
-	} );
+		it('Returns true for the body in a scrolling table', function() {
+			var scrollingTable = $(table.table().body()).closest('table');
+			expect($.fn.dataTable.isDataTable(scrollingTable)).toBe(true);
+		});
 
-
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
-
-	it( 'Returns true for the header in a scrolling table', function () {
-		table = $('#example').DataTable( {
-			scrollY: 200
-		} );
-
-		var scrollingTable = $(table.table().header()).closest('table')
-		expect( $.fn.dataTable.isDataTable( scrollingTable ) ).toBe( true );
-	} );
-
-	it( 'Returns true for the body in a scrolling table', function () {
-		var scrollingTable = $(table.table().body()).closest('table')
-		expect( $.fn.dataTable.isDataTable( scrollingTable ) ).toBe( true );
-	} );
-
-	it( 'Returns true for the footer in a scrolling table', function () {
-		var scrollingTable = $(table.table().footer()).closest('table')
-		expect( $.fn.dataTable.isDataTable( scrollingTable ) ).toBe( true );
-	} );
-} );
+		it('Returns true for the footer in a scrolling table', function() {
+			var scrollingTable = $(table.table().footer()).closest('table');
+			expect($.fn.dataTable.isDataTable(scrollingTable)).toBe(true);
+		});
+	});
+});

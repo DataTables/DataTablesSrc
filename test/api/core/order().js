@@ -15,7 +15,6 @@ describe('core- order()', function() {
 			expect(table.order() instanceof Array).toBe(true);
 		});
 		it('Setter returns an API instance', function() {
-			let table = $('#example').DataTable();
 			expect(table.order([]) instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});

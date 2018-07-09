@@ -1,5 +1,3 @@
-// todo tests - write the tests...
-
 describe('rows - rows()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
