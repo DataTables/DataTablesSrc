@@ -204,4 +204,16 @@ describe('cells: cell()', function() {
 			expect(d).toBe(undefined);
 		});
 	});
+
+	// M581
+	describe('cell-selector on second page', function() {
+		let table;
+		dt.html('basic');
+		it('cell-selector - ', function() {
+			table = $('#example').DataTable();
+			table.page(1).draw(false);
+
+			expect(table.cell(':eq(1)', 0, {page:'current'}).data()).toBe('Colleen Hurst');
+		});
+	});
 });
