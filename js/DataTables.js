@@ -93,8 +93,6 @@
 	 */
 	var DataTable = function ( options )
 	{
-		_buildInclude('api.legacy.js');
-
 		var _that = this;
 		var emptyInit = options === undefined;
 		var len = this.length;
@@ -105,9 +103,10 @@
 
 		this.oApi = this.internal = _ext.internal;
 
-		// Extend with old style plug-in API methods
+		// Extend with old style plug-in API methods - this is our one concession to
+		// the 1.9- API. The legacy plug-in uses this to allow old API methods
 		for ( var fn in DataTable.ext.internal ) {
-			if ( fn ) {
+			if ( fn && fn.indexOf('_fn') !== 0 ) {
 				this[fn] = _fnExternApiFunc(fn);
 			}
 		}

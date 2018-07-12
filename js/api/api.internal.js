@@ -119,8 +119,17 @@ $.extend( DataTable.ext.internal, {
 	_fnDataSource: _fnDataSource,
 	_fnRowAttributes: _fnRowAttributes,
 	_fnExtend: _fnExtend,
-	_fnCalculateEnd: function () {} // Used by a lot of plug-ins, but redundant
-	                                // in 1.10, so this dead-end function is
-	                                // added to prevent errors
+	_fnCalculateEnd: function () {}, // Used by a lot of plug-ins, but redundant
+	                                 // in 1.10, so this dead-end function is
+									 // added to prevent errors
+
+
+	/**
+	 * Attach an `api` method to the jQuery instance for the DataTable, so
+	 * the DataTables API can be easily accessed.
+	 */
+	api: function ( settings ) {
+		return new _Api( settings );
+	}
 } );
 

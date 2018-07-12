@@ -1,5 +1,4 @@
 
-
 /**
  * Provide a common method for plug-ins to check the version of DataTables being
  * used, in order to ensure compatibility.
@@ -15,7 +14,7 @@
  *  @example
  *    alert( $.fn.dataTable.versionCheck( '1.9.0' ) );
  */
-DataTable.versionCheck = DataTable.fnVersionCheck = function( version )
+DataTable.versionCheck = function( version )
 {
 	var aThis = DataTable.version.split('.');
 	var aThat = version.split('.');
@@ -53,7 +52,7 @@ DataTable.versionCheck = DataTable.fnVersionCheck = function( version )
  *      $('#example').dataTable();
  *    }
  */
-DataTable.isDataTable = DataTable.fnIsDataTable = function ( table )
+DataTable.isDataTable = function ( table )
 {
 	var t = $(table).get(0);
 	var is = false;
@@ -91,7 +90,7 @@ DataTable.isDataTable = DataTable.fnIsDataTable = function ( table )
  *      $(table).DataTable().columns.adjust();
  *    } );
  */
-DataTable.tables = DataTable.fnTables = function ( visible )
+DataTable.tables = function ( visible )
 {
 	var api = false;
 
