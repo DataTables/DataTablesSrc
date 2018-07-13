@@ -582,25 +582,6 @@ DataTable.models.oSettings = {
 	"oLoadedState": null,
 
 	/**
-	 * Source url for AJAX data for the table.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
-	 *  @type string
-	 *  @default null
-	 */
-	"sAjaxSource": null,
-
-	/**
-	 * Property from a given object from which to read the table data from. This
-	 * can be an empty string (when not server-side processing), in which case
-	 * it is  assumed an an array is given directly.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
-	 *  @type string
-	 */
-	"sAjaxDataProp": null,
-
-	/**
 	 * Note if draw should be blocked while getting data
 	 *  @type boolean
 	 *  @default true
@@ -629,22 +610,6 @@ DataTable.models.oSettings = {
 	 *  @default undefined
 	 */
 	"oAjaxData": undefined,
-
-	/**
-	 * Function to get the server-side data.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
-	 *  @type function
-	 */
-	"fnServerData": null,
-
-	/**
-	 * Functions which are called prior to sending an Ajax request so extra
-	 * parameters can easily be sent to the server
-	 *  @type array
-	 *  @default []
-	 */
-	"aoServerParams": [],
 
 	/**
 	 * Send the XHR HTTP method - GET or POST (could be PUT or DELETE if

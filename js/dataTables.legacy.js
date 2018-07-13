@@ -358,13 +358,46 @@ DataTable.fnTables = DataTable.tables;
 $(document).on( 'preInit.dt', function (e, settings) {
 	var api = new $.fn.dataTable.Api( settings );
 
+	// sAjaxSource and sAjaxDataProp support
+	var init = api.init();
+	if ( init.sAjaxSource && ! init.ajax ) {
+		settings.ajax = init.sAjaxDataProp ?
+			{ // data source property
+				url: init.sAjaxSource,
+				dataSrc: init.sAjaxDataProp
+			} :
+			init.sAjaxSource; // just the url
+	}
+
+	// fnServerData support - ajax as a function
+	if ( init.fnServerData ) {
+		settings.ajax = function (data, callback, s) {
+			init.fnServerData(
+				init.sAjaxSource,
+				$.map( data, function (val, key) { // Need to convert back to 1.9 trad format
+					return { name: key, value: val };
+				} ),
+				callback,
+				s
+			);
+		};
+	}
+
+	// Legacy server-side processing parameter style
 	api.on( 'preXhr', function (e, s, d, xhr) {
 		var legacy = DataTable.ext.legacy.ajax;
-		if ( api.init().sAjaxSource && legacy === null ) {
+		var init = api.init();
+		var serverParams = function () {
+			if ( init.fnServerParams ) {
+				init.fnServerParams( s, xhr.data );
+			}
+		}
+		if ( init.sAjaxSource && legacy === null ) {
 			legacy = true;
 		}
 
 		if ( ! legacy ) {
+			serverParams();
 			return;
 		}
 
@@ -416,6 +449,10 @@ $(document).on( 'preInit.dt', function (e, settings) {
 		}
 	
 		xhr.data = oldStyle;
+
+
+		// fnServerParams - after server-side processing conversion
+		serverParams();
 	} );
 } );
 

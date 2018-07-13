@@ -281,9 +281,8 @@ function _fnDataSource ( settings )
 	if ( settings.oFeatures.bServerSide ) {
 		return 'ssp';
 	}
-	else if ( settings.ajax || settings.sAjaxSource ) {
+	else if ( settings.ajax ) {
 		return 'ajax';
 	}
 	return 'dom';
 }
-

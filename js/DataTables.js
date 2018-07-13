@@ -348,10 +348,6 @@
 	 * request to made to the server for new data. This event is called before
 	 * DataTables processed the returned data, so it can also be used to pre-
 	 * process the data returned from the server, if needed.
-	 *
-	 * Note that this trigger is called in `fnServerData`, if you override
-	 * `fnServerData` and which to use this event, you need to trigger it in you
-	 * success function.
 	 *  @name DataTable#xhr.dt
 	 *  @event
 	 *  @param {event} e jQuery event object

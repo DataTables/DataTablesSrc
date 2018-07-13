@@ -123,15 +123,12 @@ _fnMap( oSettings.oFeatures, oInit, [
 _fnMap( oSettings, oInit, [
 	"asStripeClasses",
 	"ajax",
-	"fnServerData",
 	"fnFormatNumber",
 	"sServerMethod",
 	"aaSorting",
 	"aaSortingFixed",
 	"aLengthMenu",
 	"sPaginationType",
-	"sAjaxSource",
-	"sAjaxDataProp",
 	"iStateDuration",
 	"sDom",
 	"bSortCellsTop",
@@ -158,7 +155,6 @@ _fnMap( oSettings.oLanguage, oInit, "fnInfoCallback" );
 
 /* Callback functions which are array driven */
 _fnCallbackReg( oSettings, 'aoDrawCallback',       oInit.fnDrawCallback,      'user' );
-_fnCallbackReg( oSettings, 'aoServerParams',       oInit.fnServerParams,      'user' );
 _fnCallbackReg( oSettings, 'aoStateSaveParams',    oInit.fnStateSaveParams,   'user' );
 _fnCallbackReg( oSettings, 'aoStateLoadParams',    oInit.fnStateLoadParams,   'user' );
 _fnCallbackReg( oSettings, 'aoStateLoaded',        oInit.fnStateLoaded,       'user' );

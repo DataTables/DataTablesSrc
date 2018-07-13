@@ -181,8 +181,7 @@ DataTable.defaults = {
 	 *   it my be used as a function. As a function it takes a single parameter,
 	 *   the JSON returned from the server, which can be manipulated as
 	 *   required, with the returned value being that used by DataTables as the
-	 *   data source for the table. This supersedes `sAjaxDataProp` from
-	 *   DataTables 1.9-.
+	 *   data source for the table.
 	 *
 	 * * `success` - Should not be overridden it is used internally in
 	 *   DataTables. To manipulate / transform the data returned by the server
@@ -204,8 +203,6 @@ DataTable.defaults = {
 	 *    data has been obtained. That data should be passed into the callback
 	 *    as the only parameter
 	 * 3. _object_ - DataTables settings object for the table
-	 *
-	 * Note that this supersedes `fnServerData` from DataTables 1.9-.
 	 *
 	 *  @type string|object|function
 	 *  @default null
@@ -976,59 +973,6 @@ DataTable.defaults = {
 	 *    } );
 	 */
 	"fnRowCallback": null,
-
-
-	/**
-	 * __Deprecated__ The functionality provided by this parameter has now been
-	 * superseded by that provided through `ajax`, which should be used instead.
-	 *
-	 * This parameter allows you to override the default function which obtains
-	 * the data from the server so something more suitable for your application.
-	 * For example you could use POST data, or pull information from a Gears or
-	 * AIR database.
-	 *  @type function
-	 *  @member
-	 *  @param {string} source HTTP source to obtain the data from (`ajax`)
-	 *  @param {array} data A key/value pair object containing the data to send
-	 *    to the server
-	 *  @param {function} callback to be called on completion of the data get
-	 *    process that will draw the data on the page.
-	 *  @param {object} settings DataTables settings object
-	 *
-	 *  @dtopt Callbacks
-	 *  @dtopt Server-side
-	 *  @name DataTable.defaults.serverData
-	 *
-	 *  @deprecated 1.10. Please use `ajax` for this functionality now.
-	 */
-	"fnServerData": null,
-
-
-	/**
-	 * __Deprecated__ The functionality provided by this parameter has now been
-	 * superseded by that provided through `ajax`, which should be used instead.
-	 *
-	 *  It is often useful to send extra data to the server when making an Ajax
-	 * request - for example custom filtering information, and this callback
-	 * function makes it trivial to send extra information to the server. The
-	 * passed in parameter is the data set that has been constructed by
-	 * DataTables, and you can add to this or modify it as you require.
-	 *  @type function
-	 *  @param {array} data Data array (array of objects which are name/value
-	 *    pairs) that has been constructed by DataTables and will be sent to the
-	 *    server. In the case of Ajax sourced data with server-side processing
-	 *    this will be an empty array, for server-side processing there will be a
-	 *    significant number of parameters!
-	 *  @returns {undefined} Ensure that you modify the data array passed in,
-	 *    as this is passed by reference.
-	 *
-	 *  @dtopt Callbacks
-	 *  @dtopt Server-side
-	 *  @name DataTable.defaults.serverParams
-	 *
-	 *  @deprecated 1.10. Please use `ajax` for this functionality now.
-	 */
-	"fnServerParams": null,
 
 
 	/**
@@ -1878,46 +1822,6 @@ DataTable.defaults = {
 	 *    } )
 	 */
 	"oSearch": $.extend( {}, DataTable.models.oSearch ),
-
-
-	/**
-	 * __Deprecated__ The functionality provided by this parameter has now been
-	 * superseded by that provided through `ajax`, which should be used instead.
-	 *
-	 * By default DataTables will look for the property `data` (or `aaData` for
-	 * compatibility with DataTables 1.9-) when obtaining data from an Ajax
-	 * source or for server-side processing - this parameter allows that
-	 * property to be changed. You can use Javascript dotted object notation to
-	 * get a data source for multiple levels of nesting.
-	 *  @type string
-	 *  @default data
-	 *
-	 *  @dtopt Options
-	 *  @dtopt Server-side
-	 *  @name DataTable.defaults.ajaxDataProp
-	 *
-	 *  @deprecated 1.10. Please use `ajax` for this functionality now.
-	 */
-	"sAjaxDataProp": "data",
-
-
-	/**
-	 * __Deprecated__ The functionality provided by this parameter has now been
-	 * superseded by that provided through `ajax`, which should be used instead.
-	 *
-	 * You can instruct DataTables to load data from an external
-	 * source using this parameter (use aData if you want to pass data in you
-	 * already have). Simply provide a url a JSON object can be obtained from.
-	 *  @type string
-	 *  @default null
-	 *
-	 *  @dtopt Options
-	 *  @dtopt Server-side
-	 *  @name DataTable.defaults.ajaxSource
-	 *
-	 *  @deprecated 1.10. Please use `ajax` for this functionality now.
-	 */
-	"sAjaxSource": null,
 
 
 	/**

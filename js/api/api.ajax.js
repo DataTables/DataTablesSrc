@@ -108,11 +108,9 @@ _api_register( 'ajax.url()', function ( url ) {
 		}
 		ctx = ctx[0];
 
-		return ctx.ajax ?
-			$.isPlainObject( ctx.ajax ) ?
-				ctx.ajax.url :
-				ctx.ajax :
-			ctx.sAjaxSource;
+		return $.isPlainObject( ctx.ajax ) ?
+			ctx.ajax.url :
+			ctx.ajax;
 	}
 
 	// set
@@ -123,9 +121,6 @@ _api_register( 'ajax.url()', function ( url ) {
 		else {
 			settings.ajax = url;
 		}
-		// No need to consider sAjaxSource here since DataTables gives priority
-		// to `ajax` over `sAjaxSource`. So setting `ajax` here, renders any
-		// value of `sAjaxSource` redundant.
 	} );
 } );
 

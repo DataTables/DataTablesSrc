@@ -9,34 +9,6 @@
  */
 function _fnBuildAjax( oSettings, data, fn )
 {
-	// Compatibility with 1.9-, allow fnServerData and event to manipulate
-	_fnCallbackFire( oSettings, 'aoServerParams', 'serverParams', [data] );
-
-	// Convert to object based for 1.10+ if using the old array scheme which can
-	// come from server-side processing or serverParams
-	if ( data && $.isArray(data) ) {
-		var tmp = {};
-		var rbracket = /(.*?)\[\]$/;
-
-		$.each( data, function (key, val) {
-			var match = val.name.match(rbracket);
-
-			if ( match ) {
-				// Support for arrays
-				var name = match[0];
-
-				if ( ! tmp[ name ] ) {
-					tmp[ name ] = [];
-				}
-				tmp[ name ].push( val.value );
-			}
-			else {
-				tmp[val.name] = val.value;
-			}
-		} );
-		data = tmp;
-	}
-
 	var ajaxData;
 	var ajax = oSettings.ajax;
 	var instance = oSettings.oInstance;
@@ -112,18 +84,6 @@ function _fnBuildAjax( oSettings, data, fn )
 	// Allow plug-ins and external processes to modify the data
 	_fnCallbackFire( oSettings, null, 'preXhr', [oSettings, data, baseAjax] );
 
-	// if ( oSettings.fnServerData )
-	// {
-	// 	// DataTables 1.9- compatibility
-	// 	oSettings.fnServerData.call( instance,
-	// 		oSettings.sAjaxSource,
-	// 		$.map( data, function (val, key) { // Need to convert back to 1.9 trad format
-	// 			return { name: key, value: val };
-	// 		} ),
-	// 		callback,
-	// 		oSettings
-	// 	);
-	// }
 	if ( typeof ajax === 'function' )
 	{
 		// Is a function - let the caller define what needs to be done
@@ -170,11 +130,7 @@ function _fnAjaxUpdate( settings )
 
 /**
  * Build up the parameters in an object needed for a server-side processing
- * request. Note that this is basically done twice, is different ways - a modern
- * method which is used by default in DataTables 1.10 which uses objects and
- * arrays, or the 1.9- method with is name / value pairs. 1.9 method is used if
- * the sAjaxSource option is used in the initialisation, or the legacyAjax
- * option is set.
+ * request.
  *  @param {object} oSettings dataTables settings object
  *  @returns {bool} block the table drawing or not
  *  @memberof DataTable#oApi
@@ -286,12 +242,12 @@ function _fnAjaxDataSrc ( oSettings, json, write )
 {
 	var dataSrc = $.isPlainObject( oSettings.ajax ) && oSettings.ajax.dataSrc !== undefined ?
 		oSettings.ajax.dataSrc :
-		oSettings.sAjaxDataProp; // Compatibility with 1.9-.
+		'data';
 
 	if ( ! write ) {
-		// Compatibility with 1.9-. In order to read from aaData, check if the
-		// default has been changed, if not, check for aaData
 		if ( dataSrc === 'data' ) {
+			// If the default, then we still want to support the old style, and safely ignore
+			// it if possible
 			return json.aaData || json[dataSrc];
 		}
 
@@ -299,7 +255,7 @@ function _fnAjaxDataSrc ( oSettings, json, write )
 			_fnGetObjectDataFn( dataSrc )( json ) :
 			json;
 	}
-	else {
-		_fnSetObjectDataFn( dataSrc )( json, write );
-	}
+	
+	// set
+	_fnSetObjectDataFn( dataSrc )( json, write );
 }
