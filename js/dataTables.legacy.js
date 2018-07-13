@@ -351,4 +351,73 @@ DataTable.fnIsDataTable = DataTable.isDataTable;
 DataTable.fnTables = DataTable.tables;
 
 
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Legacy Ajax / server-side processing
+ */
+$(document).on( 'preInit.dt', function (e, settings) {
+	var api = new $.fn.dataTable.Api( settings );
+
+	api.on( 'preXhr', function (e, s, d, xhr) {
+		var legacy = DataTable.ext.legacy.ajax;
+		if ( api.init().sAjaxSource && legacy === null ) {
+			legacy = true;
+		}
+
+		if ( ! legacy ) {
+			return;
+		}
+
+		// Going for the legacy style - convert
+		var data = xhr.data;
+		var features = s.oFeatures;
+		var oldStyle = [];
+		var param = function ( name, value ) {
+			oldStyle.push( {
+				name: name,
+				value: value
+			} );
+		};
+
+		param( 'sEcho',          data.draw );
+		param( 'iColumns',       data.columns.length );
+		param( 'sColumns',       $.map( data.columns, function (col) { return col.name; } ).join(',') );
+		param( 'iDisplayStart',  data.start );
+		param( 'iDisplayLength', data.length );
+
+		for ( var i=0 ; i<data.columns.length ; i++ ) {
+			var column = data.columns[i];
+
+			param( "mDataProp_"+i, column.data );
+
+			if ( features.bFilter ) {
+				param( 'sSearch_'+i,     column.search.value );
+				param( 'bRegex_'+i,      column.search.regex );
+				param( 'bSearchable_'+i, column.searchable );
+			}
+
+			if ( features.bSort ) {
+				param( 'bSortable_'+i, column.orderable );
+			}
+		}
+
+		if ( features.bSort ) {
+			$.each( data.order, function ( i, val ) {
+				param( 'iSortCol_'+i, val.column );
+				param( 'sSortDir_'+i, val.dir );
+			} );
+	
+			param( 'iSortingCols', data.order.length );
+		}
+
+		if ( features.bFilter ) {
+			param( 'sSearch', data.search.value );
+			param( 'bRegex', data.search.regex );
+		}
+	
+		xhr.data = oldStyle;
+	} );
+} );
+
+
 }));

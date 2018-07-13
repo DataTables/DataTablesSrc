@@ -21,6 +21,10 @@ function _fnSortFlatten ( settings )
 				$.merge( nestedSort, a );
 			}
 		};
+	
+	if ( ! settings.oFeatures.bSort ) {
+		return aSort;
+	}
 
 	// Build the sort array, with pre-fix and post-fix options if they have been
 	// specified

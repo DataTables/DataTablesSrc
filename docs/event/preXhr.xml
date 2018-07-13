@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>function( e, settings, json )</signature>
+		<signature>function( e, settings, json, xhr )</signature>
 		<parameter type="object" name="e">
 			jQuery event object
 		</parameter>
@@ -14,6 +14,9 @@
 		</parameter>
 		<parameter type="object" name="data">
 			Data that will be sent to the server in an object form
+		</parameter>
+		<parameter type="object" name="xhr" since="2.0.0">
+			The XHR object constructed for jQuery
 		</parameter>
 		<scope>HTML table element</scope>
 	</type>
