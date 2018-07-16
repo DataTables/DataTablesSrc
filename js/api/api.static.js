@@ -1,10 +1,11 @@
 
 /**
- * Provide a common method for plug-ins to check the version of DataTables being
- * used, in order to ensure compatibility.
+ * Provide a common method for plug-ins to check version numbers
  *
  *  @param {string} version Version string to check for, in the format "X.Y.Z".
  *    Note that the formats "X" and "X.Y" are also acceptable.
+ *  @param {string} [version2=current DataTables version] As above, but optional.
+ *   If not given the current DataTables version will be used.
  *  @returns {boolean} true if this version of DataTables is greater or equal to
  *    the required version, or false if this version of DataTales is not
  *    suitable
@@ -14,9 +15,11 @@
  *  @example
  *    alert( $.fn.dataTable.versionCheck( '1.9.0' ) );
  */
-DataTable.versionCheck = function( version )
+DataTable.versionCheck = function( version, version2 )
 {
-	var aThis = DataTable.version.split('.');
+	var aThis = version2 ?
+		version2.split('.') :
+		DataTable.version.split('.');
 	var aThat = version.split('.');
 	var iThis, iThat;
 

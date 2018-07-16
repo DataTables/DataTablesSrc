@@ -5,16 +5,21 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>versionCheck( version )</signature>
+		<signature>versionCheck( version [, version2 ] )</signature>
 		<description>Check the compatibility of the running version of DataTables against a version string</description>
 		<param type="string" name="version">
 			Version string to check for, in the format "X.Y.Z". Note that the formats "X" and "X.Y" are also acceptable.
 		</param>
-		<returns type="boolean">`true` if this version of DataTables is greater or equal to the required version, or `false` if this version of DataTales is not suitable</returns>
+		<param type="string" name="version2" default="{current DataTables version}" since="2.0.0">
+			Version string to compare against. If not given, the current DataTables version will be used. The format expected is as above.
+		</param>
+		<returns type="boolean">`true` if the second version (`version2`) is greater or equal to the required version, or `false` if the is not suitable</returns>
 	</type>
 
 	<description>
 		This method provides the ability for plug-in developers to check a required version number against the running version of DataTables. For example, a plug-in such as [Buttons](/extensions/buttons) might require DataTables 1.10.7 or newer. This method provides the ability to check that.
+
+		It can also be useful for plug-ins to ensure that any other version dependencies are met.
 
 		Please note that this is a **static** function and is accessed through the `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
 	</description>
@@ -23,6 +28,14 @@
 
 if ( ! $.fn.dataTable.versionCheck( '1.10.7' ) ) {
 	alert( 'A newer version of DataTables is required' );
+} 
+
+]]></example>
+
+	<example title="Check that Buttons 1.5 or newer is used"><![CDATA[
+
+if ( ! $.fn.dataTable.versionCheck( '1.5.0', $.fn.dataTable.Buttons.version ) ) {
+	alert( 'A newer version of BUttons is required' );
 } 
 
 ]]></example>
