@@ -12,11 +12,11 @@ describe('core- state()', function() {
 		});
 
 		dt.html('basic');
-		it('Returns null if stateSave disabled', function() {
+		it('Returns plain object even if stateSave disabled', function() {
 			let table = $('#example').DataTable({
 				stateSave: false
 			});
-			expect(table.state()).toBe(null);
+			expect($.isPlainObject(table.state())).toBe(true);
 		});
 
 		dt.html('basic');
@@ -154,6 +154,91 @@ describe('core- state()', function() {
 			expect(checkColumn(savedState.columns[3], false, '', true, false, true)).toBe(true);
 			expect(checkColumn(savedState.columns[4], true, 'Cox', false, true, true)).toBe(true);
 			expect(checkColumn(savedState.columns[5], false, '', true, false, true)).toBe(true);
+		});
+	});
+
+	describe('Setter', function() {
+		let table;
+		let state;
+		dt.html('basic');
+
+		it('A redraw is required', function() {
+			table = $('#example').DataTable();
+			state = table.state();
+
+			state.start = 10;
+			table.state( state );
+
+			expect( $('#example tbody td').eq(0).text() ).toBe('Airi Satou');
+		});
+
+		it('Page start - set as a whole', function() {
+			table.draw( false );
+			expect( $('#example tbody td').eq(0).text() ).toBe('Charde Marshall');
+		});
+
+		it('Page start - set directly', function() {
+			table
+				.state( {
+					start: 20
+				})
+				.draw( false );
+
+				expect( $('#example tbody td').eq(0).text() ).toBe('Gloria Little');
+		});
+
+		it('Page length', function() {
+			table
+				.state( {
+					start: 0,
+					length: 25
+				})
+				.draw( false );
+
+			expect( $('#example tbody td').eq(0).text() ).toBe('Airi Satou');
+			expect( $('#example tbody tr').length ).toBe(25);
+		});
+
+		it('Order', function() {
+			table
+				.state( {
+					order: [[3, 'asc']]
+				})
+				.draw();
+
+			expect( $('#example tbody td').eq(0).text() ).toBe('Tatyana Fitzpatrick');
+		});
+
+		it('Search', function() {
+			table
+				.state( {
+					search: {
+						search: 'Gavin'
+					}
+				})
+				.draw();
+
+			expect( $('#example tbody td').eq(0).text() ).toBe('Gavin Cortez');
+			expect( $('input', table.table().container()).val() ).toBe('Gavin');
+		});
+
+		it('Column visibility', function() {
+			table
+				.state( {
+					columns: [
+						{ visible: false },
+						{ visible: true },
+						{ visible: false },
+						{ visible: true },
+						{ visible: false },
+						{ visible: false }
+					]
+				})
+				.draw();
+
+			expect( $('#example tbody tr').eq(0).children('td').length ).toBe(2);
+			expect( $('#example tbody td').eq(0).text() ).toBe('Team Leader');
+			expect( $('#example tbody td').eq(1).text() ).toBe('22');
 		});
 	});
 });

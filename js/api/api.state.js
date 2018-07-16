@@ -2,10 +2,24 @@
  * State API methods
  */
 
-_api_register( 'state()', function () {
-	return this.context.length ?
-		this.context[0].oSavedState :
-		null;
+_api_register( 'state()', function ( set, ignoreTime ) {
+	// getter
+	if ( ! set ) {
+		return this.context.length ?
+			_fnState( this.context[0] ) :
+			null;
+	}
+
+	var setMutate = $.extend( true, {}, set );
+
+	// setter
+	return this.iterator( 'table', function ( settings ) {
+		if ( ignoreTime !== false ) {
+			setMutate.time = +new Date() + 10;
+		}
+
+		_fnLoadState( settings, function(){}, setMutate );
+	} );
 } );
 
 
@@ -29,4 +43,3 @@ _api_register( 'state.save()', function () {
 		_fnSaveState( settings );
 	} );
 } );
-

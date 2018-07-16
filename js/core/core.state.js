@@ -1,17 +1,12 @@
 
-
 /**
- * Save the state of a table
- *  @param {object} oSettings dataTables settings object
- *  @memberof DataTable#oApi
+ * State information for a table
+ *
+ * @param {*} settings
+ * @returns State object
  */
-function _fnSaveState ( settings )
+function _fnState ( settings )
 {
-	if ( !settings.oFeatures.bStateSave || settings.bDestroying )
-	{
-		return;
-	}
-
 	/* Store the interesting variables */
 	var state = {
 		time:    +new Date(),
@@ -29,6 +24,23 @@ function _fnSaveState ( settings )
 
 	_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
 
+	return state;
+}
+
+/**
+ * Save the state of a table
+ *  @param {object} oSettings dataTables settings object
+ *  @memberof DataTable#oApi
+ */
+function _fnSaveState ( settings )
+{
+	if ( !settings.oFeatures.bStateSave || settings.bDestroying )
+	{
+		return;
+	}
+
+	var state = _fnState( settings );
+
 	settings.oSavedState = state;
 	settings.fnStateSaveCallback.call( settings.oInstance, settings, state );
 }
@@ -41,7 +53,7 @@ function _fnSaveState ( settings )
  *  @param {function} callback Callback to execute when the state has been loaded
  *  @memberof DataTable#oApi
  */
-function _fnLoadState ( settings, oInit, callback )
+function _fnLoadState ( settings, callback, state )
 {
 	var i, ien;
 	var columns = settings.aoColumns;
@@ -102,14 +114,27 @@ function _fnLoadState ( settings, oInit, callback )
 		}
 
 		// Columns
-		//
 		if ( s.columns ) {
+			var api;
+
 			for ( i=0, ien=s.columns.length ; i<ien ; i++ ) {
 				var col = s.columns[i];
 
 				// Visibility
 				if ( col.visible !== undefined ) {
-					columns[i].bVisible = col.visible;
+					// If initialised, then we need to use the API. If not, then set default
+					// for the column
+					if ( settings._bInitComplete ) {
+						// Don't normally use the API in the core, but that's where the
+						// code is to remove columns from visibility!
+						if ( ! api ) {
+							api = new $.fn.dataTable.Api( settings );
+						}
+						api.column( i ).visible( col.visible );
+					}
+					else {
+						columns[i].bVisible = col.visible;
+					}
 				}
 
 				// Search
@@ -123,12 +148,14 @@ function _fnLoadState ( settings, oInit, callback )
 		callback();
 	}
 
-	if ( ! settings.oFeatures.bStateSave ) {
-		callback();
-		return;
-	}
+	if ( ! state ) {
+		if ( ! settings.oFeatures.bStateSave ) {
+			callback();
+			return;
+		}
 
-	var state = settings.fnStateLoadCallback.call( settings.oInstance, settings, loaded );
+		state = settings.fnStateLoadCallback.call( settings.oInstance, settings, loaded );
+	}
 
 	if ( state !== undefined ) {
 		loaded( state );

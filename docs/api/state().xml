@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="core">
 	<name>state()</name>
-	<summary>Get the last saved state of the table</summary>
+	<summary>Get / set the state of the table</summary>
 	<since>1.10.1</since>
 
 	<type type="function">
 		<signature>state()</signature>
-		<description>Get the last saved state of the table</description>
+		<description>Get the state of the DataTables</description>
 		<returns type="object">State saved object</returns>
 	</type>
 
+	<type type="function" since="2.0.0">
+		<signature>state( set [, ignoreTime ] )</signature>
+		<description>Set the state of the DataTables</description>
+		<parameter type="object" name="set">
+			A state object that will restore a given state. Note that not all parameters for the state object are required.
+		</parameter>
+		<parameter type="boolean" name="ignoreTime" default="true">
+			Disregard checks for the timestamp for when the state object was created (`true`).
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
 	<description>
-		When state saving is enabled (`dt-init stateSave`) it can be useful to know what state has been saved for a table an any one specific moment. This method provides the ability to get the last data object that has been stored in by the state saving mechanism.
+		The "state" of a DataTable refers to properties that define its current display, such as pagination parameters, ordering and filtering. While you can use individual API methods to get and set properties (e.g. `-api order()`) this method provides a collected API that will give and take information about the table as a whole. Please note also that it __does__ work without `-init stateSave` being enabled.
 
 		The data object has the following format, but please be aware that plug-ins and extensions to DataTables can modify this structure by adding data as they require for their own state information.
 		
@@ -35,13 +47,26 @@
 			]
 		}
 		```
-
-		Please note that this method gives the last saved state, which is not necessarily the current state. For example the `dt-api page()` method will not automatically trigger a state save. Calling `dt-api draw()` will trigger a state save, or use `dt-api state.save()`.
+		
+		If using this method as a setter, you will very likely want to call `-api draw()`, passing in `false` to the method, to ensure that the table is redrawn with the new state (and that the correct paging is shown).
 	</description>
 
 	<example title="Get the saved page length from the state object"><![CDATA[
 
 alert( 'Saved page length is: '+ table.state().length );
+
+]]></example>
+
+	<example title="Get the table state, change it and load it back"><![CDATA[
+
+var table = $('#myTable').DataTable();
+var state = table.state();
+
+state.start = 10;
+
+table
+	.state( start )
+	.draw( false );
 
 ]]></example>
 
