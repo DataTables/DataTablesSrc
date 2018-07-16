@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column().render()</name>
+	<summary>Get rendered data for a column</summary>
+	<since>2.0.0</since>
+
+	<type type="function">
+		<signature>column().render( type )</signature>
+		<description>Get rendered data for the selected column</description>
+		<parameter type="string" name="type">
+			Data type to get. This can be one of:
+
+			* `-string display`
+			* `-string filter`
+			* `-string sort`
+			* `-string type`
+		</parameter>
+		<returns type="*">Rendered data for the column of the requested type</returns>
+	</type>
+
+	<description>
+		This method provides access to the [orthogonal data](/manual/orthogonal-data) that DataTables uses for each cell (in this case, in the form of columns). This allows the same data to be used in different ways. A typical example of this is date / time data being used in numeric format (i.e. a timestamp) for sorting, but a complex formatted form for display.
+
+		The `dt-api column().data()` method provides access to the underlying raw data, while this method provides access to the rendered data for each type. It is provided to allow plug-in authors access to the orthogonal data available in the table.
+
+		Note that calling this method will evaluate the renderer for the cells in the column, rather than reading the information from cache (see `dt-api column().cache()` to read from cache and `dt-api column().invalidate()` to clear cache).
+	</description>
+
+	<example title="Get the display information for a column"><![CDATA[
+var table = $('#example').DataTable();
+var rendered = table.column( 1 ).render();
+
+console.log( rendered );
+
+]]></example>
+
+	<related type="option">columns.data</related>
+	<related type="option">columns.render</related>
+	<related type="api">cells().data()</related>
+	<related type="api">cell().data()</related>
+	<related type="api">cell().render()</related>
+	<related type="api">cell().invalidate()</related>
+	<related type="api">column().render()</related>
+	<related type="api">columns().render()</related>
+</dt-api>

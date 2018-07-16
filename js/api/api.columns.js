@@ -19,10 +19,10 @@ var __re_column_selector = /^([^:]+):(name|visIdx|visible)$/;
 
 // r1 and r2 are redundant - but it means that the parameters match for the
 // iterator callback in columns().data()
-var __columnData = function ( settings, column, r1, r2, rows ) {
+var __columnData = function ( settings, column, r1, r2, rows, type ) {
 	var a = [];
 	for ( var row=0, ien=rows.length ; row<ien ; row++ ) {
-		a.push( _fnGetCellData( settings, rows[row], column ) );
+		a.push( _fnGetCellData( settings, rows[row], column, type ) );
 	}
 	return a;
 };
@@ -215,6 +215,12 @@ _api_registerPlural( 'columns().footer()', 'column().footer()', function ( selec
 
 _api_registerPlural( 'columns().data()', 'column().data()', function () {
 	return this.iterator( 'column-rows', __columnData, 1 );
+} );
+
+_api_registerPlural( 'columns().render()', 'column().render()', function ( type ) {
+	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
+		return __columnData( settings, column, i, j, rows, type );
+	}, 1 );
 } );
 
 _api_registerPlural( 'columns().dataSrc()', 'column().dataSrc()', function () {

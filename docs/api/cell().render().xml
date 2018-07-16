@@ -54,4 +54,6 @@ $('#example').on( 'click', 'tbody td', function () {
 	<related type="api">cell().data()</related>
 	<related type="api">cell().render()</related>
 	<related type="api">cell().invalidate()</related>
+	<related type="api">column().render()</related>
+	<related type="api">columns().render()</related>
 </dt-api>

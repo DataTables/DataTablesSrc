@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-api group="cells">
-	<name>cells().render()</name>
-	<summary>Get rendered data for a collection of cells</summary>
-	<since>1.10.3</since>
+<dt-api group="columns">
+	<name>columns().render()</name>
+	<summary>Get rendered data for a collection of columns</summary>
+	<since>2.0.0</since>
 
 	<type type="function">
-		<signature>cells().render( type )</signature>
-		<description>Get rendered data for the selected cells</description>
+		<signature>columns().render( type )</signature>
+		<description>Get rendered data for the selected columns</description>
 		<parameter type="string" name="type">
 			Data type to get. This can be one of:
 
@@ -15,26 +15,22 @@
 			* `-string sort`
 			* `-string type`
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with the data for each selected cell in the result set</returns>
+		<returns type="DataTables.Api">DataTables API instance with the data for each selected column in the result set</returns>
 	</type>
 
 	<description>
-		DataTables has the ability to use [orthogonal data](/manual/orthogonal-data) - i.e. different data for the same cell, depending on the operation being performed. A typical example of this is date / time data being used in numeric format (i.e. a timestamp) for sorting, but a complex formatted form for display.
+		This method provides access to the [orthogonal data](/manual/orthogonal-data) that DataTables uses for each cell (in this case, in the form of columns). This allows the same data to be used in different ways. A typical example of this is date / time data being used in numeric format (i.e. a timestamp) for sorting, but a complex formatted form for display.
 
 		The `dt-api cells().data()` method provides access to the underlying raw data, while this method provides access to the rendered data for each type. It is provided to allow plug-in authors access to the orthogonal data available in the table.
 
 		Note that calling this method will evaluate the renderer for the cell, rather than reading the information from cache (see `dt-api cells().cache()` to read from cache and `dt-api cells().invalidate()` to clear cache).
 	</description>
 
-	<example title="Get the display information for the cells in a row clicked on"><![CDATA[
+	<example title="Get the display information for a column"><![CDATA[
 var table = $('#example').DataTable();
+var rendered = table.columns( 1 ).render();
 
-$('#example').on( 'click', 'tbody td', function () {
-	var idx = table.cell( this ).index().row;
-	var data = table.cells( idx, '' ).render( 'display' );
-
-	console.log( data );
-} );
+console.log( rendered );
 
 ]]></example>
 
