@@ -158,6 +158,7 @@
 	_buildInclude('api.columns.js');
 	_buildInclude('api.cells.js');
 	_buildInclude('api.order.js');
+	_buildInclude('api.processing.js');
 	_buildInclude('api.search.js');
 	_buildInclude('api.state.js');
 	_buildInclude('api.static.js');

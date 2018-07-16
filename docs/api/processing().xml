@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>processing()</name>
+	<summary>Set the processing indicator state for the DataTable.</summary>
+	<since>2.0.0</since>
+
+	<type type="function">
+		<signature>processing( show )</signature>
+		<description>Set the processing indicator visibility.</description>
+		<parameter type="boolean" name="show">
+			Specify if the indicator should be visible (`true`) or not (`false`).
+		</parameter>
+		<returns type="DataTables.Api">API instance.</returns>
+	</type>
+
+	<description>
+		It can be useful at times to dynamically show and hide the "Processing" message that DataTables has available (`-init processing`). This is particularly true for plug-ins that require a period of processing or async interaction, such as fetching new data.
+
+		This method provides that ability to show and hide the processing indicator built into DataTables.
+
+		Note that for this method to work as expected, the `-init processing` option must be enabled (`true`).
+	</description>
+
+	<example title="Show the processing indicator and then hide after 5 seconds"><![CDATA[
+var table = $('#example').DataTable( {
+  processing: true;
+} );
+
+table.processing( true );
+
+setTimeout( function () {
+  table.processing( false );
+}, 5000 );
+
+]]></example>
+
+	<related>-init processing</related>
+</dt-api>
