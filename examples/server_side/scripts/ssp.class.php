@@ -119,11 +119,8 @@ class SSP {
 			$dtColumns = self::pluck( $columns, 'dt' );
 
 			for ( $i=0, $ien=count($request['order']) ; $i<$ien ; $i++ ) {
-				// Convert the column index into the column data property
-				$columnIdx = intval($request['order'][$i]['column']);
+				$columnIdx = array_search( $request['order'][$i]['data'], $dtColumns );
 				$requestColumn = $request['columns'][$columnIdx];
-
-				$columnIdx = array_search( $requestColumn['data'], $dtColumns );
 				$column = $columns[ $columnIdx ];
 
 				if ( $requestColumn['orderable'] == 'true' ) {
