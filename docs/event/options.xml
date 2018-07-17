@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event bubbles="true">
+	<name>options</name>
+	<summary>Initialisation of a DataTable - options passed.</summary>
+	<since>2.0.0</since>
+
+	<type type="function">
+		<signature>function( e, options )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="object" name="options">
+			DataTables configuration options.
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		This event is triggered before DataTables does _any_ processing of the parameters passed into it. As such, this can be useful to set defaults, transform a configuration given else where (e.g. custom HTML) or for plug-in authors that require specific options to be configured.
+
+		Unlike the other events triggered by DataTables there is no access to the DataTables API for the table when this event is fired as the API hasn't yet been initialised for the table.
+		
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+	</description>
+
+	<example title="Disable paging for all tables on the page"><![CDATA[
+
+$(document).on( 'options.dt', function (e, options) {
+	options.paging = false;
+} );
+
+$('#example').DataTable();
+
+// Note that this could also be done with:
+// $.fn.dataTables.defaults.paging = false;
+	
+]]></example>
+
+	<related>dt-init initComplete</related>
+	<related>dt-event init</related>
+	<related>dt-event preInit</related>
+</dt-event>

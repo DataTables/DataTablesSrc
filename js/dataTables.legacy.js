@@ -355,25 +355,22 @@ DataTable.fnTables = DataTable.tables;
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Legacy Ajax / server-side processing
  */
-$(document).on( 'preInit.dt', function (e, settings) {
-	var api = new $.fn.dataTable.Api( settings );
-
+$(document).on( 'options.dt', function (e, opts) {
 	// sAjaxSource and sAjaxDataProp support
-	var init = api.init();
-	if ( init.sAjaxSource && ! init.ajax ) {
-		settings.ajax = init.sAjaxDataProp ?
+	if ( opts.sAjaxSource && ! opts.ajax ) {
+		opts.ajax = opts.sAjaxDataProp ?
 			{ // data source property
-				url: init.sAjaxSource,
-				dataSrc: init.sAjaxDataProp
+				url: opts.sAjaxSource,
+				dataSrc: opts.sAjaxDataProp
 			} :
-			init.sAjaxSource; // just the url
+			opts.sAjaxSource; // just the url
 	}
 
 	// fnServerData support - ajax as a function
-	if ( init.fnServerData ) {
-		settings.ajax = function (data, callback, s) {
-			init.fnServerData(
-				init.sAjaxSource,
+	if ( opts.fnServerData ) {
+		opts.ajax = function (data, callback, s) {
+			opts.fnServerData(
+				opts.sAjaxSource,
 				$.map( data, function (val, key) { // Need to convert back to 1.9 trad format
 					return { name: key, value: val };
 				} ),
@@ -382,6 +379,10 @@ $(document).on( 'preInit.dt', function (e, settings) {
 			);
 		};
 	}
+} );
+
+$(document).on( 'preInit.dt', function (e, settings) {
+	var api = new $.fn.dataTable.Api( settings );
 
 	// Legacy server-side processing parameter style
 	api.on( 'preXhr', function (e, s, d, xhr) {
@@ -396,7 +397,7 @@ $(document).on( 'preInit.dt', function (e, settings) {
 			legacy = true;
 		}
 
-		if ( ! legacy ) {
+		if ( ! legacy || ! api.page.info().serverSide ) {
 			serverParams();
 			return;
 		}

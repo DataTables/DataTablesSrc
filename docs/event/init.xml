@@ -38,4 +38,5 @@ $('#example')
 
 	<related>dt-init initComplete</related>
 	<related>dt-event preInit</related>
+	<related>dt-event options</related>
 </dt-event>

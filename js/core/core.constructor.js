@@ -13,6 +13,8 @@ if ( this.nodeName.toLowerCase() != 'table' )
 	return;
 }
 
+$(this).trigger( $.Event( 'options.dt' ), oInit );
+
 /* Backwards compatibility for the defaults */
 _fnCompatOpts( defaults );
 _fnCompatCols( defaults.column );

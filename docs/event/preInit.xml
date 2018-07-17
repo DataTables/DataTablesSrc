@@ -37,4 +37,5 @@ $('#example').DataTable();
 
 	<related>dt-init initComplete</related>
 	<related>dt-event init</related>
+	<related>dt-event options</related>
 </dt-event>
