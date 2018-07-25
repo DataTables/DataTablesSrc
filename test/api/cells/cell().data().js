@@ -1,7 +1,3 @@
-// todo tests
-
-//   - Number of rows in the table matches that before the update (i.e. doesn't add or remove a row by mistake)
-//   - Set a value for a column with a renderer - make sure the renderer is executed and the DOM updated with the rendered value
 describe('cells- cell().data()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
