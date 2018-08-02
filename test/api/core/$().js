@@ -1,5 +1,5 @@
 // todo tests
-// 
+//
 //This test should make sure '$()' returns a jQuery object, unsure how to test for a type
 //   AJJ - Use `instanceof $` to check that is it a jQuery object
 //I can do a test to make sure it works by just calling $('#example').DataTable() after init.
@@ -20,19 +20,14 @@
 // you can use the result from `cells().indexes()` in a `new $.fn.dataTable.Api()`
 // That should probably be in the `$.fn.dataTable.Api` test file rather than in `cells().indexes()` though
 
-
-describe( "core- $()", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
-
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default should be null", function () {
-
-		});
-
+describe('core- $()', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
 	});
 
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Default should be null', function() {});
+	});
 });

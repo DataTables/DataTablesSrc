@@ -6,30 +6,24 @@ describe('cells- cells().every()', function() {
 	});
 
 	describe('Check the defaults', function() {
-		const argumentLength = 4;
-
 		dt.html('basic');
-
+		let table;
 		it('Exists and is a function', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			expect(typeof table.cells().every).toBe('function');
 		});
-
 		it('Returns an API instance', function() {
-			let table = $('#example').DataTable();
 			expect(table.cells().every(function() {}) instanceof $.fn.dataTable.Api).toBe(true);
 		});
-
 		it('Passes the correct parameters to the function', function() {
-			let table = $('#example').DataTable();
 			let iteration = 0;
 
 			table.cells().every(function() {
 				// only check types on the first column iteration
-				if (iteration++ == 0) {
+				if (iteration++ === 0) {
 					let len = arguments.length;
 
-					expect(len).toBe(argumentLength);
+					expect(len).toBe(4);
 
 					for (let i = 0; i < len; i++) expect(Number.isInteger(arguments[i])).toBe(true);
 				}
@@ -63,7 +57,6 @@ describe('cells- cells().every()', function() {
 		}
 
 		dt.html('basic');
-
 		it('Every cell is iterated upon', function() {
 			let table = $('#example').DataTable();
 
@@ -74,7 +67,6 @@ describe('cells- cells().every()', function() {
 		});
 
 		dt.html('basic');
-
 		it('A specific cell is iterated upon', function() {
 			let table = $('#example').DataTable();
 
@@ -89,7 +81,6 @@ describe('cells- cells().every()', function() {
 		});
 
 		dt.html('basic');
-
 		it('A single random cell is iterated upon', function() {
 			let table = $('#example').DataTable();
 
@@ -102,7 +93,6 @@ describe('cells- cells().every()', function() {
 		});
 
 		dt.html('basic');
-
 		it('A dozen random cells are iterated upon', function() {
 			let table = $('#example').DataTable();
 
@@ -115,7 +105,6 @@ describe('cells- cells().every()', function() {
 		});
 
 		dt.html('basic');
-
 		it('A column of cells is iterated upon', function() {
 			let table = $('#example').DataTable();
 
@@ -128,7 +117,6 @@ describe('cells- cells().every()', function() {
 		});
 
 		dt.html('basic');
-
 		it('A row of cells is iterated upon', function() {
 			let table = $('#example').DataTable();
 
@@ -139,7 +127,5 @@ describe('cells- cells().every()', function() {
 
 			expect($.unique(iteratedCells).length).toBe(6);
 		});
-
-		dt.html('basic');
 	});
 });

@@ -1,63 +1,95 @@
-describe( "initComplete Option", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+describe('initComplete Option', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-	describe("Check the defaults", function () {
-
-		dt.html( 'basic' );
-		it("Default should not be true", function () {
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		let table;
+		it('Default should not be true', function() {
 			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.fnInitComplete).not.toBe(true);
-			//$.fn.DataTable.defaults
+			expect($.fn.dataTable.defaults.fnInitComplete).toBe(null);
 		});
-		dt.html( 'basic' );
-		it("Two arguments passed", function () {
-			test = -1;
-			$('#example').dataTable( {
-				"initComplete" : function() {
-					test = arguments.length ===2 && arguments[1]===undefined;
+
+		dt.html('basic');
+		it('Two arguments passed (no Ajax)', function() {
+			let called = false;
+			$('#example').dataTable({
+				initComplete: function() {
+					called = true;
+					expect(arguments.length).toBe(2);
+					expect(typeof arguments[0]).toBe('object');
+					expect(typeof arguments[1]).toBe('undefined');
 				}
 			});
-			expect(test === true).toBe(true);
+			expect(called).toBe(true);
 		});
-		dt.html( 'basic' );
-		it("That one argument is the settings object", function () {
-			$('#example').dataTable( {
-				"initComplete" : function( settings ) {
+
+		dt.html('empty');
+		it('Two arguments passed (Ajax)', function(done) {
+			$('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				columns: dt.testColumns,
+				initComplete: function() {
+					expect(arguments.length).toBe(2);
+					expect(typeof arguments[0]).toBe('object');
+					expect(typeof arguments[1]).toBe('object');
+					done();
+				}
+			});
+		});
+
+		dt.html('basic');
+		it('That one argument is the settings object', function() {
+			let test;
+			table = $('#example').DataTable({
+				initComplete: function(settings) {
 					test = settings;
 				}
 			});
-			expect(test === $('#example').DataTable().settings()[0]).toBe(true);
+			expect(test).toBe(table.settings()[0]);
 		});
-		dt.html( 'basic' );
-		it("initComplete called once on first draw", function () {
-			test = 0;
-			$('#example').dataTable( {
-				"initComplete" : function( ) {
-					test++;
+		
+		dt.html('basic');
+		let count = 0;
+		it('initComplete called once on first draw', function() {
+			count = 0;
+			table = $('#example').DataTable({
+				initComplete: function() {
+					count++;
 				}
 			});
-			expect(test==1).toBe(true);
+			expect(count).toBe(1);
 		});
-		it("initComplete never called there after", function () {
+		it('initComplete never called there after', function() {
 			$('#example_next').click();
-			$('#example_next').click();
-			$('#example_next').click();
-			expect(test==1).toBe(true);
+			table.page(1).draw();
+			expect(count).toBe(1);
 		});
-		dt.html( 'basic' );
-		it("10 rows in the table on complete", function () {
-			test = 0;
-			$('#example').dataTable( {
-				"initComplete" : function( ) {
-					test = $('#example tbody tr').length;
+
+		dt.html('basic');
+		it('Table fully loaded when called (no Ajax)', function() {
+			count = 0;
+			$('#example').dataTable({
+				initComplete: function() {
+					expect($('#example tbody tr').length).toBe(10);
+					expect(this.api().rows().count()).toBe(57);
 				}
 			});
-			expect(test==10).toBe(true);
 		});
+
+		dt.html('empty');
+		it('Table fully loaded when called (Ajax)', function(done) {
+			$('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				columns: dt.testColumns,
+				initComplete: function() {
+					expect($('#example tbody tr').length).toBe(10);
+					expect(this.api().rows().count()).toBe(57);
+					done();
+				}
+			});
+		});		
 	});
-
-
 });

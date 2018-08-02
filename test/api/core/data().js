@@ -35,7 +35,7 @@ describe('core - data()', function() {
 	describe('Functional tests (AJAX loaded array)', function() {
 		dt.html('empty');
 		let table, data;
-		it('Exists and is a function', function(done) {
+		it('Ensure all data loaded correctly', function(done) {
 			table = $('#example').DataTable({
 				ajax: '/base/test/data/array.txt',
 				deferRender: true,
@@ -55,7 +55,7 @@ describe('core - data()', function() {
 	describe('Functional tests (AJAX loaded object)', function() {
 		dt.html('empty');
 		let table, data;
-		it('Exists and is a function', function(done) {
+		it('Ensure all data loaded correctly', function(done) {
 			table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
