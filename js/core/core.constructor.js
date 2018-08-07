@@ -270,6 +270,11 @@ else
 	aoColumnsInit = oInit.aoColumns;
 }
 
+if ( aoColumnsInit.length === 0 )
+{
+	throw new Error("The table must contain a <thead> element with at least one column.");
+}
+
 /* Add the columns */
 for ( i=0, iLen=aoColumnsInit.length ; i<iLen ; i++ )
 {
