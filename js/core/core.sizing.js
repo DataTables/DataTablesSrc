@@ -86,28 +86,26 @@ function _fnCalculateColumnWidths ( oSettings )
 		tmpTable.find('tfoot th, tfoot td').css('width', '');
 
 		// Apply custom sizing to the cloned header
-		headerCells = _fnGetUniqueThs( oSettings, tmpTable.find('thead')[0] );
+		tmpTable.find('thead th, thead td').each( function () {
+			var width = _fnColumnsSumWidth( oSettings, this.getAttribute('data-dt-column'), true, false );
 
-		for ( i=0 ; i<visibleColumns.length ; i++ ) {
-			column = columns[ visibleColumns[i] ];
+			if ( width ) {
+				this.style.width = width;
 
-			headerCells[i].style.width = column.sWidthOrig !== null && column.sWidthOrig !== '' ?
-				_fnStringToCss( column.sWidthOrig ) :
-				'';
-
-			// For scrollX we need to force the column width otherwise the
-			// browser will collapse it. If this width is smaller than the
-			// width the column requires, then it will have no effect
-			if ( column.sWidthOrig && scrollX ) {
-				$( headerCells[i] ).append( $('<div/>').css( {
-					width: column.sWidthOrig,
-					margin: 0,
-					padding: 0,
-					border: 0,
-					height: 1
-				} ) );
+				// For scrollX we need to force the column width otherwise the
+				// browser will collapse it. If this width is smaller than the
+				// width the column requires, then it will have no effect
+				if ( scrollX ) {
+					$( this ).append( $('<div/>').css( {
+						width: column.sWidthOrig,
+						margin: 0,
+						padding: 0,
+						border: 0,
+						height: 1
+					} ) );
+				}
 			}
-		}
+		} );
 
 		// Find the widest cell for each column and put it into the table
 		if ( oSettings.aoData.length ) {
@@ -168,29 +166,23 @@ function _fnCalculateColumnWidths ( oSettings )
 			tmpTable.width( tableWidthAttr );
 		}
 
-		// Get the width of each column in the constructed table - we need to
-		// know the inner width (so it can be assigned to the other table's
-		// cells) and the outer width so we can calculate the full width of the
-		// table. This is safe since DataTables requires a unique cell for each
-		// column, but if ever a header can span multiple columns, this will
-		// need to be modified.
+		// Get the width of each column in the constructed table
 		var total = 0;
-		for ( i=0 ; i<visibleColumns.length ; i++ ) {
-			var cell = $(headerCells[i]);
-			var border = cell.outerWidth() - cell.width();
+		var bodyCells = tmpTable.find('tbody tr').eq(0).children();
 
+		for ( i=0 ; i<visibleColumns.length ; i++ ) {
 			// Use getBounding... where possible (not IE8-) because it can give
 			// sub-pixel accuracy, which we then want to round up!
 			var bounding = browser.bBounding ?
-				Math.ceil( headerCells[i].getBoundingClientRect().width ) :
-				cell.outerWidth();
+				Math.ceil( bodyCells[i].getBoundingClientRect().width ) :
+				$(bodyCells[i]).outerWidth();
 
 			// Total is tracked to remove any sub-pixel errors as the outerWidth
 			// of the table might not equal the total given here (IE!).
 			total += bounding;
 
 			// Width for each column to use
-			columns[ visibleColumns[i] ].sWidth = _fnStringToCss( bounding - border );
+			columns[ visibleColumns[i] ].sWidth = _fnStringToCss( bounding );
 		}
 
 		table.style.width = _fnStringToCss( total );

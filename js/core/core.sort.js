@@ -1,5 +1,32 @@
 
 
+function _fnSortInit( settings ) {
+	// TODO need to add support for keyboard activation
+	$(settings.nTHead).on( 'click', 'th, td', function (e) {
+		var columns = this.getAttribute('data-dt-column');
+
+		if ( columns ) {
+			_fnProcessingDisplay( settings, true );
+
+			// Allow the processing display to show
+			setTimeout( function () {
+				columns = columns.split(',');
+		
+				for ( var i=0, ien=columns.length ; i<ien ; i++ ) {
+					var append = e.shiftKey || i > 0;
+		
+					_fnSortAdd( settings, columns[i]*1, append );
+				}
+		
+				// Run the sort by calling a full redraw
+				_fnReDraw( settings );
+				_fnProcessingDisplay( settings, false );
+			}, 0);
+		}
+	} );
+}
+
+
 function _fnSortFlatten ( settings )
 {
 	var
@@ -257,7 +284,7 @@ function _fnSortAria ( settings )
  *  @param {function} [callback] callback function
  *  @memberof DataTable#oApi
  */
-function _fnSortListener ( settings, colIdx, append, callback )
+function _fnSortAdd ( settings, colIdx, append )
 {
 	var col = settings.aoColumns[ colIdx ];
 	var sorting = settings.aaSorting;
@@ -275,6 +302,10 @@ function _fnSortListener ( settings, colIdx, append, callback )
 				null :
 				0;
 	};
+
+	if ( ! col.bSortable ) {
+		return;
+	}
 
 	// Convert to 2D array if needed
 	if ( typeof sorting[0] === 'number' ) {
@@ -322,54 +353,6 @@ function _fnSortListener ( settings, colIdx, append, callback )
 		sorting.push( [ colIdx, asSorting[0] ] );
 		sorting[0]._idx = 0;
 	}
-
-	// Run the sort by calling a full redraw
-	_fnReDraw( settings );
-
-	// callback used for async user interaction
-	if ( typeof callback == 'function' ) {
-		callback( settings );
-	}
-}
-
-
-/**
- * Attach a sort handler (click) to a node
- *  @param {object} settings dataTables settings object
- *  @param {node} attachTo node to attach the handler to
- *  @param {int} colIdx column sorting index
- *  @param {function} [callback] callback function
- *  @memberof DataTable#oApi
- */
-function _fnSortAttachListener ( settings, attachTo, colIdx, callback )
-{
-	var col = settings.aoColumns[ colIdx ];
-
-	_fnBindAction( attachTo, {}, function (e) {
-		/* If the column is not sortable - don't to anything */
-		if ( col.bSortable === false ) {
-			return;
-		}
-
-		// If processing is enabled use a timeout to allow the processing
-		// display to be shown - otherwise to it synchronously
-		if ( settings.oFeatures.bProcessing ) {
-			_fnProcessingDisplay( settings, true );
-
-			setTimeout( function() {
-				_fnSortListener( settings, colIdx, e.shiftKey, callback );
-
-				// In server-side processing, the draw callback will remove the
-				// processing display
-				if ( _fnDataSource( settings ) !== 'ssp' ) {
-					_fnProcessingDisplay( settings, false );
-				}
-			}, 0 );
-		}
-		else {
-			_fnSortListener( settings, colIdx, e.shiftKey, callback );
-		}
-	} );
 }
 
 

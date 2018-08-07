@@ -245,37 +245,29 @@ if ( $.inArray( true, $.map( stripeClasses, function(el, i) {
  * Columns
  * See if we should load columns automatically or use defined ones
  */
-var anThs = [];
-var aoColumnsInit;
-var nThead = this.getElementsByTagName('thead');
-if ( nThead.length !== 0 )
-{
-	_fnDetectHeader( oSettings.aoHeader, nThead[0] );
-	anThs = _fnGetUniqueThs( oSettings );
-}
+var columnsInit = [];
+var thead = this.getElementsByTagName('thead');
+var headerLayout = _fnDetectHeader( this.getElementsByTagName('thead')[0] );
 
-/* If not given a column array, generate one with nulls */
-if ( oInit.aoColumns === null )
-{
-	aoColumnsInit = [];
-	for ( i=0, iLen=anThs.length ; i<iLen ; i++ )
-	{
-		aoColumnsInit.push( null );
+console.log( headerLayout );
+
+// If we don't have a columns array, then generate one with nulls
+if ( ! columnsInit ) {
+	for ( i=0, iLen=headerLayout[0].length ; i<iLen ; i++ ) {
+		columnsInit.push( null );
 	}
 }
-else
-{
-	aoColumnsInit = oInit.aoColumns;
+else {
+	columnsInit = oInit.aoColumns;
 }
 
-/* Add the columns */
-for ( i=0, iLen=aoColumnsInit.length ; i<iLen ; i++ )
-{
-	_fnAddColumn( oSettings, anThs ? anThs[i] : null );
+// Add the columns
+for ( i=0, iLen=headerLayout[0].length ; i<iLen ; i++ ) {
+	_fnAddColumn( oSettings, headerLayout[0][i].cell || null );
 }
 
-/* Apply the column definitions */
-_fnApplyColumnDefs( oSettings, oInit.aoColumnDefs, aoColumnsInit, function (iCol, oDef) {
+// Apply the column definitions
+_fnApplyColumnDefs( oSettings, oInit.aoColumnDefs, columnsInit, function (iCol, oDef) {
 	_fnColumnOptions( oSettings, iCol, oDef );
 } );
 
@@ -371,11 +363,10 @@ var loadedInit = function () {
 		this._captionSide = $(this).css('caption-side');
 	} );
 
-	var thead = $this.children('thead');
 	if ( thead.length === 0 ) {
-		thead = $('<thead/>').appendTo($this);
+		thead = $('<thead/>').appendTo($this)[0];
 	}
-	oSettings.nTHead = thead[0];
+	oSettings.nTHead = thead;
 
 	var tbody = $this.children('tbody');
 	if ( tbody.length === 0 ) {
@@ -395,7 +386,7 @@ var loadedInit = function () {
 	}
 	else if ( tfoot.length > 0 ) {
 		oSettings.nTFoot = tfoot[0];
-		_fnDetectHeader( oSettings.aoFooter, oSettings.nTFoot );
+		oSettings.aoFooter = _fnDetectHeader( oSettings.nTFoot );
 	}
 
 	/* Check if there is data passing into the constructor */

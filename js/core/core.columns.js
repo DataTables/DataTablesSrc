@@ -1,3 +1,4 @@
+
 /**
  * Add a column to the list used for the table with default values
  *  @param {object} oSettings dataTables settings object
@@ -166,24 +167,35 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 function _fnAdjustColumnSizing ( settings )
 {
 	/* Not interested in doing column width calculation if auto-width is disabled */
-	if ( settings.oFeatures.bAutoWidth !== false )
-	{
+	if ( settings.oFeatures.bAutoWidth !== false ) {
 		var columns = settings.aoColumns;
 
 		_fnCalculateColumnWidths( settings );
-		for ( var i=0 , iLen=columns.length ; i<iLen ; i++ )
-		{
-			columns[i].nTh.style.width = columns[i].sWidth;
-		}
+		_fnColumnSizes( settings );
 	}
 
 	var scroll = settings.oScroll;
-	if ( scroll.sY !== '' || scroll.sX !== '')
-	{
+	if ( scroll.sY !== '' || scroll.sX !== '') {
 		_fnScrollDraw( settings );
 	}
 
 	_fnCallbackFire( settings, null, 'column-sizing', [settings] );
+}
+
+/**
+ * Apply column sizes
+ *
+ * @param {*} settings DataTables settings object
+ */
+function _fnColumnSizes ( settings )
+{
+	$(settings.nTHead).find('th, td').each( function () {
+		var width = _fnColumnsSumWidth( settings, this.getAttribute('data-dt-column'), false, false );
+
+		if ( width ) {
+			this.style.width = width;
+		}
+	} );
 }
 
 
@@ -408,3 +420,55 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 	}
 }
 
+
+/**
+ * Get the width for a given set of columns
+ *
+ * @param {*} settings DataTables settings object
+ * @param {*} targets Columns - comma separated string or array of numbers
+ * @param {*} original Use the original width (true) or calculated (false)
+ * @param {*} incVisible Include visible columns (true) or not (false)
+ * @returns Combined CSS value
+ */
+function _fnColumnsSumWidth( settings, targets, original, incVisible ) {
+	if ( typeof targets === 'string' ) {
+		targets = $.map( targets.split(','), function (i) {
+			return i*1;
+		} );
+	}
+
+	var sum = 0;
+	var unit;
+	var columns = settings.aoColumns;
+	
+	for ( var i=0, ien=targets.length ; i<ien ; i++ ) {
+		var column = columns[ targets[i] ];
+		var definedWidth = original ?
+			column.sWidthOrig :
+			column.sWidth;
+
+		if ( ! incVisible && column.bVisible === false ) {
+			continue;
+		}
+
+		if ( definedWidth === null || definedWidth === undefined ) {
+			return null; // can't determine a defined width - browser defined
+		}
+		else if ( typeof definedWidth === 'number' ) {
+			unit = 'px';
+			sum += definedWidth;
+		}
+		else {
+			var matched = definedWidth.match(/([\d]+)([^\d]*)/);
+
+			if ( matched ) {
+				sum += matched[1] * 1;
+				unit = matched.length === 3 ?
+					matched[2] :
+					'px';
+			}
+		}
+	}
+
+	return sum + unit;
+}

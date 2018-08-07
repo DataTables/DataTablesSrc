@@ -1029,16 +1029,13 @@ DT_Example::$tables['html-complex-header'] = array(
 	'header'  => function () {
 		return '<thead>'.
 				'<tr>'.
-					'<th rowspan="2">Name</th>'.
-					'<th colspan="2">HR Information</th>'.
-					'<th colspan="3">Contact</th>'.
+					'<th rowspan="2" width="15%">1</th>'.
+					'<th colspan="2">2</th>'.
+					'<th colspan="3">3</th>'.
 				'</tr>'.
 				'<tr>'.
-					'<th>Position</th>'.
-					'<th>Salary</th>'.
-					'<th>Office</th>'.
-					'<th>Extn.</th>'.
-					'<th>E-mail</th>'.
+					'<th colspan="3">4</th>'.
+					'<th colspan="2">5</th>'.
 				'</tr>'.
 			'</thead>';
 	},

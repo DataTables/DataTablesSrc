@@ -18,8 +18,9 @@ function _fnInitialise ( settings )
 		return;
 	}
 
-	/* Show the display HTML options */
+	// Enable features
 	_fnAddOptionsHtml( settings );
+	_fnSortInit( settings );
 
 	/* Build and draw the header / footer for the table */
 	_fnBuildHead( settings );
@@ -34,14 +35,7 @@ function _fnInitialise ( settings )
 		_fnCalculateColumnWidths( settings );
 	}
 
-	for ( i=0, iLen=columns.length ; i<iLen ; i++ ) {
-		column = columns[i];
-
-		if ( column.sWidth ) {
-			column.nTh.style.width = _fnStringToCss( column.sWidth );
-		}
-	}
-
+	_fnColumnSizes( settings );
 	_fnCallbackFire( settings, null, 'preInit', [settings] );
 
 	// If there is default sorting required - let's do it. The sort function

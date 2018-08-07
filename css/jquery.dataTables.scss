@@ -381,12 +381,10 @@ table.dataTable {
 	}
 }
 
-// Its not uncommon to use * {border-box} now, but it messes up the column width
-// calculations, so use content-box for the table and cells
 table.dataTable,
 table.dataTable th,
 table.dataTable td {
-	box-sizing: content-box;
+	box-sizing: border-box;
 }
 
 

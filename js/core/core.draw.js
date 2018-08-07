@@ -153,19 +153,6 @@ function _fnBuildHead( oSettings )
 			cell.appendTo( row );
 		}
 
-		// 1.11 move into sorting
-		if ( oSettings.oFeatures.bSort ) {
-			cell.addClass( column.sSortingClass );
-
-			if ( column.bSortable !== false ) {
-				cell
-					.attr( 'tabindex', oSettings.iTabIndex )
-					.attr( 'aria-controls', oSettings.sTableId );
-
-				_fnSortAttachListener( oSettings, column.nTh, i );
-			}
-		}
-
 		if ( column.sTitle != cell[0].innerHTML ) {
 			cell.html( column.sTitle );
 		}
@@ -240,7 +227,7 @@ function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
 	for ( i=0, iLen=aoSource.length ; i<iLen ; i++ )
 	{
 		aoLocal[i] = aoSource[i].slice();
-		aoLocal[i].nTr = aoSource[i].nTr;
+		aoLocal[i].row = aoSource[i].row;
 
 		/* Remove any columns which are currently hidden */
 		for ( j=iColumns-1 ; j>=0 ; j-- )
@@ -257,7 +244,7 @@ function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
 
 	for ( i=0, iLen=aoLocal.length ; i<iLen ; i++ )
 	{
-		nLocalTr = aoLocal[i].nTr;
+		nLocalTr = aoLocal[i].row;
 
 		/* All cells are going to be replaced, so empty out the row */
 		if ( nLocalTr )
@@ -666,110 +653,112 @@ function _fnAddOptionsHtml ( settings )
  * create a layout grid (array) of rows x columns, which contains a reference
  * to the cell that that point in the grid (regardless of col/rowspan), such that
  * any column / row could be removed and the new grid constructed
- *  @param array {object} aLayout Array to store the calculated layout in
- *  @param {node} nThead The header/footer element for the table
+ *  @param {node} thead The header/footer element for the table
+ *  @returns {array} Calculated layout array
  *  @memberof DataTable#oApi
  */
-function _fnDetectHeader ( aLayout, nThead )
+function _fnDetectHeader ( thead )
 {
-	var nTrs = $(nThead).children('tr');
-	var nTr, nCell;
-	var i, k, l, iLen, jLen, iColShifted, iColumn, iColspan, iRowspan;
-	var bUnique;
-	var fnShiftCol = function ( a, i, j ) {
+	var rows = $(thead).children('tr');
+	var row, cell;
+	var i, k, l, iLen, shifted, column, colspan, rowspan;
+	var layout = [];
+	var unique;
+	var shift = function ( a, i, j ) {
 		var k = a[i];
-                while ( k[j] ) {
+		while ( k[j] ) {
 			j++;
 		}
 		return j;
 	};
 
-	aLayout.splice( 0, aLayout.length );
-
-	/* We know how many rows there are in the layout - so prep it */
-	for ( i=0, iLen=nTrs.length ; i<iLen ; i++ )
-	{
-		aLayout.push( [] );
+	// We know how many rows there are in the layout - so prep it
+	for ( i=0, iLen=rows.length ; i<iLen ; i++ ) {
+		layout.push( [] );
 	}
 
-	/* Calculate a layout array */
-	for ( i=0, iLen=nTrs.length ; i<iLen ; i++ )
-	{
-		nTr = nTrs[i];
-		iColumn = 0;
+	for ( i=0, iLen=rows.length ; i<iLen ; i++ ) {
+		row = rows[i];
+		column = 0;
 
-		/* For every cell in the row... */
-		nCell = nTr.firstChild;
-		while ( nCell ) {
-			if ( nCell.nodeName.toUpperCase() == "TD" ||
-			     nCell.nodeName.toUpperCase() == "TH" )
+		// For every cell in the row..
+		cell = row.firstChild;
+		while ( cell ) {
+			if ( cell.nodeName.toUpperCase() == 'TD' ||
+			     cell.nodeName.toUpperCase() == 'TH' )
 			{
-				/* Get the col and rowspan attributes from the DOM and sanitise them */
-				iColspan = nCell.getAttribute('colspan') * 1;
-				iRowspan = nCell.getAttribute('rowspan') * 1;
-				iColspan = (!iColspan || iColspan===0 || iColspan===1) ? 1 : iColspan;
-				iRowspan = (!iRowspan || iRowspan===0 || iRowspan===1) ? 1 : iRowspan;
+				// Get the col and rowspan attributes from the DOM and sanitise them
+				colspan = cell.getAttribute('colspan') * 1;
+				rowspan = cell.getAttribute('rowspan') * 1;
+				colspan = (!colspan || colspan===0 || colspan===1) ? 1 : colspan;
+				rowspan = (!rowspan || rowspan===0 || rowspan===1) ? 1 : rowspan;
 
-				/* There might be colspan cells already in this row, so shift our target
-				 * accordingly
-				 */
-				iColShifted = fnShiftCol( aLayout, i, iColumn );
+				// There might be colspan cells already in this row, so shift our target
+				// accordingly
+				shifted = shift( layout, i, column );
 
-				/* Cache calculation for unique columns */
-				bUnique = iColspan === 1 ? true : false;
+				// Cache calculation for unique columns
+				unique = colspan === 1 ?
+					true :
+					false;
 
-				/* If there is col / rowspan, copy the information into the layout grid */
-				for ( l=0 ; l<iColspan ; l++ )
-				{
-					for ( k=0 ; k<iRowspan ; k++ )
-					{
-						aLayout[i+k][iColShifted+l] = {
-							"cell": nCell,
-							"unique": bUnique
+				// If there is col / rowspan, copy the information into the layout grid
+				for ( l=0 ; l<colspan ; l++ ) {
+					for ( k=0 ; k<rowspan ; k++ ) {
+						layout[i+k][shifted+l] = {
+							cell: cell,
+							unique: unique
 						};
-						aLayout[i+k].nTr = nTr;
+
+						layout[i+k].row = row;
 					}
+
+					// Assign an attribute so spanning cells can still be identified
+					// as belonging to a column
+					var attr = cell.getAttribute('data-dt-column');
+					attr = attr ?
+						attr +','+ (shifted+l) :
+						shifted+l;
+					cell.setAttribute('data-dt-column', attr);
 				}
 			}
-			nCell = nCell.nextSibling;
+
+			cell = cell.nextSibling;
 		}
 	}
+
+	return layout;
 }
 
 
 /**
  * Get an array of unique th elements, one for each column
  *  @param {object} oSettings dataTables settings object
- *  @param {node} nHeader automatically detect the layout from this node - optional
- *  @param {array} aLayout thead/tfoot layout from _fnDetectHeader - optional
+ *  @param {node} header automatically detect the layout from this node - optional
+ *  @param {array} layout thead/tfoot layout from _fnDetectHeader - optional
  *  @returns array {node} aReturn list of unique th's
  *  @memberof DataTable#oApi
  */
-function _fnGetUniqueThs ( oSettings, nHeader, aLayout )
+function _fnGetUniqueThs ( settings, header, layout )
 {
-	var aReturn = [];
-	if ( !aLayout )
-	{
-		aLayout = oSettings.aoHeader;
-		if ( nHeader )
-		{
-			aLayout = [];
-			_fnDetectHeader( aLayout, nHeader );
-		}
+	var ret = [];
+
+	if ( ! layout ) {
+		layout = header ?
+			_fnDetectHeader( header ) :
+			settings.aoHeader;
 	}
 
-	for ( var i=0, iLen=aLayout.length ; i<iLen ; i++ )
-	{
-		for ( var j=0, jLen=aLayout[i].length ; j<jLen ; j++ )
-		{
-			if ( aLayout[i][j].unique &&
-				 (!aReturn[j] || !oSettings.bSortCellsTop) )
+	for ( var i=0, ien=layout.length ; i<ien ; i++ ) {
+		for ( var j=0, jen=layout[i].length ; j<jen ; j++ ) {
+			if ( layout[i][j].unique &&
+				 ( !ret[j] || !settings.bSortCellsTop ) )
 			{
-				aReturn[j] = aLayout[i][j].cell;
+				ret[j] = layout[i][j].cell;
 			}
 		}
 	}
 
-	return aReturn;
+	return ret;
 }
 
