@@ -90,6 +90,9 @@ oSettings.oInit  = oInit;
 
 allSettings.push( oSettings );
 
+// Make a single API instance available for internal handling
+oSettings.api = new _Api( oSettings );
+
 // Need to add the instance after the instance after the settings object has been added
 // to the settings array, so we can self reference the table instance if more than one
 oSettings.oInstance = (_that.length===1) ? _that : $this.dataTable();
@@ -248,8 +251,6 @@ if ( $.inArray( true, $.map( stripeClasses, function(el, i) {
 var columnsInit = [];
 var thead = this.getElementsByTagName('thead');
 var headerLayout = _fnDetectHeader( this.getElementsByTagName('thead')[0] );
-
-console.log( headerLayout );
 
 // If we don't have a columns array, then generate one with nulls
 if ( ! columnsInit ) {

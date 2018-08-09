@@ -133,27 +133,6 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 	if ( !oSettings.oFeatures.bSort )
 	{
 		oCol.bSortable = false;
-		th.addClass( oClasses.sSortableNone ); // Have to add class here as order event isn't called
-	}
-
-	/* Check that the class assignment is correct for sorting */
-	var bAsc = $.inArray('asc', oCol.asSorting) !== -1;
-	var bDesc = $.inArray('desc', oCol.asSorting) !== -1;
-	if ( !oCol.bSortable || (!bAsc && !bDesc) )
-	{
-		oCol.sSortingClass = oClasses.sSortableNone;
-	}
-	else if ( bAsc && !bDesc )
-	{
-		oCol.sSortingClass = oClasses.sSortableAsc;
-	}
-	else if ( !bAsc && bDesc )
-	{
-		oCol.sSortingClass = oClasses.sSortableDesc;
-	}
-	else
-	{
-		oCol.sSortingClass = oClasses.sSortable;
 	}
 }
 
@@ -471,4 +450,30 @@ function _fnColumnsSumWidth( settings, targets, original, incVisible ) {
 	}
 
 	return sum + unit;
+}
+
+// TODO finish it up
+function _fnCellsFromLayout ( layout, columns, rows ) {
+	var cells = [];
+
+	for ( var i=0, ien=layout.length ; i<ien ; i++ ) {
+		for ( var j=0, jen=layout[i].length ; j<jen ; j++ ) {
+			cells.push( layout[i][j].cell );
+		}
+	}
+
+	return _unique( cells );
+}
+
+function _fnColumnsFromHeader( cell )
+{
+	var attr = cell.getAttribute('data-dt-column');
+
+	if ( ! attr ) {
+		return [];
+	}
+
+	return $.map( attr.split(','), function (val) {
+		return val * 1;
+	} );
 }

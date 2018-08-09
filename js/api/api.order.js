@@ -91,20 +91,42 @@ _api_register( 'order.fixed()', function ( set ) {
 
 
 // Order by the selected column(s)
+// TODO document getter
 _api_register( [
 	'columns().order()',
 	'column().order()'
 ], function ( dir ) {
 	var that = this;
 
-	return this.iterator( 'table', function ( settings, i ) {
-		var sort = [];
+	if ( ! dir ) {
+		return this.iterator( 'column', function ( settings, idx ) {
+			var sort = settings.aaSorting;
 
-		$.each( that[i], function (j, col) {
-			sort.push( [ col, dir ] );
+			for ( var i=0, ien=sort.length ; i<ien ; i++ ) {
+				if ( sort[i][0] === idx ) {
+					return sort[i][1];
+				}
+			}
+
+			return null;
+		}, 1 );
+	}
+	else {
+		return this.iterator( 'table', function ( settings, i ) {
+			settings.aaSorting = $.map( that[i], function (col) {
+				return [ [ col, dir ] ];
+			} );
 		} );
+	}
+} );
 
-		settings.aaSorting = sort;
-	} );
+// TODO Document
+_api_register( [
+	'columns().orderable()',
+	'column().orderable()'
+], function () {
+	return this.iterator( 'column', function ( settings, idx ) {
+		return settings.aoColumns[idx].bSortable;
+	}, 1 );
 } );
 

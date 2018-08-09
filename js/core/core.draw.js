@@ -156,23 +156,26 @@ function _fnBuildHead( oSettings )
 		if ( column.sTitle != cell[0].innerHTML ) {
 			cell.html( column.sTitle );
 		}
-
-		_fnRenderer( oSettings, 'header' )(
-			oSettings, cell, column, classes
-		);
 	}
 
-	if ( createHeader ) {
-		_fnDetectHeader( oSettings.aoHeader, thead );
-	}
-	
-	/* ARIA role for the rows */
- 	$(thead).find('>tr').attr('role', 'row');
+	oSettings.aoHeader = _fnDetectHeader( thead );
 
-	/* Deal with the footer - add classes if required */
-	$(thead).find('>tr>th, >tr>td').addClass( classes.sHeaderTH );
+	// ARIA role for the rows
+	$(thead).find('>tr').attr('role', 'row');
+
+	// Every cell in the header needs to be passed through the renderer
+	$(thead).find('>tr>th, >tr>td')
+		.addClass( classes.sHeaderTH )
+		.each( function () {
+			_fnRenderer( oSettings, 'header' )(
+				oSettings, $(this), _fnColumnsFromHeader(this), classes
+			);
+		} );
+
+	// Deal with the footer - add classes if required
 	$(tfoot).find('>tr>th, >tr>td').addClass( classes.sFooterTH );
 
+	// TODO Don't think we need this any more
 	// Cache the footer cells. Note that we only take the cells from the first
 	// row in the footer. If there is more than one row the user wants to
 	// interact with, they need to use the table().foot() method. Note also this
@@ -715,11 +718,11 @@ function _fnDetectHeader ( thead )
 
 					// Assign an attribute so spanning cells can still be identified
 					// as belonging to a column
-					var attr = cell.getAttribute('data-dt-column');
-					attr = attr ?
-						attr +','+ (shifted+l) :
-						shifted+l;
-					cell.setAttribute('data-dt-column', attr);
+					var cols = _fnColumnsFromHeader( cell );
+					if ( $.inArray( shifted+l, cols ) === -1 ) {
+						cols.push( shifted+l );
+						cell.setAttribute('data-dt-column', cols.join(','));
+					}
 				}
 			}
 

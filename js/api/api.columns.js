@@ -33,7 +33,7 @@ var __column_selector = function ( settings, selector, opts )
 	var
 		columns = settings.aoColumns,
 		names = _pluck( columns, 'sName' ),
-		nodes = _pluck( columns, 'nTh' );
+		nodes = _fnCellsFromLayout( settings.aoHeader );
 
 	var run = function ( s ) {
 		var selInt = _intVal( s );
@@ -58,8 +58,8 @@ var __column_selector = function ( settings, selector, opts )
 			return $.map( columns, function (col, idx) {
 				return s(
 						idx,
-						__columnData( settings, idx, 0, 0, rows ),
-						nodes[ idx ]
+						__columnData( settings, idx, 0, 0, rows )
+						// nodes[ idx ] TODO _fnCellsFromLayout
 					) ? idx : null;
 			} );
 		}
@@ -105,7 +105,7 @@ var __column_selector = function ( settings, selector, opts )
 		var jqResult = $( nodes )
 			.filter( s )
 			.map( function () {
-				return $.inArray( this, nodes ); // `nodes` is column index complete and in order
+				return _fnColumnsFromHeader( this ); // `nodes` is column index complete and in order
 			} )
 			.toArray();
 
