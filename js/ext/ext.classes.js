@@ -31,6 +31,11 @@ $.extend( DataTable.ext.classes, {
 	"sSortableDesc": "sorting_desc_disabled",
 	"sSortColumn": "sorting_", /* Note that an int is postfixed for the sorting order */
 
+	"orderableAsc": "dt-orderable-asc",
+	"orderableDesc": "dt-orderable-desc",
+	"orderingAsc": "dt-ordering-asc",
+	"orderingDesc": "dt-ordering-desc",
+
 	/* Filtering */
 	"sFilterInput": "",
 

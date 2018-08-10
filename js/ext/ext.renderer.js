@@ -2,7 +2,7 @@
 
 $.extend( true, DataTable.ext.renderer, {
 	header: {
-		_: function ( settings, cell, columnIndexes, classes ) {
+		_: function ( settings, cell, classes ) {
 			// No additional mark-up required
 			// Attach a sort listener to update on sort - note that using the
 			// `DT` namespace will allow the event to be removed automatically
@@ -15,34 +15,47 @@ $.extend( true, DataTable.ext.renderer, {
 
 				var columns = ctx.api.columns( cell );
 
-				// First - are any of the columns under this cell orderable?
+				// First - are any of the columns under this cell actually sortable
 				if ( ! columns.orderable().includes(true) ) {
 					return;
 				}
 
 				var indexes = columns.indexes();
-
+				var sortDirs = columns.orderable(true).flatten();
 				var orderedColumns = $.map( sorting, function (val) {
 					return val.col;
 				} ).join(',');
 
 				cell
-					.addClass( classes.sSortable )
 					.removeClass(
-						classes.sSortAsc +' '+
-						classes.sSortDesc
+						classes.orderingAsc +' '+
+						classes.orderingDesc
 					)
+					.toggleClass( classes.orderableAsc, sortDirs.includes('asc') )
+					.toggleClass( classes.orderableDesc, sortDirs.includes('desc') );
+				
+				var sortIdx = orderedColumns.indexOf( indexes.toArray().join(',') );
 
-				if ( orderedColumns.indexOf( indexes.toArray().join(',') ) !== -1 ) {
+				if ( sortIdx !== -1 ) {
 					// Get the ordering direction for the columns under this cell
 					// Note that it is possible for a cell to be asc and desc sorting
 					// (column spanning cells)
 					var orderDirs = columns.order();
 
 					cell.addClass(
-						orderDirs.includes('asc') ? classes.sSortAsc : '' +
-						orderDirs.includes('desc') ? classes.sSortDesc : ''
+						orderDirs.includes('asc') ? classes.orderingAsc : '' +
+						orderDirs.includes('desc') ? classes.orderingDesc : ''
 					);
+				}
+
+				// The ARIA spec says that only one column should be marked with aria-sort
+				if ( sortIdx === 0 && orderedColumns.length === indexes.count() ) {
+					cell.attr('aria-sort', 'sorting'); // todo - direction
+					cell.attr('aria-label', 'Activate to reverse sorting');
+				}
+				else {
+					cell.removeAttr('aria-sort');
+					cell.attr('aria-label', 'Activate to sort');
 				}
 			} );
 		}

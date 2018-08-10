@@ -160,7 +160,7 @@ function _fnBuildHead( oSettings )
 	$(thead).find('>tr>th, >tr>td')
 		.each( function () {
 			_fnRenderer( oSettings, 'header' )(
-				oSettings, $(this), _fnColumnsFromHeader(this), classes
+				oSettings, $(this), classes
 			);
 		} );
 }

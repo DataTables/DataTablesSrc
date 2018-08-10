@@ -101,7 +101,7 @@ $.extend( DataTable.ext.internal, {
 	_fnStringToCss: _fnStringToCss,
 	_fnSortFlatten: _fnSortFlatten,
 	_fnSort: _fnSort,
-	_fnSortAria: _fnSortAria,
+	//_fnSortAria: _fnSortAria,
 	//_fnSortListener: _fnSortListener,
 	//_fnSortAttachListener: _fnSortAttachListener,
 	_fnSortingClasses: _fnSortingClasses,

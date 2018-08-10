@@ -124,9 +124,13 @@ _api_register( [
 _api_register( [
 	'columns().orderable()',
 	'column().orderable()'
-], function () {
+], function ( directions ) {
 	return this.iterator( 'column', function ( settings, idx ) {
-		return settings.aoColumns[idx].bSortable;
+		var col = settings.aoColumns[idx];
+
+		return directions ?
+			col.asSorting :
+			col.bSortable;
 	}, 1 );
 } );
 

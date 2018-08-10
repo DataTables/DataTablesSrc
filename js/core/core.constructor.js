@@ -334,7 +334,6 @@ var loadedInit = function () {
 				} );
 
 				_fnCallbackFire( oSettings, null, 'order', [oSettings, aSort, sortedColumns] );
-				_fnSortAria( oSettings );
 			}
 		} );
 	}
