@@ -190,7 +190,7 @@ function _fnScrollDraw ( settings )
 		footer         = settings.nTFoot ? $(settings.nTFoot) : null,
 		browser        = settings.oBrowser,
 		ie67           = browser.bScrollOversize,
-		dtHeaderCells  = _pluck( settings.aoColumns, 'nTh' ),
+		dtHeaderCells  = _pluck( settings.aoColumns, 'nTh' ), // TODO
 		headerTrgEls, footerTrgEls,
 		headerSrcEls, footerSrcEls,
 		headerCopy, footerCopy,
@@ -253,10 +253,7 @@ function _fnScrollDraw ( settings )
 		divHeader[0].style.width = '100%';
 	}
 
-	$.each( _fnGetUniqueThs( settings, headerCopy ), function ( i, el ) {
-		idx = _fnVisibleToColumnIndex( settings, i );
-		el.style.width = settings.aoColumns[idx].sWidth;
-	} );
+	_fnColumnSizes( settings, headerCopy );
 
 	if ( footer ) {
 		_fnApplyToChildren( function(n) {

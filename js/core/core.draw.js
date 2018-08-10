@@ -136,62 +136,33 @@ function _fnBuildHead( oSettings )
 {
 	var i, ien, cell, row, column;
 	var thead = oSettings.nTHead;
-	var tfoot = oSettings.nTFoot;
 	var createHeader = $('th, td', thead).length === 0;
 	var classes = oSettings.oClasses;
 	var columns = oSettings.aoColumns;
 
 	if ( createHeader ) {
-		row = $('<tr/>').appendTo( thead );
-	}
+		row = $('<tr/>')
+			.appendTo( thead );
 
-	for ( i=0, ien=columns.length ; i<ien ; i++ ) {
-		column = columns[i];
-		cell = $( column.nTh ).addClass( column.sClass );
-
-		if ( createHeader ) {
-			cell.appendTo( row );
-		}
-
-		if ( column.sTitle != cell[0].innerHTML ) {
-			cell.html( column.sTitle );
+		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
+			$('<th/>')
+				.html( columns[i].sTitle )
+				.appendTo( row );
 		}
 	}
 
-	oSettings.aoHeader = _fnDetectHeader( thead );
+	oSettings.aoHeader = _fnDetectHeader( oSettings, thead, true );
 
 	// ARIA role for the rows
 	$(thead).find('>tr').attr('role', 'row');
 
 	// Every cell in the header needs to be passed through the renderer
 	$(thead).find('>tr>th, >tr>td')
-		.addClass( classes.sHeaderTH )
 		.each( function () {
 			_fnRenderer( oSettings, 'header' )(
 				oSettings, $(this), _fnColumnsFromHeader(this), classes
 			);
 		} );
-
-	// Deal with the footer - add classes if required
-	$(tfoot).find('>tr>th, >tr>td').addClass( classes.sFooterTH );
-
-	// TODO Don't think we need this any more
-	// Cache the footer cells. Note that we only take the cells from the first
-	// row in the footer. If there is more than one row the user wants to
-	// interact with, they need to use the table().foot() method. Note also this
-	// allows cells to be used for multiple columns using colspan
-	if ( tfoot !== null ) {
-		var cells = oSettings.aoFooter[0];
-
-		for ( i=0, ien=cells.length ; i<ien ; i++ ) {
-			column = columns[i];
-			column.nTf = cells[i].cell;
-
-			if ( column.sClass ) {
-				$(column.nTf).addClass( column.sClass );
-			}
-		}
-	}
 }
 
 
@@ -660,8 +631,9 @@ function _fnAddOptionsHtml ( settings )
  *  @returns {array} Calculated layout array
  *  @memberof DataTable#oApi
  */
-function _fnDetectHeader ( thead )
+function _fnDetectHeader ( settings, thead, write )
 {
+	var columns = settings.aoColumns;
 	var rows = $(thead).children('tr');
 	var row, cell;
 	var i, k, l, iLen, shifted, column, colspan, rowspan;
@@ -690,6 +662,8 @@ function _fnDetectHeader ( thead )
 			if ( cell.nodeName.toUpperCase() == 'TD' ||
 			     cell.nodeName.toUpperCase() == 'TH' )
 			{
+				var cols = [];
+
 				// Get the col and rowspan attributes from the DOM and sanitise them
 				colspan = cell.getAttribute('colspan') * 1;
 				rowspan = cell.getAttribute('rowspan') * 1;
@@ -704,6 +678,34 @@ function _fnDetectHeader ( thead )
 				unique = colspan === 1 ?
 					true :
 					false;
+				
+				// Perform header setup
+				if ( write && unique ) {
+					// Allow column options to be set from HTML attributes
+					_fnColumnOptions( settings, shifted, $(cell).data() );
+					
+					// Get the width for the column. This can be defined from the
+					// width attribute, style attribute or `columns.width` option
+					var columnDef = columns[shifted];
+					var width = cell.getAttribute('width') || null;
+					var t = cell.style.width.match(/width:\s*(\d+[pxem%]+)/);
+					if ( t ) {
+						width = t[1];
+					}
+
+					columnDef.sWidthOrig = columnDef.sWidth || width;
+
+					// This happens _before_ the renderer, so the original HTML
+					// is still in place.
+					if ( columnDef.sTitle !== null && cell.innerHTML !== columnDef.sTitle ) {
+						cell.innerHTML = columnDef.sTitle;
+					}
+
+					// Column specific class names
+					if ( columnDef.className ) {
+						$(cell).addClass( columnDef.className );
+					}
+				}
 
 				// If there is col / rowspan, copy the information into the layout grid
 				for ( l=0 ; l<colspan ; l++ ) {
@@ -716,14 +718,12 @@ function _fnDetectHeader ( thead )
 						layout[i+k].row = row;
 					}
 
-					// Assign an attribute so spanning cells can still be identified
-					// as belonging to a column
-					var cols = _fnColumnsFromHeader( cell );
-					if ( $.inArray( shifted+l, cols ) === -1 ) {
-						cols.push( shifted+l );
-						cell.setAttribute('data-dt-column', cols.join(','));
-					}
+					cols.push( shifted+l );
 				}
+
+				// Assign an attribute so spanning cells can still be identified
+				// as belonging to a column
+				cell.setAttribute('data-dt-column', _unique(cols).join(','));
 			}
 
 			cell = cell.nextSibling;
@@ -732,36 +732,3 @@ function _fnDetectHeader ( thead )
 
 	return layout;
 }
-
-
-/**
- * Get an array of unique th elements, one for each column
- *  @param {object} oSettings dataTables settings object
- *  @param {node} header automatically detect the layout from this node - optional
- *  @param {array} layout thead/tfoot layout from _fnDetectHeader - optional
- *  @returns array {node} aReturn list of unique th's
- *  @memberof DataTable#oApi
- */
-function _fnGetUniqueThs ( settings, header, layout )
-{
-	var ret = [];
-
-	if ( ! layout ) {
-		layout = header ?
-			_fnDetectHeader( header ) :
-			settings.aoHeader;
-	}
-
-	for ( var i=0, ien=layout.length ; i<ien ; i++ ) {
-		for ( var j=0, jen=layout[i].length ; j<jen ; j++ ) {
-			if ( layout[i][j].unique &&
-				 ( !ret[j] || !settings.bSortCellsTop ) )
-			{
-				ret[j] = layout[i][j].cell;
-			}
-		}
-	}
-
-	return ret;
-}
-

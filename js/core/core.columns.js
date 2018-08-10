@@ -11,8 +11,6 @@ function _fnAddColumn( oSettings, nTh )
 	var oDefaults = DataTable.defaults.column;
 	var iCol = oSettings.aoColumns.length;
 	var oCol = $.extend( {}, DataTable.models.oColumn, oDefaults, {
-		"nTh": nTh ? nTh : document.createElement('th'),
-		"sTitle":    oDefaults.sTitle    ? oDefaults.sTitle    : nTh ? nTh.innerHTML : '',
 		"aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
 		"mData": oDefaults.mData ? oDefaults.mData : iCol,
 		idx: iCol
@@ -24,9 +22,6 @@ function _fnAddColumn( oSettings, nTh )
 	// with only some of the parameters defined, and also not give a default
 	var searchCols = oSettings.aoPreSearchCols;
 	searchCols[ iCol ] = $.extend( {}, DataTable.models.oSearch, searchCols[ iCol ] );
-
-	// Use the default column options function to initialise classes etc
-	_fnColumnOptions( oSettings, iCol, $(nTh).data() );
 }
 
 
@@ -40,21 +35,6 @@ function _fnAddColumn( oSettings, nTh )
 function _fnColumnOptions( oSettings, iCol, oOptions )
 {
 	var oCol = oSettings.aoColumns[ iCol ];
-	var oClasses = oSettings.oClasses;
-	var th = $(oCol.nTh);
-
-	// Try to get width information from the DOM. We can't get it from CSS
-	// as we'd need to parse the CSS stylesheet. `width` option can override
-	if ( ! oCol.sWidthOrig ) {
-		// Width attribute
-		oCol.sWidthOrig = th.attr('width') || null;
-
-		// Style attribute
-		var t = (th.attr('style') || '').match(/width:\s*(\d+[pxem%]+)/);
-		if ( t ) {
-			oCol.sWidthOrig = t[1];
-		}
-	}
 
 	/* User specified column options */
 	if ( oOptions !== undefined && oOptions !== null )
@@ -74,16 +54,6 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		if ( oOptions.sType )
 		{
 			oCol._sManualType = oOptions.sType;
-		}
-
-		// `class` is a reserved word in Javascript, so we need to provide
-		// the ability to use a valid name for the camel case input
-		if ( oOptions.className && ! oOptions.sClass )
-		{
-			oOptions.sClass = oOptions.className;
-		}
-		if ( oOptions.sClass ) {
-			th.addClass( oOptions.sClass );
 		}
 
 		$.extend( oCol, oOptions );
@@ -166,10 +136,10 @@ function _fnAdjustColumnSizing ( settings )
  *
  * @param {*} settings DataTables settings object
  */
-function _fnColumnSizes ( settings )
+function _fnColumnSizes ( settings, header )
 {
-	$(settings.nTHead).find('th, td').each( function () {
-		var width = _fnColumnsSumWidth( settings, this.getAttribute('data-dt-column'), false, false );
+	$(header || settings.nTHead).find('th, td').each( function () {
+		var width = _fnColumnsSumWidth( settings, this, false, false );
 
 		if ( width ) {
 			this.style.width = width;
@@ -219,16 +189,17 @@ function _fnColumnIndexToVisible( oSettings, iMatch )
  *  @returns {int} i the number of visible columns
  *  @memberof DataTable#oApi
  */
-function _fnVisbleColumns( oSettings )
+function _fnVisbleColumns( settings )
 {
+	var layout = settings.aoHeader;
+	var columns = settings.aoColumns;
 	var vis = 0;
 
-	// No reduce in IE8, use a loop for now
-	$.each( oSettings.aoColumns, function ( i, col ) {
-		if ( col.bVisible && $(col.nTh).css('display') !== 'none' ) {
+	for ( var i=0, ien=layout[0].length ; i<ien ; i++ ) {
+		if ( columns[i].bVisible && $(layout[0][i].cell).css('display') !== 'none' ) {
 			vis++;
 		}
-	} );
+	}
 
 	return vis;
 }
@@ -410,10 +381,8 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
  * @returns Combined CSS value
  */
 function _fnColumnsSumWidth( settings, targets, original, incVisible ) {
-	if ( typeof targets === 'string' ) {
-		targets = $.map( targets.split(','), function (i) {
-			return i*1;
-		} );
+	if ( ! $.isArray( targets ) ) {
+		targets = _fnColumnsFromHeader( targets );
 	}
 
 	var sum = 0;

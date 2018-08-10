@@ -26,11 +26,12 @@ $.extend( true, DataTable.ext.renderer, {
 					return val.col;
 				} ).join(',');
 
-				cell.removeClass(
-					classes.sSortable +' '+
-					classes.sSortAsc +' '+
-					classes.sSortDesc
-				);
+				cell
+					.addClass( classes.sSortable )
+					.removeClass(
+						classes.sSortAsc +' '+
+						classes.sSortDesc
+					)
 
 				if ( orderedColumns.indexOf( indexes.toArray().join(',') ) !== -1 ) {
 					// Get the ordering direction for the columns under this cell
@@ -38,13 +39,10 @@ $.extend( true, DataTable.ext.renderer, {
 					// (column spanning cells)
 					var orderDirs = columns.order();
 
-					cell
-						.addClass( classes.sSortable )
-						.addClass( orderDirs.includes('asc') ? classes.sSortAsc : '' )
-						.addClass( orderDirs.includes('desc') ? classes.sSortDesc : '' );
-				}
-				else {
-					cell.addClass( classes.sSortable );
+					cell.addClass(
+						orderDirs.includes('asc') ? classes.sSortAsc : '' +
+						orderDirs.includes('desc') ? classes.sSortDesc : ''
+					);
 				}
 			} );
 		}

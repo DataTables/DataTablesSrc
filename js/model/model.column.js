@@ -141,23 +141,6 @@ DataTable.models.oColumn = {
 	"mRender": null,
 
 	/**
-	 * Unique header TH/TD element for this column - this is what the sorting
-	 * listener is attached to (if sorting is enabled.)
-	 *  @type node
-	 *  @default null
-	 */
-	"nTh": null,
-
-	/**
-	 * Unique footer TH/TD element for this column (if there is one). Not used
-	 * in DataTables as such, but can be used for plug-ins to reference the
-	 * footer for each column.
-	 *  @type node
-	 *  @default null
-	 */
-	"nTf": null,
-
-	/**
 	 * The class to apply to all TD elements in the table's TBODY for the column
 	 *  @type string
 	 *  @default null

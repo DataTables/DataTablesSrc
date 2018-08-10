@@ -250,21 +250,22 @@ if ( $.inArray( true, $.map( stripeClasses, function(el, i) {
  */
 var columnsInit = [];
 var thead = this.getElementsByTagName('thead');
-var headerLayout = _fnDetectHeader( this.getElementsByTagName('thead')[0] );
 
 // If we don't have a columns array, then generate one with nulls
-if ( ! columnsInit ) {
+if ( oInit.aoColumns ) {
+	columnsInit = oInit.aoColumns;
+}
+else {
+	var headerLayout = _fnDetectHeader( oSettings, this.getElementsByTagName('thead')[0] );
+
 	for ( i=0, iLen=headerLayout[0].length ; i<iLen ; i++ ) {
 		columnsInit.push( null );
 	}
 }
-else {
-	columnsInit = oInit.aoColumns;
-}
 
 // Add the columns
-for ( i=0, iLen=headerLayout[0].length ; i<iLen ; i++ ) {
-	_fnAddColumn( oSettings, headerLayout[0][i].cell || null );
+for ( i=0, iLen=columnsInit.length ; i<iLen ; i++ ) {
+	_fnAddColumn( oSettings, null );
 }
 
 // Apply the column definitions
@@ -367,7 +368,7 @@ var loadedInit = function () {
 	if ( thead.length === 0 ) {
 		thead = $('<thead/>').appendTo($this)[0];
 	}
-	oSettings.nTHead = thead;
+	oSettings.nTHead = thead[0];
 
 	var tbody = $this.children('tbody');
 	if ( tbody.length === 0 ) {

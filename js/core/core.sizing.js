@@ -87,7 +87,8 @@ function _fnCalculateColumnWidths ( oSettings )
 
 		// Apply custom sizing to the cloned header
 		tmpTable.find('thead th, thead td').each( function () {
-			var width = _fnColumnsSumWidth( oSettings, this.getAttribute('data-dt-column'), true, false );
+			// Get the `width` from the header layout
+			var width = _fnColumnsSumWidth( oSettings, this, true, false );
 
 			if ( width ) {
 				this.style.width = width;
@@ -188,7 +189,7 @@ function _fnCalculateColumnWidths ( oSettings )
 		table.style.width = _fnStringToCss( total );
 
 		// Finished with the table - ditch it
-		holder.remove();
+		//holder.remove();
 	}
 
 	// If there is a width attr, we want to attach an event listener which

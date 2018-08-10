@@ -3,19 +3,17 @@
 function _fnSortInit( settings ) {
 	// TODO need to add support for keyboard activation
 	$(settings.nTHead).on( 'click', 'th, td', function (e) {
-		var columns = this.getAttribute('data-dt-column');
+		var columns = _fnColumnsFromHeader( this );
 
-		if ( columns ) {
+		if ( columns.length ) {
 			_fnProcessingDisplay( settings, true );
 
 			// Allow the processing display to show
 			setTimeout( function () {
-				columns = columns.split(',');
-		
 				for ( var i=0, ien=columns.length ; i<ien ; i++ ) {
 					var append = e.shiftKey || i > 0;
 		
-					_fnSortAdd( settings, columns[i]*1, append );
+					_fnSortAdd( settings, columns[i], append );
 				}
 		
 				// Run the sort by calling a full redraw
@@ -236,6 +234,9 @@ function _fnSortAria ( settings )
 	var columns = settings.aoColumns;
 	var aSort = _fnSortFlatten( settings );
 	var oAria = settings.oLanguage.oAria;
+
+	// TODO update for new column styling
+	return;
 
 	// ARIA attributes - need to loop all columns, to update all (removing old
 	// attributes as needed)

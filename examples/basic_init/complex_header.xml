@@ -8,7 +8,11 @@
 <title>Complex headers (rowspan and colspan)</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').DataTable();
+	$('#example').DataTable({
+		columnDefs: [
+			{ title: 'Allan', targets: 0 }
+		]
+	});
 } );
 ]]></js>
 
