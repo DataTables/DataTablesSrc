@@ -32,7 +32,7 @@ $('#example').DataTable( {
   "columns": [
     null,
     { "orderSequence": [ "asc" ] },
-    { "orderSequence": [ "desc", "asc", "asc" ] },
+    { "orderSequence": [ "desc", "asc", "" ] },
     { "orderSequence": [ "desc" ] },
     null
   ]
