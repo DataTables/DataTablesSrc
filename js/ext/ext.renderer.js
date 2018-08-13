@@ -50,12 +50,12 @@ $.extend( true, DataTable.ext.renderer, {
 
 				// The ARIA spec says that only one column should be marked with aria-sort
 				if ( sortIdx === 0 && orderedColumns.length === indexes.count() ) {
-					cell.attr('aria-sort', 'sorting'); // todo - direction
-					cell.attr('aria-label', 'Activate to reverse sorting');
+					cell.attr('aria-sort', sorting[0].dir === 'asc' ? 'ascending' : 'descending');
+					cell.attr('aria-label', ctx.api.i18n('oAria.orderableReverse'));
 				}
 				else {
 					cell.removeAttr('aria-sort');
-					cell.attr('aria-label', 'Activate to sort');
+					cell.attr('aria-label', ctx.api.i18n('oAria.orderable'));
 				}
 			} );
 		}

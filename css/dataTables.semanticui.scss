@@ -10,9 +10,8 @@ table.dataTable.table {
 	thead td {
 		position: relative;
 
-		&.sorting,
-		&.sorting_asc,
-		&.sorting_desc {
+		&.dt-orderable-asc,
+		&.dt-orderable-desc {
 			padding-right: 20px;
 
 			&:after {
@@ -21,21 +20,20 @@ table.dataTable.table {
 				right: 8px;
 				display: block;
 				font-family: Icons;
+				content: "\f0dc";
+				color: #ddd;
+				font-size: 0.8em;
 			}
 		}
 
-		&.sorting:after {
-			content: "\f0dc";
-			color: #ddd;
-			font-size: 0.8em;
-		}
-
-		&.sorting_asc:after {
+		&.dt-orderable-asc.dt-ordering-asc:after {
 			content: "\f0de";
+			color: #111;
 		}
 
-		&.sorting_desc:after {
+		&.dt-orderable-desc.dt-ordering-desc:after {
 			content: "\f0dd";
+			color: #111;
 		}
 	}
 
@@ -105,9 +103,8 @@ div.dataTables_wrapper {
 
 	div.dataTables_scrollBody {
 		thead { // Hide sort icons
-			.sorting:after,
-			.sorting_asc:after,
-			.sorting_desc:after {
+			.dt-orderable-asc:before,
+			.dt-orderable-desc:after {
 				display: none;
 			}
 		}

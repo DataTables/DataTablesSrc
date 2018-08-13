@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.aria.orderableReverse</name>
+	<summary>Language string used for WAI-ARIA column label to alter column's ordering</summary>
+	<since>2.0</since>
+
+	<type type="string" />
+	<default value="Activate to invert sorting" />
+
+	<description>
+		ARIA label that is added to the table headers when the column is already ordered and may be reverse sorted by activating the column (click or return when focused).
+	</description>
+
+	<example title="Set ARIA orderableReverse string"><![CDATA[
+$('#example').DataTable( {
+  language: {
+    aria: {
+      orderableReverse: "Reverse sort this column"
+    }
+  }
+} );
+]]></example>
+
+	<related type="option">language</related>
+	<related type="option">language.aria</related>
+	<related type="option">language.aria.orderable</related>
+	<related type="option">language.aria.orderableReverse</related>
+</dt-option>

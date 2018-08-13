@@ -1300,50 +1300,24 @@ DataTable.defaults = {
 		 */
 		"oAria": {
 			/**
-			 * ARIA label that is added to the table headers when the column may be
-			 * sorted ascending by activing the column (click or return when focused).
-			 * Note that the column header is prefixed to this string.
+			 * ARIA label that is added to the table headers when the column may be sorted
 			 *  @type string
-			 *  @default : activate to sort column ascending
+			 *  @default Activate to sort
 			 *
 			 *  @dtopt Language
-			 *  @name DataTable.defaults.language.aria.sortAscending
-			 *
-			 *  @example
-			 *    $(document).ready( function() {
-			 *      $('#example').dataTable( {
-			 *        "language": {
-			 *          "aria": {
-			 *            "sortAscending": " - click/return to sort ascending"
-			 *          }
-			 *        }
-			 *      } );
-			 *    } );
+			 *  @name DataTable.defaults.language.aria.orderable
 			 */
-			"sSortAscending": ": activate to sort column ascending",
+			"orderable": "Activate to sort",
 
 			/**
-			 * ARIA label that is added to the table headers when the column may be
-			 * sorted descending by activing the column (click or return when focused).
-			 * Note that the column header is prefixed to this string.
+			 * ARIA label that is added to the table headers when the column is currently being sorted
 			 *  @type string
-			 *  @default : activate to sort column ascending
+			 *  @default Activate to invert sorting
 			 *
 			 *  @dtopt Language
-			 *  @name DataTable.defaults.language.aria.sortDescending
-			 *
-			 *  @example
-			 *    $(document).ready( function() {
-			 *      $('#example').dataTable( {
-			 *        "language": {
-			 *          "aria": {
-			 *            "sortDescending": " - click/return to sort descending"
-			 *          }
-			 *        }
-			 *      } );
-			 *    } );
+			 *  @name DataTable.defaults.language.aria.orderableReverse
 			 */
-			"sSortDescending": ": activate to sort column descending"
+			"orderableReverse": "Activate to invert sorting"
 		},
 
 		/**

@@ -46,56 +46,49 @@ div.dataTables_wrapper {
 }
 
 
-// Sorting - using :before and :after with UTF8 characters
+// Sorting - using :before (asc) and :after (desc) with UTF8 characters
 table.dataTable thead {
 	> tr > th,
 	> tr > td {
-		&.sorting_asc,
-		&.sorting_desc,
-		&.sorting {
+		&.dt-orderable-asc,
+		&.dt-orderable-desc {
 			padding-right: 30px;
 		}
 
 		&:active {
 			outline: none;
 		}
-	}
 
-	.sorting,
-	.sorting_asc,
-	.sorting_desc,
-	.sorting_asc_disabled,
-	.sorting_desc_disabled {
-		cursor: pointer;
-		position: relative;
+		&.dt-orderable-asc,
+		&.dt-orderable-desc {
+			cursor: pointer;
+			position: relative;
 
-		&:before,
-		&:after {
-			position: absolute;
-			bottom: 11px;
-			display: block;
-			opacity: 0.3;
-			font-size: 1.3em;
+			&:before,
+			&:after {
+				position: absolute;
+				bottom: 0.9em;
+				display: block;
+				opacity: 0.3;
+			}
+
+			&:before {
+				right: 1em;
+				content: "\2191"; // up arrow - ascending
+			}
+
+			&:after {
+				right: 0.6em;
+				content: "\2193"; // down arrow - descending
+			}
 		}
 
-		&:before {
-			right: 1em;
-			content: "\2191"; // up arrow - ascending
+		&.dt-ordering-asc:before {
+			opacity: 1;
 		}
 
-		&:after {
-			right: 0.5em;
-			content: "\2193"; // down arrow - descending
+		&.dt-ordering-desc:after {
+			opacity: 1;
 		}
-	}
-
-	.sorting_asc:before,
-	.sorting_desc:after {
-		opacity: 1;
-	}
-
-	.sorting_asc_disabled:before,
-	.sorting_desc_disabled:after {
-		opacity: 0;
 	}
 }

@@ -11,6 +11,6 @@
 	</description>
 
 	<related type="option">language</related>
-	<related type="option">language.aria.sortAscending</related>
-	<related type="option">language.aria.sortDescending</related>
+	<related type="option">language.aria.orderable</related>
+	<related type="option">language.aria.orderableReverse</related>
 </dt-option>

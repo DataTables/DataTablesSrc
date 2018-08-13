@@ -24,17 +24,11 @@ $.extend( DataTable.ext.classes, {
 	"sProcessing": "dataTables_processing",
 
 	/* Sorting */
-	"sSortAsc": "sorting_asc",
-	"sSortDesc": "sorting_desc",
-	"sSortable": "sorting", /* Sortable in both directions */
-	"sSortableAsc": "sorting_asc_disabled",
-	"sSortableDesc": "sorting_desc_disabled",
-	"sSortColumn": "sorting_", /* Note that an int is postfixed for the sorting order */
-
 	"orderableAsc": "dt-orderable-asc",
 	"orderableDesc": "dt-orderable-desc",
 	"orderingAsc": "dt-ordering-asc",
 	"orderingDesc": "dt-ordering-desc",
+	"sSortColumn": "sorting_", /* Note that an int is postfixed for the sorting order */
 
 	/* Filtering */
 	"sFilterInput": "",

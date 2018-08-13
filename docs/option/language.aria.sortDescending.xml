@@ -3,6 +3,9 @@
 	<name>language.aria.sortDescending</name>
 	<summary>Language strings used for WAI-ARIA specific attributes</summary>
 	<since>1.10</since>
+	<deprecated removed="2.0.0">
+		Please note that this parameter is no longer available in DataTables as of v2. It has been replaced with `-init language.aria.orderable` and `-init language.aria.orderableReverse`.
+	</deprecated>
 
 	<type type="string" />
 	<default value=": activate to sort column descending" />
@@ -25,5 +28,6 @@ $('#example').dataTable( {
 
 	<related type="option">language</related>
 	<related type="option">language.aria</related>
-	<related type="option">language.aria.sortAscending</related>
+	<related type="option">language.aria.orderable</related>
+	<related type="option">language.aria.orderableReverse</related>
 </dt-option>
