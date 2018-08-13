@@ -57,7 +57,7 @@ DataTable.defaults.column = {
 	 * behaviour of the sort handler (i.e. only allow ascending ordering etc)
 	 * using this parameter.
 	 *  @type array
-	 *  @default [ 'asc', 'desc' ]
+	 *  @default [ 'asc', 'desc', '' ]
 	 *
 	 *  @name DataTable.defaults.column.orderSequence
 	 *  @dtopt Columns
@@ -88,7 +88,7 @@ DataTable.defaults.column = {
 	 *      } );
 	 *    } );
 	 */
-	"asSorting": [ 'asc', 'desc' ],
+	"asSorting": [ 'asc', 'desc', '' ],
 
 
 	/**

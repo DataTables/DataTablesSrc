@@ -81,14 +81,16 @@ function _fnSortFlatten ( settings )
 				nestedSort[i]._idx = $.inArray( nestedSort[i][1], aoColumns[iCol].asSorting );
 			}
 
-			aSort.push( {
-				src:       srcCol,
-				col:       iCol,
-				dir:       nestedSort[i][1],
-				index:     nestedSort[i]._idx,
-				type:      sType,
-				formatter: DataTable.ext.type.order[ sType+"-pre" ]
-			} );
+			if ( nestedSort[i][1] ) {
+				aSort.push( {
+					src:       srcCol,
+					col:       iCol,
+					dir:       nestedSort[i][1],
+					index:     nestedSort[i]._idx,
+					type:      sType,
+					formatter: DataTable.ext.type.order[ sType+"-pre" ]
+				} );
+			}
 		}
 	}
 
@@ -220,6 +222,9 @@ function _fnSort ( oSettings )
 				return x<y ? -1 : x>y ? 1 : 0;
 			} );
 		}
+	}
+	else if ( aSort.length === 0 ) {
+		oSettings.aiDisplayMaster.sort(); // Apply index order
 	}
 
 	/* Tell the draw function that we have sorted the data */

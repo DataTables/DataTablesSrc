@@ -5,14 +5,20 @@
 	<since>1.10</since>
 
 	<type type="array" />
-	<default value="[ 'asc', 'desc' ]" />
+	<default value="[ 'asc', 'desc', '' ]" />
 
 	<description>
-		You can control the default ordering direction, and even alter the behaviour of the order handler (i.e. only allow ascending sorting etc) using this parameter.
+		You can control the default ordering direction, and even alter the behaviour of the order handler (i.e. only allow ascending sorting, reverse the default sequence, etc) using this parameter.
+
+		Values that can be given in this array are:
+
+		* `-string asc` - Ascending order
+		* `-string desc` - Descending order
+		* `-string ` (i.e. empty string) - data index order. Note that this option is available as of DataTables 2.0 and newer.
 	</description>
 
 	<example title="Using `orderSequence` to define the applied order sequence with `dt-init columnDefs`"><![CDATA[
-$('#example').dataTable( {
+$('#example').DataTable( {
   "columnDefs": [
     { "orderSequence": [ "asc" ], "targets": [ 1 ] },
     { "orderSequence": [ "desc", "asc", "asc" ], "targets": [ 2 ] },
@@ -22,7 +28,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Using `orderSequence` to define the applied order sequence with `dt-init columns`"><![CDATA[
-$('#example').dataTable( {
+$('#example').DataTable( {
   "columns": [
     null,
     { "orderSequence": [ "asc" ] },
