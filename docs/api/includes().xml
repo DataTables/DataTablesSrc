@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>includes()</name>
+	<summary>Determine if an API result set contains a given value.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>includes( value )</signature>
+		<description>Determine if a result set contains the value given.</description>
+		<parameter type="*" name="value">
+			Value to find in the instance's result set.
+		</parameter>
+		<returns type="boolean">`true` if found, `false` if not.</returns>
+	</type>
+
+	<description>
+		You may find it useful to know if an API instance's result set contains a particular value. While that can be achieved readily with `-api indexOf()`, this utility method can be a useful short-cut if you don't need to know the value's location in the result set.
+
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+	</description>
+
+	<example title="Check if a value is visible on the current page"><![CDATA[
+var table = $('#example').DataTable();
+
+var found = table
+	.column( 0, {page: 'current'} )
+	.data()
+	.includes( 21 );
+
+if ( found ) {
+	alert( '21 was not found in the result set' );
+}
+else {
+	alert( '21 was found at index: '+index );
+}
+
+]]></example>
+
+	<related>-api indexOf()</related>
+</dt-api>

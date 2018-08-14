@@ -38,4 +38,6 @@ else {
 
 ]]></example>
 
+	<related>-api includes()</related>
+	<related>-api lastIndexOf()</related>
 </dt-api>

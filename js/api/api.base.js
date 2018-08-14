@@ -282,7 +282,6 @@ $.extend( _Api.prototype, {
 
 	join:    __arrayProto.join,
 
-	// TODO document
 	includes: function ( find ) {
 		return this.indexOf( find ) === -1 ? false : true;
 	},
