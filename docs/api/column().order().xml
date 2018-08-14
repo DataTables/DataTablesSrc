@@ -4,6 +4,12 @@
 	<summary>Order the table by the selected column.</summary>
 	<since>1.10</since>
 
+	<type type="function" since="2.0.0">
+		<signature>column().order()</signature>
+		<description>Determine if the table is being ordered by this column.</description>
+		<returns type="DataTables.Api">DataTables API instance containing `-string asc`, `-string desc` or an empty string (indicating index data order) for the possible ordering applied to a column. If a column is not being ordered on, `null` is given.</returns>
+	</type>
+
 	<type type="function">
 		<signature>column().order( direction )</signature>
 		<description>Order the table, in the direction specified, by the column selected by the `dt-api column()` selector.</description>
@@ -14,11 +20,11 @@
 	</type>
 
 	<description>
-		This method provides a useful alternative to the `dt-api order()` method, allowing you to select the column that you want to be ordered using the flexible `dt-api column()` selector and having it ordered in the direction specified.
+		This method provides a useful alternative to the `dt-api order()` method, allowing you to select the column that you want to be ordered using the flexible `dt-api column()` selector and having it ordered in the direction specified. As of v2 it also allows you to obtain ordering information about the selected column - determining if it is used in the current order of the table and what ordering direction.
 
 		Note that if the selector used for `dt-api column()` matches more than one column, the result will be truncated to a single column. To perform multi-column ordering, please use `dt-api columns().order()` or `dt-api order()`.
 
-		Please be aware that this method sets the ordering to apply to the table - it does not actually perform the order. In order to have the order performed, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api order()` method's returned object - for example `table.order([0, 'desc']).draw();`.
+		Please be aware that when used as a setter, this method sets the ordering to apply to the table - it does not actually perform the order. To have the ordering performed, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api order()` method's returned object - for example `table.order([0, 'desc']).draw();`.
 	</description>
 
 	<example title="Sort by the first visible column"><![CDATA[
@@ -34,4 +40,5 @@ table
 	<related type="option">ordering</related>
 	<related type="api">order()</related>
 	<related type="api">columns().order()</related>
+	<related type="api">column().orderable()</related>
 </dt-api>

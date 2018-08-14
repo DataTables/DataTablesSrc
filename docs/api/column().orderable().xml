@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column().orderable()</name>
+	<summary>Get information about the orderable status of a column.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>column().order( [ directions ] )</signature>
+		<description>Get information about the orderable status of a column (enabled or not and what ordering directions are available).</description>
+		<parameter type="boolean" name="directions" default="false">
+			Controls the information that is returned - see below for details. Can be not given (undefined), `false` or `true`.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance containing `true` or `false` depending on the column's orderable state if `directions` is undefined or false. If the parameter passed in is `true` the method will return information about what ordering directions this column can take (see `-init columns.orderSequence`).</returns>
+	</type>
+
+	<description>
+		This method provides the ability to programmatically check if a given column is orderable by the end user (a click on the header cell) and optionally to get the ordering directions that the column can take, as defined by `-init columns.orderSequence`.
+	</description>
+
+	<example title="Check if the first column is orderable by the end user, and if so, order on it"><![CDATA[
+var table = $('#example').DataTable();
+
+if ( table.column(0).orderable() ) {
+  table.column(0).order().draw();
+}
+]]></example>
+
+	<related type="option">order</related>
+	<related type="option">ordering</related>
+	<related type="option">columns.orderSequence</related>
+	<related type="api">order()</related>
+	<related type="api">column().order()</related>
+	<related type="api">columns().order()</related>
+	<related type="api">column().orderable()</related>
+	<related type="api">columns().orderable()</related>
+</dt-api>

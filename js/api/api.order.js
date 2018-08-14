@@ -91,7 +91,6 @@ _api_register( 'order.fixed()', function ( set ) {
 
 
 // Order by the selected column(s)
-// TODO document getter
 _api_register( [
 	'columns().order()',
 	'column().order()'
@@ -120,7 +119,6 @@ _api_register( [
 	}
 } );
 
-// TODO Document
 _api_register( [
 	'columns().orderable()',
 	'column().orderable()'
