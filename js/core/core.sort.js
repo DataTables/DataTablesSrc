@@ -1,9 +1,7 @@
 
-
 function _fnSortInit( settings ) {
-	// TODO need to add support for keyboard activation
-	$(settings.nTHead).on( 'click', 'th, td', function (e) {
-		var columns = _fnColumnsFromHeader( this );
+	_fnBindAction( settings.nTHead, 'th, td', function (e) {
+		var columns = _fnColumnsFromHeader( e.target );
 
 		if ( columns.length ) {
 			_fnProcessingDisplay( settings, true );

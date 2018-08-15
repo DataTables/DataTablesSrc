@@ -27,6 +27,7 @@ $.extend( true, DataTable.ext.renderer, {
 				} ).join(',');
 
 				cell
+					.attr('tabindex', 0)
 					.removeClass(
 						classes.orderingAsc +' '+
 						classes.orderingDesc

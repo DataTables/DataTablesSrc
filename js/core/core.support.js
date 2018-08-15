@@ -149,7 +149,7 @@ function _fnBindAction( n, oData, fn )
 {
 	$(n)
 		.on( 'click.DT', oData, function (e) {
-				$(n).blur(); // Remove focus outline for mouse users
+				$(e.target).blur(); // Remove focus outline for mouse users
 				fn(e);
 			} )
 		.on( 'keypress.DT', oData, function (e){
@@ -158,7 +158,7 @@ function _fnBindAction( n, oData, fn )
 					fn(e);
 				}
 			} )
-		.on( 'selectstart.DT', function () {
+		.on( 'selectstart.DT', oData, function () {
 				/* Take the brutal approach to cancelling text selection */
 				return false;
 			} );
