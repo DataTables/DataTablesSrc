@@ -99,35 +99,6 @@ table.dataTable {
 		}
 	}
 
-	// Sorting
-	@if not $jqueryui { // jQuery UI defines its own sort icons
-		thead {
-			.dt-orderable-asc,
-			.dt-orderable-desc {
-				cursor: pointer;
-				*cursor: hand;
-				background-repeat: no-repeat;
-				background-position: center right;
-			}
-
-			.dt-orderable-asc.dt-orderable-desc {
-				background-image: url('../images/sort_both.png');
-			}
-			.dt-orderable-asc.dt-ordering-asc {
-				background-image: url('../images/sort_asc.png');
-			}
-			.dt-orderable-desc.dt-ordering-desc {
-				background-image: url('../images/sort_desc.png');
-			}
-			.dt-orderable-desc {
-				background-image: url('../images/sort_asc_disabled.png');
-			}
-			.dt-orderable-asc {
-				background-image: url('../images/sort_desc_disabled.png');
-			}
-		}
-	}
-
 
 	/*
 	 * Body styles
@@ -377,6 +348,8 @@ table.dataTable {
 		}
 	}
 }
+
+@import 'ordering.scss';
 
 table.dataTable,
 table.dataTable th,

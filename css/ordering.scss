@@ -1,0 +1,49 @@
+
+// Sorting - using :before (asc) and :after (desc) with UTF8 characters
+table.dataTable thead {
+	> tr > th,
+	> tr > td {
+		&.dt-orderable-asc,
+		&.dt-orderable-desc {
+			padding-right: 30px;
+		}
+
+		&:active {
+			outline: none;
+		}
+
+		&.dt-orderable-asc,
+		&.dt-orderable-desc {
+			cursor: pointer;
+			position: relative;
+
+			&:before,
+			&:after {
+				position: absolute;
+				display: block;
+				opacity: 0.2;
+				right: 1em;
+				line-height: 9px;
+				font-size: 0.9em;
+			}
+
+			&:before {
+				bottom: 50%;
+				content: "\25B4"; // up arrow - ascending
+			}
+
+			&:after {
+				top: 50%;
+				content: "\25BE"; // down arrow - descending
+			}
+		}
+
+		&.dt-ordering-asc:before {
+			opacity: 0.75;
+		}
+
+		&.dt-ordering-desc:after {
+			opacity: 0.75;
+		}
+	}
+}
