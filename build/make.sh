@@ -106,23 +106,6 @@ function build_css {
 }
 
 
-function build_images {
-	echo_section "Images"
-	SRC_DIR="${BASE_DIR}/images"
-	OUT_DIR="${BUILD_DIR}/images"
-	OUT_FILE="${OUT_DIR}/jquery.dataTables.css"
-	OUT_MIN_FILE="${OUT_DIR}/jquery.dataTables.min.css"
-
-	if [ -d $OUT_DIR ]; then
-		rm -r $OUT_DIR
-	fi
-	mkdir $OUT_DIR
-
-	cp $SRC_DIR/*.png $OUT_DIR
-	cp $SRC_DIR/*.ico $OUT_DIR
-}
-
-
 function build_examples {
 	echo_section "Examples"
 
@@ -158,7 +141,6 @@ function build_repo {
 
 	build_js
 	build_css
-	build_images
 	build_examples
 
 	cp $BUILD_DIR/js/* ${BUILD_DIR}/DataTables/media/js/

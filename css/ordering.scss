@@ -21,7 +21,7 @@ table.dataTable thead {
 			&:after {
 				position: absolute;
 				display: block;
-				opacity: 0.2;
+				opacity: 0.125;
 				right: 1em;
 				line-height: 9px;
 				font-size: 0.9em;
@@ -38,12 +38,9 @@ table.dataTable thead {
 			}
 		}
 
-		&.dt-ordering-asc:before {
-			opacity: 0.75;
-		}
-
+		&.dt-ordering-asc:before,
 		&.dt-ordering-desc:after {
-			opacity: 0.75;
+			opacity: 0.6;
 		}
 	}
 }
