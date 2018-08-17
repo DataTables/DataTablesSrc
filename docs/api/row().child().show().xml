@@ -11,7 +11,7 @@
 	</type>
 
 	<description>
-		When using `dt-api row().child()` to attach child rows to a parent row, you will often want to make the child rows immediately visible. This method provides that ability as a simple chaining method.
+		This method can be used to make the child rows of a parent row visible at any time. Child rows can be attached using `dt-api row().child()` but do not have to be made immediately visible. This method provides the option of making those child rows which have already been attached visible.
 
 		Please note that this method is only available when `dt-api row().child()` is called with a parameter set. This is because `dt-api row().child()` will return the child rows if called with no parameters, which is either a `-type jQuery` object or `-type undefined`. When called with a parameter `dt-api row().child()` returns a `-type DataTables.Api` instance. If you need to display a child row without any parameters being set use `dt-api row().child.show()`.
 

@@ -11,7 +11,7 @@
 	</type>
 
 	<description>
-		When working which child rows in DataTables, you may often wish to know if a parent row's child rows are visible or not. This method provides exactly that ability, returning a boolean value indicating if the child rows are visible or not.
+		When working which child rows in DataTables, you may wish to know if a parent row's child rows are visible or not. This method provides exactly that ability, returning a boolean value indicating if the child rows are visible or not.
 	</description>
 
 	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[
