@@ -271,29 +271,6 @@
 			return false;
 		},
 
-		setupChildRows: function(hide) {
-			$('#example tbody').on('click', 'td', function() {
-				var tr = $(this).closest('tr');
-				var row = $('#example')
-					.DataTable()
-					.row(tr);
-
-				if (row.child.isShown()) {
-					// This row is already open - close it
-					if (hide) {
-						row.child.hide();
-					} else {
-						row.child.remove();
-					}
-					tr.removeClass('shown');
-				} else {
-					// Open this row
-					row.child('TEST ' + row.data()[0]).show();
-					tr.addClass('shown');
-				}
-			});
-		},
-
 		// columns used during testing (used frequently)
 		testColumns: [
 			{ data: 'name' },

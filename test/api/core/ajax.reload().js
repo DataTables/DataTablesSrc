@@ -12,13 +12,13 @@ describe('core - ajax.reload()', function() {
 				columns: dt.testColumns,
 				ajax: '/base/test/data/data.txt',
 				initComplete: function(settings, json) {
-					expect(typeof table.ajax.reload).toBe('function');
+					expect(this.api().ajax.reload() instanceof $.fn.dataTable.Api).toBe(true);
 					done();
 				}
 			});
 		});
-		it('Returns an API instance', function() {
-			expect(table.ajax.reload() instanceof $.fn.dataTable.Api).toBe(true);
+		it('Exists and is a function', function() {
+			expect(typeof table.ajax.reload).toBe('function');
 		});
 	});
 

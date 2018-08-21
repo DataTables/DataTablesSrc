@@ -87,6 +87,6 @@ describe('rows - row().id()', function() {
 					done();
 				}
 			});
-		});		
+		});
 	});
 });

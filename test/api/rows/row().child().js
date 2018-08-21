@@ -4,6 +4,29 @@ describe('rows - row().child()', function() {
 		css: ['datatables']
 	});
 
+	function setupChildRows(hide) {
+		$('#example tbody').on('click', 'td', function() {
+			var tr = $(this).closest('tr');
+			var row = $('#example')
+				.DataTable()
+				.row(tr);
+
+			if (row.child.isShown()) {
+				// This row is already open - close it
+				if (hide) {
+					row.child.hide();
+				} else {
+					row.child.remove();
+				}
+				tr.removeClass('shown');
+			} else {
+				// Open this row
+				row.child('TEST ' + row.data()[0]).show();
+				tr.addClass('shown');
+			}
+		});
+	}
+
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Ensure its a function', function() {
@@ -20,7 +43,7 @@ describe('rows - row().child()', function() {
 		let table;
 		it('Undefined if no child', function() {
 			table = $('#example').DataTable({
-				initComplete: dt.setupChildRows(true)
+				initComplete: setupChildRows(true)
 			});
 			expect(table.row(2).child()).toBe(undefined);
 		});
@@ -56,7 +79,7 @@ describe('rows - row().child()', function() {
 		let table;
 		it('Returns API instance', function() {
 			table = $('#example').DataTable({
-				initComplete: dt.setupChildRows(true)
+				initComplete: setupChildRows(true)
 			});
 			expect(table.row(2).child(true) instanceof $.fn.dataTable.Api).toBe(true);
 		});
@@ -81,7 +104,7 @@ describe('rows - row().child()', function() {
 		let table;
 		it('Returns API instance', function() {
 			table = $('#example').DataTable({
-				initComplete: dt.setupChildRows(true)
+				initComplete: setupChildRows(true)
 			});
 			expect(table.row(2).child(false) instanceof $.fn.dataTable.Api).toBe(true);
 		});
