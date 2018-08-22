@@ -16,7 +16,7 @@
 	</type>
 
 	<description>
-		The `dt-event page` event is fired the table's paging state changes. This can be the end user selecting the page to view or the page length from the built-in controls, or when the page state is altered by the API (`dt-api page()`).
+		The `dt-event page` event is fired when table's paging state changes. This can be the end user selecting the page to view or the page length from the built-in controls, or when the page state is altered by the API (`dt-api page()`).
 
 		Note that the `dt-event page` will be fired before the table has been redrawn with the updated data.
 
