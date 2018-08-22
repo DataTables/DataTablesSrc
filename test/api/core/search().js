@@ -51,6 +51,14 @@ describe('core - search()', function() {
 		});
 
 		dt.html('basic');
+		it('Search added to the input element', function() {
+			let table = $('#example').DataTable();
+			table.search('Fred');
+
+			expect($('.dataTables_filter input').val()).toBe('Fred');
+		});
+
+		dt.html('basic');
 		it('Table remains the same before the draw()', function() {
 			let table = $('#example').DataTable();
 			table.search('Angelica');
@@ -65,7 +73,7 @@ describe('core - search()', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Angelica Ramos');
 		});
 
-		// disabled due to manuscript case #32
+		// disabled due to manuscript case #32 (DD-567)
 		// dt.html('basic');
 		// it('Can set a regex search', function() {
 		// 	let table = $('#example').DataTable();
@@ -108,7 +116,7 @@ describe('core - search()', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
 		});
 
-		// disabled due to manuscript case #32
+		// disabled due to manuscript case #32 (DD-567)
 		// dt.html('basic');
 		// it('Case sensitive regex search', function() {
 		// 	let table = $('#example').DataTable();
