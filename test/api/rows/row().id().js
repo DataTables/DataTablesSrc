@@ -1,66 +1,92 @@
-// todo tests
-// 1- GET- return row ID, check it matches value set in rowId option
-// 2- only one param and is type bool
-// 3- Append a hash to row id then check we can select it using a selector.
+describe('rows - row().id()', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-
-describe( "rows- row().id()", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
-
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Exists and is a function", function () {
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Exists and is a function', function() {
 			var table = $('#example').DataTable();
 			expect(typeof table.row().id).toBe('function');
 		});
-		dt.html( 'basic' );
-		it("Returns String or Undefined instance", function () {
+
+		dt.html('basic');
+		it('No ID set and no param', function() {
 			var table = $('#example').DataTable();
 			expect(table.row(0).id()).toBe('undefined');
 		});
-		dt.html( 'empty' );
-		it("Return row id and matches rowId option", function (done) {
+
+		dt.html('basic');
+		it('No ID set and true param', function() {
+			var table = $('#example').DataTable();
+			expect(table.row(0).id(true)).toBe('#undefined');
+		});
+
+		dt.html('basic');
+		it('No ID set and false param', function() {
+			var table = $('#example').DataTable();
+			expect(table.row(0).id(false)).toBe('undefined');
+		});
+
+		dt.html('empty');
+		it('ID set and no param', function(done) {
 			var table = $('#example').DataTable({
-				"ajax": '/base/test/data/data.txt',
+				ajax: '/base/test/data/data.txt',
 				columns: [
-					{ data: "name" },
-					{ data: "position" },
-					{ data: "office" },
-					{ data: "age" },
-					{ data: "start_date" },
-					{ data: "salary" }
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
 				],
 				rowId: 'name',
-				initComplete: function ( settings, json ) {
-					var result = table.row(0).id();
-					expect(result === "Tiger Nixon").toBe(true);
+				initComplete: function(settings, json) {
+					expect(table.row(0).id()).toBe('Tiger Nixon');
 					done();
 				}
 			});
 		});
-		dt.html( 'empty' );
-		it("Append hash, select", function (done) {
+
+		dt.html('empty');
+		it('ID set and true param', function(done) {
 			var table = $('#example').DataTable({
-				"ajax": '/base/test/data/data.txt',
+				ajax: '/base/test/data/data.txt',
 				columns: [
-					{ data: "name" },
-					{ data: "position" },
-					{ data: "office" },
-					{ data: "age" },
-					{ data: "start_date" },
-					{ data: "salary" }
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
 				],
 				rowId: 'name',
-				initComplete: function ( settings, json ) {
-					var result = table.row(0).id(true);
-					expect(result === "#Tiger Nixon").toBe(true);
+				initComplete: function(settings, json) {
+					expect(table.row(0).id(true)).toBe('#Tiger Nixon');
+					done();
+				}
+			});
+		});
+
+		dt.html('empty');
+		it('ID set and false param', function(done) {
+			var table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				columns: [
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				rowId: 'name',
+				initComplete: function(settings, json) {
+					expect(table.row(0).id(false)).toBe('Tiger Nixon');
 					done();
 				}
 			});
 		});
 	});
-
 });
