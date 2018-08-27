@@ -23,7 +23,7 @@ Technically this is an `dt-type object` primitive, but defining such objects as 
 
 ## Use in DataTables
 
-Where a parameter is shown as accepting a node type, or a method returning an node type, it indicates that an object is expect / returned which refers to a DOM element.
+Where a parameter is shown as accepting a node type, or a method returning a node type, it indicates that an object is expect / returned which refers to a DOM element.
 
 Note that `node` refers to the native DOM element, not a jQuery object containing the element. Many DataTables methods will accept both a `node` and a `dt-type jQuery` instance, but this isn't always the case, particularly when considering returned values.
 
