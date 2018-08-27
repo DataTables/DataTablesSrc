@@ -4,47 +4,58 @@ module.exports = function(config) {
 
 	var fs = require('fs');
 	var browsers = fs.existsSync("/vagrant")? ['Chrome-headless'] : ['Chrome'];
-	var testFiles = process.env.DT_TESTFILE? process.env.DT_TESTFILE : 'test/*/**/*.js';
+	var testFiles = ' ';
+	var extensionFiles = ' ';
 
-	if (process.env.DT_EXTENSION) {
+	if (process.env.DT_TESTFILE) {
+		testFiles = process.env.DT_TESTFILE;
+	}
+	else if (process.env.DT_EXTENSION) {
 		switch (process.env.DT_EXTENSION) {
+			case 'All':
+				testFiles = 'test/*/**/*.js';
+				extensionFiles = 'extensions/*/test/**/*.js';
+				break;
 			case 'AutoFill':
-				testFiles = 'extensions/AutoFill/test/**/*.js';
+				extensionFiles = 'extensions/AutoFill/test/**/*.js';
 				break;
 			case 'Buttons':
-				testFiles = 'extensions/Buttons/test/**/*.js';
+				extensionFiles = 'extensions/Buttons/test/**/*.js';
 				break;
 			case 'ColReorder':
-				testFiles = 'extensions/ColReorder/test/**/*.js';
+				extensionFiles = 'extensions/ColReorder/test/**/*.js';
 				break;
 			case 'Editor':
-				testFiles = 'extensions/Editor/test/**/*.js';
+				extensionFiles = 'extensions/Editor/test/**/*.js';
 				break;
 			case 'FixedColumns':
-				testFiles = 'extensions/FixedColumns/test/**/*.js';
+				extensionFiles = 'extensions/FixedColumns/test/**/*.js';
 				break;
 			case 'FixedHeader':
-				testFiles = 'extensions/FixedHeader/test/**/*.js';
+				extensionFiles = 'extensions/FixedHeader/test/**/*.js';
 				break;
 			case 'Responsive':
-				testFiles = 'extensions/Responsive/test/**/*.js';
+				extensionFiles = 'extensions/Responsive/test/**/*.js';
 				break;
 			case 'RowGroup':
-				testFiles = 'extensions/RowGroup/test/**/*.js';
+				extensionFiles = 'extensions/RowGroup/test/**/*.js';
 				break;
 			case 'RowReorder':
-				testFiles = 'extensions/RowReorder/test/**/*.js';
+				extensionFiles = 'extensions/RowReorder/test/**/*.js';
 				break;
 			case 'Scroller':
-				testFiles = 'extensions/Scroller/test/**/*.js';
+				extensionFiles = 'extensions/Scroller/test/**/*.js';
 				break;
 			case 'Select':
-				testFiles = 'extensions/Select/test/**/*.js';
+				extensionFiles = 'extensions/Select/test/**/*.js';
 				break;
 
 			default:
 				throw 'Unknown extension';
 		}
+	}
+	else {
+		testFiles = 'test/*/*/*.js'
 	}
 
 	config.set({
@@ -75,8 +86,7 @@ module.exports = function(config) {
 			{ pattern: 'test/data/*.txt', included: false },
 			{ pattern: 'test/html/*.html', included: false },
 			{ pattern: 'extensions/*/test/html/*.html', included: false },
-			{ pattern: 'test/api/*.*.js', included: true },
-			testFiles
+			testFiles, extensionFiles
 		],
 
 		// list of files to exclude
