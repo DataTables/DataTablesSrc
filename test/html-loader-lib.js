@@ -279,6 +279,35 @@
 			{ data: 'age' },
 			{ data: 'start_date' },
 			{ data: 'salary' }
+		],
+
+		// editor's config to set up the editor fields
+		testEditorFields: [
+			{
+				label: 'Name:',
+				name: 'name'
+			},
+			{
+				label: 'Position:',
+				name: 'position'
+			},
+			{
+				label: 'Office:',
+				name: 'office'
+			},
+			{
+				label: 'Age:',
+				name: 'age'
+			},
+			{
+				label: 'Start date:',
+				name: 'start_date',
+				type: 'datetime'
+			},
+			{
+				label: 'Salary:',
+				name: 'salary'
+			}
 		]
 	};
 })(window, window.jasmine);
