@@ -13,12 +13,12 @@
 	</default>
 
 	<description>
-		The built in DataTables global search (by default at the top right of every DataTable)will instantly search the table on every keypress when in client-side processing mode and reduce the search call frequency automatically to 400mS when in server-side processing mode. This call frequency (throttling) can be controlled using the `dt-init searchDelay` parameter for both client-side and server-side processing.
+		The built-in DataTables global search (by default at the top right of every DataTable) will instantly search the table on every keypress when in client-side processing mode and reduce the search call frequency automatically to 400mS when in server-side processing mode. This call frequency (throttling) can be controlled using the `dt-init searchDelay` parameter for both client-side and server-side processing.
 
 		Being able to control the call frequency has a number of uses:
 
 		* Older browsers and slower computers can have their processing load reduced by reducing the search frequency
-		* Fewer table redraws while search can be less distracting for the user
+		* Fewer table redraws while searching can be less distracting for the user
 		* Reduce the load on the server when using server-side processing by making fewer calls
 		* Conversely, you can speed up the search when using server-side processing by reducing the default of 400mS to instant (`0`).
 

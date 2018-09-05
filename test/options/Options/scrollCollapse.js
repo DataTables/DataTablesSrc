@@ -14,11 +14,11 @@ describe( "scrollCollapse option", function() {
 			expect($('div.dataTables_scrollBody').height() == 300).toBeTruthy();
 		});
 		it("Check viewport is shrunk to result set", function () {
-			$('#example_filter input').val("41").keyup();
+			$('div.dataTables_filter input').val("41").keyup();
 			expect($('div.dataTables_scrollBody').height() == $('#example').height()).toBe(true);
 		});
 		it("Check viewport is reset when no input", function () {
-			$('#example_filter input').val("").keyup();
+			$('div.dataTables_filter input').val("").keyup();
 			expect($('div.dataTables_scrollBody').height() == 300).toBeTruthy();
 		});
 

@@ -58,7 +58,7 @@ var __row_selector = function ( settings, selector, opts )
 					[];
 			}
 			else if ( cellIdx ) {
-				return aoData[ cellIdx.row ] && aoData[ cellIdx.row ].nTr === sel ?
+				return aoData[ cellIdx.row ] && aoData[ cellIdx.row ].nTr === sel.parentNode ?
 					[ cellIdx.row ] :
 					[];
 			}

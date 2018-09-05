@@ -47,7 +47,10 @@ var __cell_selector = function ( settings, selector, opts )
 		
 		// Selector - index
 		if ( $.isPlainObject( s ) ) {
-			return [s];
+			// Valid cell index and its in the array of selectable rows
+			return s.column !== undefined && s.row !== undefined && $.inArray( s.row, rows ) !== -1 ?
+				[s] :
+				[];
 		}
 
 		// Selector - jQuery filtered cells
@@ -110,12 +113,19 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 		} );
 	}
 
+	// The default built in options need to apply to row and columns
+	var internalOpts = opts ? {
+		page: opts.page,
+		order: opts.order,
+		search: opts.search
+	} : {};
+
 	// Row + column selector
-	var columns = this.columns( columnSelector, opts );
-	var rows = this.rows( rowSelector, opts );
+	var columns = this.columns( columnSelector, internalOpts );
+	var rows = this.rows( rowSelector, internalOpts );
 	var a, i, ien, j, jen;
 
-	var cells = this.iterator( 'table', function ( settings, idx ) {
+	this.iterator( 'table', function ( settings, idx ) {
 		a = [];
 
 		for ( i=0, ien=rows[idx].length ; i<ien ; i++ ) {
@@ -126,9 +136,10 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 				} );
 			}
 		}
-
-		return a;
 	}, 1 );
+
+    // Now pass through the cell selector for options
+    var cells = this.cells( a, opts );
 
 	$.extend( cells.selector, {
 		cols: columnSelector,

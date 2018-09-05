@@ -24,7 +24,7 @@ describe('rows - row.add()', function() {
 		table.search('Fred Johnson').draw();
 
 		if (
-			$('#example_info').text() != 'Showing 1 to 1 of 1 entries (filtered from 58 total entries)' ||
+			$('div.dataTables_info').text() != 'Showing 1 to 1 of 1 entries (filtered from 58 total entries)' ||
 			$('#example tbody tr:eq(0) td:eq(0)').text() != 'Fred Johnson'
 		) {
 			return false;
@@ -40,7 +40,7 @@ describe('rows - row.add()', function() {
 			let table = $('#example').DataTable();
 			table.row.add(row);
 			expect(table.rows().count()).toBe(58);
-			expect($('#example_info').text()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		dt.html('basic');

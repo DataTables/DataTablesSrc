@@ -26,7 +26,7 @@ describe('stateSave option', function() {
 		dt.html('basic');
 		it('Is filter state saved upon table refresh- DOM', function() {
 			let table = $('#example').DataTable({ stateSave: true });
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val(2012)
 				.keyup();
 			table.destroy();
@@ -34,7 +34,7 @@ describe('stateSave option', function() {
 			table = $('#example').DataTable({ stateSave: true });
 			expect($('#example tbody td:eq(0)').text()).toBe('Bradley Greer');
 			expect($('#example_info').text()).toBe('Showing 1 to 9 of 9 entries (filtered from 57 total entries)');
-			expect($('#example_filter input').val()).toBe('2012');
+			expect($('div.dataTables_filter input').val()).toBe('2012');
 			table.state.clear();
 		});
 

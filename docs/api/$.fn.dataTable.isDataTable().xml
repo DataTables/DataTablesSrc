@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>isDataTable( table )</signature>
 		<description>Check if a `-tag table` node is a DataTable table already or not.</description>
-		<parameter type="string|node|jQuery|DataTable.Api" name="version">
+		<parameter type="string|node|jQuery|DataTable.Api" name="table">
 			The table to check. This can be given as one of:
 
 			* A DOM element

@@ -1,5 +1,3 @@
-// todo tests - write the tests...
-
 describe('rows - rows()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -45,6 +43,12 @@ describe('rows - rows()', function() {
 
 		it('Select nodes by `tr` selector', function() {
 			expect(table.rows('tr:eq(1)').count()).toBe(1);
+		});
+
+		it('Select row nodes by `td` node', function() {
+			expect(table.rows($('#example tbody td')[0]).nodes()[0]).toBe(
+				table.rows(':eq(0)', { order: 'applied' }).nodes()[0]
+			);
 		});
 
 		it('Selector will gather rows uniquely', function() {

@@ -31,7 +31,6 @@ describe('columns.searchable option', function() {
 			table.search('Accountant').draw();
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
 			expect(isSearchableCorrect([true, false, true, true, true, true])).toBe(true);
-
 		});
 		it('Disabled on one column has no effect on other columns', function() {
 			table.search('Airi Satou').draw();
@@ -54,17 +53,16 @@ describe('columns.searchable option', function() {
 		it('Disabled on one column has no effect on other columns', function() {
 			table.search('Airi Satou').draw();
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
-		});	
-		
+		});
+
 		dt.html('basic');
 		it('Disble all colimns using columnDefs', function() {
 			table = $('#example').DataTable({
-				columnDefs: [{searchable: false, targets: '_all'}]
+				columnDefs: [{ searchable: false, targets: '_all' }]
 			});
 			table.search('a').draw();
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
 			expect(isSearchableCorrect([false, false, false, false, false, false])).toBe(true);
-
-		});		
+		});
 	});
 });

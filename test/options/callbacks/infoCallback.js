@@ -41,7 +41,7 @@ describe( "infoCallback Option", function() {
 					return start;
 				}
 			});
-			expect($('#example_info').html() == "1" ).toBe(true);
+			expect($('div.dataTables_info').html() == "1" ).toBe(true);
 		});
 		dt.html( 'basic' );
 		it("Check end argument", function () {
@@ -50,7 +50,7 @@ describe( "infoCallback Option", function() {
 					return end;
 				}
 			});
-			expect($('#example_info').html() == "10" ).toBe(true);
+			expect($('div.dataTables_info').html() == "10" ).toBe(true);
 		});
 		dt.html( 'basic' );
 		it("Check max argument", function () {
@@ -59,12 +59,12 @@ describe( "infoCallback Option", function() {
 					return max;
 				}
 			});
-			expect($('#example_info').html() == "57" ).toBe(true);
+			expect($('div.dataTables_info').html() == "57" ).toBe(true);
 		});
 
 		it("Max argument- filtering", function () {
 			$('#example').DataTable().search('London').draw();
-			expect($('#example_info').html() == "57" ).toBe(true);
+			expect($('div.dataTables_info').html() == "57" ).toBe(true);
 		});
 		dt.html( 'basic' );
 		it("total argument", function () {
@@ -73,11 +73,11 @@ describe( "infoCallback Option", function() {
 					return total;
 				}
 			});
-			expect($('#example_info').html() == "57" ).toBe(true);
+			expect($('div.dataTables_info').html() == "57" ).toBe(true);
 		});
 		it("total argument- filter", function () {
 			$('#example').DataTable().search('London').draw();
-			expect($('#example_info').html() == "12").toBe(true);
+			expect($('div.dataTables_info').html() == "12").toBe(true);
 		});
 
 

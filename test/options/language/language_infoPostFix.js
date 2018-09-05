@@ -32,7 +32,7 @@ describe( "language.infoPostFix option", function() {
 					"infoPostFix": "unit _START_ _END_ _TOTAL_ test"
 				}
 			});
-			//expect($('#example_info').innerHTML == "Showing 1 to 10 of 57 entriesunit _START_ _END_ _TOTAL_ test").toBe(true);
+			//expect($('div.dataTables_info').innerHTML == "Showing 1 to 10 of 57 entriesunit _START_ _END_ _TOTAL_ test").toBe(true);
 		});
 		dt.html( 'basic' );
 		it("Post fix is applied after filtering info", function () {
@@ -41,8 +41,8 @@ describe( "language.infoPostFix option", function() {
 					"infoPostFix": "unit test"
 				}
 			});
-			$('#example_filter input').val('asdasd').keyup();
-			expect($('#example_info').html() == "Showing 0 to 0 of 0 entries (filtered from 57 total entries)unit test").toBe(true);
+			$('div.dataTables_filter input').val('asdasd').keyup();
+			expect($('div.dataTables_info').html() == "Showing 0 to 0 of 0 entries (filtered from 57 total entries)unit test").toBe(true);
 		});
 
 

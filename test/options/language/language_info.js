@@ -11,7 +11,7 @@ describe('language.info option', function() {
 			expect(table.settings()[0].oLanguage.sInfo).toBe('Showing _START_ to _END_ of _TOTAL_ entries');
 		});
 		it('Info language default is in the DOM', function() {
-			expect($('#example_info').text()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		dt.html('basic');
@@ -24,7 +24,7 @@ describe('language.info option', function() {
 			expect(table.settings()[0].oLanguage.sInfo).toBe('unit test');
 		});
 		it('Info language is in the dom', function() {
-			expect($('#example_info').text()).toBe('unit test');
+			expect($('div.dataTables_info').text()).toBe('unit test');
 		});
 
 		dt.html('basic');
@@ -34,7 +34,7 @@ describe('language.info option', function() {
 					info: 'unit _START_ test'
 				}
 			});
-			expect($('#example_info').text()).toBe('unit 1 test');
+			expect($('div.dataTables_info').text()).toBe('unit 1 test');
 		});
 
 		dt.html('basic');
@@ -44,7 +44,7 @@ describe('language.info option', function() {
 					info: 'unit _END_ test'
 				}
 			});
-			expect($('#example_info').text()).toBe('unit 10 test');
+			expect($('div.dataTables_info').text()).toBe('unit 10 test');
 		});
 
 		dt.html('basic');
@@ -54,7 +54,7 @@ describe('language.info option', function() {
 					info: 'unit _TOTAL_ test'
 				}
 			});
-			expect($('#example_info').text()).toBe('unit 57 test');
+			expect($('div.dataTables_info').text()).toBe('unit 57 test');
 		});
 
 		dt.html('basic');
@@ -64,7 +64,7 @@ describe('language.info option', function() {
 					info: 'unit _START_ _END_ test'
 				}
 			});
-			expect($('#example_info').text()).toBe('unit 1 10 test');
+			expect($('div.dataTables_info').text()).toBe('unit 1 10 test');
 		});
 
 		dt.html('basic');
@@ -75,15 +75,15 @@ describe('language.info option', function() {
 				}
 			});
 			expect(table.settings()[0].oLanguage.sInfo).toBe('unit _START_ _END_ _TOTAL_ _MAX_ _PAGE_ _PAGES_ test');
-			expect($('#example_info').text()).toBe('unit 1 10 57 57 1 6 test');
+			expect($('div.dataTables_info').text()).toBe('unit 1 10 57 57 1 6 test');
 		});
 		it('Change page and ensure correct', function() {
 			table.page(2).draw(false);
-			expect($('#example_info').text()).toBe('unit 21 30 57 57 3 6 test');
+			expect($('div.dataTables_info').text()).toBe('unit 21 30 57 57 3 6 test');
 		});
 		it('Filter and ensure correct', function() {
 			table.search('Tokyo').draw();
-			expect($('#example_info').text()).toBe('unit 1 5 5 57 1 1 test (filtered from 57 total entries)');
+			expect($('div.dataTables_info').text()).toBe('unit 1 5 5 57 1 1 test (filtered from 57 total entries)');
 		});		
 	});
 });

@@ -17,7 +17,7 @@ describe('columns.title option', function() {
 			expect(nNodes[4].innerHTML).toBe('Start date');
 			expect(nNodes[5].innerHTML).toBe('Salary');
 		});
-		
+
 		dt.html('basic');
 		it('Can set a single column title - others are read from DOM', function() {
 			$('#example').dataTable({
@@ -31,7 +31,7 @@ describe('columns.title option', function() {
 			expect(nNodes[4].innerHTML).toBe('Start date');
 			expect(nNodes[5].innerHTML).toBe('Salary');
 		});
-		
+
 		dt.html('basic');
 		it('Can set multiple column titles', function() {
 			$('#example').dataTable({
@@ -49,17 +49,15 @@ describe('columns.title option', function() {
 		dt.html('basic');
 		it('Can set multiple column titles in columnDefs', function() {
 			$('#example').dataTable({
-				columnDefs: [
-					{ title: 'unit test', targets: [0,2,3,5] }
-				]
+				columnDefs: [{ title: 'unit test 1', targets: [0, 5] }, { title: 'unit test 2', targets: [1, 4] }]
 			});
 			var nNodes = $('#example thead tr:eq(0) th');
-			expect(nNodes[0].innerHTML).toBe('unit test');
-			expect(nNodes[1].innerHTML).toBe('Position');
-			expect(nNodes[2].innerHTML).toBe('unit test');
-			expect(nNodes[3].innerHTML).toBe('unit test');
-			expect(nNodes[4].innerHTML).toBe('Start date');
-			expect(nNodes[5].innerHTML).toBe('unit test');
+			expect(nNodes[0].innerHTML).toBe('unit test 1');
+			expect(nNodes[1].innerHTML).toBe('unit test 2');
+			expect(nNodes[2].innerHTML).toBe('Office');
+			expect(nNodes[3].innerHTML).toBe('Age');
+			expect(nNodes[4].innerHTML).toBe('unit test 2');
+			expect(nNodes[5].innerHTML).toBe('unit test 1');
 		});
 	});
 });

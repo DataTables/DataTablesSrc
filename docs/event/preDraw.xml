@@ -18,7 +18,7 @@
 	<description>
 		This event is triggered when DataTables starts its draw action (finally resulting in the `-event draw` event) and can be used to inform you of this state.
 
-        This event can also be used to cancel the draw by returning `false` from the event handler. Please note that if you do this it can leave the table in an unpredicable state as any settings are not reset to their values from before the draw action - for example using `-api order()` to change the ordering of the table, but if the draw action is cancelled the data will still have been ordered internally in DataTables, but just not displayed.
+		This event can also be used to cancel the draw by returning `false` from the event handler. Please note that if you do this it can leave the table in an unpredicable state as any settings are not reset to their values from before the draw action - for example using `-api order()` to change the ordering of the table, but if the draw action is cancelled the data will still have been ordered internally in DataTables, but just not displayed.
 	</description>
 
 	<example title="Log time taken to draw the page"><![CDATA[
