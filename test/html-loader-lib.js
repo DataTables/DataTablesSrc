@@ -271,6 +271,11 @@
 			return false;
 		},
 
+		// function to sleep for a bit
+		sleep: function(time) {
+			return new Promise(resolve => setTimeout(resolve, time));
+		},
+
 		// columns used during testing (used frequently)
 		testColumns: [
 			{ data: 'name' },
@@ -308,6 +313,18 @@
 				label: 'Salary:',
 				name: 'salary'
 			}
-		]
+		],
+
+		// make a person object (as pain to do everytime in the test)
+		makePersonObject: function(name) {
+			return {
+				name: name,
+				position: 'BBB',
+				office: 'CCC',
+				age: '55',
+				start_date: '2018/03/04',
+				salary: '$12,345'
+			};
+		}
 	};
 })(window, window.jasmine);
