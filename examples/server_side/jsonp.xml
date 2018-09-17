@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-[JSONP](http://bob.pythonmac.org/archives/2005/12/05/remote-json-jsonp/) is one of several methods to allow the use of JSON data from any server (browsers have XSS protection rules which will block standard Ajax requests to remote source for security reasons). Using JSONP allows DataTables to load server-side sourced data from any domain and is quite simply done with the `dataType` option of the `dt-init ajax` initialisation option.
+[JSONP](https://stackoverflow.com/questions/2067472/what-is-jsonp-all-about) is one of several methods to allow the use of JSON data from any server (browsers have XSS protection rules which will block standard Ajax requests to remote source for security reasons). Using JSONP allows DataTables to load server-side sourced data from any domain and is quite simply done with the `dataType` option of the `dt-init ajax` initialisation option.
 
 When given as an object, the `dt-init ajax` option maps directly onto the [jQuery ajax](http://api.jquery.com/jQuery.ajax/) options (i.e. any option that can be used in jQuery's Ajax function can also be used in DataTable's `dt-init ajax` option).
 
