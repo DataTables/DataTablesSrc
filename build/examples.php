@@ -604,34 +604,6 @@ ALTER SEQUENCE datatables_demo_id_seq RESTART WITH {$next};
 EOD;
 	file_put_contents( $out_dir.'/postgres.sql', $str );
 
-	// SQLite style
-	$str = <<<EOD
---
--- DataTables Ajax and server-side processing database (SQLite)
---
-DROP TABLE IF EXISTS datatables_demo;
-
-CREATE TABLE datatables_demo (
-	id         integer primary key,
-	first_name text NOT NULL default '',
-	last_name  text NOT NULL default '',
-	position   text NOT NULL default '',
-	email      text NOT NULL default '',
-	office     text NOT NULL default '',
-	start_date timestamp without time zone default NULL,
-	age        integer,
-	salary     integer,
-	seq        integer,
-	extn       text NOT NULL default ''
-);
-
-INSERT INTO datatables_demo
-		( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) 
-	VALUES
-		$values;
-EOD;
-	file_put_contents( $out_dir.'/sqlite.sql', $str );
-
 	// SQLServer style
 	$str = <<<EOD
 --
@@ -665,6 +637,52 @@ INSERT INTO datatables_demo
 SET IDENTITY_INSERT datatables_demo OFF;
 EOD;
 	file_put_contents( $out_dir.'/sqlserver.sql', $str );
+
+	// SQLite style
+	$str = <<<EOD
+--
+-- DataTables Ajax and server-side processing database (SQLite)
+--
+DROP TABLE IF EXISTS datatables_demo;
+
+CREATE TABLE datatables_demo (
+	id         integer primary key,
+	first_name text NOT NULL default '',
+	last_name  text NOT NULL default '',
+	position   text NOT NULL default '',
+	email      text NOT NULL default '',
+	office     text NOT NULL default '',
+	start_date timestamp without time zone default NULL,
+	age        integer,
+	salary     integer,
+	seq        integer,
+	extn       text NOT NULL default ''
+);
+
+INSERT INTO datatables_demo
+		( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) 
+	VALUES
+EOD;
+	$insert = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$insert[] = "\t\t( ".
+			$json[$i]['id'].", ".
+		"'".$json[$i]['first_name']."', ".
+		"'".$json[$i]['last_name']."', ".
+			$json[$i]['age'].", ".
+		"'".$json[$i]['position']."', ".
+			$json[$i]['salary'].", ".
+		"'".date('Y-m-d', strtotime($json[$i]['start_date']))."', ".
+			$json[$i]['extn'].", ".
+		"'".$json[$i]['email']."', ".
+		"'".$json[$i]['office']."', ".
+			$json[$i]['sequence']." ".
+		")";
+	}
+
+	$str = $str .implode( ",\n", $insert ). ';';
+
+	file_put_contents( $out_dir.'/sqlite.sql', $str );
 
 	// Oracle style
 	$str = <<<EOD
