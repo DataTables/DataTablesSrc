@@ -61,6 +61,7 @@ var oTest = {
 		} );
 		this._fnNext();
 	},
+
 	
 	/*
 	 * Function: fnWaitTest
