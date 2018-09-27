@@ -34,7 +34,9 @@ describe('rows - rows()', function() {
 		});
 
 		it('select one row - 0 selector', function() {
-			expect(table.rows(0).count()).toBe(1);
+			let rows = table.rows(0);
+			expect(rows.count()).toBe(1);
+			expect(rows.data()[0][0]).toBe('Tiger Nixon');
 		});
 
 		it('Select nodes by `tr` selector', function() {
@@ -42,7 +44,9 @@ describe('rows - rows()', function() {
 		});
 
 		it('Select nodes by `tr` selector', function() {
-			expect(table.rows('tr:eq(1)').count()).toBe(1);
+			let rows = table.rows('tr:eq(0)');
+			expect(rows.count()).toBe(1);
+			expect(rows.data()[0][0]).toBe('Airi Satou');
 		});
 
 		it('Select row nodes by `td` node', function() {
@@ -68,12 +72,21 @@ describe('rows - rows()', function() {
 			expect(rows.data()[0][0]).toBe('Charde Marshall');
 			expect(rows.data()[9][0]).toBe('Gavin Joyce');
 		});
+		
 
 		it('page - all', function() {
 			rows = table.rows('tr', { page: 'all' });
 			expect(rows.count()).toBe(57);
 			expect(rows.data()[0][0]).toBe('Airi Satou');
 			expect(rows.data()[9][0]).toBe('Cedric Kelly');
+		});
+
+		// Disabled because of DD-638 (should be re-enabled when resolved)
+		it('order - current (rows in an array)', function() {
+			var rows = table.rows([0,2], { order: 'current' });
+			expect(rows.count()).toBe(2);
+			// expect(rows.data()[0][0]).toBe('Ashton Cox');
+			// expect(rows.data()[1][0]).toBe('Tiger Nixon');
 		});
 
 		it('order - current', function() {
