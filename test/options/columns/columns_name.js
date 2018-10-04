@@ -6,7 +6,6 @@ describe('columns.name option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-
 		it('Names are stored in the columns object', function() {
 			let table = $('#example').DataTable({
 				columns: [null, { name: 'unit test' }, null, null, null, null]
