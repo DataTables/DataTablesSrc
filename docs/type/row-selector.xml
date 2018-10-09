@@ -171,6 +171,12 @@ var table = $('#example').DataTable();
 var rowData = table.rows( rows ).data();
 ```
 
+###### Use jQuery selectors to get the data in the fifth row of the table:
+
+```js
+var rowData1 = table.rows( ':nth-child(5)' ).data();
+var rowData2 = table.rows( ':eq(4)' ).data();
+```
 
 ## array
 
