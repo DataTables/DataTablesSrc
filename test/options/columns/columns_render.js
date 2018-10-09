@@ -12,25 +12,25 @@ describe('columns.render option', function() {
 	});
 
 	// // TK COLIN
-	// describe('Functional tests - special values', function() {
-	// 	dt.html('basic');
-	// 	it('undefined', function() {
-	// 		let data = [['aaa', 'bbb', 'ccc', 'ddd', 'eee']];
-	// 		let table = $('#example').DataTable({
-	// 			data: data,
-	// 			columns: [null, null, null, null, null, { render: null }]
-	// 		});
-	// 		expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Edinburgh');
-	// 	});
+	describe('Functional tests - special values', function() {
+		dt.html('basic');
+		it('undefined', function() {
+			let data = [['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff']];
+			let table = $('#example').DataTable({
+				data: data,
+				columns: [null, null, null, null, null, { data: null, render: undefined, defaultContent: 'test' }]
+			});
+			expect($('tbody tr:eq(0) td:eq(5)').text()).toBe('test');
+		});
 
-	// 	// dt.html('basic');
-	// 	// it('null', function() {
-	// 	// 	// let table = $('#example').DataTable({
-	// 	// 	// 	columns: [{ data: null, render: null }, null, null, null, null, null]
-	// 	// 	// });
-	// 	// 	// expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Edinburgh');
-	// 	// });
-	// });
+		dt.html('basic');
+		it('null', function() {
+			let table = $('#example').DataTable({
+				columns: [{ data: null, render: null, defaultContent: 'test' }, null, null, null, null, null]
+			});
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('test');
+		});
+	});
 
 	describe('Functional tests - integer type', function() {
 		dt.html('basic');
