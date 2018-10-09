@@ -22,7 +22,7 @@ _fnCamelToHungarian( defaults, defaults, true );
 _fnCamelToHungarian( defaults.column, defaults.column, true );
 
 /* Setting up the initialisation object */
-_fnCamelToHungarian( defaults, $.extend( oInit, $this.data() ) );
+_fnCamelToHungarian( defaults, $.extend( oInit, $this.data() ), true );
 
 
 
