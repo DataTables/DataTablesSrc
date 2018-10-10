@@ -11,7 +11,6 @@ describe('columns.render option', function() {
 		});
 	});
 
-	// // TK COLIN
 	describe('Functional tests - special values', function() {
 		dt.html('basic');
 		it('undefined', function() {
