@@ -83,8 +83,8 @@ describe('lengthChange option', function() {
 				lengthChange: false
 			});
 
-			expect($('#example_one_length').length).toBe(1);
-			expect($('#example_two_length').length).toBe(0);
+			expect($('div.dataTables_wrapper:eq(0) div.dataTables_length').length).toBe(1);
+			expect($('div.dataTables_wrapper:eq(1) div.dataTables_length').length).toBe(0);
 		});
 	});
 });

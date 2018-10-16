@@ -27,10 +27,10 @@ describe('Paging option', function() {
 
 		it('Correct place in DOM', function() {
 			expect(
-				$('#example_paginate')
+				$('div.dataTables_paginate')
 					.prev()
-					.attr('id') == 'example_info'
-			).toBe(true);
+					.attr('class')
+			).toBe('dataTables_info');
 		});
 	});
 
