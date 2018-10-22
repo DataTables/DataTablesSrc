@@ -11,7 +11,6 @@ describe('columns.render option', function() {
 		});
 	});
 
-	// // TK COLIN
 	describe('Functional tests - special values', function() {
 		dt.html('basic');
 		it('undefined', function() {
@@ -63,7 +62,7 @@ describe('columns.render option', function() {
 					salary: '$40,000'
 				}
 			];
-			let cols = dt.testColumns;
+			let cols = JSON.parse(JSON.stringify(dt.testColumns));
 			cols[0].render = 'first';
 			$('#example').DataTable({
 				data: data,
@@ -83,7 +82,7 @@ describe('columns.render option', function() {
 					salary: '$40,000'
 				}
 			];
-			let cols = dt.testColumns;
+			let cols = JSON.parse(JSON.stringify(dt.testColumns));
 			cols[0].render = '.name_object.first';
 			$('#example').DataTable({
 				data: data,
@@ -103,7 +102,7 @@ describe('columns.render option', function() {
 					salary: '$40,000'
 				}
 			];
-			let cols = dt.testColumns;
+			let cols = JSON.parse(JSON.stringify(dt.testColumns));
 			cols[0].render = 'first';
 			cols[2].render = '[; ].city';
 			$('#example').DataTable({
@@ -140,7 +139,7 @@ describe('columns.render option', function() {
 					salary: '$40,000'
 				}
 			];
-			let cols = dt.testColumns;
+			let cols = JSON.parse(JSON.stringify(dt.testColumns));
 			cols[0].data = null;
 			cols[0].render = {
 				_: 'name',
