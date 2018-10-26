@@ -5,41 +5,28 @@ describe('createdRow option', function() {
 	});
 
 	describe('Check the arguments', function() {
+		let args;
+		let count = 0;
+
 		dt.html('basic');
 		it('Three arguments for the function', function() {
 			let tmp = false;
 			$('#example').dataTable({
 				createdRow: function() {
-					if (arguments.length === 4) {
-						tmp = true;
-					}
+					args = arguments;
+					count++;
 				}
 			});
-			expect(tmp).toBe(true);
+			expect(args.length).toBe(4);
 		});
-
-		dt.html('basic');
+		it('Called for each', function() {
+			expect(count).toBe(57);
+		});		
 		it('First argument is a TR element', function() {
-			let called = false;
-			$('#example').dataTable({
-				createdRow: function() {
-					expect(arguments[0].nodeName).toBe('TR');
-					called = true;
-				}
-			});
-			expect(called).toBe(true);
+			expect(args[0].nodeName).toBe('TR');
 		});
-
-		dt.html('basic');
 		it('Second Argument is an array with 6 elements', function() {
-			let called = false;
-			$('#example').dataTable({
-				createdRow: function() {
-					expect(arguments[1].length).toBe(6);
-					called = true;
-				}
-			});
-			expect(called).toBe(true);
+			expect(args[1].length).toBe(6);
 		});
 
 		dt.html('basic');

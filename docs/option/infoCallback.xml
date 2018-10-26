@@ -33,7 +33,7 @@
 	<description>
 		The information element can be used to convey information about the current state of the table. Although the internationalisation options presented by DataTables are quite capable of dealing with most customisations, there may be times where you wish to customise the string further. This callback allows you to do exactly that.
 
-		Please note that if the `dt-init info` option id disable in the initialisation, this callback function is not fired.
+		Please note that if the `dt-init info` option is disabled in the initialisation, this callback function is not fired.
 	</description>
 
 	<example title="Show start to end indexes in the information element"><![CDATA[
