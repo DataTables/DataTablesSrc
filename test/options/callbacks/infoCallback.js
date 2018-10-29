@@ -30,10 +30,10 @@ describe('infoCallback Option', function() {
 		it('Fourth arg is max', function() {
 			expect(typeof args[3]).toBe('number');
 		});
-		it('Second arg is total', function() {
+		it('Fifth arg is total', function() {
 			expect(typeof args[4]).toBe('number');
 		});
-		it('Second arg is pre', function() {
+		it('Sixth arg is pre', function() {
 			expect(typeof args[5]).toBe('string');
 		});
 		it('Return values is used', function() {

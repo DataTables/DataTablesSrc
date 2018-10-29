@@ -1,155 +1,104 @@
-describe( "headerCallback Option", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+describe('headerCallback Option', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-	describe("Check the defaults", function () {
+	describe('Check the arguments', function() {
+		let args;
+		let count = 0;
+		let table;
 
-		dt.html( 'basic' );
-		it("Default should not be true", function () {
+		dt.html('basic');
+		it('Default should not be true', function() {
 			$('#example').dataTable();
 			expect($.fn.dataTable.defaults.fnHeaderCallback).not.toBe(true);
-			//$.fn.DataTable.defaults
-		});
-		dt.html( 'basic' );
-		it("Five arguments passed", function () {
-			test = -1;
-			$('#example').dataTable( {
-				"headerCallback": function() {
-					test = arguments.length;
-				}
-			});
-			expect(test == 5).toBe(true);
-		});
-		dt.html( 'basic' );
-		it("headerCallback called once per draw", function () {
-			test = 0;
-			$('#example').dataTable( {
-				"headerCallback": function( thead, data, start, end, display ) {
-					test++;
-				}
-			});
-			expect(test == 1).toBe(true);
 		});
 
-		it("headerCallback called on on paging (ie another draw)", function () {
-			$('#example_next').click();
-			expect(test == 2).toBe(true);
-		});
-		dt.html( 'basic' );
-		it("headerCallback allows us to alter row information", function () {
-			$('#example').dataTable( {
-				"headerCallback": function( thead, data, start, end, display ) {
-					thead.getElementsByTagName('th')[0].innerHTML = "Displaying "+(end-start)+" records";
+		dt.html('basic');
+		it('Five arguments', function() {
+			table = $('#example').DataTable({
+				headerCallback: function() {
+					count++;
+					args = arguments;
+					$(args[0])
+						.find('th')
+						.eq(0)
+						.html('unit test');
 				}
 			});
-			expect($('#example thead th:eq(0)').html() == "Displaying 10 records").toBe(true);
+			expect(args.length).toBe(5);
 		});
-		dt.html( 'basic' );
-		it("Data array has length matching original data", function () {
-			test = true;
-			$('#example').dataTable( {
-				"headerCallback": function( thead, data, start, end, display ) {
-					if ( data.length != 57){
-						test = false;
-					}
-				}
-			});
-			expect(test === true).toBe(true);
+		it('First arg is the thead', function() {
+			expect(args[0] instanceof HTMLTableRowElement).toBe(true);
 		});
-		dt.html( 'basic' );
-		it("Data array has length matching original data", function () {
-			test = true;
-			$('#example').dataTable( {
-				"headerCallback": function( thead, data, start, end, display ) {
-					for ( var i=0, length=data.length ; i<length ; i++){
-						if ( data[i].length != 6){
-							test = false;
-						}
-					}
-				}
-			});
-			expect(test === true).toBe(true);
+		it('Second arg is data', function() {
+			expect(args[1] instanceof Array).toBe(true);
 		});
-
-		dt.html( 'basic' );
-		it("Start correct on first page", function () {
-			test = true;
-			$('#example').dataTable( {
-				"headerCallback": function( thead, data, start, end, display ) {
-					if ( start !== 0 ){
-						test = false;
-					}
-				}
-			});
-			expect(test === true).toBe(true);
+		it('Third arg is start position', function() {
+			expect(typeof args[2]).toBe('number');
 		});
-		dt.html( 'basic' );
-		it("start correct on second page", function () {
-			test = false;
-			$('#example').dataTable( {
-				"headerCallback": function( thead, data, start, end, display ) {
-					if ( start !== 10 ){
-						test = true;
-					}
-				}
-			});
-			$('#example_next').click();
-			expect(test === true).toBe(true);
+		it('Fourth arg is end position', function() {
+			expect(typeof args[3]).toBe('number');
 		});
-		dt.html( 'basic' );
-		it("end correct on first page", function () {
-			test = true;
-			$('#example').dataTable( {
-				"headerCallback": function( thead, data, start, end, display ) {
-					if ( end !== 10 ){
-						test = false;
-					}
-				}
-			});
-
-			expect(test === true).toBe(true);
+		it('Fifth arg is index array', function() {
+			expect(args[4] instanceof Array).toBe(true);
 		});
-		dt.html( 'basic' );
-		it("end correct on second page", function () {
-			test = false;
-			$('#example').dataTable( {
-				"headerCallback": function( thead, data, start, end, display ) {
-					if ( end !== 20 ){
-						test = true;
-					}
-				}
-			});
-
-			expect(test === true).toBe(true);
-		});
-		dt.html( 'basic' );
-		it("Display length is full data when not filtered", function () {
-			test = false;
-			$('#example').dataTable( {
-				"headerCallback": function( thead, data, start, end, display ) {
-					if ( display.length == 57 ){
-						test = true;
-					}
-				}
-			});
-			expect(test === true).toBe(true);
-		});
-		dt.html( 'basic' );
-		it("Display length is 12 when filtering on London", function () {
-			test = false;
-			$('#example').dataTable( {
-				"headerCallback": function( thead, data, start, end, display ) {
-					if ( display.length == 12 ){
-						test = true;
-					}
-				}
-			});
-			$('#example').DataTable().search('London').draw();
-			expect(test === true).toBe(true);
+		it('Return values is used', function() {
+			expect($('table thead tr th:eq(0)').text()).toBe('unit test');
 		});
 	});
 
+	describe('Functional tests', function() {
+		let args;
+		let count = 0;
+		let table;
 
+		dt.html('basic');
+		it('Default should not be true', function() {
+			$('#example').dataTable();
+			expect($.fn.dataTable.defaults.fnHeaderCallback).not.toBe(true);
+		});
+
+		dt.html('basic');
+		it('Called only on a draw', function() {
+			table = $('#example').DataTable({
+				headerCallback: function() {
+					count++;
+					args = arguments;
+				}
+			});
+			expect(count).toBe(1);
+		});
+		it('Subsequent draws call the function', function() {
+			table.draw();
+			expect(count).toBe(2);
+		});
+		it('Start contains correct page information', function() {
+			expect(args[2]).toBe(0);
+		});
+		it('End contains correct page information', function() {
+			expect(args[3]).toBe(10);
+		});
+		it('headerCallback called on paging (ie another draw)', function() {
+			$('a.paginate_button.next').click();
+			expect(count).toBe(3);
+		});
+		it('Data array has length matching original data', function() {
+			expect(args[1].length).toBe(57);
+		});
+		it('Start contains correct page information', function() {
+			expect(args[2]).toBe(10);
+		});
+		it('End contains correct page information', function() {
+			expect(args[3]).toBe(20);
+		});
+		it('Display length is full data when not filtered', function() {
+			expect(args[4].length).toBe(57);
+		});
+		it('Display length is 12 when filtering on London', function() {
+			table.search('London').draw();
+			expect(args[4].length).toBe(12);
+		});
+	});
 });

@@ -9,18 +9,17 @@ describe('createdRow option', function() {
 		let count = 0;
 
 		dt.html('basic');
-		it('Three arguments for the function', function() {
-			let tmp = false;
+		it('Called for each', function() {			
 			$('#example').dataTable({
 				createdRow: function() {
 					args = arguments;
 					count++;
 				}
 			});
-			expect(args.length).toBe(4);
-		});
-		it('Called for each', function() {
 			expect(count).toBe(57);
+		});
+		it('Four arguments for the function', function() {
+			expect(args.length).toBe(4);
 		});		
 		it('First argument is a TR element', function() {
 			expect(args[0].nodeName).toBe('TR');
@@ -59,6 +58,7 @@ describe('createdRow option', function() {
 	});
 
 	describe('Check the basics', function() {
+
 		dt.html('basic');
 		it('Row created is called once for each row on init', function() {
 			let count = 0;
@@ -84,7 +84,7 @@ describe('createdRow option', function() {
 
 		dt.html('basic');
 		it('TR element is tied to the correct data', function() {
-			tmp = false;
+			let tmp = false;
 			$('#example').dataTable({
 				createdRow: function(tr, data, index) {
 					if (data[0] === 'Airi Satou') {
