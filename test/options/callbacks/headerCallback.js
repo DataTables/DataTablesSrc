@@ -6,8 +6,6 @@ describe('headerCallback Option', function() {
 
 	describe('Check the arguments', function() {
 		let args;
-		let count = 0;
-		let table;
 
 		dt.html('basic');
 		it('Default should not be true', function() {
@@ -17,9 +15,8 @@ describe('headerCallback Option', function() {
 
 		dt.html('basic');
 		it('Five arguments', function() {
-			table = $('#example').DataTable({
+			$('#example').DataTable({
 				headerCallback: function() {
-					count++;
 					args = arguments;
 					$(args[0])
 						.find('th')
@@ -44,7 +41,7 @@ describe('headerCallback Option', function() {
 		it('Fifth arg is index array', function() {
 			expect(args[4] instanceof Array).toBe(true);
 		});
-		it('Return values is used', function() {
+		it('Return value is used', function() {
 			expect($('table thead tr th:eq(0)').text()).toBe('unit test');
 		});
 	});
@@ -53,12 +50,6 @@ describe('headerCallback Option', function() {
 		let args;
 		let count = 0;
 		let table;
-
-		dt.html('basic');
-		it('Default should not be true', function() {
-			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.fnHeaderCallback).not.toBe(true);
-		});
 
 		dt.html('basic');
 		it('Called only on a draw', function() {
@@ -80,7 +71,7 @@ describe('headerCallback Option', function() {
 		it('End contains correct page information', function() {
 			expect(args[3]).toBe(10);
 		});
-		it('headerCallback called on paging (ie another draw)', function() {
+		it('Called on paging (ie another draw)', function() {
 			$('a.paginate_button.next').click();
 			expect(count).toBe(3);
 		});

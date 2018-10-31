@@ -1,66 +1,69 @@
-describe( "preDrawCallback option", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
-
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default should not be true", function () {
-			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.fnPreDrawCallback).not.toBe(true);
-			//$.fn.DataTable.defaults
-		});
-		dt.html( 'basic' );
-		it("One argument passed", function () {
-			test = -1;
-			$('#example').dataTable( {
-				"preDrawCallback": function() {
-					test = arguments.length;
-
-				}
-			});
-			expect(test == 1).toBe(true);
-		});
-		dt.html( 'basic' );
-		it("That one argument is the settings object", function () {
-			$('#example').dataTable( {
-				"preDrawCallback": function (settings){
-					test = settings;
-				}
-			});
-			expect($('#example').DataTable().settings()[0] == test).toBe(true);
-		});
-		dt.html( 'basic' );
-		it("preDrawCallback called once on first draw", function () {
-			test = 0;
-			$('#example').dataTable( {
-				"preDrawCallback": function(){
-					test++;
-				}
-			});
-			expect(test == 1).toBe(true);
-		});
-		it("preDrawCallback called once each draw thereafter as well", function () {
-			$('#example_next').click();
-			$('#example_next').click();
-			$('#example_next').click();
-			expect(test == 4).toBe(true);
-		});
-		dt.html( 'basic' );
-		it("Able to cancel draw", function () {
-			test = 0;
-			$('#example').dataTable( {
-				"preDrawCallback": function( settings ) {
-					return false;
-				},
-				"drawCallback": function(){
-					test++;
-				}
-			} );
-			expect(test === 0).toBe(true);
-		});
-	
+describe('preDrawCallback option', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
 	});
 
+	describe('Check the arguments', function() {
+		let args;
+		let table;
+
+		dt.html('basic');
+		it('Default should not be true', function() {
+			table = $('#example').DataTable();
+			expect($.fn.dataTable.defaults.fnpreDrawCallback).not.toBe(true);
+		});
+
+		dt.html('basic');
+		it('Count arguments', function() {
+			table = $('#example').DataTable({
+				preDrawCallback: function() {
+					args = arguments;
+					return true;
+				}
+			});
+			expect(args.length).toBe(1);
+		});
+		it('First arg is the settings', function() {
+			expect(args[0]).toBe(table.settings()[0]);
+		});
+	});
+
+	describe('Functional tests', function() {
+		let count = 0;
+		let drawCount = 0;
+		let response = true;
+
+		dt.html('basic');
+		it('preDrawCallback called once on first draw', function() {
+			table = $('#example').DataTable({
+				preDrawCallback: function() {
+					count++;
+					return response;
+				},
+				drawCallback: function() {
+					drawCount++;
+				}
+			});
+			expect(count).toBe(1);
+			expect(drawCount).toBe(1);
+		});
+		it('preDrawCallback called once after each draw', function() {
+			$('#example_next').click();
+			$('#example_next').click();
+			$('#example_next').click();
+
+			expect(count).toBe(4);
+			expect(drawCount).toBe(4);
+		});
+		it('Able to cancel draw', function() {
+			response = false;
+
+			table.page(1).draw(false);
+
+			expect(count).toBe(5);
+			expect(drawCount).toBe(4);
+			expect($('div.dataTables_info').text()).toBe('Showing 31 to 40 of 57 entries');
+		});
+	});
 });

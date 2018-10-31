@@ -1,142 +1,95 @@
-describe('footerCallback option', function() {
+describe('footerCallback Option', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
 	});
 
-	describe('Check the defaults', function() {
+	describe('Check the arguments', function() {
+		let args;
+
 		dt.html('basic');
 		it('Default should not be true', function() {
 			$('#example').dataTable();
 			expect($.fn.dataTable.defaults.fnFooterCallback).not.toBe(true);
 		});
+
 		dt.html('basic');
-		it('Five arguments pass', function() {
-			test = -1;
-			$('#example').dataTable({
+		it('Five arguments', function() {
+			$('#example').DataTable({
 				footerCallback: function() {
-					test = arguments.length;
+					args = arguments;
+					$(args[0])
+						.find('th')
+						.eq(0)
+						.html('unit test');
 				}
 			});
-			expect(test == 5).toBe(true);
+			expect(args.length).toBe(5);
 		});
+		it('First arg is the tfoot', function() {
+			expect(args[0] instanceof HTMLTableRowElement).toBe(true);
+		});
+		it('Second arg is data', function() {
+			expect(args[1] instanceof Array).toBe(true);
+		});
+		it('Third arg is start position', function() {
+			expect(typeof args[2]).toBe('number');
+		});
+		it('Fourth arg is end position', function() {
+			expect(typeof args[3]).toBe('number');
+		});
+		it('Fifth arg is index array', function() {
+			expect(args[4] instanceof Array).toBe(true);
+		});
+		it('Return value is used', function() {
+			expect($('table tfoot tr th:eq(0)').text()).toBe('unit test');
+		});
+	});
+
+	describe('Functional tests', function() {
+		let args;
+		let count = 0;
+		let table;
+
 		dt.html('basic');
-		it('footerCallback called once per draw', function() {
-			test = 0;
-			$('#example').dataTable({
-				footerCallback: function(tfoot, data, start, end, display) {
-					test++;
+		it('Called only on a draw', function() {
+			table = $('#example').DataTable({
+				footerCallback: function() {
+					count++;
+					args = arguments;
 				}
 			});
-			expect(test == 1).toBe(true);
+			expect(count).toBe(1);
 		});
-		it('rooterCallback called on paging (ie another draw)', function() {
-			$('#example_next').click();
-			expect(test == 2).toBe(true);
+		it('Subsequent draws call the function', function() {
+			table.draw();
+			expect(count).toBe(2);
 		});
-		dt.html('basic');
-		it('footerCallback allows ut to alter row information', function() {
-			$('#example').dataTable({
-				footerCallback: function(tfoot, data, start, end, display) {
-					tfoot.getElementsByTagName('th')[0].innerHTML =
-						'Displaying ' + (end - start) + ' records';
-				}
-			});
-			expect(
-				$('#example tfoot th:eq(0)').html() == 'Displaying 10 records'
-			).toBe(true);
+		it('Start contains correct page information', function() {
+			expect(args[2]).toBe(0);
 		});
-		dt.html('basic');
+		it('End contains correct page information', function() {
+			expect(args[3]).toBe(10);
+		});
+		it('Called on paging (ie another draw)', function() {
+			$('a.paginate_button.next').click();
+			expect(count).toBe(3);
+		});
 		it('Data array has length matching original data', function() {
-			test = true;
-			$('#example').dataTable({
-				footerCallback: function(tfoot, data, start, end, display) {
-					if (data.length != 57) {
-						test = false;
-					}
-				}
-			});
-			expect(test === true).toBe(true);
+			expect(args[1].length).toBe(57);
 		});
-		dt.html('basic');
-		it("Data array's column lengths match original data", function() {
-			test = true;
-			$('#example').dataTable({
-				footerCallback: function(tfoot, data, start, end, display) {
-					for (var i = 0, length = data.length; i < length; i++) {
-						if (data[i].length != 6) {
-							test = false;
-						}
-					}
-				}
-			});
-			expect(test === true).toBe(true);
+		it('Start contains correct page information', function() {
+			expect(args[2]).toBe(10);
 		});
-		dt.html('basic');
-		it('start correct on first page', function() {
-			test = true;
-			$('#example').dataTable({
-				footerCallback: function(tfoot, data, start, end, display) {
-					if (start !== 0) {
-						test = false;
-					}
-				}
-			});
-			expect(test === true).toBe(true);
+		it('End contains correct page information', function() {
+			expect(args[3]).toBe(20);
 		});
-		dt.html('basic');
-		it('start correct on second page', function() {
-			test = false;
-			$('#example').dataTable({
-				footerCallback: function(tfoot, data, start, end, display) {
-					if (start == 10) {
-						test = true;
-					}
-				}
-			});
-			$('#example_next').click();
-			expect(test === true).toBe(true);
+		it('Display length is full data when not filtered', function() {
+			expect(args[4].length).toBe(57);
 		});
-		dt.html('basic');
-		it('End correct on first page', function() {
-			test = false;
-			$('#example').dataTable({
-				footerCallback: function(tfoot, data, start, end, display) {
-					if (end != 10) {
-						test = true;
-					}
-				}
-			});
-			$('#example_next').click();
-			expect(test === true).toBe(true);
-		});
-		dt.html('basic');
-		it('Display Length is full data when not filtered', function() {
-			test = false;
-			$('#example').dataTable({
-				footerCallback: function(tfoot, data, start, end, display) {
-					if (display.length == 57) {
-						test = true;
-					}
-				}
-			});
-			expect(test === true).toBe(true);
-		});
-		dt.html('basic');
-		it('Display length is 12 when filtering on London ', function() {
-			test = false;
-			$('#example').dataTable({
-				footerCallback: function(tfoot, data, start, end, display) {
-					if (display.length == 12) {
-						test = true;
-					}
-				}
-			});
-			$('#example')
-				.DataTable()
-				.search('London')
-				.draw();
-			expect(test === true).toBe(true);
+		it('Display length is 12 when filtering on London', function() {
+			table.search('London').draw();
+			expect(args[4].length).toBe(12);
 		});
 	});
 });
