@@ -45,8 +45,6 @@ describe('pluck()', function() {
 		it('Can use string parameter to get array item', function(done) {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
-				deferRender: true,
-				pageLength: 17,
 				columns: dt.testColumns,
 				initComplete: function(settings, json) {
 					let data = table
@@ -65,8 +63,6 @@ describe('pluck()', function() {
 		it('Can use string parameter to get array item', function(done) {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
-				deferRender: true,
-				pageLength: 17,
 				columns: dt.testColumns,
 				initComplete: function(settings, json) {
 					let data = table
