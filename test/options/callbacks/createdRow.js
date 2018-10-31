@@ -175,7 +175,7 @@ describe('createdRow option', function() {
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
 				pageLength: 10,
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				createdRow: function(row, data, dataIndex) {
 					if (dataIndex == 4) {
 						$(row).addClass('unit-test');

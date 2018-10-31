@@ -121,7 +121,7 @@ describe('core - page.info()', function() {
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
 				pageLength: 17,
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				initComplete: function(settings, json) {
 					let info = table.page.info();
 					expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(0, 17)));
@@ -136,7 +136,7 @@ describe('core - page.info()', function() {
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
 				pageLength: 17,
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				initComplete: function(settings, json) {
 					table.page(2).draw(false);
 					let info = table.page.info();
@@ -152,7 +152,7 @@ describe('core - page.info()', function() {
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
 				paging: false,
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				initComplete: function(settings, json) {
 					let info = table.page.info();
 					expect(JSON.stringify(info)).toBe(JSON.stringify(getExpectedPageInfo(0, 57, false)));

@@ -93,7 +93,7 @@ describe('rows - rows.add()', function() {
 		dt.html('basic');
 		it('Single row', function() {
 			let table = $('#example').DataTable({
-				columns: dt.testColumns
+				columns: dt.getTestColumns()
 			});
 			table.rows.add([oEva]);
 			expect(areNamesThere(['Eva'])).toBe(true);
@@ -102,7 +102,7 @@ describe('rows - rows.add()', function() {
 		dt.html('basic');
 		it('Two rows', function() {
 			let table = $('#example').DataTable({
-				columns: dt.testColumns
+				columns: dt.getTestColumns()
 			});
 			table.rows.add([oEva, oFred]);
 			expect(areNamesThere(['Eva', 'Fred'])).toBe(true);
@@ -111,7 +111,7 @@ describe('rows - rows.add()', function() {
 		dt.html('basic');
 		it('Add single row, then two rows', function() {
 			let table = $('#example').DataTable({
-				columns: dt.testColumns
+				columns: dt.getTestColumns()
 			});
 			table.row.add(oTyler);
 			table.rows.add([oEva, oFred]);

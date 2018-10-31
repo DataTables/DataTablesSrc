@@ -16,7 +16,7 @@ describe('columns.cellType option', function() {
 		it('Default is td', function(done) {
 			$('#example').dataTable({
 				ajax: '/base/test/data/data.txt',
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				initComplete: function() {
 					expect($('#example tbody td:eq(0)').text()).toBe('Airi Satou');
 					expect($('#example tbody th:eq(0)').text()).toBe('');
@@ -29,7 +29,7 @@ describe('columns.cellType option', function() {
 		it('Can also specify td', function(done) {
 			$('#example').dataTable({
 				ajax: '/base/test/data/data.txt',
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				columnDefs: [
 					{
 						targets: 0,
@@ -48,7 +48,7 @@ describe('columns.cellType option', function() {
 		it('Can change to be th', function(done) {
 			$('#example').dataTable({
 				ajax: '/base/test/data/data.txt',
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				columnDefs: [
 					{
 						targets: 0,
@@ -67,7 +67,7 @@ describe('columns.cellType option', function() {
 		it('Can have multiple th', function(done) {
 			$('#example').dataTable({
 				ajax: '/base/test/data/data.txt',
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				columnDefs: [
 					{
 						targets: [0, 2],

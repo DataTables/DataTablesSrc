@@ -54,7 +54,7 @@ describe('rows - row.add()', function() {
 		dt.html('basic');
 		it('Add row as an Object', function() {
 			let table = $('#example').DataTable({
-				columns: dt.testColumns
+				columns: dt.getTestColumns()
 			});
 			table.row
 				.add({

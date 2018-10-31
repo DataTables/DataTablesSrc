@@ -249,7 +249,7 @@ describe('column.createdCell option', function() {
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
 				pageLength: 10,
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				columnDefs: [
 					{
 						targets: 1,

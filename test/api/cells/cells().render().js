@@ -165,7 +165,7 @@ describe('cells - cells().render()', function() {
 
 		dt.html('empty');
 		it('Display', function() {
-			let cols = JSON.parse(JSON.stringify(dt.testColumns));
+			let cols = dt.getTestColumns();
 			cols[0].data = null;
 			cols[0].render = {
 				_: 'name',
@@ -184,7 +184,7 @@ describe('cells - cells().render()', function() {
 
 		dt.html('empty');
 		it('Filter', function() {
-			let cols = JSON.parse(JSON.stringify(dt.testColumns));
+			let cols = dt.getTestColumns();
 			cols[0].data = null;
 			cols[0].render = {
 				_: 'name',
@@ -203,7 +203,7 @@ describe('cells - cells().render()', function() {
 
 		dt.html('empty');
 		it('Sort', function() {
-			let cols = JSON.parse(JSON.stringify(dt.testColumns));
+			let cols = dt.getTestColumns();
 			cols[0].data = null;
 			cols[0].render = {
 				_: 'name',
@@ -222,7 +222,7 @@ describe('cells - cells().render()', function() {
 
 		dt.html('empty');
 		it('Type', function() {
-			let cols = JSON.parse(JSON.stringify(dt.testColumns));
+			let cols = dt.getTestColumns();
 			cols[0].data = null;
 			cols[0].render = {
 				_: 'name',
@@ -241,7 +241,7 @@ describe('cells - cells().render()', function() {
 
 		dt.html('empty');
 		it('Test', function() {
-			let cols = JSON.parse(JSON.stringify(dt.testColumns));
+			let cols = dt.getTestColumns();
 			cols[0].data = null;
 			cols[0].render = {
 				_: 'name',

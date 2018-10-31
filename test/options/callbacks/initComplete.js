@@ -30,7 +30,7 @@ describe('initComplete Option', function() {
 		it('Two arguments passed (Ajax)', function(done) {
 			$('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				initComplete: function() {
 					expect(arguments.length).toBe(2);
 					expect(typeof arguments[0]).toBe('object');
@@ -83,7 +83,7 @@ describe('initComplete Option', function() {
 		it('Table fully loaded when called (Ajax)', function(done) {
 			$('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				initComplete: function() {
 					expect($('#example tbody tr').length).toBe(10);
 					expect(this.api().rows().count()).toBe(57);

@@ -24,12 +24,13 @@ describe('columns- column().dataSrc()', function() {
 
 		dt.html('empty');
 		it('Returns correct element when object based', function(done) {
+			let columns = dt.getTestColumns();
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
-				columns: dt.testColumns,
+				columns: columns,
 				initComplete: function(settings, json) {
 					for (let i = 0; i < 6; i++) {
-						expect(table.column(i).dataSrc()).toBe(dt.testColumns[i].data);
+						expect(table.column(i).dataSrc()).toBe(columns[i].data);
 					}
 					done();
 				}
@@ -57,7 +58,7 @@ describe('columns- column().dataSrc()', function() {
 
 		dt.html('empty');
 		it('When null data source', function(done) {
-			let columns = dt.testColumns;
+			let columns = dt.getTestColumns();
 			columns[2].data = null;
 			columns[2].defaultContent = 'unit test';
 

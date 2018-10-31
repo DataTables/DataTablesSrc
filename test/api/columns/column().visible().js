@@ -71,7 +71,7 @@ describe('columns - column().visible()', function() {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
 					expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant')).toBe(true);
@@ -86,7 +86,7 @@ describe('columns - column().visible()', function() {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
 					table.column(0).visible(true);
@@ -104,7 +104,7 @@ describe('columns - column().visible()', function() {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				initComplete: function(settings, json) {
 					table.column(0).visible(false);
 					expect(dt.isColumnHBFExpected(0, 'Position', 'Accountant')).toBe(true);
@@ -119,7 +119,7 @@ describe('columns - column().visible()', function() {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				columnDefs: [{ visible: false, targets: 0 }],
 				initComplete: function(settings, json) {
 					table.column(0).visible(true);

@@ -9,7 +9,7 @@ describe('core - ajax.reload()', function() {
 		let table;
 		it('Exists and is a function', function(done) {
 			table = $('#example').DataTable({
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				ajax: '/base/test/data/data.txt',
 				initComplete: function(settings, json) {
 					expect(this.api().ajax.reload() instanceof $.fn.dataTable.Api).toBe(true);
@@ -27,7 +27,7 @@ describe('core - ajax.reload()', function() {
 		let table;
 		it('Setup empty table', function(done) {
 			table = $('#example').DataTable({
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				ajax: '/base/test/data/data.txt',
 				initComplete: function(settings, json) {
 					table.clear();

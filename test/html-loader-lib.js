@@ -277,7 +277,7 @@
 		},
 
 		// columns used during testing (used frequently)
-		testColumns: [
+		_testColumns: [
 			{ data: 'name' },
 			{ data: 'position' },
 			{ data: 'office' },
@@ -285,6 +285,11 @@
 			{ data: 'start_date' },
 			{ data: 'salary' }
 		],
+
+		// makes a copy of the test columns so they can be modified
+		getTestColumns: function() {
+			return JSON.parse(JSON.stringify(this._testColumns));
+		},
 
 		// editor's config to set up the editor fields
 		testEditorFields: [
