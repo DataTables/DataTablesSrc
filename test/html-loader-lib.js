@@ -292,7 +292,7 @@
 		},
 
 		// editor's config to set up the editor fields
-		testEditorFields: [
+		_testEditorFields: [
 			{
 				label: 'Name:',
 				name: 'name'
@@ -319,6 +319,11 @@
 				name: 'salary'
 			}
 		],
+
+		// makes a copy of the test columns so they can be modified
+		getTestEditorColumns: function() {
+			return JSON.parse(JSON.stringify(this._testEditorFields));
+		},
 
 		// make a person object (as pain to do everytime in the test)
 		makePersonObject: function(name) {
