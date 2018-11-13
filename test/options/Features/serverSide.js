@@ -1,4 +1,4 @@
-describe('serverSide option //More tests needed', function() {
+describe('serverSide option', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']

@@ -3,7 +3,6 @@ var pageCounter = 0;
 
 var headerArgs;
 var headerCounter = 0;
-var table;
 
 // Create a simple renderer that we can use for our testing - it just
 // creates `a` tags for each button type
@@ -37,193 +36,219 @@ var header = function(settings, cell, column, classes) {
 	$(cell).attr('counter', headerCounter);
 };
 
+function resetCounters() {
+	pageCounter = 0;
+	headerCounter = 0;
+}
+
+function checkHeaders(first, last) {
+	expect($('thead tr th:eq(0)').attr('counter')).toBe(first);
+	expect($('thead tr th:eq(5)').attr('counter')).toBe(last);
+}
+
+function checkButtons(rendered) {
+	expect($('div.dataTables_paginate a').length).toBe(8); // paging
+	expect($('div.dataTables_paginate span').length).toBe(rendered? 0 : 1); // paging
+	expect($('thead th:eq(0)').children().length).toBe(0); // header
+
+	if (rendered) {
+		$('div.dataTables_paginate a:eq(4)').click();
+		expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Jennifer Chang');
+	}
+}
+
+function checkCounters(header, page) {
+	expect(headerCounter).toBe(header);
+	expect(pageCounter).toBe(page);
+}
+
+function checkOrdering() {
+	$('thead tr th:eq(2)').click();
+	expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Cedric Kelly');
+}
+
 describe('renderer option initialisation types for page button', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
 	});
 
+	let table;
+
 	it('Default is null', function() {
 		expect($.fn.dataTable.defaults.renderer).toBe(null);
 	});
 
 	dt.html('basic');
-
 	it('Uses default when not explicitly set', function() {
 		$('#example').DataTable();
 
-		// Created without error - renderer can be given as an object
-		expect($('div.dataTables_paginate a').length).toBe(8); // paging
-		expect($('div.dataTables_paginate span').length).toBe(1); // paging
-		expect($('thead th:eq(0)').children().length).toBe(0); // header
+		checkCounters(0, 0);
+		checkHeaders(undefined, undefined);
+		checkButtons(false);
+		checkOrdering();
 	});
 
 	dt.html('basic');
-
 	it('Set the renderer - as a string', function() {
 		$.fn.dataTable.ext.renderer.pageButton.test = pageButtons;
 
-		$('#example').DataTable({
+		resetCounters();
+		table = $('#example').DataTable({
 			renderer: 'test'
 		});
 
-		// Created without error
-		expect(true).toBe(true);
-	});
-
-	it('Custom renderer was called for paging', function() {
-		expect(pageCounter).toBe(1);
+		checkCounters(0, 1);
+		checkHeaders(undefined, undefined);
+		checkButtons(true);
+		checkOrdering();
 	});
 
 	dt.html('basic');
-
 	it('Set the renderer - as object with only the `pageButton` rendering type defined', function() {
-		$('#example').DataTable({
+		resetCounters();
+		table = $('#example').DataTable({
 			renderer: {
 				pageButton: 'test'
 			}
 		});
 
-		// Created without error
-		expect(true).toBe(true);
-	});
-
-	it('Custom renderer was again called for paging', function() {
-		expect(pageCounter).toBe(2);
+		checkCounters(0, 1);
+		checkHeaders(undefined, undefined);
+		checkButtons(true);
+		checkOrdering();
 	});
 
 	dt.html('basic');
-
 	it('Set the renderer - as object with only the `header` rendering type defined', function() {
+		resetCounters();
 		$('#example').DataTable({
 			renderer: {
 				header: 'test'
 			}
 		});
 
-		// Created without error
-		expect(true).toBe(true);
-	});
-
-	it('Custom renderer was NOT called for paging', function() {
-		expect(pageCounter).toBe(2);
+		checkCounters(0, 0);
+		checkHeaders(undefined, undefined);
+		checkButtons(false);
+		checkOrdering();
 	});
 });
 
 describe('renderer option initialisation types for header', function() {
 	dt.html('basic');
-
 	it('Set the renderer - as a string', function() {
 		delete $.fn.dataTable.ext.renderer.pageButton.test; // remove
 		$.fn.dataTable.ext.renderer.header.test = header;
 
+		resetCounters();
 		$('#example').DataTable({
 			renderer: 'test'
 		});
 
-		// Created without error
-		expect(true).toBe(true);
-	});
-
-	it('Custom renderer was called for header', function() {
-		expect(headerCounter).toBe(6);
+		checkCounters(6, 0);
+		checkHeaders('1', '6');
+		checkButtons(false);
+		checkOrdering();
 	});
 
 	dt.html('basic');
-
 	it('Set the renderer - as object with only the `pageButton` rendering type defined', function() {
+		resetCounters();
 		$('#example').DataTable({
 			renderer: {
 				pageButton: 'test'
 			}
 		});
 
-		// Created without error
-		expect(true).toBe(true);
-	});
-
-	it('Custom renderer was NOT called for header', function() {
-		expect(headerCounter).toBe(6);
+		checkCounters(0, 0);
+		checkHeaders(undefined, undefined);
+		checkButtons(false);
+		checkOrdering();
 	});
 
 	dt.html('basic');
-
 	it('Set the renderer - as object with only the `header` rendering type defined', function() {
+		resetCounters();
 		$('#example').DataTable({
 			renderer: {
 				header: 'test'
 			}
 		});
 
-		// Created without error
-		expect(true).toBe(true);
-	});
-
-	it('Custom renderer was called for header', function() {
-		expect(headerCounter).toBe(12);
+		checkCounters(6, 0);
+		checkHeaders('1', '6');
+		checkButtons(false);
+		checkOrdering();
 	});
 });
 
 describe('renderer option initialisation types for both paging and header', function() {
 	dt.html('basic');
-
 	it('Set the renderer - as a string', function() {
 		$.fn.dataTable.ext.renderer.pageButton.test = pageButtons;
 		$.fn.dataTable.ext.renderer.header.test = header;
 
+		resetCounters();
 		$('#example').DataTable({
 			renderer: 'test'
 		});
 
-		// Created without error
-		expect(true).toBe(true);
-	});
-
-	it('Custom renderer was called for header and buttons', function() {
-		expect(pageCounter).toBe(3);
-		expect(headerCounter).toBe(18);
+		checkCounters(6, 1);
+		checkHeaders('1', '6');
+		checkButtons(true);
+		checkOrdering();
 	});
 
 	dt.html('basic');
-
 	it('Set the renderer - as object with only the `pageButton` rendering type defined', function() {
+		resetCounters();
 		$('#example').DataTable({
 			renderer: {
 				pageButton: 'test'
 			}
 		});
 
-		// Created without error
-		expect(true).toBe(true);
-	});
-
-	it('Custom renderer was called only for the page button', function() {
-		expect(pageCounter).toBe(4);
-		expect(headerCounter).toBe(18);
+		checkCounters(0, 1);
+		checkHeaders(undefined, undefined);
+		checkButtons(true);
+		checkOrdering();
 	});
 
 	dt.html('basic');
-
 	it('Set the renderer - as object with only the `header` rendering type defined', function() {
+		resetCounters();
 		$('#example').DataTable({
 			renderer: {
 				header: 'test'
 			}
 		});
 
-		// Created without error
-		expect(true).toBe(true);
+		checkCounters(6, 0);
+		checkHeaders('1', '6');
+		checkButtons(false);
+		checkOrdering();
 	});
 
-	it('Custom renderer was called only for header', function() {
-		expect(pageCounter).toBe(4);
-		expect(headerCounter).toBe(24);
+	dt.html('basic');
+	it('Set the renderer - `header` and `pageButton` defined', function() {
+		resetCounters();
+		$('#example').DataTable({
+			renderer: {
+				header: 'test',
+				pageButton: 'test'
+			}
+		});
+
+		checkCounters(6, 1);
+		checkHeaders('1', '6');
+		checkButtons(true);
+		checkOrdering();
 	});
 });
 
 describe('renderer option page button functions', function() {
 	dt.html('basic');
-
 	it('Create the DataTable', function() {
 		table = $('#example').DataTable({
 			renderer: 'test'
