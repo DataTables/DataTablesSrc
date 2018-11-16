@@ -70,6 +70,7 @@ describe('columns.render option', function() {
 			});
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Aaron');
 		});
+
 		dt.html('empty');
 		it('Dotted JS notation (next objects)', function() {
 			let data = [
@@ -90,6 +91,7 @@ describe('columns.render option', function() {
 			});
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Aaron');
 		});
+
 		dt.html('empty');
 		it('Array in the string', function() {
 			let data = [
@@ -162,7 +164,7 @@ describe('columns.render option', function() {
 		});
 	});
 
-	describe('Functional tests - object type', function() {
+	describe('Functional tests - function type', function() {
 		dt.html('basic');
 		let table;
 		it('Function has the correct args', function() {
