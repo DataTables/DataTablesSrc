@@ -256,8 +256,8 @@ DT_Example::$lookup_libraries['js' ]['jqueryui']     = 'https://code.jquery.com/
 DT_Example::$lookup_libraries['css']['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
 DT_Example::$lookup_libraries['css']['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
-DT_Example::$lookup_libraries['js']['bootstrap4']    = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js|https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js';
-DT_Example::$lookup_libraries['css' ]['bootstrap4']  = 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css';
+DT_Example::$lookup_libraries['js']['bootstrap4']    = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js|https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js';
+DT_Example::$lookup_libraries['css' ]['bootstrap4']  = 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css';
 DT_Example::$lookup_libraries['js' ]['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js';
 DT_Example::$lookup_libraries['css']['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css';
 DT_Example::$lookup_libraries['js' ]['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.js';
@@ -632,10 +632,32 @@ SET IDENTITY_INSERT datatables_demo ON;
 INSERT INTO datatables_demo
 		( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) 
 	VALUES
-		$values;
-
-SET IDENTITY_INSERT datatables_demo OFF;
 EOD;
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$out[] = "( ".
+				$json[$i]['id'].", ".
+			"'".$json[$i]['first_name']."', ".
+			"'".$json[$i]['last_name']."', ".
+				$json[$i]['age'].", ".
+			"'".$json[$i]['position']."', ".
+				$json[$i]['salary'].", ".
+			"'".str_replace( '/', '', $json[$i]['start_date'])."', ".
+				$json[$i]['extn'].", ".
+			"'".$json[$i]['email']."', ".
+			"'".$json[$i]['office']."', ".
+				$json[$i]['sequence']." ".
+		")";
+	}
+
+	$sqlServerValues = join( ",\n\t\t", $out );
+	$str .= <<<EOD
+
+		$sqlServerValues;
+
+	SET IDENTITY_INSERT datatables_demo OFF;
+EOD;
+
 	file_put_contents( $out_dir.'/sqlserver.sql', $str );
 
 	// SQLite style
