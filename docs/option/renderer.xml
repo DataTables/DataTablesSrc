@@ -17,11 +17,11 @@
 	</type>
 
 	<description>
-		DataTables adds some complex components to your HTML page, such as the pagination control. The business logic used to calculate information should be displayed (what buttons in the case of the pagination buttons) is core to DataTables and generally doesn't vary how the buttons are actually displayed does based on the styling requirements of the page. For example the pagination buttons might be displayed as `dt-tag li` elements in a `dt-tag ul` list, or simply as a collection of `dt-tag a` buttons.
+		DataTables adds complex components to your HTML page, such as the pagination control. The business logic used to calculate what information should be displayed (what buttons in the case of the pagination buttons) is core to DataTables and generally doesn't vary how the buttons are actually displayed based on the styling requirements of the page. For example the pagination buttons might be displayed as `dt-tag li` elements in a `dt-tag ul` list, or simply as a collection of `dt-tag a` buttons.
 
 		This ability to use different renderers, while maintaining the same core business logic, is fundamental to how DataTables provides integration options for CSS frameworks such as Bootstrap, Foundation and jQuery UI, customising the HTML it uses to fit the requirements of each framework.
 
-		This parameter controls which renderers will be used. The value given will be used is such a renderer exists, otherwise the default renderer will be used. Additional renderers can be added by plug-ins.
+		This parameter controls which renderers will be used. The value given will be used if such a renderer exists, otherwise the default renderer will be used. Additional renderers can be added by plug-ins.
 
 		DataTables currently supports two different types of renderers:
 

@@ -34,17 +34,18 @@ describe('columns.width option', function() {
 		});
 
 		dt.html('basic');
-
 		it('With autowidth, it will make the smallest columns the largest with percentage width given', function() {
 			$('#example').dataTable({
 				columns: [null, null, null, { width: '50%' }, null, null]
 			});
+			
 			var anThs = $('#example thead th');
 			var a0 = anThs[0].offsetWidth;
 			var a1 = anThs[1].offsetWidth;
 			var a2 = anThs[2].offsetWidth;
 			var a3 = anThs[3].offsetWidth;
 			var a4 = anThs[4].offsetWidth;
+
 			expect(a3 > a0).toBe(true);
 			expect(a3 > a1).toBe(true);
 			expect(a3 > a2).toBe(true);
