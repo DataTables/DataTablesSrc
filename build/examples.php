@@ -717,28 +717,28 @@ BEGIN
 END;
 /
 
-CREATE TABLE datatables_demo (
-	id INT PRIMARY KEY NOT NULL,
-	first_name NVARCHAR2(250),
-	last_name  NVARCHAR2(250),
-	position   NVARCHAR2(250),
-	email      NVARCHAR2(250),
-	office     NVARCHAR2(250),
-	start_date DATE,
-	age        INT,
-	salary     INT,
-	seq        INT,
-	extn       NVARCHAR2(8)
+CREATE TABLE "datatables_demo" (
+	"id" INT PRIMARY KEY NOT NULL,
+	"first_name" NVARCHAR2(250),
+	"last_name"  NVARCHAR2(250),
+	"position"   NVARCHAR2(250),
+	"email"      NVARCHAR2(250),
+	"office"     NVARCHAR2(250),
+	"start_date" DATE,
+	"age"        INT,
+	"salary"     INT,
+	"seq"        INT,
+	"extn"       NVARCHAR2(8)
 );
 
 CREATE SEQUENCE datatables_demo_seq;
 
 CREATE OR REPLACE TRIGGER datatables_demo_on_insert
-	BEFORE INSERT ON datatables_demo
+	BEFORE INSERT ON "datatables_demo"
 	FOR EACH ROW
 	BEGIN
 		SELECT datatables_demo_seq.nextval
-		INTO :new.id
+		INTO :new."id"
 		FROM dual;
 	END;
 	/
@@ -746,8 +746,8 @@ CREATE OR REPLACE TRIGGER datatables_demo_on_insert
 EOD;
 
 	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
-		$str .= "INSERT INTO datatables_demo ".
-			"( first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) ".
+		$str .= "INSERT INTO \"datatables_demo\" ".
+			"( \"first_name\", \"last_name\", \"age\", \"position\", \"salary\", \"start_date\", \"extn\", \"email\", \"office\", \"seq\" ) ".
 			"VALUES ";
 
 		$str .= "( ".
