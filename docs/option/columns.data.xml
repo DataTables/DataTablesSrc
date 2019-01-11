@@ -47,7 +47,7 @@
 			The data for the whole row
 		</parameter>
 		<parameter type="string" name="type">
-			The data type requested for the cell
+			The data type requested for the cell. Predefined types are `string filter`, `string display`, `string type` or `string sort`.
 		</parameter>
 		<parameter type="*" name="set">
 			Value to set if the `type` parameter is `-string set`. Otherwise, `-type undefined`.
