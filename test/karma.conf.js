@@ -142,6 +142,12 @@ module.exports = function(config) {
 					js: false,
 					css: true
 				},
+				keytable: {
+					pathName: 'KeyTable',
+					fileName: 'keyTable',
+					js: false,
+					css: true
+				},
 				responsive: {
 					pathName: 'Responsive',
 					fileName: 'responsive',
