@@ -1,3 +1,4 @@
+// TK COLIN not convinced by the usefulness of these tests...
 describe('Basic Datatables Test', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],

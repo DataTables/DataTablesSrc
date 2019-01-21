@@ -7,6 +7,7 @@ describe('pageType Option', function() {
 	function checkPaging(count, typeInternal, type, pages, pageCount, prevNext, firstLast) {
 		expect($('.dataTables_paginate a').length).toBe(count);
 		expect($('#example').DataTable.settings[0].sPaginationType).toBe(typeInternal);
+		expect($('div.' + type).length).toBe(1);
 
 		if (pages) {
 			// this is the sum of the numbers ('a') and the ellipses ('span')

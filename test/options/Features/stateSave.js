@@ -33,7 +33,7 @@ describe('stateSave option', function() {
 
 			table = $('#example').DataTable({ stateSave: true });
 			expect($('#example tbody td:eq(0)').text()).toBe('Bradley Greer');
-			expect($('#example_info').text()).toBe('Showing 1 to 9 of 9 entries (filtered from 57 total entries)');
+			expect($('div.dataTables_info').text()).toBe('Showing 1 to 9 of 9 entries (filtered from 57 total entries)');
 			expect($('div.dataTables_filter input').val()).toBe('2012');
 			table.state.clear();
 		});
@@ -46,7 +46,7 @@ describe('stateSave option', function() {
 
 			$('#example').dataTable({ stateSave: true });
 			expect($('#example tbody td:eq(0)').text()).toBe('Bradley Greer');
-			expect($('#example_info').text()).toBe('Showing 1 to 9 of 9 entries (filtered from 57 total entries)');
+			expect($('div.dataTables_info').text()).toBe('Showing 1 to 9 of 9 entries (filtered from 57 total entries)');
 			expect(table.search()).toBe('2012');
 			table.state.clear();
 		});
@@ -69,7 +69,7 @@ describe('stateSave option', function() {
 		it('Does sorting remain applied after page refresh', function() {
 			/*
 			 * Note the following behaviour is unintuitive. It's different to the search results before the refresh
-			 * because the first search is a stable search - it uses the first column as a secondary ordering. 
+			 * because the first search is a stable search - it uses the first column as a secondary ordering.
 			 * The second search doesn't do this, so the secondary ordering is purely the load order. A bug-ette
 			 * in the reload, but very minor, and unlikely to ever be resolved.
 			 */
@@ -124,13 +124,13 @@ describe('stateSave option', function() {
 		it('Check table is back to default state', function() {
 			$('#example').dataTable({ stateSave: true });
 			expect($('#example tbody td:eq(0)').text()).toBe('Airi Satou');
-			expect($('#example_info').text()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		it('Paging - Second page', function() {
-			$('#example_next').click();
+			$('.paginate_button.next').click();
 			expect($('#example tbody td:eq(0)').text()).toBe('Charde Marshall');
-			expect($('#example_info').text()).toBe('Showing 11 to 20 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 11 to 20 of 57 entries');
 		});
 
 		it('Paging - Second page - After refresh', function() {
@@ -139,13 +139,13 @@ describe('stateSave option', function() {
 				.destroy();
 			$('#example').dataTable({ stateSave: true });
 			expect($('#example tbody td:eq(0)').text()).toBe('Charde Marshall');
-			expect($('#example_info').text()).toBe('Showing 11 to 20 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 11 to 20 of 57 entries');
 		});
 
 		it('Paging - Third page', function() {
-			$('#example_next').click();
+			$('.paginate_button.next').click();
 			expect($('#example tbody td:eq(0)').text()).toBe('Gloria Little');
-			expect($('#example_info').text()).toBe('Showing 21 to 30 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 21 to 30 of 57 entries');
 		});
 
 		it('Paging - Third page- After refresh', function() {
@@ -154,27 +154,27 @@ describe('stateSave option', function() {
 				.destroy();
 			$('#example').dataTable({ stateSave: true });
 			expect($('#example tbody td:eq(0)').text()).toBe('Gloria Little');
-			expect($('#example_info').text()).toBe('Showing 21 to 30 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 21 to 30 of 57 entries');
 		});
 
 		it('Paging back to second page and refreshing', function() {
-			$('#example_previous').click();
+			$('.paginate_button.previous').click();
 			$('#example')
 				.DataTable()
 				.destroy();
 			$('#example').dataTable({ stateSave: true });
 			expect($('#example tbody td:eq(0)').text()).toBe('Charde Marshall');
-			expect($('#example_info').text()).toBe('Showing 11 to 20 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 11 to 20 of 57 entries');
 		});
 
 		it('Paging back to first page and refreshing', function() {
-			$('#example_previous').click();
+			$('.paginate_button.previous').click();
 			$('#example')
 				.DataTable()
 				.destroy();
 			let table = $('#example').DataTable({ stateSave: true });
 			expect($('#example tbody td:eq(0)').text()).toBe('Airi Satou');
-			expect($('#example_info').text()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entries');
 			table.state.clear();
 		});
 	});
@@ -187,11 +187,11 @@ describe('stateSave option', function() {
 				.val('25')
 				.change();
 
-			expect($('#example_info').text()).toBe('Showing 1 to 25 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 1 to 25 of 57 entries');
 			table.state.clear();
 			table.destroy();
 			table = $('#example').DataTable({ stateSave: true });
-			expect($('#example_info').text()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		dt.html('basic');
@@ -202,7 +202,7 @@ describe('stateSave option', function() {
 				.change();
 			table.destroy();
 			table = $('#example').DataTable({ stateSave: true });
-			expect($('#example_info').text()).toBe('Showing 1 to 25 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 1 to 25 of 57 entries');
 		});
 	});
 

@@ -63,7 +63,7 @@ describe('initComplete Option', function() {
 			expect(count).toBe(1);
 		});
 		it('initComplete never called there after', function() {
-			$('#example_next').click();
+			$('.paginate_button.next').click();
 			table.page(1).draw();
 			expect(count).toBe(1);
 		});
