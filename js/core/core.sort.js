@@ -68,26 +68,29 @@ function _fnSortFlatten ( settings )
 	for ( i=0 ; i<nestedSort.length ; i++ )
 	{
 		srcCol = nestedSort[i][0];
-		aDataSort = aoColumns[ srcCol ].aDataSort;
 
-		for ( k=0, kLen=aDataSort.length ; k<kLen ; k++ )
-		{
-			iCol = aDataSort[k];
-			sType = aoColumns[ iCol ].sType || 'string';
+		if ( aoColumns[ srcCol ] ) {
+			aDataSort = aoColumns[ srcCol ].aDataSort;
 
-			if ( nestedSort[i]._idx === undefined ) {
-				nestedSort[i]._idx = $.inArray( nestedSort[i][1], aoColumns[iCol].asSorting );
-			}
+			for ( k=0, kLen=aDataSort.length ; k<kLen ; k++ )
+			{
+				iCol = aDataSort[k];
+				sType = aoColumns[ iCol ].sType || 'string';
 
-			if ( nestedSort[i][1] ) {
-				aSort.push( {
-					src:       srcCol,
-					col:       iCol,
-					dir:       nestedSort[i][1],
-					index:     nestedSort[i]._idx,
-					type:      sType,
-					formatter: DataTable.ext.type.order[ sType+"-pre" ]
-				} );
+				if ( nestedSort[i]._idx === undefined ) {
+					nestedSort[i]._idx = $.inArray( nestedSort[i][1], aoColumns[iCol].asSorting );
+				}
+
+				if ( nestedSort[i][1] ) {
+					aSort.push( {
+						src:       srcCol,
+						col:       iCol,
+						dir:       nestedSort[i][1],
+						index:     nestedSort[i]._idx,
+						type:      sType,
+						formatter: DataTable.ext.type.order[ sType+"-pre" ]
+					} );
+				}
 			}
 		}
 	}

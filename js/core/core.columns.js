@@ -202,9 +202,11 @@ function _fnVisbleColumns( settings )
 	var columns = settings.aoColumns;
 	var vis = 0;
 
-	for ( var i=0, ien=layout[0].length ; i<ien ; i++ ) {
-		if ( columns[i].bVisible && $(layout[0][i].cell).css('display') !== 'none' ) {
-			vis++;
+	if ( layout.length ) {
+		for ( var i=0, ien=layout[0].length ; i<ien ; i++ ) {
+			if ( columns[i].bVisible && $(layout[0][i].cell).css('display') !== 'none' ) {
+				vis++;
+			}
 		}
 	}
 

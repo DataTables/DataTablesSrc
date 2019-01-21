@@ -258,8 +258,10 @@ if ( oInit.aoColumns ) {
 else {
 	var headerLayout = _fnDetectHeader( oSettings, this.getElementsByTagName('thead')[0] );
 
-	for ( i=0, iLen=headerLayout[0].length ; i<iLen ; i++ ) {
-		columnsInit.push( null );
+	if ( headerLayout.length ) {
+		for ( i=0, iLen=headerLayout[0].length ; i<iLen ; i++ ) {
+			columnsInit.push( null );
+		}
 	}
 }
 
