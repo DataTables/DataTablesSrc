@@ -82,4 +82,32 @@ describe('rows - row.add()', function() {
 			expect(isFredThere()).toBe(true);
 		});
 	});
+
+	describe('Adding new row to HTML5 attr sourced orthogonal table', function() {
+		dt.html('html5');
+
+		it('Add row as a Node', function() {
+			let table = $('#example').DataTable();
+			table
+				.row.add({
+					0: {
+						display: 'Jadzia',
+						'@data-filter': 'Dax'
+					},
+					1: {
+						display: 'Know it all',
+						'@data-sort': '1'
+					},
+					2: 'DS9',
+					3: '213',
+					4: '2012/03/29',
+					5: '0'
+				})
+				.search('Dax')
+				.draw();
+
+			expect($('#example tbody td:eq(0)').text()).toBe('Jadzia');
+		} );
+	});
 });
+
