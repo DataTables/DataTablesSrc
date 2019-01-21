@@ -73,7 +73,7 @@ describe('drawCallback option', function() {
 		});
 
 		it('drawCallback called once when paging', function() {
-			$('#example_next').click();
+			$('.paginate_button.next').click();
 			expect(test).toBe(2);
 		});
 

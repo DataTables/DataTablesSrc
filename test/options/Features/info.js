@@ -53,8 +53,8 @@ describe('info option- Feature', function() {
 			$('#example_two').DataTable({
 				info: false
 			});
-			expect($('#example_one_info').length).toBe(1);
-			expect($('#example_two_info').length).toBe(0);
+			expect($('#example_one_wrapper div.dataTables_info').length).toBe(1);
+			expect($('#example_two_wrapper div.dataTables_info').length).toBe(0);
 		});
 
 		dt.html('basic');

@@ -7,7 +7,6 @@ describe('searching option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Default is enabled', function() {
-			// it's an alias for this fellow
 			expect($.fn.dataTable.defaults.bFilter).toBe(true);
 		});
 
@@ -44,8 +43,8 @@ describe('searching option', function() {
 				searching: false
 			});
 
-			expect($('#example_one_filter').length).toBe(1);
-			expect($('#example_two_filter').length).toBe(0);
+			expect($('#example_one_wrapper div.dataTables_filter').length).toBe(1);
+			expect($('#example_two_wrapper div.dataTables_filter').length).toBe(0);
 		});
 	});
 
@@ -57,7 +56,9 @@ describe('searching option', function() {
 			$('div.dataTables_filter input')
 				.val(33)
 				.keyup();
-			expect($('div.dataTables_info').html() == 'Showing 1 to 2 of 2 entries (filtered from 57 total entries)').toBeTruthy();
+			expect(
+				$('div.dataTables_info').html() == 'Showing 1 to 2 of 2 entries (filtered from 57 total entries)'
+			).toBeTruthy();
 		});
 
 		it('searching enabled by default- API', function() {
@@ -65,14 +66,18 @@ describe('searching option', function() {
 				.DataTable()
 				.search(33)
 				.draw();
-			expect($('div.dataTables_info').html() == 'Showing 1 to 2 of 2 entries (filtered from 57 total entries)').toBeTruthy();
+			expect(
+				$('div.dataTables_info').html() == 'Showing 1 to 2 of 2 entries (filtered from 57 total entries)'
+			).toBeTruthy();
 		});
 
 		it('Can search multiple space seperated words- DOM', function() {
 			$('div.dataTables_filter input')
 				.val('New 3')
 				.keyup();
-			expect($('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)').toBeTruthy();
+			expect(
+				$('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
+			).toBeTruthy();
 		});
 
 		it('Can search multiple space seperated words- API', function() {
@@ -80,7 +85,9 @@ describe('searching option', function() {
 				.DataTable()
 				.search('New 3')
 				.draw();
-			expect($('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)').toBeTruthy();
+			expect(
+				$('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
+			).toBeTruthy();
 		});
 	});
 
@@ -118,7 +125,9 @@ describe('searching option', function() {
 			$('div.dataTables_filter input')
 				.val('New 3')
 				.keyup();
-			expect($('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)').toBeTruthy();
+			expect(
+				$('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
+			).toBeTruthy();
 		});
 
 		it('Searching enabled override- API', function() {
@@ -126,7 +135,9 @@ describe('searching option', function() {
 				.DataTable()
 				.search('New 3')
 				.draw();
-			expect($('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)').toBeTruthy();
+			expect(
+				$('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
+			).toBeTruthy();
 		});
 	});
 });

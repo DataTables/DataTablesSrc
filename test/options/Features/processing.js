@@ -13,7 +13,7 @@ describe('Processing option', function() {
 		dt.html('basic');
 		it('Processing can be enabled', function() {
 			$('#example').on('processing.dt', function(e) {
-				expect(document.getElementById('example_processing')).not.toBeNull();
+				expect($('div.dataTables_processing').length).toBe(1);
 			});
 			$('#example').dataTable({
 				processing: true
@@ -21,10 +21,10 @@ describe('Processing option', function() {
 			$('#example').off('processing.dt', function(e) {});
 		});
 		it('Processing div is in the DOM', function() {
-			expect(document.getElementById('example_processing')).toBeTruthy();
+			expect($('div.dataTables_processing').length).toBe(1);
 		});
 	});
-	
+
 	describe('disable makes no difference', function() {
 		dt.html('basic');
 		it('Processing disabled override', function() {
@@ -32,13 +32,13 @@ describe('Processing option', function() {
 				processing: false
 			});
 			$('#example').on('processing.dt', function(e) {
-				expect(document.getElementById('example_processing')).toBeNull();
+				expect($('div.dataTables_processing').length).toBe(0);
 			});
 
 			$('#example').off('processing.dt', function(e) {});
 		});
 		it('Processing div is not in the DOM', function() {
-			expect(document.getElementById('example_processing') === null).toBeTruthy();
+			expect($('div.dataTables_processing').length).toBe(0);
 		});
 	});
 });

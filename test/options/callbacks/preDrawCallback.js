@@ -49,9 +49,9 @@ describe('preDrawCallback option', function() {
 			expect(drawCount).toBe(1);
 		});
 		it('preDrawCallback called once after each draw', function() {
-			$('#example_next').click();
-			$('#example_next').click();
-			$('#example_next').click();
+			$('.paginate_button.next').click();
+			$('.paginate_button.next').click();
+			$('.paginate_button.next').click();
 
 			expect(count).toBe(4);
 			expect(drawCount).toBe(4);

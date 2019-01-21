@@ -59,16 +59,16 @@ describe('destroy option', function() {
 			$('#example_one').DataTable();
 			$('#example_two').DataTable();
 
-			expect($('#example_one_filter').length).toBe(1);
-			expect($('#example_two_filter').length).toBe(1);
+			expect($('#example_one_wrapper div.dataTables_filter').length).toBe(1);
+			expect($('#example_two_wrapper div.dataTables_filter').length).toBe(1);
 
 			$('#example_one').DataTable({
 				filter: false,
 				destroy: true
 			});
 
-			expect($('#example_one_filter').length).toBe(0);
-			expect($('#example_two_filter').length).toBe(1);
+			expect($('#example_one_wrapper div.dataTables_filter').length).toBe(0);
+			expect($('#example_two_wrapper div.dataTables_filter').length).toBe(1);
 		});
 	});
 });

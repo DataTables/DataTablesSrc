@@ -37,7 +37,7 @@ describe('language.thousands option ', function() {
 			}
 		});
 	});
-	
+
 	dt.html('numerical');
 	it('Use an empty string to show no seperator', function(done) {
 		$('#example').dataTable({
