@@ -90,13 +90,18 @@ function _fnCalculateColumnWidths ( oSettings )
 	} );
 
 	// Find the widest cell for each column and put it into the table
-	if ( oSettings.aoData.length ) {
-		for ( i=0 ; i<visibleColumns.length ; i++ ) {
-			columnIdx = visibleColumns[i];
-			column = columns[ columnIdx ];
+	for ( i=0 ; i<visibleColumns.length ; i++ ) {
+		columnIdx = visibleColumns[i];
+		column = columns[ columnIdx ];
 
+		if ( oSettings.aoData.length ) {
 			$( _fnGetWidestNode( oSettings, columnIdx ) )
 				.clone( false )
+				.append( column.sContentPadding )
+				.appendTo( tr );
+		}
+		else {
+			$('<td/>')
 				.append( column.sContentPadding )
 				.appendTo( tr );
 		}

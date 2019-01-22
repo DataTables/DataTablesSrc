@@ -367,7 +367,7 @@ var loadedInit = function () {
 	} );
 
 	if ( thead.length === 0 ) {
-		thead = $('<thead/>').appendTo($this)[0];
+		thead = $('<thead/>').appendTo($this);
 	}
 	oSettings.nTHead = thead[0];
 
