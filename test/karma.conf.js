@@ -34,6 +34,9 @@ module.exports = function(config) {
 			case 'FixedHeader':
 				extensionFiles = 'extensions/FixedHeader/test/**/*.js';
 				break;
+			case 'KeyTable':
+				extensionFiles = 'extensions/KeyTable/test/**/*.js';
+				break;
 			case 'Responsive':
 				extensionFiles = 'extensions/Responsive/test/**/*.js';
 				break;
