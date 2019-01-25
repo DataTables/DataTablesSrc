@@ -565,7 +565,11 @@ function _layoutResolve( settings, row ) {
 				line[i] = line[i].node( settings );
 			}
 			else if ( typeof line[i] === 'function' ) {
-				line[i] = line[i]( settings );
+				var inst = line[i]( settings );
+
+				line[i] = typeof inst.node === 'function' ?
+					inst.node() :
+					inst;
 			}
 		}
 	};
