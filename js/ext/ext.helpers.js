@@ -18,6 +18,17 @@ var __htmlEscapeEntities = function ( d ) {
  * The options defined here can be used with the `columns.render` initialisation
  * option to provide a display renderer. The following functions are defined:
  *
+ * * `moment` - Uses the MomentJS library to convert from a given format into another.
+ * This renderer has three overloads:
+ *   * 1 parameter:
+ *     * `string` - Format to convert to (assumes input is ISO8601 and locale is `en`)
+ *   * 2 parameters:
+ *     * `string` - Format to convert from
+ *     * `string` - Format to convert to. Assumes `en` locale
+ *   * 3 parameters:
+ *     * `string` - Format to convert from
+ *     * `string` - Format to convert to
+ *     * `string` - Locale
  * * `number` - Will format numeric data (defined by `columns.data`) for
  *   display, retaining the original unformatted data for sorting and filtering.
  *   It takes 5 parameters:
@@ -39,6 +50,30 @@ var __htmlEscapeEntities = function ( d ) {
  * @namespace
  */
 DataTable.render = {
+	moment: function ( from, to, locale ) {
+		// Argument shifting
+		if ( arguments.length === 1 ) {
+			locale = 'en';
+			to = from;
+			from = 'YYYY-MM-DD';
+		}
+		else if ( arguments.length === 2 ) {
+			locale = 'en';
+		}
+	
+		return function ( d, type ) {
+			var m = window.moment( d, from, locale, true );
+	
+			// Order and type get a number value from Moment, everything else
+			// sees the rendered value
+			var formatted = m.format( type === 'sort' || type === 'type' ? 'x' : to );
+
+			// XSS protection
+			return type === 'display' ?
+				__htmlEscapeEntities( formatted ) :
+				formatted;
+		};
+	},
 	number: function ( thousands, decimal, precision, prefix, postfix ) {
 		return {
 			display: function ( d ) {
