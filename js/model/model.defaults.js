@@ -183,6 +183,9 @@ DataTable.defaults = {
 	 *   required, with the returned value being that used by DataTables as the
 	 *   data source for the table. This supersedes `sAjaxDataProp` from
 	 *   DataTables 1.9-.
+	 * 
+	 * * `jsonSrc` - So that the dataTables library will use a specifics property
+	 * 	 of the server response as the required response object 
 	 *
 	 * * `success` - Should not be overridden it is used internally in
 	 *   DataTables. To manipulate / transform the data returned by the server
@@ -228,6 +231,16 @@ DataTable.defaults = {
 	 *     "ajax": {
 	 *       "url": "data.json",
 	 *       "dataSrc": "tableData"
+	 *     }
+	 *   } );
+	 *
+	 * @example
+	 *   // Get JSON data from a rest api via Ajax and serverSide option, using `jsonSrc` to change
+	 *   // the jsom object to `responseContent` (i.e. `{ status: 200, responseContent: { draw: 1, data: [ ...data... ] } }`)
+	 *   $('#example').dataTable( {
+	 *     "ajax": {
+	 *       "url": "restUrl/getEntries",
+	 *       "jsonSrc": "responseContent"
 	 *     }
 	 *   } );
 	 *
