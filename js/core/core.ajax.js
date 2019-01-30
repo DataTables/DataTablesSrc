@@ -66,15 +66,13 @@ function _fnBuildAjax( oSettings, data, fn )
 	var baseAjax = {
 		"data": data,
 		"success": function (json) {
-			var aJson = _fnAjaxJsonSrc( oSettings, json );
-
-			var error = aJson.error || aJson.sError;
+			var error = json.error || json.sError;
 			if ( error ) {
 				_fnLog( oSettings, 0, error );
 			}
 
-			oSettings.json = aJson;
-			callback( aJson );
+			oSettings.json = json;
+			callback( json );
 		},
 		"dataType": "json",
 		"cache": false,
@@ -345,24 +343,5 @@ function _fnAjaxDataSrc ( oSettings, json )
 
 	return dataSrc !== "" ?
 		_fnGetObjectDataFn( dataSrc )( json ) :
-		json;
-}
-
-
-/** 
- * Get the dataTables json result from the JSON data source to use for drawing a table. Using
- * `_fnGetObjectDataFn` allows the json to be sourced from a property of the
- * source object, or from a processing function.
- *  @param {object} oSettings dataTables settings object
- *  @param  {object} json Data source object / array from the server
- *  @return {object} dataTable json result
- */
-function _fnAjaxJsonSrc(oSettings, json) {
-	var jsonSrc = $.isPlainObject( oSettings.ajax ) && oSettings.ajax.jsonSrc !== undefined ?
-		oSettings.ajax.jsonSrc :
-		''; // return the source
-
-	return jsonSrc !== "" ?
-		_fnGetObjectDataFn( jsonSrc )( json ) :
 		json;
 }

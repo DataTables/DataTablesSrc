@@ -36,7 +36,6 @@ $.extend( DataTable.ext.internal, {
 	_fnAjaxParameters: _fnAjaxParameters,
 	_fnAjaxUpdateDraw: _fnAjaxUpdateDraw,
 	_fnAjaxDataSrc: _fnAjaxDataSrc,
-	_fnAjaxJsonSrc: _fnAjaxJsonSrc,
 	_fnAddColumn: _fnAddColumn,
 	_fnColumnOptions: _fnColumnOptions,
 	_fnAdjustColumnSizing: _fnAdjustColumnSizing,
