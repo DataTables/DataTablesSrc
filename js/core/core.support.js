@@ -212,11 +212,7 @@ function _fnCallbackFire( settings, callbackArr, eventName, args )
 	}
 
 	if ( eventName !== null ) {
-		var e = $.Event( eventName+'.dt' );
-
-		$(settings.nTable).trigger( e, args );
-
-		ret.push( e.result );
+		$(settings.nTable).trigger( eventName+'.dt', args );
 	}
 
 	return ret;

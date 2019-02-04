@@ -23,7 +23,8 @@ if ( window.$ ) {
 		// css
 		var cssContainer = $('div.tabs div.css');
 		if ( $.trim( cssContainer.find('code').text() ) === '' ) {
-			cssContainer.find('code, p:eq(0), div').css('display', 'none');
+			cssContainer.find('code, div').css('display', 'none');
+			cssContainer.find('p').eq(0).css('display', 'none');
 		}
 
 		// init html
@@ -129,7 +130,7 @@ if ( window.$ ) {
 				.css('display', 'none')
 				.eq( $(this).index() ).css('display', 'block');
 		} );
-		$('ul.tabs li.active').click();
+		$('ul.tabs li.active').trigger('click');
 	} );
 }
 

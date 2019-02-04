@@ -154,10 +154,10 @@ function _fnBuildHead( oSettings )
 	oSettings.aoHeader = _fnDetectHeader( oSettings, thead, true );
 
 	// ARIA role for the rows
-	$(thead).find('>tr').attr('role', 'row');
+	$(thead).children('tr').attr('role', 'row');
 
 	// Every cell in the header needs to be passed through the renderer
-	$(thead).find('>tr>th, >tr>td')
+	$(thead).children('tr>th, tr>td')
 		.each( function () {
 			_fnRenderer( oSettings, 'header' )(
 				oSettings, $(this), classes

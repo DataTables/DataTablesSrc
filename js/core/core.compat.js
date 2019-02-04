@@ -221,7 +221,7 @@ function _fnBrowserDetect( settings )
 			.css( {
 				position: 'fixed',
 				top: 0,
-				left: $(window).scrollLeft()*-1, // allow for scrolling
+				left: document.body.scrollLeft*-1, // allow for scrolling
 				height: 1,
 				width: 1,
 				overflow: 'hidden'
