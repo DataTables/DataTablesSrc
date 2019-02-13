@@ -129,8 +129,10 @@ function _fnBuildAjax( oSettings, data, fn )
 		// Object to extend the base settings
 		oSettings.jqXHR = $.ajax( $.extend( baseAjax, ajax ) );
 
-		// Restore for next time around
-		ajax.data = ajaxData;
+		if (ajax && ajaxData) {
+			// Restore for next time around
+			ajax.data = ajaxData;
+		}
 	}
 }
 
