@@ -62,6 +62,12 @@ DataTable.render = {
 		}
 	
 		return function ( d, type ) {
+			// Shortcut. If `from` and `to` are the same, we are using the renderer to
+			// format for ordering, not display - its already in the display format.
+			if ( from === to && type !== 'sort' && type !== 'type' ) {
+				return d;
+			}
+
 			var m = window.moment( d, from, locale, true );
 	
 			// Order and type get a number value from Moment, everything else
