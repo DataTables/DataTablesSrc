@@ -38,11 +38,10 @@ describe('core - events - column-visibility', function() {
 
 		dt.html('basic');
 		it('Not called on initial draw', function() {
-			table = $('#example').DataTable();
-			table.on('column-visibility.dt', function() {
+			table = $('#example').on('column-visibility.dt', function() {
 				count++;
 				params = arguments;
-			});
+			}).DataTable();
 			expect(count).toBe(0);
 		});
 		it('Called when hiding a column', function() {

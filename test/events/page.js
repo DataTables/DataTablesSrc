@@ -34,10 +34,9 @@ describe('core - events - page', function() {
 		let count = 0;
 		dt.html('basic');
 		it('Not called on initial draw', function() {
-			table = $('#example').DataTable();
-			table.on('page.dt', function() {
+			table = $('#example').on('page.dt', function() {
 				count++;
-			});
+			}).DataTable();
 			expect(count).toBe(0);
 		});
 		it('Called when API changes page', function() {

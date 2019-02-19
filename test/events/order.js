@@ -38,23 +38,24 @@ describe('core - events - order', function() {
 		let count = 0;
 
 		dt.html('basic');
-		it('Not called on initial draw', function() {
-			table = $('#example').DataTable();
-			table.on('order.dt', function() {
-				count++;
-				params = arguments;
-			});
-			expect(count).toBe(0);
+		it('Called on initial draw', function() {
+			table = $('#example')
+				.on('order.dt', function() {
+					count++;
+					params = arguments;
+				})
+				.DataTable();
+			expect(count).toBe(1);
 		});
 		it('Called when API changes order', function() {
 			table.order([2, 'asc']).draw(false);
-			expect(count).toBe(1);
+			expect(count).toBe(2);
 			expect(params[2][0].src).toBe(2);
 			expect(params[2][0].dir).toBe('asc');
 		});
 		it('Called once API changes order with two dimensions', function() {
 			table.order([[3, 'asc'], [4, 'desc']]).draw(false);
-			expect(count).toBe(2);
+			expect(count).toBe(3);
 			expect(params[2][0].src).toBe(3);
 			expect(params[2][0].dir).toBe('asc');
 			expect(params[2][1].src).toBe(4);
@@ -62,7 +63,7 @@ describe('core - events - order', function() {
 		});
 		it('Called when user changes order', function() {
 			$('thead tr th:eq(2)').click();
-			expect(count).toBe(3);
+			expect(count).toBe(4);
 			expect(params[2][0].src).toBe(2);
 			expect(params[2][0].dir).toBe('asc');
 		});

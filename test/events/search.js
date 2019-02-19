@@ -34,26 +34,27 @@ describe('core - events - search', function() {
 		let count = 0;
 		let length;
 		dt.html('basic');
-		it('Not called on initial draw', function() {
-			table = $('#example').DataTable();
-			table.on('search.dt', function() {
-				count++;
-			});
-			expect(count).toBe(0);
+		it('Called on initial draw', function() {
+			table = $('#example')
+				.on('search.dt', function() {
+					count++;
+				})
+				.DataTable();
+			expect(count).toBe(1);
 		});
 		it('Called when API searches', function() {
 			table.search('cox');
-			expect(count).toBe(1);
+			expect(count).toBe(2);
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 		it('Called when draw shows the filter', function() {
 			table.draw(false);
-			expect(count).toBe(2);
+			expect(count).toBe(3);
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
 		});
 		it('Called when search cleared', function() {
 			table.search('').draw(false);
-			expect(count).toBe(4);
+			expect(count).toBe(5);
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 		it('Called when column search', function() {
@@ -61,7 +62,7 @@ describe('core - events - search', function() {
 				.column(0)
 				.search('cox')
 				.draw(false);
-			expect(count).toBe(6);
+			expect(count).toBe(7);
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
 		});
 		it('Called when column search cleared', function() {
@@ -69,14 +70,14 @@ describe('core - events - search', function() {
 				.column(0)
 				.search('')
 				.draw(false);
-			expect(count).toBe(8);
+			expect(count).toBe(9);
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 		it('Called just once when user searches', function() {
 			$('div.dataTables_filter label input')
 				.val('cox')
 				.keyup();
-			expect(count).toBe(9);
+			expect(count).toBe(10);
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
 		});
 	});

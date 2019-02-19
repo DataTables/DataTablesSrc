@@ -36,11 +36,12 @@ describe('core - events - length', function() {
 		let length;
 		dt.html('basic');
 		it('Not called on initial draw', function() {
-			table = $('#example').DataTable();
-			table.on('length.dt', function() {
-				count++;
-				length = arguments[2];
-			});
+			table = $('#example')
+				.on('length.dt', function() {
+					count++;
+					length = arguments[2];
+				})
+				.DataTable();
 			expect(count).toBe(0);
 		});
 		it('Not called when API changes page', function() {
