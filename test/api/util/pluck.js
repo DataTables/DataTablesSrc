@@ -4,15 +4,15 @@ describe('pluck()', function() {
 		css: ['datatables']
 	});
 
+	let table;
+
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Exists and is a function', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			expect(typeof table.pluck).toBe('function');
 		});
-
 		it('Returns API instance', function() {
-			let table = $('#example').DataTable();
 			expect(table.pluck() instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});
@@ -20,7 +20,7 @@ describe('pluck()', function() {
 	describe('Functional tests', function() {
 		dt.html('basic');
 		it('Can use numerical parameter to get array item', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			let data = table
 				.rows()
 				.data()
@@ -31,7 +31,6 @@ describe('pluck()', function() {
 		});
 
 		it('Can use numerical parameter to break into an array', function() {
-			let table = $('#example').DataTable();
 			let data = table
 				.column(2)
 				.data()
@@ -43,7 +42,7 @@ describe('pluck()', function() {
 
 		dt.html('basic');
 		it('Can use string parameter to get array item', function(done) {
-			let table = $('#example').DataTable({
+			table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				columns: dt.getTestColumns(),
 				initComplete: function(settings, json) {
@@ -61,7 +60,7 @@ describe('pluck()', function() {
 
 		dt.html('basic');
 		it('Can use string parameter to get array item', function(done) {
-			let table = $('#example').DataTable({
+			table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
 				columns: dt.getTestColumns(),
 				initComplete: function(settings, json) {
