@@ -1,4 +1,5 @@
 describe('core - events - error', function() {
+	// TK COLIN need to implement this as currently object being thrown by jasmine
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
@@ -10,37 +11,38 @@ describe('core - events - error', function() {
 	let length = 0;
 
 	describe('Check the defaults', function() {
-		dt.html('empty');
-		it('Called before data loaded', function(done) {
-			$.fn.dataTable.ext.errMode = 'none';
-			table = $('#example')
-				.on('error.dt', function() {
-					console.log('here');
-					params = arguments;
-					count++;
-				})
-				.DataTable({
-					columns: dt.getTestColumns(),
-					ajax: '/base/test/data/currency.txt',
-					initComplete: function(settings, json) {
-						done();
-					}
-				});
-		});
-
-		dt.html('basic');
-		it('Called before data loaded', function() {
-			$.fn.dataTable.ext.errMode = 'none';
-			table = $('#example')
-				.on('error.dt', function() {
-					console.log('here again');
-					params = arguments;
-					count++;
-				})
-				.DataTable();
-
-				table.row.add(['a']);
-		});
+		// dt.html('empty');
+		// it('Called before data loaded', function(done) {
+		// 	$.fn.dataTable.ext.errMode = 'none';
+		// 	table = $('#example')
+		// 		.on('error.dt', function() {
+		// 			console.log('here');
+		// 			params = arguments;
+		// 			count++;
+		// 		})
+		// 		.DataTable({
+		// 			columns: dt.getTestColumns(),
+		// 			ajax: '/base/test/data/currency.txt',
+		// 			initComplete: function(settings, json) {
+		// 				done();
+		// 			}
+		// 		});
+		// });
+		// dt.html('basic');
+		// it('Called before data loaded', function() {
+		// 	$.fn.dataTable.ext.errMode = 'none';
+		// 	table = $('#example')
+		// 		.on('error.dt', function() {
+		// 			console.log('here again');
+		// 			params = arguments;
+		// 			count++;
+		// 		})
+		// 		.DataTable();
+		// 	var addRow = function() {
+		// 		table.row.add(['a']);
+		// 	};
+		// 		expect(addRow).toThrow();
+		// });
 		// it('Called with expected parameters', function() {
 		// 	expect(params.length).toBe(3);
 		// 	expect(params[0] instanceof $.Event).toBe(true);

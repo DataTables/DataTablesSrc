@@ -68,11 +68,12 @@ module.exports = function(config) {
 		// plugins
 		plugins: [
 			require('karma-html2js-preprocessor'),
-			require('karma-jasmine-html-reporter'),
+			//require('karma-jasmine-html-reporter'),
 			require('./html-loader.js'),
 			require('karma-jasmine-jquery'),
 			require('karma-jasmine'),
-			require('karma-chrome-launcher')
+			require('karma-chrome-launcher'),
+			require("karma-spec-reporter")
 		],
 
 		// frameworks to use
@@ -256,7 +257,7 @@ module.exports = function(config) {
 		// test results reporter to use
 		// possible values: 'dots', 'progress'
 		// available reporters: https://npmjs.org/browse/keyword/karma-reporter
-		reporters: ['kjhtml'],
+		reporters: ['spec'],
 
 		// web server port
 		port: 9876,
