@@ -28,6 +28,9 @@ module.exports = function(config) {
 			case 'Editor':
 				extensionFiles = 'extensions/Editor/test/**/*.js';
 				break;
+			case 'Extensions':
+				extensionFiles = 'extensions/*/test/**/*.js';
+				break;
 			case 'FixedColumns':
 				extensionFiles = 'extensions/FixedColumns/test/**/*.js';
 				break;
