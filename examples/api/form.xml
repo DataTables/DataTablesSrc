@@ -9,7 +9,12 @@
 <js><![CDATA[
 
 $(document).ready(function() {
-	var table = $('#example').DataTable();
+	var table = $('#example').DataTable({
+		columnDefs: [{
+			orderable: false,
+			targets: [1,2,3]
+		}]
+	});
 
 	$('button').click( function() {
 		var data = table.$('input, select').serialize();
