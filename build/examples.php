@@ -270,8 +270,8 @@ DT_Example::$lookup_libraries['js' ]['uikit']        = 'https://cdnjs.cloudflare
 DT_Example::$lookup_libraries['css']['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css';
 DT_Example::$lookup_libraries['css']['font-awesome'] = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
 DT_Example::$lookup_libraries['js']['jszip']         = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js';
-DT_Example::$lookup_libraries['js']['pdfmake']       = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js';
-DT_Example::$lookup_libraries['js']['vfsfonts']      = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js';
+DT_Example::$lookup_libraries['js']['pdfmake']       = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js';
+DT_Example::$lookup_libraries['js']['vfsfonts']      = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js';
 DT_Example::$lookup_libraries['js']['moment']        = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js';
 
 function multiple ( $value, $fn )
