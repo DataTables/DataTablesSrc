@@ -233,6 +233,12 @@
 			if ($ && $.fn.dataTable) {
 				$.fn.dataTable.__browser = undefined;
 			}
+			
+			// Envelope display controller injects an element into the document body, which the
+			// above doesn't remove. So we remove it here
+			if ($) {
+				$('.DTED_Envelope_Background, .DTED DTED_Envelope_Wrapper').remove();
+            }
 
 			return window.dt;
 		},
