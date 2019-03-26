@@ -99,7 +99,6 @@ describe('rows - row()', function() {
 	describe('Check the rowSelector parameter', function() {
 		// GH DataTables #1023
 		dt.html('empty');
-
 		it('Updating a row with an array of data where an id was originally present in the DOM will retain the id', function() {
 			debugger;
 			$('#example tbody').append(
@@ -119,6 +118,16 @@ describe('rows - row()', function() {
 				.draw();
 
 			expect(table.row('#trident').node()).toBe(null);
+		});
+
+		dt.html('basic');
+		it('Can use tr nodes to specify row', function() {
+			table = $('#example').DataTable();
+			expect(table.row($('tbody tr:eq(2)')).data()[0]).toBe('Ashton Cox');
+		});
+		it('Can use td nodes to specify row', function() {
+			table = $('#example').DataTable();
+			expect(table.row($('tbody tr:eq(2) td:eq(1)')).data()[0]).toBe('Ashton Cox');
 		});
 	});
 });
