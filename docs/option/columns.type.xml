@@ -10,7 +10,7 @@
   </default>
 
 	<description>
-    When operating in client-side processing mode, DataTables can process the data used for the display in each cell in a manual suitable for the action being performed. For example, HTML tags will be removed from the strings used for filter matching, while sort formatting may remove currency symbols to allow currency values to be sorted numerically. The formatting action performed to _normalise_ the data so it can be ordered and searched depends upon the column's _type_.
+    When operating in client-side processing mode, DataTables can process the data used for the display in each cell in a manner suitable for the action being performed. For example, HTML tags will be removed from the strings used for filter matching, while sort formatting may remove currency symbols to allow currency values to be sorted numerically. The formatting action performed to _normalise_ the data so it can be ordered and searched depends upon the column's _type_.
 
     DataTables has a number of built in types which are automatically detected:
 
