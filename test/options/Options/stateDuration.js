@@ -15,7 +15,7 @@ describe('stateDuration Option', function() {
 			$('#example')
 				.DataTable()
 				.state.clear();
-			expect(sessionStorage['DataTables_example_' + location.pathname]).toBeDefined();
+			expect(sessionStorage['DataTables_example_' + location.pathname+location.hash]).toBeDefined();
 		});
 
 		dt.html('basic');
@@ -30,14 +30,14 @@ describe('stateDuration Option', function() {
 				.DataTable()
 				.state.clear();
 				
-			expect(localStorage['DataTables_example_' + location.pathname]).toBeDefined();
+			expect(localStorage['DataTables_example_' + location.pathname+location.hash]).toBeDefined();
 
 			// The following test should fail - but it is passing due to
 			// https://sprymedia.manuscript.com/f/cases/394/API-call-state-clear-isn-t-clearing-the-state
 			// remove the test when that bug is fixed - it will cause the test to fail.
 			// The second test is just a failsafe to ensure it is behaving, so could optionally be removed
-			expect(sessionStorage['DataTables_example_' + location.pathname]).toBeDefined();
-			expect($.isEmptyObject($.parseJSON(sessionStorage['DataTables_example_' + location.pathname]))).toBe(true);
+			expect(sessionStorage['DataTables_example_' + location.pathname+location.hash]).toBeDefined();
+			expect($.isEmptyObject($.parseJSON(sessionStorage['DataTables_example_' + location.pathname+location.hash]))).toBe(true);
 		});
 	});
 });

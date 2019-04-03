@@ -114,7 +114,7 @@ var oTest = {
 	{
 		var s = oTable.fnSettings();
 
-		localStorage.setItem( 'DataTables_'+s.sInstance+'_'+window.location.pathname, null );
+		localStorage.setItem( 'DataTables_'+s.sInstance+'_'+window.location.pathname+window.location.hash, null );
 	},
 	
 	
