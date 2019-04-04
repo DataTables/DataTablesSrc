@@ -1,5 +1,4 @@
 // TK COLIN - note this is pretty much a duplicate of columns_render.js, so could merge at some point in the future
-// TK COLIN - also need to consider the getter aspect
 describe('columns.data option', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],

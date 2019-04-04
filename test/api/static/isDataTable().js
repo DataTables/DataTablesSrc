@@ -1,4 +1,4 @@
-describe('Static method - isDataTable', function() {
+describe('Static method - isDataTable()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
@@ -20,23 +20,19 @@ describe('Static method - isDataTable', function() {
 		it('Returns false before initialisation', function() {
 			expect($.fn.dataTable.isDataTable($('#example'))).toBe(false);
 		});
-
 		it('Accepts a DataTable table node', function() {
 			table = $('#example').DataTable();
 			expect($.fn.dataTable.isDataTable($('#example'))).toBe(true);
 		});
-
 		it('Other nodes return false', function() {
 			expect($.fn.dataTable.isDataTable($('th').get(0))).toBe(false);
 			expect($.fn.dataTable.isDataTable($('td').get(0))).toBe(false);
 			expect($.fn.dataTable.isDataTable($('div').get(0))).toBe(false);
 		});
-
 		it('Can accept  a jQuery selector', function() {
 			expect($.fn.dataTable.isDataTable('table.dataTable')).toBe(true);
 			expect($.fn.dataTable.isDataTable('div')).toBe(false);
 		});
-
 		it('Can accept a DataTable API instance', function() {
 			expect($.fn.dataTable.isDataTable(table)).toBe(true);
 			expect($.fn.dataTable.isDataTable(1)).toBe(false);
@@ -51,12 +47,10 @@ describe('Static method - isDataTable', function() {
 			var scrollingTable = $(table.table().header()).closest('table');
 			expect($.fn.dataTable.isDataTable(scrollingTable)).toBe(true);
 		});
-
 		it('Returns true for the body in a scrolling table', function() {
 			var scrollingTable = $(table.table().body()).closest('table');
 			expect($.fn.dataTable.isDataTable(scrollingTable)).toBe(true);
 		});
-
 		it('Returns true for the footer in a scrolling table', function() {
 			var scrollingTable = $(table.table().footer()).closest('table');
 			expect($.fn.dataTable.isDataTable(scrollingTable)).toBe(true);

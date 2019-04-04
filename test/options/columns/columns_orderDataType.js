@@ -1,4 +1,3 @@
-//Needs more tests for this, dont fully understand what it does
 describe('column.orderDataType option', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -7,17 +6,31 @@ describe('column.orderDataType option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-		it('Default should be null', function() {
-			$('#example').dataTable({
-				columnDefs: [
-					{
-						targets: 0,
-						cellType: 'th'
-					}
-				]
-			});
+		it('Default value', function() {
 			expect($.fn.dataTable.defaults.column.sSortDataType).toBe('std');
 		});
+		it('Change name to search by last name', function() {
+			$.fn.dataTable.ext.order['unit-test'] = function(settings, col) {
+				return this.api()
+					.column(col, { order: 'index' })
+					.nodes()
+					.map(function(td, i) {
+						var string = $(td)
+							.text()
+							.split(' ');
+						return string[1] + ' ' + string[0];
+					});
+			};
+			$('#example').DataTable({
+				columnDefs: [{ targets: 0, orderDataType: 'unit-test' }]
+			});
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Jennifer Acosta');
+		});
+		it('... and reverse', function() {
+			$('thead th:eq(0)').click();
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Sakura Yamamoto');
+		});
+
 		dt.html('liveOrder');
 		it('live data sort type with columnDefs', function() {
 			/* Create an array with the values of all the input boxes in a column */
