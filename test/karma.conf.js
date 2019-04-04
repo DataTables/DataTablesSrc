@@ -185,19 +185,19 @@ module.exports = function(config) {
 					js: false,
 					css: true
 				},
-
+				//
 				// Additional files
 				'buttons-flash': {
-					js: '/extensions/Buttons/js/buttons.flash.js'
+					js: 'base/built/DataTables/extensions/Buttons/js/buttons.flash.js'
 				},
 				'buttons-html5': {
-					js: '/extensions/Buttons/js/buttons.html5.js'
+					js: 'base/built/DataTables/extensions/Buttons/js/buttons.html5.js'
 				},
 				'buttons-print': {
-					js: '/extensions/Buttons/js/buttons.print.js'
+					js: 'base/built/DataTables/extensions/Buttons/js/buttons.print.js'
 				},
 				'buttons-colVis': {
-					js: '/extensions/Buttons/js/buttons.colVis.js'
+					js: 'base/built/DataTables/extensions/Buttons/js/buttons.colVis.js'
 				},
 
 				// External libraries
