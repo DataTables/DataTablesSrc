@@ -39,6 +39,12 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			create = nTrIn ? false : true;
 
 			nTd = create ? document.createElement( oCol.sCellType ) : anTds[i];
+
+			// Stop processing columns if we've reached the end of tds with explicit columns
+			if (!nTd) {
+				break;
+			}
+
 			nTd._DT_CellIndex = {
 				row: iRow,
 				column: i
