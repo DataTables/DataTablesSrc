@@ -1,33 +1,58 @@
-// todo tests
-//
-//This test should make sure '$()' returns a jQuery object, unsure how to test for a type
-//   AJJ - Use `instanceof $` to check that is it a jQuery object
-//I can do a test to make sure it works by just calling $('#example').DataTable() after init.
-//   AJJ - This needs to test that the method converts a DataTables API instance (i.e. a collection) to a jQuery instance (again a collection). It is only really useful the API instance contains nodes - e.g. rows().nodes()
-//
-// - Check it exists and is a function
-// - Use with rows().nodes() and it gives a jQuery object that contains all row nodes
-// - Use with rows().nodes() and a selector that will result in only a single row being included
-// - Use with rows().nodes() and a selector that will result in no nodes
-
-// TK COLIN - chat with Allan
-// ```var table = $('#myTable').DataTable();
-// var cells = table.cells(null, 0);
-// var nodes = cells.nodes();
-// var nodes2 = new $.fn.dataTable.Api( '#myTable', cells.indexes() );
-// // Then nodes and nodes2 should contain the same thing
-// ```
-// you can use the result from `cells().indexes()` in a `new $.fn.dataTable.Api()`
-// That should probably be in the `$.fn.dataTable.Api` test file rather than in `cells().indexes()` though
-
-describe('core- $()', function() {
+describe('core - $()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
 	});
 
+	var table;
+
 	describe('Check the defaults', function() {
 		dt.html('basic');
-		it('Default should be null', function() {});
+		it('Exists and is a function', function() {
+			table = $('#example').DataTable();
+			expect(typeof table.$).toBe('function');
+		});
+
+		it('Returns a jQuery instance', function() {
+			expect(table.$('tr') instanceof $).toBe(true);
+		});
+	});
+
+	describe('Functional tests', function() {
+		dt.html('basic');
+		it('Selector - node', function() {
+			table = $('#example').DataTable();
+			expect(table.$(table.cell(2, 0).node()).text()).toBe('Ashton Cox');
+		});
+		it('Selector - jQuery', function() {
+			expect(table.$($('tbody tr:eq(2) td:eq(0)')).text()).toBe('Ashton Cox');
+		});
+		it('Selector - string', function() {
+			expect(table.$('td:contains("Cox")').text()).toBe('Ashton Cox');
+		});
+		it('Modifer - none', function() {
+			expect(table.$('tr').length).toBe(57);
+		});
+		it('Modifer - page', function() {
+			expect(table.$('tr', { page: 'current' }).length).toBe(10);
+		});
+		it('Modifer - order - original', function() {
+			expect(
+				table
+					.$('tr:eq(0)', { order: 'original' })
+					.text()
+					.trim()
+					.split(' ')[0]
+			).toBe('Tiger');
+		});
+		it('Modifer - order - current', function() {
+			expect(
+				table
+					.$('tr:eq(0)', { order: 'current' })
+					.text()
+					.trim()
+					.split(' ')[0]
+			).toBe('Airi');
+		});
 	});
 });
