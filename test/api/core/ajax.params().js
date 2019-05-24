@@ -1,22 +1,64 @@
-// todo tests
-// - Check it exists and is a function
-// - Check that it returns an object
-// - Check that the data object is returned and it's in the correct format.
-// - Make requests with custom filtering and sorting to make sure that this data is submitted (server-side processing)
-// - Make sure if no ajax request has been made then undefined is returned
-// - Reload using `ajax.reload()` and make sure it returns the latest parameters
-// 
-describe( "core- ajax.params()", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
-
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default should be null", function () {
-				});
-
+describe('core- ajax.params()', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
 	});
 
+	let table;
+
+	describe('Check the defaults', function() {
+		dt.html('empty');
+		it('Exists and is a function', function(done) {
+			table = $('#example').DataTable({
+				columns: dt.getTestColumns(),
+				ajax: '/base/test/data/data.txt',
+				initComplete: function(settings, json) {
+					expect(typeof table.ajax.params).toBe('function');
+					done();
+				}
+			});
+		});
+		it('Returns empty object if nothing passed', function() {
+			expect(JSON.stringify(table.ajax.params())).toBe('{}');
+		});
+
+		dt.html('basic');
+		it('Returns undefined for DOM sourced table', function() {
+			table = $('#example').DataTable();
+			expect(table.ajax.params()).toBe(undefined);
+		});
+	});
+
+	describe('Functional tests', function() {
+		let toSend = 'init';
+
+		dt.html('empty');
+		it('Setup', function(done) {
+			table = $('#example').DataTable({
+				columns: dt.getTestColumns(),
+				ajax: {
+					url: '/base/test/data/data.txt',
+					data: function(d) {
+						d.test = toSend;
+					}
+				},
+				initComplete: function(settings, json) {
+					done();
+				}
+			});
+		});
+		it('Returns single string', function() {
+			expect(table.ajax.params()).toEqual({ test: 'init' });
+		});
+		it('Updated by ajax.reload()', function() {
+			toSend = 'reload';
+			table.ajax.reload();
+			expect(table.ajax.params()).toEqual({ test: 'reload' });
+		});
+		it('Returns an object', function() {
+			toSend = { second: 'object' };
+			table.ajax.reload();
+			expect(table.ajax.params()).toEqual({ test: { second: 'object' } });
+		});
+	});
 });

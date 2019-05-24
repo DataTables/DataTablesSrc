@@ -7,7 +7,7 @@ describe('core - ajax.reload()', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		let table;
-		it('Exists and is a function', function(done) {
+		it('Returns an API instance', function(done) {
 			table = $('#example').DataTable({
 				columns: dt.getTestColumns(),
 				ajax: '/base/test/data/data.txt',
