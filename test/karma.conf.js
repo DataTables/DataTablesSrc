@@ -145,7 +145,7 @@ module.exports = function(config) {
 				},
 				fixedheader: {
 					pathName: 'FixedHeader',
-					fileName: 'fixedheader',
+					fileName: 'fixedHeader',
 					js: false,
 					css: true
 				},
