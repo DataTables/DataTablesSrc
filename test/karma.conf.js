@@ -13,46 +13,60 @@ module.exports = function(config) {
 	else if (process.env.DT_EXTENSION) {
 		switch (process.env.DT_EXTENSION) {
 			case 'All':
+			case 'all':
 				testFiles = 'test/*/**/*.js';
 				extensionFiles = 'extensions/*/test/**/*.js';
 				break;
 			case 'AutoFill':
+			case 'autofill':
 				extensionFiles = 'extensions/AutoFill/test/**/*.js';
 				break;
 			case 'Buttons':
+			case 'buttons':
 				extensionFiles = 'extensions/Buttons/test/**/*.js';
 				break;
 			case 'ColReorder':
+			case 'colreorder':
 				extensionFiles = 'extensions/ColReorder/test/**/*.js';
 				break;
 			case 'Editor':
+			case 'editor':
 				extensionFiles = 'extensions/Editor/test/**/*.js';
 				break;
 			case 'Extensions':
+			case 'extensions':
 				extensionFiles = 'extensions/*/test/**/*.js';
 				break;
 			case 'FixedColumns':
+			case 'fixedcolumns':
 				extensionFiles = 'extensions/FixedColumns/test/**/*.js';
 				break;
 			case 'FixedHeader':
+			case 'fixedheader':
 				extensionFiles = 'extensions/FixedHeader/test/**/*.js';
 				break;
 			case 'KeyTable':
+			case 'keytable':
 				extensionFiles = 'extensions/KeyTable/test/**/*.js';
 				break;
 			case 'Responsive':
+			case 'responsive':
 				extensionFiles = 'extensions/Responsive/test/**/*.js';
 				break;
 			case 'RowGroup':
+			case 'rowgroup':
 				extensionFiles = 'extensions/RowGroup/test/**/*.js';
 				break;
 			case 'RowReorder':
+			case 'rowreorder':
 				extensionFiles = 'extensions/RowReorder/test/**/*.js';
 				break;
 			case 'Scroller':
+			case 'scroller':
 				extensionFiles = 'extensions/Scroller/test/**/*.js';
 				break;
 			case 'Select':
+			case 'select':
 				extensionFiles = 'extensions/Select/test/**/*.js';
 				break;
 
