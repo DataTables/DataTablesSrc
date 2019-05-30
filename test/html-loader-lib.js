@@ -217,6 +217,7 @@
 		clean: function() {
 			if ($) {
 				$('#dt-test-loader-container').remove();
+				$('table.fixedHeader-floating').remove();
 			} else {
 				var el = document.getElementById('dt-test-loader-container');
 
@@ -233,12 +234,18 @@
 			if ($ && $.fn.dataTable) {
 				$.fn.dataTable.__browser = undefined;
 			}
-			
+
 			// Envelope display controller injects an element into the document body, which the
 			// above doesn't remove. So we remove it here
 			if ($) {
 				$('.DTED_Envelope_Background, .DTED_Envelope_Wrapper').remove();
-            }
+			}
+
+			// FixedHeader leaves it's header, plus reset scroll
+			if ($) {
+				$('html').scrollTop(0);
+				$('table.fixedHeader-floating').remove();
+			}
 
 			return window.dt;
 		},
