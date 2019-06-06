@@ -217,7 +217,6 @@
 		clean: function() {
 			if ($) {
 				$('#dt-test-loader-container').remove();
-				$('table.fixedHeader-floating').remove();
 			} else {
 				var el = document.getElementById('dt-test-loader-container');
 
@@ -243,8 +242,8 @@
 
 			// FixedHeader leaves it's header, plus reset scroll
 			if ($) {
-				$('html').scrollTop(0);
 				$('table.fixedHeader-floating').remove();
+				$('html').scrollTop(0);
 			}
 
 			return window.dt;
