@@ -1,4 +1,4 @@
-describe('cells- cell().data()', function() {
+describe('cells - cell().data()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']

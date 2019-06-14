@@ -4,21 +4,18 @@ describe('cells - cells().indexes()', function() {
 		css: ['datatables']
 	});
 
+	let table;
+
 	describe('Check the defaults', function() {
 		dt.html('basic');
-
 		it('Exists and is a function', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			expect(typeof table.cells().indexes).toBe('function');
 		});
-
 		it('Returns an API instance', function() {
-			let table = $('#example').DataTable();
 			expect(table.cells().indexes() instanceof $.fn.dataTable.Api).toBe(true);
 		});
-
 		it('Returns an object containing three integers', function() {
-			let table = $('#example').DataTable();
 			let cellIdx = table.cells(0, 0).indexes()[0];
 
 			expect(Object.keys(cellIdx).length).toBe(3);
@@ -31,9 +28,8 @@ describe('cells - cells().indexes()', function() {
 
 	describe('Check behaviour', function() {
 		dt.html('basic');
-
 		it('Correct cell indexes when no columns hidden', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 
 			$(table.row(2).node()).addClass('selected');
 			let cellIdx = table.cells('.selected', '*').indexes();
@@ -46,11 +42,7 @@ describe('cells - cells().indexes()', function() {
 				expect(cellIdx[i].columnVisible).toBe(i);
 			}
 		});
-
-		dt.html('basic');
-
 		it('Correct indexes if one column is hidden', function() {
-			let table = $('#example').DataTable();
 			$(table.row(2).node()).addClass('selected');
 			table.column(1).visible(false);
 
