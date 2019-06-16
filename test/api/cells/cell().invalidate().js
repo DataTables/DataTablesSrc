@@ -12,7 +12,7 @@ describe('cells - cell().invalidate()', function() {
 			expect(typeof table.cell().invalidate).toBe('function');
 		});
 
-		it('Exists and is a function', function() {
+		it('Returns an API instance', function() {
 			expect(table.cell().invalidate() instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});
@@ -26,7 +26,7 @@ describe('cells - cell().invalidate()', function() {
 			expect($('#example tbody tr:eq(2) td:eq(0)').text()).toBe('Fred');
 			expect(table.cell(2, 0).data()).toBe('Ashton Cox');
 		});
-		it('Remains changed when invalidated', function() {
+		it('Changed when invalidated', function() {
 			table.cell(2, 0).invalidate();
 			expect($('#example tbody tr:eq(2) td:eq(0)').text()).toBe('Fred');
 			expect(table.cell(2, 0).data()).toBe('Fred');
