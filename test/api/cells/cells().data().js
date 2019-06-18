@@ -4,15 +4,15 @@ describe('cells - cells().data()', function() {
 		css: ['datatables']
 	});
 
+	let table;
+
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Exists and is a function', function() {
-			var table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			expect(typeof table.cells().data).toBe('function');
 		});
-
 		it('Returns an API instance', function() {
-			let table = $('#example').DataTable();
 			expect(table.cells().data() instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});
@@ -20,7 +20,7 @@ describe('cells - cells().data()', function() {
 	describe('Check the getter', function() {
 		dt.html('basic');
 		it('Basic check on a row', function() {
-			var table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			var data = table.cells(2, '').data();
 			expect(data.length).toBe(6);
 			expect(data[0]).toBe('Ashton Cox');
@@ -28,7 +28,7 @@ describe('cells - cells().data()', function() {
 
 		dt.html('basic');
 		it('When renderer being used', function() {
-			var table = $('#example').DataTable({
+			table = $('#example').DataTable({
 				columnDefs: [
 					{
 						targets: 0,

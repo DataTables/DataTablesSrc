@@ -24,6 +24,16 @@ describe('columns.data option', function() {
 		dt.html('basic');
 		it('null', function() {
 			let table = $('#example').DataTable({
+				columns: [{ data: null }, null, null, null, null, null]
+			});
+			// DD-939 - uncomment once fixed
+			// expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('');
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('[object Object]');
+		});
+
+		dt.html('basic');
+		it('null and defaultContent', function() {
+			let table = $('#example').DataTable({
 				columns: [{ data: null, defaultContent: 'test' }, null, null, null, null, null]
 			});
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('test');
