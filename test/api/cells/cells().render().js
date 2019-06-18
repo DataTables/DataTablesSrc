@@ -12,43 +12,46 @@ describe('cells - cells().render()', function() {
 		test: 'Airi Satou'
 	};
 
-	function checkCell(cell, cellData) {
-		expect(cell.render('display')).toBe(cellData.display);
-		expect(cell.render('filter')).toBe(cellData.filter);
-		expect(cell.render('sort')).toBe(cellData.sort);
-		expect(cell.render('type')).toBe(cellData.type);
-		expect(cell.render('test')).toBe(cellData.test);
+	let table, cells;
+
+	function checkCell(cells, cellData) {
+		expect(cells.render('display')[0]).toBe(cellData.display);
+		expect(cells.render('filter')[0]).toBe(cellData.filter);
+		expect(cells.render('sort')[0]).toBe(cellData.sort);
+		expect(cells.render('type')[0]).toBe(cellData.type);
+		expect(cells.render('test')[0]).toBe(cellData.test);
 	}
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-		let table;
 		it('Exists and is a function', function() {
 			table = $('#example').DataTable();
-			expect(typeof table.cell().render).toBe('function');
+			expect(typeof table.cells().render).toBe('function');
 		});
 
 		it('Returns an API instance', function() {
-			expect(typeof table.cell().render()).toBe('string');
+			expect(table.cells().render() instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});
 
 	describe('Functional tests - no orthoganal data', function() {
 		dt.html('basic');
-		let table;
 		it('Source data', function() {
 			table = $('#example').DataTable();
-			expect(table.cell().render()).toBe('Airi Satou');
+			cells = table.cells(':eq(0)', '*');
+			expect(cells.render()[0]).toBe('Airi Satou');
+			expect(cells.render()[1]).toBe('Accountant');
 		});
+
 		it('Rendered - display', function() {
-			checkCell(table.cell(), cell);
+			checkCell(cells, cell);
 		});
 	});
 
 	describe('Functional tests - orthoganal data - function', function() {
 		dt.html('basic');
 		it('Source data', function() {
-			let table = $('#example').DataTable({
+			table = $('#example').DataTable({
 				columnDefs: [
 					{
 						targets: 0,
@@ -61,12 +64,12 @@ describe('cells - cells().render()', function() {
 
 			let cellData = JSON.parse(JSON.stringify(cell));
 			cellData.display = 'AA Airi Satou';
-			checkCell(table.cell(), cellData);
+			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 
 		dt.html('basic');
 		it('Source data', function() {
-			let table = $('#example').DataTable({
+			table = $('#example').DataTable({
 				columnDefs: [
 					{
 						targets: 0,
@@ -79,12 +82,12 @@ describe('cells - cells().render()', function() {
 
 			let cellData = JSON.parse(JSON.stringify(cell));
 			cellData.filter = 'AA Airi Satou';
-			checkCell(table.cell(), cellData);
+			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 
 		dt.html('basic');
 		it('Source data', function() {
-			let table = $('#example').DataTable({
+			table = $('#example').DataTable({
 				columnDefs: [
 					{
 						targets: 0,
@@ -97,12 +100,12 @@ describe('cells - cells().render()', function() {
 
 			let cellData = JSON.parse(JSON.stringify(cell));
 			cellData.sort = 'AA Airi Satou';
-			checkCell(table.cell(), cellData);
+			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 
 		dt.html('basic');
 		it('Source data', function() {
-			let table = $('#example').DataTable({
+			table = $('#example').DataTable({
 				columnDefs: [
 					{
 						targets: 0,
@@ -115,12 +118,12 @@ describe('cells - cells().render()', function() {
 
 			let cellData = JSON.parse(JSON.stringify(cell));
 			cellData.type = 'AA Airi Satou';
-			checkCell(table.cell(), cellData);
+			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 
 		dt.html('basic');
 		it('Source data', function() {
-			let table = $('#example').DataTable({
+			table = $('#example').DataTable({
 				columnDefs: [
 					{
 						targets: 0,
@@ -133,7 +136,7 @@ describe('cells - cells().render()', function() {
 
 			let cellData = JSON.parse(JSON.stringify(cell));
 			cellData.test = 'AA Airi Satou';
-			checkCell(table.cell(), cellData);
+			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 	});
 
@@ -179,7 +182,7 @@ describe('cells - cells().render()', function() {
 
 			let cellData = JSON.parse(JSON.stringify(cellObject));
 			cellData.display = 'D Aaron';
-			checkCell(table.cell(), cellData);
+			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 
 		dt.html('empty');
@@ -198,7 +201,7 @@ describe('cells - cells().render()', function() {
 
 			let cellData = JSON.parse(JSON.stringify(cellObject));
 			cellData.filter = 'F Aaron';
-			checkCell(table.cell(), cellData);
+			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 
 		dt.html('empty');
@@ -217,7 +220,7 @@ describe('cells - cells().render()', function() {
 
 			let cellData = JSON.parse(JSON.stringify(cellObject));
 			cellData.sort = 'S Aaron';
-			checkCell(table.cell(), cellData);
+			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 
 		dt.html('empty');
@@ -236,7 +239,7 @@ describe('cells - cells().render()', function() {
 
 			let cellData = JSON.parse(JSON.stringify(cellObject));
 			cellData.type = 'T Aaron';
-			checkCell(table.cell(), cellData);
+			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 
 		dt.html('empty');
@@ -255,7 +258,7 @@ describe('cells - cells().render()', function() {
 
 			let cellData = JSON.parse(JSON.stringify(cellObject));
 			cellData.test = 'Test Aaron';
-			checkCell(table.cell(), cellData);
+			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 	});
 
@@ -285,15 +288,13 @@ describe('cells - cells().render()', function() {
 			}
 		];
 
-		let table;
-
 		dt.html('html5');
 		it('Display', function() {
 			table = $('#example').DataTable();
 
 			let cellData = JSON.parse(JSON.stringify(cell));
 			cellData.filter = 'Filter Airi Satou';
-			checkCell(table.cell(), cellData);
+			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 
 		it('Display', function() {
@@ -305,7 +306,7 @@ describe('cells - cells().render()', function() {
 				test: 'Accountant'
 			};
 
-			checkCell(table.cell(':eq(0)', 1), cellData);
+			checkCell(table.cells(':eq(0)', 1), cellData);
 		});
 	});
 });
