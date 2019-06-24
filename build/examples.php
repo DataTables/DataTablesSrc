@@ -222,6 +222,16 @@ DT_Example::$components['select'] = [
 	]
 ];
 
+DT_Example::$components['searchpane'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/SearchPane' ),
+	'release' => $versions['SearchPane']['release']['version'],
+	'filename' => 'searchPane',
+	'framework' => [
+		'css' => true,
+		'js' => false
+	]
+];
+
 // Legacy extensions
 if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['css']['colvis']          = 'https://cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
