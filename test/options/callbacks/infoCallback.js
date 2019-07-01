@@ -9,7 +9,7 @@ describe('infoCallback Option', function() {
 		let table;
 
 		dt.html('basic');
-		it('Count arguments', function() {
+		it('Count the arguments', function() {
 			table = $('#example').DataTable({
 				infoCallback: function() {
 					args = arguments;
