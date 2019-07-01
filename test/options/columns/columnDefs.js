@@ -81,7 +81,7 @@ describe('columnDefs option', function() {
 		});
 
 		dt.html('basic');
-		it('Mixed negative and positive ints to select columns- remove first and last columns', function() {
+		it('Mixed negative and positive ints to select columns - remove first and last columns', function() {
 			$('#example').dataTable({
 				columnDefs: [{ targets: [0, -1], visible: false }]
 			});
