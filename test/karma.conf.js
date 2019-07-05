@@ -127,7 +127,7 @@ module.exports = function(config) {
 					js: true,
 					css: true
 				},
-				autoFill: {
+				autofill: {
 					pathName: 'AutoFill',
 					fileName: 'autoFill',
 					js: true,
