@@ -16,7 +16,7 @@ describe('createdRow option', function() {
 					count++;
 				}
 			});
-			expect(count).toBe('fail');
+			expect(count).toBe(57);
 		});
 		it('Four arguments for the function', function() {
 			expect(args.length).toBe(4);
