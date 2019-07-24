@@ -363,7 +363,7 @@ function _fnFilterData ( settings )
 				}
 
 				if ( cellData.replace ) {
-					cellData = cellData.replace(/[\r\n]/g, '');
+					cellData = cellData.replace(/[\r\n\u2028]/g, '');
 				}
 
 				filterData.push( cellData );
