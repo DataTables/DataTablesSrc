@@ -120,6 +120,9 @@
 		return [];
 	}
 
+	// Prevent libraries being loaded multiple times
+	var _loadedDeps = [];
+
 	/**
 	 * Build a list of CSS and JS files that need to be loaded
 	 */
@@ -134,7 +137,12 @@
 		if (obj.css) {
 			for (i = 0, ien = obj.css.length; i < ien; i++) {
 				var resolved = _pathResolver('css', obj.css[i], obj.framework || 'dataTables');
-				queue = queue.concat(resolved);
+				
+				if ( ! _loadedDeps.includes(resolved) ) {
+					console.log('resolved', resolved)
+					queue = queue.concat(resolved);
+					_loadedDeps.push(resolved);
+				}
 			}
 		}
 
@@ -142,7 +150,12 @@
 		if (obj.js) {
 			for (i = 0, ien = obj.js.length; i < ien; i++) {
 				var resolved = _pathResolver('js', obj.js[i], obj.framework || 'dataTables');
-				queue = queue.concat(resolved);
+				
+				if ( ! _loadedDeps.includes(resolved) ) {
+					console.log('resolved', resolved)
+					queue = queue.concat(resolved);
+					_loadedDeps.push(resolved);
+				}
 			}
 		}
 
@@ -215,15 +228,33 @@
 		},
 
 		clean: function() {
-			if ($) {
-				$('#dt-test-loader-container').remove();
-			} else {
-				var el = document.getElementById('dt-test-loader-container');
-
-				if (el) {
-					document.body.removeChild(el);
+			if ($ && $.fn.dataTableSettings && $.fn.dataTableSettings.length) {
+				// new $.fn.DataTable.Api( $.fn.dataTableSettings ).destroy();
+				// FixedHeader can insert elements into the body so just cleaning out the
+				// container above doesn't tidy everything up. This is intentional in FH and
+				// effectively a limitation in the integration between FH and its tests.
+				// So we need to destroy FH here.
+				var settings = $.fn.dataTableSettings;
+				for ( var i=0 ; i<settings.length ; i++ ) {
+					if ( settings[i]._fixedHeader ) {
+						settings[i]._fixedHeader.destroy();
+					}
 				}
 			}
+
+			var el = document.getElementById('dt-test-loader-container');
+			if (el && $) {
+				$(el).empty(); // jQUery to nuke events
+			}
+			else if (el) {
+				document.body.removeChild(el);
+			}
+
+			console.log('COUNT 1', document.querySelectorAll('div.fixedHeader-floating').length);
+			document.querySelectorAll('div.fixedHeader-floating').forEach(el => {
+				el.parentNode.removeChild(el);
+			});
+			console.log('COUNT 2', document.querySelectorAll('div.fixedHeader-floating').length);
 
 			if ($ && $.fn.dataTableSettings && $.fn.dataTableSettings.length) {
 				$.fn.dataTableSettings.length = 0;
@@ -240,11 +271,7 @@
 				$('.DTED_Envelope_Background, .DTED_Envelope_Wrapper').remove();
 			}
 
-			// FixedHeader leaves it's header, plus reset scroll
-			if ($) {
-				$('table.fixedHeader-floating').remove();
-				$('html').scrollTop(0);
-			}
+			dt.scrollTop(0);
 
 			return window.dt;
 		},
@@ -263,6 +290,7 @@
 				.DataTable()
 				.columns()
 				.visible();
+
 			for (let i = 0; i < 6; i++) {
 				if (visiblity[i] == colArray.includes(i)) {
 					return false;
@@ -347,6 +375,11 @@
 				start_date: '2018/03/04',
 				salary: '$12,345'
 			};
+		},
+
+		scrollTop: async function (point) {
+			document.documentElement.scrollTop = point;
+			await dt.sleep(500);
 		}
 	};
 })(window, window.jasmine);
