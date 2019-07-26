@@ -85,10 +85,10 @@ module.exports = function(config) {
 		// plugins
 		plugins: [
 			require('karma-html2js-preprocessor'),
-			//require('karma-jasmine-html-reporter'),
 			require('./html-loader.js'),
 			require('karma-jasmine-jquery'),
 			require('karma-jasmine'),
+			require('./html-loader.js'),
 			require('karma-chrome-launcher'),
 			require("karma-spec-reporter"),
 		],

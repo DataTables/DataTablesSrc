@@ -139,7 +139,6 @@
 				var resolved = _pathResolver('css', obj.css[i], obj.framework || 'dataTables');
 				
 				if ( ! _loadedDeps.includes(resolved) ) {
-					console.log('resolved', resolved)
 					queue = queue.concat(resolved);
 					_loadedDeps.push(resolved);
 				}
@@ -152,7 +151,6 @@
 				var resolved = _pathResolver('js', obj.js[i], obj.framework || 'dataTables');
 				
 				if ( ! _loadedDeps.includes(resolved) ) {
-					console.log('resolved', resolved)
 					queue = queue.concat(resolved);
 					_loadedDeps.push(resolved);
 				}
@@ -228,33 +226,25 @@
 		},
 
 		clean: function() {
-			if ($ && $.fn.dataTableSettings && $.fn.dataTableSettings.length) {
-				// new $.fn.DataTable.Api( $.fn.dataTableSettings ).destroy();
-				// FixedHeader can insert elements into the body so just cleaning out the
-				// container above doesn't tidy everything up. This is intentional in FH and
-				// effectively a limitation in the integration between FH and its tests.
-				// So we need to destroy FH here.
-				var settings = $.fn.dataTableSettings;
-				for ( var i=0 ; i<settings.length ; i++ ) {
-					if ( settings[i]._fixedHeader ) {
-						settings[i]._fixedHeader.destroy();
-					}
-				}
+			if ($ && $.fn.dataTableSettings) {
+				// If there are any DataTables, destroy them.
+				$.fn.dataTableSettings.forEach(s => {
+					new $.fn.dataTable.Api(s).destroy();
+				});
 			}
 
 			var el = document.getElementById('dt-test-loader-container');
 			if (el && $) {
-				$(el).empty(); // jQUery to nuke events
+				$(el).remove(); // jQuery to nuke events
 			}
 			else if (el) {
 				document.body.removeChild(el);
 			}
 
-			console.log('COUNT 1', document.querySelectorAll('div.fixedHeader-floating').length);
-			document.querySelectorAll('div.fixedHeader-floating').forEach(el => {
+			// Tidy up FixedHeader since it inserts elements into the body, rather than the container element
+			document.querySelectorAll('table.fixedHeader-floating').forEach(el => {
 				el.parentNode.removeChild(el);
 			});
-			console.log('COUNT 2', document.querySelectorAll('div.fixedHeader-floating').length);
 
 			if ($ && $.fn.dataTableSettings && $.fn.dataTableSettings.length) {
 				$.fn.dataTableSettings.length = 0;
