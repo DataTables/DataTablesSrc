@@ -120,15 +120,10 @@
 		return [];
 	}
 
-	// Prevent libraries being loaded multiple times
-	var _loadedDeps = [];
-
 	/**
 	 * Build a list of CSS and JS files that need to be loaded
 	 */
 	function _loadDeps(done, obj) {
-		var libraries = window.__karma__.config.libraries;
-		var doc = window.document;
 		var queue = [],
 			i,
 			ien;
@@ -137,11 +132,8 @@
 		if (obj.css) {
 			for (i = 0, ien = obj.css.length; i < ien; i++) {
 				var resolved = _pathResolver('css', obj.css[i], obj.framework || 'dataTables');
-				
-				if ( ! _loadedDeps.includes(resolved) ) {
-					queue = queue.concat(resolved);
-					_loadedDeps.push(resolved);
-				}
+
+				queue = queue.concat(resolved);
 			}
 		}
 
@@ -149,11 +141,8 @@
 		if (obj.js) {
 			for (i = 0, ien = obj.js.length; i < ien; i++) {
 				var resolved = _pathResolver('js', obj.js[i], obj.framework || 'dataTables');
-				
-				if ( ! _loadedDeps.includes(resolved) ) {
-					queue = queue.concat(resolved);
-					_loadedDeps.push(resolved);
-				}
+
+				queue = queue.concat(resolved);
 			}
 		}
 
