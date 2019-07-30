@@ -10,7 +10,7 @@ describe('core - events - stateLoaded', function() {
 	let firstCell;
 
 	describe('Check the defaults', function() {
-		// Clear down save state before proceeding (otherwise old stuff may be lurking that will affect us)
+		// Clear down saved state before proceeding (otherwise old stuff may be lurking that will affect us)
 		dt.html('basic');
 		it('Clear state save', function() {
 			let table = $('#example').DataTable();

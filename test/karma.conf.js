@@ -85,12 +85,12 @@ module.exports = function(config) {
 		// plugins
 		plugins: [
 			require('karma-html2js-preprocessor'),
-			//require('karma-jasmine-html-reporter'),
 			require('./html-loader.js'),
 			require('karma-jasmine-jquery'),
 			require('karma-jasmine'),
+			require('./html-loader.js'),
 			require('karma-chrome-launcher'),
-			require("karma-spec-reporter")
+			require("karma-spec-reporter"),
 		],
 
 		// frameworks to use
@@ -115,6 +115,9 @@ module.exports = function(config) {
 		exclude: [],
 
 		client: {
+			// Show console.log messages
+			captureConsole: true,
+
 			useIframe: true,
 			htmlLoader: {
 				path: 'base/test/html/',
@@ -127,7 +130,7 @@ module.exports = function(config) {
 					js: true,
 					css: true
 				},
-				autoFill: {
+				autofill: {
 					pathName: 'AutoFill',
 					fileName: 'autoFill',
 					js: true,
@@ -286,6 +289,13 @@ module.exports = function(config) {
 		// possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
 		logLevel: config.LOG_INFO,
 
+		// Browser console capture
+		browserConsoleLogOptions: {
+			level: 'log',
+			format: '%b %T: %m',
+			terminal: true,
+		},
+
 		// enable / disable watching file and executing tests whenever any file changes
 		autoWatch: true,
 
@@ -305,6 +315,6 @@ module.exports = function(config) {
 
 		// Concurrency level
 		// how many browser should be started simultaneous
-		concurrency: Infinity
+		concurrency: Infinity,
 	});
 };

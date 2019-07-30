@@ -28,7 +28,7 @@ describe('cells - cell().render()', function() {
 			expect(typeof table.cell().render).toBe('function');
 		});
 
-		it('Returns an API instance', function() {
+		it('Returns a string', function() {
 			expect(typeof table.cell().render()).toBe('string');
 		});
 	});

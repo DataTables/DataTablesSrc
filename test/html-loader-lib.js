@@ -124,8 +124,6 @@
 	 * Build a list of CSS and JS files that need to be loaded
 	 */
 	function _loadDeps(done, obj) {
-		var libraries = window.__karma__.config.libraries;
-		var doc = window.document;
 		var queue = [],
 			i,
 			ien;
@@ -134,6 +132,7 @@
 		if (obj.css) {
 			for (i = 0, ien = obj.css.length; i < ien; i++) {
 				var resolved = _pathResolver('css', obj.css[i], obj.framework || 'dataTables');
+
 				queue = queue.concat(resolved);
 			}
 		}
@@ -142,6 +141,7 @@
 		if (obj.js) {
 			for (i = 0, ien = obj.js.length; i < ien; i++) {
 				var resolved = _pathResolver('js', obj.js[i], obj.framework || 'dataTables');
+
 				queue = queue.concat(resolved);
 			}
 		}
@@ -215,15 +215,25 @@
 		},
 
 		clean: function() {
-			if ($) {
-				$('#dt-test-loader-container').remove();
-			} else {
-				var el = document.getElementById('dt-test-loader-container');
-
-				if (el) {
-					document.body.removeChild(el);
-				}
+			if ($ && $.fn.dataTableSettings) {
+				// If there are any DataTables, destroy them.
+				$.fn.dataTableSettings.forEach(s => {
+					new $.fn.dataTable.Api(s).destroy();
+				});
 			}
+
+			var el = document.getElementById('dt-test-loader-container');
+			if (el && $) {
+				$(el).remove(); // jQuery to nuke events
+			}
+			else if (el) {
+				document.body.removeChild(el);
+			}
+
+			// Tidy up FixedHeader since it inserts elements into the body, rather than the container element
+			document.querySelectorAll('table.fixedHeader-floating').forEach(el => {
+				el.parentNode.removeChild(el);
+			});
 
 			if ($ && $.fn.dataTableSettings && $.fn.dataTableSettings.length) {
 				$.fn.dataTableSettings.length = 0;
@@ -240,11 +250,7 @@
 				$('.DTED_Envelope_Background, .DTED_Envelope_Wrapper').remove();
 			}
 
-			// FixedHeader leaves it's header, plus reset scroll
-			if ($) {
-				$('table.fixedHeader-floating').remove();
-				$('html').scrollTop(0);
-			}
+			dt.scrollTop(0);
 
 			return window.dt;
 		},
@@ -263,6 +269,7 @@
 				.DataTable()
 				.columns()
 				.visible();
+
 			for (let i = 0; i < 6; i++) {
 				if (visiblity[i] == colArray.includes(i)) {
 					return false;
@@ -347,6 +354,11 @@
 				start_date: '2018/03/04',
 				salary: '$12,345'
 			};
+		},
+
+		scrollTop: async function (point) {
+			document.documentElement.scrollTop = point;
+			await dt.sleep(500);
 		}
 	};
 })(window, window.jasmine);

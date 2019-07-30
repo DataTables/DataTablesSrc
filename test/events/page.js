@@ -39,7 +39,7 @@ describe('core - events - page', function() {
 			}).DataTable();
 			expect(count).toBe(0);
 		});
-		it('Called when API changes page', function() {
+		it('Called when API changes the page', function() {
 			table.page(2).draw(false);
 			expect(count).toBe(1);
 		});

@@ -30,7 +30,7 @@ describe('core - off()', function() {
 
 	describe('Check the behaviour', function() {
 		dt.html('basic');
-		it('Single event listeners for a type can be removed', function() {
+		it('Single event listeners for a type are removable', function() {
 			stan = 0;
 			let table = $('#example').DataTable();
 			table.on('draw', incrementStan);
