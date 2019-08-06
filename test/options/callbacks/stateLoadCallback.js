@@ -20,6 +20,7 @@ describe('stateLoadCallback Option', function() {
 					expect(settings.hasOwnProperty('nTable')).toBe(true);
 					expect(typeof callback).toBe('function');
 					cbSettings = settings;
+					return {};
 				}
 			});
 			expect(cbSettings).toBe(table.settings()[0]);
