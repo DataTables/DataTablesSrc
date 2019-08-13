@@ -1,21 +1,9 @@
-// todo tests
-
-// - Create a table which uses the following for various columns (you might need to create multiple tables)
-//   - Integer (array based tables)
-//   - Function
-//   - String (object based tables)
-// - Select multiple columns and confirm that the data source for each selected column is:
-//   - e.g. if `columns.data` is not set it should return an integer (array based tables)
-//   - if `columns.data` is a string it should return that string
-//   - if `columns.data` is a function it should return that function, etc
-
 describe('columns- columns().dataSrc()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
 	});
 
-	let dataSet = [[2016, 37], [2016, 27], [2016, 23], [2016, 19], [2016, 43], [2016, 76]];
 	let table;
 
 	describe('Check the defaults', function() {
@@ -30,6 +18,10 @@ describe('columns- columns().dataSrc()', function() {
 		it('Returns an API instance- 1 column selected', function() {
 			expect(table.columns(1).dataSrc() instanceof $.fn.dataTable.Api).toBe(true);
 		});
+	});
+
+	describe('Functional tests', function() {
+		let dataSet = [[2016, 37], [2016, 27], [2016, 23], [2016, 19], [2016, 43], [2016, 76]];
 
 		dt.html('currency');
 		it('If columns.data is not set it should return an integer (array based table)', function() {
@@ -70,8 +62,7 @@ describe('columns- columns().dataSrc()', function() {
 					{ data: 'salary' }
 				],
 				initComplete: function(settings, json) {
-					var result = table.columns([1,3]).dataSrc();
-					console.log(result);
+					var result = table.columns([1, 3]).dataSrc();
 					expect(result[0]).toBe('position');
 					expect(result[1]).toBe('age');
 					done();
