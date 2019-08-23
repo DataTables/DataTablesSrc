@@ -372,6 +372,7 @@ case "$1" in
 		build_extension RowGroup
 		build_extension RowReorder
 		build_extension Scroller
+		build_extension SearchPanes
 		build_extension Select
 		if [ -d ../extensions/Editor ]; then
 			build_extension Editor
