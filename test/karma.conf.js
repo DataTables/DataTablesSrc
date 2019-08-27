@@ -196,6 +196,12 @@ module.exports = function(config) {
 					js: false,
 					css: true
 				},
+				searchpanes: {
+					pathName: 'SearchPanes',
+					fileName: 'searchpanes',
+					js: false,
+					css: true
+				},
 				select: {
 					pathName: 'Select',
 					fileName: 'select',
