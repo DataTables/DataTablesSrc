@@ -198,7 +198,7 @@ module.exports = function(config) {
 				},
 				searchpanes: {
 					pathName: 'SearchPanes',
-					fileName: 'searchpanes',
+					fileName: 'searchPanes',
 					js: false,
 					css: true
 				},
