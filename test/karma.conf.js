@@ -65,6 +65,10 @@ module.exports = function(config) {
 			case 'scroller':
 				extensionFiles = 'extensions/Scroller/test/**/*.js';
 				break;
+			case 'SearchPanes':
+			case 'searchpanes':
+				extensionFiles = 'extensions/SearchPanes/test/**/*.js';
+				break;
 			case 'Select':
 			case 'select':
 				extensionFiles = 'extensions/Select/test/**/*.js';
