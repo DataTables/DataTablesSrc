@@ -228,7 +228,7 @@ DT_Example::$components['searchpanes'] = [
 	'filename' => 'searchPanes',
 	'framework' => [
 		'css' => true,
-		'js' => false
+		'js' => true
 	]
 ];
 
