@@ -570,7 +570,7 @@ _Api.register = _api_register = function ( name, val )
 				val:       {},
 				methodExt: [],
 				propExt:   [],
-				type:      ''
+				type:      'object'
 			};
 			struct.push( src );
 		}
