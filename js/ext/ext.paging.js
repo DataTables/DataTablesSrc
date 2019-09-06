@@ -122,7 +122,7 @@ $.extend( true, DataTable.ext.renderer, {
 							case 'next':
 								btnDisplay = lang.sNext;
 
-								if ( page < pages-1 ) {
+								if ( page === pages-1 ) {
 									tabIndex = -1;
 									btnClass += ' ' + disabledClass;
 								}
@@ -131,7 +131,7 @@ $.extend( true, DataTable.ext.renderer, {
 							case 'last':
 								btnDisplay = lang.sLast;
 
-								if ( page < pages-1 ) {
+								if ( page === pages-1 ) {
 									tabIndex = -1;
 									btnClass += ' ' + disabledClass;
 								}

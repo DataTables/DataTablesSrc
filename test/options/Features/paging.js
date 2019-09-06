@@ -32,9 +32,8 @@ describe('Paging option', function() {
 			expect($('.paginate_button.previous').attr('tabindex')).toBe('-1');
 			expect($('.paginate_button.previous').hasClass('disabled')).toBe(true);
 
-			// DD-1098/DD-1099
-			// expect($('.paginate_button.next').attr('tabindex')).toBe('0');
-			// expect($('.paginate_button.next').hasClass('disabled')).toBe(false);
+			expect($('.paginate_button.next').attr('tabindex')).toBe('0');
+			expect($('.paginate_button.next').hasClass('disabled')).toBe(false);
 		});
 		it('Both buttons active in middle of the table', function() {
 			table.page(3).draw(false);
@@ -42,9 +41,8 @@ describe('Paging option', function() {
 			expect($('.paginate_button.previous').attr('tabindex')).toBe('0');
 			expect($('.paginate_button.previous').hasClass('disabled')).toBe(false);
 
-			// DD-1098/DD-1099
-			// expect($('.paginate_button.next').attr('tabindex')).toBe('0');
-			// expect($('.paginate_button.next').hasClass('disabled')).toBe(false);
+			expect($('.paginate_button.next').attr('tabindex')).toBe('0');
+			expect($('.paginate_button.next').hasClass('disabled')).toBe(false);
 		});
 		it('Disabled next element has a tab index of -1', function() {
 			table.page(5).draw(false);
@@ -52,8 +50,8 @@ describe('Paging option', function() {
 			expect($('.paginate_button.previous').attr('tabindex')).toBe('0');
 			expect($('.paginate_button.previous').hasClass('disabled')).toBe(false);
 
-			// DD-1098/DD-1099// expect($('.paginate_button.next').attr('tabindex')).toBe('-1');
-			// expect($('.paginate_button.next').hasClass('disabled')).toBe(true);
+			expect($('.paginate_button.next').attr('tabindex')).toBe('-1');
+			expect($('.paginate_button.next').hasClass('disabled')).toBe(true);
 		});
 		it('Both disabled after a search', function() {
 			table.search('Ashton Cox').draw();
@@ -61,9 +59,8 @@ describe('Paging option', function() {
 			expect($('.paginate_button.previous').attr('tabindex')).toBe('-1');
 			expect($('.paginate_button.previous').hasClass('disabled')).toBe(true);
 
-			// DD-1098/DD-1099
-			// expect($('.paginate_button.next').attr('tabindex')).toBe('-1');
-			// expect($('.paginate_button.next').hasClass('disabled')).toBe(true);
+			expect($('.paginate_button.next').attr('tabindex')).toBe('-1');
+			expect($('.paginate_button.next').hasClass('disabled')).toBe(true);
 		});
 	});
 
