@@ -69,6 +69,10 @@ DataTable.render = {
 			}
 
 			var m = window.moment( d, from, locale, true );
+
+			if (! m.isValid()) {
+				return d;
+			}
 	
 			// Order and type get a number value from Moment, everything else
 			// sees the rendered value
