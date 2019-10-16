@@ -7,7 +7,7 @@ describe('performance', function() {
 
 	let table;
 	let columns = 30;
-	let rows = 3000;
+	let rows = 2500;
 	let runs = 15;
 
 	dt.html('empty_no_header');
