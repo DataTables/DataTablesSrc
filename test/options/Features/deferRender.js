@@ -92,5 +92,63 @@ describe('deferRender option', function() {
 			table.order([0, 'desc']).draw();
 			checkNodes(222, 37);
 		});
+
+		dt.html('empty');
+		it('Can modify data of undrawn rows', function(done) {
+			table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				deferRender: true,
+				columns: [
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				initComplete: function(settings, json) {
+					expect(table.row(1).data().name).toEqual('Garrett Winters');
+					done();
+				}
+			});
+		});
+		it('... and can change the value', function() {
+			table
+				.row(1)
+				.data(dt.makePersonObject('a unit test'))
+				.draw();
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('a unit test');
+			expect(table.row(1).data().name).toEqual('a unit test');
+			expect(table.cell(1, 0).data()).toBe('a unit test');
+		});
+
+		dt.html('empty');
+		it('Can modify data of undrawn cells', function(done) {
+			table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				deferRender: true,
+				columns: [
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				initComplete: function(settings, json) {
+					expect(table.row(1).data().name).toEqual('Garrett Winters');
+					done();
+				}
+			});
+		});
+		it('... and can change the value', function() {
+			table
+				.cell(1, 0)
+				.data('a unit test')
+				.draw();
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('a unit test');
+			expect(table.row(1).data().name).toEqual('a unit test');
+			expect(table.cell(1, 0).data()).toBe('a unit test');
+		});
 	});
 });
