@@ -483,7 +483,7 @@ function _layoutArray ( settings, layout, side )
 		var group = groups[ splitPos[0] ];
 
 		// Transform to an object with a contents property
-		if ( $.isPlainObject( val ) ) {
+		if ( $.isPlainObject( val ) && val.contents ) {
 			group[ align ] = val;
 		}
 		else {
@@ -555,6 +555,10 @@ function _layoutResolve( settings, row ) {
 			_fnLog( settings, 0, 'Unknown feature: '+ feature );
 		}
 
+		args = args
+			? args.slice()
+			: [];
+
 		args.unshift(settings);
 		return _ext.features[ feature ].apply( this, args );
 	};
@@ -569,11 +573,8 @@ function _layoutResolve( settings, row ) {
 			else if ( typeof line[i] === 'string' ) {
 				line[i] = getFeature( line[i], [] );
 			}
-			else if ( $.isArray(line[i]) ) {
-				var arr = line[i].slice();
-				var feature = arr.shift();
-
-				line[i] = getFeature( feature, arr );
+			else if ( $.isPlainObject(line[i]) ) {
+				line[i] = getFeature( line[i].feature, line[i].args || [] );
 			}
 			else if ( typeof line[i].node === 'function' ) {
 				line[i] = line[i].node( settings );
