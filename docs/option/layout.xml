@@ -42,6 +42,7 @@
 		  * `-string pageLength` - Page length control
 		  * `-string paging` - User input control for paging
 		  * `-string search` - Search input box
+		* `-type array` - An array of arguments where the first item in the array is a string for the feature provided by DataTables or a plug-in (see above) and the remainder of the array are the properties to be passed as arguments to the feature function. Note that the DataTables internal settings object is _always_ added as the first argument. The custom arguments from the array follow it.
 		* `-type jQuery` - A jQuery instance containing a node to insert
 		* `-type function` - A function that returns a DOM node or jQuery instance containing a node. The function will be passed in the DataTables settings object.
 		* `-type object` - A class instance that provides a `node()` method and should return the node to be inserted (DOM or jQuery). As with the `-type function` option above, this method will be passed the DataTables settings object for the table.

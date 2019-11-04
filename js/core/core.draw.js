@@ -467,6 +467,10 @@ function _layoutArray ( settings, layout, side )
 
 	// Combine into like groups (e.g. `top`, `top2`, etc)
 	$.each( layout, function ( pos, val ) {
+		if (val === null) {
+			return;
+		}
+
 		var splitPos = pos.replace(/([A-Z])/g, ' $1').split(' ');
 
 		if ( ! groups[ splitPos[0] ] ) {
@@ -494,15 +498,15 @@ function _layoutArray ( settings, layout, side )
 		}
 	} );
 
-	// Filter to only the side we need
-	var filtered = $.map( groups, function ( val, pos ) {
+	var filtered = $.map( groups, function ( group, pos ) {
+		// Filter to only the side we need
 		if ( pos.indexOf(side) !== 0 ) {
 			return null;
 		}
 
 		return {
 			name: pos,
-			val: val
+			val: group
 		};
 	} );
 
@@ -546,6 +550,15 @@ function _layoutArray ( settings, layout, side )
  * @param {*} row Layout object for this row
  */
 function _layoutResolve( settings, row ) {
+	var getFeature = function (feature, args) {
+		if ( ! _ext.features[ feature ] ) {
+			_fnLog( settings, 0, 'Unknown feature: '+ feature );
+		}
+
+		args.unshift(settings);
+		return _ext.features[ feature ].apply( this, args );
+	};
+
 	var resolve = function ( item ) {
 		var line = row[ item ].contents;
 
@@ -554,12 +567,13 @@ function _layoutResolve( settings, row ) {
 				continue;
 			}
 			else if ( typeof line[i] === 'string' ) {
-				if ( ! _ext.features[ line[i] ] ) {
-					_fnLog( settings, 0, 'Unknown feature: '+ line[i] );
-				}
-				else {
-					line[i] = _ext.features[ line[i] ]( settings );
-				}
+				line[i] = getFeature( line[i], [] );
+			}
+			else if ( $.isArray(line[i]) ) {
+				var arr = line[i].slice();
+				var feature = arr.shift();
+
+				line[i] = getFeature( feature, arr );
 			}
 			else if ( typeof line[i].node === 'function' ) {
 				line[i] = line[i].node( settings );

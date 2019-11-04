@@ -1,9 +1,9 @@
 
-_ext.features.register( 'pageLength', function ( settings ) {
+_ext.features.register( 'pageLength', function ( settings, aLengthMenu ) {
 	var
 		classes  = settings.oClasses,
 		tableId  = settings.sTableId,
-		menu     = settings.aLengthMenu,
+		menu     = aLengthMenu || settings.aLengthMenu,
 		d2       = $.isArray( menu[0] ),
 		lengths  = d2 ? menu[0] : menu,
 		language = d2 ? menu[1] : menu;

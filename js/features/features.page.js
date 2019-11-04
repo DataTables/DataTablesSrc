@@ -1,8 +1,8 @@
 
 // Note that most of the paging logic is done in DataTable.ext.pager
-_ext.features.register( 'paging', function ( settings ) {
+_ext.features.register( 'paging', function ( settings, pagingType ) {
 	var
-		type   = settings.sPaginationType,
+		type   = pagingType || settings.sPaginationType,
 		plugin = DataTable.ext.pager[ type ],
 		node = $('<div/>').addClass( settings.oClasses.sPaging + type )[0];
 
