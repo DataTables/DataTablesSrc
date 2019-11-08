@@ -1,15 +1,22 @@
 
-_ext.features.register( 'search', function ( settings ) {
+// opts
+// - text
+// - placeholder
+_ext.features.register( 'search', function ( settings, opts ) {
 	var classes = settings.oClasses;
 	var tableId = settings.sTableId;
 	var language = settings.oLanguage;
 	var previousSearch = settings.oPreviousSearch;
 	var input = '<input type="search" class="'+classes.sFilterInput+'"/>';
 
-	var str = language.sSearch;
-	str = str.match(/_INPUT_/) ?
-		str.replace('_INPUT_', input) :
-		str+input;
+	opts = $.extend({
+		placeholder: language.sSearchPlaceholder,
+		text: language.sSearch
+	}, opts);
+
+	var str = opts.text.match(/_INPUT_/) ?
+		opts.text.replace('_INPUT_', input) :
+		opts.text+input;
 
 	var filter = $('<div/>', {
 			'class': classes.sFilter
@@ -42,7 +49,7 @@ _ext.features.register( 'search', function ( settings ) {
 
 	var jqFilter = $('input', filter)
 		.val( previousSearch.sSearch )
-		.attr( 'placeholder', language.sSearchPlaceholder )
+		.attr( 'placeholder', opts.placeholder )
 		.on(
 			'keyup.DT search.DT input.DT paste.DT cut.DT',
 			searchDelay ?
