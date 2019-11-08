@@ -1,9 +1,17 @@
 
-_ext.features.register( 'pageLength', function ( settings, aLengthMenu ) {
+// opts
+// - menu
+// - text
+_ext.features.register( 'pageLength', function ( settings, opts ) {
+	opts = $.extend({
+		menu: settings.aLengthMenu,
+		text: settings.oLanguage.sLengthMenu
+	}, opts);
+
 	var
 		classes  = settings.oClasses,
 		tableId  = settings.sTableId,
-		menu     = aLengthMenu || settings.aLengthMenu,
+		menu     = opts.menu,
 		d2       = $.isArray( menu[0] ),
 		lengths  = d2 ? menu[0] : menu,
 		language = d2 ? menu[1] : menu;
@@ -26,7 +34,7 @@ _ext.features.register( 'pageLength', function ( settings, aLengthMenu ) {
 	var div = $('<div><label/></div>').addClass( classes.sLength );
 
 	div.children().append(
-		settings.oLanguage.sLengthMenu.replace( '_MENU_', select[0].outerHTML )
+		opts.text.replace( '_MENU_', select[0].outerHTML )
 	);
 
 	// Can't use `select` variable as user might provide their own and the
