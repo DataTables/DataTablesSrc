@@ -4,37 +4,37 @@ describe('rows- row().invalidate()', function() {
 		css: ['datatables']
 	});
 
+	let table;
+
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Exists and is a function', function() {
-			var table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			expect(typeof table.row().invalidate).toBe('function');
 		});
 		dt.html('basic');
 		it('Returns API instance', function() {
-			var table = $('#example').DataTable();
 			expect(table.row(0).invalidate() instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});
 
 	describe('Functional tests - DOM sourced', function() {
 		dt.html('basic');
-		let table;
 		it('Update value in the table', function() {
 			table = $('#example').DataTable();
 			$('#example tbody tr:eq(2) td:eq(0)').text('Fred');
 			expect($('#example tbody tr:eq(2) td:eq(0)').text()).toBe('Fred');
-			expect(table.row(2).data()[0]).toBe('Ashton Cox');
+			expect(table.cell(2,0).data()).toBe('Ashton Cox');
 		});
 		it('Remains changed when invalidated', function() {
 			table.row(2).invalidate();
 			expect($('#example tbody tr:eq(2) td:eq(0)').text()).toBe('Fred');
-			expect(table.row(2).data()[0]).toBe('Fred');
+			expect(table.cell(2,0).data()).toBe('Fred');
 		});
 		it('Draw causes a reordering', function() {
 			table.draw();
 			expect($('#example tbody tr:eq(2) td:eq(0)').text()).toBe('Bradley Greer');
-			expect(table.row(2).data()[0]).toBe('Fred');
+			expect(table.cell(2,0).data()).toBe('Fred');
 		});
 		it('Same number of rows (not duplicated)', function() {
 			expect(table.rows().count()).toBe(57);
@@ -98,7 +98,6 @@ describe('rows- row().invalidate()', function() {
 
 	describe('Functional tests - JS sourced', function() {
 		dt.html('empty');
-		let table;
 		it('Load data', function(done) {
 			table = $('#example').DataTable({
 				ajax: '/base/test/data/array.txt',
