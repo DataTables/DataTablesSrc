@@ -1,6 +1,7 @@
 
-_ext.features.register( 'info', function ( settings ) {
+_ext.features.register( 'info', function ( settings, opts ) {
 	var
+		lang  = settings.oLanguage,
 		tid = settings.sTableId,
 		nodes = settings.featureInfo,
 		n = $('<div/>', {
@@ -8,13 +9,23 @@ _ext.features.register( 'info', function ( settings ) {
 			'id': ! nodes ? tid+'_info' : null
 		} );
 
+	opts = $.extend({
+		callback: lang.fnInfoCallback,
+		empty: lang.sInfoEmpty,
+		postfix: lang.sInfoPostFix,
+		search: lang.sInfoFiltered,
+		text: lang.sInfo,
+	}, opts);
+
 	// For the first info display in the table, we add a callback and aria information.
 	if ( ! nodes ) {
 		nodes = $();
 
 		// Update display on each draw
 		settings.aoDrawCallback.push( {
-			fn: _fnUpdateInfo
+			fn: function (s) {
+				_fnUpdateInfo(s, opts);
+			}
 		} );
 
 		n
@@ -35,30 +46,28 @@ _ext.features.register( 'info', function ( settings ) {
  *  @param {object} settings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnUpdateInfo ( settings )
+function _fnUpdateInfo ( settings, opts )
 {
 	var
-		lang  = settings.oLanguage,
 		start = settings._iDisplayStart+1,
 		end   = settings.fnDisplayEnd(),
 		max   = settings.fnRecordsTotal(),
 		total = settings.fnRecordsDisplay(),
 		out   = total ?
-			lang.sInfo :
-			lang.sInfoEmpty;
+			opts.text :
+			opts.empty;
 
 	if ( total !== max ) {
 		// Record set after filtering
-		out += ' ' + lang.sInfoFiltered;
+		out += ' ' + opts.search;
 	}
 
 	// Convert the macros
-	out += lang.sInfoPostFix;
+	out += opts.postfix;
 	out = _fnInfoMacros( settings, out );
 
-	var callback = lang.fnInfoCallback;
-	if ( callback !== null ) {
-		out = callback.call( settings.oInstance,
+	if ( opts.callback ) {
+		out = opts.callback.call( settings.oInstance,
 			settings, start, end, max, total, out
 		);
 	}
