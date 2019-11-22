@@ -850,6 +850,11 @@ function json_files ( $out_dir )
 		mkdir( $out_dir );
 	}
 
+	copy( dirname(__FILE__).'/data_50k.json', $out_dir.'/data_50k.txt');
+	copy( dirname(__FILE__).'/data_10k.json', $out_dir.'/data_10k.txt');
+	copy( dirname(__FILE__).'/data_5k.json', $out_dir.'/data_5k.txt');
+	copy( dirname(__FILE__).'/data_1k.json', $out_dir.'/data_1k.txt');
+
 	$json = json_decode(
 		file_get_contents( dirname(__FILE__).'/data.json' ),
 		true
