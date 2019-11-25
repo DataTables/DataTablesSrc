@@ -210,20 +210,7 @@ describe('column.createdCell option', function() {
 			let count = 0;
 			let table = $('#example').DataTable({
 				serverSide: true,
-				ajax: function(data, callback, settings) {
-					var out = [];
-					for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
-						out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
-					}
-					setTimeout(function() {
-						callback({
-							draw: data.draw,
-							data: out,
-							recordsTotal: 5000000,
-							recordsFiltered: 5000000
-						});
-					}, 50);
-				},
+				ajax: dt.serverSide,
 				columnDefs: [
 					{
 						targets: 1,
