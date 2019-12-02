@@ -203,13 +203,13 @@ _api_register( 'columns()', function ( selector, opts ) {
 
 _api_registerPlural( 'columns().header()', 'column().header()', function ( selector, opts ) {
 	return this.iterator( 'column', function ( settings, column ) {
-		return settings.aoColumns[column].nTh;
+		return settings.aoHeader[0][column].cell;
 	}, 1 );
 } );
 
 _api_registerPlural( 'columns().footer()', 'column().footer()', function ( selector, opts ) {
 	return this.iterator( 'column', function ( settings, column ) {
-		return settings.aoColumns[column].nTf;
+		return settings.aoFooter[0][column].cell;
 	}, 1 );
 } );
 

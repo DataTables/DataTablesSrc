@@ -389,7 +389,7 @@ var loadedInit = function () {
 	}
 	else if ( tfoot.length > 0 ) {
 		oSettings.nTFoot = tfoot[0];
-		oSettings.aoFooter = _fnDetectHeader( oSettings.nTFoot );
+		oSettings.aoFooter = _fnDetectHeader( oSettings, oSettings.nTFoot );
 	}
 
 	/* Check if there is data passing into the constructor */
