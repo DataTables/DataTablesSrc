@@ -390,6 +390,13 @@ var loadedInit = function () {
 	else if ( tfoot.length > 0 ) {
 		oSettings.nTFoot = tfoot[0];
 		oSettings.aoFooter = _fnDetectHeader( oSettings, oSettings.nTFoot );
+
+		$(oSettings.nTFoot).children('tr').children('th, td')
+			.each( function () {
+				_fnRenderer( oSettings, 'footer' )(
+					oSettings, $(this), oClasses
+				);
+			} );
 	}
 
 	/* Check if there is data passing into the constructor */

@@ -79,79 +79,30 @@ $.extend( DataTable.ext.classes, {
 } );
 
 
-DataTable.ext.renderer.header.jqueryui = function ( settings, cell, column, classes ) {
-	// Calculate what the unsorted class should be
-	var noSortAppliedClass = sort_prefix+'caret-2-n-s';
-	var asc = $.inArray('asc', column.asSorting) !== -1;
-	var desc = $.inArray('desc', column.asSorting) !== -1;
-
-	if ( !column.bSortable || (!asc && !desc) ) {
-		noSortAppliedClass = '';
-	}
-	else if ( asc && !desc ) {
-		noSortAppliedClass = sort_prefix+'caret-1-n';
-	}
-	else if ( !asc && desc ) {
-		noSortAppliedClass = sort_prefix+'caret-1-s';
-	}
-
-	// Setup the DOM structure
-	$('<div/>')
-		.addClass( 'DataTables_sort_wrapper' )
-		.append( cell.contents() )
-		.append( $('<span/>')
-			.addClass( classes.sSortIcon+' '+noSortAppliedClass )
-		)
-		.appendTo( cell );
-
-	// Attach a sort listener to update on sort
-	$(settings.nTable).on( 'order.dt', function ( e, ctx, sorting, columns ) {
-		if ( settings !== ctx ) {
-			return;
-		}
-
-		var colIdx = column.idx;
-
-		cell
-			.removeClass( classes.sSortAsc +" "+classes.sSortDesc )
-			.addClass( columns[ colIdx ] == 'asc' ?
-				classes.sSortAsc : columns[ colIdx ] == 'desc' ?
-					classes.sSortDesc :
-					column.sSortingClass
-			);
-
-		cell
-			.find( 'span.'+classes.sSortIcon )
-			.removeClass(
-				sort_prefix+'triangle-1-n' +" "+
-				sort_prefix+'triangle-1-s' +" "+
-				sort_prefix+'caret-2-n-s' +" "+
-				sort_prefix+'caret-1-n' +" "+
-				sort_prefix+'caret-1-s'
-			)
-			.addClass( columns[ colIdx ] == 'asc' ?
-				sort_prefix+'triangle-1-n' : columns[ colIdx ] == 'desc' ?
-					sort_prefix+'triangle-1-s' :
-					noSortAppliedClass
-			);
-	} );
-};
-
-
 DataTable.ext.renderer.layout.jqueryui = function ( settings, container, items ) {
+	var rowHasDt = false;
 	var row = $( '<div/>', {
-			"class": 'dataTables_layout_row fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix'
+			"class": 'dataTables_layout_row ui-helper-clearfix'
 		} )
 		.appendTo( container );
 
 	$.each( items, function (key, val) {
-		$( '<div/>', {
+		var cell = $( '<div/>', {
 				id: val.id || null,
-				"class": 'dataTables_layout_cell '+key+' '+(val.className || '')
+				"class": 'dataTables_layout_cell dt-'+key+' '+(val.className || '')
 			} )
 			.append( val.contents )
 			.appendTo( row );
+
+		if ($(val.contents).hasClass('dataTable')) {
+			rowHasDt = true;
+			cell.addClass('table');
+		}
 	} );
+	
+	if (! rowHasDt) {
+		row.addClass('fg-toolbar ui-toolbar ui-widget-header');
+	}
 };
 
 

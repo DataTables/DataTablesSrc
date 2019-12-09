@@ -1,8 +1,16 @@
 
 
 $.extend( true, DataTable.ext.renderer, {
+	footer: {
+		_: function ( settings, cell, classes ) {
+			cell.addClass(classes.sFooterTH);
+		}
+	},
+
 	header: {
 		_: function ( settings, cell, classes ) {
+			cell.addClass(classes.sHeaderTH);
+
 			// No additional mark-up required
 			// Attach a sort listener to update on sort - note that using the
 			// `DT` namespace will allow the event to be removed automatically
