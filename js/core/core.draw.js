@@ -157,7 +157,7 @@ function _fnBuildHead( oSettings )
 	$(thead).children('tr').attr('role', 'row');
 
 	// Every cell in the header needs to be passed through the renderer
-	$(thead).children('tr>th, tr>td')
+	$(thead).children('tr').children('th, td')
 		.each( function () {
 			_fnRenderer( oSettings, 'header' )(
 				oSettings, $(this), classes

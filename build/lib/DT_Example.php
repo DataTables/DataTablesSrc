@@ -630,13 +630,8 @@ class DT_Example
 			}
 		}
 		else if ( $type === 'css' ) {
-			// Possibly include a framework Javascript file. The DataTables
-			// framework option is a special case as its file name is slightly
-			// different
-			if ( $framework === 'dataTables' && $lib === 'datatables' ) {
-				$out[] = $path.'/css/jquery.'.$filename.$min.'.css';
-			}
-			else if ( $component['framework']['css'] ) {
+			// Possibly include a framework Javascript file.
+			if ( $component['framework']['css'] ) {
 				$out[] = $path.'/css/'.$filename.'.'.$framework.$min.'.css';
 			}
 		}
