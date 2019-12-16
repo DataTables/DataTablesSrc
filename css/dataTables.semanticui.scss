@@ -99,3 +99,12 @@ div.dataTables_wrapper {
 		}
 	}
 }
+
+@media screen and (max-width: 767px) {
+	div.dataTables_wrapper {
+		div.left,
+		div.right {
+			text-align: center !important;
+		}
+	}
+}

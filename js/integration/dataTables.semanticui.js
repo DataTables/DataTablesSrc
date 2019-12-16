@@ -170,7 +170,7 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 	catch (e) {}
 
 	attach(
-		$(host).empty().html('<div class="ui stackable pagination menu"/>').children(),
+		$(host).empty().html('<div class="ui unstackable pagination menu"/>').children(),
 		buttons
 	);
 
