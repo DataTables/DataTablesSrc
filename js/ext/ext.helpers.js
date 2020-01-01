@@ -71,7 +71,7 @@ DataTable.render = {
 
 			// Shortcut. If `from` and `to` are the same, we are using the renderer to
 			// format for ordering, not display - its already in the display format.
-			if ( from === to && type !== 'sort' && type !== 'type' ) {
+			if ( from === to && type !== 'sort' && type !== 'type' && ! (d instanceof Date) ) {
 				return d;
 			}
 
