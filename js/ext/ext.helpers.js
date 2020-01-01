@@ -50,7 +50,7 @@ var __htmlEscapeEntities = function ( d ) {
  * @namespace
  */
 DataTable.render = {
-	moment: function ( from, to, locale ) {
+	moment: function ( from, to, locale, def ) {
 		// Argument shifting
 		if ( arguments.length === 1 ) {
 			locale = 'en';
@@ -62,6 +62,13 @@ DataTable.render = {
 		}
 	
 		return function ( d, type ) {
+			// Allow for a default value
+			if (d === null || d === undefined) {
+				if (def === '--now') {
+					d = new Date();
+				}
+			}
+
 			// Shortcut. If `from` and `to` are the same, we are using the renderer to
 			// format for ordering, not display - its already in the display format.
 			if ( from === to && type !== 'sort' && type !== 'type' ) {
