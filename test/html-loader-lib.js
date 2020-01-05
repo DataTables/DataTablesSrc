@@ -225,8 +225,7 @@
 			var el = document.getElementById('dt-test-loader-container');
 			if (el && $) {
 				$(el).remove(); // jQuery to nuke events
-			}
-			else if (el) {
+			} else if (el) {
 				document.body.removeChild(el);
 			}
 
@@ -254,7 +253,7 @@
 		},
 
 		/*
-		 * Below are common functions used througout the unit tests
+		 * Below are common functions used through out the unit tests
 		 */
 
 		// check array for column visibility (default is visible)
@@ -350,9 +349,26 @@
 			};
 		},
 
-		scrollTop: async function (point) {
+		scrollTop: async function(point) {
 			document.documentElement.scrollTop = point;
 			await dt.sleep(500);
+		},
+
+		serverSide: function(data, callback, settings) {
+			var out = [];
+
+			for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
+				out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
+			}
+
+			setTimeout(function() {
+				callback({
+					draw: data.draw,
+					data: out,
+					recordsTotal: 5000000,
+					recordsFiltered: 5000000
+				});
+			}, 50);
 		}
 	};
 })(window, window.jasmine);

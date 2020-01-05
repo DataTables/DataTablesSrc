@@ -99,22 +99,7 @@ describe('drawCallback option', function() {
 				serverSide: true,
 				displayStart: 20,
 				lengthMenu: [15, 30, 45, 60],
-				ajax: function(data, callback, settings) {
-					var out = [];
-
-					for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
-						out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
-					}
-
-					setTimeout(function() {
-						callback({
-							draw: data.draw,
-							data: out,
-							recordsTotal: 5000000,
-							recordsFiltered: 5000000
-						});
-					}, 50);
-				},
+				ajax: dt.serverSide,
 				drawCallback: function() {
 					test++;
 				},
@@ -134,22 +119,7 @@ describe('drawCallback option', function() {
 				displayStart: 20,
 				deferRendering: true,
 				lengthMenu: [15, 30, 45, 60],
-				ajax: function(data, callback, settings) {
-					var out = [];
-
-					for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
-						out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
-					}
-
-					setTimeout(function() {
-						callback({
-							draw: data.draw,
-							data: out,
-							recordsTotal: 5000000,
-							recordsFiltered: 5000000
-						});
-					}, 50);
-				},
+				ajax: dt.serverSide,
 				drawCallback: function() {
 					test++;
 				},
