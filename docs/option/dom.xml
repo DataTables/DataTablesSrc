@@ -106,7 +106,7 @@
     The following [extensions](/extensions) can be initialised through the `-init dom` option:
 
     * `B` - [Buttons](/extensions/buttons)
-    * `R` - [ColReorder](extensions/colreorder)
+    * `R` - [ColReorder](/extensions/colreorder)
     * `S` - [Scroller](/extensions/scroller)
 
 
