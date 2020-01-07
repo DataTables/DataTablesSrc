@@ -5,12 +5,15 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>function( e, settings )</signature>
+		<signature>function( e, settings, ordArr )</signature>
 		<parameter type="object" name="e">
 			jQuery event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
+		</parameter>
+		<parameter type="array" name="ordArr">
+			Array of objects describing currently applied order
 		</parameter>
 		<scope>HTML table element</scope>
 	</type>
