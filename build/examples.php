@@ -486,24 +486,6 @@ else if ( stripos( $dir_input, 'FixedColumns' ) ) {
 else if ( stripos( $dir_input, 'SearchPanes' ) ) {
 	$dir_order = array(
 		'initialisation',
-		'features' ,
-		'advanced' ,
-		'customisation' ,
-		'customFiltering' ,
-		'integration',
-		'styling'
-	);
-
-	$dir_names = array(
-		'customFiltering' => "Creation of custom panes",
-		'initialisation' => "Initialisation and options",
-		'integration'    => "Integration with other DataTables extensions",
-		'styling'        => "Styling"
-	);
-}
-else if ( stripos( $dir_input, 'SearchPanes' ) ) {
-	$dir_order = array(
-		'initialisation',
 		'advanced',
 		'customisation',
 		'integration',
