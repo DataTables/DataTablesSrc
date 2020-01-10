@@ -501,6 +501,27 @@ else if ( stripos( $dir_input, 'SearchPanes' ) ) {
 		'styling'        => "Styling"
 	);
 }
+else if ( stripos( $dir_input, 'SearchPanes' ) ) {
+	$dir_order = array(
+		'initialisation',
+		'advanced',
+		'customisation',
+		'integration',
+		'customFiltering',
+		'styling',
+		'performance'
+	);
+
+	$dir_names = array(
+		'initialisation' => 'Initialisation and options',
+		'advanced' => 'Advanced initialisation',
+		'customisation' => 'Customisation',
+		'integration' => 'Integration with other DataTables extensions',
+		'customFiltering' => 'Creation of custom panes',
+		'styling' => 'Styling',
+		'performance' => 'Performance'
+	);
+}
 
 //print_r( DT_Example::$lookup_libraries );
 
