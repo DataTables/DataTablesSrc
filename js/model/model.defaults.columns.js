@@ -524,6 +524,11 @@ DataTable.defaults.column = {
 	 */
 	"mRender": null,
 
+	/**
+     * Optional message if column data is null
+     *  @type string
+     */
+    "nullValue": '',
 
 	/**
 	 * Change the cell type created for the column - either TD cells or TH cells. This

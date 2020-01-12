@@ -147,7 +147,7 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 	}
 
 	if ( cellData === null && type == 'display' ) {
-		return '';
+        return settings.aoColumns[colIdx].nullValue;
 	}
 	return cellData;
 }

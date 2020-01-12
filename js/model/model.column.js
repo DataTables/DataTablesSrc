@@ -61,6 +61,12 @@ DataTable.models.oColumn = {
 	"bVisible": null,
 
 	/**
+	* Optional message if column data is null
+	*  @type string
+	*/
+	"nullValue": '',
+	
+	/**
 	 * Store for manual type assignment using the `column.type` option. This
 	 * is held in store so we can manipulate the column's `sType` property.
 	 *  @type string
