@@ -12,7 +12,7 @@
 	<description>
     This parameter can be used to define the width of a column, and may take any CSS value (3em, 20px etc).
 
-    Please note that pixel perfect column width is virtually impossible to achieve in tables with dynamic content, so do not be surprised if the width of the column if off by a few pixels from what you assign using this property. Column width in tables depends upon many properties such as cell borders, table borders, the `border-collapse` property, the content of the table and many other properties. Both DataTables and the browsers attempt to lay the table out in an optimal manner taking this options all into account.
+    Please note that pixel perfect column width is virtually impossible to achieve in tables with dynamic content, so do not be surprised if the width of the column is off by a few pixels from what you assign using this property. Column width in tables depends upon many properties such as cell borders, table borders, the `border-collapse` property, the content of the table and many other properties. Both DataTables and the browsers attempt to lay the table out in an optimal manner taking this options all into account.
 	</description>
 
 	<example title="Set the first column's width to 20% with `dt-init columnDefs`"><![CDATA[

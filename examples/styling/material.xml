@@ -8,10 +8,11 @@
 <js><![CDATA[
 $(document).ready(function() {
 	$('#example').DataTable( {
+		autoWidth: false,
 		columnDefs: [
 			{
-				targets: [ 0, 1, 2 ],
-				className: 'mdl-data-table__cell--non-numeric'
+				targets: ['_all'],
+				className: 'mdc-data-table__cell'
 			}
 		]
 	} );
