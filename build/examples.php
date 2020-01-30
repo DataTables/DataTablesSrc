@@ -224,7 +224,7 @@ DT_Example::$components['select'] = [
 
 DT_Example::$components['searchpanes'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/SearchPanes' ),
-	'release' => "0.0.1", // $versions['SearchPanes']['release']['version'],
+	'release' => $versions['SearchPanes']['release']['version'],
 	'filename' => 'searchPanes',
 	'framework' => [
 		'css' => true,
