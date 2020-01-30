@@ -269,12 +269,6 @@ table.dataTable {
 @import 'typography.scss';
 @import 'ordering.scss';
 
-table.dataTable,
-table.dataTable th,
-table.dataTable td {
-	box-sizing: border-box;
-}
-
 
 /*
  * Control feature layout

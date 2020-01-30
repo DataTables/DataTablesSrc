@@ -8,9 +8,6 @@ table.dataTable.table {
 	// Easier calculations
 	td,
 	th {
-		-webkit-box-sizing: content-box;
-		box-sizing: content-box;
-
 		&.dataTables_empty {
 			text-align: center;
 		}
