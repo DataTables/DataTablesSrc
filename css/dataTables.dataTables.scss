@@ -282,7 +282,6 @@ table.dataTable td {
 div.dataTables_wrapper {
 	position: relative;
 	clear: both;
-	*zoom: 1;
 
 	div.dataTables_layout_row {
 		display: table;
@@ -452,7 +451,6 @@ div.dataTables_wrapper {
 		clear: both;
 		height: 0;
 	}
-	zoom: 1; // Poor old IE
 }
 
 
