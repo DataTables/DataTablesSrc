@@ -77,7 +77,7 @@
 
 	<description>
 		<![CDATA[
-		This property can be used to read and write data to and from any data source property, including deeply nested objects / properties. `data` can be given in a number of different ways which effect its behaviour as documented below.
+		This property can be used to read and write data to and from any data source property, including deeply nested objects / properties. `data` can be given in a number of different ways which affect its behaviour as documented below.
 
 		The data that is resolved for a data point (between this option and `dt-init columns.render`) will be used by DataTables for the requested data, with three special cases:
 
