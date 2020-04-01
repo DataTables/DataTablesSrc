@@ -8,7 +8,11 @@
 
 var __htmlEscapeEntities = function ( d ) {
 	return typeof d === 'string' ?
-		d.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') :
+		d
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;') :
 		d;
 };
 
