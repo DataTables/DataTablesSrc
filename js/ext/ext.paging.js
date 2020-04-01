@@ -185,7 +185,7 @@ $.extend( true, DataTable.ext.renderer, {
 			attach( $(host).empty(), buttons );
 
 			if ( activeEl !== undefined ) {
-				$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
+				$(host).find( '[data-dt-idx='+activeEl+']' ).trigger('focus');
 			}
 		}
 	}
