@@ -140,4 +140,46 @@ describe('tables - tables()', function() {
 			expect(tables.tables('.two').page.info().recordsDisplay).toBe(0);
 		});
 	});
+
+	describe('Check table-selector', function() {
+		let tables;
+
+		dt.html('two_tables');
+		it('Setup tables', function() {
+			tables = $('.both').DataTable();
+			expect(tables.tables().context.length).toBe(2);
+			expect(tables.tables('.both').context.length).toBe(2);
+			expect(tables.tables('.one').context.length).toBe(1);
+		});
+		it('Integer - first table', function() {
+			tables
+				.tables(0)
+				.order([1, 'desc'])
+				.draw();
+			expect($('#example_one tbody tr:eq(0) td:eq(0)').text()).toBe('Prescott Bartlett');
+		});
+		it('Integer - second table', function() {
+			tables
+				.tables(1)
+				.order([2, 'desc'])
+				.draw();
+			expect($('#example_two tbody tr:eq(0) td:eq(0)').text()).toBe('Sydney');
+		});
+		it('Array - one table', function() {
+			tables
+				.tables([1])
+				.order([1, 'desc'])
+				.draw();
+			expect($('#example_two tbody tr:eq(0) td:eq(0)').text()).toBe('Milan');
+		});
+		it('Array - two tables', function() {
+			tables
+				.tables([0, 1])
+				.order([0, 'asc'])
+				.draw();
+
+			expect($('#example_one tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+			expect($('#example_two tbody tr:eq(0) td:eq(0)').text()).toBe('Boston');
+		});
+	});
 });
