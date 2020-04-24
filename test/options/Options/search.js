@@ -24,13 +24,13 @@ describe('Search option', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Bradley Greer');
 		});
 		it('New search term should wipeout one at initialisation', function() {
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val('Cox')
 				.keyup();
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
 		});
 		it('Clearing search returns to full table (not initialisation search)', function() {
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val('')
 				.keyup();
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
@@ -45,7 +45,7 @@ describe('Search option', function() {
 					search: 'Officer'
 				}
 			});
-			expect($('#example_info').html()).toBe('Showing 1 to 4 of 4 entries (filtered from 57 total entries)');
+			expect($('div.dataTables_info').html()).toBe('Showing 1 to 4 of 4 entries (filtered from 57 total entries)');
 		});
 	});
 
@@ -100,7 +100,7 @@ describe('Search option', function() {
 					regex: false
 				}
 			});
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val('As.ton')
 				.keyup();
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
@@ -113,7 +113,7 @@ describe('Search option', function() {
 					regex: true
 				}
 			});
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val('As.ton')
 				.keyup();
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
@@ -150,7 +150,7 @@ describe('Search option', function() {
 					caseInsensitive: false
 				}
 			});
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val('accountant')
 				.keyup();
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
@@ -173,7 +173,7 @@ describe('Search option', function() {
 					caseInsensitive: true
 				}
 			});
-			$('#example_filter input')
+			$('div.dataTables_filter input')
 				.val('accountant')
 				.keyup();
 			expect($('#example tbody tr:eq(0) td:eq(1)').text()).toBe('Accountant');

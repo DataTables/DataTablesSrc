@@ -8,14 +8,13 @@ describe('slice()', function() {
 	});
 
 	describe('Check the defaults', function() {
+		let table;
 		dt.html('basic');
 		it('Exists and is a function', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			expect(typeof table.slice).toBe('function');
 		});
-
 		it('Returns API instance', function() {
-			let table = $('#example').DataTable();
 			expect(table.slice() instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});

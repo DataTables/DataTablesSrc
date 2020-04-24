@@ -1,15 +1,12 @@
 {
-"data": [
-   {
-      "engine": "Red",
-      "browser": "Chrome",
-      "platform": {
-       "inner": "Test",
-	   "details": [
-          "Details", "Second Details"
-       ]
-      }
-
-   }
-]
+	"data": [
+		{
+			engine: 'Red',
+			browser: 'Chrome',
+			platform: {
+				inner: 'Test',
+				details: ['Details', 'Second Details']
+			}
+		}
+	]
 }

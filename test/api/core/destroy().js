@@ -1,13 +1,3 @@
-// todo tests
-//
-// - Check it exists and is a function
-// - returns API instance (although it is redundant since the table is now "dead")
-// - Using destroy() removes all extra html elements and leaves blank table with data
-// - Parameter 1:
-//   - `undefined` - removes all extra html elements and leaves blank table with data
-//   - `true` - removes the table from the DOM entirely
-//   - `false` - leaves the table in the DOM, but removed all enhancements
-//   - `false` - uses `$().remove()` - test by adding a custom event to the table before destroy and checking if it is still attached to the table after calling `destroy`
 describe('core - destroy()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -31,11 +21,10 @@ describe('core - destroy()', function() {
 	describe('Functional tests', function() {
 		function testElementsPresent(present) {
 			let elements = [
-				'#example_length',
-				'#example_length',
-				'#example_info',
-				'#example_paginate',
-				//Manuscript #528: '.sorting_asc',
+				'div.dataTables_length',
+				'div.dataTables_info',
+				'div.dataTables_paginate',
+				// Jira DD-71: '.sorting_asc',
 				'.sorting'
 			];
 			elements.forEach(function(element) {
@@ -56,6 +45,14 @@ describe('core - destroy()', function() {
 		it('Check default is false', function() {
 			let table = $('#example').DataTable();
 			table.destroy(false);
+			expect($('#example').length).toBe(1);
+			testElementsPresent(false);
+		});
+
+		dt.html('basic');
+		it('Check undefined', function() {
+			let table = $('#example').DataTable();
+			table.destroy(undefined);
 			expect($('#example').length).toBe(1);
 			testElementsPresent(false);
 		});

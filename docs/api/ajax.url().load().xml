@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>ajax.url().load( callback, resetPaging )</signature>
 		<parameter type="function" name="callback" default="null">
-			Function which is executed when the data as been reloaded and the table fully redrawn. The function is given a single parameter - the JSON data returned by the server, and expects no return.
+			Function which is executed when the data has been reloaded and the table fully redrawn. The function is given a single parameter - the JSON data returned by the server, and expects no return.
 		</parameter>
 		<parameter type="boolean" name="resetPaging" default="true">
 			Reset (default action or `true`) or hold the current paging position (`false`). A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
@@ -18,9 +18,9 @@
 	</type>
 
 	<description>
-		Trigger a load of an Ajax data source when a URl has been set using the `dt-api ajax.url()` method.
+		Trigger a load of an Ajax data source when a URL has been set using the `dt-api ajax.url()` method.
 
-		Note `dt-api ajax.url()` must be used a setter to set the URL, not a getter for this `load()` method to be available in the returned object.
+		Note `dt-api ajax.url()` must be used as a setter to set the URL for the `load()` method to be available in the returned object.
 	</description>
 
 	<example title="Set the Ajax URL and load the data from the new source immediately"><![CDATA[

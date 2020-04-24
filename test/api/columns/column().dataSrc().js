@@ -1,79 +1,77 @@
-// todo tests
-// - Confirm it exists and is a function
-// - Create a table which uses the following for various columns (you might need to create multiple tables)
-//   - Integer (array based tables)
-//   - Function
-//   - String (object based tables)
-// - For each column confirm that this method returns the data source for that column
-//   - e.g. if `columns.data` is not set it should return an integer (array based tables)
-//   - if `columns.data` is a string it should return that string
-//   - if `columns.data` is a function it should return that function, etc
-var dataSet = [
-    [ 2016, 37],
-	[ 2016, 27],
-	[ 2016, 23],
-	[ 2016, 19],
-	[ 2016, 43],
-	[ 2016, 76],
-];
-describe( "columns- column().dataSrc()", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+describe('columns- column().dataSrc()', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Exists and is a function", function () {
-			var table = $('#example').DataTable();
+	describe('Check the defaults', function() {
+		dt.html('basic');
+		it('Exists and is a function', function() {
+			let table = $('#example').DataTable();
 			expect(typeof table.column().dataSrc).toBe('function');
 		});
-		dt.html( 'currency' );
-		it("If columns.data is not set it should return an integer (array based table)", function () {
-			var table = $('#example').DataTable({
-				data: dataSet,
-				columns: [
-					{title: "Name"},
-					{title: "Age"}
-				]
-			});
-			expect(typeof table.column(1).dataSrc()).toBe('number');
+	});
+
+	describe('Functional tests', function() {
+		dt.html('basic');
+		it('Check all columns when array based', function() {
+			let table = $('#example').DataTable();
+
+			for (let i = 0; i < 6; i++) {
+				expect(table.column(i).dataSrc()).toBe(i);
+			}
 		});
-		dt.html( 'currency');
-		it("Returns a function, when using a function set in columnDefs.data", function () {
-			var count = 0;
-			var table = $('#example').DataTable({
-				"data": dataSet,
-				"columnDefs": [ {
-					"targets": 1,
-					"data": function (row, type, val, meta){
-						count = val + count;
-						return count;
+
+		dt.html('empty');
+		it('Returns correct element when object based', function(done) {
+			let columns = dt.getTestColumns();
+			let table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				columns: columns,
+				initComplete: function(settings, json) {
+					for (let i = 0; i < 6; i++) {
+						expect(table.column(i).dataSrc()).toBe(columns[i].data);
 					}
-				}]
-			});
-			expect(typeof table.column(1).dataSrc()).toBe('function');
-		});
-		dt.html( 'empty' );
-		it("Returns string when using string in column (object based table)", function (done) {
-			var table = $('#example').DataTable({
-				"ajax": '/base/test/data/data.txt',
-				columns: [
-					{ data: "name" },
-					{ data: "position" },
-					{ data: "office" },
-					{ data: "age" },
-					{ data: "start_date" },
-					{ data: "salary" }
-				],
-				initComplete: function ( settings, json ) {
-					expect(typeof table.column(1).dataSrc()).toBe('string');
 					done();
 				}
 			});
-
 		});
 
-	});
+		dt.html('currency');
+		it('Returns a function, when using a function set in columnDefs.data', function() {
+			let count = 0;
+			let dataSet = [[2016, 37], [2016, 27], [2016, 23], [2016, 19], [2016, 43], [2016, 76]];
 
+			let table = $('#example').DataTable({
+				data: dataSet,
+				columnDefs: [
+					{
+						targets: 1,
+						data: function() {
+							return count++;
+						}
+					}
+				]
+			});
+			expect(typeof table.column(1).dataSrc()).toBe('function');
+		});
+
+		dt.html('empty');
+		it('When null data source', function(done) {
+			let columns = dt.getTestColumns();
+			columns[2].data = null;
+			columns[2].defaultContent = 'unit test';
+
+			let table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				columns: columns,
+				initComplete: function(settings, json) {
+					for (let i = 0; i < 6; i++) {
+						expect(table.column(i).dataSrc()).toBe(columns[i].data);
+					}
+					done();
+				}
+			});
+		});
+	});
 });

@@ -423,7 +423,7 @@ function _fnScrollDraw ( settings )
 	table.children('colgroup').insertBefore( table.children('thead') );
 
 	/* Adjust the position of the header in case we loose the y-scrollbar */
-	divBody.scroll();
+	divBody.trigger('scroll');
 
 	// If sorting or filtering has occurred, jump the scrolling back to the top
 	// only if we aren't holding the position

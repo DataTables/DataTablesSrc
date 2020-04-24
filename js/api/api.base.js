@@ -173,7 +173,7 @@ _Api = function ( context, data )
 	var ctxSettings = function ( o ) {
 		var a = _toSettings( o );
 		if ( a ) {
-			settings = settings.concat( a );
+			settings.push.apply( settings, a );
 		}
 	};
 
@@ -480,8 +480,7 @@ _Api.extend = function ( scope, obj, ext )
 
 	var
 		i, ien,
-		j, jen,
-		struct, inner,
+		struct,
 		methodScoping = function ( scope, fn, struc ) {
 			return function () {
 				var ret = fn.apply( scope, arguments );
@@ -496,9 +495,9 @@ _Api.extend = function ( scope, obj, ext )
 		struct = ext[i];
 
 		// Value
-		obj[ struct.name ] = typeof struct.val === 'function' ?
+		obj[ struct.name ] = struct.type === 'function' ?
 			methodScoping( scope, struct.val, struct ) :
-			$.isPlainObject( struct.val ) ?
+			struct.type === 'object' ?
 				{} :
 				struct.val;
 
@@ -579,13 +578,19 @@ _Api.register = _api_register = function ( name, val )
 				name:      key,
 				val:       {},
 				methodExt: [],
-				propExt:   []
+				propExt:   [],
+				type:      'object'
 			};
 			struct.push( src );
 		}
 
 		if ( i === ien-1 ) {
 			src.val = val;
+			src.type = typeof val === 'function' ?
+				'function' :
+				$.isPlainObject( val ) ?
+					'object' :
+					'other';
 		}
 		else {
 			struct = method ?
@@ -594,7 +599,6 @@ _Api.register = _api_register = function ( name, val )
 		}
 	}
 };
-
 
 _Api.registerPlural = _api_registerPlural = function ( pluralName, singularName, val ) {
 	_Api.register( pluralName, val );

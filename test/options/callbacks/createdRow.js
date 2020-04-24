@@ -5,41 +5,27 @@ describe('createdRow option', function() {
 	});
 
 	describe('Check the arguments', function() {
-		dt.html('basic');
-		it('Three arguments for the function', function() {
-			let tmp = false;
-			$('#example').dataTable({
-				createdRow: function() {
-					if (arguments.length === 4) {
-						tmp = true;
-					}
-				}
-			});
-			expect(tmp).toBe(true);
-		});
+		let args;
+		let count = 0;
 
 		dt.html('basic');
+		it('Called for each', function() {			
+			$('#example').dataTable({
+				createdRow: function() {
+					args = arguments;
+					count++;
+				}
+			});
+			expect(count).toBe(57);
+		});
+		it('Four arguments for the function', function() {
+			expect(args.length).toBe(4);
+		});		
 		it('First argument is a TR element', function() {
-			let called = false;
-			$('#example').dataTable({
-				createdRow: function() {
-					expect(arguments[0].nodeName).toBe('TR');
-					called = true;
-				}
-			});
-			expect(called).toBe(true);
+			expect(args[0].nodeName).toBe('TR');
 		});
-
-		dt.html('basic');
 		it('Second Argument is an array with 6 elements', function() {
-			let called = false;
-			$('#example').dataTable({
-				createdRow: function() {
-					expect(arguments[1].length).toBe(6);
-					called = true;
-				}
-			});
-			expect(called).toBe(true);
+			expect(args[1].length).toBe(6);
 		});
 
 		dt.html('basic');
@@ -72,6 +58,7 @@ describe('createdRow option', function() {
 	});
 
 	describe('Check the basics', function() {
+
 		dt.html('basic');
 		it('Row created is called once for each row on init', function() {
 			let count = 0;
@@ -97,7 +84,7 @@ describe('createdRow option', function() {
 
 		dt.html('basic');
 		it('TR element is tied to the correct data', function() {
-			tmp = false;
+			let tmp = false;
 			$('#example').dataTable({
 				createdRow: function(tr, data, index) {
 					if (data[0] === 'Airi Satou') {
@@ -153,20 +140,7 @@ describe('createdRow option', function() {
 			let count = 0;
 			let table = $('#example').DataTable({
 				serverSide: true,
-				ajax: function(data, callback, settings) {
-					var out = [];
-					for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
-						out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
-					}
-					setTimeout(function() {
-						callback({
-							draw: data.draw,
-							data: out,
-							recordsTotal: 5000000,
-							recordsFiltered: 5000000
-						});
-					}, 50);
-				},
+				ajax: dt.serverSide,
 				createdRow: function(row, data, dataIndex) {
 					count++;
 					if (dataIndex == 2) {
@@ -188,7 +162,7 @@ describe('createdRow option', function() {
 				ajax: '/base/test/data/data.txt',
 				deferRender: true,
 				pageLength: 10,
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				createdRow: function(row, data, dataIndex) {
 					if (dataIndex == 4) {
 						$(row).addClass('unit-test');

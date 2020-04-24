@@ -10,6 +10,12 @@
  */
 var __table_selector = function ( selector, a )
 {
+	if ( $.isArray(selector) ) {
+		return $.map( selector, function (item) {
+			return __table_selector(item, a);
+		} );
+	}
+
 	// Integer is used to pick out a table by index
 	if ( typeof selector === 'number' ) {
 		return [ a[ selector ] ];
@@ -45,7 +51,7 @@ var __table_selector = function ( selector, a )
  */
 _api_register( 'tables()', function ( selector ) {
 	// A new instance is created if there was a selector specified
-	return selector ?
+	return selector !== undefined && selector !== null ?
 		new _Api( __table_selector( selector, this.context ) ) :
 		this;
 } );

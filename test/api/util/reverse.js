@@ -4,15 +4,15 @@ describe('reverse()', function() {
 		css: ['datatables']
 	});
 
+	let table;
+
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Exists and is a function', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			expect(typeof table.reverse).toBe('function');
 		});
-
 		it('Returns API instance', function() {
-			let table = $('#example').DataTable();
 			expect(table.reverse() instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});
@@ -22,29 +22,40 @@ describe('reverse()', function() {
 			let count = forward.count();
 			if (count !== backward.count()) {
 				return false;
-            }
+			}
 
 			for (let i = 0; i < count; i++) {
-				if (forward[i] !== backward[count - i -1]) {
+				if (forward[i] !== backward[count - i - 1]) {
 					return false;
 				}
 			}
 
 			return true;
-        }
-        
+		}
+
 		dt.html('basic');
 		it('Confirm with ordered list', function() {
-			let counter = 0;
-			let table = $('#example').DataTable();
-			expect(isReversed(table.column(0).data(), table.column(0).data().reverse())).toBe(true);
-        });
-
-		dt.html('basic');        
+			table = $('#example').DataTable();
+			expect(
+				isReversed(
+					table.column(0).data(),
+					table
+						.column(0)
+						.data()
+						.reverse()
+				)
+			).toBe(true);
+		});
 		it('Confirm with unordered list', function() {
-			let counter = 0;
-			let table = $('#example').DataTable();
-			expect(isReversed(table.column(4).data(), table.column(4).data().reverse())).toBe(true);
-        });        
+			expect(
+				isReversed(
+					table.column(4).data(),
+					table
+						.column(4)
+						.data()
+						.reverse()
+				)
+			).toBe(true);
+		});
 	});
 });

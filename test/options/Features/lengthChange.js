@@ -8,13 +8,13 @@ describe('lengthChange option', function() {
 		dt.html('basic');
 		it('Exists by default', function() {
 			$('#example').dataTable();
-			expect($('#example_length').length).toBe(1);
+			expect($('div.dataTables_length').length).toBe(1);
 			expect($.fn.dataTable.defaults.bLengthChange).toBe(true);
 		});
 
 		it('Correct place in DOM', function() {
 			expect(
-				$('#example_length')
+				$('div.dataTables_length')
 					.next()
 					.attr('id')
 			).toBe('example_filter');
@@ -25,7 +25,7 @@ describe('lengthChange option', function() {
 			$('#example').dataTable({
 				lengthChange: true
 			});
-			expect($('#example_length').length).toBe(1);
+			expect($('div.dataTables_length').length).toBe(1);
 		});
 
 		dt.html('basic');
@@ -33,7 +33,7 @@ describe('lengthChange option', function() {
 			$('#example').dataTable({
 				lengthChange: false
 			});
-			expect($('#example_length').length).toBe(0);
+			expect($('div.dataTables_length').length).toBe(0);
 		});
 	});
 
@@ -62,7 +62,7 @@ describe('lengthChange option', function() {
 				lengthChange: true,
 				paging: false
 			});
-			expect($('#example_length').length).toBe(0);
+			expect($('div.dataTables_length').length).toBe(0);
 		});
 
 		dt.html('basic');
@@ -83,8 +83,8 @@ describe('lengthChange option', function() {
 				lengthChange: false
 			});
 
-			expect($('#example_one_length').length).toBe(1);
-			expect($('#example_two_length').length).toBe(0);
+			expect($('div.dataTables_wrapper:eq(0) div.dataTables_length').length).toBe(1);
+			expect($('div.dataTables_wrapper:eq(1) div.dataTables_length').length).toBe(0);
 		});
 	});
 });

@@ -9,7 +9,7 @@
  * @file        jquery.dataTables.js
  * @author      SpryMedia Ltd
  * @contact     www.datatables.net
- * @copyright   Copyright 2008-2018 SpryMedia Ltd.
+ * @copyright   Copyright 2008-2019 SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
  *   MIT license - http://datatables.net/license
@@ -334,7 +334,7 @@
 
 	/**
 	 * Processing event, fired when DataTables is doing some kind of processing
-	 * (be it, order, searcg or anything else). It can be used to indicate to
+	 * (be it, order, search or anything else). It can be used to indicate to
 	 * the end user that there is something happening, or that something has
 	 * finished.
 	 *  @name DataTable#processing.dt

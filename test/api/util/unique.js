@@ -1,5 +1,5 @@
 describe('unique()', function() {
-	var table;
+	let table;
 
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -9,12 +9,10 @@ describe('unique()', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Exists and is a function', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			expect(typeof table.unique).toBe('function');
 		});
-
 		it('Returns API instance', function() {
-			let table = $('#example').DataTable();
 			expect(table.unique() instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});
@@ -37,7 +35,6 @@ describe('unique()', function() {
 			expect(data[5]).toBe('Sidney');
 			expect(data[6]).toBe('Singapore');
 		});
-
 		it('Get unique data from numerical column', function() {
 			var data = table
 				.column(3)
@@ -45,7 +42,6 @@ describe('unique()', function() {
 				.unique();
 			expect(data.count()).toBe(33);
 		});
-
 		it('Get unique data from date column', function() {
 			var data = table
 				.column(4)

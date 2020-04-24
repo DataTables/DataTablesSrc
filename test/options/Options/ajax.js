@@ -1,63 +1,74 @@
-describe('init - ajax', function() {
-	var server;
-	var table;
-
+describe('ajax option', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
 	});
 
-	dt.html('empty');
+	let table;
 
-	it('204 from server results in empty table', function(done) {
-		server = sinon.fakeServer.create({autoRespond:true});
-		server.respondWith([204, {}, '']);
-
-		table = $('#example').DataTable({
-			ajax: '/204',
-			initComplete: function() {
-				expect(table.page.info().recordsTotal).toBe(0);
-                
-		        server.restore();
-				done();
-			}
+	describe('Functional tests', function() {
+		dt.html('empty');
+		it('String to file', function(done) {
+			table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				columns: [
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				initComplete: function() {
+					expect($('tbody tr:eq(2) td:eq(0)').text()).toBe('Ashton Cox');
+					done();
+				}
+			});
 		});
-	});
 
-	dt.html('empty');
-
-	it('204 from server results in empty table - with ajax.dataSrc', function(done) {
-		server = sinon.fakeServer.create({autoRespond:true});
-		server.respondWith([204, {}, '']);
-
-		table = $('#example').DataTable({
-			ajax: {
-                url: '/204',
-                dataSrc: 'test.world'
-            },
-			initComplete: function() {
-				expect(table.page.info().recordsTotal).toBe(0);
-                
-		        server.restore();
-				done();
-			}
+		dt.html('empty');
+		it('Object', function(done) {
+			table = $('#example').DataTable({
+				ajax: {
+					url: '/base/test/data/data.txt'
+				},
+				columns: [
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				initComplete: function() {
+					expect($('tbody tr:eq(2) td:eq(0)').text()).toBe('Ashton Cox');
+					done();
+				}
+			});
 		});
-	});
 
-	dt.html('empty');
-    
-	it('null from server results in empty table', function(done) {
-		server = sinon.fakeServer.create({autoRespond:true});
-		server.respondWith([200, {}, 'null']);
+		dt.html('empty');
+		it('Function', function(done) {
+			table = $('#example').DataTable({
+				ajax: function(data, callback, settings) {
+					var out = [];
 
-		table = $('#example').DataTable({
-			ajax: '/null',
-			initComplete: function() {
-				expect(table.page.info().recordsTotal).toBe(0);
-                
-		        server.restore();
-				done();
-			}
+					for (let i = 0; i < 57; i++) {
+						out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
+					}
+
+					setTimeout(function() {
+						callback({
+							data: out
+						});
+					}, 50);
+				},
+				initComplete: function(setting, json) {
+					expect($('tbody tr:eq(2) td:eq(0)').text()).toBe('10-1');
+					expect(table.page.info().recordsTotal).toBe(57);
+					done();
+				}
+			});
 		});
 	});
 });

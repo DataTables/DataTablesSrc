@@ -11,7 +11,7 @@
 	</type>
 
 	<description>
-		The `dt-api row().child()` method, when used to set the child row's data, will retain the state of the child row visibility. So if the parent row's children are visible, they will continue to be so after setting use `dt-api row().child()` to set a new value. This method provides a chaining option to quickly and easily hide the child rows after setting the new child row data.
+		This method can be used to make the child rows of a parent row hidden at any time. When child row(s) are set as hidden they are not detached from the parent row, but rather simply not drawn on the page. This method provides a way of hiding a row at any required time.
 
 		Please note that this method is only available when `dt-api row().child()` is called with a parameter set. This is because `dt-api row().child()` will return the child rows if called with no parameters, which is either a `-type jQuery` object or `-type undefined`. When called with a parameter `dt-api row().child()` returns a `-type DataTables.Api` instance. If you need to hide a child row without any parameters being set use `dt-api row().child.hide()`.
 

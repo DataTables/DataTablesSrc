@@ -9,7 +9,7 @@ describe('pageLength Option', function() {
 		it('Default length is 10', function() {
 			let table = $('#example').DataTable();
 			expect($('#example tbody tr').length).toBe(10);
-			expect($('#example_length select').val()).toBe('10');
+			expect($('div.dataTables_length select').val()).toBe('10');
 			expect(table.page.info().length).toBe(10);
 		});
 
@@ -19,7 +19,7 @@ describe('pageLength Option', function() {
 				pageLength: 25
 			});
 			expect($('#example tbody tr').length).toBe(25);
-			expect($('#example_length select').val()).toBe('25');
+			expect($('div.dataTables_length select').val()).toBe('25');
 			expect(table.page.info().length).toBe(25);
 		});
 
@@ -29,7 +29,7 @@ describe('pageLength Option', function() {
 				pageLength: 100
 			});
 			expect($('#example tbody tr').length).toBe(57);
-			expect($('#example_length select').val()).toBe('100');
+			expect($('div.dataTables_length select').val()).toBe('100');
 			expect(table.page.info().length).toBe(100);
 		});
 
@@ -39,7 +39,7 @@ describe('pageLength Option', function() {
 				pageLength: 23
 			});
 			expect($('#example tbody tr').length).toBe(23);
-			expect($('#example_length select').val()).toBe(null);
+			expect($('div.dataTables_length select').val()).toBe(null);
 			expect(table.page.info().length).toBe(23);
 		});
 	});

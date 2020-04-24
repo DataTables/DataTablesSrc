@@ -4,47 +4,82 @@ module.exports = function(config) {
 
 	var fs = require('fs');
 	var browsers = fs.existsSync("/vagrant")? ['Chrome-headless'] : ['Chrome'];
-	var testFiles = process.env.DT_TESTFILE? process.env.DT_TESTFILE : 'test/*/**/*.js';
+	var testFiles = ' ';
+	var extensionFiles = ' ';
 
-	if (process.env.DT_EXTENSION) {
+	if (process.env.DT_TESTFILE) {
+		testFiles = process.env.DT_TESTFILE;
+	}
+	else if (process.env.DT_EXTENSION) {
 		switch (process.env.DT_EXTENSION) {
+			case 'All':
+			case 'all':
+				testFiles = 'test/*/**/*.js';
+				extensionFiles = 'extensions/*/test/**/*.js';
+				break;
 			case 'AutoFill':
-				testFiles = 'extensions/AutoFill/test/**/*.js';
+			case 'autofill':
+				extensionFiles = 'extensions/AutoFill/test/**/*.js';
 				break;
 			case 'Buttons':
-				testFiles = 'extensions/Buttons/test/**/*.js';
+			case 'buttons':
+				extensionFiles = 'extensions/Buttons/test/**/*.js';
 				break;
 			case 'ColReorder':
-				testFiles = 'extensions/ColReorder/test/**/*.js';
+			case 'colreorder':
+				extensionFiles = 'extensions/ColReorder/test/**/*.js';
 				break;
 			case 'Editor':
-				testFiles = 'extensions/Editor/test/**/*.js';
+			case 'editor':
+				extensionFiles = 'extensions/Editor/test/**/*.js';
+				break;
+			case 'Extensions':
+			case 'extensions':
+				extensionFiles = 'extensions/*/test/**/*.js';
 				break;
 			case 'FixedColumns':
-				testFiles = 'extensions/FixedColumns/test/**/*.js';
+			case 'fixedcolumns':
+				extensionFiles = 'extensions/FixedColumns/test/**/*.js';
 				break;
 			case 'FixedHeader':
-				testFiles = 'extensions/FixedHeader/test/**/*.js';
+			case 'fixedheader':
+				extensionFiles = 'extensions/FixedHeader/test/**/*.js';
+				break;
+			case 'KeyTable':
+			case 'keytable':
+				extensionFiles = 'extensions/KeyTable/test/**/*.js';
 				break;
 			case 'Responsive':
-				testFiles = 'extensions/Responsive/test/**/*.js';
+			case 'responsive':
+				extensionFiles = 'extensions/Responsive/test/**/*.js';
 				break;
 			case 'RowGroup':
-				testFiles = 'extensions/RowGroup/test/**/*.js';
+			case 'rowgroup':
+				extensionFiles = 'extensions/RowGroup/test/**/*.js';
 				break;
 			case 'RowReorder':
-				testFiles = 'extensions/RowReorder/test/**/*.js';
+			case 'rowreorder':
+				extensionFiles = 'extensions/RowReorder/test/**/*.js';
 				break;
 			case 'Scroller':
-				testFiles = 'extensions/Scroller/test/**/*.js';
+			case 'scroller':
+				extensionFiles = 'extensions/Scroller/test/**/*.js';
+				break;
+			case 'SearchPanes':
+			case 'searchpanes':
+				extensionFiles = 'extensions/SearchPanes/test/**/*.js';
 				break;
 			case 'Select':
-				testFiles = 'extensions/Select/test/**/*.js';
+			case 'select':
+				extensionFiles = 'extensions/Select/test/**/*.js';
 				break;
 
 			default:
 				throw 'Unknown extension';
 		}
+	}
+	else {
+		testFiles = 'test/*/*/*.js'
 	}
 
 	config.set({
@@ -54,11 +89,12 @@ module.exports = function(config) {
 		// plugins
 		plugins: [
 			require('karma-html2js-preprocessor'),
-			require('karma-jasmine-html-reporter'),
 			require('./html-loader.js'),
 			require('karma-jasmine-jquery'),
 			require('karma-jasmine'),
-			require('karma-chrome-launcher')
+			require('./html-loader.js'),
+			require('karma-chrome-launcher'),
+			require("karma-spec-reporter"),
 		],
 
 		// frameworks to use
@@ -76,13 +112,16 @@ module.exports = function(config) {
 			{ pattern: 'test/html/*.html', included: false },
 			{ pattern: 'extensions/*/test/html/*.html', included: false },
 			{ pattern: 'test/api/*.*.js', included: true },
-			testFiles
+			testFiles, extensionFiles
 		],
 
 		// list of files to exclude
 		exclude: [],
 
 		client: {
+			// Show console.log messages
+			captureConsole: true,
+
 			useIframe: true,
 			htmlLoader: {
 				path: 'base/test/html/',
@@ -95,7 +134,7 @@ module.exports = function(config) {
 					js: true,
 					css: true
 				},
-				autoFill: {
+				autofill: {
 					pathName: 'AutoFill',
 					fileName: 'autoFill',
 					js: true,
@@ -127,7 +166,13 @@ module.exports = function(config) {
 				},
 				fixedheader: {
 					pathName: 'FixedHeader',
-					fileName: 'fixedheader',
+					fileName: 'fixedHeader',
+					js: false,
+					css: true
+				},
+				keytable: {
+					pathName: 'KeyTable',
+					fileName: 'keyTable',
 					js: false,
 					css: true
 				},
@@ -155,27 +200,38 @@ module.exports = function(config) {
 					js: false,
 					css: true
 				},
+				searchpanes: {
+					pathName: 'SearchPanes',
+					fileName: 'searchPanes',
+					js: false,
+					css: true
+				},
 				select: {
 					pathName: 'Select',
 					fileName: 'select',
 					js: false,
 					css: true
 				},
-
+				//
 				// Additional files
 				'buttons-flash': {
-					js: '/extensions/Buttons/js/buttons.flash.js'
+					js: 'base/built/DataTables/extensions/Buttons/js/buttons.flash.js'
 				},
 				'buttons-html5': {
-					js: '/extensions/Buttons/js/buttons.html5.js'
+					js: 'base/built/DataTables/extensions/Buttons/js/buttons.html5.js'
 				},
 				'buttons-print': {
-					js: '/extensions/Buttons/js/buttons.print.js'
+					js: 'base/built/DataTables/extensions/Buttons/js/buttons.print.js'
 				},
 				'buttons-colVis': {
-					js: '/extensions/Buttons/js/buttons.colVis.js'
+					js: 'base/built/DataTables/extensions/Buttons/js/buttons.colVis.js'
 				},
-
+				// External DataTables libraries
+				// Used for performance testing to compare against current builds
+				datatables11018: {
+					js: '//cdn.datatables.net/v/dt/dt-1.10.18/datatables.js',
+					css: '//cdn.datatables.net/v/dt/dt-1.10.18/datatables.css'
+				},
 				// External libraries
 				// Ensure that these are insync with the build/examples.php file
 				jquery: {
@@ -236,7 +292,7 @@ module.exports = function(config) {
 		// test results reporter to use
 		// possible values: 'dots', 'progress'
 		// available reporters: https://npmjs.org/browse/keyword/karma-reporter
-		reporters: ['kjhtml'],
+		reporters: ['spec'],
 
 		// web server port
 		port: 9876,
@@ -248,6 +304,13 @@ module.exports = function(config) {
 		// possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
 		logLevel: config.LOG_INFO,
 
+		// Browser console capture
+		browserConsoleLogOptions: {
+			level: 'log',
+			format: '%b %T: %m',
+			terminal: true,
+		},
+
 		// enable / disable watching file and executing tests whenever any file changes
 		autoWatch: true,
 
@@ -257,7 +320,7 @@ module.exports = function(config) {
 		customLaunchers: {
 			"Chrome-headless": {
 				base: 'Chrome',
-				flags: ['--headless', '--disable-gpu', '--window-size=1280,1024', '--remote-debugging-port=9222', '--no-sandbox']
+				flags: ['--headless', '--disable-gpu', '--window-size=949,949', '--remote-debugging-port=9222', '--no-sandbox']
 			}
 		},
 
@@ -267,6 +330,10 @@ module.exports = function(config) {
 
 		// Concurrency level
 		// how many browser should be started simultaneous
-		concurrency: Infinity
+		concurrency: Infinity,
+		browserNoActivityTimeout : 120000, //default 10000
+		browserDisconnectTimeout : 120000, // default 2000
+		browserDisconnectTolerance : 1, // default 0
+		captureTimeout: 120000
 	});
 };

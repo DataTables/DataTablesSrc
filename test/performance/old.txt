@@ -1,0 +1,10 @@
+describe('performance', function() {
+	dt.libs({
+		js: ['jquery', 'datatables11018'],
+		css: ['datatables11018']
+	});
+
+	dt.html('empty_no_header');
+	it('Check this is the old version', function() {
+		expect($.fn.dataTable.version).toBe('1.10.18');
+	});

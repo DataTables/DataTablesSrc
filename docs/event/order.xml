@@ -5,12 +5,15 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>function( e, settings )</signature>
+		<signature>function( e, settings, ordArr )</signature>
 		<parameter type="object" name="e">
 			jQuery event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
+		</parameter>
+		<parameter type="array" name="ordArr">
+			Array of objects describing currently applied order
 		</parameter>
 		<scope>HTML table element</scope>
 	</type>
@@ -18,7 +21,7 @@
 	<description>
 		The `dt-event order` event is fired whenever the data in the table is ordered. This is typically triggered by the end user ordering a column, but can also be initiated through the `dt-api order()` method and when a full redraw (by calling the `dt-api draw()`) occurs.
 
-		Note that the `dt-event page` will be fired before the table has been redrawn with the updated data, although the data will internally have been ordered.
+		Note that the `dt-event order` will be fired before the table has been redrawn with the updated data, although the data will internally have been ordered.
 
 		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>

@@ -11,10 +11,10 @@ describe('tables - tables().header()', function() {
 			expect(typeof table.table().header).toBe('function');
 		});
 
-		it('Returns a header node', function() {
+		it('Returns an API instance', function() {
 			let table = $('#example').DataTable();
 			let header = table.tables().header();
-			expect(table.column().visible(true) instanceof $.fn.dataTable.Api).toBe(true);
+			expect(header instanceof $.fn.dataTable.Api).toBe(true);
 			expect(header[0].nodeName.toUpperCase()).toBe('THEAD');
 		});
 	});
@@ -53,7 +53,7 @@ describe('tables - tables().header()', function() {
 		});
 	});
 
-	describe('Check the behaviour with one table', function() {
+	describe('Check the behaviour with two tables', function() {
 		dt.html('two_tables');
 		it('Returns two header rows', function() {
 			let tables = $('[id^=example]').DataTable();

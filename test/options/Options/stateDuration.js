@@ -4,36 +4,107 @@ describe('stateDuration Option', function() {
 		css: ['datatables']
 	});
 
-	describe('Default tests', function() {
-		dt.html('basic');
+	let table;
 
-		it('Test using session storage', function() {
-			$('#example').dataTable({
+	describe('Functional tests', function() {
+		dt.html('basic');
+		it('Infinite duration', function() {
+			table = $('#example').DataTable({
 				stateSave: true,
-				stateDuration: -1
+				stateDuration: 0
 			});
-			$('#example')
-				.DataTable()
-				.state.clear();
-			expect(sessionStorage['DataTables_example_' + location.pathname]).toBeDefined();
+
+			table.search('cox').draw();
+		});
+		dt.html('basic');
+		it('... keeps value immediately', function() {
+			table = $('#example').DataTable({
+				stateSave: true
+			});
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
+		});
+		dt.html('basic');
+		it('... and after 2 seconds', async function(done) {
+			await dt.sleep(2000);
+			table = $('#example').DataTable({
+				stateSave: true
+			});
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
+			done();
 		});
 
 		dt.html('basic');
-
-		it('Test using localStorage', function() {
-			$('#example').dataTable({
+		it('1 second duration', function() {
+			table = $('#example').DataTable({
 				stateSave: true,
 				stateDuration: 1
 			});
 
-			$('#example')
-				.DataTable()
-				.state.clear();
-				
+			table.search('cox').draw();
+		});
+		dt.html('basic');
+		it('... keeps value immediately', function() {
+			table = $('#example').DataTable({
+				stateSave: true,
+				stateDuration: 1
+			});
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
+		});
+		dt.html('basic');
+		it('... but not after 2 seconds', async function(done) {
+			await dt.sleep(2000);
+			table = $('#example').DataTable({
+				stateSave: true,
+				stateDuration: 1
+			});
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+			done();
+		});
+
+		dt.html('basic');
+		it('1 second duration', function() {
+			table = $('#example').DataTable({
+				stateSave: true,
+				stateDuration: 1
+			});
+
+			table.search('cox').draw();
+			table.state.clear();
+		});
+		dt.html('basic');
+		it('... still loses value if state cleared', function() {
+			table = $('#example').DataTable({
+				stateSave: true,
+				stateDuration: 1
+			});
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+		});
+	});
+
+	describe('old tests (really tests for state().clear()', function() {
+		dt.html('basic');
+		it('Test using session storage', function() {
+			table = $('#example').DataTable({
+				stateSave: true,
+				stateDuration: -1
+			});
+			table.state.clear();
+			expect(sessionStorage['DataTables_example_' + location.pathname]).toBeDefined();
+		});
+
+		dt.html('basic');
+		it('Test using localStorage', function() {
+			table = $('#example').DataTable({
+				stateSave: true,
+				stateDuration: 1
+			});
+
+			table.state.clear();
+
 			expect(localStorage['DataTables_example_' + location.pathname]).toBeDefined();
 
 			// The following test should fail - but it is passing due to
-			// https://sprymedia.manuscript.com/f/cases/394/API-call-state-clear-isn-t-clearing-the-state
+			// https://sprymedia.atlassian.net/browse/DD-205
 			// remove the test when that bug is fixed - it will cause the test to fail.
 			// The second test is just a failsafe to ensure it is behaving, so could optionally be removed
 			expect(sessionStorage['DataTables_example_' + location.pathname]).toBeDefined();

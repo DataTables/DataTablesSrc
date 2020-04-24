@@ -43,7 +43,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		_fnCompatCols( oOptions );
 
 		// Map camel case parameters to their Hungarian counterparts
-		_fnCamelToHungarian( DataTable.defaults.column, oOptions );
+		_fnCamelToHungarian( DataTable.defaults.column, oOptions, true );
 
 		/* Backwards compatibility for mDataProp */
 		if ( oOptions.mDataProp !== undefined && !oOptions.mData )

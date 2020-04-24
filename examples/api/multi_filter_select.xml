@@ -39,7 +39,7 @@ $(document).ready(function() {
 
 This example is almost identical to text based individual column example and provides the same functionality, but in this case using `tag select` input controls.
 
-After the table is initialised, the API is used to build the `tag select` inputs through the use of the `dt-api column().data()` method to get the data for each column in turn. The helper methods `dt-api unique()` and `dt-api sort()` are also used to reduce the data for set input to unique and ordered elements. Finally the `change` event from the `tag select` input is used to trigger a column search using the `dt-api column().search()` method.
+After the table is initialised, the API is used to build the `tag select` inputs through the use of `-api columns().every()` to loop over the columns (the `-api columns()` selector can also be used to limit the selected columns if required), then the `-api column().data()` method is used to get the data for each column in turn. The helper methods `dt-api unique()` and `dt-api sort()` are also used to reduce the data for set input to unique and ordered elements. Finally the `change` event from the `-tag select` input is used to trigger a column search using the `dt-api column().search()` method.
 
 Note that the `dt-api column().search()` method in this particular case performs an exact match through the use of a custom regular expression and disabling DataTables built-in smart searching. For more information on the search options in DataTables API, please refer to the documentation for `dt-api search()`, `dt-api column().search()` and `dt-api $.fn.dataTable.util.escapeRegex()` which are used for searching globally, by column and escaping regular expressions respectively.
 

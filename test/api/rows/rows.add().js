@@ -27,7 +27,7 @@ describe('rows - rows.add()', function() {
 			table.search(element).draw();
 
 			if (
-				$('#example_info').text() !=
+				$('div.dataTables_info').text() !=
 					'Showing 1 to 1 of 1 entries (filtered from ' + (57 + names.length) + ' total entries)' ||
 				$('#example tbody tr:eq(0) td:eq(0)').text() != element
 			) {
@@ -44,7 +44,7 @@ describe('rows - rows.add()', function() {
 			let table = $('#example').DataTable();
 			table.rows.add([aEva, aFred]);
 			expect(table.rows().count()).toBe(59);
-			expect($('#example_info').text()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entries');
 		});
 	});
 
@@ -93,7 +93,7 @@ describe('rows - rows.add()', function() {
 		dt.html('basic');
 		it('Single row', function() {
 			let table = $('#example').DataTable({
-				columns: dt.testColumns
+				columns: dt.getTestColumns()
 			});
 			table.rows.add([oEva]);
 			expect(areNamesThere(['Eva'])).toBe(true);
@@ -102,7 +102,7 @@ describe('rows - rows.add()', function() {
 		dt.html('basic');
 		it('Two rows', function() {
 			let table = $('#example').DataTable({
-				columns: dt.testColumns
+				columns: dt.getTestColumns()
 			});
 			table.rows.add([oEva, oFred]);
 			expect(areNamesThere(['Eva', 'Fred'])).toBe(true);
@@ -111,7 +111,7 @@ describe('rows - rows.add()', function() {
 		dt.html('basic');
 		it('Add single row, then two rows', function() {
 			let table = $('#example').DataTable({
-				columns: dt.testColumns
+				columns: dt.getTestColumns()
 			});
 			table.row.add(oTyler);
 			table.rows.add([oEva, oFred]);

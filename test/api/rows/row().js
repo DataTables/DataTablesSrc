@@ -99,7 +99,6 @@ describe('rows - row()', function() {
 	describe('Check the rowSelector parameter', function() {
 		// GH DataTables #1023
 		dt.html('empty');
-
 		it('Updating a row with an array of data where an id was originally present in the DOM will retain the id', function() {
 			debugger;
 			$('#example tbody').append(
@@ -121,22 +120,14 @@ describe('rows - row()', function() {
 			expect(table.row('#trident').node()).toBe(null);
 		});
 
-		it ( 'modifier - row index of 4, data match' , function () {
-			var d = table.row( 4, { search: 'applied' } ).data();
-			expect( d[0] ).toBe( 'Airi Satou' );
-		} );
-		
-		it( 'Child row node can be used as a row selector', function () {
-			table.search( '' ).draw();
-			table.row(':eq(1)').child( 'test', 'childClass' ).show();
-
-			var d = table.row( $('tr.childClass')[0] ).data();
-			expect( d[0] ).toBe( 'Angelica Ramos' );
-		} );
-			
-		it( 'Child row in jQuery object can be used as a row selector', function () {
-			var d = table.row( $('tr.childClass') ).data();
-			expect( d[0] ).toBe( 'Angelica Ramos' );
-		} );
-	} );
+		dt.html('basic');
+		it('Can use tr nodes to specify row', function() {
+			table = $('#example').DataTable();
+			expect(table.row($('tbody tr:eq(2)')).data()[0]).toBe('Ashton Cox');
+		});
+		it('Can use td nodes to specify row', function() {
+			table = $('#example').DataTable();
+			expect(table.row($('tbody tr:eq(2) td:eq(1)')).data()[0]).toBe('Ashton Cox');
+		});
+	});
 });

@@ -150,7 +150,7 @@ function _fnBindAction( n, oData, fn )
 {
 	$(n)
 		.on( 'click.DT', oData, function (e) {
-				$(e.target).blur(); // Remove focus outline for mouse users
+				$(n).trigger('blur'); // Remove focus outline for mouse users
 				fn(e);
 			} )
 		.on( 'keypress.DT', oData, function (e){

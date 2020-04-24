@@ -15,7 +15,7 @@
 	</type>
 
 	<description>
-		When working with collections of DataTables indexes (such as those placed into the result set by `dt-api tables()`, `dt-api rows()`, `dt-api columns()` and `dt-api cells()`) you often wish to loop over the indexes an perform some kind of operation on the element that each index points to. While this can easily be accomplished with a `for` loop or two, this method can help to simplify and reduce the code by performing those loops for you.
+		When working with collections of DataTables indexes (such as those placed into the result set by `dt-api tables()`, `dt-api rows()`, `dt-api columns()` and `dt-api cells()`) you often wish to loop over the indexes and perform some kind of operation on the element that each index points to. While this can easily be accomplished with a `for` loop or two, this method can help to simplify and reduce the code by performing those loops for you.
 
 		**Important**: Please note that if you are working with `dt-api rows()`, `dt-api columns()` and `dt-api cells()`, as of DataTables 1.10.6 you may wish to use the `dt-api rows().every()`, `dt-api columns().every()` and `dt-api cells().every()` methods to iterate over each row, column or cell with the context set to that table element, as those methods can simply your code beyond what is possible with this `dt-api iterator()` method for the majority of cases.
 

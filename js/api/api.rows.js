@@ -58,7 +58,7 @@ var __row_selector = function ( settings, selector, opts )
 					[];
 			}
 			else if ( cellIdx ) {
-				return aoData[ cellIdx.row ] && aoData[ cellIdx.row ].nTr === sel ?
+				return aoData[ cellIdx.row ] && aoData[ cellIdx.row ].nTr === sel.parentNode ?
 					[ cellIdx.row ] :
 					[];
 			}
@@ -292,7 +292,7 @@ _api_register( 'row().data()', function ( data ) {
 	row._aData = data;
 
 	// If the DOM has an id, and the data source is an array
-	if ( $.isArray( data ) && row.nTr.id ) {
+	if ( $.isArray( data ) && row.nTr && row.nTr.id ) {
 		_fnSetObjectDataFn( ctx[0].rowId )( data, row.nTr.id );
 	}
 

@@ -146,7 +146,7 @@ function _fnLoadState ( settings, callback, state )
 
 		_fnCallbackFire( settings, 'aoStateLoaded', 'stateLoaded', [settings, s] );
 		callback();
-	}
+	};
 
 	if ( ! state ) {
 		if ( ! settings.oFeatures.bStateSave ) {

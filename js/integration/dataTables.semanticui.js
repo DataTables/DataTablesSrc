@@ -175,7 +175,7 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 	);
 
 	if ( activeEl !== undefined ) {
-		$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
+		$(host).find( '[data-dt-idx='+activeEl+']' ).trigger('focus');
 	}
 };
 

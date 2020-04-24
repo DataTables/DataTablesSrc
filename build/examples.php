@@ -222,6 +222,16 @@ DT_Example::$components['select'] = [
 	]
 ];
 
+DT_Example::$components['searchpanes'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/SearchPanes' ),
+	'release' => $versions['SearchPanes']['release']['version'],
+	'filename' => 'searchPanes',
+	'framework' => [
+		'css' => true,
+		'js' => true
+	]
+];
+
 // Legacy extensions
 if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['css']['colvis']          = 'https://cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
@@ -256,22 +266,22 @@ DT_Example::$lookup_libraries['js' ]['jqueryui']     = 'https://code.jquery.com/
 DT_Example::$lookup_libraries['css']['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
 DT_Example::$lookup_libraries['css']['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
-DT_Example::$lookup_libraries['js']['bootstrap4']    = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js|https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js';
-DT_Example::$lookup_libraries['css' ]['bootstrap4']  = 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css';
+DT_Example::$lookup_libraries['js']['bootstrap4']    = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js|https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js';
+DT_Example::$lookup_libraries['css' ]['bootstrap4']  = 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css';
 DT_Example::$lookup_libraries['js' ]['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js';
 DT_Example::$lookup_libraries['css']['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css';
-DT_Example::$lookup_libraries['js' ]['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.js';
-DT_Example::$lookup_libraries['css']['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css';
+DT_Example::$lookup_libraries['js' ]['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.js';
+DT_Example::$lookup_libraries['css']['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css';
 DT_Example::$lookup_libraries['js' ]['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js';
 DT_Example::$lookup_libraries['css']['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css';
 DT_Example::$lookup_libraries['js' ]['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js';
 DT_Example::$lookup_libraries['css']['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css';
-DT_Example::$lookup_libraries['js' ]['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/js/uikit.min.js';
-DT_Example::$lookup_libraries['css']['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/css/uikit.min.css';
+DT_Example::$lookup_libraries['js' ]['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/js/uikit.min.js';
+DT_Example::$lookup_libraries['css']['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css';
 DT_Example::$lookup_libraries['css']['font-awesome'] = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
 DT_Example::$lookup_libraries['js']['jszip']         = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js';
-DT_Example::$lookup_libraries['js']['pdfmake']       = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js';
-DT_Example::$lookup_libraries['js']['vfsfonts']      = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js';
+DT_Example::$lookup_libraries['js']['pdfmake']       = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js';
+DT_Example::$lookup_libraries['js']['vfsfonts']      = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js';
 DT_Example::$lookup_libraries['js']['moment']        = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js';
 
 function multiple ( $value, $fn )
@@ -473,6 +483,27 @@ else if ( stripos( $dir_input, 'FixedColumns' ) ) {
 		'styling'        => "Styling"
 	);
 }
+else if ( stripos( $dir_input, 'SearchPanes' ) ) {
+	$dir_order = array(
+		'initialisation',
+		'advanced',
+		'customisation',
+		'integration',
+		'customFiltering',
+		'styling',
+		'performance'
+	);
+
+	$dir_names = array(
+		'initialisation' => 'Initialisation and options',
+		'advanced' => 'Advanced initialisation',
+		'customisation' => 'Customisation',
+		'integration' => 'Integration with other DataTables extensions',
+		'customFiltering' => 'Creation of custom panes',
+		'styling' => 'Styling',
+		'performance' => 'Performance'
+	);
+}
 
 //print_r( DT_Example::$lookup_libraries );
 
@@ -604,34 +635,6 @@ ALTER SEQUENCE datatables_demo_id_seq RESTART WITH {$next};
 EOD;
 	file_put_contents( $out_dir.'/postgres.sql', $str );
 
-	// SQLite style
-	$str = <<<EOD
---
--- DataTables Ajax and server-side processing database (SQLite)
---
-DROP TABLE IF EXISTS datatables_demo;
-
-CREATE TABLE datatables_demo (
-	id         integer primary key,
-	first_name text NOT NULL default '',
-	last_name  text NOT NULL default '',
-	position   text NOT NULL default '',
-	email      text NOT NULL default '',
-	office     text NOT NULL default '',
-	start_date timestamp without time zone default NULL,
-	age        integer,
-	salary     integer,
-	seq        integer,
-	extn       text NOT NULL default ''
-);
-
-INSERT INTO datatables_demo
-		( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) 
-	VALUES
-		$values;
-EOD;
-	file_put_contents( $out_dir.'/sqlite.sql', $str );
-
 	// SQLServer style
 	$str = <<<EOD
 --
@@ -660,11 +663,79 @@ SET IDENTITY_INSERT datatables_demo ON;
 INSERT INTO datatables_demo
 		( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) 
 	VALUES
-		$values;
-
-SET IDENTITY_INSERT datatables_demo OFF;
 EOD;
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$out[] = "( ".
+				$json[$i]['id'].", ".
+			"'".$json[$i]['first_name']."', ".
+			"'".$json[$i]['last_name']."', ".
+				$json[$i]['age'].", ".
+			"'".$json[$i]['position']."', ".
+				$json[$i]['salary'].", ".
+			"'".str_replace( '/', '', $json[$i]['start_date'])."', ".
+				$json[$i]['extn'].", ".
+			"'".$json[$i]['email']."', ".
+			"'".$json[$i]['office']."', ".
+				$json[$i]['sequence']." ".
+		")";
+	}
+
+	$sqlServerValues = join( ",\n\t\t", $out );
+	$str .= <<<EOD
+
+		$sqlServerValues;
+
+	SET IDENTITY_INSERT datatables_demo OFF;
+EOD;
+
 	file_put_contents( $out_dir.'/sqlserver.sql', $str );
+
+	// SQLite style
+	$str = <<<EOD
+--
+-- DataTables Ajax and server-side processing database (SQLite)
+--
+DROP TABLE IF EXISTS datatables_demo;
+
+CREATE TABLE datatables_demo (
+	id         integer primary key,
+	first_name text NOT NULL default '',
+	last_name  text NOT NULL default '',
+	position   text NOT NULL default '',
+	email      text NOT NULL default '',
+	office     text NOT NULL default '',
+	start_date timestamp default NULL,
+	age        integer,
+	salary     integer,
+	seq        integer,
+	extn       text NOT NULL default ''
+);
+
+INSERT INTO datatables_demo
+		( id, first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) 
+	VALUES
+EOD;
+	$insert = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$insert[] = "\t\t( ".
+			$json[$i]['id'].", ".
+		"'".$json[$i]['first_name']."', ".
+		"'".$json[$i]['last_name']."', ".
+			$json[$i]['age'].", ".
+		"'".$json[$i]['position']."', ".
+			$json[$i]['salary'].", ".
+		"'".date('Y-m-d', strtotime($json[$i]['start_date']))."', ".
+			$json[$i]['extn'].", ".
+		"'".$json[$i]['email']."', ".
+		"'".$json[$i]['office']."', ".
+			$json[$i]['sequence']." ".
+		")";
+	}
+
+	$str = $str .implode( ",\n", $insert ). ';';
+
+	file_put_contents( $out_dir.'/sqlite.sql', $str );
 
 	// Oracle style
 	$str = <<<EOD
@@ -675,37 +746,39 @@ BEGIN
 	EditorDelObject('datatables_demo', 'TABLE');
 	EditorDelObject('datatables_demo_seq', 'SEQUENCE');
 END;
+/
 
-CREATE TABLE datatables_demo (
-	id INT PRIMARY KEY NOT NULL,
-	first_name NVARCHAR2(250),
-	last_name  NVARCHAR2(250),
-	position   NVARCHAR2(250),
-	email      NVARCHAR2(250),
-	office     NVARCHAR2(250),
-	start_date DATE,
-	age        INT,
-	salary     INT,
-	seq        INT,
-	extn       NVARCHAR2(8)
+CREATE TABLE "datatables_demo" (
+	"id" INT PRIMARY KEY NOT NULL,
+	"first_name" NVARCHAR2(250),
+	"last_name"  NVARCHAR2(250),
+	"position"   NVARCHAR2(250),
+	"email"      NVARCHAR2(250),
+	"office"     NVARCHAR2(250),
+	"start_date" DATE,
+	"age"        INT,
+	"salary"     INT,
+	"seq"        INT,
+	"extn"       NVARCHAR2(8)
 );
 
 CREATE SEQUENCE datatables_demo_seq;
 
 CREATE OR REPLACE TRIGGER datatables_demo_on_insert
-	BEFORE INSERT ON datatables_demo
+	BEFORE INSERT ON "datatables_demo"
 	FOR EACH ROW
 	BEGIN
 		SELECT datatables_demo_seq.nextval
-		INTO :new.id
+		INTO :new."id"
 		FROM dual;
 	END;
+	/
 
 EOD;
 
 	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
-		$str .= "INSERT INTO datatables_demo ".
-			"( first_name, last_name, age, position, salary, start_date, extn, email, office, seq ) ".
+		$str .= "INSERT INTO \"datatables_demo\" ".
+			"( \"first_name\", \"last_name\", \"age\", \"position\", \"salary\", \"start_date\", \"extn\", \"email\", \"office\", \"seq\" ) ".
 			"VALUES ";
 
 		$str .= "( ".
@@ -729,7 +802,7 @@ EOD;
 		// Firebird 3 style
 		$str = <<<EOD
 	--
-	-- DataTables Ajax and server-side processing database (Oracle)
+	-- DataTables Ajax and server-side processing database (Firebird 3)
 	--
 	CREATE TABLE "datatables_demo" (
 		"id"         integer generated by default as identity primary key,
@@ -779,6 +852,11 @@ function json_files ( $out_dir )
 	if ( ! is_dir( $out_dir ) ) {
 		mkdir( $out_dir );
 	}
+
+	copy( dirname(__FILE__).'/data_50k.json', $out_dir.'/data_50k.txt');
+	copy( dirname(__FILE__).'/data_10k.json', $out_dir.'/data_10k.txt');
+	copy( dirname(__FILE__).'/data_5k.json', $out_dir.'/data_5k.txt');
+	copy( dirname(__FILE__).'/data_1k.json', $out_dir.'/data_1k.txt');
 
 	$json = json_decode(
 		file_get_contents( dirname(__FILE__).'/data.json' ),

@@ -113,13 +113,20 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 		} );
 	}
 
-	// Row + column selector
-	var columns = this.columns( columnSelector );
-	var rows = this.rows( rowSelector );
-	var a, i, ien, j, jen;
+	// The default built in options need to apply to row and columns
+	var internalOpts = opts ? {
+		page: opts.page,
+		order: opts.order,
+		search: opts.search
+	} : {};
 
-	this.iterator( 'table', function ( settings, idx ) {
-		a = [];
+	// Row + column selector
+	var columns = this.columns( columnSelector, internalOpts );
+	var rows = this.rows( rowSelector, internalOpts );
+	var i, ien, j, jen;
+
+	var cellsNoOpts = this.iterator( 'table', function ( settings, idx ) {
+		var a = [];
 
 		for ( i=0, ien=rows[idx].length ; i<ien ; i++ ) {
 			for ( j=0, jen=columns[idx].length ; j<jen ; j++ ) {
@@ -129,10 +136,16 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 				} );
 			}
 		}
+
+		return a;
 	}, 1 );
 
-    // Now pass through the cell selector for options
-    var cells = this.cells( a, opts );
+	// There is currently only one extension which uses a cell selector extension
+	// It is a _major_ performance drag to run this if it isn't needed, so this is
+	// an extension specific check at the moment
+	var cells = opts && opts.selected ?
+		this.cells( cellsNoOpts, opts ) :
+		cellsNoOpts;
 
 	$.extend( cells.selector, {
 		cols: columnSelector,

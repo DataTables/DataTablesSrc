@@ -124,8 +124,6 @@
 	 * Build a list of CSS and JS files that need to be loaded
 	 */
 	function _loadDeps(done, obj) {
-		var libraries = window.__karma__.config.libraries;
-		var doc = window.document;
 		var queue = [],
 			i,
 			ien;
@@ -134,6 +132,7 @@
 		if (obj.css) {
 			for (i = 0, ien = obj.css.length; i < ien; i++) {
 				var resolved = _pathResolver('css', obj.css[i], obj.framework || 'dataTables');
+
 				queue = queue.concat(resolved);
 			}
 		}
@@ -142,6 +141,7 @@
 		if (obj.js) {
 			for (i = 0, ien = obj.js.length; i < ien; i++) {
 				var resolved = _pathResolver('js', obj.js[i], obj.framework || 'dataTables');
+
 				queue = queue.concat(resolved);
 			}
 		}
@@ -215,15 +215,24 @@
 		},
 
 		clean: function() {
-			if ($) {
-				$('#dt-test-loader-container').remove();
-			} else {
-				var el = document.getElementById('dt-test-loader-container');
-
-				if (el) {
-					document.body.removeChild(el);
-				}
+			if ($ && $.fn.dataTableSettings) {
+				// If there are any DataTables, destroy them.
+				$.fn.dataTableSettings.forEach(s => {
+					new $.fn.dataTable.Api(s).destroy();
+				});
 			}
+
+			var el = document.getElementById('dt-test-loader-container');
+			if (el && $) {
+				$(el).remove(); // jQuery to nuke events
+			} else if (el) {
+				document.body.removeChild(el);
+			}
+
+			// Tidy up FixedHeader since it inserts elements into the body, rather than the container element
+			document.querySelectorAll('table.fixedHeader-floating').forEach(el => {
+				el.parentNode.removeChild(el);
+			});
 
 			if ($ && $.fn.dataTableSettings && $.fn.dataTableSettings.length) {
 				$.fn.dataTableSettings.length = 0;
@@ -234,6 +243,8 @@
 				$.fn.dataTable.__browser = undefined;
 			}
 
+			dt.scrollTop(0);
+
 			return window.dt;
 		},
 
@@ -242,7 +253,7 @@
 		},
 
 		/*
-		 * Below are common functions used througout the unit tests
+		 * Below are common functions used through out the unit tests
 		 */
 
 		// check array for column visibility (default is visible)
@@ -251,6 +262,7 @@
 				.DataTable()
 				.columns()
 				.visible();
+
 			for (let i = 0; i < 6; i++) {
 				if (visiblity[i] == colArray.includes(i)) {
 					return false;
@@ -271,14 +283,92 @@
 			return false;
 		},
 
+		// function to sleep for a bit
+		sleep: function(time) {
+			return new Promise(resolve => setTimeout(resolve, time));
+		},
+
 		// columns used during testing (used frequently)
-		testColumns: [
+		_testColumns: [
 			{ data: 'name' },
 			{ data: 'position' },
 			{ data: 'office' },
 			{ data: 'age' },
 			{ data: 'start_date' },
 			{ data: 'salary' }
-		]
+		],
+
+		// makes a copy of the test columns so they can be modified
+		getTestColumns: function() {
+			return JSON.parse(JSON.stringify(this._testColumns));
+		},
+
+		// editor's config to set up the editor fields
+		_testEditorFields: [
+			{
+				label: 'Name:',
+				name: 'name'
+			},
+			{
+				label: 'Position:',
+				name: 'position'
+			},
+			{
+				label: 'Office:',
+				name: 'office'
+			},
+			{
+				label: 'Age:',
+				name: 'age'
+			},
+			{
+				label: 'Start date:',
+				name: 'start_date',
+				type: 'datetime'
+			},
+			{
+				label: 'Salary:',
+				name: 'salary'
+			}
+		],
+
+		// makes a copy of the test columns so they can be modified
+		getTestEditorColumns: function() {
+			return JSON.parse(JSON.stringify(this._testEditorFields));
+		},
+
+		// make a person object (as pain to do everytime in the test)
+		makePersonObject: function(name) {
+			return {
+				name: name,
+				position: 'BBB',
+				office: 'CCC',
+				age: '55',
+				start_date: '2018/03/04',
+				salary: '$12,345'
+			};
+		},
+
+		scrollTop: async function(point) {
+			document.documentElement.scrollTop = point;
+			await dt.sleep(500);
+		},
+
+		serverSide: function(data, callback, settings) {
+			var out = [];
+
+			for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
+				out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
+			}
+
+			setTimeout(function() {
+				callback({
+					draw: data.draw,
+					data: out,
+					recordsTotal: 5000000,
+					recordsFiltered: 5000000
+				});
+			}, 50);
+		}
 	};
 })(window, window.jasmine);

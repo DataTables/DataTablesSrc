@@ -1012,7 +1012,9 @@ DataTable.defaults = {
 					'DataTables_'+settings.sInstance+'_'+location.pathname
 				)
 			);
-		} catch (e) {}
+		} catch (e) {
+			return {};
+		}
 	},
 
 

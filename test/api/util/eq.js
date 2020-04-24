@@ -1,49 +1,54 @@
+describe('eq()', function() {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-describe( 'eq()', function() {
-	var table;
+	describe('Check the defaults', function() {
+		let table;
 
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+		dt.html('basic');
+		it('Exists and is a function', function() {
+			table = $('#example').DataTable();
+			expect(typeof table.eq).toBe('function');
+		});
+		it('Returns API instance', function() {
+			expect(table.rows().eq(0) instanceof $.fn.dataTable.Api).toBe(true);
+		});
+	});
 
-	dt.html( 'three_tables' );
-
-	it( 'Create three tables in a single instance DataTable', function () {
-		table = $('table.display').DataTable();
-		expect( true ).toBe( true );
-	} );
-
-	it( 'eq() method exists', function () {
-		expect( typeof table.eq ).toBe( 'function' );
-	} );
-
-	it( 'rows().data() will get the data from all tables', function () {
-		expect( table.rows().data().length ).toBe( 6 );
-	} );
-
-	it( 'Result from eq() is an API instance', function () {
-		var t = table.eq(0);
-		expect( t instanceof $.fn.DataTable.Api ).toBe( true );
-	} );
-
-	it( 'Select just the first table with eq()', function () {
-		var t = table.eq(0);
-		expect( t.rows().data().length ).toBe( 3 );
-	} );
-
-	it( 'Select the second table with eq()', function () {
-		var t = table.eq(1);
-		expect( t.rows().data().length ).toBe( 2 );
-	} );
-
-	it( 'Select the third table with eq()', function () {
-		var t = table.eq(2);
-		expect( t.rows().data().length ).toBe( 1 );
-	} );
-
-	it( 'Select an undefined table with eq()', function () {
-		var t = table.eq(3);
-		expect( t.rows().data().length ).toBe( 0 );
-	} );
-} );
+	describe('Functional tests', function() {
+		let tables;
+		dt.html('two_tables');
+		it('Check first table', function() {
+			tables = $('table').DataTable();
+			expect(
+				tables
+					.eq(0)
+					.row(2)
+					.data()
+			).toEqual(['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000']);
+			expect(
+				tables
+					.rows()
+					.eq(0)
+					.data()[2]
+			).toEqual(['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000']);
+		});
+		it('Check second table', function() {
+			tables = $('table').DataTable();
+			expect(
+				tables
+					.eq(1)
+					.row(2)
+					.data()
+			).toEqual(['Milan', '534', '436892']);
+			expect(
+				tables
+					.rows()
+					.eq(1)
+					.data()[2]
+			).toEqual(['Milan', '534', '436892']);
+		});
+	});
+});

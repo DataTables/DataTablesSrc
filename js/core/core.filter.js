@@ -154,6 +154,7 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
 		// New search - start from the master array
 		if ( invalidated ||
 			 force ||
+			 regex ||
 			 prevSearch.length > input.length ||
 			 input.indexOf(prevSearch) !== 0 ||
 			 settings.bSorted // On resort, the display master needs to be
@@ -277,7 +278,7 @@ function _fnFilterData ( settings )
 				}
 
 				if ( cellData.replace ) {
-					cellData = cellData.replace(/[\r\n]/g, '');
+					cellData = cellData.replace(/[\r\n\u2028]/g, '');
 				}
 
 				filterData.push( cellData );

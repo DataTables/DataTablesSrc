@@ -24,9 +24,9 @@
 	<description>
 		When you perform an action such as adding or deleting a row, changing the sorting, filtering or paging characteristics of the table you'll want DataTables to update the display to reflect these changes. This function is provided for that purpose.
 
-		A draw is not performed automatically by most DataTables API actions to allow grouping of actions (for example adding multiple rows is more efficient if you group them. Keep in mind that due to the chaining nature of the DataTables API calling the `dt-api draw()` method is just a case of adding `.draw()` to your other API method calls, as shown in the examples below.
+		A draw is not performed automatically by most DataTables API actions to allow grouping of actions (for example adding multiple rows is more efficient if you group them). Keep in mind that due to the chaining nature of the DataTables API, calling the `dt-api draw()` method is just a case of adding `.draw()` to your other API method calls, as shown in the examples below.
 
-		Note that calling `dt-api draw()` with any option other than the first parameter being `-string page` will result in a full re-order and re-search of the table being performed. The `-string page` option is provided when you wish the table to be updated but for these actions not to occur (for example a page change does not require a full re-order / re-search).
+		Note that calling `dt-api draw()` with any option other than the first parameter being `-string page` will result in a full re-order and re-search of the table being performed. The `-string page` option is provided when you wish the table to be updated but for these actions not to occur (for example, a page change does not require a full re-order / re-search).
 	</description>
 
 	<example title="Filter the table based on a custom input and redraw"><![CDATA[

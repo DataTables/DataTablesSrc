@@ -35,10 +35,18 @@
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
     "karma-html2js-preprocessor": "^1.0.0",
+<<<<<<< HEAD
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2",
     "karma-jasmine-jquery": "^0.1.1",
     "karma-sinon": "^1.0.5",
     "sinon": "^3.2.0"
+=======
+    "karma-iframes": "^1.2.2",
+    "karma-jasmine": "^1.0.2",
+    "karma-jasmine-html-reporter": "^0.2",
+    "karma-jasmine-jquery": "^0.1.1",
+    "karma-spec-reporter": "0.0.32"
+>>>>>>> master
   }
 }

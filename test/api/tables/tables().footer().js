@@ -8,13 +8,13 @@ describe('tables - tables().footer()', function() {
 		dt.html('basic');
 		it('Exists and is a function', function() {
 			let table = $('#example').DataTable();
-			expect(typeof table.table().footer).toBe('function');
+			expect(typeof table.tables().footer).toBe('function');
 		});
 
-		it('Returns a footer node', function() {
+		it('Returns an API instance', function() {
 			let table = $('#example').DataTable();
 			let footer = table.tables().footer();
-			expect(table.column().visible(true) instanceof $.fn.dataTable.Api).toBe(true);
+			expect(footer instanceof $.fn.dataTable.Api).toBe(true);
 			expect(footer[0].nodeName.toUpperCase()).toBe('TFOOT');
 		});
 	});
@@ -53,10 +53,10 @@ describe('tables - tables().footer()', function() {
 		});
 	});
 
-	describe('Check the behaviour with one table', function() {
+	describe('Check the behaviour with two tables', function() {
 		dt.html('two_tables');
 		it('Returns two footer rows', function() {
-			let tables = $('[id^=example]').DataTable();
+			let tables = $('table').DataTable();
 			expect(
 				tables
 					.tables()
@@ -67,14 +67,14 @@ describe('tables - tables().footer()', function() {
 
 		dt.html('two_tables');
 		it('Returns the footer rows', function() {
-			let tables = $('[id^=example]').DataTable();
+			let tables = $('table').DataTable();
 			expect(tables.tables().footer()[0]).toBe($('#example_one tfoot').get(0));
 			expect(tables.tables().footer()[1]).toBe($('#example_two tfoot').get(0));
 		});
 
 		dt.html('two_tables');
 		it('Returns the footer when scrollX enabled', function() {
-			let tables = $('[id^=example]').DataTable({
+			let tables = $('table').DataTable({
 				scrollX: true
 			});
 			expect(tables.tables().footer()[0]).toBe($('div.dataTables_scrollFoot tfoot').get(0));
@@ -83,7 +83,7 @@ describe('tables - tables().footer()', function() {
 
 		dt.html('two_tables');
 		it('Returns the footer when scrollY enabled', function() {
-			let tables = $('[id^=example]').DataTable({
+			let tables = $('table').DataTable({
 				scrollY: true
 			});
 			expect(tables.tables().footer()[0]).toBe($('div.dataTables_scrollFoot tfoot').get(0));

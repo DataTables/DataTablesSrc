@@ -59,7 +59,7 @@ describe('row - row().data()', function() {
 		it('GET - JSON Returns object containing all columns', function(done) {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				initComplete: function(settings, json) {
 					let result = table.row(0).data();
 
@@ -74,7 +74,7 @@ describe('row - row().data()', function() {
 		it('GET - JSON Sourced Data - check row contents', function(done) {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				initComplete: function(settings, json) {
 					expect(Object.values(table.row(2).data()).toString(), testRowData.toString());
 					done();
@@ -86,7 +86,7 @@ describe('row - row().data()', function() {
 		it('SET - JSON Source Data - set one cell', function(done) {
 			let table = $('#example').DataTable({
 				ajax: '/base/test/data/data.txt',
-				columns: dt.testColumns,
+				columns: dt.getTestColumns(),
 				initComplete: function(settings, json) {
 					// get the old row and modify it
 					let newRow = table.row(2).data();

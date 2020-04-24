@@ -263,8 +263,8 @@ function build_extension {
 
 	if [ ! -d ${BASE_DIR}/extensions/${EXTENSION} ]; then
 		echo_msg "Cloning $EXTENSION from GitHub" 
-		# git clone git@github.com:DataTables/${EXTENSION}.git
-		git clone https://github.com/DataTables/${EXTENSION}.git
+		git clone git@github.com:DataTables/${EXTENSION}.git
+		#git clone https://github.com/DataTables/${EXTENSION}.git
 	fi
 
 	if [ -e ${BASE_DIR}/extensions/${EXTENSION}/make.sh ]; then
@@ -358,6 +358,7 @@ case "$1" in
 		build_extension RowGroup
 		build_extension RowReorder
 		build_extension Scroller
+		build_extension SearchPanes
 		build_extension Select
 		if [ -d ../extensions/Editor ]; then
 			build_extension Editor

@@ -6,7 +6,7 @@ describe('columns.orderData option', function() {
 
 	dt.html('basic');
 
-	it('Sorting on Column 1 is uneffected', function() {
+	it('Sorting on column 1 is uneffected', function() {
 		$('#example').dataTable({
 			columns: [null, null, { orderData: [2, 3] }, null, null, { orderData: [0] }]
 		});
