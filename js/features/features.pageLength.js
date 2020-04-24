@@ -31,7 +31,7 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 		);
 	}
 
-	var div = $('<div><label/></div>').addClass( classes.sLength );
+	var div = $('<div><label></label></div>').addClass( classes.sLength );
 
 	div.children().append(
 		opts.text.replace( '_MENU_', select[0].outerHTML )
