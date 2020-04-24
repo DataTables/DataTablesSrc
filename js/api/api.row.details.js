@@ -30,7 +30,6 @@ var __details_add = function ( ctx, row, data, klass )
 				.html( r )
 				[0].colSpan = _fnVisbleColumns( ctx );
 
-			console.log( row, row.idx );
 			rows.push( created[0] );
 		}
 	};
