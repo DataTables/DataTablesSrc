@@ -858,6 +858,24 @@ DT_Example::$tables['html-grade'] = array(
 	'body'    => true
 );
 
+DT_Example::$tables['html-salary'] = array(
+	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', function ( $type, $row ) {
+		if ( $type === 'title' ) {
+			return 'Salary';
+		}
+		else if ( $row['salary'] < 350000 ) {
+			return '<span class="low">'.$row['salary'].'</span>';
+		}
+		else if ( $row['salary'] < 650000 ) {
+			return '<span class="medium">'.$row['salary'].'</span>';
+		}
+		return '<span class="high">'.$row['salary'].'</span>';
+	} ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
 
 DT_Example::$tables['html-thin'] = array(
 	'columns' => array( 'name', 'position', 'office', 'salary' ),
