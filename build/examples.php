@@ -222,6 +222,16 @@ DT_Example::$components['select'] = [
 	]
 ];
 
+DT_Example::$components['searchbuilder'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/SearchBuilder' ),
+	'release' => $versions['SearchBuilder']['release']['version'],
+	'filename' => 'searchBuilder',
+	'framework' => [
+		'css' => true,
+		'js' => true
+	]
+];
+
 DT_Example::$components['searchpanes'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/SearchPanes' ),
 	'release' => $versions['SearchPanes']['release']['version'],
@@ -481,6 +491,15 @@ else if ( stripos( $dir_input, 'FixedColumns' ) ) {
 		'initialisation' => "Initialisation and options",
 		'integration'    => "Integration with other DataTables extensions",
 		'styling'        => "Styling"
+	);
+}
+else if ( stripos( $dir_input, 'SearchBuilder' ) ) {
+	$dir_order = array(
+		'initialisation',
+	);
+
+	$dir_names = array(
+		'initialisation' => 'Initialisation and options',
 	);
 }
 else if ( stripos( $dir_input, 'SearchPanes' ) ) {
