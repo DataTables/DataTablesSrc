@@ -4,6 +4,14 @@ describe('Paging option', function() {
 		css: ['datatables']
 	});
 
+	function checkDisabled(previous, next) {
+		expect($('.paginate_button.previous').attr('tabindex')).toBe(previous ? '-1' : '0');
+		expect($('.paginate_button.previous').hasClass('disabled')).toBe(previous);
+
+		expect($('.paginate_button.next').attr('tabindex')).toBe(next ? '-1' : '0');
+		expect($('.paginate_button.next').hasClass('disabled')).toBe(next);
+	}
+
 	describe('Check Default', function() {
 		dt.html('basic');
 		it('Enabled by default', function() {
@@ -28,39 +36,27 @@ describe('Paging option', function() {
 					.attr('class')
 			).toBe('dataTables_info');
 		});
-		it('Disabled previous element has a tab index of -1', function() {
-			expect($('.paginate_button.previous').attr('tabindex')).toBe('-1');
-			expect($('.paginate_button.previous').hasClass('disabled')).toBe(true);
-
-			expect($('.paginate_button.next').attr('tabindex')).toBe('0');
-			expect($('.paginate_button.next').hasClass('disabled')).toBe(false);
+		it('Disabled previous on first page', function() {
+			checkDisabled(true, false);
 		});
 		it('Both buttons active in middle of the table', function() {
 			table.page(3).draw(false);
-
-			expect($('.paginate_button.previous').attr('tabindex')).toBe('0');
-			expect($('.paginate_button.previous').hasClass('disabled')).toBe(false);
-
-			expect($('.paginate_button.next').attr('tabindex')).toBe('0');
-			expect($('.paginate_button.next').hasClass('disabled')).toBe(false);
+			checkDisabled(false, false);
 		});
-		it('Disabled next element has a tab index of -1', function() {
+		it('Disabled next element on final page', function() {
 			table.page(5).draw(false);
-
-			expect($('.paginate_button.previous').attr('tabindex')).toBe('0');
-			expect($('.paginate_button.previous').hasClass('disabled')).toBe(false);
-
-			expect($('.paginate_button.next').attr('tabindex')).toBe('-1');
-			expect($('.paginate_button.next').hasClass('disabled')).toBe(true);
+			checkDisabled(false, true);
 		});
 		it('Both disabled after a search', function() {
 			table.search('Ashton Cox').draw();
-
-			expect($('.paginate_button.previous').attr('tabindex')).toBe('-1');
-			expect($('.paginate_button.previous').hasClass('disabled')).toBe(true);
-
-			expect($('.paginate_button.next').attr('tabindex')).toBe('-1');
-			expect($('.paginate_button.next').hasClass('disabled')).toBe(true);
+			checkDisabled(true, true);
+		});
+		it('Both disabled when table empty', function() {
+			table
+				.rows()
+				.remove()
+				.draw();
+			checkDisabled(true, true);
 		});
 	});
 
