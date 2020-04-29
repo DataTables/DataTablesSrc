@@ -129,7 +129,7 @@ function _fnFeatureHtmlTable ( settings )
 	}
 
 	$(scrollBody).css(
-		scrollY && scroll.bCollapse ? 'max-height' : 'height', 
+		scrollY && scroll.bCollapse ? 'max-height' : 'height',
 		scrollY
 	);
 
@@ -210,7 +210,7 @@ function _fnScrollDraw ( settings )
 	// adjust the column sizes as the table width will have changed to account
 	// for the scrollbar
 	var scrollBarVis = divBodyEl.scrollHeight > divBodyEl.clientHeight;
-	
+
 	if ( settings.scrollBarVis !== scrollBarVis && settings.scrollBarVis !== undefined ) {
 		settings.scrollBarVis = scrollBarVis;
 		_fnAdjustColumnSizing( settings );
@@ -255,7 +255,10 @@ function _fnScrollDraw ( settings )
 
 	$.each( _fnGetUniqueThs( settings, headerCopy ), function ( i, el ) {
 		idx = _fnVisibleToColumnIndex( settings, i );
-		el.style.width = settings.aoColumns[idx].sWidth;
+		var column = settings.aoColumns[idx];
+		if(column != null){
+			el.style.width = column.sWidth;
+		}
 	} );
 
 	if ( footer ) {
