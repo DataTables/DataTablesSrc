@@ -859,18 +859,59 @@ DT_Example::$tables['html-grade'] = array(
 );
 
 DT_Example::$tables['html-salary'] = array(
-	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', function ( $type, $row ) {
-		if ( $type === 'title' ) {
-			return 'Salary';
-		}
-		else if ( $row['salary'] < 350000 ) {
-			return '<span class="low">'.$row['salary'].'</span>';
-		}
-		else if ( $row['salary'] < 650000 ) {
-			return '<span class="medium">'.$row['salary'].'</span>';
-		}
-		return '<span class="high">'.$row['salary'].'</span>';
-	} ),
+	'columns' => array(
+		'name',
+		'position',
+		function($type, $row) {
+			if ( $type === 'title' ) {
+				return 'Office';
+			}
+			return'<span>'.$row['office'].'</span>';
+		},
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Age';
+			}
+			else if ( $row['age'] < 35 ) {
+				return '<span class="young">'.$row['age'].'</span>';
+			}
+			else if ( $row['age'] < 55 ) {
+				return '<span class="middleaged">'.$row['age'].'</span>';
+			}
+			return '<span class="old">'.$row['age'].'</span>';
+		},
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Start Date';
+			}
+			return implode('-', explode('/', $row['start_date']));
+		},
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Salary';
+			}
+			return '<span>'.'$'.number_format($row['salary']).'.00'.'</span>';
+		} 
+	),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+DT_Example::$tables['html-iso8601'] = array(
+	'columns' => array(
+		'name',
+		'position',
+		'office',
+		'age',
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Start Date';
+			}
+			return implode('-', explode('/', $row['start_date']));
+		},
+		'salary' 
+	),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => true
