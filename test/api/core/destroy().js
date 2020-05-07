@@ -1,7 +1,7 @@
 describe('core - destroy()', function() {
 	dt.libs({
-		js: ['jquery', 'datatables'],
-		css: ['datatables']
+		js: ['jquery', 'datatables', 'select'],
+		css: ['datatables', 'select']
 	});
 
 	describe('Check the defaults', function() {
@@ -17,6 +17,8 @@ describe('core - destroy()', function() {
 			).toBe(true);
 		});
 	});
+
+	let table;
 
 	describe('Functional tests', function() {
 		function testElementsPresent(present) {
@@ -34,7 +36,7 @@ describe('core - destroy()', function() {
 
 		dt.html('basic');
 		it('Check extra HTML elements are removed', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			testElementsPresent(true);
 			table.destroy();
 			expect($('#example').length).toBe(1);
@@ -43,7 +45,7 @@ describe('core - destroy()', function() {
 
 		dt.html('basic');
 		it('Check default is false', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			table.destroy(false);
 			expect($('#example').length).toBe(1);
 			testElementsPresent(false);
@@ -51,7 +53,7 @@ describe('core - destroy()', function() {
 
 		dt.html('basic');
 		it('Check undefined', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			table.destroy(undefined);
 			expect($('#example').length).toBe(1);
 			testElementsPresent(false);
@@ -59,7 +61,7 @@ describe('core - destroy()', function() {
 
 		dt.html('basic');
 		it('Check if optional arg is true, entire table is removed', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			table.destroy(true);
 			expect($('#example').length).toBe(0);
 			testElementsPresent(false);
@@ -72,7 +74,7 @@ describe('core - destroy()', function() {
 				count++;
 			});
 
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			table.destroy();
 			expect(jQuery._data(document.getElementById('example'), 'events').click.length).toBe(1);
 
@@ -91,6 +93,17 @@ describe('core - destroy()', function() {
 
 			expect($('#example_one').length).toBe(0);
 			expect($('#example_two').length).toBe(1);
+		});
+
+		dt.html('basic');
+		it('Selected class is removed', function() {
+			table = $('#example').DataTable({ select: true });
+			table.row(2).select();
+			expect($('#example tbody tr.selected').length).toBe(1);
+		});
+		it('Destroying the table removes selected class', function() {
+			table.destroy();
+			expect($('#example tbody tr.selected').length).toBe(0);
 		});
 	});
 });
