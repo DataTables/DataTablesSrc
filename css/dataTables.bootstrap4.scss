@@ -194,9 +194,12 @@ div.dataTables_scrollFoot {
 		div.dataTables_paginate {
 			text-align: center;
 		}
+
+		div.dataTables_paginate ul.pagination {
+			justify-content: center !important;
+		}
 	}
 }
-
 
 //
 // Bootstrap provides a range of styling options for table's via class name
