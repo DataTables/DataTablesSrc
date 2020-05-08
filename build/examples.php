@@ -271,7 +271,8 @@ else {
 // When updating these files, make sure you also update the `karma.config` tests
 // file to match versions.
 DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-1.12.4.js';
-DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-3.3.1.js';
+DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-3.5.1.slim.js';
+DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-3.5.1.js';
 DT_Example::$lookup_libraries['js' ]['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/jquery-ui.js';
 DT_Example::$lookup_libraries['css']['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
