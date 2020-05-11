@@ -69,7 +69,8 @@ $(document).ready(function() {
 				"data": "start_date"
 			},
 			{
-				"data": "salary"
+						"data": "salary",
+						render: $.fn.dataTable.render.number( ',', '.', 2, '$' )
 			}
 
 		]
@@ -79,8 +80,11 @@ $(document).ready(function() {
 
 
 <info><![CDATA[
+Data within DataTables can be easily rendered to add graphics or colour to your tables, as demonstrated in the example on this page. These examples make use of `dt-init columns.render` to customise the cells in three ways:
 
-Data within DataTables can be easily rendered to add graphics or colour to your tables, as demonstrated in the example on this page.
+* A flag is added to the Office column
+* a HTML5 progress bar is added to the Progress column
+* and the built-in number renderer is used for the salary
 
 ]]></info>
 
