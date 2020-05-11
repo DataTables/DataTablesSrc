@@ -321,6 +321,11 @@ class DT_Example
 				else if ( $type === 'data' )  { return $row['email']; }
 				break;
 
+			case 'progress':
+				if      ( $type === 'title' ) { return 'Porgress'; }
+				else if ( $type === 'data' )  { return $row['extn']; }
+				break;
+
 			case 'office':
 				if      ( $type === 'title' ) { return 'Office'; }
 				else if ( $type === 'data' )  { return $row['office']; }
@@ -722,6 +727,13 @@ DT_Example::$tables['ajax-id'] = array(
 
 DT_Example::$tables['ajax-sequence'] = array(
 	'columns' => array( 'sequence', 'name', 'position', 'office', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
+DT_Example::$tables['ajax-renderer'] = array(
+	'columns' => array( 'name', 'position', 'office', 'progress', 'start_date', 'salary' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => false
