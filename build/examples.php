@@ -294,6 +294,7 @@ DT_Example::$lookup_libraries['js']['jszip']         = 'https://cdnjs.cloudflare
 DT_Example::$lookup_libraries['js']['pdfmake']       = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js';
 DT_Example::$lookup_libraries['js']['vfsfonts']      = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js';
 DT_Example::$lookup_libraries['js']['moment']        = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js';
+DT_Example::$lookup_libraries['css']['world-flags-sprite'] = 'https://github.com/downloads/lafeber/world-flags-sprite/flags32.css';
 
 function multiple ( $value, $fn )
 {
@@ -973,6 +974,28 @@ function json_files ( $out_dir )
 
 	file_put_contents(
 		$out_dir.'/objects_deep.txt',
+		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
+	);
+
+	// Salary without formatting
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$country = $json[$i]['office'];
+		if ( $country === 'Singapore' ) {
+			$country = 'Argentina';
+		}
+		$out[] = [
+			'name' => $json[$i]['first_name'].' '.$json[$i]['last_name'],
+			'position'   => $json[$i]['position'],
+			'salary'     => $json[$i]['salary'],
+			'start_date' => $json[$i]['start_date'],
+			'office'     => $country,
+			'extn'       => $json[$i]['extn']
+		];
+	}
+
+	file_put_contents(
+		$out_dir.'/objects_salary.txt',
 		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
 	);
 
