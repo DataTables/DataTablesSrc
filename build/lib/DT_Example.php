@@ -322,7 +322,7 @@ class DT_Example
 				break;
 
 			case 'progress':
-				if      ( $type === 'title' ) { return 'Porgress'; }
+				if      ( $type === 'title' ) { return 'Progress'; }
 				else if ( $type === 'data' )  { return $row['extn']; }
 				break;
 

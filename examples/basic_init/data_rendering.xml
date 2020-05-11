@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="ajax-renderer" order="11">
+<dt-example table-type="ajax-renderer" order="11" table-class="display nowrap">
 
 <css lib="datatables" />
 <css lib="world-flags-sprite" />
@@ -7,6 +7,10 @@
 	.f32 .flag {
 		vertical-align: middle;
 		margin: -8px 0;
+	}
+
+	progress {
+		width: 100%;
 	}
 </css>
 <js lib="jquery" />
