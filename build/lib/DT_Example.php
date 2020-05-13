@@ -321,6 +321,11 @@ class DT_Example
 				else if ( $type === 'data' )  { return $row['email']; }
 				break;
 
+			case 'progress':
+				if      ( $type === 'title' ) { return 'Progress'; }
+				else if ( $type === 'data' )  { return $row['extn']; }
+				break;
+
 			case 'office':
 				if      ( $type === 'title' ) { return 'Office'; }
 				else if ( $type === 'data' )  { return $row['office']; }
@@ -722,6 +727,13 @@ DT_Example::$tables['ajax-sequence'] = array(
 	'body'    => false
 );
 
+DT_Example::$tables['ajax-renderer'] = array(
+	'columns' => array( 'name', 'position', 'office', 'progress', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
 DT_Example::$tables['ssp'] = array(
 	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'start_date', 'salary' ),
 	'header'  => true,
@@ -848,6 +860,65 @@ DT_Example::$tables['html-grade'] = array(
 		}
 		return 'High';
 	} ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+DT_Example::$tables['html-salary'] = array(
+	'columns' => array(
+		'name',
+		'position',
+		function($type, $row) {
+			if ( $type === 'title' ) {
+				return 'Office';
+			}
+			return'<span>'.$row['office'].'</span>';
+		},
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Age';
+			}
+			else if ( $row['age'] < 35 ) {
+				return '<span class="young">'.$row['age'].'</span>';
+			}
+			else if ( $row['age'] < 55 ) {
+				return '<span class="middleaged">'.$row['age'].'</span>';
+			}
+			return '<span class="old">'.$row['age'].'</span>';
+		},
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Start Date';
+			}
+			return implode('-', explode('/', $row['start_date']));
+		},
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Salary';
+			}
+			return '<span>'.'$'.number_format($row['salary']).'.00'.'</span>';
+		} 
+	),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+DT_Example::$tables['html-iso8601'] = array(
+	'columns' => array(
+		'name',
+		'position',
+		'office',
+		'age',
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Start Date';
+			}
+			return implode('-', explode('/', $row['start_date']));
+		},
+		'salary' 
+	),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => true

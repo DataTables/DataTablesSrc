@@ -222,6 +222,16 @@ DT_Example::$components['select'] = [
 	]
 ];
 
+DT_Example::$components['searchbuilder'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/SearchBuilder' ),
+	'release' => $versions['SearchBuilder']['release']['version'],
+	'filename' => 'searchBuilder',
+	'framework' => [
+		'css' => true,
+		'js' => true
+	]
+];
+
 DT_Example::$components['searchpanes'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/SearchPanes' ),
 	'release' => $versions['SearchPanes']['release']['version'],
@@ -261,7 +271,8 @@ else {
 // When updating these files, make sure you also update the `karma.config` tests
 // file to match versions.
 DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-1.12.4.js';
-DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-3.3.1.js';
+DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-3.5.1.slim.js';
+DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-3.5.1.js';
 DT_Example::$lookup_libraries['js' ]['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/jquery-ui.js';
 DT_Example::$lookup_libraries['css']['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
@@ -283,6 +294,7 @@ DT_Example::$lookup_libraries['js']['jszip']         = 'https://cdnjs.cloudflare
 DT_Example::$lookup_libraries['js']['pdfmake']       = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js';
 DT_Example::$lookup_libraries['js']['vfsfonts']      = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js';
 DT_Example::$lookup_libraries['js']['moment']        = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js';
+DT_Example::$lookup_libraries['css']['world-flags-sprite'] = 'https://github.com/downloads/lafeber/world-flags-sprite/flags32.css';
 
 function multiple ( $value, $fn )
 {
@@ -481,6 +493,15 @@ else if ( stripos( $dir_input, 'FixedColumns' ) ) {
 		'initialisation' => "Initialisation and options",
 		'integration'    => "Integration with other DataTables extensions",
 		'styling'        => "Styling"
+	);
+}
+else if ( stripos( $dir_input, 'SearchBuilder' ) ) {
+	$dir_order = array(
+		'initialisation',
+	);
+
+	$dir_names = array(
+		'initialisation' => 'Initialisation and options',
 	);
 }
 else if ( stripos( $dir_input, 'SearchPanes' ) ) {
@@ -953,6 +974,28 @@ function json_files ( $out_dir )
 
 	file_put_contents(
 		$out_dir.'/objects_deep.txt',
+		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
+	);
+
+	// Salary without formatting
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$country = $json[$i]['office'];
+		if ( $country === 'Singapore' ) {
+			$country = 'Argentina';
+		}
+		$out[] = [
+			'name' => $json[$i]['first_name'].' '.$json[$i]['last_name'],
+			'position'   => $json[$i]['position'],
+			'salary'     => $json[$i]['salary'],
+			'start_date' => $json[$i]['start_date'],
+			'office'     => $country,
+			'extn'       => $json[$i]['extn']
+		];
+	}
+
+	file_put_contents(
+		$out_dir.'/objects_salary.txt',
 		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
 	);
 
