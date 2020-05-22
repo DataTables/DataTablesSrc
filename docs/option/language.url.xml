@@ -11,7 +11,7 @@
 
 		There are a wide range of translations readily available on this site, in the [internationalisation plug-ins](//datatables.net/plug-ins/i18n).
 
-		Note that when this parameter is set, DataTables' initialisation will be asynchronous due to the Ajax data load. That is to say that the table will not be drawn until the Ajax request as completed. As such, any actions that require the table to have completed its initialisation should be placed into the `dt-init initComplete` callback.
+		Note that when this parameter is set, DataTables' initialisation will be asynchronous due to the Ajax data load. That is to say that the table will not be drawn until the Ajax request has completed. As such, any actions that require the table to have completed its initialisation should be placed into the `dt-init initComplete` callback.
 	</description>
 
 	<example title="Load language information from a remote file"><![CDATA[
