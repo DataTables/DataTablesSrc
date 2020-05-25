@@ -28,7 +28,19 @@ table.dataTable.table {
 
 
 // DataTables' built in feature elements
-div.dataTables_wrapper {
+div.dataTables_wrapper.ui.grid {
+	> div.row {
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+
+		&:first-child {
+			padding-top: 1rem;
+		}
+		&:last-child {
+			padding-bottom: 1rem;
+		}
+	}
+
 	div.dataTables_length {
 		// Match the height of the drop down when Semantic UI JS isn't present
 		select {
@@ -49,6 +61,7 @@ div.dataTables_wrapper {
 
 	div.dataTables_info {
 		white-space: nowrap;
+		padding-top: 10px;
 	}
 
 	div.dataTables_processing {

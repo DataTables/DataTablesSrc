@@ -7,11 +7,7 @@
 <title>Bootstrap 4</title>
 <js><![CDATA[
 $(document).ready(function() {
-	$('#example').DataTable({
-		layout: {
-			top: 'info'
-		}
-	});
+	$('#example').DataTable();
 } );
 ]]></js>
 

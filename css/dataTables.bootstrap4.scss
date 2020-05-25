@@ -2,10 +2,10 @@
 
 table.dataTable.table {
 	clear: both;
-	margin-top: 6px;
 	max-width: none;
 	border-collapse: separate !important;
 	border-spacing: 0;
+	margin-bottom: 0;
 
 	td,
 	th {
@@ -27,11 +27,20 @@ table.dataTable.table {
 
 // DataTables' built in feature elements
 div.dataTables_wrapper {
+	div.row {
+		margin-bottom: 0.5rem;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
 	div.dataTables_length {
 		label {
 			font-weight: normal;
 			text-align: left;
 			white-space: nowrap;
+			margin-bottom: 0;
 		}
 
 		select {
@@ -45,6 +54,7 @@ div.dataTables_wrapper {
 			font-weight: normal;
 			white-space: nowrap;
 			text-align: left;
+			margin-bottom: 0;
 		}
 
 		input {
@@ -55,7 +65,7 @@ div.dataTables_wrapper {
 	}
 
 	div.dataTables_info {
-		padding-top: 0.85em;
+		padding-top: 0.5em;
 		white-space: nowrap;
 	}
 
@@ -64,7 +74,7 @@ div.dataTables_wrapper {
 		white-space: nowrap;
 
 		ul.pagination {
-			margin: 2px 0;
+			margin: 0;
 			white-space: nowrap;
 			justify-content: flex-end;
 		}

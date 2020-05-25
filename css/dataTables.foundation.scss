@@ -1,7 +1,7 @@
 
 table.dataTable {
 	clear: both;
-	margin: 0.5em 0 !important;
+	margin: 0 !important;
 	max-width: none !important;
 	width: 100%;
 
@@ -26,6 +26,14 @@ table.dataTable {
 div.dataTables_wrapper {
 	position: relative;
 
+	div.grid-x {
+		margin-bottom: 0.75rem;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
 	div.dataTables_length {
 		label {
 			text-align: left;
@@ -48,6 +56,12 @@ div.dataTables_wrapper {
 			width: auto !important;
 			margin-bottom: 0;
 			margin-left: 0.5em;
+		}
+	}
+
+	div.dataTables_paginate {
+		ul.pagination {
+			margin: 0;
 		}
 	}
 

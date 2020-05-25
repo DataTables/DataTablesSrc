@@ -210,10 +210,10 @@ DataTable.ext.renderer.layout.semanticUI = function ( settings, container, items
 	$.each( items, function (key, val) {
 		var klass = '';
 		if ( key === 'left' ) {
-			klass += 'eight wide left floated column';
+			klass += 'left floated eight wide column';
 		}
 		else if ( key === 'right' ) {
-			klass += 'eight wide right aligned floated column';
+			klass += 'right floated right aligned eight wide column';
 		}
 		else if ( key === 'full' ) {
 			klass += 'center aligned sixteen wide column';

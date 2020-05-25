@@ -192,6 +192,11 @@ DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items 
 		}
 		else if ( key === 'right' ) {
 			klass += 'col-sm-6 text-right';
+
+			// If no left element, we need to offset this one
+			if (row.find('.col-sm-6').length === 0) {
+				klass += ' col-sm-offset-6';
+			}
 		}
 		else if ( key === 'full' ) {
 			klass += 'col-sm-12';

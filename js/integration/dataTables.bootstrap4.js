@@ -193,6 +193,10 @@ DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items 
 		var klass = val.table ?
 			'col-md-12' :
 			'col-md-auto';
+		
+		klass += key === 'left' ?
+			' mr-auto' :
+			' ml-auto';
 
 		$( '<div/>', {
 				id: val.id || null,

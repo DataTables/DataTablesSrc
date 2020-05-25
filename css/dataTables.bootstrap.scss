@@ -1,8 +1,8 @@
 
 table.dataTable {
 	clear: both;
-	margin-top: 6px !important;
-	margin-bottom: 6px !important;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
 	max-width: none !important;
 	border-collapse: separate !important;
 
@@ -26,11 +26,20 @@ table.dataTable {
 
 // DataTables' built in feature elements
 div.dataTables_wrapper {
+	div.row {
+		margin-bottom: 0.75rem;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
 	div.dataTables_length {
 		label {
 			font-weight: normal;
 			text-align: left;
 			white-space: nowrap;
+			margin-bottom: 0;
 		}
 
 		select {
@@ -44,6 +53,7 @@ div.dataTables_wrapper {
 			font-weight: normal;
 			white-space: nowrap;
 			text-align: left;
+			margin-bottom: 0;
 		}
 
 		input {
@@ -61,10 +71,9 @@ div.dataTables_wrapper {
 	div.dataTables_paginate {
 		margin: 0;
 		white-space: nowrap;
-		text-align: right;
 
 		ul.pagination {
-			margin: 2px 0;
+			margin: 0;
 			white-space: nowrap;
 		}
 	}
