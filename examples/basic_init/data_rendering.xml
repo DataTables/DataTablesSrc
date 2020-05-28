@@ -90,7 +90,7 @@ Data within DataTables can be easily rendered to add graphics or colour to your 
 
 * A flag is added to the _Office_ column
 * a HTML5 progress bar is added to the _Progress_ column
-* and the built-in number renderer is used for format the _Salary_.
+* and the built-in number renderer is used to format the _Salary_.
 
 See the [data rendering manual page](https://datatables.net/manual/data/renderers) for more details on how to use data renderers. Also, this example uses [Ajax to load the data](https://datatables.net/manual/ajax). More [Ajax examples are available](../ajax).
 
