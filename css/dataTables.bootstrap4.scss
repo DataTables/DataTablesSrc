@@ -91,17 +91,17 @@ div.dataTables_wrapper {
 
 
 // Sorting - using :before and :after with UTF8 characters
-table.dataTable thead {
-	> tr > th,
-	> tr > td {
-		&.sorting_asc,
-		&.sorting_desc,
-		&.sorting {
-			padding-right: 30px;
-		}
+table.dataTable > thead {
+	> tr {
+		> th,
+		> td {
+			&:active {
+				outline: none;
+			}
 
-		&:active {
-			outline: none;
+			&:not(.sorting_disabled) {
+				padding-right: 30px;
+			}
 		}
 	}
 
