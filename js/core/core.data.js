@@ -618,7 +618,11 @@ function _fnGetRowElements( settings, row, colIdx, d )
 	var cellProcess = function ( cell ) {
 		if ( colIdx === undefined || colIdx === i ) {
 			col = columns[i];
-			contents = $.trim(cell.innerHTML);
+			//if specified, read data from last child of cell
+			if(col.srcDataFromLastChild && cell.lastChild){
+				cell = cell.lastChild;
+			}
+			contents = (cell.innerHTML)? cell.innerHTML.trim(): '';
 
 			if ( col && col._bAttrSrc ) {
 				var setter = _fnSetObjectDataFn( col.mData._ );

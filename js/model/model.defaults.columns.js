@@ -703,6 +703,31 @@ DataTable.defaults.column = {
 	 */
 	"sName": "",
 
+	/**
+	 * Defines whether the data is sourced directly from the td (including any HTML Structure) 
+	 * or whether the inner HTML structure is disregarded and that data is taken from the lastChild element.
+	 * 
+	 * This is useful in environments where table data may be embedded in multiple levels of HTML after the <td> element.
+	 * @name DataTable.defaults.column.srcDataFromLastChild
+	 * @type bool
+	 * @default false
+	 * 
+	 *  @example
+	 *		// Using `columnDefs`
+	 *    $(document).ready( function() {
+	 *      $('#example').dataTable( {
+	 *        "columnDefs": [
+	 *         {
+	 *         	srcDataFromLastChild: true,
+	 *         	targets : '_all'
+	 *         }
+	 *        ]
+	 *      } );
+	 *    } );
+	 *
+	 */
+	"srcDataFromLastChild": false  
+
 
 	/**
 	 * Defines a data source type for the ordering which can be used to read
