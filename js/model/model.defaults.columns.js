@@ -726,7 +726,7 @@ DataTable.defaults.column = {
 	 *    } );
 	 *
 	 */
-	"srcDataFromLastChild": false  
+	"srcDataFromLastChild": false,
 
 
 	/**
