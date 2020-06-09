@@ -618,11 +618,13 @@ function _fnGetRowElements( settings, row, colIdx, d )
 	var cellProcess = function ( cell ) {
 		if ( colIdx === undefined || colIdx === i ) {
 			col = columns[i];
-			//if specified, read data from last child of cell
-			if(col.srcDataFromLastChild && cell.lastChild){
-				cell = cell.lastChild;
+			//if specified, ignore additional markup and only store innerText as data
+			if(col.stripHTML){
+				contents = (cell.innerText)? cell.innerText.trim(): '';
 			}
-			contents = (cell.innerHTML)? cell.innerHTML.trim(): '';
+			else{
+				contents = (cell.innerHTML)? cell.innerHTML.trim(): '';
+			}
 
 			if ( col && col._bAttrSrc ) {
 				var setter = _fnSetObjectDataFn( col.mData._ );
