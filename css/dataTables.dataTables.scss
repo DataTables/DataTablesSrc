@@ -1,41 +1,4 @@
 
- //
- // Colour customisation
- //
- // `!default` allows overriding variables that are defined before @import
- //
-
-// Border between the header (and footer) and the table body
-$table-header-border: 1px solid #b0b0b0 !default;
-
-// Border of rows / cells
-$table-body-border: 1px solid #ddd !default;
-
-// Row background colour (hover, striping etc are all based on this colour and
-// calculated automatically)
-$table-row-background: #ffffff !default;
-
-// Row colour, when selected (tr.selected)
-$table-row-selected: #B0BED9 !default;
-
-// Text colour of the interaction control elements (info, filter, paging etc)
-$table-control-color: #333 !default;
-
-// Highlight colour of the paging button for the current page
-$table-paging-button-active: #dcdcdc !default;
-
-// Hover colour of paging buttons on mouse over
-$table-paging-button-hover: #111 !default;
-
-// Colour to use when shading
-$table-shade: black !default;
-
-// jQuery UI stylesheet imports this one - there are just two places where we
-// don't want DataTabels default styles assigned for jQuery UI, so rather than
-// duplicating the whole file, this is the best option
-$jqueryui: false !default;
-
-
 //
 // Functions / mixins
 //
@@ -44,8 +7,42 @@ $jqueryui: false !default;
 }
 
 @function shade( $color, $percent ) {
-	@return mix($table-shade, $color, $percent);
+	@return mix(black, $color, $percent);
 }
+
+ //
+ // Colour customisation
+ //
+ // `!default` allows overriding variables that are defined before @import
+ //
+
+// Row background colour (hover, striping etc are all based on this colour and
+// calculated automatically)
+$table-row-background: transparent !default;
+
+// Border between the header (and footer) and the table body
+$table-header-border: 1px solid shade($table-row-background, 30%) !default;
+
+// Border of rows / cells
+$table-body-border: 1px solid shade($table-row-background, 15%) !default;
+
+// Row colour, when selected (tr.selected)
+$table-row-selected: #B0BED9 !default;
+
+// Text colour of the interaction control elements (info, filter, paging etc)
+$table-control-color: #333 !default;
+
+// Highlight colour of the paging button for the current page
+$table-paging-button-active: rgba(0, 0, 0, 0.1) !default;
+
+// Hover colour of paging buttons on mouse over
+$table-paging-button-hover: #111 !default;
+
+// jQuery UI stylesheet imports this one - there are just two places where we
+// don't want DataTabels default styles assigned for jQuery UI, so rather than
+// duplicating the whole file, this is the best option
+$jqueryui: false !default;
+
 
 @mixin gradient( $from, $to ) {
 	background-color: $from;
@@ -333,9 +330,9 @@ div.dataTables_wrapper {
 			&.current,
 			&.current:hover {
 				color: $table-control-color !important;
-				border: 1px solid darken( $table-paging-button-active, 27% );
+				border: $table-header-border;
 				@include gradient(
-					lighten($table-paging-button-active, 28%),
+					lighten($table-paging-button-active, 90%),
 					$table-paging-button-active
 				);
 			}
