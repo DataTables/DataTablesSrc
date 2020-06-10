@@ -18,14 +18,14 @@ function _fnInitialise ( settings )
 		return;
 	}
 
-	// Enable features
-	_fnAddOptionsHtml( settings );
-	_fnSortInit( settings );
-
 	/* Build and draw the header / footer for the table */
 	_fnBuildHead( settings );
 	_fnDrawHead( settings, settings.aoHeader );
 	_fnDrawHead( settings, settings.aoFooter );
+
+	// Enable features
+	_fnAddOptionsHtml( settings );
+	_fnSortInit( settings );
 
 	/* Okay to show that something is going on now */
 	_fnProcessingDisplay( settings, true );
