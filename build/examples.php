@@ -502,7 +502,8 @@ else if ( stripos( $dir_input, 'SearchBuilder' ) ) {
 		'initialisation',
 		'api',
 		'customisation',
-		'styling'
+		'styling',
+		'integration'
 	);
 
 	$dir_names = array(
@@ -510,6 +511,7 @@ else if ( stripos( $dir_input, 'SearchBuilder' ) ) {
 		'api' => 'API demonstrations',
 		'customisation' => 'Customisation',
 		'styling' => 'Styling',
+		'integration' => 'Integration'
 	);
 }
 else if ( stripos( $dir_input, 'SearchPanes' ) ) {
