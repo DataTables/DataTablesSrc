@@ -21,7 +21,7 @@ describe('rowCallback Option', function() {
 						called = true;
 						expect(arguments.length).toBe(5);
 						expect(arguments[0] instanceof HTMLElement).toBe(true);
-						expect($.isArray(arguments[1])).toBe(true);
+						expect(Array.isArray(arguments[1])).toBe(true);
 						expect(typeof arguments[2]).toBe('number');
 						expect(typeof arguments[3]).toBe('number');
 						expect(typeof arguments[4]).toBe('number');

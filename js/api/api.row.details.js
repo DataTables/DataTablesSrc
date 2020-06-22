@@ -6,7 +6,7 @@ var __details_add = function ( ctx, row, data, klass )
 	var rows = [];
 	var addRow = function ( r, k ) {
 		// Recursion to allow for arrays of jQuery objects
-		if ( $.isArray( r ) || r instanceof $ ) {
+		if ( Array.isArray( r ) || r instanceof $ ) {
 			for ( var i=0, ien=r.length ; i<ien ; i++ ) {
 				addRow( r[i], k );
 			}

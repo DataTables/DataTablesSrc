@@ -10,7 +10,7 @@
  */
 var __table_selector = function ( selector, a )
 {
-	if ( $.isArray(selector) ) {
+	if ( Array.isArray(selector) ) {
 		return $.map( selector, function (item) {
 			return __table_selector(item, a);
 		} );

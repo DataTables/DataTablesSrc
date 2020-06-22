@@ -268,7 +268,7 @@ function _fnGetObjectDataFn( mSource )
 						innerSrc = a.join('.');
 
 						// Traverse each entry in the array getting the properties requested
-						if ( $.isArray( data ) ) {
+						if ( Array.isArray( data ) ) {
 							for ( var j=0, jLen=data.length ; j<jLen ; j++ ) {
 								out.push( fetchData( data[j], type, innerSrc ) );
 							}
@@ -371,7 +371,7 @@ function _fnSetObjectDataFn( mSource )
 					innerSrc = b.join('.');
 
 					// Traverse each entry in the array setting the properties requested
-					if ( $.isArray( val ) )
+					if ( Array.isArray( val ) )
 					{
 						for ( var j=0, jLen=val.length ; j<jLen ; j++ )
 						{

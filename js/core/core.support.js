@@ -69,9 +69,9 @@ function _fnLog( settings, level, msg, tn )
  */
 function _fnMap( ret, src, name, mappedName )
 {
-	if ( $.isArray( name ) ) {
+	if ( Array.isArray( name ) ) {
 		$.each( name, function (i, val) {
-			if ( $.isArray( val ) ) {
+			if ( Array.isArray( val ) ) {
 				_fnMap( ret, src, val[0], val[1] );
 			}
 			else {
@@ -123,7 +123,7 @@ function _fnExtend( out, extender, breakRefs )
 				}
 				$.extend( true, out[prop], val );
 			}
-			else if ( breakRefs && prop !== 'data' && prop !== 'aaData' && $.isArray(val) ) {
+			else if ( breakRefs && prop !== 'data' && prop !== 'aaData' && Array.isArray(val) ) {
 				out[prop] = val.slice();
 			}
 			else {
