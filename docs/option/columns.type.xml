@@ -14,7 +14,7 @@
 
     DataTables has a number of built in types which are automatically detected:
 
-    * `date` - Date / time values. Note that DataTables' built in date parsing uses Javascript's `Date.parse()` method which supports only a [very limited subset of dates](http://blog.dygraphs.com/2012/03/javascript-and-dates-what-mess.html). Additional date format support can be added through the use of plug-ins.
+    * `date` - Date / time values. Note that DataTables' built in date parsing works to an ISO 8601 format with 3 separators (`/`, `-` and `,`). Additional date format support can be added through the use of plug-ins, a very useful plug-in for other date formats is the [Ultimate date-time sorting plug-in](https://datatables.net/blog/2014-12-18).
       * Sorting - sorted chronologically
       * Filtering - no effect
     * `num` - Simple number sorting.
