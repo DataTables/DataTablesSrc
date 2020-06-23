@@ -23,7 +23,7 @@ function _fnFeatureHtmlLength ( settings )
 		classes  = settings.oClasses,
 		tableId  = settings.sTableId,
 		menu     = settings.aLengthMenu,
-		d2       = $.isArray( menu[0] ),
+		d2       = Array.isArray( menu[0] ),
 		lengths  = d2 ? menu[0] : menu,
 		language = d2 ? menu[1] : menu;
 

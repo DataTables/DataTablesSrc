@@ -156,7 +156,7 @@ this.fnAddData = function( data, redraw )
 	var api = this.api( true );
 
 	/* Check if we want to add multiple rows or not */
-	var rows = $.isArray(data) && ( $.isArray(data[0]) || $.isPlainObject(data[0]) ) ?
+	var rows = Array.isArray(data) && ( Array.isArray(data[0]) || $.isPlainObject(data[0]) ) ?
 		api.rows.add( data ) :
 		api.row.add( data );
 

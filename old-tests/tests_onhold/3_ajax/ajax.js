@@ -539,7 +539,7 @@ $(document).ready( function () {
 			} );
 		},
 		function () {
-			return $.isArray( result[0] ) && result[0].length === 0;
+			return Array.isArray( result[0] ) && result[0].length === 0;
 		}
 	);
 

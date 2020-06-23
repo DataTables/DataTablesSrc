@@ -363,7 +363,7 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 				def.targets :
 				def.aTargets;
 
-			if ( ! $.isArray( aTargets ) )
+			if ( ! Array.isArray( aTargets ) )
 			{
 				aTargets = [ aTargets ];
 			}

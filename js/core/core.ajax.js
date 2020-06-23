@@ -14,7 +14,7 @@ function _fnBuildAjax( oSettings, data, fn )
 
 	// Convert to object based for 1.10+ if using the old array scheme which can
 	// come from server-side processing or serverParams
-	if ( data && $.isArray(data) ) {
+	if ( data && Array.isArray(data) ) {
 		var tmp = {};
 		var rbracket = /(.*?)\[\]$/;
 

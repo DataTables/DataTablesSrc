@@ -532,7 +532,7 @@ $(document).ready( function () {
 		},
 		function () {
 			console.log( result );
-			return $.isArray( result[0] ) && result[0].length === 35;
+			return Array.isArray( result[0] ) && result[0].length === 35;
 		}
 	);
 

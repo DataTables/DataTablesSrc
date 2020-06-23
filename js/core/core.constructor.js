@@ -99,7 +99,7 @@ _fnLanguageCompat( oInit.oLanguage );
 // If the length menu is given, but the init display length is not, use the length menu
 if ( oInit.aLengthMenu && ! oInit.iDisplayLength )
 {
-	oInit.iDisplayLength = $.isArray( oInit.aLengthMenu[0] ) ?
+	oInit.iDisplayLength = Array.isArray( oInit.aLengthMenu[0] ) ?
 		oInit.aLengthMenu[0][0] : oInit.aLengthMenu[0];
 }
 
@@ -190,7 +190,7 @@ if ( oSettings.iInitDisplayStart === undefined )
 if ( oInit.iDeferLoading !== null )
 {
 	oSettings.bDeferLoading = true;
-	var tmp = $.isArray( oInit.iDeferLoading );
+	var tmp = Array.isArray( oInit.iDeferLoading );
 	oSettings._iRecordsDisplay = tmp ? oInit.iDeferLoading[0] : oInit.iDeferLoading;
 	oSettings._iRecordsTotal = tmp ? oInit.iDeferLoading[1] : oInit.iDeferLoading;
 }

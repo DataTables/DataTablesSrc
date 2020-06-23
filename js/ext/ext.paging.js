@@ -86,7 +86,7 @@ $.extend( true, DataTable.ext.renderer, {
 				for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
 					button = buttons[i];
 
-					if ( $.isArray( button ) ) {
+					if ( Array.isArray( button ) ) {
 						var inner = $( '<'+(button.DT_el || 'div')+'/>' )
 							.appendTo( container );
 						attach( inner, button );
