@@ -65,6 +65,10 @@ module.exports = function(config) {
 			case 'scroller':
 				extensionFiles = 'extensions/Scroller/test/**/*.js';
 				break;
+			case 'SearchBuilder':
+			case 'searchbuilder':
+				extensionFiles = 'extensions/SearchBuilder/test/**/*.js';
+				break;
 			case 'SearchPanes':
 			case 'searchpanes':
 				extensionFiles = 'extensions/SearchPanes/test/**/*.js';
@@ -197,6 +201,12 @@ module.exports = function(config) {
 				scroller: {
 					pathName: 'Scroller',
 					fileName: 'scroller',
+					js: false,
+					css: true
+				},
+				searchbuilder: {
+					pathName: 'SearchBuilder',
+					fileName: 'searchBuilder',
 					js: false,
 					css: true
 				},

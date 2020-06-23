@@ -18,6 +18,8 @@
     "test-rowreorder": "DT_EXTENSION='RowReorder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-scroller": "DT_EXTENSION='Scroller' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-select": "DT_EXTENSION='Select' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run"
+    "test-searchbuilder": "DT_EXTENSION='SearchBuilder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run"
+    "test-searchpanes": "DT_EXTENSION='SearchPanes' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run"
   },
   "repository": {
     "type": "git",
