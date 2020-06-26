@@ -242,6 +242,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 			return '<code>Any</code>';
 		}
 
+		$item = preg_replace('/\[\]$/', '', $item);
 		return '<a href="'.$host.'/'.$klass.'/'.$this->_doUrlEncode($item).'">'.
 				'<code class="'.$klass.'" title="'.$lang.'">'.$html.'</code>'.
 			'</a>';
