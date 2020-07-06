@@ -109,6 +109,7 @@
     * `R` - [ColReorder](/extensions/colreorder)
     * `S` - [Scroller](/extensions/scroller)
     * `P` - [SearchPanes](/extensions/searchpanes)
+    * `Q` - [SearchBuilder](/extensions/searchbuilder)
 
 
     ### Future development
