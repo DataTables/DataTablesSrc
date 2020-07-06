@@ -22,14 +22,14 @@ if ( window.$ ) {
 
 		// css
 		var cssContainer = $('div.tabs div.css');
-		if ( $.trim( cssContainer.find('code').text() ) === '' ) {
+		if ( ( cssContainer.find('code').text() ).trim() === '' ) {
 			cssContainer.find('code, p:eq(0), div').css('display', 'none');
 		}
 
 		// init html
 		var table = $('<p/>').append( $('table').clone() ).html();
 		
-		var demoHtml = $.trim( $('div.demo-html').html() );
+		var demoHtml = ( $('div.demo-html').html().trim() );
 
 		if ( demoHtml ) {
 			demoHtml = demoHtml+'\n\n';
