@@ -703,6 +703,35 @@ DataTable.defaults.column = {
 	 */
 	"sName": "",
 
+	
+	/**
+	 * Defines whether the cell data includes the HTML content or not.  
+	 * This means that when the data contents of the cell are set, the innerText property is used rather than innerHTML.
+	 * 
+	 * This is useful in environments where table data may be embedded in multiple levels of HTML after the <td> element for two reasons:-
+	 * 	-DataTables extensions such as searchPanes can compare cell data without comparing HTML data.
+	 * 	-Performance increase for processing tables which have a large amount of additional markup as less data is saved to memory.		 * 
+	 * 
+	 * @name DataTable.defaults.column.stripHTML
+	 * @type bool
+	 * @default false
+	 * 
+	 *  @example
+	 *		// Using `columnDefs`
+	 *    $(document).ready( function() {
+	 *      $('#example').dataTable( {
+	 *        "columnDefs": [
+	 *         {
+	 *         	stripHTML: true,
+	 *         	targets : '_all'
+	 *         }
+	 *        ]
+	 *      } );
+	 *    } );
+	 *
+	 */
+	"stripHTML": false  
+
 
 	/**
 	 * Defines a data source type for the ordering which can be used to read
