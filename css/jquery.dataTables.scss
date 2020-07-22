@@ -35,6 +35,13 @@ $table-shade: black !default;
 // duplicating the whole file, this is the best option
 $jqueryui: false !default;
 
+// Chrome 83's default inputs are really ugly, so we need to do this for all
+@mixin table-input {
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	padding: 5px;
+	background-color: transparent;
+}
 
 //
 // Functions / mixins
@@ -401,6 +408,11 @@ table.dataTable td {
 	// Page length options
 	.dataTables_length {
 		float: left;
+
+		select {
+			@include table-input;
+			padding: 4px;
+		}
 	}
 
 	// Filtering input
@@ -409,7 +421,8 @@ table.dataTable td {
 		text-align: right;
 
 		input {
-			margin-left: 0.5em;
+			@include table-input;
+			margin-left: 3px;
 		}
 	}
 
