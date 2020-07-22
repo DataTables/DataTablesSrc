@@ -31,10 +31,10 @@ $.extend( DataTable.ext.classes, {
 	"sSortColumn": "sorting_", /* Note that an int is postfixed for the sorting order */
 
 	/* Filtering */
-	"sFilterInput": "",
+	"sFilterInput": "dt-input",
 
 	/* Page length */
-	"sLengthSelect": "",
+	"sLengthSelect": "dt-input",
 
 	/* Scrolling */
 	"sScrollWrapper": "dataTables_scroll",

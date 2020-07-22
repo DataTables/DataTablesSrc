@@ -43,6 +43,13 @@ $table-paging-button-hover: #111 !default;
 // duplicating the whole file, this is the best option
 $jqueryui: false !default;
 
+// Chrome 83's default inputs are really ugly, so we need to do this for all
+@mixin table-input {
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	padding: 5px;
+	background-color: transparent;
+}
 
 @mixin gradient( $from, $to ) {
 	background-color: $from;
@@ -308,6 +315,15 @@ div.dataTables_wrapper {
 		input {
 			margin-left: 0.5em;
 		}
+	}
+
+	.dt-input {
+		@include table-input;
+	}
+
+	select.dt-input {
+		// 5px is 1px too much to equal the height of the input elements
+		padding: 4px;
 	}
 
 	// Paging
