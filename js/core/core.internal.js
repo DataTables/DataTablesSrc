@@ -271,6 +271,21 @@ var _unique = function ( src )
 	return out;
 };
 
+// Surprisingly this is faster than [].concat.apply
+// https://jsperf.com/flatten-an-array-loop-vs-reduce/2
+var _flatten = function (out, val) {
+	if (Array.isArray(val)) {
+		for (var i=0 ; i<val.length ; i++) {
+			_flatten(out, val[i]);
+		}
+	}
+	else {
+		out.push(val);
+	}
+  
+	return out;
+}
+
 // Array.isArray polyfill.
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
 if (! Array.isArray) {
