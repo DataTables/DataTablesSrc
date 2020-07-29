@@ -79,7 +79,7 @@ DataTable.render = {
 				return d;
 			}
 
-			var m = window.moment( d, from, locale, true );
+			var m = window.moment.utc( d, from, locale, true );
 
 			if (! m.isValid()) {
 				return d;
