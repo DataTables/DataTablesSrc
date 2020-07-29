@@ -66,7 +66,7 @@ function _fnBuildAjax( oSettings, data, fn )
 	var baseAjax = {
 		"data": data,
 		"success": function (json) {
-			var error = json.error || json.sError;
+			var error = typeof json == 'undefined' || json.error || json.sError;
 			if ( error ) {
 				_fnLog( oSettings, 0, error );
 			}
