@@ -356,6 +356,11 @@ function _fnSetObjectDataFn( mSource )
 
 			for ( var i=0, iLen=a.length-1 ; i<iLen ; i++ )
 			{
+				// Protect against prototype pollution
+				if (a[i] === '__proto__') {
+					throw new Error('Cannot set prototype values');
+				}
+
 				// Check if we are dealing with an array notation request
 				arrayNotation = a[i].match(__reArray);
 				funcNotation = a[i].match(__reFn);
