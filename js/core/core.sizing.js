@@ -17,13 +17,10 @@ function _fnCalculateColumnWidths ( oSettings )
 		scrollY = scroll.sY,
 		scrollX = scroll.sX,
 		scrollXInner = scroll.sXInner,
-		columnCount = columns.length,
 		visibleColumns = _fnGetColumns( oSettings, 'bVisible' ),
-		headerCells = $('th', oSettings.nTHead),
 		tableWidthAttr = table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentNode,
-		userInputs = false,
-		i, column, columnIdx, width, outerWidth,
+		i, column, columnIdx,
 		browser = oSettings.oBrowser,
 		ie67 = browser.bScrollOversize;
 
@@ -36,11 +33,9 @@ function _fnCalculateColumnWidths ( oSettings )
 	for ( i=0 ; i<visibleColumns.length ; i++ ) {
 		column = columns[ visibleColumns[i] ];
 
-		if ( column.sWidth !== null ) {
-			column.sWidth = _fnConvertToWidth( column.sWidthOrig, tableContainer );
-
-			userInputs = true;
-		}
+		column.sWidth = column.sWidthOrig !== null
+			? _fnConvertToWidth( column.sWidthOrig, tableContainer )
+			: null;
 	}
 
 	// Construct a single row, worst case, table with the widest
@@ -86,6 +81,9 @@ function _fnCalculateColumnWidths ( oSettings )
 					height: 1
 				} ) );
 			}
+		}
+		else {
+			this.style.width = '';
 		}
 	} );
 
