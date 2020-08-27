@@ -179,10 +179,12 @@ DataTable.ext.renderer.layout.foundation = function ( settings, container, items
 	$.each( items, function (key, val) {
 		var klass = '';
 		if ( key === 'left' ) {
+			// left is auto sized, right is shrink, allowing them to take the full width, and letting the
+			// content take its maximum available space.
 			klass += 'cell auto text-left';
 		}
 		else if ( key === 'right' ) {
-			klass += 'cell auto text-right';
+			klass += 'cell shrink text-right';
 		}
 		else if ( key === 'full' ) {
 			klass += 'cell small-12';
