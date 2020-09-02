@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="1">
+
+<css lib="datatables searchpanes select" />
+<js lib="jquery" />
+<js lib="datatables searchpanes select" />
+
+<title>HighCharts Integration</title>
+
+<js lib="//code.highcharts.com/highcharts.js"/>
+<js><![CDATA[
+
+$(document).ready(function() {
+
+    var basicFilteringSP;
+	var dataFilteringSP = [];
+	var countFilteringSP = {};
+    $(document).ready(function () {
+        basicFilteringSP = $('#example').DataTable({
+            dom: 'Pfrtip'
+        });
+
+		var hcCont5 = $('<div id="containerbasicfiltering5"/>');
+        $(hcCont5).insertBefore($('#example_wrapper'));
+		if($(document).has(hcCont5).length !== 0) {
+			getCountSP();
+
+			var seriesFilteringSP = {
+				id: "countFilteringSP",
+				name: "CountFilteringSP",
+				data: dataFilteringSP
+			};
+
+			var myChartbasicfiltering5 = Highcharts.chart("containerbasicfiltering5", {
+				chart: {
+				type: "pie"
+				},
+				title: {
+				text: "Staff Count Per Position"
+				},
+				series: [seriesFilteringSP]
+			});
+
+			basicFilteringSP.on("draw", function() {
+				myChartbasicfiltering5.get("countFilteringSP").remove();
+				getCountSP();
+				seriesFilteringSP.data = dataFilteringSP;
+				myChartbasicfiltering5.addSeries(seriesFilteringSP);
+			});
+		}
+    });  
+
+	getCountSP = function(){
+		countFilteringSP = {};
+		dataFilteringSP = [];
+		
+		var indexes = basicFilteringSP
+			.rows()
+			.indexes()
+			.toArray();
+		
+		for (var i = 0; i < indexes.length; i++) {
+			var position = basicFilteringSP.cell(indexes[i], 1).data();
+			if (countFilteringSP[position] === undefined) {
+				countFilteringSP[position] = 0;
+			}
+		}
+		
+		indexes = basicFilteringSP
+			.rows({ search: "applied" })
+			.indexes()
+			.toArray();
+		
+		for (var i = 0; i < indexes.length; i++) {
+			var position = basicFilteringSP.cell(indexes[i], 1).data();
+			countFilteringSP[position]++;
+		}
+		
+		var keys = Object.keys(countFilteringSP);
+		for (var i = 0; i < keys.length; i++) {
+			var obj = {};
+			obj.name = keys[i];
+			obj.y = countFilteringSP[keys[i]];
+			dataFilteringSP.push(obj);
+		}
+	};
+} );
+
+]]></js>
+
+<info><![CDATA[
+
+This example shows how to integrate [HighCharts](https://www.highcharts.com/) into your datatables project. SearchPanes is also used here to allow the chart to dynamically update as filters are applied to the table. For more information take a look at the [blog post on highcharts](/blog/2020-09-01.html).
+
+]]></info>
+
+</dt-example>
