@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="1">
+<dt-example table-type="html" order="15">
 
 <css lib="datatables searchpanes select" />
 <js lib="jquery" />
@@ -10,87 +10,66 @@
 <js lib="//code.highcharts.com/highcharts.js"/>
 <js><![CDATA[
 
-$(document).ready(function() {
+$(document).ready(function () {
+	// Create DataTable
+	var table = $('#example').DataTable({
+		dom: 'Pfrtip',
+	});
 
-    var basicFilteringSP;
-	var dataFilteringSP = [];
-	var countFilteringSP = {};
-    $(document).ready(function () {
-        basicFilteringSP = $('#example').DataTable({
-            dom: 'Pfrtip'
-        });
+	// Create the chart with initial data
+	var container = $('<div/>').insertBefore(table.table().container());
 
-		var hcCont5 = $('<div id="containerbasicfiltering5"/>');
-        $(hcCont5).insertBefore($('#example_wrapper'));
-		if($(document).has(hcCont5).length !== 0) {
-			getCountSP();
+	var chart = Highcharts.chart(container[0], {
+		chart: {
+			type: 'pie',
+		},
+		title: {
+			text: 'Staff Count Per Position',
+		},
+		series: [
+			{
+				data: chartData(table),
+			},
+		],
+	});
 
-			var seriesFilteringSP = {
-				id: "countFilteringSP",
-				name: "CountFilteringSP",
-				data: dataFilteringSP
-			};
+	// On each draw, update the data in the chart
+	table.on('draw', function () {
+		chart.series[0].setData(chartData(table));
+	});
+});
 
-			var myChartbasicfiltering5 = Highcharts.chart("containerbasicfiltering5", {
-				chart: {
-				type: "pie"
-				},
-				title: {
-				text: "Staff Count Per Position"
-				},
-				series: [seriesFilteringSP]
-			});
+function chartData(table) {
+	var counts = {};
 
-			basicFilteringSP.on("draw", function() {
-				myChartbasicfiltering5.get("countFilteringSP").remove();
-				getCountSP();
-				seriesFilteringSP.data = dataFilteringSP;
-				myChartbasicfiltering5.addSeries(seriesFilteringSP);
-			});
-		}
-    });  
-
-	getCountSP = function(){
-		countFilteringSP = {};
-		dataFilteringSP = [];
-		
-		var indexes = basicFilteringSP
-			.rows()
-			.indexes()
-			.toArray();
-		
-		for (var i = 0; i < indexes.length; i++) {
-			var position = basicFilteringSP.cell(indexes[i], 1).data();
-			if (countFilteringSP[position] === undefined) {
-				countFilteringSP[position] = 0;
+	// Count the number of entries for each position
+	table
+		.column(1, { search: 'applied' })
+		.data()
+		.each(function (val) {
+			if (counts[val]) {
+				counts[val] += 1;
+			} else {
+				counts[val] = 1;
 			}
-		}
-		
-		indexes = basicFilteringSP
-			.rows({ search: "applied" })
-			.indexes()
-			.toArray();
-		
-		for (var i = 0; i < indexes.length; i++) {
-			var position = basicFilteringSP.cell(indexes[i], 1).data();
-			countFilteringSP[position]++;
-		}
-		
-		var keys = Object.keys(countFilteringSP);
-		for (var i = 0; i < keys.length; i++) {
-			var obj = {};
-			obj.name = keys[i];
-			obj.y = countFilteringSP[keys[i]];
-			dataFilteringSP.push(obj);
-		}
-	};
-} );
+		});
+
+	// And map it to the format hightables uses
+	return $.map(counts, function (val, key) {
+		return {
+			name: key,
+			y: val,
+		};
+	});
+}
 
 ]]></js>
 
 <info><![CDATA[
 
-This example shows how to integrate [HighCharts](https://www.highcharts.com/) into your datatables project. SearchPanes is also used here to allow the chart to dynamically update as filters are applied to the table. For more information take a look at the [blog post on highcharts](/blog/2020-09-01.html).
+This example shows how to integrate the excellent [HighCharts](https://www.highcharts.com/) library into your project along-side DataTables. As you modify the table by filtering it, the chart is updated automatically to reflect the state of the table.
+
+[SearchPanes](/extensions/searchpanes) is also used here to show its integration with DataTables' filtering. For more information take a look at the [blog post on highcharts](/blog/2020-09-01.html).
 
 ]]></info>
 
