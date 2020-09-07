@@ -54,7 +54,7 @@ function chartData(table) {
 			}
 		});
 
-	// And map it to the format hightables uses
+	// And map it to the format highcharts uses
 	return $.map(counts, function (val, key) {
 		return {
 			name: key,
