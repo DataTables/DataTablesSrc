@@ -315,7 +315,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	function _doHeaders_callback_setext($matches) {
 		if ($matches[3] == '-' && preg_match('{^- }', $matches[1]))
 			return $matches[0];
-		$level = $matches[3]{0} == '=' ? 1 : 2;
+		$level = $matches[3][0] == '=' ? 1 : 2;
 		$attr  = $this->_doHeaders_attr($id =& $matches[2]);
 
 		$text = $this->runSpanGamut($matches[1]);
