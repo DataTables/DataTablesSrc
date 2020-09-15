@@ -7,7 +7,7 @@ describe( "currency option ", function() {
 	describe("Check the defaults", function () {
 
 		dt.html( 'currency' );
-		it("Set thousands seperator", function () {
+		it("Set the thousands seperator", function () {
 			// Change this list to the valid characters you want
 			var validChars = "$£€c" + "0123456789" + ".-,()'";
 			// Init the regex just once for speed - it is "closure locked"
