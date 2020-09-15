@@ -181,11 +181,11 @@ function _fnBuildHead( oSettings )
 	}
 	
 	/* ARIA role for the rows */
- 	$(thead).find('>tr').attr('role', 'row');
+	$(thead).children('tr').attr('role', 'row');
 
 	/* Deal with the footer - add classes if required */
-	$(thead).find('>tr>th, >tr>td').addClass( classes.sHeaderTH );
-	$(tfoot).find('>tr>th, >tr>td').addClass( classes.sFooterTH );
+	$(thead).children('tr').children('th, td').addClass( classes.sHeaderTH );
+	$(tfoot).children('tr').children('th, td').addClass( classes.sFooterTH );
 
 	// Cache the footer cells. Note that we only take the cells from the first
 	// row in the footer. If there is more than one row the user wants to
