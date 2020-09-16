@@ -29,18 +29,22 @@ if ( window.$ ) {
 
 		// init html
 		var table = $('<p/>').append( $('table').clone() ).html();
+		var demoHtml = '';
 		
-		var demoHtml = ( $('div.demo-html').html().trim() );
+		if ($('div.demo-html').length) {
+			demoHtml = $('div.demo-html').html().trim();
 
-		if ( demoHtml ) {
-			demoHtml = demoHtml+'\n\n';
+			if ( demoHtml ) {
+				demoHtml = demoHtml+'\n\n';
+			}
+
+			$('div.tabs div.table').append(
+				'<code class="multiline language-html">\t\t\t'+
+					escapeHtml( demoHtml + table )+
+				'</code>'
+			);
 		}
 
-		$('div.tabs div.table').append(
-			'<code class="multiline language-html">\t\t\t'+
-				escapeHtml( demoHtml + table )+
-			'</code>'
-		);
 		//SyntaxHighlighter.highlight({}, $('#display-init-html')[0]);
 
 		// Allow the demo code to run if DT 1.9 is used
