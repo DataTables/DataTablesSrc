@@ -25,6 +25,8 @@ This example shows DataTables styled for [Google's Material Design](https://www.
 
 This is a technical preview example and the Material Design integration for DataTables is not yet complete. This tech preview is provided to gauge the interest in a Material integration for DataTables and also to estimate the work that would be involved in fully supporting the styling library. As such, the Material design implementation for DataTables can currently only be installed from source and is not available in package managers or the DataTables downloader.
 
+If you would like to see continued development of the MDL integration for DataTables, please [get in touch](/forums) so we can know what integrations are popular.
+
 ]]></info>
 
 </dt-example>

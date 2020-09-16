@@ -277,9 +277,10 @@ div.syntaxhighlighter code:after {
 
 ul.tabs {
 	position: relative;
+	display: block;
 	top: 1px;
 	height: 40px;
-	margin: 20px 20px 0 0;
+	margin: 20px 20px 0 0 !important;
 }
 
 

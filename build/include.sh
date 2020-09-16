@@ -11,6 +11,7 @@ FRAMEWORKS=(
 	'bootstrap5'
 	'bootstrap4'
 	'bootstrap'
+	'bulma'
 	'foundation'
 	'jqueryui'
 	'semanticui'

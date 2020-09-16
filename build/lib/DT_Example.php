@@ -394,6 +394,9 @@ class DT_Example
 		else if ( strpos($framework, 'uikit') !== false ) {
 			$class = str_replace('display', 'uk-table uk-table-hover uk-table-striped', $class);
 		}
+		else if ( strpos($framework, 'bulma') !== false ) {
+			$class = str_replace('display', 'table is-striped', $class);
+		}
 
 		if ( ! isset( DT_Example::$tables[ $type ] ) ) {
 			throw new Exception("Unknown table type: ".$type, 1);
