@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="10" framework="bootstrap5">
+<dt-example table-type="html" order="11" framework="bootstrap5">
 
 <css lib="datatables" />
 <js lib="jquery datatables" />
 
-<title>Bootstrap 5</title>
+<title>Bootstrap 5 (Preview)</title>
 <js><![CDATA[
 $(document).ready(function() {
 	$('#example').DataTable();
