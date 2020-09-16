@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="10" framework="bootstrap5">
+
+<css lib="datatables" />
+<js lib="jquery datatables" />
+
+<title>Bootstrap 5</title>
+<js><![CDATA[
+$(document).ready(function() {
+	$('#example').DataTable();
+} );
+]]></js>
+
+<info><![CDATA[
+
+At the time of writing this example, Bootstrap 5 is at 5.0.0-alpha.1, and therefore might yet change. This example shows our current integration with Bootstrap 5, which will evolve as Bootstrap 5 does.
+
+]]></info>
+
+</dt-example>
