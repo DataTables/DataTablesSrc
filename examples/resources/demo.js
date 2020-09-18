@@ -45,7 +45,10 @@ if ( window.$ ) {
 			);
 		}
 
-		//SyntaxHighlighter.highlight({}, $('#display-init-html')[0]);
+		// This can really slow things down
+		setTimeout( function () {
+			SyntaxHighlighter.highlight({}, $('div.table code')[0]);
+		}, 1000)
 
 		// Allow the demo code to run if DT 1.9 is used
 		if ( dt110 ) {
