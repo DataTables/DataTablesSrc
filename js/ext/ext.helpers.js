@@ -59,10 +59,26 @@ DataTable.render = {
 		if ( arguments.length === 1 ) {
 			locale = 'en';
 			to = from;
-			from = 'YYYY-MM-DD';
+			from = from;
 		}
 		else if ( arguments.length === 2 ) {
 			locale = 'en';
+		}
+
+		var typeName = 'moment-' + to;
+
+		// Add type detection and sorting specific to this date format - we need to be able to identify
+		// date type columns as such, rather than as numbers in extensions. Hence the need for this.
+		if (! DataTable.ext.type.order[typeName]) {
+			// The renderer will give the value to type detect as the type!
+			DataTable.ext.type.detect.unshift(function (d) {
+				return d === typeName ? typeName : false;
+			});
+
+			// And it will give the data to order as a number
+			DataTable.ext.type.order[typeName] = function (d) {
+				return d;
+			}
 		}
 	
 		return function ( d, type ) {
@@ -88,10 +104,16 @@ DataTable.render = {
 			if (! m.isValid()) {
 				return d;
 			}
-	
-			// Order and type get a number value from Moment, everything else
-			// sees the rendered value
-			var formatted = m.format( type === 'sort' || type === 'type' ? 'x' : to );
+
+			if (type === 'type') {
+				// Typing uses a type
+				return typeName;
+			}
+			else if (type === 'sort') {
+				return m.format('x');
+			}
+
+			var formatted = m.format( to );
 
 			// XSS protection
 			return type === 'display' ?
