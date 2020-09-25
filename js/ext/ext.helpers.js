@@ -89,6 +89,11 @@ DataTable.render = {
 				}
 			}
 
+			if (type === 'type') {
+				// Typing uses the type name for fast matching
+				return typeName;
+			}
+
 			if (d === '') {
 				return d;
 			}
@@ -105,11 +110,7 @@ DataTable.render = {
 				return d;
 			}
 
-			if (type === 'type') {
-				// Typing uses a type
-				return typeName;
-			}
-			else if (type === 'sort') {
+			if (type === 'sort') {
 				return m.format('x');
 			}
 
