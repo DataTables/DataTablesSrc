@@ -190,15 +190,16 @@ DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items 
 		.appendTo( container );
 
 	$.each( items, function (key, val) {
-		var klass = val.table ?
-			'col-md-12' :
-			'col-md-auto';
+		var klass;
 
 		if (key === 'left') {
-			klass += ' mr-auto';
+			klass = 'col-md-auto mr-auto';
 		}
 		else if (key === 'right') {
-			klass += ' ml-auto';
+			klass = 'col-md-auto ml-auto';
+		}
+		else {
+			klass = 'col-md-12';
 		}
 
 		$( '<div/>', {
