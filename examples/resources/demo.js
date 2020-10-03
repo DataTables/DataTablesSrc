@@ -28,7 +28,9 @@ if ( window.$ ) {
 		}
 
 		// init html
-		var table = $('<p/>').append( $('table').clone() ).html();
+		var table = $('div.fw-body')
+			? $('<p/>').append( $('div.content > table').clone() ).html() // web-site
+			: $('<p/>').append( $('section > table').clone() ).html(); // standalone examples
 		var demoHtml = '';
 		
 		if ($('div.demo-html').length) {
@@ -37,13 +39,13 @@ if ( window.$ ) {
 			if ( demoHtml ) {
 				demoHtml = demoHtml+'\n\n';
 			}
-
-			$('div.tabs div.table').append(
-				'<code class="multiline language-html">\t\t\t'+
-					escapeHtml( demoHtml + table )+
-				'</code>'
-			);
 		}
+
+		$('div.tabs div.table').append(
+			'<code class="multiline language-html">\t\t\t'+
+				escapeHtml( demoHtml + table )+
+			'</code>'
+		);
 
 		// This can really slow things down
 		setTimeout( function () {
