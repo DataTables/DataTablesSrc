@@ -71,8 +71,8 @@ A `-tag table` must be available on the page for DataTables to use. This example
 
 ]]></info>
 
-<custom-table>
+<demo-html>
 	<table id="example" class="display" width="100%"> </table>
-</custom-table>
+</demo-html>
 
 </dt-example>

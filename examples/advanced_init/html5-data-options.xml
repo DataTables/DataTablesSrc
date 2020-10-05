@@ -26,7 +26,7 @@ The table below shows the use of `dt-init pageLength` and `dt-init order` on the
 
 ]]></info>
 
-<custom-table>
+<demo-html>
 	<table id='example' class='display' width='100%' data-page-length='25' data-order='[[ 1, "asc" ]]'>
 	    <thead>
 	        <tr>
@@ -509,6 +509,6 @@ The table below shows the use of `dt-init pageLength` and `dt-init order` on the
 	        </tr>
 	    </tbody>
 	</table>
-</custom-table>
+</demo-html>
 
 </dt-example>

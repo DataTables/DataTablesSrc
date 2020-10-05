@@ -115,6 +115,9 @@
   left: 0 !important;
   right: 0 !important;
 }
+.syntaxhighlighter table td.code .container::before {
+  display: none !important; /* BS4 override */
+}
 .syntaxhighlighter.source table td.code .container div.line {
   display: none !important;
 }
