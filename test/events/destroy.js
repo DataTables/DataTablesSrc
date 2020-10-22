@@ -19,7 +19,6 @@ describe('core - events - destroy', function() {
 			});
 
 			table.destroy();
-
 			expect(count).toBe(1);
 			expect($('div.dataTables_filter').length).toBe(0);
 		});
