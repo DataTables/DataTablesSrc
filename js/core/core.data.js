@@ -357,7 +357,7 @@ function _fnSetObjectDataFn( mSource )
 			for ( var i=0, iLen=a.length-1 ; i<iLen ; i++ )
 			{
 				// Protect against prototype pollution
-				if (a[i] === '__proto__') {
+				if (a[i] === '__proto__' || a[i] === 'constructor') {
 					throw new Error('Cannot set prototype values');
 				}
 
