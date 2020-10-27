@@ -79,10 +79,6 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 
 		_fnCallbackFire( oSettings, 'aoRowCreatedCallback', null, [nTr, rowData, iRow, cells] );
 	}
-
-	// Remove once webkit bug 131819 and Chromium bug 365619 have been resolved
-	// and deployed
-	row.nTr.setAttribute( 'role', 'row' );
 }
 
 
