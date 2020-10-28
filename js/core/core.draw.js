@@ -47,7 +47,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			cells.push( nTd );
 
 			// Need to create the HTML if new, or if a rendering function is defined
-			if ( create || ((!nTrIn || oCol.mRender || oCol.mData !== i) &&
+			if ( create || ((oCol.mRender || oCol.mData !== i) &&
 				 (!$.isPlainObject(oCol.mData) || oCol.mData._ !== i+'.display')
 			)) {
 				nTd.innerHTML = _fnGetCellData( oSettings, iRow, i, 'display' );
