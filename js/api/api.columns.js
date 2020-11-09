@@ -33,6 +33,7 @@ var __column_selector = function ( settings, selector, opts )
 	var
 		columns = settings.aoColumns,
 		names = _pluck( columns, 'sName' ),
+		titles = _pluck( columns, 'sTitle' ),
 		nodes = _fnCellsFromLayout( settings.aoHeader );
 
 	var run = function ( s ) {
@@ -89,6 +90,12 @@ var __column_selector = function ( settings, selector, opts )
 					// match by name. `names` is column index complete and in order
 					return $.map( names, function (name, i) {
 						return name === match[1] ? i : null;
+					} );
+
+				case 'title':
+					// match by column title
+					return $.map( titles, function (title, i) {
+						return title === match[1] ? i : null;
 					} );
 
 				default:

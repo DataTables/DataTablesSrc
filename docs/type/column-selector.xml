@@ -17,6 +17,7 @@ The column selector can be given in a number of different forms, to make it easy
 * `dt-string {integer}:visIdx` - Column visible index selector (e.g. `3:visIdx`)
 * `dt-string {integer}:visible` - Alias of `dt-string {integer}:visIdx`.
 * `dt-string {string}:name` - Column name selector, from `dt-init columns.name` (e.g. `salary:name`)
+* `dt-string {string}:title` - Column title selector - select based on the title text for the column (e.g. `My\ Column:title`)
 * `dt-type string` - jQuery selector
 * `dt-type node` - This may be one of the following:
   * `-tag th` / `-tag td` cell from the column headers
