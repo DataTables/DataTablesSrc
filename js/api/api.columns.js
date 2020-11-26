@@ -207,7 +207,7 @@ _api_registerPlural( 'columns().header()', 'column().header()', function ( selec
 _api_registerPlural( 'columns().footer()', 'column().footer()', function ( selector, opts ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return settings.aoFooter.length ?
-			[0][column].cell :
+			settings.aoFooter[0][column].cell :
 			null;
 	}, 1 );
 } );
