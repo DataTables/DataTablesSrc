@@ -720,6 +720,9 @@ function _fnDetectHeader ( settings, thead, write )
 					if ( columnDef.sTitle !== null && cell.innerHTML !== columnDef.sTitle ) {
 						cell.innerHTML = columnDef.sTitle;
 					}
+					else {
+						columnDef.sTitle = cell.innerHTML;
+					}
 
 					// Column specific class names
 					if ( columnDef.className ) {

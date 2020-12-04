@@ -242,6 +242,13 @@ _api_registerPlural( 'columns().nodes()', 'column().nodes()', function () {
 	}, 1 );
 } );
 
+_api_registerPlural( 'columns().titles()', 'column().title()', function () {
+	return this.iterator( 'column', function ( settings, column ) {
+		return settings.aoColumns[column].sTitle;
+		// TODO make a setter as well
+	}, 1 );
+} );
+
 _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis, calc ) {
 	var that = this;
 	var ret = this.iterator( 'column', function ( settings, column ) {
