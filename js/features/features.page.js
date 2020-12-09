@@ -1,6 +1,11 @@
 
 // Note that most of the paging logic is done in DataTable.ext.pager
 _ext.features.register( 'paging', function ( settings, pagingType ) {
+	// Don't show the paging input if the table doesn't have paging enabled
+	if (! settings.oFeatures.bPaginate) {
+		return null;
+	}
+
 	var
 		type   = pagingType || settings.sPaginationType,
 		plugin = DataTable.ext.pager[ type ],

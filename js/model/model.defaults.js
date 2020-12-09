@@ -494,6 +494,17 @@ DataTable.defaults = {
 	 */
 	"bFilter": true,
 
+	/**
+	 * Used only for compatiblity with DT1
+	 * @deprecated
+	 */
+	"bInfo": true,
+
+	/**
+	 * Used only for compatiblity with DT1
+	 * @deprecated
+	 */
+	"bLengthChange": true,
 
 	/**
 	 * Enable or disable pagination.

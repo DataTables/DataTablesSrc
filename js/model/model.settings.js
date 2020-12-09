@@ -60,6 +60,18 @@ DataTable.models.oSettings = {
 		"bFilter": null,
 
 		/**
+		 * Used only for compatiblity with DT1
+		 * @deprecated
+		 */
+		"bInfo": true,
+
+		/**
+		 * Used only for compatiblity with DT1
+		 * @deprecated
+		 */
+		"bLengthChange": true,
+
+		/**
 		 * Pagination enabled or not. Note that if this is disabled then length
 		 * changing must also be disabled.
 		 * Note that this parameter will be set by the initialisation routine. To

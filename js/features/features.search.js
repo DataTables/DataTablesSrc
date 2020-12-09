@@ -3,6 +3,11 @@
 // - text
 // - placeholder
 _ext.features.register( 'search', function ( settings, opts ) {
+	// Don't show the input if filtering isn't available on the table
+	if (! settings.oFeatures.bFilter) {
+		return null;
+	}
+
 	var classes = settings.oClasses;
 	var tableId = settings.sTableId;
 	var language = settings.oLanguage;

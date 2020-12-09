@@ -1,5 +1,10 @@
 
 _ext.features.register( 'info', function ( settings, opts ) {
+	// For compatibility with the legacy `info` top level option
+	if (! settings.oFeatures.bInfo) {
+		return null;
+	}
+
 	var
 		lang  = settings.oLanguage,
 		tid = settings.sTableId,

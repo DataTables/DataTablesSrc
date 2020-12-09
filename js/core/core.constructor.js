@@ -116,9 +116,11 @@ oInit = _fnExtend( $.extend( true, {}, defaults ), oInit );
 // Map the initialisation options onto the settings object
 _fnMap( oSettings.oFeatures, oInit, [
 	"bPaginate",
+	"bLengthChange",
 	"bFilter",
 	"bSort",
 	"bSortMulti",
+	"bInfo",
 	"bProcessing",
 	"bAutoWidth",
 	"bSortClasses",
