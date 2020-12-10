@@ -17,9 +17,20 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 		classes  = settings.oClasses,
 		tableId  = settings.sTableId,
 		menu     = opts.menu,
-		d2       = $.isArray( menu[0] ),
-		lengths  = d2 ? menu[0] : menu,
-		language = d2 ? menu[1] : menu;
+		lengths  = [],
+		language = [];
+
+	// Allow options to be given as objects or numbers
+	for ( var i=0 ; i<menu.length ; i++ ) {
+		if ($.isPlainObject(menu[i])) {
+			lengths.push(menu[i].value);
+			language.push(menu[i].label);
+		}
+		else {
+			lengths.push(menu[i]);
+			language.push(menu[i]);
+		}
+	}
 
 	var select = $('<select/>', {
 		'name':          tableId+'_length',
