@@ -323,6 +323,7 @@ function usage {
         - AutoFill
         - Buttons
         - ColReorder
+        - DateTime
         - FixedColumns
         - FixedHeader
         - KeyTable
@@ -365,6 +366,7 @@ case "$1" in
 		build_extension AutoFill
 		build_extension Buttons
 		build_extension ColReorder
+		build_extension DateTime
 		build_extension FixedColumns
 		build_extension FixedHeader
 		build_extension KeyTable

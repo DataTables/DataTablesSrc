@@ -29,6 +29,10 @@ module.exports = function(config) {
 			case 'colreorder':
 				extensionFiles = 'extensions/ColReorder/test/**/*.js';
 				break;
+			case 'DateTime':
+			case 'datetime':
+				extensionFiles = 'extensions/DateTime/test/**/*.js';
+				break;
 			case 'Editor':
 			case 'editor':
 				extensionFiles = 'extensions/Editor/test/**/*.js';
@@ -155,6 +159,12 @@ module.exports = function(config) {
 					fileName: 'colReorder',
 					js: false,
 					css: true
+				},
+				datetime: {
+					pathName: 'DateTime',
+					fileName: 'dateTime',
+					js: false,
+					css: false
 				},
 				editor: {
 					pathName: 'Editor',

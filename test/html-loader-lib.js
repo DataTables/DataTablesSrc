@@ -99,6 +99,13 @@
 						? [urlBase + '/media/js/jquery.dataTables.js']
 						: [urlBase + '/media/js/jquery.dataTables.js', urlBase + '/media/js/dataTables.' + framework + '.js'];
 				}
+			} else if (path === 'datetime') {
+				if (type === 'css') {
+					return [urlBase + '/extensions/' + lib.pathName + '/dataTables.' + lib.fileName + '.css'];
+				}
+				else {
+					return [urlBase + '/extensions/' + lib.pathName + '/dataTables.' + lib.fileName + '.js'];
+				}
 			} else {
 				if (type === 'css' && lib.css) {
 					return [urlBase + '/extensions/' + lib.pathName + '/css/' + lib.fileName + '.' + framework + '.css'];

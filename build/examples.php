@@ -242,6 +242,15 @@ DT_Example::$components['searchpanes'] = [
 	]
 ];
 
+if ( isset( $options['cdn'] ) ) {
+	DT_Example::$lookup_libraries['css']['datetime'] = 'https://cdn.datatables.net/datetime/'.$versions['DateTime']['release']['version'].'/dataTables.dateTime.min.css';
+	DT_Example::$lookup_libraries['js']['datetime'] = 'https://cdn.datatables.net/datetime/'.$versions['DateTime']['release']['version'].'/dataTables.dateTime.min.js';
+}
+else {
+	DT_Example::$lookup_libraries['css']['datetime'] = path_simplify( $dir_media.'/../extensions/DateTime' ) . '/dataTables.dateTime.css';
+	DT_Example::$lookup_libraries['js']['datetime'] = path_simplify( $dir_media.'/../extensions/DateTime' ) . '/dataTables.dateTime.js';
+}
+
 // Legacy extensions
 if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['css']['colvis']          = 'https://cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
