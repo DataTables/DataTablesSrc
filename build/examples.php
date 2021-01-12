@@ -412,8 +412,9 @@ if ( stripos( $dir_input, 'Editor' ) ) {
 	$dir_order = array(
 		'simple',
 		'advanced',
-		'extensions',
+		'datatables',
 		'dates',
+		'extensions',
 		'inline-editing',
 		'bubble-editing',
 		'api',
@@ -428,6 +429,7 @@ if ( stripos( $dir_input, 'Editor' ) ) {
 		'advanced'        => 'Advanced initialisation',
 		'extensions'      => 'DataTables extensions',
 		'dates'           => "Dates and time",
+		'datatables'      => 'DataTables as an input',
 		'bubble-editing'  => 'Bubble editing',
 		'inline-editing'  => 'Inline editing',
 		'api'             => 'API',
