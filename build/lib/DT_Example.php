@@ -382,7 +382,10 @@ class DT_Example
 			(string)$this->_xml['framework'] :
 			'datatables';
 
-		if ( strpos($framework, 'bootstrap') !== false ) {
+		if ( strpos($framework, 'bootstrap5') !== false ) {
+			$class = str_replace('display', 'table table-striped', $class);
+		}
+		else if ( strpos($framework, 'bootstrap') !== false ) {
 			$class = str_replace('display', 'table table-striped table-bordered', $class);
 		}
 		else if ( strpos($framework, 'semanticui') !== false ) {

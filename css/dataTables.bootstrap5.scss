@@ -117,7 +117,7 @@ table.dataTable > thead {
 		&:before,
 		&:after {
 			position: absolute;
-			bottom: 0.9em;
+			bottom: 0.5em;
 			display: block;
 			opacity: 0.3;
 		}
@@ -234,9 +234,21 @@ table.dataTable.table-sm {
 table.table-bordered.dataTable {
 	border-right-width: 0;
 
+	thead tr:first-child {
+		th,
+		td {
+			border-top-width: 1px;
+		}
+	}
+
 	th,
 	td {
 		border-left-width: 0;
+
+		&:first-child,
+		&:first-child {
+			border-left-width: 1px;
+		}
 
 		&:last-child,
 		&:last-child {
@@ -244,9 +256,9 @@ table.table-bordered.dataTable {
 		}
 	}
 
-	tbody th,
-	tbody td {
-		border-bottom-width: 0;
+	th,
+	td {
+		border-bottom-width: 1px;
 	}
 }
 
