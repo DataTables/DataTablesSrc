@@ -212,6 +212,8 @@ if ( oLanguage.sUrl )
 			_fnLanguageCompat( json );
 			_fnCamelToHungarian( defaults.oLanguage, json );
 			$.extend( true, oLanguage, json );
+
+			_fnCallbackFire( oSettings, null, 'i18n', [oSettings]);
 			_fnInitialise( oSettings );
 		},
 		error: function () {
@@ -220,6 +222,9 @@ if ( oLanguage.sUrl )
 		}
 	} );
 	bInitHandedOff = true;
+}
+else {
+	_fnCallbackFire( oSettings, null, 'i18n', [oSettings]);
 }
 
 /*
