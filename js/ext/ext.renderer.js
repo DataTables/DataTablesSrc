@@ -17,7 +17,6 @@ $.extend( true, DataTable.ext.renderer, {
 
 				cell
 					.removeClass(
-						column.sSortingClass +' '+
 						classes.sSortAsc +' '+
 						classes.sSortDesc
 					)
