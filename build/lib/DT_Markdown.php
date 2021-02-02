@@ -151,6 +151,11 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				$lang = 'ColVis';
 				break;
 
+			case 'de':
+				$host = '//datatables.net/extensions/datetime';
+				$lang = 'DateTime';
+				break;
+
 			case 'e':
 				$host = '//editor.datatables.net/reference';
 				$lang = 'Editor';
