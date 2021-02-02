@@ -4,10 +4,7 @@ SyntaxHighlighter.config.tagName = 'code';
 
 if ( window.$ ) {
 	$(document).ready( function () {
-		if ( ! $.fn.dataTable ) {
-			return;
-		}
-		var dt110 = $.fn.dataTable.Api ? true : false;
+		var dt110 = $.fn.dataTable && $.fn.dataTable.Api ? true : false;
 
 		// Work around for WebKit bug 55740
 		var info = $('div.info');
