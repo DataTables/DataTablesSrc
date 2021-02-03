@@ -472,6 +472,17 @@ else if ( stripos( $dir_input, 'ColReorder' ) ) {
 		'styling'        => "Styling"
 	);
 }
+else if ( stripos( $dir_input, 'DateTime' ) ) {
+	$dir_order = array(
+		'initialisation',
+		'integration'
+	);
+
+	$dir_names = array(
+		'initialisation' => "Initialisation and options",
+		'integration'    => "Integration"
+	);
+}
 else if ( stripos( $dir_input, 'Responsive' ) ) {
 	$dir_order = array(
 		'initialisation',
