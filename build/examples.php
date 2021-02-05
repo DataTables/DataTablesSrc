@@ -243,12 +243,12 @@ DT_Example::$components['searchpanes'] = [
 ];
 
 if ( isset( $options['cdn'] ) ) {
-	DT_Example::$lookup_libraries['css']['datetime'] = 'https://cdn.datatables.net/datetime/'.$versions['DateTime']['release']['version'].'/dataTables.dateTime.min.css';
-	DT_Example::$lookup_libraries['js']['datetime'] = 'https://cdn.datatables.net/datetime/'.$versions['DateTime']['release']['version'].'/dataTables.dateTime.min.js';
+	DT_Example::$lookup_libraries['css']['datetime'] = 'https://cdn.datatables.net/datetime/'.$versions['DateTime']['release']['version'].'/css/dataTables.dateTime.min.css';
+	DT_Example::$lookup_libraries['js']['datetime'] = 'https://cdn.datatables.net/datetime/'.$versions['DateTime']['release']['version'].'/js/dataTables.dateTime.min.js';
 }
 else {
-	DT_Example::$lookup_libraries['css']['datetime'] = path_simplify( $dir_media.'/../extensions/DateTime' ) . '/dataTables.dateTime.css';
-	DT_Example::$lookup_libraries['js']['datetime'] = path_simplify( $dir_media.'/../extensions/DateTime' ) . '/dataTables.dateTime.js';
+	DT_Example::$lookup_libraries['css']['datetime'] = path_simplify( $dir_media.'/../extensions/DateTime' ) . '/css/dataTables.dateTime.css';
+	DT_Example::$lookup_libraries['js']['datetime'] = path_simplify( $dir_media.'/../extensions/DateTime' ) . '/js/dataTables.dateTime.js';
 }
 
 // Legacy extensions
