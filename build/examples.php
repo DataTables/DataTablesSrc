@@ -1179,8 +1179,13 @@ function tidy_structure ( &$examples, $order )
 			$idxA = array_search( $a['name'], $order );
 			$idxB = array_search( $b['name'], $order );
 
-			return $idxA === $idxB ? 0 :
-				$idxA < $idxB ? -1 : 1;
+			if ($idxA === $idxB) {
+				return 0;
+			}
+			else if ($idxA < $idxB) {
+				return -1;
+			}
+			return 1;
 		//}
 	} );
 }
