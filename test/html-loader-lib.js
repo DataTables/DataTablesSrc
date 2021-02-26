@@ -101,9 +101,9 @@
 				}
 			} else if (path === 'datetime') {
 				if (type === 'css') {
-					return [urlBase + '/extensions/' + lib.pathName + '/dataTables.' + lib.fileName + '.css'];
+					return [urlBase + '/extensions/' + lib.pathName + '/css/dataTables.' + lib.fileName + '.css'];
 				} else {
-					return [urlBase + '/extensions/' + lib.pathName + '/dataTables.' + lib.fileName + '.js'];
+					return [urlBase + '/extensions/' + lib.pathName + '/js/dataTables.' + lib.fileName + '.js'];
 				}
 			} else {
 				if (type === 'css' && lib.css) {
