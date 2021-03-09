@@ -167,7 +167,7 @@ DataTable.ext.renderer.pageButton.bulma = function ( settings, host, idx, button
 	}
 	catch (e) {}
 
-	let nav = $('<nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list"></ul></nav>');
+	var nav = $('<nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list"></ul></nav>');
 	$(host).empty().append(nav);
 
 	attach(nav.find('ul'), buttons);
