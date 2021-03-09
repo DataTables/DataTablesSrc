@@ -1,6 +1,6 @@
 {
   "name": "datatables.net-src",
-  "version": "1.10.12",
+  "version": "1.10.24",
   "description": "DataTables source files. Please note that this package does not include the built files. Use the `datatables.net` package!",
   "scripts": {
     "build-debug": "cd build; ./make.sh build debug",
