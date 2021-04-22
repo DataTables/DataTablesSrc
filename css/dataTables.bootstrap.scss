@@ -126,10 +126,12 @@ table.dataTable thead {
 	}
 
 	.sorting_asc:after {
+		opacity: 0.5;
 		content: "\e155"; /* sort-by-attributes */
 	}
 
 	.sorting_desc:after {
+		opacity: 0.5;
 		content: "\e156"; /* sort-by-attributes-alt */
 	}
 
