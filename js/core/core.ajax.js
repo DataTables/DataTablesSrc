@@ -142,21 +142,16 @@ function _fnBuildAjax( oSettings, data, fn )
  */
 function _fnAjaxUpdate( settings )
 {
-	if ( settings.bAjaxDataGet ) {
-		settings.iDraw++;
-		_fnProcessingDisplay( settings, true );
+	settings.iDraw++;
+	_fnProcessingDisplay( settings, true );
 
-		_fnBuildAjax(
-			settings,
-			_fnAjaxParameters( settings ),
-			function(json) {
-				_fnAjaxUpdateDraw( settings, json );
-			}
-		);
-
-		return false;
-	}
-	return true;
+	_fnBuildAjax(
+		settings,
+		_fnAjaxParameters( settings ),
+		function(json) {
+			_fnAjaxUpdateDraw( settings, json );
+		}
+	);
 }
 
 
@@ -309,14 +304,12 @@ function _fnAjaxUpdateDraw ( settings, json )
 	}
 	settings.aiDisplay = settings.aiDisplayMaster.slice();
 
-	settings.bAjaxDataGet = false;
-	_fnDraw( settings );
+	_fnDraw( settings, true );
 
 	if ( ! settings._bInitComplete ) {
 		_fnInitComplete( settings, json );
 	}
 
-	settings.bAjaxDataGet = true;
 	_fnProcessingDisplay( settings, false );
 }
 
