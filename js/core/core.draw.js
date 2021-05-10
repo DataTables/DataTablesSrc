@@ -363,8 +363,9 @@ function _fnDraw( oSettings, ajaxComplete )
 	{
 		oSettings.iDraw++;
 	}
-	else if ( !oSettings.bDestroying && !ajaxComplete && !_fnAjaxUpdate( oSettings ) )
+	else if ( !oSettings.bDestroying && !ajaxComplete)
 	{
+		_fnAjaxUpdate( oSettings );
 		return;
 	}
 
