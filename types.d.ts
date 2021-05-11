@@ -2240,7 +2240,6 @@ declare namespace DataTables {
         oLoadedState: any;
         sAjaxSource: string;
         sAjaxDataProp: string;
-        bAjaxDataGet: boolean;
         jqXHR: any;
         fnServerData: any;
         aoServerParams: any[];

@@ -619,13 +619,6 @@ DataTable.models.oSettings = {
 	"sAjaxDataProp": null,
 
 	/**
-	 * Note if draw should be blocked while getting data
-	 *  @type boolean
-	 *  @default true
-	 */
-	"bAjaxDataGet": true,
-
-	/**
 	 * The last jQuery XHR object that was used for server-side data gathering.
 	 * This can be used for working with the XHR information in one of the
 	 * callbacks
