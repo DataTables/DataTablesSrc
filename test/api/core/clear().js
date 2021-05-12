@@ -81,10 +81,13 @@ describe('core - clear()', function() {
 					}, 50);
 				},
 				initComplete: function(setting, json) {
-					table.clear().draw(true);
-					expect(table.rows().count()).toBe(0);
-					expect($('#example tbody tr').text()).toBe('No matching records found');
-					done();
+					table
+						.clear()
+						.one('draw', function () {
+							expect(table.rows().count()).toBe(10);
+							done();
+						})
+						.draw(true);
 				}
 			});
 		});
