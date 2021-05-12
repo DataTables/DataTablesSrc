@@ -13,7 +13,7 @@ describe('columns.orderable option', function() {
 		});
 
 		dt.html('basic');
-		it('Can disable sorting from one column', function() {
+		it('Can disable sorting for one column', function() {
 			$('#example').dataTable({
 				columns: [null, null, { orderable: false }, null, null, null]
 			});
