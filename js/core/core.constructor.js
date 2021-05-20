@@ -377,7 +377,7 @@ var loadedInit = function () {
 
 	var tbody = $this.children('tbody');
 	if ( tbody.length === 0 ) {
-		tbody = $('<tbody/>').appendTo($this);
+		tbody = $('<tbody/>').insertAfter(thead);
 	}
 	oSettings.nTBody = tbody[0];
 
