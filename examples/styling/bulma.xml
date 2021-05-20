@@ -4,7 +4,7 @@
 <css lib="datatables" />
 <js lib="jquery datatables" />
 
-<title>Bulma (Tech. preview)</title>
+<title>Bulma</title>
 <js><![CDATA[
 $(document).ready(function() {
 	$('#example').DataTable();
@@ -15,7 +15,7 @@ $(document).ready(function() {
 
 This example shows DataTables integrated with [Bulma](https://bulma.io/) - an open source CSS framework.
 
-DataTables Bulma integration is available for both DataTables core and all of it's extensions. This integration is done simply by including the DataTables Bulma files (CSS and JS) which sets the defaults needed for DataTables to be initialised as normal, as shown in this example.
+DataTables Bulma integration is available for both DataTables core and all of its extensions. This integration is done simply by including the DataTables Bulma files (CSS and JS) which sets the defaults needed for DataTables to be initialised as normal, as shown in this example.
 
 ]]></info>
 
