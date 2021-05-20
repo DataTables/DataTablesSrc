@@ -15,9 +15,7 @@ $(document).ready(function() {
 
 This example shows DataTables integrated with [Bulma](https://bulma.io/) - an open source CSS framework.
 
-The DataTables integration with Bumla is still in development and not all elements might work correctly yet. Only once all of DataTables extensions fully support Bulma will the integration be complete and available via the DataTables download builder.
-
-If you would like to see continued development of the Bulma integration for DataTables, please [get in touch](/forums) so we can know what integrations are popular.
+DataTables Bulma integration is available for both DataTables core and all of it's extensions. This integration is done simply by including the DataTables Bulma files (CSS and JS) which sets the defaults needed for DataTables to be initialised as normal, as shown in this example.
 
 ]]></info>
 
