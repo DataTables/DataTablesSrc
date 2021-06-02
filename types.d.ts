@@ -1944,6 +1944,11 @@ declare namespace DataTables {
 
     interface ColumnSettings {
         /**
+         * Set the column's aria-label title. Since: 1.10.25
+         */
+        ariaTitle?: string;
+
+        /**
          * Cell type to be created for a column. th/td Since: 1.10
          */
         cellType?: string;
