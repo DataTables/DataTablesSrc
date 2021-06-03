@@ -311,8 +311,9 @@ function _fnColumnTypes ( settings )
 					}
 
 					// Only a single match is needed for html type since it is
-					// bottom of the pile and very similar to string
-					if ( detectedType === 'html' ) {
+					// bottom of the pile and very similar to string - but it
+					// must not be empty
+					if ( detectedType === 'html' && ! _empty(cache[k]) ) {
 						break;
 					}
 				}
