@@ -85,7 +85,7 @@ else if ( isset( $options['media'] ) ) {
 // Default libraries
 $versions = json_decode( file_get_contents( is_file('/tmp/dt-versions') ?
 	'/tmp/dt-versions' :
-	'http://datatables.net/feeds/versions.php' ), true
+	'http://regulus.datatables.net/feeds/versions.php' ), true
 );
 $pluginsHash = $versions['Plugins']['release']['version'];
 
