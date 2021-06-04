@@ -125,7 +125,7 @@ function js_compress {
 		perl -i -0pe "s/^\/\*! (.*)$/\/** \@license \$1/s" /tmp/$FILE.js
 
 		rm /tmp/closure_error.log
-		java -jar $CLOSURE --charset 'utf-8' --language_in ECMASCRIPT5 --js /tmp/$FILE.js > /tmp/$FILE.min.js 2> /tmp/closure_error.log
+		java -jar $CLOSURE --charset 'utf-8' --language_out=ES5 --js /tmp/$FILE.js > /tmp/$FILE.min.js 2> /tmp/closure_error.log
 
 		if [ -e /tmp/closure_error.log ]; then
 			if [ -z "$LOG" -o "$LOG" = "on" ]; then
