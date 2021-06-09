@@ -65,7 +65,10 @@ function _fnBuildAjax( oSettings, data, fn )
 
 	var baseAjax = {
 		"data": data,
-		"success": function (json) {
+		"success": function (json, status, xhr) {
+			if ( xhr.status === 204 ) {
+				json = {}
+			}
 			var error = json.error || json.sError;
 			if ( error ) {
 				_fnLog( oSettings, 0, error );
