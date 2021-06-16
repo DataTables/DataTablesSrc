@@ -101,6 +101,22 @@ function build_css {
 	done
 }
 
+function build_types {
+	echo "TYPES"
+	if [ -d $BUILD_DIR/types ]; then
+		rm -r $BUILD_DIR/types		
+	fi
+	mkdir $BUILD_DIR/types
+
+	if [ -d $BASE_DIR/types/ ]; then
+		cp $BASE_DIR/types/* $BUILD_DIR/types
+	else
+		if [ -f $BASE_DIR/types.d.ts ]; then
+			cp $BASE_DIR/types.d.ts $BUILD_DIR/types
+		fi
+	fi
+}
+
 
 function build_images {
 	echo_section "Images"
@@ -154,9 +170,11 @@ function build_repo {
 
 	build_js
 	build_css
+	build_types
 	build_images
 	build_examples
 
+	echo $BUILD_DIR
 	cp $BUILD_DIR/js/* ${BUILD_DIR}/DataTables/media/js/
 	cp $BUILD_DIR/css/* ${BUILD_DIR}/DataTables/media/css/
 
@@ -331,6 +349,9 @@ function usage {
         - Responsive
         - Scroller
         - Select
+		- SearchBuilder
+		- SearchPanes
+		- StateRestore
 
     and the optional [debug] parameter can be used to disable JS and CSS
     compression for faster development build times."
@@ -377,6 +398,7 @@ case "$1" in
 		build_extension SearchBuilder
 		build_extension SearchPanes
 		build_extension Select
+		build_extension StateRestore
 		if [ -d ../extensions/Editor ]; then
 			build_extension Editor
 		fi

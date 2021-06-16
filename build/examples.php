@@ -242,6 +242,16 @@ DT_Example::$components['searchpanes'] = [
 	]
 ];
 
+DT_Example::$components['staterestore'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/StateRestore' ),
+	'release' => '0.0.1',
+	'filename' => 'stateRestore',
+	'framework' => [
+		'css' => true,
+		'js' => true
+	]
+];
+
 if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['css']['datetime'] = 'https://cdn.datatables.net/datetime/'.$versions['DateTime']['release']['version'].'/css/dataTables.dateTime.min.css';
 	DT_Example::$lookup_libraries['js']['datetime'] = 'https://cdn.datatables.net/datetime/'.$versions['DateTime']['release']['version'].'/js/dataTables.dateTime.min.js';
@@ -543,6 +553,27 @@ else if ( stripos( $dir_input, 'SearchBuilder' ) ) {
 	);
 }
 else if ( stripos( $dir_input, 'SearchPanes' ) ) {
+	$dir_order = array(
+		'initialisation',
+		'advanced',
+		'customisation',
+		'integration',
+		'customFiltering',
+		'styling',
+		'performance'
+	);
+
+	$dir_names = array(
+		'initialisation' => 'Initialisation and options',
+		'advanced' => 'Advanced initialisation',
+		'customisation' => 'Customisation',
+		'integration' => 'Integration with other DataTables extensions',
+		'customFiltering' => 'Creation of custom panes',
+		'styling' => 'Styling',
+		'performance' => 'Performance'
+	);
+}
+else if ( stripos( $dir_input, 'StateRestore' ) ) {
 	$dir_order = array(
 		'initialisation',
 		'advanced',
