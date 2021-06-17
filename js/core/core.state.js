@@ -7,11 +7,6 @@
  */
 function _fnSaveState ( settings )
 {
-	if ( !settings.oFeatures.bStateSave || settings.bDestroying )
-	{
-		return;
-	}
-
 	/* Store the interesting variables */
 	var state = {
 		time:    +new Date(),
@@ -27,10 +22,13 @@ function _fnSaveState ( settings )
 		} )
 	};
 
-	_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
-
 	settings.oSavedState = state;
-	settings.fnStateSaveCallback.call( settings.oInstance, settings, state );
+
+	if ( settings.oFeatures.bStateSave && !settings.bDestroying )
+	{
+		_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
+		settings.fnStateSaveCallback.call( settings.oInstance, settings, state );
+	}	
 }
 
 
