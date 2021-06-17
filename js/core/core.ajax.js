@@ -41,6 +41,11 @@ function _fnBuildAjax( oSettings, data, fn )
 	var ajax = oSettings.ajax;
 	var instance = oSettings.oInstance;
 	var callback = function ( json ) {
+		if ( json === null || jqXhr.status == 204 ) {
+			json = {};
+			_fnAjaxDataSrc( oSettings, json, [] );
+		}
+
 		var error = json.error || json.sError;
 		if ( error ) {
 			_fnLog( oSettings, 0, error );
@@ -321,19 +326,24 @@ function _fnAjaxUpdateDraw ( settings, json )
  *  @param  {object} json Data source object / array from the server
  *  @return {array} Array of data to use
  */
-function _fnAjaxDataSrc ( oSettings, json )
-{
+ function _fnAjaxDataSrc ( oSettings, json, write )
+ {
 	var dataSrc = $.isPlainObject( oSettings.ajax ) && oSettings.ajax.dataSrc !== undefined ?
 		oSettings.ajax.dataSrc :
 		oSettings.sAjaxDataProp; // Compatibility with 1.9-.
 
-	// Compatibility with 1.9-. In order to read from aaData, check if the
-	// default has been changed, if not, check for aaData
-	if ( dataSrc === 'data' ) {
-		return json.aaData || json[dataSrc];
+	if ( ! write ) {
+		if ( dataSrc === 'data' ) {
+			// If the default, then we still want to support the old style, and safely ignore
+			// it if possible
+			return json.aaData || json[dataSrc];
+		}
+
+		return dataSrc !== "" ?
+			_fnGetObjectDataFn( dataSrc )( json ) :
+			json;
 	}
 
-	return dataSrc !== "" ?
-		_fnGetObjectDataFn( dataSrc )( json ) :
-		json;
+	// set
+	_fnSetObjectDataFn( dataSrc )( json, write );
 }
