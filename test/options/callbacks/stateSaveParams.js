@@ -34,7 +34,7 @@ describe('stateSaveParams Option', function() {
 				}
 			});
 			table.state.save();
-			expect(seen).toBe(false);
+			expect(seen).toBe(true);
 		});
 	});
 
