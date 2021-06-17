@@ -41,6 +41,13 @@ function _fnBuildAjax( oSettings, data, fn )
 	var ajax = oSettings.ajax;
 	var instance = oSettings.oInstance;
 	var callback = function ( json ) {
+		var error = json.error || json.sError;
+		if ( error ) {
+			_fnLog( oSettings, 0, error );
+		}
+
+		oSettings.json = json;
+
 		_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json, oSettings.jqXHR] );
 		fn( json );
 	};
@@ -65,15 +72,7 @@ function _fnBuildAjax( oSettings, data, fn )
 
 	var baseAjax = {
 		"data": data,
-		"success": function (json) {
-			var error = json.error || json.sError;
-			if ( error ) {
-				_fnLog( oSettings, 0, error );
-			}
-
-			oSettings.json = json;
-			callback( json );
-		},
+		"success": callback,
 		"dataType": "json",
 		"cache": false,
 		"type": oSettings.sServerMethod,
