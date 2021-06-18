@@ -41,7 +41,11 @@ function _fnBuildAjax( oSettings, data, fn )
 	var ajax = oSettings.ajax;
 	var instance = oSettings.oInstance;
 	var callback = function ( json ) {
-		if ( json === null || jqXhr.status == 204 ) {
+		var status = oSettings.jqXhr
+			? oSettings.jqXhr.status
+			: null;
+
+		if ( json === null || (typeof status === 'number' && status == 204 ) ) {
 			json = {};
 			_fnAjaxDataSrc( oSettings, json, [] );
 		}
@@ -297,6 +301,11 @@ function _fnAjaxUpdateDraw ( settings, json )
 			return;
 		}
 		settings.iDraw = draw * 1;
+	}
+
+	// No data in returned object, so rather than an array, we show an empty table
+	if ( ! data ) {
+		data = [];
 	}
 
 	_fnClearTable( settings );
