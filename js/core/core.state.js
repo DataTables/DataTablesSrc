@@ -23,10 +23,10 @@ function _fnSaveState ( settings )
 	};
 
 	settings.oSavedState = state;
-
+	_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
+	
 	if ( settings.oFeatures.bStateSave && !settings.bDestroying )
 	{
-		_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
 		settings.fnStateSaveCallback.call( settings.oInstance, settings, state );
 	}	
 }
