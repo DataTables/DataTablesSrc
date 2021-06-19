@@ -421,9 +421,17 @@ function _fnSetObjectDataFn( mSource )
 			}
 			else
 			{
-				// If array notation is used, we just want to strip it and use the property name
+				arrayNotation = aLast.match(__reArray);
+			    	var r = val;
+			    	if (arrayNotation){
+			    	    // if array notation, we have to catch the array seperator
+			    	    var join = arrayNotation[0].substring(1, arrayNotation[0].length-1);
+			    	    // split into array, if no value set emtpy array
+			    	    r = val.length > 0 ? val.split(join) : [];
+			    	}
+			    	// If array notation is used, we just want to strip it and use the property name
 				// and assign the value. If it isn't used, then we get the result we want anyway
-				data[ aLast.replace(__reArray, '') ] = val;
+				data[ aLast.replace(__reArray, '') ] = r;
 			}
 		};
 
