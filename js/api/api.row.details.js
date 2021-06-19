@@ -40,7 +40,11 @@ var __details_add = function ( ctx, row, data, klass )
 
 	// If the children were already shown, that state should be retained
 	if ( row._detailsShow ) {
-		row._details.insertAfter( row.nTr );
+		if ( row._detailsShow !== 2 ) {
+			row._details.insertAfter( row.nTr );
+		} else {
+			row._details.insertBefore( row.nTr );
+		}
 	}
 };
 
@@ -72,7 +76,11 @@ var __details_display = function ( api, show ) {
 			row._detailsShow = show;
 
 			if ( show ) {
-				row._details.insertAfter( row.nTr );
+				if ( show !== 2 ) {
+					row._details.insertAfter( row.nTr );
+				} else {
+					row._details.insertBefore( row.nTr );
+				}
 			}
 			else {
 				row._details.detach();
@@ -107,7 +115,11 @@ var __details_events = function ( settings )
 				var row = data[ idx ];
 
 				if ( row._detailsShow ) {
-					row._details.insertAfter( row.nTr );
+					if ( row._detailsShow !== 2 ) {
+						row._details.insertAfter( row.nTr );
+					} else {
+						row._details.insertBefore( row.nTr );
+					}
 				}
 			} );
 		} );
@@ -183,9 +195,9 @@ _api_register( _child_mth, function ( data, klass ) {
 
 _api_register( [
 	_child_obj+'.show()',
-	_child_mth+'.show()' // only when `child()` was called with parameters (without
-], function ( show ) {   // it returns an object and this method is not executed)
-	__details_display( this, true );
+	_child_mth+'.show()'      // only when `child()` was called with parameters (without
+], function ( placeBefore ) { // it returns an object and this method is not executed)
+	__details_display( this, placeBefore === true ? 2 : 1 );
 	return this;
 } );
 
@@ -194,7 +206,7 @@ _api_register( [
 	_child_obj+'.hide()',
 	_child_mth+'.hide()' // only when `child()` was called with parameters (without
 ], function () {         // it returns an object and this method is not executed)
-	__details_display( this, false );
+	__details_display( this, 0 );
 	return this;
 } );
 
@@ -212,9 +224,8 @@ _api_register( _child_obj+'.isShown()', function () {
 	var ctx = this.context;
 
 	if ( ctx.length && this.length ) {
-		// _detailsShown as false or undefined will fall through to return false
-		return ctx[0].aoData[ this[0] ]._detailsShow || false;
+		// _detailsShown as 0 or undefined will return false, otherwise true
+		return ctx[0].aoData[this[0]]._detailsShow > 0;
 	}
 	return false;
 } );
-
