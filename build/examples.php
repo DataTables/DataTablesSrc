@@ -14,6 +14,7 @@ require( 'lib/DT_Example.php' );
 $dir_order = array(
 	'basic_init',
 	'advanced_init',
+	'non_jquery',
 	'styling',
 	'data_sources',
 	'api',
@@ -25,6 +26,7 @@ $dir_order = array(
 $dir_names = array(
 	'basic_init'    => "Basic initialisation",
 	'advanced_init' => "Advanced initialisation",
+	'non_jquery'    => "Non-jQuery initialisation",
 	'styling'       => "Styling",
 	'data_sources'  => "Data sources",
 	'api'           => "API",

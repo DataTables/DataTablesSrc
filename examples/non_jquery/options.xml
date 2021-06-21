@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="2">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+	let table = new DataTable('#example', {
+        ordering: false,
+        info:     false
+	});
+});
+]]>
+</js>
+
+<title>Options</title>
+
+<info><![CDATA[
+
+Just as with the jQuery initialisation of DataTables, you can pass in configuration options to the `new DataTable()` constructor, allowing the table to be configured to meet your needs. The [full range of DataTables options](https://datatables.net/reference/option/) is available while using this method.
+
+]]></info>
+
+</dt-example>

@@ -53,7 +53,7 @@
 	}
 	else {
 		// Browser
-		factory( jQuery, window, document );
+		window.DataTable = factory( jQuery, window, document );
 	}
 }
 (function( $, window, document, undefined ) {
@@ -91,8 +91,17 @@
 	 *      } );
 	 *    } );
 	 */
-	var DataTable = function ( options )
+	var DataTable = function ( selector, options )
 	{
+		// When creating with `new`, create a new DataTable, returning the API instance
+		if (this instanceof DataTable) {
+			return $(selector).DataTable(options);
+		}
+		else {
+			// Argument switching
+			options = selector;
+		}
+
 		_buildInclude('api.legacy.js');
 
 		var _that = this;
@@ -241,5 +250,5 @@
 		$.fn.DataTable[ prop ] = val;
 	} );
 
-	return $.fn.dataTable;
+	return DataTable;
 }));
