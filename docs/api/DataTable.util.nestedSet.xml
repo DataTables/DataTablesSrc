@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.util.nestedGet()</name>
+	<summary>Create a write function from a descriptor</summary>
+	<since>1.11.0</since>
+
+	<type type="function">
+		<signature>nestedSet( descriptor )</signature>
+		<description>.</description>
+		<param type="string|object|function|null" name="descriptor">
+			
+		</param>
+		<returns type="Function"></returns>
+	</type>
+
+	<description>
+	</description>
+</dt-api>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.util.nestedGet()</name>
+	<summary>Create a read function from a descriptor</summary>
+	<since>1.11.0</since>
+
+	<type type="function">
+		<signature>nestedGet( descriptor )</signature>
+		<description>.</description>
+		<param type="string|object|function|null" name="descriptor">
+			A descriptor that is used to define how to read the data from the source object. See above for full details of the options that this can be used as.
+		</param>
+		<returns type="Function">An accessor function that will be used to read data from a given object</returns>
+	</type>
+
+	<description>
+		It can often be useful in Javascript to write data location descriptors as a string, as we often do with JSON notation - e.g. `staff.name`, or having the flexibility of using a function to get arbitary data. The DataTables `-init columns.data` and `-init columns.render` properties make use of this to be able to easily describe where data should be fetched from to display in a column. This method exposes that ability as part of the DataTables API for use in plug-ins and other libraries.
+
+		The key point with this method is to remember that it will itself return a function, which you must then execute to be able to read the nested data - e.g.:
+
+		```js
+		let fn = DataTable.util.nestedGet('name.first');
+		let name = fn({
+			name: {
+				first: 'Fiona',
+				last: 'Grayling'
+			}
+		}); // Returns `Fiona`
+		```
+
+		The descriptor can be given as:
+
+		* `null`: The returned function will simply be passed in the full data object given to the accessor function.
+		* An object: 
+		* A function: 
+		* A string: 
+	</description>
+</dt-api>
