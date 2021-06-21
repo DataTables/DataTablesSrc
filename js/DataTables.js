@@ -1,11 +1,11 @@
-/*! DataTables 1.10.26-dev
+/*! DataTables 1.11.0-dev
  * ©2008-2021 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     DataTables
  * @description Paginate, search and order HTML tables
- * @version     1.10.26-dev
+ * @version     1.11.0-dev
  * @file        jquery.dataTables.js
  * @author      SpryMedia Ltd
  * @contact     www.datatables.net
@@ -169,7 +169,7 @@
 	 *  @type string
 	 *  @default Version number
 	 */
-	DataTable.version = "1.10.26-dev";
+	DataTable.version = "1.11.0-dev";
 
 	/**
 	 * Private data store, containing all of the settings objects that are
