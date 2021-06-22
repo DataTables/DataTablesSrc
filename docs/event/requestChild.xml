@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>childrow</name>
+	<summary>A child row has been added or removed from the table</summary>
+	<since>1.11</since>
+
+	<type type="function">
+		<signature>function( e, row )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="DataTables Api" name="row">
+			The parent row instance that the child row is attmepting to display.
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		The `-event childrow` is triggered whenever an attempt is made for a child row to be inserted into the table when using `-init stateSave`. This event needs to have a listener set when using `-init stateSave` to implement the insertion of the child row. DataTables cannot handle this as the format that the data should be presented in changes between use cases. If no implementation is provided for this then child rows will not maintain state with `-init stateSave`.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+	</description>
+
+	<example title="Display the child row using a formatter"><![CDATA[
+$('#example').on('requestChild.dt', function(e, row, idx) {
+        row.child(format(row.data())).show();
+    })
+]]></example>
+
+</dt-event>
