@@ -198,7 +198,7 @@ function _fnSplitObjNotation( str )
  *  @returns {function} Data get function
  *  @memberof DataTable#oApi
  */
-var _fnGetObjectDataFn = DataTable.util.nestedGet;
+var _fnGetObjectDataFn = DataTable.util.get;
 
 
 /**
@@ -208,7 +208,7 @@ var _fnGetObjectDataFn = DataTable.util.nestedGet;
  *  @returns {function} Data set function
  *  @memberof DataTable#oApi
  */
-var _fnSetObjectDataFn = DataTable.util.nestedSet;
+var _fnSetObjectDataFn = DataTable.util.set;
 
 
 /**
