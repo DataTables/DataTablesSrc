@@ -68,7 +68,7 @@ DataTable.util = {
 			 * option is not documented for `mData` (which is read/write), but it is
 			 * for `mRender` which is read only.
 			 */
-			return DataTable.util.nestedSet( source._ );
+			return DataTable.util.set( source._ );
 		}
 		else if ( source === null ) {
 			// Nothing to do when the data source is null
@@ -175,7 +175,7 @@ DataTable.util = {
 			var o = {};
 			$.each( source, function (key, val) {
 				if ( val ) {
-					o[key] = _fnGetObjectDataFn( val );
+					o[key] = DataTable.util.get( val );
 				}
 			} );
 	
