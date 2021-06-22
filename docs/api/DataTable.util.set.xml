@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="static">
-	<name>DataTable.util.nestedGet()</name>
+	<name>DataTable.util.set()</name>
 	<summary>Create a write function from a descriptor</summary>
 	<since>1.11.0</since>
 
 	<type type="function">
-		<signature>nestedSet( descriptor )</signature>
+		<signature>set( descriptor )</signature>
 		<description>Build a writing function to set data based on the given descriptor.</description>
 		<param type="string|function|null" name="descriptor">
 			A descriptor that is used to define how to write data to a source object. See above for full details of the options that this can be used as.
@@ -14,7 +14,7 @@
 	</type>
 
 	<description>
-		Matching `-api DataTable.util.nestedGet()`, but in this case to write data to a source object, this method makes it possible to write data to a complex object by using the description of the familar JSON notation. DataTables uses this method internally for `-init columns.data` when writing data to the data store for rows and this method exposes that ability for plug-ins and other libraries to use.
+		Matching `-api DataTable.util.get()`, but in this case to write data to a source object, this method makes it possible to write data to a complex object by using the description of the familar JSON notation. DataTables uses this method internally for `-init columns.data` when writing data to the data store for rows and this method exposes that ability for plug-ins and other libraries to use.
 
 		The function _that is returned_ from this method expects the following parameters to be given to it:
 
@@ -31,7 +31,7 @@
 				last: 'Grayling'
 			}
 		};
-		let fn = DataTable.util.nestedSet('name.first');
+		let fn = DataTable.util.set('name.first');
 		
 		fn(user, 'Airi');
 		// Will replace `Fiona` with `Airi`
@@ -45,6 +45,6 @@
 		  2. `-string set` (this is used by DataTables for `-init columns.data`)
 		  3. The value to set
 		  4. Meta information passed in
-		* A string: Returns a function that will write the given value to the property defined by a JSON notation string, with the same added abilities as `-api DataTable.util.nestedGet()` - i.e. support for both array syntax (`[]`) and function execution syntax (`()`) in the string.
+		* A string: Returns a function that will write the given value to the property defined by a JSON notation string, with the same added abilities as `-api DataTable.util.get()` - i.e. support for both array syntax (`[]`) and function execution syntax (`()`) in the string.
 	</description>
 </dt-api>

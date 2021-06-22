@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="static">
-	<name>DataTable.util.nestedGet()</name>
+	<name>DataTable.util.get()</name>
 	<summary>Create a read function from a descriptor</summary>
 	<since>1.11.0</since>
 
 	<type type="function">
-		<signature>nestedGet( descriptor )</signature>
+		<signature>get( descriptor )</signature>
 		<description>Build an accessor function to get data based on the given descriptor.</description>
 		<param type="string|object|function|null" name="descriptor">
 			A descriptor that is used to define how to read the data from the source object. See above for full details of the options that this can be used as.
@@ -19,7 +19,7 @@
 		The key point with this method is to remember that it will itself return a function, which you must then execute to be able to read the nested data - e.g.:
 
 		```js
-		let fn = DataTable.util.nestedGet('name.first');
+		let fn = DataTable.util.get('name.first');
 		let name = fn({
 			name: {
 				first: 'Fiona',
