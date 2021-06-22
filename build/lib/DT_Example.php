@@ -336,6 +336,26 @@ class DT_Example
 				else if ( $type === 'data' )  { return $row['sequence']; }
 				break;
 
+			case 'symbol':
+				if      ( $type === 'title' ) { return 'Symbol'; }
+				else if ( $type === 'data' )  { return $row['symbol']; }
+				break;
+
+			case 'price':
+				if      ( $type === 'title' ) { return 'Price'; }
+				else if ( $type === 'data' )  { return $row['price']; }
+				break;
+
+			case 'difference':
+				if      ( $type === 'title' ) { return 'Difference'; }
+				else if ( $type === 'data' )  { return ''; }
+				break;
+
+			case 'history':
+				if      ( $type === 'title' ) { return 'Last'; }
+				else if ( $type === 'data' )  { return $row['last']; }
+				break;
+
 			default:
 				throw new Exception("Unknown column: ".$name, 1);
 				break;
@@ -740,6 +760,13 @@ DT_Example::$tables['ajax-sequence'] = array(
 
 DT_Example::$tables['ajax-renderer'] = array(
 	'columns' => array( 'name', 'position', 'office', 'progress', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
+DT_Example::$tables['ajax-stocks'] = array(
+	'columns' => array( 'name', 'symbol', 'price', 'difference', 'history' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => false
