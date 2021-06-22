@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="static">
-	<name>$.fn.dataTable.util.throttle()</name>
+	<name>DataTable.util.throttle()</name>
 	<summary>Throttle the calls to a method to reduce call frequency</summary>
-	<since>1.10.3</since>
+	<since>1.11</since>
 
 	<type type="function">
 		<signature>throttle( fn, [ period ] )</signature>
@@ -23,13 +23,15 @@
 
 		Note that any arguments passed to the returned function, when called, will be passed on to the original function. Additional the scope of execution of the original function will match the returned function's scope.
 
-		Finally, this is not a debounce function - it will execute the function at the defined frequency even while the function is still being called. Considering again the search example from above to illustrate this, the table will be searched at the given frequency, while the user is still typing. It will not wait for the user to stop typing (although a final execution of the function will happen once the user has stopped typing!).
+		This is not a debounce function - it will execute the function at the defined frequency even while the function is still being called. Considering again the search example from above to illustrate this, the table will be searched at the given frequency, while the user is still typing. It will not wait for the user to stop typing (although a final execution of the function will happen once the user has stopped typing!).
+
+		Prior to DataTables 1.11 this method could be accessed through the `$.fn.dataTable.util` object only. As of 1.11, either `DataTable.util` or `$.fn.dataTable` can be used.
 	</description>
 
 	<example title="Reduce search API method calls to 1 per second"><![CDATA[
 
 var table = $('#myTable').DataTable();
-var search = $.fn.dataTable.util.throttle(
+var search = DataTable.util.throttle(
 	function ( val ) {
 		table.search( val ).draw();
 	},
