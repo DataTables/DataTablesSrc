@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax-stocks" order="99" table-class="display nowrap">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+<js lib="sparkline" />
+
+<title>Example of stocks results</title>
+<js><![CDATA[
+$(document).ready(function() {
+    $('#example').DataTable({
+        ajax: '../ajax/data/objects_stocks.txt',
+        paging: false,
+        drawCallback: function() {
+            $('.sparkline')
+                .map(function() {
+                    return $('canvas', this).length ? null : this;
+                })
+                .sparkline('html', {
+                    type: 'line',
+                    width: '250px'
+                })
+        },
+        columns: [
+            {
+                data: 'name'
+            },
+            {
+                data: 'symbol'
+            },
+            {
+                data: 'price',
+                render: function(data) {
+                    return data.toFixed(2);
+                }
+            },
+            {
+                data: null,
+                render: function(data, type, row, meta) {
+                    var val = (row.price - row.last[row.last.length - 1]).toFixed(2);
+                    var colour = val < 0 ? 'red' : 'green'
+                    return type === 'display' ?
+                        '<span style="color:' + colour + '">' + val + '</span>' :
+                        val;
+                }
+            },
+            {
+                data: 'last',
+                render: function(data, type, row, meta) {
+                    return type === 'display'?
+                        '<span class="sparkline">' + data.toString() + '</span>':
+                        data;
+                }
+            }
+        ]
+    });
+});
+]]></js>
+
+
+<info
+  ><![CDATA[
+
+Data within DataTables can be easily rendered to add graphics or colour to your tables, as demonstrated in the example on this page. These examples make use of `dt-init columns.render` and `dt-init drawCallback` to customise the cells in three ways:
+
+* the colour of the cell is determine by the relative price of the stock
+* a 'sparkline' class is added to the numeric array in the 'last' column
+* the jQuery Sparklines plugin is called to turn that array into a line graph
+
+See the [data rendering manual page](https://datatables.net/manual/data/renderers) for more details on how to use data renderers. Also, this example uses [Ajax to load the data](https://datatables.net/manual/ajax). This is using static data, but if you have access to a financial Ajax feed, you could create a DataTable to use that. More [Ajax examples are available](../ajax).
+
+]]></info>
+
+</dt-example>

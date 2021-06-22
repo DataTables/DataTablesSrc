@@ -1,0 +1,32 @@
+[
+	{
+		"name": "J. SAINSBURY PLC",
+		"symbol": "JSNSF",
+		"price": 2.70,
+		"last": [2.57, 2.54, 2.54, 2.56, 2.57, 2.58, 2.59]
+	},
+	{
+		"name": "ROLLS-ROYCE PLC",
+		"symbol": "RYCEF",
+		"price": 1.06,
+		"last": [1.12, 1.11, 1.08, 1.08, 1.09, 1.11, 1.08]
+	},
+	{
+		"name": "KINGFISHER PLC",
+		"symbol": "KGFHF",
+		"price": 3.54,
+		"last": [3.40, 3.39, 3.46, 3.51, 3.50, 3.48, 3.49]
+	},
+	{
+		"name": "HARGREAVES LANDSDOWN PLCSHS",
+		"symbol": "HRGLF",
+		"price": 16.30,
+		"last": [16.20, 16.40, 16.36, 16.35, 16.61, 16.46, 16.19]
+	},
+	{
+		"name": "AstraZeneca",
+		"symbol": "AZNCF",
+		"price": 83.46,
+		"last": [82.51, 83.47, 83.40, 83.68, 83.81, 83.29, 83.72]
+	}
+]

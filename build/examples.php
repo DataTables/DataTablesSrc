@@ -14,6 +14,7 @@ require( 'lib/DT_Example.php' );
 $dir_order = array(
 	'basic_init',
 	'advanced_init',
+	'non_jquery',
 	'styling',
 	'data_sources',
 	'api',
@@ -25,6 +26,7 @@ $dir_order = array(
 $dir_names = array(
 	'basic_init'    => "Basic initialisation",
 	'advanced_init' => "Advanced initialisation",
+	'non_jquery'    => "Non-jQuery initialisation",
 	'styling'       => "Styling",
 	'data_sources'  => "Data sources",
 	'api'           => "API",
@@ -322,6 +324,7 @@ DT_Example::$lookup_libraries['js']['pdfmake']       = 'https://cdnjs.cloudflare
 DT_Example::$lookup_libraries['js']['vfsfonts']      = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js';
 DT_Example::$lookup_libraries['js']['moment']        = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js';
 DT_Example::$lookup_libraries['css']['world-flags-sprite'] = 'https://github.com/downloads/lafeber/world-flags-sprite/flags32.css';
+DT_Example::$lookup_libraries['js']['sparkline'] = 'https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js';
 
 function multiple ( $value, $fn )
 {
@@ -1107,6 +1110,27 @@ function json_files ( $out_dir )
 
 	file_put_contents(
 		$out_dir.'/orthogonal.txt',
+		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
+	);
+
+	// Stocks output file
+	$json = json_decode(
+		file_get_contents( dirname(__FILE__).'/data_stocks.json' ),
+		true
+	);
+
+	$out = [];
+	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		$out[] = [
+			'name'   => $json[$i]['name'],
+			'symbol' => $json[$i]['symbol'],
+			'price'  => $json[$i]['price'],
+			'last'   => $json[$i]['last'],
+		];
+	}
+
+	file_put_contents(
+		$out_dir.'/objects_stocks.txt',
 		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
 	);
 }

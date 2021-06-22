@@ -102,7 +102,7 @@ function build_css {
 }
 
 function build_types {
-	echo "TYPES"
+	echo_section "Types"
 	if [ -d $BUILD_DIR/types ]; then
 		rm -r $BUILD_DIR/types		
 	fi
@@ -174,7 +174,7 @@ function build_repo {
 	build_images
 	build_examples
 
-	echo $BUILD_DIR
+	#echo $BUILD_DIR
 	cp $BUILD_DIR/js/* ${BUILD_DIR}/DataTables/media/js/
 	cp $BUILD_DIR/css/* ${BUILD_DIR}/DataTables/media/css/
 

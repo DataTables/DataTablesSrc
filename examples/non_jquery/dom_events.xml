@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="3">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+// For the example - show interactions with the table
+var eventFired = function ( type ) {
+	var n = document.querySelector('#demo_info');
+	n.innerHTML += '<div>'+type+' event - '+new Date().getTime()+'</div>';
+	n.scrollTop = n.scrollHeight;      
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	let table = new DataTable('#example');
+
+	document
+		.querySelector('#example tbody')
+		.addEventListener('click', function (e) {
+			var data = table.row( e.target ).data();
+			
+			eventFired( 'You clicked on '+data[0]+'\'s row' );
+		});
+});
+]]>
+</js>
+
+<title>DOM events</title>
+
+<info><![CDATA[
+
+This simple example shows how to listen for DOM events (such as `click` shown in this example) to be informed when the end user interacts with the table. Here we use [`addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) on the `-tag tbody` of the table, making use of the `e.target` property of the event to know exactly which element was clicked on inside the table body, and using the `-api row().data()` method to get the data for that row.
+
+It is important to use this method rather than simply selecting the `-tag tr` table rows, since DataTables will dynamically add and remove rows from the table, displaying them only when required by paging, ordering and search states.
+
+]]></info>
+
+<demo-html>
+	<div id="demo_info" class="box"> </div>
+</demo-html>
+
+</dt-example>
