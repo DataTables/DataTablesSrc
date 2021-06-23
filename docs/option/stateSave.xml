@@ -16,6 +16,8 @@
 
 		Please note that the use of the HTML5 APIs for data storage means that the built in state saving option **will not work with IE6/7** as these browsers do not support these APIs. Alternative options of using cookies or saving the state on the server through Ajax can be used through the `dt-init stateSaveCallback` and `dt-init stateLoadCallback` options.
 
+		Child rows state can also be maintained, but this requires some work to be done by the developer. There is a `-event requestChild` that is triggered whenever DataTables wants to insert a child row into the table. The developer must set a callback function for this event that deals with the display of the childrow. It is also worth noting that for this to work the rows have to have ids. It is also worth noting that this is only available in version 1.11.0 and above.
+
 		Note: As of 1.11.0 the datatables state is stored regardless of the `-init stateSave` option. This data is only used to revert to a state when the `-init stateSave` option is enabled - otherwise it is not used.
 	</description>
 
