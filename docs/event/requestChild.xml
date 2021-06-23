@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-event>
-	<name>childrow</name>
-	<summary>A child row has been added or removed from the table</summary>
+	<name>requestChild</name>
+	<summary>DataTables wants to display a child row</summary>
 	<since>1.11</since>
 
 	<type type="function">
@@ -16,7 +16,7 @@
 	</type>
 
 	<description>
-		The `-event childrow` is triggered whenever an attempt is made for a child row to be inserted into the table when using `-init stateSave`. This event needs to have a listener set when using `-init stateSave` to implement the insertion of the child row. DataTables cannot handle this as the format that the data should be presented in changes between use cases. If no implementation is provided for this then child rows will not maintain state with `-init stateSave`.
+		The `-event requestChild` is triggered whenever an attempt is made for a child row to be inserted into the table when using `-init stateSave`. This event needs to have a listener set when using `-init stateSave` to implement the insertion of the child row. DataTables cannot handle this as the format that the data should be presented in changes between use cases. If no implementation is provided for this then child rows will not maintain state with `-init stateSave`.
 
 		The function is passed the row that is being requested to show the child row. In order to identify the correct row, row ids must be set for the table.
 
