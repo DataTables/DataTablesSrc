@@ -26,14 +26,30 @@ $(document).ready(function() {
 				data: 'name'
 			},
 			{
-				data: 'position'
+				data: 'position',
+				render: function(data, type) {
+					if (type === 'display') {
+						let link = "http://datatables.net";
+
+						if (data[0] < 'H') {
+							link = "http://cloudtables.com";
+						}
+						else if (data[0] < 'S') {
+							link = "http://editor.datatables.net";
+						}
+
+						return '<a href="' + link + '">' + data + '</a>';
+					}
+					
+					return data;
+				}
 			},
 			{
 				className: 'f32', // used by world-flags-sprite library
 				data: 'office',
 				render: function(data, type) {
 					if (type === 'display') {
-						var country = '';
+						let country = '';
 
 						switch (data) {
 							case 'Argentina':
@@ -76,7 +92,24 @@ $(document).ready(function() {
 			},
 			{
 				data: "salary",
-				render: $.fn.dataTable.render.number( ',', '.', 2, '$' )
+				render: function(data, type) {
+					var number = $.fn.dataTable.render.number( ',', '.', 2, '$'). display(data);
+
+					if (type === 'display') {
+						let color = 'green';
+						if (data < 250000) {
+							color = 'red';
+						}
+						else if (data < 500000) {
+							color = 'orange';
+						}
+
+						return '<span style="color:' + color + '">' + number + '</span>';
+					}
+					
+					return number;
+
+				}
 			}
 		]
 	});
