@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <info><![CDATA[
 
-As of v1.11, DataTables can now be initialised without using jQuery through the `new DataTable()` constructor. This class takes two parameters:
+As of v1.11, DataTables can be initialised without using jQuery through the `new DataTable()` constructor. This class takes two parameters:
 
 * A [DOMString selector](https://developer.mozilla.org/en-US/docs/Web/API/DOMString) or HTML elements to pick the table(s) from the DOM.
 * An object of [DataTables options](https://datatables.net/reference/option/).
