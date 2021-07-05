@@ -1112,27 +1112,6 @@ function json_files ( $out_dir )
 		$out_dir.'/orthogonal.txt',
 		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
 	);
-
-	// Stocks output file
-	$json = json_decode(
-		file_get_contents( dirname(__FILE__).'/data_stocks.json' ),
-		true
-	);
-
-	$out = [];
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
-		$out[] = [
-			'name'   => $json[$i]['name'],
-			'symbol' => $json[$i]['symbol'],
-			'price'  => $json[$i]['price'],
-			'last'   => $json[$i]['last'],
-		];
-	}
-
-	file_put_contents(
-		$out_dir.'/objects_stocks.txt',
-		json_encode( array( 'data' => $out ), JSON_PRETTY_PRINT )
-	);
 }
 
 
