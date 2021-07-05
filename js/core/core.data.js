@@ -109,12 +109,19 @@ function _fnNodeToColumnIndex( oSettings, iRow, n )
  *  @param {object} settings dataTables settings object
  *  @param {int} rowIdx aoData row id
  *  @param {int} colIdx Column index
- *  @param {string} type data get type ('display', 'type' 'filter' 'sort')
+ *  @param {string} type data get type ('display', 'type' 'filter|search' 'sort|order')
  *  @returns {*} Cell data
  *  @memberof DataTable#oApi
  */
 function _fnGetCellData( settings, rowIdx, colIdx, type )
 {
+	if (type === 'search') {
+		type = 'filter';
+	}
+	else if (type === 'order') {
+		type = 'sort';
+	}
+
 	var draw           = settings.iDraw;
 	var col            = settings.aoColumns[colIdx];
 	var rowData        = settings.aoData[rowIdx]._aData;
