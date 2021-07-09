@@ -308,7 +308,7 @@ describe('cells - cell().render()', function() {
 		let table;
 
 		dt.html('html5');
-		it('Display', function() {
+		it('Filter', function() {
 			table = $('#example').DataTable();
 
 			let cellData = JSON.parse(JSON.stringify(cell));
