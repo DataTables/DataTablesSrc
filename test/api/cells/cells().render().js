@@ -7,9 +7,7 @@ describe('cells - cells().render()', function() {
 	const cell = {
 		display: 'Airi Satou',
 		filter: 'Airi Satou',
-		search: 'Airi Satou',
 		sort: 'Airi Satou',		
-		order: 'Airi Satou',
 		type: 'Airi Satou',
 		test: 'Airi Satou'
 	};
@@ -19,7 +17,9 @@ describe('cells - cells().render()', function() {
 	function checkCell(cells, cellData) {
 		expect(cells.render('display')[0]).toBe(cellData.display);
 		expect(cells.render('filter')[0]).toBe(cellData.filter);
+		expect(cells.render('search')[0]).toBe(cellData.filter);
 		expect(cells.render('sort')[0]).toBe(cellData.sort);
+		expect(cells.render('order')[0]).toBe(cellData.sort);
 		expect(cells.render('type')[0]).toBe(cellData.type);
 		expect(cells.render('test')[0]).toBe(cellData.test);
 	}
@@ -88,24 +88,6 @@ describe('cells - cells().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Search', function() {
-			table = $('#example').DataTable({
-				columnDefs: [
-					{
-						targets: 0,
-						render: function(data, type) {
-							return type === 'search' ? 'AA ' + data : data;
-						}
-					}
-				]
-			});
-
-			let cellData = JSON.parse(JSON.stringify(cell));
-			cellData.search = 'AA Airi Satou';
-			checkCell(table.cells(':eq(0)', '*'), cellData);
-		});
-
-		dt.html('basic');
 		it('Sort', function() {
 			table = $('#example').DataTable({
 				columnDefs: [
@@ -120,24 +102,6 @@ describe('cells - cells().render()', function() {
 
 			let cellData = JSON.parse(JSON.stringify(cell));
 			cellData.sort = 'AA Airi Satou';
-			checkCell(table.cells(':eq(0)', '*'), cellData);
-		});
-
-		dt.html('basic');
-		it('Order', function() {
-			table = $('#example').DataTable({
-				columnDefs: [
-					{
-						targets: 0,
-						render: function(data, type) {
-							return type === 'order' ? 'AA ' + data : data;
-						}
-					}
-				]
-			});
-
-			let cellData = JSON.parse(JSON.stringify(cell));
-			cellData.order = 'AA Airi Satou';
 			checkCell(table.cells(':eq(0)', '*'), cellData);
 		});
 
@@ -327,7 +291,7 @@ describe('cells - cells().render()', function() {
 		];
 
 		dt.html('html5');
-		it('Display', function() {
+		it('Filter', function() {
 			table = $('#example').DataTable();
 
 			let cellData = JSON.parse(JSON.stringify(cell));

@@ -15,7 +15,9 @@ describe('cells - cell().render()', function() {
 	function checkCell(cell, cellData) {
 		expect(cell.render('display')).toBe(cellData.display);
 		expect(cell.render('filter')).toBe(cellData.filter);
+		expect(cell.render('search')).toBe(cellData.filter);
 		expect(cell.render('sort')).toBe(cellData.sort);
+		expect(cell.render('order')).toBe(cellData.sort);
 		expect(cell.render('type')).toBe(cellData.type);
 		expect(cell.render('test')).toBe(cellData.test);
 	}
@@ -33,7 +35,7 @@ describe('cells - cell().render()', function() {
 		});
 	});
 
-	describe('Functional tests - no orthoganal data', function() {
+	describe('Functional tests - no orthogonal data', function() {
 		dt.html('basic');
 		let table;
 		it('Source data', function() {
@@ -45,9 +47,9 @@ describe('cells - cell().render()', function() {
 		});
 	});
 
-	describe('Functional tests - orthoganal data - function', function() {
+	describe('Functional tests - orthogonal data - function', function() {
 		dt.html('basic');
-		it('Source data', function() {
+		it('Display', function() {
 			let table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -65,7 +67,7 @@ describe('cells - cell().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Filter', function() {
 			let table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -83,7 +85,25 @@ describe('cells - cell().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Search', function() {
+			let table = $('#example').DataTable({
+				columnDefs: [
+					{
+						targets: 0,
+						render: function(data, type) {
+							return type === 'search' ? 'AA ' + data : data;
+						}
+					}
+				]
+			});
+
+			let cellData = JSON.parse(JSON.stringify(cell));
+			cellData.search = 'AA Airi Satou';
+			checkCell(table.cell(), cellData);
+		});
+
+		dt.html('basic');
+		it('Sort', function() {
 			let table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -101,7 +121,7 @@ describe('cells - cell().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Type', function() {
 			let table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -119,7 +139,7 @@ describe('cells - cell().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Custom', function() {
 			let table = $('#example').DataTable({
 				columnDefs: [
 					{
