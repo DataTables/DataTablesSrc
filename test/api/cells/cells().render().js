@@ -7,7 +7,9 @@ describe('cells - cells().render()', function() {
 	const cell = {
 		display: 'Airi Satou',
 		filter: 'Airi Satou',
-		sort: 'Airi Satou',
+		search: 'Airi Satou',
+		sort: 'Airi Satou',		
+		order: 'Airi Satou',
 		type: 'Airi Satou',
 		test: 'Airi Satou'
 	};
@@ -48,9 +50,9 @@ describe('cells - cells().render()', function() {
 		});
 	});
 
-	describe('Functional tests - orthoganal data - function', function() {
+	describe('Functional tests - orthogonal data - function', function() {
 		dt.html('basic');
-		it('Source data', function() {
+		it('Display', function() {
 			table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -68,7 +70,7 @@ describe('cells - cells().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Filter', function() {
 			table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -86,7 +88,25 @@ describe('cells - cells().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Search', function() {
+			table = $('#example').DataTable({
+				columnDefs: [
+					{
+						targets: 0,
+						render: function(data, type) {
+							return type === 'search' ? 'AA ' + data : data;
+						}
+					}
+				]
+			});
+
+			let cellData = JSON.parse(JSON.stringify(cell));
+			cellData.search = 'AA Airi Satou';
+			checkCell(table.cells(':eq(0)', '*'), cellData);
+		});
+
+		dt.html('basic');
+		it('Sort', function() {
 			table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -104,7 +124,25 @@ describe('cells - cells().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Order', function() {
+			table = $('#example').DataTable({
+				columnDefs: [
+					{
+						targets: 0,
+						render: function(data, type) {
+							return type === 'order' ? 'AA ' + data : data;
+						}
+					}
+				]
+			});
+
+			let cellData = JSON.parse(JSON.stringify(cell));
+			cellData.order = 'AA Airi Satou';
+			checkCell(table.cells(':eq(0)', '*'), cellData);
+		});
+
+		dt.html('basic');
+		it('Type', function() {
 			table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -122,7 +160,7 @@ describe('cells - cells().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Custom', function() {
 			table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -140,7 +178,7 @@ describe('cells - cells().render()', function() {
 		});
 	});
 
-	describe('Functional tests - orthoganal data - object', function() {
+	describe('Functional tests - orthogonal data - object', function() {
 		const cellObject = {
 			default: 'Aaron',
 			display: 'Aaron',
