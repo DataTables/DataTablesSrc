@@ -211,11 +211,12 @@ function _fnCallbackFire( settings, callbackArr, eventName, args )
 	}
 
 	if ( eventName !== null ) {
-		var e = $.Event( eventName+'.dt' );
+		// CASH TODO
+		// var e = $.Event( eventName+'.dt' );
 
-		$(settings.nTable).trigger( e, args );
+		// $(settings.nTable).trigger( e, args );
 
-		ret.push( e.result );
+		// ret.push( e.result );
 	}
 
 	return ret;

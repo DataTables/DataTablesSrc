@@ -53,7 +53,7 @@
 	}
 	else {
 		// Browser
-		window.DataTable = factory( jQuery, window, document );
+		window.DataTable = factory( cash, window, document );
 	}
 }
 (function( $, window, document, undefined ) {
