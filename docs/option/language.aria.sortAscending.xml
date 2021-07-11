@@ -30,4 +30,7 @@ $('#example').dataTable( {
 	<related type="option">language.aria</related>
 	<related type="option">language.aria.orderable</related>
 	<related type="option">language.aria.orderableReverse</related>
+	<related type="option">language.aria.sortDescending</related>
+	<related>-init columns.title</related>
+	<related>-init columns.ariaTitle</related>
 </dt-option>

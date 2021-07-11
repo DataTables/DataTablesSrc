@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="static">
-	<name>$.fn.dataTable.isDataTable()</name>
+	<name>DataTable.isDataTable()</name>
 	<summary>Check is a table node is a DataTable or not</summary>
-	<since>1.10</since>
+	<since>1.11</since>
 
 	<type type="function">
 		<signature>isDataTable( table )</signature>
@@ -23,13 +23,23 @@
 	<description>
 		This method provides the ability to check if a `-tag table` node is already a DataTable or not. This can be useful to ensure that you don't re-initialise a table that is already a DataTable.
 
-		Please note that this is a **static** function and is accessed through the `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
+		Please note that this is a **static** function and is accessed through the `DataTable` or `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
+
+		Prior to DataTables 1.11 this method could be accessed through the `$.fn.dataTable` object only. As of 1.11, either `DataTable` or `$.fn.dataTable` can be used.
 	</description>
 
-	<example title="Check if `#example` is a DataTable or not. If not, initialise"><![CDATA[
+	<example title="Non-jQuery: Check if `#example` is a DataTable or not. If not, initialise"><![CDATA[
+
+if ( ! DataTable.isDataTable( '#example' ) ) {
+  new DataTable('#example');
+}
+
+]]></example>
+
+	<example title="jQuery: Check if `#example` is a DataTable or not. If not, initialise"><![CDATA[
 
 if ( ! $.fn.DataTable.isDataTable( '#example' ) ) {
-  $('#example').dataTable();
+  $('#example').DataTable();
 }
 
 ]]></example>

@@ -295,17 +295,17 @@ function _fnScrollDraw ( settings )
 
 	// Read all widths in next pass
 	_fnApplyToChildren( function(nSizer) {
+		let style = window.getComputedStyle ?
+			window.getComputedStyle(nSizer).width :
+			_fnStringToCss( $(nSizer).width() );
+
 		headerContent.push( nSizer.innerHTML );
-		headerWidths.push( _fnStringToCss( $(nSizer).css('width') ) );
+		headerWidths.push( style );
 	}, headerSrcEls );
 
 	// Apply all widths in final pass
 	_fnApplyToChildren( function(nToSize, i) {
-		// Only apply widths to the DataTables detected header cells - this
-		// prevents complex headers from having contradictory sizes applied
-		if ( $.inArray( nToSize, dtHeaderCells ) !== -1 ) {
-			nToSize.style.width = headerWidths[i];
-		}
+		nToSize.style.width = headerWidths[i];
 	}, headerTrgEls );
 
 	$(headerSrcEls).height(0);

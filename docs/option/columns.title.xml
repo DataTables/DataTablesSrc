@@ -16,17 +16,18 @@
 	</description>
 
 	<example title="Set the first column's title with `dt-init columnDefs`"><![CDATA[
-$('#example').dataTable( {
-  "columnDefs": [
-    { "title": "My column title", "targets": 0 }
-  ]
+$('#example').DataTable( {
+	columnDefs: [ {
+		title: 'My column title',
+		targets: 0
+	} ]
 } );
 ]]></example>
 
 	<example title="Set the first column's title with `dt-init columns`"><![CDATA[
-$('#example').dataTable( {
-  "columns": [
-    { "title": "My column title" },
+$('#example').DataTable( {
+  columns: [
+    { title: 'My column title' },
     null,
     null,
     null,
@@ -34,4 +35,6 @@ $('#example').dataTable( {
   ]
 } );
 ]]></example>
+
+  <related>-init columns.ariaTitle</related>
 </dt-option>

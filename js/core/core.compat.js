@@ -196,7 +196,7 @@ function _fnCompatCols ( init )
 
 	// orderData can be given as an integer
 	var dataSort = init.aDataSort;
-	if ( typeof dataSort === 'number' && ! $.isArray( dataSort ) ) {
+	if ( typeof dataSort === 'number' && ! Array.isArray( dataSort ) ) {
 		init.aDataSort = [ dataSort ];
 	}
 }
@@ -221,7 +221,7 @@ function _fnBrowserDetect( settings )
 			.css( {
 				position: 'fixed',
 				top: 0,
-				left: document.body.scrollLeft*-1, // allow for scrolling
+				left: -1 * window.pageXOffset, // allow for scrolling
 				height: 1,
 				width: 1,
 				overflow: 'hidden'

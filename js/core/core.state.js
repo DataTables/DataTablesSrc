@@ -22,6 +22,7 @@ function _fnState ( settings )
 		} )
 	};
 
+<<<<<<< HEAD
 	_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
 
 	return state;
@@ -41,8 +42,15 @@ function _fnSaveState ( settings )
 
 	var state = _fnState( settings );
 
+=======
+>>>>>>> origin/cash
 	settings.oSavedState = state;
-	settings.fnStateSaveCallback.call( settings.oInstance, settings, state );
+	_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
+	
+	if ( settings.oFeatures.bStateSave && !settings.bDestroying )
+	{
+		settings.fnStateSaveCallback.call( settings.oInstance, settings, state );
+	}	
 }
 
 

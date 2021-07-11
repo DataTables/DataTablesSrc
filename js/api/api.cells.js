@@ -1,12 +1,10 @@
 
-
-
 var __cell_selector = function ( settings, selector, opts )
 {
 	var data = settings.aoData;
 	var rows = _selector_row_indexes( settings, opts );
 	var cells = _removeEmpty( _pluck_order( data, rows, 'anCells' ) );
-	var allCells = $( [].concat.apply([], cells) );
+	var allCells = $(_flatten( [], cells ));
 	var row;
 	var columns = settings.aoColumns.length;
 	var a, i, ien, j, o, host;

@@ -90,7 +90,7 @@ $.extend( true, DataTable.ext.renderer, {
 				for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
 					button = buttons[i];
 
-					if ( $.isArray( button ) ) {
+					if ( Array.isArray( button ) ) {
 						var inner = $( '<'+(button.DT_el || 'div')+'/>' )
 							.appendTo( container );
 						attach( inner, button );
@@ -135,7 +135,7 @@ $.extend( true, DataTable.ext.renderer, {
 							case 'last':
 								btnDisplay = lang.sLast;
 
-								if ( page === pages-1 ) {
+								if ( pages === 0 || page === pages-1 ) {
 									tabIndex = -1;
 									btnClass += ' ' + disabledClass;
 								}
@@ -143,13 +143,14 @@ $.extend( true, DataTable.ext.renderer, {
 
 							default:
 								if ( typeof button === 'number' ) {
-									btnDisplay = button + 1;
+									btnDisplay = settings.fnFormatNumber( button + 1 );
 									btnClass = page === button ?
 										classes.sPageButtonActive : '';
 								}
 								else {
 									container.append( button );
 								}
+
 								break;
 						}
 

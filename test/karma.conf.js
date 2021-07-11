@@ -29,6 +29,10 @@ module.exports = function(config) {
 			case 'colreorder':
 				extensionFiles = 'extensions/ColReorder/test/**/*.js';
 				break;
+			case 'DateTime':
+			case 'datetime':
+				extensionFiles = 'extensions/DateTime/test/**/*.js';
+				break;
 			case 'Editor':
 			case 'editor':
 				extensionFiles = 'extensions/Editor/test/**/*.js';
@@ -64,6 +68,10 @@ module.exports = function(config) {
 			case 'Scroller':
 			case 'scroller':
 				extensionFiles = 'extensions/Scroller/test/**/*.js';
+				break;
+			case 'SearchBuilder':
+			case 'searchbuilder':
+				extensionFiles = 'extensions/SearchBuilder/test/**/*.js';
 				break;
 			case 'SearchPanes':
 			case 'searchpanes':
@@ -152,6 +160,12 @@ module.exports = function(config) {
 					js: false,
 					css: true
 				},
+				datetime: {
+					pathName: 'DateTime',
+					fileName: 'dateTime',
+					js: false,
+					css: false
+				},
 				editor: {
 					pathName: 'Editor',
 					fileName: 'editor',
@@ -197,6 +211,12 @@ module.exports = function(config) {
 				scroller: {
 					pathName: 'Scroller',
 					fileName: 'scroller',
+					js: false,
+					css: true
+				},
+				searchbuilder: {
+					pathName: 'SearchBuilder',
+					fileName: 'searchBuilder',
 					js: false,
 					css: true
 				},

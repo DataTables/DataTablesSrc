@@ -147,6 +147,11 @@ DataTable.render = {
 					decimal+(d - intPart).toFixed( precision ).substring( 2 ):
 					'';
 
+				// If zero, then can't have a negative prefix
+				if (intPart === 0 && parseFloat(floatPart) === 0) {
+					negative = '';
+				}
+
 				return negative + (prefix||'') +
 					intPart.toString().replace(
 						/\B(?=(\d{3})+(?!\d))/g, thousands

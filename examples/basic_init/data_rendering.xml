@@ -26,14 +26,30 @@ $(document).ready(function() {
 				data: 'name'
 			},
 			{
-				data: 'position'
+				data: 'position',
+				render: function(data, type) {
+					if (type === 'display') {
+						let link = "http://datatables.net";
+
+						if (data[0] < 'H') {
+							link = "http://cloudtables.com";
+						}
+						else if (data[0] < 'S') {
+							link = "http://editor.datatables.net";
+						}
+
+						return '<a href="' + link + '">' + data + '</a>';
+					}
+					
+					return data;
+				}
 			},
 			{
 				className: 'f32', // used by world-flags-sprite library
 				data: 'office',
 				render: function(data, type) {
 					if (type === 'display') {
-						var country = '';
+						let country = '';
 
 						switch (data) {
 							case 'Argentina':
@@ -76,7 +92,24 @@ $(document).ready(function() {
 			},
 			{
 				data: "salary",
-				render: $.fn.dataTable.render.number( ',', '.', 2, '$' )
+				render: function(data, type) {
+					var number = $.fn.dataTable.render.number( ',', '.', 2, '$'). display(data);
+
+					if (type === 'display') {
+						let color = 'green';
+						if (data < 250000) {
+							color = 'red';
+						}
+						else if (data < 500000) {
+							color = 'orange';
+						}
+
+						return '<span style="color:' + color + '">' + number + '</span>';
+					}
+					
+					return number;
+
+				}
 			}
 		]
 	});
@@ -90,7 +123,7 @@ Data within DataTables can be easily rendered to add graphics or colour to your 
 
 * A flag is added to the _Office_ column
 * a HTML5 progress bar is added to the _Progress_ column
-* and the built-in number renderer is used for format the _Salary_.
+* and the built-in number renderer is used to format the _Salary_.
 
 See the [data rendering manual page](https://datatables.net/manual/data/renderers) for more details on how to use data renderers. Also, this example uses [Ajax to load the data](https://datatables.net/manual/ajax). More [Ajax examples are available](../ajax).
 

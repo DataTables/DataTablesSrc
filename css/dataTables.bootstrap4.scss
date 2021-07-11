@@ -1,4 +1,4 @@
-
+@import './common.scss';
 
 table.dataTable.table {
 	clear: both;
@@ -65,7 +65,7 @@ div.dataTables_wrapper {
 	}
 
 	div.dataTables_info {
-		padding-top: 0.5em;
+		padding-top: 0.85em;
 		white-space: nowrap;
 	}
 
@@ -156,7 +156,7 @@ div.dataTables_scrollFoot {
 
 // Condensed
 table.dataTable.table-sm {
-	> thead > tr > th :not(.sorting_disabled){
+	> thead > tr > th:not(.sorting_disabled){
 		padding-right: 20px;
 	}
 

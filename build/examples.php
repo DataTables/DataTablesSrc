@@ -14,6 +14,7 @@ require( 'lib/DT_Example.php' );
 $dir_order = array(
 	'basic_init',
 	'advanced_init',
+	'non_jquery',
 	'styling',
 	'data_sources',
 	'api',
@@ -25,6 +26,7 @@ $dir_order = array(
 $dir_names = array(
 	'basic_init'    => "Basic initialisation",
 	'advanced_init' => "Advanced initialisation",
+	'non_jquery'    => "Non-jQuery initialisation",
 	'styling'       => "Styling",
 	'data_sources'  => "Data sources",
 	'api'           => "API",
@@ -85,7 +87,7 @@ else if ( isset( $options['media'] ) ) {
 // Default libraries
 $versions = json_decode( file_get_contents( is_file('/tmp/dt-versions') ?
 	'/tmp/dt-versions' :
-	'http://datatables.net/feeds/versions.php' ), true
+	'http://regulus.datatables.net/feeds/versions.php' ), true
 );
 $pluginsHash = $versions['Plugins']['release']['version'];
 
@@ -242,6 +244,25 @@ DT_Example::$components['searchpanes'] = [
 	]
 ];
 
+DT_Example::$components['staterestore'] = [
+	'path' => path_simplify( $dir_media.'/../extensions/StateRestore' ),
+	'release' => '0.0.1',
+	'filename' => 'stateRestore',
+	'framework' => [
+		'css' => true,
+		'js' => true
+	]
+];
+
+if ( isset( $options['cdn'] ) ) {
+	DT_Example::$lookup_libraries['css']['datetime'] = 'https://cdn.datatables.net/datetime/'.$versions['DateTime']['release']['version'].'/css/dataTables.dateTime.min.css';
+	DT_Example::$lookup_libraries['js']['datetime'] = 'https://cdn.datatables.net/datetime/'.$versions['DateTime']['release']['version'].'/js/dataTables.dateTime.min.js';
+}
+else {
+	DT_Example::$lookup_libraries['css']['datetime'] = path_simplify( $dir_media.'/../extensions/DateTime' ) . '/css/dataTables.dateTime.css';
+	DT_Example::$lookup_libraries['js']['datetime'] = path_simplify( $dir_media.'/../extensions/DateTime' ) . '/js/dataTables.dateTime.js';
+}
+
 // Legacy extensions
 if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['css']['colvis']          = 'https://cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
@@ -253,6 +274,7 @@ if ( isset( $options['cdn'] ) ) {
 	DT_Example::$lookup_libraries['js' ]['buttons-html5']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.html5.min.js';
 	DT_Example::$lookup_libraries['js' ]['buttons-colvis']  = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.colVis.min.js';
 	DT_Example::$lookup_libraries['js' ]['buttons-print']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.print.min.js';
+	DT_Example::$lookup_libraries['js' ]['buttons-docgen']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.docgen.min.js';
 }
 else {
 	DT_Example::$lookup_libraries['css']['colvis']          = path_simplify( $dir_media.'/../extensions/ColVis/css/dataTables.colVis.css' );
@@ -264,6 +286,7 @@ else {
 	DT_Example::$lookup_libraries['js' ]['buttons-html5']   = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.html5.js' );
 	DT_Example::$lookup_libraries['js' ]['buttons-print']   = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.print.js' );
 	DT_Example::$lookup_libraries['js' ]['buttons-colvis']  = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.colVis.js' );
+	DT_Example::$lookup_libraries['js' ]['buttons-docgen']  = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.docgen.js' );
 
 }
 
@@ -273,28 +296,35 @@ else {
 DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-1.12.4.js';
 DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-3.5.1.slim.js';
 DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-3.5.1.js';
-DT_Example::$lookup_libraries['js' ]['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/jquery-ui.js';
-DT_Example::$lookup_libraries['css']['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
+DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://cdnjs.cloudflare.com/ajax/libs/cash/8.1.0/cash.min.js';
+
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
 DT_Example::$lookup_libraries['css']['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
-DT_Example::$lookup_libraries['js']['bootstrap4']    = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js|https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js';
-DT_Example::$lookup_libraries['css' ]['bootstrap4']  = 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css';
-DT_Example::$lookup_libraries['js' ]['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js';
-DT_Example::$lookup_libraries['css']['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css';
-DT_Example::$lookup_libraries['js' ]['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.js';
-DT_Example::$lookup_libraries['css']['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css';
+DT_Example::$lookup_libraries['js' ]['bootstrap4']   = 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js|https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js';
+DT_Example::$lookup_libraries['css']['bootstrap4']   = 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css';
+DT_Example::$lookup_libraries['js' ]['bootstrap5']   = 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js';
+DT_Example::$lookup_libraries['css']['bootstrap5']   = 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css';
+DT_Example::$lookup_libraries['css']['bulma']        = 'https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css';
 DT_Example::$lookup_libraries['js' ]['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js';
 DT_Example::$lookup_libraries['css']['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css';
 DT_Example::$lookup_libraries['js' ]['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js';
 DT_Example::$lookup_libraries['css']['foundation']   = 'https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css';
+DT_Example::$lookup_libraries['js' ]['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/jquery-ui.js';
+DT_Example::$lookup_libraries['css']['jqueryui']     = 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
+DT_Example::$lookup_libraries['js' ]['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.js';
+DT_Example::$lookup_libraries['css']['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css';
+DT_Example::$lookup_libraries['js' ]['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js';
+DT_Example::$lookup_libraries['css']['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css';
 DT_Example::$lookup_libraries['js' ]['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/js/uikit.min.js';
 DT_Example::$lookup_libraries['css']['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css';
+
 DT_Example::$lookup_libraries['css']['font-awesome'] = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
 DT_Example::$lookup_libraries['js']['jszip']         = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js';
 DT_Example::$lookup_libraries['js']['pdfmake']       = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js';
 DT_Example::$lookup_libraries['js']['vfsfonts']      = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js';
 DT_Example::$lookup_libraries['js']['moment']        = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js';
 DT_Example::$lookup_libraries['css']['world-flags-sprite'] = 'https://github.com/downloads/lafeber/world-flags-sprite/flags32.css';
+DT_Example::$lookup_libraries['js']['sparkline'] = 'https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js';
 
 function multiple ( $value, $fn )
 {
@@ -395,8 +425,9 @@ if ( stripos( $dir_input, 'Editor' ) ) {
 	$dir_order = array(
 		'simple',
 		'advanced',
-		'extensions',
+		'datatables',
 		'dates',
+		'extensions',
 		'inline-editing',
 		'bubble-editing',
 		'api',
@@ -411,6 +442,7 @@ if ( stripos( $dir_input, 'Editor' ) ) {
 		'advanced'        => 'Advanced initialisation',
 		'extensions'      => 'DataTables extensions',
 		'dates'           => "Dates and time",
+		'datatables'      => 'DataTables as an input',
 		'bubble-editing'  => 'Bubble editing',
 		'inline-editing'  => 'Inline editing',
 		'api'             => 'API',
@@ -451,6 +483,17 @@ else if ( stripos( $dir_input, 'ColReorder' ) ) {
 		'initialisation' => "Initialisation and options",
 		'integration'    => "Integration with other DataTables extensions",
 		'styling'        => "Styling"
+	);
+}
+else if ( stripos( $dir_input, 'DateTime' ) ) {
+	$dir_order = array(
+		'initialisation',
+		'integration'
+	);
+
+	$dir_names = array(
+		'initialisation' => "Initialisation and options",
+		'integration'    => "Integration"
 	);
 }
 else if ( stripos( $dir_input, 'Responsive' ) ) {
@@ -498,13 +541,42 @@ else if ( stripos( $dir_input, 'FixedColumns' ) ) {
 else if ( stripos( $dir_input, 'SearchBuilder' ) ) {
 	$dir_order = array(
 		'initialisation',
+		'api',
+		'customisation',
+		'styling',
+		'integration'
 	);
 
 	$dir_names = array(
 		'initialisation' => 'Initialisation and options',
+		'api' => 'API demonstrations',
+		'customisation' => 'Customisation',
+		'styling' => 'Styling',
+		'integration' => 'Integration'
 	);
 }
 else if ( stripos( $dir_input, 'SearchPanes' ) ) {
+	$dir_order = array(
+		'initialisation',
+		'advanced',
+		'customisation',
+		'integration',
+		'customFiltering',
+		'styling',
+		'performance'
+	);
+
+	$dir_names = array(
+		'initialisation' => 'Initialisation and options',
+		'advanced' => 'Advanced initialisation',
+		'customisation' => 'Customisation',
+		'integration' => 'Integration with other DataTables extensions',
+		'customFiltering' => 'Creation of custom panes',
+		'styling' => 'Styling',
+		'performance' => 'Performance'
+	);
+}
+else if ( stripos( $dir_input, 'StateRestore' ) ) {
 	$dir_order = array(
 		'initialisation',
 		'advanced',
@@ -1141,8 +1213,13 @@ function tidy_structure ( &$examples, $order )
 			$idxA = array_search( $a['name'], $order );
 			$idxB = array_search( $b['name'], $order );
 
-			return $idxA === $idxB ? 0 :
-				$idxA < $idxB ? -1 : 1;
+			if ($idxA === $idxB) {
+				return 0;
+			}
+			else if ($idxA < $idxB) {
+				return -1;
+			}
+			return 1;
 		//}
 	} );
 }

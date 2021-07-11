@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="14" framework="material">
+<dt-example table-type="html" order="15" framework="material">
 
 <css lib="datatables" />
 <js lib="jquery datatables" />
@@ -24,6 +24,8 @@ $(document).ready(function() {
 This example shows DataTables styled for [Google's Material Design](https://www.google.com/design/spec/material-design/). The [Material Design Lite](http://getmdl.io/) libraries are used to provide the styling implementation for Material.
 
 This is a technical preview example and the Material Design integration for DataTables is not yet complete. This tech preview is provided to gauge the interest in a Material integration for DataTables and also to estimate the work that would be involved in fully supporting the styling library. As such, the Material design implementation for DataTables can currently only be installed from source and is not available in package managers or the DataTables downloader.
+
+If you would like to see continued development of the MDL integration for DataTables, please [get in touch](/forums) so we can know what integrations are popular.
 
 ]]></info>
 

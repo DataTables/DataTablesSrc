@@ -1,5 +1,5 @@
 /*! DataTables 2.0.0-dev
- * ©2008-2018 SpryMedia Ltd - datatables.net/license
+ * ©2008-2021 SpryMedia Ltd - datatables.net/license
  */
 
 /**
@@ -9,7 +9,7 @@
  * @file        jquery.dataTables.js
  * @author      SpryMedia Ltd
  * @contact     www.datatables.net
- * @copyright   Copyright 2008-2020 SpryMedia Ltd.
+ * @copyright   Copyright 2008-2021 SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
  *   MIT license - http://datatables.net/license
@@ -53,7 +53,7 @@
 	}
 	else {
 		// Browser
-		factory( jQuery, window, document );
+		window.DataTable = factory( cash, window, document );
 	}
 }
 (function( $, window, document, undefined ) {
@@ -91,8 +91,19 @@
 	 *      } );
 	 *    } );
 	 */
-	var DataTable = function ( options )
+	var DataTable = function ( selector, options )
 	{
+		// When creating with `new`, create a new DataTable, returning the API instance
+		if (this instanceof DataTable) {
+			return $(selector).DataTable(options);
+		}
+		else {
+			// Argument switching
+			options = selector;
+		}
+
+		_buildInclude('api.legacy.js');
+
 		var _that = this;
 		var emptyInit = options === undefined;
 		var len = this.length;
@@ -250,164 +261,5 @@
 		$.fn.DataTable[ prop ] = val;
 	} );
 
-
-	// Information about events fired by DataTables - for documentation.
-	/**
-	 * Draw event, fired whenever the table is redrawn on the page, at the same
-	 * point as fnDrawCallback. This may be useful for binding events or
-	 * performing calculations when the table is altered at all.
-	 *  @name DataTable#draw.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
-	 */
-
-	/**
-	 * Search event, fired when the searching applied to the table (using the
-	 * built-in global search, or column filters) is altered.
-	 *  @name DataTable#search.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
-	 */
-
-	/**
-	 * Page change event, fired when the paging of the table is altered.
-	 *  @name DataTable#page.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
-	 */
-
-	/**
-	 * Order event, fired when the ordering applied to the table is altered.
-	 *  @name DataTable#order.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
-	 */
-
-	/**
-	 * DataTables initialisation complete event, fired when the table is fully
-	 * drawn, including Ajax data loaded, if Ajax data is required.
-	 *  @name DataTable#init.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} oSettings DataTables settings object
-	 *  @param {object} json The JSON object request from the server - only
-	 *    present if client-side Ajax sourced data is used</li></ol>
-	 */
-
-	/**
-	 * State save event, fired when the table has changed state a new state save
-	 * is required. This event allows modification of the state saving object
-	 * prior to actually doing the save, including addition or other state
-	 * properties (for plug-ins) or modification of a DataTables core property.
-	 *  @name DataTable#stateSaveParams.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} oSettings DataTables settings object
-	 *  @param {object} json The state information to be saved
-	 */
-
-	/**
-	 * State load event, fired when the table is loading state from the stored
-	 * data, but prior to the settings object being modified by the saved state
-	 * - allowing modification of the saved state is required or loading of
-	 * state for a plug-in.
-	 *  @name DataTable#stateLoadParams.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} oSettings DataTables settings object
-	 *  @param {object} json The saved state information
-	 */
-
-	/**
-	 * State loaded event, fired when state has been loaded from stored data and
-	 * the settings object has been modified by the loaded data.
-	 *  @name DataTable#stateLoaded.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} oSettings DataTables settings object
-	 *  @param {object} json The saved state information
-	 */
-
-	/**
-	 * Processing event, fired when DataTables is doing some kind of processing
-	 * (be it, order, search or anything else). It can be used to indicate to
-	 * the end user that there is something happening, or that something has
-	 * finished.
-	 *  @name DataTable#processing.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} oSettings DataTables settings object
-	 *  @param {boolean} bShow Flag for if DataTables is doing processing or not
-	 */
-
-	/**
-	 * Ajax (XHR) event, fired whenever an Ajax request is completed from a
-	 * request to made to the server for new data. This event is called before
-	 * DataTables processed the returned data, so it can also be used to pre-
-	 * process the data returned from the server, if needed.
-	 *  @name DataTable#xhr.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
-	 *  @param {object} json JSON returned from the server
-	 *
-	 *  @example
-	 *     // Use a custom property returned from the server in another DOM element
-	 *     $('#table').dataTable().on('xhr.dt', function (e, settings, json) {
-	 *       $('#status').html( json.status );
-	 *     } );
-	 *
-	 *  @example
-	 *     // Pre-process the data returned from the server
-	 *     $('#table').dataTable().on('xhr.dt', function (e, settings, json) {
-	 *       for ( var i=0, ien=json.aaData.length ; i<ien ; i++ ) {
-	 *         json.aaData[i].sum = json.aaData[i].one + json.aaData[i].two;
-	 *       }
-	 *       // Note no return - manipulate the data directly in the JSON object.
-	 *     } );
-	 */
-
-	/**
-	 * Destroy event, fired when the DataTable is destroyed by calling fnDestroy
-	 * or passing the bDestroy:true parameter in the initialisation object. This
-	 * can be used to remove bound events, added DOM nodes, etc.
-	 *  @name DataTable#destroy.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
-	 */
-
-	/**
-	 * Page length change event, fired when number of records to show on each
-	 * page (the length) is changed.
-	 *  @name DataTable#length.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
-	 *  @param {integer} len New length
-	 */
-
-	/**
-	 * Column sizing has changed.
-	 *  @name DataTable#column-sizing.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
-	 */
-
-	/**
-	 * Column visibility has changed.
-	 *  @name DataTable#column-visibility.dt
-	 *  @event
-	 *  @param {event} e jQuery event object
-	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
-	 *  @param {int} column Column index
-	 *  @param {bool} vis `false` if column now hidden, or `true` if visible
-	 */
-
-	return $.fn.dataTable;
+	return DataTable;
 }));

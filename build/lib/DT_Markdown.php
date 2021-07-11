@@ -151,6 +151,11 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				$lang = 'ColVis';
 				break;
 
+			case 'de':
+				$host = '//datatables.net/extensions/datetime';
+				$lang = 'DateTime';
+				break;
+
 			case 'e':
 				$host = '//editor.datatables.net/reference';
 				$lang = 'Editor';
@@ -242,6 +247,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 			return '<code>Any</code>';
 		}
 
+		$item = preg_replace('/\[\]$/', '', $item);
 		return '<a href="'.$host.'/'.$klass.'/'.$this->_doUrlEncode($item).'">'.
 				'<code class="'.$klass.'" title="'.$lang.'">'.$html.'</code>'.
 			'</a>';
@@ -314,7 +320,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	function _doHeaders_callback_setext($matches) {
 		if ($matches[3] == '-' && preg_match('{^- }', $matches[1]))
 			return $matches[0];
-		$level = $matches[3]{0} == '=' ? 1 : 2;
+		$level = $matches[3][0] == '=' ? 1 : 2;
 		$attr  = $this->_doHeaders_attr($id =& $matches[2]);
 
 		$text = $this->runSpanGamut($matches[1]);

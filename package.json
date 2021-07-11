@@ -1,6 +1,6 @@
 {
   "name": "datatables.net-src",
-  "version": "1.10.12",
+  "version": "1.10.24",
   "description": "DataTables source files. Please note that this package does not include the built files. Use the `datatables.net` package!",
   "scripts": {
     "build-debug": "cd build; ./make.sh build debug",
@@ -10,6 +10,7 @@
     "test-autofill": "DT_EXTENSION='AutoFill' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-buttons": "DT_EXTENSION='Buttons' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-colreorder": "DT_EXTENSION='ColReorder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-datetime": "DT_EXTENSION='DateTime' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-editor": "DT_EXTENSION='Editor' ./node_modules/karma/bin/karma start test/karma.conf.js",
     "test-fixedcolumns": "DT_EXTENSION='FixedColumns' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-fixedheader": "DT_EXTENSION='FixedHeader' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
@@ -17,7 +18,9 @@
     "test-rowgroup": "DT_EXTENSION='RowGroup' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-rowreorder": "DT_EXTENSION='RowReorder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test-scroller": "DT_EXTENSION='Scroller' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
-    "test-select": "DT_EXTENSION='Select' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run"
+    "test-select": "DT_EXTENSION='Select' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-searchbuilder": "DT_EXTENSION='SearchBuilder' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-searchpanes": "DT_EXTENSION='SearchPanes' ./node_modules/karma/bin/karma start test/karma.conf.js --single-run"
   },
   "repository": {
     "type": "git",

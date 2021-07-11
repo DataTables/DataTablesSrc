@@ -43,7 +43,7 @@ _api_register( 'order()', function ( order, dir ) {
 		// Simple column / direction passed in
 		order = [ [ order, dir ] ];
 	}
-	else if ( order.length && ! $.isArray( order[0] ) ) {
+	else if ( order.length && ! Array.isArray( order[0] ) ) {
 		// Arguments passed in (list of 1D arrays)
 		order = Array.prototype.slice.call( arguments );
 	}
@@ -79,7 +79,7 @@ _api_register( 'order.fixed()', function ( set ) {
 			ctx[0].aaSortingFixed :
 			undefined;
 
-		return $.isArray( fixed ) ?
+		return Array.isArray( fixed ) ?
 			{ pre: fixed } :
 			fixed;
 	}

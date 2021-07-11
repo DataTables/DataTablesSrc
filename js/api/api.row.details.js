@@ -1,4 +1,22 @@
 
+$(document).on('init.dt', function (e, context) {
+	var api = new _Api( context );
+	api.on( 'stateSaveParams', function ( e, settings, data ) {
+		var indexes = api.rows().iterator( 'row', function ( settings, idx ) {
+			return settings.aoData[idx]._detailsShow ? idx : undefined;
+		});
+
+		data.childRows = api.rows( indexes ).ids( true ).toArray();
+	})
+
+	var loaded = api.state.loaded();
+
+	if ( loaded && loaded.childRows ) {
+		api.rows( loaded.childRows ).every( function () {
+			_fnCallbackFire( context, null, 'requestChild', [ this ] )
+		})
+	}
+})
 
 var __details_add = function ( ctx, row, data, klass )
 {
@@ -6,7 +24,7 @@ var __details_add = function ( ctx, row, data, klass )
 	var rows = [];
 	var addRow = function ( r, k ) {
 		// Recursion to allow for arrays of jQuery objects
-		if ( $.isArray( r ) || r instanceof $ ) {
+		if ( Array.isArray( r ) || r instanceof $ ) {
 			for ( var i=0, ien=r.length ; i<ien ; i++ ) {
 				addRow( r[i], k );
 			}
@@ -21,7 +39,7 @@ var __details_add = function ( ctx, row, data, klass )
 		}
 		else {
 			// Otherwise create a row with a wrapper
-			var created = $('<tr><td/></tr>')
+			var created = $('<tr><td></td></tr>')
 				.attr( 'data-dt-row', row.idx )
 				.addClass( k );
 			
@@ -61,6 +79,8 @@ var __details_remove = function ( api, idx )
 
 			row._detailsShow = undefined;
 			row._details = undefined;
+			$( row.nTr ).removeClass( 'dt-hasChild' );
+			_fnSaveState( ctx[0] );
 		}
 	}
 };
@@ -77,12 +97,17 @@ var __details_display = function ( api, show ) {
 
 			if ( show ) {
 				row._details.insertAfter( row.nTr );
+				$( row.nTr ).addClass( 'dt-hasChild' );
 			}
 			else {
 				row._details.detach();
+				$( row.nTr ).removeClass( 'dt-hasChild' );
 			}
 
+			_fnCallbackFire( ctx[0], null, 'childrow', [ show, api.row( api[0] ) ] )
+
 			__details_events( ctx[0] );
+			_fnSaveState( ctx[0] );
 		}
 	}
 };

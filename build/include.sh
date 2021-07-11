@@ -8,8 +8,10 @@ JSHINT="/usr/bin/jshint"
 
 # CSS styling frameworks that DataTables supports
 FRAMEWORKS=(
+	'bootstrap5'
 	'bootstrap4'
 	'bootstrap'
+	'bulma'
 	'foundation'
 	'jqueryui'
 	'semanticui'
@@ -53,7 +55,7 @@ function css_compress {
 		DIR=$(dirname $1)
 
 		echo_msg "CSS compressing $FILE.css"
-		sass --stop-on-error --style compressed $DIR/$FILE.css > $DIR/$FILE.min.css
+		sass --no-charset --stop-on-error --style compressed $DIR/$FILE.css > $DIR/$FILE.min.css
 
 		# compressed style will add a UTF8 BOM which messes with concatination - remove it.
 		sed -i '1s/^\xEF\xBB\xBF//' $DIR/$FILE.min.css
@@ -70,7 +72,7 @@ function scss_compile {
 	DIR=$(dirname $1)
 
 	echo_msg "SCSS compiling $FILE.scss"
-	sass --stop-on-error --style expanded $DIR/$FILE.scss > $DIR/$FILE.css
+	sass --no-charset --stop-on-error --style expanded $DIR/$FILE.scss > $DIR/$FILE.css
 
 	css_compress $DIR/$FILE.css
 }
@@ -126,7 +128,7 @@ function js_compress {
 		perl -i -0pe "s/^\/\*! (.*)$/\/** \@license \$1/s" /tmp/$FILE.js
 
 		rm /tmp/closure_error.log
-		java -jar $CLOSURE --charset 'utf-8' --js /tmp/$FILE.js > /tmp/$FILE.min.js 2> /tmp/closure_error.log
+		java -jar $CLOSURE --charset 'utf-8' --language_out=ES5 --js /tmp/$FILE.js > /tmp/$FILE.min.js 2> /tmp/closure_error.log
 
 		if [ -e /tmp/closure_error.log ]; then
 			if [ -z "$LOG" -o "$LOG" = "on" ]; then

@@ -37,7 +37,7 @@ This example shows how the Bootstrap `shown.bs.tab` event can be used to trigger
 
 ]]></info>
 
-<custom-table>
+<demo-html>
 
 <div>
 	<ul class="nav nav-tabs" role="tablist">
@@ -78,6 +78,6 @@ This example shows how the Bootstrap `shown.bs.tab` event can be used to trigger
 	</div>
 </div>
 
-</custom-table>
+</demo-html>
 
 </dt-example>

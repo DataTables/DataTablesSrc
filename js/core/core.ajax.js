@@ -13,6 +13,22 @@ function _fnBuildAjax( oSettings, data, fn )
 	var ajax = oSettings.ajax;
 	var instance = oSettings.oInstance;
 	var callback = function ( json ) {
+		var status = oSettings.jqXhr
+			? oSettings.jqXhr.status
+			: null;
+
+		if ( json === null || (typeof status === 'number' && status == 204 ) ) {
+			json = {};
+			_fnAjaxDataSrc( oSettings, json, [] );
+		}
+
+		var error = json.error || json.sError;
+		if ( error ) {
+			_fnLog( oSettings, 0, error );
+		}
+
+		oSettings.json = json;
+
 		_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json, oSettings.jqXHR] );
 		fn( json );
 	};
@@ -40,20 +56,7 @@ function _fnBuildAjax( oSettings, data, fn )
 			ajax :
 			'',
 		"data": data,
-		"success": function (json, status, jqXhr) {
-			if ( json === null || jqXhr.status == 204 ) {
-				json = {};
-				_fnAjaxDataSrc( oSettings, json, [] );
-			}
-
-			var error = json.error || json.sError;
-			if ( error ) {
-				_fnLog( oSettings, 0, error );
-			}
-
-			oSettings.json = json;
-			callback( json );
-		},
+		"success": callback,
 		"dataType": "json",
 		"cache": false,
 		"type": oSettings.sServerMethod,
@@ -110,21 +113,16 @@ function _fnBuildAjax( oSettings, data, fn )
  */
 function _fnAjaxUpdate( settings )
 {
-	if ( settings.bAjaxDataGet ) {
-		settings.iDraw++;
-		_fnProcessingDisplay( settings, true );
+	settings.iDraw++;
+	_fnProcessingDisplay( settings, true );
 
-		_fnBuildAjax(
-			settings,
-			_fnAjaxParameters( settings ),
-			function(json) {
-				_fnAjaxUpdateDraw( settings, json );
-			}
-		);
-
-		return false;
-	}
-	return true;
+	_fnBuildAjax(
+		settings,
+		_fnAjaxParameters( settings ),
+		function(json) {
+			_fnAjaxUpdateDraw( settings, json );
+		}
+	);
 }
 
 
@@ -213,6 +211,11 @@ function _fnAjaxUpdateDraw ( settings, json )
 		settings.iDraw = draw * 1;
 	}
 
+	// No data in returned object, so rather than an array, we show an empty table
+	if ( ! data ) {
+		data = [];
+	}
+
 	_fnClearTable( settings );
 	settings._iRecordsTotal   = parseInt(recordsTotal, 10);
 	settings._iRecordsDisplay = parseInt(recordsFiltered, 10);
@@ -222,14 +225,12 @@ function _fnAjaxUpdateDraw ( settings, json )
 	}
 	settings.aiDisplay = settings.aiDisplayMaster.slice();
 
-	settings.bAjaxDataGet = false;
-	_fnDraw( settings );
+	_fnDraw( settings, true );
 
 	if ( ! settings._bInitComplete ) {
 		_fnInitComplete( settings, json );
 	}
 
-	settings.bAjaxDataGet = true;
 	_fnProcessingDisplay( settings, false );
 }
 

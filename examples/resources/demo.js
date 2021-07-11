@@ -4,10 +4,7 @@ SyntaxHighlighter.config.tagName = 'code';
 
 if ( window.$ ) {
 	$(document).ready( function () {
-		if ( ! $.fn.dataTable ) {
-			return;
-		}
-		var dt110 = $.fn.dataTable.Api ? true : false;
+		var dt110 = $.fn.dataTable && $.fn.dataTable.Api ? true : false;
 
 		// Work around for WebKit bug 55740
 		var info = $('div.info');
@@ -28,20 +25,26 @@ if ( window.$ ) {
 		}
 
 		// init html
-		var table = $('<p/>').append( $('table').clone() ).html();
+		var demoHtml = '';
 		
-		var demoHtml = $.trim( $('div.demo-html').html() );
+		if ($('div.demo-html').length) {
+			demoHtml = $('div.demo-html').html().trim();
 
-		if ( demoHtml ) {
-			demoHtml = demoHtml+'\n\n';
+			if ( demoHtml ) {
+				demoHtml = demoHtml+'\n\n';
+			}
 		}
 
 		$('div.tabs div.table').append(
-			'<code class="multiline language-html">\t\t\t'+
-				escapeHtml( demoHtml + table )+
+			'<code class="multiline language-html">\t\t\t\t'+
+				escapeHtml( demoHtml )+
 			'</code>'
 		);
-		//SyntaxHighlighter.highlight({}, $('#display-init-html')[0]);
+
+		// This can really slow things down
+		setTimeout( function () {
+			SyntaxHighlighter.highlight({}, $('div.table code')[0]);
+		}, 1000)
 
 		// Allow the demo code to run if DT 1.9 is used
 		if ( dt110 ) {

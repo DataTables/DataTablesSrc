@@ -1,26 +1,27 @@
 // TK COLIN : heavily based on stateSaveCallback - could do with some sharing at some point
-describe('core- state()', function() {
+describe('core- state()', function () {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
 	});
 
-	describe('Check the defaults', function() {
+	describe('Check the defaults', function () {
 		dt.html('basic');
-		it('Exists and is a function', function() {
+		it('Exists and is a function', function () {
 			expect(typeof $('#example').DataTable().state).toBe('function');
 		});
 
 		dt.html('basic');
-		it('Returns plain object even if stateSave disabled', function() {
+		it('Does not return null if stateSave disabled', function () {
 			let table = $('#example').DataTable({
 				stateSave: false
 			});
+			expect(table.state()).not.toBe(null);
 			expect($.isPlainObject(table.state())).toBe(true);
 		});
 
 		dt.html('basic');
-		it('Returns a plain object is stateSave enabled', function() {
+		it('Returns a plain object is stateSave enabled', function () {
 			let table = $('#example').DataTable({
 				stateSave: true
 			});
@@ -28,16 +29,16 @@ describe('core- state()', function() {
 		});
 	});
 
-	describe('Functional tests', function() {
+	describe('Functional tests', function () {
 		// Clear down save state before proceeding (otherwise old stuff may be lurking that will affect us)
 		dt.html('basic');
-		it('Clear state save', function() {
+		it('Clear state save', function () {
 			let table = $('#example').DataTable();
 			table.state.clear();
 		});
 
 		dt.html('basic');
-		it('Saved time is sensible', function() {
+		it('Saved time is sensible', function () {
 			let savedState1;
 			let savedState2;
 			let table = $('#example').DataTable({
@@ -53,7 +54,7 @@ describe('core- state()', function() {
 		});
 
 		dt.html('basic');
-		it('Start position is sensible', function() {
+		it('Start position is sensible', function () {
 			let savedState;
 			let table = $('#example').DataTable({
 				stateSave: true
@@ -66,7 +67,7 @@ describe('core- state()', function() {
 		});
 
 		dt.html('basic');
-		it('Page length is sensible', function() {
+		it('Page length is sensible', function () {
 			let savedState;
 			let table = $('#example').DataTable({
 				stateSave: true
@@ -79,20 +80,14 @@ describe('core- state()', function() {
 		});
 
 		dt.html('basic');
-		it('Order is sensible', function() {
+		it('Order is sensible', function () {
 			let savedState;
 			let table = $('#example').DataTable({
 				stateSave: true
 			});
-			table
-				.columns([1, 2])
-				.order('desc')
-				.draw();
+			table.columns([1, 2]).order('desc').draw();
 			savedState = table.state();
-			table
-				.column(3)
-				.order('desc')
-				.draw();
+			table.column(3).order('desc').draw();
 
 			expect(savedState.order.length).toBe(2);
 			expect(savedState.order[0][0]).toBe(1);
@@ -102,7 +97,7 @@ describe('core- state()', function() {
 		});
 
 		dt.html('basic');
-		it('Search is sensible', function() {
+		it('Search is sensible', function () {
 			let savedState;
 			let table = $('#example').DataTable({
 				stateSave: true
@@ -132,22 +127,16 @@ describe('core- state()', function() {
 		}
 
 		dt.html('basic');
-		it('Columns are sensible', function() {
+		it('Columns are sensible', function () {
 			let savedState;
 			let table = $('#example').DataTable({
 				stateSave: true
 			});
 			table.columns([3, 5]).visible(false);
-			table
-				.columns([1, 4])
-				.search('Cox', true, false, true)
-				.draw();
+			table.columns([1, 4]).search('Cox', true, false, true).draw();
 			savedState = table.state();
 			table.columns([3, 5]).visible(true);
-			table
-				.columns([1, 4])
-				.search('', true, false, true)
-				.draw();
+			table.columns([1, 4]).search('', true, false, true).draw();
 			expect(checkColumn(savedState.columns[0], true, '', true, false, true)).toBe(true);
 			expect(checkColumn(savedState.columns[1], true, 'Cox', false, true, true)).toBe(true);
 			expect(checkColumn(savedState.columns[2], true, '', true, false, true)).toBe(true);

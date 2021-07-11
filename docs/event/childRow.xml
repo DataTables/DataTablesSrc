@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>childrow</name>
+	<summary>A child row has been added or removed from the table</summary>
+	<since>1.11</since>
+
+	<type type="function">
+		<signature>function( e, show, row )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="boolean" name="show">
+			Boolean, true if row is being shown, false if not.
+		</parameter>
+		<parameter type="DataTables Api" name="row">
+			The parent row instance that the child row is being displayed for.
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		The `-event childrow` is triggered whenever a child row is inserted or removed from the table.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+	</description>
+
+</dt-event>

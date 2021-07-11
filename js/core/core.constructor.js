@@ -193,7 +193,7 @@ if ( oSettings.iInitDisplayStart === undefined )
 if ( oInit.iDeferLoading !== null )
 {
 	oSettings.bDeferLoading = true;
-	var tmp = $.isArray( oInit.iDeferLoading );
+	var tmp = Array.isArray( oInit.iDeferLoading );
 	oSettings._iRecordsDisplay = tmp ? oInit.iDeferLoading[0] : oInit.iDeferLoading;
 	oSettings._iRecordsTotal = tmp ? oInit.iDeferLoading[1] : oInit.iDeferLoading;
 }
@@ -215,6 +215,8 @@ if ( oLanguage.sUrl )
 			_fnLanguageCompat( json );
 			_fnCamelToHungarian( defaults.oLanguage, json );
 			$.extend( true, oLanguage, json );
+
+			_fnCallbackFire( oSettings, null, 'i18n', [oSettings]);
 			_fnInitialise( oSettings );
 		},
 		error: function () {
@@ -223,6 +225,9 @@ if ( oLanguage.sUrl )
 		}
 	} );
 	bInitHandedOff = true;
+}
+else {
+	_fnCallbackFire( oSettings, null, 'i18n', [oSettings]);
 }
 
 /*
@@ -375,7 +380,7 @@ var loadedInit = function () {
 
 	var tbody = $this.children('tbody');
 	if ( tbody.length === 0 ) {
-		tbody = $('<tbody/>').appendTo($this);
+		tbody = $('<tbody/>').insertAfter(thead);
 	}
 	oSettings.nTBody = tbody[0];
 
@@ -430,11 +435,17 @@ var loadedInit = function () {
 };
 
 /* Must be done after everything which can be overridden by the state saving! */
+_fnCallbackReg( oSettings, 'aoDrawCallback', _fnSaveState, 'state_save' );
+
 if ( oInit.bStateSave )
 {
 	features.bStateSave = true;
+<<<<<<< HEAD
 	_fnCallbackReg( oSettings, 'aoDrawCallback', _fnSaveState, 'state_save' );
 	_fnLoadState( oSettings, loadedInit );
+=======
+	_fnLoadState( oSettings, oInit, loadedInit );
+>>>>>>> origin/cash
 }
 else {
 	loadedInit();

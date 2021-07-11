@@ -177,7 +177,7 @@ _Api = function ( context, data )
 		}
 	};
 
-	if ( $.isArray( context ) ) {
+	if ( Array.isArray( context ) ) {
 		for ( var i=0, ien=context.length ; i<ien ; i++ ) {
 			ctxSettings( context[i] );
 		}
@@ -544,7 +544,7 @@ _Api.extend = function ( scope, obj, ext )
 
 _Api.register = _api_register = function ( name, val )
 {
-	if ( $.isArray( name ) ) {
+	if ( Array.isArray( name ) ) {
 		for ( var j=0, jen=name.length ; j<jen ; j++ ) {
 			_Api.register( name[j], val );
 		}
@@ -614,7 +614,7 @@ _Api.registerPlural = _api_registerPlural = function ( pluralName, singularName,
 			// New API instance returned, want the value from the first item
 			// in the returned array for the singular result.
 			return ret.length ?
-				$.isArray( ret[0] ) ?
+				Array.isArray( ret[0] ) ?
 					new _Api( ret.context, ret[0] ) : // Array results are 'enhanced'
 					ret[0] :
 				undefined;

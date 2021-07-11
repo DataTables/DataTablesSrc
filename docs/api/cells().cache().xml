@@ -10,7 +10,7 @@
 		<parameter type="string" name="type" default="order">
 			Specify which cache the data should be read from. Can take one of two values: `dt-string search` or `dt-string order`. Defaults to `order` if no value is given.
 		</parameter>
-		<returns type="string">String containing the cached data for the selected cell</returns>
+		<returns type="DataTables.Api">DataTables API instance containing the cached data for the selected cells.</returns>
 	</type>
 
 	<description>

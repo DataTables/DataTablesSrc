@@ -1,0 +1,286 @@
+@import './common.scss';
+
+/*! Bootstrap 5 integration for DataTables
+ *
+ * ©2020 SpryMedia Ltd, all rights reserved.
+ * License: MIT datatables.net/license/mit
+ */
+
+table.dataTable {
+	clear: both;
+	margin-top: 6px !important;
+	margin-bottom: 6px !important;
+	max-width: none !important;
+	border-collapse: separate !important;
+	border-spacing: 0;
+
+	td,
+	th {
+		-webkit-box-sizing: content-box;
+		box-sizing: content-box;
+
+		&.dataTables_empty {
+			text-align: center;
+		}
+	}
+
+	&.nowrap {
+		th,
+		td {
+			white-space: nowrap;
+		}
+	}
+}
+
+
+// DataTables' built in feature elements
+div.dataTables_wrapper {
+	div.dataTables_length {
+		label {
+			font-weight: normal;
+			text-align: left;
+			white-space: nowrap;
+		}
+
+		select {
+			width: auto;
+			display: inline-block;
+		}
+	}
+
+	div.dataTables_filter {
+		text-align: right;
+
+		label {
+			font-weight: normal;
+			white-space: nowrap;
+			text-align: left;
+		}
+
+		input {
+			margin-left: 0.5em;
+			display: inline-block;
+			width: auto;
+		}
+	}
+
+	div.dataTables_info {
+		padding-top: 0.85em;
+	}
+
+	div.dataTables_paginate {
+		margin: 0;
+		white-space: nowrap;
+		text-align: right;
+
+		ul.pagination {
+			margin: 2px 0;
+			white-space: nowrap;
+			justify-content: flex-end;
+		}
+	}
+
+	div.dataTables_processing {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 200px;
+		margin-left: -100px;
+		margin-top: -26px;
+		text-align: center;
+		padding: 1em 0;
+	}
+}
+
+
+// Sorting - using :before and :after with UTF8 characters
+table.dataTable > thead {
+	> tr {
+		> th,
+		> td {
+			&:active {
+				outline: none;
+			}
+
+			&:not(.sorting_disabled) {
+				padding-right: 30px;
+			}
+		}
+	}
+
+	.sorting,
+	.sorting_asc,
+	.sorting_desc,
+	.sorting_asc_disabled,
+	.sorting_desc_disabled {
+		cursor: pointer;
+		position: relative;
+
+		&:before,
+		&:after {
+			position: absolute;
+			bottom: 0.5em;
+			display: block;
+			opacity: 0.3;
+		}
+
+		&:before {
+			right: 1em;
+			content: "\2191"; // up arrow - ascending
+		}
+
+		&:after {
+			right: 0.5em;
+			content: "\2193"; // down arrow - descending
+		}
+	}
+
+	.sorting_asc:before,
+	.sorting_desc:after {
+		opacity: 1;
+	}
+
+	.sorting_asc_disabled:before,
+	.sorting_desc_disabled:after {
+		opacity: 0;
+	}
+}
+
+
+// Scrolling
+div.dataTables_scrollHead table.dataTable {
+	margin-bottom: 0 !important;
+}
+
+div.dataTables_scrollBody {
+	table {
+		border-top: none;
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+
+		thead { // Hide sort icons
+			.sorting:before,
+			.sorting_asc:before,
+			.sorting_desc:before,
+			.sorting:after,
+			.sorting_asc:after,
+			.sorting_desc:after {
+				display: none;
+			}
+		}
+
+		tbody tr:first-child th,
+		tbody tr:first-child td {
+			border-top: none;
+		}
+	}
+}
+
+div.dataTables_scrollFoot {
+	> .dataTables_scrollFootInner {
+		box-sizing: content-box;
+
+		> table {
+			margin-top: 0 !important;
+			border-top: none;
+		}
+	}
+}
+
+
+// Responsive
+@media screen and (max-width: 767px) {
+	div.dataTables_wrapper {
+		div.dataTables_length,
+		div.dataTables_filter,
+		div.dataTables_info,
+		div.dataTables_paginate {
+			text-align: center;
+		}
+
+		div.dataTables_paginate ul.pagination {
+			justify-content: center !important;
+		}
+	}
+}
+
+//
+// Bootstrap provides a range of styling options for table's via class name
+// that we want to full support. They sometimes require some customisations
+//
+
+// Condensed
+table.dataTable.table-sm {
+	> thead > tr > th:not(.sorting_disabled){
+		padding-right: 20px;
+	}
+
+	.sorting,
+	.sorting_asc,
+	.sorting_desc {
+		&:before {
+			top: 5px;
+			right: 0.85em;
+		}
+
+		&:after {
+			top: 5px;
+		}
+	}
+}
+
+
+// Frustratingly the border-collapse:collapse used by Bootstrap makes the column
+// width calculations when using scrolling impossible to align columns. We have
+// to use `border-collapse: separate`
+table.table-bordered.dataTable {
+	border-right-width: 0;
+
+	thead tr:first-child {
+		th,
+		td {
+			border-top-width: 1px;
+		}
+	}
+
+	th,
+	td {
+		border-left-width: 0;
+
+		&:first-child,
+		&:first-child {
+			border-left-width: 1px;
+		}
+
+		&:last-child,
+		&:last-child {
+			border-right-width: 1px;
+		}
+	}
+
+	th,
+	td {
+		border-bottom-width: 1px;
+	}
+}
+
+// Bordered table
+div.dataTables_scrollHead table.table-bordered {
+	border-bottom-width: 0;
+}
+
+// Responsive tables. We use rows inside the Bootstrap responsive wrapper,
+// so they need to have their margin and padding removed
+div.table-responsive > div.dataTables_wrapper > div.row {
+	margin: 0;
+
+	> div[class^="col-"] {
+		&:first-child {
+			padding-left: 0;
+		}
+		&:last-child {
+			padding-right: 0;
+		}
+	}
+}
+

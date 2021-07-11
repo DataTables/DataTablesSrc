@@ -1,3 +1,4 @@
+@import './common.scss';
 
 //
 // Functions / mixins
@@ -49,6 +50,17 @@ $jqueryui: false !default;
 	border-radius: 3px;
 	padding: 5px;
 	background-color: transparent;
+}
+
+//
+// Functions / mixins
+//
+@function tint( $color, $percent ) {
+	@return mix(white, $color, $percent);
+}
+
+@function shade( $color, $percent ) {
+	@return mix($table-shade, $color, $percent);
 }
 
 @mixin gradient( $from, $to ) {
@@ -313,7 +325,8 @@ div.dataTables_wrapper {
 
 	.dataTables_filter {
 		input {
-			margin-left: 0.5em;
+			@include table-input;
+			margin-left: 3px;
 		}
 	}
 

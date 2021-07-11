@@ -277,7 +277,7 @@ describe('renderer option page button functions', function() {
 
 	it('Arg 3 is an array of the buttons to be shown', function() {
 		expect(pageArgs[3][0]).toBe('previous');
-		expect($.isArray(pageArgs[3][1])).toBe(true);
+		expect(Array.isArray(pageArgs[3][1])).toBe(true);
 		expect(pageArgs[3][1][0]).toBe(0);
 		expect(pageArgs[3][1][1]).toBe(1);
 		expect(pageArgs[3][1].length).toBe(6);

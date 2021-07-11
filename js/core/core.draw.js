@@ -47,7 +47,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			cells.push( nTd );
 
 			// Need to create the HTML if new, or if a rendering function is defined
-			if ( create || ((!nTrIn || oCol.mRender || oCol.mData !== i) &&
+			if ( create || ((oCol.mRender || oCol.mData !== i) &&
 				 (!$.isPlainObject(oCol.mData) || oCol.mData._ !== i+'.display')
 			)) {
 				nTd.innerHTML = _fnGetCellData( oSettings, iRow, i, 'display' );
@@ -79,10 +79,6 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 
 		_fnCallbackFire( oSettings, 'aoRowCreatedCallback', null, [nTr, rowData, iRow, cells] );
 	}
-
-	// Remove once webkit bug 131819 and Chromium bug 365619 have been resolved
-	// and deployed
-	row.nTr.setAttribute( 'role', 'row' );
 }
 
 
@@ -276,9 +272,10 @@ function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
 /**
  * Insert the required TR nodes into the table for display
  *  @param {object} oSettings dataTables settings object
+ *  @param ajaxComplete true after ajax call to complete rendering
  *  @memberof DataTable#oApi
  */
-function _fnDraw( oSettings )
+function _fnDraw( oSettings, ajaxComplete )
 {
 	/* Provide a pre-callback function which can be used to cancel the draw is false is returned */
 	var aPreDraw = _fnCallbackFire( oSettings, 'aoPreDrawCallback', 'preDraw', [oSettings] );
@@ -327,8 +324,9 @@ function _fnDraw( oSettings )
 	{
 		oSettings.iDraw++;
 	}
-	else if ( !oSettings.bDestroying && !_fnAjaxUpdate( oSettings ) )
+	else if ( !oSettings.bDestroying && !ajaxComplete)
 	{
+		_fnAjaxUpdate( oSettings );
 		return;
 	}
 

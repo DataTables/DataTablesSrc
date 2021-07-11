@@ -112,19 +112,18 @@
     * `R` - [ColReorder](/extensions/colreorder)
     * `S` - [Scroller](/extensions/scroller)
     * `P` - [SearchPanes](/extensions/searchpanes)
+    * `Q` - [SearchBuilder](/extensions/searchbuilder)
 
     ]]>
   </description>
 
 	<example title="No filtering input control"><![CDATA[
 /* Results in:
-    <div class="wrapper">
-      {length}
-      {processing}
-      {table}
-      {information}
-      {pagination}
-    </div>
+    {length}
+    {processing}
+    {table}
+    {information}
+    {pagination}
 */
 $('#example').dataTable( {
   "dom": 'lrtip'
