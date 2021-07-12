@@ -100,7 +100,7 @@ var __details_display = function ( api, show ) {
 				$( row.nTr ).removeClass( 'dt-hasChild' );
 			}
 
-			_fnCallbackFire( ctx[0], null, 'childrow', [ show, api.row( api[0] ) ] )
+			_fnCallbackFire( ctx[0], null, 'childRow', [ show, api.row( api[0] ) ] )
 
 			__details_events( ctx[0] );
 			_fnSaveState( ctx[0] );
