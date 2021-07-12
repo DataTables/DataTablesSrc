@@ -10,7 +10,7 @@
 			jQuery event object
 		</parameter>
 		<parameter type="boolean" name="show">
-			Boolean, true if row is being shown, false if not.
+			Boolean, `true` if row is being shown, `false` if not.
 		</parameter>
 		<parameter type="DataTables Api" name="row">
 			The parent row instance that the child row is being displayed for.
