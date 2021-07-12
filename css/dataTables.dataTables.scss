@@ -55,14 +55,6 @@ $jqueryui: false !default;
 //
 // Functions / mixins
 //
-@function tint( $color, $percent ) {
-	@return mix(white, $color, $percent);
-}
-
-@function shade( $color, $percent ) {
-	@return mix($table-shade, $color, $percent);
-}
-
 @mixin gradient( $from, $to ) {
 	background-color: $from;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); /* Chrome,Safari4+ */

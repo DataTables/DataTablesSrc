@@ -22,28 +22,6 @@ function _fnState ( settings )
 		} )
 	};
 
-<<<<<<< HEAD
-	_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
-
-	return state;
-}
-
-/**
- * Save the state of a table
- *  @param {object} oSettings dataTables settings object
- *  @memberof DataTable#oApi
- */
-function _fnSaveState ( settings )
-{
-	if ( !settings.oFeatures.bStateSave || settings.bDestroying )
-	{
-		return;
-	}
-
-	var state = _fnState( settings );
-
-=======
->>>>>>> origin/cash
 	settings.oSavedState = state;
 	_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
 	

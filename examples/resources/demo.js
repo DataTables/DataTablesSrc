@@ -19,7 +19,7 @@ if ( window.$ ) {
 
 		// css
 		var cssContainer = $('div.tabs div.css');
-		if ( $.trim( cssContainer.find('code').text() ) === '' ) {
+		if ( cssContainer.find('code').text() === '' ) {
 			cssContainer.find('code, div').css('display', 'none');
 			cssContainer.find('p').eq(0).css('display', 'none');
 		}

@@ -440,12 +440,7 @@ _fnCallbackReg( oSettings, 'aoDrawCallback', _fnSaveState, 'state_save' );
 if ( oInit.bStateSave )
 {
 	features.bStateSave = true;
-<<<<<<< HEAD
-	_fnCallbackReg( oSettings, 'aoDrawCallback', _fnSaveState, 'state_save' );
-	_fnLoadState( oSettings, loadedInit );
-=======
 	_fnLoadState( oSettings, oInit, loadedInit );
->>>>>>> origin/cash
 }
 else {
 	loadedInit();
