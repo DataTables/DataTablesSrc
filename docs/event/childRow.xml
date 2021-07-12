@@ -45,8 +45,8 @@ $('#example').DataTable( {
 } );
 
 $('#example').on('childRow.dt', function(e, show, row) {
-	console.log((show ? "Showing " : "Hiding ") + "row :" + row)
-})
+	console.log((show ? "Showing " : "Hiding ") + "row " + row.index());
+});
 ]]></example>
 
 </dt-event>
