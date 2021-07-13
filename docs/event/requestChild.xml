@@ -10,7 +10,7 @@
 			jQuery event object
 		</parameter>
 		<parameter type="DataTables Api" name="row">
-			The parent row instance that the child row is attmepting to display.
+			The parent row instance that the child row is attempting to display.
 		</parameter>
 		<parameter type="integer" name="idx">
 			The index of the parent row.
@@ -19,7 +19,7 @@
 	</type>
 
 	<description>
-		When `-init stateSave` is active, the `-event requestChild` is triggered when datatables wants to insert a child row into the table. In this case, a listener has to be set that will implement the insertion of the child row. DataTables cannot handle this as it does not know how to present the data to the user. If no implementation is provided then child rows will not integrate with `-init stateSave`.
+		When `-init stateSave` is active, the `-event requestChild` is triggered when DataTables wants to insert a child row into the table. In this case, a listener has to be set that will implement the insertion of the child row. DataTables cannot handle this as it does not know how to present the data to the user. If no implementation is provided then child rows will not integrate with `-init stateSave`.
 
 		The function is passed the row that is being requested to show the child row. In order to identify the correct row, row ids must be set for the table.
 

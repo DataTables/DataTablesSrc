@@ -18,8 +18,7 @@ describe('core - events - childRow', function () {
 			expect(params).toBe(undefined);
 		});
 		it('Called when child shown', function () {
-			table.row(2).child('TEST');
-			table.row(2).child.show();
+			table.row(2).child('TEST').show();
 
 			expect(params.length).toBe(3);
 			expect(params[0] instanceof $.Event).toBe(true);
@@ -48,8 +47,7 @@ describe('core - events - childRow', function () {
 				params = arguments;
 			});
 
-			table.row(2).child('TEST');
-			table.row(2).child.show();
+			table.row(2).child('TEST').show();
 
 			expect(params[0].type).toBe('childRow');
 			expect(params[1]).toBe(true);
