@@ -98,7 +98,7 @@ var table = $('#example').DataTable({
 	]
 );
 
-var saleries = table
+var salaries = table
 	.rows()
 	.data()
 	.pluck( 'hr' )

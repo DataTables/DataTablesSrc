@@ -34,7 +34,7 @@
 		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
-	<example title="Notify when column visiblity is changed"><![CDATA[
+	<example title="Notify when column visibility is changed"><![CDATA[
 $('#example').dataTable();
 
 $('#example').on( 'column-visibility.dt', function ( e, settings, column, state ) {

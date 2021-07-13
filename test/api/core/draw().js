@@ -20,7 +20,7 @@ describe('core - draw()', function() {
 
 	describe('Basic tests', function() {
 		dt.html('basic');
-		it('Table only updates afer a draw', function() {
+		it('Table only updates after a draw', function() {
 			let table = $('#example').DataTable();
 
 			table.page(1);

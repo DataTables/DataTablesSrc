@@ -20,7 +20,7 @@
 			DataTables settings object (`dt-type DataTables.Settings`).
 		</parameter>
 		<parameter type="integer" name="techNote">
-			Technical note reference which contains detailed information about the error that has occured - this can be found at `https://datatables.net/tn/{techNote}`.
+			Technical note reference which contains detailed information about the error that has occurred - this can be found at `https://datatables.net/tn/{techNote}`.
 		</parameter>
 		<parameter type="string" name="message">
 			Error message

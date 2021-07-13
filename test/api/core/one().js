@@ -69,7 +69,7 @@ describe('core - one()', function() {
 		});
 
 		dt.html('basic');
-		it('Single event doesnt trigger if not listened to', function() {
+		it('Single event does not trigger if not listened to', function() {
 			expect(checkEvents('length.dt', 1, 0)).toBe(true);
 		});
 

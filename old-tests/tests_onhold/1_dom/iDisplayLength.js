@@ -66,7 +66,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnTest( 
-		"Select menu shows 10 (since 23 is unknow)",
+		"Select menu shows 10 (since 23 is unknown)",
 		null,
 		function () { return $('#example_length select').val() == 10; }
 	);

@@ -32,7 +32,7 @@ describe('language.search option', function() {
 		});
 
 		dt.html('basic');
-		it('Blank search has no (seperator) inserted', function() {
+		it('Blank search has no (separator) inserted', function() {
 			$('#example').dataTable({
 				language: {
 					search: ''

@@ -27,7 +27,7 @@ describe('columns.className option', function() {
 		it('Add a class to a single column- has not applied to other columns- 1st', function() {
 			expect($('#example tbody tr:eq(3) td:eq(0)').hasClass('unittest')).toBe(false);
 		});
-		it('Add a class to a sinlge column- has not applied to other columns- 5th', function() {
+		it('Add a class to a single column- has not applied to other columns- 5th', function() {
 			expect($('#example tbody tr:eq(3) td:eq(4)').hasClass('unittest')).toBe(false);
 		});
 		it('Add a class to a single column- has not applied to header', function() {

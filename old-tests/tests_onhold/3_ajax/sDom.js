@@ -11,7 +11,7 @@ $(document).ready( function () {
 	var oSettings = oTable.fnSettings();
 	
 	oTest.fnWaitTest( 
-		"Default DOM varaible",
+		"Default DOM variable",
 		null,
 		function () { return oSettings.sDom == "lfrtip"; }
 	);

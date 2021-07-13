@@ -25,7 +25,7 @@ describe('language.infoPostFix option', function() {
 			});
 			expect(table.settings()[0].oLanguage.sInfoPostFix).toBe('unit test');
 		});
-		it('Info empty lanuage default is in the dom', function() {
+		it('Info empty language default is in the dom', function() {
 			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entriesunit test');
 		});
 

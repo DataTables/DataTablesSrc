@@ -13,7 +13,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnTest( 
-		"Remove the first data row, and check that hte search data has been updated",
+		"Remove the first data row, and check that the search data has been updated",
 		function () { oTable.fnDeleteRow( $('#example tbody tr')[0] ); },
 		function () { return $('#example tbody td:eq(1)').text() == 'Firefox 1.5'; }
 	);

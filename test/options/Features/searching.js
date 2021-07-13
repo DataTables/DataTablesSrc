@@ -48,7 +48,7 @@ describe('searching option', function() {
 		});
 	});
 
-	// the following tests are historical - a bit verbose and not focussed on the option, but does no harm to leave in
+	// the following tests are historical - a bit verbose and not focused on the option, but does no harm to leave in
 	describe('Check searches', function() {
 		dt.html('basic');
 		it('searching enabled by default- DOM', function() {
@@ -71,7 +71,7 @@ describe('searching option', function() {
 			).toBeTruthy();
 		});
 
-		it('Can search multiple space seperated words- DOM', function() {
+		it('Can search multiple space separated words- DOM', function() {
 			$('div.dataTables_filter input')
 				.val('New 3')
 				.keyup();
@@ -80,7 +80,7 @@ describe('searching option', function() {
 			).toBeTruthy();
 		});
 
-		it('Can search multiple space seperated words- API', function() {
+		it('Can search multiple space separated words- API', function() {
 			$('#example')
 				.DataTable()
 				.search('New 3')
@@ -120,7 +120,7 @@ describe('searching option', function() {
 		dt.html('basic');
 		it('Searching enabled override- DOM', function() {
 			$('#example').dataTable({
-				seaching: true
+				searching: true
 			});
 			$('div.dataTables_filter input')
 				.val('New 3')

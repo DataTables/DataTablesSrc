@@ -105,7 +105,7 @@ var _selector_row_indexes = function ( settings, opts )
 			_range( 0, displayMaster.length );
 	}
 	else if ( page == 'current' ) {
-		// Current page implies that order=current and fitler=applied, since it is
+		// Current page implies that order=current and filter=applied, since it is
 		// fairly senseless otherwise, regardless of what order and search actually
 		// are
 		for ( i=settings._iDisplayStart, ien=settings.fnDisplayEnd() ; i<ien ; i++ ) {
