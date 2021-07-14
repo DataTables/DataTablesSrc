@@ -5,7 +5,7 @@
  * @param {*} settings
  * @returns State object
  */
-function _fnState ( settings )
+function _fnSaveState ( settings )
 {
 	/* Store the interesting variables */
 	var state = {

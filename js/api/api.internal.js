@@ -106,7 +106,7 @@ $.extend( DataTable.ext.internal, {
 	//_fnSortAttachListener: _fnSortAttachListener,
 	_fnSortingClasses: _fnSortingClasses,
 	_fnSortData: _fnSortData,
-	_fnState: _fnState,
+	_fnSaveState: _fnSaveState,
 	_fnLoadState: _fnLoadState,
 	_fnSettingsFromNode: _fnSettingsFromNode,
 	_fnLog: _fnLog,
