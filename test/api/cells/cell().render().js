@@ -157,7 +157,7 @@ describe('cells - cell().render()', function() {
 		});
 	});
 
-	describe('Functional tests - orthoganal data - object', function() {
+	describe('Functional tests - orthogonal data - object', function() {
 		const cellObject = {
 			default: 'Aaron',
 			display: 'Aaron',
@@ -279,7 +279,7 @@ describe('cells - cell().render()', function() {
 		});
 	});
 
-	describe('Functional tests - orthoganal data - HTML5 filter', function() {
+	describe('Functional tests - orthogonal data - HTML5 filter', function() {
 		const cellObject = {
 			default: 'Aaron',
 			display: 'Aaron',

@@ -1,7 +1,7 @@
 // DATA_TEMPLATE: js_data
 oTest.fnStart( "oLanguage.oPaginate" );
 
-/* Note that the paging language information only has relevence in full numbers */
+/* Note that the paging language information only has relevance in full numbers */
 
 $(document).ready( function () {
 	/* Check the default */

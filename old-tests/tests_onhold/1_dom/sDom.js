@@ -9,7 +9,7 @@ $(document).ready( function () {
 	var oSettings = oTable.fnSettings();
 	
 	oTest.fnTest( 
-		"Default DOM varaible",
+		"Default DOM variable",
 		null,
 		function () { return oSettings.sDom == "lfrtip"; }
 	);

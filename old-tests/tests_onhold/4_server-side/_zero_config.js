@@ -69,7 +69,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnWaitTest( 
-		"Initial sort occured",
+		"Initial sort occurred",
 		null,
 		function () { return $('#example tbody td:eq(0)').html() == "Gecko"; }
 	);
@@ -367,7 +367,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnWaitTest(
-		"Filter 'Win XP' - maintaing reverse sorting col 1",
+		"Filter 'Win XP' - maintaining reverse sorting col 1",
 		function () { $('#example_filter input').val("Win XP").keyup(); },
 		function () { return $('#example tbody tr:eq(0) td:eq(1)').html() == "Internet Explorer 7"; }
 	);
