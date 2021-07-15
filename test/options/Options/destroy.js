@@ -12,7 +12,7 @@ describe('destroy option', function() {
 		});
 
 		dt.html('basic');
-		it('No error if table non-existant before', function() {
+		it('No error if table non-existent before', function() {
 			let table = $('#example').DataTable({
 				destroy: true
 			});

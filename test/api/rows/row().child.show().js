@@ -40,7 +40,7 @@ describe('rows - row().child.show()', function() {
 		});
 
 		dt.html('basic');
-		it('Show when child doesnt exist', function() {
+		it('Show when child does not exist', function() {
 			table = $('#example').DataTable();
 			table.row(2).child.show();
 			expect($('#example tbody tr').length).toBe(10);

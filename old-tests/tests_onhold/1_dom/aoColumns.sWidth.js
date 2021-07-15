@@ -1,7 +1,7 @@
 // DATA_TEMPLATE: dom_data
 oTest.fnStart( "aoColumns.sWidth" );
 
-/* NOTE - we need to disable the auto width for the majority of these test in order to preform 
+/* NOTE - we need to disable the auto width for the majority of these test in order to perform
  * these tests as the auto width will convert the width to a px value. We can do 'non-exact' tests
  * with auto width enabled however to ensure it scales columns as required
  */

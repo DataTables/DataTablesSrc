@@ -919,7 +919,7 @@ declare namespace DataTables {
          * Get the DataTables cached data for the selected column(s)
          *
          * @param type Specify which cache the data should be read from. Can take one of two values: search or order
-         * @return DataTables Api isntance with an caches data for the selected column(s)
+         * @return DataTables Api instance with an caches data for the selected column(s)
          */
         cache(type: string): Api<any>;
 

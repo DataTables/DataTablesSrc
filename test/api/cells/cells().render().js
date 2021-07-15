@@ -36,7 +36,7 @@ describe('cells - cells().render()', function() {
 		});
 	});
 
-	describe('Functional tests - no orthoganal data', function() {
+	describe('Functional tests - no orthogonal data', function() {
 		dt.html('basic');
 		it('Source data', function() {
 			table = $('#example').DataTable();
@@ -264,7 +264,7 @@ describe('cells - cells().render()', function() {
 		});
 	});
 
-	describe('Functional tests - orthoganal data - HTML5 filter', function() {
+	describe('Functional tests - orthogonal data - HTML5 filter', function() {
 		const cellObject = {
 			default: 'Aaron',
 			display: 'Aaron',

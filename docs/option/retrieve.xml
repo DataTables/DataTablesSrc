@@ -13,7 +13,7 @@
 		The `dt-init destroy` option can be used to reinitialise a table with different options if required.
 	</description>
 
-	<example title="Retrieve DataTable instance for an exisiting table"><![CDATA[
+	<example title="Retrieve DataTable instance for an existing table"><![CDATA[
 $(document).ready( function() {
   initTable();
   tableActions();

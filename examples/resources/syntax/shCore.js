@@ -35,7 +35,7 @@ var sh = {
          * Pads line numbers. Possible values are:
          *
          *   false - don't pad line numbers.
-         *   true  - automaticaly pad numbers with minimum required number of leading zeroes.
+         *   true  - automatically pad numbers with minimum required number of leading zeroes.
          *   [int] - length up to which pad line numbers.
          */
         'pad-line-numbers' : false,
@@ -945,7 +945,7 @@ function fixInputString(str)
 };
 
 /**
- * Removes all white space at the begining and end of a string.
+ * Removes all white space at the beginning and end of a string.
  *
  * @param {String} str   String to trim.
  * @return {String}      Returns string without leading and following white space characters.
@@ -986,7 +986,7 @@ function unindent(str)
         min = Math.min(matches[0].length, min);
     }
 
-    // trim minimum common number of white space from the begining of every line
+    // trim minimum common number of white space from the beginning of every line
     if (min > 0)
         for (var i = 0, l = lines.length; i < l; i++)
             lines[i] = lines[i].substr(min);
@@ -1349,7 +1349,7 @@ sh.Highlighter.prototype = {
 
     /**
      * Checks to see if any of the matches are inside of other matches.
-     * This process would get rid of highligted strings inside comments,
+     * This process would get rid of highlighted strings inside comments,
      * keywords inside strings and so on.
      */
     removeNestedMatches: function(matches)
@@ -1527,7 +1527,7 @@ sh.Highlighter.prototype = {
      * Finds all matches in the source code.
      * @param {String} code     Source code to process matches in.
      * @param {Array} matches   Discovered regex matches.
-     * @return {String} Returns formatted HTML with processed mathes.
+     * @return {String} Returns formatted HTML with processed matches.
      */
     getMatchesHtml: function(code, matches)
     {
@@ -1686,7 +1686,7 @@ sh.Highlighter.prototype = {
      * Initializes the highlighter/brush.
      *
      * Constructor isn't used for initialization so that nothing executes during necessary
-     * `new SyntaxHighlighter.Highlighter()` call when setting up brush inheritence.
+     * `new SyntaxHighlighter.Highlighter()` call when setting up brush inheritance.
      *
      * @param {Hash} params Highlighter parameters.
      */

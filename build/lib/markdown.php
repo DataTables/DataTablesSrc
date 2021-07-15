@@ -542,7 +542,7 @@ class Markdown_Parser {
 	# a unique text-token which will be reverted back when calling unhash.
 	#
 	# The $boundary argument specify what character should be used to surround
-	# the token. By convension, "B" is used for block elements that needs not
+	# the token. By convention, "B" is used for block elements that needs not
 	# to be wrapped into paragraph tags at the end, ":" is used for elements
 	# that are word separators and "X" is used in the general case.
 	#
@@ -581,11 +581,11 @@ class Markdown_Parser {
 
 	function runBlockGamut($text) {
 	#
-	# Run block gamut tranformations.
+	# Run block gamut transformations.
 	#
 		# We need to escape raw HTML in Markdown source before doing anything 
 		# else. This need to be done for each block, and not only at the 
-		# begining in the Markdown function since hashed blocks can be part of
+		# beginning in the Markdown function since hashed blocks can be part of
 		# list items and could have been indented. Indented blocks would have 
 		# been seen as a code block in a previous pass of hashHTMLBlocks.
 		$text = $this->hashHTMLBlocks($text);
@@ -595,7 +595,7 @@ class Markdown_Parser {
 	
 	function runBasicBlockGamut($text) {
 	#
-	# Run block gamut tranformations, without hashing HTML blocks. This is 
+	# Run block gamut transformations, without hashing HTML blocks. This is
 	# useful when HTML blocks are known to be already hashed, like in the first
 	# whole-document pass.
 	#
@@ -654,7 +654,7 @@ class Markdown_Parser {
 
 	function runSpanGamut($text) {
 	#
-	# Run span gamut tranformations.
+	# Run span gamut transformations.
 	#
 		foreach ($this->span_gamut as $method => $priority) {
 			$text = $this->$method($text);
@@ -1528,7 +1528,7 @@ class Markdown_Parser {
 
 	function parseSpan($str) {
 	#
-	# Take the string $str and parse it into tokens, hashing embeded HTML,
+	# Take the string $str and parse it into tokens, hashing embedded HTML,
 	# escaped characters and handling code spans.
 	#
 		$output = '';
@@ -1557,8 +1557,8 @@ class Markdown_Parser {
 
 		while (1) {
 			#
-			# Each loop iteration seach for either the next tag, the next 
-			# openning code span marker, or the next escaped character. 
+			# Each loop iteration search for either the next tag, the next
+			# opening code span marker, or the next escaped character.
 			# Each token is then passed to handleSpanToken.
 			#
 			$parts = preg_split($span_re, $str, 2, PREG_SPLIT_DELIM_CAPTURE);
@@ -1615,7 +1615,7 @@ class Markdown_Parser {
 
 
 	# String length function for detab. `_initDetab` will create a function to 
-	# hanlde UTF-8 if the default function does not exist.
+	# handle UTF-8 if the default function does not exist.
 	var $utf8_strlen = 'mb_strlen';
 	
 	function detab($text) {
@@ -1842,7 +1842,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	#
 		if ($text === '') return array('', '');
 
-		# Regex to check for the presense of newlines around a block tag.
+		# Regex to check for the presence of newlines around a block tag.
 		$newline_before_re = '/(?:^\n?|\n\n)*$/';
 		$newline_after_re = 
 			'{
@@ -2093,7 +2093,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 				)
 			}xs';
 		
-		$original_text = $text;		# Save original text in case of faliure.
+		$original_text = $text;		# Save original text in case of failure.
 		
 		$depth		= 0;	# Current depth inside the tag tree.
 		$block_text	= "";	# Temporary text holder for current text.
@@ -2219,7 +2219,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	function hashClean($text) {
 	#
 	# Called whenever a tag must be hashed when a function insert a "clean" tag
-	# in $text, it pass through this function and is automaticaly escaped, 
+	# in $text, it pass through this function and is automatically escaped,
 	# blocking invalid nested overlap.
 	#
 		return $this->hashPart($text, 'C');
@@ -2367,7 +2367,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 		$underline	= preg_replace('/[|] *$/m', '', $underline);
 		$content	= preg_replace('/[|] *$/m', '', $content);
 		
-		# Reading alignement from header underline.
+		# Reading alignment from header underline.
 		$separators	= preg_split('/ *[|] */', $underline);
 		foreach ($separators as $n => $s) {
 			if (preg_match('/^ *-+: *$/', $s))		$attr[$n] = ' align="right"';
@@ -2757,7 +2757,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 		# Create footnote marker only if it has a corresponding footnote *and*
 		# the footnote hasn't been used by another marker.
 		if (isset($this->footnotes[$node_id])) {
-			# Transfert footnote content to the ordered list.
+			# Transfer footnote content to the ordered list.
 			$this->footnotes_ordered[$node_id] = $this->footnotes[$node_id];
 			unset($this->footnotes[$node_id]);
 			

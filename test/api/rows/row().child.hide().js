@@ -38,7 +38,7 @@ describe('rows - row().child.hide()', function() {
 		});
 
 		dt.html('basic');
-		it('Hide when child doesnt exist', function() {
+		it('Hide when child does not exist', function() {
 			table = $('#example').DataTable();
 			table.row(2).child.hide();
 			expect($('#example tbody tr').length).toBe(10);

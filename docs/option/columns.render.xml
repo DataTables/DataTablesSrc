@@ -87,7 +87,7 @@
 		There are three special values that `dt-init columns.render` can resolve to:
 
 		* `-type undefined` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, an error will be given.
-		* `-type null` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty sting will be used. `-type null` will be used for all other data types.
+		* `-type null` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty string will be used. `-type null` will be used for all other data types.
 		* `-type function` - the function will be executed and the returned value used. As of DataTables <span class="since">1.10.1</span> the function will be executed in the same scope as the data object for the row. The result of this is that an object instance can be used as the data source for a row. See the examples below for how to use an instance with DataTables.
 
 

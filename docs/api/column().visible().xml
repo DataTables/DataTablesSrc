@@ -26,7 +26,7 @@
 		Showing and hiding columns in a DataTable can be quite handy, particularly when showing tables with a large information density. This method allows the visibility of a single column to be changed on-the-fly, or the visibility state of a column to be read.
 	</description>
 
-	<example title="Get the visiblity status of column index 0"><![CDATA[
+	<example title="Get the visibility status of column index 0"><![CDATA[
 var table = $('#example').DataTable();
 
 alert( 'Column index 0 is '+

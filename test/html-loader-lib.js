@@ -269,10 +269,10 @@
 
 		// check array for column visibility (default is visible)
 		areColumnsInvisible: function (colArray) {
-			let visiblity = $('#example').DataTable().columns().visible();
+			let visibility = $('#example').DataTable().columns().visible();
 
 			for (let i = 0; i < 6; i++) {
-				if (visiblity[i] == colArray.includes(i)) {
+				if (visibility[i] == colArray.includes(i)) {
 					return false;
 				}
 			}
@@ -345,7 +345,7 @@
 			return JSON.parse(JSON.stringify(this._testEditorFields));
 		},
 
-		// make a person object (as pain to do everytime in the test)
+		// make a person object (as pain to do every time in the test)
 		makePersonObject: function (name) {
 			return {
 				name: name,
