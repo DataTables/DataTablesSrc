@@ -36,7 +36,7 @@ function format ( d ) {
 
 $(document).ready(function() {
 	// Add event listener for opening and closing details
-	$('#example tbody').on('click', 'td.dt-control', function () {
+	$('#example').on('click', 'tbody td.dt-control', function () {
 		var tr = $(this).closest('tr');
 		var row = table.row( tr );
 
