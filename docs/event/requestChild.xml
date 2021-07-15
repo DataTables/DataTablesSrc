@@ -12,9 +12,6 @@
 		<parameter type="DataTables Api" name="row">
 			The parent row instance that the child row is attempting to display.
 		</parameter>
-		<parameter type="integer" name="idx">
-			The index of the parent row.
-		</parameter>
 		<scope>HTML table element</scope>
 	</type>
 
@@ -27,7 +24,7 @@
 	</description>
 
 	<example title="Display the child row using a formatter"><![CDATA[
-$('#example').on('requestChild.dt', function(e, row, idx) {
+$('#example').on('requestChild.dt', function(e, row) {
 	row.child(format(row.data())).show();
 })
 
