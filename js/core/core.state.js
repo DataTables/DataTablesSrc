@@ -39,7 +39,7 @@ function _fnSaveState ( settings )
  *  @param {function} callback Callback to execute when the state has been loaded
  *  @memberof DataTable#oApi
  */
-function _fnLoadState ( settings, callback, state )
+function _fnLoadState ( settings, init, callback )
 {
 	var i, ien;
 	var columns = settings.aoColumns;
@@ -134,14 +134,12 @@ function _fnLoadState ( settings, callback, state )
 		callback();
 	};
 
-	if ( ! state ) {
-		if ( ! settings.oFeatures.bStateSave ) {
-			callback();
-			return;
-		}
-
-		state = settings.fnStateLoadCallback.call( settings.oInstance, settings, loaded );
+	if ( ! settings.oFeatures.bStateSave ) {
+		callback();
+		return;
 	}
+
+	var state = settings.fnStateLoadCallback.call( settings.oInstance, settings, loaded );
 
 	if ( state !== undefined ) {
 		loaded( state );
