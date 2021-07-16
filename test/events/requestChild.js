@@ -56,7 +56,7 @@ describe('core - events - requestChild', function () {
 		});
 
 		dt.html('empty');
-		it('Not called on table initialisation if no opened rows', function (done) {
+		it('Called on table initialisation if opened rows', function (done) {
 			table = $('#example')
 				.on('requestChild.dt', function () {
 					params = arguments;
