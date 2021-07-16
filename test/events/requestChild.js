@@ -56,7 +56,7 @@ describe('core - events - requestChild', function () {
 		});
 
 		dt.html('empty');
-		it('Called on table initialisation if no opened rows', function (done) {
+		it('Not called on table initialisation if no opened rows', function (done) {
 			table = $('#example')
 				.on('requestChild.dt', function () {
 					params = arguments;
@@ -67,21 +67,19 @@ describe('core - events - requestChild', function () {
 					stateSave: true,
 					rowId: 'ID',
 					initComplete: function () {
-						// expect(params).not.toBe(undefined);
+						expect(params).not.toBe(undefined);
 						done();
 					}
 				});
 		});
 		it('Check parameter types', function () {
-			// expect(params.length).toBe(3);
+			expect(params.length).toBe(2);
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1] instanceof $.fn.dataTable.Api).toBe(true);
-			// expect(typeof params[2]).toBe('number');
 		});
 		it('Check parameters', function () {
 			expect(params[0].type).toBe('requestChild');
 			expect(params[1].index()).toBe(2);
-			// expect(params[2]).toBe(2);
 		});
 		it('Open child rows', function () {
 			table.row(2).child('TEST').show();
