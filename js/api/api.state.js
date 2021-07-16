@@ -6,7 +6,7 @@ _api_register( 'state()', function ( set, ignoreTime ) {
 	// getter
 	if ( ! set ) {
 		return this.context.length ?
-			_fnState( this.context[0] ) :
+			this.context[0].oSavedState :
 			null;
 	}
 
