@@ -1,11 +1,61 @@
+/**
+ * Given a sort identifier, converts to an ordinary, numeric index into the columns option. We will try to find a
+ * match for it in settinsg.aoColumns by checking for identifiers in this order:
+ * 	1. name
+ * 	2. an id on the <th> element
+ * 	3. data, but only if it's a string
+ *
+ * @param {object} settings dataTables settings object
+ * @param {string|number} sortId
+ * @returns {number}
+ * @private
+ */
+function _fnColumnIdToColumnIndex ( settings, columnId)
+{
+	if(typeof columnId != "number") {
+		var i;
+		for (i = 0; i < (settings.aoColumns || []).length; i++) {
+			var oCol = settings.aoColumns[i];
+			if ([
+					oCol.mName,
+					$(oCol.nTh).attr('id'),
+					oCol.mData
+				].indexOf(columnId) !== -1) {
+				return i;
+			}
+		}
+	}
+	return columnId;
+}
 
+/**
+ * The inverse of _fnColumnIdToColumnIndex. Given a physical column index, try to convert it to a logical id by
+ * finding the column definition in settings.aoColumns, and checking for something we can interpret as an id in
+ * this order:
+ * 	1. name
+ * 	2. an id on the <th> element
+ * 	3. data, but only if it's a string
+ *
+ * @param {object} settings dataTables settings object
+ * @param {number} columnIndex
+ * @returns {number|string} A logical column id string. If one can't be found, then the original numeric index.
+ * @private
+ */
+function _fnColumnIndexToColumnId ( settings, columnIdx)
+{
+	if(typeof columnIdx != "string") {
+		var oCol = settings.aoColumns[columnIdx];
+		return (oCol.name || $(oCol.nTh).attr('id')) || (typeof(oCol.data) === "string" && oCol.data) || "";
+	}
+
+	return columnIdx;
+}
 
 function _fnSortFlatten ( settings )
 {
 	var
-		i, iLen, k, kLen,
+		i, k, kLen,
 		aSort = [],
-		aiOrig = [],
 		aoColumns = settings.aoColumns,
 		aDataSort, iCol, sType, srcCol,
 		fixed = settings.aaSortingFixed,
@@ -40,12 +90,12 @@ function _fnSortFlatten ( settings )
 
 	for ( i=0 ; i<nestedSort.length ; i++ )
 	{
-		srcCol = nestedSort[i][0];
+		srcCol = _fnColumnIdToColumnIndex(settings, nestedSort[i][0]);
 		aDataSort = aoColumns[ srcCol ].aDataSort;
 
 		for ( k=0, kLen=aDataSort.length ; k<kLen ; k++ )
 		{
-			iCol = aDataSort[k];
+			iCol = _fnColumnIdToColumnIndex(settings, aDataSort[k]);
 			sType = aoColumns[ iCol ].sType || 'string';
 
 			if ( nestedSort[i]._idx === undefined ) {
@@ -75,13 +125,10 @@ function _fnSortFlatten ( settings )
 function _fnSort ( oSettings )
 {
 	var
-		i, ien, iLen, j, jLen, k, kLen,
-		sDataType, nTh,
+		i, ien, iLen,
 		aiOrig = [],
 		oExtSort = DataTable.ext.type.order,
 		aoData = oSettings.aoData,
-		aoColumns = oSettings.aoColumns,
-		aDataSort, data, iCol, sType, oSort,
 		formatters = 0,
 		sortCol,
 		displayMaster = oSettings.aiDisplayMaster,
@@ -168,7 +215,7 @@ function _fnSort ( oSettings )
 			// methods.
 			displayMaster.sort( function ( a, b ) {
 				var
-					x, y, k, l, test, sort, fn,
+					x, y, k, test, sort, fn,
 					len=aSort.length,
 					dataA = aoData[a]._aSortData,
 					dataB = aoData[b]._aSortData;
@@ -255,6 +302,7 @@ function _fnSortAria ( settings )
  */
 function _fnSortListener ( settings, colIdx, append, callback )
 {
+	var columnId = _fnColumnIndexToColumnId(settings, colIdx);
 	var col = settings.aoColumns[ colIdx ];
 	var sorting = settings.aaSorting;
 	var asSorting = col.asSorting;
@@ -280,7 +328,7 @@ function _fnSortListener ( settings, colIdx, append, callback )
 	// If appending the sort then we are multi-column sorting
 	if ( append && settings.oFeatures.bSortMulti ) {
 		// Are we already doing some kind of sort on this column?
-		var sortIdx = $.inArray( colIdx, _pluck(sorting, '0') );
+		var sortIdx = $.inArray( columnId, _pluck(sorting, '0') );
 
 		if ( sortIdx !== -1 ) {
 			// Yes, modify the sort
@@ -300,11 +348,11 @@ function _fnSortListener ( settings, colIdx, append, callback )
 		}
 		else {
 			// No sort on this column yet
-			sorting.push( [ colIdx, asSorting[0], 0 ] );
+			sorting.push( [ columnId, asSorting[0], 0 ] );
 			sorting[sorting.length-1]._idx = 0;
 		}
 	}
-	else if ( sorting.length && sorting[0][0] == colIdx ) {
+	else if ( sorting.length && sorting[0][0] == columnId ) {
 		// Single column - already sorting on this column, modify the sort
 		nextSortIdx = next( sorting[0] );
 
@@ -315,7 +363,7 @@ function _fnSortListener ( settings, colIdx, append, callback )
 	else {
 		// Single column - sort only on this column
 		sorting.length = 0;
-		sorting.push( [ colIdx, asSorting[0] ] );
+		sorting.push( [ columnId, asSorting[0] ] );
 		sorting[0]._idx = 0;
 	}
 
