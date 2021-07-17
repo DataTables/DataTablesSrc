@@ -702,8 +702,9 @@ DataTable.defaults = {
 	/**
 	 * Allows control over whether DataTables should use the top (true) unique
 	 * cell that is found for a single column, or the bottom (false - default).
+	 * If an integer is provided, order controls will be inserted into a header row with given index.
 	 * This is useful when using complex headers.
-	 *  @type boolean
+	 *  @type boolean | integer
 	 *  @default false
 	 *
 	 *  @dtopt Options
