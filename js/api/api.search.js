@@ -50,7 +50,12 @@ _api_registerPlural(
 				"bCaseInsensitive": caseInsen === null ? true : caseInsen
 			} );
 
-			_fnFilterComplete( settings, settings.oPreviousSearch, 1 );
+            _fnFilterComplete( settings, $.extend( {}, settings.oPreviousSearch, {
+                "sSearch": input+"",
+                "bRegex":  regex === null ? false : regex,
+                "bSmart":  smart === null ? true  : smart,
+                "bCaseInsensitive": caseInsen === null ? true : caseInsen
+            } ), 1 );
 		} );
 	}
 );
