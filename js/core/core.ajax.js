@@ -76,6 +76,7 @@ function _fnBuildAjax( oSettings, data, fn )
 
 		// Remove the data property as we've resolved it already and don't want
 		// jQuery to do it again (it is restored at the end of the function)
+		ajax.data = null; // or undefined - for IE / Safari
 		delete ajax.data;
 	}
 
@@ -136,8 +137,10 @@ function _fnBuildAjax( oSettings, data, fn )
 		// Object to extend the base settings
 		oSettings.jqXHR = $.ajax( $.extend( baseAjax, ajax ) );
 
-		// Restore for next time around
-		ajax.data = ajaxData;
+		if (ajax && ajaxData) {
+			// Restore for next time around
+			ajax.data = ajaxData;
+		}
 	}
 }
 

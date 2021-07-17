@@ -1,6 +1,11 @@
 
 
 var __reload = function ( settings, holdPosition, callback ) {
+	// Not an ajax source - abort
+	if ( settings.ajax == null ) {
+		return;
+	}
+
 	// Use the draw event to trigger a callback
 	if ( callback ) {
 		var api = new _Api( settings );
