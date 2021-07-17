@@ -51,6 +51,8 @@ DataTable.defaults.column = {
 	"aDataSort": null,
 	"iDataSort": -1,
 
+	ariaTitle: '',
+
 
 	/**
 	 * You can control the default ordering direction, and even alter the

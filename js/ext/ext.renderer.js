@@ -22,9 +22,13 @@ $.extend( true, DataTable.ext.renderer, {
 				}
 
 				var columns = ctx.api.columns( cell );
+				var col = settings.aoColumns[columns[0]];
 
 				// First - are any of the columns under this cell actually sortable
 				if ( ! columns.orderable().includes(true) ) {
+					// Non-sorting actions
+					cell.attr('aria-label', col.ariaTitle);
+
 					return;
 				}
 
@@ -60,11 +64,11 @@ $.extend( true, DataTable.ext.renderer, {
 				// The ARIA spec says that only one column should be marked with aria-sort
 				if ( sortIdx === 0 && orderedColumns.length === indexes.count() ) {
 					cell.attr('aria-sort', sorting[0].dir === 'asc' ? 'ascending' : 'descending');
-					cell.attr('aria-label', ctx.api.i18n('oAria.orderableReverse'));
+					cell.attr('aria-label', col.ariaTitle +' '+ ctx.api.i18n('oAria.orderableReverse'));
 				}
 				else {
 					cell.removeAttr('aria-sort');
-					cell.attr('aria-label', ctx.api.i18n('oAria.orderable'));
+					cell.attr('aria-label', col.ariaTitle +' '+ ctx.api.i18n('oAria.orderable'));
 				}
 			} );
 		}
