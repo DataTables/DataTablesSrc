@@ -238,6 +238,15 @@ function _fnCalculateColumnWidths ( oSettings )
  */
 var _fnThrottle = DataTable.util.throttle;
 
+/**
+ * Debounce the calls to a function. Arguments and context are maintained for
+ * the debounced function
+ *  @param {function} fn Function to be called
+ *  @param {int} [wait=200] Wait after last call in mS
+ *  @returns {function} wrapped function
+ *  @memberof DataTable#oApi
+ */
+var _fnDebounce = DataTable.util.debounce;
 
 /**
  * Convert a CSS unit width to pixels (e.g. 2em)
