@@ -42,6 +42,13 @@ DataTable.models.oColumn = {
 	"asSorting": null,
 
 	/**
+	 * Flag to indicate if the column should allow resizing or not.
+	 * If set false, then column size will only be calculated once.
+	 *  @type boolean
+	 */
+	"bResizable": true,
+
+	/**
 	 * Flag to indicate if the column is searchable, and thus should be included
 	 * in the filtering or not.
 	 *  @type boolean
