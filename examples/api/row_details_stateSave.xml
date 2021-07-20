@@ -35,6 +35,25 @@ function format ( d ) {
 }
 
 $(document).ready(function() {
+	// Add event listener for opening and closing details
+	$('#example').on('click', 'tbody td.dt-control', function () {
+		var tr = $(this).closest('tr');
+		var row = table.row( tr );
+
+		if ( row.child.isShown() ) {
+			// This row is already open - close it
+			row.child.hide();
+		}
+		else {
+			// Open this row
+			row.child( format(row.data()) ).show();
+		}
+	} );
+
+	$('#example').on('requestChild.dt', function(e, row) {
+		row.child(format(row.data())).show();
+	})
+
 	var table = $('#example').DataTable( {
 		"ajax": "../ajax/data/objects.txt",
 		"rowId": 'id',
@@ -53,25 +72,6 @@ $(document).ready(function() {
 		],
 		"order": [[1, 'asc']]
 	} );
-	
-	// Add event listener for opening and closing details
-	$('#example tbody').on('click', 'td.dt-control', function () {
-		var tr = $(this).closest('tr');
-		var row = table.row( tr );
-
-		if ( row.child.isShown() ) {
-			// This row is already open - close it
-			row.child.hide();
-		}
-		else {
-			// Open this row
-			row.child( format(row.data()) ).show();
-		}
-	} );
-
-	$('#example').on('requestChild.dt', function(e, row, idx) {
-		row.child(format(row.data())).show();
-	})
 } );
 
 ]]></js>
@@ -83,6 +83,8 @@ The DataTables API has a number of methods for attaching child rows to a *parent
 The example below makes use of both `-init stateSave` and the `dt-api row().child` methods to first check if a row is already displayed, and if so hide it (`dt-api row().child.hide()`), otherwise show it (`dt-api row().child.show()`). The content of the child row in this example is defined by the `format()` function, but you would replace that with whatever content you wanted to show, possibly including, for example, [an Ajax call to the server](https://www.datatables.net/blog/2017-03-31) to obtain any extra information.
 
 Because of the state save element it is possible to maintain the state for this example across reloads. The user must add a listener for the `-event requestChild.dt` to display the row in whatever format that they please.
+
+The listeners must also be set before the table initialisation, otherwise when a state is attempting to load, the functionality set in the listeners will not be available.
 
 ]]></info>
 

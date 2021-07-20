@@ -1,5 +1,5 @@
 
-$(document).on('init.dt', function (e, context) {
+$(document).on('plugin-init.dt', function (e, context) {
 	var api = new _Api( context );
 	api.on( 'stateSaveParams', function ( e, settings, data ) {
 		var indexes = api.rows().iterator( 'row', function ( settings, idx ) {
