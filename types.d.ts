@@ -56,7 +56,7 @@ declare namespace DataTables {
          * 
          * @returns DataTables Api instance with the data for each row in the result set
          */
-        data(): Api<any>;
+        data(): Api<T>;
 
         /**
          * Order Methods / object
@@ -138,12 +138,12 @@ declare namespace DataTables {
         /**
          * Row Methods / object
          */
-        row: RowMethodsModel;
+        row: RowMethodsModel<T>;
 
         /**
          * Rows Methods / object
          */
-        rows: RowsMethodsModel;
+        rows: RowsMethodsModel<T>;
 
         //#endregion "Row/Rows"
 
@@ -1061,19 +1061,7 @@ declare namespace DataTables {
          * 
          * @returns DataTables API instance.
          */
-        adjust(): Api<any>;// Type definitions for JQuery DataTables 1.10
-        // Project: https://datatables.net
-        // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
-        //                 Omid Rad <https://github.com/omidkrad>
-        //                 Armin Sander <https://github.com/pragmatrix>
-        //                 Craig Boland <https://github.com/CNBoland>
-        // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-        // TypeScript Version: 2.4
-        
-        // missing:
-        // - Some return types are not fully working
-        
-        /// <reference types="jquery" />
+        adjust(): Api<any>;
     }
 
     interface JQuery {
@@ -1239,7 +1227,7 @@ declare namespace DataTables {
         show(): Api<any>;
     }
 
-    interface RowMethodsModel {
+    interface RowMethodsModel<T> {
         /**
          * Select a row found by a row selector
          *
@@ -1247,7 +1235,7 @@ declare namespace DataTables {
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          * @returns DataTables API instance with selected row in the result set
          */
-        (rowSelector: any, modifier?: ObjectSelectorModifier): RowMethods | Api<Array<Array<any>>>;
+        (rowSelector: any, modifier?: ObjectSelectorModifier): RowMethods<T>;
 
         /**
          * Add a new row to the table using the given data
@@ -1258,7 +1246,7 @@ declare namespace DataTables {
         add(data: any[] | object): Api<Array<Array<any>>>;
     }
 
-    interface RowMethods extends CoreMethods, CommonRowMethod, APIShowPlugIn{
+    interface RowMethods<T> extends CoreMethods, CommonRowMethod, APIShowPlugIn{
         /**
          * Order Methods / object
          */
@@ -1269,7 +1257,7 @@ declare namespace DataTables {
          * 
          * @returns Data source object for the data source of the row.
          */
-        data(): any[] | object;
+        data(): T;
 
         /**
          * Set the data for the selected row
@@ -1277,7 +1265,7 @@ declare namespace DataTables {
          * @param d Data to use for the row.
          * @returns DataTables API instance with the row retrieved by the selector in the result set.
          */
-        data(d: any[] | object): Api<any[] | object>;
+        data(d: any[] | object): Api<T>;
 
         /**
          * Get the id of the selected row. Since: 1.10.8
@@ -1310,14 +1298,14 @@ declare namespace DataTables {
         remove(): Api<Node>;
     }
 
-    interface RowsMethodsModel {
+    interface RowsMethodsModel<T> {
         /**
          * Select all rows
          *
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          * @returns DataTables API instance with selected rows
          */
-        (modifier?: ObjectSelectorModifier): RowsMethods | Api<any>;
+        (modifier?: ObjectSelectorModifier): RowsMethods<T>;
 
         /**
          * Select rows found by a row selector
@@ -1326,7 +1314,7 @@ declare namespace DataTables {
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          * @returns DataTables API instance with selected rows in the result set
          */
-        (rowSelector: any, modifier?: ObjectSelectorModifier): RowsMethods | Api<Array<any>>;
+        (rowSelector: any, modifier?: ObjectSelectorModifier): RowsMethods<T>;
 
         /**
          * Add new rows to the table using the data given
@@ -1337,13 +1325,13 @@ declare namespace DataTables {
         add(data: any[]): Api<Array<any>>;
     }
 
-    interface RowsMethods extends CoreMethods, CommonRowMethod, APIGeneratePlugIn {
+    interface RowsMethods<T> extends CoreMethods, CommonRowMethod, APIGeneratePlugIn {
         /**
          * Get the data for the selected rows
          *
          * @returns DataTables API instance with data for each row from the selector in the result set.
          */
-        data(): Api<Array<any>>;
+        data(): Api<T>;
 
         /**
          * Iterate over each selected row, with the function context set to be the row in question. Since: DataTables 1.10.6
@@ -1351,7 +1339,7 @@ declare namespace DataTables {
          * @param fn Function to execute for every row selected.
          * @returns DataTables API instance of the selected rows.
          */
-        every(fn: (this: RowMethods, rowIdx: number, tableLoop: number, rowLoop: number) => void): Api<any>;
+        every(fn: (this: RowMethods<T>, rowIdx: number, tableLoop: number, rowLoop: number) => void): Api<any>;
 
         /**
          * Get the ids of the selected rows. Since: 1.10.8
