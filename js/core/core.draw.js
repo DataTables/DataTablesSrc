@@ -175,9 +175,6 @@ function _fnBuildHead( oSettings )
 	if ( createHeader ) {
 		_fnDetectHeader( oSettings.aoHeader, thead );
 	}
-	
-	/* ARIA role for the rows */
-	$(thead).children('tr').attr('role', 'row');
 
 	/* Deal with the footer - add classes if required */
 	$(thead).children('tr').children('th, td').addClass( classes.sHeaderTH );
