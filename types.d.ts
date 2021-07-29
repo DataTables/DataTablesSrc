@@ -532,6 +532,7 @@ declare namespace DataTables {
     //#endregion "state-methods"
 
     //#endregion "core-methods"
+    type TIterator = 'table' | 'cell' | 'column-rows' | 'column' | 'columns' | 'row' | 'rows';
 
     interface IteratorCallbackFunction {
         /**
@@ -671,13 +672,23 @@ declare namespace DataTables {
         /**
          * Iterate over a result set of table, row, column or cell indexes
          * 
+         * @param type Iterator type
+         * @param callback Callback function that is executed on each iteration. For the parameters passed to the function, please refer to the documentation above. As of this is executed in the scope of an API instance which has its context set to only the table in question.
+         * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
+         * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
+         */
+        iterator(type: TIterator, callback: IteratorCallbackFunction, returns?: boolean): Api<any>;
+        /**
+         * Iterate over a result set of table, row, column or cell indexes
+         * 
          * @param flatten If true the result set of the returned API instance will be a 1D array (i.e. flattened into a single array). If false (or not specified) each result will be concatenated to the instance's result set. Note that this is only relevant if you are returning arrays from the callback.
          * @param type Iterator type
          * @param callback Callback function that is executed on each iteration. For the parameters passed to the function, please refer to the documentation above. As of this is executed in the scope of an API instance which has its context set to only the table in question.
          * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
          * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
          */
-        iterator(flatten?: boolean, type: string, callback: IteratorCallbackFunction, returns: boolean): Api<any>;
+        iterator(flatten: boolean, type: TIterator, callback: IteratorCallbackFunction, returns: boolean): Api<any>;
+        iterator(flatten: any, type: any, callback: any, returns?: any): Api<any>;
 
         /**
          * Join the elements in the result set into a string.
@@ -2402,7 +2413,7 @@ declare namespace DataTables {
         oApi: object;
         oJUIClasses: object;
         oPagination: object;
-        oSort: object | OrderPlugIns;
+        oSort: object;
         oStdClasses: ExtClassesSettings;
         ofnSearch: object;
         order: object;
