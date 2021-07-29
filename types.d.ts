@@ -1,6 +1,7 @@
-// Type definitions for JQuery DataTables 1.10
+// Type definitions for DataTables
 // Project: https://datatables.net
-// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
+// Definitions by: SpryMedia
+//                 Kiarash Ghiaseddin <https://github.com/Silver-Connection>
 //                 Omid Rad <https://github.com/omidkrad>
 //                 Armin Sander <https://github.com/pragmatrix>
 //                 Craig Boland <https://github.com/CNBoland>
@@ -12,14 +13,21 @@
 
 /// <reference types="jquery" />
 
+// Extend the jQuery object with DataTables' construction methods
 interface JQuery {
     DataTable(opts?: DataTables.Settings): DataTables.Api<any>;
     dataTable: DataTables.StaticFunctions;
 }
 
-interface ILanguage extends DataTables.LanguageSettings {
-
+/**
+ * DataTables API class object (recursive)
+ */
+ declare interface Api<T> extends DataTables.StaticFunctions {
+    new <T=any>(opts?: DataTables.Settings): DataTables.Api<T>
 }
+
+declare const Api: Api<any>;
+export default Api;
 
 declare namespace DataTables {
     interface JQueryDataTables extends JQuery {
