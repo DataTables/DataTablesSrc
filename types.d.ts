@@ -14,15 +14,26 @@
 /// <reference types="jquery" />
 
 // Extend the jQuery object with DataTables' construction methods
-interface JQuery {
-    DataTable(opts?: DataTables.Settings): DataTables.Api<any>;
-    dataTable: DataTables.StaticFunctions;
+interface JQueryDataTables extends JQuery {
+    /**
+     * Returns DataTables API instance
+     * Usage:
+     * $( selector ).dataTable().api();
+     */
+    api(): Api<any>;
+}
+
+declare global {
+    interface JQuery {
+        DataTable<T = any>(opts?: DataTables.Settings): DataTables.Api<T>;
+        dataTable(opts?: DataTables.Settings): JQueryDataTables;
+    }
 }
 
 /**
  * DataTables API class object (recursive)
  */
- declare interface Api<T> extends DataTables.StaticFunctions {
+declare interface Api<T> extends DataTables.StaticFunctions {
     new <T=any>(opts?: DataTables.Settings): DataTables.Api<T>
 }
 
@@ -30,15 +41,6 @@ declare const Api: Api<any>;
 export default Api;
 
 declare namespace DataTables {
-    interface JQueryDataTables extends JQuery {
-        /**
-         * Returns DataTables API instance
-         * Usage:
-         * $( selector ).dataTable().api();
-         */
-        api(): Api<any>;
-    }
-
     type RowIdx = number;
     type RowSelector<T> =
         RowIdx |
