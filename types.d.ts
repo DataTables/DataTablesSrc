@@ -24,9 +24,13 @@ interface JQueryDataTables extends JQuery {
 }
 
 declare global {
+    interface jQueryDataTable extends DataTables.StaticFunctions {
+        (opts?: DataTables.Settings): JQueryDataTables;
+    }
+
     interface JQuery {
         DataTable<T = any>(opts?: DataTables.Settings): DataTables.Api<T>;
-        dataTable(opts?: DataTables.Settings): JQueryDataTables;
+        dataTable: jQueryDataTable;
     }
 }
 
@@ -1089,11 +1093,6 @@ declare namespace DataTables {
         adjust(): Api<T>;
     }
 
-    interface JQuery {
-        DataTable(opts?: DataTables.Settings): DataTables.Api<any>;
-        dataTable: DataTables.StaticFunctions;
-    }
-    
     interface ILanguage extends DataTables.LanguageSettings {
     
     }
@@ -1480,14 +1479,6 @@ declare namespace DataTables {
     //#region "Static-Methods"
 
     interface StaticFunctions {
-        /**
-         * Returns JQuery object
-         *
-         * Usage:
-         * $( selector ).dataTable();
-         */
-        (): JQueryDataTables;
-
         /**
          * Check if a table node is a DataTable already or not.
          *
