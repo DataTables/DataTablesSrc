@@ -10,9 +10,15 @@ describe('Static method - tables()', function() {
 		dt.html('basic');
 		it('Exists and is a function', function() {
 			expect(typeof $.fn.dataTable.tables).toBe('function');
+			expect(typeof $.fn.dataTable.tables).toBe('function');
+
 		});
 		it('Returns empty array if no tables', function() {
 			tables = $.fn.dataTable.tables();
+			expect(tables instanceof Array).toBe(true);
+			expect(tables.length).toBe(0);
+
+			tables = DataTable.tables();
 			expect(tables instanceof Array).toBe(true);
 			expect(tables.length).toBe(0);
 		});
@@ -22,14 +28,27 @@ describe('Static method - tables()', function() {
 
 			expect(tables.length).toBe(1);
 			expect(tables[0] instanceof HTMLElement).toBe(true);
+
+			tables = DataTable.tables();
+
+			expect(tables.length).toBe(1);
+			expect(tables[0] instanceof HTMLElement).toBe(true);
 		});
 		it('Returns API instance', function() {
 			tables = $.fn.dataTable.tables({ api: true });
 			expect(tables.length).toBe(0);
 			expect(tables instanceof $.fn.dataTable.Api).toBe(true);
+
+			tables = DataTable.tables({ api: true });
+			expect(tables.length).toBe(0);
+			expect(tables instanceof $.fn.dataTable.Api).toBe(true);			
 		});
 		it('Returns visible tables', function() {
 			tables = $.fn.dataTable.tables({ visible: true });
+			expect(tables.length).toBe(1);
+			expect(tables[0] instanceof HTMLElement).toBe(true);
+
+			tables = DataTable.tables({ visible: true });
 			expect(tables.length).toBe(1);
 			expect(tables[0] instanceof HTMLElement).toBe(true);
 		});
@@ -38,10 +57,17 @@ describe('Static method - tables()', function() {
 			tables = $.fn.dataTable.tables({ visible: false });
 			expect(tables.length).toBe(1);
 			expect(tables[0] instanceof HTMLElement).toBe(true);
+
+			tables = DataTable.tables({ visible: false });
+			expect(tables.length).toBe(1);
+			expect(tables[0] instanceof HTMLElement).toBe(true);
 		});
 		it('Doesnt return hidden tables', function() {
 			$('div.dataTables_wrapper').hide();
 			tables = $.fn.dataTable.tables({ visible: true });
+			expect(tables.length).toBe(0);
+
+			tables = DataTable.tables({ visible: true });
 			expect(tables.length).toBe(0);
 		});
 	});

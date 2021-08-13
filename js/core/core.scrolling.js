@@ -8,9 +8,6 @@ function _fnFeatureHtmlTable ( settings )
 {
 	var table = $(settings.nTable);
 
-	// Add the ARIA grid role to the table
-	table.attr( 'role', 'grid' );
-
 	// Scrolling from here on in
 	var scroll = settings.oScroll;
 

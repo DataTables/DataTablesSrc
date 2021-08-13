@@ -94,7 +94,7 @@ describe('core- ajax.url().load()', function() {
 
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Gloria Little');
 		});
-		// Disabled due to DD-922 - hte paging goes wobbly in this scenario.
+		// Disabled due to DD-922 - the paging goes wobbly in this scenario.
 		// it('Paging forced reset if data less', async function() {
 		// 	table.page(2).draw(false);
 		// 	expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Gloria Little');

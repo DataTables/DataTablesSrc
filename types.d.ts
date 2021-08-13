@@ -1,6 +1,7 @@
-// Type definitions for JQuery DataTables 1.10
+// Type definitions for DataTables
 // Project: https://datatables.net
-// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
+// Definitions by: SpryMedia
+//                 Kiarash Ghiaseddin <https://github.com/Silver-Connection>
 //                 Omid Rad <https://github.com/omidkrad>
 //                 Armin Sander <https://github.com/pragmatrix>
 //                 Craig Boland <https://github.com/CNBoland>
@@ -12,26 +13,69 @@
 
 /// <reference types="jquery" />
 
-interface JQuery {
-    DataTable(opts?: DataTables.Settings): DataTables.Api<any>;
-    dataTable: DataTables.StaticFunctions;
+// Extend the jQuery object with DataTables' construction methods
+interface JQueryDataTables extends JQuery {
+    /**
+     * Returns DataTables API instance
+     * Usage:
+     * $( selector ).dataTable().api();
+     */
+    api(): Api<any>;
 }
 
-interface ILanguage extends DataTables.LanguageSettings {
-
-}
-
-declare namespace DataTables {
-    interface JQueryDataTables extends JQuery {
-        /**
-         * Returns DataTables API instance
-         * Usage:
-         * $( selector ).dataTable().api();
-         */
-        api(): Api<any>;
+declare global {
+    interface jQueryDataTable extends DataTables.StaticFunctions {
+        (opts?: DataTables.Settings): JQueryDataTables;
     }
 
-    interface Api<T> extends CoreMethods, APIPlugIns {
+    interface JQuery {
+        DataTable<T = any>(opts?: DataTables.Settings): DataTables.Api<T>;
+        dataTable: jQueryDataTable;
+    }
+}
+
+/**
+ * DataTables API class object (recursive)
+ */
+declare interface Api<T> extends DataTables.StaticFunctions {
+    new <T=any>(opts?: DataTables.Settings): DataTables.Api<T>
+}
+
+declare const Api: Api<any>;
+export default Api;
+
+declare namespace DataTables {
+    type RowIdx = number;
+    type RowSelector<T> =
+        RowIdx |
+        string |
+        Node |
+        JQuery |
+        ((idx: RowIdx, data: T, node: Node | null) => boolean) |
+        RowSelector<T>[];
+
+    type ColumnIdx = number;
+    type ColumnSelector =
+        ColumnIdx |
+        string |
+        Node |
+        JQuery |
+        ((idx:ColumnIdx, data: any, node: Node) => boolean) |
+        ColumnSelector[];
+
+    type CellIdx = {
+        row: number;
+        column: number;
+    };
+    type CellSelector =
+        CellIdx |
+        string |
+        Node |
+        JQuery |
+        ((idx: CellIdx, data: any, node: Node | null) => boolean) |
+        CellSelector[];
+
+    interface Api<T> extends CoreMethods<T>, APIPlugIns {
         /**
          * API should be array-like
          */
@@ -41,14 +85,14 @@ declare namespace DataTables {
          *
          * @param table Selector string for table
          */
-        (selector: string | Node | Node[] | JQuery): Api<any>;
+        (selector: string | Node | Node[] | JQuery): Api<T>;
 
         /**
          * Get the data for the whole table.
          * 
          * @returns DataTables Api instance with the data for each row in the result set
          */
-        data(): Api<any>;
+        data(): Api<T>;
 
         /**
          * Order Methods / object
@@ -64,17 +108,17 @@ declare namespace DataTables {
          * @param Option used to specify how the cells should be ordered, and if paging or filtering
          * @returns DataTables API instance with selected cell
          */
-        cell(cellSelector: any, modifier?: ObjectSelectorModifier): CellMethods | Api<any>;
+        cell(cellSelector: CellSelector, modifier?: ObjectSelectorModifier): CellMethods<T>;
 
         /**
          * Select the cell found by a cell selector
          *
          * @param rowSelector Row selector.
-         * @param cellSelector Cell selector.
+         * @param columnSelector Column selector.
          * @param Option used to specify how the cells should be ordered, and if paging or filtering
          * @returns DataTables API instance with selected cell
          */
-        cell(rowSelector: any, cellSelector: any, modifier?: ObjectSelectorModifier): CellMethods;
+        cell(rowSelector: CellSelector, columnSelector: any, modifier?: ObjectSelectorModifier): CellMethods<T>;
 
         /**
          * Select all cells
@@ -82,7 +126,7 @@ declare namespace DataTables {
          * @param Option used to specify how the cells should be ordered, and if paging or filtering
          * @returns DataTables API instance with selected cells
          */
-        cells(modifier?: ObjectSelectorModifier): CellsMethods | Api<any>;
+        cells(modifier?: ObjectSelectorModifier): CellsMethods<T>;
 
         /**
          * Select cells found by a cell selector
@@ -91,17 +135,17 @@ declare namespace DataTables {
          * @param Option used to specify how the cells should be ordered, and if paging or filtering
          * @returns DataTables API instance with selected cells
          */
-        cells(cellSelector: any, modifier?: ObjectSelectorModifier): CellsMethods;
+        cells(cellSelector: CellSelector, modifier?: ObjectSelectorModifier): CellsMethods<T>;
 
         /**
          * Select cells found by both row and column selectors
          *
          * @param rowSelector Row selector.
-         * @param cellSelector Cell selector.
+         * @param columnSelector Column selector.
          * @param Option used to specify how the cells should be ordered, and if paging or filtering
          * @returns DataTables API instance with selected cells
          */
-        cells(rowSelector: any, cellSelector: any, modifier?: ObjectSelectorModifier): CellsMethods;
+        cells(rowSelector: RowSelector<T>, columnSelector: CellSelector, modifier?: ObjectSelectorModifier): CellsMethods<T>;
         //#endregion "Cell/Cells"
 
         //#region "Column/Columns"
@@ -114,28 +158,21 @@ declare namespace DataTables {
         /**
          * Columns Methods / object
          */
-        columns: ColumnsMethodsModel;
+        columns: ColumnsMethodsModel<T>;
 
         //#endregion "Column/Columns"
-
-        /**
-         * Plug-in to show/hide the processing indicator via the API
-         * 
-         * @returns Iterator to show/hide the processing indicator
-         */
-        processing(): Iterator<Api<any>, undefined, Api<any>>;
 
         //#region "Row/Rows"
 
         /**
          * Row Methods / object
          */
-        row: RowMethodsModel;
+        row: RowMethodsModel<T>;
 
         /**
          * Rows Methods / object
          */
-        rows: RowsMethodsModel;
+        rows: RowsMethodsModel<T>;
 
         //#endregion "Row/Rows"
 
@@ -154,7 +191,7 @@ declare namespace DataTables {
          * @param tableSelector Table selector.
          * @returns DataTables API instance with selected table in its context.
          */
-        table(tableSelector: any): TableMethods | Api<Array<any>>;
+        table(tableSelector: any): TableMethods<T> | Api<Array<any>>;
 
         /**
          * Select tables based on the given selector
@@ -162,13 +199,13 @@ declare namespace DataTables {
          * @param tableSelector Table selector.
          * @returns DataTables API instance with all tables in the current context.
          */
-        tables(tableSelector?: any): TablesMethods | Api<Array<any>> ;
+        tables(tableSelector?: any): TablesMethods<T> | Api<Array<any>> ;
 
         //#endregion "Table/Tables"
     }
 
-    interface DataTables extends CoreMethods {
-        [index: number]: Api<any>;
+    interface DataTables<T> extends CoreMethods<T> {
+        [index: number]: Api<T>;
     }
 
     interface ObjectSelectorModifier {
@@ -200,7 +237,7 @@ declare namespace DataTables {
 
     //#region "core-methods"
 
-    interface CoreMethods extends UtilityMethods {
+    interface CoreMethods<T> extends UtilityMethods {
         /**
          * Get jquery object
          * 
@@ -220,7 +257,7 @@ declare namespace DataTables {
          * 
          * @returns DataTables Api instance.
          */
-        clear(): Api<any>;
+        clear(): Api<T>;
 
         /**
          * Destroy the DataTables in the current context.
@@ -228,7 +265,7 @@ declare namespace DataTables {
          * @param remove Completely remove the table from the DOM (true) or leave it in the DOM in its original plain un-enhanced HTML state (default, false).
          * @returns DataTables Api instance
          */
-        destroy(remove?: boolean): Api<any>;
+        destroy(remove?: boolean): Api<T>;
 
         /**
          * Redraw the DataTables in the current context, optionally updating ordering, searching and paging as required.
@@ -236,7 +273,7 @@ declare namespace DataTables {
          * @param paging This parameter is used to determine what kind of draw DataTables will perform.
          * @returns DataTables Api instance
          */
-        draw(paging?: boolean | string): Api<any>;
+        draw(paging?: boolean | string): Api<T>;
 
         /** 
          * Look up a language token that was defined in the DataTables' language initialisation object.
@@ -263,7 +300,7 @@ declare namespace DataTables {
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          * @returns DataTables Api instance
          */
-        off(event: string, callback?: ((e: Event, ...args: any[]) => void)): Api<any>;
+        off(event: string, callback?: ((e: Event, ...args: any[]) => void)): Api<T>;
 
         /**
          * Table events listener.
@@ -272,7 +309,7 @@ declare namespace DataTables {
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          * @returns DataTables Api instance
          */
-        on(event: string, callback: ((e: Event, ...args: any[]) => void)): Api<any>;
+        on(event: string, callback: ((e: Event, ...args: any[]) => void)): Api<T>;
 
         /**
          * Listen for a table event once and then remove the listener.
@@ -282,7 +319,7 @@ declare namespace DataTables {
          * Listen for events from tables and fire a callback when they occur
          * @returns DataTables Api instance
          */
-        one(event: string, callback: ((e: Event, ...args: any[]) => void)): Api<any>;
+        one(event: string, callback: ((e: Event, ...args: any[]) => void)): Api<T>;
 
         /**
          * Page Methods / object
@@ -524,6 +561,7 @@ declare namespace DataTables {
     //#endregion "state-methods"
 
     //#endregion "core-methods"
+    type TIterator = 'table' | 'cell' | 'column-rows' | 'column' | 'columns' | 'row' | 'rows';
 
     interface IteratorCallbackFunction {
         /**
@@ -663,13 +701,23 @@ declare namespace DataTables {
         /**
          * Iterate over a result set of table, row, column or cell indexes
          * 
+         * @param type Iterator type
+         * @param callback Callback function that is executed on each iteration. For the parameters passed to the function, please refer to the documentation above. As of this is executed in the scope of an API instance which has its context set to only the table in question.
+         * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
+         * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
+         */
+        iterator(type: TIterator, callback: IteratorCallbackFunction, returns?: boolean): Api<any>;
+        /**
+         * Iterate over a result set of table, row, column or cell indexes
+         * 
          * @param flatten If true the result set of the returned API instance will be a 1D array (i.e. flattened into a single array). If false (or not specified) each result will be concatenated to the instance's result set. Note that this is only relevant if you are returning arrays from the callback.
          * @param type Iterator type
          * @param callback Callback function that is executed on each iteration. For the parameters passed to the function, please refer to the documentation above. As of this is executed in the scope of an API instance which has its context set to only the table in question.
          * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
          * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
          */
-        iterator(flatten?: boolean, type: string, callback: IteratorCallbackFunction, returns: boolean): Api<any>;
+        iterator(flatten: boolean, type: TIterator, callback: IteratorCallbackFunction, returns: boolean): Api<any>;
+        iterator(flatten: any, type: any, callback: any, returns?: any): Api<any>;
 
         /**
          * Join the elements in the result set into a string.
@@ -848,7 +896,7 @@ declare namespace DataTables {
         render(type: string): any;
     }
 
-    interface CellMethods extends CoreMethods, CommonCellMethods {
+    interface CellMethods<T> extends CoreMethods<T>, CommonCellMethods {
         /**
          * Get data for the selected cell
          * 
@@ -862,7 +910,7 @@ declare namespace DataTables {
          * @param data Value to assign to the data for the cell
          * @returns DataTables Api instance
          */
-        data(data: any): Api<any>;
+        data(data: any): Api<T>;
 
         /**
          * Get index information about the selected cell
@@ -885,7 +933,7 @@ declare namespace DataTables {
         columnVisible: number;
     }
 
-    interface CellsMethods extends CoreMethods, CommonCellMethods {
+    interface CellsMethods<T> extends CoreMethods<T>, CommonCellMethods {
         /**
          * Get data for the selected cells
          * 
@@ -898,7 +946,7 @@ declare namespace DataTables {
          *
          * @param fn Function to execute for every cell selected.
          */
-        every(fn: (this: CellMethods, cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): Api<any>;
+        every(fn: (this: CellMethods<T>, cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): Api<any>;
 
         /**
          * Get index information about the selected cells
@@ -919,7 +967,7 @@ declare namespace DataTables {
          * Get the DataTables cached data for the selected column(s)
          *
          * @param type Specify which cache the data should be read from. Can take one of two values: search or order
-         * @return DataTables Api isntance with an caches data for the selected column(s)
+         * @return DataTables Api instance with an caches data for the selected column(s)
          */
         cache(type: string): Api<any>;
 
@@ -969,7 +1017,7 @@ declare namespace DataTables {
          * @param cellSelector Cell selector.
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          */
-        (columnSelector: any, modifier?: ObjectSelectorModifier): ColumnMethods;
+        (columnSelector: ColumnSelector, modifier?: ObjectSelectorModifier): ColumnMethods;
 
         /**
          * Convert from the input column index type to that required.
@@ -1019,7 +1067,7 @@ declare namespace DataTables {
         search(): string;
     }
 
-    interface ColumnsMethodsModel {
+    interface ColumnsMethodsModel<T> {
         /**
          * Select all columns
          *
@@ -1035,33 +1083,16 @@ declare namespace DataTables {
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          * @returns DataTables API instance with selected columns
          */
-        (columnSelector: any, modifier?: ObjectSelectorModifier): ColumnsMethods;
+        (columnSelector: ColumnSelector, modifier?: ObjectSelectorModifier): ColumnsMethods;
 
         /**
          * Recalculate the column widths for layout.
          * 
          * @returns DataTables API instance.
          */
-        adjust(): Api<any>;// Type definitions for JQuery DataTables 1.10
-        // Project: https://datatables.net
-        // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
-        //                 Omid Rad <https://github.com/omidkrad>
-        //                 Armin Sander <https://github.com/pragmatrix>
-        //                 Craig Boland <https://github.com/CNBoland>
-        // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-        // TypeScript Version: 2.4
-        
-        // missing:
-        // - Some return types are not fully working
-        
-        /// <reference types="jquery" />
+        adjust(): Api<T>;
     }
 
-    interface JQuery {
-        DataTable(opts?: DataTables.Settings): DataTables.Api<any>;
-        dataTable: DataTables.StaticFunctions;
-    }
-    
     interface ILanguage extends DataTables.LanguageSettings {
     
     }
@@ -1143,7 +1174,7 @@ declare namespace DataTables {
         invalidate(source?: string): Api<Array<any>>;
     }
 
-    interface RowChildMethodModel {
+    interface RowChildMethodModel<T> {
         /**
          * Get the child row(s) that have been set for a parent row
          * 
@@ -1157,7 +1188,7 @@ declare namespace DataTables {
          * @param showRemove This parameter can be given as true or false
          * @returns DataTables Api instance.
          */
-        (showRemove: boolean): RowChildMethods | Api<any>;
+        (showRemove: boolean): RowChildMethods<T> | Api<T>;
 
         /**
          * Set the data to show in the child row(s). Note that calling this method will replace any child rows which are already attached to the parent row.
@@ -1166,7 +1197,7 @@ declare namespace DataTables {
          * @param className Class name that is added to the td cell node(s) of the child row(s). As of 1.10.1 it is also added to the tr row node of the child row(s).
          * @returns DataTables Api instance
          */
-        (data: (string | Node | JQuery) | Array<(string | number | JQuery)>, className?: string): RowChildMethods | Api<any>;
+        (data: (string | Node | JQuery) | Array<(string | number | JQuery)>, className?: string): RowChildMethods<T> | Api<T>;
 
         /**
          * Hide the child row(s) of a parent row
@@ -1197,7 +1228,7 @@ declare namespace DataTables {
         show(): Api<any>;
     }
 
-    interface RowChildMethods extends CoreMethods {
+    interface RowChildMethods<T> extends CoreMethods<T> {
         /**
          * Hide the child row(s) of a parent row
          * 
@@ -1220,7 +1251,7 @@ declare namespace DataTables {
         show(): Api<any>;
     }
 
-    interface RowMethodsModel {
+    interface RowMethodsModel<T> {
         /**
          * Select a row found by a row selector
          *
@@ -1228,7 +1259,7 @@ declare namespace DataTables {
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          * @returns DataTables API instance with selected row in the result set
          */
-        (rowSelector: any, modifier?: ObjectSelectorModifier): RowMethods | Api<Array<Array<any>>>;
+        (rowSelector: RowSelector<T>, modifier?: ObjectSelectorModifier): RowMethods<T>;
 
         /**
          * Add a new row to the table using the given data
@@ -1239,18 +1270,18 @@ declare namespace DataTables {
         add(data: any[] | object): Api<Array<Array<any>>>;
     }
 
-    interface RowMethods extends CoreMethods, CommonRowMethod, APIShowPlugIn{
+    interface RowMethods<T> extends CoreMethods<T>, CommonRowMethod, APIShowPlugIn{
         /**
          * Order Methods / object
          */
-        child: RowChildMethodModel;
+        child: RowChildMethodModel<T>;
 
         /**
          * Get the data for the selected row
          * 
          * @returns Data source object for the data source of the row.
          */
-        data(): any[] | object;
+        data(): T;
 
         /**
          * Set the data for the selected row
@@ -1258,7 +1289,7 @@ declare namespace DataTables {
          * @param d Data to use for the row.
          * @returns DataTables API instance with the row retrieved by the selector in the result set.
          */
-        data(d: any[] | object): Api<any[] | object>;
+        data(d: any[] | object): Api<T>;
 
         /**
          * Get the id of the selected row. Since: 1.10.8
@@ -1291,14 +1322,14 @@ declare namespace DataTables {
         remove(): Api<Node>;
     }
 
-    interface RowsMethodsModel {
+    interface RowsMethodsModel<T> {
         /**
          * Select all rows
          *
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          * @returns DataTables API instance with selected rows
          */
-        (modifier?: ObjectSelectorModifier): RowsMethods | Api<any>;
+        (modifier?: ObjectSelectorModifier): RowsMethods<T>;
 
         /**
          * Select rows found by a row selector
@@ -1307,7 +1338,7 @@ declare namespace DataTables {
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          * @returns DataTables API instance with selected rows in the result set
          */
-        (rowSelector: any, modifier?: ObjectSelectorModifier): RowsMethods | Api<Array<any>>;
+        (rowSelector: RowSelector<T>, modifier?: ObjectSelectorModifier): RowsMethods<T>;
 
         /**
          * Add new rows to the table using the data given
@@ -1315,16 +1346,16 @@ declare namespace DataTables {
          * @param data Array of data elements, with each one describing a new row to be added to the table
          * @returns DataTables API instance with the newly added rows in its result set.
          */
-        add(data: any[]): Api<Array<any>>;
+        add(data: T[]): Api<Array<any>>;
     }
 
-    interface RowsMethods extends CoreMethods, CommonRowMethod, APIGeneratePlugIn {
+    interface RowsMethods<T> extends CoreMethods<T>, CommonRowMethod, APIGeneratePlugIn {
         /**
          * Get the data for the selected rows
          *
          * @returns DataTables API instance with data for each row from the selector in the result set.
          */
-        data(): Api<Array<any>>;
+        data(): Api<T>;
 
         /**
          * Iterate over each selected row, with the function context set to be the row in question. Since: DataTables 1.10.6
@@ -1332,7 +1363,7 @@ declare namespace DataTables {
          * @param fn Function to execute for every row selected.
          * @returns DataTables API instance of the selected rows.
          */
-        every(fn: (this: RowMethods, rowIdx: number, tableLoop: number, rowLoop: number) => void): Api<any>;
+        every(fn: (this: RowMethods<T>, rowIdx: number, tableLoop: number, rowLoop: number) => void): Api<any>;
 
         /**
          * Get the ids of the selected rows. Since: 1.10.8
@@ -1368,7 +1399,7 @@ declare namespace DataTables {
 
     //#region "table-methods"
 
-    interface TableMethods extends CoreMethods {
+    interface TableMethods<T> extends CoreMethods<T> {
         /**
          * Get the tfoot node for the table in the API's context
          * 
@@ -1405,7 +1436,7 @@ declare namespace DataTables {
         node(): Node;
     }
 
-    interface TablesMethods extends CoreMethods {
+    interface TablesMethods<T> extends CoreMethods<T> {
         /**
          * Get the tfoot nodes for the tables in the API's context
          * 
@@ -1448,14 +1479,6 @@ declare namespace DataTables {
     //#region "Static-Methods"
 
     interface StaticFunctions {
-        /**
-         * Returns JQuery object
-         *
-         * Usage:
-         * $( selector ).dataTable();
-         */
-        (): JQueryDataTables;
-
         /**
          * Check if a table node is a DataTable already or not.
          *
@@ -2394,7 +2417,7 @@ declare namespace DataTables {
         oApi: object;
         oJUIClasses: object;
         oPagination: object;
-        oSort: object | OrderPlugIns;
+        oSort: object;
         oStdClasses: ExtClassesSettings;
         ofnSearch: object;
         order: object;

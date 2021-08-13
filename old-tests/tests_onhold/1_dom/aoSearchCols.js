@@ -1,7 +1,7 @@
 // DATA_TEMPLATE: dom_data
 oTest.fnStart( "aoSearchCols" );
 
-/* We could be here forever testing this one, so we test a limited subset on a couple of colums */
+/* We could be here forever testing this one, so we test a limited subset on a couple of columns */
 
 $(document).ready( function () {
 	/* Check the default */
@@ -9,7 +9,7 @@ $(document).ready( function () {
 	var oSettings = oTable.fnSettings();
 	
 	oTest.fnTest( 
-		"Default should be to have a empty colums array",
+		"Default should be to have a empty columns array",
 		null,
 		function () {
 			var bReturn = 

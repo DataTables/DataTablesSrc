@@ -166,7 +166,7 @@ function _fnColumnSizes ( settings, header )
 
 
 /**
- * Covert the index of a visible column to the index in the data array (take account
+ * Convert the index of a visible column to the index in the data array (take account
  * of hidden columns)
  *  @param {object} oSettings dataTables settings object
  *  @param {int} iMatch Visible column index to lookup
@@ -184,7 +184,7 @@ function _fnVisibleToColumnIndex( oSettings, iMatch )
 
 
 /**
- * Covert the index of an index in the data array and convert it to the visible
+ * Convert the index of an index in the data array and convert it to the visible
  *   column index (take account of hidden columns)
  *  @param {int} iMatch Column index to lookup
  *  @param {object} oSettings dataTables settings object

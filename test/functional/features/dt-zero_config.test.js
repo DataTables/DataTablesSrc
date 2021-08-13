@@ -51,7 +51,7 @@ describe('Basic Datatables Test', function() {
 			expect($('#example tbody tr').length).toBe(10);
 		});
 
-		it('Initial sort occured //todo make sure this is correct', function() {
+		it('Initial sort occurred //todo make sure this is correct', function() {
 			expect($('#example tbody td:eq(0)').html()).toBe('Airi Satou');
 		});
 

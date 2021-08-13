@@ -21,7 +21,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnWaitTest( 
-		"Initial sort occured",
+		"Initial sort occurred",
 		null,
 		function () { return $('#example tbody td:eq(0)').html() == "Gecko"; }
 	);

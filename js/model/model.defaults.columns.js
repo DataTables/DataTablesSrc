@@ -360,7 +360,7 @@ DataTable.defaults.column = {
 	 *          "data": function ( source, type, val ) {
 	 *            if (type === 'set') {
 	 *              source.price = val;
-	 *              // Store the computed dislay and filter values for efficiency
+	 *              // Store the computed display and filter values for efficiency
 	 *              source.price_display = val=="" ? "" : "$"+numberFormat(val);
 	 *              source.price_filter  = val=="" ? "" : "$"+numberFormat(val)+" "+val;
 	 *              return;

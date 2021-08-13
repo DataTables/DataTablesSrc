@@ -14,7 +14,7 @@
 	</type>
 
 	<description>
-		Matching `-api DataTable.util.get()`, but in this case to write data to a source object, this method makes it possible to write data to a complex object by using the description of the familar JSON notation. DataTables uses this method internally for `-init columns.data` when writing data to the data store for rows and this method exposes that ability for plug-ins and other libraries to use.
+		Matching `-api DataTable.util.get()`, but in this case to write data to a source object, this method makes it possible to write data to a complex object by using the description of the familiar JSON notation. DataTables uses this method internally for `-init columns.data` when writing data to the data store for rows and this method exposes that ability for plug-ins and other libraries to use.
 
 		The function _that is returned_ from this method expects the following parameters to be given to it:
 

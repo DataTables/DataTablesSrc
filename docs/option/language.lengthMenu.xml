@@ -19,7 +19,7 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-	<example title="Language and options change (you'd be better off useing `lengthMenu` though!"><![CDATA[
+	<example title="Language and options change (you'd be better off using `lengthMenu` though!"><![CDATA[
 $('#example').dataTable( {
   "language": {
     "lengthMenu": 'Display <select>'+

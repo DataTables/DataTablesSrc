@@ -17,6 +17,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 		oPrevSearch.bRegex = oFilter.bRegex;
 		oPrevSearch.bSmart = oFilter.bSmart;
 		oPrevSearch.bCaseInsensitive = oFilter.bCaseInsensitive;
+		oPrevSearch.return = oFilter.return;
 	};
 	var fnRegex = function ( o ) {
 		// Backwards compatibility with the bEscapeRegex option
@@ -31,7 +32,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 	if ( _fnDataSource( oSettings ) != 'ssp' )
 	{
 		/* Global filter */
-		_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive );
+		_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive, oInput.return );
 		fnSaveFilter( oInput );
 
 		/* Now do the individual column filter */
@@ -94,7 +95,7 @@ function _fnFilterCustom( settings )
  *  @param {int} iColumn column to filter
  *  @param {bool} bRegex treat search string as a regular expression or not
  *  @param {bool} bSmart use smart filtering or not
- *  @param {bool} bCaseInsensitive Do case insenstive matching or not
+ *  @param {bool} bCaseInsensitive Do case insensitive matching or not
  *  @memberof DataTable#oApi
  */
 function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsensitive )
@@ -127,7 +128,7 @@ function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsens
  *  @param {int} force optional - force a research of the master array (1) or not (undefined or 0)
  *  @param {bool} regex treat as a regular expression or not
  *  @param {bool} smart perform smart filtering or not
- *  @param {bool} caseInsensitive Do case insenstive matching or not
+ *  @param {bool} caseInsensitive Do case insensitive matching or not
  *  @memberof DataTable#oApi
  */
 function _fnFilter( settings, input, force, regex, smart, caseInsensitive )

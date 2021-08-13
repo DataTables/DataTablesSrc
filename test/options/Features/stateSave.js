@@ -209,7 +209,7 @@ describe('stateSave option', function() {
 	describe('Check state is ignored if table shape changes', function() {
 		dt.html('basic');
 
-		it('Create the initial table, confirm hten destroy', function() {
+		it('Create the initial table, confirm then destroy', function() {
 			let table = $('#example').DataTable({ stateSave: true });
 			$('#example thead th:eq(0)').click();
 

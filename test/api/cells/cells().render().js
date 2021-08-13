@@ -7,7 +7,7 @@ describe('cells - cells().render()', function() {
 	const cell = {
 		display: 'Airi Satou',
 		filter: 'Airi Satou',
-		sort: 'Airi Satou',
+		sort: 'Airi Satou',		
 		type: 'Airi Satou',
 		test: 'Airi Satou'
 	};
@@ -17,7 +17,9 @@ describe('cells - cells().render()', function() {
 	function checkCell(cells, cellData) {
 		expect(cells.render('display')[0]).toBe(cellData.display);
 		expect(cells.render('filter')[0]).toBe(cellData.filter);
+		expect(cells.render('search')[0]).toBe(cellData.filter);
 		expect(cells.render('sort')[0]).toBe(cellData.sort);
+		expect(cells.render('order')[0]).toBe(cellData.sort);
 		expect(cells.render('type')[0]).toBe(cellData.type);
 		expect(cells.render('test')[0]).toBe(cellData.test);
 	}
@@ -34,7 +36,7 @@ describe('cells - cells().render()', function() {
 		});
 	});
 
-	describe('Functional tests - no orthoganal data', function() {
+	describe('Functional tests - no orthogonal data', function() {
 		dt.html('basic');
 		it('Source data', function() {
 			table = $('#example').DataTable();
@@ -48,9 +50,9 @@ describe('cells - cells().render()', function() {
 		});
 	});
 
-	describe('Functional tests - orthoganal data - function', function() {
+	describe('Functional tests - orthogonal data - function', function() {
 		dt.html('basic');
-		it('Source data', function() {
+		it('Display', function() {
 			table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -68,7 +70,7 @@ describe('cells - cells().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Filter', function() {
 			table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -86,7 +88,7 @@ describe('cells - cells().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Sort', function() {
 			table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -104,7 +106,7 @@ describe('cells - cells().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Type', function() {
 			table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -122,7 +124,7 @@ describe('cells - cells().render()', function() {
 		});
 
 		dt.html('basic');
-		it('Source data', function() {
+		it('Custom', function() {
 			table = $('#example').DataTable({
 				columnDefs: [
 					{
@@ -140,7 +142,7 @@ describe('cells - cells().render()', function() {
 		});
 	});
 
-	describe('Functional tests - orthoganal data - object', function() {
+	describe('Functional tests - orthogonal data - object', function() {
 		const cellObject = {
 			default: 'Aaron',
 			display: 'Aaron',
@@ -262,7 +264,7 @@ describe('cells - cells().render()', function() {
 		});
 	});
 
-	describe('Functional tests - orthoganal data - HTML5 filter', function() {
+	describe('Functional tests - orthogonal data - HTML5 filter', function() {
 		const cellObject = {
 			default: 'Aaron',
 			display: 'Aaron',
@@ -289,7 +291,7 @@ describe('cells - cells().render()', function() {
 		];
 
 		dt.html('html5');
-		it('Display', function() {
+		it('Filter', function() {
 			table = $('#example').DataTable();
 
 			let cellData = JSON.parse(JSON.stringify(cell));
