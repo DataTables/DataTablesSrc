@@ -35,6 +35,14 @@ DataTable.models.oSearch = {
 	 *  @type boolean
 	 *  @default true
 	 */
-	"bSmart": true
+	"bSmart": true,
+
+	/**
+	 * Flag to indicate if DataTables should only trigger a search when
+	 * the return key is pressed.
+	 *  @type boolean
+	 *  @default false
+	 */
+	"return": false
 };
 
