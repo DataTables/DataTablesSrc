@@ -153,12 +153,12 @@ div.dataTables_scrollHead table.dataTable {
 }
 
 div.dataTables_scrollBody {
-	table {
+	> table {
 		border-top: none;
 		margin-top: 0 !important;
 		margin-bottom: 0 !important;
 
-		thead { // Hide sort icons
+		> thead { // Hide sort icons
 			.sorting:before,
 			.sorting_asc:before,
 			.sorting_desc:before,
@@ -169,8 +169,8 @@ div.dataTables_scrollBody {
 			}
 		}
 
-		tbody tr:first-child th,
-		tbody tr:first-child td {
+		> tbody tr:first-child th,
+		> tbody tr:first-child td {
 			border-top: none;
 		}
 	}
