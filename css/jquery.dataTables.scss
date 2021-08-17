@@ -320,7 +320,6 @@ table.dataTable td {
 .dataTables_wrapper {
 	position: relative;
 	clear: both;
-	*zoom: 1;
 
 	// Page length options
 	.dataTables_length {
@@ -492,7 +491,6 @@ table.dataTable td {
 		clear: both;
 		height: 0;
 	}
-	zoom: 1; // Poor old IE
 }
 
 
