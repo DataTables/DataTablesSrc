@@ -87,9 +87,9 @@ else if ( isset( $options['media'] ) ) {
 // Default libraries
 $versions = json_decode( file_get_contents( is_file('/tmp/dt-versions') ?
 	'/tmp/dt-versions' :
-	'http://regulus.datatables.net/feeds/versions.php' ), true
+	'https://api.datatables.net/versions/pre-release' ), true
 );
-$pluginsHash = $versions['Plugins']['release']['version'];
+$pluginsHash = $versions['DataTables']['release']['version'];
 
 
 DT_Example::$components_cdn = isset( $options['cdn'] );
