@@ -209,8 +209,8 @@ if ( oLanguage.sUrl )
 		dataType: 'json',
 		url: oLanguage.sUrl,
 		success: function ( json ) {
-			_fnLanguageCompat( json );
 			_fnCamelToHungarian( defaults.oLanguage, json );
+			_fnLanguageCompat( json );
 			$.extend( true, oLanguage, json );
 
 			_fnCallbackFire( oSettings, null, 'i18n', [oSettings]);
