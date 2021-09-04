@@ -295,7 +295,7 @@ function _fnScrollDraw ( settings )
 
 	// Read all widths in next pass
 	_fnApplyToChildren( function(nSizer) {
-		let style = window.getComputedStyle ?
+		var style = window.getComputedStyle ?
 			window.getComputedStyle(nSizer).width :
 			_fnStringToCss( $(nSizer).width() );
 
