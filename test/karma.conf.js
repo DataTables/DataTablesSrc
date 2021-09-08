@@ -81,6 +81,10 @@ module.exports = function(config) {
 			case 'select':
 				extensionFiles = 'extensions/Select/test/**/*.js';
 				break;
+			case 'StateRestore':
+			case 'staterestore':
+				extensionFiles = 'extensions/StateRestore/test/**/*.js';
+				break;
 
 			default:
 				throw 'Unknown extension';
@@ -229,6 +233,12 @@ module.exports = function(config) {
 				select: {
 					pathName: 'Select',
 					fileName: 'select',
+					js: false,
+					css: true
+				},
+				staterestore: {
+					pathName: 'StateRestore',
+					fileName: 'stateRestore',
 					js: false,
 					css: true
 				},
