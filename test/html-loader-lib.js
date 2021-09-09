@@ -194,6 +194,8 @@
 				5000
 			);
 
+			afterAll(function() {window.dt.clean()});
+
 			return window.dt;
 		},
 
