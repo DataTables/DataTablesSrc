@@ -41,96 +41,101 @@ function _fnSaveState ( settings )
  */
 function _fnLoadState ( settings, oInit, callback )
 {
-	var i, ien;
-	var columns = settings.aoColumns;
-	var loaded = function ( s ) {
-		if ( ! s || ! s.time ) {
-			callback();
-			return;
-		}
-
-		// Allow custom and plug-in manipulation functions to alter the saved data set and
-		// cancelling of loading by returning false
-		var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
-		if ( $.inArray( false, abStateLoad ) !== -1 ) {
-			callback();
-			return;
-		}
-
-		// Reject old data
-		var duration = settings.iStateDuration;
-		if ( duration > 0 && s.time < +new Date() - (duration*1000) ) {
-			callback();
-			return;
-		}
-
-		// Number of columns have changed - all bets are off, no restore of settings
-		if ( s.columns && columns.length !== s.columns.length ) {
-			callback();
-			return;
-		}
-
-		// Store the saved state so it might be accessed at any time
-		settings.oLoadedState = $.extend( true, {}, s );
-
-		// Restore key features - todo - for 1.11 this needs to be done by
-		// subscribed events
-		if ( s.start !== undefined ) {
-			settings._iDisplayStart    = s.start;
-			settings.iInitDisplayStart = s.start;
-		}
-		if ( s.length !== undefined ) {
-			settings._iDisplayLength   = s.length;
-		}
-
-		// Order
-		if ( s.order !== undefined ) {
-			settings.aaSorting = [];
-			$.each( s.order, function ( i, col ) {
-				settings.aaSorting.push( col[0] >= columns.length ?
-					[ 0, col[1] ] :
-					col
-				);
-			} );
-		}
-
-		// Search
-		if ( s.search !== undefined ) {
-			$.extend( settings.oPreviousSearch, _fnSearchToHung( s.search ) );
-		}
-
-		// Columns
-		//
-		if ( s.columns ) {
-			for ( i=0, ien=s.columns.length ; i<ien ; i++ ) {
-				var col = s.columns[i];
-
-				// Visibility
-				if ( col.visible !== undefined ) {
-					columns[i].bVisible = col.visible;
-				}
-
-				// Search
-				if ( col.search !== undefined ) {
-					$.extend( settings.aoPreSearchCols[i], _fnSearchToHung( col.search ) );
-				}
-			}
-		}
-
-		_fnCallbackFire( settings, 'aoStateLoaded', 'stateLoaded', [settings, s] );
-		callback();
-	};
-
 	if ( ! settings.oFeatures.bStateSave ) {
 		callback();
 		return;
 	}
 
+	var loaded = function(state) {
+		_fnImplementState(settings, state, callback);
+	}
+
 	var state = settings.fnStateLoadCallback.call( settings.oInstance, settings, loaded );
 
 	if ( state !== undefined ) {
-		loaded( state );
+		_fnImplementState( settings, state, callback );
 	}
 	// otherwise, wait for the loaded callback to be executed
 }
+
+function _fnImplementState ( settings, s, callback) {
+	var i, ien;
+	var columns = settings.aoColumns;
+
+	if ( ! s || ! s.time ) {
+		callback();
+		return;
+	}
+
+	// Allow custom and plug-in manipulation functions to alter the saved data set and
+	// cancelling of loading by returning false
+	var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
+	if ( $.inArray( false, abStateLoad ) !== -1 ) {
+		callback();
+		return;
+	}
+
+	// Reject old data
+	var duration = settings.iStateDuration;
+	if ( duration > 0 && s.time < +new Date() - (duration*1000) ) {
+		callback();
+		return;
+	}
+
+	// Number of columns have changed - all bets are off, no restore of settings
+	if ( s.columns && columns.length !== s.columns.length ) {
+		callback();
+		return;
+	}
+
+	// Store the saved state so it might be accessed at any time
+	settings.oLoadedState = $.extend( true, {}, s );
+
+	// Restore key features - todo - for 1.11 this needs to be done by
+	// subscribed events
+	if ( s.start !== undefined ) {
+		settings._iDisplayStart    = s.start;
+		settings.iInitDisplayStart = s.start;
+	}
+	if ( s.length !== undefined ) {
+		settings._iDisplayLength   = s.length;
+	}
+
+	// Order
+	if ( s.order !== undefined ) {
+		settings.aaSorting = [];
+		$.each( s.order, function ( i, col ) {
+			settings.aaSorting.push( col[0] >= columns.length ?
+				[ 0, col[1] ] :
+				col
+			);
+		} );
+	}
+
+	// Search
+	if ( s.search !== undefined ) {
+		$.extend( settings.oPreviousSearch, _fnSearchToHung( s.search ) );
+	}
+
+	// Columns
+	//
+	if ( s.columns ) {
+		for ( i=0, ien=s.columns.length ; i<ien ; i++ ) {
+			var col = s.columns[i];
+
+			// Visibility
+			if ( col.visible !== undefined ) {
+				columns[i].bVisible = col.visible;
+			}
+
+			// Search
+			if ( col.search !== undefined ) {
+				$.extend( settings.aoPreSearchCols[i], _fnSearchToHung( col.search ) );
+			}
+		}
+	}
+
+	_fnCallbackFire( settings, 'aoStateLoaded', 'stateLoaded', [settings, s] );
+	callback();
+};
 
