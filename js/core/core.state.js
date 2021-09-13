@@ -56,6 +56,8 @@ function _fnLoadState ( settings, oInit, callback )
 		_fnImplementState( settings, state, callback );
 	}
 	// otherwise, wait for the loaded callback to be executed
+
+	return true;
 }
 
 function _fnImplementState ( settings, s, callback) {
