@@ -101,7 +101,9 @@ function _fnImplementState ( settings, s, callback) {
 	// subscribed events
 	if ( s.start !== undefined ) {
 		settings._iDisplayStart    = s.start;
-		settings.iInitDisplayStart = s.start;
+		if(api === null) {
+			settings.iInitDisplayStart = s.start;
+		}
 	}
 	if ( s.length !== undefined ) {
 		settings._iDisplayLength   = s.length;
@@ -124,7 +126,6 @@ function _fnImplementState ( settings, s, callback) {
 	}
 
 	// Columns
-	//
 	if ( s.columns ) {
 		for ( i=0, ien=s.columns.length ; i<ien ; i++ ) {
 			var col = s.columns[i];
