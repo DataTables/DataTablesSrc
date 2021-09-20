@@ -108,6 +108,7 @@ $.extend( DataTable.ext.internal, {
 	_fnSortData: _fnSortData,
 	_fnSaveState: _fnSaveState,
 	_fnLoadState: _fnLoadState,
+	_fnImplementState: _fnImplementState,
 	_fnSettingsFromNode: _fnSettingsFromNode,
 	_fnLog: _fnLog,
 	_fnMap: _fnMap,
