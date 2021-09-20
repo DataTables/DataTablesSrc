@@ -39,11 +39,11 @@ var DataTable = $.fn.dataTable;
 $.extend( true, DataTable.defaults, {
 	dom:
 		"<'columns is-gapless is-multiline'" +
-			"<'column is-one-half'l>" +
-			"<'column is-one-half'f>" +
+			"<'column is-half'l>" +
+			"<'column is-half'f>" +
 			"<'column is-full'tr>" +
-			"<'column is-one-half'i>" +
-			"<'column is-one-half'p>" +
+			"<'column is-half'i>" +
+			"<'column is-half'p>" +
 		">",
 	renderer: 'bulma'
 } );
