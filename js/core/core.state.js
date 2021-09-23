@@ -8,6 +8,7 @@
 function _fnSaveState ( settings )
 {
 	if (settings._bLoadingState) {
+		console.log(settings._bLoadingState)
 		return;
 	}
 
@@ -74,6 +75,7 @@ function _fnImplementState ( settings, s, callback) {
 	var api = settings._bInitComplete ? new DataTable.Api(settings) : null;
 
 	if ( ! s || ! s.time ) {
+		settings._bLoadingState = false;
 		callback();
 		return;
 	}
@@ -82,6 +84,7 @@ function _fnImplementState ( settings, s, callback) {
 	// cancelling of loading by returning false
 	var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
 	if ( $.inArray( false, abStateLoad ) !== -1 ) {
+		settings._bLoadingState = false;
 		callback();
 		return;
 	}
@@ -89,12 +92,14 @@ function _fnImplementState ( settings, s, callback) {
 	// Reject old data
 	var duration = settings.iStateDuration;
 	if ( duration > 0 && s.time < +new Date() - (duration*1000) ) {
+		settings._bLoadingState = false;
 		callback();
 		return;
 	}
 
 	// Number of columns have changed - all bets are off, no restore of settings
 	if ( s.columns && columns.length !== s.columns.length ) {
+		settings._bLoadingState = false;
 		callback();
 		return;
 	}
