@@ -7,6 +7,10 @@
  */
 function _fnSaveState ( settings )
 {
+	if (settings._bLoadingState) {
+		return;
+	}
+
 	/* Store the interesting variables */
 	var state = {
 		time:    +new Date(),
@@ -63,6 +67,7 @@ function _fnLoadState ( settings, oInit, callback )
 function _fnImplementState ( settings, s, callback) {
 	var i, ien;
 	var columns = settings.aoColumns;
+	settings._bLoadingState = true;
 
 	// When StateRestore was introduced the state could now be implemented at any time
 	// Not just initialisation. To do this an api instance is required in some places
@@ -154,6 +159,7 @@ function _fnImplementState ( settings, s, callback) {
 		}
 	}
 
+	settings._bLoadingState = false;
 	_fnCallbackFire( settings, 'aoStateLoaded', 'stateLoaded', [settings, s] );
 	callback();
 };
