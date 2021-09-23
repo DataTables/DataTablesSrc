@@ -294,6 +294,16 @@ if (! Array.isArray) {
     };
 }
 
+if (! Array.prototype.includes) {
+	Array.prototype.includes = function (search, start) {
+		if (start === undefined) {
+			start = 0;
+		}
+
+		return this.indexOf(search, start) !== -1;	
+	};
+}
+
 // .trim() polyfill
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
 if (!String.prototype.trim) {
