@@ -75,9 +75,21 @@ DataTable.render = {
 				return d === typeName ? typeName : false;
 			});
 
-			// And it will give the data to order as a number
-			DataTable.ext.type.order[typeName] = function (d) {
-				return d;
+			// Use moment to sort dates - the dates are already moment objects from the `sort` renderer
+			DataTable.ext.type.order[typeName + '-asc'] = function (a, b) {
+				return a.isSame(b)
+					? 0
+					: a.isBefore(b)
+						? -1
+						: 1;
+			}
+
+			DataTable.ext.type.order[typeName + '-desc'] = function (a, b) {
+				return a.isSame(b)
+					? 0
+					: a.isAfter(b)
+						? -1
+						: 1;
 			}
 		}
 	
@@ -87,6 +99,9 @@ DataTable.render = {
 				if (def === '--now') {
 					d = new Date();
 				}
+				else {
+					d = '';
+				}
 			}
 
 			if (type === 'type') {
@@ -95,7 +110,9 @@ DataTable.render = {
 			}
 
 			if (d === '') {
-				return d;
+				return type === 'sort'
+					? moment('0000-01-01')
+					: d;
 			}
 
 			// Shortcut. If `from` and `to` are the same, we are using the renderer to
@@ -111,7 +128,7 @@ DataTable.render = {
 			}
 
 			if (type === 'sort') {
-				return m.format('x');
+				return m;
 			}
 
 			var formatted = m.format( to );
