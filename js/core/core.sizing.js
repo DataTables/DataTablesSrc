@@ -29,6 +29,12 @@ function _fnCalculateColumnWidths ( oSettings )
 		tableWidthAttr = styleWidth;
 	}
 
+	// Let plug-ins know that we are doing a recalc, in case they have changed any of the
+	// visible columns their own way (e.g. Responsive uses display:none).
+	$(table).triggerHandler('column-calc.dt', {
+		visible: visibleColumns
+	});
+
 	/* Convert any user input sizes into pixel sizes */
 	for ( i=0 ; i<visibleColumns.length ; i++ ) {
 		column = columns[ visibleColumns[i] ];
