@@ -355,7 +355,7 @@ function _fnScrollDraw ( settings )
 
 	// Sanity check that the table is of a sensible width. If not then we are going to get
 	// misalignment - try to prevent this by not allowing the table to shrink below its min width
-	if ( table.outerWidth() < sanityWidth )
+	if ( Math.round(table.outerWidth()) < Math.round(sanityWidth) )
 	{
 		// The min width depends upon if we have a vertical scrollbar visible or not */
 		correction = ((divBodyEl.scrollHeight > divBodyEl.offsetHeight ||
