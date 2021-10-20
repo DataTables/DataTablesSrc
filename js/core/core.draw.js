@@ -313,6 +313,9 @@ function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
  */
 function _fnDraw( oSettings, ajaxComplete )
 {
+	// Allow for state saving and a custom start position
+	_fnStart( oSettings );
+
 	/* Provide a pre-callback function which can be used to cancel the draw is false is returned */
 	var aPreDraw = _fnCallbackFire( oSettings, 'aoPreDrawCallback', 'preDraw', [oSettings] );
 	if ( $.inArray( false, aPreDraw ) !== -1 )
@@ -321,33 +324,17 @@ function _fnDraw( oSettings, ajaxComplete )
 		return;
 	}
 
-	var i, iLen, n;
 	var anRows = [];
 	var iRowCount = 0;
 	var asStripeClasses = oSettings.asStripeClasses;
 	var iStripes = asStripeClasses.length;
-	var iOpenRows = oSettings.aoOpenRows.length;
 	var oLang = oSettings.oLanguage;
-	var iInitDisplayStart = oSettings.iInitDisplayStart;
 	var bServerSide = _fnDataSource( oSettings ) == 'ssp';
 	var aiDisplay = oSettings.aiDisplay;
-
-	oSettings.bDrawing = true;
-
-	/* Check and see if we have an initial draw position from state saving */
-	if ( iInitDisplayStart !== undefined && iInitDisplayStart !== -1 )
-	{
-		oSettings._iDisplayStart = bServerSide ?
-			iInitDisplayStart :
-			iInitDisplayStart >= oSettings.fnRecordsDisplay() ?
-				0 :
-				iInitDisplayStart;
-
-		oSettings.iInitDisplayStart = -1;
-	}
-
 	var iDisplayStart = oSettings._iDisplayStart;
 	var iDisplayEnd = oSettings.fnDisplayEnd();
+
+	oSettings.bDrawing = true;
 
 	/* Server-side processing draw intercept */
 	if ( oSettings.bDeferLoading )
@@ -748,5 +735,27 @@ function _fnGetUniqueThs ( oSettings, nHeader, aLayout )
 	}
 
 	return aReturn;
+}
+
+/**
+ * Set the start position for draw
+ *  @param {object} oSettings dataTables settings object
+ */
+function _fnStart( oSettings )
+{
+	var bServerSide = _fnDataSource( oSettings ) == 'ssp';
+	var iInitDisplayStart = oSettings.iInitDisplayStart;
+
+	// Check and see if we have an initial draw position from state saving
+	if ( iInitDisplayStart !== undefined && iInitDisplayStart !== -1 )
+	{
+		oSettings._iDisplayStart = bServerSide ?
+			iInitDisplayStart :
+			iInitDisplayStart >= oSettings.fnRecordsDisplay() ?
+				0 :
+				iInitDisplayStart;
+
+		oSettings.iInitDisplayStart = -1;
+	}
 }
 
