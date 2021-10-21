@@ -35,6 +35,10 @@ table.dataTable {
 
 // DataTables' built in feature elements
 div.dataTables_wrapper {
+	> div.columns {
+		margin-bottom: 0 !important;
+	}
+
 	div.dataTables_length {
 		label {
 			font-weight: normal;

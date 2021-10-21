@@ -42,13 +42,8 @@
 'use strict';
 var DataTable = $.fn.dataTable;
 
-
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
-	dom:
-		"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-		"<'row'<'col-sm-12'tr>>" +
-		"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 	renderer: 'bootstrap'
 } );
 
@@ -177,6 +172,37 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 	if ( activeEl !== undefined ) {
 		$(host).find( '[data-dt-idx='+activeEl+']' ).trigger('focus');
 	}
+};
+
+
+DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items ) {
+	var row = $( '<div/>', {
+			"class": items.full ?
+				'row justify-content-md-center' :
+				'row justify-content-between'
+		} )
+		.appendTo( container );
+
+	$.each( items, function (key, val) {
+		var klass;
+
+		if (key === 'left') {
+			klass = 'col-md-auto mr-auto';
+		}
+		else if (key === 'right') {
+			klass = 'col-md-auto ml-auto';
+		}
+		else {
+			klass = 'col-md-12';
+		}
+
+		$( '<div/>', {
+				id: val.id || null,
+				"class": klass+' '+(val.className || '')
+			} )
+			.append( val.contents )
+			.appendTo( row );
+	} );
 };
 
 

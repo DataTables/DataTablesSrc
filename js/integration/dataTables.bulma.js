@@ -37,14 +37,6 @@ var DataTable = $.fn.dataTable;
 
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
-	dom:
-		"<'columns is-gapless is-multiline'" +
-			"<'column is-one-half'l>" +
-			"<'column is-one-half'f>" +
-			"<'column is-full'tr>" +
-			"<'column is-one-half'i>" +
-			"<'column is-one-half'p>" +
-		">",
 	renderer: 'bulma'
 } );
 
@@ -176,6 +168,47 @@ DataTable.ext.renderer.pageButton.bulma = function ( settings, host, idx, button
 		$(host).find( '[data-dt-idx='+activeEl+']' ).trigger('focus');
 	}
 };
+
+
+DataTable.ext.renderer.layout.bulma = function ( settings, container, items ) {
+	var row = $( '<div/>', {
+			"class": 'columns is-gapless is-multiline'
+		} )
+		.appendTo( container );
+
+	var hasLeft = false;
+
+	// If we have a right, but no left, we need to apply an offset
+	$.each( items, function (key, val) {
+		if (key === 'left') {
+			hasLeft = true;
+		}
+	});
+
+	$.each( items, function (key, val) {
+		var klass;
+
+		if (key === 'left') {
+			klass = 'column is-one-half';
+		}
+		else if (key === 'right') {
+			klass = hasLeft
+				? 'column is-one-half'
+				: 'column is-one-half is-offset-one-half';
+		}
+		else {
+			klass = 'column is-full';
+		}
+
+		$( '<div/>', {
+				id: val.id || null,
+				"class": klass+' '+(val.className || '')
+			} )
+			.append( val.contents )
+			.appendTo( row );
+	} );
+};
+
 
 // Javascript enhancements on table initialisation
 $(document).on( 'init.dt', function (e, ctx) {
