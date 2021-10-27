@@ -102,18 +102,14 @@ function _fnSortFlatten ( settings )
  * Change the order of the table
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
- *  @todo This really needs split up!
  */
-function _fnSort ( oSettings )
+function _fnSort ( oSettings, col, dir )
 {
 	var
-		i, ien, iLen, j, jLen, k, kLen,
-		sDataType, nTh,
+		i, ien, iLen,
 		aiOrig = [],
 		oExtSort = DataTable.ext.type.order,
 		aoData = oSettings.aoData,
-		aoColumns = oSettings.aoColumns,
-		aDataSort, data, iCol, sType, oSort,
 		formatters = 0,
 		sortCol,
 		displayMaster = oSettings.aiDisplayMaster,
@@ -124,7 +120,23 @@ function _fnSort ( oSettings )
 	//   data is going to be used in the table?
 	_fnColumnTypes( oSettings );
 
-	aSort = _fnSortFlatten( oSettings );
+	// Allow a specific column to be sorted, which will _not_ alter the display
+	// master
+	if (col !== undefined) {
+		var srcCol = oSettings.aoColumns[col];
+		aSort = [{
+			src:       col,
+			col:       col,
+			dir:       dir,
+			index:     0,
+			type:      srcCol.sType,
+			formatter: DataTable.ext.type.order[ srcCol.sType+"-pre" ]
+		}];
+		displayMaster = displayMaster.slice();
+	}
+	else {
+		aSort = _fnSortFlatten( oSettings );
+	}
 
 	for ( i=0, ien=aSort.length ; i<ien ; i++ ) {
 		sortCol = aSort[i];
@@ -225,11 +237,13 @@ function _fnSort ( oSettings )
 		}
 	}
 	else if ( aSort.length === 0 ) {
-		oSettings.aiDisplayMaster.sort(); // Apply index order
+		displayMaster.sort(); // Apply index order
 	}
 
 	/* Tell the draw function that we have sorted the data */
 	oSettings.bSorted = true;
+
+	return displayMaster;
 }
 
 

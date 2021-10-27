@@ -150,6 +150,25 @@ var _selector_row_indexes = function ( settings, opts )
 			}
 		}
 	}
+	else if ( typeof order === 'number' ) {
+		// Order the rows by the given column
+		var ordered = _fnSort(settings, order, 'asc');
+
+		if (search === 'none') {
+			a = ordered;
+		}
+		else { // applied | removed
+			for (i=0; i<ordered.length; i++) {
+				tmp = $.inArray( ordered[i], displayFiltered );
+
+				if ((tmp === -1 && search == 'removed') ||
+					(tmp >= 0   && search == 'applied') )
+				{
+					a.push( ordered[i] );
+				}
+			}
+		}
+	}
 
 	return a;
 };

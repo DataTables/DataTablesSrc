@@ -20,7 +20,7 @@ Fundamentally `dt-type selector-modifier` is an object with three built-in prope
 ```js
 {
 	// DataTables core
-    order:  'current',  // 'current', 'applied', 'index',  'original'
+    order:  'current',  // 'current', 'applied', 'index', 'original', number
     page:   'all',      // 'all',     'current'
     search: 'none',     // 'none',    'applied', 'removed'
 
@@ -42,6 +42,7 @@ The `order` modifier provides the ability to control which order the rows are pr
 * `dt-string index` - Process the rows in their data index order (the order the data was originally read into the table).
 * `dt-string applied` - Alias of `current`.
 * `dt-string original` - Alias of `index` for backwards compatibility.
+* `-type number` - A column index whose sorting should be applied to the data (since 2.0). Please note that this option does not operate the the `page: 'current'` option.
 
 ###### Get the data from a column in the applied order:
 
@@ -57,6 +58,14 @@ table.column( 3, {order:'current'} ).data();
 ```js
 var table = $('#myTable').DataTable();
 table.column( 3, {order:'index'} ).data();
+```
+```
+
+###### Get the data from a column in the order DataTables would sort it in:
+
+```js
+var table = $('#myTable').DataTable();
+table.column( 3, {order:3} ).data();
 ```
 
 
