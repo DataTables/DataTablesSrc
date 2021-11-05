@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="ajax-details" order="6">
 
-<css lib="datatables"><![CDATA[
-td.details-control {
-	background: url('../resources/details_open.png') no-repeat center center;
-	cursor: pointer;
-}
-tr.shown td.details-control {
-	background: url('../resources/details_close.png') no-repeat center center;
-}
-]]></css>
+<css lib="datatables"/>
 <js lib="jquery datatables" />
 
 <title>Child rows with StateSave</title>

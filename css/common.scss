@@ -1,12 +1,41 @@
-td.dt-control {
-    background: url('https://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
-    cursor: pointer;
+
+//
+// Variables
+//
+
+$control-button-top: 9px !default;
+$control-button-size: 1em !default;
+$control-button-color: white !default;
+$open-button-background: #31b131 !default;
+$close-button-background: #d33333 !default;
+
+
+//
+// Mixins
+//
+@mixin control() {
+	display: inline-block;
+	color: $control-button-color;
+	border: 0.15em solid white;
+	border-radius: 1em;
+	box-shadow: 0 0 0.2em #444;
+	box-sizing: content-box;
+	text-align: center;
+	text-indent: 0 !important;
+
+	// Use Courier New because it is common and consistent
+	font-family: 'Courier New', Courier, monospace;
+	line-height: 1em;
 }
 
-tr.dt-hasChild {
-    td.dt-control {
-        background: url('https://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
-    }
+@mixin control-open() {
+	content: '+';
+	background-color: $open-button-background;
+}
+
+@mixin control-close() {
+	content: '-';
+	background-color: $close-button-background;
 }
 
 table.dataTable {
@@ -89,6 +118,26 @@ table.dataTable {
         th.dt-body-nowrap,
         td.dt-body-nowrap {
             white-space: nowrap;
+        }
+    }
+
+    // Child row controls
+    td.dt-control {
+        text-align: center;
+        cursor: pointer;
+    
+        &:before {
+            height: $control-button-size;
+            width: $control-button-size;
+            margin-top: -$control-button-top;
+            @include control;
+            @include control-open;
+        }
+    }
+    
+    tr.dt-hasChild {
+        td.dt-control:before {
+            @include control-close;
         }
     }
 }

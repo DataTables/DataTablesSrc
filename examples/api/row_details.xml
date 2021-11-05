@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="ajax-details" order="5">
 
-<css lib="datatables"><![CDATA[
-td.details-control {
-	background: url('../resources/details_open.png') no-repeat center center;
-	cursor: pointer;
-}
-tr.shown td.details-control {
-	background: url('../resources/details_close.png') no-repeat center center;
-}
-]]></css>
+<css lib="datatables" />
 <js lib="jquery datatables" />
 
 <title>Child rows (show extra / detailed information)</title>
@@ -39,7 +31,7 @@ $(document).ready(function() {
 		"ajax": "../ajax/data/objects.txt",
 		"columns": [
 			{
-				"className":      'details-control',
+				"className":      'dt-control',
 				"orderable":      false,
 				"data":           null,
 				"defaultContent": ''
@@ -53,7 +45,7 @@ $(document).ready(function() {
 	} );
 	
 	// Add event listener for opening and closing details
-	$('#example tbody').on('click', 'td.details-control', function () {
+	$('#example tbody').on('click', 'td.dt-control', function () {
 		var tr = $(this).closest('tr');
 		var row = table.row( tr );
 
