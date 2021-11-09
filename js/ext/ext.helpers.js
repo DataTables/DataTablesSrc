@@ -146,8 +146,15 @@ DataTable.render = {
 					return d;
 				}
 
-				var negative = d < 0 ? '-' : '';
 				var flo = parseFloat( d );
+
+				// Scientific notation for large and small numbers
+				if (flo >= 100000000000 || flo < 0.0001 ) {
+					var exp = flo.toExponential(precision).split(/e\+?/);
+					return exp[0] + ' x 10<sup>' + exp[1] + '</sup>';
+				}
+
+				var negative = d < 0 ? '-' : '';
 
 				// If NaN then there isn't much formatting that we can do - just
 				// return immediately, escaping any HTML (this was supposed to
