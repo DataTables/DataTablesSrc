@@ -147,9 +147,10 @@ DataTable.render = {
 				}
 
 				var flo = parseFloat( d );
+				var abs = Math.abs(flo);
 
 				// Scientific notation for large and small numbers
-				if (flo >= 100000000000 || flo < 0.0001 ) {
+				if (abs >= 100000000000 || (flo < 0.0001 && flo !== 0) ) {
 					var exp = flo.toExponential(precision).split(/e\+?/);
 					return exp[0] + ' x 10<sup>' + exp[1] + '</sup>';
 				}
