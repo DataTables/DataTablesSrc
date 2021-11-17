@@ -89,59 +89,8 @@ div.dataTables_wrapper {
 	}
 }
 
-
-// Sorting - using :before and :after with UTF8 characters
-table.dataTable > thead {
-	> tr {
-		> th,
-		> td {
-			&:active {
-				outline: none;
-			}
-
-			&:not(.sorting_disabled) {
-				padding-right: 30px;
-			}
-		}
-	}
-
-	.sorting,
-	.sorting_asc,
-	.sorting_desc,
-	.sorting_asc_disabled,
-	.sorting_desc_disabled {
-		cursor: pointer;
-		position: relative;
-
-		&:before,
-		&:after {
-			position: absolute;
-			bottom: 0.5em;
-			display: block;
-			opacity: 0.3;
-		}
-
-		&:before {
-			right: 1em;
-			content: "\2191"; // up arrow - ascending
-		}
-
-		&:after {
-			right: 0.5em;
-			content: "\2193"; // down arrow - descending
-		}
-	}
-
-	.sorting_asc:before,
-	.sorting_desc:after {
-		opacity: 1;
-	}
-
-	.sorting_asc_disabled:before,
-	.sorting_desc_disabled:after {
-		opacity: 0;
-	}
-}
+@import 'typography.scss';
+@import 'ordering.scss';
 
 
 // Scrolling
