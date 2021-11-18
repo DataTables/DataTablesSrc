@@ -178,8 +178,8 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items ) {
 	var row = $( '<div/>', {
 			"class": items.full ?
-				'row justify-content-md-center' :
-				'row justify-content-between'
+				'row mt-2 justify-content-md-center' :
+				'row mt-2 justify-content-between'
 		} )
 		.appendTo( container );
 
