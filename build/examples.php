@@ -246,7 +246,7 @@ DT_Example::$components['searchpanes'] = [
 
 DT_Example::$components['staterestore'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/StateRestore' ),
-	'release' => '0.0.1',
+	'release' => $versions['StateRestore']['release']['version'],
 	'filename' => 'stateRestore',
 	'framework' => [
 		'css' => true,
