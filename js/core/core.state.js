@@ -109,9 +109,13 @@ function _fnImplementState ( settings, s, callback) {
 	// Restore key features - todo - for 1.11 this needs to be done by
 	// subscribed events
 	if ( s.start !== undefined ) {
-		settings._iDisplayStart    = s.start;
 		if(api === null) {
+			settings._iDisplayStart    = s.start;
 			settings.iInitDisplayStart = s.start;
+		}
+		else {
+			_fnPageChange(settings, s.start/s.length);
+
 		}
 	}
 	if ( s.length !== undefined ) {
