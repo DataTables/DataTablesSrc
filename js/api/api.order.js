@@ -30,6 +30,7 @@
  */
 _api_register( 'order()', function ( order, dir ) {
 	var ctx = this.context;
+	var args = Array.prototype.slice.call( arguments );
 
 	if ( order === undefined ) {
 		// get
@@ -43,14 +44,14 @@ _api_register( 'order()', function ( order, dir ) {
 		// Simple column / direction passed in
 		order = [ [ order, dir ] ];
 	}
-	else if ( order.length && ! Array.isArray( order[0] ) ) {
+	else if ( args.length > 1 ) {
 		// Arguments passed in (list of 1D arrays)
-		order = Array.prototype.slice.call( arguments );
+		order = args;
 	}
 	// otherwise a 2D array was passed in
 
 	return this.iterator( 'table', function ( settings ) {
-		settings.aaSorting = order.slice();
+		settings.aaSorting = Array.isArray(order) ? order.slice() : order;
 	} );
 } );
 

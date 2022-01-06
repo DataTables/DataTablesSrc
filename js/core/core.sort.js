@@ -26,22 +26,48 @@ function _fnSortInit( settings ) {
 function _fnSortFlatten ( settings )
 {
 	var
-		i, iLen, k, kLen,
+		i, k, kLen,
 		aSort = [],
-		aiOrig = [],
 		aoColumns = settings.aoColumns,
 		aDataSort, iCol, sType, srcCol,
 		fixed = settings.aaSortingFixed,
 		fixedObj = $.isPlainObject( fixed ),
 		nestedSort = [],
-		add = function ( a ) {
-			if ( a.length && ! Array.isArray( a[0] ) ) {
-				// 1D array
-				nestedSort.push( a );
+		push = function ( a ) {
+			if ($.isPlainObject(a)) {
+				if (a.idx !== undefined) {
+					// Index based ordering
+					nestedSort.push([a.idx, a.dir]);
+				}
+				else if (a.name) {
+					// Name based ordering
+					var cols = _fnGetColumns( settings, 'sName');
+					var idx = cols.indexOf(a.name);
+
+					if (idx !== -1) {
+						nestedSort.push([idx, a.dir]);
+					}
+				}
 			}
 			else {
+				// Plain column index and direction pair
+				nestedSort.push(a);
+			}
+		},
+		add = function ( a ) {
+			if ( $.isPlainObject(a) ) {
+				// Object
+				push(a);
+			}
+			else if ( a.length && typeof a[0] === 'number' ) {
+				// 1D array
+				push(a);
+			}
+			else if ( a.length ) {
 				// 2D array
-				$.merge( nestedSort, a );
+				for (var z=0; z<a.length; z++) {
+					push(a[z]); // Object or array
+				}
 			}
 		};
 	
