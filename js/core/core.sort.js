@@ -41,7 +41,7 @@ function _fnSortFlatten ( settings )
 				}
 				else if (a.name) {
 					// Name based ordering
-					var cols = _fnGetColumns( settings, 'sName');
+					var cols = _pluck( settings.aoColumns, 'sName');
 					var idx = cols.indexOf(a.name);
 
 					if (idx !== -1) {
