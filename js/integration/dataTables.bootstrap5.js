@@ -186,19 +186,23 @@ DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items 
 	$.each( items, function (key, val) {
 		var klass;
 
-		if (key === 'left') {
-			klass = 'col-md-auto mr-auto';
+		// Apply start / end (left / right when ltr) margins
+		if (val.table) {
+			klass = 'col-12';
+		}
+		else if (key === 'left') {
+			klass = 'col-md-auto me-auto';
 		}
 		else if (key === 'right') {
-			klass = 'col-md-auto ml-auto';
+			klass = 'col-md-auto ms-auto';
 		}
 		else {
-			klass = 'col-md-12';
+			klass = 'col-md-auto ms-auto me-auto';
 		}
 
 		$( '<div/>', {
 				id: val.id || null,
-				"class": klass+' '+(val.className || '')
+				"class": klass + ' ' + (val.className || '')
 			} )
 			.append( val.contents )
 			.appendTo( row );

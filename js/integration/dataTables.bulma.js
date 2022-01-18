@@ -171,39 +171,36 @@ DataTable.ext.renderer.pageButton.bulma = function ( settings, host, idx, button
 
 
 DataTable.ext.renderer.layout.bulma = function ( settings, container, items ) {
+	var style = {};
 	var row = $( '<div/>', {
 			"class": 'columns is-gapless is-multiline'
 		} )
 		.appendTo( container );
 
-	var hasLeft = false;
-
-	// If we have a right, but no left, we need to apply an offset
-	$.each( items, function (key, val) {
-		if (key === 'left') {
-			hasLeft = true;
-		}
-	});
-
 	$.each( items, function (key, val) {
 		var klass;
 
-		if (key === 'left') {
-			klass = 'column is-one-half';
+		if (val.table) {
+			klass = 'column is-full';
+		}
+		else if (key === 'left') {
+			klass = 'column is-narrow';
 		}
 		else if (key === 'right') {
-			klass = hasLeft
-				? 'column is-one-half'
-				: 'column is-one-half is-offset-one-half';
+			klass = 'column is-narrow';
+			style.marginLeft = 'auto';
 		}
 		else {
-			klass = 'column is-full';
+			klass = 'column is-narrow';
+			style.marginLeft = 'auto';
+			style.marginRight = 'auto';
 		}
 
 		$( '<div/>', {
 				id: val.id || null,
 				"class": klass+' '+(val.className || '')
 			} )
+			.css(style)
 			.append( val.contents )
 			.appendTo( row );
 	} );

@@ -178,25 +178,31 @@ DataTable.ext.renderer.layout.foundation = function ( settings, container, items
 
 	$.each( items, function (key, val) {
 		var klass = '';
-		if ( key === 'left' ) {
+		var style = {};
+
+		if ( val.table ) {
+			klass += 'cell small-12';
+		}
+		else if ( key === 'left' ) {
 			// left is auto sized, right is shrink, allowing them to take the full width, and letting the
 			// content take its maximum available space.
-			klass += 'cell auto text-left';
+			klass += 'cell auto';
 		}
 		else if ( key === 'right' ) {
-			klass += 'cell shrink text-right';
+			klass += 'cell shrink';
+			style.marginLeft = 'auto';
 		}
 		else if ( key === 'full' ) {
-			klass += 'cell small-12';
-			if ( ! val.table ) {
-				klass += ' text-center';
-			}
+			klass += 'cell shrink';
+			style.marginLeft = 'auto';
+			style.marginRight = 'auto';
 		}
 
 		$( '<div/>', {
 				id: val.id || null,
 				"class": klass+' '+(val.className || '')
 			} )
+			.css(style)
 			.append( val.contents )
 			.appendTo( row );
 	} );

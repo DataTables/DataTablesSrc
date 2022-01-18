@@ -192,14 +192,18 @@ DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items 
 	$.each( items, function (key, val) {
 		var klass;
 
-		if (key === 'left') {
-			klass = 'col-md-auto mr-auto';
+		// Apply left / right margins
+		if (val.table) {
+			klass = 'col-12';
 		}
 		else if (key === 'right') {
 			klass = 'col-md-auto ml-auto';
 		}
+		else if (key === 'left') {
+			klass = 'col-md-auto mr-auto';
+		}
 		else {
-			klass = 'col-md-12';
+			klass = 'col-md-auto ml-auto mr-auto';
 		}
 
 		$( '<div/>', {
