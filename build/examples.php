@@ -459,6 +459,7 @@ else if ( stripos( $dir_input, 'Buttons' ) ) {
 		'column_visibility',
 		'print',
 		'api',
+		'split',
 		'styling'
 	);
 
@@ -469,6 +470,7 @@ else if ( stripos( $dir_input, 'Buttons' ) ) {
 		'column_visibility' => 'Column visibility',
 		'print'             => 'Print',
 		'api'               => 'API',
+		'split'             => 'Split buttons',
 		'styling'           => "Styling",
 	);
 }
