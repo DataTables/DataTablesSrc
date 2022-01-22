@@ -60,7 +60,7 @@ function _fnFeatureHtmlFilter ( settings )
 		.on(
 			'keyup.DT search.DT input.DT paste.DT cut.DT',
 			searchDelay ?
-				_fnThrottle( searchFn, searchDelay ) :
+				_fnDebounce( searchFn, searchDelay ) :
 				searchFn
 		)
 		.on( 'mouseup', function(e) {

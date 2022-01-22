@@ -20,31 +20,59 @@ DataTable.util = {
 	 */
 	throttle: function ( fn, freq ) {
 		var
-			frequency = freq !== undefined ? freq : 200,
-			last,
+			call,
+			that,
 			timer;
 
+		freq = freq !== undefined ? freq : 200;
+
+		function timeout() {
+			fn.apply( that, call );
+			call = undefined;
+			that = undefined;
+			timer = setTimeout( function () {
+				timer = undefined;
+				if ( call ) {
+					timeout();
+				}
+			}, freq );
+		}
+
 		return function () {
-			var
-				that = this,
-				now  = +new Date(),
-				args = arguments;
-
-			if ( last && now < last + frequency ) {
-				clearTimeout( timer );
-
-				timer = setTimeout( function () {
-					last = undefined;
-					fn.apply( that, args );
-				}, frequency );
-			}
-			else {
-				last = now;
-				fn.apply( that, args );
+			that = this;
+			call = arguments;
+			if ( !timer ) {
+				timeout();
 			}
 		};
 	},
 
+
+	/**
+	 * Debounce the calls to a function. Arguments and context are maintained
+	 * for the debounced function.
+	 *
+	 * @param {function} fn Function to be called
+	 * @param {integer} wait Wait after last call in mS
+	 * @return {function} Wrapped function
+	 */
+	debounce: function ( fn, wait ) {
+		var timer;
+
+		wait = wait !== undefined ? wait : 200;	
+
+		return function () {
+			var args = arguments;
+			var that = this;
+			if ( timer ) {
+			  clearTimeout(timer);
+			}
+			timer = setTimeout( function () {
+				timer = undefined;
+				fn.apply( that, args );
+			}, wait );
+		};
+	},
 
 	/**
 	 * Escape a string such that it can be used in a regular expression
