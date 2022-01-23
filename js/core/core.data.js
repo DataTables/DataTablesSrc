@@ -150,7 +150,7 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 	else if ( typeof cellData === 'function' ) {
 		// If the data source is a function, then we run it and use the return,
 		// executing in the scope of the data object (for instances)
-		return cellData.call( rowData );
+		return cellData(settings.aoData[rowIdx].anCells[colIdx], col.mData ? rowData[col.mData] : defaultContent, rowData, rowIdx);
 	}
 
 	if ( cellData === null && type === 'display' ) {
