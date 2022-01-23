@@ -150,7 +150,11 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 	else if ( typeof cellData === 'function' ) {
 		// If the data source is a function, then we run it and use the return,
 		// executing in the scope of the data object (for instances)
-		return cellData;
+		if (col.renderReturnType === 'function') {
+			return cellData;
+		} else {
+			return cellData.call(rowData)
+		}
 	}
 
 	if ( cellData === null && type === 'display' ) {
