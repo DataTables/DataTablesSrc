@@ -150,7 +150,7 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 	else if ( typeof cellData === 'function' ) {
 		// If the data source is a function, then we run it and use the return,
 		// executing in the scope of the data object (for instances)
-		return cellData.call( rowData );
+		return cellData;
 	}
 
 	if ( cellData === null && type === 'display' ) {
@@ -311,7 +311,13 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 			cell.removeChild( cell.firstChild );
 		}
 
-		cell.innerHTML = _fnGetCellData( settings, rowIdx, col, 'display' );
+		var cellData = _fnGetCellData( settings, rowIdx, col, 'display' );
+		if (typeof cellData === 'string') {
+			cell.innerHTML = cellData;
+		} else if (typeof cellData === 'function') {
+			var targetCol = settings.aoColumns[col]
+			cellData(cell, targetCol.mData ? row._aData[targetCol.mData] : col.sDefaultContent, row._aData, rowIdx)
+		}
 	};
 
 	// Are we reading last data from DOM or the data object?

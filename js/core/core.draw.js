@@ -50,7 +50,14 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			if ( create || ((oCol.mRender || oCol.mData !== i) &&
 				 (!$.isPlainObject(oCol.mData) || oCol.mData._ !== i+'.display')
 			)) {
-				nTd.innerHTML = _fnGetCellData( oSettings, iRow, i, 'display' );
+				
+				var cellData = _fnGetCellData( oSettings, iRow, i, 'display' );
+					
+				if (typeof cellData === 'string') {
+					nTd.innerHTML = cellData;
+				} else if (typeof cellData === 'function') {
+					cellData(nTd, oCol.mData ? row._aData[oCol.mData] : oCol.sDefaultContent, row._aData, iRow)
+				}
 			}
 
 			/* Add user defined class */
