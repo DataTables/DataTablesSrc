@@ -362,6 +362,12 @@
 			await dt.sleep(500);
 		},
 
+		addStyle: function (styleString) {
+			const style = document.createElement('style');
+			style.textContent = styleString;
+			document.head.append(style);
+		},	
+
 		serverSide: function (data, callback, settings) {
 			var out = [];
 
