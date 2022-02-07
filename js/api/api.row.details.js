@@ -12,7 +12,9 @@ $(document).on('plugin-init.dt', function (e, context) {
 	var loaded = api.state.loaded();
 
 	if ( loaded && loaded.childRows ) {
-		api.rows( loaded.childRows ).every( function () {
+		api.rows( $.map(loaded.childRows, function (id){
+			return id.replace(/:/g, '\\:')
+		}) ).every( function () {
 			_fnCallbackFire( context, null, 'requestChild', [ this ] )
 		})
 	}
