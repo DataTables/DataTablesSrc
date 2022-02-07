@@ -9,7 +9,7 @@ BASE_DIR="${SCRIPT_DIR}/.."
 BUILD_DIR="${BASE_DIR}/built"
 
 SYNC_BRANCH="master"
-VERSION=$(grep " * @version     " ${BASE_DIR}/js/DataTables.js | awk -F" " '{ print $3 }')
+VERSION=$(grep " * @version     " ${BASE_DIR}/js/umd.js | awk -F" " '{ print $3 }')
 CMD=$1
 SUBCMD=$2
 
@@ -20,11 +20,16 @@ fi
 
 
 function build_js {
-	echo_section "JS"
+	IN_FILE=$1
+	OUT_NAME=$2
+	OUT_EXTN=$3
+
+	echo_section "JS ${OUT_EXTN}"
+
 	SRC_DIR="${BASE_DIR}/js"
 	OUT_DIR="${BUILD_DIR}/js"
-	OUT_FILE="${OUT_DIR}/jquery.dataTables.js"
-	OUT_MIN_FILE="${OUT_DIR}/jquery.dataTables.min.js"
+	OUT_FILE="${OUT_DIR}/${OUT_NAME}.${OUT_EXTN}"
+	OUT_MIN_FILE="${OUT_DIR}/${IN_FILE}.min.${OUT_EXTN}"
 
 	if [ -d $OUT_DIR ]; then
 		rm -r $OUT_DIR
@@ -35,7 +40,7 @@ function build_js {
 
 	OLD_IFS=$IFS
 	IFS='%'
-	cp DataTables.js DataTables.js.build
+	cp $IN_FILE DataTables.js.build
 	grep "_buildInclude('" DataTables.js.build > /dev/null
 
 	while [ $? -eq 0 ]; do
@@ -168,7 +173,8 @@ function build_repo {
 	echo_section "Deploying to build repo"
 	update_build_repo
 
-	build_js
+	build_js umd.js jquery.dataTables js
+	build_js esm.js jquery.dataTables mjs
 	build_css
 	build_types
 	build_images
@@ -349,9 +355,9 @@ function usage {
         - Responsive
         - Scroller
         - Select
-		- SearchBuilder
-		- SearchPanes
-		- StateRestore
+        - SearchBuilder
+        - SearchPanes
+        - StateRestore
 
     and the optional [debug] parameter can be used to disable JS and CSS
     compression for faster development build times."
