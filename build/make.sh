@@ -31,10 +31,9 @@ function build_js {
 	OUT_FILE="${OUT_DIR}/${OUT_NAME}.${OUT_EXTN}"
 	OUT_MIN_FILE="${OUT_DIR}/${IN_FILE}.min.${OUT_EXTN}"
 
-	if [ -d $OUT_DIR ]; then
-		rm -r $OUT_DIR
+	if [ ! -d $OUT_DIR ]; then
+		mkdir $OUT_DIR
 	fi
-	mkdir $OUT_DIR
 
 	cd $SRC_DIR
 
