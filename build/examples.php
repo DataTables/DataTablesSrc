@@ -85,9 +85,11 @@ else if ( isset( $options['media'] ) ) {
 }
 
 // Default libraries
-$versions = json_decode( file_get_contents( is_file('/tmp/dt-versions') ?
-	'/tmp/dt-versions' :
-	'https://api.datatables.net/versions/pre-release' ), true
+$versions = json_decode(
+	is_file('/tmp/dt-versions')
+		? file_get_contents('/tmp/dt-versions')
+		: file_get_contents_curl('https://api.datatables.net/versions/pre-release'),
+	true
 );
 $pluginsHash = $versions['DataTables']['release']['version'];
 
@@ -1451,3 +1453,17 @@ function path_simplify( $path )
 	return implode( '/', $out);
 }
 
+function file_get_contents_curl( $url ) {
+	$ch = curl_init();
+
+	curl_setopt( $ch, CURLOPT_AUTOREFERER, TRUE );
+	curl_setopt( $ch, CURLOPT_HEADER, 0 );
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+	curl_setopt( $ch, CURLOPT_URL, $url );
+	curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, TRUE );
+
+	$data = curl_exec( $ch );
+	curl_close( $ch );
+
+	return $data;
+}
