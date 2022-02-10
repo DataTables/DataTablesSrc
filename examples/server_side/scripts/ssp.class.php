@@ -15,6 +15,7 @@
  * @license MIT - http://datatables.net/license_mit
  */
 
+
 // Please Remove below 4 lines as this is use in Datatatables test environment for your local or live environment please remove it or else it will not work
 $file = $_SERVER['DOCUMENT_ROOT'].'/datatables/pdo.php';
 if ( is_file( $file ) ) {
@@ -306,7 +307,7 @@ class SSP {
 	 *   reduces the number of records that the user can access. This should be
 	 *   used in conditions where you don't want the user to ever have access to
 	 *   particular records (for example, restricting by a login id).
-	 * 
+	 *
 	 * In both cases the extra condition can be added as a simple string, or if
 	 * you are using external values, as an assoc. array with `condition` and
 	 * `bindings` parameters. The `condition` is a string with the SQL WHERE
@@ -345,7 +346,7 @@ class SSP {
 		// condition and bindings
 		if ( $whereResult ) {
 			$str = $whereResult;
-			
+
 			if ( is_array($whereResult) ) {
 				$str = $whereResult['condition'];
 
@@ -362,7 +363,7 @@ class SSP {
 		// Likewise for whereAll
 		if ( $whereAll ) {
 			$str = $whereAll;
-			
+
 			if ( is_array($whereAll) ) {
 				$str = $whereAll['condition'];
 
