@@ -140,17 +140,17 @@ function _fnAjaxParameters( settings )
 		features = settings.oFeatures,
 		preSearch = settings.oPreviousSearch,
 		preColSearch = settings.aoPreSearchCols,
-		colData = function ( idx ) {
-			return typeof columns[idx].mData === 'function' ?
+		colData = function ( idx, prop ) {
+			return typeof columns[idx][prop] === 'function' ?
 				'function' :
-				columns[idx].mData;
+				columns[idx][prop];
 		};
 
 	return {
 		draw: settings.iDraw,
 		columns: $.map( columns, function ( column, i ) {
 			return {
-				data: colData(i),
+				data: colData(i, 'mData'),
 				name: column.sName,
 				searchable: column.bSearchable,
 				orderable: column.bSortable,
@@ -164,7 +164,7 @@ function _fnAjaxParameters( settings )
 			return {
 				column: val.col,
 				dir: val.dir,
-				data: colData(val.col)
+				name: colData(val.col, 'sName')
 			};
 		} ),
 		start: settings._iDisplayStart,
