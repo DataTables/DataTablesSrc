@@ -308,7 +308,7 @@ function _fnScrollDraw ( settings )
 		nToSize.style.width = headerWidths[i];
 	}, headerTrgEls );
 
-	$(headerSrcEls).height(0);
+	$(headerSrcEls).css('height', 0);
 
 	/* Same again with the footer if we have one */
 	if ( footer )
