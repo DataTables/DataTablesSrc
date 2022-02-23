@@ -2,7 +2,7 @@
 $(document).on('plugin-init.dt', function (e, context) {
 	var api = new _Api( context );
 
-	api.on( 'stateSaveParams', function ( e, settings, data ) {\
+	api.on( 'stateSaveParams', function ( e, settings, data ) {
 		// This could be more compact with the API, but it is a lot faster as a simple
 		// internal loop
 		var idFn = settings.rowIdFn;
