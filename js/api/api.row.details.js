@@ -1,24 +1,35 @@
 
 $(document).on('plugin-init.dt', function (e, context) {
 	var api = new _Api( context );
-	api.on( 'stateSaveParams', function ( e, settings, data ) {
-		var indexes = api.rows().iterator( 'row', function ( settings, idx ) {
-			return settings.aoData[idx]._detailsShow ? idx : undefined;
-		});
 
-		data.childRows = api.rows( indexes ).ids( true ).toArray();
+	api.on( 'stateSaveParams', function ( e, settings, data ) {\
+		// This could be more compact with the API, but it is a lot faster as a simple
+		// internal loop
+		var idFn = settings.rowIdFn;
+		var data = settings.aoData;
+		var ids = [];
+
+		for (var i=0 ; i<data.length ; i++) {
+			if (data[i]._detailsShow) {
+				ids.push( '#' + idFn(data) );
+			}
+		}
+
+		data.childRows = ids;
 	})
 
 	var loaded = api.state.loaded();
 
 	if ( loaded && loaded.childRows ) {
-		api.rows( $.map(loaded.childRows, function (id){
-			return id.replace(/:/g, '\\:')
-		}) ).every( function () {
-			_fnCallbackFire( context, null, 'requestChild', [ this ] )
-		})
+		api
+			.rows( $.map(loaded.childRows, function (id){
+				return id.replace(/:/g, '\\:')
+			}) )
+			.every( function () {
+				_fnCallbackFire( context, null, 'requestChild', [ this ] )
+			});
 	}
-})
+});
 
 var __details_add = function ( ctx, row, data, klass )
 {
