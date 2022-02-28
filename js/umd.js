@@ -1,11 +1,11 @@
-/*! DataTables 1.11.4
+/*! DataTables 1.11.5
  * ©2008-2021 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     DataTables
  * @description Paginate, search and order HTML tables
- * @version     1.11.4
+ * @version     1.11.5
  * @file        jquery.dataTables.js
  * @author      SpryMedia Ltd
  * @contact     www.datatables.net
