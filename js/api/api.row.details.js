@@ -136,7 +136,7 @@ var __details_events = function ( settings )
 	var api = new _Api( settings );
 	var namespace = '.dt.DT_details';
 	var drawEvent = 'draw'+namespace;
-	var colvisEvent = 'column-visibility'+namespace;
+	var colvisEvent = 'column-sizing'+namespace;
 	var destroyEvent = 'destroy'+namespace;
 	var data = settings.aoData;
 
