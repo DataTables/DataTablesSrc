@@ -417,7 +417,8 @@ case "$1" in
 		;;
 
 	"js")
-		build_js
+		build_js umd.js jquery.dataTables js
+		build_js esm.js jquery.dataTables mjs
 		;;
 
 	"css")
