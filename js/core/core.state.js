@@ -107,13 +107,13 @@ function _fnImplementState ( settings, s, callback) {
 	settings.oLoadedState = $.extend( true, {}, s );
 
 	// Page Length
-	if ( s.len !== undefined ) {
+	if ( s.length !== undefined ) {
 		// If already initialised just set the value directly so that the select element is also updated
 		if (api) {
-			api.page.len(s.len)
+			api.page.len(s.length)
 		}
 		else {
-			settings._iDisplayLength   = s.len;
+			settings._iDisplayLength   = s.length;
 		}
 	}
 
