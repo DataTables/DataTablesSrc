@@ -458,7 +458,7 @@ table.dataTable td {
 		clear: both;
 
 		div.dataTables_scrollBody {
-			@supports (margin-top: -1px) {
+			@supports not (cursor: pointer) { /* workaround to apply this to IE7 & older only */
 				margin-top: -1px;
 			}
 			-webkit-overflow-scrolling: touch;
