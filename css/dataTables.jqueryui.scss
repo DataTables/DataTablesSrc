@@ -48,11 +48,9 @@ table.dataTable {
 			margin-left: 2px;
 			text-align: center;
 			text-decoration: none !important;
+			cursor: hand;
 			@supports (cursor: pointer) {
 				cursor: pointer;
-			}
-			@supports not (cursor: point) {
-				cursor: hand;
 			}
 
 			border: 1px solid transparent;

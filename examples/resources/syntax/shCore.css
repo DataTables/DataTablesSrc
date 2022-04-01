@@ -383,11 +383,9 @@
 
 .datatables_ref:hover {
 	text-decoration: underline;
+	cursor: hand;
 	@supports (cursor: pointer) {
 		cursor: pointer;
-	}
-	@supports not (cursor: point) {
-		cursor: hand;
 	}
 }
 
@@ -397,11 +395,9 @@
 
 .syntaxhighlighter .dtapi:hover {
 	text-decoration: underline;
+	cursor: hand;
 	@supports (cursor: pointer) {
 		cursor: pointer;
-	}
-	@supports not (cursor: point) {
-		cursor: hand;
 	}
 }
 
