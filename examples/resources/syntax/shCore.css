@@ -7,7 +7,7 @@
  *
  * @version
  * 3.0.83 (July 02 2010)
- * 
+ *
  * @copyright
  * Copyright (C) 2004-2010 Alex Gorbatchev.
  *
@@ -258,7 +258,7 @@
  *
  * @version
  * 3.0.83 (July 02 2010)
- * 
+ *
  * @copyright
  * Copyright (C) 2004-2010 Alex Gorbatchev.
  *
@@ -383,8 +383,12 @@
 
 .datatables_ref:hover {
 	text-decoration: underline;
-	cursor: pointer;
-	*cursor: hand;
+	@supports (cursor: pointer) {
+		cursor: pointer;
+	}
+	@supports not (cursor: point) {
+		cursor: hand;
+	}
 }
 
 .syntaxhighlighter .dtapi {
@@ -393,8 +397,12 @@
 
 .syntaxhighlighter .dtapi:hover {
 	text-decoration: underline;
-	cursor: pointer;
-	*cursor: hand;
+	@supports (cursor: pointer) {
+		cursor: pointer;
+	}
+	@supports not (cursor: point) {
+		cursor: hand;
+	}
 }
 
 .syntaxhighlighter table {

@@ -115,8 +115,12 @@ table.dataTable {
 			.sorting_desc,
 			.sorting_asc_disabled,
 			.sorting_desc_disabled {
-				cursor: pointer;
-				*cursor: hand;
+				@supports (cursor: pointer) {
+					cursor: pointer;
+				}
+				@supports not (cursor: point) {
+					cursor: hand;
+				}
 				background-repeat: no-repeat;
 				background-position: center right;
 			}
@@ -254,7 +258,7 @@ table.dataTable {
 			>.sorting_1 { background-color: shade($table-row-background, 2%); } // shade by fa
 			>.sorting_2 { background-color: shade($table-row-background, 1.2%); } // shade by fc
 			>.sorting_3 { background-color: shade($table-row-background, 0.4%); } // shade by fe
-			
+
 			&.selected {
 				>.sorting_1 { background-color: shade($table-row-selected, 2%); }
 				>.sorting_2 { background-color: shade($table-row-selected, 1.2%); }
@@ -363,8 +367,12 @@ table.dataTable td {
 			margin-left: 2px;
 			text-align: center;
 			text-decoration: none !important;
-			cursor: pointer;
-			*cursor: hand;
+			@supports (cursor: pointer) {
+				cursor: pointer;
+			}
+			@supports not (cursor: point) {
+				cursor: hand;
+			}
 
 			color: $table-control-color !important;
 			border: 1px solid transparent;
@@ -450,7 +458,9 @@ table.dataTable td {
 		clear: both;
 
 		div.dataTables_scrollBody {
-			*margin-top: -1px;
+			@supports (margin-top: -1px) {
+				margin-top: -1px;
+			}
 			-webkit-overflow-scrolling: touch;
 
 			> table > thead > tr, > table > tbody > tr {
