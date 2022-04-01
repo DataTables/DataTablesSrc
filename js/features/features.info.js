@@ -8,10 +8,8 @@ _ext.features.register( 'info', function ( settings, opts ) {
 	var
 		lang  = settings.oLanguage,
 		tid = settings.sTableId,
-		nodes = settings.featureInfo,
 		n = $('<div/>', {
 			'class': settings.oClasses.sInfo,
-			'id': ! nodes ? tid+'_info' : null
 		} );
 
 	opts = $.extend({
@@ -22,26 +20,25 @@ _ext.features.register( 'info', function ( settings, opts ) {
 		text: lang.sInfo,
 	}, opts);
 
+
+	// Update display on each draw
+	settings.aoDrawCallback.push( {
+		fn: function (s) {
+			_fnUpdateInfo(s, opts, n);
+		}
+	} );
+
 	// For the first info display in the table, we add a callback and aria information.
-	if ( ! nodes ) {
-		nodes = $();
-
-		// Update display on each draw
-		settings.aoDrawCallback.push( {
-			fn: function (s) {
-				_fnUpdateInfo(s, opts);
-			}
-		} );
-
-		n
-			.attr( 'role', 'status' )
-			.attr( 'aria-live', 'polite' );
+	if (! $('#' + tid+'_info', settings.nWrapper).length) {
+		n.attr({
+			'aria-live': 'polite',
+			id: tid+'_info',
+			role: 'status'
+		});
 
 		// Table is described by our info div
 		$(settings.nTable).attr( 'aria-describedby', tid+'_info' );
 	}
-
-	settings.featureInfo = nodes.add(n);
 
 	return n;
 } );
@@ -51,16 +48,16 @@ _ext.features.register( 'info', function ( settings, opts ) {
  *  @param {object} settings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnUpdateInfo ( settings, opts )
+function _fnUpdateInfo ( settings, opts, node )
 {
 	var
 		start = settings._iDisplayStart+1,
 		end   = settings.fnDisplayEnd(),
 		max   = settings.fnRecordsTotal(),
 		total = settings.fnRecordsDisplay(),
-		out   = total ?
-			opts.text :
-			opts.empty;
+		out   = total
+			? opts.text
+			: opts.empty;
 
 	if ( total !== max ) {
 		// Record set after filtering
@@ -77,7 +74,7 @@ function _fnUpdateInfo ( settings, opts )
 		);
 	}
 
-	$(settings.featureInfo).html( out );
+	node.html( out );
 }
 
 
