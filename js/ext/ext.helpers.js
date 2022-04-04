@@ -97,7 +97,14 @@ DataTable.render = {
 			// Allow for a default value
 			if (d === null || d === undefined) {
 				if (def === '--now') {
-					d = new Date();
+					// We treat everything as UTC further down, so no changes are
+					// made, as such need to get the local date / time as if it were
+					// UTC
+					var local = new Date();
+					d = new Date( Date.UTC(
+						local.getFullYear(), local.getMonth(), local.getDate(),
+						local.getHours(), local.getMinutes(), local.getSeconds()
+					) );
 				}
 				else {
 					d = '';
