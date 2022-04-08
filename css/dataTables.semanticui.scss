@@ -3,6 +3,7 @@ $table-row-selected: rgba(0, 0, 0, 0.05);
 $table-row-selected-text: inherit;
 
 @import './common.scss';
+@import './ordering.scss';
 
 /*
  * Styling for DataTables with Semantic UI
@@ -10,40 +11,6 @@ $table-row-selected-text: inherit;
 
 table.dataTable.table {
 	margin: 0;
-
-	// Sorting icons using Semantic UI's built in icons (Font Awesome)
-	thead th,
-	thead td {
-		position: relative;
-
-		&.sorting,
-		&.sorting_asc,
-		&.sorting_desc {
-			padding-right: 20px;
-
-			&:after {
-				position: absolute;
-				top: 12px;
-				right: 8px;
-				display: block;
-				font-family: Icons;
-			}
-		}
-
-		&.sorting:after {
-			content: "\f0dc";
-			color: #ddd;
-			font-size: 0.8em;
-		}
-
-		&.sorting_asc:after {
-			content: "\f0de";
-		}
-
-		&.sorting_desc:after {
-			content: "\f0dd";
-		}
-	}
 
 	// Easier calculations
 	td,

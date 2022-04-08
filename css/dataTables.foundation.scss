@@ -2,6 +2,7 @@
 $table-row-selected: rgba(0, 137, 182, 0.9);
 
 @import './common.scss';
+@import './ordering.scss';
 
 table.dataTable {
 	clear: both;
@@ -85,56 +86,6 @@ div.dataTables_wrapper {
 		margin-top: -26px;
 		text-align: center;
 		padding: 1rem 0;
-	}
-}
-
-
-// Sorting
-table.dataTable thead {
-	> tr > th,
-	> tr > td {
-		&.sorting_asc,
-		&.sorting_desc,
-		&.sorting {
-			padding-right: 1.5rem;
-		}
-
-		&:active {
-			outline: none;
-		}
-	}
-
-	.sorting,
-	.sorting_asc,
-	.sorting_desc,
-	.sorting_asc_disabled,
-	.sorting_desc_disabled {
-		cursor: pointer;
-	}
-
-	.sorting,
-	.sorting_asc,
-	.sorting_desc,
-	.sorting_asc_disabled,
-	.sorting_desc_disabled {
-		background-repeat: no-repeat;
-		background-position: center right;
-	}
-
-	.sorting {
-		background-image: url('../images/sort_both.png');
-	}
-	.sorting_asc {
-		background-image: url('../images/sort_asc.png') !important;
-	}
-	.sorting_desc {
-		background-image: url('../images/sort_desc.png') !important;
-	}
-	.sorting_asc_disabled {
-		background-image: url('../images/sort_asc_disabled.png');
-	}
-	.sorting_desc_disabled {
-		background-image: url('../images/sort_desc_disabled.png');
 	}
 }
 

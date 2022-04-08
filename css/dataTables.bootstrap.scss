@@ -2,6 +2,7 @@
 $table-row-selected: rgba(0, 136, 204, 0.9);
 
 @import './common.scss';
+@import './ordering.scss';
 
 table.dataTable {
 	clear: both;
@@ -94,61 +95,6 @@ div.dataTables_wrapper {
 		margin-top: -26px;
 		text-align: center;
 		padding: 1em 0;
-	}
-}
-
-
-// Sorting - using Glyphicons
-table.dataTable thead {
-	> tr > th,
-	> tr > td {
-		&.sorting_asc,
-		&.sorting_desc,
-		&.sorting {
-			padding-right: 30px;
-		}
-
-		&:active {
-			outline: none;
-		}
-	}
-
-	.sorting,
-	.sorting_asc,
-	.sorting_desc,
-	.sorting_asc_disabled,
-	.sorting_desc_disabled {
-		cursor: pointer;
-		position: relative;
-
-		&:after {
-			position: absolute;
-			bottom: 8px;
-			right: 8px;
-			display: block;
-			font-family: 'Glyphicons Halflings', sans-serif;
-			opacity: 0.5;
-		}
-	}
-
-	.sorting:after {
-		opacity: 0.2;
-		content: "\e150"; /* sort */
-	}
-
-	.sorting_asc:after {
-		opacity: 0.5;
-		content: "\e155"; /* sort-by-attributes */
-	}
-
-	.sorting_desc:after {
-		opacity: 0.5;
-		content: "\e156"; /* sort-by-attributes-alt */
-	}
-
-	.sorting_asc_disabled:after,
-	.sorting_desc_disabled:after {
-		color: #eee;
 	}
 }
 
