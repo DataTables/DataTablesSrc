@@ -134,7 +134,6 @@ function build_images {
 	fi
 	mkdir $OUT_DIR
 
-	cp $SRC_DIR/*.png $OUT_DIR
 	cp $SRC_DIR/*.ico $OUT_DIR
 }
 
