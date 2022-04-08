@@ -1,3 +1,6 @@
+
+$table-row-selected: rgba(13, 110, 253, 0.9);
+
 @import './common.scss';
 
 /*! Bootstrap 5 integration for DataTables
@@ -30,7 +33,15 @@ table.dataTable {
 			white-space: nowrap;
 		}
 	}
+
+	// Override default row striping, replacing with an insert box-shadow
+	&.table-striped > tbody > tr:nth-of-type(2n+1) > * {
+		box-shadow: none;
+	}
+
+	@include row-stripes('.table-striped', 0.05);
 }
+
 
 
 // DataTables' built in feature elements
@@ -283,16 +294,3 @@ div.table-responsive > div.dataTables_wrapper > div.row {
 		}
 	}
 }
-
-// Striped tables - we can't simply use the `nth-of-type` approach that Bootstrap uses
-// as it doesn't take account of injected rows (child rows, rowgroup, etc).
-table.dataTable.table-striped {
-    > tbody > tr:nth-of-type(2n+1) > * {
-        --bs-table-accent-bg: transparent;
-    }
-
-    > tbody > tr.odd > * {
-        --bs-table-accent-bg: var(--bs-table-striped-bg);
-    }
-}
-

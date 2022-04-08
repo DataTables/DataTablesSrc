@@ -1,3 +1,6 @@
+
+$table-row-selected: rgba(2, 117, 216, 0.9);
+
 @import './common.scss';
 
 table.dataTable {
@@ -26,6 +29,13 @@ table.dataTable {
 			white-space: nowrap;
 		}
 	}
+
+	// Override default row striping, replacing with an insert box-shadow
+	&.table-striped > tbody > tr:nth-of-type(2n+1) {
+		background-color: transparent;
+	}
+
+	@include row-stripes('.table-striped', 0.05);
 }
 
 
