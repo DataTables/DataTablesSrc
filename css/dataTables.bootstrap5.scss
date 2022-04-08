@@ -1,3 +1,6 @@
+
+$table-row-selected: rgba(13, 110, 253, 0.9);
+
 @import './common.scss';
 
 /*! Bootstrap 5 integration for DataTables
@@ -26,6 +29,13 @@ table.dataTable {
 			white-space: nowrap;
 		}
 	}
+
+	// Override default row striping, replacing with an insert box-shadow
+	&.table-striped > tbody > tr:nth-of-type(2n+1) > * {
+		box-shadow: none;
+	}
+
+	@include row-stripes('.table-striped', 0.05);
 }
 
 

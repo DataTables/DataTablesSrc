@@ -1,94 +1,122 @@
-td.dt-control {
-    background: url('https://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
-    cursor: pointer;
+
+//
+// Functions / mixins
+//
+@function tint( $color, $percent ) {
+	@return mix(white, $color, $percent);
 }
 
-tr.dt-hasChild {
-    td.dt-control {
-        background: url('https://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
-    }
+@function shade( $color, $percent ) {
+	@return mix(black, $color, $percent);
+}
+
+//
+// Variables
+//
+
+// Row background colour (hover, striping etc are all based on this colour and
+// calculated automatically)
+$table-row-background: transparent !default;
+
+// Border between the header (and footer) and the table body
+$table-header-border: 1px solid shade($table-row-background, 30%) !default;
+
+// Border of rows / cells
+$table-body-border: 1px solid shade($table-row-background, 15%) !default;
+
+// Row colour, when selected (tr.selected)
+$table-row-selected: rgba(13, 110, 253, 0.9) !default;
+$table-row-selected-text: white !default;
+
+// Text colour of the interaction control elements (info, filter, paging etc)
+$table-control-color: #333 !default;
+
+// Highlight colour of the paging button for the current page
+$table-paging-button-active: rgba(0, 0, 0, 0.1) !default;
+
+// Hover colour of paging buttons on mouse over
+$table-paging-button-hover: #111 !default;
+
+// Colour to use when shading
+$table-shade: black !default;
+
+$control-button-top: 9px !default;
+$control-button-size: 1em !default;
+$control-button-color: white !default;
+$open-button-background: #31b131 !default;
+$close-button-background: #d33333 !default;
+
+
+//
+// Mixins
+//
+@mixin control() {
+	display: inline-block;
+	color: $control-button-color;
+	border: 0.15em solid white;
+	border-radius: 1em;
+	box-shadow: 0 0 0.2em #444;
+	box-sizing: content-box;
+	text-align: center;
+	text-indent: 0 !important;
+
+	// Use Courier New because it is common and consistent
+	font-family: 'Courier New', Courier, monospace;
+	line-height: 1em;
+}
+
+@mixin control-open() {
+	content: '+';
+	background-color: $open-button-background;
+}
+
+@mixin control-close() {
+	content: '-';
+	background-color: $close-button-background;
+}
+
+// Standard row striping with a box shadow
+@mixin row-stripes($class, $shading: 0.023, $oddEven: '.odd') {
+    // Standard rows without striping
+	> tbody > tr {
+		background-color: $table-row-background;
+
+		&.selected > * {
+			box-shadow: inset 0 0 0 9999px $table-row-selected;
+			color: $table-row-selected-text;
+		}
+	}
+
+    // With striping
+	&#{$class} > tbody {
+		> tr#{$oddEven} > * {
+			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, $shading);
+		}
+
+		> tr#{$oddEven}.selected > * {
+			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: $shading);
+		}
+	}
 }
 
 table.dataTable {
-    // Typography
-    th.dt-left,
-    td.dt-left {
-        text-align: left;
-    }
-
-    th.dt-center,
-    td.dt-center,
-    td.dataTables_empty {
+    // Child row controls
+    td.dt-control {
         text-align: center;
-    }
-
-    th.dt-right,
-    td.dt-right {
-        text-align: right;
-    }
-
-    th.dt-justify,
-    td.dt-justify {
-        text-align: justify;
-    }
-
-    th.dt-nowrap,
-    td.dt-nowrap {
-        white-space: nowrap;
-    }
-
-    thead,
-    tfoot {
-        th.dt-head-left,
-        td.dt-head-left {
-            text-align: left;
-        }
-
-        th.dt-head-center,
-        td.dt-head-center{
-            text-align: center;
-        }
-
-        th.dt-head-right,
-        td.dt-head-right {
-            text-align: right;
-        }
-
-        th.dt-head-justify,
-        td.dt-head-justify {
-            text-align: justify;
-        }
-
-        th.dt-head-nowrap,
-        td.dt-head-nowrap {
-            white-space: nowrap;
+        cursor: pointer;
+    
+        &:before {
+            height: $control-button-size;
+            width: $control-button-size;
+            margin-top: -$control-button-top;
+            @include control;
+            @include control-open;
         }
     }
-
-    tbody {
-        th.dt-body-left,
-        td.dt-body-left {
-            text-align: left;
-        }
-
-        th.dt-body-center,
-        td.dt-body-center {
-            text-align: center;
-        }
-
-        th.dt-body-right,
-        td.dt-body-right {
-            text-align: right;
-        }
-
-        th.dt-body-justify,
-        td.dt-body-justify {
-            text-align: justify;
-        }
-
-        th.dt-body-nowrap,
-        td.dt-body-nowrap {
-            white-space: nowrap;
+    
+    tr.dt-hasChild {
+        td.dt-control:before {
+            @include control-close;
         }
     }
 }

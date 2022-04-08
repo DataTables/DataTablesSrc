@@ -1,3 +1,6 @@
+
+$table-row-selected: rgba(0, 209, 178, 0.9);
+
 @import './common.scss';
 
 /*! DataTables Bulma integration
@@ -27,6 +30,13 @@ table.dataTable {
 			white-space: nowrap;
 		}
 	}
+
+	// Override default row striping, replacing with an insert box-shadow
+	&.table.is-striped > tbody > tr:nth-child(2n) {
+		background-color: transparent;
+	}
+
+	@include row-stripes('.is-striped', 0.019);
 }
 
 

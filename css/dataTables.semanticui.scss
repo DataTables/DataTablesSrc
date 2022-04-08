@@ -1,3 +1,7 @@
+
+$table-row-selected: rgba(0, 0, 0, 0.05);
+$table-row-selected-text: inherit;
+
 @import './common.scss';
 
 /*
@@ -23,6 +27,13 @@ table.dataTable.table {
 			white-space: nowrap;
 		}
 	}
+
+	// Override default row striping, replacing with an insert box-shadow
+	&.ui.striped > tbody > tr:nth-child(2n) {
+		background-color: transparent;
+	}
+
+	@include row-stripes('.striped', 0.02);
 }
 
 @import 'typography.scss';

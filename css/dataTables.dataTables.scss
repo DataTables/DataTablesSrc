@@ -1,44 +1,5 @@
 @import './common.scss';
 
-//
-// Functions / mixins
-//
-@function tint( $color, $percent ) {
-	@return mix(white, $color, $percent);
-}
-
-@function shade( $color, $percent ) {
-	@return mix(black, $color, $percent);
-}
-
- //
- // Colour customisation
- //
- // `!default` allows overriding variables that are defined before @import
- //
-
-// Row background colour (hover, striping etc are all based on this colour and
-// calculated automatically)
-$table-row-background: transparent !default;
-
-// Border between the header (and footer) and the table body
-$table-header-border: 1px solid shade($table-row-background, 30%) !default;
-
-// Border of rows / cells
-$table-body-border: 1px solid shade($table-row-background, 15%) !default;
-
-// Row colour, when selected (tr.selected)
-$table-row-selected: #B0BED9 !default;
-
-// Text colour of the interaction control elements (info, filter, paging etc)
-$table-control-color: #333 !default;
-
-// Highlight colour of the paging button for the current page
-$table-paging-button-active: rgba(0, 0, 0, 0.1) !default;
-
-// Hover colour of paging buttons on mouse over
-$table-paging-button-hover: #111 !default;
-
 // jQuery UI stylesheet imports this one - there are just two places where we
 // don't want DataTabels default styles assigned for jQuery UI, so rather than
 // duplicating the whole file, this is the best option
@@ -115,8 +76,9 @@ table.dataTable {
 		tr {
 			background-color: $table-row-background;
 
-			&.selected {
-				background-color: $table-row-selected;
+			&.selected > * {
+				box-shadow: inset 0 0 0 9999px $table-row-selected;
+				color: $table-row-selected-text;
 			}
 		}
 
@@ -161,27 +123,28 @@ table.dataTable {
 
 
 	// Stripe classes - add "stripe" class to the table to activate
-	&.stripe tbody,
-	&.display tbody {
-		tr.odd {
-			background-color: shade($table-row-background, 2.35%); // shade by f9
+	&.stripe > tbody,
+	&.display > tbody {
+		> tr.odd > * {
+			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.023);
+		}
 
-			&.selected {
-				background-color: shade($table-row-selected, 2.35%);
-			}
+		> tr.odd.selected > * {
+			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.023);
 		}
 	}
 
 
-	// Hover classes - add "hover" class to the table to activate
-	&.hover tbody,
-	&.display tbody {
-		tr:hover {
-			background-color: shade($table-row-background, 3.6%); // shade by f5
 
-			&.selected {
-				background-color: shade($table-row-selected, 3.6%);
-			}
+	// Hover classes - add "hover" class to the table to activate
+	&.hover > tbody,
+	&.display > tbody {
+		> tr:hover > * {
+			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.035);
+		}
+
+		> tr.selected:hover > * {
+			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.035);
 		}
 	}
 
@@ -189,44 +152,44 @@ table.dataTable {
 	// Sort column highlighting - add "order-column" class to the table to activate
 	&.order-column,
 	&.display {
-		tbody {
-			tr>.sorting_1,
-			tr>.sorting_2,
-			tr>.sorting_3 {
-				background-color: shade($table-row-background, 2%); // shade by fa
+		> tbody {
+			tr > .sorting_1,
+			tr > .sorting_2,
+			tr > .sorting_3 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
 			}
 
-			tr.selected>.sorting_1,
-			tr.selected>.sorting_2,
-			tr.selected>.sorting_3 {
-				background-color: shade($table-row-selected, 2%);
+			tr.selected > .sorting_1,
+			tr.selected > .sorting_2,
+			tr.selected > .sorting_3 {
+				box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.019);
 			}
 		}
 	}
-
-	&.display tbody,
-	&.order-column.stripe tbody {
-		tr.odd {
-			>.sorting_1 { background-color: shade($table-row-background, 5.4%); } // shade by f1
-			>.sorting_2 { background-color: shade($table-row-background, 4.7%); } // shade by f3
-			>.sorting_3 { background-color: shade($table-row-background, 3.9%); } // shade by f5
+	
+	&.display > tbody,
+	&.order-column.stripe > tbody {
+		> tr.odd {
+			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.054); }
+			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.047); }
+			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.039); }
 
 			&.selected {
-				>.sorting_1 { background-color: shade($table-row-selected, 5.4%); }
-				>.sorting_2 { background-color: shade($table-row-selected, 4.7%); }
-				>.sorting_3 { background-color: shade($table-row-selected, 3.9%); }
+				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.054); }
+				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.047); }
+				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.039); }
 			}
 		}
 
-		tr.even {
-			>.sorting_1 { background-color: shade($table-row-background, 2%); } // shade by fa
-			>.sorting_2 { background-color: shade($table-row-background, 1.2%); } // shade by fc
-			>.sorting_3 { background-color: shade($table-row-background, 0.4%); } // shade by fe
+		> tr.even {
+			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019); }
+			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.011); }
+			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.003); }
 			
 			&.selected {
-				>.sorting_1 { background-color: shade($table-row-selected, 2%); }
-				>.sorting_2 { background-color: shade($table-row-selected, 1.2%); }
-				>.sorting_3 { background-color: shade($table-row-selected, 0.4%); }
+				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.019); }
+				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.011); }
+				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.003); }
 			}
 		}
 	}
@@ -234,17 +197,18 @@ table.dataTable {
 	&.display tbody,
 	&.order-column.hover tbody {
 		tr:hover {
-			>.sorting_1 { background-color: shade($table-row-background, 8.2%); } // shade by ea
-			>.sorting_2 { background-color: shade($table-row-background, 7.5%); } // shade by ec
-			>.sorting_3 { background-color: shade($table-row-background, 6.3%); } // shade by ef
+			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.082); }
+			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.074); }
+			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.062); }
 
 			&.selected {
-				>.sorting_1 { background-color: shade($table-row-selected, 8.2%); }
-				>.sorting_2 { background-color: shade($table-row-selected, 7.5%); }
-				>.sorting_3 { background-color: shade($table-row-selected, 6.3%); }
+				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.082); }
+				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.074); }
+				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.062); }
 			}
 		}
 	}
+
 
 	&.no-footer {
 		border-bottom: $table-header-border;
