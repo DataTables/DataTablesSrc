@@ -5,7 +5,22 @@
 <js lib="jquery datatables">
 <![CDATA[
 $(document).ready(function() {
-	$('#example').DataTable();
+	$('#example').DataTable({
+		columnDefs: [
+			{
+				targets: 1,
+				orderable: false
+			},
+			{
+				targets: 2,
+				orderSequence: ['asc']
+			},
+			{
+				targets: 3,
+				orderSequence: ['desc']
+			}
+		]
+	});
 } );
 ]]>
 </js>
