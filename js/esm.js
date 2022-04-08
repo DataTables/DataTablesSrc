@@ -1,5 +1,5 @@
-/*! DataTables 1.11.5
- * ©2008-2021 SpryMedia Ltd - datatables.net/license
+/*! DataTables 1.12.0-dev
+ * ©2008-2022 SpryMedia Ltd - datatables.net/license
  */
 
 // ESM export of DataTables
