@@ -58,7 +58,7 @@ table.dataTable {
 
 	thead th,
 	thead td {
-		padding: 10px 18px;
+		padding: 10px;
 
 		@if not $jqueryui { // jQuery UI defines its own border
 			border-bottom: $table-header-border;

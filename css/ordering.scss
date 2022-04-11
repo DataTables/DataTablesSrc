@@ -11,14 +11,14 @@ table.dataTable thead {
 			cursor: pointer;
 			position: relative;
 
-			padding-right: 30px;
+			padding-right: 26px;
 
 			&:before,
 			&:after {
 				position: absolute;
 				display: block;
 				opacity: 0.125;
-				right: 1em;
+				right: 10px;
 				line-height: 9px;
 				font-size: 0.9em;
 			}
