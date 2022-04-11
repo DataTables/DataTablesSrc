@@ -24,7 +24,7 @@
 		    "thousands":      ",",
 		    "lengthMenu":     "Show _MENU_ entries",
 		    "loadingRecords": "Loading...",
-		    "processing":     "Processing...",
+		    "processing":     "",
 		    "search":         "Search:",
 		    "zeroRecords":    "No matching records found",
 		    "paginate": {

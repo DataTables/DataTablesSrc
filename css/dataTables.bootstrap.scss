@@ -3,6 +3,8 @@ $table-row-selected: rgba(0, 136, 204, 0.9);
 
 @import './common.scss';
 @import './ordering.scss';
+@import './processing.scss';
+@import './typography.scss';
 
 table.dataTable {
 	clear: both;

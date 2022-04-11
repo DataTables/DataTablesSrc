@@ -1,6 +1,7 @@
 
 @import './common.scss';
 @import './ordering.scss';
+@import './processing.scss';
 @import './typography.scss';
 
 // jQuery UI stylesheet imports this one - there are just two places where we
@@ -14,27 +15,6 @@ $jqueryui: false !default;
 	border-radius: 3px;
 	padding: 5px;
 	background-color: transparent;
-}
-
-//
-// Functions / mixins
-//
-@function tint( $color, $percent ) {
-	@return mix(white, $color, $percent);
-}
-
-@function shade( $color, $percent ) {
-	@return mix($table-shade, $color, $percent);
-}
-
-@mixin gradient( $from, $to ) {
-	background-color: $from;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,     $from 0%, $to 100%); /* Chrome10+,Safari5.1+ */
-	background:    -moz-linear-gradient(top,     $from 0%, $to 100%); /* FF3.6+ */
-	background:     -ms-linear-gradient(top,     $from 0%, $to 100%); /* IE10+ */
-	background:      -o-linear-gradient(top,     $from 0%, $to 100%); /* Opera 11.10+ */
-	background:         linear-gradient(to bottom, $from 0%, $to 100%); /* W3C */
 }
 
 /*
@@ -345,29 +325,6 @@ table.dataTable td {
 		.ellipsis {
 			padding: 0 1em;
 		}
-	}
-
-	// Processing
-	.dataTables_processing {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		width: 100%;
-		height: 40px;
-		margin-left: -50%;
-		margin-top: -25px;
-		padding-top: 20px;
-
-		text-align: center;
-		font-size: 1.2em;
-
-		background-color: white;
-		background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba($table-row-background, 0)), color-stop(25%,rgba($table-row-background, 0.9)), color-stop(75%,rgba($table-row-background, 0.9)), color-stop(100%,rgba(255,255,255,0)));
-		background: -webkit-linear-gradient(left,     rgba($table-row-background, 0) 0%, rgba($table-row-background, 0.9) 25%, rgba($table-row-background, 0.9) 75%, rgba($table-row-background, 0) 100%);
-		background:    -moz-linear-gradient(left,     rgba($table-row-background, 0) 0%, rgba($table-row-background, 0.9) 25%, rgba($table-row-background, 0.9) 75%, rgba($table-row-background, 0) 100%);
-		background:     -ms-linear-gradient(left,     rgba($table-row-background, 0) 0%, rgba($table-row-background, 0.9) 25%, rgba($table-row-background, 0.9) 75%, rgba($table-row-background, 0) 100%);
-		background:      -o-linear-gradient(left,     rgba($table-row-background, 0) 0%, rgba($table-row-background, 0.9) 25%, rgba($table-row-background, 0.9) 75%, rgba($table-row-background, 0) 100%);
-		background:         linear-gradient(to right, rgba($table-row-background, 0) 0%, rgba($table-row-background, 0.9) 25%, rgba($table-row-background, 0.9) 75%, rgba($table-row-background, 0) 100%);
 	}
 
 	.dataTables_length,

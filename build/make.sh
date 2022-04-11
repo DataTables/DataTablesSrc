@@ -98,7 +98,7 @@ function build_css {
 
 	cd $SRC_DIR
 
-	for file in $(find $SRC_DIR -name "*.scss"); do
+	for file in $(find $SRC_DIR -name "*dataTables*.scss"); do
 		filename=$(basename $file .scss)
 		sass --stop-on-error --style expanded $file > $OUT_DIR/$filename.css
 		css_compress $OUT_DIR/$filename.css

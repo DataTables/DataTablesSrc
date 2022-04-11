@@ -5,10 +5,12 @@
 	<since>1.10</since>
 
 	<type type="string" />
-	<default value="Processing..." />
+	<default value="{Empty string}" />
 
 	<description>
 		Text that is displayed when the table is processing a user action (usually a sort command or similar).
+
+		Please note that prior to DataTables 1.12 the default for this parameter was **Processing...**. The processing indicator in 1.12 has been updated to use a CSS animation to indicate that a loading action is taking place. A text string can still be added if needed.
 	</description>
 
 	<example title="Set processing information text"><![CDATA[

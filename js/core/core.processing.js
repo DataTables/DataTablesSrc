@@ -13,6 +13,7 @@ function _fnFeatureHtmlProcessing ( settings )
 			'class': settings.oClasses.sProcessing
 		} )
 		.html( settings.oLanguage.sProcessing )
+		.append('<div><div></div><div></div><div></div><div></div></div>')
 		.insertBefore( settings.nTable )[0];
 }
 
