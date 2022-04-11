@@ -1,5 +1,11 @@
 
 table.dataTable {
+	&.nowrap {
+		th, td {
+			white-space: nowrap;
+		}
+	}
+
 	th.dt-left,
 	td.dt-left {
 		text-align: left;
@@ -28,6 +34,11 @@ table.dataTable {
 
 	thead,
 	tfoot {
+		th,
+		td {
+			text-align: left;
+		}
+
 		th.dt-head-left,
 		td.dt-head-left {
 			text-align: left;

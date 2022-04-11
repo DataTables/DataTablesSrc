@@ -1,6 +1,7 @@
 
 @import './common.scss';
 @import './ordering.scss';
+@import './typography.scss';
 
 // jQuery UI stylesheet imports this one - there are just two places where we
 // don't want DataTabels default styles assigned for jQuery UI, so rather than
@@ -59,7 +60,6 @@ table.dataTable {
 	thead th,
 	thead td {
 		padding: 10px;
-		text-align: left;
 
 		@if not $jqueryui { // jQuery UI defines its own border
 			border-bottom: $table-header-border;
@@ -73,7 +73,6 @@ table.dataTable {
 	tfoot th,
 	tfoot td {
 		padding: 10px 10px 6px 10px;
-		text-align: left;
 
 		@if not $jqueryui { // jQuery UI defines its own border
 			border-top: $table-header-border;
@@ -221,12 +220,6 @@ table.dataTable {
 
 	&.no-footer {
 		border-bottom: $table-header-border;
-	}
-
-	&.nowrap {
-		th, td {
-			white-space: nowrap;
-		}
 	}
 
 	&.compact {
