@@ -76,7 +76,7 @@ $close-button-background: #d33333 !default;
 }
 
 // Standard row striping with a box shadow
-@mixin row-stripes($class, $shading: 0.023, $oddEven: '.odd') {
+@mixin row-stripes($stripeSel, $hoverSel, $stripeShade: 0.023, $hoverShade: 0.075, $oddEven: '.odd') {
     // Standard rows without striping
 	> tbody > tr {
 		background-color: $table-row-background;
@@ -88,13 +88,24 @@ $close-button-background: #d33333 !default;
 	}
 
     // With striping
-	&#{$class} > tbody {
+	&#{$stripeSel} > tbody {
 		> tr#{$oddEven} > * {
-			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, $shading);
+			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, $stripeShade);
 		}
 
 		> tr#{$oddEven}.selected > * {
-			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: $shading);
+			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: $stripeShade);
+		}
+	}
+
+	// Hovering
+	&#{$hoverSel} > tbody {
+		> tr:hover > * {
+			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, $hoverShade);
+		}
+
+		> tr.selected:hover > * {
+			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: $hoverShade);
 		}
 	}
 }

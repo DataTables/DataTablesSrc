@@ -40,7 +40,7 @@ table.dataTable {
 		background-color: transparent;
 	}
 
-	@include row-stripes('.is-striped', 0.019);
+	@include row-stripes('.is-striped', '.is-hoverable', 0.019, 0.39);
 }
 
 

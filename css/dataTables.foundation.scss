@@ -33,7 +33,7 @@ table.dataTable {
 		background-color: transparent;
 	}
 
-	@include row-stripes('', 0.054, '.even');
+	@include row-stripes('', '.hover', 0.054, 0.074, '.even');
 }
 
 
