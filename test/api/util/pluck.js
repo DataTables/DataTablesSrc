@@ -91,9 +91,9 @@ describe('pluck()', function() {
 				initComplete: function(settings, json) {
 					let d = table.rows().data().pluck('hr.position');
 
-					expect(data.count()).toBe(57);
-					expect(data[0]).toBe('Accountant');
-					expect(data[56]).toBe('Software Engineer');
+					expect(d.count()).toBe(57);
+					expect(d[0]).toBe('Accountant');
+					expect(d[56]).toBe('Software Engineer');
 
 					done();
 				}
