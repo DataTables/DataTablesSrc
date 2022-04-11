@@ -75,5 +75,29 @@ describe('pluck()', function() {
 				}
 			});
 		});
+
+		dt.html('basic');
+		it('Works with nested data', function(done) {
+			table = $('#example').DataTable({
+				ajax: '/base/test/data/objects_deep.txt',
+				columns: [
+					{ "data": "name" },
+					{ "data": "hr.position" },
+					{ "data": "contact.0" },
+					{ "data": "contact.1" },
+					{ "data": "hr.start_date" },
+					{ "data": "hr.salary" }
+				],
+				initComplete: function(settings, json) {
+					let d = table.rows().data().pluck('hr.position');
+
+					expect(data.count()).toBe(57);
+					expect(data[0]).toBe('Accountant');
+					expect(data[56]).toBe('Software Engineer');
+
+					done();
+				}
+			});
+		});
 	});
 });
