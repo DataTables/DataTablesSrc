@@ -33,7 +33,7 @@ table.dataTable.table {
 		background-color: transparent;
 	}
 
-	@include row-stripes('.striped', 0.02);
+	@include row-stripes('.striped', '.hover', 0.02);
 }
 
 @import 'typography.scss';

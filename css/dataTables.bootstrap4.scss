@@ -31,7 +31,7 @@ table.dataTable.table {
 		background-color: transparent;
 	}
 
-	@include row-stripes('.table-striped', 0.05);
+	@include row-stripes('.table-striped', '.table-hover', 0.05);
 }
 
 
