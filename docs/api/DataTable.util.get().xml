@@ -30,7 +30,7 @@
 
 		The descriptor can be given as:
 
-		* `null`: The returned function will simply be return the full data object given to the accessor function.
+		* `null`: The returned function will simply return the full data object given to the accessor function.
 		* A function: Returns a function that will call the given function with the same parameters given to it (effectively just making it a proxy function).
 		* An object: Returns a function that will access data from an object based on the second parameter passed into the accessor. In DataTables this is used for the `-init columns.render` property's ability to use orthogonal data in an object.
 		* A string: Returns a function that will access data based on a JSON notation string, with the additional ability of being able to use `()` notation to execute a function, and `[]` to get array details. If `[]` is used without characters inside it for accessing an array, an array will be returned; if characters are used inside the brackets, they will be used to join the array - e.g. `[, ]` would give a comma space separated string.
