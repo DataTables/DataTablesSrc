@@ -13,10 +13,11 @@ require( 'lib/DT_Example.php' );
  */
 $dir_order = array(
 	'basic_init',
-	'advanced_init',
 	'non_jquery',
-	'styling',
+	'advanced_init',
 	'data_sources',
+	'datetime',
+	'styling',
 	'api',
 	'ajax',
 	'server_side',
@@ -267,10 +268,10 @@ else {
 
 // Legacy extensions
 if ( isset( $options['cdn'] ) ) {
-	DT_Example::$lookup_libraries['css']['colvis']          = 'https://cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/css/dataTables.colVis.css';
-	DT_Example::$lookup_libraries['js' ]['colvis']          = 'https://cdn.datatables.net/colvis/'.$versions['ColVis']['release']['version'].'/js/dataTables.colVis.min.js';
-	DT_Example::$lookup_libraries['css']['tabletools']      = 'https://cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/css/dataTables.tableTools.css';
-	DT_Example::$lookup_libraries['js' ]['tabletools']      = 'https://cdn.datatables.net/tabletools/'.$versions['TableTools']['release']['version'].'/js/dataTables.tableTools.min.js';
+	DT_Example::$lookup_libraries['css']['colvis']          = 'https://cdn.datatables.net/colvis/1.1.2/css/dataTables.colVis.css';
+	DT_Example::$lookup_libraries['js' ]['colvis']          = 'https://cdn.datatables.net/colvis/1.1.2/js/dataTables.colVis.min.js';
+	DT_Example::$lookup_libraries['css']['tabletools']      = 'https://cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css';
+	DT_Example::$lookup_libraries['js' ]['tabletools']      = 'https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js';
 
 	DT_Example::$lookup_libraries['js' ]['buttons-flash']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.flash.min.js';
 	DT_Example::$lookup_libraries['js' ]['buttons-html5']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.html5.min.js';
@@ -325,6 +326,7 @@ DT_Example::$lookup_libraries['js']['jszip']         = 'https://cdnjs.cloudflare
 DT_Example::$lookup_libraries['js']['pdfmake']       = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js';
 DT_Example::$lookup_libraries['js']['vfsfonts']      = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js';
 DT_Example::$lookup_libraries['js']['moment']        = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js';
+DT_Example::$lookup_libraries['js']['luxon']         = 'https://cdnjs.cloudflare.com/ajax/libs/luxon/2.3.1/luxon.min.js';
 DT_Example::$lookup_libraries['css']['world-flags-sprite'] = 'https://github.com/downloads/lafeber/world-flags-sprite/flags32.css';
 DT_Example::$lookup_libraries['js']['sparkline'] = 'https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js';
 

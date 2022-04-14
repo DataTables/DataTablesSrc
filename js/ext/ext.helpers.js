@@ -20,6 +20,178 @@ var __htmlEscapeEntities = function ( d ) {
 		d;
 };
 
+var __mlWarning = false;
+function __ml( momentFn, luxonFn ) {
+	if (window.moment) {
+		return momentFn;
+	}
+	else if (window.luxon) {
+		return luxonFn;
+	}
+
+	if (! __mlWarning) {
+		alert('DataTables warning: Formatted date without Moment.js or Luxon - https://datatables.net/tn/17');
+	}
+
+	__mlWarning = true;
+}
+
+
+function __mlObj (d, format, locale) {
+	var dt;
+
+	if (__ml('m', 'l') === 'm') {
+		dt = window.moment.utc( d, format, locale, true );
+
+		if (! dt.isValid()) {
+			return null;
+		}
+	}
+	else {
+		dt = format
+			? window.luxon.DateTime.fromFormat( d, format )
+			: window.luxon.DateTime.fromISO( d );
+
+		if (! dt.isValid) {
+			return null;
+		}
+
+		dt.setLocale(locale);
+	}
+
+	return dt;
+}
+
+// Wrapper for date, datetime and time which all operate the same way with the exception of
+// the output string for auto locale support
+function __mlHelper (localeString) {
+	return function ( from, to, locale, def ) {
+		// Luxon and Moment support
+		// Argument shifting
+		if ( arguments.length === 0 ) {
+			locale = 'en';
+			to = null; // means toLocaleString
+			from = null; // means iso8601
+		}
+		else if ( arguments.length === 1 ) {
+			locale = 'en';
+			to = from;
+			from = null;
+		}
+		else if ( arguments.length === 2 ) {
+			locale = to;
+			to = from;
+			from = null;
+		}
+
+		var typeName = 'datetime-' + to;
+
+		// Add type detection and sorting specific to this date format - we need to be able to identify
+		// date type columns as such, rather than as numbers in extensions. Hence the need for this.
+		if (! DataTable.ext.type.order[typeName]) {
+			// The renderer will give the value to type detect as the type!
+			DataTable.ext.type.detect.unshift(function (d) {
+				return d === typeName ? typeName : false;
+			});
+
+			// Use moment to sort dates - the dates are already moment objects from the `sort` renderer
+			DataTable.ext.type.order[typeName + '-asc'] = function (a, b) {
+				// equals needs a function call, but <> will work directly
+				return a[__ml('isSame', 'equals')](b)
+					? 0
+					: a < b
+						? -1
+						: 1;
+			}
+
+			DataTable.ext.type.order[typeName + '-desc'] = function (a, b) {
+				return a[__ml('isSame', 'equals')](b)
+					? 0
+					: a > b
+						? -1
+						: 1;
+			}
+		}
+	
+		return function ( d, type ) {
+			// Allow for a default value
+			if (d === null || d === undefined) {
+				if (def === '--now') {
+					// We treat everything as UTC further down, so no changes are
+					// made, as such need to get the local date / time as if it were
+					// UTC
+					var local = new Date();
+					d = new Date( Date.UTC(
+						local.getFullYear(), local.getMonth(), local.getDate(),
+						local.getHours(), local.getMinutes(), local.getSeconds()
+					) );
+				}
+				else {
+					d = '';
+				}
+			}
+
+			if (type === 'type') {
+				// Typing uses the type name for fast matching
+				return typeName;
+			}
+
+			if (d === '') {
+				return type !== 'sort'
+					? ''
+					: __ml('m', 'l') === 'm'
+						? moment('0000-01-01 00:00:00')
+						: luxon.DateTime.fromISO('0000-01-01 00:00:00');
+			}
+
+			// Shortcut. If `from` and `to` are the same, we are using the renderer to
+			// format for ordering, not display - its already in the display format.
+			if ( to !== null && from === to && type !== 'sort' && type !== 'type' && ! (d instanceof Date) ) {
+				return d;
+			}
+
+			var dt = __mlObj(d, from, locale);
+
+			if (dt === null) {
+				return d;
+			}
+
+			if (type === 'sort') {
+				return dt;
+			}
+
+			var formatted = to === null
+				? dt[__ml('toDate', 'toJSDate')]()[localeString]()
+				: dt[__ml('format', 'toFormat')]( to );
+
+			// XSS protection
+			return type === 'display' ?
+				__htmlEscapeEntities( formatted ) :
+				formatted;
+		};
+	}
+}
+
+// Formatted date time detection - use by declaring the formats you are going to use
+DataTable.datetime = function ( format, locale ) {
+	var typeName = 'datetime-detect-' + format;
+
+	if (! locale) {
+		locale = 'en';
+	}
+
+	if (! DataTable.ext.type.order[typeName]) {
+		DataTable.ext.type.detect.unshift(function (d) {
+			var dt = __mlObj(d, format, locale);
+			return d === '' || dt ? typeName : false;
+		});
+
+		DataTable.ext.type.order[typeName + '-pre'] = function (d) {
+			return __mlObj(d, format, locale) || 0;
+		}
+	}
+}
+
 /**
  * Helpers for `columns.render`.
  *
@@ -47,6 +219,9 @@ var __htmlEscapeEntities = function ( d ) {
  * @namespace
  */
 DataTable.render = {
+	date: __mlHelper('toLocaleDateString'),
+	datetime: __mlHelper('toLocaleString'),
+	time: __mlHelper('toLocaleTimeString'),
 	number: function ( thousands, decimal, precision, prefix, postfix ) {
 		return {
 			display: function ( d ) {

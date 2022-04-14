@@ -300,7 +300,7 @@ class DT_Example
 
 			case 'start_date':
 				if      ( $type === 'title' ) { return 'Start date'; }
-				else if ( $type === 'data' )  { return $row['start_date']; }
+				else if ( $type === 'data' )  { return str_replace('/', '-', $row['start_date']); }
 				break;
 
 			case 'start_date-attr':
@@ -308,6 +308,14 @@ class DT_Example
 				else if ( $type === 'data' )  {
 					$t = strtotime( $row['start_date'] );
 					return '<td data-order="'.date('U', $t).'">'.date('D jS M y', $t).'</td>';
+				}
+				break;
+
+			case 'start_date-fmt':
+				if      ( $type === 'title' ) { return 'Start date'; }
+				else if ( $type === 'data' )  {
+					$t = strtotime( $row['start_date'] );
+					return '<td>'.date('j M Y', $t).'</td>';
 				}
 				break;
 
@@ -725,6 +733,13 @@ DT_Example::$tables['html'] = array(
 
 DT_Example::$tables['html5'] = array(
 	'columns' => array( 'name-attr', 'position', 'office', 'age', 'start_date-attr', 'salary-attr' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+DT_Example::$tables['html-date-fmt'] = array(
+	'columns' => array( 'name', 'position', 'office', 'age', 'start_date-fmt', 'salary' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => true
