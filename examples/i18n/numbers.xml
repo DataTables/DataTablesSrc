@@ -29,6 +29,8 @@ DataTables has a built in number rendering type that can help to display numbers
 
 The `DataTable.render.number` helper can take no arguments at all for fully automatic display, or up to five parameters for finer grained control. In this example the thousands and decimal separator (first two parameters) are defined as `null` to let DataTables determine what to use, zero decimal places and a prefix of `$`.
 
+See [the renderers documentation](https://datatables.net/manual/data/renderers#Built-in-helpers) for full details about the renderers available in DataTables.
+
 ]]></info>
 
 </dt-example>

@@ -21,6 +21,8 @@ $(document).ready(function() {
 
 This example matches the [Moment.js auto-formatting](auto-locale-moment.html) example, in that it reads a ISO8601 value and automatically formats it into a human readable format. The difference here is that [Luxon](https://moment.github.io/luxon/#/) is used rather than Moment.js.
 
+See [the renderers documentation](https://datatables.net/manual/data/renderers#Built-in-helpers) for full details about the renderers available in DataTables.
+
 ]]></info>
 
 </dt-example>

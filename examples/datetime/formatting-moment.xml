@@ -23,6 +23,8 @@ Often you might use ISO8601 as the format to transmit data on the wire, but is i
 
 The `datetime` formatter works with both [Moment.js](https://momentjs.com/) and [Luxon](https://moment.github.io/luxon/#/). In this example we are using Moment.js. For a full range of its formatting options, please see the [Moment.js documentation](https://momentjs.com/docs/#/displaying/format/).
 
+See [the renderers documentation](https://datatables.net/manual/data/renderers#Built-in-helpers) for full details about the renderers available in DataTables.
+
 ]]></info>
 
 </dt-example>

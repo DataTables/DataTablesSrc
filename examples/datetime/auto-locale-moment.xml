@@ -23,6 +23,8 @@ DataTables' provides renders that can automatically format ISO8601 date, datetim
 
 This auto formatting is done by assigning the renderer without any parameters to the column in question. This example makes use of the [Moment.js](https://momentjs.com/) library to handle date formats. [Luxon](https://moment.github.io/luxon/#/) is also supported with an identical API.
 
+See [the renderers documentation](https://datatables.net/manual/data/renderers#Built-in-helpers) for full details about the renderers available in DataTables.
+
 ]]></info>
 
 </dt-example>

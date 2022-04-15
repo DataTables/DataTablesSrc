@@ -27,6 +27,7 @@ This example shows the same [transform abilities](transform-moment.html) as the 
 
 Note however, although the API is identical, Luxon's formatting tokens are different from Moment.js'. For the full range of Luxon formatting options please see the [Luxon documentation](https://moment.github.io/luxon/#/formatting?id=table-of-tokens).
 
+See [the renderers documentation](https://datatables.net/manual/data/renderers#Built-in-helpers) for full details about the renderers available in DataTables.
 
 ]]></info>
 
