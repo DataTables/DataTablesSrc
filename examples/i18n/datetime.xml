@@ -7,7 +7,7 @@
 $(document).ready(function() {
 	$('#example').DataTable({
 		columnDefs: [{
-			targets: 4,
+			target: 4,
 			render: DataTable.render.date()
 		}]
 	});

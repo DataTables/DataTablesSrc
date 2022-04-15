@@ -8,11 +8,11 @@ $(document).ready(function() {
 	$('#example').DataTable({
 		columnDefs: [
 			{
-				targets: 4,
+				target: 4,
 				render: DataTable.render.date()
 			},
 			{
-				targets: 5,
+				target: 5,
 				render: DataTable.render.number(null, null, 0, '$')
 			}
 		]
