@@ -20,7 +20,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-This example shows how `-init search.return` can be used so that the search is only triggered when the enter key is pressed. This has often been requested as a feature in the forums.
+This example shows how `-init search.return` can be used so that the search is only triggered when the Enter key is pressed.
 
 This should be particularly useful when working with large data sets as you can minimise the processing time.
 

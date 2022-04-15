@@ -1,0 +1,75 @@
+
+div.dataTables_processing {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 200px;
+	margin-left: -100px;
+	margin-top: -26px;
+	text-align: center;
+	padding: 2px;
+
+	> div:last-child {
+		position: relative;
+		width: 80px;
+		height: 15px;
+		margin: 1em auto;
+
+		> div {
+			position: absolute;
+			top: 0;
+			width: 13px;
+			height: 13px;
+			border-radius: 50%;
+			background: $table-row-selected;
+			animation-timing-function: cubic-bezier(0, 1, 1, 0);
+
+			&:nth-child(1) {
+				left: 8px;
+				animation: datatables-loader-1 .6s infinite
+			}
+
+			&:nth-child(2) {
+				left: 8px;
+				animation: datatables-loader-2 .6s infinite
+			}
+
+			&:nth-child(3) {
+				left: 32px;
+				animation: datatables-loader-2 .6s infinite
+			}
+
+			&:nth-child(4) {
+				left: 56px;
+				animation: datatables-loader-3 .6s infinite
+			}
+		}
+	}
+}
+
+@keyframes datatables-loader-1 {
+	0% {
+		transform: scale(0)
+	}
+	100% {
+		transform: scale(1)
+	}
+}
+
+@keyframes datatables-loader-3 {
+	0% {
+		transform: scale(1)
+	}
+	100% {
+		transform: scale(0)
+	}
+}
+
+@keyframes datatables-loader-2 {
+	0% {
+		transform: translate(0, 0)
+	}
+	100% {
+		transform: translate(24px, 0)
+	}
+}

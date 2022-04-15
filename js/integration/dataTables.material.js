@@ -218,7 +218,7 @@ function applyFormatting(){
 	for(var i = 0; i < kid.length; i++){
 		if(kid[i].tagName === 'THEAD'){
 			var rows = $(kid[i]).children();
-			console.log(rows)
+
 			for(var j = 0; j < rows.length; j++){
 				if (rows[j].tagName === 'TR') {
 					$(rows[j]).addClass('mdc-data-table__header-row')
@@ -247,7 +247,6 @@ function applyFormatting(){
 			}
 		}
 	}
-	console.log(kid)
 }
 
 

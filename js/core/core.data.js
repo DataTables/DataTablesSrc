@@ -153,9 +153,18 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 		return cellData.call( rowData );
 	}
 
-	if ( cellData === null && type == 'display' ) {
+	if ( cellData === null && type === 'display' ) {
 		return '';
 	}
+
+	if ( type === 'filter' ) {
+		var fomatters = DataTable.ext.type.search;
+
+		if ( fomatters[ col.sType ] ) {
+			cellData = fomatters[ col.sType ]( cellData );
+		}
+	}
+
 	return cellData;
 }
 

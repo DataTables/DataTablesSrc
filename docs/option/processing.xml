@@ -8,7 +8,9 @@
 	<default>false</default>
 
 	<description>
-		Enable or disable the display of a 'processing' indicator when the table is being processed (e.g. a sort). This is particularly useful for tables with large amounts of data where it can take a noticeable amount of time to sort the entries.
+		Enable or disable the display of a 'processing' indicator when the table is being processed (e.g. a sort) for server-side processing. This is particularly useful for tables with large amounts of data where it can take a noticeable amount of time to sort the entries.
+
+		With client-side processing the search is actually performed synchronously so there is no processing indicator.
 	</description>
 
 	<example title="Enable processing display"><![CDATA[

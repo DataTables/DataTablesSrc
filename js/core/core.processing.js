@@ -9,9 +9,11 @@ function _processingHtml ( settings )
 
 	if ( settings.oFeatures.bProcessing ) {
 		var n = $('<div/>', {
+				'id': ! settings.aanFeatures.r ? settings.sTableId+'_processing' : null,
 				'class': settings.oClasses.sProcessing
 			} )
 			.html( settings.oLanguage.sProcessing )
+			.append('<div><div></div><div></div><div></div><div></div></div>')
 			.insertBefore( table );
 		
 		$(table).on( 'processing.dt.DT', function (e, s, show) {

@@ -2,6 +2,9 @@
 $table-row-selected: rgba(0, 136, 204, 0.9);
 
 @import './common.scss';
+@import './ordering.scss';
+@import './processing.scss';
+@import './typography.scss';
 
 table.dataTable {
 	clear: both;
@@ -101,8 +104,6 @@ div.dataTables_wrapper {
 	}
 }
 
-@import './typography.scss';
-@import './ordering.scss';
 
 // Scrolling
 div.dataTables_scrollHead table.dataTable {

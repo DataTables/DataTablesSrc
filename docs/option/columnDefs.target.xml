@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columnDefs.target</name>
+	<summary>Alias of `targets`.</summary>
+	<since>1.12</since>
+
+	<type type="array|string|integer" />
+
+	<description>
+		This option is simply an alias of the `-init columnDefs.targets` option and is provided to allow for clarity when matching against a single column only.
+	</description>
+
+	<example title="Disable filtering on the first column"><![CDATA[
+$('#example').DataTable({
+	columnDefs: [
+		{
+			target: 0,
+			searchable: false
+		}
+	]
+});
+
+]]></example>
+
+	<related type="option">columnDefs</related>
+	<related type="option">columnDefs.targets</related>
+</dt-option>

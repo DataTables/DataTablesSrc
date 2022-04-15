@@ -4,7 +4,7 @@
 <css lib="datatables" />
 <js lib="jquery datatables semanticui" />
 
-<title>Semantic UI</title>
+<title>Fomantic-UI (formally Semantic-UI)</title>
 <js><![CDATA[
 $(document).ready(function() {
 	$('#example').DataTable();
@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-This example shows DataTables integrated with [Semantic UI](http://semantic-ui.com/). Semantic UI is a comprehensive framework that uses CSS class names like words to create natural language styling library.
+This example shows DataTables integrated with [Fomantic-UI](https://fomantic-ui.com/) (a maintained community fork of [Semantic-UI](http://semantic-ui.com/)). Fomantic-UI is a comprehensive framework that uses CSS class names like words to create natural language styling library.
 
 ]]></info>
 

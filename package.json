@@ -35,7 +35,7 @@
   "bugs": "https://datatables.net/forums",
   "devDependencies": {
     "jasmine-core": "^2.4.1",
-    "karma": "^0.13.22",
+    "karma": "^1.2",
     "karma-chrome-launcher": "^1.0.1",
     "karma-html2js-preprocessor": "^1.0.0",
     "karma-iframes": "^1.2.2",

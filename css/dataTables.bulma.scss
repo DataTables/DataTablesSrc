@@ -2,6 +2,9 @@
 $table-row-selected: rgba(0, 209, 178, 0.9);
 
 @import './common.scss';
+@import './ordering.scss';
+@import './processing.scss';
+@import './typography.scss';
 
 /*! DataTables Bulma integration
  * ©2020 SpryMedia Ltd - datatables.net/license
@@ -103,9 +106,6 @@ div.dataTables_wrapper {
 		padding: 1em 0;
 	}
 }
-
-@import 'typography.scss';
-@import 'ordering.scss';
 
 
 // Scrolling

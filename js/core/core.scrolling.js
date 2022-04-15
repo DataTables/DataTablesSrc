@@ -292,7 +292,7 @@ function _fnScrollDraw ( settings )
 
 	// Read all widths in next pass
 	_fnApplyToChildren( function(nSizer) {
-		let style = window.getComputedStyle ?
+		var style = window.getComputedStyle ?
 			window.getComputedStyle(nSizer).width :
 			_fnStringToCss( $(nSizer).width() );
 
@@ -305,7 +305,7 @@ function _fnScrollDraw ( settings )
 		nToSize.style.width = headerWidths[i];
 	}, headerTrgEls );
 
-	$(headerSrcEls).height(0);
+	$(headerSrcEls).css('height', 0);
 
 	/* Same again with the footer if we have one */
 	if ( footer )
@@ -352,7 +352,7 @@ function _fnScrollDraw ( settings )
 
 	// Sanity check that the table is of a sensible width. If not then we are going to get
 	// misalignment - try to prevent this by not allowing the table to shrink below its min width
-	if ( table.outerWidth() < sanityWidth )
+	if ( Math.round(table.outerWidth()) < Math.round(sanityWidth) )
 	{
 		// The min width depends upon if we have a vertical scrollbar visible or not */
 		correction = ((divBodyEl.scrollHeight > divBodyEl.offsetHeight ||

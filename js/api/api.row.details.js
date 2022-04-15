@@ -1,22 +1,35 @@
 
 $(document).on('plugin-init.dt', function (e, context) {
 	var api = new _Api( context );
-	api.on( 'stateSaveParams', function ( e, settings, data ) {
-		var indexes = api.rows().iterator( 'row', function ( settings, idx ) {
-			return settings.aoData[idx]._detailsShow ? idx : undefined;
-		});
 
-		data.childRows = api.rows( indexes ).ids( true ).toArray();
+	api.on( 'stateSaveParams', function ( e, settings, d ) {
+		// This could be more compact with the API, but it is a lot faster as a simple
+		// internal loop
+		var idFn = settings.rowIdFn;
+		var data = settings.aoData;
+		var ids = [];
+
+		for (var i=0 ; i<data.length ; i++) {
+			if (data[i]._detailsShow) {
+				ids.push( '#' + idFn(data[i]._aData) );
+			}
+		}
+
+		d.childRows = ids;
 	})
 
 	var loaded = api.state.loaded();
 
 	if ( loaded && loaded.childRows ) {
-		api.rows( loaded.childRows ).every( function () {
-			_fnCallbackFire( context, null, 'requestChild', [ this ] )
-		})
+		api
+			.rows( $.map(loaded.childRows, function (id){
+				return id.replace(/:/g, '\\:')
+			}) )
+			.every( function () {
+				_fnCallbackFire( context, null, 'requestChild', [ this ] )
+			});
 	}
-})
+});
 
 var __details_add = function ( ctx, row, data, klass )
 {
@@ -67,6 +80,15 @@ var __details_add = function ( ctx, row, data, klass )
 };
 
 
+// Make state saving of child row details async to allow them to be batch processed
+var __details_state = DataTable.util.throttle(
+	function (ctx) {
+		_fnSaveState( ctx[0] )
+	},
+	500
+);
+
+
 var __details_remove = function ( api, idx )
 {
 	var ctx = api.context;
@@ -80,7 +102,7 @@ var __details_remove = function ( api, idx )
 			row._detailsShow = undefined;
 			row._details = undefined;
 			$( row.nTr ).removeClass( 'dt-hasChild' );
-			_fnSaveState( ctx[0] );
+			__details_state( ctx );
 		}
 	}
 };
@@ -107,7 +129,7 @@ var __details_display = function ( api, show ) {
 			_fnCallbackFire( ctx[0], null, 'childRow', [ show, api.row( api[0] ) ] )
 
 			__details_events( ctx[0] );
-			_fnSaveState( ctx[0] );
+			__details_state( ctx );
 		}
 	}
 };
@@ -118,7 +140,7 @@ var __details_events = function ( settings )
 	var api = new _Api( settings );
 	var namespace = '.dt.DT_details';
 	var drawEvent = 'draw'+namespace;
-	var colvisEvent = 'column-visibility'+namespace;
+	var colvisEvent = 'column-sizing'+namespace;
 	var destroyEvent = 'destroy'+namespace;
 	var data = settings.aoData;
 

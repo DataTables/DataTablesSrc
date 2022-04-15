@@ -9,7 +9,7 @@ describe('scrollY / X option', function() {
 			$('body').css('white-space', 'nowrap');
 			dt.container().css('width', 400);
 			$('#example').dataTable({
-				scrollX: '100%',
+				scrollX: true,
 				scrollY: '200px',
 				paginate: false
 			});

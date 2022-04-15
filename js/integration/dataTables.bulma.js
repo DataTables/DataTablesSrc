@@ -62,7 +62,7 @@ DataTable.ext.renderer.pageButton.bulma = function ( settings, host, idx, button
 		var i, ien, node, button, tag, disabled;
 		var clickHandler = function ( e ) {
 			e.preventDefault();
-			if ( !$(e.currentTarget).hasClass('disabled') && api.page() != e.data.action ) {
+			if ( ! $('a', e.currentTarget).prop('disabled') && api.page() != e.data.action ) {
 				api.page( e.data.action ).draw( 'page' );
 			}
 		};
@@ -83,6 +83,7 @@ DataTable.ext.renderer.pageButton.bulma = function ( settings, host, idx, button
 					case 'ellipsis':
 						btnDisplay = '&#x2026;';
 						btnClass = 'pagination-link';
+						disabled = true;
 						tag = 'span';
 						break;
 

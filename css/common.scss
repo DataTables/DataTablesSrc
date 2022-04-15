@@ -10,6 +10,16 @@
 	@return mix(black, $color, $percent);
 }
 
+@mixin gradient( $from, $to ) {
+	background-color: $from;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,     $from 0%, $to 100%); /* Chrome10+,Safari5.1+ */
+	background:    -moz-linear-gradient(top,     $from 0%, $to 100%); /* FF3.6+ */
+	background:     -ms-linear-gradient(top,     $from 0%, $to 100%); /* IE10+ */
+	background:      -o-linear-gradient(top,     $from 0%, $to 100%); /* Opera 11.10+ */
+	background:         linear-gradient(to bottom, $from 0%, $to 100%); /* W3C */
+}
+
 //
 // Variables
 //
@@ -24,7 +34,7 @@ $table-header-border: 1px solid shade($table-row-background, 30%) !default;
 // Border of rows / cells
 $table-body-border: 1px solid shade($table-row-background, 15%) !default;
 
-// Row colour, when selected (tr.selected)
+// Row colour, when selected (tr.selected) and used for processing display
 $table-row-selected: rgba(13, 110, 253, 0.9) !default;
 $table-row-selected-text: white !default;
 

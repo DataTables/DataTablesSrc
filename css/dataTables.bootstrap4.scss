@@ -2,6 +2,9 @@
 $table-row-selected: rgba(2, 117, 216, 0.9);
 
 @import './common.scss';
+@import './ordering.scss';
+@import './processing.scss';
+@import './typography.scss';
 
 table.dataTable.table {
 	clear: both;
@@ -102,9 +105,6 @@ div.dataTables_wrapper {
 	}
 }
 
-@import 'typography.scss';
-@import 'ordering.scss';
-
 
 // Scrolling
 div.dataTables_scrollHead table.dataTable {
@@ -112,7 +112,7 @@ div.dataTables_scrollHead table.dataTable {
 }
 
 div.dataTables_scrollBody {
-	table {
+	> table {
 		border-top: none;
 		margin-top: 0 !important;
 		margin-bottom: 0 !important;
@@ -124,8 +124,8 @@ div.dataTables_scrollBody {
 			}
 		}
 
-		tbody tr:first-child th,
-		tbody tr:first-child td {
+		> tbody tr:first-child th,
+		> tbody tr:first-child td {
 			border-top: none;
 		}
 	}
