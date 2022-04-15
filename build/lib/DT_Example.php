@@ -298,6 +298,11 @@ class DT_Example
 				else if ( $type === 'data' )  { return '<td data-order="'.$row['salary'].'">$'.number_format($row['salary']).'/y</td>'; }
 				break;
 
+			case 'salary-plain':
+				if      ( $type === 'title' ) { return 'Salary'; }
+				else if ( $type === 'data' )  { return $row['salary']; }
+				break;
+
 			case 'start_date':
 				if      ( $type === 'title' ) { return 'Start date'; }
 				else if ( $type === 'data' )  { return str_replace('/', '-', $row['start_date']); }
@@ -740,6 +745,13 @@ DT_Example::$tables['html5'] = array(
 
 DT_Example::$tables['html-date-fmt'] = array(
 	'columns' => array( 'name', 'position', 'office', 'age', 'start_date-fmt', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+DT_Example::$tables['html-salary-plain'] = array(
+	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', 'salary-plain' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => true

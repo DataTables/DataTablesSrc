@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example order="0">
+
+<title>Internationalisation</title>
+
+<info><![CDATA[
+
+By its very nature, DataTables published on the web can be seen around the whole world. However, there isn't a single global standard convention for display of data such as dates and numbers. You might also want to customise the text shown by DataTables to local languages. The examples in this section show DataTables internationalisation abilities to make display of data around the world easy for you.
+
+]]></info>
+
+</dt-example>
