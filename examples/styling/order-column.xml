@@ -2,11 +2,20 @@
 <dt-example table-type="html" table-class="order-column" order="6">
 
 <css lib="datatables" />
-<js lib="jquery datatables"><![CDATA[
-$(document).ready(function() {
+<js lib="jquery datatables">
+<![CDATA[
+$(document).ready(function () {
 	$('#example').DataTable();
-} );
-]]></js>
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example');
+});
+]]>
+</js-vanilla>
 
 <title>Base style - order-column</title>
 

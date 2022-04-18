@@ -4,11 +4,18 @@
 <css lib="datatables" />
 <js lib="jquery datatables">
 <![CDATA[
-$(document).ready(function() {
+$(document).ready(function () {
 	$('#example').DataTable();
-} );
+});
 ]]>
 </js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example');
+});
+]]>
+</js-vanilla>
 
 <title>ISO8601 detection</title>
 

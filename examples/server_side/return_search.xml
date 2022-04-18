@@ -7,19 +7,31 @@
 
 <title>Return key to search</title>
 <js><![CDATA[
-
-$(document).ready(function() {
-	$('#example').DataTable( {
+$(document).ready(function () {
+	$('#example').DataTable({
 		ajax: 'scripts/server_processing.php',
 		processing: true,
 		search: {
-			return: true
+			return: true,
 		},
-		serverSide: true
-	} );
-} );
-
+		serverSide: true,
+	});
+});
 ]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		ajax: 'scripts/server_processing.php',
+		processing: true,
+		search: {
+			return: true,
+		},
+		serverSide: true,
+	});
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

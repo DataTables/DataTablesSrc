@@ -4,22 +4,40 @@
 <css lib="datatables" />
 <js lib="jquery datatables">
 <![CDATA[
-$(document).ready(function() {
+$(document).ready(function () {
 	$('#example').DataTable({
 		columnDefs: [
 			{
 				target: 4,
-				render: DataTable.render.date()
+				render: DataTable.render.date(),
 			},
 			{
 				target: 5,
-				render: DataTable.render.number(null, null, 0, '$')
-			}
-		]
+				render: DataTable.render.number(null, null, 0, '$'),
+			},
+		],
 	});
-} );
+});
 ]]>
 </js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		columnDefs: [
+			{
+				target: 4,
+				render: DataTable.render.date(),
+			},
+			{
+				target: 5,
+				render: DataTable.render.number(null, null, 0, '$'),
+			},
+		],
+	});
+});
+]]>
+</js-vanilla>
 
 <title>Locale based number display</title>
 

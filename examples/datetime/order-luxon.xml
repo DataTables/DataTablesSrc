@@ -6,11 +6,20 @@
 <![CDATA[
 DataTable.datetime('d MMM yyyy');
 
-$(document).ready(function() {
+$(document).ready(function () {
 	$('#example').DataTable();
-} );
+});
 ]]>
 </js>
+<js-vanilla>
+<![CDATA[
+DataTable.datetime('d MMM yyyy');
+
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example');
+});
+]]>
+</js-vanilla>
 
 <title>Ordering formatted dates (Luxon)</title>
 

@@ -7,12 +7,21 @@
 
 <title>DOM positioning</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"dom": '<"top"i>rt<"bottom"flp><"clear">'
-	} );
-} );
+$(document).ready(function () {
+	$('#example').DataTable({
+		dom: '<"top"i>rt<"bottom"flp><"clear">',
+	});
+});
 ]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		dom: '<"top"i>rt<"bottom"flp><"clear">',
+	});
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 
