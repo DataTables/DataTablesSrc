@@ -54,7 +54,7 @@ $(document).ready(function () {
 	$('#example tbody').on('click', 'tr td.details-control', function () {
 		var tr = $(this).closest('tr');
 		var row = dt.row(tr);
-		var idx = $.inArray(tr.attr('id'), detailRows);
+		var idx = detailRows.indexOf(tr.attr('id'));
 
 		if (row.child.isShown()) {
 			tr.removeClass('details');
@@ -75,7 +75,7 @@ $(document).ready(function () {
 
 	// On each draw, loop over the `detailRows` array and show any child rows
 	dt.on('draw', function () {
-		$.each(detailRows, function (i, id) {
+		detailRows.forEach(function(id, i) {
 			$('#' + id + ' td.details-control').trigger('click');
 		});
 	});
