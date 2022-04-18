@@ -9,7 +9,6 @@
 
 <js lib="//code.highcharts.com/highcharts.js"/>
 <js><![CDATA[
-
 $(document).ready(function () {
 	// Create DataTable
 	var table = $('#example').DataTable({
@@ -62,7 +61,6 @@ function chartData(table) {
 		};
 	});
 }
-
 ]]></js>
 
 <info><![CDATA[

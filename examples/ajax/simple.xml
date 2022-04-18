@@ -7,11 +7,11 @@
 
 <title>Ajax data source (arrays)</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"ajax": "data/arrays.txt"
-	} );
-} );
+$(document).ready(function () {
+	$('#example').DataTable({
+		ajax: 'data/arrays.txt',
+	});
+});
 ]]></js>
 
 <info><![CDATA[

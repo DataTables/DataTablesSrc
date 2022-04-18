@@ -7,16 +7,16 @@
 
 <title>Complex headers with column visibility</title>
 <js><![CDATA[
-
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"columnDefs": [ {
-			"visible": false,
-			"targets": -1
-		} ]
-	} );
-} );
-
+$(document).ready(function () {
+	$('#example').DataTable({
+		columnDefs: [
+			{
+				visible: false,
+				targets: -1,
+			},
+		],
+	});
+});
 ]]></js>
 
 <info><![CDATA[

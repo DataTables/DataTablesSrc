@@ -6,66 +6,69 @@
 
 <title>Child rows with StateSave</title>
 <js><![CDATA[
-
 /* Formatting function for row details - modify as you need */
-function format ( d ) {
+function format(d) {
 	// `d` is the original data object for the row
-	return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-		'<tr>'+
-			'<td>Full name:</td>'+
-			'<td>'+d.name+'</td>'+
-		'</tr>'+
-		'<tr>'+
-			'<td>Extension number:</td>'+
-			'<td>'+d.extn+'</td>'+
-		'</tr>'+
-		'<tr>'+
-			'<td>Extra info:</td>'+
-			'<td>And any further details here (images etc)...</td>'+
-		'</tr>'+
-	'</table>';
+	return (
+		'<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+		'<tr>' +
+		'<td>Full name:</td>' +
+		'<td>' +
+		d.name +
+		'</td>' +
+		'</tr>' +
+		'<tr>' +
+		'<td>Extension number:</td>' +
+		'<td>' +
+		d.extn +
+		'</td>' +
+		'</tr>' +
+		'<tr>' +
+		'<td>Extra info:</td>' +
+		'<td>And any further details here (images etc)...</td>' +
+		'</tr>' +
+		'</table>'
+	);
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
 	// Add event listener for opening and closing details
 	$('#example').on('click', 'tbody td.dt-control', function () {
 		var tr = $(this).closest('tr');
-		var row = table.row( tr );
+		var row = table.row(tr);
 
-		if ( row.child.isShown() ) {
+		if (row.child.isShown()) {
 			// This row is already open - close it
 			row.child.hide();
-		}
-		else {
+		} else {
 			// Open this row
-			row.child( format(row.data()) ).show();
+			row.child(format(row.data())).show();
 		}
-	} );
+	});
 
-	$('#example').on('requestChild.dt', function(e, row) {
+	$('#example').on('requestChild.dt', function (e, row) {
 		row.child(format(row.data())).show();
-	})
+	});
 
-	var table = $('#example').DataTable( {
-		"ajax": "../ajax/data/objects.txt",
-		"rowId": 'id',
-		"stateSave": true,
-		"columns": [
+	var table = $('#example').DataTable({
+		ajax: '../ajax/data/objects.txt',
+		rowId: 'id',
+		stateSave: true,
+		columns: [
 			{
-				"className":      'dt-control',
-				"orderable":      false,
-				"data":           null,
-				"defaultContent": ''
+				className: 'dt-control',
+				orderable: false,
+				data: null,
+				defaultContent: '',
 			},
-			{ "data": "name" },
-			{ "data": "position" },
-			{ "data": "office" },
-			{ "data": "salary" }
+			{ data: 'name' },
+			{ data: 'position' },
+			{ data: 'office' },
+			{ data: 'salary' },
 		],
-		"order": [[1, 'asc']]
-	} );
-} );
-
+		order: [[1, 'asc']],
+	});
+});
 ]]></js>
 
 <info><![CDATA[
