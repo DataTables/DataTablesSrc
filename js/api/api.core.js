@@ -63,7 +63,6 @@ _api_register( 'destroy()', function ( remove ) {
 	remove = remove || false;
 
 	return this.iterator( 'table', function ( settings ) {
-		var orig      = settings.nTableWrapper.parentNode;
 		var classes   = settings.oClasses;
 		var table     = settings.nTable;
 		var tbody     = settings.nTBody;
@@ -123,8 +122,11 @@ _api_register( 'destroy()', function ( remove ) {
 		jqTable[ removedMethod ]();
 		jqWrapper[ removedMethod ]();
 
+		var orig = settings.nTableWrapper.parentNode;
+
 		// If we need to reattach the table to the document
 		if ( ! remove && orig ) {
+
 			// insertBefore acts like appendChild if !arg[1]
 			orig.insertBefore( table, settings.nTableReinsertBefore );
 
