@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <info><![CDATA[
 
-DataTables' provides renders that can automatically format ISO8601 date, datetime and time formats into a human readable format, in a format suitable for the user's locale settings. This means you don't need to worry about where your users are in the world - for example a user in USA might expect to see M/D/Y, while in Europe D/M/Y is used.
+DataTables provides renders that can automatically format ISO8601 date, datetime and time formats into a human readable format, in a format suitable for the user's locale settings. This means you don't need to worry about where your users are in the world - for example a user in USA might expect to see M/D/Y, while in Europe D/M/Y is used.
 
 This auto formatting is done by assigning the renderer without any parameters to the column in question. This example makes use of the [Moment.js](https://momentjs.com/) library to handle date formats. [Luxon](https://moment.github.io/luxon/#/) is also supported with an identical API.
 

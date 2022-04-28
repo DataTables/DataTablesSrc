@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <info><![CDATA[
 
-Often you might use ISO8601 as the format to transmit data on the wire, but is isn't the most friendly format to show an end user. For that reason, DataTables provides a `datetime` rendering helper which can be used to transform dates and time formats. With a single argument, as shown here, it will read the original data as ISO8601 and then display in the format given.
+Often you might use ISO8601 as the format to transmit data on the wire, but it isn't the most friendly format to show an end user. For that reason, DataTables provides a `datetime` rendering helper which can be used to transform dates and time formats. With a single argument, as shown here, it will read the original data as ISO8601 and then display in the format given.
 
 The `datetime` formatter works with both [Moment.js](https://momentjs.com/) and [Luxon](https://moment.github.io/luxon/#/). In this example we are using Moment.js. For a full range of its formatting options, please see the [Moment.js documentation](https://momentjs.com/docs/#/displaying/format/).
 
