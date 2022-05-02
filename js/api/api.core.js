@@ -117,16 +117,15 @@ _api_register( 'destroy()', function ( remove ) {
 		jqTbody.children().detach();
 		jqTbody.append( rows );
 
+		var orig = settings.nTableWrapper.parentNode;
+
 		// Remove the DataTables generated nodes, events and classes
 		var removedMethod = remove ? 'remove' : 'detach';
 		jqTable[ removedMethod ]();
 		jqWrapper[ removedMethod ]();
 
-		var orig = settings.nTableWrapper.parentNode;
-
 		// If we need to reattach the table to the document
 		if ( ! remove && orig ) {
-
 			// insertBefore acts like appendChild if !arg[1]
 			orig.insertBefore( table, settings.nTableReinsertBefore );
 
