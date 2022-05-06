@@ -1065,6 +1065,17 @@ declare namespace DataTables {
          * @returns the currently applied column search.
          */
         search(): string;
+
+        /**
+         * Set the search term for the matched columns.
+         *
+         * @param input Search string to apply.
+         * @param regex Treat as a regular expression (true) or not (default, false).
+         * @param smart Perform smart search.
+         * @param caseInsen Do case-insensitive matching (default, true) or not (false).
+         * @returns DataTables API instance
+         */
+        search(input: string, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
     }
 
     interface ColumnsMethodsModel<T> {
