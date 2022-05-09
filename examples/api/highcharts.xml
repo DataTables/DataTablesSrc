@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="15">
+
+<css lib="datatables searchpanes select" />
+<js lib="jquery" />
+<js lib="datatables searchpanes select" />
+
+<title>HighCharts Integration</title>
+
+<js lib="//code.highcharts.com/highcharts.js"/>
+<js><![CDATA[
+$(document).ready(function () {
+	// Create DataTable
+	var table = $('#example').DataTable({
+		dom: 'Pfrtip',
+	});
+
+	// Create the chart with initial data
+	var container = $('<div/>').insertBefore(table.table().container());
+
+	var chart = Highcharts.chart(container[0], {
+		chart: {
+			type: 'pie',
+		},
+		title: {
+			text: 'Staff Count Per Position',
+		},
+		series: [
+			{
+				data: chartData(table),
+			},
+		],
+	});
+
+	// On each draw, update the data in the chart
+	table.on('draw', function () {
+		chart.series[0].setData(chartData(table));
+	});
+});
+
+function chartData(table) {
+	var counts = {};
+
+	// Count the number of entries for each position
+	table
+		.column(1, { search: 'applied' })
+		.data()
+		.each(function (val) {
+			if (counts[val]) {
+				counts[val] += 1;
+			} else {
+				counts[val] = 1;
+			}
+		});
+
+	// And map it to the format highcharts uses
+	return $.map(counts, function (val, key) {
+		return {
+			name: key,
+			y: val,
+		};
+	});
+}
+]]></js>
+
+<info><![CDATA[
+
+This example shows how to integrate the excellent [HighCharts](https://www.highcharts.com/) library into your project along-side DataTables. As you modify the table by filtering it, the chart is updated automatically to reflect the state of the table.
+
+[SearchPanes](/extensions/searchpanes) is also used here to show its integration with DataTables' filtering. For more information take a look at the [blog post on highcharts](/blog/2020-09-01.html).
+
+]]></info>
+
+</dt-example>

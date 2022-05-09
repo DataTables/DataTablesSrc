@@ -7,19 +7,19 @@
 
 <title>Ajax data source (objects)</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"ajax": "data/objects.txt",
-		"columns": [
-			{ "data": "name" },
-			{ "data": "position" },
-			{ "data": "office" },
-			{ "data": "extn" },
-			{ "data": "start_date" },
-			{ "data": "salary" }
-		]
-	} );
-} );
+$(document).ready(function () {
+	$('#example').DataTable({
+		ajax: 'data/objects.txt',
+		columns: [
+			{ data: 'name' },
+			{ data: 'position' },
+			{ data: 'office' },
+			{ data: 'extn' },
+			{ data: 'start_date' },
+			{ data: 'salary' },
+		],
+	});
+});
 ]]></js>
 
 <info><![CDATA[

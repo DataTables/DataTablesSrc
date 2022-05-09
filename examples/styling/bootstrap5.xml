@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="11" framework="bootstrap5">
+
+<css lib="datatables" />
+
+<title>Bootstrap 5</title>
+<js lib="jquery datatables">
+<![CDATA[
+$(document).ready(function () {
+	$('#example').DataTable();
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example');
+});
+]]>
+</js-vanilla>
+
+<info><![CDATA[
+
+As with previous versions of Bootstrap, DataTables can also be integrated seamlessly with Bootstrap 5. This integration is done simply by including the DataTables Bootstrap 5 files (CSS and JS) which sets the defaults required for DataTables to be initialised as normal, as shown in this example.
+
+]]></info>
+
+</dt-example>

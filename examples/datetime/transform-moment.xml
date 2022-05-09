@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html-date-fmt" order="7">
+
+<css lib="datatables" />
+<js lib="jquery moment datatables">
+<![CDATA[
+$(document).ready(function () {
+	$('#example').DataTable({
+		columnDefs: [
+			{
+				targets: 4,
+				render: DataTable.render.datetime('D MMM YYYY', 'MMM D, YY', 'en'),
+			},
+		],
+	});
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		columnDefs: [
+			{
+				targets: 4,
+				render: DataTable.render.datetime('D MMM YYYY', 'MMM D, YY', 'en'),
+			},
+		],
+	});
+});
+]]>
+</js-vanilla>
+
+<title>Format transform (Moment.js)</title>
+
+<info><![CDATA[
+
+There might be times where your wire date/time data is not in ISO8601 format, but you want to display it to the end user in yet another format. This is handled by the `datetime` rendering function by supplying it three parameters:
+
+1. The original date format (please note that the parser is strict - you must exactly match the data format)
+2. The format you want to display
+3. The locale - used for internationalisation.
+
+The `datetime` formatter works with both [Moment.js](https://momentjs.com/) and [Luxon](https://moment.github.io/luxon/#/). In this example we are using Moment.js. For a full range of its formatting options, please see the [Moment.js documentation](https://momentjs.com/docs/#/displaying/format/).
+
+See [the renderers documentation](https://datatables.net/manual/data/renderers#Built-in-helpers) for full details about the renderers available in DataTables.
+
+]]></info>
+
+</dt-example>

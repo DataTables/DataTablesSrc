@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="columns">
 	<name>columns.contentPadding</name>
-	<summary>Add padding to the text content used when calculating the optimal with for a table.</summary>
+	<summary>Add padding to the text content used when calculating the optimal width for a table.</summary>
 	<since>1.10</since>
 
 	<type type="string" />

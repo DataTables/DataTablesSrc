@@ -7,25 +7,28 @@
 
 <title>Ordering plug-ins (no type detection)</title>
 <js><![CDATA[
-
-$.fn.dataTable.ext.type.order['salary-grade-pre'] = function ( d ) {
-	switch ( d ) {
-		case 'Low':    return 1;
-		case 'Medium': return 2;
-		case 'High':   return 3;
+$.fn.dataTable.ext.type.order['salary-grade-pre'] = function (d) {
+	switch (d) {
+		case 'Low':
+			return 1;
+		case 'Medium':
+			return 2;
+		case 'High':
+			return 3;
 	}
 	return 0;
 };
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"columnDefs": [ {
-			"type": "salary-grade",
-			"targets": -1
-		} ]
-	} );
-} );
-
+$(document).ready(function () {
+	$('#example').DataTable({
+		columnDefs: [
+			{
+				type: 'salary-grade',
+				targets: -1,
+			},
+		],
+	});
+});
 ]]></js>
 
 <info><![CDATA[

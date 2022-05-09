@@ -7,16 +7,25 @@
 
 <title>State saving</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
-		stateSave: true
-	} );
-} );
+$(document).ready(function () {
+	$('#example').DataTable({
+		stateSave: true,
+	});
+});
 ]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		stateSave: true,
+	});
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 
-DataTables has the option of being able to save the state of a table (its paging position, ordering state etc) so that is can be restored when the user reloads a page, or comes back to the page after visiting a sub-page. This state saving ability is enabled by the `dt-init stateSave` option.
+DataTables saves the state of a table (its paging position, ordering state etc). When the `-init stateSave` option is enabled, it can be restored when the user reloads a page, or comes back to the page after visiting a sub-page.
 
 The built in state saving method uses the HTML5 `localStorage` and `sessionStorage` APIs for efficient storage of the data. Please note that this means that the built in state saving option **will not work with IE6/7** as these browsers do not support these APIs. Alternative options of using cookies or saving the state on the server through Ajax can be used through the `dt-init stateSaveCallback` and `dt-init stateLoadCallback` options.
 

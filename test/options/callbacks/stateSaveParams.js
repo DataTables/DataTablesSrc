@@ -6,7 +6,7 @@ describe('stateSaveParams Option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-		it('Default shoud be not configured', function() {
+		it('Default should be not configured', function() {
 			expect($.fn.dataTable.defaults.fnStateSaveParams).toBe(null);
 		});
 
@@ -34,7 +34,7 @@ describe('stateSaveParams Option', function() {
 				}
 			});
 			table.state.save();
-			expect(seen).toBe(false);
+			expect(seen).toBe(true);
 		});
 	});
 

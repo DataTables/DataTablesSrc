@@ -173,11 +173,11 @@ _Api = function ( context, data )
 	var ctxSettings = function ( o ) {
 		var a = _toSettings( o );
 		if ( a ) {
-			settings = settings.concat( a );
+			settings.push.apply( settings, a );
 		}
 	};
 
-	if ( $.isArray( context ) ) {
+	if ( Array.isArray( context ) ) {
 		for ( var i=0, ien=context.length ; i<ien ; i++ ) {
 			ctxSettings( context[i] );
 		}
@@ -389,8 +389,10 @@ $.extend( _Api.prototype, {
 
 	pluck: function ( prop )
 	{
+		let fn = DataTable.util.get(prop);
+
 		return this.map( function ( el ) {
-			return el[ prop ];
+			return fn(el);
 		} );
 	},
 
@@ -471,8 +473,7 @@ _Api.extend = function ( scope, obj, ext )
 
 	var
 		i, ien,
-		j, jen,
-		struct, inner,
+		struct,
 		methodScoping = function ( scope, fn, struc ) {
 			return function () {
 				var ret = fn.apply( scope, arguments );
@@ -487,9 +488,9 @@ _Api.extend = function ( scope, obj, ext )
 		struct = ext[i];
 
 		// Value
-		obj[ struct.name ] = typeof struct.val === 'function' ?
+		obj[ struct.name ] = struct.type === 'function' ?
 			methodScoping( scope, struct.val, struct ) :
-			$.isPlainObject( struct.val ) ?
+			struct.type === 'object' ?
 				{} :
 				struct.val;
 
@@ -536,7 +537,7 @@ _Api.extend = function ( scope, obj, ext )
 
 _Api.register = _api_register = function ( name, val )
 {
-	if ( $.isArray( name ) ) {
+	if ( Array.isArray( name ) ) {
 		for ( var j=0, jen=name.length ; j<jen ; j++ ) {
 			_Api.register( name[j], val );
 		}
@@ -570,13 +571,19 @@ _Api.register = _api_register = function ( name, val )
 				name:      key,
 				val:       {},
 				methodExt: [],
-				propExt:   []
+				propExt:   [],
+				type:      'object'
 			};
 			struct.push( src );
 		}
 
 		if ( i === ien-1 ) {
 			src.val = val;
+			src.type = typeof val === 'function' ?
+				'function' :
+				$.isPlainObject( val ) ?
+					'object' :
+					'other';
 		}
 		else {
 			struct = method ?
@@ -585,7 +592,6 @@ _Api.register = _api_register = function ( name, val )
 		}
 	}
 };
-
 
 _Api.registerPlural = _api_registerPlural = function ( pluralName, singularName, val ) {
 	_Api.register( pluralName, val );
@@ -601,7 +607,7 @@ _Api.registerPlural = _api_registerPlural = function ( pluralName, singularName,
 			// New API instance returned, want the value from the first item
 			// in the returned array for the singular result.
 			return ret.length ?
-				$.isArray( ret[0] ) ?
+				Array.isArray( ret[0] ) ?
 					new _Api( ret.context, ret[0] ) : // Array results are 'enhanced'
 					ret[0] :
 				undefined;

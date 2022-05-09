@@ -42,7 +42,7 @@ DataTable.models.oSettings = {
 		 * Delay the creation of TR and TD elements until they are actually
 		 * needed by a driven page draw. This can give a significant speed
 		 * increase for Ajax source and Javascript source data, but makes no
-		 * difference at all fro DOM and server-side processing tables.
+		 * difference at all for DOM and server-side processing tables.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
 		 *  @type boolean
@@ -617,13 +617,6 @@ DataTable.models.oSettings = {
 	 *  @type string
 	 */
 	"sAjaxDataProp": null,
-
-	/**
-	 * Note if draw should be blocked while getting data
-	 *  @type boolean
-	 *  @default true
-	 */
-	"bAjaxDataGet": true,
 
 	/**
 	 * The last jQuery XHR object that was used for server-side data gathering.

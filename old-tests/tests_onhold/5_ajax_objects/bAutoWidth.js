@@ -62,7 +62,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnWaitTest( 
-		"Check column widths on second page match thid page",
+		"Check column widths on second page match this page",
 		null,
 		function () {
 			var anThs = $('#example thead th');

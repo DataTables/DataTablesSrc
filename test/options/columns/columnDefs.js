@@ -81,7 +81,7 @@ describe('columnDefs option', function() {
 		});
 
 		dt.html('basic');
-		it('Mixed negative and positive ints to select columns- remove first and last columns', function() {
+		it('Mixed negative and positive ints to select columns - remove first and last columns', function() {
 			$('#example').dataTable({
 				columnDefs: [{ targets: [0, -1], visible: false }]
 			});
@@ -124,7 +124,7 @@ describe('columnDefs option', function() {
 		});
 	});
 
-	describe('Check the defaults', function() {
+	describe('Other tests', function() {
 		dt.html('basic');
 		it('Same column referenced twice', function() {
 			let table = $('#example').DataTable({
@@ -148,7 +148,6 @@ describe('columnDefs option', function() {
 		});
 
 		dt.html('basic');
-
 		it('Same column referenced twice with conflict with other columns', function() {
 			let table = $('#example').DataTable({
 				columnDefs: [
@@ -160,6 +159,16 @@ describe('columnDefs option', function() {
 			expect($('#example thead th:eq(0)').text()).toBe('fred');
 			expect($('#example thead th:eq(1)').text()).toBe('stan');
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('stan');
+		});
+
+		dt.html('basic');
+		it('Single column with "target"', function() {
+			let table = $('#example').DataTable({
+				columnDefs: [
+					{ target: 0, title: 'fred' },
+				]
+			});
+			expect($('#example thead th:eq(0)').text()).toBe('fred');
 		});
 	});
 });

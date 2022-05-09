@@ -9,7 +9,7 @@ describe('infoCallback Option', function() {
 		let table;
 
 		dt.html('basic');
-		it('Count arguments', function() {
+		it('Count the arguments', function() {
 			table = $('#example').DataTable({
 				infoCallback: function() {
 					args = arguments;
@@ -18,7 +18,7 @@ describe('infoCallback Option', function() {
 			});
 			expect(args.length).toBe(6);
 		});
-		it('First arg is the settings', function() {
+		it('First arg is settings', function() {
 			expect(args[0]).toBe(table.settings()[0]);
 		});
 		it('Second arg is start position', function() {

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html-date-fmt" order="9">
+
+<css lib="datatables" />
+<js lib="jquery moment datatables">
+<![CDATA[
+DataTable.datetime('D MMM YYYY');
+
+$(document).ready(function () {
+	$('#example').DataTable();
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+DataTable.datetime('D MMM YYYY');
+
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example');
+});
+]]>
+</js-vanilla>
+
+<title>Ordering formatted dates (Moment.js)</title>
+
+<info><![CDATA[
+
+You might wish to tell DataTables about a specific date/time format that your data contains, but either you don't wish to transform it into a different format, or you aren't sure which columns the date/time data will be in (i.e. can't use the `datetime` rendering function). For such cases, we provide a `DataTable.datetime()` function to which you provide a format string. This will instruct DataTables to look for and parse data in such a format. 
+
+As with DataTable's other date and time methods, `DataTable.datetime()` supports both [Moment.js](https://momentjs.com/) and [Luxon](https://moment.github.io/luxon/#/). In this example we are using Moment.js. For a full range of its formatting options, please see the [Moment.js documentation](https://momentjs.com/docs/#/displaying/format/). Note that the parsing is strict - your assigned format must exactly match the data.
+
+]]></info>
+
+</dt-example>

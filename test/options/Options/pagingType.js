@@ -217,6 +217,62 @@ describe('pageType Option', function() {
 		});
 	});
 
+	describe('Check the various paging types when empty table', function() {
+		dt.html('empty');
+		it('Default', function() {
+			$('#example').dataTable();
+			expect($('.paginate_button').length).toBe(2);
+		});
+
+		dt.html('empty');
+		it('Numbers', function() {
+			$('#example').dataTable({
+				pagingType: 'numbers'
+			});
+			expect($('.paginate_button').length).toBe(0);
+		});
+
+		dt.html('empty');
+		it('Simple', function() {
+			$('#example').dataTable({
+				pagingType: 'simple'
+			});
+			expect($('.paginate_button').length).toBe(2);
+		});
+
+		dt.html('empty');
+		it('Simple Numbers', function() {
+			$('#example').dataTable({
+				pagingType: 'simple_numbers'
+			});
+			expect($('.paginate_button').length).toBe(2);
+		});
+
+		dt.html('empty');
+		it('Full', function() {
+			$('#example').dataTable({
+				pagingType: 'full'
+			});
+			expect($('.paginate_button').length).toBe(4);
+		});
+
+		dt.html('empty');
+		it('Full Numbers', function() {
+			$('#example').dataTable({
+				pagingType: 'full_numbers'
+			});
+			expect($('.paginate_button').length).toBe(4);
+		});
+
+		dt.html('empty');
+		it('First Last Numbers', function() {
+			$('#example').dataTable({
+				pagingType: 'first_last_numbers'
+			});
+			expect($('.paginate_button').length).toBe(2);
+		});
+	});
+
 	describe('General odds and ends', function() {
 		dt.html('basic');
 		it('Short page length when mid-table', function() {

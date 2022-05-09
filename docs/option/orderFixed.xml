@@ -42,7 +42,7 @@ $('#example').dataTable( {
 } );
 ]]></example>
 
-	<example title="As above, the first colum is fixed ordering, but in object form"><![CDATA[
+	<example title="As above, the first column is fixed ordering, but in object form"><![CDATA[
 $('#example').dataTable( {
 	"orderFixed": {
 		"pre": [ 0, 'asc' ]

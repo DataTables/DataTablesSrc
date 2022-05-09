@@ -22,7 +22,7 @@
 
 
 var oTest = {
-	/* Block further tests from occuring - might be end of tests or due to async wait */
+	/* Block further tests from occurring - might be end of tests or due to async wait */
 	bBlock: false,
 	
 	/* Number of times to try retesting for a blocking test */
@@ -41,7 +41,7 @@ var oTest = {
 	
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	 * Recommened public functions
+	 * Recommended public functions
 	 */
 	
 	/*
@@ -230,7 +230,7 @@ var oDispacher = {
 	
 	/*
 	 * Function: fnCreateEvent
-	 * Purpose:  Create an event oject based on the type to trigger an event - x-platform
+	 * Purpose:  Create an event object based on the type to trigger an event - x-platform
 	 * Returns:  event:evt
 	 * Inputs:   string:sType - type of event
 	 *           node:nTarget - target node of the event

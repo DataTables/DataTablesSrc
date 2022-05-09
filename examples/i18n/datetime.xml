@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="25">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+$(document).ready(function () {
+	$('#example').DataTable({
+		columnDefs: [
+			{
+				target: 4,
+				render: DataTable.render.date(),
+			},
+		],
+	});
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		columnDefs: [
+			{
+				target: 4,
+				render: DataTable.render.date(),
+			},
+		],
+	});
+});
+]]>
+</js-vanilla>
+
+<title>Auto-locale display</title>
+
+<info><![CDATA[
+
+In combination with DataTables' auto detection of ISO8601 formatted date / time strings, it is also possible to use it as a locale renderer, without an external library, as long as the data source is ISO8601. This is done through the Javascript [`toLocaleString()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
+
+In this example the ISO8601 formatted date in the fourth column is automatically shown in the table in a format suitable for the end user's browser. e.g. in Europe the format might be D/M/Y, while in the USA M/D/Y will be shown, without any additional configuration.
+
+]]></info>
+
+</dt-example>

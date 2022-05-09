@@ -13,31 +13,31 @@
 
 <title>Individual column searching (text inputs)</title>
 <js><![CDATA[
-
-$(document).ready(function() {
+$(document).ready(function () {
 	// Setup - add a text input to each footer cell
-	$('#example tfoot th').each( function () {
+	$('#example tfoot th').each(function () {
 		var title = $(this).text();
-		$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-	} );
+		$(this).html('<input type="text" placeholder="Search ' + title + '" />');
+	});
 
 	// DataTable
-	var table = $('#example').DataTable();
+	var table = $('#example').DataTable({
+		initComplete: function () {
+			// Apply the search
+			this.api()
+				.columns()
+				.every(function () {
+					var that = this;
 
-	// Apply the search
-	table.columns().every( function () {
-		var that = this;
-
-		$( 'input', this.footer() ).on( 'keyup change', function () {
-			if ( that.search() !== this.value ) {
-				that
-					.search( this.value )
-					.draw();
-			}
-		} );
-	} );
-} );
-
+					$('input', this.footer()).on('keyup change clear', function () {
+						if (that.search() !== this.value) {
+							that.search(this.value).draw();
+						}
+					});
+				});
+		},
+	});
+});
 ]]></js>
 
 <info><![CDATA[
@@ -48,7 +48,7 @@ DataTables has the ability to apply searching to a specific column through the `
 
 The column searches are cumulative, so you can apply multiple individual column searches, in addition to the global search, allowing complex searching options to be presented to the user.
 
-This examples shows text elements being used with the `dt-api column().search()` method to add input controls in the footer of the table for each column. Note that the `*index*:visible` option is used for the column selector to ensure that the `dt-api column()` method takes into account any hidden columns when selecting the column to act upon.
+This examples shows text elements being used with the `dt-api column().search()` method to add input controls in the footer of the table for each column. Note that the `*index*:visible` option is used for the column selector to ensure that the `dt-api column()` method takes into account any hidden columns when selecting the column to act upon. `-init initComplete` is used to allow for any asynchronous actions, such as Ajax loading of data or language information.
 
 ]]></info>
 

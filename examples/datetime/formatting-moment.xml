@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="5">
+
+<css lib="datatables" />
+<js lib="jquery moment datatables">
+<![CDATA[
+$(document).ready(function () {
+	$('#example').DataTable({
+		columnDefs: [
+			{
+				targets: 4,
+				render: DataTable.render.datetime('Do MMM YYYY'),
+			},
+		],
+	});
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		columnDefs: [
+			{
+				targets: 4,
+				render: DataTable.render.datetime('Do MMM YYYY'),
+			},
+		],
+	});
+});
+]]>
+</js-vanilla>
+
+<title>Date rendering (Moment.js)</title>
+
+<info><![CDATA[
+
+Often you might use ISO8601 as the format to transmit data on the wire, but it isn't the most friendly format to show an end user. For that reason, DataTables provides a `datetime` rendering helper which can be used to transform dates and time formats. With a single argument, as shown here, it will read the original data as ISO8601 and then display in the format given.
+
+The `datetime` formatter works with both [Moment.js](https://momentjs.com/) and [Luxon](https://moment.github.io/luxon/#/). In this example we are using Moment.js. For a full range of its formatting options, please see the [Moment.js documentation](https://momentjs.com/docs/#/displaying/format/).
+
+See [the renderers documentation](https://datatables.net/manual/data/renderers#Built-in-helpers) for full details about the renderers available in DataTables.
+
+]]></info>
+
+</dt-example>

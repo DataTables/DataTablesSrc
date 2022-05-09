@@ -27,6 +27,7 @@ $('#example').dataTable( {
 	<related type="option">search.search</related>
 	<related type="option">search.caseInsensitive</related>
 	<related type="option">search.regex</related>
+	<related type="option">search.return</related>
 	<related type="api">search()</related>
 	<related type="api">columns().search()</related>
 </dt-option>

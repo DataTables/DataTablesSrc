@@ -1,43 +1,18 @@
+
+$table-row-selected: rgba(0, 0, 0, 0.05);
+$table-row-selected-text: inherit;
+
+@import './common.scss';
+@import './ordering.scss';
+@import './processing.scss';
+@import './typography.scss';
+
 /*
  * Styling for DataTables with Semantic UI
  */
 
 table.dataTable.table {
 	margin: 0;
-
-	// Sorting icons using Semantic UI's built in icons (Font Awesome)
-	thead th,
-	thead td {
-		position: relative;
-
-		&.sorting,
-		&.sorting_asc,
-		&.sorting_desc {
-			padding-right: 20px;
-
-			&:after {
-				position: absolute;
-				top: 12px;
-				right: 8px;
-				display: block;
-				font-family: Icons;
-			}
-		}
-
-		&.sorting:after {
-			content: "\f0dc";
-			color: #ddd;
-			font-size: 0.8em;
-		}
-
-		&.sorting_asc:after {
-			content: "\f0de";
-		}
-
-		&.sorting_desc:after {
-			content: "\f0dd";
-		}
-	}
 
 	// Easier calculations
 	td,
@@ -58,6 +33,13 @@ table.dataTable.table {
 			white-space: nowrap;
 		}
 	}
+
+	// Override default row striping, replacing with an insert box-shadow
+	&.ui.striped > tbody > tr:nth-child(2n) {
+		background-color: transparent;
+	}
+
+	@include row-stripes('.striped', '.hover', 0.02);
 }
 
 

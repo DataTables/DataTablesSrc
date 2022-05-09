@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="3">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+// For the example - show interactions with the table
+var eventFired = function ( type ) {
+	var n = document.querySelector('#demo_info');
+	n.innerHTML += '<div>'+type+' event - '+new Date().getTime()+'</div>';
+	n.scrollTop = n.scrollHeight;      
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	let table = new DataTable('#example');
+
+	table
+		.on('order', function () {
+			eventFired( 'Order' );
+		})
+		.on('search', function () {
+			eventFired( 'Search' );
+		})
+		.on('page', function () {
+			eventFired( 'Page' );
+		});
+});
+]]>
+</js>
+
+<title>DataTables events</title>
+
+<info><![CDATA[
+
+DataTables fires a number of custom events which you can listen for through the `-api on()` and `-api one()` methods, to let you know when the table has performed certain actions.
+
+This example shows the use of the `dt-event order`, `dt-event search` and `dt-event page` events by adding a notification that the event fired to an element on the page to show that they have indeed fired.
+
+]]></info>
+
+<demo-html>
+	<div id="demo_info" class="box"> </div>
+</demo-html>
+
+</dt-example>

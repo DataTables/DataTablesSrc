@@ -1,12 +1,10 @@
 
-
-
 var __cell_selector = function ( settings, selector, opts )
 {
 	var data = settings.aoData;
 	var rows = _selector_row_indexes( settings, opts );
 	var cells = _removeEmpty( _pluck_order( data, rows, 'anCells' ) );
-	var allCells = $( [].concat.apply([], cells) );
+	var allCells = $(_flatten( [], cells ));
 	var row;
 	var columns = settings.aoColumns.length;
 	var a, i, ien, j, o, host;
@@ -123,10 +121,10 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 	// Row + column selector
 	var columns = this.columns( columnSelector, internalOpts );
 	var rows = this.rows( rowSelector, internalOpts );
-	var a, i, ien, j, jen;
+	var i, ien, j, jen;
 
-	this.iterator( 'table', function ( settings, idx ) {
-		a = [];
+	var cellsNoOpts = this.iterator( 'table', function ( settings, idx ) {
+		var a = [];
 
 		for ( i=0, ien=rows[idx].length ; i<ien ; i++ ) {
 			for ( j=0, jen=columns[idx].length ; j<jen ; j++ ) {
@@ -136,10 +134,16 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 				} );
 			}
 		}
+
+		return a;
 	}, 1 );
 
-    // Now pass through the cell selector for options
-    var cells = this.cells( a, opts );
+	// There is currently only one extension which uses a cell selector extension
+	// It is a _major_ performance drag to run this if it isn't needed, so this is
+	// an extension specific check at the moment
+	var cells = opts && opts.selected ?
+		this.cells( cellsNoOpts, opts ) :
+		cellsNoOpts;
 
 	$.extend( cells.selector, {
 		cols: columnSelector,

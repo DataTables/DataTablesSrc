@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html5" order="8">
+<dt-example table-type="" order="8">
 
 <css lib="datatables" />
 <js lib="jquery" />
@@ -7,11 +7,9 @@
 
 <title>HTML5 data-* attributes - table options</title>
 <js><![CDATA[
-
-$(document).ready(function() {
+$(document).ready(function () {
 	$('#example').DataTable();
-} );
-
+});
 ]]></js>
 
 <info><![CDATA[
@@ -26,7 +24,7 @@ The table below shows the use of `dt-init pageLength` and `dt-init order` on the
 
 ]]></info>
 
-<custom-table>
+<demo-html>
 	<table id='example' class='display' width='100%' data-page-length='25' data-order='[[ 1, "asc" ]]'>
 	    <thead>
 	        <tr>
@@ -509,6 +507,6 @@ The table below shows the use of `dt-init pageLength` and `dt-init order` on the
 	        </tr>
 	    </tbody>
 	</table>
-</custom-table>
+</demo-html>
 
 </dt-example>

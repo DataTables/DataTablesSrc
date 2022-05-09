@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.util.throttle()</name>
+	<summary>Throttle the calls to a method to reduce call frequency</summary>
+	<since>1.11</since>
+
+	<type type="function">
+		<signature>throttle( fn, [ period ] )</signature>
+		<description>Throttle the calls to a method to reduce call frequency.</description>
+		<parameter type="function" name="fn" default="false">
+			Function that should have its called throttled
+		</parameter>
+		<parameter type="integer" name="period" default="200">
+			Call period when throttled, in milliseconds (mS).
+		</parameter>
+		<returns type="function">Wrapper function that can be called and will automatically throttle calls to the passed in function to the given period.</returns>
+	</type>
+
+	<description>
+		This is a utility method that is provided for use by extension and plug-in authors. Its use does not directly effect a DataTable or DataTables configuration. It is used internally by DataTables and is made available in the public API to help promote code reuse for extension authors.
+
+		It can often be useful to limit the number of times that a method can be called in a given period of time (throttling). For example, consider searching a table with the `dt-api search()` method. If you are using server-side processing, you might wish to limit the number of requests that are made to the server by time (a fast typist might trigger many Ajax calls per second!). This method can assist in that goal by wrapping the function given in a helper function that you would then call as often as required (in the case of the search example, on every keystroke) and the wrapper function will automatically throttle the number of calls to the target function to the required frequency.
+
+		Note that any arguments passed to the returned function, when called, will be passed on to the original function. Additional the scope of execution of the original function will match the returned function's scope.
+
+		This is not a debounce function - it will execute the function at the defined frequency even while the function is still being called. Considering again the search example from above to illustrate this, the table will be searched at the given frequency, while the user is still typing. It will not wait for the user to stop typing (although a final execution of the function will happen once the user has stopped typing!).
+
+		Prior to DataTables 1.11 this method could be accessed through the `$.fn.dataTable.util` object only. As of 1.11, either `DataTable.util` or `$.fn.dataTable` can be used.
+	</description>
+
+	<example title="Reduce search API method calls to 1 per second"><![CDATA[
+
+var table = $('#myTable').DataTable();
+var search = DataTable.util.throttle(
+	function ( val ) {
+		table.search( val ).draw();
+	},
+	1000
+);
+
+$('#mySearchBox').on( 'keyup', function () {
+	search( this.value );
+} );
+
+]]></example>
+
+</dt-api>

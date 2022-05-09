@@ -1,0 +1,149 @@
+
+$table-row-selected: rgba(0, 209, 178, 0.9);
+
+@import './common.scss';
+@import './ordering.scss';
+@import './processing.scss';
+@import './typography.scss';
+
+/*! DataTables Bulma integration
+ * ©2020 SpryMedia Ltd - datatables.net/license
+ */
+
+table.dataTable {
+	clear: both;
+	margin-top: 6px !important;
+	margin-bottom: 6px !important;
+	max-width: none !important;
+	border-collapse: separate !important;
+	border-spacing: 0;
+
+	td,
+	th {
+		-webkit-box-sizing: content-box;
+		box-sizing: content-box;
+
+		&.dataTables_empty {
+			text-align: center;
+		}
+	}
+
+	// Style options for the table. Foundation provides its own, but it is also
+	// useful to have a few more for DataTables
+	&.nowrap {
+		th,
+		td {
+			white-space: nowrap;
+		}
+	}
+
+	// Override default row striping, replacing with an insert box-shadow
+	&.table.is-striped > tbody > tr:nth-child(2n) {
+		background-color: transparent;
+	}
+
+	@include row-stripes('.is-striped', '.is-hoverable', 0.019, 0.39);
+}
+
+
+// DataTables' built in feature elements
+div.dataTables_wrapper {
+	div.dataTables_length {
+		label {
+			font-weight: normal;
+			text-align: left;
+			white-space: nowrap;
+		}
+
+		div {
+			vertical-align: middle;
+		}
+
+		select {
+			width: auto;
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+
+	div.dataTables_filter {
+		text-align: right;
+
+		label {
+			font-weight: normal;
+			white-space: nowrap;
+			text-align: left;
+		}
+
+		input {
+			margin-left: 0.5em;
+			width: auto;
+			vertical-align: middle;
+		}
+	}
+
+	div.dataTables_info {
+		padding-top: 0.5em;
+	}
+
+	div.dataTables_paginate {
+		ul {
+			justify-content: flex-end;
+			list-style: none;
+			margin: 0;
+		}
+	}
+
+	div.dataTables_processing {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 200px;
+		margin-left: -100px;
+		margin-top: -26px;
+		text-align: center;
+		padding: 1em 0;
+	}
+}
+
+
+// Scrolling
+div.dataTables_scrollHead table.dataTable {
+	margin-bottom: 0 !important;
+}
+
+div.dataTables_scrollBody {
+	table {
+		border-top: none;
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+
+		thead { // Hide sort icons
+			.sorting:before,
+			.sorting_asc:before,
+			.sorting_desc:before,
+			.sorting:after,
+			.sorting_asc:after,
+			.sorting_desc:after {
+				display: none;
+			}
+		}
+
+		tbody tr:first-child th,
+		tbody tr:first-child td {
+			border-top: none;
+		}
+	}
+}
+
+div.dataTables_scrollFoot {
+	> .dataTables_scrollFootInner {
+		box-sizing: content-box;
+
+		> table {
+			margin-top: 0 !important;
+			border-top: none;
+		}
+	}
+}
+

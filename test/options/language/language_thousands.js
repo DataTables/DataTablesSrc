@@ -23,7 +23,7 @@ describe('language.thousands option ', function() {
 	});
 
 	dt.html('numerical');
-	it('Can we correctly set a thousands seperator and have it display in example_info', function(done) {
+	it('Can we correctly set a thousands separator and have it display in example_info', function(done) {
 		$('#example').dataTable({
 			ajax: '/base/test/data/numerical.txt',
 			columns: [{ data: 'city' }, { data: 'Score' }, { data: 'Salary' }],

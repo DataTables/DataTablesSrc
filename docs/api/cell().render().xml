@@ -11,8 +11,8 @@
 			Data type to get. This can be one of:
 
 			* `-string display`
-			* `-string filter`
-			* `-string sort`
+			* `-string filter` or (since 1.11) `-string search`
+			* `-string sort` or (since 1.11) `-string order`
 			* `-string type`
 		</parameter>
 		<returns type="*">Rendered data for the requested type</returns>

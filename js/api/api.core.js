@@ -63,7 +63,6 @@ _api_register( 'destroy()', function ( remove ) {
 	remove = remove || false;
 
 	return this.iterator( 'table', function ( settings ) {
-		var orig      = settings.nTableWrapper.parentNode;
 		var classes   = settings.oClasses;
 		var table     = settings.nTable;
 		var tbody     = settings.nTBody;
@@ -117,6 +116,8 @@ _api_register( 'destroy()', function ( remove ) {
 		// Add the TR elements back into the table in their original order
 		jqTbody.children().detach();
 		jqTbody.append( rows );
+
+		var orig = settings.nTableWrapper.parentNode;
 
 		// Remove the DataTables generated nodes, events and classes
 		var removedMethod = remove ? 'remove' : 'detach';

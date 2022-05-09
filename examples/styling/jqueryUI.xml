@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="13" framework="jqueryui">
+<dt-example table-type="html" order="17" framework="jqueryui">
 
 <css lib="datatables" />
-<js lib="jquery datatables" />
 
 <title>jQuery UI ThemeRoller</title>
-<js><![CDATA[
-$(document).ready(function() {
+<js lib="jquery datatables">
+<![CDATA[
+$(document).ready(function () {
 	$('#example').DataTable();
-} );
-]]></js>
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example');
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

@@ -14,15 +14,13 @@
 
 <title>Custom toolbar elements</title>
 <js><![CDATA[
+$(document).ready(function () {
+	$('#example').DataTable({
+		dom: '<"toolbar">frtip',
+	});
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"dom": '<"toolbar">frtip'
-	} );
-
-	$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
-} );
-
+	$('div.toolbar').html('<b>Custom tool bar! Text/images etc.</b>');
+});
 ]]></js>
 
 <info><![CDATA[

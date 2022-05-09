@@ -9,7 +9,7 @@ BASE_DIR="${SCRIPT_DIR}/.."
 BUILD_DIR="${BASE_DIR}/built"
 
 SYNC_BRANCH="master"
-VERSION=$(grep " * @version     " ${BASE_DIR}/js/DataTables.js | awk -F" " '{ print $3 }')
+VERSION=$(grep " * @version     " ${BASE_DIR}/js/umd.js | awk -F" " '{ print $3 }')
 CMD=$1
 SUBCMD=$2
 
@@ -20,22 +20,26 @@ fi
 
 
 function build_js {
-	echo_section "JS"
+	IN_FILE=$1
+	OUT_NAME=$2
+	OUT_EXTN=$3
+
+	echo_section "JS ${OUT_EXTN}"
+
 	SRC_DIR="${BASE_DIR}/js"
 	OUT_DIR="${BUILD_DIR}/js"
-	OUT_FILE="${OUT_DIR}/jquery.dataTables.js"
-	OUT_MIN_FILE="${OUT_DIR}/jquery.dataTables.min.js"
+	OUT_FILE="${OUT_DIR}/${OUT_NAME}.${OUT_EXTN}"
+	OUT_MIN_FILE="${OUT_DIR}/${IN_FILE}.min.${OUT_EXTN}"
 
-	if [ -d $OUT_DIR ]; then
-		rm -r $OUT_DIR
+	if [ ! -d $OUT_DIR ]; then
+		mkdir $OUT_DIR
 	fi
-	mkdir $OUT_DIR
 
 	cd $SRC_DIR
 
 	OLD_IFS=$IFS
 	IFS='%'
-	cp DataTables.js DataTables.js.build
+	cp $IN_FILE DataTables.js.build
 	grep "_buildInclude('" DataTables.js.build > /dev/null
 
 	while [ $? -eq 0 ]; do
@@ -94,11 +98,27 @@ function build_css {
 
 	cd $SRC_DIR
 
-	for file in $(find $SRC_DIR -name "*.scss"); do
+	for file in $(find $SRC_DIR -name "*dataTables*.scss"); do
 		filename=$(basename $file .scss)
-		sass --scss --stop-on-error --style expanded $file > $OUT_DIR/$filename.css
+		sass --stop-on-error --style expanded $file > $OUT_DIR/$filename.css
 		css_compress $OUT_DIR/$filename.css
 	done
+}
+
+function build_types {
+	echo_section "Types"
+	if [ -d $BUILD_DIR/types ]; then
+		rm -r $BUILD_DIR/types		
+	fi
+	mkdir $BUILD_DIR/types
+
+	if [ -d $BASE_DIR/types/ ]; then
+		cp $BASE_DIR/types/* $BUILD_DIR/types
+	else
+		if [ -f $BASE_DIR/types.d.ts ]; then
+			cp $BASE_DIR/types.d.ts $BUILD_DIR/types
+		fi
+	fi
 }
 
 
@@ -114,7 +134,6 @@ function build_images {
 	fi
 	mkdir $OUT_DIR
 
-	cp $SRC_DIR/*.png $OUT_DIR
 	cp $SRC_DIR/*.ico $OUT_DIR
 }
 
@@ -152,11 +171,14 @@ function build_repo {
 	echo_section "Deploying to build repo"
 	update_build_repo
 
-	build_js
+	build_js umd.js jquery.dataTables js
+	build_js esm.js jquery.dataTables mjs
 	build_css
+	build_types
 	build_images
 	build_examples
 
+	#echo $BUILD_DIR
 	cp $BUILD_DIR/js/* ${BUILD_DIR}/DataTables/media/js/
 	cp $BUILD_DIR/css/* ${BUILD_DIR}/DataTables/media/css/
 
@@ -323,6 +345,7 @@ function usage {
         - AutoFill
         - Buttons
         - ColReorder
+        - DateTime
         - FixedColumns
         - FixedHeader
         - KeyTable
@@ -330,6 +353,9 @@ function usage {
         - Responsive
         - Scroller
         - Select
+        - SearchBuilder
+        - SearchPanes
+        - StateRestore
 
     and the optional [debug] parameter can be used to disable JS and CSS
     compression for faster development build times."
@@ -365,6 +391,7 @@ case "$1" in
 		build_extension AutoFill
 		build_extension Buttons
 		build_extension ColReorder
+		build_extension DateTime
 		build_extension FixedColumns
 		build_extension FixedHeader
 		build_extension KeyTable
@@ -372,7 +399,10 @@ case "$1" in
 		build_extension RowGroup
 		build_extension RowReorder
 		build_extension Scroller
+		build_extension SearchBuilder
+		build_extension SearchPanes
 		build_extension Select
+		build_extension StateRestore
 		if [ -d ../extensions/Editor ]; then
 			build_extension Editor
 		fi
@@ -386,7 +416,8 @@ case "$1" in
 		;;
 
 	"js")
-		build_js
+		build_js umd.js jquery.dataTables js
+		build_js esm.js jquery.dataTables mjs
 		;;
 
 	"css")

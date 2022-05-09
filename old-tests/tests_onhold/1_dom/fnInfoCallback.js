@@ -14,7 +14,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnTest( 
-		"Agrument length",
+		"Argument length",
 		function () {
 			$('#example').dataTable( {
 				"bDestroy": true,

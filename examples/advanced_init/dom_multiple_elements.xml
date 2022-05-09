@@ -15,13 +15,11 @@
 
 <title>Multiple table control elements</title>
 <js><![CDATA[
-
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"dom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>'
-	} );
-} );
-
+$(document).ready(function () {
+	$('#example').DataTable({
+		dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
+	});
+});
 ]]></js>
 
 <info><![CDATA[

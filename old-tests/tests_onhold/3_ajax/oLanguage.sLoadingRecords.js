@@ -15,7 +15,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnTest(
-		"Text can be overriden",
+		"Text can be overridden",
 		function () {
 			oSession.fnRestore();
 			$('#example').dataTable( {

@@ -6,7 +6,7 @@ describe('columns - columns().order()', function() {
 
 	function areColumnsSorted(expectedColumns, columnCount = 6) {
 		for (let i = 0; i < columnCount; i++) {
-			expected = expectedColumns[i] == undefined ? 'sorting' : expectedColumns[i];
+			expected = expectedColumns[i] == undefined ? 'sorting' : 'sorting ' + expectedColumns[i];
 			if ($('#example thead th:eq(' + i + ')').attr('class') != expected) {
 				return false;
 			}

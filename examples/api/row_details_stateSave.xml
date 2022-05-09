@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax-details" order="6">
+
+<css lib="datatables"/>
+<js lib="jquery datatables" />
+
+<title>Child rows with StateSave</title>
+<js><![CDATA[
+/* Formatting function for row details - modify as you need */
+function format(d) {
+	// `d` is the original data object for the row
+	return (
+		'<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+		'<tr>' +
+		'<td>Full name:</td>' +
+		'<td>' +
+		d.name +
+		'</td>' +
+		'</tr>' +
+		'<tr>' +
+		'<td>Extension number:</td>' +
+		'<td>' +
+		d.extn +
+		'</td>' +
+		'</tr>' +
+		'<tr>' +
+		'<td>Extra info:</td>' +
+		'<td>And any further details here (images etc)...</td>' +
+		'</tr>' +
+		'</table>'
+	);
+}
+
+$(document).ready(function () {
+	// Add event listener for opening and closing details
+	$('#example').on('click', 'tbody td.dt-control', function () {
+		var tr = $(this).closest('tr');
+		var row = table.row(tr);
+
+		if (row.child.isShown()) {
+			// This row is already open - close it
+			row.child.hide();
+		} else {
+			// Open this row
+			row.child(format(row.data())).show();
+		}
+	});
+
+	$('#example').on('requestChild.dt', function (e, row) {
+		row.child(format(row.data())).show();
+	});
+
+	var table = $('#example').DataTable({
+		ajax: '../ajax/data/objects.txt',
+		rowId: 'id',
+		stateSave: true,
+		columns: [
+			{
+				className: 'dt-control',
+				orderable: false,
+				data: null,
+				defaultContent: '',
+			},
+			{ data: 'name' },
+			{ data: 'position' },
+			{ data: 'office' },
+			{ data: 'salary' },
+		],
+		order: [[1, 'asc']],
+	});
+});
+]]></js>
+
+<info><![CDATA[
+
+The DataTables API has a number of methods for attaching child rows to a *parent* row in the DataTable. This can be used to show additional information about a row, useful for cases where you wish to convey more information about a row than there is space for in the host table.
+
+The example below makes use of both `-init stateSave` and the `dt-api row().child` methods to first check if a row is already displayed, and if so hide it (`dt-api row().child.hide()`), otherwise show it (`dt-api row().child.show()`). The content of the child row in this example is defined by the `format()` function, but you would replace that with whatever content you wanted to show, possibly including, for example, [an Ajax call to the server](https://www.datatables.net/blog/2017-03-31) to obtain any extra information.
+
+Because of the state save element it is possible to maintain the state for this example across reloads. The user must add a listener for the `-event requestChild.dt` to display the row in whatever format that they please.
+
+The listeners must also be set before the table initialisation, otherwise when a state is attempting to load, the functionality set in the listeners will not be available.
+
+]]></info>
+
+</dt-example>

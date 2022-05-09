@@ -8,8 +8,10 @@ JSHINT="/usr/bin/jshint"
 
 # CSS styling frameworks that DataTables supports
 FRAMEWORKS=(
+	'bootstrap5'
 	'bootstrap4'
 	'bootstrap'
+	'bulma'
 	'foundation'
 	'jqueryui'
 	'semanticui'
@@ -53,7 +55,7 @@ function css_compress {
 		DIR=$(dirname $1)
 
 		echo_msg "CSS compressing $FILE.css"
-		sass --scss --stop-on-error --style compressed $DIR/$FILE.css > $DIR/$FILE.min.css
+		sass --no-charset --stop-on-error --style compressed $DIR/$FILE.css > $DIR/$FILE.min.css
 		
 		echo_msg "  File size: $(ls -l $DIR/$FILE.min.css | awk -F" " '{ print $5 }')"
 	fi
@@ -67,7 +69,7 @@ function scss_compile {
 	DIR=$(dirname $1)
 
 	echo_msg "SCSS compiling $FILE.scss"
-	sass --scss --stop-on-error --style expanded $DIR/$FILE.scss > $DIR/$FILE.css
+	sass --no-charset --stop-on-error --style expanded $DIR/$FILE.scss > $DIR/$FILE.css
 
 	css_compress $DIR/$FILE.css
 }
@@ -112,18 +114,20 @@ function js_compress {
 	LOG=$2
 
 	if [ -z "$DEBUG" ]; then
-		FILE=$(basename $1 .js)
+		FULL=$1
+		COMP_EXTN="${FULL##*.}"
+		FILE=$(basename $1 ".${COMP_EXTN}")
 		DIR=$(dirname $1)
 
-		echo_msg "JS compressing $FILE.js"
+		echo_msg "JS compressing $FILE.${COMP_EXTN}"
 
 		# Closure Compiler doesn't support "important" comments so we add a
 		# @license jsdoc comment to the license block to preserve it
-		cp $DIR/$FILE.js /tmp/$FILE.js
-		perl -i -0pe "s/^\/\*! (.*)$/\/** \@license \$1/s" /tmp/$FILE.js
+		cp $DIR/$FILE.$COMP_EXTN /tmp/$FILE.$COMP_EXTN
+		perl -i -0pe "s/^\/\*! (.*)$/\/** \@license \$1/s" /tmp/$FILE.$COMP_EXTN
 
 		rm /tmp/closure_error.log
-		java -jar $CLOSURE --charset 'utf-8' --js /tmp/$FILE.js > /tmp/$FILE.min.js 2> /tmp/closure_error.log
+		java -jar $CLOSURE --charset 'utf-8' --language_out=ES5 --js /tmp/$FILE.$COMP_EXTN > /tmp/$FILE.min.$COMP_EXTN 2> /tmp/closure_error.log
 
 		if [ -e /tmp/closure_error.log ]; then
 			if [ -z "$LOG" -o "$LOG" = "on" ]; then
@@ -132,12 +136,12 @@ function js_compress {
 		fi
 
 		# And add the important comment back in
-		perl -i -0pe "s/^\/\*/\/*!/s" /tmp/$FILE.min.js
+		perl -i -0pe "s/^\/\*/\/*!/s" /tmp/$FILE.min.$COMP_EXTN
 
-		mv /tmp/$FILE.min.js $DIR/$FILE.min.js
-		rm /tmp/$FILE.js
+		mv /tmp/$FILE.min.$COMP_EXTN $DIR/$FILE.min.$COMP_EXTN
+		rm /tmp/$FILE.$COMP_EXTN
 
-		echo_msg "  File size: $(ls -l $DIR/$FILE.min.js | awk -F" " '{ print $5 }')"
+		echo_msg "  File size: $(ls -l $DIR/$FILE.min.$COMP_EXTN | awk -F" " '{ print $5 }')"
 	fi
 }
 

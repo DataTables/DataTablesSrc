@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>requestChild</name>
+	<summary>DataTables wants to display a child row</summary>
+	<since>1.11</since>
+
+	<type type="function">
+		<signature>function( e, row )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="DataTables Api" name="row">
+			The parent row instance that the child row is attempting to display.
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		When `-init stateSave` is active, the `-event requestChild` is triggered when DataTables wants to insert a child row into the table. In this case, a listener has to be set that will implement the insertion of the child row. DataTables cannot handle this as it does not know how to present the data to the user. If no implementation is provided then child rows will not integrate with `-init stateSave`.
+
+		The function is passed the row that is being requested to show the child row. In order to identify the correct row, row ids must be set for the table.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below. The listener must also be set before the table initialisation, otherwise when a state is attempting to load, the functionality to do so will not be available.
+	</description>
+
+	<example title="Display the child row using a formatter"><![CDATA[
+$('#example').on('requestChild.dt', function(e, row) {
+	row.child(format(row.data())).show();
+})
+
+$('#example').DataTable( {
+	"ajax": "../ajax/data/objects.txt",
+	"rowId": 'id',
+	"stateSave": true,
+	"columns": [
+		{
+			"className":      'dt-control',
+			"orderable":      false,
+			"data":           null,
+			"defaultContent": ''
+		},
+		{ "data": "name" },
+		{ "data": "position" },
+		{ "data": "office" },
+		{ "data": "salary" }
+	],
+	"order": [[1, 'asc']]
+} );
+]]></example>
+
+</dt-event>

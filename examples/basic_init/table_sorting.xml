@@ -7,12 +7,21 @@
 
 <title>Default ordering (sorting)</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"order": [[ 3, "desc" ]]
-	} );
-} );
+$(document).ready(function () {
+	$('#example').DataTable({
+		order: [[3, 'desc']],
+	});
+});
 ]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		order: [[3, 'desc']],
+	});
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

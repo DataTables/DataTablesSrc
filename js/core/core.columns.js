@@ -85,8 +85,16 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 			th.addClass( oOptions.sClass );
 		}
 
+		var origClass = oCol.sClass;
+
 		$.extend( oCol, oOptions );
 		_fnMap( oCol, oOptions, "sWidth", "sWidthOrig" );
+
+		// Merge class from previously defined classes with this one, rather than just
+		// overwriting it in the extend above
+		if (origClass !== oCol.sClass) {
+			oCol.sClass = origClass + ' ' + oCol.sClass;
+		}
 
 		/* iDataSort to be applied (backwards compatibility), but aDataSort will take
 		 * priority if defined
@@ -192,7 +200,7 @@ function _fnAdjustColumnSizing ( settings )
 
 
 /**
- * Covert the index of a visible column to the index in the data array (take account
+ * Convert the index of a visible column to the index in the data array (take account
  * of hidden columns)
  *  @param {object} oSettings dataTables settings object
  *  @param {int} iMatch Visible column index to lookup
@@ -210,7 +218,7 @@ function _fnVisibleToColumnIndex( oSettings, iMatch )
 
 
 /**
- * Covert the index of an index in the data array and convert it to the visible
+ * Convert the index of an index in the data array and convert it to the visible
  *   column index (take account of hidden columns)
  *  @param {int} iMatch Column index to lookup
  *  @param {object} oSettings dataTables settings object
@@ -311,8 +319,9 @@ function _fnColumnTypes ( settings )
 					}
 
 					// Only a single match is needed for html type since it is
-					// bottom of the pile and very similar to string
-					if ( detectedType === 'html' ) {
+					// bottom of the pile and very similar to string - but it
+					// must not be empty
+					if ( detectedType === 'html' && ! _empty(cache[k]) ) {
 						break;
 					}
 				}
@@ -359,11 +368,13 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 			def = aoColDefs[i];
 
 			/* Each definition can target multiple columns, as it is an array */
-			var aTargets = def.targets !== undefined ?
-				def.targets :
-				def.aTargets;
+			var aTargets = def.target !== undefined
+				? def.target
+				: def.targets !== undefined
+					? def.targets
+					: def.aTargets;
 
-			if ( ! $.isArray( aTargets ) )
+			if ( ! Array.isArray( aTargets ) )
 			{
 				aTargets = [ aTargets ];
 			}

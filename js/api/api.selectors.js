@@ -21,7 +21,7 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 			[ selector[i] ];
 
 		for ( j=0, jen=a.length ; j<jen ; j++ ) {
-			res = selectFn( typeof a[j] === 'string' ? $.trim(a[j]) : a[j] );
+			res = selectFn( typeof a[j] === 'string' ? (a[j]).trim() : a[j] );
 
 			if ( res && res.length ) {
 				out = out.concat( res );
@@ -105,7 +105,7 @@ var _selector_row_indexes = function ( settings, opts )
 			_range( 0, displayMaster.length );
 	}
 	else if ( page == 'current' ) {
-		// Current page implies that order=current and fitler=applied, since it is
+		// Current page implies that order=current and filter=applied, since it is
 		// fairly senseless otherwise, regardless of what order and search actually
 		// are
 		for ( i=settings._iDisplayStart, ien=settings.fnDisplayEnd() ; i<ien ; i++ ) {

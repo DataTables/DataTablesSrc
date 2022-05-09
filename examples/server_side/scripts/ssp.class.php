@@ -16,7 +16,7 @@
  */
 
 
-// REMOVE THIS BLOCK - used for DataTables test environment only!
+// Please Remove below 4 lines as this is use in Datatatables test environment for your local or live environment please remove it or else it will not work
 $file = $_SERVER['DOCUMENT_ROOT'].'/datatables/pdo.php';
 if ( is_file( $file ) ) {
 	include( $file );
@@ -43,10 +43,20 @@ class SSP {
 
 				// Is there a formatter?
 				if ( isset( $column['formatter'] ) ) {
-					$row[ $column['dt'] ] = $column['formatter']( $data[$i][ $column['db'] ], $data[$i] );
+                    if(empty($column['db'])){
+                        $row[ $column['dt'] ] = $column['formatter']( $data[$i] );
+                    }
+                    else{
+                        $row[ $column['dt'] ] = $column['formatter']( $data[$i][ $column['db'] ], $data[$i] );
+                    }
 				}
 				else {
-					$row[ $column['dt'] ] = $data[$i][ $columns[$j]['db'] ];
+                    if(!empty($column['db'])){
+                        $row[ $column['dt'] ] = $data[$i][ $columns[$j]['db'] ];
+                    }
+                    else{
+                        $row[ $column['dt'] ] = "";
+                    }
 				}
 			}
 
@@ -174,8 +184,10 @@ class SSP {
 				$column = $columns[ $columnIdx ];
 
 				if ( $requestColumn['searchable'] == 'true' ) {
-					$binding = self::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
-					$globalSearch[] = "`".$column['db']."` LIKE ".$binding;
+					if(!empty($column['db'])){
+						$binding = self::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
+						$globalSearch[] = "`".$column['db']."` LIKE ".$binding;
+					}
 				}
 			}
 		}
@@ -191,8 +203,10 @@ class SSP {
 
 				if ( $requestColumn['searchable'] == 'true' &&
 				 $str != '' ) {
-					$binding = self::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
-					$columnSearch[] = "`".$column['db']."` LIKE ".$binding;
+					if(!empty($column['db'])){
+						$binding = self::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
+						$columnSearch[] = "`".$column['db']."` LIKE ".$binding;
+					}
 				}
 			}
 		}
@@ -294,21 +308,33 @@ class SSP {
 	 *   used in conditions where you don't want the user to ever have access to
 	 *   particular records (for example, restricting by a login id).
 	 *
+	 * In both cases the extra condition can be added as a simple string, or if
+	 * you are using external values, as an assoc. array with `condition` and
+	 * `bindings` parameters. The `condition` is a string with the SQL WHERE
+	 * condition and `bindings` is an assoc. array of the binding names and
+	 * values.
+	 *
 	 *  @param  array $request Data sent to server by DataTables
 	 *  @param  array|PDO $conn PDO connection resource or connection parameters array
 	 *  @param  string $table SQL table to query
 	 *  @param  string $primaryKey Primary key of the table
 	 *  @param  array $columns Column information array
-	 *  @param  string $whereResult WHERE condition to apply to the result set
-	 *  @param  string $whereAll WHERE condition to apply to all queries
+	 *  @param  string|array $whereResult WHERE condition to apply to the result set
+	 *  @param  string|array $whereAll WHERE condition to apply to all queries
 	 *  @return array          Server-side processing response array
 	 */
-	static function complex ( $request, $conn, $table, $primaryKey, $columns, $whereResult=null, $whereAll=null )
-	{
+	static function complex (
+		$request,
+		$conn,
+		$table,
+		$primaryKey,
+		$columns,
+		$whereResult=null,
+		$whereAll=null
+	) {
 		$bindings = array();
+		$whereAllBindings = array();
 		$db = self::db( $conn );
-		$localWhereResult = array();
-		$localWhereAll = array();
 		$whereAllSql = '';
 
 		// Build the SQL query string from the request
@@ -316,21 +342,41 @@ class SSP {
 		$order = self::order( $request, $columns );
 		$where = self::filter( $request, $columns, $bindings );
 
-		$whereResult = self::_flatten( $whereResult );
-		$whereAll = self::_flatten( $whereAll );
-
+		// whereResult can be a simple string, or an assoc. array with a
+		// condition and bindings
 		if ( $whereResult ) {
+			$str = $whereResult;
+
+			if ( is_array($whereResult) ) {
+				$str = $whereResult['condition'];
+
+				if ( isset($whereResult['bindings']) ) {
+					self::add_bindings($bindings, $whereResult['bindings']);
+				}
+			}
+
 			$where = $where ?
-				$where .' AND '.$whereResult :
-				'WHERE '.$whereResult;
+				$where .' AND '.$str :
+				'WHERE '.$str;
 		}
 
+		// Likewise for whereAll
 		if ( $whereAll ) {
-			$where = $where ?
-				$where .' AND '.$whereAll :
-				'WHERE '.$whereAll;
+			$str = $whereAll;
 
-			$whereAllSql = 'WHERE '.$whereAll;
+			if ( is_array($whereAll) ) {
+				$str = $whereAll['condition'];
+
+				if ( isset($whereAll['bindings']) ) {
+					self::add_bindings($whereAllBindings, $whereAll['bindings']);
+				}
+			}
+
+			$where = $where ?
+				$where .' AND '.$str :
+				'WHERE '.$str;
+
+			$whereAllSql = 'WHERE '.$str;
 		}
 
 		// Main query to actually get the data
@@ -351,7 +397,7 @@ class SSP {
 		$recordsFiltered = $resFilterLength[0][0];
 
 		// Total data set length
-		$resTotalLength = self::sql_exec( $db, $bindings,
+		$resTotalLength = self::sql_exec( $db, $whereAllBindings,
 			"SELECT COUNT(`{$primaryKey}`)
 			 FROM   `$table` ".
 			$whereAllSql
@@ -489,6 +535,17 @@ class SSP {
 		return $key;
 	}
 
+	static function add_bindings(&$a, $vals)
+	{
+		foreach($vals['bindings'] as $key => $value) {
+			$bindings[] = array(
+				'key' => $key,
+				'val' => $value,
+				'type' => PDO::PARAM_STR
+			);
+		}
+	}
+
 
 	/**
 	 * Pull a particular property from each assoc. array in a numeric array, 
@@ -503,7 +560,13 @@ class SSP {
 		$out = array();
 
 		for ( $i=0, $len=count($a) ; $i<$len ; $i++ ) {
-			$out[] = $a[$i][$prop];
+ 			if ( empty($a[$i][$prop]) && $a[$i][$prop] !== 0 ) {
+				continue;
+			}
+
+			//removing the $out array index confuses the filter method in doing proper binding,
+			//adding it ensures that the array data are mapped correctly
+			$out[$i] = $a[$i][$prop];
 		}
 
 		return $out;

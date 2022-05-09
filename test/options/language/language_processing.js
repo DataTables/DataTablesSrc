@@ -6,7 +6,8 @@ describe('language.processing option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-		it("Processing language is 'Processing...' by default ", function() {
+
+		it("Processing language is empty by default ", function() {
 			$('#example').dataTable({
 				processing: true
 			});
@@ -14,13 +15,15 @@ describe('language.processing option', function() {
 				$('#example')
 					.DataTable()
 					.settings()[0].oLanguage.sProcessing
-			).toBe('Processing...');
+			).toBe('');
 		});
+
 		it('Processing language default is in the DOM ', function() {
-			expect($('div.dataTables_processing').html()).toBe('Processing...');
+			expect($('div.dataTables_processing').text()).toBe('');
 		});
 
 		dt.html('basic');
+
 		it('Processing language can be defined', function() {
 			$('#example').dataTable({
 				processing: true,
@@ -34,8 +37,9 @@ describe('language.processing option', function() {
 					.settings()[0].oLanguage.sProcessing
 			).toBe('unit test');
 		});
+
 		it('Processing language definition is in the DOM', function() {
-			expect($('div.dataTables_processing').html()).toBe('unit test');
+			expect($('div.dataTables_processing').text()).toBe('unit test');
 		});
 	});
 });

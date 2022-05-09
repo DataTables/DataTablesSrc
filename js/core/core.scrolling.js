@@ -8,9 +8,6 @@ function _fnFeatureHtmlTable ( settings )
 {
 	var table = $(settings.nTable);
 
-	// Add the ARIA grid role to the table
-	table.attr( 'role', 'grid' );
-
 	// Scrolling from here on in
 	var scroll = settings.oScroll;
 
@@ -128,10 +125,10 @@ function _fnFeatureHtmlTable ( settings )
 		} );
 	}
 
-	$(scrollBody).css(
-		scrollY && scroll.bCollapse ? 'max-height' : 'height', 
-		scrollY
-	);
+	$(scrollBody).css('max-height', scrollY);
+	if (! scroll.bCollapse) {
+		$(scrollBody).css('height', scrollY);
+	}
 
 	settings.nScrollHead = scrollHead;
 	settings.nScrollBody = scrollBody;
@@ -298,20 +295,20 @@ function _fnScrollDraw ( settings )
 
 	// Read all widths in next pass
 	_fnApplyToChildren( function(nSizer) {
+		var style = window.getComputedStyle ?
+			window.getComputedStyle(nSizer).width :
+			_fnStringToCss( $(nSizer).width() );
+
 		headerContent.push( nSizer.innerHTML );
-		headerWidths.push( _fnStringToCss( $(nSizer).css('width') ) );
+		headerWidths.push( style );
 	}, headerSrcEls );
 
 	// Apply all widths in final pass
 	_fnApplyToChildren( function(nToSize, i) {
-		// Only apply widths to the DataTables detected header cells - this
-		// prevents complex headers from having contradictory sizes applied
-		if ( $.inArray( nToSize, dtHeaderCells ) !== -1 ) {
-			nToSize.style.width = headerWidths[i];
-		}
+		nToSize.style.width = headerWidths[i];
 	}, headerTrgEls );
 
-	$(headerSrcEls).height(0);
+	$(headerSrcEls).css('height', 0);
 
 	/* Same again with the footer if we have one */
 	if ( footer )
@@ -358,7 +355,7 @@ function _fnScrollDraw ( settings )
 
 	// Sanity check that the table is of a sensible width. If not then we are going to get
 	// misalignment - try to prevent this by not allowing the table to shrink below its min width
-	if ( table.outerWidth() < sanityWidth )
+	if ( Math.round(table.outerWidth()) < Math.round(sanityWidth) )
 	{
 		// The min width depends upon if we have a vertical scrollbar visible or not */
 		correction = ((divBodyEl.scrollHeight > divBodyEl.offsetHeight ||

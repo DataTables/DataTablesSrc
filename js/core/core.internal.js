@@ -43,7 +43,7 @@ var _re_escape_regex = new RegExp( '(\\' + [ '/', '.', '*', '+', '?', '|', '(', 
 // - Ƀ - Bitcoin
 // - Ξ - Ethereum
 //   standards as thousands separators.
-var _re_formatted_numeric = /[',$£€¥%\u2009\u202F\u20BD\u20a9\u20BArfkɃΞ]/gi;
+var _re_formatted_numeric = /['\u00A0,$£€¥%\u2009\u202F\u20BD\u20a9\u20BArfkɃΞ]/gi;
 
 
 var _empty = function ( d ) {
@@ -271,3 +271,49 @@ var _unique = function ( src )
 	return out;
 };
 
+// Surprisingly this is faster than [].concat.apply
+// https://jsperf.com/flatten-an-array-loop-vs-reduce/2
+var _flatten = function (out, val) {
+	if (Array.isArray(val)) {
+		for (var i=0 ; i<val.length ; i++) {
+			_flatten(out, val[i]);
+		}
+	}
+	else {
+		out.push(val);
+	}
+  
+	return out;
+}
+
+var _includes = function (search, start) {
+	if (start === undefined) {
+		start = 0;
+	}
+
+	return this.indexOf(search, start) !== -1;	
+};
+
+// Array.isArray polyfill.
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
+if (! Array.isArray) {
+    Array.isArray = function(arg) {
+        return Object.prototype.toString.call(arg) === '[object Array]';
+    };
+}
+
+if (! Array.prototype.includes) {
+	Array.prototype.includes = _includes;
+}
+
+// .trim() polyfill
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
+if (!String.prototype.trim) {
+  String.prototype.trim = function () {
+    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+  };
+}
+
+if (! String.prototype.includes) {
+	String.prototype.includes = _includes;
+}

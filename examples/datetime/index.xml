@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example order="0">
+
+<title>Date and Time handling</title>
+
+<info><![CDATA[
+
+Dates and times are a very common data type to display in a DataTable, but they can also be complicated to handle correctly. DataTables provides helper functions to control the formatting of date/times and so you can specify the format that your data is in.
+
+]]></info>
+
+</dt-example>

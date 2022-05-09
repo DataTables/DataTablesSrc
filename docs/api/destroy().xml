@@ -23,7 +23,7 @@
 		Destroying a table is necessary to prevent memory leaks if you do wish to replace one table with another.
 	</description>
 
-	<example title="Destroy an exisiting table on a button click"><![CDATA[
+	<example title="Destroy an existing table on a button click"><![CDATA[
 var table = $('#myTable').DataTable();
 
 $('#tableDestroy').on( 'click', function () {

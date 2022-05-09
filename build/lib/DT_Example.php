@@ -298,9 +298,14 @@ class DT_Example
 				else if ( $type === 'data' )  { return '<td data-order="'.$row['salary'].'">$'.number_format($row['salary']).'/y</td>'; }
 				break;
 
+			case 'salary-plain':
+				if      ( $type === 'title' ) { return 'Salary'; }
+				else if ( $type === 'data' )  { return $row['salary']; }
+				break;
+
 			case 'start_date':
 				if      ( $type === 'title' ) { return 'Start date'; }
-				else if ( $type === 'data' )  { return $row['start_date']; }
+				else if ( $type === 'data' )  { return str_replace('/', '-', $row['start_date']); }
 				break;
 
 			case 'start_date-attr':
@@ -308,6 +313,14 @@ class DT_Example
 				else if ( $type === 'data' )  {
 					$t = strtotime( $row['start_date'] );
 					return '<td data-order="'.date('U', $t).'">'.date('D jS M y', $t).'</td>';
+				}
+				break;
+
+			case 'start_date-fmt':
+				if      ( $type === 'title' ) { return 'Start date'; }
+				else if ( $type === 'data' )  {
+					$t = strtotime( $row['start_date'] );
+					return '<td>'.date('j M Y', $t).'</td>';
 				}
 				break;
 
@@ -321,6 +334,11 @@ class DT_Example
 				else if ( $type === 'data' )  { return $row['email']; }
 				break;
 
+			case 'progress':
+				if      ( $type === 'title' ) { return 'Progress'; }
+				else if ( $type === 'data' )  { return $row['extn']; }
+				break;
+
 			case 'office':
 				if      ( $type === 'title' ) { return 'Office'; }
 				else if ( $type === 'data' )  { return $row['office']; }
@@ -329,6 +347,26 @@ class DT_Example
 			case 'sequence':
 				if      ( $type === 'title' ) { return 'Seq.'; }
 				else if ( $type === 'data' )  { return $row['sequence']; }
+				break;
+
+			case 'symbol':
+				if      ( $type === 'title' ) { return 'Symbol'; }
+				else if ( $type === 'data' )  { return $row['symbol']; }
+				break;
+
+			case 'price':
+				if      ( $type === 'title' ) { return 'Price'; }
+				else if ( $type === 'data' )  { return $row['price']; }
+				break;
+
+			case 'difference':
+				if      ( $type === 'title' ) { return 'Difference'; }
+				else if ( $type === 'data' )  { return ''; }
+				break;
+
+			case 'history':
+				if      ( $type === 'title' ) { return 'Last'; }
+				else if ( $type === 'data' )  { return $row['last']; }
 				break;
 
 			default:
@@ -377,7 +415,10 @@ class DT_Example
 			(string)$this->_xml['framework'] :
 			'datatables';
 
-		if ( strpos($framework, 'bootstrap') !== false ) {
+		if ( strpos($framework, 'bootstrap5') !== false ) {
+			$class = str_replace('display', 'table table-striped', $class);
+		}
+		else if ( strpos($framework, 'bootstrap') !== false ) {
 			$class = str_replace('display', 'table table-striped table-bordered', $class);
 		}
 		else if ( strpos($framework, 'semanticui') !== false ) {
@@ -388,6 +429,9 @@ class DT_Example
 		}
 		else if ( strpos($framework, 'uikit') !== false ) {
 			$class = str_replace('display', 'uk-table uk-table-hover uk-table-striped', $class);
+		}
+		else if ( strpos($framework, 'bulma') !== false ) {
+			$class = str_replace('display', 'table is-striped', $class);
 		}
 
 		if ( ! isset( DT_Example::$tables[ $type ] ) ) {
@@ -699,6 +743,20 @@ DT_Example::$tables['html5'] = array(
 	'body'    => true
 );
 
+DT_Example::$tables['html-date-fmt'] = array(
+	'columns' => array( 'name', 'position', 'office', 'age', 'start_date-fmt', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+DT_Example::$tables['html-salary-plain'] = array(
+	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', 'salary-plain' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
 DT_Example::$tables['sequence'] = array(
 	'columns' => array( 'sequence', 'name', 'position', 'office', 'start_date', 'salary' ),
 	'header'  => true,
@@ -722,6 +780,20 @@ DT_Example::$tables['ajax-id'] = array(
 
 DT_Example::$tables['ajax-sequence'] = array(
 	'columns' => array( 'sequence', 'name', 'position', 'office', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
+DT_Example::$tables['ajax-renderer'] = array(
+	'columns' => array( 'name', 'position', 'office', 'progress', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => false
+);
+
+DT_Example::$tables['ajax-stocks'] = array(
+	'columns' => array( 'name', 'symbol', 'price', 'difference', 'history' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => false
@@ -853,6 +925,65 @@ DT_Example::$tables['html-grade'] = array(
 		}
 		return 'High';
 	} ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+DT_Example::$tables['html-salary'] = array(
+	'columns' => array(
+		'name',
+		'position',
+		function($type, $row) {
+			if ( $type === 'title' ) {
+				return 'Office';
+			}
+			return'<span>'.$row['office'].'</span>';
+		},
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Age';
+			}
+			else if ( $row['age'] < 35 ) {
+				return '<span class="young">'.$row['age'].'</span>';
+			}
+			else if ( $row['age'] < 55 ) {
+				return '<span class="middleaged">'.$row['age'].'</span>';
+			}
+			return '<span class="old">'.$row['age'].'</span>';
+		},
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Start Date';
+			}
+			return implode('-', explode('/', $row['start_date']));
+		},
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Salary';
+			}
+			return '<span>'.'$'.number_format($row['salary']).'.00'.'</span>';
+		} 
+	),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+DT_Example::$tables['html-iso8601'] = array(
+	'columns' => array(
+		'name',
+		'position',
+		'office',
+		'age',
+		function ( $type, $row ) {
+			if ( $type === 'title' ) {
+				return 'Start Date';
+			}
+			return implode('-', explode('/', $row['start_date']));
+		},
+		'salary' 
+	),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => true

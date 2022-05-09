@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="1">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+$(document).ready(function () {
+	$('#example').DataTable();
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example');
+});
+]]>
+</js-vanilla>
+
+<title>ISO8601 detection</title>
+
+<info><![CDATA[
+
+DataTables supports ordering of ISO8601 date / time formats without any additional configuration. The _Start date_ column in the example below shows this. Click on the column header to sort chronologically.
+
+]]></info>
+
+</dt-example>

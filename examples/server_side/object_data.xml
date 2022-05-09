@@ -7,22 +7,41 @@
 
 <title>Object data source</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"processing": true,
-		"serverSide": true,
-		"ajax": "scripts/objects.php",
-		"columns": [
-			{ "data": "first_name" },
-			{ "data": "last_name" },
-			{ "data": "position" },
-			{ "data": "office" },
-			{ "data": "start_date" },
-			{ "data": "salary" }
-		]
-	} );
-} );
+$(document).ready(function () {
+	$('#example').DataTable({
+		processing: true,
+		serverSide: true,
+		ajax: 'scripts/objects.php',
+		columns: [
+			{ data: 'first_name' },
+			{ data: 'last_name' },
+			{ data: 'position' },
+			{ data: 'office' },
+			{ data: 'start_date' },
+			{ data: 'salary' },
+		],
+	});
+});
 ]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		processing: true,
+		serverSide: true,
+		ajax: 'scripts/objects.php',
+		columns: [
+			{ data: 'first_name' },
+			{ data: 'last_name' },
+			{ data: 'position' },
+			{ data: 'office' },
+			{ data: 'start_date' },
+			{ data: 'salary' },
+		],
+	});
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

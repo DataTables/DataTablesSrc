@@ -1,4 +1,4 @@
-describe('core - draw()', function() {
+describe('core - draw()', function () {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
@@ -20,7 +20,7 @@ describe('core - draw()', function() {
 
 	describe('Basic tests', function() {
 		dt.html('basic');
-		it('Table only updates afer a draw', function() {
+		it('Table only updates after a draw', function() {
 			let table = $('#example').DataTable();
 
 			table.page(1);
@@ -82,8 +82,8 @@ describe('core - draw()', function() {
 		});
 	});
 
-	describe('Advanced conditions', function() {
-		// The following test is disabled due to case #476
+	describe('Advanced conditions', function () {
+		// The following test is disabled due to case DD-123
 		// dt.html('basic');
 		// it('Draws AJAX sourced data correctly during initComplete', function(done) {
 		// 	let table = $('#example').DataTable({
@@ -106,22 +106,23 @@ describe('core - draw()', function() {
 		// 			}, 50);
 		// 		},
 		// 		initComplete: function(setting, json) {
-		// 			table.page(1).draw(false);
+		// 			// table.page(1).draw(false);
 		// 			expect($('#example tbody td:eq(0)').text()).toBe('10-1');
 		// 			done();
 		// 		}
 		// 	});
 		// });
 
-		// Fix test once case #477 resolved
 		dt.html('basic');
-		it('Shows sensible values in table information summary', function() {
+		it('Shows sensible values in table information summary', function () {
 			let table = $('#example').DataTable();
 
 			table.page(1);
 			table.search('Cox');
 			table.draw(false);
 
+			// Fix test once case DD-122 resolved
+			// expect($('.dataTables_info').text()).toBe('Showing 1 to 1 of 1 entries (filtered from 57 total entries)');
 			expect($('.dataTables_info').text()).toBe('Showing 11 to 1 of 1 entries (filtered from 57 total entries)');
 		});
 	});

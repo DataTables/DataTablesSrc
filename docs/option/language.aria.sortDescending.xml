@@ -26,4 +26,6 @@ $('#example').dataTable( {
 	<related type="option">language</related>
 	<related type="option">language.aria</related>
 	<related type="option">language.aria.sortAscending</related>
+	<related>-init columns.title</related>
+	<related>-init columns.ariaTitle</related>
 </dt-option>

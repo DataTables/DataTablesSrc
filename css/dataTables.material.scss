@@ -1,6 +1,8 @@
 
-
-
+@import './common.scss';
+@import './ordering.scss';
+@import './processing.scss';
+@import './typography.scss';
 
 // DataTables' built in feature elements
 div.dataTables_wrapper {
@@ -34,68 +36,71 @@ div.dataTables_wrapper {
 	    text-align: right;
 	}
 
-	div.mdl-grid.dt-table {
+	div.mdc-grid.dt-table {
 		padding-top: 0;
 		padding-bottom: 0;
 
-		> div.mdl-cell {
+		> div.mdc-cell {
 			margin-top: 0;
 			margin-bottom: 0;
 		}
 	}
-}
 
-
-// Sorting - using :before and :after with UTF8 characters
-table.dataTable thead {
-	> tr > th,
-	> tr > td {
-		&.sorting_asc,
-		&.sorting_desc,
-		&.sorting {
-			padding-right: 30px;
-		}
-
-		&:active {
-			outline: none;
+	table.mdc-data-table__table {
+		table-layout: auto;
+		thead {
+			tr{
+				th{
+				&.sorting_asc,
+				&.sorting_desc {
+					padding-right: 30px;
+				}
+		
+				&:active {
+					outline: none;
+				}
+		
+				&.sorting_asc,
+				&.sorting_desc,
+				&.sorting {
+					cursor: pointer;
+					position: relative;
+		
+					&:before,
+					&:after {
+						position: absolute;
+						display: block;
+						opacity: 0.3;
+						right: 1em;
+						line-height: 9px;
+						font-size: 0.9em;
+					}
+		
+					&:before {
+						bottom: 50%;
+						content: "\25B4"; // up arrow - ascending
+					}
+		
+					&:after {
+						top: 50%;
+						content: "\25BE"; // down arrow - descending
+					}
+				}
+		
+				&.sorting_asc:before,
+				&.sorting_desc:after {
+					opacity: 0.8;
+				}
+				}
+			}
 		}
 	}
-
-	.sorting,
-	.sorting_asc,
-	.sorting_desc,
-	.sorting_asc_disabled,
-	.sorting_desc_disabled {
-		cursor: pointer;
-		position: relative;
-
-		&:before,
-		&:after {
-			position: absolute;
-			bottom: 11px;
-			display: block;
-			opacity: 0.3;
-			font-size: 1.3em;
-		}
-
-		&:before {
-			right: 1em;
-			content: "\2191"; // up arrow - ascending
-		}
-
-		&:after {
-			right: 0.5em;
-			content: "\2193"; // down arrow - descending
-		}
+	.mdc-data-table__cell {
+		border: 1px solid rgba(0,0,0,.12);
 	}
 
-	.sorting_asc:before,
-	.sorting_desc:after {
-		opacity: 1;
-	}
-
-	.sorting_asc_disabled:before,
-	.sorting_desc_disabled:after {
-		opacity: 0;
+	div.mdc-layout-grid {
+		margin: 0px;
+		padding: 5px;
 	}
 }

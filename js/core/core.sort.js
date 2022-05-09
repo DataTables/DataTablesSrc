@@ -12,7 +12,7 @@ function _fnSortFlatten ( settings )
 		fixedObj = $.isPlainObject( fixed ),
 		nestedSort = [],
 		add = function ( a ) {
-			if ( a.length && ! $.isArray( a[0] ) ) {
+			if ( a.length && ! Array.isArray( a[0] ) ) {
 				// 1D array
 				nestedSort.push( a );
 			}
@@ -24,7 +24,7 @@ function _fnSortFlatten ( settings )
 
 	// Build the sort array, with pre-fix and post-fix options if they have been
 	// specified
-	if ( $.isArray( fixed ) ) {
+	if ( Array.isArray( fixed ) ) {
 		add( fixed );
 	}
 
@@ -212,7 +212,7 @@ function _fnSortAria ( settings )
 	{
 		var col = columns[i];
 		var asSorting = col.asSorting;
-		var sTitle = col.sTitle.replace( /<.*?>/g, "" );
+		var sTitle = col.ariaTitle || col.sTitle.replace( /<.*?>/g, "" );
 		var th = col.nTh;
 
 		// IE7 is throwing an error when setting these properties with jQuery's

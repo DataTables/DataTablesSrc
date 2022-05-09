@@ -18,14 +18,14 @@ describe('order Option', function() {
 
 	describe('Check can be enabled', function() {
 		dt.html('basic');
-		it('Single Column Sort -Asc', function() {
+		it('Single Column Sort - Asc', function() {
 			$('#example').dataTable({
 				order: [1, 'asc']
 			});
 			expect($('#example tbody tr:eq(0) td:eq(1)').html()).toBe('Accountant');
 		});
 
-		it('Single column sort- Desc', function() {
+		it('Single column sort - Desc', function() {
 			$('#example').dataTable({
 				order: [1, 'desc'],
 				destroy: true

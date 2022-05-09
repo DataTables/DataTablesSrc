@@ -1,60 +1,20 @@
 
- //
- // Colour customisation
- //
- // `!default` allows overriding variables that are defined before @import
- //
-
-// Border between the header (and footer) and the table body
-$table-header-border: 1px solid #111 !default;
-
-// Border of rows / cells
-$table-body-border: 1px solid #ddd !default;
-
-// Row background colour (hover, striping etc are all based on this colour and
-// calculated automatically)
-$table-row-background: #ffffff !default;
-
-// Row colour, when selected (tr.selected)
-$table-row-selected: #B0BED9 !default;
-
-// Text colour of the interaction control elements (info, filter, paging etc)
-$table-control-color: #333 !default;
-
-// Highlight colour of the paging button for the current page
-$table-paging-button-active: #dcdcdc !default;
-
-// Hover colour of paging buttons on mouse over
-$table-paging-button-hover: #111 !default;
-
-// Colour to use when shading
-$table-shade: black !default;
+@import './common.scss';
+@import './ordering.scss';
+@import './processing.scss';
+@import './typography.scss';
 
 // jQuery UI stylesheet imports this one - there are just two places where we
 // don't want DataTabels default styles assigned for jQuery UI, so rather than
 // duplicating the whole file, this is the best option
 $jqueryui: false !default;
 
-
-//
-// Functions / mixins
-//
-@function tint( $color, $percent ) {
-	@return mix(white, $color, $percent);
-}
-
-@function shade( $color, $percent ) {
-	@return mix($table-shade, $color, $percent);
-}
-
-@mixin gradient( $from, $to ) {
-	background-color: $from;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,     $from 0%, $to 100%); /* Chrome10+,Safari5.1+ */
-	background:    -moz-linear-gradient(top,     $from 0%, $to 100%); /* FF3.6+ */
-	background:     -ms-linear-gradient(top,     $from 0%, $to 100%); /* IE10+ */
-	background:      -o-linear-gradient(top,     $from 0%, $to 100%); /* Opera 11.10+ */
-	background:         linear-gradient(to bottom, $from 0%, $to 100%); /* W3C */
+// Chrome 83's default inputs are really ugly, so we need to do this for all
+@mixin table-input {
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	padding: 5px;
+	background-color: transparent;
 }
 
 /*
@@ -79,7 +39,7 @@ table.dataTable {
 
 	thead th,
 	thead td {
-		padding: 10px 18px;
+		padding: 10px;
 
 		@if not $jqueryui { // jQuery UI defines its own border
 			border-bottom: $table-header-border;
@@ -92,45 +52,12 @@ table.dataTable {
 
 	tfoot th,
 	tfoot td {
-		padding: 10px 18px 6px 18px;
+		padding: 10px 10px 6px 10px;
 
 		@if not $jqueryui { // jQuery UI defines its own border
 			border-top: $table-header-border;
 		}
 	}
-
-	// Sorting
-	@if not $jqueryui { // jQuery UI defines its own sort icons
-		thead {
-			.sorting,
-			.sorting_asc,
-			.sorting_desc,
-			.sorting_asc_disabled,
-			.sorting_desc_disabled {
-				cursor: pointer;
-				*cursor: hand;
-				background-repeat: no-repeat;
-				background-position: center right;
-			}
-
-			.sorting {
-				background-image: url('../images/sort_both.png');
-			}
-			.sorting_asc {
-				background-image: url('../images/sort_asc.png');
-			}
-			.sorting_desc {
-				background-image: url('../images/sort_desc.png');
-			}
-			.sorting_asc_disabled {
-				background-image: url('../images/sort_asc_disabled.png');
-			}
-			.sorting_desc_disabled {
-				background-image: url('../images/sort_desc_disabled.png');
-			}
-		}
-	}
-
 
 	/*
 	 * Body styles
@@ -139,8 +66,9 @@ table.dataTable {
 		tr {
 			background-color: $table-row-background;
 
-			&.selected {
-				background-color: $table-row-selected;
+			&.selected > * {
+				box-shadow: inset 0 0 0 9999px $table-row-selected;
+				color: $table-row-selected-text;
 			}
 		}
 
@@ -185,27 +113,27 @@ table.dataTable {
 
 
 	// Stripe classes - add "stripe" class to the table to activate
-	&.stripe tbody,
-	&.display tbody {
-		tr.odd {
-			background-color: shade($table-row-background, 2.35%); // shade by f9
+	&.stripe > tbody,
+	&.display > tbody {
+		> tr.odd > * {
+			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.023);
+		}
 
-			&.selected {
-				background-color: shade($table-row-selected, 2.35%);
-			}
+		> tr.odd.selected > * {
+			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.023);
 		}
 	}
 
 
 	// Hover classes - add "hover" class to the table to activate
-	&.hover tbody,
-	&.display tbody {
-		tr:hover {
-			background-color: shade($table-row-background, 3.6%); // shade by f5
+	&.hover > tbody,
+	&.display > tbody {
+		> tr:hover > * {
+			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.035);
+		}
 
-			&.selected {
-				background-color: shade($table-row-selected, 3.6%);
-			}
+		> tr.selected:hover > * {
+			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.035);
 		}
 	}
 
@@ -213,44 +141,44 @@ table.dataTable {
 	// Sort column highlighting - add "order-column" class to the table to activate
 	&.order-column,
 	&.display {
-		tbody {
-			tr>.sorting_1,
-			tr>.sorting_2,
-			tr>.sorting_3 {
-				background-color: shade($table-row-background, 2%); // shade by fa
+		> tbody {
+			tr > .sorting_1,
+			tr > .sorting_2,
+			tr > .sorting_3 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
 			}
 
-			tr.selected>.sorting_1,
-			tr.selected>.sorting_2,
-			tr.selected>.sorting_3 {
-				background-color: shade($table-row-selected, 2%);
+			tr.selected > .sorting_1,
+			tr.selected > .sorting_2,
+			tr.selected > .sorting_3 {
+				box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.019);
 			}
 		}
 	}
 
-	&.display tbody,
-	&.order-column.stripe tbody {
-		tr.odd {
-			>.sorting_1 { background-color: shade($table-row-background, 5.4%); } // shade by f1
-			>.sorting_2 { background-color: shade($table-row-background, 4.7%); } // shade by f3
-			>.sorting_3 { background-color: shade($table-row-background, 3.9%); } // shade by f5
+	&.display > tbody,
+	&.order-column.stripe > tbody {
+		> tr.odd {
+			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.054); }
+			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.047); }
+			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.039); }
 
 			&.selected {
-				>.sorting_1 { background-color: shade($table-row-selected, 5.4%); }
-				>.sorting_2 { background-color: shade($table-row-selected, 4.7%); }
-				>.sorting_3 { background-color: shade($table-row-selected, 3.9%); }
+				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.054); }
+				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.047); }
+				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.039); }
 			}
 		}
 
-		tr.even {
-			>.sorting_1 { background-color: shade($table-row-background, 2%); } // shade by fa
-			>.sorting_2 { background-color: shade($table-row-background, 1.2%); } // shade by fc
-			>.sorting_3 { background-color: shade($table-row-background, 0.4%); } // shade by fe
+		> tr.even {
+			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019); }
+			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.011); }
+			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.003); }
 			
 			&.selected {
-				>.sorting_1 { background-color: shade($table-row-selected, 2%); }
-				>.sorting_2 { background-color: shade($table-row-selected, 1.2%); }
-				>.sorting_3 { background-color: shade($table-row-selected, 0.4%); }
+				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.019); }
+				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.011); }
+				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.003); }
 			}
 		}
 	}
@@ -258,14 +186,14 @@ table.dataTable {
 	&.display tbody,
 	&.order-column.hover tbody {
 		tr:hover {
-			>.sorting_1 { background-color: shade($table-row-background, 8.2%); } // shade by ea
-			>.sorting_2 { background-color: shade($table-row-background, 7.5%); } // shade by ec
-			>.sorting_3 { background-color: shade($table-row-background, 6.3%); } // shade by ef
+			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.082); }
+			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.074); }
+			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.062); }
 
 			&.selected {
-				>.sorting_1 { background-color: shade($table-row-selected, 8.2%); }
-				>.sorting_2 { background-color: shade($table-row-selected, 7.5%); }
-				>.sorting_3 { background-color: shade($table-row-selected, 6.3%); }
+				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.082); }
+				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.074); }
+				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.062); }
 			}
 		}
 	}
@@ -274,16 +202,10 @@ table.dataTable {
 		border-bottom: $table-header-border;
 	}
 
-	&.nowrap {
-		th, td {
-			white-space: nowrap;
-		}
-	}
-
 	&.compact {
 		thead th,
 		thead td {
-			padding: 4px 17px 4px 4px;
+			padding: 4px 17px;
 		}
 
 		tfoot th,
@@ -296,97 +218,13 @@ table.dataTable {
 			padding: 4px;
 		}
 	}
-
-
-	// Typography
-	th.dt-left,
-	td.dt-left {
-		text-align: left;
-	}
-
-	th.dt-center,
-	td.dt-center,
-	td.dataTables_empty {
-		text-align: center;
-	}
-
-	th.dt-right,
-	td.dt-right {
-		text-align: right;
-	}
-
-	th.dt-justify,
-	td.dt-justify {
-		text-align: justify;
-	}
-
-	th.dt-nowrap,
-	td.dt-nowrap {
-		white-space: nowrap;
-	}
-
-	thead,
-	tfoot {
-		th.dt-head-left,
-		td.dt-head-left {
-			text-align: left;
-		}
-
-		th.dt-head-center,
-		td.dt-head-center{
-			text-align: center;
-		}
-
-		th.dt-head-right,
-		td.dt-head-right {
-			text-align: right;
-		}
-
-		th.dt-head-justify,
-		td.dt-head-justify {
-			text-align: justify;
-		}
-
-		th.dt-head-nowrap,
-		td.dt-head-nowrap {
-			white-space: nowrap;
-		}
-	}
-
-	tbody {
-		th.dt-body-left,
-		td.dt-body-left {
-			text-align: left;
-		}
-
-		th.dt-body-center,
-		td.dt-body-center {
-			text-align: center;
-		}
-
-		th.dt-body-right,
-		td.dt-body-right {
-			text-align: right;
-		}
-
-		th.dt-body-justify,
-		td.dt-body-justify {
-			text-align: justify;
-		}
-
-		th.dt-body-nowrap,
-		td.dt-body-nowrap {
-			white-space: nowrap;
-		}
-	}
 }
 
 // Its not uncommon to use * {border-box} now, but it messes up the column width
 // calculations, so use content-box for the table and cells
-table.dataTable,
 table.dataTable th,
 table.dataTable td {
-	        box-sizing: content-box;
+	box-sizing: content-box;
 }
 
 
@@ -396,11 +234,15 @@ table.dataTable td {
 .dataTables_wrapper {
 	position: relative;
 	clear: both;
-	*zoom: 1;
 
 	// Page length options
 	.dataTables_length {
 		float: left;
+
+		select {
+			@include table-input;
+			padding: 4px;
+		}
 	}
 
 	// Filtering input
@@ -409,7 +251,8 @@ table.dataTable td {
 		text-align: right;
 
 		input {
-			margin-left: 0.5em;
+			@include table-input;
+			margin-left: 3px;
 		}
 	}
 
@@ -435,7 +278,6 @@ table.dataTable td {
 			text-align: center;
 			text-decoration: none !important;
 			cursor: pointer;
-			*cursor: hand;
 
 			color: $table-control-color !important;
 			border: 1px solid transparent;
@@ -444,9 +286,9 @@ table.dataTable td {
 			&.current,
 			&.current:hover {
 				color: $table-control-color !important;
-				border: 1px solid darken( $table-paging-button-active, 27% );
+				border: $table-header-border;
 				@include gradient(
-					lighten($table-paging-button-active, 28%),
+					lighten($table-paging-button-active, 90%),
 					$table-paging-button-active
 				);
 			}
@@ -485,29 +327,6 @@ table.dataTable td {
 		}
 	}
 
-	// Processing
-	.dataTables_processing {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		width: 100%;
-		height: 40px;
-		margin-left: -50%;
-		margin-top: -25px;
-		padding-top: 20px;
-
-		text-align: center;
-		font-size: 1.2em;
-
-		background-color: white;
-		background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba($table-row-background, 0)), color-stop(25%,rgba($table-row-background, 0.9)), color-stop(75%,rgba($table-row-background, 0.9)), color-stop(100%,rgba(255,255,255,0)));
-		background: -webkit-linear-gradient(left,     rgba($table-row-background, 0) 0%, rgba($table-row-background, 0.9) 25%, rgba($table-row-background, 0.9) 75%, rgba($table-row-background, 0) 100%);
-		background:    -moz-linear-gradient(left,     rgba($table-row-background, 0) 0%, rgba($table-row-background, 0.9) 25%, rgba($table-row-background, 0.9) 75%, rgba($table-row-background, 0) 100%);
-		background:     -ms-linear-gradient(left,     rgba($table-row-background, 0) 0%, rgba($table-row-background, 0.9) 25%, rgba($table-row-background, 0.9) 75%, rgba($table-row-background, 0) 100%);
-		background:      -o-linear-gradient(left,     rgba($table-row-background, 0) 0%, rgba($table-row-background, 0.9) 25%, rgba($table-row-background, 0.9) 75%, rgba($table-row-background, 0) 100%);
-		background:         linear-gradient(to right, rgba($table-row-background, 0) 0%, rgba($table-row-background, 0.9) 25%, rgba($table-row-background, 0.9) 75%, rgba($table-row-background, 0) 100%);
-	}
-
 	.dataTables_length,
 	.dataTables_filter,
 	.dataTables_info,
@@ -521,7 +340,6 @@ table.dataTable td {
 		clear: both;
 
 		div.dataTables_scrollBody {
-			*margin-top: -1px;
 			-webkit-overflow-scrolling: touch;
 
 			> table > thead > tr, > table > tbody > tr {
@@ -562,7 +380,6 @@ table.dataTable td {
 		clear: both;
 		height: 0;
 	}
-	zoom: 1; // Poor old IE
 }
 
 

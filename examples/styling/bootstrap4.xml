@@ -2,14 +2,22 @@
 <dt-example table-type="html" order="10" framework="bootstrap4">
 
 <css lib="datatables" />
-<js lib="jquery datatables" />
 
 <title>Bootstrap 4</title>
-<js><![CDATA[
-$(document).ready(function() {
+<js lib="jquery datatables">
+<![CDATA[
+$(document).ready(function () {
 	$('#example').DataTable();
-} );
-]]></js>
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example');
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

@@ -1,4 +1,10 @@
 
+$table-row-selected: rgba(2, 117, 216, 0.9);
+
+@import './common.scss';
+@import './ordering.scss';
+@import './processing.scss';
+@import './typography.scss';
 
 table.dataTable {
 	clear: both;
@@ -26,6 +32,13 @@ table.dataTable {
 			white-space: nowrap;
 		}
 	}
+
+	// Override default row striping, replacing with an insert box-shadow
+	&.table-striped > tbody > tr:nth-of-type(2n+1) {
+		background-color: transparent;
+	}
+
+	@include row-stripes('.table-striped', '.table-hover', 0.05);
 }
 
 
@@ -62,7 +75,6 @@ div.dataTables_wrapper {
 
 	div.dataTables_info {
 		padding-top: 0.85em;
-		white-space: nowrap;
 	}
 
 	div.dataTables_paginate {
@@ -90,72 +102,18 @@ div.dataTables_wrapper {
 }
 
 
-// Sorting - using :before and :after with UTF8 characters
-table.dataTable thead {
-	> tr > th,
-	> tr > td {
-		&.sorting_asc,
-		&.sorting_desc,
-		&.sorting {
-			padding-right: 30px;
-		}
-
-		&:active {
-			outline: none;
-		}
-	}
-
-	.sorting,
-	.sorting_asc,
-	.sorting_desc,
-	.sorting_asc_disabled,
-	.sorting_desc_disabled {
-		cursor: pointer;
-		position: relative;
-
-		&:before,
-		&:after {
-			position: absolute;
-			bottom: 0.9em;
-			display: block;
-			opacity: 0.3;
-		}
-
-		&:before {
-			right: 1em;
-			content: "\2191"; // up arrow - ascending
-		}
-
-		&:after {
-			right: 0.5em;
-			content: "\2193"; // down arrow - descending
-		}
-	}
-
-	.sorting_asc:before,
-	.sorting_desc:after {
-		opacity: 1;
-	}
-
-	.sorting_asc_disabled:before,
-	.sorting_desc_disabled:after {
-		opacity: 0;
-	}
-}
-
-
 // Scrolling
 div.dataTables_scrollHead table.dataTable {
 	margin-bottom: 0 !important;
 }
 
 div.dataTables_scrollBody {
-	table {
+	> table {
 		border-top: none;
 		margin-top: 0 !important;
 		margin-bottom: 0 !important;
 
-		thead { // Hide sort icons
+		> thead { // Hide sort icons
 			.sorting:before,
 			.sorting_asc:before,
 			.sorting_desc:before,
@@ -166,8 +124,8 @@ div.dataTables_scrollBody {
 			}
 		}
 
-		tbody tr:first-child th,
-		tbody tr:first-child td {
+		> tbody tr:first-child th,
+		> tbody tr:first-child td {
 			border-top: none;
 		}
 	}
@@ -194,9 +152,12 @@ div.dataTables_scrollFoot {
 		div.dataTables_paginate {
 			text-align: center;
 		}
+
+		div.dataTables_paginate ul.pagination {
+			justify-content: center !important;
+		}
 	}
 }
-
 
 //
 // Bootstrap provides a range of styling options for table's via class name
@@ -205,7 +166,7 @@ div.dataTables_scrollFoot {
 
 // Condensed
 table.dataTable.table-sm {
-	> thead > tr > th {
+	> thead > tr > th:not(.sorting_disabled){
 		padding-right: 20px;
 	}
 
@@ -228,13 +189,15 @@ table.dataTable.table-sm {
 // width calculations when using scrolling impossible to align columns. We have
 // to use `border-collapse: separate`
 table.table-bordered.dataTable {
+	border-right-width: 0;
+
 	th,
 	td {
 		border-left-width: 0;
 
 		&:last-child,
 		&:last-child {
-			border-right-width: 0;
+			border-right-width: 1px;
 		}
 	}
 

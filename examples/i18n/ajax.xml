@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="2">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Remote language file</title>
+<js><![CDATA[
+$(document).ready(function () {
+	$('#example').DataTable({
+		language: {
+			url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/de-DE.json',
+		},
+	});
+});
+]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		language: {
+			url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/de-DE.json',
+		},
+	});
+});
+]]>
+</js-vanilla>
+
+<info><![CDATA[
+
+As well as being able to pass language information to DataTables through the `-init language` initialisation option, you can also store the language information in a file, which DataTables can load by Ajax using the `-init language.url` option.
+
+The following example shows DataTables reading a German language file which is hosted on the [DataTables CDN](https://cdn.datatables.net). We have a [wide range of translations provided by the community](https://datatables.net/plug-ins/i18n/) for you to use and additional contributions are very welcome.
+
+]]></info>
+
+</dt-example>

@@ -14,7 +14,7 @@ function _fnBuildAjax( oSettings, data, fn )
 
 	// Convert to object based for 1.10+ if using the old array scheme which can
 	// come from server-side processing or serverParams
-	if ( data && $.isArray(data) ) {
+	if ( data && Array.isArray(data) ) {
 		var tmp = {};
 		var rbracket = /(.*?)\[\]$/;
 
@@ -41,6 +41,22 @@ function _fnBuildAjax( oSettings, data, fn )
 	var ajax = oSettings.ajax;
 	var instance = oSettings.oInstance;
 	var callback = function ( json ) {
+		var status = oSettings.jqXHR
+			? oSettings.jqXHR.status
+			: null;
+
+		if ( json === null || (typeof status === 'number' && status == 204 ) ) {
+			json = {};
+			_fnAjaxDataSrc( oSettings, json, [] );
+		}
+
+		var error = json.error || json.sError;
+		if ( error ) {
+			_fnLog( oSettings, 0, error );
+		}
+
+		oSettings.json = json;
+
 		_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json, oSettings.jqXHR] );
 		fn( json );
 	};
@@ -66,15 +82,7 @@ function _fnBuildAjax( oSettings, data, fn )
 
 	var baseAjax = {
 		"data": data,
-		"success": function (json) {
-			var error = json.error || json.sError;
-			if ( error ) {
-				_fnLog( oSettings, 0, error );
-			}
-
-			oSettings.json = json;
-			callback( json );
-		},
+		"success": callback,
 		"dataType": "json",
 		"cache": false,
 		"type": oSettings.sServerMethod,
@@ -145,21 +153,16 @@ function _fnBuildAjax( oSettings, data, fn )
  */
 function _fnAjaxUpdate( settings )
 {
-	if ( settings.bAjaxDataGet ) {
-		settings.iDraw++;
-		_fnProcessingDisplay( settings, true );
+	settings.iDraw++;
+	_fnProcessingDisplay( settings, true );
 
-		_fnBuildAjax(
-			settings,
-			_fnAjaxParameters( settings ),
-			function(json) {
-				_fnAjaxUpdateDraw( settings, json );
-			}
-		);
-
-		return false;
-	}
-	return true;
+	_fnBuildAjax(
+		settings,
+		_fnAjaxParameters( settings ),
+		function(json) {
+			_fnAjaxUpdateDraw( settings, json );
+		}
+	);
 }
 
 
@@ -295,12 +298,17 @@ function _fnAjaxUpdateDraw ( settings, json )
 	var recordsTotal    = compat( 'iTotalRecords',        'recordsTotal' );
 	var recordsFiltered = compat( 'iTotalDisplayRecords', 'recordsFiltered' );
 
-	if ( draw ) {
+	if ( draw !== undefined ) {
 		// Protect against out of sequence returns
 		if ( draw*1 < settings.iDraw ) {
 			return;
 		}
 		settings.iDraw = draw * 1;
+	}
+
+	// No data in returned object, so rather than an array, we show an empty table
+	if ( ! data ) {
+		data = [];
 	}
 
 	_fnClearTable( settings );
@@ -312,14 +320,12 @@ function _fnAjaxUpdateDraw ( settings, json )
 	}
 	settings.aiDisplay = settings.aiDisplayMaster.slice();
 
-	settings.bAjaxDataGet = false;
-	_fnDraw( settings );
+	_fnDraw( settings, true );
 
 	if ( ! settings._bInitComplete ) {
 		_fnInitComplete( settings, json );
 	}
 
-	settings.bAjaxDataGet = true;
 	_fnProcessingDisplay( settings, false );
 }
 
@@ -332,19 +338,24 @@ function _fnAjaxUpdateDraw ( settings, json )
  *  @param  {object} json Data source object / array from the server
  *  @return {array} Array of data to use
  */
-function _fnAjaxDataSrc ( oSettings, json )
-{
+ function _fnAjaxDataSrc ( oSettings, json, write )
+ {
 	var dataSrc = $.isPlainObject( oSettings.ajax ) && oSettings.ajax.dataSrc !== undefined ?
 		oSettings.ajax.dataSrc :
 		oSettings.sAjaxDataProp; // Compatibility with 1.9-.
 
-	// Compatibility with 1.9-. In order to read from aaData, check if the
-	// default has been changed, if not, check for aaData
-	if ( dataSrc === 'data' ) {
-		return json.aaData || json[dataSrc];
+	if ( ! write ) {
+		if ( dataSrc === 'data' ) {
+			// If the default, then we still want to support the old style, and safely ignore
+			// it if possible
+			return json.aaData || json[dataSrc];
+		}
+
+		return dataSrc !== "" ?
+			_fnGetObjectDataFn( dataSrc )( json ) :
+			json;
 	}
 
-	return dataSrc !== "" ?
-		_fnGetObjectDataFn( dataSrc )( json ) :
-		json;
+	// set
+	_fnSetObjectDataFn( dataSrc )( json, write );
 }

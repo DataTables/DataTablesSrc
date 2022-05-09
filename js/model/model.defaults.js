@@ -7,8 +7,8 @@
  * version is still, internally the primary interface, but is is not documented
  * - hence the @name tags in each doc comment. This allows a Javascript function
  * to create a map from Hungarian notation to camel case (going the other direction
- * would require each property to be listed, which would at around 3K to the size
- * of DataTables, while this method is about a 0.5K hit.
+ * would require each property to be listed, which would add around 3K to the size
+ * of DataTables, while this method is about a 0.5K hit).
  *
  * Ultimately this does pave the way for Hungarian notation to be dropped
  * completely, but that is a massive amount of work and will break current
@@ -1107,7 +1107,9 @@ DataTable.defaults = {
 					'DataTables_'+settings.sInstance+'_'+location.pathname
 				)
 			);
-		} catch (e) {}
+		} catch (e) {
+			return {};
+		}
 	},
 
 
@@ -1784,7 +1786,6 @@ DataTable.defaults = {
 		 * Text which is displayed when the table is processing a user action
 		 * (usually a sort command or similar).
 		 *  @type string
-		 *  @default Processing...
 		 *
 		 *  @dtopt Language
 		 *  @name DataTable.defaults.language.processing
@@ -1798,7 +1799,7 @@ DataTable.defaults = {
 		 *      } );
 		 *    } );
 		 */
-		"sProcessing": "Processing...",
+		"sProcessing": "",
 
 
 		/**

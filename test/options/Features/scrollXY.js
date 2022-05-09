@@ -9,7 +9,7 @@ describe('scrollY / X option', function() {
 			$('body').css('white-space', 'nowrap');
 			dt.container().css('width', 400);
 			$('#example').dataTable({
-				scrollX: '100%',
+				scrollX: true,
 				scrollY: '200px',
 				paginate: false
 			});
@@ -86,7 +86,6 @@ describe('scrollY / X option', function() {
 		});
 	});
 
-	// TK COLIN understand/deliver on questions
 	describe("5508- Table container width doesn't change when filtering applied to scrolling table ", function() {
 		dt.html('basic');
 
@@ -96,13 +95,13 @@ describe('scrollY / X option', function() {
 				scrollY: '300px',
 				paginate: false
 			});
-			expect($('div.dataTables_scrollBody').width()).toBe(800);
+			expect($('div.dataTables_scrollBody').outerWidth()).toBe(800);
 		});
 
 		it('Unaltered when filter applied', function() {
 			$('div.dataTables_filter input')
 				.val('47')
-				.keyup(); //Not sure about this, original test used fnFilter, tried to use filter instead but couldn't get working
+				.keyup();
 			expect($('div.dataTables_scrollBody').width()).toBe(800);
 		});
 	});

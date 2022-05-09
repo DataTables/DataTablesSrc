@@ -25,18 +25,21 @@ function _fnFeatureHtmlFilter ( settings )
 		} )
 		.append( $('<label/>' ).append( str ) );
 
-	var searchFn = function() {
+	var searchFn = function(event) {
 		/* Update all other filter input elements for the new display */
 		var n = features.f;
 		var val = !this.value ? "" : this.value; // mental IE8 fix :-(
-
+		if(previousSearch.return && event.key !== "Enter") {
+			return;
+		}
 		/* Now do the filter */
 		if ( val != previousSearch.sSearch ) {
 			_fnFilterComplete( settings, {
 				"sSearch": val,
 				"bRegex": previousSearch.bRegex,
 				"bSmart": previousSearch.bSmart ,
-				"bCaseInsensitive": previousSearch.bCaseInsensitive
+				"bCaseInsensitive": previousSearch.bCaseInsensitive,
+				"return": previousSearch.return
 			} );
 
 			// Need to redraw, without resorting
@@ -60,6 +63,14 @@ function _fnFeatureHtmlFilter ( settings )
 				_fnThrottle( searchFn, searchDelay ) :
 				searchFn
 		)
+		.on( 'mouseup', function(e) {
+			// Edge fix! Edge 17 does not trigger anything other than mouse events when clicking
+			// on the clear icon (Edge bug 17584515). This is safe in other browsers as `searchFn`
+			// checks the value to see if it has changed. In other browsers it won't have.
+			setTimeout( function () {
+				searchFn.call(jqFilter[0], e);
+			}, 10);
+		} )
 		.on( 'keypress.DT', function(e) {
 			/* Prevent form submission */
 			if ( e.keyCode == 13 ) {
@@ -103,6 +114,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 		oPrevSearch.bRegex = oFilter.bRegex;
 		oPrevSearch.bSmart = oFilter.bSmart;
 		oPrevSearch.bCaseInsensitive = oFilter.bCaseInsensitive;
+		oPrevSearch.return = oFilter.return;
 	};
 	var fnRegex = function ( o ) {
 		// Backwards compatibility with the bEscapeRegex option
@@ -117,7 +129,7 @@ function _fnFilterComplete ( oSettings, oInput, iForce )
 	if ( _fnDataSource( oSettings ) != 'ssp' )
 	{
 		/* Global filter */
-		_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive );
+		_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive, oInput.return );
 		fnSaveFilter( oInput );
 
 		/* Now do the individual column filter */
@@ -180,7 +192,7 @@ function _fnFilterCustom( settings )
  *  @param {int} iColumn column to filter
  *  @param {bool} bRegex treat search string as a regular expression or not
  *  @param {bool} bSmart use smart filtering or not
- *  @param {bool} bCaseInsensitive Do case insenstive matching or not
+ *  @param {bool} bCaseInsensitive Do case insensitive matching or not
  *  @memberof DataTable#oApi
  */
 function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsensitive )
@@ -213,7 +225,7 @@ function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsens
  *  @param {int} force optional - force a research of the master array (1) or not (undefined or 0)
  *  @param {bool} regex treat as a regular expression or not
  *  @param {bool} smart perform smart filtering or not
- *  @param {bool} caseInsensitive Do case insenstive matching or not
+ *  @param {bool} caseInsensitive Do case insensitive matching or not
  *  @memberof DataTable#oApi
  */
 function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
@@ -240,6 +252,7 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
 		// New search - start from the master array
 		if ( invalidated ||
 			 force ||
+			 regex ||
 			 prevSearch.length > input.length ||
 			 input.indexOf(prevSearch) !== 0 ||
 			 settings.bSorted // On resort, the display master needs to be
@@ -318,7 +331,6 @@ function _fnFilterData ( settings )
 	var columns = settings.aoColumns;
 	var column;
 	var i, j, ien, jen, filterData, cellData, row;
-	var fomatters = DataTable.ext.type.search;
 	var wasInvalidated = false;
 
 	for ( i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
@@ -332,10 +344,6 @@ function _fnFilterData ( settings )
 
 				if ( column.bSearchable ) {
 					cellData = _fnGetCellData( settings, i, j, 'filter' );
-
-					if ( fomatters[ column.sType ] ) {
-						cellData = fomatters[ column.sType ]( cellData );
-					}
 
 					// Search in DataTables 1.10 is string based. In 1.11 this
 					// should be altered to also allow strict type checking.
@@ -363,7 +371,7 @@ function _fnFilterData ( settings )
 				}
 
 				if ( cellData.replace ) {
-					cellData = cellData.replace(/[\r\n]/g, '');
+					cellData = cellData.replace(/[\r\n\u2028]/g, '');
 				}
 
 				filterData.push( cellData );

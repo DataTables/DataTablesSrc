@@ -11,17 +11,19 @@ describe('tables - table().body()', function() {
 			table = $('#example').DataTable();
 			expect(typeof table.table().body).toBe('function');
 		});
-		it('Returns an API instance', function() {
-			expect(table.table().body() instanceof HTMLElement).toBe(true);
+		it('Returns a body node', function() {
+			let body = table.table().body();
+			expect(body instanceof HTMLElement).toBe(true);
+			expect(body.nodeName.toUpperCase()).toBe('TBODY');
 		});
 	});
 
 	describe('Functional tests', function() {
 		dt.html('basic');
-		it('Exists and is a function', function() {
+		it('Returns the correct element', function() {
 			let table = $('#example').DataTable();
 			$(table.table().body()).addClass('unitTest');
 			expect($('#example tbody').hasClass('unitTest')).toBe(true);
 		});
-	});	
+	});
 });

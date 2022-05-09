@@ -26,7 +26,7 @@
 	<description>
 		While the `dt-api ajax.reload()` option makes it very easy to simply reload data from the existing data source, there are times when you want to change the data source URL. This method is design to fit that purpose. It can also be used to retrieve the currently set Ajax data source URL for a table.
 
-		Note that when setting a URL you will normally want to chain the `dt-api ajax.url().load()` method to immediately load the newly set data source URL - using `dt-api ajax.url()` method alone does not trigger an Ajax request, it mearly sets the Ajax data source URL.
+		Note that when setting a URL you will normally want to chain the `dt-api ajax.url().load()` method to immediately load the newly set data source URL - using `dt-api ajax.url()` method alone does not trigger an Ajax request, it merely sets the Ajax data source URL.
 	</description>
 
 	<example title="Get the current Ajax data source URL"><![CDATA[

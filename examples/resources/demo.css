@@ -277,9 +277,12 @@ div.syntaxhighlighter code:after {
 
 ul.tabs {
 	position: relative;
+	display: block;
 	top: 1px;
 	height: 40px;
-	margin: 20px 20px 0 0;
+	margin: 20px 20px 0 0 !important;
+	padding-left: 2rem;
+	font-size: 1em;
 }
 
 
@@ -293,7 +296,7 @@ ul.tabs li {
 	cursor: pointer;
 	line-height: 40px;
 	color: #121e32;
-	border: 1px solid white;
+	border: 1px solid transparent;
 	border-bottom: none;
 	margin-top: -1px;
 }
@@ -304,6 +307,7 @@ ul.tabs li.active {
 	margin-top: 0;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
+	background-color: white;
 }
 
 ul.tabs li:hover {
@@ -317,7 +321,14 @@ ul.tabs li.active:hover {
 div.tabs {
 	clear: both;
 	margin-top: -1px;
+	display: block;
+	font: 90%/1.45em "Helvetica Neue", HelveticaNeue, Arial, Helvetica, sans-serif;
+	border-radius: 5px;
 }
+
+body.dt-example-bulma > div.container > section > ul.tabs {
+	top: 0px;
+} 
 
 div.tabs>div {
 	padding: 15px;
@@ -334,6 +345,29 @@ div.tabs>div h1 {
 
 div.tabs > div > p:first-child {
 	margin-top: 0;
+}
+
+div.tabs > div > p {
+	margin-bottom: 1rem;
+}
+
+div.tabs > div > ul {
+	display: block;
+	list-style: disc;
+	padding-left: 2rem;
+	border-width: 0px;
+	margin-bottom: 1rem;
+}
+
+div.tabs > div > ul > li {
+	display: list-item;
+}
+
+div.tabs > div > ul > li > a {
+	border-bottom-width: 0px;
+	display: block;
+	padding: 0px;
+	color: #3174c7;
 }
 
 div.column_half {

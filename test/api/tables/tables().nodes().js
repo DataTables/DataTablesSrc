@@ -13,7 +13,7 @@ describe('tables - tables().nodes()', function() {
 		});
 
 		dt.html('basic');
-		it('Returns an HTML element', function() {
+		it('Returns an API instance', function() {
 			let table = $('#example').DataTable();
 			expect(table.tables().nodes() instanceof $.fn.dataTable.Api).toBe(true);
 		});

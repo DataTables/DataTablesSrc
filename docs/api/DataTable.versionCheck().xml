@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.versionCheck()</name>
+	<summary>Version number compatibility check function</summary>
+	<since>1.11</since>
+
+	<type type="function">
+		<signature>versionCheck( version )</signature>
+		<description>Check the compatibility of the running version of DataTables against a version string</description>
+		<param type="string" name="version">
+			Version string to check for, in the format "X.Y.Z". Note that the formats "X" and "X.Y" are also acceptable.
+		</param>
+		<returns type="boolean">`true` if this version of DataTables is greater or equal to the required version, or `false` if this version of DataTales is not suitable</returns>
+	</type>
+
+	<description>
+		This method provides the ability for plug-in developers to check a required version number against the running version of DataTables. For example, a plug-in such as [Buttons](/extensions/buttons) might require DataTables 1.10.7 or newer. This method provides the ability to check that.
+
+		Please note that this is a **static** function and is accessed through the `DataTable` or `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
+
+		Prior to DataTables 1.11 this method could be accessed through the `$.fn.dataTable` object only. As of 1.11, either `DataTable` or `$.fn.dataTable` can be used.
+	</description>
+
+	<example title="Non-jQuery: Check the compatibility of DataTables"><![CDATA[
+
+if ( ! DataTable.versionCheck( '1.11' ) ) {
+	alert( 'DataTables 1.11 or newer is required' );
+} 
+
+]]></example>
+
+	<example title="jQuery: Check the compatibility of DataTables"><![CDATA[
+
+if ( ! $.fn.dataTable.versionCheck( '1.10.7' ) ) {
+	alert( 'A newer version of DataTables is required' );
+} 
+
+]]></example>
+
+</dt-api>

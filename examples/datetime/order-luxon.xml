@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html-date-fmt" order="10">
+
+<css lib="datatables" />
+<js lib="jquery luxon datatables">
+<![CDATA[
+DataTable.datetime('d MMM yyyy');
+
+$(document).ready(function () {
+	$('#example').DataTable();
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+DataTable.datetime('d MMM yyyy');
+
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example');
+});
+]]>
+</js-vanilla>
+
+<title>Ordering formatted dates (Luxon)</title>
+
+<info><![CDATA[
+
+As with the other date / time examples, the detection of date / time formats operates the same way for Luxon (shown here) as it does for Moment.js. They each have their own formatting options - for the full range of Luxon formatting options please see the [Luxon documentation](https://moment.github.io/luxon/#/formatting?id=table-of-tokens).
+
+]]></info>
+
+</dt-example>

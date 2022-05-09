@@ -4,10 +4,7 @@ SyntaxHighlighter.config.tagName = 'code';
 
 if ( window.$ ) {
 	$(document).ready( function () {
-		if ( ! $.fn.dataTable ) {
-			return;
-		}
-		var dt110 = $.fn.dataTable.Api ? true : false;
+		var dt110 = $.fn.dataTable && $.fn.dataTable.Api ? true : false;
 
 		// Work around for WebKit bug 55740
 		var info = $('div.info');
@@ -22,24 +19,32 @@ if ( window.$ ) {
 
 		// css
 		var cssContainer = $('div.tabs div.css');
-		if ( $.trim( cssContainer.find('code').text() ) === '' ) {
-			cssContainer.find('code, p:eq(0), div').css('display', 'none');
+		if ( ( cssContainer.find('code').text() ).trim() === '' ) {
+			cssContainer.find('p').eq(0).css('display', 'none');
+			cssContainer.find('code, div').css('display', 'none');
 		}
 
 		// init html
-		var table = $('<p/>').append( $('table').clone() ).html();
-		var demoHtml = $.trim( $('div.demo-html').html() );
+		var demoHtml = '';
+		
+		if ($('div.demo-html').length) {
+			demoHtml = $('div.demo-html').html().trim();
 
-		if ( demoHtml ) {
-			demoHtml = demoHtml+'\n\n';
+			if ( demoHtml ) {
+				demoHtml = demoHtml+'\n\n';
+			}
 		}
 
 		$('div.tabs div.table').append(
-			'<code class="multiline language-html">\t\t\t'+
-				escapeHtml( demoHtml + table )+
+			'<code class="multiline language-html">\t\t\t\t'+
+				escapeHtml( demoHtml )+
 			'</code>'
 		);
-		//SyntaxHighlighter.highlight({}, $('#display-init-html')[0]);
+
+		// This can really slow things down
+		setTimeout( function () {
+			SyntaxHighlighter.highlight({}, $('div.table code')[0]);
+		}, 1000)
 
 		// Allow the demo code to run if DT 1.9 is used
 		if ( dt110 ) {
@@ -62,6 +67,15 @@ if ( window.$ ) {
 					try {
 						str = JSON.stringify( str, null, 2 );
 					} catch ( e ) {}
+
+					var strArr = str.split('\n');
+
+					if(strArr.length > 1000){
+						var first = strArr.splice(0, 500);
+						var second = strArr.splice(strArr.length - 499, 499);
+						first.push("\n\n... Truncated for brevity - look at your browser's network inspector to see the full source ...\n\n");
+						str = first.concat(second).join('\n');
+					}
 
 					$('div.tabs div.ajax').append(
 						$('<code class="multiline language-js"/>').text( str )
@@ -129,7 +143,7 @@ if ( window.$ ) {
 				.css('display', 'none')
 				.eq( $(this).index() ).css('display', 'block');
 		} );
-		$('ul.tabs li.active').click();
+		$('ul.tabs li.active').trigger('click');
 	} );
 }
 

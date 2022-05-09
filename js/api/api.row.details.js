@@ -1,4 +1,35 @@
 
+$(document).on('plugin-init.dt', function (e, context) {
+	var api = new _Api( context );
+
+	api.on( 'stateSaveParams', function ( e, settings, d ) {
+		// This could be more compact with the API, but it is a lot faster as a simple
+		// internal loop
+		var idFn = settings.rowIdFn;
+		var data = settings.aoData;
+		var ids = [];
+
+		for (var i=0 ; i<data.length ; i++) {
+			if (data[i]._detailsShow) {
+				ids.push( '#' + idFn(data[i]._aData) );
+			}
+		}
+
+		d.childRows = ids;
+	})
+
+	var loaded = api.state.loaded();
+
+	if ( loaded && loaded.childRows ) {
+		api
+			.rows( $.map(loaded.childRows, function (id){
+				return id.replace(/:/g, '\\:')
+			}) )
+			.every( function () {
+				_fnCallbackFire( context, null, 'requestChild', [ this ] )
+			});
+	}
+});
 
 var __details_add = function ( ctx, row, data, klass )
 {
@@ -6,7 +37,7 @@ var __details_add = function ( ctx, row, data, klass )
 	var rows = [];
 	var addRow = function ( r, k ) {
 		// Recursion to allow for arrays of jQuery objects
-		if ( $.isArray( r ) || r instanceof $ ) {
+		if ( Array.isArray( r ) || r instanceof $ ) {
 			for ( var i=0, ien=r.length ; i<ien ; i++ ) {
 				addRow( r[i], k );
 			}
@@ -20,7 +51,7 @@ var __details_add = function ( ctx, row, data, klass )
 		}
 		else {
 			// Otherwise create a row with a wrapper
-			var created = $('<tr><td/></tr>').addClass( k );
+			var created = $('<tr><td></td></tr>').addClass( k );
 			$('td', created)
 				.addClass( k )
 				.html( r )
@@ -45,6 +76,15 @@ var __details_add = function ( ctx, row, data, klass )
 };
 
 
+// Make state saving of child row details async to allow them to be batch processed
+var __details_state = DataTable.util.throttle(
+	function (ctx) {
+		_fnSaveState( ctx[0] )
+	},
+	500
+);
+
+
 var __details_remove = function ( api, idx )
 {
 	var ctx = api.context;
@@ -57,6 +97,8 @@ var __details_remove = function ( api, idx )
 
 			row._detailsShow = undefined;
 			row._details = undefined;
+			$( row.nTr ).removeClass( 'dt-hasChild' );
+			__details_state( ctx );
 		}
 	}
 };
@@ -73,12 +115,17 @@ var __details_display = function ( api, show ) {
 
 			if ( show ) {
 				row._details.insertAfter( row.nTr );
+				$( row.nTr ).addClass( 'dt-hasChild' );
 			}
 			else {
 				row._details.detach();
+				$( row.nTr ).removeClass( 'dt-hasChild' );
 			}
 
+			_fnCallbackFire( ctx[0], null, 'childRow', [ show, api.row( api[0] ) ] )
+
 			__details_events( ctx[0] );
+			__details_state( ctx );
 		}
 	}
 };
@@ -89,7 +136,7 @@ var __details_events = function ( settings )
 	var api = new _Api( settings );
 	var namespace = '.dt.DT_details';
 	var drawEvent = 'draw'+namespace;
-	var colvisEvent = 'column-visibility'+namespace;
+	var colvisEvent = 'column-sizing'+namespace;
 	var destroyEvent = 'destroy'+namespace;
 	var data = settings.aoData;
 

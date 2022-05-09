@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>search.return</name>
+	<summary>Enable / disable DataTables' search on return</summary>
+	<since>1.11</since>
+
+	<type type="boolean" />
+	<default value="false" />
+
+	<description>
+		This initialisation option allows the number of searches to be reduced. When this option is set to `true`, searches will only occur when the return key is pressed and focus is on the searchbox. This is particularly useful when working with large datasets or server-side processing. The default value for this option is `false` meaning that a search will occur on every keypress when the searchbox is focussed.
+	</description>
+
+	<example title="Enable search on return"><![CDATA[
+$('#example').dataTable( {
+  "search": {
+    "return": true
+  }
+} );
+]]></example>
+
+	<related type="option">search</related>
+	<related type="option">searchCols</related>
+	<related type="option">search</related>
+	<related type="option">search.search</related>
+	<related type="option">search.caseInsensitive</related>
+	<related type="option">search.regex</related>
+	<related type="option">search.smart</related>
+	<related type="api">search()</related>
+</dt-option>

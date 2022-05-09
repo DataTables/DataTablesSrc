@@ -1,4 +1,4 @@
-describe('columns- column().order()', function() {
+describe('columns- column().order()', function () {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
@@ -6,8 +6,9 @@ describe('columns- column().order()', function() {
 
 	function areColumnsSorted(expectedColumns, columnCount = 6) {
 		for (let i = 0; i < columnCount; i++) {
-			expected = expectedColumns[i] == undefined ? 'sorting' : expectedColumns[i];
+			expected = expectedColumns[i] == undefined ? 'sorting' : 'sorting ' + expectedColumns[i];
 			if ($('#example thead th:eq(' + i + ')').attr('class') != expected) {
+				console.log(i);
 				return false;
 			}
 		}
@@ -19,28 +20,25 @@ describe('columns- column().order()', function() {
 		expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe(topName);
 	}
 
-	describe('Check the defaults', function() {
+	describe('Check the defaults', function () {
 		dt.html('basic');
-		it('Exists and is a function', function() {
+		it('Exists and is a function', function () {
 			let table = $('#example').DataTable();
 			expect(typeof table.column().order).toBe('function');
 		});
 
 		dt.html('basic');
-		it('Returns an API instance', function() {
+		it('Returns an API instance', function () {
 			let table = $('#example').DataTable();
 			expect(table.column().order() instanceof $.fn.dataTable.Api).toBe(true);
 		});
 	});
 
-	describe('Check the behaviour', function() {
+	describe('Check the behaviour', function () {
 		dt.html('basic');
-		it('Will order on selected column (DESC)', function() {
+		it('Will order on selected column (DESC)', function () {
 			let table = $('#example').DataTable();
-			table
-				.column(0)
-				.order('desc')
-				.draw();
+			table.column(0).order('desc').draw();
 			checkNameColumn('desc');
 			expect(areColumnsSorted(['sorting_desc'])).toBe(true);
 		});

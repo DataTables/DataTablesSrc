@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.util.get()</name>
+	<summary>Create a read function from a descriptor</summary>
+	<since>1.11.0</since>
+
+	<type type="function">
+		<signature>get( descriptor )</signature>
+		<description>Build an accessor function to get data based on the given descriptor.</description>
+		<param type="string|object|function|null" name="descriptor">
+			A descriptor that is used to define how to read the data from the source object. See above for full details of the options that this can be used as.
+		</param>
+		<returns type="Function">An accessor function that will be used to read data from a given object</returns>
+	</type>
+
+	<description>
+		It can often be useful in Javascript to write data location descriptors as a string, as we often do with JSON notation - e.g. `staff.name`, or having the flexibility of using a function to get arbitrary data. The DataTables `-init columns.data` and `-init columns.render` properties make use of this to be able to easily describe where data should be fetched from to display in a column. This method exposes that ability as part of the DataTables API for use in plug-ins and other libraries.
+
+		The key point with this method is to remember that it will itself return a function, which you must then execute to be able to read the nested data - e.g.:
+
+		```js
+		let fn = DataTable.util.get('name.first');
+		let name = fn({
+			name: {
+				first: 'Fiona',
+				last: 'Grayling'
+			}
+		}); // Returns `Fiona`
+		```
+
+		The descriptor can be given as:
+
+		* `null`: The returned function will simply return the full data object given to the accessor function.
+		* A function: Returns a function that will call the given function with the same parameters given to it (effectively just making it a proxy function).
+		* An object: Returns a function that will access data from an object based on the second parameter passed into the accessor. In DataTables this is used for the `-init columns.render` property's ability to use orthogonal data in an object.
+		* A string: Returns a function that will access data based on a JSON notation string, with the additional ability of being able to use `()` notation to execute a function, and `[]` to get array details. If `[]` is used without characters inside it for accessing an array, an array will be returned; if characters are used inside the brackets, they will be used to join the array - e.g. `[, ]` would give a comma space separated string.
+	</description>
+</dt-api>

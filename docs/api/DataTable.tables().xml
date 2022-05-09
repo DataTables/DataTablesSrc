@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.tables()</name>
+	<summary>Get all DataTables on the page</summary>
+	<since>1.11</since>
+
+	<type type="function">
+		<signature>tables( [ visible ] )</signature>
+		<description>Get all DataTable tables that have been initialised - optionally you can select to get only currently visible tables and / or retrieve the tables as API instances.</description>
+		<parameter type="boolean|object" name="visible" default="false">
+			As a boolean value this options is used to indicate if you want all tables on the page should be returned (`false`), or visible tables only (`true`).
+
+			Since 1.10.8 this option can also be given as an object which has the following optional parameters:
+
+			* `-type boolean` `visible` - Get only visible tables (`true`) or all tables regardless of visibility (`false`).
+			* `-type boolean` `api` - Return a `-type DataTables.Api` instance for the selected tables or an `-type array`
+		</parameter>
+		<returns type="array|DataTables.Api">Array or DataTables API instance containing all matching DataTables</returns>
+	</type>
+
+	<description>
+		It can be useful to be able to get a list of the existing DataTables on a page, particularly in situations where the table has scrolling enabled and needs to have its column widths adjusted when it is made visible. This method provides that ability.
+
+		Please note that this is a **static** function and is accessed through the `DataTable` or `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
+
+		Prior to DataTables 1.11 this method could be accessed through the `$.fn.dataTable` object only. As of 1.11, either `DataTable` or `$.fn.dataTable` can be used.
+	</description>
+
+	<example title="Non-jQuery: Adjust the column widths of all visible tables"><![CDATA[
+
+DataTable
+	.tables( { visible: true, api: true } )
+	.columns.adjust();
+
+]]></example>
+
+	<example title="Adjust the column widths of all visible tables"><![CDATA[
+
+$.fn.dataTable
+	.tables( { visible: true, api: true } )
+	.columns.adjust();
+
+]]></example>
+
+	<example title="Adjust column widths when a table is made visible in a Bootstrap tab"><![CDATA[
+
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	$.fn.dataTable
+		.tables( { visible: true, api: true } )
+		.columns.adjust();
+})
+
+]]></example>
+
+</dt-api>

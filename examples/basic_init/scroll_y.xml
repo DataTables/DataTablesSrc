@@ -7,14 +7,25 @@
 
 <title>Scroll - vertical</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"scrollY":        "200px",
-		"scrollCollapse": true,
-		"paging":         false
-	} );
-} );
+$(document).ready(function () {
+	$('#example').DataTable({
+		scrollY: '200px',
+		scrollCollapse: true,
+		paging: false,
+	});
+});
 ]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		scrollY: '200px',
+		scrollCollapse: true,
+		paging: false,
+	});
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

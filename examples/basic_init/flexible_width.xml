@@ -6,15 +6,22 @@
 		width: 80%;
 	}
 </css>
-<js lib="jquery" />
-<js lib="datatables" />
 
 <title>Flexible table width</title>
-<js><![CDATA[
-$(document).ready(function() {
+<js lib="jquery datatables">
+<![CDATA[
+$(document).ready(function () {
 	$('#example').DataTable();
-} );
-]]></js>
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example');
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

@@ -47,7 +47,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			cells.push( nTd );
 
 			// Need to create the HTML if new, or if a rendering function is defined
-			if ( create || ((!nTrIn || oCol.mRender || oCol.mData !== i) &&
+			if ( create || ((oCol.mRender || oCol.mData !== i) &&
 				 (!$.isPlainObject(oCol.mData) || oCol.mData._ !== i+'.display')
 			)) {
 				nTd.innerHTML = _fnGetCellData( oSettings, iRow, i, 'display' );
@@ -79,10 +79,6 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 
 		_fnCallbackFire( oSettings, 'aoRowCreatedCallback', null, [nTr, rowData, iRow, cells] );
 	}
-
-	// Remove once webkit bug 131819 and Chromium bug 365619 have been resolved
-	// and deployed
-	row.nTr.setAttribute( 'role', 'row' );
 }
 
 
@@ -179,13 +175,10 @@ function _fnBuildHead( oSettings )
 	if ( createHeader ) {
 		_fnDetectHeader( oSettings.aoHeader, thead );
 	}
-	
-	/* ARIA role for the rows */
- 	$(thead).find('>tr').attr('role', 'row');
 
 	/* Deal with the footer - add classes if required */
-	$(thead).find('>tr>th, >tr>td').addClass( classes.sHeaderTH );
-	$(tfoot).find('>tr>th, >tr>td').addClass( classes.sFooterTH );
+	$(thead).children('tr').children('th, td').addClass( classes.sHeaderTH );
+	$(tfoot).children('tr').children('th, td').addClass( classes.sFooterTH );
 
 	// Cache the footer cells. Note that we only take the cells from the first
 	// row in the footer. If there is more than one row the user wants to
@@ -315,10 +308,14 @@ function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
 /**
  * Insert the required TR nodes into the table for display
  *  @param {object} oSettings dataTables settings object
+ *  @param ajaxComplete true after ajax call to complete rendering
  *  @memberof DataTable#oApi
  */
-function _fnDraw( oSettings )
+function _fnDraw( oSettings, ajaxComplete )
 {
+	// Allow for state saving and a custom start position
+	_fnStart( oSettings );
+
 	/* Provide a pre-callback function which can be used to cancel the draw is false is returned */
 	var aPreDraw = _fnCallbackFire( oSettings, 'aoPreDrawCallback', 'preDraw', [oSettings] );
 	if ( $.inArray( false, aPreDraw ) !== -1 )
@@ -327,33 +324,17 @@ function _fnDraw( oSettings )
 		return;
 	}
 
-	var i, iLen, n;
 	var anRows = [];
 	var iRowCount = 0;
 	var asStripeClasses = oSettings.asStripeClasses;
 	var iStripes = asStripeClasses.length;
-	var iOpenRows = oSettings.aoOpenRows.length;
 	var oLang = oSettings.oLanguage;
-	var iInitDisplayStart = oSettings.iInitDisplayStart;
 	var bServerSide = _fnDataSource( oSettings ) == 'ssp';
 	var aiDisplay = oSettings.aiDisplay;
-
-	oSettings.bDrawing = true;
-
-	/* Check and see if we have an initial draw position from state saving */
-	if ( iInitDisplayStart !== undefined && iInitDisplayStart !== -1 )
-	{
-		oSettings._iDisplayStart = bServerSide ?
-			iInitDisplayStart :
-			iInitDisplayStart >= oSettings.fnRecordsDisplay() ?
-				0 :
-				iInitDisplayStart;
-
-		oSettings.iInitDisplayStart = -1;
-	}
-
 	var iDisplayStart = oSettings._iDisplayStart;
 	var iDisplayEnd = oSettings.fnDisplayEnd();
+
+	oSettings.bDrawing = true;
 
 	/* Server-side processing draw intercept */
 	if ( oSettings.bDeferLoading )
@@ -366,8 +347,9 @@ function _fnDraw( oSettings )
 	{
 		oSettings.iDraw++;
 	}
-	else if ( !oSettings.bDestroying && !_fnAjaxUpdate( oSettings ) )
+	else if ( !oSettings.bDestroying && !ajaxComplete)
 	{
+		_fnAjaxUpdate( oSettings );
 		return;
 	}
 
@@ -753,5 +735,27 @@ function _fnGetUniqueThs ( oSettings, nHeader, aLayout )
 	}
 
 	return aReturn;
+}
+
+/**
+ * Set the start position for draw
+ *  @param {object} oSettings dataTables settings object
+ */
+function _fnStart( oSettings )
+{
+	var bServerSide = _fnDataSource( oSettings ) == 'ssp';
+	var iInitDisplayStart = oSettings.iInitDisplayStart;
+
+	// Check and see if we have an initial draw position from state saving
+	if ( iInitDisplayStart !== undefined && iInitDisplayStart !== -1 )
+	{
+		oSettings._iDisplayStart = bServerSide ?
+			iInitDisplayStart :
+			iInitDisplayStart >= oSettings.fnRecordsDisplay() ?
+				0 :
+				iInitDisplayStart;
+
+		oSettings.iInitDisplayStart = -1;
+	}
 }
 

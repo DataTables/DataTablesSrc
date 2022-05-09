@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.util.escapeRegex()</name>
+	<summary>Escape special characters in a regular expression string</summary>
+	<since>1.11</since>
+
+	<type type="function">
+		<signature>escapeRegex( str )</signature>
+		<description>Escape special characters in a regular expression string.</description>
+		<param type="string" name="fn" default="false">
+			String to have regex special characters escaped
+		</param>
+		<returns type="string">Escaped string</returns>
+	</type>
+
+	<description>
+		When working with regular expressions it can often be useful to escape input so formatted strings with characters that have special meaning in a regular expression will simply perform a character match. There are a number of special characters in Javascript's regular expressions and DataTables requires the ability to escape these strings internally (for user input of search data) - this method exposes that ability externally.
+
+		This is a utility method that is provided for use by extension and plug-in authors. Its use does not directly effect a DataTable or DataTables configuration. It is used internally by DataTables and is made available in the public API to help promote code reuse for extension authors.
+
+		Please note that this is a **static** function and is accessed through the `DataTable` or `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
+
+		Prior to DataTables 1.11 this method could be accessed through the `$.fn.dataTable` object only. As of 1.11, either `DataTable` or `$.fn.dataTable` can be used.
+	</description>
+
+	<example title="Perform an escape match search using `-tag select` elements"><![CDATA[
+
+var table = $('#example').DataTable();
+
+table.columns().indexes().flatten().each( function ( i ) {
+	var column = table.column( i );
+	var select = $('<select><option value=""></option></select>')
+		.appendTo( $(column.footer()).empty() )
+		.on( 'change', function () {
+			// Escape the expression so we can perform a regex match
+			var val = $.fn.dataTable.util.escapeRegex(
+				$(this).val()
+			);
+
+			column
+				.search( val ? '^'+val+'$' : '', true, false )
+				.draw();
+		} );
+
+	column.data().unique().sort().each( function ( d, j ) {
+		select.append( '<option value="'+d+'">'+d+'</option>' )
+	} );
+} );
+
+]]></example>
+
+	<related type="option">searching</related>
+	<related type="option">columns.searchable</related>
+	<related type="api">search()</related>
+	<related type="api">column().search()</related>
+</dt-api>

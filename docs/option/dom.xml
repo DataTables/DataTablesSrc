@@ -64,6 +64,14 @@
 		"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
     ```
 
+    Bootstrap 5:
+
+    ```js
+    "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+		"<'row'<'col-sm-12'tr>>" +
+		"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+    ```
+
     Foundation: 
 
     ```js
@@ -106,8 +114,10 @@
     The following [extensions](/extensions) can be initialised through the `-init dom` option:
 
     * `B` - [Buttons](/extensions/buttons)
-    * `R` - [ColReorder](extensions/colreorder)
-    * `S` - [Select](/extensions/select)
+    * `R` - [ColReorder](/extensions/colreorder)
+    * `S` - [Scroller](/extensions/scroller)
+    * `P` - [SearchPanes](/extensions/searchpanes)
+    * `Q` - [SearchBuilder](/extensions/searchbuilder)
 
 
     ### Future development
@@ -119,13 +129,11 @@
 
 	<example title="No filtering input control"><![CDATA[
 /* Results in:
-    <div class="wrapper">
-      {length}
-      {processing}
-      {table}
-      {information}
-      {pagination}
-    </div>
+    {length}
+    {processing}
+    {table}
+    {information}
+    {pagination}
 */
 $('#example').dataTable( {
   "dom": 'lrtip'

@@ -542,7 +542,7 @@ class Markdown_Parser {
 	# a unique text-token which will be reverted back when calling unhash.
 	#
 	# The $boundary argument specify what character should be used to surround
-	# the token. By convension, "B" is used for block elements that needs not
+	# the token. By convention, "B" is used for block elements that needs not
 	# to be wrapped into paragraph tags at the end, ":" is used for elements
 	# that are word separators and "X" is used in the general case.
 	#
@@ -581,11 +581,11 @@ class Markdown_Parser {
 
 	function runBlockGamut($text) {
 	#
-	# Run block gamut tranformations.
+	# Run block gamut transformations.
 	#
 		# We need to escape raw HTML in Markdown source before doing anything 
 		# else. This need to be done for each block, and not only at the 
-		# begining in the Markdown function since hashed blocks can be part of
+		# beginning in the Markdown function since hashed blocks can be part of
 		# list items and could have been indented. Indented blocks would have 
 		# been seen as a code block in a previous pass of hashHTMLBlocks.
 		$text = $this->hashHTMLBlocks($text);
@@ -595,7 +595,7 @@ class Markdown_Parser {
 	
 	function runBasicBlockGamut($text) {
 	#
-	# Run block gamut tranformations, without hashing HTML blocks. This is 
+	# Run block gamut transformations, without hashing HTML blocks. This is
 	# useful when HTML blocks are known to be already hashed, like in the first
 	# whole-document pass.
 	#
@@ -654,7 +654,7 @@ class Markdown_Parser {
 
 	function runSpanGamut($text) {
 	#
-	# Run span gamut tranformations.
+	# Run span gamut transformations.
 	#
 		foreach ($this->span_gamut as $method => $priority) {
 			$text = $this->$method($text);
@@ -937,7 +937,7 @@ class Markdown_Parser {
 		if ($matches[2] == '-' && preg_match('{^-(?: |$)}', $matches[1]))
 			return $matches[0];
 		
-		$level = $matches[2]{0} == '=' ? 1 : 2;
+		$level = $matches[2][0] == '=' ? 1 : 2;
 		$block = "<h$level>".$this->runSpanGamut($matches[1])."</h$level>";
 		return "\n" . $this->hashBlock($block) . "\n\n";
 	}
@@ -1233,7 +1233,7 @@ class Markdown_Parser {
 				} else {
 					# Other closing marker: close one em or strong and
 					# change current token state to match the other
-					$token_stack[0] = str_repeat($token{0}, 3-$token_len);
+					$token_stack[0] = str_repeat($token[0], 3-$token_len);
 					$tag = $token_len == 2 ? "strong" : "em";
 					$span = $text_stack[0];
 					$span = $this->runSpanGamut($span);
@@ -1258,7 +1258,7 @@ class Markdown_Parser {
 				} else {
 					# Reached opening three-char emphasis marker. Push on token 
 					# stack; will be handled by the special condition above.
-					$em = $token{0};
+					$em = $token[0];
 					$strong = "$em$em";
 					array_unshift($token_stack, $token);
 					array_unshift($text_stack, '');
@@ -1528,7 +1528,7 @@ class Markdown_Parser {
 
 	function parseSpan($str) {
 	#
-	# Take the string $str and parse it into tokens, hashing embeded HTML,
+	# Take the string $str and parse it into tokens, hashing embedded HTML,
 	# escaped characters and handling code spans.
 	#
 		$output = '';
@@ -1557,8 +1557,8 @@ class Markdown_Parser {
 
 		while (1) {
 			#
-			# Each loop iteration seach for either the next tag, the next 
-			# openning code span marker, or the next escaped character. 
+			# Each loop iteration search for either the next tag, the next
+			# opening code span marker, or the next escaped character.
 			# Each token is then passed to handleSpanToken.
 			#
 			$parts = preg_split($span_re, $str, 2, PREG_SPLIT_DELIM_CAPTURE);
@@ -1587,9 +1587,9 @@ class Markdown_Parser {
 	# Handle $token provided by parseSpan by determining its nature and 
 	# returning the corresponding value that should replace it.
 	#
-		switch ($token{0}) {
+		switch ($token[0]) {
 			case "\\":
-				return $this->hashPart("&#". ord($token{1}). ";");
+				return $this->hashPart("&#". ord($token[1]). ";");
 			case "`":
 				# Search for end marker in remaining text.
 				if (preg_match('/^(.*?[^`])'.preg_quote($token).'(?!`)(.*)$/sm', 
@@ -1615,7 +1615,7 @@ class Markdown_Parser {
 
 
 	# String length function for detab. `_initDetab` will create a function to 
-	# hanlde UTF-8 if the default function does not exist.
+	# handle UTF-8 if the default function does not exist.
 	var $utf8_strlen = 'mb_strlen';
 	
 	function detab($text) {
@@ -1842,7 +1842,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	#
 		if ($text === '') return array('', '');
 
-		# Regex to check for the presense of newlines around a block tag.
+		# Regex to check for the presence of newlines around a block tag.
 		$newline_before_re = '/(?:^\n?|\n\n)*$/';
 		$newline_after_re = 
 			'{
@@ -1937,7 +1937,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			#
 			# Check for: Code span marker
 			#
-			if ($tag{0} == "`") {
+			if ($tag[0] == "`") {
 				# Find corresponding end marker.
 				$tag_re = preg_quote($tag);
 				if (preg_match('{^(?>.+?|\n(?!\n))*?(?<!`)'.$tag_re.'(?!`)}',
@@ -1955,7 +1955,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			#
 			# Check for: Indented code block.
 			#
-			else if ($tag{0} == "\n" || $tag{0} == " ") {
+			else if ($tag[0] == "\n" || $tag[0] == " ") {
 				# Indented code block: pass it unchanged, will be handled 
 				# later.
 				$parsed .= $tag;
@@ -1963,7 +1963,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			#
 			# Check for: Fenced code block marker.
 			#
-			else if ($tag{0} == "~") {
+			else if ($tag[0] == "~") {
 				# Fenced code block marker: find matching end marker.
 				$tag_re = preg_quote(trim($tag));
 				if (preg_match('{^(?>.*\n)+?'.$tag_re.' *\n}', $text, 
@@ -2001,7 +2001,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			#            HTML Comments, processing instructions.
 			#
 			else if (preg_match('{^<(?:'.$this->clean_tags_re.')\b}', $tag) ||
-				$tag{1} == '!' || $tag{1} == '?')
+				$tag[1] == '!' || $tag[1] == '?')
 			{
 				# Need to parse tag and following text using the HTML parser.
 				# (don't check for markdown attribute)
@@ -2020,8 +2020,8 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 				#
 				# Increase/decrease nested tag count.
 				#
-				if ($tag{1} == '/')						$depth--;
-				else if ($tag{strlen($tag)-2} != '/')	$depth++;
+				if ($tag[1] == '/')						$depth--;
+				else if ($tag[strlen($tag)-2] != '/')	$depth++;
 
 				if ($depth < 0) {
 					#
@@ -2093,7 +2093,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 				)
 			}xs';
 		
-		$original_text = $text;		# Save original text in case of faliure.
+		$original_text = $text;		# Save original text in case of failure.
 		
 		$depth		= 0;	# Current depth inside the tag tree.
 		$block_text	= "";	# Temporary text holder for current text.
@@ -2125,7 +2125,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 				# first character as filtered to prevent an infinite loop in the 
 				# parent function.
 				#
-				return array($original_text{0}, substr($original_text, 1));
+				return array($original_text[0], substr($original_text, 1));
 			}
 			
 			$block_text .= $parts[0]; # Text before current tag.
@@ -2137,7 +2137,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			#			 Comments and Processing Instructions.
 			#
 			if (preg_match('{^</?(?:'.$this->auto_close_tags_re.')\b}', $tag) ||
-				$tag{1} == '!' || $tag{1} == '?')
+				$tag[1] == '!' || $tag[1] == '?')
 			{
 				# Just add the tag to the block as if it was text.
 				$block_text .= $tag;
@@ -2148,8 +2148,8 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 				# the tag's name match base tag's.
 				#
 				if (preg_match('{^</?'.$base_tag_name_re.'\b}', $tag)) {
-					if ($tag{1} == '/')						$depth--;
-					else if ($tag{strlen($tag)-2} != '/')	$depth++;
+					if ($tag[1] == '/')						$depth--;
+					else if ($tag[strlen($tag)-2] != '/')	$depth++;
 				}
 				
 				#
@@ -2219,7 +2219,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	function hashClean($text) {
 	#
 	# Called whenever a tag must be hashed when a function insert a "clean" tag
-	# in $text, it pass through this function and is automaticaly escaped, 
+	# in $text, it pass through this function and is automatically escaped,
 	# blocking invalid nested overlap.
 	#
 		return $this->hashPart($text, 'C');
@@ -2273,7 +2273,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	function _doHeaders_callback_setext($matches) {
 		if ($matches[3] == '-' && preg_match('{^- }', $matches[1]))
 			return $matches[0];
-		$level = $matches[3]{0} == '=' ? 1 : 2;
+		$level = $matches[3][0] == '=' ? 1 : 2;
 		$attr  = $this->_doHeaders_attr($id =& $matches[2]);
 		$block = "<h$level$attr>".$this->runSpanGamut($matches[1])."</h$level>";
 		return "\n" . $this->hashBlock($block) . "\n\n";
@@ -2367,7 +2367,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 		$underline	= preg_replace('/[|] *$/m', '', $underline);
 		$content	= preg_replace('/[|] *$/m', '', $content);
 		
-		# Reading alignement from header underline.
+		# Reading alignment from header underline.
 		$separators	= preg_split('/ *[|] */', $underline);
 		foreach ($separators as $n => $s) {
 			if (preg_match('/^ *-+: *$/', $s))		$attr[$n] = ' align="right"';
@@ -2757,7 +2757,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 		# Create footnote marker only if it has a corresponding footnote *and*
 		# the footnote hasn't been used by another marker.
 		if (isset($this->footnotes[$node_id])) {
-			# Transfert footnote content to the ordered list.
+			# Transfer footnote content to the ordered list.
 			$this->footnotes_ordered[$node_id] = $this->footnotes[$node_id];
 			unset($this->footnotes[$node_id]);
 			

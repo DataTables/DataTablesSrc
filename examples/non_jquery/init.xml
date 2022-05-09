@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="1">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+	let table = new DataTable('#example');
+});
+]]>
+</js>
+
+<title>Non-jQuery initialisation</title>
+
+<info><![CDATA[
+
+As of v1.11, DataTables can be initialised without using jQuery through the `new DataTable()` constructor. This class takes two parameters:
+
+* A [DOMString selector](https://developer.mozilla.org/en-US/docs/Web/API/DOMString) or HTML elements to pick the table(s) from the DOM.
+* An object of [DataTables options](https://datatables.net/reference/option/).
+
+The constructor will return a [DataTables API instance](https://datatables.net/reference/api/) allowing manipulation of the table.
+
+Please note that while this constrctor does not require you to write any jQuery code, DataTables will still use jQuery as a dependency.
+
+]]></info>
+
+</dt-example>

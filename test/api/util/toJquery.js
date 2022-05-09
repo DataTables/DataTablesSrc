@@ -4,15 +4,14 @@ describe('toJQuery()', function() {
 		css: ['datatables']
 	});
 
+	let table;
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Exists and is a function', function() {
-			let table = $('#example').DataTable();
+			table = $('#example').DataTable();
 			expect(typeof table.toJQuery).toBe('function');
 		});
-
 		it('Returns API instance', function() {
-			let table = $('#example').DataTable();
 			expect(typeof table.toJQuery()).toBe('object');
 		});
 	});
@@ -84,7 +83,7 @@ describe('toJQuery()', function() {
 		it('Several row', function() {
 			table = $('#example').DataTable();
 			table
-				.rows([2,3])
+				.rows([2, 3])
 				.nodes()
 				.toJQuery()
 				.addClass('unitTest');

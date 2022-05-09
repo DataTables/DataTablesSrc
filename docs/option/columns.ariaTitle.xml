@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.ariaTitle</name>
+	<summary>Set the columns' `aria-label` attribute value</summary>
+	<since>1.10.25</since>
+
+	<type type="string" />
+	<default>
+		Uses `-init columns.title` by default.
+	</default>
+
+	<description>
+		This option can be used to provide a custom string for the `aria-label` attribute used for column headers to provide enhanced accessibility for screenreaders. By default DataTables will use the column title (`-init columns.title`, or read from the document), but this option provides customisation for that.
+
+		Please note that the value given here will have `-init language.aria.sortAscending` or `-init language.aria.sortDescending` appended to it if the column can be ordered by the end user, to give an indication to screenreader users that this is the case. 
+	</description>
+
+	<example title="Set the first column's aria-label with `dt-init columnDefs`"><![CDATA[
+$('#example').DataTable( {
+	columnDefs: [ {
+		ariaTitle: 'Screenreader title',
+		targets: 0
+	} ]
+} );
+]]></example>
+
+	<example title="Set the first column's aria-label with `dt-init columns`"><![CDATA[
+$('#example').DataTable( {
+	columns: [
+	{ title: 'Screenreader title' },
+		null,
+		null,
+		null,
+		null
+	]
+} );
+]]></example>
+
+  <related>-init columns.ariaTitle</related>
+  <related>-init language.aria.sortAscending</related>
+  <related>-init language.aria.sortDescending</related>
+</dt-option>

@@ -37,7 +37,7 @@
  * spec.
  */
 
-(function(window, jasmine) {
+(function (window, jasmine) {
 	'use strict';
 
 	/**
@@ -56,7 +56,7 @@
 			// CSS or JS?
 			if (lib.match(/js$/)) {
 				var script = doc.createElement('script');
-				script.onload = function() {
+				script.onload = function () {
 					_runQueue(done, queue);
 				};
 				script.type = 'text/javascript';
@@ -65,7 +65,7 @@
 				doc.body.appendChild(script);
 			} else {
 				var link = doc.createElement('link');
-				link.onload = function() {
+				link.onload = function () {
 					_runQueue(done, queue);
 				};
 				link.type = 'text/css';
@@ -99,6 +99,12 @@
 						? [urlBase + '/media/js/jquery.dataTables.js']
 						: [urlBase + '/media/js/jquery.dataTables.js', urlBase + '/media/js/dataTables.' + framework + '.js'];
 				}
+			} else if (path === 'datetime') {
+				if (type === 'css') {
+					return [urlBase + '/extensions/' + lib.pathName + '/css/dataTables.' + lib.fileName + '.css'];
+				} else {
+					return [urlBase + '/extensions/' + lib.pathName + '/js/dataTables.' + lib.fileName + '.js'];
+				}
 			} else {
 				if (type === 'css' && lib.css) {
 					return [urlBase + '/extensions/' + lib.pathName + '/css/' + lib.fileName + '.' + framework + '.css'];
@@ -124,8 +130,6 @@
 	 * Build a list of CSS and JS files that need to be loaded
 	 */
 	function _loadDeps(done, obj) {
-		var libraries = window.__karma__.config.libraries;
-		var doc = window.document;
 		var queue = [],
 			i,
 			ien;
@@ -134,6 +138,7 @@
 		if (obj.css) {
 			for (i = 0, ien = obj.css.length; i < ien; i++) {
 				var resolved = _pathResolver('css', obj.css[i], obj.framework || 'dataTables');
+
 				queue = queue.concat(resolved);
 			}
 		}
@@ -142,6 +147,7 @@
 		if (obj.js) {
 			for (i = 0, ien = obj.js.length; i < ien; i++) {
 				var resolved = _pathResolver('js', obj.js[i], obj.framework || 'dataTables');
+
 				queue = queue.concat(resolved);
 			}
 		}
@@ -164,7 +170,7 @@
 
 		// Load the HTML needed
 		var xhr = new XMLHttpRequest();
-		xhr.addEventListener('load', function() {
+		xhr.addEventListener('load', function () {
 			if (!xhr.responseText) {
 				console.error('Could not load file: ' + url);
 			}
@@ -179,10 +185,10 @@
 
 	// Publicly exposed method
 	window.dt = {
-		libs: function(obj) {
+		libs: function (obj) {
 			window.it(
 				'Load libraries',
-				function(done) {
+				function (done) {
 					_loadDeps(done, obj);
 				},
 				5000
@@ -191,7 +197,7 @@
 			return window.dt;
 		},
 
-		html: function(extension, file) {
+		html: function (extension, file) {
 			if (file === undefined) {
 				file = extension;
 				extension = undefined;
@@ -203,7 +209,7 @@
 
 			window.it(
 				'Load HTML: ' + file,
-				function(done) {
+				function (done) {
 					dt.clean();
 
 					_loadHtml(done, file);
@@ -214,16 +220,30 @@
 			return window.dt;
 		},
 
-		clean: function() {
-			if ($) {
-				$('#dt-test-loader-container').remove();
-			} else {
-				var el = document.getElementById('dt-test-loader-container');
-
-				if (el) {
-					document.body.removeChild(el);
-				}
+		clean: function () {
+			if ($ && $.fn.dataTableSettings) {
+				// If there are any DataTables, destroy them.
+				$.fn.dataTableSettings.forEach((s) => {
+					new $.fn.dataTable.Api(s).destroy();
+				});
 			}
+
+			var el = document.getElementById('dt-test-loader-container');
+			if (el && $) {
+				$(el).remove(); // jQuery to nuke events
+			} else if (el) {
+				document.body.removeChild(el);
+			}
+
+			// Tidy up FixedHeader since it inserts elements into the body, rather than the container element
+			document.querySelectorAll('table.fixedHeader-floating').forEach((el) => {
+				el.parentNode.removeChild(el);
+			});
+
+			// Tidy up DateTime elements as it inserts elements into the body, rather than the container element
+			document.querySelectorAll('div.dt-datetime').forEach((el) => {
+				document.body.removeChild(el);
+			});
 
 			if ($ && $.fn.dataTableSettings && $.fn.dataTableSettings.length) {
 				$.fn.dataTableSettings.length = 0;
@@ -234,25 +254,25 @@
 				$.fn.dataTable.__browser = undefined;
 			}
 
+			dt.scrollTop(0);
+
 			return window.dt;
 		},
 
-		container: function() {
+		container: function () {
 			return $('#dt-test-loader-container');
 		},
 
 		/*
-		 * Below are common functions used througout the unit tests
+		 * Below are common functions used through out the unit tests
 		 */
 
 		// check array for column visibility (default is visible)
-		areColumnsInvisible: function(colArray) {
-			let visiblity = $('#example')
-				.DataTable()
-				.columns()
-				.visible();
+		areColumnsInvisible: function (colArray) {
+			let visibility = $('#example').DataTable().columns().visible();
+
 			for (let i = 0; i < 6; i++) {
-				if (visiblity[i] == colArray.includes(i)) {
+				if (visibility[i] == colArray.includes(i)) {
 					return false;
 				}
 			}
@@ -260,7 +280,7 @@
 		},
 
 		// check DOM for column's header, body, and footer
-		isColumnHBFExpected: function(column, header, body, footer = header) {
+		isColumnHBFExpected: function (column, header, body, footer = header) {
 			if (
 				$('#example thead th:eq(' + column + ')').text() == header &&
 				$('#example tbody tr:eq(' + column + ') td:eq(0)').text() == body &&
@@ -272,22 +292,22 @@
 		},
 
 		// function to sleep for a bit
-		sleep: function(time) {
-			return new Promise(resolve => setTimeout(resolve, time));
+		sleep: function (time) {
+			return new Promise((resolve) => setTimeout(resolve, time));
 		},
 
 		// columns used during testing (used frequently)
 		_testColumns: [
-			{ data: 'name' },
-			{ data: 'position' },
-			{ data: 'office' },
-			{ data: 'age' },
-			{ data: 'start_date' },
-			{ data: 'salary' }
+			{data: 'name'},
+			{data: 'position'},
+			{data: 'office'},
+			{data: 'age'},
+			{data: 'start_date'},
+			{data: 'salary'}
 		],
 
 		// makes a copy of the test columns so they can be modified
-		getTestColumns: function() {
+		getTestColumns: function () {
 			return JSON.parse(JSON.stringify(this._testColumns));
 		},
 
@@ -321,12 +341,12 @@
 		],
 
 		// makes a copy of the test columns so they can be modified
-		getTestEditorColumns: function() {
+		getTestEditorColumns: function () {
 			return JSON.parse(JSON.stringify(this._testEditorFields));
 		},
 
-		// make a person object (as pain to do everytime in the test)
-		makePersonObject: function(name) {
+		// make a person object (as pain to do every time in the test)
+		makePersonObject: function (name) {
 			return {
 				name: name,
 				position: 'BBB',
@@ -335,6 +355,28 @@
 				start_date: '2018/03/04',
 				salary: '$12,345'
 			};
+		},
+
+		scrollTop: async function (point) {
+			document.documentElement.scrollTop = point;
+			await dt.sleep(500);
+		},
+
+		serverSide: function (data, callback, settings) {
+			var out = [];
+
+			for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
+				out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
+			}
+
+			setTimeout(function () {
+				callback({
+					draw: data.draw,
+					data: out,
+					recordsTotal: 5000000,
+					recordsFiltered: 5000000
+				});
+			}, 50);
 		}
 	};
 })(window, window.jasmine);

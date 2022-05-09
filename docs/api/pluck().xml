@@ -9,6 +9,8 @@
 		<description>Iterate over the result set of an API instance, creating a new API instance from the values retrieved from the original elements.</description>
 		<parameter type="string|integer" name="property">
 			Object property name to use from the element in the original result set for the new result set. This will typically be a string with the target property name, but can also be an array index if working with arrays.
+
+			As of DataTables 1.12 Javascript dot notation can also be used to read nested JSON data. All of the options offered by `-api DataTable.util.get()` can get used.
 		</parameter>
 		<returns type="DataTables.Api">New API instance with the values in the result retrieved from the source object properties defined by the property being plucked.</returns>
 	</type>
@@ -20,89 +22,88 @@
 	</description>
 
 	<example title="Pluck the name property from the data objects for the table rows"><![CDATA[
-var table = $('#example').DataTable(
-	"data": [
+var table = $('#example').DataTable({
+	data: [
 		{
-			"name": "Tiger Nixon",
-			"position": "System Architect",
-			"salary": "$3,120",
-			"start_date": "2011/04/25",
-			"office": "Edinburgh",
-			"extn": "5421"
+			name: 'Tiger Nixon',
+			position: 'System Architect',
+			salary: '$3,120',
+			start_date: '2011/04/25',
+			office: 'Edinburgh',
+			extn: '5421',
 		},
 		{
-			"name": "Garrett Winters",
-			"position": "Director",
-			"salary": "$5,300",
-			"start_date": "2011/07/25",
-			"office": "Edinburgh",
-			"extn": "8422"
+			name: 'Garrett Winters',
+			position: 'Director',
+			salary: '$5,300',
+			start_date: '2011/07/25',
+			office: 'Edinburgh',
+			extn: '8422',
 		},
 		{
-			"name": "Ashton Cox",
-			"position": "Technical Author",
-			"salary": "$4,800",
-			"start_date": "2009/01/12",
-			"office": "San Francisco",
-			"extn": "1562"
-		}
+			name: 'Ashton Cox',
+			position: 'Technical Author',
+			salary: '$4,800',
+			start_date: '2009/01/12',
+			office: 'San Francisco',
+			extn: '1562',
+		},
 	],
-	"columns": [
-		{ "data": "name" },
-		{ "data": "position" },
-		{ "data": "office" },
-		{ "data": "extn" },
-		{ "data": "start_date" },
-		{ "data": "salary" }
+	columns: [
+		{ data: 'name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'extn' },
+		{ data: 'start_date' },
+		{ data: 'salary' }
 	]
-);
+});
 
 var names = table
 	.rows()
 	.data()
-	.pluck( 'name' );
+	.pluck('name');
 
 ]]></example>
 
-	<example title="Nested data - get the `salary` data property by using `pluck()` twice."><![CDATA[
+	<example title="Nested data - get the `salary` data property"><![CDATA[
 var table = $('#example').DataTable({
-  "data": [
-    {
-      "name": "Tiger Nixon",
-      "hr": {
-        "position": "System Architect",
-        "salary": "$320,800",
-        "start_date": "2011/04/25"
-      }
-    },
-    {
-      "name": "Garrett Winters",
-      "hr": {
-        "position": "Accountant",
-        "salary": "$170,750",
-        "start_date": "2011/07/25"
-      }
-    },
-    {
-      "name": "Ashton Cox",
-      "hr": {
-        "position": "Junior Technical Author",
-        "salary": "$86,000",
-        "start_date": "2009/01/12"
-      }
-    }
+	data: [
+		{
+			name: 'Tiger Nixon',
+			hr: {
+				position: 'System Architect',
+				salary: '$320,800',
+				start_date: '2011/04/25',
+			},
+		},
+		{
+			name: 'Garrett Winters',
+			hr: {
+				position: 'Accountant',
+				salary: '$170,750',
+				start_date: '2011/07/25',
+			},
+		},
+		{
+			name: 'Ashton Cox',
+			hr: {
+				position: 'Junior Technical Author',
+				salary: '$86,000',
+				start_date: '2009/01/12',
+			},
+		},
 	],
-	"columns": [
-		{ "data": "name" },
-		{ "data": "hr.position" }
+	columns: [
+		{ data: 'name' },
+		{ data: 'hr.position' }
 	]
-);
+});
 
-var saleries = table
+var salaries = table
 	.rows()
 	.data()
-	.pluck( 'hr' )
-	.pluck( 'salary' );
+	.pluck('hr.salary');
 
 ]]></example>
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax" order="5">
+
+<css lib="datatables" />
+<js lib="jquery datatables" />
+
+<title>Ajax data source (objects)</title>
+<js><![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+	let table = new DataTable('#example', {
+		ajax: function (d, cb) {
+			fetch('../ajax/data/objects.txt')
+				.then(response => response.json())
+				.then(data => cb(data));
+		},
+		columns: [
+			{ data: 'name' },
+			{ data: 'position' },
+			{ data: 'office' },
+			{ data: 'extn' },
+			{ data: 'start_date' },
+			{ data: 'salary' }
+		]
+	} );
+} );
+]]></js>
+
+<info><![CDATA[
+
+This example shows how the `-init ajax` option can be used with the native [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). Note that you can still use the [`jQuery.ajax` options](/ajax/objects.html) for `-init ajax` if you prefer, without writing any jQuery code yourself, but this method is useful if you are using jQuery Slim which does not include Ajax support.
+
+]]></info>
+
+</dt-example>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html-salary-plain" order="4">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+$(document).ready(function () {
+	$('#example').DataTable({
+		columnDefs: [
+			{
+				target: 4,
+				render: DataTable.render.date(),
+			},
+			{
+				target: 5,
+				render: DataTable.render.number(null, null, 0, '$'),
+			},
+		],
+	});
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		columnDefs: [
+			{
+				target: 4,
+				render: DataTable.render.date(),
+			},
+			{
+				target: 5,
+				render: DataTable.render.number(null, null, 0, '$'),
+			},
+		],
+	});
+});
+]]>
+</js-vanilla>
+
+<title>Locale based number display</title>
+
+<info><![CDATA[
+
+DataTables has a built in number rendering type that can help to display numbers in a format your end users are familiar and comfortable with. For example, in many parts of the world `.` is used as a thousands separator, while in other parts `,` is used. The number renderer can automatically determine the correct display for your end users and display them as such.
+
+The `DataTable.render.number` helper can take no arguments at all for fully automatic display, or up to five parameters for finer grained control. In this example the thousands and decimal separator (first two parameters) are defined as `null` to let DataTables determine what to use, zero decimal places and a prefix of `$`.
+
+See [the renderers documentation](https://datatables.net/manual/data/renderers#Built-in-helpers) for full details about the renderers available in DataTables.
+
+]]></info>
+
+</dt-example>

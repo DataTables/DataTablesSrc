@@ -6,23 +6,21 @@
 
 <title>Scrolling and Bootstrap tabs</title>
 <js><![CDATA[
+$(document).ready(function () {
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		$.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+	});
 
-$(document).ready(function() {
-	$('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-		$.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-	} );
-	
-	$('table.table').DataTable( {
-		ajax:           '../ajax/data/arrays.txt',
-		scrollY:        200,
+	$('table.table').DataTable({
+		ajax: '../ajax/data/arrays.txt',
+		scrollY: 200,
 		scrollCollapse: true,
-		paging:         false
-	} );
+		paging: false,
+	});
 
 	// Apply a search to the second table for the demo
-	$('#myTable2').DataTable().search( 'New York' ).draw();
-} );
-
+	$('#myTable2').DataTable().search('New York').draw();
+});
 ]]></js>
 
 <info><![CDATA[
@@ -37,7 +35,7 @@ This example shows how the Bootstrap `shown.bs.tab` event can be used to trigger
 
 ]]></info>
 
-<custom-table>
+<demo-html>
 
 <div>
 	<ul class="nav nav-tabs" role="tablist">
@@ -78,6 +76,6 @@ This example shows how the Bootstrap `shown.bs.tab` event can be used to trigger
 	</div>
 </div>
 
-</custom-table>
+</demo-html>
 
 </dt-example>

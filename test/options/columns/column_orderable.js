@@ -13,7 +13,7 @@ describe('columns.orderable option', function() {
 		});
 
 		dt.html('basic');
-		it('Can disable sorting from one column', function() {
+		it('Can disable sorting for one column', function() {
 			$('#example').dataTable({
 				columns: [null, null, { orderable: false }, null, null, null]
 			});
@@ -24,7 +24,7 @@ describe('columns.orderable option', function() {
 			expect($('#example thead th:eq(2)').hasClass('sorting_disabled')).toBe(true);
 		});
 
-		it('Not disabled columns do not have sorting class', function() {
+		it('Not disabled columns do not have disabled class', function() {
 			expect($('#example thead th:eq(1)').hasClass('sorting_disabled')).toBe(false);
 		});
 

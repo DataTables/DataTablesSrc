@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ssp" order="3">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Return key to search</title>
+<js><![CDATA[
+$(document).ready(function () {
+	$('#example').DataTable({
+		ajax: 'scripts/server_processing.php',
+		processing: true,
+		search: {
+			return: true,
+		},
+		serverSide: true,
+	});
+});
+]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		ajax: 'scripts/server_processing.php',
+		processing: true,
+		search: {
+			return: true,
+		},
+		serverSide: true,
+	});
+});
+]]>
+</js-vanilla>
+
+<info><![CDATA[
+
+It can be useful at times to require the end user to press the return key to trigger a search action, rather than performing a search on each keystroke, particularly when using server-side processing. As of v1.11, this option exists in DataTables as the `-init search.return` parameter as shown in this example.
+
+]]></info>
+
+</dt-example>
