@@ -7,20 +7,20 @@
 
 <title>Nested object data (objects)</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"processing": true,
-		"ajax": "data/objects_deep.txt",
-		"columns": [
-			{ "data": "name" },
-			{ "data": "hr.position" },
-			{ "data": "contact.0" },
-			{ "data": "contact.1" },
-			{ "data": "hr.start_date" },
-			{ "data": "hr.salary" }
-		]
-	} );
-} );
+$(document).ready(function () {
+	$('#example').DataTable({
+		processing: true,
+		ajax: 'data/objects_deep.txt',
+		columns: [
+			{ data: 'name' },
+			{ data: 'hr.position' },
+			{ data: 'contact.0' },
+			{ data: 'contact.1' },
+			{ data: 'hr.start_date' },
+			{ data: 'hr.salary' },
+		],
+	});
+});
 ]]></js>
 
 <info><![CDATA[

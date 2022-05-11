@@ -18,6 +18,15 @@ $(document).ready(function() {
 	} );
 } );
 ]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		dom: '<"top"i>rt<"bottom"flp><"clear">',
+	});
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

@@ -7,6 +7,10 @@
 
 <title>Custom toolbar elements</title>
 <js><![CDATA[
+$(document).ready(function () {
+	$('#example').DataTable({
+		dom: '<"toolbar">frtip',
+	});
 
 $(document).ready(function() {
 	$('#example').DataTable( {

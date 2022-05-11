@@ -6,18 +6,33 @@
 
 <title>Material Design (Tech. preview)</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
+$(document).ready(function () {
+	$('#example').DataTable({
 		autoWidth: false,
 		columnDefs: [
 			{
 				targets: ['_all'],
-				className: 'mdc-data-table__cell'
-			}
-		]
-	} );
-} );
+				className: 'mdc-data-table__cell',
+			},
+		],
+	});
+});
 ]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example, {
+		autoWidth: false,
+		columnDefs: [
+			{
+				targets: ['_all'],
+				className: 'mdc-data-table__cell',
+			},
+		],
+	});
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

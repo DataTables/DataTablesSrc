@@ -7,14 +7,25 @@
 
 <title>Feature enable / disable</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"paging":   false,
-		"ordering": false,
-		"info":     false
-	} );
-} );
+$(document).ready(function () {
+	$('#example').DataTable({
+		paging: false,
+		ordering: false,
+		info: false,
+	});
+});
 ]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		paging: false,
+		ordering: false,
+		info: false,
+	});
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

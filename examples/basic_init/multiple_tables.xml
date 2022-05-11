@@ -11,10 +11,17 @@
 
 <title>Multiple tables</title>
 <js><![CDATA[
-$(document).ready(function() {
+$(document).ready(function () {
 	$('table.display').DataTable();
-} );
+});
 ]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('table.display');
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

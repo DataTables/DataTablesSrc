@@ -7,12 +7,21 @@
 
 <title>State saving</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
-		stateSave: true
-	} );
-} );
+$(document).ready(function () {
+	$('#example').DataTable({
+		stateSave: true,
+	});
+});
 ]]></js>
+<js-vanilla>
+<![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#example', {
+		stateSave: true,
+	});
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

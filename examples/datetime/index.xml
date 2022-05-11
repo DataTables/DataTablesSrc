@@ -5,7 +5,7 @@
 
 <info><![CDATA[
 
-Dates and times are a very common data type to display in a DataTable, but they can also be complicated to handle correctly. DataTables provides helper functions to control the formatting of date/times and so you can tell it the formats that your data is in.
+Dates and times are a very common data type to display in a DataTable, but they can also be complicated to handle correctly. DataTables provides helper functions to control the formatting of date/times and so you can specify the format that your data is in.
 
 ]]></info>
 

@@ -7,15 +7,13 @@
 
 <title>Enter Key to Search</title>
 <js><![CDATA[
-
-$(document).ready(function() {
-	$('#example').DataTable( {
+$(document).ready(function () {
+	$('#example').DataTable({
 		search: {
-			return: true
-		}
-	} );
-} );
-
+			return: true,
+		},
+	});
+});
 ]]></js>
 
 <info><![CDATA[

@@ -7,19 +7,19 @@
 
 <title>Nested object data (arrays)</title>
 <js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"ajax": "data/objects_subarrays.txt",
-		"columns": [
-			{ "data": "name[, ]" },
-			{ "data": "hr.0" },
-			{ "data": "office" },
-			{ "data": "extn" },
-			{ "data": "hr.2" },
-			{ "data": "hr.1" }
-		]
-	} );
-} );
+$(document).ready(function () {
+	$('#example').DataTable({
+		ajax: 'data/objects_subarrays.txt',
+		columns: [
+			{ data: 'name[, ]' },
+			{ data: 'hr.0' },
+			{ data: 'office' },
+			{ data: 'extn' },
+			{ data: 'hr.2' },
+			{ data: 'hr.1' },
+		],
+	});
+});
 ]]></js>
 
 <info><![CDATA[
