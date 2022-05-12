@@ -86,7 +86,7 @@ _buildInclude('api.core.js');
  *  @type string
  *  @default Version number
  */
-DataTable.version = "1.12.0-dev";
+DataTable.version = "1.12.0";
 
 /**
  * Private data store, containing all of the settings objects that are
@@ -110,52 +110,52 @@ DataTable.settings = [];
  */
 DataTable.models = {};
 _buildInclude('model.search.js');
-	_buildInclude('model.row.js');
-	_buildInclude('model.column.js');
-	_buildInclude('model.defaults.js');
-	_buildInclude('model.defaults.columns.js');
-	_buildInclude('model.settings.js');
-	
-	/**
-	 * Extension object for DataTables that is used to provide all extension
-	 * options.
-	 *
-	 * Note that the `DataTable.ext` object is available through
-	 * `jQuery.fn.dataTable.ext` where it may be accessed and manipulated. It is
-	 * also aliased to `jQuery.fn.dataTableExt` for historic reasons.
-	 *  @namespace
-	 *  @extends DataTable.models.ext
-	 */
-	_buildInclude('ext.js');
-	_buildInclude('ext.classes.js');
-	_buildInclude('ext.paging.js');
-	_buildInclude('ext.types.js');
-	_buildInclude('ext.filter.js');
-	_buildInclude('ext.sorting.js');
-	_buildInclude('ext.renderer.js');
-	_buildInclude('ext.helpers.js');
-	_buildInclude('api.internal.js');
-	
-	// jQuery access
-	$.fn.dataTable = DataTable;
-	
-	// Provide access to the host jQuery object (circular reference)
-	DataTable.$ = $;
-	
-	// Legacy aliases
-	$.fn.dataTableSettings = DataTable.settings;
-	$.fn.dataTableExt = DataTable.ext;
-	
-	// With a capital `D` we return a DataTables API instance rather than a
-	// jQuery object
-	$.fn.DataTable = function ( opts ) {
-		return $(this).dataTable( opts ).api();
-	};
-	
-	// All properties that are available to $.fn.dataTable should also be
-	// available on $.fn.DataTable
-	$.each( DataTable, function ( prop, val ) {
-		$.fn.DataTable[ prop ] = val;
-	} );
+_buildInclude('model.row.js');
+_buildInclude('model.column.js');
+_buildInclude('model.defaults.js');
+_buildInclude('model.defaults.columns.js');
+_buildInclude('model.settings.js');
 
-	return DataTable;
+/**
+ * Extension object for DataTables that is used to provide all extension
+ * options.
+ *
+ * Note that the `DataTable.ext` object is available through
+ * `jQuery.fn.dataTable.ext` where it may be accessed and manipulated. It is
+ * also aliased to `jQuery.fn.dataTableExt` for historic reasons.
+ *  @namespace
+ *  @extends DataTable.models.ext
+ */
+_buildInclude('ext.js');
+_buildInclude('ext.classes.js');
+_buildInclude('ext.paging.js');
+_buildInclude('ext.types.js');
+_buildInclude('ext.filter.js');
+_buildInclude('ext.sorting.js');
+_buildInclude('ext.renderer.js');
+_buildInclude('ext.helpers.js');
+_buildInclude('api.internal.js');
+
+// jQuery access
+$.fn.dataTable = DataTable;
+
+// Provide access to the host jQuery object (circular reference)
+DataTable.$ = $;
+
+// Legacy aliases
+$.fn.dataTableSettings = DataTable.settings;
+$.fn.dataTableExt = DataTable.ext;
+
+// With a capital `D` we return a DataTables API instance rather than a
+// jQuery object
+$.fn.DataTable = function ( opts ) {
+	return $(this).dataTable( opts ).api();
+};
+
+// All properties that are available to $.fn.dataTable should also be
+// available on $.fn.DataTable
+$.each( DataTable, function ( prop, val ) {
+	$.fn.DataTable[ prop ] = val;
+} );
+
+return DataTable;
