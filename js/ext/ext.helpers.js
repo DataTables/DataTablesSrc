@@ -189,10 +189,17 @@ var __thousands = '';
 var __decimal = '';
 
 if (Intl) {
-	var num = new Intl.NumberFormat().formatToParts(1000.1);
-
-	__thousands = num[1].value;
-	__decimal = num[3].value;
+	try {
+		var num = new Intl.NumberFormat().formatToParts(1000.1);
+	
+		__thousands = num[1].value;
+		__decimal = num[3].value;
+	}
+	catch (e) {
+		// Fallback for legacy browsers is US English
+		__thousands = ',';
+		__decimal = '.';
+	}
 }
 
 // Formatted date time detection - use by declaring the formats you are going to use
