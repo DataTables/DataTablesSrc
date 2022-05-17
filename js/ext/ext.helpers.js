@@ -185,20 +185,25 @@ function __mlHelper (localeString) {
 }
 
 // Based on locale, determine standard number formatting
-var __thousands = '';
-var __decimal = '';
+// Fallback for legacy browsers is US English
+var __thousands = ',';
+var __decimal = '.';
 
 if (Intl) {
 	try {
-		var num = new Intl.NumberFormat().formatToParts(1000.1);
+		var num = new Intl.NumberFormat().formatToParts(100000.1);
 	
-		__thousands = num[1].value;
-		__decimal = num[3].value;
+		for (var i=0 ; i<num.length ; i++) {
+			if (num[i].type === 'group') {
+				__thousands = num[i].value;
+			}
+			else if (num[i].type === 'decimal') {
+				__decimal = num[i].value;
+			}
+		}
 	}
 	catch (e) {
-		// Fallback for legacy browsers is US English
-		__thousands = ',';
-		__decimal = '.';
+		// noop
 	}
 }
 
