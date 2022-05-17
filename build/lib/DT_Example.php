@@ -993,6 +993,14 @@ DT_Example::$tables['html-thin'] = array(
 );
 
 
+DT_Example::$tables['html-locale-thin'] = array(
+	'columns' => array( 'name', 'office', 'start_date', 'salary-plain' ),
+	'header'  => true,
+	'footer'  => false,
+	'body'    => true
+);
+
+
 DT_Example::$tables['html-wide'] = array(
 	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'age', 'start_date', 'salary', 'extn', 'email' ),
 	'header'  => true,
