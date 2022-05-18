@@ -273,6 +273,10 @@ DataTable.render = {
 					return d;
 				}
 
+				if (d === '' || d === null) {
+					return d;
+				}
+
 				var negative = d < 0 ? '-' : '';
 				var flo = parseFloat( d );
 
