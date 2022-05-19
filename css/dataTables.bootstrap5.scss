@@ -163,19 +163,6 @@ table.dataTable.table-sm {
 	> thead > tr > th:not(.sorting_disabled){
 		padding-right: 20px;
 	}
-
-	.sorting,
-	.sorting_asc,
-	.sorting_desc {
-		&:before {
-			top: 5px;
-			right: 0.85em;
-		}
-
-		&:after {
-			top: 5px;
-		}
-	}
 }
 
 
