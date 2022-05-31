@@ -20,17 +20,17 @@ table.dataTable thead {
 				opacity: 0.125;
 				right: 10px;
 				line-height: 9px;
-				font-size: 0.9em;
+				font-size: 0.8em;
 			}
 
 			&:before {
 				bottom: 50%;
-				content: "\25B4"; // up arrow - ascending
+				content: "\25B2"; // up arrow - ascending
 			}
 
 			&:after {
 				top: 50%;
-				content: "\25BE"; // down arrow - descending
+				content: "\25BC"; // down arrow - descending
 			}
 		}
 
