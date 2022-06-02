@@ -70,6 +70,10 @@ table.dataTable {
 				box-shadow: inset 0 0 0 9999px $table-row-selected;
 				color: $table-row-selected-text;
 			}
+
+			&.selected a {
+				color: $table-row-selected-link;
+			}
 		}
 
 		th,
