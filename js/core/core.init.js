@@ -49,7 +49,7 @@ function _fnInitialise ( settings )
 	if ( dataSrc != 'ssp' || deferLoading ) {
 		// if there is an ajax source load the data
 		if ( dataSrc == 'ajax' ) {
-			_fnBuildAjax( settings, [], function(json) {
+			_fnBuildAjax( settings, {}, function(json) {
 				var aData = _fnAjaxDataSrc( settings, json );
 
 				// Got the data - add it to the table
