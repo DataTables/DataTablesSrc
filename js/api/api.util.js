@@ -52,8 +52,13 @@ DataTable.util = {
 	 *  @param {string} val string to escape
 	 *  @returns {string} escaped string
 	 */
-	escapeRegex: function ( val ) {
-		return val.replace( _re_escape_regex, '\\$1' );
+	 escapeRegex: function ( val ) {
+		var letters = { "İ": "[İi]", "I": "[Iı]", "Ş": "[Şş]", "Ğ": "[Ğğ]", "Ü": "[Üü]", "Ö": "[Öö]", "Ç": "[Çç]", "i": "[İi]", "ı": "[Iı]", "ş": "[Şş]", "ğ": "[Ğğ]", "ü": "[Üü]", "ö": "[Öö]", "ç": "[Çç]" };
+		var acEscape = [ '/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-' ];
+		var reReplace = new RegExp( '(\\' + acEscape.join('|\\') + ')', 'g' );
+		val = val.replace(reReplace, '\\$1');
+
+		return val.replace(/(([İIŞĞÜÇÖiışğüçö]))/g, function (letter) { return letters[letter]; });
 	},
 
 	/**
