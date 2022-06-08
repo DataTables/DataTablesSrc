@@ -20,6 +20,52 @@ function _fnSortInit( settings ) {
 			}, 0);
 		}
 	} );
+
+	// Need to resolve the user input array into our internal structure
+	var order = [];
+	_fnSortResolve( settings, order, settings.aaSorting );
+
+	settings.aaSorting = order;
+}
+
+
+function _fnSortResolve (settings, nestedSort, sort) {
+	var push = function ( a ) {
+		if ($.isPlainObject(a)) {
+			if (a.idx !== undefined) {
+				// Index based ordering
+				nestedSort.push([a.idx, a.dir]);
+			}
+			else if (a.name) {
+				// Name based ordering
+				var cols = _pluck( settings.aoColumns, 'sName');
+				var idx = cols.indexOf(a.name);
+
+				if (idx !== -1) {
+					nestedSort.push([idx, a.dir]);
+				}
+			}
+		}
+		else {
+			// Plain column index and direction pair
+			nestedSort.push(a);
+		}
+	};
+
+	if ( $.isPlainObject(sort) ) {
+		// Object
+		push(sort);
+	}
+	else if ( sort.length && typeof sort[0] === 'number' ) {
+		// 1D array
+		push(sort);
+	}
+	else if ( sort.length ) {
+		// 2D array
+		for (var z=0; z<sort.length; z++) {
+			push(sort[z]); // Object or array
+		}
+	}
 }
 
 
@@ -32,44 +78,7 @@ function _fnSortFlatten ( settings )
 		aDataSort, iCol, sType, srcCol,
 		fixed = settings.aaSortingFixed,
 		fixedObj = $.isPlainObject( fixed ),
-		nestedSort = [],
-		push = function ( a ) {
-			if ($.isPlainObject(a)) {
-				if (a.idx !== undefined) {
-					// Index based ordering
-					nestedSort.push([a.idx, a.dir]);
-				}
-				else if (a.name) {
-					// Name based ordering
-					var cols = _pluck( settings.aoColumns, 'sName');
-					var idx = cols.indexOf(a.name);
-
-					if (idx !== -1) {
-						nestedSort.push([idx, a.dir]);
-					}
-				}
-			}
-			else {
-				// Plain column index and direction pair
-				nestedSort.push(a);
-			}
-		},
-		add = function ( a ) {
-			if ( $.isPlainObject(a) ) {
-				// Object
-				push(a);
-			}
-			else if ( a.length && typeof a[0] === 'number' ) {
-				// 1D array
-				push(a);
-			}
-			else if ( a.length ) {
-				// 2D array
-				for (var z=0; z<a.length; z++) {
-					push(a[z]); // Object or array
-				}
-			}
-		};
+		nestedSort = [];
 	
 	if ( ! settings.oFeatures.bSort ) {
 		return aSort;
@@ -78,17 +87,17 @@ function _fnSortFlatten ( settings )
 	// Build the sort array, with pre-fix and post-fix options if they have been
 	// specified
 	if ( Array.isArray( fixed ) ) {
-		add( fixed );
+		_fnSortResolve( settings, nestedSort, fixed );
 	}
 
 	if ( fixedObj && fixed.pre ) {
-		add( fixed.pre );
+		_fnSortResolve( settings, nestedSort, fixed.pre );
 	}
 
-	add( settings.aaSorting );
+	_fnSortResolve( settings, nestedSort, settings.aaSorting );
 
 	if (fixedObj && fixed.post ) {
-		add( fixed.post );
+		_fnSortResolve( settings, nestedSort, fixed.post );
 	}
 
 	for ( i=0 ; i<nestedSort.length ; i++ )
