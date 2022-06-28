@@ -59,4 +59,6 @@
 	"use strict";
 
 	_buildInclude('core.main.js');
+
+	return DataTable;
 }));

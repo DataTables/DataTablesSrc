@@ -2,15 +2,17 @@
  * ©2008-2022 SpryMedia Ltd - datatables.net/license
  */
 
-// ESM export of DataTables
-export default function ($, root) {
-	if (! root) {
-		root = window;
-	}
+import $ from 'jquery';
 
-	if (! $) {
-		$ = window.jQuery;
-	}
+_buildInclude('core.main.js');
 
-	_buildInclude('core.main.js');
+DataTable.use = function (module, type) {
+	if (type === 'lib' || module.fn) {
+		$ = module;
+	}
+	else if (type == 'win' || module.document) {
+		window = module;
+	}
 }
+
+export default DataTable;
