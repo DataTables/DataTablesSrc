@@ -22,6 +22,8 @@ function main(args) {
 	let file = '';
 	let script  = '';
 	let deps = [];
+	let modType = '';
+	let extn = '';
 	
 	try {
 		script = fs.readFileSync(args[2], 'utf8');
@@ -39,17 +41,23 @@ function main(args) {
 
 	if (args[3] === 'es') {
 		file = es(scriptParts, deps, exp);
+		modType = 'ES module';
+		extn = '.mjs';
 	}
 	else if (args[3] === 'umd') {
 		file = umd(scriptParts, deps, exp);
+		modType = 'UMD';
+		extn = '.js';
 	}
 	else {
 		console.error('Output module must be `es` or `umd`');
+		return;
 	}
 
 	// arg4 write to file
-	console.log(file);
-	// fs.writeFileSync(arg[4], file);
+	// console.log(file);
+	fs.writeFileSync(args[4] + extn, file);
+	console.log('Written ' + modType + ' loader to file ' + args[4] + extn);
 }
 
 
@@ -77,7 +85,76 @@ export default ${exp};
 }
 
 function umd(script, deps, exp) {
-	
+	let amd = deps.map(l => `'${l}'`).join(', ');
+	let commonjs = [];
+	let defineDataTable = '';
+
+	commonjs.push(`			if ( ! root ) {
+				// CommonJS environments without a window global must pass a
+				// root. This will give an error otherwise
+				root = window;
+			}
+`);
+
+	for (let dep of deps) {
+		if (dep === 'jquery') {
+			commonjs.push(`
+			if ( ! $ ) {
+				$ = typeof window !== 'undefined' ? // jQuery's factory checks for a global window
+					require('jquery') :
+					require('jquery')( root );
+			}
+`);
+		}
+		else if (nameFromDependency(dep) === 'DataTable') {
+			commonjs.push(`
+			if ( ! $.fn.dataTable ) {
+				require('${dep}')(root, $);
+			}
+`);
+		}
+		else {
+			let name = nameFromDependency(dep);
+
+			defineDataTable = '\nvar DataTable = $.fn.dataTable;';
+			commonjs.push(`
+			if ( ! $.fn.dataTable.${name} ) {
+				require('${dep}')(root, $);
+			}
+`);
+		}
+	}
+
+	return `
+${script.header}
+
+(function( factory ){
+	if ( typeof define === 'function' && define.amd ) {
+		// AMD
+		define( [${amd}], function ( $ ) {
+			return factory( $, window, document );
+		} );
+	}
+	else if ( typeof exports === 'object' ) {
+		// CommonJS
+		module.exports = function (root, $) {
+${commonjs.join('')}
+
+			return factory( $, root, root.document );
+		};
+	}
+	else {
+		// Browser
+		factory( jQuery, window, document );
+	}
+}(function( $, window, document, undefined ) {
+'use strict';${defineDataTable}
+
+${script.main}
+
+return ${exp};
+}));
+`;
 }
 
 
