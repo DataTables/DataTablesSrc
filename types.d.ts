@@ -140,6 +140,16 @@ declare namespace DataTables {
         //#endregion "Row/Rows"
 
         /**
+         * Selects rows.
+         */
+        select(): void;
+
+        /**
+         * Deselects rows.
+         */
+        deselect(): void;
+
+        /**
          * Plug-in to sum the values in a data set.
          * 
          * @returns number representing the sum of the data set.
@@ -188,6 +198,11 @@ declare namespace DataTables {
          * The searchPlaceholder modifier provides the ability to provide informational text for an input control when it has no value.
          */
         searchPlaceholder?: string;
+
+        /**
+         * The selected modifier provides the ability to control if the selector should consider the selected data.
+         */
+        selected?: boolean;
 
         /**
          * The page modifier allows you to control if the selector should consider all data in the table, regardless of paging, or if only the rows in the currently disabled page should be used.
@@ -877,6 +892,16 @@ declare namespace DataTables {
          * @returns The TD / TH cell the selector resolved to
          */
         node(): Node;
+
+        /**
+         * Selects cells.
+         */
+         select(): void;
+
+         /**
+          * Deselects cells.
+          */
+         deselect(): void;
     }
 
     interface CellIndexReturn {
@@ -909,6 +934,16 @@ declare namespace DataTables {
          * Get the DOM elements for the selected cells
          */
         nodes(): Api<any>;
+
+        /**
+         * Selects rows.
+         */
+        select(): void;
+
+        /**
+         * Deselects rows.
+         */
+        deselect(): void;
     }
     //#endregion "cell-methods"
 
@@ -1289,6 +1324,16 @@ declare namespace DataTables {
          * @returns DataTables API instance with removed row reference in the result set
          */
         remove(): Api<Node>;
+
+        /**
+         * Selects rows.
+         */
+        select(): void;
+
+        /**
+         * Deselects rows.
+         */
+        deselect(): void;
     }
 
     interface RowsMethodsModel {
@@ -1298,7 +1343,7 @@ declare namespace DataTables {
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          * @returns DataTables API instance with selected rows
          */
-        (modifier?: ObjectSelectorModifier): RowsMethods | Api<any>;
+        (modifier?: ObjectSelectorModifier | JQuery): RowsMethods | Api<any>;
 
         /**
          * Select rows found by a row selector
@@ -1363,8 +1408,52 @@ declare namespace DataTables {
          * @returns DataTables API instance with references for the removed rows in the result set
          */
         remove(): Api<Array<any>>;
+
+        /**
+         * Selects rows.
+         */
+        select(): void;
+
+        /**
+         * Deselects rows.
+         */
+        deselect(): void;
     }
     //#endregion "row-methods"
+
+    //#region "select-settings"
+    interface SelectSettings {
+        /*
+         * Indicate if the selected items will be removed when clicking outside of the table
+         */
+        blurable?: boolean;
+
+        /*
+         * Set the class name that will be applied to selected items
+         */
+        className?: string;
+
+        /*
+         * Enable / disable the display for item selection information in the table summary
+         */
+        info?: boolean;
+
+        /*
+         * Set which table items to select (rows, columns or cells)
+         */
+        items?: string;
+
+        /*
+         * Set the element selector used for mouse event capture to select items
+         */
+        selector?: string;
+
+        /*
+         * Set the selection style for end user interaction with the table
+         */
+        style?: "api" | "single" | "multi" | "os" | "multi+shift";
+    }
+    //#endregion "select-settings"
 
     //#region "table-methods"
 
@@ -1592,6 +1681,19 @@ declare namespace DataTables {
          * Feature control DataTables' smart column width handling. Since: 1.10
          */
         autoWidth?: boolean;
+
+        buttons?: [
+            {
+                extend: string;
+                className: string;
+                text: string;
+                columns: string;
+            }
+        ];
+
+        rowReorder?: any;
+
+        select?: DataTables.SelectSettings;
 
         /**
          * Feature control deferred rendering for additional speed of initialisation. Since: 1.10
