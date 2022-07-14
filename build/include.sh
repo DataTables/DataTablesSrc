@@ -105,6 +105,14 @@ function js_frameworks {
 	done
 }
 
+function js_wrapper {
+	FILE_BASE=$1
+	shift 1
+	DEPENDENCIES="$@"
+
+	node $DT_DIR/build/wrapper.js $FILE_BASE.js es /tmp/test $DEPENDENCIES
+}
+
 # Will compress a JS file using Closure compiler, saving the new file into the
 # same directory as the uncompressed file, but with `.min.js` as the extension.
 #
