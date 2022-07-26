@@ -45,7 +45,7 @@ function __mldObj (d, format, locale) {
 		}
 	}
 	else if (window.luxon) {
-		dt = format && typeof format === 'string'
+		dt = format && typeof d === 'string'
 			? window.luxon.DateTime.fromFormat( d, format )
 			: window.luxon.DateTime.fromISO( d );
 
