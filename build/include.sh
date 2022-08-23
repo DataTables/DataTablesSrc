@@ -51,8 +51,8 @@ function echo_error {
 function css_compress {
 	# Only compresses CSS at the moment
 	if [ -z "$DEBUG" ]; then
-		FILE=$(basename $1 .css)
-		DIR=$(dirname $1)
+		local FILE=$(basename $1 .css)
+		local DIR=$(dirname $1)
 
 		echo_msg "CSS compressing $FILE.css"
 		sass --no-charset --stop-on-error --style compressed $DIR/$FILE.css > $DIR/$FILE.min.css
@@ -65,8 +65,8 @@ function css_compress {
 #
 # $1 - string - Full path to the file to compile
 function scss_compile {
-	FILE=$(basename $1 .scss)
-	DIR=$(dirname $1)
+	local FILE=$(basename $1 .scss)
+	local DIR=$(dirname $1)
 
 	echo_msg "SCSS compiling $FILE.scss"
 	sass --no-charset --stop-on-error --style expanded $DIR/$FILE.scss > $DIR/$FILE.css
@@ -79,8 +79,8 @@ function scss_compile {
 # $1 - string - Extension name (camelCase)
 # $2 - string Build directory where the CSS files should be created
 function css_frameworks {
-	EXTN=$1
-	DIR=$2
+	local EXTN=$1
+	local DIR=$2
 
 	for FRAMEWORK in ${FRAMEWORKS[*]}; do
 		if [ -e $DIR/$1.$FRAMEWORK.scss ]; then
@@ -94,38 +94,63 @@ function css_frameworks {
 #
 # $1 string - Extension name (camelCase)
 # $2 string - Build directory where the JS min files should be created
+# $3 string - Require libs `FW` will be replaced with the framework code
 function js_frameworks {
-	EXTN=$1
-	DIR=$2
+	local EXTN=$1
+	local DIR=$2
+	local REQUIRE=$3
 
 	for FRAMEWORK in ${FRAMEWORKS[*]}; do
 		if [ -e $DIR/$1.$FRAMEWORK.js ]; then
-			js_compress $DIR/$EXTN.$FRAMEWORK.js
+			js_compress $DIR/$EXTN.$FRAMEWORK.js "$REQUIRE"
 		fi
 	done
 }
 
-function js_wrapper {
-	FILE_BASE=$1
-	shift 1
-	DEPENDENCIES="$@"
+# Wrap a source file for ES and UMD loaders
+#
+# $1 - string - Full path to the file to compress
+# $2 - string - Require libs
+function js_wrappers {
+	local FULL=$1
+	local REQUIRE=$2
 
-	node $DT_DIR/build/wrapper.js $FILE_BASE.js es /tmp/test $DEPENDENCIES
+	local EXTN="${FULL##*.}"
+	local FILE=$(basename $1 ".${EXTN}")
+	local DIR=$(dirname $1)
+
+	node $DT_DIR/build/wrapper.js $FULL es /tmp/$FILE "$REQUIRE"
+	node $DT_DIR/build/wrapper.js $FULL umd /tmp/$FILE "$REQUIRE"
 }
 
 # Will compress a JS file using Closure compiler, saving the new file into the
 # same directory as the uncompressed file, but with `.min.js` as the extension.
 #
 # $1 - string - Full path to the file to compress
-# $2 - string - Enable ('on' - default) errors or disable ('off')
+# $2 - string - Require libs
+# $3 - string - Enable ('on' - default) errors or disable ('off')
 function js_compress {
-	LOG=$2
+	local FILE=$1
+	local REQUIRE=$2
+	local LOG=$3
+
+	# This is always run for all of our JS files. So we can wrap them in
+	# a UMD or ES Module here
+	js_wrappers $FILE "$REQUIRE" 
+
+	# js_compress_run umd
+	# js_compress_run es
+}
+
+
+function js_compress_run {
+	local LOG=$2
 
 	if [ -z "$DEBUG" ]; then
-		FULL=$1
-		COMP_EXTN="${FULL##*.}"
-		FILE=$(basename $1 ".${COMP_EXTN}")
-		DIR=$(dirname $1)
+		local FULL=$1
+		local COMP_EXTN="${FULL##*.}"
+		local FILE=$(basename $1 ".${COMP_EXTN}")
+		local DIR=$(dirname $1)
 
 		echo_msg "JS compressing $FILE.${COMP_EXTN}"
 
@@ -156,10 +181,10 @@ function js_compress {
 # $1 - string - Full path to input file
 # $2 - string - Full path to use for the output file
 function js_require {
-	IN_FILE=$(basename $1)
-	DIR=$(dirname $1)
-	OUT=$2
-	CURR_DIR=$(pwd)
+	local IN_FILE=$(basename $1)
+	local DIR=$(dirname $1)
+	local OUT=$2
+	local CURR_DIR=$(pwd)
 
 	cd $DIR
 

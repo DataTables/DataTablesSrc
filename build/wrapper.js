@@ -24,6 +24,7 @@ function main(args) {
 	let deps = [];
 	let modType = '';
 	let extn = '';
+	let framework = frameworkFromPath(args[2]);
 	
 	try {
 		script = fs.readFileSync(args[2], 'utf8');
@@ -33,7 +34,18 @@ function main(args) {
 	}
 
 	for (let i=5 ; i<args.length ; i++) {
-		deps.push(args[i]);
+		if (args[i].includes(' ')) {
+			deps.push.apply(deps, args[i].split(' '));
+		}
+		else {
+			deps.push(args[i]);
+		}
+	}
+
+	for (let i=0 ; i<deps.length ; i++) {
+		if (deps[i].includes('FW')) {
+			deps[i] = deps[i].replace('FW', framework);
+		}
 	}
 
 	let exp = exportFromPath(args[2]);
@@ -181,6 +193,33 @@ function exportFromPath(path) {
 	}
 	else {
 		return 'DataTable';
+	}
+}
+
+function frameworkFromPath(path) {
+	if (path.includes('bootstrap5')) {
+		return 'bs5';
+	}
+	else if (path.includes('bootstrap4')) {
+		return 'bs4';
+	}
+	else if (path.includes('bootstrap')) {
+		return 'bs';
+	}
+	else if (path.includes('bulma')) {
+		return 'bm';
+	}
+	else if (path.includes('foundation')) {
+		return 'zf';
+	}
+	else if (path.includes('jqueryui')) {
+		return 'ju';
+	}
+	else if (path.includes('semanticui')) {
+		return 'se';
+	}
+	else {
+		return 'dt';
 	}
 }
 
