@@ -10,34 +10,6 @@
  * controls using Foundation. See http://datatables.net/manual/styling/foundation
  * for further information.
  */
-(function( factory ){
-	if ( typeof define === 'function' && define.amd ) {
-		// AMD
-		define( ['jquery', 'datatables.net'], function ( $ ) {
-			return factory( $, window, document );
-		} );
-	}
-	else if ( typeof exports === 'object' ) {
-		// CommonJS
-		module.exports = function (root, $) {
-			if ( ! root ) {
-				root = window;
-			}
-
-			if ( ! $ || ! $.fn.dataTable ) {
-				$ = require('datatables.net')(root, $).$;
-			}
-
-			return factory( $, root, root.document );
-		};
-	}
-	else {
-		// Browser
-		factory( jQuery, window, document );
-	}
-}(function( $, window, document, undefined ) {
-'use strict';
-var DataTable = $.fn.dataTable;
 
 // Detect Foundation 5 / 6 as they have different element and class requirements
 var meta = $('<meta class="foundation-mq"/>').appendTo('head');
@@ -168,7 +140,3 @@ DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, b
 		buttons
 	);
 };
-
-
-return DataTable;
-}));

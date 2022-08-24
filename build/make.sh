@@ -70,17 +70,12 @@ function build_js {
 		else
 			echo_error "JSHint failed"
 		fi
-	else
-		echo_error "JSHint not installed at $JSHINT - skipping"
 	fi
 
 	js_compress $OUT_FILE
 
 	cp jquery.js $OUT_DIR
 	cp integration/* $OUT_DIR
-
-	# Compress the integration files
-	js_frameworks dataTables $OUT_DIR
 
 	IFS=$OLD_IFS
 }
@@ -171,8 +166,13 @@ function build_repo {
 	echo_section "Deploying to build repo"
 	update_build_repo
 
+	# Build DataTables with two different loader types
 	build_js umd.js jquery.dataTables js
 	build_js esm.js jquery.dataTables mjs
+
+	echo_section "Styling frameworks JS"
+
+	js_frameworks dataTables $OUT_DIR
 	build_css
 	build_types
 	build_images

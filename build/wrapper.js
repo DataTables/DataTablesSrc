@@ -69,7 +69,7 @@ function main(args) {
 	// arg4 write to file
 	// console.log(file);
 	fs.writeFileSync(args[4] + extn, file);
-	console.log('Written ' + modType + ' loader to file ' + args[4] + extn);
+	// console.log('Written ' + modType + ' loader to file ' + args[4] + extn);
 }
 
 
@@ -188,10 +188,11 @@ function exportFromPath(path) {
 	let parts = path.split('/');
 	let name = parts[parts.length - 1].toLowerCase();
 
-	if (name.includes('autofill')) {
-		return 'AutoFill';
+	if (name.includes('datetime')) {
+		return 'DateTime';
 	}
 	else {
+		// Extensions all return DataTable
 		return 'DataTable';
 	}
 }

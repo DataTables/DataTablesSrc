@@ -102,48 +102,49 @@ function js_frameworks {
 
 	for FRAMEWORK in ${FRAMEWORKS[*]}; do
 		if [ -e $DIR/$1.$FRAMEWORK.js ]; then
-			js_compress $DIR/$EXTN.$FRAMEWORK.js "$REQUIRE"
+			js_wrap $DIR/$EXTN.$FRAMEWORK.js "$REQUIRE"
 		fi
 	done
 }
 
 # Wrap a source file for ES and UMD loaders
+# Note that this is not used by DataTables core itself
+# (although the styling frameworks do).
 #
-# $1 - string - Full path to the file to compress
+# $1 - string - Full path to the file to wrap
 # $2 - string - Require libs
-function js_wrappers {
+function js_wrap {
 	local FULL=$1
 	local REQUIRE=$2
 
 	local EXTN="${FULL##*.}"
 	local FILE=$(basename $1 ".${EXTN}")
 	local DIR=$(dirname $1)
+	local WRAPPER="${SCRIPT_DIR}/wrapper.js"
 
-	node $DT_DIR/build/wrapper.js $FULL es /tmp/$FILE "$REQUIRE"
-	node $DT_DIR/build/wrapper.js $FULL umd /tmp/$FILE "$REQUIRE"
+	if [ ! -z "$DT_DIR" ]; then
+		WRAPPER="$DT_DIR/build/wrapper.js"
+	fi
+
+	echo_msg "JS processing $FILE"
+
+	echo_msg "  Creating ES module"
+	node $WRAPPER $FULL es $DIR/$FILE "$REQUIRE"
+	js_compress "$DIR/$FILE.mjs"
+
+	echo_msg "  Creating UMD"
+	node $WRAPPER $FULL umd $DIR/$FILE "$REQUIRE"
+	js_compress "$DIR/$FILE.js"
 }
 
-# Will compress a JS file using Closure compiler, saving the new file into the
-# same directory as the uncompressed file, but with `.min.js` as the extension.
+
+# Will compress a JS file, saving the new file into the
+# same directory as the uncompressed file, but with `.min.`
+# added into the file's extension
 #
 # $1 - string - Full path to the file to compress
 # $2 - string - Require libs
-# $3 - string - Enable ('on' - default) errors or disable ('off')
 function js_compress {
-	local FILE=$1
-	local REQUIRE=$2
-	local LOG=$3
-
-	# This is always run for all of our JS files. So we can wrap them in
-	# a UMD or ES Module here
-	js_wrappers $FILE "$REQUIRE" 
-
-	# js_compress_run umd
-	# js_compress_run es
-}
-
-
-function js_compress_run {
 	local LOG=$2
 
 	if [ -z "$DEBUG" ]; then
@@ -152,21 +153,20 @@ function js_compress_run {
 		local FILE=$(basename $1 ".${COMP_EXTN}")
 		local DIR=$(dirname $1)
 
-		echo_msg "JS compressing $FILE.${COMP_EXTN}"
+		if ! command -v uglifyjs &> /dev/null
+		then
+			echo_error "Uglifyjs not installed - attempting install"
+			npm install -g uglify-js
+		fi
+
+		echo_msg "  Minification - $COMP_EXTN"
 
 		# Closure Compiler doesn't support "important" comments so we add a
 		# @license jsdoc comment to the license block to preserve it
 		cp $DIR/$FILE.$COMP_EXTN /tmp/$FILE.$COMP_EXTN
 		perl -i -0pe "s/^\/\*! (.*)$/\/** \@license \$1/s" /tmp/$FILE.$COMP_EXTN
 
-		rm /tmp/closure_error.log
-		java -jar $CLOSURE --charset 'utf-8' --language_out=ES5 --js /tmp/$FILE.$COMP_EXTN > /tmp/$FILE.min.$COMP_EXTN 2> /tmp/closure_error.log
-
-		if [ -e /tmp/closure_error.log ]; then
-			if [ -z "$LOG" -o "$LOG" = "on" ]; then
-				cat /tmp/closure_error.log
-			fi
-		fi
+		uglifyjs /tmp/$FILE.$COMP_EXTN -c -m -o /tmp/$FILE.min.$COMP_EXTN 
 
 		# And add the important comment back in
 		perl -i -0pe "s/^\/\*/\/*!/s" /tmp/$FILE.min.$COMP_EXTN
@@ -174,7 +174,7 @@ function js_compress_run {
 		mv /tmp/$FILE.min.$COMP_EXTN $DIR/$FILE.min.$COMP_EXTN
 		rm /tmp/$FILE.$COMP_EXTN
 
-		echo_msg "  File size: $(ls -l $DIR/$FILE.min.$COMP_EXTN | awk -F" " '{ print $5 }')"
+		echo_msg "    File size: $(ls -l $DIR/$FILE.min.$COMP_EXTN | awk -F" " '{ print $5 }')"
 	fi
 }
 
