@@ -1,8 +1,12 @@
 
 $(document).on('plugin-init.dt', function (e, context) {
 	var api = new _Api( context );
+	
+	const namespace = 'on-plugin-init';
+	const stateSaveParamsEvent = `stateSaveParams.${namespace}`;
+	const destroyEvent = `destroy.${namespace}`;
 
-	api.on( 'stateSaveParams', function ( e, settings, d ) {
+	api.on( stateSaveParamsEvent, function ( e, settings, d ) {
 		// This could be more compact with the API, but it is a lot faster as a simple
 		// internal loop
 		var idFn = settings.rowIdFn;
@@ -16,7 +20,11 @@ $(document).on('plugin-init.dt', function (e, context) {
 		}
 
 		d.childRows = ids;
-	})
+	});
+
+	api.on( destroyEvent, function () {
+		api.off(`${stateSaveParamsEvent} ${destroyEvent}`);
+	});
 
 	var loaded = api.state.loaded();
 
