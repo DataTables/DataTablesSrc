@@ -202,8 +202,11 @@ function exportFromPath(path) {
 	if (name.includes('datetime')) {
 		return 'DateTime';
 	}
+	else if (name.includes('editor')) {
+		return 'Editor';
+	}
 	else {
-		// Extensions all return DataTable
+		// Other extensions return DataTable
 		return 'DataTable';
 	}
 }
