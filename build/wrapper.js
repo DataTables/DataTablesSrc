@@ -50,14 +50,15 @@ function main(args) {
 
 	let exp = exportFromPath(args[2]);
 	let scriptParts = breakScript(script);
+	let filename = fileFromPath(args[2]);
 
 	if (args[3] === 'es') {
-		file = es(scriptParts, deps, exp);
+		file = es(scriptParts, deps, exp, filename);
 		modType = 'ES module';
 		extn = '.mjs';
 	}
 	else if (args[3] === 'umd') {
-		file = umd(scriptParts, deps, exp);
+		file = umd(scriptParts, deps, exp, filename);
 		modType = 'UMD';
 		extn = '.js';
 	}
@@ -73,7 +74,7 @@ function main(args) {
 }
 
 
-function es(script, deps, exp) {
+function es(script, deps, exp, filename) {
 	let imports = [];
 
 	for (let dep of deps) {
@@ -96,7 +97,7 @@ export default ${exp};
 `
 }
 
-function umd(script, deps, exp) {
+function umd(script, deps, exp, filename) {
 	let amd = deps.map(l => `'${l}'`).join(', ');
 	let commonjs = [];
 	let defineDataTable = '';
@@ -137,6 +138,16 @@ function umd(script, deps, exp) {
 		}
 	}
 
+	let cjsSig = '';
+	let cjsParams = '';
+
+	// HTML5 export has a special signature for the CommonJS module to
+	// allow jszip and pdfmake to be passed in
+	if (filename === 'buttons.html5.js') {
+		cjsSig = ', jszip, pdfmake';
+		cjsParams = ', jszip, pdfmake';
+	}
+
 	return `
 ${script.header}
 
@@ -149,17 +160,17 @@ ${script.header}
 	}
 	else if ( typeof exports === 'object' ) {
 		// CommonJS
-		module.exports = function (root, $) {
+		module.exports = function (root, $${cjsSig}) {
 ${commonjs.join('')}
 
-			return factory( $, root, root.document );
+			return factory( $, root, root.document${cjsParams} );
 		};
 	}
 	else {
 		// Browser
 		factory( jQuery, window, document );
 	}
-}(function( $, window, document, undefined ) {
+}(function( $, window, document${cjsParams}, undefined ) {
 'use strict';${defineDataTable}
 
 ${script.main}
@@ -195,6 +206,13 @@ function exportFromPath(path) {
 		// Extensions all return DataTable
 		return 'DataTable';
 	}
+}
+
+function fileFromPath(path) {
+	let parts = path.split('/');
+	let name = parts[parts.length - 1].toLowerCase();
+
+	return name;
 }
 
 function frameworkFromPath(path) {
