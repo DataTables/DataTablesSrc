@@ -120,6 +120,7 @@ function umd(script, deps, exp, filename) {
 `);
 		}
 		else if (nameFromDependency(dep) === 'DataTable') {
+			defineDataTable = '\nvar DataTable = $.fn.dataTable;';
 			commonjs.push(`
 			if ( ! $.fn.dataTable ) {
 				require('${dep}')(root, $);
