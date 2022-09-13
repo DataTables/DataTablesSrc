@@ -124,6 +124,7 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 		}
 	};
 
+	var hostEl = $(host);
 	// IE9 throws an 'unknown error' if document.activeElement is used
 	// inside an iframe or frame. 
 	var activeEl;
@@ -133,17 +134,20 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 		// elements, focus is lost on the select button which is bad for
 		// accessibility. So we want to restore focus once the draw has
 		// completed
-		activeEl = $(host).find(document.activeElement).data('dt-idx');
+		activeEl = hostEl.find(document.activeElement).data('dt-idx');
 	}
 	catch (e) {}
 
+	var paginationEl = hostEl.children('ul.pagination');
+	// Keeps current attributes added by events
+	var paginationAttr = paginationEl.length > 0 ? paginationEl.attr() : {'class': 'pagination'};
 	attach(
-		$(host).empty().html('<ul class="pagination"/>').children('ul'),
+		hostEl.html('<ul/>').children('ul').attr(paginationAttr),
 		buttons
 	);
 
 	if ( activeEl !== undefined ) {
-		$(host).find( '[data-dt-idx='+activeEl+']' ).trigger('focus');
+		hostEl.find('[data-dt-idx='+activeEl+']').trigger('focus');
 	}
 };
 
