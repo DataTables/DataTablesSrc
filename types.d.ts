@@ -24,27 +24,47 @@ interface JQueryDataTables extends JQuery {
 }
 
 declare global {
-    interface jQueryDataTable extends DataTables.StaticFunctions {
-        (opts?: DataTables.Settings): JQueryDataTables;
-    }
-
     interface JQuery {
+        /**
+         * Create a new DataTable, returning a DataTables API instance.
+         * @param opts Configuration settings
+         */
         DataTable<T = any>(opts?: DataTables.Settings): DataTables.Api<T>;
-        dataTable: jQueryDataTable;
+
+        /**
+         * Create a new DataTable, returning a jQuery object, extended
+         * with an `api()` method which can be used to access the
+         * DataTables API.
+         * @param opts Configuration settings
+         */
+        dataTable(opts?: DataTables.Settings): JQueryDataTables;
     }
 }
 
 /**
- * DataTables API class object (recursive)
+ * DataTables class
  */
 declare interface Api<T> extends DataTables.StaticFunctions {
-    new <T=any>(opts?: DataTables.Settings): DataTables.Api<T>
+    /**
+     * Create a new DataTable
+     * @param selector Selector to pick one or more `<table>` elements
+     * @param opts Configuration settings
+     */
+    new <T=any>(
+        selector: DataTables.InstSelector,
+        opts?: DataTables.Settings
+    ): DataTables.Api<T>
 }
 
 declare const Api: Api<any>;
 export default Api;
 
 declare namespace DataTables {
+    type InstSelector =
+        string |
+        Node |
+        JQuery;
+
     type RowIdx = number;
     type RowSelector<T> =
         RowIdx |
