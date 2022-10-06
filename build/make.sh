@@ -172,7 +172,7 @@ function build_repo {
 
 	echo_section "Styling frameworks JS"
 
-	js_frameworks dataTables $OUT_DIR
+	js_frameworks dataTables $OUT_DIR "jquery datatables.net"
 	build_css
 	build_types
 	build_images
