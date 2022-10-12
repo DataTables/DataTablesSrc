@@ -39,6 +39,11 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			create = nTrIn ? false : true;
 
 			nTd = create ? document.createElement( oCol.sCellType ) : anTds[i];
+
+			if (! nTd) {
+				_fnLog( oSettings, 0, 'Incorrect column count', 18 );
+			}
+
 			nTd._DT_CellIndex = {
 				row: iRow,
 				column: i
