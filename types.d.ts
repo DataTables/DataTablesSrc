@@ -603,50 +603,14 @@ export interface Api<T> {
     any(): boolean;
 
     /**
-     * Select the cell found by a cell selector
-     *
-     * @param cellSelector Cell selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering
-     * @returns DataTables API instance with selected cell
+     * Cell (single) selector and methods
      */
-    cell(cellSelector: CellSelector, modifier?: ApiSelectorModifier): ApiCellMethods<T>;
+    cell: ApiCell<T>;
 
     /**
-     * Select the cell found by a cell selector
-     *
-     * @param rowSelector Row selector.
-     * @param columnSelector Column selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering
-     * @returns DataTables API instance with selected cell
+     * Cells (multiple) selector and methods
      */
-    cell(rowSelector: CellSelector, columnSelector: any, modifier?: ApiSelectorModifier): ApiCellMethods<T>;
-
-    /**
-     * Select all cells
-     *
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering
-     * @returns DataTables API instance with selected cells
-     */
-    cells(modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
-
-    /**
-     * Select cells found by a cell selector
-     *
-     * @param cellSelector Cell selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering
-     * @returns DataTables API instance with selected cells
-     */
-    cells(cellSelector: CellSelector, modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
-
-    /**
-     * Select cells found by both row and column selectors
-     *
-     * @param rowSelector Row selector.
-     * @param columnSelector Column selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering
-     * @returns DataTables API instance with selected cells
-     */
-    cells(rowSelector: RowSelector<T>, columnSelector: CellSelector, modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
+    cells: ApiCells<T>;
 
     /**
      * Clear the table of all data.
@@ -759,7 +723,7 @@ export interface Api<T> {
      * 
      * @returns Configuration object
      */
-    init(): ConfigColumnDefs;
+    init(): Config;
 
     /**
      * Iterate over a result set of table, row, column or cell indexes
@@ -1319,6 +1283,27 @@ export interface ApiState<T> {
 
 
 
+export interface ApiCell<T> {
+    /**
+     * Select the cell found by a cell selector
+     *
+     * @param cellSelector Cell selector.
+     * @param Option used to specify how the cells should be ordered, and if paging or filtering
+     * @returns DataTables API instance with selected cell
+     */
+    (cellSelector: CellSelector, modifier?: ApiSelectorModifier): ApiCellMethods<T>;
+
+    /**
+     * Select the cell found by a cell selector
+     *
+     * @param rowSelector Row selector.
+     * @param columnSelector Column selector.
+     * @param Option used to specify how the cells should be ordered, and if paging or filtering
+     * @returns DataTables API instance with selected cell
+     */
+    (rowSelector: CellSelector, columnSelector: any, modifier?: ApiSelectorModifier): ApiCellMethods<T>;
+}
+
 export interface ApiCellMethods<T> extends Omit<Api<T>, 'render'> {
     /**
      * Get the DataTables cached data for the selected cell
@@ -1372,6 +1357,35 @@ export interface ApiCellMethods<T> extends Omit<Api<T>, 'render'> {
      * @returns Rendered data for the requested type
      */
     render(type: string): any;
+}
+
+export interface ApiCells<T> {
+    /**
+     * Select all cells
+     *
+     * @param Option used to specify how the cells should be ordered, and if paging or filtering
+     * @returns DataTables API instance with selected cells
+     */
+    (modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
+
+    /**
+     * Select cells found by a cell selector
+     *
+     * @param cellSelector Cell selector.
+     * @param Option used to specify how the cells should be ordered, and if paging or filtering
+     * @returns DataTables API instance with selected cells
+     */
+    (cellSelector: CellSelector, modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
+ 
+    /**
+     * Select cells found by both row and column selectors
+     *
+     * @param rowSelector Row selector.
+     * @param columnSelector Column selector.
+     * @param Option used to specify how the cells should be ordered, and if paging or filtering
+     * @returns DataTables API instance with selected cells
+     */
+    (rowSelector: RowSelector<T>, columnSelector: CellSelector, modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
 }
 
 export interface ApiCellsMethods<T> extends Omit<Api<T>, 'data' | 'render'> {
