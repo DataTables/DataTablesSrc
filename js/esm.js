@@ -2,7 +2,11 @@
  * ©2008-2022 SpryMedia Ltd - datatables.net/license
  */
 
-import $ from 'jquery';
+import jQuery from 'jquery';
+
+// DataTables code uses $ internally, but we want to be able to
+// reassign $ with the `use` method below, so it is a regular var.
+let $ = jQuery;
 
 _buildInclude('core.main.js');
 
