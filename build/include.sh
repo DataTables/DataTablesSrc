@@ -166,7 +166,7 @@ function js_compress {
 		cp $DIR/$FILE.$COMP_EXTN /tmp/$FILE.$COMP_EXTN
 		perl -i -0pe "s/^\/\*! (.*)$/\/** \@license \$1/s" /tmp/$FILE.$COMP_EXTN
 
-		uglifyjs /tmp/$FILE.$COMP_EXTN -c -m -o /tmp/$FILE.min.$COMP_EXTN 
+		uglifyjs /tmp/$FILE.$COMP_EXTN -c -m --comments /^!/ -o /tmp/$FILE.min.$COMP_EXTN 
 
 		# And add the important comment back in
 		perl -i -0pe "s/^\/\*/\/*!/s" /tmp/$FILE.min.$COMP_EXTN
