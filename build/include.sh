@@ -161,15 +161,9 @@ function js_compress {
 
 		echo_msg "  Minification - $COMP_EXTN"
 
-		# Closure Compiler doesn't support "important" comments so we add a
-		# @license jsdoc comment to the license block to preserve it
 		cp $DIR/$FILE.$COMP_EXTN /tmp/$FILE.$COMP_EXTN
-		perl -i -0pe "s/^\/\*! (.*)$/\/** \@license \$1/s" /tmp/$FILE.$COMP_EXTN
 
 		uglifyjs /tmp/$FILE.$COMP_EXTN -c -m --comments /^!/ -o /tmp/$FILE.min.$COMP_EXTN 
-
-		# And add the important comment back in
-		perl -i -0pe "s/^\/\*/\/*!/s" /tmp/$FILE.min.$COMP_EXTN
 
 		mv /tmp/$FILE.min.$COMP_EXTN $DIR/$FILE.min.$COMP_EXTN
 		rm /tmp/$FILE.$COMP_EXTN
