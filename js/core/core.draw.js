@@ -194,10 +194,16 @@ function _fnBuildHead( oSettings )
 
 		for ( i=0, ien=cells.length ; i<ien ; i++ ) {
 			column = columns[i];
-			column.nTf = cells[i].cell;
 
-			if ( column.sClass ) {
-				$(column.nTf).addClass( column.sClass );
+			if (column) {
+				column.nTf = cells[i].cell;
+	
+				if ( column.sClass ) {
+					$(column.nTf).addClass( column.sClass );
+				}
+			}
+			else {
+				_fnLog( oSettings, 0, 'Incorrect column count', 18 );
 			}
 		}
 	}
