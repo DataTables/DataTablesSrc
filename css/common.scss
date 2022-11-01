@@ -40,7 +40,7 @@ $table-row-selected-text: white !default;
 $table-row-selected-link: #090a0b !default;
 
 // Text colour of the interaction control elements (info, filter, paging etc)
-$table-control-color: #333 !default;
+$table-control-color: inherit !default;
 
 // Highlight colour of the paging button for the current page
 $table-paging-button-active: rgba(0, 0, 0, 0.1) !default;
