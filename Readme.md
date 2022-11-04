@@ -33,8 +33,8 @@ A number of programs are required out your computer to be able to build DataTabl
 
 * Bash
 * PHP 5.4+
+* Node.js 12+
 * [Sass](http://sass-lang.com/install) - CSS compiler
-* [Closure compiler](https://github.com/google/closure-compiler) - Javascript compressor
 * [JSHint 2.1+](http://jshint.com/install/) - Linter (optional)
 
 The build script assumes that a Mac or Linux environment is being used - Windows builds are not currently directly supported (although would be possible using [Cygwin](https://www.cygwin.com/)). Additionally, you may need to alter the paths for the above programs to reflect where they are installed on your own computer - this can be done in the [`build/include.sh`](build/include.sh) script.
