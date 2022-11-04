@@ -16,17 +16,17 @@
 // No publicly documented properties
 type InternalSettings = Object;
 
-type DomSelector =
+export type DomSelector =
     string |
     Node |
     JQuery;
 
-type InstSelector =
+export type InstSelector =
     DomSelector |
     InternalSettings;
 
-type RowIdx = number;
-type RowSelector<T> =
+export type RowIdx = number;
+export type RowSelector<T> =
     RowIdx |
     string |
     Node |
@@ -34,8 +34,8 @@ type RowSelector<T> =
     ((idx: RowIdx, data: T, node: Node | null) => boolean) |
     RowSelector<T>[];
 
-type ColumnIdx = number;
-type ColumnSelector =
+export type ColumnIdx = number;
+export type ColumnSelector =
     ColumnIdx |
     string |
     Node |
@@ -43,11 +43,11 @@ type ColumnSelector =
     ((idx:ColumnIdx, data: any, node: Node) => boolean) |
     ColumnSelector[];
 
-type CellIdx = {
+export type CellIdx = {
     row: number;
     column: number;
 };
-type CellSelector =
+export type CellSelector =
     CellIdx |
     string |
     Node |
@@ -56,7 +56,7 @@ type CellSelector =
     CellSelector[];
 
 
-type CellIdxWithVisible = {
+export type CellIdxWithVisible = {
     row: number;
     column: number;
     columnVisible: number;
