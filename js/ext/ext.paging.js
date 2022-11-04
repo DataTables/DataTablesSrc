@@ -74,7 +74,7 @@ $.extend( true, DataTable.ext.renderer, {
 			var classes = settings.oClasses;
 			var lang = settings.oLanguage.oPaginate;
 			var aria = settings.oLanguage.oAria.paginate || {};
-			var btnDisplay, btnClass, counter=0;
+			var btnDisplay, btnClass;
 
 			var attach = function( container, buttons ) {
 				var i, ien, node, button, tabIndex;
@@ -149,7 +149,7 @@ $.extend( true, DataTable.ext.renderer, {
 									'class': classes.sPageButton+' '+btnClass,
 									'aria-controls': settings.sTableId,
 									'aria-label': aria[ button ],
-									'data-dt-idx': counter,
+									'data-dt-idx': button,
 									'tabindex': tabIndex,
 									'id': idx === 0 && typeof button === 'string' ?
 										settings.sTableId +'_'+ button :
@@ -161,8 +161,6 @@ $.extend( true, DataTable.ext.renderer, {
 							_fnBindAction(
 								node, {action: button}, clickHandler
 							);
-
-							counter++;
 						}
 					}
 				}

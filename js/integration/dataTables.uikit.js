@@ -30,7 +30,7 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 	var classes = settings.oClasses;
 	var lang    = settings.oLanguage.oPaginate;
 	var aria = settings.oLanguage.oAria.paginate || {};
-	var btnDisplay, btnClass, counter=0;
+	var btnDisplay, btnClass;
 
 	var attach = function( container, buttons ) {
 		var i, ien, node, button;
@@ -99,7 +99,7 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 								'href': '#',
 								'aria-controls': settings.sTableId,
 								'aria-label': aria[ button ],
-								'data-dt-idx': counter,
+								'data-dt-idx': button,
 								'tabindex': settings.iTabIndex
 							} )
 							.html( btnDisplay )
@@ -109,8 +109,6 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 					settings.oApi._fnBindAction(
 						node, {action: button}, clickHandler
 					);
-
-					counter++;
 				}
 			}
 		}
