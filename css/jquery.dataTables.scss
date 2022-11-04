@@ -207,19 +207,13 @@ table.dataTable {
 	}
 
 	&.compact {
-		thead th,
-		thead td {
-			padding: 4px 17px;
-		}
-
-		tfoot th,
-		tfoot td {
-			padding: 4px;
-		}
-
-		tbody th,
-		tbody td {
-			padding: 4px;
+		thead,
+		tfoot,
+		tbody {
+			th,
+			td {
+				padding: 4px;
+			}
 		}
 	}
 }
