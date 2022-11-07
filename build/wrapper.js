@@ -76,18 +76,24 @@ function main(args) {
 
 function es(script, deps, exp, filename) {
 	let imports = [];
+	let importNames = [];
 
 	for (let dep of deps) {
 		let alias = nameFromDependency(dep);
 
-		imports.push(`import ${alias} from '${dep}';`);
+		if (importNames.includes(alias)) {
+			imports.push(`import '${dep}';`);
+		}
+		else {
+			imports.push(`import ${alias} from '${dep}';`);
+			importNames.push(alias);
+		}
 	}
 
 	// For testing uncomment to see the basic structure of the generated file
 	// script.main = '';
 	
-	return `
-${script.header}
+	return `${script.header}
 
 ${imports.join('\n')}
 
@@ -149,8 +155,7 @@ function umd(script, deps, exp, filename) {
 		cjsParams = ', jszip, pdfmake';
 	}
 
-	return `
-${script.header}
+	return `${script.header}
 
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
