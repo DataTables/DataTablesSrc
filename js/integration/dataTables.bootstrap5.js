@@ -137,10 +137,16 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 	catch (e) {}
 
 	var paginationEl = hostEl.children('ul.pagination');
-	// Keeps current attributes added by events
-	var paginationAttr = paginationEl.length > 0 ? paginationEl.attr() : {'class': 'pagination'};
+
+	if (paginationEl.length) {
+		paginationEl.empty();
+	}
+	else {
+		paginationEl = hostEl.html('<ul/>').children('ul').addClass('pagination');
+	}
+
 	attach(
-		hostEl.html('<ul/>').children('ul').attr(paginationAttr),
+		paginationEl,
 		buttons
 	);
 
@@ -148,4 +154,3 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 		hostEl.find('[data-dt-idx='+activeEl+']').trigger('focus');
 	}
 };
-
