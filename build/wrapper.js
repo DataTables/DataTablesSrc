@@ -168,7 +168,6 @@ function umd(script, deps, exp, filename) {
 		// CommonJS
 		module.exports = function (root, $${cjsSig}) {
 ${commonjs.join('')}
-
 			return factory( $, root, root.document${cjsParams} );
 		};
 	}
@@ -192,6 +191,48 @@ function nameFromDependency(dep) {
 
 	if (name.includes('autofill')) {
 		return 'AutoFill';
+	}
+	else if (name.includes('buttons')) {
+		return 'Buttons';
+	}
+	else if (name.includes('colreorder')) {
+		return 'ColReorder';
+	}
+	else if (name.includes('editor')) {
+		return 'Editor';
+	}
+	else if (name.includes('fixedcolumns')) {
+		return 'FixedColumns';
+	}
+	else if (name.includes('fixedheader')) {
+		return 'FixedHeader';
+	}
+	else if (name.includes('keytable')) {
+		return 'KeyTable';
+	}
+	else if (name.includes('responsive')) {
+		return 'Responsive';
+	}
+	else if (name.includes('rowgroup')) {
+		return 'RowGroup';
+	}
+	else if (name.includes('rowreorder')) {
+		return 'RowReorder';
+	}
+	else if (name.includes('scroller')) {
+		return 'Scroller';
+	}
+	else if (name.includes('searchbuilder')) {
+		return 'SearchBuilder';
+	}
+	else if (name.includes('searchpanes')) {
+		return 'SearchPanes';
+	}
+	else if (name.includes('select')) {
+		return 'select'; // lower case is intentional
+	}
+	else if (name.includes('staterestore')) {
+		return 'StateRestore';
 	}
 	else if (name.includes('jquery')) {
 		return '$';
