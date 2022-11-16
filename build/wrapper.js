@@ -282,7 +282,7 @@ function frameworkFromPath(path) {
 		return 'zf';
 	}
 	else if (path.includes('jqueryui')) {
-		return 'ju';
+		return 'jqui';
 	}
 	else if (path.includes('semanticui')) {
 		return 'se';
