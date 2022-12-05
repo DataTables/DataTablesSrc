@@ -78,6 +78,7 @@ class SSP {
 	 *     * db   - database name
 	 *     * user - user name
 	 *     * pass - user password
+	 *     * Optional: `'charset' => 'utf8'` - you might need this depending on your PHP / MySQL config
 	 *  @return resource PDO connection
 	 */
 	static function db ( $conn )
