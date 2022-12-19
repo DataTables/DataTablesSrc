@@ -1,10 +1,9 @@
 
 $(document).on('plugin-init.dt', function (e, context) {
 	var api = new _Api( context );
-	
-	const namespace = 'on-plugin-init';
-	const stateSaveParamsEvent = `stateSaveParams.${namespace}`;
-	const destroyEvent = `destroy.${namespace}`;
+	var namespace = 'on-plugin-init';
+	var stateSaveParamsEvent = 'stateSaveParams.' + namespace;
+	var destroyEvent = 'destroy. ' + namespace;
 
 	api.on( stateSaveParamsEvent, function ( e, settings, d ) {
 		// This could be more compact with the API, but it is a lot faster as a simple
@@ -23,7 +22,7 @@ $(document).on('plugin-init.dt', function (e, context) {
 	});
 
 	api.on( destroyEvent, function () {
-		api.off(`${stateSaveParamsEvent} ${destroyEvent}`);
+		api.off(stateSaveParamsEvent + ' ' + destroyEvent);
 	});
 
 	var loaded = api.state.loaded();
