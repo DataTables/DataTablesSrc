@@ -25,6 +25,8 @@ function DT_Markdown($text, $default_claases=array(), $truncateWhiteSpace=false)
 }
 
 class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
+	private $extended_hardbreaks;
+
 	// If the first line has white space, then remove that amount of white space
 	// from all lines
 	static function truncateWhiteSpace ( $str )
