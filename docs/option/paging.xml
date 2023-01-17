@@ -21,5 +21,6 @@ $('#example').dataTable( {
 	<related type="option">lengthChange</related>
 	<related type="option">lengthMenu</related>
 	<related type="option">pagingType</related>
+	<related type="option">pagingTag</related>
 	<related type="api">page()</related>
 </dt-option>

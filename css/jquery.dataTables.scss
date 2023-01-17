@@ -280,6 +280,7 @@ table.dataTable td {
 			color: $table-control-color !important;
 			border: 1px solid transparent;
 			border-radius: 2px;
+			background: transparent;
 
 			&.current,
 			&.current:hover {
