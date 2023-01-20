@@ -146,11 +146,16 @@ $.extend( true, DataTable.ext.renderer, {
 
 						if ( btnDisplay !== null ) {
 							var tag = settings.oInit.pagingTag || 'a';
+							var disabled = btnClass.indexOf(disabledClass) !== -1;
+		
 
 							node = $('<'+tag+'>', {
 									'class': classes.sPageButton+' '+btnClass,
 									'aria-controls': settings.sTableId,
+									'aria-disabled': disabled ? 'true' : null,
 									'aria-label': aria[ button ],
+									'aria-role': 'link',
+									'aria-current': btnClass === classes.sPageButtonActive ? 'page' : null,
 									'data-dt-idx': button,
 									'tabindex': tabIndex,
 									'id': idx === 0 && typeof button === 'string' ?

@@ -96,9 +96,12 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 								null
 						} )
 						.append( $(( -1 != btnClass.indexOf('disabled') || -1 != btnClass.indexOf('active') ) ? '<span>' : '<a>', {
-								'href': '#',
+								'href': disabled ? null : '#',
 								'aria-controls': settings.sTableId,
+								'aria-disabled': disabled ? 'true' : null,
 								'aria-label': aria[ button ],
+								'aria-role': 'link',
+								'aria-current': btnClass === 'active' ? 'page' : null,
 								'data-dt-idx': button,
 								'tabindex': settings.iTabIndex
 							} )
