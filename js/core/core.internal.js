@@ -70,7 +70,12 @@ var _numToDecimal = function ( num, decimalPoint ) {
 
 
 var _isNumber = function ( d, decimalPoint, formatted ) {
-	var strType = typeof d === 'string';
+	let type = typeof d;
+	var strType = type === 'string';
+
+	if ( type === 'number' || type === 'bigint') {
+		return true;
+	}
 
 	// If empty return immediately so there must be a number if it is a
 	// formatted string (this stops the string "k", or "kr", etc being detected
