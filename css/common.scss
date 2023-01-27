@@ -2,6 +2,16 @@
 //
 // Functions / mixins
 //
+@function str-replace($string, $search, $replace: '') {
+	$index: str-index($string, $search);
+	
+	@if $index {
+		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+	}
+	
+	@return $string;
+}
+
 @function tint( $color, $percent ) {
 	@return mix(white, $color, $percent);
 }
@@ -35,9 +45,10 @@ $table-header-border: 1px solid shade($table-row-background, 30%) !default;
 $table-body-border: 1px solid shade($table-row-background, 15%) !default;
 
 // Row colour, when selected (tr.selected) and used for processing display
-$table-row-selected: rgba(13, 110, 253, 0.9) !default;
-$table-row-selected-text: white !default;
-$table-row-selected-link: #090a0b !default;
+// These are SCSS lists in `r g b` format
+$table-row-selected: 13 110 253 !default;
+$table-row-selected-text: 255 255 255 !default;
+$table-row-selected-link: 9 10 11 !default;
 
 // Text colour of the interaction control elements (info, filter, paging etc)
 $table-control-color: inherit !default;
@@ -57,6 +68,11 @@ $control-button-color: white !default;
 $open-button-background: #31b131 !default;
 $close-button-background: #d33333 !default;
 
+:root {
+	--dt-row-selected: #{str-replace(#{$table-row-selected}, ' ', ', ')};
+	--dt-row-selected-text: #{str-replace(#{$table-row-selected-text}, ' ', ', ')};
+	--dt-row-selected-link: #{str-replace(#{$table-row-selected-link}, ' ', ', ')};
+}
 
 //
 // Mixins
@@ -93,12 +109,15 @@ $close-button-background: #d33333 !default;
 		background-color: $table-row-background;
 
 		&.selected > * {
-			box-shadow: inset 0 0 0 9999px $table-row-selected;
-			color: $table-row-selected-text;
+			box-shadow: inset 0 0 0 9999px rgb($table-row-selected);
+			box-shadow: inset 0 0 0 9999px rgb(var(--dt-row-selected));
+			color: rgb($table-row-selected-text);
+			color: rgb(var(--dt-row-selected-text));
 		}
 
 		&.selected a {
-			color: $table-row-selected-link;
+			color: rgb($table-row-selected-link);
+			color: rgb(var(--dt-row-selected-link));
 		}
 	}
 
@@ -109,7 +128,8 @@ $close-button-background: #d33333 !default;
 		}
 
 		> tr#{$oddEven}.selected > * {
-			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: $stripeShade);
+			box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), $stripeShade + 0.9);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), $stripeShade + 0.9);
 		}
 	}
 
@@ -120,7 +140,8 @@ $close-button-background: #d33333 !default;
 		}
 
 		> tr.selected:hover > * {
-			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: $hoverShade);
+			box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), $hoverShade + 0.9);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), $hoverShade + 0.9);
 		}
 	}
 }

@@ -67,12 +67,15 @@ table.dataTable {
 			background-color: $table-row-background;
 
 			&.selected > * {
-				box-shadow: inset 0 0 0 9999px $table-row-selected;
-				color: $table-row-selected-text;
+				box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.9);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.9);
+				color: rgb($table-row-selected-text);
+				color: rgb(var(--dt-row-selected-text));
 			}
-
+	
 			&.selected a {
-				color: $table-row-selected-link;
+				color: rgb($table-row-selected-link);
+				color: rgb(var(--dt-row-selected-link));
 			}
 		}
 
@@ -124,7 +127,8 @@ table.dataTable {
 		}
 
 		> tr.odd.selected > * {
-			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.023);
+			box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.923);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.923));
 		}
 	}
 
@@ -137,7 +141,8 @@ table.dataTable {
 		}
 
 		> tr.selected:hover > * {
-			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.035);
+			box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 1) !important;
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 1)) !important;
 		}
 	}
 
@@ -155,7 +160,8 @@ table.dataTable {
 			tr.selected > .sorting_1,
 			tr.selected > .sorting_2,
 			tr.selected > .sorting_3 {
-				box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.019);
+				box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.919);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.919));
 			}
 		}
 	}
@@ -163,26 +169,56 @@ table.dataTable {
 	&.display > tbody,
 	&.order-column.stripe > tbody {
 		> tr.odd {
-			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.054); }
-			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.047); }
-			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.039); }
+			> .sorting_1 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.054);
+			}
+			> .sorting_2 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.047);
+			}
+			> .sorting_3 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.039);
+			}
 
 			&.selected {
-				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.054); }
-				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.047); }
-				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.039); }
+				> .sorting_1 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.954);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.954));
+				}
+				> .sorting_2 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.947);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.947));
+				}
+				> .sorting_3 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.939);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.939));
+				}
 			}
 		}
 
 		> tr.even {
-			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019); }
-			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.011); }
-			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.003); }
+			> .sorting_1 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
+			}
+			> .sorting_2 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.011);
+			}
+			> .sorting_3 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.003);
+			}
 			
 			&.selected {
-				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.019); }
-				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.011); }
-				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.003); }
+				> .sorting_1 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.919);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.919));
+				}
+				> .sorting_2 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.911);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.911));
+				}
+				> .sorting_3 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.903);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.903));
+				}
 			}
 		}
 	}
@@ -190,14 +226,29 @@ table.dataTable {
 	&.display tbody,
 	&.order-column.hover tbody {
 		tr:hover {
-			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.082); }
-			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.074); }
-			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.062); }
+			> .sorting_1 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.082);
+			}
+			> .sorting_2 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.074);
+			}
+			> .sorting_3 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.062);
+			}
 
 			&.selected {
-				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.082); }
-				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.074); }
-				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.062); }
+				> .sorting_1 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.982);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.982));
+				}
+				> .sorting_2 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.974);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.974));
+				}
+				> .sorting_3 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.962);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.962));
+				}
 			}
 		}
 	}
