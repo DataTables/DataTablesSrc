@@ -2328,6 +2328,7 @@ export interface ApiStaticExt {
     legacy: object;
     oApi: object;
     order: object;
+    oSort: object;
     pager: object;
     renderer: object;
     search: any[];
