@@ -21,7 +21,8 @@ div.dataTables_processing {
 			width: 13px;
 			height: 13px;
 			border-radius: 50%;
-			background: $table-row-selected;
+			background: rgb($table-row-selected);
+			background: rgb(var(--dt-row-selected));
 			animation-timing-function: cubic-bezier(0, 1, 1, 0);
 
 			&:nth-child(1) {
