@@ -10,7 +10,8 @@ function _fnFeatureHtmlProcessing ( settings )
 {
 	return $('<div/>', {
 			'id': ! settings.aanFeatures.r ? settings.sTableId+'_processing' : null,
-			'class': settings.oClasses.sProcessing
+			'class': settings.oClasses.sProcessing,
+			'role': 'status'
 		} )
 		.html( settings.oLanguage.sProcessing )
 		.append('<div><div></div><div></div><div></div><div></div></div>')
