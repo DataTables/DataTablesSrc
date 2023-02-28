@@ -69,7 +69,7 @@ export type CellIdxWithVisible = {
 /**
  * DataTables class
  */
-declare interface DataTables<T> extends ApiStatic {
+declare interface DataTables<T> extends DataTablesStatic {
     /**
      * Create a new DataTable
      * @param selector Selector to pick one or more `<table>` elements
@@ -573,7 +573,10 @@ export interface ConfigSearch {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * API
  */
+
 export interface Api<T> {
+    new(context: any, data: any[]);
+
     /**
      * API should be array-like
      */
@@ -955,7 +958,7 @@ export interface Api<T> {
      * @param tableSelector Table selector.
      * @returns DataTables API instance with selected table in its context.
      */
-    table(tableSelector: any): ApiTableMethods<T> | Api<Array<any>>;
+    table(tableSelector?: any): ApiTableMethods<T>;
 
     /**
      * Select tables based on the given selector
@@ -963,7 +966,7 @@ export interface Api<T> {
      * @param tableSelector Table selector.
      * @returns DataTables API instance with all tables in the current context.
      */
-    tables(tableSelector?: any): ApiTablesMethods<T> | Api<Array<any>>;
+    tables(tableSelector?: any): ApiTablesMethods<T>;
 
     /**
      * Convert the API instance to a jQuery object, with the objects from the instance's result set in the jQuery result set.
@@ -2034,7 +2037,7 @@ export interface ApiTablesMethods<T> extends Api<T> {
 
 
 
-export interface ApiStatic {
+export interface DataTablesStatic {
     /**
      * Check if a table node is a DataTable already or not.
      *
@@ -2051,7 +2054,7 @@ export interface ApiStatic {
      * The options defined here can be used with the `columns.render` initialisation
      * option to provide a display renderer.
      */
-    render: ApiStaticRender;
+    render: DataTablesStaticRender;
 
     /**
      * Get all DataTable tables that have been initialised - optionally you can select to get only currently visible tables and / or retrieve the tables as API instances.
@@ -2085,14 +2088,14 @@ export interface ApiStatic {
     /**
      * Utils
      */
-    util: ApiStaticUtil;
+    util: DataTablesStaticUtil;
 
     /**
      * Get DataTable API instance
      *
      * @param table Selector string for table
      */
-    Api: new (selector: string | Node | Node[] | JQuery) => Api<any>;
+    Api: ApiStatic;
 
     /**
      * Default Settings
@@ -2102,7 +2105,18 @@ export interface ApiStatic {
     /**
      * Default Settings
      */
-    ext: ApiStaticExt;
+    ext: DataTablesStaticExt;
+}
+
+export interface ApiStatic {
+    /**
+     * Create a new API instance to an existing DataTable. Note that this
+     * does not create a new DataTable.
+     */
+    new (selector: string | Node | Node[] | JQuery): Api<any>;
+
+    register<T=any>(name: string, fn: Function): T;
+    registerPlural<T=any>(name: string, fn: Function): T;
 }
 
 export interface OrderFixed {
@@ -2121,7 +2135,7 @@ export interface OrderFixed {
     post?: any[];
 }
 
-export interface ApiStaticRender {
+export interface DataTablesStaticRender {
     /**
      * Format an ISO8061 date in auto locale detected format
      */
@@ -2210,7 +2224,7 @@ export interface ApiStaticRender {
     time(from?: string, to?: string, locale?: string, def?: string): ObjectColumnRender;
 }
 
-export interface ApiStaticUtil {
+export interface DataTablesStaticUtil {
     /**
      * Escape special characters in a regular expression string. Since: 1.10.4
      *
@@ -2318,8 +2332,9 @@ interface CellMetaSettings {
     settings: InternalSettings;
 }
 
-export interface ApiStaticExt {
+export interface DataTablesStaticExt {
     builder: string;
+    buttons: {[key: string]: object};
     classes: ExtClassesSettings;
     errMode: string;
     feature: any[];
