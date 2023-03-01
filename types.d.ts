@@ -79,6 +79,12 @@ declare interface DataTables<T> extends DataTablesStatic {
         selector: InstSelector,
         opts?: Config
     ): Api<T>
+
+    /**
+     * CommonJS factory. This only applies to CommonJS environments,
+     * in all others it would throw an error.
+     */
+    (win?: Window, jQuery?: JQuery): DataTables<T>;
 }
 
 declare const DataTables: DataTables<any>;
