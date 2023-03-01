@@ -26,11 +26,13 @@ table.dataTable thead {
 			&:before {
 				bottom: 50%;
 				content: "\25B2"; // up arrow - ascending
+				content: "\25B2" / "";
 			}
 
 			&:after {
 				top: 50%;
 				content: "\25BC"; // down arrow - descending
+				content: "\25BC" / "";
 			}
 		}
 
