@@ -581,8 +581,6 @@ export interface ConfigSearch {
  */
 
 export interface Api<T> {
-    new(context: any, data: any[]);
-
     /**
      * API should be array-like
      */
@@ -2119,7 +2117,7 @@ export interface ApiStatic {
      * Create a new API instance to an existing DataTable. Note that this
      * does not create a new DataTable.
      */
-    new (selector: string | Node | Node[] | JQuery): Api<any>;
+    new (selector: string | Node | Node[] | JQuery | InternalSettings): Api<any>;
 
     register<T=any>(name: string, fn: Function): T;
     registerPlural<T=any>(name: string, fn: Function): T;
