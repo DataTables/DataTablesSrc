@@ -96,7 +96,6 @@ function es(script, deps, exp, filename) {
 	return `${script.header}
 
 ${imports.join('\n')}
-
 ${script.main}
 
 export default ${exp};
@@ -108,22 +107,9 @@ function umd(script, deps, exp, filename) {
 	let commonjs = [];
 	let defineDataTable = '';
 
-	commonjs.push(`			if ( ! root ) {
-				// CommonJS environments without a window global must pass a
-				// root. This will give an error otherwise
-				root = window;
-			}
-`);
-
 	for (let dep of deps) {
 		if (dep === 'jquery') {
-			commonjs.push(`
-			if ( ! $ ) {
-				$ = typeof window !== 'undefined' ? // jQuery's factory checks for a global window
-					require('jquery') :
-					require('jquery')( root );
-			}
-`);
+			; // noop - always included below
 		}
 		else if (nameFromDependency(dep) === 'DataTable') {
 			defineDataTable = '\nvar DataTable = $.fn.dataTable;';
@@ -166,10 +152,29 @@ function umd(script, deps, exp, filename) {
 	}
 	else if ( typeof exports === 'object' ) {
 		// CommonJS
-		module.exports = function (root, $${cjsSig}) {
-${commonjs.join('')}
-			return factory( $, root, root.document${cjsParams} );
-		};
+		var jq = require('jquery');
+		var cjsRequires = function (root, $) {${commonjs.join('')}		};
+
+		if (typeof window !== 'undefined') {
+			module.exports = function (root, $${cjsSig}) {
+				if ( ! root ) {
+					// CommonJS environments without a window global must pass a
+					// root. This will give an error otherwise
+					root = window;
+				}
+
+				if ( ! $ ) {
+					$ = jq( root );
+				}
+
+				cjsRequires( root, $ );
+				return factory( $, root, root.document${cjsParams} );
+			};
+		}
+		else {
+			cjsRequires( window, jq );
+			module.exports = factory( jq, window, window.document );
+		}
 	}
 	else {
 		// Browser
