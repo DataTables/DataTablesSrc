@@ -1,6 +1,48 @@
 
 
 /**
+ * Set the jQuery or window object to be used by DataTables
+ *
+ * @param {*} module Library / container object
+ * @param {string} type Library or container type `lib` or `win`.
+ */
+DataTable.use = function (module, type) {
+	if (type === 'lib' || module.fn) {
+		$ = module;
+	}
+	else if (type == 'win' || module.document) {
+		window = module;
+		document = module.document;
+	}
+}
+
+/**
+ * CommonJS factory function pass through. This will check if the arguments
+ * given are a window object or a jQuery object. If so they are set
+ * accordingly.
+ * @param {*} root Window
+ * @param {*} jq jQUery
+ * @returns {boolean} Indicator
+ */
+DataTable.factory = function (root, jq) {
+	var is = false;
+
+	// Test if the first parameter is a window object
+	if (root && root.document) {
+		window = root;
+		document = root.document;
+	}
+
+	// Test if the second parameter is a jQuery object
+	if (jq && jq.fn && jq.fn.jquery) {
+		$ = jq;
+		is = true;
+	}
+
+	return is;
+}
+
+/**
  * Provide a common method for plug-ins to check the version of DataTables being
  * used, in order to ensure compatibility.
  *
