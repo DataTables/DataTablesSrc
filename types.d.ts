@@ -103,12 +103,20 @@ interface JQueryDataTables extends JQuery {
 
 // Extend the jQuery object with DataTables' construction methods
 declare global {
+    interface JQueryDataTableApi extends DataTablesStatic {
+        <T = any>(opts?: Config): Api<T>;
+    }
+
+    interface JQueryDataTableJq extends DataTablesStatic {
+        (opts?: Config): JQueryDataTables;
+    }
+
     interface JQuery {
         /**
          * Create a new DataTable, returning a DataTables API instance.
          * @param opts Configuration settings
          */
-        DataTable<T = any>(opts?: Config): Api<T>;
+        DataTable: JQueryDataTableApi;
 
         /**
          * Create a new DataTable, returning a jQuery object, extended
@@ -116,7 +124,7 @@ declare global {
          * DataTables API.
          * @param opts Configuration settings
          */
-        dataTable(opts?: Config): JQueryDataTables;
+        dataTable: JQueryDataTableJq;
     }
 }
 
