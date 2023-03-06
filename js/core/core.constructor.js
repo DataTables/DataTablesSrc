@@ -312,6 +312,7 @@ if ( rowOne.length ) {
 					type:   sort !== null   ? i+'.@data-'+sort   : undefined,
 					filter: filter !== null ? i+'.@data-'+filter : undefined
 				};
+				col._isArrayHost = true;
 
 				_fnColumnOptions( oSettings, i );
 			}

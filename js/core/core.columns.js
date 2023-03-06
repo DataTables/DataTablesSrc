@@ -132,7 +132,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 
 	// Indicate if DataTables should read DOM data as an object or array
 	// Used in _fnGetRowElements
-	if ( typeof mDataSrc !== 'number' ) {
+	if ( typeof mDataSrc !== 'number' && ! oCol._isArrayHost ) {
 		oSettings._rowReadObject = true;
 	}
 
