@@ -41,6 +41,19 @@ The build script assumes that a Mac or Linux environment is being used - Windows
 
 The output files are placed into `built/DataTables/` which is a temporary directory. No changes should be made in that directory as they will be **overwritten** when you next build the software.
 
+To run locally, do the following
+
+```bash
+git clone https://github.com/DataTables/DataTablesSrc
+cd DataTablesSrc
+cd build
+./make.sh examples
+./make.sh build
+cd ../built/examples
+php -S localhost:8300
+```
+
+and now open http://localhost:8300/examples/
 
 ## Documentation
 
