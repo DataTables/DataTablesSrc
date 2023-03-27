@@ -202,5 +202,7 @@ _api_register( 'i18n()', function ( token, def, plural ) {
 			resolved._;
 	}
 
-	return resolved.replace( '%d', plural ); // nb: plural might be undefined,
+	return typeof resolved === 'string'
+		? resolved.replace( '%d', plural ) // nb: plural might be undefined,
+		: resolved;
 } );
