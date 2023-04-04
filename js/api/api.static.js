@@ -4,7 +4,8 @@
  * Set the jQuery or window object to be used by DataTables
  *
  * @param {*} module Library / container object
- * @param {string} type Library or container type `lib` or `win`.
+ * @param {string} [type] Library or container type `lib`, `win` or `datetime`.
+ *   If not provided, automatic detection is attempted.
  */
 DataTable.use = function (module, type) {
 	if (type === 'lib' || module.fn) {
@@ -13,6 +14,9 @@ DataTable.use = function (module, type) {
 	else if (type == 'win' || module.document) {
 		window = module;
 		document = module.document;
+	}
+	else if (type === 'datetime' || module.type === 'DateTime') {
+		DataTable.DateTime = module;
 	}
 }
 
