@@ -118,7 +118,7 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 							'aria-controls': settings.sTableId,
 							'aria-disabled': disabled ? 'true' : null,
 							'aria-label': aria[ button ],
-							'aria-role': 'link',
+							'role': 'link',
 							'aria-current': btnClass === 'active' ? 'page' : null,
 							'data-dt-idx': button,
 							'tabindex': settings.iTabIndex
