@@ -155,7 +155,7 @@ function umd(script, deps, exp, filename) {
 		var jq = require('jquery');
 		var cjsRequires = function (root, $) {${commonjs.join('')}		};
 
-		if (typeof window !== 'undefined') {
+		if (typeof window === 'undefined') {
 			module.exports = function (root, $${cjsSig}) {
 				if ( ! root ) {
 					// CommonJS environments without a window global must pass a
