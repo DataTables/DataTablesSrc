@@ -5,7 +5,7 @@ var __numericReplace = function ( d, decimalPlace, re1, re2 ) {
 		return -Infinity;
 	}
 	
-	let type = typeof d;
+	var type = typeof d;
 
 	if (type === 'number' || type === 'bigint') {
 		return d;

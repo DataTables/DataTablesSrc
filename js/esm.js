@@ -6,7 +6,7 @@ import jQuery from 'jquery';
 
 // DataTables code uses $ internally, but we want to be able to
 // reassign $ with the `use` method, so it is a regular var.
-let $ = jQuery;
+var $ = jQuery;
 
 _buildInclude('core.main.js');
 
