@@ -77,9 +77,16 @@ function main(args) {
 function es(script, deps, exp, filename) {
 	let imports = [];
 	let importNames = [];
+	let jquery = '';
 
 	for (let dep of deps) {
 		let alias = nameFromDependency(dep);
+
+		if (dep === 'jquery') {
+			jquery = `
+// Allow reassignment of the $ variable
+let $ = jQuery;`;
+		}
 
 		if (importNames.includes(alias)) {
 			imports.push(`import '${dep}';`);
@@ -96,6 +103,7 @@ function es(script, deps, exp, filename) {
 	return `${script.header}
 
 ${imports.join('\n')}
+${jquery}
 ${script.main}
 
 export default ${exp};
@@ -240,7 +248,7 @@ function nameFromDependency(dep) {
 		return 'StateRestore';
 	}
 	else if (name.includes('jquery')) {
-		return '$';
+		return 'jQuery';
 	}
 	else {
 		return 'DataTable';
