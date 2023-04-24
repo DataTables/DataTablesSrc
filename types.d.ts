@@ -2128,7 +2128,7 @@ export interface ApiStatic {
     new (selector: string | Node | Node[] | JQuery | InternalSettings): Api<any>;
 
     register<T=any>(name: string, fn: Function): T;
-    registerPlural<T=any>(name: string, fn: Function): T;
+    registerPlural<T=any>(pluralName: string, singleName: string, fn: Function): T;
 }
 
 export interface OrderFixed {
