@@ -65,7 +65,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 			$options['extended_hardbreaks'] :
 			false;
 
-		$this->block_gamut['doPhp'] = 9;
+		//$this->block_gamut['doPhp'] = 9;
 		$this->block_gamut['doColumns'] = 13;
 		$this->block_gamut['doGrid'] = 12;
 		$this->block_gamut['doPullQuotes'] = 61;
@@ -87,6 +87,18 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 
 		return preg_replace_callback('/ +\n/',
 			array(&$this, '_doHardBreaks_callback'), $text);
+	}
+
+	function doFencedCodeBlocks($text) {
+		// The fenced code blocks is basically the first transform that happens
+		// to protect the content. We want the same for the PHP code and there is
+		// no way to do that using the block_gamut since it happens after code
+		// blocks and HTML parsing - so I've hijacked this function to also do
+		// the PHP escaping
+		$text = $this->doPhp($text);
+		$text = parent::doFencedCodeBlocks($text);
+
+		return $text;
 	}
 
 
