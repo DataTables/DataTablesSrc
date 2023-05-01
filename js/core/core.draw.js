@@ -742,6 +742,13 @@ function _fnGetUniqueThs ( oSettings, nHeader, aLayout )
 			{
 				aReturn[j] = aLayout[i][j].cell;
 			}
+			
+			// In case the bSortCellsTop is an integer, insert the header cells to a provided header row index
+			if ( aLayout[i][j].unique &&
+				(!aReturn[j] || Number.isInteger(oSettings.bSortCellsTop)) )
+			   {
+				   aReturn[j] = aLayout[oSettings.bSortCellsTop][j].cell;
+			   }
 		}
 	}
 
