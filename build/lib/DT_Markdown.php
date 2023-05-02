@@ -95,7 +95,8 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		// no way to do that using the block_gamut since it happens after code
 		// blocks and HTML parsing - so I've hijacked this function to also do
 		// the PHP escaping
-		$text = $this->doPhp($text);
+		$text = $this->doPhpInline($text);
+		$text = $this->doPhpMd($text);
 		$text = parent::doFencedCodeBlocks($text);
 
 		return $text;
@@ -472,8 +473,24 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		return $text;
 	}
 
+	// PHP tags
+	function doPhpInline ( $text ) {
+		$that = $this;
+		$text = preg_replace_callback('/<\?php .*?\?>/xm',
+			function ($matches) use ($that) {
+				$hashed = $that->hashBlock($matches[0]);
 
-	function doPhp ( $text ) {
+				return $hashed;
+			}
+			,
+			$text
+		);
+
+		return $text;
+	}
+
+	// ? at the start of a line to indicate PHP line
+	function doPhpMd ( $text ) {
 		$that = $this;
 		$text = preg_replace_callback('/
 			(?>^\?[ ]?
