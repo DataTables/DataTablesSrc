@@ -64,11 +64,6 @@ div.toc li:first-child {
 	border-top: 1px solid #efefef;
 }
 
-div.toc li:last-child {
-	border-bottom: 1px solid #efefef;
-}
-
-
 div.epilogue {
 	text-align: center;
 }
@@ -87,18 +82,7 @@ p.copyright {
 
 div.info {
 	margin-bottom: 2em;
-
-	-webkit-column-count: 2;
-	   -moz-column-count: 2;
-	    -ms-column-count: 2;
-	     -o-column-count: 2;
 	column-count: 2;
-
-
-	-webkit-column-rule: 1px solid #F3F3F3;
-	   -moz-column-rule: 1px solid #F3F3F3;
-	    -ms-column-rule: 1px solid #F3F3F3;
-	     -o-column-rule: 1px solid #F3F3F3;
 	column-rule: 1px solid #F3F3F3;
 }
 
@@ -133,21 +117,10 @@ div.footer > div.gradient {
 	left: 0;
 	width: 100%;
 	height: 6px;
-
-	background: -moz-linear-gradient(top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.2)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
 	background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
 }
 
 div.toc {
-	-webkit-column-count: 2;
-	   -moz-column-count: 2;
-	    -ms-column-count: 2;
-	     -o-column-count: 2;
 	column-count: 2;
 }
 
@@ -310,14 +283,6 @@ ul.tabs li.active {
 	background-color: white;
 }
 
-ul.tabs li:hover {
-	background-color: #fafafa;
-}
-
-ul.tabs li.active:hover {
-	background-color: white;
-}
-
 div.tabs {
 	clear: both;
 	margin-top: -1px;
@@ -335,7 +300,7 @@ div.tabs>div {
 	border: 1px solid #ccc;
 	display: none;
 	border-radius: 5px;
-	box-shadow: 2px 2px 2px #bbb;
+	box-shadow: 2px 2px 2px rgba( 0, 0, 0, 0.2 );
 }
 
 div.tabs>div h1 {
@@ -367,7 +332,6 @@ div.tabs > div > ul > li > a {
 	border-bottom-width: 0px;
 	display: block;
 	padding: 0px;
-	color: #3174c7;
 }
 
 div.column_half {
@@ -408,3 +372,56 @@ div.column_half {
 	}
 }
 
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: rgb(33, 37, 41);
+		color: rgb(218, 224, 231);
+	}
+
+	a {
+		color: rgb(110, 168, 254);
+	}
+
+	div.toc li {
+		border-bottom: 1px solid rgb(73, 80, 87);
+	}
+	
+	div.toc li:first-child {
+		border-top: 1px solid rgb(73, 80, 87);
+	}
+
+	div.toc li.active {
+		border-left: 4px solid rgb(110, 168, 254);;
+	}
+
+	div.info {
+		column-rule-color: rgb(73, 80, 87);
+	}
+
+	div.footer {
+		border-top-color: rgb(26, 27, 27);
+		background-color: rgb(31, 34, 36);
+	}
+
+	code {
+		color: rgb(228, 228, 228);
+		background-color: rgb(28, 30, 31);
+		border: 1px solid rgb(5, 5, 5);
+	}
+
+	ul.tabs li {
+		color: inherit;
+	}
+	ul.tabs li.active {
+		border: 1px solid rgb(73, 80, 87);
+		border-bottom: 1px solid rgb(28, 30, 31);
+		background-color: rgb(28, 30, 31);
+	}
+
+	div.tabs>div {
+		background-color: rgb(28, 30, 31);
+		border: 1px solid rgb(73, 80, 87);
+		box-shadow: 3px 3px 6px rgba( 0, 0, 0, 0.2 );
+	}
+}
