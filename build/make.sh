@@ -144,6 +144,8 @@ function build_examples {
 		rm -Rf $OUT_DIR
 	fi
 
+	sass --stop-on-error --style expanded $SRC_DIR/resources/demo.scss > $SRC_DIR/resources/demo.css
+
 	# Transform in place
 	cp -r $SRC_DIR $OUT_DIR
 	php ${BASE_DIR}/build/examples.php \
