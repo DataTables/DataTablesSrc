@@ -465,3 +465,65 @@ table.dataTable td {
 	}
 }
 
+
+@mixin dt-dark () {
+	table.dataTable {
+		thead th,
+		thead td {
+			@if not $jqueryui { // jQuery UI defines its own border
+				border-bottom: $table-header-border-dark;
+			}
+	
+			&:active {
+				outline: none;
+			}
+		}
+	
+		tfoot th,
+		tfoot td {
+			@if not $jqueryui { // jQuery UI defines its own border
+				border-top: $table-header-border-dark;
+			}
+		}
+
+		// Stripe classes - add "row-border" class to the table to activate
+		&.row-border tbody,
+		&.display tbody {
+			th, td {
+				border-top: $table-body-border-dark;
+			}
+		}
+	
+	
+		// Stripe classes - add "cell-border" class to the table to activate
+		&.cell-border tbody {
+			th, td {
+				border-top: $table-body-border-dark;
+				border-right: $table-body-border-dark;
+			}
+	
+			tr th:first-child,
+			tr td:first-child {
+				border-left: $table-body-border-dark;
+			}
+		}
+	}
+
+	.dataTables_wrapper {
+		// Chrome 83 hack - see top of file
+		.dataTables_filter input,
+		.dataTables_length select {
+			border: 1px solid rgb(255, 255, 255, 0.2);
+		}
+	}
+}
+
+html.dark {
+	@include dt-dark();
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not(.light) {
+		@include dt-dark();
+	}
+}

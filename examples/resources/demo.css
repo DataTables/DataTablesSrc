@@ -345,173 +345,342 @@ div.column_half {
     display: block;
   }
 }
+html.dark body {
+  background-color: rgb(33, 37, 41);
+  color: rgb(218, 224, 231);
+}
+html.dark a {
+  color: rgb(110, 168, 254);
+}
+html.dark div.toc li {
+  border-bottom: 1px solid rgb(73, 80, 87);
+}
+html.dark div.toc li:first-child {
+  border-top: 1px solid rgb(73, 80, 87);
+}
+html.dark div.toc li.active {
+  border-left: 4px solid rgb(110, 168, 254);
+}
+html.dark div.info {
+  column-rule-color: rgb(73, 80, 87);
+}
+html.dark div.footer {
+  border-top-color: rgb(26, 27, 27);
+  background-color: rgb(31, 34, 36);
+}
+html.dark code {
+  color: rgb(228, 228, 228);
+  background-color: rgb(28, 30, 31);
+  border: 1px solid rgb(5, 5, 5);
+}
+html.dark ul.tabs li {
+  color: inherit;
+}
+html.dark ul.tabs li.active {
+  border: 1px solid rgb(73, 80, 87);
+  border-bottom: 1px solid rgb(28, 30, 31);
+  background-color: rgb(28, 30, 31);
+}
+html.dark div.tabs > div {
+  background-color: rgb(28, 30, 31);
+  border: 1px solid rgb(73, 80, 87);
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+}
+html.dark code.option {
+  color: #f7d6df;
+  background-color: #36373b;
+  border: 1px solid #2c2e32;
+}
+html.dark code.path {
+  color: #8ccb89;
+  background-color: #2c3633;
+  border: 1px solid #262d2e;
+}
+html.dark code.tag {
+  color: #fff9d7;
+  background-color: #373a3a;
+  border: 1px solid #2c3032;
+}
+html.dark code.api {
+  color: #c6cbe9;
+  background-color: #32363c;
+  border: 1px solid #292d33;
+}
+html.dark code.type {
+  color: #faebfa;
+  background-color: #37393e;
+  border: 1px solid #2c2f33;
+}
+html.dark code.event {
+  color: #c7edf5;
+  background-color: #32393d;
+  border: 1px solid #292f33;
+}
+html.dark code.string {
+  color: #f5eee9;
+  background-color: #36393c;
+  border: 1px solid #2c2f33;
+}
+html.dark code.field {
+  color: #f9f1fc;
+  background-color: #37393e;
+  border: 1px solid #2c2f34;
+}
+html.dark code.button {
+  color: #f2f7f9;
+  background-color: #363a3e;
+  border: 1px solid #2b3033;
+}
+html.dark .syntaxhighlighter {
+  background: #2d2d2d !important;
+  box-shadow: inset 0 0 3px rgb(0, 0, 0) !important;
+}
+html.dark .syntaxhighlighter .line.alt1 {
+  background-color: #2d2d2d !important;
+}
+html.dark .syntaxhighlighter .line.alt2 {
+  background-color: #292929 !important;
+}
+html.dark .syntaxhighlighter table caption {
+  color: black !important;
+}
+html.dark .syntaxhighlighter .gutter div {
+  color: #8d8d8d !important;
+}
+html.dark .syntaxhighlighter .gutter .line {
+  border-right: 3px solid #1a1a1a !important;
+}
+html.dark .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar {
+  color: blue !important;
+  background: white !important;
+  border: 1px solid #4E6CA3 !important;
+}
+html.dark .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar a {
+  color: blue !important;
+}
+html.dark .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar a:hover {
+  color: red !important;
+}
+html.dark .syntaxhighlighter .toolbar {
+  color: white !important;
+}
+html.dark .syntaxhighlighter .toolbar a:hover {
+  color: #b7c5df !important;
+  background: #39568b !important;
+}
+html.dark .syntaxhighlighter .plain,
+html.dark .syntaxhighlighter .plain a {
+  color: rgb(218, 224, 231) !important;
+}
+html.dark .syntaxhighlighter .comments,
+html.dark .syntaxhighlighter .comments a {
+  color: #6A9955 !important;
+}
+html.dark .syntaxhighlighter .string,
+html.dark .syntaxhighlighter .string a {
+  color: #ce9178 !important;
+}
+html.dark .syntaxhighlighter .keyword {
+  color: #569cd6 !important;
+}
+html.dark .syntaxhighlighter .preprocessor {
+  color: gray !important;
+}
+html.dark .syntaxhighlighter .variable {
+  color: #aa7700 !important;
+}
+html.dark .syntaxhighlighter .value {
+  color: #009900 !important;
+}
+html.dark .syntaxhighlighter .functions {
+  color: #ff1493 !important;
+}
+html.dark .syntaxhighlighter .constants {
+  color: #0066cc !important;
+}
+html.dark .syntaxhighlighter .script {
+  color: #006699 !important;
+}
+html.dark .syntaxhighlighter .color1,
+html.dark .syntaxhighlighter .color1 a {
+  color: gray !important;
+}
+html.dark .syntaxhighlighter .color2,
+html.dark .syntaxhighlighter .color2 a {
+  color: #ff1493 !important;
+}
+html.dark .syntaxhighlighter .color3,
+html.dark .syntaxhighlighter .color3 a {
+  color: red !important;
+}
+
 @media (prefers-color-scheme: dark) {
-  body {
+  :root:not(.light) body {
     background-color: rgb(33, 37, 41);
     color: rgb(218, 224, 231);
   }
-  a {
+  :root:not(.light) a {
     color: rgb(110, 168, 254);
   }
-  div.toc li {
+  :root:not(.light) div.toc li {
     border-bottom: 1px solid rgb(73, 80, 87);
   }
-  div.toc li:first-child {
+  :root:not(.light) div.toc li:first-child {
     border-top: 1px solid rgb(73, 80, 87);
   }
-  div.toc li.active {
+  :root:not(.light) div.toc li.active {
     border-left: 4px solid rgb(110, 168, 254);
   }
-  div.info {
+  :root:not(.light) div.info {
     column-rule-color: rgb(73, 80, 87);
   }
-  div.footer {
+  :root:not(.light) div.footer {
     border-top-color: rgb(26, 27, 27);
     background-color: rgb(31, 34, 36);
   }
-  code {
+  :root:not(.light) code {
     color: rgb(228, 228, 228);
     background-color: rgb(28, 30, 31);
     border: 1px solid rgb(5, 5, 5);
   }
-  ul.tabs li {
+  :root:not(.light) ul.tabs li {
     color: inherit;
   }
-  ul.tabs li.active {
+  :root:not(.light) ul.tabs li.active {
     border: 1px solid rgb(73, 80, 87);
     border-bottom: 1px solid rgb(28, 30, 31);
     background-color: rgb(28, 30, 31);
   }
-  div.tabs > div {
+  :root:not(.light) div.tabs > div {
     background-color: rgb(28, 30, 31);
     border: 1px solid rgb(73, 80, 87);
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
   }
-  code.option {
+  :root:not(.light) code.option {
     color: #f7d6df;
     background-color: #36373b;
     border: 1px solid #2c2e32;
   }
-  code.path {
+  :root:not(.light) code.path {
     color: #8ccb89;
     background-color: #2c3633;
     border: 1px solid #262d2e;
   }
-  code.tag {
+  :root:not(.light) code.tag {
     color: #fff9d7;
     background-color: #373a3a;
     border: 1px solid #2c3032;
   }
-  code.api {
+  :root:not(.light) code.api {
     color: #c6cbe9;
     background-color: #32363c;
     border: 1px solid #292d33;
   }
-  code.type {
+  :root:not(.light) code.type {
     color: #faebfa;
     background-color: #37393e;
     border: 1px solid #2c2f33;
   }
-  code.event {
+  :root:not(.light) code.event {
     color: #c7edf5;
     background-color: #32393d;
     border: 1px solid #292f33;
   }
-  code.string {
+  :root:not(.light) code.string {
     color: #f5eee9;
     background-color: #36393c;
     border: 1px solid #2c2f33;
   }
-  code.field {
+  :root:not(.light) code.field {
     color: #f9f1fc;
     background-color: #37393e;
     border: 1px solid #2c2f34;
   }
-  code.button {
+  :root:not(.light) code.button {
     color: #f2f7f9;
     background-color: #363a3e;
     border: 1px solid #2b3033;
   }
-  .syntaxhighlighter {
+  :root:not(.light) .syntaxhighlighter {
     background: #2d2d2d !important;
     box-shadow: inset 0 0 3px rgb(0, 0, 0) !important;
   }
-  .syntaxhighlighter .line.alt1 {
+  :root:not(.light) .syntaxhighlighter .line.alt1 {
     background-color: #2d2d2d !important;
   }
-  .syntaxhighlighter .line.alt2 {
+  :root:not(.light) .syntaxhighlighter .line.alt2 {
     background-color: #292929 !important;
   }
-  .syntaxhighlighter table caption {
+  :root:not(.light) .syntaxhighlighter table caption {
     color: black !important;
   }
-  .syntaxhighlighter .gutter div {
+  :root:not(.light) .syntaxhighlighter .gutter div {
     color: #8d8d8d !important;
   }
-  .syntaxhighlighter .gutter .line {
+  :root:not(.light) .syntaxhighlighter .gutter .line {
     border-right: 3px solid #1a1a1a !important;
   }
-  .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar {
+  :root:not(.light) .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar {
     color: blue !important;
     background: white !important;
     border: 1px solid #4E6CA3 !important;
   }
-  .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar a {
+  :root:not(.light) .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar a {
     color: blue !important;
   }
-  .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar a:hover {
+  :root:not(.light) .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar a:hover {
     color: red !important;
   }
-  .syntaxhighlighter .toolbar {
+  :root:not(.light) .syntaxhighlighter .toolbar {
     color: white !important;
   }
-  .syntaxhighlighter .toolbar a:hover {
+  :root:not(.light) .syntaxhighlighter .toolbar a:hover {
     color: #b7c5df !important;
     background: #39568b !important;
   }
-  .syntaxhighlighter .plain,
-  .syntaxhighlighter .plain a {
+  :root:not(.light) .syntaxhighlighter .plain,
+  :root:not(.light) .syntaxhighlighter .plain a {
     color: rgb(218, 224, 231) !important;
   }
-  .syntaxhighlighter .comments,
-  .syntaxhighlighter .comments a {
+  :root:not(.light) .syntaxhighlighter .comments,
+  :root:not(.light) .syntaxhighlighter .comments a {
     color: #6A9955 !important;
   }
-  .syntaxhighlighter .string,
-  .syntaxhighlighter .string a {
+  :root:not(.light) .syntaxhighlighter .string,
+  :root:not(.light) .syntaxhighlighter .string a {
     color: #ce9178 !important;
   }
-  .syntaxhighlighter .keyword {
+  :root:not(.light) .syntaxhighlighter .keyword {
     color: #569cd6 !important;
   }
-  .syntaxhighlighter .preprocessor {
+  :root:not(.light) .syntaxhighlighter .preprocessor {
     color: gray !important;
   }
-  .syntaxhighlighter .variable {
+  :root:not(.light) .syntaxhighlighter .variable {
     color: #aa7700 !important;
   }
-  .syntaxhighlighter .value {
+  :root:not(.light) .syntaxhighlighter .value {
     color: #009900 !important;
   }
-  .syntaxhighlighter .functions {
+  :root:not(.light) .syntaxhighlighter .functions {
     color: #ff1493 !important;
   }
-  .syntaxhighlighter .constants {
+  :root:not(.light) .syntaxhighlighter .constants {
     color: #0066cc !important;
   }
-  .syntaxhighlighter .script {
+  :root:not(.light) .syntaxhighlighter .script {
     color: #006699 !important;
   }
-  .syntaxhighlighter .color1,
-  .syntaxhighlighter .color1 a {
+  :root:not(.light) .syntaxhighlighter .color1,
+  :root:not(.light) .syntaxhighlighter .color1 a {
     color: gray !important;
   }
-  .syntaxhighlighter .color2,
-  .syntaxhighlighter .color2 a {
+  :root:not(.light) .syntaxhighlighter .color2,
+  :root:not(.light) .syntaxhighlighter .color2 a {
     color: #ff1493 !important;
   }
-  .syntaxhighlighter .color3,
-  .syntaxhighlighter .color3 a {
+  :root:not(.light) .syntaxhighlighter .color3,
+  :root:not(.light) .syntaxhighlighter .color3 a {
     color: red !important;
   }
 }

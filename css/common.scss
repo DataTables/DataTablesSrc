@@ -40,9 +40,11 @@ $table-row-background: transparent !default;
 
 // Border between the header (and footer) and the table body
 $table-header-border: 1px solid shade($table-row-background, 30%) !default;
+$table-header-border-dark: 1px solid rgb(89, 91, 94) !default;
 
 // Border of rows / cells
 $table-body-border: 1px solid shade($table-row-background, 15%) !default;
+$table-body-border-dark: 1px solid rgb(64, 67, 70) !default;
 
 // Row colour, when selected (tr.selected) and used for processing display
 // These are SCSS lists in `r g b` format

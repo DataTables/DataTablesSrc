@@ -425,14 +425,14 @@ div {
 	h1 span {
 		display: block;
 	}
-  }
-  
-@media (prefers-color-scheme: dark) {
+}
+
+@mixin dt-demo-dark() {
 	body {
 		background-color: rgb(33, 37, 41);
 		color: rgb(218, 224, 231);
 	}
-  
+
 	a {
 		color: rgb(110, 168, 254);
 	}
@@ -605,5 +605,14 @@ div {
 			color: red !important;
 		}
 	}
-  }
-  
+}
+
+html.dark {
+	@include dt-demo-dark();
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not(.light) {
+		@include dt-demo-dark();
+	}
+}
