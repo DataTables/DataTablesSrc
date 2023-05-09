@@ -18,7 +18,11 @@ body {
 		line-height: 1.42857143;
 	}
 }
-  
+
+section {
+	position: relative;
+}
+
 div.container {
 	max-width: 980px;
 	margin: 0 auto;
@@ -402,7 +406,16 @@ div {
 		padding-right: 1%;
 	}
 }
-  
+
+div.dt-demo-options {
+	position: absolute;
+	right: 0;
+
+	div.dt-demo-selector--options {
+		display: none;
+	}
+}
+
 @media only screen and (max-width: 979px) {
 	div {
 		&.container, &.footer {

@@ -144,7 +144,86 @@ if ( window.$ ) {
 				.eq( $(this).index() ).css('display', 'block');
 		} );
 		$('ul.tabs li.active').trigger('click');
+
+		var options = $('<div class="dt-demo-options"></div>')
+			.insertBefore('h1');
+
+		// Scheme picker
+		var colourSelector = $(
+				'<div class="dt-demo-selector">'+
+					'<div class="dt-demo-selector--current">Current</div>'+
+					'<div class="dt-demo-selector--options">'+
+						'<div class="dt-demo-selector--option" data-val="light">Light</div>'+
+						'<div class="dt-demo-selector--option" data-val="dark">Dark</div>'+
+						'<div class="dt-demo-selector--option" data-val="auto">Auto</div>'+
+					'</div>'+
+				'</div>'+
+			'</div>'
+		)
+			.appendTo(options)
+			.on('click', '.dt-demo-selector--option', function () {
+				var val = $(this).data('val');
+
+				localStorage.setItem('dt-demo-scheme', val);
+				applyTheme(val);
+			});
+
+		var colourCurrent = colourSelector.find('.dt-demo-selector--current');
+		var colourOptions = colourSelector.find('.dt-demo-selector--options');
+
+		colourCurrent.on('click', function () {
+			console.log(colourOptions.css('display'));
+			if (colourOptions.css('display') === 'block') {
+				colourOptions.css('display', 'none');
+
+				$('body').off('click.dt-theme-selector');
+			}
+			else {
+				colourOptions.css('display', 'block');
+
+				setTimeout(function () {
+					$('body').on('click.dt-theme-selector', function (e) {
+						if ($(e.target).parents(colourOptions).length) {
+							return;
+						}
+
+						colourCurrent.trigger('click'); // hide
+					});
+				}, 10);
+			}
+		});
+
+		var appliedColour = localStorage.getItem('dt-demo-scheme');
+		
+		if (! appliedColour) {
+			appliedColour = 'auto';
+		}
+
+		applyTheme(appliedColour);
 	} );
+
+	function applyTheme(theme) {
+		if (theme === 'auto') {
+			$('html').removeClass('light dark'); // DataTables base
+
+			// Bootstrap 5.3+ has a dark mode, but is needs data-bs-theme to be
+			// set to activate the dark mode styles (it doesn't auto switch in
+			// CSS only)
+			var prefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+			if (prefers == 'dark') {
+				$('html').attr('data-bs-theme', 'dark');
+			}
+			else {
+				$('html').removeAttr('data-bs-theme');
+			}
+		}
+		else if (theme === 'dark') {
+			$('html').removeClass('light').addClass('dark');
+			$('html').attr('data-bs-theme', 'dark');
+		}
+		else if (theme === 'light') {
+			$('html').removeClass('dark').addClass('light');
+			$('html').attr('data-bs-theme', 'light');
+		}
+	}
 }
-
-
