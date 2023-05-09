@@ -125,11 +125,12 @@ table.dataTable {
 	&.display > tbody {
 		> tr.odd > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.023);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe));
 		}
 
 		> tr.odd.selected > * {
 			box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.923);
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.923));
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.923);
 		}
 	}
 
@@ -139,11 +140,12 @@ table.dataTable {
 	&.display > tbody {
 		> tr:hover > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.035);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.035);
 		}
 
 		> tr.selected:hover > * {
 			box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 1) !important;
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 1)) !important;
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 1) !important;
 		}
 	}
 
@@ -156,13 +158,14 @@ table.dataTable {
 			tr > .sorting_2,
 			tr > .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.019);
 			}
 
 			tr.selected > .sorting_1,
 			tr.selected > .sorting_2,
 			tr.selected > .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.919);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.919));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.919);
 			}
 		}
 	}
@@ -172,26 +175,29 @@ table.dataTable {
 		> tr.odd {
 			> .sorting_1 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.054);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.054);
 			}
 			> .sorting_2 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.047);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.047);
 			}
 			> .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.039);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.039);
 			}
 
 			&.selected {
 				> .sorting_1 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.954);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.954));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.954);
 				}
 				> .sorting_2 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.947);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.947));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.947);
 				}
 				> .sorting_3 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.939);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.939));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.939);
 				}
 			}
 		}
@@ -199,26 +205,29 @@ table.dataTable {
 		> tr.even {
 			> .sorting_1 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.019);
 			}
 			> .sorting_2 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.011);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.011);
 			}
 			> .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.003);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.003);
 			}
 			
 			&.selected {
 				> .sorting_1 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.919);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.919));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.919);
 				}
 				> .sorting_2 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.911);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.911));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.911);
 				}
 				> .sorting_3 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.903);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.903));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.903);
 				}
 			}
 		}
@@ -229,26 +238,29 @@ table.dataTable {
 		tr:hover {
 			> .sorting_1 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.082);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.082);
 			}
 			> .sorting_2 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.074);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.074);
 			}
 			> .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.062);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.062);
 			}
 
 			&.selected {
 				> .sorting_1 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.982);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.982));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.982);
 				}
 				> .sorting_2 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.974);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.974));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.974);
 				}
 				> .sorting_3 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.962);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected, 0.962));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.962);
 				}
 			}
 		}
@@ -467,6 +479,10 @@ table.dataTable td {
 
 
 @mixin dt-dark () {
+	--dt-row-hover: 255, 255, 255;
+	--dt-row-stripe: 255, 255, 255, 0.023;
+	--dt-column-ordering: 255, 255, 255;
+
 	table.dataTable {
 		thead th,
 		thead td {

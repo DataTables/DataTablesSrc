@@ -74,6 +74,9 @@ $close-button-background: #d33333 !default;
 	--dt-row-selected: #{str-replace(#{$table-row-selected}, ' ', ', ')};
 	--dt-row-selected-text: #{str-replace(#{$table-row-selected-text}, ' ', ', ')};
 	--dt-row-selected-link: #{str-replace(#{$table-row-selected-link}, ' ', ', ')};
+	--dt-row-stripe: 0, 0, 0, 0.023;
+	--dt-row-hover: 0, 0, 0;
+	--dt-column-ordering: 0, 0, 0;
 }
 
 //
