@@ -125,7 +125,7 @@ table.dataTable {
 	&.display > tbody {
 		> tr.odd > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.023);
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe));
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe), 0.023);
 		}
 
 		> tr.odd.selected > * {
@@ -480,7 +480,7 @@ table.dataTable td {
 
 @mixin dt-dark () {
 	--dt-row-hover: 255, 255, 255;
-	--dt-row-stripe: 255, 255, 255, 0.023;
+	--dt-row-stripe: 255, 255, 255;
 	--dt-column-ordering: 255, 255, 255;
 
 	table.dataTable {

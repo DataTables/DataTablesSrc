@@ -223,3 +223,9 @@ div.table-responsive > div.dataTables_wrapper > div.row {
 		}
 	}
 }
+
+:root[data-bs-theme="dark"] {
+	--dt-row-hover: 255, 255, 255;
+	--dt-row-stripe: 255, 255, 255;
+	--dt-column-ordering: 255, 255, 255;
+}
