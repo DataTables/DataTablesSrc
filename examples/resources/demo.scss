@@ -29,13 +29,13 @@ div.container {
 }
   
 h1 {
-	font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Raleway', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-	font-weight: 100;
-	letter-spacing: 1px;
+	font-weight: normal;
 	font-size: 3em;
 	line-height: 1em;
   
 	span {
+		display: block;
+		padding-top: 0.5em;
 		font-size: 0.5em;
 		line-height: 1em;
 	}

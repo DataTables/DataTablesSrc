@@ -38,8 +38,8 @@ table.dataTable {
 		}
 	}
 
-	> thead > th,
-	> thead > td {
+	> thead > tr > th,
+	> thead > tr > td {
 		padding: 10px;
 
 		@if not $jqueryui { // jQuery UI defines its own border
@@ -51,8 +51,8 @@ table.dataTable {
 		}
 	}
 
-	> tfoot > th,
-	> tfoot > td {
+	> tfoot > tr > th,
+	> tfoot > tr > td {
 		padding: 10px 10px 6px 10px;
 
 		@if not $jqueryui { // jQuery UI defines its own border
@@ -477,8 +477,8 @@ html.dark {
 	--dt-column-ordering: 255, 255, 255;
 
 	table.dataTable {
-		> thead > th,
-		> thead > td {
+		> thead > tr > th,
+		> thead > tr > td {
 			@if not $jqueryui { // jQuery UI defines its own border
 				border-bottom: $table-header-border-dark;
 			}
@@ -488,8 +488,8 @@ html.dark {
 			}
 		}
 	
-		> tfoot > th,
-		> tfoot > td {
+		> tfoot > tr > th,
+		> tfoot > tr > td {
 			@if not $jqueryui { // jQuery UI defines its own border
 				border-top: $table-header-border-dark;
 			}
