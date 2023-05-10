@@ -222,6 +222,10 @@ if ( window.$ ) {
 			$('html').attr('data-bs-theme', 'light');
 		}
 
+		$('#theme-selector div.dt-demo-selector__current i')
+			.removeClass('light dark auto')
+			.addClass(theme);
+
 		var options = $('#theme-selector div.dt-demo-selector__option');
 		options.removeClass('selected');
 
