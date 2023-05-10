@@ -336,8 +336,78 @@ div.dt-demo-options {
   position: absolute;
   right: 0;
 }
-div.dt-demo-options div.dt-demo-selector--options {
+
+div.dt-demo-selector {
+  position: relative;
+}
+div.dt-demo-selector div.dt-demo-selector__current {
+  width: fit-content;
+  padding: 0.5em;
+  border: 1px solid #c3c3c3;
+  border-radius: 5px;
+  cursor: pointer;
+}
+div.dt-demo-selector div.dt-demo-selector__current::after {
+  display: inline-block;
+  margin-left: 0.5em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+  color: rgba(0, 0, 0, 0.5);
+}
+div.dt-demo-selector div.dt-demo-selector__options {
   display: none;
+  position: absolute;
+  top: 39px;
+  right: 0;
+  padding: 0.5em;
+  border: 1px solid #c3c3c3;
+  background-color: white;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  min-width: 100px;
+}
+div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option {
+  margin-bottom: 2px;
+  padding: 0.5em 1em;
+  border-radius: 0.25em;
+  cursor: pointer;
+}
+div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option.selected {
+  background: rgb(13, 110, 253);
+  color: white;
+}
+div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option.selected i.dt-demo-icon {
+  filter: invert(100%) brightness(1000%);
+}
+div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option:not(.selected):hover {
+  background: rgb(240, 240, 240);
+}
+div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option:last-child {
+  margin-bottom: 0;
+}
+div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option i.dt-demo-icon {
+  margin-right: 0.75em;
+}
+
+i.dt-demo-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+i.dt-demo-icon.light {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high-fill" viewBox="0 0 16 16"><path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></svg>');
+}
+i.dt-demo-icon.dark {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars-fill" viewBox="0 0 16 16"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/><path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/></svg>');
+}
+i.dt-demo-icon.auto {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-half" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/></svg>');
 }
 
 @media only screen and (max-width: 979px) {
@@ -525,174 +595,26 @@ html.dark .syntaxhighlighter .color3,
 html.dark .syntaxhighlighter .color3 a {
   color: red !important;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) body {
-    background-color: rgb(33, 37, 41);
-    color: rgb(218, 224, 231);
-  }
-  :root:not(.light) a {
-    color: rgb(110, 168, 254);
-  }
-  :root:not(.light) div.toc li {
-    border-bottom: 1px solid rgb(73, 80, 87);
-  }
-  :root:not(.light) div.toc li:first-child {
-    border-top: 1px solid rgb(73, 80, 87);
-  }
-  :root:not(.light) div.toc li.active {
-    border-left: 4px solid rgb(110, 168, 254);
-  }
-  :root:not(.light) div.info {
-    column-rule-color: rgb(73, 80, 87);
-  }
-  :root:not(.light) div.footer {
-    border-top-color: rgb(26, 27, 27);
-    background-color: rgb(31, 34, 36);
-  }
-  :root:not(.light) code {
-    color: rgb(228, 228, 228);
-    background-color: rgb(28, 30, 31);
-    border: 1px solid rgb(5, 5, 5);
-  }
-  :root:not(.light) ul.tabs li {
-    color: inherit;
-  }
-  :root:not(.light) ul.tabs li.active {
-    border: 1px solid rgb(73, 80, 87);
-    border-bottom: 1px solid rgb(28, 30, 31);
-    background-color: rgb(28, 30, 31);
-  }
-  :root:not(.light) div.tabs > div {
-    background-color: rgb(28, 30, 31);
-    border: 1px solid rgb(73, 80, 87);
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
-  }
-  :root:not(.light) code.option {
-    color: #f7d6df;
-    background-color: #36373b;
-    border: 1px solid #2c2e32;
-  }
-  :root:not(.light) code.path {
-    color: #8ccb89;
-    background-color: #2c3633;
-    border: 1px solid #262d2e;
-  }
-  :root:not(.light) code.tag {
-    color: #fff9d7;
-    background-color: #373a3a;
-    border: 1px solid #2c3032;
-  }
-  :root:not(.light) code.api {
-    color: #c6cbe9;
-    background-color: #32363c;
-    border: 1px solid #292d33;
-  }
-  :root:not(.light) code.type {
-    color: #faebfa;
-    background-color: #37393e;
-    border: 1px solid #2c2f33;
-  }
-  :root:not(.light) code.event {
-    color: #c7edf5;
-    background-color: #32393d;
-    border: 1px solid #292f33;
-  }
-  :root:not(.light) code.string {
-    color: #f5eee9;
-    background-color: #36393c;
-    border: 1px solid #2c2f33;
-  }
-  :root:not(.light) code.field {
-    color: #f9f1fc;
-    background-color: #37393e;
-    border: 1px solid #2c2f34;
-  }
-  :root:not(.light) code.button {
-    color: #f2f7f9;
-    background-color: #363a3e;
-    border: 1px solid #2b3033;
-  }
-  :root:not(.light) .syntaxhighlighter {
-    background: #2d2d2d !important;
-    box-shadow: inset 0 0 3px rgb(0, 0, 0) !important;
-  }
-  :root:not(.light) .syntaxhighlighter .line.alt1 {
-    background-color: #2d2d2d !important;
-  }
-  :root:not(.light) .syntaxhighlighter .line.alt2 {
-    background-color: #292929 !important;
-  }
-  :root:not(.light) .syntaxhighlighter table caption {
-    color: black !important;
-  }
-  :root:not(.light) .syntaxhighlighter .gutter div {
-    color: #8d8d8d !important;
-  }
-  :root:not(.light) .syntaxhighlighter .gutter .line {
-    border-right: 3px solid #1a1a1a !important;
-  }
-  :root:not(.light) .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar {
-    color: blue !important;
-    background: white !important;
-    border: 1px solid #4E6CA3 !important;
-  }
-  :root:not(.light) .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar a {
-    color: blue !important;
-  }
-  :root:not(.light) .syntaxhighlighter .syntaxhighlighter.collapsed .toolbar a:hover {
-    color: red !important;
-  }
-  :root:not(.light) .syntaxhighlighter .toolbar {
-    color: white !important;
-  }
-  :root:not(.light) .syntaxhighlighter .toolbar a:hover {
-    color: #b7c5df !important;
-    background: #39568b !important;
-  }
-  :root:not(.light) .syntaxhighlighter .plain,
-  :root:not(.light) .syntaxhighlighter .plain a {
-    color: rgb(218, 224, 231) !important;
-  }
-  :root:not(.light) .syntaxhighlighter .comments,
-  :root:not(.light) .syntaxhighlighter .comments a {
-    color: #6A9955 !important;
-  }
-  :root:not(.light) .syntaxhighlighter .string,
-  :root:not(.light) .syntaxhighlighter .string a {
-    color: #ce9178 !important;
-  }
-  :root:not(.light) .syntaxhighlighter .keyword {
-    color: #569cd6 !important;
-  }
-  :root:not(.light) .syntaxhighlighter .preprocessor {
-    color: gray !important;
-  }
-  :root:not(.light) .syntaxhighlighter .variable {
-    color: #aa7700 !important;
-  }
-  :root:not(.light) .syntaxhighlighter .value {
-    color: #009900 !important;
-  }
-  :root:not(.light) .syntaxhighlighter .functions {
-    color: #ff1493 !important;
-  }
-  :root:not(.light) .syntaxhighlighter .constants {
-    color: #0066cc !important;
-  }
-  :root:not(.light) .syntaxhighlighter .script {
-    color: #006699 !important;
-  }
-  :root:not(.light) .syntaxhighlighter .color1,
-  :root:not(.light) .syntaxhighlighter .color1 a {
-    color: gray !important;
-  }
-  :root:not(.light) .syntaxhighlighter .color2,
-  :root:not(.light) .syntaxhighlighter .color2 a {
-    color: #ff1493 !important;
-  }
-  :root:not(.light) .syntaxhighlighter .color3,
-  :root:not(.light) .syntaxhighlighter .color3 a {
-    color: red !important;
-  }
+html.dark div.dt-demo-selector div.dt-demo-selector__current {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+html.dark div.dt-demo-selector div.dt-demo-selector__current::after {
+  color: rgba(255, 255, 255, 0.75);
+}
+html.dark div.dt-demo-selector div.dt-demo-selector__current i.dt-demo-icon {
+  filter: invert(100%) brightness(1000%);
+}
+html.dark div.dt-demo-selector div.dt-demo-selector__options {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgb(21, 21, 21);
+}
+html.dark div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option.selected {
+  background: rgb(13, 110, 253);
+  color: white;
+}
+html.dark div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option:not(.selected):hover {
+  background: rgb(61, 61, 61);
+}
+html.dark div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option i.dt-demo-icon {
+  filter: invert(100%) brightness(1000%);
 }

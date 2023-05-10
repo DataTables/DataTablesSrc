@@ -150,29 +150,28 @@ if ( window.$ ) {
 
 		// Scheme picker
 		var colourSelector = $(
-				'<div class="dt-demo-selector">'+
-					'<div class="dt-demo-selector--current">Current</div>'+
-					'<div class="dt-demo-selector--options">'+
-						'<div class="dt-demo-selector--option" data-val="light">Light</div>'+
-						'<div class="dt-demo-selector--option" data-val="dark">Dark</div>'+
-						'<div class="dt-demo-selector--option" data-val="auto">Auto</div>'+
+				'<div id="theme-selector" class="dt-demo-selector">'+
+					'<div class="dt-demo-selector__current"><i class="dt-demo-icon light"></i></div>'+
+					'<div class="dt-demo-selector__options">'+
+						'<div class="dt-demo-selector__option" data-val="auto"><i class="dt-demo-icon auto"></i>Auto</div>'+
+						'<div class="dt-demo-selector__option" data-val="light"><i class="dt-demo-icon light"></i>Light</div>'+
+						'<div class="dt-demo-selector__option" data-val="dark"><i class="dt-demo-icon dark"></i>Dark</div>'+
 					'</div>'+
 				'</div>'+
 			'</div>'
 		)
 			.appendTo(options)
-			.on('click', '.dt-demo-selector--option', function () {
+			.on('click', '.dt-demo-selector__option', function () {
 				var val = $(this).data('val');
 
 				localStorage.setItem('dt-demo-scheme', val);
 				applyTheme(val);
 			});
 
-		var colourCurrent = colourSelector.find('.dt-demo-selector--current');
-		var colourOptions = colourSelector.find('.dt-demo-selector--options');
+		var colourCurrent = colourSelector.find('.dt-demo-selector__current');
+		var colourOptions = colourSelector.find('.dt-demo-selector__options');
 
 		colourCurrent.on('click', function () {
-			console.log(colourOptions.css('display'));
 			if (colourOptions.css('display') === 'block') {
 				colourOptions.css('display', 'none');
 
@@ -183,7 +182,7 @@ if ( window.$ ) {
 
 				setTimeout(function () {
 					$('body').on('click.dt-theme-selector', function (e) {
-						if ($(e.target).parents(colourOptions).length) {
+						if ($(e.target).parents(colourOptions).filter(colourSelector).length) {
 							return;
 						}
 
@@ -204,17 +203,14 @@ if ( window.$ ) {
 
 	function applyTheme(theme) {
 		if (theme === 'auto') {
-			$('html').removeClass('light dark'); // DataTables base
-
-			// Bootstrap 5.3+ has a dark mode, but is needs data-bs-theme to be
-			// set to activate the dark mode styles (it doesn't auto switch in
-			// CSS only)
 			var prefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 			if (prefers == 'dark') {
 				$('html').attr('data-bs-theme', 'dark');
+				$('html').removeClass('light').addClass('dark');
 			}
 			else {
 				$('html').removeAttr('data-bs-theme');
+				$('html').removeClass('light dark');
 			}
 		}
 		else if (theme === 'dark') {
@@ -225,5 +221,10 @@ if ( window.$ ) {
 			$('html').removeClass('dark').addClass('light');
 			$('html').attr('data-bs-theme', 'light');
 		}
+
+		var options = $('#theme-selector div.dt-demo-selector__option');
+		options.removeClass('selected');
+
+		options.filter('[data-val="'+theme+'"]').addClass('selected');
 	}
 }
