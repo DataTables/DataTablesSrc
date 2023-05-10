@@ -66,12 +66,6 @@ $table-paging-button-hover-dark: rgb(53, 53, 53) !default;
 // Colour to use when shading
 $table-shade: black !default;
 
-$control-button-top: 9px !default;
-$control-button-size: 1em !default;
-$control-button-color: white !default;
-$open-button-background: #31b131 !default;
-$close-button-background: #d33333 !default;
-
 :root {
 	--dt-row-selected: #{str-replace(#{$table-row-selected}, ' ', ', ')};
 	--dt-row-selected-text: #{str-replace(#{$table-row-selected-text}, ' ', ', ')};
@@ -86,27 +80,15 @@ $close-button-background: #d33333 !default;
 //
 @mixin control() {
 	display: inline-block;
-	color: $control-button-color;
-	border: 0.15em solid white;
-	border-radius: 1em;
-	box-shadow: 0 0 0.2em #444;
-	box-sizing: content-box;
-	text-align: center;
-	text-indent: 0 !important;
-
-	// Use Courier New because it is common and consistent
-	font-family: 'Courier New', Courier, monospace;
-	line-height: 1em;
+	color: rgba(0, 0, 0, 0.5);
 }
 
 @mixin control-open() {
-	content: '+';
-	background-color: $open-button-background;
+	content: "►";
 }
 
 @mixin control-close() {
-	content: '-';
-	background-color: $close-button-background;
+	content: "▼";
 }
 
 // Standard row striping with a box shadow
@@ -160,9 +142,6 @@ table.dataTable {
         cursor: pointer;
     
         &:before {
-            height: $control-button-size;
-            width: $control-button-size;
-            margin-top: -$control-button-top;
             @include control;
             @include control-open;
         }
@@ -173,4 +152,20 @@ table.dataTable {
             @include control-close;
         }
     }
+}
+
+html.dark {
+	table.dataTable {
+		td.dt-control {
+			&:before {
+				color: rgba(255, 255, 255, 0.5);
+			}
+		}
+
+		tr.dt-hasChild {
+			td.dt-control:before {
+				color: rgba(255, 255, 255, 0.5);
+			}
+		}
+	}
 }

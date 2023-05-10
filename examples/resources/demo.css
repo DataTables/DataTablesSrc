@@ -369,6 +369,7 @@ div.dt-demo-selector div.dt-demo-selector__options {
   right: 0;
   padding: 0.5em;
   border: 1px solid #c3c3c3;
+  z-index: 3;
   background-color: white;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 5px;

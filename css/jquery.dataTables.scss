@@ -38,8 +38,8 @@ table.dataTable {
 		}
 	}
 
-	thead th,
-	thead td {
+	> thead > th,
+	> thead > td {
 		padding: 10px;
 
 		@if not $jqueryui { // jQuery UI defines its own border
@@ -51,8 +51,8 @@ table.dataTable {
 		}
 	}
 
-	tfoot th,
-	tfoot td {
+	> tfoot > th,
+	> tfoot > td {
 		padding: 10px 10px 6px 10px;
 
 		@if not $jqueryui { // jQuery UI defines its own border
@@ -88,33 +88,35 @@ table.dataTable {
 
 
 	// Stripe classes - add "row-border" class to the table to activate
-	&.row-border tbody,
-	&.display tbody {
-		th, td {
+	&.row-border > tbody,
+	&.display > tbody {
+		> tr > th,
+		> tr > td {
 			border-top: $table-body-border;
 		}
 
-		tr:first-child th,
-		tr:first-child td {
+		> tr:first-child > th,
+		> tr:first-child > td {
 			border-top: none;
 		}
 	}
 
 
 	// Stripe classes - add "cell-border" class to the table to activate
-	&.cell-border tbody {
-		th, td {
+	&.cell-border > tbody {
+		> tr > th,
+		> tr > td {
 			border-top: $table-body-border;
 			border-right: $table-body-border;
 		}
 
-		tr th:first-child,
-		tr td:first-child {
+		> tr > th:first-child,
+		> tr > td:first-child {
 			border-left: $table-body-border;
 		}
 
-		tr:first-child th,
-		tr:first-child td {
+		> tr:first-child > th,
+		> tr:first-child > td {
 			border-top: none;
 		}
 	}
@@ -475,8 +477,8 @@ html.dark {
 	--dt-column-ordering: 255, 255, 255;
 
 	table.dataTable {
-		thead th,
-		thead td {
+		> thead > th,
+		> thead > td {
 			@if not $jqueryui { // jQuery UI defines its own border
 				border-bottom: $table-header-border-dark;
 			}
@@ -486,31 +488,33 @@ html.dark {
 			}
 		}
 	
-		tfoot th,
-		tfoot td {
+		> tfoot > th,
+		> tfoot > td {
 			@if not $jqueryui { // jQuery UI defines its own border
 				border-top: $table-header-border-dark;
 			}
 		}
 
 		// Stripe classes - add "row-border" class to the table to activate
-		&.row-border tbody,
-		&.display tbody {
-			th, td {
+		&.row-border > tbody,
+		&.display > tbody {
+			> tr > th,
+			> tr > td {
 				border-top: $table-body-border-dark;
 			}
 		}
 	
 	
 		// Stripe classes - add "cell-border" class to the table to activate
-		&.cell-border tbody {
-			th, td {
+		&.cell-border > tbody {
+			> tr > th,
+			> tr > td {
 				border-top: $table-body-border-dark;
 				border-right: $table-body-border-dark;
 			}
 	
-			tr th:first-child,
-			tr td:first-child {
+			> tr > th:first-child,
+			> tr > td:first-child {
 				border-left: $table-body-border-dark;
 			}
 		}
