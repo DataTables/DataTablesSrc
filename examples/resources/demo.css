@@ -286,7 +286,6 @@ div.tabs {
   clear: both;
   margin-top: -1px;
   display: block;
-  font: 90%/1.45em "Helvetica Neue", HelveticaNeue, Arial, Helvetica, sans-serif;
   border-radius: 5px;
 }
 
@@ -295,7 +294,7 @@ body.dt-example-bulma > div.container > section > ul.tabs {
 }
 
 div.tabs > div {
-  padding: 15px;
+  padding: 1.5em;
   border: 1px solid #ccc;
   display: none;
   border-radius: 5px;
@@ -313,13 +312,18 @@ div.tabs > div > p:first-child {
 }
 div.tabs > div > ul {
   display: block;
-  list-style: disc;
-  padding-left: 2rem;
+  list-style: none;
+  padding-left: 0;
   border-width: 0px;
-  margin-bottom: 1rem;
+  margin: 1em 2em;
 }
 div.tabs > div > ul > li {
   display: list-item;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.2em 1em;
+}
+div.tabs > div > ul > li:first-child {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 div.tabs > div > ul > li > a {
   border-bottom-width: 0px;
@@ -467,6 +471,12 @@ html.dark div.tabs > div {
   background-color: rgb(28, 30, 31);
   border: 1px solid rgb(73, 80, 87);
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+}
+html.dark div.tabs > div > ul > li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+html.dark div.tabs > div > ul > li:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 html.dark code.option {
   color: #f7d6df;
