@@ -350,10 +350,7 @@ table.dataTable td {
 			&.current:hover {
 				color: $table-control-color !important;
 				border: $table-header-border;
-				@include gradient(
-					lighten($table-paging-button-active, 90%),
-					$table-paging-button-active
-				);
+				background-color: $table-paging-button-active;
 			}
 
 			&.disabled,
@@ -369,18 +366,12 @@ table.dataTable td {
 			&:hover {
 				color: white !important;
 				border: 1px solid $table-paging-button-hover;
-				@include gradient(
-					lighten($table-paging-button-hover, 28%),
-					$table-paging-button-hover
-				);
+				background-color: $table-paging-button-hover;
 			}
 
 			&:active {
 				outline: none;
-				@include gradient(
-					lighten($table-paging-button-hover, 10%),
-					darken($table-paging-button-hover, 2%)
-				);
+				background-color: darken($table-paging-button-hover, 2%);
 				box-shadow: inset 0 0 3px #111;
 			}
 		}
@@ -530,6 +521,31 @@ html.dark {
 		.dataTables_filter input,
 		.dataTables_length select {
 			border: 1px solid rgb(255, 255, 255, 0.2);
+		}
+
+		.dataTables_paginate {
+			.paginate_button {
+				&.current,
+				&.current:hover {
+					border: $table-header-border-dark;
+					background-color: $table-paging-button-active-dark;
+				}
+
+				&.disabled,
+				&.disabled:hover,
+				&.disabled:active {
+					color: #666 !important;
+				}
+
+				&:hover {
+					border: 1px solid $table-paging-button-hover-dark;
+					background-color: $table-paging-button-hover-dark;
+				}
+
+				&:active {
+					background-color: lighten($table-paging-button-hover-dark, 2%);
+				}
+			}
 		}
 	}
 }

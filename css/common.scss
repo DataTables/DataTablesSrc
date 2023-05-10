@@ -21,7 +21,7 @@
 }
 
 @mixin gradient( $from, $to ) {
-	background-color: $from;
+	background-color: $to;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,     $from 0%, $to 100%); /* Chrome10+,Safari5.1+ */
 	background:    -moz-linear-gradient(top,     $from 0%, $to 100%); /* FF3.6+ */
@@ -56,10 +56,12 @@ $table-row-selected-link: 9 10 11 !default;
 $table-control-color: inherit !default;
 
 // Highlight colour of the paging button for the current page
-$table-paging-button-active: rgba(0, 0, 0, 0.1) !default;
+$table-paging-button-active: rgba(0, 0, 0, 0.05) !default;
+$table-paging-button-active-dark: rgba(255, 255, 255, 0.15) !default;
 
 // Hover colour of paging buttons on mouse over
 $table-paging-button-hover: #111 !default;
+$table-paging-button-hover-dark: rgb(53, 53, 53) !default;
 
 // Colour to use when shading
 $table-shade: black !default;
