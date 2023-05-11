@@ -12,8 +12,15 @@
 {css}
 		</style>
 		{js-libs}
-		<script type="text/javascript" language="javascript" class="init">
-{js}
+		<script defer class="init">
+dt_demo.init({
+	jquery: function () {
+		{js}
+	},
+	vanilla: function () {
+		{js-vanilla}
+	}
+});
 		</script>
 	</head>
 	<body class="dt-example {body-class}">
@@ -40,7 +47,12 @@
 				<div class="tabs">
 					<div class="js">
 						<p>The Javascript shown below is used to initialise the table shown in this example:</p>
-						<code class="multiline language-js">{js-esc}</code>
+						<div id="js-jquery">
+							<code class="multiline language-js">{js-esc}</code>
+						</div>
+						<div id="js-vanilla">
+							<code class="multiline language-js">{js-vanilla-esc}</code>
+						</div>
 
 						<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
 						{js-lib-files}
