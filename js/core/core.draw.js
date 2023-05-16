@@ -449,14 +449,16 @@ function _fnDraw( oSettings, ajaxComplete )
  *  @param {object} oSettings dataTables settings object
  *  @param {boolean} [holdPosition] Keep the current paging position. By default
  *    the paging is reset to the first page
+ *  @param {boolean} [ignoreSortAndFilter] Keep the rows as they are rather than
+ *    resorting and filtering based on the table settings
  *  @memberof DataTable#oApi
  */
-function _fnReDraw( settings, holdPosition )
+function _fnReDraw( settings, holdPosition, ignoreSortAndFilter )
 {
 	var
 		features = settings.oFeatures,
-		sort     = features.bSort,
-		filter   = features.bFilter;
+		sort     = ignoreSortAndFilter === true ? false : features.bSort,
+		filter   = ignoreSortAndFilter === true ? false : features.bFilter;
 
 	if ( sort ) {
 		_fnSort( settings );
