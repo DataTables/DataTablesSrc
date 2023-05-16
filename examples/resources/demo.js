@@ -293,7 +293,7 @@ window.dt_demo = {
 				.data('option', option)
 				.append('<span>' + option.label + '</span>')
 				.appendTo(optionsEl);
-			
+
 			if (option.icon) {
 				$('<i class="dt-demo-icon"></i>')
 					.addClass(option.icon)

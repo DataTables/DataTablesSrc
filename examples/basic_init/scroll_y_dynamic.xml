@@ -7,22 +7,18 @@
 
 <title>Scroll - vertical, dynamic height</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		scrollY: '50vh',
-		scrollCollapse: true,
-		paging: false,
-	});
+$('#example').DataTable({
+	scrollY: '50vh',
+	scrollCollapse: true,
+	paging: false,
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
-document.addEventListener('DOMContentLoaded', function () {
-    new DataTable('#example', {
-		scrollY: '50vh',
-		scrollCollapse: true,
-		paging: false,
-	});
+new DataTable('#example', {
+	scrollY: '50vh',
+	scrollCollapse: true,
+	paging: false,
 });
 ]]>
 </js-vanilla>

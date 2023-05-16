@@ -252,6 +252,11 @@ class SSP {
 		$bindings = array();
 		$db = self::db( $conn );
 
+		// Allow for a JSON string to be passed in
+		if (isset($request['json'])) {
+			$request = json_decode($request['json'], true);
+		}
+
 		// Build the SQL query string from the request
 		$limit = self::limit( $request, $columns );
 		$order = self::order( $request, $columns );

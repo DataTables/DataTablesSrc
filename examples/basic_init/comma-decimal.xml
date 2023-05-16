@@ -7,24 +7,20 @@
 
 <title>Language - Comma decimal place</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		language: {
-			decimal: ',',
-			thousands: '.',
-		},
-	});
+$('#example').DataTable({
+	language: {
+		decimal: ',',
+		thousands: '.',
+	},
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
-document.addEventListener('DOMContentLoaded', function () {
-    new DataTable('#example', {
-		language: {
-			decimal: ',',
-			thousands: '.',
-		},
-	});
+new DataTable('#example', {
+	language: {
+		decimal: ',',
+		thousands: '.',
+	},
 });
 ]]>
 </js-vanilla>

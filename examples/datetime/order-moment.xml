@@ -6,18 +6,14 @@
 <![CDATA[
 DataTable.datetime('D MMM YYYY');
 
-$(document).ready(function () {
-	$('#example').DataTable();
-});
+$('#example').DataTable();
 ]]>
 </js>
 <js-vanilla>
 <![CDATA[
 DataTable.datetime('D MMM YYYY');
 
-document.addEventListener('DOMContentLoaded', function () {
-    new DataTable('#example');
-});
+new DataTable('#example');
 ]]>
 </js-vanilla>
 
