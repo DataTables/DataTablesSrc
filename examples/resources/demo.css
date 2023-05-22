@@ -469,6 +469,11 @@ html.dark div.footer {
   border-top-color: rgb(26, 27, 27);
   background-color: rgb(31, 34, 36);
 }
+html.dark div.box {
+  color: rgb(228, 228, 228);
+  background-color: rgb(52, 54, 55);
+  border: 1px solid rgb(5, 5, 5);
+}
 html.dark code {
   color: rgb(228, 228, 228);
   background-color: rgb(28, 30, 31);

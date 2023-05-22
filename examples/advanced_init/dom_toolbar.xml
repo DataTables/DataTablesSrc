@@ -14,20 +14,25 @@
 
 <title>Custom toolbar elements</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		dom: '<"toolbar">frtip',
-	});
-
-	$('div.toolbar').html('<b>Custom tool bar! Text/images etc.</b>');
+$('#example').DataTable({
+	dom: '<"toolbar">frtip',
 });
+
+$('div.toolbar').html('<b>Custom tool bar! Text/images etc.</b>');
 ]]></js>
+<js-vanilla><![CDATA[
+new DataTable('#example', {
+	dom: '<"toolbar">frtip',
+});
+
+document.querySelector('div.toolbar').innerHTML = '<b>Custom tool bar! Text/images etc.</b>';
+]]></js-vanilla>
 
 <info><![CDATA[
 
-DataTables inserts DOM elements around the table to control DataTables features, and you can make use of this mechanism as well to insert your own custom elements. In this example a `-tag div` with a class of '-string toolbar' is created using `dt-init dom`, and jQuery then used to insert HTML into that element to create the toolbar. You could put whatever HTML you want into the toolbar!
+DataTables inserts DOM elements around the table to control DataTables features, and you can make use of this mechanism as well to insert your own custom elements. In this example a `-tag div` with a class of '-string toolbar' is created using `dt-init dom`, and finally insert HTML into that element to create the toolbar. You could put whatever HTML you want into the toolbar!
 
-For more complex features, or for creating reusable plug-ins, DataTables also has a feature plug-in API available, which can be used to create plug-ins which are used in a table by a single character reference in the `dt-init dom` option (like the built in option of `string f` refers to 'filtering input', you could have an `string F` option which creates your own filtering input control, custom to your app).
+For more complex features, or for creating reusable plug-ins, DataTables also has a feature plug-in API available, which can be used to create plug-ins which are used in a table by a single character reference in the `dt-init dom` option (like the built in option of `-string f` refers to 'filtering input', you could have an `-string F` option which creates your own filtering input control, custom to your app).
 
 There are a number of [extensions for DataTables](//datatables.net/extensions) that make use of this ability. For example, [Buttons](//datatables.net/extensions/buttons) is a feature plug-in for DataTables that adds buttons into a toolbar for a table (copy to clipboard, save to Excel / PDF, and more).
 

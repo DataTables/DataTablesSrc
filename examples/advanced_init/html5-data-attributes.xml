@@ -7,10 +7,11 @@
 
 <title>HTML5 data-* attributes - cell data</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable();
-});
+$('#example').DataTable();
 ]]></js>
+<js-vanilla><![CDATA[
+new DataTable('#example');
+]]></js-vanilla>
 
 <info><![CDATA[
 

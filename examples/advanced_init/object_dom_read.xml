@@ -4,20 +4,31 @@
 <css lib="datatables" />
 <js lib="jquery datatables">
 <![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		columns: [
-			{ data: 'name' },
-			{ data: 'position' },
-			{ data: 'office' },
-			{ data: 'age' },
-			{ data: 'start_date' },
-			{ data: 'salary' },
-		],
-	});
+$('#example').DataTable({
+	columns: [
+		{ data: 'name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'age' },
+		{ data: 'start_date' },
+		{ data: 'salary' },
+	],
 });
 ]]>
 </js>
+<js-vanilla><![CDATA[
+new DataTable('#example', {
+	columns: [
+		{ data: 'name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'age' },
+		{ data: 'start_date' },
+		{ data: 'salary' },
+	],
+});
+]]>
+</js-vanilla>
 
 <title>Read HTML to data objects</title>
 
