@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="" order="12" framework="bootstrap">
+<dt-example table-type="" order="12" framework="bootstrap5">
 
 <css lib="datatables" />
-<js lib="jquery bootstrap datatables" />
+<js lib="jquery bootstrap5 datatables" />
 
 <title>Scrolling and Bootstrap tabs</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-		$.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
-	});
 
-	$('table.table').DataTable({
-		ajax: '../ajax/data/arrays.txt',
-		scrollY: 200,
-		scrollCollapse: true,
-		paging: false,
-	});
-
-	// Apply a search to the second table for the demo
-	$('#myTable2').DataTable().search('New York').draw();
+$('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+	DataTable.tables({ visible: true, api: true }).columns.adjust();
 });
+
+$('table.table').DataTable({
+	ajax: '../ajax/data/arrays.txt',
+	scrollY: 200,
+	scrollCollapse: true,
+	paging: false,
+});
+
+// Apply a search to the second table for the demo
+$('#myTable2').DataTable().search('New York').draw();
+
 ]]></js>
+
+<js-vanilla><![CDATA[
+
+// Listen for Bootstrap tab change
+document.querySelectorAll('button[data-bs-toggle="tab"]').forEach((el) => {
+	el.addEventListener('shown.bs.tab', () => {
+		DataTable.tables({ visible: true, api: true }).columns.adjust();
+	});
+});
+
+new DataTable('table.table', {
+	ajax: '../ajax/data/arrays.txt',
+	scrollY: 200,
+	scrollCollapse: true,
+	paging: false,
+});
+
+// Apply a search to the second table for the demo
+new DataTable.Api('#myTable2').search('New York').draw();
+
+]]></js-vanilla>
 
 <info><![CDATA[
 
@@ -39,12 +60,16 @@ This example shows how the Bootstrap `shown.bs.tab` event can be used to trigger
 
 <div>
 	<ul class="nav nav-tabs" role="tablist">
-		<li class="active"><a href="#tab-table1" data-toggle="tab">Table 1</a></li>
-		<li><a href="#tab-table2" data-toggle="tab">Table 2</a></li>
+		<li class="nav-item" role="presentation">
+			<button class="nav-link active" href="#tab-table1" data-bs-toggle="tab" data-bs-target="#tab-table1">Table 1</button>
+		</li>
+		<li>
+			<button class="nav-link" href="#tab-table2" data-bs-toggle="tab" data-bs-target="#tab-table2">Table 2</button>
+		</li>
 	</ul>
 
-	<div class="tab-content">
-    	<div class="tab-pane active" id="tab-table1">
+	<div class="tab-content pt-2">
+    	<div class="tab-pane show active" id="tab-table1">
 			<table id="myTable1" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			    <thead>
 			        <tr>

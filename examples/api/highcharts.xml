@@ -1,41 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="html" order="15">
 
-<css lib="datatables searchpanes select" />
+<css lib="datatables select" />
 <js lib="jquery" />
-<js lib="datatables searchpanes select" />
+<js lib="datatables select" />
 
 <title>HighCharts Integration</title>
 
 <js lib="//code.highcharts.com/highcharts.js"/>
 <js><![CDATA[
-$(document).ready(function () {
-	// Create DataTable
-	var table = $('#example').DataTable({
-		dom: 'Pfrtip',
-	});
+// Create DataTable
+var table = $('#example').DataTable();
 
-	// Create the chart with initial data
-	var container = $('<div/>').insertBefore(table.table().container());
-
-	var chart = Highcharts.chart(container[0], {
-		chart: {
-			type: 'pie',
+// Create chart
+var chart = Highcharts.chart('demo-output', {
+	chart: {
+		type: 'pie',
+	},
+	title: {
+		text: 'Staff Count Per Position',
+	},
+	series: [
+		{
+			data: chartData(table),
 		},
-		title: {
-			text: 'Staff Count Per Position',
-		},
-		series: [
-			{
-				data: chartData(table),
-			},
-		],
-	});
+	],
+});
 
-	// On each draw, update the data in the chart
-	table.on('draw', function () {
-		chart.series[0].setData(chartData(table));
-	});
+// On each draw, update the data in the chart
+table.on('draw', function () {
+	chart.series[0].setData(chartData(table));
 });
 
 function chartData(table) {
@@ -48,7 +42,8 @@ function chartData(table) {
 		.each(function (val) {
 			if (counts[val]) {
 				counts[val] += 1;
-			} else {
+			}
+			else {
 				counts[val] = 1;
 			}
 		});
@@ -63,12 +58,61 @@ function chartData(table) {
 }
 ]]></js>
 
+<js-vanilla><![CDATA[
+// Create DataTable
+const table = new DataTable('#example');
+
+// Create chart
+const chart = Highcharts.chart('demo-output', {
+	chart: {
+		type: 'pie',
+	},
+	title: {
+		text: 'Staff Count Per Position',
+	},
+	series: [
+		{
+			data: chartData(table),
+		},
+	],
+});
+
+// On each draw, update the data in the chart
+table.on('draw', function () {
+	chart.series[0].setData(chartData(table));
+});
+
+function chartData(table) {
+	var counts = {};
+
+	// Count the number of entries for each position
+	table
+		.column(1, { search: 'applied' })
+		.data()
+		.each(function (val) {
+			if (counts[val]) {
+				counts[val] += 1;
+			}
+			else {
+				counts[val] = 1;
+			}
+		});
+
+	return Object.entries(counts).map((e) => ({
+		name: e[0],
+		y: e[1],
+	}));
+}
+]]></js-vanilla>
+
 <info><![CDATA[
 
 This example shows how to integrate the excellent [HighCharts](https://www.highcharts.com/) library into your project along-side DataTables. As you modify the table by filtering it, the chart is updated automatically to reflect the state of the table.
 
-[SearchPanes](/extensions/searchpanes) is also used here to show its integration with DataTables' filtering. For more information take a look at the [blog post on highcharts](/blog/2020-09-01.html).
-
 ]]></info>
+
+<demo-html>
+	<div id="demo-output" style="margin-bottom: 1em;"></div>
+</demo-html>
 
 </dt-example>

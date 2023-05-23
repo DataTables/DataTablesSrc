@@ -7,13 +7,18 @@
 
 <title>Deferred rendering for speed</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		ajax: 'data/arrays.txt',
-		deferRender: true,
-	});
+$('#example').DataTable({
+	ajax: 'data/arrays.txt',
+	deferRender: true,
 });
 ]]></js>
+
+<js-vanilla><![CDATA[
+new DataTable('#example', {
+	ajax: 'data/arrays.txt',
+	deferRender: true,
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 
