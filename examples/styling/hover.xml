@@ -6,16 +6,12 @@
 <title>Base style - hover</title>
 <js lib="jquery datatables">
 <![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable();
-});
+$('#example').DataTable();
 ]]>
 </js>
 <js-vanilla>
 <![CDATA[
-document.addEventListener('DOMContentLoaded', function () {
-    new DataTable('#example');
-});
+new DataTable('#example');
 ]]>
 </js-vanilla>
 
