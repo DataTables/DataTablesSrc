@@ -319,8 +319,8 @@ DT_Example::$lookup_libraries['js' ]['jqueryui']     = 'https://code.jquery.com/
 DT_Example::$lookup_libraries['css']['jqueryui']     = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
 DT_Example::$lookup_libraries['js' ]['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.js';
 DT_Example::$lookup_libraries['css']['material']     = 'https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css';
-DT_Example::$lookup_libraries['js' ]['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.js';
-DT_Example::$lookup_libraries['css']['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.css';
+DT_Example::$lookup_libraries['js' ]['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.js';
+DT_Example::$lookup_libraries['css']['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.css';
 DT_Example::$lookup_libraries['js' ]['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/js/uikit.min.js';
 DT_Example::$lookup_libraries['css']['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css';
 
