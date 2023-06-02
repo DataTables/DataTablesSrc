@@ -339,6 +339,7 @@ div.column_half {
 div.dt-demo-options {
   position: absolute;
   right: 0;
+  top: 0.5em;
 }
 
 div.dt-demo-selector {
@@ -450,7 +451,9 @@ html.dark body {
   background-color: rgb(33, 37, 41);
   color: rgb(218, 224, 231);
 }
-html.dark a {
+html.dark div.info a,
+html.dark div.tabs a,
+html.dark div.footer a {
   color: rgb(110, 168, 254);
 }
 html.dark div.toc li {

@@ -415,6 +415,7 @@ div {
 div.dt-demo-options {
 	position: absolute;
 	right: 0;
+	top: 0.5em;
 }
 
 div.dt-demo-selector {
@@ -552,7 +553,9 @@ html.dark {
 		color: rgb(218, 224, 231);
 	}
 
-	a {
+	div.info a,
+	div.tabs a,
+	div.footer a {
 		color: rgb(110, 168, 254);
 	}
   

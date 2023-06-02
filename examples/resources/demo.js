@@ -193,6 +193,29 @@ window.dt_demo = {
 			'<p><a href="https://datatables.net/tn/19#init">What is this?</a></p>'
 		);
 
+		// Show a warning if there is no script for this version
+		var canjQuery = dt_demo._functionHasBody(types.jquery);
+		var canVanilla = dt_demo._functionHasBody(types.vanilla);
+
+		if (initType === 'jquery' && ! canjQuery) {
+			initType = 'vanilla-js';
+			dt_demo._optionsWarning(runtimeSelector, 'This example does not yet have jQuery initialisation available. Vanilla JS is being used instead.');
+		}
+		else if (initType === 'vanilla-js' && ! canVanilla ) {
+			initType = 'jquery';
+			dt_demo._optionsWarning(runtimeSelector, 'This example does not yet have vanilla JS initialisation available. jQuery is being used instead.');
+		}
+
+		// Hide the code block that isn't being run
+		if (initType === 'jquery') {
+			types.jquery();
+			$('#js-vanilla').css('display', 'none');
+		}
+		else {
+			types.vanilla();
+			$('#js-jquery').css('display', 'none');
+		}
+
 		// Theme selector options
 		dt_demo._options(
 			optionsContainer,
@@ -220,27 +243,6 @@ window.dt_demo = {
 			},
 			'<p><a href="https://datatables.net/tn/19#theme">What is this?</a></p>'
 		);
-
-		var canjQuery = dt_demo._functionHasBody(types.jquery);
-		var canVanilla = dt_demo._functionHasBody(types.vanilla);
-
-		if (initType === 'jquery' && ! canjQuery) {
-			initType = 'vanilla-js';
-			dt_demo._optionsWarning(runtimeSelector, 'This example does not yet have jQuery initialisation available. Vanilla JS is being used instead.');
-		}
-		else if (initType === 'vanilla-js' && ! canVanilla ) {
-			initType = 'jquery';
-			dt_demo._optionsWarning(runtimeSelector, 'This example does not yet have vanilla JS initialisation available. jQuery is being used instead.');
-		}
-
-		if (initType === 'jquery') {
-			types.jquery();
-			$('#js-vanilla').css('display', 'none');
-		}
-		else {
-			types.vanilla();
-			$('#js-jquery').css('display', 'none');
-		}
 	},
 
 	_functionHasBody: function (fn) {
@@ -251,11 +253,18 @@ window.dt_demo = {
 	},
 
 	_optionsWarning: function (selector, msg) {
+		if (msg === false) {
+			// Remove message
+			$('div.dt-demo-selector__current i.dt-demo-icon.warning', selector).remove();
+			$('div.dt-demo-selector__options p.dt-demo-warning', selector).remove();
+			return;
+		}
+
 		$('div.dt-demo-selector__current', selector)
 			.prepend('<i class="dt-demo-icon warning" style="margin-right: 0.75em;"></i>');
 
 		$('div.dt-demo-selector__options', selector)
-			.append($('<p>').html(msg));
+			.append($('<p class="dt-demo-warning">').html(msg));
 	},
 
 	_options: function (container, options, initVal, cb, info) {
@@ -349,16 +358,26 @@ window.dt_demo = {
 	_changeTheme: function (val, selector) {
 		if (val === 'auto') {
 			var prefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-			if (prefers == 'dark') {
-				$('html').attr('data-bs-theme', 'dark');
-				$('html').removeClass('light').addClass('dark');
-			}
-			else {
-				$('html').removeAttr('data-bs-theme');
-				$('html').removeClass('light dark');
-			}
+			
+			val = prefers == 'dark' ? 'dark' : 'light';
 		}
-		else if (val === 'dark') {
+
+		// Warnings if incompatible
+		var styling = dt_demo._getPageStyling();
+		var targetTheme = val;
+
+		if (val === 'dark' && (
+			styling !== 'bootstrap5' ||
+			styling !== 'datatables'
+		)) {
+			val = 'light';
+			dt_demo._optionsWarning(selector, dt_demo._getPageStylingName() + ' does not have a dark theme mode. Light theme is shown.');
+		}
+		else {
+			dt_demo._optionsWarning(selector, false);
+		}
+
+		if (val === 'dark') {
 			$('html').removeClass('light').addClass('dark');
 			$('html').attr('data-bs-theme', 'dark');
 		}
@@ -370,12 +389,70 @@ window.dt_demo = {
 		// Update the current element
 		var current = $('div.dt-demo-selector__current', selector);
 
-		if (! current.children('i').length) {
-			current.append('<i class="dt-demo-icon"></i>');
+		if (! current.children('i.theme').length) {
+			current.append('<i class="dt-demo-icon theme"></i>');
 		}
 
-		$('i', current)
+		$('i.theme', current)
 			.removeClass('light dark auto')
-			.addClass(val);
+			.addClass(targetTheme);
+	},
+
+	_getPageStyling: function () {
+		var styling = 'datatables';
+		var body = $('body');
+
+		if (body.hasClass('dt-example-bootstrap')) {
+			styling = 'bootstrap';
+		}
+		else if (body.hasClass('dt-example-bootstrap4')) {
+			styling = 'bootstrap4';
+		}
+		else if (body.hasClass('dt-example-bootstrap5')) {
+			styling = 'bootstrap5';
+		}
+		else if (body.hasClass('dt-example-foundation')) {
+			styling = 'foundation';
+		}
+		else if (body.hasClass('dt-example-jqueryui')) {
+			styling = 'jqueryui';
+		}
+		else if (body.hasClass('dt-example-semanticui')) {
+			styling = 'semanticui';
+		}
+		else if (body.hasClass('dt-example-bulma')) {
+			styling = 'bulma';
+		}
+
+		return styling;
+	},
+
+	_getPageStylingName: function () {
+		var styling = 'DataTables';
+		var body = $('body');
+
+		if (body.hasClass('dt-example-bootstrap')) {
+			styling = 'Bootstrap 3';
+		}
+		else if (body.hasClass('dt-example-bootstrap4')) {
+			styling = 'Bootstrap 4';
+		}
+		else if (body.hasClass('dt-example-bootstrap5')) {
+			styling = 'Bootstrap 5';
+		}
+		else if (body.hasClass('dt-example-foundation')) {
+			styling = 'Foundation';
+		}
+		else if (body.hasClass('dt-example-jqueryui')) {
+			styling = 'jQuery UI';
+		}
+		else if (body.hasClass('dt-example-semanticui')) {
+			styling = 'Fomantic UI';
+		}
+		else if (body.hasClass('dt-example-bulma')) {
+			styling = 'Bulma';
+		}
+
+		return styling;
 	}
 };
