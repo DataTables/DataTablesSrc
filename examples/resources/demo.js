@@ -366,15 +366,14 @@ window.dt_demo = {
 		var styling = dt_demo._getPageStyling();
 		var targetTheme = val;
 
-		if (val === 'dark' && (
-			styling !== 'bootstrap5' ||
-			styling !== 'datatables'
-		)) {
-			val = 'light';
-			dt_demo._optionsWarning(selector, dt_demo._getPageStylingName() + ' does not have a dark theme mode. Light theme is shown.');
-		}
-		else {
-			dt_demo._optionsWarning(selector, false);
+		if (val === 'dark') {
+			if (styling === 'bootstrap5' || styling === 'datatables') {
+				dt_demo._optionsWarning(selector, false);
+			}
+			else {
+				val = 'light';
+				dt_demo._optionsWarning(selector, dt_demo._getPageStylingName() + ' does not have a dark theme mode. Light theme is shown.');
+			}
 		}
 
 		if (val === 'dark') {
