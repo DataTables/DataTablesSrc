@@ -73,6 +73,9 @@ $table-shade: black !default;
 	--dt-row-stripe: 0, 0, 0;
 	--dt-row-hover: 0, 0, 0;
 	--dt-column-ordering: 0, 0, 0;
+
+	// For blocking elements in extensions (FixedHeader, etc)
+	--dt-html-background: rgb(33, 37, 41);
 }
 
 //
