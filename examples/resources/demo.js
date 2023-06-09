@@ -6,13 +6,6 @@ if ( window.$ ) {
 	$(document).ready( function () {
 		var dt110 = $.fn.dataTable && $.fn.dataTable.Api ? true : false;
 
-		// Work around for WebKit bug 55740
-		var info = $('div.info');
-
-		if ( info.height() < 115 ) {
-			info.css( 'min-height', '8em' );
-		}
-
 		var escapeHtml = function ( str ) {
 			return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 		};
