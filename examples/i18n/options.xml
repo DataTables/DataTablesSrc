@@ -7,30 +7,26 @@
 
 <title>Language options</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		language: {
-			lengthMenu: 'Display _MENU_ records per page',
-			zeroRecords: 'Nothing found - sorry',
-			info: 'Showing page _PAGE_ of _PAGES_',
-			infoEmpty: 'No records available',
-			infoFiltered: '(filtered from _MAX_ total records)',
-		},
-	});
+$('#example').DataTable({
+	language: {
+		lengthMenu: 'Display _MENU_ records per page',
+		zeroRecords: 'Nothing found - sorry',
+		info: 'Showing page _PAGE_ of _PAGES_',
+		infoEmpty: 'No records available',
+		infoFiltered: '(filtered from _MAX_ total records)',
+	},
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
-document.addEventListener('DOMContentLoaded', function () {
-    new DataTable('#example', {
-		language: {
-			lengthMenu: 'Display _MENU_ records per page',
-			zeroRecords: 'Nothing found - sorry',
-			info: 'Showing page _PAGE_ of _PAGES_',
-			infoEmpty: 'No records available',
-			infoFiltered: '(filtered from _MAX_ total records)',
-		},
-	});
+new DataTable('#example', {
+	language: {
+		lengthMenu: 'Display _MENU_ records per page',
+		zeroRecords: 'Nothing found - sorry',
+		info: 'Showing page _PAGE_ of _PAGES_',
+		infoEmpty: 'No records available',
+		infoFiltered: '(filtered from _MAX_ total records)',
+	},
 });
 ]]>
 </js-vanilla>

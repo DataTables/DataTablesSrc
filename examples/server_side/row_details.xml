@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="ssp-details" order="6">
 
-<css lib="datatables"><![CDATA[
-td.details-control {
-	background: url('../resources/details_open.png') no-repeat center center;
-	cursor: pointer;
-}
-tr.details td.details-control {
-	background: url('../resources/details_close.png') no-repeat center center;
-}
-]]></css>
+<css lib="datatables" />
 <js lib="jquery datatables" />
 
 <title>Row details</title>
@@ -28,60 +20,132 @@ function format(d) {
 	);
 }
 
-$(document).ready(function () {
-	var dt = $('#example').DataTable({
-		processing: true,
-		serverSide: true,
-		ajax: 'scripts/ids-objects.php',
-		columns: [
-			{
-				class: 'details-control',
-				orderable: false,
-				data: null,
-				defaultContent: '',
-			},
-			{ data: 'first_name' },
-			{ data: 'last_name' },
-			{ data: 'position' },
-			{ data: 'office' },
-		],
-		order: [[1, 'asc']],
-	});
+var table = $('#example').DataTable({
+	processing: true,
+	serverSide: true,
+	ajax: 'scripts/ids-objects.php',
+	columns: [
+		{
+			class: 'dt-control',
+			orderable: false,
+			data: null,
+			defaultContent: '',
+		},
+		{ data: 'first_name' },
+		{ data: 'last_name' },
+		{ data: 'position' },
+		{ data: 'office' },
+	],
+	order: [[1, 'asc']],
+});
 
-	// Array to track the ids of the details displayed rows
-	var detailRows = [];
+// Array to track the ids of the details displayed rows
+var detailRows = [];
 
-	$('#example tbody').on('click', 'tr td.details-control', function () {
-		var tr = $(this).closest('tr');
-		var row = dt.row(tr);
-		var idx = detailRows.indexOf(tr.attr('id'));
+$('#example tbody').on('click', 'tr td.dt-control', function () {
+	var tr = $(this).closest('tr');
+	var row = table.row(tr);
+	var idx = detailRows.indexOf(tr.attr('id'));
 
-		if (row.child.isShown()) {
-			tr.removeClass('details');
-			row.child.hide();
+	if (row.child.isShown()) {
+		tr.removeClass('details');
+		row.child.hide();
 
-			// Remove from the 'open' array
-			detailRows.splice(idx, 1);
-		} else {
-			tr.addClass('details');
-			row.child(format(row.data())).show();
+		// Remove from the 'open' array
+		detailRows.splice(idx, 1);
+	} else {
+		tr.addClass('details');
+		row.child(format(row.data())).show();
 
-			// Add to the 'open' array
-			if (idx === -1) {
-				detailRows.push(tr.attr('id'));
-			}
+		// Add to the 'open' array
+		if (idx === -1) {
+			detailRows.push(tr.attr('id'));
 		}
-	});
+	}
+});
 
-	// On each draw, loop over the `detailRows` array and show any child rows
-	dt.on('draw', function () {
-		detailRows.forEach(function(id, i) {
-			$('#' + id + ' td.details-control').trigger('click');
-		});
+// On each draw, loop over the `detailRows` array and show any child rows
+table.on('draw', function () {
+	detailRows.forEach(function (id, i) {
+		$('#' + id + ' td.dt-control').trigger('click');
 	});
 });
 
 ]]></js>
+<js-vanilla>
+<![CDATA[
+function format(d) {
+	return (
+		'Full name: ' +
+		d.first_name +
+		' ' +
+		d.last_name +
+		'<br>' +
+		'Salary: ' +
+		d.salary +
+		'<br>' +
+		'The child row can contain any data you wish, including links, images, inner tables etc.'
+	);
+}
+
+var table = new DataTable('#example', {
+	processing: true,
+	serverSide: true,
+	ajax: 'scripts/ids-objects.php',
+	columns: [
+		{
+			class: 'dt-control',
+			orderable: false,
+			data: null,
+			defaultContent: '',
+		},
+		{ data: 'first_name' },
+		{ data: 'last_name' },
+		{ data: 'position' },
+		{ data: 'office' },
+	],
+	order: [[1, 'asc']],
+});
+
+
+// Array to track the ids of the details displayed rows
+const detailRows = [];
+
+table.on('click', 'tbody td.dt-control', function () {
+	let tr = event.target.closest('tr');
+	let row = table.row(tr);
+	let idx = detailRows.indexOf(tr.id);
+
+	if (row.child.isShown()) {
+		tr.classList.remove('details');
+		row.child.hide();
+
+		// Remove from the 'open' array
+		detailRows.splice(idx, 1);
+	} else {
+		tr.classList.add('details');
+		row.child(format(row.data())).show();
+
+		// Add to the 'open' array
+		if (idx === -1) {
+			detailRows.push(tr.id);
+		}
+	}
+});
+
+// On each draw, loop over the `detailRows` array and show any child rows
+table.on('draw', () => {
+	detailRows.forEach((id, i) => {
+		let el = document.querySelector('#' + id + ' td.dt-control');
+
+		if (el) {
+			el.dispatchEvent(new Event('click', { bubbles: true }));
+		}
+	});
+});
+
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

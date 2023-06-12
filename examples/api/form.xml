@@ -6,22 +6,23 @@
 <js lib="datatables" />
 
 <title>Form inputs</title>
-<js><![CDATA[
-$(document).ready(function () {
-	var table = $('#example').DataTable({
-		columnDefs: [
-			{
-				orderable: false,
-				targets: [1, 2, 3],
-			},
-		],
-	});
 
-	$('button').click(function () {
-		var data = table.$('input, select').serialize();
-		alert('The following data would have been submitted to the server: \n\n' + data.substr(0, 120) + '...');
-		return false;
-	});
+<js><![CDATA[
+var table = $('#example').DataTable({
+	columnDefs: [
+		{
+			orderable: false,
+			targets: [1, 2, 3],
+		},
+	],
+});
+
+$('button').on('click', function (e) {
+	e.preventDefault();
+
+	var data = table.$('input, select').serialize();
+
+	alert('The following data would have been submitted to the server: \n\n' + data.substr(0, 120) + '...');
 });
 ]]></js>
 
@@ -36,7 +37,9 @@ If you are interested in a complete CRUD editing suit for DataTables have a look
 ]]></info>
 
 <demo-html>
-	<button type="submit">Submit form</button>
+	<p>
+		<button id="submit" type="submit">Submit form</button>
+	</p>
 </demo-html>
 
 </dt-example>

@@ -8,23 +8,45 @@ td.highlight {
 	background-color: whitesmoke !important;
 }
 
+html.dark td.highlight {
+	background-color: rgba(var(--dt-row-hover), 0.082) !important;
+}
+
 ]]></css>
 <js lib="jquery" />
 <js lib="datatables" />
 
 <title>Highlighting rows and columns</title>
+
 <js><![CDATA[
-$(document).ready(function () {
-	var table = $('#example').DataTable();
+var table = $('#example').DataTable();
 
-	$('#example tbody').on('mouseenter', 'td', function () {
-		var colIdx = table.cell(this).index().column;
+$('#example tbody').on('mouseenter', 'td', function () {
+	var colIdx = table.cell(this).index().column;
 
-		$(table.cells().nodes()).removeClass('highlight');
-		$(table.column(colIdx).nodes()).addClass('highlight');
-	});
+	$(table.cells().nodes()).removeClass('highlight');
+	$(table.column(colIdx).nodes()).addClass('highlight');
 });
 ]]></js>
+
+<js-vanilla><![CDATA[
+const table = new DataTable('#example');
+
+table.on('mouseenter', 'td', function () {
+	let colIdx = table.cell(this).index().column;
+
+	table
+		.cells()
+		.nodes()
+		.each((el) => el.classList.remove('highlight'));
+
+	table
+		.column(colIdx)
+		.nodes()
+		.each((el) => el.classList.add('highlight'));
+});
+
+]]></js-vanilla>
 
 <info><![CDATA[
 

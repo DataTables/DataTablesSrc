@@ -6,22 +6,33 @@
 		font-weight: bold;
 		color: blue;
 	}
+
+	html.dark td.highlight {
+		color: white;
+	}
 </css>
 <js lib="jquery" />
 <js lib="datatables" />
 
 <title>Row created callback</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		createdRow: function (row, data, index) {
-			if (data[5].replace(/[\$,]/g, '') * 1 > 150000) {
-				$('td', row).eq(5).addClass('highlight');
-			}
-		},
-	});
+$('#example').DataTable({
+	createdRow: function (row, data, index) {
+		if (data[5].replace(/[\$,]/g, '') * 1 > 150000) {
+			$('td', row).eq(5).addClass('highlight');
+		}
+	},
 });
 ]]></js>
+<js-vanilla><![CDATA[
+new DataTable('#example', {
+	createdRow: (row, data, index) => {
+		if (data[5].replace(/[\$,]/g, '') * 1 > 150000) {
+			row.querySelector(':nth-child(6)').classList.add('highlight');
+		}
+	},
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 

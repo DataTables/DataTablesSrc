@@ -6,24 +6,44 @@
 <js lib="datatables" />
 
 <title>Row selection and deletion (single row)</title>
+
 <js><![CDATA[
-$(document).ready(function () {
-	var table = $('#example').DataTable();
+var table = $('#example').DataTable();
 
-	$('#example tbody').on('click', 'tr', function () {
-		if ($(this).hasClass('selected')) {
-			$(this).removeClass('selected');
-		} else {
-			table.$('tr.selected').removeClass('selected');
-			$(this).addClass('selected');
-		}
-	});
+$('#example tbody').on('click', 'tr', function () {
+	if ($(this).hasClass('selected')) {
+		$(this).removeClass('selected');
+	}
+	else {
+		table.$('tr.selected').removeClass('selected');
+		$(this).addClass('selected');
+	}
+});
 
-	$('#button').click(function () {
-		table.row('.selected').remove().draw(false);
-	});
+$('#button').click(function () {
+	table.row('.selected').remove().draw(false);
 });
 ]]></js>
+
+<js-vanilla><![CDATA[
+const table = new DataTable('#example');
+
+table.on('click', 'tbody tr', (e) => {
+	let classList = e.currentTarget.classList;
+
+	if (classList.contains('selected')) {
+		classList.remove('selected');
+	}
+	else {
+		table.rows('.selected').nodes().each((row) => row.classList.remove('selected'));
+		classList.add('selected');
+	}
+});
+
+document.querySelector('#button').addEventListener('click', function () {
+	table.row('.selected').remove().draw(false);
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 
@@ -31,12 +51,17 @@ This example modifies the multiple row selection example by only allowing the se
 
 Also shown is the `dt-api row().remove()` method which deletes a row from a table, and the `dt-api draw()` method with `false ` as its first parameter. This will redraw the table keeping the current paging (without the `false` parameter the paging would be reset to the first page).
 
-If you are looking for a more complete and easier to use row selection option, the [Select extension](https://datatables.net/extras/select) provides an API that is fully integrated with DataTables for selecting rows and acting upon that selection.
+If you are looking for a more complete and easier to use row selection option, the [Select extension](https://datatables.net/extensions/select) provides an API that is fully integrated with DataTables for selecting rows and acting upon that selection.
+
+Equally, for full CRUD interaction with a table, check out our [DataTables Editor software](https://editor.datatables.net).
+
 
 ]]></info>
 
 <demo-html>
-	<button id="button">Delete selected row</button>
+	<p>
+		<button id="button">Delete selected row</button>
+	</p>
 </demo-html>
 
 </dt-example>

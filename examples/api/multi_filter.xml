@@ -12,33 +12,53 @@
 <js lib="datatables" />
 
 <title>Individual column searching (text inputs)</title>
+
 <js><![CDATA[
-$(document).ready(function () {
-	// Setup - add a text input to each footer cell
-	$('#example tfoot th').each(function () {
-		var title = $(this).text();
-		$(this).html('<input type="text" placeholder="Search ' + title + '" />');
-	});
+$('#example').DataTable({
+	initComplete: function () {
+		this.api()
+			.columns()
+			.every(function () {
+				var column = this;
+				var title = column.footer().textContent;
 
-	// DataTable
-	var table = $('#example').DataTable({
-		initComplete: function () {
-			// Apply the search
-			this.api()
-				.columns()
-				.every(function () {
-					var that = this;
-
-					$('input', this.footer()).on('keyup change clear', function () {
-						if (that.search() !== this.value) {
-							that.search(this.value).draw();
+				// Create input element and add event listener
+				$('<input type="text" placeholder="Search ' + title + '" />')
+					.appendTo($(column.footer()).empty())
+					.on('keyup change clear', function () {
+						if (column.search() !== this.value) {
+							column.search(this.value).draw();
 						}
 					});
-				});
-		},
-	});
+			});
+	},
 });
 ]]></js>
+
+<js-vanilla><![CDATA[
+new DataTable('#example', {
+	initComplete: function () {
+		this.api()
+			.columns()
+			.every(function () {
+				let column = this;
+				let title = column.footer().textContent;
+
+				// Create input element
+				let input = document.createElement('input');
+				input.placeholder = title;
+				column.footer().replaceChildren(input);
+
+				// Event listener for user input
+				input.addEventListener('keyup', () => {
+					if (column.search() !== this.value) {
+						column.search(input.value).draw();
+					}
+				});
+			});
+	},
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 

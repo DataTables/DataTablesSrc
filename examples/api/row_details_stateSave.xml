@@ -5,71 +5,124 @@
 <js lib="jquery datatables" />
 
 <title>Child rows with StateSave</title>
+
 <js><![CDATA[
-/* Formatting function for row details - modify as you need */
+// Formatting function for row details - modify as you need
 function format(d) {
 	// `d` is the original data object for the row
 	return (
-		'<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-		'<tr>' +
-		'<td>Full name:</td>' +
-		'<td>' +
+		'<dl>' +
+		'<dt>Full name:</dt>' +
+		'<dd>' +
 		d.name +
-		'</td>' +
-		'</tr>' +
-		'<tr>' +
-		'<td>Extension number:</td>' +
-		'<td>' +
+		'</dd>' +
+		'<dt>Extension number:</dt>' +
+		'<dd>' +
 		d.extn +
-		'</td>' +
-		'</tr>' +
-		'<tr>' +
-		'<td>Extra info:</td>' +
-		'<td>And any further details here (images etc)...</td>' +
-		'</tr>' +
-		'</table>'
+		'</dd>' +
+		'<dt>Extra info:</dt>' +
+		'<dd>And any further details here (images etc)...</dd>' +
+		'</dl>'
 	);
 }
 
-$(document).ready(function () {
-	// Add event listener for opening and closing details
-	$('#example').on('click', 'tbody td.dt-control', function () {
-		var tr = $(this).closest('tr');
-		var row = table.row(tr);
+var table = $('#example').DataTable({
+	ajax: '../ajax/data/objects.txt',
+	columns: [
+		{
+			className: 'dt-control',
+			orderable: false,
+			data: null,
+			defaultContent: '',
+		},
+		{ data: 'name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'salary' },
+	],
+	order: [[1, 'asc']],
+	rowId: 'id',
+	stateSave: true,
+});
 
-		if (row.child.isShown()) {
-			// This row is already open - close it
-			row.child.hide();
-		} else {
-			// Open this row
-			row.child(format(row.data())).show();
-		}
-	});
+table.on('requestChild.dt', function (e, row) {
+	row.child(format(row.data())).show();
+});
 
-	$('#example').on('requestChild.dt', function (e, row) {
+// Add event listener for opening and closing details
+$('#example tbody').on('click', 'td.dt-control', function () {
+	var tr = $(this).closest('tr');
+	var row = table.row(tr);
+
+	if (row.child.isShown()) {
+		// This row is already open - close it
+		row.child.hide();
+	}
+	else {
+		// Open this row
 		row.child(format(row.data())).show();
-	});
-
-	var table = $('#example').DataTable({
-		ajax: '../ajax/data/objects.txt',
-		rowId: 'id',
-		stateSave: true,
-		columns: [
-			{
-				className: 'dt-control',
-				orderable: false,
-				data: null,
-				defaultContent: '',
-			},
-			{ data: 'name' },
-			{ data: 'position' },
-			{ data: 'office' },
-			{ data: 'salary' },
-		],
-		order: [[1, 'asc']],
-	});
+	}
 });
 ]]></js>
+
+<js-vanilla><![CDATA[
+// Formatting function for row details - modify as you need
+function format(d) {
+	// `d` is the original data object for the row
+	return (
+		'<dl>' +
+		'<dt>Full name:</dt>' +
+		'<dd>' +
+		d.name +
+		'</dd>' +
+		'<dt>Extension number:</dt>' +
+		'<dd>' +
+		d.extn +
+		'</dd>' +
+		'<dt>Extra info:</dt>' +
+		'<dd>And any further details here (images etc)...</dd>' +
+		'</dl>'
+	);
+}
+
+let table = new DataTable('#example', {
+	ajax: '../ajax/data/objects.txt',
+	columns: [
+		{
+			className: 'dt-control',
+			orderable: false,
+			data: null,
+			defaultContent: '',
+		},
+		{ data: 'name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'salary' },
+	],
+	order: [[1, 'asc']],
+	rowId: 'id',
+	stateSave: true,
+});
+
+table.on('requestChild.dt', function (e, row) {
+	row.child(format(row.data())).show();
+});
+
+// Add event listener for opening and closing details
+table.on('click', 'td.dt-control', function (e) {
+	let tr = e.target.closest('tr');
+	let row = table.row(tr);
+
+	if (row.child.isShown()) {
+		// This row is already open - close it
+		row.child.hide();
+	}
+	else {
+		// Open this row
+		row.child(format(row.data())).show();
+	}
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 

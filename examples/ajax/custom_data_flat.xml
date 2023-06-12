@@ -7,23 +7,38 @@
 
 <title>Flat array data source</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		ajax: {
-			url: 'data/objects_root_array.txt',
-			dataSrc: '',
-		},
-		columns: [
-			{ data: 'name' },
-			{ data: 'position' },
-			{ data: 'office' },
-			{ data: 'extn' },
-			{ data: 'start_date' },
-			{ data: 'salary' },
-		],
-	});
+$('#example').DataTable({
+	ajax: {
+		url: 'data/objects_root_array.txt',
+		dataSrc: '',
+	},
+	columns: [
+		{ data: 'name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'extn' },
+		{ data: 'start_date' },
+		{ data: 'salary' },
+	],
 });
 ]]></js>
+
+<js-vanilla><![CDATA[
+new DataTable('#example', {
+	ajax: {
+		url: 'data/objects_root_array.txt',
+		dataSrc: '',
+	},
+	columns: [
+		{ data: 'name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'extn' },
+		{ data: 'start_date' },
+		{ data: 'salary' },
+	],
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 

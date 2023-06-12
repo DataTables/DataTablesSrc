@@ -169,10 +169,12 @@ class DT_Example
 		$template = $this->_htmlTidy( $template );
 
 		// After the tidy to preserve white space as tidy "cleans" it up
-		$template = str_replace( '{css}',       $this->_plain( 'css' ), $template );
-		$template = str_replace( '{js}',        $this->_plain( 'js' ),  $template );
-		$template = str_replace( '{css-esc}',   htmlspecialchars( trim($this->_plain( 'css' )) ), $template );
-		$template = str_replace( '{js-esc}',    htmlspecialchars( trim($this->_plain( 'js' )) ),  $template );
+		$template = str_replace( '{css}', $this->_plain( 'css' ), $template );
+		$template = str_replace( '{css-esc}', htmlspecialchars( trim($this->_plain( 'css' )) ), $template );
+		$template = str_replace( '{js}', $this->_plain( 'js' ),  $template );
+		$template = str_replace( '{js-vanilla}', $this->_plain( 'js-vanilla' ),  $template );
+		$template = str_replace( '{js-esc}', htmlspecialchars( trim($this->_plain( 'js' )) ),  $template );
+		$template = str_replace( '{js-vanilla-esc}', htmlspecialchars( trim($this->_plain( 'js-vanilla' )) ),  $template );
 
 		$template = preg_replace( '/\t<style type="text\/css">\n\n\t<\/style>/m', "", $template );
 
@@ -522,9 +524,16 @@ class DT_Example
 	private function _plain ( $type )
 	{
 		$out = array();
-		$tags = $type === 'js' ?
-			$this->_xml->js :
-			$this->_xml->css;
+
+		if ($type === 'js') {
+			$tags = $this->_xml->js;
+		}
+		else if ($type === 'js-vanilla') {
+			$tags = $this->_xml->{'js-vanilla'};
+		}
+		else {
+			$tags = $this->_xml->css;
+		}
 
 		foreach( $tags as $src ) {
 			if ( (string)$src !== '' ) {
