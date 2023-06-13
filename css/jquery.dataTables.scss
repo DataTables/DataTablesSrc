@@ -99,6 +99,10 @@ table.dataTable {
 		> tr:first-child > td {
 			border-top: none;
 		}
+
+		> tr.selected + tr.selected > td {
+			border-top-color: darken(rgb($table-row-selected), 5%);
+		}
 	}
 
 
@@ -510,6 +514,10 @@ html.dark {
 			> tr > th,
 			> tr > td {
 				border-top: $table-body-border-dark;
+			}
+
+			> tr.selected + tr.selected > td {
+				border-top-color: darken(rgb($table-row-selected), 10%);
 			}
 		}
 	
