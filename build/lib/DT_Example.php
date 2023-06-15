@@ -1040,7 +1040,7 @@ DT_Example::$tables['html-wide-footer'] = array(
 
 
 DT_Example::$tables['html-split-name'] = array(
-	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'salary' ),
+	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'salary-plain' ),
 	'header'  => true,
 	'footer'  => false,
 	'body'    => true

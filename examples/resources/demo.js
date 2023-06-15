@@ -161,7 +161,7 @@ window.dt_demo = {
 	 * Run example based on code available
 	 */
 	_run: function (types) {
-		var initType = localStorage.getItem('dt-demo-runtime') || 'jquery';
+		var initType = localStorage.getItem('dt-demo-runtime') || 'vanilla-js';
 		var optionsContainer = $('<div class="dt-demo-options"></div>')
 			.insertBefore('h1');
 
