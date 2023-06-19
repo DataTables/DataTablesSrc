@@ -587,6 +587,11 @@ html.dark {
 			border: 1px solid rgb(5, 5, 5);
 		}
 	}
+
+	input,
+	select {
+		color-scheme: dark;
+	}
   
 	code {
 		color: rgb(228, 228, 228);

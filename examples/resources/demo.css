@@ -477,6 +477,10 @@ html.dark div.box {
   background-color: rgb(52, 54, 55);
   border: 1px solid rgb(5, 5, 5);
 }
+html.dark input,
+html.dark select {
+  color-scheme: dark;
+}
 html.dark code {
   color: rgb(228, 228, 228);
   background-color: rgb(28, 30, 31);
