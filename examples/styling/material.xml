@@ -18,7 +18,7 @@ $('#example').DataTable({
 ]]></js>
 <js-vanilla>
 <![CDATA[
-new DataTable('#example, {
+new DataTable('#example', {
 	autoWidth: false,
 	columnDefs: [
 		{

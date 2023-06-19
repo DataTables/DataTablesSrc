@@ -89,6 +89,8 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 				}
 
 				if ( btnDisplay ) {
+					var disabled = btnClass.indexOf('disabled') !== -1;
+
 					node = $('<li>', {
 							'class': classes.sPageButton+' '+btnClass,
 							'id': idx === 0 && typeof button === 'string' ?

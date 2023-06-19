@@ -246,10 +246,11 @@ window.dt_demo = {
 	},
 
 	_optionsWarning: function (selector, msg) {
+		// Remove message
+		$('div.dt-demo-selector__current i.dt-demo-icon.warning', selector).remove();
+		$('div.dt-demo-selector__options p.dt-demo-warning', selector).remove();
+
 		if (msg === false) {
-			// Remove message
-			$('div.dt-demo-selector__current i.dt-demo-icon.warning', selector).remove();
-			$('div.dt-demo-selector__options p.dt-demo-warning', selector).remove();
 			return;
 		}
 
@@ -417,6 +418,12 @@ window.dt_demo = {
 		else if (body.hasClass('dt-example-bulma')) {
 			styling = 'bulma';
 		}
+		else if (body.hasClass('dt-example-material')) {
+			styling = 'material';
+		}
+		else if (body.hasClass('dt-example-uikit')) {
+			styling = 'uikit';
+		}
 
 		return styling;
 	},
@@ -445,6 +452,12 @@ window.dt_demo = {
 		}
 		else if (body.hasClass('dt-example-bulma')) {
 			styling = 'Bulma';
+		}
+		else if (body.hasClass('dt-example-material')) {
+			styling = 'Material Design';
+		}
+		else if (body.hasClass('dt-example-uikit')) {
+			styling = 'UIKit 3';
 		}
 
 		return styling;
