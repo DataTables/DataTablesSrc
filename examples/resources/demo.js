@@ -372,10 +372,12 @@ window.dt_demo = {
 		if (val === 'dark') {
 			$('html').removeClass('light').addClass('dark');
 			$('html').attr('data-bs-theme', 'dark');
+			$('div.chart-display').removeClass('highcharts-light').addClass('highcharts-dark');
 		}
 		else if (val === 'light') {
 			$('html').removeClass('dark').addClass('light');
 			$('html').attr('data-bs-theme', 'light');
+			$('div.chart-display').removeClass('highcharts-dark').addClass('highcharts-light');
 		}
 
 		// Update the current element

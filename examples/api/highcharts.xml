@@ -8,6 +8,7 @@
 <title>HighCharts Integration</title>
 
 <js lib="//code.highcharts.com/highcharts.js"/>
+<css lib="//code.highcharts.com/css/highcharts.css"/>
 <js><![CDATA[
 // Create DataTable
 var table = $('#example').DataTable();
@@ -16,6 +17,7 @@ var table = $('#example').DataTable();
 var chart = Highcharts.chart('demo-output', {
 	chart: {
 		type: 'pie',
+        styledMode: true
 	},
 	title: {
 		text: 'Staff Count Per Position',
@@ -66,6 +68,7 @@ const table = new DataTable('#example');
 const chart = Highcharts.chart('demo-output', {
 	chart: {
 		type: 'pie',
+        styledMode: true
 	},
 	title: {
 		text: 'Staff Count Per Position',
@@ -112,7 +115,7 @@ This example shows how to integrate the excellent [HighCharts](https://www.highc
 ]]></info>
 
 <demo-html>
-	<div id="demo-output" style="margin-bottom: 1em;"></div>
+	<div id="demo-output" style="margin-bottom: 1em;" class="chart-display"></div>
 </demo-html>
 
 </dt-example>

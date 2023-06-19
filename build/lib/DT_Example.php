@@ -773,6 +773,13 @@ DT_Example::$tables['sequence'] = array(
 	'body'    => true
 );
 
+DT_Example::$tables['sequence-reorder-column'] = array(
+	'columns' => array( '', 'sequence', 'name', 'position', 'office', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
 DT_Example::$tables['ajax'] = array(
 	'columns' => array( 'name', 'position', 'office', 'extn', 'start_date', 'salary' ),
 	'header'  => true,
