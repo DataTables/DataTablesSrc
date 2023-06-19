@@ -542,6 +542,7 @@ html.dark {
 		.dataTables_filter input,
 		.dataTables_length select {
 			border: 1px solid rgb(255, 255, 255, 0.2);
+			background-color: var(--dt-html-background);
 		}
 
 		.dataTables_paginate {
