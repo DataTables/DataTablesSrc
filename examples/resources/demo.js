@@ -183,7 +183,7 @@ window.dt_demo = {
 				localStorage.setItem('dt-demo-runtime', option.val);
 				dt_demo._changeRuntime(option, container, initChange);
 			},
-			'<p><a href="https://datatables.net/tn/19#init">What is this?</a></p>'
+			'<p><a href="https://datatables.net/tn/20#Initialisation-target">What is this?</a></p>'
 		);
 
 		// Show a warning if there is no script for this version
@@ -234,7 +234,7 @@ window.dt_demo = {
 				localStorage.setItem('dt-demo-scheme', option.val);
 				dt_demo._changeTheme(option.val, container, initChange);
 			},
-			'<p><a href="https://datatables.net/tn/19#theme">What is this?</a></p>'
+			'<p><a href="https://datatables.net/tn/20#Theme">What is this?</a></p>'
 		);
 	},
 
