@@ -2,13 +2,13 @@
 /*global SyntaxHighlighter*/
 SyntaxHighlighter.config.tagName = 'code';
 
+var escapeHtml = function ( str ) {
+	return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+};
+
 if ( window.$ ) {
 	$(document).ready( function () {
 		var dt110 = $.fn.dataTable && $.fn.dataTable.Api ? true : false;
-
-		var escapeHtml = function ( str ) {
-			return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-		};
 
 		// css
 		var cssContainer = $('div.tabs div.css');
@@ -16,23 +16,6 @@ if ( window.$ ) {
 			cssContainer.find('p').eq(0).css('display', 'none');
 			cssContainer.find('code, div').css('display', 'none');
 		}
-
-		// init html
-		var demoHtml = '';
-		
-		if ($('div.demo-html').length) {
-			demoHtml = $('div.demo-html').html().trim();
-
-			if ( demoHtml ) {
-				demoHtml = demoHtml+'\n\n';
-			}
-		}
-
-		$('div.tabs div.table').append(
-			'<code class="multiline language-html">\t\t\t\t'+
-				escapeHtml( demoHtml )+
-			'</code>'
-		);
 
 		// This can really slow things down
 		setTimeout( function () {
@@ -161,52 +144,80 @@ window.dt_demo = {
 	 * Run example based on code available
 	 */
 	_run: function (types) {
-		var initType = localStorage.getItem('dt-demo-runtime') || 'vanilla-js';
-		var optionsContainer = $('<div class="dt-demo-options"></div>')
-			.insertBefore('h1');
+		// init html
+		var demoHtml = '';
+		
+		if ($('div.demo-html').length) {
+			demoHtml = $('div.demo-html').html().trim();
+
+			if ( demoHtml ) {
+				demoHtml = demoHtml+'\n\n';
+			}
+		}
+
+		$('div.tabs div.table').append(
+			'<code class="multiline language-html">\t\t\t\t'+
+				escapeHtml( demoHtml )+
+			'</code>'
+		);
+
+		// Temporary
+		// types.jquery();
+		// $('#js-vanilla').css('display', 'none');
+		// return;
+		var optionsContainer = $('div.dt-demo-options');
+
+		if (! optionsContainer.length) {
+			optionsContainer = $('<div class="dt-demo-options"></div>')
+				.insertBefore('h1');
+		}
 
 		// jQuery / Vanilla selector
-		var runtimeSelector = dt_demo._options(
-			optionsContainer,
-			[
-				{
-					label: 'jQuery',
-					val: 'jquery'
-				},
-				{
-					label: 'Vanilla JS',
-					val: 'vanilla-js'
-				}
-			],
-			initType,
-			function (option, container, initChange) {
-				localStorage.setItem('dt-demo-runtime', option.val);
-				dt_demo._changeRuntime(option, container, initChange);
-			},
-			'<p><a href="https://datatables.net/tn/20#Initialisation-target">What is this?</a></p>'
-		);
+		var initType = localStorage.getItem('dt-demo-runtime') || 'vanilla-js';
 
 		// Show a warning if there is no script for this version
 		var canjQuery = dt_demo._functionHasBody(types.jquery);
 		var canVanilla = dt_demo._functionHasBody(types.vanilla);
 
-		if (initType === 'jquery' && ! canjQuery) {
-			initType = 'vanilla-js';
-			dt_demo._optionsWarning(runtimeSelector, 'This example does not yet have jQuery initialisation available. Vanilla JS is being used instead.');
-		}
-		else if (initType === 'vanilla-js' && ! canVanilla ) {
-			initType = 'jquery';
-			dt_demo._optionsWarning(runtimeSelector, 'This example does not yet have vanilla JS initialisation available. jQuery is being used instead.');
-		}
+		if (canjQuery || canVanilla) {
+			var runtimeSelector = dt_demo._options(
+				optionsContainer,
+				[
+					{
+						label: 'jQuery',
+						val: 'jquery'
+					},
+					{
+						label: 'Vanilla JS',
+						val: 'vanilla-js'
+					}
+				],
+				initType,
+				function (option, container, initChange) {
+					localStorage.setItem('dt-demo-runtime', option.val);
+					dt_demo._changeRuntime(option, container, initChange);
+				},
+				'<p><a href="https://datatables.net/tn/20#Initialisation-target">What is this?</a></p>'
+			);
 
-		// Hide the code block that isn't being run
-		if (initType === 'jquery') {
-			types.jquery();
-			$('#js-vanilla').css('display', 'none');
-		}
-		else {
-			types.vanilla();
-			$('#js-jquery').css('display', 'none');
+			if (initType === 'jquery' && ! canjQuery) {
+				initType = 'vanilla-js';
+				dt_demo._optionsWarning(runtimeSelector, 'This example does not yet have jQuery initialisation available. Vanilla JS is being used instead.');
+			}
+			else if (initType === 'vanilla-js' && ! canVanilla ) {
+				initType = 'jquery';
+				dt_demo._optionsWarning(runtimeSelector, 'This example does not yet have vanilla JS initialisation available. jQuery is being used instead.');
+			}
+
+			// Hide the code block that isn't being run
+			if (initType === 'jquery') {
+				types.jquery();
+				$('#js-vanilla').css('display', 'none');
+			}
+			else {
+				types.vanilla();
+				$('#js-jquery').css('display', 'none');
+			}
 		}
 
 		// Theme selector options
