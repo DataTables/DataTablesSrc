@@ -9,16 +9,16 @@
 <js><![CDATA[
 $('#example').DataTable({
 	language: {
-		url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/de-DE.json',
-	},
+		url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/de-DE.json'
+	}
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
 new DataTable('#example', {
 	language: {
-		url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/de-DE.json',
-	},
+		url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/de-DE.json'
+	}
 });
 ]]>
 </js-vanilla>

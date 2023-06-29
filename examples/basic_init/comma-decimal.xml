@@ -10,8 +10,8 @@
 $('#example').DataTable({
 	language: {
 		decimal: ',',
-		thousands: '.',
-	},
+		thousands: '.'
+	}
 });
 ]]></js>
 <js-vanilla>
@@ -19,8 +19,8 @@ $('#example').DataTable({
 new DataTable('#example', {
 	language: {
 		decimal: ',',
-		thousands: '.',
-	},
+		thousands: '.'
+	}
 });
 ]]>
 </js-vanilla>

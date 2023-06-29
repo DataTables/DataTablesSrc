@@ -21,22 +21,22 @@ function format(d) {
 }
 
 var table = $('#example').DataTable({
-	processing: true,
-	serverSide: true,
 	ajax: 'scripts/ids-objects.php',
 	columns: [
 		{
 			class: 'dt-control',
 			orderable: false,
 			data: null,
-			defaultContent: '',
+			defaultContent: ''
 		},
 		{ data: 'first_name' },
 		{ data: 'last_name' },
 		{ data: 'position' },
-		{ data: 'office' },
+		{ data: 'office' }
 	],
 	order: [[1, 'asc']],
+	processing: true,
+	serverSide: true
 });
 
 // Array to track the ids of the details displayed rows
@@ -53,7 +53,8 @@ $('#example tbody').on('click', 'tr td.dt-control', function () {
 
 		// Remove from the 'open' array
 		detailRows.splice(idx, 1);
-	} else {
+	}
+	else {
 		tr.addClass('details');
 		row.child(format(row.data())).show();
 
@@ -88,25 +89,24 @@ function format(d) {
 	);
 }
 
-var table = new DataTable('#example', {
-	processing: true,
-	serverSide: true,
+const table = new DataTable('#example', {
 	ajax: 'scripts/ids-objects.php',
 	columns: [
 		{
 			class: 'dt-control',
 			orderable: false,
 			data: null,
-			defaultContent: '',
+			defaultContent: ''
 		},
 		{ data: 'first_name' },
 		{ data: 'last_name' },
 		{ data: 'position' },
-		{ data: 'office' },
+		{ data: 'office' }
 	],
 	order: [[1, 'asc']],
+	processing: true,
+	serverSide: true
 });
-
 
 // Array to track the ids of the details displayed rows
 const detailRows = [];
@@ -122,7 +122,8 @@ table.on('click', 'tbody td.dt-control', function () {
 
 		// Remove from the 'open' array
 		detailRows.splice(idx, 1);
-	} else {
+	}
+	else {
 		tr.classList.add('details');
 		row.child(format(row.data())).show();
 

@@ -22,7 +22,7 @@ $('#example').DataTable({
 	ajax: '../ajax/data/objects_salary.txt',
 	columns: [
 		{
-			data: 'name',
+			data: 'name'
 		},
 		{
 			data: 'position',
@@ -32,7 +32,8 @@ $('#example').DataTable({
 
 					if (data[0] < 'H') {
 						link = 'http://cloudtables.com';
-					} else if (data[0] < 'S') {
+					}
+					else if (data[0] < 'S') {
 						link = 'http://editor.datatables.net';
 					}
 
@@ -40,7 +41,7 @@ $('#example').DataTable({
 				}
 
 				return data;
-			},
+			}
 		},
 		{
 			className: 'f32', // used by world-flags-sprite library
@@ -75,7 +76,7 @@ $('#example').DataTable({
 				}
 
 				return data;
-			},
+			}
 		},
 		{
 			data: 'extn',
@@ -83,10 +84,10 @@ $('#example').DataTable({
 				return type === 'display'
 					? '<progress value="' + data + '" max="9999"></progress>'
 					: data;
-			},
+			}
 		},
 		{
-			data: 'start_date',
+			data: 'start_date'
 		},
 		{
 			data: 'salary',
@@ -99,17 +100,24 @@ $('#example').DataTable({
 					let color = 'green';
 					if (data < 250000) {
 						color = 'red';
-					} else if (data < 500000) {
+					}
+					else if (data < 500000) {
 						color = 'orange';
 					}
 
-					return '<span style="color:' + color + '">' + number + '</span>';
+					return (
+						'<span style="color:' +
+						color +
+						'">' +
+						number +
+						'</span>'
+					);
 				}
 
 				return number;
-			},
-		},
-	],
+			}
+		}
+	]
 });
 ]]></js>
 <js-vanilla>
@@ -118,7 +126,7 @@ new DataTable('#example', {
 	ajax: '../ajax/data/objects_salary.txt',
 	columns: [
 		{
-			data: 'name',
+			data: 'name'
 		},
 		{
 			data: 'position',
@@ -128,7 +136,8 @@ new DataTable('#example', {
 
 					if (data[0] < 'H') {
 						link = 'http://cloudtables.com';
-					} else if (data[0] < 'S') {
+					}
+					else if (data[0] < 'S') {
 						link = 'http://editor.datatables.net';
 					}
 
@@ -136,7 +145,7 @@ new DataTable('#example', {
 				}
 
 				return data;
-			},
+			}
 		},
 		{
 			className: 'f32', // used by world-flags-sprite library
@@ -171,7 +180,7 @@ new DataTable('#example', {
 				}
 
 				return data;
-			},
+			}
 		},
 		{
 			data: 'extn',
@@ -179,10 +188,10 @@ new DataTable('#example', {
 				return type === 'display'
 					? '<progress value="' + data + '" max="9999"></progress>'
 					: data;
-			},
+			}
 		},
 		{
-			data: 'start_date',
+			data: 'start_date'
 		},
 		{
 			data: 'salary',
@@ -195,17 +204,18 @@ new DataTable('#example', {
 					let color = 'green';
 					if (data < 250000) {
 						color = 'red';
-					} else if (data < 500000) {
+					}
+					else if (data < 500000) {
 						color = 'orange';
 					}
 
-					return '<span style="color:' + color + '">' + number + '</span>';
+					return `<span style="color:${color}">${number}</span>`;
 				}
 
 				return number;
-			},
-		},
-	],
+			}
+		}
+	]
 });
 ]]>
 </js-vanilla>

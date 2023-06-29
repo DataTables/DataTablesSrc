@@ -17,16 +17,16 @@ var table = $('#example').DataTable();
 var chart = Highcharts.chart('demo-output', {
 	chart: {
 		type: 'pie',
-        styledMode: true
+		styledMode: true
 	},
 	title: {
-		text: 'Staff Count Per Position',
+		text: 'Staff Count Per Position'
 	},
 	series: [
 		{
-			data: chartData(table),
-		},
-	],
+			data: chartData(table)
+		}
+	]
 });
 
 // On each draw, update the data in the chart
@@ -54,7 +54,7 @@ function chartData(table) {
 	return $.map(counts, function (val, key) {
 		return {
 			name: key,
-			y: val,
+			y: val
 		};
 	});
 }
@@ -68,16 +68,16 @@ const table = new DataTable('#example');
 const chart = Highcharts.chart('demo-output', {
 	chart: {
 		type: 'pie',
-        styledMode: true
+		styledMode: true
 	},
 	title: {
-		text: 'Staff Count Per Position',
+		text: 'Staff Count Per Position'
 	},
 	series: [
 		{
-			data: chartData(table),
-		},
-	],
+			data: chartData(table)
+		}
+	]
 });
 
 // On each draw, update the data in the chart
@@ -103,7 +103,7 @@ function chartData(table) {
 
 	return Object.entries(counts).map((e) => ({
 		name: e[0],
-		y: e[1],
+		y: e[1]
 	}));
 }
 ]]></js-vanilla>

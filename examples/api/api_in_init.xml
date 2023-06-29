@@ -15,7 +15,7 @@ $('#example').DataTable({
 		api.$('td').on('click', function () {
 			api.search(this.innerHTML).draw();
 		});
-	},
+	}
 });
 ]]></js>
 
@@ -27,7 +27,7 @@ new DataTable('#example', {
 		api.on('click', 'tbody td', function () {
 			api.search(this.innerHTML).draw();
 		});
-	},
+	}
 });
 ]]></js-vanilla>
 

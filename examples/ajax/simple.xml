@@ -9,13 +9,13 @@
 
 <js><![CDATA[
 $('#example').DataTable({
-    ajax: 'data/arrays.txt',
+    ajax: 'data/arrays.txt'
 });
 ]]></js>
 
 <js-vanilla><![CDATA[
 new DataTable('#example', {
-    ajax: 'data/arrays.txt',
+    ajax: 'data/arrays.txt'
 });
 ]]></js-vanilla>
 

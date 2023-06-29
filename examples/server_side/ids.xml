@@ -8,8 +8,6 @@
 <title>Automatic addition of row ID attributes</title>
 <js><![CDATA[
 $('#example').DataTable({
-	processing: true,
-	serverSide: true,
 	ajax: 'scripts/ids-objects.php',
 	columns: [
 		{ data: 'first_name' },
@@ -17,15 +15,15 @@ $('#example').DataTable({
 		{ data: 'position' },
 		{ data: 'office' },
 		{ data: 'start_date' },
-		{ data: 'salary' },
+		{ data: 'salary' }
 	],
+	processing: true,
+	serverSide: true
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
 new DataTable('#example', {
-	processing: true,
-	serverSide: true,
 	ajax: 'scripts/ids-objects.php',
 	columns: [
 		{ data: 'first_name' },
@@ -33,8 +31,10 @@ new DataTable('#example', {
 		{ data: 'position' },
 		{ data: 'office' },
 		{ data: 'start_date' },
-		{ data: 'salary' },
+		{ data: 'salary' }
 	],
+	processing: true,
+	serverSide: true
 });
 ]]>
 </js-vanilla>

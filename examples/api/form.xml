@@ -12,9 +12,9 @@ var table = $('#example').DataTable({
 	columnDefs: [
 		{
 			orderable: false,
-			targets: [1, 2, 3],
-		},
-	],
+			targets: [1, 2, 3]
+		}
+	]
 });
 
 $('button').on('click', function (e) {
@@ -22,7 +22,11 @@ $('button').on('click', function (e) {
 
 	var data = table.$('input, select').serialize();
 
-	alert('The following data would have been submitted to the server: \n\n' + data.substr(0, 120) + '...');
+	alert(
+		'The following data would have been submitted to the server: \n\n' +
+			data.substr(0, 120) +
+			'...'
+	);
 });
 ]]></js>
 

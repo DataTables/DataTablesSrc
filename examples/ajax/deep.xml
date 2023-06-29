@@ -8,7 +8,6 @@
 <title>Nested object data (objects)</title>
 <js><![CDATA[
 $('#example').DataTable({
-	processing: true,
 	ajax: 'data/objects_deep.txt',
 	columns: [
 		{ data: 'name' },
@@ -16,14 +15,14 @@ $('#example').DataTable({
 		{ data: 'contact.0' },
 		{ data: 'contact.1' },
 		{ data: 'hr.start_date' },
-		{ data: 'hr.salary' },
+		{ data: 'hr.salary' }
 	],
+	processing: true
 });
 ]]></js>
 
 <js-vanilla><![CDATA[
 new DataTable('#example', {
-	processing: true,
 	ajax: 'data/objects_deep.txt',
 	columns: [
 		{ data: 'name' },
@@ -31,8 +30,9 @@ new DataTable('#example', {
 		{ data: 'contact.0' },
 		{ data: 'contact.1' },
 		{ data: 'hr.start_date' },
-		{ data: 'hr.salary' },
+		{ data: 'hr.salary' }
 	],
+	processing: true
 });
 ]]></js-vanilla>
 

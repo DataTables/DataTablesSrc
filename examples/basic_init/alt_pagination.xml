@@ -8,13 +8,13 @@
 <title>Alternative pagination</title>
 <js><![CDATA[
 $('#example').DataTable({
-	pagingType: 'full_numbers',
+	pagingType: 'full_numbers'
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
 new DataTable('#example', {
-	pagingType: 'full_numbers',
+	pagingType: 'full_numbers'
 });
 ]]>
 </js-vanilla>

@@ -21,7 +21,7 @@ $('#example').DataTable({
 		if (data[5].replace(/[\$,]/g, '') * 1 > 150000) {
 			$('td', row).eq(5).addClass('highlight');
 		}
-	},
+	}
 });
 ]]></js>
 <js-vanilla><![CDATA[
@@ -30,7 +30,7 @@ new DataTable('#example', {
 		if (data[5].replace(/[\$,]/g, '') * 1 > 150000) {
 			row.querySelector(':nth-child(6)').classList.add('highlight');
 		}
-	},
+	}
 });
 ]]></js-vanilla>
 

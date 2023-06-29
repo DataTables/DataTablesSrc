@@ -8,23 +8,23 @@
 <title>JSONP data source for remote domains</title>
 <js><![CDATA[
 $('#example').DataTable({
-	processing: true,
-	serverSide: true,
 	ajax: {
 		url: 'scripts/jsonp.php',
-		dataType: 'jsonp',
+		dataType: 'jsonp'
 	},
+	processing: true,
+	serverSide: true
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
 new DataTable('#example', {
-	processing: true,
-	serverSide: true,
 	ajax: {
 		url: 'scripts/jsonp.php',
-		dataType: 'jsonp',
+		dataType: 'jsonp'
 	},
+	processing: true,
+	serverSide: true
 });
 ]]>
 </js-vanilla>

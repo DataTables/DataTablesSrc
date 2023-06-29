@@ -12,7 +12,13 @@ var counter = 1;
 
 $('#addRow').on('click', function () {
 	table.row
-		.add([counter + '.1', counter + '.2', counter + '.3', counter + '.4', counter + '.5'])
+		.add([
+			counter + '.1',
+			counter + '.2',
+			counter + '.3',
+			counter + '.4',
+			counter + '.5'
+		])
 		.draw(false);
 
 	counter++;
@@ -25,7 +31,13 @@ $('#addRow').click();
 <js-vanilla><![CDATA[
 function addNewRow() {
 	table.row
-		.add([counter + '.1', counter + '.2', counter + '.3', counter + '.4', counter + '.5'])
+		.add([
+			counter + '.1',
+			counter + '.2',
+			counter + '.3',
+			counter + '.4',
+			counter + '.5'
+		])
 		.draw(false);
 
 	counter++;

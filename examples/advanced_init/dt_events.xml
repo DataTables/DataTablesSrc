@@ -7,11 +7,12 @@
 
 <title>DataTables events</title>
 <js><![CDATA[
-function eventFired (type) {
+function eventFired(type) {
 	var n = $('#demo_info')[0];
-	n.innerHTML += '<div>' + type + ' event - ' + new Date().getTime() + '</div>';
+	n.innerHTML +=
+		'<div>' + type + ' event - ' + new Date().getTime() + '</div>';
 	n.scrollTop = n.scrollHeight;
-};
+}
 
 // Adding events before the DataTable is created
 $('#example')
@@ -27,11 +28,12 @@ $('#example')
 	.DataTable();
 ]]></js>
 <js-vanilla><![CDATA[
-function eventFired (type) {
+function eventFired(type) {
 	let n = document.querySelector('#demo_info');
-	n.innerHTML += '<div>' + type + ' event - ' + new Date().getTime() + '</div>';
+	n.innerHTML +=
+		'<div>' + type + ' event - ' + new Date().getTime() + '</div>';
 	n.scrollTop = n.scrollHeight;
-};
+}
 
 new DataTable('#example')
 	.on('order.dt', () => eventFired('Order'))

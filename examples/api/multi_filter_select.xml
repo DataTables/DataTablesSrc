@@ -21,7 +21,9 @@ $('#example').DataTable({
 					.on('change', function () {
 						var val = DataTable.util.escapeRegex($(this).val());
 
-						column.search(val ? '^' + val + '$' : '', true, false).draw();
+						column
+							.search(val ? '^' + val + '$' : '', true, false)
+							.draw();
 					});
 
 				// Add list of options
@@ -30,10 +32,12 @@ $('#example').DataTable({
 					.unique()
 					.sort()
 					.each(function (d, j) {
-						select.append('<option value="' + d + '">' + d + '</option>');
+						select.append(
+							'<option value="' + d + '">' + d + '</option>'
+						);
 					});
 			});
-	},
+	}
 });
 ]]></js>
 
@@ -54,7 +58,9 @@ new DataTable('#example', {
 				select.addEventListener('change', function () {
 					var val = DataTable.util.escapeRegex(select.value);
 
-					column.search(val ? '^' + val + '$' : '', true, false).draw();
+					column
+						.search(val ? '^' + val + '$' : '', true, false)
+						.draw();
 				});
 
 				// Add list of options
@@ -66,7 +72,7 @@ new DataTable('#example', {
 						select.add(new Option(d));
 					});
 			});
-	},
+	}
 });
 ]]></js-vanilla>
 

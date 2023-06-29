@@ -10,7 +10,7 @@
 $('#example').DataTable({
 	ajax: {
 		url: 'data/objects_root_array.txt',
-		dataSrc: '',
+		dataSrc: ''
 	},
 	columns: [
 		{ data: 'name' },
@@ -18,8 +18,8 @@ $('#example').DataTable({
 		{ data: 'office' },
 		{ data: 'extn' },
 		{ data: 'start_date' },
-		{ data: 'salary' },
-	],
+		{ data: 'salary' }
+	]
 });
 ]]></js>
 
@@ -27,7 +27,7 @@ $('#example').DataTable({
 new DataTable('#example', {
 	ajax: {
 		url: 'data/objects_root_array.txt',
-		dataSrc: '',
+		dataSrc: ''
 	},
 	columns: [
 		{ data: 'name' },
@@ -35,8 +35,8 @@ new DataTable('#example', {
 		{ data: 'office' },
 		{ data: 'extn' },
 		{ data: 'start_date' },
-		{ data: 'salary' },
-	],
+		{ data: 'salary' }
+	]
 });
 ]]></js-vanilla>
 

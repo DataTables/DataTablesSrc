@@ -31,7 +31,7 @@ $('#example').DataTable({
 						}
 					});
 			});
-	},
+	}
 });
 ]]></js>
 
@@ -56,7 +56,7 @@ new DataTable('#example', {
 					}
 				});
 			});
-	},
+	}
 });
 ]]></js-vanilla>
 

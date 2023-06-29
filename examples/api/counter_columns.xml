@@ -13,19 +13,21 @@ var table = $('#example').DataTable({
 		{
 			searchable: false,
 			orderable: false,
-			targets: 0,
-		},
+			targets: 0
+		}
 	],
-	order: [[1, 'asc']],
+	order: [[1, 'asc']]
 });
 
 table
 	.on('order.dt search.dt', function () {
 		var i = 1;
 
-		table.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-			this.data(i++);
-		});
+		table
+			.cells(null, 0, { search: 'applied', order: 'applied' })
+			.every(function (cell) {
+				this.data(i++);
+			});
 	})
 	.draw();
 ]]></js>
@@ -36,19 +38,21 @@ const table = new DataTable('#example', {
 		{
 			searchable: false,
 			orderable: false,
-			targets: 0,
-		},
+			targets: 0
+		}
 	],
-	order: [[1, 'asc']],
+	order: [[1, 'asc']]
 });
 
 table
 	.on('order.dt search.dt', function () {
 		let i = 1;
 
-		table.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-			this.data(i++);
-		});
+		table
+			.cells(null, 0, { search: 'applied', order: 'applied' })
+			.every(function (cell) {
+				this.data(i++);
+			});
 	})
 	.draw();
 ]]></js-vanilla>

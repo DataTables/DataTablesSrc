@@ -14,8 +14,8 @@ $('#example').DataTable({
 		{ orderSequence: ['asc'] },
 		{ orderSequence: ['desc', 'asc', 'asc'] },
 		{ orderSequence: ['desc'] },
-		null,
-	],
+		null
+	]
 });
 ]]></js>
 <js-vanilla><![CDATA[
@@ -26,8 +26,8 @@ new DataTable('#example', {
 		{ orderSequence: ['asc'] },
 		{ orderSequence: ['desc', 'asc', 'asc'] },
 		{ orderSequence: ['desc'] },
-		null,
-	],
+		null
+	]
 });
 ]]></js-vanilla>
 

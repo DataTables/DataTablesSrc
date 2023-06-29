@@ -9,8 +9,8 @@
 
 <js><![CDATA[
 var table = $('#example').DataTable({
-	scrollY: '200px',
 	paging: false,
+	scrollY: '200px'
 });
 
 $('a.toggle-vis').on('click', function (e) {
@@ -26,8 +26,8 @@ $('a.toggle-vis').on('click', function (e) {
 
 <js-vanilla><![CDATA[
 const table = new DataTable('#example', {
-	scrollY: '200px',
 	paging: false,
+	scrollY: '200px'
 });
 
 document.querySelectorAll('a.toggle-vis').forEach((el) => {

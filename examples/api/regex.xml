@@ -10,7 +10,11 @@
 <js><![CDATA[
 function filterGlobal(table) {
 	table
-		.search($('#global_filter').val(), $('#global_regex').prop('checked'), $('#global_smart').prop('checked'))
+		.search(
+			$('#global_filter').val(),
+			$('#global_regex').prop('checked'),
+			$('#global_smart').prop('checked')
+		)
 		.draw();
 }
 
@@ -56,7 +60,9 @@ function filterColumn(table, i) {
 let table = new DataTable('#example');
 
 document.querySelectorAll('input.global_filter').forEach((el) => {
-	el.addEventListener(el.type === 'text' ? 'keyup' : 'change', () => filterGlobal(table));
+	el.addEventListener(el.type === 'text' ? 'keyup' : 'change', () =>
+		filterGlobal(table)
+	);
 });
 
 document.querySelectorAll('input.column_filter').forEach((el) => {

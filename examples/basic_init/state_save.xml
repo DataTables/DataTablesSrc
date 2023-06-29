@@ -8,13 +8,13 @@
 <title>State saving</title>
 <js><![CDATA[
 $('#example').DataTable({
-	stateSave: true,
+	stateSave: true
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
 new DataTable('#example', {
-	stateSave: true,
+	stateSave: true
 });
 ]]>
 </js-vanilla>

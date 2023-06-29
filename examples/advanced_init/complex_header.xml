@@ -10,20 +10,20 @@
 $('#example').DataTable({
 	columnDefs: [
 		{
-			visible: false,
 			targets: -1,
-		},
-	],
+			visible: false
+		}
+	]
 });
 ]]></js>
 <js-vanilla><![CDATA[
 new DataTable('#example', {
 	columnDefs: [
 		{
-			visible: false,
 			targets: -1,
-		},
-	],
+			visible: false
+		}
+	]
 });
 ]]></js-vanilla>
 

@@ -15,7 +15,11 @@ $('#example').DataTable({
 
 		// Remove the formatting to get integer data for summation
 		var intVal = function (i) {
-			return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+			return typeof i === 'string'
+				? i.replace(/[\$,]/g, '') * 1
+				: typeof i === 'number'
+				? i
+				: 0;
 		};
 
 		// Total over all pages
@@ -35,8 +39,10 @@ $('#example').DataTable({
 			}, 0);
 
 		// Update footer
-		$(api.column(4).footer()).html('$' + pageTotal + ' ( $' + total + ' total)');
-	},
+		$(api.column(4).footer()).html(
+			'$' + pageTotal + ' ( $' + total + ' total)'
+		);
+	}
 });
 ]]></js>
 <js-vanilla><![CDATA[
@@ -46,7 +52,11 @@ new DataTable('#example', {
 
 		// Remove the formatting to get integer data for summation
 		let intVal = function (i) {
-			return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+			return typeof i === 'string'
+				? i.replace(/[\$,]/g, '') * 1
+				: typeof i === 'number'
+				? i
+				: 0;
 		};
 
 		// Total over all pages
@@ -62,8 +72,9 @@ new DataTable('#example', {
 			.reduce((a, b) => intVal(a) + intVal(b), 0);
 
 		// Update footer
-		api.column(4).footer().innerHTML = '$' + pageTotal + ' ( $' + total + ' total)';
-	},
+		api.column(4).footer().innerHTML =
+			'$' + pageTotal + ' ( $' + total + ' total)';
+	}
 });
 ]]></js-vanilla>
 

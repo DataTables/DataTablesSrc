@@ -11,8 +11,8 @@ $('#example').DataTable({
 		{ data: 'office' },
 		{ data: 'age' },
 		{ data: 'start_date' },
-		{ data: 'salary' },
-	],
+		{ data: 'salary' }
+	]
 });
 ]]>
 </js>
@@ -24,8 +24,8 @@ new DataTable('#example', {
 		{ data: 'office' },
 		{ data: 'age' },
 		{ data: 'start_date' },
-		{ data: 'salary' },
-	],
+		{ data: 'salary' }
+	]
 });
 ]]>
 </js-vanilla>

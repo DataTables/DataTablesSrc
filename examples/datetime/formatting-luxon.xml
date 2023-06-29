@@ -8,9 +8,9 @@ $('#example').DataTable({
 	columnDefs: [
 		{
 			targets: 4,
-			render: DataTable.render.datetime('d MMM yyyy'),
-		},
-	],
+			render: DataTable.render.datetime('d MMM yyyy')
+		}
+	]
 });
 ]]>
 </js>
@@ -20,9 +20,9 @@ new DataTable('#example', {
 	columnDefs: [
 		{
 			targets: 4,
-			render: DataTable.render.datetime('d MMM yyyy'),
-		},
-	],
+			render: DataTable.render.datetime('d MMM yyyy')
+		}
+	]
 });
 ]]>
 </js-vanilla>

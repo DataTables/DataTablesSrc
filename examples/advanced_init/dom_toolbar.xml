@@ -15,14 +15,14 @@
 <title>Custom toolbar elements</title>
 <js><![CDATA[
 $('#example').DataTable({
-	dom: '<"toolbar">frtip',
+	dom: '<"toolbar">frtip'
 });
 
 $('div.toolbar').html('<b>Custom tool bar! Text/images etc.</b>');
 ]]></js>
 <js-vanilla><![CDATA[
 new DataTable('#example', {
-	dom: '<"toolbar">frtip',
+	dom: '<"toolbar">frtip'
 });
 
 document.querySelector('div.toolbar').innerHTML = '<b>Custom tool bar! Text/images etc.</b>';

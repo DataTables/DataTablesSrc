@@ -12,13 +12,13 @@ $('#example').DataTable({
 		{
 			target: 2,
 			visible: false,
-			searchable: false,
+			searchable: false
 		},
 		{
 			target: 3,
-			visible: false,
-		},
-	],
+			visible: false
+		}
+	]
 });
 ]]></js>
 <js-vanilla>
@@ -28,13 +28,13 @@ new DataTable('#example', {
 		{
 			target: 2,
 			visible: false,
-			searchable: false,
+			searchable: false
 		},
 		{
 			target: 3,
-			visible: false,
-		},
-	],
+			visible: false
+		}
+	]
 });
 ]]>
 </js-vanilla>

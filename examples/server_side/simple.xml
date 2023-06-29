@@ -8,17 +8,17 @@
 <title>Server-side processing</title>
 <js><![CDATA[
 $('#example').DataTable({
-	processing: true,
-	serverSide: true,
 	ajax: 'scripts/server_processing.php',
+	processing: true,
+	serverSide: true
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
 new DataTable('#example', {
-	processing: true,
-	serverSide: true,
 	ajax: 'scripts/server_processing.php',
+	processing: true,
+	serverSide: true
 });
 ]]>
 </js-vanilla>

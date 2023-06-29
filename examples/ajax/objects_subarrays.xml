@@ -15,8 +15,8 @@ $('#example').DataTable({
 		{ data: 'office' },
 		{ data: 'extn' },
 		{ data: 'hr.2' },
-		{ data: 'hr.1' },
-	],
+		{ data: 'hr.1' }
+	]
 });
 ]]></js>
 
@@ -29,8 +29,8 @@ new DataTable('#example', {
 		{ data: 'office' },
 		{ data: 'extn' },
 		{ data: 'hr.2' },
-		{ data: 'hr.1' },
-	],
+		{ data: 'hr.1' }
+	]
 });
 ]]></js-vanilla>
 

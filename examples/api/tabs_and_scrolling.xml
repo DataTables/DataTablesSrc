@@ -13,9 +13,9 @@ $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
 
 $('table.table').DataTable({
 	ajax: '../ajax/data/arrays.txt',
-	scrollY: 200,
-	scrollCollapse: true,
 	paging: false,
+	scrollCollapse: true,
+	scrollY: 200
 });
 
 // Apply a search to the second table for the demo
@@ -34,9 +34,9 @@ document.querySelectorAll('button[data-bs-toggle="tab"]').forEach((el) => {
 
 new DataTable('table.table', {
 	ajax: '../ajax/data/arrays.txt',
-	scrollY: 200,
-	scrollCollapse: true,
 	paging: false,
+	scrollCollapse: true,
+	scrollY: 200
 });
 
 // Apply a search to the second table for the demo

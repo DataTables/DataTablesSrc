@@ -9,7 +9,7 @@
 <js><![CDATA[
 $.extend(true, DataTable.defaults, {
 	searching: false,
-	ordering: false,
+	ordering: false
 });
 
 $(document).ready(function () {
@@ -19,7 +19,7 @@ $(document).ready(function () {
 <js-vanilla><![CDATA[
 Object.assign(DataTable.defaults, {
 	searching: false,
-	ordering: false,
+	ordering: false
 });
 
 new DataTable('#example');

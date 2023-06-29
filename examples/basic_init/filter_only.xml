@@ -8,17 +8,17 @@
 <title>Feature enable / disable</title>
 <js><![CDATA[
 $('#example').DataTable({
-	paging: false,
-	ordering: false,
 	info: false,
+	ordering: false,
+	paging: false
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
 new DataTable('#example', {
-	paging: false,
-	ordering: false,
 	info: false,
+	ordering: false,
+	paging: false
 });
 ]]>
 </js-vanilla>

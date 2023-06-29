@@ -9,15 +9,15 @@
 <js><![CDATA[
 $('#example').DataTable({
 	search: {
-		return: true,
-	},
+		return: true
+	}
 });
 ]]></js>
 <js-vanilla><![CDATA[
 new DataTable('#example', {
 	search: {
-		return: true,
-	},
+		return: true
+	}
 });
 ]]></js-vanilla>
 

@@ -53,9 +53,10 @@ $('#example').DataTable({
 		null,
 		{ orderDataType: 'dom-text-numeric' },
 		{ orderDataType: 'dom-text', type: 'string' },
-		{ orderDataType: 'dom-select' },
-	],
+		{ orderDataType: 'dom-select' }
+	]
 });
+
 ]]></js>
 
 <js-vanilla><![CDATA[
@@ -109,9 +110,10 @@ new DataTable('#example', {
 		null,
 		{ orderDataType: 'dom-text-numeric' },
 		{ orderDataType: 'dom-text', type: 'string' },
-		{ orderDataType: 'dom-select' },
-	],
+		{ orderDataType: 'dom-select' }
+	]
 });
+
 ]]></js-vanilla>
 
 <info><![CDATA[

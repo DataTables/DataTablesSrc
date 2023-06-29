@@ -8,13 +8,13 @@
 <title>Ajax sourced data</title>
 <js><![CDATA[
 $('#example').DataTable({
-	ajax: '../ajax/data/arrays.txt',
+	ajax: '../ajax/data/arrays.txt'
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
 new DataTable('#example', {
-	ajax: '../ajax/data/arrays.txt',
+	ajax: '../ajax/data/arrays.txt'
 });
 ]]>
 </js-vanilla>

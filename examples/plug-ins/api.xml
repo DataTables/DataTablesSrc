@@ -26,10 +26,12 @@ $('#sum-all').on('click', function () {
 });
 
 $('#sum-visible').on('click', function () {
-	let text = 'Column sum is: ' + table.column(3, { page: 'current' }).data().sum();
+	let text =
+		'Column sum is: ' + table.column(3, { page: 'current' }).data().sum();
 
 	$('#demo-output').append($('<div>').text(text));
 });
+
 ]]></js>
 
 <js-vanilla><![CDATA[
@@ -58,8 +60,11 @@ document.querySelector('#sum-all').addEventListener('click', function () {
 });
 
 document.querySelector('#sum-visible').addEventListener('click', function () {
-	addOutput('Column sum is: ' + table.column(3, { page: 'current' }).data().sum());
+	addOutput(
+		'Column sum is: ' + table.column(3, { page: 'current' }).data().sum()
+	);
 });
+
 ]]></js-vanilla>
 
 <info><![CDATA[

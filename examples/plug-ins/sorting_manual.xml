@@ -23,10 +23,11 @@ $('#example').DataTable({
 	columnDefs: [
 		{
 			type: 'salary-grade',
-			targets: -1,
-		},
-	],
+			targets: -1
+		}
+	]
 });
+
 ]]></js>
 <js-vanilla><![CDATA[
 DataTable.ext.type.order['salary-grade-pre'] = function (d) {
@@ -45,10 +46,11 @@ new DataTable('#example', {
 	columnDefs: [
 		{
 			type: 'salary-grade',
-			targets: -1,
-		},
-	],
+			targets: -1
+		}
+	]
 });
+
 ]]></js-vanilla>
 
 <info><![CDATA[

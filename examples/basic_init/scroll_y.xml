@@ -8,17 +8,17 @@
 <title>Scroll - vertical</title>
 <js><![CDATA[
 $('#example').DataTable({
-	scrollY: '200px',
-	scrollCollapse: true,
 	paging: false,
+	scrollCollapse: true,
+	scrollY: '200px'
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
 new DataTable('#example', {
-	scrollY: '200px',
-	scrollCollapse: true,
 	paging: false,
+	scrollCollapse: true,
+	scrollY: '200px'
 });
 ]]>
 </js-vanilla>

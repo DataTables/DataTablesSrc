@@ -33,14 +33,14 @@ var table = $('#example').DataTable({
 			className: 'dt-control',
 			orderable: false,
 			data: null,
-			defaultContent: '',
+			defaultContent: ''
 		},
 		{ data: 'name' },
 		{ data: 'position' },
 		{ data: 'office' },
-		{ data: 'salary' },
+		{ data: 'salary' }
 	],
-	order: [[1, 'asc']],
+	order: [[1, 'asc']]
 });
 
 // Add event listener for opening and closing details
@@ -57,6 +57,7 @@ $('#example tbody').on('click', 'td.dt-control', function () {
 		row.child(format(row.data())).show();
 	}
 });
+
 ]]></js>
 
 <js-vanilla><![CDATA[
@@ -86,14 +87,14 @@ let table = new DataTable('#example', {
 			className: 'dt-control',
 			orderable: false,
 			data: null,
-			defaultContent: '',
+			defaultContent: ''
 		},
 		{ data: 'name' },
 		{ data: 'position' },
 		{ data: 'office' },
-		{ data: 'salary' },
+		{ data: 'salary' }
 	],
-	order: [[1, 'asc']],
+	order: [[1, 'asc']]
 });
 
 // Add event listener for opening and closing details
@@ -110,6 +111,7 @@ table.on('click', 'td.dt-control', function (e) {
 		row.child(format(row.data())).show();
 	}
 });
+
 ]]></js-vanilla>
 
 <info><![CDATA[

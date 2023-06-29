@@ -11,10 +11,11 @@ $('#example').DataTable({
 	ajax: 'scripts/server_processing.php',
 	processing: true,
 	search: {
-		return: true,
+		return: true
 	},
-	serverSide: true,
+	serverSide: true
 });
+
 ]]></js>
 <js-vanilla>
 <![CDATA[
@@ -22,9 +23,9 @@ new DataTable('#example', {
 	ajax: 'scripts/server_processing.php',
 	processing: true,
 	search: {
-		return: true,
+		return: true
 	},
-	serverSide: true,
+	serverSide: true
 });
 ]]>
 </js-vanilla>

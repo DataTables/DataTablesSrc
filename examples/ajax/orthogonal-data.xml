@@ -17,11 +17,11 @@ $('#example').DataTable({
 		{
 			data: {
 				_: 'start_date.display',
-				sort: 'start_date.timestamp',
-			},
+				sort: 'start_date.timestamp'
+			}
 		},
-		{ data: 'salary' },
-	],
+		{ data: 'salary' }
+	]
 });
 ]]></js>
 
@@ -36,11 +36,11 @@ new DataTable('#example', {
 		{
 			data: {
 				_: 'start_date.display',
-				sort: 'start_date.timestamp',
-			},
+				sort: 'start_date.timestamp'
+			}
 		},
-		{ data: 'salary' },
-	],
+		{ data: 'salary' }
+	]
 });
 ]]></js-vanilla>
 

@@ -8,7 +8,9 @@
 <title>Ordering plug-ins (with type detection)</title>
 <js><![CDATA[
 DataTable.ext.type.detect.unshift(function (d) {
-	return d === 'Low' || d === 'Medium' || d === 'High' ? 'salary-grade' : null;
+	return d === 'Low' || d === 'Medium' || d === 'High'
+		? 'salary-grade'
+		: null;
 });
 
 DataTable.ext.type.order['salary-grade-pre'] = function (d) {
@@ -27,7 +29,9 @@ $('#example').DataTable();
 ]]></js>
 <js-vanilla><![CDATA[
 DataTable.ext.type.detect.unshift(function (d) {
-	return d === 'Low' || d === 'Medium' || d === 'High' ? 'salary-grade' : null;
+	return d === 'Low' || d === 'Medium' || d === 'High'
+		? 'salary-grade'
+		: null;
 });
 
 DataTable.ext.type.order['salary-grade-pre'] = function (d) {
@@ -43,6 +47,7 @@ DataTable.ext.type.order['salary-grade-pre'] = function (d) {
 };
 
 new DataTable('#example');
+
 ]]></js-vanilla>
 
 <info><![CDATA[

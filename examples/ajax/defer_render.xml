@@ -9,14 +9,14 @@
 <js><![CDATA[
 $('#example').DataTable({
 	ajax: 'data/arrays.txt',
-	deferRender: true,
+	deferRender: true
 });
 ]]></js>
 
 <js-vanilla><![CDATA[
 new DataTable('#example', {
 	ajax: 'data/arrays.txt',
-	deferRender: true,
+	deferRender: true
 });
 ]]></js-vanilla>
 
