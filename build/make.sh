@@ -184,6 +184,12 @@ function build_repo {
 	cp $BUILD_DIR/js/* ${BUILD_DIR}/DataTables/media/js/
 	cp $BUILD_DIR/css/* ${BUILD_DIR}/DataTables/media/css/
 
+	if [ ! -d "${BUILD_DIR}/DataTables/types" ]; then
+		mkdir ${BUILD_DIR}/DataTables/types
+	fi
+
+	cp $BUILD_DIR/types/* ${BUILD_DIR}/DataTables/types
+
 	cp -r $BUILD_DIR/images ${BUILD_DIR}/DataTables/media/
 	if [ -e ${BUILD_DIR}/DataTables/examples ]; then
 		rm -Rf ${BUILD_DIR}/DataTables/examples
