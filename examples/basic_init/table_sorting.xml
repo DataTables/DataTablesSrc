@@ -8,13 +8,13 @@
 <title>Default ordering (sorting)</title>
 <js><![CDATA[
 $('#example').DataTable({
-	order: [[3, 'desc']],
+	order: [[3, 'desc']]
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
 new DataTable('#example', {
-	order: [[3, 'desc']],
+	order: [[3, 'desc']]
 });
 ]]>
 </js-vanilla>
