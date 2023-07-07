@@ -38,7 +38,7 @@
 		// returns a factory function that expects the window object
 		var jq = require('jquery');
 
-		if (typeof window !== 'undefined') {
+		if (typeof window === 'undefined') {
 			module.exports = function (root, $) {
 				if ( ! root ) {
 					// CommonJS environments without a window global must pass a
