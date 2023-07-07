@@ -140,6 +140,24 @@ window.dt_demo = {
 		}
 	},
 
+	storage: {
+		// Allows compatibility with the DT site storage of preferences
+		get: function (name) {
+			return typeof getCookie === 'function'
+				? getCookie(name)
+				: localStorage.getItem(name);
+		},
+
+		set: function (name, val) {
+			if (typeof setCookie === 'function') {
+				setCookie(name, val);
+			}
+			else {
+				localStorage.setItem(name, val);
+			}
+		}
+	},
+
 	/**
 	 * Run example based on code available
 	 */
@@ -174,7 +192,7 @@ window.dt_demo = {
 		}
 
 		// jQuery / Vanilla selector
-		var initType = localStorage.getItem('dt-demo-runtime') || 'vanilla-js';
+		var initType = dt_demo.storage.get('dt-demo-runtime') || 'vanilla-js';
 
 		// Show a warning if there is no script for this version
 		if (types) {
@@ -196,7 +214,7 @@ window.dt_demo = {
 					],
 					initType,
 					function (option, container, initChange) {
-						localStorage.setItem('dt-demo-runtime', option.val);
+						dt_demo.storage.set('dt-demo-runtime', option.val);
 						dt_demo._changeRuntime(option, container, initChange);
 					},
 					'<p><a href="https://datatables.net/tn/20#Initialisation-target">What is this?</a></p>'
@@ -243,9 +261,9 @@ window.dt_demo = {
 					val: 'dark'
 				}
 			],
-			localStorage.getItem('dt-demo-scheme') || 'auto',
+			dt_demo.storage.get('dt-demo-scheme') || 'auto',
 			function (option, container, initChange) {
-				localStorage.setItem('dt-demo-scheme', option.val);
+				dt_demo.storage.set('dt-demo-scheme', option.val);
 				dt_demo._changeTheme(option.val, container, initChange);
 			},
 			'<p><a href="https://datatables.net/tn/20#Theme">What is this?</a></p>'
