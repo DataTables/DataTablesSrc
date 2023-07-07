@@ -308,7 +308,7 @@ module.exports = function(config) {
 					js: '//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js'
 				},
 				moment: {
-					js: '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js'
+					js: '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js'
 				},
 				luxon: {
 					js: '//cdnjs.cloudflare.com/ajax/libs/luxon/2.3.1/luxon.min.js'
