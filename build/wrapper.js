@@ -263,7 +263,7 @@ function exportFromPath(path) {
 		return 'DateTime';
 	}
 	else if (name.includes('editor')) {
-		return 'Editor';
+		return 'DataTable.Editor';
 	}
 	else {
 		// Other extensions return DataTable
