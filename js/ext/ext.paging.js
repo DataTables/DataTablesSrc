@@ -77,7 +77,7 @@ $.extend( true, DataTable.ext.renderer, {
 			var btnDisplay, btnClass;
 
 			var attach = function( container, buttons ) {
-				var i, ien, node, button, tabIndex;
+				var i, ien, node, button;
 				var disabledClass = classes.sPageButtonDisabled;
 				var clickHandler = function ( e ) {
 					_fnPageChange( settings, e.data.action, true );
@@ -92,9 +92,10 @@ $.extend( true, DataTable.ext.renderer, {
 						attach( inner, button );
 					}
 					else {
+						var disabled = false;
+
 						btnDisplay = null;
 						btnClass = button;
-						tabIndex = settings.iTabIndex;
 
 						switch ( button ) {
 							case 'ellipsis':
@@ -105,8 +106,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sFirst;
 
 								if ( page === 0 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -114,8 +114,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sPrevious;
 
 								if ( page === 0 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -123,8 +122,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sNext;
 
 								if ( pages === 0 || page === pages-1 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -132,8 +130,7 @@ $.extend( true, DataTable.ext.renderer, {
 								btnDisplay = lang.sLast;
 
 								if ( pages === 0 || page === pages-1 ) {
-									tabIndex = -1;
-									btnClass += ' ' + disabledClass;
+									disabled = true;
 								}
 								break;
 
@@ -146,8 +143,10 @@ $.extend( true, DataTable.ext.renderer, {
 
 						if ( btnDisplay !== null ) {
 							var tag = settings.oInit.pagingTag || 'a';
-							var disabled = btnClass.indexOf(disabledClass) !== -1;
-		
+
+							if (disabled) {
+								btnClass += ' ' + disabledClass;
+							}
 
 							node = $('<'+tag+'>', {
 									'class': classes.sPageButton+' '+btnClass,
@@ -157,7 +156,7 @@ $.extend( true, DataTable.ext.renderer, {
 									'role': 'link',
 									'aria-current': btnClass === classes.sPageButtonActive ? 'page' : null,
 									'data-dt-idx': button,
-									'tabindex': tabIndex,
+									'tabindex': disabled ? -1 : settings.iTabIndex,
 									'id': idx === 0 && typeof button === 'string' ?
 										settings.sTableId +'_'+ button :
 										null

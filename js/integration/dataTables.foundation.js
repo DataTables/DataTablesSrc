@@ -128,7 +128,7 @@ DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, b
 								'aria-label': aria[ button ],
 								'role': 'link',
 								'aria-current': btnClass === 'current' ? 'page' : null,
-								'tabindex': settings.iTabIndex,
+								'tabindex': disabled ? -1 : settings.iTabIndex,
 							} ).html( btnDisplay ) :
 							btnDisplay
 						)

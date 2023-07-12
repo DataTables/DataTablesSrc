@@ -111,7 +111,7 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 								'role': 'link',
 								'aria-current': btnClass === 'active' ? 'page' : null,
 								'data-dt-idx': button,
-								'tabindex': settings.iTabIndex
+								'tabindex': disabled ? -1 : settings.iTabIndex
 							} )
 							.html( btnDisplay )
 						)

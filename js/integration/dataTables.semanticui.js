@@ -121,7 +121,7 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 							'role': 'link',
 							'aria-current': btnClass === 'active' ? 'page' : null,
 							'data-dt-idx': button,
-							'tabindex': settings.iTabIndex
+							'tabindex': disabled ? -1 : settings.iTabIndex
 						} )
 						.html( btnDisplay )
 						.appendTo( container );

@@ -116,7 +116,7 @@ DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, but
 							'aria-controls': settings.sTableId,
 							'aria-label': aria[ button ],
 							'data-dt-idx': button,
-							'tabindex': settings.iTabIndex,
+							'tabindex': disabled ? -1 : settings.iTabIndex,
 							'disabled': btnClass.indexOf('disabled') !== -1
 						} )
 						.html( btnDisplay )

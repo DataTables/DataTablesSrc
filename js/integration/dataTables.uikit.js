@@ -105,7 +105,7 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 								'role': 'link',
 								'aria-current': btnClass === 'active' ? 'page' : null,
 								'data-dt-idx': button,
-								'tabindex': settings.iTabIndex
+								'tabindex': disabled ? -1 : settings.iTabIndex
 							} )
 							.html( btnDisplay )
 						)
