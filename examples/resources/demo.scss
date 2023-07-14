@@ -40,7 +40,7 @@ h1 {
 		line-height: 1em;
 	}
 }
-  
+
 a {
 	cursor: pointer;
 	color: #3174c7;
@@ -355,6 +355,36 @@ div.tabs {
   
 body.dt-example-bulma > div.container > section > ul.tabs {
 	top: 0px;
+}
+
+body.dt-example-tailwindcss {
+	h1 {
+		font-size: 3em;
+		margin: 0.8em 0;
+	}
+
+	h2 {
+		margin: 0.5em 0;
+		font-size: 1.75em;
+	}
+
+	h3 {
+		margin: 0.5em 0;
+		font-size: 1.2em;
+		font-weight: bold;
+	}
+
+	div.info,
+	div.tabs,
+	div.footer {
+		a {
+			color: #3174c7;
+		}
+	}
+
+	p {
+		margin: 0.5em 0;
+	}
 }
   
 div {

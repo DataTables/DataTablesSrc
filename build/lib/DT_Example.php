@@ -574,6 +574,12 @@ class DT_Example
 
 				for ( $j=0, $jen=count($a) ; $j<$jen ; $j++ ) {
 					$out[] = '<script type="text/javascript" language="javascript" src="'.$a[$j].'"></script>';
+
+					if (strpos($a[$j], 'tailwindcss.com') !== false) {
+						$out[] = '<script type="text/javascript">'.
+							'tailwind.config = { darkMode: "class" };'.
+							'</script>';
+					}
 				}
 			}
 			else {
@@ -714,7 +720,8 @@ class DT_Example
 				 strpos($file, 'editor-demo.css') !== false ||
 				 strpos($file, 'shCore.js') !== false ||
 				 strpos($file, 'demo.js') !== false ||
-				 strpos($file, 'editor-demo.js') !== false
+				 strpos($file, 'editor-demo.js') !== false ||
+				 $file === ''
 			) {
 				continue;
 			}

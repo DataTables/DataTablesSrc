@@ -323,6 +323,8 @@ DT_Example::$lookup_libraries['js' ]['semanticui']   = 'https://cdnjs.cloudflare
 DT_Example::$lookup_libraries['css']['semanticui']   = 'https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.css';
 DT_Example::$lookup_libraries['js' ]['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/js/uikit.min.js';
 DT_Example::$lookup_libraries['css']['uikit']        = 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css';
+DT_Example::$lookup_libraries['js']['tailwindcss']   = 'https://cdn.tailwindcss.com';
+DT_Example::$lookup_libraries['css']['tailwindcss']  = '';
 
 DT_Example::$lookup_libraries['css']['font-awesome'] = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
 DT_Example::$lookup_libraries['js']['jszip']         = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';

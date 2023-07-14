@@ -293,6 +293,28 @@ body.dt-example-bulma > div.container > section > ul.tabs {
   top: 0px;
 }
 
+body.dt-example-tailwindcss h1 {
+  font-size: 3em;
+  margin: 0.8em 0;
+}
+body.dt-example-tailwindcss h2 {
+  margin: 0.5em 0;
+  font-size: 1.75em;
+}
+body.dt-example-tailwindcss h3 {
+  margin: 0.5em 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+body.dt-example-tailwindcss div.info a,
+body.dt-example-tailwindcss div.tabs a,
+body.dt-example-tailwindcss div.footer a {
+  color: #3174c7;
+}
+body.dt-example-tailwindcss p {
+  margin: 0.5em 0;
+}
+
 div.tabs > div {
   padding: 1.5em;
   border: 1px solid #ccc;
@@ -385,14 +407,14 @@ div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option 
   cursor: pointer;
 }
 div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option.selected {
-  background: #0d6efd;
+  background: rgb(13, 110, 253);
   color: white;
 }
 div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option.selected i.dt-demo-icon {
   filter: invert(100%) brightness(1000%);
 }
 div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option:not(.selected):hover {
-  background: #f0f0f0;
+  background: rgb(240, 240, 240);
 }
 div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option:last-child {
   margin-bottom: 0;
@@ -443,61 +465,60 @@ i.dt-demo-icon.warning {
     -o-column-count: 1;
     column-count: 1;
   }
-
   h1 span {
     display: block;
   }
 }
 html.dark body {
-  background-color: #212529;
-  color: #dae0e7;
+  background-color: rgb(33, 37, 41);
+  color: rgb(218, 224, 231);
 }
 html.dark div.info a,
 html.dark div.tabs a,
 html.dark div.footer a {
-  color: #6ea8fe;
+  color: rgb(110, 168, 254);
 }
 html.dark div.toc li {
-  border-bottom: 1px solid #495057;
+  border-bottom: 1px solid rgb(73, 80, 87);
 }
 html.dark div.toc li:first-child {
-  border-top: 1px solid #495057;
+  border-top: 1px solid rgb(73, 80, 87);
 }
 html.dark div.toc li.active {
-  border-left: 4px solid #6ea8fe;
+  border-left: 4px solid rgb(110, 168, 254);
 }
 html.dark div.info {
-  column-rule-color: #495057;
+  column-rule-color: rgb(73, 80, 87);
 }
 html.dark div.footer {
-  border-top-color: #1a1b1b;
-  background-color: #1f2224;
+  border-top-color: rgb(26, 27, 27);
+  background-color: rgb(31, 34, 36);
 }
 html.dark div.box {
-  color: #e4e4e4;
-  background-color: #343637;
-  border: 1px solid #050505;
+  color: rgb(228, 228, 228);
+  background-color: rgb(52, 54, 55);
+  border: 1px solid rgb(5, 5, 5);
 }
 html.dark input,
 html.dark select {
   color-scheme: dark;
 }
 html.dark code {
-  color: #e4e4e4;
-  background-color: #1c1e1f;
-  border: 1px solid #050505;
+  color: rgb(228, 228, 228);
+  background-color: rgb(28, 30, 31);
+  border: 1px solid rgb(5, 5, 5);
 }
 html.dark ul.tabs li {
   color: inherit;
 }
 html.dark ul.tabs li.active {
-  border: 1px solid #495057;
-  border-bottom: 1px solid #1c1e1f;
-  background-color: #1c1e1f;
+  border: 1px solid rgb(73, 80, 87);
+  border-bottom: 1px solid rgb(28, 30, 31);
+  background-color: rgb(28, 30, 31);
 }
 html.dark div.tabs > div {
-  background-color: #1c1e1f;
-  border: 1px solid #495057;
+  background-color: rgb(28, 30, 31);
+  border: 1px solid rgb(73, 80, 87);
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
 }
 html.dark div.tabs > div > ul > li {
@@ -553,7 +574,7 @@ html.dark code.button {
 }
 html.dark .syntaxhighlighter {
   background: #2d2d2d !important;
-  box-shadow: inset 0 0 3px black !important;
+  box-shadow: inset 0 0 3px rgb(0, 0, 0) !important;
 }
 html.dark .syntaxhighlighter .line.alt1 {
   background-color: #2d2d2d !important;
@@ -590,7 +611,7 @@ html.dark .syntaxhighlighter .toolbar a:hover {
 }
 html.dark .syntaxhighlighter .plain,
 html.dark .syntaxhighlighter .plain a {
-  color: #dae0e7 !important;
+  color: rgb(218, 224, 231) !important;
 }
 html.dark .syntaxhighlighter .comments,
 html.dark .syntaxhighlighter .comments a {
@@ -644,14 +665,14 @@ html.dark div.dt-demo-selector div.dt-demo-selector__current i.dt-demo-icon {
 }
 html.dark div.dt-demo-selector div.dt-demo-selector__options {
   border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: #151515;
+  background-color: rgb(21, 21, 21);
 }
 html.dark div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option.selected {
-  background: #0d6efd;
+  background: rgb(13, 110, 253);
   color: white;
 }
 html.dark div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option:not(.selected):hover {
-  background: #3d3d3d;
+  background: rgb(61, 61, 61);
 }
 html.dark div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option i.dt-demo-icon {
   filter: invert(100%) brightness(1000%);
