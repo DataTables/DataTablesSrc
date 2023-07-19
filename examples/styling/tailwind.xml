@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="19" framework="tailwindcss">
+
+<css lib="datatables" />
+
+<title>Tailwind CSS (Tech. preview)</title>
+<js lib="jquery datatables tailwindcss">
+<![CDATA[
+$('#example').DataTable();
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+new DataTable('#example');
+]]>
+</js-vanilla>
+
+<info><![CDATA[
+
+This example shows DataTables integrated with [Tailwind CSS](https://tailwindcss.com/).
+
+The DataTables integration with Tailwind CSS is still in development and not all elements might work correctly yet. Only once all of DataTables extensions fully support Tailwind CSS will the integration be complete and available via the DataTables download builder.
+
+If you would like to see continued development of the Tailwind CSS integration for DataTables, please [get in touch](/forums) so we can know what integrations are popular.
+
+Many thanks to [Tailkit](https://tailkit.com/) for making this integration possible. Their Tailwind CSS components have proven to be exceptionally useful during this build.
+
+]]></info>
+
+</dt-example>
