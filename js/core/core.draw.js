@@ -48,7 +48,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 				row: iRow,
 				column: i
 			};
-			
+
 			cells.push( nTd );
 
 			// Need to create the HTML if new, or if a rendering function is defined
@@ -197,7 +197,7 @@ function _fnBuildHead( oSettings )
 
 			if (column) {
 				column.nTf = cells[i].cell;
-	
+
 				if ( column.sClass ) {
 					$(column.nTf).addClass( column.sClass );
 				}
@@ -542,8 +542,26 @@ function _fnAddOptionsHtml ( oSettings )
 				}
 
 				/* The attribute can be in the format of "#id.class", "#id" or "class" This logic
-				 * breaks the string into parts and applies them as needed
+				 * breaks the string into parts and applies them as needed.
+				 * Furthermore, we can now set data attributes, if necessary.
 				 */
+
+				// first, filter all data attributes, if existent:
+				let data_attributes = /\$\[(.*)\]/g.exec(sAttr)
+				if(data_attributes != null && data_attributes[1] !== undefined) {
+					let list = data_attributes[1].split(',')
+					for(var i=0;i<list.length;i++) {
+						let pair = list[i]
+						let splitted = pair.split('=')
+						let name = splitted[0]
+						let value = splitted[1]
+
+						nNewNode.dataset[`${name}`] = value
+					}
+				}
+				// remove possible data attributes, so that the rest of the logic works.
+				sAttr = sAttr.replace(/\$\[.*\]/, '')
+
 				if ( sAttr.indexOf('.') != -1 )
 				{
 					var aSplit = sAttr.split('.');
