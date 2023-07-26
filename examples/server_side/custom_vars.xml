@@ -7,36 +7,33 @@
 
 <title>Custom HTTP variables</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		processing: true,
-		serverSide: true,
-		ajax: {
-			url: 'scripts/server_processing.php',
-			data: function (d) {
-				d.myKey = 'myValue';
-				// d.custom = $('#myInput').val();
-				// etc
-			},
-		},
-	});
+$('#example').DataTable({
+	ajax: {
+		url: 'scripts/server_processing.php',
+		data: function (d) {
+			d.myKey = 'myValue';
+			// d.custom = $('#myInput').val();
+			// etc
+		}
+	},
+	processing: true,
+	serverSide: true
 });
+
 ]]></js>
 <js-vanilla>
 <![CDATA[
-document.addEventListener('DOMContentLoaded', function () {
-    new DataTable('#example', {
-		processing: true,
-		serverSide: true,
-		ajax: {
-			url: 'scripts/server_processing.php',
-			data: function (d) {
-				d.myKey = 'myValue';
-				// d.custom = document.getElementById('myInput').value;
-				// etc
-			},
-		},
-	});
+new DataTable('#example', {
+	ajax: {
+		url: 'scripts/server_processing.php',
+		data: function (d) {
+			d.myKey = 'myValue';
+			// d.custom = $('#myInput').val();
+			// etc
+		}
+	},
+	processing: true,
+	serverSide: true
 });
 ]]>
 </js-vanilla>

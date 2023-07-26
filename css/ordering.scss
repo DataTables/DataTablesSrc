@@ -24,23 +24,44 @@ table.dataTable thead {
 				opacity: 0.125;
 				right: 1em;
 				line-height: 9px;
-				font-size: 0.9em;
+				font-size: 0.8em;
 			}
 
 			&:before {
 				bottom: 50%;
-				content: "\25B4"; // up arrow - ascending
+				content: "\25B2"; // up arrow - ascending
+				content: "\25B2" / "";
 			}
 
 			&:after {
 				top: 50%;
-				content: "\25BE"; // down arrow - descending
+				content: "\25BC"; // down arrow - descending
+				content: "\25BC" / "";
 			}
 		}
 
 		&.dt-ordering-asc:before,
 		&.dt-ordering-desc:after {
 			opacity: 0.6;
+		}
+
+		&.sorting_desc_disabled:after,
+		&.sorting_asc_disabled:before {
+			display: none;
+		}
+
+		&:active {
+			outline: none;
+		}
+	}
+}
+
+div.dataTables_scrollBody > table.dataTable > thead {
+	> tr > th,
+	> tr > td {
+		&:before,
+		&:after {
+			display: none;
 		}
 	}
 }

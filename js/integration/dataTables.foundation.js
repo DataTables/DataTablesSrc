@@ -10,34 +10,6 @@
  * controls using Foundation. See http://datatables.net/manual/styling/foundation
  * for further information.
  */
-(function( factory ){
-	if ( typeof define === 'function' && define.amd ) {
-		// AMD
-		define( ['jquery', 'datatables.net'], function ( $ ) {
-			return factory( $, window, document );
-		} );
-	}
-	else if ( typeof exports === 'object' ) {
-		// CommonJS
-		module.exports = function (root, $) {
-			if ( ! root ) {
-				root = window;
-			}
-
-			if ( ! $ || ! $.fn.dataTable ) {
-				$ = require('datatables.net')(root, $).$;
-			}
-
-			return factory( $, root, root.document );
-		};
-	}
-	else {
-		// Browser
-		factory( jQuery, window, document );
-	}
-}(function( $, window, document, undefined ) {
-'use strict';
-var DataTable = $.fn.dataTable;
 
 // Detect Foundation 5 / 6 as they have different element and class requirements
 var meta = $('<meta class="foundation-mq"/>').appendTo('head');
@@ -140,18 +112,25 @@ DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, b
 					tag = 'a';
 				}
 
-				if ( btnDisplay !== null ) {
+				if ( btnDisplay ) {
+					var disabled = btnClass.indexOf('disabled') !== -1;
+
 					node = $('<li>', {
 							'class': classes.sPageButton+' '+btnClass,
-							'aria-controls': settings.sTableId,
-							'aria-label': aria[ button ],
-							'tabindex': settings.iTabIndex,
 							'id': idx === 0 && typeof button === 'string' ?
 								settings.sTableId +'_'+ button :
 								null
 						} )
 						.append( tag ?
-							$('<'+tag+'/>', {'href': '#'} ).html( btnDisplay ) :
+							$('<'+tag+'/>', {
+								'href': disabled ? null : '#',
+								'aria-controls': settings.sTableId,
+								'aria-disabled': disabled ? 'true' : null,
+								'aria-label': aria[ button ],
+								'role': 'link',
+								'aria-current': btnClass === 'current' ? 'page' : null,
+								'tabindex': disabled ? -1 : settings.iTabIndex,
+							} ).html( btnDisplay ) :
 							btnDisplay
 						)
 						.appendTo( container );
@@ -207,6 +186,3 @@ DataTable.ext.renderer.layout.foundation = function ( settings, container, items
 			.appendTo( row );
 	} );
 };
-
-return DataTable;
-}));

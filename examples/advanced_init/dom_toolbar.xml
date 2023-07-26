@@ -7,20 +7,24 @@
 
 <title>Custom toolbar elements</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		dom: '<"toolbar">frtip',
-	});
-
-$(document).ready(function() {
-	$('#example').DataTable( {
-		layout: {
-			topLeft: $('<div class="toolbar"><b>Custom tool bar! Text/images etc.</b></div>')
-		}
-	} );
-} );
-
+$('#example').DataTable({
+	layout: {
+		topLeft: $('<div class="toolbar"><b>Custom tool bar! Text/images etc.</b></div>')
+	}
+});
 ]]></js>
+<js-vanilla><![CDATA[
+
+let toolbar = document.createElement('div');
+toolbar.innerHTML = '<b>Custom tool bar! Text/images etc.</b>';
+
+new DataTable('#example', {
+	layout: {
+		topLeft: toolbar
+	}
+});
+
+]]></js-vanilla>
 
 <info><![CDATA[
 

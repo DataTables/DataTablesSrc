@@ -2,15 +2,12 @@
  * ©2008-2022 SpryMedia Ltd - datatables.net/license
  */
 
-// ESM export of DataTables
-export default function ($, root) {
-	if (! root) {
-		root = window;
-	}
+import jQuery from 'jquery';
 
-	if (! $) {
-		$ = window.jQuery;
-	}
+// DataTables code uses $ internally, but we want to be able to
+// reassign $ with the `use` method, so it is a regular var.
+var $ = jQuery;
 
-	_buildInclude('core.main.js');
-}
+_buildInclude('core.main.js');
+
+export default DataTable;

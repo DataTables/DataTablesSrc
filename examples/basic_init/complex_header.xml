@@ -4,15 +4,16 @@
 <css lib="datatables" />
 
 <title>Complex headers (rowspan and colspan)</title>
-<js><![CDATA[
-$(document).ready(function() {
-	$('#example').DataTable({
-		columnDefs: [
-			{ title: 'Allan', targets: 0 }
-		]
-	});
-} );
-]]></js>
+<js lib="jquery datatables">
+<![CDATA[
+$('#example').DataTable();
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+new DataTable('#example');
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

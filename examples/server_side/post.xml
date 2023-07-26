@@ -7,26 +7,44 @@
 
 <title>POST data</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		processing: true,
-		serverSide: true,
-		ajax: {
-			url: 'scripts/post.php',
-			type: 'POST',
-		},
-		columns: [
-			{ data: 'first_name' },
-			{ data: 'last_name' },
-			{ data: 'position' },
-			{ data: 'office' },
-			{ data: 'start_date' },
-			{ data: 'salary' },
-		],
-	});
+$('#example').DataTable({
+	ajax: {
+		url: 'scripts/post.php',
+		type: 'POST'
+	},
+	columns: [
+		{ data: 'first_name' },
+		{ data: 'last_name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'start_date' },
+		{ data: 'salary' }
+	],
+	processing: true,
+	serverSide: true
 });
 
 ]]></js>
+<js-vanilla>
+<![CDATA[
+new DataTable('#example', {
+	ajax: {
+		url: 'scripts/post.php',
+		type: 'POST'
+	},
+	columns: [
+		{ data: 'first_name' },
+		{ data: 'last_name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'start_date' },
+		{ data: 'salary' }
+	],
+	processing: true,
+	serverSide: true
+});
+]]>
+</js-vanilla>
 
 <info><![CDATA[
 

@@ -212,7 +212,18 @@ function _fnCallbackFire( settings, callbackArr, eventName, args )
 	}
 
 	if ( eventName !== null ) {
-		$(settings.nTable).trigger( eventName+'.dt', args );
+		var e = $.Event( eventName+'.dt' );
+		var table = $(settings.nTable);
+
+		table.trigger( e, args );
+
+		// If not yet attached to the document, trigger the event
+		// on the body directly to sort of simulate the bubble
+		if (table.parents('body').length === 0) {
+			$('body').trigger( e, args );
+		}
+
+		ret.push( e.result );
 	}
 
 	return ret;

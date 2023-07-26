@@ -7,32 +7,43 @@
 
 <title>DataTables events</title>
 <js><![CDATA[
-$(document).ready(function () {
-	var eventFired = function (type) {
-		var n = $('#demo_info')[0];
-		n.innerHTML += '<div>' + type + ' event - ' + new Date().getTime() + '</div>';
-		n.scrollTop = n.scrollHeight;
-	};
+function eventFired(type) {
+	var n = $('#demo_info')[0];
+	n.innerHTML +=
+		'<div>' + type + ' event - ' + new Date().getTime() + '</div>';
+	n.scrollTop = n.scrollHeight;
+}
 
-	$('#example')
-		.on('order.dt', function () {
-			eventFired('Order');
-		})
-		.on('search.dt', function () {
-			eventFired('Search');
-		})
-		.on('page.dt', function () {
-			eventFired('Page');
-		})
-		.DataTable();
-});
+// Adding events before the DataTable is created
+$('#example')
+	.on('order.dt', function () {
+		eventFired('Order');
+	})
+	.on('search.dt', function () {
+		eventFired('Search');
+	})
+	.on('page.dt', function () {
+		eventFired('Page');
+	})
+	.DataTable();
 ]]></js>
+<js-vanilla><![CDATA[
+function eventFired(type) {
+	let n = document.querySelector('#demo_info');
+	n.innerHTML +=
+		'<div>' + type + ' event - ' + new Date().getTime() + '</div>';
+	n.scrollTop = n.scrollHeight;
+}
+
+new DataTable('#example')
+	.on('order.dt', () => eventFired('Order'))
+	.on('search.dt', () => eventFired('Search'))
+	.on('page.dt', () => eventFired('Page'));
+]]></js-vanilla>
 
 <info><![CDATA[
 
-DataTables fires a number of custom events which you can bind to in the standard jQuery fashion (although note that the namespace `dt` _must_ be used), allowing your code to perform custom actions when these events occur.
-
-All custom events fired by DataTables are fired with the namespace `dt` in order to prevent conflicts arising with other jQuery plug-ins which also fire events. The DataTables `dt-api on()` method can be used like the jQuery `on()` method, but will automatically append the `dt` namespace if required.
+DataTables fires a number of custom events which you can bind to using the `-api on()` method (or if using jQuery using `$().on()` and the `dt` namespace), allowing your code to perform custom actions when these events occur.
 
 This example shows the use of the `dt-event order`, `dt-event search` and `dt-event page` events by adding a notification that the event fired to an element on the page to show that they have indeed fired.
 

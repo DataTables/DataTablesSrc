@@ -7,38 +7,34 @@
 
 <title>Hidden columns</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		columnDefs: [
-			{
-				target: 2,
-				visible: false,
-				searchable: false,
-			},
-			{
-				target: 3,
-				visible: false,
-			},
-		],
-	});
+$('#example').DataTable({
+	columnDefs: [
+		{
+			target: 2,
+			visible: false,
+			searchable: false
+		},
+		{
+			target: 3,
+			visible: false
+		}
+	]
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
-document.addEventListener('DOMContentLoaded', function () {
-    new DataTable('#example', {
-		columnDefs: [
-			{
-				target: 2,
-				visible: false,
-				searchable: false,
-			},
-			{
-				target: 3,
-				visible: false,
-			},
-		],
-	});
+new DataTable('#example', {
+	columnDefs: [
+		{
+			target: 2,
+			visible: false,
+			searchable: false
+		},
+		{
+			target: 3,
+			visible: false
+		}
+	]
 });
 ]]>
 </js-vanilla>
@@ -47,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 There are times when you might find it useful to display only a sub-set of the information that was available in the original table. For example you might want to reduce the amount of data shown on screen to make it clearer for the user (consider also using the [Responsive extension](https://datatables.net/extensions/responsive) for this). This is done through the `dt-init columns.visible` column option.
 
-The column that is hidden is still part of the table and can be made visible through the `api column().visible()` API method at a future time if you wish to have columns which can be shown and hidden.
+The column that is hidden is still part of the table and can be made visible through the `-api column().visible()` API method at a future time if you wish to have columns which can be shown and hidden.
 
 Furthermore, as the hidden data is still part of the table, it can still, optionally, be filtered upon allowing the user access to that data (for example 'tag' information for a row entry might used).
 

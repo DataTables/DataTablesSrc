@@ -8,22 +8,34 @@
 <title>Multiple table control elements</title>
 <js><![CDATA[
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		layout: {
-			top2Left: 'pageLength',
-			top2Right: 'search',
-			topLeft: 'info',
-			topRight: 'paging',
-			bottomLeft: 'pageLength',
-			bottomRight: 'search',
-			bottom2Left: 'info',
-			bottom2Right: 'paging'
-		}
-	} );
-} );
+$('#example').DataTable({
+	layout: {
+		top2Left: 'pageLength',
+		top2Right: 'search',
+		topLeft: 'info',
+		topRight: 'paging',
+		bottomLeft: 'pageLength',
+		bottomRight: 'search',
+		bottom2Left: 'info',
+		bottom2Right: 'paging'
+	}
+});
 
 ]]></js>
+<js-vanilla><![CDATA[
+new DataTable('#example', {
+	layout: {
+		top2Left: 'pageLength',
+		top2Right: 'search',
+		topLeft: 'info',
+		topRight: 'paging',
+		bottomLeft: 'pageLength',
+		bottomRight: 'search',
+		bottom2Left: 'info',
+		bottom2Right: 'paging'
+	}
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 

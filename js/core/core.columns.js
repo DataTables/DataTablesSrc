@@ -82,6 +82,10 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 			oCol.aDataSort = [ oOptions.iDataSort ];
 		}
 		_fnMap( oCol, oOptions, "aDataSort" );
+
+		// Fall back to the aria-label attribute on the table header if no ariaTitle is
+		// provided.
+		oCol.ariaTitle ||= th.attr("aria-label");
 	}
 
 	/* Cache the data get and set functions for speed */
@@ -120,7 +124,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 
 	// Indicate if DataTables should read DOM data as an object or array
 	// Used in _fnGetRowElements
-	if ( typeof mDataSrc !== 'number' ) {
+	if ( typeof mDataSrc !== 'number' && ! oCol._isArrayHost ) {
 		oSettings._rowReadObject = true;
 	}
 

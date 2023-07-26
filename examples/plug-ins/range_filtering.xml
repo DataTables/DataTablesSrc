@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="html" order="4">
 
-<css lib="datatables" />
+<css lib="datatables">
+table.inputs td {
+	padding: 5px;
+}
+</css>
 <js lib="jquery" />
 <js lib="datatables" />
 
 <title>Custom filtering - range search</title>
 <js><![CDATA[
-/* Custom filtering function which will search data in column four between two values */
-$.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-	var min = parseInt($('#min').val(), 10);
-	var max = parseInt($('#max').val(), 10);
+var minEl = $('#min');
+var maxEl = $('#max');
+
+// Custom range filtering function
+DataTable.ext.search.push(function (settings, data, dataIndex) {
+	var min = parseInt(minEl.val(), 10);
+	var max = parseInt(maxEl.val(), 10);
 	var age = parseFloat(data[3]) || 0; // use data for the age column
 
 	if (
@@ -21,29 +28,65 @@ $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
 	) {
 		return true;
 	}
+
 	return false;
 });
 
-$(document).ready(function () {
-	var table = $('#example').DataTable();
+var table = $('#example').DataTable();
 
-	// Event listener to the two range filtering inputs to redraw on input
-	$('#min, #max').keyup(function () {
-		table.draw();
-	});
+// Changes to the inputs will trigger a redraw to update the table
+minEl.on('input', function () {
+	table.draw();
 });
+maxEl.on('input', function () {
+	table.draw();
+});
+
 ]]></js>
+<js-vanilla><![CDATA[
+const minEl = document.querySelector('#min');
+const maxEl = document.querySelector('#max');
+
+// Custom range filtering function
+DataTable.ext.search.push(function (settings, data, dataIndex) {
+	let min = parseInt(minEl.value, 10);
+	let max = parseInt(maxEl.value, 10);
+	let age = parseFloat(data[3]) || 0; // use data for the age column
+
+	if (
+		(isNaN(min) && isNaN(max)) ||
+		(isNaN(min) && age <= max) ||
+		(min <= age && isNaN(max)) ||
+		(min <= age && age <= max)
+	) {
+		return true;
+	}
+
+	return false;
+});
+
+const table = new DataTable('#example');
+
+// Changes to the inputs will trigger a redraw to update the table
+minEl.addEventListener('input', function () {
+	table.draw();
+});
+maxEl.addEventListener('input', function () {
+	table.draw();
+});
+
+]]></js-vanilla>
 
 <info><![CDATA[
 
-There may be occasions when you wish to search data presented to the end user in your own manner, common examples are number range searches (in between two numbers) and date range searches. DataTables provides an API method to add your own search functions, `$.fn.dataTable.ext.search`. This is an array of functions (push your own onto it) which will will be run at table draw time to see if a particular row should be included or not.
+There may be occasions when you wish to search data presented to the end user in your own manner, common examples are number range searches (in between two numbers) and date range searches. DataTables provides an API method to add your own search functions, `DataTable.ext.search`. This is an array of functions (push your own onto it) which will will be run at table draw time to see if a particular row should be included or not.
 
 This example shows a search being performed on the age column in the data, based upon two inputs.
 
 ]]></info>
 
 <demo-html>
-	<table border="0" cellspacing="5" cellpadding="5">
+	<table class="inputs">
 		<tr>
 			<td>Minimum age:</td>
 			<td><input type="text" id="min" name="min" /></td>

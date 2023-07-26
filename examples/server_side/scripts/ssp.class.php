@@ -78,6 +78,7 @@ class SSP {
 	 *     * db   - database name
 	 *     * user - user name
 	 *     * pass - user password
+	 *     * Optional: `'charset' => 'utf8'` - you might need this depending on your PHP / MySQL config
 	 *  @return resource PDO connection
 	 */
 	static function db ( $conn )
@@ -247,6 +248,11 @@ class SSP {
 	{
 		$bindings = array();
 		$db = self::db( $conn );
+
+		// Allow for a JSON string to be passed in
+		if (isset($request['json'])) {
+			$request = json_decode($request['json'], true);
+		}
 
 		// Build the SQL query string from the request
 		$limit = self::limit( $request, $columns );

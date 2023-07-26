@@ -7,20 +7,50 @@
 
 <title>Add rows</title>
 <js><![CDATA[
-$(document).ready(function () {
-	var t = $('#example').DataTable();
-	var counter = 1;
+var table = $('#example').DataTable();
+var counter = 1;
 
-	$('#addRow').on('click', function () {
-		t.row.add([counter + '.1', counter + '.2', counter + '.3', counter + '.4', counter + '.5']).draw(false);
+$('#addRow').on('click', function () {
+	table.row
+		.add([
+			counter + '.1',
+			counter + '.2',
+			counter + '.3',
+			counter + '.4',
+			counter + '.5'
+		])
+		.draw(false);
 
-		counter++;
-	});
-
-	// Automatically add a first row of data
-	$('#addRow').click();
+	counter++;
 });
+
+// Automatically add a first row of data
+$('#addRow').click();
 ]]></js>
+
+<js-vanilla><![CDATA[
+function addNewRow() {
+	table.row
+		.add([
+			counter + '.1',
+			counter + '.2',
+			counter + '.3',
+			counter + '.4',
+			counter + '.5'
+		])
+		.draw(false);
+
+	counter++;
+}
+
+const table = new DataTable('#example');
+let counter = 1;
+
+document.querySelector('#addRow').addEventListener('click', addNewRow);
+
+// Automatically add a first row of data
+addNewRow();
+]]></js-vanilla>
 
 <info><![CDATA[
 
@@ -35,7 +65,9 @@ The [Editor extension](https://editor.datatables.net/) adds full table editing c
 ]]></info>
 
 <demo-html>
-	<button id="addRow">Add new row</button>
+	<p>
+		<button id="addRow">Add new row</button>
+	</p>
 </demo-html>
 
 </dt-example>

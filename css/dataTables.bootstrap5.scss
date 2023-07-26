@@ -1,5 +1,5 @@
 
-$table-row-selected: rgba(13, 110, 253, 0.9);
+$table-row-selected: 13 110 253;
 
 @import './common.scss';
 @import './ordering.scss';
@@ -89,6 +89,10 @@ div.dataTables_wrapper {
 			justify-content: flex-end;
 		}
 	}
+
+	div.dt-row {
+		position: relative;
+	}
 }
 
 
@@ -159,19 +163,6 @@ table.dataTable.table-sm {
 	> thead > tr > th:not(.sorting_disabled){
 		padding-right: 20px;
 	}
-
-	.sorting,
-	.sorting_asc,
-	.sorting_desc {
-		&:before {
-			top: 5px;
-			right: 0.85em;
-		}
-
-		&:after {
-			top: 5px;
-		}
-	}
 }
 
 
@@ -227,4 +218,10 @@ div.table-responsive > div.dataTables_wrapper > div.row {
 			padding-right: 0;
 		}
 	}
+}
+
+:root[data-bs-theme="dark"] {
+	--dt-row-hover: 255, 255, 255;
+	--dt-row-stripe: 255, 255, 255;
+	--dt-column-ordering: 255, 255, 255;
 }

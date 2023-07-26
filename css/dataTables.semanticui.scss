@@ -1,6 +1,6 @@
 
-$table-row-selected: rgba(0, 0, 0, 0.05);
-$table-row-selected-text: inherit;
+$table-row-selected: 224 224 224;
+$table-row-selected-text: 0 0 0;
 
 @import './common.scss';
 @import './ordering.scss';

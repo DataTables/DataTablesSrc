@@ -7,44 +7,40 @@
 
 <title>Multi-column ordering</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		columnDefs: [
-			{
-				targets: [0],
-				orderData: [0, 1],
-			},
-			{
-				targets: [1],
-				orderData: [1, 0],
-			},
-			{
-				targets: [4],
-				orderData: [4, 0],
-			},
-		],
-	});
+$('#example').DataTable({
+	columnDefs: [
+		{
+			targets: [0],
+			orderData: [0, 1]
+		},
+		{
+			targets: [1],
+			orderData: [1, 0]
+		},
+		{
+			targets: [4],
+			orderData: [4, 0]
+		}
+	]
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
-document.addEventListener('DOMContentLoaded', function () {
-    new DataTable('#example', {
-		columnDefs: [
-			{
-				targets: [0],
-				orderData: [0, 1],
-			},
-			{
-				targets: [1],
-				orderData: [1, 0],
-			},
-			{
-				targets: [4],
-				orderData: [4, 0],
-			},
-		],
-	});
+new DataTable('#example', {
+	columnDefs: [
+		{
+			targets: [0],
+			orderData: [0, 1]
+		},
+		{
+			targets: [1],
+			orderData: [1, 0]
+		},
+		{
+			targets: [4],
+			orderData: [4, 0]
+		}
+	]
 });
 ]]>
 </js-vanilla>

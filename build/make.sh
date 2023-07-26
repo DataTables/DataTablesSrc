@@ -74,17 +74,12 @@ function build_js {
 		else
 			echo_error "JSHint failed"
 		fi
-	else
-		echo_error "JSHint not installed at $JSHINT - skipping"
 	fi
 
 	js_compress $OUT_FILE
 
 	cp jquery.js $OUT_DIR
 	cp integration/* $OUT_DIR
-
-	# Compress the integration files
-	js_frameworks dataTables $OUT_DIR
 
 	IFS=$OLD_IFS
 }
@@ -137,6 +132,8 @@ function build_examples {
 		rm -Rf $OUT_DIR
 	fi
 
+	sass --stop-on-error --style expanded $SRC_DIR/resources/demo.scss > $SRC_DIR/resources/demo.css
+
 	# Transform in place
 	cp -r $SRC_DIR $OUT_DIR
 	php ${BASE_DIR}/build/examples.php \
@@ -159,8 +156,13 @@ function build_repo {
 	echo_section "Deploying to build repo"
 	update_build_repo
 
+	# Build DataTables with two different loader types
 	build_js umd.js jquery.dataTables js
 	build_js esm.js jquery.dataTables mjs
+
+	echo_section "Styling frameworks JS"
+
+	js_frameworks dataTables $OUT_DIR "jquery datatables.net"
 	build_css
 	build_types
 	build_examples
@@ -168,6 +170,12 @@ function build_repo {
 	#echo $BUILD_DIR
 	cp $BUILD_DIR/js/* ${BUILD_DIR}/DataTables/media/js/
 	cp $BUILD_DIR/css/* ${BUILD_DIR}/DataTables/media/css/
+
+	if [ ! -d "${BUILD_DIR}/DataTables/types" ]; then
+		mkdir ${BUILD_DIR}/DataTables/types
+	fi
+
+	cp $BUILD_DIR/types/* ${BUILD_DIR}/DataTables/types
 
 	cp -r $BUILD_DIR/images ${BUILD_DIR}/DataTables/media/
 	if [ -e ${BUILD_DIR}/DataTables/examples ]; then

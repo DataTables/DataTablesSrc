@@ -45,7 +45,7 @@ function __mldObj (d, format, locale) {
 		}
 	}
 	else if (window.luxon) {
-		dt = format
+		dt = format && typeof d === 'string'
 			? window.luxon.DateTime.fromFormat( d, format )
 			: window.luxon.DateTime.fromISO( d );
 
@@ -189,7 +189,7 @@ function __mlHelper (localeString) {
 var __thousands = ',';
 var __decimal = '.';
 
-if (Intl) {
+if (window.Intl !== undefined) {
 	try {
 		var num = new Intl.NumberFormat().formatToParts(100000.1);
 	

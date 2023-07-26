@@ -3,45 +3,12 @@
  */
 
 /**
- * DataTables integration for Bootstrap 3. This requires Bootstrap 3 and
- * DataTables 1.10 or newer.
+ * DataTables integration for FomanticUI (formally SemanticUI)
  *
  * This file sets the defaults and adds options to DataTables to style its
  * controls using Bootstrap. See http://datatables.net/manual/styling/bootstrap
  * for further information.
  */
-(function( factory ){
-	if ( typeof define === 'function' && define.amd ) {
-		// AMD
-		define( ['jquery', 'datatables.net'], function ( $ ) {
-			return factory( $, window, document );
-		} );
-	}
-	else if ( typeof exports === 'object' ) {
-		// CommonJS
-		module.exports = function (root, $) {
-			if ( ! root ) {
-				root = window;
-			}
-
-			if ( ! $ || ! $.fn.dataTable ) {
-				// Require DataTables, which attaches to jQuery, including
-				// jQuery if needed and have a $ property so we can access the
-				// jQuery object that is used
-				$ = require('datatables.net')(root, $).$;
-			}
-
-			return factory( $, root, root.document );
-		};
-	}
-	else {
-		// Browser
-		factory( jQuery, window, document );
-	}
-}(function( $, window, document, undefined ) {
-'use strict';
-var DataTable = $.fn.dataTable;
-
 
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
@@ -64,7 +31,7 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 	var classes = settings.oClasses;
 	var lang    = settings.oLanguage.oPaginate;
 	var aria = settings.oLanguage.oAria.paginate || {};
-	var btnDisplay, btnClass, counter=0;
+	var btnDisplay, btnClass;
 
 	var attach = function( container, buttons ) {
 		var i, ien, node, button;
@@ -127,9 +94,10 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 						break;
 				}
 
-				var tag = btnClass.indexOf( 'disabled' ) === -1 ?
-					'a' :
-					'div';
+				var disabled = btnClass.indexOf('disabled') !== -1;
+				var tag = disabled ?
+					'div' :
+					'a';
 
 				if ( btnDisplay !== null ) {
 					node = $('<'+tag+'>', {
@@ -137,11 +105,14 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 							'id': idx === 0 && typeof button === 'string' ?
 								settings.sTableId +'_'+ button :
 								null,
-							'href': '#',
+							'href': disabled ? null : '#',
 							'aria-controls': settings.sTableId,
+							'aria-disabled': disabled ? 'true' : null,
 							'aria-label': aria[ button ],
-							'data-dt-idx': counter,
-							'tabindex': settings.iTabIndex
+							'role': 'link',
+							'aria-current': btnClass === 'active' ? 'page' : null,
+							'data-dt-idx': button,
+							'tabindex': disabled ? -1 : settings.iTabIndex
 						} )
 						.html( btnDisplay )
 						.appendTo( container );
@@ -149,8 +120,6 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 					settings.oApi._fnBindAction(
 						node, {action: button}, clickHandler
 					);
-
-					counter++;
 				}
 			}
 		}
@@ -227,8 +196,3 @@ DataTable.ext.renderer.layout.semanticUI = function ( settings, container, items
 			.appendTo( row );
 	} );
 };
-
-
-
-return DataTable;
-}));

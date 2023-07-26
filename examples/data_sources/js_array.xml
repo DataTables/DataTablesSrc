@@ -46,23 +46,21 @@ var dataSet = [
 	['Unity Butler', 'Marketing Designer', 'San Francisco', '5384', '2009/12/09', '$85,675'],
 ];
 
-$(document).ready(function () {
-	$('#example').DataTable({
-		data: dataSet,
-		columns: [
-			{ title: 'Name' },
-			{ title: 'Position' },
-			{ title: 'Office' },
-			{ title: 'Extn.' },
-			{ title: 'Start date' },
-			{ title: 'Salary' },
-		],
-	});
+$('#example').DataTable({
+	columns: [
+		{ title: 'Name' },
+		{ title: 'Position' },
+		{ title: 'Office' },
+		{ title: 'Extn.' },
+		{ title: 'Start date' },
+		{ title: 'Salary' }
+	],
+	data: dataSet
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
-var dataSet = [
+const dataSet = [
 	['Tiger Nixon', 'System Architect', 'Edinburgh', '5421', '2011/04/25', '$320,800'],
 	['Garrett Winters', 'Accountant', 'Tokyo', '8422', '2011/07/25', '$170,750'],
 	['Ashton Cox', 'Junior Technical Author', 'San Francisco', '1562', '2009/01/12', '$86,000'],
@@ -101,18 +99,16 @@ var dataSet = [
 	['Unity Butler', 'Marketing Designer', 'San Francisco', '5384', '2009/12/09', '$85,675'],
 ];
 
-document.addEventListener('DOMContentLoaded', function () {
-    new DataTable('#example', {
-		data: dataSet,
-		columns: [
-			{ title: 'Name' },
-			{ title: 'Position' },
-			{ title: 'Office' },
-			{ title: 'Extn.' },
-			{ title: 'Start date' },
-			{ title: 'Salary' },
-		],
-	});
+new DataTable('#example', {
+	columns: [
+		{ title: 'Name' },
+		{ title: 'Position' },
+		{ title: 'Office' },
+		{ title: 'Extn.' },
+		{ title: 'Start date' },
+		{ title: 'Salary' }
+	],
+	data: dataSet
 });
 ]]>
 </js-vanilla>

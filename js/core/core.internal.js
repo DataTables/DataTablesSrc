@@ -70,7 +70,12 @@ var _numToDecimal = function ( num, decimalPoint ) {
 
 
 var _isNumber = function ( d, decimalPoint, formatted ) {
-	var strType = typeof d === 'string';
+	var type = typeof d;
+	var strType = type === 'string';
+
+	if ( type === 'number' || type === 'bigint') {
+		return true;
+	}
 
 	// If empty return immediately so there must be a number if it is a
 	// formatted string (this stops the string "k", or "kr", etc being detected
@@ -199,7 +204,9 @@ var _removeEmpty = function ( a )
 
 
 var _stripHtml = function ( d ) {
-	return d.replace( _re_html, '' );
+	return d
+		.replace( _re_html, '' ) // Complete tags
+		.replace(/<script/i, ''); // Safety for incomplete script tag
 };
 
 

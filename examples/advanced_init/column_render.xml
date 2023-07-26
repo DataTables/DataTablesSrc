@@ -7,23 +7,36 @@
 
 <title>Column rendering</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		columnDefs: [
-			{
-				// The `data` parameter refers to the data for the cell (defined by the
-				// `data` option, which defaults to the column being worked with, in
-				// this case `data: 0`.
-				render: function (data, type, row) {
-					return data + ' (' + row[3] + ')';
-				},
-				targets: 0,
+$('#example').DataTable({
+	columnDefs: [
+		{
+			// The `data` parameter refers to the data for the cell (defined by the
+			// `data` option, which defaults to the column being worked with, in
+			// this case `data: 0`.
+			render: function (data, type, row) {
+				return data + ' (' + row[3] + ')';
 			},
-			{ visible: false, targets: [3] },
-		],
-	});
+			targets: 0
+		},
+		{ visible: false, targets: [3] }
+	]
 });
 ]]></js>
+<js-vanilla><![CDATA[
+new DataTable('#example', {
+	columnDefs: [
+		{
+			// The `data` parameter refers to the data for the cell (defined by the
+			// `data` option, which defaults to the column being worked with, in
+			// this case `data: 0`.
+			render: (data, type, row) => data + ' (' + row[3] + ')',
+			targets: 0
+		},
+		{ visible: false, targets: [3] }
+	]
+});
+]]></js-vanilla>
+
 
 <info><![CDATA[
 

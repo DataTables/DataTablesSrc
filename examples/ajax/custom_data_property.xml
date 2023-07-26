@@ -7,15 +7,22 @@
 
 <title>Custom data source property</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		ajax: {
-			url: 'data/arrays_custom_prop.txt',
-			dataSrc: 'demo',
-		},
-	});
+$('#example').DataTable({
+	ajax: {
+		dataSrc: 'demo',
+		url: 'data/arrays_custom_prop.txt'
+	}
 });
 ]]></js>
+
+<js-vanilla><![CDATA[
+new DataTable('#example', {
+	ajax: {
+		dataSrc: 'demo',
+		url: 'data/arrays_custom_prop.txt'
+	}
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 

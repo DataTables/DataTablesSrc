@@ -6,30 +6,43 @@
 <js lib="datatables" />
 
 <title>Row selection (multiple rows)</title>
+
 <js><![CDATA[
-$(document).ready(function () {
-	var table = $('#example').DataTable();
+var table = $('#example').DataTable();
 
-	$('#example tbody').on('click', 'tr', function () {
-		$(this).toggleClass('selected');
-	});
+$('#example tbody').on('click', 'tr', function () {
+	$(this).toggleClass('selected');
+});
 
-	$('#button').click(function () {
-		alert(table.rows('.selected').data().length + ' row(s) selected');
-	});
+$('#button').click(function () {
+	alert(table.rows('.selected').data().length + ' row(s) selected');
 });
 ]]></js>
+
+<js-vanilla><![CDATA[
+const table = new DataTable('#example');
+
+table.on('click', 'tbody tr', function (e) {
+	e.currentTarget.classList.toggle('selected');
+});
+
+document.querySelector('#button').addEventListener('click', function () {
+	alert(table.rows('.selected').data().length + ' row(s) selected');
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 
 It can be useful to provide the user with the option to select rows in a DataTable. This can be done by using a click event to add / remove a class on the table rows. The `dt-api rows().data()` method can then be used to get the data for the selected rows. In this case it is simply counting the number of selected rows, but much more complex interactions can easily be developed.
 
-If you are looking for a more complete and easier to use row selection option, the [Select extension](https://datatables.net/extras/select) provides an API that is fully integrated with DataTables for selecting rows and acting upon that selection.
+If you are looking for a more complete and easier to use row selection option, the [Select extension](https://datatables.net/extensions/select) provides an API that is fully integrated with DataTables for selecting rows and acting upon that selection.
 
 ]]></info>
 
 <demo-html>
-	<button id="button">Row count</button>
+	<p>
+		<button id="button">Row count</button>
+	</p>
 </demo-html>
 
 </dt-example>

@@ -3,6 +3,11 @@
 	<name>deferLoading</name>
 	<summary>Delay the loading of server-side data until second draw</summary>
 	<since>1.10</since>
+	<deprecated since="1.13">
+		<description>
+			This option is largely irrelevant for the modern web. It was added when search engines wouldn't index Ajax data, but that is no longer the case, and this option just means you need to duplicate rendering logic in the server and the client. It will be removed in v2.
+		</description>
+	</deprecated>
 
 	<type type="integer">
 		<description>When given as an integer, this enables deferred loading, and instructs DataTables as to how many items are in the full data set.</description>

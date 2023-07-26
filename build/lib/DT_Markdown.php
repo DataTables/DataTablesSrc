@@ -25,6 +25,8 @@ function DT_Markdown($text, $default_claases=array(), $truncateWhiteSpace=false)
 }
 
 class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
+	private $extended_hardbreaks;
+
 	// If the first line has white space, then remove that amount of white space
 	// from all lines
 	static function truncateWhiteSpace ( $str )
@@ -63,7 +65,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 			$options['extended_hardbreaks'] :
 			false;
 
-		$this->block_gamut['doPhp'] = 9;
+		//$this->block_gamut['doPhp'] = 9;
 		$this->block_gamut['doColumns'] = 13;
 		$this->block_gamut['doGrid'] = 12;
 		$this->block_gamut['doPullQuotes'] = 61;
@@ -85,6 +87,19 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 
 		return preg_replace_callback('/ +\n/',
 			array(&$this, '_doHardBreaks_callback'), $text);
+	}
+
+	function doFencedCodeBlocks($text) {
+		// The fenced code blocks is basically the first transform that happens
+		// to protect the content. We want the same for the PHP code and there is
+		// no way to do that using the block_gamut since it happens after code
+		// blocks and HTML parsing - so I've hijacked this function to also do
+		// the PHP escaping
+		$text = $this->doPhpInline($text);
+		$text = $this->doPhpMd($text);
+		$text = parent::doFencedCodeBlocks($text);
+
+		return $text;
 	}
 
 
@@ -327,7 +342,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		$anchor = $this->_doHeaderAnchor( $matches[1] );
 		$block =
 			"<h$level$attr data-anchor=\"".$anchor."\">".
-				'<a name="'.$anchor.'"></a>'.
+				'<a name="'.$anchor.'" href="#'.$anchor.'"></a>'.
 				$text.
 			"</h$level>";
 		return "\n" . $this->hashBlock($block) . "\n\n";
@@ -342,7 +357,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		if ( $level <= 3 ) {
 			$anchor = $this->_doHeaderAnchor( $matches[2] );
 			$block = "<h$level$attr data-anchor=\"".$anchor."\">".
-					'<a name="'.$anchor.'"></a>'.
+					'<a name="'.$anchor.'" href="#'.$anchor.'"></a>'.
 					$text.
 				"</h$level>";
 		}
@@ -458,8 +473,24 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		return $text;
 	}
 
+	// PHP tags
+	function doPhpInline ( $text ) {
+		$that = $this;
+		$text = preg_replace_callback('/<\?php .*?\?>/xm',
+			function ($matches) use ($that) {
+				$hashed = $that->hashBlock($matches[0]);
 
-	function doPhp ( $text ) {
+				return $hashed;
+			}
+			,
+			$text
+		);
+
+		return $text;
+	}
+
+	// ? at the start of a line to indicate PHP line
+	function doPhpMd ( $text ) {
 		$that = $this;
 		$text = preg_replace_callback('/
 			(?>^\?[ ]?

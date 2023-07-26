@@ -169,10 +169,12 @@ class DT_Example
 		$template = $this->_htmlTidy( $template );
 
 		// After the tidy to preserve white space as tidy "cleans" it up
-		$template = str_replace( '{css}',       $this->_plain( 'css' ), $template );
-		$template = str_replace( '{js}',        $this->_plain( 'js' ),  $template );
-		$template = str_replace( '{css-esc}',   htmlspecialchars( trim($this->_plain( 'css' )) ), $template );
-		$template = str_replace( '{js-esc}',    htmlspecialchars( trim($this->_plain( 'js' )) ),  $template );
+		$template = str_replace( '{css}', $this->_plain( 'css' ), $template );
+		$template = str_replace( '{css-esc}', htmlspecialchars( trim($this->_plain( 'css' )) ), $template );
+		$template = str_replace( '{js}', $this->_plain( 'js' ),  $template );
+		$template = str_replace( '{js-vanilla}', $this->_plain( 'js-vanilla' ),  $template );
+		$template = str_replace( '{js-esc}', htmlspecialchars( trim($this->_plain( 'js' )) ),  $template );
+		$template = str_replace( '{js-vanilla-esc}', htmlspecialchars( trim($this->_plain( 'js-vanilla' )) ),  $template );
 
 		$template = preg_replace( '/\t<style type="text\/css">\n\n\t<\/style>/m', "", $template );
 
@@ -522,9 +524,16 @@ class DT_Example
 	private function _plain ( $type )
 	{
 		$out = array();
-		$tags = $type === 'js' ?
-			$this->_xml->js :
-			$this->_xml->css;
+
+		if ($type === 'js') {
+			$tags = $this->_xml->js;
+		}
+		else if ($type === 'js-vanilla') {
+			$tags = $this->_xml->{'js-vanilla'};
+		}
+		else {
+			$tags = $this->_xml->css;
+		}
 
 		foreach( $tags as $src ) {
 			if ( (string)$src !== '' ) {
@@ -565,6 +574,12 @@ class DT_Example
 
 				for ( $j=0, $jen=count($a) ; $j<$jen ; $j++ ) {
 					$out[] = '<script type="text/javascript" language="javascript" src="'.$a[$j].'"></script>';
+
+					if (strpos($a[$j], 'tailwindcss.com') !== false) {
+						$out[] = '<script type="text/javascript">'.
+							'tailwind.config = { darkMode: "class" };'.
+							'</script>';
+					}
 				}
 			}
 			else {
@@ -700,7 +715,8 @@ class DT_Example
 				 strpos($file, 'editor-demo.css') !== false ||
 				 strpos($file, 'shCore.js') !== false ||
 				 strpos($file, 'demo.js') !== false ||
-				 strpos($file, 'editor-demo.js') !== false
+				 strpos($file, 'editor-demo.js') !== false ||
+				 $file === ''
 			) {
 				continue;
 			}
@@ -754,6 +770,13 @@ DT_Example::$tables['html-salary-plain'] = array(
 
 DT_Example::$tables['sequence'] = array(
 	'columns' => array( 'sequence', 'name', 'position', 'office', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
+DT_Example::$tables['sequence-reorder-column'] = array(
+	'columns' => array( '', 'sequence', 'name', 'position', 'office', 'start_date', 'salary' ),
 	'header'  => true,
 	'footer'  => true,
 	'body'    => true
@@ -1026,7 +1049,7 @@ DT_Example::$tables['html-wide-footer'] = array(
 
 
 DT_Example::$tables['html-split-name'] = array(
-	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'salary' ),
+	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'salary-plain' ),
 	'header'  => true,
 	'footer'  => false,
 	'body'    => true

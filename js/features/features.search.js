@@ -66,7 +66,7 @@ _ext.features.register( 'search', function ( settings, opts ) {
 				_fnThrottle( searchFn, searchDelay ) :
 				searchFn
 		)
-		.on( 'mouseup', function(e) {
+		.on( 'mouseup.DT', function(e) {
 			// Edge fix! Edge 17 does not trigger anything other than mouse events when clicking
 			// on the clear icon (Edge bug 17584515). This is safe in other browsers as `searchFn`
 			// checks the value to see if it has changed. In other browsers it won't have.

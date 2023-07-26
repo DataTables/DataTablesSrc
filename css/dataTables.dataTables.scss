@@ -15,6 +15,7 @@ $jqueryui: false !default;
 	border-radius: 3px;
 	padding: 5px;
 	background-color: transparent;
+	color: inherit;
 }
 
 /*
@@ -37,8 +38,8 @@ table.dataTable {
 		}
 	}
 
-	thead th,
-	thead td {
+	> thead > tr > th,
+	> thead > tr > td {
 		padding: 10px;
 
 		@if not $jqueryui { // jQuery UI defines its own border
@@ -50,8 +51,8 @@ table.dataTable {
 		}
 	}
 
-	tfoot th,
-	tfoot td {
+	> tfoot > tr > th,
+	> tfoot > tr > td {
 		padding: 10px 10px 6px 10px;
 
 		@if not $jqueryui { // jQuery UI defines its own border
@@ -67,8 +68,15 @@ table.dataTable {
 			background-color: $table-row-background;
 
 			&.selected > * {
-				box-shadow: inset 0 0 0 9999px $table-row-selected;
-				color: $table-row-selected-text;
+				box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.9);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.9);
+				color: rgb($table-row-selected-text);
+				color: rgb(var(--dt-row-selected-text));
+			}
+	
+			&.selected a {
+				color: rgb($table-row-selected-link);
+				color: rgb(var(--dt-row-selected-link));
 			}
 		}
 
@@ -80,33 +88,39 @@ table.dataTable {
 
 
 	// Stripe classes - add "row-border" class to the table to activate
-	&.row-border tbody,
-	&.display tbody {
-		th, td {
+	&.row-border > tbody,
+	&.display > tbody {
+		> tr > th,
+		> tr > td {
 			border-top: $table-body-border;
 		}
 
-		tr:first-child th,
-		tr:first-child td {
+		> tr:first-child > th,
+		> tr:first-child > td {
 			border-top: none;
+		}
+
+		> tr.selected + tr.selected > td {
+			border-top-color: darken(rgb($table-row-selected), 5%);
 		}
 	}
 
 
 	// Stripe classes - add "cell-border" class to the table to activate
-	&.cell-border tbody {
-		th, td {
+	&.cell-border > tbody {
+		> tr > th,
+		> tr > td {
 			border-top: $table-body-border;
 			border-right: $table-body-border;
 		}
 
-		tr th:first-child,
-		tr td:first-child {
+		> tr > th:first-child,
+		> tr > td:first-child {
 			border-left: $table-body-border;
 		}
 
-		tr:first-child th,
-		tr:first-child td {
+		> tr:first-child > th,
+		> tr:first-child > td {
 			border-top: none;
 		}
 	}
@@ -117,10 +131,12 @@ table.dataTable {
 	&.display > tbody {
 		> tr.odd > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.023);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe), 0.023);
 		}
 
 		> tr.odd.selected > * {
-			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.023);
+			box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.923);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.923);
 		}
 	}
 
@@ -131,10 +147,12 @@ table.dataTable {
 	&.display > tbody {
 		> tr:hover > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.035);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.035);
 		}
 
 		> tr.selected:hover > * {
-			box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.035);
+			box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 1) !important;
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 1) !important;
 		}
 	}
 
@@ -147,38 +165,76 @@ table.dataTable {
 			tr > .sorting_2,
 			tr > .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.019);
 			}
 
 			tr.selected > .sorting_1,
 			tr.selected > .sorting_2,
 			tr.selected > .sorting_3 {
-				box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.019);
+				box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.919);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.919);
 			}
 		}
 	}
 	&.display > tbody,
 	&.order-column.stripe > tbody {
 		> tr.odd {
-			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.054); }
-			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.047); }
-			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.039); }
+			> .sorting_1 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.054);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.054);
+			}
+			> .sorting_2 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.047);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.047);
+			}
+			> .sorting_3 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.039);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.039);
+			}
 
 			&.selected {
-				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.054); }
-				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.047); }
-				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.039); }
+				> .sorting_1 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.954);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.954);
+				}
+				> .sorting_2 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.947);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.947);
+				}
+				> .sorting_3 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.939);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.939);
+				}
 			}
 		}
 
 		> tr.even {
-			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019); }
-			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.011); }
-			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.003); }
+			> .sorting_1 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.019);
+			}
+			> .sorting_2 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.011);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.011);
+			}
+			> .sorting_3 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.003);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.003);
+			}
 			
 			&.selected {
-				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.019); }
-				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.011); }
-				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.003); }
+				> .sorting_1 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.919);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.919);
+				}
+				> .sorting_2 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.911);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.911);
+				}
+				> .sorting_3 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.903);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.903);
+				}
 			}
 		}
 	}
@@ -186,14 +242,32 @@ table.dataTable {
 	&.display tbody,
 	&.order-column.hover tbody {
 		tr:hover {
-			> .sorting_1 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.082); }
-			> .sorting_2 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.074); }
-			> .sorting_3 { box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.062); }
+			> .sorting_1 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.082);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.082);
+			}
+			> .sorting_2 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.074);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.074);
+			}
+			> .sorting_3 {
+				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.062);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.062);
+			}
 
 			&.selected {
-				> .sorting_1 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.082); }
-				> .sorting_2 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.074); }
-				> .sorting_3 { box-shadow: inset 0 0 0 9999px adjust-color($table-row-selected, $alpha: 0.062); }
+				> .sorting_1 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.982);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.982);
+				}
+				> .sorting_2 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.974);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.974);
+				}
+				> .sorting_3 {
+					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.962);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.962);
+				}
 			}
 		}
 	}
@@ -204,19 +278,13 @@ table.dataTable {
 	}
 
 	&.compact {
-		thead th,
-		thead td {
-			padding: 4px 17px;
-		}
-
-		tfoot th,
-		tfoot td {
-			padding: 4px;
-		}
-
-		tbody th,
-		tbody td {
-			padding: 4px;
+		thead,
+		tfoot,
+		tbody {
+			th,
+			td {
+				padding: 4px;
+			}
 		}
 	}
 }
@@ -290,6 +358,7 @@ div.dataTables_wrapper {
 			color: $table-control-color !important;
 			border: 1px solid transparent;
 			border-radius: 2px;
+			background: transparent;
 
 			&.current,
 			&.current:hover {
@@ -406,6 +475,109 @@ div.dataTables_wrapper {
 			&.dt-left,
 			&.dt-right {
 				text-align: center;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 640px) {
+	.dataTables_wrapper {
+		.dataTables_length,
+		.dataTables_filter {
+			float: none;
+			text-align: center;
+		}
+
+		.dataTables_filter {
+			margin-top: 0.5em;
+		}
+	}
+}
+
+
+html.dark {
+	--dt-row-hover: 255, 255, 255;
+	--dt-row-stripe: 255, 255, 255;
+	--dt-column-ordering: 255, 255, 255;
+
+	table.dataTable {
+		> thead > tr > th,
+		> thead > tr > td {
+			@if not $jqueryui { // jQuery UI defines its own border
+				border-bottom: $table-header-border-dark;
+			}
+	
+			&:active {
+				outline: none;
+			}
+		}
+	
+		> tfoot > tr > th,
+		> tfoot > tr > td {
+			@if not $jqueryui { // jQuery UI defines its own border
+				border-top: $table-header-border-dark;
+			}
+		}
+
+		// Stripe classes - add "row-border" class to the table to activate
+		&.row-border > tbody,
+		&.display > tbody {
+			> tr > th,
+			> tr > td {
+				border-top: $table-body-border-dark;
+			}
+
+			> tr.selected + tr.selected > td {
+				border-top-color: darken(rgb($table-row-selected), 10%);
+			}
+		}
+	
+	
+		// Stripe classes - add "cell-border" class to the table to activate
+		&.cell-border > tbody {
+			> tr > th,
+			> tr > td {
+				border-top: $table-body-border-dark;
+				border-right: $table-body-border-dark;
+			}
+	
+			> tr > th:first-child,
+			> tr > td:first-child {
+				border-left: $table-body-border-dark;
+			}
+		}
+	}
+
+	.dataTables_wrapper {
+		// Chrome 83 hack - see top of file
+		.dataTables_filter input,
+		.dataTables_length select {
+			border: 1px solid rgb(255, 255, 255, 0.2);
+			background-color: var(--dt-html-background);
+		}
+
+		.dataTables_paginate {
+			.paginate_button {
+				&.current,
+				&.current:hover {
+					border: $table-header-border-dark;
+					background: $table-paging-button-active-dark;
+				}
+
+				&.disabled,
+				&.disabled:hover,
+				&.disabled:active {
+					color: #666 !important;
+				}
+
+				&:hover {
+					border: 1px solid $table-paging-button-hover-dark;
+					background: $table-paging-button-hover-dark;
+				}
+
+				&:active {
+					background: lighten($table-paging-button-hover-dark, 2%);
+				}
 			}
 		}
 	}

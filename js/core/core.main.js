@@ -1,6 +1,12 @@
 
 var DataTable = function ( selector, options )
 {
+	// Check if called with a window or jQuery object for DOM less applications
+	// This is for backwards compatibility
+	if (DataTable.factory(selector, options)) {
+		return DataTable;
+	}
+
 	// When creating with `new`, create a new DataTable, returning the API instance
 	if (this instanceof DataTable) {
 		return $(selector).DataTable(options);
@@ -167,5 +173,3 @@ $.fn.DataTable = function ( opts ) {
 $.each( DataTable, function ( prop, val ) {
 	$.fn.DataTable[ prop ] = val;
 } );
-
-return DataTable;

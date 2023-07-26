@@ -7,7 +7,8 @@
 
 <title>API plug-in methods</title>
 <js><![CDATA[
-$.fn.dataTable.Api.register('column().data().sum()', function () {
+// Register a `sum` API method with DataTables
+DataTable.Api.register('column().data().sum()', function () {
 	return this.reduce(function (a, b) {
 		var x = parseFloat(a) || 0;
 		var y = parseFloat(b) || 0;
@@ -15,36 +16,74 @@ $.fn.dataTable.Api.register('column().data().sum()', function () {
 	});
 });
 
-/* Init the table and fire off a call to get the hidden nodes. */
-$(document).ready(function () {
-	var table = $('#example').DataTable();
+// Init the table and fire off a call to get the hidden nodes.
+var table = $('#example').DataTable();
 
-	$('<button>Click to sum age in all rows</button>')
-		.prependTo('#demo')
-		.on('click', function () {
-			alert('Column sum is: ' + table.column(3).data().sum());
-		});
+$('#sum-all').on('click', function () {
+	let text = 'Column sum is: ' + table.column(3).data().sum();
 
-	$('<button>Click to sum age of visible rows</button>')
-		.prependTo('#demo')
-		.on('click', function () {
-			alert('Column sum is: ' + table.column(3, { page: 'current' }).data().sum());
-		});
+	$('#demo-output').append($('<div>').text(text));
 });
+
+$('#sum-visible').on('click', function () {
+	let text =
+		'Column sum is: ' + table.column(3, { page: 'current' }).data().sum();
+
+	$('#demo-output').append($('<div>').text(text));
+});
+
 ]]></js>
+
+<js-vanilla><![CDATA[
+// For demo - adds text to the output box
+function addOutput(text) {
+	let newEl = document.createElement('div');
+	newEl.textContent = text;
+
+	document.querySelector('#demo-output').prepend(newEl);
+}
+
+// Register a `sum` API method with DataTables
+DataTable.Api.register('column().data().sum()', function () {
+	return this.reduce(function (a, b) {
+		let x = parseFloat(a) || 0;
+		let y = parseFloat(b) || 0;
+		return x + y;
+	});
+});
+
+// Init the table and fire off a call to get the hidden nodes.
+const table = new DataTable('#example');
+
+document.querySelector('#sum-all').addEventListener('click', function () {
+	addOutput('Column sum is: ' + table.column(3).data().sum());
+});
+
+document.querySelector('#sum-visible').addEventListener('click', function () {
+	addOutput(
+		'Column sum is: ' + table.column(3, { page: 'current' }).data().sum()
+	);
+});
+
+]]></js-vanilla>
 
 <info><![CDATA[
 
-The DataTables API is designed to be fully extensible, with custom functions being very easy to add using the `$.fn.dataTable.Api.register` function. This function takes two arguments; the first being the name of the method to be added and its chaining hierarchy, and the second the function itself.
+The DataTables API is designed to be fully extensible, with custom functions being very easy to add using the `DataTable.Api.register` function. This function takes two arguments; the first being the name of the method to be added and its chaining hierarchy, and the second the function itself.
 
 This example shows how a `sum()` method can easily be added to the API so you can get the sum of a column in a single line: `table.column().data().sum()`. Due to the chaining of the methods, this allows `sum()` to very easily give the sum for any selected column, and to limit the sum to just the current page, filtered data or all pages. This is done using the options for the `dt-api column()` method and the options for its selectors.
 
-For more information about API plug-ins; creating them and their requirements, please refer to the plug-in development documentation.
+For more information about API plug-ins; creating them and their requirements, please refer to the [plug-in development documentation](https://datatables.net/manual/plug-ins/api).
 
 ]]></info>
 
 <demo-html>
-	<div id="demo"></div>
+	<p>
+		<button id="sum-all">Click to sum age in all rows</button><br />
+		<button id="sum-visible">Click to sum age of visible rows</button>
+	</p>
+
+	<div id="demo-output" class="box"></div>
 </demo-html>
 
 </dt-example>

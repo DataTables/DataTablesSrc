@@ -6,28 +6,56 @@
 <js lib="datatables" />
 
 <title>Index column</title>
-<js><![CDATA[
-$(document).ready(function () {
-	var t = $('#example').DataTable({
-		columnDefs: [
-			{
-				searchable: false,
-				orderable: false,
-				targets: 0,
-			},
-		],
-		order: [[1, 'asc']],
-	});
 
-	t.on('order.dt search.dt', function () {
+<js><![CDATA[
+var table = $('#example').DataTable({
+	columnDefs: [
+		{
+			searchable: false,
+			orderable: false,
+			targets: 0
+		}
+	],
+	order: [[1, 'asc']]
+});
+
+table
+	.on('order.dt search.dt', function () {
+		var i = 1;
+
+		table
+			.cells(null, 0, { search: 'applied', order: 'applied' })
+			.every(function (cell) {
+				this.data(i++);
+			});
+	})
+	.draw();
+]]></js>
+
+<js-vanilla><![CDATA[
+const table = new DataTable('#example', {
+	columnDefs: [
+		{
+			searchable: false,
+			orderable: false,
+			targets: 0
+		}
+	],
+	order: [[1, 'asc']]
+});
+
+table
+	.on('order.dt search.dt', function () {
 		let i = 1;
 
-		t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-			this.data(i++);
-		});
-	}).draw();
-});
-]]></js>
+		table
+			.cells(null, 0, { search: 'applied', order: 'applied' })
+			.every(function (cell) {
+				this.data(i++);
+			});
+	})
+	.draw();
+]]></js-vanilla>
 
 <info><![CDATA[
 

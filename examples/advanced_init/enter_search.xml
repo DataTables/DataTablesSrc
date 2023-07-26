@@ -7,14 +7,19 @@
 
 <title>Enter Key to Search</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		search: {
-			return: true,
-		},
-	});
+$('#example').DataTable({
+	search: {
+		return: true
+	}
 });
 ]]></js>
+<js-vanilla><![CDATA[
+new DataTable('#example', {
+	search: {
+		return: true
+	}
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 

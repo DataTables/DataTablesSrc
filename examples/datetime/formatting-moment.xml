@@ -4,29 +4,25 @@
 <css lib="datatables" />
 <js lib="jquery moment datatables">
 <![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		columnDefs: [
-			{
-				targets: 4,
-				render: DataTable.render.datetime('Do MMM YYYY'),
-			},
-		],
-	});
+$('#example').DataTable({
+	columnDefs: [
+		{
+			targets: 4,
+			render: DataTable.render.datetime('Do MMM YYYY')
+		}
+	]
 });
 ]]>
 </js>
 <js-vanilla>
 <![CDATA[
-document.addEventListener('DOMContentLoaded', function () {
-    new DataTable('#example', {
-		columnDefs: [
-			{
-				targets: 4,
-				render: DataTable.render.datetime('Do MMM YYYY'),
-			},
-		],
-	});
+new DataTable('#example', {
+	columnDefs: [
+		{
+			targets: 4,
+			render: DataTable.render.datetime('Do MMM YYYY')
+		}
+	]
 });
 ]]>
 </js-vanilla>

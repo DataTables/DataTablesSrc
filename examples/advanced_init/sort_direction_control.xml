@@ -7,19 +7,29 @@
 
 <title>Order direction sequence control</title>
 <js><![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		aoColumns: [
-			null,
-			null,
-			{ orderSequence: ['asc'] },
-			{ orderSequence: ['desc', 'asc', 'asc'] },
-			{ orderSequence: ['desc'] },
-			null,
-		],
-	});
+$('#example').DataTable({
+	columns: [
+		null,
+		null,
+		{ orderSequence: ['asc'] },
+		{ orderSequence: ['desc', 'asc', 'asc'] },
+		{ orderSequence: ['desc'] },
+		null
+	]
 });
 ]]></js>
+<js-vanilla><![CDATA[
+new DataTable('#example', {
+	columns: [
+		null,
+		null,
+		{ orderSequence: ['asc'] },
+		{ orderSequence: ['desc', 'asc', 'asc'] },
+		{ orderSequence: ['desc'] },
+		null
+	]
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 

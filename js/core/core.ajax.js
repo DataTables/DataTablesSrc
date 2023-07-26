@@ -116,11 +116,16 @@ function _fnAjaxUpdate( settings )
 	settings.iDraw++;
 	_fnProcessingDisplay( settings, true );
 
+	// Keep track of drawHold state to handle scrolling after the Ajax call
+	var drawHold = settings._drawHold;
+
 	_fnBuildAjax(
 		settings,
 		_fnAjaxParameters( settings ),
 		function(json) {
+			settings._drawHold = drawHold;
 			_fnAjaxUpdateDraw( settings, json );
+			settings._drawHold = false;
 		}
 	);
 }

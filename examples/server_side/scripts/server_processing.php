@@ -55,6 +55,7 @@ $sql_details = array(
 	'pass' => '',
 	'db'   => '',
 	'host' => ''
+	// ,'charset' => 'utf8' // Depending on your PHP and MySQL config, you may need this
 );
 
 

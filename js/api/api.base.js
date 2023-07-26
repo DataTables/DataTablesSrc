@@ -398,7 +398,7 @@ $.extend( _Api.prototype, {
 
 	pluck: function ( prop )
 	{
-		let fn = DataTable.util.get(prop);
+		var fn = DataTable.util.get(prop);
 
 		return this.map( function ( el ) {
 			return fn(el);

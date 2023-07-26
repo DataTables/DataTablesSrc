@@ -4,34 +4,30 @@
 <css lib="datatables" />
 <js lib="jquery moment datatables">
 <![CDATA[
-$(document).ready(function () {
-	$('#example').DataTable({
-		columnDefs: [
-			{
-				targets: 4,
-				render: DataTable.render.date(),
-			},
-		],
-	});
+$('#example').DataTable({
+	columnDefs: [
+		{
+			targets: 4,
+			render: DataTable.render.date()
+		}
+	]
 });
 ]]>
 </js>
 <js-vanilla>
 <![CDATA[
-document.addEventListener('DOMContentLoaded', function () {
-    new DataTable('#example', {
-		columnDefs: [
-			{
-				targets: 4,
-				render: DataTable.render.date(),
-			},
-		],
-	});
+new DataTable('#example', {
+	columnDefs: [
+		{
+			targets: 4,
+			render: DataTable.render.date()
+		}
+	]
 });
 ]]>
 </js-vanilla>
 
-<title>Auto-locale display (Luxon)</title>
+<title>Auto-locale display (Moment.js)</title>
 
 <info><![CDATA[
 

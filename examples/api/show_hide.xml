@@ -6,24 +6,42 @@
 <js lib="datatables" />
 
 <title>Show / hide columns dynamically</title>
-<js><![CDATA[
-$(document).ready(function () {
-	var table = $('#example').DataTable({
-		scrollY: '200px',
-		paging: false,
-	});
 
-	$('a.toggle-vis').on('click', function (e) {
+<js><![CDATA[
+var table = $('#example').DataTable({
+	paging: false,
+	scrollY: '200px'
+});
+
+$('a.toggle-vis').on('click', function (e) {
+	e.preventDefault();
+
+	// Get the column API object
+	var column = table.column($(this).attr('data-column'));
+
+	// Toggle the visibility
+	column.visible(!column.visible());
+});
+]]></js>
+
+<js-vanilla><![CDATA[
+const table = new DataTable('#example', {
+	paging: false,
+	scrollY: '200px'
+});
+
+document.querySelectorAll('a.toggle-vis').forEach((el) => {
+	el.addEventListener('click', function (e) {
 		e.preventDefault();
 
-		// Get the column API object
-		var column = table.column($(this).attr('data-column'));
+		let columnIdx = e.target.getAttribute('data-column');
+		let column = table.column(columnIdx);
 
 		// Toggle the visibility
 		column.visible(!column.visible());
 	});
 });
-]]></js>
+]]></js-vanilla>
 
 <info><![CDATA[
 

@@ -10,7 +10,7 @@
 	</default>
 
 	<description>
-		This option can be used to provide a custom string for the `aria-label` attribute used for column headers to provide enhanced accessibility for screenreaders. By default DataTables will use the column title (`-init columns.title`, or read from the document), but this option provides customisation for that.
+		This option can be used to provide a custom string for the `aria-label` attribute used for column headers to provide enhanced accessibility for screenreaders. By default, DataTables will use an existing `aria-label` attribute or the column title (`-init columns.title`, or read from the document), but this option provides customisation for that.
 
 		Please note that the value given here will have `-init language.aria.sortAscending` or `-init language.aria.sortDescending` appended to it if the column can be ordered by the end user, to give an indication to screenreader users that this is the case. 
 	</description>

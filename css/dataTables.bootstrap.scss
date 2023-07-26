@@ -1,5 +1,5 @@
 
-$table-row-selected: rgba(0, 136, 204, 0.9);
+$table-row-selected: 0 136 204;
 
 @import './common.scss';
 @import './ordering.scss';
@@ -165,13 +165,6 @@ div.dataTables_scrollFoot {
 table.dataTable.table-condensed {
 	> thead > tr > th {
 		padding-right: 20px;
-	}
-
-	.sorting:after,
-	.sorting_asc:after,
-	.sorting_desc:after {
-		top: 6px;
-		right: 6px;
 	}
 }
 

@@ -2,39 +2,6 @@
  * ©2020 SpryMedia Ltd - datatables.net/license
  */
 
-(function( factory ){
-	if ( typeof define === 'function' && define.amd ) {
-		// AMD
-		define( ['jquery', 'datatables.net'], function ( $ ) {
-			return factory( $, window, document );
-		} );
-	}
-	else if ( typeof exports === 'object' ) {
-		// CommonJS
-		module.exports = function (root, $) {
-			if ( ! root ) {
-				root = window;
-			}
-
-			if ( ! $ || ! $.fn.dataTable ) {
-				// Require DataTables, which attaches to jQuery, including
-				// jQuery if needed and have a $ property so we can access the
-				// jQuery object that is used
-				$ = require('datatables.net')(root, $).$;
-			}
-
-			return factory( $, root, root.document );
-		};
-	}
-	else {
-		// Browser
-		factory( jQuery, window, document );
-	}
-}(function( $, window, document, undefined ) {
-'use strict';
-var DataTable = $.fn.dataTable;
-
-
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
 	renderer: 'bulma'
@@ -56,7 +23,7 @@ DataTable.ext.renderer.pageButton.bulma = function ( settings, host, idx, button
 	var classes = settings.oClasses;
 	var lang    = settings.oLanguage.oPaginate;
 	var aria = settings.oLanguage.oAria.paginate || {};
-	var btnDisplay, btnClass, counter=0;
+	var btnDisplay, btnClass;
 
 	var attach = function( container, buttons ) {
 		var i, ien, node, button, tag, disabled;
@@ -125,11 +92,14 @@ DataTable.ext.renderer.pageButton.bulma = function ( settings, host, idx, button
 								null
 						} )
 						.append( $('<' + tag + '>', {
-								'href': '#',
+								'href': disabled ? null : '#',
 								'aria-controls': settings.sTableId,
+								'aria-disabled': disabled ? 'true' : null,
 								'aria-label': aria[ button ],
-								'data-dt-idx': counter,
-								'tabindex': settings.iTabIndex,
+								'role': 'link',
+								'aria-current': btnClass === 'is-current' ? 'page' : null,
+								'data-dt-idx': button,
+								'tabindex': disabled ? -1 : settings.iTabIndex,
 								'class': 'pagination-link ' + btnClass,
 								'disabled': disabled
 							} )
@@ -140,8 +110,6 @@ DataTable.ext.renderer.pageButton.bulma = function ( settings, host, idx, button
 					settings.oApi._fnBindAction(
 						node, {action: button}, clickHandler
 					);
-
-					counter++;
 				}
 			}
 		}
@@ -223,8 +191,3 @@ $(document).on( 'init.dt', function (e, ctx) {
 	// $( 'div.dataTables_filter.ui.input', api.table().container() ).removeClass('input').addClass('form');
 	// $( 'div.dataTables_filter input', api.table().container() ).wrap( '<span class="ui input" />' );
 } );
-
-
-
-return DataTable;
-}));

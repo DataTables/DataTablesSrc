@@ -6,17 +6,20 @@
 <js lib="datatables" />
 
 <title>Search API (regular expressions)</title>
+
 <js><![CDATA[
-function filterGlobal() {
-	$('#example')
-		.DataTable()
-		.search($('#global_filter').val(), $('#global_regex').prop('checked'), $('#global_smart').prop('checked'))
+function filterGlobal(table) {
+	table
+		.search(
+			$('#global_filter').val(),
+			$('#global_regex').prop('checked'),
+			$('#global_smart').prop('checked')
+		)
 		.draw();
 }
 
-function filterColumn(i) {
-	$('#example')
-		.DataTable()
+function filterColumn(table, i) {
+	table
 		.column(i)
 		.search(
 			$('#col' + i + '_filter').val(),
@@ -26,18 +29,51 @@ function filterColumn(i) {
 		.draw();
 }
 
-$(document).ready(function () {
-	$('#example').DataTable();
+var table = $('#example').DataTable();
 
-	$('input.global_filter').on('keyup click', function () {
-		filterGlobal();
-	});
+$('input.global_filter').on('keyup click', function () {
+	filterGlobal(table);
+});
 
-	$('input.column_filter').on('keyup click', function () {
-		filterColumn($(this).parents('tr').attr('data-column'));
-	});
+$('input.column_filter').on('keyup click', function () {
+	filterColumn(table, $(this).parents('tr').attr('data-column'));
 });
 ]]></js>
+
+<js-vanilla><![CDATA[
+function filterGlobal(table) {
+	let filter = document.querySelector('#global_filter');
+	let regex = document.querySelector('#global_regex');
+	let smart = document.querySelector('#global_smart');
+
+	table.search(filter.value, regex.checked, smart.checked).draw();
+}
+
+function filterColumn(table, i) {
+	let filter = document.querySelector('#col' + i + '_filter');
+	let regex = document.querySelector('#col' + i + '_regex');
+	let smart = document.querySelector('#col' + i + '_smart');
+
+	table.column(i).search(filter.value, regex.checked, smart.checked).draw();
+}
+
+let table = new DataTable('#example');
+
+document.querySelectorAll('input.global_filter').forEach((el) => {
+	el.addEventListener(el.type === 'text' ? 'keyup' : 'change', () =>
+		filterGlobal(table)
+	);
+});
+
+document.querySelectorAll('input.column_filter').forEach((el) => {
+	let tr = el.closest('tr');
+	let columnIndex = tr.getAttribute('data-column');
+
+	el.addEventListener(el.type === 'text' ? 'keyup' : 'change', () =>
+		filterColumn(table, columnIndex)
+	);
+});
+]]></js-vanilla>
 
 <info><![CDATA[
 
