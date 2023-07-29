@@ -107,7 +107,9 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 
 		// Fall back to the aria-label attribute on the table header if no ariaTitle is
 		// provided.
-		oCol.ariaTitle ||= th.attr("aria-label");
+		if (! oCol.ariaTitle) {
+			oCol.ariaTitle = th.attr("aria-label");
+		}
 	}
 
 	/* Cache the data get and set functions for speed */
