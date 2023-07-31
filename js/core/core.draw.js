@@ -718,6 +718,12 @@ function _fnDetectHeader ( settings, thead, write )
 					if ( columnDef.className ) {
 						$(cell).addClass( columnDef.className );
 					}
+
+					// Fall back to the aria-label attribute on the table header if no ariaTitle is
+					// provided.
+					if (! columnDef.ariaTitle) {
+						columnDef.ariaTitle = $(cell).attr("aria-label");
+					}
 				}
 
 				// If there is col / rowspan, copy the information into the layout grid

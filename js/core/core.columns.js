@@ -82,12 +82,6 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 			oCol.aDataSort = [ oOptions.iDataSort ];
 		}
 		_fnMap( oCol, oOptions, "aDataSort" );
-
-		// Fall back to the aria-label attribute on the table header if no ariaTitle is
-		// provided.
-		if (! oCol.ariaTitle) {
-			oCol.ariaTitle = th.attr("aria-label");
-		}
 	}
 
 	/* Cache the data get and set functions for speed */
