@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="i18n">
-	<name>language.aria.orderableReverse</name>
+	<name>language.aria.orderableRemove</name>
 	<summary>Language string used for WAI-ARIA column label to alter column's ordering</summary>
 	<since>2.0</since>
 
 	<type type="string" />
-	<default value=": Activate to invert sorting" />
+	<default value=": Activate to remove sorting" />
 
 	<description>
-		ARIA label that is added to the table headers when the column is already ordered and may be reverse sorted by activating the column (click or return when focused).
+		ARIA label that is added to the table header when the next activation (click) on a table header will cause the sort to be removed from the column.
 
 		The string given here is prefixed with the column name when DataTables constructs the `aria-label` attribute.
 	</description>
 
-	<example title="Set ARIA orderableReverse string"><![CDATA[
+	<example title="Set ARIA orderableRemove string"><![CDATA[
 $('#example').DataTable( {
   language: {
     aria: {
-      orderableReverse: ": Reverse sort this column"
+      orderableRemove: ": Remove sort from this column"
     }
   }
 } );
