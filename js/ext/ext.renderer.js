@@ -27,7 +27,9 @@ $.extend( true, DataTable.ext.renderer, {
 				// First - are any of the columns under this cell actually sortable
 				if ( ! columns.orderable().includes(true) ) {
 					// Non-sorting actions
-					cell.attr('aria-label', col.ariaTitle);
+					cell
+						.attr('aria-label', col.ariaTitle)
+						.addClass(classes.orderableNone);
 
 					return;
 				}
