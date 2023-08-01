@@ -26,6 +26,7 @@ $.extend( DataTable.ext.classes, {
 	/* Sorting */
 	"orderableAsc": "dt-orderable-asc",
 	"orderableDesc": "dt-orderable-desc",
+	"orderableNone": "dt-orderable-none",
 	"orderingAsc": "dt-ordering-asc",
 	"orderingDesc": "dt-ordering-desc",
 	"sSortColumn": "sorting_", /* Note that an int is postfixed for the sorting order */

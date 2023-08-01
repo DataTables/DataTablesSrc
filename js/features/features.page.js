@@ -9,7 +9,8 @@ _ext.features.register( 'paging', function ( settings, pagingType ) {
 	var
 		type   = pagingType || settings.sPaginationType,
 		plugin = DataTable.ext.pager[ type ],
-		node = $('<div/>').addClass( settings.oClasses.sPaging + type )[0];
+		node = $('<div/>').addClass( settings.oClasses.sPaging + type )[0],
+		counter = settings.pagingControls++;
 
 	settings.aoDrawCallback.push( {
 		fn: function( settings ) {
@@ -20,11 +21,10 @@ _ext.features.register( 'paging', function ( settings, pagingType ) {
 				all        = len === -1,
 				page = all ? 0 : Math.ceil( start / len ),
 				pages = all ? 1 : Math.ceil( visRecords / len ),
-				buttons = plugin(page, pages),
-				i;
+				buttons = plugin(page, pages);
 
 			_fnRenderer( settings, 'pageButton' )(
-				settings, node, i, buttons, page, pages
+				settings, node, counter, buttons, page, pages
 			);
 		}
 	} );

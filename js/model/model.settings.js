@@ -543,6 +543,11 @@ DataTable.models.oSettings = {
 	"sPaginationType": "two_button",
 
 	/**
+	 * Number of paging controls on the page. Only used for backwards compatibility
+	 */
+	pagingControls: 0,
+
+	/**
 	 * The state duration (for `stateSave`) in seconds.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
