@@ -109,8 +109,8 @@ _api_register( 'destroy()', function ( remove ) {
 
 		$( rows ).removeClass( settings.asStripeClasses.join(' ') );
 
-		$('th, td', thead).removeClass( classes.sSortable+' '+
-			classes.sSortableAsc+' '+classes.sSortableDesc+' '+classes.sSortableNone
+		$('th, td', thead).removeClass( classes.orderableAsc+' '+
+			classes.orderableDesc+' '+classes.orderingAsc+' '+classes.orderingDesc
 		);
 
 		// Add the TR elements back into the table in their original order
