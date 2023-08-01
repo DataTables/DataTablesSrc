@@ -68,7 +68,7 @@ _api_register( 'order()', function ( order, dir ) {
  */
 _api_register( 'order.listener()', function ( node, column, callback ) {
 	return this.iterator( 'table', function ( settings ) {
-		//TODO _fnSortAttachListener( settings, node, column, callback );
+		_fnSortAttachListener(settings, node, {}, column, callback);
 	} );
 } );
 

@@ -1,7 +1,20 @@
 
 function _fnSortInit( settings ) {
-	_fnBindAction( settings.nTHead, 'th, td', function (e) {
-		var columns = _fnColumnsFromHeader( e.target );
+	_fnSortAttachListener(settings, settings.nTHead, 'th, td');
+
+	// Need to resolve the user input array into our internal structure
+	var order = [];
+	_fnSortResolve( settings, order, settings.aaSorting );
+
+	settings.aaSorting = order;
+}
+
+
+function _fnSortAttachListener(settings, node, selector, column, callback) {
+	_fnBindAction( node, selector, function (e) {
+		var columns = column === undefined
+			? _fnColumnsFromHeader( e.target )
+			: [column];
 
 		if ( columns.length ) {
 			_fnProcessingDisplay( settings, true );
@@ -17,15 +30,13 @@ function _fnSortInit( settings ) {
 				// Run the sort by calling a full redraw
 				_fnReDraw( settings );
 				_fnProcessingDisplay( settings, false );
+
+				if (callback) {
+					callback();
+				}
 			}, 0);
 		}
 	} );
-
-	// Need to resolve the user input array into our internal structure
-	var order = [];
-	_fnSortResolve( settings, order, settings.aaSorting );
-
-	settings.aaSorting = order;
 }
 
 
