@@ -11,6 +11,10 @@ $.extend( true, DataTable.ext.renderer, {
 		_: function ( settings, cell, classes ) {
 			cell.addClass(classes.sHeaderTH);
 
+			if (! settings.oFeatures.bSort) {
+				cell.addClass(classes.orderableNone);
+			}
+
 			// No additional mark-up required
 			// Attach a sort listener to update on sort - note that using the
 			// `DT` namespace will allow the event to be removed automatically
