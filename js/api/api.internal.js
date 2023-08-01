@@ -128,8 +128,8 @@ $.extend( DataTable.ext.internal, {
 	 * Attach an `api` method to the jQuery instance for the DataTable, so
 	 * the DataTables API can be easily accessed.
 	 */
-	api: function ( settings ) {
-		return new _Api( settings );
+	api: function () {
+		return new _Api( this ); // executed in jQuery scope
 	}
 } );
 

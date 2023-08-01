@@ -161,7 +161,7 @@ var _toSettings = function ( mixed )
  *
  * @example
  *   // Initialisation as a constructor
- *   var api = new $.fn.DataTable.Api( 'table.dataTable' );
+ *   var api = new DataTable.Api( 'table.dataTable' );
  */
 _Api = function ( context, data )
 {
