@@ -722,7 +722,7 @@ function _fnDetectHeader ( settings, thead, write )
 					// Fall back to the aria-label attribute on the table header if no ariaTitle is
 					// provided.
 					if (! columnDef.ariaTitle) {
-						columnDef.ariaTitle = $(cell).attr("aria-label");
+						columnDef.ariaTitle = $(cell).attr("aria-label") || columnDef.sTitle.replace( /<.*?>/g, "" );
 					}
 				}
 

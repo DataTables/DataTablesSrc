@@ -53,53 +53,72 @@ describe('Basic Datatables Test', function() {
 
 		it('Initial sort occurred //todo make sure this is correct', function() {
 			expect($('#example tbody td:eq(0)').html()).toBe('Airi Satou');
+			expect($('#example thead th').eq(1).attr('aria-label')).toBe('Position: Activate to sort');
+			expect($('#example thead th').eq(1).attr('aria-sort')).toBe(undefined);
 		});
 
-		it('Sorting (first click) on second column', function() {
-			$('#example thead th:eq(1)').click();
+		it('Sorting (first click) on second column', async function() {
+			await dt.clickHeader(1);
 			expect($('#example tbody td:eq(1)').html()).toBe('Accountant');
+			expect($('#example thead th').eq(1).attr('aria-label')).toBe('Position: Activate to invert sorting');
+			expect($('#example thead th').eq(1).attr('aria-sort')).toBe('ascending');
 		});
 
-		it('Sorting (second click) on second column', function() {
-			$('#example thead th:eq(1)').click();
+		it('Sorting (second click) on second column', async function() {
+			await dt.clickHeader(1);
 			expect($('#example tbody td:eq(1)').html()).toBe('Technical Author');
+			expect($('#example thead th').eq(1).attr('aria-label')).toBe('Position: Activate to remove sorting');
+			expect($('#example thead th').eq(1).attr('aria-sort')).toBe('descending');
 		});
 
-		it('Sorting (third click) on second column', function() {
-			$('#example thead th:eq(1)').click();
+		it('Sorting (third click) on second column results in original data order', async function() {
+			await dt.clickHeader(1);
+			expect($('#example tbody td:eq(1)').html()).toBe('System Architect');
+			expect($('#example thead th').eq(1).attr('aria-label')).toBe('Position: Activate to sort');
+			expect($('#example thead th').eq(1).attr('aria-sort')).toBe(undefined);
+		});
+
+		it('Sorting (fourth click) on second column results in sorting asc again', async function() {
+			await dt.clickHeader(1);
 			expect($('#example tbody td:eq(1)').html()).toBe('Accountant');
+			expect($('#example thead th').eq(1).attr('aria-label')).toBe('Position: Activate to invert sorting');
+			expect($('#example thead th').eq(1).attr('aria-sort')).toBe('ascending');
 		});
 
-		it('Sorting (first click) on numeric column', function() {
-			$('#example thead th:eq(3)').click();
+		it('Sorting (first click) on numeric column', async function() {
+			await dt.clickHeader(3);
 			expect($('#example tbody td:eq(3)').html()).toBe('19');
 		});
 
-		it('Sorting (second click) on numeric column', function() {
-			$('#example thead th:eq(3)').click();
+		it('Sorting (second click) on numeric column', async function() {
+			await dt.clickHeader(3);
 			expect($('#example tbody td:eq(3)').html()).toBe('66');
 		});
 
-		it('Sorting multi-column (first click)', function() {
+		it('Sorting (third click) on numeric column results in original data order', async function() {
+			await dt.clickHeader(3);
+			expect($('#example tbody td:eq(3)').html()).toBe('61');
+		});
+
+		it('Sorting multi-column (first click)', async function() {
 			$('#example').DataTable();
-			$('#example thead th:eq(3)').click();
-			$('#example thead th:eq(3)').click();
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(5)').trigger(clickEvent);
+
+			await dt.clickHeader(3);
+			await dt.clickHeader(3);
+			await dt.clickHeader(5, {shift: true});
 
 			expect($('#example tbody td:eq(5)').html()).toBe('$86,000');
 			expect($('#example tbody td:eq(3)').html()).toBe('66');
 		});
 
-		it('Sorting multi-column (second click)', function() {
+		it('Sorting multi-column (second click)', async function() {
 			$('#example').DataTable();
-			$('#example thead th:eq(3)').click();
-			$('#example thead th:eq(3)').click();
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(5)').trigger(clickEvent);
-			$('#example thead th:eq(5)').trigger(clickEvent);
+
+			await dt.clickHeader(3); // neutral sort state
+			await dt.clickHeader(3);
+			await dt.clickHeader(3);
+			await dt.clickHeader(5, {shift: true});
+			await dt.clickHeader(5, {shift: true});
 
 			expect($('#example tbody td:eq(3)').html()).toBe('66');
 			expect($('#example tbody td:eq(5)').html()).toBe('$198,500');
@@ -289,13 +308,13 @@ describe('Basic Datatables Test', function() {
 			);
 		});
 
-		it("Filter 'Lon'- sorting column 1", function() {
-			$('#example thead th:eq(1)').click();
+		it("Filter 'Lon'- sorting column 1", async function() {
+			await dt.clickHeader(1);
 			expect($('#example tbody tr:eq(0) td:eq(1)').html()).toBe('Chief Executive Officer (CEO)');
 		});
 
-		it("Filter 'Lon'- sorting column 1 reverse", function() {
-			$('#example thead th:eq(1)').click();
+		it("Filter 'Lon'- sorting column 1 reverse", async function() {
+			await dt.clickHeader(1);
 			expect($('#example tbody tr:eq(0) td:eq(1)').html()).toBe('Technical Author');
 		});
 
@@ -306,13 +325,13 @@ describe('Basic Datatables Test', function() {
 			expect($('#example tbody tr:eq(0) td:eq(1)').html()).toBe('Technical Author');
 		});
 
-		it("Filter 'London'- sorting column 3", function() {
-			$('#example thead th:eq(3)').click();
+		it("Filter 'London'- sorting column 3", async function() {
+			await dt.clickHeader(3);
 			expect($('#example tbody tr:eq(0) td:eq(3)').html()).toBe('19');
 		});
 
-		it("Filter 'London'- sorting column 3", function() {
-			$('#example thead th:eq(3)').click();
+		it("Filter 'London'- sorting column 3", async function() {
+			await dt.clickHeader(3);
 			expect($('#example tbody tr:eq(0) td:eq(3)').html()).toBe('66');
 		});
 
@@ -338,11 +357,12 @@ describe('Basic Datatables Test', function() {
 			);
 		});
 
-		it('Filter back to blank and 1st column sorting', function() {
+		it('Filter back to blank and 1st column sorting', async function() {
 			$('div.dataTables_filter input')
 				.val('')
 				.keyup();
-			$('#example thead th:eq(0)').click();
+
+			await dt.clickHeader(0);
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
 		});
 

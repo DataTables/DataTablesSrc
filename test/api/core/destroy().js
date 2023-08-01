@@ -27,7 +27,7 @@ describe('core - destroy()', function() {
 				'div.dataTables_info',
 				'div.dataTables_paginate',
 				// Jira DD-71: '.sorting_asc',
-				'.sorting'
+				'.dt-orderable-asc'
 			];
 			elements.forEach(function(element) {
 				expect($(element).length > 0).toBe(present);
@@ -68,7 +68,7 @@ describe('core - destroy()', function() {
 		});
 
 		dt.html('basic');
-		it('Check events remain if optional arg is true', function() {
+		it('Check events remain if optional arg is true', async function() {
 			let count = 0;
 			$('#example').click(function() {
 				count++;
@@ -78,7 +78,7 @@ describe('core - destroy()', function() {
 			table.destroy();
 			expect(jQuery._data(document.getElementById('example'), 'events').click.length).toBe(1);
 
-			$('#example thead th:eq(2)').click();
+			await dt.clickHeader(2);
 			expect(count).toBe(1);
 		});
 	});

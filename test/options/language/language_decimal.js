@@ -14,8 +14,8 @@ describe('language.decimal option ', function() {
 		$('#example').dataTable({
 			ajax: '/base/test/data/numerical.txt',
 			columns: [{ data: 'city' }, { data: 'Score' }, { data: 'Salary' }],
-			initComplete: function(settings, json) {
-				$('#example thead th:eq(2)').click();
+			initComplete: async function(settings, json) {
+				await dt.clickHeader(2);
 				expect($('#example tbody tr td:eq(2)').text()).toBe('$20,090.00');
 				done();
 			}
@@ -40,8 +40,8 @@ describe('language.decimal option ', function() {
 		});
 	});
 
-	it("Sorting still works with a '.' as a decimal", function() {
-		$('#example thead th:eq(1)').click();
+	it("Sorting still works with a '.' as a decimal", async function() {
+		await dt.clickHeader(1);
 		expect($('#example > tbody > tr:nth-child(1) > td.sorting_1').text()).toBe('5.46');
 	});
 
@@ -53,10 +53,8 @@ describe('language.decimal option ', function() {
 			language: {
 				decimal: '.'
 			},
-			initComplete: function(settings, json) {
-				var clickEvent = $.Event('click');
-				clickEvent.shiftKey = true;
-				$('#example thead th:eq(1)').trigger(clickEvent);
+			initComplete: async function(settings, json) {
+				await dt.clickHeader(1, {shift: true});
 				expect($('#example tbody tr td:eq(1)').text()).toBe('16.38');
 				done();
 			}

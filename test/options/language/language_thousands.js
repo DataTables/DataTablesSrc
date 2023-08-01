@@ -14,8 +14,9 @@ describe('language.thousands option ', function() {
 		$('#example').dataTable({
 			ajax: '/base/test/data/numerical.txt',
 			columns: [{ data: 'city' }, { data: 'Score' }, { data: 'Salary' }],
-			initComplete: function(settings, json) {
-				$('#example thead th:eq(2)').click();
+			initComplete: async function(settings, json) {
+				await dt.clickHeader(2);
+
 				expect($('#example tbody tr td:eq(2)').text()).toBe('$20,090.00');
 				done();
 			}

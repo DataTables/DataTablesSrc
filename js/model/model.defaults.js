@@ -1320,7 +1320,7 @@ DataTable.defaults = {
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.aria.orderable
 			 */
-			"orderable": "Activate to sort",
+			"orderable": ": Activate to sort",
 
 			/**
 			 * ARIA label that is added to the table headers when the column is currently being sorted
@@ -1330,7 +1330,17 @@ DataTable.defaults = {
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.aria.orderableReverse
 			 */
-			"orderableReverse": "Activate to invert sorting"
+			"orderableReverse": ": Activate to invert sorting",
+
+			/**
+			 * ARIA label that is added to the table headers when the column is currently being sorted and next step is to remove sorting
+			 *  @type string
+			 *  @default Activate to invert sorting
+			 *
+			 *  @dtopt Language
+			 *  @name DataTable.defaults.language.aria.orderableRemove
+			 */
+			"orderableRemove": ": Activate to remove sorting"
 		},
 
 		/**

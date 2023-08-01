@@ -32,6 +32,7 @@ $.extend( true, DataTable.ext.renderer, {
 					return;
 				}
 
+				var ariaType = '';
 				var indexes = columns.indexes();
 				var sortDirs = columns.orderable(true).flatten();
 				var orderedColumns = $.map( sorting, function (val) {
@@ -63,13 +64,19 @@ $.extend( true, DataTable.ext.renderer, {
 
 				// The ARIA spec says that only one column should be marked with aria-sort
 				if ( sortIdx === 0 && orderedColumns.length === indexes.count() ) {
-					cell.attr('aria-sort', sorting[0].dir === 'asc' ? 'ascending' : 'descending');
-					cell.attr('aria-label', col.ariaTitle +' '+ ctx.api.i18n('oAria.orderableReverse'));
+					var firstSort = sorting[0];
+					var sortOrder = col.asSorting;
+
+					cell.attr('aria-sort', firstSort.dir === 'asc' ? 'ascending' : 'descending');
+
+					// Determine if the next click will remove sorting or change the sort
+					ariaType = ! sortOrder[firstSort.index + 1] ? 'Remove' : 'Reverse';
 				}
 				else {
 					cell.removeAttr('aria-sort');
-					cell.attr('aria-label', col.ariaTitle +' '+ ctx.api.i18n('oAria.orderable'));
 				}
+
+				cell.attr('aria-label', col.ariaTitle + ctx.api.i18n('oAria.orderable' + ariaType));
 			} );
 		}
 	},

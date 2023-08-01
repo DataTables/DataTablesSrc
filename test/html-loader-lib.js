@@ -296,6 +296,31 @@
 			return new Promise((resolve) => setTimeout(resolve, time));
 		},
 
+		/**
+		 * Common header click method to allow for async result 
+		 */
+		clickHeader: async function (column, options) {
+			return new Promise(function (done) {
+
+				if (options) {
+					var clickEvent = $.Event('click');
+
+					if (options.shift) {
+						clickEvent.shiftKey = true;
+					}
+
+					$('#example thead th').eq(column).trigger(clickEvent);
+				}
+				else {
+					$('#example thead th').eq(column).click();
+				}
+
+				setTimeout(function () {
+					done();
+				}, 25);
+			});
+		},
+
 		// columns used during testing (used frequently)
 		_testColumns: [
 			{data: 'name'},

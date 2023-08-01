@@ -34,30 +34,37 @@ describe('language.aria option ', function() {
 		});
 
 		dt.html('basic');
-		it('Language aria sortAsc', function() {
+		it('Language aria orderable', async function() {
 			$('#example').DataTable({
-				pagingType: 'full',
 				language: {
 					aria: {
-						sortAscending: 'test case'
-					}
-				}
-			});
-			$('#example thead th:eq(0)').click();
-			expect($('#example thead th:eq(0)').attr('aria-label')).toBe('Nametest case');
-		});
-		dt.html('basic');
-		it('Language Aria sortDesc', function() {
-			$('#example').DataTable({
-				pagingType: 'full',
-				language: {
-					aria: {
-						sortDescending: 'test case1'
+						orderable: 'ORDER-DO',
+						orderableReverse: 'ORDER-REVERSE',
+						orderableRemove: 'ORDER-REMOVE',
 					}
 				}
 			});
 
-			expect($('#example thead th:eq(0)').attr('aria-label')).toBe('Nametest case1');
+			expect($('#example thead th').eq(0).attr('aria-label')).toBe('NameORDER-REVERSE');
+			expect($('#example thead th').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
+		});
+
+		it('Language aria orderable remove', async function() {
+			await dt.clickHeader(0);
+			expect($('#example thead th').eq(0).attr('aria-label')).toBe('NameORDER-REMOVE');
+			expect($('#example thead th').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
+		});
+
+		it('Language aria orderable reassign', async function() {
+			await dt.clickHeader(0);
+			expect($('#example thead th').eq(0).attr('aria-label')).toBe('NameORDER-DO');
+			expect($('#example thead th').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
+		});
+
+		it('Language aria orderable and ordered again', async function() {
+			await dt.clickHeader(0);
+			expect($('#example thead th').eq(0).attr('aria-label')).toBe('NameORDER-REVERSE');
+			expect($('#example thead th').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
 		});
 	});
 });
