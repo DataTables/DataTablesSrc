@@ -66,18 +66,14 @@ describe('orderClasses option', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').hasClass('sorting_1')).toBe(false);
 		});
 
-		it('Add column 2- no effect', function() {
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(1)').trigger(clickEvent);
+		it('Add column 2- no effect', async function() {
+			await dt.clickHeader(1, {shift: true});
 			expect($('#example tbody tr:eq(0) td:eq(0)').hasClass('sorting_1')).toBe(false);
 			expect($('#example tbody tr:eq(0) td:eq(1)').hasClass('sorting_1')).toBe(false);
 		});
 
-		it('Add column 3- no effect', function() {
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(2)').trigger(clickEvent);
+		it('Add column 3- no effect', async function() {
+			await dt.clickHeader(2, {shift: true});
 			expect($('#example tbody tr:eq(0) td:eq(0)').hasClass('sorting_1')).toBe(false);
 			expect($('#example tbody tr:eq(0) td:eq(1)').hasClass('sorting_1')).toBe(false);
 			expect($('#example tbody tr:eq(0) td:eq(2)').hasClass('sorting_1')).toBe(false);

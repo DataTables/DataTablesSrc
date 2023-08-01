@@ -299,7 +299,14 @@
 		/**
 		 * Common header click method to allow for async result 
 		 */
-		clickHeader: async function (column, options) {
+		clickHeader: async function (selector, column, options) {
+			// Argument shifting
+			if (typeof selector === 'number') {
+				options = column;
+				column = selector;
+				selector = '#example thead th';
+			}
+
 			return new Promise(function (done) {
 
 				if (options) {
@@ -309,10 +316,10 @@
 						clickEvent.shiftKey = true;
 					}
 
-					$('#example thead th').eq(column).trigger(clickEvent);
+					$(selector).eq(column).trigger(clickEvent);
 				}
 				else {
-					$('#example thead th').eq(column).click();
+					$(selector).eq(column).click();
 				}
 
 				setTimeout(function () {

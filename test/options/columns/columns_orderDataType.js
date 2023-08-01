@@ -26,13 +26,13 @@ describe('column.orderDataType option', function() {
 			});
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Jennifer Acosta');
 		});
-		it('... and reverse', function() {
-			$('thead th:eq(0)').click();
+		it('... and reverse', async function() {
+			await dt.clickHeader(0);
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Sakura Yamamoto');
 		});
 
 		dt.html('liveOrder');
-		it('live data sort type with columnDefs', function() {
+		it('live data sort type with columnDefs', async function() {
 			/* Create an array with the values of all the input boxes in a column */
 			$.fn.dataTable.ext.order['dom-text'] = function(settings, col) {
 				return this.api()
@@ -79,7 +79,7 @@ describe('column.orderDataType option', function() {
 				]
 			});
 			$('#example tbody tr:eq(0) td:eq(2) input').val('Accountant1');
-			$('#example th:eq(2)').click();
+			await dt.clickHeader(2);
 			expect($('#example tbody tr:eq(1) td:eq(2) input').val() === 'Accountant1').toBe(true);
 		});
 	});

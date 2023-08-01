@@ -33,10 +33,9 @@ describe('rows - row().cache()', function() {
 			expect(test.length).toBe(6);
 			expect(test[0]).toBe('Ashton Cox');
 		});
-		it('Get cached order data when second column used in order', function() {
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(1)').trigger(clickEvent);
+		it('Get cached order data when second column used in order', async function() {
+			await dt.clickHeader(1, {shift: true});
+
 			let test = table.row(2).cache('order');
 			expect(test.length).toBe(2);
 			expect(test[0]).toBe('ashton cox');

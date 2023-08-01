@@ -93,7 +93,7 @@ describe('columns- column().order()', function () {
 				.column(1)
 				.order('desc')
 				.draw();
-			expect($('#example thead th:eq(0)').attr('class')).toBe('sorting_disabled');
+			expect($('#example thead th:eq(0)').attr('class')).toBe('dt-orderable-none');
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tiger Nixon');
 		});
 

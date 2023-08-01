@@ -61,12 +61,12 @@ describe('core- order()', function() {
 
 		dt.html('basic');
 		// Manuscript 577 raised for the below test - needs changing when bug fixed
-		it('User selected sorting', function() {
+		it('User selected sorting', async function() {
 			let table = $('#example').DataTable();
-			$('#example thead th:eq(2)').click();
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(3)').trigger(clickEvent);
+
+			await dt.clickHeader(2);
+			await dt.clickHeader(3, {shift: true});
+
 			expect(table.order().toString()).toBe('2,asc,3,asc,0');
 		});
 

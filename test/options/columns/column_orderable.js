@@ -6,9 +6,9 @@ describe('columns.orderable option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-		it('Columns are searchable by default', function() {
+		it('Columns are searchable by default', async function() {
 			$('#example').dataTable();
-			$('#example thead th:eq(2)').click();
+			await dt.clickHeader(2);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Cedric Kelly');
 		});
 
@@ -21,20 +21,20 @@ describe('columns.orderable option', function() {
 		});
 
 		it('Disabled column has no sorting class', function() {
-			expect($('#example thead th:eq(2)').hasClass('sorting_disabled')).toBe(true);
+			expect($('#example thead th:eq(2)').hasClass('dt-orderable-none')).toBe(true);
 		});
 
 		it('Not disabled columns do not have disabled class', function() {
-			expect($('#example thead th:eq(1)').hasClass('sorting_disabled')).toBe(false);
+			expect($('#example thead th:eq(1)').hasClass('dt-orderable-none')).toBe(false);
 		});
 
-		it('clicking on non-orderable column does nothing', function() {
-			$('#example thead th:eq(2)').click();
+		it('clicking on non-orderable column does nothing', async function() {
+			await dt.clickHeader(2);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 
-		it('Other columns can still sort', function() {
-			$('#example thead th:eq(3)').click();
+		it('Other columns can still sort', async function() {
+			await dt.clickHeader(3);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tatyana Fitzpatrick');
 		});
 	});
@@ -45,23 +45,23 @@ describe('columns.orderable option', function() {
 			$('#example').dataTable({
 				columns: [null, { orderable: false }, { orderable: false }, null, null, null]
 			});
-			expect($('#example thead th:eq(1)').hasClass('sorting_disabled')).toBe(true);
-			expect($('#example thead th:eq(2)').hasClass('sorting_disabled')).toBe(true);
+			expect($('#example thead th:eq(1)').hasClass('dt-orderable-none')).toBe(true);
+			expect($('#example thead th:eq(2)').hasClass('dt-orderable-none')).toBe(true);
 
 			expect($('example thead th:eq(1)').hasClass('sorting_desc')).toBe(false);
 			expect($('example thead th:eq(1)').hasClass('sorting_asc')).toBe(false);
 		});
 
-		it('Sorting on disabled column 1 has no effect', function() {
-			$('#example thead th:eq(1)').click();
+		it('Sorting on disabled column 1 has no effect', async function() {
+			await dt.clickHeader(1);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
-		it('Second sort on disabled column 2 has no effect', function() {
-			$('#example thead th:eq(2)').click();
+		it('Second sort on disabled column 2 has no effect', async function() {
+			await dt.clickHeader(2);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
-		it('Sorting still works on other columns', function() {
-			$('#example thead th:eq(3)').click();
+		it('Sorting still works on other columns', async function() {
+			await dt.clickHeader(3);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tatyana Fitzpatrick');
 		});
 	});
@@ -75,13 +75,13 @@ describe('columns.orderable option', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 
-		it('clicking on non-orderable column does nothing', function() {
-			$('#example thead th:eq(2)').click();
+		it('clicking on non-orderable column does nothing', async function() {
+			await dt.clickHeader(2);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 
-		it('Other columns can still sort', function() {
-			$('#example thead th:eq(3)').click();
+		it('Other columns can still sort', async function() {
+			await dt.clickHeader(3);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tatyana Fitzpatrick');
 		});
 	});

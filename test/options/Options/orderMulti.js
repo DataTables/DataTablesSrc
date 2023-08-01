@@ -10,48 +10,40 @@ describe('orderMulti option', function() {
 			expect($.fn.dataTable.defaults.bSortMulti).toBe(true);
 		});
 
-		it('Verify enabled by default', function() {
+		it('Verify enabled by default', async function() {
 			$('#example').dataTable();
-			$('#example thead th:eq(2)').click();
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(3)').trigger(clickEvent);
+			await dt.clickHeader(2);
+			await dt.clickHeader(3, {shift: true});
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Cedric Kelly');
 		});
 
 		dt.html('basic');
-		it('Setting true is the same as the default', function() {
+		it('Setting true is the same as the default', async function() {
 			$('#example').dataTable({
 				orderMulti: true
 			});
-			$('#example thead th:eq(2)').click();
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(3)').trigger(clickEvent);
+			await dt.clickHeader(2);
+			await dt.clickHeader(3, {shift: true});
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Cedric Kelly');
 		});
 
 		dt.html('basic');
-		it('Can be disabled', function() {
+		it('Can be disabled', async function() {
 			$('#example').dataTable({
 				orderMulti: false
 			});
-			$('#example thead th:eq(2)').click();
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(3)').trigger(clickEvent);
+			await dt.clickHeader(2);
+			await dt.clickHeader(3, {shift: true});
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Tatyana Fitzpatrick');
 		});
 
 		dt.html('basic');
-		it('Setting true is the same as the default', function() {
+		it('Setting true is the same as the default', async function() {
 			$('#example').dataTable({
 				orderMulti: true
 			});
-			$('#example thead th:eq(2)').click();
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(3)').trigger(clickEvent);
+			await dt.clickHeader(2);
+			await dt.clickHeader(3, {shift: true});
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Cedric Kelly');
 		});
 	});
@@ -77,17 +69,15 @@ describe('orderMulti option', function() {
 		});
 
 		dt.html('two_tables');
-		it('When multiple tables all OK', function() {
+		it('When multiple tables all OK', async function() {
 			$('#example_one').DataTable({
 				orderMulti: true
 			});
 			$('#example_two').DataTable({
 				orderMulti: false
 			});
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example_one thead th:eq(1)').trigger(clickEvent);
-			$('#example_two thead th:eq(1)').trigger(clickEvent);
+			await dt.clickHeader('#example_one thead th', 1, {shift: true});
+			await dt.clickHeader('#example_two thead th', 1, {shift: true});
 
 			expect($('#example_one tbody td:eq(0)').text()).toBe('Airi Satou');
 			expect($('#example_two tbody td:eq(0)').text()).toBe('Sydney');

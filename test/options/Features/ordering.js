@@ -11,7 +11,7 @@ describe('ordering option ', function() {
 			expect($.fn.dataTable.defaults.bSort).toBe(true);
 		});
 		it('Default sorting is enabled', function() {
-			expect($('#example thead th:eq(0)').hasClass('sorting_asc')).toBe(true);
+			expect($('#example thead th:eq(0)').hasClass('dt-ordering-asc')).toBe(true);
 		});
 	});
 
@@ -21,14 +21,14 @@ describe('ordering option ', function() {
 			$('#example').dataTable({
 				ordering: false
 			});
-			expect($('#example thead th:eq(0)').hasClass('sorting_disabled')).toBe(true);
+			expect($('#example thead th:eq(0)').hasClass('dt-orderable-none')).toBe(true);
 		});
-		it('Try activate sorting via DOM when disabled', function() {
-			$('#example thead th:eq(0)').click();
+		it('Try activate sorting via DOM when disabled', async function() {
+			await dt.clickHeader(0);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tiger Nixon');
 		});
-		it('Try activate sorting via DOM- when disabled (second click)', function() {
-			$('#example thead th:eq(0)').click();
+		it('Try activate sorting via DOM- when disabled (second click)', async function() {
+			await dt.clickHeader(0);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tiger Nixon');
 		});
 
@@ -37,17 +37,18 @@ describe('ordering option ', function() {
 			$('#example').dataTable({
 				ordering: true
 			});
-			expect($('#example thead th:eq(0)').hasClass('sorting_asc')).toBe(true);
+			expect($('#example thead th:eq(0)').hasClass('dt-ordering-asc')).toBe(true);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
-		it("'sorting_desc' is added as a class when a column is clicked on", function() {
-			$('#example thead th:eq(0)').click();
-			expect($('#example thead th:eq(0)').hasClass('sorting_desc')).toBe(true);
+		it("'dt-ordering-desc' is added as a class when a column is clicked on", async function() {
+			await dt.clickHeader(0);
+			expect($('#example thead th:eq(0)').hasClass('dt-ordering-desc')).toBe(true);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Zorita Serrano');
 		});
-		it("'sorting_asc' is added as a class when a column is clicked on", function() {
-			$('#example thead th:eq(0)').click();
-			expect($('#example thead th:eq(0)').hasClass('sorting_asc')).toBe(true);
+		it("'dt-ordering-asc' is added as a class when a column is clicked on", async function() {
+			await dt.clickHeader(0); // reset sort
+			await dt.clickHeader(0); // asc sort
+			expect($('#example thead th:eq(0)').hasClass('dt-ordering-asc')).toBe(true);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 	});

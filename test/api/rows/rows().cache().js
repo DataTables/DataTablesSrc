@@ -51,11 +51,10 @@ describe('rows - rows().cache()', function() {
 			expect(test[0][0]).toBe('Ashton Cox');
 		});
 
-		it('Get cached order data when second column used in order', function() {
+		it('Get cached order data when second column used in order', async function() {
 			let table = $('#example').DataTable();
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(1)').trigger(clickEvent);
+
+			await dt.clickHeader(1, {shift: true});
 			let test = table.rows([2]).cache('order');
 
 			expect(test.length).toBe(1);
@@ -98,11 +97,10 @@ describe('rows - rows().cache()', function() {
 			expect(test[1][0]).toBe('Airi Satou');
 		});
 
-		it('Get cached order data when second column used in order', function() {
+		it('Get cached order data when second column used in order', async function() {
 			let table = $('#example').DataTable();
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(1)').trigger(clickEvent);
+
+			await dt.clickHeader(1, {shift: true});
 			let test = table.rows([2, 4]).cache('order');
 
 			expect(test.length).toBe(2);

@@ -61,8 +61,8 @@ describe('core - events - order', function() {
 			expect(params[2][1].src).toBe(4);
 			expect(params[2][1].dir).toBe('desc');
 		});
-		it('Called when user changes order', function() {
-			$('thead tr th:eq(2)').click();
+		it('Called when user changes order', async function() {
+			await dt.clickHeader(2);
 			expect(count).toBe(4);
 			expect(params[2][0].src).toBe(2);
 			expect(params[2][0].dir).toBe('asc');

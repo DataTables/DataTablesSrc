@@ -84,8 +84,8 @@ describe('drawCallback option', function() {
 			expect(test).toBe(3);
 		});
 
-		it('drawCallback called once when ordering', function() {
-			$('#example thead th:eq(3)').click();
+		it('drawCallback called once when ordering', async function() {
+			await dt.clickHeader(3);
 			expect(test).toBe(4);
 		});
 	});

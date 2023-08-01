@@ -90,8 +90,8 @@ describe('core - events - draw', function() {
 				.keyup();
 			checkResults(1, 'Airi Satou');
 		});
-		it('Called when user changes order', function() {
-			$('thead tr th:eq(2)').click();
+		it('Called when user changes order', async function() {
+			await dt.clickHeader(2);
 			checkResults(1, 'Gavin Joyce');
 		});
 

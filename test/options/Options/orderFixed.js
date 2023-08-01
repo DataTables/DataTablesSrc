@@ -105,22 +105,22 @@ describe('orderFixed option', function() {
 		});
 
 		dt.html('basic');
-		it('Fixed sorting on second column (pre/asc) with user sorting on third column (asc)', function() {
+		it('Fixed sorting on second column (pre/asc) with user sorting on third column (asc)', async function() {
 			$('#example').dataTable({
 				orderFixed: [2, 'asc']
 			});
-			$('#example thead th:eq(3)').click();
+			await dt.clickHeader(3);
 			expect($('#example tbody td:eq(0)').text()).toBe('Cedric Kelly');
 		});
 
 		dt.html('basic');
-		it('Fixed sorting on first column(asc) with user sorting on second column (desc)', function() {
+		it('Fixed sorting on first column(asc) with user sorting on second column (desc)', async function() {
 			$('#example').dataTable({
 				orderFixed: {
 					post: [2, 'asc']
 				}
 			});
-			$('#example thead th:eq(3)').click();
+			await dt.clickHeader(3);
 			expect($('#example tbody td:eq(0)').text()).toBe('Tatyana Fitzpatrick');
 		});
 

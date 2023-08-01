@@ -62,8 +62,8 @@ function checkCounters(header, page) {
 	expect(pageCounter).toBe(page);
 }
 
-function checkOrdering() {
-	$('thead tr th:eq(2)').click();
+async function checkOrdering() {
+	await dt.clickHeader(2);
 	expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Cedric Kelly');
 }
 
@@ -80,17 +80,17 @@ describe('renderer option initialisation types for page button', function() {
 	});
 
 	dt.html('basic');
-	it('Uses default when not explicitly set', function() {
+	it('Uses default when not explicitly set', async function() {
 		$('#example').DataTable();
 
 		checkCounters(0, 0);
 		checkHeaders(undefined, undefined);
 		checkButtons(false);
-		checkOrdering();
+		await checkOrdering();
 	});
 
 	dt.html('basic');
-	it('Set the renderer - as a string', function() {
+	it('Set the renderer - as a string', async function() {
 		$.fn.dataTable.ext.renderer.pageButton.test = pageButtons;
 
 		resetCounters();
@@ -101,11 +101,11 @@ describe('renderer option initialisation types for page button', function() {
 		checkCounters(0, 1);
 		checkHeaders(undefined, undefined);
 		checkButtons(true);
-		checkOrdering();
+		await checkOrdering();
 	});
 
 	dt.html('basic');
-	it('Set the renderer - as object with only the `pageButton` rendering type defined', function() {
+	it('Set the renderer - as object with only the `pageButton` rendering type defined', async function() {
 		resetCounters();
 		table = $('#example').DataTable({
 			renderer: {
@@ -116,11 +116,11 @@ describe('renderer option initialisation types for page button', function() {
 		checkCounters(0, 1);
 		checkHeaders(undefined, undefined);
 		checkButtons(true);
-		checkOrdering();
+		await checkOrdering();
 	});
 
 	dt.html('basic');
-	it('Set the renderer - as object with only the `header` rendering type defined', function() {
+	it('Set the renderer - as object with only the `header` rendering type defined', async function() {
 		resetCounters();
 		$('#example').DataTable({
 			renderer: {
@@ -131,13 +131,13 @@ describe('renderer option initialisation types for page button', function() {
 		checkCounters(0, 0);
 		checkHeaders(undefined, undefined);
 		checkButtons(false);
-		checkOrdering();
+		await checkOrdering();
 	});
 });
 
 describe('renderer option initialisation types for header', function() {
 	dt.html('basic');
-	it('Set the renderer - as a string', function() {
+	it('Set the renderer - as a string', async function() {
 		delete $.fn.dataTable.ext.renderer.pageButton.test; // remove
 		$.fn.dataTable.ext.renderer.header.test = header;
 
@@ -149,11 +149,11 @@ describe('renderer option initialisation types for header', function() {
 		checkCounters(6, 0);
 		checkHeaders('1', '6');
 		checkButtons(false);
-		checkOrdering();
+		await checkOrdering();
 	});
 
 	dt.html('basic');
-	it('Set the renderer - as object with only the `pageButton` rendering type defined', function() {
+	it('Set the renderer - as object with only the `pageButton` rendering type defined', async function() {
 		resetCounters();
 		$('#example').DataTable({
 			renderer: {
@@ -164,11 +164,11 @@ describe('renderer option initialisation types for header', function() {
 		checkCounters(0, 0);
 		checkHeaders(undefined, undefined);
 		checkButtons(false);
-		checkOrdering();
+		await checkOrdering();
 	});
 
 	dt.html('basic');
-	it('Set the renderer - as object with only the `header` rendering type defined', function() {
+	it('Set the renderer - as object with only the `header` rendering type defined', async function() {
 		resetCounters();
 		$('#example').DataTable({
 			renderer: {
@@ -179,13 +179,13 @@ describe('renderer option initialisation types for header', function() {
 		checkCounters(6, 0);
 		checkHeaders('1', '6');
 		checkButtons(false);
-		checkOrdering();
+		await checkOrdering();
 	});
 });
 
 describe('renderer option initialisation types for both paging and header', function() {
 	dt.html('basic');
-	it('Set the renderer - as a string', function() {
+	it('Set the renderer - as a string', async function() {
 		$.fn.dataTable.ext.renderer.pageButton.test = pageButtons;
 		$.fn.dataTable.ext.renderer.header.test = header;
 
@@ -197,11 +197,11 @@ describe('renderer option initialisation types for both paging and header', func
 		checkCounters(6, 1);
 		checkHeaders('1', '6');
 		checkButtons(true);
-		checkOrdering();
+		await checkOrdering();
 	});
 
 	dt.html('basic');
-	it('Set the renderer - as object with only the `pageButton` rendering type defined', function() {
+	it('Set the renderer - as object with only the `pageButton` rendering type defined', async function() {
 		resetCounters();
 		$('#example').DataTable({
 			renderer: {
@@ -212,11 +212,11 @@ describe('renderer option initialisation types for both paging and header', func
 		checkCounters(0, 1);
 		checkHeaders(undefined, undefined);
 		checkButtons(true);
-		checkOrdering();
+		await checkOrdering();
 	});
 
 	dt.html('basic');
-	it('Set the renderer - as object with only the `header` rendering type defined', function() {
+	it('Set the renderer - as object with only the `header` rendering type defined', async function() {
 		resetCounters();
 		$('#example').DataTable({
 			renderer: {
@@ -227,11 +227,11 @@ describe('renderer option initialisation types for both paging and header', func
 		checkCounters(6, 0);
 		checkHeaders('1', '6');
 		checkButtons(false);
-		checkOrdering();
+		await checkOrdering();
 	});
 
 	dt.html('basic');
-	it('Set the renderer - `header` and `pageButton` defined', function() {
+	it('Set the renderer - `header` and `pageButton` defined', async function() {
 		resetCounters();
 		$('#example').DataTable({
 			renderer: {
@@ -243,7 +243,7 @@ describe('renderer option initialisation types for both paging and header', func
 		checkCounters(6, 1);
 		checkHeaders('1', '6');
 		checkButtons(true);
-		checkOrdering();
+		await checkOrdering();
 	});
 });
 
@@ -308,7 +308,7 @@ describe('renderer option page button functions', function() {
 	});
 
 	it('Arg 2 is the paging control index', function() {
-		expect(pageArgs[2]).toBe(1); // latest, since called twice
+		expect(pageArgs[2]).toBe(0);
 	});
 });
 
@@ -322,7 +322,7 @@ describe('renderer option header functions', function() {
 	});
 
 	it('Four arguments are passed in', function() {
-		expect(headerArgs.length).toBe(4);
+		expect(headerArgs.length).toBe(3);
 	});
 
 	it('Arg 0 is the settings object', function() {
@@ -338,16 +338,8 @@ describe('renderer option header functions', function() {
 		expect(headerArgs[1].get(0)).toBe($('thead th:last-child')[0]); // last one as called in a loop
 	});
 
-	it('Arg 2 is the column object - this is NOT public! This needs to be improved...', function() {
-		var settings = $('#example')
-			.DataTable()
-			.settings()[0];
-		var columns = settings.aoColumns;
-		expect(headerArgs[2]).toBe(columns[columns.length - 1]); // last one as called in a loop
-	});
-
-	it('Arg 2 is the classes object - this is NOT public! This needs to be improved...', function() {
-		expect(headerArgs[3].sHeaderTH).toBeDefined();
+	it('Arg 3 is the classes object', function() {
+		expect(headerArgs[2].sHeaderTH).toBeDefined();
 	});
 
 	it('Renderer is called on each header cell', function() {

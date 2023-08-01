@@ -70,10 +70,10 @@ describe('core - events - processing', function() {
 			table.order([2, 'asc']).draw();
 			expect(count).toBe(0);
 		});
-		it('... Not called when changing order through UI', function() {
+		it('... Called when changing order through UI', async function() {
 			reset();
-			$('table thead th:eq(1)').click();
-			expect(count).toBe(0);
+			await dt.clickHeader(1);
+			expect(count).toBe(2);
 		});
 		it('... Not called when search through API', function() {
 			reset();
@@ -118,10 +118,10 @@ describe('core - events - processing', function() {
 			table.order([2, 'asc']).draw();
 			expect(count).toBe(0);
 		});
-		it('... IS called when changing order through UI', function() {
+		it('... IS called when changing order through UI', async function() {
 			reset();
-			$('table thead th:eq(1)').click();
-			expect(count).toBe(1);
+			await dt.clickHeader(1);
+			expect(count).toBe(2);
 		});
 		it('... Not called when search through API', function() {
 			reset();
@@ -184,10 +184,10 @@ describe('core - events - processing', function() {
 			table.order([2, 'asc']).draw();
 			expect(count).toBe(0);
 		});
-		it('... Not called when changing order through UI', function() {
+		it('... Is called when changing order through UI', async function() {
 			reset();
-			$('table thead th:eq(1)').click();
-			expect(count).toBe(0);
+			await dt.clickHeader(1);
+			expect(count).toBe(2);
 		});
 		it('... Not called when search through API', function() {
 			reset();
@@ -248,10 +248,10 @@ describe('core - events - processing', function() {
 			table.order([2, 'asc']).draw();
 			expect(count).toBe(0);
 		});
-		it('... IS called when changing order through UI', function() {
+		it('... IS called when changing order through UI', async function() {
 			reset();
-			$('table thead th:eq(1)').click();
-			expect(count).toBe(1);
+			await dt.clickHeader(1);
+			expect(count).toBe(2);
 		});
 		it('... Not called when search through API', function() {
 			reset();
@@ -307,10 +307,10 @@ describe('core - events - processing', function() {
 			table.order([2, 'asc']).draw();
 			expect(count).toBe(1);
 		});
-		it('... Called when changing order through UI', function() {
+		it('... Called when changing order through UI', async function() {
 			reset();
-			$('table thead th:eq(1)').click();
-			expect(count).toBe(1);
+			await dt.clickHeader(1);
+			expect(count).toBe(3); // one for ordering, one for draw, and one for end
 		});
 		it('... Called when search through API', function() {
 			reset();
@@ -363,10 +363,10 @@ describe('core - events - processing', function() {
 			table.order([2, 'asc']).draw();
 			expect(count).toBe(1);
 		});
-		it('... Called when changing order through UI', function() {
+		it('... Called when changing order through UI', async function() {
 			reset();
-			$('table thead th:eq(1)').click();
-			expect(count).toBe(1);
+			await dt.clickHeader(1);
+			expect(count).toBe(3);
 		});
 		it('... Called when search through API', function() {
 			reset();

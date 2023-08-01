@@ -54,14 +54,14 @@ describe('stateSave option', function() {
 
 	describe('Single column sorting', function() {
 		dt.html('basic');
-		it('Does sorting function by default', function() {
+		it('Does sorting function by default', async function() {
 			let table = $('#example').DataTable({ stateSave: true });
 			table.search('2012').draw();
 			table.destroy();
 
 			table = $('#example').DataTable({ stateSave: true });
 			table.search('').draw();
-			$('#example thead th:eq(2)').click();
+			await dt.clickHeader(2);
 			expect($('#example tbody td:eq(0)').text()).toBe('Cedric Kelly');
 			table.destroy();
 		});
@@ -88,13 +88,11 @@ describe('stateSave option', function() {
 
 	describe('Multi-Column Sorting', function() {
 		dt.html('basic');
-		it('Does sorting function by default', function() {
+		it('Does sorting function by default', async function() {
 			let table = $('#example').DataTable({ stateSave: true });
-			$('#example thead th:eq(3)').click();
-			$('#example thead th:eq(3)').click();
-			var clickEvent = $.Event('click');
-			clickEvent.shiftKey = true;
-			$('#example thead th:eq(5)').trigger(clickEvent);
+			await dt.clickHeader(3);
+			await dt.clickHeader(3);
+			await dt.clickHeader(5, {shift: true});
 
 			expect($('#example tbody td:eq(5)').text()).toBe('$86,000');
 			expect($('#example tbody td:eq(3)').text()).toBe('66');
@@ -209,9 +207,9 @@ describe('stateSave option', function() {
 	describe('Check state is ignored if table shape changes', function() {
 		dt.html('basic');
 
-		it('Create the initial table, confirm then destroy', function() {
+		it('Create the initial table, confirm then destroy', async function() {
 			let table = $('#example').DataTable({ stateSave: true });
-			$('#example thead th:eq(0)').click();
+			await dt.clickHeader(0);
 
 			expect(table.settings()[0].aoColumns.length).toBe(6);
 			expect($('#example tbody td:eq(0)').text()).toBe('Zorita Serrano');

@@ -31,15 +31,15 @@ describe('core- order.listener()', function() {
 		it('Callback is executed', function() {
 			expect(count).toBe(1);
 		});
-		it('Can still sort on the table control', function() {
-			$('#example thead th:eq(2)').click();
+		it('Can still sort on the table control', async function() {
+			await dt.clickHeader(2);
 			expect($('#example tbody td:eq(0)').html()).toBe('Airi Satou');
 		});
 		it('Callback is not executed', function() {
 			expect(count).toBe(1);
 		});
-		it('Responds to shift being pressed', function() {
-			$('#example thead th:eq(1)').click();
+		it('Responds to shift being pressed', async function() {
+			await dt.clickHeader(1);
 			var clickEvent = $.Event('click');
 			clickEvent.shiftKey = true;
 			$('.dataTables_filter input').trigger(clickEvent);

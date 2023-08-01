@@ -13,18 +13,18 @@ describe('columns.orderData option', function() {
 		expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 	});
 
-	it('Sorting on third column uses 4th column as well as third', function() {
-		$('#example thead th:eq(2)').click();
+	it('Sorting on third column uses 4th column as well as third', async function() {
+		await dt.clickHeader(2);
 		expect($('#example tbody tr:eq(1) td:eq(0)').text()).toBe('Quinn Flynn');
 	});
 
-	it('Sorting on third column uses 4th column as well as third- reversed', function() {
-		$('#example thead th:eq(2)').click();
+	it('Sorting on third column uses 4th column as well as third- reversed', async function() {
+		await dt.clickHeader(2);
 		expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Garrett Winters');
 	});
 
-	it('Sorting on last column uses data from first', function() {
-		$('#example thead th:eq(5)').click();
+	it('Sorting on last column uses data from first', async function() {
+		await dt.clickHeader(5);
 		expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 	});
 
@@ -42,13 +42,13 @@ describe('columns.orderData option', function() {
 		expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Airi Satou');
 	});
 
-	it('Sort by column index 1', function() {
-		$('#example thead th:eq(1)').click();
+	it('Sort by column index 1', async function() {
+		await dt.clickHeader(1);
 		expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Angelica Ramos');
 	});
 
-	it('And reverse - still column 0 data being used', function() {
-		$('#example thead th:eq(1)').click();
+	it('And reverse - still column 0 data being used', async function() {
+		await dt.clickHeader(1);
 		expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Zorita Serrano');
 	});
 });
