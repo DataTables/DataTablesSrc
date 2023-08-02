@@ -13,10 +13,10 @@ describe('language.search option', function() {
 			expect(table.settings()[0].oLanguage.sSearch).toBe('Search:');
 		});
 		it('A label input is used', function() {
-			expect($('label', table.settings()[0].aanFeatures.f[0]).length).toBe(1);
+			expect($('div.dataTables_filter label').length).toBe(1);
 		});
 		it('Search language default is in the DOM', function() {
-			expect($('label', table.settings()[0].aanFeatures.f[0]).text()).toBe('Search:');
+			expect($('div.dataTables_filter label').text()).toBe('Search:');
 		});
 	});
 
