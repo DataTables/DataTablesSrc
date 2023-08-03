@@ -2,52 +2,50 @@
  * Add a data array to the table, creating DOM node etc. This is the parallel to
  * _fnGatherData, but for adding rows from a Javascript source, rather than a
  * DOM source.
- *  @param {object} oSettings dataTables settings object
- *  @param {array} aData data array to be added
- *  @param {node} [nTr] TR element to add to the table - optional. If not given,
+ *  @param {object} settings dataTables settings object
+ *  @param {array} data data array to be added
+ *  @param {node} [tr] TR element to add to the table - optional. If not given,
  *    DataTables will create a row automatically
- *  @param {array} [anTds] Array of TD|TH elements for the row - must be given
+ *  @param {array} [tds] Array of TD|TH elements for the row - must be given
  *    if nTr is.
  *  @returns {int} >=0 if successful (index of new aoData entry), -1 if failed
  *  @memberof DataTable#oApi
  */
-function _fnAddData ( oSettings, aDataIn, nTr, anTds )
+function _fnAddData ( settings, dataIn, tr, tds )
 {
 	/* Create the object for storing information about this new row */
-	var iRow = oSettings.aoData.length;
-	var oData = $.extend( true, {}, DataTable.models.oRow, {
-		src: nTr ? 'dom' : 'data',
-		idx: iRow
+	var rowIdx = settings.aoData.length;
+	var rowModel = $.extend( true, {}, DataTable.models.oRow, {
+		src: tr ? 'dom' : 'data',
+		idx: rowIdx
 	} );
 
-	oData._aData = aDataIn;
-	oSettings.aoData.push( oData );
+	rowModel._aData = dataIn;
+	settings.aoData.push( rowModel );
 
-	/* Create the cells */
-	var nTd, sThisType;
-	var columns = oSettings.aoColumns;
+	var columns = settings.aoColumns;
 
-	// Invalidate the column types as the new data needs to be revalidated
 	for ( var i=0, iLen=columns.length ; i<iLen ; i++ )
 	{
+		// Invalidate the column types as the new data needs to be revalidated
 		columns[i].sType = null;
 	}
 
 	/* Add to the display array */
-	oSettings.aiDisplayMaster.push( iRow );
+	settings.aiDisplayMaster.push( rowIdx );
 
-	var id = oSettings.rowIdFn( aDataIn );
+	var id = settings.rowIdFn( dataIn );
 	if ( id !== undefined ) {
-		oSettings.aIds[ id ] = oData;
+		settings.aIds[ id ] = rowModel;
 	}
 
 	/* Create the DOM information, or register it if already present */
-	if ( nTr || ! oSettings.oFeatures.bDeferRender )
+	if ( tr || ! settings.oFeatures.bDeferRender )
 	{
-		_fnCreateTr( oSettings, iRow, nTr, anTds );
+		_fnCreateTr( settings, rowIdx, tr, tds );
 	}
 
-	return iRow;
+	return rowIdx;
 }
 
 
@@ -303,7 +301,7 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 {
 	var row = settings.aoData[ rowIdx ];
 	var i, ien;
-	var cellWrite = function ( cell, col ) {
+	var cellWrite = function ( cell, str ) {
 		// This is very frustrating, but in IE if you just write directly
 		// to innerHTML, and elements that are overwritten are GC'ed,
 		// even if there is a reference to them elsewhere
@@ -311,8 +309,13 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 			cell.removeChild( cell.firstChild );
 		}
 
-		cell.innerHTML = _fnGetCellData( settings, rowIdx, col, 'display' );
+		cell.innerHTML = str;
 	};
+
+	// Remove the cached data for the row
+	row._aSortData = null;
+	row._aFilterData = null;
+	row.displayData = null;
 
 	// Are we reading last data from DOM or the data object?
 	if ( src === 'dom' || ((! src || src === 'auto') && row.src === 'dom') ) {
@@ -325,23 +328,19 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 	else {
 		// Reading from data object, update the DOM
 		var cells = row.anCells;
+		var display = _fnGetRowDisplay(settings, rowIdx);
 
 		if ( cells ) {
 			if ( colIdx !== undefined ) {
-				cellWrite( cells[colIdx], colIdx );
+				cellWrite( cells[colIdx], display[colIdx] );
 			}
 			else {
 				for ( i=0, ien=cells.length ; i<ien ; i++ ) {
-					cellWrite( cells[i], i );
+					cellWrite( cells[i], display[i] );
 				}
 			}
 		}
 	}
-
-	// For both row and cell invalidation, the cached data for sorting and
-	// filtering is nulled out
-	row._aSortData = null;
-	row._aFilterData = null;
 
 	// Invalidate the type for a specific column (if given) or all columns since
 	// the data might have changed

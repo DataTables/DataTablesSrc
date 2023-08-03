@@ -216,6 +216,9 @@ DataTable.models.oColumn = {
 	 *  @type string
 	 *  @default null
 	 */
-	"sWidthOrig": null
+	"sWidthOrig": null,
+
+	/** Cached string which is the longest in the column */
+	maxLenString: null,
 };
 

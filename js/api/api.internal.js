@@ -96,7 +96,7 @@ $.extend( DataTable.ext.internal, {
 	_fnCalculateColumnWidths: _fnCalculateColumnWidths,
 	_fnThrottle: _fnThrottle,
 	_fnConvertToWidth: _fnConvertToWidth,
-	_fnGetWidestNode: _fnGetWidestNode,
+	//_fnGetWidestNode: _fnGetWidestNode,
 	_fnGetMaxLenString: _fnGetMaxLenString,
 	_fnStringToCss: _fnStringToCss,
 	_fnSortFlatten: _fnSortFlatten,

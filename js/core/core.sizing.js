@@ -93,22 +93,16 @@ function _fnCalculateColumnWidths ( oSettings )
 		}
 	} );
 
-	// Find the widest cell for each column and put it into the table
+	// Find the widest piece of data for each column and put it into the table
 	for ( i=0 ; i<visibleColumns.length ; i++ ) {
 		columnIdx = visibleColumns[i];
 		column = columns[ columnIdx ];
 
-		if ( oSettings.aoData.length ) {
-			$( _fnGetWidestNode( oSettings, columnIdx ) )
-				.clone( false )
-				.append( column.sContentPadding )
-				.appendTo( tr );
-		}
-		else {
-			$('<td/>')
-				.append( column.sContentPadding )
-				.appendTo( tr );
-		}
+		var longest = _fnGetMaxLenString(oSettings, columnIdx);
+
+		$('<td/>')
+			.append( longest + column.sContentPadding )
+			.appendTo( tr );
 	}
 
 	// Tidy the temporary table - remove name attributes so there aren't
@@ -246,49 +240,32 @@ function _fnConvertToWidth ( width, parent )
 
 
 /**
- * Get the widest node
- *  @param {object} settings dataTables settings object
- *  @param {int} colIdx column of interest
- *  @returns {node} widest table node
- *  @memberof DataTable#oApi
- */
-function _fnGetWidestNode( settings, colIdx )
-{
-	var idx = _fnGetMaxLenString( settings, colIdx );
-	if ( idx < 0 ) {
-		return null;
-	}
-
-	var data = settings.aoData[ idx ];
-	return ! data.nTr ? // Might not have been created when deferred rendering
-		$('<td/>').html( _fnGetCellData( settings, idx, colIdx, 'display' ) )[0] :
-		data.anCells[ colIdx ];
-}
-
-
-/**
  * Get the maximum strlen for each data column
  *  @param {object} settings dataTables settings object
  *  @param {int} colIdx column of interest
- *  @returns {string} max string length for each column
+ *  @returns {string} string of the max length
  *  @memberof DataTable#oApi
  */
 function _fnGetMaxLenString( settings, colIdx )
 {
-	var s, max=-1, maxIdx = -1;
+	var s, max='', maxLen = -1;
 
 	for ( var i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
-		s = _fnGetCellData( settings, i, colIdx, 'display' )+'';
-		s = s.replace( __re_html_remove, '' );
-		s = s.replace( /&nbsp;/g, ' ' );
+		var data = _fnGetRowDisplay(settings, i);
 
-		if ( s.length > max ) {
-			max = s.length;
-			maxIdx = i;
+		s = data[colIdx]
+			.replace( __re_html_remove, '' )
+			.replace( /&nbsp;/g, ' ' );
+
+		if ( s.length > maxLen ) {
+			max = s;
+			maxLen = s.length;
 		}
 	}
 
-	return maxIdx;
+	// TODO is it worth doing a cache and invalidation for this?
+
+	return max;
 }
 
 

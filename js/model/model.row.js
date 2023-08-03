@@ -96,5 +96,10 @@ DataTable.models.oRow = {
 	 *  @default -1
 	 *  @private
 	 */
-	"idx": -1
+	"idx": -1,
+
+	/**
+	 * Cached display value
+	 */
+	displayData: null
 };
