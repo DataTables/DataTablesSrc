@@ -15,10 +15,10 @@ _api_register( 'state()', function ( set, ignoreTime ) {
 	// setter
 	return this.iterator( 'table', function ( settings ) {
 		if ( ignoreTime !== false ) {
-			setMutate.time = +new Date() + 10;
+			setMutate.time = +new Date() + 100;
 		}
 
-		_fnLoadState( settings, function(){}, setMutate );
+		_fnImplementState( settings, setMutate, function(){} );
 	} );
 } );
 
