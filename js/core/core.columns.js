@@ -2,10 +2,9 @@
 /**
  * Add a column to the list used for the table with default values
  *  @param {object} oSettings dataTables settings object
- *  @param {node} nTh The th element for this column
  *  @memberof DataTable#oApi
  */
-function _fnAddColumn( oSettings, nTh )
+function _fnAddColumn( oSettings )
 {
 	// Add column to aoColumns array
 	var oDefaults = DataTable.defaults.column;
@@ -327,11 +326,12 @@ function _fnColumnTypes ( settings )
  *  @param {object} oSettings dataTables settings object
  *  @param {array} aoColDefs The aoColumnDefs array that is to be applied
  *  @param {array} aoCols The aoColumns array that defines columns individually
+ *  @param {array} headerLayout Layout for header as it was loaded
  *  @param {function} fn Callback function - takes two parameters, the calculated
  *    column index and the definition for that column.
  *  @memberof DataTable#oApi
  */
-function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
+function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn )
 {
 	var i, iLen, j, jLen, k, kLen, def;
 	var columns = oSettings.aoColumns;
@@ -376,13 +376,20 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 				}
 				else if ( typeof aTargets[j] === 'string' )
 				{
-					/* Class name matching on TH element */
 					for ( k=0, kLen=columns.length ; k<kLen ; k++ )
 					{
-						if ( aTargets[j] == "_all" ||
-						     $(columns[k].nTh).hasClass( aTargets[j] ) )
-						{
+						// Apply to all columns
+						if ( aTargets[j] == "_all" ) {
 							fn( k, def );
+						}
+						else {
+							// Otherwise its a class name selector - spin over each
+							// row in the header, matching classes
+							headerLayout.forEach(function (row) {
+								if ($(row[k].cell).hasClass( aTargets[j] )) {
+									fn( k, def );
+								}
+							});
 						}
 					}
 				}

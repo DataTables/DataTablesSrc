@@ -257,28 +257,25 @@ if ( $.inArray( true, $.map( stripeClasses, function(el, i) {
  */
 var columnsInit = [];
 var thead = this.getElementsByTagName('thead');
+var initHeaderLayout = _fnDetectHeader( oSettings, thead[0] );
 
 // If we don't have a columns array, then generate one with nulls
 if ( oInit.aoColumns ) {
 	columnsInit = oInit.aoColumns;
 }
-else {
-	var headerLayout = _fnDetectHeader( oSettings, this.getElementsByTagName('thead')[0] );
-
-	if ( headerLayout.length ) {
-		for ( i=0, iLen=headerLayout[0].length ; i<iLen ; i++ ) {
-			columnsInit.push( null );
-		}
+else if ( initHeaderLayout.length ) {
+	for ( i=0, iLen=initHeaderLayout[0].length ; i<iLen ; i++ ) {
+		columnsInit.push( null );
 	}
 }
 
 // Add the columns
 for ( i=0, iLen=columnsInit.length ; i<iLen ; i++ ) {
-	_fnAddColumn( oSettings, null );
+	_fnAddColumn( oSettings );
 }
 
 // Apply the column definitions
-_fnApplyColumnDefs( oSettings, oInit.aoColumnDefs, columnsInit, function (iCol, oDef) {
+_fnApplyColumnDefs( oSettings, oInit.aoColumnDefs, columnsInit, initHeaderLayout, function (iCol, oDef) {
 	_fnColumnOptions( oSettings, iCol, oDef );
 } );
 
