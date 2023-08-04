@@ -112,7 +112,7 @@ describe('columns- columns() -solo', function() {
 		});
 		it("Can select a column 'jQuery' classname selector", function() {
 			table.order([[0, 'asc'], [2, 'asc']]).draw();
-			columns = table.columns('.sorting_asc');
+			columns = table.columns('.dt-ordering-asc');
 			expect(columns[0]).toEqual([0, 2]);
 		});
 		it('Can select a column header node', function() {
@@ -202,7 +202,7 @@ describe('columns- columns() -solo', function() {
 			expect(table.columns(2, { order: 'applied' }).data()[0][0]).toBe('Tokyo');
 		});
 		it('Can select column using a class selector and `page: current` confirm expected data', function() {
-			expect(table.columns('.sorting_asc', { page: 'current' }).data()[0][0]).toBe('Airi Satou');
+			expect(table.columns('.dt-ordering-asc', { page: 'current' }).data()[0][0]).toBe('Airi Satou');
 		});
 		it('Can select column using node with `search: current`', function() {
 			$('div.dataTables_filter input')

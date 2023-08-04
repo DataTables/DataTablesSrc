@@ -40,7 +40,7 @@ describe('columns- column().order()', function () {
 			let table = $('#example').DataTable();
 			table.column(0).order('desc').draw();
 			checkNameColumn('desc');
-			expect(areColumnsSorted(['sorting_desc'])).toBe(true);
+			expect(areColumnsSorted(['dt-ordering-desc'])).toBe(true);
 		});
 
 		dt.html('basic');
@@ -51,14 +51,14 @@ describe('columns- column().order()', function () {
 				.order('asc')
 				.draw();
 			checkNameColumn('asc');
-			expect(areColumnsSorted(['sorting_asc'])).toBe(true);
+			expect(areColumnsSorted(['dt-ordering-asc'])).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Will not order until draw() if not called', function() {
 			let table = $('#example').DataTable();
 			table.column(0).order('desc');
-			expect(areColumnsSorted(['sorting_asc'])).toBe(true);
+			expect(areColumnsSorted(['dt-ordering-asc'])).toBe(true);
 		});
 
 		dt.html('basic');
@@ -76,12 +76,12 @@ describe('columns- column().order()', function () {
 		dt.html('basic');
 		it('Can change column being ordered', function() {
 			let table = $('#example').DataTable();
-			expect(areColumnsSorted(['sorting_asc'])).toBe(true);
+			expect(areColumnsSorted(['dt-ordering-asc'])).toBe(true);
 			table
 				.column(1)
 				.order('desc')
 				.draw();
-			expect(areColumnsSorted([, 'sorting_desc'])).toBe(true);
+			expect(areColumnsSorted([, 'dt-ordering-desc'])).toBe(true);
 		});
 
 		dt.html('basic');

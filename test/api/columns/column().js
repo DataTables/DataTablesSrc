@@ -70,7 +70,7 @@ describe('columns - column()', function() {
 			expect(table.column('1:visible').data()[0]).toBe('Tokyo');
 		});
 		it("Can select a column 'jQuery' classname selector", function() {
-			expect(table.column('.sorting_asc').data()[0]).toBe('Airi Satou');
+			expect(table.column('.dt-ordering-asc').data()[0]).toBe('Airi Satou');
 		});
 		it('Can select a column header node', function() {
 			expect(table.column('#example thead th:eq(1)').data()[0]).toBe('Tokyo');
@@ -125,7 +125,7 @@ describe('columns - column()', function() {
 			expect(table.column(2, { order: 'applied' }).data()[0]).toBe('Tokyo');
 		});
 		it('Can select column using a class selector and `page: current` confirm expected data', function() {
-			expect(table.column('.sorting_asc', { page: 'current' }).data()[0]).toBe('Airi Satou');
+			expect(table.column('.dt-ordering-asc', { page: 'current' }).data()[0]).toBe('Airi Satou');
 		});
 		it('Can use named fields', function() {
 			expect(table.column('theOffice:name').data()[0]).toBe('Tokyo');

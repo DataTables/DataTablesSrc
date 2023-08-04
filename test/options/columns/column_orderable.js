@@ -48,8 +48,8 @@ describe('columns.orderable option', function() {
 			expect($('#example thead th:eq(1)').hasClass('dt-orderable-none')).toBe(true);
 			expect($('#example thead th:eq(2)').hasClass('dt-orderable-none')).toBe(true);
 
-			expect($('example thead th:eq(1)').hasClass('sorting_desc')).toBe(false);
-			expect($('example thead th:eq(1)').hasClass('sorting_asc')).toBe(false);
+			expect($('example thead th:eq(1)').hasClass('dt-ordering-desc')).toBe(false);
+			expect($('example thead th:eq(1)').hasClass('dt-ordering-asc')).toBe(false);
 		});
 
 		it('Sorting on disabled column 1 has no effect', async function() {
