@@ -4,13 +4,30 @@ describe('columns - columns().order()', function() {
 		css: ['datatables']
 	});
 
-	function areColumnsSorted(expectedColumns, columnCount = 6) {
-		for (let i = 0; i < columnCount; i++) {
-			expected = expectedColumns[i] == undefined ? 'sorting' : 'sorting ' + expectedColumns[i];
-			if ($('#example thead th:eq(' + i + ')').attr('class') != expected) {
+	function areColumnsSorted(expectedClasses) {
+		var appliedClasses = [];
+		
+		$('#example thead th').each(function () {
+			var match = this.className.match(/dt-ordering-[a-z]*\b/g);
+
+			if (match && match.length > 1) {
+				throw new Error('Multiple ordering classes applied to a single cell');
+			}
+
+			appliedClasses.push( match ? match[0] : null );
+		});
+
+		if (appliedClasses.length !== expectedClasses.length) {
+			// Test configured incorrectly
+			return false;
+		}
+
+		for (var i=0 ; i<expectedClasses.length ; i++) {
+			if (expectedClasses[i] !== appliedClasses[i]) {
 				return false;
 			}
 		}
+
 		return true;
 	}
 
@@ -57,7 +74,7 @@ describe('columns - columns().order()', function() {
 				.columns([1])
 				.order('asc')
 				.draw();
-			expect(areColumnsSorted([, 'dt-ordering-asc', , , ,])).toBe(true);
+			expect(areColumnsSorted([null, 'dt-ordering-asc', null, null, null, null])).toBe(true);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 
@@ -68,7 +85,7 @@ describe('columns - columns().order()', function() {
 				.columns([1,2])
 				.order('asc')
 				.draw();
-			expect(areColumnsSorted([, 'dt-ordering-asc', 'dt-ordering-asc', , ,])).toBe(true);
+			expect(areColumnsSorted([null, 'dt-ordering-asc', 'dt-ordering-asc', null, null, null])).toBe(true);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 
@@ -79,7 +96,7 @@ describe('columns - columns().order()', function() {
 				.columns([2,1])
 				.order('asc')
 				.draw();
-			expect(areColumnsSorted([, 'dt-ordering-asc', 'dt-ordering-asc', , ,])).toBe(true);
+			expect(areColumnsSorted([null, 'dt-ordering-asc', 'dt-ordering-asc', null, null, null])).toBe(true);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Gavin Joyce');
 		});
 
@@ -103,7 +120,7 @@ describe('columns - columns().order()', function() {
 		it("Will not trigger if draw() is not called", function () {
 			var table = $('#example').DataTable();
 			table.columns([1]).order('asc');
-			expect(areColumnsSorted(['dt-ordering-asc',, , , ,])).toBe(true);
+			expect(areColumnsSorted(['dt-ordering-asc', null, null, null, null, null])).toBe(true);
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 
@@ -116,18 +133,18 @@ describe('columns - columns().order()', function() {
 				.order('desc')
 				.draw();
 			expect($('#example tbody tr:eq(0) td:eq(2)').text()).toBe('56');
-			expect(areColumnsSorted([, , , , ,], 5)).toBe(true);
+			expect(areColumnsSorted([null, null, null, null, null])).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Can change columns being ordered', function() {
 			let table = $('#example').DataTable();
-			expect(areColumnsSorted(['dt-ordering-asc'])).toBe(true);
+			expect(areColumnsSorted(['dt-ordering-asc', null, null, null, null, null])).toBe(true);
 			table
 				.columns([1,2])
 				.order('desc')
 				.draw();
-			expect(areColumnsSorted([,'dt-ordering-desc','dt-ordering-desc'])).toBe(true);
+			expect(areColumnsSorted([null,'dt-ordering-desc','dt-ordering-desc', null, null, null])).toBe(true);
 		});
 
 		dt.html('basic');
@@ -152,7 +169,7 @@ describe('columns - columns().order()', function() {
 				.order('asc')
 				.draw();
 			table.order([]).draw();
-			expect(areColumnsSorted([])).toBe(true);
+			expect(areColumnsSorted([null, null, null, null, null, null])).toBe(true);
 		});
 	});
 });

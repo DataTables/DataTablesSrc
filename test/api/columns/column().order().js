@@ -4,14 +4,30 @@ describe('columns- column().order()', function () {
 		css: ['datatables']
 	});
 
-	function areColumnsSorted(expectedColumns, columnCount = 6) {
-		for (let i = 0; i < columnCount; i++) {
-			expected = expectedColumns[i] == undefined ? 'sorting' : 'sorting ' + expectedColumns[i];
-			if ($('#example thead th:eq(' + i + ')').attr('class') != expected) {
-				console.log(i);
+	function areColumnsSorted(expectedClasses) {
+		var appliedClasses = [];
+		
+		$('#example thead th').each(function () {
+			var match = this.className.match(/dt-ordering-[a-z]*\b/g);
+
+			if (match && match.length > 1) {
+				throw new Error('Multiple ordering classes applied to a single cell');
+			}
+
+			appliedClasses.push( match ? match[0] : null );
+		});
+
+		if (appliedClasses.length !== expectedClasses.length) {
+			// Test configured incorrectly
+			return false;
+		}
+
+		for (var i=0 ; i<expectedClasses.length ; i++) {
+			if (expectedClasses[i] !== appliedClasses[i]) {
 				return false;
 			}
 		}
+
 		return true;
 	}
 
@@ -40,7 +56,7 @@ describe('columns- column().order()', function () {
 			let table = $('#example').DataTable();
 			table.column(0).order('desc').draw();
 			checkNameColumn('desc');
-			expect(areColumnsSorted(['dt-ordering-desc'])).toBe(true);
+			expect(areColumnsSorted(['dt-ordering-desc', null, null, null, null, null])).toBe(true);
 		});
 
 		dt.html('basic');
@@ -51,14 +67,14 @@ describe('columns- column().order()', function () {
 				.order('asc')
 				.draw();
 			checkNameColumn('asc');
-			expect(areColumnsSorted(['dt-ordering-asc'])).toBe(true);
+			expect(areColumnsSorted(['dt-ordering-asc', null, null, null, null, null])).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Will not order until draw() if not called', function() {
 			let table = $('#example').DataTable();
 			table.column(0).order('desc');
-			expect(areColumnsSorted(['dt-ordering-asc'])).toBe(true);
+			expect(areColumnsSorted(['dt-ordering-asc', null, null, null, null, null])).toBe(true);
 		});
 
 		dt.html('basic');
@@ -70,18 +86,18 @@ describe('columns- column().order()', function () {
 				.order('desc')
 				.draw();
 			expect($('#example tbody tr:eq(0) td:eq(2)').text()).toBe('56');
-			expect(areColumnsSorted([, , , , ,], 5)).toBe(true);
+			expect(areColumnsSorted([null, null, null, null, null])).toBe(true);
 		});
 
 		dt.html('basic');
 		it('Can change column being ordered', function() {
 			let table = $('#example').DataTable();
-			expect(areColumnsSorted(['dt-ordering-asc'])).toBe(true);
+			expect(areColumnsSorted(['dt-ordering-asc', null, null, null, null, null])).toBe(true);
 			table
 				.column(1)
 				.order('desc')
 				.draw();
-			expect(areColumnsSorted([, 'dt-ordering-desc'])).toBe(true);
+			expect(areColumnsSorted([null, 'dt-ordering-desc', null, null, null, null])).toBe(true);
 		});
 
 		dt.html('basic');
@@ -107,7 +123,7 @@ describe('columns- column().order()', function () {
 				.order('asc')
 				.draw();
 			table.order([]).draw();
-			expect(areColumnsSorted([])).toBe(true);
+			expect(areColumnsSorted([null, null, null, null, null, null])).toBe(true);
 		});
 	});
 });
