@@ -20,13 +20,13 @@ $.extend( true, DataTable.ext.renderer, {
 			// `DT` namespace will allow the event to be removed automatically
 			// on destroy, while the `dt` namespaced event is the one we are
 			// listening for
-			$(settings.nTable).on( 'order.dt.DT', function ( e, ctx, sorting, columns ) {
+			$(settings.nTable).on( 'order.dt.DT', function ( e, ctx, sorting ) {
 				if ( settings !== ctx ) { // need to check this this is the host
 					return;               // table, not a nested one
 				}
 
 				var columns = ctx.api.columns( cell );
-				var col = settings.aoColumns[columns[0]];
+				var col = settings.aoColumns[columns.flatten()[0]];
 
 				// First - are any of the columns under this cell actually sortable
 				if ( ! columns.orderable().includes(true) ) {
