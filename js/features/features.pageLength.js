@@ -20,15 +20,24 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 		lengths  = [],
 		language = [];
 
-	// Allow options to be given as objects or numbers
-	for ( var i=0 ; i<menu.length ; i++ ) {
-		if ($.isPlainObject(menu[i])) {
-			lengths.push(menu[i].value);
-			language.push(menu[i].label);
-		}
-		else {
-			lengths.push(menu[i]);
-			language.push(menu[i]);
+	// Options can be given in a number of ways
+	if (Array.isArray( menu[0] )) {
+		// Old 1.x style - 2D array
+		lengths = menu[0];
+		language = menu[1];
+	}
+	else {
+		for ( var i=0 ; i<menu.length ; i++ ) {
+			// An object with different label and value
+			if ($.isPlainObject(menu[i])) {
+				lengths.push(menu[i].value);
+				language.push(menu[i].label);
+			}
+			else {
+				// Or just a number to display and use
+				lengths.push(menu[i]);
+				language.push(menu[i]);
+			}
 		}
 	}
 

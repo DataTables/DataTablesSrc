@@ -104,8 +104,11 @@ _fnLanguageCompat( oInit.oLanguage );
 // If the length menu is given, but the init display length is not, use the length menu
 if ( oInit.aLengthMenu && ! oInit.iDisplayLength )
 {
-	oInit.iDisplayLength = $.isPlainObject( oInit.aLengthMenu[0] ) ?
-		oInit.aLengthMenu[0].value : oInit.aLengthMenu[0];
+	oInit.iDisplayLength = Array.isArray(oInit.aLengthMenu[0])
+		? oInit.aLengthMenu[0][0]
+		: $.isPlainObject( oInit.aLengthMenu[0] )
+			? oInit.aLengthMenu[0].value
+			: oInit.aLengthMenu[0];
 }
 
 // Apply the defaults and init options to make a single init object will all

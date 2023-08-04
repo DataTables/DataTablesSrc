@@ -19,7 +19,7 @@
 
 		### Legacy
 
-		DataTables 1.x used a 2D array rather than objects to support languages. The first inner array is the page length values and the second inner array is the displayed options. Using the 2D form is supported when loading the `dataTables.legacy.js` file which will perform the required transforms.
+		DataTables 1.x used a 2D array rather than objects to support languages. The first inner array is the page length values and the second inner array is the displayed options. This is still supported in DataTables 2, although now deprecated.
 	</description>
 
 	<example title="Show options 10, 25, 50, 75 and 100 records"><![CDATA[

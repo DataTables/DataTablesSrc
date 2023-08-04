@@ -379,20 +379,6 @@ $(document).on( 'options.dt', function (e, opts) {
 			);
 		};
 	}
-
-	// lengthMenu as a 2D array - convert to array of objects
-	if ( opts.lengthMenu && Array.isArray(opts.lengthMenu[0]) ) {
-		var menu = [];
-
-		for ( var i=0 ; i<opts.lengthMenu ; i++ ) {
-			menu.push({
-				label: opts.lengthMenu[0][i],
-				value: opts.lengthMenu[1][i]
-			});
-		}
-
-		opts.lengthMenu = menu;
-	}
 } );
 
 $(document).on( 'preInit.dt', function (e, settings) {
