@@ -248,24 +248,28 @@ function _fnConvertToWidth ( width, parent )
  */
 function _fnGetMaxLenString( settings, colIdx )
 {
-	var s, max='', maxLen = -1;
+	var column = settings.aoColumns[colIdx];
 
-	for ( var i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
-		var data = _fnGetRowDisplay(settings, i);
-
-		s = data[colIdx]
-			.replace( __re_html_remove, '' )
-			.replace( /&nbsp;/g, ' ' );
-
-		if ( s.length > maxLen ) {
-			max = s;
-			maxLen = s.length;
+	if (column.maxLenString === null) {
+		var s, max='', maxLen = -1;
+	
+		for ( var i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
+			var data = _fnGetRowDisplay(settings, i);
+	
+			s = data[colIdx]
+				.replace( __re_html_remove, '' )
+				.replace( /&nbsp;/g, ' ' );
+	
+			if ( s.length > maxLen ) {
+				max = s;
+				maxLen = s.length;
+			}
 		}
+
+		column.maxLenString = max;
 	}
 
-	// TODO is it worth doing a cache and invalidation for this?
-
-	return max;
+	return column.maxLenString;
 }
 
 

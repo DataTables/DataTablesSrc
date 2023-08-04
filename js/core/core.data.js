@@ -342,15 +342,20 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 		}
 	}
 
-	// Invalidate the type for a specific column (if given) or all columns since
-	// the data might have changed
+	// Column specific invalidation
 	var cols = settings.aoColumns;
 	if ( colIdx !== undefined ) {
+		// Type - the data might have changed
 		cols[ colIdx ].sType = null;
+
+		// Max length string. Its a fairly cheep recalculation, so not worth
+		// something more complicated
+		cols[ colIdx ].maxLenString = null;
 	}
 	else {
 		for ( i=0, ien=cols.length ; i<ien ; i++ ) {
 			cols[i].sType = null;
+			cols[i].maxLenString = null;
 		}
 
 		// Update DataTables special `DT_*` attributes for the row
