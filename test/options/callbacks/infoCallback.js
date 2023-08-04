@@ -88,16 +88,37 @@ describe('infoCallback Option', function() {
 		});
 
 		dt.html('basic');
-		it('info option disabled in DOM', function() {
+		it('info option disabled in layout - callback is not made', function() {
 			args = null;
 			table = $('#example').DataTable({
-				dom: 'lfrtp',
+				layout: {
+					bottomLeft: null
+				},
 				infoCallback: function() {
 					args = arguments;
 					return testString;
 				}
 			});
 			expect(args).toBe(null);
+		});
+
+		dt.html('basic');
+		it('callback is provided though the `layout` feature option', function() {
+			args = null;
+			table = $('#example').DataTable({
+				layout: {
+					bottomLeft: {
+						info: {
+							callback: function() {
+								args = arguments;
+								return testString;
+							}
+						}
+					}
+				}
+			});
+
+			check(1, 10, 57, 57, 'Showing 1 to 10 of 57 entries');
 		});
 	});
 });

@@ -499,8 +499,23 @@ function _layoutArray ( settings, layout, side )
 		var group = groups[ splitPos[0] ];
 
 		// Transform to an object with a contents property
-		if ( $.isPlainObject( val ) && val.contents ) {
-			group[ align ] = val;
+		if ( $.isPlainObject( val ) ) {
+			// Already a group from a previous pass
+			if (val.contents) {
+				group[ align ] = val;
+			}
+			else {
+				// For objects, each property becomes an entry in the contents
+				// array for this insert position
+				group[ align ] = {
+					contents: $.map(val, function (value, key) {
+						return {
+							feature: key,
+							opts: value
+						};
+					})
+				};
+			}
 		}
 		else {
 			group[ align ] = {
@@ -566,17 +581,12 @@ function _layoutArray ( settings, layout, side )
  * @param {*} row Layout object for this row
  */
 function _layoutResolve( settings, row ) {
-	var getFeature = function (feature, args) {
+	var getFeature = function (feature, opts) {
 		if ( ! _ext.features[ feature ] ) {
 			_fnLog( settings, 0, 'Unknown feature: '+ feature );
 		}
 
-		args = args
-			? args.slice()
-			: [];
-
-		args.unshift(settings);
-		return _ext.features[ feature ].apply( this, args );
+		return _ext.features[ feature ].apply( this, [settings, opts] );
 	};
 
 	var resolve = function ( item ) {
@@ -587,10 +597,12 @@ function _layoutResolve( settings, row ) {
 				continue;
 			}
 			else if ( typeof line[i] === 'string' ) {
-				line[i] = getFeature( line[i], [] );
+				line[i] = getFeature( line[i], null );
 			}
 			else if ( $.isPlainObject(line[i]) ) {
-				line[i] = getFeature( line[i].feature, line[i].args || [] );
+				// If it's an object, it just has feature and opts properties from
+				// the transform in _layoutArray
+				line[i] = getFeature(line[i].feature, line[i].opts);
 			}
 			else if ( typeof line[i].node === 'function' ) {
 				line[i] = line[i].node( settings );
