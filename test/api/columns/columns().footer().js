@@ -121,5 +121,22 @@ describe('columns - columns().footer()', function() {
 			let returnData = table.columns([2, 3]).footer();
 			verifyFooter(returnData, ['Office', 'Age']);
 		});
+
+		dt.html('two_footers');
+		it('Specify a row for the footer - first row', function() {
+			let table = $('#example').DataTable();
+			let cells = table.columns([0,1]).footer(0);
+
+			expect(cells[0].textContent).toBe('Name');
+			expect(cells[1].textContent).toBe('Position');
+		});
+
+		it('Specify a row for the footer - second row', function() {
+			let table = $('#example').DataTable();
+			let cells = table.columns([0,1]).footer(1);
+
+			expect(cells[0].textContent).toBe('Name1');
+			expect(cells[1].textContent).toBe('Position1');
+		});
 	});
 });

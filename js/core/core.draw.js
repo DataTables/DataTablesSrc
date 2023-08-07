@@ -744,11 +744,13 @@ function _fnDetectHeader ( settings, thead, write )
 
 					// This happens _before_ the renderer, so the original HTML
 					// is still in place.
-					if ( columnDef.sTitle !== null && cell.innerHTML !== columnDef.sTitle ) {
-						cell.innerHTML = columnDef.sTitle;
-					}
-					else {
-						columnDef.sTitle = cell.innerHTML;
+					if (i === 0) {
+						if ( columnDef.sTitle !== null && cell.innerHTML !== columnDef.sTitle ) {
+							cell.innerHTML = columnDef.sTitle;
+						}
+						else {
+							columnDef.sTitle = cell.innerHTML;
+						}
 					}
 
 					// Column specific class names

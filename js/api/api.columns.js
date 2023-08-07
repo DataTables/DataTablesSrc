@@ -198,17 +198,28 @@ _api_register( 'columns()', function ( selector, opts ) {
 	return inst;
 } );
 
-_api_registerPlural( 'columns().header()', 'column().header()', function ( selector, opts ) {
+_api_registerPlural( 'columns().header()', 'column().header()', function ( row ) {
 	return this.iterator( 'column', function ( settings, column ) {
-		return settings.aoHeader[0][column].cell;
+		var header = settings.aoHeader;
+		var target = row !== undefined
+			? row
+			: settings.bSortCellsTop // legacy support
+				? 0
+				: header.length - 1;
+
+		return header[target][column].cell;
 	}, 1 );
 } );
 
-_api_registerPlural( 'columns().footer()', 'column().footer()', function ( selector, opts ) {
+_api_registerPlural( 'columns().footer()', 'column().footer()', function ( row ) {
 	return this.iterator( 'column', function ( settings, column ) {
-		return settings.aoFooter.length ?
-			settings.aoFooter[0][column].cell :
-			null;
+		var footer = settings.aoFooter;
+
+		if (! footer.length) {
+			return null;
+		}
+
+		return settings.aoFooter[row !== undefined ? row : 0][column].cell;
 	}, 1 );
 } );
 

@@ -97,5 +97,15 @@ describe('columns - column().header()', function() {
 			table.column(2).visible(false);
 			verifyHeader(table.column(2).header(), 'Office');
 		});
+
+		dt.html('two_headers');
+		it('Specify a row for the header', function() {
+			let table = $('#example').DataTable();
+			verifyHeader(table.column(0).header(0), 'Name');
+			verifyHeader(table.column(0).header(1), 'Name1');
+
+			verifyHeader(table.column(1).header(0), 'Position');
+			verifyHeader(table.column(1).header(1), 'Position1');
+		});
 	});
 });

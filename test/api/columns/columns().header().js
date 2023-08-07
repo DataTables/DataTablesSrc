@@ -112,5 +112,22 @@ describe('columns - columns().header()', function() {
 			let returnData = table.columns([0, 2]).header();
 			verifyHeader(returnData, ['Name', 'Office']);
 		});
+
+		dt.html('two_headers');
+		it('Specify a row for the header - first row', function() {
+			let table = $('#example').DataTable();
+			let cells = table.columns([0,1]).header(0);
+
+			expect(cells[0].textContent).toBe('Name');
+			expect(cells[1].textContent).toBe('Position');
+		});
+
+		it('Specify a row for the header - second row', function() {
+			let table = $('#example').DataTable();
+			let cells = table.columns([0,1]).header(1);
+
+			expect(cells[0].textContent).toBe('Name1');
+			expect(cells[1].textContent).toBe('Position1');
+		});
 	});
 });

@@ -102,5 +102,15 @@ describe('columns - column().footer()', function() {
 			table.column(2).visible(false);
 			verifyFooter(table.column(2).footer(), 'Office');
 		});
+
+		dt.html('two_footers');
+		it('Specify a row for the header - first row', function() {
+			let table = $('#example').DataTable();
+			verifyFooter(table.column(0).footer(0), 'Name');
+			verifyFooter(table.column(0).footer(1), 'Name1');
+
+			verifyFooter(table.column(1).footer(0), 'Position');
+			verifyFooter(table.column(1).footer(1), 'Position1');
+		});
 	});
 });
