@@ -23,7 +23,7 @@ var __reload = function ( settings, holdPosition, callback ) {
 		}
 
 		// Trigger xhr
-		_fnBuildAjax( settings, [], function( json ) {
+		_fnBuildAjax( settings, {}, function( json ) {
 			_fnClearTable( settings );
 
 			var data = _fnAjaxDataSrc( settings, json );
