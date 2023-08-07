@@ -12,12 +12,14 @@ describe('lengthChange option', function() {
 			expect($.fn.dataTable.defaults.bLengthChange).toBe(true);
 		});
 
-		it('Correct place in DOM', function() {
+		it('Correct place in DOM (before filter)', function() {
 			expect(
 				$('div.dataTables_length')
+					.parent()
 					.next()
-					.attr('id')
-			).toBe('example_filter');
+					.find('div.dataTables_filter')
+					.length
+			).toBe(1);
 		});
 
 		dt.html('basic');

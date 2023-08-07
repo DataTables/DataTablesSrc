@@ -37,10 +37,12 @@ describe('info option- Feature', function() {
 			expect($('div.dataTables_info').html()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
-		it('example_info is in correct position in DOM', function() {
+		it('example_info is in correct position in DOM (after table)', function() {
 			expect(
 				$('div.dataTables_info')
+					.closest('div.dataTables_layout_row')
 					.prev()
+					.find('table')
 					.attr('id')
 			).toBe('example');
 		});

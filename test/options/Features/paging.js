@@ -29,12 +29,14 @@ describe('Paging option', function() {
 		it('Length control is in the DOM', function() {
 			expect($('div.dataTables_length')[0]).toBeInDOM();
 		});
-		it('Correct place in DOM', function() {
+		it('Correct place in DOM - after info', function() {
 			expect(
 				$('div.dataTables_paginate')
+					.parent()
 					.prev()
-					.attr('class')
-			).toBe('dataTables_info');
+					.find('div.dataTables_info')
+					.length
+			).toBe(1);
 		});
 		it('Disabled previous on first page', function() {
 			checkDisabled(true, false);
