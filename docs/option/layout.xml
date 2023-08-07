@@ -44,7 +44,8 @@
 		  * `-string search` - Search input box
 		* `-type object` - A plain object where the parameter keys are the feature to be used (see the strings above and any plug-ins) and the value is passed to the feature. This is normally an object wil a list of options. Note that multiple features could be specified using a single object, but order is not guaranteed. Order will normally be important if you specify multiple in a single slot - in such cases, use an array of objects.
 		* `-type jQuery` - A jQuery instance containing a node to insert
-		* `-type function` - A function that returns a DOM node or jQuery instance containing a node. The function will be passed in the DataTables settings object.
+		* `-type node` - A DOM element
+		* `-type function` - A function that returns a DOM element or jQuery instance containing a node. The function will be passed in the DataTables settings object.
 		* `-type object` - A class instance that provides a `node()` method and should return the node to be inserted (DOM or jQuery). As with the `-type function` option above, this method will be passed the DataTables settings object for the table.
 		* `-type array` - An array of any of the above options, providing the ability to show multiple items next to each other.
 		* `-type null` - Show nothing in this position
@@ -83,28 +84,28 @@
 				<td style="padding: 5px" colspan="2"><b>DataTable</b></td>
 			</tr>
 			<tr>
+				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom</i></td>
+			</tr>
+			<tr>
 				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottomLeft</i></td>
 				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottomRight</i></td>
 			</tr>
 			<tr>
-				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom</i></td>
+				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom2</i></td>
 			</tr>
 			<tr>
 				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom2Left</i></td>
 				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom2Right</i></td>
 			</tr>
 			<tr>
-				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom2</i></td>
+				<td style="padding: 5px" colspan="2">&#8942;</td>
 			</tr>
 			<tr>
-				<td style="padding: 5px" colspan="2">&#8942;</td>
+				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom<b>N</b></i></td>
 			</tr>
 			<tr>
 				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom<b>N</b>Left</i></td>
 				<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom<b>N</b>Right</i></td>
-			</tr>
-			<tr>
-				<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom<b>N</b></i></td>
 			</tr>
 		</table>
 

@@ -1821,29 +1821,7 @@ DataTable.defaults = {
 
 
 	/**
-	 * This initialisation variable allows you to specify exactly where in the
-	 * DOM you want DataTables to inject the various controls it adds to the page
-	 * (for example you might want the pagination controls at the top of the
-	 * table). DIV elements (with or without a custom class) can also be added to
-	 * aid styling. See the reference documentation for full details.
-	 *  @type string
-	 *  @default lfrtip
-	 *
-	 *  @dtopt Options
-	 *  @name DataTable.defaults.dom
-	 *
-	 *  @example
-	 *    $(document).ready( function() {
-	 *      $('#example').dataTable( {
-	 *        "dom": '&lt;"top"i&gt;rt&lt;"bottom"flp&gt;&lt;"clear"&gt;'
-	 *      } );
-	 *    } );
-	 */
-	sDom: null,
-
-
-	/**
-	 * Table and control layout. This replaces the legacy sDom option.
+	 * Table and control layout. This replaces the legacy `dom` option.
 	 */
 	layout: {
 		topLeft: 'pageLength',
