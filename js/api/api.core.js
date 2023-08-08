@@ -109,9 +109,11 @@ _api_register( 'destroy()', function ( remove ) {
 
 		$( rows ).removeClass( settings.asStripeClasses.join(' ') );
 
-		$('th, td', thead).removeClass( classes.orderableAsc+' '+
-			classes.orderableDesc+' '+classes.orderingAsc+' '+classes.orderingDesc
-		);
+		$('th, td', thead)
+			.removeClass( classes.orderableAsc+' '+
+				classes.orderableDesc+' '+classes.orderingAsc+' '+classes.orderingDesc
+			)
+			.css('width', '');
 
 		// Add the TR elements back into the table in their original order
 		jqTbody.children().detach();
