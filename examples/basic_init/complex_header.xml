@@ -17,11 +17,18 @@ new DataTable('#example');
 
 <info><![CDATA[
 
-When using tables to display data, you will often wish to display column information in groups. DataTables fully supports `colspan` and `rowspan` in the table's header, assigning the required order listeners to the TH element suitable for that column.
+When using tables to display data, you will often wish to display column information in groups. DataTables fully supports `colspan` and `rowspan` in the table's header, assigning the required order listeners to the `-tag th` cells suitable for the columns the element covers.
 
-Each column must have one TH cell which is unique to it for the listeners to be added. By default DataTables will use the bottom unique cell for the column to attach the order listener, if more than one cell for a column if found. The `dt-init orderCellsTop` option can be used to tell DataTables to use the top cell if you prefer.
+As of DataTables 2, columns do not require their own unique header cell as was the case with DataTables 1.x - multiple columns can share a single `colspan` element, as shown in the example below. Only the _Name_ column has a cell unique to it. Furthermore, when activating ordering on a `colspan` cell, it will automatically enable multi-column ordering for the applicable columns.
 
-The example shown below has two sets of grouped information, grouped by colspan in the header.
+DataTables will automatically apply ordering listeners and icons to all cells in the table header. If you wish to disable this, you can use the `data-dt-order` property on the `-tag th/td` cells in the table header. The value of this attribute (if present, it is entirely optional) controls the ordering listeners and icons:
+
+* `data-dt-order="disable"` - Ordering listeners will not be attached to these cells, nor will ordering status icons be shown.
+* `data-dt-order="icon-only"` - Ordering listeners will not be attached to these cells, but the ordering status icons _will_ be shown.
+
+If not defined, the cell will have an ordering listener attached and status icons shown (_unless_ disabled with the `-init columns.orderable` option). See the `-init columns.orderable` option for more details.
+
+In the example below, the _HR info_ has `data-dt-order="disable"` applied to it. The other cells in the header are all clickable and have ordering status icons shown.
 
 ]]></info>
 

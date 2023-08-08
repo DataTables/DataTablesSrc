@@ -11,6 +11,19 @@
 		Using this parameter, you can remove the end user's ability to order upon a column. This might be useful for generated content columns, for example if you have 'Edit' or 'Delete' buttons in the table.
 
 		Note that this option only affects the end user's ability to order a column. Developers are still able to order a column using the `dt-init order` option or the `dt-api order()` method if required.
+
+		DataTables 2 introduced improved support for complex headers (multiple rows and cells with `colspan` and `rowspan`). This option is still applicable in such cases, but it doesn't offer the fine grained control that you might wish to have to determine which cells will have ordering listeners and ordering icons.
+
+		To make that fine grained control available, DataTables will look for a `data-dt-order` attribute on the `-tag th/td` cells in the table header. The value of this attribute (if present, it is entirely optional) controls the ordering listeners and icons:
+
+		* `data-dt-order="disable"` - Ordering listeners will not be attached to these cells, nor will ordering status icons be shown.
+		* `data-dt-order="icon-only"` - Ordering listeners will not be attached to these cells, but the ordering status icons _will_ be shown.
+
+		If not defined, the cell will have an ordering listener attached and status icons shown (_unless_ disabled with the `-init columns.orderable` option detailed above).
+
+		The `data-dt-order` option can be applied to a `-tag tr` element in the table header, as well as the individual cells. If applied to the `-tag tr` the configuration given will cascade down to all cells in that row.
+
+		The `data-dt-order` property is the only option that DataTables has which cannot be set via Javascript and is read from the DOM (you could use Javascript to add the attributes before table initialisation if you require). In future, we may offer the ability to construct a complex header via the initialisation options, which would also address this.
 	</description>
 
 	<example title="Disable ordering on the first column AND set the default ordering for the table (the default would still be to order on column index 0 otherwise)"><![CDATA[

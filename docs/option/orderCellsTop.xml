@@ -3,12 +3,19 @@
 	<name>orderCellsTop</name>
 	<summary>Control which cell the order event handler will be applied to in a column</summary>
 	<since>1.10</since>
+	<deprecated since="2.0.0">
+		As of DataTables 2 the default option for this parameter has changed to `null` rather than the previous `false` in 1.x. The result is that all cells in the header will have a sort listener attached and icons shown. You can set this value to `false` to have the same behaviour as v1.x.
+
+		This property is not very flexible, being able to specify the top or bottom rows only. In DataTables 2 is it superseded by the `data-dt-order` attribute for the `-tag tr` and / or `-tag th` elements in the `-tag thead` of the table. See `-init columns.orderable` for further details.
+	</deprecated>
 
 	<type type="boolean" />
-	<default>false</default>
+	<default>null</default>
 
 	<description><![CDATA[
-		Allows control over whether DataTables should use the top (`true`) unique cell that is found for a single column, or the bottom (`false` - default) to attach the default order listener. This is useful when using complex headers.
+		Allows control over whether DataTables should use the top (`true`) unique cell that is found for a single column, or the bottom (`false`) to attach the default order listener and display sorting icons. This can be useful when using complex headers.
+
+		As of DataTables 2, if the value of this parameter is given as `null` (which it is by default) all cells in the header will automatically have the sort listener attached and icons shown.
 
 		Consider for example the following HTML header:
 
@@ -24,13 +31,13 @@
 			</thead>
 		```
 
-		In this case, when `dt-init orderCellsTop` is `false` (default) the cells `string 1` and `string 2.2` will have the order event listener applied to them. If `dt-init orderCellsTop` is `true` then `string 1` and `string 2.1` will have the order event listeners applied to them.
+		In this case, when `dt-init orderCellsTop` is `false` the cells `-string 1` and `-string 2.2` will have the order event listener applied to them. If `dt-init orderCellsTop` is `true` then `-string 1` and `-string 2.1` will have the order event listeners applied to them. Finally, if the value is given is `null` (default), all cells will have the ordering event listeners attached.
 ]]></description>
 
 	<example title="Use the top cells in a complex header for ordering"><![CDATA[
-$('#example').dataTable( {
-  "orderCellsTop": true
-} );
+new DataTable('#myTable', {
+  orderCellsTop: true
+});
 ]]></example>
 
 	<related type="option">ordering</related>

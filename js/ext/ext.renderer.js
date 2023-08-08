@@ -15,6 +15,26 @@ $.extend( true, DataTable.ext.renderer, {
 				cell.addClass(classes.orderableNone);
 			}
 
+
+			var legacyTop = settings.bSortCellsTop;
+			var headerRows = cell.closest('thead').find('tr');
+			var rowIdx = cell.parent().index();
+
+			// Conditions to not apply the ordering icons
+			if (
+				// Cells and rows which have the attribute to disable the icons
+				cell.attr('data-dt-order') === 'disable' ||
+				cell.parent().attr('data-dt-order') === 'disable' ||
+
+				// Legacy support for `orderCellsTop`. If it is set, then cells
+				// which are not in the top or bottom row of the header (depending
+				// on the value) do not get the sorting classes applied to them
+				(legacyTop === true && rowIdx !== 0) ||
+				(legacyTop === false && rowIdx !== headerRows.length - 1)
+			) {
+				return;
+			}
+
 			// No additional mark-up required
 			// Attach a sort listener to update on sort - note that using the
 			// `DT` namespace will allow the event to be removed automatically

@@ -1,6 +1,23 @@
 
 function _fnSortInit( settings ) {
-	_fnSortAttachListener(settings, settings.nTHead, 'th, td');
+	var target = settings.nTHead;
+	var headerRows = target.querySelectorAll('tr');
+	var legacyTop = settings.bSortCellsTop;
+
+	// Legacy support for `orderCellsTop`
+	if (legacyTop === true) {
+		target = headerRows[0];
+	}
+	else if (legacyTop === false) {
+		target = headerRows[ headerRows.length - 1 ];
+	}
+
+	var notSelector = ':not([data-dt-order="disable"]):not([data-dt-order="icon-only"])';
+	_fnSortAttachListener(
+		settings,
+		target,
+		'tr'+notSelector+' th'+notSelector+', tr'+notSelector+' td'+notSelector+''
+	);
 
 	// Need to resolve the user input array into our internal structure
 	var order = [];

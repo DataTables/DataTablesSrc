@@ -1186,13 +1186,13 @@ DT_Example::$tables['html-complex-header'] = array(
 	'header'  => function () {
 		return '<thead>'.
 				'<tr>'.
-					'<th rowspan="2" width="15%">1</th>'.
-					'<th colspan="2">2</th>'.
-					'<th colspan="3">3</th>'.
+					'<th rowspan="2" width="15%">Name</th>'.
+					'<th colspan="2">Position</th>'.
+					'<th colspan="3">Contact</th>'.
 				'</tr>'.
 				'<tr>'.
-					'<th colspan="3">4</th>'.
-					'<th colspan="2">5</th>'.
+					'<th colspan="3" data-dt-order="disable">HR info</th>'.
+					'<th colspan="2">Direct</th>'.
 				'</tr>'.
 			'</thead>';
 	},

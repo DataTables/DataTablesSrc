@@ -685,7 +685,7 @@ DataTable.defaults = {
 	 *      } );
 	 *    } );
 	 */
-	"bSortCellsTop": false,
+	"bSortCellsTop": null,
 
 
 	/**

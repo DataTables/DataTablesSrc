@@ -747,7 +747,7 @@ DataTable.models.oSettings = {
 	 * set a default use {@link DataTable.defaults}.
 	 *  @type boolean
 	 */
-	"bSortCellsTop": null, // TODO change to use the single event listener and exclude given rows
+	"bSortCellsTop": null,
 
 	/**
 	 * Initialisation object that is used for the table

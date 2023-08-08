@@ -742,15 +742,15 @@ function _fnDetectHeader ( settings, thead, write )
 
 					columnDef.sWidthOrig = columnDef.sWidth || width;
 
-					// This happens _before_ the renderer, so the original HTML
-					// is still in place.
-					if (i === 0) {
-						if ( columnDef.sTitle !== null && cell.innerHTML !== columnDef.sTitle ) {
-							cell.innerHTML = columnDef.sTitle;
-						}
-						else {
-							columnDef.sTitle = cell.innerHTML;
-						}
+					// Column title handling - can be user set, or read from the DOM
+					// This happens before the render, so the original is still in place
+					if ( columnDef.sTitle !== null && ! columnDef.autoTitle ) {
+						cell.innerHTML = columnDef.sTitle;
+					}
+
+					if (! columnDef.sTitle && unique) {
+						columnDef.sTitle = cell.innerHTML.replace( /<.*?>/g, "" );
+						columnDef.autoTitle = true;
 					}
 
 					// Column specific class names
@@ -761,7 +761,7 @@ function _fnDetectHeader ( settings, thead, write )
 					// Fall back to the aria-label attribute on the table header if no ariaTitle is
 					// provided.
 					if (! columnDef.ariaTitle) {
-						columnDef.ariaTitle = $(cell).attr("aria-label") || columnDef.sTitle.replace( /<.*?>/g, "" );
+						columnDef.ariaTitle = $(cell).attr("aria-label") || columnDef.sTitle;
 					}
 				}
 
