@@ -22,7 +22,16 @@
 		Note that if the selector used matches multiple rows, this method will truncate the result to contain just one row, the first matched one. If you require to work with multiple rows at the same time for group manipulation, please use this method's plural counterpart `dt-api rows()` which can select and manipulate multiple rows. 
 	</description>
 
-	<example title=""><![CDATA[
+	<example title="Select row with a given id"><![CDATA[
+let row = table.row('#myId');
+]]></example>
+
+	<example title="Select row of given index"><![CDATA[
+let rows = table.rows(1);
+]]></example>
+
+	<example title="Select row with matched data using a function"><![CDATA[
+let row = table.row((idx, data) => data.location === "Edinburgh");
 ]]></example>
 
 	<related type="api">rows()</related>

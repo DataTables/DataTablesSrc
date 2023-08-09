@@ -35,7 +35,32 @@
 		* Row selector
 	</description>
 
-	<example title=""><![CDATA[
+	<example title="Select all rows"><![CDATA[
+let table = new DataTable('#myTable');
+
+let allRows = table.rows();
+]]></example>
+
+	<example title="Select row with a given id"><![CDATA[
+let rows = table.rows('#myId');
+]]></example>
+
+	<example title="Select all rows with a specific class"><![CDATA[
+let rows = table.rows('.myClass');
+]]></example>
+
+	<example title="Select rows of given indexes"><![CDATA[
+let rows = table.rows([0, 1]);
+]]></example>
+
+	<example title="Select rows with matched data using a function"><![CDATA[
+let rows = table.rows((idx, data) => data.location === "Edinburgh");
+]]></example>
+
+	<example title="Select all rows in the search set using a selector modifier"><![CDATA[
+let rows = table.rows({
+	search: 'applied'
+});
 ]]></example>
 
 	<related type="api">row()</related>
