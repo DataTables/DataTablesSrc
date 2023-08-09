@@ -152,13 +152,11 @@ $.extend( true, DataTable.ext.renderer, {
 						}
 
 						if ( btnDisplay !== null ) {
-							var tag = settings.oInit.pagingTag || 'a';
-
 							if (disabled) {
 								btnClass += ' ' + disabledClass;
 							}
 
-							node = $('<'+tag+'>', {
+							node = $('<button>', {
 									'class': classes.sPageButton+' '+btnClass,
 									'aria-controls': settings.sTableId,
 									'aria-disabled': disabled ? 'true' : null,
@@ -169,7 +167,8 @@ $.extend( true, DataTable.ext.renderer, {
 									'tabindex': disabled ? -1 : settings.iTabIndex,
 									'id': idx === 0 && typeof button === 'string' ?
 										settings.sTableId +'_'+ button :
-										null
+										null,
+									'type': 'button'
 								} )
 								.html( btnDisplay )
 								.appendTo( container );

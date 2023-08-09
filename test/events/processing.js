@@ -62,7 +62,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Not called when changing page through UI', function() {
 			reset();
-			$('span a.paginate_button:eq(2)').click();
+			$('span .paginate_button:eq(2)').click();
 			expect(count).toBe(0);
 		});
 		it('... Not called when changing order through API', function() {
@@ -110,7 +110,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Not called when changing page through UI', function() {
 			reset();
-			$('span a.paginate_button:eq(2)').click();
+			$('span .paginate_button:eq(2)').click();
 			expect(count).toBe(0);
 		});
 		it('... Not called when changing order through API', function() {
@@ -176,7 +176,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Not called when changing page through UI', function() {
 			reset();
-			$('span a.paginate_button:eq(2)').click();
+			$('span .paginate_button:eq(2)').click();
 			expect(count).toBe(0);
 		});
 		it('... Not called when changing order through API', function() {
@@ -240,7 +240,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Not called when changing page through UI', function() {
 			reset();
-			$('span a.paginate_button:eq(2)').click();
+			$('span .paginate_button:eq(2)').click();
 			expect(count).toBe(0);
 		});
 		it('... Not called when changing order through API', function() {
@@ -299,7 +299,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Called when changing page through UI', function() {
 			reset();
-			$('span a.paginate_button:eq(2)').click();
+			$('span .paginate_button:eq(2)').click();
 			expect(count).toBe(1);
 		});
 		it('... Called when changing order through API', function() {
@@ -355,7 +355,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Called when changing page through UI', function() {
 			reset();
-			$('span a.paginate_button:eq(2)').click();
+			$('span .paginate_button:eq(2)').click();
 			expect(count).toBe(1);
 		});
 		it('... Called when changing order through API', function() {

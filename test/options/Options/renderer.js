@@ -5,7 +5,7 @@ var headerArgs;
 var headerCounter = 0;
 
 // Create a simple renderer that we can use for our testing - it just
-// creates `a` tags for each button type
+// creates `button` tags for each button type
 var pageButtons = function(settings, host, idx, buttons, page, pages) {
 	var api = new $.fn.dataTable.Api(settings);
 	pageArgs = arguments; // Store so we can set the arguments
@@ -20,7 +20,7 @@ var pageButtons = function(settings, host, idx, buttons, page, pages) {
 
 	$.each(flattened, function(i, val) {
 		$(host).append(
-			$('<a/>')
+			$('<button/>')
 				.text(val)
 				.on('click', function() {
 					api.page(val).draw(false);
@@ -47,12 +47,12 @@ function checkHeaders(first, last) {
 }
 
 function checkButtons(rendered) {
-	expect($('div.dataTables_paginate a').length).toBe(8); // paging
+	expect($('div.dataTables_paginate button').length).toBe(8); // paging
 	expect($('div.dataTables_paginate span').length).toBe(rendered? 0 : 1); // paging
 	expect($('thead th:eq(0)').children().length).toBe(0); // header
 
 	if (rendered) {
-		$('div.dataTables_paginate a:eq(4)').click();
+		$('div.dataTables_paginate button:eq(4)').click();
 		expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Jennifer Chang');
 	}
 }

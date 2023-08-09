@@ -167,28 +167,28 @@ describe('Basic Datatables Test', function() {
 		});
 
 		it('Information on second page', function() {
-			$('div a.next').click();
+			$('div button.next').click();
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 11 to 20 of 57 entries');
 		});
 
 		it('Information on third page', function() {
-			$('div a.next').click();
+			$('div button.next').click();
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 21 to 30 of 57 entries');
 		});
 
 		it('Information on last page', function() {
-			$('div a.next').click();
-			$('div a.next').click();
-			$('div a.next').click();
+			$('div button.next').click();
+			$('div button.next').click();
+			$('div button.next').click();
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 51 to 57 of 57 entries');
 		});
 
 		it('Information back on first page', function() {
-			$('div a.previous').click();
-			$('div a.previous').click();
-			$('div a.previous').click();
-			$('div a.previous').click();
-			$('div a.previous').click();
+			$('div button.previous').click();
+			$('div button.previous').click();
+			$('div button.previous').click();
+			$('div button.previous').click();
+			$('div button.previous').click();
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
 		});
 
@@ -200,7 +200,7 @@ describe('Basic Datatables Test', function() {
 		});
 
 		it('Information with 25 records- second page', function() {
-			$('div a.next').click();
+			$('div button.next').click();
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 26 to 50 of 57 entries');
 		});
 
@@ -215,7 +215,7 @@ describe('Basic Datatables Test', function() {
 			$('select[name=example_length]')
 				.val('10')
 				.change();
-			$('div a.previous').click();
+			$('div button.previous').click();
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
 		});
 
@@ -229,21 +229,21 @@ describe('Basic Datatables Test', function() {
 		});
 
 		it("Information with filter 'London'- second page", function() {
-			$('div a.next').click();
+			$('div button.next').click();
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
 				'Showing 11 to 12 of 12 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it("Information with filter 'London' back to first page", function() {
-			$('div a.previous').click();
+			$('div button.previous').click();
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
 				'Showing 1 to 10 of 12 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it("Information with filter 'London'- second page- second time", function() {
-			$('div a.next').click();
+			$('div button.next').click();
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
 				'Showing 11 to 12 of 12 entries (filtered from 57 total entries)'
 			);
@@ -268,7 +268,7 @@ describe('Basic Datatables Test', function() {
 		});
 
 		it("Information with filter 'London'- second page- third time", function() {
-			$('div a.next').click();
+			$('div button.next').click();
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
 				'Showing 11 to 12 of 12 entries (filtered from 57 total entries)'
 			);

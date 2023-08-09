@@ -69,7 +69,7 @@ describe('core - events - preDraw', function() {
 			checkResults(1, 'Airi Satou');
 		});
 		it('Called when user changes page', function() {
-			$('span a.paginate_button:eq(1)').click();
+			$('span .paginate_button:eq(1)').click();
 			checkResults(1, 'Airi Satou');
 		});
 		it('Called when user changes page length', function() {

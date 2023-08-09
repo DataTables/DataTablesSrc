@@ -72,7 +72,7 @@ describe('footerCallback Option', function() {
 			expect(args[3]).toBe(10);
 		});
 		it('Called on paging (ie another draw)', function() {
-			$('a.paginate_button.next').click();
+			$('.paginate_button.next').click();
 			expect(count).toBe(3);
 		});
 		it('Data array has length matching original data', function() {
