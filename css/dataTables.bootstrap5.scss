@@ -19,20 +19,6 @@ table.dataTable {
 	border-collapse: separate !important;
 	border-spacing: 0;
 
-	td,
-	th {
-		&.dataTables_empty {
-			text-align: center;
-		}
-	}
-
-	&.nowrap {
-		th,
-		td {
-			white-space: nowrap;
-		}
-	}
-
 	// Override default row striping, replacing with an insert box-shadow
 	&.table-striped > tbody > tr:nth-of-type(2n+1) > * {
 		box-shadow: none;

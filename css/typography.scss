@@ -6,30 +6,32 @@ table.dataTable {
 		}
 	}
 
-	th.dt-left,
-	td.dt-left {
-		text-align: left;
-	}
+	th,
+	td {
+		&.dt-left {
+			text-align: left;
+		}
 
-	th.dt-center,
-	td.dt-center,
-	td.dataTables_empty {
-		text-align: center;
-	}
+		&.dt-center {
+			text-align: center;
+		}
 
-	th.dt-right,
-	td.dt-right {
-		text-align: right;
-	}
+		&.dt-right {
+			text-align: right;
+		}
 
-	th.dt-justify,
-	td.dt-justify {
-		text-align: justify;
-	}
+		&.dt-justify {
+			text-align: justify;
+		}
 
-	th.dt-nowrap,
-	td.dt-nowrap {
-		white-space: nowrap;
+		&.dt-nowrap {
+			white-space: nowrap;
+		}
+
+		&.dataTables_empty {
+			text-align: center;
+			vertical-align: top;
+		}
 	}
 
 	thead,
@@ -37,58 +39,51 @@ table.dataTable {
 		th,
 		td {
 			text-align: left;
-		}
 
-		th.dt-head-left,
-		td.dt-head-left {
-			text-align: left;
-		}
+			&.dt-head-left {
+				text-align: left;
+			}
+			
+			&.dt-head-center{
+				text-align: center;
+			}
 
-		th.dt-head-center,
-		td.dt-head-center{
-			text-align: center;
-		}
+			&.dt-head-right {
+				text-align: right;
+			}
 
-		th.dt-head-right,
-		td.dt-head-right {
-			text-align: right;
-		}
+			&.dt-head-justify {
+				text-align: justify;
+			}
 
-		th.dt-head-justify,
-		td.dt-head-justify {
-			text-align: justify;
-		}
-
-		th.dt-head-nowrap,
-		td.dt-head-nowrap {
-			white-space: nowrap;
+			&.dt-head-nowrap {
+				white-space: nowrap;
+			}
 		}
 	}
 
 	tbody {
-		th.dt-body-left,
-		td.dt-body-left {
-			text-align: left;
-		}
+		th,
+		td {
+			&.dt-body-left {
+				text-align: left;
+			}
 
-		th.dt-body-center,
-		td.dt-body-center {
-			text-align: center;
-		}
+			&.dt-body-center {
+				text-align: center;
+			}
 
-		th.dt-body-right,
-		td.dt-body-right {
-			text-align: right;
-		}
+			&.dt-body-right {
+				text-align: right;
+			}
 
-		th.dt-body-justify,
-		td.dt-body-justify {
-			text-align: justify;
-		}
+			&.dt-body-justify {
+				text-align: justify;
+			}
 
-		th.dt-body-nowrap,
-		td.dt-body-nowrap {
-			white-space: nowrap;
+			&.dt-body-nowrap {
+				white-space: nowrap;
+			}
 		}
 	}
 }

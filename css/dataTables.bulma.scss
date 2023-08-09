@@ -18,22 +18,6 @@ table.dataTable {
 	border-collapse: separate !important;
 	border-spacing: 0;
 
-	td,
-	th {
-		&.dataTables_empty {
-			text-align: center;
-		}
-	}
-
-	// Style options for the table. Foundation provides its own, but it is also
-	// useful to have a few more for DataTables
-	&.nowrap {
-		th,
-		td {
-			white-space: nowrap;
-		}
-	}
-
 	// Override default row striping, replacing with an insert box-shadow
 	&.table.is-striped > tbody > tr:nth-child(2n) {
 		background-color: transparent;

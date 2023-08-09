@@ -3,23 +3,6 @@
 
 table.dataTable {
 	clear: both;
-
-	td,
-	th {
-		-w
-		&.dataTables_empty {
-			text-align: center;
-		}
-	}
-
-	// Style options for the table. Foundation provides its own, but it is also
-	// useful to have a few more for DataTables
-	&.nowrap {
-		th,
-		td {
-			white-space: nowrap;
-		}
-	}
 }
 
 

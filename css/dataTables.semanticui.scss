@@ -14,23 +14,6 @@ $table-row-selected-text: 0 0 0;
 table.dataTable.table {
 	margin: 0;
 
-	// Easier calculations
-	td,
-	th {
-		&.dataTables_empty {
-			text-align: center;
-		}
-	}
-
-	// Style options for the table. Semantic UI provides its own, but it is also
-	// useful to have a few more for DataTables
-	&.nowrap {
-		th,
-		td {
-			white-space: nowrap;
-		}
-	}
-
 	// Override default row striping, replacing with an insert box-shadow
 	&.ui.striped > tbody > tr:nth-child(2n) {
 		background-color: transparent;
