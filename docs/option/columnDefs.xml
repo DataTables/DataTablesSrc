@@ -15,8 +15,9 @@
 
 		* 0 or a positive integer - column index counting from the left
 		* A negative integer - column index counting from the right
-		* A string - class name will be matched on the TH for the column
+		* A CSS selector - columns that match the selector will be used (since 2.0)
 		* The string `-string _all` - all columns (i.e. assign a default)
+		* A string with just letters, numbers underscore and dash (`/^[a-z][\w-]*$/i` as regex) - a class name match. Please note that this option is provided for backwards compatibility with DataTables 1.x. It does mean you can't just use element names as a selector, but that would be limited to `-tag th` and `-tag td` in the header anyway.
 
 		Additionally, `targets` can be either a single option from the list above, or an array of options (the different types can be mixed in the array if required). For example `targets: [ -1, -2 ]` would target the last and second last columns in the table.
 

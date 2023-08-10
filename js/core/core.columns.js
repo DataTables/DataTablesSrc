@@ -358,39 +358,42 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn )
 
 			for ( j=0, jLen=aTargets.length ; j<jLen ; j++ )
 			{
-				if ( typeof aTargets[j] === 'number' && aTargets[j] >= 0 )
+				var target = aTargets[j];
+
+				if ( typeof target === 'number' && target >= 0 )
 				{
 					/* Add columns that we don't yet know about */
-					while( columns.length <= aTargets[j] )
+					while( columns.length <= target )
 					{
 						_fnAddColumn( oSettings );
 					}
 
 					/* Integer, basic index */
-					fn( aTargets[j], def );
+					fn( target, def );
 				}
-				else if ( typeof aTargets[j] === 'number' && aTargets[j] < 0 )
+				else if ( typeof target === 'number' && target < 0 )
 				{
 					/* Negative integer, right to left column counting */
-					fn( columns.length+aTargets[j], def );
+					fn( columns.length+target, def );
 				}
-				else if ( typeof aTargets[j] === 'string' )
+				else if ( typeof target === 'string' )
 				{
 					for ( k=0, kLen=columns.length ; k<kLen ; k++ )
 					{
-						// Apply to all columns
-						if ( aTargets[j] == "_all" ) {
-							fn( k, def );
-						}
-						else {
-							// Otherwise its a class name selector - spin over each
-							// row in the header, matching classes
-							headerLayout.forEach(function (row) {
-								if ($(row[k].cell).hasClass( aTargets[j] )) {
-									fn( k, def );
-								}
-							});
-						}
+						headerLayout.forEach(function (row) {
+							var cell = $(row[k].cell);
+
+							// Legacy support. Note that it means that we don't support
+							// an element name selector only, since they are treated as
+							// class names for 1.x compat.
+							if (target.match(/^[a-z][\w-]*$/i)) {
+								target = '.' + target;
+							}
+
+							if (target === '_all' || cell.is( target )) {
+								fn( k, def );
+							}
+						});
 					}
 				}
 			}

@@ -170,5 +170,59 @@ describe('columnDefs option', function() {
 			});
 			expect($('#example thead th:eq(0)').text()).toBe('fred');
 		});
+
+		dt.html('basic');
+		it('Selector - class name', function() {
+			$('#example thead th').eq(0).addClass('test');
+			$('#example').DataTable({
+				columnDefs: [
+					{ target: '.test', orderable: false },
+				]
+			});
+
+			var cells = $('#example thead th');
+			expect(cells.eq(0).hasClass('dt-orderable-asc')).toBe(false);
+			expect(cells.eq(1).hasClass('dt-orderable-asc')).toBe(true);
+			expect(cells.eq(2).hasClass('dt-orderable-asc')).toBe(true);
+			expect(cells.eq(3).hasClass('dt-orderable-asc')).toBe(true);
+			expect(cells.eq(4).hasClass('dt-orderable-asc')).toBe(true);
+			expect(cells.eq(5).hasClass('dt-orderable-asc')).toBe(true);
+		});
+
+		dt.html('basic');
+		it('Selector - gt', function() {
+			$('#example').DataTable({
+				columnDefs: [
+					{ target: 'th:gt(2)', orderable: false },
+				]
+			});
+
+			var cells = $('#example thead th');
+			expect(cells.eq(0).hasClass('dt-orderable-asc')).toBe(true);
+			expect(cells.eq(1).hasClass('dt-orderable-asc')).toBe(true);
+			expect(cells.eq(2).hasClass('dt-orderable-asc')).toBe(true);
+			expect(cells.eq(3).hasClass('dt-orderable-asc')).toBe(false);
+			expect(cells.eq(4).hasClass('dt-orderable-asc')).toBe(false);
+			expect(cells.eq(5).hasClass('dt-orderable-asc')).toBe(false);
+		});
+
+		dt.html('basic');
+		it('Selector - multiple classes', function() {
+			$('#example thead th').eq(0).addClass('test1');
+			$('#example thead th').eq(2).addClass('test2');
+			$('#example').DataTable({
+				columnDefs: [
+					{ target: '.test1,.test2', orderable: false },
+				]
+			});
+
+			var cells = $('#example thead th');
+			expect(cells.eq(0).hasClass('dt-orderable-asc')).toBe(false);
+			expect(cells.eq(1).hasClass('dt-orderable-asc')).toBe(true);
+			expect(cells.eq(2).hasClass('dt-orderable-asc')).toBe(false);
+			expect(cells.eq(3).hasClass('dt-orderable-asc')).toBe(true);
+			expect(cells.eq(4).hasClass('dt-orderable-asc')).toBe(true);
+			expect(cells.eq(5).hasClass('dt-orderable-asc')).toBe(true);
+		});
 	});
 });

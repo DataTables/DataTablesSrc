@@ -10,7 +10,7 @@ $('#example').DataTable({
 	autoWidth: false,
 	columnDefs: [
 		{
-			targets: ['_all'],
+			target: '_all',
 			className: 'mdc-data-table__cell',
 		},
 	],
@@ -22,7 +22,7 @@ new DataTable('#example', {
 	autoWidth: false,
 	columnDefs: [
 		{
-			targets: ['_all'],
+			target: '_all',
 			className: 'mdc-data-table__cell',
 		},
 	],
