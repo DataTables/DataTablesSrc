@@ -77,6 +77,9 @@ describe('cells: cells()', function() {
 		it('selector-modifier - order-original', function() {
 			expect(table.cells({ order: 'original' }).data()[0]).toBe('Tiger Nixon');
 		});
+		it('selector-modifier - order-number', function() {
+			expect(table.cells({ order: 3 }).data()[0]).toBe('Tatyana Fitzpatrick');
+		});
 		it('selector-modifier - page-all', function() {
 			table.page(2).draw(false);
 			expect(table.cells({ page: 'all' }).data()[0]).toBe('Airi Satou');
@@ -191,6 +194,9 @@ describe('cells: cells()', function() {
 		});
 		it('selector-modifier - order-original', function() {
 			expect(table.cells(3, 3, { order: 'original' }).data()[0]).toBe('22');
+		});
+		it('selector-modifier - order-number', function() {
+			expect(table.cells(null, 0, { order: 4 }).data()[0]).toBe('Jackson Bradshaw');
 		});
 		it('selector-modifier - page-all', function() {
 			$('tr:eq(3)').attr('id', 'unit_test');

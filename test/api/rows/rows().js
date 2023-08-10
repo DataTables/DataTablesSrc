@@ -117,8 +117,32 @@ describe('rows - rows()', function() {
 			expect(rows.data()[0][0]).toBe('Tiger Nixon');
 		});
 
+		it('order - specified, number column', function() {
+			table.order([0, 'asc']).draw();
+			rows = table.rows('tr', { order: 3 });
+
+			expect(rows.count()).toBe(57);
+			expect(rows.data()[0][0]).toBe('Tatyana Fitzpatrick');
+			expect(rows.data()[56][0]).toBe('Michael Silva');
+		});
+
+		it('order - specified does not redraw the table', function() {
+			expect($('#example tbody td').eq(0).text()).toBe('Airi Satou');
+		});
+
+		it('order - specified, date column', function() {
+			rows = table.rows('tr', { order: 4 });
+
+			expect(rows.count()).toBe(57);
+			expect(rows.data()[0][0]).toBe('Jackson Bradshaw');
+			expect(rows.data()[1][0]).toBe('Charde Marshall');
+		});
+
 		it('search - applied', function() {
-			table.search('33').draw();
+			table
+				.order([3, 'asc'])
+				.search('33')
+				.draw();
 			rows = table.rows('tr', { search: 'applied' });
 			expect(rows.count()).toBe(2);
 			expect(rows.data()[0][0]).toBe('Cedric Kelly');

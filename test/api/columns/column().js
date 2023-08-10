@@ -99,6 +99,12 @@ describe('columns - column()', function() {
 		it('selector-modifier - order-original', function() {
 			expect(table.column({ order: 'index' }).data()[0]).toBe('Tiger Nixon');
 		});
+		it('selector-modifier - order-number (number column)', function() {
+			expect(table.column({ order: 3 }).data()[0]).toBe('Tatyana Fitzpatrick');
+		});
+		it('selector-modifier - order-number (date column)', function() {
+			expect(table.column({ order: 4 }).data()[0]).toBe('Jackson Bradshaw');
+		});
 		it('selector-modifier - page-all', function() {
 			table.page(2).draw(false);
 			expect(table.column({ page: 'all' }).data()[0]).toBe('Airi Satou');
@@ -135,6 +141,9 @@ describe('columns - column()', function() {
 				.val('Accountant')
 				.keyup();
 			expect(table.column('#example thead th:eq(0)', { search: 'applied' }).data()[0]).toBe('Airi Satou');
+		});
+		it('Can select a column of data, but ordered by another column', function() {
+			expect(table.column(0, { order: 3 }).data()[0]).toBe('Tatyana Fitzpatrick');
 		});
 	});
 });
