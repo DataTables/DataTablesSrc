@@ -15,12 +15,14 @@ $('#example').DataTable({
 ]]></js>
 <js-vanilla><![CDATA[
 
-let toolbar = document.createElement('div');
-toolbar.innerHTML = '<b>Custom tool bar! Text/images etc.</b>';
-
 new DataTable('#example', {
 	layout: {
-		topLeft: toolbar
+		topLeft: function () {
+			let toolbar = document.createElement('div');
+			toolbar.innerHTML = '<b>Custom tool bar! Text/images etc.</b>';
+
+			return toolbar;
+		}
 	}
 });
 
