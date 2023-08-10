@@ -15,7 +15,6 @@ $.extend( true, DataTable.ext.renderer, {
 				cell.addClass(classes.orderableNone);
 			}
 
-
 			var legacyTop = settings.bSortCellsTop;
 			var headerRows = cell.closest('thead').find('tr');
 			var rowIdx = cell.parent().index();
@@ -47,17 +46,7 @@ $.extend( true, DataTable.ext.renderer, {
 
 				var columns = ctx.api.columns( cell );
 				var col = settings.aoColumns[columns.flatten()[0]];
-
-				// First - are any of the columns under this cell actually sortable
-				if ( ! columns.orderable().includes(true) ) {
-					// Non-sorting actions
-					cell
-						.attr('aria-label', col.ariaTitle)
-						.addClass(classes.orderableNone);
-
-					return;
-				}
-
+				var orderable = columns.orderable().includes(true);
 				var ariaType = '';
 				var indexes = columns.indexes();
 				var sortDirs = columns.orderable(true).flatten();
@@ -71,8 +60,9 @@ $.extend( true, DataTable.ext.renderer, {
 						classes.orderingAsc +' '+
 						classes.orderingDesc
 					)
-					.toggleClass( classes.orderableAsc, sortDirs.includes('asc') )
-					.toggleClass( classes.orderableDesc, sortDirs.includes('desc') );
+					.toggleClass( classes.orderableNone, ! orderable )
+					.toggleClass( classes.orderableAsc, orderable && sortDirs.includes('asc') )
+					.toggleClass( classes.orderableDesc, orderable && sortDirs.includes('desc') );
 				
 				var sortIdx = orderedColumns.indexOf( indexes.toArray().join(',') );
 
@@ -102,7 +92,10 @@ $.extend( true, DataTable.ext.renderer, {
 					cell.removeAttr('aria-sort');
 				}
 
-				cell.attr('aria-label', col.ariaTitle + ctx.api.i18n('oAria.orderable' + ariaType));
+				cell.attr('aria-label', orderable
+					? col.ariaTitle + ctx.api.i18n('oAria.orderable' + ariaType)
+					: col.ariaTitle
+				);
 			} );
 		}
 	},

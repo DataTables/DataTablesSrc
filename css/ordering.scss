@@ -1,43 +1,56 @@
 
 // Sorting - using :before (asc) and :after (desc) with UTF8 characters
+// Note that each class (e.g. dt-orderable-asc) can be applied without
+// any of the others also being applied.
 table.dataTable thead {
 	> tr > th,
 	> tr > td {
-		&.dt-orderable-asc,
-		&.dt-orderable-desc {
-			padding-right: 30px;
-		}
-
 		&:active {
 			outline: none;
 		}
 
 		&.dt-orderable-asc,
-		&.dt-orderable-desc {
-			cursor: pointer;
-			position: relative;
+		&.dt-ordering-asc {
+			&:before {
+				position: absolute;
+				display: block;
+				bottom: 50%;
+				content: "\25B2"; // up arrow - ascending
+				content: "\25B2" / "";
+			}
+		}
 
-			&:before,
+		&.dt-orderable-desc,
+		&.dt-ordering-desc {
 			&:after {
 				position: absolute;
 				display: block;
+				top: 50%;
+				content: "\25BC"; // down arrow - descending
+				content: "\25BC" / "";
+			}
+		}
+
+		// Common to all combinations
+		&.dt-orderable-asc,
+		&.dt-orderable-desc,
+		&.dt-ordering-asc,
+		&.dt-ordering-desc {
+			position: relative;
+			padding-right: 30px;
+
+			&:before,
+			&:after {
 				opacity: 0.125;
 				right: 1em;
 				line-height: 9px;
 				font-size: 0.8em;
 			}
+		}
 
-			&:before {
-				bottom: 50%;
-				content: "\25B2"; // up arrow - ascending
-				content: "\25B2" / "";
-			}
-
-			&:after {
-				top: 50%;
-				content: "\25BC"; // down arrow - descending
-				content: "\25BC" / "";
-			}
+		&.dt-orderable-asc,
+		&.dt-orderable-desc {
+			cursor: pointer;
 		}
 
 		&.dt-ordering-asc:before,

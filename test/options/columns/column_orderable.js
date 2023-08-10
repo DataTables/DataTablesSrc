@@ -85,4 +85,37 @@ describe('columns.orderable option', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tatyana Fitzpatrick');
 		});
 	});
+
+	describe('Icons shown with user ordering disabled', function() {
+		dt.html('basic');
+
+		it('First column has icon', function() {
+			$('#example').dataTable({
+				columnDefs: [{ orderable: false, targets: '_all' }]
+			});
+			expect($('#example thead th').eq(0).hasClass('dt-ordering-asc')).toBe(true);
+		});
+
+		it('And "none" orderable class', function() {
+			expect($('#example thead th').eq(0).hasClass('dt-orderable-none')).toBe(true);
+		});
+
+		it('And does not have orderable class', function() {
+			expect($('#example thead th').eq(0).hasClass('dt-orderable-asc')).toBe(false);
+		});
+
+		it('Second column has only none class', function() {
+			expect($('#example thead th').eq(1).hasClass('dt-orderable-asc')).toBe(false);
+			expect($('#example thead th').eq(1).hasClass('dt-orderable-none')).toBe(true);
+		});
+
+		it('Changing sort moves the icon', function() {
+			let table = $('#example').DataTable();
+			table.column(3).order('asc').draw();
+
+			expect($('#example thead th').eq(0).hasClass('dt-ordering-asc')).toBe(false);
+			expect($('#example thead th').eq(3).hasClass('dt-ordering-asc')).toBe(true);
+			expect($('#example thead th').eq(3).hasClass('dt-orderable-none')).toBe(true);
+		});
+	});
 });
