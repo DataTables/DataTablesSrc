@@ -64,7 +64,7 @@ function checkCounters(header, page) {
 
 async function checkOrdering() {
 	await dt.clickHeader(2);
-	expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Cedric Kelly');
+	expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Tiger Nixon');
 }
 
 describe('renderer option initialisation types for page button', function() {

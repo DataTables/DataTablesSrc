@@ -28,14 +28,14 @@ describe('core- order.listener()', function() {
 			$('.dataTables_filter input').click();
 
 			await dt.sleep(25); // click action is async
-			expect($('#example tbody td:eq(0)').html()).toBe('Cedric Kelly');
+			expect($('#example tbody td:eq(0)').html()).toBe('Tiger Nixon');
 		});
 		it('Callback is executed', function() {
 			expect(count).toBe(1);
 		});
 		it('Can still sort on the table control', async function() {
 			await dt.clickHeader(2);
-			expect($('#example tbody td:eq(0)').html()).toBe('Airi Satou');
+			expect($('#example tbody td:eq(0)').html()).toBe('Sakura Yamamoto');
 		});
 		it('Callback is not executed', function() {
 			expect(count).toBe(1);

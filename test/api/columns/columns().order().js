@@ -75,7 +75,7 @@ describe('columns - columns().order()', function() {
 				.order('asc')
 				.draw();
 			expect(areColumnsSorted([null, 'dt-ordering-asc', null, null, null, null])).toBe(true);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Garrett Winters');
 		});
 
 		dt.html('basic');
@@ -86,7 +86,7 @@ describe('columns - columns().order()', function() {
 				.order('asc')
 				.draw();
 			expect(areColumnsSorted([null, 'dt-ordering-asc', 'dt-ordering-asc', null, null, null])).toBe(true);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Garrett Winters');
 		});
 
 		dt.html('basic');

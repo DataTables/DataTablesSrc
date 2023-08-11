@@ -9,7 +9,7 @@ describe('columns.orderable option', function() {
 		it('Columns are searchable by default', async function() {
 			$('#example').dataTable();
 			await dt.clickHeader(2);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Cedric Kelly');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tiger Nixon');
 		});
 
 		dt.html('basic');

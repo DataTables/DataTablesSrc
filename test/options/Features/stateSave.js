@@ -62,7 +62,7 @@ describe('stateSave option', function() {
 			table = $('#example').DataTable({ stateSave: true });
 			table.search('').draw();
 			await dt.clickHeader(2);
-			expect($('#example tbody td:eq(0)').text()).toBe('Cedric Kelly');
+			expect($('#example tbody td:eq(0)').text()).toBe('Tiger Nixon');
 			table.destroy();
 		});
 

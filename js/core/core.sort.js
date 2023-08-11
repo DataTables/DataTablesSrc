@@ -216,10 +216,15 @@ function _fnSort ( oSettings, col, dir )
 	/* No sorting required if server-side or no sorting array */
 	if ( _fnDataSource( oSettings ) != 'ssp' && aSort.length !== 0 )
 	{
-		// Create a value - key array of the current row positions such that we can use their
-		// current position during the sort, if values match, in order to perform stable sorting
+		// Reset the initial positions on each pass so we get a stable sort
 		for ( i=0, iLen=displayMaster.length ; i<iLen ; i++ ) {
-			aiOrig[ displayMaster[i] ] = i;
+			aiOrig[ i ] = i;
+		}
+
+		// If the first sort is desc, then reverse the array to preserve original
+		// order, just in reverse
+		if (aSort.length && aSort[0].dir === 'desc') {
+			aiOrig.reverse();
 		}
 
 		/* Do the sort - here we want multi-column sorting based on a given data source (column)
@@ -240,8 +245,8 @@ function _fnSort ( oSettings, col, dir )
 		 * positions in the original data array to provide a stable sort.
 		 *
 		 * Note - I know it seems excessive to have two sorting methods, but the first is around
-		 * 15% faster, so the second is only maintained for backwards compatibility with sorting
-		 * methods which do not have a pre-sort formatting function.
+		 * 15% faster, however, presort isn't always possible (e.g. natural sorting), so we
+		 * maintain both.
 		 */
 		if ( formatters === aSort.length ) {
 			// All sort types have formatting functions
@@ -270,8 +275,7 @@ function _fnSort ( oSettings, col, dir )
 			} );
 		}
 		else {
-			// Depreciated - remove in 1.11 (providing a plug-in option)
-			// Not all sort types have formatting methods, so we have to call their sorting
+			// Not all sort types have pre-formatting methods, so we have to call their sorting
 			// methods.
 			displayMaster.sort( function ( a, b ) {
 				var
