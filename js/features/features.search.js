@@ -1,4 +1,6 @@
 
+var __searchCounter = 0;
+
 // opts
 // - text
 // - placeholder
@@ -19,14 +21,34 @@ _ext.features.register( 'search', function ( settings, opts ) {
 		text: language.sSearch
 	}, opts);
 
-	var str = opts.text.match(/_INPUT_/) ?
-		opts.text.replace('_INPUT_', input) :
-		opts.text+input;
+	// The _INPUT_ is optional - is appended if not present
+	if (opts.text.indexOf('_INPUT_') === -1) {
+		opts.text += '_INPUT_';
+	}
 
-	var filter = $('<div/>', {
-			'class': classes.sFilter
-		} )
-		.append( $('<label/>' ).append( str ) );
+	// We can put the <input> outside of the label if it is at the start or end
+	// which helps improve accessability (not all screen readers like implicit
+	// for elements).
+	var end = opts.text.match(/_INPUT_$/);
+	var start = opts.text.match(/^_INPUT_/);
+	var removed = opts.text.replace(/_INPUT_/, '');
+	var str = '<label>' + opts.text + '</label>';
+
+	if (start) {
+		str = '_INPUT_<label>' + removed + '</label>';
+	}
+	else if (end) {
+		str = '<label>' + removed + '</label>_INPUT_';
+	}
+
+	var filter = $('<div>')
+		.addClass(classes.sFilter)
+		.append(str.replace(/_INPUT_/, input));
+
+	// add for and id to label and input
+	filter.find('label').attr('for', 'dt-search-' + __searchCounter);
+	filter.find('input').attr('id', 'dt-search-' + __searchCounter);
+	__searchCounter++;
 
 	var searchFn = function(event) {
 		var val = !this.value ? "" : this.value; // mental IE8 fix :-(

@@ -1,4 +1,6 @@
 
+var __lengthCounter = 0;
+
 // opts
 // - menu
 // - text
@@ -41,6 +43,29 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 		}
 	}
 
+	// We can put the <select> outside of the label if it is at the start or
+	// end which helps improve accessability (not all screen readers like
+	// implicit for elements).
+	var end = opts.text.match(/_MENU_$/);
+	var start = opts.text.match(/^_MENU_/);
+	var removed = opts.text.replace(/_MENU_/, '');
+	var str = '<label>' + opts.text + '</label>';
+
+	if (start) {
+		str = '_MENU_<label>' + removed + '</label>';
+	}
+	else if (end) {
+		str = '<label>' + removed + '</label>_MENU_';
+	}
+
+	// Wrapper element - use a span as a holder for where the select will go
+	var div = $('<div>')
+		.addClass( classes.sLength )
+		.append(
+			str.replace( '_MENU_', '<span></span>' )
+		);
+
+	// And the select itself, along with the options
 	var select = $('<select/>', {
 		'name':          tableId+'_length',
 		'aria-controls': tableId,
@@ -56,11 +81,13 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 		);
 	}
 
-	var div = $('<div><label></label></div>').addClass( classes.sLength );
+	// add for and id to label and input
+	div.find('label').attr('for', 'dt-length-' + __lengthCounter);
+	select.attr('id', 'dt-length-' + __lengthCounter);
+	__lengthCounter++;
 
-	div.children().append(
-		opts.text.replace( '_MENU_', select[0].outerHTML )
-	);
+	// Swap in the select list
+	div.find('span').replaceWith(select);
 
 	// Can't use `select` variable as user might provide their own and the
 	// reference is broken by the use of outerHTML

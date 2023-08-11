@@ -23,7 +23,7 @@ describe( "language.searchRecords option ", function() {
 
 		});
 		it("Set searchPlaceholder- check DOM", function () {
-			expect($('div.dataTables_filter > label > input[type="search"]').attr('placeholder') === "Search records").toBe(true);
+			expect($('div.dataTables_filter > input[type="search"]').attr('placeholder') === "Search records").toBe(true);
 		});
 		dt.html( 'basic' );
 		it("Set search input with no label- just the placeholder", function () {

@@ -52,7 +52,72 @@ describe( "language.lengthMenu option", function() {
 				}
 			});
 			var anChildren = $('div.dataTables_length')[0].childNodes;
-			expect(bReturn = anChildren.length == 1 && $('div.dataTables_length select').length == 1).toBe(true);
+			expect(anChildren.length).toBe(2);
+			expect($('div.dataTables_length select').length).toBe(1);
+		});
+
+		dt.html('basic');
+		it("Default DOM structure", function () {
+			$('#example').DataTable();
+
+			expect($('div.dataTables_length > label').length).toBe(1);
+			expect($('div.dataTables_length > label > select').length).toBe(1);
+			expect($('div.dataTables_length').children().length).toBe(1);
+		});
+
+		it('Has for and id attributes', function () {
+			expect($('div.dataTables_filter > label').attr('for'))
+				.toBe($('div.dataTables_filter > input').attr('id'));
+		});
+
+		dt.html('basic');
+		it("DOM structure - at start", function () {
+			$('#example').DataTable({
+				language: {
+					lengthMenu: '_MENU_ postfix'
+				}
+			});
+
+			expect($('div.dataTables_length > label').length).toBe(1);
+			expect($('div.dataTables_length > select').length).toBe(1);
+			expect($('div.dataTables_length > select + label').length).toBe(1);
+			expect($('div.dataTables_length').children().length).toBe(2);
+
+			expect($('div.dataTables_filter > label').attr('for'))
+				.toBe($('div.dataTables_filter > input').attr('id'));
+		});
+
+		dt.html('basic');
+		it("DOM structure - at end", function () {
+			$('#example').DataTable({
+				language: {
+					lengthMenu: 'prefix _MENU_'
+				}
+			});
+
+			expect($('div.dataTables_length > label').length).toBe(1);
+			expect($('div.dataTables_length > select').length).toBe(1);
+			expect($('div.dataTables_length > label + select').length).toBe(1);
+			expect($('div.dataTables_length').children().length).toBe(2);
+
+			expect($('div.dataTables_filter > label').attr('for'))
+				.toBe($('div.dataTables_filter > input').attr('id'));
+		});
+
+		dt.html('basic');
+		it("DOM structure - in middle", function () {
+			$('#example').DataTable({
+				language: {
+					lengthMenu: 'prefix _MENU_ postfix'
+				}
+			});
+
+			expect($('div.dataTables_length > label').length).toBe(1);
+			expect($('div.dataTables_length > label > select').length).toBe(1);
+			expect($('div.dataTables_length').children().length).toBe(1);
+
+			expect($('div.dataTables_filter > label').attr('for'))
+				.toBe($('div.dataTables_filter > input').attr('id'));
 		});
 	});
 });

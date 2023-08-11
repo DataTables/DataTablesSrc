@@ -40,5 +40,66 @@ describe('language.search option', function() {
 			});
 			expect($('div.dataTables_filter').text()).toBe('');
 		});
+
+		dt.html('basic');
+		it("Default DOM structure", function () {
+			$('#example').DataTable();
+
+			expect($('div.dataTables_filter > label').length).toBe(1);
+			expect($('div.dataTables_filter > input').length).toBe(1);
+			expect($('div.dataTables_filter > label + input').length).toBe(1);
+		});
+
+		it("Has for and id attributes", function () {
+			expect($('div.dataTables_filter > label').attr('for'))
+				.toBe($('div.dataTables_filter > input').attr('id'));
+		});
+
+		dt.html('basic');
+		it("DOM structure - input at start", function () {
+			$('#example').DataTable({
+				language: {
+					search: '_INPUT_ Search'
+				}
+			});
+
+			expect($('div.dataTables_filter > label').length).toBe(1);
+			expect($('div.dataTables_filter > input').length).toBe(1);
+			expect($('div.dataTables_filter > input + label').length).toBe(1);
+
+			expect($('div.dataTables_filter > label').attr('for'))
+				.toBe($('div.dataTables_filter > input').attr('id'));
+		});
+
+		dt.html('basic');
+		it("DOM structure - input at end", function () {
+			$('#example').DataTable({
+				language: {
+					search: 'Search _INPUT_'
+				}
+			});
+
+			expect($('div.dataTables_filter > label').length).toBe(1);
+			expect($('div.dataTables_filter > input').length).toBe(1);
+			expect($('div.dataTables_filter > label + input').length).toBe(1);
+
+			expect($('div.dataTables_filter > label').attr('for'))
+				.toBe($('div.dataTables_filter > input').attr('id'));
+		});
+
+		dt.html('basic');
+		it("DOM structure - input in middle (explicit)", function () {
+			$('#example').DataTable({
+				language: {
+					search: 'Search _INPUT_ Records'
+				}
+			});
+
+			expect($('div.dataTables_filter > label').length).toBe(1);
+			expect($('div.dataTables_filter > label > input').length).toBe(1);
+
+			expect($('div.dataTables_filter > label').attr('for'))
+				.toBe($('div.dataTables_filter input').attr('id'));
+		});
 	});
 });
