@@ -49,7 +49,7 @@ for ( i=0, iLen=allSettings.length ; i<iLen ; i++ )
 		}
 		else if ( bDestroy )
 		{
-			s.oInstance.fnDestroy();
+			new DataTable.Api(s).destroy();
 			break;
 		}
 		else

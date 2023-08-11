@@ -16,8 +16,6 @@ var DataTable = function ( selector, options )
 		options = selector;
 	}
 
-	_buildInclude('api.legacy.js');
-
 	var _that = this;
 	var emptyInit = options === undefined;
 	var len = this.length;
@@ -28,12 +26,11 @@ var DataTable = function ( selector, options )
 
 	this.oApi = this.internal = _ext.internal;
 
-	// Extend with old style plug-in API methods
-	for ( var fn in DataTable.ext.internal ) {
-		if ( fn ) {
-			this[fn] = _fnExternApiFunc(fn);
-		}
-	}
+	// Method to get DT API instance from jQuery object
+	this.api = function ()
+	{
+		return new _Api( this );
+	};
 
 	this.each(function() {
 		// For each initialisation we want to give it a clean initialisation
