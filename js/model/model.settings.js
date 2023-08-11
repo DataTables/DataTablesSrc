@@ -207,14 +207,6 @@ DataTable.models.oSettings = {
 	 */
 	"oBrowser": {
 		/**
-		 * Indicate if the browser incorrectly calculates width:100% inside a
-		 * scrolling element (IE6/7)
-		 *  @type boolean
-		 *  @default false
-		 */
-		"bScrollOversize": false,
-
-		/**
 		 * Determine if the vertical scrollbar is on the right or left of the
 		 * scrolling container - needed for rtl language layout, although not
 		 * all browsers move the scrollbar (Safari).
@@ -222,13 +214,6 @@ DataTable.models.oSettings = {
 		 *  @default false
 		 */
 		"bScrollbarLeft": false,
-
-		/**
-		 * Flag for if `getBoundingClientRect` is fully supported or not
-		 *  @type boolean
-		 *  @default false
-		 */
-		"bBounding": false,
 
 		/**
 		 * Browser scrollbar width

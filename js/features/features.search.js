@@ -51,7 +51,7 @@ _ext.features.register( 'search', function ( settings, opts ) {
 	__searchCounter++;
 
 	var searchFn = function(event) {
-		var val = !this.value ? "" : this.value; // mental IE8 fix :-(
+		var val = this.value;
 
 		if(previousSearch.return && event.key !== "Enter") {
 			return;
@@ -107,14 +107,9 @@ _ext.features.register( 'search', function ( settings, opts ) {
 	// Update the input elements whenever the table is filtered
 	$(settings.nTable).on( 'search.dt.DT', function ( ev, s ) {
 		if ( settings === s ) {
-			// IE9 throws an 'unknown error' if document.activeElement is used
-			// inside an iframe or frame...
-			try {
-				if ( jqFilter[0] !== document.activeElement ) {
-					jqFilter.val( previousSearch.sSearch );
-				}
+			if ( jqFilter[0] !== document.activeElement ) {
+				jqFilter.val( previousSearch.sSearch );
 			}
-			catch ( e ) {}
 		}
 	} );
 

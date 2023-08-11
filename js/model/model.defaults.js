@@ -715,10 +715,6 @@ DataTable.defaults = {
 	 * used to save table display information such as pagination information,
 	 * display length, filtering and sorting. As such when the end user reloads
 	 * the page the display display will match what thy had previously set up.
-	 *
-	 * Due to the use of `localStorage` the default state saving is not supported
-	 * in IE6 or 7. If state saving is required in those browsers, use
-	 * `stateSaveCallback` to provide a storage solution such as cookies.
 	 *  @type boolean
 	 *  @default false
 	 *

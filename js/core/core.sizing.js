@@ -21,8 +21,7 @@ function _fnCalculateColumnWidths ( oSettings )
 		tableWidthAttr = table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentNode,
 		i, column, columnIdx,
-		browser = oSettings.oBrowser,
-		ie67 = browser.bScrollOversize;
+		browser = oSettings.oBrowser;
 
 	var styleWidth = table.style.width;
 	if ( styleWidth && styleWidth.indexOf('%') !== -1 ) {
@@ -48,18 +47,17 @@ function _fnCalculateColumnWidths ( oSettings )
 	// node in the data, assign any user defined widths, then insert it into
 	// the DOM and allow the browser to do all the hard work of calculating
 	// table widths
-	var tmpTable = $(table).clone() // don't use cloneNode - IE8 will remove events on the main table
+	var tmpTable = $(table.cloneNode())
 		.css( 'visibility', 'hidden' )
 		.removeAttr( 'id' );
 
 	// Clean up the table body
-	tmpTable.find('tbody tr').remove();
+	tmpTable.append('<tbody>')
 	var tr = $('<tr/>').appendTo( tmpTable.find('tbody') );
 
 	// Clone the table header and footer - we can't use the header / footer
 	// from the cloned table, since if scrolling is active, the table's
 	// real header and footer are contained in different table tags
-	tmpTable.find('thead, tfoot').remove();
 	tmpTable
 		.append( $(oSettings.nTHead).clone() )
 		.append( $(oSettings.nTFoot).clone() );
@@ -156,14 +154,11 @@ function _fnCalculateColumnWidths ( oSettings )
 	var bodyCells = tmpTable.find('tbody tr').eq(0).children();
 
 	for ( i=0 ; i<visibleColumns.length ; i++ ) {
-		// Use getBounding... where possible (not IE8-) because it can give
-		// sub-pixel accuracy, which we then want to round up!
-		var bounding = browser.bBounding ?
-			Math.ceil( bodyCells[i].getBoundingClientRect().width ) :
-			$(bodyCells[i]).outerWidth();
+		// Use getBounding for sub-pixel accuracy, which we then want to round up!
+		var bounding = Math.ceil( bodyCells[i].getBoundingClientRect().width );
 
 		// Total is tracked to remove any sub-pixel errors as the outerWidth
-		// of the table might not equal the total given here (IE!).
+		// of the table might not equal the total given here
 		total += bounding;
 
 		// Width for each column to use
@@ -190,14 +185,7 @@ function _fnCalculateColumnWidths ( oSettings )
 			} ) );
 		};
 
-		// IE6/7 will crash if we bind a resize event handler on page load.
-		// To be removed in 1.11 which drops IE6/7 support
-		if ( ie67 ) {
-			setTimeout( bindResize, 1000 );
-		}
-		else {
-			bindResize();
-		}
+		bindResize();
 
 		oSettings._reszEvt = true;
 	}

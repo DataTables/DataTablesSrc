@@ -125,18 +125,7 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 		}
 	};
 
-	// IE9 throws an 'unknown error' if document.activeElement is used
-	// inside an iframe or frame. 
-	var activeEl;
-
-	try {
-		// Because this approach is destroying and recreating the paging
-		// elements, focus is lost on the select button which is bad for
-		// accessibility. So we want to restore focus once the draw has
-		// completed
-		activeEl = $(host).find(document.activeElement).data('dt-idx');
-	}
-	catch (e) {}
+	var activeEl = $(host).find(document.activeElement).data('dt-idx');
 
 	attach(
 		$(host).empty().html('<div class="ui unstackable pagination menu"/>').children(),

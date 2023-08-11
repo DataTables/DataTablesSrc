@@ -301,16 +301,6 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 {
 	var row = settings.aoData[ rowIdx ];
 	var i, ien;
-	var cellWrite = function ( cell, str ) {
-		// This is very frustrating, but in IE if you just write directly
-		// to innerHTML, and elements that are overwritten are GC'ed,
-		// even if there is a reference to them elsewhere
-		while ( cell.childNodes.length ) {
-			cell.removeChild( cell.firstChild );
-		}
-
-		cell.innerHTML = str;
-	};
 
 	// Remove the cached data for the row
 	row._aSortData = null;
@@ -332,11 +322,11 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 
 		if ( cells ) {
 			if ( colIdx !== undefined ) {
-				cellWrite( cells[colIdx], display[colIdx] );
+				cells[colIdx].innerHTML = display[colIdx];
 			}
 			else {
 				for ( i=0, ien=cells.length ; i<ien ; i++ ) {
-					cellWrite( cells[i], display[i] );
+					cells[i].innerHTML = display[i];
 				}
 			}
 		}

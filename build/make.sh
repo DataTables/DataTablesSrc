@@ -61,10 +61,6 @@ function build_js {
 
 	mv DataTables.js.build $OUT_FILE
 
-	# Legacy file
-	cp $SRC_DIR/dataTables.legacy.js $OUT_DIR
-	js_compress $OUT_DIR/dataTables.legacy.js
-
 	# JSHint
 	if [ -e $JSHINT ]; then
 		$JSHINT --config $SCRIPT_DIR/jshint.config $OUT_FILE

@@ -124,18 +124,7 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 	};
 
 	var hostEl = $(host);
-	// IE9 throws an 'unknown error' if document.activeElement is used
-	// inside an iframe or frame. 
-	var activeEl;
-
-	try {
-		// Because this approach is destroying and recreating the paging
-		// elements, focus is lost on the select button which is bad for
-		// accessibility. So we want to restore focus once the draw has
-		// completed
-		activeEl = hostEl.find(document.activeElement).data('dt-idx');
-	}
-	catch (e) {}
+	var activeEl = hostEl.find(document.activeElement).data('dt-idx');
 
 	var paginationEl = hostEl.children('ul.pagination');
 

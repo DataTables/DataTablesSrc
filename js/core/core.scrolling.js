@@ -186,7 +186,6 @@ function _fnScrollDraw ( settings )
 		tableStyle     = tableEl.style,
 		footer         = settings.nTFoot ? $(settings.nTFoot) : null,
 		browser        = settings.oBrowser,
-		ie67           = browser.bScrollOversize,
 		dtHeaderCells  = _pluck( settings.aoColumns, 'nTh' ), // TODO
 		headerTrgEls, footerTrgEls,
 		headerSrcEls, footerSrcEls,
@@ -265,15 +264,6 @@ function _fnScrollDraw ( settings )
 	if ( scrollX === "" ) {
 		// No x scrolling
 		tableStyle.width = "100%";
-
-		// IE7 will make the width of the table when 100% include the scrollbar
-		// - which is shouldn't. When there is a scrollbar we need to take this
-		// into account.
-		if ( ie67 && (table.find('tbody').height() > divBodyEl.offsetHeight ||
-			divBody.css('overflow-y') == "scroll")
-		) {
-			tableStyle.width = _fnStringToCss( table.outerWidth() - barWidth);
-		}
 
 		// Recalculate the sanity width
 		sanityWidth = table.outerWidth();
@@ -362,13 +352,6 @@ function _fnScrollDraw ( settings )
 				sanityWidth+barWidth :
 				sanityWidth;
 
-		// IE6/7 are a law unto themselves...
-		if ( ie67 && (divBodyEl.scrollHeight >
-			divBodyEl.offsetHeight || divBody.css('overflow-y') == "scroll")
-		) {
-			tableStyle.width = _fnStringToCss( correction-barWidth );
-		}
-
 		// And give the user a warning that we've stopped the table getting too small
 		if ( scrollX === "" || scrollXInner !== "" ) {
 			_fnLog( settings, 1, 'Possible column misalignment', 6 );
@@ -391,15 +374,6 @@ function _fnScrollDraw ( settings )
 	/*
 	 * 4. Clean up
 	 */
-	if ( ! scrollY ) {
-		/* IE7< puts a vertical scrollbar in place (when it shouldn't be) due to subtracting
-		 * the scrollbar height from the visible display, rather than adding it on. We need to
-		 * set the height in order to sort this. Don't want to do it in any other browsers.
-		 */
-		if ( ie67 ) {
-			divBodyStyle.height = _fnStringToCss( tableEl.offsetHeight+barWidth );
-		}
-	}
 
 	/* Finally set the width's of the header and footer tables */
 	var iOuterWidth = table.outerWidth();
