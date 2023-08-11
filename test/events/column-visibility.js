@@ -51,12 +51,9 @@ describe('core - events - column-visibility', function() {
 			expect(params[3]).toBe(false);
 			expect(params[4]).toBe(undefined);
 		});
-		it('Called when hiding same column', function() {
+		it('Not called when hiding same column', function() {
 			table.column(1).visible(false);
-			// this is disabled due to DD-796
-			// expect(count).toBe(1);
-			expect(count).toBe(2);
-			count--;
+			expect(count).toBe(1);
 		});
 		it('Called when unhiding a column', function() {
 			table.column(1).visible(true);

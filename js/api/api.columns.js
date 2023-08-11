@@ -147,7 +147,7 @@ var __setColumnVis = function ( settings, column, vis ) {
 	// Set
 	// No change
 	if ( col.bVisible === vis ) {
-		return;
+		return false;
 	}
 
 	if ( vis ) {
@@ -172,6 +172,8 @@ var __setColumnVis = function ( settings, column, vis ) {
 
 	// Common actions
 	col.bVisible = vis;
+	
+	return true;
 };
 
 
@@ -262,11 +264,15 @@ _api_registerPlural( 'columns().titles()', 'column().title()', function () {
 
 _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis, calc ) {
 	var that = this;
+	var changed = [];
 	var ret = this.iterator( 'column', function ( settings, column ) {
 		if ( vis === undefined ) {
 			return settings.aoColumns[ column ].bVisible;
 		} // else
-		__setColumnVis( settings, column, vis );
+		
+		if (__setColumnVis( settings, column, vis )) {
+			changed.push(column);
+		}
 	} );
 
 	// Group the column visibility changes
@@ -286,7 +292,9 @@ _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis
 
 			// Second loop once the first is done for events
 			that.iterator( 'column', function ( settings, column ) {
-				_fnCallbackFire( settings, null, 'column-visibility', [settings, column, vis, calc] );
+				if (changed.includes(column)) {
+					_fnCallbackFire( settings, null, 'column-visibility', [settings, column, vis, calc] );
+				}
 			} );
 
 			if ( calc === undefined || calc ) {
