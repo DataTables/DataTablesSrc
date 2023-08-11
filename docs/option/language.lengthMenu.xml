@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="string" />
-	<default value="Show _MENU_ entries" />
+	<default value="_MENU_ entries" />
 
 	<description>
 		Detail the action that will be taken when the drop down menu for the pagination length option is changed. The token `string _MENU_` is replaced with a default select list of 10, 25, 50 and 100 (or any other value specified by `dt-init lengthMenu`), and can be replaced with a custom select list if required.

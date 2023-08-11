@@ -6,9 +6,9 @@ describe( "language.lengthMenu option", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
-		it("Menu language is 'Show _MENU_ entries' by default ", function () {
+		it("Menu language is '_MENU_ entries' by default ", function () {
 			$('#example').dataTable();
-			expect($('#example').DataTable().settings()[0].oLanguage.sLengthMenu  === "Show _MENU_ entries").toBe(true);
+			expect($('#example').DataTable().settings()[0].oLanguage.sLengthMenu  === "_MENU_ entries").toBe(true);
 		});
 		it("_MENU_ macro is replaced by select menu in DOM", function () {
 			expect($('div.dataTables_length select').length == 1).toBe(true);
@@ -18,9 +18,11 @@ describe( "language.lengthMenu option", function() {
 			expect( $('div.dataTables_length label').length == 1 ).toBe(true);
 		});
 		it("Default is put into DOM", function () {
-			var anChildren = $('div.dataTables_length label')[0].childNodes;
+			var anChildren = $('div.dataTables_length')[0].childNodes;
 
-			expect(bReturn = anChildren[0].nodeValue == "Show " && anChildren[2].nodeValue == " entries").toBe(true);
+			expect(anChildren[0].nodeName.toLowerCase() == "select").toBe(true);
+			expect(anChildren[1].nodeName.toLowerCase() == "label").toBe(true);
+			expect(anChildren[1].textContent).toBe(' entries');
 		});
 		dt.html( 'basic' );
 		it("Menu length can be defined - no _MENU_ macro", function () {
@@ -61,8 +63,9 @@ describe( "language.lengthMenu option", function() {
 			$('#example').DataTable();
 
 			expect($('div.dataTables_length > label').length).toBe(1);
-			expect($('div.dataTables_length > label > select').length).toBe(1);
-			expect($('div.dataTables_length').children().length).toBe(1);
+			expect($('div.dataTables_length > select').length).toBe(1);
+			expect($('div.dataTables_length > select + label').length).toBe(1);
+			expect($('div.dataTables_length').children().length).toBe(2);
 		});
 
 		it('Has for and id attributes', function () {

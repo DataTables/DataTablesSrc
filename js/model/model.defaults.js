@@ -1623,7 +1623,7 @@ DataTable.defaults = {
 		 * with a default select list of 10, 25, 50 and 100, and can be replaced
 		 * with a custom select box if required.
 		 *  @type string
-		 *  @default Show _MENU_ entries
+		 *  @default _MENU_ entries
 		 *
 		 *  @dtopt Language
 		 *  @name DataTable.defaults.language.lengthMenu
@@ -1655,7 +1655,7 @@ DataTable.defaults = {
 		 *      } );
 		 *    } );
 		 */
-		"sLengthMenu": "Show _MENU_ entries",
+		"sLengthMenu": "_MENU_ entries",
 
 
 		/**
