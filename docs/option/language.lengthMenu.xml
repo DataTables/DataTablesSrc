@@ -9,12 +9,18 @@
 
 	<description>
 		Detail the action that will be taken when the drop down menu for the pagination length option is changed. The token `string _MENU_` is replaced with a default select list of 10, 25, 50 and 100 (or any other value specified by `dt-init lengthMenu`), and can be replaced with a custom select list if required.
+
+		As of DataTables 2 the DOM structure that is generated can change based on the location of the `_MENU_` token in the string. If the token is at the start or the end of the string, the generated DOM will have the `-tag select` outside of the `-tag label`. This is done for accessability to allow an _explicit_ link between the `-tag select` and `-tag label` (see [this article for more details](https://css-tricks.com/html-inputs-and-labels-a-love-story/#aa-how-to-pair-a-label-and-an-input)).
+
+		If the token is in the middle of the string, the DOM structure created will have the `-tag select` nested in the `-tag label`, creating an _implicit_ link (although the `for` and `id` attributes are still set). Some screenreaders can struggle with this form and it is not recommended.
+
+		This DOM structure distinction is only of significance if you are applying custom styling to the page. You _may_ need to alter your CSS depending on the string used.
 	</description>
 
 	<example title="Language change only"><![CDATA[
-$('#example').dataTable( {
-  "language": {
-    "lengthMenu": "Display _MENU_ records"
+$('#example').DataTable( {
+  language: {
+    lengthMenu: 'Display _MENU_ records'
   }
 } );
 ]]></example>
