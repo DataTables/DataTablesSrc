@@ -48,9 +48,9 @@ describe('columns.visible option', function() {
 		});
 		it('Multiple hide- the correct thead columns have been hidden', function() {
 			let headArray = $('#example thead tr:eq(0) th');
-			expect(headArray[0].innerHTML).toBe('Name');
-			expect(headArray[1].innerHTML).toBe('Start date');
-			expect(headArray[2].innerHTML).toBe('Salary');
+			expect(headArray[0].textContent).toBe('Name');
+			expect(headArray[1].textContent).toBe('Start date');
+			expect(headArray[2].textContent).toBe('Salary');
 		});
 		it('Multiple hide- the correct tbody columns have been hidden', function() {
 			let bodyArray = $('#example tbody tr:eq(0) td');
@@ -74,9 +74,9 @@ describe('columns.visible option', function() {
 		});
 		it('Multiple hide- the correct thead columns have been hidden', function() {
 			let headArray = $('#example thead tr:eq(0) th');
-			expect(headArray[0].innerHTML).toBe('Name');
-			expect(headArray[1].innerHTML).toBe('Start date');
-			expect(headArray[2].innerHTML).toBe('Salary');
+			expect(headArray[0].textContent).toBe('Name');
+			expect(headArray[1].textContent).toBe('Start date');
+			expect(headArray[2].textContent).toBe('Salary');
 		});
 		it('Multiple hide- the correct tbody columns have been hidden', function() {
 			let bodyArray = $('#example tbody tr:eq(0) td');

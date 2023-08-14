@@ -476,7 +476,7 @@ function _fnCellsFromLayout ( layout, columns, rows ) {
 
 function _fnColumnsFromHeader( cell )
 {
-	var attr = cell.getAttribute('data-dt-column');
+	var attr = $(cell).closest('[data-dt-column]').attr('data-dt-column');
 
 	if ( ! attr ) {
 		return [];

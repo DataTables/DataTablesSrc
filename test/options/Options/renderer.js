@@ -49,7 +49,7 @@ function checkHeaders(first, last) {
 function checkButtons(rendered) {
 	expect($('div.dataTables_paginate button').length).toBe(8); // paging
 	expect($('div.dataTables_paginate span').length).toBe(rendered? 0 : 1); // paging
-	expect($('thead th:eq(0)').children().length).toBe(0); // header
+	expect($('thead th:eq(0)').children().length).toBe(1); // header
 
 	if (rendered) {
 		$('div.dataTables_paginate button:eq(4)').click();

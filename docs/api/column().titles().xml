@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>columns().title()</name>
+	<summary>Get / set the title for multiple columns.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>columns().titles( [ row ] )</signature>
+		<description>This method will get the titles for the selected columns</description>
+		<parameter type="number" name="row" default="undefined">
+			This parameter can be used to control which row in the `-tag thead` the title will be read from. The parameter is passed on to `-api column().header()` to determine which header row is to be used.
+		</parameter>
+		<returns type="DataTables.Api">The titles for the selected columns.</returns>
+	</type>
+
+	<type type="function">
+		<signature>columns().titles( title [, row ] )</signature>
+		<description>This method will write a string as the title for multiple columns.</description>
+		<parameter type="string" name="title">
+			The new title to write to the table header for selected columns. This string will be used for all columns selected and for this reason, this overload is of limited use. If you wish to use a different string for each column, use `-api column().title()` and iterate over an array or other source of the column titles.
+		</parameter>
+		<parameter type="number" name="row" default="undefined">
+			This parameter can be used to control which row in the `-tag thead` the title will be read from. The parameter is passed on to `-api column().header()` to determine which header row is to be used.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance for chaining.</returns>
+	</type>
+
+	<description>
+		This method is used to get and set the titles of multiple columns (which are also settable at initialisation time by `-init columns.title`). The title of a column is shown in the table header. It may also be used for extra functionality such as column visibility control and export data.
+
+		DataTables wraps the column header in a `-tag span` element with a class of `dt-column-title`. This is done to allow the get / set operation of this method, while still allowing other HTML to be present in the header cell (e.g. inline buttons).
+	</description>
+
+	<example title="Get the titles for all columns:"><![CDATA[
+var table = $('#example').DataTable();
+
+var titles = table.columns().titles();
+);
+]]></example>
+
+	<related type="api">column().title()</related>
+	<related type="init">columns.title</related>
+</dt-api>

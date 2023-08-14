@@ -255,10 +255,22 @@ _api_registerPlural( 'columns().nodes()', 'column().nodes()', function () {
 	}, 1 );
 } );
 
-_api_registerPlural( 'columns().titles()', 'column().title()', function () {
+_api_registerPlural( 'columns().titles()', 'column().title()', function (title, row) {
 	return this.iterator( 'column', function ( settings, column ) {
-		return settings.aoColumns[column].sTitle;
-		// TODO make a setter as well
+		// Argument shifting
+		if (typeof title === 'number') {
+			row = title;
+			title = undefined;
+		}
+
+		var span = $('span.dt-column-title', this.column(column).header(row));
+
+		if (title !== undefined) {
+			span.html(title);
+			return this;
+		}
+
+		return span.html();
 	}, 1 );
 } );
 

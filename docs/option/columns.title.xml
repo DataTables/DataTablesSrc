@@ -10,7 +10,11 @@
   </default>
 
 	<description>
-    The titles of columns are typically read directly from the DOM (from the cells in the `tag THEAD` element), but it can often be useful to either override existing values, or have DataTables actually construct a header with column titles for you (for example if there is not a `tag THEAD` element in the table before DataTables is constructed). This option is available to provide that ability.
+    The title of a column is shown in the header cell for that column. It may also be used for other interactions in extensions such as column visibility control, filtering and more.
+
+    The titles of columns are typically read directly from the DOM (from the cells in the `-tag thead` element), but it can be useful to either override existing values, or have DataTables actually construct a header with column titles for you (for example if there is not a `-tag thead` element in the table before DataTables is constructed). This option is available to provide that ability.
+
+    As of DataTables 2, the software will automatically wrap the column title in a `-tag span` element with a class of `dt-column-title`. This is done to ensure that the column title can be both read and written to, without interfering with other elements that might be in the column's header.
 
     Please note that when constructing a header, DataTables can only construct a simple header with a single cell for each column. Complex headers with `colspan` and `rowspan` attributes must either already be defined in the document, or be constructed using standard DOM / jQuery methods. Furthermore, if you use this property with a multi-row header in the DOM, the title will be set for the first row in the header only.
 	</description>
@@ -37,4 +41,6 @@ $('#example').DataTable( {
 ]]></example>
 
   <related>-init columns.ariaTitle</related>
+  <related>-api column().title()</related>
+  <related>-api columns().titles()</related>
 </dt-option>

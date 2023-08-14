@@ -752,6 +752,14 @@ function _fnDetectHeader ( settings, thead, write )
 						columnDef.autoTitle = true;
 					}
 
+					// Wrap the column title so we can write to it in future
+					if ( $('span.dt-column-title', cell).length === 0) {
+						$('<span>')
+							.addClass('dt-column-title')
+							.append(cell.childNodes)
+							.appendTo(cell);
+					}
+
 					// Column specific class names
 					if ( columnDef.className ) {
 						$(cell).addClass( columnDef.className );

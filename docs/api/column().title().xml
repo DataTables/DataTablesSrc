@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column().title()</name>
+	<summary>Get / set the title for a column.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>column().title( [ row ] )</signature>
+		<description>This method will get the title for a column</description>
+		<parameter type="number" name="row" default="undefined">
+			This parameter can be used to control which row in the `-tag thead` the title will be read from. The parameter is passed on to `-api column().header()` to determine which header row is to be used.
+		</parameter>
+		<returns type="string">The title for a column.</returns>
+	</type>
+
+	<type type="function">
+		<signature>column().title( title [, row ] )</signature>
+		<description>This method will write a string value as a column's header.</description>
+		<parameter type="string" name="title">
+			The new title to write to the table header
+		</parameter>
+		<parameter type="number" name="row" default="undefined">
+			This parameter can be used to control which row in the `-tag thead` the title will be read from. The parameter is passed on to `-api column().header()` to determine which header row is to be used.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance for chaining.</returns>
+	</type>
+
+	<description>
+		This method is used to get and set the title of a column (also settable at initialisation time by `-init columns.title`). The title of a column is shown in the table header. It may also be used for extra functionality such as column visibility control and export data.
+
+		DataTables wraps the column header in a `-tag span` element with a class of `dt-column-title`. This is done to allow the get / set operation of this method, while still allowing other HTML to be present in the header cell (e.g. inline buttons).
+
+		Of particular note is that this method can operate on multiple rows in the table header through the use of the `row` parameter. This is of use when you have complex headers (multiple rows, `colspan` and `rowspan`). Please see the `-api column().header()` method for details on row selection and the default selection.
+	</description>
+
+	<example title="Get a column's title:"><![CDATA[
+var table = $('#example').DataTable();
+
+var title = table.column( 0 ).title();
+);
+]]></example>
+
+	<example title="Set a column's title on the default row:"><![CDATA[
+var table = $('#example').DataTable();
+
+table.column( 0 ).title('New title');
+);
+]]></example>
+
+	<example title="Set a column's title on the second row in the header:"><![CDATA[
+var table = $('#example').DataTable();
+
+table.column( 0 ).title('New title', 1);
+);
+]]></example>
+
+	<related type="api">columns().titles()</related>
+	<related type="init">columns.title</related>
+</dt-api>
