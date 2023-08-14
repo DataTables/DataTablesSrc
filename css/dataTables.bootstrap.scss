@@ -6,12 +6,12 @@ $table-row-selected: 0 136 204;
 @import './processing.scss';
 @import './typography.scss';
 
-table.dataTable {
+table.table.dataTable {
 	clear: both;
-	margin-top: 0 !important;
-	margin-bottom: 0 !important;
-	max-width: none !important;
-	border-collapse: separate !important;
+	margin-top: 0;
+	margin-bottom: 0;
+	max-width: none;
+	border-collapse: separate;
 
 	// Override default row striping, replacing with an insert box-shadow
 	&.table-striped > tbody > tr:nth-of-type(2n+1) {

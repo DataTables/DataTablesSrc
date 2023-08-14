@@ -12,11 +12,11 @@ $table-row-selected: 13 110 253;
  * License: MIT datatables.net/license/mit
  */
 
-table.dataTable {
+table.table.dataTable {
 	clear: both;
-	margin-bottom: 0 !important;
-	max-width: none !important;
-	border-collapse: separate !important;
+	margin-bottom: 0;
+	max-width: none;
+	border-collapse: separate;
 	border-spacing: 0;
 
 	// Override default row striping, replacing with an insert box-shadow
