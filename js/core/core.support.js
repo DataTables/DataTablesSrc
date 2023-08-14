@@ -40,7 +40,7 @@ function _fnLog( settings, level, msg, tn )
 		var type = ext.sErrMode || ext.errMode;
 
 		if ( settings ) {
-			_fnCallbackFire( settings, null, 'error', [ settings, tn, msg ] );
+			_fnCallbackFire( settings, null, 'dt-error', [ settings, tn, msg ] );
 		}
 
 		if ( type == 'alert' ) {

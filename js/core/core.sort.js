@@ -33,6 +33,8 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 			? _fnColumnsFromHeader( e.target )
 			: [column];
 
+			_fnLog(settings, 0, 'Custom error', 3);
+
 		if ( columns.length ) {
 			_fnProcessingDisplay( settings, true );
 

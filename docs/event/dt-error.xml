@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-event>
-	<name>error</name>
+	<name>dt-error</name>
 	<summary>Error event - An error has occurred during DataTables' processing of data.</summary>
-	<since>1.10.5</since>
+	<since>2.0</since>
 
 	<type type="function">
 		<signature>function( e, settings, techNote, message )</signature>
@@ -32,6 +32,8 @@
 		* `function` - A function common to all DataTables on the page that is called when an error occurs.
 
 		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+
+		Before DataTables 2, this event was simply called `error`, however, that would cause `onerror` DOM0 event handlers to trigger, causing spurious logging if monitoring your site for script errors.
 	</description>
 
 	<example title="Use the event as a custom error handler"><![CDATA[
