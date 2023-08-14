@@ -21,6 +21,10 @@ describe('orderFixed option', function() {
 			expect($('#example tbody td:eq(0)').text()).toBe('Tatyana Fitzpatrick');
 		});
 
+		it('Has class applied to header', function() {
+			expect($('#example thead th').eq(3).hasClass('dt-ordering-asc')).toBe(true);
+		});
+
 		dt.html('basic');
 		it('Fixed sorting with object: pre', function() {
 			$('#example').dataTable({

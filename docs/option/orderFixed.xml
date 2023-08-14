@@ -34,6 +34,8 @@
 		It is also possible to give a set of nested arrays (i.e. arrays in arrays) to allow multi-column ordering to be assigned.
 
 		This option can be useful if you have a column (visible or hidden) which must always be sorted upon first - a priority order or index column for example, or for grouping similar rows together.
+
+		Note that if the column is visible with fixed ordering applied to it, DataTables will display an ordering icon in the column's header, indicating to the end user that ordering is happening on that column.
 	</description>
 
 	<example title="The first column will always be sorted upon first"><![CDATA[

@@ -100,11 +100,11 @@ _api_register( [
 
 	if ( ! dir ) {
 		return this.iterator( 'column', function ( settings, idx ) {
-			var sort = settings.aaSorting;
+			var sort = _fnSortFlatten( settings );
 
 			for ( var i=0, ien=sort.length ; i<ien ; i++ ) {
-				if ( sort[i][0] === idx ) {
-					return sort[i][1];
+				if ( sort[i].col === idx ) {
+					return sort[i].dir;
 				}
 			}
 
