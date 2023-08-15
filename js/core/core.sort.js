@@ -33,8 +33,6 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 			? _fnColumnsFromHeader( e.target )
 			: [column];
 
-			_fnLog(settings, 0, 'Custom error', 3);
-
 		if ( columns.length ) {
 			_fnProcessingDisplay( settings, true );
 
@@ -104,6 +102,7 @@ function _fnSortFlatten ( settings )
 	var
 		i, k, kLen,
 		aSort = [],
+		extSort = DataTable.ext.type.order,
 		aoColumns = settings.aoColumns,
 		aDataSort, iCol, sType, srcCol,
 		fixed = settings.aaSortingFixed,
@@ -153,7 +152,8 @@ function _fnSortFlatten ( settings )
 						dir:       nestedSort[i][1],
 						index:     nestedSort[i]._idx,
 						type:      sType,
-						formatter: DataTable.ext.type.order[ sType+"-pre" ]
+						formatter: extSort[ sType+"-pre" ],
+						sorter:    extSort[ sType+"-"+nestedSort[i][1] ]
 					} );
 				}
 			}
@@ -173,7 +173,7 @@ function _fnSort ( oSettings, col, dir )
 	var
 		i, ien, iLen,
 		aiOrig = [],
-		oExtSort = DataTable.ext.type.order,
+		extSort = DataTable.ext.type.order,
 		aoData = oSettings.aoData,
 		formatters = 0,
 		sortCol,
@@ -195,7 +195,8 @@ function _fnSort ( oSettings, col, dir )
 			dir:       dir,
 			index:     0,
 			type:      srcCol.sType,
-			formatter: DataTable.ext.type.order[ srcCol.sType+"-pre" ]
+			formatter: extSort[ srcCol.sType+"-pre" ],
+			sorter:    extSort[ srcCol.sType+"-"+dir ]
 		}];
 		displayMaster = displayMaster.slice();
 	}
@@ -233,77 +234,57 @@ function _fnSort ( oSettings, col, dir )
 		 * and sorting function (from oSort) in a certain direction. It's reasonably complex to
 		 * follow on it's own, but this is what we want (example two column sorting):
 		 *  fnLocalSorting = function(a,b){
-		 *    var iTest;
-		 *    iTest = oSort['string-asc']('data11', 'data12');
-		 *      if (iTest !== 0)
-		 *        return iTest;
-		 *    iTest = oSort['numeric-desc']('data21', 'data22');
-		 *    if (iTest !== 0)
-		 *      return iTest;
+		 *    var test;
+		 *    test = oSort['string-asc']('data11', 'data12');
+		 *      if (test !== 0)
+		 *        return test;
+		 *    test = oSort['numeric-desc']('data21', 'data22');
+		 *    if (test !== 0)
+		 *      return test;
 		 *    return oSort['numeric-asc']( aiOrig[a], aiOrig[b] );
 		 *  }
 		 * Basically we have a test for each sorting column, if the data in that column is equal,
 		 * test the next column. If all columns match, then we use a numeric sort on the row
 		 * positions in the original data array to provide a stable sort.
-		 *
-		 * Note - I know it seems excessive to have two sorting methods, but the first is around
-		 * 15% faster, however, presort isn't always possible (e.g. natural sorting), so we
-		 * maintain both.
 		 */
-		if ( formatters === aSort.length ) {
-			// All sort types have formatting functions
-			displayMaster.sort( function ( a, b ) {
-				var
-					x, y, k, test, sort,
-					len=aSort.length,
-					dataA = aoData[a]._aSortData,
-					dataB = aoData[b]._aSortData;
+		displayMaster.sort( function ( a, b ) {
+			var
+				x, y, k, test, sort,
+				len=aSort.length,
+				dataA = aoData[a]._aSortData,
+				dataB = aoData[b]._aSortData;
 
-				for ( k=0 ; k<len ; k++ ) {
-					sort = aSort[k];
+			for ( k=0 ; k<len ; k++ ) {
+				sort = aSort[k];
 
-					x = dataA[ sort.col ];
-					y = dataB[ sort.col ];
+				// Data, which may have already been through a `-pre` function
+				x = dataA[ sort.col ];
+				y = dataB[ sort.col ];
 
-					test = x<y ? -1 : x>y ? 1 : 0;
-					if ( test !== 0 ) {
-						return sort.dir === 'asc' ? test : -test;
-					}
-				}
+				if (sort.sorter) {
+					// If there is a custom sorter (`-asc` or `-desc`) for this
+					// data type, use it
+					test = sort.sorter(x, y);
 
-				x = aiOrig[a];
-				y = aiOrig[b];
-				return x<y ? -1 : x>y ? 1 : 0;
-			} );
-		}
-		else {
-			// Not all sort types have pre-formatting methods, so we have to call their sorting
-			// methods.
-			displayMaster.sort( function ( a, b ) {
-				var
-					x, y, k, l, test, sort, fn,
-					len=aSort.length,
-					dataA = aoData[a]._aSortData,
-					dataB = aoData[b]._aSortData;
-
-				for ( k=0 ; k<len ; k++ ) {
-					sort = aSort[k];
-
-					x = dataA[ sort.col ];
-					y = dataB[ sort.col ];
-
-					fn = oExtSort[ sort.type+"-"+sort.dir ] || oExtSort[ "string-"+sort.dir ];
-					test = fn( x, y );
 					if ( test !== 0 ) {
 						return test;
 					}
 				}
+				else {
+					// Otherwise, use generic sorting
+					test = x<y ? -1 : x>y ? 1 : 0;
 
-				x = aiOrig[a];
-				y = aiOrig[b];
-				return x<y ? -1 : x>y ? 1 : 0;
-			} );
-		}
+					if ( test !== 0 ) {
+						return sort.dir === 'asc' ? test : -test;
+					}
+				}
+			}
+
+			x = aiOrig[a];
+			y = aiOrig[b];
+
+			return x<y ? -1 : x>y ? 1 : 0;
+		} );
 	}
 	else if ( aSort.length === 0 ) {
 		displayMaster.sort(); // Apply index order
