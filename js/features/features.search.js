@@ -106,10 +106,11 @@ _ext.features.register( 'search', function ( settings, opts ) {
 
 	// Update the input elements whenever the table is filtered
 	$(settings.nTable).on( 'search.dt.DT', function ( ev, s ) {
-		if ( settings === s ) {
-			if ( jqFilter[0] !== document.activeElement ) {
-				jqFilter.val( previousSearch.sSearch );
-			}
+		if ( settings === s && jqFilter[0] !== document.activeElement ) {
+			jqFilter.val( typeof previousSearch.sSearch !== 'function'
+				? previousSearch.sSearch
+				: ''
+			);
 		}
 	} );
 

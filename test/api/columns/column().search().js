@@ -183,4 +183,80 @@ describe('column - column().search()', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
 		});
 	});
+
+	describe('Regex', function() {
+		let table;
+
+		dt.html('basic');
+
+		it('Regex column search', function() {
+			table = $('#example').DataTable();
+			table
+				.column(0)
+				.search(/Br..o/)
+				.draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Bruno Nash');
+		});
+
+		it('Case insensitive regex', function() {
+			table = $('#example').DataTable();
+			table
+				.column(0)
+				.search(/car./i)
+				.draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Cara Stevens');
+		});
+
+		it('Start / end work on column search', function() {
+			table = $('#example').DataTable();
+			table
+				.column(0)
+				.search(/^Ced.*lly$/)
+				.draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Cedric Kelly');
+		});
+
+		it('Operated on multiple columns', function() {
+			table = $('#example').DataTable();
+			table
+				.column(0)
+				.search(/^A/)
+			
+			table
+				.column(3)
+				.search(/^47$/)
+				.draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Angelica Ramos');
+		});
+	});
+
+	describe('Function', function() {
+		let table;
+
+		dt.html('basic');
+
+		it('Function column search', function() {
+			table = $('#example').DataTable();
+			table
+				.column(3)
+				.search(d => d == '59')
+				.draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Gloria Little');
+		});
+
+		it('Second parameter is the rows data object', function() {
+			table = $('#example').DataTable();
+			table
+				.column(3)
+				.search((d, row) => row[3] == '61')
+				.draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Brielle Williamson');
+		});
+	});
 });

@@ -38,7 +38,6 @@ describe('searchCols Option', function() {
 			expect($('#example tbody td:eq(0)').text()).toBe('Ashton Cox');
 		});
 
-		// Manuscript Case #570: When fixed, the remaining tests should be change to 'escapeRegex'
 		dt.html('basic');
 		it('Regex', function() {
 			table = $('#example').DataTable({
@@ -50,18 +49,18 @@ describe('searchCols Option', function() {
 		dt.html('basic');
 		it('Regex', function() {
 			table = $('#example').DataTable({
-				searchCols: [{ search: 'C.x', bEscapeRegex: true }, null, null, null, null, null]
+				searchCols: [{ search: 'C.x', regex: true }, null, null, null, null, null]
 			});
-			expect(table.page.info().recordsDisplay).toBe(0);
+			expect($('#example tbody td:eq(0)').text()).toBe('Ashton Cox');
+			expect(table.page.info().recordsDisplay).toBe(1);
 		});
 
 		dt.html('basic');
 		it('No regex', function() {
 			table = $('#example').DataTable({
-				searchCols: [{ search: 'C.x', bEscapeRegex: false }, null, null, null, null, null]
+				searchCols: [{ search: 'C.x', regex: false }, null, null, null, null, null]
 			});
-			expect(table.page.info().recordsDisplay).toBe(1);
-			expect($('#example tbody td:eq(0)').text()).toBe('Ashton Cox');
+			expect(table.page.info().recordsDisplay).toBe(0);
 		});
 	});
 });

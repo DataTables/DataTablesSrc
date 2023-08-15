@@ -12,8 +12,16 @@
 	<type type="function">
 		<signature>columns().search( input [, regex[ , smart[ , caseInsen ]]] )</signature>
 		<description>Set the search term for the columns from the selector. Note this doesn't actually perform the search, but rather queues it up - use `dt-api draw()` to perform the search and display the result.</description>
-		<parameter type="string" name="input">
-			Search string to apply to the selected columns.
+		<parameter type="string|RegExp|function" name="input">
+			Search to apply to the column.
+			
+			As of DataTables 2, this parameter can be given as a regular expression or a function.
+			
+			If working with a regular expression, the data given is the search data for the cells in column in question.
+			
+			In the case of a function the function is called for each row with two parameters which are passed in; the first is the search data for the cell in the row/column being search, and the second is the row's original data object. A boolean value should be returned: `true` to keep the row, `false` to filter it out.
+
+			Note that if a regex or function is provided for this parameter, the following parameters are ignored.
 		</parameter>
 		<parameter type="boolean" name="regex" default="false">
 			Treat as a regular expression (`true`) or not (default, `false`).

@@ -2,62 +2,70 @@
 
 /**
  * Filter the table using both the global filter and column based filtering
- *  @param {object} oSettings dataTables settings object
- *  @param {object} oSearch search information
- *  @param {int} [iForce] force a research of the master array (1) or not (undefined or 0)
+ *  @param {object} settings dataTables settings object
+ *  @param {object} input search information
  *  @memberof DataTable#oApi
  */
-function _fnFilterComplete ( oSettings, oInput, iForce )
+function _fnFilterComplete ( settings, input )
 {
-	var oPrevSearch = oSettings.oPreviousSearch;
-	var aoPrevSearch = oSettings.aoPreSearchCols;
-	var fnSaveFilter = function ( oFilter ) {
-		/* Save the filtering values */
-		oPrevSearch.sSearch = oFilter.sSearch;
-		oPrevSearch.bRegex = oFilter.bRegex;
-		oPrevSearch.bSmart = oFilter.bSmart;
-		oPrevSearch.bCaseInsensitive = oFilter.bCaseInsensitive;
-		oPrevSearch.return = oFilter.return;
-	};
-	var fnRegex = function ( o ) {
-		// Backwards compatibility with the bEscapeRegex option
-		return o.bEscapeRegex !== undefined ? !o.bEscapeRegex : o.bRegex;
-	};
+	var search = settings.oPreviousSearch;
+	var columnsSearch = settings.aoPreSearchCols;
 
 	// Resolve any column types that are unknown due to addition or invalidation
 	// @todo As per sort - can this be moved into an event handler?
-	_fnColumnTypes( oSettings );
+	_fnColumnTypes( settings );
 
-	/* In server-side processing all filtering is done by the server, so no point hanging around here */
-	if ( _fnDataSource( oSettings ) != 'ssp' )
+	// In server-side processing all filtering is done by the server, so no point hanging around here
+	if ( _fnDataSource( settings ) != 'ssp' )
 	{
-		/* Global filter */
-		_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive );
-		fnSaveFilter( oInput );
+		// Check if any of the rows were invalidated
+		_fnFilterData( settings );
 
-		/* Now do the individual column filter */
-		for ( var i=0 ; i<aoPrevSearch.length ; i++ )
+		// Start from the full data set
+		settings.aiDisplay = settings.aiDisplayMaster.slice();
+
+		// Global filter first
+		_fnFilter( settings.aiDisplay, settings, input.sSearch, input.bRegex, input.bSmart, input.bCaseInsensitive );
+
+		// Then individual column filters
+		for ( var i=0 ; i<columnsSearch.length ; i++ )
 		{
-			_fnFilterColumn( oSettings, aoPrevSearch[i].sSearch, i, fnRegex(aoPrevSearch[i]),
-				aoPrevSearch[i].bSmart, aoPrevSearch[i].bCaseInsensitive );
+			var col = columnsSearch[i];
+
+			_fnFilter(
+				settings.aiDisplay,
+				settings,
+				col.sSearch,
+				col.bRegex,
+				col.bSmart,
+				col.bCaseInsensitive,
+				i
+			);
 		}
 
-		/* Custom filtering */
-		_fnFilterCustom( oSettings );
-	}
-	else
-	{
-		fnSaveFilter( oInput );
+		// And finally global filtering
+		_fnFilterCustom( settings );
 	}
 
-	/* Tell the draw function we have been filtering */
-	oSettings.bFiltered = true;
-	_fnCallbackFire( oSettings, null, 'search', [oSettings] );
+	// Save the filtering values
+	search.sSearch = input.sSearch;
+	search.bRegex = input.bRegex;
+	search.bSmart = input.bSmart;
+	search.bCaseInsensitive = input.bCaseInsensitive;
+	search.return = input.return;
+
+	// Tell the draw function we have been filtering
+	settings.bFiltered = true;
+
+	_fnCallbackFire( settings, null, 'search', [settings] );
 }
 
 
 /**
  * Apply custom filtering functions
+ * 
+ * This is legacy now that we have named functions, but it is widely used
+ * from 1.x, so it is not yet deprecated.
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
@@ -89,91 +97,38 @@ function _fnFilterCustom( settings )
 
 
 /**
- * Filter the table on a per-column basis
- *  @param {object} oSettings dataTables settings object
- *  @param {string} sInput string to filter on
- *  @param {int} iColumn column to filter
- *  @param {bool} bRegex treat search string as a regular expression or not
- *  @param {bool} bSmart use smart filtering or not
- *  @param {bool} bCaseInsensitive Do case insensitive matching or not
- *  @memberof DataTable#oApi
+ * Filter the data table based on user input and draw the table
  */
-function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsensitive )
+function _fnFilter( searchRows, settings, input, regex, smart, caseInsensitive, column )
 {
-	if ( searchStr === '' ) {
+	if ( input === '' ) {
 		return;
 	}
 
-	var data;
-	var out = [];
-	var display = settings.aiDisplay;
-	var rpSearch = _fnFilterCreateSearch( searchStr, regex, smart, caseInsensitive );
+	var i = 0;
 
-	for ( var i=0 ; i<display.length ; i++ ) {
-		data = settings.aoData[ display[i] ]._aFilterData[ colIdx ];
+	// Search term can be a function, regex or string - if a string we apply our
+	// smart filtering regex (assuming the options require that)
+	var searchFunc = typeof input === 'function' ? input : null;
+	var rpSearch = input instanceof RegExp
+		? input
+		: searchFunc
+			? null
+			: _fnFilterCreateSearch( input, regex, smart, caseInsensitive );
 
-		if ( rpSearch.test( data ) ) {
-			out.push( display[i] );
-		}
-	}
+	// Then for each row, does the test pass. If not, lop the row from the array
+	while (i < searchRows.length) {
+		var row = settings.aoData[ searchRows[i] ];
+		var data = column === undefined
+			? row._sFilterRow
+			: row._aFilterData[ column ];
 
-	settings.aiDisplay = out;
-}
-
-
-/**
- * Filter the data table based on user input and draw the table
- *  @param {object} settings dataTables settings object
- *  @param {string} input string to filter on
- *  @param {int} force optional - force a research of the master array (1) or not (undefined or 0)
- *  @param {bool} regex treat as a regular expression or not
- *  @param {bool} smart perform smart filtering or not
- *  @param {bool} caseInsensitive Do case insensitive matching or not
- *  @memberof DataTable#oApi
- */
-function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
-{
-	var rpSearch = _fnFilterCreateSearch( input, regex, smart, caseInsensitive );
-	var prevSearch = settings.oPreviousSearch.sSearch;
-	var displayMaster = settings.aiDisplayMaster;
-	var display, invalidated, i;
-	var filtered = [];
-
-	// Need to take account of custom filtering functions - always filter
-	if ( DataTable.ext.search.length !== 0 ) {
-		force = true;
-	}
-
-	// Check if any of the rows were invalidated
-	invalidated = _fnFilterData( settings );
-
-	// If the input is blank - we just want the full data set
-	if ( input.length <= 0 ) {
-		settings.aiDisplay = displayMaster.slice();
-	}
-	else {
-		// New search - start from the master array
-		if ( invalidated ||
-			 force ||
-			 regex ||
-			 prevSearch.length > input.length ||
-			 input.indexOf(prevSearch) !== 0 ||
-			 settings.bSorted // On resort, the display master needs to be
-			                  // re-filtered since indexes will have changed
-		) {
-			settings.aiDisplay = displayMaster.slice();
+		if ( (searchFunc && ! searchFunc(data, row._aData)) || (rpSearch && ! rpSearch.test(data)) ) {
+			searchRows.splice(i, 1);
+			i--;
 		}
 
-		// Search the display array
-		display = settings.aiDisplay;
-
-		for ( i=0 ; i<display.length ; i++ ) {
-			if ( rpSearch.test( settings.aoData[ display[i] ]._sFilterRow ) ) {
-				filtered.push( display[i] );
-			}
-		}
-
-		settings.aiDisplay = filtered;
+		i++;
 	}
 }
 
@@ -189,6 +144,10 @@ function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
  */
 function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 {
+	if (typeof search !== 'string') {
+		search = search.toString();
+	}
+
 	search = regex ?
 		search :
 		_fnEscapeRegex( search );

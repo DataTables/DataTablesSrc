@@ -12,8 +12,16 @@
 	<type type="function">
 		<signature>search( input [, regex[ , smart[ , caseInsen ]]] )</signature>
 		<description>Set the global search to use on the table. Note this doesn't actually perform the search, but rather queues it up - use `dt-api draw()` to perform the search and display the result.</description>
-		<parameter type="string" name="input">
-			Search string to apply to the table.
+		<parameter type="string|RegExp|function" name="input">
+			Search to apply to the table.
+			
+			As of DataTables 2, this parameter can be given as a regular expression or a function.
+			
+			If working with a regular expression, be aware that the regex is applied to a single string with the search data from all searchable columns (double space joined).
+			
+			In the case of a function the function is called for each row with two parameters which are passed in; the first is the search string of data from all searchable columns in the table, and the second is the row's original data object. A boolean value should be returned: `true` to keep the row, `false` to filter it out.
+
+			Note that if a regex or function is provided for this parameter, the following parameters are ignored.
 		</parameter>
 		<parameter type="boolean" name="regex" default="false">
 			Treat as a regular expression (`true`) or not (default, `false`).
@@ -30,7 +38,7 @@
 	</type>
 
 	<description>
-		The ability to search a table for data is core to the concept of DataTables, as it allows data to be easily accessed by users. This method provides the ability to control the global search of a table through the API. The global search is performed across all searchable columns (see `dt-init columns.searchable` to disable searching for certain columns). If data is found matching in any column, then the whole row is matched and shown in the result set. Searching on individual columns can be performed using the `dt-api columns().search()` and `dt-api column().search()` methods.
+		The ability to search a table for data is core to the concept of DataTables, as it allows data to be easily accessed by users. This method provides the ability to control the global search of a table through the API. The global search is performed across all searchable columns (see `-init columns.searchable` to disable searching for certain columns). If data is found matching in any column, then the whole row is matched and shown in the result set. Searching on individual columns can be performed using the `dt-api columns().search()` and `dt-api column().search()` methods.
 
 		DataTables has a built in search algorithm referred to as "smart" searching and is designed to make searching the table data, easy to use for the end user. A smart search in DataTables provides the following abilities:
 
@@ -38,15 +46,15 @@
 		* Partial word matching. As DataTables provides on-the-fly filtering with immediate feedback to the user, parts of words can be matched in the result set. For example `-string All` will match `-string Allan`.
 		* Preserved text. DataTables 1.10 adds the ability to search for an exact phrase by enclosing the search text in double quotes. For example `-string "Allan Fife"` will match only text which contains the phrase `-string Allan Fife`. It will not match `-string Allan is in Fife`.
 
-		The smart search ability of DataTables is performed using a regular expression and can be enabled or disabled using the third parameter of this method. If you wish to use a custom regular expression, for example to perform whole word exact matching, you would need to enable the regular expression option (second parameter) and disable the smart search option (third parameter) to ensure that the two do not conflict. DataTables provides a utility method (`dt-api $.fn.dataTable.util.escapeRegex()`) to escape regular expression special characters, which can be useful if you mix user input with regular expressions.
+		The smart search ability of DataTables is performed using a regular expression and can be enabled or disabled using the third parameter of this method. If you wish to use a custom regular expression, for example to perform whole word exact matching, you would need to enable the regular expression option (second parameter) and disable the smart search option (third parameter) to ensure that the two do not conflict. DataTables provides a utility method (`dt-api DataTable.util.escapeRegex()`) to escape regular expression special characters, which can be useful if you mix user input with regular expressions.
 
-		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term is a search to avoid naming conflict with the `dt-api filter` helper method.
+		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term is a search to avoid naming conflict with the `-api filter()` helper method.
 
 		Please be aware that this method sets the search to apply to the table only - it does not actually perform the search. In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api search()` method's returned object - for example `table.search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
 	</description>
 
 	<example title="Search the table using a custom input"><![CDATA[
-var table = $('#example').DataTable();
+let table = new DataTable('#example');
 
 // #myInput is a <input type="text"> element
 $('#myInput').on( 'keyup', function () {
@@ -54,9 +62,28 @@ $('#myInput').on( 'keyup', function () {
 } );
 ]]></example>
 
+	<example title="Custom search function"><![CDATA[
+let table = new DataTable('#example');
+
+table.search(d => d.includes('My search term')).draw();
+
+// note that the above can also be rewritten as:
+table
+	.search( function (d) {
+		return d.includes('My search term');
+	})
+	.draw();
+]]></example>
+
+	<example title="Custom regex search"><![CDATA[
+let table = new DataTable('#example');
+
+table.search(/\bTerm/i).draw();
+]]></example>
+
 	<related type="option">searching</related>
 	<related type="option">columns.searchable</related>
 	<related type="api">columns().search()</related>
 	<related type="api">column().search()</related>
-	<related type="api">$.fn.dataTable.util.escapeRegex()</related>
+	<related type="api">DataTable.util.escapeRegex()</related>
 </dt-api>

@@ -73,14 +73,6 @@ describe('core - search()', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Angelica Ramos');
 		});
 
-		// disabled due to manuscript case #32 (DD-567)
-		// dt.html('basic');
-		// it('Can set a regex search', function() {
-		// 	let table = $('#example').DataTable();
-		// 	table.search('^A.*s$', true).draw();
-		// 	expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Angelica Ramos');
-		// });
-
 		dt.html('basic');
 		it('Regex search needs to be enabled', function() {
 			let table = $('#example').DataTable();
@@ -116,19 +108,89 @@ describe('core - search()', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
 		});
 
-		// disabled due to manuscript case #32 (DD-567)
-		// dt.html('basic');
-		// it('Case sensitive regex search', function() {
-		// 	let table = $('#example').DataTable();
-		// 	table.search('^a.*s$', true, false, true).draw();
-		// 	expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Angelica Ramos');
-		// });
-
 		dt.html('basic');
 		it('Non-case sensitive regex search', function() {
 			let table = $('#example').DataTable();
 			table.search('^a.*s$', true, false, false).draw();
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
+		});
+	});
+
+	describe('Regex search', function() {
+		let table;
+
+		dt.html('basic');
+
+		it('Can set a regex search', function() {
+			table = $('#example').DataTable();
+			table.search(/A.*s/).draw();
+			
+			expect($('#example tbody td').eq(0).text()).toBe('Angelica Ramos');
+		});
+
+		it('Case insensitive regex search', function() {
+			table.search(/a.*s/i).draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Airi Satou');
+		});
+
+		it('Search spans the whole row', function() {
+			table.search(/\bAcc.*33/i).draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Airi Satou');
+		});
+
+		it('Writes regex string value into the search box', function() {
+			expect($('div.dataTables_filter input').val()).toBe('/\\bAcc.*33/i');
+		});
+	});
+
+	describe('Function search', function() {
+		let table;
+
+		dt.html('basic');
+
+		it('Can set a function search', function() {
+			table = $('#example').DataTable();
+			table.search(d => d.includes('Caesar')).draw();
+			
+			expect($('#example tbody td').eq(0).text()).toBe('Caesar Vance');
+		});
+
+		it('Call again replaces previous', function() {
+			table.search(d => d.includes(' 33 ')).draw();
+			
+			expect($('#example tbody td').eq(0).text()).toBe('Airi Satou');
+		});
+
+		it('Data for full row is given', function() {
+			table.search(d => d.includes('Edinburgh') && d.includes('Cedric')).draw();
+			
+			expect($('#example tbody td').eq(0).text()).toBe('Cedric Kelly');
+		});
+
+		it('Does not write a value into the search box', function() {
+			expect($('div.dataTables_filter input').val()).toBe('');
+		});
+
+		it('String search', function() {
+			$('div.dataTables_filter input').val('New York').trigger('input');
+
+			expect($('#example tbody td').eq(0).text()).toBe('Brielle Williamson');
+		});
+
+		it('Using a search function clears the input', function() {
+			table.search(d => d.includes('Caesar')).draw();
+			
+			expect($('div.dataTables_filter input').val()).toBe('');
+			expect($('#example tbody td').eq(0).text()).toBe('Caesar Vance');
+		});
+
+		it('Second parameter is the rows data object', function() {
+			table = $('#example').DataTable();
+			table.search((d, row) => row[3] == '61').draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Brielle Williamson');
 		});
 	});
 });

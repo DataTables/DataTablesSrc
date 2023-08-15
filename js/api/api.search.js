@@ -17,11 +17,11 @@ _api_register( 'search()', function ( input, regex, smart, caseInsen ) {
 		}
 
 		_fnFilterComplete( settings, $.extend( {}, settings.oPreviousSearch, {
-			"sSearch": input+"",
+			"sSearch": input,
 			"bRegex":  regex === null ? false : regex,
 			"bSmart":  smart === null ? true  : smart,
 			"bCaseInsensitive": caseInsen === null ? true : caseInsen
-		} ), 1 );
+		} ) );
 	} );
 } );
 
@@ -44,13 +44,13 @@ _api_registerPlural(
 			}
 
 			$.extend( preSearch[ column ], {
-				"sSearch": input+"",
+				"sSearch": input,
 				"bRegex":  regex === null ? false : regex,
 				"bSmart":  smart === null ? true  : smart,
 				"bCaseInsensitive": caseInsen === null ? true : caseInsen
 			} );
 
-			_fnFilterComplete( settings, settings.oPreviousSearch, 1 );
+			_fnFilterComplete( settings, settings.oPreviousSearch );
 		} );
 	}
 );
