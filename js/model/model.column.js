@@ -220,5 +220,10 @@ DataTable.models.oColumn = {
 
 	/** Cached string which is the longest in the column */
 	maxLenString: null,
+
+	/**
+	 * Store for named searches
+	 */
+	searchFixed: null
 };
 

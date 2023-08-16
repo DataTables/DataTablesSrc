@@ -27,6 +27,10 @@ function _fnFilterComplete ( settings, input )
 		// Global filter first
 		_fnFilter( settings.aiDisplay, settings, input.sSearch, input.bRegex, input.bSmart, input.bCaseInsensitive );
 
+		$.each(settings.searchFixed, function (name, term) {
+			_fnFilter(settings.aiDisplay, settings, term, false, true, true);
+		});
+
 		// Then individual column filters
 		for ( var i=0 ; i<columnsSearch.length ; i++ )
 		{
@@ -41,6 +45,10 @@ function _fnFilterComplete ( settings, input )
 				col.bCaseInsensitive,
 				i
 			);
+
+			$.each(settings.aoColumns[i].searchFixed, function (name, term) {
+				_fnFilter(settings.aiDisplay, settings, term, false, true, true, i);
+			});
 		}
 
 		// And finally global filtering

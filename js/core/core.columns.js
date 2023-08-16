@@ -12,7 +12,8 @@ function _fnAddColumn( oSettings )
 	var oCol = $.extend( {}, DataTable.models.oColumn, oDefaults, {
 		"aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
 		"mData": oDefaults.mData ? oDefaults.mData : iCol,
-		idx: iCol
+		idx: iCol,
+		searchFixed: {}
 	} );
 	oSettings.aoColumns.push( oCol );
 

@@ -25,6 +25,30 @@ _api_register( 'search()', function ( input, regex, smart, caseInsen ) {
 	} );
 } );
 
+_api_register( 'search.fixed()', function ( name, search ) {
+	var ret = this.iterator( true, 'table', function ( settings ) {
+		var fixed = settings.searchFixed;
+
+		if (! name) {
+			return Object.keys(fixed)
+		}
+		else if (search === undefined) {
+			return fixed[name];
+		}
+		else if (search === null) {
+			delete fixed[name];
+		}
+		else {
+			fixed[name] = search;
+		}
+
+		return this;
+	} );
+
+	return name !== undefined && search === undefined
+		? ret[0]
+		: ret;
+} );
 
 _api_registerPlural(
 	'columns().search()',
@@ -55,3 +79,31 @@ _api_registerPlural(
 	}
 );
 
+_api_registerPlural(
+	'columns().search.fixed()',
+	'column().search.fixed()',
+	function ( name, search ) {
+		var ret = this.iterator( true, 'column', function ( settings, colIdx ) {
+			var fixed = settings.aoColumns[colIdx].searchFixed;
+
+			if (! name) {
+				return Object.keys(fixed)
+			}
+			else if (search === undefined) {
+				return fixed[name];
+			}
+			else if (search === null) {
+				delete fixed[name];
+			}
+			else {
+				fixed[name] = search;
+			}
+
+			return this;
+		} );
+
+		return name !== undefined && search === undefined
+			? ret[0]
+			: ret;
+	}
+);

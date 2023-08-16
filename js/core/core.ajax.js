@@ -161,7 +161,13 @@ function _fnAjaxParameters( settings )
 				orderable: column.bSortable,
 				search: {
 					value: preColSearch[i].sSearch,
-					regex: preColSearch[i].bRegex
+					regex: preColSearch[i].bRegex,
+					fixed: $.map(column.searchFixed, function(val, name) {
+						return {
+							name: name,
+							term: val.toString()
+						}
+					})
 				}
 			};
 		} ),
@@ -178,7 +184,13 @@ function _fnAjaxParameters( settings )
 			-1,
 		search: {
 			value: preSearch.sSearch,
-			regex: preSearch.bRegex
+			regex: preSearch.bRegex,
+			fixed: $.map(settings.searchFixed, function(val, name) {
+				return {
+					name: name,
+					term: val.toString()
+				}
+			})
 		}
 	};
 }

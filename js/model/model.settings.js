@@ -304,6 +304,11 @@ DataTable.models.oSettings = {
 	"oPreviousSearch": {},
 
 	/**
+	 * Store for named searches
+	 */
+	searchFixed: {},
+
+	/**
 	 * Store the applied search for each column - see
 	 * {@link DataTable.models.oSearch} for the format that is used for the
 	 * filtering information for each column.

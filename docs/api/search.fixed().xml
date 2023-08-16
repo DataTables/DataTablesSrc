@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>search.fixed()</name>
+	<summary>Get / set a named search to apply to a table.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>search.fixed()</signature>
+		<description>
+			Get a list of the names of searches applied to the table.
+		</description>
+		<returns type="DataTables.Api">
+			An API instance that contains the names of the search terms applied to the table.
+		</returns>
+	</type>
+
+	<type type="function">
+		<signature>search.fixed( name )</signature>
+		<description>
+			Get the search term used for the given name.
+		</description>
+		<returns type="undefined|function|string|RegExp">
+			The search term that was originally applied.
+		</returns>
+	</type>
+
+	<type type="function">
+		<signature>search.fixed( name, searchTerm )</signature>
+		<description></description>
+		<parameter type="string" name="name">
+			Treat as a regular expression (`true`) or not (default, `false`).
+		</parameter>
+		<parameter type="string|RegExp|function|null" name="input">
+			The search term to apply to the table.
+
+			Use `null` for this value to delete an existing search term.
+
+			If given as a string, it will be applied to the table's search using DataTables "smart" search (see `-api search()`).
+
+			If working with a regular expression, be aware that the regex is applied to a single string with the search data from all searchable columns (double space joined).
+			
+			In the case of a function the function is called for each row with two parameters which are passed in; the first is the search string of data from all searchable columns in the table, and the second is the row's original data object. A boolean value should be returned: `true` to keep the row, `false` to filter it out.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		This method provides the ability to apply a "fixed" search to a DataTable. They might also be termed _sticky_ or _named_ searches. The primary difference from a standard search term is that a fixed search is not immediately replaced by the next search term applied. It is consistently applied to the table, until either replaced by name or is deleted.
+
+		Fixed search terms are particularly useful when you want to layer searches - i.e. add multiple search terms and have the table display the cumulative result.
+
+		This interface is usually expected to be used by developers creating a custom search interface for DataTables.
+
+		Please be aware that this method sets the fixed search to apply to the table only - it does not actually perform the search. In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of this method.
+
+		When using server-side processing, additional logic must be added at the server-side to handle fixed search terms. Additionally, searching by functions is not possible, since the search function is client-side based.
+	</description>
+
+	<example title="Get an array of current search names"><![CDATA[
+let table = new DataTable('#myTable');
+
+let searches = table.search.fixed().toArray();
+]]></example>
+
+	<example title="Get an expecting search term"><![CDATA[
+let search = table.search.fixed('mySearch');
+]]></example>
+
+	<example title="Applying a search string"><![CDATA[
+table.search.fixed('myString', 'Paris');
+]]></example>
+
+	<example title="Applying a search regex"><![CDATA[
+table.search.fixed('myRegex', /l.*n/i);
+]]></example>
+
+	<example title="Applying a search function"><![CDATA[
+table.search.fixed('myFunc', (row, data) => {
+	return row.includes('New York');
+});
+]]></example>
+
+	<example title="Deleting an existing search term"><![CDATA[
+table.search.fixed('mySearch', null);
+]]></example>
+
+	<related type="option">searching</related>
+	<related type="option">columns.searchable</related>
+	<related type="api">column().search()</related>
+	<related type="api">column().search.fixed()</related>
+	<related type="api">columns().search()</related>
+	<related type="api">columns().search.fixed()</related>
+</dt-api>

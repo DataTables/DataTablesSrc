@@ -48,9 +48,11 @@
 
 		The smart search ability of DataTables is performed using a regular expression and can be enabled or disabled using the third parameter of this method. If you wish to use a custom regular expression, for example to perform whole word exact matching, you would need to enable the regular expression option (second parameter) and disable the smart search option (third parameter) to ensure that the two do not conflict. DataTables provides a utility method (`dt-api DataTable.util.escapeRegex()`) to escape regular expression special characters, which can be useful if you mix user input with regular expressions.
 
-		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term is a search to avoid naming conflict with the `-api filter()` helper method.
+		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term  _search_ to avoid naming conflict with the `-api filter()` helper method.
 
 		Please be aware that this method sets the search to apply to the table only - it does not actually perform the search. In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api search()` method's returned object - for example `table.search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
+
+		When using server-side processing, additional logic must be added at the server-side to handle regex search terms. Additionally, searching by functions is not possible, since the search function is client-side based.
 	</description>
 
 	<example title="Search the table using a custom input"><![CDATA[
