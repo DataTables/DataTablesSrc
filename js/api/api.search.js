@@ -79,9 +79,10 @@ _api_registerPlural(
 	}
 );
 
-_api_registerPlural(
-	'columns().search.fixed()',
-	'column().search.fixed()',
+_api_register([
+		'columns().search.fixed()',
+		'column().search.fixed()'
+	],
 	function ( name, search ) {
 		var ret = this.iterator( true, 'column', function ( settings, colIdx ) {
 			var fixed = settings.aoColumns[colIdx].searchFixed;

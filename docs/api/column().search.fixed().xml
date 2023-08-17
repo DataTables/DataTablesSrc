@@ -39,7 +39,7 @@
 
 			If working with a regular expression, the data given is the search data for the cells in column in question.
 			
-			In the case of a function the function is called for each row with two parameters which are passed in; the first is the search data for the cell in the row/column being search, and the second is the row's original data object. A boolean value should be returned: `true` to keep the row, `false` to filter it out.
+			In the case of a function the function is called for each row with three parameters which are passed in; the first is the search data for the cell in the row/column being search, the second is the row's original data object, and the third is the column index. A boolean value should be returned: `true` to keep the row, `false` to filter it out.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>
 	</type>
