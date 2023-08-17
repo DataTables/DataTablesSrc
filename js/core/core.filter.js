@@ -152,6 +152,8 @@ function _fnFilter( searchRows, settings, input, regex, smart, caseInsensitive, 
  */
 function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 {
+	var not = [];
+
 	if (typeof search !== 'string') {
 		search = search.toString();
 	}
@@ -163,27 +165,53 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 	if ( smart ) {
 		/* For smart filtering we want to allow the search to work regardless of
 		 * word order. We also want double quoted text to be preserved, so word
-		 * order is important - a la google. So this is what we want to
-		 * generate:
+		 * order is important - a la google. And a negative look around for
+		 * finding rows which don't contain a given string.
+		 * 
+		 * So this is the sort of thing we want to generate:
 		 * 
 		 * ^(?=.*?\bone\b)(?=.*?\btwo three\b)(?=.*?\bfour\b).*$
 		 */
-		var a = $.map( search.match( /["\u201C][^"\u201D]+["\u201D]|[^ ]+/g ) || [''], function ( word ) {
+		var a = $.map( search.match( /!?["\u201C][^"\u201D]+["\u201D]|[^ ]+/g ) || [''], function ( word ) {
+			var negative = false;
+
+			// Determine if it is a "does not include"
+			if ( word.charAt(0) === '!' ) {
+				negative = true;
+				word = word.substring(1);
+			}
+
+			// Strip the quotes from around matched phrases
 			if ( word.charAt(0) === '"' ) {
 				var m = word.match( /^"(.*)"$/ );
 				word = m ? m[1] : word;
 			}
 			else if ( word.charAt(0) === '\u201C' ) {
+				// Smart quote match (iPhone users)
 				var m = word.match( /^\u201C(.*)\u201D$/ );
 				word = m ? m[1] : word;
+			}
+
+			// For our "not" case, we need to modify the string that is
+			// allowed to match at the end of the expression.
+			if (negative) {
+				if (word.length > 1) {
+					not.push('(?!'+word+')');
+				}
+
+				word = '';
 			}
 
 			return word.replace('"', '');
 		} );
 
-		search = '^(?=.*?'+a.join( ')(?=.*?' )+').*$';
-	}
+		var match = not.length
+			? not.join('')
+			: '';
 
+		search = '^(?=.*?'+a.join( ')(?=.*?' )+')('+match+'.)*$';
+	}
+  
 	return new RegExp( search, caseInsensitive ? 'i' : '' );
 }
 

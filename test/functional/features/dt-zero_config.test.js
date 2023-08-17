@@ -389,6 +389,93 @@ describe('Basic Datatables Test', function() {
 				'Showing 1 to 2 of 2 entries (filtered from 57 total entries)'
 			);
 		});
+
+		it('Smart search - double quoted phrase', function() {
+			$('div.dataTables_filter input')
+				.val('"Regional Director"')
+				.keyup();
+
+			expect($('.dataTables_info').text()).toBe(
+				'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
+			);
+		});
+
+		it('Smart search - double quoted phrase and individual', function() {
+			$('div.dataTables_filter input')
+				.val('"Regional Director" Chang')
+				.keyup();
+
+			expect($('.dataTables_info').text()).toBe(
+				'Showing 1 to 1 of 1 entries (filtered from 57 total entries)'
+			);
+		});
+
+		it('Smart search - double quote unique match', function() {
+			$('div.dataTables_filter input')
+				.val('"Chief O"')
+				.keyup();
+
+			expect($('.dataTables_info').text()).toBe(
+				'Showing 1 to 1 of 1 entries (filtered from 57 total entries)'
+			);
+			expect($('#example tbody td').eq(0).text()).toBe('Fiona Green');
+		});
+
+		it('Smart search - double quote without proves phase', function() {
+			$('div.dataTables_filter input')
+				.val('Chief O')
+				.keyup();
+
+			expect($('.dataTables_info').text()).toBe(
+				'Showing 1 to 4 of 4 entries (filtered from 57 total entries)'
+			);
+			expect($('#example tbody td').eq(0).text()).toBe('Angelica Ramos');
+		});
+
+		it('Smart search - negative', function() {
+			$('div.dataTables_filter input')
+				.val('!Airi')
+				.keyup();
+
+			expect($('.dataTables_info').text()).toBe(
+				'Showing 1 to 10 of 56 entries (filtered from 57 total entries)'
+			);
+			expect($('#example tbody td').eq(0).text()).toBe('Angelica Ramos');
+		});
+
+		it('Smart search - two negatives', function() {
+			$('div.dataTables_filter input')
+				.val('!Airi !London')
+				.keyup();
+
+			expect($('.dataTables_info').text()).toBe(
+				'Showing 1 to 10 of 44 entries (filtered from 57 total entries)'
+			);
+			expect($('#example tbody td').eq(0).text()).toBe('Ashton Cox');
+		});
+
+		it('Smart search - two negatives and a positive', function() {
+			$('div.dataTables_filter input')
+				.val('!Airi !London Director')
+				.keyup();
+
+			expect($('.dataTables_info').text()).toBe(
+				'Showing 1 to 4 of 4 entries (filtered from 57 total entries)'
+			);
+			expect($('#example tbody td').eq(0).text()).toBe('Charde Marshall');
+		});
+
+		it('Smart search - negative phrase', function() {
+			$('div.dataTables_filter input')
+				.val('!"Airi Satou"')
+				.keyup();
+
+			expect($('.dataTables_info').text()).toBe(
+				'Showing 1 to 10 of 56 entries (filtered from 57 total entries)'
+			);
+			expect($('#example tbody td').eq(0).text()).toBe('Angelica Ramos');
+		});
+
 		dt.clean();
 	});
 });

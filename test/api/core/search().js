@@ -114,6 +114,49 @@ describe('core - search()', function() {
 			table.search('^a.*s$', true, false, false).draw();
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
 		});
+
+		dt.html('basic');
+		it('Smart search - quoted', function() {
+			let table = $('#example').DataTable();
+			table.search('"Chief O"').draw();
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Fiona Green');
+		});
+
+		it('Smart search - quoted (without the codes to prove grouping', function() {
+			let table = $('#example').DataTable();
+			table.search('Chief O').draw();
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Angelica Ramos');
+		});
+
+		it('Smart search - quoted and individual', function() {
+			let table = $('#example').DataTable();
+			table.search('"New York" Yuri').draw();
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Yuri Berry');
+		});
+
+		it('Smart search - negative', function() {
+			let table = $('#example').DataTable();
+			table.search('!Airi').draw();
+
+			expect($('.dataTables_info').text()).toBe('Showing 1 to 10 of 56 entries (filtered from 57 total entries)');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Angelica Ramos');
+		});
+
+		it('Smart search - negative and positive', function() {
+			let table = $('#example').DataTable();
+			table.search('!Airi San').draw();
+
+			expect($('.dataTables_info').text()).toBe('Showing 1 to 10 of 14 entries (filtered from 57 total entries)');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
+		});
+
+		it('Smart search - negative quoted', function() {
+			let table = $('#example').DataTable();
+			table.search('!"New York"').draw();
+
+			expect($('.dataTables_info').text()).toBe('Showing 1 to 10 of 46 entries (filtered from 57 total entries)');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+		});
 	});
 
 	describe('Regex search', function() {
