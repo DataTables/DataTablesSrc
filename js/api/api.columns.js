@@ -274,6 +274,21 @@ _api_registerPlural( 'columns().titles()', 'column().title()', function (title, 
 	}, 1 );
 } );
 
+_api_registerPlural( 'columns().types()', 'column().type()', function () {
+	return this.iterator( 'column', function ( settings, column ) {
+		var type = settings.aoColumns[column].sType;
+
+		// If the type was invalidated, then resolve it. This actually does
+		// all columns at the moment. Would only happen once if getting all
+		// column's data types.
+		if (! type) {
+			_fnColumnTypes(settings);
+		}
+
+		return type;
+	}, 1 );
+} );
+
 _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis, calc ) {
 	var that = this;
 	var changed = [];

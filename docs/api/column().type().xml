@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column().type()</name>
+	<summary>Get a column's data type.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>column().type()</signature>
+		<description>Get the configured or automatically detected data type for a column.</description>
+		<returns type="string">Data type detected for a column.</returns>
+	</type>
+
+	<description>
+		This method can be used to get the data type for a given column. A data type can be set at initialisation time using the `-init columns.type` option, or through the preferred automatic type detection that is run on data.
+
+		This can be useful for extensions when working with a specific column - e.g. knowing what the data type is for search data can be important.
+
+		There is no setter for this method. Rather, when data is set for a column (`-api row().data()`, `-init row.add()`, etc), the column type is invalidated and then recalculated when it is next needed. The recalculation will either take the value from `-init columns.type` if specified, or run the automatic type detection of the column's data again.
+	</description>
+
+	<example title="Get the data type for a column that was clicked on"><![CDATA[
+let table = new DataTable("#example");
+
+$("#example").on("click", "tbody td", function () {
+  let type = table.cell(this).type();
+
+  alert("Data type: " + type);
+});
+]]></example>
+
+	<related>-init columns.type</related>
+	<related>-api column().type()</related>
+	<related>-api columns().type()</related>
+</dt-api>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>columns().types()</name>
+	<summary>Get the data types for selected columns.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>columns().types()</signature>
+		<description>Get the configured or automatically detected data type for selected columns.</description>
+		<returns type="DataTables.Api">API instance whose data set is the data types for the selected columns (will be strings).</returns>
+	</type>
+
+	<description>
+		This method is used to get the data types for selected columns. This is basically the same as the singular `-api column().type()` method, but in this case can be used to get the data type for multiple columns at the same time.
+		
+		Please refer to the `-api column().type()` documentation for discussion on column data types.
+	</description>
+
+	<example title="Log the detected data types for all columns"><![CDATA[
+let table = new DataTable("#example");
+
+console.log(
+	table.columns().types().toArray()
+)
+]]></example>
+
+	<related>-init columns.type</related>
+	<related>-api column().type()</related>
+	<related>-api columns().type()</related>
+</dt-api>
