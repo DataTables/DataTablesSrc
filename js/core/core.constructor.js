@@ -225,7 +225,10 @@ if ( oLanguage.sUrl )
 			_fnInitialise( oSettings );
 		},
 		error: function () {
-			// Error occurred loading language file, continue on as best we can
+			// Error occurred loading language file
+			_fnLog( oSettings, 0, 'i18n file loading error', 21 );
+
+			// continue on as best we can
 			_fnInitialise( oSettings );
 		}
 	} );
