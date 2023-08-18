@@ -320,8 +320,6 @@ function _fnDraw( oSettings, ajaxComplete )
 
 	var anRows = [];
 	var iRowCount = 0;
-	var asStripeClasses = oSettings.asStripeClasses;
-	var iStripes = asStripeClasses.length;
 	var oLang = oSettings.oLanguage;
 	var bServerSide = _fnDataSource( oSettings ) == 'ssp';
 	var aiDisplay = oSettings.aiDisplay;
@@ -363,17 +361,6 @@ function _fnDraw( oSettings, ajaxComplete )
 
 			var nRow = aoData.nTr;
 
-			/* Remove the old striping classes and then add the new one */
-			if ( iStripes !== 0 )
-			{
-				var sStripe = asStripeClasses[ iRowCount % iStripes ];
-				if ( aoData._sRowStripe != sStripe )
-				{
-					$(nRow).removeClass( aoData._sRowStripe ).addClass( sStripe );
-					aoData._sRowStripe = sStripe;
-				}
-			}
-
 			// Row callback functions - might want to manipulate the row
 			// iRowCount and j are not currently documented. Are they at all
 			// useful?
@@ -397,7 +384,7 @@ function _fnDraw( oSettings, ajaxComplete )
 			sZero = oLang.sEmptyTable;
 		}
 
-		anRows[ 0 ] = $( '<tr/>', { 'class': iStripes ? asStripeClasses[0] : '' } )
+		anRows[ 0 ] = $( '<tr/>' )
 			.append( $('<td />', {
 				'colSpan': _fnVisbleColumns( oSettings ),
 				'class':   oSettings.oClasses.sRowEmpty

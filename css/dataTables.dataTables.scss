@@ -129,12 +129,12 @@ table.dataTable {
 	// Stripe classes - add "stripe" class to the table to activate
 	&.stripe > tbody,
 	&.display > tbody {
-		> tr.odd > * {
+		> tr:nth-child(odd) > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.023);
 			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe), 0.023);
 		}
 
-		> tr.odd.selected > * {
+		> tr:nth-child(odd).selected > * {
 			box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.923);
 			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.923);
 		}
@@ -178,7 +178,7 @@ table.dataTable {
 	}
 	&.display > tbody,
 	&.order-column.stripe > tbody {
-		> tr.odd {
+		> tr:nth-child(odd) {
 			> .sorting_1 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.054);
 				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.054);

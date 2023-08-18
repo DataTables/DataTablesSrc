@@ -107,8 +107,6 @@ _api_register( 'destroy()', function ( remove ) {
 		settings.aaSortingFixed = [];
 		_fnSortingClasses( settings );
 
-		$( rows ).removeClass( settings.asStripeClasses.join(' ') );
-
 		$('th, td', thead)
 			.removeClass( classes.orderableAsc+' '+
 				classes.orderableDesc+' '+classes.orderingAsc+' '+classes.orderingDesc
@@ -136,17 +134,6 @@ _api_register( 'destroy()', function ( remove ) {
 			jqTable
 				.css( 'width', settings.sDestroyWidth )
 				.removeClass( classes.sTable );
-
-			// If the were originally stripe classes - then we add them back here.
-			// Note this is not fool proof (for example if not all rows had stripe
-			// classes - but it's a good effort without getting carried away
-			ien = settings.asDestroyStripes.length;
-
-			if ( ien ) {
-				jqTbody.children().each( function (i) {
-					$(this).addClass( settings.asDestroyStripes[i % ien] );
-				} );
-			}
 		}
 
 		/* Remove the settings object from the settings array */

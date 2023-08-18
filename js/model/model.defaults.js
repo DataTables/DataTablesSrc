@@ -380,27 +380,6 @@ DataTable.defaults = {
 
 
 	/**
-	 * An array of CSS classes that should be applied to displayed rows. This
-	 * array may be of any length, and DataTables will apply each class
-	 * sequentially, looping when required.
-	 *  @type array
-	 *  @default null <i>Will take the values determined by the `oClasses.stripe*`
-	 *    options</i>
-	 *
-	 *  @dtopt Option
-	 *  @name DataTable.defaults.stripeClasses
-	 *
-	 *  @example
-	 *    $(document).ready( function() {
-	 *      $('#example').dataTable( {
-	 *        "stripeClasses": [ 'strip1', 'strip2', 'strip3' ]
-	 *      } );
-	 *    } )
-	 */
-	"asStripeClasses": null,
-
-
-	/**
 	 * Enable or disable automatic column width calculation. This can be disabled
 	 * as an optimisation (it takes some time to calculate the widths) if the
 	 * tables widths are passed in using `columns`.

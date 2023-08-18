@@ -342,22 +342,6 @@ DataTable.models.oSettings = {
 	"aaSortingFixed": [],
 
 	/**
-	 * Classes to use for the striping of a table.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
-	 *  @type array
-	 *  @default []
-	 */
-	"asStripeClasses": null,
-
-	/**
-	 * If restoring a table - we should restore its striping classes as well
-	 *  @type array
-	 *  @default []
-	 */
-	"asDestroyStripes": [],
-
-	/**
 	 * If restoring a table - we should restore its width
 	 *  @type int
 	 *  @default 0

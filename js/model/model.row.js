@@ -69,16 +69,6 @@ DataTable.models.oRow = {
 	"_sFilterRow": null,
 
 	/**
-	 * Cache of the class name that DataTables has applied to the row, so we
-	 * can quickly look at this variable rather than needing to do a DOM check
-	 * on className for the nTr property.
-	 *  @type string
-	 *  @default <i>Empty string</i>
-	 *  @private
-	 */
-	"_sRowStripe": "",
-
-	/**
 	 * Denote if the original data source was from the DOM, or the data source
 	 * object. This is used for invalidating data, so DataTables can
 	 * automatically read data from the original source, unless uninstructed

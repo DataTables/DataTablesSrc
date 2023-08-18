@@ -105,11 +105,11 @@ describe('rows - rows().remove()', function() {
 		it('Deleting rows (with class) gives row id in return', function() {
 			let table = $('#example').DataTable();
 			let toRemove = table
-				.cells('.odd', 0)
+				.cells(':nth-child(odd)', 0)
 				.data()
 				.toArray();
 			let removed = table
-				.rows('.odd')
+				.rows(':nth-child(odd)')
 				.remove()
 				.draw();
 			expect(removed[0].length).toBe(5);

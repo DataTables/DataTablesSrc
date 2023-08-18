@@ -131,7 +131,6 @@ _fnMap( oSettings.oFeatures, oInit, [
 	"bDeferRender"
 ] );
 _fnMap( oSettings, oInit, [
-	"asStripeClasses",
 	"ajax",
 	"fnFormatNumber",
 	"sServerMethod",
@@ -234,27 +233,6 @@ else {
 }
 
 /*
- * Stripes
- */
-if ( oInit.asStripeClasses === null )
-{
-	oSettings.asStripeClasses =[
-		oClasses.sStripeOdd,
-		oClasses.sStripeEven
-	];
-}
-
-/* Remove row stripe classes if they are already on the table row */
-var stripeClasses = oSettings.asStripeClasses;
-var rowOne = $this.children('tbody').find('tr').eq(0);
-if ( $.inArray( true, $.map( stripeClasses, function(el, i) {
-	return rowOne.hasClass(el);
-} ) ) !== -1 ) {
-	$('tbody tr', this).removeClass( stripeClasses.join(' ') );
-	oSettings.asDestroyStripes = stripeClasses.slice();
-}
-
-/*
  * Columns
  * See if we should load columns automatically or use defined ones
  */
@@ -285,6 +263,8 @@ _fnApplyColumnDefs( oSettings, oInit.aoColumnDefs, columnsInit, initHeaderLayout
 /* HTML5 attribute detection - build an mData object automatically if the
  * attributes are found
  */
+var rowOne = $this.children('tbody').find('tr').eq(0);
+
 if ( rowOne.length ) {
 	var a = function ( cell, name ) {
 		return cell.getAttribute( 'data-'+name ) !== null ? name : null;
