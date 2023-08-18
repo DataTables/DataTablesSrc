@@ -307,6 +307,7 @@ div.dataTables_wrapper {
 		display: table;
 		clear: both;
 		width: 100%;
+		table-layout: fixed;
 	}
 
 	div.dataTables_layout_cell {

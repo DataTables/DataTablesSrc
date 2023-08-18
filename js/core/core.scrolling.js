@@ -113,17 +113,15 @@ function _fnFeatureHtmlTable ( settings )
 	var scrollFoot = footer ? children[2] : null;
 
 	// When the body is scrolled, then we also want to scroll the headers
-	if ( scrollX ) {
-		$(scrollBody).on( 'scroll.DT', function (e) {
-			var scrollLeft = this.scrollLeft;
+	$(scrollBody).on( 'scroll.DT', function (e) {
+		var scrollLeft = this.scrollLeft;
 
-			scrollHead.scrollLeft = scrollLeft;
+		scrollHead.scrollLeft = scrollLeft;
 
-			if ( footer ) {
-				scrollFoot.scrollLeft = scrollLeft;
-			}
-		} );
-	}
+		if ( footer ) {
+			scrollFoot.scrollLeft = scrollLeft;
+		}
+	} );
 
 	$(scrollBody).css('max-height', scrollY);
 	if (! scroll.bCollapse) {
