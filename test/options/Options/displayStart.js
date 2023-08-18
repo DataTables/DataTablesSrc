@@ -48,7 +48,6 @@ describe('displayStart Option', function() {
 	});
 
 	describe('Integration style tests', function() {
-		// This will fail when manuscript case #514 is fixed
 		dt.html('basic');
 		it('Paging disabled', function() {
 			table = $('#example').DataTable({
@@ -56,8 +55,8 @@ describe('displayStart Option', function() {
 				displayStart: 20
 			});
 
-			expect(table.page.info().start).toBe(20);
-			expect($('div.dataTables_info').html()).toBe('Showing 21 to 57 of 57 entries');
+			expect(table.page.info().start).toBe(0);
+			expect($('div.dataTables_info').html()).toBe('Showing 1 to 57 of 57 entries');
 		});
 
 		dt.html('basic');

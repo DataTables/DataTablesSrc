@@ -184,6 +184,9 @@ var oClasses = oSettings.oClasses;
 $.extend( oClasses, DataTable.ext.classes, oInit.oClasses );
 $this.addClass( oClasses.sTable );
 
+if (! oSettings.oFeatures.bPaginate) {
+	oInit.iDisplayStart = 0;
+}
 
 if ( oSettings.iInitDisplayStart === undefined )
 {
