@@ -9,12 +9,9 @@
 
 <js><![CDATA[
 $('#example').DataTable({
-    ajax: {
-        url: 'data/arrays.txt',
-        data: function(d) {
-            d.test = 'init';
-        }
-    }
+    ajax: 'data/arrays.txt',
+    scrollY: 300,
+    paging: false
 });
 ]]></js>
 

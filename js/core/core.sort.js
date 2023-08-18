@@ -43,9 +43,10 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 		
 					_fnSortAdd( settings, columns[i], append );
 				}
-		
-				// Run the sort by calling a full redraw
-				_fnReDraw( settings );
+
+				_fnSort( settings );
+				_fnSortDisplay( settings );
+				_fnReDraw( settings, false, false );
 				_fnProcessingDisplay( settings, false );
 
 				if (callback) {
@@ -54,6 +55,32 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 			}, 0);
 		}
 	} );
+}
+
+/**
+ * Sort the display array to match the master's order
+ * @param {*} settings
+ */
+function _fnSortDisplay(settings) {
+	var display = settings.aiDisplay;
+	var master = settings.aiDisplayMaster;
+	var result = [];
+
+	// Display and master are same length (no filtering) so can optimize
+	if (display.length === master.length) {
+		result = master.slice();
+	}
+	else {
+		// Build the result array in the order of the master, based
+		// on what items are in the display array.
+		for (var i=0 ; i<master.length ; i++) {
+			if (display.includes(master[i])) {
+				result.push(master[i]);
+			}
+		}
+	}
+
+	settings.aiDisplay = result;
 }
 
 

@@ -80,5 +80,19 @@ describe('core - events - search', function() {
 			expect(count).toBe(10);
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
 		});
+
+		it('A search action does not trigger an order event', async function() {
+			let order = false;
+
+			table.on('order', () => {
+				order = true;
+			});
+
+			$('div.dataTables_filter label input')
+				.val('airi')
+				.keyup();
+
+			expect(search).toBe(false); // event didn't trigger
+		});
 	});
 });

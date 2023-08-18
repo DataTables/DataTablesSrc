@@ -67,5 +67,16 @@ describe('core - events - order', function() {
 			expect(params[2][0].src).toBe(2);
 			expect(params[2][0].dir).toBe('asc');
 		});
+
+		it('Click on ordering header does not trigger a search event', async function() {
+			let search = false;
+
+			table.on('search', () => {
+				search = true;
+			});
+
+			await dt.clickHeader(3);
+			expect(search).toBe(false); // event didn't trigger
+		});
 	});
 });

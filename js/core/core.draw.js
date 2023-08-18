@@ -433,23 +433,25 @@ function _fnDraw( oSettings, ajaxComplete )
  *    the paging is reset to the first page
  *  @memberof DataTable#oApi
  */
-function _fnReDraw( settings, holdPosition )
+function _fnReDraw( settings, holdPosition, recompute )
 {
 	var
 		features = settings.oFeatures,
 		sort     = features.bSort,
 		filter   = features.bFilter;
 
-	if ( sort ) {
-		_fnSort( settings );
-	}
+	if (recompute === undefined || recompute === true) {
+		if ( sort ) {
+			_fnSort( settings );
+		}
 
-	if ( filter ) {
-		_fnFilterComplete( settings, settings.oPreviousSearch );
-	}
-	else {
-		// No filtering, so we want to just use the display master
-		settings.aiDisplay = settings.aiDisplayMaster.slice();
+		if ( filter ) {
+			_fnFilterComplete( settings, settings.oPreviousSearch );
+		}
+		else {
+			// No filtering, so we want to just use the display master
+			settings.aiDisplay = settings.aiDisplayMaster.slice();
+		}
 	}
 
 	if ( holdPosition !== true ) {
