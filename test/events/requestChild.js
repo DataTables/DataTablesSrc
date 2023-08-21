@@ -81,9 +81,13 @@ describe('core - events - requestChild', function () {
 			expect(params[0].type).toBe('requestChild');
 			expect(params[1].index()).toBe(2);
 		});
-		it('Open child rows', function () {
+		it('Open child rows', async function () {
 			table.row(2).child('TEST').show();
 			table.row(3).child('TEST').show();
+
+			// `row().child().show()` has a 500mS delay before saving the
+			// state to allow for many being set at the same time
+			await dt.sleep(550);
 		});
 
 		dt.html('empty');
