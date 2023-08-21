@@ -70,29 +70,29 @@ describe('core - events - preDraw', function() {
 		});
 		it('Called when user changes page', function() {
 			$('span .paginate_button:eq(1)').click();
-			checkResults(1, 'Airi Satou');
+			checkResults(1, 'Garrett Winters');
 		});
 		it('Called when user changes page length', function() {
 			$('div.dataTables_length select')
 				.val(25)
 				.change();
-			checkResults(1, 'Jena Gaines');
+			checkResults(1, 'Howard Hatfield');
 		});
 		it('Called when user searches', function() {
-			$('div.dataTables_filter label input')
+			$('div.dataTables_filter input')
 				.val('cox')
 				.keyup();
-			checkResults(1, 'Jena Gaines');
+			checkResults(1, 'Howard Hatfield');
 		});
 		it('Called when user clears search', function() {
-			$('div.dataTables_filter label input')
+			$('div.dataTables_filter input')
 				.val('')
 				.keyup();
 			checkResults(1, 'Ashton Cox');
 		});
 		it('Called when user changes order', async function() {
 			await dt.clickHeader(2);
-			checkResults(1, 'Airi Satou');
+			checkResults(1, 'Garrett Winters');
 		});
 
 		dt.html('empty');

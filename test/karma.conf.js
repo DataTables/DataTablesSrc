@@ -91,7 +91,7 @@ module.exports = function(config) {
 		}
 	}
 	else {
-		testFiles = 'test/*/*/*.js'
+		testFiles = 'test/*/**/*.js'
 	}
 
 	config.set({

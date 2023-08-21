@@ -74,7 +74,7 @@ describe('core - events - search', function() {
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 		it('Called just once when user searches', function() {
-			$('div.dataTables_filter label input')
+			$('div.dataTables_filter input')
 				.val('cox')
 				.keyup();
 			expect(count).toBe(10);
@@ -88,11 +88,11 @@ describe('core - events - search', function() {
 				order = true;
 			});
 
-			$('div.dataTables_filter label input')
+			$('div.dataTables_filter input')
 				.val('airi')
 				.keyup();
 
-			expect(search).toBe(false); // event didn't trigger
+			expect(order).toBe(false); // event didn't trigger
 		});
 	});
 });

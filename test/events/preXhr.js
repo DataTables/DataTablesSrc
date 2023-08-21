@@ -36,10 +36,12 @@ describe('core - events - preXhr', function() {
 				});
 		});
 		it('Called with expected parameters', function() {
-			expect(params.length).toBe(3);
+			expect(params.length).toBe(4);
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1]).toBe(table.settings()[0]);
 			expect(params[2]).toEqual({});
+			expect(typeof params[3]).toEqual('object');
+			expect(params[3].url).toEqual('/base/test/data/data.txt');
 		});
 	});
 

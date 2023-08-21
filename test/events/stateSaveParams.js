@@ -50,7 +50,7 @@ describe('core - events - stateSaveParams', function() {
 
 	describe('Functional tests', function() {
 		dt.html('basic');
-		it('Not called if no stateSave', function() {
+		it('Called even when no stateSave', function() {
 			count = 0;
 			table = $('#example')
 				.on('stateSaveParams.dt', function() {
@@ -61,7 +61,7 @@ describe('core - events - stateSaveParams', function() {
 					stateSave: false
 				});
 
-			expect(count).toBe(0);
+			expect(count).toBe(1);
 		});
 		dt.html('basic');
 		it('Called if stateSave', function() {
