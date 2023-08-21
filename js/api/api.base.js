@@ -215,9 +215,6 @@ $.extend( _Api.prototype, {
 	},
 
 
-	concat:  __arrayProto.concat,
-
-
 	context: [], // array of table settings objects
 
 
