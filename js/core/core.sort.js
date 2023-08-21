@@ -202,7 +202,6 @@ function _fnSort ( oSettings, col, dir )
 		aiOrig = [],
 		extSort = DataTable.ext.type.order,
 		aoData = oSettings.aoData,
-		formatters = 0,
 		sortCol,
 		displayMaster = oSettings.aiDisplayMaster,
 		aSort;
@@ -233,11 +232,6 @@ function _fnSort ( oSettings, col, dir )
 
 	for ( i=0, ien=aSort.length ; i<ien ; i++ ) {
 		sortCol = aSort[i];
-
-		// Track if we can use the fast sort algorithm
-		if ( sortCol.formatter ) {
-			formatters++;
-		}
 
 		// Load the data needed for the sort, for each cell
 		_fnSortData( oSettings, sortCol.col );
@@ -317,8 +311,18 @@ function _fnSort ( oSettings, col, dir )
 		displayMaster.sort(); // Apply index order
 	}
 
-	/* Tell the draw function that we have sorted the data */
-	oSettings.bSorted = true;
+	if (col === undefined) {
+		// Tell the draw function that we have sorted the data
+		oSettings.bSorted = true;
+
+		var sortedColumns = {};
+
+		$.each( aSort, function (i, val) {
+			sortedColumns[ val.src ] = val.dir;
+		} );
+
+		_fnCallbackFire( oSettings, null, 'order', [oSettings, aSort, sortedColumns] );
+	}
 
 	return displayMaster;
 }

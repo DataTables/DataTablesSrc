@@ -323,21 +323,6 @@ var loadedInit = function () {
 	 */
 	_fnSortingClasses( oSettings );
 
-	if ( features.bSort ) {
-		_fnCallbackReg( oSettings, 'aoDrawCallback', function () {
-			if ( oSettings.bSorted ) {
-				var aSort = _fnSortFlatten( oSettings );
-				var sortedColumns = {};
-
-				$.each( aSort, function (i, val) {
-					sortedColumns[ val.src ] = val.dir;
-				} );
-
-				_fnCallbackFire( oSettings, null, 'order', [oSettings, aSort, sortedColumns] );
-			}
-		} );
-	}
-
 	_fnCallbackReg( oSettings, 'aoDrawCallback', function () {
 		if ( oSettings.bSorted || _fnDataSource( oSettings ) === 'ssp' || features.bDeferRender ) {
 			_fnSortingClasses( oSettings );

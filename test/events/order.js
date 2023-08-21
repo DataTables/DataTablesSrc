@@ -20,9 +20,7 @@ describe('core - events - order', function() {
 
 			table.order([0, 'desc']).draw(false);
 
-			// Note: below line disabled due to DD-795
-			// expect(firstCell).toBe('Airi Satou');
-			expect(firstCell).toBe('Zorita Serrano');
+			expect(firstCell).toBe('Airi Satou');
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Zorita Serrano');
 		});
 		it('Called with expected parameters', function() {
