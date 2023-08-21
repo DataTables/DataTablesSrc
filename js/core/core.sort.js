@@ -315,13 +315,7 @@ function _fnSort ( oSettings, col, dir )
 		// Tell the draw function that we have sorted the data
 		oSettings.bSorted = true;
 
-		var sortedColumns = {};
-
-		$.each( aSort, function (i, val) {
-			sortedColumns[ val.src ] = val.dir;
-		} );
-
-		_fnCallbackFire( oSettings, null, 'order', [oSettings, aSort, sortedColumns] );
+		_fnCallbackFire( oSettings, null, 'order', [oSettings, aSort] );
 	}
 
 	return displayMaster;

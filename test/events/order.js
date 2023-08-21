@@ -24,8 +24,7 @@ describe('core - events - order', function() {
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Zorita Serrano');
 		});
 		it('Called with expected parameters', function() {
-			// DD-794 raised as there should be only 3 params (note docs need updating)
-			expect(params.length).toBe(4);
+			expect(params.length).toBe(3);
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1]).toBe(table.settings()[0]);
 			expect(typeof params[2]).toBe('object');
