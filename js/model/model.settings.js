@@ -845,5 +845,9 @@ DataTable.models.oSettings = {
 	 *  @type string
 	 *  @default null
 	 */
-	"rowId": null
+	"rowId": null,
+
+	caption: '',
+
+	captionNode: null
 };

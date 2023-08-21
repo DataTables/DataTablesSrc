@@ -105,27 +105,49 @@ _api_registerPlural( 'tables().containers()', 'table().container()' , function (
 _api_register( 'caption()', function ( value, side ) {
 	var context = this.context;
 
+	// Getter - return existing node's content
 	if ( value === undefined ) {
-		var caption = $(context[0].nTable).children('caption');
+		var caption = context[0].captionNode;
 
-		return caption.length && context.length ?
-			caption.html() : 
+		return caption && context.length ?
+			caption.innerHTML : 
 			null;
 	}
 
 	return this.iterator( 'table', function ( ctx ) {
 		var table = $(ctx.nTable);
-		var caption = table.children('caption');
+		var caption = $(ctx.captionNode);
+		var container = $(ctx.nTableWrapper);
 
-		if ( caption.length ) {
-			caption.html( value );
+		// Create the node if it doesn't exist yet
+		if ( ! caption.length ) {
+			caption = $('<caption/>').html( value );
+			ctx.captionNode = caption[0];
+
+			// If side isn't set, we need to insert into the document to let the
+			// CSS decide so we can read it back, otherwise there is no way to
+			// know if the CSS would put it top or bottom for scrolling
+			if (! side) {
+				table.prepend(caption);
+
+				side = caption.css('caption-side');
+			}
 		}
-		else {
-			table.append( $('<caption/>').html( value ) );
-		}
+
+		caption.html( value );
 
 		if ( side ) {
-			table.children('caption').css( 'caption-side', side );
+			caption.css( 'caption-side', side );
+			caption[0]._captionSide = side;
+		}
+
+		if (container.find('div.dataTables_scroll').length) {
+			var selector = (side === 'top' ? 'Head' : 'Foot');
+
+			container.find('div.dataTables_scroll'+ selector +' table').prepend(caption);
+		}
+		else {
+			table.prepend(caption);
 		}
 	}, 1 );
 } );
@@ -133,12 +155,5 @@ _api_register( 'caption()', function ( value, side ) {
 _api_register( 'caption.node()', function () {
 	var ctx = this.context;
 
-	if ( ctx.length ) {
-		var caption = $(ctx[0].nTable).children('caption');
-
-		return caption.length ?
-			caption[0] : 
-			null;
-	}
-	return null;
+	return ctx.length ? ctx[0].captionNode : null;
 } );

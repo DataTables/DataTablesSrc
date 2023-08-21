@@ -18,8 +18,8 @@ function _fnFeatureHtmlTable ( settings )
 	var scrollX = scroll.sX;
 	var scrollY = scroll.sY;
 	var classes = settings.oClasses;
-	var caption = table.children('caption');
-	var captionSide = caption.length ? caption[0]._captionSide : null;
+	var caption = settings.captionNode;
+	var captionSide = caption ? caption._captionSide : null;
 	var headerClone = $( table[0].cloneNode(false) );
 	var footerClone = $( table[0].cloneNode(false) );
 	var footer = table.children('tfoot');

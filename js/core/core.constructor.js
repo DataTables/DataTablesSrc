@@ -334,20 +334,23 @@ var loadedInit = function () {
 	 * Final init
 	 * Cache the header, body and footer as required, creating them if needed
 	 */
-	var captions = $this.children('caption');
+	var caption = $this.children('caption');
 
 	if ( oSettings.caption ) {
-		if ( captions.length === 0 ) {
-			captions = $('<caption/>').appendTo( $this );
+		if ( caption.length === 0 ) {
+			caption = $('<caption/>').appendTo( $this );
 		}
 
-		captions.html( oSettings.caption );
+		caption.html( oSettings.caption );
 	}
 
-	// Work around for Webkit bug 83867 - store the caption-side before removing from doc
-	captions.each( function () {
+	// Store the caption side, so we can remove the element from the document
+	// when creating the element
+	caption.each( function () {
 		this._captionSide = $(this).css('caption-side');
 	} );
+
+	oSettings.captionNode = caption[0];
 
 	if ( thead.length === 0 ) {
 		thead = $('<thead/>').appendTo($this);
