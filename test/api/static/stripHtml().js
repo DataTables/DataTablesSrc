@@ -1,4 +1,4 @@
-describe('Static method - get()', function () {
+describe('Static method - util.stripHtml()', function () {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
