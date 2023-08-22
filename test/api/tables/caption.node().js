@@ -21,9 +21,9 @@ describe( 'api - caption.node()', function() {
 		expect( table.caption.node() ).toBe( $('#example caption')[0] );
 	} );
 	
-	it( 'Will return null after removing the caption with jQuery', function () {
+	it( 'Will still return the cached node after removing the caption with jQuery', function () {
 		$( table.caption.node() ).remove();
 
-		expect( table.caption.node() ).toBe( null );
+		expect( table.caption.node() ).not.toBe( null );
 	} );
 } );

@@ -346,11 +346,10 @@ var loadedInit = function () {
 
 	// Store the caption side, so we can remove the element from the document
 	// when creating the element
-	caption.each( function () {
-		this._captionSide = $(this).css('caption-side');
-	} );
-
-	oSettings.captionNode = caption[0];
+	if (caption.length) {
+		caption[0]._captionSide = caption.css('caption-side');
+		oSettings.captionNode = caption[0];
+	}
 
 	if ( thead.length === 0 ) {
 		thead = $('<thead/>').appendTo($this);
