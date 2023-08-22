@@ -13,9 +13,7 @@ $.extend( DataTable.ext.type.search, {
 		return _empty(data) ?
 			data :
 			typeof data === 'string' ?
-				data
-					.replace( _re_new_lines, " " )
-					.replace( _re_html, "" ) :
+				_stripHtml(data.replace( _re_new_lines, " " )) :
 				'';
 	},
 

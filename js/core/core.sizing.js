@@ -1,8 +1,4 @@
 
-
-var __re_html_remove = /<.*?>/g;
-
-
 /**
  * Calculate the width of columns for the table
  *  @param {object} oSettings dataTables settings object
@@ -245,8 +241,7 @@ function _fnGetMaxLenString( settings, colIdx )
 			var rowIdx = settings.aiDisplayMaster[i];
 			var data = _fnGetRowDisplay(settings, rowIdx);
 	
-			s = data[colIdx]
-				.replace( __re_html_remove, '' )
+			s = _stripHtml(data[colIdx])
 				.replace( /&nbsp;/g, ' ' );
 	
 			if ( s.length > maxLen ) {

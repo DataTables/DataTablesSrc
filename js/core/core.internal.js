@@ -202,7 +202,7 @@ var _removeEmpty = function ( a )
 	return out;
 };
 
-
+// Replaceable function in api./util
 var _stripHtml = function ( d ) {
 	return d
 		.replace( _re_html, '' ) // Complete tags

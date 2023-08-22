@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.util.stripHtml()</name>
+	<summary>Remove HTML from a string</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>stripHtml( str )</signature>
+		<description>Remove mark up from a string.</description>
+		<param type="string" name="str">
+			String to have regex special characters escaped
+		</param>
+		<returns type="string">Sanitized string</returns>
+	</type>
+
+	<type type="function">
+		<signature>stripHtml( fn )</signature>
+		<description>Set the HTML stripping function.</description>
+		<param type="function" name="fn">
+			Function to use for HTML stripping in DataTables.
+		</param>
+	</type>
+
+	<description>
+	<![CDATA[
+		DataTables and its extensions often need to strip out HTML from string based data - e.g. for ordering and search in the table. This method exposes a utility function to do that. It is quite simple in that it removes any content between `<` and `>`, and incomplete script tags (`<script`).
+
+		This simple form is chosen for performance and meeting the requirements of most use cases. However, there are circumstances whereby you might need a more complex HTML stripper - e.g. with nested HTML in attributes. For such cases this function can be used as a setter to give DataTables a function that it should use for stripping HTML. If used this way, the stripping function should accept a single parameter and return a sanitized string.
+	]]>
+	</description>
+
+	<example title="Strip HTML from a string"><![CDATA[
+
+let sanitized = DataTable.util.stripHtml('<a href="...">Link</a>');
+
+// sanitized is: 'Link'
+
+]]></example>
+</dt-api>

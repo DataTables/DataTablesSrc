@@ -278,6 +278,19 @@ DataTable.util = {
 				return data[source];
 			};
 		}
+	},
+
+	stripHtml: function (mixed) {
+		var type = typeof mixed;
+
+		if (type === 'function') {
+			_stripHtml = mixed;
+			return;
+		}
+		else if (type === 'string') {
+			return _stripHtml(mixed);
+		}
+		return mixed;
 	}
 };
 
