@@ -6,6 +6,7 @@ describe('nonjQuery - events', function () {
 
 	let event = '';
 	let table;
+	let order = 0;
 
 	dt.html('basic');
 	it('No options', function () {
@@ -14,6 +15,7 @@ describe('nonjQuery - events', function () {
 		table
 			.on('order', function () {
 				event = 'Order';
+				order++;
 			})
 			.on('search', function () {
 				event = 'Search';
@@ -25,8 +27,10 @@ describe('nonjQuery - events', function () {
 		expect(event).toBe('');
 	});
 	it('Order', function () {
+		// A draw will trigger a search as well
 		table.order(1).draw();
-		expect(event).toBe('Order');
+		expect(event).toBe('Search');
+		expect(order).toBe(1);
 	});
 	it('Search', function () {
 		table.search('a');
