@@ -38,17 +38,17 @@ describe('searchDelay Option', function() {
 			$('div.dataTables_filter input')
 				.val('z')
 				.keyup();
-			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Gavin Cortez');
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Zenaida Frank');
 		});
 		it('Second interaction has no effect before timeout', function() {
 			$('div.dataTables_filter input')
 				.val('o')
 				.keyup();
-			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Gavin Cortez');
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Zenaida Frank');
 		});
 		it('But has effect after timeout', async function(done) {
 			await dt.sleep(3000);
-			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Angelica Ramos');
 			done();
 		});
 	});

@@ -141,11 +141,11 @@ describe('rows - rows()', function() {
 		it('search - applied', function() {
 			table
 				.order([3, 'asc'])
-				.search('33')
+				.search('41')
 				.draw();
 			rows = table.rows('tr', { search: 'applied' });
 			expect(rows.count()).toBe(2);
-			expect(rows.data()[0][0]).toBe('Cedric Kelly');
+			expect(rows.data()[0][0]).toBe('Bradley Greer');
 		});
 
 		it('search - none', function() {

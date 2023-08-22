@@ -46,22 +46,22 @@ describe('core - search.fixed()', function() {
 		it('Returns term that was set - string', function() {
 			table = $('#example').DataTable();
 
-			table.columns([0,1]).search.fixed('test', 'n').draw();
+			table.columns([0,1]).search.fixed('test', 'd').draw();
 
-			expect($('#example tbody td').eq(0).text()).toBe('Ashton Cox');
-			expect(table.page.info().recordsDisplay).toBe(25);
+			expect($('#example tbody td').eq(0).text()).toBe('Shad Decker');
+			expect(table.page.info().recordsDisplay).toBe(1);
 		});
 
 		it('Was set on both columns', function() {
-			expect(table.column(0).search.fixed('test')).toBe('n');
-			expect(table.column(1).search.fixed('test')).toBe('n');
+			expect(table.column(0).search.fixed('test')).toBe('d');
+			expect(table.column(1).search.fixed('test')).toBe('d');
 		});
 
 		it('Can remove just one', function() {
 			table.columns(0).search.fixed('test', null).draw();
 
-			expect($('#example tbody td').eq(0).text()).toBe('Airi Satou');
-			expect(table.page.info().recordsDisplay).toBe(42);
+			expect($('#example tbody td').eq(0).text()).toBe('Cedric Kelly');
+			expect(table.page.info().recordsDisplay).toBe(19);
 		});
 	});
 });
