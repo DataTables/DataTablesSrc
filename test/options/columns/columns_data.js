@@ -26,8 +26,6 @@ describe('columns.data option', function() {
 			let table = $('#example').DataTable({
 				columns: [{ data: null }, null, null, null, null, null]
 			});
-			// DD-939 - uncomment once fixed
-			// expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('');
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('[object Object]');
 		});
 
