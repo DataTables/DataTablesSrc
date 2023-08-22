@@ -27,6 +27,8 @@
 			  "ajax": "data.json"
 			} );
 			```
+
+			As of DataTables 2, this option can be given as an empty string to indicate to DataTables that it is an Ajax sourced table, but not to make an Ajax request until a URL is given, which can be done with `-api ajax.url().load()`. This can be useful if you are using DataTables to display search results obtained by Ajax, for example.
 		</description>
 	</type>
 

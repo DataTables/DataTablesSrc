@@ -92,8 +92,10 @@ function _fnBuildAjax( oSettings, data, fn )
 		// Is a function - let the caller define what needs to be done
 		oSettings.jqXHR = ajax.call( instance, data, callback, oSettings );
 	}
-	else
-	{
+	else if (ajax.url === '') {
+		callback({});
+	}
+	else {
 		// Object to extend the base settings
 		oSettings.jqXHR = $.ajax( baseAjax );
 

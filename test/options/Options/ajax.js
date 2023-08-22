@@ -70,5 +70,31 @@ describe('ajax option', function() {
 				}
 			});
 		});
+
+		dt.html('empty');
+		it('Empty string', function(done) {
+			table = $('#example').DataTable({
+				ajax: '',
+				columns: [
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				initComplete: function() {
+					expect($('tbody tr').text()).toBe('No data available in table');
+					done();
+				}
+			});
+		});
+
+		it('Can populate with ajax.url().load()', function(done) {
+			table.ajax.url('/base/test/data/data.txt').load(function () {
+				expect($('tbody tr:eq(2) td:eq(0)').text()).toBe('Ashton Cox');
+				done();
+			});
+		})
 	});
 });
