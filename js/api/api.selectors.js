@@ -136,6 +136,10 @@ var _selector_row_indexes = function ( settings, opts )
 	}
 	else if ( order == 'index' || order == 'original' ) {
 		for ( i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
+			if (! settings.aoData[i]) {
+				continue;
+			}
+
 			if ( search == 'none' ) {
 				a.push( i );
 			}

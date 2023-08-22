@@ -9,12 +9,15 @@ $(document).on('plugin-init.dt', function (e, context) {
 		// This could be more compact with the API, but it is a lot faster as a simple
 		// internal loop
 		var idFn = settings.rowIdFn;
-		var data = settings.aoData;
+		var rows = settings.aiDisplayMaster;
 		var ids = [];
 
-		for (var i=0 ; i<data.length ; i++) {
-			if (data[i]._detailsShow) {
-				ids.push( '#' + idFn(data[i]._aData) );
+		for (var i=0 ; i<rows.length ; i++) {
+			var rowIdx = rows[i];
+			var data = settings.aoData[rowIdx];
+
+			if (data._detailsShow) {
+				ids.push( '#' + idFn(data._aData) );
 			}
 		}
 

@@ -231,12 +231,17 @@ var __filter_div_textContent = __filter_div.textContent !== undefined;
 function _fnFilterData ( settings )
 {
 	var columns = settings.aoColumns;
+	var data = settings.aoData;
 	var column;
-	var i, j, ien, jen, filterData, cellData, row;
+	var j, jen, filterData, cellData, row;
 	var wasInvalidated = false;
 
-	for ( i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
-		row = settings.aoData[i];
+	for ( var rowIdx=0 ; rowIdx<data.length ; rowIdx++ ) {
+		if (! data[rowIdx]) {
+			continue;
+		}
+
+		row = data[rowIdx];
 
 		if ( ! row._aFilterData ) {
 			filterData = [];
@@ -245,10 +250,9 @@ function _fnFilterData ( settings )
 				column = columns[j];
 
 				if ( column.bSearchable ) {
-					cellData = _fnGetCellData( settings, i, j, 'filter' );
+					cellData = _fnGetCellData( settings, rowIdx, j, 'filter' );
 
-					// Search in DataTables 1.10 is string based. In 1.11 this
-					// should be altered to also allow strict type checking.
+					// Search in DataTables is string based
 					if ( cellData === null ) {
 						cellData = '';
 					}

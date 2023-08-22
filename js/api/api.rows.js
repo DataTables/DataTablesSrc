@@ -185,33 +185,17 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 	this.iterator( 'row', function ( settings, row, thatIdx ) {
 		var data = settings.aoData;
 		var rowData = data[ row ];
-		var i, ien, j, jen;
-		var loopRow, loopCells;
-
-		data.splice( row, 1 );
-
-		// Update the cached indexes
-		for ( i=0, ien=data.length ; i<ien ; i++ ) {
-			loopRow = data[i];
-			loopCells = loopRow.anCells;
-
-			// Rows
-			if ( loopRow.nTr !== null ) {
-				loopRow.nTr._DT_RowIndex = i;
-			}
-
-			// Cells
-			if ( loopCells !== null ) {
-				for ( j=0, jen=loopCells.length ; j<jen ; j++ ) {
-					loopCells[j]._DT_CellIndex.row = i;
-				}
-			}
-		}
 
 		// Delete from the display arrays
-		_fnDeleteIndex( settings.aiDisplayMaster, row );
-		_fnDeleteIndex( settings.aiDisplay, row );
-		_fnDeleteIndex( that[ thatIdx ], row, false ); // maintain local indexes
+		var idx = settings.aiDisplayMaster.indexOf(row);
+		if (idx !== -1) {
+			settings.aiDisplayMaster.splice(idx, 1);
+		}
+
+		idx = settings.aiDisplay.indexOf(row);
+		if (idx !== -1) {
+			settings.aiDisplay.splice(idx, 1);
+		}
 
 		// For server-side processing tables - subtract the deleted row from the count
 		if ( settings._iRecordsDisplay > 0 ) {
@@ -226,12 +210,8 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 		if ( id !== undefined ) {
 			delete settings.aIds[ id ];
 		}
-	} );
 
-	this.iterator( 'table', function ( settings ) {
-		for ( var i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
-			settings.aoData[i].idx = i;
-		}
+		data[row] = null;
 	} );
 
 	return this;

@@ -241,8 +241,9 @@ function _fnGetMaxLenString( settings, colIdx )
 	if (column.maxLenString === null) {
 		var s, max='', maxLen = -1;
 	
-		for ( var i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
-			var data = _fnGetRowDisplay(settings, i);
+		for ( var i=0, ien=settings.aiDisplayMaster.length ; i<ien ; i++ ) {
+			var rowIdx = settings.aiDisplayMaster[i];
+			var data = _fnGetRowDisplay(settings, rowIdx);
 	
 			s = data[colIdx]
 				.replace( __re_html_remove, '' )

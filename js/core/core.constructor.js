@@ -364,7 +364,7 @@ var loadedInit = function () {
 	oSettings.nTBody = tbody[0];
 
 	var tfoot = $this.children('tfoot');
-	if ( tfoot.length === 0 && captions.length > 0 && (oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "") ) {
+	if ( tfoot.length === 0 && caption.length > 0 && (oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "") ) {
 		// If we are a scrolling table, and no footer has been given, then we need to create
 		// a tfoot element for the caption element to be appended to
 		tfoot = $('<tfoot/>').appendTo($this);

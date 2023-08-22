@@ -60,7 +60,7 @@ $.extend( DataTable.ext.internal, {
 	_fnSetObjectDataFn: _fnSetObjectDataFn,
 	_fnGetDataMaster: _fnGetDataMaster,
 	_fnClearTable: _fnClearTable,
-	_fnDeleteIndex: _fnDeleteIndex,
+	// _fnDeleteIndex: _fnDeleteIndex,
 	_fnInvalidate: _fnInvalidate,
 	_fnGetRowElements: _fnGetRowElements,
 	_fnCreateTr: _fnCreateTr,

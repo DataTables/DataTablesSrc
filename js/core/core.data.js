@@ -251,36 +251,6 @@ function _fnClearTable( settings )
 }
 
 
- /**
- * Take an array of integers (index array) and remove a target integer (value - not
- * the key!)
- *  @param {array} a Index array to target
- *  @param {int} iTarget value to find
- *  @memberof DataTable#oApi
- */
-function _fnDeleteIndex( a, iTarget, splice )
-{
-	var iTargetIndex = -1;
-
-	for ( var i=0, iLen=a.length ; i<iLen ; i++ )
-	{
-		if ( a[i] == iTarget )
-		{
-			iTargetIndex = i;
-		}
-		else if ( a[i] > iTarget )
-		{
-			a[i]--;
-		}
-	}
-
-	if ( iTargetIndex != -1 && splice === undefined )
-	{
-		a.splice( iTargetIndex, 1 );
-	}
-}
-
-
 /**
  * Mark cached data as invalid such that a re-read of the data will occur when
  * the cached data is next requested. Also update from the data source object.

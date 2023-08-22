@@ -71,8 +71,7 @@ _api_register( 'destroy()', function ( remove ) {
 		var jqTable   = $(table);
 		var jqTbody   = $(tbody);
 		var jqWrapper = $(settings.nTableWrapper);
-		var rows      = $.map( settings.aoData, function (r) { return r.nTr; } );
-		var i, ien;
+		var rows      = $.map( settings.aoData, function (r) { return r ? r.nTr : null; } );
 
 		// Flag to note that the table is currently being destroyed - no action
 		// should be taken

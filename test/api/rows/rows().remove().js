@@ -26,14 +26,13 @@ describe('rows - rows().remove()', function() {
 			expect(removed[0].length).toBe(0);
 		});
 
-		// Manuscript case #485 raised to flag the odd row indexes being returned
 		dt.html('basic');
 		it('Deleting existing rows gives row ids in return', function() {
 			let table = $('#example').DataTable();
 			let removed = table.rows([5, 8]).remove();
 			expect(removed[0].length).toBe(2);
 			expect(removed[0][0]).toBe(5);
-			expect(removed[0][1]).toBe(7);
+			expect(removed[0][1]).toBe(8);
 		});
 
 		dt.html('basic');
@@ -83,7 +82,8 @@ describe('rows - rows().remove()', function() {
 			let table = $('#example').DataTable();
 			expect(table.row(2).cache()[0]).toBe('ashton cox');
 			table.rows([2]).remove();
-			expect(table.row(2).cache()[0]).toBe('cedric kelly');
+			expect(table.row(2).cache()).toBe(undefined);
+			expect(table.row(3).cache()[0]).toBe('cedric kelly');
 		});
 
 		function isRemoved(toRemove) {
@@ -113,8 +113,8 @@ describe('rows - rows().remove()', function() {
 				.remove()
 				.draw();
 			expect(removed[0].length).toBe(5);
-			// #485 expect(JSON.stringify(removed[0])).toBe('[4,2,27,42,50]');
-			expect(JSON.stringify(removed[0])).toBe('[3,2,25,39,46]');
+			expect(JSON.stringify(removed[0])).toBe('[4,2,27,42,50]');
+			// expect(JSON.stringify(removed[0])).toBe('[3,2,25,39,46]');
 			expect(isRemoved(toRemove)).toBe(true);
 		});
 	});
