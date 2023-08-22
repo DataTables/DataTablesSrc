@@ -51,5 +51,17 @@ describe('rows - row().remove()', function() {
 			expect(table.row(2).cache()).toBe(undefined);
 			expect(table.row(3).cache()[0]).toBe('cedric kelly');
 		});
+
+		dt.html('basic');
+		it('Row index is not altered on delete', function() {
+			let table = $('#example').DataTable();
+			let myRow = table.row(10);
+			let myRowData = myRow.data();
+
+			table.row(2).remove();
+
+			expect(myRow.data()).toEqual(myRowData); // cached row index
+			expect(table.row(10).data()).toEqual(myRowData); // use new
+		});
 	});
 });
