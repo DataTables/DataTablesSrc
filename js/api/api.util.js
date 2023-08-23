@@ -291,6 +291,8 @@ DataTable.util = {
 			return _stripHtml(mixed);
 		}
 		return mixed;
-	}
+	},
+
+	unique: _unique
 };
 

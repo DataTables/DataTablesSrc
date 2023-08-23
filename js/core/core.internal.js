@@ -248,13 +248,17 @@ var _areAllUnique = function ( src ) {
  */
 var _unique = function ( src )
 {
+	if (Array.from && Set) {
+		return Array.from(new Set(src));
+	}
+
 	if ( _areAllUnique( src ) ) {
 		return src.slice();
 	}
 
 	// A faster unique method is to use object keys to identify used values,
 	// but this doesn't work with arrays or objects, which we must also
-	// consider. See jsperf.com/compare-array-unique-versions/4 for more
+	// consider. See jsperf.app/compare-array-unique-versions/4 for more
 	// information.
 	var
 		out = [],

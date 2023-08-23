@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.util.unique()</name>
+	<summary>Get all unique items from an array</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>unique( src )</signature>
+		<description>Get unique values from an array.</description>
+		<param type="array" name="src">
+			Array to get unique values from.
+		</param>
+		<returns type="array">Array with unique values</returns>
+	</type>
+
+	<description>
+	<![CDATA[
+		DataTables often needs to get an array of items which are unique in that array. We've exposed this functionality as a utility method so it can be used by extensions and plug-ins for DataTables.
+
+		Note that it does not mutate the original array passed in. Rather a new array is created and the unique values assigned to the array.
+	]]>
+	</description>
+
+	<example title="Get unique values from an array"><![CDATA[
+
+let unique = DataTable.util.unique([1, 1, 2, 3, 1]);
+
+// unique is: [1, 2, 3]
+
+]]></example>
+</dt-api>
