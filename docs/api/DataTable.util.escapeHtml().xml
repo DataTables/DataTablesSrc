@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.util.escapeHtml()</name>
+	<summary>Escape HTML entities to make a user input string safe</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>escapeHtml( str )</signature>
+		<description>Escape entities in a string.</description>
+		<param type="string" name="str">
+			String to have HTML entities escaped
+		</param>
+		<returns type="string">Sanitized string</returns>
+	</type>
+
+	<type type="function">
+		<signature>escapeHtml( fn )</signature>
+		<description>Set the HTML escaping function.</description>
+		<param type="function" name="fn">
+			Function to use for HTML stripping in DataTables.
+		</param>
+	</type>
+
+	<description>
+	<![CDATA[
+		DataTables is required to write to the document, which can be an unsafe operation if the data being displayed is not pre-sanitized - i.e. a hacker might attempt an injection hack. DataTables provides helper functions to address this concern and we expose the escaping function for use by extensions and plug-ins for DataTables.
+
+		This method does not attempt to encode all HTML entities, but rather to just make a simple string safe for display. This simple form is chosen for performance and meeting the requirements of most use cases. However, there are circumstances whereby you might need a more complex HTML encoder. For such cases this function can be used as a setter to give DataTables a function that it should use for escaping HTML. If used this way, the escaping function should accept a single parameter and return a sanitized string.
+	]]>
+	</description>
+
+	<example title="Escape HTML in a string"><![CDATA[
+
+let sanitized = DataTable.util.escapeHtml('<a href="...">Link</a>');
+
+// sanitized is: '&lt;a href=&quot;...&quot;&gt;Link&lt;/a&gt;'
+
+]]></example>
+</dt-api>

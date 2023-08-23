@@ -293,6 +293,19 @@ DataTable.util = {
 		return mixed;
 	},
 
+	escapeHtml: function (mixed) {
+		var type = typeof mixed;
+
+		if (type === 'function') {
+			_escapeHtml = mixed;
+			return;
+		}
+		else if (type === 'string' || Array.isArray(mixed)) {
+			return _escapeHtml(mixed);
+		}
+		return mixed;
+	},
+
 	unique: _unique
 };
 

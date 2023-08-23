@@ -209,6 +209,20 @@ var _stripHtml = function ( d ) {
 		.replace(/<script/i, ''); // Safety for incomplete script tag
 };
 
+// Replaceable function in api.util
+var _escapeHtml = function ( d ) {
+	if (Array.isArray(d)) {
+		d = d.join(',');
+	}
+
+	return typeof d === 'string' ?
+		d
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;') :
+		d;
+};
 
 /**
  * Determine if all values in the array are unique. This means we can short

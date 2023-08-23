@@ -6,20 +6,6 @@
  * to make working with DataTables a little bit easier.
  */
 
-var __htmlEscapeEntities = function ( d ) {
-	if (Array.isArray(d)) {
-		d = d.join(',');
-	}
-
-	return typeof d === 'string' ?
-		d
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;') :
-		d;
-};
-
 // Common logic for moment, luxon or a date action
 function __mld( dt, momentFn, luxonFn, dateFn, arg1 ) {
 	if (window.moment) {
@@ -178,7 +164,7 @@ function __mlHelper (localeString) {
 
 			// XSS protection
 			return type === 'display' ?
-				__htmlEscapeEntities( formatted ) :
+				_escapeHtml( formatted ) :
 				formatted;
 		};
 	}
@@ -304,7 +290,7 @@ DataTable.render = {
 				// return immediately, escaping any HTML (this was supposed to
 				// be a number after all)
 				if ( isNaN( flo ) ) {
-					return __htmlEscapeEntities( d );
+					return _escapeHtml( d );
 				}
 
 				flo = flo.toFixed( precision );
@@ -332,8 +318,8 @@ DataTable.render = {
 
 	text: function () {
 		return {
-			display: __htmlEscapeEntities,
-			filter: __htmlEscapeEntities
+			display: _escapeHtml,
+			filter: _escapeHtml
 		};
 	}
 };

@@ -8,7 +8,7 @@
 		<signature>stripHtml( str )</signature>
 		<description>Remove mark up from a string.</description>
 		<param type="string" name="str">
-			String to have regex special characters escaped
+			String to have HTML tags stripped from.
 		</param>
 		<returns type="string">Sanitized string</returns>
 	</type>
