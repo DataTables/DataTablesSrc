@@ -380,7 +380,7 @@ function _fnScrollDraw ( settings )
 
 	// Figure out if there are scrollbar present - if so then we need a the header and footer to
 	// provide a bit more space to allow "overflow" scrolling (i.e. past the scrollbar)
-	var bScrolling = table.height() > divBodyEl.clientHeight || divBody.css('overflow-y') == "scroll";
+	var bScrolling = Math.floor(table.height()) > divBodyEl.clientHeight || divBody.css('overflow-y') == "scroll";
 	var padding = 'padding' + (browser.bScrollbarLeft ? 'Left' : 'Right' );
 	divHeaderInnerStyle[ padding ] = bScrolling ? barWidth+"px" : "0px";
 
