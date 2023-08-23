@@ -462,7 +462,7 @@ $.extend( _Api.prototype, {
 
 	unique: function ()
 	{
-		return new _Api( this.context, _unique(this) );
+		return new _Api( this.context, _unique(this.toArray()) );
 	},
 
 
