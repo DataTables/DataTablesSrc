@@ -21,7 +21,7 @@ describe('rows - row().remove()', function() {
 		dt.html('basic');
 		it('Deleting a non-existing row gives no row id in return', function() {
 			let table = $('#example').DataTable();
-			expect(table.row(100).remove().length).toBe(0);
+			expect(table.row(100).remove().count()).toBe(0);
 		});
 
 		it('Deleting a row gives row id in return', function() {

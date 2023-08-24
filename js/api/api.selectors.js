@@ -61,24 +61,22 @@ var _selector_opts = function ( opts )
 };
 
 
-var _selector_first = function ( inst )
+// Reduce the API instance to the first item found
+var _selector_first = function ( old )
 {
-	// Reduce the API instance to the first item found
-	for ( var i=0, ien=inst.length ; i<ien ; i++ ) {
-		if ( inst[i].length > 0 ) {
-			// Assign the first element to the first item in the instance
-			// and truncate the instance and context
-			inst[0] = inst[i];
-			inst[0].length = 1;
-			inst.length = 1;
-			inst.context = [ inst.context[i] ];
+	let inst = new _Api(old.context[0]);
 
-			return inst;
-		}
+	// Use a push rather than passing to the constructor, since it will
+	// merge arrays down automatically, which isn't what is wanted here
+	inst.push( old[0] );
+
+	inst.selector = old.selector;
+
+	// Limit to a single row / column / cell
+	if (inst.length && inst[0].length > 1) {
+		inst[0].splice(1);
 	}
 
-	// Not found - return an empty instance
-	inst.length = 0;
 	return inst;
 };
 

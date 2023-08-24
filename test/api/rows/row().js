@@ -84,7 +84,7 @@ describe('rows - row()', function() {
 		});
 
 		it('Selecting by save jQuery variable does not return the row', function() {
-			expect(table.row(row).length).toBe(0);
+			expect(table.row(row).count()).toBe(0);
 			expect(table.row(row).node()).toBe(null);
 		});
 

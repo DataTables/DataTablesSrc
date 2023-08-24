@@ -12,7 +12,6 @@
 // Defined else where
 //  _selector_run
 //  _selector_opts
-//  _selector_first
 //  _selector_row_indexes
 
 var _ext; // DataTable.ext

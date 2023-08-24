@@ -24,7 +24,7 @@
 
 		As an illustrative example, the `dt-api rows()` method will return the 2D array format described above, with the the inner array data containing the row indexes selected. For simple manipulation of a single table we want just a 1D array which contains the selected row indexes, and the API instance's context set to the table in question. This is exactly the ability the `dt-api eq()` method provides.
 
-		Please note that initially this method may appear to be similar to the `-api get()` method, but the data the two methods operate on is different:
+		Please note that initially this method may appear to be similar to the `-api get()` method, but the two methods provide slightly different functionally:
 
 		* `-api eq()` selects a specific DataTable from an API instance that references multiple tables
 		* `-api get()` gets the data from the API instance.
@@ -49,4 +49,7 @@ table.rows().eq( 0 ).each( function (idx) {
 	table.row( idx ).child.show();
 } );
 ]]></example>
+
+	<related>-api get()</related>
+	<related>-api eq()</related>
 </dt-api>

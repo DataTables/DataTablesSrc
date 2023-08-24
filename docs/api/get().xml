@@ -42,4 +42,7 @@ table.rows().data().get(0);
 // Again, this is functionally the same as:
 // table.rows().data()[0]
 ]]></example>
+
+	<related>-api get()</related>
+	<related>-api eq()</related>
 </dt-api>

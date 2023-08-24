@@ -240,7 +240,7 @@ $.extend( _Api.prototype, {
 
 		return ctx.length > idx ?
 			new _Api( ctx[idx], this[idx] ) :
-			new _Api();
+			null;
 	},
 
 
@@ -506,17 +506,6 @@ _Api.extend = function ( scope, obj, ext )
 		_Api.extend( scope, obj[ struct.name ], struct.propExt );
 	}
 };
-
-
-// @todo - Is there need for an augment function?
-// _Api.augment = function ( inst, name )
-// {
-// 	// Find src object in the structure from the name
-// 	var parts = name.split('.');
-
-// 	_Api.extend( inst, obj );
-// };
-
 
 //     [
 //       {

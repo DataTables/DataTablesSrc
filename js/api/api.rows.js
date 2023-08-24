@@ -262,7 +262,7 @@ _api_register( 'row().data()', function ( data ) {
 
 	if ( data === undefined ) {
 		// Get
-		return ctx.length && this.length ?
+		return ctx.length && this.length && this[0].length ?
 			ctx[0].aoData[ this[0] ]._aData :
 			undefined;
 	}
@@ -286,7 +286,7 @@ _api_register( 'row().data()', function ( data ) {
 _api_register( 'row().node()', function () {
 	var ctx = this.context;
 
-	return ctx.length && this.length ?
+	return ctx.length && this.length && this[0].length ?
 		ctx[0].aoData[ this[0] ].nTr || null :
 		null;
 } );

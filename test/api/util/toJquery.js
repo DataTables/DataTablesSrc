@@ -22,7 +22,7 @@ describe('toJQuery()', function() {
 		it('Single cell', function() {
 			table = $('#example').DataTable();
 			table
-				.cell(2, 2)
+				.cells(2, 2)
 				.nodes()
 				.toJQuery()
 				.addClass('unitTest');
@@ -71,7 +71,7 @@ describe('toJQuery()', function() {
 		it('Single row', function() {
 			table = $('#example').DataTable();
 			table
-				.row(2)
+				.rows(2)
 				.nodes()
 				.toJQuery()
 				.addClass('unitTest');
