@@ -187,7 +187,9 @@ _Api = function ( context, data )
 	}
 
 	// Remove duplicates
-	this.context = _unique( settings );
+	this.context = settings.length > 1
+		? _unique( settings )
+		: settings;
 
 	// Initial data
 	if ( data ) {
