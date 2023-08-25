@@ -4,6 +4,12 @@
 	<summary>Get the DataTables cached data for the selected columns.</summary>
 	<since>1.10</since>
 
+	<deprecated since="2.0">
+		<description>
+			Use `-api column().render()` to get the data for a specific rendering type, rather than accessing DataTables' cache. This method will be removed in DataTables 3.
+		</description>
+	</deprecated>
+
 	<type type="function">
 		<signature>columns().cache( [ type ] )</signature>
 		<description>Obtain the data for the columns from the selector</description>
@@ -17,8 +23,6 @@
 		DataTables caches data for searching and ordering in order for those operations to run as quickly as possible when they are required. Sometimes it can be useful to get the data that DataTables has cached for these operations, for example when creating a `select` list to provide a column based filter.
 
 		Cached data is not guaranteed to be available at any particular moment. If DataTables hasn't requested the data, it won't have been cached. This is particularly obvious when using the `-string order` option and a sort hasn't been performed on a column. Invalidation of data will also cause the cache to be removed.
-
-		It should be noted that this method is required as DataTables has the ability to use different data for its different operations (searching, ordering, display etc) - see `dt-init columns.data` and `dt-init columns.render` for further information. `dt-api columns().data()` provides access to the original data. If you aren't using orthogonal data for the different operations of DataTables, then this method is of limited used.
 
 		Please note that the order of the data in the returned array and which rows the data is obtained from (searched rows, visible rows etc) is controlled by the `dt-type selector-modifier` option of the `dt-api column()` selector used to get the selected column.
 

@@ -4,6 +4,12 @@
 	<summary>Get the DataTables cached data for the selected cells</summary>
 	<since>1.10</since>
 
+	<deprecated since="2.0">
+		<description>
+			Use `-api cells().render()` to get the data for a specific rendering type, rather than accessing DataTables' cache. This method will be removed in DataTables 3.
+		</description>
+	</deprecated>
+
 	<type type="function">
 		<signature>cells().cache( [ type ] )</signature>
 		<description>Get cached data of the cache type specified</description>
@@ -17,35 +23,7 @@
 		DataTables caches data for searching and ordering in order for those operations to run as quickly as possible when they are required. Sometimes it can be useful to get the data that DataTables has cached for these operations, for example when creating a `select` list to provide a column based filter.
 
 		Cached data is not guaranteed to be available at any particular moment. If DataTables hasn't requested the data, it won't have been cached. This is particularly obvious when using the `-string order` option and a sort hasn't been performed on a column. Invalidation of data will also cause the cache to be removed.
-
-		It should be noted that this method is required as DataTables has the ability to use different data for its different operations (searching, ordering, display etc) - see `dt-init columns.data` and `dt-init columns.render` for further information. `dt-api cells().data()` provides access to the original data. If you aren't using orthogonal data for the different operations of DataTables, then this method is of limited used.
-
-		Note that this method is primarily aimed at plug-in developers who require access to the internal data that DataTables has stored.
 	</description>
-
-	<example title="Build a filtering select list using the data from a single column"><![CDATA[
-var table = $('#example').DataTable();
-
-// Create the select list and search operation
-var select = $('<select />')
-	.appendTo( 'body' )
-	.on( 'change', function () {
-		table
-			.column( 0 )
-			.search( $(this).val() )
-			.draw();
-	} );
-
-// Get the search data for the first column and add to the select list
-var data = table
-	.cells( '', 0 )
-	.cache( 'search' )
-	.sort()
-	.unique()
-	.each( function ( d ) {
-		select.append( $('<option value="'+d+'">'+d+'</option>') );
-	} );
-]]></example>
 
 	<related type="api">cells().render()</related>
 	<related type="api">cells().invalidate()</related>

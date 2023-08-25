@@ -4,6 +4,12 @@
 	<summary>Get the DataTables cached data for the selected row.</summary>
 	<since>1.10</since>
 
+	<deprecated since="2.0">
+		<description>
+			Use `-api cells().render()` to get the data for a specific rendering type, rather than accessing DataTables' cache. This method will be removed in DataTables 3.
+		</description>
+	</deprecated>
+
 	<type type="function">
 		<signature>row().cache( [ type ] )</signature>
 		<description>Obtain the data for the row from the selector</description>
@@ -17,10 +23,6 @@
 		DataTables caches data for searching and ordering in order for those operations to run as quickly as possible when they are required.
 
 		Cached data is not guaranteed to be available at any particular moment. If DataTables hasn't requested the data, it won't have been cached. This is particularly obvious when using the `-string order` option and a sort hasn't been performed on a column. Invalidation of data will also cause the cache to be removed.
-
-		It should be noted that this method is required as DataTables has the ability to use different data for its different operations (searching, ordering, display etc) - see `dt-init columns.data` and `dt-init columns.render` for further information. If you don't want the cached data, `dt-api rows().data()` provides access to the original data array / object given to, or created by DataTables. If you aren't using orthogonal data for the different operations of DataTables, then this method is of limited used.
-
-		Note that this method is primarily aimed at plug-in developers who require access to the internal data that DataTables has stored.
 	</description>
 
 	<related type="api">rows().cache()</related>
