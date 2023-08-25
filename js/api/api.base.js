@@ -72,9 +72,7 @@ var _toSettings = function ( mixed )
 {
 	var idx, jq;
 	var settings = DataTable.settings;
-	var tables = $.map( settings, function (el, i) {
-		return el.nTable;
-	} );
+	var tables = _pluck(settings, 'nTable');
 
 	if ( ! mixed ) {
 		return [];
@@ -93,18 +91,17 @@ var _toSettings = function ( mixed )
 	}
 	else if ( typeof mixed === 'string' ) {
 		// jQuery selector
-		jq = $(mixed);
+		jq = $(mixed).toArray();
 	}
 	else if ( mixed instanceof $ ) {
 		// jQuery object (also DataTables instance)
-		jq = mixed;
+		jq = mixed.toArray();
 	}
 
 	if ( jq ) {
-		return jq.map( function(i) {
-			idx = $.inArray( this, tables );
-			return idx !== -1 ? settings[idx] : null;
-		} ).toArray();
+		return settings.filter(function (v, idx) {
+			return jq.includes(tables[idx]);
+		});
 	}
 };
 
@@ -472,6 +469,27 @@ $.extend( _Api.prototype, {
 } );
 
 
+function _api_scope( scope, fn, struc ) {
+	return function () {
+		var ret = fn.apply( scope || this, arguments );
+
+		// Method extension
+		_Api.extend( ret, ret, struc.methodExt );
+		return ret;
+	};
+}
+
+function _api_find( src, name ) {
+	for ( var i=0, ien=src.length ; i<ien ; i++ ) {
+		if ( src[i].name === name ) {
+			return src[i];
+		}
+	}
+	return null;
+};
+
+window.__apiStruct = __apiStruct;
+
 _Api.extend = function ( scope, obj, ext )
 {
 	// Only extend API instances and static properties of the API
@@ -481,23 +499,14 @@ _Api.extend = function ( scope, obj, ext )
 
 	var
 		i, ien,
-		struct,
-		methodScoping = function ( scope, fn, struc ) {
-			return function () {
-				var ret = fn.apply( scope, arguments );
-
-				// Method extension
-				_Api.extend( ret, ret, struc.methodExt );
-				return ret;
-			};
-		};
+		struct;
 
 	for ( i=0, ien=ext.length ; i<ien ; i++ ) {
 		struct = ext[i];
 
 		// Value
 		obj[ struct.name ] = struct.type === 'function' ?
-			methodScoping( scope, struct.val, struct ) :
+			_api_scope( scope, struct.val, struct ) :
 			struct.type === 'object' ?
 				{} :
 				struct.val;
@@ -532,6 +541,7 @@ _Api.extend = function ( scope, obj, ext )
 //       }
 //     ]
 
+
 _Api.register = _api_register = function ( name, val )
 {
 	if ( Array.isArray( name ) ) {
@@ -547,22 +557,13 @@ _Api.register = _api_register = function ( name, val )
 		struct = __apiStruct,
 		key, method;
 
-	var find = function ( src, name ) {
-		for ( var i=0, ien=src.length ; i<ien ; i++ ) {
-			if ( src[i].name === name ) {
-				return src[i];
-			}
-		}
-		return null;
-	};
-
 	for ( i=0, ien=heir.length ; i<ien ; i++ ) {
 		method = heir[i].indexOf('()') !== -1;
 		key = method ?
 			heir[i].replace('()', '') :
 			heir[i];
 
-		var src = find( struct, key );
+		var src = _api_find( struct, key );
 		if ( ! src ) {
 			src = {
 				name:      key,
