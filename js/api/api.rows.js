@@ -106,7 +106,17 @@ var __row_selector = function ( settings, selector, opts )
 			.toArray();
 	};
 
-	return _selector_run( 'row', selector, run, settings, opts );
+	var rows = _selector_run( 'row', selector, run, settings, opts );
+
+	if (opts.order === 'current' || opts.order === 'applied') {
+		var master = settings.aiDisplayMaster;
+
+		rows.sort(function(a, b) {  
+			return master.indexOf(a) - master.indexOf(b);
+		});
+	}
+
+	return rows;
 };
 
 

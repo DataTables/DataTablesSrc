@@ -81,9 +81,9 @@ describe('rows - rows().cache()', function() {
 
 			expect(test.length).toBe(2);
 			expect(test[0].length).toBe(1);
-			expect(test[0][0]).toBe('ashton cox');
+			expect(test[0][0]).toBe('airi satou');
 			expect(test[1].length).toBe(1);
-			expect(test[1][0]).toBe('airi satou');
+			expect(test[1][0]).toBe('ashton cox');
 		});
 
 		it('Get initial cached search data', function() {
@@ -92,9 +92,9 @@ describe('rows - rows().cache()', function() {
 
 			expect(test.length).toBe(2);
 			expect(test[0].length).toBe(6);
-			expect(test[0][0]).toBe('Ashton Cox');
+			expect(test[0][0]).toBe('Airi Satou');
 			expect(test[1].length).toBe(6);
-			expect(test[1][0]).toBe('Airi Satou');
+			expect(test[1][0]).toBe('Ashton Cox');
 		});
 
 		it('Get cached order data when second column used in order', async function() {
@@ -105,11 +105,11 @@ describe('rows - rows().cache()', function() {
 
 			expect(test.length).toBe(2);
 			expect(test[0].length).toBe(2);
-			expect(test[0][0]).toBe('ashton cox');
-			expect(test[0][1]).toBe('junior technical author');
+			expect(test[0][0]).toBe('airi satou');
+			expect(test[0][1]).toBe('accountant');
 			expect(test[1].length).toBe(2);
-			expect(test[1][0]).toBe('airi satou');
-			expect(test[1][1]).toBe('accountant');
+			expect(test[1][0]).toBe('ashton cox');
+			expect(test[1][1]).toBe('junior technical author');
 		});
 
 		it('Get cached search data', function() {
@@ -118,9 +118,9 @@ describe('rows - rows().cache()', function() {
 
 			expect(test.length).toBe(2);
 			expect(test[0].length).toBe(6);
-			expect(test[0][0]).toBe('Ashton Cox');
+			expect(test[0][0]).toBe('Airi Satou');
 			expect(test[1].length).toBe(6);
-			expect(test[1][0]).toBe('Airi Satou');
+			expect(test[1][0]).toBe('Ashton Cox');
 		});
 
 		it('Get cached search data when one row invalid', function() {
@@ -175,9 +175,9 @@ describe('rows - rows().cache()', function() {
 
 			expect(test.length).toBe(2);
 			expect(test[0].length).toBe(1);
-			expect(test[0][0]).toBe('sort ashton cox');
+			expect(test[0][0]).toBe('sort airi satou');
 			expect(test[1].length).toBe(1);
-			expect(test[1][0]).toBe('sort airi satou');
+			expect(test[1][0]).toBe('sort ashton cox');
 		});
 
 		it('Get cached search data (mutpliple rows)', function() {
@@ -186,9 +186,9 @@ describe('rows - rows().cache()', function() {
 
 			expect(test.length).toBe(2);
 			expect(test[0].length).toBe(6);
-			expect(test[0][0]).toBe('Filter Ashton Cox');
+			expect(test[0][0]).toBe('Filter Airi Satou');
 			expect(test[1].length).toBe(6);
-			expect(test[1][0]).toBe('Filter Airi Satou');
+			expect(test[1][0]).toBe('Filter Ashton Cox');
 		});
 	});
 });

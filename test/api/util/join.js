@@ -40,7 +40,7 @@ describe('join()', function() {
 				.data()
 				.join(' X ');
 			expect(data).toBe(
-				'Tiger Nixon,System Architect,Edinburgh,61,2011/04/25,$320,800 X Ashton Cox,Junior Technical Author,San Francisco,66,2009/01/12,$86,000'
+				'Ashton Cox,Junior Technical Author,San Francisco,66,2009/01/12,$86,000 X Tiger Nixon,System Architect,Edinburgh,61,2011/04/25,$320,800'
 			);
 		});
 	});

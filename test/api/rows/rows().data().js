@@ -49,7 +49,7 @@ describe('rows- rows().data()', function() {
 
 			expect(rows.length).toBe(2);
 			expect(rows.count()).toBe(2 * 6);
-			expect(rows[1].toString()).toBe(testRowData.toString());
+			expect(rows[0].toString()).toBe(testRowData.toString());
 		});
 	});
 
@@ -117,7 +117,7 @@ describe('rows- rows().data()', function() {
 					let rows = table.rows([0, 2]).data();
 
 					expect(rows.length).toBe(2);
-					expect(Object.values(rows[1]).toString()).toBe(testRowData.toString());
+					expect(Object.values(rows[0]).toString()).toBe(testRowData.toString());
 					done();
 				}
 			});

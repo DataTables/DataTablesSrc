@@ -81,12 +81,11 @@ describe('rows - rows()', function() {
 			expect(rows.data()[9][0]).toBe('Cedric Kelly');
 		});
 
-		// Disabled because of DD-638 (should be re-enabled when resolved)
 		it('order - current (rows in an array)', function() {
 			var rows = table.rows([0,2], { order: 'current' });
 			expect(rows.count()).toBe(2);
-			// expect(rows.data()[0][0]).toBe('Ashton Cox');
-			// expect(rows.data()[1][0]).toBe('Tiger Nixon');
+			expect(rows.data()[0][0]).toBe('Ashton Cox');
+			expect(rows.data()[1][0]).toBe('Tiger Nixon');
 		});
 
 		it('order - current', function() {

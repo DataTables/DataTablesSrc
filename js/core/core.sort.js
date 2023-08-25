@@ -64,23 +64,10 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 function _fnSortDisplay(settings) {
 	var display = settings.aiDisplay;
 	var master = settings.aiDisplayMaster;
-	var result = [];
 
-	// Display and master are same length (no filtering) so can optimize
-	if (display.length === master.length) {
-		result = master.slice();
-	}
-	else {
-		// Build the result array in the order of the master, based
-		// on what items are in the display array.
-		for (var i=0 ; i<master.length ; i++) {
-			if (display.includes(master[i])) {
-				result.push(master[i]);
-			}
-		}
-	}
-
-	settings.aiDisplay = result;
+	display.sort(function(a, b){  
+		return master.indexOf(a) - master.indexOf(b);
+	});
 }
 
 

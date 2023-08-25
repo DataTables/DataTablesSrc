@@ -52,18 +52,18 @@ describe('rows - row().id()', function() {
 				initComplete: function(settings, json) {
 					ids = table.rows([0, 2]).ids();
 					expect(ids.count()).toBe(2);
-					expect(ids[0]).toBe('Tiger Nixon');
+					expect(ids[0]).toBe('Ashton Cox');
 					done();
 				}
 			});
 		});
 		it('ID set and true param', function() {
 			ids = table.rows([0, 2]).ids(true);
-			expect(ids[0]).toBe('#Tiger Nixon');
+			expect(ids[0]).toBe('#Ashton Cox');
 		});
 		it('ID set and false param', function() {
 			ids = table.rows([0, 2]).ids(false);
-			expect(ids[0]).toBe('Tiger Nixon');
+			expect(ids[0]).toBe('Ashton Cox');
 		});
 	});
 });

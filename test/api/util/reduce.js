@@ -81,7 +81,7 @@ describe('reduce()', function() {
 					return count;
 				}, 'test');
 
-			expect(values[0]).toEqual(['Tiger Nixon', 'System Architect', 'Edinburgh', '61', '2011/04/25', '$320,800']);
+			expect(values[0]).toEqual(['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66', '2009/01/12', '$86,000']);
 			expect(count).toBe(2);
 		});
 	});
