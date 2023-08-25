@@ -149,26 +149,29 @@ $.each( [ 'column', 'row', 'cell' ], function ( i, type ) {
 	_api_register( type+'s().every()', function ( fn ) {
 		var opts = this.selector.opts;
 		var api = this;
+		var inst;
+		var counter = 0;
 
-		return this.iterator( type, function ( settings, arg1, arg2, arg3, arg4 ) {
-			// Rows and columns:
-			//  arg1 - index
-			//  arg2 - table counter
-			//  arg3 - loop counter
-			//  arg4 - undefined
-			// Cells:
-			//  arg1 - row index
-			//  arg2 - column index
-			//  arg3 - table counter
-			//  arg4 - loop counter
-			fn.call(
-				api[ type ](
-					arg1,
-					type==='cell' ? arg2 : opts,
-					type==='cell' ? opts : undefined
-				),
-				arg1, arg2, arg3, arg4
-			);
+		return this.iterator( 'every', function ( settings, selectedIdx, tableIdx ) {
+			// We reuse the same API instance for each item, simply changing
+			// the index and context as needed. This is massively more performant
+			// than creating a new API instance each time around the loop
+			if (! inst) {
+				inst = api[ type ](selectedIdx, opts);
+			}
+			else {
+				inst[0][0] = selectedIdx;
+				inst.context[0] = api.context[tableIdx];
+			}
+
+			if (type === 'cell') {
+				fn.call(inst, inst[0][0].row, inst[0][0].column, tableIdx, counter);
+			}
+			else {
+				fn.call(inst, selectedIdx, tableIdx, counter);
+			}
+
+			counter++;
 		} );
 	} );
 } );

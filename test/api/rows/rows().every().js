@@ -6,7 +6,7 @@ describe('rows- rows().every()', function() {
 	});
 
 	describe('Check the defaults', function() {
-		const argumentLength = 4;
+		const argumentLength = 3;
 
 		dt.html('basic');
 
@@ -30,8 +30,7 @@ describe('rows- rows().every()', function() {
 					let len = arguments.length;
 					expect(len).toBe(argumentLength);
 
-					for (let i = 0; i < len - 1; i++) expect(Number.isInteger(arguments[i])).toBe(true);
-					expect(typeof arguments[len - 1]).toBe('undefined');
+					for (let i = 0; i < len; i++) expect(Number.isInteger(arguments[i])).toBe(true);
 				}
 			});
 		});

@@ -326,7 +326,7 @@ $.extend( _Api.prototype, {
 					a.push( ret );
 				}
 			}
-			else if ( type === 'column' || type === 'column-rows' || type === 'row' || type === 'cell' ) {
+			else if ( type === 'every' || type === 'column' || type === 'column-rows' || type === 'row' || type === 'cell' ) {
 				// columns and rows share the same structure.
 				// 'this' is an array of column indexes for each context
 				items = this[i];

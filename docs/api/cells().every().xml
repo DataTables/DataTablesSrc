@@ -51,7 +51,7 @@
 		} );
 		```
 
-		Although a relatively simple optimisation in terms of code presentation, it can make the code much more readable and intuitive.
+		Although a relatively simple optimisation in terms of code presentation, it can make the code much more readable and intuitive. It is also significantly more performant as of DataTables 2, as API instances do not need to create created every time around the loop.
 
 		The other advantage is that the table context is automatically handled - in the first example above where `dt-api each()` is used, the `dt-api eq()` method is used to select the information from the first table in the API's context only, introducing complexity if multiple tables are used. In `dt-api cells().every()` the table context is automatically set to the appropriate table for each cell that has been selected.
 	</description>

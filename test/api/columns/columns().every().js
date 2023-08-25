@@ -25,10 +25,9 @@ describe('columns- columns().every()', function() {
 				// only need to check types on the first iteration
 				if (iteration++ == 0) {
 					let len = arguments.length;
-					expect(len).toBe(4);
+					expect(len).toBe(3);
 
-					for (let i = 0; i < len - 1; i++) expect(Number.isInteger(arguments[i])).toBe(true);
-					expect(typeof arguments[len - 1]).toBe('undefined');
+					for (let i = 0; i < len; i++) expect(Number.isInteger(arguments[i])).toBe(true);
 				}
 			});
 		});
