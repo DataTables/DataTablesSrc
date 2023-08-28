@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>info</name>
+	<summary>Table info display is updated.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>function( e, settings, el, str )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="DataTables.Settings" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="node" name="el">
+			The information object
+		</parameter>
+		<parameter type="string" name="str">
+			The text that DataTables wrote into the element
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		The `dt-event info` event is fired every table the table is drawn. It is used to display information about the table, such as the paging state (although other information could also be shown). Use the API to get details about the current paging state, if required for your information display (e.g. `-api page.info()` would be appropriate here).
+
+		Note that the `dt-event search` will be fired _after_ the information element has been written to by the built in display renderer. This means that writing to the info element will cause your own output to be displayed, rather than the DataTables created text.
+
+		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+	</description>
+
+	<related type="option">info</related>
+	<related type="api">page.info()</related>
+</dt-event>

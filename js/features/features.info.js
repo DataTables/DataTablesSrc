@@ -75,6 +75,8 @@ function _fnUpdateInfo ( settings, opts, node )
 	}
 
 	node.html( out );
+
+	_fnCallbackFire(settings, null, 'info', [settings, node[0], out]);
 }
 
 
