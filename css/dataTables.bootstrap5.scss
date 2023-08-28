@@ -42,7 +42,7 @@ table.dataTable {
 		box-shadow: none;
 	}
 
-	@include row-stripes('.table-striped', '.table-hover', 0.05);
+	@include row-stripes('.table-striped', '.table-hover', 0.05, 0.075, ':nth-of-type(2n+1)');
 }
 
 
