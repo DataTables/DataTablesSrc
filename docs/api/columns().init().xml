@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>columns().init()</name>
+	<summary>Get the initialisation options for the selected columns.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>columns().init()</signature>
+		<description>Get the initialisation options used for the select columns..</description>
+		<returns type="DataTables.Api">API instance with the result set being the configuration objects from the selected columns.</returns>
+	</type>
+
+	<description>
+		Please see the `-api column().init()` method for discussion of this method. It is identical and the same rules apply, with the exception of the fact that multiple columns can be selected and the returned value will always be a DataTables API object.
+	</description>
+
+	<example title="Get a property from all columns"><![CDATA[
+
+let table = new DataTable('#example', {
+    columnDefs: [
+        {
+            target: 1,
+            customProp: true
+        }
+    ]
+});
+
+table.columns().every(function () {
+	this.init().customProp;
+	// is `true` for column index 1, otherwise undefined
+});
+
+]]></example>
+
+	<related>-api init()</related>
+	<related>-api column().init()</related>
+	<related>-api columns().init()</related>
+</dt-api>

@@ -249,6 +249,12 @@ _api_registerPlural( 'columns().cache()', 'column().cache()', function ( type ) 
 	}, 1 );
 } );
 
+_api_registerPlural( 'columns().init()', 'column().init()', function () {
+	return this.iterator( 'column', function ( settings, column ) {
+		return settings.aoColumns[column];
+	}, 1 );
+} );
+
 _api_registerPlural( 'columns().nodes()', 'column().nodes()', function () {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
 		return _pluck_order( settings.aoData, rows, 'anCells', column ) ;

@@ -35,4 +35,7 @@ $(document).on( 'init.dt', function ( e, settings ) {
 } );
 
 ]]></example>
+
+	<related>-api column().init()</related>
+	<related>-api columns().init()</related>
 </dt-api>

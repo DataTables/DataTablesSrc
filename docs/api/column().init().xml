@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>column().init()</name>
+	<summary>Get the initialisation options for a column.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>columns().init()</signature>
+		<description>Get the initialisation options used for a column.</description>
+		<returns type="object">Configuration object</returns>
+	</type>
+
+	<description>
+		This method provides access to the initialisation object that was used to create the DataTable. Its intended use is for plug-in authors who wish to be able to provide column specific customisation options for their DataTables plug-ins. It is particularly useful in the case of columns since it returns the combined object resulting from `-init columnDefs` and `-init columns` initialisation options, as resolved by DataTables.
+
+		When developing with this method keep in mind that the DataTables options are all all optional. They may or may not exist in this object and therefore you should have default values if a property does not exist. 
+
+		**The object returned should never be written to** - it will contain properties internal to DataTables which are not documented. They are internal and may change between versions.
+
+		**Use only your own parameters**. Due to the way DataTables works internally for backwards compatibility, this object will likely contain both camelCase initialisation options and Hungarian notation versions of the same parameters as well as other internal properties. Use of those parameters is _not supported_.
+
+		This method is not multi-table aware - it will return the configuration object used for the first table in the context if there is more than one table - use the `dt-api iterator()` method if you require the configuration objects from all tables in a multi-table context.
+	</description>
+
+	<example title="Get a property from a column"><![CDATA[
+
+let table = new DataTable('#example', {
+    columnDefs: [
+        {
+            target: 1,
+            customProp: true
+        }
+    ]
+});
+
+table.column().init().customProp;
+// returns `true`
+
+]]></example>
+
+	<related>-api init()</related>
+	<related>-api column().init()</related>
+	<related>-api columns().init()</related>
+</dt-api>
