@@ -159,35 +159,50 @@ function _fnRowAttributes( settings, row )
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnBuildHead( oSettings )
+function _fnBuildHead( settings, side )
 {
-	var i, ien, cell, row, column;
-	var thead = oSettings.nTHead;
-	var createHeader = $('th, td', thead).length === 0;
-	var classes = oSettings.oClasses;
-	var columns = oSettings.aoColumns;
+	var classes = settings.oClasses;
+	var columns = settings.aoColumns;
+	var i, ien, row;
+	var target = side === 'header'
+		? settings.nTHead
+		: settings.nTFoot;
+	var titleProp = side === 'header' ? 'sTitle' : side;
+	var create = $('th, td', target).length === 0;
 
-	if ( createHeader ) {
+	// Footer might be defined
+	if (! target) {
+		return;
+	}
+
+	if ( create ) {
 		row = $('<tr/>')
-			.appendTo( thead );
+			.appendTo( target );
 
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 			$('<th/>')
-				.html( columns[i].sTitle )
+				.html( columns[i][titleProp] )
 				.appendTo( row );
 		}
 	}
 
-	oSettings.aoHeader = _fnDetectHeader( oSettings, thead, true );
+	var detected = _fnDetectHeader( settings, target, true );
+
+	if (side === 'header') {
+		settings.aoHeader = detected;
+	}
+	else {
+		settings.aoFooter = detected;
+	}
 
 	// ARIA role for the rows
-	$(thead).children('tr').attr('role', 'row');
+	$(target).children('tr').attr('role', 'row');
 
-	// Every cell in the header needs to be passed through the renderer
-	$(thead).children('tr').children('th, td')
+	// Every cell needs to be passed through the renderer
+	$(target).children('tr').children('th, td')
 		.each( function () {
-			_fnRenderer( oSettings, 'header' )(
-				oSettings, $(this), classes
+			_fnRenderer( settings, side )(
+				settings, $(this), classes
 			);
 		} );
 }
@@ -627,7 +642,7 @@ function _fnAddOptionsHtml ( settings )
 	// Wrapper div around everything DataTables controls
 	var insert = $('<div/>', {
 			id:      settings.sTableId+'_wrapper',
-			'class': classes.sWrapper + (settings.nTFoot ? '' : ' '+classes.sNoFooter)
+			'class': classes.sWrapper
 		} )
 		.insertBefore( table );
 
@@ -730,15 +745,23 @@ function _fnDetectHeader ( settings, thead, write )
 
 					columnDef.sWidthOrig = columnDef.sWidth || width;
 
-					// Column title handling - can be user set, or read from the DOM
-					// This happens before the render, so the original is still in place
-					if ( columnDef.sTitle !== null && ! columnDef.autoTitle ) {
-						cell.innerHTML = columnDef.sTitle;
-					}
+					if (thead.nodeName.toLowerCase() === 'thead') {
+						// Column title handling - can be user set, or read from the DOM
+						// This happens before the render, so the original is still in place
+						if ( columnDef.sTitle !== null && ! columnDef.autoTitle ) {
+							cell.innerHTML = columnDef.sTitle;
+						}
 
-					if (! columnDef.sTitle && unique) {
-						columnDef.sTitle = cell.innerHTML.replace( /<.*?>/g, "" );
-						columnDef.autoTitle = true;
+						if (! columnDef.sTitle && unique) {
+							columnDef.sTitle = cell.innerHTML.replace( /<.*?>/g, "" );
+							columnDef.autoTitle = true;
+						}
+					}
+					else {
+						// Footer specific operations
+						if (columnDef.footer) {
+							cell.innerHTML = columnDef.footer;
+						}
 					}
 
 					// Wrap the column title so we can write to it in future

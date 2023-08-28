@@ -7,8 +7,7 @@
  */
 function _fnInitialise ( settings )
 {
-	var i, iLen, iAjaxStart=settings.iInitDisplayStart;
-	var columns = settings.aoColumns, column;
+	var i, iAjaxStart=settings.iInitDisplayStart;
 	var features = settings.oFeatures;
 	var deferLoading = settings.bDeferLoading; // value modified by the draw
 
@@ -19,7 +18,8 @@ function _fnInitialise ( settings )
 	}
 
 	/* Build and draw the header / footer for the table */
-	_fnBuildHead( settings );
+	_fnBuildHead( settings, 'header' );
+	_fnBuildHead( settings, 'footer' );
 	_fnDrawHead( settings, settings.aoHeader );
 	_fnDrawHead( settings, settings.aoFooter );
 

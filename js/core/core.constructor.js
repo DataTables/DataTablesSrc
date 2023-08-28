@@ -363,26 +363,12 @@ var loadedInit = function () {
 	oSettings.nTBody = tbody[0];
 
 	var tfoot = $this.children('tfoot');
-	if ( tfoot.length === 0 && caption.length > 0 && (oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "") ) {
+	if ( tfoot.length === 0 ) {
 		// If we are a scrolling table, and no footer has been given, then we need to create
 		// a tfoot element for the caption element to be appended to
 		tfoot = $('<tfoot/>').appendTo($this);
 	}
-
-	if ( tfoot.length === 0 || tfoot.children().length === 0 ) {
-		$this.addClass( oClasses.sNoFooter );
-	}
-	else if ( tfoot.length > 0 ) {
-		oSettings.nTFoot = tfoot[0];
-		oSettings.aoFooter = _fnDetectHeader( oSettings, oSettings.nTFoot );
-
-		$(oSettings.nTFoot).children('tr').children('th, td')
-			.each( function () {
-				_fnRenderer( oSettings, 'footer' )(
-					oSettings, $(this), oClasses
-				);
-			} );
-	}
+	oSettings.nTFoot = tfoot[0];
 
 	/* Check if there is data passing into the constructor */
 	if ( oInit.aaData ) {

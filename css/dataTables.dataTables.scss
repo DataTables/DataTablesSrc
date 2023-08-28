@@ -42,10 +42,6 @@ table.dataTable {
 	> thead > tr > td {
 		padding: 10px;
 
-		@if not $jqueryui { // jQuery UI defines its own border
-			border-bottom: $table-header-border;
-		}
-
 		&:active {
 			outline: none;
 		}
@@ -54,18 +50,22 @@ table.dataTable {
 	> tfoot > tr > th,
 	> tfoot > tr > td {
 		padding: 10px 10px 6px 10px;
-
-		@if not $jqueryui { // jQuery UI defines its own border
-			border-top: $table-header-border;
-		}
 	}
 
 	/*
 	 * Body styles
 	 */
-	tbody {
-		tr {
+	> tbody {
+		> tr {
 			background-color: $table-row-background;
+
+			&:first-child > * {
+				border-top: $table-header-border;
+			}
+
+			&:last-child > * {
+				border-bottom: $table-header-border;
+			}
 
 			&.selected > * {
 				box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.9);
@@ -78,11 +78,11 @@ table.dataTable {
 				color: rgb($table-row-selected-link);
 				color: rgb(var(--dt-row-selected-link));
 			}
-		}
 
-		th,
-		td {
-			padding: 8px 10px;
+			> th,
+			> td {
+				padding: 8px 10px;
+			}
 		}
 	}
 
@@ -90,14 +90,12 @@ table.dataTable {
 	// Stripe classes - add "row-border" class to the table to activate
 	&.row-border > tbody,
 	&.display > tbody {
-		> tr > th,
-		> tr > td {
+		> tr > * {
 			border-top: $table-body-border;
 		}
 
-		> tr:first-child > th,
-		> tr:first-child > td {
-			border-top: none;
+		> tr:first-child > * {
+			border-top: $table-header-border;
 		}
 
 		> tr.selected + tr.selected > td {
@@ -108,20 +106,17 @@ table.dataTable {
 
 	// Stripe classes - add "cell-border" class to the table to activate
 	&.cell-border > tbody {
-		> tr > th,
-		> tr > td {
+		> tr > * {
 			border-top: $table-body-border;
 			border-right: $table-body-border;
 		}
 
-		> tr > th:first-child,
-		> tr > td:first-child {
+		> tr > *:first-child {
 			border-left: $table-body-border;
 		}
 
-		> tr:first-child > th,
-		> tr:first-child > td {
-			border-top: none;
+		> tr:first-child > * {
+			border-top: $table-header-border;
 		}
 	}
 
@@ -270,11 +265,6 @@ table.dataTable {
 				}
 			}
 		}
-	}
-
-
-	&.no-footer {
-		border-bottom: $table-header-border;
 	}
 
 	&.compact {
@@ -439,15 +429,17 @@ div.dataTables_wrapper {
 		}
 	}
 
-	&.no-footer {
-		.dataTables_scrollBody {
-			border-bottom: $table-header-border;
+	.dataTables_scrollBody {
+		tbody > tr:first-child > * {
+			border-top: none;
 		}
 
-		div.dataTables_scrollHead table.dataTable,
-		div.dataTables_scrollBody > table {
+		tbody > tr:last-child > * {
 			border-bottom: none;
 		}
+
+		border-top: $table-header-border;
+		border-bottom: $table-header-border;
 	}
 
 	// Self clear the wrapper
