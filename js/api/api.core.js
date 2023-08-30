@@ -117,6 +117,7 @@ _api_register( 'destroy()', function ( remove ) {
 		jqTbody.append( rows );
 
 		var orig = settings.nTableWrapper.parentNode;
+		var insertBefore = settings.nTableWrapper.nextSibling;
 
 		// Remove the DataTables generated nodes, events and classes
 		var removedMethod = remove ? 'remove' : 'detach';
@@ -126,7 +127,7 @@ _api_register( 'destroy()', function ( remove ) {
 		// If we need to reattach the table to the document
 		if ( ! remove && orig ) {
 			// insertBefore acts like appendChild if !arg[1]
-			orig.insertBefore( table, settings.nTableReinsertBefore );
+			orig.insertBefore( table, insertBefore );
 
 			// Restore the width of the original table - was read from the style property,
 			// so we can restore directly to that

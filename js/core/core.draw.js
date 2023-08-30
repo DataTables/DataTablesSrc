@@ -647,7 +647,6 @@ function _fnAddOptionsHtml ( settings )
 		.insertBefore( table );
 
 	settings.nTableWrapper = insert[0];
-	settings.nTableReinsertBefore = settings.nTable.nextSibling;
 
 	// Everything above - the renderer will actually insert the contents into the document
 	for ( var i=0, ien=top.length ; i<ien ; i++ ) {
