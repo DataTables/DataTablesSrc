@@ -41,6 +41,7 @@ $('#example').DataTable( {
 ]]></example>
 
   <related>-init columns.ariaTitle</related>
+  <related>-init columns.footer</related>
   <related>-api column().title()</related>
   <related>-api columns().titles()</related>
 </dt-option>

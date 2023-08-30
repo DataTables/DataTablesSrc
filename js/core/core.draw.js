@@ -168,14 +168,14 @@ function _fnBuildHead( settings, side )
 		? settings.nTHead
 		: settings.nTFoot;
 	var titleProp = side === 'header' ? 'sTitle' : side;
-	var create = $('th, td', target).length === 0;
 
 	// Footer might be defined
 	if (! target) {
 		return;
 	}
 
-	if ( create ) {
+	// If no cells yet and we have content for them, then create
+	if ( $('th, td', target).length === 0 && _pluck(settings.aoColumns, titleProp).join('') ) {
 		row = $('<tr/>')
 			.appendTo( target );
 

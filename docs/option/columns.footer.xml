@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.footer</name>
+	<summary>Set the column footer text</summary>
+	<since>2.0</since>
+
+	<type type="string" />
+
+	<description>
+		Very similar to the `-init columns.title` option, but in this case it is used to set the text to appear in the table's footer. If the footer doesn't exist when the table is contstructed and this option is set for columns in the table, the row and cells for the footer will be created automatically.
+
+	   DataTables will automatically wrap the column title in a `-tag span` element with a class of `dt-column-title`. This is done to ensure that the column title can be both read and written to, without interfering with other elements that might be in the column's footer cell.
+
+    	Please note that when constructing a footer, DataTables can only construct a simple footer with a single cell for each column. Complex footers with `colspan` and `rowspan` attributes must either already be defined in the document, or be constructed using standard DOM / jQuery methods. Furthermore, if you use this property with a multi-row footer in the DOM, the title will be set for the first row in the footer only.
+
+		Please note that this property is written as HTML to the table footer cells. As such you may include HTML in the text and it will be displayed as rendered HTML - i.e. an `-tag input` element is a common use case for this.
+	</description>
+
+	<example title="Set the titles and footer cells for a column"><![CDATA[
+new DataTable('#example', {
+	columns: [
+		{
+			footer: 'First footer',
+			title: 'First header',
+		},
+		{
+			footer: 'Second footer',
+			title: 'Second header',
+		},
+		{
+			footer: 'Third footer',
+			title: 'Third header',
+		},
+	} ]
+} );
+]]></example>
+
+  <related>-init columns.ariaTitle</related>
+  <related>-init columns.title</related>
+  <related>-api column().title()</related>
+  <related>-api columns().titles()</related>
+</dt-option>
