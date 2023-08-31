@@ -91,9 +91,7 @@ $.extend( true, DataTable.ext.renderer, {
 					button = buttons[i];
 
 					if ( Array.isArray( button ) ) {
-						var inner = $( '<'+(button.DT_el || 'div')+'/>' )
-							.appendTo( container );
-						attach( inner, button );
+						attach( container, button );
 					}
 					else {
 						var disabled = false;

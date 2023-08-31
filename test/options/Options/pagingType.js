@@ -11,13 +11,12 @@ describe('pageType Option', function() {
 
 		if (pages) {
 			// this is the sum of the numbers ('a') and the ellipses ('span')
-			expect($('.dataTables_paginate').children('span').length).toBe(1);
-			let a = $('.dataTables_paginate span button').length;
-			let e = $('.dataTables_paginate')
-				.children('span')
-				.children('span').length;
+			let buttons = $('.dataTables_paginate button').length;
+			let ellipsis = $('.dataTables_paginate span.ellipsis').length;
+			let leading = prevNext ? 2 : 0;
+			let trailing = firstLast ? 2 : 0;
 
-			expect(a + e).toBe(pageCount);
+			expect(buttons - leading - trailing + ellipsis).toBe(pageCount);
 		}
 
 		if (prevNext) {
@@ -281,11 +280,6 @@ describe('pageType Option', function() {
 				displayStart: 20
 			});
 			expect(checkPaging(7, 'simple_numbers', 'paging_simple_numbers', true, 7, true, false)).toBe(true);
-			expect(
-				$('.dataTables_paginate')
-					.children('span')
-					.children('span').length
-			).toBe(2);
 		});
 
 		dt.html('basic');

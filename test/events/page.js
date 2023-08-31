@@ -50,7 +50,7 @@ describe('core - events - page', function() {
 			expect(count).toBe(2);
 		});
 		it('Called when user changes page', function() {
-			$('span .paginate_button:eq(1)').click();
+			$('.paginate_button:eq(2)').click();
 			expect(count).toBe(3);
 		});
 		it('Called when user changes page length', function() {

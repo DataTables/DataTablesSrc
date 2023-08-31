@@ -299,7 +299,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Called when changing page through UI', function() {
 			reset();
-			$('span .paginate_button:eq(2)').click();
+			$('.paginate_button:eq(3)').click();
 			expect(count).toBe(1);
 		});
 		it('... Called when changing order through API', function() {
@@ -355,7 +355,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Called when changing page through UI', function() {
 			reset();
-			$('span .paginate_button:eq(2)').click();
+			$('.paginate_button:eq(3)').click();
 			expect(count).toBe(1);
 		});
 		it('... Called when changing order through API', function() {
