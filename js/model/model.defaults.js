@@ -1326,95 +1326,30 @@ DataTable.defaults = {
 		 */
 		"oPaginate": {
 			/**
-			 * Text to use when using the 'full_numbers' type of pagination for the
-			 * button to take the user to the first page.
-			 *  @type string
-			 *  @default First
-			 *
-			 *  @dtopt Language
-			 *  @name DataTable.defaults.language.paginate.first
-			 *
-			 *  @example
-			 *    $(document).ready( function() {
-			 *      $('#example').dataTable( {
-			 *        "language": {
-			 *          "paginate": {
-			 *            "first": "First page"
-			 *          }
-			 *        }
-			 *      } );
-			 *    } );
+			 * Label and character for first page button
 			 */
 			"sFirst": "First",
-
+			"firstIcon": "«",
 
 			/**
-			 * Text to use when using the 'full_numbers' type of pagination for the
-			 * button to take the user to the last page.
-			 *  @type string
-			 *  @default Last
-			 *
-			 *  @dtopt Language
-			 *  @name DataTable.defaults.language.paginate.last
-			 *
-			 *  @example
-			 *    $(document).ready( function() {
-			 *      $('#example').dataTable( {
-			 *        "language": {
-			 *          "paginate": {
-			 *            "last": "Last page"
-			 *          }
-			 *        }
-			 *      } );
-			 *    } );
+			 * Last page button
 			 */
 			"sLast": "Last",
+			"lastIcon": "»",
 
 
 			/**
-			 * Text to use for the 'next' pagination button (to take the user to the
-			 * next page).
-			 *  @type string
-			 *  @default Next
-			 *
-			 *  @dtopt Language
-			 *  @name DataTable.defaults.language.paginate.next
-			 *
-			 *  @example
-			 *    $(document).ready( function() {
-			 *      $('#example').dataTable( {
-			 *        "language": {
-			 *          "paginate": {
-			 *            "next": "Next page"
-			 *          }
-			 *        }
-			 *      } );
-			 *    } );
+			 * Next page button
 			 */
 			"sNext": "Next",
+			"nextIcon": "›",
 
 
 			/**
-			 * Text to use for the 'previous' pagination button (to take the user to
-			 * the previous page).
-			 *  @type string
-			 *  @default Previous
-			 *
-			 *  @dtopt Language
-			 *  @name DataTable.defaults.language.paginate.previous
-			 *
-			 *  @example
-			 *    $(document).ready( function() {
-			 *      $('#example').dataTable( {
-			 *        "language": {
-			 *          "paginate": {
-			 *            "previous": "Previous page"
-			 *          }
-			 *        }
-			 *      } );
-			 *    } );
+			 * Previous page button
 			 */
-			"sPrevious": "Previous"
+			"sPrevious": "Previous",
+			"previousIcon": "‹"
 		},
 
 		/**

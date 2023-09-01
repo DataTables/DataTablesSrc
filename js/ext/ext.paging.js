@@ -73,119 +73,42 @@ $.extend( extPagination, {
 
 
 $.extend( true, DataTable.ext.renderer, {
-	pageButton: {
-		_: function ( settings, host, idx, buttons, page, pages ) {
+	pagingButton: {
+		_: function (settings, buttonType, content, active, disabled) {
 			var classes = settings.oClasses;
-			var lang = settings.oLanguage.oPaginate;
-			var aria = settings.oLanguage.oAria.paginate || {};
-			var btnDisplay, btnClass;
+			var btnClasses = [classes.sPageButton];
+			var btn;
 
-			var attach = function( container, buttons ) {
-				var i, ien, node, button;
-				var disabledClass = classes.sPageButtonDisabled;
-				var clickHandler = function ( e ) {
-					_fnPageChange( settings, e.data.action, true );
-				};
-
-				for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
-					button = buttons[i];
-
-					if ( Array.isArray( button ) ) {
-						attach( container, button );
-					}
-					else {
-						var disabled = false;
-
-						btnDisplay = null;
-						btnClass = button;
-
-						switch ( button ) {
-							case 'ellipsis':
-								container.append('<span class="ellipsis">&#x2026;</span>');
-								break;
-
-							case 'first':
-								btnDisplay = lang.sFirst;
-
-								if ( page === 0 ) {
-									disabled = true;
-								}
-								break;
-
-							case 'previous':
-								btnDisplay = lang.sPrevious;
-
-								if ( page === 0 ) {
-									disabled = true;
-								}
-								break;
-
-							case 'next':
-								btnDisplay = lang.sNext;
-
-								if ( pages === 0 || page === pages-1 ) {
-									disabled = true;
-								}
-								break;
-
-							case 'last':
-								btnDisplay = lang.sLast;
-
-								if ( pages === 0 || page === pages-1 ) {
-									disabled = true;
-								}
-								break;
-
-							default:
-								if ( typeof button === 'number' ) {
-									btnDisplay = settings.fnFormatNumber( button + 1 );
-									btnClass = page === button ?
-										classes.sPageButtonActive : '';
-								}
-								else {
-									container.append( button );
-								}
-
-								break;
-						}
-
-						if ( btnDisplay !== null ) {
-							if (disabled) {
-								btnClass += ' ' + disabledClass;
-							}
-
-							node = $('<button>', {
-									'class': classes.sPageButton+' '+btnClass,
-									'aria-controls': settings.sTableId,
-									'aria-disabled': disabled ? 'true' : null,
-									'aria-label': aria[ button ],
-									'role': 'link',
-									'aria-current': btnClass === classes.sPageButtonActive ? 'page' : null,
-									'data-dt-idx': button,
-									'tabindex': disabled ? -1 : settings.iTabIndex,
-									'id': idx === 0 && typeof button === 'string' ?
-										settings.sTableId +'_'+ button :
-										null,
-									'type': 'button'
-								} )
-								.html( btnDisplay )
-								.appendTo( container );
-
-							_fnBindAction(
-								node, {action: button}, clickHandler
-							);
-						}
-					}
-				}
-			};
-
-			var activeEl = $(host).find(document.activeElement).data('dt-idx');
-
-			attach( $(host).empty(), buttons );
-
-			if ( activeEl !== undefined ) {
-				$(host).find( '[data-dt-idx='+activeEl+']' ).trigger('focus');
+			if (active) {
+				btnClasses.push(classes.sPageButtonActive);
 			}
+
+			if (disabled) {
+				btnClasses.push(classes.sPageButtonDisabled)
+			}
+
+			if (buttonType === 'ellipsis') {
+				btn = $('<span class="ellipsis"></span>').html(content)[0];
+			}
+			else {
+				btn = $('<button>', {
+					class: btnClasses.join(' '),
+					role: 'link',
+					type: 'button'
+				}).html(content);
+			}
+
+			return {
+				display: btn,
+				clicker: btn
+			}
+		}
+	},
+
+	pagingContainer: {
+		_: function (settings, buttons) {
+			// No wrapping element - just append directly to the host
+			return buttons;
 		}
 	}
 } );
