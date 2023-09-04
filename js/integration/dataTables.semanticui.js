@@ -20,121 +20,38 @@ $.extend( true, DataTable.defaults, {
 $.extend( DataTable.ext.classes, {
 	sWrapper:      "dataTables_wrapper dt-semanticUI ui stackable grid",
 	sFilter:       "dataTables_filter ui input",
-	sProcessing:   "dataTables_processing ui segment",
-	sPageButton:   "paginate_button item"
+	sProcessing:   "dataTables_processing ui segment"
 } );
 
 
 /* Bootstrap paging button renderer */
-DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, buttons, page, pages ) {
-	var api     = new DataTable.Api( settings );
-	var classes = settings.oClasses;
-	var lang    = settings.oLanguage.oPaginate;
-	var aria = settings.oLanguage.oAria.paginate || {};
-	var btnDisplay, btnClass;
+DataTable.ext.renderer.pagingButton.semanticUI = function (settings, buttonType, content, active, disabled) {
+	var btnClasses = ['paginate_button', 'item'];
 
-	var attach = function( container, buttons ) {
-		var i, ien, node, button;
-		var clickHandler = function ( e ) {
-			e.preventDefault();
-			if ( !$(e.currentTarget).hasClass('disabled') && api.page() != e.data.action ) {
-				api.page( e.data.action ).draw( 'page' );
-			}
-		};
-
-		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
-			button = buttons[i];
-
-			if ( Array.isArray( button ) ) {
-				attach( container, button );
-			}
-			else {
-				btnDisplay = null;
-				btnClass = '';
-
-				switch ( button ) {
-					case 'ellipsis':
-						btnDisplay = '&#x2026;';
-						btnClass = 'disabled';
-						break;
-
-					case 'first':
-						btnDisplay = lang.sFirst;
-						btnClass = button + (page > 0 ?
-							'' : ' disabled');
-						break;
-
-					case 'previous':
-						btnDisplay = lang.sPrevious;
-						btnClass = button + (page > 0 ?
-							'' : ' disabled');
-						break;
-
-					case 'next':
-						btnDisplay = lang.sNext;
-						btnClass = button + (page < pages-1 ?
-							'' : ' disabled');
-						break;
-
-					case 'last':
-						btnDisplay = lang.sLast;
-						btnClass = button + (page < pages-1 ?
-							'' : ' disabled');
-						break;
-
-					default:
-						if ( typeof button === 'number' ) {
-							btnDisplay = button + 1;
-							btnClass = page === button ?
-								'active' : '';
-						}
-						else {
-							container.append( button );
-						}
-						break;
-				}
-
-				var disabled = btnClass.indexOf('disabled') !== -1;
-				var tag = disabled ?
-					'div' :
-					'a';
-
-				if ( btnDisplay !== null ) {
-					node = $('<'+tag+'>', {
-							'class': classes.sPageButton+' '+btnClass,
-							'id': idx === 0 && typeof button === 'string' ?
-								settings.sTableId +'_'+ button :
-								null,
-							'href': disabled ? null : '#',
-							'aria-controls': settings.sTableId,
-							'aria-disabled': disabled ? 'true' : null,
-							'aria-label': aria[ button ],
-							'role': 'link',
-							'aria-current': btnClass === 'active' ? 'page' : null,
-							'data-dt-idx': button,
-							'tabindex': disabled ? -1 : settings.iTabIndex
-						} )
-						.html( btnDisplay )
-						.appendTo( container );
-
-					settings.oApi._fnBindAction(
-						node, {action: button}, clickHandler
-					);
-				}
-			}
-		}
-	};
-
-	var activeEl = $(host).find(document.activeElement).data('dt-idx');
-
-	attach(
-		$(host).empty().html('<div class="ui unstackable pagination menu"/>').children(),
-		buttons
-	);
-
-	if ( activeEl !== undefined ) {
-		$(host).find( '[data-dt-idx='+activeEl+']' ).trigger('focus');
+	if (active) {
+		btnClasses.push('active');
 	}
+
+	if (disabled) {
+		btnClasses.push('disabled')
+	}
+
+	var li = $('<li>').addClass(btnClasses.join(' '));
+	var a = $('<'+(disabled ? 'div' : 'a')+'>', {
+		'href': disabled ? null : '#',
+		'class': 'page-link'
+	})
+		.html(content)
+		.appendTo(li);
+
+	return {
+		display: li,
+		clicker: a
+	};
+};
+
+DataTable.ext.renderer.pagingContainer.semanticUI = function (settings, buttonEls) {
+	return $('<div/>').addClass('ui unstackable pagination menu').append(buttonEls);
 };
 
 

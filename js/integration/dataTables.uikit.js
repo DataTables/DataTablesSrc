@@ -19,119 +19,33 @@ $.extend( DataTable.ext.classes, {
 	sProcessing:   "dataTables_processing uk-panel"
 } );
 
+DataTable.ext.renderer.pagingButton.uikit = function (settings, buttonType, content, active, disabled) {
+	var btnClasses = [];
 
-/* UIkit paging button renderer */
-DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, buttons, page, pages ) {
-	var api     = new DataTable.Api( settings );
-	var classes = settings.oClasses;
-	var lang    = settings.oLanguage.oPaginate;
-	var aria = settings.oLanguage.oAria.paginate || {};
-	var btnDisplay, btnClass;
-
-	var attach = function( container, buttons ) {
-		var i, ien, node, button;
-		var clickHandler = function ( e ) {
-			e.preventDefault();
-			if ( !$(e.currentTarget).hasClass('disabled') && api.page() != e.data.action ) {
-				api.page( e.data.action ).draw( 'page' );
-			}
-		};
-
-		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
-			button = buttons[i];
-
-			if ( Array.isArray( button ) ) {
-				attach( container, button );
-			}
-			else {
-				btnDisplay = null;
-				btnClass = '';
-
-				switch ( button ) {
-					case 'ellipsis':
-						btnDisplay = '<i class="uk-icon-ellipsis-h"></i>';
-						btnClass = 'uk-disabled disabled';
-						break;
-
-					case 'first':
-						btnDisplay = '<i class="uk-icon-angle-double-left"></i> ' + lang.sFirst;
-						btnClass = (page > 0 ?
-							'' : ' uk-disabled disabled');
-						break;
-
-					case 'previous':
-						btnDisplay = '<i class="uk-icon-angle-left"></i> ' + lang.sPrevious;
-						btnClass = (page > 0 ?
-							'' : 'uk-disabled disabled');
-						break;
-
-					case 'next':
-						btnDisplay = lang.sNext + ' <i class="uk-icon-angle-right"></i>';
-						btnClass = (page < pages-1 ?
-							'' : 'uk-disabled disabled');
-						break;
-
-					case 'last':
-						btnDisplay = lang.sLast + ' <i class="uk-icon-angle-double-right"></i>';
-						btnClass = (page < pages-1 ?
-							'' : ' uk-disabled disabled');
-						break;
-
-					default:
-						if ( typeof button === 'number' ) {
-							btnDisplay = button + 1;
-							btnClass = page === button ?
-								'uk-active' : '';
-						}
-						else {
-							container.append( button );
-						}
-						break;
-				}
-
-				if ( btnDisplay ) {
-					var disabled = btnClass.indexOf('disabled') !== -1;
-
-					node = $('<li>', {
-							'class': classes.sPageButton+' '+btnClass,
-							'id': idx === 0 && typeof button === 'string' ?
-								settings.sTableId +'_'+ button :
-								null
-						} )
-						.append( $(( -1 != btnClass.indexOf('disabled') || -1 != btnClass.indexOf('active') ) ? '<span>' : '<a>', {
-								'href': disabled ? null : '#',
-								'aria-controls': settings.sTableId,
-								'aria-disabled': disabled ? 'true' : null,
-								'aria-label': aria[ button ],
-								'role': 'link',
-								'aria-current': btnClass === 'active' ? 'page' : null,
-								'data-dt-idx': button,
-								'tabindex': disabled ? -1 : settings.iTabIndex
-							} )
-							.html( btnDisplay )
-						)
-						.appendTo( container );
-
-					settings.oApi._fnBindAction(
-						node, {action: button}, clickHandler
-					);
-				}
-			}
-		}
-	};
-
-	var activeEl = $(host).find(document.activeElement).data('dt-idx');
-
-	attach(
-		$(host).empty().html('<ul class="uk-pagination uk-pagination-right uk-flex-right"/>').children('ul'),
-		buttons
-	);
-
-	if ( activeEl ) {
-		$(host).find( '[data-dt-idx='+activeEl+']' ).trigger('focus');
+	if (active) {
+		btnClasses.push('uk-active');
 	}
+
+	if (disabled) {
+		btnClasses.push('uk-disabled')
+	}
+
+	var li = $('<li>').addClass(btnClasses.join(' '));
+	var a = $(disabled ? '<span>' : '<a>', {
+		'href': disabled ? null : '#'
+	})
+		.html(content)
+		.appendTo(li);
+
+	return {
+		display: li,
+		clicker: a
+	};
 };
 
+DataTable.ext.renderer.pagingContainer.uikit = function (settings, buttonEls) {
+	return $('<ul/>').addClass('uk-pagination uk-pagination-right uk-flex-right').append(buttonEls);
+};
 
 DataTable.ext.renderer.layout.uikit = function ( settings, container, items ) {
 	var row = $( '<div/>', {

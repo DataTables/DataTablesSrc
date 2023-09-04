@@ -70,136 +70,30 @@ $(document).on('init.dt', function (e, settings) {
 	$(thead).addClass(classes.thead.row);
 });
 
-
-/* UIkit paging button renderer */
-DataTable.ext.renderer.pageButton.tailwindcss = function ( settings, host, idx, buttons, page, pages ) {
-	var api     = new DataTable.Api( settings );
+DataTable.ext.renderer.pagingButton.tailwindcss = function (settings, buttonType, content, active, disabled) {
 	var classes = settings.oClasses.tailwindcss.paging;
-	var lang    = settings.oLanguage.oPaginate;
-	var aria = settings.oLanguage.oAria.paginate || {};
-	var btnDisplay;
+	var btnClasses = [classes.button];
 
-	var attach = function( container, buttons ) {
-		var i, ien, node, button;
-		var clickHandler = function ( e ) {
-			e.preventDefault();
-			if ( !$(e.currentTarget).hasClass('disabled') && api.page() != e.data.action ) {
-				api.page( e.data.action ).draw( 'page' );
-			}
-		};
+	btnClasses.push(active ? classes.active : classes.notActive);
+	btnClasses.push(disabled ? classes.notEnabled : classes.enabled);
 
-		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
-			button = buttons[i];
+	var a = $('<a>', {
+		'href': disabled ? null : '#',
+		'class': btnClasses.join(' ')
+	})
+		.html(content);
 
-			if ( Array.isArray( button ) ) {
-				attach( container, button );
-			}
-			else {
-				let enabled = false;
-				let active = false;
-
-				btnDisplay = '';
-
-				switch ( button ) {
-					case 'ellipsis':
-						btnDisplay = '&#x2026;';
-						break;
-
-					case 'first':
-						btnDisplay = lang.sFirst;
-
-						if (page > 0) {
-							enabled = true;
-						}
-						break;
-
-					case 'previous':
-						btnDisplay = lang.sPrevious;
-
-						if (page > 0) {
-							enabled = true;
-						}
-						break;
-
-					case 'next':
-						btnDisplay = lang.sNext;
-
-						if (page < pages-1) {
-							enabled = true;
-						}
-						break;
-
-					case 'last':
-						btnDisplay = lang.sLast;
-
-						if (page < pages-1) {
-							enabled = true;
-						}
-						break;
-
-					default:
-						btnDisplay = button + 1;
-						enabled = true;
-
-						if (page === button) {
-							active = true;
-						}
-						break;
-				}
-
-				if ( btnDisplay ) {
-					var className = classes.button + ' ' +
-						(active ? classes.active : classes.notActive) + ' ' +
-						(enabled ? classes.enabled : classes.notEnabled);
-
-					node = $('<a>', {
-							'href': enabled ? '#' : null,
-							'aria-controls': settings.sTableId,
-							'aria-disabled': enabled ? null : 'true',
-							'aria-label': aria[ button ],
-							'role': 'link',
-							'aria-current': active ? 'page' : null,
-							'data-dt-idx': button,
-							'tabindex': enabled ? settings.iTabIndex : -1,
-							'class': className,
-							'id': idx === 0 && typeof button === 'string' ?
-								settings.sTableId +'_'+ button :
-								null
-						} )
-						.html( btnDisplay )
-						.appendTo( container );
-
-					settings.oApi._fnBindAction(
-						node, {action: button}, clickHandler
-					);
-				}
-			}
-		}
+	return {
+		display: a,
+		clicker: a
 	};
-
-	var hostEl = $(host);
-	var activeEl = hostEl.find(document.activeElement).data('dt-idx');
-	var paginationEl = hostEl.children('ul.pagination');
-
-	if (paginationEl.length) {
-		paginationEl.empty();
-	}
-	else {
-		paginationEl = hostEl
-			.html('<div class="text-center dark:text-gray-100"/>')
-			.children('div');
-	}
-
-	attach(
-		paginationEl,
-		buttons
-	);
-
-	paginationEl.children(':first-child').addClass(classes.first);
-	paginationEl.children(':last-child').addClass(classes.last);
-
-	if ( activeEl !== undefined ) {
-		hostEl.find('[data-dt-idx='+activeEl+']').trigger('focus');
-	}
 };
 
+DataTable.ext.renderer.pagingContainer.tailwindcss = function (settings, buttonEls) {
+	var classes = settings.oClasses.tailwindcss.paging;
+
+	buttonEls[0].addClass(classes.first);
+	buttonEls[buttonEls.length -1].addClass(classes.last);
+
+	return $('<ul/>').addClass('pagination').append(buttonEls);
+};

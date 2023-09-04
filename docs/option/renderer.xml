@@ -26,7 +26,8 @@
 		DataTables currently supports two different types of renderers:
 
 		* `header` - header cell renderer
-		* `pageButton` - pagination buttons
+		* `pagingButton` - pagination buttons (since 2.0)
+		* `pagingContainer` - pagination container (since 2.0)
 
 		This list will likely expand significantly in future versions of DataTables!
 	</description>
@@ -41,7 +42,8 @@ $('#example').dataTable( {
 $('#example').dataTable( {
 	renderer: {
 		"header": "jqueryui",
-		"pageButton": "bootstrap"
+		"pagingButton": "bootstrap",
+		"pagingContainer": "bootstrap"
 	}
 } );
 ]]></example>

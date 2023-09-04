@@ -38,114 +38,32 @@ $.extend( DataTable.ext.classes, {
 	sProcessing:    "dataTables_processing panel panel-default"
 } );
 
+DataTable.ext.renderer.pagingButton.material = function (settings, buttonType, content, active, disabled) {
+	var btnClasses = ['mdc-button'];
 
-/* Bootstrap paging button renderer */
-DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, buttons, page, pages ) {
-	var api     = new DataTable.Api( settings );
-	var classes = settings.oClasses;
-	var lang    = settings.oLanguage.oPaginate;
-	var aria = settings.oLanguage.oAria.paginate || {};
-	var btnDisplay, btnClass;
-
-	var attach = function( container, buttons ) {
-		var i, ien, node, button, disabled, active;
-		var clickHandler = function ( e ) {
-			e.preventDefault();
-			if ( !$(e.currentTarget).hasClass('disabled') && api.page() != e.data.action ) {
-				api.page( e.data.action ).draw( 'page' );
-			}
-		};
-
-		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
-			button = buttons[i];
-
-			if ( Array.isArray( button ) ) {
-				attach( container, button );
-			}
-			else {
-				btnDisplay = null;
-				active = false;
-
-				switch ( button ) {
-					case 'ellipsis':
-						btnDisplay = '&#x2026;';
-						btnClass = 'disabled';
-						break;
-
-					case 'first':
-						btnDisplay = lang.sFirst;
-						btnClass = button + (page > 0 ?
-							'' : ' disabled');
-						break;
-
-					case 'previous':
-						btnDisplay = lang.sPrevious;
-						btnClass = button + (page > 0 ?
-							'' : ' disabled');
-						break;
-
-					case 'next':
-						btnDisplay = lang.sNext;
-						btnClass = button + (page < pages-1 ?
-							'' : ' disabled');
-						break;
-
-					case 'last':
-						btnDisplay = lang.sLast;
-						btnClass = button + (page < pages-1 ?
-							'' : ' disabled');
-						break;
-
-					default:
-						if ( typeof button === 'number' ) {
-							btnDisplay = button + 1;
-							btnClass = '';
-							active = page === button;
-						}
-						else {
-							container.append( button );
-						}
-						break;
-				}
-
-				if ( active ) {
-					btnClass += ' mdc-button--raised mdc-button--colored';
-				}
-
-				if ( btnDisplay !== null ) {
-					node = $('<button>', {
-							'class': 'mdc-button '+btnClass,
-							'id': idx === 0 && typeof button === 'string' ?
-								settings.sTableId +'_'+ button :
-								null,
-							'aria-controls': settings.sTableId,
-							'aria-label': aria[ button ],
-							'data-dt-idx': button,
-							'tabindex': disabled ? -1 : settings.iTabIndex,
-							'disabled': btnClass.indexOf('disabled') !== -1
-						} )
-						.html( btnDisplay )
-						.appendTo( container );
-
-					settings.oApi._fnBindAction(
-						node, {action: button}, clickHandler
-					);
-				}
-			}
-		}
-	};
-
-	var activeEl = $(host).find(document.activeElement).data('dt-idx');
-
-	attach(
-		$(host).empty().html('<div class="pagination"/>').children(),
-		buttons
-	);
-
-	if ( activeEl !== undefined ) {
-		$(host).find( '[data-dt-idx='+activeEl+']' ).trigger('focus');
+	if (active) {
+		btnClasses.push('mdc-button--raised', 'mdc-button--colored');
 	}
+
+	if (disabled) {
+		btnClasses.push('disabled')
+	}
+
+	var btn = $('<button>', {
+		class: btnClasses.join(' '),
+		disabled: disabled
+	}).html(content);
+
+	return {
+		display: btn,
+		clicker: btn
+	};
 };
+
+DataTable.ext.renderer.pagingContainer.material = function (settings, buttonEls) {
+	return $('<div/>').addClass('pagination').append(buttonEls);
+};
+
 
 $(document).on('init.dt', function(e, ctx) {
 	if (e.namespace !== 'dt') {

@@ -17,115 +17,38 @@ $.extend( DataTable.ext.classes, {
 } );
 
 
-/* Bulma paging button renderer */
-DataTable.ext.renderer.pageButton.bulma = function ( settings, host, idx, buttons, page, pages ) {
-	var api     = new DataTable.Api( settings );
-	var classes = settings.oClasses;
-	var lang    = settings.oLanguage.oPaginate;
-	var aria = settings.oLanguage.oAria.paginate || {};
-	var btnDisplay, btnClass;
+DataTable.ext.renderer.pagingButton.bulma = function (settings, buttonType, content, active, disabled) {
+	var btnClasses = ['pagination-link'];
+	var tag = buttonType === 'ellipsis'
+		? 'span'
+		: 'a';
 
-	var attach = function( container, buttons ) {
-		var i, ien, node, button, tag, disabled;
-		var clickHandler = function ( e ) {
-			e.preventDefault();
-			if ( ! $(e.currentTarget.firstChild).attr('disabled') && api.page() != e.data.action ) {
-				api.page( e.data.action ).draw( 'page' );
-			}
-		};
-
-		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
-			button = buttons[i];
-
-			if ( Array.isArray( button ) ) {
-				attach( container, button );
-			}
-			else {
-				btnDisplay = '';
-				btnClass = '';
-				tag = 'a';
-				disabled = false;
-
-				switch ( button ) {
-					case 'ellipsis':
-						btnDisplay = '&#x2026;';
-						btnClass = 'pagination-link';
-						disabled = true;
-						tag = 'span';
-						break;
-
-					case 'first':
-						btnDisplay = lang.sFirst;
-						btnClass = button;
-						disabled = page <= 0;
-						break;
-
-					case 'previous':
-						btnDisplay = lang.sPrevious;
-						btnClass = button;
-						disabled = page <= 0;
-						break;
-
-					case 'next':
-						btnDisplay = lang.sNext;
-						btnClass = button;
-						disabled = page >= pages - 1;
-						break;
-
-					case 'last':
-						btnDisplay = lang.sLast;
-						btnClass = button;
-						disabled = page >= pages - 1;
-						break;
-
-					default:
-						btnDisplay = button + 1;
-						btnClass = page === button ?
-							'is-current' : '';
-						break;
-				}
-
-				if ( btnDisplay ) {
-					node = $('<li>', {
-							'id': idx === 0 && typeof button === 'string' ?
-								settings.sTableId +'_'+ button :
-								null
-						} )
-						.append( $('<' + tag + '>', {
-								'href': disabled ? null : '#',
-								'aria-controls': settings.sTableId,
-								'aria-disabled': disabled ? 'true' : null,
-								'aria-label': aria[ button ],
-								'role': 'link',
-								'aria-current': btnClass === 'is-current' ? 'page' : null,
-								'data-dt-idx': button,
-								'tabindex': disabled ? -1 : settings.iTabIndex,
-								'class': 'pagination-link ' + btnClass,
-								'disabled': disabled
-							} )
-							.html( btnDisplay )
-						)
-						.appendTo( container );
-
-					settings.oApi._fnBindAction(
-						node, {action: button}, clickHandler
-					);
-				}
-			}
-		}
-	};
-
-	var activeEl = $(host).find(document.activeElement).data('dt-idx');
-	var nav = $('<nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list"></ul></nav>');
-	$(host).empty().append(nav);
-
-	attach(nav.find('ul'), buttons);
-
-	if ( activeEl !== undefined ) {
-		$(host).find( '[data-dt-idx='+activeEl+']' ).trigger('focus');
+	if (active) {
+		btnClasses.push('is-current');
 	}
+
+	var li = $('<li>');
+	var a = $('<a>', {
+		'href': disabled ? null : '#',
+		'class': btnClasses.join(' '),
+		'disabled': disabled
+	})
+		.html(content)
+		.appendTo(li);
+
+	return {
+		display: li,
+		clicker: a
+	};
 };
 
+DataTable.ext.renderer.pagingContainer.bulma = function (settings, buttonEls) {
+	var nav = $('<nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list"></ul></nav>');
+	
+	nav.find('ul').append(buttonEls);
+
+	return nav;
+};
 
 DataTable.ext.renderer.layout.bulma = function ( settings, container, items ) {
 	var style = {};

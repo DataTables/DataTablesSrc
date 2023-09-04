@@ -1,32 +1,32 @@
-var pageArgs;
-var pageCounter = 0;
+var pageButtonArgs;
+var pageButtonCounter = 0;
+
+var pageContainerArgs;
+var pageContainerCounter = 0;
 
 var headerArgs;
 var headerCounter = 0;
 
 // Create a simple renderer that we can use for our testing - it just
 // creates `button` tags for each button type
-var pageButtons = function(settings, host, idx, buttons, page, pages) {
+var pagingButtons = function(settings, button, content, active, disabled) {
 	var api = new $.fn.dataTable.Api(settings);
-	pageArgs = arguments; // Store so we can set the arguments
-	pageCounter++;
+	pageButtonArgs = arguments; // Store so we can test the arguments
+	pageButtonCounter++;
 
-	// Flatten buttons array
-	var flattened = $.map(buttons, function(val, i) {
-		return val;
-	});
+	var btn = $('<button class="test">').html(content);
 
-	$(host).empty();
+	return {
+		display: btn,
+		clicker: btn
+	};
+};
 
-	$.each(flattened, function(i, val) {
-		$(host).append(
-			$('<button/>')
-				.text(val)
-				.on('click', function() {
-					api.page(val).draw(false);
-				})
-		);
-	});
+var pagingContainer = function (settings, buttons) {
+	pageContainerArgs = arguments; // Store so we can test the arguments
+	pageContainerCounter++;
+
+	return $('<div class="paging-buttons">').append(buttons);
 };
 
 var header = function(settings, cell, column, classes) {
@@ -37,8 +37,9 @@ var header = function(settings, cell, column, classes) {
 };
 
 function resetCounters() {
-	pageCounter = 0;
 	headerCounter = 0;
+	pageButtonCounter = 0;
+	pageContainerCounter = 0;
 }
 
 function checkHeaders(first, last) {
@@ -57,9 +58,10 @@ function checkButtons(rendered) {
 	}
 }
 
-function checkCounters(header, page) {
+function checkCounters(header, pageButtons, pageContainer) {
 	expect(headerCounter).toBe(header);
-	expect(pageCounter).toBe(page);
+	expect(pageButtonCounter).toBe(pageButtons);
+	expect(pageContainerCounter).toBe(pageContainer);
 }
 
 async function checkOrdering() {
@@ -83,7 +85,7 @@ describe('renderer option initialisation types for page button', function() {
 	it('Uses default when not explicitly set', async function() {
 		$('#example').DataTable();
 
-		checkCounters(0, 0);
+		checkCounters(0, 0, 0);
 		checkHeaders(undefined, undefined);
 		checkButtons(false);
 		await checkOrdering();
@@ -91,14 +93,15 @@ describe('renderer option initialisation types for page button', function() {
 
 	dt.html('basic');
 	it('Set the renderer - as a string', async function() {
-		$.fn.dataTable.ext.renderer.pageButton.test = pageButtons;
+		$.fn.dataTable.ext.renderer.pagingButton.test = pagingButtons;
+		$.fn.dataTable.ext.renderer.pagingContainer.test = pagingContainer;
 
 		resetCounters();
 		table = $('#example').DataTable({
 			renderer: 'test'
 		});
 
-		checkCounters(0, 1);
+		checkCounters(0, 8, 1);
 		checkHeaders(undefined, undefined);
 		checkButtons(true);
 		await checkOrdering();
@@ -109,11 +112,12 @@ describe('renderer option initialisation types for page button', function() {
 		resetCounters();
 		table = $('#example').DataTable({
 			renderer: {
-				pageButton: 'test'
+				pagingButton: 'test',
+				pagingContainer: 'test',
 			}
 		});
 
-		checkCounters(0, 1);
+		checkCounters(0, 8, 1);
 		checkHeaders(undefined, undefined);
 		checkButtons(true);
 		await checkOrdering();
@@ -128,7 +132,7 @@ describe('renderer option initialisation types for page button', function() {
 			}
 		});
 
-		checkCounters(0, 0);
+		checkCounters(0, 0, 0);
 		checkHeaders(undefined, undefined);
 		checkButtons(false);
 		await checkOrdering();
@@ -138,7 +142,8 @@ describe('renderer option initialisation types for page button', function() {
 describe('renderer option initialisation types for header', function() {
 	dt.html('basic');
 	it('Set the renderer - as a string', async function() {
-		delete $.fn.dataTable.ext.renderer.pageButton.test; // remove
+		delete $.fn.dataTable.ext.renderer.pagingButton.test; // remove
+		delete $.fn.dataTable.ext.renderer.pagingContainer.test; // remove
 		$.fn.dataTable.ext.renderer.header.test = header;
 
 		resetCounters();
@@ -146,22 +151,23 @@ describe('renderer option initialisation types for header', function() {
 			renderer: 'test'
 		});
 
-		checkCounters(6, 0);
+		checkCounters(6, 0, 0);
 		checkHeaders('1', '6');
 		checkButtons(false);
 		await checkOrdering();
 	});
 
 	dt.html('basic');
-	it('Set the renderer - as object with only the `pageButton` rendering type defined', async function() {
+	it('Set the renderer - as object with only the paging rendering type defined', async function() {
 		resetCounters();
 		$('#example').DataTable({
 			renderer: {
-				pageButton: 'test'
+				pagingButton: 'test',
+				pagingContainer: 'test'
 			}
 		});
 
-		checkCounters(0, 0);
+		checkCounters(0, 0, 0);
 		checkHeaders(undefined, undefined);
 		checkButtons(false);
 		await checkOrdering();
@@ -176,7 +182,7 @@ describe('renderer option initialisation types for header', function() {
 			}
 		});
 
-		checkCounters(6, 0);
+		checkCounters(6, 0, 0);
 		checkHeaders('1', '6');
 		checkButtons(false);
 		await checkOrdering();
@@ -186,7 +192,8 @@ describe('renderer option initialisation types for header', function() {
 describe('renderer option initialisation types for both paging and header', function() {
 	dt.html('basic');
 	it('Set the renderer - as a string', async function() {
-		$.fn.dataTable.ext.renderer.pageButton.test = pageButtons;
+		$.fn.dataTable.ext.renderer.pagingButton.test = pagingButtons;
+		$.fn.dataTable.ext.renderer.pagingContainer.test = pagingContainer;
 		$.fn.dataTable.ext.renderer.header.test = header;
 
 		resetCounters();
@@ -194,22 +201,23 @@ describe('renderer option initialisation types for both paging and header', func
 			renderer: 'test'
 		});
 
-		checkCounters(6, 1);
+		checkCounters(6, 8, 1);
 		checkHeaders('1', '6');
 		checkButtons(true);
 		await checkOrdering();
 	});
 
 	dt.html('basic');
-	it('Set the renderer - as object with only the `pageButton` rendering type defined', async function() {
+	it('Set the renderer - as object with only the paging rendering type defined', async function() {
 		resetCounters();
 		$('#example').DataTable({
 			renderer: {
-				pageButton: 'test'
+				pagingButton: 'test',
+				pagingContainer: 'test',
 			}
 		});
 
-		checkCounters(0, 1);
+		checkCounters(0, 8, 1);
 		checkHeaders(undefined, undefined);
 		checkButtons(true);
 		await checkOrdering();
@@ -224,7 +232,7 @@ describe('renderer option initialisation types for both paging and header', func
 			}
 		});
 
-		checkCounters(6, 0);
+		checkCounters(6, 0, 0);
 		checkHeaders('1', '6');
 		checkButtons(false);
 		await checkOrdering();
@@ -236,18 +244,19 @@ describe('renderer option initialisation types for both paging and header', func
 		$('#example').DataTable({
 			renderer: {
 				header: 'test',
-				pageButton: 'test'
+				pagingButton: 'test',
+				pagingContainer: 'test',
 			}
 		});
 
-		checkCounters(6, 1);
+		checkCounters(6, 8, 1);
 		checkHeaders('1', '6');
 		checkButtons(true);
 		await checkOrdering();
 	});
 });
 
-describe('renderer option page button functions', function() {
+describe('renderer option page button functions - pagingButton', function() {
 	dt.html('basic');
 	it('Create the DataTable', function() {
 		table = $('#example').DataTable({
@@ -256,46 +265,36 @@ describe('renderer option page button functions', function() {
 	});
 
 	it('Six arguments are passed in', function() {
-		expect(pageArgs.length).toBe(6);
+		expect(pageButtonArgs.length).toBe(5);
 	});
 
 	it('Arg 0 is the settings object', function() {
-		expect(pageArgs[0]).toBe(
+		expect(pageButtonArgs[0]).toBe(
 			$('#example')
 				.DataTable()
 				.settings()[0]
 		);
 	});
 
-	it('Arg 1 is the container element', function() {
-		expect(pageArgs[1]).toBe($('div.dataTables_paginate')[0]);
+	it('Arg 1 is the button type', function() {
+		expect(pageButtonArgs[1]).toBe('next');
 	});
 
-	it('Arg 2 is the paging control index', function() {
-		expect(pageArgs[2]).toBe(0);
+	it('Arg 2 is the content', function() {
+		expect(pageButtonArgs[2]).toBe('Next');
 	});
 
-	it('Arg 3 is an array of the buttons to be shown', function() {
-		expect(pageArgs[3][0]).toBe('previous');
-		expect(Array.isArray(pageArgs[3][1])).toBe(true);
-		expect(pageArgs[3][1][0]).toBe(0);
-		expect(pageArgs[3][1][1]).toBe(1);
-		expect(pageArgs[3][1].length).toBe(6);
-		expect(pageArgs[3][1].DT_el).toBe('span');
-		expect(pageArgs[3][2]).toBe('next');
+	it('Arg 3 is active state', function() {
+		expect(pageButtonArgs[3]).toBe(false);
 	});
 
-	it('Arg 4 is the current page', function() {
-		expect(pageArgs[4]).toBe(0);
+	it('Arg 4 is the disabled state', function() {
+		expect(pageButtonArgs[4]).toBe(false);
 	});
 
-	it('Arg 5 is the page count', function() {
-		expect(pageArgs[5]).toBe(6);
-	});
-
-	it('Next page Arg 4 is the current page', function() {
-		table.page('next').draw(false);
-		expect(pageArgs[4]).toBe(1);
+	it('Last page Arg 4 is the disabled state', function() {
+		table.page('last').draw(false);
+		expect(pageButtonArgs[4]).toBe(true);
 	});
 
 	dt.html('basic');
@@ -307,8 +306,8 @@ describe('renderer option page button functions', function() {
 		});
 	});
 
-	it('Arg 2 is the paging control index', function() {
-		expect(pageArgs[2]).toBe(0);
+	it('Arg 2 is the content', function() {
+		expect(pageButtonArgs[1]).toBe('next');
 	});
 });
 
