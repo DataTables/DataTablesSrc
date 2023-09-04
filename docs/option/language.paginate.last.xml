@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="string" />
-	<default value="Last" />
+	<default value="»" />
 
 	<description>
 		<![CDATA[
@@ -13,6 +13,8 @@
 		Text used when the pagination control shows the button to take the user to the last page.
 		
 		Note that DataTables writes this property to the document as HTML, so you can use HTML tags in the language string, but HTML entities such as `<` and `>` should be encoded as `&lt;` and `&gt;` respectively.
+
+    	Please note that the default value of this parameter was changed in DataTables 2. It is now `»`, while in DataTables 1.x it was `Last`.
 
 		]]>
 	</description>

@@ -69,7 +69,7 @@ describe('core - events - draw', function() {
 			checkResults(1, 'Garrett Winters');
 		});
 		it('Called when user changes page', function() {
-			$('.paginate_button:eq(2)').click();
+			$('.paginate_button:eq(3)').click();
 			checkResults(1, 'Howard Hatfield');
 		});
 		it('Called when user changes page length', function() {

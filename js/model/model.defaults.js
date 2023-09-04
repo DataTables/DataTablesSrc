@@ -1315,7 +1315,14 @@ DataTable.defaults = {
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.aria.orderableRemove
 			 */
-			"orderableRemove": ": Activate to remove sorting"
+			"orderableRemove": ": Activate to remove sorting",
+
+			paginate: {
+				first: 'First',
+				last: 'Last',
+				next: 'Next',
+				previous: 'Previous'
+			}
 		},
 
 		/**
@@ -1328,28 +1335,22 @@ DataTable.defaults = {
 			/**
 			 * Label and character for first page button
 			 */
-			"sFirst": "First",
-			"firstIcon": "«",
+			"sFirst": "«",
 
 			/**
 			 * Last page button
 			 */
-			"sLast": "Last",
-			"lastIcon": "»",
-
+			"sLast": "»",
 
 			/**
 			 * Next page button
 			 */
-			"sNext": "Next",
-			"nextIcon": "›",
-
+			"sNext": "›",
 
 			/**
 			 * Previous page button
 			 */
-			"sPrevious": "Previous",
-			"previousIcon": "‹"
+			"sPrevious": "‹",
 		},
 
 		/**
@@ -1786,7 +1787,7 @@ DataTable.defaults = {
 	 *      } );
 	 *    } )
 	 */
-	"sPaginationType": "simple_numbers",
+	"sPaginationType": "full_numbers",
 
 
 	/**

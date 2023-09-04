@@ -48,12 +48,12 @@ function checkHeaders(first, last) {
 }
 
 function checkButtons(rendered) {
-	expect($('div.dataTables_paginate button').length).toBe(8); // paging
+	expect($('div.dataTables_paginate button').length).toBe(10); // paging
 	expect($('div.dataTables_paginate span').length).toBe(0); // paging
 	expect($('thead th:eq(0)').children().length).toBe(1); // header
 
 	if (rendered) {
-		$('div.dataTables_paginate button:eq(4)').click();
+		$('div.dataTables_paginate button:eq(5)').click();
 		expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Jennifer Chang');
 	}
 }
@@ -101,7 +101,7 @@ describe('renderer option initialisation types for page button', function() {
 			renderer: 'test'
 		});
 
-		checkCounters(0, 8, 1);
+		checkCounters(0, 10, 1);
 		checkHeaders(undefined, undefined);
 		checkButtons(true);
 		await checkOrdering();
@@ -117,7 +117,7 @@ describe('renderer option initialisation types for page button', function() {
 			}
 		});
 
-		checkCounters(0, 8, 1);
+		checkCounters(0, 10, 1);
 		checkHeaders(undefined, undefined);
 		checkButtons(true);
 		await checkOrdering();
@@ -201,7 +201,7 @@ describe('renderer option initialisation types for both paging and header', func
 			renderer: 'test'
 		});
 
-		checkCounters(6, 8, 1);
+		checkCounters(6, 10, 1);
 		checkHeaders('1', '6');
 		checkButtons(true);
 		await checkOrdering();
@@ -217,7 +217,7 @@ describe('renderer option initialisation types for both paging and header', func
 			}
 		});
 
-		checkCounters(0, 8, 1);
+		checkCounters(0, 10, 1);
 		checkHeaders(undefined, undefined);
 		checkButtons(true);
 		await checkOrdering();
@@ -249,7 +249,7 @@ describe('renderer option initialisation types for both paging and header', func
 			}
 		});
 
-		checkCounters(6, 8, 1);
+		checkCounters(6, 10, 1);
 		checkHeaders('1', '6');
 		checkButtons(true);
 		await checkOrdering();
@@ -277,11 +277,11 @@ describe('renderer option page button functions - pagingButton', function() {
 	});
 
 	it('Arg 1 is the button type', function() {
-		expect(pageButtonArgs[1]).toBe('next');
+		expect(pageButtonArgs[1]).toBe('last');
 	});
 
 	it('Arg 2 is the content', function() {
-		expect(pageButtonArgs[2]).toBe('Next');
+		expect(pageButtonArgs[2]).toBe('»');
 	});
 
 	it('Arg 3 is active state', function() {
@@ -307,7 +307,7 @@ describe('renderer option page button functions - pagingButton', function() {
 	});
 
 	it('Arg 2 is the content', function() {
-		expect(pageButtonArgs[1]).toBe('next');
+		expect(pageButtonArgs[1]).toBe('last');
 	});
 });
 

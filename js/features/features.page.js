@@ -12,7 +12,6 @@ _ext.features.register( 'paging', function ( settings, opts ) {
 			: settings.sPaginationType,
 		plugin = DataTable.ext.pager[ type ],
 		host = $('<div/>').addClass( settings.oClasses.sPaging + type ),
-		counter = settings.pagingControls++,
 		aria = settings.oLanguage.oAria.paginate || {};
 
 	settings.aoDrawCallback.push( {

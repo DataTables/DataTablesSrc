@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="string" />
-	<default value="simple_numbers" />
+	<default value="full_numbers" />
 
 	<description>
     <![CDATA[
@@ -19,14 +19,14 @@
     * `string full` - 'First', 'Previous', 'Next' and 'Last' buttons
     * `string full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
     * `string first_last_numbers` - 'First' and 'Last' buttons, plus page numbers
-     
-    Further methods can be added using plug-ins.
+    
+    Please note that the default value of this parameter was changed in DataTables 2. It is now `full_numbers`, while in DataTables 1.x it was `simple_numbers`.
     ]]>
     </description>
 
 	<example title="Use the `full_numbers` type of pagination control"><![CDATA[
 $('#example').dataTable( {
-  "pagingType": "full_numbers"
+  pagingType: 'simple_numbers'
 } );
 ]]></example>
 

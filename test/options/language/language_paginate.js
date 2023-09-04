@@ -13,16 +13,22 @@ describe('language.paginate option', function() {
 			table = $('#example')
 				.DataTable()
 				.settings()[0].oLanguage.oPaginate;
-			expect(table.sFirst).toBe('First');
-			expect(table.sPrevious).toBe('Previous');
-			expect(table.sNext).toBe('Next');
-			expect(table.sLast).toBe('Last');
+			expect(table.sFirst).toBe('«');
+			expect(table.sPrevious).toBe('‹');
+			expect(table.sNext).toBe('›');
+			expect(table.sLast).toBe('»');
 		});
 		it('Paginate defaults are in the DOM', function() {
-			expect($('.paginate_button.first').html()).toBe('First');
-			expect($('.paginate_button.previous').html()).toBe('Previous');
-			expect($('.paginate_button.next').html()).toBe('Next');
-			expect($('.paginate_button.last').html()).toBe('Last');
+			expect($('.paginate_button.first').html()).toBe('«');
+			expect($('.paginate_button.previous').html()).toBe('‹');
+			expect($('.paginate_button.next').html()).toBe('›');
+			expect($('.paginate_button.last').html()).toBe('»');
+		});
+		it('Aria labels are set', function() {
+			expect($('.paginate_button.first').attr('aria-label')).toBe('First');
+			expect($('.paginate_button.previous').attr('aria-label')).toBe('Previous');
+			expect($('.paginate_button.next').attr('aria-label')).toBe('Next');
+			expect($('.paginate_button.last').attr('aria-label')).toBe('Last');
 		});
 		dt.html('basic');
 		it('Paginate can be defined', function() {
