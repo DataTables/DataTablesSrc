@@ -26,6 +26,7 @@
 		DataTables currently supports two different types of renderers:
 
 		* `header` - header cell renderer
+		* `layout` - position of table control elements (since 2.0)
 		* `pagingButton` - pagination buttons (since 2.0)
 		* `pagingContainer` - pagination container (since 2.0)
 
