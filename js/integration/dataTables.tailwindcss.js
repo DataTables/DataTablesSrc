@@ -97,3 +97,37 @@ DataTable.ext.renderer.pagingContainer.tailwindcss = function (settings, buttonE
 
 	return $('<ul/>').addClass('pagination').append(buttonEls);
 };
+
+DataTable.ext.renderer.layout.tailwindcss = function ( settings, container, items ) {
+	var row = $( '<div/>', {
+			"class": items.full ?
+				'grid grid-cols-1 gap-4 mb-4' :
+				'grid grid-cols-2 gap-4 mb-4'
+		} )
+		.appendTo( container );
+
+	$.each( items, function (key, val) {
+		var klass;
+
+		// Apply start / end (left / right when ltr) margins
+		if (val.table) {
+			klass = 'col-span-2';
+		}
+		else if (key === 'left') {
+			klass = 'justify-self-start';
+		}
+		else if (key === 'right') {
+			klass = 'col-start-2 justify-self-end';
+		}
+		else {
+			klass = 'col-span-2 justify-self-center';
+		}
+
+		$( '<div/>', {
+				id: val.id || null,
+				"class": klass + ' ' + (val.className || '')
+			} )
+			.append( val.contents )
+			.appendTo( row );
+	} );
+};
