@@ -2,41 +2,9 @@
 
 var extPagination = DataTable.ext.pager;
 
-function _numbers ( page, pages ) {
-	var
-		numbers = [],
-		buttons = extPagination.numbers_length,
-		half = Math.floor( buttons / 2 ),
-		i = 1;
-
-	if ( pages <= buttons ) {
-		numbers = _range( 0, pages );
-	}
-	else if ( page <= half ) {
-		numbers = _range( 0, buttons-2 );
-		numbers.push( 'ellipsis' );
-		numbers.push( pages-1 );
-	}
-	else if ( page >= pages - 1 - half ) {
-		numbers = _range( pages-(buttons-2), pages );
-		numbers.splice( 0, 0, 'ellipsis' ); // no unshift in ie6
-		numbers.splice( 0, 0, 0 );
-	}
-	else {
-		numbers = _range( page-half+2, page+half-1 );
-		numbers.push( 'ellipsis' );
-		numbers.push( pages-1 );
-		numbers.splice( 0, 0, 'ellipsis' );
-		numbers.splice( 0, 0, 0 );
-	}
-
-	numbers.DT_el = 'span';
-	return numbers;
-}
-
-
+// Paging buttons configuration
 $.extend( extPagination, {
-	simple: function ( page, pages ) {
+	simple: function () {
 		return [ 'previous', 'next' ];
 	},
 
@@ -44,30 +12,30 @@ $.extend( extPagination, {
 		return [  'first', 'previous', 'next', 'last' ];
 	},
 
-	numbers: function ( page, pages ) {
-		return [ _numbers(page, pages) ];
+	numbers: function () {
+		return [ 'numbers' ];
 	},
 
-	simple_numbers: function ( page, pages ) {
-		return [ 'previous', _numbers(page, pages), 'next' ];
+	simple_numbers: function () {
+		return [ 'previous', 'numbers', 'next' ];
 	},
 
-	full_numbers: function ( page, pages ) {
-		return [ 'first', 'previous', _numbers(page, pages), 'next', 'last' ];
+	full_numbers: function () {
+		return [ 'first', 'previous', 'numbers', 'next', 'last' ];
 	},
 	
-	first_last: function (page, pages) {
+	first_last: function () {
 		return ['first', 'last'];
 	},
 	
-	first_last_numbers: function (page, pages) {
- 		return ['first', _numbers(page, pages), 'last'];
+	first_last_numbers: function () {
+ 		return ['first', 'numbers', 'last'];
  	},
 
 	// For testing and plug-ins to use
-	_numbers: _numbers,
+	_numbers: _pagingNumbers,
 
-	// Number of number buttons (including ellipsis) to show. _Must be odd!_
+	// Number of number buttons - legacy, use `numbers` option for paging feature
 	numbers_length: 7
 } );
 
@@ -112,4 +80,3 @@ $.extend( true, DataTable.ext.renderer, {
 		}
 	}
 } );
-

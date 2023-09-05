@@ -54,6 +54,10 @@ function _fnPageChange ( settings, action, redraw )
 	{
 		start = Math.floor( (records-1) / len) * len;
 	}
+	else if ( action === 'ellipsis' )
+	{
+		return;
+	}
 	else
 	{
 		_fnLog( settings, 0, "Unknown paging action: "+action, 5 );
