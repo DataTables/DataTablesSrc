@@ -195,14 +195,6 @@ if ( oSettings.iInitDisplayStart === undefined )
 	oSettings._iDisplayStart = oInit.iDisplayStart;
 }
 
-if ( oInit.iDeferLoading !== null )
-{
-	oSettings.bDeferLoading = true;
-	var tmp = Array.isArray( oInit.iDeferLoading );
-	oSettings._iRecordsDisplay = tmp ? oInit.iDeferLoading[0] : oInit.iDeferLoading;
-	oSettings._iRecordsTotal = tmp ? oInit.iDeferLoading[1] : oInit.iDeferLoading;
-}
-
 /* Language definitions */
 var oLanguage = oSettings.oLanguage;
 $.extend( true, oLanguage, oInit.oLanguage );
@@ -370,17 +362,14 @@ var loadedInit = function () {
 	}
 	oSettings.nTFoot = tfoot[0];
 
-	/* Check if there is data passing into the constructor */
+	// Check if there is data passing into the constructor
 	if ( oInit.aaData ) {
 		for ( i=0 ; i<oInit.aaData.length ; i++ ) {
 			_fnAddData( oSettings, oInit.aaData[ i ] );
 		}
 	}
-	else if ( oSettings.bDeferLoading || _fnDataSource( oSettings ) == 'dom' ) {
-		/* Grab the data from the page - only do this when deferred loading or no Ajax
-		 * source since there is no point in reading the DOM data if we are then going
-		 * to replace it with Ajax data
-		 */
+	else if ( _fnDataSource( oSettings ) == 'dom' ) {
+		// Grab the data from the page
 		_fnAddTr( oSettings, $(oSettings.nTBody).children('tr') );
 	}
 

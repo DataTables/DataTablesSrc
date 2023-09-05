@@ -1153,50 +1153,6 @@ DataTable.defaults = {
 
 
 	/**
-	 * When enabled DataTables will not make a request to the server for the first
-	 * page draw - rather it will use the data already on the page (no sorting etc
-	 * will be applied to it), thus saving on an XHR at load time. `deferLoading`
-	 * is used to indicate that deferred loading is required, but it is also used
-	 * to tell DataTables how many records there are in the full table (allowing
-	 * the information element and pagination to be displayed correctly). In the case
-	 * where a filtering is applied to the table on initial load, this can be
-	 * indicated by giving the parameter as an array, where the first element is
-	 * the number of records available after filtering and the second element is the
-	 * number of records without filtering (allowing the table information element
-	 * to be shown correctly).
-	 *  @type int | array
-	 *  @default null
-	 *
-	 *  @dtopt Options
-	 *  @name DataTable.defaults.deferLoading
-	 *
-	 *  @example
-	 *    // 57 records available in the table, no filtering applied
-	 *    $(document).ready( function() {
-	 *      $('#example').dataTable( {
-	 *        "serverSide": true,
-	 *        "ajax": "scripts/server_processing.php",
-	 *        "deferLoading": 57
-	 *      } );
-	 *    } );
-	 *
-	 *  @example
-	 *    // 57 records after filtering, 100 without filtering (an initial filter applied)
-	 *    $(document).ready( function() {
-	 *      $('#example').dataTable( {
-	 *        "serverSide": true,
-	 *        "ajax": "scripts/server_processing.php",
-	 *        "deferLoading": [ 57, 100 ],
-	 *        "search": {
-	 *          "search": "my_filter"
-	 *        }
-	 *      } );
-	 *    } );
-	 */
-	"iDeferLoading": null,
-
-
-	/**
 	 * Number of rows to display on a single page when using pagination. If
 	 * feature enabled (`lengthChange`) then the end user will be able to override
 	 * this to a custom setting using a pop-up menu.

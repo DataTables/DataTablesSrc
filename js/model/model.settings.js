@@ -466,16 +466,6 @@ DataTable.models.oSettings = {
 	"nTableWrapper": null,
 
 	/**
-	 * Indicate if when using server-side processing the loading of data
-	 * should be deferred until the second draw.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
-	 *  @type boolean
-	 *  @default false
-	 */
-	"bDeferLoading": false,
-
-	/**
 	 * Indicate if all required information has been read in
 	 *  @type boolean
 	 *  @default false

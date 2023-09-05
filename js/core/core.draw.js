@@ -344,13 +344,7 @@ function _fnDraw( oSettings, ajaxComplete )
 	oSettings.bDrawing = true;
 
 	/* Server-side processing draw intercept */
-	if ( oSettings.bDeferLoading )
-	{
-		oSettings.bDeferLoading = false;
-		oSettings.iDraw++;
-		_fnProcessingDisplay( oSettings, false );
-	}
-	else if ( !bServerSide )
+	if ( !bServerSide )
 	{
 		oSettings.iDraw++;
 	}
