@@ -79,18 +79,18 @@ function _fnImplementState ( settings, s, callback) {
 		return;
 	}
 
-	// Allow custom and plug-in manipulation functions to alter the saved data set and
-	// cancelling of loading by returning false
-	var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
-	if ( $.inArray( false, abStateLoad ) !== -1 ) {
+	// Reject old data
+	var duration = settings.iStateDuration;
+	if ( duration > 0 && s.time < +new Date() - (duration*1000) ) {
 		settings._bLoadingState = false;
 		callback();
 		return;
 	}
 
-	// Reject old data
-	var duration = settings.iStateDuration;
-	if ( duration > 0 && s.time < +new Date() - (duration*1000) ) {
+	// Allow custom and plug-in manipulation functions to alter the saved data set and
+	// cancelling of loading by returning false
+	var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
+	if ( $.inArray( false, abStateLoad ) !== -1 ) {
 		settings._bLoadingState = false;
 		callback();
 		return;
