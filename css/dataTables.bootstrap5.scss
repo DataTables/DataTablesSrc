@@ -131,6 +131,10 @@ div.dataTables_scrollFoot {
 			text-align: center;
 		}
 
+		.row {
+			--bs-gutter-y: 0.5rem;
+		}
+
 		div.dataTables_paginate ul.pagination {
 			justify-content: center !important;
 		}

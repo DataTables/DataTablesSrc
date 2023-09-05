@@ -136,6 +136,14 @@ div.dataTables_scrollFoot {
 			text-align: center;
 		}
 
+		div.row {
+			margin-bottom: 0;
+		}
+
+		div.row > * {
+			margin-bottom: 0.5rem;
+		}
+
 		div.dataTables_paginate ul.pagination {
 			justify-content: center !important;
 		}

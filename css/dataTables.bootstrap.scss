@@ -43,6 +43,7 @@ div.dataTables_wrapper {
 		select {
 			display: inline-block;
 			margin-right: 0.5em;
+			width: auto;
 		}
 	}
 
@@ -138,6 +139,14 @@ div.dataTables_scrollFoot {
 		div.dataTables_info,
 		div.dataTables_paginate {
 			text-align: center;
+		}
+
+		div.row {
+			margin-bottom: 0;
+		}
+	
+		div.row > * {
+			margin-bottom: 0.75rem;
 		}
 	}
 }
