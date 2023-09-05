@@ -43,6 +43,7 @@ div.dataTables_wrapper {
 		select {
 			width: auto;
 			display: inline-block;
+			margin-right: 0.5em;
 		}
 	}
 
@@ -68,12 +69,10 @@ div.dataTables_wrapper {
 
 	div.dataTables_paginate {
 		margin: 0;
-		white-space: nowrap;
 
 		ul.pagination {
 			margin: 0;
-			white-space: nowrap;
-			justify-content: flex-end;
+			flex-wrap: wrap;
 		}
 	}
 
