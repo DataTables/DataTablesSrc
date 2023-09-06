@@ -6,9 +6,72 @@ var escapeHtml = function ( str ) {
 	return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 };
 
-if ( window.$ ) {
-	$(document).ready( function () {
-		var dt110 = $.fn.dataTable && $.fn.dataTable.Api ? true : false;
+
+window.dt_demo = {
+	/**
+	 * Initialise the example
+	 *
+	 * @param types jQuery and Vanilla init code
+	 */
+	init: function (types) {
+		dt_demo._struct = types;
+
+		dt_demo._prepLibs();
+		dt_demo._loadNext();
+	},
+
+	_prepLibs: function () {
+		var initStyle = dt_demo.storage.get('dt-demo-style') || 'datatables';
+		var libs = dt_demo._struct.libs;
+		var framework = libs.targetFramework
+			? libs.targetFramework
+			: initStyle;
+
+		// Always need jQuery at the moment and it needs to be loaded before
+		// BS3/4.
+		dt_demo._addLib('jquery', 'js');
+
+		if (framework !== 'datatables') {
+			dt_demo._addLib(framework, 'css');
+			dt_demo._addLib(framework, 'js');
+		}
+
+		for (var i=0 ; i<libs.css.length ; i++) {
+			dt_demo._addLib(libs.css[i], 'css', framework);
+		}
+	
+		for (var i=0 ; i<libs.js.length ; i++) {
+			if (libs.js[i] === 'jquery') {
+				continue;
+			}
+
+			dt_demo._addLib(libs.js[i], 'js', framework);
+		}
+	},
+
+	_addLib: function (libName, type, framework) {
+		var types = dt_demo._struct;
+		var lib = types.libs.components[libName];
+		var src = lib[type];
+
+		if (lib.resolve) {
+			src = dt_demo._appendFileName(libName, src, type, framework);
+		}
+
+		if (src) {
+			src.split('|').forEach(url => {
+				dt_demo._loadQueue.push({
+					type: type,
+					src: url
+				});
+			});
+		}
+	},
+
+	_tabs: function () {
+		// js
+		dt_demo._displayFiles('#js-lib-files', dt_demo._loaded.js);
+		dt_demo._displayFiles('#css-lib-files', dt_demo._loaded.css);
 
 		// css
 		var cssContainer = $('div.tabs div.css');
@@ -22,93 +85,86 @@ if ( window.$ ) {
 			SyntaxHighlighter.highlight({}, $('div.table code')[0]);
 		}, 1000)
 
-		// Allow the demo code to run if DT 1.9 is used
-		if ( dt110 ) {
-			// json
-			var ajaxTab = $('ul.tabs li').eq(3).css('display', 'none');
+		// json
+		var ajaxTab = $('ul.tabs li').eq(3).css('display', 'none');
 
-			$(document).on( 'init.dt', function ( e, settings ) {
-				if ( e.namespace !== 'dt' ) {
+		$(document).on( 'init.dt', function ( e, settings ) {
+			if ( e.namespace !== 'dt' ) {
+				return;
+			}
+
+			var api = new $.fn.dataTable.Api( settings );
+
+			var show = function ( str ) {
+				ajaxTab.css( 'display', 'block' );
+				$('div.tabs div.ajax code').remove();
+				$('div.tabs div.ajax div.syntaxhighlighter').remove();
+
+				// Old IE :-|
+				try {
+					str = JSON.stringify( str, null, 2 );
+				} catch ( e ) {}
+
+				var strArr = str.split('\n');
+
+				if(strArr.length > 1000){
+					var first = strArr.splice(0, 500);
+					var second = strArr.splice(strArr.length - 499, 499);
+					first.push("\n\n... Truncated for brevity - look at your browser's network inspector to see the full source ...\n\n");
+					str = first.concat(second).join('\n');
+				}
+
+				$('div.tabs div.ajax').append(
+					$('<code class="multiline language-js"/>').text( str )
+				);
+
+				// This can be really slow for large builds
+				setTimeout( function () {
+					SyntaxHighlighter.highlight( {}, $('div.tabs div.ajax code')[0] );
+				}, 500 );
+			};
+
+			// First draw
+			var json = api.ajax.json();
+			if ( json ) {
+				show( json );
+			}
+
+			// Subsequent draws
+			api.on( 'xhr.dt', function ( e, settings, json ) {
+				show( json );
+			} );
+		} );
+
+		// php
+		var phpTab = $('ul.tabs li').eq(4).css('display', 'none');
+
+		$(document).on( 'init.dt.demoSSP', function ( e, settings ) {
+			if ( e.namespace !== 'dt' ) {
+				return;
+			}
+
+			if ( settings.oFeatures.bServerSide ) {
+				if ( typeof settings.ajax === 'function' ) {
 					return;
 				}
-
-				var api = new $.fn.dataTable.Api( settings );
-
-				var show = function ( str ) {
-					ajaxTab.css( 'display', 'block' );
-					$('div.tabs div.ajax code').remove();
-					$('div.tabs div.ajax div.syntaxhighlighter').remove();
-
-					// Old IE :-|
-					try {
-						str = JSON.stringify( str, null, 2 );
-					} catch ( e ) {}
-
-					var strArr = str.split('\n');
-
-					if(strArr.length > 1000){
-						var first = strArr.splice(0, 500);
-						var second = strArr.splice(strArr.length - 499, 499);
-						first.push("\n\n... Truncated for brevity - look at your browser's network inspector to see the full source ...\n\n");
-						str = first.concat(second).join('\n');
+				$.ajax( {
+					url: '../resources/examples.php',
+					data: {
+						src: settings.sAjaxSource || settings.ajax.url || settings.ajax
+					},
+					dataType: 'text',
+					type: 'post',
+					success: function ( txt ) {
+						phpTab.css( 'display', 'block' );
+						$('div.tabs div.php').append(
+							'<code class="multiline language-php">'+txt+'</code>'
+						);
+						SyntaxHighlighter.highlight( {}, $('div.tabs div.php code')[0] );
 					}
-
-					$('div.tabs div.ajax').append(
-						$('<code class="multiline language-js"/>').text( str )
-					);
-
-					// This can be really slow for large builds
-					setTimeout( function () {
-						SyntaxHighlighter.highlight( {}, $('div.tabs div.ajax code')[0] );
-					}, 500 );
-				};
-
-				// First draw
-				var json = api.ajax.json();
-				if ( json ) {
-					show( json );
-				}
-
-				// Subsequent draws
-				api.on( 'xhr.dt', function ( e, settings, json ) {
-					show( json );
 				} );
-			} );
-
-			// php
-			var phpTab = $('ul.tabs li').eq(4).css('display', 'none');
-
-			$(document).on( 'init.dt.demoSSP', function ( e, settings ) {
-				if ( e.namespace !== 'dt' ) {
-					return;
-				}
-
-				if ( settings.oFeatures.bServerSide ) {
-					if ( typeof settings.ajax === 'function' ) {
-						return;
-					}
-					$.ajax( {
-						url: '../resources/examples.php',
-						data: {
-							src: settings.sAjaxSource || settings.ajax.url || settings.ajax
-						},
-						dataType: 'text',
-						type: 'post',
-						success: function ( txt ) {
-							phpTab.css( 'display', 'block' );
-							$('div.tabs div.php').append(
-								'<code class="multiline language-php">'+txt+'</code>'
-							);
-							SyntaxHighlighter.highlight( {}, $('div.tabs div.php code')[0] );
-						}
-					} );
-				}
-			} );
-		}
-		else {
-			$('ul.tabs li').eq(3).css('display', 'none');
-			$('ul.tabs li').eq(4).css('display', 'none');
-		}
+			}
+		} );
 
 		// Tabs
 		$('ul.tabs').on( 'click', 'li', function () {
@@ -120,24 +176,80 @@ if ( window.$ ) {
 				.eq( $(this).index() ).css('display', 'block');
 		} );
 		$('ul.tabs li.active').trigger('click');
-	} );
-}
+	},
 
-window.dt_demo = {
-	/**
-	 * Initialise the example
-	 *
-	 * @param types jQuery and Vanilla init code
-	 */
-	init: function (types) {
-		if (document.readyState !== 'loading') {
-			dt_demo._run(types);
+	_appendFileName: function (name, src, type, framework) {
+		var out = [];
+		var fileName = dt_demo._getFileName(name);
+		var fwFile = dt_demo._getFrameworkFile(framework);
+		
+		if (type === 'js') {
+			if (name === 'datatables') {
+				out.push(src + '/jquery.dataTables.' + type);
+			}
+			else {
+				out.push(src + '/dataTables.' + fileName + '.' + type);
+			}
+		}
+
+		if (type === 'js' && framework === 'datatables' && name === 'datatables') {
+			// noop
 		}
 		else {
-			document.addEventListener('DOMContentLoaded', function () {
-				dt_demo._run(types);
-			});
+			out.push(src + '/' + fileName + '.' + fwFile + '.' + type);
 		}
+
+		return out.join('|');
+	},
+
+	_loadNext: function () {
+		var queue = dt_demo._loadQueue;
+
+		// Check if all libraries have been loaded
+		if (queue.length === 0) {
+			// Check the document is ready
+			if (document.readyState !== 'loading') {
+				dt_demo._run();
+			}
+			else {
+				document.addEventListener('DOMContentLoaded', function () {
+					dt_demo._run();
+				});
+			}
+
+			return;
+		}
+
+		var item = queue.shift();
+
+		if (item.type === 'css') {
+			var script = document.createElement('link');
+			script.href = item.src;
+			script.rel = 'stylesheet';
+	
+			dt_demo._loaded.css.push(item.src);
+	
+			document.head.appendChild(script);
+			dt_demo._loadNext(); // don't wait for the CSS
+		}
+		else {
+			var script = document.createElement('script');
+			script.src = item.src;
+			script.type = 'text/javascript';
+			script.onload = function () {
+				dt_demo._loadNext();
+			};
+
+			dt_demo._loaded.js.push(item.src);
+
+			document.head.appendChild(script);
+		}
+	},
+
+	_loadQueue: [],
+	_loaded: {
+		css: [],
+		js: []
 	},
 
 	storage: {
@@ -161,8 +273,9 @@ window.dt_demo = {
 	/**
 	 * Run example based on code available
 	 */
-	_run: function (types) {
+	_run: function () {
 		// init html
+		var types = dt_demo._struct;
 		var demoHtml = '';
 		
 		if ($('div.demo-html').length) {
@@ -179,6 +292,8 @@ window.dt_demo = {
 			'</code>'
 		);
 
+		dt_demo._tabs();
+
 		// Temporary
 		// types.jquery();
 		// $('#js-vanilla').css('display', 'none');
@@ -193,6 +308,7 @@ window.dt_demo = {
 
 		// jQuery / Vanilla selector
 		var initType = dt_demo.storage.get('dt-demo-runtime') || 'vanilla-js';
+		var initStyle = dt_demo.storage.get('dt-demo-style') || 'datatables';
 
 		// Show a warning if there is no script for this version
 		if (types) {
@@ -201,6 +317,7 @@ window.dt_demo = {
 
 			if (canjQuery || canVanilla) {
 				var runtimeSelector = dt_demo._options(
+					'Initialisation code',
 					optionsContainer,
 					[
 						{
@@ -241,8 +358,55 @@ window.dt_demo = {
 			}
 		}
 
+		// Style library selector options
+		dt_demo._options(
+			'Styling framework',
+			optionsContainer,
+			[
+				{
+					label: 'Bootstrap 3',
+					val: 'bootstrap'
+				},
+				{
+					label: 'Bootstrap 4',
+					val: 'bootstrap4'
+				},
+				{
+					label: 'Bootstrap 5',
+					val: 'bootstrap5'
+				},
+				{
+					label: 'Bulma',
+					val: 'bulma'
+				},
+				{
+					label: 'DataTables',
+					val: 'datatables'
+				},
+				{
+					label: 'Foundation',
+					val: 'foundation'
+				},
+				{
+					label: 'jQuery UI',
+					val: 'jqueryui'
+				},
+				{
+					label: 'Fomantic UI',
+					val: 'semanticui'
+				},
+			],
+			initStyle,
+			function (option, container, initStyle) {
+				dt_demo.storage.set('dt-demo-style', option.val);
+				dt_demo._changeStyle(option, container, initStyle);
+			},
+			'<p><a href="https://datatables.net/tn/20#Style">What is this?</a></p>'
+		);
+
 		// Theme selector options
 		dt_demo._options(
+			'Colour scheme',
 			optionsContainer,
 			[
 				{
@@ -293,7 +457,7 @@ window.dt_demo = {
 			.append($('<p class="dt-demo-warning">').html(msg));
 	},
 
-	_options: function (container, options, initVal, cb, info) {
+	_options: function (title, container, options, initVal, cb, info) {
 		var initChange = true;
 		var selector = $(
 				'<div class="dt-demo-selector">'+
@@ -338,9 +502,7 @@ window.dt_demo = {
 			}
 		}
 
-		if (info) {
-			optionsEl.append(info);
-		}
+		optionsEl.prepend('<div class="dt-demo-selector__title">'+ title + info +'</div>');
 
 		// Show / hide dropdown
 		currentEl.on('click', function () {
@@ -381,6 +543,27 @@ window.dt_demo = {
 		$('div.dt-demo-selector__current', selector).text(option.label);
 	},
 
+	_changeStyle: function (option, selector, initChange) {
+		if (! initChange) {
+			// Reload - localStorage on next load will select the correct run code
+			window.location.reload();
+			return;
+		}
+
+		dt_demo._setPageStyling(option.val);
+		dt_demo._tableClass(option.val);
+
+		$('div.dt-demo-selector__current', selector).text(option.label);
+
+		var target = dt_demo._struct.libs.targetFramework;
+
+		if (target && target !== option.val) {
+			var styleName = dt_demo._getPageStylingName(target);
+
+			dt_demo._optionsWarning(selector, 'This example explicity uses ' + styleName + ' and your selection has been disabled for this page.');
+		}
+	},
+
 	_changeTheme: function (val, selector) {
 		if (val === 'auto') {
 			var prefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -389,7 +572,7 @@ window.dt_demo = {
 		}
 
 		// Warnings if incompatible
-		var styling = dt_demo._getPageStyling();
+		var styling = dt_demo.storage.get('dt-demo-style');
 		var targetTheme = val;
 
 		if (val === 'dark') {
@@ -398,7 +581,7 @@ window.dt_demo = {
 			}
 			else {
 				val = 'light';
-				dt_demo._optionsWarning(selector, dt_demo._getPageStylingName() + ' does not have a dark theme mode. Light theme is shown.');
+				dt_demo._optionsWarning(selector, dt_demo._getPageStylingName(styling) + ' does not have a dark theme mode. Light theme is shown.');
 			}
 		}
 
@@ -425,73 +608,154 @@ window.dt_demo = {
 			.addClass(targetTheme);
 	},
 
-	_getPageStyling: function () {
-		var styling = 'datatables';
+	_setPageStyling: function (styling) {
 		var body = $('body');
 
-		if (body.hasClass('dt-example-bootstrap')) {
-			styling = 'bootstrap';
+		if (styling === 'bootstrap') {
+			body.addClass('dt-example-bootstrap');
 		}
-		else if (body.hasClass('dt-example-bootstrap4')) {
-			styling = 'bootstrap4';
+		else if (styling === 'bootstrap4') {
+			body.addClass('dt-example-bootstrap4');
 		}
-		else if (body.hasClass('dt-example-bootstrap5')) {
-			styling = 'bootstrap5';
+		else if (styling === 'bootstrap5') {
+			body.addClass('dt-example-bootstrap5');
 		}
-		else if (body.hasClass('dt-example-foundation')) {
-			styling = 'foundation';
+		else if (styling === 'foundation') {
+			body.addClass('dt-example-foundation');
 		}
-		else if (body.hasClass('dt-example-jqueryui')) {
-			styling = 'jqueryui';
+		else if (styling === 'jqueryui') {
+			body.addClass('dt-example-jqueryui');
 		}
-		else if (body.hasClass('dt-example-semanticui')) {
-			styling = 'semanticui';
+		else if (styling === 'semanticui') {
+			body.addClass('dt-example-semanticui');
 		}
-		else if (body.hasClass('dt-example-bulma')) {
-			styling = 'bulma';
+		else if (styling === 'bulma') {
+			body.addClass('dt-example-bulma');
 		}
-		else if (body.hasClass('dt-example-material')) {
-			styling = 'material';
+		else if (styling === 'material') {
+			body.addClass('dt-example-material');
 		}
-		else if (body.hasClass('dt-example-uikit')) {
-			styling = 'uikit';
+		else if (styling === 'uikit') {
+			body.addClass('dt-example-uikit');
 		}
-
-		return styling;
 	},
 
-	_getPageStylingName: function () {
-		var styling = 'DataTables';
-		var body = $('body');
+	_getPageStylingName: function (styling) {
+		if (styling === 'bootstrap') {
+			return 'Bootstrap 3';
+		}
+		else if (styling === 'bootstrap4') {
+			return 'Bootstrap 5';
+		}
+		else if (styling === 'bootstrap5') {
+			return 'Bootstrap 5';
+		}
+		else if (styling === 'foundation') {
+			return 'Foundation';
+		}
+		else if (styling === 'jqueryui') {
+			return 'jQuery UI';
+		}
+		else if (styling === 'semanticui') {
+			return 'Fomantic UI';
+		}
+		else if (styling === 'bulma') {
+			return 'Bulma';
+		}
+		else if (styling === 'material') {
+			return 'Material';
+		}
+		else if (styling === 'uikit') {
+			return 'UI Kit';
+		}
+		
+		return 'DataTables';
+	},
 
-		if (body.hasClass('dt-example-bootstrap')) {
-			styling = 'Bootstrap 3';
+	_getFileName: function (ext) {
+		switch (ext) {
+			case 'autofill':
+				return 'autoFill';
+			case 'colreorder':
+				return 'colReorder';
+			case 'datatables':
+				return 'dataTables';
+			case 'datetime':
+				return 'dateTime';
+			case 'fixedcolumns':
+				return 'fixedColumns';
+			case 'fixedheader':
+				return 'fixedHeader';
+			case 'keytable':
+				return 'keyTable';
+			case 'rowgroup':
+				return 'rowGroup';
+			case 'rereorder':
+				return 'rowReorder';
+			case 'searchbuilder':
+				return 'searchBuilder';
+			case 'searchpanes':
+				return 'searchPanes';
+			case 'staterestore':
+				return 'staterestore';
+			default:
+				return ext;
 		}
-		else if (body.hasClass('dt-example-bootstrap4')) {
-			styling = 'Bootstrap 4';
-		}
-		else if (body.hasClass('dt-example-bootstrap5')) {
-			styling = 'Bootstrap 5';
-		}
-		else if (body.hasClass('dt-example-foundation')) {
-			styling = 'Foundation';
-		}
-		else if (body.hasClass('dt-example-jqueryui')) {
-			styling = 'jQuery UI';
-		}
-		else if (body.hasClass('dt-example-semanticui')) {
-			styling = 'Fomantic UI';
-		}
-		else if (body.hasClass('dt-example-bulma')) {
-			styling = 'Bulma';
-		}
-		else if (body.hasClass('dt-example-material')) {
-			styling = 'Material Design';
-		}
-		else if (body.hasClass('dt-example-uikit')) {
-			styling = 'UIKit 3';
-		}
+	},
 
-		return styling;
+	_getFrameworkFile: function (fw) {
+		switch (fw) {
+			case 'datatables':
+				return 'dataTables';
+			default:
+				return fw;
+		}
+	},
+
+	_tableClass: function (fw) {
+		var table = $('table');
+		var isDisplay = table.hasClass('display');
+
+		switch (fw) {
+			case 'bootstrap':
+			case 'bootstrap4':
+				table.addClass('table table-striped table-bordered');
+				return;
+
+			case 'bootstrap5':
+				table.addClass('table table-striped');
+				return;
+			
+			case 'bulma':
+				table.addClass('table is-striped');
+				return;
+
+			case 'material':
+				table.addClass('mdl-data-table');
+				return;
+			
+			case 'semanticui':
+				table.addClass('ui celled table');
+				return;
+			
+			case 'uikit':
+				table.addClass('uk-table uk-table-hover uk-table-striped');
+				return;
+				
+			default:
+				return;
+		}
+	},
+
+	_displayFiles: function (sel, files) {
+		var ul = $(sel);
+
+		files.forEach(function (src) {
+			ul.append(
+				$('<li>').append(
+					$('<a>', {href: src}).html(src)
+				)
+			);
+		});
 	}
 };

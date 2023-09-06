@@ -271,29 +271,14 @@ else {
 
 // Legacy extensions
 if ( isset( $options['cdn'] ) ) {
-	DT_Example::$lookup_libraries['css']['colvis']          = 'https://cdn.datatables.net/colvis/1.1.2/css/dataTables.colVis.css';
-	DT_Example::$lookup_libraries['js' ]['colvis']          = 'https://cdn.datatables.net/colvis/1.1.2/js/dataTables.colVis.min.js';
-	DT_Example::$lookup_libraries['css']['tabletools']      = 'https://cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css';
-	DT_Example::$lookup_libraries['js' ]['tabletools']      = 'https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js';
-
-	DT_Example::$lookup_libraries['js' ]['buttons-flash']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.flash.min.js';
 	DT_Example::$lookup_libraries['js' ]['buttons-html5']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.html5.min.js';
 	DT_Example::$lookup_libraries['js' ]['buttons-colvis']  = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.colVis.min.js';
 	DT_Example::$lookup_libraries['js' ]['buttons-print']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.print.min.js';
-	DT_Example::$lookup_libraries['js' ]['buttons-docgen']   = 'https://cdn.datatables.net/buttons/'.$versions['Buttons']['release']['version'].'/js/buttons.docgen.min.js';
 }
 else {
-	DT_Example::$lookup_libraries['css']['colvis']          = path_simplify( $dir_media.'/../extensions/ColVis/css/dataTables.colVis.css' );
-	DT_Example::$lookup_libraries['js' ]['colvis']          = path_simplify( $dir_media.'/../extensions/ColVis/js/dataTables.colVis.js' );
-	DT_Example::$lookup_libraries['css']['tabletools']      = path_simplify( $dir_media.'/../extensions/TableTools/css/dataTables.tableTools.css' );
-	DT_Example::$lookup_libraries['js' ]['tabletools']      = path_simplify( $dir_media.'/../extensions/TableTools/js/dataTables.tableTools.js' );
-
-	DT_Example::$lookup_libraries['js' ]['buttons-flash']   = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.flash.js' );
 	DT_Example::$lookup_libraries['js' ]['buttons-html5']   = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.html5.js' );
 	DT_Example::$lookup_libraries['js' ]['buttons-print']   = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.print.js' );
 	DT_Example::$lookup_libraries['js' ]['buttons-colvis']  = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.colVis.js' );
-	DT_Example::$lookup_libraries['js' ]['buttons-docgen']  = path_simplify( $dir_media.'/../extensions/Buttons/js/buttons.docgen.js' );
-
 }
 
 // Styling libraries

@@ -514,11 +514,17 @@ div.dt-demo-selector {
 			}
 		}
 
-		p {
-			font-size: 0.85em;
-			display: inline-block;
+		div.dt-demo-selector__title {
 			min-width: 200px;
 			text-align: center;
+			margin: 0.5em -0.5em;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+			padding-bottom: 12px;
+		}
+
+		p {
+			margin: 0;
+			font-size: 0.85em;
 		}
 
 		p + p {

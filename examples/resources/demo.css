@@ -422,11 +422,16 @@ div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option:
 div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option i.dt-demo-icon {
   margin-right: 0.75em;
 }
-div.dt-demo-selector div.dt-demo-selector__options p {
-  font-size: 0.85em;
-  display: inline-block;
+div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__title {
   min-width: 200px;
   text-align: center;
+  margin: 0.5em -0.5em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 12px;
+}
+div.dt-demo-selector div.dt-demo-selector__options p {
+  margin: 0;
+  font-size: 0.85em;
 }
 div.dt-demo-selector div.dt-demo-selector__options p + p {
   margin-top: 0;

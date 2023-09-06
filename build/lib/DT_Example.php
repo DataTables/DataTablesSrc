@@ -110,10 +110,6 @@ class DT_Example
 			(string)$xml['body-class'] :
 			'';
 
-		if ( $framework !== 'datatables' ) {
-			$bodyClass .= ' dt-example-'.$framework;
-		}
-
 		// Resolve CSS libraries
 		$this->_resolve_xml_libs( $framework, 'css', $xml->css );
 
@@ -148,8 +144,6 @@ class DT_Example
 		$template = str_replace( '{info}',          DT_Markdown( $xml->info ),       $template );
 		$template = str_replace( '{css-libs}',      $this->_format_libs('css'),      $template );
 		$template = str_replace( '{js-libs}',       $this->_format_libs('js'),       $template );
-		$template = str_replace( '{css-lib-files}', $this->_format_lib_files('css'), $template );
-		$template = str_replace( '{js-lib-files}',  $this->_format_lib_files('js'),  $template );
 		$template = str_replace( '{table}',         $tableHtml,                      $template );
 		$template = str_replace( '{year}',          date('Y'),                       $template );
 		$template = str_replace( '{table-class}',   $software,                       $template );
@@ -175,6 +169,7 @@ class DT_Example
 		$template = str_replace( '{js-vanilla}', $this->_plain( 'js-vanilla' ),  $template );
 		$template = str_replace( '{js-esc}', htmlspecialchars( trim($this->_plain( 'js' )) ),  $template );
 		$template = str_replace( '{js-vanilla-esc}', htmlspecialchars( trim($this->_plain( 'js-vanilla' )) ),  $template );
+		$template = str_replace( '{libs}', $this->_libs(), $template);
 
 		$template = preg_replace( '/\t<style type="text\/css">\n\n\t<\/style>/m', "", $template );
 
@@ -613,7 +608,7 @@ class DT_Example
 			}
 		}
 
-		$this->_resolve_libs( $framework, $type, $a );
+		// $this->_resolve_libs( $framework, $type, $a );
 	}
 
 
@@ -698,38 +693,56 @@ class DT_Example
 		return $out;
 	}
 
+	private function _libs () {
+		$framework = isset( $this->_xml['framework'] ) ?
+			(string)$this->_xml['framework'] :
+			'';
 
-	private function _format_lib_files ( $type )
-	{
-		// List of libraries files so the user can see what specifically is
-		// needed for a given example
-		$str = '<ul>';
-		$libs = $this->_libs[ $type ];
+		return json_encode([
+			"targetFramework" => $framework,
+			"js" => $this->_xml_libs[ 'js' ],
+			"css" => $this->_xml_libs[ 'css' ],
+			"components" => $this->_libs_for_js()
+		]);
+	}
 
-		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
-			$file = $libs[$i];
+	private function _libs_for_js () {
+		$out = [];
+		$cdn = DT_Example::$components_cdn;
 
-			// Ignore these files - they are used for the demo only
-			if ( strpos($file, 'shCore.css') !== false ||
-				 strpos($file, 'demo.css') !== false ||
-				 strpos($file, 'editor-demo.css') !== false ||
-				 strpos($file, 'shCore.js') !== false ||
-				 strpos($file, 'demo.js') !== false ||
-				 strpos($file, 'editor-demo.js') !== false ||
-				 $file === ''
-			) {
-				continue;
+		foreach ( DT_Example::$components as $component => $opts ) {
+			$path = $component === 'datatables'
+				? 'https://cdn.datatables.net/' . $opts['release']
+				: 'https://cdn.datatables.net/' . $component .'/'. $opts['release'];
+		
+			if (! $cdn) {
+				$path = call_user_func( $this->_path_resolver, $opts['path']);
 			}
 
-			$path = strpos($file, '//') !== 0 && strpos($file, 'https://') !== 0 ?
-				call_user_func( $this->_path_resolver, $file ) :
-				$file;
-
-			$str .= '<li><a href="'.$path.'">'.$path.'</a></li>';
+			$out[$component] = [
+				'css' => $path . '/css',
+				'js' => $path . '/js',
+				'resolve' => true
+			];
 		}
 
-		$str .= '</ul>';
-		return $str;
+		foreach ( DT_Example::$lookup_libraries['css'] as $name => $url ) {
+			if (! isset($out[$name])) {
+				$out[$name] = [];
+			}
+
+			$out[$name]['css'] = $url;
+		}
+
+		foreach ( DT_Example::$lookup_libraries['js'] as $name => $url ) {
+			if (! isset($out[$name])) {
+				$out[$name] = [];
+			}
+
+			$out[$name]['js'] = $url;
+		}
+
+		return $out;
 	}
 }
 
