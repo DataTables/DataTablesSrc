@@ -19,6 +19,7 @@
 			Description of error
 		</parameter>
 		<scope>HTML table element</scope>
+		<bubbles>Yes</bubbles>
 	</type>
 
 	<description>
@@ -31,7 +32,9 @@
 		* `-string none` - Do nothing (you would want to use this `dt-event error` in this case)
 		* `function` - A function common to all DataTables on the page that is called when an error occurs.
 
-		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+
+		This event will bubble up the document, so you can add a listener for `dt-error.dt` to the `-tag body` to capture all error events triggered by DataTables.
 
 		Before DataTables 2, this event was simply called `error`, however, that would cause `onerror` DOM0 event handlers to trigger, causing spurious logging if monitoring your site for script errors.
 	</description>

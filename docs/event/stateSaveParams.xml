@@ -16,6 +16,7 @@
 			State information to be saved
 		</parameter>
 		<scope>HTML table element</scope>
+		<bubbles>No</bubbles>
 	</type>
 
 	<description>
@@ -25,7 +26,7 @@
 
 		The `dt-event stateSaveParams` event is fired at the same point as `dt-init stateSaveCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
 
-		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 
 		Note: As of 1.11.0 this event is triggered regardless of the `-init stateSave` option. This allows the most recent state to always be tracked and available to users.
 	</description>

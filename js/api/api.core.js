@@ -78,7 +78,7 @@ _api_register( 'destroy()', function ( remove ) {
 		settings.bDestroying = true;
 
 		// Fire off the destroy callbacks for plug-ins etc
-		_fnCallbackFire( settings, "aoDestroyCallback", "destroy", [settings] );
+		_fnCallbackFire( settings, "aoDestroyCallback", "destroy", [settings], true );
 
 		// If not being removed from the document, make all columns visible
 		if ( ! remove ) {

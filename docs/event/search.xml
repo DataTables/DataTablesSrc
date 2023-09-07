@@ -13,6 +13,7 @@
 			DataTables settings object
 		</parameter>
 		<scope>HTML table element</scope>
+		<bubbles>No</bubbles>
 	</type>
 
 	<description>
@@ -20,7 +21,7 @@
 
 		Note that the `dt-event search` will be fired before the table has been redrawn with the updated filtered data, although the data will internally have been filtered.
 
-		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Update an external input with filtering information using the API"><![CDATA[

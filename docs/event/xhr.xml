@@ -22,6 +22,7 @@
 			Since 1.10.7 you can return `true` to indicate to DataTables that it should not trigger its `dt-event error` event if you have handled an error condition yourself.
 		</return>
 		<scope>HTML table element</scope>
+		<bubbles>No</bubbles>
 	</type>
 
 	<description>
@@ -33,7 +34,7 @@
 
 		Additionally, as of DataTables 1.10.7 this event is triggered by both success and error conditions when the Ajax request completed (i.e. it is always triggered regardless of the outcome of the Ajax request). Prior to 1.10.7 it was only triggered by a successful request. The `json` parameter (3rd passed in) for the event handler will be `null` if an error has occurred and the `xhr` parameter (4th) can be used to determine the error details if required.
 
-		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Pre-process the data returned from the server"><![CDATA[

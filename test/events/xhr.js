@@ -17,8 +17,14 @@ describe('core - events - xhr', function() {
 	}
 
 	describe('Check the defaults', function() {
+		let bubbled = false;
+
 		dt.html('basic');
 		it('Called before data loaded', function(done) {
+			$('body').on('xhr.dt', function () {
+				bubbled = true;
+			});
+
 			table = $('#example')
 				.on('xhr.dt', function() {
 					count++;
@@ -40,6 +46,9 @@ describe('core - events - xhr', function() {
 			expect(params[1]).toBe(table.settings()[0]);
 			expect(params[2].data[0].name).toBe('Tiger Nixon');
 			expect(typeof params[3]).toBe('object');
+		});
+		it('Does not bubble', function () {
+			expect(bubbled).toBe(false);
 		});
 	});
 

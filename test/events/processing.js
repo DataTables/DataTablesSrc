@@ -16,8 +16,14 @@ describe('core - events - processing', function() {
 	}
 
 	describe('Check the defaults', function() {
+		var bubbled = false;
+
 		dt.html('basic');
 		it('Called before data loaded', function() {
+			$('body').on('processing.dt', function () {
+				bubbled = true;
+			});
+
 			reset();
 			table = $('#example')
 				.on('processing.dt', function() {
@@ -35,6 +41,12 @@ describe('core - events - processing', function() {
 			expect(params[1]).toBe(table.settings()[0]);
 			expect(typeof params[2]).toBe('boolean');
 			expect(results).toEqual([true, false]);
+		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+		it('Does not bubble', function () {
+			expect(bubbled).toBe(false);
 		});
 	});
 

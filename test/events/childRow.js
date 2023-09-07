@@ -35,6 +35,20 @@ describe('core - events - childRow', function () {
 			expect(typeof params[1]).toBe('boolean');
 			expect(params[2] instanceof $.fn.dataTable.Api).toBe(true);
 		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+		it('Does not bubble', function () {
+			var bubbled = false;
+
+			table.row(2).child('TEST').show();
+
+			$('body').on('childRow.dt', function () {
+				bubbled = true;
+			});
+
+			expect(bubbled).toBe(false);
+		});
 	});
 
 	describe('Functional tests', function () {

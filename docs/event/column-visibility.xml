@@ -24,6 +24,7 @@
 			This can be useful to improve performance when the visibility of multiple columns is modified. The `dt-api columns.adjust()` method should be called once all columns have had their visibility state set.
 		</parameter>
 		<scope>HTML table element</scope>
+		<bubbles>No</bubbles>
 	</type>
 
 	<description>
@@ -31,7 +32,7 @@
 
 		**Responsive integration**: If you are using the [Responsive extension for DataTables](//datatables.net/extensions/responsive/) for DataTables, it will affect the visibility of columns, but it does not use the DataTables column visibility options, so this event will not be triggered by Responsive showing or hiding columns. Instead, use the `r-event responsive-resize` event.
 
-		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Notify when column visibility is changed"><![CDATA[

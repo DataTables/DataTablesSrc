@@ -40,7 +40,7 @@ function _fnLog( settings, level, msg, tn )
 		var type = ext.sErrMode || ext.errMode;
 
 		if ( settings ) {
-			_fnCallbackFire( settings, null, 'dt-error', [ settings, tn, msg ] );
+			_fnCallbackFire( settings, null, 'dt-error', [ settings, tn, msg ], true );
 		}
 
 		if ( type == 'alert' ) {
@@ -199,9 +199,10 @@ function _fnCallbackReg( oSettings, sStore, fn, sName )
  *      null no trigger is fired
  *  @param {array} args Array of arguments to pass to the callback function /
  *      trigger
+ *  @param {boolean} [bubbles] True if the event should bubble
  *  @memberof DataTable#oApi
  */
-function _fnCallbackFire( settings, callbackArr, eventName, args )
+function _fnCallbackFire( settings, callbackArr, eventName, args, bubbles )
 {
 	var ret = [];
 
@@ -214,12 +215,15 @@ function _fnCallbackFire( settings, callbackArr, eventName, args )
 	if ( eventName !== null ) {
 		var e = $.Event( eventName+'.dt' );
 		var table = $(settings.nTable);
+		
+		// Expose the DataTables API on the event object for easy access
+		e.dt = settings.api;
 
-		table.trigger( e, args );
+		table[bubbles ?  'trigger' : 'triggerHandler']( e, args );
 
 		// If not yet attached to the document, trigger the event
 		// on the body directly to sort of simulate the bubble
-		if (table.parents('body').length === 0) {
+		if (bubbles && table.parents('body').length === 0) {
 			$('body').trigger( e, args );
 		}
 

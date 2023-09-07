@@ -28,6 +28,20 @@ describe('core - events - page', function() {
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1]).toBe(table.settings()[0]);
 		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+		it('Does not bubble', function () {
+			var bubbled = false;
+
+			$('body').on('page.dt', function () {
+				bubbled = true;
+			});
+
+			table.page(0).draw(false);
+
+			expect(bubbled).toBe(false);
+		});
 	});
 
 	describe('Functional tests', function() {

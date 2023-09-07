@@ -29,6 +29,9 @@ describe('core - events - preInit', function() {
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1]).toBe(table.settings()[0]);
 		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
 	});
 
 	describe('Functional tests', function() {

@@ -28,6 +28,21 @@ describe('core - events - draw', function() {
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1]).toBe(table.settings()[0]);
 		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+
+		it('Bubbles', function () {
+			var bubbled = false;
+
+			$('body').on('draw.dt', function () {
+				bubbled = true;
+			});
+
+			table.draw();
+
+			expect(bubbled).toBe(true);
+		});
 	});
 
 	function checkResults(cnt, name) {

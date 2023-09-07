@@ -6,11 +6,16 @@ describe('core - events - destroy', function() {
 
 	let table;
 	let params;
+	let bubbled = true;
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Called before the destroy', function() {
 			let count;
+
+			$('body').on('destroy.dt', function () {
+				bubbled = true;
+			});
 
 			table = $('#example').DataTable();
 			table.on('destroy.dt', function() {
@@ -26,6 +31,13 @@ describe('core - events - destroy', function() {
 			expect(params.length).toBe(2);
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1]).toBe(table.settings()[0]);
+		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+
+		it('Bubbles', function () {
+			expect(bubbled).toBe(true);
 		});
 	});
 

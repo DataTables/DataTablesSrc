@@ -92,7 +92,6 @@ function _fnInitComplete ( settings, json )
 		_fnAdjustColumnSizing( settings );
 	}
 
-	_fnCallbackFire( settings, null, 'plugin-init', [settings, json] );
-	_fnCallbackFire( settings, 'aoInitComplete', 'init', [settings, json] );
+	_fnCallbackFire( settings, null, 'plugin-init', [settings, json], true );
+	_fnCallbackFire( settings, 'aoInitComplete', 'init', [settings, json], true );
 }
-

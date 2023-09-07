@@ -13,12 +13,13 @@
 			DataTables settings object
 		</parameter>
 		<scope>HTML table element</scope>
+		<bubbles>No</bubbles>
 	</type>
 
 	<description>
 		This event is fired whenever DataTables adjusts the column widths in the table and can be used by plug-ins to adjust any additional DOM elements they might have drawn on the page to take account of those changes.
 
-		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Notify when the column widths are recalculated"><![CDATA[

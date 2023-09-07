@@ -18,8 +18,14 @@ describe('core - events - preXhr', function() {
 	}
 
 	describe('Check the defaults', function() {
+		var bubbled = false;
+
 		dt.html('basic');
 		it('Called before data loaded', function(done) {
+			$('body').on('preXhr.dt', function () {
+				bubbled = true;
+			});
+
 			table = $('#example')
 				.on('preXhr.dt', function() {
 					count++;
@@ -42,6 +48,12 @@ describe('core - events - preXhr', function() {
 			expect(params[2]).toEqual({});
 			expect(typeof params[3]).toEqual('object');
 			expect(params[3].url).toEqual('/base/test/data/data.txt');
+		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+		it('Does not bubble', function () {
+			expect(bubbled).toBe(false);
 		});
 	});
 

@@ -10,6 +10,8 @@ describe('core - events - stateLoaded', function() {
 	let firstCell;
 
 	describe('Check the defaults', function() {
+		var bubbled = false;
+
 		// Clear down saved state before proceeding (otherwise old stuff may be lurking that will affect us)
 		dt.html('basic');
 		it('Clear state save', function() {
@@ -27,6 +29,10 @@ describe('core - events - stateLoaded', function() {
 
 		dt.html('basic');
 		it('Called during initialisation', function() {
+			$('body').on('stateLoaded.dt', function () {
+				bubbled = true;
+			});
+
 			table = $('#example')
 				.on('stateLoaded.dt', function() {
 					params = arguments;
@@ -44,6 +50,12 @@ describe('core - events - stateLoaded', function() {
 			expect(params[1]).toBe(table.settings()[0]);
 			expect(typeof params[2]).toBe('object');
 			expect(params[2].length).toBe(10);
+		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+		it('Does not bubble', function () {
+			expect(bubbled).toBe(false);
 		});
 	});
 

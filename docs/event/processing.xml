@@ -16,6 +16,7 @@
 			Processing flag: `true` when processing, `false` otherwise.
 		</parameter>
 		<scope>HTML table element</scope>
+		<bubbles>No</bubbles>
 	</type>
 
 	<description>
@@ -23,7 +24,7 @@
 
 		Note that this event is used by DataTables' `dt-init processing` display option, and can be useful if you want to replace the DataTables built-in processing indicator with a custom indicator - one which is used in other parts of your application for example.
 
-		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
 	<example title="Show / hide notification of table processing (where `#example` is the DataTable)"><![CDATA[

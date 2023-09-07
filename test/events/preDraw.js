@@ -35,6 +35,20 @@ describe('core - events - preDraw', function() {
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1]).toBe(table.settings()[0]);
 		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+		it('Does not bubble', function () {
+			var bubbled = false;
+
+			$('body').on('preDraw.dt', function () {
+				bubbled = true;
+			});
+
+			table.draw(false);
+
+			expect(bubbled).toBe(false);
+		});
 	});
 
 	describe('Functional tests', function() {

@@ -29,6 +29,20 @@ describe('core - events - length', function() {
 			expect(params[1]).toBe(table.settings()[0]);
 			expect(typeof params[2]).toBe('number');
 		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+		it('Does not bubble', function () {
+			var bubbled = false;
+
+			$('body').on('length.dt', function () {
+				bubbled = true;
+			});
+
+			table.page.len(10).draw(false);
+
+			expect(bubbled).toBe(false);
+		});
 	});
 
 	describe('Functional tests', function() {

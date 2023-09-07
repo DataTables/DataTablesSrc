@@ -9,6 +9,7 @@ describe('core - events - stateSaveParams', function() {
 	let count = 0;
 	let params;
 	let firstCell;
+	let bubbled = false;
 
 	describe('Check the defaults', function() {
 		// Clear down save state before proceeding (otherwise old stuff may be lurking that will affect us)
@@ -28,6 +29,10 @@ describe('core - events - stateSaveParams', function() {
 
 		dt.html('basic');
 		it('Called during initialisation', function() {
+			$('body').on('stateSaveParams.dt', function () {
+				bubbled = true;
+			});
+
 			table = $('#example')
 				.on('stateSaveParams.dt', function() {
 					params = arguments;
@@ -45,6 +50,12 @@ describe('core - events - stateSaveParams', function() {
 			expect(params[1]).toBe(table.settings()[0]);
 			expect(typeof params[2]).toBe('object');
 			expect(params[2].length).toBe(10);
+		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+		it('Does not bubble', function () {
+			expect(bubbled).toBe(false);
 		});
 	});
 

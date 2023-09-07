@@ -30,6 +30,20 @@ describe('core - events - column-visibility', function() {
 			expect(typeof params[3]).toBe('boolean');
 			expect(typeof params[4]).toBe('undefined');
 		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+		it('Does not bubble', function () {
+			var bubbled = false;
+
+			$('body').on('column-visibility.dt', function () {
+				bubbled = true;
+			});
+
+			table.column(0).visible(true);
+
+			expect(bubbled).toBe(false);
+		});
 	});
 
 	describe('Functional tests', function() {

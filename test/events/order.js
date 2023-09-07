@@ -29,6 +29,20 @@ describe('core - events - order', function() {
 			expect(params[1]).toBe(table.settings()[0]);
 			expect(typeof params[2]).toBe('object');
 		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+		it('Does not bubble', function () {
+			var bubbled = false;
+
+			$('body').on('order.dt', function () {
+				bubbled = true;
+			});
+
+			table.order([1, 'desc']).draw(false);
+
+			expect(bubbled).toBe(false);
+		});
 	});
 
 	describe('Functional tests', function() {

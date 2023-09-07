@@ -11,8 +11,14 @@ describe('core - events - init', function() {
 	let length = 0;
 
 	describe('Check the defaults', function() {
+		var bubbled;
+
 		dt.html('basic');
 		it('Called after table created', function() {
+			$('body').on('init.dt', function () {
+				bubbled = true;
+			});
+
 			table = $('#example')
 				.on('init.dt', function() {
 					params = arguments;
@@ -29,6 +35,12 @@ describe('core - events - init', function() {
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1]).toBe(table.settings()[0]);
 			expect(params[2]).toBe(undefined);
+		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
+		it('Bubbles', function () {
+			expect(bubbled).toBe(true);
 		});
 	});
 

@@ -25,6 +25,9 @@ describe('core - events - info', function() {
 			expect(params[2]).toBe($('div.dataTables_info')[0]);
 			expect(params[3]).toBe('Showing 1 to 10 of 57 entries');
 		});
+		it('Has a DT API instance on the event object', function () {
+			expect(params[0].dt instanceof DataTable.Api).toBe(true);
+		});
 
 		it('Called on page change', function() {
 			table.page(1).draw(false);
