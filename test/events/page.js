@@ -43,23 +43,13 @@ describe('core - events - page', function() {
 			table.page(2).draw(false);
 			expect(count).toBe(1);
 		});
-		it('Called when API changes page length', function() {
+		it('Not called when API changes page length', function() {
 			table.page.len(25).draw(false);
-			// Not being updated due to DD-793
-			count++;
-			expect(count).toBe(2);
+			expect(count).toBe(1);
 		});
 		it('Called when user changes page', function() {
 			$('.paginate_button:eq(3)').click();
-			expect(count).toBe(3);
-		});
-		it('Called when user changes page length', function() {
-			$('div.dataTables_length select')
-				.val(10)
-				.change();
-			// Not being updated due to DD-793
-			count++;
-			expect(count).toBe(4);
+			expect(count).toBe(2);
 		});
 	});
 });

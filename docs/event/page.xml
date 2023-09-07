@@ -16,9 +16,11 @@
 	</type>
 
 	<description>
-		The `dt-event page` event is fired when table's paging state changes. This can be the end user selecting the page to view or the page length from the built-in controls, or when the page state is altered by the API (`dt-api page()`).
+		The `dt-event page` event is fired when table's paging state changes. This can be the end user selecting the page to view, or when the page state is altered by the API (`dt-api page()`).
 
 		Note that the `dt-event page` will be fired before the table has been redrawn with the updated data.
+
+		If your table offers the user the ability to change the page length, you might also want to listen for `-event length` to know when the page length has changed.
 
 		Please note that, as with all DataTables emitted events, this event is triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
