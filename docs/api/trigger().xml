@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>trigger()</name>
+	<summary>Trigger an event.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>trigger( name, args [, bubbles ] )</signature>
+		<description>Trigger a DataTables related event.</description>
+		<parameter type="string" name="name">
+			The event name.
+		</parameter>
+		<parameter type="array" name="args">
+			An array of the arguments to send to the event.
+		</parameter>
+		<parameter type="boolean" name="bubbles" default="false">
+			Indicate if the event should bubble up the document in the same way that DOM events usually do, or not. There is a performance impact for bubbling events.
+		</parameter>
+		<returns type="DataTables.Api">A result set that contains the returned values from the event handlers. This can be used to check for an event being cancelled with a false return (for example).</returns>
+	</type>
+
+	<description>
+		This method is designed for use by DataTables extension authors to be able to trigger events in the same way that DataTables does internally. Events can be useful to let developers know that a certain action has happened and that they can perform some other operations. For example the Buttons extension triggers events when a button is processing an action or that an action has happened.
+
+		As with the other DataTables events, any event triggered with this method will have the `.dt` namespace appended to it (for jQuery name space handling). Additionally, event handlers are executed with the scope the `-tag table` element for the DataTable and the `event` object has a `dt` property appended to it containing a DataTables API instance.
+
+		By default triggered events do not bubble up the document, as that operation has a performance impact. However, it is possible to enable bubbling with the optional third parameter. If enabled and the `-tag table` is not in the document, the event will still be triggered on the `-tag body` element.
+	</description>
+
+	<example title="Listen for and trigger a custom event"><![CDATA[
+
+let table = new DataTable('#myTable');
+
+table.on('customEvent', function (e, length, start) {
+	console.log( length, start );
+	// would print `1, 0`
+});
+
+table.trigger('customEvent', [1, 0]);
+
+]]></example>
+
+	<example title="Access the DataTables API in a custom event"><![CDATA[
+
+let table = new DataTable('#myTable');
+
+table.on('customEvent', function (e) {
+	let info = e.dt.page.info();
+
+	console.log(info);
+});
+
+table.trigger('customEvent');
+
+]]></example>
+
+	<related>-api on()</related>
+	<related>-api one()</related>
+	<related>-api off()</related>
+</dt-api>

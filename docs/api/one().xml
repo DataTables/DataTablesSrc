@@ -41,4 +41,5 @@ table.one( 'xhr', function ( e, settings, json ) {
 
 	<related type="api">on()</related>
 	<related type="api">off()</related>
+	<related type="api">trigger()</related>
 </dt-api>

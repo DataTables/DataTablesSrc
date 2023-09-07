@@ -59,6 +59,13 @@ _api_register( 'data()', function () {
 } );
 
 
+_api_register( 'trigger()', function ( name, args, bubbles ) {
+	return this.iterator( 'table', function ( settings ) {
+		return _fnCallbackFire( settings, null, name, args, bubbles );
+	} ).flatten();
+} );
+
+
 _api_register( 'destroy()', function ( remove ) {
 	remove = remove || false;
 
