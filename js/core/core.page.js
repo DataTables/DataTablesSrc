@@ -66,16 +66,10 @@ function _fnPageChange ( settings, action, redraw )
 	var changed = settings._iDisplayStart !== start;
 	settings._iDisplayStart = start;
 
-	if ( changed ) {
-		_fnCallbackFire( settings, null, 'page', [settings] );
+	_fnCallbackFire( settings, null, changed ? 'page' : 'page-nc', [settings] );
 
-		if ( redraw ) {
-			_fnDraw( settings );
-		}
-	}
-	else {
-		// No change event - paging was called, but no change
-		_fnCallbackFire( settings, null, 'page-nc', [settings] );
+	if ( changed && redraw ) {
+		_fnDraw( settings );
 	}
 
 	return changed;
