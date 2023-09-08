@@ -87,7 +87,7 @@ DataTable.types = function () {
 
 DataTable.type('string', {
 	detect: function ( d ) {
-		return true;
+		return 'string';
 	},
 	order: {
 		pre: function ( a ) {
@@ -142,11 +142,9 @@ DataTable.type('date', {
 		return (parsed !== null && !isNaN(parsed)) || _empty(d) ? 'date' : null;
 	},
 	order: {
-		pre: {
-			function ( d ) {
-				var ts = Date.parse( d );
-				return isNaN(ts) ? -Infinity : ts;
-			}
+		pre: function ( d ) {
+			var ts = Date.parse( d );
+			return isNaN(ts) ? -Infinity : ts;
 		}
 	}
 });
@@ -160,11 +158,9 @@ DataTable.type('html-num-fmt', {
 		return _htmlNumeric( d, decimal, true ) ? 'html-num-fmt' : null;
 	},
 	order: {
-		pre: {
-			function ( d, s ) {
-				var dp = s.oLanguage.sDecimal;
-				return __numericReplace( d, dp, _re_html, _re_formatted_numeric );
-			}
+		pre: function ( d, s ) {
+			var dp = s.oLanguage.sDecimal;
+			return __numericReplace( d, dp, _re_html, _re_formatted_numeric );
 		}
 	},
 	search: __extSearchHtml
@@ -179,11 +175,9 @@ DataTable.type('html-num', {
 		return _htmlNumeric( d, decimal ) ? 'html-num' : null;
 	},
 	order: {
-		pre: {
-			function ( d, s ) {
-				var dp = s.oLanguage.sDecimal;
-				return __numericReplace( d, dp, _re_html );
-			}
+		pre: function ( d, s ) {
+			var dp = s.oLanguage.sDecimal;
+			return __numericReplace( d, dp, _re_html );
 		}
 	},
 	search: __extSearchHtml
@@ -198,11 +192,9 @@ DataTable.type('num-fmt', {
 		return _isNumber( d, decimal, true ) ? 'num-fmt' : null;
 	},
 	order: {
-		pre: {
-			function ( d, s ) {
-				var dp = s.oLanguage.sDecimal;
-				return __numericReplace( d, dp, _re_formatted_numeric );
-			}
+		pre: function ( d, s ) {
+			var dp = s.oLanguage.sDecimal;
+			return __numericReplace( d, dp, _re_formatted_numeric );
 		}
 	}
 });
