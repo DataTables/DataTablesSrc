@@ -61,6 +61,7 @@ function _addNumericSort ( decimalPlace ) {
 		function ( key, fn ) {
 			// Add the ordering method
 			_ext.type.order[ key+decimalPlace+'-pre' ] = fn;
+			_ext.type.class[ key+decimalPlace ] = 'dt-right';
 
 			// For HTML types add a search formatter that will strip the HTML
 			if ( key.match(/^html\-/) ) {

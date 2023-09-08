@@ -83,12 +83,6 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 				nTd.innerHTML = display[i];
 			}
 
-			/* Add user defined class */
-			if ( oCol.sClass )
-			{
-				nTd.className += ' '+oCol.sClass;
-			}
-
 			// Visibility - add or remove as required
 			if ( oCol.bVisible && ! nTrIn )
 			{
@@ -340,6 +334,7 @@ function _fnDraw( oSettings, ajaxComplete )
 	var aiDisplay = oSettings.aiDisplay;
 	var iDisplayStart = oSettings._iDisplayStart;
 	var iDisplayEnd = oSettings.fnDisplayEnd();
+	var columns = oSettings.aoColumns;
 
 	oSettings.bDrawing = true;
 
@@ -369,6 +364,21 @@ function _fnDraw( oSettings, ajaxComplete )
 			}
 
 			var nRow = aoData.nTr;
+
+			// Add various classes as needed
+			for (var i=0 ; i<columns.length ; i++) {
+				var col = columns[i];
+				var td = aoData.anCells[i];
+				var autoClass = _ext.type.class[col.sType];
+
+				if (autoClass) {
+					_addClass(td, autoClass);
+				}
+
+				if (col.sClass) {
+					_addClass(td, col.sClass);
+				}
+			}
 
 			// Row callback functions - might want to manipulate the row
 			// iRowCount and j are not currently documented. Are they at all

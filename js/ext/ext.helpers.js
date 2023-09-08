@@ -210,6 +210,8 @@ DataTable.datetime = function ( format, locale ) {
 		DataTable.ext.type.order[typeName + '-pre'] = function (d) {
 			return __mldObj(d, format, locale) || 0;
 		}
+
+		DataTable.ext.type.class[typeName + '-pre'] = 'dt-right';
 	}
 }
 

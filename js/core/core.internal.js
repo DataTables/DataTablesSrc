@@ -318,6 +318,16 @@ var _includes = function (search, start) {
 	return this.indexOf(search, start) !== -1;	
 };
 
+// Similar to jQuery's addClass, but use classList.add
+function _addClass(el, name) {
+	name.split(' ').forEach(function (n) {
+		if (n) {
+			// `add` does deduplication, so no need to check `contains`
+			el.classList.add(n);
+		}
+	});
+}
+
 // Array.isArray polyfill.
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
 if (! Array.isArray) {

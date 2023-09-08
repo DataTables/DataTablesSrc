@@ -93,8 +93,11 @@ function _fnCalculateColumnWidths ( oSettings )
 		column = columns[ columnIdx ];
 
 		var longest = _fnGetMaxLenString(oSettings, columnIdx);
-
+		var autoClass = _ext.type.class[column.sType];
+		
 		$('<td/>')
+			.addClass(autoClass)
+			.addClass(column.sClass)
 			.append( longest + column.sContentPadding )
 			.appendTo( tr );
 	}
@@ -234,7 +237,7 @@ function _fnGetMaxLenString( settings, colIdx )
 {
 	var column = settings.aoColumns[colIdx];
 
-	if (column.maxLenString === null) {
+	if (! column.maxLenString) {
 		var s, max='', maxLen = -1;
 	
 		for ( var i=0, ien=settings.aiDisplayMaster.length ; i<ien ; i++ ) {

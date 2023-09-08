@@ -320,9 +320,27 @@ function _fnColumnTypes ( settings )
 				col.sType = 'string';
 			}
 		}
+
+		// Set class names for header / footer for auto type classes
+		var autoClass = _ext.type.class[col.sType];
+
+		if (autoClass) {
+			_columnAutoClass(settings.aoHeader, i, autoClass);
+			_columnAutoClass(settings.aoFooter, i, autoClass);
+		}
 	}
 }
 
+/**
+ * Apply a class name to a column's header cells
+ */
+function _columnAutoClass(container, colIdx, className) {
+	container.forEach(function (row) {
+		if (row[colIdx].unique) {
+			_addClass(row[colIdx].cell, className);
+		}
+	});
+}
 
 /**
  * Take the column definitions and static columns arrays and calculate how

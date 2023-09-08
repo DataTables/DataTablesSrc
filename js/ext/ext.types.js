@@ -1,8 +1,9 @@
 
+var _extTypes = DataTable.ext.type;
 
 // Built in type detection. See model.ext.aTypes for information about
 // what is required from this methods.
-$.extend( DataTable.ext.type.detect, [
+$.extend( _extTypes.detect, [
 	// Plain numbers - first since V8 detects some plain numbers as dates
 	// e.g. Date.parse('55') (but not all, e.g. Date.parse('22')...).
 	function ( d, settings )

@@ -300,6 +300,15 @@ DataTable.ext = _ext = {
 	 */
 	type: {
 		/**
+		 * Automatic column class assignment
+		 */
+		class: {
+			date: 'dt-right'
+			// numbers added in types
+			// date formats added in helpers
+		},
+
+		/**
 		 * Type detection functions.
 		 *
 		 * The functions defined in this object are used to automatically detect

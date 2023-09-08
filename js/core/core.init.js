@@ -35,7 +35,7 @@ function _fnInitialise ( settings )
 	}
 
 	_fnColumnSizes( settings );
-	_fnCallbackFire( settings, null, 'preInit', [settings] );
+	_fnCallbackFire( settings, null, 'preInit', [settings], true );
 
 	// If there is default sorting required - let's do it. The sort function
 	// will do the drawing for us. Otherwise we draw the table regardless of the
