@@ -7,6 +7,7 @@ describe('nonjQuery - events', function () {
 	let event = '';
 	let table;
 	let order = 0;
+	let page = 0;
 
 	dt.html('basic');
 	it('No options', function () {
@@ -22,6 +23,7 @@ describe('nonjQuery - events', function () {
 			})
 			.on('page', function () {
 				event = 'Page';
+				page++;
 			});
 
 		expect(event).toBe('');
@@ -37,7 +39,9 @@ describe('nonjQuery - events', function () {
 		expect(event).toBe('Search');
 	});
 	it('Page', function () {
-		table.page(2);;
+		table.search('').draw();
+		table.page(2);
+		expect(page).toBe(1);
 		expect(event).toBe('Page');
 	});
 });
