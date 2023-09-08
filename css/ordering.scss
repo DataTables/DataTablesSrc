@@ -51,6 +51,11 @@ table.dataTable thead {
 		&.dt-orderable-asc,
 		&.dt-orderable-desc {
 			cursor: pointer;
+
+			&:hover {
+				outline: 2px solid rgba(0, 0, 0, 0.05);
+				outline-offset: -2px;
+			}
 		}
 
 		&.dt-ordering-asc:before,
