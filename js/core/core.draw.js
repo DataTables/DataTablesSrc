@@ -369,7 +369,7 @@ function _fnDraw( oSettings, ajaxComplete )
 			for (var i=0 ; i<columns.length ; i++) {
 				var col = columns[i];
 				var td = aoData.anCells[i];
-				var autoClass = _ext.type.class[col.sType];
+				var autoClass = _ext.type.className[col.sType];
 
 				if (autoClass) {
 					_addClass(td, autoClass);

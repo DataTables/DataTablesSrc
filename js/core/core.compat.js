@@ -90,12 +90,6 @@ function _fnLanguageCompat( lang )
 	// this is called after the mapping of camelCase to Hungarian
 	var defaults = DataTable.defaults.oLanguage;
 
-	// Default mapping
-	var defaultDecimal = defaults.sDecimal;
-	if ( defaultDecimal ) {
-		_addNumericSort( defaultDecimal );
-	}
-
 	if ( lang ) {
 		var zeroRecords = lang.sZeroRecords;
 
@@ -117,11 +111,6 @@ function _fnLanguageCompat( lang )
 		// Old parameter name of the thousands separator mapped onto the new
 		if ( lang.sInfoThousands ) {
 			lang.sThousands = lang.sInfoThousands;
-		}
-
-		var decimal = lang.sDecimal;
-		if ( decimal && defaultDecimal !== decimal ) {
-			_addNumericSort( decimal );
 		}
 	}
 }

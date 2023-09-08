@@ -322,7 +322,7 @@ function _fnColumnTypes ( settings )
 		}
 
 		// Set class names for header / footer for auto type classes
-		var autoClass = _ext.type.class[col.sType];
+		var autoClass = _ext.type.className[col.sType];
 
 		if (autoClass) {
 			_columnAutoClass(settings.aoHeader, i, autoClass);

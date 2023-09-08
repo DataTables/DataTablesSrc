@@ -302,11 +302,7 @@ DataTable.ext = _ext = {
 		/**
 		 * Automatic column class assignment
 		 */
-		class: {
-			date: 'dt-right'
-			// numbers added in types
-			// date formats added in helpers
-		},
+		className: {},
 
 		/**
 		 * Type detection functions.
@@ -349,6 +345,11 @@ DataTable.ext = _ext = {
 		 *    );
 		 */
 		detect: [],
+
+		/**
+		 * Automatic renderer assignment
+		 */
+		render: {},
 
 
 		/**

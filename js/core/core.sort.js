@@ -465,7 +465,7 @@ function _fnSortData( settings, colIdx )
 				_fnGetCellData( settings, rowIdx, colIdx, 'sort' );
 
 			row._aSortData[ colIdx ] = formatter ?
-				formatter( cellData ) :
+				formatter( cellData, settings ) :
 				cellData;
 		}
 	}

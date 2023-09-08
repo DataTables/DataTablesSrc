@@ -36,8 +36,12 @@ describe('nonjQuery - ajax', function () {
 		expect(counter).toBe(57);
 	});
 
-	it('A single parameter was passed to the pre function', function () {
-		expect(args.length).toBe(1);
+	it('A two parameters were passed to the pre function', function () {
+		expect(args.length).toBe(2);
+	});
+
+	it('Second is the settings object', function () {
+		expect(args[1].nTable).toBeDefined();
 	});
 
 	dt.html('basic');

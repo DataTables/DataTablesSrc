@@ -93,7 +93,7 @@ function _fnCalculateColumnWidths ( oSettings )
 		column = columns[ columnIdx ];
 
 		var longest = _fnGetMaxLenString(oSettings, columnIdx);
-		var autoClass = _ext.type.class[column.sType];
+		var autoClass = _ext.type.className[column.sType];
 		
 		$('<td/>')
 			.addClass(autoClass)

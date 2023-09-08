@@ -1,19 +1,136 @@
 
 var _extTypes = DataTable.ext.type;
 
-// Built in type detection. See model.ext.aTypes for information about
-// what is required from this methods.
-$.extend( _extTypes.detect, [
-	// Plain numbers - first since V8 detects some plain numbers as dates
-	// e.g. Date.parse('55') (but not all, e.g. Date.parse('22')...).
-	function ( d, settings )
-	{
-		var decimal = settings.oLanguage.sDecimal;
-		return _isNumber( d, decimal ) ? 'num'+decimal : null;
-	},
+// Get / set type
+DataTable.type = function (name, prop, val) {
+	if (! prop) {
+		return {
+			className: _extTypes.className[name],
+			detect: _extTypes.detect,
+			order: {
+				pre: _extTypes.order[name + '-pre'],
+				asc: _extTypes.order[name + '-asc'],
+				desc: _extTypes.order[name + '-desc']
+			},
+			render: _extTypes.render[name],
+			search: _extTypes.search[name]
+		};
+	}
 
-	// Dates (only those recognised by the browser's Date.parse)
-	function ( d, settings )
+	var setProp = function(prop, propVal) {
+		_extTypes[prop][name] = propVal;
+	};
+	var setDetect = function (fn) {
+		_extTypes.detect.unshift(fn);
+		Object.defineProperty(fn, "name", {value: name});
+	};
+	var setOrder = function (obj) {
+		_extTypes.order[name + '-pre'] = obj.pre; // can be undefined
+		_extTypes.order[name + '-asc'] = obj.asc; // can be undefined
+		_extTypes.order[name + '-desc'] = obj.desc; // can be undefined
+	};
+
+	// prop is optional
+	if (! val) {
+		val = prop;
+		prop = null;
+	}
+
+	if (prop === 'className') {
+		setProp('className', val);
+	}
+	else if (prop === 'detect') {
+		setDetect(fn);
+	}
+	else if (prop === 'order') {
+		setOrder(val);
+	}
+	else if (prop === 'render') {
+		setProp('render', val);
+	}
+	else if (prop === 'search') {
+		setProp('search', val);
+	}
+	else if (! prop) {
+		if (val.className) {
+			setProp('className', val.className);
+		}
+
+		if (val.detect) {
+			setDetect(val.detect);
+		}
+
+		if (val.order) {
+			setOrder(val.order);
+		}
+
+		if (val.render) {
+			setProp('render', val.render);
+		}
+
+		if (val.search) {
+			setProp('search', val.search);
+		}
+	}
+}
+
+// Get a list of types
+DataTable.types = function () {
+	return _extTypes.detect.map(function (fn) {
+		return fn.name;
+	});
+};
+
+//
+// Built in data types
+//
+
+DataTable.type('string', {
+	detect: function ( d ) {
+		return true;
+	},
+	order: {
+		pre: function ( a ) {
+			// This is a little complex, but faster than always calling toString,
+			// http://jsperf.com/tostring-v-check
+			return _empty(a) ?
+				'' :
+				typeof a === 'string' ?
+					a.toLowerCase() :
+					! a.toString ?
+						'' :
+						a.toString();
+		}
+	},
+	search: function ( data ) {
+		return _empty(data) ?
+			data :
+			typeof data === 'string' ?
+				data.replace( _re_new_lines, " " ) :
+				data;
+	}
+});
+
+
+DataTable.type('html', {
+	detect: function ( d ) {
+		return _empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1) ?
+			'html' : null;
+	},
+	order: function ( a ) {
+		return _empty(a) ?
+			'' :
+			a.replace ?
+				a.replace( /<.*?>/g, "" ).toLowerCase() :
+				a+'';
+	},
+	search: __extSearchHtml
+});
+
+
+DataTable.type('date', {
+	className: 'dt-right',
+	detect: function ( d )
 	{
 		// V8 tries _very_ hard to make a string passed into `Date.parse()`
 		// valid, so we need to use a regex to restrict date formats. Use a
@@ -24,33 +141,86 @@ $.extend( _extTypes.detect, [
 		var parsed = Date.parse(d);
 		return (parsed !== null && !isNaN(parsed)) || _empty(d) ? 'date' : null;
 	},
-
-	// Formatted numbers
-	function ( d, settings )
-	{
-		var decimal = settings.oLanguage.sDecimal;
-		return _isNumber( d, decimal, true ) ? 'num-fmt'+decimal : null;
-	},
-
-	// HTML numeric
-	function ( d, settings )
-	{
-		var decimal = settings.oLanguage.sDecimal;
-		return _htmlNumeric( d, decimal ) ? 'html-num'+decimal : null;
-	},
-
-	// HTML numeric, formatted
-	function ( d, settings )
-	{
-		var decimal = settings.oLanguage.sDecimal;
-		return _htmlNumeric( d, decimal, true ) ? 'html-num-fmt'+decimal : null;
-	},
-
-	// HTML (this is strict checking - there must be html)
-	function ( d, settings )
-	{
-		return _empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1) ?
-			'html' : null;
+	order: {
+		pre: {
+			function ( d ) {
+				var ts = Date.parse( d );
+				return isNaN(ts) ? -Infinity : ts;
+			}
+		}
 	}
-] );
+});
+
+
+DataTable.type('html-num-fmt', {
+	className: 'dt-right',
+	detect: function ( d, settings )
+	{
+		var decimal = settings.oLanguage.sDecimal;
+		return _htmlNumeric( d, decimal, true ) ? 'html-num-fmt' : null;
+	},
+	order: {
+		pre: {
+			function ( d, s ) {
+				var dp = s.oLanguage.sDecimal;
+				return __numericReplace( d, dp, _re_html, _re_formatted_numeric );
+			}
+		}
+	},
+	search: __extSearchHtml
+});
+
+
+DataTable.type('html-num', {
+	className: 'dt-right',
+	detect: function ( d, settings )
+	{
+		var decimal = settings.oLanguage.sDecimal;
+		return _htmlNumeric( d, decimal ) ? 'html-num' : null;
+	},
+	order: {
+		pre: {
+			function ( d, s ) {
+				var dp = s.oLanguage.sDecimal;
+				return __numericReplace( d, dp, _re_html );
+			}
+		}
+	},
+	search: __extSearchHtml
+});
+
+
+DataTable.type('num-fmt', {
+	className: 'dt-right',
+	detect: function ( d, settings )
+	{
+		var decimal = settings.oLanguage.sDecimal;
+		return _isNumber( d, decimal, true ) ? 'num-fmt' : null;
+	},
+	order: {
+		pre: {
+			function ( d, s ) {
+				var dp = s.oLanguage.sDecimal;
+				return __numericReplace( d, dp, _re_formatted_numeric );
+			}
+		}
+	}
+});
+
+
+DataTable.type('num', {
+	className: 'dt-right',
+	detect: function ( d, settings )
+	{
+		var decimal = settings.oLanguage.sDecimal;
+		return _isNumber( d, decimal ) ? 'num' : null;
+	},
+	order: {
+		pre: function (d, s) {
+			var dp = s.oLanguage.sDecimal;
+			return __numericReplace( d, dp );
+		}
+	}
+});
+
 

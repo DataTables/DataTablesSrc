@@ -21,9 +21,9 @@ describe('orderClasses option', function() {
 
 			expect($('#example tbody tr:eq(0) td:eq(1)').attr('class')).toBe(undefined);
 			expect($('#example tbody tr:eq(0) td:eq(2)').attr('class')).toBe(undefined);
-			expect($('#example tbody tr:eq(0) td:eq(3)').attr('class')).toBe('dt-body-right');
-			expect($('#example tbody tr:eq(0) td:eq(4)').attr('class')).toBe('dt-body-right');
-			expect($('#example tbody tr:eq(0) td:eq(5)').attr('class')).toBe('dt-body-right');
+			expect($('#example tbody tr:eq(0) td:eq(3)').attr('class')).toBe('dt-right');
+			expect($('#example tbody tr:eq(0) td:eq(4)').attr('class')).toBe('dt-right');
+			expect($('#example tbody tr:eq(0) td:eq(5)').attr('class')).toBe('dt-right');
 		});
 
 		dt.html('basic');
