@@ -78,39 +78,25 @@ function __mlHelper (localeString) {
 			from = null;
 		}
 
-		var typeName = 'datetime-' + to;
+		var typeName = 'datetime-' + to.replace(' ', '-');
 
 		// Add type detection and sorting specific to this date format - we need to be able to identify
 		// date type columns as such, rather than as numbers in extensions. Hence the need for this.
 		if (! DataTable.ext.type.order[typeName]) {
-			// The renderer will give the value to type detect as the type!
-			DataTable.ext.type.detect.unshift(function (d) {
-				return d === typeName ? typeName : false;
+			DataTable.type(typeName, {
+				detect: function (d) {
+					// The renderer will give the value to type detect as the type!
+					return d === typeName ? typeName : false;
+				},
+				order: {
+					pre: function (d) {
+						// The renderer gives us Moment, Luxon or Date obects for the sorting, all of which have a
+						// `valueOf` which gives milliseconds epoch
+						return d.valueOf();
+					}
+				},
+				className: 'dt-right'
 			});
-
-			// The renderer gives us Moment, Luxon or Date obects for the sorting, all of which have a
-			// `valueOf` which gives milliseconds epoch
-			DataTable.ext.type.order[typeName + '-asc'] = function (a, b) {
-				var x = a.valueOf();
-				var y = b.valueOf();
-
-				return x === y
-					? 0
-					: x < y
-						? -1
-						: 1;
-			}
-
-			DataTable.ext.type.order[typeName + '-desc'] = function (a, b) {
-				var x = a.valueOf();
-				var y = b.valueOf();
-
-				return x === y
-					? 0
-					: x > y
-						? -1
-						: 1;
-			}
 		}
 	
 		return function ( d, type ) {
@@ -195,23 +181,27 @@ if (window.Intl !== undefined) {
 
 // Formatted date time detection - use by declaring the formats you are going to use
 DataTable.datetime = function ( format, locale ) {
-	var typeName = 'datetime-detect-' + format;
+	var typeName = 'datetime-detect-' + format.replace(' ', '-');
 
 	if (! locale) {
 		locale = 'en';
 	}
 
 	if (! DataTable.ext.type.order[typeName]) {
-		DataTable.ext.type.detect.unshift(function (d) {
-			var dt = __mldObj(d, format, locale);
-			return d === '' || dt ? typeName : false;
+		DataTable.type(typeName, {
+			detect: function (d) {
+				var dt = __mldObj(d, format, locale);
+				return d === '' || dt ? typeName : false;
+			},
+			order: {
+				pre: {
+					function (d) {
+						return __mldObj(d, format, locale) || 0;
+					}
+				}
+			},
+			className: 'dt-right'
 		});
-
-		DataTable.ext.type.order[typeName + '-pre'] = function (d) {
-			return __mldObj(d, format, locale) || 0;
-		}
-
-		DataTable.ext.type.class[typeName + '-pre'] = 'dt-right';
 	}
 }
 
