@@ -6,6 +6,10 @@
  * to make working with DataTables a little bit easier.
  */
 
+function __mldFnName(name) {
+	return name.replace(/[\W]/g, '_')
+}
+
 // Common logic for moment, luxon or a date action
 function __mld( dt, momentFn, luxonFn, dateFn, arg1 ) {
 	if (window.moment) {
@@ -78,7 +82,7 @@ function __mlHelper (localeString) {
 			from = null;
 		}
 
-		var typeName = 'datetime' + (to ? '-' + to.replace(' ', '-') : '');
+		var typeName = 'datetime' + (to ? '-' + __mldFnName(to) : '');
 
 		// Add type detection and sorting specific to this date format - we need to be able to identify
 		// date type columns as such, rather than as numbers in extensions. Hence the need for this.
@@ -181,7 +185,7 @@ if (window.Intl !== undefined) {
 
 // Formatted date time detection - use by declaring the formats you are going to use
 DataTable.datetime = function ( format, locale ) {
-	var typeName = 'datetime-detect-' + format.replace(' ', '-');
+	var typeName = 'datetime-detect-' + __mldFnName(format);
 
 	if (! locale) {
 		locale = 'en';
