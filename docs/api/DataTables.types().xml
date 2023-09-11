@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.types()</name>
+	<summary>Get a list of the data types registered</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>types()</signature>
+		<description>Get an array of the data types that have been registered with DataTables.</description>
+		<returns type="array">An array of strings with the data type names.</returns>
+	</type>
+
+	<description>
+		DataTables operates on the data shown in the table in a number of different ways depending on the structure of the data. We term each unique structure as a _data type_. For example, numbers, HTML data, dates, etc.
+
+		This method provides a method to get a list of the data types that have been registered with DataTables. Its companion method `-api DataTable.type()` can be used to obtain details about and set options for each data type.
+
+		For more details about the data type system in DataTables please refer to the [documentation on DataTables.net](https://datatables.net/manual/data/types). 
+	</description>
+
+	<example title="Get a list of the registered types"><![CDATA[
+
+let types = DataTable.types();
+
+]]></example>
+
+	<related>-api DataTable.type()</related>
+	<related>-type DataTable.Type</related>
+</dt-api>
