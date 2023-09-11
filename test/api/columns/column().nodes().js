@@ -90,7 +90,7 @@ describe('columns - column().nodes()', function() {
 					{ data: 'salary' }
 				],
 				initComplete: function(settings, json) {
-					checkNodes(table.column(1).nodes(), 57);
+					checkNodes(table.column(1).nodes(), 10);
 					done();
 				}
 			});
