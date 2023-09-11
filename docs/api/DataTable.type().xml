@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.type()</name>
+	<summary>Get / set details of a data type</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>type( name )</signature>
+		<description>Get an array of the data types that have been registered with DataTables.</description>
+		<parameter type="string" name="name">
+			The name of the data type for which information should be obtained.
+		</parameter>
+		<returns type="DataTables.Type">Object with details of the data type's processing.</returns>
+	</type>
+
+	<type type="function">
+		<signature>type( name, definition )</signature>
+		<description>Set a definition for data type. Will create a new one if the name doesn't yet exist, or will merge with an existing one if it already does.</description>
+		<parameter type="string" name="name">
+			The name of the data type for which the definition is to be set.
+		</parameter>
+		<parameter type="string" name="definition" type="DataTables.Type">
+			The type information object to be set. Each property is optional and if the data type already exists, if it property is not set here, it will not remove a previous value.
+		</parameter>
+		<returns type="undefined">No return value.</returns>
+	</type>
+
+	<type type="function">
+		<signature>type( name, property, definition )</signature>
+		<description>Set a specific property of a data type, allowing fine grade control and tuning of data types.</description>
+		<parameter type="string" name="name">
+			The name of the data type for which the definition is to be set.
+		</parameter>
+		<parameter type="string" name="property">
+			The property of the data type to be set. This can be one of any of the top level property names in `-type DataTable.Type` - e.g. `-string className`, `-string detect`, `-string order` or `-string search`.
+		</parameter>
+		<parameter type="string" name="definition" type="*">
+			The type information object to be set.
+		</parameter>
+		<returns type="undefined">No return value.</returns>
+	</type>
+
+	<description>
+		DataTables operates on the data shown in the table in a number of different ways depending on the structure of the data. We term each unique structure as a _data type_. For example, numbers, HTML data, dates, etc.
+
+		This method provides a method to get a list of the data types that have been registered with DataTables. Its companion method `-api DataTable.type()` can be used to obtain details about and set options for each data type.
+
+		For more details about the data type system in DataTables please refer to the [documentation on DataTables.net](https://datatables.net/manual/data/types). 
+	</description>
+
+	<example title="Get the information about the `num` data type"><![CDATA[
+
+let numberType = DataTable.type('num');
+
+console.log(numberType.className);
+
+]]></example>
+
+	<example title="Remove the default right alignment of number data types"><![CDATA[
+
+DataTable.type('num', 'className', '');
+
+]]></example>
+
+	<example title="Create a new data type (in this case type detection, ordering and a class for IPv4 addresses)"><![CDATA[
+
+DataTable.type('ipv4', {
+	detect: function (data) {
+		return typeof data === 'string' && data.match(/^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/))
+			? 'ipv4'
+			: null;
+	},
+	order: {
+		pre: function (data) {
+			return Number(
+				data.split('.')
+					.map((num, idx) => num * Math.pow(2, (3 - idx) * 8))
+					.reduce((a, v) => ((a += v), a), 0)
+			);
+		}
+	},
+	className: 'dt-data-ipv4'
+});
+
+]]></example>
+
+	<related>-api DataTable.types()</related>
+	<related>-type DataTable.Type</related>
+</dt-api>
