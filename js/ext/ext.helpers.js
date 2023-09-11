@@ -78,7 +78,7 @@ function __mlHelper (localeString) {
 			from = null;
 		}
 
-		var typeName = 'datetime-' + to.replace(' ', '-');
+		var typeName = 'datetime' + (to ? '-' + to.replace(' ', '-') : '');
 
 		// Add type detection and sorting specific to this date format - we need to be able to identify
 		// date type columns as such, rather than as numbers in extensions. Hence the need for this.
@@ -194,10 +194,8 @@ DataTable.datetime = function ( format, locale ) {
 				return d === '' || dt ? typeName : false;
 			},
 			order: {
-				pre: {
-					function (d) {
-						return __mldObj(d, format, locale) || 0;
-					}
+				pre: function (d) {
+					return __mldObj(d, format, locale) || 0;
 				}
 			},
 			className: 'dt-right'
