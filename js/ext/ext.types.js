@@ -6,7 +6,9 @@ DataTable.type = function (name, prop, val) {
 	if (! prop) {
 		return {
 			className: _extTypes.className[name],
-			detect: _extTypes.detect,
+			detect: _extTypes.detect.find(function (fn) {
+				return fn.name === name;
+			}),
 			order: {
 				pre: _extTypes.order[name + '-pre'],
 				asc: _extTypes.order[name + '-asc'],
@@ -21,8 +23,27 @@ DataTable.type = function (name, prop, val) {
 		_extTypes[prop][name] = propVal;
 	};
 	var setDetect = function (fn) {
-		_extTypes.detect.unshift(fn);
-		Object.defineProperty(fn, "name", {value: name});
+		// Wrap to allow the function to return `true` rather than
+		// specifying the type name.
+		var cb = function (d, s) {
+			var ret = fn(d, s);
+
+			return ret === true
+				? name
+				: ret;
+		};
+		Object.defineProperty(cb, "name", {value: name});
+
+		var idx = _extTypes.detect.findIndex(function (fn) {
+			return fn.name === name;
+		});
+
+		if (idx === -1) {
+			_extTypes.detect.unshift(cb);
+		}
+		else {
+			_extTypes.detect.splice(idx, 1, cb);
+		}
 	};
 	var setOrder = function (obj) {
 		_extTypes.order[name + '-pre'] = obj.pre; // can be undefined
@@ -40,7 +61,7 @@ DataTable.type = function (name, prop, val) {
 		setProp('className', val);
 	}
 	else if (prop === 'detect') {
-		setDetect(fn);
+		setDetect(val);
 	}
 	else if (prop === 'order') {
 		setOrder(val);
@@ -117,12 +138,14 @@ DataTable.type('html', {
 		return _empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1) ?
 			'html' : null;
 	},
-	order: function ( a ) {
-		return _empty(a) ?
-			'' :
-			a.replace ?
-				a.replace( /<.*?>/g, "" ).toLowerCase() :
-				a+'';
+	order: {
+		pre: function ( a ) {
+			return _empty(a) ?
+				'' :
+				a.replace ?
+					a.replace( /<.*?>/g, "" ).toLowerCase() :
+					a+'';
+		}
 	},
 	search: __extSearchHtml
 });
