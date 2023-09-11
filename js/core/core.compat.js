@@ -167,6 +167,11 @@ function _fnCompatOpts ( init )
 			}
 		}
 	}
+
+	// Enable search delay if server-side processing is enabled
+	if (init.serverSide && ! init.searchDelay) {
+		init.searchDelay = 400;
+	}
 }
 
 

@@ -75,9 +75,7 @@ _ext.features.register( 'search', function ( settings, opts ) {
 
 	var searchDelay = settings.searchDelay !== null ?
 		settings.searchDelay :
-		_fnDataSource( settings ) === 'ssp' ?
-			400 :
-			0;
+		0;
 
 	var jqFilter = $('input', filter)
 		.val( previousSearch.sSearch )
