@@ -7,7 +7,7 @@ describe('deferRender option', function() {
 
 	describe('Check Default', function() {
 		it('Is disabled by default', function() {
-			expect($.fn.dataTable.defaults.bDeferRender).toBe(false);
+			expect($.fn.dataTable.defaults.bDeferRender).toBe(true);
 		});
 	});
 

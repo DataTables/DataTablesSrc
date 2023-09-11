@@ -419,7 +419,7 @@ DataTable.defaults = {
 	 *      } );
 	 *    } );
 	 */
-	"bDeferRender": false,
+	"bDeferRender": true,
 
 
 	/**

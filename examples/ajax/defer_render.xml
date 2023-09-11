@@ -5,28 +5,28 @@
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>Deferred rendering for speed</title>
+<title>Deferred rendering feature</title>
 <js><![CDATA[
 $('#example').DataTable({
 	ajax: 'data/arrays.txt',
-	deferRender: true
+	deferRender: false
 });
 ]]></js>
 
 <js-vanilla><![CDATA[
 new DataTable('#example', {
 	ajax: 'data/arrays.txt',
-	deferRender: true
+	deferRender: false
 });
 ]]></js-vanilla>
 
 <info><![CDATA[
 
-When working with large data sources, you might seek to improve the speed at which DataTables runs. One method to do this is to make use of the built-in deferred rendering option in DataTables with the `dt-init deferRender` option.
+When working with large data sources performance is often of primary importance. For this reason DataTables will only create the table `-tag tr` and `-tag td` cells when they are drawn on the page. This feature is called _deferred rendering_ and is enabled automatically since DataTables 2.
 
-When deferred rendering is enabled, rather than having DataTables create all `tag TR` and `tag TD` nodes required for the table when the data is loaded, DataTables will only create the nodes required for each individual row at the time of that row being drawn on the page (these nodes are then retained in case they are needed again so they aren't created multiple times). This can give a significant performance increase, since a lot less work is done at initialisation time.
+It is rare that you'll want to disable this feature, but if you do need to do so (for example you need to guarantee that all nodes are available for form submission or similar) this option can be set to `false` as shown in this example.
 
-The example below shows DataTables with deferred rendering enabled. For this small example you'll likely notice no difference, but larger tables can benefit significantly from simply enabling this parameter.
+You won't notice any performance difference with just the standard DataTables data set, but for tens of thousands of rows it can make a significant difference and we recommend keeping it enabled.
 
 ]]></info>
 
