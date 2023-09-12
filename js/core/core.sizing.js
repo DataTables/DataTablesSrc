@@ -180,7 +180,9 @@ function _fnCalculateColumnWidths ( oSettings )
 	if ( (tableWidthAttr || scrollX) && ! oSettings._reszEvt ) {
 		var bindResize = function () {
 			$(window).on('resize.DT-'+oSettings.sInstance, _fnThrottle( function () {
-				_fnAdjustColumnSizing( oSettings );
+				if (! oSettings.bDestroying) {
+					_fnAdjustColumnSizing( oSettings );
+				}
 			} ) );
 		};
 
