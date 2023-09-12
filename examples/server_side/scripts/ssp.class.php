@@ -130,7 +130,7 @@ class SSP {
 			$dtColumns = self::pluck( $columns, 'dt' );
 
 			for ( $i=0, $ien=count($request['order']) ; $i<$ien ; $i++ ) {
-				$columnIdx = array_search( $request['order'][$i]['data'], $dtColumns );
+				$columnIdx = $request['order'][$i]['column'];
 				$requestColumn = $request['columns'][$columnIdx];
 				$column = $columns[ $columnIdx ];
 
@@ -287,11 +287,11 @@ class SSP {
 		 * Output
 		 */
 		return array(
-			"draw"            => isset ( $request['draw'] ) ?
+			"cnt"            => isset ( $request['draw'] ) ?
 				intval( $request['draw'] ) :
 				0,
-			"recordsTotal"    => intval( $recordsTotal ),
-			"recordsFiltered" => intval( $recordsFiltered ),
+			"total"    => intval( $recordsTotal ),
+			"filtered" => intval( $recordsFiltered ),
 			"data"            => self::data_output( $columns, $data )
 		);
 	}
@@ -471,7 +471,6 @@ class SSP {
 		}
 
 		$stmt = $db->prepare( $sql );
-		//echo $sql;
 
 		// Bind parameters
 		if ( is_array( $bindings ) ) {

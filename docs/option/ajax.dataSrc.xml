@@ -14,6 +14,23 @@
 		</description>
 	</type>
 
+	<type type="object" since="2.0">
+		<description>
+			When provided as an object this parameter can be used to provide mapping between the response from a server and DataTables for it's server-side processing parameters. It is used for cases when the JSON response from the server is not in the format that DataTables expects.
+
+			There are four parameters which can be defined in the object:
+
+			* `data` - Maps to where the value for the `data` array is.
+			* `draw` - Maps to where the value is to use for the `draw` parameter.
+			* `recordsTotal` - Maps to where the value for the `recordsTotal` parameter is.
+			* `recordsFiltered` - Maps to where the value for the `recordsFiltered` parameter is.
+
+			Please refer to the [server-side processing documentation](https://datatables.net/manual/server-side) for a full description of these parameters.
+
+			Each mapping value may be a string in Javascript dotted object notation or a function. If a function a single parameter is passed in, the JSON response from the server, and the return value should be the value for the parameter.
+		</description>
+	</type>
+
 	<type type="function">
 		<signature>ajax.dataSrc( data )</signature>
 		<parameter type="object" name="data">
@@ -36,39 +53,56 @@
 	<default>`dt-string data` property of the data source object (or `dt-string aaData` if `dt-string data` is not present for backwards compatibility).</default>
 
 	<example title="Get JSON data from a file via Ajax, using `dataSrc` to change `data` to `tableData` (i.e. `{ tableData: [ ...data... ] }`)"><![CDATA[
-$('#example').dataTable( {
-  "ajax": {
-    "url": "data.json",
-    "dataSrc": "tableData"
-  }
-} );
+$('#example').DataTable({
+	ajax: {
+		url: 'data.json',
+		dataSrc: 'tableData'
+	}
+});
 ]]></example>
 
 	<example title="Get JSON data from a file via Ajax, using `dataSrc` to read data from a plain array rather than an array in an object"><![CDATA[
-$('#example').dataTable( {
-  "ajax": {
-    "url": "data.json",
-    "dataSrc": ""
-  }
-} );
+$('#example').DataTable({
+	ajax: {
+		url: 'data.json',
+		dataSrc: ''
+	}
+});
 ]]></example>
 
 	<example title="Manipulate the data returned from the server - add a link to data (note this can, should, be done using `render` for the column - this is just a simple example of how the data can be manipulated)."><![CDATA[
-$('#example').dataTable( {
-  "ajax": {
-    "url": "data.json",
-    "dataSrc": function ( json ) {
-      for ( var i=0, ien=json.data.length ; i<ien ; i++ ) {
-        json.data[i][0] = '<a href="/message/'+json.data[i][0]+'>View message</a>';
-      }
-      return json.data;
-    }
-  }
-} );
+$('#example').DataTable({
+	ajax: {
+		url: 'data.json',
+		dataSrc: function (json) {
+			for (var i = 0, ien = json.data.length; i < ien; i++) {
+				json.data[i][0] =
+					'<a href="/message/' + json.data[i][0] + '>View message</a>';
+			}
+			return json.data;
+		}
+	}
+});
+]]></example>
+
+	<example title="Map parameters to DataTables' expected server-side processing parameter names."><![CDATA[
+$('#example').DataTable({
+	ajax: {
+		url: '/api/users',
+		dataSrc: {
+			data: 'results',
+			draw: 'request',
+			recordsTotal: 'total',
+			recordsFiltered: 'filtered'
+		}
+	},
+	serverSide: true
+});
 ]]></example>
 
 	<related type="option">ajax</related>
 	<related type="api">ajax.json()</related>
 	<related type="api">ajax.reload()</related>
 	<related type="api">ajax.url()</related>
+	<related>-init serverSide</related>
 </dt-option>

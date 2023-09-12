@@ -206,16 +206,10 @@ function _fnAjaxParameters( settings )
  */
 function _fnAjaxUpdateDraw ( settings, json )
 {
-	// v1.10 uses camelCase variables, while 1.9 uses Hungarian notation.
-	// Support both
-	var compat = function ( old, modern ) {
-		return json[old] !== undefined ? json[old] : json[modern];
-	};
-
-	var data = _fnAjaxDataSrc( settings, json );
-	var draw            = compat( 'sEcho',                'draw' );
-	var recordsTotal    = compat( 'iTotalRecords',        'recordsTotal' );
-	var recordsFiltered = compat( 'iTotalDisplayRecords', 'recordsFiltered' );
+	var data = _fnAjaxDataSrc(settings, json);
+	var draw = _fnAjaxDataSrcParam(settings, 'draw', json);
+	var recordsTotal = _fnAjaxDataSrcParam(settings, 'recordsTotal', json);
+	var recordsFiltered = _fnAjaxDataSrcParam(settings, 'recordsFiltered', json);
 
 	if ( draw !== undefined ) {
 		// Protect against out of sequence returns
@@ -253,28 +247,75 @@ function _fnAjaxUpdateDraw ( settings, json )
  * Get the data from the JSON data source to use for drawing a table. Using
  * `_fnGetObjectDataFn` allows the data to be sourced from a property of the
  * source object, or from a processing function.
- *  @param {object} oSettings dataTables settings object
+ *  @param {object} settings dataTables settings object
  *  @param  {object} json Data source object / array from the server
  *  @return {array} Array of data to use
  */
-function _fnAjaxDataSrc ( oSettings, json, write )
+function _fnAjaxDataSrc ( settings, json, write )
 {
-	var dataSrc = $.isPlainObject( oSettings.ajax ) && oSettings.ajax.dataSrc !== undefined ?
-		oSettings.ajax.dataSrc :
-		'data';
+	var dataProp = 'data';
+
+	if ($.isPlainObject( settings.ajax ) && settings.ajax.dataSrc !== undefined) {
+		// Could in inside a `dataSrc` object, or not!
+		var dataSrc = settings.ajax.dataSrc;
+
+		// string, function and object are valid types
+		if (typeof dataSrc === 'string' || typeof dataSrc === 'function') {
+			dataProp = dataSrc;
+		}
+		else if (dataSrc.data !== undefined) {
+			dataProp = dataSrc.data;
+		}
+	}
 
 	if ( ! write ) {
-		if ( dataSrc === 'data' ) {
+		if ( dataProp === 'data' ) {
 			// If the default, then we still want to support the old style, and safely ignore
 			// it if possible
-			return json.aaData || json[dataSrc];
+			return json.aaData || json[dataProp];
 		}
 
-		return dataSrc !== "" ?
-			_fnGetObjectDataFn( dataSrc )( json ) :
+		return dataProp !== "" ?
+			_fnGetObjectDataFn( dataProp )( json ) :
 			json;
 	}
 	
 	// set
-	_fnSetObjectDataFn( dataSrc )( json, write );
+	_fnSetObjectDataFn( dataProp )( json, write );
+}
+
+/**
+ * Very similar to _fnAjaxDataSrc, but for the other SSP properties
+ * @param {*} settings DataTables settings object
+ * @param {*} param Target parameter
+ * @param {*} json JSON data
+ * @returns Resolved value
+ */
+function _fnAjaxDataSrcParam (settings, param, json) {
+	var dataSrc = $.isPlainObject( settings.ajax )
+		? settings.ajax.dataSrc
+		: null;
+
+	if (dataSrc && dataSrc[param]) {
+		// Get from custom location
+		return _fnGetObjectDataFn( dataSrc[param] )( json );
+	}
+
+	// else - Default behaviour
+	var old = '';
+
+	// Legacy support
+	if (param === 'draw') {
+		old = 'sEcho';
+	}
+	else if (param === 'recordsTotal') {
+		old = 'iTotalRecords';
+	}
+	else if (param === 'recordsFiltered') {
+		old = 'iTotalDisplayRecords';
+	}
+
+	return json[old] !== undefined
+		? json[old]
+		: json[param];
 }
