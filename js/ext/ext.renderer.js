@@ -96,6 +96,10 @@ $.extend( true, DataTable.ext.renderer, {
 					? col.ariaTitle + ctx.api.i18n('oAria.orderable' + ariaType)
 					: col.ariaTitle
 				);
+
+				if (orderable) {
+					cell.find('.dt-column-title').attr('role', 'button');
+				}
 			} );
 		}
 	},
