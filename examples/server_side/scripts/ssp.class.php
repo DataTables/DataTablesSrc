@@ -72,14 +72,14 @@ class SSP {
 	 *
 	 * Obtain an PHP PDO connection from a connection details array
 	 *
-	 *  @param  array $conn SQL connection details. The array should have
+	 *  @param  mixed $conn SQL connection details. The array should have
 	 *    the following properties
 	 *     * host - host name
 	 *     * db   - database name
 	 *     * user - user name
 	 *     * pass - user password
 	 *     * Optional: `'charset' => 'utf8'` - you might need this depending on your PHP / MySQL config
-	 *  @return resource PDO connection
+	 *  @return PDO PDO connection
 	 */
 	static function db ( $conn )
 	{
@@ -278,6 +278,7 @@ class SSP {
 
 		// Total data set length
 		$resTotalLength = self::sql_exec( $db,
+			[],
 			"SELECT COUNT(`{$primaryKey}`)
 			 FROM   `$table`"
 		);
@@ -287,11 +288,11 @@ class SSP {
 		 * Output
 		 */
 		return array(
-			"cnt"            => isset ( $request['draw'] ) ?
+			"draw"            => isset ( $request['draw'] ) ?
 				intval( $request['draw'] ) :
 				0,
-			"total"    => intval( $recordsTotal ),
-			"filtered" => intval( $recordsFiltered ),
+			"recordsTotal"    => intval( $recordsTotal ),
+			"recordsFiltered" => intval( $recordsFiltered ),
 			"data"            => self::data_output( $columns, $data )
 		);
 	}
@@ -430,7 +431,7 @@ class SSP {
 	 *     * db   - database name
 	 *     * user - user name
 	 *     * pass - user password
-	 * @return resource Database connection handle
+	 * @return PDO Database connection handle
 	 */
 	static function sql_connect ( $sql_details )
 	{
@@ -447,6 +448,7 @@ class SSP {
 				"An error occurred while connecting to the database. ".
 				"The error reported by the server was: ".$e->getMessage()
 			);
+			exit(0); // redundant, but PHPStan wants it.
 		}
 
 		return $db;
@@ -456,7 +458,7 @@ class SSP {
 	/**
 	 * Execute an SQL query on the database
 	 *
-	 * @param  resource $db  Database handler
+	 * @param  PDO $db  Database handler
 	 * @param  array    $bindings Array of PDO binding values from bind() to be
 	 *   used for safely escaping strings. Note that this can be given as the
 	 *   SQL query string if no bindings are required.
@@ -473,11 +475,9 @@ class SSP {
 		$stmt = $db->prepare( $sql );
 
 		// Bind parameters
-		if ( is_array( $bindings ) ) {
-			for ( $i=0, $ien=count($bindings) ; $i<$ien ; $i++ ) {
-				$binding = $bindings[$i];
-				$stmt->bindValue( $binding['key'], $binding['val'], $binding['type'] );
-			}
+		for ( $i=0, $ien=count($bindings) ; $i<$ien ; $i++ ) {
+			$binding = $bindings[$i];
+			$stmt->bindValue( $binding['key'], $binding['val'], $binding['type'] );
 		}
 
 		// Execute
@@ -519,7 +519,7 @@ class SSP {
 	 * when executing a query with sql_exec()
 	 *
 	 * @param  array &$a    Array of bindings
-	 * @param  *      $val  Value to bind
+	 * @param  mixed  $val  Value to bind
 	 * @param  int    $type PDO field type
 	 * @return string       Bound key to be used in the SQL where this parameter
 	 *   would be used.
@@ -587,7 +587,7 @@ class SSP {
 		if ( ! $a ) {
 			return '';
 		}
-		else if ( $a && is_array($a) ) {
+		else if ( is_array($a) ) {
 			return implode( $join, $a );
 		}
 		return $a;
