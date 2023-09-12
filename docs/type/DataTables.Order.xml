@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="dt">
+	<name>DataTables.Order</name>
+	<summary>DataTables ordering object</summary>
+
+	<description>
+	<![CDATA[
+
+Ordering in DataTables can be set with `-init order` or the `-api order()` method. Each can accept various forms of input, and selecting which is easiest for you to use will depend upon the configuration of your DataTable.
+
+Using [Typescript definitions](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html), the ordering type is defined as:
+
+```js
+interface OrderIdx {
+	idx: number;
+	dir: 'asc' | 'desc';
+}
+
+interface OrderName {
+	name: string;
+	dir: 'asc' | 'desc';
+}
+
+type OrderArray = [number, 'asc' | 'desc'];
+
+type OrderCombined = OrderIdx | OrderName | OrderArray;
+
+type Order = OrderCombined | OrderCombined[];
+```
+
+## Properties
+
+### Object - index based
+
+In this case the ordering is defined as an object which has `idx` (column index) and `dir` (direction) properties to define which column the table should order on. For example:
+
+```js
+{
+	idx: 1,
+	dir: 'asc'
+}
+```
+
+### Object - name based
+
+The name based ordering is the same as index based, but the column name defined by `-init columns.name` is used to identify columns. This can be particularly useful if you have a large number of columns or they can change based on user input.
+
+```js
+{
+	name: 'first_name',
+	dir: 'desc'
+}
+```
+
+### Single dimension array (tuple)
+
+In this form an array of two elements is used to define the ordering to apply to the table. The first element in the array is the column index and the second is the direction. The following matches the _Object - index based_ example, but with the array syntax:
+
+```js
+[
+	1,
+	'asc'
+]
+```
+
+### Two dimensional array
+
+Multi-column ordering is defined by providing an array of the above options. You can mix types if you like (although this is relatively unusual, it can be a bit confusing!):
+
+```js
+[
+	{ idx: 1, 'asc' },
+	{ idx: 2, 'desc' }
+]
+```
+
+## Return types
+
+Please note that the `-init order()` method will always return an array of single dimension arrays (tuples) which contain the column index and direction. This is the representation that DataTables uses internally and the other forms are converted to the tuple array when DataTables performs ordering operations.
+
+	]]>
+	</description>
+</dt-type>

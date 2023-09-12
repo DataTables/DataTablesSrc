@@ -220,4 +220,101 @@ describe('core- order()', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Angelica Ramos');
 		});
 	});
+
+	describe('Functional tests - index object', function() {
+		let table;
+		dt.html('basic');
+
+		it('Single', function() {
+			table = $('#example').DataTable();
+			table
+				.order({idx: 1, dir: 'asc'})
+				.draw();
+
+			expect($('#example tbody tr:first-child td:first-child').text()).toBe('Garrett Winters');
+		});
+
+		it('Single - desc', function() {
+			table
+				.order({idx: 5, dir: 'desc'})
+				.draw();
+
+			expect($('#example tbody tr:first-child td:first-child').text()).toBe('Angelica Ramos');
+		});
+
+		it('Multi', function() {
+			table
+				.order([
+					{ idx: 3, dir: 'asc'},
+					{ idx: 2, dir: 'asc'},
+				])
+				.draw();
+
+			expect($('#example tbody tr:nth-child(3) td:first-child').text()).toBe('Lael Greer');
+		});
+
+		it('Multi reverse', function() {
+			table
+				.order([
+					{ idx: 3, dir: 'asc'},
+					{ idx: 2, dir: 'desc'},
+				])
+				.draw();
+
+			expect($('#example tbody tr:nth-child(3) td:first-child').text()).toBe('Caesar Vance');
+		});
+	});
+
+	describe('Functional tests - name object', function() {
+		let table;
+		dt.html('basic');
+
+		it('Single', function() {
+			table = $('#example').DataTable({
+				columns: [
+					{ name: 'name' },
+					{ name: 'position' },
+					{ name: 'office' },
+					{ name: 'age' },
+					{ name: 'start' },
+					{ name: 'salary' }
+				]
+			});
+			table
+				.order({name: 'position', dir: 'asc'})
+				.draw();
+
+			expect($('#example tbody tr:first-child td:first-child').text()).toBe('Garrett Winters');
+		});
+
+		it('Single - desc', function() {
+			table
+				.order({name: 'salary', dir: 'desc'})
+				.draw();
+
+			expect($('#example tbody tr:first-child td:first-child').text()).toBe('Angelica Ramos');
+		});
+
+		it('Multi', function() {
+			table
+				.order([
+					{ name: 'age', dir: 'asc'},
+					{ name: 'office', dir: 'asc'},
+				])
+				.draw();
+
+			expect($('#example tbody tr:nth-child(3) td:first-child').text()).toBe('Lael Greer');
+		});
+
+		it('Multi reverse', function() {
+			table
+				.order([
+					{ name: 'age', dir: 'asc'},
+					{ name: 'office', dir: 'desc'},
+				])
+				.draw();
+
+			expect($('#example tbody tr:nth-child(3) td:first-child').text()).toBe('Caesar Vance');
+		});
+	});
 });

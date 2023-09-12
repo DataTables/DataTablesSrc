@@ -101,4 +101,132 @@ describe('order Option', function() {
 			expect($('#example_two tbody tr:eq(0) td:eq(1)').html()).toBe('534');
 		});
 	});
+
+	describe('Functional tests - index object', function() {
+		dt.html('basic');
+
+		it('Single', function() {
+			$('#example').DataTable({
+				order: {idx: 1, dir: 'asc'}
+			});
+
+			expect($('#example tbody tr:first-child td:first-child').text()).toBe('Garrett Winters');
+		});
+
+		dt.html('basic');
+
+		it('Single - desc', function() {
+			$('#example').DataTable({
+				order: {idx: 5, dir: 'desc'}
+			});
+
+			expect($('#example tbody tr:first-child td:first-child').text()).toBe('Angelica Ramos');
+		});
+
+		dt.html('basic');
+
+		it('Multi', function() {
+			$('#example').DataTable({
+				order: [
+					{ idx: 3, dir: 'asc'},
+					{ idx: 2, dir: 'asc'},
+				]
+			});
+
+			expect($('#example tbody tr:nth-child(3) td:first-child').text()).toBe('Lael Greer');
+		});
+
+		dt.html('basic');
+
+		it('Multi reverse', function() {
+			$('#example').DataTable({
+				order: [
+					{ idx: 3, dir: 'asc'},
+					{ idx: 2, dir: 'desc'},
+				]
+			});
+
+			expect($('#example tbody tr:nth-child(3) td:first-child').text()).toBe('Caesar Vance');
+		});
+	});
+
+	describe('Functional tests - name object', function() {
+		dt.html('basic');
+
+		it('Single', function() {
+			$('#example').DataTable({
+				columns: [
+					{ name: 'name' },
+					{ name: 'position' },
+					{ name: 'office' },
+					{ name: 'age' },
+					{ name: 'start' },
+					{ name: 'salary' }
+				],
+				order: {name: 'position', dir: 'asc'}
+			});
+
+			expect($('#example tbody tr:first-child td:first-child').text()).toBe('Garrett Winters');
+		});
+
+		dt.html('basic');
+
+		it('Single - desc', function() {
+			$('#example').DataTable({
+				columns: [
+					{ name: 'name' },
+					{ name: 'position' },
+					{ name: 'office' },
+					{ name: 'age' },
+					{ name: 'start' },
+					{ name: 'salary' }
+				],
+				order: {name: 'salary', dir: 'desc'}
+			});
+
+			expect($('#example tbody tr:first-child td:first-child').text()).toBe('Angelica Ramos');
+		});
+
+		dt.html('basic');
+
+		it('Multi', function() {
+			$('#example').DataTable({
+				columns: [
+					{ name: 'name' },
+					{ name: 'position' },
+					{ name: 'office' },
+					{ name: 'age' },
+					{ name: 'start' },
+					{ name: 'salary' }
+				],
+				order: [
+					{ name: 'age', dir: 'asc'},
+					{ name: 'office', dir: 'asc'},
+				]
+			});
+
+			expect($('#example tbody tr:nth-child(3) td:first-child').text()).toBe('Lael Greer');
+		});
+
+		dt.html('basic');
+
+		it('Multi reverse', function() {
+			$('#example').DataTable({
+				columns: [
+					{ name: 'name' },
+					{ name: 'position' },
+					{ name: 'office' },
+					{ name: 'age' },
+					{ name: 'start' },
+					{ name: 'salary' }
+				],
+				order: [
+					{ name: 'age', dir: 'asc'},
+					{ name: 'office', dir: 'desc'},
+				]
+			});
+
+			expect($('#example tbody tr:nth-child(3) td:first-child').text()).toBe('Caesar Vance');
+		});
+	});
 });

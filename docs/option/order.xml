@@ -4,28 +4,47 @@
 	<summary>Initial order (sort) to apply to the table</summary>
 	<since>1.10</since>
 
-	<type type="array" />
+	<type type="DataTables.Order" />
 	<default value="[[0, 'asc']]" />
 
 	<description>
-		If ordering is enabled (`dt-init ordering`), then DataTables will perform a first pass order during initialisation. Using this parameter you can define which column(s) the order is performed upon, and the ordering direction. The `dt-init order` must be an array of arrays, each inner array comprised of two elements:
-
-		* Column index to order upon
-		* Direction so order to apply (`-string asc` for ascending order or `-string desc` for descending order).
-
-		This 2D array structure allows a multi-column order to be defined as the initial state should it be required.
+		If ordering is enabled (`dt-init ordering`), then DataTables will perform a first pass order during initialisation. Using this parameter you can define which column(s) the order is performed upon, and the ordering direction. The `dt-init order` can be defined in a number of different ways as defined by `-type DataTables.Order`.
 	</description>
 
 	<example title="No ordering applied by DataTables during initialisation. The rows are shown in the order they are read by DataTables (i.e. the original order from the DOM if DOM sourced, or the array of data if Ajax / data sourced)"><![CDATA[
-$('#example').dataTable( {
-	"order": []
-} );
+new DataTable('#example', {
+	order: []
+});
 ]]></example>
 
 
-	<example title="Multi-column ordering as the initial state"><![CDATA[
-$('#example').dataTable( {
-	"order": [[ 0, 'asc' ], [ 1, 'asc' ]]
+	<example title="Multi-column ordering as the initial state (using tuples)"><![CDATA[
+new DataTable('#example', {
+	order: [[ 0, 'asc' ], [ 1, 'asc' ]]
+} );
+]]></example>
+
+	<example title="Single-column ordering as the initial state (using objects)"><![CDATA[
+new DataTable('#example', {
+	order: {
+		idx: 1,
+		dir: 'asc'
+	}
+} );
+]]></example>
+
+	<example title="Single-column ordering as the initial state (using objects and column names)"><![CDATA[
+new DataTable('#example', {
+	columns: [
+		{ name: 'first_name' },
+		{ name: 'last_name' },
+		{ name: 'position' },
+		{ name: 'city' }
+	],
+	order: {
+		name: 'city',
+		dir: 'asc'
+	}
 } );
 ]]></example>
 
