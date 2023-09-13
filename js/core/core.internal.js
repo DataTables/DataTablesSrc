@@ -223,6 +223,23 @@ var _escapeHtml = function ( d ) {
 		d;
 };
 
+// Remove diacritics from a string by decomposing it and then removing
+// non-ascii characters
+var _normalize = function (str, both) {
+	if (typeof str !== 'string') {
+		return str;
+	}
+
+	// It is faster to just run `normalize` than it is to check if
+	// we need to with a regex!
+	var res = str.normalize("NFD");
+
+	// Equally, here we check if a regex is needed or not
+	return res.length !== str.length
+		? (both === true ? str + ' ' : '' ) + res.replace(/[\u0300-\u036f]/g, "")
+		: res;
+}
+
 /**
  * Determine if all values in the array are unique. This means we can short
  * cut the _unique method at the cost of a single loop. A sorted array is used

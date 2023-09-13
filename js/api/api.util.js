@@ -11,6 +11,21 @@
  */
 DataTable.util = {
 	/**
+	 * Return a string with diacritic characters decomposed
+	 * @param {*} mixed Function or string to normalize
+	 * @param {*} both Return original string and the normalized string
+	 * @returns String or undefined
+	 */
+	diacritics: function (mixed, both) {
+		var type = typeof mixed;
+
+		if (type !== 'function') {
+			return _normalize(mixed, both);
+		}
+		_normalize = mixed;
+	},
+
+	/**
 	 * Throttle the calls to a function. Arguments and context are maintained
 	 * for the throttled function.
 	 *
@@ -44,7 +59,6 @@ DataTable.util = {
 			}
 		};
 	},
-
 
 	/**
 	 * Escape a string such that it can be used in a regular expression

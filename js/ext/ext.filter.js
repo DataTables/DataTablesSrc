@@ -1,16 +1,21 @@
 
-// Filter formatting functions. See model.ext.ofnSearch for information about
-// what is required from these methods.
-// 
-// Note that additional search methods are added for the html numbers and
-// html formatted numbers by `_addNumericSort()` when we know what the decimal
-// place is
+// Common function to remove new lines, strip HTML and diacritic control
+var _filterString = function (stripHtml, diacritics) {
+	return function (str) {
+		if (_empty(str) || typeof str !== 'string') {
+			return str;
+		}
 
-function __extSearchHtml ( data ) {
-	return _empty(data) ?
-		data :
-		typeof data === 'string' ?
-			_stripHtml(data.replace( _re_new_lines, " " )) :
-			'';
+		str = str.replace( _re_new_lines, " " );
+
+		if (stripHtml) {
+			str = _stripHtml(str);
+		}
+
+		if (diacritics) {
+			str = _normalize(str, true);
+		}
+
+		return str;
+	};
 }
-

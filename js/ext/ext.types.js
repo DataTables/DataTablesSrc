@@ -123,13 +123,7 @@ DataTable.type('string', {
 						a.toString();
 		}
 	},
-	search: function ( data ) {
-		return _empty(data) ?
-			data :
-			typeof data === 'string' ?
-				data.replace( _re_new_lines, " " ) :
-				data;
-	}
+	search: _filterString(false, true)
 });
 
 
@@ -147,7 +141,7 @@ DataTable.type('html', {
 					a+'';
 		}
 	},
-	search: __extSearchHtml
+	search: _filterString(true, true)
 });
 
 
@@ -186,7 +180,7 @@ DataTable.type('html-num-fmt', {
 			return __numericReplace( d, dp, _re_html, _re_formatted_numeric );
 		}
 	},
-	search: __extSearchHtml
+	search: _filterString(true, true)
 });
 
 
@@ -203,7 +197,7 @@ DataTable.type('html-num', {
 			return __numericReplace( d, dp, _re_html );
 		}
 	},
-	search: __extSearchHtml
+	search: _filterString(true, true)
 });
 
 

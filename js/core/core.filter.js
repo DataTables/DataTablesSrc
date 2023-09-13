@@ -209,7 +209,7 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 			? not.join('')
 			: '';
 
-		search = '^(?=.*?\\b'+a.join( ')(?=.*?\\b' )+')('+match+'.)*$';
+		search = '^(?=.*?'+a.join( ')(?=.*?' )+')('+match+'.)*$';
 	}
   
 	return new RegExp( search, caseInsensitive ? 'i' : '' );

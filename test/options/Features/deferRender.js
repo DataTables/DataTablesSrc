@@ -86,11 +86,11 @@ describe('deferRender option', function() {
 		});
 		it('Filtering will create only those required', function() {
 			table.search('m').draw();
-			checkNodes(210, 35);
+			checkNodes(186, 31);
 		});
 		it('Ordering will only create those required', function() {
 			table.order([0, 'desc']).draw();
-			checkNodes(210, 35);
+			checkNodes(222, 37);
 		});
 
 		dt.html('empty');

@@ -97,31 +97,31 @@ describe('column - columns().search()', function() {
 			let table = $('#example').DataTable();
 			table
 				.columns([0, 1])
-				.search('j')
+				.search('de')
 				.draw();
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Jennifer Acosta');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Jonas Alexander');
 		});
 
 		dt.html('basic');
 		it('Search by searchCols', function() {
 			let table = $('#example').DataTable({
-				searchCols: [{ search: 'j' }, { search: 'j' }]
+				searchCols: [{ search: 'de' }, { search: 'de' }]
 			});
 
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Jennifer Acosta');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Jonas Alexander');
 		});
 
 		dt.html('basic');
 		it('Search by searchCols and API', function() {
 			let table = $('#example').DataTable({
-				searchCols: [{}, {}, { search: 'Edinburgh' }]
+				searchCols: [{}, {}, { search: 'San Francisco' }]
 			});
 
 			table
 				.columns([0, 1])
 				.search('d')
 				.draw();
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Shad Decker');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Charde Marshall');
 		});
 
 		dt.html('basic');
@@ -148,10 +148,10 @@ describe('column - columns().search()', function() {
 		it('Smart search on by default', function() {
 			let table = $('#example').DataTable();
 			table
-				.columns([0, 2])
-				.search('l', false)
+				.columns([0, 1])
+				.search('s d', false)
 				.draw();
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Lael Greer');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Dai Rios');
 		});
 
 		dt.html('basic');
@@ -168,10 +168,10 @@ describe('column - columns().search()', function() {
 		it('Case insensitivity by default', function() {
 			let table = $('#example').DataTable();
 			table
-				.columns([0])
-				.search('jen', false, true)
+				.columns([0, 1])
+				.search('de', false, true)
 				.draw();
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Jena Gaines');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Jonas Alexander');
 		});
 
 		dt.html('basic');

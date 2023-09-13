@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.util.diacritics()</name>
+	<summary>Decompose a UTF8 string to remove diacritics</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>diacritics( str [, append ] )</signature>
+		<description>Remove accents from characters in a string.</description>
+		<param type="string" name="str">
+			String to have accents removed from characters.
+		</param>
+		<param type="boolean" name="append" default="false">
+			Indicate if the stripped string should be appended to the original (`true`), or if just the stripped string should be returned.
+		</param>
+		<returns type="string">Modified string</returns>
+	</type>
+
+	<type type="function">
+		<signature>diacritics( fn )</signature>
+		<description>Set the accent removal function.</description>
+		<param type="function" name="fn">
+			Function to use for accent removal in DataTables. The provided function signature must match the signature of this function when used as a getter (above).
+		</param>
+	</type>
+
+	<description>
+	<![CDATA[
+		DataTables built in search abilities support the user searching for accented characters ([diacritics](https://en.wikipedia.org/wiki/Diacritic)) with or without the accent. This can make typing the search term faster, as well as expanding the scope of the search to a character with different accents.
+
+		We use a method to [decompose the string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) and then remove the accent characters. This API method exposes that function for external use and also provides the ability to set your own accent stripping function if you wish to modify the default behaviour.
+	]]>
+	</description>
+
+	<example title="Remove accents from a string"><![CDATA[
+
+let stripped = DataTable.util.diacritics('Crème Brulée');
+
+// stripped is: 'Creme Brulee'
+
+]]></example>
+</dt-api>

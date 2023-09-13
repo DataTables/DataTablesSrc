@@ -157,10 +157,10 @@ describe('core - search.fixed()', function() {
 		});
 
 		it('Multiple search', function() {
-			table.column(0).search.fixed('test', 'ga');
-			table.column(0).search.fixed('test2', 'cor').draw();
+			table.column(0).search.fixed('test', 'ar');
+			table.column(0).search.fixed('test2', 'tt').draw();
 			
-			expect($('#example tbody td').eq(0).text()).toBe('Gavin Cortez');
+			expect($('#example tbody td').eq(0).text()).toBe('Garrett Winters');
 		});
 
 		it('Can remove a single search', function() {
@@ -168,7 +168,7 @@ describe('core - search.fixed()', function() {
 
 			table.column(0).search.fixed('test2', null).draw();
 			
-			expect($('#example tbody td').eq(0).text()).toBe('Garrett Winters');
+			expect($('#example tbody td').eq(0).text()).toBe('Caesar Vance');
 		});
 	});
 
@@ -183,9 +183,9 @@ describe('core - search.fixed()', function() {
 
 			table.column(0).search.fixed('test', 'A');
 			table.column(3).search.fixed('test', '6');
-			table.column(5).search.fixed('test', '8').draw();
+			table.column(5).search.fixed('test', '7').draw();
 			
-			expect($('#example tbody td').eq(0).text()).toBe('Ashton Cox');
+			expect($('#example tbody td').eq(0).text()).toBe('Brielle Williamson');
 		});
 
 		it('Independent over columns', function() {

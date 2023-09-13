@@ -290,12 +290,12 @@ describe('Basic Datatables Test', function() {
 			$('div.dataTables_filter input')
 				.val('W')
 				.keyup();
-			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Brenden Wagner');
+			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Bradley Greer');
 		});
 
 		it("Filter 'W'- info", function() {
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
-				'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
+				'Showing 1 to 10 of 20 entries (filtered from 57 total entries)'
 			);
 		});
 
