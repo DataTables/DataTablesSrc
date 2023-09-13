@@ -30,15 +30,6 @@ function _fnCalculateColumnWidths ( oSettings )
 		visible: visibleColumns
 	});
 
-	/* Convert any user input sizes into pixel sizes */
-	for ( i=0 ; i<visibleColumns.length ; i++ ) {
-		column = columns[ visibleColumns[i] ];
-
-		column.sWidth = column.sWidthOrig !== null
-			? _fnConvertToWidth( column.sWidthOrig, tableContainer )
-			: null;
-	}
-
 	// Construct a single row, worst case, table with the widest
 	// node in the data, assign any user defined widths, then insert it into
 	// the DOM and allow the browser to do all the hard work of calculating
@@ -202,30 +193,6 @@ function _fnCalculateColumnWidths ( oSettings )
  *  @memberof DataTable#oApi
  */
 var _fnThrottle = DataTable.util.throttle;
-
-
-/**
- * Convert a CSS unit width to pixels (e.g. 2em)
- *  @param {string} width width to be converted
- *  @param {node} parent parent to get the with for (required for relative widths) - optional
- *  @returns {int} width in pixels
- *  @memberof DataTable#oApi
- */
-function _fnConvertToWidth ( width, parent )
-{
-	if ( ! width ) {
-		return 0;
-	}
-
-	var n = $('<div/>')
-		.css( 'width', _fnStringToCss( width ) )
-		.appendTo( parent || document.body );
-
-	var val = n[0].offsetWidth;
-	n.remove();
-
-	return val;
-}
 
 
 /**
