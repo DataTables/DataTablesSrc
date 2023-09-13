@@ -137,7 +137,7 @@ DataTable.type('html', {
 			return _empty(a) ?
 				'' :
 				a.replace ?
-					a.replace( /<.*?>/g, "" ).toLowerCase() :
+					_stripHtml(a).trim().toLowerCase() :
 					a+'';
 		}
 	},
