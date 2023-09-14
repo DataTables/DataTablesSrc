@@ -29,6 +29,10 @@ _ext.features.register( 'paging', function ( settings, opts ) {
 } );
 
 function _pagingDraw(settings, host, opts) {
+	if (! settings._bInitComplete) {
+		return;
+	}
+
 	var
 		plugin = DataTable.ext.pager[ opts.type ],
 		aria = settings.oLanguage.oAria.paginate || {},

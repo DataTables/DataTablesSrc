@@ -1,23 +1,27 @@
 
 /**
  * Calculate the width of columns for the table
- *  @param {object} oSettings dataTables settings object
+ *  @param {object} settings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnCalculateColumnWidths ( oSettings )
+function _fnCalculateColumnWidths ( settings )
 {
+	// Not interested in doing column width calculation if auto-width is disabled
+	if (! settings.oFeatures.bAutoWidth) {
+		return;
+	}
+
 	var
-		table = oSettings.nTable,
-		columns = oSettings.aoColumns,
-		scroll = oSettings.oScroll,
+		table = settings.nTable,
+		columns = settings.aoColumns,
+		scroll = settings.oScroll,
 		scrollY = scroll.sY,
 		scrollX = scroll.sX,
 		scrollXInner = scroll.sXInner,
-		visibleColumns = _fnGetColumns( oSettings, 'bVisible' ),
+		visibleColumns = _fnGetColumns( settings, 'bVisible' ),
 		tableWidthAttr = table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentNode,
-		i, column, columnIdx,
-		browser = oSettings.oBrowser;
+		i, column, columnIdx;
 
 	var styleWidth = table.style.width;
 	if ( styleWidth && styleWidth.indexOf('%') !== -1 ) {
@@ -46,8 +50,8 @@ function _fnCalculateColumnWidths ( oSettings )
 	// from the cloned table, since if scrolling is active, the table's
 	// real header and footer are contained in different table tags
 	tmpTable
-		.append( $(oSettings.nTHead).clone() )
-		.append( $(oSettings.nTFoot).clone() );
+		.append( $(settings.nTHead).clone() )
+		.append( $(settings.nTFoot).clone() );
 
 	// Remove any assigned widths from the footer (from scrolling)
 	tmpTable.find('tfoot th, tfoot td').css('width', '');
@@ -55,7 +59,7 @@ function _fnCalculateColumnWidths ( oSettings )
 	// Apply custom sizing to the cloned header
 	tmpTable.find('thead th, thead td').each( function () {
 		// Get the `width` from the header layout
-		var width = _fnColumnsSumWidth( oSettings, this, true, false );
+		var width = _fnColumnsSumWidth( settings, this, true, false );
 
 		if ( width ) {
 			this.style.width = width;
@@ -83,7 +87,7 @@ function _fnCalculateColumnWidths ( oSettings )
 		columnIdx = visibleColumns[i];
 		column = columns[ columnIdx ];
 
-		var longest = _fnGetMaxLenString(oSettings, columnIdx);
+		var longest = _fnGetMaxLenString(settings, columnIdx);
 		var autoClass = _ext.type.className[column.sType];
 		
 		$('<td/>')
@@ -168,18 +172,18 @@ function _fnCalculateColumnWidths ( oSettings )
 		table.style.width = _fnStringToCss( tableWidthAttr );
 	}
 
-	if ( (tableWidthAttr || scrollX) && ! oSettings._reszEvt ) {
+	if ( (tableWidthAttr || scrollX) && ! settings._reszEvt ) {
 		var bindResize = function () {
-			$(window).on('resize.DT-'+oSettings.sInstance, _fnThrottle( function () {
-				if (! oSettings.bDestroying) {
-					_fnAdjustColumnSizing( oSettings );
+			$(window).on('resize.DT-'+settings.sInstance, _fnThrottle( function () {
+				if (! settings.bDestroying) {
+					_fnAdjustColumnSizing( settings );
 				}
 			} ) );
 		};
 
 		bindResize();
 
-		oSettings._reszEvt = true;
+		settings._reszEvt = true;
 	}
 }
 

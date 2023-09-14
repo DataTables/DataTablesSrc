@@ -10,7 +10,7 @@ describe('core - events - column-sizing', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-		it('Not called on initialisation', function() {
+		it('Called during initialisation', function() {
 			table = $('#example')
 				.on('column-sizing.dt', function() {
 					params = arguments;
@@ -18,12 +18,12 @@ describe('core - events - column-sizing', function() {
 				})
 				.DataTable();
 
-			expect(count).toBe(0);
+			expect(count).toBe(1);
 		});
 
 		it('Called with expected parameters', function() {
 			table.columns.adjust();
-			expect(count).toBe(1);
+			expect(count).toBe(2);
 			expect(params.length).toBe(2);
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1]).toBe(table.settings()[0]);
@@ -46,7 +46,7 @@ describe('core - events - column-sizing', function() {
 
 	describe('Functional tests', function() {
 		dt.html('basic');
-		it('Not called on initial draw', function() {
+		it('Called on initial draw', function() {
 			count = 0;
 			table = $('#example')
 				.on('column-sizing.dt', function() {
@@ -54,15 +54,15 @@ describe('core - events - column-sizing', function() {
 				})
 				.DataTable();
 
-			expect(count).toBe(0);
+			expect(count).toBe(1);
 		});
 		it('Called when column made invisible', function() {
 			table.column(1).visible(false);
-			expect(count).toBe(1);
+			expect(count).toBe(2);
 		});
 		it('Called when column made visible', function() {
 			table.column(1).visible(true);
-			expect(count).toBe(2);
+			expect(count).toBe(3);
 		});
 	});
 });

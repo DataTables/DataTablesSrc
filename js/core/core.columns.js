@@ -140,11 +140,8 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
  */
 function _fnAdjustColumnSizing ( settings )
 {
-	/* Not interested in doing column width calculation if auto-width is disabled */
-	if ( settings.oFeatures.bAutoWidth !== false ) {
-		_fnCalculateColumnWidths( settings );
-		_fnColumnSizes( settings );
-	}
+	_fnCalculateColumnWidths( settings );
+	_fnColumnSizes( settings );
 
 	var scroll = settings.oScroll;
 	if ( scroll.sY !== '' || scroll.sX !== '') {
