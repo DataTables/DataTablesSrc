@@ -731,7 +731,9 @@ class DT_Example
 				$out[$name] = [];
 			}
 
-			$out[$name]['css'] = $url;
+			$out[$name]['css'] = strpos($url, '/home/vagrant') === 0
+				? call_user_func( $this->_path_resolver, $url)
+				: $url;
 		}
 
 		foreach ( DT_Example::$lookup_libraries['js'] as $name => $url ) {
@@ -739,7 +741,9 @@ class DT_Example
 				$out[$name] = [];
 			}
 
-			$out[$name]['js'] = $url;
+			$out[$name]['js'] = strpos($url, '/home/vagrant') === 0
+				? call_user_func( $this->_path_resolver, $url)
+				: $url;
 		}
 
 		return $out;
