@@ -29,12 +29,6 @@ function _fnInitialise ( settings )
 	/* Okay to show that something is going on now */
 	_fnProcessingDisplay( settings, true );
 
-	/* Calculate sizes for columns */
-	if ( features.bAutoWidth ) {
-		_fnCalculateColumnWidths( settings );
-	}
-
-	_fnColumnSizes( settings );
 	_fnCallbackFire( settings, null, 'preInit', [settings], true );
 
 	// If there is default sorting required - let's do it. The sort function
@@ -43,8 +37,9 @@ function _fnInitialise ( settings )
 	// data (show 'loading' message possibly)
 	_fnReDraw( settings );
 
-	// Server-side processing init complete is done by _fnAjaxUpdateDraw
 	var dataSrc = _fnDataSource( settings );
+
+	// Server-side processing init complete is done by _fnAjaxUpdateDraw
 	if ( dataSrc != 'ssp' ) {
 		// if there is an ajax source load the data
 		if ( dataSrc == 'ajax' ) {
@@ -86,11 +81,9 @@ function _fnInitComplete ( settings, json )
 {
 	settings._bInitComplete = true;
 
-	// When data was added after the initialisation (data or Ajax) we need to
-	// calculate the column sizing
-	if ( json || settings.oInit.aaData ) {
-		_fnAdjustColumnSizing( settings );
-	}
+	// Table is fully set up and we have data, so calculate the
+	// column widths
+	_fnAdjustColumnSizing( settings );
 
 	_fnCallbackFire( settings, null, 'plugin-init', [settings, json], true );
 	_fnCallbackFire( settings, 'aoInitComplete', 'init', [settings, json], true );
