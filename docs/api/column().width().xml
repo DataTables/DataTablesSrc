@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column().width()</name>
+	<summary>Get the width of a column.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>column().width()</signature>
+		<description>Compute the width of a column as it is shown.</description>
+		<returns type="number|null">The width of the column in pixels or `null` if there is no data in the table.</returns>
+	</type>
+
+	<description>
+		This method is a helper method to get the width of the column in a table. It can be used by extension authors who need to utalise the width of a column (for example the _Buttons_ extension uses widths for the Excel and PDF export).
+
+		The result given is the "outer width" of the cell for the first row in the target column. This is a result of DataTables support for complex headers where a column does not need its own unique header cell, so we must use the data cells. Thus if there is no data in the table this method will return `null`. A check for `null` should always be made on the return value from this function. Fortunately, it is unusual to need to perform column width calculations on an empty result set.
+
+		The returned number might not be an integer, depending on the browser's table rendering.
+	</description>
+
+	<example title="Get the width for a column that was clicked on"><![CDATA[
+let table = new DataTable("#example");
+
+table.on("click", "tbody td", function () {
+  let width = table.column(this).width();
+
+  alert("Column width: " + width);
+}); 
+]]></example>
+
+	<related>-init columns.width</related>
+	<related>-api column().width()</related>
+	<related>-api columns().width()</related>
+</dt-api>

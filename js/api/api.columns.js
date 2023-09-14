@@ -339,6 +339,17 @@ _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis
 	return ret;
 } );
 
+_api_registerPlural( 'columns().width()', 'column().width()', function () {
+	return this.length ?
+		this
+			.cells(':eq(0)', this[0], {page: 'current'})
+			.nodes()
+			.reduce(function (accum, el) {
+				return accum += $(el).outerWidth()
+			}, 0) || null
+		: null;
+} );
+
 _api_registerPlural( 'columns().indexes()', 'column().index()', function ( type ) {
 	return this.iterator( 'column', function ( settings, column ) {
 		return type === 'visible' ?
