@@ -32,6 +32,7 @@ var __reload = function ( settings, holdPosition, callback ) {
 			}
 
 			_fnReDraw( settings, holdPosition );
+			_fnInitComplete( settings );
 			_fnProcessingDisplay( settings, false );
 		} );
 	}

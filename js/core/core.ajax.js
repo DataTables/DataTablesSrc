@@ -234,11 +234,7 @@ function _fnAjaxUpdateDraw ( settings, json )
 	settings.aiDisplay = settings.aiDisplayMaster.slice();
 
 	_fnDraw( settings, true );
-
-	if ( ! settings._bInitComplete ) {
-		_fnInitComplete( settings, json );
-	}
-
+	_fnInitComplete( settings );
 	_fnProcessingDisplay( settings, false );
 }
 

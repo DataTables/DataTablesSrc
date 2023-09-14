@@ -9,9 +9,7 @@
 
 <js><![CDATA[
 $('#example').DataTable({
-    ajax: 'data/arrays.txt',
-    scrollY: 300,
-    paging: false
+    ajax: 'data/arrays.txt'
 });
 ]]></js>
 
