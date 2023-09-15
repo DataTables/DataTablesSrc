@@ -277,4 +277,59 @@ describe('columns.render option', function() {
 			expect($('#example_two tbody tr:eq(1) td:eq(0)').text()).toBe('BBB Milan');
 		});
 	});
+
+	describe('DOM node return', function () {
+		let table;
+
+		dt.html('empty');
+
+		it('Renders', function (done) {
+			table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				columns: [
+					{ data: 'name', render: (data, type) => {
+						if (type === 'display') {
+							var el = document.createElement('div');
+							el.textContent = data;
+							return el;
+						}
+						return data;
+					} },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				initComplete: function () {
+					expect($('tbody tr:eq(2) td:eq(0)').text()).toBe(
+						'Ashton Cox'
+					);
+					done();
+				}
+			});
+		});
+
+		it('Elements are in place', function () {
+			expect($('tbody tr:first-child td:first-child div').text()).toBe(
+				'Airi Satou'
+			);
+		});
+
+		it('Can still reverse sort', async function () {
+			await dt.clickHeader(0);
+
+			expect($('tbody tr:first-child td:first-child div').text()).toBe(
+				'Zorita Serrano'
+			);
+		});
+
+		it('Can still filter', async function () {
+			table.search('Yuri').draw();
+
+			expect($('tbody tr:first-child td:first-child div').text()).toBe(
+				'Yuri Berry'
+			);
+		});
+	});
 });

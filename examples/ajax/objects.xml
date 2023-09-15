@@ -21,10 +21,17 @@ $('#example').DataTable({
 ]]></js>
 
 <js-vanilla><![CDATA[
-new DataTable('#example', {
+var table = new DataTable('#example', {
 	ajax: 'data/objects.txt',
 	columns: [
-		{ data: 'name' },
+		{ data: 'name', render: (data, type) => {
+			if (type === 'display') {
+				var el = document.createElement('div');
+				el.textContent = data;
+				return el;
+			}
+			return data;
+		} },
 		{ data: 'position' },
 		{ data: 'office' },
 		{ data: 'extn' },
@@ -32,6 +39,9 @@ new DataTable('#example', {
 		{ data: 'salary' }
 	]
 });
+
+			table.ajax.reload();
+
 ]]></js-vanilla>
 
 <info><![CDATA[

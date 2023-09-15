@@ -13,7 +13,7 @@ function _fnGetRowDisplay (settings, rowIdx) {
 	
 		for ( var colIdx=0, len=columns.length ; colIdx<len ; colIdx++ ) {
 			rowModal.displayData.push(
-				_fnGetCellData( settings, rowIdx, colIdx, 'display' )+''
+				_fnGetCellData( settings, rowIdx, colIdx, 'display' )
 			);
 		}
 	}
@@ -80,7 +80,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			if ( create || ((oCol.mRender || oCol.mData !== i) &&
 				 (!$.isPlainObject(oCol.mData) || oCol.mData._ !== i+'.display')
 			)) {
-				nTd.innerHTML = display[i];
+				_fnWriteCell(nTd, display[i]);
 			}
 
 			// Visibility - add or remove as required

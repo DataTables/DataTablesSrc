@@ -22,9 +22,9 @@
 	</type>
 	<type type="object">
 		<description>
-			Use different data for the different data types requested by DataTables (`string filter`, `string display`, `string type` or `string sort`). The property names of the object is the data type the property refers to and the value can defined using an integer, string or function using the same rules as `dt-init columns.render` normally does.
+			Use different data for the different data types requested by DataTables (`-string filter`, `-string display`, `-string type` or `-string sort`). The property names of the object is the data type the property refers to and the value can defined using an integer, string or function using the same rules as `dt-init columns.render` normally does.
 
-			Note that an `string _` option can optionally be specified. This is the default value to use if you haven't specified a value for the data type requested by DataTables. If there is no option for the data type requested that the `string _` option has not been specified, the data pointed to by the `dt-init columns.data` option will be used.
+			Note that an `-string _` option can optionally be specified. This is the default value to use if you haven't specified a value for the data type requested by DataTables. If there is no option for the data type requested that the `-string _` option has not been specified, the data pointed to by the `dt-init columns.data` option will be used.
 
 			As an example you might use:
 
@@ -48,14 +48,14 @@
 
 			```js
 			'data': 'cost',
-			'render': ['number', ',', '.', 0, '$'] }
+			'render': ['number', ',', '.', 0, '$']
 			```
 
 			which is the same as:
 
 			```js
 			data: 'cost',
-			render: $.fn.dataTable.render.number( ',', '.', 0, '$' )
+			render: DataTable.render.number( ',', '.', 0, '$' )
 			```
 		</description>
 	</type>
@@ -101,15 +101,16 @@
 		<
 		< The documentation below is a technical reference (nitty-gritty details). For a more general overview of renderers in DataTables, including discussion of the built in renderers, please refer to the [DataTables manual on this topic](https://datatables.net/manual/data/renderers).
 
-		This property will modify the data that is used by DataTables for various operations as it is read from the data source. `dt-init columns.render` can be considered to be the the read only companion to `dt-init columns.data` which is read / write (and therefore more complex). Like `dt-init columns.data` this option can be given in a number of different ways to affect its behaviour as described below.
+		This property will modify the data that is used by DataTables for various operations as it is read from the data source. Like `dt-init columns.data` this option can be given in a number of different ways to affect its behaviour as described below.
 
 		The data that is returned by the `dt-init columns.render` option (regardless of if it is used as a function, integer or string) is what DataTables will use for the requested data type (this is called the _resolved data_). DataTables ability to request different data for its different operations is referred to as [orthogonal data](//datatables.net/manual/orthogonal-data) and allows different forms of the same data to be used for different operations (for example, a date might be given formatted for an end user for display and search, but in an integer form for ordering).
 
-		There are three special values that `dt-init columns.render` can resolve to:
+		There are four special values that `dt-init columns.render` can resolve to:
 
 		* `-type undefined` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, an error will be given.
 		* `-type null` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty string will be used. `-type null` will be used for all other data types.
 		* `-type function` - the function will be executed and the returned value used. As of DataTables <span class="since">1.10.1</span> the function will be executed in the same scope as the data object for the row. The result of this is that an object instance can be used as the data source for a row. See the examples below for how to use an instance with DataTables.
+		* `-type node` <span class="since">2.0</span> - when requesting the `-string display` data type, you may return a DOM node to be displayed in the cell for the table. It is important to note that all other data types should return a string or numeric value so DataTables can operate on them (e.g. search, order and type detection need data other than a DOM node!).
 
 
 		### Array access

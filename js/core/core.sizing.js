@@ -215,9 +215,13 @@ function _fnGetMaxLenString( settings, colIdx )
 	
 		for ( var i=0, ien=settings.aiDisplayMaster.length ; i<ien ; i++ ) {
 			var rowIdx = settings.aiDisplayMaster[i];
-			var data = _fnGetRowDisplay(settings, rowIdx);
+			var data = _fnGetRowDisplay(settings, rowIdx)[colIdx];
+
+			var cellString = data && typeof data === 'object' && data.nodeType
+				? data.innerHTML
+				: data+'';
 	
-			s = _stripHtml(data[colIdx])
+			s = _stripHtml(cellString)
 				.replace( /&nbsp;/g, ' ' );
 	
 			if ( s.length > maxLen ) {

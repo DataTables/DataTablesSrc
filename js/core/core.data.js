@@ -187,6 +187,23 @@ function _fnSetCellData( settings, rowIdx, colIdx, val )
 	}  );
 }
 
+/**
+ * Write a value to a cell
+ * @param {*} td Cell
+ * @param {*} val Value
+ */
+function _fnWriteCell(td, val)
+{
+	if (val && typeof val === 'object' && val.nodeName) {
+		$(td)
+			.empty()
+			.append(val);
+	}
+	else {
+		td.innerHTML = val;
+	}
+}
+
 
 // Private variable that is used to match action syntax in the data property object
 var __reArray = /\[.*?\]$/;
@@ -292,11 +309,11 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 
 		if ( cells ) {
 			if ( colIdx !== undefined ) {
-				cells[colIdx].innerHTML = display[colIdx];
+				_fnWriteCell(cells[colIdx], display[colIdx]);
 			}
 			else {
 				for ( i=0, ien=cells.length ; i<ien ; i++ ) {
-					cells[i].innerHTML = display[i];
+					_fnWriteCell(cells[i], display[i]);
 				}
 			}
 		}

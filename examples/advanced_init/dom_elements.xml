@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="ajax-stocks" order="99" table-class="display nowrap">
+
+<css lib="datatables" />
+<css>
+.sparkline {
+  stroke: blue;
+  fill: none;
+}
+</css>
+
+<js lib="jquery" />
+<js lib="datatables" />
+<js lib="sparkline" />
+
+<title>DOM element return from renderer</title>
+<js><![CDATA[
+var stock_data = [
+	{
+		name: 'ACME Gadgets',
+		symbol: 'AGDTS',
+		values: [ 42, 20, 30, 35, 9, 48, 12, 5]
+	},
+	{
+		name: 'Spry Media Productions',
+		symbol: 'SPMP',
+		values: [40, 37, 16, 43, 13, 18, 19]
+	},
+	{
+		name: 'Widget Emporium',
+		symbol: 'WDEMP',
+		values: [35, 40, 6, 15, 48, 16, 44, 49]
+	},
+	{
+		name: 'Sole Goodman',
+		symbol: 'SGMAN',
+		values: [25, 27, 4, 40, 7, 8, 18, 16]
+	},
+	{
+		name: 'Stanler Bits and Bobs',
+		symbol: 'SBIBO',
+		values: [13, 25, 13, 38, 40, 34, 40, 47]
+	}
+];
+
+var table = $('#example').DataTable({
+	data: stock_data,
+	columns: [
+		{ data: 'name' },
+		{ data: 'symbol' },
+		{
+			data: 'values',
+			render: function (data) {
+				return data[data.length - 1].toFixed(2);
+			}
+		},
+		{
+			data: 'values',
+			render: function (data, type) {
+				// Calculate the different between the last two values
+				var val = (
+					data[data.length - 1] -
+					data[data.length - 2]
+				).toFixed(2);
+
+				var colour = val < 0 ? 'red' : 'green';
+
+				return type === 'display'
+					? '<span style="color:' + colour + '">' + val + '</span>'
+					: val;
+			}
+		},
+		{
+			data: 'values',
+			render: function (data, type) {
+				if (type === 'display') {
+					// Create the SVG element the spark line will live in (needs the correct name space)
+					var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+					$(svg)
+						.addClass('sparkline')
+						.attr({
+							width: 250,
+							height: 17,
+							'stoke-width': 3
+						});
+
+					// Use the plug-in to create the lines
+					sparkline.default(svg, data);
+
+					return svg;
+				}
+
+				// Otherwise give the last value
+				return data[data.length-1];
+			}
+		}
+	]
+});
+
+]]></js>
+
+<js-vanilla><![CDATA[
+var stock_data = [
+	{
+		name: 'ACME Gadgets',
+		symbol: 'AGDTS',
+		values: [ 42, 20, 30, 35, 9, 48, 12, 5]
+	},
+	{
+		name: 'Spry Media Productions',
+		symbol: 'SPMP',
+		values: [40, 37, 16, 43, 13, 18, 19]
+	},
+	{
+		name: 'Widget Emporium',
+		symbol: 'WDEMP',
+		values: [35, 40, 6, 15, 48, 16, 44, 49]
+	},
+	{
+		name: 'Sole Goodman',
+		symbol: 'SGMAN',
+		values: [25, 27, 4, 40, 7, 8, 18, 16]
+	},
+	{
+		name: 'Stanler Bits and Bobs',
+		symbol: 'SBIBO',
+		values: [13, 25, 13, 38, 40, 34, 40, 47]
+	}
+];
+
+let table = new DataTable('#example', {
+	data: stock_data,
+	columns: [
+		{ data: 'name' },
+		{ data: 'symbol' },
+		{
+			data: 'values',
+			render: data => data[data.length - 1].toFixed(2)
+		},
+		{
+			data: 'values',
+			render: function (data, type) {
+				// Calculate the different between the last two values
+				let val = (
+					data[data.length - 1] -
+					data[data.length - 2]
+				).toFixed(2);
+
+				let colour = val < 0 ? 'red' : 'green';
+
+				return type === 'display'
+					? '<span style="color:' + colour + '">' + val + '</span>'
+					: val;
+			}
+		},
+		{
+			data: 'values',
+			render: function (data, type) {
+				if (type === 'display') {
+					// Create the SVG element the spark line will live in (needs the correct name space)
+					let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+					svg.setAttribute('class', 'sparkline');
+					svg.setAttribute('width', 250);
+					svg.setAttribute('height', 17);
+					svg.setAttribute('stroke-width', 3);
+
+					// Use the plug-in to create the lines
+					sparkline.default(svg, data);
+
+					return svg;
+				}
+
+				// Otherwise give the last value
+				return data[data.length-1];
+			}
+		}
+	]
+});
+
+]]></js-vanilla>
+
+<info><![CDATA[
+
+DataTable's [orthogonal data abilities](https://datatables.net/manual/data/orthogonal-data) can be extremely useful to allow ordering, search and display data to be tweaked for each operation. More than that though, it can also be used to return a DOM element for the `display` data type, which will then be displayed in the DataTable (this is a new feature in DataTables 2).
+
+This is important for integration with frameworks such as Vue and React which can expect to return DOM elements that they control (including event listeners).
+
+The example shown here dynamically creates an `-tag svg` sparkline (using this excellent library](https://github.com/fnando/sparkline)) and returns the `-tag svg` element from the rendering function.
+
+]]></info>
+
+</dt-example>
