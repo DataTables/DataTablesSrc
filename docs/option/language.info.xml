@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="string" />
-	<default value="Showing _START_ to _END_ of _TOTAL_ entries" />
+	<default value="Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_" />
 
 	<description>
 		This string gives information to the end user about the information that is current on display on the page. The following tokens can be used in the string and will be dynamically replaced as the table display updates.
@@ -18,6 +18,9 @@
 		* `_MAX_` - Number of records in the table without filtering
 		* `_PAGE_` - Current page number
 		* `_PAGES_` - Total number of pages of data in the table
+		* `_ENTRIES_` - Plural wildcard from `-init language.entries`
+		* `_ENTRIES-TOTAL_` - `-init language.entries` with the plural resolved by the number of records in the table after filtering
+		* `_ENTRIES-MAX_` - -init language.entries` with the plural resolved by the number of records in the table without filtering
 	</description>
 
 	<example title="Show page count"><![CDATA[
@@ -33,4 +36,5 @@ $('#example').dataTable( {
 	<related type="option">language.infoFiltered</related>
 	<related type="option">language.infoPostFix</related>
 	<related type="option">language.thousands</related>
+	<related type="option">language.entities</related>
 </dt-option>

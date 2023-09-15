@@ -71,7 +71,7 @@ describe('infoCallback Option', function() {
 		});
 		it('Searching', function() {
 			table.search('Cox').draw();
-			check(1, 1, 57, 1, 'Showing 1 to 1 of 1 entries (filtered from 57 total entries)');
+			check(1, 1, 57, 1, 'Showing 1 to 1 of 1 entry (filtered from 57 total entries)');
 		});
 
 		dt.html('basic');

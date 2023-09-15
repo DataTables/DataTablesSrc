@@ -65,7 +65,25 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 			str.replace( '_MENU_', '<span></span>' )
 		);
 
-	// And the select itself, along with the options
+	// Save text node content for macro updating
+	var textNodes = [];
+	div.find('label')[0].childNodes.forEach(function (el) {
+		if (el.nodeType === Node.TEXT_NODE) {
+			textNodes.push({
+				el: el,
+				text: el.textContent
+			});
+		}
+	})
+
+	// Update the label text in case it has an entries value
+	var updateEntries = function (len) {
+		textNodes.forEach(function (node) {
+			node.el.textContent = _fnMacros(settings, node.text, len);
+		});
+	}
+
+	// Next, the select itself, along with the options
 	var select = $('<select/>', {
 		'name':          tableId+'_length',
 		'aria-controls': tableId,
@@ -102,8 +120,13 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 	$(settings.nTable).on( 'length.dt.DT', function (e, s, len) {
 		if ( settings === s ) {
 			$('select', div).val( len );
+
+			// Resolve plurals in the text for the new length
+			updateEntries(len);
 		}
 	} );
+
+	updateEntries(settings._iDisplayLength);
 
 	return div;
 } );

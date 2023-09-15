@@ -26,7 +26,7 @@ describe('rows - row.add()', function() {
 		table.search('Fred Johnson').draw();
 
 		if (
-			$('div.dataTables_info').text() != 'Showing 1 to 1 of 1 entries (filtered from 58 total entries)' ||
+			$('div.dataTables_info').text() != 'Showing 1 to 1 of 1 entry (filtered from 58 total entries)' ||
 			$('#example tbody tr:eq(0) td:eq(0)').text() != 'Fred Johnson'
 		) {
 			return false;

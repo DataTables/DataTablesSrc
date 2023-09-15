@@ -195,8 +195,8 @@ _api_register( 'i18n()', function ( token, def, plural ) {
 		resolved = def;
 	}
 
-	if ( plural !== undefined && $.isPlainObject( resolved ) ) {
-		resolved = resolved[ plural ] !== undefined ?
+	if ( $.isPlainObject( resolved ) ) {
+		resolved = plural !== undefined && resolved[ plural ] !== undefined ?
 			resolved[ plural ] :
 			resolved._;
 	}

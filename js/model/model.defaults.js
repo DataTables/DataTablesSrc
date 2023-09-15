@@ -1310,6 +1310,14 @@ DataTable.defaults = {
 		},
 
 		/**
+		 * Plural object for the data type the table is showing
+		 */
+		entries: {
+			_: "entries",
+			1: "entry"
+		},
+
+		/**
 		 * This string is shown in preference to `zeroRecords` when the table is
 		 * empty of data (regardless of filtering). Note that this is an optional
 		 * parameter - if it is not given, the value of `zeroRecords` will be used
@@ -1361,7 +1369,7 @@ DataTable.defaults = {
 		 *      } );
 		 *    } );
 		 */
-		"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+		"sInfo": "Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_",
 
 
 		/**
@@ -1382,7 +1390,7 @@ DataTable.defaults = {
 		 *      } );
 		 *    } );
 		 */
-		"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+		"sInfoEmpty": "Showing 0 to 0 of 0 _ENTRIES-TOTAL_",
 
 
 		/**
@@ -1404,7 +1412,7 @@ DataTable.defaults = {
 		 *      } );
 		 *    } );
 		 */
-		"sInfoFiltered": "(filtered from _MAX_ total entries)",
+		"sInfoFiltered": "(filtered from _MAX_ total _ENTRIES-MAX_)",
 
 
 		/**
@@ -1522,7 +1530,7 @@ DataTable.defaults = {
 		 *      } );
 		 *    } );
 		 */
-		"sLengthMenu": "_MENU_ entries per page",
+		"sLengthMenu": "_MENU_ _ENTRIES_ per page",
 
 
 		/**

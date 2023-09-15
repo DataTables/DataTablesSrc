@@ -8,7 +8,7 @@ describe( "language.lengthMenu option", function() {
 		dt.html( 'basic' );
 		it("Menu language is '_MENU_ entries' by default ", function () {
 			$('#example').dataTable();
-			expect($('#example').DataTable().settings()[0].oLanguage.sLengthMenu  === "_MENU_ entries per page").toBe(true);
+			expect($('#example').DataTable().settings()[0].oLanguage.sLengthMenu  === "_MENU_ _ENTRIES_ per page").toBe(true);
 		});
 		it("_MENU_ macro is replaced by select menu in DOM", function () {
 			expect($('div.dataTables_length select').length == 1).toBe(true);

@@ -10,11 +10,11 @@ describe('language.infoFiltered option', function() {
 		dt.html('basic');
 		it('Default - in settings', function() {
 			table = $('#example').DataTable();
-			expect(table.settings()[0].oLanguage.sInfoFiltered).toBe('(filtered from _MAX_ total entries)');
+			expect(table.settings()[0].oLanguage.sInfoFiltered).toBe('(filtered from _MAX_ total _ENTRIES-MAX_)');
 		});
 		it('... check DOM', function() {
 			table.search('cox').draw();
-			expect($('div.dataTables_info').html()).toBe('Showing 1 to 1 of 1 entries (filtered from 57 total entries)');
+			expect($('div.dataTables_info').html()).toBe('Showing 1 to 1 of 1 entry (filtered from 57 total entries)');
 		});
 
 		dt.html('basic');
@@ -28,7 +28,7 @@ describe('language.infoFiltered option', function() {
 		});
 		it('... check DOM', function() {
 			table.search('cox').draw();
-			expect($('div.dataTables_info').html()).toBe('Showing 1 to 1 of 1 entries  - filtered from 57 records');
+			expect($('div.dataTables_info').html()).toBe('Showing 1 to 1 of 1 entry  - filtered from 57 records');
 		});
 	});
 });

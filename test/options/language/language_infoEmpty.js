@@ -8,9 +8,9 @@ describe('language.infoEmpty option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-		it("Info empty language is 'Showing 0 to 0 of 0 entries' ", function() {
+		it("Info empty language is 'Showing 0 to 0 of 0 _ENTRIES-TOTAL_' ", function() {
 			table = $('#example').DataTable();
-			expect(table.settings()[0].oLanguage.sInfoEmpty).toBe('Showing 0 to 0 of 0 entries');
+			expect(table.settings()[0].oLanguage.sInfoEmpty).toBe('Showing 0 to 0 of 0 _ENTRIES-TOTAL_');
 		});
 		it('Info empty language default is in the DOM', function() {
 			expect($('div.dataTables_info').html()).toBe('Showing 1 to 10 of 57 entries');

@@ -28,7 +28,7 @@ describe('rows - rows.add()', function() {
 
 			if (
 				$('div.dataTables_info').text() !=
-					'Showing 1 to 1 of 1 entries (filtered from ' + (57 + names.length) + ' total entries)' ||
+					'Showing 1 to 1 of 1 entry (filtered from ' + (57 + names.length) + ' total entries)' ||
 				$('#example tbody tr:eq(0) td:eq(0)').text() != element
 			) {
 				found = false;

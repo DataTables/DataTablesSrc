@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.entries</name>
+	<summary>Replacement pluralisation for table data type</summary>
+	<since>2.0</since>
+
+	<type type="object" />
+	<default value="{_: 'entries', _: 'entry'}" />
+
+	<description>
+		DataTables displays information text about the table in a number of different locations - the table information control and paging control for example. This option makes it possible to customise the string shown in each for the data type being shown, also taking into account the pluralisation of the data.
+
+		For example, without this option, DataTables will show:
+
+		* _10 entries per page_ for the page length control and
+		* _Showing 1 to 1 of 57 entries_ for the information control.
+
+		Using this option the _entries_ can be customised without modifying the rest of the strings. This can be really helpful to let your users know at a glance what the data type in the table is as well. For example, you might have a list of people whereby the following strings would be a better fit for the table:
+
+		* _10 people per page_
+		* _Showing 1 to 1 of 57 people_.
+
+		While desirable that level of customisation isn't normally performed on a table due to the repetition of the main strings. This option is designed to address exactly that and also the pluralisation aspect of these fields.
+
+		When given as an object, you can provide keys to match a specific number with `_` as the "wildcard". For example for a table of team members you might use:
+
+		```js
+		entries: {
+			_: 'team members',
+			_: 'team member'
+		}
+		```
+
+		For more information on the pluralisation object structure, please see `-api i18n()`.
+
+		This option will currently have an impact on the language strings noted in the "related" section below.
+	</description>
+
+	<example title="Change the entries type to 'people'"><![CDATA[
+
+new DataTable('#myTable', {
+	language: {
+		entries: {
+			_: 'people',
+			1: 'person'
+		}
+	}
+});
+]]></example>
+
+	<related type="option">language.info</related>
+	<related type="option">language.infoEmpty</related>
+	<related type="option">language.infoFiltered</related>
+	<related type="option">language.lengthMenu</related>
+	<related type="option">language.search</related>
+	<related type="api">i18n()</related>
+</dt-option>

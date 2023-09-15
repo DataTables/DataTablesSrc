@@ -26,6 +26,8 @@ _ext.features.register( 'search', function ( settings, opts ) {
 		opts.text += '_INPUT_';
 	}
 
+	opts.text = _fnMacros(settings, opts.text);
+
 	// We can put the <input> outside of the label if it is at the start or end
 	// which helps improve accessability (not all screen readers like implicit
 	// for elements).

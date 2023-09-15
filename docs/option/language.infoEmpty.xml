@@ -5,10 +5,12 @@
 	<since>1.10</since>
 
 	<type type="string" />
-	<default value="Showing 0 to 0 of 0 entries" />
+	<default value="Showing 0 to 0 of 0 _ENTRIES-TOTAL_" />
 
 	<description>
 		Display information string for when the table is empty. Typically the format of this string should match `info`.
+
+		Please note that the same string substitutions available in `-init language.info` are also available in this property.
 	</description>
 
 	<example title="Show page count"><![CDATA[

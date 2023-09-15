@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="18">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+$('#example').DataTable({
+	language: {
+		entries: {
+			_: 'people',
+			1: 'person'
+		}
+	}
+});
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+new DataTable('#example', {
+	language: {
+		entries: {
+			_: 'people',
+			1: 'person'
+		}
+	}
+});
+]]>
+</js-vanilla>
+
+<title>Language - display data type</title>
+
+<info><![CDATA[
+
+To fully integrate with your site / app the language used by DataTables should reflect the type of data that is being shown. For example if you have a list of stock items, the information text should say that they are stock items, not the generic "entries".
+
+To facilitate this, DataTables has a `-init language.entries` option which can be used to set a string for the type of data being shown and DataTables will reflect that wherever it needs to refer to the data. In the example below we have a list of "people", so we use `-init language.entries` to reflect that.
+
+Note also that the property allows for pluralisation through the `-api i18n()` plural format, ensuring the language is correct for the amount of data being shown as well as the type.
+
+]]></info>
+
+</dt-example>

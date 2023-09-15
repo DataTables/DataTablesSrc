@@ -5,12 +5,12 @@
 	<since>1.10</since>
 
 	<type type="string" />
-	<default value="(filtered from _MAX_ total entries)" />
+	<default value="(filtered from _MAX_ total _ENTRIES-MAX_)" />
 
 	<description>
 		When a user filters the information in a table, this string is appended to the information (`info`) to give an idea of how strong the filtering is.
 
-		The token `_MAX_` is dynamically updated - see `dt-init language.info` for information about all available tokens.
+		The tokens `_MAX_` and `_ENTRIES-MAX_` are dynamically updated - see `dt-init language.info` for information about all available tokens; the same string substitutions available in `-init language.info` are also available in this property.
 	</description>
 
 	<example title="Alter the filtering information summary string"><![CDATA[

@@ -17,12 +17,22 @@
 		If the token is in the middle of the string, the DOM structure created will have the `-tag input` nested in the `-tag label`, creating an _implicit_ link (although the `for` and `id` attributes are still set). Some screenreaders can struggle with this form and it is not recommended.
 
 		This DOM structure distinction is only of significance if you are applying custom styling to the page. You _may_ need to alter your CSS depending on the string used.
+
+		Additionally, this property can benefit from the use of `-init language.entries` to easily update the string to relate to the specific type of data shown in the table. It's plural will always resolve to the plural wildcard. The `_ENTRIES_` replacement token should be used where you want the resolved `-init language.entries` value to appear.
 	</description>
 
 	<example title="Input text box will be appended at the end automatically"><![CDATA[
 $('#example').dataTable( {
   "language": {
     "search": "Filter records:"
+  }
+} );
+]]></example>
+
+	<example title="Custom text using `language.entries`"><![CDATA[
+$('#example').dataTable( {
+  "language": {
+    "search": "Filter _ENTRIES_:"
   }
 } );
 ]]></example>
@@ -38,5 +48,6 @@ $('#example').dataTable( {
 	<related type="option">language</related>
 	<related type="option">searching</related>
 	<related type="option">language.searchPlaceholder</related>
+	<related type="option">language.entries</related>
 	<related type="api">search()</related>
 </dt-option>

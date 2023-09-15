@@ -254,7 +254,7 @@ describe('Basic Datatables Test', function() {
 				.val('London 66')
 				.keyup();
 			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
-				'Showing 1 to 1 of 1 entries (filtered from 57 total entries)'
+				'Showing 1 to 1 of 1 entry (filtered from 57 total entries)'
 			);
 		});
 
@@ -406,7 +406,7 @@ describe('Basic Datatables Test', function() {
 				.keyup();
 
 			expect($('.dataTables_info').text()).toBe(
-				'Showing 1 to 1 of 1 entries (filtered from 57 total entries)'
+				'Showing 1 to 1 of 1 entry (filtered from 57 total entries)'
 			);
 		});
 
@@ -416,7 +416,7 @@ describe('Basic Datatables Test', function() {
 				.keyup();
 
 			expect($('.dataTables_info').text()).toBe(
-				'Showing 1 to 1 of 1 entries (filtered from 57 total entries)'
+				'Showing 1 to 1 of 1 entry (filtered from 57 total entries)'
 			);
 			expect($('#example tbody td').eq(0).text()).toBe('Fiona Green');
 		});

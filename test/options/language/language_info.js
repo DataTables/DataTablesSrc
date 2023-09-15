@@ -6,9 +6,9 @@ describe('language.info option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-		it("Info language is 'Showing _START_ to _END_ of _TOTAL_ entries' by default ", function() {
+		it("Check default ", function() {
 			table = $('#example').DataTable();
-			expect(table.settings()[0].oLanguage.sInfo).toBe('Showing _START_ to _END_ of _TOTAL_ entries');
+			expect(table.settings()[0].oLanguage.sInfo).toBe('Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_');
 		});
 		it('Info language default is in the DOM', function() {
 			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entries');
