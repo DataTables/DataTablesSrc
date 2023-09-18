@@ -479,8 +479,6 @@ function _fnColumnsSumWidth( settings, targets, original, incVisible ) {
 	return sum + unit;
 }
 
-window._fnColumnsSumWidth = _fnColumnsSumWidth;
-
 // TODO finish it up
 function _fnCellsFromLayout ( layout ) {
 	var cells = [];
