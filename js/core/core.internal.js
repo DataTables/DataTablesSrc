@@ -327,14 +327,6 @@ var _flatten = function (out, val) {
 	return out;
 }
 
-var _includes = function (search, start) {
-	if (start === undefined) {
-		start = 0;
-	}
-
-	return this.indexOf(search, start) !== -1;	
-};
-
 // Similar to jQuery's addClass, but use classList.add
 function _addClass(el, name) {
 	name.split(' ').forEach(function (n) {

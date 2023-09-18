@@ -23,7 +23,9 @@ module.exports = {
         "ecmaVersion": "latest"
     },
     "plugins": ["compat"],
-    "rules": {},
+    "rules": {
+        "compat/compat": "error"
+    },
     "globals": {
         "jQuery": true
     }
