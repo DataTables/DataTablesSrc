@@ -344,27 +344,3 @@ function _addClass(el, name) {
 		}
 	});
 }
-
-// Array.isArray polyfill.
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
-if (! Array.isArray) {
-	Array.isArray = function(arg) {
-		return Object.prototype.toString.call(arg) === '[object Array]';
-	};
-}
-
-if (! Array.prototype.includes) {
-	Array.prototype.includes = _includes;
-}
-
-// .trim() polyfill
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
-if (!String.prototype.trim) {
-	String.prototype.trim = function () {
-		return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-	};
-}
-
-if (! String.prototype.includes) {
-	String.prototype.includes = _includes;
-}
