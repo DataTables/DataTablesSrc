@@ -97,7 +97,7 @@ function _fnExtend( out, extender, breakRefs )
 	var val;
 
 	for ( var prop in extender ) {
-		if ( Object.prototype.hasOwnProperty.call(extender, 'prop') ) {
+		if ( Object.prototype.hasOwnProperty.call(extender, prop) ) {
 			val = extender[prop];
 
 			if ( $.isPlainObject( val ) ) {
