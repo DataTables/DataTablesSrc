@@ -2,7 +2,7 @@
 <dt-example table-type="ajax" order="2">
 
 <css lib="datatables" />
-<js lib="jquery" />
+<js lib="jquery moment" />
 <js lib="datatables" />
 
 <title>Ajax data source (objects)</title>
@@ -21,17 +21,10 @@ $('#example').DataTable({
 ]]></js>
 
 <js-vanilla><![CDATA[
-var table = new DataTable('#example', {
+new DataTable('#example', {
 	ajax: 'data/objects.txt',
 	columns: [
-		{ data: 'name', render: (data, type) => {
-			if (type === 'display') {
-				var el = document.createElement('div');
-				el.textContent = data;
-				return el;
-			}
-			return data;
-		} },
+		{ data: 'name' },
 		{ data: 'position' },
 		{ data: 'office' },
 		{ data: 'extn' },
@@ -39,8 +32,6 @@ var table = new DataTable('#example', {
 		{ data: 'salary' }
 	]
 });
-
-			table.ajax.reload();
 
 ]]></js-vanilla>
 
