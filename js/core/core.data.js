@@ -130,6 +130,11 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 		col:      colIdx
 	} );
 
+	// Allow for a node being returned for non-display types
+	if (type !== 'display' && cellData && typeof cellData === 'object' && cellData.nodeName) {
+		cellData = cellData.innerHTML;
+	}
+
 	if ( cellData === undefined ) {
 		if ( settings.iDrawError != draw && defaultContent === null ) {
 			_fnLog( settings, 0, "Requested unknown parameter "+

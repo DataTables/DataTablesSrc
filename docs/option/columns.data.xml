@@ -85,6 +85,8 @@
 		* `-type null` - If `dt-init columns.render` is used, the data passed to the rendering function will be the original data source for the row. If there is no renderer the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data the source object for that row will be used; `-type null` will be used for all other data types.
 		* `-type function` - the function will be executed and the returned value used. As of DataTables <span class="since">1.10.1</span> the function will be executed in the same scope as the data object for the row. The result of this is that an object instance can be used as the data source for a row.
 
+		As of DataTables 2, the resolved data can be a DOM node. This is useful for cases when you are working with external frameworks which generate DOM nodes themselves. In such cases, don't use DataTables `-init columns.render` option to customise the content of the cells - rather do it with whatever is creating the cells in the first place.
+
 		Note that `data` is both a getter and setter option. If you just require formatting of data for output, you will likely want to use `dt-init columns.render` which is simply a getter and thus much simpler to use!
 
 		As of DataTables 1.10.3 this option can be used with a DOM sourced data to instruct DataTables where to write the data read for each column to in a data source object. By default DataTables will store the data in an array, but using this option you can provide object property names which describe the structure of the object to use ([example](/examples/advanced_init/object_dom_read.html)).
