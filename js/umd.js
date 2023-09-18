@@ -58,8 +58,7 @@
 		// Browser
 		window.DataTable = factory( jQuery, window, document );
 	}
-}
-(function( $, window, document, undefined ) {
+}(function( $, window, document ) {
 	"use strict";
 
 	_buildInclude('core.main.js');

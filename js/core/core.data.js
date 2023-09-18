@@ -76,33 +76,6 @@ function _fnAddTr( settings, trs )
 
 
 /**
- * Take a TR element and convert it to an index in aoData
- *  @param {object} oSettings dataTables settings object
- *  @param {node} n the TR element to find
- *  @returns {int} index if the node is found, null if not
- *  @memberof DataTable#oApi
- */
-function _fnNodeToDataIndex( oSettings, n )
-{
-	return (n._DT_RowIndex!==undefined) ? n._DT_RowIndex : null;
-}
-
-
-/**
- * Take a TD element and convert it into a column data index (not the visible index)
- *  @param {object} oSettings dataTables settings object
- *  @param {int} iRow The row number the TD/TH can be found in
- *  @param {node} n The TD/TH element to find
- *  @returns {int} index if the node is found, -1 if not
- *  @memberof DataTable#oApi
- */
-function _fnNodeToColumnIndex( oSettings, iRow, n )
-{
-	return $.inArray( n, oSettings.aoData[ iRow ].anCells );
-}
-
-
-/**
  * Get the data for a given cell from the internal cache, taking into account data mapping
  *  @param {object} settings dataTables settings object
  *  @param {int} rowIdx aoData row id
@@ -221,7 +194,7 @@ var __reFn = /\(\)$/;
  */
 function _fnSplitObjNotation( str )
 {
-	return $.map( str.match(/(\\.|[^\.])+/g) || [''], function ( s ) {
+	return $.map( str.match(/(\\.|[^.])+/g) || [''], function ( s ) {
 		return s.replace(/\\\./g, '.');
 	} );
 }
@@ -368,7 +341,7 @@ function _fnGetRowElements( settings, row, colIdx, d )
 	var
 		tds = [],
 		td = row.firstChild,
-		name, col, o, i=0, contents,
+		name, col, i=0, contents,
 		columns = settings.aoColumns,
 		objectRead = settings._rowReadObject;
 

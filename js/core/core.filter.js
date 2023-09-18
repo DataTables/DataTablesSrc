@@ -174,6 +174,7 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 		 */
 		var a = $.map( search.match( /!?["\u201C][^"\u201D]+["\u201D]|[^ ]+/g ) || [''], function ( word ) {
 			var negative = false;
+			var m;
 
 			// Determine if it is a "does not include"
 			if ( word.charAt(0) === '!' ) {
@@ -183,12 +184,12 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 
 			// Strip the quotes from around matched phrases
 			if ( word.charAt(0) === '"' ) {
-				var m = word.match( /^"(.*)"$/ );
+				m = word.match( /^"(.*)"$/ );
 				word = m ? m[1] : word;
 			}
 			else if ( word.charAt(0) === '\u201C' ) {
 				// Smart quote match (iPhone users)
-				var m = word.match( /^\u201C(.*)\u201D$/ );
+				m = word.match( /^\u201C(.*)\u201D$/ );
 				word = m ? m[1] : word;
 			}
 
@@ -211,7 +212,7 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 
 		search = '^(?=.*?'+a.join( ')(?=.*?' )+')('+match+'.)*$';
 	}
-  
+
 	return new RegExp( search, caseInsensitive ? 'i' : '' );
 }
 

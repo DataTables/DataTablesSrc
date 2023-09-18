@@ -93,9 +93,10 @@ DataTable.util = {
 				source( data, 'set', val, meta );
 			};
 		}
-		else if ( typeof source === 'string' && (source.indexOf('.') !== -1 ||
-				  source.indexOf('[') !== -1 || source.indexOf('(') !== -1) )
-		{
+		else if (
+			typeof source === 'string' && (source.indexOf('.') !== -1 ||
+			source.indexOf('[') !== -1 || source.indexOf('(') !== -1)
+		) {
 			// Like the get, we need to get data from a nested object
 			var setData = function (data, val, src) {
 				var a = _fnSplitObjNotation( src ), b;
@@ -211,9 +212,10 @@ DataTable.util = {
 				return source( data, type, row, meta );
 			};
 		}
-		else if ( typeof source === 'string' && (source.indexOf('.') !== -1 ||
-				  source.indexOf('[') !== -1 || source.indexOf('(') !== -1) )
-		{
+		else if (
+			typeof source === 'string' && (source.indexOf('.') !== -1 ||
+			source.indexOf('[') !== -1 || source.indexOf('(') !== -1)
+		) {
 			/* If there is a . in the source string then the data source is in a
 			 * nested object so we loop over the data for each level to get the next
 			 * level down. On each loop we test for undefined, and if found immediately
@@ -288,7 +290,7 @@ DataTable.util = {
 		}
 		else {
 			// Array or flat object mapping
-			return function (data, type) { // row and meta also passed, but not used
+			return function (data) { // row and meta also passed, but not used
 				return data[source];
 			};
 		}

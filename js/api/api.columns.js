@@ -137,7 +137,7 @@ var __setColumnVis = function ( settings, column, vis ) {
 		cols = settings.aoColumns,
 		col  = cols[ column ],
 		data = settings.aoData,
-		row, cells, i, ien, tr;
+		cells, i, ien, tr;
 
 	// Get
 	if ( vis === undefined ) {

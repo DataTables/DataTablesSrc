@@ -68,8 +68,7 @@ var __details_add = function ( ctx, row, data, klass )
 			
 			$('td', created)
 				.addClass( k )
-				.html( r )
-				[0].colSpan = _fnVisbleColumns( ctx );
+				.html( r )[0].colSpan = _fnVisbleColumns( ctx );
 
 			rows.push( created[0] );
 		}
@@ -174,7 +173,7 @@ var __details_events = function ( settings )
 		} );
 
 		// Column visibility change - update the colspan
-		api.on( colvisEvent, function ( e, ctx, idx, vis ) {
+		api.on( colvisEvent, function ( e, ctx ) {
 			if ( settings !== ctx ) {
 				return;
 			}
@@ -245,7 +244,7 @@ _api_register( _child_mth, function ( data, klass ) {
 _api_register( [
 	_child_obj+'.show()',
 	_child_mth+'.show()' // only when `child()` was called with parameters (without
-], function ( show ) {   // it returns an object and this method is not executed)
+], function () {         // it returns an object and this method is not executed)
 	__details_display( this, true );
 	return this;
 } );

@@ -1,22 +1,5 @@
 
 /**
- * Return the settings object for a particular table
- *  @param {node} table table we are using as a dataTable
- *  @returns {object} Settings object - or null if not found
- *  @memberof DataTable#oApi
- */
-function _fnSettingsFromNode ( table )
-{
-	var settings = DataTable.settings;
-	var idx = $.inArray( table, _pluck( settings, 'nTable' ) );
-
-	return idx !== -1 ?
-		settings[ idx ] :
-		null;
-}
-
-
-/**
  * Log an error message
  *  @param {object} settings dataTables settings object
  *  @param {int} level log error messages, or display them to the user
@@ -114,7 +97,7 @@ function _fnExtend( out, extender, breakRefs )
 	var val;
 
 	for ( var prop in extender ) {
-		if ( extender.hasOwnProperty(prop) ) {
+		if ( Object.prototype.hasOwnProperty.call(extender, 'prop') ) {
 			val = extender[prop];
 
 			if ( $.isPlainObject( val ) ) {
@@ -207,7 +190,7 @@ function _fnCallbackFire( settings, callbackArr, eventName, args, bubbles )
 	var ret = [];
 
 	if ( callbackArr ) {
-		ret = $.map( settings[callbackArr].slice().reverse(), function (val, i) {
+		ret = $.map( settings[callbackArr].slice().reverse(), function (val) {
 			return val.fn.apply( settings.oInstance, args );
 		} );
 	}

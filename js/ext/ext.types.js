@@ -107,7 +107,7 @@ DataTable.types = function () {
 //
 
 DataTable.type('string', {
-	detect: function ( d ) {
+	detect: function () {
 		return 'string';
 	},
 	order: {

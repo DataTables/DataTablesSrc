@@ -40,7 +40,7 @@ function _fnPageChange ( settings, action, redraw )
 
 		if ( start < 0 )
 		{
-		  start = 0;
+			start = 0;
 		}
 	}
 	else if ( action == "next" )

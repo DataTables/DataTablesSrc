@@ -49,7 +49,7 @@ _api_register( 'page()', function ( action ) {
  *  * `recordsDisplay` - Data set length once the current filtering criterion
  *    are applied.
  */
-_api_register( 'page.info()', function ( action ) {
+_api_register( 'page.info()', function () {
 	if ( this.context.length === 0 ) {
 		return undefined;
 	}

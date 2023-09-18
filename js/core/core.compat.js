@@ -15,7 +15,7 @@ function _fnHungarianMap ( o )
 		newKey,
 		map = {};
 
-	$.each( o, function (key, val) {
+	$.each( o, function (key) {
 		match = key.match(/^([^A-Z]+?)([A-Z])/);
 
 		if ( match && hungarian.indexOf(match[1]+' ') !== -1 )
@@ -53,7 +53,7 @@ function _fnCamelToHungarian ( src, user, force )
 
 	var hungarianKey;
 
-	$.each( user, function (key, val) {
+	$.each( user, function (key) {
 		hungarianKey = src._hungarianMap[ key ];
 
 		if ( hungarianKey !== undefined && (force || user[hungarianKey] === undefined) )
@@ -280,7 +280,7 @@ function _fnReduce ( that, fn, init, start, end, inc )
 	}
 
 	while ( i !== end ) {
-		if ( ! that.hasOwnProperty(i) ) {
+		if ( ! Object.prototype.hasOwnProperty.call(that, i) ) {
 			continue;
 		}
 

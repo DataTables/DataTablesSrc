@@ -8,7 +8,7 @@ $.extend( extPagination, {
 		return [ 'previous', 'next' ];
 	},
 
-	full: function ( page, pages ) {
+	full: function () {
 		return [  'first', 'previous', 'next', 'last' ];
 	},
 
@@ -29,8 +29,8 @@ $.extend( extPagination, {
 	},
 	
 	first_last_numbers: function () {
- 		return ['first', 'numbers', 'last'];
- 	},
+		return ['first', 'numbers', 'last'];
+	},
 
 	// For testing and plug-ins to use
 	_numbers: _pagingNumbers,

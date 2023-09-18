@@ -177,5 +177,4 @@ function _fnImplementState ( settings, s, callback) {
 	settings._bLoadingState = false;
 	_fnCallbackFire( settings, 'aoStateLoaded', 'stateLoaded', [settings, s] );
 	callback();
-};
-
+}

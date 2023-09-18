@@ -145,6 +145,19 @@ function build_examples {
 }
 
 
+function build_lint {
+	echo_section "Lint"
+
+	eslint ${BUILD_DIR}/js/jquery.dataTables.js
+	RESULT=$?
+
+	if [ $RESULT -ne 0 ]; then
+		echo_error "Lint failed"
+	else
+		echo_msg "Pass"
+	fi
+}
+
 
 # Use the latest JS, CSS etc in the DataTables build repo
 # Assumes that the files have already been built
@@ -162,6 +175,7 @@ function build_repo {
 	build_css
 	build_types
 	build_examples
+	build_lint
 
 	#echo $BUILD_DIR
 	cp $BUILD_DIR/js/* ${BUILD_DIR}/DataTables/media/js/

@@ -20,7 +20,8 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 		tableId  = settings.sTableId,
 		menu     = opts.menu,
 		lengths  = [],
-		language = [];
+		language = [],
+		i;
 
 	// Options can be given in a number of ways
 	if (Array.isArray( menu[0] )) {
@@ -29,7 +30,7 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 		language = menu[1];
 	}
 	else {
-		for ( var i=0 ; i<menu.length ; i++ ) {
+		for ( i=0 ; i<menu.length ; i++ ) {
 			// An object with different label and value
 			if ($.isPlainObject(menu[i])) {
 				lengths.push(menu[i].value);
@@ -90,7 +91,7 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 		'class':         classes.sLengthSelect
 	} );
 
-	for ( var i=0, ien=lengths.length ; i<ien ; i++ ) {
+	for ( i=0 ; i<lengths.length ; i++ ) {
 		select[0][ i ] = new Option(
 			typeof language[i] === 'number' ?
 				settings.fnFormatNumber( language[i] ) :
@@ -111,7 +112,7 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 	// reference is broken by the use of outerHTML
 	$('select', div)
 		.val( settings._iDisplayLength )
-		.on( 'change.DT', function(e) {
+		.on( 'change.DT', function() {
 			_fnLengthChange( settings, $(this).val() );
 			_fnDraw( settings );
 		} );

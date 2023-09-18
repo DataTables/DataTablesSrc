@@ -46,7 +46,7 @@ _api_register( 'settings()', function () {
 } );
 
 
-_api_register( 'init()', function (col) {
+_api_register( 'init()', function () {
 	var ctx = this.context;
 	return ctx.length ? ctx[0].oInit : null;
 } );

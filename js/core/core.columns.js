@@ -260,7 +260,7 @@ function _fnColumnTypes ( settings )
 	var data = settings.aoData;
 	var types = DataTable.ext.type.detect;
 	var i, ien, j, jen, k, ken;
-	var col, cell, detectedType, cache;
+	var col, detectedType, cache;
 
 	// For each column, spin over the 
 	for ( i=0, ien=columns.length ; i<ien ; i++ ) {
@@ -482,7 +482,7 @@ function _fnColumnsSumWidth( settings, targets, original, incVisible ) {
 window._fnColumnsSumWidth = _fnColumnsSumWidth;
 
 // TODO finish it up
-function _fnCellsFromLayout ( layout, columns, rows ) {
+function _fnCellsFromLayout ( layout ) {
 	var cells = [];
 
 	for ( var i=0, ien=layout.length ; i<ien ; i++ ) {

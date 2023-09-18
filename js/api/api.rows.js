@@ -15,7 +15,6 @@ var __row_selector = function ( settings, selector, opts )
 	var rows;
 	var run = function ( sel ) {
 		var selInt = _intVal( sel );
-		var i, ien;
 		var aoData = settings.aoData;
 
 		// Short cut - selector is a number and no options provided (default is
@@ -106,17 +105,17 @@ var __row_selector = function ( settings, selector, opts )
 			.toArray();
 	};
 
-	var rows = _selector_run( 'row', selector, run, settings, opts );
+	var matched = _selector_run( 'row', selector, run, settings, opts );
 
 	if (opts.order === 'current' || opts.order === 'applied') {
 		var master = settings.aiDisplayMaster;
 
-		rows.sort(function(a, b) {  
+		matched.sort(function(a, b) {  
 			return master.indexOf(a) - master.indexOf(b);
 		});
 	}
 
-	return rows;
+	return matched;
 };
 
 
@@ -190,9 +189,7 @@ _api_registerPlural( 'rows().ids()', 'row().id()', function ( hash ) {
 } );
 
 _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
-	var that = this;
-
-	this.iterator( 'row', function ( settings, row, thatIdx ) {
+	this.iterator( 'row', function ( settings, row ) {
 		var data = settings.aoData;
 		var rowData = data[ row ];
 

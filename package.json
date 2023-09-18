@@ -34,6 +34,8 @@
   "homepage": "https://datatables.net",
   "bugs": "https://datatables.net/forums",
   "devDependencies": {
+    "eslint": "^8.49.0",
+    "eslint-plugin-compat": "^4.2.0",
     "jasmine-core": "^2.4.1",
     "karma": "^1.2",
     "karma-chrome-launcher": "^1.0.1",
@@ -42,8 +44,11 @@
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2",
     "karma-jasmine-jquery": "^0.1.1",
-    "karma-spec-reporter": "0.0.32",
     "karma-sinon": "^1.0.5",
+    "karma-spec-reporter": "0.0.32",
     "sinon": "^3.2.0"
-  }
+  },
+  "browserslist": [
+    "Safari > 9"
+  ]
 }

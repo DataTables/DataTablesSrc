@@ -77,9 +77,13 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			var display = _fnGetRowDisplay(oSettings, iRow);
 
 			// Need to create the HTML if new, or if a rendering function is defined
-			if ( create || ((oCol.mRender || oCol.mData !== i) &&
-				 (!$.isPlainObject(oCol.mData) || oCol.mData._ !== i+'.display')
-			)) {
+			if (
+				create ||
+				(
+					(oCol.mRender || oCol.mData !== i) &&
+					(!$.isPlainObject(oCol.mData) || oCol.mData._ !== i+'.display')
+				)
+			) {
 				_fnWriteCell(nTd, display[i]);
 			}
 
@@ -217,7 +221,7 @@ function _fnBuildHead( settings, side )
  */
 function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
 {
-	var i, iLen, j, jLen, k, kLen, n, nLocalTr;
+	var i, iLen, j, jLen, k, n, nLocalTr;
 	var aoLocal = [];
 	var aApplied = [];
 	var iColumns = oSettings.aoColumns.length;
@@ -279,17 +283,19 @@ function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
 				aApplied[i][j] = 1;
 
 				/* Expand the cell to cover as many rows as needed */
-				while ( aoLocal[i+iRowspan] !== undefined &&
-				        aoLocal[i][j].cell == aoLocal[i+iRowspan][j].cell )
-				{
+				while (
+					aoLocal[i+iRowspan] !== undefined &&
+					aoLocal[i][j].cell == aoLocal[i+iRowspan][j].cell
+				) {
 					aApplied[i+iRowspan][j] = 1;
 					iRowspan++;
 				}
 
 				/* Expand the cell to cover as many columns as needed */
-				while ( aoLocal[i][j+iColspan] !== undefined &&
-				        aoLocal[i][j].cell == aoLocal[i][j+iColspan].cell )
-				{
+				while (
+					aoLocal[i][j+iColspan] !== undefined &&
+					aoLocal[i][j].cell == aoLocal[i][j+iColspan].cell
+				) {
 					/* Must update the applied array over the rows for the columns */
 					for ( k=0 ; k<iRowspan ; k++ )
 					{
@@ -669,7 +675,7 @@ function _fnAddOptionsHtml ( settings )
 	_processingHtml( settings );
 
 	// Everything below
-	for ( var i=0, ien=bottom.length ; i<ien ; i++ ) {
+	for ( i=0, ien=bottom.length ; i<ien ; i++ ) {
 		renderer( settings, insert, bottom[i] );
 	}
 }
@@ -712,9 +718,10 @@ function _fnDetectHeader ( settings, thead, write )
 		// For every cell in the row..
 		cell = row.firstChild;
 		while ( cell ) {
-			if ( cell.nodeName.toUpperCase() == 'TD' ||
-			     cell.nodeName.toUpperCase() == 'TH' )
-			{
+			if (
+				cell.nodeName.toUpperCase() == 'TD' ||
+				cell.nodeName.toUpperCase() == 'TH'
+			) {
 				var cols = [];
 
 				// Get the col and rowspan attributes from the DOM and sanitise them

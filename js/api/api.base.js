@@ -364,7 +364,7 @@ $.extend( _Api.prototype, {
 	},
 
 
-	lastIndexOf: __arrayProto.lastIndexOf || function (obj, start)
+	lastIndexOf: __arrayProto.lastIndexOf || function ()
 	{
 		// Bit cheeky...
 		return this.indexOf.apply( this.toArray.reverse(), arguments );
@@ -486,7 +486,7 @@ function _api_find( src, name ) {
 		}
 	}
 	return null;
-};
+}
 
 window.__apiStruct = __apiStruct;
 

@@ -1101,7 +1101,9 @@ DataTable.defaults = {
 				'DataTables_'+settings.sInstance+'_'+location.pathname,
 				JSON.stringify( data )
 			);
-		} catch (e) {}
+		} catch (e) {
+			// noop
+		}
 	},
 
 

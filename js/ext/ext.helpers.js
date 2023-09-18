@@ -278,8 +278,6 @@ DataTable.render = {
 					return exp[0] + ' x 10<sup>' + exp[1] + '</sup>';
 				}
 
-				var negative = d < 0 ? '-' : '';
-
 				// If NaN then there isn't much formatting that we can do - just
 				// return immediately, escaping any HTML (this was supposed to
 				// be a number after all)

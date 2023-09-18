@@ -60,7 +60,7 @@ function _fnBuildAjax( oSettings, data, fn )
 		"dataType": "json",
 		"cache": false,
 		"type": oSettings.sServerMethod,
-		"error": function (xhr, error, thrown) {
+		"error": function (xhr, error) {
 			var ret = _fnCallbackFire( oSettings, null, 'xhr', [oSettings, null, oSettings.jqXHR] );
 
 			if ( $.inArray( true, ret ) === -1 ) {

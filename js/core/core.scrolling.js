@@ -113,7 +113,7 @@ function _fnFeatureHtmlTable ( settings )
 	var scrollFoot = footer ? children[2] : null;
 
 	// When the body is scrolled, then we also want to scroll the headers
-	$(scrollBody).on( 'scroll.DT', function (e) {
+	$(scrollBody).on( 'scroll.DT', function () {
 		var scrollLeft = this.scrollLeft;
 
 		scrollHead.scrollLeft = scrollLeft;
@@ -165,7 +165,6 @@ function _fnScrollDraw ( settings )
 		scroll         = settings.oScroll,
 		scrollX        = scroll.sX,
 		scrollXInner   = scroll.sXInner,
-		scrollY        = scroll.sY,
 		barWidth       = scroll.iBarWidth,
 		divHeader      = $(settings.nScrollHead),
 		divHeaderStyle = divHeader[0].style,
@@ -184,13 +183,12 @@ function _fnScrollDraw ( settings )
 		tableStyle     = tableEl.style,
 		footer         = settings.nTFoot ? $(settings.nTFoot) : null,
 		browser        = settings.oBrowser,
-		dtHeaderCells  = _pluck( settings.aoColumns, 'nTh' ), // TODO
 		headerTrgEls, footerTrgEls,
 		headerSrcEls, footerSrcEls,
 		headerCopy, footerCopy,
 		headerWidths=[], footerWidths=[],
 		headerContent=[], footerContent=[],
-		idx, correction, sanityWidth,
+		correction, sanityWidth,
 		zeroOut = function(nSizer) {
 			var style = nSizer.style;
 			style.paddingTop = "0";

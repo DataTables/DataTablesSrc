@@ -1,5 +1,5 @@
-/*global oInit,_that,emptyInit*/
-var i=0, iLen, j, jLen, k, kLen;
+
+var i=0, iLen;
 var sId = this.getAttribute( 'id' );
 var bInitHandedOff = false;
 var defaults = DataTable.defaults;

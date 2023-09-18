@@ -22,13 +22,13 @@ var __table_selector = function ( selector, a )
 	}
 
 	// Perform a jQuery selector on the table nodes
-	var nodes = $.map( a, function (el, i) {
+	var nodes = $.map( a, function (el) {
 		return el.nTable;
 	} );
 
 	return $(nodes)
 		.filter( selector )
-		.map( function (i) {
+		.map( function () {
 			// Need to translate back from the table node to the settings
 			var idx = $.inArray( this, nodes );
 			return a[ idx ];

@@ -16,7 +16,7 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 
 	for ( i=0, ien=selector.length ; i<ien ; i++ ) {
 		// Only split on simple strings - complex expressions will be jQuery selectors
-		a = selector[i] && selector[i].split && ! selector[i].match(/[\[\(:]/) ?
+		a = selector[i] && selector[i].split && ! selector[i].match(/[[(:]/) ?
 			selector[i].split(',') :
 			[ selector[i] ];
 
@@ -121,12 +121,12 @@ var _selector_row_indexes = function ( settings, opts )
 			// O(n+m) solution by creating a hash map
 			var displayFilteredMap = {};
 
-			for ( var i=0, ien=displayFiltered.length ; i<ien ; i++ ) {
+			for ( i=0, ien=displayFiltered.length ; i<ien ; i++ ) {
 				displayFilteredMap[displayFiltered[i]] = null;
 			}
 
 			a = $.map( displayMaster, function (el) {
-				return ! displayFilteredMap.hasOwnProperty(el) ?
+				return ! Object.prototype.hasOwnProperty.call(displayFilteredMap, el) ?
 					el :
 					null;
 			} );

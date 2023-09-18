@@ -8,7 +8,6 @@
 function _fnInitialise ( settings )
 {
 	var i, iAjaxStart=settings.iInitDisplayStart;
-	var features = settings.oFeatures;
 
 	/* Ensure that the table data is fully initialised */
 	if ( ! settings.bInitialised ) {
