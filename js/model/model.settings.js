@@ -13,19 +13,10 @@
  * one is the internal data store for DataTables's cache of columns. It should
  * NOT be manipulated outside of DataTables. Any configuration should be done
  * through the initialisation options.
- *  @namespace
- *  @todo Really should attach the settings object to individual instances so we
- *    don't need to create new instances on each $().dataTable() call (if the
- *    table already exists). It would also save passing oSettings around and
- *    into every single function. However, this is a very significant
- *    architecture change for DataTables and will almost certainly break
- *    backwards compatibility with older installations. This is something that
- *    will be done in 2.0.
  */
 DataTable.models.oSettings = {
 	/**
 	 * Primary features of DataTables and their enablement state.
-	 *  @namespace
 	 */
 	"oFeatures": {
 
@@ -34,7 +25,6 @@ DataTable.models.oSettings = {
 		 * optimum table and columns widths (true) or not (false).
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
 		 */
 		"bAutoWidth": null,
 
@@ -45,7 +35,6 @@ DataTable.models.oSettings = {
 		 * difference at all for DOM and server-side processing tables.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
 		 */
 		"bDeferRender": null,
 
@@ -55,7 +44,6 @@ DataTable.models.oSettings = {
 		 * To just remove the filtering input use sDom and remove the 'f' option.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
 		 */
 		"bFilter": null,
 
@@ -76,7 +64,6 @@ DataTable.models.oSettings = {
 		 * changing must also be disabled.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
 		 */
 		"bPaginate": null,
 
@@ -85,7 +72,6 @@ DataTable.models.oSettings = {
 		 * user request - typically an Ajax request for server-side processing.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
 		 */
 		"bProcessing": null,
 
@@ -95,7 +81,6 @@ DataTable.models.oSettings = {
 		 * sorting or paging done on the client-side.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
 		 */
 		"bServerSide": null,
 
@@ -103,7 +88,6 @@ DataTable.models.oSettings = {
 		 * Sorting enablement flag.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
 		 */
 		"bSort": null,
 
@@ -111,7 +95,6 @@ DataTable.models.oSettings = {
 		 * Multi-column sorting
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
 		 */
 		"bSortMulti": null,
 
@@ -121,7 +104,6 @@ DataTable.models.oSettings = {
 		 * there is a lot of DOM interaction.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
 		 */
 		"bSortClasses": null,
 
@@ -129,7 +111,6 @@ DataTable.models.oSettings = {
 		 * State saving enablement flag.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
 		 */
 		"bStateSave": null
 	},
@@ -137,7 +118,6 @@ DataTable.models.oSettings = {
 
 	/**
 	 * Scrolling settings for a table.
-	 *  @namespace
 	 */
 	"oScroll": {
 		/**
@@ -145,15 +125,12 @@ DataTable.models.oSettings = {
 		 * table container down to the height of the table (when true).
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type boolean
 		 */
 		"bCollapse": null,
 
 		/**
 		 * Width of the scrollbar for the web-browser's platform. Calculated
 		 * during table initialisation.
-		 *  @type int
-		 *  @default 0
 		 */
 		"iBarWidth": 0,
 
@@ -162,7 +139,6 @@ DataTable.models.oSettings = {
 		 * disabled if an empty string.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type string
 		 */
 		"sX": null,
 
@@ -171,7 +147,6 @@ DataTable.models.oSettings = {
 		 * should not need to use this.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type string
 		 *  @deprecated
 		 */
 		"sXInner": null,
@@ -181,44 +156,34 @@ DataTable.models.oSettings = {
 		 * if an empty string.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
-		 *  @type string
 		 */
 		"sY": null
 	},
 
 	/**
 	 * Language information for the table.
-	 *  @namespace
-	 *  @extends DataTable.defaults.oLanguage
 	 */
 	"oLanguage": {
 		/**
 		 * Information callback function. See
 		 * {@link DataTable.defaults.fnInfoCallback}
-		 *  @type function
-		 *  @default null
 		 */
 		"fnInfoCallback": null
 	},
 
 	/**
 	 * Browser support parameters
-	 *  @namespace
 	 */
 	"oBrowser": {
 		/**
 		 * Determine if the vertical scrollbar is on the right or left of the
 		 * scrolling container - needed for rtl language layout, although not
 		 * all browsers move the scrollbar (Safari).
-		 *  @type boolean
-		 *  @default false
 		 */
 		"bScrollbarLeft": false,
 
 		/**
 		 * Browser scrollbar width
-		 *  @type integer
-		 *  @default 0
 		 */
 		"barWidth": 0
 	},
@@ -238,58 +203,42 @@ DataTable.models.oSettings = {
 	 *     <li>'p' - Pagination</li>
 	 *     <li>'r' - pRocessing</li>
 	 *   </ul>
-	 *  @type array
-	 *  @default []
 	 */
 	"aanFeatures": [],
 
 	/**
 	 * Store data information - see {@link DataTable.models.oRow} for detailed
 	 * information.
-	 *  @type array
-	 *  @default []
 	 */
 	"aoData": [],
 
 	/**
 	 * Array of indexes which are in the current display (after filtering etc)
-	 *  @type array
-	 *  @default []
 	 */
 	"aiDisplay": [],
 
 	/**
 	 * Array of indexes for display - no filtering
-	 *  @type array
-	 *  @default []
 	 */
 	"aiDisplayMaster": [],
 
 	/**
 	 * Map of row ids to data indexes
-	 *  @type object
-	 *  @default {}
 	 */
 	"aIds": {},
 
 	/**
 	 * Store information about each column that is in use
-	 *  @type array
-	 *  @default []
 	 */
 	"aoColumns": [],
 
 	/**
 	 * Store information about the table's header
-	 *  @type array
-	 *  @default []
 	 */
 	"aoHeader": [],
 
 	/**
 	 * Store information about the table's footer
-	 *  @type array
-	 *  @default []
 	 */
 	"aoFooter": [],
 
@@ -298,8 +247,6 @@ DataTable.models.oSettings = {
 	 * research or compare the old search to a new one.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
-	 *  @namespace
-	 *  @extends DataTable.models.oSearch
 	 */
 	"oPreviousSearch": {},
 
@@ -312,8 +259,6 @@ DataTable.models.oSettings = {
 	 * Store the applied search for each column - see
 	 * {@link DataTable.models.oSearch} for the format that is used for the
 	 * filtering information for each column.
-	 *  @type array
-	 *  @default []
 	 */
 	"aoPreSearchCols": [],
 
@@ -326,8 +271,6 @@ DataTable.models.oSettings = {
 	 * </ul>
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
-	 *  @type array
-	 *  @todo These inner arrays should really be objects
 	 */
 	"aaSorting": null,
 
@@ -336,65 +279,47 @@ DataTable.models.oSettings = {
 	 * aaSorting).
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
-	 *  @type array
-	 *  @default []
 	 */
 	"aaSortingFixed": [],
 
 	/**
 	 * If restoring a table - we should restore its width
-	 *  @type int
-	 *  @default 0
 	 */
 	"sDestroyWidth": 0,
 
 	/**
 	 * Callback functions array for every time a row is inserted (i.e. on a draw).
-	 *  @type array
-	 *  @default []
 	 */
 	"aoRowCallback": [],
 
 	/**
 	 * Callback functions for the header on each draw.
-	 *  @type array
-	 *  @default []
 	 */
 	"aoHeaderCallback": [],
 
 	/**
 	 * Callback function for the footer on each draw.
-	 *  @type array
-	 *  @default []
 	 */
 	"aoFooterCallback": [],
 
 	/**
 	 * Array of callback functions for draw callback functions
-	 *  @type array
-	 *  @default []
 	 */
 	"aoDrawCallback": [],
 
 	/**
 	 * Array of callback functions for row created function
-	 *  @type array
-	 *  @default []
 	 */
 	"aoRowCreatedCallback": [],
 
 	/**
 	 * Callback functions for just before the table is redrawn. A return of
 	 * false will be used to cancel the draw.
-	 *  @type array
-	 *  @default []
 	 */
 	"aoPreDrawCallback": [],
 
 	/**
 	 * Callback functions for when the table has been initialised.
-	 *  @type array
-	 *  @default []
 	 */
 	"aoInitComplete": [],
 
@@ -402,81 +327,59 @@ DataTable.models.oSettings = {
 	/**
 	 * Callbacks for modifying the settings to be stored for state saving, prior to
 	 * saving state.
-	 *  @type array
-	 *  @default []
 	 */
 	"aoStateSaveParams": [],
 
 	/**
 	 * Callbacks for modifying the settings that have been stored for state saving
 	 * prior to using the stored values to restore the state.
-	 *  @type array
-	 *  @default []
 	 */
 	"aoStateLoadParams": [],
 
 	/**
 	 * Callbacks for operating on the settings object once the saved state has been
 	 * loaded
-	 *  @type array
-	 *  @default []
 	 */
 	"aoStateLoaded": [],
 
 	/**
 	 * Cache the table ID for quick access
-	 *  @type string
-	 *  @default <i>Empty string</i>
 	 */
 	"sTableId": "",
 
 	/**
 	 * The TABLE node for the main table
-	 *  @type node
-	 *  @default null
 	 */
 	"nTable": null,
 
 	/**
 	 * Permanent ref to the thead element
-	 *  @type node
-	 *  @default null
 	 */
 	"nTHead": null,
 
 	/**
 	 * Permanent ref to the tfoot element - if it exists
-	 *  @type node
-	 *  @default null
 	 */
 	"nTFoot": null,
 
 	/**
 	 * Permanent ref to the tbody element
-	 *  @type node
-	 *  @default null
 	 */
 	"nTBody": null,
 
 	/**
 	 * Cache the wrapper node (contains all DataTables controlled elements)
-	 *  @type node
-	 *  @default null
 	 */
 	"nTableWrapper": null,
 
 	/**
 	 * Indicate if all required information has been read in
-	 *  @type boolean
-	 *  @default false
 	 */
 	"bInitialised": false,
 
 	/**
 	 * Information about open rows. Each object in the array has the parameters
 	 * 'nTr' and 'nParent'
-	 *  @type array
-	 *  @default []
 	 */
 	"aoOpenRows": [],
 
@@ -485,15 +388,11 @@ DataTable.models.oSettings = {
 	 * {@link DataTable.model.oInit.sDom}.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
-	 *  @type string
-	 *  @default null
 	 */
 	"sDom": null,
 
 	/**
 	 * Search delay (in mS)
-	 *  @type integer
-	 *  @default null
 	 */
 	"searchDelay": null,
 
@@ -501,8 +400,6 @@ DataTable.models.oSettings = {
 	 * Which type of pagination should be used.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
-	 *  @type string
-	 *  @default two_button
 	 */
 	"sPaginationType": "two_button",
 
@@ -515,8 +412,6 @@ DataTable.models.oSettings = {
 	 * The state duration (for `stateSave`) in seconds.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
-	 *  @type int
-	 *  @default 0
 	 */
 	"iStateDuration": 0,
 
@@ -530,8 +425,6 @@ DataTable.models.oSettings = {
 	 *       (i.e. '"param": [ 0, 1, 2]')</li>
 	 *     <li>string:sName - name of callback</li>
 	 *   </ul>
-	 *  @type array
-	 *  @default []
 	 */
 	"aoStateSave": [],
 
@@ -543,29 +436,21 @@ DataTable.models.oSettings = {
 	 *       and the object stored. May return false to cancel state loading</li>
 	 *     <li>string:sName - name of callback</li>
 	 *   </ul>
-	 *  @type array
-	 *  @default []
 	 */
 	"aoStateLoad": [],
 
 	/**
 	 * State that was saved. Useful for back reference
-	 *  @type object
-	 *  @default null
 	 */
 	"oSavedState": null,
 
 	/**
 	 * State that was loaded. Useful for back reference
-	 *  @type object
-	 *  @default null
 	 */
 	"oLoadedState": null,
 
 	/**
 	 * Note if draw should be blocked while getting data
-	 *  @type boolean
-	 *  @default true
 	 */
 	"bAjaxDataGet": true,
 
@@ -573,22 +458,16 @@ DataTable.models.oSettings = {
 	 * The last jQuery XHR object that was used for server-side data gathering.
 	 * This can be used for working with the XHR information in one of the
 	 * callbacks
-	 *  @type object
-	 *  @default null
 	 */
 	"jqXHR": null,
 
 	/**
 	 * JSON returned from the server in the last Ajax request
-	 *  @type object
-	 *  @default undefined
 	 */
 	"json": undefined,
 
 	/**
 	 * Data submitted as part of the last Ajax request
-	 *  @type object
-	 *  @default undefined
 	 */
 	"oAjaxData": undefined,
 
@@ -597,7 +476,6 @@ DataTable.models.oSettings = {
 	 * required).
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
-	 *  @type string
 	 */
 	"sServerMethod": null,
 
@@ -605,7 +483,6 @@ DataTable.models.oSettings = {
 	 * Format numbers for display.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
-	 *  @type function
 	 */
 	"fnFormatNumber": null,
 
@@ -613,44 +490,32 @@ DataTable.models.oSettings = {
 	 * List of options that can be used for the user selectable length menu.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
-	 *  @type array
-	 *  @default []
 	 */
 	"aLengthMenu": null,
 
 	/**
 	 * Counter for the draws that the table does. Also used as a tracker for
 	 * server-side processing
-	 *  @type int
-	 *  @default 0
 	 */
 	"iDraw": 0,
 
 	/**
 	 * Indicate if a redraw is being done - useful for Ajax
-	 *  @type boolean
-	 *  @default false
 	 */
 	"bDrawing": false,
 
 	/**
 	 * Draw index (iDraw) of the last error when parsing the returned data
-	 *  @type int
-	 *  @default -1
 	 */
 	"iDrawError": -1,
 
 	/**
 	 * Paging display length
-	 *  @type int
-	 *  @default 10
 	 */
 	"_iDisplayLength": 10,
 
 	/**
 	 * Paging start point - aiDisplay index
-	 *  @type int
-	 *  @default 0
 	 */
 	"_iDisplayStart": 0,
 
@@ -659,9 +524,6 @@ DataTable.models.oSettings = {
 	 * (i.e. before filtering), Use fnRecordsTotal rather than
 	 * this property to get the value of the number of records, regardless of
 	 * the server-side processing setting.
-	 *  @type int
-	 *  @default 0
-	 *  @private
 	 */
 	"_iRecordsTotal": 0,
 
@@ -670,16 +532,11 @@ DataTable.models.oSettings = {
 	 * (i.e. after filtering). Use fnRecordsDisplay rather than
 	 * this property to get the value of the number of records, regardless of
 	 * the server-side processing setting.
-	 *  @type boolean
-	 *  @default 0
-	 *  @private
 	 */
 	"_iRecordsDisplay": 0,
 
 	/**
 	 * The classes to use for the table
-	 *  @type object
-	 *  @default {}
 	 */
 	"oClasses": {},
 
@@ -687,8 +544,6 @@ DataTable.models.oSettings = {
 	 * Flag attached to the settings object so you can check in the draw
 	 * callback if filtering has been done in the draw. Deprecated in favour of
 	 * events.
-	 *  @type boolean
-	 *  @default false
 	 *  @deprecated
 	 */
 	"bFiltered": false,
@@ -697,8 +552,6 @@ DataTable.models.oSettings = {
 	 * Flag attached to the settings object so you can check in the draw
 	 * callback if sorting has been done in the draw. Deprecated in favour of
 	 * events.
-	 *  @type boolean
-	 *  @default false
 	 *  @deprecated
 	 */
 	"bSorted": false,
@@ -709,29 +562,23 @@ DataTable.models.oSettings = {
 	 * should be used for sorting / title by DataTables.
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
-	 *  @type boolean
 	 */
 	"bSortCellsTop": null,
 
 	/**
 	 * Initialisation object that is used for the table
-	 *  @type object
-	 *  @default null
 	 */
 	"oInit": null,
 
 	/**
 	 * Destroy callback functions - for plug-ins to attach themselves to the
 	 * destroy so they can clean up markup and events.
-	 *  @type array
-	 *  @default []
 	 */
 	"aoDestroyCallback": [],
 
 
 	/**
 	 * Get the number of records in the current record set, before filtering
-	 *  @type function
 	 */
 	"fnRecordsTotal": function ()
 	{
@@ -742,7 +589,6 @@ DataTable.models.oSettings = {
 
 	/**
 	 * Get the number of records in the current record set, after filtering
-	 *  @type function
 	 */
 	"fnRecordsDisplay": function ()
 	{
@@ -753,7 +599,6 @@ DataTable.models.oSettings = {
 
 	/**
 	 * Get the display end point - aiDisplay index
-	 *  @type function
 	 */
 	"fnDisplayEnd": function ()
 	{
@@ -779,8 +624,6 @@ DataTable.models.oSettings = {
 
 	/**
 	 * The DataTables object for this table
-	 *  @type object
-	 *  @default null
 	 */
 	"oInstance": null,
 
@@ -788,8 +631,6 @@ DataTable.models.oSettings = {
 	 * Unique identifier for each instance of the DataTables object. If there
 	 * is an ID on the table node, then it takes that value, otherwise an
 	 * incrementing internal counter is used.
-	 *  @type string
-	 *  @default null
 	 */
 	"sInstance": null,
 
@@ -811,29 +652,21 @@ DataTable.models.oSettings = {
 
 	/**
 	 * Last applied sort
-	 *  @type array
-	 *  @default []
 	 */
 	"aLastSort": [],
 
 	/**
 	 * Stored plug-in instances
-	 *  @type object
-	 *  @default {}
 	 */
 	"oPlugins": {},
 
 	/**
 	 * Function used to get a row's id from the row's data
-	 *  @type function
-	 *  @default null
 	 */
 	"rowIdFn": null,
 
 	/**
 	 * Data location where to store a row's id
-	 *  @type string
-	 *  @default null
 	 */
 	"rowId": null,
 

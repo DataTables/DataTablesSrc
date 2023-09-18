@@ -9,15 +9,11 @@
 DataTable.models.oSearch = {
 	/**
 	 * Flag to indicate if the filtering should be case insensitive or not
-	 *  @type boolean
-	 *  @default true
 	 */
 	"bCaseInsensitive": true,
 
 	/**
 	 * Applied search term
-	 *  @type string
-	 *  @default <i>Empty string</i>
 	 */
 	"sSearch": "",
 
@@ -25,23 +21,17 @@ DataTable.models.oSearch = {
 	 * Flag to indicate if the search term should be interpreted as a
 	 * regular expression (true) or not (false) and therefore and special
 	 * regex characters escaped.
-	 *  @type boolean
-	 *  @default false
 	 */
 	"bRegex": false,
 
 	/**
 	 * Flag to indicate if DataTables is to use its smart filtering or not.
-	 *  @type boolean
-	 *  @default true
 	 */
 	"bSmart": true,
 
 	/**
 	 * Flag to indicate if DataTables should only trigger a search when
 	 * the return key is pressed.
-	 *  @type boolean
-	 *  @default false
 	 */
 	"return": false
 };

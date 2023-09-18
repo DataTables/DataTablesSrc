@@ -10,16 +10,12 @@
 DataTable.models.oRow = {
 	/**
 	 * TR element for the row
-	 *  @type node
-	 *  @default null
 	 */
 	"nTr": null,
 
 	/**
 	 * Array of TD elements for each row. This is null until the row has been
 	 * created.
-	 *  @type array nodes
-	 *  @default []
 	 */
 	"anCells": null,
 
@@ -29,8 +25,6 @@ DataTable.models.oRow = {
 	 * using mData options. The exact type will depend on the passed in
 	 * data from the data source, or will be an array if using DOM a data
 	 * source.
-	 *  @type array|object
-	 *  @default []
 	 */
 	"_aData": [],
 
@@ -42,18 +36,12 @@ DataTable.models.oRow = {
 	 * the formatting of the sort data need be done only once for each cell
 	 * per sort. This array should not be read from or written to by anything
 	 * other than the master sorting methods.
-	 *  @type array
-	 *  @default null
-	 *  @private
 	 */
 	"_aSortData": null,
 
 	/**
 	 * Per cell filtering data cache. As per the sort data cache, used to
 	 * increase the performance of the filtering in DataTables
-	 *  @type array
-	 *  @default null
-	 *  @private
 	 */
 	"_aFilterData": null,
 
@@ -62,9 +50,6 @@ DataTable.models.oRow = {
 	 * in this case a string rather than an array. This is easily computed with
 	 * a join on `_aFilterData`, but is provided as a cache so the join isn't
 	 * needed on every search (memory traded for performance)
-	 *  @type array
-	 *  @default null
-	 *  @private
 	 */
 	"_sFilterRow": null,
 
@@ -73,18 +58,12 @@ DataTable.models.oRow = {
 	 * object. This is used for invalidating data, so DataTables can
 	 * automatically read data from the original source, unless uninstructed
 	 * otherwise.
-	 *  @type string
-	 *  @default null
-	 *  @private
 	 */
 	"src": null,
 
 	/**
 	 * Index in the aoData array. This saves an indexOf lookup when we have the
 	 * object, but want to know the index
-	 *  @type integer
-	 *  @default -1
-	 *  @private
 	 */
 	"idx": -1,
 

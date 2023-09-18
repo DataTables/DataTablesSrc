@@ -15,8 +15,6 @@ DataTable.models.oColumn = {
 	/**
 	 * Column index. This could be worked out on-the-fly with $.inArray, but it
 	 * is faster to just hold it as a variable
-	 *  @type integer
-	 *  @default null
 	 */
 	"idx": null,
 
@@ -27,7 +25,6 @@ DataTable.models.oColumn = {
 	 * would benefit from this). The values are integers pointing to the
 	 * columns to be sorted on (typically it will be a single integer pointing
 	 * at itself, but that doesn't need to be the case).
-	 *  @type array
 	 */
 	"aDataSort": null,
 
@@ -37,44 +34,34 @@ DataTable.models.oColumn = {
 	 * as the sorting direction when the column if first sorted (clicked on).
 	 * Sort it again (click again) and it will move on to the next index.
 	 * Repeat until loop.
-	 *  @type array
 	 */
 	"asSorting": null,
 
 	/**
 	 * Flag to indicate if the column is searchable, and thus should be included
 	 * in the filtering or not.
-	 *  @type boolean
 	 */
 	"bSearchable": null,
 
 	/**
 	 * Flag to indicate if the column is sortable or not.
-	 *  @type boolean
 	 */
 	"bSortable": null,
 
 	/**
 	 * Flag to indicate if the column is currently visible in the table or not
-	 *  @type boolean
 	 */
 	"bVisible": null,
 
 	/**
 	 * Store for manual type assignment using the `column.type` option. This
 	 * is held in store so we can manipulate the column's `sType` property.
-	 *  @type string
-	 *  @default null
-	 *  @private
 	 */
 	"_sManualType": null,
 
 	/**
 	 * Flag to indicate if HTML5 data attributes should be used as the data
 	 * source for filtering or sorting. True is either are.
-	 *  @type boolean
-	 *  @default false
-	 *  @private
 	 */
 	"_bAttrSrc": false,
 
@@ -83,12 +70,6 @@ DataTable.models.oColumn = {
 	 * etc) or processed for input (DOM source). This can be used as a compliment to mRender
 	 * allowing you to modify the DOM element (add background colour for example) when the
 	 * element is available.
-	 *  @type function
-	 *  @param {element} nTd The TD node that has been created
-	 *  @param {*} sData The Data for the cell
-	 *  @param {array|object} oData The data for the whole row
-	 *  @param {int} iRow The row index for the aoData data store
-	 *  @default null
 	 */
 	"fnCreatedCell": null,
 
@@ -98,13 +79,6 @@ DataTable.models.oColumn = {
 	 * the method attached to this property. It allows mData to function as
 	 * required. This function is automatically assigned by the column
 	 * initialisation method
-	 *  @type function
-	 *  @param {array|object} oData The data array/object for the array
-	 *    (i.e. aoData[]._aData)
-	 *  @param {string} sSpecific The specific data type you want to get -
-	 *    'display', 'type' 'filter' 'sort'
-	 *  @returns {*} The data for the cell from the given row's data
-	 *  @default null
 	 */
 	"fnGetData": null,
 
@@ -113,11 +87,6 @@ DataTable.models.oColumn = {
 	 * set the data directly to _aData internally in DataTables - always use
 	 * this method. It allows mData to function as required. This function
 	 * is automatically assigned by the column initialisation method
-	 *  @type function
-	 *  @param {array|object} oData The data array/object for the array
-	 *    (i.e. aoData[]._aData)
-	 *  @param {*} sValue Value to set
-	 *  @default null
 	 */
 	"fnSetData": null,
 
@@ -125,8 +94,6 @@ DataTable.models.oColumn = {
 	 * Property to read the value for the cells in the column from the data
 	 * source array / object. If null, then the default content is used, if a
 	 * function is given then the return from the function is used.
-	 *  @type function|int|string|null
-	 *  @default null
 	 */
 	"mData": null,
 
@@ -135,15 +102,11 @@ DataTable.models.oColumn = {
 	 * the data - i.e. it is basically the same as mData, but without the
 	 * 'set' option, and also the data fed to it is the result from mData.
 	 * This is the rendering method to match the data method of mData.
-	 *  @type function|int|string|null
-	 *  @default null
 	 */
 	"mRender": null,
 
 	/**
 	 * The class to apply to all TD elements in the table's TBODY for the column
-	 *  @type string
-	 *  @default null
 	 */
 	"sClass": null,
 
@@ -156,7 +119,6 @@ DataTable.models.oColumn = {
 	 * it into an DOM object and measuring that is horribly(!) slow). Thus as
 	 * a "work around" we provide this option. It will append its value to the
 	 * text that is found to be the longest string for the column - i.e. padding.
-	 *  @type string
 	 */
 	"sContentPadding": null,
 
@@ -164,57 +126,43 @@ DataTable.models.oColumn = {
 	 * Allows a default value to be given for a column's data, and will be used
 	 * whenever a null data source is encountered (this can be because mData
 	 * is set to null, or because the data source itself is null).
-	 *  @type string
-	 *  @default null
 	 */
 	"sDefaultContent": null,
 
 	/**
 	 * Name for the column, allowing reference to the column by name as well as
 	 * by index (needs a lookup to work by name).
-	 *  @type string
 	 */
 	"sName": null,
 
 	/**
 	 * Custom sorting data type - defines which of the available plug-ins in
 	 * afnSortData the custom sorting will use - if any is defined.
-	 *  @type string
-	 *  @default std
 	 */
 	"sSortDataType": 'std',
 
 	/**
 	 * Class to be applied to the header element when sorting on this column
-	 *  @type string
-	 *  @default null
 	 */
 	"sSortingClass": null,
 
 	/**
 	 * Title of the column - what is seen in the TH element (nTh).
-	 *  @type string
 	 */
 	"sTitle": null,
 
 	/**
 	 * Column sorting and filtering type
-	 *  @type string
-	 *  @default null
 	 */
 	"sType": null,
 
 	/**
 	 * Width of the column
-	 *  @type string
-	 *  @default null
 	 */
 	"sWidth": null,
 
 	/**
 	 * Width of the column when it was first "encountered"
-	 *  @type string
-	 *  @default null
 	 */
 	"sWidthOrig": null,
 
