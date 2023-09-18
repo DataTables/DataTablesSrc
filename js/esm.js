@@ -1,5 +1,5 @@
 /*! DataTables 2.0.0-dev
- * ©2008-2022 SpryMedia Ltd - datatables.net/license
+ * © SpryMedia Ltd - datatables.net/license
  */
 
 import jQuery from 'jquery';
