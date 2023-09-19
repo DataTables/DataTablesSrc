@@ -17,7 +17,7 @@ function _fnFeatureHtmlTable ( settings )
 
 	var scrollX = scroll.sX;
 	var scrollY = scroll.sY;
-	var classes = settings.oClasses;
+	var classes = settings.oClasses.scrolling;
 	var caption = settings.captionNode;
 	var captionSide = caption ? caption._captionSide : null;
 	var headerClone = $( table[0].cloneNode(false) );
@@ -48,9 +48,9 @@ function _fnFeatureHtmlTable ( settings )
 	 *        table - scroll foot table
 	 *          tfoot - tfoot
 	 */
-	var scroller = $( _div, { 'class': classes.sScrollWrapper } )
+	var scroller = $( _div, { 'class': classes.container } )
 		.append(
-			$(_div, { 'class': classes.sScrollHead } )
+			$(_div, { 'class': classes.header.self } )
 				.css( {
 					overflow: 'hidden',
 					position: 'relative',
@@ -58,7 +58,7 @@ function _fnFeatureHtmlTable ( settings )
 					width: scrollX ? size(scrollX) : '100%'
 				} )
 				.append(
-					$(_div, { 'class': classes.sScrollHeadInner } )
+					$(_div, { 'class': classes.header.inner } )
 						.css( {
 							'box-sizing': 'content-box',
 							width: scroll.sXInner || '100%'
@@ -75,7 +75,7 @@ function _fnFeatureHtmlTable ( settings )
 				)
 		)
 		.append(
-			$(_div, { 'class': classes.sScrollBody } )
+			$(_div, { 'class': classes.body } )
 				.css( {
 					position: 'relative',
 					overflow: 'auto',
@@ -86,14 +86,14 @@ function _fnFeatureHtmlTable ( settings )
 
 	if ( footer ) {
 		scroller.append(
-			$(_div, { 'class': classes.sScrollFoot } )
+			$(_div, { 'class': classes.footer.self } )
 				.css( {
 					overflow: 'hidden',
 					border: 0,
 					width: scrollX ? size(scrollX) : '100%'
 				} )
 				.append(
-					$(_div, { 'class': classes.sScrollFootInner } )
+					$(_div, { 'class': classes.footer.inner } )
 						.append(
 							footerClone
 								.removeAttr('id')

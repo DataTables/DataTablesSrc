@@ -10,7 +10,7 @@ function _processingHtml ( settings )
 	if ( settings.oFeatures.bProcessing ) {
 		var n = $('<div/>', {
 				'id': ! settings.aanFeatures.r ? settings.sTableId+'_processing' : null,
-				'class': settings.oClasses.sProcessing,
+				'class': settings.oClasses.processing.container,
 				'role': 'status'
 			} )
 			.html( settings.oLanguage.sProcessing )

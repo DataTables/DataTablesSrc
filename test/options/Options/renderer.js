@@ -340,7 +340,7 @@ describe('renderer option header functions', function() {
 	});
 
 	it('Arg 3 is the classes object', function() {
-		expect(headerArgs[2].sHeaderTH).toBeDefined();
+		expect(headerArgs[2].thead.cell).toBeDefined();
 	});
 
 	it('Renderer is called on each header cell', function() {

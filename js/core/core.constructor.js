@@ -182,7 +182,7 @@ _fnBrowserDetect( oSettings );
 var oClasses = oSettings.oClasses;
 
 $.extend( oClasses, DataTable.ext.classes, oInit.oClasses );
-$this.addClass( oClasses.sTable );
+$this.addClass( oClasses.table );
 
 if (! oSettings.oFeatures.bPaginate) {
 	oInit.iDisplayStart = 0;
@@ -347,6 +347,7 @@ var loadedInit = function () {
 		thead = $('<thead/>').appendTo($this);
 	}
 	oSettings.nTHead = thead[0];
+	$('tr', thead).addClass(oClasses.thead.row);
 
 	var tbody = $this.children('tbody');
 	if ( tbody.length === 0 ) {
@@ -361,6 +362,7 @@ var loadedInit = function () {
 		tfoot = $('<tfoot/>').appendTo($this);
 	}
 	oSettings.nTFoot = tfoot[0];
+	$('tr', tfoot).addClass(oClasses.tfoot.row);
 
 	// Check if there is data passing into the constructor
 	if ( oInit.aaData ) {

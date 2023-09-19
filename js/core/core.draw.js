@@ -38,7 +38,8 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 		rowData = row._aData,
 		cells = [],
 		nTr, nTd, oCol,
-		i, iLen, create;
+		i, iLen, create,
+		trClass = oSettings.oClasses.tbody.row;
 
 	if ( row.nTr === null )
 	{
@@ -46,6 +47,8 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 
 		row.nTr = nTr;
 		row.anCells = cells;
+
+		_addClass(nTr, trClass);
 
 		/* Use a private property on the node to allow reserve mapping from the node
 		 * to the aoData array for fast look up
@@ -106,6 +109,9 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 		}
 
 		_fnCallbackFire( oSettings, 'aoRowCreatedCallback', null, [nTr, rowData, iRow, cells] );
+	}
+	else {
+		_addClass(row.nTr, trClass);
 	}
 }
 
@@ -375,15 +381,10 @@ function _fnDraw( oSettings, ajaxComplete )
 			for (var i=0 ; i<columns.length ; i++) {
 				var col = columns[i];
 				var td = aoData.anCells[i];
-				var autoClass = _ext.type.className[col.sType];
 
-				if (autoClass) {
-					_addClass(td, autoClass);
-				}
-
-				if (col.sClass) {
-					_addClass(td, col.sClass);
-				}
+				_addClass(td, _ext.type.className[col.sType]); // auto class
+				_addClass(td, col.sClass); // column class
+				_addClass(td, oSettings.oClasses.tbody.cell); // all cells
 			}
 
 			// Row callback functions - might want to manipulate the row
@@ -412,7 +413,7 @@ function _fnDraw( oSettings, ajaxComplete )
 		anRows[ 0 ] = $( '<tr/>' )
 			.append( $('<td />', {
 				'colSpan': _fnVisbleColumns( oSettings ),
-				'class':   oSettings.oClasses.sRowEmpty
+				'class':   oSettings.oClasses.empty.row
 			} ).html( sZero ) )[0];
 	}
 
@@ -652,7 +653,7 @@ function _fnAddOptionsHtml ( settings )
 	// Wrapper div around everything DataTables controls
 	var insert = $('<div/>', {
 			id:      settings.sTableId+'_wrapper',
-			'class': classes.sWrapper
+			'class': classes.container
 		} )
 		.insertBefore( table );
 

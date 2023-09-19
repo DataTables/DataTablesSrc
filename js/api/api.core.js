@@ -79,6 +79,7 @@ _api_register( 'destroy()', function ( remove ) {
 		var jqTbody   = $(tbody);
 		var jqWrapper = $(settings.nTableWrapper);
 		var rows      = $.map( settings.aoData, function (r) { return r ? r.nTr : null; } );
+		var orderClasses = classes.order;
 
 		// Flag to note that the table is currently being destroyed - no action
 		// should be taken
@@ -114,8 +115,11 @@ _api_register( 'destroy()', function ( remove ) {
 		_fnSortingClasses( settings );
 
 		$('th, td', thead)
-			.removeClass( classes.orderableAsc+' '+
-				classes.orderableDesc+' '+classes.orderingAsc+' '+classes.orderingDesc
+			.removeClass(
+				orderClasses.canAsc + ' ' +
+				orderClasses.canDesc + ' ' +
+				orderClasses.isAsc + ' ' +
+				orderClasses.isDesc
 			)
 			.css('width', '');
 
@@ -140,7 +144,7 @@ _api_register( 'destroy()', function ( remove ) {
 			// so we can restore directly to that
 			jqTable
 				.css( 'width', settings.sDestroyWidth )
-				.removeClass( classes.sTable );
+				.removeClass( classes.table );
 		}
 
 		/* Remove the settings object from the settings array */

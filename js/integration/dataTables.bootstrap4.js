@@ -19,10 +19,16 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	sWrapper:      "dataTables_wrapper dt-bootstrap4",
-	sFilterInput:  "form-control form-control-sm",
-	sLengthSelect: "custom-select custom-select-sm form-control form-control-sm",
-	sProcessing:   "dataTables_processing card"
+	container: "dataTables_wrapper dt-bootstrap4",
+	search: {
+		input: "form-control form-control-sm"
+	},
+	length: {
+		select: "custom-select custom-select-sm form-control form-control-sm"
+	},
+	processing: {
+		container: "dataTables_processing card"
+	}
 } );
 
 

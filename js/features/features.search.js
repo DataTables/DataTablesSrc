@@ -10,11 +10,11 @@ _ext.features.register( 'search', function ( settings, opts ) {
 		return null;
 	}
 
-	var classes = settings.oClasses;
+	var classes = settings.oClasses.search;
 	var tableId = settings.sTableId;
 	var language = settings.oLanguage;
 	var previousSearch = settings.oPreviousSearch;
-	var input = '<input type="search" class="'+classes.sFilterInput+'"/>';
+	var input = '<input type="search" class="'+classes.input+'"/>';
 
 	opts = $.extend({
 		placeholder: language.sSearchPlaceholder,
@@ -44,7 +44,7 @@ _ext.features.register( 'search', function ( settings, opts ) {
 	}
 
 	var filter = $('<div>')
-		.addClass(classes.sFilter)
+		.addClass(classes.container)
 		.append(str.replace(/_INPUT_/, input));
 
 	// add for and id to label and input

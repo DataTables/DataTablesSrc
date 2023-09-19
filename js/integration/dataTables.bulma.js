@@ -10,18 +10,21 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	sWrapper:      "dataTables_wrapper dt-bulma",
-	sFilterInput:  "input",
-	sLengthSelect: "custom-select custom-select-sm form-control form-control-sm",
-	sProcessing:   "dataTables_processing card"
+	container: "dataTables_wrapper dt-bulma",
+	search: {
+		input: "input"
+	},
+	length: {
+		input: "custom-select custom-select-sm form-control form-control-sm"
+	},
+	processing: {
+		container: "dataTables_processing card"
+	}
 } );
 
 
 DataTable.ext.renderer.pagingButton.bulma = function (settings, buttonType, content, active, disabled) {
 	var btnClasses = ['pagination-link'];
-	var tag = buttonType === 'ellipsis'
-		? 'span'
-		: 'a';
 
 	if (active) {
 		btnClasses.push('is-current');

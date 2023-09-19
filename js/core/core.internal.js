@@ -329,10 +329,12 @@ var _flatten = function (out, val) {
 
 // Similar to jQuery's addClass, but use classList.add
 function _addClass(el, name) {
-	name.split(' ').forEach(function (n) {
-		if (n) {
-			// `add` does deduplication, so no need to check `contains`
-			el.classList.add(n);
-		}
-	});
+	if (name) {
+		name.split(' ').forEach(function (n) {
+			if (n) {
+				// `add` does deduplication, so no need to check `contains`
+				el.classList.add(n);
+			}
+		});
+	}
 }

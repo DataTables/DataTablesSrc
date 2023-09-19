@@ -12,24 +12,19 @@
  */
 
 $.extend( DataTable.ext.classes, {
-	"sWrapper":            "dataTables_wrapper dt-jqueryui",
-
-	/* Full numbers paging buttons */
-	"sPageButton":         "fg-button ui-button ui-state-default",
-	"sPageButtonActive":   "ui-state-disabled",
-	"sPageButtonDisabled": "ui-state-disabled",
-
-	/* Features */
-	"sPaging": "dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi "+
-		"ui-buttonset-multi paging_", /* Note that the type is postfixed */
-
-	/* Scrolling */
-	"sScrollHead": "dataTables_scrollHead "+"ui-state-default",
-	"sScrollFoot": "dataTables_scrollFoot "+"ui-state-default",
-
-	/* Misc */
-	"sHeaderTH":  "ui-state-default",
-	"sFooterTH":  "ui-state-default"
+	container: 'dataTables_wrapper dt-jqueryui',
+	paging: {
+		active: 'ui-state-disabled',
+		button: 'fg-button ui-button ui-state-default',
+		container: 'dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi',
+		disabled: 'ui-state-disabled'
+	},
+	thead: {
+		cell: 'ui-state-default'
+	},
+	tfoot: {
+		cell: 'ui-state-default'
+	}
 } );
 
 

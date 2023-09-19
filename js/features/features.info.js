@@ -9,7 +9,7 @@ _ext.features.register( 'info', function ( settings, opts ) {
 		lang  = settings.oLanguage,
 		tid = settings.sTableId,
 		n = $('<div/>', {
-			'class': settings.oClasses.sInfo,
+			'class': settings.oClasses.info.container,
 		} );
 
 	opts = $.extend({

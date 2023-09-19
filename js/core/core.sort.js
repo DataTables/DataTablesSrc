@@ -400,7 +400,7 @@ function _fnSortAdd ( settings, colIdx, append )
 function _fnSortingClasses( settings )
 {
 	var oldSort = settings.aLastSort;
-	var sortClass = settings.oClasses.sSortColumn;
+	var sortClass = settings.oClasses.order.position;
 	var sort = _fnSortFlatten( settings );
 	var features = settings.oFeatures;
 	var i, ien, colIdx;

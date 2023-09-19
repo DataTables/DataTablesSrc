@@ -3,16 +3,16 @@
 $.extend( true, DataTable.ext.renderer, {
 	footer: {
 		_: function ( settings, cell, classes ) {
-			cell.addClass(classes.sFooterTH);
+			cell.addClass(classes.tfoot.cell);
 		}
 	},
 
 	header: {
 		_: function ( settings, cell, classes ) {
-			cell.addClass(classes.sHeaderTH);
+			cell.addClass(classes.thead.cell);
 
 			if (! settings.oFeatures.bSort) {
-				cell.addClass(classes.orderableNone);
+				cell.addClass(classes.order.none);
 			}
 
 			var legacyTop = settings.bSortCellsTop;
@@ -44,6 +44,7 @@ $.extend( true, DataTable.ext.renderer, {
 					return;               // table, not a nested one
 				}
 
+				var orderClasses = classes.order;
 				var columns = ctx.api.columns( cell );
 				var col = settings.aoColumns[columns.flatten()[0]];
 				var orderable = columns.orderable().includes(true);
@@ -57,12 +58,12 @@ $.extend( true, DataTable.ext.renderer, {
 				cell
 					.attr('tabindex', 0)
 					.removeClass(
-						classes.orderingAsc +' '+
-						classes.orderingDesc
+						orderClasses.isAsc +' '+
+						orderClasses.isDesc
 					)
-					.toggleClass( classes.orderableNone, ! orderable )
-					.toggleClass( classes.orderableAsc, orderable && sortDirs.includes('asc') )
-					.toggleClass( classes.orderableDesc, orderable && sortDirs.includes('desc') );
+					.toggleClass( orderClasses.none, ! orderable )
+					.toggleClass( orderClasses.canAsc, orderable && sortDirs.includes('asc') )
+					.toggleClass( orderClasses.canDesc, orderable && sortDirs.includes('desc') );
 				
 				var sortIdx = orderedColumns.indexOf( indexes.toArray().join(',') );
 
@@ -73,8 +74,8 @@ $.extend( true, DataTable.ext.renderer, {
 					var orderDirs = columns.order();
 
 					cell.addClass(
-						orderDirs.includes('asc') ? classes.orderingAsc : '' +
-						orderDirs.includes('desc') ? classes.orderingDesc : ''
+						orderDirs.includes('asc') ? orderClasses.isAsc : '' +
+						orderDirs.includes('desc') ? orderClasses.isDesc : ''
 					);
 				}
 

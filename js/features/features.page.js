@@ -13,7 +13,7 @@ _ext.features.register( 'paging', function ( settings, opts ) {
 		type: settings.sPaginationType
 	}, opts)
 
-	var host = $('<div/>').addClass( settings.oClasses.sPaging + opts.type );
+	var host = $('<div/>').addClass( settings.oClasses.paging.container + ' paging_' + opts.type );
 	var draw = function () {
 		_pagingDraw(settings, host, opts);
 	};

@@ -12,8 +12,10 @@
  */
 
 $.extend( DataTable.ext.classes, {
-	sWrapper:    "dataTables_wrapper dt-foundation",
-	sProcessing: "dataTables_processing panel callout"
+	container: "dataTables_wrapper dt-foundation",
+	processing: {
+		container: "dataTables_processing panel callout"
+	}
 } );
 
 

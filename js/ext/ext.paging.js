@@ -43,16 +43,16 @@ $.extend( extPagination, {
 $.extend( true, DataTable.ext.renderer, {
 	pagingButton: {
 		_: function (settings, buttonType, content, active, disabled) {
-			var classes = settings.oClasses;
-			var btnClasses = [classes.sPageButton];
+			var classes = settings.oClasses.paging;
+			var btnClasses = [classes.button];
 			var btn;
 
 			if (active) {
-				btnClasses.push(classes.sPageButtonActive);
+				btnClasses.push(classes.active);
 			}
 
 			if (disabled) {
-				btnClasses.push(classes.sPageButtonDisabled)
+				btnClasses.push(classes.disabled)
 			}
 
 			if (buttonType === 'ellipsis') {

@@ -16,7 +16,7 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 	}, opts);
 
 	var
-		classes  = settings.oClasses,
+		classes  = settings.oClasses.length,
 		tableId  = settings.sTableId,
 		menu     = opts.menu,
 		lengths  = [],
@@ -61,7 +61,7 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 
 	// Wrapper element - use a span as a holder for where the select will go
 	var div = $('<div>')
-		.addClass( classes.sLength )
+		.addClass( classes.container )
 		.append(
 			str.replace( '_MENU_', '<span></span>' )
 		);
@@ -88,7 +88,7 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 	var select = $('<select/>', {
 		'name':          tableId+'_length',
 		'aria-controls': tableId,
-		'class':         classes.sLengthSelect
+		'class':         classes.select
 	} );
 
 	for ( i=0 ; i<lengths.length ; i++ ) {

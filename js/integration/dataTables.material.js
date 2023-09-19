@@ -30,12 +30,20 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	sTable: 		"mdc-data-table__table",
-	sHeaderTH:		"mdc-data-table__header-row",
-	sWrapper:       "dataTables_wrapper form-inline dt-material mdc-data-table",
-	sFilterInput:   "form-control input-sm",
-	sLengthSelect:  "form-control input-sm",
-	sProcessing:    "dataTables_processing panel panel-default"
+	container: "dataTables_wrapper form-inline dt-material mdc-data-table",
+	table: "mdc-data-table__table",
+	thead: {
+		cell: "mdc-data-table__header-row"
+	},
+	search: {
+		input: "form-control input-sm"
+	},
+	length: {
+		select: "form-control input-sm"
+	},
+	processing: {
+		container: "dataTables_processing panel panel-default"
+	}
 } );
 
 DataTable.ext.renderer.pagingButton.material = function (settings, buttonType, content, active, disabled) {

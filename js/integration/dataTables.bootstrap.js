@@ -19,10 +19,16 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	sWrapper:      "dataTables_wrapper form-inline dt-bootstrap",
-	sFilterInput:  "form-control input-sm",
-	sLengthSelect: "form-control input-sm",
-	sProcessing:   "dataTables_processing panel panel-default"
+	container: "dataTables_wrapper form-inline dt-bootstrap",
+	search: {
+		input: "form-control input-sm"
+	},
+	length: {
+		select: "form-control input-sm"
+	},
+	processing: {
+		container: "dataTables_processing panel panel-default"
+	}
 } );
 
 /* Bootstrap paging button renderer */

@@ -18,9 +18,13 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	sWrapper:      "dataTables_wrapper dt-semanticUI ui stackable grid",
-	sFilter:       "dataTables_filter ui input",
-	sProcessing:   "dataTables_processing ui segment"
+	container: "dataTables_wrapper dt-semanticUI ui stackable grid",
+	search: {
+		input: "dataTables_filter ui input"
+	},
+	processing: {
+		container: "dataTables_processing ui segment"
+	}
 } );
 
 
