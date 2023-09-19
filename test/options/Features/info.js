@@ -16,7 +16,7 @@ describe('info option- Feature', function() {
 			$('#example').dataTable({
 				info: false
 			});
-			expect($('div.dataTables_info').length).toBe(0);
+			expect($('div.dt-info').length).toBe(0);
 		});
 
 		dt.html('basic');
@@ -24,7 +24,7 @@ describe('info option- Feature', function() {
 			$('#example').dataTable({
 				info: true
 			});
-			expect($('div.dataTables_info').length).toBe(1);
+			expect($('div.dt-info').length).toBe(1);
 		});
 	});
 
@@ -34,13 +34,13 @@ describe('info option- Feature', function() {
 			$('#example').dataTable({
 				info: true
 			});
-			expect($('div.dataTables_info').html()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dt-info').html()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		it('example_info is in correct position in DOM (after table)', function() {
 			expect(
-				$('div.dataTables_info')
-					.closest('div.dataTables_layout_row')
+				$('div.dt-info')
+					.closest('div.dt-layout-row')
 					.prev()
 					.find('table')
 					.attr('id')
@@ -55,15 +55,15 @@ describe('info option- Feature', function() {
 			$('#example_two').DataTable({
 				info: false
 			});
-			expect($('#example_one_wrapper div.dataTables_info').length).toBe(1);
-			expect($('#example_two_wrapper div.dataTables_info').length).toBe(0);
+			expect($('#example_one_wrapper div.dt-info').length).toBe(1);
+			expect($('#example_two_wrapper div.dt-info').length).toBe(0);
 		});
 
 		dt.html('basic');
 		it('Default can be set to disabled', function() {
 			$.fn.dataTable.defaults.bInfo = false;
 			$('#example').DataTable();
-			expect($('div.dataTables_info').length).toBe(0);
+			expect($('div.dt-info').length).toBe(0);
 		});
 	});
 });

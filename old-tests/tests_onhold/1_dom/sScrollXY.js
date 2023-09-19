@@ -15,48 +15,48 @@ $(document).ready( function () {
 	
 	oTest.fnWaitTest( 
 		"Header follows x-scrolling",
-		function () { $('div.dataTables_scrollBody').scrollLeft(20); },
-		function () { return $('div.dataTables_scrollHead').scrollLeft() == 20; }
+		function () { $('div.dt-scroll-body').scrollLeft(20); },
+		function () { return $('div.dt-scroll-head').scrollLeft() == 20; }
 	);
 	
 	oTest.fnWaitTest( 
 		"Footer follows x-scrolling",
 		null,
-		function () { return $('div.dataTables_scrollFoot').scrollLeft() == 20; }
+		function () { return $('div.dt-scroll-foot').scrollLeft() == 20; }
 	);
 	
 	oTest.fnWaitTest( 
 		"y-scrolling has no effect on header",
-		function () { $('div.dataTables_scrollBody').scrollTop(20); },
-		function () { return $('div.dataTables_scrollHead').scrollLeft() == 20; }
+		function () { $('div.dt-scroll-body').scrollTop(20); },
+		function () { return $('div.dt-scroll-head').scrollLeft() == 20; }
 	);
 	
 	oTest.fnWaitTest( 
 		"Filtering results in sets y-scroll back to 0",
 		function () { oTable.fnFilter('1') },
-		function () { return $('div.dataTables_scrollBody').scrollTop() == 0; }
+		function () { return $('div.dt-scroll-body').scrollTop() == 0; }
 	);
 	
 	oTest.fnWaitTest( 
 		"Filtering has no effect on x-scroll",
 		null,
-		function () { return $('div.dataTables_scrollBody').scrollLeft() == 20; }
+		function () { return $('div.dt-scroll-body').scrollLeft() == 20; }
 	);
 	
 	oTest.fnWaitTest( 
 		"Full x-scroll has header track all the way with it",
 		function () {
-			$('div.dataTables_scrollBody').scrollLeft(
-				$('#example').width() - $('div.dataTables_scrollBody')[0].clientWidth
+			$('div.dt-scroll-body').scrollLeft(
+				$('#example').width() - $('div.dt-scroll-body')[0].clientWidth
 			);
 		},
-		function () { return $('div.dataTables_scrollBody').scrollLeft() == $('div.dataTables_scrollHead').scrollLeft(); }
+		function () { return $('div.dt-scroll-body').scrollLeft() == $('div.dt-scroll-head').scrollLeft(); }
 	);
 	
 	oTest.fnTest( 
 		"Footer also tracked all the way",
 		null,
-		function () { return $('div.dataTables_scrollBody').scrollLeft() == $('div.dataTables_scrollFoot').scrollLeft(); }
+		function () { return $('div.dt-scroll-body').scrollLeft() == $('div.dt-scroll-foot').scrollLeft(); }
 	);
 	
 	oTest.fnTest( 

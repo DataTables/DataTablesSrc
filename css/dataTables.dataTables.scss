@@ -289,18 +289,18 @@ table.dataTable td {
 /*
  * Control feature layout
  */
-div.dataTables_wrapper {
+div.dt-container {
 	position: relative;
 	clear: both;
 
-	div.dataTables_layout_row {
+	div.dt-layout-row {
 		display: table;
 		clear: both;
 		width: 100%;
 		table-layout: fixed;
 	}
 
-	div.dataTables_layout_cell {
+	div.dt-layout-cell {
 		display: table-cell;
 		vertical-align: middle;
 		padding: 5px 0;
@@ -318,7 +318,7 @@ div.dataTables_wrapper {
 		}
 	}
 
-	.dataTables_filter {
+	.dt-search {
 		input {
 			@include table-input;
 			margin-left: 3px;
@@ -335,8 +335,8 @@ div.dataTables_wrapper {
 	}
 
 	// Paging
-	.dataTables_paginate {
-		.paginate_button {
+	.dt-paging {
+		.dt-paging-button {
 			box-sizing: border-box;
 			display: inline-block;
 			min-width: 1.5em;
@@ -395,11 +395,11 @@ div.dataTables_wrapper {
 		}
 	}
 
-	.dataTables_length,
-	.dataTables_filter,
-	.dataTables_info,
-	.dataTables_processing,
-	.dataTables_paginate {
+	.dt-length,
+	.dt-search,
+	.dt-info,
+	.dt-processing,
+	.dt-paging {
 		color: $table-control-color;
 	}
 
@@ -407,7 +407,7 @@ div.dataTables_wrapper {
 	.dataTables_scroll {
 		clear: both;
 
-		div.dataTables_scrollBody {
+		div.dt-scroll-body {
 			-webkit-overflow-scrolling: touch;
 
 			> table > thead > tr, > table > tbody > tr {
@@ -429,7 +429,7 @@ div.dataTables_wrapper {
 		}
 	}
 
-	.dataTables_scrollBody {
+	.dt-scroll-body {
 		tbody > tr:first-child > * {
 			border-top: none;
 		}
@@ -456,12 +456,12 @@ div.dataTables_wrapper {
 // Collapse the two column display of the control elements when the screen is
 // small
 @media screen and (max-width: 767px) {
-	div.dataTables_wrapper {
-		div.dataTables_layout_row {
+	div.dt-container {
+		div.dt-layout-row {
 			display: block;
 		}
 
-		div.dataTables_layout_cell {
+		div.dt-layout-cell {
 			display: block;
 			
 			&.dt-full,
@@ -474,14 +474,14 @@ div.dataTables_wrapper {
 }
 
 @media screen and (max-width: 640px) {
-	.dataTables_wrapper {
-		.dataTables_length,
-		.dataTables_filter {
+	.dt-container {
+		.dt-length,
+		.dt-search {
 			float: none;
 			text-align: center;
 		}
 
-		.dataTables_filter {
+		.dt-search {
 			margin-top: 0.5em;
 		}
 	}
@@ -541,16 +541,16 @@ html.dark {
 		}
 	}
 
-	.dataTables_wrapper {
+	.dt-container {
 		// Chrome 83 hack - see top of file
-		.dataTables_filter input,
-		.dataTables_length select {
+		.dt-search input,
+		.dt-length select {
 			border: 1px solid rgb(255, 255, 255, 0.2);
 			background-color: var(--dt-html-background);
 		}
 
-		.dataTables_paginate {
-			.paginate_button {
+		.dt-paging {
+			.dt-paging-button {
 				&.current,
 				&.current:hover {
 					border: $table-header-border-dark;

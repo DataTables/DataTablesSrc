@@ -93,7 +93,7 @@ describe('rows - rows().remove()', function() {
 
 			toRemove.forEach(function(person) {
 				table.search(person).draw();
-				if (expectedText !== $('div.dataTables_info').text()) {
+				if (expectedText !== $('div.dt-info').text()) {
 					passed = false;
 				}
 			});

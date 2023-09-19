@@ -62,7 +62,7 @@ describe('core - events - page', function() {
 			expect(count).toBe(1);
 		});
 		it('Called when user changes page', function() {
-			$('.paginate_button:eq(3)').click();
+			$('.dt-paging-button:eq(3)').click();
 			expect(count).toBe(2);
 		});
 	});

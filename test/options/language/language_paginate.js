@@ -19,16 +19,16 @@ describe('language.paginate option', function() {
 			expect(table.sLast).toBe('»');
 		});
 		it('Paginate defaults are in the DOM', function() {
-			expect($('.paginate_button.first').html()).toBe('«');
-			expect($('.paginate_button.previous').html()).toBe('‹');
-			expect($('.paginate_button.next').html()).toBe('›');
-			expect($('.paginate_button.last').html()).toBe('»');
+			expect($('.dt-paging-button.first').html()).toBe('«');
+			expect($('.dt-paging-button.previous').html()).toBe('‹');
+			expect($('.dt-paging-button.next').html()).toBe('›');
+			expect($('.dt-paging-button.last').html()).toBe('»');
 		});
 		it('Aria labels are set', function() {
-			expect($('.paginate_button.first').attr('aria-label')).toBe('First');
-			expect($('.paginate_button.previous').attr('aria-label')).toBe('Previous');
-			expect($('.paginate_button.next').attr('aria-label')).toBe('Next');
-			expect($('.paginate_button.last').attr('aria-label')).toBe('Last');
+			expect($('.dt-paging-button.first').attr('aria-label')).toBe('First');
+			expect($('.dt-paging-button.previous').attr('aria-label')).toBe('Previous');
+			expect($('.dt-paging-button.next').attr('aria-label')).toBe('Next');
+			expect($('.dt-paging-button.last').attr('aria-label')).toBe('Last');
 		});
 		dt.html('basic');
 		it('Paginate can be defined', function() {
@@ -52,10 +52,10 @@ describe('language.paginate option', function() {
 			expect(table.sLast).toBe('unit4');
 		});
 		it('paginate definition are in the dom', function() {
-			expect($('.paginate_button.first').html()).toBe('unit1');
-			expect($('.paginate_button.previous').html()).toBe('unit2');
-			expect($('.paginate_button.next').html()).toBe('unit3');
-			expect($('.paginate_button.last').html()).toBe('unit4');
+			expect($('.dt-paging-button.first').html()).toBe('unit1');
+			expect($('.dt-paging-button.previous').html()).toBe('unit2');
+			expect($('.dt-paging-button.next').html()).toBe('unit3');
+			expect($('.dt-paging-button.last').html()).toBe('unit4');
 		});
 	});
 });

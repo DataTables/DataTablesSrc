@@ -31,10 +31,10 @@ describe('language.decimal option ', function() {
 				decimal: '.'
 			},
 			initComplete: function(settings, json) {
-				$('div.dataTables_filter input')
+				$('div.dt-search input')
 					.val('915.00')
 					.keyup();
-				expect($('div.dataTables_info').text()).toBe('Showing 1 to 7 of 7 entries (filtered from 10,000 total entries)');
+				expect($('div.dt-info').text()).toBe('Showing 1 to 7 of 7 entries (filtered from 10,000 total entries)');
 				done();
 			}
 		});

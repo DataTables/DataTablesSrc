@@ -53,7 +53,7 @@ describe('Static method - tables()', function() {
 			expect(tables[0] instanceof HTMLElement).toBe(true);
 		});
 		it('Returns hidden tables', function() {
-			$('div.dataTables_wrapper').hide();
+			$('div.dt-container').hide();
 			tables = $.fn.dataTable.tables({ visible: false });
 			expect(tables.length).toBe(1);
 			expect(tables[0] instanceof HTMLElement).toBe(true);
@@ -63,7 +63,7 @@ describe('Static method - tables()', function() {
 			expect(tables[0] instanceof HTMLElement).toBe(true);
 		});
 		it('Doesnt return hidden tables', function() {
-			$('div.dataTables_wrapper').hide();
+			$('div.dt-container').hide();
 			tables = $.fn.dataTable.tables({ visible: true });
 			expect(tables.length).toBe(0);
 
@@ -107,14 +107,14 @@ describe('Static method - tables()', function() {
 			expect($('#example_two tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
 		});
 		it('Returns visible tables', function() {
-			$('div.dataTables_wrapper:eq(0)').hide();
+			$('div.dt-container:eq(0)').hide();
 
 			tables = $.fn.dataTable.tables({ visible: true });
 			expect(tables.length).toBe(1);
 			expect($(tables[0]).attr('id')).toBe('example_two');
 		});
 		it('Returns all tables', function() {
-			$('div.dataTables_wrapper:eq(0)').hide();
+			$('div.dt-container:eq(0)').hide();
 
 			tables = $.fn.dataTable.tables({ visible: false });
 			expect(tables.length).toBe(2);

@@ -27,10 +27,10 @@ describe('language.aria option ', function() {
 				}
 			});
 
-			expect($('.paginate_button.next').attr('aria-label')).toBe('Next');
-			expect($('.paginate_button.previous').attr('aria-label')).toBe('Previous');
-			expect($('.paginate_button.first').attr('aria-label')).toBe('First');
-			expect($('.paginate_button.last').attr('aria-label')).toBe('Last');
+			expect($('.dt-paging-button.next').attr('aria-label')).toBe('Next');
+			expect($('.dt-paging-button.previous').attr('aria-label')).toBe('Previous');
+			expect($('.dt-paging-button.first').attr('aria-label')).toBe('First');
+			expect($('.dt-paging-button.last').attr('aria-label')).toBe('Last');
 		});
 
 		dt.html('basic');

@@ -91,10 +91,10 @@ $(document).ready( function () {
 	oTest.fnWaitTest( 
 		"Jump to last page",
 		function () {
-			nFirst = $('div.dataTables_paginate a.first');
-			nPrevious = $('div.dataTables_paginate a.previous');
-			nNext = $('div.dataTables_paginate a.next');
-			nLast = $('div.dataTables_paginate a.last');
+			nFirst = $('div.dt-paging a.first');
+			nPrevious = $('div.dt-paging a.previous');
+			nNext = $('div.dt-paging a.next');
+			nLast = $('div.dt-paging a.last');
 			nLast.click();
 		},
 		function () {

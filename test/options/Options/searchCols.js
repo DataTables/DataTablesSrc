@@ -9,7 +9,7 @@ describe('searchCols Option', function() {
 			$('#example').dataTable({
 				searchCols: [null, null, null, null, null, null]
 			});
-			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		dt.html('basic');

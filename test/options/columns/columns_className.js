@@ -37,7 +37,7 @@ describe('columns.className option', function() {
 			expect($('#example tfoot tr:eq(0) th:eq(4)').hasClass('unittest')).toBe(false);
 		});
 		it('Add a class to a single column- seventh row- second page', function() {
-			$('.paginate_button.next').click();
+			$('.dt-paging-button.next').click();
 			expect($('#example tbody tr:eq(6) td:eq(2)').hasClass('unittest')).toBe(true);
 		});
 

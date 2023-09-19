@@ -13,10 +13,10 @@ describe('language.search option', function() {
 			expect(table.settings()[0].oLanguage.sSearch).toBe('Search:');
 		});
 		it('A label input is used', function() {
-			expect($('div.dataTables_filter label').length).toBe(1);
+			expect($('div.dt-search label').length).toBe(1);
 		});
 		it('Search language default is in the DOM', function() {
-			expect($('div.dataTables_filter label').text()).toBe('Search:');
+			expect($('div.dt-search label').text()).toBe('Search:');
 		});
 	});
 
@@ -28,7 +28,7 @@ describe('language.search option', function() {
 					search: 'unit test'
 				}
 			});
-			expect($('div.dataTables_filter').text()).toBe('unit test');
+			expect($('div.dt-search').text()).toBe('unit test');
 		});
 
 		dt.html('basic');
@@ -38,21 +38,21 @@ describe('language.search option', function() {
 					search: ''
 				}
 			});
-			expect($('div.dataTables_filter').text()).toBe('');
+			expect($('div.dt-search').text()).toBe('');
 		});
 
 		dt.html('basic');
 		it("Default DOM structure", function () {
 			$('#example').DataTable();
 
-			expect($('div.dataTables_filter > label').length).toBe(1);
-			expect($('div.dataTables_filter > input').length).toBe(1);
-			expect($('div.dataTables_filter > label + input').length).toBe(1);
+			expect($('div.dt-search > label').length).toBe(1);
+			expect($('div.dt-search > input').length).toBe(1);
+			expect($('div.dt-search > label + input').length).toBe(1);
 		});
 
 		it("Has for and id attributes", function () {
-			expect($('div.dataTables_filter > label').attr('for'))
-				.toBe($('div.dataTables_filter > input').attr('id'));
+			expect($('div.dt-search > label').attr('for'))
+				.toBe($('div.dt-search > input').attr('id'));
 		});
 
 		dt.html('basic');
@@ -63,12 +63,12 @@ describe('language.search option', function() {
 				}
 			});
 
-			expect($('div.dataTables_filter > label').length).toBe(1);
-			expect($('div.dataTables_filter > input').length).toBe(1);
-			expect($('div.dataTables_filter > input + label').length).toBe(1);
+			expect($('div.dt-search > label').length).toBe(1);
+			expect($('div.dt-search > input').length).toBe(1);
+			expect($('div.dt-search > input + label').length).toBe(1);
 
-			expect($('div.dataTables_filter > label').attr('for'))
-				.toBe($('div.dataTables_filter > input').attr('id'));
+			expect($('div.dt-search > label').attr('for'))
+				.toBe($('div.dt-search > input').attr('id'));
 		});
 
 		dt.html('basic');
@@ -79,12 +79,12 @@ describe('language.search option', function() {
 				}
 			});
 
-			expect($('div.dataTables_filter > label').length).toBe(1);
-			expect($('div.dataTables_filter > input').length).toBe(1);
-			expect($('div.dataTables_filter > label + input').length).toBe(1);
+			expect($('div.dt-search > label').length).toBe(1);
+			expect($('div.dt-search > input').length).toBe(1);
+			expect($('div.dt-search > label + input').length).toBe(1);
 
-			expect($('div.dataTables_filter > label').attr('for'))
-				.toBe($('div.dataTables_filter > input').attr('id'));
+			expect($('div.dt-search > label').attr('for'))
+				.toBe($('div.dt-search > input').attr('id'));
 		});
 
 		dt.html('basic');
@@ -95,11 +95,11 @@ describe('language.search option', function() {
 				}
 			});
 
-			expect($('div.dataTables_filter > label').length).toBe(1);
-			expect($('div.dataTables_filter > label > input').length).toBe(1);
+			expect($('div.dt-search > label').length).toBe(1);
+			expect($('div.dt-search > label > input').length).toBe(1);
 
-			expect($('div.dataTables_filter > label').attr('for'))
-				.toBe($('div.dataTables_filter input').attr('id'));
+			expect($('div.dt-search > label').attr('for'))
+				.toBe($('div.dt-search input').attr('id'));
 		});
 	});
 });

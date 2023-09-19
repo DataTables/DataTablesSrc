@@ -1,14 +1,14 @@
 
 $.extend( DataTable.ext.classes, {
-	container: 'dataTables_wrapper',
+	container: 'dt-container',
 	empty: {
-		row: 'dataTables_empty'
+		row: 'dt-empty'
 	},
 	info: {
-		container: 'dataTables_info'
+		container: 'dt-info'
 	},
 	length: {
-		container: 'dataTables_length',
+		container: 'dt-length',
 		select: 'dt-input'
 	},
 	order: {
@@ -20,22 +20,22 @@ $.extend( DataTable.ext.classes, {
 		position: 'sorting_'
 	},
 	processing: {
-		container: 'dataTables_processing'
+		container: 'dt-processing'
 	},
 	scrolling: {
-		body: 'dataTables_scrollBody',
+		body: 'dt-scroll-body',
 		container: 'dataTables_scroll',
 		footer: {
-			self: 'dataTables_scrollFoot',
-			inner: 'dataTables_scrollFootInner'
+			self: 'dt-scroll-foot',
+			inner: 'dt-scroll-footInner'
 		},
 		header: {
-			self: 'dataTables_scrollHead',
-			inner: 'dataTables_scrollHeadInner'
+			self: 'dt-scroll-head',
+			inner: 'dt-scroll-headInner'
 		}
 	},
 	search: {
-		container: 'dataTables_filter',
+		container: 'dt-search',
 		input: 'dt-input'
 	},
 	table: 'dataTable',	
@@ -53,8 +53,8 @@ $.extend( DataTable.ext.classes, {
 	},
 	paging: {
 		active: 'current',
-		button: 'paginate_button',
-		container: 'dataTables_paginate',
+		button: 'dt-paging-button',
+		container: 'dt-paging',
 		disabled: 'disabled'
 	}
 } );

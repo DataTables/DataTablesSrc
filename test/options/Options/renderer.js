@@ -48,12 +48,12 @@ function checkHeaders(first, last) {
 }
 
 function checkButtons(rendered) {
-	expect($('div.dataTables_paginate button').length).toBe(10); // paging
-	expect($('div.dataTables_paginate span').length).toBe(0); // paging
+	expect($('div.dt-paging button').length).toBe(10); // paging
+	expect($('div.dt-paging span').length).toBe(0); // paging
 	expect($('thead th:eq(0)').children().length).toBe(1); // header
 
 	if (rendered) {
-		$('div.dataTables_paginate button:eq(5)').click();
+		$('div.dt-paging button:eq(5)').click();
 		expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Jennifer Chang');
 	}
 }

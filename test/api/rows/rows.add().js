@@ -27,7 +27,7 @@ describe('rows - rows.add()', function() {
 			table.search(element).draw();
 
 			if (
-				$('div.dataTables_info').text() !=
+				$('div.dt-info').text() !=
 					'Showing 1 to 1 of 1 entry (filtered from ' + (57 + names.length) + ' total entries)' ||
 				$('#example tbody tr:eq(0) td:eq(0)').text() != element
 			) {
@@ -44,7 +44,7 @@ describe('rows - rows.add()', function() {
 			let table = $('#example').DataTable();
 			table.rows.add([aEva, aFred]);
 			expect(table.rows().count()).toBe(59);
-			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 57 entries');
 		});
 	});
 

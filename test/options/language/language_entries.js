@@ -33,40 +33,40 @@ describe('language.entries option', function() {
 				]
 			});
 
-			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 people');
+			expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 57 people');
 		});
 	
 		it('Info - plural filtered', function() {
 			table.search('Airi').draw();
-			expect($('div.dataTables_info').text()).toBe('Showing 1 to 1 of 1 person (filtered from 57 total people)');
+			expect($('div.dt-info').text()).toBe('Showing 1 to 1 of 1 person (filtered from 57 total people)');
 		});
 
 		it('Info - singular', function() {
 			table.search('').draw();
 			table.rows(':gt(0)').remove().draw();
 
-			expect($('div.dataTables_info').text()).toBe('Showing 1 to 1 of 1 person');
+			expect($('div.dt-info').text()).toBe('Showing 1 to 1 of 1 person');
 		});
 
 		it('Info - singular - filtered', function() {
 			table.search('123').draw();
 			table.rows(':gt(0)').remove().draw();
 
-			expect($('div.dataTables_info').text()).toBe('Showing 0 to 0 of 0 people (filtered from 1 total person)');
+			expect($('div.dt-info').text()).toBe('Showing 0 to 0 of 0 people (filtered from 1 total person)');
 		});
 
 		it('Search', function() {
 			table.search('').draw();
-			expect($('div.dataTables_filter').text()).toBe('Look for people:');
+			expect($('div.dt-search').text()).toBe('Look for people:');
 		});
 
 		it('Length - plural', function() {
-			expect($('div.dataTables_length').text()).toBe('1025501 people per page');
+			expect($('div.dt-length').text()).toBe('1025501 people per page');
 		});
 
 		it('Length - singular', function() {
 			table.page.len(1).draw();
-			expect($('div.dataTables_length').text()).toBe('1025501 person per page');
+			expect($('div.dt-length').text()).toBe('1025501 person per page');
 		});
 
 		dt.html('basic');
@@ -79,9 +79,9 @@ describe('language.entries option', function() {
 				}
 			});
 
-			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 people');
-			expect($('div.dataTables_filter').text()).toBe('Look for people:');
-			expect($('div.dataTables_length').text()).toBe('102550100 people per page');
+			expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 57 people');
+			expect($('div.dt-search').text()).toBe('Look for people:');
+			expect($('div.dt-length').text()).toBe('102550100 people per page');
 		});
 	
 	});

@@ -19,7 +19,7 @@ describe('language.processing option', function() {
 		});
 
 		it('Processing language default is in the DOM ', function() {
-			expect($('div.dataTables_processing').text()).toBe('');
+			expect($('div.dt-processing').text()).toBe('');
 		});
 
 		dt.html('basic');
@@ -39,7 +39,7 @@ describe('language.processing option', function() {
 		});
 
 		it('Processing language definition is in the DOM', function() {
-			expect($('div.dataTables_processing').text()).toBe('unit test');
+			expect($('div.dt-processing').text()).toBe('unit test');
 		});
 	});
 });

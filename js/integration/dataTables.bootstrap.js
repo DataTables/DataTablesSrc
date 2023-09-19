@@ -19,7 +19,7 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	container: "dataTables_wrapper form-inline dt-bootstrap",
+	container: "dt-container form-inline dt-bootstrap",
 	search: {
 		input: "form-control input-sm"
 	},
@@ -27,13 +27,13 @@ $.extend( DataTable.ext.classes, {
 		select: "form-control input-sm"
 	},
 	processing: {
-		container: "dataTables_processing panel panel-default"
+		container: "dt-processing panel panel-default"
 	}
 } );
 
 /* Bootstrap paging button renderer */
 DataTable.ext.renderer.pagingButton.bootstrap = function (settings, buttonType, content, active, disabled) {
-	var btnClasses = ['paginate_button', 'page-item'];
+	var btnClasses = ['dt-paging-button', 'page-item'];
 
 	if (active) {
 		btnClasses.push('active');

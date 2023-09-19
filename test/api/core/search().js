@@ -55,7 +55,7 @@ describe('core - search()', function() {
 			let table = $('#example').DataTable();
 			table.search('Fred');
 
-			expect($('.dataTables_filter input').val()).toBe('Fred');
+			expect($('.dt-search input').val()).toBe('Fred');
 		});
 
 		dt.html('basic');
@@ -138,7 +138,7 @@ describe('core - search()', function() {
 			let table = $('#example').DataTable();
 			table.search('!Airi').draw();
 
-			expect($('.dataTables_info').text()).toBe('Showing 1 to 10 of 56 entries (filtered from 57 total entries)');
+			expect($('.dt-info').text()).toBe('Showing 1 to 10 of 56 entries (filtered from 57 total entries)');
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Angelica Ramos');
 		});
 
@@ -146,7 +146,7 @@ describe('core - search()', function() {
 			let table = $('#example').DataTable();
 			table.search('!Airi San').draw();
 
-			expect($('.dataTables_info').text()).toBe('Showing 1 to 10 of 14 entries (filtered from 57 total entries)');
+			expect($('.dt-info').text()).toBe('Showing 1 to 10 of 14 entries (filtered from 57 total entries)');
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
 		});
 
@@ -154,7 +154,7 @@ describe('core - search()', function() {
 			let table = $('#example').DataTable();
 			table.search('!"New York"').draw();
 
-			expect($('.dataTables_info').text()).toBe('Showing 1 to 10 of 46 entries (filtered from 57 total entries)');
+			expect($('.dt-info').text()).toBe('Showing 1 to 10 of 46 entries (filtered from 57 total entries)');
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 	});
@@ -184,7 +184,7 @@ describe('core - search()', function() {
 		});
 
 		it('Writes regex string value into the search box', function() {
-			expect($('div.dataTables_filter input').val()).toBe('/\\bAcc.*33/i');
+			expect($('div.dt-search input').val()).toBe('/\\bAcc.*33/i');
 		});
 	});
 
@@ -213,11 +213,11 @@ describe('core - search()', function() {
 		});
 
 		it('Does not write a value into the search box', function() {
-			expect($('div.dataTables_filter input').val()).toBe('');
+			expect($('div.dt-search input').val()).toBe('');
 		});
 
 		it('String search', function() {
-			$('div.dataTables_filter input').val('New York').trigger('input');
+			$('div.dt-search input').val('New York').trigger('input');
 
 			expect($('#example tbody td').eq(0).text()).toBe('Brielle Williamson');
 		});
@@ -225,7 +225,7 @@ describe('core - search()', function() {
 		it('Using a search function clears the input', function() {
 			table.search(d => d.includes('Caesar')).draw();
 			
-			expect($('div.dataTables_filter input').val()).toBe('');
+			expect($('div.dt-search input').val()).toBe('');
 			expect($('#example tbody td').eq(0).text()).toBe('Caesar Vance');
 		});
 

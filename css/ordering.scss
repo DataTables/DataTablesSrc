@@ -74,7 +74,7 @@ table.dataTable thead {
 	}
 }
 
-div.dataTables_scrollBody > table.dataTable > thead {
+div.dt-scroll-body > table.dataTable > thead {
 	> tr > th,
 	> tr > td {
 		&:before,

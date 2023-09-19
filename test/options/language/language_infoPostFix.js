@@ -13,7 +13,7 @@ describe('language.infoPostFix option', function() {
 			expect(table.settings()[0].oLanguage.sInfoPostFix).toBe('');
 		});
 		it('Width no post fix, the basic info shows', function() {
-			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entries');
+			expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		dt.html('basic');
@@ -26,7 +26,7 @@ describe('language.infoPostFix option', function() {
 			expect(table.settings()[0].oLanguage.sInfoPostFix).toBe('unit test');
 		});
 		it('Info empty language default is in the dom', function() {
-			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entriesunit test');
+			expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 57 entriesunit test');
 		});
 
 		dt.html('basic');
@@ -36,7 +36,7 @@ describe('language.infoPostFix option', function() {
 					infoPostFix: ' unit test _START_ _END_ _TOTAL_'
 				}
 			});
-			expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 57 entries unit test 1 10 57');
+			expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 57 entries unit test 1 10 57');
 		});
 
 		dt.html('basic');
@@ -46,10 +46,10 @@ describe('language.infoPostFix option', function() {
 					infoPostFix: 'unit test'
 				}
 			});
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('asdasd')
 				.keyup();
-			expect($('div.dataTables_info').html()).toBe(
+			expect($('div.dt-info').html()).toBe(
 				'Showing 0 to 0 of 0 entries (filtered from 57 total entries)unit test'
 			);
 		});

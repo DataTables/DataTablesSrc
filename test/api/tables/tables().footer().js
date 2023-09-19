@@ -41,7 +41,7 @@ describe('tables - tables().footer()', function() {
 			let table = $('#example').DataTable({
 				scrollX: true
 			});
-			expect(table.tables().footer()[0]).toBe($('div.dataTables_scrollFoot tfoot').get(0));
+			expect(table.tables().footer()[0]).toBe($('div.dt-scroll-foot tfoot').get(0));
 		});
 
 		dt.html('basic');
@@ -49,7 +49,7 @@ describe('tables - tables().footer()', function() {
 			let table = $('#example').DataTable({
 				scrollY: true
 			});
-			expect(table.tables().footer()[0]).toBe($('div.dataTables_scrollFoot tfoot').get(0));
+			expect(table.tables().footer()[0]).toBe($('div.dt-scroll-foot tfoot').get(0));
 		});
 	});
 
@@ -77,8 +77,8 @@ describe('tables - tables().footer()', function() {
 			let tables = $('table').DataTable({
 				scrollX: true
 			});
-			expect(tables.tables().footer()[0]).toBe($('div.dataTables_scrollFoot tfoot').get(0));
-			expect(tables.tables().footer()[1]).toBe($('div.dataTables_scrollFoot tfoot').get(1));
+			expect(tables.tables().footer()[0]).toBe($('div.dt-scroll-foot tfoot').get(0));
+			expect(tables.tables().footer()[1]).toBe($('div.dt-scroll-foot tfoot').get(1));
 		});
 
 		dt.html('two_tables');
@@ -86,8 +86,8 @@ describe('tables - tables().footer()', function() {
 			let tables = $('table').DataTable({
 				scrollY: true
 			});
-			expect(tables.tables().footer()[0]).toBe($('div.dataTables_scrollFoot tfoot').get(0));
-			expect(tables.tables().footer()[1]).toBe($('div.dataTables_scrollFoot tfoot').get(1));
+			expect(tables.tables().footer()[0]).toBe($('div.dt-scroll-foot tfoot').get(0));
+			expect(tables.tables().footer()[1]).toBe($('div.dt-scroll-foot tfoot').get(1));
 		});
 	});
 });

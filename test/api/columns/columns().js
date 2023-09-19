@@ -205,7 +205,7 @@ describe('columns- columns() -solo', function() {
 			expect(table.columns('.dt-ordering-asc', { page: 'current' }).data()[0][0]).toBe('Airi Satou');
 		});
 		it('Can select column using node with `search: current`', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('Accountant')
 				.keyup();
 			expect(table.columns('#example thead th:eq(0)', { search: 'applied' }).data()[0][0]).toBe('Airi Satou');

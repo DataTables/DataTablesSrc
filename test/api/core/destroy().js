@@ -23,9 +23,9 @@ describe('core - destroy()', function() {
 	describe('Functional tests', function() {
 		function testElementsPresent(present) {
 			let elements = [
-				'div.dataTables_length',
-				'div.dataTables_info',
-				'div.dataTables_paginate',
+				'div.dt-length',
+				'div.dt-info',
+				'div.dt-paging',
 				// Jira DD-71: '.sorting_asc',
 				'.dt-orderable-asc'
 			];

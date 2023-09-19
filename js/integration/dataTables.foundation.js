@@ -12,9 +12,9 @@
  */
 
 $.extend( DataTable.ext.classes, {
-	container: "dataTables_wrapper dt-foundation",
+	container: "dt-container dt-foundation",
 	processing: {
-		container: "dataTables_processing panel callout"
+		container: "dt-processing panel callout"
 	}
 } );
 

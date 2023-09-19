@@ -3,7 +3,7 @@
 
 <css lib="datatables" />
 <css>
-	div.dataTables_wrapper {
+	div.dt-container {
 		width: 800px;
 		margin: 0 auto;
 	}

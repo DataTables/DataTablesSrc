@@ -15,7 +15,7 @@ describe('core - page.len()', function() {
 		expect($('#example tbody tr').length).toBe(tableLength);
 		expect(
 			parseInt(
-				$('div.dataTables_info')
+				$('div.dt-info')
 					.text()
 					.split(' ')[3]
 			)

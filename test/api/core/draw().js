@@ -122,8 +122,8 @@ describe('core - draw()', function () {
 			table.draw(false);
 
 			// Fix test once case DD-122 resolved
-			// expect($('.dataTables_info').text()).toBe('Showing 1 to 1 of 1 entries (filtered from 57 total entries)');
-			expect($('.dataTables_info').text()).toBe('Showing 11 to 1 of 1 entry (filtered from 57 total entries)');
+			// expect($('.dt-info').text()).toBe('Showing 1 to 1 of 1 entries (filtered from 57 total entries)');
+			expect($('.dt-info').text()).toBe('Showing 11 to 1 of 1 entry (filtered from 57 total entries)');
 		});
 	});
 });

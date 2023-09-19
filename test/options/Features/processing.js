@@ -13,7 +13,7 @@ describe('Processing option', function() {
 		dt.html('basic');
 		it('Processing can be enabled', function() {
 			$('#example').on('processing.dt', function(e) {
-				expect($('div.dataTables_processing').length).toBe(1);
+				expect($('div.dt-processing').length).toBe(1);
 			});
 			$('#example').dataTable({
 				processing: true
@@ -21,7 +21,7 @@ describe('Processing option', function() {
 			$('#example').off('processing.dt', function(e) {});
 		});
 		it('Processing div is in the DOM', function() {
-			expect($('div.dataTables_processing').length).toBe(1);
+			expect($('div.dt-processing').length).toBe(1);
 		});
 	});
 
@@ -32,13 +32,13 @@ describe('Processing option', function() {
 				processing: false
 			});
 			$('#example').on('processing.dt', function(e) {
-				expect($('div.dataTables_processing').length).toBe(0);
+				expect($('div.dt-processing').length).toBe(0);
 			});
 
 			$('#example').off('processing.dt', function(e) {});
 		});
 		it('Processing div is not in the DOM', function() {
-			expect($('div.dataTables_processing').length).toBe(0);
+			expect($('div.dt-processing').length).toBe(0);
 		});
 	});
 });

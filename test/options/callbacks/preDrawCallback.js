@@ -49,9 +49,9 @@ describe('preDrawCallback option', function() {
 			expect(drawCount).toBe(1);
 		});
 		it('preDrawCallback called once after each draw', function() {
-			$('.paginate_button.next').click();
-			$('.paginate_button.next').click();
-			$('.paginate_button.next').click();
+			$('.dt-paging-button.next').click();
+			$('.dt-paging-button.next').click();
+			$('.dt-paging-button.next').click();
 
 			expect(count).toBe(4);
 			expect(drawCount).toBe(4);
@@ -63,7 +63,7 @@ describe('preDrawCallback option', function() {
 
 			expect(count).toBe(5);
 			expect(drawCount).toBe(4);
-			expect($('div.dataTables_info').text()).toBe('Showing 31 to 40 of 57 entries');
+			expect($('div.dt-info').text()).toBe('Showing 31 to 40 of 57 entries');
 		});
 	});
 });

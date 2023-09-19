@@ -68,11 +68,11 @@ describe('core - events - length', function() {
 			expect(length).toBe(25);
 		});
 		it('Not called when user changes page', function() {
-			$('span .paginate_button:eq(1)').click();
+			$('span .dt-paging-button:eq(1)').click();
 			expect(count).toBe(1);
 		});
 		it('Called when user changes page length', function() {
-			$('div.dataTables_length select')
+			$('div.dt-length select')
 				.val(10)
 				.change();
 			expect(count).toBe(2);

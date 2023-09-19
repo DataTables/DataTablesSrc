@@ -13,7 +13,7 @@ describe('searching option', function() {
 		dt.html('basic');
 		it('Filter there if not specified', function() {
 			$('#example').DataTable();
-			expect($('div.dataTables_filter').length).toBe(1);
+			expect($('div.dt-search').length).toBe(1);
 		});
 
 		dt.html('basic');
@@ -21,7 +21,7 @@ describe('searching option', function() {
 			$('#example').DataTable({
 				searching: true
 			});
-			expect($('div.dataTables_filter').length).toBe(1);
+			expect($('div.dt-search').length).toBe(1);
 		});
 
 		dt.html('basic');
@@ -29,7 +29,7 @@ describe('searching option', function() {
 			$('#example').DataTable({
 				searching: false
 			});
-			expect($('div.dataTables_filter').length).toBe(0);
+			expect($('div.dt-search').length).toBe(0);
 		});
 	});
 
@@ -43,8 +43,8 @@ describe('searching option', function() {
 				searching: false
 			});
 
-			expect($('#example_one_wrapper div.dataTables_filter').length).toBe(1);
-			expect($('#example_two_wrapper div.dataTables_filter').length).toBe(0);
+			expect($('#example_one_wrapper div.dt-search').length).toBe(1);
+			expect($('#example_two_wrapper div.dt-search').length).toBe(0);
 		});
 	});
 
@@ -53,11 +53,11 @@ describe('searching option', function() {
 		dt.html('basic');
 		it('searching enabled by default- DOM', function() {
 			$('#example').dataTable();
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val(33)
 				.keyup();
 			expect(
-				$('div.dataTables_info').html() == 'Showing 1 to 2 of 2 entries (filtered from 57 total entries)'
+				$('div.dt-info').html() == 'Showing 1 to 2 of 2 entries (filtered from 57 total entries)'
 			).toBeTruthy();
 		});
 
@@ -67,16 +67,16 @@ describe('searching option', function() {
 				.search(33)
 				.draw();
 			expect(
-				$('div.dataTables_info').html() == 'Showing 1 to 2 of 2 entries (filtered from 57 total entries)'
+				$('div.dt-info').html() == 'Showing 1 to 2 of 2 entries (filtered from 57 total entries)'
 			).toBeTruthy();
 		});
 
 		it('Can search multiple space separated words- DOM', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('New 3')
 				.keyup();
 			expect(
-				$('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
+				$('div.dt-info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
 			).toBeTruthy();
 		});
 
@@ -86,7 +86,7 @@ describe('searching option', function() {
 				.search('New 3')
 				.draw();
 			expect(
-				$('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
+				$('div.dt-info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
 			).toBeTruthy();
 		});
 	});
@@ -97,14 +97,14 @@ describe('searching option', function() {
 			$('#example').dataTable({
 				searching: false
 			});
-			expect($('div.dataTables_filter').is(':visible')).toBe(false);
+			expect($('div.dt-search').is(':visible')).toBe(false);
 		});
 
 		it('Searching on disabled table has no effect- DOM', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('New 3')
 				.keyup();
-			expect($('div.dataTables_info').html() == 'Showing 1 to 10 of 57 entries').toBeTruthy();
+			expect($('div.dt-info').html() == 'Showing 1 to 10 of 57 entries').toBeTruthy();
 		});
 
 		it('Searching on disabled table has no effect- API', function() {
@@ -112,7 +112,7 @@ describe('searching option', function() {
 				.DataTable()
 				.search(33)
 				.draw();
-			expect($('div.dataTables_info').html() == 'Showing 1 to 10 of 57 entries').toBeTruthy();
+			expect($('div.dt-info').html() == 'Showing 1 to 10 of 57 entries').toBeTruthy();
 		});
 	});
 
@@ -122,11 +122,11 @@ describe('searching option', function() {
 			$('#example').dataTable({
 				searching: true
 			});
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('New 3')
 				.keyup();
 			expect(
-				$('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
+				$('div.dt-info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
 			).toBeTruthy();
 		});
 
@@ -136,7 +136,7 @@ describe('searching option', function() {
 				.search('New 3')
 				.draw();
 			expect(
-				$('div.dataTables_info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
+				$('div.dt-info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
 			).toBeTruthy();
 		});
 	});

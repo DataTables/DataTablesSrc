@@ -10,7 +10,7 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	container: "dataTables_wrapper dt-bulma",
+	container: "dt-container dt-bulma",
 	search: {
 		input: "input"
 	},
@@ -18,7 +18,7 @@ $.extend( DataTable.ext.classes, {
 		input: "custom-select custom-select-sm form-control form-control-sm"
 	},
 	processing: {
-		container: "dataTables_processing card"
+		container: "dt-processing card"
 	}
 } );
 
@@ -99,9 +99,9 @@ $(document).on( 'init.dt', function (e, ctx) {
 	var api = new $.fn.dataTable.Api( ctx );
 
 	// Length menu drop down - needs to be wrapped with a div
-	$( 'div.dataTables_length select', api.table().container() ).wrap('<div class="select">');
+	$( 'div.dt-length select', api.table().container() ).wrap('<div class="select">');
 
 	// Filtering input
-	// $( 'div.dataTables_filter.ui.input', api.table().container() ).removeClass('input').addClass('form');
-	// $( 'div.dataTables_filter input', api.table().container() ).wrap( '<span class="ui input" />' );
+	// $( 'div.dt-search.ui.input', api.table().container() ).removeClass('input').addClass('form');
+	// $( 'div.dt-search input', api.table().container() ).wrap( '<span class="ui input" />' );
 } );

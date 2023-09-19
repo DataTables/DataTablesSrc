@@ -23,7 +23,7 @@ describe('core - events - init', function() {
 				.on('init.dt', function() {
 					params = arguments;
 					firstCell = $('tbody tr:eq(0) td:eq(0)').text();
-					length = $('div.dataTables_wrapper').length;
+					length = $('div.dt-container').length;
 				})
 				.DataTable();
 
@@ -68,7 +68,7 @@ describe('core - events - init', function() {
 				.on('init.dt', function() {
 					params = arguments;
 					firstCell = $('tbody tr:eq(0) td:eq(0)').text();
-					length = $('div.dataTables_wrapper').length;
+					length = $('div.dt-container').length;
 				})
 				.DataTable({
 					columns: dt.getTestColumns(),

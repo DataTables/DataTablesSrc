@@ -5,11 +5,11 @@ describe('Paging option', function() {
 	});
 
 	function checkDisabled(previous, next) {
-		expect($('.paginate_button.previous').attr('tabindex')).toBe(previous ? '-1' : '0');
-		expect($('.paginate_button.previous').hasClass('disabled')).toBe(previous);
+		expect($('.dt-paging-button.previous').attr('tabindex')).toBe(previous ? '-1' : '0');
+		expect($('.dt-paging-button.previous').hasClass('disabled')).toBe(previous);
 
-		expect($('.paginate_button.next').attr('tabindex')).toBe(next ? '-1' : '0');
-		expect($('.paginate_button.next').hasClass('disabled')).toBe(next);
+		expect($('.dt-paging-button.next').attr('tabindex')).toBe(next ? '-1' : '0');
+		expect($('.dt-paging-button.next').hasClass('disabled')).toBe(next);
 	}
 
 	describe('Check Default', function() {
@@ -24,17 +24,17 @@ describe('Paging option', function() {
 		});
 		it('Paging control is in the DOM', function() {
 			table = $('#example').DataTable();
-			expect($('div.dataTables_paginate')[0]).toBeInDOM();
+			expect($('div.dt-paging')[0]).toBeInDOM();
 		});
 		it('Length control is in the DOM', function() {
-			expect($('div.dataTables_length')[0]).toBeInDOM();
+			expect($('div.dt-length')[0]).toBeInDOM();
 		});
 		it('Correct place in DOM - after info', function() {
 			expect(
-				$('div.dataTables_paginate')
+				$('div.dt-paging')
 					.parent()
 					.prev()
-					.find('div.dataTables_info')
+					.find('div.dt-info')
 					.length
 			).toBe(1);
 		});
@@ -72,11 +72,11 @@ describe('Paging option', function() {
 		});
 
 		it('Paging control is not in the DOM', function() {
-			expect($('div.dataTables_paginate')[0]).not.toBeInDOM();
+			expect($('div.dt-paging')[0]).not.toBeInDOM();
 		});
 
 		it('Length control has been removed', function() {
-			expect($('div.dataTables_length')[0]).not.toBeInDOM();
+			expect($('div.dt-length')[0]).not.toBeInDOM();
 		});
 
 		dt.html('basic');
@@ -88,7 +88,7 @@ describe('Paging option', function() {
 		});
 
 		it('Length control has been removed', function() {
-			expect($('div.dataTables_length')[0]).toBeInDOM();
+			expect($('div.dt-length')[0]).toBeInDOM();
 		});
 
 		dt.html('basic');

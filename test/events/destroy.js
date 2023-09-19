@@ -20,12 +20,12 @@ describe('core - events - destroy', function() {
 			table = $('#example').DataTable();
 			table.on('destroy.dt', function() {
 				params = arguments;
-				count = $('div.dataTables_filter').length;
+				count = $('div.dt-search').length;
 			});
 
 			table.destroy();
 			expect(count).toBe(1);
-			expect($('div.dataTables_filter').length).toBe(0);
+			expect($('div.dt-search').length).toBe(0);
 		});
 		it('Called with expected parameters', function() {
 			expect(params.length).toBe(2);

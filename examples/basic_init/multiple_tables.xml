@@ -2,7 +2,7 @@
 <dt-example table-type="html-office-edin|html-office-london" table-id="" order="5">
 
 <css lib="datatables">
-	div.dataTables_wrapper {
+	div.dt-container {
 		margin-bottom: 3em;
 	}
 </css>

@@ -22,10 +22,10 @@ describe('core- order.listener()', function() {
 		let count = 0;
 		it('Does column ordering without need for a draw()', async function() {
 			table = $('#example').DataTable();
-			table.order.listener('.dataTables_filter input', 2, function callback() {
+			table.order.listener('.dt-search input', 2, function callback() {
 				count++;
 			});
-			$('.dataTables_filter input').click();
+			$('.dt-search input').click();
 
 			await dt.sleep(25); // click action is async
 			expect($('#example tbody td:eq(0)').html()).toBe('Tiger Nixon');
@@ -44,7 +44,7 @@ describe('core- order.listener()', function() {
 			await dt.clickHeader(1);
 			var clickEvent = $.Event('click');
 			clickEvent.shiftKey = true;
-			$('.dataTables_filter input').trigger(clickEvent);
+			$('.dt-search input').trigger(clickEvent);
 			await dt.sleep(25); // click action is async
 			expect($('#example tbody tr:eq(9) td:eq(0)').html()).toBe('Suki Burks');
 		});

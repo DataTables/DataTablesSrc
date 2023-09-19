@@ -12,11 +12,11 @@
  */
 
 $.extend( DataTable.ext.classes, {
-	container: 'dataTables_wrapper dt-jqueryui',
+	container: 'dt-container dt-jqueryui',
 	paging: {
 		active: 'ui-state-disabled',
 		button: 'fg-button ui-button ui-state-default',
-		container: 'dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi',
+		container: 'dt-paging fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi',
 		disabled: 'ui-state-disabled'
 	},
 	thead: {
@@ -31,14 +31,14 @@ $.extend( DataTable.ext.classes, {
 DataTable.ext.renderer.layout.jqueryui = function ( settings, container, items ) {
 	var rowHasDt = false;
 	var row = $( '<div/>', {
-			"class": 'dataTables_layout_row ui-helper-clearfix'
+			"class": 'dt-layout-row ui-helper-clearfix'
 		} )
 		.appendTo( container );
 
 	$.each( items, function (key, val) {
 		var cell = $( '<div/>', {
 				id: val.id || null,
-				"class": 'dataTables_layout_cell dt-'+key+' '+(val.className || '')
+				"class": 'dt-layout-cell dt-'+key+' '+(val.className || '')
 			} )
 			.append( val.contents )
 			.appendTo( row );

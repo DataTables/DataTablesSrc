@@ -10,14 +10,14 @@ describe('scrollCollapse option', function() {
 			$('#example').dataTable({
 				scrollY: 300
 			});
-			expect($('div.dataTables_scrollBody').height()).toBe(300);
+			expect($('div.dt-scroll-body').height()).toBe(300);
 			expect($('#example').height()).toBeGreaterThan(300);
 		});
 		it('Check viewport unchanged if smaller result set', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('41')
 				.keyup();
-			expect($('div.dataTables_scrollBody').height()).toBe(300);
+			expect($('div.dt-scroll-body').height()).toBe(300);
 			expect($('#example').height()).toBeLessThan(300);
 		});
 
@@ -27,21 +27,21 @@ describe('scrollCollapse option', function() {
 				scrollY: 300,
 				scrollCollapse: true
 			});
-			expect($('div.dataTables_scrollBody').height()).toBe(300);
+			expect($('div.dt-scroll-body').height()).toBe(300);
 			expect($('#example').height()).toBeGreaterThan(300);
 		});
 		it('Check viewport is shrunk to result set', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('41')
 				.keyup();
-			expect($('div.dataTables_scrollBody').height()).toBeLessThan(300);
-			expect($('#example').height()).toBe($('div.dataTables_scrollBody').height());
+			expect($('div.dt-scroll-body').height()).toBeLessThan(300);
+			expect($('#example').height()).toBe($('div.dt-scroll-body').height());
 		});
 		it('Check viewport is reset when no input', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('')
 				.keyup();
-			expect($('div.dataTables_scrollBody').height()).toBe(300);
+			expect($('div.dt-scroll-body').height()).toBe(300);
 			expect($('#example').height()).toBeGreaterThan(300);
 		});
 	});

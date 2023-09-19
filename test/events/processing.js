@@ -74,7 +74,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Not called when changing page through UI', function() {
 			reset();
-			$('span .paginate_button:eq(2)').click();
+			$('span .dt-paging-button:eq(2)').click();
 			expect(count).toBe(0);
 		});
 		it('... Not called when changing order through API', function() {
@@ -95,7 +95,7 @@ describe('core - events - processing', function() {
 		it('... Not called when changing page through UI', function() {
 			table.search('').draw();
 			reset();
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('green')
 				.keyup();
 			expect(count).toBe(0);
@@ -122,7 +122,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Not called when changing page through UI', function() {
 			reset();
-			$('span .paginate_button:eq(2)').click();
+			$('span .dt-paging-button:eq(2)').click();
 			expect(count).toBe(0);
 		});
 		it('... Not called when changing order through API', function() {
@@ -143,7 +143,7 @@ describe('core - events - processing', function() {
 		it('... Not called when changing page through UI', function() {
 			table.search('').draw();
 			reset();
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('green')
 				.keyup();
 			expect(count).toBe(0);
@@ -188,7 +188,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Not called when changing page through UI', function() {
 			reset();
-			$('span .paginate_button:eq(2)').click();
+			$('span .dt-paging-button:eq(2)').click();
 			expect(count).toBe(0);
 		});
 		it('... Not called when changing order through API', function() {
@@ -209,7 +209,7 @@ describe('core - events - processing', function() {
 		it('... Not called when changing page through UI', function() {
 			table.search('').draw();
 			reset();
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('green')
 				.keyup();
 			expect(count).toBe(0);
@@ -252,7 +252,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Not called when changing page through UI', function() {
 			reset();
-			$('span .paginate_button:eq(2)').click();
+			$('span .dt-paging-button:eq(2)').click();
 			expect(count).toBe(0);
 		});
 		it('... Not called when changing order through API', function() {
@@ -273,7 +273,7 @@ describe('core - events - processing', function() {
 		it('... Not called when changing page through UI', function() {
 			table.search('').draw();
 			reset();
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('green')
 				.keyup();
 			expect(count).toBe(0);
@@ -311,7 +311,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Called when changing page through UI', function() {
 			reset();
-			$('.paginate_button:eq(3)').click();
+			$('.dt-paging-button:eq(3)').click();
 			expect(count).toBe(1);
 		});
 		it('... Called when changing order through API', function() {
@@ -332,7 +332,7 @@ describe('core - events - processing', function() {
 		it('... Called when changing page through UI', function() {
 			table.search('').draw();
 			reset();
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('green')
 				.keyup();
 			expect(count).toBe(1);
@@ -367,7 +367,7 @@ describe('core - events - processing', function() {
 		});
 		it('... Called when changing page through UI', function() {
 			reset();
-			$('.paginate_button:eq(3)').click();
+			$('.dt-paging-button:eq(3)').click();
 			expect(count).toBe(1);
 		});
 		it('... Called when changing order through API', function() {
@@ -388,7 +388,7 @@ describe('core - events - processing', function() {
 		it('... Called when changing page through UI', function() {
 			table.search('').draw();
 			reset();
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('green')
 				.keyup();
 			expect(count).toBe(1);

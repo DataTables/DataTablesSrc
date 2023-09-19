@@ -28,23 +28,23 @@ describe('Basic Datatables Test', function() {
 
 		it('Length changing div exists', function() {
 			$('#example').DataTable();
-			expect(doc.getElementsByClassName('dataTables_length')[0]).not.toBeUndefined();
+			expect(doc.getElementsByClassName('dt-length')[0]).not.toBeUndefined();
 		});
 
 		it('Filtering div exists', function() {
-			expect(doc.getElementsByClassName('dataTables_filter')[0]).not.toBeUndefined();
+			expect(doc.getElementsByClassName('dt-search')[0]).not.toBeUndefined();
 		});
 
 		it('Information div exists', function() {
-			expect(doc.getElementsByClassName('dataTables_info')[0]).not.toBeUndefined();
+			expect(doc.getElementsByClassName('dt-info')[0]).not.toBeUndefined();
 		});
 
 		it('Pagination div exists', function() {
-			expect(doc.getElementsByClassName('dataTables_paginate')[0]).not.toBeUndefined();
+			expect(doc.getElementsByClassName('dt-paging')[0]).not.toBeUndefined();
 		});
 
 		it('Processing div exists', function() {
-			expect(doc.getElementsByClassName('dataTables_processing')[0]).toBeUndefined();
+			expect(doc.getElementsByClassName('dt-processing')[0]).toBeUndefined();
 		});
 
 		it('10 rows shown on the first page', function() {
@@ -163,24 +163,24 @@ describe('Basic Datatables Test', function() {
 
 		it('Information on zero config', function() {
 			$('#example').DataTable();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		it('Information on second page', function() {
 			$('div button.next').click();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 11 to 20 of 57 entries');
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 11 to 20 of 57 entries');
 		});
 
 		it('Information on third page', function() {
 			$('div button.next').click();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 21 to 30 of 57 entries');
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 21 to 30 of 57 entries');
 		});
 
 		it('Information on last page', function() {
 			$('div button.next').click();
 			$('div button.next').click();
 			$('div button.next').click();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 51 to 57 of 57 entries');
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 51 to 57 of 57 entries');
 		});
 
 		it('Information back on first page', function() {
@@ -189,26 +189,26 @@ describe('Basic Datatables Test', function() {
 			$('div button.previous').click();
 			$('div button.previous').click();
 			$('div button.previous').click();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		it('Information with 25 records', function() {
 			$('select[name=example_length]')
 				.val('25')
 				.change();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 1 to 25 of 57 entries');
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 25 of 57 entries');
 		});
 
 		it('Information with 25 records- second page', function() {
 			$('div button.next').click();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 26 to 50 of 57 entries');
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 26 to 50 of 57 entries');
 		});
 
 		it('Information with 100 records', function() {
 			$('select[name=example_length]')
 				.val('100')
 				.change();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 1 to 57 of 57 entries');
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 57 of 57 entries');
 		});
 
 		it('Information back to 10 records', function() {
@@ -216,69 +216,69 @@ describe('Basic Datatables Test', function() {
 				.val('10')
 				.change();
 			$('div button.previous').click();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		it("Information with filter 'London'", function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('London')
 				.keyup();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 10 of 12 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it("Information with filter 'London'- second page", function() {
 			$('div button.next').click();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 11 to 12 of 12 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it("Information with filter 'London' back to first page", function() {
 			$('div button.previous').click();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 10 of 12 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it("Information with filter 'London'- second page- second time", function() {
 			$('div button.next').click();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 11 to 12 of 12 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it("Information with filter increased to 'London 66'", function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('London 66')
 				.keyup();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 1 of 1 entry (filtered from 57 total entries)'
 			);
 		});
 
 		it("Information with filter decreased to 'London'", function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('London')
 				.keyup();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 10 of 12 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it("Information with filter 'London'- second page- third time", function() {
 			$('div button.next').click();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 11 to 12 of 12 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it('Information with filter removed', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('')
 				.keyup();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
 		});
 	});
 
@@ -287,23 +287,23 @@ describe('Basic Datatables Test', function() {
 
 		it("Filter 'W'- rows", function() {
 			$('#example').dataTable();
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('W')
 				.keyup();
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Bradley Greer');
 		});
 
 		it("Filter 'W'- info", function() {
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 10 of 20 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it("Filter 'Lon'", function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('Lon')
 				.keyup();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 10 of 12 entries (filtered from 57 total entries)'
 			);
 		});
@@ -319,7 +319,7 @@ describe('Basic Datatables Test', function() {
 		});
 
 		it("Filter 'London'- sorting column 1 reverse", function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('London')
 				.keyup();
 			expect($('#example tbody tr:eq(0) td:eq(1)').html()).toBe('Technical Author');
@@ -336,141 +336,141 @@ describe('Basic Datatables Test', function() {
 		});
 
 		it("Filter 'London'- sorting col 3- reversed info", function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('Lon')
 				.keyup();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 10 of 12 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it("Filter 'nothingishere'", function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('nothingishere')
 				.keyup();
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('No matching records found');
 		});
 
 		it("Filter 'nothingishere' info", function() {
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 0 to 0 of 0 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it('Filter back to blank and 1st column sorting', async function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('')
 				.keyup();
 
 			await dt.clickHeader(0);
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		it('Prefixing a filter entry', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('Author')
 				.keyup();
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('TechnicalAuthor')
 				.keyup();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 0 to 0 of 0 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it('Prefixing a filter entry with space', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('Author')
 				.keyup();
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('Technical Author')
 				.keyup();
-			expect(doc.getElementsByClassName('dataTables_info')[0].innerHTML).toBe(
+			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 2 of 2 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it('Smart search - double quoted phrase', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('"Regional Director"')
 				.keyup();
 
-			expect($('.dataTables_info').text()).toBe(
+			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
 			);
 		});
 
 		it('Smart search - double quoted phrase and individual', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('"Regional Director" Chang')
 				.keyup();
 
-			expect($('.dataTables_info').text()).toBe(
+			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 1 of 1 entry (filtered from 57 total entries)'
 			);
 		});
 
 		it('Smart search - double quote unique match', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('"Chief O"')
 				.keyup();
 
-			expect($('.dataTables_info').text()).toBe(
+			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 1 of 1 entry (filtered from 57 total entries)'
 			);
 			expect($('#example tbody td').eq(0).text()).toBe('Fiona Green');
 		});
 
 		it('Smart search - double quote without proves phase', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('Chief O')
 				.keyup();
 
-			expect($('.dataTables_info').text()).toBe(
+			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 4 of 4 entries (filtered from 57 total entries)'
 			);
 			expect($('#example tbody td').eq(0).text()).toBe('Angelica Ramos');
 		});
 
 		it('Smart search - negative', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('!Airi')
 				.keyup();
 
-			expect($('.dataTables_info').text()).toBe(
+			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 10 of 56 entries (filtered from 57 total entries)'
 			);
 			expect($('#example tbody td').eq(0).text()).toBe('Angelica Ramos');
 		});
 
 		it('Smart search - two negatives', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('!Airi !London')
 				.keyup();
 
-			expect($('.dataTables_info').text()).toBe(
+			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 10 of 44 entries (filtered from 57 total entries)'
 			);
 			expect($('#example tbody td').eq(0).text()).toBe('Ashton Cox');
 		});
 
 		it('Smart search - two negatives and a positive', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('!Airi !London Director')
 				.keyup();
 
-			expect($('.dataTables_info').text()).toBe(
+			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 4 of 4 entries (filtered from 57 total entries)'
 			);
 			expect($('#example tbody td').eq(0).text()).toBe('Charde Marshall');
 		});
 
 		it('Smart search - negative phrase', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('!"Airi Satou"')
 				.keyup();
 
-			expect($('.dataTables_info').text()).toBe(
+			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 10 of 56 entries (filtered from 57 total entries)'
 			);
 			expect($('#example tbody td').eq(0).text()).toBe('Angelica Ramos');

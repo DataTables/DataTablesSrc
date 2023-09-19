@@ -18,19 +18,19 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	container: "dataTables_wrapper dt-semanticUI ui stackable grid",
+	container: "dt-container dt-semanticUI ui stackable grid",
 	search: {
-		input: "dataTables_filter ui input"
+		input: "dt-search ui input"
 	},
 	processing: {
-		container: "dataTables_processing ui segment"
+		container: "dt-processing ui segment"
 	}
 } );
 
 
 /* Bootstrap paging button renderer */
 DataTable.ext.renderer.pagingButton.semanticUI = function (settings, buttonType, content, active, disabled) {
-	var btnClasses = ['paginate_button', 'item'];
+	var btnClasses = ['dt-paging-button', 'item'];
 
 	if (active) {
 		btnClasses.push('active');
@@ -69,12 +69,12 @@ $(document).on( 'init.dt', function (e, ctx) {
 
 	// Length menu drop down
 	if ( $.fn.dropdown ) {
-		$( 'div.dataTables_length select', api.table().container() ).dropdown();
+		$( 'div.dt-length select', api.table().container() ).dropdown();
 	}
 
 	// Filtering input
-	$( 'div.dataTables_filter.ui.input', api.table().container() ).removeClass('input').addClass('form');
-	$( 'div.dataTables_filter input', api.table().container() ).wrap( '<span class="ui input" />' );
+	$( 'div.dt-search.ui.input', api.table().container() ).removeClass('input').addClass('form');
+	$( 'div.dt-search input', api.table().container() ).wrap( '<span class="ui input" />' );
 } );
 
 

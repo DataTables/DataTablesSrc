@@ -23,7 +23,7 @@ table.table.dataTable {
 
 
 // DataTables' built in feature elements
-div.dataTables_wrapper {
+div.dt-container {
 	div.row {
 		margin-bottom: 0.75rem;
 
@@ -32,7 +32,7 @@ div.dataTables_wrapper {
 		}
 	}
 
-	div.dataTables_length {
+	div.dt-length {
 		label {
 			font-weight: normal;
 			text-align: left;
@@ -47,7 +47,7 @@ div.dataTables_wrapper {
 		}
 	}
 
-	div.dataTables_filter {
+	div.dt-search {
 		label {
 			font-weight: normal;
 			white-space: nowrap;
@@ -62,12 +62,12 @@ div.dataTables_wrapper {
 		}
 	}
 
-	div.dataTables_info {
+	div.dt-info {
 		padding-top: 8px;
 		white-space: nowrap;
 	}
 
-	div.dataTables_paginate {
+	div.dt-paging {
 		margin: 0;
 
 		ul.pagination {
@@ -80,7 +80,7 @@ div.dataTables_wrapper {
 		}
 	}
 
-	div.dataTables_processing {
+	div.dt-processing {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -94,11 +94,11 @@ div.dataTables_wrapper {
 
 
 // Scrolling
-div.dataTables_scrollHead table.dataTable {
+div.dt-scroll-head table.dataTable {
 	margin-bottom: 0 !important;
 }
 
-div.dataTables_scrollBody {
+div.dt-scroll-body {
 	> table {
 		border-top: none;
 		margin-top: 0 !important;
@@ -119,8 +119,8 @@ div.dataTables_scrollBody {
 	}
 }
 
-div.dataTables_scrollFoot {
-	> .dataTables_scrollFootInner {
+div.dt-scroll-foot {
+	> .dt-scroll-footInner {
 		box-sizing: content-box;
 
 		> table {
@@ -133,11 +133,11 @@ div.dataTables_scrollFoot {
 
 // Responsive
 @media screen and (max-width: 767px) {
-	div.dataTables_wrapper {
-		div.dataTables_length,
-		div.dataTables_filter,
-		div.dataTables_info,
-		div.dataTables_paginate {
+	div.dt-container {
+		div.dt-length,
+		div.dt-search,
+		div.dt-info,
+		div.dt-paging {
 			text-align: center;
 		}
 
@@ -187,13 +187,13 @@ table.table-bordered.dataTable {
 }
 
 // Bordered table
-div.dataTables_scrollHead table.table-bordered {
+div.dt-scroll-head table.table-bordered {
 	border-bottom-width: 0;
 }
 
 // Responsive tables. We use rows inside the Bootstrap responsive wrapper,
 // so they need to have their margin and padding removed
-div.table-responsive > div.dataTables_wrapper > div.row {
+div.table-responsive > div.dt-container > div.row {
 	margin: 0;
 
 	> div[class^="col-"] {

@@ -41,7 +41,7 @@ describe('tables - tables().header()', function() {
 			let table = $('#example').DataTable({
 				scrollX: true
 			});
-			expect(table.tables().header()[0]).toBe($('div.dataTables_scrollHead thead').get(0));
+			expect(table.tables().header()[0]).toBe($('div.dt-scroll-head thead').get(0));
 		});
 
 		dt.html('basic');
@@ -49,7 +49,7 @@ describe('tables - tables().header()', function() {
 			let table = $('#example').DataTable({
 				scrollY: true
 			});
-			expect(table.tables().header()[0]).toBe($('div.dataTables_scrollHead thead').get(0));
+			expect(table.tables().header()[0]).toBe($('div.dt-scroll-head thead').get(0));
 		});
 	});
 
@@ -77,8 +77,8 @@ describe('tables - tables().header()', function() {
 			let tables = $('[id^=example]').DataTable({
 				scrollX: true
 			});
-			expect(tables.tables().header()[0]).toBe($('div.dataTables_scrollHead thead').get(0));
-			expect(tables.tables().header()[1]).toBe($('div.dataTables_scrollHead thead').get(1));
+			expect(tables.tables().header()[0]).toBe($('div.dt-scroll-head thead').get(0));
+			expect(tables.tables().header()[1]).toBe($('div.dt-scroll-head thead').get(1));
 		});
 
 		dt.html('two_tables');
@@ -86,8 +86,8 @@ describe('tables - tables().header()', function() {
 			let tables = $('[id^=example]').DataTable({
 				scrollY: true
 			});
-			expect(tables.tables().header()[0]).toBe($('div.dataTables_scrollHead thead').get(0));
-			expect(tables.tables().header()[1]).toBe($('div.dataTables_scrollHead thead').get(1));
+			expect(tables.tables().header()[0]).toBe($('div.dt-scroll-head thead').get(0));
+			expect(tables.tables().header()[1]).toBe($('div.dt-scroll-head thead').get(1));
 		});
 	});
 });

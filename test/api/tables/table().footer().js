@@ -31,7 +31,7 @@ describe('tables - table().footer()', function() {
 			let table = $('#example').DataTable({
 				scrollX: true
 			});
-			expect(table.table().footer()).toBe($('div.dataTables_scrollFoot tfoot').get(0));
+			expect(table.table().footer()).toBe($('div.dt-scroll-foot tfoot').get(0));
 		});
 
 		dt.html('basic');
@@ -39,7 +39,7 @@ describe('tables - table().footer()', function() {
 			let table = $('#example').DataTable({
 				scrollY: true
 			});
-			expect(table.table().footer()).toBe($('div.dataTables_scrollFoot tfoot').get(0));
+			expect(table.table().footer()).toBe($('div.dt-scroll-foot tfoot').get(0));
 		});
 	});
 });

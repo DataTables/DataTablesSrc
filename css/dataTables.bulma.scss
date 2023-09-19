@@ -28,12 +28,12 @@ table.dataTable {
 
 
 // DataTables' built in feature elements
-div.dataTables_wrapper {
+div.dt-container {
 	> div.columns {
 		margin-bottom: 0 !important;
 	}
 
-	div.dataTables_length {
+	div.dt-length {
 		label {
 			font-weight: normal;
 			text-align: left;
@@ -51,7 +51,7 @@ div.dataTables_wrapper {
 		}
 	}
 
-	div.dataTables_filter {
+	div.dt-search {
 		text-align: right;
 
 		label {
@@ -67,11 +67,11 @@ div.dataTables_wrapper {
 		}
 	}
 
-	div.dataTables_info {
+	div.dt-info {
 		padding-top: 0.5em;
 	}
 
-	div.dataTables_paginate {
+	div.dt-paging {
 		ul {
 			justify-content: flex-end;
 			list-style: none;
@@ -79,7 +79,7 @@ div.dataTables_wrapper {
 		}
 	}
 
-	div.dataTables_processing {
+	div.dt-processing {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -93,11 +93,11 @@ div.dataTables_wrapper {
 
 
 // Scrolling
-div.dataTables_scrollHead table.dataTable {
+div.dt-scroll-head table.dataTable {
 	margin-bottom: 0 !important;
 }
 
-div.dataTables_scrollBody {
+div.dt-scroll-body {
 	table {
 		border-top: none;
 		margin-top: 0 !important;
@@ -121,8 +121,8 @@ div.dataTables_scrollBody {
 	}
 }
 
-div.dataTables_scrollFoot {
-	> .dataTables_scrollFootInner {
+div.dt-scroll-foot {
+	> .dt-scroll-footInner {
 		box-sizing: content-box;
 
 		> table {

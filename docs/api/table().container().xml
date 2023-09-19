@@ -11,7 +11,7 @@
 	</type>
 
 	<description>
-		DataTables places the main table and all of the various component display controls for the table inside a container element, a `-tag div` element with a class of `-string dataTables_wrapper` (by default).
+		DataTables places the main table and all of the various component display controls for the table inside a container element, a `-tag div` element with a class of `-string dt-container` (by default).
 
 		This method, and its plural counterpart, provide the ability to obtain that container node, which can be used by plug-in authors to add additional controls to the table.
 	</description>

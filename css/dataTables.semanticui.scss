@@ -27,7 +27,7 @@ table.dataTable.table {
 
 
 // DataTables' built in feature elements
-div.dataTables_wrapper.ui.grid {
+div.dt-container.ui.grid {
 	> div.row {
 		padding-top: 0.5rem;
 		padding-bottom: 0.5rem;
@@ -40,7 +40,7 @@ div.dataTables_wrapper.ui.grid {
 		}
 	}
 
-	div.dataTables_length {
+	div.dt-length {
 		// Match the height of the drop down when Semantic UI JS isn't present
 		select {
 			vertical-align: middle;
@@ -52,18 +52,18 @@ div.dataTables_wrapper.ui.grid {
 		}
 	}
 
-	div.dataTables_filter {
+	div.dt-search {
 		span.input {
 			margin-left: 0.5em;
 		}
 	}
 
-	div.dataTables_info {
+	div.dt-info {
 		white-space: nowrap;
 		padding-top: 10px;
 	}
 
-	div.dataTables_processing {
+	div.dt-processing {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -73,7 +73,7 @@ div.dataTables_wrapper.ui.grid {
 	}
 
 	// Merge the three scrolling tables into one
-	div.dataTables_scrollHead {
+	div.dt-scroll-head {
 		table.dataTable {
 			border-bottom-right-radius: 0;
 			border-bottom-left-radius: 0;
@@ -81,7 +81,7 @@ div.dataTables_wrapper.ui.grid {
 		}
 	}
 
-	div.dataTables_scrollBody {
+	div.dt-scroll-body {
 		thead { // Hide sort icons
 			.dt-orderable-asc:before,
 			.dt-orderable-desc:after {
@@ -100,7 +100,7 @@ div.dataTables_wrapper.ui.grid {
 		}
 	}
 
-	div.dataTables_scrollFoot {
+	div.dt-scroll-foot {
 		table.dataTable {
 			border-top-right-radius: 0;
 			border-top-left-radius: 0;
@@ -110,7 +110,7 @@ div.dataTables_wrapper.ui.grid {
 }
 
 @media screen and (max-width: 767px) {
-	div.dataTables_wrapper {
+	div.dt-container {
 		div.left,
 		div.right {
 			text-align: center !important;

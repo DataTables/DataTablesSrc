@@ -37,7 +37,7 @@ describe('infoCallback Option', function() {
 			expect(typeof args[5]).toBe('string');
 		});
 		it('Return values is used', function() {
-			expect($('div.dataTables_info').text()).toBe('unit test');
+			expect($('div.dt-info').text()).toBe('unit test');
 		});
 	});
 

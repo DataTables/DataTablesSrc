@@ -23,7 +23,7 @@ describe('tables- table().container()', function() {
 		it('Returns the correct element', function() {
 			let table = $('#example').DataTable();
 			$(table.table().container()).addClass('unitTest');
-			expect($('div.dataTables_wrapper').hasClass('unitTest')).toBe(true);
+			expect($('div.dt-container').hasClass('unitTest')).toBe(true);
 		});
 	});
 });

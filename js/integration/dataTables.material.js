@@ -30,7 +30,7 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	container: "dataTables_wrapper form-inline dt-material mdc-data-table",
+	container: "dt-container form-inline dt-material mdc-data-table",
 	table: "mdc-data-table__table",
 	thead: {
 		cell: "mdc-data-table__header-row"
@@ -42,7 +42,7 @@ $.extend( DataTable.ext.classes, {
 		select: "form-control input-sm"
 	},
 	processing: {
-		container: "dataTables_processing panel panel-default"
+		container: "dt-processing panel panel-default"
 	}
 } );
 

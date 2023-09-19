@@ -14,7 +14,7 @@ describe('language.infoFiltered option', function() {
 		});
 		it('... check DOM', function() {
 			table.search('cox').draw();
-			expect($('div.dataTables_info').html()).toBe('Showing 1 to 1 of 1 entry (filtered from 57 total entries)');
+			expect($('div.dt-info').html()).toBe('Showing 1 to 1 of 1 entry (filtered from 57 total entries)');
 		});
 
 		dt.html('basic');
@@ -28,7 +28,7 @@ describe('language.infoFiltered option', function() {
 		});
 		it('... check DOM', function() {
 			table.search('cox').draw();
-			expect($('div.dataTables_info').html()).toBe('Showing 1 to 1 of 1 entry  - filtered from 57 records');
+			expect($('div.dt-info').html()).toBe('Showing 1 to 1 of 1 entry  - filtered from 57 records');
 		});
 	});
 });

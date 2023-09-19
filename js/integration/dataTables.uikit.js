@@ -13,10 +13,10 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	sWrapper:      "dataTables_wrapper uk-form dt-uikit",
+	sWrapper:      "dt-container uk-form dt-uikit",
 	sFilterInput:  "uk-form-small uk-input",
 	sLengthSelect: "uk-form-small uk-select",
-	sProcessing:   "dataTables_processing uk-panel"
+	sProcessing:   "dt-processing uk-panel"
 } );
 
 DataTable.ext.renderer.pagingButton.uikit = function (settings, buttonType, content, active, disabled) {

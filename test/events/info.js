@@ -22,7 +22,7 @@ describe('core - events - info', function() {
 		it('Called with expected parameters', function() {
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1]).toBe(table.settings()[0]);
-			expect(params[2]).toBe($('div.dataTables_info')[0]);
+			expect(params[2]).toBe($('div.dt-info')[0]);
 			expect(params[3]).toBe('Showing 1 to 10 of 57 entries');
 		});
 		it('Has a DT API instance on the event object', function () {
@@ -34,7 +34,7 @@ describe('core - events - info', function() {
 
 			expect(params[0] instanceof $.Event).toBe(true);
 			expect(params[1]).toBe(table.settings()[0]);
-			expect(params[2]).toBe($('div.dataTables_info')[0]);
+			expect(params[2]).toBe($('div.dt-info')[0]);
 			expect(params[3]).toBe('Showing 11 to 20 of 57 entries');
 		});
 	});

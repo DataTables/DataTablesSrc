@@ -14,7 +14,7 @@ describe( 'Right to left layout', function() {
 			paging: false
 		} );
 
-		var header = $('div.dataTables_scrollHeadInner');
+		var header = $('div.dt-scroll-headInner');
 		var paddingLeft = parseInt( header.css('paddingLeft'), 10 );
 		var paddingRight = parseInt( header.css('paddingRight'), 10 );
 
@@ -31,7 +31,7 @@ describe( 'Right to left layout', function() {
 			paging: false
 		} );
 
-		var header = $('div.dataTables_scrollHeadInner');
+		var header = $('div.dt-scroll-headInner');
 		var paddingLeft = parseInt( header.css('paddingLeft'), 10 );
 		var paddingRight = parseInt( header.css('paddingRight'), 10 );
 
@@ -52,7 +52,7 @@ describe( 'Right to left layout', function() {
 			paging: false
 		} );
 
-		var header = $('div.dataTables_scrollHeadInner');
+		var header = $('div.dt-scroll-headInner');
 		var paddingLeft = parseInt( header.css('paddingLeft'), 10 );
 		var paddingRight = parseInt( header.css('paddingRight'), 10 );
 
@@ -74,7 +74,7 @@ describe( 'Right to left layout', function() {
 			paging: false
 		} );
 
-		var header = $('div.dataTables_scrollHeadInner');
+		var header = $('div.dt-scroll-headInner');
 		var paddingLeft = parseInt( header.css('paddingLeft'), 10 );
 		var paddingRight = parseInt( header.css('paddingRight'), 10 );
 

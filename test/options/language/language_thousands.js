@@ -33,7 +33,7 @@ describe('language.thousands option ', function() {
 			},
 			lengthMenu: [10, 100, 1000, 2000],
 			initComplete: function(settings, json) {
-				expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 10-000 entries');
+				expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 10-000 entries');
 				done();
 			}
 		});
@@ -49,7 +49,7 @@ describe('language.thousands option ', function() {
 			},
 			lengthMenu: [10, 100, 1000, 2000],
 			initComplete: function(settings, json) {
-				expect($('div.dataTables_info').text()).toBe('Showing 1 to 10 of 10000 entries');
+				expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 10000 entries');
 				done();
 			}
 		});

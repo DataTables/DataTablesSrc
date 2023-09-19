@@ -7,8 +7,8 @@ table.dataTable {
 
 
 // DataTables' built in feature elements
-div.dataTables_wrapper {
-	div.dataTables_length {
+div.dt-container {
+	div.dt-length {
 		label {
 			font-weight: normal;
 			text-align: left;
@@ -21,7 +21,7 @@ div.dataTables_wrapper {
 		}
 	}
 
-	div.dataTables_filter {
+	div.dt-search {
 		label {
 			font-weight: normal;
 			white-space: nowrap;
@@ -35,11 +35,11 @@ div.dataTables_wrapper {
 		}
 	}
 
-	div.dataTables_info {
+	div.dt-info {
 		white-space: nowrap;
 	}
 
-	div.dataTables_paginate {
+	div.dt-paging {
 		margin: 0;
 		white-space: nowrap;
 
@@ -49,7 +49,7 @@ div.dataTables_wrapper {
 		}
 	}
 
-	div.dataTables_processing {
+	div.dt-processing {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -65,11 +65,11 @@ div.dataTables_wrapper {
 @import 'ordering.scss';
 
 // Scrolling
-div.dataTables_scrollHead table.dataTable {
+div.dt-scroll-head table.dataTable {
 	margin-bottom: 0 !important;
 }
 
-div.dataTables_scrollBody {
+div.dt-scroll-body {
 	table {
 		border-top: none;
 		margin-top: 0 !important;
@@ -90,7 +90,7 @@ div.dataTables_scrollBody {
 	}
 }
 
-div.dataTables_scrollFoot table {
+div.dt-scroll-foot table {
 	margin-top: 0 !important;
 	border-top: none;
 }
@@ -98,11 +98,11 @@ div.dataTables_scrollFoot table {
 
 // Responsive
 @media screen and (max-width: 767px) {
-	div.dataTables_wrapper {
-		div.dataTables_length,
-		div.dataTables_filter,
-		div.dataTables_info,
-		div.dataTables_paginate {
+	div.dt-container {
+		div.dt-length,
+		div.dt-search,
+		div.dt-info,
+		div.dt-paging {
 			text-align: center;
 		}
 	}

@@ -84,23 +84,23 @@ describe('core - events - draw', function() {
 			checkResults(1, 'Garrett Winters');
 		});
 		it('Called when user changes page', function() {
-			$('.paginate_button:eq(3)').click();
+			$('.dt-paging-button:eq(3)').click();
 			checkResults(1, 'Howard Hatfield');
 		});
 		it('Called when user changes page length', function() {
-			$('div.dataTables_length select')
+			$('div.dt-length select')
 				.val(10)
 				.change();
 			checkResults(1, 'Jennifer Acosta');
 		});
 		it('Called when user searches', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('cox')
 				.keyup();
 			checkResults(1, 'Ashton Cox');
 		});
 		it('Called when user clears search', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('')
 				.keyup();
 			checkResults(1, 'Garrett Winters');

@@ -17,13 +17,13 @@ describe('processing()', function() {
 	it('Does nothing if processing not enabled', function() {
 		table.processing(true);
 
-		expect($('div.dataTables_processing').length).toBe(0);
+		expect($('div.dt-processing').length).toBe(0);
 	});
 
 	it('And for disable processing', function() {
 		table.processing(false);
 
-		expect($('div.dataTables_processing').length).toBe(0);
+		expect($('div.dt-processing').length).toBe(0);
 	});
 
 	dt.html('basic');
@@ -34,11 +34,11 @@ describe('processing()', function() {
 		});
 
 		table.processing(true);
-		expect($('div.dataTables_processing').is(':visible')).toBe(true);
+		expect($('div.dt-processing').is(':visible')).toBe(true);
 	});
 
 	it('Can be hidden', function() {
 		table.processing(false);
-		expect($('div.dataTables_processing').is(':visible')).toBe(false);
+		expect($('div.dt-processing').is(':visible')).toBe(false);
 	});
 });

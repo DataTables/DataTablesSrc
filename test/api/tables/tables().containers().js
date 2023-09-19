@@ -23,7 +23,7 @@ describe('tables - tables().containers()', function() {
 		dt.html('basic');
 		it('Returns the body', function() {
 			let table = $('#example').DataTable();
-			expect(table.tables().containers()[0]).toBe($('div.dataTables_wrapper').get(0));
+			expect(table.tables().containers()[0]).toBe($('div.dt-container').get(0));
 		});
 		it('Returns single body', function() {
 			let table = $('#example').DataTable();
@@ -40,7 +40,7 @@ describe('tables - tables().containers()', function() {
 			let table = $('#example').DataTable({
 				scrollX: true
 			});
-			expect(table.tables().containers()[0]).toBe($('div.dataTables_wrapper').get(0));
+			expect(table.tables().containers()[0]).toBe($('div.dt-container').get(0));
 		});
 
 		dt.html('basic');
@@ -48,7 +48,7 @@ describe('tables - tables().containers()', function() {
 			let table = $('#example').DataTable({
 				scrollY: true
 			});
-			expect(table.tables().containers()[0]).toBe($('div.dataTables_wrapper').get(0));
+			expect(table.tables().containers()[0]).toBe($('div.dt-container').get(0));
 		});
 	});
 

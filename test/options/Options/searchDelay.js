@@ -35,13 +35,13 @@ describe('searchDelay Option', function() {
 			table = $('#example').DataTable({
 				searchDelay: 3000
 			});
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('z')
 				.keyup();
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Gavin Cortez');
 		});
 		it('Second interaction has no effect before timeout', function() {
-			$('div.dataTables_filter input')
+			$('div.dt-search input')
 				.val('o')
 				.keyup();
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Gavin Cortez');

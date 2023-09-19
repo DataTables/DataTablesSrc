@@ -5,23 +5,23 @@
 @import './typography.scss';
 
 // DataTables' built in feature elements
-div.dataTables_wrapper {
-	div.dataTables_length {
+div.dt-container {
+	div.dt-length {
 
 	}
 
-	div.dataTables_filter {
+	div.dt-search {
 		input {
 			margin-left: 0.5em;
 		}
 	}
 
-	div.dataTables_info {
+	div.dt-info {
 		padding-top: 10px;
 		white-space: nowrap;
 	}
 
-	div.dataTables_processing {
+	div.dt-processing {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -30,7 +30,7 @@ div.dataTables_wrapper {
 		text-align: center;
 	}
 
-	div.dataTables_paginate {
+	div.dt-paging {
 		button.mdl-button {
 			min-width: 0;
 		}

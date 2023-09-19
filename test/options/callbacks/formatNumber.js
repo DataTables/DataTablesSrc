@@ -39,10 +39,10 @@ describe('formatNumber Option', function() {
 					return toFormat.toString() + ' XXX';
 				}
 			});
-			expect($('div.dataTables_info').text()).toBe('Showing 1 XXX to 10 XXX of 57 XXX entries');
+			expect($('div.dt-info').text()).toBe('Showing 1 XXX to 10 XXX of 57 XXX entries');
 		});
 		it('Ensure returned string is used in the page length', function() {
-			expect($('div.dataTables_length select option:eq(0)').text()).toBe('10 XXX');
+			expect($('div.dt-length select option:eq(0)').text()).toBe('10 XXX');
 		});
 	});
 });

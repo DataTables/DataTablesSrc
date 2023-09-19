@@ -2385,7 +2385,7 @@ export interface DataTablesStaticExt {
 
     /**
      * Default Value:
-     * paginate_button
+     * dt-paging-button
      */
     sPageButton?: string;
 
@@ -2415,43 +2415,43 @@ export interface DataTablesStaticExt {
 
     /**
      * Default Value:
-     * dataTables_empty
+     * dt-empty
      */
     sRowEmpty?: string;
 
     /**
      * Default Value:
-     * dataTables_wrapper
+     * dt-container
      */
     sWrapper?: string;
 
     /**
      * Default Value:
-     * dataTables_filter
+     * dt-search
      */
     sFilter?: string;
 
     /**
      * Default Value:
-     * dataTables_info
+     * dt-info
      */
     sInfo?: string;
 
     /**
      * Default Value:
-     * dataTables_paginate paging_
+     * dt-paging paging_
      */
     sPaging?: string;
 
     /**
      * Default Value:
-     * dataTables_length
+     * dt-length
      */
     sLength?: string;
 
     /**
      * Default Value:
-     * dataTables_processing
+     * dt-processing
      */
     sProcessing?: string;
 
@@ -2508,31 +2508,31 @@ export interface DataTablesStaticExt {
 
     /**
      * Default Value:
-     * dataTables_scrollHead
+     * dt-scroll-head
      */
     sScrollHead?: string;
 
     /**
      * Default Value:
-     * dataTables_scrollHeadInner
+     * dt-scroll-headInner
      */
     sScrollHeadInner?: string;
 
     /**
      * Default Value:
-     * dataTables_scrollBody
+     * dt-scroll-body
      */
     sScrollBody?: string;
 
     /**
      * Default Value:
-     * dataTables_scrollFoot
+     * dt-scroll-foot
      */
     sScrollFoot?: string;
 
     /**
      * Default Value:
-     * dataTables_scrollFootInner
+     * dt-scroll-footInner
      */
     sScrollFootInner?: string;
 

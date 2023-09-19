@@ -75,10 +75,10 @@ $(document).ready( function () {
 	oTest.fnTest( 
 		"Jump to last page",
 		function () {
-			nFirst = $('div.dataTables_paginate a.first');
-			nPrevious = $('div.dataTables_paginate a.previous');
-			nNext = $('div.dataTables_paginate a.next');
-			nLast = $('div.dataTables_paginate a.last');
+			nFirst = $('div.dt-paging a.first');
+			nPrevious = $('div.dt-paging a.previous');
+			nNext = $('div.dt-paging a.next');
+			nLast = $('div.dt-paging a.last');
 			nLast.click();
 		},
 		function () {
@@ -89,8 +89,8 @@ $(document).ready( function () {
 	oTest.fnTest( 
 		"Go to two pages previous",
 		function () {
-			$('div.dataTables_paginate a.previous').click();
-			$('div.dataTables_paginate a.previous').click();
+			$('div.dt-paging a.previous').click();
+			$('div.dt-paging a.previous').click();
 		},
 		function () {
 			return document.getElementById('example_info').innerHTML == "Showing 31 to 40 of 57 entries";
@@ -100,7 +100,7 @@ $(document).ready( function () {
 	oTest.fnTest( 
 		"Next (second last) page",
 		function () {
-			$('div.dataTables_paginate a.next').click();
+			$('div.dt-paging a.next').click();
 		},
 		function () {
 			return document.getElementById('example_info').innerHTML == "Showing 41 to 50 of 57 entries";
@@ -110,7 +110,7 @@ $(document).ready( function () {
 	oTest.fnTest( 
 		"Jump to first page",
 		function () {
-			$('div.dataTables_paginate a.first').click();
+			$('div.dt-paging a.first').click();
 		},
 		function () {
 			return document.getElementById('example_info').innerHTML == "Showing 1 to 10 of 57 entries";

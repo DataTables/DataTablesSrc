@@ -17,12 +17,12 @@ describe('layout option', function() {
 
 		it('Default DOM in document in correct order', function() {
 			var table = $('table').DataTable();
-			var nodes = $('div.dataTables_layout_cell').children();
+			var nodes = $('div.dt-layout-cell').children();
 
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(length[0]);
@@ -40,11 +40,11 @@ describe('layout option', function() {
 				}
 			});
 
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(undefined).toBe(length[0]);
@@ -62,11 +62,11 @@ describe('layout option', function() {
 				}
 			});
 
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(length[0]);
@@ -84,11 +84,11 @@ describe('layout option', function() {
 				}
 			});
 
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(length[0]);
@@ -104,11 +104,11 @@ describe('layout option', function() {
 				bottomRight: null
 			});
 
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(length[0]);
@@ -127,11 +127,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(filter.length).toBe(0);
@@ -150,11 +150,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(filter.length).toBe(0);
@@ -173,11 +173,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(filter.length).toBe(0);
@@ -196,11 +196,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(length.length).toBe(0);
@@ -222,11 +222,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(length.length).toBe(0);
@@ -247,11 +247,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(length.length).toBe(0);
@@ -273,11 +273,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(length.length).toBe(0);
@@ -305,11 +305,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(length.length).toBe(0);
@@ -343,11 +343,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(length.length).toBe(0);
@@ -373,11 +373,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(length[0]);
@@ -399,11 +399,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(length[0]);
@@ -424,11 +424,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(length[0]);
@@ -449,11 +449,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(insert);
@@ -472,11 +472,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(length[0]);
@@ -498,11 +498,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(insert);
@@ -523,11 +523,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(length[0]);
@@ -549,11 +549,11 @@ describe('layout option', function() {
 				}
 			});
 			
-			var nodes = $('div.dataTables_layout_cell').children();
-			var length = document.getElementsByClassName('dataTables_length');
-			var filter = document.getElementsByClassName('dataTables_filter');
-			var info = document.getElementsByClassName('dataTables_info');
-			var paging = document.getElementsByClassName('dataTables_paginate');
+			var nodes = $('div.dt-layout-cell').children();
+			var length = document.getElementsByClassName('dt-length');
+			var filter = document.getElementsByClassName('dt-search');
+			var info = document.getElementsByClassName('dt-info');
+			var paging = document.getElementsByClassName('dt-paging');
 			var table = document.getElementsByClassName('dataTable');
 
 			expect(nodes[0]).toBe(info[0]);

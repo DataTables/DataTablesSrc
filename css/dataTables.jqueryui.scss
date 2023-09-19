@@ -37,12 +37,12 @@ table.dataTable {
 /*
  * Control feature layout
  */
-div.dataTables_wrapper {
-	div.dataTables_layout_row {
+div.dt-container {
+	div.dt-layout-row {
 		padding: 0;
 	}
 
-	div.dataTables_layout_cell {
+	div.dt-layout-cell {
 		padding: 10px;
 
 		&.table {
@@ -51,7 +51,7 @@ div.dataTables_wrapper {
 	}
 
 	// Paging
-	.dataTables_paginate {
+	.dt-paging {
 		.fg-button {
 			box-sizing: border-box;
 			display: inline-block;
@@ -89,16 +89,16 @@ div.dataTables_wrapper {
 	}
 
 	&.no-footer {
-		.dataTables_scrollBody {
+		.dt-scroll-body {
 			border-bottom: none;
 		}
 	}
 
-	.dataTables_length,
-	.dataTables_filter,
-	.dataTables_info,
-	.dataTables_processing,
-	.dataTables_paginate {
+	.dt-length,
+	.dt-search,
+	.dt-info,
+	.dt-processing,
+	.dt-paging {
 		color: inherit;
 	}
 }
