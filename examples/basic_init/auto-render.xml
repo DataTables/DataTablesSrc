@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="19">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+DataTable.type('date', 'render', DataTable.render.date());
+DataTable.type('num', 'render', DataTable.render.number());
+
+$('#example').DataTable();
+]]>
+</js>
+<js-vanilla>
+<![CDATA[
+DataTable.type('date', 'render', DataTable.render.date());
+DataTable.type('num', 'render', DataTable.render.number());
+
+new DataTable('#example');
+]]>
+</js-vanilla>
+
+<title>Language - auto render</title>
+
+<info><![CDATA[
+
+When displaying data you don't always want to display the raw data to the end user - for example ISO8601 date format makes it easy for a computer to parse a date, but humans don't use it on a day-to-day basis. Instead, [we use lots of different formats](https://en.wikipedia.org/wiki/Date_format_by_country).
+
+You can use `-init columns.render` to have DataTables render the data in a suitable format, but that requires knowing the data in each column in advance. It is also possible to assign a renderer by data type using `-api DataTable.type()`.
+
+This example demonstrates the use of this method to apply formatting to _date_ and _number_ data types. They will automatically apply formatting suitable for the user's locale, based on their browser's preferences.
+
+In the table below, the _Age_ and _Start date_ columns are affected by the auto renderers (although the _Age_ column doesn't go above 1000, so the thousands separator isn't required).
+
+]]></info>
+
+</dt-example>

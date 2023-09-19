@@ -77,7 +77,7 @@ DataTable.type = function (name, prop, val) {
 			setProp('className', val.className);
 		}
 
-		if (val.detect) {
+		if (val.detect !== undefined) {
 			setDetect(val.detect);
 		}
 
@@ -85,11 +85,11 @@ DataTable.type = function (name, prop, val) {
 			setOrder(val.order);
 		}
 
-		if (val.render) {
+		if (val.render !== undefined) {
 			setProp('render', val.render);
 		}
 
-		if (val.search) {
+		if (val.search !== undefined) {
 			setProp('search', val.search);
 		}
 	}

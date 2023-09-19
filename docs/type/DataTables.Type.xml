@@ -19,6 +19,7 @@ interface DataTable.Type {
 		asc?: (a: any, b: any) => number;
 		desc?: (a: any, b: any) => number;
 	};
+	render?: (data: any, type: string, row: any) => string | number | Node;
 	search?: (data: any) => string;
 }
 ```
@@ -65,6 +66,19 @@ As an example, consider the following ordering data type definition which is use
 function (data) {
 	return data.replace(/^ the/i, '');
 }
+```
+
+### render
+
+The rendering function can be used to transform data into different forms for different orthogonal actions, but is specifically of use for display formatting. A function defined here will be automatically applied for a data type _if_ a rendering function hasn't already been given for the column (`-init columns.render`).
+
+This can be particularly useful when you don't know in advance what the data types of the inbound data is and you want to format it according to the end user's localisation preferences. For example, dates should be _M/D/Y_ format in the US and _D/M/Y_ in much of the rest of the world.
+
+The following two commands assign the built in renderers to the `date` and `num` (number) data types for automatic rendering if a column is determined to match that type. They will automatically format the data in a localised manner for the end user:
+
+```js
+DataTable.type('date', 'render', DataTable.render.date());
+DataTable.type('num', 'render', DataTable.render.number());
 ```
 
 ### search

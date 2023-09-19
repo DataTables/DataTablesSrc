@@ -1,7 +1,7 @@
 
 describe( 'Static method - type', function() {
 	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
+		js:  [ 'jquery', 'datatables', 'moment' ],
 		css: [ 'datatables' ]
 	} );
 
@@ -22,6 +22,7 @@ describe( 'Static method - type', function() {
 			expect( typeof num.detect ).toBe( 'function' );
 			expect( typeof num.order ).toBe( 'object' );
 			expect( typeof num.order.pre ).toBe( 'function' );
+			expect( num.render ).toBe( undefined );
 			expect( num.search ).toBe( undefined );
 		} );
 
@@ -33,6 +34,7 @@ describe( 'Static method - type', function() {
 			expect( typeof num.order ).toBe( 'object' );
 			expect( typeof num.order.pre ).toBe( 'function' );
 			expect( typeof num.search ).toBe( 'function' );
+			expect( num.render ).toBe( undefined );
 		} );
 	});
 
@@ -67,6 +69,7 @@ describe( 'Static method - type', function() {
 			expect( typeof ret.order ).toBe( 'object' );
 			expect( typeof ret.order.pre ).toBe( 'function' );
 			expect( typeof ret.search ).toBe( 'function' );
+			expect( ret.render ).toBe( undefined );
 		});
 
 		dt.html('basic');
@@ -160,6 +163,36 @@ describe( 'Static method - type', function() {
 			table.search('645x750').draw();
 
 			expect( $('#example tbody tr:first-child td:first-child').text() ).toBe( 'Jackson Bradshaw' );	
+		});
+
+		dt.html('ISO8601');
+
+		it('Auto renderer - date', function() {
+			// Set text to trigger renderer
+			$('tbody tr:first-child td:nth-child(4)').text(1234567);
+
+			DataTable.type('date', 'render', DataTable.render.date('D/M/YY'));
+			DataTable.type('num', 'render', DataTable.render.number());
+
+			table = new DataTable('#example');
+
+			expect( $('#example tbody tr:first-child td:nth-child(5)').text() ).toBe( '28/11/08' );	
+		});
+
+		it('Auto renderer - number', async function() {
+			await dt.clickHeader(3);
+			await dt.clickHeader(3);
+
+			expect( $('#example tbody tr:first-child td:nth-child(4)').text() ).toBe( '1,234,567' );	
+		});
+
+		it('Auto renderer - remove', async function() {
+			DataTable.type('date', 'render', null);
+			DataTable.type('num', 'render', null);
+
+			delete window.moment;
+
+			expect(1).toBe(1);
 		});
 	});
 });

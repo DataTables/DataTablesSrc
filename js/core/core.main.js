@@ -138,10 +138,10 @@ _buildInclude('ext.classes.js');
 _buildInclude('ext.features.js');
 _buildInclude('ext.paging.js');
 _buildInclude('ext.filter.js');
+_buildInclude('ext.helpers.js');
 _buildInclude('ext.types.js');
 _buildInclude('ext.sorting.js');
 _buildInclude('ext.renderer.js');
-_buildInclude('ext.helpers.js');
 _buildInclude('api.internal.js');
 
 _buildInclude('features.info.js');

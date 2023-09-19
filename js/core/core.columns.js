@@ -97,7 +97,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		oCol.mRender = DataTable.render[name].apply(window, copy);
 	}
 
-	var mRender = oCol.mRender ? _fnGetObjectDataFn( oCol.mRender ) : null;
+	oCol._render = oCol.mRender ? _fnGetObjectDataFn( oCol.mRender ) : null;
 
 	var attrTest = function( src ) {
 		return typeof src === 'string' && src.indexOf('@') !== -1;
@@ -110,8 +110,8 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 	oCol.fnGetData = function (rowData, type, meta) {
 		var innerData = mData( rowData, type, undefined, meta );
 
-		return mRender && type ?
-			mRender( innerData, type, rowData, meta ) :
+		return oCol._render && type ?
+			oCol._render( innerData, type, rowData, meta ) :
 			innerData;
 	};
 	oCol.fnSetData = function ( rowData, val, meta ) {
@@ -322,6 +322,40 @@ function _fnColumnTypes ( settings )
 		if (autoClass) {
 			_columnAutoClass(settings.aoHeader, i, autoClass);
 			_columnAutoClass(settings.aoFooter, i, autoClass);
+		}
+
+		var renderer = _ext.type.render[col.sType];
+
+		// This can only happen once! There is no way to remover
+		// a renderer. After the first time the renderer has
+		// already been set so createTr will run the renderer itself.
+		if (renderer && ! col._render) {
+			col._render = DataTable.util.get(renderer);
+
+			_columnAutoRender(settings, i);
+		}
+	}
+}
+
+/**
+ * Apply an auto detected renderer to data which doesn't yet have
+ * a renderer
+ */
+function _columnAutoRender(settings, colIdx) {
+	var data = settings.aoData;
+
+	for (var i=0 ; i<data.length ; i++) {
+		if (data[i].nTr) {
+			// We have to update the display here since there is no
+			// invalidation check for the data
+			var display = _fnGetCellData( settings, i, colIdx, 'display' );
+
+			data[i].displayData[colIdx] = display;
+			_fnWriteCell(data[i].anCells[colIdx], display);
+
+			// No need to update sort / filter data since it has
+			// been invalidated and will be re-read with the
+			// renderer now applied
 		}
 	}
 }
