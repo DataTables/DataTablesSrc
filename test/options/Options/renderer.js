@@ -302,7 +302,9 @@ describe('renderer option page button functions - pagingButton', function() {
 	it('Create the DataTable with two paging controls', function() {
 		table = $('#example').DataTable({
 			renderer: 'test',
-			dom: 'ptp'
+			layout: {
+				topLeft: 'paging'
+			}
 		});
 	});
 
