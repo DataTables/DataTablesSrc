@@ -220,12 +220,20 @@ function _fnGetMaxLenString( settings, colIdx )
 			var cellString = data && typeof data === 'object' && data.nodeType
 				? data.innerHTML
 				: data+'';
-	
+
+			// Remove id / name attributes from elements so they
+			// don't interfere with existing elements
+			cellString = cellString
+				.replace(/id=".*?"/g, '')
+				.replace(/name=".*?"/g, '');
+
 			s = _stripHtml(cellString)
 				.replace( /&nbsp;/g, ' ' );
 	
 			if ( s.length > maxLen ) {
-				max = s;
+				// We want the HTML in the string, but the length that
+				// is important is the stripped string
+				max = cellString;
 				maxLen = s.length;
 			}
 		}

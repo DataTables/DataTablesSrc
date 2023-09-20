@@ -100,10 +100,15 @@ var _isHtml = function ( d ) {
 	return _empty( d ) || typeof d === 'string';
 };
 
-
+// Is a string a number surrounded by HTML?
 var _htmlNumeric = function ( d, decimalPoint, formatted ) {
 	if ( _empty( d ) ) {
 		return true;
+	}
+
+	// input and select strings mean that this isn't just a number
+	if (typeof d === 'string' && d.match(/<(input|select)/i)) {
+		return null;
 	}
 
 	var html = _isHtml( d );

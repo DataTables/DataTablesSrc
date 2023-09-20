@@ -17,7 +17,7 @@ var table = $('#example').DataTable({
 	]
 });
 
-$('button').on('click', function (e) {
+$('#submit').on('click', function (e) {
 	e.preventDefault();
 
 	var data = table.$('input, select').serialize();

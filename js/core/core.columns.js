@@ -273,6 +273,7 @@ function _fnColumnTypes ( settings )
 		else if ( ! col.sType ) {
 			for ( j=0, jen=types.length ; j<jen ; j++ ) {
 				for ( k=0, ken=data.length ; k<ken ; k++ ) {
+
 					if (! data[k]) {
 						continue;
 					}
