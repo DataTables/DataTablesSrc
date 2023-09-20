@@ -62,5 +62,33 @@ describe('columns- columns().every()', function() {
 
 			expect(tagged.sort().toString() == iterated.sort().toString()).toBe(true);
 		});
+
+		dt.html('basic');
+		it('Index is correct after run', function() {
+			// DD-2712
+			let table = $('#example').DataTable({
+				initComplete: function () {
+					this.api()
+						.columns()
+						.every(function () {
+							var column = this;
+							var title = column.footer().textContent;
+			
+							// Create input element and add event listener
+							$('<input type="text" placeholder="Search ' + title + '" />')
+								.appendTo($(column.footer()).empty())
+								.on('keyup change clear', function () {
+									if (column.search() !== this.value) {
+										column.search(this.value).draw();
+									}
+								});
+						})
+				}
+			});
+			
+			$('tfoot input').eq(0).val('Paul Byrd').trigger('keyup');
+
+			expect($('tbody tr:first-child td:first-child').text()).toBe('Paul Byrd');
+		});
 	});
 });

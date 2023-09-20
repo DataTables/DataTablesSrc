@@ -165,16 +165,7 @@ $.each( [ 'column', 'row', 'cell' ], function ( i, type ) {
 		var counter = 0;
 
 		return this.iterator( 'every', function ( settings, selectedIdx, tableIdx ) {
-			// We reuse the same API instance for each item, simply changing
-			// the index and context as needed. This is massively more performant
-			// than creating a new API instance each time around the loop
-			if (! inst) {
-				inst = api[ type ](selectedIdx, opts);
-			}
-			else {
-				inst[0][0] = selectedIdx;
-				inst.context[0] = api.context[tableIdx];
-			}
+			inst = api[ type ](selectedIdx, opts);
 
 			if (type === 'cell') {
 				fn.call(inst, inst[0][0].row, inst[0][0].column, tableIdx, counter);
