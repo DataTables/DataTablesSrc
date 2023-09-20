@@ -56,7 +56,7 @@ DataTable.ext.renderer.pagingContainer.bulma = function (settings, buttonEls) {
 DataTable.ext.renderer.layout.bulma = function ( settings, container, items ) {
 	var style = {};
 	var row = $( '<div/>', {
-			"class": 'columns is-gapless is-multiline'
+			"class": 'columns is-multiline'
 		} )
 		.appendTo( container );
 
