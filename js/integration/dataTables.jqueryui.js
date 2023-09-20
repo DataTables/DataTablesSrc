@@ -11,7 +11,7 @@
  * for further information.
  */
 
-$.extend( DataTable.ext.classes, {
+$.extend( true, DataTable.ext.classes, {
 	container: 'dt-container dt-jqueryui',
 	paging: {
 		active: 'ui-state-disabled',

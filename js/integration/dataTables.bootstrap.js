@@ -18,7 +18,7 @@ $.extend( true, DataTable.defaults, {
 
 
 /* Default class modification */
-$.extend( DataTable.ext.classes, {
+$.extend( true, DataTable.ext.classes, {
 	container: "dt-container form-inline dt-bootstrap",
 	search: {
 		input: "form-control input-sm"

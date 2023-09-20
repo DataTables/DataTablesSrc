@@ -20,7 +20,7 @@ $.extend( true, DataTable.defaults, {
 
 
 // Default class modification
-$.extend( DataTable.ext.classes, {
+$.extend( true, DataTable.ext.classes, {
 	container: "dt-container dt-tailwindcss",
 	search: {
 		input: "border placeholder-gray-500 ml-2 px-3 py-2 rounded-lg border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:focus:border-blue-500 dark:placeholder-gray-400"

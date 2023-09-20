@@ -29,7 +29,7 @@ $.extend( true, DataTable.defaults, {
 
 
 /* Default class modification */
-$.extend( DataTable.ext.classes, {
+$.extend( true, DataTable.ext.classes, {
 	container: "dt-container dt-material",
 	table: "mdc-data-table__table",
 	thead: {
