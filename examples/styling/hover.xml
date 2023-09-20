@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" table-class="hover" order="5">
+<dt-example table-type="html" table-class="hover" order="5" framework="datatables">
 
 <css lib="datatables" />
 
@@ -17,7 +17,9 @@ new DataTable('#example');
 
 <info><![CDATA[
 
-This example shows DataTables with just the `hover` class specified. This class instructs DataTables' styling to highlight a row when the mouse is hovered over it.
+This example shows DataTables with just the `hover` class specified when using DataTables base styling for the table. This class instructs DataTables' styling to highlight a row when the mouse is hovered over it.
+
+Please note that this class does not apply to the other styling frameworks such as Bootstrap. The other frameworks provide their own classes to modify a table's style.
 
 ]]></info>
 
