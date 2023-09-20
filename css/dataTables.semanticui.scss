@@ -19,7 +19,7 @@ table.dataTable.table {
 		background-color: transparent;
 	}
 
-	@include row-stripes('.striped', '.hover', 0.02);
+	@include row-stripes('.striped', '.hover', 0.02, 0.05, ':nth-child(2n)');
 }
 
 @import 'typography.scss';

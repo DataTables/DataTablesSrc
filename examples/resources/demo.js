@@ -719,15 +719,19 @@ window.dt_demo = {
 		switch (fw) {
 			case 'bootstrap':
 			case 'bootstrap4':
-				table.addClass('table table-striped table-bordered');
+				table.addClass('table table-striped table-bordered table-hover');
 				return;
 
 			case 'bootstrap5':
-				table.addClass('table table-striped');
+				table.addClass('table table-striped table-hover');
 				return;
 			
 			case 'bulma':
-				table.addClass('table is-striped');
+				table.addClass('table is-striped is-hoverable');
+				return;
+			
+			case 'foundation':
+				table.addClass('hover');
 				return;
 
 			case 'material':
@@ -735,7 +739,7 @@ window.dt_demo = {
 				return;
 			
 			case 'semanticui':
-				table.addClass('ui celled table');
+				table.addClass('ui selectable striped celled table');
 				return;
 			
 			case 'uikit':

@@ -23,7 +23,7 @@ table.dataTable {
 		background-color: transparent;
 	}
 
-	@include row-stripes('.is-striped', '.is-hoverable', 0.019, 0.39);
+	@include row-stripes('.is-striped', '.is-hoverable', 0.019, 0.075, ':nth-child(2n)');
 }
 
 

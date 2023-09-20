@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" table-class="row-border hover order-column" order="4">
+<dt-example table-type="html" order="4">
 
 <css lib="datatables" />
 <css><![CDATA[
 
 td.highlight {
-	background-color: whitesmoke !important;
-}
-
-html.dark td.highlight {
-	background-color: rgba(var(--dt-row-hover), 0.082) !important;
+	background-color: rgba(var(--dt-row-hover), 0.052) !important;
 }
 
 ]]></css>
