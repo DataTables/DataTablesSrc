@@ -15,21 +15,29 @@ section {
   position: relative;
 }
 
-div.container {
+body.dt-example div.container {
   max-width: 980px;
   margin: 0 auto;
 }
-
-h1 {
+body.dt-example h1 {
   font-weight: normal;
   font-size: 3em;
   line-height: 1em;
+  margin: 1em 0;
 }
-h1 span {
+body.dt-example h1 span {
   display: block;
   padding-top: 0.5em;
   font-size: 0.5em;
   line-height: 1em;
+}
+body.dt-example h2 {
+  font-size: 2em;
+  margin: 1em 0;
+}
+body.dt-example h3 {
+  font-size: 1.3em;
+  margin: 1em 0;
 }
 
 a {
@@ -60,12 +68,14 @@ div.toc li:first-child {
 }
 div.epilogue {
   text-align: center;
+  margin-top: 2em;
 }
 
 p.copyright {
   font-size: 0.8em;
   padding-bottom: 2em;
   margin-bottom: 0;
+  margin-top: 1em;
 }
 
 .clear {
@@ -93,6 +103,7 @@ div.footer {
   margin-top: 3em;
   border-top: 1px solid #999;
   background-color: #eee;
+  padding: 0;
 }
 div.footer > div.liner {
   max-width: 960px;
