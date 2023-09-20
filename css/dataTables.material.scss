@@ -13,6 +13,9 @@ div.dt-container {
 	div.dt-search {
 		input {
 			margin-left: 0.5em;
+			width: auto;
+			background-color: whitesmoke;
+			padding: 16px 3px;
 		}
 	}
 
@@ -94,9 +97,6 @@ div.dt-container {
 				}
 			}
 		}
-	}
-	.mdc-data-table__cell {
-		border: 1px solid rgba(0,0,0,.12);
 	}
 
 	div.mdc-layout-grid {

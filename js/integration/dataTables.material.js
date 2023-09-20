@@ -12,34 +12,40 @@
 
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
-	dom:
-		"<'mdc-layout-grid'<'mdc-layout-grid__inner'"+
-			"<'mdc-cell mdc-layout-grid__cell--span-6'l>"+
-			"<'mdc-cell mdc-layout-grid__cell--span-6'f>"+
-		">>"+
-		"<'mdc-layout-grid dt-table'<'mdc-layout-grid__inner'"+
-			"<'mdc-cell mdc-layout-grid__cell--span-12'tr>"+
-		">>"+
-		"<'mdc-layout-grid'<'mdc-layout-grid__inner'"+
-			"<'mdc-cell mdc-layout-grid__cell--span-4'i>"+
-			"<'mdc-cell mdc-layout-grid__cell--span-8'p>"+
-		">>",
+	// dom:
+	// 	"<'mdc-layout-grid'<'mdc-layout-grid__inner'"+
+	// 		"<'mdc-cell mdc-layout-grid__cell--span-6'l>"+
+	// 		"<'mdc-cell mdc-layout-grid__cell--span-6'f>"+
+	// 	">>"+
+	// 	"<'mdc-layout-grid dt-table'<'mdc-layout-grid__inner'"+
+	// 		"<'mdc-cell mdc-layout-grid__cell--span-12'tr>"+
+	// 	">>"+
+	// 	"<'mdc-layout-grid'<'mdc-layout-grid__inner'"+
+	// 		"<'mdc-cell mdc-layout-grid__cell--span-4'i>"+
+	// 		"<'mdc-cell mdc-layout-grid__cell--span-8'p>"+
+	// 	">>",
 	renderer: 'material'
 } );
 
 
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
-	container: "dt-container form-inline dt-material mdc-data-table",
+	container: "dt-container dt-material",
 	table: "mdc-data-table__table",
 	thead: {
-		cell: "mdc-data-table__header-row"
+		cell: "mdc-data-table__header-cell",
+		row: 'mdc-data-table__header-row'
+	},
+	tbody: {
+		cell: "mdc-data-table__cell",
+		row: "mdc-data-table__row"
 	},
 	search: {
-		input: "form-control input-sm"
+		container: 'dt-search inline-text-field-container',
+		input: "mdc-text-field__input"
 	},
 	length: {
-		select: "form-control input-sm"
+		select: "mdc-select-field"
 	},
 	processing: {
 		container: "dt-processing panel panel-default"
@@ -71,6 +77,43 @@ DataTable.ext.renderer.pagingButton.material = function (settings, buttonType, c
 DataTable.ext.renderer.pagingContainer.material = function (settings, buttonEls) {
 	return $('<div/>').addClass('pagination').append(buttonEls);
 };
+
+// DataTable.ext.renderer.layout.material = function ( settings, container, items ) {
+// 	var grid = $( '<div/>', {
+// 			"class": 'mdc-layout-grid'
+// 		} )
+// 		.appendTo( container );
+
+// 	var gridInner = $( '<div/>', {
+// 			"class": 'mdc-layout-grid__inner'
+// 		} )
+// 		.appendTo( grid );
+
+// 	$.each( items, function (key, val) {
+// 		var klass;
+
+// 		// Apply start / end (left / right when ltr) margins
+// 		if (val.table) {
+// 			klass = 'mdc-cell mdc-layout-grid__cell--span-12';
+// 		}
+// 		else if (key === 'left') {
+// 			klass = 'mdc-cell dc-layout-grid__cell--span-6';
+// 		}
+// 		else if (key === 'right') {
+// 			klass = 'mdc-cell dc-layout-grid__cell--span-6';
+// 		}
+// 		else {
+// 			klass = 'mdc-cell mdc-layout-grid__cell--span-12';
+// 		}
+
+// 		$( '<div/>', {
+// 				id: val.id || null,
+// 				"class": klass + ' ' + (val.className || '')
+// 			} )
+// 			.append( val.contents )
+// 			.appendTo( gridInner );
+// 	} );
+// };
 
 
 $(document).on('init.dt', function(e, ctx) {
@@ -131,26 +174,31 @@ function applyFormatting(){
 
 
 DataTable.ext.renderer.layout.material = function ( settings, container, items ) {
-	var row = $( '<div/>', {
-			"class": 'mdl-grid'
+	var grid = $( '<div/>', {
+			"class": 'mdc-layout-grid'
 		} )
 		.appendTo( container );
+
+	var gridInner = $( '<div/>', {
+			"class": 'mdc-layout-grid__inner'
+		} )
+		.appendTo( grid );
 
 	$.each( items, function (key, val) {
 		var klass = '';
 		if ( key === 'left' ) {
-			klass += 'mdl-cell mdl-cell--6-col mdl-typography--text-left';
+			klass += 'mdc-layout-grid__cell mdc-layout-grid__cell--span-6';
 		}
 		else if ( key === 'right' ) {
-			klass += 'mdl-cell mdl-cell--6-col mdl-typography--text-right';
+			klass += 'mdc-layout-grid__cell mdc-layout-grid--align-right mdc-layout-grid__cell--span-6';
 		}
 		else if ( key === 'full' ) {
-			klass += 'mdl-cell mdl-cell--12-col';
+			klass += 'mdc-layout-grid__cell mdc-layout-grid__cell--span-12';
 			if ( ! val.table ) {
-				klass += ' mdl-typography--text-center';
+				klass += '';
 			}
 			else {
-				row.addClass( 'dt-table')
+				gridInner.addClass( 'dt-table mdc-data-table')
 			}
 		}
 
@@ -159,6 +207,9 @@ DataTable.ext.renderer.layout.material = function ( settings, container, items )
 				"class": klass+' '+(val.className || '')
 			} )
 			.append( val.contents )
-			.appendTo( row );
+			.appendTo( gridInner );
 	} );
 };
+
+DataTable.type('num', 'className', 'mdc-data-table__cell--numeric');
+DataTable.type('num-fmt', 'className', 'mdc-data-table__cell--numeric');
