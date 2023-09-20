@@ -51,11 +51,17 @@ window.dt_demo = {
 
 	_addLib: function (libName, type, framework) {
 		var types = dt_demo._struct;
-		var lib = types.libs.components[libName];
-		var src = lib[type];
 
-		if (lib.resolve) {
-			src = dt_demo._appendFileName(libName, src, type, framework);
+		if (libName.indexOf('//') === 0) {
+			src = libName;
+		}
+		else {
+			var lib = types.libs.components[libName];
+			var src = lib[type];
+
+			if (lib.resolve) {
+				src = dt_demo._appendFileName(libName, src, type, framework);
+			}
 		}
 
 		if (src) {
@@ -714,7 +720,6 @@ window.dt_demo = {
 
 	_tableClass: function (fw) {
 		var table = $('table');
-		var isDisplay = table.hasClass('display');
 
 		switch (fw) {
 			case 'bootstrap':
