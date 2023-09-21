@@ -72,6 +72,7 @@ window.dt_demo = {
 		if (src) {
 			src.split('|').forEach(url => {
 				dt_demo._loadQueue.push({
+					name: libName,
 					type: type,
 					src: url
 				});
@@ -248,6 +249,11 @@ window.dt_demo = {
 			script.src = item.src;
 			script.type = 'text/javascript';
 			script.onload = function () {
+				// Tailwind specific config
+				if (item.name === 'tailwindcss') {
+					window.tailwind.config = { darkMode: "class" };
+				}
+				
 				dt_demo._loadNext();
 			};
 

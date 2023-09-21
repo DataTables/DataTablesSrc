@@ -7,14 +7,6 @@
 
 // Set the defaults for DataTables initialisation
 $.extend( true, DataTable.defaults, {
-	dom:
-		"<'grid grid-cols-1 md:grid-cols-2'" +
-			"<'self-center'l>" +
-			"<'self-center place-self-end'f>" +
-			"<'my-2 col-span-2 border border-gray-200 rounded min-w-full bg-white dark:bg-gray-800 dark:border-gray-700'tr>" +
-			"<'self-center'i>" +
-			"<'self-center place-self-end'p>" +
-		">",
 	renderer: 'tailwindcss'
 } );
 
@@ -25,11 +17,11 @@ $.extend( true, DataTable.ext.classes, {
 	search: {
 		input: "border placeholder-gray-500 ml-2 px-3 py-2 rounded-lg border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:focus:border-blue-500 dark:placeholder-gray-400"
 	},
-	search: {
+	length: {
 		select: "border px-3 py-2 rounded-lg border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:focus:border-blue-500"
 	},
 	processing: {
-		container: "dt-processing uk-panel"
+		container: "dt-processing"
 	},
 	paging: {
 		active: 'font-semibold bg-gray-100 dark:bg-gray-700/75',
@@ -55,16 +47,6 @@ $.extend( true, DataTable.ext.classes, {
 	},
 } );
 
-// Eventually the classes and styles to apply from above will be merged into
-// DataTables core, but for now we add them in a Tailwind CSS specific file
-// since this is the only one that uses them this way at the moment.
-$(document).on('init.dt', function (e, settings) {
-	let thead = settings.nTHead;
-	let classes = DataTable.ext.classes.tailwindcss;
-
-	$(thead).addClass(classes.thead.row);
-});
-
 DataTable.ext.renderer.pagingButton.tailwindcss = function (settings, buttonType, content, active, disabled) {
 	var classes = settings.oClasses.paging;
 	var btnClasses = [classes.button];
@@ -85,7 +67,7 @@ DataTable.ext.renderer.pagingButton.tailwindcss = function (settings, buttonType
 };
 
 DataTable.ext.renderer.pagingContainer.tailwindcss = function (settings, buttonEls) {
-	var classes = settings.oClasses.tailwindcss.paging;
+	var classes = settings.oClasses.paging;
 
 	buttonEls[0].addClass(classes.first);
 	buttonEls[buttonEls.length -1].addClass(classes.last);
