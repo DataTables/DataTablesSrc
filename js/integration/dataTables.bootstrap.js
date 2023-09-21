@@ -69,10 +69,10 @@ DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items 
 
 	$.each( items, function (key, val) {
 		var klass = '';
-		if ( key === 'left' ) {
+		if ( key === 'start' ) {
 			klass += 'col-sm-6 text-left';
 		}
-		else if ( key === 'right' ) {
+		else if ( key === 'end' ) {
 			klass += 'col-sm-6 text-right';
 
 			// If no left element, we need to offset this one

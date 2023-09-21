@@ -28,7 +28,7 @@ $.extend( true, DataTable.ext.classes, {
 } );
 
 
-/* Bootstrap paging button renderer */
+/* Fomantic paging button renderer */
 DataTable.ext.renderer.pagingButton.semanticUI = function (settings, buttonType, content, active, disabled) {
 	var btnClasses = ['dt-paging-button', 'item'];
 
@@ -88,10 +88,10 @@ DataTable.ext.renderer.layout.semanticUI = function ( settings, container, items
 
 	$.each( items, function (key, val) {
 		var klass = '';
-		if ( key === 'left' ) {
+		if ( key === 'start' ) {
 			klass += 'left floated eight wide column';
 		}
-		else if ( key === 'right' ) {
+		else if ( key === 'end' ) {
 			klass += 'right floated right aligned eight wide column';
 		}
 		else if ( key === 'full' ) {

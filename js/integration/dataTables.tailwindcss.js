@@ -90,10 +90,10 @@ DataTable.ext.renderer.layout.tailwindcss = function ( settings, container, item
 		if (val.table) {
 			klass = 'col-span-2';
 		}
-		else if (key === 'left') {
+		else if (key === 'start') {
 			klass = 'justify-self-start';
 		}
-		else if (key === 'right') {
+		else if (key === 'end') {
 			klass = 'col-start-2 justify-self-end';
 		}
 		else {

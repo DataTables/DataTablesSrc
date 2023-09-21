@@ -61,10 +61,10 @@ DataTable.ext.renderer.layout.uikit = function ( settings, container, items ) {
 
 	$.each( items, function (key, val) {
 		var klass = '';
-		if ( key === 'left' ) {
+		if ( key === 'start' ) {
 			klass += 'uk-text-left';
 		}
-		else if ( key === 'right' ) {
+		else if ( key === 'end' ) {
 			klass += 'uk-text-right';
 		}
 		else if ( key === 'full' ) {

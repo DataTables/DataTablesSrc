@@ -77,10 +77,10 @@ DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items 
 		if (val.table) {
 			klass = 'col-12';
 		}
-		else if (key === 'left') {
+		else if (key === 'start') {
 			klass = 'col-md-auto me-auto';
 		}
-		else if (key === 'right') {
+		else if (key === 'end') {
 			klass = 'col-md-auto ms-auto';
 		}
 		else {

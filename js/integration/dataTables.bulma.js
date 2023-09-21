@@ -66,10 +66,10 @@ DataTable.ext.renderer.layout.bulma = function ( settings, container, items ) {
 		if (val.table) {
 			klass = 'column is-full';
 		}
-		else if (key === 'left') {
+		else if (key === 'start') {
 			klass = 'column is-narrow';
 		}
-		else if (key === 'right') {
+		else if (key === 'end') {
 			klass = 'column is-narrow';
 			style.marginLeft = 'auto';
 		}

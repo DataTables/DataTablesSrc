@@ -85,12 +85,12 @@ DataTable.ext.renderer.layout.foundation = function ( settings, container, items
 		if ( val.table ) {
 			klass += 'cell small-12';
 		}
-		else if ( key === 'left' ) {
+		else if ( key === 'start' ) {
 			// left is auto sized, right is shrink, allowing them to take the full width, and letting the
 			// content take its maximum available space.
 			klass += 'cell auto';
 		}
-		else if ( key === 'right' ) {
+		else if ( key === 'end' ) {
 			klass += 'cell shrink';
 			style.marginLeft = 'auto';
 		}
