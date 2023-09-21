@@ -19,7 +19,7 @@
 		<parameter type="string" name="name">
 			The name of the data type for which the definition is to be set.
 		</parameter>
-		<parameter type="string" name="definition" type="DataTables.Type">
+		<parameter type="DataTables.Type" name="definition">
 			The type information object to be set. Each property is optional and if the data type already exists, if it property is not set here, it will not remove a previous value.
 		</parameter>
 		<returns type="undefined">No return value.</returns>
@@ -32,9 +32,9 @@
 			The name of the data type for which the definition is to be set.
 		</parameter>
 		<parameter type="string" name="property">
-			The property of the data type to be set. This can be one of any of the top level property names in `-type DataTable.Type` - e.g. `-string className`, `-string detect`, `-string order` or `-string search`.
+			The property of the data type to be set. This can be one of any of the top level property names in `-type DataTable.Type` - e.g. `-string className`, `-string detect`, `-string order`, `-string render` or `-string search`.
 		</parameter>
-		<parameter type="string" name="definition" type="*">
+		<parameter type="*" name="definition">
 			The type information object to be set.
 		</parameter>
 		<returns type="undefined">No return value.</returns>

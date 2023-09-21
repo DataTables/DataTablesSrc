@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="columns">
-	<name>columns().title()</name>
+	<name>columns().titles()</name>
 	<summary>Get / set the title for multiple columns.</summary>
 	<since>2.0</since>
 
