@@ -139,7 +139,7 @@ function build_examples {
 		-j "demo:${OUT_DIR}/resources/demo.js" \
 		-c "syntax:${OUT_DIR}/resources/syntax/shCore.css" \
 		-j "syntax:${OUT_DIR}/resources/syntax/shCore.js" \
-		-m "${BUILD_DIR}/media" \
+		-m "${BUILD_DIR}" \
 		-l "css:syntax css:demo js:syntax js:demo"
 }
 
@@ -177,8 +177,8 @@ function build_repo {
 	build_lint
 
 	#echo $BUILD_DIR
-	cp $BUILD_DIR/js/* ${BUILD_DIR}/DataTables/media/js/
-	cp $BUILD_DIR/css/* ${BUILD_DIR}/DataTables/media/css/
+	cp $BUILD_DIR/js/* ${BUILD_DIR}/DataTables/js/
+	cp $BUILD_DIR/css/* ${BUILD_DIR}/DataTables/css/
 
 	if [ ! -d "${BUILD_DIR}/DataTables/types" ]; then
 		mkdir ${BUILD_DIR}/DataTables/types
@@ -186,7 +186,7 @@ function build_repo {
 
 	cp $BUILD_DIR/types/* ${BUILD_DIR}/DataTables/types
 
-	cp -r $BUILD_DIR/images ${BUILD_DIR}/DataTables/media/
+	cp -r $BUILD_DIR/images ${BUILD_DIR}/DataTables/
 	if [ -e ${BUILD_DIR}/DataTables/examples ]; then
 		rm -Rf ${BUILD_DIR}/DataTables/examples
 	fi
@@ -265,20 +265,16 @@ function build_descriptors {
 
 function update_build_repo {
 	if [ ! -d "${BUILD_DIR}/DataTables" ]; then
-		echo_msg "Checking out DataTables/DataTables"
-		cd $BUILD_DIR
-		git clone https://github.com/DataTables/DataTables.git
-		cd - > /dev/null 2>&1
-	else 
-		echo_msg "Pulling latest changes for build repo from origin"
+		mkdir ${BUILD_DIR}/DataTables
 	fi
 
-	# This will throw away local changes in the build file...
-	# Don't change files in it!
-	cd $BUILD_DIR/DataTables
-	#git pull --quiet origin $SYNC_BRANCH
-	git checkout --quiet -f $SYNC_BRANCH
-	cd - > /dev/null 2>&1
+	if [ ! -d "${BUILD_DIR}/DataTables/js" ]; then
+		mkdir ${BUILD_DIR}/DataTables/js
+	fi
+
+	if [ ! -d "${BUILD_DIR}/DataTables/css" ]; then
+		mkdir ${BUILD_DIR}/DataTables/css
+	fi
 }
 
 

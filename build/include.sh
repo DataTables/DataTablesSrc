@@ -252,7 +252,7 @@ function examples_process {
 		-j "demo:${DT_BUILT}/examples/resources/demo.js" \
 		-c "syntax:${DT_BUILT}/examples/resources/syntax/shCore.css" \
 		-j "syntax:${DT_BUILT}/examples/resources/syntax/shCore.js" \
-		-m "${DT_BUILT}/media" \
+		-m "${DT_BUILT}" \
 		-l "css:syntax css:demo js:syntax js:demo"
 }
 

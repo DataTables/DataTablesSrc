@@ -720,8 +720,8 @@ class DT_Example
 			}
 
 			$out[$component] = [
-				'css' => $path . '/css',
-				'js' => $path . '/js',
+				'css' => $path . 'css',
+				'js' => $path . 'js',
 				'resolve' => true
 			];
 		}
