@@ -693,3 +693,14 @@ html.dark div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selecto
 html.dark div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__option i.dt-demo-icon {
   filter: invert(100%) brightness(1000%);
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: rgb(33, 37, 41);
+    color: rgb(218, 224, 231);
+  }
+  html.light body {
+    background-color: #fff;
+    color: #333;
+  }
+}

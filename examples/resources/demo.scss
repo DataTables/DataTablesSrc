@@ -837,3 +837,19 @@ html.dark {
 		}
 	}
 }
+
+// Although most of the switching is done by the class name to allow easy switching
+// it use this to stop the flicker of white between page loads
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: rgb(33, 37, 41);
+		color: rgb(218, 224, 231);
+	}
+
+	html.light {
+		body {
+			background-color: #fff;
+			color: #333;
+		}
+	}
+}
