@@ -74,7 +74,6 @@ function build_js {
 
 	js_compress $OUT_FILE
 
-	cp jquery.js $OUT_DIR
 	cp integration/* $OUT_DIR
 
 	IFS=$OLD_IFS
@@ -148,7 +147,7 @@ function build_examples {
 function build_lint {
 	echo_section "Lint"
 
-	eslint ${BUILD_DIR}/js/jquery.dataTables.js
+	eslint ${BUILD_DIR}/js/dataTables.js
 	RESULT=$?
 
 	if [ $RESULT -ne 0 ]; then
@@ -166,8 +165,8 @@ function build_repo {
 	update_build_repo
 
 	# Build DataTables with two different loader types
-	build_js umd.js jquery.dataTables js
-	build_js esm.js jquery.dataTables mjs
+	build_js umd.js dataTables js
+	build_js esm.js dataTables mjs
 
 	echo_section "Styling frameworks JS"
 
@@ -421,8 +420,8 @@ case "$1" in
 		;;
 
 	"js")
-		build_js umd.js jquery.dataTables js
-		build_js esm.js jquery.dataTables mjs
+		build_js umd.js dataTables js
+		build_js esm.js dataTables mjs
 		;;
 
 	"css")

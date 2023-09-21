@@ -197,7 +197,7 @@ window.dt_demo = {
 		
 		if (type === 'js') {
 			if (name === 'datatables') {
-				out.push(src + '/jquery.dataTables.' + type);
+				out.push(src + '/dataTables.' + type);
 			}
 			else {
 				out.push(src + '/dataTables.' + fileName + '.' + type);
