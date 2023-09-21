@@ -317,7 +317,7 @@ DT_Example::$lookup_libraries['js']['pdfmake']       = 'https://cdnjs.cloudflare
 DT_Example::$lookup_libraries['js']['vfsfonts']      = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js';
 DT_Example::$lookup_libraries['js']['moment']        = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js';
 DT_Example::$lookup_libraries['js']['luxon']         = 'https://cdnjs.cloudflare.com/ajax/libs/luxon/2.3.1/luxon.min.js';
-DT_Example::$lookup_libraries['css']['world-flags-sprite'] = 'https://github.com/downloads/lafeber/world-flags-sprite/flags32.css';
+DT_Example::$lookup_libraries['css']['world-flags-sprite'] = 'https://cdn.jsdelivr.net/gh/lafeber/world-flags-sprite/stylesheets/flags32-both.css';
 DT_Example::$lookup_libraries['js']['sparkline'] = 'https://cdn.rawgit.com/fnando/sparkline/master/dist/sparkline.js';
 
 function multiple ( $value, $fn )
