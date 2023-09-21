@@ -92,7 +92,7 @@ describe('infoCallback Option', function() {
 			args = null;
 			table = $('#example').DataTable({
 				layout: {
-					bottomLeft: null
+					bottomStart: null
 				},
 				infoCallback: function() {
 					args = arguments;
@@ -107,7 +107,7 @@ describe('infoCallback Option', function() {
 			args = null;
 			table = $('#example').DataTable({
 				layout: {
-					bottomLeft: {
+					bottomStart: {
 						info: {
 							callback: function() {
 								args = arguments;

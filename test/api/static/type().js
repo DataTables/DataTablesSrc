@@ -18,7 +18,7 @@ describe( 'Static method - type', function() {
 		it( 'Object has expected parameters - num', function () {
 			let num = DataTable.type('num');
 
-			expect( num.className ).toBe( 'dt-right' );
+			expect( num.className ).toBe( 'dt-type-numeric' );
 			expect( typeof num.detect ).toBe( 'function' );
 			expect( typeof num.order ).toBe( 'object' );
 			expect( typeof num.order.pre ).toBe( 'function' );

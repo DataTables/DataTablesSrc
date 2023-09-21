@@ -8,10 +8,10 @@ describe('layout option', function() {
 		dt.html('basic');
 		it('Default value', function() {
 			expect(DataTable.defaults.layout).toEqual({
-				topLeft: 'pageLength',
-				topRight: 'search',
-				bottomLeft: 'info',
-				bottomRight: 'paging'
+				topStart: 'pageLength',
+				topEnd: 'search',
+				bottomStart: 'info',
+				bottomEnd: 'paging'
 			});
 		});
 
@@ -36,7 +36,7 @@ describe('layout option', function() {
 		it('Check no length element', function() {
 			$('table').dataTable({
 				layout: {
-					topLeft: null
+					topStart: null
 				}
 			});
 
@@ -58,7 +58,7 @@ describe('layout option', function() {
 		it('Check no filter element', function() {
 			$('table').dataTable({
 				layout: {
-					topRight: null
+					topEnd: null
 				}
 			});
 
@@ -80,7 +80,7 @@ describe('layout option', function() {
 		it('Check no info element', function() {
 			$('table').dataTable({
 				layout: {
-					bottomLeft: null
+					bottomStart: null
 				}
 			});
 
@@ -101,7 +101,7 @@ describe('layout option', function() {
 		dt.html('basic');
 		it('Check no paging element', function() {
 			$('table').dataTable({
-				bottomRight: null
+				bottomEnd: null
 			});
 
 			var nodes = $('div.dt-layout-cell').children();
@@ -123,7 +123,7 @@ describe('layout option', function() {
 		it('feature - repeated info', function() {
 			$('table').dataTable({
 				layout: {
-					topRight: 'info'
+					topEnd: 'info'
 				}
 			});
 			
@@ -146,7 +146,7 @@ describe('layout option', function() {
 		it('feature - repeated pageLength', function() {
 			$('table').dataTable({
 				layout: {
-					topRight: 'pageLength'
+					topEnd: 'pageLength'
 				}
 			});
 			
@@ -169,7 +169,7 @@ describe('layout option', function() {
 		it('feature - repeated pageLength', function() {
 			$('table').dataTable({
 				layout: {
-					topRight: 'paging'
+					topEnd: 'paging'
 				}
 			});
 			
@@ -192,7 +192,7 @@ describe('layout option', function() {
 		it('feature - repeated search', function() {
 			$('table').dataTable({
 				layout: {
-					topLeft: 'search'
+					topStart: 'search'
 				}
 			});
 			
@@ -216,7 +216,7 @@ describe('layout option', function() {
 		it('object - feature options', function() {
 			$('table').dataTable({
 				layout: {
-					topLeft: {
+					topStart: {
 						search: {}
 					}
 				}
@@ -243,7 +243,7 @@ describe('layout option', function() {
 			var insert = $('<div>').addClass('test');
 			$('table').dataTable({
 				layout: {
-					topLeft: insert
+					topStart: insert
 				}
 			});
 			
@@ -269,7 +269,7 @@ describe('layout option', function() {
 
 			$('table').dataTable({
 				layout: {
-					topLeft: insert
+					topStart: insert
 				}
 			});
 			
@@ -295,7 +295,7 @@ describe('layout option', function() {
 
 			$('table').dataTable({
 				layout: {
-					topLeft: function () {
+					topStart: function () {
 						var div = document.createElement('div');
 
 						insert = div;
@@ -339,7 +339,7 @@ describe('layout option', function() {
 
 			$('table').dataTable({
 				layout: {
-					topLeft: new Animal('Dog')
+					topStart: new Animal('Dog')
 				}
 			});
 			
@@ -366,7 +366,7 @@ describe('layout option', function() {
 
 			$('table').dataTable({
 				layout: {
-					topLeft: [
+					topStart: [
 						'pageLength',
 						insert
 					]
@@ -392,7 +392,7 @@ describe('layout option', function() {
 		it('array - feature string twice', function() {
 			$('table').dataTable({
 				layout: {
-					topLeft: [
+					topStart: [
 						'pageLength',
 						'pageLength'
 					]
@@ -420,7 +420,7 @@ describe('layout option', function() {
 		it('multirow - showing features multiple times above table', function() {
 			$('table').dataTable({
 				layout: {
-					top2Left: 'pageLength'
+					top2Start: 'pageLength'
 				}
 			});
 			
@@ -445,7 +445,7 @@ describe('layout option', function() {
 
 			$('table').dataTable({
 				layout: {
-					top2Left: insert
+					top2Start: insert
 				}
 			});
 			
@@ -468,7 +468,7 @@ describe('layout option', function() {
 		it('multirow - showing features multiple times below table', function() {
 			$('table').dataTable({
 				layout: {
-					bottom2Left: 'pageLength'
+					bottom2Start: 'pageLength'
 				}
 			});
 			
@@ -544,7 +544,7 @@ describe('layout option', function() {
 
 			$('table').dataTable({
 				layout: {
-					top2Left: 'info',
+					top2Start: 'info',
 					top: insert
 				}
 			});

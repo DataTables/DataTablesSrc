@@ -32,6 +32,11 @@ table.dataTable {
 			text-align: center;
 			vertical-align: top;
 		}
+
+		&.dt-type-numeric,
+		&.dt-type-date {
+			text-align: right;
+		}
 	}
 
 	thead,

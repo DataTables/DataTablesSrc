@@ -309,11 +309,11 @@ div.dt-container {
 			text-align: center;
 		}
 
-		&.dt-left {
+		&.dt-start {
 			text-align: left;
 		}
 
-		&.dt-right {
+		&.dt-end {
 			text-align: right;
 		}
 	}
@@ -465,8 +465,8 @@ div.dt-container {
 			display: block;
 			
 			&.dt-full,
-			&.dt-left,
-			&.dt-right {
+			&.dt-start,
+			&.dt-end {
 				text-align: center;
 			}
 		}
@@ -572,6 +572,45 @@ html.dark {
 					background: lighten($table-paging-button-hover-dark, 2%);
 				}
 			}
+		}
+	}
+}
+
+/*
+ * Overrides for RTL support
+ */
+*[dir="rtl"] {
+	table.dataTable {
+		thead,
+		tfoot {
+			th,
+			td {
+				text-align: right;
+			}
+		}
+
+		th,
+		td {
+			&.dt-type-numeric,
+			&.dt-type-date {
+				text-align: left;
+			}
+		}
+	}
+
+	div.dt-container {
+		div.dt-layout-cell {
+			&.dt-start {
+				text-align: right;
+			}
+
+			&.dt-end {
+				text-align: left;
+			}
+		}
+
+		div.dt-search input {
+			margin: 0 3px 0 0;
 		}
 	}
 }

@@ -10,14 +10,14 @@
 
 $('#example').DataTable({
 	layout: {
-		top2Left: 'pageLength',
-		top2Right: 'search',
-		topLeft: 'info',
-		topRight: 'paging',
-		bottomLeft: 'pageLength',
-		bottomRight: 'search',
-		bottom2Left: 'info',
-		bottom2Right: 'paging'
+		top2Start: 'pageLength',
+		top2End: 'search',
+		topStart: 'info',
+		topEnd: 'paging',
+		bottomStart: 'pageLength',
+		bottomEnd: 'search',
+		bottom2Start: 'info',
+		bottom2End: 'paging'
 	}
 });
 
@@ -25,14 +25,14 @@ $('#example').DataTable({
 <js-vanilla><![CDATA[
 new DataTable('#example', {
 	layout: {
-		top2Left: 'pageLength',
-		top2Right: 'search',
-		topLeft: 'info',
-		topRight: 'paging',
-		bottomLeft: 'pageLength',
-		bottomRight: 'search',
-		bottom2Left: 'info',
-		bottom2Right: 'paging'
+		top2Start: 'pageLength',
+		top2End: 'search',
+		topStart: 'info',
+		topEnd: 'paging',
+		bottomStart: 'pageLength',
+		bottomEnd: 'search',
+		bottom2Start: 'info',
+		bottom2End: 'paging'
 	}
 });
 ]]></js-vanilla>

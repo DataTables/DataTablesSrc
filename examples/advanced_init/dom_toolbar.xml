@@ -9,7 +9,7 @@
 <js><![CDATA[
 $('#example').DataTable({
 	layout: {
-		topLeft: $('<div class="toolbar"><b>Custom tool bar! Text/images etc.</b></div>')
+		topStart: $('<div class="toolbar"><b>Custom tool bar! Text/images etc.</b></div>')
 	}
 });
 ]]></js>
@@ -17,7 +17,7 @@ $('#example').DataTable({
 
 new DataTable('#example', {
 	layout: {
-		topLeft: function () {
+		topStart: function () {
 			let toolbar = document.createElement('div');
 			toolbar.innerHTML = '<b>Custom tool bar! Text/images etc.</b>';
 

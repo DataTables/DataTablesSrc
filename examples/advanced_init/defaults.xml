@@ -27,7 +27,7 @@ new DataTable('#example');
 
 <info><![CDATA[
 
-When working with DataTables over multiple pages it is often useful to set the initialisation defaults to common values (for example you might want to set `dt-init dom` to a common value so all tables get the same layout). This can be done using the `DataTable.defaults` object. This object will take all of the same parameters as the DataTables initialisation object, but in this case you are setting the default for all future initialisations of DataTables.
+When working with DataTables over multiple pages it is often useful to set the initialisation defaults to common values (for example you might want to set `dt-init layout` to a common value so all tables get the same layout). This can be done using the `DataTable.defaults` object. This object will take all of the same parameters as the DataTables initialisation object, but in this case you are setting the default for all future initialisations of DataTables.
 
 This example shows the searching and ordering features of DataTables being disabled by default, which is reflected in the table when it is initialised.
 

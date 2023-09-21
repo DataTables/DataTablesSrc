@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="7" framework="datatables">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Right-to-left language support</title>
+<js><![CDATA[
+$('div.demo-html').attr('dir', 'rtl'); // Demo only
+
+$('#example').DataTable();
+]]></js>
+<js-vanilla>
+<![CDATA[
+document.querySelector('div.demo-html')
+	.setAttribute('dir', 'rtl'); // Demo only
+
+new DataTable('#example');
+]]>
+</js-vanilla>
+
+<info><![CDATA[
+
+DataTables supports RTL languages out of the box for layout, as shown in the example below. Our default CSS requires the use of [the `dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#dir) on the document root or any parent element of the DataTable container.
+
+Please note that this example uses Javascript to add the `dir="rtl"` attribute to the table container, as the rest of our site and examples pages are not setup for right-to-left layout. If your page already has this attribute set, that extra Javascript is not required.
+
+]]></info>
+
+</dt-example>

@@ -303,7 +303,7 @@ describe('renderer option page button functions - pagingButton', function() {
 		table = $('#example').DataTable({
 			renderer: 'test',
 			layout: {
-				topLeft: 'paging'
+				topStart: 'paging'
 			}
 		});
 	});

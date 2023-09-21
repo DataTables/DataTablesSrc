@@ -9,10 +9,10 @@
 <js><![CDATA[
 $('#example').DataTable({
 	layout: {
-		topLeft: 'info',
+		topStart: 'info',
 		bottom: 'paging',
-		bottomLeft: null,
-		bottomRight: null
+		bottomStart: null,
+		bottomEnd: null
 	}
 });
 ]]></js>
@@ -20,10 +20,10 @@ $('#example').DataTable({
 <![CDATA[
 new DataTable('#example', {
 	layout: {
-		topLeft: 'info',
+		topStart: 'info',
 		bottom: 'paging',
-		bottomLeft: null,
-		bottomRight: null
+		bottomStart: null,
+		bottomEnd: null
 	}
 });
 ]]>
@@ -39,14 +39,14 @@ The default layout used by DataTables is:
 
 ```js
 layout: {
-	topLeft: 'pageLength',
-	topRight: 'search',
-	bottomLeft: 'info',
-	bottomRight: 'paging'
+	topStart: 'pageLength',
+	topEnd: 'search',
+	bottomStart: 'info',
+	bottomEnd: 'paging'
 }
 ```
 
-In this example the page length information is replaced by the table information display and the pagination control is shown across the whole of the table's footer area. Note that the `bottomLeft` and `bottomRight` properties are set to be `null` otherwise their default options would be shown.
+In this example the page length information is replaced by the table information display and the pagination control is shown across the whole of the table's footer area. Note that the `bottomStart` and `bottomEnd` properties are set to be `null` otherwise their default options would be shown.
 
 
 ]]></info>

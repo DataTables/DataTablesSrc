@@ -146,7 +146,7 @@ DataTable.type('html', {
 
 
 DataTable.type('date', {
-	className: 'dt-right',
+	className: 'dt-type-date',
 	detect: function ( d )
 	{
 		// V8 tries _very_ hard to make a string passed into `Date.parse()`
@@ -168,7 +168,7 @@ DataTable.type('date', {
 
 
 DataTable.type('html-num-fmt', {
-	className: 'dt-right',
+	className: 'dt-type-numeric',
 	detect: function ( d, settings )
 	{
 		var decimal = settings.oLanguage.sDecimal;
@@ -185,7 +185,7 @@ DataTable.type('html-num-fmt', {
 
 
 DataTable.type('html-num', {
-	className: 'dt-right',
+	className: 'dt-type-numeric',
 	detect: function ( d, settings )
 	{
 		var decimal = settings.oLanguage.sDecimal;
@@ -202,7 +202,7 @@ DataTable.type('html-num', {
 
 
 DataTable.type('num-fmt', {
-	className: 'dt-right',
+	className: 'dt-type-numeric',
 	detect: function ( d, settings )
 	{
 		var decimal = settings.oLanguage.sDecimal;
@@ -218,7 +218,7 @@ DataTable.type('num-fmt', {
 
 
 DataTable.type('num', {
-	className: 'dt-right',
+	className: 'dt-type-numeric',
 	detect: function ( d, settings )
 	{
 		var decimal = settings.oLanguage.sDecimal;

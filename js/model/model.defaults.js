@@ -728,10 +728,10 @@ DataTable.defaults = {
 	 * Table and control layout. This replaces the legacy `dom` option.
 	 */
 	layout: {
-		topLeft: 'pageLength',
-		topRight: 'search',
-		bottomLeft: 'info',
-		bottomRight: 'paging'
+		topStart: 'pageLength',
+		topEnd: 'search',
+		bottomStart: 'info',
+		bottomEnd: 'paging'
 	},
 
 
