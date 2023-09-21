@@ -120,10 +120,7 @@ _api_register( [
 	}
 } );
 
-_api_register( [
-	'columns().orderable()',
-	'column().orderable()'
-], function ( directions ) {
+_api_registerPlural('columns().orderable()', 'column().orderable()', function ( directions ) {
 	return this.iterator( 'column', function ( settings, idx ) {
 		var col = settings.aoColumns[idx];
 
