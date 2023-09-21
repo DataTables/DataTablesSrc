@@ -28,9 +28,9 @@ describe('columns - columns().orderable()', function() {
 		});
 
 		it('Returns expected values', function() {
-			var all = table.columns().orderable(true).toArray();
+			var all = table.columns().orderable().toArray();
 
-			expect(all.length).toBe(3);
+			expect(all.length).toBe(6);
 			expect(all).toEqual([
 				true,
 				false,
@@ -42,7 +42,7 @@ describe('columns - columns().orderable()', function() {
 		});
 
 		it('Selected columns', function() {
-			var part = table.columns([0, 2]).orderable(true).toArray();
+			var part = table.columns([0, 2]).orderable().toArray();
 
 			expect(part.length).toBe(2);
 			expect(part).toEqual([
