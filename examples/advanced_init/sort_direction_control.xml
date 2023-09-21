@@ -11,8 +11,8 @@ $('#example').DataTable({
 	columns: [
 		null,
 		null,
-		{ orderSequence: ['asc'] },
-		{ orderSequence: ['desc', 'asc', 'asc'] },
+		{ orderSequence: ['asc', ''] },
+		{ orderSequence: ['desc', 'asc', ''] },
 		{ orderSequence: ['desc'] },
 		null
 	]
@@ -23,8 +23,8 @@ new DataTable('#example', {
 	columns: [
 		null,
 		null,
-		{ orderSequence: ['asc'] },
-		{ orderSequence: ['desc', 'asc', 'asc'] },
+		{ orderSequence: ['asc', ''] },
+		{ orderSequence: ['desc', 'asc', ''] },
 		{ orderSequence: ['desc'] },
 		null
 	]
@@ -39,12 +39,12 @@ The example below shows:
 
 * Column 1 - default ordering
 * Column 2 - default ordering
-* Column 3 - ascending ordering only
-* Column 4 - descending ordering, followed by ascending and then ascending again
+* Column 3 - ascending ordering, followed by no ordering
+* Column 4 - descending ordering, followed by ascending and then no ordering
 * Column 5 - descending ordering only
 * Column 6 - default ordering
 
-It's worth noting that I don't have a good use case for when you might what to mix such complex ordering behaviour into a single table, but the example shows how these options can be used and therefore applied across all columns.
+It's worth noting that I don't have a good use case for when you might what to mix such complex ordering behaviour into a single table, but the example shows how these options can be used and therefore applied across all columns!
 
 ]]></info>
 
