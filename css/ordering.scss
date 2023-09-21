@@ -83,3 +83,18 @@ div.dt-scroll-body > table.dataTable > thead {
 		}
 	}
 }
+
+:root.dark,
+:root[data-bs-theme="dark"] {
+	table.dataTable thead {
+		> tr > th,
+		> tr > td {
+			&.dt-orderable-asc,
+			&.dt-orderable-desc {
+				&:hover {
+					outline: 2px solid rgba(255, 255, 255, 0.05);
+				}
+			}
+		}
+	}
+}
