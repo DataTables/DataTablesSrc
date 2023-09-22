@@ -26,6 +26,8 @@ interface DataTable.Type {
 
 ## Properties
 
+The following properties are available for the data type objects:
+
 ### className
 
 The class name property is used to automatically assign a class to columns matching this data type. That might be used for stylistic changes or typography. For example the built in `num` data type uses `dt-right` as the class name to align numeric data to the right.

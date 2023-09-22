@@ -60,14 +60,10 @@ _ext.features.register( 'search', function ( settings, opts ) {
 		}
 
 		/* Now do the filter */
-		if ( val != previousSearch.sSearch ) {
-			_fnFilterComplete( settings, {
-				"sSearch": val,
-				"bRegex": previousSearch.bRegex,
-				"bSmart": previousSearch.bSmart ,
-				"bCaseInsensitive": previousSearch.bCaseInsensitive,
-				"return": previousSearch.return
-			} );
+		if ( val != previousSearch.search ) {
+			previousSearch.search = val;
+
+			_fnFilterComplete( settings, previousSearch );
 
 			// Need to redraw, without resorting
 			settings._iDisplayStart = 0;
@@ -80,7 +76,7 @@ _ext.features.register( 'search', function ( settings, opts ) {
 		0;
 
 	var jqFilter = $('input', filter)
-		.val( previousSearch.sSearch )
+		.val( previousSearch.search )
 		.attr( 'placeholder', opts.placeholder )
 		.on(
 			'keyup.DT search.DT input.DT paste.DT cut.DT',
@@ -107,8 +103,8 @@ _ext.features.register( 'search', function ( settings, opts ) {
 	// Update the input elements whenever the table is filtered
 	$(settings.nTable).on( 'search.dt.DT', function ( ev, s ) {
 		if ( settings === s && jqFilter[0] !== document.activeElement ) {
-			jqFilter.val( typeof previousSearch.sSearch !== 'function'
-				? previousSearch.sSearch
+			jqFilter.val( typeof previousSearch.search !== 'function'
+				? previousSearch.search
 				: ''
 			);
 		}

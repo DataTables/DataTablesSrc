@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="option">
 	<name>search</name>
-	<summary>Set an initial filter in DataTables and / or filtering options.</summary>
+	<summary>Set an initial search in DataTables and / or search options.</summary>
 	<since>1.10</since>
 
 	<type type="object" />
@@ -9,31 +8,29 @@
 	<description>
 		The `dt-init search` option allows the way DataTables performs filtering to be set during the initialisation, and to set an initial global filter.
 
-		The options that control how the filtering is performs are:
+		The options that control how the search operates are defined by the `-type DataTables.SearchOptions` object type. You can pass in an object with any or all of the options described by that parameter.
 
-		* `dt-init search.caseInsensitive` - Indicate is case-insensitive sorting should be performed.
-		* `dt-init search.regex` - Treat the search as a regular expression or not
-		* `dt-init search.smart` - Use DataTables' smart filtering or not
-
-		Additionally, to set an initial filter:
-
-		* `dt-init search.search` - Set an initial global filter.
+		Additionally, to set an initial search term use the parameter `search` in this object.
 	</description>
 
 	<example title="Set an initial filter"><![CDATA[
-$('#example').dataTable( {
-  "search": {
-    "search": "Fred"
-  }
+new DataTable('#example', {
+	search: {
+		search: "Fred"
+	}
+} );
+]]></example>
+
+	<example title="Set search to use boundary conditions"><![CDATA[
+new DataTable('#example', {
+	search: {
+		boundary: true
+	}
 } );
 ]]></example>
 
 	<related type="option">search</related>
 	<related type="option">searchCols</related>
-	<related type="option">search.search</related>
-	<related type="option">search.caseInsensitive</related>
-	<related type="option">search.regex</related>
-	<related type="option">search.smart</related>
 	<related type="api">search()</related>
 	<related type="api">columns().search()</related>
 </dt-option>

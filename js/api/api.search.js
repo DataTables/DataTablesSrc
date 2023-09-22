@@ -6,7 +6,7 @@ _api_register( 'search()', function ( input, regex, smart, caseInsen ) {
 	if ( input === undefined ) {
 		// get
 		return ctx.length !== 0 ?
-			ctx[0].oPreviousSearch.sSearch :
+			ctx[0].oPreviousSearch.search :
 			undefined;
 	}
 
@@ -16,12 +16,21 @@ _api_register( 'search()', function ( input, regex, smart, caseInsen ) {
 			return;
 		}
 
-		_fnFilterComplete( settings, $.extend( {}, settings.oPreviousSearch, {
-			"sSearch": input,
-			"bRegex":  regex === null ? false : regex,
-			"bSmart":  smart === null ? true  : smart,
-			"bCaseInsensitive": caseInsen === null ? true : caseInsen
-		} ) );
+		if (typeof regex === 'object') {
+			// New style options to pass to the search builder
+			_fnFilterComplete( settings, $.extend( settings.oPreviousSearch, regex, {
+				search: input
+			} ) );
+		}
+		else {
+			// Compat for the old options
+			_fnFilterComplete( settings, $.extend( settings.oPreviousSearch, {
+				search: input,
+				regex:  regex === null ? false : regex,
+				smart:  smart === null ? true  : smart,
+				caseInsensitive: caseInsen === null ? true : caseInsen
+			} ) );
+		}
 	} );
 } );
 
@@ -59,7 +68,7 @@ _api_registerPlural(
 
 			if ( input === undefined ) {
 				// get
-				return preSearch[ column ].sSearch;
+				return preSearch[ column ].search;
 			}
 
 			// set
@@ -67,12 +76,21 @@ _api_registerPlural(
 				return;
 			}
 
-			$.extend( preSearch[ column ], {
-				"sSearch": input,
-				"bRegex":  regex === null ? false : regex,
-				"bSmart":  smart === null ? true  : smart,
-				"bCaseInsensitive": caseInsen === null ? true : caseInsen
-			} );
+			if (typeof regex === 'object') {
+				// New style options to pass to the search builder
+				$.extend( preSearch[ column ], regex, {
+					search: input
+				} );
+			}
+			else {
+				// Old style (with not all options available)
+				$.extend( preSearch[ column ], {
+					search: input,
+					regex:  regex === null ? false : regex,
+					smart:  smart === null ? true  : smart,
+					caseInsensitive: caseInsen === null ? true : caseInsen
+				} );
+			}
 
 			_fnFilterComplete( settings, settings.oPreviousSearch );
 		} );

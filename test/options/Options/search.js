@@ -8,10 +8,10 @@ describe('Search option', function() {
 		dt.html('basic');
 		it('Default values should be blank', function() {
 			let table = $('#example').DataTable();
-			expect(table.settings()[0].oPreviousSearch.sSearch).toBe('');
-			expect(table.settings()[0].oPreviousSearch.bRegex).toBe(false);
-			expect(table.settings()[0].oPreviousSearch.bCaseInsensitive).toBe(true);
-			expect(table.settings()[0].oPreviousSearch.bSmart).toBe(true);
+			expect(table.settings()[0].oPreviousSearch.search).toBe('');
+			expect(table.settings()[0].oPreviousSearch.regex).toBe(false);
+			expect(table.settings()[0].oPreviousSearch.caseInsensitive).toBe(true);
+			expect(table.settings()[0].oPreviousSearch.smart).toBe(true);
 		});
 
 		dt.html('basic');
@@ -260,6 +260,58 @@ describe('Search option', function() {
 				}
 			});
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('No matching records found');
+		});
+
+		dt.html('basic');
+
+		// Don't think you'd ever use exact on the search top level!
+		it('Check exact with no match', function() {
+			$('#example').DataTable({
+				search: {
+					exact: true,
+					search: 'Ashton'
+				}
+			});
+			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('No matching records found');
+		});
+
+		dt.html('basic');
+
+		it('Check exact with a match', function() {
+			// Don't think you'd ever do this!
+			$('#example').DataTable({
+				search: {
+					exact: true,
+					search: 'Ashton Cox  Junior Technical Author  San Francisco  66  2009/01/12  $86,000'
+				}
+			});
+			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Ashton Cox');
+		});
+
+		dt.html('basic');
+
+		// Don't think you'd ever use exact on the search top level!
+		it('Boundary option', function() {
+			$('#example').DataTable({
+				search: {
+					boundary: true,
+					search: 'ton'
+				}
+			});
+			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('No matching records found');
+		});
+
+		dt.html('basic');
+
+		it('Check exact with a match', function() {
+			// Don't think you'd ever do this!
+			$('#example').DataTable({
+				search: {
+					boundary: false,
+					search: 'ton'
+				}
+			});
+			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Ashton Cox');
 		});
 	});
 });

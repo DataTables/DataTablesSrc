@@ -19,10 +19,8 @@ $('#example').DataTable({
 				var select = $('<select><option value=""></option></select>')
 					.appendTo($(column.footer()).empty())
 					.on('change', function () {
-						var val = DataTable.util.escapeRegex($(this).val());
-
 						column
-							.search(val ? '^' + val + '$' : '', true, false)
+							.search($(this).val(), {exact: true})
 							.draw();
 					});
 
@@ -56,10 +54,8 @@ new DataTable('#example', {
 
 				// Apply listener for user change in value
 				select.addEventListener('change', function () {
-					var val = DataTable.util.escapeRegex(select.value);
-
 					column
-						.search(val ? '^' + val + '$' : '', true, false)
+						.search(select.value, {exact: true})
 						.draw();
 				});
 
@@ -82,7 +78,7 @@ This example is almost identical to text based individual column example and pro
 
 After the table is initialised, the API is used to build the `tag select` inputs through the use of `-api columns().every()` to loop over the columns (the `-api columns()` selector can also be used to limit the selected columns if required), then the `-api column().data()` method is used to get the data for each column in turn. The helper methods `dt-api unique()` and `dt-api sort()` are also used to reduce the data for set input to unique and ordered elements. Finally the `change` event from the `-tag select` input is used to trigger a column search using the `dt-api column().search()` method.
 
-Note that the `dt-api column().search()` method in this particular case performs an exact match through the use of a custom regular expression and disabling DataTables built-in smart searching. For more information on the search options in DataTables API, please refer to the documentation for `dt-api search()`, `dt-api column().search()` and `dt-api DataTable.util.escapeRegex()` which are used for searching globally, by column and escaping regular expressions respectively.
+Note that the `dt-api column().search()` method in this particular case performs an exact match through `exact` option that is available as part of the `-type DataTables.SearchOptions` object that can be used to configure how DataTable's search operates.
 
 Also note this example demonstrates the use of `dt-init initComplete`, a callback function triggered when the table has fully loaded. Use of this callback isn't required in this example since the data is available in the table on load, but in the case of Ajax loaded data, `dt-init initComplete` is useful to execute code after the data has been loaded.
 

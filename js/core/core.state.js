@@ -17,11 +17,11 @@ function _fnSaveState ( settings )
 		start:   settings._iDisplayStart,
 		length:  settings._iDisplayLength,
 		order:   $.extend( true, [], settings.aaSorting ),
-		search:  _fnSearchToCamel( settings.oPreviousSearch ),
+		search:  $.extend({}, settings.oPreviousSearch),
 		columns: $.map( settings.aoColumns, function ( col, i ) {
 			return {
 				visible: col.bVisible,
-				search: _fnSearchToCamel( settings.aoPreSearchCols[i] )
+				search: $.extend({}, settings.aoPreSearchCols[i])
 			};
 		} )
 	};
@@ -142,7 +142,7 @@ function _fnImplementState ( settings, s, callback) {
 
 	// Search
 	if ( s.search !== undefined ) {
-		$.extend( settings.oPreviousSearch, _fnSearchToHung( s.search ) );
+		$.extend( settings.oPreviousSearch, s.search );
 	}
 
 	// Columns
@@ -164,7 +164,7 @@ function _fnImplementState ( settings, s, callback) {
 
 			// Search
 			if ( col.search !== undefined ) {
-				$.extend( settings.aoPreSearchCols[i], _fnSearchToHung( col.search ) );
+				$.extend( settings.aoPreSearchCols[i], col.search );
 			}
 		}
 		

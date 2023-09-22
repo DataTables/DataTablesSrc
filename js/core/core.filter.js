@@ -8,7 +8,6 @@
  */
 function _fnFilterComplete ( settings, input )
 {
-	var search = settings.oPreviousSearch;
 	var columnsSearch = settings.aoPreSearchCols;
 
 	// Resolve any column types that are unknown due to addition or invalidation
@@ -25,10 +24,10 @@ function _fnFilterComplete ( settings, input )
 		settings.aiDisplay = settings.aiDisplayMaster.slice();
 
 		// Global filter first
-		_fnFilter( settings.aiDisplay, settings, input.sSearch, input.bRegex, input.bSmart, input.bCaseInsensitive );
+		_fnFilter( settings.aiDisplay, settings, input.search, input );
 
 		$.each(settings.searchFixed, function (name, term) {
-			_fnFilter(settings.aiDisplay, settings, term, false, true, true);
+			_fnFilter(settings.aiDisplay, settings, term, {});
 		});
 
 		// Then individual column filters
@@ -39,28 +38,19 @@ function _fnFilterComplete ( settings, input )
 			_fnFilter(
 				settings.aiDisplay,
 				settings,
-				col.sSearch,
-				col.bRegex,
-				col.bSmart,
-				col.bCaseInsensitive,
+				col.search,
+				col,
 				i
 			);
 
 			$.each(settings.aoColumns[i].searchFixed, function (name, term) {
-				_fnFilter(settings.aiDisplay, settings, term, false, true, true, i);
+				_fnFilter(settings.aiDisplay, settings, term, {}, i);
 			});
 		}
 
 		// And finally global filtering
 		_fnFilterCustom( settings );
 	}
-
-	// Save the filtering values
-	search.sSearch = input.sSearch;
-	search.bRegex = input.bRegex;
-	search.bSmart = input.bSmart;
-	search.bCaseInsensitive = input.bCaseInsensitive;
-	search.return = input.return;
 
 	// Tell the draw function we have been filtering
 	settings.bFiltered = true;
@@ -107,7 +97,7 @@ function _fnFilterCustom( settings )
 /**
  * Filter the data table based on user input and draw the table
  */
-function _fnFilter( searchRows, settings, input, regex, smart, caseInsensitive, column )
+function _fnFilter( searchRows, settings, input, options, column )
 {
 	if ( input === '' ) {
 		return;
@@ -122,7 +112,7 @@ function _fnFilter( searchRows, settings, input, regex, smart, caseInsensitive, 
 		? input
 		: searchFunc
 			? null
-			: _fnFilterCreateSearch( input, regex, smart, caseInsensitive );
+			: _fnFilterCreateSearch( input, options );
 
 	// Then for each row, does the test pass. If not, lop the row from the array
 	while (i < searchRows.length) {
@@ -150,19 +140,33 @@ function _fnFilter( searchRows, settings, input, regex, smart, caseInsensitive, 
  *  @returns {RegExp} constructed object
  *  @memberof DataTable#oApi
  */
-function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
+function _fnFilterCreateSearch( search, inOpts )
 {
 	var not = [];
+	var options = $.extend({}, {
+		boundary: false,
+		caseInsensitive: true,
+		exact: false,
+		regex: false,
+		smart: true
+	}, inOpts);
 
 	if (typeof search !== 'string') {
 		search = search.toString();
 	}
 
-	search = regex ?
+	if (options.exact) {
+		return new RegExp(
+			'^'+_fnEscapeRegex(search)+'$',
+			options.caseInsensitive ? 'i' : ''
+		);
+	}
+
+	search = options.regex ?
 		search :
 		_fnEscapeRegex( search );
 	
-	if ( smart ) {
+	if ( options.smart ) {
 		/* For smart filtering we want to allow the search to work regardless of
 		 * word order. We also want double quoted text to be preserved, so word
 		 * order is important - a la google. And a negative look around for
@@ -210,10 +214,14 @@ function _fnFilterCreateSearch( search, regex, smart, caseInsensitive )
 			? not.join('')
 			: '';
 
-		search = '^(?=.*?'+a.join( ')(?=.*?' )+')('+match+'.)*$';
+		var boundary = options.boundary
+			? '\\b'
+			: '';
+
+		search = '^(?=.*?'+boundary+a.join( ')(?=.*?'+boundary )+')('+match+'.)*$';
 	}
 
-	return new RegExp( search, caseInsensitive ? 'i' : '' );
+	return new RegExp( search, options.caseInsensitive ? 'i' : '' );
 }
 
 
@@ -292,41 +300,3 @@ function _fnFilterData ( settings )
 
 	return wasInvalidated;
 }
-
-
-/**
- * Convert from the internal Hungarian notation to camelCase for external
- * interaction
- *  @param {object} obj Object to convert
- *  @returns {object} Inverted object
- *  @memberof DataTable#oApi
- */
-function _fnSearchToCamel ( obj )
-{
-	return {
-		search:          obj.sSearch,
-		smart:           obj.bSmart,
-		regex:           obj.bRegex,
-		caseInsensitive: obj.bCaseInsensitive
-	};
-}
-
-
-
-/**
- * Convert from camelCase notation to the internal Hungarian. We could use the
- * Hungarian convert function here, but this is cleaner
- *  @param {object} obj Object to convert
- *  @returns {object} Inverted object
- *  @memberof DataTable#oApi
- */
-function _fnSearchToHung ( obj )
-{
-	return {
-		sSearch:          obj.search,
-		bSmart:           obj.smart,
-		bRegex:           obj.regex,
-		bCaseInsensitive: obj.caseInsensitive
-	};
-}
-

@@ -9,10 +9,13 @@
 		<description>Get the currently applied column search.</description>
 		<returns type="string">Search term that is currently applied to the column. This will be an empty string if no search search term is applied.</returns>
 	</type>
-	<type type="function">
-		<signature>column().search( input [, regex[ , smart[ , caseInsen ]]] )</signature>
-		<description>Set the search term for the column from the selector. Note this doesn't actually perform the search, but rather queues it up - use `dt-api draw()` to perform the search and display the result.</description>
-		<parameter type="string|RegExp|function" name="input">
+
+	<type type="function" since="2.0">
+		<signature>column().search( input [, options] )</signature>
+		<description>
+			Set the search term to use for the selected column, with configuration options. Call `-api draw()` to update the table's view once the search term has been setup.
+		</description>
+		<parameter type="input" name="string|RegExp|function">
 			Search to apply to the column.
 			
 			As of DataTables 2, this parameter can be given as a regular expression or a function.
@@ -22,6 +25,20 @@
 			In the case of a function the function is called for each row with two parameters which are passed in; the first is the search data for the cell in the row/column being search, and the second is the row's original data object. A boolean value should be returned: `true` to keep the row, `false` to filter it out.
 
 			Note that if a regex or function is provided for this parameter, the following parameters are ignored.
+		</parameter>
+		<parameter type="DataTables.SearchOptions" name="options">
+			Configuration options for how the search will be performed. See `-type DataTables.SearchOptions` for a description of all options. If an option is not given here, the value that it was set to for the previous search will be used.
+		</parameter>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<type type="function">
+		<signature>column().search( input [, regex[ , smart[ , caseInsen ]]] )</signature>
+		<description>
+			Set the search term for the column from the selector. Note that the signature above is preferred as of DataTables 2, as it provides additional options. This signature is retained for backwards compatibility.
+		</description>
+		<parameter type="string|RegExp|function" name="input">
+			The search term to apply. See the `input` parameter in the signature description above for details.
 		</parameter>
 		<parameter type="boolean" name="regex" default="false">
 			Treat as a regular expression (`true`) or not (default, `false`).
@@ -42,7 +59,7 @@
 
 		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term it a search to avoid a naming overlap with the `-api filter()` helper method.
 
-		Please be aware that this method sets the search to apply to the table only - it does not actually perform the search. In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api column().search()` method's returned object - for example `table.column( 0 ).search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
+		**Please be aware that this method sets the search to apply to the table only - it does not actually perform the search**. In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api column().search()` method's returned object - for example `table.column( 0 ).search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
 	</description>
 
 	<example title="Individual column search"><![CDATA[
@@ -70,7 +87,7 @@ table.columns( '.select-filter' ).every( function () {
 		)
 		.on( 'change', function () {
 			that
-				.search( $(this).val() )
+				.search( $(this).val(), { exact: true } )
 				.draw();
 		} );
 

@@ -157,8 +157,8 @@ function _fnAjaxParameters( settings )
 				searchable: column.bSearchable,
 				orderable: column.bSortable,
 				search: {
-					value: preColSearch[i].sSearch,
-					regex: preColSearch[i].bRegex,
+					value: preColSearch[i].search,
+					regex: preColSearch[i].regex,
 					fixed: $.map(column.searchFixed, function(val, name) {
 						return {
 							name: name,
@@ -180,8 +180,8 @@ function _fnAjaxParameters( settings )
 			settings._iDisplayLength :
 			-1,
 		search: {
-			value: preSearch.sSearch,
-			regex: preSearch.bRegex,
+			value: preSearch.search,
+			regex: preSearch.regex,
 			fixed: $.map(settings.searchFixed, function(val, name) {
 				return {
 					name: name,

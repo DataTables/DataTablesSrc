@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="dt">
+	<name>DataTables.SearchOptions</name>
+	<summary>DataTables search options object</summary>
+
+	<description>
+	<![CDATA[
+
+The search feature built into DataTables is configurable to fine tune how a search is performed. This object describes the options that can perform that fine tuning. It is used for the `-init search` and `-init searchCols` initialisation options, plus the `-api search()` and `-api column().search()` API methods.
+
+Using [Typescript definitions](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html), the search options type is defined as:
+
+```js
+interface DataTable.SearchOptions {
+	boundary?: boolean,
+	caseInsensitive?: boolean,
+	exact?: boolean,
+	regex?: boolean,
+	smart?: boolean
+}
+```
+
+Please note that these properties effect the behaviour of DataTables search on the client-side. If you have server-side processing (`-init serverSide`) the search configuration is entirely the responsibility of the server-side script.
+
+## Properties
+
+The following properties are available for the search options data object:
+
+
+### boundary
+
+Start the matching from the start of a word. This can be useful for cases where you want a search term such as _male_ to match _Male_ but not _Female_. Care must also be taken when using languages where white space is not significant, for example with Chinese this option could cause only the first character in a whole paragraph to match. This option is only available when `smart` search is enabled.
+
+Default value: `false`
+Since: DataTables 2.0
+Example with the API:
+
+```js
+table.search('male', {
+	boundary: true
+});
+```
+
+
+### caseInsensitive
+
+Indicate if case-insensitive search should be performed (`true`) or if the search should match on case (`false`).
+
+Default value: `true`
+Since: DataTables 1.10
+Example with the API:
+
+```js
+table.search('Chief', {
+	caseInsensitive: false
+});
+```
+
+
+### exact
+
+This option modifies the search to perform an exact match (string based) on the values in the table - e.g. from start to end of a word, unlike the "contains" search that is used in DataTables by default. This can be particularly useful for column data search - indeed it is _very_ unlikely you'll want to use this option on a whole row since it uses string concatenation on cached search values for performance reasons.
+
+If this option is enabled it will override the `boundary`, 'smart` and `regex` options which are not relevant.
+
+Default value: `false`
+Since: DataTables 2.0
+Example with the API:
+
+```js
+table.column(1).search('Allan', {
+	exact: true
+});
+```
+
+
+### regex
+
+Indicate if the search term should be treated as a regular expression or not. If `false` the input term will have any regular expression characters escaped for the regular expression that DataTables runs. Note that as of DataTables 2.0 this option is discouraged - if you wish to perform a regular expression search, pass the search term in as a `RegExp` object (rather than a string with a regex in it).
+
+Typically if this option is enabled you should disable the `smart` option as DataTables own regex can interfere with any expression given here.
+
+Default value: `false`
+Since: DataTables 1.10
+Example with the API:
+
+```js
+table.search('Eur.*', {
+	regex: true,
+	smart: false
+});
+```
+
+
+### smart
+
+This option can be used to enable and disable DataTables' smart search option. With smart search enabled you can:
+
+* Search for words in any order
+* Enclose a string in double quotes to perform an exact match (just as can be done with search engines)
+* Start a word with `-` to do a negation search (i.e. the search will match only records that do not contain the following word).
+
+Default value: `true`
+Since: DataTables 1.10
+Example with the API:
+
+```js
+table.search('"New York" -Chief', {
+	smart: true
+});
+```
+
+
+
+## Custom search
+
+If the above options for customising DataTables' built in search does not match your needs, you can use functions as a search term providing the ability to use 100% custom logic for the search. See `-api search()` and the [search manual](//datatables.net/manual/search) for details.
+
+	]]>
+	</description>
+</dt-type>

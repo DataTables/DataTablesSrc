@@ -10,24 +10,24 @@ DataTable.models.oSearch = {
 	/**
 	 * Flag to indicate if the filtering should be case insensitive or not
 	 */
-	"bCaseInsensitive": true,
+	"caseInsensitive": true,
 
 	/**
 	 * Applied search term
 	 */
-	"sSearch": "",
+	"search": "",
 
 	/**
 	 * Flag to indicate if the search term should be interpreted as a
 	 * regular expression (true) or not (false) and therefore and special
 	 * regex characters escaped.
 	 */
-	"bRegex": false,
+	"regex": false,
 
 	/**
 	 * Flag to indicate if DataTables is to use its smart filtering or not.
 	 */
-	"bSmart": true,
+	"smart": true,
 
 	/**
 	 * Flag to indicate if DataTables should only trigger a search when

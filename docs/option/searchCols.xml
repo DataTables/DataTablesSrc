@@ -9,7 +9,7 @@
 	<description>
 		Basically the same as the `-init search` option, but in this case for individual columns, rather than the global filter, this option defined the filtering to apply to the table during initialisation.
 
-		The array must be of the same size as the number of columns, and each element be an object with the parameters `search`, `regex` (optional, default `false`) and `smart` (optional, default `true`). `null` is also accepted and the default will be used. See the `-init search` documentation for more information on these parameters.
+		The array must be of the same size as the number of columns, and each element be an object with the optional parameters defined by `-type DataTables.SearchOptions`. `null` is also accepted and the default will be used. See the `-init search` documentation for more information on these parameters.
 	</description>
 
 	<example title="Set initial filtering on second and fourth columns"><![CDATA[

@@ -188,6 +188,147 @@ describe('core - search()', function() {
 		});
 	});
 
+	describe('Config options', function() {
+		let table;
+
+		dt.html('basic');
+
+		it('Boundary - enabled', function() {
+			table = $('#example').DataTable();
+			table
+				.search('ash', {boundary: true})
+				.draw();
+
+			expect($('#example tbody tr').length).toBe(1);
+			expect($('#example tbody tr:nth-child(1) td').eq(0).text()).toBe('Ashton Cox');
+		});
+
+		it('Boundary - disabled', function() {
+			table
+				.search('ash', {boundary: false})
+				.draw();
+
+			expect($('#example tbody tr').length).toBe(2);
+			expect($('#example tbody tr:nth-child(1) td').eq(0).text()).toBe('Ashton Cox');
+			expect($('#example tbody tr:nth-child(2) td').eq(0).text()).toBe('Bruno Nash');
+		});
+
+		it('Boundary - carries over if not specified', function() {
+			table
+				.search('ash', {boundary: true})
+				.draw();
+			
+			table
+				.search('ash')
+				.draw();
+
+			expect($('#example tbody tr').length).toBe(1);
+			expect($('#example tbody tr:nth-child(1) td').eq(0).text()).toBe('Ashton Cox');
+		});
+
+		dt.html('basic');
+
+		it('caseInsensitive - disabled no match', function() {
+			table = $('#example').DataTable();
+			table
+				.search('developer', {caseInsensitive: false})
+				.draw();
+
+			// Empty table
+			expect($('#example tbody td').length).toBe(1);
+		});
+
+		it('caseInsensitive - disabled single match', function() {
+			table
+				.search('Pre-Sales Support', {caseInsensitive: false})
+				.draw();
+
+			expect($('#example tbody tr').length).toBe(1);
+			expect($('#example tbody tr:nth-child(1) td').eq(0).text()).toBe('Caesar Vance');
+		});
+
+		it('caseInsensitive - enabled', function() {
+			table
+				.search('pre-sales sUpport', {caseInsensitive: true})
+				.draw();
+
+			expect($('#example tbody tr').length).toBe(1);
+			expect($('#example tbody tr:nth-child(1) td').eq(0).text()).toBe('Caesar Vance');
+		});
+
+		dt.html('basic');
+
+		it('Exact - enabled no match', function() {
+			table = $('#example').DataTable();
+			table
+				.search('Developer', {exact: true})
+				.draw();
+
+			// Empty table
+			expect($('#example tbody td').length).toBe(1);
+		});
+
+		it('Exact - enabled with match', function() {
+			// You'd never do this!
+			table
+				.search('Ashton Cox  Junior Technical Author  San Francisco  66  2009/01/12  $86,000', {exact: true})
+				.draw();
+
+			expect($('#example tbody tr').length).toBe(1);
+			expect($('#example tbody tr:nth-child(1) td').eq(0).text()).toBe('Ashton Cox');
+		});
+
+		it('Exact - disabled', function() {
+			table
+				.search('Developer', {exact: false})
+				.draw();
+
+			expect($('#example tbody tr').length).toBe(8);
+			expect($('#example tbody tr:nth-child(1) td').eq(0).text()).toBe('Cedric Kelly');
+		});
+
+		dt.html('basic');
+
+		it('Regex - enable', function() {
+			table = $('#example').DataTable();
+			table
+				.search('10[0-9]', {regex: true, smart: false})
+				.draw();
+
+			expect($('#example tbody tr').length).toBe(4);
+			expect($('#example tbody tr:nth-child(1) td').eq(0).text()).toBe('Caesar Vance');
+		});
+
+		it('Regex - disabled', function() {
+			table
+				.search('10[0-9]', {regex: false, smart: false})
+				.draw();
+
+			expect($('#example tbody td').length).toBe(1);
+		});
+
+		dt.html('basic');
+
+		// Full smart tests above and in zero config - this just tests that you can control it
+		it('smart - disable', function() {
+			table = $('#example').DataTable();
+			table
+				.search('"New York" !Bri', {smart: false})
+				.draw();
+
+			expect($('#example tbody td').length).toBe(1);
+		});
+
+		it('smart - enable', function() {
+			table
+				.search('"New York" !Bri', {smart: true})
+				.draw();
+
+			expect($('#example tbody tr').length).toBe(10);
+			expect($('#example tbody tr:nth-child(1) td').eq(0).text()).toBe('Caesar Vance');
+		});
+	});
+
 	describe('Function search', function() {
 		let table;
 
