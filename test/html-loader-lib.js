@@ -92,12 +92,12 @@
 				// DataTables is a special case...
 				if (type === 'css') {
 					return framework === 'dataTables'
-						? [urlBase + '/media/css/jquery.dataTables.css']
-						: [urlBase + '/media/css/dataTables.' + framework + '.css'];
+						? [urlBase + '/css/dataTables.dataTables.css']
+						: [urlBase + '/css/dataTables.' + framework + '.css'];
 				} else {
 					return framework === 'dataTables'
-						? [urlBase + '/media/js/jquery.dataTables.js']
-						: [urlBase + '/media/js/jquery.dataTables.js', urlBase + '/media/js/dataTables.' + framework + '.js'];
+						? [urlBase + '/js/dataTables.js']
+						: [urlBase + '/js/dataTables.js', urlBase + '/media/js/dataTables.' + framework + '.js'];
 				}
 			} else if (path === 'datetime') {
 				if (type === 'css') {
