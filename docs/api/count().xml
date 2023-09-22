@@ -23,10 +23,10 @@ alert( 'Rows '+table.rows( '.selected' ).count()+' are selected' );
 
 ]]></example>
 
-	<example title="Count the number of data entries (i.e. rows) in a table"><![CDATA[
+	<example title="Count the number of rows in a table "><![CDATA[
 var table = $('#example').DataTable();
 
-if ( ! table.data().count() ) {
+if ( ! table.rows().count() ) {
 	alert( 'Empty table' );
 }
 
