@@ -21,7 +21,7 @@ $.each( [ 'on', 'one', 'off' ], function (i, key) {
 		var args = Array.prototype.slice.call(arguments);
 
 		// Add the `dt` namespace automatically if it isn't already present
-		args[0] = $.map( args[0].split( /\s/ ), function ( e ) {
+		args[0] = args[0].split( /\s/ ).map( function ( e ) {
 			return ! e.match(/\.dt\b/) ?
 				e+'.dt' :
 				e;
@@ -78,7 +78,7 @@ _api_register( 'destroy()', function ( remove ) {
 		var jqTable   = $(table);
 		var jqTbody   = $(tbody);
 		var jqWrapper = $(settings.nTableWrapper);
-		var rows      = $.map( settings.aoData, function (r) { return r ? r.nTr : null; } );
+		var rows      = settings.aoData.map( function (r) { return r ? r.nTr : null; } );
 		var orderClasses = classes.order;
 
 		// Flag to note that the table is currently being destroyed - no action

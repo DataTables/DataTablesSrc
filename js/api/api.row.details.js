@@ -32,7 +32,7 @@ $(document).on('plugin-init.dt', function (e, context) {
 
 	if ( loaded && loaded.childRows ) {
 		api
-			.rows( $.map(loaded.childRows, function (id){
+			.rows( loaded.childRows.map(function (id){
 				return id.replace(/:/g, '\\:')
 			}) )
 			.every( function () {

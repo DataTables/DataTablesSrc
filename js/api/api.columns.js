@@ -56,13 +56,13 @@ var __column_selector = function ( settings, selector, opts )
 		if ( typeof s === 'function' ) {
 			var rows = _selector_row_indexes( settings, opts );
 
-			return $.map( columns, function (col, idx) {
+			return columns.map(function (col, idx) {
 				return s(
 						idx,
 						__columnData( settings, idx, 0, 0, rows )
 						// nodes[ idx ] TODO _fnCellsFromLayout
 					) ? idx : null;
-			} );
+			});
 		}
 
 		// jQuery or string selector
@@ -78,7 +78,7 @@ var __column_selector = function ( settings, selector, opts )
 					// Visible index given, convert to column index
 					if ( idx < 0 ) {
 						// Counting from the right
-						var visColumns = $.map( columns, function (col,i) {
+						var visColumns = columns.map( function (col,i) {
 							return col.bVisible ? i : null;
 						} );
 						return [ visColumns[ visColumns.length + idx ] ];
@@ -88,13 +88,13 @@ var __column_selector = function ( settings, selector, opts )
 
 				case 'name':
 					// match by name. `names` is column index complete and in order
-					return $.map( names, function (name, i) {
+					return names.map( function (name, i) {
 						return name === match[1] ? i : null;
 					} );
 
 				case 'title':
 					// match by column title
-					return $.map( titles, function (title, i) {
+					return titles.map( function (title, i) {
 						return title === match[1] ? i : null;
 					} );
 

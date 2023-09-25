@@ -194,7 +194,9 @@ var __reFn = /\(\)$/;
  */
 function _fnSplitObjNotation( str )
 {
-	return $.map( str.match(/(\\.|[^.])+/g) || [''], function ( s ) {
+	var parts = str.match(/(\\.|[^.])+/g) || [''];
+
+	return parts.map( function ( s ) {
 		return s.replace(/\\\./g, '.');
 	} );
 }

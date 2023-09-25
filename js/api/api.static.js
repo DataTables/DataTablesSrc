@@ -149,11 +149,15 @@ DataTable.tables = function ( visible )
 		visible = visible.visible;
 	}
 
-	var a = $.map( DataTable.settings, function (o) {
-		if ( !visible || (visible && $(o.nTable).is(':visible')) ) {
+	var a = DataTable.settings
+		.filter( function (o) {
+			return !visible || (visible && $(o.nTable).is(':visible')) 
+				? true
+				: false;
+		} )
+		.map( function (o) {
 			return o.nTable;
-		}
-	} );
+		});
 
 	return api ?
 		new _Api( a ) :

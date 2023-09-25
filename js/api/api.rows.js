@@ -39,7 +39,7 @@ var __row_selector = function ( settings, selector, opts )
 
 		// Selector - function
 		if ( typeof sel === 'function' ) {
-			return $.map( rows, function (idx) {
+			return rows.map( function (idx) {
 				var row = aoData[ idx ];
 				return sel( idx, row._aData, row.nTr ) ? idx : null;
 			} );

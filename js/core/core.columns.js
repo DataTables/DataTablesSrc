@@ -239,7 +239,7 @@ function _fnGetColumns( oSettings, sParam )
 {
 	var a = [];
 
-	$.map( oSettings.aoColumns, function(val, i) {
+	oSettings.aoColumns.map( function(val, i) {
 		if ( val[sParam] ) {
 			a.push( i );
 		}
@@ -535,7 +535,7 @@ function _fnColumnsFromHeader( cell )
 		return [];
 	}
 
-	return $.map( attr.split(','), function (val) {
+	return attr.split(',').map( function (val) {
 		return val * 1;
 	} );
 }

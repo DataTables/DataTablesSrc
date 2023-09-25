@@ -51,7 +51,7 @@ $.extend( true, DataTable.ext.renderer, {
 				var ariaType = '';
 				var indexes = columns.indexes();
 				var sortDirs = columns.orderable(true).flatten();
-				var orderedColumns = $.map( sorting, function (val) {
+				var orderedColumns = sorting.map( function (val) {
 					return val.col;
 				} ).join(',');
 

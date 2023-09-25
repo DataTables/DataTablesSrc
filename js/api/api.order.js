@@ -113,8 +113,8 @@ _api_register( [
 	}
 	else {
 		return this.iterator( 'table', function ( settings, i ) {
-			settings.aaSorting = $.map( that[i], function (col) {
-				return [ [ col, dir ] ];
+			settings.aaSorting = that[i].map( function (col) {
+				return [ col, dir ];
 			} );
 		} );
 	}

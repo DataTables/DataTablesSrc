@@ -23,6 +23,11 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 		for ( j=0, jen=a.length ; j<jen ; j++ ) {
 			res = selectFn( typeof a[j] === 'string' ? (a[j]).trim() : a[j] );
 
+			// Remove empty items
+			res = res.filter( function (item) {
+				return item !== null && item !== undefined;
+			});
+
 			if ( res && res.length ) {
 				out = out.concat( res );
 			}
@@ -68,7 +73,9 @@ var _selector_first = function ( old )
 
 	// Use a push rather than passing to the constructor, since it will
 	// merge arrays down automatically, which isn't what is wanted here
-	inst.push( old[0] );
+	if (old.length) {
+		inst.push( old[0] );
+	}
 
 	inst.selector = old.selector;
 
@@ -125,11 +132,11 @@ var _selector_row_indexes = function ( settings, opts )
 				displayFilteredMap[displayFiltered[i]] = null;
 			}
 
-			a = $.map( displayMaster, function (el) {
-				return ! Object.prototype.hasOwnProperty.call(displayFilteredMap, el) ?
-					el :
-					null;
-			} );
+			displayMaster.forEach(function (item) {
+				if (! Object.prototype.hasOwnProperty.call(displayFilteredMap, item)) {
+					a.push(item);
+				}
+			});
 		}
 	}
 	else if ( order == 'index' || order == 'original' ) {

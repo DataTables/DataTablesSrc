@@ -18,7 +18,7 @@ function _fnSaveState ( settings )
 		length:  settings._iDisplayLength,
 		order:   $.extend( true, [], settings.aaSorting ),
 		search:  $.extend({}, settings.oPreviousSearch),
-		columns: $.map( settings.aoColumns, function ( col, i ) {
+		columns: settings.aoColumns.map( function ( col, i ) {
 			return {
 				visible: col.bVisible,
 				search: $.extend({}, settings.aoPreSearchCols[i])

@@ -190,7 +190,7 @@ function _fnCallbackFire( settings, callbackArr, eventName, args, bubbles )
 	var ret = [];
 
 	if ( callbackArr ) {
-		ret = $.map( settings[callbackArr].slice().reverse(), function (val) {
+		ret = settings[callbackArr].slice().reverse().map( function (val) {
 			return val.fn.apply( settings.oInstance, args );
 		} );
 	}

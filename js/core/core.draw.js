@@ -522,10 +522,10 @@ function _layoutArray ( settings, layout, side )
 				// For objects, each property becomes an entry in the contents
 				// array for this insert position
 				group[ align ] = {
-					contents: $.map(val, function (value, key) {
+					contents: Object.keys(val).map(function (key) {
 						return {
 							feature: key,
-							opts: value
+							opts: val[key]
 						};
 					})
 				};
@@ -543,17 +543,21 @@ function _layoutArray ( settings, layout, side )
 		}
 	} );
 
-	var filtered = $.map( groups, function ( group, pos ) {
-		// Filter to only the side we need
-		if ( pos.indexOf(side) !== 0 ) {
-			return null;
-		}
+	var filtered = Object.keys(groups)
+		.map( function ( pos ) {
+			// Filter to only the side we need
+			if ( pos.indexOf(side) !== 0 ) {
+				return null;
+			}
 
-		return {
-			name: pos,
-			val: group
-		};
-	} );
+			return {
+				name: pos,
+				val: groups[pos]
+			};
+		} )
+		.filter( function (item) {
+			return item !== null;
+		});
 
 	// Order by item identifier
 	filtered.sort( function ( a, b ) {

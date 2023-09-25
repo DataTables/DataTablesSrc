@@ -150,7 +150,7 @@ function _fnAjaxParameters( settings )
 
 	return {
 		draw: settings.iDraw,
-		columns: $.map( columns, function ( column, i ) {
+		columns: columns.map( function ( column, i ) {
 			return {
 				data: colData(i, 'mData'),
 				name: column.sName,
@@ -159,16 +159,16 @@ function _fnAjaxParameters( settings )
 				search: {
 					value: preColSearch[i].search,
 					regex: preColSearch[i].regex,
-					fixed: $.map(column.searchFixed, function(val, name) {
+					fixed: Object.keys(column.searchFixed).map( function(name) {
 						return {
 							name: name,
-							term: val.toString()
+							term: column.searchFixed[name].toString()
 						}
 					})
 				}
 			};
 		} ),
-		order: $.map( _fnSortFlatten( settings ), function ( val ) {
+		order: _fnSortFlatten( settings ).map( function ( val ) {
 			return {
 				column: val.col,
 				dir: val.dir,
@@ -182,10 +182,10 @@ function _fnAjaxParameters( settings )
 		search: {
 			value: preSearch.search,
 			regex: preSearch.regex,
-			fixed: $.map(settings.searchFixed, function(val, name) {
+			fixed: Object.keys(settings.searchFixed).map( function(name) {
 				return {
 					name: name,
-					term: val.toString()
+					term: settings.searchFixed[name].toString()
 				}
 			})
 		}

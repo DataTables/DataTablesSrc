@@ -176,7 +176,8 @@ function _fnFilterCreateSearch( search, inOpts )
 		 * 
 		 * ^(?=.*?\bone\b)(?=.*?\btwo three\b)(?=.*?\bfour\b).*$
 		 */
-		var a = $.map( search.match( /!?["\u201C][^"\u201D]+["\u201D]|[^ ]+/g ) || [''], function ( word ) {
+		var parts = search.match( /!?["\u201C][^"\u201D]+["\u201D]|[^ ]+/g ) || [''];
+		var a = parts.map( function ( word ) {
 			var negative = false;
 			var m;
 

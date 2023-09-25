@@ -11,9 +11,17 @@
 var __table_selector = function ( selector, a )
 {
 	if ( Array.isArray(selector) ) {
-		return $.map( selector, function (item) {
-			return __table_selector(item, a);
-		} );
+		var result = [];
+
+		selector.forEach(function (sel) {
+			var inner = __table_selector(sel, a);
+
+			result.push.apply(result, inner);
+		});
+
+		return result.filter( function (item) {
+			return item;
+		});
 	}
 
 	// Integer is used to pick out a table by index
@@ -22,7 +30,7 @@ var __table_selector = function ( selector, a )
 	}
 
 	// Perform a jQuery selector on the table nodes
-	var nodes = $.map( a, function (el) {
+	var nodes = a.map( function (el) {
 		return el.nTable;
 	} );
 
