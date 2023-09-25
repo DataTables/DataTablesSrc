@@ -21,14 +21,14 @@
 	<description>
     <![CDATA[
 
-The `-init layout` option provides the ability to control the items that surround and control the DataTable. Using an object where the parameter names provide positional information and the corresponding values telling DataTables what content to show it is possible to easily create a wide variety of layouts that suit your specific needs.
+The `-init layout` option provides the ability to control the items that surround and control the DataTable. Using an object where the parameter names provide positional information, with the corresponding values telling DataTables what content to show, it is easy to create a wide variety of layouts that suit your specific needs.
 
 
 ### Positional names
 
 < We use `Start` and `End` rather than `Left` and `Right` to remove ambiguity for positional elements when working with left-to-right and right-to-left parameters. This matches CSS's naming of similar properties.
 
-The names of the parameters in the `-init layout` object tell DataTables where it should insert the content defined by the value. The name first gives the side of the table that the control should be applied to (`-string top` or `-string bottom`), optionally followed by a number indicating the display order, and then optionally `-string Start` or `-string End`. If neither is provided and only the table side value is given, the control will stretch the full width of the table. The formal syntax for this, in regex, is:
+The names of the parameters in the `-init layout` object tell DataTables where it should insert the content defined by the value. The name first gives the side of the table where the control should be placed (`-string top` or `-string bottom`), optionally followed by a number indicating the display order, and then optionally `-string Start` or `-string End`. If neither is provided and only the table side value is given, the control will stretch the full width of the table. The formal syntax for this, in regex, is:
 
 > (top|bottom)[0-9]*(Start|End)?
 
@@ -44,11 +44,11 @@ The values of the parameters in `-init layout` can be any of:
   * `-string pageLength` - Page length control
   * `-string paging` - User input control for paging
   * `-string search` - Search input box
-* `-type object` - A plain object where the parameter keys are the feature to be used (see the strings above and any plug-ins) and the value is passed to the feature. This is normally an object wil a list of options. Note that multiple features could be specified using a single object, but order is not guaranteed. Order will normally be important if you specify multiple in a single slot - in such cases, use an array of objects.
+* `-type object` - A plain object where the parameter keys are the feature to be used (see the strings above and any plug-ins) and the value is passed to the feature. This is normally an object with a list of options. Note that multiple features could be specified using a single object, but order is not guaranteed. Order will normally be important if you specify multiple controls in a single slot - in such cases, use an array of objects.
 * `-type jQuery` - A jQuery instance containing a node to insert
 * `-type node` - A DOM element
 * `-type function` - A function that returns a DOM element or jQuery instance containing a node. The function will be passed in the DataTables settings object.
-* `-type object` - A class instance that provides a `node()` method and should return the node to be inserted (DOM or jQuery). As with the `-type function` option above, this method will be passed the DataTables settings object for the table.
+* `-type object` - A class instance that provides a `node()` method and should return the node to be inserted (DOM or jQuery). As with the `-type function` option above, this method will be passed to the DataTables settings object for the table.
 * `-type array` - An array of any of the above options, providing the ability to show multiple items next to each other.
 * `-type null` - Show nothing in this position
 

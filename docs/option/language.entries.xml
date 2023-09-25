@@ -5,17 +5,17 @@
 	<since>2.0</since>
 
 	<type type="object" />
-	<default value="{_: 'entries', _: 'entry'}" />
+	<default value="{_: 'entries', 1: 'entry'}" />
 
 	<description>
-		DataTables displays information text about the table in a number of different locations - the table information control and paging control for example. This option makes it possible to customise the string shown in each for the data type being shown, also taking into account the pluralisation of the data.
+		DataTables displays information text about the table in a number of locations - the table information control and paging control for example. This option makes it possible to customise the string shown in each for the data type being shown, also taking into account the pluralisation of the data.
 
 		For example, without this option, DataTables will show:
 
-		* _10 entries per page_ for the page length control and
+		* _10 entries per page_ for the page length control, and
 		* _Showing 1 to 1 of 57 entries_ for the information control.
 
-		Using this option the _entries_ can be customised without modifying the rest of the strings. This can be really helpful to let your users know at a glance what the data type in the table is as well. For example, you might have a list of people whereby the following strings would be a better fit for the table:
+		Using this option the _entries_ can be customised without modifying the rest of the strings. This can be really helpful as your users will know at a glance what the data type is in the table. For example, you might have a list of people whereby the following strings would be a better fit for the table:
 
 		* _10 people per page_
 		* _Showing 1 to 1 of 57 people_.
@@ -27,7 +27,7 @@
 		```js
 		entries: {
 			_: 'team members',
-			_: 'team member'
+			1: 'team member'
 		}
 		```
 
