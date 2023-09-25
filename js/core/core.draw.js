@@ -581,7 +581,7 @@ function _layoutArray ( settings, layout, side )
 			delete filtered[i].val.full;
 		}
 
-		if ( ! $.isEmptyObject( filtered[i].val ) ) {
+		if ( Object.keys(filtered[i].val).length ) {
 			rows.push( filtered[i].val );
 			_layoutResolve( settings, rows[ rows.length - 1 ] );
 		}
