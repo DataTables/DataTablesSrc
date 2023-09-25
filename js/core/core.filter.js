@@ -89,7 +89,7 @@ function _fnFilterCustom( settings )
 		// So the array reference doesn't break set the results into the
 		// existing array
 		displayRows.length = 0;
-		$.merge( displayRows, rows );
+		displayRows.push.apply(displayRows, rows);
 	}
 }
 

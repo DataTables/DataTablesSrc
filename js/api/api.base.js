@@ -190,7 +190,7 @@ _Api = function ( context, data )
 
 	// Initial data
 	if ( data ) {
-		$.merge( this, data );
+		this.push.apply(this, data);
 	}
 
 	// selector
