@@ -156,7 +156,7 @@ function _fnSortFlatten ( settings )
 				sType = aoColumns[ iCol ].sType || 'string';
 
 				if ( nestedSort[i]._idx === undefined ) {
-					nestedSort[i]._idx = $.inArray( nestedSort[i][1], aoColumns[iCol].asSorting );
+					nestedSort[i]._idx = aoColumns[iCol].asSorting.indexOf(nestedSort[i][1]);
 				}
 
 				if ( nestedSort[i][1] ) {
@@ -328,7 +328,7 @@ function _fnSortAdd ( settings, colIdx, append )
 	var next = function ( a, overflow ) {
 		var idx = a._idx;
 		if ( idx === undefined ) {
-			idx = $.inArray( a[1], asSorting );
+			idx = asSorting.indexOf(a[1]);
 		}
 
 		return idx+1 < asSorting.length ?
@@ -350,7 +350,7 @@ function _fnSortAdd ( settings, colIdx, append )
 	// If appending the sort then we are multi-column sorting
 	if ( append && settings.oFeatures.bSortMulti ) {
 		// Are we already doing some kind of sort on this column?
-		var sortIdx = $.inArray( colIdx, _pluck(sorting, '0') );
+		var sortIdx = _pluck(sorting, '0').indexOf(colIdx);
 
 		if ( sortIdx !== -1 ) {
 			// Yes, modify the sort

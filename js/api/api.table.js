@@ -30,7 +30,7 @@ var __table_selector = function ( selector, a )
 		.filter( selector )
 		.map( function () {
 			// Need to translate back from the table node to the settings
-			var idx = $.inArray( this, nodes );
+			var idx = nodes.indexOf(this);
 			return a[ idx ];
 		} )
 		.toArray();

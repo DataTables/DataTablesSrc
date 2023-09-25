@@ -197,7 +197,7 @@ function _fnVisibleToColumnIndex( oSettings, iMatch )
 function _fnColumnIndexToVisible( oSettings, iMatch )
 {
 	var aiVis = _fnGetColumns( oSettings, 'bVisible' );
-	var iPos = $.inArray( iMatch, aiVis );
+	var iPos = aiVis.indexOf(iMatch);
 
 	return iPos !== -1 ? iPos : null;
 }

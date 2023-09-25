@@ -333,7 +333,7 @@ function _fnDraw( oSettings, ajaxComplete )
 
 	/* Provide a pre-callback function which can be used to cancel the draw is false is returned */
 	var aPreDraw = _fnCallbackFire( oSettings, 'aoPreDrawCallback', 'preDraw', [oSettings] );
-	if ( $.inArray( false, aPreDraw ) !== -1 )
+	if ( aPreDraw.indexOf(false) !== -1 )
 	{
 		_fnProcessingDisplay( oSettings, false );
 		return;

@@ -83,7 +83,7 @@ var _toSettings = function ( mixed )
 	}
 	else if ( mixed.nodeName && mixed.nodeName.toLowerCase() === 'table' ) {
 		// Table node
-		idx = $.inArray( mixed, tables );
+		idx = tables.indexOf(mixed);
 		return idx !== -1 ? [ settings[idx] ] : null;
 	}
 	else if ( mixed && typeof mixed.settings === 'function' ) {

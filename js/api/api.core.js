@@ -148,7 +148,7 @@ _api_register( 'destroy()', function ( remove ) {
 		}
 
 		/* Remove the settings object from the settings array */
-		var idx = $.inArray( settings, DataTable.settings );
+		var idx = DataTable.settings.indexOf(settings);
 		if ( idx !== -1 ) {
 			DataTable.settings.splice( idx, 1 );
 		}

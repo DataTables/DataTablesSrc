@@ -142,7 +142,7 @@ var _selector_row_indexes = function ( settings, opts )
 				a.push( i );
 			}
 			else { // applied | removed
-				tmp = $.inArray( i, displayFiltered );
+				tmp = displayFiltered.indexOf(i);
 
 				if ((tmp === -1 && search == 'removed') ||
 					(tmp >= 0   && search == 'applied') )
@@ -161,7 +161,7 @@ var _selector_row_indexes = function ( settings, opts )
 		}
 		else { // applied | removed
 			for (i=0; i<ordered.length; i++) {
-				tmp = $.inArray( ordered[i], displayFiltered );
+				tmp = displayFiltered.indexOf(ordered[i]);
 
 				if ((tmp === -1 && search == 'removed') ||
 					(tmp >= 0   && search == 'applied') )

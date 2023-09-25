@@ -63,7 +63,7 @@ function _fnBuildAjax( oSettings, data, fn )
 		"error": function (xhr, error) {
 			var ret = _fnCallbackFire( oSettings, null, 'xhr', [oSettings, null, oSettings.jqXHR] );
 
-			if ( $.inArray( true, ret ) === -1 ) {
+			if ( ret.indexOf(true) === -1 ) {
 				if ( error == "parsererror" ) {
 					_fnLog( oSettings, 0, 'Invalid JSON response', 1 );
 				}

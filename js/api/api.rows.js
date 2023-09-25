@@ -28,7 +28,7 @@ var __row_selector = function ( settings, selector, opts )
 			rows = _selector_row_indexes( settings, opts );
 		}
 
-		if ( selInt !== null && $.inArray( selInt, rows ) !== -1 ) {
+		if ( selInt !== null && rows.indexOf(selInt) !== -1 ) {
 			// Selector - integer
 			return [ selInt ];
 		}

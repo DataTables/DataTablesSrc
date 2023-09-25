@@ -90,7 +90,7 @@ function _fnImplementState ( settings, s, callback) {
 	// Allow custom and plug-in manipulation functions to alter the saved data set and
 	// cancelling of loading by returning false
 	var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
-	if ( $.inArray( false, abStateLoad ) !== -1 ) {
+	if ( abStateLoad.indexOf(false) !== -1 ) {
 		settings._bLoadingState = false;
 		callback();
 		return;
