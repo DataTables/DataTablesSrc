@@ -78,10 +78,10 @@ DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items 
 			klass = 'col-12';
 		}
 		else if (key === 'start') {
-			klass = 'col-md-auto ml-auto';
+			klass = 'col-md-auto mr-auto';
 		}
 		else if (key === 'end') {
-			klass = 'col-md-auto mr-auto';
+			klass = 'col-md-auto ml-auto';
 		}
 		else {
 			klass = 'col-md-auto ml-auto mr-auto';
