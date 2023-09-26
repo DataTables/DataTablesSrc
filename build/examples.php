@@ -18,11 +18,12 @@ $dir_order = array(
 	'data_sources',
 	'i18n',
 	'datetime',
+	'plug-ins',
 	'styling',
+	'layout',
 	'api',
 	'ajax',
-	'server_side',
-	'plug-ins'
+	'server_side'
 );
 
 $dir_names = array(
@@ -31,6 +32,7 @@ $dir_names = array(
 	'non_jquery'    => "Non-jQuery initialisation",
 	'datetime'      => "DateTime",
 	'i18n'          => "Language and Internationalisation",
+	'layout'        => "Layout",
 	'styling'       => "Styling",
 	'data_sources'  => "Data sources",
 	'api'           => "API",
