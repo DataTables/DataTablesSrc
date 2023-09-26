@@ -187,7 +187,7 @@ DataTable's [orthogonal data abilities](https://datatables.net/manual/data/ortho
 
 This is important for integration with frameworks such as Vue and React which can expect to return DOM elements that they control (including event listeners).
 
-The example shown here dynamically creates an `-tag svg` sparkline (using this excellent library](https://github.com/fnando/sparkline)) and returns the `-tag svg` element from the rendering function.
+The example shown here dynamically creates an `-tag svg` sparkline ([using this excellent library](https://github.com/fnando/sparkline)) and returns the `-tag svg` element from the rendering function.
 
 ]]></info>
 

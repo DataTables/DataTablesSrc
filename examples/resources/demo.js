@@ -14,12 +14,12 @@ window.dt_demo = {
 	 * @param types jQuery and Vanilla init code
 	 */
 	init: function (types) {
-		dt_demo._struct = types;
-
 		// Nothing to do if no libraries
-		if (! dt_demo._struct.libs) {
+		if (! dt_demo || ! dt_demo._struct || ! dt_demo._struct.libs) {
 			return;
 		}
+
+		dt_demo._struct = types;
 
 		dt_demo._prepLibs();
 		dt_demo._loadNext();
