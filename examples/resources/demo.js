@@ -15,7 +15,7 @@ window.dt_demo = {
 	 */
 	init: function (types) {
 		// Nothing to do if no libraries
-		if (! dt_demo || ! dt_demo._struct || ! dt_demo._struct.libs) {
+		if (! types || ! types.libs) {
 			return;
 		}
 

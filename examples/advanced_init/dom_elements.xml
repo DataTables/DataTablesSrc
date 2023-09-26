@@ -82,7 +82,7 @@ var table = $('#example').DataTable({
 						.attr({
 							width: 250,
 							height: 17,
-							'stoke-width': 3
+							'stroke-width': 3
 						});
 
 					// Use the plug-in to create the lines
