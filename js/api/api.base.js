@@ -91,11 +91,11 @@ var _toSettings = function ( mixed )
 	}
 	else if ( typeof mixed === 'string' ) {
 		// jQuery selector
-		jq = $(mixed).toArray();
+		jq = $(mixed).get();
 	}
 	else if ( mixed instanceof $ ) {
 		// jQuery object (also DataTables instance)
-		jq = mixed.toArray();
+		jq = mixed.get();
 	}
 
 	if ( jq ) {

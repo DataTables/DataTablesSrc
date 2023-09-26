@@ -195,7 +195,7 @@ function _fnCallbackFire( settings, callbackArr, eventName, args, bubbles )
 		} );
 	}
 
-	if ( eventName !== null ) {
+	if ( eventName !== null) {
 		var e = $.Event( eventName+'.dt' );
 		var table = $(settings.nTable);
 		

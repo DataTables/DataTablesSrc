@@ -107,9 +107,8 @@ $.extend( true, DataTable.ext.renderer, {
 
 	layout: {
 		_: function ( settings, container, items ) {
-			var row = $( '<div/>', {
-					"class": 'dt-layout-row'
-				} )
+			var row = $('<div/>')
+				.addClass('dt-layout-row')
 				.appendTo( container );
 
 			$.each( items, function (key, val) {
@@ -117,10 +116,11 @@ $.extend( true, DataTable.ext.renderer, {
 					'dt-'+key+' ' :
 					'';
 
-				$( '<div/>', {
+				$('<div/>')
+					.attr({
 						id: val.id || null,
 						"class": 'dt-layout-cell '+klass+(val.className || '')
-					} )
+					})
 					.append( val.contents )
 					.appendTo( row );
 			} );

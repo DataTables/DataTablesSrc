@@ -655,11 +655,12 @@ function _fnAddOptionsHtml ( settings )
 	var renderer = _fnRenderer( settings, 'layout' );
 
 	// Wrapper div around everything DataTables controls
-	var insert = $('<div/>', {
+	var insert = $('<div/>')
+		.attr({
 			id:      settings.sTableId+'_wrapper',
 			'class': classes.container
-		} )
-		.insertBefore( table );
+		})
+		.insertBefore(table);
 
 	settings.nTableWrapper = insert[0];
 

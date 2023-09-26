@@ -253,6 +253,9 @@ window.dt_demo = {
 				if (item.name === 'tailwindcss') {
 					window.tailwind.config = { darkMode: "class" };
 				}
+				else if (item.name === 'jquery' && window.cash) {
+					window.jQuery = window.cash;
+				}
 				
 				dt_demo._loadNext();
 			};

@@ -60,7 +60,7 @@ _ext.features.register( 'pageLength', function ( settings, opts ) {
 	}
 
 	// Wrapper element - use a span as a holder for where the select will go
-	var div = $('<div>')
+	var div = $('<div/>')
 		.addClass( classes.container )
 		.append(
 			str.replace( '_MENU_', '<span></span>' )

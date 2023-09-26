@@ -30,9 +30,13 @@ function _fnCalculateColumnWidths ( settings )
 
 	// Let plug-ins know that we are doing a recalc, in case they have changed any of the
 	// visible columns their own way (e.g. Responsive uses display:none).
-	$(table).triggerHandler('column-calc.dt', {
-		visible: visibleColumns
-	});
+	_fnCallbackFire(
+		settings,
+		null,
+		'column-calc',
+		{visible: visibleColumns},
+		false
+	);
 
 	// Construct a single row, worst case, table with the widest
 	// node in the data, assign any user defined widths, then insert it into
@@ -89,12 +93,16 @@ function _fnCalculateColumnWidths ( settings )
 
 		var longest = _fnGetMaxLenString(settings, columnIdx);
 		var autoClass = _ext.type.className[column.sType];
+		var text = longest + column.sContentPadding;
+		var insert = longest.indexOf('<') === -1
+			? document.createTextNode(text)
+			: text
 		
 		$('<td/>')
 			.addClass(autoClass)
 			.addClass(column.sClass)
-			.append( longest + column.sContentPadding )
-			.appendTo( tr );
+			.append(insert)
+			.appendTo(tr);
 	}
 
 	// Tidy the temporary table - remove name attributes so there aren't

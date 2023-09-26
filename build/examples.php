@@ -287,7 +287,7 @@ else {
 DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-1.12.4.js';
 DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-3.7.0.slim.js';
 DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://code.jquery.com/jquery-3.7.0.js';
-// DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://cdnjs.cloudflare.com/ajax/libs/cash/8.1.0/cash.min.js';
+// DT_Example::$lookup_libraries['js' ]['jquery']       = 'https://cdnjs.cloudflare.com/ajax/libs/cash/8.1.5/cash.js';
 
 DT_Example::$lookup_libraries['js' ]['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
 DT_Example::$lookup_libraries['css']['bootstrap']    = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
