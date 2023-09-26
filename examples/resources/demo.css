@@ -304,6 +304,11 @@ body.dt-example-bulma > div.container > section > ul.tabs {
   top: 0px;
 }
 
+body.dt-example-foundation table.dataTable input,
+body.dt-example-foundation table.dataTable select {
+  margin-bottom: 0;
+}
+
 body.dt-example-tailwindcss h1 {
   font-size: 3em;
   margin: 0.8em 0;
