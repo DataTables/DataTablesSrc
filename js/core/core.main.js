@@ -48,7 +48,6 @@ var DataTable = function ( selector, options )
 
 _buildInclude('ext.js');
 _buildInclude('ext.classes.js');
-_buildInclude('ext.features.js');
 
 _buildInclude('core.internal.js');
 _buildInclude('api.util.js');
@@ -135,7 +134,6 @@ _buildInclude('model.settings.js');
  */
 _buildInclude('ext.js');
 _buildInclude('ext.classes.js');
-_buildInclude('ext.features.js');
 _buildInclude('ext.paging.js');
 _buildInclude('ext.filter.js');
 _buildInclude('ext.helpers.js');
@@ -144,6 +142,7 @@ _buildInclude('ext.sorting.js');
 _buildInclude('ext.renderer.js');
 _buildInclude('api.internal.js');
 
+_buildInclude('features.api.js');
 _buildInclude('features.info.js');
 _buildInclude('features.search.js');
 _buildInclude('features.page.js');

@@ -2,7 +2,7 @@
 // opts
 // - type - button configuration
 // - numbers - number of buttons to show - must be odd
-_ext.features.register( 'paging', function ( settings, opts ) {
+DataTable.feature.register( 'paging', function ( settings, opts ) {
 	// Don't show the paging input if the table doesn't have paging enabled
 	if (! settings.oFeatures.bPaginate) {
 		return null;

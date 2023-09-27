@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example order="0">
+
+<title>Layout</title>
+
+<info><![CDATA[
+
+The `-init layout` option in DataTables can be used to define where the table control elements should appear, and also to pass configuration options to them.
+
+The examples in this section show how layout can be defined and used in DataTables.
+
+]]></info>
+
+</dt-example>

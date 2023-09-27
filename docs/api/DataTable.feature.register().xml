@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.feature.register()</name>
+	<summary>Create a new feature that can be used for layout</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>register( name, construct )</signature>
+		<description>
+
+		</description>
+		<param type="string" name="name">
+			The name of the new feature. It is recommended that this be descriptive, and a contain no white space (camelCase for multiple words) so it can be used in the `-init layout` object with or without quotes.
+		</param>
+		<param type="function" name="construct">
+			A function that will create the elements and event listeners for the feature being added. The function takes two parameters:
+
+			1. A `-type DataTables.Settings` object
+			2. The options object for the feature used in `-init layout`. This will be `null` if no value was given.
+
+			The function should return a DOM node, which will be inserted into the document as defined by the layout positioning.
+		</param>
+		<returns type="void">No value is returned.</returns>
+	</type>
+
+	<description>
+		DataTables makes use of a "feature" registration system to define components which can be displayed around a table and are typically used to control the table in some fashion. The built in table controls such as `-feature pageLength` and `-feature paging` use this system, as do extensions such as [Buttons](https://datatables.net/extensions/buttons). You can also use it to create your own feature plug-ins for DataTables that will be used with its `-init layout` option.
+
+		Defining your own feature plug-in is good for code reuse (i.e. you want to use the feature on more than one table) and also for sharing with the community. If you would like to share a plug-in [post about it in the forum](https://datatables.net/forum)!
+
+		This function is used to register your own feature plug-in, giving it the name that will be used to reference it in `-init layout` and the function that will define its container element and behaviour.
+
+		Options for a feature plug-in can be defined, but there should be sensible details since options are not required when using `-init layout`. For example the following two are valid to make use of a feature called _myToolbar_:
+
+		```js
+		new DataTable('#myTable', {
+			layout: {
+				topStart: 'myToolbar'
+			}
+		});
+		```
+
+		```js
+		new DataTable('#myTable', {
+			layout: {
+				topStart: {
+					myToolbar: {
+						option1: true,
+						option2: false
+					}
+				}
+			}
+		});
+		```
+
+		The parameters defined are passed into the constructor for the plug-in as the second parameter (which will be `null` if no value is given, such as in the first code block above). So for the above, the following feature registration might be used:
+
+		```js
+		DataTable.feature.register('myToolbar', function (settings, opts) {
+			// Define defaults
+			let options = Object.assign({
+				option1: false,
+				option2: false
+			}, opts);
+
+			let container = document.createElement('div');
+
+			// do something with the options and container
+			// ...
+
+			return container;
+		});
+		```
+	</description>
+</dt-api>

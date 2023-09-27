@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="6">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Custom controls - defined by functions</title>
+<js><![CDATA[
+$('#example').DataTable({
+	layout: {
+		topStart: function () {
+			return $('<div class="toolbar"><b>Custom tool bar! Text/images etc.</b></div>');
+		}
+	}
+});
+]]></js>
+<js-vanilla><![CDATA[
+
+new DataTable('#example', {
+	layout: {
+		topStart: function () {
+			let toolbar = document.createElement('div');
+			toolbar.innerHTML = '<b>Custom tool bar! Text/images etc.</b>';
+
+			return toolbar;
+		}
+	}
+});
+
+]]></js-vanilla>
+
+<info><![CDATA[
+
+This example is very similar to the [custom node example](custom-nodes.html) but it shows how the feature can be wrapped in a function and the node returned from the function will be placed into the layout.
+
+This is great for code reuse if you plan to use the feature multiple times. Note that if you are looking for code reuse, it would be worth checking out the [custom plug-in example](custom-plugin.html) which demonstrates how to create full feature plug-ins for DataTables.
+
+]]></info>
+
+</dt-example>

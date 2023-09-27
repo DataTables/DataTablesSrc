@@ -4,7 +4,7 @@ var __searchCounter = 0;
 // opts
 // - text
 // - placeholder
-_ext.features.register( 'search', function ( settings, opts ) {
+DataTable.feature.register( 'search', function ( settings, opts ) {
 	// Don't show the input if filtering isn't available on the table
 	if (! settings.oFeatures.bFilter) {
 		return null;

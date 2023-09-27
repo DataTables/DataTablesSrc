@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="2">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Table controls positioning with options</title>
+<js><![CDATA[
+$('#example').DataTable({
+	layout: {
+		topStart: {
+			pageLength: {
+				menu: [ 10, 25, 50, 100 ]
+			}
+		},
+		topEnd: {
+			search: {
+				placeholder: 'Type search here'
+			}
+		},
+		bottomEnd: {
+			paging: {
+				numbers: 3
+			}
+		}
+	}
+});
+]]></js>
+<js-vanilla>
+<![CDATA[
+new DataTable('#example', {
+	layout: {
+		topStart: {
+			pageLength: {
+				menu: [ 10, 25, 50, 100 ]
+			}
+		},
+		topEnd: {
+			search: {
+				placeholder: 'Type search here'
+			}
+		},
+		bottomEnd: {
+			paging: {
+				numbers: 3
+			}
+		}
+	}
+});
+]]>
+</js-vanilla>
+
+<info><![CDATA[
+
+This example shows the use of the `-init layout` parameter with configuration options passed directly to the layout object. Note how the object key matches the feature name and the configuration options available to pass to it depend upon the feature. Plug-ins for DataTables can add new features, each with their own options.
+
+The built in features are:
+
+* `-feature info`
+* `-feature pageLength`
+* `-feature paging`
+* `-feature search`
+
+In this case `-feature pageLength.menu` is used to define custom entries for the `-tag select` dropdown, `-feature search.placeholder` is used to define a placeholder for the global search, and `-feature paging.numbers` is used to set the number of paging number buttons should be shown.
+
+]]></info>
+
+</dt-example>

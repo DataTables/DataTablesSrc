@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="7">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Custom controls - plug-ins</title>
+<js><![CDATA[
+
+DataTable.feature.register('toolbar', function (settings, opts) {
+	var el = $('<div>').html(opts.text);
+
+	return el;
+});
+
+$('#example').DataTable({
+	layout: {
+		topStart: {
+			toolbar: {
+				text: 'My custom toolbar!'
+			}
+		}
+	}
+});
+
+]]></js>
+<js-vanilla><![CDATA[
+
+DataTable.feature.register('toolbar', function (settings, opts) {
+	let toolbar = document.createElement('div');
+	toolbar.innerHTML = opts.text;
+
+	return toolbar;
+});
+
+new DataTable('#example', {
+	layout: {
+		topStart: {
+			toolbar: {
+				text: 'My custom toolbar!'
+			}
+		}
+	}
+});
+
+]]></js-vanilla>
+
+<info><![CDATA[
+
+As well as the built in table features for `-init layout`, you can also create your own through the `DataTable.feature.register()` method. This is great for cases where you plan to use a feature in multiple tables, or want to share it with the community. Indeed, our own extensions such as [Buttons](https://datatables.net/extensions/buttons) make use of this mechanism.
+
+This example shows the same trivial "toolbar" as the other custom layout example, just wrapped into a registered feature. Note how the `toolbar` property can now be used as a feature in a layout position.
+
+]]></info>
+
+</dt-example>

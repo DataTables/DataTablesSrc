@@ -4,7 +4,7 @@ var __lengthCounter = 0;
 // opts
 // - menu
 // - text
-_ext.features.register( 'pageLength', function ( settings, opts ) {
+DataTable.feature.register( 'pageLength', function ( settings, opts ) {
 	// For compatibility with the legacy `pageLength` top level option
 	if (! settings.oFeatures.bPaginate || ! settings.oFeatures.bLengthChange) {
 		return null;
