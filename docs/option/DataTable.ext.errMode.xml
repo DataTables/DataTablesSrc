@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="static">
-	<name>$.fn.dataTable.ext.errMode</name>
+	<name>DataTable.ext.errMode</name>
 	<summary>Set how DataTables will report detected errors</summary>
 	<since>1.10</since>
 
@@ -15,7 +15,7 @@
 	</type>
 
 	<type type="function">
-		<signature>$.fn.dataTable.ext.errMode( settings, techNote, message )</signature>
+		<signature>DataTable.ext.errMode( settings, techNote, message )</signature>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object (`dt-type DataTables.Settings`).
 		</parameter>
@@ -41,7 +41,7 @@
 
 	<example title="Have DataTables `throw` errors rather than `alert()` them."><![CDATA[
 
-$.fn.dataTable.ext.errMode = 'throw';
+DataTable.ext.errMode = 'throw';
 
 $('#example').dataTable( {
   ajax: 'data.json'
