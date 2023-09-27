@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-option group="paging">
+<dt-option group="search">
 	<name>search.placeholder</name>
 	<summary>Placeholder for the input element</summary>
 	<since>2.0</since>

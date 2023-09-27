@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-option group="paging">
+<dt-option group="search">
 	<name>search.text</name>
 	<summary>Text for search control</summary>
 	<since>2.0</since>
