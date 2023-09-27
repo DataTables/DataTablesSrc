@@ -12,9 +12,11 @@
 	</description>
 
 	<example title="Disable pagination"><![CDATA[
-$('#example').dataTable( {
-	"paging": false
-} );
+
+new DataTable('#myTable', {
+  paging: false
+});
+
 ]]></example>
 
 	<related type="option">info</related>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="info">
+	<name>info.empty</name>
+	<summary>Empty table text</summary>
+	<since>2.0</since>
+
+	<type type="string" />
+	<default>
+		Defaults to the `-init language.infoEmpty` option.
+	</default>
+
+	<description>
+		This option can be used to configure the text that is shown by the information feature when the table is empty.
+
+		This option will default to the value given by `-init language.infoEmpty`, which should generally be preferred over this option as the language strings can be loaded by Ajax and shared for the whole table, but if needed, this option is available to override that.
+	</description>
+
+
+	<example title="Customise the empty message"><![CDATA[
+	
+new DataTable('#myTable', {
+	layout: {
+		bottomStart: {
+			info: {
+				empty: 'No entries to show'
+			}
+		}
+	}
+} );
+
+]]></example>
+
+	<related>-init language.infoEmpty</related>
+	<related>-feature info</related>
+	<related>-feature info.callback</related>
+	<related>-feature info.empty</related>
+	<related>-feature info.postfix</related>
+	<related>-feature info.search</related>
+	<related>-feature info.text</related>
+</dt-option>

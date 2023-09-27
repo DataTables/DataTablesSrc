@@ -14,11 +14,13 @@
 	</description>
 
 	<example title="Alter the filtering information summary string"><![CDATA[
-$('#example').dataTable( {
-  "language": {
-    "infoFiltered": " - filtered from _MAX_ records"
+
+new DataTable('#myTable', {
+  language: {
+    infoFiltered: ' - filtered from _MAX_ records'
   }
-} );
+});
+
 ]]></example>
 
 	<related type="option">language</related>
@@ -26,4 +28,6 @@ $('#example').dataTable( {
 	<related type="option">language.infoEmpty</related>
 	<related type="option">language.infoPostFix</related>
 	<related type="option">language.thousands</related>
+	<related>-feature info</related>
+	<related>-feature info.search</related>
 </dt-option>

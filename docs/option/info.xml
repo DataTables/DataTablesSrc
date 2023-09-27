@@ -8,19 +8,22 @@
 	<default value="true" />
 
 	<description>
-		When this option is enabled, Datatables will show information about the table including information about filtered data if that action is being performed. This option allows that feature to be enabled or disabled.
+		When this option is enabled, DataTables will use the `-feature info` table control feature to show details about the table including information about filtered data if that action is being performed. This option allows that feature to be enabled or disabled.
 
-		Note that by default the information display is shown below the table on the left, but this can be controlled using `dt-init dom` and CSS).
+		As of DataTables 2, the position of the information display is defined by the `-init layout` option, which can also be used to disabled the feature or provide extra configuration for it.
+
+		In legacy 1.x installs, the `-init dom` option can be used to position the element along with some CSS.
 	</description>
 
 	<example title="Disable information display"><![CDATA[
-$('#example').dataTable( {
-  "info": false
-} );
+new DataTable('#myTable', {
+  info: false
+});
 ]]></example>
 
 	<related type="option">language.info</related>
 	<related type="option">language.infoEmpty</related>
 	<related type="option">language.infoFiltered</related>
 	<related type="option">infoCallback</related>
+	<related>-feature info</related>
 </dt-option>

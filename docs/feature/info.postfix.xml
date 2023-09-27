@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="info">
+	<name>info.postfix</name>
+	<summary>Information string postfix</summary>
+	<since>2.0</since>
+
+	<type type="string" />
+	<default>
+		Defaults to the `-init language.infoPostFix` option.
+	</default>
+
+	<description>
+		This option is used to append text to the information feature's display text. It can be useful for further explanation about the data in the table, although you should also consider the use of `-init caption` for a general summary.
+
+		This option will default to the value given by `-init language.infoPostFix`, which should generally be preferred over this option as the language strings can be loaded by Ajax and shared for the whole table, but if needed, this option is available to override that.
+	</description>
+
+
+	<example title="Provide an information feature postfix"><![CDATA[
+	
+new DataTable('#myTable', {
+	layout: {
+		bottomStart: {
+			info: {
+				postfix: 'All records shown are derived from real information.'
+			}
+		}
+	}
+} );
+
+]]></example>
+
+	<related>-init language.infoEmpty</related>
+	<related>-feature info</related>
+	<related>-feature info.callback</related>
+	<related>-feature info.empty</related>
+	<related>-feature info.postfix</related>
+	<related>-feature info.search</related>
+	<related>-feature info.text</related>
+</dt-option>

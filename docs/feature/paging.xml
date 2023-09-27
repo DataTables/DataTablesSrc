@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="paging">
+	<name>paging</name>
+	<summary>Table information display</summary>
+	<since>2.0</since>
+
+	<description>
+		This feature displays the pagination control next to the table, enabling the end user to change the page of data that is shown to them.
+
+		The `-feature paging` feature can be disabled completely using the `-init paging` option or by excluding it from the `-init layout` options (which is the preferred method as of DataTables 2).
+	</description>
+
+	<example title="Disable paging control with default layout"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		bottomEnd: null
+	}
+});
+
+]]></example>
+
+	<example title="Show paging control top left"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		topStart: 'paging',
+		bottomEnd: null
+	}
+});
+
+]]></example>
+
+	<example title="Show paging control with options"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		bottomEnd: {
+			paging: {
+				type: 'simple'
+			}
+		}
+	}
+});
+
+]]></example>
+
+	<related>-init paging</related>
+	<related>-feature paging</related>
+	<related>-feature paging.numbers</related>
+	<related>-feature paging.type</related>
+</dt-option>

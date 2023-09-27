@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="info">
+	<name>info</name>
+	<summary>Table information display</summary>
+	<since>2.0</since>
+
+	<description>
+		This feature displays a text element next to the table that gives the end user information about what is being shown in the table. This is particularly useful when paging is enabled in the table, and also for search to give the end user context of what is shown in the table and what is available.
+
+		The `-feature info` feature can be disabled completely using the `-init info` option or by excluding it from the `-init layout` options (which is the preferred method as of DataTables 2).
+	</description>
+
+	<example title="Disable information display with default layout"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		bottomStart: null
+	}
+});
+
+]]></example>
+
+	<example title="Show information display top left"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		topStart: 'info',
+		bottomStart: null
+	}
+});
+
+]]></example>
+
+	<example title="Show information display with options"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		bottomStart: {
+			info: {
+				text: 'Table dislay: _START_ to _END_ of _TOTAL_ records'
+			}
+		}
+	}
+});
+
+]]></example>
+
+	<related>-init info</related>
+	<related>-feature info.callback</related>
+	<related>-feature info.empty</related>
+	<related>-feature info.postfix</related>
+	<related>-feature info.search</related>
+	<related>-feature info.text</related>
+</dt-option>

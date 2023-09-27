@@ -14,11 +14,11 @@
 	</description>
 
 	<example title="Show page count"><![CDATA[
-$('#example').dataTable( {
-  "language": {
-    "infoEmpty": "No entries to show"
+new DataTable('#myTable', {
+  language: {
+    infoEmpty: 'No entries to show'
   }
-} );
+});
 ]]></example>
 
 	<related type="option">language</related>
@@ -26,4 +26,6 @@ $('#example').dataTable( {
 	<related type="option">language.infoFiltered</related>
 	<related type="option">language.infoPostFix</related>
 	<related type="option">language.thousands</related>
+	<related>-feature info</related>
+	<related>-feature info.empty</related>
 </dt-option>

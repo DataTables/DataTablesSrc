@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="search">
+	<name>search</name>
+	<summary>Global search input</summary>
+	<since>2.0</since>
+
+	<description>
+		This feature displays a global search input next to a DataTable, letting the end user enter simple text search terms. The search behaviour can be customized with the `-init search` object.
+
+		The `-feature search` feature can be disabled completely using the `-init searching` option or by excluding it from the `-init layout` options (which is the preferred method as of DataTables 2).
+	</description>
+
+	<example title="Disable search input with default layout"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		topEnd: null
+	}
+});
+
+]]></example>
+
+	<example title="Show search input top left"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		topStart: 'search',
+		topEnd: null
+	}
+});
+
+]]></example>
+
+	<example title="Show search input with options"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		topEnd: {
+			search: {
+				placeholder: 'Search here...'
+			}
+		}
+	}
+});
+
+]]></example>
+
+	<related>-init search</related>
+	<related>-init searching</related>
+	<related>-feature search</related>
+	<related>-feature search.text</related>
+	<related>-feature search.placeholder</related>
+</dt-option>

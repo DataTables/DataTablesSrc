@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="paging">
+	<name>search.text</name>
+	<summary>Text for search control</summary>
+	<since>2.0</since>
+
+	<type type="string" />
+	<default>
+		Defaults to the `-init language.search` option's value.
+	</default>
+
+	<description>
+		This option defines the string that will be used for the search input for the table. It should contain a description to let the end user know what the `-tag input` is for. Please see `-init language.search` for full details of the options for this string, including the `_INPUT_` replacement string.
+
+		This option will default to the value given by `-init language.search`, which should generally be preferred over this option as the language strings can be loaded by Ajax and shared for the whole table, but if needed, this option is available to override that.
+	</description>
+
+	<example title="Provide search input string"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		topEnd: {
+			search: {
+				text: 'Search table: _INPUT_'
+			}
+		}
+	}
+});
+
+]]></example>
+
+	<related>-init language.search</related>
+	<related>-feature search</related>
+	<related>-feature search.text</related>
+	<related>-feature search.placeholder</related>
+</dt-option>

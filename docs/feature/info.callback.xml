@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="info">
+	<name>info.callback</name>
+	<summary>Information display callback</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>infoCallback( settings, start, end, max, total, pre )</signature>
+		<parameter type="DataTables.Settings" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="integer" name="start">
+			Starting position in data for the draw
+		</parameter>
+		<parameter type="integer" name="end">
+			End position in data for the draw
+		</parameter>
+		<parameter type="integer" name="max">
+			Total number of rows in the table (regardless of filtering)
+		</parameter>
+		<parameter type="integer" name="total">
+			Total number of rows in the data set, after filtering
+		</parameter>
+		<parameter type="string" name="pre">
+			The string that DataTables has formatted using its own rules
+		</parameter>
+		<returns type="string">
+			The string to be displayed in the information element.
+		</returns>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		This option can be used to customise the text shown by the `-feature info` feature, including replacing the text generated entirely or customising it as needed. That could also be used to be notified of a change in the paging of the table, although the `-event info` and `-event page` events would be better suited in most cases.
+
+		The legacy `-init infoCallback` option is an alias to this option for all information displays shown for the table.
+	</description>
+
+	<example title="Customise the display with a callback function"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		bottomStart: {
+			info: {
+				callback: function (s, start, end, max, total, result) {
+					return `${start} to ${end} rows are shown, of ${max}`;
+				}
+			}
+		}
+	}
+});
+
+]]></example>
+
+	<example title="Use the API in the callback to show page count"><![CDATA[
+	
+new DataTable('#myTable', {
+	layout: {
+		bottomStart: {
+			info: {
+				callback: function (s, start, end, max, total, result) {
+					let api = this.api();
+					let pageInfo = api.page.info();
+
+					return 'Page '+ (pageInfo.page+1) +' of '+ pageInfo.pages;
+				}
+			}
+		}
+	}
+} );
+
+]]></example>
+
+	<related>-init infoCallback</related>
+	<related>-feature info</related>
+	<related>-feature info.callback</related>
+	<related>-feature info.empty</related>
+	<related>-feature info.postfix</related>
+	<related>-feature info.search</related>
+	<related>-feature info.text</related>
+</dt-option>

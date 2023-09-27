@@ -8,14 +8,8 @@
 	<default>[ 10, 25, 50, 100 ]</default>
 
 	<description>
-		This parameter allows you to readily specify the entries in the length drop down `select` list that DataTables shows when pagination is enabled. It is an array of options - each option can either be:
+	    This option sets the menu values for all `-feature pageLength` table feature controls used for a table. The values it can take are defined in `-feature pageLength.menu`, which be used to override this option (as of DataTables 2).
 
-		* An integer which will be used for both the displayed option and the value to use for the display length, or
-		* An object which contains `label` and `value` properties. This can be useful for language strings such as `All`.
-
-		The page length values must always be integer values `> 0`, with the sole exception of `-1`. When `-1` is used as a value this tells DataTables to disable pagination (i.e. display all rows).
-
-		Note that the `dt-init pageLength` property will be automatically set to the first value given in this array, unless `dt-init pageLength` is also provided.
 
 		### Legacy
 
@@ -45,4 +39,6 @@ $('#example').DataTable( {
 	<related type="api">page()</related>
 	<related type="api">page.info()</related>
 	<related type="api">page.len()</related>
+	<related>-feature pageLength</related>
+	<related>-feature pageLength.menu</related>
 </dt-option>

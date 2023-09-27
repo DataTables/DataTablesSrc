@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="paging">
+	<name>search.placeholder</name>
+	<summary>Placeholder for the input element</summary>
+	<since>2.0</since>
+
+	<type type="string" />
+	<default>
+		Defaults to the `-init language.searchPlaceholder` option's value.
+	</default>
+
+	<description>
+		Set the `placeholder` attribute for the `-tag input` element that the `-feature search` feature uses to allow global search in a DataTable.
+
+		This option will default to the value given by `-init language.searchPlaceholder`, which should generally be preferred over this option as the language strings can be loaded by Ajax and shared for the whole table, but if needed, this option is available to override that.
+	</description>
+
+	<example title="Provide placeholder text for the search input"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		topEnd: {
+			search: {
+				placeholder: 'Search here'
+			}
+		}
+	}
+});
+
+]]></example>
+
+	<related>-init language.searchPlaceholder</related>
+	<related>-feature search</related>
+	<related>-feature search.text</related>
+	<related>-feature search.placeholder</related>
+</dt-option>

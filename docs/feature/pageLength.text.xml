@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="paging">
+	<name>pageLength.text</name>
+	<summary>Text for page length control</summary>
+	<since>2.0</since>
+
+	<type type="string" />
+	<default>
+		Defaults to the `-init language.pageLength` option's value.
+	</default>
+
+	<description>
+		This option defines the string that will be used for the page length control for the table. It should contain a description to let the end user know what the `-tag select` is for. Please see `-init language.pageLength` for full details of the options for this string, including the `_MENU_` replacement string.
+
+		This option will default to the value given by `-init language.pageLength`, which should generally be preferred over this option as the language strings can be loaded by Ajax and shared for the whole table, but if needed, this option is available to override that.
+	</description>
+
+	<example title="Provide search input string"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		topEnd: {
+			search: {
+				text: 'Search table: _MENU_'
+			}
+		}
+	}
+});
+
+]]></example>
+
+	<related>-init language.pageLength</related>
+	<related>-feature pageLength</related>
+	<related>-feature pageLength.text</related>
+	<related>-feature pageLength.menu</related>
+</dt-option>

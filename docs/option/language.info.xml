@@ -24,11 +24,13 @@
 	</description>
 
 	<example title="Show page count"><![CDATA[
-$('#example').dataTable( {
-  "language": {
-    "info": "Showing page _PAGE_ of _PAGES_"
+
+new DataTable('#myTable', {
+  language: {
+    info: 'Showing page _PAGE_ of _PAGES_'
   }
-} );
+});
+
 ]]></example>
 
 	<related type="option">language</related>
@@ -37,4 +39,6 @@ $('#example').dataTable( {
 	<related type="option">language.infoPostFix</related>
 	<related type="option">language.thousands</related>
 	<related type="option">language.entities</related>
+	<related>-feature info</related>
+	<related>-feature info.text</related>
 </dt-option>

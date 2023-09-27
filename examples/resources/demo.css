@@ -248,6 +248,16 @@ code.button {
 code.button:after {
   content: "Button";
 }
+code.feature {
+  color: rgb(221, 109, 17);
+  /* orange */
+  background-color: #fcf9f6;
+  border: 1px solid #f7e5d6;
+  white-space: nowrap;
+}
+code.feature:after {
+  content: "Feature";
+}
 code.multiline {
   display: inline-block;
   width: 95%;
@@ -593,6 +603,11 @@ html.dark code.button {
   color: #f2f7f9;
   background-color: #363a3e;
   border: 1px solid #2b3033;
+}
+html.dark code.feature {
+  color: #f7e2d6;
+  background-color: #36383a;
+  border: 1px solid #2c2e32;
 }
 html.dark .syntaxhighlighter {
   background: #2d2d2d !important;

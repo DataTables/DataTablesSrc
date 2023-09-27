@@ -313,6 +313,19 @@ code {
 		}
 	}
   
+	&.feature {
+		color: rgb(221, 109, 17);
+
+		/* orange */
+		background-color: #fcf9f6;
+		border: 1px solid #f7e5d6;
+		white-space: nowrap;
+
+		&:after {
+			content: 'Feature';
+		}
+	}
+  
 	&.multiline {
 		display: inline-block;
 		width: 95%;
@@ -724,6 +737,10 @@ html.dark {
 	  
 		&.button {
 			@include code-dark-tint(#f2f7f9);
+		}
+	  
+		&.feature {
+			@include code-dark-tint(#f7e2d6);
 		}
 	}
 

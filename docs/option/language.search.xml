@@ -8,7 +8,7 @@
 	<default value="Search:" />
 
 	<description>
-		Sets the string that is used for DataTables filtering input control.
+		Sets the string that is used for DataTables filtering input control. It is overridable by the `-feature search.text` string for a specific search input control.
 
 		The token `string _INPUT_`, if used in the string, is replaced with the HTML text box for the filtering input allowing control over where it appears in the string. If `string _INPUT_` is not given then the input box is appended to the string automatically.
 

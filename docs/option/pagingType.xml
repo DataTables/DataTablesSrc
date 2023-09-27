@@ -9,28 +9,23 @@
 
 	<description>
     <![CDATA[
-    The pagination option of DataTables will display a pagination control below the table (by default, its position can be changed using `dt-init dom` and CSS) with buttons that the end user can use to navigate the pages of the table. Which buttons are shown in the pagination control are defined by the option given here.
-
-    DataTables has six built-in paging button arrangements:
+    This option sets the paging type for all `-feature paging` table feature controls used for a table. The values it can take are defined in `-feature paging.type`, which be used to override this option (as of DataTables 2).
     
-    * `string numbers` - Page number buttons only (<span class="since">1.10.8</span>)
-    * `string simple` - 'Previous' and 'Next' buttons only
-    * `string simple_numbers` - 'Previous' and 'Next' buttons, plus page numbers
-    * `string full` - 'First', 'Previous', 'Next' and 'Last' buttons
-    * `string full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
-    * `string first_last_numbers` - 'First' and 'Last' buttons, plus page numbers
-    
-    Please note that the default value of this parameter was changed in DataTables 2. It is now `full_numbers`, while in DataTables 1.x it was `simple_numbers`.
+    Please note that the default value of this parameter was changed in DataTables 2. It is now `full_numbers`, while in DataTables 1.x it was `simple_numbers`. This change was made as the paging control in DataTables 2 is now responsive and also uses icons for the fixed buttons.
     ]]>
     </description>
 
-	<example title="Use the `full_numbers` type of pagination control"><![CDATA[
-$('#example').dataTable( {
+	<example title="Use the `simple_numbers` type of pagination control"><![CDATA[
+
+new DataTable('#myTable', {
   pagingType: 'simple_numbers'
-} );
+});
+
 ]]></example>
 
   <related type="option">dom</related>
   <related type="option">paging</related>
   <related type="api">page()</related>
+	<related>-feature paging</related>
+	<related>-feature paging.type</related>
 </dt-option>

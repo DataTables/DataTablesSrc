@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="info">
+	<name>info.search</name>
+	<summary>Appended to the info string when searching is active</summary>
+	<since>2.0</since>
+
+	<type type="string" />
+	<default>
+		Defaults to the `-init language.infoFiltered` option.
+	</default>
+
+	<description>
+		When a user performs a search operation on the table, this string is appended to the info feature's display text to given an indication of what the search means in the context of the number of rows found.
+
+		This option will default to the value given by `-init language.infoFiltered`, which should generally be preferred over this option as the language strings can be loaded by Ajax and shared for the whole table, but if needed, this option is available to override that.
+	</description>
+
+
+	<example title="Customise the search string"><![CDATA[
+	
+new DataTable('#myTable', {
+	layout: {
+		bottomStart: {
+			info: {
+				search: ' - filtered from _MAX_ records'
+			}
+		}
+	}
+} );
+
+]]></example>
+
+	<related>-init language.infoFiltered</related>
+	<related>-feature info</related>
+	<related>-feature info.callback</related>
+	<related>-feature info.empty</related>
+	<related>-feature info.postfix</related>
+	<related>-feature info.search</related>
+	<related>-feature info.text</related>
+</dt-option>

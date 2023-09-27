@@ -31,31 +31,24 @@
 	</type>
 
 	<description>
-		The information element can be used to convey information about the current state of the table. Although the internationalisation options presented by DataTables are quite capable of dealing with most customisations, there may be times where you wish to customise the string further. This callback allows you to do exactly that.
+		This option can be used to customise the display text of the `-feature info` feature of DataTables.
 
-		Please note that if the `dt-init info` option is disabled in the initialisation, this callback function is not fired.
+		It is an alias to `-feature info.callback`, which should be preferred when using DataTables 2+. If multiple `-feature info` features are used for a table, `-init infoCallback` will be used for all of them, while `-feature info.callback` is unique to each instance. 
 	</description>
 
 	<example title="Show start to end indexes in the information element"><![CDATA[
-$('#example').dataTable( {
-  "infoCallback": function( settings, start, end, max, total, pre ) {
+	
+new DataTable('#myTable', {
+  infoCallback: function( settings, start, end, max, total, pre ) {
     return start +" to "+ end;
   }
 } );
-]]></example>
 
-	<example title="Use the API in the callback to show page count"><![CDATA[
-$('#example').dataTable( {
-  "infoCallback": function( settings, start, end, max, total, pre ) {
-    var api = this.api();
-    var pageInfo = api.page.info();
-
-    return 'Page '+ (pageInfo.page+1) +' of '+ pageInfo.pages;
-  }
-} );
 ]]></example>
 
 	<related type="option">info</related>
 	<related type="option">language.info</related>
 	<related type="api">page.info()</related>
+	<related>-feature info</related>
+	<related>-feature info.callback</related>
 </dt-option>

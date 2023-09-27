@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="info">
+	<name>info.text</name>
+	<summary>Table summary information display string</summary>
+	<since>2.0</since>
+
+	<type type="string" />
+	<default>
+		Defaults to the `-init language.info` option.
+	</default>
+
+	<description>
+		This option provides the string that will be used to display the info feature's summary of the table to the end user.
+
+		This option will default to the value given by `-init language.info`, which should generally be preferred over this option as the language strings can be loaded by Ajax and shared for the whole table, but if needed, this option is available to override that. It can be useful if you used multiple `-feature info` features in your layout.
+
+		Please note that if you use this string, the replacement tokens documented in `-init language.info` all apply here as well.
+	</description>
+
+
+	<example title="Customise the search string"><![CDATA[
+	
+new DataTable('#myTable', {
+	layout: {
+		bottomStart: {
+			info: {
+				info: 'Showing page _PAGE_ of _PAGES_'
+			}
+		}
+	}
+} );
+
+]]></example>
+
+	<related>-init language.info</related>
+	<related>-feature info</related>
+	<related>-feature info.callback</related>
+	<related>-feature info.empty</related>
+	<related>-feature info.postfix</related>
+	<related>-feature info.search</related>
+	<related>-feature info.text</related>
+</dt-option>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="info">
+	<name>pageLength</name>
+	<summary>Paging length control</summary>
+	<since>2.0</since>
+
+	<description>
+		This feature displays a `-tag select` dropdown that will change the page length used by the DataTable, along with a descriptive label. The `-tag select` let's the end user select how many records should be shown per page.
+
+		The `-feature pageLength` feature can be disabled completely using the `-init lengthChange` or `-init paging` options or by excluding it from the `-init layout` options (which is the preferred method as of DataTables 2).
+	</description>
+
+	<example title="Disable page length control with default layout"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		topStart: null
+	}
+});
+
+]]></example>
+
+	<example title="Show page length control bottom left of the table"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		bottomStart: 'pageLength',
+		topStart: null
+	}
+});
+
+]]></example>
+
+	<example title="Show page length control with options"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		topStart: {
+			pageLength: {
+				menu: [ 5, 10, 25, 50 ]
+			}
+		}
+	}
+});
+
+]]></example>
+
+	<related>-init pageLength</related>
+	<related>-feature pageLength</related>
+	<related>-feature pageLength.text</related>
+	<related>-feature pageLength.menu</related>
+</dt-option>
