@@ -12,7 +12,7 @@
 	</description>
 
 	<example title="Enable search on return"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "search": {
     "return": true
   }

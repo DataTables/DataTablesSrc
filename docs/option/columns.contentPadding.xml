@@ -13,7 +13,7 @@
 	</description>
 
 	<example title="Set a content padding for the last column in the table"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columns": [
     null,
     null,

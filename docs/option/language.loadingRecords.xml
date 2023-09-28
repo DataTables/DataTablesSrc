@@ -12,7 +12,7 @@
 	</description>
 
 	<example title="Set loading information text"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": "json.txt",
   "language": {
      "loadingRecords": "Please wait - loading..."

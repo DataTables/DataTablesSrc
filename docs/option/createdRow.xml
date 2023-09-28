@@ -28,7 +28,7 @@
 	</description>
 
 	<example title="Add a class to the row, conditionally based on the row's data"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "createdRow": function( row, data, dataIndex ) {
     if ( data[4] == "A" ) {
       $(row).addClass( 'important' );

@@ -15,7 +15,7 @@
 	</description>
 
 	<example title="Use `length` to determine how many rows there are in the table"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 alert(
 	'Number of row entries: '+

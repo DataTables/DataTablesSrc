@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Set an initial filter"><![CDATA[
-new DataTable('#example', {
+new DataTable('#myTable', {
 	search: {
 		search: "Fred"
 	}
@@ -22,7 +22,7 @@ new DataTable('#example', {
 ]]></example>
 
 	<example title="Set search to use boundary conditions"><![CDATA[
-new DataTable('#example', {
+new DataTable('#myTable', {
 	search: {
 		boundary: true
 	}

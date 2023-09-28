@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Show 50 records per page"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "pageLength": 50
 } );
 ]]></example>

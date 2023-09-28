@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Disable multiple column ordering ability"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "orderMulti": false
 } );
 ]]></example>

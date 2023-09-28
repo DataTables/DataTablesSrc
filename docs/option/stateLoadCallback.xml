@@ -31,7 +31,7 @@
 	</description>
 
 	<example title="Load state from a server via Ajax (1.10.13 or newer)"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	stateSave: true,
 	stateLoadCallback: function (settings, callback) {
 		$.ajax( {
@@ -46,7 +46,7 @@ $('#example').DataTable( {
 ]]></example>
 
 	<example title="Load state from a server via Sjax (prior to 1.10.13)"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	stateSave: true,
 	stateLoadCallback: function (settings) {
 		var o;

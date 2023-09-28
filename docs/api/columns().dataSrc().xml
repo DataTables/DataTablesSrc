@@ -19,7 +19,7 @@
 	</description>
 
 	<example title="Get the data source for columns 0 and 1"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 alert( 'Data source: '+table.columns( [0, 1] ).dataSrc().join(' ') );
 ]]></example>

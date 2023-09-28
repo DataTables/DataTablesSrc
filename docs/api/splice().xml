@@ -28,7 +28,7 @@
 	</description>
 
 	<example title="Search for a value using `dt-api indexOf()` and replace it using `dt-api splice()` if found."><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 // Get column data
 var data = table

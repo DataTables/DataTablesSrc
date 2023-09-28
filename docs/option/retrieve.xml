@@ -20,7 +20,7 @@ $(document).ready( function() {
 } );
 
 function initTable () {
-  return $('#example').dataTable( {
+  return new DataTable('#myTable', {
     "scrollY": "200px",
     "paginate": false,
     "retrieve": true

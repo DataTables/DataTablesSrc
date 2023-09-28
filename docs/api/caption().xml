@@ -39,15 +39,17 @@
 	</description>
 
 	<example title="Set the table's caption"><![CDATA[
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 
-table.caption( 'Table 1: Class averages' );
+table.caption('Table 1: Class averages');
+
 ]]></example>
 
 	<example title="Set the table's caption and display at the bottom of the table"><![CDATA[
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 
-table.caption( 'Table 2: Year averages', 'bottom' );
+table.caption('Table 2: Year averages', 'bottom');
+
 ]]></example>
 
 	<related>-init caption</related>

@@ -36,7 +36,7 @@
 	</description>
 
 	<example title="Custom paging controls for next / previous pages"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#next').on( 'click', function () {
 	table.page( 'next' ).draw( 'page' );

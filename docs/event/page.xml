@@ -27,7 +27,7 @@
 	</description>
 
 	<example title="Show information about the current page using the API"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#example').on( 'page.dt', function () {
 	var info = table.page.info();

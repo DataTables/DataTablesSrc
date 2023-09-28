@@ -27,16 +27,17 @@
 	</description>
 
 	<example title="Get column indexes for every cell which contains the value '21'"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var columns = table
-	.cells( ':contains("21")' )
+	.cells(':contains("21")')
 	.indexes()
-	.pluck( 'column' )
+	.pluck('column')
 	.sort()
 	.unique();
 
-alert( 'Columns containing 21: '+columns.join(', ') );
+alert('Columns containing 21: ' + columns.join(', '));
+
 ]]></example>
 
 	<related type="api">cell().index()</related>

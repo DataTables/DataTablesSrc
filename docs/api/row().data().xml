@@ -25,7 +25,7 @@
 	</description>
 
 	<example title="Get the data for a single row when clicked upon"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#example tbody').on( 'click', 'tr', function () {
 	console.log( table.row( this ).data() );
@@ -34,7 +34,7 @@ $('#example tbody').on( 'click', 'tr', function () {
 ]]></example>
 
 	<example title="Increase a counter when a row is clicked on"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#example tbody').on( 'click', 'tr', function () {
 	var d = table.row( this ).data();
@@ -52,7 +52,7 @@ $('#example tbody').on( 'click', 'tr', function () {
 ]]></example>
 
 	<example title="Update all rows in the table, redrawing only when complete"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.rows().every( function () {
 	var d = this.data();

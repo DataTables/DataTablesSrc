@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Delete all rows with the class `selected` from the table"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var rows = table
 	.rows( '.selected' )
@@ -26,7 +26,7 @@ var rows = table
 ]]></example>
 
 	<example title="Remove all rows from a table (this is the same effect as using `dt-api clear()`"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var rows = table
 	.rows()

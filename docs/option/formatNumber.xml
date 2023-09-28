@@ -23,7 +23,7 @@
 	</description>
 
 	<example title="Show large numbers with a `'` separator"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "formatNumber": function ( toFormat ) {
     return toFormat.toString().replace(
       /\B(?=(\d{3})+(?!\d))/g, "'"

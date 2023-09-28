@@ -12,7 +12,7 @@
 	</description>
 
 	<example title="Filter using case-sensitive matching"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "search": {
     "caseInsensitive": false
   }

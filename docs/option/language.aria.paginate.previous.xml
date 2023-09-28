@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Use icons for the previous and next buttons with ARIA label text"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	language: {
 		paginate: {
 			previous: '‹',

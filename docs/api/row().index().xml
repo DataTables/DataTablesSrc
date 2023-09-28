@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Show an alert with the row index that was clicked upon"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#example tbody').on( 'click', 'tr', function () {
 	alert( 'Row index: '+table.row( this ).index() );
@@ -25,7 +25,7 @@ $('#example tbody').on( 'click', 'tr', function () {
 ]]></example>
 
 	<example title="Use the selected row as part of a `dt-api cells()` selector."><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#example tbody').on( 'click', 'tr', function () {
 	var idx = table

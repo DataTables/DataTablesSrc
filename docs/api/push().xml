@@ -23,7 +23,7 @@
 	</description>
 
 	<example title="Add a value to an array returned for a column's data."><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var data = table
 	.column( 0 )

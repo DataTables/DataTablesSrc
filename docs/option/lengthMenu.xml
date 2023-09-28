@@ -17,13 +17,13 @@
 	</description>
 
 	<example title="Show options 10, 25, 50, 75 and 100 records"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
   lengthMenu: [ 10, 25, 50, 75, 100 ]
 } );
 ]]></example>
 
 	<example title="Show options 10, 25, 50 and all records"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	lengthMenu: [
 		10,
 		25,

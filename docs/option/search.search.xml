@@ -11,7 +11,7 @@
 	</description>
 
 	<example title="Set an initial filter"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "search": {
     "search": "Fred"
   }

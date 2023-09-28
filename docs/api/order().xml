@@ -96,7 +96,7 @@ table
 ]]></example>
 
 	<example title="Multi-column ordering using column names"><![CDATA[
-var table = new DataTable('#example', {
+var table = new DataTable('#myTable', {
 	columns: [
 		{ name: 'first_name' },
 		{ name: 'last_name' },

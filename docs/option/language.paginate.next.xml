@@ -20,7 +20,7 @@
 	</description>
 
 	<example title="Set text for pagination 'next' button"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
     "paginate": {
       "next": "Next page"

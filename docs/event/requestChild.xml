@@ -29,7 +29,7 @@ $('#example').on('requestChild.dt', function(e, row) {
 	row.child(format(row.data())).show();
 })
 
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	"ajax": "../ajax/data/objects.txt",
 	"rowId": 'id',
 	"stateSave": true,

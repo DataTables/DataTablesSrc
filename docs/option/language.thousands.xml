@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Set thousands separator to be a quote mark"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
     "thousands": "'"
   }

@@ -44,7 +44,7 @@
 	</description>
 
 	<example title="Add an extra parameter (`user_id` in this case), of a static value to the data submitted"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": {
     "url": "data.json",
     "data": {
@@ -55,7 +55,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Add data to the request by manipulating the data object (no return from the function)"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": {
     "url": "data.json",
     "data": function ( d ) {
@@ -66,7 +66,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Add data to the request (returning an object)"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": {
     "url": "data.json",
     "data": function ( d ) {
@@ -79,7 +79,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Submit data as JSON in the request body"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": {
     "url": "data.json",
     "contentType": "application/json",

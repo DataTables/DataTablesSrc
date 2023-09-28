@@ -24,7 +24,7 @@
 	</description>
 
 	<example title="Remove a saved filter, so saved filtering is never loaded"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "stateSave": true,
   "stateLoadParams": function (settings, data) {
     data.search.search = "";
@@ -33,7 +33,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Disallow state loading by returning false"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "stateSave": true,
   "stateLoadParams": function (settings, data) {
     return false;

@@ -27,7 +27,7 @@
 	</description>
 
 	<example title="Sort the data from a column"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var data = table
 	.column( 0 )

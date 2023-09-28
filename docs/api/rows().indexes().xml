@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Use the indexes in a rows selector to get the data"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var rows = table.rows( '.selected' ).indexes();
 var data = table.rows( rows ).data();

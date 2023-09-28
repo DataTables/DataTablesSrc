@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Remove a class from columns with that class"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table
 	.columns( '.highlight' )
@@ -27,7 +27,7 @@ table
 ]]></example>
 
 	<example title="Alert the name of the column for a cell that was clicked on"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#example tbody').on( 'click', 'td', function () {
 	var idx = table.cell( this ).index().column;

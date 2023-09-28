@@ -24,16 +24,17 @@
 	</description>
 
 	<example title="Show column index information about a clicked upon column"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-table.column( 0 ).visible( false );
+table.column(0).visible(false);
 
-$('#example tbody').on( 'click', 'td', function () {
+$('#example tbody').on('click', 'td', function () {
 	var visIdx = $(this).index();
-	var dataIdx = table.column.index( 'fromVisible', visIdx );
+	var dataIdx = table.column.index('fromVisible', visIdx);
 
-	alert( 'Column data index: '+dataIdx+', and visible index: '+visIdx );
-} );
+	alert('Column data index: ' + dataIdx + ', and visible index: ' + visIdx);
+});
+
 ]]></example>
 
 </dt-api>

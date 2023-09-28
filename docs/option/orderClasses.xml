@@ -16,7 +16,7 @@
 ]]></description>
 
 	<example title="Disable column sorting classes"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "orderClasses": false
 } );
 ]]></example>

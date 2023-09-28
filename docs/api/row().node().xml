@@ -19,7 +19,7 @@
 	</description>
 
 	<example title="Add a class to a specific row"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var row = table
 	.row( '#row-4' )

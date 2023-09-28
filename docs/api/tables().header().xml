@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Add a class to the original `dt-tag thead` element"><![CDATA[
-var tables = $('.dataTable').DataTable( {
+var tables = new DataTable('.dataTable', {
 	scrollX: "100%"
 } );
 

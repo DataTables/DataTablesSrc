@@ -16,7 +16,7 @@
 	</description>
 
 	<example title="Setting column names with `dt-init columnDefs`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [
     { "name": "engine",   "targets": 0 },
     { "name": "browser",  "targets": 1 },
@@ -28,7 +28,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Setting column names with `dt-init columns`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columns": [
     { "name": "engine" },
     { "name": "browser" },

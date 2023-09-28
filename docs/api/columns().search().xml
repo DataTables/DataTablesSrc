@@ -67,7 +67,7 @@
 	</description>
 
 	<example title="Apply a search to multiple columns"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table
 	.columns( '.status' )
@@ -83,7 +83,7 @@ $('#example tfoot th').each( function () {
 } );
 
 // DataTable
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 // Apply the filter
 table.columns().every( function () {
@@ -99,7 +99,7 @@ table.columns().every( function () {
 ]]></example>
 
 	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.columns( '.select-filter' ).every( function () {
 	var that = this;

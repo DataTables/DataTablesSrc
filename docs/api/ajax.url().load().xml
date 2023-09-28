@@ -24,11 +24,11 @@
 	</description>
 
 	<example title="Set the Ajax URL and load the data from the new source immediately"><![CDATA[
-var table = $('#example').DataTable( {
-	ajax: "data.json"
-} );
+var table = new DataTable('#myTable', {
+	ajax: 'data.json'
+});
 
-table.ajax.url( 'newData.json' ).load();
+table.ajax.url('newData.json').load();
 ]]></example>
 
 	<related type="option">ajax</related>

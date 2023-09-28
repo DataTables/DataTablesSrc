@@ -102,7 +102,7 @@
 //      "version": {value},
 //      "grade": {value}
 //   }
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajaxSource": "sources/objects.txt",
   "columns": [
     { "data": "engine" },
@@ -126,7 +126,7 @@ $('#example').dataTable( {
 //         {value}, {value}
 //      ]
 //   }
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajaxSource": "sources/deep.txt",
   "columns": [
     { "data": "engine" },
@@ -154,7 +154,7 @@ $(document).ready(function() {
 ]]></example>
 
 	<example title="Using `data` as a function to provide different information for sorting, filtering and display. In this case, currency (price)"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [ {
     "targets": 0,
     "data": function ( row, type, val, meta ) {
@@ -179,7 +179,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Using default content"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [ {
     "targets": [ 0 ],
     "data": null,
@@ -189,7 +189,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Using array notation - outputting a list from an array"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [ {
     "targets": [ 0 ],
     "data": "name[, ]"

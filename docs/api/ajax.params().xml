@@ -20,15 +20,15 @@
 	</description>
 
 	<example title="Show the search term on each Ajax request"><![CDATA[
-var table = $('#example').DataTable( {
-	ajax: "data.json",
+var table = new DataTable('#myTable', {
+	ajax: 'data.json',
 	serverSide: true
-} );
+});
 
-table.on( 'xhr', function () {
+table.on('xhr', function () {
 	var data = table.ajax.params();
-	alert( 'Search term was: '+data.search.value );
-} );
+	alert('Search term was: ' + data.search.value);
+});
 ]]></example>
 
 	<related type="option">ajax</related>

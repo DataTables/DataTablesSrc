@@ -16,7 +16,7 @@
 	</description>
 
 	<example title="Set the first column's aria-label with `dt-init columnDefs`"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	columnDefs: [ {
 		ariaTitle: 'Screenreader title',
 		targets: 0
@@ -25,7 +25,7 @@ $('#example').DataTable( {
 ]]></example>
 
 	<example title="Set the first column's aria-label with `dt-init columns`"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	columns: [
 	{ title: 'Screenreader title' },
 		null,

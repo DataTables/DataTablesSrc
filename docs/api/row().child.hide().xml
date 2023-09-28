@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Create detail rows initially, but don't show them until the row is clicked upon and hide on second click"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.rows().every( function () {
 	this.child( 'Row details for row: '+this.index() );

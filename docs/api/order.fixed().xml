@@ -42,7 +42,7 @@
 	</description>
 
 	<example title="Set the fixed ordering of the table"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.order.fixed( {
 	pre: [ 0, 'asc' ]

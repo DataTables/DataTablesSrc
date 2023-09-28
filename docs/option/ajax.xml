@@ -23,7 +23,7 @@
 			Simple example:
 
 			```js
-			$('#example').dataTable( {
+			new DataTable('#myTable', {
 			  "ajax": "data.json"
 			} );
 			```
@@ -46,7 +46,7 @@
 			Simple example:
 
 			```js
-			$('#example').dataTable( {
+			new DataTable('#myTable', {
 			  "ajax": {
 			    "url": "data.json",
 			    "type": "POST"
@@ -76,7 +76,7 @@
 			Simple example:
 
 			```js
-			$('#example').dataTable( {
+			new DataTable('#myTable', {
 			  "ajax": function (data, callback, settings) {
 			    callback(
 			      JSON.parse( localStorage.getItem('dataTablesData') )
@@ -100,13 +100,13 @@
 	</description>
 
 	<example title="Get JSON data from a file via Ajax."><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": "data.json"
 } );
 ]]></example>
 
 	<example title="Get JSON data from a file via Ajax, using `dataSrc` to change `data` to `tableData` (i.e. `{ tableData: [ ...data... ] }`)"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": {
     "url": "data.json",
     "dataSrc": "tableData"
@@ -115,7 +115,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Get JSON data from a file via Ajax, using `dataSrc` to read data from a plain array rather than an array in an object"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": {
     "url": "data.json",
     "dataSrc": ""
@@ -124,7 +124,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Send request as POST"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": {
     "url": "data.json",
     "type": "POST"
@@ -133,7 +133,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Add data to the request, returnng an object by extending the default data"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": {
     "url": "data.json",
     "data": function ( d ) {
@@ -146,7 +146,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Add data to the request by manipulating the data object"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": {
     "url": "data.json",
     "data": function ( d ) {
@@ -157,7 +157,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Manipulate the data returned from the server - add a link to data (note this can, should, be done using `render` for the column - this is just a simple example of how the data can be manipulated)."><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": {
     "url": "data.json",
     "dataSrc": function ( json ) {
@@ -171,7 +171,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Get the data from localStorage (could interface with a form for adding, editing and removing rows)."><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": function (data, callback, settings) {
     callback(
       JSON.parse( localStorage.getItem('dataTablesData') )

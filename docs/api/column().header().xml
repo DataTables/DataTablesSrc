@@ -19,14 +19,15 @@
 	</description>
 
 	<example title="Alert the name of the column for a cell that was clicked on"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-$('#example tbody').on( 'click', 'td', function () {
-	var idx = table.cell( this ).index().column;
-	var title = table.column( idx ).header();
+$('#example tbody').on('click', 'td', function () {
+	var idx = table.cell(this).index().column;
+	var title = table.column(idx).header();
 
-	alert( 'Column title clicked on: '+$(title).html() );
-} );
+	alert('Column title clicked on: ' + $(title).html());
+});
+
 ]]></example>
 
 	<related type="api">columns().header()</related>

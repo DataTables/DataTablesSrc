@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Have the first column use TH cells`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajax": "json.txt",
   "columnDefs": [ {
     "targets": 0,

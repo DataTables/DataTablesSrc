@@ -31,7 +31,7 @@
 	</description>
 
 	<example title="Alter the content of the footer on callback"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "footerCallback": function( tfoot, data, start, end, display ) {
     $(tfoot).find('th').eq(0).html( "Starting index is "+start );
   }
@@ -39,7 +39,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Use the API to sum a specific column and output"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "footerCallback": function( tfoot, data, start, end, display ) {
     var api = this.api();
     $( api.column( 5 ).footer() ).html(

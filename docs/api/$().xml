@@ -25,10 +25,9 @@
 	</description>
 
 	<example title="Find all cells with content's 'High' and add a class"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable( '#myTable' );
 
-table
-	.$(':contains("High")')
+table.$(':contains("High")')
 	.addClass('important');
 ]]></example>
 </dt-api>

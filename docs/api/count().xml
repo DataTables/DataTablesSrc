@@ -17,14 +17,14 @@
 	</description>
 
 	<example title="Count how many rows there are with the class `selected`"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 alert( 'Rows '+table.rows( '.selected' ).count()+' are selected' );
 
 ]]></example>
 
 	<example title="Count the number of rows in a table "><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 if ( ! table.rows().count() ) {
 	alert( 'Empty table' );

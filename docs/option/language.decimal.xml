@@ -24,7 +24,7 @@
 	</description>
 
 	<example title="Detect and sort numbers which use a comma as a decimal place"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
     "decimal": ","
   }
@@ -32,7 +32,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Detect and sort numbers which use a dash as a decimal place"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
     "decimal": "-",
 	"thousands": "."

@@ -12,7 +12,7 @@
 	</description>
 
 	<example title="Disable search on the first column with `dt-init columnDefs`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [
     { "searchable": false, "targets": 0 }
   ]
@@ -20,7 +20,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Disable search on the first column with `dt-init columns`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columns": [
     { "searchable": false },
     null,

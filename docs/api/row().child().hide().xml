@@ -21,7 +21,7 @@
 	</description>
 
 	<example title="Hide a child row immediately after setting its value"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 // Show an initial child row
 table

@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#example tbody').on('click', 'td.details-control', function () {
 	var tr = $(this).parents('tr');

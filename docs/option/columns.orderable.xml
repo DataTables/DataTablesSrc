@@ -27,7 +27,7 @@
 	</description>
 
 	<example title="Disable ordering on the first column AND set the default ordering for the table (the default would still be to order on column index 0 otherwise)"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
   columnDefs: [
     { orderable: false, targets: 0 }
   ],
@@ -36,7 +36,7 @@ $('#example').DataTable( {
 ]]></example>
 
 	<example title="Disable ordering on the first column with `dt-init columnDefs`"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
   columnDefs: [
     { orderable: false, targets: 0 }
   ]
@@ -44,7 +44,7 @@ $('#example').DataTable( {
 ]]></example>
 
 	<example title="Disable ordering on the first column with `dt-init columns`"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
   columns: [
     { orderable: false },
     null,

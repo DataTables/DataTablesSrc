@@ -19,7 +19,7 @@
 	</description>
 
 	<example title="Remove a class from all rows which have that class currently"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table
 	.rows( '.ready' )

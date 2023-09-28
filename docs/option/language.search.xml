@@ -22,7 +22,7 @@
 	</description>
 
 	<example title="Input text box will be appended at the end automatically"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
     "search": "Filter records:"
   }
@@ -30,7 +30,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Custom text using `language.entries`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
     "search": "Filter _ENTRIES_:"
   }
@@ -38,7 +38,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Specify where the filter should appear"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
     "search": "Apply filter _INPUT_ to table"
   }

@@ -30,7 +30,7 @@
 	</description>
 
 	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.columns( '.select-filter' ).every( function () {
 	var that = this;

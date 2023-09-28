@@ -19,7 +19,7 @@
 	</description>
 
 	<example title="Adjust the column sizes of a newly shown table"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#container').css( 'display', 'block' );
 table.columns.adjust().draw();

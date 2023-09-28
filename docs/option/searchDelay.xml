@@ -30,7 +30,7 @@
 	</description>
 
 	<example title="Set a 350mS throttle for searching"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
   searchDelay: 350
 } );
 ]]></example>

@@ -24,7 +24,7 @@
 	</description>
 
 	<example title="Remove a saved filter, so filtering is never saved"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "stateSave": true,
   "stateSaveParams": function (settings, data) {
     data.search.search = "";

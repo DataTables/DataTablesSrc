@@ -19,12 +19,13 @@
 	</description>
 
 	<example title="Get the data source for a column that was clicked on"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-$('#example').on( 'click', 'tbody td', function () {
+$('#example').on('click', 'tbody td', function () {
 	var idx = table.cell(this).index().column;
-	alert( 'Data source: '+table.column( idx ).dataSrc() );
-} );
+	alert('Data source: ' + table.column(idx).dataSrc());
+});
+
 ]]></example>
 
 	<related type="api">columns().data()</related>

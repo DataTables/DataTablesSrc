@@ -28,7 +28,7 @@
 	</description>
 
 	<example title="Loop over the data from a column"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table
 	.column( 0 )

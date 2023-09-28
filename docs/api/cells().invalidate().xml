@@ -30,11 +30,11 @@
 	</description>
 
 	<example title="Modify a cell's content using jQuery and then invalidate the data held by DataTables"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var td = $('#example tbody td:eq(0)');
 
-td.html( 'Updated' );
-table.cell( td ).invalidate().draw();
+td.html('Updated');
+table.cell(td).invalidate().draw();
 
 ]]></example>
 

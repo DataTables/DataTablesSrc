@@ -23,14 +23,13 @@
 	</description>
 
 	<example title="Get a property from a column"><![CDATA[
-
-let table = new DataTable('#example', {
-    columnDefs: [
-        {
-            target: 1,
-            customProp: true
-        }
-    ]
+let table = new DataTable('#myTable', {
+	columnDefs: [
+		{
+			target: 1,
+			customProp: true
+		}
+	]
 });
 
 table.column().init().customProp;

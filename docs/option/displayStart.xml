@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Show row 20 as the first row in the table on startup"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "displayStart": 20
 } );
 ]]></example>

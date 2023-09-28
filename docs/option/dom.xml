@@ -135,7 +135,7 @@
     {information}
     {pagination}
 */
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "dom": 'lrtip'
 } );
 ]]></example>
@@ -150,7 +150,7 @@ $('#example').dataTable( {
       {table}
     </div>
 */
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "dom": '<"wrapper"flipt>'
 } );
 ]]></example>
@@ -167,7 +167,7 @@ $('#example').dataTable( {
       {pagination}
     </div>
 */
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "dom": '<lf<t>ip>'
 } );
 ]]></example>
@@ -186,7 +186,7 @@ $('#example').dataTable( {
     </div>
     <div class="clear"></div>
 */
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "dom": '<"top"i>rt<"bottom"flp><"clear">'
 } );
 ]]></example>

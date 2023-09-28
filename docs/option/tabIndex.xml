@@ -14,7 +14,7 @@
 	</description>
 
 	<example title=""><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "tabIndex": 1
 } );
 ]]></example>

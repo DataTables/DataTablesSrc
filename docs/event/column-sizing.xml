@@ -23,7 +23,7 @@
 	</description>
 
 	<example title="Notify when the column widths are recalculated"><![CDATA[
-$('#example').dataTable();
+new DataTable('#myTable');
 
 $('#example').on( 'column-sizing.dt', function ( e, settings ) {
 	console.log( 'Column width recalculated in table' );

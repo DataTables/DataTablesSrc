@@ -24,14 +24,14 @@
 	</description>
 
 	<example title="Disable deferred rendering"><![CDATA[
-new DataTable('#example', {
+new DataTable('#myTable', {
   ajax: 'sources/arrays.txt',
   deferRender: true
 } );
 ]]></example>
 
 	<example title="Events with deferred rendering"><![CDATA[
-var table = new DataTable('#example', {
+var table = new DataTable('#myTable', {
   ajax: 'sources/arrays.txt'
 } );
 

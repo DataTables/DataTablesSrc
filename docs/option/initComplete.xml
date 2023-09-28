@@ -22,7 +22,7 @@
 	</description>
 
 	<example title="Show an alert when the table has fully loaded"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "initComplete": function(settings, json) {
     alert( 'DataTables has finished its initialisation.' );
   }
@@ -32,7 +32,7 @@ $('#example').dataTable( {
 	<example title="Show a loading message while the table is being initialised (`processing` will do this as well)"><![CDATA[
 $('<div class="loading">Loading</div>').appendTo('body');
 
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "initComplete": function( settings, json ) {
     $('div.loading').remove();
   }

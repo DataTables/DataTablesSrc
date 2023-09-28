@@ -32,7 +32,7 @@
 	</description>
 
 	<example title="Get the titles for all columns:"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var titles = table.columns().titles();
 );

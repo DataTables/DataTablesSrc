@@ -27,7 +27,7 @@
 	</description>
 
 	<example title="Allow user to click on two elements to select if all records should be shown or just 10"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#all').on( 'click', function () {
 	table.page.len( -1 ).draw();

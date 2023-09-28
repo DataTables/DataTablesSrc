@@ -15,7 +15,7 @@
 	</description>
 
 	<example title="Using a 2D array data source"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
 	"data": [
 		[ "Tiger Nixon", "System Architect", "$3,120", "2011/04/25", "Edinburgh", 5421 ],
 		[ "Garrett Winters", "Director", "$8,422", "2011/07/25", "Edinburgh", 8422 ],
@@ -26,7 +26,7 @@ $('#example').dataTable( {
 
 	<example title="Using an array of objects as a data source"><![CDATA[
 
-$('#example').dataTable( {
+new DataTable('#myTable', {
 	"data": [
 		{
 			"name":       "Tiger Nixon",

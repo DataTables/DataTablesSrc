@@ -29,7 +29,7 @@
 	</description>
 
 	<example title="Listen for only the first `dt-event xhr` event from DataTables"><![CDATA[
-var table = $('#example').DataTable( {
+var table = new DataTable('#myTable', {
 	ajax: "/data",
 	serverSide: true
 } );

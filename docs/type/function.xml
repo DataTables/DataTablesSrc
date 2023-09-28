@@ -18,7 +18,7 @@ Where a parameter is shown as accepting a function type, or a method returning a
 Functions in DataTables are frequently used for callbacks. For example, using an anonymous function which is executed whenever DataTables performs a draw action (`dt-init drawCallback`):
 
 ```js
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	drawCallback: function () {
 		console.log( 'Table redrawn '+new Date() );
 	}
@@ -32,7 +32,7 @@ var draw = function () {
 	console.log( 'Table redrawn '+new Date() );
 };
 
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	drawCallback: draw
 } );
 ```
@@ -44,7 +44,7 @@ function draw () {
 	console.log( 'Table redrawn '+new Date() );
 };
 
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	drawCallback: draw
 } );
 ```

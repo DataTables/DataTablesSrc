@@ -32,12 +32,12 @@
 	</description>
 
 	<example title="Increment a cell's value and then invalidate and redraw the table"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-$('#example tbody').on( 'click', 'td', function () {
-	this.innerHTML = parseInt( this.innerHTML ) + 1;
-	table.cell( this ).invalidate().draw();
-} );
+$('#example tbody').on('click', 'td', function () {
+	this.innerHTML = parseInt(this.innerHTML) + 1;
+	table.cell(this).invalidate().draw();
+});
 
 ]]></example>
 

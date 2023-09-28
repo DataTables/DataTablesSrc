@@ -20,7 +20,7 @@
 	</description>
 
 	<example title="Enable server-side processing"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "serverSide": true,
   "ajax": "xhr.php"
 } );

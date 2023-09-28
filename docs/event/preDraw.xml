@@ -25,7 +25,7 @@
 	</description>
 
 	<example title="Log time taken to draw the page"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var startTime;
 
 table

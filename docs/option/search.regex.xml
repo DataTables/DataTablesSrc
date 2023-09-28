@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Treat search inputs as regular expressions"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "search": {
     "regex": true
   }

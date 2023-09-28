@@ -32,7 +32,7 @@
 	</description>
 
 	<example title="Square the values from a column"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var squared = table
 	.column( 0 )

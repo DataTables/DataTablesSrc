@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Set the titles and footer cells for a column"><![CDATA[
-new DataTable('#example', {
+new DataTable('#myTable', {
 	columns: [
 		{
 			footer: 'First footer',

@@ -15,14 +15,14 @@
 	</description>
 
 	<example title="Show an indication of how many rows are loaded"><![CDATA[
-var table = $('#example').DataTable( {
-	ajax: "data.json"
-} );
+var table = new DataTable('#myTable', {
+	ajax: 'data.json'
+});
 
-table.on( 'xhr', function () {
+table.on('xhr', function () {
 	var json = table.ajax.json();
-	alert( json.data.length +' row(s) were loaded' );
-} );
+	alert(json.data.length + ' row(s) were loaded');
+});
 ]]></example>
 
 	<related type="option">ajax</related>

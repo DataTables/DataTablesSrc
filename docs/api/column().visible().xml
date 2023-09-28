@@ -27,7 +27,7 @@
 	</description>
 
 	<example title="Get the visibility status of column index 0"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 alert( 'Column index 0 is '+
 	(table.column( 0 ).visible() === true ? 'visible' : 'not visible')
@@ -35,13 +35,13 @@ alert( 'Column index 0 is '+
 ]]></example>
 
 	<example title="Hide the first column in the table"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.column( 0 ).visible( false );
 ]]></example>
 
 	<example title="Hide multiple columns using `redrawCalculations` to improve performance"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 for ( var i=0 ; i<4 ; i++ ) {
 	table.column( i ).visible( false, false );

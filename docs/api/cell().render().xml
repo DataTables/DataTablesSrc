@@ -27,24 +27,24 @@
 	</description>
 
 	<example title="Get the display information for the cell clicked on"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-$('#example').on( 'click', 'tbody td', function () {
-	var data = table.cell( this ).render( 'display' );
+$('#example').on('click', 'tbody td', function () {
+	var data = table.cell(this).render('display');
 
-	console.log( data );
-} );
+	console.log(data);
+});
 
 ]]></example>
 
 	<example title="Get the order information for the cell clicked on"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-$('#example').on( 'click', 'tbody td', function () {
-	var data = table.cell( this ).render( 'sort' );
+$('#example').on('click', 'tbody td', function () {
+	var data = table.cell(this).render('sort');
 
-	console.log( data );
-} );
+	console.log(data);
+});
 
 ]]></example>
 

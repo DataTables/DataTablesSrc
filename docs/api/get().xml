@@ -27,7 +27,7 @@
 	</description>
 
 	<example title="Get the data from the top cell in the second column, taking into account current sorting"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var cellData = table.column(2, {order: 'applied'}).data().get(0);
 
 // Note that the above is functionally the same as:
@@ -35,7 +35,7 @@ var cellData = table.column(2, {order: 'applied'}).data().get(0);
 ]]></example>
 
 	<example title="Get the data for the first row in the table"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.rows().data().get(0);
 

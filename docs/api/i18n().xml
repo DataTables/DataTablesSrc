@@ -45,7 +45,7 @@
 
 	<example title="Simple string lookup with no use defined string (i.e. use default)"><![CDATA[
 
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 
 // Will show "Copy to clipboard"
 alert(
@@ -73,7 +73,7 @@ alert(
 
 	<example title="Plural form with no developer defined options"><![CDATA[
 
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 
 // Will show "0 rows selected"
 alert(

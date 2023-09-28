@@ -36,7 +36,7 @@
 	</description>
 
 	<example title="Notify when column visibility is changed"><![CDATA[
-$('#example').dataTable();
+new DataTable('#myTable');
 
 $('#example').on( 'column-visibility.dt', function ( e, settings, column, state ) {
 	console.log(

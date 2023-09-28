@@ -15,10 +15,11 @@
 	</description>
 
 	<example title="Add a data property to the caption using jQuery"><![CDATA[
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 
-table.caption( 'Table 1: Year averages' );
-$( table.caption.node() ).data( 'total', 100 );
+table.caption('Table 1: Year averages');
+$(table.caption.node()).data('total', 100);
+
 ]]></example>
 
 	<related>-init caption</related>

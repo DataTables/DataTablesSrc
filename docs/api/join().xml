@@ -22,7 +22,7 @@
 	</description>
 
 	<example title="Create a comma separated string of the data in a column"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var combinedData = table
 	.column( 0 )

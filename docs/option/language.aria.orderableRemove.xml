@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Set ARIA orderableRemove string"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
   language: {
     aria: {
       orderableRemove: ": Remove sort from this column"

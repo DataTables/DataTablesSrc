@@ -23,7 +23,7 @@
 	</description>
 
 	<example title="Simply add a new row to the table and redraw"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.row.add( {
 		"name":       "Tiger Nixon",
@@ -36,7 +36,7 @@ table.row.add( {
 ]]></example>
 
 	<example title="Add a row and get its newly created node to highlight that it was newly added"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var rowNode = table
 	.row.add( [ 'Fiona White', 32, 'Edinburgh' ] )

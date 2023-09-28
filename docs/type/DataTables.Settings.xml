@@ -19,7 +19,7 @@ The above will create an API instance for the table that is referenced by the `s
 Consider a more complete example using `dt-init drawCallback`:
 
 ```js
-$('#example').dataTable( {
+new DataTable('#myTable', {
 	"drawCallback": function( settings ) {
 		var api = new $.fn.dataTable.Api( settings );
 

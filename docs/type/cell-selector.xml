@@ -30,7 +30,7 @@ If no selector is given (more specifically `dt-type undefined`), then all cells 
 ###### Get the nodes for all cells in the table:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var cells = table.cells().nodes();
 ```
 
@@ -44,21 +44,21 @@ Note that just like jQuery selector, is it possible to supply multiple selectors
 ###### Get data from a single cell by id:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var data = table.cell('#cell-2-42').data();
 ```
 
 ###### Select cells by class name:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var cells = table.cells('.priority');
 ```
 
 ###### Select cells by two class name selectors:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var cells = table.cells('.important, .intermediate');
 ```
 
@@ -70,7 +70,7 @@ var cells = table.cells('.important, .intermediate');
 ###### Get the data for a cell that was clicked upon:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#example tbody').on( 'click', 'td', function () {
   var cellData = table.cell( this ).data();
@@ -100,7 +100,7 @@ The function is called once for every cell that can be selected, based on the `d
 ###### Get the nodes for all cells that contain `1`:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var ones = table
 	.cells( function ( idx, data, node ) {
@@ -122,7 +122,7 @@ Very similar to the above `node` type (since a jQuery object is an _array-like_ 
 
 ```js
 var cells = $('td.immediate');
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var cellData = table.cells( cells ).data();
 
@@ -151,14 +151,14 @@ Any combination of the above options can be given as selector together, providin
 ###### Get the data for two cells, based on id:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var data = table.cells( ['#cell-1-42', '#cell-1-91'] ).data();
 ```
 
 ###### Mix `cell-selector` types - id and class selector
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var data = table.cells( ['#cell-1-42', '.important'] ).data();
 ```
 

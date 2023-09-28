@@ -11,7 +11,7 @@
 	</description>
 
 	<example title="Using `className` to assign a class to the cells in the first column with `dt-init columnDefs`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [
     { className: "my_class", "targets": [ 0 ] }
   ]
@@ -19,7 +19,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Using `className` to assign a class to the cells in the first column with `dt-init columns`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columns": [
     { className: "my_class" },
     null,

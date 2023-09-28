@@ -57,7 +57,7 @@
 	</description>
 
 	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#example tbody').on('click', 'td.details-control', function () {
 	var tr = $(this).parents('tr');
@@ -78,7 +78,7 @@ $('#example tbody').on('click', 'td.details-control', function () {
 ]]></example>
 
 	<example title="Create multiple child rows for a single row in the table - the first visible row."><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.row( ':eq(0)' ).child( [
 		'First child row',
@@ -90,7 +90,7 @@ table.row( ':eq(0)' ).child( [
 ]]></example>
 
 	<example title="Add a child row to all rows, passing in a jQuery created `dt-tag tr` element and show all child rows"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.rows().every( function () {
 	this

@@ -28,7 +28,7 @@
 	</description>
 
 	<example title="Show information about the current order using the API"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#example').on( 'order.dt', function () {
 	// This will show: "Ordering on column 1 (asc)", for example

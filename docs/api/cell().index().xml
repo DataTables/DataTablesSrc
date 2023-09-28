@@ -27,27 +27,26 @@
 	</description>
 
 	<example title="Alert the visible column index (count) for the cell clicked on"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-$('#example tbody').on( 'click', 'td', function () {
-	alert( 'Clicked on cell in visible column: '+table.cell( this ).index().columnVisible );
-} );
+table.on('click', 'tbody td', function () {
+	alert(
+		'Clicked on cell in visible column: ' +
+			table.cell(this).index().columnVisible
+	);
+});
+
 ]]></example>
 
 	<example title="Use row index in a row selector to add a class to the clicked on row"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-$('#example tbody').on( 'click', 'td', function () {
-	var rowIdx = table
-		.cell( this )
-		.index().row;
+table.on('click', 'tbody td', function () {
+	var rowIdx = table.cell(this).index().row;
 
-	table
-		.rows( rowIdx )
-		.nodes()
-		.to$()
-		.addClass( 'clicked' );
-} );
+	table.rows(rowIdx).nodes().to$().addClass('clicked');
+});
+
 ]]></example>
 
 	<related type="api">cells().indexes()</related>

@@ -30,7 +30,7 @@
 	</description>
 
 	<example title="Filter the table based on a custom input and redraw"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#myFilter').on( 'keyup', function () {
 	table
@@ -40,7 +40,7 @@ $('#myFilter').on( 'keyup', function () {
 ]]></example>
 
 	<example title="Sort and then redraw the table maintaining current paging position"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 // Sort by column 1 and then re-draw
 table
@@ -49,7 +49,7 @@ table
 ]]></example>
 
 	<example title="Change the table's page and then redraw (using the `-string page` option)"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.page( 'next' ).draw( 'page' );
 ]]></example>

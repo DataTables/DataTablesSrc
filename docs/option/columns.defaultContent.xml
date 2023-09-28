@@ -13,7 +13,7 @@
 	</description>
 
   <example title="Show an information message for a field that can have a `null` or `undefined` value"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columns": [
     null,
     null,
@@ -27,7 +27,7 @@ $('#example').dataTable( {
 ]]></example>
 
   <example title="Show an empty string when a field's value is `null` or `undefined` value"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columns": [
     null,
     null,
@@ -41,7 +41,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Create an edit button in the last column with `dt-init columnDefs`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [
     {
       "data": null,
@@ -53,7 +53,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Create an edit button in the last column with `dt-init columns`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columns": [
     null,
     null,

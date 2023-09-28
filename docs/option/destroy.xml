@@ -15,12 +15,12 @@
 
 
 	<example title="Destroy an existing table and create a new one"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "scrollY": "200px"
 } );
 
 // Some time later, recreate without (no scrolling)
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "destroy": true
 } );
 ]]></example>

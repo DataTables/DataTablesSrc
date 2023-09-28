@@ -19,16 +19,18 @@
 	</description>
 
 	<example title="Sum the data for column 4"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-alert( 'Column 4 sum: '+
-	table
-		.column( 4 )
-		.data()
-		.reduce( function (a,b) {
-			return a + b;
-		} );
+alert(
+	'Column 4 sum: ' +
+		table
+			.column(4)
+			.data()
+			.reduce(function (a, b) {
+				return a + b;
+			})
 );
+
 ]]></example>
 
 	<related type="api">columns().data()</related>

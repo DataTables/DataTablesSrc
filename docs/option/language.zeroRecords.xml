@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Set zero records string"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
     "zeroRecords": "No records to display"
   }

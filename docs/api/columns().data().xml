@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Get a list of the unique data, sorted, from a single column"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#listData').html( 
 	table
@@ -31,7 +31,7 @@ $('#listData').html(
 ]]></example>
 
 	<example title="Check if a value is in the data in the columns with a class of '.check'"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var idx = table
 	.columns( '.check' )

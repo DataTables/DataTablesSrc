@@ -18,7 +18,7 @@
 	</description>
 
 	<example title="Set a placeholder"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
 	language: {
 		searchPlaceholder: "Search records"
 	}
@@ -26,7 +26,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Search input with no label - just the placeholder"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
 	language: {
 		search: "_INPUT_",
 		searchPlaceholder: "Search..."

@@ -57,16 +57,16 @@
 	</description>
 
 	<example title="Add a class to cells which meet a logical requirement in the source data"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-table.cells().every( function () {
-	if ( this.data() > 50 ) {
-		$(this.node()).addClass( 'warning' );
+table.cells().every(function () {
+	if (this.data() > 50) {
+		$(this.node()).addClass('warning');
 	}
 	else {
-		$(this.node()).removeClass( 'warning' );
+		$(this.node()).removeClass('warning');
 	}
-} );
+});
 
 ]]></example>
 

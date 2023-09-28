@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Disable ordering in the table"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ordering": false
 } );
 ]]></example>

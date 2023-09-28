@@ -34,7 +34,7 @@
 	</description>
 
 	<example title="Sum the data in a column"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var sum = table
 	.column( 0 )

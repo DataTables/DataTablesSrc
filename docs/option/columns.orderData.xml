@@ -23,7 +23,7 @@
 	</description>
 
 	<example title="Using `orderData` to define multi-column sorting with `dt-init columnDefs`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [
     { "orderData": [ 0, 1 ],    "targets": 0 },
     { "orderData": 0,           "targets": 1 },
@@ -33,7 +33,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Using `orderData` to define multi-column sorting with `dt-init columns`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columns": [
     { "orderData": [ 0, 1 ] },
     { "orderData": 0, },

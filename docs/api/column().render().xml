@@ -27,10 +27,10 @@
 	</description>
 
 	<example title="Get the display information for a column"><![CDATA[
-var table = $('#example').DataTable();
-var rendered = table.column( 1 ).render();
+var table = new DataTable('#myTable');
+var rendered = table.column(1).render();
 
-console.log( rendered );
+console.log(rendered);
 
 ]]></example>
 

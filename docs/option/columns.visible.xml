@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Hide the first column with `dt-init columnDefs`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [
     { "visible": false, "targets": 0 }
   ]
@@ -22,7 +22,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Hide the first column with `dt-init columns`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columns": [
     { "visible": false },
     null,

@@ -19,7 +19,7 @@
 	</type>
 
 	<description>
-		The DataTables API can operate on multiple tables at a single time - the tables in the "context". As a quick example `$('.dataTable').DataTable().search('Fred').draw();` will filter all tables which were found by the class `dataTable`.
+		The DataTables API can operate on multiple tables at a single time - the tables in the "context". As a quick example `new DataTable('.dataTable').search('Fred').draw();` will filter all tables which were found by the class `dataTable`.
 
 		The context of an API instance defines which DataTable tables the API will operate on and this method provides one way to control what tables are in that context.
 
@@ -29,13 +29,13 @@
 	</description>
 
 	<example title="Apply an order to the second and third table in the API's context"><![CDATA[
-var tables = $('.dataTable').DataTable();
+var tables = new DataTable('.dataTable');
 
 tables.tables( [1, 2] ).order( [ 3, 'asc' ] ).draw();
 ]]></example>
 
 	<example title="Find all tables which have a class `admin` from an API instance and apply a global search to them"><![CDATA[
-var tables = $('.dataTable').DataTable();
+var tables = new DataTable('.dataTable');
 
 tables.tables('.admin').search( 'Important' ).draw();
 

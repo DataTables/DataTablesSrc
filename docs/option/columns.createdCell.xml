@@ -31,7 +31,7 @@
 	</description>
 
 	<example title="Using `createdCell` manipulate the DOM with `dt-init columnDefs`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [ {
     "targets": 3,
     "createdCell": function (td, cellData, rowData, row, col) {

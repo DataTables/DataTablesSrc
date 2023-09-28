@@ -32,7 +32,7 @@ $(document).on( 'preInit.dt', function (e, settings) {
 	api.page.len( 20 );
 } );
 
-$('#example').DataTable();
+new DataTable('#myTable');
 	
 ]]></example>
 

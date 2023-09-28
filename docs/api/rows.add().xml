@@ -23,7 +23,7 @@
 	</description>
 
 	<example title="Add two new rows to the table and redraw"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.rows.add( [ {
 		"name":       "Tiger Nixon",
@@ -44,7 +44,7 @@ table.rows.add( [ {
 ]]></example>
 
 	<example title="Add multiple new instances of an object to a table and then add a class to those newly added rows"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table
 	.rows.add( [

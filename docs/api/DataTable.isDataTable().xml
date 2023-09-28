@@ -39,7 +39,7 @@ if ( ! DataTable.isDataTable( '#example' ) ) {
 	<example title="jQuery: Check if `#example` is a DataTable or not. If not, initialise"><![CDATA[
 
 if ( ! $.fn.DataTable.isDataTable( '#example' ) ) {
-  $('#example').DataTable();
+  new DataTable('#myTable');
 }
 
 ]]></example>

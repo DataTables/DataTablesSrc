@@ -22,7 +22,7 @@
 	</description>
 
 	<example title="Display the saved global filter"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "stateSave": true,
   "stateLoaded": function (settings, data) {
     alert( 'Saved filter was: '+data.search.search );

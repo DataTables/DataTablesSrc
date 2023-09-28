@@ -31,7 +31,7 @@
 	</description>
 
 	<example title="Highlight cells based on their content (object data source)"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "rowCallback": function( row, data ) {
     if ( data.grade == "A" ) {
       $('td:eq(4)', row).html( '<b>A</b>' );
@@ -41,7 +41,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Highlight cells based on their content (array data source)"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "rowCallback": function( row, data ) {
     if ( data[4] == "A" ) {
       $('td:eq(4)', row).html( '<b>A</b>' );

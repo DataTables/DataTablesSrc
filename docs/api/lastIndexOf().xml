@@ -22,7 +22,7 @@
 	</description>
 
 	<example title="Find the last index of an item in a column of data"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var index = table
 	.column( 0 )

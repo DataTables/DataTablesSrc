@@ -22,31 +22,31 @@
 	</description>
 
 	<example title="Reload the table data every 30 seconds (paging reset)"><![CDATA[
-var table = $('#example').DataTable( {
-	ajax: "data.json"
-} );
+var table = new DataTable('#myTable', {
+	ajax: 'data.json'
+});
 
-setInterval( function () {
+setInterval(function () {
 	table.ajax.reload();
-}, 30000 );
+}, 30000);
 ]]></example>
 
 	<example title="Reload the table data every 30 seconds (paging retained)"><![CDATA[
-var table = $('#example').DataTable( {
-	ajax: "data.json"
-} );
+var table = new DataTable('#myTable', {
+	ajax: 'data.json'
+});
 
-setInterval( function () {
-	table.ajax.reload( null, false ); // user paging is not reset on reload
-}, 30000 );
+setInterval(function () {
+	table.ajax.reload(null, false); // user paging is not reset on reload
+}, 30000);
 ]]></example>
 
 	<example title="Use the callback to update an external elements"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-table.ajax.reload( function ( json ) {
-	$('#myInput').val( json.lastInput );
-} );
+table.ajax.reload(function (json) {
+	$('#myInput').val(json.lastInput);
+});
 ]]></example>
 
 	<related type="option">ajax</related>

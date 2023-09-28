@@ -50,8 +50,5 @@
 		* Cross product between row and column selectors
 	</description>
 
-	<example title=""><![CDATA[
-]]></example>
-
 	<related type="api">cell()</related>
 </dt-api>

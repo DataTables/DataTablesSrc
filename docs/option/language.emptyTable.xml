@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Set emptyTable string"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
 	"language": {
       "emptyTable": "No data available in table"
     }

@@ -34,13 +34,13 @@
 	</description>
 
 	<example title="Using the Bootstrap plug-in renderer"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
 	renderer: "bootstrap"
 } );
 ]]></example>
 
 	<example title="Specifying a specific renderer type for each available operation"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
 	renderer: {
 		"header": "jqueryui",
 		"pagingButton": "bootstrap",

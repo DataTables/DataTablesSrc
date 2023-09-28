@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Enable processing display"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
 	"processing": true
 } );
 ]]></example>

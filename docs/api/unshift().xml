@@ -23,7 +23,7 @@
 	</description>
 
 	<example title="Add an empty string to the array returned from a column's data (might be useful for building a search list for example)"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var data = table
 	.column( 0 )

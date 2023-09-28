@@ -63,7 +63,7 @@
 	</description>
 
 	<example title="Individual column search"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 // #column3_search is a <input type="text"> element
 $('#column3_search').on( 'keyup', function () {
@@ -75,7 +75,7 @@ $('#column3_search').on( 'keyup', function () {
 ]]></example>
 
 	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.columns( '.select-filter' ).every( function () {
 	var that = this;

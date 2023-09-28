@@ -12,7 +12,7 @@
 	</description>
 
 	<example title="Disable smart width calculations"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "autoWidth": false
 } );
 ]]></example>

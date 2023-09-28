@@ -23,14 +23,15 @@
 	</description>
 
 	<example title="Sum column 0 and insert the resulting value into its footer"><![CDATA[
-var table = $('#example').DataTable();
-var column = table.column( 0 );
+var table = new DataTable('#myTable');
+var column = table.column(0);
 
-$( column.footer() ).html(
-	column.data().reduce( function (a,b) {
-		return a+b;
-	} )
+$(column.footer()).html(
+	column.data().reduce(function (a, b) {
+		return a + b;
+	})
 );
+
 ]]></example>
 
 	<related type="api">column().footer()</related>

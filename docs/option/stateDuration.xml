@@ -18,14 +18,14 @@
 	</description>
 
 	<example title="Set state duration to 1 day"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "stateSave": true,
   "stateDuration": 60 * 60 * 24
 } );
 ]]></example>
 
 	<example title="Use `sessionStorage`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "stateSave": true,
   "stateDuration": -1
 } );

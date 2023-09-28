@@ -137,7 +137,7 @@
 	</description>
 
 	<example title="Create a comma separated list from an array of objects"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "ajaxSource": "sources/deep.txt",
   "columns": [
     { "data": "engine" },
@@ -156,7 +156,7 @@ $('#example').dataTable( {
 // Here the `phone` integer is used for sorting and type detection, while `phone_filter`
 // (which has both forms) is used for filtering for if a user inputs either format, while
 // the formatted phone number is the one that is shown in the table.
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [ {
     "targets": 0,
     "data": null, // Use the full data source object for the renderer's source
@@ -172,7 +172,7 @@ $('#example').dataTable( {
 	<example title="As above, with the `phone` information as an object"><![CDATA[
 // This would be used with a data source such as:
 //   "phone": { "plain": 5552368, "filter": "5552368 555-2368", "display": "555-2368" }
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [ {
     "targets": 0,
     "data": 'phone',
@@ -186,7 +186,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Use as a function to create a link from the data source"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [ {
     "targets": 0,
     "data": "download_link",
@@ -198,7 +198,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Show ellipsis for long strings"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [ {
     "targets": 4,
     "data": "description",

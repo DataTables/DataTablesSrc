@@ -34,21 +34,21 @@
 	</description>
 
 	<example title="Get a column's title:"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var title = table.column( 0 ).title();
 );
 ]]></example>
 
 	<example title="Set a column's title on the default row:"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.column( 0 ).title('New title');
 );
 ]]></example>
 
 	<example title="Set a column's title on the second row in the header:"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.column( 0 ).title('New title', 1);
 );

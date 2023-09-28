@@ -20,7 +20,7 @@
 	</description>
 
 	<example title="Check if a value is visible on the current page"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var found = table
 	.column( 0, {page: 'current'} )

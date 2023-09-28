@@ -30,7 +30,7 @@ If no selector is given (more specifically `dt-type undefined`), then all tables
 ###### Get the data from all tables in the current context:
 
 ```js
-var tables = $('.dataTable').DataTable();
+var tables = new DataTable('.dataTable');
 var allData = tables.tables().rows().data();
 
 // note that the above is the same as:
@@ -46,7 +46,7 @@ If an integer is given for the table selector, then the table with that index in
 ###### Get the nodes of the first table in the current context:
 
 ```js
-var tables = $('.dataTable').DataTable();
+var tables = new DataTable('.dataTable');
 var data = tables.table( 0 ).data();
 ```
 
@@ -60,7 +60,7 @@ Note that just like jQuery selector, is it possible to supply multiple selectors
 ###### Select tables by class name:
 
 ```js
-var tables = $('.dataTable').DataTable();
+var tables = new DataTable('.dataTable');
 tables
 	.tables('.cell-selector')
 	.page( 'next' )
@@ -70,14 +70,14 @@ tables
 ###### Select table by ID:
 
 ```js
-var tables = $('.dataTable').DataTable();
+var tables = new DataTable('.dataTable');
 var table = tables.table('#example');
 ```
 
 ###### Select two tables by ID:
 
 ```js
-var tables = $('.dataTable').DataTable();
+var tables = new DataTable('.dataTable');
 tables.tables('#clients, #owners');
 ```
 
@@ -89,7 +89,7 @@ tables.tables('#clients, #owners');
 ###### Get the data for the table that was clicked upon:
 
 ```js
-var tables = $('.dataTable').DataTable();
+var tables = new DataTable('.dataTable');
 
 $('.dataTable tbody').on( 'click', 'tr', function () {
 	var tableData = tables.table( this.parentNode.parentNode );
@@ -105,7 +105,7 @@ Very similar to the above `node` type (since a jQuery object is an _array-like_ 
 ###### Get the data for the table that was clicked upon:
 
 ```js
-var tables = $('.dataTable').DataTable();
+var tables = new DataTable('.dataTable');
 
 $('.dataTable tbody').on( 'click', 'tr', function () {
 	var tableData = tables.table( $(this).parents('table') );
@@ -121,14 +121,14 @@ Any combination of the above options can be given as selector together, providin
 ###### Get the data for two tables, based on id:
 
 ```js
-var tables = $('.dataTable').DataTable();
+var tables = new DataTable('.dataTable');
 var data = tables.tables( ['#table-1', '#table-3'] ).data();
 ```
 
 ###### Mix `table-selector` types - id and class selector
 
 ```js
-var tables = $('.dataTable').DataTable();
+var tables = new DataTable('.dataTable');
 var data = table.tables( ['#table-1', '.important'] ).data();
 ```
 

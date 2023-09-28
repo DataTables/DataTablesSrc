@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Set processing information text"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
      "processing": "DataTables is currently busy"
   }

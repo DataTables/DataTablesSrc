@@ -56,7 +56,7 @@
 	</description>
 
 <example title="Add a filter for each column in the table to the footer"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.columns().every( function () {
 	var that = this;
@@ -71,7 +71,7 @@ table.columns().every( function () {
 ]]></example>
 
 	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.columns( '.select-filter' ).every( function () {
 	var that = this;
@@ -100,7 +100,7 @@ table.columns( '.select-filter' ).every( function () {
 ]]></example>
 
 	<example title="Sum all columns which have a class of `.sum` and put the sum into its footer cell"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.columns( '.sum' ).every( function () {
 	var sum = this

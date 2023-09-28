@@ -32,7 +32,7 @@ If no selector is given (more specifically `dt-type undefined`), then all rows a
 ###### Get data for all rows in the table:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var allData = table.rows().data();
 ```
 
@@ -44,14 +44,14 @@ DataTables stores each row internally with a row index for fast look up of row i
 ###### Row index 0 data:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var data = table.row( 0 ).data();
 ```
 
 ###### Find data using row indexes:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 // Find indexes of rows which have `Yes` in the second column
 var indexes = table.rows().eq( 0 ).filter( function (rowIdx) {
@@ -77,14 +77,14 @@ To use an id selector, simply prefix the id value for the row you wish to select
 ###### Select a single row by id:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var row = table.row('#row-42');
 ```
 
 ###### Select multiple rows by id:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var rows = table.rows( [ '#row-42', '#row-51' ] );
 ```
 
@@ -98,14 +98,14 @@ Note that just like jQuery selector, is it possible to supply multiple selectors
 ###### Select rows by class name:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var rows = table.rows('.priority');
 ```
 
 ###### Select rows by two class name selectors:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var rows = table.rows('.important, .intermediate');
 ```
 
@@ -117,7 +117,7 @@ var rows = table.rows('.important, .intermediate');
 ###### Get the data for a row that was clicked upon:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 $('#example tbody').on( 'click', 'tr', function () {
   var rowData = table.row( this ).data();
@@ -147,7 +147,7 @@ The function is called once for every row that can be selected, based on the `dt
 ###### Get the data for all rows that have a `first_name` starting with `A`:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var names = table
 	.rows( function ( idx, data, node ) {
@@ -166,7 +166,7 @@ Very similar to the above `node` type (since a jQuery object is an _array-like_ 
 
 ```js
 var rows = $('tr.immediate');
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var rowData = table.rows( rows ).data();
 ```
@@ -185,14 +185,14 @@ Any combination of the above options can be given as selector together, providin
 ###### Get the data for two rows, based on id:
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var data = table.rows( ['#row-42', '#row-91'] ).data();
 ```
 
 ###### Mix `row-selector` types - id and class selector
 
 ```js
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var data = table.rows( ['#row-42', '.important'] ).data();
 ```
 

@@ -30,7 +30,7 @@
 
 	<example title="Reduce search API method calls to 1 per second"><![CDATA[
 
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 var search = DataTable.util.throttle(
 	function ( val ) {
 		table.search( val ).draw();

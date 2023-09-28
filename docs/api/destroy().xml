@@ -24,7 +24,7 @@
 	</description>
 
 	<example title="Destroy an existing table on a button click"><![CDATA[
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 
 $('#tableDestroy').on( 'click', function () {
 	table.destroy();
@@ -32,7 +32,7 @@ $('#tableDestroy').on( 'click', function () {
 ]]></example>
 
 	<example title="Reload a full table description from the server, including columns"><![CDATA[
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 
 $('#submit').on( 'click', function () {
 	$.getJSON( 'newTable', null, function ( json ) {

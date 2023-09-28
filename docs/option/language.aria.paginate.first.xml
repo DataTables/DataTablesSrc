@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Define full paging language options as icons with ARIA label text"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	pagingType: 'full',
 	language: {
 		paginate: {

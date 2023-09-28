@@ -30,7 +30,7 @@ $(document).on( 'options.dt', function (e, options) {
 	options.paging = false;
 } );
 
-$('#example').DataTable();
+new DataTable('#myTable');
 
 // Note that this could also be done with:
 // $.fn.dataTables.defaults.paging = false;

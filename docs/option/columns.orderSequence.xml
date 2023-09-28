@@ -18,7 +18,7 @@
 	</description>
 
 	<example title="Using `orderSequence` to define the applied order sequence with `dt-init columnDefs`"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
   "columnDefs": [
     { "orderSequence": [ "asc" ], "targets": [ 1 ] },
     { "orderSequence": [ "desc", "asc", "asc" ], "targets": [ 2 ] },
@@ -28,7 +28,7 @@ $('#example').DataTable( {
 ]]></example>
 
 	<example title="Using `orderSequence` to define the applied order sequence with `dt-init columns`"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
   "columns": [
     null,
     { "orderSequence": [ "asc" ] },

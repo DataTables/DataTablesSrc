@@ -19,7 +19,7 @@
 	</description>
 
 	<example title="Add a class to all cells in the columns matched by a class"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table
 	.columns( '.ready' )

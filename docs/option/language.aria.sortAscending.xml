@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Set ARIA sort ascending string"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
     "aria": {
       "sortAscending": " - click/return to sort ascending"

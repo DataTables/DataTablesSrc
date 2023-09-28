@@ -29,7 +29,7 @@ It is important to note the difference between `$( selector ).DataTable()` and `
 ###### $( selector ).DataTable(); example
 
 ```js
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 
 // Search for a data point
 table.search( 'Fiona' ).draw();
@@ -39,7 +39,7 @@ table.search( 'Fiona' ).draw();
 ###### $( selector ).dataTable(); example
 
 ```js
-var table = $('#myTable').dataTable().api();
+var table = new DataTable('#myTable').api();
 
 // Jump to the next page of data
 table.page('next').draw(false);

@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Remove bound events from cells in the table's body"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "preDrawCallback": function( settings ) {
     $('#example tbody').off( 'click', 'td' );
   }
@@ -25,7 +25,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Cancel the table draw if #test has a value of 1"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "preDrawCallback": function( settings ) {
     if ( $('#test').val() == 1 ) {
       return false;

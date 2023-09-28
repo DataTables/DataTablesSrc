@@ -25,7 +25,7 @@
 
 	<example title="Perform an escape match search using `-tag select` elements"><![CDATA[
 
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.columns().indexes().flatten().each( function ( i ) {
 	var column = table.column( i );

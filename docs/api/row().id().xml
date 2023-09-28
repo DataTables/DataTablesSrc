@@ -22,7 +22,7 @@
 
 	<example title="Click handler that shows row id"><![CDATA[
 
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 
 $('#myTable').on( 'click', 'tr', function () {
 	var id = table.row( this ).id();

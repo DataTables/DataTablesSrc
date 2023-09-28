@@ -12,7 +12,7 @@
 	</description>
 
 	<example title="Enable the automatic resize of the table container when scrolling enabled"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   scrollY: 300,
   scrollCollapse: true
 } );

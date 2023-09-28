@@ -13,7 +13,7 @@
 	</description>
 
 	<example title="Enable vertical scrolling with pagination disabled"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "scrollY": "200px",
   "scrollCollapse": true,
   "paging": false

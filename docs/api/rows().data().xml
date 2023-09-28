@@ -19,7 +19,7 @@
 	</description>
 
 	<example title="Get all data from the table"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 var data = table
 	.rows()
@@ -37,7 +37,7 @@ var pupils = [
 ];
 
 // Create table with data set
-var table = $('#example').DataTable( {
+var table = new DataTable('#myTable', {
 	data: pupils
 } );
 

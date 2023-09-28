@@ -51,7 +51,7 @@
 	</description>
 
 	<example title="Set the first column's type manually with `dt-init columnDefs`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [
     { "type": "html", "targets": 0 }
   ]
@@ -59,7 +59,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Set the first column's type manually with `dt-init columns`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columns": [
     { "type": "html" },
     null,

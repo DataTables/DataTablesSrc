@@ -27,7 +27,7 @@
 	</description>
 
 	<example title="Get the display information for a column"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var rendered = table.columns( 1 ).render();
 
 console.log( rendered );

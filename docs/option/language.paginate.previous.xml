@@ -20,7 +20,7 @@
 	</description>
 
 	<example title="Set text for pagination 'previous' button"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
     "paginate": {
       "previous": "Previous page"

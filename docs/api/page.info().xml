@@ -45,7 +45,7 @@
 	</description>
 
 	<example title="Get the current page and number of records in the table"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 var info = table.page.info();
 
 $('#tableInfo').html(

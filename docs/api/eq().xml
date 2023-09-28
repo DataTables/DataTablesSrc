@@ -31,7 +31,7 @@
 	</description>
 
 	<example title="Add a class to a row, based on a conditional expression"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.rows().eq( 0 ).each( function (idx) {
 	var row = table.row( idx );
@@ -43,7 +43,7 @@ table.rows().eq( 0 ).each( function (idx) {
 ]]></example>
 
 	<example title="Display the child rows for all rows in the table"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.rows().eq( 0 ).each( function (idx) {
 	table.row( idx ).child.show();

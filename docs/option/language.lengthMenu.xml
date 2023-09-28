@@ -20,7 +20,7 @@
 	</description>
 
 	<example title="Language change only"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
   language: {
     lengthMenu: 'Display _MENU_ records'
   }
@@ -28,7 +28,7 @@ $('#example').DataTable( {
 ]]></example>
 
 	<example title="Language change using entries"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
   language: {
     lengthMenu: 'Display _MENU_ _ENTRIES_',
 	entries: {
@@ -40,7 +40,7 @@ $('#example').DataTable( {
 ]]></example>
 
 	<example title="Language and options change (you'd be better off using `lengthMenu` though!"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "language": {
     "lengthMenu": 'Display <select>'+
       '<option value="10">10</option>'+

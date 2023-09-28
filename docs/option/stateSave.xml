@@ -22,13 +22,13 @@
 	</description>
 
 	<example title="Enable state saving"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   stateSave: true
 } );
 ]]></example>
 
 	<example title="Enable state saving and override state save/load handlers to use only the table's DOM id"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   stateSave: true,
   stateSaveCallback: function(settings,data) {
       localStorage.setItem( 'DataTables_' + settings.sInstance, JSON.stringify(data) )

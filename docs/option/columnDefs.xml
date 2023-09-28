@@ -43,7 +43,7 @@
 	</description>
 
 	<example title="Disable filtering on the first column"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [ {
       "targets": 0,
       "searchable": false

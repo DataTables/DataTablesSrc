@@ -27,14 +27,14 @@
 	</description>
 
 	<example title="Get the display information for the cells in a row clicked on"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-$('#example').on( 'click', 'tbody td', function () {
-	var idx = table.cell( this ).index().row;
-	var data = table.cells( idx, '' ).render( 'display' );
+$('#example').on('click', 'tbody td', function () {
+	var idx = table.cell(this).index().row;
+	var data = table.cells(idx, '').render('display');
 
-	console.log( data );
-} );
+	console.log(data);
+});
 
 ]]></example>
 

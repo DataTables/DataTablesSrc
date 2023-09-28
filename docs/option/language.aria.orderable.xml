@@ -14,7 +14,7 @@
 	</description>
 
 	<example title="Set ARIA orderable string"><![CDATA[
-$('#example').DataTable( {
+new DataTable('#myTable', {
   language: {
     aria: {
       orderable: ": Sort this column"

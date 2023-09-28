@@ -12,20 +12,20 @@
 	</description>
 
 	<example title="No ordering applied by DataTables during initialisation. The rows are shown in the order they are read by DataTables (i.e. the original order from the DOM if DOM sourced, or the array of data if Ajax / data sourced)"><![CDATA[
-new DataTable('#example', {
+new DataTable('#myTable', {
 	order: []
 });
 ]]></example>
 
 
 	<example title="Multi-column ordering as the initial state (using tuples)"><![CDATA[
-new DataTable('#example', {
+new DataTable('#myTable', {
 	order: [[ 0, 'asc' ], [ 1, 'asc' ]]
 } );
 ]]></example>
 
 	<example title="Single-column ordering as the initial state (using objects)"><![CDATA[
-new DataTable('#example', {
+new DataTable('#myTable', {
 	order: {
 		idx: 1,
 		dir: 'asc'
@@ -34,7 +34,7 @@ new DataTable('#example', {
 ]]></example>
 
 	<example title="Single-column ordering as the initial state (using objects and column names)"><![CDATA[
-new DataTable('#example', {
+new DataTable('#myTable', {
 	columns: [
 		{ name: 'first_name' },
 		{ name: 'last_name' },

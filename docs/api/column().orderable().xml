@@ -18,11 +18,12 @@
 	</description>
 
 	<example title="Check if the first column is orderable by the end user, and if so, order on it"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-if ( table.column(0).orderable() ) {
-  table.column(0).order().draw();
+if (table.column(0).orderable()) {
+	table.column(0).order().draw();
 }
+
 ]]></example>
 
 	<related type="option">order</related>

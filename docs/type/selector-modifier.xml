@@ -49,14 +49,14 @@ The `order` modifier provides the ability to control which order the rows are pr
 Note that since the `dt-type selector-modifier` is optional, and `dt-string applied` is the default value for the column, the example below is the same as: `table.column( 3 ).data();` - it just sets the `order` parameter explicitly.
 
 ```js
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 table.column( 3, {order:'current'} ).data();
 ```
 
 ###### Get the data from a column in data index order:
 
 ```js
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 table.column( 3, {order:'index'} ).data();
 ```
 ```
@@ -64,7 +64,7 @@ table.column( 3, {order:'index'} ).data();
 ###### Get the data from a column in the order DataTables would sort it in:
 
 ```js
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 table.column( 3, {order:3} ).data();
 ```
 
@@ -81,7 +81,7 @@ The `page` modifier allows you to control if the selector should consider all da
 ###### Get the data for the rows on the current page only:
 
 ```js
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 table.rows( {page:'current'} ).data();
 ```
 
@@ -99,14 +99,14 @@ Note that for backwards compatibility, the `search` term can also be provided as
 ###### Get the `dt-tag tr` elements for rows which match the search term applied to the table, in index order:
 
 ```js
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 table.rows( {order:'index', search:'applied'} ).nodes();
 ```
 
 ###### Get removes which have been removed from the search:
 
 ```js
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 table.rows( {search:'removed'} ).nodes();
 ```
 
@@ -134,7 +134,7 @@ This option takes a boolean value, although it can also be `undefined`, which it
 ###### Get the data for the focused cell:
 
 ```js
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 table.cell( {focused:true} ).data();
 ```
 
@@ -154,7 +154,7 @@ This option takes a boolean value, although it can also be `undefined`, which it
 ###### Get the data for the selected rows:
 
 ```js
-var table = $('#myTable').DataTable();
+var table = new DataTable('#myTable');
 table.rows( {selected:true} ).data();
 ```
 

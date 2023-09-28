@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Add a class to a specific column in the DataTable"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table
 	.column( 0 )

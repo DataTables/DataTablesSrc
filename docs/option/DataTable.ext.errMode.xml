@@ -43,7 +43,7 @@
 
 DataTable.ext.errMode = 'throw';
 
-$('#example').dataTable( {
+new DataTable('#myTable', {
   ajax: 'data.json'
 } );
 ]]></example>

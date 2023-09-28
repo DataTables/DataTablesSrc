@@ -13,7 +13,7 @@
 	</description>
 
 	<example title="Set live data sort type with `dt-init columnDefs`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columnDefs": [
     { "orderDataType": "dom-text", "targets": [ 2, 3 ] },
     { "type": "numeric", "targets": 3 },
@@ -24,7 +24,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Set live data sort type with `dt-init columns`"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "columns": [
     null,
     null,

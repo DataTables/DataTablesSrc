@@ -15,7 +15,7 @@
 	</description>
 
 	<example title="Add a class to all main table nodes"><![CDATA[
-var tables = $('.dataTable').DataTable( {
+var tables = new DataTable('.dataTable', {
 	scrollX: "100%"
 } );
 

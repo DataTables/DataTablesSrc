@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Enable horizontal scrolling"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "scrollX": true
 } );
 ]]></example>

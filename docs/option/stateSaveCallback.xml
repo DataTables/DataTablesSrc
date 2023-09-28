@@ -49,7 +49,7 @@
 	</description>
 
 	<example title="Save state on a server with Ajax"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "stateSave": true,
   "stateSaveCallback": function (settings, data) {
     // Send an Ajax request to the server with the state object

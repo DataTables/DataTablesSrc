@@ -56,7 +56,7 @@
 	</description>
 
 	<example title="Add a child row to all rows, passing in a jQuery created `dt-tag tr` element and show all child rows"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
 	this
@@ -76,7 +76,7 @@ table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
 ]]></example>
 
 	<example title="Update all rows in the table, redrawing only when complete"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
 table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
 	var d = this.data();

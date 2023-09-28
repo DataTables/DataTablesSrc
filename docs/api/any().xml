@@ -19,19 +19,19 @@
 	</description>
 
 	<example title="Check if there are any rows with the class `selected`"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-if ( table.rows( '.selected' ).any() ) {
-	alert( 'Rows are selected' );
+if (table.rows('.selected').any()) {
+	alert('Rows are selected');
 }
 
 ]]></example>
 
 	<example title="Find if the table has any data"><![CDATA[
-var table = $('#example').DataTable();
+var table = new DataTable('#myTable');
 
-if ( ! table.data().any() ) {
-	alert( 'Empty table' );
+if (!table.data().any()) {
+	alert('Empty table');
 }
 
 ]]></example>

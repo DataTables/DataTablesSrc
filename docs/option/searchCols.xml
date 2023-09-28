@@ -13,7 +13,7 @@
 	</description>
 
 	<example title="Set initial filtering on second and fourth columns"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "searchCols": [
     null,
     { "search": "My filter" },

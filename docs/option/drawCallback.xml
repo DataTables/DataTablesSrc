@@ -17,7 +17,7 @@
 	</description>
 
 	<example title="Notify whenever DataTables does a draw"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
 	"drawCallback": function( settings ) {
 		alert( 'DataTables has redrawn the table' );
 	}
@@ -25,7 +25,7 @@ $('#example').dataTable( {
 ]]></example>
 
 	<example title="Use API method in the callback to get the data for the rows in the draw"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
 	"drawCallback": function( settings ) {
 		var api = this.api();
 

@@ -30,7 +30,7 @@
 $('#example').on('childRow.dt', function(e, show, row) {
 	console.log((show ? "Showing " : "Hiding ") + "row " + row.index());
 });
-$('#example').DataTable( {
+new DataTable('#myTable', {
 	"ajax": "../ajax/data/objects.txt",
 	"rowId": 'id',
 	"stateSave": true,

@@ -20,7 +20,7 @@
 	</description>
 
 	<example title="Disable user ability to change number of records per page"><![CDATA[
-$('#example').dataTable( {
+new DataTable('#myTable', {
   "lengthChange": false
 } );
 ]]></example>
