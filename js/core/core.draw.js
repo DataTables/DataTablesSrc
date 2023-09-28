@@ -665,9 +665,9 @@ function _fnAddOptionsHtml ( settings )
 	settings.nTableWrapper = insert[0];
 
 	// Everything above - the renderer will actually insert the contents into the document
-	for ( var i=0, ien=top.length ; i<ien ; i++ ) {
-		renderer( settings, insert, top[i] );
-	}
+	top.forEach(function (item) {
+		renderer( settings, insert, item );
+	});
 
 	// The table - always the center of attention
 	renderer( settings, insert, {
@@ -681,9 +681,9 @@ function _fnAddOptionsHtml ( settings )
 	_processingHtml( settings );
 
 	// Everything below
-	for ( i=0, ien=bottom.length ; i<ien ; i++ ) {
-		renderer( settings, insert, bottom[i] );
-	}
+	bottom.forEach(function (item) {
+		renderer( settings, insert, item );
+	});
 }
 
 
