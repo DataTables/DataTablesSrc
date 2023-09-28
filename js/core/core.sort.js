@@ -229,10 +229,14 @@ function _fnSortAria ( settings )
 				nextSort = asSorting[0];
 			}
 
-			label = sTitle + ( nextSort === "asc" ?
-				oAria.sSortAscending :
-				oAria.sSortDescending
-			);
+			var sSortLabel = nextSort === "asc" ? oAria.sSortAscending : oAria.sSortDescending;
+
+			if (sSortLabel.indexOf("_HEADER_") !== -1) {
+				label = sSortLabel.replace("_HEADER_", sTitle);
+			}
+			else {
+				label = sTitle + sSortLabel;
+			}
 		}
 		else {
 			label = sTitle;
