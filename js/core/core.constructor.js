@@ -139,7 +139,6 @@ _fnMap( oSettings, oInit, [
 	"aLengthMenu",
 	"sPaginationType",
 	"iStateDuration",
-	"sDom",
 	"bSortCellsTop",
 	"iTabIndex",
 	"fnStateLoadCallback",
