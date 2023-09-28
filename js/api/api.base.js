@@ -213,15 +213,12 @@ $.extend( _Api.prototype, {
 		return this.count() !== 0;
 	},
 
-
 	context: [], // array of table settings objects
-
 
 	count: function ()
 	{
 		return this.flatten().length;
 	},
-
 
 	each: function ( fn )
 	{
@@ -232,7 +229,6 @@ $.extend( _Api.prototype, {
 		return this;
 	},
 
-
 	eq: function ( idx )
 	{
 		var ctx = this.context;
@@ -242,39 +238,24 @@ $.extend( _Api.prototype, {
 			null;
 	},
 
-
 	filter: function ( fn )
 	{
-		var a = [];
-
-		if ( __arrayProto.filter ) {
-			a = __arrayProto.filter.call( this, fn, this );
-		}
-		else {
-			// Compatibility for browsers without EMCA-252-5 (JS 1.6)
-			for ( var i=0, ien=this.length ; i<ien ; i++ ) {
-				if ( fn.call( this, this[i], i, this ) ) {
-					a.push( this[i] );
-				}
-			}
-		}
+		var a = __arrayProto.filter.call( this, fn, this );
 
 		return new _Api( this.context, a );
 	},
 
-
 	flatten: function ()
 	{
 		var a = [];
+
 		return new _Api( this.context, a.concat.apply( a, this.toArray() ) );
 	},
-
 
 	get: function ( idx )
 	{
 		return this[ idx ];
 	},
-
 
 	join:    __arrayProto.join,
 
@@ -282,15 +263,7 @@ $.extend( _Api.prototype, {
 		return this.indexOf( find ) === -1 ? false : true;
 	},
 
-	indexOf: __arrayProto.indexOf || function (obj, start)
-	{
-		for ( var i=(start || 0), ien=this.length ; i<ien ; i++ ) {
-			if ( this[i] === obj ) {
-				return i;
-			}
-		}
-		return -1;
-	},
+	indexOf: __arrayProto.indexOf,
 
 	iterator: function ( flatten, type, fn, alwaysNew ) {
 		var
@@ -363,34 +336,16 @@ $.extend( _Api.prototype, {
 		return this;
 	},
 
-
-	lastIndexOf: __arrayProto.lastIndexOf || function ()
-	{
-		// Bit cheeky...
-		return this.indexOf.apply( this.toArray.reverse(), arguments );
-	},
-
+	lastIndexOf: __arrayProto.lastIndexOf,
 
 	length:  0,
 
-
 	map: function ( fn )
 	{
-		var a = [];
-
-		if ( __arrayProto.map ) {
-			a = __arrayProto.map.call( this, fn, this );
-		}
-		else {
-			// Compatibility for browsers without EMCA-252-5 (JS 1.6)
-			for ( var i=0, ien=this.length ; i<ien ; i++ ) {
-				a.push( fn.call( this, this[i], i ) );
-			}
-		}
+		var a = __arrayProto.map.call( this, fn, this );
 
 		return new _Api( this.context, a );
 	},
-
 
 	pluck: function ( prop )
 	{
@@ -403,67 +358,46 @@ $.extend( _Api.prototype, {
 
 	pop:     __arrayProto.pop,
 
-
 	push:    __arrayProto.push,
 
+	reduce: __arrayProto.reduce,
 
-	// Does not return an API instance
-	reduce: __arrayProto.reduce || function ( fn, init )
-	{
-		return _fnReduce( this, fn, init, 0, this.length, 1 );
-	},
-
-
-	reduceRight: __arrayProto.reduceRight || function ( fn, init )
-	{
-		return _fnReduce( this, fn, init, this.length-1, -1, -1 );
-	},
-
+	reduceRight: __arrayProto.reduceRight,
 
 	reverse: __arrayProto.reverse,
-
 
 	// Object with rows, columns and opts
 	selector: null,
 
-
 	shift:   __arrayProto.shift,
-
 
 	slice: function () {
 		return new _Api( this.context, this );
 	},
 
-
-	sort:    __arrayProto.sort, // ? name - order?
-
+	sort:    __arrayProto.sort,
 
 	splice:  __arrayProto.splice,
-
 
 	toArray: function ()
 	{
 		return __arrayProto.slice.call( this );
 	},
 
-
 	to$: function ()
 	{
 		return $( this );
 	},
-
 
 	toJQuery: function ()
 	{
 		return $( this );
 	},
 
-
 	unique: function ()
 	{
 		return new _Api( this.context, _unique(this.toArray()) );
 	},
-
 
 	unshift: __arrayProto.unshift
 } );

@@ -259,39 +259,3 @@ function _fnBrowserDetect( settings )
 	$.extend( settings.oBrowser, DataTable.__browser );
 	settings.oScroll.iBarWidth = DataTable.__browser.barWidth;
 }
-
-
-/**
- * Array.prototype reduce[Right] method, used for browsers which don't support
- * JS 1.6. Done this way to reduce code size, since we iterate either way
- *  @param {object} settings dataTables settings object
- *  @memberof DataTable#oApi
- */
-function _fnReduce ( that, fn, init, start, end, inc )
-{
-	var
-		i = start,
-		value,
-		isSet = false;
-
-	if ( init !== undefined ) {
-		value = init;
-		isSet = true;
-	}
-
-	while ( i !== end ) {
-		if ( ! Object.prototype.hasOwnProperty.call(that, i) ) {
-			continue;
-		}
-
-		value = isSet ?
-			fn( value, that[i], i, that ) :
-			that[i];
-
-		isSet = true;
-		i += inc;
-	}
-
-	return value;
-}
-
