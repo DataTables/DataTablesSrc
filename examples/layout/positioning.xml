@@ -31,7 +31,7 @@ new DataTable('#example', {
 
 <info><![CDATA[
 
-When customising DataTables for your own usage, you might find that the default position of the feature elements (for example the search input) is not quite to your liking or needs to be altered to fit with the layout of your application. DataTables provides the ability to customise these table controls using the `-init layout` option. It is worth highlighting that the layout works across all of the styling integrations that DataTables supports - you can easily change framework and the layout will continue to work as expected.
+When customising DataTables for your usage, you might find the default position of the feature elements (for example the search input) is not quite to your liking or needs to be altered to fit with the layout of your application. DataTables provides the ability to customise these table controls using the `-init layout` option. It is worth noting that the layout works across all of the styling integrations that DataTables supports - you can easily change framework and the layout will continue to work as expected.
 
 `-init layout` is an object where each property key defines the position and the matching value is the element to show in that position. The value can be a string value matching one of the built in options, or a plug-in if you use any, an HTML element or plain text. It can also be an array of those options for multiple items in each position, or `null` to show nothing. Please refer to the `-init layout` documentation for full details.
 

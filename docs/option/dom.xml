@@ -15,7 +15,7 @@
 
       `-init dom`, if used in DataTables 2+ will throw a warning message stating that is has been replaced by `-init layout`.
 
-      The documentation of this parameter is retained here for anyone to needs to continue using DataTables 1.x.
+      The documentation of this parameter is retained here for anyone whoo needs to continue using DataTables 1.x.
     ]]>
   </removed>
 

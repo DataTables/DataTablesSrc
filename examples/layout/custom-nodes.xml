@@ -28,7 +28,7 @@ new DataTable('#example', {
 
 <info><![CDATA[
 
-While the `-init layout` will typically be used with build in and plugin _features_ for DataTables, you can easily add your own by supplying a DOM node that you want DataTables to position around the table.
+While the `-init layout` will typically be used with built-in and plugin _features_ for DataTables, you can easily add your own by supplying a DOM node that you want DataTables to position around the table.
 
 This example demonstrates that ability by placing a custom "toolbar" at the top left of the table. This is just a regular DOM element so it can contain buttons, inputs, or any other HTML you want.
 
