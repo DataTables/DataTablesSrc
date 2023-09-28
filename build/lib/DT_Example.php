@@ -719,6 +719,10 @@ class DT_Example
 				$path = call_user_func( $this->_path_resolver, $opts['path']);
 			}
 
+			if (substr($path, -1) !== '/') {
+				$path = $path . '/';
+			}
+
 			$out[$component] = [
 				'css' => $path . 'css',
 				'js' => $path . 'js',
