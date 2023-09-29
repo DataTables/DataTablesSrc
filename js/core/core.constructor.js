@@ -99,7 +99,6 @@ oSettings.oInstance = (_that.length===1) ? _that : $this.dataTable();
 
 // Backwards compatibility, before we apply all the defaults
 _fnCompatOpts( oInit );
-_fnLanguageCompat( oInit.oLanguage );
 
 // If the length menu is given, but the init display length is not, use the length menu
 if ( oInit.aLengthMenu && ! oInit.iDisplayLength )
@@ -210,7 +209,6 @@ if ( oLanguage.sUrl )
 		url: oLanguage.sUrl,
 		success: function ( json ) {
 			_fnCamelToHungarian( defaults.oLanguage, json );
-			_fnLanguageCompat( json );
 			$.extend( true, oLanguage, json, oSettings.oInit.oLanguage );
 
 			_fnCallbackFire( oSettings, null, 'i18n', [oSettings]);
