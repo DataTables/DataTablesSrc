@@ -13,11 +13,11 @@
 
 	<example title="Set loading information text"><![CDATA[
 new DataTable('#myTable', {
-  "ajax": "json.txt",
-  "language": {
-     "loadingRecords": "Please wait - loading..."
-  }
-} );
+	ajax: 'json.txt',
+	language: {
+		loadingRecords: 'Please wait - loading...'
+	}
+});
 ]]></example>
 
 	<related type="option">ajax</related>

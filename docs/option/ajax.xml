@@ -101,83 +101,81 @@
 
 	<example title="Get JSON data from a file via Ajax."><![CDATA[
 new DataTable('#myTable', {
-  "ajax": "data.json"
-} );
+	ajax: 'data.json'
+});
 ]]></example>
 
 	<example title="Get JSON data from a file via Ajax, using `dataSrc` to change `data` to `tableData` (i.e. `{ tableData: [ ...data... ] }`)"><![CDATA[
 new DataTable('#myTable', {
-  "ajax": {
-    "url": "data.json",
-    "dataSrc": "tableData"
-  }
-} );
+	ajax: {
+		url: 'data.json',
+		dataSrc: 'tableData'
+	}
+});
 ]]></example>
 
 	<example title="Get JSON data from a file via Ajax, using `dataSrc` to read data from a plain array rather than an array in an object"><![CDATA[
 new DataTable('#myTable', {
-  "ajax": {
-    "url": "data.json",
-    "dataSrc": ""
-  }
-} );
+	ajax: {
+		url: 'data.json',
+		dataSrc: ''
+	}
+});
 ]]></example>
 
 	<example title="Send request as POST"><![CDATA[
 new DataTable('#myTable', {
-  "ajax": {
-    "url": "data.json",
-    "type": "POST"
-  }
-} );
+	ajax: {
+		url: 'data.json',
+		type: 'POST'
+	}
+});
 ]]></example>
 
 	<example title="Add data to the request, returnng an object by extending the default data"><![CDATA[
 new DataTable('#myTable', {
-  "ajax": {
-    "url": "data.json",
-    "data": function ( d ) {
-      return $.extend( {}, d, {
-        "extra_search": $('#extra').val()
-      } );
-    }
-  }
-} );
+	ajax: {
+		url: 'data.json',
+		data: function (d) {
+			return $.extend({}, d, {
+				extra_search: $('#extra').val()
+			});
+		}
+	}
+});
 ]]></example>
 
 	<example title="Add data to the request by manipulating the data object"><![CDATA[
 new DataTable('#myTable', {
-  "ajax": {
-    "url": "data.json",
-    "data": function ( d ) {
-    	d.extra_search = $('#extra').val();
-    }
-  }
-} );
+	ajax: {
+		url: 'data.json',
+		data: function (d) {
+			d.extra_search = $('#extra').val();
+		}
+	}
+});
 ]]></example>
 
 	<example title="Manipulate the data returned from the server - add a link to data (note this can, should, be done using `render` for the column - this is just a simple example of how the data can be manipulated)."><![CDATA[
 new DataTable('#myTable', {
-  "ajax": {
-    "url": "data.json",
-    "dataSrc": function ( json ) {
-      for ( var i=0, ien=json.length ; i<ien ; i++ ) {
-        json[i][0] = '<a href="/message/'+json[i][0]+'>View message</a>';
-      }
-      return json;
-    }
-  }
-} );
+	ajax: {
+		url: 'data.json',
+		dataSrc: function (json) {
+			for (var i = 0, ien = json.length; i < ien; i++) {
+				json[i][0] = '<a href="/message/' + json[i][0] + '>View message</a>';
+			}
+			return json;
+		}
+	}
+});
 ]]></example>
 
 	<example title="Get the data from localStorage (could interface with a form for adding, editing and removing rows)."><![CDATA[
 new DataTable('#myTable', {
-  "ajax": function (data, callback, settings) {
-    callback(
-      JSON.parse( localStorage.getItem('dataTablesData') )
-    );
-  }
-} );
+	ajax: function (data, callback, settings) {
+		callback(JSON.parse(localStorage.getItem('dataTablesData')));
+	}
+});
 ]]></example>
 
 	<related type="option">serverSide</related>

@@ -25,19 +25,19 @@
 
 	<example title="Detect and sort numbers which use a comma as a decimal place"><![CDATA[
 new DataTable('#myTable', {
-  "language": {
-    "decimal": ","
-  }
-} );
+	language: {
+		decimal: ','
+	}
+});
 ]]></example>
 
 	<example title="Detect and sort numbers which use a dash as a decimal place"><![CDATA[
 new DataTable('#myTable', {
-  "language": {
-    "decimal": "-",
-	"thousands": "."
-  }
-} );
+	language: {
+		decimal: '-',
+		thousands: '.'
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

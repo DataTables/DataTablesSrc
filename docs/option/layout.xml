@@ -3,11 +3,9 @@
 	<name>layout</name>
 	<summary>Define and position the table control elements to appear on the page</summary>
 	<since>2.0.0</since>
-
 	<type type="object" />
 	<default value=""><![CDATA[
 		The default layout for DataTables is:
-
 		```js
 		{
 			topStart: 'pageLength',
@@ -23,27 +21,22 @@
 
 The `-init layout` option provides the ability to control the items that surround and control the DataTable. Using an object where the parameter names provide positional information, with the corresponding values telling DataTables what content to show, it is easy to create a wide variety of layouts that suit your specific needs.
 
-
 ### Positional names
 
 < We use `Start` and `End` rather than `Left` and `Right` to remove ambiguity for positional elements when working with left-to-right and right-to-left parameters. This matches CSS's naming of similar properties.
 
-The names of the parameters in the `-init layout` object tell DataTables where it should insert the content defined by the value. The name first gives the side of the table where the control should be placed (`-string top` or `-string bottom`), optionally followed by a number indicating the display order, and then optionally `-string Start` or `-string End`. If neither is provided and only the table side value is given, the control will stretch the full width of the table. The formal syntax for this, in regex, is:
-
-> (top|bottom)[0-9]*(Start|End)?
+The names of the parameters in the `-init layout` object tell DataTables where it should insert the content defined by the value. The name first gives the side of the table where the control should be placed (`-string top` or `-string bottom`), optionally followed by a number indicating the display order, and then optionally `-string Start` or `-string End`. If neither is provided and only the table side value is given, the control will stretch the full width of the table. The formal syntax for this, in regex, is `(top|bottom)[0-9]*(Start|End)?`.
 
 Please see the diagram in the _DOM Structure_ section below for an illustrated example of this naming.
-
 
 ### Values
 
 The values of the parameters in `-init layout` can be any of:
-
 * `-type string` - A string that represents a feature provided by DataTables or a plug-in. The built in features are:
-  * `-string info` - Table information summary
-  * `-string pageLength` - Page length control
-  * `-string paging` - User input control for paging
-  * `-string search` - Search input box
+  * `-feature info` - Table information summary
+  * `-feature pageLength` - Page length control
+  * `-feature paging` - User input control for paging
+  * `-feature search` - Search input box
 * `-type object` - A plain object where the parameter keys are the feature to be used (see the strings above and any plug-ins) and the value is passed to the feature. This is normally an object with a list of options. Note that multiple features could be specified using a single object, but order is not guaranteed. Order will normally be important if you specify multiple controls in a single slot - in such cases, use an array of objects.
 * `-type jQuery` - A jQuery instance containing a node to insert
 * `-type node` - A DOM element
@@ -51,7 +44,6 @@ The values of the parameters in `-init layout` can be any of:
 * `-type object` - A class instance that provides a `node()` method and should return the node to be inserted (DOM or jQuery). As with the `-type function` option above, this method will be passed to the DataTables settings object for the table.
 * `-type array` - An array of any of the above options, providing the ability to show multiple items next to each other.
 * `-type null` - Show nothing in this position
-
 
 ### DOM Structure
 
@@ -112,11 +104,72 @@ DataTables will insert the items given into a grid (suitable for the styling fra
 </table>
 
 Any of the positions can be left out or set to `null` and they will not appear. For example you could only use `topN` and `bottomN` if you didn't want the table controls to be left or right aligned.
-
     ]]>
-  </description>
+	</description>
 
-	<example title=""><![CDATA[
+	<example title="Disable the page length control"><![CDATA[
+
+new DataTable('#myTable', {
+	layout: {
+		topStart: null
+	}
+});
+
+]]></example>
+
+	<example title="Options being passed into the default features"><![CDATA[
+
+new DataTable('#example', {
+	layout: {
+		topStart: {
+			pageLength: {
+				menu: [ 10, 25, 50, 100 ]
+			}
+		},
+		topEnd: {
+			search: {
+				placeholder: 'Type search here'
+			}
+		},
+		bottomEnd: {
+			paging: {
+				numbers: 3
+			}
+		}
+	}
+});
+
+]]></example>
+
+	<example title="Duplication of table controls"><![CDATA[
+
+new DataTable('#example', {
+	layout: {
+		top2Start: 'pageLength',
+		top2End: 'search',
+		topStart: 'info',
+		topEnd: 'paging',
+		bottomStart: 'pageLength',
+		bottomEnd: 'search',
+		bottom2Start: 'info',
+		bottom2End: 'paging'
+	}
+});
+
+]]></example>
+
+	<example title="Display of a custom element"><![CDATA[
+
+new DataTable('#example', {
+	layout: {
+		topStart: function () {
+			let toolbar = document.createElement('div');
+			toolbar.innerHTML = '<b>Custom tool bar! Text/images etc.</b>';
+
+			return toolbar;
+		}
+	}
+});
 
 ]]></example>
 </dt-option>

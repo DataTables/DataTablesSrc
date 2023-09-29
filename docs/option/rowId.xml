@@ -24,12 +24,10 @@
 	</description>
 
 	<example title="Use the property `staffId` as the data source for the row id"><![CDATA[
-
-$('#myTable').DataTable( {
+$('#myTable').DataTable({
 	ajax: '/api/staff',
 	rowId: 'staffId'
-} );
-
+});
 ]]></example>
 
 	<related>dt-init rowId</related>

@@ -25,12 +25,9 @@
 	<example title="Add an empty string to the array returned from a column's data (might be useful for building a search list for example)"><![CDATA[
 var table = new DataTable('#myTable');
 
-var data = table
-	.column( 0 )
-	.data();
+var data = table.column(0).data();
 
-data.unshift( '' );
-
+data.unshift('');
 ]]></example>
 
 </dt-api>

@@ -19,7 +19,6 @@ var table = new DataTable('#myTable');
 
 table.caption('Table 1: Year averages');
 $(table.caption.node()).data('total', 100);
-
 ]]></example>
 
 	<related>-init caption</related>

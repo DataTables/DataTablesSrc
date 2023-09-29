@@ -29,12 +29,12 @@ var table = new DataTable('#myTable');
 var startTime;
 
 table
-    .on( 'preDraw', function () {
-        startTime = new Date().getTime();
-    } )
-    .on( 'draw.dt', function () {
-        console.log( 'Redraw took at: '+(new Date().getTime()-startTime)+'mS' );
-    } );
+	.on('preDraw', function () {
+		startTime = new Date().getTime();
+	})
+	.on('draw.dt', function () {
+		console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
+	});
 ]]></example>
 
 	<related type="option">drawCallback</related>

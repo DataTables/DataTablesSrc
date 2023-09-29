@@ -14,7 +14,6 @@
 	</description>
 
 	<example title="Show paging control with options"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		bottomEnd: {
@@ -24,7 +23,6 @@ new DataTable('#myTable', {
 		}
 	}
 });
-
 ]]></example>
 
 	<related>-feature paging</related>

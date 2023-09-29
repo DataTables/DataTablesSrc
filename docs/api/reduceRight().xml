@@ -37,12 +37,11 @@
 var table = new DataTable('#myTable');
 
 var sum = table
-	.column( 0 )
+	.column(0)
 	.data()
-	.reduceRight( function ( a, b ) {
+	.reduceRight(function (a, b) {
 		return a + b;
-	} );
-
+	});
 ]]></example>
 
 </dt-api>

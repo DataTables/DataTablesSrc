@@ -21,19 +21,22 @@
 	<example title="Show an alert with how many rows of data are in the table"><![CDATA[
 var table = new DataTable('#myTable');
 
-alert( 'There are'+table.data().length+' row(s) of data in this table' );
+alert('There are' + table.data().length + ' row(s) of data in this table');
 ]]></example>
 
 	<example title="Modify the data and then invalidate the display to redraw"><![CDATA[
 var table = new DataTable('#myTable');
 
 // Increment a counter for each row
-table.data().each( function (d) {
+table.data().each(function (d) {
 	d.counter++;
-} );
+});
 
 // Invalidate all rows and redraw
-table.rows().invalidate().draw();
+table
+	.rows()
+	.invalidate()
+	.draw();
 ]]></example>
 
 	<related type="api">clear()</related>

@@ -15,10 +15,10 @@
 
 	<example title="Set zero records string"><![CDATA[
 new DataTable('#myTable', {
-  "language": {
-    "zeroRecords": "No records to display"
-  }
-} );
+	language: {
+		zeroRecords: 'No records to display'
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

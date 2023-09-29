@@ -17,8 +17,8 @@
 
 	<example title="Disable column sorting classes"><![CDATA[
 new DataTable('#myTable', {
-  "orderClasses": false
-} );
+	orderClasses: false
+});
 ]]></example>
 
 	<related type="option">ordering</related>

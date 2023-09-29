@@ -12,21 +12,13 @@
 
 	<example title="Using `className` to assign a class to the cells in the first column with `dt-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [
-    { className: "my_class", "targets": [ 0 ] }
-  ]
-} );
+	columnDefs: [{ className: 'my_class', targets: [0] }]
+});
 ]]></example>
 
 	<example title="Using `className` to assign a class to the cells in the first column with `dt-init columns`"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    { className: "my_class" },
-    null,
-    null,
-    null,
-    null
-  ]
-} );
+	columns: [{ className: 'my_class' }, null, null, null, null]
+});
 ]]></example>
 </dt-option>

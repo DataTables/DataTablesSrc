@@ -34,7 +34,6 @@ $('#example').on('click', 'tbody td', function () {
 
 	console.log(data);
 });
-
 ]]></example>
 
 	<example title="Get the order information for the cell clicked on"><![CDATA[
@@ -45,7 +44,6 @@ $('#example').on('click', 'tbody td', function () {
 
 	console.log(data);
 });
-
 ]]></example>
 
 	<related type="option">columns.data</related>

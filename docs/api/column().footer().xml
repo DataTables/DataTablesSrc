@@ -31,7 +31,6 @@ $(column.footer()).html(
 		return a + b;
 	})
 );
-
 ]]></example>
 
 	<related type="api">column().footer()</related>

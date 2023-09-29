@@ -26,29 +26,35 @@
 
 	<example title="Disable filtering on the first column"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [ {
-      "targets": 0,
-      "searchable": false
-    } ]
-} );
+	columnDefs: [
+		{
+			targets: 0,
+			searchable: false
+		}
+	]
+});
 ]]></example>
 
 	<example title="Disable sorting on the first and third columns"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [ {
-      "targets": [ 0, 2 ],
-      "orderable": false
-    } ]
-} );
+	columnDefs: [
+		{
+			targets: [0, 2],
+			orderable: false
+		}
+	]
+});
 ]]></example>
 
 	<example title="Disable ordering on columns which have a class of 'nosort'"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [ {
-      "targets": 'nosort',
-      "orderable": false
-    } ]
-} );
+	columnDefs: [
+		{
+			targets: 'nosort',
+			orderable: false
+		}
+	]
+});
 ]]></example>
 
 	<related type="option">columnDefs</related>

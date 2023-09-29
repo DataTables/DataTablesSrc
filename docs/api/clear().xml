@@ -22,7 +22,6 @@
 var table = new DataTable('#myTable');
 
 table.clear().draw();
-
 ]]></example>
 
 	<related type="api">data()</related>

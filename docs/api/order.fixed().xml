@@ -44,9 +44,9 @@
 	<example title="Set the fixed ordering of the table"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.order.fixed( {
-	pre: [ 0, 'asc' ]
-} );
+table.order.fixed({
+	pre: [0, 'asc']
+});
 ]]></example>
 
 	<related type="option">ordering</related>

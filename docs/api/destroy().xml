@@ -26,27 +26,25 @@
 	<example title="Destroy an existing table on a button click"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#tableDestroy').on( 'click', function () {
+$('#tableDestroy').on('click', function () {
 	table.destroy();
-} );
+});
 ]]></example>
 
 	<example title="Reload a full table description from the server, including columns"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#submit').on( 'click', function () {
-	$.getJSON( 'newTable', null, function ( json ) {
+$('#submit').on('click', function () {
+	$.getJSON('newTable', null, function (json) {
 		table.destroy();
 		$('#myTable').empty(); // empty in case the columns change
 
-		table = $('#myTable').DataTable( {
+		table = $('#myTable').DataTable({
 			columns: json.columns,
-			data:    json.rows
-		} );
-	} );
-} );
-
-
+			data: json.rows
+		});
+	});
+});
 ]]></example>
 
 	<related type="init">destroy</related>

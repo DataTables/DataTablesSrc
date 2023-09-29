@@ -138,16 +138,16 @@
 
 	<example title="Create a comma separated list from an array of objects"><![CDATA[
 new DataTable('#myTable', {
-  "ajaxSource": "sources/deep.txt",
-  "columns": [
-    { "data": "engine" },
-    { "data": "browser" },
-    {
-      "data": "platform",
-      "render": "[, ].name"
-    }
-  ]
-} );
+	ajaxSource: 'sources/deep.txt',
+	columns: [
+		{ data: 'engine' },
+		{ data: 'browser' },
+		{
+			data: 'platform',
+			render: '[, ].name'
+		}
+	]
+});
 ]]></example>
 
 	<example title="As an object, extracting different data for the different types"><![CDATA[
@@ -157,65 +157,73 @@ new DataTable('#myTable', {
 // (which has both forms) is used for filtering for if a user inputs either format, while
 // the formatted phone number is the one that is shown in the table.
 new DataTable('#myTable', {
-  "columnDefs": [ {
-    "targets": 0,
-    "data": null, // Use the full data source object for the renderer's source
-    "render": {
-      "_": "phone",
-      "filter": "phone_filter",
-      "display": "phone_display"
-    }
-  } ]
-} );
+	columnDefs: [
+		{
+			targets: 0,
+			data: null, // Use the full data source object for the renderer's source
+			render: {
+				_: 'phone',
+				filter: 'phone_filter',
+				display: 'phone_display'
+			}
+		}
+	]
+});
 ]]></example>
 
 	<example title="As above, with the `phone` information as an object"><![CDATA[
 // This would be used with a data source such as:
 //   "phone": { "plain": 5552368, "filter": "5552368 555-2368", "display": "555-2368" }
 new DataTable('#myTable', {
-  "columnDefs": [ {
-    "targets": 0,
-    "data": 'phone',
-    "render": {
-      "_": "plain",
-      "filter": "filter",
-      "display": "display"
-    }
-  } ]
-} );
+	columnDefs: [
+		{
+			targets: 0,
+			data: 'phone',
+			render: {
+				_: 'plain',
+				filter: 'filter',
+				display: 'display'
+			}
+		}
+	]
+});
 ]]></example>
 
 	<example title="Use as a function to create a link from the data source"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [ {
-    "targets": 0,
-    "data": "download_link",
-    "render": function ( data, type, row, meta ) {
-      return '<a href="'+data+'">Download</a>';
-    }
-  } ]
-} );
+	columnDefs: [
+		{
+			targets: 0,
+			data: 'download_link',
+			render: function (data, type, row, meta) {
+				return '<a href="' + data + '">Download</a>';
+			}
+		}
+	]
+});
 ]]></example>
 
 	<example title="Show ellipsis for long strings"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [ {
-    "targets": 4,
-    "data": "description",
-    "render": function ( data, type, row, meta ) {
-      return type === 'display' && data.length > 40 ?
-      	'<span title="'+data+'">'+data.substr( 0, 38 )+'...</span>' :
-      	data;
-    }
-  } ]
-} );
+	columnDefs: [
+		{
+			targets: 4,
+			data: 'description',
+			render: function (data, type, row, meta) {
+				return type === 'display' && data.length > 40
+					? '<span title="' + data + '">' + data.substr(0, 38) + '...</span>'
+					: data;
+			}
+		}
+	]
+});
 ]]></example>
 
 
 	<example title="Using an object instance as the data source for the row"><![CDATA[
-function Person( name, age, position ) {
-	this._name     = name;
-	this._age      = age;
+function Person(name, age, position) {
+	this._name = name;
+	this._age = age;
 	this._position = position;
 
 	this.name = function () {
@@ -231,8 +239,7 @@ function Person( name, age, position ) {
 	};
 }
 
-
-$(document).ready(function() {
+$(document).ready(function () {
 	var table = $('#example').DataTable({
 		columns: [
 			{ data: null, render: 'name' },
@@ -241,11 +248,13 @@ $(document).ready(function() {
 		]
 	});
 
-	table.row.add( new Person( 'Airi Satou',     33, 'Accountant' ) );
-	table.row.add( new Person( 'Angelica Ramos', 47, 'Chief Executive Officer (CEO)' ) );
-	table.row.add( new Person( 'Ashton Cox',     66, 'Junior Technical Author' ) );
+	table.row.add(new Person('Airi Satou', 33, 'Accountant'));
+	table.row.add(
+		new Person('Angelica Ramos', 47, 'Chief Executive Officer (CEO)')
+	);
+	table.row.add(new Person('Ashton Cox', 66, 'Junior Technical Author'));
 	table.draw();
-} );
+});
 ]]></example>
 
 	<related type="option">columns.data</related>

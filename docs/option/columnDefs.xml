@@ -44,11 +44,13 @@
 
 	<example title="Disable filtering on the first column"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [ {
-      "targets": 0,
-      "searchable": false
-    } ]
-} );
+	columnDefs: [
+		{
+			targets: 0,
+			searchable: false
+		}
+	]
+});
 ]]></example>
 
 	<related type="option">columnDefs.targets</related>

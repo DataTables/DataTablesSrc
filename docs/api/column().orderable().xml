@@ -21,9 +21,11 @@
 var table = new DataTable('#myTable');
 
 if (table.column(0).orderable()) {
-	table.column(0).order().draw();
+	table
+		.column(0)
+		.order()
+		.draw();
 }
-
 ]]></example>
 
 	<related type="option">order</related>

@@ -23,15 +23,13 @@
 	<example title="Sum all columns which have a class of `.sum` and put the sum into its footer cell"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.columns( '.sum' ).every( function () {
-	var sum = this
-		.data()
-		.reduce( function (a,b) {
-			return a + b;
-		} );
+table.columns('.sum').every(function () {
+	var sum = this.data().reduce(function (a, b) {
+		return a + b;
+	});
 
-	$( this.footer() ).html( 'Sum: '+sum );
-} );
+	$(this.footer()).html('Sum: ' + sum);
+});
 ]]></example>
 
 	<related type="api">column().footer()</related>

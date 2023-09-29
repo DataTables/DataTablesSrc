@@ -25,20 +25,20 @@
 
 	<example title="Remove a saved filter, so saved filtering is never loaded"><![CDATA[
 new DataTable('#myTable', {
-  "stateSave": true,
-  "stateLoadParams": function (settings, data) {
-    data.search.search = "";
-  }
-} );
+	stateSave: true,
+	stateLoadParams: function (settings, data) {
+		data.search.search = '';
+	}
+});
 ]]></example>
 
 	<example title="Disallow state loading by returning false"><![CDATA[
 new DataTable('#myTable', {
-  "stateSave": true,
-  "stateLoadParams": function (settings, data) {
-    return false;
-  }
-} );
+	stateSave: true,
+	stateLoadParams: function (settings, data) {
+		return false;
+	}
+});
 ]]></example>
 
 	<related type="api">state()</related>

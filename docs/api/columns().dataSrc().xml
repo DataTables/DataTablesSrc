@@ -21,7 +21,13 @@
 	<example title="Get the data source for columns 0 and 1"><![CDATA[
 var table = new DataTable('#myTable');
 
-alert( 'Data source: '+table.columns( [0, 1] ).dataSrc().join(' ') );
+alert(
+	'Data source: ' +
+		table
+			.columns([0, 1])
+			.dataSrc()
+			.join(' ')
+);
 ]]></example>
 
 	<related type="api">columns().data()</related>

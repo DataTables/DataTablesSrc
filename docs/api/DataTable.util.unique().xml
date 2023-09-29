@@ -22,10 +22,8 @@
 	</description>
 
 	<example title="Get unique values from an array"><![CDATA[
-
 let unique = DataTable.util.unique([1, 1, 2, 3, 1]);
 
 // unique is: [1, 2, 3]
-
 ]]></example>
 </dt-api>

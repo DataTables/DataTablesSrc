@@ -36,9 +36,11 @@ var table = new DataTable('#myTable');
 
 $('#example tbody').on('click', 'td', function () {
 	this.innerHTML = parseInt(this.innerHTML) + 1;
-	table.cell(this).invalidate().draw();
+	table
+		.cell(this)
+		.invalidate()
+		.draw();
 });
-
 ]]></example>
 
 	<related type="api">cells().cache()</related>

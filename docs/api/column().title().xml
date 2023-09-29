@@ -36,22 +36,21 @@
 	<example title="Get a column's title:"><![CDATA[
 var table = new DataTable('#myTable');
 
-var title = table.column( 0 ).title();
-);
+var title = table.column(0).title();
+
+// Do something with title...
 ]]></example>
 
 	<example title="Set a column's title on the default row:"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.column( 0 ).title('New title');
-);
+table.column(0).title('New title');
 ]]></example>
 
 	<example title="Set a column's title on the second row in the header:"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.column( 0 ).title('New title', 1);
-);
+table.column(0).title('New title', 1);
 ]]></example>
 
 	<related type="api">columns().titles()</related>

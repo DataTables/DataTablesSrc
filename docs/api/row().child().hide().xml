@@ -25,17 +25,16 @@ var table = new DataTable('#myTable');
 
 // Show an initial child row
 table
-	.row( ':eq(0)' )
-	.child( 'Extra information...' )
+	.row(':eq(0)')
+	.child('Extra information...')
 	.show();
 
 // Change the information and hide - without the hide() call the changed
 // information would be visible due to the show() above.
 table
-	.row( ':eq(0)' )
-	.child( 'Different information' )
-	.hide()
-
+	.row(':eq(0)')
+	.child('Different information')
+	.hide();
 ]]></example>
 
 </dt-api>

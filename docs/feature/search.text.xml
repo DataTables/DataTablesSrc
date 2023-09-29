@@ -16,7 +16,6 @@
 	</description>
 
 	<example title="Provide search input string"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		topEnd: {
@@ -26,7 +25,6 @@ new DataTable('#myTable', {
 		}
 	}
 });
-
 ]]></example>
 
 	<related>-init language.search</related>

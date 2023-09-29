@@ -19,24 +19,24 @@
 
 	<example title="Using `orderSequence` to define the applied order sequence with `dt-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [
-    { "orderSequence": [ "asc" ], "targets": [ 1 ] },
-    { "orderSequence": [ "desc", "asc", "asc" ], "targets": [ 2 ] },
-    { "orderSequence": [ "desc" ], "targets": [ 3 ] }
-  ]
-} );
+	columnDefs: [
+		{ orderSequence: ['asc'], targets: [1] },
+		{ orderSequence: ['desc', 'asc', 'asc'], targets: [2] },
+		{ orderSequence: ['desc'], targets: [3] }
+	]
+});
 ]]></example>
 
 	<example title="Using `orderSequence` to define the applied order sequence with `dt-init columns`"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    null,
-    { "orderSequence": [ "asc" ] },
-    { "orderSequence": [ "desc", "asc", "" ] },
-    { "orderSequence": [ "desc" ] },
-    null
-  ]
-} );
+	columns: [
+		null,
+		{ orderSequence: ['asc'] },
+		{ orderSequence: ['desc', 'asc', ''] },
+		{ orderSequence: ['desc'] },
+		null
+	]
+});
 ]]></example>
 
 	<related type="option">ordering</related>

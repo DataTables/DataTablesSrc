@@ -13,10 +13,10 @@
 
 	<example title="Filter using case-sensitive matching"><![CDATA[
 new DataTable('#myTable', {
-  "search": {
-    "caseInsensitive": false
-  }
-} );
+	search: {
+		caseInsensitive: false
+	}
+});
 ]]></example>
 
 	<related type="option">search</related>

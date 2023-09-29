@@ -20,10 +20,9 @@
 var table = new DataTable('#myTable');
 
 var data = table
-	.columns( [0, 1] )
+	.columns([0, 1])
 	.data()
 	.flatten();
-
 ]]></example>
 
 </dt-api>

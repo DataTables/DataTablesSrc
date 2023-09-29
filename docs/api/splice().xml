@@ -31,18 +31,15 @@
 var table = new DataTable('#myTable');
 
 // Get column data
-var data = table
-	.column( 0 )
-	.data();
+var data = table.column(0).data();
 
 // Find the first instance of `32`
-var idx = data.indexOf( 32 );
+var idx = data.indexOf(32);
 
 // Replace with `33`
-if ( idx >= 0 ) {
-	data.splice( idx, 1, 33 );
+if (idx >= 0) {
+	data.splice(idx, 1, 33);
 }
-
 ]]></example>
 
 </dt-api>

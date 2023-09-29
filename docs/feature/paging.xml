@@ -11,28 +11,23 @@
 	</description>
 
 	<example title="Disable paging control with default layout"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		bottomEnd: null
 	}
 });
-
 ]]></example>
 
 	<example title="Show paging control top left"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		topStart: 'paging',
 		bottomEnd: null
 	}
 });
-
 ]]></example>
 
 	<example title="Show paging control with options"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		bottomEnd: {
@@ -42,7 +37,6 @@ new DataTable('#myTable', {
 		}
 	}
 });
-
 ]]></example>
 
 	<related>-init paging</related>

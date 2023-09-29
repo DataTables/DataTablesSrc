@@ -17,11 +17,14 @@
 	</description>
 
 	<example title="Log the detected data types for all columns"><![CDATA[
-let table = new DataTable("#example");
+let table = new DataTable('#example');
 
 console.log(
-	table.columns().types().toArray()
-)
+	table
+		.columns()
+		.types()
+		.toArray()
+);
 ]]></example>
 
 	<related>-init columns.type</related>

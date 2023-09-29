@@ -40,12 +40,11 @@
 	</description>
 
 	<example title="Have DataTables `throw` errors rather than `alert()` them."><![CDATA[
-
 DataTable.ext.errMode = 'throw';
 
 new DataTable('#myTable', {
-  ajax: 'data.json'
-} );
+	ajax: 'data.json'
+});
 ]]></example>
 
 	<related>dt-event error</related>

@@ -27,7 +27,6 @@ $('#example tbody').on('click', 'td', function () {
 
 	alert('Column title clicked on: ' + $(title).html());
 });
-
 ]]></example>
 
 	<related type="api">columns().header()</related>

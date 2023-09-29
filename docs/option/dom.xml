@@ -136,8 +136,8 @@
     {pagination}
 */
 new DataTable('#myTable', {
-  "dom": 'lrtip'
-} );
+	dom: 'lrtip'
+});
 ]]></example>
 
 	<example title="Simpler wrapper element"><![CDATA[
@@ -151,8 +151,8 @@ new DataTable('#myTable', {
     </div>
 */
 new DataTable('#myTable', {
-  "dom": '<"wrapper"flipt>'
-} );
+	dom: '<"wrapper"flipt>'
+});
 ]]></example>
 
 	<example title="Length and filter above, information and pagination below table"><![CDATA[
@@ -168,8 +168,8 @@ new DataTable('#myTable', {
     </div>
 */
 new DataTable('#myTable', {
-  "dom": '<lf<t>ip>'
-} );
+	dom: '<lf<t>ip>'
+});
 ]]></example>
 
 	<example title="Table summary in header, filtering, length and processing in footer, with a clearing element."><![CDATA[
@@ -187,8 +187,8 @@ new DataTable('#myTable', {
     <div class="clear"></div>
 */
 new DataTable('#myTable', {
-  "dom": '<"top"i>rt<"bottom"flp><"clear">'
-} );
+	dom: '<"top"i>rt<"bottom"flp><"clear">'
+});
 ]]></example>
 
 	<related type="option">searching</related>

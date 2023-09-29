@@ -39,26 +39,25 @@
 
 	<example title="Pre-process the data returned from the server"><![CDATA[
 $('#example')
-	.on('xhr.dt', function ( e, settings, json, xhr ) {
-		for ( var i=0, ien=json.aaData.length ; i<ien ; i++ ) {
+	.on('xhr.dt', function (e, settings, json, xhr) {
+		for (var i = 0, ien = json.aaData.length; i < ien; i++) {
 			json.aaData[i].sum = json.aaData[i].one + json.aaData[i].two;
 		}
 		// Note no return - manipulate the data directly in the JSON object.
-	} )
-	.dataTable( {
-		ajax: "data.json"
-	} );
+	})
+	.DataTable({
+		ajax: 'data.json'
+	});
 ]]></example>
 
 	<example title="Use a custom property returned from the server in another DOM element"><![CDATA[
 $('#example')
-	.on('xhr.dt', function ( e, settings, json, xhr ) {
-		$('#status').html( json.status );
-	} )
-	.dataTable( {
-		ajax: "data.json"
-	} );
-
+	.on('xhr.dt', function (e, settings, json, xhr) {
+		$('#status').html(json.status);
+	})
+	.DataTable({
+		ajax: 'data.json'
+	});
 ]]></example>
 
 	<related type="option">ajax</related>

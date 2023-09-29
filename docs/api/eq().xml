@@ -33,21 +33,30 @@
 	<example title="Add a class to a row, based on a conditional expression"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.rows().eq( 0 ).each( function (idx) {
-	var row = table.row( idx );
+table
+	.rows()
+	.eq(0)
+	.each(function (idx) {
+		var row = table.row(idx);
 
-	if ( row.data().grade === 'A' ) {
-		row.node().to$().addClass( 'gradeA' );
-	}
-} );
+		if (row.data().grade === 'A') {
+			row
+				.node()
+				.to$()
+				.addClass('gradeA');
+		}
+	});
 ]]></example>
 
 	<example title="Display the child rows for all rows in the table"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.rows().eq( 0 ).each( function (idx) {
-	table.row( idx ).child.show();
-} );
+table
+	.rows()
+	.eq(0)
+	.each(function (idx) {
+		table.row(idx).child.show();
+	});
 ]]></example>
 
 	<related>-api get()</related>

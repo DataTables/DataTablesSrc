@@ -14,13 +14,11 @@
 	</description>
 
 	<example title="Alter the filtering information summary string"><![CDATA[
-
 new DataTable('#myTable', {
-  language: {
-    infoFiltered: ' - filtered from _MAX_ records'
-  }
+	language: {
+		infoFiltered: ' - filtered from _MAX_ records'
+	}
 });
-
 ]]></example>
 
 	<related type="option">language</related>

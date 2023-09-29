@@ -29,10 +29,10 @@
 
 	<example title="Show / hide notification of table processing (where `#example` is the DataTable)"><![CDATA[
 $('#example')
-	.on( 'processing.dt', function ( e, settings, processing ) {
-		$('#processingIndicator').css( 'display', processing ? 'block' : 'none' );
-	} )
-	.dataTable();
+	.on('processing.dt', function (e, settings, processing) {
+		$('#processingIndicator').css('display', processing ? 'block' : 'none');
+	})
+	.DataTable();
 ]]></example>
 
 	<related>-init processing</related>

@@ -18,11 +18,10 @@
 
 	<example title="Add a class to the original `dt-tag tbody` element"><![CDATA[
 var table = new DataTable('#myTable', {
-	scrollX: "100%"
-} );
+	scrollX: '100%'
+});
 
-$( tables.table().body() )
-	.addClass( 'highlight' );
+$(tables.table().body()).addClass('highlight');
 ]]></example>
 
 	<related type="api">tables().body()</related>

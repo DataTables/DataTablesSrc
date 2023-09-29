@@ -19,9 +19,7 @@
 	</description>
 
 	<example title="Get a list of the registered types"><![CDATA[
-
 let types = DataTable.types();
-
 ]]></example>
 
 	<related>-api DataTable.type()</related>

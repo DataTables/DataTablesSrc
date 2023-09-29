@@ -31,8 +31,8 @@
 
 	<example title="Set a 350mS throttle for searching"><![CDATA[
 new DataTable('#myTable', {
-  searchDelay: 350
-} );
+	searchDelay: 350
+});
 ]]></example>
 
 	<related type="option">search</related>

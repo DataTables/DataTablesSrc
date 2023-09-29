@@ -15,8 +15,8 @@
 
 	<example title=""><![CDATA[
 new DataTable('#myTable', {
-  "tabIndex": 1
-} );
+	tabIndex: 1
+});
 ]]></example>
 
 	<related type="option">ordering</related>

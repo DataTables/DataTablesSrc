@@ -36,13 +36,13 @@
 	</description>
 
 	<example title="Notify when column visibility is changed"><![CDATA[
-new DataTable('#myTable');
+let table = new DataTable('#myTable');
 
-$('#example').on( 'column-visibility.dt', function ( e, settings, column, state ) {
+table.on('column-visibility.dt', function (e, settings, column, state) {
 	console.log(
-		'Column '+ column +' has changed to '+ (state ? 'visible' : 'hidden')
+		'Column ' + column + ' has changed to ' + (state ? 'visible' : 'hidden')
 	);
-} );
+});
 ]]></example>
 
 	<related type="option">columns.visible</related>

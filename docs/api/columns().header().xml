@@ -20,21 +20,21 @@
 var table = new DataTable('#myTable');
 
 table
-	.columns( '.highlight' )
+	.columns('.highlight')
 	.header()
 	.to$()
-	.removeClass( 'highlight' );
+	.removeClass('highlight');
 ]]></example>
 
 	<example title="Alert the name of the column for a cell that was clicked on"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#example tbody').on( 'click', 'td', function () {
-	var idx = table.cell( this ).index().column;
-	var title = table.columns( idx ).header();
+$('#example tbody').on('click', 'td', function () {
+	var idx = table.cell(this).index().column;
+	var title = table.columns(idx).header();
 
-	alert( 'Column title clicked on: '+$(title).html() );
-} );
+	alert('Column title clicked on: ' + $(title).html());
+});
 ]]></example>
 
 	<related type="api">column().header()</related>

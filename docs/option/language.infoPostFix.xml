@@ -15,9 +15,9 @@
 
 	<example title="Postfix string to the information summary"><![CDATA[
 new DataTable('#myTable', {
-  language: {
-    infoPostFix: 'All records shown are derived from real information.'
-  }
+	language: {
+		infoPostFix: 'All records shown are derived from real information.'
+	}
 });
 ]]></example>
 

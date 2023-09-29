@@ -29,19 +29,15 @@
 	</description>
 
 	<example title="Non-jQuery: Check if `#example` is a DataTable or not. If not, initialise"><![CDATA[
-
-if ( ! DataTable.isDataTable( '#example' ) ) {
-  new DataTable('#example');
+if (!DataTable.isDataTable('#example')) {
+	new DataTable('#example');
 }
-
 ]]></example>
 
 	<example title="jQuery: Check if `#example` is a DataTable or not. If not, initialise"><![CDATA[
-
-if ( ! $.fn.DataTable.isDataTable( '#example' ) ) {
-  new DataTable('#myTable');
+if (!$.fn.DataTable.isDataTable('#example')) {
+	new DataTable('#myTable');
 }
-
 ]]></example>
 
 </dt-api>

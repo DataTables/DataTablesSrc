@@ -38,13 +38,13 @@
 	<example title="Custom paging controls for next / previous pages"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#next').on( 'click', function () {
-	table.page( 'next' ).draw( 'page' );
-} );
+$('#next').on('click', function () {
+	table.page('next').draw('page');
+});
 
-$('#previous').on( 'click', function () {
-	table.page( 'previous' ).draw( 'page' );
-} );
+$('#previous').on('click', function () {
+	table.page('previous').draw('page');
+});
 ]]></example>
 
 	<related type="init">paging</related>

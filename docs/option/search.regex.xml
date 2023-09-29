@@ -15,10 +15,10 @@
 
 	<example title="Treat search inputs as regular expressions"><![CDATA[
 new DataTable('#myTable', {
-  "search": {
-    "regex": true
-  }
-} );
+	search: {
+		regex: true
+	}
+});
 ]]></example>
 
 	<related type="option">search</related>

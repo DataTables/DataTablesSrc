@@ -30,13 +30,13 @@
 	</description>
 
 	<example title="Show information about the current sort using the API"><![CDATA[
-console.log( 'Table initialisation start: '+new Date().getTime() );
+console.log('Table initialisation start: ' + new Date().getTime());
 
 $('#example')
-	.on( 'init.dt', function () {
-		console.log( 'Table initialisation complete: '+new Date().getTime() );
-	} )
-	.dataTable();
+	.on('init.dt', function () {
+		console.log('Table initialisation complete: ' + new Date().getTime());
+	})
+	.DataTable();
 ]]></example>
 
 	<related>dt-init initComplete</related>

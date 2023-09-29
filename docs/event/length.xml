@@ -26,11 +26,11 @@
 	</description>
 
 	<example title="Write to console on page length change"><![CDATA[
-new DataTable('#myTable');
+let table = new DataTable('#myTable');
 
-$('#example').on( 'length.dt', function ( e, settings, len ) {
-	console.log( 'New page length: '+len );
-} );
+table.on('length.dt', function (e, settings, len) {
+	console.log('New page length: ' + len);
+});
 ]]></example>
 
 	<related type="option">paging</related>

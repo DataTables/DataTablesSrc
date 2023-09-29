@@ -13,7 +13,7 @@
 			DataTables settings object
 		</parameter>
 		<scope>HTML table element</scope>
-		<bubbles>No</bubbles>
+		<bubbles>Yes</bubbles>
 	</type>
 
 	<description>
@@ -25,15 +25,13 @@
 	</description>
 
 	<example title="Set the data length to display to be 20 items"><![CDATA[
+$(document).on('preInit.dt', function (e, settings) {
+	var api = new DataTable.Api(settings);
 
-$(document).on( 'preInit.dt', function (e, settings) {
-	var api = new $.fn.dataTable.Api( settings );
-
-	api.page.len( 20 );
-} );
+	api.page.len(20);
+});
 
 new DataTable('#myTable');
-	
 ]]></example>
 
 	<related>dt-init initComplete</related>

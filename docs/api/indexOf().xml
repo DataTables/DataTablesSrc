@@ -25,17 +25,16 @@
 var table = new DataTable('#myTable');
 
 var index = table
-	.column( 0 )
+	.column(0)
 	.data()
-	.indexOf( 21 );
+	.indexOf(21);
 
-if ( index < 0 ) {
-	alert( '21 was not found in the result set' );
+if (index < 0) {
+	alert('21 was not found in the result set');
 }
 else {
-	alert( '21 was found at index: '+index );
+	alert('21 was found at index: ' + index);
 }
-
 ]]></example>
 
 	<related>-api includes()</related>

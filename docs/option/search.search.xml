@@ -12,10 +12,10 @@
 
 	<example title="Set an initial filter"><![CDATA[
 new DataTable('#myTable', {
-  "search": {
-    "search": "Fred"
-  }
-} );
+	search: {
+		search: 'Fred'
+	}
+});
 ]]></example>
 
 	<related type="option">search</related>

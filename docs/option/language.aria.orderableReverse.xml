@@ -15,12 +15,12 @@
 
 	<example title="Set ARIA orderableReverse string"><![CDATA[
 new DataTable('#myTable', {
-  language: {
-    aria: {
-      orderableReverse: ": Reverse sort this column"
-    }
-  }
-} );
+	language: {
+		aria: {
+			orderableReverse: ': Reverse sort this column'
+		}
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

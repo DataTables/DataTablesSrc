@@ -18,14 +18,14 @@
 
 	<example title="Add a class to the original `dt-tag thead` element"><![CDATA[
 var tables = new DataTable('.dataTable', {
-	scrollX: "100%"
-} );
+	scrollX: '100%'
+});
 
 tables
 	.tables()
 	.header()
 	.to$()
-	.addClass( 'highlight' );
+	.addClass('highlight');
 ]]></example>
 
 	<related type="api">table().header()</related>

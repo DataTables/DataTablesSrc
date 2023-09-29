@@ -14,56 +14,56 @@
 
   <example title="Show an information message for a field that can have a `null` or `undefined` value"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    null,
-    null,
-    null,
-    {
-      "data": "first_name", // can be null or undefined
-      "defaultContent": "<i>Not set</i>"
-    }
-  ]
-} );
+	columns: [
+		null,
+		null,
+		null,
+		{
+			data: 'first_name', // can be null or undefined
+			defaultContent: '<i>Not set</i>'
+		}
+	]
+});
 ]]></example>
 
   <example title="Show an empty string when a field's value is `null` or `undefined` value"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    null,
-    null,
-    null,
-    {
-      "data": "office", // can be null or undefined
-      "defaultContent": ""
-    }
-  ]
-} );
+	columns: [
+		null,
+		null,
+		null,
+		{
+			data: 'office', // can be null or undefined
+			defaultContent: ''
+		}
+	]
+});
 ]]></example>
 
 	<example title="Create an edit button in the last column with `dt-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [
-    {
-      "data": null,
-      "defaultContent": "<button>Edit</button>",
-      "targets": -1
-    }
-  ]
-} );
+	columnDefs: [
+		{
+			data: null,
+			defaultContent: '<button>Edit</button>',
+			targets: -1
+		}
+	]
+});
 ]]></example>
 
 	<example title="Create an edit button in the last column with `dt-init columns`"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    null,
-    null,
-    null,
-    {
-      "data": null,
-      "defaultContent": "<button>Edit</button>"
-    }
-  ]
-} );
+	columns: [
+		null,
+		null,
+		null,
+		{
+			data: null,
+			defaultContent: '<button>Edit</button>'
+		}
+	]
+});
 ]]></example>
 
 	<related type="option">columns.data</related>

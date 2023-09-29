@@ -17,14 +17,12 @@
 	</description>
 
 	<example title="Listen for DataTables initialisation and get the state"><![CDATA[
-
-$(document).on( 'init.dt', function ( e, settings ) {
-	var api = new $.fn.dataTable.Api( settings );
+$(document).on('init.dt', function (e, settings) {
+	var api = new $.fn.dataTable.Api(settings);
 	var state = api.state.loaded();
 
 	// ... use `state` to restore information
-} );
-
+});
 ]]></example>
 
 	<related type="api">state()</related>

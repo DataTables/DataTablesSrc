@@ -31,7 +31,7 @@ let rows = table.rows(1);
 ]]></example>
 
 	<example title="Select row with matched data using a function"><![CDATA[
-let row = table.row((idx, data) => data.location === "Edinburgh");
+let row = table.row((idx, data) => data.location === 'Edinburgh');
 ]]></example>
 
 	<related type="api">rows()</related>

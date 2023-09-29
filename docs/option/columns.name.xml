@@ -17,26 +17,26 @@
 
 	<example title="Setting column names with `dt-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [
-    { "name": "engine",   "targets": 0 },
-    { "name": "browser",  "targets": 1 },
-    { "name": "platform", "targets": 2 },
-    { "name": "version",  "targets": 3 },
-    { "name": "grade",    "targets": 4 }
-  ]
-} );
+	columnDefs: [
+		{ name: 'engine', targets: 0 },
+		{ name: 'browser', targets: 1 },
+		{ name: 'platform', targets: 2 },
+		{ name: 'version', targets: 3 },
+		{ name: 'grade', targets: 4 }
+	]
+});
 ]]></example>
 
 	<example title="Setting column names with `dt-init columns`"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    { "name": "engine" },
-    { "name": "browser" },
-    { "name": "platform" },
-    { "name": "version" },
-    { "name": "grade" }
-  ]
-} );
+	columns: [
+		{ name: 'engine' },
+		{ name: 'browser' },
+		{ name: 'platform' },
+		{ name: 'version' },
+		{ name: 'grade' }
+	]
+});
 ]]></example>
 
   <related type="api">column()</related>

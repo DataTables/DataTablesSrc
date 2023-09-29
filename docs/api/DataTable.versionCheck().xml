@@ -27,27 +27,21 @@
 	</description>
 
 	<example title="Non-jQuery: Check the compatibility of DataTables"><![CDATA[
-
-if ( ! DataTable.versionCheck( '1.11' ) ) {
-	alert( 'DataTables 1.11 or newer is required' );
-} 
-
+if (!DataTable.versionCheck('1.11')) {
+	alert('DataTables 1.11 or newer is required');
+}
 ]]></example>
 
 	<example title="jQuery: Check the compatibility of DataTables"><![CDATA[
-
-if ( ! $.fn.dataTable.versionCheck( '1.10.7' ) ) {
-	alert( 'A newer version of DataTables is required' );
-} 
-
+if (!$.fn.dataTable.versionCheck('1.10.7')) {
+	alert('A newer version of DataTables is required');
+}
 ]]></example>
 
 	<example title="Check that Buttons 1.5 or newer is used"><![CDATA[
-
-if ( ! $.fn.dataTable.versionCheck( '1.5.0', $.fn.dataTable.Buttons.version ) ) {
-	alert( 'A newer version of BUttons is required' );
-} 
-
+if (!$.fn.dataTable.versionCheck('1.5.0', $.fn.dataTable.Buttons.version)) {
+	alert('A newer version of BUttons is required');
+}
 ]]></example>
 
 </dt-api>

@@ -20,8 +20,18 @@
 	<example title="Check if the first and second columns are orderable by the end user, and if so, order on them"><![CDATA[
 var table = new DataTable('#myTable');
 
-if ( table.columns([0,1]).orderable().includes(true) ) {
-  table.order([[0,'asc'], [1,'desc']]).draw();
+if (
+	table
+		.columns([0, 1])
+		.orderable()
+		.includes(true)
+) {
+	table
+		.order([
+			[0, 'asc'],
+			[1, 'desc']
+		])
+		.draw();
 }
 ]]></example>
 

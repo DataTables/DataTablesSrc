@@ -15,10 +15,10 @@
 
 	<example title="Set processing information text"><![CDATA[
 new DataTable('#myTable', {
-  "language": {
-     "processing": "DataTables is currently busy"
-  }
-} );
+	language: {
+		processing: 'DataTables is currently busy'
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

@@ -19,14 +19,14 @@
 	<example title="Get a list of the unique data, sorted, from a single column"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#listData').html( 
+$('#listData').html(
 	table
-		.columns( 0 )
+		.columns(0)
 		.data()
-		.eq( 0 )      // Reduce the 2D array into a 1D array of data
-		.sort()       // Sort data alphabetically
-		.unique()     // Reduce to unique values
-		.join( '<br>' )
+		.eq(0) // Reduce the 2D array into a 1D array of data
+		.sort() // Sort data alphabetically
+		.unique() // Reduce to unique values
+		.join('<br>')
 );
 ]]></example>
 
@@ -34,16 +34,16 @@ $('#listData').html(
 var table = new DataTable('#myTable');
 
 var idx = table
-	.columns( '.check' )
+	.columns('.check')
 	.data()
-	.eq( 0 ) // Reduce the 2D array into a 1D array of data
-	.indexOf( 'Yes' );
+	.eq(0) // Reduce the 2D array into a 1D array of data
+	.indexOf('Yes');
 
-if ( idx === -1 ) {
-	alert( 'Yes not found' );
+if (idx === -1) {
+	alert('Yes not found');
 }
 else {
-	alert( 'Yes was found' );
+	alert('Yes was found');
 }
 ]]></example>
 

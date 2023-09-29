@@ -19,10 +19,8 @@
 	</description>
 
 	<example title="Clear the table state and reload the page"><![CDATA[
-
 table.state.clear();
 window.location.reload();
-
 ]]></example>
 
 	<related type="api">state()</related>

@@ -12,11 +12,9 @@
 	</description>
 
 	<example title="Disable pagination"><![CDATA[
-
 new DataTable('#myTable', {
-  paging: false
+	paging: false
 });
-
 ]]></example>
 
 	<related type="option">info</related>

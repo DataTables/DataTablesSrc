@@ -37,7 +37,6 @@ var columns = table
 	.unique();
 
 alert('Columns containing 21: ' + columns.join(', '));
-
 ]]></example>
 
 	<related type="api">cell().index()</related>

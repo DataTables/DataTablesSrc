@@ -35,12 +35,11 @@
 var table = new DataTable('#myTable');
 
 var squared = table
-	.column( 0 )
+	.column(0)
 	.data()
-	.map( function ( value, index ) {
+	.map(function (value, index) {
 		return value * value;
-	} );
-
+	});
 ]]></example>
 
 </dt-api>

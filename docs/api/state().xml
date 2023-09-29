@@ -52,22 +52,16 @@
 	</description>
 
 	<example title="Get the saved page length from the state object"><![CDATA[
-
-alert( 'Saved page length is: '+ table.state().length );
-
+alert('Saved page length is: ' + table.state().length);
 ]]></example>
 
 	<example title="Get the table state, change it and load it back"><![CDATA[
-
 var table = new DataTable('#myTable');
 var state = table.state();
 
 state.start = 10;
 
-table
-	.state( start )
-	.draw( false );
-
+table.state(start).draw(false);
 ]]></example>
 
 	<related type="api">state.clear()</related>

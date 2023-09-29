@@ -18,19 +18,14 @@
 
 	<example title="Show options 10, 25, 50, 75 and 100 records"><![CDATA[
 new DataTable('#myTable', {
-  lengthMenu: [ 10, 25, 50, 75, 100 ]
-} );
+	lengthMenu: [10, 25, 50, 75, 100]
+});
 ]]></example>
 
 	<example title="Show options 10, 25, 50 and all records"><![CDATA[
 new DataTable('#myTable', {
-	lengthMenu: [
-		10,
-		25,
-		50,
-		{ label: 'All', value: -1 }
-	]
-} );
+	lengthMenu: [10, 25, 50, { label: 'All', value: -1 }]
+});
 ]]></example>
 
 	<related type="option">paging</related>

@@ -15,12 +15,14 @@
 
 	<example title="Have the first column use TH cells`"><![CDATA[
 new DataTable('#myTable', {
-  "ajax": "json.txt",
-  "columnDefs": [ {
-    "targets": 0,
-    "cellType": "th"
-  } ]
-} );
+	ajax: 'json.txt',
+	columnDefs: [
+		{
+			targets: 0,
+			cellType: 'th'
+		}
+	]
+});
 ]]></example>
 
 	<related type="option">ajax</related>

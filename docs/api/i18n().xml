@@ -44,66 +44,67 @@
 	</description>
 
 	<example title="Simple string lookup with no use defined string (i.e. use default)"><![CDATA[
-
 var table = new DataTable('#myTable');
 
 // Will show "Copy to clipboard"
-alert(
-	table.i18n( 'buttons.copy', 'Copy to clipboard' )
-);
-
+alert(table.i18n('buttons.copy', 'Copy to clipboard'));
 ]]></example>
 
 	<example title="As above, but with a developer defined value"><![CDATA[
-
-var table = $('#myTable').DataTable( {
+var table = $('#myTable').DataTable({
 	language: {
 		buttons: {
-			copy: "Click to copy"
+			copy: 'Click to copy'
 		}
 	}
-} );
+});
 
 // Will show "Click to copy"
-alert(
-	table.i18n( 'buttons.copy', 'Copy to clipboard' )
-);
-
+alert(table.i18n('buttons.copy', 'Copy to clipboard'));
 ]]></example>
 
 	<example title="Plural form with no developer defined options"><![CDATA[
-
 var table = new DataTable('#myTable');
 
 // Will show "0 rows selected"
 alert(
-	table.i18n( 'select.rows', {
-		_: '%d rows selected',
-		1: '1 row selected'
-	}, 0 )
+	table.i18n(
+		'select.rows',
+		{
+			_: '%d rows selected',
+			1: '1 row selected'
+		},
+		0
+	)
 );
 
 // Will show "1 row selected"
 alert(
-	table.i18n( 'select.rows', {
-		_: '%d rows selected',
-		1: '1 row selected'
-	}, 1 )
+	table.i18n(
+		'select.rows',
+		{
+			_: '%d rows selected',
+			1: '1 row selected'
+		},
+		1
+	)
 );
 
 // Will show "4 rows selected"
 alert(
-	table.i18n( 'select.rows', {
-		_: '%d rows selected',
-		1: '1 row selected'
-	}, 4 )
+	table.i18n(
+		'select.rows',
+		{
+			_: '%d rows selected',
+			1: '1 row selected'
+		},
+		4
+	)
 );
-
 ]]></example>
 
 	<example title="Plural form with developer defined options"><![CDATA[
-
-var table = $('#myTable').DataTable( {
+var table = $('#myTable').DataTable({
 	language: {
 		select: {
 			rows: {
@@ -113,32 +114,43 @@ var table = $('#myTable').DataTable( {
 			}
 		}
 	}
-} );
+});
 
 // Will show "Click a row to select"
 alert(
-	table.i18n( 'select.rows', {
-		_: '%d rows selected',
-		1: '1 row selected'
-	}, 0 )
+	table.i18n(
+		'select.rows',
+		{
+			_: '%d rows selected',
+			1: '1 row selected'
+		},
+		0
+	)
 );
 
 // Will show "Just one row selected"
 alert(
-	table.i18n( 'select.rows', {
-		_: '%d rows selected',
-		1: '1 row selected'
-	}, 1 )
+	table.i18n(
+		'select.rows',
+		{
+			_: '%d rows selected',
+			1: '1 row selected'
+		},
+		1
+	)
 );
 
 // Will show "4 rows selected"
 alert(
-	table.i18n( 'select.rows', {
-		_: '%d rows selected',
-		1: '1 row selected'
-	}, 4 )
+	table.i18n(
+		'select.rows',
+		{
+			_: '%d rows selected',
+			1: '1 row selected'
+		},
+		4
+	)
 );
-
 ]]></example>
 
 	<related type="option">language</related>

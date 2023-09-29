@@ -30,22 +30,28 @@
 var table = new DataTable('#myTable');
 
 // Hide two columns
-table.columns( [1,2] ).visible( false );
+table.columns([1, 2]).visible(false);
 
-alert( 'Table\'s column visibility are set to: '+table.columns().visible().join(', ') );
+alert(
+	"Table's column visibility are set to: " +
+		table
+			.columns()
+			.visible()
+			.join(', ')
+);
 ]]></example>
 
 	<example title="Hide all columns with a class of '.detail'"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.columns( '.detail' ).visible( false );
+table.columns('.detail').visible(false);
 ]]></example>
 
 	<example title="Hide multiple columns using `redrawCalculations` to improve performance"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.columns( [ 0, 1, 2, 3 ] ).visible( false, false );
-table.columns.adjust().draw( false ); // adjust column sizing and redraw
+table.columns([0, 1, 2, 3]).visible(false, false);
+table.columns.adjust().draw(false); // adjust column sizing and redraw
 ]]></example>
 
 	<related type="api">column().visible()</related>

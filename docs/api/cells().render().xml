@@ -35,7 +35,6 @@ $('#example').on('click', 'tbody td', function () {
 
 	console.log(data);
 });
-
 ]]></example>
 
 	<related type="option">columns.data</related>

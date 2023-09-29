@@ -15,10 +15,10 @@
 
 	<example title="Disable smart filtering"><![CDATA[
 new DataTable('#myTable', {
-  "search": {
-    "smart": false
-  }
-} );
+	search: {
+		smart: false
+	}
+});
 ]]></example>
 
 	<related type="option">search</related>

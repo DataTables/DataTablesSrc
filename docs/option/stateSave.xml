@@ -23,20 +23,23 @@
 
 	<example title="Enable state saving"><![CDATA[
 new DataTable('#myTable', {
-  stateSave: true
-} );
+	stateSave: true
+});
 ]]></example>
 
 	<example title="Enable state saving and override state save/load handlers to use only the table's DOM id"><![CDATA[
 new DataTable('#myTable', {
-  stateSave: true,
-  stateSaveCallback: function(settings,data) {
-      localStorage.setItem( 'DataTables_' + settings.sInstance, JSON.stringify(data) )
-    },
-  stateLoadCallback: function(settings) {
-    return JSON.parse( localStorage.getItem( 'DataTables_' + settings.sInstance ) )
-    }
-} );
+	stateSave: true,
+	stateSaveCallback: function (settings, data) {
+		localStorage.setItem(
+			'DataTables_' + settings.sInstance,
+			JSON.stringify(data)
+		);
+	},
+	stateLoadCallback: function (settings) {
+		return JSON.parse(localStorage.getItem('DataTables_' + settings.sInstance));
+	}
+});
 ]]></example>
 
 	<related type="api">state()</related>

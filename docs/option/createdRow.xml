@@ -29,12 +29,12 @@
 
 	<example title="Add a class to the row, conditionally based on the row's data"><![CDATA[
 new DataTable('#myTable', {
-  "createdRow": function( row, data, dataIndex ) {
-    if ( data[4] == "A" ) {
-      $(row).addClass( 'important' );
-    }
-  }
-} );
+	createdRow: function (row, data, dataIndex) {
+		if (data[4] == 'A') {
+			$(row).addClass('important');
+		}
+	}
+});
 ]]></example>
 
 	<related type="option">data</related>

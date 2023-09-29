@@ -25,7 +25,7 @@
 	<description>
 		Error control is an important consideration in any complex application, and DataTables provides this event to allow you to hook your application's own error handling into DataTables. For example you could trigger an Ajax call that will log an error for investigation, or use the error event to show a custom error message to the end user.
 
-		This event goes hand in hand with the `dt-init $.fn.dataTable.ext.errMode` option which controls how DataTables handles errors. That static option can take one of four values:
+		This event goes hand in hand with the `dt-init DataTable.ext.errMode` option which controls how DataTables handles errors. That static option can take one of four values:
 
 		* `-string alert` (default) - Alert the error
 		* `-string throw` - Throw a Javascript error
@@ -40,15 +40,14 @@
 	</description>
 
 	<example title="Use the event as a custom error handler"><![CDATA[
-$.fn.dataTable.ext.errMode = 'none';
+DataTable.ext.errMode = 'none';
 
 $('#example')
-	.on( 'error.dt', function ( e, settings, techNote, message ) {
-		console.log( 'An error has been reported by DataTables: ', message );
-	} )
+	.on('error.dt', function (e, settings, techNote, message) {
+		console.log('An error has been reported by DataTables: ', message);
+	})
 	.DataTable();
-
 ]]></example>
 
-	<related>dt-init $.fn.dataTable.ext.errMode</related>
+	<related>dt-init DataTable.ext.errMode</related>
 </dt-event>

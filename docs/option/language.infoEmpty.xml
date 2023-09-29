@@ -15,9 +15,9 @@
 
 	<example title="Show page count"><![CDATA[
 new DataTable('#myTable', {
-  language: {
-    infoEmpty: 'No entries to show'
-  }
+	language: {
+		infoEmpty: 'No entries to show'
+	}
 });
 ]]></example>
 

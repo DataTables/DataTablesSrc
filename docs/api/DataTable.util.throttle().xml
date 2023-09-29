@@ -29,19 +29,14 @@
 	</description>
 
 	<example title="Reduce search API method calls to 1 per second"><![CDATA[
-
 var table = new DataTable('#myTable');
-var search = DataTable.util.throttle(
-	function ( val ) {
-		table.search( val ).draw();
-	},
-	1000
-);
+var search = DataTable.util.throttle(function (val) {
+	table.search(val).draw();
+}, 1000);
 
-$('#mySearchBox').on( 'keyup', function () {
-	search( this.value );
-} );
-
+$('#mySearchBox').on('keyup', function () {
+	search(this.value);
+});
 ]]></example>
 
 </dt-api>

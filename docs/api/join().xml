@@ -25,10 +25,9 @@
 var table = new DataTable('#myTable');
 
 var combinedData = table
-	.column( 0 )
+	.column(0)
 	.data()
-	.join( ', ' );
-
+	.join(', ');
 ]]></example>
 
 </dt-api>

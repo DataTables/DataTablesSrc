@@ -21,37 +21,38 @@
 
 	<example title="Language change only"><![CDATA[
 new DataTable('#myTable', {
-  language: {
-    lengthMenu: 'Display _MENU_ records'
-  }
-} );
+	language: {
+		lengthMenu: 'Display _MENU_ records'
+	}
+});
 ]]></example>
 
 	<example title="Language change using entries"><![CDATA[
 new DataTable('#myTable', {
-  language: {
-    lengthMenu: 'Display _MENU_ _ENTRIES_',
-	entries: {
-		_: 'people',
-		1: 'person'
+	language: {
+		lengthMenu: 'Display _MENU_ _ENTRIES_',
+		entries: {
+			_: 'people',
+			1: 'person'
+		}
 	}
-  }
-} );
+});
 ]]></example>
 
 	<example title="Language and options change (you'd be better off using `lengthMenu` though!"><![CDATA[
 new DataTable('#myTable', {
-  "language": {
-    "lengthMenu": 'Display <select>'+
-      '<option value="10">10</option>'+
-      '<option value="20">20</option>'+
-      '<option value="30">30</option>'+
-      '<option value="40">40</option>'+
-      '<option value="50">50</option>'+
-      '<option value="-1">All</option>'+
-      '</select> records'
-  }
-} );
+	language: {
+		lengthMenu:
+			'Display <select>' +
+			'<option value="10">10</option>' +
+			'<option value="20">20</option>' +
+			'<option value="30">30</option>' +
+			'<option value="40">40</option>' +
+			'<option value="50">50</option>' +
+			'<option value="-1">All</option>' +
+			'</select> records'
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

@@ -17,10 +17,8 @@
 	</description>
 
 	<example title="Jump to the next page and save state (the `page()` method does not trigger a state save itself)"><![CDATA[
-
 table.page('next');
 table.state.save();
-
 ]]></example>
 
 	<related type="api">state()</related>

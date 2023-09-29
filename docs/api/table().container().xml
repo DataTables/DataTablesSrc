@@ -19,8 +19,7 @@
 	<example title="Add a class to a single table container node"><![CDATA[
 var table = new DataTable('#myTable');
 
-$( table.table().container() )
-	.addClass( 'selectable' );
+$(table.table().container()).addClass('selectable');
 ]]></example>
 
 	<related type="api">tables().containers()</related>

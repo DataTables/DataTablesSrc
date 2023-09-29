@@ -14,13 +14,8 @@
 
 	<example title="Set a content padding for the last column in the table"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    null,
-    null,
-    null,
-    { "contentPadding": "mmm" }
-  ]
-} );
+	columns: [null, null, null, { contentPadding: 'mmm' }]
+});
 ]]></example>
 
   <related type="option">autoWidth</related>

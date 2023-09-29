@@ -32,23 +32,29 @@
 
 	<example title="Alter the content of the footer on callback"><![CDATA[
 new DataTable('#myTable', {
-  "footerCallback": function( tfoot, data, start, end, display ) {
-    $(tfoot).find('th').eq(0).html( "Starting index is "+start );
-  }
-} );
+	footerCallback: function (tfoot, data, start, end, display) {
+		$(tfoot)
+			.find('th')
+			.eq(0)
+			.html('Starting index is ' + start);
+	}
+});
 ]]></example>
 
 	<example title="Use the API to sum a specific column and output"><![CDATA[
 new DataTable('#myTable', {
-  "footerCallback": function( tfoot, data, start, end, display ) {
-    var api = this.api();
-    $( api.column( 5 ).footer() ).html(
-    	api.column( 5 ).data().reduce( function ( a, b ) {
-    		return a + b;
-    	}, 0 )
-    );
-  }
-} );
+	footerCallback: function (tfoot, data, start, end, display) {
+		var api = this.api();
+		$(api.column(5).footer()).html(
+			api
+				.column(5)
+				.data()
+				.reduce(function (a, b) {
+					return a + b;
+				}, 0)
+		);
+	}
+});
 ]]></example>
 
 	<related type="option">headerCallback</related>

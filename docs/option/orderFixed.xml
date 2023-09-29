@@ -40,33 +40,36 @@
 
 	<example title="The first column will always be sorted upon first"><![CDATA[
 new DataTable('#myTable', {
-	"orderFixed": [ 0, 'asc' ]
-} );
+	orderFixed: [0, 'asc']
+});
 ]]></example>
 
 	<example title="As above, the first column is fixed ordering, but in object form"><![CDATA[
 new DataTable('#myTable', {
-	"orderFixed": {
-		"pre": [ 0, 'asc' ]
+	orderFixed: {
+		pre: [0, 'asc']
 	}
-} );
+});
 ]]></example>
 
 	<example title="The first and second column will always be ordered upon last (postfix) - note how a 2D array is used to specify multiple columns for postfix ordering."><![CDATA[
 new DataTable('#myTable', {
-	"orderFixed": {
-		"post": [[ 0, 'asc' ], [ 1, 'asc' ]]
+	orderFixed: {
+		post: [
+			[0, 'asc'],
+			[1, 'asc']
+		]
 	}
-} );
+});
 ]]></example>
 
 	<example title="Both postfix and prefix options specified"><![CDATA[
 new DataTable('#myTable', {
-	"orderFixed": {
-		"pre": [ 0, 'asc' ],
-		"post": [ 1, 'asc' ]
+	orderFixed: {
+		pre: [0, 'asc'],
+		post: [1, 'asc']
 	}
-} );
+});
 ]]></example>
 
 	<related type="option">ordering</related>

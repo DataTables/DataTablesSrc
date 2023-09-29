@@ -37,7 +37,6 @@
 	</description>
 
 	<example title="Customise the display with a callback function"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		bottomStart: {
@@ -49,11 +48,9 @@ new DataTable('#myTable', {
 		}
 	}
 });
-
 ]]></example>
 
 	<example title="Use the API in the callback to show page count"><![CDATA[
-	
 new DataTable('#myTable', {
 	layout: {
 		bottomStart: {
@@ -62,13 +59,12 @@ new DataTable('#myTable', {
 					let api = this.api();
 					let pageInfo = api.page.info();
 
-					return 'Page '+ (pageInfo.page+1) +' of '+ pageInfo.pages;
+					return 'Page ' + (pageInfo.page + 1) + ' of ' + pageInfo.pages;
 				}
 			}
 		}
 	}
-} );
-
+});
 ]]></example>
 
 	<related>-init infoCallback</related>

@@ -27,29 +27,17 @@
 	</description>
 
 	<example title="Non-jQuery: Adjust the column widths of all visible tables"><![CDATA[
-
-DataTable
-	.tables( { visible: true, api: true } )
-	.columns.adjust();
-
+DataTable.tables({ visible: true, api: true }).columns.adjust();
 ]]></example>
 
 	<example title="Adjust the column widths of all visible tables"><![CDATA[
-
-$.fn.dataTable
-	.tables( { visible: true, api: true } )
-	.columns.adjust();
-
+$.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
 ]]></example>
 
 	<example title="Adjust column widths when a table is made visible in a Bootstrap tab"><![CDATA[
-
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	$.fn.dataTable
-		.tables( { visible: true, api: true } )
-		.columns.adjust();
-})
-
+	$.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+});
 ]]></example>
 
 </dt-api>

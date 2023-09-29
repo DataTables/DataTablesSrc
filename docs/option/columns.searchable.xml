@@ -13,22 +13,14 @@
 
 	<example title="Disable search on the first column with `dt-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [
-    { "searchable": false, "targets": 0 }
-  ]
-} );
+	columnDefs: [{ searchable: false, targets: 0 }]
+});
 ]]></example>
 
 	<example title="Disable search on the first column with `dt-init columns`"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    { "searchable": false },
-    null,
-    null,
-    null,
-    null
-  ] } );
-} );
+	columns: [{ searchable: false }, null, null, null, null]
+});
 ]]></example>
 
 	<related type="option">search</related>

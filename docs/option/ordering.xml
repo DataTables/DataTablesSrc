@@ -15,8 +15,8 @@
 
 	<example title="Disable ordering in the table"><![CDATA[
 new DataTable('#myTable', {
-  "ordering": false
-} );
+	ordering: false
+});
 ]]></example>
 
 	<related type="option">columns.orderable</related>

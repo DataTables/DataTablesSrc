@@ -33,10 +33,10 @@
 
 	<example title="Remove a saved filter, so filtering is never saved"><![CDATA[
 $('#example')
-	.dataTable()
-	.on( 'stateSaveParams.dt', function (e, settings, data) {
-		data.search.search = "";
-	} );
+	.on('stateSaveParams.dt', function (e, settings, data) {
+		data.search.search = '';
+	})
+	.DataTable();
 ]]></example>
 
 	<related type="api">state()</related>

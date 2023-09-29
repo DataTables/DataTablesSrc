@@ -15,10 +15,10 @@
 
 	<example title="Set emptyTable string"><![CDATA[
 new DataTable('#myTable', {
-	"language": {
-      "emptyTable": "No data available in table"
-    }
-} );
+	language: {
+		emptyTable: 'No data available in table'
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

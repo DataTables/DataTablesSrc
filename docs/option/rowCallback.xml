@@ -32,22 +32,22 @@
 
 	<example title="Highlight cells based on their content (object data source)"><![CDATA[
 new DataTable('#myTable', {
-  "rowCallback": function( row, data ) {
-    if ( data.grade == "A" ) {
-      $('td:eq(4)', row).html( '<b>A</b>' );
-    }
-  }
-} );
+	rowCallback: function (row, data) {
+		if (data.grade == 'A') {
+			$('td:eq(4)', row).html('<b>A</b>');
+		}
+	}
+});
 ]]></example>
 
 	<example title="Highlight cells based on their content (array data source)"><![CDATA[
 new DataTable('#myTable', {
-  "rowCallback": function( row, data ) {
-    if ( data[4] == "A" ) {
-      $('td:eq(4)', row).html( '<b>A</b>' );
-    }
-  }
-} );
+	rowCallback: function (row, data) {
+		if (data[4] == 'A') {
+			$('td:eq(4)', row).html('<b>A</b>');
+		}
+	}
+});
 ]]></example>
 
 	<related type="option">drawCallback</related>

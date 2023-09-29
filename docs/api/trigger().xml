@@ -28,20 +28,17 @@
 	</description>
 
 	<example title="Listen for and trigger a custom event"><![CDATA[
-
 let table = new DataTable('#myTable');
 
 table.on('customEvent', function (e, length, start) {
-	console.log( length, start );
+	console.log(length, start);
 	// would print `1, 0`
 });
 
 table.trigger('customEvent', [1, 0]);
-
 ]]></example>
 
 	<example title="Access the DataTables API in a custom event"><![CDATA[
-
 let table = new DataTable('#myTable');
 
 table.on('customEvent', function (e) {
@@ -51,7 +48,6 @@ table.on('customEvent', function (e) {
 });
 
 table.trigger('customEvent');
-
 ]]></example>
 
 	<related>-api on()</related>

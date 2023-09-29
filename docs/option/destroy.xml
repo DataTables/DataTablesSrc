@@ -16,13 +16,13 @@
 
 	<example title="Destroy an existing table and create a new one"><![CDATA[
 new DataTable('#myTable', {
-  "scrollY": "200px"
-} );
+	scrollY: '200px'
+});
 
 // Some time later, recreate without (no scrolling)
 new DataTable('#myTable', {
-  "destroy": true
-} );
+	destroy: true
+});
 ]]></example>
 
 	<related type="init">retrieve</related>

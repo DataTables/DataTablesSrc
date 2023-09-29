@@ -20,7 +20,7 @@
 var table = new DataTable('#myTable');
 
 var rows = table
-	.rows( '.selected' )
+	.rows('.selected')
 	.remove()
 	.draw();
 ]]></example>

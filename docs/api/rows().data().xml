@@ -21,29 +21,22 @@
 	<example title="Get all data from the table"><![CDATA[
 var table = new DataTable('#myTable');
 
-var data = table
-	.rows()
-	.data();
+var data = table.rows().data();
 
-alert( 'The table has '+data.length+' records' );
+alert('The table has ' + data.length + ' records');
 ]]></example>
 
 	<example title="Using a data object instances as the data source"><![CDATA[
-var pupils = [
-	new Pupil(),
-	new Pupil(),
-	new Pupil(),
-	new Pupil()
-];
+var pupils = [new Pupil(), new Pupil(), new Pupil(), new Pupil()];
 
 // Create table with data set
 var table = new DataTable('#myTable', {
 	data: pupils
-} );
+});
 
-var rows = table.rows( 0 ).data();
+var rows = table.rows(0).data();
 
-alert( 'Pupil name in the first row is: '+ rows[0].name() );
+alert('Pupil name in the first row is: ' + rows[0].name());
 ]]></example>
 
 	<related type="api">row().data()</related>

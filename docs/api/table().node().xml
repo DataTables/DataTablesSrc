@@ -16,11 +16,10 @@
 
 	<example title="Add a class to a single table node"><![CDATA[
 var table = new DataTable('#myTable', {
-	scrollX: "100%"
-} );
+	scrollX: '100%'
+});
 
-$( table.table().node() )
-	.addClass( 'highlight' );
+$(table.table().node()).addClass('highlight');
 ]]></example>
 
 	<related type="api">tables().nodes()</related>

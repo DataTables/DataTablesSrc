@@ -27,15 +27,16 @@
 	</description>
 
 	<example title="Remove bound events on table destroy"><![CDATA[
-$('#example')
-	.dataTable()
-	.on( 'click', 'td', function () {
-		alert( this.innerHTML );
-	} );
+let table = new DataTable('#myTable');
 
-$('#example').on( 'destroy.dt', function ( e, settings ) {
-	$(this).off( 'click', 'td' );
-} );
+table.on('click', 'td', function () {
+	alert(this.innerHTML);
+});
+
+table.on('destroy.dt', function (e, settings) {
+	table.off('click', 'td');
+});
+
 ]]></example>
 
 	<related type="option">destroy</related>

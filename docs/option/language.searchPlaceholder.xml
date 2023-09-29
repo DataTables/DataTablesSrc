@@ -20,18 +20,18 @@
 	<example title="Set a placeholder"><![CDATA[
 new DataTable('#myTable', {
 	language: {
-		searchPlaceholder: "Search records"
+		searchPlaceholder: 'Search records'
 	}
-} );
+});
 ]]></example>
 
 	<example title="Search input with no label - just the placeholder"><![CDATA[
 new DataTable('#myTable', {
 	language: {
-		search: "_INPUT_",
-		searchPlaceholder: "Search..."
+		search: '_INPUT_',
+		searchPlaceholder: 'Search...'
 	}
-} );
+});
 ]]></example>
 
 	<related type="option">language</related>

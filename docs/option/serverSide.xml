@@ -21,9 +21,9 @@
 
 	<example title="Enable server-side processing"><![CDATA[
 new DataTable('#myTable', {
-  "serverSide": true,
-  "ajax": "xhr.php"
-} );
+	serverSide: true,
+	ajax: 'xhr.php'
+});
 ]]></example>
 
 	<related type="option">ajax</related>

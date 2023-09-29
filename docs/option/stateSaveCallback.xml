@@ -50,18 +50,18 @@
 
 	<example title="Save state on a server with Ajax"><![CDATA[
 new DataTable('#myTable', {
-  "stateSave": true,
-  "stateSaveCallback": function (settings, data) {
-    // Send an Ajax request to the server with the state object
-    $.ajax( {
-      "url": "/state_save",
-      "data": data,
-      "dataType": "json",
-      "type": "POST",
-      "success": function () {}
-    } );
-  }
-} );
+	stateSave: true,
+	stateSaveCallback: function (settings, data) {
+		// Send an Ajax request to the server with the state object
+		$.ajax({
+			url: '/state_save',
+			data: data,
+			dataType: 'json',
+			type: 'POST',
+			success: function () {}
+		});
+	}
+});
 ]]></example>
 
 	<related type="api">state()</related>

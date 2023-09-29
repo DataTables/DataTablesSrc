@@ -30,7 +30,6 @@ alert(
 				return a + b;
 			})
 );
-
 ]]></example>
 
 	<related type="api">columns().data()</related>

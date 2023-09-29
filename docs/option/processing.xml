@@ -15,8 +15,8 @@
 
 	<example title="Enable processing display"><![CDATA[
 new DataTable('#myTable', {
-	"processing": true
-} );
+	processing: true
+});
 ]]></example>
 
 	<related type="option">language.processing</related>

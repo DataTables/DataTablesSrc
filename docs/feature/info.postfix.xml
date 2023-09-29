@@ -17,7 +17,6 @@
 
 
 	<example title="Provide an information feature postfix"><![CDATA[
-	
 new DataTable('#myTable', {
 	layout: {
 		bottomStart: {
@@ -26,8 +25,7 @@ new DataTable('#myTable', {
 			}
 		}
 	}
-} );
-
+});
 ]]></example>
 
 	<related>-init language.infoEmpty</related>

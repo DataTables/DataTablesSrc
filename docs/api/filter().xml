@@ -33,25 +33,23 @@
 var table = new DataTable('#myTable');
 
 var filteredData = table
-	.column( 0 )
+	.column(0)
 	.data()
-	.filter( function ( value, index ) {
+	.filter(function (value, index) {
 		return value > 20 ? true : false;
-	} );
-
+	});
 ]]></example>
 
 	<example title="Filter data from multiple columns, getting the data points which are greater than 20 from the cells in both columns"><![CDATA[
 var table = new DataTable('#myTable');
 
 var filteredData = table
-	.columns( [0, 1] )
+	.columns([0, 1])
 	.data()
 	.flatten()
-	.filter( function ( value, index ) {
+	.filter(function (value, index) {
 		return value > 20 ? true : false;
-	} );
-
+	});
 ]]></example>
 
 </dt-api>

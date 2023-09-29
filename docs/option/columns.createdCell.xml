@@ -32,15 +32,17 @@
 
 	<example title="Using `createdCell` manipulate the DOM with `dt-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [ {
-    "targets": 3,
-    "createdCell": function (td, cellData, rowData, row, col) {
-      if ( cellData < 1 ) {
-        $(td).css('color', 'red')
-      }
-    }
-  } ]
-} );
+	columnDefs: [
+		{
+			targets: 3,
+			createdCell: function (td, cellData, rowData, row, col) {
+				if (cellData < 1) {
+					$(td).css('color', 'red');
+				}
+			}
+		}
+	]
+});
 ]]></example>
 
 	<related type="option">createdRow</related>

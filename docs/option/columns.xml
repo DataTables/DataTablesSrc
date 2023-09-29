@@ -14,14 +14,8 @@
 
 	<example title="Disable filtering on the first column"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    { "searchable": false },
-    null,
-    null,
-    null,
-    null
-  ]
-} );
+	columns: [{ searchable: false }, null, null, null, null]
+});
 ]]></example>
 
 	<related type="option">columnDefs</related>

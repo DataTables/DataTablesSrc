@@ -19,12 +19,12 @@
 	</description>
 
 	<example title="Get the data type for a column that was clicked on"><![CDATA[
-let table = new DataTable("#example");
+let table = new DataTable('#example');
 
-$("#example").on("click", "tbody td", function () {
-  let type = table.cell(this).type();
+$('#example').on('click', 'tbody td', function () {
+	let type = table.cell(this).type();
 
-  alert("Data type: " + type);
+	alert('Data type: ' + type);
 });
 ]]></example>
 

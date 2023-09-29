@@ -34,7 +34,6 @@ let table = new DataTable('#myTable', {
 
 table.column().init().customProp;
 // returns `true`
-
 ]]></example>
 
 	<related>-api init()</related>

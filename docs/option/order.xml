@@ -20,8 +20,11 @@ new DataTable('#myTable', {
 
 	<example title="Multi-column ordering as the initial state (using tuples)"><![CDATA[
 new DataTable('#myTable', {
-	order: [[ 0, 'asc' ], [ 1, 'asc' ]]
-} );
+	order: [
+		[0, 'asc'],
+		[1, 'asc']
+	]
+});
 ]]></example>
 
 	<example title="Single-column ordering as the initial state (using objects)"><![CDATA[
@@ -30,7 +33,7 @@ new DataTable('#myTable', {
 		idx: 1,
 		dir: 'asc'
 	}
-} );
+});
 ]]></example>
 
 	<example title="Single-column ordering as the initial state (using objects and column names)"><![CDATA[
@@ -45,7 +48,7 @@ new DataTable('#myTable', {
 		name: 'city',
 		dir: 'asc'
 	}
-} );
+});
 ]]></example>
 
 	<related type="option">ordering</related>

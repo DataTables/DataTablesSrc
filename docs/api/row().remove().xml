@@ -19,27 +19,25 @@
 	<example title="Delete a row when a delete icon is clicked upon in the row"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#example tbody').on( 'click', 'img.icon-delete', function () {
+$('#example tbody').on('click', 'img.icon-delete', function () {
 	table
-		.row( $(this).parents('tr') )
+		.row($(this).parents('tr'))
 		.remove()
 		.draw();
-} );
+});
 ]]></example>
 
 	<example title="Transfer a row from one table to another (note that this is for DOM sourced tables, use `dt-api row().data()` for other data sources)"><![CDATA[
 var table1 = $('#example1').DataTable();
 var table2 = $('#example2').DataTable();
 
-$('#example tbody').on( 'click', 'img.icon-transfer', function () {
-	var row = table1.row( $(this).parents('tr') );
+$('#example tbody').on('click', 'img.icon-transfer', function () {
+	var row = table1.row($(this).parents('tr'));
 	var rowNode = row.node();
 	row.remove();
 
-	table2
-		.row.add( rowNode )
-		.draw();
-} );
+	table2.row.add(rowNode).draw();
+});
 ]]></example>
 
 	<related type="api">rows().remove()</related>

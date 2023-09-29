@@ -32,30 +32,24 @@
 	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
 var table = new DataTable('#myTable');
 
-table.columns( '.select-filter' ).every( function () {
+table.columns('.select-filter').every(function () {
 	var that = this;
 
 	// Create the select list and search operation
 	var select = $('<select />')
-		.appendTo(
-			this.footer()
-		)
-		.on( 'change', function () {
-			that
-				.search( $(this).val() )
-				.draw();
-		} );
+		.appendTo(this.footer())
+		.on('change', function () {
+			that.search($(this).val()).draw();
+		});
 
 	// Get the search data for the first column and add to the select list
-	this
-		.cache( 'search' )
+	this.cache('search')
 		.sort()
 		.unique()
-		.each( function ( d ) {
-			select.append( $('<option value="'+d+'">'+d+'</option>') );
-		} );
-} );
-
+		.each(function (d) {
+			select.append($('<option value="' + d + '">' + d + '</option>'));
+		});
+});
 ]]></example>
 
 	<related type="api">column().cache()</related>

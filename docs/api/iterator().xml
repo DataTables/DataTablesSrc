@@ -68,10 +68,8 @@
 	</description>
 
 	<example title="Add a class to each row in a table"><![CDATA[
-
-table.rows().iterator( 'row', function ( context, index ) {
-	$( this.row( index ).node() ).addClass( 'lowlight' );
-} );
-
+table.rows().iterator('row', function (context, index) {
+	$(this.row(index).node()).addClass('lowlight');
+});
 ]]></example>
 </dt-api>

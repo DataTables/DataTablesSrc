@@ -35,7 +35,8 @@
 var table = new DataTable('#myTable');
 
 var titles = table.columns().titles();
-);
+
+// Do something with titles...
 ]]></example>
 
 	<related type="api">column().title()</related>

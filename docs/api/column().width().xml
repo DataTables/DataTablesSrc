@@ -19,13 +19,13 @@
 	</description>
 
 	<example title="Get the width for a column that was clicked on"><![CDATA[
-let table = new DataTable("#example");
+let table = new DataTable('#example');
 
-table.on("click", "tbody td", function () {
-  let width = table.column(this).width();
+table.on('click', 'tbody td', function () {
+	let width = table.column(this).width();
 
-  alert("Column width: " + width);
-}); 
+	alert('Column width: ' + width);
+});
 ]]></example>
 
 	<related>-init columns.width</related>

@@ -58,37 +58,41 @@
 	<example title="Add a child row to all rows, passing in a jQuery created `dt-tag tr` element and show all child rows"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
-	this
-		.child(
-			$(
-				'<tr>'+
-					'<td>'+rowIdx+'.1</td>'+
-					'<td>'+rowIdx+'.2</td>'+
-					'<td>'+rowIdx+'.3</td>'+
-					'<td>'+rowIdx+'.4</td>'+
+table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+	this.child(
+		$(
+			'<tr>' +
+				'<td>' +
+				rowIdx +
+				'.1</td>' +
+				'<td>' +
+				rowIdx +
+				'.2</td>' +
+				'<td>' +
+				rowIdx +
+				'.3</td>' +
+				'<td>' +
+				rowIdx +
+				'.4</td>' +
 				'</tr>'
-			)
 		)
-		.show();
-} );
-
+	).show();
+});
 ]]></example>
 
 	<example title="Update all rows in the table, redrawing only when complete"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+table.rows().every(function (rowIdx, tableLoop, rowLoop) {
 	var d = this.data();
 
 	d.counter++; // update data source for the row
 
 	this.invalidate(); // invalidate the data DataTables has cached for this row
-} );
+});
 
 // Draw once all updates are done
 table.draw();
-
 ]]></example>
 
 

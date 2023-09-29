@@ -19,12 +19,11 @@
 	<example title="Use the indexes in a rows selector to get the data"><![CDATA[
 var table = new DataTable('#myTable');
 
-var rows = table.rows( '.selected' ).indexes();
-var data = table.rows( rows ).data();
+var rows = table.rows('.selected').indexes();
+var data = table.rows(rows).data();
 
 // Note that you could use `table.rows( '.selected' ).data() here as well!
 // This is just an example showing how indexes can be used!
-
 ]]></example>
 
 	<related type="api">row().index()</related>

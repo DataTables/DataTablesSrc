@@ -21,12 +21,12 @@
 
 	<example title="Set text for pagination 'previous' button"><![CDATA[
 new DataTable('#myTable', {
-  "language": {
-    "paginate": {
-      "previous": "Previous page"
-    }
-  }
-} );
+	language: {
+		paginate: {
+			previous: 'Previous page'
+		}
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

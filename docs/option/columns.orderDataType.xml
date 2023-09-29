@@ -14,26 +14,26 @@
 
 	<example title="Set live data sort type with `dt-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [
-    { "orderDataType": "dom-text", "targets": [ 2, 3 ] },
-    { "type": "numeric", "targets": 3 },
-    { "orderDataType": "dom-select", "targets": 4 },
-    { "orderDataType": "dom-checkbox", "targets": 5 }
-  ]
-} );
+	columnDefs: [
+		{ orderDataType: 'dom-text', targets: [2, 3] },
+		{ type: 'numeric', targets: 3 },
+		{ orderDataType: 'dom-select', targets: 4 },
+		{ orderDataType: 'dom-checkbox', targets: 5 }
+	]
+});
 ]]></example>
 
 	<example title="Set live data sort type with `dt-init columns`"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    null,
-    null,
-    { "orderDataType": "dom-text" },
-    { "orderDataType": "dom-text", "type": "numeric" },
-    { "orderDataType": "dom-select" },
-    { "orderDataType": "dom-checkbox" }
-  ]
-} );
+	columns: [
+		null,
+		null,
+		{ orderDataType: 'dom-text' },
+		{ orderDataType: 'dom-text', type: 'numeric' },
+		{ orderDataType: 'dom-select' },
+		{ orderDataType: 'dom-checkbox' }
+	]
+});
 ]]></example>
 
   <related type="option">ordering</related>

@@ -17,7 +17,7 @@
 
 	<example title="Disable information display"><![CDATA[
 new DataTable('#myTable', {
-  info: false
+	info: false
 });
 ]]></example>
 

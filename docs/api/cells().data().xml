@@ -21,7 +21,6 @@ var table = new DataTable('#myTable');
 var data = table.cells('.info').data();
 
 console.log(data);
-
 ]]></example>
 
 	<related type="api">cell().data()</related>

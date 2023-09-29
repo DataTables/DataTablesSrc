@@ -19,14 +19,11 @@
 	<example title="Get the last item from a column."><![CDATA[
 var table = new DataTable('#myTable');
 
-var data = table
-	.column( 0 )
-	.data();
+var data = table.column(0).data();
 
 var firstItem = data.shift();
 
-alert( 'First item in the result set was: '+firstItem );
-
+alert('First item in the result set was: ' + firstItem);
 ]]></example>
 
 </dt-api>

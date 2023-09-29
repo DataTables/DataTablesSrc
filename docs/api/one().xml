@@ -30,13 +30,13 @@
 
 	<example title="Listen for only the first `dt-event xhr` event from DataTables"><![CDATA[
 var table = new DataTable('#myTable', {
-	ajax: "/data",
+	ajax: '/data',
 	serverSide: true
-} );
+});
 
-table.one( 'xhr', function ( e, settings, json ) {
-	console.log( 'Ajax event occurred. Returned data: ', json );
-} );
+table.one('xhr', function (e, settings, json) {
+	console.log('Ajax event occurred. Returned data: ', json);
+});
 ]]></example>
 
 	<related type="api">on()</related>

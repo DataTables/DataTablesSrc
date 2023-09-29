@@ -18,16 +18,16 @@ new DataTable('#myTable', {
 	language: {
 		paginate: {
 			previous: '‹',
-			next:     '›'
+			next: '›'
 		},
 		aria: {
 			paginate: {
 				previous: 'Previous',
-				next:     'Next'
+				next: 'Next'
 			}
 		}
 	}
-} );
+});
 ]]></example>
 
 	<related type="option">language.aria.paginate</related>

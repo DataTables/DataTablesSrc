@@ -74,19 +74,19 @@
 let table = new DataTable('#example');
 
 // #myInput is a <input type="text"> element
-$('#myInput').on( 'keyup', function () {
-	table.search( this.value ).draw();
-} );
+$('#myInput').on('keyup', function () {
+	table.search(this.value).draw();
+});
 ]]></example>
 
 	<example title="Custom search function"><![CDATA[
 let table = new DataTable('#example');
 
-table.search(d => d.includes('My search term')).draw();
+table.search((d) => d.includes('My search term')).draw();
 
 // note that the above can also be rewritten as:
 table
-	.search( function (d) {
+	.search(function (d) {
 		return d.includes('My search term');
 	})
 	.draw();

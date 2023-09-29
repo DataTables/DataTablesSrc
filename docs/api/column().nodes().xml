@@ -28,7 +28,6 @@ table
 	.nodes()
 	.to$() // Convert to a jQuery object
 	.addClass('ready');
-
 ]]></example>
 
 	<related type="api">columns().nodes()</related>

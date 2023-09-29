@@ -30,7 +30,7 @@
 	<example title="Sort on column 1, when '#sorter' element is clicked upon"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.order.listener( '#sorter', 1 );
+table.order.listener('#sorter', 1);
 ]]></example>
 
 	<related type="option">order</related>

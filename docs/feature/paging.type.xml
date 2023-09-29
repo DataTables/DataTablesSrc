@@ -27,7 +27,6 @@
 	</description>
 
 	<example title="Show next and previous buttons only"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		bottomEnd: {
@@ -37,7 +36,6 @@ new DataTable('#myTable', {
 		}
 	}
 });
-
 ]]></example>
 
 	<related>-init pagingType</related>

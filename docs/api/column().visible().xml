@@ -29,24 +29,25 @@
 	<example title="Get the visibility status of column index 0"><![CDATA[
 var table = new DataTable('#myTable');
 
-alert( 'Column index 0 is '+
-	(table.column( 0 ).visible() === true ? 'visible' : 'not visible')
+alert(
+	'Column index 0 is ' +
+		(table.column(0).visible() === true ? 'visible' : 'not visible')
 );
 ]]></example>
 
 	<example title="Hide the first column in the table"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.column( 0 ).visible( false );
+table.column(0).visible(false);
 ]]></example>
 
 	<example title="Hide multiple columns using `redrawCalculations` to improve performance"><![CDATA[
 var table = new DataTable('#myTable');
 
-for ( var i=0 ; i<4 ; i++ ) {
-	table.column( i ).visible( false, false );
+for (var i = 0; i < 4; i++) {
+	table.column(i).visible(false, false);
 }
-table.columns.adjust().draw( false ); // adjust column sizing and redraw
+table.columns.adjust().draw(false); // adjust column sizing and redraw
 ]]></example>
 
 	<related type="api">columns().visible()</related>

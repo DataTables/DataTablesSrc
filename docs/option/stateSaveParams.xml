@@ -25,11 +25,11 @@
 
 	<example title="Remove a saved filter, so filtering is never saved"><![CDATA[
 new DataTable('#myTable', {
-  "stateSave": true,
-  "stateSaveParams": function (settings, data) {
-    data.search.search = "";
-  }
-} );
+	stateSave: true,
+	stateSaveParams: function (settings, data) {
+		data.search.search = '';
+	}
+});
 ]]></example>
 
 	<related type="api">state()</related>

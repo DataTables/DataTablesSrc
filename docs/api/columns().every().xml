@@ -58,60 +58,48 @@
 <example title="Add a filter for each column in the table to the footer"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.columns().every( function () {
+table.columns().every(function () {
 	var that = this;
 
-	$( 'input', this.footer() ).on( 'keyup change', function () {
-		that
-			.search( this.value )
-			.draw();
-	} );
-} );
-
+	$('input', this.footer()).on('keyup change', function () {
+		that.search(this.value).draw();
+	});
+});
 ]]></example>
 
 	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
 var table = new DataTable('#myTable');
 
-table.columns( '.select-filter' ).every( function () {
+table.columns('.select-filter').every(function () {
 	var that = this;
 
 	// Create the select list and search operation
 	var select = $('<select />')
-		.appendTo(
-			this.footer()
-		)
-		.on( 'change', function () {
-			that
-				.search( $(this).val() )
-				.draw();
-		} );
+		.appendTo(this.footer())
+		.on('change', function () {
+			that.search($(this).val()).draw();
+		});
 
 	// Get the search data for the first column and add to the select list
-	this
-		.cache( 'search' )
+	this.cache('search')
 		.sort()
 		.unique()
-		.each( function ( d ) {
-			select.append( $('<option value="'+d+'">'+d+'</option>') );
-		} );
-} );
-
+		.each(function (d) {
+			select.append($('<option value="' + d + '">' + d + '</option>'));
+		});
+});
 ]]></example>
 
 	<example title="Sum all columns which have a class of `.sum` and put the sum into its footer cell"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.columns( '.sum' ).every( function () {
-	var sum = this
-		.data()
-		.reduce( function (a,b) {
-			return a + b;
-		} );
+table.columns('.sum').every(function () {
+	var sum = this.data().reduce(function (a, b) {
+		return a + b;
+	});
 
-	$(el).html( 'Sum: '+sum );
-} );
-
+	$(el).html('Sum: ' + sum);
+});
 ]]></example>
 
 

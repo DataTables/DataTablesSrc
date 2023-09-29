@@ -42,14 +42,12 @@
 var table = new DataTable('#myTable');
 
 table.caption('Table 1: Class averages');
-
 ]]></example>
 
 	<example title="Set the table's caption and display at the bottom of the table"><![CDATA[
 var table = new DataTable('#myTable');
 
 table.caption('Table 2: Year averages', 'bottom');
-
 ]]></example>
 
 	<related>-init caption</related>

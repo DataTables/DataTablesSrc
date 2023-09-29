@@ -67,7 +67,6 @@ table.cells().every(function () {
 		$(this.node()).removeClass('warning');
 	}
 });
-
 ]]></example>
 
 

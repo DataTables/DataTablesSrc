@@ -49,31 +49,28 @@
 	</description>
 
 	<example title="Get the information about the `num` data type"><![CDATA[
-
 let numberType = DataTable.type('num');
 
 console.log(numberType.className);
-
 ]]></example>
 
 	<example title="Remove the default right alignment of number data types"><![CDATA[
-
 DataTable.type('num', 'className', '');
-
 ]]></example>
 
 	<example title="Create a new data type (in this case type detection, ordering and a class for IPv4 addresses)"><![CDATA[
-
 DataTable.type('ipv4', {
 	detect: function (data) {
-		return typeof data === 'string' && data.match(/^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/))
+		return typeof data === 'string' &&
+			data.match(/^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/)
 			? 'ipv4'
 			: null;
 	},
 	order: {
 		pre: function (data) {
 			return Number(
-				data.split('.')
+				data
+					.split('.')
 					.map((num, idx) => num * Math.pow(2, (3 - idx) * 8))
 					.reduce((a, v) => ((a += v), a), 0)
 			);
@@ -81,7 +78,6 @@ DataTable.type('ipv4', {
 	},
 	className: 'dt-data-ipv4'
 });
-
 ]]></example>
 
 	<related>-api DataTable.types()</related>

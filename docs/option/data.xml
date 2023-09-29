@@ -16,45 +16,51 @@
 
 	<example title="Using a 2D array data source"><![CDATA[
 new DataTable('#myTable', {
-	"data": [
-		[ "Tiger Nixon", "System Architect", "$3,120", "2011/04/25", "Edinburgh", 5421 ],
-		[ "Garrett Winters", "Director", "$8,422", "2011/07/25", "Edinburgh", 8422 ],
+	data: [
+		[
+			'Tiger Nixon',
+			'System Architect',
+			'$3,120',
+			'2011/04/25',
+			'Edinburgh',
+			5421
+		],
+		['Garrett Winters', 'Director', '$8,422', '2011/07/25', 'Edinburgh', 8422]
 		// ...
 	]
-} );
+});
 ]]></example>
 
 	<example title="Using an array of objects as a data source"><![CDATA[
-
 new DataTable('#myTable', {
-	"data": [
+	data: [
 		{
-			"name":       "Tiger Nixon",
-			"position":   "System Architect",
-			"salary":     "$3,120",
-			"start_date": "2011/04/25",
-			"office":     "Edinburgh",
-			"extn":       5421
+			name: 'Tiger Nixon',
+			position: 'System Architect',
+			salary: '$3,120',
+			start_date: '2011/04/25',
+			office: 'Edinburgh',
+			extn: 5421
 		},
 		{
-			"name": "Garrett Winters",
-			"position": "Director",
-			"salary": "5300",
-			"start_date": "2011/07/25",
-			"office": "Edinburgh",
-			"extn": "8422"
-		},
+			name: 'Garrett Winters',
+			position: 'Director',
+			salary: '5300',
+			start_date: '2011/07/25',
+			office: 'Edinburgh',
+			extn: '8422'
+		}
 		// ...
 	],
-	"columns": [
-		{ "data": "name" },
-		{ "data": "position" },
-		{ "data": "office" },
-		{ "data": "extn" },
-		{ "data": "start_date" },
-		{ "data": "salary" }
+	columns: [
+		{ data: 'name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'extn' },
+		{ data: 'start_date' },
+		{ data: 'salary' }
 	]
-} );
+});
 ]]></example>
 
 	<related type="option">ajax</related>

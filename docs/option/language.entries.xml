@@ -37,7 +37,6 @@
 	</description>
 
 	<example title="Change the entries type to 'people'"><![CDATA[
-
 new DataTable('#myTable', {
 	language: {
 		entries: {

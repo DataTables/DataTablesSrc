@@ -19,21 +19,20 @@
 	<example title="Create detail rows initially, but don't show them until the row is clicked upon"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.rows().every( function () {
-	this.child( 'Row details for row: '+this.index() );
-} );
+table.rows().every(function () {
+	this.child('Row details for row: ' + this.index());
+});
 
-$('#example tbody').on( 'click', 'tr', function () {
-	var child = table.row( this ).child;
+$('#example tbody').on('click', 'tr', function () {
+	var child = table.row(this).child;
 
-	if ( child.isShown() ) {
+	if (child.isShown()) {
 		child.hide();
 	}
 	else {
 		child.show();
 	}
-} );
-
+});
 ]]></example>
 
 </dt-api>

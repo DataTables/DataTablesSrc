@@ -18,12 +18,12 @@
 
 	<example title="Set ARIA sort ascending string"><![CDATA[
 new DataTable('#myTable', {
-  "language": {
-    "aria": {
-      "sortAscending": " - click/return to sort ascending"
-    }
-  }
-} );
+	language: {
+		aria: {
+			sortAscending: ' - click/return to sort ascending'
+		}
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

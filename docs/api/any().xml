@@ -24,7 +24,6 @@ var table = new DataTable('#myTable');
 if (table.rows('.selected').any()) {
 	alert('Rows are selected');
 }
-
 ]]></example>
 
 	<example title="Find if the table has any data"><![CDATA[
@@ -33,7 +32,6 @@ var table = new DataTable('#myTable');
 if (!table.data().any()) {
 	alert('Empty table');
 }
-
 ]]></example>
 
 	<related>dt-api count()</related>

@@ -23,17 +23,13 @@
 	</description>
 
 	<example title="Listen for the `dt-event init` and check to see if a feature should be initialised based on the options given in the initialisation object."><![CDATA[
+$(document).on('init.dt', function (e, settings) {
+	var api = new $.fn.dataTable.Api(settings);
 
-$(document).on( 'init.dt', function ( e, settings ) {
-	var api = new $.fn.dataTable.Api( settings );
-
-	if ( api.init().pageResize ||
-		 $.fn.dataTable.defaults.pageResize )
-	{
-		new PageResize( api );
+	if (api.init().pageResize || $.fn.dataTable.defaults.pageResize) {
+		new PageResize(api);
 	}
-} );
-
+});
 ]]></example>
 
 	<related>-api column().init()</related>

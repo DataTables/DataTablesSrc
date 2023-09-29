@@ -28,31 +28,21 @@
 
 	<example title="Disable ordering on the first column AND set the default ordering for the table (the default would still be to order on column index 0 otherwise)"><![CDATA[
 new DataTable('#myTable', {
-  columnDefs: [
-    { orderable: false, targets: 0 }
-  ],
-  order: [[1, 'asc']]
-} );
+	columnDefs: [{ orderable: false, targets: 0 }],
+	order: [[1, 'asc']]
+});
 ]]></example>
 
 	<example title="Disable ordering on the first column with `dt-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
-  columnDefs: [
-    { orderable: false, targets: 0 }
-  ]
-} );
+	columnDefs: [{ orderable: false, targets: 0 }]
+});
 ]]></example>
 
 	<example title="Disable ordering on the first column with `dt-init columns`"><![CDATA[
 new DataTable('#myTable', {
-  columns: [
-    { orderable: false },
-    null,
-    null,
-    null,
-    null
-  ]
-} );
+	columns: [{ orderable: false }, null, null, null, null]
+});
 ]]></example>
 
 	<related type="option">ordering</related>

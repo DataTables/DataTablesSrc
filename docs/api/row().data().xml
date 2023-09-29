@@ -27,44 +27,41 @@
 	<example title="Get the data for a single row when clicked upon"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#example tbody').on( 'click', 'tr', function () {
-	console.log( table.row( this ).data() );
-} );
-
+$('#example tbody').on('click', 'tr', function () {
+	console.log(table.row(this).data());
+});
 ]]></example>
 
 	<example title="Increase a counter when a row is clicked on"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#example tbody').on( 'click', 'tr', function () {
-	var d = table.row( this ).data();
-	
+$('#example tbody').on('click', 'tr', function () {
+	var d = table.row(this).data();
+
 	d.counter++;
 
 	table
-		.row( this )
-		.data( d )
+		.row(this)
+		.data(d)
 		.draw();
-} );
+});
 
 // Note that row().invalidate() could also be used for this example case
-
 ]]></example>
 
 	<example title="Update all rows in the table, redrawing only when complete"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.rows().every( function () {
+table.rows().every(function () {
 	var d = this.data();
 
 	d.counter++; // update data source for the row
 
 	this.invalidate(); // invalidate the data DataTables has cached for this row
-} );
+});
 
 // Draw once all updates are done
 table.draw();
-
 ]]></example>
 
 

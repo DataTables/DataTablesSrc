@@ -49,7 +49,7 @@ var table = new DataTable('#myTable');
 var info = table.page.info();
 
 $('#tableInfo').html(
-	'Currently showing page '+(info.page+1)+' of '+info.pages+' pages.'
+	'Currently showing page ' + (info.page + 1) + ' of ' + info.pages + ' pages.'
 );
 ]]></example>
 

@@ -21,8 +21,8 @@
 
 	<example title="Disable user ability to change number of records per page"><![CDATA[
 new DataTable('#myTable', {
-  "lengthChange": false
-} );
+	lengthChange: false
+});
 ]]></example>
 
 	<related type="option">dom</related>

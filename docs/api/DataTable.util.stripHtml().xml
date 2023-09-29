@@ -30,10 +30,8 @@
 	</description>
 
 	<example title="Strip HTML from a string"><![CDATA[
-
 let sanitized = DataTable.util.stripHtml('<a href="...">Link</a>');
 
 // sanitized is: 'Link'
-
 ]]></example>
 </dt-api>

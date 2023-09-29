@@ -20,11 +20,10 @@
 var table = new DataTable('#myTable');
 
 table
-	.column( 0 )
+	.column(0)
 	.nodes()
 	.toJQuery()
-	.addClass( 'ready' );
-
+	.addClass('ready');
 ]]></example>
 
 </dt-api>

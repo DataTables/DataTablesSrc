@@ -19,7 +19,6 @@ $('#example').DataTable({
 		}
 	]
 });
-
 ]]></example>
 
 	<related type="option">columnDefs</related>

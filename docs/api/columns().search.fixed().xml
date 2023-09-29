@@ -57,7 +57,10 @@
 	<example title="Get an array of current search names from all columns"><![CDATA[
 let table = new DataTable('#myTable');
 
-let searches = table.columns().search.fixed().toArray();
+let searches = table
+	.columns()
+	.search.fixed()
+	.toArray();
 ]]></example>
 
 	<example title="Get an expecting search term"><![CDATA[

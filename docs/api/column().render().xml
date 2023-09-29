@@ -31,7 +31,6 @@ var table = new DataTable('#myTable');
 var rendered = table.column(1).render();
 
 console.log(rendered);
-
 ]]></example>
 
 	<related type="option">columns.data</related>

@@ -25,7 +25,6 @@ $('#example').on('click', 'tbody td', function () {
 	var idx = table.cell(this).index().column;
 	alert('Data source: ' + table.column(idx).dataSrc());
 });
-
 ]]></example>
 
 	<related type="api">columns().data()</related>

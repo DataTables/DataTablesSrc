@@ -30,11 +30,14 @@
 	<example title="Show information about the current order using the API"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#example').on( 'order.dt', function () {
+table.on('order', function () {
 	// This will show: "Ordering on column 1 (asc)", for example
 	var order = table.order();
-	$('#orderInfo').html( 'Ordering on column '+order[0][0]+' ('+order[0][1]+')' );
-} );
+
+	$('#orderInfo').html(
+		'Ordering on column ' + order[0][0] + ' (' + order[0][1] + ')'
+	);
+});
 ]]></example>
 
 	<related type="option">ordering</related>

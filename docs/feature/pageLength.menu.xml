@@ -23,17 +23,15 @@
 	</description>
 
 	<example title="Provide search input string"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		topEnd: {
 			search: {
-				menu: [ 5, 10, 15, 20 ]
+				menu: [5, 10, 15, 20]
 			}
 		}
 	}
 });
-
 ]]></example>
 
 	<related>-init lengthMenu</related>

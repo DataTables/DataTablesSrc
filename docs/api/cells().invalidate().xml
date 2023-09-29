@@ -34,8 +34,10 @@ var table = new DataTable('#myTable');
 var td = $('#example tbody td:eq(0)');
 
 td.html('Updated');
-table.cell(td).invalidate().draw();
-
+table
+	.cell(td)
+	.invalidate()
+	.draw();
 ]]></example>
 
 	<related type="api">cells().data()</related>

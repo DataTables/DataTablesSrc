@@ -30,12 +30,12 @@
 
 	<example title="Log a console message on each `dt-event xhr` event"><![CDATA[
 var table = new DataTable('#myTable', {
-	ajax: "/data.json"
-} );
+	ajax: '/data.json'
+});
 
-table.on( 'xhr', function ( e, settings, json ) {
-	console.log( 'Ajax event occurred. Returned data: ', json );
-} );
+table.on('xhr', function (e, settings, json) {
+	console.log('Ajax event occurred. Returned data: ', json);
+});
 ]]></example>
 
 	<related type="api">off()</related>

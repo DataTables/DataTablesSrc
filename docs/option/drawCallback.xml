@@ -18,21 +18,21 @@
 
 	<example title="Notify whenever DataTables does a draw"><![CDATA[
 new DataTable('#myTable', {
-	"drawCallback": function( settings ) {
-		alert( 'DataTables has redrawn the table' );
+	drawCallback: function (settings) {
+		alert('DataTables has redrawn the table');
 	}
-} );
+});
 ]]></example>
 
 	<example title="Use API method in the callback to get the data for the rows in the draw"><![CDATA[
 new DataTable('#myTable', {
-	"drawCallback": function( settings ) {
+	drawCallback: function (settings) {
 		var api = this.api();
 
 		// Output the data for the visible rows to the browser's console
-		console.log( api.rows( {page:'current'} ).data() );
+		console.log(api.rows({ page: 'current' }).data());
 	}
-} );
+});
 ]]></example>
 
 	<related type="api">draw()</related>

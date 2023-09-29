@@ -15,8 +15,8 @@
 
 	<example title="Show 50 records per page"><![CDATA[
 new DataTable('#myTable', {
-  "pageLength": 50
-} );
+	pageLength: 50
+});
 ]]></example>
 
 	<related type="option">lengthChange</related>

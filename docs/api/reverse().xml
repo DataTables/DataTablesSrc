@@ -22,11 +22,10 @@
 var table = new DataTable('#myTable');
 
 var data = table
-	.column( 0 )
+	.column(0)
 	.data()
 	.sort()
 	.reverse();
-
 ]]></example>
 
 </dt-api>

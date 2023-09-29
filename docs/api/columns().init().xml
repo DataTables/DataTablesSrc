@@ -15,21 +15,19 @@
 	</description>
 
 	<example title="Get a property from all columns"><![CDATA[
-
 let table = new DataTable('#myTable', {
-    columnDefs: [
-        {
-            target: 1,
-            customProp: true
-        }
-    ]
+	columnDefs: [
+		{
+			target: 1,
+			customProp: true
+		}
+	]
 });
 
 table.columns().every(function () {
 	this.init().customProp;
 	// is `true` for column index 1, otherwise undefined
 });
-
 ]]></example>
 
 	<related>-api init()</related>

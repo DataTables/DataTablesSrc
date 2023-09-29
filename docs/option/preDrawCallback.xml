@@ -18,20 +18,20 @@
 
 	<example title="Remove bound events from cells in the table's body"><![CDATA[
 new DataTable('#myTable', {
-  "preDrawCallback": function( settings ) {
-    $('#example tbody').off( 'click', 'td' );
-  }
-} );
+	preDrawCallback: function (settings) {
+		$('#example tbody').off('click', 'td');
+	}
+});
 ]]></example>
 
 	<example title="Cancel the table draw if #test has a value of 1"><![CDATA[
 new DataTable('#myTable', {
-  "preDrawCallback": function( settings ) {
-    if ( $('#test').val() == 1 ) {
-      return false;
-    }
-  }
-} );
+	preDrawCallback: function (settings) {
+		if ($('#test').val() == 1) {
+			return false;
+		}
+	}
+});
 ]]></example>
 
 	<related type="option">drawCallback</related>

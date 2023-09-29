@@ -37,13 +37,11 @@
 	</description>
 
 	<example title="Show start to end indexes in the information element"><![CDATA[
-	
 new DataTable('#myTable', {
-  infoCallback: function( settings, start, end, max, total, pre ) {
-    return start +" to "+ end;
-  }
-} );
-
+	infoCallback: function (settings, start, end, max, total, pre) {
+		return start + ' to ' + end;
+	}
+});
 ]]></example>
 
 	<related type="option">info</related>

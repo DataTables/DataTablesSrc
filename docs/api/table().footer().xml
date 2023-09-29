@@ -18,10 +18,10 @@
 
 	<example title="Add a class to the original `dt-tag tfoot` element"><![CDATA[
 var table = new DataTable('#myTable', {
-	scrollX: "100%"
-} );
+	scrollX: '100%'
+});
 
-$( table.table().footer() ).addClass( 'highlight' );
+$(table.table().footer()).addClass('highlight');
 ]]></example>
 
 	<related type="api">tables().footer()</related>

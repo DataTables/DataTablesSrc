@@ -14,13 +14,13 @@
 
 	<example title="Set initial filtering on second and fourth columns"><![CDATA[
 new DataTable('#myTable', {
-  "searchCols": [
-    null,
-    { "search": "My filter" },
-    null,
-    { "search": "^[0-9]", "regex": true }
-  ]
-} );
+	searchCols: [
+		null,
+		{ search: 'My filter' },
+		null,
+		{ search: '^[0-9]', regex: true }
+	]
+});
 ]]></example>
 
 	<related type="option">search</related>

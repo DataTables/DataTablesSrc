@@ -31,12 +31,11 @@
 var table = new DataTable('#myTable');
 
 table
-	.column( 0 )
+	.column(0)
 	.data()
-	.each( function ( value, index ) {
-		console.log( 'Data in index: '+index+' is: '+value );
-	} );
-
+	.each(function (value, index) {
+		console.log('Data in index: ' + index + ' is: ' + value);
+	});
 ]]></example>
 
 </dt-api>

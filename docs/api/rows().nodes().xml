@@ -22,11 +22,10 @@
 var table = new DataTable('#myTable');
 
 table
-	.rows( '.ready' )
+	.rows('.ready')
 	.nodes()
-	.to$()      // Convert to a jQuery object
-	.removeClass( 'ready' );
-);
+	.to$() // Convert to a jQuery object
+	.removeClass('ready');
 ]]></example>
 
 	<related type="api">row().node()</related>

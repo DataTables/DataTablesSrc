@@ -11,28 +11,23 @@
 	</description>
 
 	<example title="Disable search input with default layout"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		topEnd: null
 	}
 });
-
 ]]></example>
 
 	<example title="Show search input top left"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		topStart: 'search',
 		topEnd: null
 	}
 });
-
 ]]></example>
 
 	<example title="Show search input with options"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		topEnd: {
@@ -42,7 +37,6 @@ new DataTable('#myTable', {
 		}
 	}
 });
-
 ]]></example>
 
 	<related>-init search</related>

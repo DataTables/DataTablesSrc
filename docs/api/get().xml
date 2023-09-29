@@ -28,7 +28,10 @@
 
 	<example title="Get the data from the top cell in the second column, taking into account current sorting"><![CDATA[
 var table = new DataTable('#myTable');
-var cellData = table.column(2, {order: 'applied'}).data().get(0);
+var cellData = table
+	.column(2, { order: 'applied' })
+	.data()
+	.get(0);
 
 // Note that the above is functionally the same as:
 // table.column(2, {order: 'applied'}).data()[0]
@@ -37,7 +40,10 @@ var cellData = table.column(2, {order: 'applied'}).data().get(0);
 	<example title="Get the data for the first row in the table"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.rows().data().get(0);
+table
+	.rows()
+	.data()
+	.get(0);
 
 // Again, this is functionally the same as:
 // table.rows().data()[0]

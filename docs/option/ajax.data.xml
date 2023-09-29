@@ -45,50 +45,50 @@
 
 	<example title="Add an extra parameter (`user_id` in this case), of a static value to the data submitted"><![CDATA[
 new DataTable('#myTable', {
-  "ajax": {
-    "url": "data.json",
-    "data": {
-    	"user_id": 451
-    }
-  }
-} );
+	ajax: {
+		url: 'data.json',
+		data: {
+			user_id: 451
+		}
+	}
+});
 ]]></example>
 
 	<example title="Add data to the request by manipulating the data object (no return from the function)"><![CDATA[
 new DataTable('#myTable', {
-  "ajax": {
-    "url": "data.json",
-    "data": function ( d ) {
-    	d.extra_search = $('#extra').val();
-    }
-  }
-} );
+	ajax: {
+		url: 'data.json',
+		data: function (d) {
+			d.extra_search = $('#extra').val();
+		}
+	}
+});
 ]]></example>
 
 	<example title="Add data to the request (returning an object)"><![CDATA[
 new DataTable('#myTable', {
-  "ajax": {
-    "url": "data.json",
-    "data": function ( d ) {
-      return $.extend( {}, d, {
-        "extra_search": $('#extra').val()
-      } );
-    }
-  }
-} );
+	ajax: {
+		url: 'data.json',
+		data: function (d) {
+			return $.extend({}, d, {
+				extra_search: $('#extra').val()
+			});
+		}
+	}
+});
 ]]></example>
 
 	<example title="Submit data as JSON in the request body"><![CDATA[
 new DataTable('#myTable', {
-  "ajax": {
-    "url": "data.json",
-    "contentType": "application/json",
-    "type": "POST",
-    "data": function ( d ) {
-      return JSON.stringify( d );
-    }
-  }
-} );
+	ajax: {
+		url: 'data.json',
+		contentType: 'application/json',
+		type: 'POST',
+		data: function (d) {
+			return JSON.stringify(d);
+		}
+	}
+});
 ]]></example>
 
 	<related type="option">ajax</related>

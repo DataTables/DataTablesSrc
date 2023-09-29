@@ -15,22 +15,14 @@
 
 	<example title="Hide the first column with `dt-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [
-    { "visible": false, "targets": 0 }
-  ]
-} );
+	columnDefs: [{ visible: false, targets: 0 }]
+});
 ]]></example>
 
 	<example title="Hide the first column with `dt-init columns`"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    { "visible": false },
-    null,
-    null,
-    null,
-    null
-  ] } );
-} );
+	columns: [{ visible: false }, null, null, null, null]
+});
 ]]></example>
 
 	<related type="option">scrollX</related>

@@ -30,10 +30,8 @@
 	</description>
 
 	<example title="Escape HTML in a string"><![CDATA[
-
 let sanitized = DataTable.util.escapeHtml('<a href="...">Link</a>');
 
 // sanitized is: '&lt;a href=&quot;...&quot;&gt;Link&lt;/a&gt;'
-
 ]]></example>
 </dt-api>

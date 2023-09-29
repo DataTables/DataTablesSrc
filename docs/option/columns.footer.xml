@@ -21,18 +21,18 @@ new DataTable('#myTable', {
 	columns: [
 		{
 			footer: 'First footer',
-			title: 'First header',
+			title: 'First header'
 		},
 		{
 			footer: 'Second footer',
-			title: 'Second header',
+			title: 'Second header'
 		},
 		{
 			footer: 'Third footer',
-			title: 'Third header',
-		},
-	} ]
-} );
+			title: 'Third header'
+		}
+	]
+});
 ]]></example>
 
   <related>-init columns.ariaTitle</related>

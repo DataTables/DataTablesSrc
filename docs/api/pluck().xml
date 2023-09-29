@@ -30,7 +30,7 @@ var table = $('#example').DataTable({
 			salary: '$3,120',
 			start_date: '2011/04/25',
 			office: 'Edinburgh',
-			extn: '5421',
+			extn: '5421'
 		},
 		{
 			name: 'Garrett Winters',
@@ -38,7 +38,7 @@ var table = $('#example').DataTable({
 			salary: '$5,300',
 			start_date: '2011/07/25',
 			office: 'Edinburgh',
-			extn: '8422',
+			extn: '8422'
 		},
 		{
 			name: 'Ashton Cox',
@@ -46,8 +46,8 @@ var table = $('#example').DataTable({
 			salary: '$4,800',
 			start_date: '2009/01/12',
 			office: 'San Francisco',
-			extn: '1562',
-		},
+			extn: '1562'
+		}
 	],
 	columns: [
 		{ data: 'name' },
@@ -63,7 +63,6 @@ var names = table
 	.rows()
 	.data()
 	.pluck('name');
-
 ]]></example>
 
 	<example title="Nested data - get the `salary` data property"><![CDATA[
@@ -74,37 +73,33 @@ var table = $('#example').DataTable({
 			hr: {
 				position: 'System Architect',
 				salary: '$320,800',
-				start_date: '2011/04/25',
-			},
+				start_date: '2011/04/25'
+			}
 		},
 		{
 			name: 'Garrett Winters',
 			hr: {
 				position: 'Accountant',
 				salary: '$170,750',
-				start_date: '2011/07/25',
-			},
+				start_date: '2011/07/25'
+			}
 		},
 		{
 			name: 'Ashton Cox',
 			hr: {
 				position: 'Junior Technical Author',
 				salary: '$86,000',
-				start_date: '2009/01/12',
-			},
-		},
+				start_date: '2009/01/12'
+			}
+		}
 	],
-	columns: [
-		{ data: 'name' },
-		{ data: 'hr.position' }
-	]
+	columns: [{ data: 'name' }, { data: 'hr.position' }]
 });
 
 var salaries = table
 	.rows()
 	.data()
 	.pluck('hr.salary');
-
 ]]></example>
 
 </dt-api>

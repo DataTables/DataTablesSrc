@@ -15,8 +15,8 @@
 
 	<example title="Show row 20 as the first row in the table on startup"><![CDATA[
 new DataTable('#myTable', {
-  "displayStart": 20
-} );
+	displayStart: 20
+});
 ]]></example>
 
 	<related type="option">lengthChange</related>

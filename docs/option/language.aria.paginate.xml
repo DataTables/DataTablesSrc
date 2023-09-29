@@ -17,21 +17,21 @@ new DataTable('#myTable', {
 	pagingType: 'full',
 	language: {
 		paginate: {
-			first:    '«',
+			first: '«',
 			previous: '‹',
-			next:     '›',
-			last:     '»'
+			next: '›',
+			last: '»'
 		},
 		aria: {
 			paginate: {
-				first:    'First',
+				first: 'First',
 				previous: 'Previous',
-				next:     'Next',
-				last:     'Last'
+				next: 'Next',
+				last: 'Last'
 			}
 		}
 	}
-} );
+});
 ]]></example>
 
 	<related type="option">language</related>

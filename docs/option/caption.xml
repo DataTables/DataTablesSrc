@@ -18,9 +18,9 @@
 	</description>
 
 	<example title="Set a caption for the table"><![CDATA[
-$('#myTable').DataTable( {
+$('#myTable').DataTable({
 	caption: 'Table 1: Pupil averages'
-} );
+});
 ]]></example>
 
 	<related>-api caption()</related>

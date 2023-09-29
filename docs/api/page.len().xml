@@ -29,13 +29,13 @@
 	<example title="Allow user to click on two elements to select if all records should be shown or just 10"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#all').on( 'click', function () {
-	table.page.len( -1 ).draw();
-} );
+$('#all').on('click', function () {
+	table.page.len(-1).draw();
+});
 
-$('#_10').on( 'click', function () {
-	table.page.len( 10 ).draw();
-} );
+$('#_10').on('click', function () {
+	table.page.len(10).draw();
+});
 ]]></example>
 
 	<related type="init">paging</related>

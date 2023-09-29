@@ -32,12 +32,12 @@
 
 	<example title="Send additional data to the server on an Ajax request using an event"><![CDATA[
 $('#example')
-	.on('preXhr.dt', function ( e, settings, data ) {
+	.on('preXhr.dt', function (e, settings, data) {
 		data.sessionId = $('#sessionId').val();
-	} )
-	.dataTable( {
-		ajax: "data.json"
-	} );
+	})
+	.DataTable({
+		ajax: 'data.json'
+	});
 
 // Note that `ajax.data` could also be used to perform this action in this case
 ]]></example>

@@ -24,29 +24,31 @@
 	</description>
 
 	<example title="Perform an escape match search using `-tag select` elements"><![CDATA[
-
 var table = new DataTable('#myTable');
 
-table.columns().indexes().flatten().each( function ( i ) {
-	var column = table.column( i );
-	var select = $('<select><option value=""></option></select>')
-		.appendTo( $(column.footer()).empty() )
-		.on( 'change', function () {
-			// Escape the expression so we can perform a regex match
-			var val = $.fn.dataTable.util.escapeRegex(
-				$(this).val()
-			);
+table
+	.columns()
+	.indexes()
+	.flatten()
+	.each(function (i) {
+		var column = table.column(i);
+		var select = $('<select><option value=""></option></select>')
+			.appendTo($(column.footer()).empty())
+			.on('change', function () {
+				// Escape the expression so we can perform a regex match
+				var val = $.fn.dataTable.util.escapeRegex($(this).val());
 
-			column
-				.search( val ? '^'+val+'$' : '', true, false )
-				.draw();
-		} );
+				column.search(val ? '^' + val + '$' : '', true, false).draw();
+			});
 
-	column.data().unique().sort().each( function ( d, j ) {
-		select.append( '<option value="'+d+'">'+d+'</option>' )
-	} );
-} );
-
+		column
+			.data()
+			.unique()
+			.sort()
+			.each(function (d, j) {
+				select.append('<option value="' + d + '">' + d + '</option>');
+			});
+	});
 ]]></example>
 
 	<related type="option">searching</related>

@@ -16,11 +16,9 @@
 	</description>
 
 	<example title="Disable searching abilities in DataTables"><![CDATA[
-
 new DataTable('#myTable', {
 	searching: false
 });
-
 ]]></example>
 
 	<related type="option">columns.searchable</related>

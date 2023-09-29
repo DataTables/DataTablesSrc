@@ -29,10 +29,11 @@
 	<example title="Show information about the current page using the API"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#example').on( 'page.dt', function () {
+table.on('page', function () {
 	var info = table.page.info();
-	$('#pageInfo').html( 'Showing page: '+info.page+' of '+info.pages );
-} );
+
+	$('#pageInfo').html('Showing page: ' + info.page + ' of ' + info.pages);
+});
 ]]></example>
 
 	<related type="option">paging</related>

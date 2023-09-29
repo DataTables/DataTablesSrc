@@ -70,61 +70,54 @@
 var table = new DataTable('#myTable');
 
 table
-	.columns( '.status' )
-	.search( 'Important' )
+	.columns('.status')
+	.search('Important')
 	.draw();
 ]]></example>
 
 	<example title="Build a text `-tag input` search for each column. Note that this example performs partial word matching and smart searching."><![CDATA[
 // Setup - add a text input to each footer cell
-$('#example tfoot th').each( function () {
-	var title = $('#example thead th').eq( $(this).index() ).text();
-	$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-} );
+$('#example tfoot th').each(function () {
+	var title = $('#example thead th')
+		.eq($(this).index())
+		.text();
+	$(this).html('<input type="text" placeholder="Search ' + title + '" />');
+});
 
 // DataTable
 var table = new DataTable('#myTable');
 
 // Apply the filter
-table.columns().every( function () {
+table.columns().every(function () {
 	var column = this;
 
-	$( 'input', this.footer() ).on( 'keyup change', function () {
-		column
-			.search( this.value )
-			.draw();
-	} );
-} );
-
+	$('input', this.footer()).on('keyup change', function () {
+		column.search(this.value).draw();
+	});
+});
 ]]></example>
 
 	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
 var table = new DataTable('#myTable');
 
-table.columns( '.select-filter' ).every( function () {
+table.columns('.select-filter').every(function () {
 	var that = this;
 
 	// Create the select list and search operation
 	var select = $('<select />')
-		.appendTo(
-			this.footer()
-		)
-		.on( 'change', function () {
-			that
-				.search( $(this).val(), { exact: true } )
-				.draw();
-		} );
+		.appendTo(this.footer())
+		.on('change', function () {
+			that.search($(this).val(), { exact: true }).draw();
+		});
 
 	// Get the search data for the first column and add to the select list
-	this
-		.cache( 'search' )
+	this.cache('search')
 		.sort()
 		.unique()
-		.each( function ( d ) {
-			select.append( $('<option value="'+d+'">'+d+'</option>') );
-		} );
-} );
-
+		.each(function (d) {
+			select.append($('<option value="' + d + '">' + d + '</option>'));
+		});
+});
 ]]></example>
 
 

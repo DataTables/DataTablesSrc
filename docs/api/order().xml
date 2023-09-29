@@ -62,16 +62,14 @@
 var table = new DataTable('#example');
 var order = table.order();
 
-alert( 'Column ' + order[0][0] + ' is the ordering column' );
+alert('Column ' + order[0][0] + ' is the ordering column');
 ]]></example>
 
 	<example title="Set the ordering using a tuple"><![CDATA[
 var table = new DataTable('#example');
 
 // Sort by column index 1 and then re-draw
-table
-	.order( [ 1, 'asc' ] )
-	.draw();
+table.order([1, 'asc']).draw();
 ]]></example>
 
 	<example title="Set the ordering using an index based object"><![CDATA[
@@ -90,9 +88,7 @@ table
 var table = new DataTable('#example');
 
 // Sort by column indexes 1 and 2 and redraw
-table
-	.order( [ 1, 'asc' ], [ 2, 'asc' ] )
-	.draw();
+table.order([1, 'asc'], [2, 'asc']).draw();
 ]]></example>
 
 	<example title="Multi-column ordering using column names"><![CDATA[

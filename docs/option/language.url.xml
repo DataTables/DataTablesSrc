@@ -17,42 +17,41 @@
 	</description>
 
 	<example title="Load language information from a remote file"><![CDATA[
-$("#example").DataTable({
-  language: {
-    url: "/dataTables/i18n/de_de.lang",
-  },
+$('#example').DataTable({
+	language: {
+		url: '/dataTables/i18n/de_de.lang'
+	}
 });
 ]]></example>
 
 	<example title="Remote file and local string override"><![CDATA[
-$("#example").DataTable({
-  language: {
-    search: 'In der Tabelle finden',
-    url: "/dataTables/i18n/de_de.lang",
-  },
+$('#example').DataTable({
+	language: {
+		search: 'In der Tabelle finden',
+		url: '/dataTables/i18n/de_de.lang'
+	}
 });
 ]]></example>
 
 	<example title="Performing an action after Ajax loading language strings"><![CDATA[
-$("#example").dataTable({
-  language: {
-    url: "/dataTables/i18n/de_de.lang",
-  },
-  initComplete: function () {
-    var api = this.api();
+$('#example').dataTable({
+	language: {
+		url: '/dataTables/i18n/de_de.lang'
+	},
+	initComplete: function () {
+		var api = this.api();
 
-    // Put the sum of column 5 into the footer cell
-    $(api.column(5).footer()).html(
-      api
-        .column(5)
-        .data()
-        .reduce(function (a, b) {
-          return a + b;
-        })
-    );
-  },
+		// Put the sum of column 5 into the footer cell
+		$(api.column(5).footer()).html(
+			api
+				.column(5)
+				.data()
+				.reduce(function (a, b) {
+					return a + b;
+				})
+		);
+	}
 });
-
 ]]></example>
 
 	<related type="option">language</related>

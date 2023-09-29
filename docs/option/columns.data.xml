@@ -103,15 +103,15 @@
 //      "grade": {value}
 //   }
 new DataTable('#myTable', {
-  "ajaxSource": "sources/objects.txt",
-  "columns": [
-    { "data": "engine" },
-    { "data": "browser" },
-    { "data": "platform" },
-    { "data": "version" },
-    { "data": "grade" }
-  ]
-} );
+	ajaxSource: 'sources/objects.txt',
+	columns: [
+		{ data: 'engine' },
+		{ data: 'browser' },
+		{ data: 'platform' },
+		{ data: 'version' },
+		{ data: 'grade' }
+	]
+});
 ]]></example>
 
 	<example title="Read information from deeply nested objects"><![CDATA[
@@ -127,74 +127,81 @@ new DataTable('#myTable', {
 //      ]
 //   }
 new DataTable('#myTable', {
-  "ajaxSource": "sources/deep.txt",
-  "columns": [
-    { "data": "engine" },
-    { "data": "browser" },
-    { "data": "platform.inner" },
-    { "data": "details.0" },
-    { "data": "details.1" }
-  ]
-} );
+	ajaxSource: 'sources/deep.txt',
+	columns: [
+		{ data: 'engine' },
+		{ data: 'browser' },
+		{ data: 'platform.inner' },
+		{ data: 'details.0' },
+		{ data: 'details.1' }
+	]
+});
 ]]></example>
 
 	<example title="Read a DOM sourced table into data objects"><![CDATA[
-$(document).ready(function() {
+$(document).ready(function () {
 	$('#example').DataTable({
-		"columns": [
-			{ "data": "name" },
-			{ "data": "position" },
-			{ "data": "office" },
-			{ "data": "age" },
-			{ "data": "start_date" },
-			{ "data": "salary" }
+		columns: [
+			{ data: 'name' },
+			{ data: 'position' },
+			{ data: 'office' },
+			{ data: 'age' },
+			{ data: 'start_date' },
+			{ data: 'salary' }
 		]
 	});
-} );
+});
 ]]></example>
 
 	<example title="Using `data` as a function to provide different information for sorting, filtering and display. In this case, currency (price)"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [ {
-    "targets": 0,
-    "data": function ( row, type, val, meta ) {
-      if (type === 'set') {
-        row.price = val;
-        // Store the computed display and filter values for efficiency
-        row.price_display = val=="" ? "" : "$"+numberFormat(val);
-        row.price_filter  = val=="" ? "" : "$"+numberFormat(val)+" "+val;
-        return;
-      }
-      else if (type === 'display') {
-        return row.price_display;
-      }
-      else if (type === 'filter') {
-        return row.price_filter;
-      }
-      // 'sort', 'type' and undefined all just use the integer
-      return row.price;
-    }
-  } ]
-} );
+	columnDefs: [
+		{
+			targets: 0,
+			data: function (row, type, val, meta) {
+				if (type === 'set') {
+					row.price = val;
+					// Store the computed display and filter values for efficiency
+					row.price_display = val == '' ? '' : '$' + numberFormat(val);
+					row.price_filter =
+						val == '' ? '' : '$' + numberFormat(val) + ' ' + val;
+					return;
+				}
+				else if (type === 'display') {
+					return row.price_display;
+				}
+				else if (type === 'filter') {
+					return row.price_filter;
+				}
+				// 'sort', 'type' and undefined all just use the integer
+				return row.price;
+			}
+		}
+	]
+});
 ]]></example>
 
 	<example title="Using default content"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [ {
-    "targets": [ 0 ],
-    "data": null,
-    "defaultContent": "Click to edit"
-  } ]
-} );
+	columnDefs: [
+		{
+			targets: [0],
+			data: null,
+			defaultContent: 'Click to edit'
+		}
+	]
+});
 ]]></example>
 
 	<example title="Using array notation - outputting a list from an array"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [ {
-    "targets": [ 0 ],
-    "data": "name[, ]"
-  } ]
-} );
+	columnDefs: [
+		{
+			targets: [0],
+			data: 'name[, ]'
+		}
+	]
+});
 ]]></example>
 
 	<related type="option">columns.render</related>

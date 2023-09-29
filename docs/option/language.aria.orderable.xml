@@ -15,12 +15,12 @@
 
 	<example title="Set ARIA orderable string"><![CDATA[
 new DataTable('#myTable', {
-  language: {
-    aria: {
-      orderable: ": Sort this column"
-    }
-  }
-} );
+	language: {
+		aria: {
+			orderable: ': Sort this column'
+		}
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

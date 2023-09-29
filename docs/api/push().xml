@@ -25,12 +25,9 @@
 	<example title="Add a value to an array returned for a column's data."><![CDATA[
 var table = new DataTable('#myTable');
 
-var data = table
-	.column( 0 )
-	.data();
+var data = table.column(0).data();
 
-data.push( 'Fini' );
-
+data.push('Fini');
 ]]></example>
 
 </dt-api>

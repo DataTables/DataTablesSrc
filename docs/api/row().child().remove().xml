@@ -23,20 +23,19 @@ var table = new DataTable('#myTable');
 
 $('#example tbody').on('click', 'td.details-control', function () {
 	var tr = $(this).parents('tr');
-	var row = table.row( tr );
+	var row = table.row(tr);
 
-	if ( row.child.isShown() ) {
+	if (row.child.isShown()) {
 		// This row is already open - remove it
-		row.child( false ).remove();
+		row.child(false).remove();
 		tr.removeClass('shown');
 	}
 	else {
 		// Open this row (the format() function would return the data to be shown)
-		row.child( format(row.data()) ).show();
+		row.child(format(row.data())).show();
 		tr.addClass('shown');
 	}
-} );
-
+});
 ]]></example>
 
 </dt-api>

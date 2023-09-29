@@ -16,11 +16,9 @@
     </description>
 
 	<example title="Use the `simple_numbers` type of pagination control"><![CDATA[
-
 new DataTable('#myTable', {
-  pagingType: 'simple_numbers'
+	pagingType: 'simple_numbers'
 });
-
 ]]></example>
 
   <related type="option">dom</related>

@@ -11,38 +11,32 @@
 	</description>
 
 	<example title="Disable page length control with default layout"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		topStart: null
 	}
 });
-
 ]]></example>
 
 	<example title="Show page length control bottom left of the table"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		bottomStart: 'pageLength',
 		topStart: null
 	}
 });
-
 ]]></example>
 
 	<example title="Show page length control with options"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		topStart: {
 			pageLength: {
-				menu: [ 5, 10, 25, 50 ]
+				menu: [5, 10, 25, 50]
 			}
 		}
 	}
 });
-
 ]]></example>
 
 	<related>-init pageLength</related>

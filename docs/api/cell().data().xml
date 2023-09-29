@@ -32,7 +32,6 @@ var table = new DataTable('#myTable');
 $('#example tbody').on('click', 'td', function () {
 	alert(table.cell(this).data());
 });
-
 ]]></example>
 
 	<example title="Increment the data in a cell by 1 when clicked upon"><![CDATA[
@@ -43,7 +42,6 @@ $('#example tbody').on('click', 'td', function () {
 	cell.data(cell.data() + 1).draw();
 	// note - call draw() to update the table's draw state with the new data
 });
-
 ]]></example>
 
 	<related type="api">cells().cache()</related>

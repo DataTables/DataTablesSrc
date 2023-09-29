@@ -23,17 +23,16 @@
 var table = new DataTable('#myTable');
 
 var found = table
-	.column( 0, {page: 'current'} )
+	.column(0, { page: 'current' })
 	.data()
-	.includes( 21 );
+	.includes(21);
 
-if ( found ) {
-	alert( '21 was not found in the result set' );
+if (found) {
+	alert('21 was not found in the result set');
 }
 else {
-	alert( '21 was found at index: '+index );
+	alert('21 was found at index: ' + index);
 }
-
 ]]></example>
 
 	<related>-api indexOf()</related>

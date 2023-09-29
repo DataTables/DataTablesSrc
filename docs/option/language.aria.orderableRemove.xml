@@ -15,12 +15,12 @@
 
 	<example title="Set ARIA orderableRemove string"><![CDATA[
 new DataTable('#myTable', {
-  language: {
-    aria: {
-      orderableRemove: ": Remove sort from this column"
-    }
-  }
-} );
+	language: {
+		aria: {
+			orderableRemove: ': Remove sort from this column'
+		}
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

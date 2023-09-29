@@ -21,12 +21,12 @@
 
 	<example title="Set text for pagination 'first' button"><![CDATA[
 new DataTable('#myTable', {
-  "language": {
-    "paginate": {
-      "first": "First page"
-    }
-  }
-} );
+	language: {
+		paginate: {
+			first: 'First page'
+		}
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

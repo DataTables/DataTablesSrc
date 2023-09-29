@@ -13,8 +13,8 @@
 
 	<example title="Disable smart width calculations"><![CDATA[
 new DataTable('#myTable', {
-  "autoWidth": false
-} );
+	autoWidth: false
+});
 ]]></example>
 
 	<related type="option">columns.width</related>

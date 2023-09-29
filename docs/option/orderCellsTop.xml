@@ -36,7 +36,7 @@
 
 	<example title="Use the top cells in a complex header for ordering"><![CDATA[
 new DataTable('#myTable', {
-  orderCellsTop: true
+	orderCellsTop: true
 });
 ]]></example>
 

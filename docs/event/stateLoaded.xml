@@ -29,10 +29,10 @@
 
 	<example title="Show custom saved data in an input element"><![CDATA[
 $('#example')
-	.dataTable()
-	.on( 'stateLoaded.dt', function (e, settings, data) {
-		$('#myInput').val( data.myCustomValue );
-	} );
+	.on('stateLoaded.dt', function (e, settings, data) {
+		$('#myInput').val(data.myCustomValue);
+	})
+	.DataTable();
 ]]></example>
 
 	<related type="api">state()</related>

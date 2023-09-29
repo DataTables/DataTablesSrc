@@ -15,8 +15,8 @@
 
 	<example title="Disable multiple column ordering ability"><![CDATA[
 new DataTable('#myTable', {
-  "orderMulti": false
-} );
+	orderMulti: false
+});
 ]]></example>
 
 	<related type="option">columns.orderData</related>

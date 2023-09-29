@@ -18,8 +18,8 @@
 
 	<example title="Enable horizontal scrolling"><![CDATA[
 new DataTable('#myTable', {
-  "scrollX": true
-} );
+	scrollX: true
+});
 ]]></example>
 
 	<related type="option">scrollY</related>

@@ -31,8 +31,8 @@
 var table = new DataTable('#myTable');
 
 table
-	.columns( '.status' )
-	.order( 'desc' )
+	.columns('.status')
+	.order('desc')
 	.draw();
 ]]></example>
 

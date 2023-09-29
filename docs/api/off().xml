@@ -30,14 +30,14 @@
 
 	<example title="Listen for only the first `dt-event xhr` event from DataTables"><![CDATA[
 var table = new DataTable('#myTable', {
-	ajax: "/data",
+	ajax: '/data',
 	serverSide: true
-} );
+});
 
-table.on( 'xhr', function ( e, settings, json ) {
-	table.off( 'xhr' );
-	console.log( 'Ajax event occurred. Returned data: ', json );
-} );
+table.on('xhr', function (e, settings, json) {
+	table.off('xhr');
+	console.log('Ajax event occurred. Returned data: ', json);
+});
 
 // note that this is the same effect as using `table.one(...);`
 ]]></example>

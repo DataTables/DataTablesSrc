@@ -27,9 +27,9 @@
 	<example title="Update an external input with filtering information using the API"><![CDATA[
 var table = new DataTable('#myTable');
 
-table.on( 'search.dt', function () {
-	$('#filterInfo').html( 'Currently applied global search: '+table.search() );
-} );
+table.on('search.dt', function () {
+	$('#filterInfo').html('Currently applied global search: ' + table.search());
+});
 ]]></example>
 
 	<related type="option">searching</related>

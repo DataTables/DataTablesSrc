@@ -14,24 +14,24 @@
 	</description>
 
 	<example title="Retrieve DataTable instance for an existing table"><![CDATA[
-$(document).ready( function() {
-  initTable();
-  tableActions();
-} );
+$(document).ready(function () {
+	initTable();
+	tableActions();
+});
 
-function initTable () {
-  return new DataTable('#myTable', {
-    "scrollY": "200px",
-    "paginate": false,
-    "retrieve": true
-  } );
+function initTable() {
+	return new DataTable('#myTable', {
+		scrollY: '200px',
+		paginate: false,
+		retrieve: true
+	});
 }
 
-function tableActions () {
-  var table = initTable();
+function tableActions() {
+	var table = initTable();
 
-  // perform API operations with `table`
-  // ...
+	// perform API operations with `table`
+	// ...
 }
 ]]></example>
 

@@ -34,15 +34,15 @@
 new DataTable('#myTable', {
 	stateSave: true,
 	stateLoadCallback: function (settings, callback) {
-		$.ajax( {
+		$.ajax({
 			url: '/state_load',
 			dataType: 'json',
 			success: function (json) {
-				callback( json );
+				callback(json);
 			}
-		} );
+		});
 	}
-} );
+});
 ]]></example>
 
 	<example title="Load state from a server via Sjax (prior to 1.10.13)"><![CDATA[
@@ -54,18 +54,18 @@ new DataTable('#myTable', {
 		// Send an Ajax request to the server to get the data. Note that
 		// this is a synchronous request since the data is expected back from the
 		// function
-		$.ajax( {
+		$.ajax({
 			url: '/state_load',
 			async: false,
 			dataType: 'json',
 			success: function (json) {
 				o = json;
 			}
-		} );
+		});
 
 		return o;
 	}
-} );
+});
 ]]></example>
 
 	<related type="api">state()</related>

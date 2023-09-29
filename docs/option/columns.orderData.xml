@@ -24,24 +24,24 @@
 
 	<example title="Using `orderData` to define multi-column sorting with `dt-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [
-    { "orderData": [ 0, 1 ],    "targets": 0 },
-    { "orderData": 0,           "targets": 1 },
-    { "orderData": [ 2, 3, 4 ], "targets": 2 }
-  ]
-} );
+	columnDefs: [
+		{ orderData: [0, 1], targets: 0 },
+		{ orderData: 0, targets: 1 },
+		{ orderData: [2, 3, 4], targets: 2 }
+	]
+});
 ]]></example>
 
 	<example title="Using `orderData` to define multi-column sorting with `dt-init columns`"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    { "orderData": [ 0, 1 ] },
-    { "orderData": 0, },
-    { "orderData": [ 2, 3, 4 ] },
-    null,
-    null
-  ]
-} );
+	columns: [
+		{ orderData: [0, 1] },
+		{ orderData: 0 },
+		{ orderData: [2, 3, 4] },
+		null,
+		null
+	]
+});
 ]]></example>
 
 	<related type="option">ordering</related>

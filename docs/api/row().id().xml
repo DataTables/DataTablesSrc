@@ -21,15 +21,13 @@
 	</description>
 
 	<example title="Click handler that shows row id"><![CDATA[
-
 var table = new DataTable('#myTable');
 
-$('#myTable').on( 'click', 'tr', function () {
-	var id = table.row( this ).id();
+$('#myTable').on('click', 'tr', function () {
+	var id = table.row(this).id();
 
-	alert( 'Clicked row id '+id );
-} );
-
+	alert('Clicked row id ' + id);
+});
 ]]></example>
 
 	<related>dt-init rowId</related>

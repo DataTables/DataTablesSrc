@@ -13,9 +13,9 @@
 
 	<example title="Enable the automatic resize of the table container when scrolling enabled"><![CDATA[
 new DataTable('#myTable', {
-  scrollY: 300,
-  scrollCollapse: true
-} );
+	scrollY: 300,
+	scrollCollapse: true
+});
 ]]></example>
 
 	<related type="option">scrollY</related>

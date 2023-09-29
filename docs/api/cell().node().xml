@@ -19,7 +19,6 @@ var table = new DataTable('#myTable');
 var cell = table.cell('#importantCell').node();
 
 $(cell).addClass('warning');
-
 ]]></example>
 
 	<related type="api">cells().nodes()</related>

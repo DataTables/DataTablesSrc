@@ -13,5 +13,4 @@ find $DOCS_DIR -name "*.xml" -print0 | while read -d $'\0' file
 do
     # echo $(realpath -s $file)
 	php examples-format.php $file
-	break
 done

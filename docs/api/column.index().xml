@@ -34,7 +34,6 @@ $('#example tbody').on('click', 'td', function () {
 
 	alert('Column data index: ' + dataIdx + ', and visible index: ' + visIdx);
 });
-
 ]]></example>
 
 </dt-api>

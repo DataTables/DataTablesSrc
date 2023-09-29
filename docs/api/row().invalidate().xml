@@ -32,32 +32,27 @@
 var table = new DataTable('#myTable');
 var tr = $('#example tbody tr:eq(0)');
 
-tr.find('td:eq(0)').html( 'Updated' );
+tr.find('td:eq(0)').html('Updated');
 table
-	.row( tr )
+	.row(tr)
 	.invalidate()
 	.draw();
 ]]></example>
 
 	<example title="Using a data object instances and invalidate to update the table after external data changes"><![CDATA[
-var pupils = [
-	new Pupil(),
-	new Pupil(),
-	new Pupil(),
-	new Pupil()
-];
+var pupils = [new Pupil(), new Pupil(), new Pupil(), new Pupil()];
 
 // Create table with data set
 var table = new DataTable('#myTable', {
 	data: pupils
-} );
+});
 
 // Modify the data in the data set
-pupils[0].name( 'Fred Green' );
+pupils[0].name('Fred Green');
 
 // Invalidate and redraw
 table
-	.row( 0 )
+	.row(0)
 	.invalidate()
 	.draw();
 ]]></example>

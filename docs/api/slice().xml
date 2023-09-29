@@ -19,16 +19,13 @@
 	<example title="Modify a copy of an instance without affecting the original."><![CDATA[
 var table = new DataTable('#myTable');
 
-var data = table
-	.column( 0 )
-	.data();
+var data = table.column(0).data();
 
 var data2 = data.slice();
 
-data2.push( 'Fini' );
+data2.push('Fini');
 
 // `data` is unaffected
-
 ]]></example>
 
 </dt-api>

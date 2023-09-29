@@ -15,10 +15,10 @@
 
 	<example title="Set thousands separator to be a quote mark"><![CDATA[
 new DataTable('#myTable', {
-  "language": {
-    "thousands": "'"
-  }
-} );
+	language: {
+		thousands: "'"
+	}
+});
 ]]></example>
 
 	<related type="option">language</related>

@@ -24,19 +24,6 @@
 		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
 	</description>
 
-	<example title="Disable paging for all tables on the page"><![CDATA[
-
-$(document).on( 'options.dt', function (e, options) {
-	options.paging = false;
-} );
-
-new DataTable('#myTable');
-
-// Note that this could also be done with:
-// $.fn.dataTables.defaults.paging = false;
-	
-]]></example>
-
 	<related>dt-init initComplete</related>
 	<related>dt-event init</related>
 	<related>dt-event preInit</related>

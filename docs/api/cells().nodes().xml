@@ -19,7 +19,6 @@ var table = new DataTable('#myTable');
 var cells = table.cells(":contains('Not shipped')").nodes();
 
 $(cells).addClass('warning');
-
 ]]></example>
 
 	<related type="api">cell().node()</related>

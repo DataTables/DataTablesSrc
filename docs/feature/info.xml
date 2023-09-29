@@ -11,28 +11,23 @@
 	</description>
 
 	<example title="Disable information display with default layout"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		bottomStart: null
 	}
 });
-
 ]]></example>
 
 	<example title="Show information display top left"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		topStart: 'info',
 		bottomStart: null
 	}
 });
-
 ]]></example>
 
 	<example title="Show information display with options"><![CDATA[
-
 new DataTable('#myTable', {
 	layout: {
 		bottomStart: {
@@ -42,7 +37,6 @@ new DataTable('#myTable', {
 		}
 	}
 });
-
 ]]></example>
 
 	<related>-init info</related>

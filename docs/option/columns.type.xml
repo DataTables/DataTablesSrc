@@ -52,22 +52,14 @@
 
 	<example title="Set the first column's type manually with `dt-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
-  "columnDefs": [
-    { "type": "html", "targets": 0 }
-  ]
-} );
+	columnDefs: [{ type: 'html', targets: 0 }]
+});
 ]]></example>
 
 	<example title="Set the first column's type manually with `dt-init columns`"><![CDATA[
 new DataTable('#myTable', {
-  "columns": [
-    { "type": "html" },
-    null,
-    null,
-    null,
-    null
-  ]
-} );
+	columns: [{ type: 'html' }, null, null, null, null]
+});
 ]]></example>
 
   <related type="option">ordering</related>

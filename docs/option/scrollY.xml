@@ -14,10 +14,10 @@
 
 	<example title="Enable vertical scrolling with pagination disabled"><![CDATA[
 new DataTable('#myTable', {
-  "scrollY": "200px",
-  "scrollCollapse": true,
-  "paging": false
-} );
+	scrollY: '200px',
+	scrollCollapse: true,
+	paging: false
+});
 ]]></example>
 
 	<related type="option">paging</related>
