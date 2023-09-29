@@ -22,11 +22,9 @@ DataTable.feature.register( 'info', function ( settings, opts ) {
 
 
 	// Update display on each draw
-	settings.aoDrawCallback.push( {
-		fn: function (s) {
-			_fnUpdateInfo(s, opts, n);
-		}
-	} );
+	settings.aoDrawCallback.push(function (s) {
+		_fnUpdateInfo(s, opts, n);
+	});
 
 	// For the first info display in the table, we add a callback and aria information.
 	if (! $('#' + tid+'_info', settings.nWrapper).length) {

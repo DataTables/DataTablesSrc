@@ -18,9 +18,7 @@ DataTable.feature.register( 'paging', function ( settings, opts ) {
 		_pagingDraw(settings, host, opts);
 	};
 
-	settings.aoDrawCallback.push( {
-		fn: draw
-	} );
+	settings.aoDrawCallback.push(draw);
 
 	// Responsive redraw of paging control
 	$(settings.nTable).on('column-sizing.dt.DT', draw);

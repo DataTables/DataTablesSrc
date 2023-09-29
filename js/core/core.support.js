@@ -152,20 +152,15 @@ function _fnBindAction( n, oData, fn )
 /**
  * Register a callback function. Easily allows a callback function to be added to
  * an array store of callback functions that can then all be called together.
- *  @param {object} oSettings dataTables settings object
- *  @param {string} sStore Name of the array storage for the callbacks in oSettings
+ *  @param {object} settings dataTables settings object
+ *  @param {string} store Name of the array storage for the callbacks in oSettings
  *  @param {function} fn Function to be called back
- *  @param {string} sName Identifying name for the callback (i.e. a label)
  *  @memberof DataTable#oApi
  */
-function _fnCallbackReg( oSettings, sStore, fn, sName )
+function _fnCallbackReg( settings, store, fn )
 {
-	if ( fn )
-	{
-		oSettings[sStore].push( {
-			"fn": fn,
-			"sName": sName
-		} );
+	if ( fn ) {
+		settings[store].push(fn);
 	}
 }
 
@@ -191,7 +186,7 @@ function _fnCallbackFire( settings, callbackArr, eventName, args, bubbles )
 
 	if ( callbackArr ) {
 		ret = settings[callbackArr].slice().reverse().map( function (val) {
-			return val.fn.apply( settings.oInstance, args );
+			return val.apply( settings.oInstance, args );
 		} );
 	}
 

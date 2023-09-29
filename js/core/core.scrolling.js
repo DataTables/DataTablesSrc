@@ -133,10 +133,7 @@ function _fnFeatureHtmlTable ( settings )
 	settings.nScrollFoot = scrollFoot;
 
 	// On redraw - align columns
-	settings.aoDrawCallback.push( {
-		"fn": _fnScrollDraw,
-		"sName": "scrolling"
-	} );
+	settings.aoDrawCallback.push(_fnScrollDraw);
 
 	return scroller[0];
 }

@@ -162,16 +162,16 @@ _fnMap( oSettings.oScroll, oInit, [
 _fnMap( oSettings.oLanguage, oInit, "fnInfoCallback" );
 
 /* Callback functions which are array driven */
-_fnCallbackReg( oSettings, 'aoDrawCallback',       oInit.fnDrawCallback,      'user' );
-_fnCallbackReg( oSettings, 'aoStateSaveParams',    oInit.fnStateSaveParams,   'user' );
-_fnCallbackReg( oSettings, 'aoStateLoadParams',    oInit.fnStateLoadParams,   'user' );
-_fnCallbackReg( oSettings, 'aoStateLoaded',        oInit.fnStateLoaded,       'user' );
-_fnCallbackReg( oSettings, 'aoRowCallback',        oInit.fnRowCallback,       'user' );
-_fnCallbackReg( oSettings, 'aoRowCreatedCallback', oInit.fnCreatedRow,        'user' );
-_fnCallbackReg( oSettings, 'aoHeaderCallback',     oInit.fnHeaderCallback,    'user' );
-_fnCallbackReg( oSettings, 'aoFooterCallback',     oInit.fnFooterCallback,    'user' );
-_fnCallbackReg( oSettings, 'aoInitComplete',       oInit.fnInitComplete,      'user' );
-_fnCallbackReg( oSettings, 'aoPreDrawCallback',    oInit.fnPreDrawCallback,   'user' );
+_fnCallbackReg( oSettings, 'aoDrawCallback',       oInit.fnDrawCallback );
+_fnCallbackReg( oSettings, 'aoStateSaveParams',    oInit.fnStateSaveParams );
+_fnCallbackReg( oSettings, 'aoStateLoadParams',    oInit.fnStateLoadParams );
+_fnCallbackReg( oSettings, 'aoStateLoaded',        oInit.fnStateLoaded );
+_fnCallbackReg( oSettings, 'aoRowCallback',        oInit.fnRowCallback );
+_fnCallbackReg( oSettings, 'aoRowCreatedCallback', oInit.fnCreatedRow );
+_fnCallbackReg( oSettings, 'aoHeaderCallback',     oInit.fnHeaderCallback );
+_fnCallbackReg( oSettings, 'aoFooterCallback',     oInit.fnFooterCallback );
+_fnCallbackReg( oSettings, 'aoInitComplete',       oInit.fnInitComplete );
+_fnCallbackReg( oSettings, 'aoPreDrawCallback',    oInit.fnPreDrawCallback );
 
 oSettings.rowIdFn = _fnGetObjectDataFn( oInit.rowId );
 
@@ -318,7 +318,7 @@ var loadedInit = function () {
 		if ( oSettings.bSorted || _fnDataSource( oSettings ) === 'ssp' || features.bDeferRender ) {
 			_fnSortingClasses( oSettings );
 		}
-	}, 'sc' );
+	} );
 
 
 	/*
@@ -389,7 +389,7 @@ var loadedInit = function () {
 };
 
 /* Must be done after everything which can be overridden by the state saving! */
-_fnCallbackReg( oSettings, 'aoDrawCallback', _fnSaveState, 'state_save' );
+_fnCallbackReg( oSettings, 'aoDrawCallback', _fnSaveState );
 
 if ( oInit.bStateSave )
 {
