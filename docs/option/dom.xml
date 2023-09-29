@@ -5,19 +5,15 @@
 	<since>1.10</since>
 
 	<type type="string" />
-	<default value="lfrtip"><![CDATA[
-		Note that if you use one of the styling integration options such as Bootstrap, Foundation or jQuery UI they will alter the default value for this parameter. Please see the description for the values they set.
+	<default value="null"><![CDATA[
+    The default value was `lfrtip` in DataTables 1.x. Styling integrations would set a custom value. As of DataTables 2, with this `-init layout` option replacing this one, its default value is `null`.
 ]]></default>
 
-  <removed version="2.0.0">
-    <![CDATA[
-      This option was removed from DataTables 2 and replaced by the `-init layout` option as a much simpler method to control the layout of elements around a DataTable.
-
-      `-init dom`, if used in DataTables 2+ will throw a warning message stating that is has been replaced by `-init layout`.
-
-      The documentation of this parameter is retained here for anyone whoo needs to continue using DataTables 1.x.
-    ]]>
-  </removed>
+  <deprecated since="2.0" removal="3.0">
+    <description>
+      This option is superseded by the `-init layout` option in DataTables 2, which is far more flexible, intuitive and styling framework independent. **Do not use this option** for new projects, and actively update older projects to use `-init layout` rather than this option.
+    </description>
+  </deprecated>
 
 	<description>
     <![CDATA[
@@ -51,67 +47,6 @@
 
     The styling libraries that DataTables supports will override the default value of the `dt-init dom` parameter and replace it with a value that is suitable for their layout system. For example the Bootstrap integration makes use of Bootstrap's grid layout.
 
-    The defaults for the styling integrations are:
-
-    Bootstrap 3:
-
-    ```js
-    "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
-    "<'row'<'col-sm-12'tr>>" +
-    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-    ```
-
-    Bootstrap 4:
-
-    ```js
-		"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-		"<'row'<'col-sm-12'tr>>" +
-		"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-    ```
-
-    Bootstrap 5:
-
-    ```js
-    "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-		"<'row'<'col-sm-12'tr>>" +
-		"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-    ```
-
-    Foundation: 
-
-    ```js
-    "<'row'<'small-6 columns'l><'small-6 columns'f>r>"+
-    "t"+
-    "<'row'<'small-6 columns'i><'small-6 columns'p>>",
-    ```
-
-    jQuery UI:
-
-    ```js
-    '<"fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-tl ui-corner-tr"lfr>'+
-    't'+
-    '<"fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-bl ui-corner-br"ip>',
-    ```
-
-    Semantic UI:
-
-    ```js
-		"<'ui stackable grid'"+
-			"<'row'"+
-				"<'eight wide column'l>"+
-				"<'right aligned eight wide column'f>"+
-			">"+
-			"<'row dt-table'"+
-				"<'sixteen wide column'tr>"+
-			">"+
-			"<'row'"+
-				"<'seven wide column'i>"+
-				"<'right aligned nine wide column'p>"+
-			">"+
-		">"
-    ```
-
-
     ### Plug-ins
 
     DataTables feature plug-ins can be developed to add additional features to DataTables and often will make use of this option, adding new letters to the DataTables core features. For example [Buttons](//datatables.net/extensions/buttons) adds the `B` option to `dt-init dom` to specify where table control buttons should be inserted into the table.
@@ -137,6 +72,14 @@
 */
 new DataTable('#myTable', {
 	dom: 'lrtip'
+});
+
+// As of DataTables 2, use `layout`:
+
+new DataTable('#myTable', {
+  layout: {
+    topEnd: null
+  }
 });
 ]]></example>
 

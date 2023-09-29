@@ -24,7 +24,7 @@ DataTable.feature.register( 'paging', function ( settings, opts ) {
 	$(settings.nTable).on('column-sizing.dt.DT', draw);
 
 	return host;
-} );
+}, 'p' );
 
 function _pagingDraw(settings, host, opts) {
 	if (! settings._bInitComplete) {

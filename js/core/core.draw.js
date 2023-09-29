@@ -664,26 +664,109 @@ function _fnAddOptionsHtml ( settings )
 
 	settings.nTableWrapper = insert[0];
 
-	// Everything above - the renderer will actually insert the contents into the document
-	top.forEach(function (item) {
-		renderer( settings, insert, item );
-	});
+	if (settings.sDom) {
+		// Legacy
+		_fnLayoutDom(settings, settings.sDom, insert);
+	}
+	else {
+		// Everything above - the renderer will actually insert the contents into the document
+		top.forEach(function (item) {
+			renderer( settings, insert, item );
+		});
 
-	// The table - always the center of attention
-	renderer( settings, insert, {
-		full: {
-			table: true,
-			contents: [ _fnFeatureHtmlTable(settings) ]
-		}
-	} );
+		// The table - always the center of attention
+		renderer( settings, insert, {
+			full: {
+				table: true,
+				contents: [ _fnFeatureHtmlTable(settings) ]
+			}
+		} );
+
+		// Everything below
+		bottom.forEach(function (item) {
+			renderer( settings, insert, item );
+		});
+	}
 
 	// Processing floats on top, so it isn't an inserted feature
 	_processingHtml( settings );
+}
 
-	// Everything below
-	bottom.forEach(function (item) {
-		renderer( settings, insert, item );
-	});
+/**
+ * Draw the table with the legacy DOM property
+ * @param {*} settings DT settings object
+ * @param {*} dom DOM string
+ * @param {*} insert Insert point
+ */
+function _fnLayoutDom( settings, dom, insert )
+{
+	var parts = dom.match(/(".*?")|('.*?')|./g);
+	var featureNode, option, newNode, next, attr;
+
+	for ( var i=0 ; i<parts.length ; i++ ) {
+		featureNode = null;
+		option = parts[i];
+
+		if ( option == '<' ) {
+			// New container div
+			newNode = $('<div/>');
+
+			// Check to see if we should append an id and/or a class name to the container
+			next = parts[i+1];
+
+			if ( next[0] == "'" || next[0] == '"' ) {
+				attr = next.replace(/['"]/g, '');
+
+				var id = '', className;
+
+				/* The attribute can be in the format of "#id.class", "#id" or "class" This logic
+				 * breaks the string into parts and applies them as needed
+				 */
+				if ( attr.indexOf('.') != -1 ) {
+					var split = attr.split('.');
+
+					id = split[0];
+					className = split[1];
+				}
+				else if ( attr[0] == "#" ) {
+					id = attr;
+				}
+				else {
+					className = attr;
+				}
+
+				newNode
+					.attr('id', id.substring(1))
+					.addClass(className);
+
+				i++; // Move along the position array
+			}
+
+			insert.append( newNode );
+			insert = newNode;
+		}
+		else if ( option == '>' ) {
+			// End container div
+			insert = insert.parent();
+		}
+		else if ( option == 't' ) {
+			// Table
+			featureNode = _fnFeatureHtmlTable( settings );
+		}
+		else
+		{
+			DataTable.ext.feature.forEach(function(feature) {
+				if ( option == feature.cFeature ) {
+					featureNode = feature.fnInit( settings );
+				}
+			});
+		}
+
+		// Add to the display
+		if ( featureNode ) {
+			insert.append( featureNode );
+		}
+	}
 }
 
 

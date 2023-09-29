@@ -5,8 +5,10 @@ var __lengthCounter = 0;
 // - menu
 // - text
 DataTable.feature.register( 'pageLength', function ( settings, opts ) {
+	var features = settings.oFeatures;
+
 	// For compatibility with the legacy `pageLength` top level option
-	if (! settings.oFeatures.bPaginate || ! settings.oFeatures.bLengthChange) {
+	if (! features.bPaginate || ! features.bLengthChange) {
 		return null;
 	}
 
@@ -130,4 +132,4 @@ DataTable.feature.register( 'pageLength', function ( settings, opts ) {
 	updateEntries(settings._iDisplayLength);
 
 	return div;
-} );
+}, 'l' );

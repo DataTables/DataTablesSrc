@@ -111,4 +111,4 @@ DataTable.feature.register( 'search', function ( settings, opts ) {
 	} );
 
 	return filter;
-} );
+}, 'f' );

@@ -736,6 +736,12 @@ DataTable.defaults = {
 
 
 	/**
+	 * Legacy DOM layout option
+	 */
+	"sDom": null,
+
+
+	/**
 	 * Search delay option. This will throttle full table searches that use the
 	 * DataTables provided search input element (it does not effect calls to
 	 * `dt-api search()`, providing a delay before the search is made.

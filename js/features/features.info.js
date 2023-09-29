@@ -39,7 +39,7 @@ DataTable.feature.register( 'info', function ( settings, opts ) {
 	}
 
 	return n;
-} );
+}, 'i' );
 
 /**
  * Update the information elements in the display

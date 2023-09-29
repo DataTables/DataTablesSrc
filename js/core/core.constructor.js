@@ -141,6 +141,7 @@ _fnMap( oSettings, oInit, [
 	"iStateDuration",
 	"bSortCellsTop",
 	"iTabIndex",
+	"sDom",
 	"fnStateLoadCallback",
 	"fnStateSaveCallback",
 	"renderer",

@@ -172,10 +172,6 @@ function _fnCompatOpts ( init )
 	if (init.serverSide && ! init.searchDelay) {
 		init.searchDelay = 400;
 	}
-
-	if (init.dom || init.sDom) {
-		_fnLog( null, 0, '`dom` parameter no longer available. Use `layout`', 22 );
-	}
 }
 
 
