@@ -117,48 +117,48 @@ export interface DataType {
 
 export interface Feature {
     /** Table information display */
-    info: {
+    info?: {
         /** Information display callback */
-        callback: (settings: Settings, start: number, end: number, max: number, total: number, pre: string) => string;
+        callback?: (settings: Settings, start: number, end: number, max: number, total: number, pre: string) => string;
 
         /** Empty table text */
-        empty: string;
+        empty?: string;
 
         /** Information string postfix */
-        postfix: string;
+        postfix?: string;
 
         /** Appended to the info string when searching is active */
-        search: string;
+        search?: string;
 
         /** Table summary information display string */
-        text: string;
+        text?: string;
     }
 
     /** Paging length control */
-    pageLength: {
+    pageLength?: {
         /** Text for page length control */
-        menu: Array<number | {label: string; value: number}>;
+        menu?: Array<number | {label: string; value: number}>;
 
         /** Text for page length control */
-        text: string;
+        text?: string;
     }
 
     /** Pagination buttons */
-    paging: {
+    paging?: {
         /** Paging button display options */
-        type: 'numbers' | 'simple' | 'simple_numbers' | 'full' | 'full_numbers' | 'first_last_numbers';
+        type?: 'numbers' | 'simple' | 'simple_numbers' | 'full' | 'full_numbers' | 'first_last_numbers';
 
         /** Set the maximum number of paging number buttons */
-        numbers: number;
+        numbers?: number;
     }
 
     /** Global search input */
-    search: {
+    search?: {
         /** Placeholder for the input element */
-        placeholder: string;
+        placeholder?: string;
 
         /** Text for search control */
-        text: string;
+        text?: string;
     }
 }
 
