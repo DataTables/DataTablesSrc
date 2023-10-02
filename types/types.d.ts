@@ -103,6 +103,75 @@ export type OrderCombined = OrderIdx | OrderName | OrderArray;
 
 export type Order = OrderCombined | OrderCombined[];
 
+export interface DataType {
+    className?: string;
+    detect?: ((data: any) => string);
+    order?: {
+        pre?: ((a: any, b: any) => number);
+        asc?: ((a: any, b: any) => number);
+        desc?: ((a: any, b: any) => number);
+    }
+    render?: ((data: any, type: string, row: any) => string | number | HTMLElement);
+    search?: ((data: any) => string);
+}
+
+export interface Feature {
+    /** Table information display */
+    info: {
+        /** Information display callback */
+        callback: (settings: Settings, start: number, end: number, max: number, total: number, pre: string) => string;
+
+        /** Empty table text */
+        empty: string;
+
+        /** Information string postfix */
+        postfix: string;
+
+        /** Appended to the info string when searching is active */
+        search: string;
+
+        /** Table summary information display string */
+        text: string;
+    }
+
+    /** Paging length control */
+    pageLength: {
+        /** Text for page length control */
+        menu: Array<number | {label: string; value: number}>;
+
+        /** Text for page length control */
+        text: string;
+    }
+
+    /** Pagination buttons */
+    paging: {
+        /** Paging button display options */
+        type: 'numbers' | 'simple' | 'simple_numbers' | 'full' | 'full_numbers' | 'first_last_numbers';
+
+        /** Set the maximum number of paging number buttons */
+        numbers: number;
+    }
+
+    /** Global search input */
+    search: {
+        /** Placeholder for the input element */
+        placeholder: string;
+
+        /** Text for search control */
+        text: string;
+    }
+}
+
+type LayoutNumber = '' | '1' | '2' | '3' | '4' | '5';
+
+type LayoutSide = 'top' | 'bottom';
+
+type LayoutEdge = 'Start' | 'End';
+
+type LayoutKeys = `${LayoutSide}${LayoutNumber}${LayoutEdge}` | `${LayoutSide}${LayoutNumber}`;
+
+type Layout = Partial<Record<LayoutKeys, keyof Feature | Feature | Array<keyof Feature> | Feature[]>>;
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Main interfaces
@@ -228,6 +297,8 @@ export interface Config {
 
     /**
      * Define the table control elements to appear on the page and in what order.
+     * 
+     * @deprecated Use `layout` instead
      */
     dom?: string;
 
@@ -240,6 +311,11 @@ export interface Config {
      * Language configuration object
      */
     language?: ConfigLanguage;
+
+    /**
+     * 
+     */
+    layout?: Layout;
 
     /**
      * Feature control the end user's ability to change the paging display length of the table.
@@ -2366,23 +2442,35 @@ export interface ApiTablesMethods<T> extends Api<T> {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export interface DataTablesStatic {
+    /**
+     * Get DataTable API instance
+     *
+     * @param table Selector string for table
+     */
+    Api: ApiStatic;
+
+    /**
+     * Default Settings
+     */
+    defaults: Config;
+
+    /**
+     * Default Settings
+     */
+    ext: DataTablesStaticExt;
+
+    /** Feature control namespace */
+    feature: {
+        /**
+         * Create a new feature that can be used for layout
+         *
+         * @param name The name of the new feature.
+         * @param construct A function that will create the elements and event listeners for the feature being added.
+         */
+        register(name: string, construct: (dt: Settings, options: any) => HTMLElement | JQuery);
+    }
+
     /**
      * Check if a table node is a DataTable already or not.
      *
@@ -2421,6 +2509,40 @@ export interface DataTablesStatic {
     } | boolean): Array<Api<any>>| Api<any>;
 
     /**
+     * Get the data type definition object for a specific registered data type.
+     *
+     * @param name Data type name to get the definition of
+     */
+    type(name: string): DataType;
+
+    /**
+     * Set one or more properties for a specific data type.
+     *
+     * @param name Data type name to set values for
+     * @param definition Object containing the values to set
+     */
+    type(name: string, definition: DataType): void;
+
+    /**
+     * Set an individual property value for a a given data type.
+     *
+     * @param name Data type name to set a property value for
+     * @param property Name of the data type property to set
+     * @param val The value to set (typically a function or string)
+     */
+    type(name: string, property: keyof(DataType), val: any): void;
+
+    /**
+     * Get the names of the registered data types DataTables can work with.
+     */
+    types(): string[];
+
+    /**
+     * Utils
+     */
+    util: DataTablesStaticUtil;
+
+    /**
      * Version number compatibility check function
      *
      * Usage:
@@ -2429,28 +2551,6 @@ export interface DataTablesStatic {
      * @returns true if this version of DataTables is greater or equal to the required version, or false if this version of DataTales is not suitable
      */
     versionCheck(version: string): boolean;
-
-    /**
-     * Utils
-     */
-    util: DataTablesStaticUtil;
-
-    /**
-     * Get DataTable API instance
-     *
-     * @param table Selector string for table
-     */
-    Api: ApiStatic;
-
-    /**
-     * Default Settings
-     */
-    defaults: Config;
-
-    /**
-     * Default Settings
-     */
-    ext: DataTablesStaticExt;
 }
 
 export interface ApiStatic {

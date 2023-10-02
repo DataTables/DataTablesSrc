@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="paging">
 	<name>paging</name>
-	<summary>Table information display</summary>
+	<summary>Pagination buttons</summary>
 	<since>2.0</since>
 
 	<description>
