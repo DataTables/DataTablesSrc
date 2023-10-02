@@ -5,8 +5,11 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>column().header()</signature>
+		<signature>column().header( [row] )</signature>
 		<description>Get the header `dt-tag th` / `dt-tag td` cell for a column.</description>
+		<parameter type="number" name="row" default="undefined" since="2.0">
+			This parameter can be used to control which row in the `-tag thead` the header cell will be read from. If empty DataTables will use the primary header cell (`-init orderCellsTop`).
+		</parameter>
 		<returns type="node">The header cell for the selected column.</returns>
 	</type>
 

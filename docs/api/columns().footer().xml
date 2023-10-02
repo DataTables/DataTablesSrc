@@ -5,8 +5,11 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>columns().footer()</signature>
+		<signature>columns().footer( [row] )</signature>
 		<description>Get the footer `dt-tag th` / `dt-tag td` cell for the selected columns.</description>
+		<parameter type="number" name="row" default="undefined" since="2.0">
+			This parameter can be used to control which row in the `-tag tfoot` the footer cells will be read from. If undefined the first row in the footer will be used.
+		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with header cells for the selected columns in the result set.</returns>
 	</type>
 

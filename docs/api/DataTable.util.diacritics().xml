@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.util.diacritics()</name>
+	<summary>Normalise diacritic characters in a string.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>diacritics( str [, appendOriginal] )</signature>
+		<description>
+			Normalise diacritic characters in a string.
+		</description>
+		<param type="string" name="str">
+			String to have diacritic characters replaced
+		</param>
+		<param type="boolean" name="appendOriginal" default="false">
+			Append the original string to the result (`true`) or not (`false`). This can be used to allow search with both accented and unaccented characters.
+		</param>
+		<returns type="string">Updated string</returns>
+	</type>
+
+	<type type="function">
+		<signature>diacritics( fn )</signature>
+		<description>
+			Set the diacritic removal function.
+		</description>
+		<param type="function" name="fn">
+			Function to use for diacritic removal in DataTables.
+		</param>
+	</type>
+
+	<description>
+	<![CDATA[
+		When searching in DataTables we provide the ability to search for words which have accented characters without typing the accent. For example searching for `Desiree` would match _Désirée_.
+
+		This method exposes that ability for external use as well as the ability to replace the diacritic removal method that DataTables uses.
+
+		Our default method uses [the `normalize` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) in Javascript with a `NFD` normalisation form. The way this works is to decompose the accented character into a base ASCII character plus its accent as a second character. We then remove the accent characters.
+	]]>
+	</description>
+
+	<example title="Remove diacritics from a string"><![CDATA[
+let noAccents = DataTable.util.diacritics('Crème Brulée');
+
+// result is: 'Creme Brulee'
+]]></example>
+</dt-api>

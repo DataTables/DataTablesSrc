@@ -5,8 +5,11 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>column().footer()</signature>
+		<signature>column().footer( [row] )</signature>
 		<description>Get the footer `dt-tag th` / `dt-tag td` cell for the selected column.</description>
+		<parameter type="number" name="row" default="undefined" since="2.0">
+			This parameter can be used to control which row in the `-tag tfoot` the footer cell will be read from. If undefined the first row in the footer will be used.
+		</parameter>
 		<returns type="node|null">Footer cell node for the selected element or `null` if the matched column does not have a footer cell.</returns>
 	</type>
 

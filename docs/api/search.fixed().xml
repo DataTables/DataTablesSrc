@@ -19,6 +19,9 @@
 		<description>
 			Get the search term used for the given name.
 		</description>
+		<parameter type="string" name="name">
+			Fixed search term to get.
+		</parameter>
 		<returns type="undefined|function|string|RegExp">
 			The search term that was originally applied.
 		</returns>
@@ -26,9 +29,11 @@
 
 	<type type="function">
 		<signature>search.fixed( name, searchTerm )</signature>
-		<description></description>
+		<description>
+			Set a search term to apply to the table, using a name to uniquely identify it.
+		</description>
 		<parameter type="string" name="name">
-			Treat as a regular expression (`true`) or not (default, `false`).
+			Name to give to the search term so it can be addressed in future.
 		</parameter>
 		<parameter type="string|RegExp|function|null" name="input">
 			The search term to apply to the table.

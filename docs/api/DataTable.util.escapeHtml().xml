@@ -17,7 +17,7 @@
 		<signature>escapeHtml( fn )</signature>
 		<description>Set the HTML escaping function.</description>
 		<param type="function" name="fn">
-			Function to use for HTML stripping in DataTables.
+			Function to use for HTML escaping in DataTables.
 		</param>
 	</type>
 

@@ -7,7 +7,7 @@
 	<type type="string" />
 
 	<description>
-		Very similar to the `-init columns.title` option, but in this case it is used to set the text to appear in the table's footer. If the footer doesn't exist when the table is contstructed and this option is set for columns in the table, the row and cells for the footer will be created automatically.
+		Very similar to the `-init columns.title` option, but in this case it is used to set the text to appear in the table's footer. If the footer doesn't exist when the table is constructed and this option is set for columns in the table, the row and cells for the footer will be created automatically.
 
 	   DataTables will automatically wrap the column title in a `-tag span` element with a class of `dt-column-title`. This is done to ensure that the column title can be both read and written to, without interfering with other elements that might be in the column's footer cell.
 

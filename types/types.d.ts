@@ -62,6 +62,48 @@ export type CellIdxWithVisible = {
     columnVisible: number;
 }
 
+export type SearchInput<T> = string | RegExp | ((data: string, rowData: T) => boolean);
+export type SearchInputColumn<T> = string | RegExp | ((data: string, rowData: T, column: number) => boolean);
+
+/**
+ * DataTables search options.
+ * 
+ * @see https://datatables.net/reference/type/DataTables.SearchOptions
+ */
+export interface SearchOptions {
+    /** Match from the start of words (ASCII) */
+	boundary?: boolean,
+
+    /** Case insensitive search */
+	caseInsensitive?: boolean,
+
+    /** Exact matching */
+	exact?: boolean,
+
+    /** Treat the input as regex (true) or not (false) */
+	regex?: boolean,
+
+    /** Use DataTables smart search */
+	smart?: boolean
+}
+
+export interface OrderIdx {
+	idx: number;
+	dir: 'asc' | 'desc';
+}
+
+export interface OrderName {
+	name: string;
+	dir: 'asc' | 'desc';
+}
+
+export type OrderArray = [number, 'asc' | 'desc'];
+
+export type OrderCombined = OrderIdx | OrderName | OrderArray;
+
+export type Order = OrderCombined | OrderCombined[];
+
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Main interfaces
  */
@@ -144,6 +186,12 @@ export interface Config {
     autoWidth?: boolean;
 
     /**
+     * Set a `caption` for the table. This can be used to describe the contents
+     * of the table to the end user. A caption tag can also be read from HTML.
+     */
+    caption?: string;
+
+    /**
      * Data to use as the display data for the table.
      */
     columns?: ConfigColumns[];
@@ -216,12 +264,15 @@ export interface Config {
     /**
      * Initial order (sort) to apply to the table.
      */
-    order?: Array<(number | string)> | Array<Array<(number | string)>>;
+    order?: Order | Order[];
 
     /**
      * Ordering to always be applied to the table.
      */
-    orderFixed?: Array<(number | string)> | Array<Array<(number | string)>> | object;
+    orderFixed?: Order | Order[] | {
+        pre?: Order | Order[],
+        post: Order | Order[]
+    };
 
     /**
      * Feature control ordering (sorting) abilities in DataTables.
@@ -402,6 +453,7 @@ export interface Config {
 
 export interface ConfigLanguage {
     emptyTable?: string;
+    entries?: string | object;
     info?: string;
     infoEmpty?: string;
     infoFiltered?: string;
@@ -471,6 +523,11 @@ export interface ConfigColumns {
     defaultContent?: string;
 
     /**
+     * Text to display in the table's footer for this column.
+     */
+    footer?: string;
+
+    /**
      * Set a descriptive name for a column.
      */
     name?: string;
@@ -502,7 +559,7 @@ export interface ConfigColumns {
     /**
      * Order direction application sequence.
      */
-    orderSequence?: string[];
+    orderSequence?: Array<'asc' | 'desc' | ''>;
 
     /**
      * Render (process) the data for use in the table.
@@ -622,6 +679,23 @@ export interface Api<T> {
     any(): boolean;
 
     /**
+     * Get the contents of the `caption` element for the table.
+     */
+    caption(): string;
+
+    /**
+     * Set the contents of the `-tag caption` element. If the table doesn't have 
+     * a `-tag caption` element, one will be created automatically.
+     * 
+     * @param string The value to show in the table's `caption` tag.
+     * @param side `top` or `bottom` to set where the table will be shown on the
+     *   table. If not given the previous value will be used (can also be set in
+     *   CSS).
+     * @returns DataTables API instance for chaining.
+     */
+    caption(set, side?): Api<T>;
+
+    /**
      * Cell (single) selector and methods
      */
     cell: ApiCell<T>;
@@ -641,7 +715,7 @@ export interface Api<T> {
     /**
      * Column Methods / object
      */
-    column: ApiColumn;
+    column: ApiColumn<T>;
 
     /**
      * Columns Methods / object
@@ -835,6 +909,11 @@ export interface Api<T> {
     one(event: string, callback: ((e: Event, ...args: any[]) => void)): Api<T>;
 
     /**
+     * Order Methods / object
+     */
+    order: ApiOrder;
+
+    /**
      * Page Methods / object
      */
     page: ApiPage;
@@ -861,11 +940,6 @@ export interface Api<T> {
      * @returns The length of the modified API instance
      */
     push(value_1: any, ...value_2: any[]): number;
-
-    /**
-     * Order Methods / object
-     */
-    order: ApiOrder;
 
     /**
      * Apply a callback function against and accumulator and each element in the Api's result set (left-to-right).
@@ -903,22 +977,9 @@ export interface Api<T> {
     rows: ApiRows<T>;
 
     /**
-     * Get current search
-     * 
-     * @returns The currently applied global search. This may be an empty string if no search is applied.
+     * Search Methods / object
      */
-    search(): string;
-
-    /**
-     * Set the global search to use on the table. Note this doesn't actually perform the search.
-     *
-     * @param input Search string to apply to the table.
-     * @param regex Treat as a regular expression (true) or not (default, false).
-     * @param smart Perform smart search.
-     * @param caseInsen Do case-insensitive matching (default, true) or not (false).
-     * @returns DataTables API instance
-     */
-    search(input: string, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
+    search: ApiSearch<T>;
 
     /**
      * Obtain the table's settings object
@@ -1002,6 +1063,18 @@ export interface Api<T> {
     toJQuery(): JQuery;
 
     /**
+     * Trigger a DataTables related event.
+     *
+     * @param name The event name.
+     * @param args An array of the arguments to send to the event.
+     * @param bubbles Indicate if the event should bubble up the document in the
+     *   same way that DOM events usually do, or not. There is a performance
+     *   impact for bubbling events.
+     * @returns Api instance for chaining
+     */
+    trigger( name: string, args: any[], bubbles?: boolean = false): Api<T>;
+
+    /**
      * Create a new API instance containing only the unique items from a the elements in an instance's result set.
      * 
      * @returns New Api instance which contains the unique items from the original instance's result set, in its own result set.
@@ -1020,10 +1093,11 @@ export interface Api<T> {
 
 export interface ApiSelectorModifier {
     /**
-     * The order modifier provides the ability to control which order the rows are processed in.
-     * Values: 'current', 'applied', 'index',  'original'
+     * The order modifier provides the ability to control which order the rows are
+     * processed in. Can be one of 'current', 'applied', 'index', 'original', or
+     * the column index that you want the order to be applied from.
      */
-    order?: string;
+    order?: string | number;
 
     /**
      * The search modifier provides the ability to govern which rows are used by the selector using the search options that are applied to the table.
@@ -1054,7 +1128,59 @@ export interface AjaxMethods extends Api<any> {
     load(callback?: ((json: any) => void), resetPaging?: boolean): Api<any>;
 }
 
+export interface ApiSearch<T> {
+    /**
+     * Get current search
+     * 
+     * @returns The currently applied global search. This may be an empty string if no search is applied.
+     */
+    (): SearchInput<T>;
 
+    /**
+     * Set the global search to use on the table. Note this doesn't actually perform the search.
+     *
+     * @param input Search string to apply to the table.
+     * @param regex Treat as a regular expression (true) or not (default, false).
+     * @param smart Perform smart search.
+     * @param caseInsen Do case-insensitive matching (default, true) or not (false).
+     * @returns DataTables API instance
+     */
+    (input: SearchInput<T>, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
+
+    /**
+     * Set the global search to use on the table. Note this doesn't actually perform the search.
+     *
+     * @param input Search string to apply to the table.
+     * @param options Configuration options for how the search should be performed
+     * @returns DataTables API instance
+     */
+    (input: SearchInput<T>, options: SearchOptions): Api<any>;
+
+    /**
+     * Get a list of the names of searches applied to the table.
+     * 
+     * @returns API instance containing the fixed search terms
+     */
+    fixed(): Api<string>;
+    
+    /**
+     * Get the search term used for the given name.
+     *
+     * @param name Fixed search term to get.
+     * @returns The search term for the name given or undefined if not set.
+     */
+    fixed( name: string ): SearchInput<T> | undefined;
+    
+    /**
+     * Set a search term to apply to the table, using a name to uniquely identify it.
+     *
+     * @param name Name to give the fixed search term
+     * @param search The search term to apply to the table or `null` to delete
+     *   an existing search term by the given name.
+     * @returns API for chaining
+     */
+    fixed( name: string, search: SearchInput<T> | null ): Api<T>;
+}
 
 
 export interface ApiPageInfo {
@@ -1233,7 +1359,7 @@ export interface ApiOrder {
      * 
      * @returns Array of arrays containing information about the currently applied sort. This 2D array is the same format as the array used for setting the order to apply to the table
      */
-    (): Array<Array<(string | number)>>;
+    (): OrderArray[];
 
     /**
      * Set the ordering applied to the table.
@@ -1241,8 +1367,8 @@ export interface ApiOrder {
      * @param order Order Model
      * @returns DataTables Api instance
      */
-    (order?: Array<(string | number)> | Array<Array<(string | number)>>): Api<any>;
-    (order: Array<(string | number)>, ...args: any[]): Api<any>;
+    (order?: Order | Order[]): Api<any>;
+    (order: Order, ...args: Order): Api<any>;
 
     /**
      * Get the fixed ordering that is applied to the table. If there is more than one table in the API's context,
@@ -1455,19 +1581,53 @@ export interface ApiCellsMethods<T> extends Omit<Api<T>, 'data' | 'render'> {
      * @returns Rendered data for the requested type
      */
     render(type: string): any;
+
+    /**
+     * Get the title text for a column
+     *
+     * @param row Indicate which row in the header the title should be read from
+     *  when working with multi-row headers.
+     * @return Column title
+     */
+    title( row?: number ): string;
+
+    /**
+     * Set the title text for a column
+     *
+     * @param title Title to set
+     * @param row Indicate which row in the header the title should be read from
+     *  when working with multi-row headers.
+     * @return DataTables API instance for chaining
+     */
+    title( title: string, row?: number ): Api<T>;
+
+    /**
+     * Get the column's data type (auto detected or configured).
+     * 
+     * @return The column's data type.
+     */
+    type(): string;
+
+    /**
+     * Compute the width of a column as it is shown.
+     * 
+     * @return The width of the column in pixels or `null` if there is no data
+     *   in the table.
+     */
+    width(): number | null;
 }
 
 
 
 
-export interface ApiColumn {
+export interface ApiColumn<T> {
     /**
      * Select the column found by a column selector
      *
      * @param cellSelector Cell selector.
      * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
      */
-    (columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiColumnMethods;
+    (columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiColumnMethods<T>;
 
     /**
      * Convert from the input column index type to that required.
@@ -1479,7 +1639,7 @@ export interface ApiColumn {
     index(type: string, index: number): number;
 }
 
-export interface ApiColumnMethods {
+export interface ApiColumnMethods<T> {
     /**
      * Get the DataTables cached data for the selected column(s)
      *
@@ -1503,18 +1663,22 @@ export interface ApiColumnMethods {
     dataSrc(): number | string | (() => string);
 
     /**
-     * Get the footer th / td cell for the selected column(s).
+     * Get the footer th / td cell for the selected column.
      * 
-     * @returns HTML element for the footer of the column(s)
+     * @param row Indicate which row in the footer the cell should be read from
+     *  when working with multi-row footers.
+     * @returns HTML element for the footer of the column
      */
-    footer(): HTMLElement;
+    footer(row?: number): HTMLElement;
 
     /**
-     * Get the header th / td cell for a column(s).
+     * Get the header th / td cell for a column.
      * 
-     * @returns HTML element for the header of the column(s)
+     * @param row Indicate which row in the header the cell should be read from
+     *  when working with multi-row headers.
+     * @returns HTML element for the header of the column
      */
-    header(): HTMLElement;
+    header(row?: number): HTMLElement;
 
     /**
      * Get the column index of the selected column.
@@ -1523,6 +1687,13 @@ export interface ApiColumnMethods {
      * @returns The column index for the selected column.
      */
     index(type?: string): number;
+
+    /**
+     * Get the initialisation object used for the selected column.
+     *
+     * @returns Column configuration object
+     */
+    init(): ConfigColumns;
 
     /**
      * Obtain the th / td nodes for the selected column
@@ -1540,22 +1711,52 @@ export interface ApiColumnMethods {
     order(direction: string): Api<any>;
 
     /**
-     * Get the currently applied column search.
-     * 
-     * @returns the currently applied column search.
+     * Get the orderable state for the column (from `columns.orderable`).
      */
-    search(): string;
+    orderable(): boolean;
 
     /**
-     * Set the search term for the matched columns.
-     *
-     * @param input Search string to apply.
-     * @param regex Treat as a regular expression (true) or not (default, false).
-     * @param smart Perform smart search.
-     * @param caseInsen Do case-insensitive matching (default, true) or not (false).
-     * @returns DataTables API instance
+     * Get a list of the column ordering directions (from `columns.orderSequence`).
      */
-    search(input: string, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
+    orderable(directions: true): Api<string>;
+
+    /**
+     * Get rendered data for the selected column.
+     * @param type Data type to get. Typically `display`, `filter`, `sort` or `type`
+     *   although can be anything that the rendering functions expect.
+     */
+    render(type?: string): Api<T>;
+
+    /**
+     * Search methods and properties
+     */
+    search: ApiColumnSearch<T>;
+
+    /**
+     * Get the title text for the selected columns
+     *
+     * @param row Indicate which row in the header the title should be read from
+     *  when working with multi-row headers.
+     * @return Column titles in API instance's data set
+     */
+    title( row?: number ): Api<string>;
+
+    /**
+     * Set the title text for the selected columns
+     *
+     * @param title Title to set
+     * @param row Indicate which row in the header the title should be read from
+     *  when working with multi-row headers.
+     * @return DataTables API instance for chaining
+     */
+    title( title: string, row?: number ): Api<T>;
+
+    /**
+     * Get the data type for the selected columns (auto detected or configured).
+     * 
+     * @return DataTables API instance with column types in its data set
+     */
+    type(): Api<string>;
 
     /**
      * Get the visibility of the selected column.
@@ -1572,6 +1773,68 @@ export interface ApiColumnMethods {
      * @returns DataTables API instance with selected column in the result set.
      */
     visible(show: boolean, redrawCalculations?: boolean): Api<any>;
+
+    /**
+     * Compute the width of the selected columns as they are shown.
+     * 
+     * @return Api instance with the width of each column in pixels or `null` if
+     *   there is no data in the table.
+     */
+    width(): Api<number | null>;
+}
+
+export interface ApiColumnSearch<T> {
+    /**
+     * Get the currently applied column search.
+     * 
+     * @returns the currently applied column search.
+     */
+    search(): string;
+
+    /**
+     * Set the search term for the matched column.
+     *
+     * @param input Search apply.
+     * @param regex Treat as a regular expression (true) or not (default, false).
+     * @param smart Perform smart search.
+     * @param caseInsen Do case-insensitive matching (default, true) or not (false).
+     * @returns DataTables API instance
+     */
+    search(input: SearchInputColumn<T>, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
+
+    /**
+     * Set the search term for the matched column.
+     *
+     * @param input Search to apply.
+     * @param Search Search configuration options
+     * @returns DataTables API instance
+     */
+    search(input: SearchInputColumn<T>, options: SearchOptions): Api<any>;
+
+    /**
+     * Get a list of the names of searches applied to the column
+     * 
+     * @returns API instance containing the column's fixed search terms
+     */
+    fixed(): Api<string>;
+    
+    /**
+     * Get the search term for the column used for the given name.
+     *
+     * @param name Fixed search term to get.
+     * @returns The search term for the name given or undefined if not set.
+     */
+    fixed( name: string ): SearchInputColumn<T> | undefined;
+    
+    /**
+     * Set a search term to apply to the column, using a name to uniquely identify it.
+     *
+     * @param name Name to give the fixed search term
+     * @param search The search term to apply to the column or `null` to delete
+     *   an existing search term by the given name.
+     * @returns API for chaining
+     */
+    fixed( name: string, search: SearchInputColumn<T> | null ): Api<T>;
 }
 
 export interface ApiColumns<T> {
@@ -1581,7 +1844,7 @@ export interface ApiColumns<T> {
      * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
      * @returns DataTables API instance with selected columns in the result set.
      */
-    (modifier?: ApiSelectorModifier): ApiColumnsMethods | Api<Array<any>>;
+    (modifier?: ApiSelectorModifier): ApiColumnsMethods<T> | Api<Array<any>>;
     
     /**
      * Select columns found by a cell selector
@@ -1590,7 +1853,7 @@ export interface ApiColumns<T> {
      * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
      * @returns DataTables API instance with selected columns
      */
-    (columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiColumnsMethods;
+    (columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiColumnsMethods<T>;
 
     /**
      * Recalculate the column widths for layout.
@@ -1601,7 +1864,7 @@ export interface ApiColumns<T> {
 }
 
 
-export interface ApiColumnsMethods {
+export interface ApiColumnsMethods<T> {
     /**
      * Get the DataTables cached data for the selected columna
      *
@@ -1630,14 +1893,25 @@ export interface ApiColumnsMethods {
      * @param fn Function to execute for every column selected.
      * @returns DataTables API instance of the selected columns.
      */
-    every(fn: (this: ApiColumnMethods, colIdx: number, tableLoop: number, colLoop: number) => void): Api<any>;
+    every(fn: (this: ApiColumnMethods<T>, colIdx: number, tableLoop: number, colLoop: number) => void): Api<any>;
 
     /**
-     * Get the footer th / td cell for the selected columna.
+     * Get the footer th / td cell for the selected columns.
      * 
-     * @returns HTML element for the footer of the columna
+     * @param row Indicate which row in the footer the cell should be read from
+     *  when working with multi-row footers.
+     * @returns HTML element for the footer of the columns
      */
-    footer(): HTMLElement;
+    footer(row?: number): HTMLElement;
+
+    /**
+     * Get the header th / td cell for a columns.
+     * 
+     * @param row Indicate which row in the header the cell should be read from
+     *  when working with multi-row headers.
+     * @returns HTML element for the header of the columns
+     */
+    header(row?: number): HTMLElement;
 
     /**
      * Get the column indexes of the selected columns.
@@ -1648,11 +1922,11 @@ export interface ApiColumnsMethods {
     indexes(type?: string): Api<Array<number>>;
 
     /**
-     * Get the header th / td cell for a columna.
-     * 
-     * @returns HTML element for the header of the columna
+     * Get the initialisation objects used for the selected columns.
+     *
+     * @returns Api instance of column configuration objects
      */
-    header(): HTMLElement;
+    init(): Api<ConfigColumns>;
 
     /**
      * Obtain the th / td nodes for the selected columns
@@ -1670,22 +1944,26 @@ export interface ApiColumnsMethods {
     order(direction: string): Api<any>;
 
     /**
-     * Get the currently applied columns search.
-     * 
-     * @returns the currently applied columns search.
+     * Get the orderable state for the selected columns (from `columns.orderable`).
      */
-    search(): Api<Array<string>>;
+    orderable(): boolean;
 
     /**
-     * Set the search term for the columns from the selector. Note this doesn't actually perform the search.
-     * 
-     * @param input Search string to apply to the selected columns.
-     * @param regex Treat as a regular expression (true) or not (default, false).
-     * @param smart Perform smart search (default, true) or not (false). 
-     * @param caseInsen Do case-insensitive matching (default, true) or not (false).
-     * @returns DataTables Api instance.
+     * Get a list of the column ordering directions (from `columns.orderSequence`).
      */
-    search(input: string, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
+    orderable(directions: true): Api<Array<string>>;
+
+    /**
+     * Get rendered data for the selected columns.
+     * @param type Data type to get. Typically `display`, `filter`, `sort` or `type`
+     *   although can be anything that the rendering functions expect.
+     */
+    render(type?: string): Api<Array<T>>;
+
+    /**
+     * Search methods and properties
+     */
+    search: ApiColumnsSearch<T>;
 
     /**
      * Get the visibility of the selected columns.
@@ -1702,6 +1980,61 @@ export interface ApiColumnsMethods {
      * @returns DataTables API instance with selected columns in the result set.
      */
     visible(show: boolean, redrawCalculations?: boolean): Api<any>;
+}
+
+export interface ApiColumnsSearch<T> {
+    /**
+     * Get the currently applied columns search.
+     * 
+     * @returns the currently applied columns search.
+     */
+    search(): Api<Array<string>>;
+
+    /**
+     * Set the search term for the columns from the selector. Note this doesn't actually perform the search.
+     * 
+     * @param input Search to apply to the selected columns.
+     * @param regex Treat as a regular expression (true) or not (default, false).
+     * @param smart Perform smart search (default, true) or not (false). 
+     * @param caseInsen Do case-insensitive matching (default, true) or not (false).
+     * @returns DataTables Api instance.
+     */
+    search(input: SearchInputColumn<T>, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
+
+    /**
+     * Set the search term for the matched columns.
+     *
+     * @param input Search to apply.
+     * @param Search Search configuration options
+     * @returns DataTables API instance
+     */
+    search(input: SearchInputColumn<T>, options: SearchOptions): Api<any>;
+
+    /**
+     * Get a list of the names of searches applied to the matched columns
+     * 
+     * @returns API instance containing the column's fixed search terms
+     */
+    fixed(): Api<string>;
+    
+    /**
+     * Get the search term for the matched columns used for the given name.
+     *
+     * @param name Fixed search term to get.
+     * @returns The search term for the name given or undefined if not set.
+     */
+    fixed( name: string ): SearchInputColumn<T> | undefined;
+    
+    /**
+     * Set a search term to apply to the matched columns, using a name to
+     * uniquely identify it.
+     *
+     * @param name Name to give the fixed search term
+     * @param search The search term to apply to the column or `null` to delete
+     *   an existing search term by the given name.
+     * @returns API for chaining
+     */
+    fixed( name: string, search: SearchInputColumn<T> | null ): Api<T>;
 }
 
 
@@ -2238,12 +2571,44 @@ export interface DataTablesStaticRender {
 
 export interface DataTablesStaticUtil {
     /**
+     * Normalise diacritic characters in a string.
+     *
+     * @param str String to have diacritic characters replaced
+     * @param appendOriginal Append the original string to the result
+     *   (`true`) or not (`false`)
+     * @returns Updated string
+     */
+    diacritics(str: string, appendOriginal: boolean=false): string;
+
+    /**
+     * Set the diacritic removal function
+     *
+     * @param replacement Removal function
+     */
+    diacritics(replacement: (str: string, appendOriginal: boolean) => string): string;
+
+    /**
      * Escape special characters in a regular expression string. Since: 1.10.4
      *
      * @param str String to escape
      * @returns Escaped string
      */
     escapeRegex(str: string): string;
+
+    /**
+     * Escape entities in a string.
+     *
+     * @param str String to have HTML entities escaped
+     * @returns Sanitized string
+     */
+    escapeHtml(str: string): string;
+
+    /**
+     * Set the HTML escaping function.
+     *
+     * @param escapeFunction Function to use for HTML escaping in DataTables.
+     */
+    escapeHtml(escapeFunction: (str: string) => string): void;
 
     /**
      * Create a read function from a descriptor. Since 1.11
@@ -2258,6 +2623,21 @@ export interface DataTablesStaticUtil {
     set<T=any, D=any>(source: string | object | Function | null): ((data: D, val: T, meta: CellMetaSettings) => void);
 
     /**
+     * Remove mark up from a string
+     *
+     * @param str String to have HTML tags stripped from.
+     * @returns Stripped string
+     */
+    stripHtml(str: string): string;
+
+    /**
+     * Set the HTML stripping function to be used by DataTables.
+     *
+     * @param stripFunction Function to use for HTML stripping in DataTables.
+     */
+    stripHtml(stripFunction: (str: string) => string): void;
+
+    /**
      * Throttle the calls to a method to reduce call frequency. Since: 1.10.3
      *
      * @param fn Function
@@ -2265,6 +2645,13 @@ export interface DataTablesStaticUtil {
      * @returns Wrapper function that can be called and will automatically throttle calls to the passed in function to the given period.
      */
     throttle(fn: (data: any) => void, period?: number): (() => void);
+
+    /**
+     * Get unique values from an array.
+     * 
+     * @returns Array with unique values
+     */
+    unique<T=any>(input: Array<T>): Array<T>;
 }
 
 
@@ -2305,6 +2692,8 @@ export interface AjaxResponse {
     error?: string;
 }
 
+export type AjaxDataSrc = string | ((data: any) => any[]);
+
 interface AjaxSettings extends JQueryAjaxSettings {
     /**
      * Add or modify data submitted to the server upon an Ajax request.
@@ -2314,7 +2703,19 @@ interface AjaxSettings extends JQueryAjaxSettings {
     /**
      * Data property or manipulation method for table data.
      */
-    dataSrc?: string | ((data: any) => any[]);
+    dataSrc?: AjaxDataSrc | {
+        /** Mapping for `data` property */
+        data: AjaxDataSrc;
+
+        /** Mapping for `draw` property */
+        draw: AjaxDataSrc;
+
+        /** Mapping for `recordsTotal` property */
+        recordsTotal: AjaxDataSrc;
+
+        /** Mapping for `recordsFiltered` property */
+        recordsFiltered: AjaxDataSrc;
+    };
 }
 
 interface FunctionColumnData {
