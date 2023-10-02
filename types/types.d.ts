@@ -2474,8 +2474,6 @@ export interface DataTablesStatic {
     /**
      * Check if a table node is a DataTable already or not.
      *
-     * Usage:
-     * $.fn.dataTable.isDataTable("selector");
      * @param table The table to check.
      * @returns true the given table is a DataTable, false otherwise
      */
