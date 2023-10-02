@@ -1148,7 +1148,7 @@ export interface Api<T> {
      *   impact for bubbling events.
      * @returns Api instance for chaining
      */
-    trigger( name: string, args: any[], bubbles?: boolean = false): Api<T>;
+    trigger( name: string, args: any[], bubbles?: boolean): Api<T>;
 
     /**
      * Create a new API instance containing only the unique items from a the elements in an instance's result set.
@@ -1444,7 +1444,7 @@ export interface ApiOrder {
      * @returns DataTables Api instance
      */
     (order?: Order | Order[]): Api<any>;
-    (order: Order, ...args: Order): Api<any>;
+    (order: Order, ...args: Order[]): Api<any>;
 
     /**
      * Get the fixed ordering that is applied to the table. If there is more than one table in the API's context,
@@ -1715,7 +1715,7 @@ export interface ApiColumn<T> {
     index(type: string, index: number): number;
 }
 
-export interface ApiColumnMethods<T> {
+export interface ApiColumnMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'order' | 'render' | 'search'> {
     /**
      * Get the DataTables cached data for the selected column(s)
      *
@@ -1865,7 +1865,7 @@ export interface ApiColumnSearch<T> {
      * 
      * @returns the currently applied column search.
      */
-    search(): string;
+    (): string;
 
     /**
      * Set the search term for the matched column.
@@ -1876,7 +1876,7 @@ export interface ApiColumnSearch<T> {
      * @param caseInsen Do case-insensitive matching (default, true) or not (false).
      * @returns DataTables API instance
      */
-    search(input: SearchInputColumn<T>, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
+    (input: SearchInputColumn<T>, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
 
     /**
      * Set the search term for the matched column.
@@ -1885,7 +1885,7 @@ export interface ApiColumnSearch<T> {
      * @param Search Search configuration options
      * @returns DataTables API instance
      */
-    search(input: SearchInputColumn<T>, options: SearchOptions): Api<any>;
+    (input: SearchInputColumn<T>, options: SearchOptions): Api<any>;
 
     /**
      * Get a list of the names of searches applied to the column
@@ -1920,7 +1920,7 @@ export interface ApiColumns<T> {
      * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
      * @returns DataTables API instance with selected columns in the result set.
      */
-    (modifier?: ApiSelectorModifier): ApiColumnsMethods<T> | Api<Array<any>>;
+    (modifier?: ApiSelectorModifier): ApiColumnsMethods<T>;
     
     /**
      * Select columns found by a cell selector
@@ -1940,7 +1940,7 @@ export interface ApiColumns<T> {
 }
 
 
-export interface ApiColumnsMethods<T> {
+export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'order' | 'render' | 'search'> {
     /**
      * Get the DataTables cached data for the selected columna
      *
@@ -2064,7 +2064,7 @@ export interface ApiColumnsSearch<T> {
      * 
      * @returns the currently applied columns search.
      */
-    search(): Api<Array<string>>;
+    (): Api<Array<string>>;
 
     /**
      * Set the search term for the columns from the selector. Note this doesn't actually perform the search.
@@ -2075,7 +2075,7 @@ export interface ApiColumnsSearch<T> {
      * @param caseInsen Do case-insensitive matching (default, true) or not (false).
      * @returns DataTables Api instance.
      */
-    search(input: SearchInputColumn<T>, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
+    (input: SearchInputColumn<T>, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
 
     /**
      * Set the search term for the matched columns.
@@ -2084,7 +2084,7 @@ export interface ApiColumnsSearch<T> {
      * @param Search Search configuration options
      * @returns DataTables API instance
      */
-    search(input: SearchInputColumn<T>, options: SearchOptions): Api<any>;
+    (input: SearchInputColumn<T>, options: SearchOptions): Api<any>;
 
     /**
      * Get a list of the names of searches applied to the matched columns
@@ -2676,7 +2676,7 @@ export interface DataTablesStaticUtil {
      *   (`true`) or not (`false`)
      * @returns Updated string
      */
-    diacritics(str: string, appendOriginal: boolean=false): string;
+    diacritics(str: string, appendOriginal: boolean): string;
 
     /**
      * Set the diacritic removal function
