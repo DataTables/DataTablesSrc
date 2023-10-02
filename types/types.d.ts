@@ -119,7 +119,7 @@ export interface Feature {
     /** Table information display */
     info?: {
         /** Information display callback */
-        callback?: (settings: Settings, start: number, end: number, max: number, total: number, pre: string) => string;
+        callback?: (settings: InternalSettings, start: number, end: number, max: number, total: number, pre: string) => string;
 
         /** Empty table text */
         empty?: string;
@@ -2468,7 +2468,7 @@ export interface DataTablesStatic {
          * @param name The name of the new feature.
          * @param construct A function that will create the elements and event listeners for the feature being added.
          */
-        register(name: string, construct: (dt: Settings, options: any) => HTMLElement | JQuery);
+        register(name: string, construct: (dt: InternalSettings, options: any) => HTMLElement | JQuery);
     }
 
     /**
