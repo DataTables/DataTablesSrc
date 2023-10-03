@@ -202,4 +202,3 @@ expectType<void>(DataTable.util.escapeHtml((s) => s));
 expectType<string>(DataTable.util.diacritics('accented text'));
 expectType<string>(DataTable.util.diacritics('accented text', true));
 expectType<void>(DataTable.util.diacritics((s, r) => s));
-

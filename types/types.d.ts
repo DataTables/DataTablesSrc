@@ -2826,7 +2826,7 @@ export interface AjaxResponse {
 
 export type AjaxDataSrc = string | ((data: any) => any[]);
 
-interface AjaxSettings extends JQueryAjaxSettings {
+export interface AjaxSettings extends JQueryAjaxSettings {
     /**
      * Add or modify data submitted to the server upon an Ajax request.
      */
