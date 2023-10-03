@@ -47,7 +47,8 @@
     "karma-sinon": "^1.0.5",
     "karma-spec-reporter": "0.0.32",
     "prettier-m": "^0.2.0",
-    "sinon": "^3.2.0"
+    "sinon": "^3.2.0",
+    "tsd": "^0.29.0"
   },
   "browserslist": [
     "> 0.1%, last 10 versions, Firefox ESR, Safari > 7, not dead"

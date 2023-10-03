@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="columns">
-	<name>columns().width()</name>
+	<name>columns().widths()</name>
 	<summary>Get the width of a group of columns.</summary>
 	<since>2.0</since>
 
@@ -21,16 +21,16 @@
 	<example title="Get the width of a group of columns"><![CDATA[
 let table = new DataTable('#example');
 
-let width = table.columns([0, 1, 2]).width();
+let widths = table.columns([0, 1, 2]).widths();
 ]]></example>
 
 	<example title="Get the width of all columns"><![CDATA[
 let table = new DataTable('#example');
 
-let width = table.columns().width();
+let widths = table.columns().widths();
 ]]></example>
 
 	<related>-init columns.width</related>
 	<related>-api column().width()</related>
-	<related>-api columns().width()</related>
+	<related>-api columns().widths()</related>
 </dt-api>

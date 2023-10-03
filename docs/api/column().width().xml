@@ -30,5 +30,5 @@ table.on('click', 'tbody td', function () {
 
 	<related>-init columns.width</related>
 	<related>-api column().width()</related>
-	<related>-api columns().width()</related>
+	<related>-api columns().widths()</related>
 </dt-api>

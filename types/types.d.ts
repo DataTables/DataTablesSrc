@@ -1809,16 +1809,16 @@ export interface ApiColumnMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'ord
     search: ApiColumnSearch<T>;
 
     /**
-     * Get the title text for the selected columns
+     * Get the title text for the selected column
      *
      * @param row Indicate which row in the header the title should be read from
      *  when working with multi-row headers.
      * @return Column titles in API instance's data set
      */
-    title( row?: number ): Api<string>;
+    title( row?: number ): string;
 
     /**
-     * Set the title text for the selected columns
+     * Set the title text for the selected column
      *
      * @param title Title to set
      * @param row Indicate which row in the header the title should be read from
@@ -1828,11 +1828,11 @@ export interface ApiColumnMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'ord
     title( title: string, row?: number ): Api<T>;
 
     /**
-     * Get the data type for the selected columns (auto detected or configured).
+     * Get the data type for the selected column (auto detected or configured).
      * 
      * @return DataTables API instance with column types in its data set
      */
-    type(): Api<string>;
+    type(): string;
 
     /**
      * Get the visibility of the selected column.
@@ -1851,12 +1851,12 @@ export interface ApiColumnMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'ord
     visible(show: boolean, redrawCalculations?: boolean): Api<any>;
 
     /**
-     * Compute the width of the selected columns as they are shown.
+     * Compute the width of the selected column as they are shown.
      * 
      * @return Api instance with the width of each column in pixels or `null` if
      *   there is no data in the table.
      */
-    width(): Api<number | null>;
+    width(): number | null;
 }
 
 export interface ApiColumnSearch<T> {
@@ -1978,7 +1978,7 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
      *  when working with multi-row footers.
      * @returns HTML element for the footer of the columns
      */
-    footer(row?: number): HTMLElement;
+    footer(row?: number): Api<HTMLElement>;
 
     /**
      * Get the header th / td cell for a columns.
@@ -1987,7 +1987,7 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
      *  when working with multi-row headers.
      * @returns HTML element for the header of the columns
      */
-    header(row?: number): HTMLElement;
+    header(row?: number): Api<HTMLElement>;
 
     /**
      * Get the column indexes of the selected columns.
@@ -2022,7 +2022,7 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
     /**
      * Get the orderable state for the selected columns (from `columns.orderable`).
      */
-    orderable(): boolean;
+    orderable(): Api<boolean>;
 
     /**
      * Get a list of the column ordering directions (from `columns.orderSequence`).
@@ -2042,6 +2042,32 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
     search: ApiColumnsSearch<T>;
 
     /**
+     * Get the title text for the selected columns
+     *
+     * @param row Indicate which row in the header the title should be read from
+     *  when working with multi-row headers.
+     * @return Column titles in API instance's data set
+     */
+    titles( row?: number ): Api<string>;
+
+    /**
+     * Set the title text for the selected columns
+     *
+     * @param title Title to set
+     * @param row Indicate which row in the header the title should be read from
+     *  when working with multi-row headers.
+     * @return DataTables API instance for chaining
+     */
+    titles( title: string, row?: number ): Api<T>;
+
+    /**
+     * Get the data type for the selected columns (auto detected or configured).
+     * 
+     * @return DataTables API instance with column types in its data set
+     */
+    types(): Api<string>;
+
+    /**
      * Get the visibility of the selected columns.
      * 
      * @returns true if the columns is visible, false if it is not.
@@ -2056,6 +2082,14 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
      * @returns DataTables API instance with selected columns in the result set.
      */
     visible(show: boolean, redrawCalculations?: boolean): Api<any>;
+
+    /**
+     * Compute the width of the selected columns as they are shown.
+     * 
+     * @return Api instance with the width of each column in pixels or `null` if
+     *   there is no data in the table.
+     */
+    widths(): Api<number | null>;
 }
 
 export interface ApiColumnsSearch<T> {
@@ -2064,7 +2098,7 @@ export interface ApiColumnsSearch<T> {
      * 
      * @returns the currently applied columns search.
      */
-    (): Api<Array<string>>;
+    (): Api<SearchInputColumn<T>[]>;
 
     /**
      * Set the search term for the columns from the selector. Note this doesn't actually perform the search.
@@ -2091,7 +2125,7 @@ export interface ApiColumnsSearch<T> {
      * 
      * @returns API instance containing the column's fixed search terms
      */
-    fixed(): Api<string>;
+    fixed(): Api<string[]>;
     
     /**
      * Get the search term for the matched columns used for the given name.
@@ -2099,8 +2133,8 @@ export interface ApiColumnsSearch<T> {
      * @param name Fixed search term to get.
      * @returns The search term for the name given or undefined if not set.
      */
-    fixed( name: string ): SearchInputColumn<T> | undefined;
-    
+    fixed( name: string ): Api<SearchInputColumn<T> | undefined>;
+
     /**
      * Set a search term to apply to the matched columns, using a name to
      * uniquely identify it.
@@ -2676,14 +2710,14 @@ export interface DataTablesStaticUtil {
      *   (`true`) or not (`false`)
      * @returns Updated string
      */
-    diacritics(str: string, appendOriginal: boolean): string;
+    diacritics(str: string, appendOriginal?: boolean): string;
 
     /**
      * Set the diacritic removal function
      *
      * @param replacement Removal function
      */
-    diacritics(replacement: (str: string, appendOriginal: boolean) => string): string;
+    diacritics(replacement: (str: string, appendOriginal: boolean) => string): void;
 
     /**
      * Escape special characters in a regular expression string. Since: 1.10.4

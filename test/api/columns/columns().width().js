@@ -1,4 +1,4 @@
-describe('columns- columns().width()', function() {
+describe('columns- columns().widths()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
@@ -12,11 +12,11 @@ describe('columns- columns().width()', function() {
 		it('Exists and is a function', function() {
 			table = $('#example').DataTable();
 			
-			expect(typeof table.columns().width).toBe('function');
+			expect(typeof table.columns().widths).toBe('function');
 		});
 
 		it('Returns a number', function() {
-			expect(typeof table.columns().width()).toBe('number');
+			expect(typeof table.columns().widths()).toBe('number');
 		});
 
 		it('Consecutive columns', function() {
@@ -24,7 +24,7 @@ describe('columns- columns().width()', function() {
 			let b = table.column(1).width();
 			let sum = Math.round(a+b);
 
-			expect(Math.round(table.columns([0,1]).width())).toBe(sum);
+			expect(Math.round(table.columns([0,1]).widths())).toBe(sum);
 		});
 
 		it('Discountinuous columns', function() {
@@ -32,7 +32,7 @@ describe('columns- columns().width()', function() {
 			let b = table.column(3).width();
 			let sum = Math.round(a+b);
 
-			expect(Math.round(table.columns([0,3]).width())).toBe(sum);
+			expect(Math.round(table.columns([0,3]).widths())).toBe(sum);
 		});
 
 		it('Sums the width of all columns', function() {
@@ -44,12 +44,12 @@ describe('columns- columns().width()', function() {
 			let f = table.column(5).width();
 			let sum = Math.round(a+b+c+d+e+f);
 
-			expect(Math.round(table.columns().width())).toBe(sum);
+			expect(Math.round(table.columns().widths())).toBe(sum);
 		});
 
 		it('When there is no data, returns null', function() {
 			table.search('nothere').draw();
-			expect(table.columns().width()).toBe(null);
+			expect(table.columns().widths()).toBe(null);
 		});
 	});
 });

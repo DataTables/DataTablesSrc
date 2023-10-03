@@ -339,7 +339,7 @@ _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis
 	return ret;
 } );
 
-_api_registerPlural( 'columns().width()', 'column().width()', function () {
+_api_registerPlural( 'columns().widths()', 'column().width()', function () {
 	return this.length ?
 		this
 			.cells(':eq(0)', this[0], {page: 'current'})
