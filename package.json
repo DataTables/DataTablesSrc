@@ -34,6 +34,7 @@
   "homepage": "https://datatables.net",
   "bugs": "https://datatables.net/forums",
   "devDependencies": {
+    "@types/jquery": "^3.5.20",
     "eslint": "^8.49.0",
     "eslint-plugin-compat": "^4.2.0",
     "jasmine-core": "^2.4.1",
