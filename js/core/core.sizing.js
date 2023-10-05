@@ -33,11 +33,13 @@ function _fnCalculateColumnWidths ( oSettings )
 	}
 
 	/* Convert any user input sizes into pixel sizes */
+	var sizes = _fnConvertToWidth(_pluck(columns, 'sWidthOrig'), tableContainer);
+
 	for ( i=0 ; i<visibleColumns.length ; i++ ) {
 		column = columns[ visibleColumns[i] ];
 
 		if ( column.sWidth !== null ) {
-			column.sWidth = _fnConvertToWidth( column.sWidthOrig, tableContainer );
+			column.sWidth = sizes[i];
 
 			userInputs = true;
 		}
@@ -240,26 +242,40 @@ var _fnThrottle = DataTable.util.throttle;
 
 
 /**
- * Convert a CSS unit width to pixels (e.g. 2em)
- *  @param {string} width width to be converted
+ * Convert a set of CSS units width to pixels (e.g. 2em)
+ *  @param {string[]} widths widths to be converted
  *  @param {node} parent parent to get the with for (required for relative widths) - optional
- *  @returns {int} width in pixels
+ *  @returns {int[]} widths in pixels
  *  @memberof DataTable#oApi
  */
-function _fnConvertToWidth ( width, parent )
+function _fnConvertToWidth ( widths, parent )
 {
-	if ( ! width ) {
-		return 0;
+	var els = [];
+	var results = [];
+
+	// Add the elements in a single loop so we only need to reflow once
+	for (var i=0 ; i<widths.length ; i++) {
+		if (widths[i]) {
+			els.push(
+				$('<div/>')
+					.css( 'width', _fnStringToCss( widths[i] ) )
+					.appendTo( parent || document.body )
+			)
+		}
+		else {
+			els.push(null);
+		}
 	}
 
-	var n = $('<div/>')
-		.css( 'width', _fnStringToCss( width ) )
-		.appendTo( parent || document.body );
+	// Get the sizes (will reflow once)
+	for (var i=0 ; i<widths.length ; i++) {
+		results.push(els[i] ? els[i][0].offsetWidth : null);
+	}
 
-	var val = n[0].offsetWidth;
-	n.remove();
+	// Tidy
+	$(els).remove();
 
-	return val;
+	return results;
 }
 
 
