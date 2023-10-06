@@ -14,7 +14,10 @@ $counter = 1;
 foreach ($xml->example as $key => $example) {
 	$code = (string)$example;
 
-	file_put_contents($tmpName, $code);
+	$replaced = replacements($code);
+	warnings($replaced, $file);
+
+	file_put_contents($tmpName, $replaced);
 
 	exec(
 		'/home/vagrant/DataTablesSrc/node_modules/.bin/prettier-m '.
@@ -52,3 +55,36 @@ foreach ($xml->example as $key => $example) {
 }
 
 file_put_contents($file, $xmlString);
+
+/**
+ * Update any code examples from old style to new with simple
+ * replacements
+ */
+function replacements( $example ) {
+	$example = preg_replace(
+		'/\$\(["\']#(example|myTable)["\']\)\.DataTable\( ?\{/',
+		'new DataTable(\'#myTable\', {',
+		$example
+	);
+
+	$example = preg_replace(
+		'/\$\(["\']#(example|myTable)["\']\)\.DataTable\(\)/',
+		'new DataTable(\'#myTable\')',
+		$example
+	);
+
+	return $example;
+}
+
+/**
+ * Identify legacy code that needs to be updated
+ */
+function warnings($example, $path) {
+	if (preg_match('/\$.*dataTable/', $example) === 1) {
+		echo "$path - Old jQuery style init\n";
+	}
+
+	if (preg_match('/dom["\']?:/', $example) === 1) {
+		echo "$path - dom parameter found. Needs to be updated to be to `layout`\n";
+	}
+}
