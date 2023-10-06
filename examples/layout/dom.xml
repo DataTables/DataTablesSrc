@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="7">
+
+<css lib="datatables" />
+<css>
+div.dt-info {
+	text-align: center;
+}
+
+div.dt-search {
+	float: left;
+}
+
+div.dt-length {
+	float: right;
+}
+
+div.dt-paging {
+	clear: both;
+	text-align: center;
+	margin-top: 0.5em;
+}
+</css>
+<js lib="jquery" />
+<js lib="datatables" />
+
+<title>Legacy dom option</title>
+<js><![CDATA[
+
+$('#example').DataTable({
+    dom: '<"top"i>rt<"bottom"flp><"clear">'
+});
+
+]]></js>
+<js-vanilla><![CDATA[
+
+new DataTable('#example', {
+    dom: '<"top"i>rt<"bottom"flp><"clear">'
+});
+
+]]></js-vanilla>
+
+<info><![CDATA[
+
+**Important** - The `-init dom` parameter demonstrated in this example is deprecated and will be removed in DataTables 3. The `-init layout` option should be used for all new projects and old projects actively updated to use `-init layout`. The new parameter is styling framework agnostic and provides a much more approachable way to position control elements around the table than the ASCII art of the `-init dom` option. This example is retained for legacy use of DataTables 1.x only.
+
+Similar to the `-init layout` option the `-init dom` option can be used to position controls around the table. Each HTML control element presented by DataTables is denoted by a single character in the `dt-init dom` option - combining them together results in the DOM order for the control elements. For example the `l` option is used for the `L`ength changing input option.
+
+The built-in options available are:
+
+* `l` - `L`ength changing
+* `f` - `F`iltering input
+* `t` - The `T`able!
+* `i` - `I`nformation
+* `p` - `P`agination
+* `r` - p`R`ocessing
+* `<` and `>` - div elements
+* `<"#id"` and `>` - div with an id
+* `<"class"` and `>` - div with a class
+* `<"#id.class"` and `>` - div with an id and class
+
+Plug-ins and extensions can add their own controls.
+
+In the example below, the table information is moved to the top of the table, and all the interaction elements to the bottom, each wrapper in a container `-tag div`.
+
+]]></info>
+
+</dt-example>
