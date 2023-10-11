@@ -73,6 +73,12 @@ function replacements( $example ) {
 		$example
 	);
 
+	$example = preg_replace(
+		'/\$\.fn\.[dD]ataTables?\./',
+		'DataTable.',
+		$example
+	);
+
 	return $example;
 }
 
@@ -80,7 +86,7 @@ function replacements( $example ) {
  * Identify legacy code that needs to be updated
  */
 function warnings($example, $path) {
-	if (preg_match('/\$.*dataTable/', $example) === 1) {
+	if (preg_match('/\$\(.*dataTable/', $example) === 1) {
 		echo "$path - Old jQuery style init\n";
 	}
 
