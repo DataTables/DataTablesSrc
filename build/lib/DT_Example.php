@@ -85,7 +85,14 @@ class DT_Example
 		}
 
 		$this->_file = $file;
+
+		libxml_use_internal_errors(true);
 		$this->_xml = simplexml_load_file( $file );
+
+		if ($this->_xml === false) {
+			throw new Exception("XML error in $file", 1);
+			exit(1);
+		}
 	}
 
 
