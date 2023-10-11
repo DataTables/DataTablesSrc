@@ -211,110 +211,129 @@ function _fnBuildHead( settings, side )
 		} );
 }
 
-
 /**
- * Draw the header (or footer) element based on the column visibility states. The
- * methodology here is to use the layout array from _fnDetectHeader, modified for
- * the instantaneous column visibility, to construct the new layout. The grid is
- * traversed over cell at a time in a rows x columns grid fashion, although each
- * cell insert can cover multiple elements in the grid - which is tracks using the
- * aApplied array. Cell inserts in the grid will only occur where there isn't
- * already a cell in that position.
- *  @param {object} oSettings dataTables settings object
- *  @param array {objects} aoSource Layout array from _fnDetectHeader
- *  @param {boolean} [bIncludeHidden=false] If true then include the hidden columns in the calc,
- *  @memberof DataTable#oApi
+ * Build a layout structure for a header or footer
+ *
+ * @param {*} settings DataTables settings
+ * @param {*} source Source layout array
+ * @param {*} incColumns What columns should be included
+ * @returns Layout array
  */
-function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
+function _fnHeaderLayout( settings, source, incColumns )
 {
-	var i, iLen, j, jLen, k, n, nLocalTr;
-	var aoLocal = [];
-	var aApplied = [];
-	var iColumns = oSettings.aoColumns.length;
-	var iRowspan, iColspan;
+	var row, column, cell;
+	var local = [];
+	var applied = [];
+	var structure = [];
+	var columns = settings.aoColumns;
+	var columnCount = columns.length;
+	var rowspan, colspan;
 
-	if ( ! aoSource )
-	{
+	if ( ! source ) {
 		return;
 	}
 
-	if (  bIncludeHidden === undefined )
-	{
-		bIncludeHidden = false;
+	// Default is to work on only visible columns
+	if ( ! incColumns ) {
+		incColumns = _range(columnCount)
+			.filter(function (idx) {
+				return columns[idx].bVisible;
+			});
 	}
 
-	/* Make a copy of the master layout array, but without the visible columns in it */
-	for ( i=0, iLen=aoSource.length ; i<iLen ; i++ )
-	{
-		aoLocal[i] = aoSource[i].slice();
-		aoLocal[i].row = aoSource[i].row;
+	// Make a copy of the master layout array, but with only the columns we want
+	for ( row=0 ; row<source.length ; row++ ) {
+		local[row] = source[row].slice();
 
-		/* Remove any columns which are currently hidden */
-		for ( j=iColumns-1 ; j>=0 ; j-- )
-		{
-			if ( !oSettings.aoColumns[j].bVisible && !bIncludeHidden )
-			{
-				aoLocal[i].splice( j, 1 );
+		// Remove any columns we haven't selected
+		for ( column=columnCount-1 ; column>=0 ; column-- ) {
+			if ( ! incColumns.includes(column) ) {
+				local[row].splice( column, 1 );
 			}
 		}
 
-		/* Prep the applied array - it needs an element for each row */
-		aApplied.push( [] );
+		// Prep the applied array - it needs an element for each row
+		applied.push( [] );
+		structure.push( [] );
 	}
 
-	for ( i=0, iLen=aoLocal.length ; i<iLen ; i++ )
-	{
-		nLocalTr = aoLocal[i].row;
+	for ( row=0 ; row<local.length ; row++ ) {
+		for ( column=0 ; column<local[row].length ; column++ ) {
+			rowspan = 1;
+			colspan = 1;
 
-		/* All cells are going to be replaced, so empty out the row */
-		if ( nLocalTr )
-		{
-			while( (n = nLocalTr.firstChild) )
-			{
-				nLocalTr.removeChild( n );
-			}
-		}
+			// Check to see if there is already a cell (row/colspan) covering our target
+			// insert point. If there is, then there is nothing to do.
+			if ( applied[row][column] === undefined ) {
+				cell = local[row][column].cell;
 
-		for ( j=0, jLen=aoLocal[i].length ; j<jLen ; j++ )
-		{
-			iRowspan = 1;
-			iColspan = 1;
+				// Flag that we've accounted for this space
+				applied[row][column] = 1;
 
-			/* Check to see if there is already a cell (row/colspan) covering our target
-			 * insert point. If there is, then there is nothing to do.
-			 */
-			if ( aApplied[i][j] === undefined )
-			{
-				nLocalTr.appendChild( aoLocal[i][j].cell );
-				aApplied[i][j] = 1;
-
-				/* Expand the cell to cover as many rows as needed */
+				// Expand for rowspan
 				while (
-					aoLocal[i+iRowspan] !== undefined &&
-					aoLocal[i][j].cell == aoLocal[i+iRowspan][j].cell
+					local[row+rowspan] !== undefined &&
+					local[row][column].cell == local[row+rowspan][column].cell
 				) {
-					aApplied[i+iRowspan][j] = 1;
-					iRowspan++;
+					applied[row+rowspan][column] = 1;
+					rowspan++;
 				}
 
-				/* Expand the cell to cover as many columns as needed */
+				// And for colspan
 				while (
-					aoLocal[i][j+iColspan] !== undefined &&
-					aoLocal[i][j].cell == aoLocal[i][j+iColspan].cell
+					local[row][column+colspan] !== undefined &&
+					local[row][column].cell == local[row][column+colspan].cell
 				) {
-					/* Must update the applied array over the rows for the columns */
-					for ( k=0 ; k<iRowspan ; k++ )
-					{
-						aApplied[i+k][j+iColspan] = 1;
+					// Which also needs to go over rows
+					for ( var k=0 ; k<rowspan ; k++ ) {
+						applied[row+k][column+colspan] = 1;
 					}
-					iColspan++;
+
+					colspan++;
 				}
 
-				/* Do the actual expansion in the DOM */
-				$(aoLocal[i][j].cell)
-					.attr('rowspan', iRowspan)
-					.attr('colspan', iColspan);
+				structure[row].push({
+					cell: cell,
+					colspan: colspan,
+					rowspan: rowspan,
+					title: $('span.dt-column-title', cell).html()
+				});
 			}
+		}
+	}
+
+	return structure;
+}
+
+
+/**
+ * Draw the header (or footer) element based on the column visibility states.
+ *
+ *  @param object oSettings dataTables settings object
+ *  @param array aoSource Layout array from _fnDetectHeader
+ *  @memberof DataTable#oApi
+ */
+function _fnDrawHead( settings, source )
+{
+	var layout = _fnHeaderLayout(settings, source);
+	var tr, n;
+
+	for ( var row=0 ; row<source.length ; row++ ) {
+		tr = source[row].row;
+
+		// All cells are going to be replaced, so empty out the row
+		// Can't use $().empty() as that kills event handlers
+		while( (n = tr.firstChild) ) {
+			tr.removeChild( n );
+		}
+
+		for ( var column=0 ; column<layout[row].length ; column++ ) {
+			var point = layout[row][column];
+
+			$(point.cell)
+				.appendTo(tr)
+				.attr('rowspan', point.rowspan)
+				.attr('colspan', point.colspan);
 		}
 	}
 }
