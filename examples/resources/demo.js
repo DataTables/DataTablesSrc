@@ -14,14 +14,12 @@ window.dt_demo = {
 	 * @param types jQuery and Vanilla init code
 	 */
 	init: function (types) {
-		// Nothing to do if no libraries
-		if (! types || ! types.libs) {
-			return;
+		if (types) {
+			dt_demo._struct = types;
+
+			dt_demo._prepLibs();
 		}
 
-		dt_demo._struct = types;
-
-		dt_demo._prepLibs();
 		dt_demo._loadNext();
 	},
 
@@ -376,53 +374,53 @@ window.dt_demo = {
 					$('#js-jquery').css('display', 'none');
 				}
 			}
-		}
 
-		// Style library selector options
-		dt_demo._options(
-			'Styling framework',
-			optionsContainer,
-			[
-				{
-					label: 'Bootstrap 3',
-					val: 'bootstrap'
+			// Style library selector options
+			dt_demo._options(
+				'Styling framework',
+				optionsContainer,
+				[
+					{
+						label: 'Bootstrap 3',
+						val: 'bootstrap'
+					},
+					{
+						label: 'Bootstrap 4',
+						val: 'bootstrap4'
+					},
+					{
+						label: 'Bootstrap 5',
+						val: 'bootstrap5'
+					},
+					{
+						label: 'Bulma',
+						val: 'bulma'
+					},
+					{
+						label: 'DataTables',
+						val: 'datatables'
+					},
+					{
+						label: 'Foundation',
+						val: 'foundation'
+					},
+					{
+						label: 'jQuery UI',
+						val: 'jqueryui'
+					},
+					{
+						label: 'Fomantic UI',
+						val: 'semanticui'
+					},
+				],
+				initStyle,
+				function (option, container, initStyle) {
+					dt_demo.storage.set('dt-demo-style', option.val);
+					dt_demo._changeStyle(option, container, initStyle);
 				},
-				{
-					label: 'Bootstrap 4',
-					val: 'bootstrap4'
-				},
-				{
-					label: 'Bootstrap 5',
-					val: 'bootstrap5'
-				},
-				{
-					label: 'Bulma',
-					val: 'bulma'
-				},
-				{
-					label: 'DataTables',
-					val: 'datatables'
-				},
-				{
-					label: 'Foundation',
-					val: 'foundation'
-				},
-				{
-					label: 'jQuery UI',
-					val: 'jqueryui'
-				},
-				{
-					label: 'Fomantic UI',
-					val: 'semanticui'
-				},
-			],
-			initStyle,
-			function (option, container, initStyle) {
-				dt_demo.storage.set('dt-demo-style', option.val);
-				dt_demo._changeStyle(option, container, initStyle);
-			},
-			'<p><a href="https://datatables.net/tn/20#Style">What is this?</a></p>'
-		);
+				'<p><a href="https://datatables.net/tn/20#Style">What is this?</a></p>'
+			);
+		}
 
 		// Theme selector options
 		dt_demo._options(
