@@ -208,6 +208,68 @@ var _fnThrottle = DataTable.util.throttle;
 
 
 /**
+<<<<<<< HEAD
+=======
+ * Convert a set of CSS units width to pixels (e.g. 2em)
+ *  @param {string[]} widths widths to be converted
+ *  @param {node} parent parent to get the with for (required for relative widths) - optional
+ *  @returns {int[]} widths in pixels
+ *  @memberof DataTable#oApi
+ */
+function _fnConvertToWidth ( widths, parent )
+{
+	var els = [];
+	var results = [];
+
+	// Add the elements in a single loop so we only need to reflow once
+	for (var i=0 ; i<widths.length ; i++) {
+		if (widths[i]) {
+			els.push(
+				$('<div/>')
+					.css( 'width', _fnStringToCss( widths[i] ) )
+					.appendTo( parent || document.body )
+			)
+		}
+		else {
+			els.push(null);
+		}
+	}
+
+	// Get the sizes (will reflow once)
+	for (var i=0 ; i<widths.length ; i++) {
+		results.push(els[i] ? els[i][0].offsetWidth : null);
+	}
+
+	// Tidy
+	$(els).remove();
+
+	return results;
+}
+
+
+/**
+ * Get the widest node
+ *  @param {object} settings dataTables settings object
+ *  @param {int} colIdx column of interest
+ *  @returns {node} widest table node
+ *  @memberof DataTable#oApi
+ */
+function _fnGetWidestNode( settings, colIdx )
+{
+	var idx = _fnGetMaxLenString( settings, colIdx );
+	if ( idx < 0 ) {
+		return null;
+	}
+
+	var data = settings.aoData[ idx ];
+	return ! data.nTr ? // Might not have been created when deferred rendering
+		$('<td/>').html( _fnGetCellData( settings, idx, colIdx, 'display' ) )[0] :
+		data.anCells[ colIdx ];
+}
+
+
+/**
+>>>>>>> master
  * Get the maximum strlen for each data column
  *  @param {object} settings dataTables settings object
  *  @param {int} colIdx column of interest
