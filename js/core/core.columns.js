@@ -514,18 +514,6 @@ function _fnColumnsSumWidth( settings, targets, original, incVisible ) {
 	return sum + unit;
 }
 
-function _fnCellsFromLayout ( layout ) {
-	var cells = [];
-
-	for ( var i=0, ien=layout.length ; i<ien ; i++ ) {
-		for ( var j=0, jen=layout[i].length ; j<jen ; j++ ) {
-			cells.push( layout[i][j].cell );
-		}
-	}
-
-	return _unique( cells );
-}
-
 function _fnColumnsFromHeader( cell )
 {
 	var attr = $(cell).closest('[data-dt-column]').attr('data-dt-column');

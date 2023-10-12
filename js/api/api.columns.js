@@ -34,8 +34,9 @@ var __column_selector = function ( settings, selector, opts )
 		columns = settings.aoColumns,
 		names = _pluck( columns, 'sName' ),
 		titles = _pluck( columns, 'sTitle' ),
-		nodes = _fnCellsFromLayout( settings.aoHeader );
-
+		cells = DataTable.util.get('[].[].cell')(settings.aoHeader),
+		nodes = _unique( _flatten([], cells) );
+	
 	var run = function ( s ) {
 		var selInt = _intVal( s );
 
@@ -60,7 +61,6 @@ var __column_selector = function ( settings, selector, opts )
 				return s(
 						idx,
 						__columnData( settings, idx, 0, 0, rows )
-						// nodes[ idx ] TODO _fnCellsFromLayout
 					) ? idx : null;
 			});
 		}

@@ -75,49 +75,36 @@ _api_register( 'table()', function ( selector ) {
 		tables;
 } );
 
+// Common methods, combined to reduce size
+[
+	['nodes', 'node', 'nTable'],
+	['body', 'body', 'nTBody'],
+	['header', 'header', 'nTHead'],
+	['footer', 'footer', 'nTFoot'],
+].forEach(function (item) {
+	_api_registerPlural(
+		'tables().' + item[0] + '()',
+		'table().' + item[1] + '()' ,
+		function () {
+			return this.iterator( 'table', function ( ctx ) {
+				return ctx[item[2]];
+			}, 1 );
+		}
+	);
+});
 
-_api_registerPlural( 'tables().nodes()', 'table().node()' , function () {
-	return this.iterator( 'table', function ( ctx ) {
-		return ctx.nTable;
-	}, 1 );
-} );
-
-
-_api_registerPlural( 'tables().body()', 'table().body()' , function () {
-	return this.iterator( 'table', function ( ctx ) {
-		return ctx.nTBody;
-	}, 1 );
-} );
-
-
-_api_registerPlural( 'tables().header()', 'table().header()' , function () {
-	return this.iterator( 'table', function ( ctx ) {
-		return ctx.nTHead;
-	}, 1 );
-} );
-
-
-_api_registerPlural( 'tables().footer()', 'table().footer()' , function () {
-	return this.iterator( 'table', function ( ctx ) {
-		return ctx.nTFoot;
-	}, 1 );
-} );
-
-
-_api_register( 'table().header.structure()' , function (selector) {
-	var indexes = this.columns(selector).indexes().flatten();
-	var ctx = this.context[0];
-	
-	return _fnHeaderLayout(ctx, ctx.aoHeader, indexes);
-} );
-
-
-_api_register( 'table().footer.structure()' , function (selector) {
-	var indexes = this.columns(selector).indexes().flatten();
-	var ctx = this.context[0];
-	
-	return _fnHeaderLayout(ctx, ctx.aoFooter, indexes);
-} );
+// Structure methods
+[
+	['header', 'aoHeader'],
+	['footer', 'aoFooter'],
+].forEach(function (item) {
+	_api_register( 'table().' + item[0] + '.structure()' , function (selector) {
+		var indexes = this.columns(selector).indexes().flatten();
+		var ctx = this.context[0];
+		
+		return _fnHeaderLayout(ctx, ctx[item[1]], indexes);
+	} );
+})
 
 
 _api_registerPlural( 'tables().containers()', 'table().container()' , function () {
