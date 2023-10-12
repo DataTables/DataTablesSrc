@@ -104,6 +104,22 @@ _api_registerPlural( 'tables().footer()', 'table().footer()' , function () {
 } );
 
 
+_api_register( 'table().header.structure()' , function (selector) {
+	var indexes = this.columns(selector).indexes().flatten();
+	var ctx = this.context[0];
+	
+	return _fnHeaderLayout(ctx, ctx.aoHeader, indexes);
+} );
+
+
+_api_register( 'table().footer.structure()' , function (selector) {
+	var indexes = this.columns(selector).indexes().flatten();
+	var ctx = this.context[0];
+	
+	return _fnHeaderLayout(ctx, ctx.aoFooter, indexes);
+} );
+
+
 _api_registerPlural( 'tables().containers()', 'table().container()' , function () {
 	return this.iterator( 'table', function ( ctx ) {
 		return ctx.nTableWrapper;

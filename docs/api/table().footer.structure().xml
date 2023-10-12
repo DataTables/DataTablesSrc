@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="tables">
+	<name>table().footer.structure()</name>
+	<summary>Get a Javascript representation of the table footer structure</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>table().footer.structure( [ columns ] )</signature>
+		<description>
+			Get the structure of the table footer
+		</description>
+		<parameter name="columns" type="column-selector" default="undefined">
+			Select which columns to get the footer cells for. By default all columns in the table (regardless of visibility) will be retrieved.
+		</parameter>
+		<returns type="array">
+			An array of arrays containing objects that describe the footer structure.
+		</returns>
+	</type>
+
+	<description>
+	<![CDATA[
+		This method provides the ability to get a Javascript native representation of the HTML structure of the table's footer. It allows for complex footer (i.e. cells with `colspan` and `rowspan` attributes) and multi-row footer.
+
+		Please see the documentation for `-api table().header.structure()` for a full description of the data structure this method returns. The is exactly the same, just for the table's footer.
+	]]>
+	</description>
+
+	<related>-api table().header()</related>
+	<related>-api table().footer()</related>
+	<related>-api table().header.structure()</related>
+	<related>-api table().footer.structure()</related>
+</dt-api>

@@ -3,6 +3,7 @@ import DataTable, {
 	Api,
 	ConfigColumns,
 	DataType,
+	HeaderStructure,
 	SearchInput,
 	SearchInputColumn
 } from "../types/types";
@@ -148,6 +149,9 @@ expectType<Api<string>>(table.columns().types());
 
 expectType<number | null>(table.column(0).width());
 expectType<Api<number | null>>(table.columns().widths());
+
+expectType<HeaderStructure>(table.table().header.structure()[0][0]);
+expectType<HeaderStructure>(table.table().footer.structure()[0][0]);
 
 expectType<Api<string>>(table.search.fixed());
 expectType<SearchInput<any> | undefined>(table.search.fixed('test'));

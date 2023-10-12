@@ -848,37 +848,45 @@ function _fnDetectHeader ( settings, thead, write )
 					false;
 				
 				// Perform header setup
-				if ( write && unique ) {
-					// Allow column options to be set from HTML attributes
-					_fnColumnOptions( settings, shifted, $(cell).data() );
-					
-					// Get the width for the column. This can be defined from the
-					// width attribute, style attribute or `columns.width` option
-					var columnDef = columns[shifted];
-					var width = cell.getAttribute('width') || null;
-					var t = cell.style.width.match(/width:\s*(\d+[pxem%]+)/);
-					if ( t ) {
-						width = t[1];
-					}
-
-					columnDef.sWidthOrig = columnDef.sWidth || width;
-
-					if (thead.nodeName.toLowerCase() === 'thead') {
-						// Column title handling - can be user set, or read from the DOM
-						// This happens before the render, so the original is still in place
-						if ( columnDef.sTitle !== null && ! columnDef.autoTitle ) {
-							cell.innerHTML = columnDef.sTitle;
+				if ( write ) {
+					if (unique) {
+						// Allow column options to be set from HTML attributes
+						_fnColumnOptions( settings, shifted, $(cell).data() );
+						
+						// Get the width for the column. This can be defined from the
+						// width attribute, style attribute or `columns.width` option
+						var columnDef = columns[shifted];
+						var width = cell.getAttribute('width') || null;
+						var t = cell.style.width.match(/width:\s*(\d+[pxem%]+)/);
+						if ( t ) {
+							width = t[1];
 						}
 
-						if (! columnDef.sTitle && unique) {
-							columnDef.sTitle = cell.innerHTML.replace( /<.*?>/g, "" );
-							columnDef.autoTitle = true;
+						columnDef.sWidthOrig = columnDef.sWidth || width;
+
+						if (thead.nodeName.toLowerCase() === 'thead') {
+							// Column title handling - can be user set, or read from the DOM
+							// This happens before the render, so the original is still in place
+							if ( columnDef.sTitle !== null && ! columnDef.autoTitle ) {
+								cell.innerHTML = columnDef.sTitle;
+							}
+
+							if (! columnDef.sTitle && unique) {
+								columnDef.sTitle = cell.innerHTML.replace( /<.*?>/g, "" );
+								columnDef.autoTitle = true;
+							}
 						}
-					}
-					else {
-						// Footer specific operations
-						if (columnDef.footer) {
-							cell.innerHTML = columnDef.footer;
+						else {
+							// Footer specific operations
+							if (columnDef.footer) {
+								cell.innerHTML = columnDef.footer;
+							}
+						}
+
+						// Fall back to the aria-label attribute on the table header if no ariaTitle is
+						// provided.
+						if (! columnDef.ariaTitle) {
+							columnDef.ariaTitle = $(cell).attr("aria-label") || columnDef.sTitle;
 						}
 					}
 
@@ -893,12 +901,6 @@ function _fnDetectHeader ( settings, thead, write )
 					// Column specific class names
 					if ( columnDef.className ) {
 						$(cell).addClass( columnDef.className );
-					}
-
-					// Fall back to the aria-label attribute on the table header if no ariaTitle is
-					// provided.
-					if (! columnDef.ariaTitle) {
-						columnDef.ariaTitle = $(cell).attr("aria-label") || columnDef.sTitle;
 					}
 				}
 

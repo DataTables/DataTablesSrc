@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="tables">
+	<name>table().header.structure()</name>
+	<summary>Get a Javascript representation of the table header structure</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>table().header.structure( [ columns ] )</signature>
+		<description>
+			Get the structure of the table header
+		</description>
+		<parameter name="columns" type="column-selector" default="undefined">
+			Select which columns to get the header cells for. By default all columns in the table (regardless of visibility) will be retrieved.
+		</parameter>
+		<returns type="array">
+			An array of arrays containing objects that describe the header structure. See the description for full details.
+		</returns>
+	</type>
+
+	<description>
+	<![CDATA[
+		This method provides the ability to get a Javascript native representation of the HTML structure of the table's header. It allows for complex headers (i.e. cells with `colspan` and `rowspan` attributes) and multi-row headers.
+
+		The data structure returned has a top level array with one entry for each row in the header. Each row entry is an array of objects, where the object describes the table cell. It has the following properties:
+
+		* `colspan` - The number of columns that the cell spans over
+		* `cell` - The HTML element for the cell (`-tag th` or `-tag td`)
+		* `rowspan` - The number of rows that the cell spans
+		* `title` - The title text for the cell.
+
+		As an example, consider the following HTML for a table header:
+
+		```html
+		<thead>
+			<tr>
+				<th rowspan="2" width="15%">Name</th>
+				<th colspan="2">Position</th>
+				<th colspan="3">Contact</th>
+			</tr>
+			<tr>
+				<th colspan="3" data-dt-order="disable">HR info</th>
+				<th colspan="2">Direct</th>
+			</tr>
+		</thead>
+		```
+
+		When read through this method, the result would be:
+
+		```js
+		[
+			[
+				{colspan: 1, rowspan: 2, cell: <th>, title: 'Name'},
+				{colspan: 2, rowspan: 1, cell: <th>, title: 'Position'},
+				{colspan: 3, rowspan: 1, cell: <th>, title: 'Contact'},
+			],
+			[
+				{colspan: 3, rowspan: 1, cell: <th>, title: 'HR info'},
+				{colspan: 2, rowspan: 1, cell: <th>, title: 'Direct'},
+			]
+		]
+		```
+	]]>
+	</description>
+
+	<related>-api table().header()</related>
+	<related>-api table().footer()</related>
+	<related>-api table().header.structure()</related>
+	<related>-api table().footer.structure()</related>
+</dt-api>

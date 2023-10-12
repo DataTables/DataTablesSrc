@@ -65,6 +65,13 @@ export type CellIdxWithVisible = {
 export type SearchInput<T> = string | RegExp | ((data: string, rowData: T) => boolean);
 export type SearchInputColumn<T> = string | RegExp | ((data: string, rowData: T, column: number) => boolean);
 
+export type HeaderStructure = {
+    cell: HTMLElement;
+    colspan: number;
+    rowspan: number;
+    title: string;
+}
+
 /**
  * DataTables search options.
  * 
@@ -2402,19 +2409,37 @@ export interface ApiRowsMethods<T> extends Api<T> {
 
 
 export interface ApiTableMethods<T> extends Api<T> {
-    /**
-     * Get the tfoot node for the table in the API's context
-     * 
-     * @returns HTML tbody node.
-     */
-    footer(): Node;
+    footer: {
+        /**
+         * Get the tfoot node for the table in the API's context
+         * 
+         * @returns HTML tbody node.
+         */
+        (): Node;
 
-    /**
-     * Get the thead node for the table in the API's context
-     * 
-     * @returns HTML thead node.
-     */
-    header(): Node;
+        /**
+         * Get an array that represents the structure of the footer
+         *
+         * @param selector Column selector
+         */
+        structure(selector?: string): HeaderStructure[][];
+    }
+
+    header: {
+        /**
+         * Get the thead node for the table in the API's context
+         * 
+         * @returns HTML thead node.
+         */
+        (): Node;
+
+        /**
+         * Get an array that represents the structure of the header
+         *
+         * @param selector Column selector
+         */
+        structure(selector?: string): HeaderStructure[][];
+    }
 
     /**
      * Get the tbody node for the table in the API's context
