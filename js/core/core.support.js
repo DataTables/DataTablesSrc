@@ -124,28 +124,27 @@ function _fnExtend( out, extender, breakRefs )
  * This is good for accessibility since a return on the keyboard will have the
  * same effect as a click, if the element has focus.
  *  @param {element} n Element to bind the action to
- *  @param {object|string} oData Selector (for delegated events) or data object
+ *  @param {object|string} selector Selector (for delegated events) or data object
  *   to pass to the triggered function
  *  @param {function} fn Callback function for when the event is triggered
  *  @memberof DataTable#oApi
  */
-function _fnBindAction( n, oData, fn )
+function _fnBindAction( n, selector, fn )
 {
 	$(n)
-		.on( 'click.DT', oData, function (e) {
-				$(n).trigger('blur'); // Remove focus outline for mouse users
+		.on( 'click.DT', selector, function (e) {
+			fn(e);
+		} )
+		.on( 'keypress.DT', selector, function (e){
+			if ( e.which === 13 ) {
+				e.preventDefault();
 				fn(e);
-			} )
-		.on( 'keypress.DT', oData, function (e){
-				if ( e.which === 13 ) {
-					e.preventDefault();
-					fn(e);
-				}
-			} )
-		.on( 'selectstart.DT', oData, function () {
-				/* Take the brutal approach to cancelling text selection */
-				return false;
-			} );
+			}
+		} )
+		.on( 'selectstart.DT', selector, function () {
+			// Don't want a double click resulting in text selection
+			return false;
+		} );
 }
 
 
