@@ -223,7 +223,6 @@ function _fnHeaderLayout( settings, source, incColumns )
 {
 	var row, column, cell;
 	var local = [];
-	var applied = [];
 	var structure = [];
 	var columns = settings.aoColumns;
 	var columnCount = columns.length;
@@ -243,17 +242,12 @@ function _fnHeaderLayout( settings, source, incColumns )
 
 	// Make a copy of the master layout array, but with only the columns we want
 	for ( row=0 ; row<source.length ; row++ ) {
-		local[row] = source[row].slice();
-
 		// Remove any columns we haven't selected
-		for ( column=columnCount-1 ; column>=0 ; column-- ) {
-			if ( ! incColumns.includes(column) ) {
-				local[row].splice( column, 1 );
-			}
-		}
+		local[row] = source[row].slice().filter(function (cell, i) {
+			return incColumns.includes(i);
+		});
 
-		// Prep the applied array - it needs an element for each row
-		applied.push( [] );
+		// Prep the structure array - it needs an element for each row
 		structure.push( [] );
 	}
 
@@ -264,18 +258,15 @@ function _fnHeaderLayout( settings, source, incColumns )
 
 			// Check to see if there is already a cell (row/colspan) covering our target
 			// insert point. If there is, then there is nothing to do.
-			if ( applied[row][column] === undefined ) {
+			if ( structure[row][column] === undefined ) {
 				cell = local[row][column].cell;
-
-				// Flag that we've accounted for this space
-				applied[row][column] = 1;
 
 				// Expand for rowspan
 				while (
 					local[row+rowspan] !== undefined &&
 					local[row][column].cell == local[row+rowspan][column].cell
 				) {
-					applied[row+rowspan][column] = 1;
+					structure[row+rowspan][column] = null;
 					rowspan++;
 				}
 
@@ -286,18 +277,18 @@ function _fnHeaderLayout( settings, source, incColumns )
 				) {
 					// Which also needs to go over rows
 					for ( var k=0 ; k<rowspan ; k++ ) {
-						applied[row+k][column+colspan] = 1;
+						structure[row+k][column+colspan] = null;
 					}
 
 					colspan++;
 				}
 
-				structure[row].push({
+				structure[row][column] = {
 					cell: cell,
 					colspan: colspan,
 					rowspan: rowspan,
 					title: $('span.dt-column-title', cell).html()
-				});
+				};
 			}
 		}
 	}
@@ -330,10 +321,12 @@ function _fnDrawHead( settings, source )
 		for ( var column=0 ; column<layout[row].length ; column++ ) {
 			var point = layout[row][column];
 
-			$(point.cell)
-				.appendTo(tr)
-				.attr('rowspan', point.rowspan)
-				.attr('colspan', point.colspan);
+			if (point) {
+				$(point.cell)
+					.appendTo(tr)
+					.attr('rowspan', point.rowspan)
+					.attr('colspan', point.colspan);
+			}
 		}
 	}
 }
@@ -888,6 +881,11 @@ function _fnDetectHeader ( settings, thead, write )
 						if (! columnDef.ariaTitle) {
 							columnDef.ariaTitle = $(cell).attr("aria-label") || columnDef.sTitle;
 						}
+
+						// Column specific class names
+						if ( columnDef.className ) {
+							$(cell).addClass( columnDef.className );
+						}
 					}
 
 					// Wrap the column title so we can write to it in future
@@ -896,11 +894,6 @@ function _fnDetectHeader ( settings, thead, write )
 							.addClass('dt-column-title')
 							.append(cell.childNodes)
 							.appendTo(cell);
-					}
-
-					// Column specific class names
-					if ( columnDef.className ) {
-						$(cell).addClass( columnDef.className );
 					}
 				}
 

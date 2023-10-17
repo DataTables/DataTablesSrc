@@ -13,7 +13,7 @@
 			Select which columns to get the footer cells for. By default all columns in the table (regardless of visibility) will be retrieved.
 		</parameter>
 		<returns type="array">
-			An array of arrays containing objects that describe the footer structure.
+			An array of arrays containing objects and null values that describe the footer structure.
 		</returns>
 	</type>
 

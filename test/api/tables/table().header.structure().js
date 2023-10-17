@@ -77,11 +77,18 @@ describe('tables - table().header.structure()', function() {
 				[
 					{colspan: 1, rowspan: 2, cell: cells[0], title: 'Name'},
 					{colspan: 2, rowspan: 1, cell: cells[1], title: 'Position'},
+					null,
 					{colspan: 3, rowspan: 1, cell: cells[2], title: 'Contact'},
+					null,
+					null
 				],
 				[
+					null,
 					{colspan: 3, rowspan: 1, cell: cells[3], title: 'HR info'},
+					null,
+					null,
 					{colspan: 2, rowspan: 1, cell: cells[4], title: 'Direct'},
+					null
 				]
 			]);
 		});
@@ -96,7 +103,9 @@ describe('tables - table().header.structure()', function() {
 				[
 					{colspan: 1, rowspan: 2, cell: cells[0], title: 'Name'},
 				],
-				[]
+				[
+					null
+				]
 			]);
 		});
 
@@ -112,6 +121,7 @@ describe('tables - table().header.structure()', function() {
 					{colspan: 1, rowspan: 1, cell: cells[1], title: 'Position'}
 				],
 				[
+					null,
 					{colspan: 1, rowspan: 1, cell: cells[3], title: 'HR info'}
 				]
 			]);

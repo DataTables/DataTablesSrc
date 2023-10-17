@@ -77,11 +77,18 @@ describe('tables - table().footer.structure()', function() {
 				[
 					{colspan: 1, rowspan: 2, cell: cells[0], title: 'FName'},
 					{colspan: 2, rowspan: 1, cell: cells[1], title: 'FPosition'},
+					null,
 					{colspan: 3, rowspan: 1, cell: cells[2], title: 'FContact'},
+					null,
+					null,
 				],
 				[
+					null,
 					{colspan: 3, rowspan: 1, cell: cells[3], title: 'FHR info'},
+					null,
+					null,
 					{colspan: 2, rowspan: 1, cell: cells[4], title: 'FDirect'},
+					null,
 				]
 			]);
 		});
@@ -96,7 +103,9 @@ describe('tables - table().footer.structure()', function() {
 				[
 					{colspan: 1, rowspan: 2, cell: cells[0], title: 'FName'},
 				],
-				[]
+				[
+					null
+				]
 			]);
 		});
 
@@ -112,6 +121,7 @@ describe('tables - table().footer.structure()', function() {
 					{colspan: 1, rowspan: 1, cell: cells[1], title: 'FPosition'}
 				],
 				[
+					null,
 					{colspan: 1, rowspan: 1, cell: cells[3], title: 'FHR info'}
 				]
 			]);

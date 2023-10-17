@@ -13,7 +13,7 @@
 			Select which columns to get the header cells for. By default all columns in the table (regardless of visibility) will be retrieved.
 		</parameter>
 		<returns type="array">
-			An array of arrays containing objects that describe the header structure. See the description for full details.
+			An array of arrays containing objects and null values that describe the header structure. See the description for full details.
 		</returns>
 	</type>
 
@@ -21,12 +21,14 @@
 	<![CDATA[
 		This method provides the ability to get a Javascript native representation of the HTML structure of the table's header. It allows for complex headers (i.e. cells with `colspan` and `rowspan` attributes) and multi-row headers.
 
-		The data structure returned has a top level array with one entry for each row in the header. Each row entry is an array of objects, where the object describes the table cell. It has the following properties:
+		The data structure returned has a top level array with one entry for each row in the header. Each row entry is an array of objects or a null value. The object strcture is used to describe a table cell and has the following properties:
 
 		* `colspan` - The number of columns that the cell spans over
 		* `cell` - The HTML element for the cell (`-tag th` or `-tag td`)
 		* `rowspan` - The number of rows that the cell spans
 		* `title` - The title text for the cell.
+
+		A `null` value in place of the object represents a cell that has another spanning into it due to the rowspan or colspan attributes of the previous cells.
 
 		As an example, consider the following HTML for a table header:
 
@@ -51,11 +53,18 @@
 			[
 				{colspan: 1, rowspan: 2, cell: <th>, title: 'Name'},
 				{colspan: 2, rowspan: 1, cell: <th>, title: 'Position'},
+				null,
 				{colspan: 3, rowspan: 1, cell: <th>, title: 'Contact'},
+				null,
+				null
 			],
 			[
+				null,
 				{colspan: 3, rowspan: 1, cell: <th>, title: 'HR info'},
+				null,
+				null,
 				{colspan: 2, rowspan: 1, cell: <th>, title: 'Direct'},
+				null
 			]
 		]
 		```
