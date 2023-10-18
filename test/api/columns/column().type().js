@@ -27,5 +27,18 @@ describe('columns- column().type()', function() {
 			expect(table.column(4).type()).toBe('date');
 			expect(table.column(5).type()).toBe('num-fmt');
 		});
+
+		dt.html('basic');
+
+		it('HTML type is detected at the end of the table', function() {
+			$('#example tbody').append(
+				'<tr><td><a href="url">ZZ link name</a></td><td>position&#10new line</td><td>office&gt;</td><td> 99 </td><td>2019/04/16</td><td>$333,333</td></tr>'
+			);
+
+			table = $('#example').DataTable();
+			
+			expect(table.column(0).type()).toBe('html');
+		});
+
 	});
 });

@@ -291,7 +291,7 @@ function _fnColumnTypes ( settings )
 					// exception for the last type which is `html`. We need to
 					// scan all rows since it is possible to mix string and HTML
 					// types
-					if ( ! detectedType && j !== types.length-1 ) {
+					if ( ! detectedType && j !== types.length-2 ) {
 						break;
 					}
 
