@@ -141,7 +141,7 @@ function js_wrap {
 	js_compress "$DIR/$FILE.js"
 
 	echo_msg "  Linting UMD"
-	eslint -c $DT_SRC/.eslintrc.js "$DIR/$FILE.js"
+	eslint "$DIR/$FILE.js"
 }
 
 
