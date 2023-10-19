@@ -131,7 +131,7 @@ describe('core - search.fixed()', function() {
 				return true;
 			}).draw();
 
-			expect(args.length).toBe(3);
+			expect(args.length).toBe(4);
 		});
 
 		it('First parameter was the data for the cell', function() {
@@ -151,9 +151,14 @@ describe('core - search.fixed()', function() {
 			]);
 		});
 
+		it('Third parameter is the row index', function() {
+			// Test for last iteration only
+			expect(args[2]).toEqual(48);
+		});
+
 		it('Third parameter is the column index', function() {
 			// Test for last iteration only
-			expect(args[2]).toEqual(0);
+			expect(args[3]).toEqual(0);
 		});
 
 		it('Multiple search', function() {

@@ -413,5 +413,25 @@ describe('column - column().search()', function() {
 
 			expect($('#example tbody td').eq(0).text()).toBe('Brielle Williamson');
 		});
+
+		it('Third parameter is the row index', function() {
+			table = $('#example').DataTable();
+			table
+				.column(3)
+				.search((d, row, index) => index == 0)
+				.draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Tiger Nixon');
+		});
+
+		it('Fourth parameter is the column index', function() {
+			table = $('#example').DataTable();
+			table
+				.column(3)
+				.search((d, row, index, col) => col == 3)
+				.draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Airi Satou');
+		});
 	});
 });

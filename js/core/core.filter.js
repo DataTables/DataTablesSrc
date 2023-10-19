@@ -121,7 +121,7 @@ function _fnFilter( searchRows, settings, input, options, column )
 			? row._sFilterRow
 			: row._aFilterData[ column ];
 
-		if ( (searchFunc && ! searchFunc(data, row._aData, column)) || (rpSearch && ! rpSearch.test(data)) ) {
+		if ( (searchFunc && ! searchFunc(data, row._aData, searchRows[i], column)) || (rpSearch && ! rpSearch.test(data)) ) {
 			searchRows.splice(i, 1);
 			i--;
 		}

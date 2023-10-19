@@ -117,15 +117,15 @@ describe('core - search.fixed()', function() {
 			expect($('#example tbody td').eq(0).text()).toBe('Airi Satou');
 		});
 
-		it('Function is given three arguments', function() {
-			// Note that two are documented - third is an implementation artifact
+		it('Function is given four arguments', function() {
+			// Note that three are documented - fourth is an implementation artifact
 			// for the columns version of this
 			table.search.fixed('test', function () {
 				args = arguments;
 				return true;
 			}).draw();
 
-			expect(args.length).toBe(3);
+			expect(args.length).toBe(4);
 		});
 
 		it('First parameter was the data for the row', function() {
@@ -145,9 +145,14 @@ describe('core - search.fixed()', function() {
 			]);
 		});
 
-		it('Third parameter is undefined', function() {
+		it('Third parameter is row index', function() {
 			// Test for last iteration only
-			expect(args[2]).toEqual(undefined);
+			expect(args[2]).toEqual(48);
+		});
+
+		it('Fourth parameter is undefined', function() {
+			// Test for last iteration only
+			expect(args[3]).toEqual(undefined);
 		});
 
 		it('Multiple search', function() {

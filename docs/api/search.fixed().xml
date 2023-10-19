@@ -44,7 +44,13 @@
 
 			If working with a regular expression, be aware that the regex is applied to a single string with the search data from all searchable columns (double space joined).
 			
-			In the case of a function the function is called for each row with two parameters which are passed in; the first is the search string of data from all searchable columns in the table, and the second is the row's original data object. A boolean value should be returned: `true` to keep the row, `false` to filter it out.
+			In the case of a function the function is called for each row with three parameters which are passed in:
+			
+			1. The search string of data from all searchable columns in the table
+			2. The row's original data object
+			3. The row's data index
+			
+			A boolean value should be returned: `true` to keep the row, `false` to filter it out.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>
 	</type>
