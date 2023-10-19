@@ -139,6 +139,9 @@ function js_wrap {
 	echo_msg "  Creating UMD"
 	node $WRAPPER $FULL umd $DIR/$FILE "$REQUIRE"
 	js_compress "$DIR/$FILE.js"
+
+	echo_msg "  Linting UMD"
+	eslint -c $DT_SRC/.eslintrc.js "$DIR/$FILE.js"
 }
 
 

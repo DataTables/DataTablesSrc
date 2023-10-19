@@ -142,13 +142,6 @@ function umd(script, deps, exp, filename) {
 	let cjsSig = '';
 	let cjsParams = '';
 
-	// HTML5 export has a special signature for the CommonJS module to
-	// allow jszip and pdfmake to be passed in
-	if (filename === 'buttons.html5.js') {
-		cjsSig = ', jszip, pdfmake';
-		cjsParams = ', jszip, pdfmake';
-	}
-
 	return `${script.header}
 
 (function( factory ){
@@ -188,7 +181,7 @@ function umd(script, deps, exp, filename) {
 		// Browser
 		factory( jQuery, window, document );
 	}
-}(function( $, window, document${cjsParams}, undefined ) {
+}(function( $, window, document${cjsParams} ) {
 'use strict';${defineDataTable}
 
 ${script.main}
