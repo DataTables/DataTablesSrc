@@ -449,6 +449,7 @@ function _fnSortData( settings, colIdx )
 	var data = settings.aoData;
 
 	for ( var rowIdx=0 ; rowIdx<data.length ; rowIdx++ ) {
+		// Sparse array
 		if (! data[rowIdx]) {
 			continue;
 		}
