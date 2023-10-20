@@ -56,7 +56,6 @@ $.extend( true, DataTable.ext.renderer, {
 				} ).join(',');
 
 				cell
-					.attr('tabindex', 0)
 					.removeClass(
 						orderClasses.isAsc +' '+
 						orderClasses.isDesc
@@ -100,6 +99,7 @@ $.extend( true, DataTable.ext.renderer, {
 
 				if (orderable) {
 					cell.find('.dt-column-title').attr('role', 'button');
+					cell.attr('tabindex', 0)
 				}
 			} );
 		}
