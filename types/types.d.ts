@@ -2771,13 +2771,13 @@ export interface DataTablesStaticUtil {
      * Create a read function from a descriptor. Since 1.11
      * @param source A descriptor that is used to define how to read the data from the source object.
      */
-    get<T=any, D=any>(source: string | object | Function | null): ((data: D, type: string, val: T, meta: CellMetaSettings) => T);
+    get<T=any, D=any>(source: string | number | object | Function | null): ((data: D, type?: string, val?: T, meta?: CellMetaSettings) => T);
 
     /**
      * Create a write function from a descriptor. Since 1.11
      * @param source A descriptor that is used to define how to write data to a source object
      */
-    set<T=any, D=any>(source: string | object | Function | null): ((data: D, val: T, meta: CellMetaSettings) => void);
+    set<T=any, D=any>(source: string | number | object | Function | null): ((data: D, val: T, meta?: CellMetaSettings) => void);
 
     /**
      * Remove mark up from a string
@@ -2896,7 +2896,7 @@ interface ObjectColumnRender {
     sort?: string | number | FunctionColumnRender;
 }
 
-interface CellMetaSettings {
+export interface CellMetaSettings {
     row: number;
     col: number;
     settings: InternalSettings;

@@ -29,7 +29,7 @@ module.exports = {
 		'no-unused-vars': [
 			'error',
 			{
-				argsIgnorePattern: 'window|document'
+				args: 'none'
 			}
 		],
 
