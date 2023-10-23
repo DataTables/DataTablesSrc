@@ -182,7 +182,7 @@ function _fnCalculateColumnWidths ( settings )
 
 	if ( (tableWidthAttr || scrollX) && ! settings._reszEvt ) {
 		var bindResize = function () {
-			$(window).on('resize.DT-'+settings.sInstance, _fnThrottle( function () {
+			$(window).on('resize.DT-'+settings.sInstance, DataTable.util.throttle( function () {
 				if (! settings.bDestroying) {
 					_fnAdjustColumnSizing( settings );
 				}
@@ -194,17 +194,6 @@ function _fnCalculateColumnWidths ( settings )
 		settings._reszEvt = true;
 	}
 }
-
-
-/**
- * Throttle the calls to a function. Arguments and context are maintained for
- * the throttled function
- *  @param {function} fn Function to be called
- *  @param {int} [freq=200] call frequency in mS
- *  @returns {function} wrapped function
- *  @memberof DataTable#oApi
- */
-var _fnThrottle = DataTable.util.throttle;
 
 
 /**

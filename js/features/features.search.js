@@ -81,7 +81,7 @@ DataTable.feature.register( 'search', function ( settings, opts ) {
 		.on(
 			'keyup.DT search.DT input.DT paste.DT cut.DT',
 			searchDelay ?
-				_fnThrottle( searchFn, searchDelay ) :
+				DataTable.util.debounce( searchFn, searchDelay ) :
 				searchFn
 		)
 		.on( 'mouseup.DT', function(e) {

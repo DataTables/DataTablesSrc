@@ -26,6 +26,28 @@ DataTable.util = {
 	},
 
 	/**
+	 * Debounce a function
+	 *
+	 * @param {function} fn Function to be called
+	 * @param {integer} freq Call frequency in mS
+	 * @return {function} Wrapped function
+	 */
+	debounce: function ( fn, timeout ) {
+		var timer;
+
+		return function () {
+			var that = this;
+			var args = arguments;
+
+			clearTimeout(timer);
+
+			timer = setTimeout( function () {
+				fn.apply(that, args);
+			}, timeout || 250 );
+		};
+	},
+
+	/**
 	 * Throttle the calls to a function. Arguments and context are maintained
 	 * for the throttled function.
 	 *

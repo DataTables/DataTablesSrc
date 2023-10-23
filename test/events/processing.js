@@ -324,18 +324,24 @@ describe('core - events - processing', function() {
 			await dt.clickHeader(1);
 			expect(count).toBe(3); // one for ordering, one for draw, and one for end
 		});
-		it('... Called when search through API', function() {
+		it('... Called when search through API', async function() {
 			reset();
 			table.search('cox').draw();
-			expect(count).toBe(1);
+
+			await dt.sleep(500);
+
+			// Wait for debounce from SSP search - count is two - once
+			// for the processing display one for the clear
+			expect(count).toBe(2);
 		});
-		it('... Called when changing page through UI', function() {
-			table.search('').draw();
+		it('... Called when changing page through UI', async function() {
 			reset();
 			$('div.dt-search input')
 				.val('green')
 				.keyup();
-			expect(count).toBe(1);
+			
+			await dt.sleep(500);
+			expect(count).toBe(2);
 		});
 
 		dt.html('basic');
@@ -380,18 +386,21 @@ describe('core - events - processing', function() {
 			await dt.clickHeader(1);
 			expect(count).toBe(3);
 		});
-		it('... Called when search through API', function() {
+		it('... Called when search through API', async function() {
 			reset();
 			table.search('cox').draw();
-			expect(count).toBe(1);
+
+			await dt.sleep(500);
+			expect(count).toBe(2);
 		});
-		it('... Called when changing page through UI', function() {
-			table.search('').draw();
+		it('... Called when changing page through UI', async function() {
 			reset();
 			$('div.dt-search input')
 				.val('green')
 				.keyup();
-			expect(count).toBe(1);
+
+			await dt.sleep(500);
+			expect(count).toBe(2);
 		});
 	});
 });

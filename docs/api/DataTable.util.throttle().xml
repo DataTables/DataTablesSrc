@@ -21,11 +21,11 @@
 
 		It can often be useful to limit the number of times that a method can be called in a given period of time (throttling). For example, consider searching a table with the `dt-api search()` method. If you are using server-side processing, you might wish to limit the number of requests that are made to the server by time (a fast typist might trigger many Ajax calls per second!). This method can assist in that goal by wrapping the function given in a helper function that you would then call as often as required (in the case of the search example, on every keystroke) and the wrapper function will automatically throttle the number of calls to the target function to the required frequency.
 
-		Note that any arguments passed to the returned function, when called, will be passed on to the original function. Additional the scope of execution of the original function will match the returned function's scope.
+		Note that any arguments passed to the returned function, when called, will be passed on to the original function. Additionally, the scope of execution of the original function will match the returned function's scope.
 
 		This is not a debounce function - it will execute the function at the defined frequency even while the function is still being called. Considering again the search example from above to illustrate this, the table will be searched at the given frequency, while the user is still typing. It will not wait for the user to stop typing (although a final execution of the function will happen once the user has stopped typing!).
 
-		Prior to DataTables 1.11 this method could be accessed through the `$.fn.dataTable.util` object only. As of 1.11, either `DataTable.util` or `$.fn.dataTable` can be used.
+		For a debounce function creator, please see `-api DataTable.util.debounce()`.
 	</description>
 
 	<example title="Reduce search API method calls to 1 per second"><![CDATA[
@@ -39,4 +39,5 @@ $('#mySearchBox').on('keyup', function () {
 });
 ]]></example>
 
+	<related>-api DataTable.util.debounce()</related>
 </dt-api>

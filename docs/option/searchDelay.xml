@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="option">
 	<name>searchDelay</name>
-	<summary>Set a throttle frequency for searching</summary>
+	<summary>Set a delay for search operations</summary>
 	<since>1.10.3</since>
 
 	<type type="integer" />
@@ -13,7 +13,14 @@
 	</default>
 
 	<description>
-		The built-in DataTables global search (by default at the top right of every DataTable) will instantly search the table on every keypress when in client-side processing mode and reduce the search call frequency automatically to 400mS when in server-side processing mode. This call frequency (throttling) can be controlled using the `dt-init searchDelay` parameter for both client-side and server-side processing.
+		This parameter sets a delay between user input to the global search field (top right of every DataTable by default) and when the actual search operation is performed. This can be of particular use when using server-side processing and you don't want every keystroke to trigger an Ajax request for data.
+
+		This property's default value depends upon the `-init serverSide` option of DataTables:
+
+		* 0 when in client-side processing mode,
+		* 400mS when server-side processing.
+
+		Setting a value in the initialisation object will override with your value regardless of which mode is used.
 
 		Being able to control the call frequency has a number of uses:
 
@@ -22,18 +29,20 @@
 		* Reduce the load on the server when using server-side processing by making fewer calls
 		* Conversely, you can speed up the search when using server-side processing by reducing the default of 400mS to instant (`0`).
 
-		As with many other parts of DataTables, it is up to yourself how you configure it to suit your needs!
+		The value given for this property is in milliseconds (mS).
 
-		The value given for `dt-init searchDelay` is in milliseconds (mS).
+		Prior to DataTables 2, this method used `-api DataTable.util.throttle()` and thus would trigger a search even if the user was still typing, just at a reduced call rate. As of DataTables 2 `-api DataTable.util.debounce()` is used to wait until the user has finished typing (more specifically until the given timeout has completed) before running the search.
 
-		Please note that this option effects only the built in global search box that DataTables provides. It does not effect the `dt-api search()` or `dt-api column().search()` methods at all. If you wish to be able to throttle calls to those API methods use the utility method `dt-api $.fn.dataTable.util.throttle()`.
+		Please note that this option effects only the built in global search box that DataTables provides. It does not effect the `dt-api search()` or `dt-api column().search()` methods at all. If you wish to be able to delay calls to those API methods use the utility method `dt-api DataTable.util.debounce()`.
 	</description>
 
-	<example title="Set a 350mS throttle for searching"><![CDATA[
+	<example title="Set a 350mS delay for searching"><![CDATA[
 new DataTable('#myTable', {
 	searchDelay: 350
 });
 ]]></example>
 
-	<related type="option">search</related>
+	<related>-init search</related>
+	<related>-api DataTable.util.debounce()</related>
+	<related>-api DataTable.util.throttle()</related>
 </dt-option>

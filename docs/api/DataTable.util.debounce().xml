@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.util.debounce()</name>
+	<summary>Wait for a timeout before calling a function</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>debounce( fn, [ wait ] )</signature>
+		<description>Wait until a timeout is completed before calling a function, regardless of how many times the wrapper function is called.</description>
+		<parameter type="function" name="fn" default="false">
+			Function that should have its called debounced
+		</parameter>
+		<parameter type="integer" name="wait" default="250">
+			Delay period after the last call before the function is called - milliseconds (mS).
+		</parameter>
+		<returns type="function">Wrapper function that can be called and will automatically debounce calls to the passed in function to the given period.</returns>
+	</type>
+
+	<description>
+		This is a utility method that is provided for use by extension and plug-in authors. It provides the ability to create a debounced function that will invoke the given function after a given period of time has elapsed since the last time the debounced function was called.
+
+		This can be particularly useful for limiting the number of times a resource intensive operation is performed, while still triggering the action for interactivity. A common example is for use with search input when server-side processing is enabled (`-init serverSide`), whereby you might want the search operation to only happen once a user has finished typing, not on every key stroke. This is the method DataTables uses internally for the `-init searchDelay` option.
+
+		Note that any arguments passed to the returned function, when called, will be passed on to the original function. Additionally, the scope of execution of the original function will match the returned function's scope.
+
+		It is similar to its partner function `-api DataTable.util.throttle()`, however, in this case it will wait until the end of the sequence of calls to the debounce function before running the original function, whereas `throttle` will periodically be called even while the wrapper function is still being called.
+	</description>
+
+	<example title="Reduce search API method calls to 1 per second"><![CDATA[
+var table = new DataTable('#myTable');
+var search = DataTable.util.debounce(function (val) {
+	table.search(val).draw();
+}, 1000);
+
+$('#mySearchBox').on('keyup', function () {
+	search(this.value);
+});
+]]></example>
+
+	<related>-api DataTable.util.throttle()</related>
+</dt-api>

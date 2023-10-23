@@ -31,24 +31,27 @@ describe('searchDelay Option', function() {
 	describe('Functional tests', function() {
 		dt.html('basic');
 		let table;
-		it('First key has immediate effect', function() {
+		it('First key does not have an immediate effect', function() {
 			table = $('#example').DataTable({
-				searchDelay: 3000
+				searchDelay: 2500
 			});
 			$('div.dt-search input')
 				.val('z')
 				.keyup();
-			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Gavin Cortez');
+
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 		it('Second interaction has no effect before timeout', function() {
 			$('div.dt-search input')
-				.val('o')
+				.val('ez')
 				.keyup();
-			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Gavin Cortez');
+
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 		it('But has effect after timeout', async function(done) {
 			await dt.sleep(3000);
-			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Gavin Cortez');
 			done();
 		});
 	});
