@@ -172,6 +172,15 @@ expectType<Api<any>>(table.on('click', 'tbody td', function () {}));
 expectType<Api<any>>(table.one('draw', function () {}));
 expectType<Api<any>>(table.one('click', 'tbody td', function () {}));
 
+// Check `this` is an HTMLElement
+table.on('draw', function () {
+	this.getElementsByTagName('test');
+});
+
+table.on('click', 'tbody td', function () {
+	this.getElementsByTagName('test');
+});
+
 /*
  * Rows
  */
