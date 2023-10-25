@@ -1,5 +1,14 @@
 #!/bin/sh
 
+#
+# Can be used on both examples directories and docs. Each has
+# slightly different processing - the docs is more aggrasive
+# in updating code style.
+#
+# Call with the path to the directory with the xml files you
+# want to process.
+#
+
 DOCS_DIR=$1
 
 shopt -s globstar

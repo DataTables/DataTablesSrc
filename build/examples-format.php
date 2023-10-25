@@ -35,26 +35,28 @@ foreach ($xml->example as $key => $example) {
 
 // Reference docs
 foreach ($xml->js as $key => $js) {
-	$code = (string)$js;
-
-	echo $file . ' ' . $code;
-
-	if (str_contains($xmlString, $code)) {
-		echo 'It does contain it';
-	}
+	$code = trim((string)$js);
 
 	warnings($code, $file);
 
 	$formatted = format($code, $counter, $file);
-	$xmlString = str_replace($code, "\n".$formatted, $xmlString);
-
-	echo 'Reformatted: ' . $formatted;
+	$formatted = trim($formatted);
+	$xmlString = str_replace($code, $formatted, $xmlString);
 
 	$counter++;
 }
 
-// echo $xmlString;
+foreach ($xml->{'js-vanilla'} as $key => $js) {
+	$code = trim((string)$js);
 
+	warnings($code, $file);
+
+	$formatted = format($code, $counter, $file);
+	$formatted = trim($formatted);
+	$xmlString = str_replace($code, $formatted, $xmlString);
+
+	$counter++;
+}
 
 // Finish
 file_put_contents($file, $xmlString);
