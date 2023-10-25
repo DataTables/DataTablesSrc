@@ -19,7 +19,7 @@
 			The XHR object constructed for jQuery
 		</parameter>
 		<scope>HTML table element</scope>
-		<bubbles>No</bubbles>
+		<bubbles>Yes</bubbles>
 	</type>
 
 	<description>

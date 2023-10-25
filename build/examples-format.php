@@ -1,7 +1,13 @@
 <?php
+/*
+ * DataTables reference documentation and examples formatting
+ */
+error_reporting(\E_ALL);
+ini_set('display_errors', '1');
+
+define( 'TMPNAME', '/tmp/dt-formatting.js');
 
 $file = $argv[1];
-$tmpName = '/tmp/dt-formatting.js';
 
 if ( ! is_file( $file ) ) {
 	throw new Exception("File $file not found", 1);
@@ -11,14 +17,57 @@ $xmlString = file_get_contents($file);
 $xml = simplexml_load_string( $xmlString );
 $counter = 1;
 
+// Examples
 foreach ($xml->example as $key => $example) {
 	$code = (string)$example;
 
 	$replaced = replacements($code);
 	warnings($replaced, $file);
 
-	file_put_contents($tmpName, $replaced);
+	$formatted = format($replaced, $counter, $file);
 
+	// Doing a string replace rather than XML as I don't want PHP to
+	// reformat the XML!
+	$xmlString = str_replace($code, "\n".$formatted, $xmlString);
+
+	$counter++;
+}
+
+// Reference docs
+foreach ($xml->js as $key => $js) {
+	$code = (string)$js;
+
+	echo $file . ' ' . $code;
+
+	if (str_contains($xmlString, $code)) {
+		echo 'It does contain it';
+	}
+
+	warnings($code, $file);
+
+	$formatted = format($code, $counter, $file);
+	$xmlString = str_replace($code, "\n".$formatted, $xmlString);
+
+	echo 'Reformatted: ' . $formatted;
+
+	$counter++;
+}
+
+// echo $xmlString;
+
+
+// Finish
+file_put_contents($file, $xmlString);
+
+
+/**
+ * Use the external prettier-m program to format the code
+ */
+function format ( $jsCode, $counter, $file ) {
+	// Save into a file which will be formatted
+	file_put_contents(TMPNAME, $jsCode);
+
+	// Formatted
 	exec(
 		'/home/vagrant/DataTablesSrc/node_modules/.bin/prettier-m '.
 			'--break-before-else '.
@@ -28,7 +77,7 @@ foreach ($xml->example as $key => $example) {
 			'--indent-chains '.
 			'--trailing-comma none '.
 			'--write '.
-			$tmpName .' '.
+			TMPNAME .' '.
 			'2>&1',
 		$output,
 		$result
@@ -38,23 +87,18 @@ foreach ($xml->example as $key => $example) {
 
 	if ($result !== 0) {
 		echo "Invalid syntax: Example $counter - $file\n";
+		unlink(TMPNAME);
+
+		return $jsCode;
 	}
 	else {
-		$formatted = file_get_contents($tmpName);
+		$formatted = file_get_contents(TMPNAME);
+		unlink(TMPNAME);
 
-		// Doing a string replace rather than XML as I don't want PHP to
-		// reformat the XML!
-		$xmlString = str_replace($code, "\n".$formatted, $xmlString);
+		return $formatted;
 	}
-
-	// echo $xmlString;
-
-	unlink($tmpName);
-
-	$counter++;
 }
 
-file_put_contents($file, $xmlString);
 
 /**
  * Update any code examples from old style to new with simple

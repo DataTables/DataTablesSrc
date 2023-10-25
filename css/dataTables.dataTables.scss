@@ -316,6 +316,10 @@ div.dt-container {
 		&.dt-end {
 			text-align: right;
 		}
+
+		&:empty {
+			display: none;
+		}
 	}
 
 	.dt-search {

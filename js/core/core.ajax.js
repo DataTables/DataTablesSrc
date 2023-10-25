@@ -29,7 +29,7 @@ function _fnBuildAjax( oSettings, data, fn )
 
 		oSettings.json = json;
 
-		_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json, oSettings.jqXHR] );
+		_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json, oSettings.jqXHR], true );
 		fn( json );
 	};
 
@@ -61,7 +61,7 @@ function _fnBuildAjax( oSettings, data, fn )
 		"cache": false,
 		"type": oSettings.sServerMethod,
 		"error": function (xhr, error) {
-			var ret = _fnCallbackFire( oSettings, null, 'xhr', [oSettings, null, oSettings.jqXHR] );
+			var ret = _fnCallbackFire( oSettings, null, 'xhr', [oSettings, null, oSettings.jqXHR], true );
 
 			if ( ret.indexOf(true) === -1 ) {
 				if ( error == "parsererror" ) {
@@ -85,7 +85,7 @@ function _fnBuildAjax( oSettings, data, fn )
 	oSettings.oAjaxData = data;
 
 	// Allow plug-ins and external processes to modify the data
-	_fnCallbackFire( oSettings, null, 'preXhr', [oSettings, data, baseAjax] );
+	_fnCallbackFire( oSettings, null, 'preXhr', [oSettings, data, baseAjax], true );
 
 	if ( typeof ajax === 'function' )
 	{
