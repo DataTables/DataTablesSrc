@@ -816,6 +816,16 @@ export interface Api<T> {
     off(event: string, callback?: ((e: Event, ...args: any[]) => void)): Api<T>;
 
     /**
+     * Remove event handlers from selected elements
+     *
+     * @param event Event name to remove.
+     * @param selector Element selector
+     * @param callback Specific callback function to remove if you want to unbind a single event listener.
+     * @returns DataTables Api instance
+     */
+    off(event: string, selector: string, callback?: ((e: Event, ...args: any[]) => void)): Api<T>;
+
+    /**
      * Table events listener.
      *
      * @param event Event to listen for.
@@ -823,6 +833,16 @@ export interface Api<T> {
      * @returns DataTables Api instance
      */
     on(event: string, callback: ((e: Event, ...args: any[]) => void)): Api<T>;
+
+    /**
+     * Listen for events from selected elements
+     *
+     * @param event Event to listen for.
+     * @param selector Element selector
+     * @param callback Event handler.
+     * @returns DataTables Api instance
+     */
+    on(event: string, selector: string, callback: ((e: Event, ...args: any[]) => void)): Api<T>;
 
     /**
      * Listen for a table event once and then remove the listener.
@@ -833,6 +853,16 @@ export interface Api<T> {
      * @returns DataTables Api instance
      */
     one(event: string, callback: ((e: Event, ...args: any[]) => void)): Api<T>;
+
+    /**
+     * Listen for events from a selected element and trigger only once then remove the listener.
+     *
+     * @param event Event to listen for.
+     * @param selector Element selector
+     * @param callback Event handler.
+     * @returns DataTables Api instance
+     */
+    one(event: string, selector: string, callback: ((e: Event, ...args: any[]) => void)): Api<T>;
 
     /**
      * Page Methods / object
