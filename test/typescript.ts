@@ -160,6 +160,17 @@ expectType<Api<any>>(table.search.fixed('test', 'search'));
 expectType<Api<any>>(table.search.fixed('test', /regex/));
 expectType<Api<any>>(table.search.fixed('test', (d) => true));
 
+/*
+ * Event listeners
+ */
+expectType<Api<any>>(table.off('draw'));
+expectType<Api<any>>(table.off('draw', function () {}));
+expectType<Api<any>>(table.off('click', 'tbody td'));
+expectType<Api<any>>(table.off('click', 'tbody td', function () {}));
+expectType<Api<any>>(table.on('draw', function () {}));
+expectType<Api<any>>(table.on('click', 'tbody td', function () {}));
+expectType<Api<any>>(table.one('draw', function () {}));
+expectType<Api<any>>(table.one('click', 'tbody td', function () {}));
 
 /*
  * Rows
