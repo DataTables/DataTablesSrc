@@ -47,8 +47,8 @@ describe('core - events - xhr', function() {
 			expect(params[2].data[0].name).toBe('Tiger Nixon');
 			expect(typeof params[3]).toBe('object');
 		});
-		it('Does not bubble', function () {
-			expect(bubbled).toBe(false);
+		it('Does bubble', function () {
+			expect(bubbled).toBe(true);
 		});
 	});
 

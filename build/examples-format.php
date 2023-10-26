@@ -139,4 +139,8 @@ function warnings($example, $path) {
 	if (preg_match('/dom["\']?:/', $example) === 1) {
 		echo "$path - dom parameter found. Needs to be updated to be to `layout`\n";
 	}
+
+	if (preg_match('/deferRender: true/', $example) === 1) {
+		echo "$path - deferRender found with new default value set\n";
+	}
 }

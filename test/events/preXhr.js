@@ -52,8 +52,8 @@ describe('core - events - preXhr', function() {
 		it('Has a DT API instance on the event object', function () {
 			expect(params[0].dt instanceof DataTable.Api).toBe(true);
 		});
-		it('Does not bubble', function () {
-			expect(bubbled).toBe(false);
+		it('Does bubble', function () {
+			expect(bubbled).toBe(true);
 		});
 	});
 
