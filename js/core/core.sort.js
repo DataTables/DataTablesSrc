@@ -295,7 +295,10 @@ function _fnSort ( oSettings, col, dir )
 		} );
 	}
 	else if ( aSort.length === 0 ) {
-		displayMaster.sort(); // Apply index order
+		// Apply index order
+		displayMaster.sort(function (x, y) {
+			return x<y ? -1 : x>y ? 1 : 0;
+		});
 	}
 
 	if (col === undefined) {
