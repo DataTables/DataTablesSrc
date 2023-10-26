@@ -708,7 +708,7 @@ window.dt_demo = {
 				return 'keyTable';
 			case 'rowgroup':
 				return 'rowGroup';
-			case 'rereorder':
+			case 'rowreorder':
 				return 'rowReorder';
 			case 'searchbuilder':
 				return 'searchBuilder';
