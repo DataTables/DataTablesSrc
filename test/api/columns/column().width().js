@@ -55,9 +55,15 @@ describe('columns- column().width()', function() {
 			expect(table.column(5).width()).toBe(width);
 		});
 
-		it('When there is no data, returns null', function() {
+		it('When there is no data, still returns a number', function() {
 			table.search('nothere').draw();
-			expect(table.column(0).width()).toBe(null);
+			expect(typeof table.column(0).width()).toBe('number');
+		});
+
+		it('Hidden column returns 0', function() {
+			table.search('');
+			table.column(1).visible(false).draw();
+			expect(table.column(1).width()).toBe(0);
 		});
 	});
 });

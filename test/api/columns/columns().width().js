@@ -15,8 +15,8 @@ describe('columns- columns().widths()', function() {
 			expect(typeof table.columns().widths).toBe('function');
 		});
 
-		it('Returns a number', function() {
-			expect(typeof table.columns().widths()).toBe('number');
+		it('Returns an API instance', function() {
+			expect(table.columns().widths() instanceof DataTable.Api).toBe(true);
 		});
 
 		it('Consecutive columns', function() {
@@ -24,7 +24,7 @@ describe('columns- columns().widths()', function() {
 			let b = table.column(1).width();
 			let sum = Math.round(a+b);
 
-			expect(Math.round(table.columns([0,1]).widths())).toBe(sum);
+			expect(Math.round(table.columns([0,1]).widths().reduce((acc, v) => acc + v))).toBe(sum);
 		});
 
 		it('Discountinuous columns', function() {
@@ -32,7 +32,7 @@ describe('columns- columns().widths()', function() {
 			let b = table.column(3).width();
 			let sum = Math.round(a+b);
 
-			expect(Math.round(table.columns([0,3]).widths())).toBe(sum);
+			expect(Math.round(table.columns([0,3]).widths().reduce((acc, v) => acc + v))).toBe(sum);
 		});
 
 		it('Sums the width of all columns', function() {
@@ -44,12 +44,12 @@ describe('columns- columns().widths()', function() {
 			let f = table.column(5).width();
 			let sum = Math.round(a+b+c+d+e+f);
 
-			expect(Math.round(table.columns().widths())).toBe(sum);
+			expect(Math.round(table.columns().widths().reduce((acc, v) => acc + v))).toBe(sum);
 		});
 
-		it('When there is no data, returns null', function() {
+		it('When there is no data, still returns a value', function() {
 			table.search('nothere').draw();
-			expect(table.columns().widths()).toBe(null);
+			expect(typeof table.columns().widths()[0]).toBe('number');
 		});
 	});
 });

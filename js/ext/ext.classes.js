@@ -24,7 +24,7 @@ $.extend( DataTable.ext.classes, {
 	},
 	scrolling: {
 		body: 'dt-scroll-body',
-		container: 'dataTables_scroll',
+		container: 'dt-scroll',
 		footer: {
 			self: 'dt-scroll-foot',
 			inner: 'dt-scroll-footInner'

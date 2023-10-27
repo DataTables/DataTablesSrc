@@ -340,14 +340,25 @@ _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis
 } );
 
 _api_registerPlural( 'columns().widths()', 'column().width()', function () {
-	return this.length ?
-		this
-			.cells(':eq(0)', this[0], {page: 'current'})
-			.nodes()
-			.reduce(function (accum, el) {
-				return accum += $(el).outerWidth()
-			}, 0) || null
-		: null;
+	// Injects a fake row into the table for just a moment so the widths can
+	// be read, regardless of colspan in the header and rows being present in
+	// the body
+	var columns = this.columns(':visible').count();
+	var row = $('<tr>').html('<td>' + Array(columns).join('</td><td>') + '</td>');
+
+	$(this.table().body()).append(row);
+
+	var widths = row.children().map(function () {
+		return $(this).outerWidth();
+	});
+
+	row.remove();
+	
+	return this.iterator( 'column', function ( settings, column ) {
+		var visIdx = _fnColumnIndexToVisible( settings, column );
+
+		return visIdx !== null ? widths[visIdx] : 0;
+	}, 1);
 } );
 
 _api_registerPlural( 'columns().indexes()', 'column().index()', function ( type ) {

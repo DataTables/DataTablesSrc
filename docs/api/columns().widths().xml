@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="columns">
 	<name>columns().widths()</name>
-	<summary>Get the width of a group of columns.</summary>
+	<summary>Get the widths of a group of columns.</summary>
 	<since>2.0</since>
 
 	<type type="function">
-		<signature>columns().width()</signature>
-		<description>Compute the width of the selected columns.</description>
-		<returns type="number|null">The width of the columns in pixels or `null` if there is no data in the table.</returns>
+		<signature>columns().widths()</signature>
+		<description>Compute the widths of the selected columns.</description>
+		<returns type="DataTable.Api">The widths of the columns in pixels.</returns>
 	</type>
 
 	<description>
-		This method matches the singular `-api column().width()` method in that it gets the widths of columns, but in this case operates over multiple columns and will sum the widths of all selected columns, returning a single number.
+		This method matches the singular `-api column().width()` method in that it gets the widths of columns, but in this case operates over multiple columns and will return an array of values for the selected columns. If you need an overall width, you can then use `-api reduce()` to sum them.
 
-		As with `-api column().width()` it is important to note that the result given is the "outer width" of the cell for the first row in the target column. This is a result of DataTables support for complex headers where a column does not need its own unique header cell, so we must use the data cells. Thus if there is no data in the table this method will return `null`. A check for `null` should always be made on the return value from this function.
+		As with `-api column().width()` it is important to note that the result given is the "outer width" of the cells for the target columns.
 
-		The returned number might not be an integer, depending on the browser's table rendering.
+		The returned numbers might not be an integer, depending on the browser's table rendering.
 	</description>
 
 	<example title="Get the width of a group of columns"><![CDATA[
@@ -27,7 +27,12 @@ let widths = table.columns([0, 1, 2]).widths();
 	<example title="Get the width of all columns"><![CDATA[
 let table = new DataTable('#example');
 
-let widths = table.columns().widths();
+let width = table
+	.columns()
+	.widths()
+	.reduce(function (accum, val) {
+		return accum + val;
+	}, 0);
 ]]></example>
 
 	<related>-init columns.width</related>
