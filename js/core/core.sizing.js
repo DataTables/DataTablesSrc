@@ -73,7 +73,7 @@ function _fnCalculateColumnWidths ( settings )
 			// width the column requires, then it will have no effect
 			if ( scrollX ) {
 				$( this ).append( $('<div/>').css( {
-					width: column.sWidthOrig,
+					width: width,
 					margin: 0,
 					padding: 0,
 					border: 0,
