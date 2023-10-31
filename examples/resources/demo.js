@@ -737,35 +737,39 @@ window.dt_demo = {
 			case 'bootstrap':
 			case 'bootstrap4':
 				table.addClass('table table-striped table-bordered table-hover');
-				return;
+				break;
 
 			case 'bootstrap5':
 				table.addClass('table table-striped table-hover');
-				return;
+				break;
 			
 			case 'bulma':
 				table.addClass('table is-striped is-hoverable');
-				return;
+				break;
 			
 			case 'foundation':
 				table.addClass('hover');
-				return;
+				break;
 
 			case 'material':
 				table.addClass('mdl-data-table');
-				return;
+				break;
 			
 			case 'semanticui':
 				table.addClass('ui selectable striped celled table');
-				return;
+				break;
 			
 			case 'uikit':
 				table.addClass('uk-table uk-table-hover uk-table-striped');
-				return;
+				break;
 				
 			default:
-				return;
+				break;
 		}
+
+		DataTable
+			.tables( { visible: true, api: true } )
+			.columns.adjust();
 	},
 
 	_displayFiles: function (sel, files) {
