@@ -8,7 +8,7 @@
 		<signature>$( selector [, modifier ] )</signature>
 		<description>Perform a jQuery selector on the rows and contents of the rows in the tables' `dt-tag tbody` elements.</description>
 		<parameter type="node|jQuery|string" name="selector">
-			[jQuery selector](http://api.jquery.com/jQuery/#jQuery1) to perform on the nodes inside the table's tbody tag.
+			[jQuery selector](https://api.jquery.com/jQuery/#jQuery1) to perform on the nodes inside the table's tbody tag.
 		</parameter>
 		<parameter type="selector-modifier" name="modifier" default="">
 			Option used to specify how the content's of the selected columns should be ordered, and if paging or filtering in the table should be taken into account. This is only useful for operations which involve rows, such as `dt-api column().nodes()` and `dt-api column().data()`.

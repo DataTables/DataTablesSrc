@@ -16,7 +16,7 @@
 	},
 	"author": {
 		"name": "Allan Jardine",
-		"url": "http://sprymedia.co.uk"
+		"url": "https://sprymedia.co.uk"
 	},
 	"description": "DataTables enhances HTML tables with the ability to sort, filter and page the data in the table very easily. It provides a comprehensive API and set of configuration options, allowing you to consume data from virtually any data source.",
 	"keywords": [
@@ -34,7 +34,7 @@
 		"type": "git",
 		"url": "https://github.com/DataTables/DataTables.git"
 	},
-	"homepage": "http://datatables.net",
+	"homepage": "https://datatables.net",
 
 	"jspm": {
 		"dependencies": {

@@ -28,13 +28,13 @@ $('#example').DataTable({
 			data: 'position',
 			render: function (data, type) {
 				if (type === 'display') {
-					let link = 'http://datatables.net';
+					let link = 'https://datatables.net';
 
 					if (data[0] < 'H') {
-						link = 'http://cloudtables.com';
+						link = 'https://cloudtables.com';
 					}
 					else if (data[0] < 'S') {
-						link = 'http://editor.datatables.net';
+						link = 'https://editor.datatables.net';
 					}
 
 					return '<a href="' + link + '">' + data + '</a>';
@@ -132,13 +132,13 @@ new DataTable('#example', {
 			data: 'position',
 			render: function (data, type) {
 				if (type === 'display') {
-					let link = 'http://datatables.net';
+					let link = 'https://datatables.net';
 
 					if (data[0] < 'H') {
-						link = 'http://cloudtables.com';
+						link = 'https://cloudtables.com';
 					}
 					else if (data[0] < 'S') {
-						link = 'http://editor.datatables.net';
+						link = 'https://editor.datatables.net';
 					}
 
 					return '<a href="' + link + '">' + data + '</a>';
