@@ -77,10 +77,7 @@ table.dataTable thead {
 div.dt-scroll-body > table.dataTable > thead {
 	> tr > th,
 	> tr > td {
-		&:before,
-		&:after {
-			display: none;
-		}
+		overflow: hidden;
 	}
 }
 

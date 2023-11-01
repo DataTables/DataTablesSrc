@@ -8,6 +8,8 @@ table.dataTable {
 
 	th,
 	td {
+		box-sizing: border-box;
+
 		&.dt-left {
 			text-align: left;
 		}
