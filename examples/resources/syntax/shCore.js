@@ -1072,8 +1072,8 @@ function processUrls(code)
             match = null
             ;
 
-        // We include &lt; and &gt; in the URL for the common cases like <http://google.com>
-        // The problem is that they get transformed into &lt;http://google.com&gt;
+        // We include &lt; and &gt; in the URL for the common cases like <https://google.com>
+        // The problem is that they get transformed into &lt;https://google.com&gt;
         // Where as &gt; easily looks like part of the URL string.
 
         if (match = gt.exec(m))
@@ -1354,7 +1354,7 @@ sh.Highlighter.prototype = {
      */
     removeNestedMatches: function(matches)
     {
-        // Optimized by Jose Prado (http://joseprado.com)
+        // Optimized by Jose Prado
         for (var i = 0, l = matches.length; i < l; i++)
         {
             if (matches[i] === null)
