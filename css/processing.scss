@@ -8,6 +8,7 @@ div.dataTables_processing {
 	margin-top: -26px;
 	text-align: center;
 	padding: 2px;
+	z-index: 10;
 
 	> div:last-child {
 		position: relative;
