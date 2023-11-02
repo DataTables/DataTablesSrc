@@ -1828,7 +1828,7 @@ export interface ApiRow<T> {
      * @param data Data to use for the new row. This may be an array, object or Javascript object instance, but must be in the same format as the other data in the table+
      * @returns DataTables API instance with the newly added row in its result set.
      */
-    add(data: any[] | object): Api<Array<Array<any>>>;
+    add(data: any[] | object): ApiRowMethods<T>;
 }
 
 export interface ApiRowMethods<T> extends Omit<Api<T>, 'data'> {
@@ -1922,7 +1922,7 @@ export interface ApiRows<T> {
      * @param data Array of data elements, with each one describing a new row to be added to the table
      * @returns DataTables API instance with the newly added rows in its result set.
      */
-    add(data: T[]): Api<Array<any>>;
+    add(data: T[]): ApiRowsMethods<T>;
 }
 
 export interface ApiRowsMethods<T> extends Api<T> {
