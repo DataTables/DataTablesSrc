@@ -184,7 +184,10 @@ table.on('click', 'tbody td', function () {
 /*
  * Rows
  */
+expectType<Node>(table.row.add(['a', 'b', 'c']).node());
+
 expectType<Api<any>>(table.rows({order: 1}).data());
+expectType<Api<Node[]>>(table.rows.add([['a', 'b', 'c']]).nodes());
 
 /*
  * Static
