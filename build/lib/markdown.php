@@ -4,11 +4,11 @@
 #
 # PHP Markdown & Extra
 # Copyright (c) 2004-2009 Michel Fortin  
-# <http://michelf.com/projects/php-markdown/>
+# <https://michelf.ca/projects/php-markdown/>
 #
 # Original Markdown
 # Copyright (c) 2004-2006 John Gruber  
-# <http://daringfireball.net/projects/markdown/>
+# <https://daringfireball.net/projects/markdown/>
 #
 
 
@@ -70,7 +70,7 @@ function Markdown($text) {
 /*
 Plugin Name: Markdown Extra
 Plugin URI: http://michelf.com/projects/php-markdown/
-Description: <a href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> allows you to write using an easy-to-read, easy-to-write plain text format. Based on the original Perl version by <a href="http://daringfireball.net/">John Gruber</a>. <a href="http://michelf.com/projects/php-markdown/">More...</a>
+Description: <a href="https://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> allows you to write using an easy-to-read, easy-to-write plain text format. Based on the original Perl version by <a href="https://daringfireball.net/">John Gruber</a>. <a href="http://michelf.com/projects/php-markdown/">More...</a>
 Version: 1.2.4
 Author: Michel Fortin
 Author URI: http://michelf.com/
@@ -171,7 +171,7 @@ function identify_modifier_markdown() {
 		'authors' => 'Michel Fortin and John Gruber',
 		'licence' => 'GPL',
 		'version' => MARKDOWNEXTRA_VERSION,
-		'help' => '<a href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> allows you to write using an easy-to-read, easy-to-write plain text format. Based on the original Perl version by <a href="http://daringfireball.net/">John Gruber</a>. <a href="http://michelf.com/projects/php-markdown/">More...</a>',
+		'help' => '<a href="https://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> allows you to write using an easy-to-read, easy-to-write plain text format. Based on the original Perl version by <a href="https://daringfireball.net/">John Gruber</a>. <a href="http://michelf.com/projects/php-markdown/">More...</a>',
 		);
 }
 
@@ -2874,7 +2874,7 @@ HTML tags (like <div> and <table> as well).
 
 For more information about Markdown's syntax, see:
 
-<http://daringfireball.net/projects/markdown/>
+<https://daringfireball.net/projects/markdown/>
 
 
 Bugs
@@ -2904,7 +2904,7 @@ All rights reserved.
 
 Based on Markdown  
 Copyright (c) 2003-2006 John Gruber   
-<http://daringfireball.net/>   
+<https://daringfireball.net/>   
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

@@ -7,7 +7,7 @@
  * Created:     Sun Mar  8 22:02:49 GMT 2009
  * Modified:    $Date$ by $Author$
  * Language:    Javascript
- * License:     MIT - http://datatables.net/license_mit
+ * License:     MIT - https://datatables.net/license_mit
  * Project:     DataTables
  * Contact:     allan.jardine@sprymedia.co.uk
  * 

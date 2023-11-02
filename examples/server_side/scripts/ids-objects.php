@@ -8,10 +8,10 @@
  * the basis for a large complex system. It is suitable for simple use cases as
  * for learning.
  *
- * See http://datatables.net/usage/server-side for full details on the server-
+ * See https://datatables.net/usage/server-side for full details on the server-
  * side processing requirements of DataTables.
  *
- * @license MIT - http://datatables.net/license_mit
+ * @license MIT - https://datatables.net/license_mit
  */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
