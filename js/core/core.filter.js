@@ -366,7 +366,7 @@ function _fnFilterData ( settings )
 				// If it looks like there is an HTML entity in the string,
 				// attempt to decode it so sorting works as expected. Note that
 				// we could use a single line of jQuery to do this, but the DOM
-				// method used here is much faster http://jsperf.com/html-decode
+				// method used here is much faster https://jsperf.com/html-decode
 				if ( cellData.indexOf && cellData.indexOf('&') !== -1 ) {
 					__filter_div.innerHTML = cellData;
 					cellData = __filter_div_textContent ?

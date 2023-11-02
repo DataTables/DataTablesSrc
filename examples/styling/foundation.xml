@@ -17,7 +17,7 @@ new DataTable('#example');
 
 <info><![CDATA[
 
-DataTables can integrate seamlessly with [Foundation](http://foundation.zurb.com/) using Foundations's [table styling options](http://foundation.zurb.com/docs/components/tables.html) to present a consistent interface with your Foundation driven site / app.
+DataTables can integrate seamlessly with [Foundation](https://get.foundation/) using Foundations's [table styling options](https://get.foundation/sites/docs-v5/components/tables.html) to present a consistent interface with your Foundation driven site / app.
 
 DataTables' Foundation integration also provides a renderer for the pagination control in DataTables to ensure that the pagination of the table is also styled consistently by Foundation.
 

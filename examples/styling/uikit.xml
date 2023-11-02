@@ -17,7 +17,7 @@ new DataTable('#example');
 
 <info><![CDATA[
 
-This example shows DataTables integrated with [UIKit 3](http://getuikit.com/).
+This example shows DataTables integrated with [UIKit 3](https://getuikit.com/).
 
 The DataTables integration with UIKit is still in development and not all elements might work correctly yet. Only once all of DataTables extensions fully support UIKit will the integration be complete and available via the DataTables download builder.
 

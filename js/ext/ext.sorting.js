@@ -91,7 +91,7 @@ $.extend( _ext.type.order, {
 	// string
 	"string-pre": function ( a ) {
 		// This is a little complex, but faster than always calling toString,
-		// http://jsperf.com/tostring-v-check
+		// https://jsperf.com/tostring-v-check
 		return _empty(a) ?
 			'' :
 			typeof a === 'string' ?
