@@ -568,18 +568,22 @@ window.dt_demo = {
 			return;
 		}
 
-		dt_demo._setPageStyling(option.val);
-		dt_demo._tableClass(option.val);
-
 		$('div.dt-demo-selector__current', selector).text(option.label);
 
 		var target = dt_demo._struct.libs.targetFramework;
+		var applied = option.val;
 
 		if (target && target !== option.val) {
 			var styleName = dt_demo._getPageStylingName(target);
+			applied = target;
 
 			dt_demo._optionsWarning(selector, 'This example explicity uses ' + styleName + ' and your selection has been disabled for this page.');
 		}
+
+		dt_demo._setPageStyling(applied);
+		dt_demo._tableClass(applied);
+
+		dt_demo._appliedStyle = applied;
 	},
 
 	_changeTheme: function (val, selector) {
@@ -590,7 +594,7 @@ window.dt_demo = {
 		}
 
 		// Warnings if incompatible
-		var styling = dt_demo.storage.get('dt-demo-style');
+		var styling = dt_demo._appliedStyle;
 		var targetTheme = val;
 
 		if (val === 'dark') {
@@ -767,9 +771,11 @@ window.dt_demo = {
 				break;
 		}
 
-		DataTable
-			.tables( { visible: true, api: true } )
-			.columns.adjust();
+		if (window.DataTable) {
+			DataTable
+				.tables( { visible: true, api: true } )
+				.columns.adjust();
+		}
 	},
 
 	_displayFiles: function (sel, files) {
