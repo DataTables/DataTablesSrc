@@ -22,7 +22,7 @@ foreach ($xml->example as $key => $example) {
 	$code = (string)$example;
 
 	$replaced = replacements($code);
-	warnings($replaced, $file);
+	warnings($replaced, $file, $xml);
 
 	$formatted = format($replaced, $counter, $file);
 
@@ -37,7 +37,7 @@ foreach ($xml->example as $key => $example) {
 foreach ($xml->js as $key => $js) {
 	$code = trim((string)$js);
 
-	warnings($code, $file);
+	warnings($code, $file, $xml);
 
 	$formatted = format($code, $counter, $file);
 	$formatted = trim($formatted);
@@ -49,7 +49,7 @@ foreach ($xml->js as $key => $js) {
 foreach ($xml->{'js-vanilla'} as $key => $js) {
 	$code = trim((string)$js);
 
-	warnings($code, $file);
+	warnings($code, $file, $xml);
 
 	$formatted = format($code, $counter, $file);
 	$formatted = trim($formatted);
@@ -131,7 +131,7 @@ function replacements( $example ) {
 /**
  * Identify legacy code that needs to be updated
  */
-function warnings($example, $path) {
+function warnings($example, $path, $xml) {
 	if (preg_match('/\$\(.*dataTable/', $example) === 1) {
 		echo "$path - Old jQuery style init\n";
 	}
@@ -142,5 +142,11 @@ function warnings($example, $path) {
 
 	if (preg_match('/deferRender: true/', $example) === 1) {
 		echo "$path - deferRender found with new default value set\n";
+	}
+
+	$description = (string)$xml->description;
+
+	if (strpos($description, '-init dom') !== false) {
+		echo "$path - Description includes a reference to the `dom` parameter\n";
 	}
 }
