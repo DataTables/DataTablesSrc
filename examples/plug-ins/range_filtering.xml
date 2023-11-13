@@ -14,8 +14,10 @@ table.inputs td {
 var minEl = $('#min');
 var maxEl = $('#max');
 
+var table = $('#example').DataTable();
+
 // Custom range filtering function
-DataTable.ext.search.push(function (settings, data, dataIndex) {
+table.search.fixed('range', function (searchStr, data, index) {
 	var min = parseInt(minEl.val(), 10);
 	var max = parseInt(maxEl.val(), 10);
 	var age = parseFloat(data[3]) || 0; // use data for the age column
@@ -32,8 +34,6 @@ DataTable.ext.search.push(function (settings, data, dataIndex) {
 	return false;
 });
 
-var table = $('#example').DataTable();
-
 // Changes to the inputs will trigger a redraw to update the table
 minEl.on('input', function () {
 	table.draw();
@@ -47,11 +47,13 @@ maxEl.on('input', function () {
 const minEl = document.querySelector('#min');
 const maxEl = document.querySelector('#max');
 
+const table = new DataTable('#example');
+
 // Custom range filtering function
-DataTable.ext.search.push(function (settings, data, dataIndex) {
-	let min = parseInt(minEl.value, 10);
-	let max = parseInt(maxEl.value, 10);
-	let age = parseFloat(data[3]) || 0; // use data for the age column
+table.search.fixed('range', function (searchStr, data, index) {
+	var min = parseInt(minEl.value, 10);
+	var max = parseInt(maxEl.value, 10);
+	var age = parseFloat(data[3]) || 0; // use data for the age column
 
 	if (
 		(isNaN(min) && isNaN(max)) ||
@@ -65,8 +67,6 @@ DataTable.ext.search.push(function (settings, data, dataIndex) {
 	return false;
 });
 
-const table = new DataTable('#example');
-
 // Changes to the inputs will trigger a redraw to update the table
 minEl.addEventListener('input', function () {
 	table.draw();
@@ -79,7 +79,7 @@ maxEl.addEventListener('input', function () {
 
 <info><![CDATA[
 
-There may be occasions when you wish to search data presented to the end user in your own manner, common examples are number range searches (in between two numbers) and date range searches. DataTables provides an API method to add your own search functions, `DataTable.ext.search`. This is an array of functions (push your own onto it) which will will be run at table draw time to see if a particular row should be included or not.
+There may be occasions when you wish to search data presented to the end user in your own manner, common examples are number range searches (in between two numbers) and date range searches. DataTables provides a number of API methods so you can add your own search functions. In this example we use `-api search.fixed()` to apply a "named" search ot the table. The variables updated by the `-tag input` event listeners are used in the range filter, so we just need to redraw the table (`-api draw()`) when the table should be refiltered
 
 This example shows a search being performed on the age column in the data, based upon two inputs.
 
