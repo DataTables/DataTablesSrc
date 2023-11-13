@@ -719,7 +719,7 @@ window.dt_demo = {
 			case 'searchpanes':
 				return 'searchPanes';
 			case 'staterestore':
-				return 'staterestore';
+				return 'stateRestore';
 			default:
 				return ext;
 		}
