@@ -166,6 +166,25 @@ var __details_events = function ( settings )
 			} );
 		} );
 
+		// Column visibility change - update the colspan
+		api.on( colvisEvent, function ( e, ctx, idx, vis ) {
+			if ( settings !== ctx ) {
+				return;
+			}
+
+			// Update the colspan for the details rows (note, only if it already has
+			// a colspan)
+			var row, visible = _fnVisbleColumns( ctx );
+
+			for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+				row = data[i];
+
+				if ( row._details ) {
+					row._details.children('td[colspan]').attr('colspan', visible );
+				}
+			}
+		} );
+
 		// Table destroyed - nuke any child rows
 		api.on( destroyEvent, function ( e, ctx ) {
 			if ( settings !== ctx ) {
