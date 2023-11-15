@@ -149,4 +149,7 @@ function warnings($example, $path, $xml) {
 	if (strpos($description, '-init dom') !== false) {
 		echo "$path - Description includes a reference to the `dom` parameter\n";
 	}
+	if (strpos($description, '-init stateRestore') !== false) {
+		echo "$path - Description includes a reference to a StateRestore param - they don't exist, they are in the type now\n";
+	}
 }
