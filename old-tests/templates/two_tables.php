@@ -8,7 +8,7 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" type="image/ico" href="http://www.sprymedia.co.uk/media/images/favicon.ico" />
+		<link rel="shortcut icon" type="image/ico" href="https://www.sprymedia.co.uk/media/images/favicon.ico" />
 		
 		<title>DataTables unit testing</title>
 		<style type="text/css" title="currentStyle">

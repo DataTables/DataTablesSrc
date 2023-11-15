@@ -27,7 +27,7 @@ new DataTable('#example', {
 
 This example shows a vertically scrolling DataTable that makes use of the CSS3 `vh` unit in order to dynamically resize the viewport based on the browser window height. The [`vh` unit](https://developer.mozilla.org/en/docs/Web/CSS/length#Viewport-percentage_lengths) is effectively a percentage of the browser window height. So the `50vh` used in this example is 50% of the window height. The viewport size will update dynamically as the window is resized.
 
-A relatively modern browser is [required for `vh` units](http://caniuse.com/#feat=viewport-units) to operate correctly. IE9+ supports the `vh` unit and all other evergreen browsers.
+A relatively modern browser is [required for `vh` units](https://caniuse.com/#feat=viewport-units) to operate correctly. IE9+ supports the `vh` unit and all other evergreen browsers.
 
 ]]></info>
 

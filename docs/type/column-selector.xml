@@ -103,11 +103,11 @@ table.column( 'salary:name' ).data();
 
 ## string
 
-When the selector is given as a string, it is treated as a [jQuery selector](http://api.jquery.com/category/selectors/) that operates on the `dt-tag th` and `dt-tag td` elements of the column headers in the table.
+When the selector is given as a string, it is treated as a [jQuery selector](https://api.jquery.com/category/selectors/) that operates on the `dt-tag th` and `dt-tag td` elements of the column headers in the table.
 
 Each column has only one cell which is used as the column header - see `dt-init orderCellsTop` for information on how DataTables selected the cells to use for the column headers, if there is more than one possible cell for each column header in the table's `dt-tag thead` element.
 
-For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](http://api.jquery.com/category/selectors/).
+For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](https://api.jquery.com/category/selectors/).
 
 Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
 

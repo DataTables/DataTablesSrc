@@ -6,7 +6,7 @@
 	<description>
 	<![CDATA[
 
-The DataTables API provides the ability to programmatically control one or more DataTable tables through the extensive array of methods that it implements. Many methods the API implements return an API instance themselves, providing the ability to [chain](http://en.wikipedia.org/wiki/Method_chaining) methods, thus allowing the API to be both compact and very expressive. As such, we define this `dt-type DataTables.Api` data type to be clear when a method provides an API instance as its return value.
+The DataTables API provides the ability to programmatically control one or more DataTable tables through the extensive array of methods that it implements. Many methods the API implements return an API instance themselves, providing the ability to [chain](https://en.wikipedia.org/wiki/Method_chaining) methods, thus allowing the API to be both compact and very expressive. As such, we define this `dt-type DataTables.Api` data type to be clear when a method provides an API instance as its return value.
 
 
 ## API structure
@@ -22,7 +22,7 @@ New API instances can be created in one of three ways:
 * `$( selector ).dataTable().api();` - DataTables jQuery constructor
 * `new $.fn.dataTable.Api( selector );` - Direct initialisation
 
-The result from each is an instance of the DataTables API object which has the tables found by the selector in its context. In all three cases `selector` is a [jQuery selector](http://api.jquery.com/category/selectors/).
+The result from each is an instance of the DataTables API object which has the tables found by the selector in its context. In all three cases `selector` is a [jQuery selector](https://api.jquery.com/category/selectors/).
 
 It is important to note the difference between `$( selector ).DataTable()` and `$( selector ).dataTable()`. The former returns a DataTables API instance, while the latter returns a `dt-type jQuery` object. An `api()` method is added to the jQuery object so you can easily access the API, but the jQuery object can be useful for manipulating the table node, as you would with any other jQuery instance (such as using `addClass()` etc).
 

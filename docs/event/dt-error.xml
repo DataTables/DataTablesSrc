@@ -13,7 +13,7 @@
 			DataTables settings object
 		</parameter>
 		<parameter type="integer" name="techNote">
-			Tech note error number - use `http://datatables.net/tn/{techNote}` to look up a description
+			Tech note error number - use `https://datatables.net/tn/{techNote}` to look up a description
 		</parameter>
 		<parameter type="string" name="message">
 			Description of error

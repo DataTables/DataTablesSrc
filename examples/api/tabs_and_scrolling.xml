@@ -46,7 +46,7 @@ new DataTable.Api('#myTable2').search('New York').draw();
 
 <info><![CDATA[
 
-This example shows how DataTables with scrolling can be used together with [Bootstrap tabs](http://getbootstrap.com/javascript/#tabs) (or indeed any other method whereby the table is in a hidden, `display:none`, element when it is initialised).
+This example shows how DataTables with scrolling can be used together with [Bootstrap tabs](https://getbootstrap.com/javascript/#tabs) (or indeed any other method whereby the table is in a hidden, `display:none`, element when it is initialised).
 
 The reason this requires special consideration is that when the DataTable is initialised in a hidden element the browser doesn't have any measurements with which to give the DataTable, and this will result in the misalignment of columns when scrolling is enabled.
 

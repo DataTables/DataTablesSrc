@@ -40,7 +40,7 @@
 
 		In the case where `0` is passed in as the numeric value (third parameter) the _"Click a row to select"_ string will be used. For `1`, the _"1 row selected"_ string will be used. For all other values the default `_` parameter's value will be used with the `%d` replaced by the numeric value. For languages that use a dual form add a `2` parameter, etc.
 
-		It should be noted that internationalisation (_i18n_ for short) / localisation (_l10n_ for short) [is hard](http://search.cpan.org/dist/Locale-Maketext/lib/Locale/Maketext/TPJ13.pod#A_Localization_Horror_Story:_It_Could_Happen_To_You). This method provides good support for basic internationalisation in DataTables and its components, but not complete support. Complete support is outside the scope of the DataTables library at this time and is a full project itself!
+		It should be noted that internationalisation (_i18n_ for short) / localisation (_l10n_ for short) [is hard](https://metacpan.org/dist/Locale-Maketext/view/lib/Locale/Maketext/TPJ13.pod#A_Localization_Horror_Story:_It_Could_Happen_To_You). This method provides good support for basic internationalisation in DataTables and its components, but not complete support. Complete support is outside the scope of the DataTables library at this time and is a full project itself!
 	</description>
 
 	<example title="Simple string lookup with no use defined string (i.e. use default)"><![CDATA[

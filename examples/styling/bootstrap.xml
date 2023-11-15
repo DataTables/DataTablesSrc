@@ -17,7 +17,7 @@ new DataTable('#example');
 
 <info><![CDATA[
 
-DataTables can integrate seamlessly with [Bootstrap 3](http://getbootstrap.com/) using Bootstrap's [table styling options](http://getbootstrap.com/css/#tables) to present an interface with a uniform design, based on Bootstrap, for your site / app.
+DataTables can integrate seamlessly with [Bootstrap 3](https://getbootstrap.com/) using Bootstrap's [table styling options](https://getbootstrap.com/css/#tables) to present an interface with a uniform design, based on Bootstrap, for your site / app.
 
 DataTables' Bootstrap integration also provides a renderer for the pagination control in DataTables to ensure that the pagination of the table is also styled consistently by Bootstrap.
 

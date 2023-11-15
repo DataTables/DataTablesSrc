@@ -37,7 +37,7 @@ var cells = table.cells().nodes();
 
 ## string
 
-When the selector is given as a string, it is treated as a [jQuery selector](http://api.jquery.com/category/selectors/) that operates on the `dt-tag td` and `dt-tag th` elements in the table's `dt-tag tbody`. For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](http://api.jquery.com/category/selectors/).
+When the selector is given as a string, it is treated as a [jQuery selector](https://api.jquery.com/category/selectors/) that operates on the `dt-tag td` and `dt-tag th` elements in the table's `dt-tag tbody`. For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](https://api.jquery.com/category/selectors/).
 
 Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
 
