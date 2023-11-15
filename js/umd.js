@@ -54,7 +54,7 @@
 			};
 		}
 		else {
-			return factory( jq, window, window.document );
+			module.exports = factory( jq, window, window.document );
 		}
 	}
 	else {
