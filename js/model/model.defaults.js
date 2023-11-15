@@ -699,23 +699,6 @@ DataTable.defaults = {
 		 * and the object has the same properties as the oLanguage object in the
 		 * initialiser object (i.e. the above parameters). Please refer to one of
 		 * the example language files to see how this works in action.
-<<<<<<< HEAD
-=======
-		 *  @type string
-		 *  @default <i>Empty string - i.e. disabled</i>
-		 *
-		 *  @dtopt Language
-		 *  @name DataTable.defaults.language.url
-		 *
-		 *  @example
-		 *    $(document).ready( function() {
-		 *      $('#example').dataTable( {
-		 *        "language": {
-		 *          "url": "https://www.sprymedia.co.uk/dataTables/lang.txt"
-		 *        }
-		 *      } );
-		 *    } );
->>>>>>> master
 		 */
 		"sUrl": "",
 
