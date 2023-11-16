@@ -85,7 +85,6 @@ var oSettings = $.extend( true, {}, DataTable.models.oSettings, {
 	"sTableId":      sId
 } );
 oSettings.nTable = this;
-oSettings.oApi   = _that.internal;
 oSettings.oInit  = oInit;
 
 allSettings.push( oSettings );

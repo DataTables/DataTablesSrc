@@ -24,8 +24,6 @@ var DataTable = function ( selector, options )
 		options = {};
 	}
 
-	this.oApi = this.internal = _ext.internal;
-
 	// Method to get DT API instance from jQuery object
 	this.api = function ()
 	{
@@ -140,7 +138,6 @@ _buildInclude('ext.helpers.js');
 _buildInclude('ext.types.js');
 _buildInclude('ext.sorting.js');
 _buildInclude('ext.renderer.js');
-_buildInclude('api.internal.js');
 
 _buildInclude('features.api.js');
 _buildInclude('features.info.js');

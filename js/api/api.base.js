@@ -77,7 +77,7 @@ var _toSettings = function ( mixed )
 	if ( ! mixed ) {
 		return [];
 	}
-	else if ( mixed.nTable && mixed.oApi ) {
+	else if ( mixed.nTable && mixed.oFeatures ) {
 		// DataTables settings object
 		return [ mixed ];
 	}

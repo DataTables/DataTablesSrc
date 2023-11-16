@@ -161,19 +161,6 @@ DataTable.ext = _ext = {
 
 
 	/**
-	 * Internal functions, exposed for used in plug-ins.
-	 * 
-	 * Please note that you should not need to use the internal methods for
-	 * anything other than a plug-in (and even then, try to avoid if possible).
-	 * The internal function may change between releases.
-	 *
-	 *  @type object
-	 *  @default {}
-	 */
-	internal: {},
-
-
-	/**
 	 * Legacy configuration options. Enable and disable legacy options that
 	 * are available in DataTables.
 	 *
@@ -509,7 +496,6 @@ $.extend( _ext, {
 	oSort:        _ext.type.order,
 	afnSortData:  _ext.order,
 	aoFeatures:   _ext.feature,
-	oApi:         _ext.internal,
 	oStdClasses:  _ext.classes,
 	oPagination:  _ext.pager
 } );
