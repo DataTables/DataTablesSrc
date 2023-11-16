@@ -144,7 +144,11 @@ function warnings($example, $path, $xml) {
 		echo "$path - deferRender found with new default value set\n";
 	}
 
-	$description = (string)$xml->description;
+	descriptionWarnings((string)$xml->description, $path);
+	descriptionWarnings((string)$xml->info, $path);
+}
+
+function descriptionWarnings($description, $path) {
 
 	if (strpos($description, '-init dom') !== false) {
 		echo "$path - Description includes a reference to the `dom` parameter\n";
