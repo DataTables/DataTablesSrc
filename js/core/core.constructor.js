@@ -2,7 +2,7 @@
 var i=0, iLen, j, jLen, k, kLen;
 var sId = this.getAttribute( 'id' );
 var bInitHandedOff = false;
-var defaults = DataTable.defaults;
+var defaults = typeof DataTable.defaultsFunction === 'function' ? DataTable.defaultsFunction.call(this) : DataTable.defaults;
 var $this = $(this);
 
 
