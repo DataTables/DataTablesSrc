@@ -5,7 +5,7 @@
 /**
  * @summary     DataTables
  * @description Paginate, search and order HTML tables
- * @version     1.13.7
+ * @version     1.13.8
  * @author      SpryMedia Ltd
  * @contact     www.datatables.net
  * @copyright   SpryMedia Ltd.
