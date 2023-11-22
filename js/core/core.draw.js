@@ -108,7 +108,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			}
 		}
 
-		_fnCallbackFire( oSettings, 'aoRowCreatedCallback', null, [nTr, rowData, iRow, cells] );
+		_fnCallbackFire( oSettings, 'aoRowCreatedCallback', 'row-created', [nTr, rowData, iRow, cells] );
 	}
 	else {
 		_addClass(row.nTr, trClass);
