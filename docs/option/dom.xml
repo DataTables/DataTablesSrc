@@ -41,6 +41,8 @@
     * `<"class"` and `>` - div with a class
     * `<"#id"` and `>` - div with an ID
     * `<"#id.class"` and `>` - div with an ID _and_ a class
+    * `<"$[my_data_attribute=test]#id.class"` and `>` - div with an ID, a class and a data attribute. Attributes can be separated by a comma.
+    * `<"$[attribute1=test,attribute2=test2]"` and `>`- div with multiple data attributes.
 
     ### Styling
 
@@ -72,7 +74,7 @@
 		"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
     ```
 
-    Foundation: 
+    Foundation:
 
     ```js
     "<'row'<'small-6 columns'l><'small-6 columns'f>r>"+
@@ -123,7 +125,7 @@
     ### Future development
 
     Note, I am aware that this is the most complex option in DataTables and it takes a fair amount of understanding, particularly when using the styling integration options! The plan is to revamp this option in 1.11 to make it easier to use.
-    
+
     ]]>
   </description>
 

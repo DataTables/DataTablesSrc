@@ -211,5 +211,16 @@ describe('DOM option', function() {
 			expect($('#test2').length).toBe(1);
 			expect($('div.classTest').length).toBe(1);
 		});
+
+		dt.html('basic');
+		it('Two elements with an id, one of them with data attributes and one with a class.', function() {
+			$('table').dataTable({
+				dom: '<"$[controller=test]#test1"lf>rti<"#test2.classTest"lf>'
+			});
+			expect($('#test1').length).toBe(1);
+			expect($('#test1').data('controller')).toBe('test');
+			expect($('#test2').length).toBe(1);
+			expect($('div.classTest').length).toBe(1);
+		});
 	});
 });

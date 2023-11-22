@@ -37,6 +37,9 @@ The built-in options available are:
 * `<"#id"` and `>` - div with an id
 * `<"class"` and `>` - div with a class
 * `<"#id.class"` and `>` - div with an id and class
+* `<"$[my_data_attribute=test]#id.class"` and `>` - div with an ID, a class and a data attribute. Attributes can be separated by a comma.
+* `<"$[attribute1=test,attribute2=test2]"` and `>`- div with multiple data attributes.
+
 
 Example 1:
 
