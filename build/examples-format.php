@@ -149,11 +149,29 @@ function warnings($example, $path, $xml) {
 }
 
 function descriptionWarnings($description, $path) {
-
 	if (strpos($description, '-init dom') !== false) {
 		echo "$path - Description includes a reference to the `dom` parameter\n";
 	}
+
 	if (strpos($description, '-init stateRestore') !== false) {
-		echo "$path - Description includes a reference to a StateRestore param - they don't exist, they are in the type now\n";
+		echo "$path - Description includes a reference to a StateRestore init param - should point to the feature\n";
+	}
+
+	if (strpos($description, '-init searchBuilder') !== false) {
+		echo "$path - Description includes a reference to a SearchBuilder init param - should point to the feature\n";
+	}
+
+	if (
+		strpos($description, '-init searchBuilder.preDefined.') !== false ||
+		strpos($description, '-feature searchBuilder.preDefined.') !== false
+	) {
+		echo "$path - Description includes a reference to a SearchBuilder preDefined parameter, which are now in the Criteria type\n";
+	}
+
+	if (
+		strpos($description, '-init searchBuilder.conditions[') !== false ||
+		strpos($description, '-feature searchBuilder.conditions[') !== false
+	) {
+		echo "$path - Description includes a reference to a SearchBuilder condition parameter, which are now in the Condition type\n";
 	}
 }
