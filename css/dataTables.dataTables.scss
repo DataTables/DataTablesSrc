@@ -42,6 +42,10 @@ table.dataTable {
 	> thead > tr > td {
 		padding: 10px;
 
+		@if not $jqueryui { // jQuery UI defines its own border
+			border-bottom: $table-header-border;
+		}
+
 		&:active {
 			outline: none;
 		}
@@ -49,6 +53,10 @@ table.dataTable {
 
 	> tfoot > tr > th,
 	> tfoot > tr > td {
+		@if not $jqueryui { // jQuery UI defines its own border
+			border-top: $table-header-border;
+		}
+
 		padding: 10px 10px 6px 10px;
 	}
 
@@ -60,11 +68,11 @@ table.dataTable {
 			background-color: $table-row-background;
 
 			&:first-child > * {
-				border-top: $table-header-border;
+				border-top: none;
 			}
 
 			&:last-child > * {
-				border-bottom: $table-header-border;
+				border-bottom: none;
 			}
 
 			&.selected > * {
@@ -95,7 +103,7 @@ table.dataTable {
 		}
 
 		> tr:first-child > * {
-			border-top: $table-header-border;
+			border-top: none;
 		}
 
 		> tr.selected + tr.selected > td {
@@ -514,9 +522,12 @@ html.dark {
 		// Stripe classes - add "row-border" class to the table to activate
 		&.row-border > tbody,
 		&.display > tbody {
-			> tr > th,
-			> tr > td {
+			> tr > * {
 				border-top: $table-body-border-dark;
+			}
+
+			> tr:first-child > * {
+				border-top: none;
 			}
 
 			> tr.selected + tr.selected > td {
