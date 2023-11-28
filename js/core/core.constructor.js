@@ -82,7 +82,8 @@ if ( sId === null || sId === "" )
 var oSettings = $.extend( true, {}, DataTable.models.oSettings, {
 	"sDestroyWidth": $this[0].style.width,
 	"sInstance":     sId,
-	"sTableId":      sId
+	"sTableId":      sId,
+	colgroup: $('<colgroup>').appendTo(this)
 } );
 oSettings.nTable = this;
 oSettings.oInit  = oInit;

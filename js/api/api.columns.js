@@ -172,6 +172,15 @@ var __setColumnVis = function ( settings, column, vis ) {
 
 	// Common actions
 	col.bVisible = vis;
+
+	// Re-insert the `col` elements
+	settings.colgroup.empty();
+
+	for (i=0 ; i<cols.length ; i++) {
+		if (cols[i].bVisible) {
+			settings.colgroup.append(cols[i].colEl);
+		}
+	}
 	
 	return true;
 };

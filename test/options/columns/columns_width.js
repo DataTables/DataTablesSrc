@@ -11,7 +11,7 @@ describe('columns.width option', function() {
 				autoWidth: false,
 				columns: [null, { width: '40%' }, null, null, null, null]
 			});
-			expect($('#example thead th:eq(1)')[0].style.width).toBe('40%');
+			expect($('#example colgroup col')[1].style.width).toBe('40%');
 		});
 
 		dt.html('basic');
@@ -20,7 +20,7 @@ describe('columns.width option', function() {
 				autoWidth: false,
 				columnDefs: [{"targets": 1, "width": '40%' }]
 			});
-			expect($('#example thead th:eq(1)')[0].style.width).toBe('40%');
+			expect($('#example colgroup col')[1].style.width).toBe('40%');
 		});
 
 		dt.html('basic');
@@ -29,8 +29,8 @@ describe('columns.width option', function() {
 				autoWidth: false,
 				columns: [null, { width: '20%' }, { width: '30%' }, null, null, null]
 			});
-			expect($('#example thead th:eq(1)')[0].style.width).toBe('20%');
-			expect($('#example thead th:eq(2)')[0].style.width).toBe('30%');
+			expect($('#example colgroup col')[1].style.width).toBe('20%');
+			expect($('#example colgroup col')[2].style.width).toBe('30%');
 		});
 
 		dt.html('basic');

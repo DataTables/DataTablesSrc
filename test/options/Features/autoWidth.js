@@ -12,11 +12,11 @@ describe( "autoWidth option", function() {
 			expect($.fn.dataTable.defaults.bAutoWidth).toBeTruthy();
 		});
 		it("First column has a width assigned to it", function () {
-			expect($('#example thead th:eq(0)').attr('style').match(/width/i)).toBeTruthy();
+			expect($('#example colgroup col:eq(0)').attr('style').match(/width/i)).toBeTruthy();
 		});
 		it("Second column has a width assigned to it", function () {
 
-			expect($('#example thead th:eq(1)').attr('style').match(/width/i)).toBeTruthy();
+			expect($('#example colgroup col:eq(1)').attr('style').match(/width/i)).toBeTruthy();
 		});
 
 
@@ -30,6 +30,7 @@ describe( "autoWidth option", function() {
 		});
 		it("'style returns undefined during datatables initialisation'", function () {
 			expect($('#example thead th:eq(0)').attr('style')).toEqual(undefined);
+			expect($('#example colgroup col:eq(0)').attr('style')).toEqual(undefined);
 		});
 		it("First column does not have a width assigned to it", function () {
 			// setTimeout(function(){
@@ -48,11 +49,11 @@ describe( "autoWidth option", function() {
 			expect($.fn.dataTable.defaults.bAutoWidth).toBe(true);
 		});
 		it("First column has a width assigned to it", function () {
-			expect($('#example thead th:eq(0)').attr('style').match(/width/i)).toBeTruthy();
+			expect($('#example colgroup col:eq(0)').attr('style').match(/width/i)).toBeTruthy();
 		});
 		it("Second column has a width assigned to it", function () {
 
-			expect($('#example thead th:eq(1)').attr('style').match(/width/i)).toBeTruthy();
+			expect($('#example colgroup col:eq(1)').attr('style').match(/width/i)).toBeTruthy();
 		});
 	});
 });

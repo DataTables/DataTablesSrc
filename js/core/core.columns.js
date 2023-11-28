@@ -13,7 +13,8 @@ function _fnAddColumn( oSettings )
 		"aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
 		"mData": oDefaults.mData ? oDefaults.mData : iCol,
 		idx: iCol,
-		searchFixed: {}
+		searchFixed: {},
+		colEl: $('<col>').appendTo(oSettings.colgroup)
 	} );
 	oSettings.aoColumns.push( oCol );
 
@@ -156,15 +157,21 @@ function _fnAdjustColumnSizing ( settings )
  *
  * @param {*} settings DataTables settings object
  */
-function _fnColumnSizes ( settings, header )
+function _fnColumnSizes ( settings )
 {
-	$(header || settings.nTHead).find('th, td').each( function () {
-		var width = _fnColumnsSumWidth( settings, this, false, false );
+	var cols = settings.aoColumns;
 
-		if ( width ) {
-			this.style.width = width;
+	settings.colgroup.empty();
+
+	for (var i=0 ; i<cols.length ; i++) {
+		var width = _fnColumnsSumWidth(settings, [i], false, false);
+
+		cols[i].colEl.css('width', width);
+
+		if (cols[i].bVisible) {
+			settings.colgroup.append(cols[i].colEl);
 		}
-	} );
+	}
 }
 
 
@@ -500,7 +507,7 @@ function _fnColumnsSumWidth( settings, targets, original, incVisible ) {
 			sum += definedWidth;
 		}
 		else {
-			var matched = definedWidth.match(/([\d]+)([^\d]*)/);
+			var matched = definedWidth.match(/([\d\.]+)([^\d]*)/);
 
 			if ( matched ) {
 				sum += matched[1] * 1;

@@ -157,7 +157,7 @@ function _fnCalculateColumnWidths ( settings )
 
 	for ( i=0 ; i<visibleColumns.length ; i++ ) {
 		// Use getBounding for sub-pixel accuracy, which we then want to round up!
-		var bounding = Math.ceil( bodyCells[i].getBoundingClientRect().width );
+		var bounding = bodyCells[i].getBoundingClientRect().width;
 
 		// Total is tracked to remove any sub-pixel errors as the outerWidth
 		// of the table might not equal the total given here

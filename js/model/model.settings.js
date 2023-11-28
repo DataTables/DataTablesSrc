@@ -672,5 +672,7 @@ DataTable.models.oSettings = {
 
 	caption: '',
 
-	captionNode: null
+	captionNode: null,
+
+	colgroup: null
 };
