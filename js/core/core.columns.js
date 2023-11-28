@@ -161,16 +161,8 @@ function _fnColumnSizes ( settings )
 {
 	var cols = settings.aoColumns;
 
-	settings.colgroup.empty();
-
 	for (var i=0 ; i<cols.length ; i++) {
-		var width = _fnColumnsSumWidth(settings, [i], false, false);
-
 		cols[i].colEl.css('width', width);
-
-		if (cols[i].bVisible) {
-			settings.colgroup.append(cols[i].colEl);
-		}
 	}
 }
 
