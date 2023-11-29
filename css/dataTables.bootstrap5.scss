@@ -16,7 +16,6 @@ table.table.dataTable {
 	clear: both;
 	margin-bottom: 0;
 	max-width: none;
-	border-collapse: separate;
 	border-spacing: 0;
 
 	// Override default row striping, replacing with an insert box-shadow
@@ -151,41 +150,6 @@ table.dataTable.table-sm {
         	&:after {
           		right: 5px;
         	}
-	}
-}
-
-
-// Frustratingly the border-collapse:collapse used by Bootstrap makes the column
-// width calculations when using scrolling impossible to align columns. We have
-// to use `border-collapse: separate`
-table.table-bordered.dataTable {
-	border-right-width: 0;
-
-	thead tr:first-child {
-		th,
-		td {
-			border-top-width: 1px;
-		}
-	}
-
-	th,
-	td {
-		border-left-width: 0;
-
-		&:first-child,
-		&:first-child {
-			border-left-width: 1px;
-		}
-
-		&:last-child,
-		&:last-child {
-			border-right-width: 1px;
-		}
-	}
-
-	th,
-	td {
-		border-bottom-width: 1px;
 	}
 }
 

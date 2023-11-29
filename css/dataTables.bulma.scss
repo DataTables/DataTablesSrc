@@ -15,7 +15,6 @@ table.dataTable {
 	margin-top: 6px !important;
 	margin-bottom: 6px !important;
 	max-width: none !important;
-	border-collapse: separate !important;
 	border-spacing: 0;
 
 	// Override default row striping, replacing with an insert box-shadow
@@ -89,12 +88,26 @@ div.dt-container {
 		text-align: center;
 		padding: 1em 0;
 	}
+	
+	&.dt-empty-footer {
+		// Show the boundary on the last row
+		tbody > tr:last-child > * {
+			border-bottom: 1px solid #dbdbdb;
+		}
+	}
 }
 
 
 // Scrolling
 div.dt-scroll-head table.dataTable {
 	margin-bottom: 0 !important;
+}
+
+div.dt-container.dt-empty-footer {
+	// This is provided by the footer if there is one
+	div.dt-scroll-body {
+		border-bottom: 1px solid #dbdbdb;
+	}
 }
 
 div.dt-scroll-body {
@@ -118,6 +131,10 @@ div.dt-scroll-body {
 		tbody tr:first-child td {
 			border-top: none;
 		}
+
+		tbody > tr:last-child > * {
+			border-bottom-width: 0;
+		}
 	}
 }
 
@@ -131,4 +148,3 @@ div.dt-scroll-foot {
 		}
 	}
 }
-

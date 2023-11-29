@@ -9,7 +9,6 @@ $table-row-selected: 2 117 216;
 table.dataTable.table {
 	clear: both;
 	max-width: none;
-	border-collapse: separate;
 	border-spacing: 0;
 	margin-bottom: 0;
 
@@ -85,6 +84,15 @@ div.dt-container {
 		margin-top: -26px;
 		text-align: center;
 		padding: 1em 0;
+	}
+
+	div.dt-scroll-body {
+		border-bottom: 1px solid #dee2e6;
+
+		table,
+		tbody > tr:last-child > * {
+			border-bottom: none;
+		}
 	}
 }
 
@@ -171,29 +179,6 @@ table.dataTable.table-sm {
 		&:after {
 			top: 5px;
 		}
-	}
-}
-
-
-// Frustratingly the border-collapse:collapse used by Bootstrap makes the column
-// width calculations when using scrolling impossible to align columns. We have
-// to use `border-collapse: separate`
-table.table-bordered.dataTable {
-	border-right-width: 0;
-
-	th,
-	td {
-		border-left-width: 0;
-
-		&:last-child,
-		&:last-child {
-			border-right-width: 1px;
-		}
-	}
-
-	tbody th,
-	tbody td {
-		border-bottom-width: 0;
 	}
 }
 

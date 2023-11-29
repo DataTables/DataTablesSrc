@@ -11,7 +11,6 @@ table.table.dataTable {
 	margin-top: 0;
 	margin-bottom: 0;
 	max-width: none;
-	border-collapse: separate;
 
 	// Override default row striping, replacing with an insert box-shadow
 	&.table-striped > tbody > tr:nth-of-type(2n+1) {
@@ -90,6 +89,15 @@ div.dt-container {
 		text-align: center;
 		padding: 1em 0;
 	}
+
+	div.dt-scroll-body {
+		border-bottom: 1px solid #ddd;
+
+		table,
+		tbody > tr:last-child > * {
+			border-bottom: none;
+		}
+	}
 }
 
 
@@ -161,28 +169,6 @@ div.dt-scroll-foot {
 table.dataTable.table-condensed {
 	> thead > tr > th {
 		padding-right: 20px;
-	}
-}
-
-// Frustratingly the border-collapse:collapse used by Bootstrap makes the column
-// width calculations when using scrolling impossible to align columns. We have
-// to use `border-collapse: separate`
-table.table-bordered.dataTable {
-	border-right-width: 0;
-
-	th,
-	td {
-		border-left-width: 0;
-
-		&:last-child,
-		&:last-child {
-			border-right-width: 1px;
-		}
-	}
-
-	tbody th,
-	tbody td {
-		border-bottom-width: 0;
 	}
 }
 
