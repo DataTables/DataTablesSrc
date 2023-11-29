@@ -147,8 +147,8 @@ function _fnFeatureHtmlTable ( settings )
  * Welcome to the most horrible function DataTables. The process that this
  * function follows is basically:
  *   1. Re-create the table inside the scrolling div
- *   2. Take live measurements from the DOM
- *   3. Apply the measurements to align the columns
+ *   2. Correct colgroup > col values if needed
+ *   3. Copy colgroup > col over to header and footer
  *   4. Clean up
  *
  *  @param {object} settings dataTables settings object
@@ -160,40 +160,20 @@ function _fnScrollDraw ( settings )
 	// to try and keep the minimised size as small as possible
 	var
 		scroll         = settings.oScroll,
-		scrollX        = scroll.sX,
-		scrollXInner   = scroll.sXInner,
 		barWidth       = scroll.iBarWidth,
 		divHeader      = $(settings.nScrollHead),
-		divHeaderStyle = divHeader[0].style,
 		divHeaderInner = divHeader.children('div'),
-		divHeaderInnerStyle = divHeaderInner[0].style,
 		divHeaderTable = divHeaderInner.children('table'),
 		divBodyEl      = settings.nScrollBody,
 		divBody        = $(divBodyEl),
-		divBodyStyle   = divBodyEl.style,
 		divFooter      = $(settings.nScrollFoot),
 		divFooterInner = divFooter.children('div'),
 		divFooterTable = divFooterInner.children('table'),
 		header         = $(settings.nTHead),
 		table          = $(settings.nTable),
-		tableEl        = table[0],
-		tableStyle     = tableEl.style,
-		footer         = settings.nTFoot ? $(settings.nTFoot) : null,
+		footer         = settings.nTFoot && $('th, td', settings.nTFoot).length ? $(settings.nTFoot) : null,
 		browser        = settings.oBrowser,
-		headerTrgEls, footerTrgEls,
-		headerSrcEls, footerSrcEls,
-		headerCopy, footerCopy,
-		headerWidths=[], footerWidths=[],
-		headerContent=[], footerContent=[],
-		correction, sanityWidth,
-		zeroOut = function(nSizer) {
-			var style = nSizer.style;
-			style.paddingTop = "0";
-			style.paddingBottom = "0";
-			style.borderTopWidth = "0";
-			style.borderBottomWidth = "0";
-			style.height = 0;
-		};
+		headerCopy, footerCopy;
 
 	// If the scrollbar visibility has changed from the last draw, we need to
 	// adjust the column sizes as the table width will have changed to account
@@ -209,186 +189,95 @@ function _fnScrollDraw ( settings )
 		settings.scrollBarVis = scrollBarVis;
 	}
 
-	/*
-	 * 1. Re-create the table inside the scrolling div
-	 */
-
+	// 1. Re-create the table inside the scrolling div
 	// Remove the old minimised thead and tfoot elements in the inner table
 	table.children('thead, tfoot').remove();
 
-	if ( footer ) {
-		footerCopy = footer.clone().prependTo( table );
-		footerTrgEls = footer.find('tr'); // the original tfoot is in its own table and must be sized
-		footerSrcEls = footerCopy.find('tr');
-		footerCopy.find('[id]').removeAttr('id');
-	}
-
 	// Clone the current header and footer elements and then place it into the inner table
 	headerCopy = header.clone().prependTo( table );
-	headerTrgEls = header.find('tr'); // original header is in its own table
-	headerSrcEls = headerCopy.find('tr');
 	headerCopy.find('th, td').removeAttr('tabindex');
 	headerCopy.find('[id]').removeAttr('id');
 
-
-	/*
-	 * 2. Take live measurements from the DOM - do not alter the DOM itself!
-	 */
-
-	// Remove old sizing and apply the calculated column widths
-	// Get the unique column headers in the newly created (cloned) header. We want to apply the
-	// calculated sizes to this header
-	if ( ! scrollX )
-	{
-		divBodyStyle.width = '100%';
-		divHeader[0].style.width = '100%';
+	if ( footer ) {
+		footerCopy = footer.clone().prependTo( table );
+		footerCopy.find('[id]').removeAttr('id');
 	}
 
-	_fnColumnSizes( settings, headerCopy );
+	// 2. Correct colgroup > col values if needed
+	// It is possible that the cell sizes are smaller than the content, so we need to
+	// correct colgroup>col for such cases. This can happen if the auto width detection
+	// uses a cell which has a longer string, but isn't the widest! For example 
+	// "Chief Executive Officer (CEO)" is the longest string in the demo, but
+	// "Systems Administrator" is actually the widest string since it doesn't collapse.
+	if (settings.aiDisplay.length) {
+		// Get the column sizes from the first row in the table
+		var colSizes = table.find('tbody tr').eq(0).find('th, td').map(function () {
+			return $(this).outerWidth();
+		});
+
+		// Check against what the colgroup > col is set to and correct if needed
+		$('col', settings.colgroup).each(function (i) {
+			var colWidth = this.style.width.replace('px', '');
+
+			if (colWidth < colSizes[i]) {
+				this.style.width = colSizes[i] + 'px';
+			}
+		});
+	}
+
+	// 3. Copy the colgroup over to the header and footer
+	divHeaderTable
+		.find('colgroup')
+		.remove();
+
+	divHeaderTable.append(settings.colgroup.clone());
 
 	if ( footer ) {
-		_fnApplyToChildren( function(n) {
-			n.style.width = "";
-		}, footerSrcEls );
+		divFooterTable
+			.find('colgroup')
+			.remove();
+
+		divFooterTable.append(settings.colgroup.clone());
 	}
-
-	// Size the table as a whole
-	sanityWidth = table.outerWidth();
-	if ( scrollX === "" ) {
-		// No x scrolling
-		tableStyle.width = "100%";
-
-		// Recalculate the sanity width
-		sanityWidth = table.outerWidth();
-	}
-	else if ( scrollXInner !== "" ) {
-		// legacy x scroll inner has been given - use it
-		tableStyle.width = _fnStringToCss(scrollXInner);
-
-		// Recalculate the sanity width
-		sanityWidth = table.outerWidth();
-	}
-
-	// Hidden header should have zero height, so remove padding and borders. Then
-	// set the width based on the real headers
-
-	// Apply all styles in one pass
-	_fnApplyToChildren( zeroOut, headerSrcEls );
-
-	// Read all widths in next pass
-	_fnApplyToChildren( function(nSizer) {
-		var style = window.getComputedStyle ?
-			window.getComputedStyle(nSizer).width :
-			_fnStringToCss( $(nSizer).width() );
-
-		headerContent.push( nSizer.innerHTML );
-		headerWidths.push( style );
-	}, headerSrcEls );
-
-	// Apply all widths in final pass
-	_fnApplyToChildren( function(nToSize, i) {
-		nToSize.style.width = headerWidths[i];
-	}, headerTrgEls );
-
-	$(headerSrcEls).css('height', 0);
-
-	/* Same again with the footer if we have one */
-	if ( footer )
-	{
-		_fnApplyToChildren( zeroOut, footerSrcEls );
-
-		_fnApplyToChildren( function(nSizer) {
-			footerContent.push( nSizer.innerHTML );
-			footerWidths.push( _fnStringToCss( $(nSizer).css('width') ) );
-		}, footerSrcEls );
-
-		_fnApplyToChildren( function(nToSize, i) {
-			nToSize.style.width = footerWidths[i];
-		}, footerTrgEls );
-
-		$(footerSrcEls).height(0);
-	}
-
-
-	/*
-	 * 3. Apply the measurements
-	 */
 
 	// "Hide" the header and footer that we used for the sizing. We need to keep
 	// the content of the cell so that the width applied to the header and body
-	// both match, but we want to hide it completely. We want to also fix their
-	// width to what they currently are
-	_fnApplyToChildren( function(nSizer, i) {
-		nSizer.innerHTML = '<div class="dataTables_sizing">'+headerContent[i]+'</div>';
-		nSizer.childNodes[0].style.height = "0";
-		nSizer.childNodes[0].style.overflow = "hidden";
-		nSizer.style.width = headerWidths[i];
-	}, headerSrcEls );
-
-	if ( footer )
-	{
-		_fnApplyToChildren( function(nSizer, i) {
-			nSizer.innerHTML = '<div class="dataTables_sizing">'+footerContent[i]+'</div>';
-			nSizer.childNodes[0].style.height = "0";
-			nSizer.childNodes[0].style.overflow = "hidden";
-			nSizer.style.width = footerWidths[i];
-		}, footerSrcEls );
-	}
-
-	// Sanity check that the table is of a sensible width. If not then we are going to get
-	// misalignment - try to prevent this by not allowing the table to shrink below its min width
-	if ( Math.round(table.outerWidth()) < Math.round(sanityWidth) )
-	{
-		// The min width depends upon if we have a vertical scrollbar visible or not */
-		correction = ((divBodyEl.scrollHeight > divBodyEl.offsetHeight ||
-			divBody.css('overflow-y') == "scroll")) ?
-				sanityWidth+barWidth :
-				sanityWidth;
-
-		// And give the user a warning that we've stopped the table getting too small
-		if ( scrollX === "" || scrollXInner !== "" ) {
-			_fnLog( settings, 1, 'Possible column misalignment', 6 );
-		}
-	}
-	else
-	{
-		correction = '100%';
-	}
-
-	// Apply to the container elements
-	divBodyStyle.width = _fnStringToCss( correction );
-	divHeaderStyle.width = _fnStringToCss( correction );
+	// both match, but we want to hide it completely.
+	$('th, td', headerCopy).each(function () {
+		$(this).children().wrapAll('<div class="dt-scroll-sizing">');
+	});
 
 	if ( footer ) {
-		settings.nScrollFoot.style.width = _fnStringToCss( correction );
+		$('th, td', footerCopy).each(function () {
+			$(this).children().wrapAll('<div class="dt-scroll-sizing">');
+		});
 	}
 
-
-	/*
-	 * 4. Clean up
-	 */
-
-	/* Finally set the width's of the header and footer tables */
-	var iOuterWidth = table.outerWidth();
-	divHeaderTable[0].style.width = _fnStringToCss( iOuterWidth );
-	divHeaderInnerStyle.width = _fnStringToCss( iOuterWidth );
-
+	// 4. Clean up
 	// Figure out if there are scrollbar present - if so then we need a the header and footer to
 	// provide a bit more space to allow "overflow" scrolling (i.e. past the scrollbar)
-	var bScrolling = Math.floor(table.height()) > divBodyEl.clientHeight || divBody.css('overflow-y') == "scroll";
-	var padding = 'padding' + (browser.bScrollbarLeft ? 'Left' : 'Right' );
-	divHeaderInnerStyle[ padding ] = bScrolling ? barWidth+"px" : "0px";
+	var isScrolling = Math.floor(table.height()) > divBodyEl.clientHeight || divBody.css('overflow-y') == "scroll";
+	var paddingSide = 'padding' + (browser.bScrollbarLeft ? 'Left' : 'Right' );
+
+	// Set the width's of the header and footer tables
+	var outerWidth = table.outerWidth();
+
+	divHeaderTable.css('width', _fnStringToCss( outerWidth ));
+	divHeaderInner
+		.css('width', _fnStringToCss( outerWidth ))
+		.css(paddingSide, isScrolling ? barWidth+"px" : "0px");
 
 	if ( footer ) {
-		divFooterTable[0].style.width = _fnStringToCss( iOuterWidth );
-		divFooterInner[0].style.width = _fnStringToCss( iOuterWidth );
-		divFooterInner[0].style[padding] = bScrolling ? barWidth+"px" : "0px";
+		divFooterTable.css('width', _fnStringToCss( outerWidth ));
+		divFooterInner
+			.css('width', _fnStringToCss( outerWidth ))
+			.css(paddingSide, isScrolling ? barWidth+"px" : "0px");
 	}
 
 	// Correct DOM ordering for colgroup - comes before the thead
-	table.children('colgroup').insertBefore( table.children('thead') );
+	table.children('colgroup').prependTo(table);
 
-	/* Adjust the position of the header in case we loose the y-scrollbar */
+	// Adjust the position of the header in case we loose the y-scrollbar
 	divBody.trigger('scroll');
 
 	// If sorting or filtering has occurred, jump the scrolling back to the top
@@ -397,43 +286,3 @@ function _fnScrollDraw ( settings )
 		divBodyEl.scrollTop = 0;
 	}
 }
-
-
-
-/**
- * Apply a given function to the display child nodes of an element array (typically
- * TD children of TR rows
- *  @param {function} fn Method to apply to the objects
- *  @param array {nodes} an1 List of elements to look through for display children
- *  @param array {nodes} an2 Another list (identical structure to the first) - optional
- *  @memberof DataTable#oApi
- */
-function _fnApplyToChildren( fn, an1, an2 )
-{
-	var index=0, i=0, iLen=an1.length;
-	var nNode1, nNode2;
-
-	while ( i < iLen ) {
-		nNode1 = an1[i].firstChild;
-		nNode2 = an2 ? an2[i].firstChild : null;
-
-		while ( nNode1 ) {
-			if ( nNode1.nodeType === 1 ) {
-				if ( an2 ) {
-					fn( nNode1, nNode2, index );
-				}
-				else {
-					fn( nNode1, index );
-				}
-
-				index++;
-			}
-
-			nNode1 = nNode1.nextSibling;
-			nNode2 = an2 ? nNode2.nextSibling : null;
-		}
-
-		i++;
-	}
-}
-

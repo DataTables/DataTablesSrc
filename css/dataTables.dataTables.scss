@@ -436,26 +436,22 @@ div.dt-container {
 		}
 	}
 
-	.dt-scroll-body {
-		tbody > tr:first-child > * {
-			border-top: none;
-		}
-
+	// Tables with an empty footer need special consideration for styling at the end of the table
+	&.dt-empty-footer {
+		// Show the boundary on the last row
 		tbody > tr:last-child > * {
-			border-bottom: none;
+			border-bottom: $table-header-border;
 		}
 
-		border-top: $table-header-border;
-		border-bottom: $table-header-border;
-	}
+		// Except when scrolling, when the border needs to go on the container
+		// Table's with a footer have border-top on the footer cells
+		.dt-scroll-body {
+			border-bottom: $table-header-border;
 
-	// Self clear the wrapper
-	&:after {
-		visibility: hidden;
-		display: block;
-		content: "";
-		clear: both;
-		height: 0;
+			tbody > tr:last-child > * {
+				border-bottom: none;
+			}
+		}
 	}
 }
 
@@ -553,6 +549,12 @@ html.dark {
 	}
 
 	.dt-container {
+		&.dt-empty-footer {
+			table.dataTable {
+				border-bottom: $table-header-border-dark;
+			}
+		}
+
 		// Chrome 83 hack - see top of file
 		.dt-search input,
 		.dt-length select {

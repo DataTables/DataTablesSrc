@@ -441,6 +441,9 @@ function _fnDraw( oSettings, ajaxComplete )
 	body.children().detach();
 	body.append( $(anRows) );
 
+	// Empty table needs a specific class
+	$(oSettings.nTableWrapper).toggleClass('dt-empty-footer', $('tr', oSettings.nTFoot).length === 0);
+
 	/* Call all required callback functions for the end of a draw */
 	_fnCallbackFire( oSettings, 'aoDrawCallback', 'draw', [oSettings], true );
 

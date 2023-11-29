@@ -183,3 +183,25 @@ html.dark {
 		}
 	}
 }
+
+div.dt-scroll-body {
+	thead,
+	tfoot {
+		tr {
+			height: 0;
+
+			th, td {
+				height: 0;
+				padding-top: 0px;
+				padding-bottom: 0px;
+				border-top-width: 0px;
+				border-bottom-width: 0px;
+
+				div.dt-scroll-sizing {
+					height: 0;
+					overflow: hidden;
+				}
+			}
+		}
+	}
+}

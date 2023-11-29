@@ -86,25 +86,22 @@ div.dt-scroll-head table.dataTable {
 }
 
 div.dt-scroll-body {
+	// Last row of the body can't provide the border, so
+	// we need to add it here. Note that this is different
+	// from the DataTables CSS approach of using the cells,
+	// because DT applies a top border to footer cells. BS
+	// does not do that.
+	border-bottom-color: var(--bs-border-color);
+	border-bottom-width: var(--bs-border-width);
+	border-bottom-style: solid;
+
 	> table {
 		border-top: none;
 		margin-top: 0 !important;
 		margin-bottom: 0 !important;
 
-		> thead { // Hide sort icons
-			.sorting:before,
-			.sorting_asc:before,
-			.sorting_desc:before,
-			.sorting:after,
-			.sorting_asc:after,
-			.sorting_desc:after {
-				display: none;
-			}
-		}
-
-		> tbody tr:first-child th,
-		> tbody tr:first-child td {
-			border-top: none;
+		> tbody > tr:last-child > * {
+			border-bottom: none;
 		}
 	}
 }
