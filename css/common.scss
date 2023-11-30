@@ -191,15 +191,15 @@ div.dt-scroll-body {
 			height: 0;
 
 			th, td {
-				height: 0;
-				padding-top: 0px;
-				padding-bottom: 0px;
-				border-top-width: 0px;
-				border-bottom-width: 0px;
+				height: 0 !important;
+				padding-top: 0px !important;
+				padding-bottom: 0px !important;
+				border-top-width: 0px !important;
+				border-bottom-width: 0px !important;
 
 				div.dt-scroll-sizing {
-					height: 0;
-					overflow: hidden;
+					height: 0 !important;
+					overflow: hidden !important;
 				}
 			}
 		}

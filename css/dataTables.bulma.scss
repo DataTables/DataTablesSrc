@@ -133,7 +133,7 @@ div.dt-scroll-body {
 		}
 
 		tbody > tr:last-child > * {
-			border-bottom-width: 0;
+			border-bottom-width: 0 !important;
 		}
 	}
 }

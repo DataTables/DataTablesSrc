@@ -85,10 +85,16 @@ div.dt-scroll-head table {
 }
 
 div.dt-scroll-body {
+	border-bottom: 1px solid #f1f1f1;
+
 	table {
 		border-top: none;
 		margin-top: 0 !important;
 		margin-bottom: 0 !important;
+
+		tbody {
+			border-bottom-width: 0;
+		}
 
 		tbody tr:first-child th,
 		tbody tr:first-child td {
