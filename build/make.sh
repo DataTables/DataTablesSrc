@@ -70,6 +70,8 @@ function build_js {
 		else
 			echo_error "JSHint failed"
 		fi
+	else
+		echo_msg "No JSHint installed"
 	fi
 
 	js_compress $OUT_FILE
@@ -375,8 +377,10 @@ function usage {
 #
 cd $BASE_DIR
 
+CURR_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+
 echo ""
-echo_section "DataTables build ($VERSION) - branch: $SYNC_BRANCH"
+echo_section "DataTables build ($VERSION) - branch: $CURR_BRANCH"
 echo ""
 
 

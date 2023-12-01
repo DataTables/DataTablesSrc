@@ -25,11 +25,13 @@ function _fnFeatureHtmlLength ( settings )
 		menu     = settings.aLengthMenu,
 		d2       = Array.isArray( menu[0] ),
 		lengths  = d2 ? menu[0] : menu,
-		language = d2 ? menu[1] : menu;
+		language = d2 ? menu[1] : menu,
+		oAria    = settings.oLanguage.oAria;
 
 	var select = $('<select/>', {
 		'name':          tableId+'_length',
 		'aria-controls': tableId,
+		'aria-label':    oAria.sPageLength,
 		'class':         classes.sLengthSelect
 	} );
 
