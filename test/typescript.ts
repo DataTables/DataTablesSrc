@@ -1,6 +1,8 @@
 
 import DataTable, {
 	Api,
+	ApiColumnMethods,
+	ApiRowMethods,
 	ConfigColumns,
 	DataType,
 	HeaderStructure,
@@ -8,6 +10,12 @@ import DataTable, {
 	SearchInputColumn
 } from "../types/types";
 import {expectType} from 'tsd';
+
+interface IRow {
+	firstName: string;
+	lastName: string;
+	age: number;
+}
 
 let table = new DataTable('#myTable', {
 	ajax: {
@@ -57,6 +65,8 @@ let table = new DataTable('#myTable', {
 	]
 });
 
+const tableRowType = new DataTable<IRow>('#example');
+
 expectType<Api<any>>(table);
 
 expectType<string>(table.caption());
@@ -82,6 +92,12 @@ expectType<Api<any>>(table.order([
  * Columns
  */
 expectType<Api<any>>(table.column(0).draw());
+
+table.columns().every(function () {
+	expectType<ApiColumnMethods<any>>(this);
+	expectType<Api<any[]>>(this.data());
+	expectType<number>(this.index());
+});
 
 expectType<ConfigColumns>(table.column(0).init());
 expectType<Api<ConfigColumns>>(table.columns().init());
@@ -188,6 +204,12 @@ expectType<Node>(table.row.add(['a', 'b', 'c']).node());
 
 expectType<Api<any>>(table.rows({order: 1}).data());
 expectType<Api<Node[]>>(table.rows.add([['a', 'b', 'c']]).nodes());
+
+tableRowType.rows().every(function () {
+	expectType<ApiRowMethods<any>>(this);
+	expectType<IRow>(this.data());
+	expectType<number>(this.index());
+});
 
 /*
  * Static
