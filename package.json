@@ -53,5 +53,9 @@
   },
   "browserslist": [
     "> 0.1%, last 10 versions, Firefox ESR, Safari > 7, not dead"
-  ]
+  ],
+  "dependencies": {
+    "rollup": "^4.6.1",
+    "typescript": "^5.3.2"
+  }
 }

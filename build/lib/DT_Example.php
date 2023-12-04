@@ -1229,6 +1229,31 @@ DT_Example::$tables['html-complex-header'] = array(
 );
 
 
+DT_Example::$tables['html-complex-header-mid'] = array(
+	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'age', 'extn', 'email' ),
+	'header'  => function () {
+		return '<thead>'.
+				'<tr>'.
+					'<th colspan="2">Name</th>'.
+					'<th colspan="3">HR</th>'.
+					'<th colspan="2">Contact</th>'.
+				'</tr>'.
+				'<tr>'.
+					'<th>First name</th>'.
+					'<th>Last name</th>'.
+					'<th>Position</th>'.
+					'<th>Office</th>'.
+					'<th>Age</th>'.
+					'<th>Extn.</th>'.
+					'<th>E-mail</th>'.
+				'</tr>'.
+			'</thead>';
+	},
+	'footer'  => true,
+	'body'    => true
+);
+
+
 DT_Example::$tables['html-complex-header-wide'] = array(
 	'columns' => array( 'first_name', 'last_name', 'position', 'office', 'age', 'start_date', 'salary', 'extn', 'email' ),
 	'header'  => function () {
