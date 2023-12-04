@@ -353,12 +353,12 @@ function _fnDraw( oSettings, ajaxComplete )
 
 	var anRows = [];
 	var iRowCount = 0;
-	var oLang = oSettings.oLanguage;
 	var bServerSide = _fnDataSource( oSettings ) == 'ssp';
 	var aiDisplay = oSettings.aiDisplay;
 	var iDisplayStart = oSettings._iDisplayStart;
 	var iDisplayEnd = oSettings.fnDisplayEnd();
 	var columns = oSettings.aoColumns;
+	var body = $(oSettings.nTBody);
 
 	oSettings.bDrawing = true;
 
@@ -369,6 +369,11 @@ function _fnDraw( oSettings, ajaxComplete )
 	}
 	else if ( !oSettings.bDestroying && !ajaxComplete)
 	{
+		// Show loading message for server-side processing
+		if (oSettings.iDraw === 0) {
+			body.empty().append(_emptyRow(oSettings));
+		}
+
 		_fnAjaxUpdate( oSettings );
 		return;
 	}
@@ -411,22 +416,7 @@ function _fnDraw( oSettings, ajaxComplete )
 	}
 	else
 	{
-		/* Table is empty - create a row with an empty message in it */
-		var sZero = oLang.sZeroRecords;
-		if ( oSettings.iDraw == 1 &&  _fnDataSource( oSettings ) == 'ajax' )
-		{
-			sZero = oLang.sLoadingRecords;
-		}
-		else if ( oLang.sEmptyTable && oSettings.fnRecordsTotal() === 0 )
-		{
-			sZero = oLang.sEmptyTable;
-		}
-
-		anRows[ 0 ] = $( '<tr/>' )
-			.append( $('<td />', {
-				'colSpan': _fnVisbleColumns( oSettings ),
-				'class':   oSettings.oClasses.empty.row
-			} ).html( sZero ) )[0];
+		anRows[ 0 ] = _emptyRow(oSettings);
 	}
 
 	/* Header and footer callbacks */
@@ -435,8 +425,6 @@ function _fnDraw( oSettings, ajaxComplete )
 
 	_fnCallbackFire( oSettings, 'aoFooterCallback', 'footer', [ $(oSettings.nTFoot).children('tr')[0],
 		_fnGetDataMaster( oSettings ), iDisplayStart, iDisplayEnd, aiDisplay ] );
-
-	var body = $(oSettings.nTBody);
 
 	body.children().detach();
 	body.append( $(anRows) );
@@ -493,6 +481,31 @@ function _fnReDraw( settings, holdPosition, recompute )
 	_fnDraw( settings );
 
 	settings._drawHold = false;
+}
+
+
+/*
+ * Table is empty - create a row with an empty message in it
+ */
+function _emptyRow ( settings ) {
+	var oLang = settings.oLanguage;
+	var zero = oLang.sZeroRecords;
+	var dataSrc = _fnDataSource( settings );
+
+	if ( settings.iDraw <= 1 && (dataSrc === 'ajax' || dataSrc === 'ssp') )
+	{
+		zero = oLang.sLoadingRecords;
+	}
+	else if ( oLang.sEmptyTable && settings.fnRecordsTotal() === 0 )
+	{
+		zero = oLang.sEmptyTable;
+	}
+
+	return $( '<tr/>' )
+		.append( $('<td />', {
+			'colSpan': _fnVisbleColumns( settings ),
+			'class':   settings.oClasses.empty.row
+		} ).html( zero ) )[0];
 }
 
 
