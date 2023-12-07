@@ -13,8 +13,13 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Types
  */
-// No publicly documented properties
-type InternalSettings = Object;
+
+/**
+ * DataTable's internal settings object. DO NOT USE! The parameters
+ * in this object are considered private. They can, do, and will
+ * change! Always use the API methods for manipulating the table.
+ */
+type InternalSettings = {[key: string]: any};
 
 export type DomSelector =
     string |
@@ -813,6 +818,13 @@ export interface Api<T> {
      * @returns New API instance with the values from all passed in instances concatenated into its result set.
      */
     concat(a: object, ...b: object[]): Api<any>;
+
+    /**
+     * The table setting objects that are manipulated by this API instance
+     * 
+     * @private
+     */
+    context: InternalSettings[],
 
     /**
      * Get the number of entries in an API instance's result set, regardless of multi-table grouping (e.g. any data, selected rows, etc). Since: 1.10.8
