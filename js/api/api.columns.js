@@ -339,7 +339,7 @@ _api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis
 				}
 			} );
 
-			if ( calc === undefined || calc ) {
+			if ( changed.length && (calc === undefined || calc) ) {
 				that.columns.adjust();
 			}
 		});
