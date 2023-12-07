@@ -255,3 +255,13 @@ expectType<void>(DataTable.util.diacritics((s, r) => s));
 
 expectType<any>(DataTable.util.get('hello'));
 expectType<any>(DataTable.util.set('hello'));
+
+
+var res = DataTable.Api.register('apiMethod()', function (from, to) {
+	expectType<Api<any>>(this);
+	expectType<Api<any>>(this.draw());
+	expectType<Api<any>>(this.draw(false));
+	expectType<number | null>(table.column(0).width());
+});
+
+expectType<void>(res);

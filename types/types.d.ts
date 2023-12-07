@@ -2640,6 +2640,8 @@ export interface DataTablesStatic {
     versionCheck(version: string): boolean;
 }
 
+export type ApiStaticRegisterFn<T> = (this: Api<T>, ...args: any[]) => any;
+
 export interface ApiStatic {
     /**
      * Create a new API instance to an existing DataTable. Note that this
@@ -2647,8 +2649,8 @@ export interface ApiStatic {
      */
     new (selector: string | Node | Node[] | JQuery | InternalSettings): Api<any>;
 
-    register<T=any>(name: string, fn: Function): T;
-    registerPlural<T=any>(pluralName: string, singleName: string, fn: Function): T;
+    register<T=any>(name: string, fn: ApiStaticRegisterFn<T>): void;
+    registerPlural<T=any>(pluralName: string, singleName: string, fn: ApiStaticRegisterFn<T>): void;
 }
 
 export interface OrderFixed {
