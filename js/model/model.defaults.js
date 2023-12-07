@@ -1440,7 +1440,28 @@ DataTable.defaults = {
 			 *      } );
 			 *    } );
 			 */
-			"sSortDescending": ": activate to sort column descending"
+			"sSortDescending": ": activate to sort column descending",
+
+			/**
+			 * ARIA label that is added to the length select list
+			 *  @type string
+			 *  @default : Page Length
+			 *
+			 *  @dtopt Language
+			 *  @name DataTable.defaults.language.aria.sortDescending
+			 *
+			 *  @example
+			 *    $(document).ready( function() {
+			 *      $('#example').dataTable( {
+			 *        "language": {
+			 *          "aria": {
+			 *            "pageLength": " - Page Length Select Menu"
+			 *          }
+			 *        }
+			 *      } );
+			 *    } );
+			 */
+			"sPageLength": "Page Length"
 		},
 
 		/**

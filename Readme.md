@@ -37,6 +37,11 @@ A number of programs are required out your computer to be able to build DataTabl
 * [Sass](https://sass-lang.com/install) - CSS compiler
 * [JSHint 2.1+](https://jshint.com/install/) - Linter (optional)
 
+PHP Libraries
+
+* [libcurl](https://curl.se/) (On ubuntu `sudo apt-get install php-curl`)
+* xml (On ubunutu `sudo apt-get install php-xml`)
+
 The build script assumes that a Mac or Linux environment is being used - Windows builds are not currently directly supported (although would be possible using [Cygwin](https://www.cygwin.com/)). Additionally, you may need to alter the paths for the above programs to reflect where they are installed on your own computer - this can be done in the [`build/include.sh`](build/include.sh) script.
 
 The output files are placed into `built/DataTables/` which is a temporary directory. No changes should be made in that directory as they will be **overwritten** when you next build the software.
