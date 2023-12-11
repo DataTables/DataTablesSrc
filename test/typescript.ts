@@ -3,6 +3,7 @@ import DataTable, {
 	Api,
 	ApiColumnMethods,
 	ApiRowMethods,
+	ApiTableMethods,
 	ConfigColumns,
 	DataType,
 	HeaderStructure,
@@ -169,6 +170,16 @@ expectType<Api<number | null>>(table.columns().widths());
 expectType<HeaderStructure>(table.table().header.structure()[0][0]);
 expectType<HeaderStructure>(table.table().footer.structure()[0][0]);
 
+/* Tables */
+table.tables().every(function (i) {
+	expectType<ApiTableMethods<any>>(this);
+	expectType<Api<any[]>>(this.draw());
+	expectType<Node>(this.header());
+	expectType<number>(i);
+});
+
+
+/* Search */
 expectType<Api<string>>(table.search.fixed());
 expectType<SearchInput<any> | undefined>(table.search.fixed('test'));
 expectType<Api<any>>(table.search.fixed('test', null));

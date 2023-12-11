@@ -113,6 +113,14 @@ _api_registerPlural( 'tables().containers()', 'table().container()' , function (
 	}, 1 );
 } );
 
+_api_register( 'tables().every()', function ( fn ) {
+	var that = this;
+
+	return this.iterator('table', function (s, i) {
+		fn.call(that.table(i), i);
+	});
+});
+
 _api_register( 'caption()', function ( value, side ) {
 	var context = this.context;
 
