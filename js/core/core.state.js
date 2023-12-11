@@ -106,6 +106,8 @@ function _fnImplementState ( settings, s, callback) {
 	// Store the saved state so it might be accessed at any time
 	settings.oLoadedState = $.extend( true, {}, s );
 
+	_fnCallbackFire( settings, null, 'stateLoadInit', [settings, s] );
+
 	// Page Length
 	if ( s.length !== undefined ) {
 		// If already initialised just set the value directly so that the select element is also updated

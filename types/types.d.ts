@@ -19,7 +19,7 @@
  * in this object are considered private. They can, do, and will
  * change! Always use the API methods for manipulating the table.
  */
-type InternalSettings = {[key: string]: any};
+export type InternalSettings = {[key: string]: any};
 
 export type DomSelector =
     string |
@@ -733,7 +733,7 @@ export interface ConfigSearch {
  * API
  */
 
-export interface Api<T> {
+export interface Api<T=any> {
     /**
      * API should be array-like
      */
@@ -921,13 +921,13 @@ export interface Api<T> {
      * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
      * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
      */
-    iterator(type: 'table', callback: InteratorTable, returns: boolean): Api<any>;
-    iterator(type: 'cell', callback: InteratorCell, returns: boolean): Api<any>;
-    iterator(type: 'column-rows', callback: InteratorColumnRows, returns: boolean): Api<any>;
-    iterator(type: 'column', callback: InteratorColumn, returns: boolean): Api<any>;
-    iterator(type: 'columns', callback: InteratorColumns, returns: boolean): Api<any>;
-    iterator(type: 'row', callback: InteratorRow, returns: boolean): Api<any>;
-    iterator(type: 'rows', callback: InteratorRows, returns: boolean): Api<any>;
+    iterator(type: 'table', callback: InteratorTable, returns?: boolean): Api<any>;
+    iterator(type: 'cell', callback: InteratorCell, returns?: boolean): Api<any>;
+    iterator(type: 'column-rows', callback: InteratorColumnRows, returns?: boolean): Api<any>;
+    iterator(type: 'column', callback: InteratorColumn, returns?: boolean): Api<any>;
+    iterator(type: 'columns', callback: InteratorColumns, returns?: boolean): Api<any>;
+    iterator(type: 'row', callback: InteratorRow, returns?: boolean): Api<any>;
+    iterator(type: 'rows', callback: InteratorRows, returns?: boolean): Api<any>;
 
     /**
      * Iterate over a result set of table, row, column or cell indexes
@@ -938,13 +938,13 @@ export interface Api<T> {
      * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
      * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
      */
-    iterator(flatten: boolean, type: 'table', callback: InteratorTable, returns: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'cell', callback: InteratorCell, returns: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'column-rows', callback: InteratorColumnRows, returns: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'column', callback: InteratorColumn, returns: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'columns', callback: InteratorColumns, returns: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'row', callback: InteratorRow, returns: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'rows', callback: InteratorRows, returns: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'table', callback: InteratorTable, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'cell', callback: InteratorCell, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'column-rows', callback: InteratorColumnRows, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'column', callback: InteratorColumn, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'columns', callback: InteratorColumns, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'row', callback: InteratorRow, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'rows', callback: InteratorRows, returns?: boolean): Api<any>;
 
     /**
      * Join the elements in the result set into a string.
@@ -2533,6 +2533,14 @@ export interface ApiTablesMethods<T> extends Api<T> {
      * @returns Array of HTML div nodes for all table in the API's context
      */
     containers(): Api<Array<Node>>;
+
+    /**
+     * Iterate over each selected table, with the function context set to be the table in question. Since: DataTables 1.10.6
+     *
+     * @param fn Function to execute for every table selected.
+     */
+    every(fn: (this: ApiTableMethods<T>, tableIndex: number) => void): Api<any>;
+
 
     /**
      * Get the table nodes for the tables in the API's context
