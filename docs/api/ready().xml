@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>ready()</name>
+	<summary>Determine is a DataTable is ready.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>ready()</signature>
+		<description>
+			Determine the ready state of the table. Note that if your API instance contains context for more than one table, only the state of the first table will be returned.
+		</description>
+		<returns type="boolean">`true` if the table is _ready_, `false` otherwise.</returns>
+	</type>
+
+	<type type="function">
+		<signature>ready( fn )</signature>
+		<description>Execute a function when the table becomes ready, or immediately if already ready.</description>
+		<parameter type="function" name="fn">
+			Function to execute. Scope is set to an API instance for the DataTable in question. No parameters are passed in, nor is any return value expected.
+		</parameter>
+		<returns type="DataTables.Api">API instance for chaining.</returns>
+	</type>
+
+	<description>
+		There are times when you might want to know if a DataTables is in it's "ready" state - i.e. it has initialised, its control elements are on the page and the first data has been loaded and displayed. It can be useful to start working on the data at that point. DataTables has the `-event init` event and `-init initComplete` option that can be used for that, but they only fire once on a table and (without this method) there is no way to know if the table is ready or not.
+
+		This method can be used in two different ways; firstly to determine the ready state of a DataTable, and secondly to execute a function when the table becomes ready, or immediately if the table is already ready.
+	</description>
+
+	<example title="Execute a function for a DOM loaded table - this will happen immediately since the table initialisation is synchronous."><![CDATA[
+let table = new DataTable('#myTable');
+
+table.ready(function () {
+	// Actions to take when the table is ready
+	// ...
+});
+]]></example>
+
+	<example title="Execute a function for an Ajax loaded table - this will happen after the data has been loaded, which happens asynchronously."><![CDATA[
+let table = new DataTable('#myTable', {
+	ajax: '/api/data'
+});
+
+table.ready(function () {
+	// Actions to take when the table is ready
+	// ...
+});
+]]></example>
+
+	<related>-event init</event>
+	<related>-init initComplete</event>
+</dt-api>

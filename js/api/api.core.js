@@ -41,6 +41,13 @@ _api_register( 'clear()', function () {
 } );
 
 
+_api_register( 'error()', function (msg) {
+	return this.iterator( 'table', function ( settings ) {
+		_fnLog( settings, 0, msg );
+	} );
+} );
+
+
 _api_register( 'settings()', function () {
 	return new _Api( this.context, this.context );
 } );
@@ -63,6 +70,31 @@ _api_register( 'trigger()', function ( name, args, bubbles ) {
 	return this.iterator( 'table', function ( settings ) {
 		return _fnCallbackFire( settings, null, name, args, bubbles );
 	} ).flatten();
+} );
+
+
+_api_register( 'ready()', function ( fn ) {
+	var ctx = this.context;
+
+	// Get status of first table
+	if (! fn) {
+		return ctx.length
+			? (ctx[0]._bInitComplete || false)
+			: null;
+	}
+
+	// Function to run either once the table becomes ready or
+	// immediately if it is already ready.
+	return this.tables().every(function () {
+		if (this.context[0]._bInitComplete) {
+			fn.call(this);
+		}
+		else {
+			this.on('init', function () {
+				fn.call(this);
+			});
+		}
+	} );
 } );
 
 

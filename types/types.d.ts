@@ -873,6 +873,13 @@ export interface Api<T=any> {
     eq(idx: number): Api<any>;
 
     /**
+     * Show an error message to the end user / developer through the DataTables logging settings.
+     *
+     * @param msg Error message to show
+     */
+    error(msg: string): Api<T>;
+
+    /**
      * Iterate over the result set of an API instance and test each item, creating a new instance from those items which pass.
      *
      * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters.
@@ -1065,6 +1072,18 @@ export interface Api<T=any> {
      * @returns The length of the modified API instance
      */
     push(value_1: any, ...value_2: any[]): number;
+
+    /**
+     * Determine if the DataTable is ready or not
+     */
+    ready(): boolean;
+
+    /**
+     * Execute a function when the DataTable becomes ready (or immediately if it already is)
+     *
+     * @param fn Function to execute
+     */
+    ready(fn: ((this: Api<T>) => void)): Api<T>;
 
     /**
      * Apply a callback function against and accumulator and each element in the Api's result set (left-to-right).

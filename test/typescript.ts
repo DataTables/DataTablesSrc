@@ -74,8 +74,16 @@ expectType<string>(table.caption());
 expectType<Api<any>>(table.caption('New caption'));
 expectType<Api<any>>(table.caption('Other caption', 'bottom'));
 
+expectType<Api<any>>(table.error('Error message'));
+
 expectType<Api<any>>(table.trigger('name', []));
 expectType<Api<any>>(table.trigger('name', [], true));
+
+expectType<boolean>(table.ready());
+expectType<Api<any>>(table.ready(function () {
+	expectType<Api<any>>(this);
+	expectType<Api<any>>(this.draw());
+}));
 
 expectType<Api<any>>(table.order(
 	{idx: 1, dir: 'asc'},
@@ -221,6 +229,8 @@ tableRowType.rows().every(function () {
 	expectType<IRow>(this.data());
 	expectType<number>(this.index());
 });
+
+
 
 /*
  * Static

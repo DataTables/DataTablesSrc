@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="utility">
+	<name>error()</name>
+	<summary>Trigger an error message.</summary>
+	<since>2.0</since>
+
+	<type type="function">
+		<signature>error( msg )</signature>
+		<description>Show an error message to the end user / developer.</description>
+		<parameter type="string" name="msg">
+			Error message to show.
+		</parameter>
+		<returns type="DataTables.Api">API instance for chaining.</returns>
+	</type>
+
+	<description>
+		This method is used to show error messages to the developer building on DataTables (or to the end user if the error occurs in a deployed environment). It is primarily intended for use by plug-in developers who need to report an error state in the same way as DataTables core does (i.e. the `-init DataTable.ext.errMode` parameter will determine how the error message is shown).
+	</description>
+
+	<example title="Simple call of the method"><![CDATA[
+var table = new DataTable('#myTable');
+
+table.error('Plug-in configuration error message...');
+]]></example>
+
+</dt-api>
