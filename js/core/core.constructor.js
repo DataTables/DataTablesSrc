@@ -292,6 +292,8 @@ if ( rowOne.length ) {
 	} );
 }
 
+_colGroup( oSettings );
+
 var features = oSettings.oFeatures;
 var loadedInit = function () {
 	/*

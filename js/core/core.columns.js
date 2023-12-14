@@ -14,7 +14,7 @@ function _fnAddColumn( oSettings )
 		"mData": oDefaults.mData ? oDefaults.mData : iCol,
 		idx: iCol,
 		searchFixed: {},
-		colEl: $('<col>').appendTo(oSettings.colgroup)
+		colEl: $('<col>')
 	} );
 	oSettings.aoColumns.push( oCol );
 

@@ -266,3 +266,20 @@ function _fnStringToCss( s )
 		s;
 }
 
+/**
+ * Re-insert the `col` elements for current visibility
+ *
+ * @param {*} settings DT settings
+ */
+function _colGroup( settings ) {
+	var cols = settings.aoColumns;
+
+	settings.colgroup.empty();
+
+	for (i=0 ; i<cols.length ; i++) {
+		if (cols[i].bVisible) {
+			settings.colgroup.append(cols[i].colEl);
+		}
+	}
+}
+
