@@ -106,7 +106,9 @@ function _fnImplementState ( settings, s, callback) {
 	// Store the saved state so it might be accessed at any time
 	settings.oLoadedState = $.extend( true, {}, s );
 
-	_fnCallbackFire( settings, null, 'stateLoadInit', [settings, s] );
+	// This is needed for ColReorder, which has to happen first to allow all
+	// the stored indexes to be usable. It is not publicly documented.
+	_fnCallbackFire( settings, null, 'stateLoadInit', [settings, s], true );
 
 	// Page Length
 	if ( s.length !== undefined ) {

@@ -25,6 +25,8 @@ function _fnInitialise ( settings )
 	_fnAddOptionsHtml( settings );
 	_fnSortInit( settings );
 
+	_colGroup( settings );
+
 	/* Okay to show that something is going on now */
 	_fnProcessingDisplay( settings, true );
 
