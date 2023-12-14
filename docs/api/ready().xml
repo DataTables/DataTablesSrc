@@ -47,6 +47,6 @@ table.ready(function () {
 });
 ]]></example>
 
-	<related>-event init</event>
-	<related>-init initComplete</event>
+	<related>-event init</related>
+	<related>-init initComplete</related>
 </dt-api>
