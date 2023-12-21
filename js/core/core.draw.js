@@ -678,9 +678,6 @@ function _fnAddOptionsHtml ( settings )
 {
 	var classes = settings.oClasses;
 	var table = $(settings.nTable);
-	var top = _layoutArray( settings, settings.layout, 'top' );
-	var bottom = _layoutArray( settings, settings.layout, 'bottom' );
-	var renderer = _fnRenderer( settings, 'layout' );
 
 	// Wrapper div around everything DataTables controls
 	var insert = $('<div/>')
@@ -691,6 +688,10 @@ function _fnAddOptionsHtml ( settings )
 		.insertBefore(table);
 
 	settings.nTableWrapper = insert[0];
+
+	var top = _layoutArray( settings, settings.layout, 'top' );
+	var bottom = _layoutArray( settings, settings.layout, 'bottom' );
+	var renderer = _fnRenderer( settings, 'layout' );
 
 	if (settings.sDom) {
 		// Legacy
