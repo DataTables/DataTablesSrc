@@ -156,6 +156,8 @@ code:after {
 
 a code {
   text-decoration: underline;
+  height: auto;
+  padding: 1px 4px !important;
 }
 
 code.option {

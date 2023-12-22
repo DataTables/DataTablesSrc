@@ -193,6 +193,8 @@ code {
   
 a code {
 	text-decoration: underline;
+	height: auto !important; // Bulma
+	padding: 1px 4px !important; // Bulma
 }
 
 code {

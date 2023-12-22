@@ -39,6 +39,10 @@ window.dt_demo = {
 			dt_demo._addLib(framework, 'js');
 		}
 
+		if (framework === 'bulma') {
+			dt_demo._addLib('font-awesome', 'css');
+		}
+
 		for (var i=0 ; i<libs.css.length ; i++) {
 			dt_demo._addLib(libs.css[i], 'css', framework);
 		}
