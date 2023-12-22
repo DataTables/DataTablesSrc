@@ -156,8 +156,9 @@ code:after {
 
 a code {
   text-decoration: underline;
-  height: auto;
+  height: auto !important;
   padding: 1px 4px !important;
+  margin-bottom: 0 !important;
 }
 
 code.option {
