@@ -1,11 +1,8 @@
 
 $(document).on('plugin-init.dt', function (e, context) {
 	var api = new _Api( context );
-	var namespace = 'on-plugin-init';
-	var stateSaveParamsEvent = 'stateSaveParams.' + namespace;
-	var destroyEvent = 'destroy. ' + namespace;
 
-	api.on( stateSaveParamsEvent, function ( e, settings, d ) {
+	api.on( 'stateSaveParams.DT', function ( e, settings, d ) {
 		// This could be more compact with the API, but it is a lot faster as a simple
 		// internal loop
 		var idFn = settings.rowIdFn;
@@ -24,22 +21,27 @@ $(document).on('plugin-init.dt', function (e, context) {
 		d.childRows = ids;
 	});
 
-	api.on( destroyEvent, function () {
-		api.off(stateSaveParamsEvent + ' ' + destroyEvent);
+	// For future state loads (e.g. with StateRestore)
+	api.on( 'stateLoaded.DT', function (e, settings, state) {
+		__details_state_load( api, state );
 	});
 
-	var loaded = api.state.loaded();
+	// And the initial load state
+	__details_state_load( api, api.state.loaded() );
+});
 
-	if ( loaded && loaded.childRows ) {
+var __details_state_load = function (api, state)
+{
+	if ( state && state.childRows ) {
 		api
-			.rows( loaded.childRows.map(function (id){
+			.rows( state.childRows.map(function (id){
 				return id.replace(/:/g, '\\:')
 			}) )
 			.every( function () {
-				_fnCallbackFire( context, null, 'requestChild', [ this ] )
+				_fnCallbackFire( api.settings()[0], null, 'requestChild', [ this ] )
 			});
 	}
-});
+}
 
 var __details_add = function ( ctx, row, data, klass )
 {
