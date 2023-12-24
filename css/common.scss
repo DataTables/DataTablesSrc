@@ -172,13 +172,14 @@ html.dark {
 	table.dataTable {
 		td.dt-control {
 			&:before {
-				color: rgba(255, 255, 255, 0.5);
+				border-left-color: rgba(255, 255, 255, 0.5);
 			}
 		}
 
 		tr.dt-hasChild {
 			td.dt-control:before {
-				color: rgba(255, 255, 255, 0.5);
+				border-top-color: rgba(255, 255, 255, 0.5);
+				border-left-color: transparent;
 			}
 		}
 	}
