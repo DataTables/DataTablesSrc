@@ -803,6 +803,13 @@ DT_Example::$tables['sequence'] = array(
 	'body'    => true
 );
 
+DT_Example::$tables['sequence-wide'] = array(
+	'columns' => array( 'sequence',  'first_name', 'last_name', 'position', 'office', 'age', 'start_date', 'salary', 'extn', 'email' ),
+	'header'  => true,
+	'footer'  => true,
+	'body'    => true
+);
+
 DT_Example::$tables['sequence-reorder-column'] = array(
 	'columns' => array( '', 'sequence', 'name', 'position', 'office', 'start_date', 'salary' ),
 	'header'  => true,
