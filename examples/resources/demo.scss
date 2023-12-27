@@ -617,9 +617,15 @@ i.dt-demo-icon {
 			column-count: 1;
 		}
 	}
-  
-	h1 span {
-		display: block;
+
+	body.dt-example h1 {
+		margin: 0.5em auto;
+	}
+
+	div.dt-demo-options {
+		position: relative;
+		margin: 1em auto 0;
+		width: fit-content;
 	}
 }
 
