@@ -123,6 +123,17 @@ function _fnFeatureHtmlTable ( settings )
 		}
 	} );
 
+	// When focus is put on the header cells, we might need to scroll the body
+	$('th, td', scrollHead).on('focus', function () {
+		var scrollLeft = scrollHead.scrollLeft;
+
+		scrollBody.scrollLeft = scrollLeft;
+
+		if ( footer ) {
+			scrollBody.scrollLeft = scrollLeft;
+		}
+	});
+
 	$(scrollBody).css('max-height', scrollY);
 	if (! scroll.bCollapse) {
 		$(scrollBody).css('height', scrollY);
