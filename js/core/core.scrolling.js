@@ -230,7 +230,7 @@ function _fnScrollDraw ( settings )
 		$('col', settings.colgroup).each(function (i) {
 			var colWidth = this.style.width.replace('px', '');
 
-			if (colWidth < colSizes[i]) {
+			if (colWidth !== colSizes[i]) {
 				this.style.width = colSizes[i] + 'px';
 			}
 		});
