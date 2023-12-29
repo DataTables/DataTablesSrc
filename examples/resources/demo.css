@@ -459,6 +459,11 @@ div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__title {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding-bottom: 12px;
 }
+div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selector__title p.dt-demo-warning {
+  margin-top: 1em;
+  text-align: left;
+  padding: 0 1em;
+}
 div.dt-demo-selector div.dt-demo-selector__options p {
   margin: 0;
   font-size: 0.85em;

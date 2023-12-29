@@ -475,8 +475,8 @@ window.dt_demo = {
 		$('div.dt-demo-selector__current', selector)
 			.prepend('<i class="dt-demo-icon warning" style="margin-right: 0.75em;"></i>');
 
-		$('div.dt-demo-selector__options', selector)
-			.append($('<p class="dt-demo-warning">').html(msg));
+		$('div.dt-demo-selector__title', selector)
+			.append($('<p class="dt-demo-warning">').html('<i class="dt-demo-icon warning"></i> ' + msg));
 	},
 
 	_options: function (title, container, options, initVal, cb, info) {

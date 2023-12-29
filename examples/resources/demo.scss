@@ -560,6 +560,12 @@ div.dt-demo-selector {
 			margin: 0.5em -0.5em;
 			border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 			padding-bottom: 12px;
+
+			p.dt-demo-warning {
+				margin-top: 1em;
+				text-align: left;
+				padding: 0 1em;
+			}
 		}
 
 		p {
