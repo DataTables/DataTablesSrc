@@ -72,6 +72,11 @@ div.dt-container.ui.grid {
 		text-align: center;
 	}
 
+	div.dt-scroll {
+		width: 100%;
+		padding: 0;
+	}
+
 	// Merge the three scrolling tables into one
 	div.dt-scroll-head {
 		table.dataTable {
