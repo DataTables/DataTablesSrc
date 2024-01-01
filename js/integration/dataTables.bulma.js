@@ -74,7 +74,7 @@ DataTable.ext.renderer.layout.bulma = function ( settings, container, items ) {
 			style.marginLeft = 'auto';
 		}
 		else {
-			klass = 'column is-narrow';
+			klass = 'column is-full';
 			style.marginLeft = 'auto';
 			style.marginRight = 'auto';
 		}

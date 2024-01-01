@@ -95,7 +95,7 @@ DataTable.ext.renderer.layout.foundation = function ( settings, container, items
 			style.marginLeft = 'auto';
 		}
 		else if ( key === 'full' ) {
-			klass += 'cell shrink';
+			klass += 'cell';
 			style.marginLeft = 'auto';
 			style.marginRight = 'auto';
 		}
