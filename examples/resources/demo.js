@@ -331,6 +331,7 @@ window.dt_demo = {
 		// jQuery / Vanilla selector
 		var initType = dt_demo.storage.get('dt-demo-runtime') || 'vanilla-js';
 		var initStyle = dt_demo.storage.get('dt-demo-style') || 'datatables';
+		var finish;
 
 		// Show a warning if there is no script for this version
 		if (types) {
@@ -370,11 +371,15 @@ window.dt_demo = {
 
 				// Hide the code block that isn't being run
 				if (initType === 'jquery') {
-					types.jquery();
+					finish = function () {
+						types.jquery();
+					}
 					$('#js-vanilla').css('display', 'none');
 				}
 				else {
-					types.vanilla();
+					finish = function () {
+						types.vanilla();
+					}
 					$('#js-jquery').css('display', 'none');
 				}
 			}
@@ -454,6 +459,10 @@ window.dt_demo = {
 			},
 			'<p><a href="https://datatables.net/tn/20#Theme">What is this?</a></p>'
 		);
+
+		if (finish) {
+			finish();
+		}
 	},
 
 	_functionHasBody: function (fn) {
