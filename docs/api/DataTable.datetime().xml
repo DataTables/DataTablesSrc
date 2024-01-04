@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.datetime()</name>
+	<summary>Register a date / time format for DataTables to use</summary>
+	<since>1.13</since>
+
+	<type type="function">
+		<signature>datetime( format [, locale ] )</signature>
+		<description>
+			Instruct DataTables to look for date and time data with the format given.
+		</description>
+		<parameter type="string" name="format">
+			The date / time format to detect data in. Please refer to the [Moment.js](https://momentjs.com/docs/#/displaying/format/) or [Luxon](https://moment.github.io/luxon/#/formatting?id=table-of-tokens) document for the full list of tokens, depending on which of the two libraries you are using.
+		</parameter>
+		<parameter type="string" name="locale" default="undefined">
+			The locale to pass to Moment.js / Luxon.
+		</parameter>
+	</type>
+
+	<description>
+		There are any number of formats for how dates and times might be displayed to the end user, so DataTables doesn't attempt to support any format other than ISO8601 by default from the data that it reads (i.e. for sorting). This method let's you register other formats through the use of the [Moment.js](https://momentjs.com/) or the [Luxon](https://moment.github.io/luxon/) libraries.
+
+		Pass a date / time format to this function and DataTables will automatically look for data that matches that format, and treat it as date / time data (for sorting, and advanced search with SearchBuilder). This allows DataTables to support any date / time format that your data might be given as.
+
+		It is worth noting that there are significant advantages to using ISO8601 as the "wire format" and then rendering the date / time data in a way that makes sense for each individual end user's locale - [see this example](https://datatables.net/examples/datetime/auto-locale-moment.html) for how that might done. The function here is used for detected pre-formatted dates and times.
+	</description>
+
+	<example title="Detect dates such as '7 Jun 2011' using Moment.js"><![CDATA[
+DataTable.datetime('D MMM YYYY');
+ 
+new DataTable('#example');
+]]></example>
+
+	<example title="As above, but for Luxon"><![CDATA[
+DataTable.datetime('d MMM yyyy');
+ 
+new DataTable('#example');
+]]></example>
+</dt-api>
