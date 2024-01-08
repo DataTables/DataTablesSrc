@@ -99,6 +99,14 @@ div.dt-scroll-body {
 		margin-top: 0 !important;
 		margin-bottom: 0 !important;
 
+		> tbody > tr:first-child {
+			border-top-width: 0;
+		}
+
+		> thead > tr {
+			border-width: 0 !important;
+		}
+
 		> tbody > tr:last-child > * {
 			border-bottom: none;
 		}
@@ -112,6 +120,10 @@ div.dt-scroll-foot {
 		> table {
 			margin-top: 0 !important;
 			border-top: none;
+
+			> tfoot > tr:first-child {
+				border-top-width: 0 !important;
+			}
 		}
 	}
 }
