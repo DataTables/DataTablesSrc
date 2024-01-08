@@ -21,9 +21,7 @@
 		* `pages` - Total number of pages
 		* `start` - Display index for the first record shown on the current page
 		* `end` - Display index for the last record shown on the current page
-		* `length` - Display length (number of records). Note that generally `start
-		  + length = end`, but this is not always true, for example if there are
-		  only 2 records to show on the final page, with a length of 10.
+		* `length` - Display length (number of records). Note that generally `start + length = end`, but this is not always true, for example if there are only 2 records to show on the final page, with a length of 10.
 		* `recordsTotal` - Full data set length
 		* `recordsDisplay` - Data set length once the current search criteria has been applied.
 		* `serverSide` - A boolean value that indicates if the table is operating in server-side processing mode or not (`dt-init serverSide`). This can be useful when working with paging and the API as index results can be offset by the display start point.
