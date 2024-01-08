@@ -1,6 +1,7 @@
 
 import DataTable, {
 	Api,
+	ApiCellsMethods,
 	ApiColumnMethods,
 	ApiRowMethods,
 	ApiTableMethods,
@@ -96,6 +97,13 @@ expectType<Api<any>>(table.order([
 	[1, 'desc']
 ]));
 
+
+/*
+ * Cells
+ */
+expectType<ApiCellsMethods<any>>(table.cells('th', {order: 'current'}));
+expectType<ApiCellsMethods<any>>(table.cells(1, 0, {order: 'current'}));
+expectType<ApiCellsMethods<any>>(table.cells('*', 0, {order: 'current'}));
 
 /*
  * Columns

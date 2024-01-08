@@ -1577,7 +1577,7 @@ export interface ApiCell<T> {
      * Select the cell found by a cell selector
      *
      * @param cellSelector Cell selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering
+     * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering
      * @returns DataTables API instance with selected cell
      */
     (cellSelector: CellSelector, modifier?: ApiSelectorModifier): ApiCellMethods<T>;
@@ -1587,10 +1587,10 @@ export interface ApiCell<T> {
      *
      * @param rowSelector Row selector.
      * @param columnSelector Column selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering
+     * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering
      * @returns DataTables API instance with selected cell
      */
-    (rowSelector: CellSelector, columnSelector: any, modifier?: ApiSelectorModifier): ApiCellMethods<T>;
+    (rowSelector: RowSelector<T>, columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiCellMethods<T>;
 }
 
 export interface ApiCellMethods<T> extends Omit<Api<T>, 'render'> {
@@ -1652,7 +1652,7 @@ export interface ApiCells<T> {
     /**
      * Select all cells
      *
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering
+     * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering
      * @returns DataTables API instance with selected cells
      */
     (modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
@@ -1661,7 +1661,7 @@ export interface ApiCells<T> {
      * Select cells found by a cell selector
      *
      * @param cellSelector Cell selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering
+     * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering
      * @returns DataTables API instance with selected cells
      */
     (cellSelector: CellSelector, modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
@@ -1671,10 +1671,10 @@ export interface ApiCells<T> {
      *
      * @param rowSelector Row selector.
      * @param columnSelector Column selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering
+     * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering
      * @returns DataTables API instance with selected cells
      */
-    (rowSelector: RowSelector<T>, columnSelector: CellSelector, modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
+    (rowSelector: RowSelector<T>, columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
 }
 
 export interface ApiCellsMethods<T> extends Omit<Api<T>, 'data' | 'render'> {
@@ -1768,8 +1768,8 @@ export interface ApiColumn<T> {
     /**
      * Select the column found by a column selector
      *
-     * @param cellSelector Cell selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+     * @param columnSelector Column selector.
+     * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
      */
     (columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiColumnMethods<T>;
 
@@ -1985,7 +1985,7 @@ export interface ApiColumns<T> {
     /**
      * Select all columns
      *
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+     * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
      * @returns DataTables API instance with selected columns in the result set.
      */
     (modifier?: ApiSelectorModifier): ApiColumnsMethods<T>;
@@ -1993,8 +1993,8 @@ export interface ApiColumns<T> {
     /**
      * Select columns found by a cell selector
      *
-     * @param cellSelector Cell selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+     * @param columnSelector Column selector.
+     * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
      * @returns DataTables API instance with selected columns
      */
     (columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiColumnsMethods<T>;
@@ -2298,7 +2298,7 @@ export interface ApiRow<T> {
      * Select a row found by a row selector
      *
      * @param rowSelector Row selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+     * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
      * @returns DataTables API instance with selected row in the result set
      */
     (rowSelector: RowSelector<T>, modifier?: ApiSelectorModifier): ApiRowMethods<T>;
@@ -2383,7 +2383,7 @@ export interface ApiRows<T> {
     /**
      * Select all rows
      *
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+     * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
      * @returns DataTables API instance with selected rows
      */
     (modifier?: ApiSelectorModifier): ApiRowsMethods<T>;
@@ -2391,8 +2391,8 @@ export interface ApiRows<T> {
     /**
      * Select rows found by a row selector
      *
-     * @param cellSelector Row selector.
-     * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
+     * @param rowSelector Row selector.
+     * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
      * @returns DataTables API instance with selected rows in the result set
      */
     (rowSelector: RowSelector<T>, modifier?: ApiSelectorModifier): ApiRowsMethods<T>;
