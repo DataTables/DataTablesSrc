@@ -25,7 +25,7 @@ $.extend( true, DataTable.ext.classes, {
 	processing: {
 		container: "dt-processing ui segment"
 	},
-	table: 'dataTable unstackable'
+	table: 'dataTable table unstackable'
 } );
 
 
