@@ -168,7 +168,8 @@ table.dataTable {
     }
 }
 
-html.dark {
+html.dark,
+:root[data-bs-theme="dark"] {
 	table.dataTable {
 		td.dt-control {
 			&:before {
