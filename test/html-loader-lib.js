@@ -394,6 +394,23 @@
 			await dt.sleep(500);
 		},
 
+		searchPaneSelect: async function(pane, row, event) {
+			var row = $('div.dtsp-searchPane')
+				.eq(pane)
+				.find('table tbody tr')
+				.eq(row)
+				.find('td:eq(0)');
+
+			if (event) {
+				row.trigger(event);
+			}
+			else {
+				row.trigger('click');
+			}
+
+			await dt.sleep(100);
+		},
+
 		serverSide: function (data, callback, settings) {
 			var out = [];
 
