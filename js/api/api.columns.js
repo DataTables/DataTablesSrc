@@ -156,12 +156,14 @@ var __setColumnVis = function ( settings, column, vis ) {
 		var insertBefore = _pluck(cols, 'bVisible').indexOf(true, column+1);
 
 		for ( i=0, ien=data.length ; i<ien ; i++ ) {
-			tr = data[i].nTr;
-			cells = data[i].anCells;
+			if (data[i]) {
+				tr = data[i].nTr;
+				cells = data[i].anCells;
 
-			if ( tr ) {
-				// insertBefore can act like appendChild if 2nd arg is null
-				tr.insertBefore( cells[ column ], cells[ insertBefore ] || null );
+				if ( tr ) {
+					// insertBefore can act like appendChild if 2nd arg is null
+					tr.insertBefore( cells[ column ], cells[ insertBefore ] || null );
+				}
 			}
 		}
 	}
