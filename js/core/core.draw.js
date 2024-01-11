@@ -179,13 +179,13 @@ function _fnBuildHead( settings, side )
 	}
 
 	// If no cells yet and we have content for them, then create
-	if ( $('th, td', target).length === 0 && _pluck(settings.aoColumns, titleProp).join('') ) {
+	if ( $('th, td', target).length === 0 && (side === 'header' || _pluck(settings.aoColumns, titleProp).join('')) ) {
 		row = $('<tr/>')
 			.appendTo( target );
 
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 			$('<th/>')
-				.html( columns[i][titleProp] )
+				.html( columns[i][titleProp] || '' )
 				.appendTo( row );
 		}
 	}
