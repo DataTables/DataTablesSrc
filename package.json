@@ -57,6 +57,7 @@
   "dependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
     "rollup": "^4.9.0",
+    "sass": "^1.69.7",
     "typescript": "^5.3.2"
   }
 }

@@ -94,7 +94,7 @@ function build_css {
 
 	for file in $(find $SRC_DIR -name "dataTables.*.scss"); do
 		filename=$(basename $file .scss)
-		sass --stop-on-error --style expanded $file > $OUT_DIR/$filename.css
+		$SASS --stop-on-error --style expanded $file > $OUT_DIR/$filename.css
 		css_compress $OUT_DIR/$filename.css
 	done
 }
@@ -127,7 +127,7 @@ function build_examples {
 		rm -Rf $OUT_DIR
 	fi
 
-	sass --stop-on-error --style expanded $SRC_DIR/resources/demo.scss > $SRC_DIR/resources/demo.css
+	$SASS --stop-on-error --style expanded $SRC_DIR/resources/demo.scss > $SRC_DIR/resources/demo.css
 
 	# Transform in place
 	cp -r $SRC_DIR $OUT_DIR
@@ -186,7 +186,6 @@ function build_repo {
 
 	cp $BUILD_DIR/types/* ${BUILD_DIR}/DataTables/types
 
-	cp -r $BUILD_DIR/images ${BUILD_DIR}/DataTables/
 	if [ -e ${BUILD_DIR}/DataTables/examples ]; then
 		rm -Rf ${BUILD_DIR}/DataTables/examples
 	fi
