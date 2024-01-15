@@ -394,8 +394,20 @@
 			await dt.sleep(500);
 		},
 
-		searchPaneSelect: async function(pane, row, event) {
-			var row = $('div.dtsp-searchPane')
+		searchPaneSelect: async function(table, pane, row, event) {
+			// Argument shifting
+			if (typeof table === 'number') {
+				event = row;
+				row = pane;
+				pane = table;
+				table = $(document);
+			}
+			else {
+				table = $(table);
+			}
+
+			var row = table
+				.find('div.dtsp-searchPane')
 				.eq(pane)
 				.find('table tbody tr')
 				.eq(row)
