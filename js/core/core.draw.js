@@ -314,8 +314,10 @@ function _fnDrawHead( settings, source )
 
 		// All cells are going to be replaced, so empty out the row
 		// Can't use $().empty() as that kills event handlers
-		while( (n = tr.firstChild) ) {
-			tr.removeChild( n );
+		if (tr) {
+			while( (n = tr.firstChild) ) {
+				tr.removeChild( n );
+			}
 		}
 
 		for ( var column=0 ; column<layout[row].length ; column++ ) {
