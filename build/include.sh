@@ -7,8 +7,6 @@ CLOSURE="/usr/local/closure_compiler/compiler.jar"
 JSHINT="/usr/bin/jshint"
 SASS="${INCLUDE_SCRIPT_DIR}/../node_modules/.bin/sass"
 
-echo $SASS
-
 
 # CSS styling frameworks that DataTables supports
 FRAMEWORKS=(
