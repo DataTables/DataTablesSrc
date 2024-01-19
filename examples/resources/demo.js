@@ -299,6 +299,9 @@ window.dt_demo = {
 		// init html
 		var types = dt_demo._struct;
 		var demoHtml = '';
+
+		var event = new Event('dt-demo-run');
+		document.dispatchEvent(event);
 		
 		if ($('div.demo-html').length) {
 			demoHtml = $('div.demo-html').html().trim();
