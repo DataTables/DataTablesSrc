@@ -316,7 +316,19 @@ div.tabs {
 body.dt-example-bulma > div.container > section > ul.tabs {
   top: 0px;
 }
+body.dt-example-bulma .tabs p {
+  white-space: initial;
+}
 
+body.dt-example-foundation ul.tabs {
+  border-bottom-width: 2px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+body.dt-example-foundation div.tabs {
+  clear: initial;
+}
 body.dt-example-foundation table.dataTable input,
 body.dt-example-foundation table.dataTable select {
   margin-bottom: 0;

@@ -385,14 +385,33 @@ div.tabs {
 	border-radius: 5px;
 }
   
-body.dt-example-bulma > div.container > section > ul.tabs {
-	top: 0px;
+body.dt-example-bulma {
+	> div.container > section > ul.tabs {
+		top: 0px;
+	}
+
+	.tabs p {
+		white-space: initial;
+	}
 }
 
-body.dt-example-foundation table.dataTable {
-	input,
-	select {
-		margin-bottom: 0;
+body.dt-example-foundation {
+	ul.tabs {
+		border-bottom-width: 2px;
+		border-top: none;
+		border-left: none;
+		border-right: none;
+	}
+
+	div.tabs {
+		clear: initial;
+	}
+
+	table.dataTable {
+		input,
+		select {
+			margin-bottom: 0;
+		}
 	}
 }
 
