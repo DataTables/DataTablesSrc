@@ -147,13 +147,17 @@ function build_examples {
 function build_lint {
 	echo_section "Lint"
 
-	eslint ${BUILD_DIR}/js/dataTables.js
-	RESULT=$?
+	if [ -e $ESLINT ]; then
+		$ESLINT ${BUILD_DIR}/js/dataTables.js
+		RESULT=$?
 
-	if [ $RESULT -ne 0 ]; then
-		echo_error "Lint failed"
+		if [ $RESULT -ne 0 ]; then
+			echo_error "Lint failed"
+		else
+			echo_msg "Pass"
+		fi
 	else
-		echo_msg "Pass"
+		echo_error "ESLint not installed"
 	fi
 }
 

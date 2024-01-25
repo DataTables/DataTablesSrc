@@ -6,6 +6,7 @@ INCLUDE_SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null &
 CLOSURE="/usr/local/closure_compiler/compiler.jar"
 JSHINT="/usr/bin/jshint"
 SASS="${INCLUDE_SCRIPT_DIR}/../node_modules/.bin/sass"
+ESLINT="${INCLUDE_SCRIPT_DIR}/../node_modules/.bin/eslint"
 
 
 # CSS styling frameworks that DataTables supports
@@ -145,8 +146,13 @@ function js_wrap {
 	if [[ $FILE == *"searchPanes"* ]]; then
 		echo_msg "  Skipping lint of SearchPanes"
 	else
-		echo_msg "  Linting UMD"
-		eslint "$DIR/$FILE.js"
+		if [ -f $ESLINT ]; then
+			echo_msg "  Linting UMD"
+
+			$ESLINT "$DIR/$FILE.js"
+		else
+			echo "No ESLint"
+		fi
 	fi
 }
 
