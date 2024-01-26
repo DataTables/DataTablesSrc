@@ -344,7 +344,7 @@ div.syntaxhighlighter {
 	}
 }
   
-ul.tabs {
+ul.dt-tabs {
 	position: relative;
 	display: block;
 	top: 1px;
@@ -378,35 +378,14 @@ ul.tabs {
 	}
 }
   
-div.tabs {
+div.dt-tabs {
 	clear: both;
 	margin-top: -1px;
 	display: block;
 	border-radius: 5px;
 }
-  
-body.dt-example-bulma {
-	> div.container > section > ul.tabs {
-		top: 0px;
-	}
-
-	.tabs p {
-		white-space: initial;
-	}
-}
 
 body.dt-example-foundation {
-	ul.tabs {
-		border-bottom-width: 2px;
-		border-top: none;
-		border-left: none;
-		border-right: none;
-	}
-
-	div.tabs {
-		clear: initial;
-	}
-
 	table.dataTable {
 		input,
 		select {
@@ -433,7 +412,7 @@ body.dt-example-tailwindcss {
 	}
 
 	div.info,
-	div.tabs,
+	div.dt-tabs,
 	div.footer {
 		a {
 			color: #3174c7;
@@ -446,7 +425,7 @@ body.dt-example-tailwindcss {
 }
   
 div {
-	&.tabs > div {
+	&.dt-tabs > div {
 		padding: 1.5em;
 		border: 1px solid #ccc;
 		display: none;
@@ -661,7 +640,7 @@ html.dark {
 	}
 
 	div.info a,
-	div.tabs a,
+	div.dt-tabs a,
 	div.footer a {
 		color: rgb(110, 168, 254);
 	}
@@ -706,7 +685,7 @@ html.dark {
 		border: 1px solid rgb(5, 5, 5);
 	}
   
-	ul.tabs li {
+	ul.dt-tabs li {
 		color: inherit;
 	
 		&.active {
@@ -717,7 +696,7 @@ html.dark {
 	}
   
 	div {
-		&.tabs > div {
+		&.dt-tabs > div {
 			background-color: rgb(28, 30, 31);
 			border: 1px solid rgb(73, 80, 87);
 			box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);

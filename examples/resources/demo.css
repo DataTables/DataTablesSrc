@@ -274,7 +274,7 @@ div.syntaxhighlighter code:after {
   display: none;
 }
 
-ul.tabs {
+ul.dt-tabs {
   position: relative;
   display: block;
   top: 1px;
@@ -283,7 +283,7 @@ ul.tabs {
   padding-left: 2rem;
   font-size: 1em;
 }
-ul.tabs li {
+ul.dt-tabs li {
   display: block;
   float: left;
   padding: 0 15px;
@@ -297,7 +297,7 @@ ul.tabs li {
   border-bottom: none;
   margin-top: -1px;
 }
-ul.tabs li.active {
+ul.dt-tabs li.active {
   border: 1px solid #ccc;
   border-bottom: 1px solid white;
   margin-top: 0;
@@ -306,29 +306,13 @@ ul.tabs li.active {
   background-color: white;
 }
 
-div.tabs {
+div.dt-tabs {
   clear: both;
   margin-top: -1px;
   display: block;
   border-radius: 5px;
 }
 
-body.dt-example-bulma > div.container > section > ul.tabs {
-  top: 0px;
-}
-body.dt-example-bulma .tabs p {
-  white-space: initial;
-}
-
-body.dt-example-foundation ul.tabs {
-  border-bottom-width: 2px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-}
-body.dt-example-foundation div.tabs {
-  clear: initial;
-}
 body.dt-example-foundation table.dataTable input,
 body.dt-example-foundation table.dataTable select {
   margin-bottom: 0;
@@ -348,7 +332,7 @@ body.dt-example-tailwindcss h3 {
   font-weight: bold;
 }
 body.dt-example-tailwindcss div.info a,
-body.dt-example-tailwindcss div.tabs a,
+body.dt-example-tailwindcss div.dt-tabs a,
 body.dt-example-tailwindcss div.footer a {
   color: #3174c7;
 }
@@ -356,39 +340,39 @@ body.dt-example-tailwindcss p {
   margin: 0.5em 0;
 }
 
-div.tabs > div {
+div.dt-tabs > div {
   padding: 1.5em;
   border: 1px solid #ccc;
   display: none;
   border-radius: 5px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 }
-div.tabs > div h1 {
+div.dt-tabs > div h1 {
   border-bottom: none;
   margin-top: 1em;
 }
-div.tabs > div > p {
+div.dt-tabs > div > p {
   margin-bottom: 1rem;
 }
-div.tabs > div > p:first-child {
+div.dt-tabs > div > p:first-child {
   margin-top: 0;
 }
-div.tabs > div > ul {
+div.dt-tabs > div > ul {
   display: block;
   list-style: none;
   padding-left: 0;
   border-width: 0px;
   margin: 1em 2em;
 }
-div.tabs > div > ul > li {
+div.dt-tabs > div > ul > li {
   display: list-item;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0.2em 1em;
 }
-div.tabs > div > ul > li:first-child {
+div.dt-tabs > div > ul > li:first-child {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-div.tabs > div > ul > li > a {
+div.dt-tabs > div > ul > li > a {
   border-bottom-width: 0px;
   display: block;
   padding: 0px;
@@ -531,7 +515,7 @@ html.dark body {
   color: rgb(218, 224, 231);
 }
 html.dark div.info a,
-html.dark div.tabs a,
+html.dark div.dt-tabs a,
 html.dark div.footer a {
   color: rgb(110, 168, 254);
 }
@@ -565,23 +549,23 @@ html.dark code {
   background-color: rgb(28, 30, 31);
   border: 1px solid rgb(5, 5, 5);
 }
-html.dark ul.tabs li {
+html.dark ul.dt-tabs li {
   color: inherit;
 }
-html.dark ul.tabs li.active {
+html.dark ul.dt-tabs li.active {
   border: 1px solid rgb(73, 80, 87);
   border-bottom: 1px solid rgb(28, 30, 31);
   background-color: rgb(28, 30, 31);
 }
-html.dark div.tabs > div {
+html.dark div.dt-tabs > div {
   background-color: rgb(28, 30, 31);
   border: 1px solid rgb(73, 80, 87);
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
 }
-html.dark div.tabs > div > ul > li {
+html.dark div.dt-tabs > div > ul > li {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-html.dark div.tabs > div > ul > li:first-child {
+html.dark div.dt-tabs > div > ul > li:first-child {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 html.dark code.option {
