@@ -3,7 +3,8 @@ function _fnSortInit( settings ) {
 	var target = settings.nTHead;
 	var headerRows = target.querySelectorAll('tr');
 	var legacyTop = settings.bSortCellsTop;
-
+	var notSelector = ':not([data-dt-order="disable"]):not([data-dt-order="icon-only"])';
+	
 	// Legacy support for `orderCellsTop`
 	if (legacyTop === true) {
 		target = headerRows[0];
@@ -12,11 +13,12 @@ function _fnSortInit( settings ) {
 		target = headerRows[ headerRows.length - 1 ];
 	}
 
-	var notSelector = ':not([data-dt-order="disable"]):not([data-dt-order="icon-only"])';
 	_fnSortAttachListener(
 		settings,
 		target,
-		'tr'+notSelector+' th'+notSelector+', tr'+notSelector+' td'+notSelector+''
+		target === settings.nTHead
+			? 'tr'+notSelector+' th'+notSelector+', tr'+notSelector+' td'+notSelector
+			: 'th'+notSelector+', td'+notSelector
 	);
 
 	// Need to resolve the user input array into our internal structure
