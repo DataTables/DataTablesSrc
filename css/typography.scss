@@ -1,5 +1,7 @@
 
-table.dataTable {
+$table-typography-selector: '' !default;
+
+table.dataTable#{$table-typography-selector} {
 	&.nowrap {
 		th, td {
 			white-space: nowrap;
