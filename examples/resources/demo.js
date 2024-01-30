@@ -430,7 +430,7 @@ window.dt_demo = {
 					dt_demo.storage.set('dt-demo-style', option.val);
 					dt_demo._changeStyle(option, container, initStyle);
 				},
-				'<p><a href="https://datatables.net/tn/20#Style">What is this?</a></p>'
+				'<p><a href="https://datatables.net/tn/20#Styling-framework">What is this?</a></p>'
 			);
 		}
 
