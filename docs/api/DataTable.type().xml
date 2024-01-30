@@ -63,8 +63,8 @@ DataTable.type('ipv4', {
 	detect: function (data) {
 		return typeof data === 'string' &&
 			data.match(/^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/)
-			? 'ipv4'
-			: null;
+				? 'ipv4'
+				: null;
 	},
 	order: {
 		pre: function (data) {
