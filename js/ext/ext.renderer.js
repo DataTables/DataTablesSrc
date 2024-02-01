@@ -116,6 +116,10 @@ $.extend( true, DataTable.ext.renderer, {
 					'dt-'+key+' ' :
 					'';
 
+				if (val.table) {
+					row.addClass('dt-layout-table');
+				}
+
 				$('<div/>')
 					.attr({
 						id: val.id || null,
