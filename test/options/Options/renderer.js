@@ -50,7 +50,7 @@ function checkHeaders(first, last) {
 function checkButtons(rendered) {
 	expect($('div.dt-paging button').length).toBe(10); // paging
 	expect($('div.dt-paging span').length).toBe(0); // paging
-	expect($('thead th:eq(0)').children().length).toBe(1); // header
+	expect($('thead th:eq(0)').children().length).toBe(2); // header
 
 	if (rendered) {
 		$('div.dt-paging button:eq(5)').click();
