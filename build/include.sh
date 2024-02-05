@@ -177,12 +177,16 @@ function js_compress {
 
 		cp $DIR/$FILE.$COMP_EXTN /tmp/$FILE.$COMP_EXTN
 
-		$UGLIFY /tmp/$FILE.$COMP_EXTN -c -m --comments /^!/ -o /tmp/$FILE.min.$COMP_EXTN 
+		if [ -e $UGLIFY ]; then
+			$UGLIFY /tmp/$FILE.$COMP_EXTN -c -m --comments /^!/ -o /tmp/$FILE.min.$COMP_EXTN 
 
-		mv /tmp/$FILE.min.$COMP_EXTN $DIR/$FILE.min.$COMP_EXTN
-		rm /tmp/$FILE.$COMP_EXTN
+			mv /tmp/$FILE.min.$COMP_EXTN $DIR/$FILE.min.$COMP_EXTN
+			rm /tmp/$FILE.$COMP_EXTN
 
-		echo_msg "    File size: $(ls -l $DIR/$FILE.min.$COMP_EXTN | awk -F" " '{ print $5 }')"
+			echo_msg "    File size: $(ls -l $DIR/$FILE.min.$COMP_EXTN | awk -F" " '{ print $5 }')"
+		else 
+			echo_error "NO UGLIFY - PLEASE RUN npm install"
+		fi
 	fi
 }
 
