@@ -278,7 +278,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	{
 		$that = $this;
 		$text = preg_replace_callback(
-			'/^([a-z]{0,2}\-init |[a-z]{0,2}\-option |[a-z]{0,2}\-api |[a-z]{0,2}\-event |[a-z]{0,2}\-type |[a-z]{0,2}\-button |e\-field |e\-display |[dt]*\-tag |tag |[dt]*\-path |path |\-feature |[dt]*\-string |string )?(.*)$/m',
+			'/^([a-z]{0,2}\-init |[a-z]{0,2}\-option |[a-z]{0,2}\-api |[a-z]{0,2}\-event |[a-z]{0,2}\-type |[a-z]{0,2}\-button |e\-field |e\-display |[dt]*\-tag |tag |[dt]*\-path |path |[dt]*\-feature |[dt]*\-string |string )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
 

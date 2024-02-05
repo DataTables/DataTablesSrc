@@ -1,6 +1,7 @@
 
 $table-row-selected: 224 224 224;
 $table-row-selected-text: 0 0 0;
+$table-typography-selector: '.ui.table';
 
 @import './common.scss';
 @import './ordering.scss';

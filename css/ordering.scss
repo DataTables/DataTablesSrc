@@ -11,7 +11,7 @@ table.dataTable thead {
 
 		&.dt-orderable-asc,
 		&.dt-ordering-asc {
-			&:before {
+			span.dt-column-order:before {
 				position: absolute;
 				display: block;
 				bottom: 50%;
@@ -22,7 +22,7 @@ table.dataTable thead {
 
 		&.dt-orderable-desc,
 		&.dt-ordering-desc {
-			&:after {
+			span.dt-column-order:after {
 				position: absolute;
 				display: block;
 				top: 50%;
@@ -39,12 +39,20 @@ table.dataTable thead {
 			position: relative;
 			padding-right: 30px;
 
-			&:before,
-			&:after {
-				opacity: 0.125;
-				right: 1em;
-				line-height: 9px;
-				font-size: 0.8em;
+			span.dt-column-order {
+				position: absolute;
+				right: 12px;
+				top: 0;
+				bottom: 0;
+				width: 12px;
+
+				&:before,
+				&:after {
+					left: 0;
+					opacity: 0.125;
+					line-height: 9px;
+					font-size: 0.8em;
+				}
 			}
 		}
 
@@ -58,13 +66,13 @@ table.dataTable thead {
 			}
 		}
 
-		&.dt-ordering-asc:before,
-		&.dt-ordering-desc:after {
+		&.dt-ordering-asc span.dt-column-order:before,
+		&.dt-ordering-desc span.dt-column-order:after {
 			opacity: 0.6;
 		}
 
-		&.sorting_desc_disabled:after,
-		&.sorting_asc_disabled:before {
+		&.sorting_desc_disabled span.dt-column-order:after,
+		&.sorting_asc_disabled span.dt-column-order:before {
 			display: none;
 		}
 

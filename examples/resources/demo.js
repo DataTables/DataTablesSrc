@@ -88,7 +88,7 @@ window.dt_demo = {
 		dt_demo._displayFiles('#css-lib-files', dt_demo._loaded.css);
 
 		// css
-		var cssContainer = $('div.tabs div.css');
+		var cssContainer = $('div.dt-tabs div.css');
 		if ( cssContainer.find('code').text() === '' ) {
 			cssContainer.find('code, div').css('display', 'none');
 			cssContainer.find('p').eq(0).css('display', 'none');
@@ -100,7 +100,7 @@ window.dt_demo = {
 		}, 1000)
 
 		// json
-		var ajaxTab = $('ul.tabs li').eq(3).css('display', 'none');
+		var ajaxTab = $('ul.dt-tabs li').eq(3).css('display', 'none');
 
 		$(document).on( 'init.dt', function ( e, settings ) {
 			if ( e.namespace !== 'dt' ) {
@@ -111,8 +111,8 @@ window.dt_demo = {
 
 			var show = function ( str ) {
 				ajaxTab.css( 'display', 'block' );
-				$('div.tabs div.ajax code').remove();
-				$('div.tabs div.ajax div.syntaxhighlighter').remove();
+				$('div.dt-tabs div.ajax code').remove();
+				$('div.dt-tabs div.ajax div.syntaxhighlighter').remove();
 
 				// Old IE :-|
 				try {
@@ -128,13 +128,13 @@ window.dt_demo = {
 					str = first.concat(second).join('\n');
 				}
 
-				$('div.tabs div.ajax').append(
+				$('div.dt-tabs div.ajax').append(
 					$('<code class="multiline language-js"/>').text( str )
 				);
 
 				// This can be really slow for large builds
 				setTimeout( function () {
-					SyntaxHighlighter.highlight( {}, $('div.tabs div.ajax code')[0] );
+					SyntaxHighlighter.highlight( {}, $('div.dt-tabs div.ajax code')[0] );
 				}, 500 );
 			};
 
@@ -151,7 +151,7 @@ window.dt_demo = {
 		} );
 
 		// php
-		var phpTab = $('ul.tabs li').eq(4).css('display', 'none');
+		var phpTab = $('ul.dt-tabs li').eq(4).css('display', 'none');
 
 		$(document).on( 'init.dt.demoSSP', function ( e, settings ) {
 			if ( e.namespace !== 'dt' ) {
@@ -171,25 +171,25 @@ window.dt_demo = {
 					type: 'post',
 					success: function ( txt ) {
 						phpTab.css( 'display', 'block' );
-						$('div.tabs div.php').append(
+						$('div.dt-tabs div.php').append(
 							'<code class="multiline language-php">'+txt+'</code>'
 						);
-						SyntaxHighlighter.highlight( {}, $('div.tabs div.php code')[0] );
+						SyntaxHighlighter.highlight( {}, $('div.dt-tabs div.php code')[0] );
 					}
 				} );
 			}
 		} );
 
 		// Tabs
-		$('ul.tabs').on( 'click', 'li', function () {
-			$('ul.tabs li.active').removeClass('active');
+		$('ul.dt-tabs').on( 'click', 'li', function () {
+			$('ul.dt-tabs li.active').removeClass('active');
 			$(this).addClass('active');
 
-			$('div.tabs>div')
+			$('div.dt-tabs>div')
 				.css('display', 'none')
 				.eq( $(this).index() ).css('display', 'block');
 		} );
-		$('ul.tabs li.active').trigger('click');
+		$('ul.dt-tabs li.active').trigger('click');
 	},
 
 	_appendFileName: function (name, src, type, framework) {
@@ -311,7 +311,7 @@ window.dt_demo = {
 			}
 		}
 
-		$('div.tabs div.table').append(
+		$('div.dt-tabs div.table').append(
 			'<code class="multiline language-html">\t\t\t\t'+
 				escapeHtml( demoHtml )+
 			'</code>'
@@ -430,7 +430,7 @@ window.dt_demo = {
 					dt_demo.storage.set('dt-demo-style', option.val);
 					dt_demo._changeStyle(option, container, initStyle);
 				},
-				'<p><a href="https://datatables.net/tn/20#Style">What is this?</a></p>'
+				'<p><a href="https://datatables.net/tn/20#Styling-framework">What is this?</a></p>'
 			);
 		}
 

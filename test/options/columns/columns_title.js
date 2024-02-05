@@ -19,7 +19,7 @@ describe('columns.title option', function() {
 		});
 
 		it('Has span elements wrapping the contents', function () {
-			var nNodes = $('#example thead tr:eq(0) th span');
+			var nNodes = $('#example thead tr:eq(0) th span.dt-column-title');
 			expect(nNodes[0].textContent).toBe('Name');
 			expect(nNodes[1].textContent).toBe('Position');
 			expect(nNodes[2].textContent).toBe('Office');

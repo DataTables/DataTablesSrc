@@ -298,7 +298,14 @@ div.dt-container {
 		display: table;
 		clear: both;
 		width: 100%;
-		table-layout: fixed;
+
+		&.dt-layout-table {
+			display: block;
+
+			div.dt-layout-cell {
+				display: block;
+			}
+		}
 	}
 
 	div.dt-layout-cell {
