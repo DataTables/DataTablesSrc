@@ -1,3 +1,4 @@
+
 describe('columnDefs option', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -223,6 +224,28 @@ describe('columnDefs option', function() {
 			expect(cells.eq(3).hasClass('dt-orderable-asc')).toBe(true);
 			expect(cells.eq(4).hasClass('dt-orderable-asc')).toBe(true);
 			expect(cells.eq(5).hasClass('dt-orderable-asc')).toBe(true);
+		});
+
+		dt.html('basic');
+		it('Name selector', function() {
+			let table = $('#example').DataTable({
+				columns: [
+					null,
+					{ name: 'action' },
+					null,
+					null,
+					null,
+					null
+				],
+				columnDefs: [
+					{ target: 'action:name' },
+				]
+			});
+
+			let data = table.column('action:name', {order: 'applied'}).data();
+
+			expect(data.length).toBe(57);
+			expect(data[0]).toBe('Accountant');
 		});
 	});
 });

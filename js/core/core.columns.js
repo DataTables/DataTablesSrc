@@ -390,6 +390,14 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn )
 	var i, iLen, j, jLen, k, kLen, def;
 	var columns = oSettings.aoColumns;
 
+	if ( aoCols ) {
+		for ( i=0, iLen=aoCols.length ; i<iLen ; i++ ) {
+			if (aoCols[i] && aoCols[i].name) {
+				columns[i].sName = aoCols[i].name;
+			}
+		}
+	}
+
 	// Column definitions with aTargets
 	if ( aoColDefs )
 	{
@@ -432,22 +440,28 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn )
 				}
 				else if ( typeof target === 'string' )
 				{
-					for ( k=0, kLen=columns.length ; k<kLen ; k++ )
-					{
-						headerLayout.forEach(function (row) {
-							var cell = $(row[k].cell);
-
-							// Legacy support. Note that it means that we don't support
-							// an element name selector only, since they are treated as
-							// class names for 1.x compat.
-							if (target.match(/^[a-z][\w-]*$/i)) {
-								target = '.' + target;
-							}
-
-							if (target === '_all' || cell.is( target )) {
+					for ( k=0, kLen=columns.length ; k<kLen ; k++ ) {
+						if (target.indexOf(':name') !== -1) {
+							if (columns[k].sName === target.replace(':name', '')) {
 								fn( k, def );
 							}
-						});
+						}
+						else {
+							headerLayout.forEach(function (row) {
+								var cell = $(row[k].cell);
+
+								// Legacy support. Note that it means that we don't support
+								// an element name selector only, since they are treated as
+								// class names for 1.x compat.
+								if (target.match(/^[a-z][\w-]*$/i)) {
+									target = '.' + target;
+								}
+
+								if (target === '_all' || cell.is( target )) {
+									fn( k, def );
+								}
+							});
+						}
 					}
 				}
 			}
@@ -455,10 +469,8 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn )
 	}
 
 	// Statically defined columns array
-	if ( aoCols )
-	{
-		for ( i=0, iLen=aoCols.length ; i<iLen ; i++ )
-		{
+	if ( aoCols ) {
+		for ( i=0, iLen=aoCols.length ; i<iLen ; i++ ) {
 			fn( i, aoCols[i] );
 		}
 	}
