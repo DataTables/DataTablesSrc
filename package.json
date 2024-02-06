@@ -58,6 +58,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "rollup": "^4.9.0",
     "sass": "^1.69.7",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.2",
+    "uglify-js": "^3.17.4"
   }
 }
