@@ -568,7 +568,7 @@ function _layoutArray ( settings, layout, side )
 		}
 
 		// And make contents an array
-		if ( ! $.isArray( group[ align ].contents ) ) {
+		if ( ! Array.isArray( group[ align ].contents ) ) {
 			group[ align ].contents = [ group[ align ].contents ];
 		}
 	} );
