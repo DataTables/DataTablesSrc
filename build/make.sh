@@ -165,9 +165,6 @@ function build_examples {
 # Use the latest JS, CSS etc in the DataTables build repo
 # Assumes that the files have already been built
 function build_repo {
-	echo_section "Deploying to build repo"
-	update_build_repo
-
 	# Build DataTables with two different loader types
 	build_js umd.js jquery.dataTables js
 	build_js esm.js jquery.dataTables mjs
@@ -201,62 +198,6 @@ function build_repo {
 }
 
 
-# Build the DataTables/DataTables distribution
-function build_repo_sync {
-	echo_section "Syncing build repo to source repo"
-	update_build_repo
-
-	LAST_HASH=$(cat ${BUILD_DIR}/DataTables/.datatables-commit-sync)
-
-	# Get the commits between the latest commit that the build repo was synced
-	# to and the head
-	COMMITS=$(git log --format=format:%H --reverse ${LAST_HASH}..HEAD)
-
-	if [ "$COMMITS" = "" ]; then
-		echo_msg "Build repo up to date"
-	else
-		CHANGES=0
-
-		for HASH in $COMMITS; do
-			echo_msg "Checking if there are build changes resulting from commit $HASH"
-			git checkout $HASH
-
-			COMMIT_MESSAGE=$(git log -1 --format=format:%B $HASH)
-
-			build_repo
-
-			cd ${BUILD_DIR}/DataTables
-			
-			# git appears to have a bug whereby --quiet doesn't work immediately
-			# after files have been generated. Running twice fixes
-			git diff --quiet --exit-code
-			git diff --quiet --exit-code
-			if [ $? -eq 1 ]; then
-				echo_msg "Committing changes"
-
-				echo $HASH > .datatables-commit-sync
-				git commit -a -m "$COMMIT_MESSAGE"
-				CHANGES=1
-			else
-				echo_msg "No build changes"
-			fi
-
-			cd - > /dev/null 2>&1
-		done
-
-		# Push latest changes up to origin
-		if [ $CHANGES -eq 1 ]; then
-			echo_msg "Pushing changes in build repo up to origin"
-			cd ${BUILD_DIR}/DataTables
-			git push --quiet origin $SYNC_BRANCH
-			cd - > /dev/null 2>&1
-		fi
-	fi
-
-	git checkout --quiet $SYNC_BRANCH
-}
-
-
 function build_descriptors {
 	echo_msg "Updating package descriptors"
 
@@ -264,25 +205,6 @@ function build_descriptors {
 		cat ${BASE_DIR}/descriptors/${FILE} | \
 			sed -e "s/\_VERSION\_/${VERSION}/g" > ${BUILD_DIR}/DataTables/${FILE}
 	done
-}
-
-
-function update_build_repo {
-	if [ ! -d "${BUILD_DIR}/DataTables" ]; then
-		echo_msg "Checking out DataTables/DataTables"
-		cd $BUILD_DIR
-		git clone https://github.com/DataTables/DataTables.git
-		cd - > /dev/null 2>&1
-	else 
-		echo_msg "Pulling latest changes for build repo from origin"
-	fi
-
-	# This will throw away local changes in the build file...
-	# Don't change files in it!
-	cd $BUILD_DIR/DataTables
-	#git pull --quiet origin $SYNC_BRANCH
-	git checkout --quiet -f $SYNC_BRANCH
-	cd - > /dev/null 2>&1
 }
 
 
