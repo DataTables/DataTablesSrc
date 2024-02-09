@@ -211,15 +211,15 @@ table.dataTable {
 		> tr.even {
 			> .sorting_1 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.019);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.019);
 			}
 			> .sorting_2 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.011);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.011);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.011);
 			}
 			> .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.003);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.003);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.003);
 			}
 			
 			&.selected {
