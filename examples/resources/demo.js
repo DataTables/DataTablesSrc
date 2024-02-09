@@ -30,13 +30,8 @@ window.dt_demo = {
 			? libs.targetFramework
 			: initStyle;
 
-		// Always need jQuery at the moment and it needs to be loaded before
-		// BS3/4.
-		dt_demo._addLib('jquery', 'js');
-
 		if (framework !== 'datatables') {
 			dt_demo._addLib(framework, 'css');
-			dt_demo._addLib(framework, 'js');
 		}
 
 		if (framework === 'bulma') {
@@ -45,6 +40,14 @@ window.dt_demo = {
 
 		for (var i=0 ; i<libs.css.length ; i++) {
 			dt_demo._addLib(libs.css[i], 'css', framework);
+		}
+
+		// Always need jQuery at the moment and it needs to be loaded before
+		// BS3/4.
+		dt_demo._addLib('jquery', 'js');
+
+		if (framework !== 'datatables') {
+			dt_demo._addLib(framework, 'js');
 		}
 	
 		for (var i=0 ; i<libs.js.length ; i++) {
@@ -216,11 +219,12 @@ window.dt_demo = {
 		return out.join('|');
 	},
 
-	_loadNext: function () {
+	_loadNext: function (source) {
 		var queue = dt_demo._loadQueue;
+		var cssQueue = dt_demo._loadCssQueue;
 
 		// Check if all libraries have been loaded
-		if (queue.length === 0) {
+		if (queue.length === 0 && cssQueue.length === 0 ) {
 			// Check the document is ready
 			if (document.readyState !== 'loading') {
 				dt_demo._run();
@@ -234,13 +238,36 @@ window.dt_demo = {
 			return;
 		}
 
+		// The css source is just to run the above
+		if (source === 'css') {
+			return;
+		}
+
 		var item = queue.shift();
+
+		if (! item) {
+			return;
+		}
 
 		if (item.type === 'css') {
 			var script = document.createElement('link');
 			script.href = item.src;
 			script.rel = 'stylesheet';
-	
+			script.onload = function () {
+				// We want to wait for all CSS to load, but not individually
+				// like the JS, so the loading queue check is a little
+				// different, here it removes items that were added so an empty
+				// queue indicates all are loaded.
+				var idx = cssQueue.indexOf(item.src);
+
+				if (idx !== -1) {
+					cssQueue.splice(idx, 1);
+				}
+
+				dt_demo._loadNext('css');
+			};
+
+			cssQueue.push(item.src);
 			dt_demo._loaded.css.push(item.src);
 	
 			document.head.appendChild(script);
@@ -269,6 +296,7 @@ window.dt_demo = {
 	},
 
 	_loadQueue: [],
+	_loadCssQueue: [],
 	_loaded: {
 		css: [],
 		js: []
