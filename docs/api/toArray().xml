@@ -13,7 +13,7 @@
 	<description>
 		The DataTables API object provides a lot of the methods that you would expect to find in a native Javascript array and generally acts a lot like an array, but there are times when you want to work directly with a Javascript array rather than a DataTables API instance. This method can be used to create a native Javascript array which contains the same items as contained in the API instance's result set.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
 	</description>
 
 	<example title="Get a plain array of data from a column"><![CDATA[

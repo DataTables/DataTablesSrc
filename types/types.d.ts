@@ -1219,7 +1219,7 @@ export interface Api<T=any> {
     trigger( name: string, args: any[], bubbles?: boolean): Api<T>;
 
     /**
-     * Create a new API instance containing only the unique items from a the elements in an instance's result set.
+     * Create a new API instance containing only the unique items from the elements in an instance's result set.
      * 
      * @returns New Api instance which contains the unique items from the original instance's result set, in its own result set.
      */
