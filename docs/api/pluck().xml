@@ -18,7 +18,7 @@
 	<description>
 		When working with objects you may often find that you want an array containing just one property of the source object. This typically involves writing a trivial loop to create that array, although here, that loop is performed in this method, reducing the amount of code required to a trivial function call to get the data required.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherent a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
 	</description>
 
 	<example title="Pluck the name property from the data objects for the table rows"><![CDATA[
