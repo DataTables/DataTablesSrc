@@ -781,7 +781,7 @@ export interface Api<T=any> {
      *   CSS).
      * @returns DataTables API instance for chaining.
      */
-    caption(set, side?): Api<T>;
+    caption(set: string, side?: 'top' | 'bottom'): Api<T>;
 
     /**
      * Cell (single) selector and methods
@@ -2596,7 +2596,7 @@ export interface DataTablesStatic {
          * @param name The name of the new feature.
          * @param construct A function that will create the elements and event listeners for the feature being added.
          */
-        register(name: string, construct: (dt: InternalSettings, options: any) => HTMLElement | JQuery);
+        register(name: string, construct: (dt: InternalSettings, options: any) => HTMLElement | JQuery): void;
     }
 
     /**
