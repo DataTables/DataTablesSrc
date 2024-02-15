@@ -231,7 +231,9 @@ window.dt_demo = {
 			}
 			else {
 				document.addEventListener('DOMContentLoaded', function () {
-					dt_demo._run();
+					if (queue.length === 0 && cssQueue.length === 0 ) {
+						dt_demo._run();
+					}
 				});
 			}
 
@@ -324,6 +326,12 @@ window.dt_demo = {
 	 * Run example based on code available
 	 */
 	_run: function () {
+		if (dt_demo.hasRun) {
+			return;
+		}
+
+		dt_demo.hasRun = true;
+
 		// init html
 		var types = dt_demo._struct;
 		var demoHtml = '';
@@ -642,7 +650,7 @@ window.dt_demo = {
 		var targetTheme = val;
 
 		if (val === 'dark') {
-			if (styling === 'bootstrap5' || styling === 'datatables') {
+			if (! styling || styling === 'bootstrap5' || styling === 'datatables') {
 				dt_demo._optionsWarning(selector, false);
 			}
 			else {
