@@ -32,6 +32,7 @@ Please see the diagram in the _DOM Structure_ section below for an illustrated e
 ### Values
 
 The values of the parameters in `-init layout` can be any of:
+
 * `-type string` - A string that represents a feature provided by DataTables or a plug-in. The built in features are:
   * `-feature info` - Table information summary
   * `-feature pageLength` - Page length control
@@ -49,7 +50,7 @@ The values of the parameters in `-init layout` can be any of:
 
 DataTables will insert the items given into a grid (suitable for the styling framework you have selected) using the structure depicted below:
 
-<table style="width:500px; margin: 0 auto; border-spacing:5px; border-collapse: separate; text-align: center; color: #555;">
+<table style="width:500px; margin: 0 auto; border-spacing:5px; border-collapse: separate; text-align: center;">
 	<tr>
 		<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>top<b>N</b></i></td>
 	</tr>
