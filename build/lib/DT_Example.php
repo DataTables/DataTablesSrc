@@ -718,10 +718,16 @@ class DT_Example
 		$cdn = DT_Example::$components_cdn;
 
 		foreach ( DT_Example::$components as $component => $opts ) {
-			$path = $component === 'datatables'
-				? 'https://cdn.datatables.net/' . $opts['release']
-				: 'https://cdn.datatables.net/' . $component .'/'. $opts['release'];
-		
+			if ($component === 'datatables') {
+				$path = 'https://cdn.datatables.net/' . $opts['release'];
+			}
+			else if ($component === 'editor') {
+				$path = 'https://editor.datatables.net/extensions/Editor';
+			}
+			else {
+				$path = 'https://cdn.datatables.net/' . $component .'/'. $opts['release'];
+			}
+
 			if (! $cdn) {
 				$path = call_user_func( $this->_path_resolver, $opts['path']);
 			}
