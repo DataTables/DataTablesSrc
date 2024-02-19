@@ -414,6 +414,23 @@ describe('layout option', function() {
 			expect(nodes[5]).toBe(paging[0]);
 		});
 
+		dt.html('basic');
+		it('array - objects', function() {
+			$('table').dataTable({
+				layout: {
+					topStart: [
+						{search: {text: 'Test1'}},
+						{search: {text: 'Test2'}},
+					]
+				}
+			});
+			
+			var nodes = $('div.dt-layout-cell').children();
+
+			nodes.eq(0).children(0).text('Test1');
+			nodes.eq(0).children(1).text('Test2');
+		});
+
 
 
 		dt.html('basic');

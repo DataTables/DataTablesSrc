@@ -541,30 +541,34 @@ function _layoutArray ( settings, layout, side )
 			'full' :
 			splitPos[1].toLowerCase();
 		var group = groups[ splitPos[0] ];
-
-		// Transform to an object with a contents property
-		if ( $.isPlainObject( val ) ) {
-			// Already a group from a previous pass
-			if (val.contents) {
-				group[ align ] = val;
+		var groupRun = function (contents, innerVal) {
+			// If it is an object, then there can be multiple features contained in it
+			if ( $.isPlainObject( innerVal ) ) {
+				Object.keys(innerVal).map(function (key) {
+					contents.push( {
+						feature: key,
+						opts: innerVal[key]
+					});
+				});
 			}
 			else {
-				// For objects, each property becomes an entry in the contents
-				// array for this insert position
-				group[ align ] = {
-					contents: Object.keys(val).map(function (key) {
-						return {
-							feature: key,
-							opts: val[key]
-						};
-					})
-				};
+				contents.push(innerVal);
+			}
+		}
+
+		// Transform to an object with a contents property
+		if (! group[align] || ! group[align].contents) {
+			group[align] = { contents: [] };
+		}
+
+		// Allow for an array or just a single object
+		if ( Array.isArray(val)) {
+			for (var i=0 ; i<val.length ; i++) {
+				groupRun(group[align].contents, val[i]);
 			}
 		}
 		else {
-			group[ align ] = {
-				contents: val
-			};
+			groupRun(group[ align ].contents, val);
 		}
 
 		// And make contents an array
