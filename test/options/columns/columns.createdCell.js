@@ -262,4 +262,37 @@ describe('column.createdCell option', function() {
 			});
 		});
 	});
+
+	describe('Empty table', function() {
+		var counter = 0;
+
+		dt.html('empty_no_header');
+		
+		it('Init the DataTable', function() {
+			$('#example').DataTable({
+				columns: [
+					{
+						title: 'Test',
+						createdCell: function (td, cellData) {
+							counter++;
+							$(td).addClass('test-' + cellData);
+						}
+					}
+				],
+				data: [ [0], [1], [2] ]
+			});
+
+			expect($('tbody tr').length).toBe(3);
+		});
+
+		it('Ran for each cell', function() {
+			expect(counter).toBe(3);
+		});
+
+		it('Applyed to the cell', function() {
+			expect($('tbody td').eq(0).hasClass('test-0')).toBe(true);
+			expect($('tbody td').eq(1).hasClass('test-1')).toBe(true);
+			expect($('tbody td').eq(2).hasClass('test-2')).toBe(true);
+		});
+	});
 });
