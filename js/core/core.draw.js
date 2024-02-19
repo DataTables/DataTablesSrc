@@ -494,8 +494,10 @@ function _emptyRow ( settings ) {
 	var zero = oLang.sZeroRecords;
 	var dataSrc = _fnDataSource( settings );
 
-	if ( settings.iDraw < 1 && (dataSrc === 'ajax' || dataSrc === 'ssp') )
-	{
+	if (
+		(settings.iDraw < 1 && dataSrc === 'ssp') ||
+		(settings.iDraw <= 1 && dataSrc === 'ajax')
+	) {
 		zero = oLang.sLoadingRecords;
 	}
 	else if ( oLang.sEmptyTable && settings.fnRecordsTotal() === 0 )
