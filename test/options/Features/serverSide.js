@@ -68,5 +68,33 @@ describe('serverSide option', function() {
 				}
 			});
 		});
+
+		dt.html('empty');
+		it('Empty record set - loading message', function(done) {
+			$('#example').DataTable({
+				ajax: function (data, cb) {
+					setTimeout(function () {
+						cb({
+							draw: data.draw,
+							recordsTotal: 0,
+							recordsFiltered: 0,
+							data: []
+						});
+					}, 100);
+				},
+				processing: true,
+				serverSide: true,
+				initComplete: function(setting, json) {
+					setTimeout(function () {
+						// Then no data
+						expect($('tbody').text()).toBe('No data available in table');
+						done();
+					}, 100);
+				}
+			});
+
+			// Loading initially
+			expect($('tbody').text()).toBe('Loading...');
+		});
 	});
 });

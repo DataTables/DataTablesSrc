@@ -9,7 +9,23 @@ $('#example').DataTable();
 </js>
 <js-vanilla>
 <![CDATA[
-new DataTable('#example');
+
+var table = new DataTable('#example', {
+  ajax: function (data, cb) {
+    setTimeout(function () {
+    cb({
+      draw: data.draw,
+      recordsTotal: 0,
+      recordsFiltered: 0,
+      data: []
+    });
+    }, 1000);
+  },
+  processing: true,
+  serverSide: true,
+});
+
+
 ]]>
 </js-vanilla>
 
