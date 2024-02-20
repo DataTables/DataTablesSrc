@@ -159,13 +159,19 @@ div.dt-scroll-foot {
 //
 
 // Condensed
-table.dataTable.table-sm {
-	> thead > tr > th:not(.sorting_disabled){
-		padding-right: 20px;
-        	&:before,
-        	&:after {
-          		right: 5px;
-        	}
+table.dataTable.table-sm > thead > tr {
+	th,
+	td {
+		&.dt-orderable-asc,
+		&.dt-orderable-desc,
+		&.dt-ordering-asc,
+		&.dt-ordering-desc {
+			padding-right: 20px;
+
+			span.dt-column-order {
+				right: 5px;
+			}
+		}
 	}
 }
 

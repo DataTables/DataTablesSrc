@@ -164,23 +164,22 @@ div.dt-scroll-foot {
 //
 
 // Condensed
-table.dataTable.table-sm {
-	> thead > tr > th:not(.sorting_disabled){
-		padding-right: 20px;
-	}
+table.dataTable.table-sm > thead > tr {
+	th,
+	td {
+		&.dt-orderable-asc,
+		&.dt-orderable-desc,
+		&.dt-ordering-asc,
+		&.dt-ordering-desc {
+			padding-right: 20px;
 
-	&.dt-orderable-asc,
-	&.dt-orderable-desc {
-		&:before {
-			top: 5px;
-			right: 0.85em;
-		}
-
-		&:after {
-			top: 5px;
+			span.dt-column-order {
+				right: 5px;
+			}
 		}
 	}
 }
+
 
 // Bordered table
 div.dt-scroll-head table.table-bordered {
