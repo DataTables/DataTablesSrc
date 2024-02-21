@@ -66,15 +66,23 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 function _fnSortDisplay(settings) {
 	var display = settings.aiDisplay;
 	var master = settings.aiDisplayMaster;
+	var masterMap = {};
 	var map = {};
+	var i;
 
-	for (var i=0 ; i<display.length ; i++) {
-		map[display[i]] = master.indexOf(display[i]);
+	// Rather than needing an `indexOf` on master array, we can create a map
+	for (i=0 ; i<master.length ; i++) {
+		masterMap[master[i]] = i;
+	}
+
+	// And then cache what would be the indexOf fom the display
+	for (i=0 ; i<display.length ; i++) {
+		map[display[i]] = masterMap[display[i]];
 	}
 
 	display.sort(function(a, b){
+		// Short version of this function is simply `master.indexOf(a) - master.indexOf(b);`
 		return map[a] - map[b];
-		// return master.indexOf(a) - master.indexOf(b);
 	});
 }
 
