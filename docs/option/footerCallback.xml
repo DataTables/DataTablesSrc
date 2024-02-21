@@ -5,9 +5,11 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>footerCallback( tfoot, data, start, end, display )</signature>
-		<parameter type="node" name="tfoot">
-			`-tag tfoot` element of the table's footer
+		<signature>footerCallback( tr, data, start, end, display )</signature>
+		<parameter type="node" name="tr">
+			The element for the first row in the footer (e.g. a `-tag tr`).
+			
+			With DataTables 2's support for multiple rows in the table footer, if you require the `-tag tfoot` to access the other rows, use `tr.parentNode`.
 		</parameter>
 		<parameter type="array" name="data">
 			Full data array of the table. Note that this is in data index order. Use the `display` parameter for the current display order.
@@ -32,8 +34,8 @@
 
 	<example title="Alter the content of the footer on callback"><![CDATA[
 new DataTable('#myTable', {
-	footerCallback: function (tfoot, data, start, end, display) {
-		$(tfoot)
+	footerCallback: function (tr, data, start, end, display) {
+		$(tr)
 			.find('th')
 			.eq(0)
 			.html('Starting index is ' + start);
@@ -43,7 +45,7 @@ new DataTable('#myTable', {
 
 	<example title="Use the API to sum a specific column and output"><![CDATA[
 new DataTable('#myTable', {
-	footerCallback: function (tfoot, data, start, end, display) {
+	footerCallback: function (tr, data, start, end, display) {
 		var api = this.api();
 		$(api.column(5).footer()).html(
 			api
