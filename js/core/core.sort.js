@@ -66,9 +66,15 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 function _fnSortDisplay(settings) {
 	var display = settings.aiDisplay;
 	var master = settings.aiDisplayMaster;
+	var map = {};
 
-	display.sort(function(a, b){  
-		return master.indexOf(a) - master.indexOf(b);
+	for (var i=0 ; i<display.length ; i++) {
+		map[display[i]] = master.indexOf(display[i]);
+	}
+
+	display.sort(function(a, b){
+		return map[a] - map[b];
+		// return master.indexOf(a) - master.indexOf(b);
 	});
 }
 
