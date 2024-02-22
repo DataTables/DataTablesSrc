@@ -43,6 +43,10 @@ describe('core - destroy()', function() {
 			testElementsPresent(false);
 		});
 
+		it('Confirm that colgroup is removed', function() {
+			expect($('#example colgroup').length).toBe(0);
+		});
+
 		dt.html('basic');
 		it('Check default is false', function() {
 			table = $('#example').DataTable();
