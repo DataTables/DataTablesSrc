@@ -1,6 +1,6 @@
 
 // Common function to remove new lines, strip HTML and diacritic control
-var _filterString = function (stripHtml, diacritics) {
+var _filterString = function (stripHtml, normalize) {
 	return function (str) {
 		if (_empty(str) || typeof str !== 'string') {
 			return str;
@@ -12,8 +12,8 @@ var _filterString = function (stripHtml, diacritics) {
 			str = _stripHtml(str);
 		}
 
-		if (diacritics) {
-			str = _normalize(str, true);
+		if (normalize) {
+			str = _normalize(str, false);
 		}
 
 		return str;

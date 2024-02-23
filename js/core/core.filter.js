@@ -155,6 +155,9 @@ function _fnFilterCreateSearch( search, inOpts )
 		search = search.toString();
 	}
 
+	// Remove diacritics if normalize is set up to do so
+	search = _normalize(search);
+
 	if (options.exact) {
 		return new RegExp(
 			'^'+_fnEscapeRegex(search)+'$',
