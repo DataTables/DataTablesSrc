@@ -1,4 +1,4 @@
-/*! DataTables 1.13.10
+/*! DataTables 1.13.11
  * ©2008-2024 SpryMedia Ltd - datatables.net/license
  */
 
