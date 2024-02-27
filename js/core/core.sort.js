@@ -44,6 +44,12 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 					var append = e.shiftKey || i > 0;
 		
 					_fnSortAdd( settings, columns[i], append );
+
+					// If the first entry is no sort, then subsequent
+					// sort columns are ignored
+					if (settings.aaSorting.length === 1 && settings.aaSorting[0][1] === '') {
+						break;
+					}
 				}
 
 				_fnSort( settings );
