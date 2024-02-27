@@ -1,5 +1,5 @@
 
-# DataTables plug-in for jQuery
+# DataTables - enhance HTML tables
 
 This git repository contains the un-built source files for DataTables - an HTML table enhancing library. If you are looking to use DataTables, please use our [download builder](https://datatables.net/download), which include [CDN](https://cdn.datatables.net) and package options, including NPM.
 
