@@ -62,7 +62,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 		for ( i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
 		{
 			oCol = oSettings.aoColumns[i];
-			create = nTrIn ? false : true;
+			create = nTrIn && anTds[i] ? false : true;
 
 			nTd = create ? document.createElement( oCol.sCellType ) : anTds[i];
 
@@ -91,11 +91,11 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			}
 
 			// Visibility - add or remove as required
-			if ( oCol.bVisible && ! nTrIn )
+			if ( oCol.bVisible && create )
 			{
 				nTr.appendChild( nTd );
 			}
-			else if ( ! oCol.bVisible && nTrIn )
+			else if ( ! oCol.bVisible && ! create )
 			{
 				nTd.parentNode.removeChild( nTd );
 			}
@@ -179,14 +179,23 @@ function _fnBuildHead( settings, side )
 	}
 
 	// If no cells yet and we have content for them, then create
-	if ( $('th, td', target).length === 0 && (side === 'header' || _pluck(settings.aoColumns, titleProp).join('')) ) {
-		row = $('<tr/>')
-			.appendTo( target );
+	if (side === 'header' || _pluck(settings.aoColumns, titleProp).join('')) {
+		row = $('tr', target);
 
-		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
-			$('<th/>')
-				.html( columns[i][titleProp] || '' )
-				.appendTo( row );
+		// Add a row if needed
+		if (! row.length) {
+			row = $('<tr/>').appendTo(target)
+		}
+
+		// Add the number of cells needed to make up to the number of columns
+		if (row.length === 1) {
+			var cells = $('td, th', row);
+
+			for ( i=cells.length, ien=columns.length ; i<ien ; i++ ) {
+				$('<th/>')
+					.html( columns[i][titleProp] || '' )
+					.appendTo( row );
+			}
 		}
 	}
 
