@@ -62,7 +62,7 @@ window.dt_demo = {
 	_addLib: function (libName, type, framework) {
 		var types = dt_demo._struct;
 
-		if (libName.indexOf('//') === 0) {
+		if (libName.indexOf('//') === 0 || libName.indexOf('https://') === 0) {
 			src = libName;
 		}
 		else {
