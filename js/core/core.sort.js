@@ -40,8 +40,14 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 
 			// Allow the processing display to show
 			setTimeout( function () {
+				var run = false;
+
 				for ( var i=0, ien=columns.length ; i<ien ; i++ ) {
-					_fnSortAdd( settings, columns[i], i, e.shiftKey );
+					var ret = _fnSortAdd( settings, columns[i], i, e.shiftKey );
+
+					if (ret !== false) {
+						run = true;
+					}					
 
 					// If the first entry is no sort, then subsequent
 					// sort columns are ignored
@@ -50,13 +56,15 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 					}
 				}
 
-				_fnSort( settings );
-				_fnSortDisplay( settings );
-				_fnReDraw( settings, false, false );
-				_fnProcessingDisplay( settings, false );
+				if (run) {
+					_fnSort( settings );
+					_fnSortDisplay( settings );
+					_fnReDraw( settings, false, false );
+					_fnProcessingDisplay( settings, false );
 
-				if (callback) {
-					callback();
+					if (callback) {
+						callback();
+					}
 				}
 			}, 0);
 		}
@@ -362,7 +370,7 @@ function _fnSortAdd ( settings, colIdx, addIndex, shift )
 	};
 
 	if ( ! col.bSortable ) {
-		return;
+		return false;
 	}
 
 	// Convert to 2D array if needed

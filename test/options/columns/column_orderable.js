@@ -117,5 +117,18 @@ describe('columns.orderable option', function() {
 			expect($('#example thead th').eq(3).hasClass('dt-ordering-asc')).toBe(true);
 			expect($('#example thead th').eq(3).hasClass('dt-orderable-none')).toBe(true);
 		});
+
+		it('Does not draw if order disables', async function() {
+			let table = $('#example').DataTable();
+			let drawn = false;
+
+			table.on('draw', function () {
+				drawn = true;
+			});
+
+			await dt.clickHeader(2);
+
+			expect(drawn).toBe(false);
+		});
 	});
 });
