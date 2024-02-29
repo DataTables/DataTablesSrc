@@ -22,7 +22,7 @@ FRAMEWORKS=(
 	'material'
 	'uikit'
 	'dataTables'
-	'tailwind'
+	'tailwindcss'
 )
 
 
