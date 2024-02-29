@@ -4,16 +4,25 @@
 	<summary>Define and position the table control elements to appear on the page</summary>
 	<since>2.0.0</since>
 	<type type="object" />
-	<default value=""><![CDATA[
-		The default layout for DataTables is:
-		```js
-		{
-			topStart: 'pageLength',
-			topEnd: 'search',
-			bottomStart: 'info',
-			bottomEnd: 'paging'
-		}
-		```
+	<default><![CDATA[
+The default layout for DataTables is:
+```js
+{
+	topStart: 'pageLength',
+	topEnd: 'search',
+	bottomStart: 'info',
+	bottomEnd: 'paging'
+}
+```
+
+Please note that if you assign one of the features used in the default object to a different location, it will not automatically be removed from its original position. For example, to display the `-feature search` feature in the `topStart` position only, you would need to use:
+
+```js
+{
+	topStart: 'search',
+	topEnd: null
+}
+```
 ]]></default>
 
 	<description>
