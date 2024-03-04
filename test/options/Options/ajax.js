@@ -97,4 +97,23 @@ describe('ajax option', function() {
 			});
 		})
 	});
+
+	dt.html('empty');
+	it('.NET string', function(done) {
+		table = $('#example').DataTable({
+			ajax: '/base/test/data/dotnet.txt',
+			columns: [
+				{ data: 'name' },
+				{ data: 'position' },
+				{ data: 'office' },
+				{ data: 'age' },
+				{ data: 'start_date' },
+				{ data: 'salary' }
+			],
+			initComplete: function() {
+				expect($('tbody tr:eq(2) td:eq(0)').text()).toBe('Ashton Cox');
+				done();
+			}
+		});
+	});
 });

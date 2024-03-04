@@ -97,6 +97,10 @@
 		* `string` - Set the URL from where the data should be loaded from.
 		* `object` - Define properties for `jQuery.ajax`.
 		* `function` - Custom data get function
+
+		### .NET
+
+		It is common for the JSON payload to be wrapped as a string and returned enclosed in another JSON object as the `d` parameter in .NET environments (some - not all!). As of DataTables 2.1, we handle this automatically, decoding the JSON string and using that as the intended payload.
 	</description>
 
 	<example title="Get JSON data from a file via Ajax."><![CDATA[

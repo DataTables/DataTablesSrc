@@ -27,6 +27,17 @@ function _fnBuildAjax( oSettings, data, fn )
 			_fnLog( oSettings, 0, error );
 		}
 
+		// Microsoft often wrap JSON as a string in another JSON object
+		// Let's handle that automatically
+		if (json.d && typeof json.d === 'string') {
+			try {
+				json = JSON.parse(json.d);
+			}
+			catch (e) {
+				// noop
+			}
+		}
+
 		oSettings.json = json;
 
 		_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json, oSettings.jqXHR], true );
