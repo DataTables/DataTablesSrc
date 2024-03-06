@@ -104,7 +104,7 @@ function _pagingDraw(settings, host, opts) {
 	if (
 		buttonEls.length && // any buttons
 		opts.numbers > 1 && // prevent infinite
-		$(host).outerHeight() >= ($(buttonEls[0]).outerHeight() * 2) - 10
+		$(host).height() >= ($(buttonEls[0]).outerHeight() * 2) - 10
 	) {
 		_pagingDraw(settings, host, $.extend({}, opts, { numbers: opts.numbers - 2 }));
 	}
