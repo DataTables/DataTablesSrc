@@ -18,7 +18,7 @@ DataTable.feature.register( 'search', function ( settings, opts ) {
 
 	opts = $.extend({
 		placeholder: language.sSearchPlaceholder,
-		text: language.sSearch
+		text: language.sSearch || '',
 	}, opts);
 
 	// The _INPUT_ is optional - is appended if not present
