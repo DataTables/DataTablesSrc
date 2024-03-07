@@ -31,32 +31,31 @@ function _fnSortInit( settings ) {
 
 function _fnSortAttachListener(settings, node, selector, column, callback) {
 	_fnBindAction( node, selector, function (e) {
+		var run = false;
 		var columns = column === undefined
 			? _fnColumnsFromHeader( e.target )
 			: [column];
 
 		if ( columns.length ) {
-			_fnProcessingDisplay( settings, true );
+			for ( var i=0, ien=columns.length ; i<ien ; i++ ) {
+				var ret = _fnSortAdd( settings, columns[i], i, e.shiftKey );
 
-			// Allow the processing display to show
-			setTimeout( function () {
-				var run = false;
+				if (ret !== false) {
+					run = true;
+				}					
 
-				for ( var i=0, ien=columns.length ; i<ien ; i++ ) {
-					var ret = _fnSortAdd( settings, columns[i], i, e.shiftKey );
-
-					if (ret !== false) {
-						run = true;
-					}					
-
-					// If the first entry is no sort, then subsequent
-					// sort columns are ignored
-					if (settings.aaSorting.length === 1 && settings.aaSorting[0][1] === '') {
-						break;
-					}
+				// If the first entry is no sort, then subsequent
+				// sort columns are ignored
+				if (settings.aaSorting.length === 1 && settings.aaSorting[0][1] === '') {
+					break;
 				}
+			}
 
-				if (run) {
+			if (run) {
+				_fnProcessingDisplay( settings, true );
+
+				// Allow the processing display to show
+				setTimeout( function () {
 					_fnSort( settings );
 					_fnSortDisplay( settings );
 					_fnReDraw( settings, false, false );
@@ -65,8 +64,8 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 					if (callback) {
 						callback();
 					}
-				}
-			}, 0);
+				}, 0);
+			}
 		}
 	} );
 }
