@@ -91,5 +91,24 @@ describe('footerCallback Option', function() {
 			table.search('London').draw();
 			expect(args[4].length).toBe(12);
 		});
+
+		// Fromhttps://datatables.net/forums/discussion/78401
+		dt.html('basic');
+
+		it('Correct number of hiding elements', function() {
+			table = new DataTable('#example',{
+				scrollX: true,
+				footerCallback: function() {
+					let api = this.api();
+					api.column(0).footer().innerHTML = "duplicated";
+				}
+			});
+
+			expect($('#example tfoot div.dt-scroll-sizing').length).toBe(6);
+		});
+
+		it('Text nodes are wrapped', function() {
+			expect($('#example tfoot th:first-child div.dt-scroll-sizing').text()).toBe('duplicated');
+		});
 	});
 });

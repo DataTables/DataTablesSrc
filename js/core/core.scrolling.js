@@ -255,12 +255,12 @@ function _fnScrollDraw ( settings )
 	// the content of the cell so that the width applied to the header and body
 	// both match, but we want to hide it completely.
 	$('th, td', headerCopy).each(function () {
-		$(this).children().wrapAll('<div class="dt-scroll-sizing">');
+		$(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
 	});
 
 	if ( footer ) {
 		$('th, td', footerCopy).each(function () {
-			$(this).children().wrapAll('<div class="dt-scroll-sizing">');
+			$(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
 		});
 	}
 
