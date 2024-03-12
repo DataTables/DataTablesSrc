@@ -728,7 +728,8 @@ class DT_Example
 				$path = 'https://cdn.datatables.net/' . $component .'/'. $opts['release'];
 			}
 
-			if (! $cdn) {
+			// Non-release builds and Editor (always) use local paths
+			if (! $cdn || $component === 'editor') {
 				$path = call_user_func( $this->_path_resolver, $opts['path']);
 			}
 
