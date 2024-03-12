@@ -108,11 +108,7 @@ var __row_selector = function ( settings, selector, opts )
 	var matched = _selector_run( 'row', selector, run, settings, opts );
 
 	if (opts.order === 'current' || opts.order === 'applied') {
-		var master = settings.aiDisplayMaster;
-
-		matched.sort(function(a, b) {  
-			return master.indexOf(a) - master.indexOf(b);
-		});
+		_fnSortDisplay(settings, matched);
 	}
 
 	return matched;
