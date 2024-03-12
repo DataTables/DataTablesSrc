@@ -710,15 +710,15 @@ function _fnAddOptionsHtml ( settings )
 
 	settings.nTableWrapper = insert[0];
 
-	var top = _layoutArray( settings, settings.layout, 'top' );
-	var bottom = _layoutArray( settings, settings.layout, 'bottom' );
-	var renderer = _fnRenderer( settings, 'layout' );
-
 	if (settings.sDom) {
 		// Legacy
 		_fnLayoutDom(settings, settings.sDom, insert);
 	}
 	else {
+		var top = _layoutArray( settings, settings.layout, 'top' );
+		var bottom = _layoutArray( settings, settings.layout, 'bottom' );
+		var renderer = _fnRenderer( settings, 'layout' );
+	
 		// Everything above - the renderer will actually insert the contents into the document
 		top.forEach(function (item) {
 			renderer( settings, insert, item );
