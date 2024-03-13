@@ -441,8 +441,15 @@ function _fnDraw( oSettings, ajaxComplete )
 	_fnCallbackFire( oSettings, 'aoFooterCallback', 'footer', [ $(oSettings.nTFoot).children('tr')[0],
 		_fnGetDataMaster( oSettings ), iDisplayStart, iDisplayEnd, aiDisplay ] );
 
-	body.children().detach();
-	body.append( $(anRows) );
+	// replaceChildren is faster, but only became widespread in 2020,
+	// so a fall back in jQuery is provided for older browsers.
+	if (body[0].replaceChildren) {
+		body[0].replaceChildren.apply(body[0], anRows);
+	}
+	else {
+		body.children().detach();
+		body.append( $(anRows) );
+	}
 
 	// Empty table needs a specific class
 	$(oSettings.nTableWrapper).toggleClass('dt-empty-footer', $('tr', oSettings.nTFoot).length === 0);
