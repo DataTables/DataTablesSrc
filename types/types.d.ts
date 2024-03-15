@@ -3004,182 +3004,137 @@ export interface DataTablesStaticExtButtons {
  * that these all use legacy Hungarian notation.
  */
  export interface ExtClassesSettings {
-    /**
-     * Default Value:
-     * dataTable
-     */
-    sTable?: string;
+    /** Class to apply to the container for all DataTables controlled elements */
+	container: string;
 
-    /**
-     * Default Value:
-     * no-footer
-     */
-    sNoFooter?: string;
+    /** Empty row classes */
+	empty: {
+        /** Empty row class */
+		row: string;
+	};
 
-    /**
-     * Default Value:
-     * dt-paging-button
-     */
-    sPageButton?: string;
+    /** Info feature classes */
+	info: {
+        /** Container `<div>` class */
+		container: string;
+	};
 
-    /**
-     * Default Value:
-     * current
-     */
-    sPageButtonActive?: string;
+    /** Length feature classes */
+	length: {
+        /** Container `<div>` class */
+		container: string;
 
-    /**
-     * Default Value:
-     * disabled
-     */
-    sPageButtonDisabled?: string;
+        /** Applied to the `<select>` element */
+		select: string;
+	};
 
-    /**
-     * Default Value:
-     * odd
-     */
-    sStripeOdd?: string;
+    /** Table header cell ordering classes */
+	order: {
+        /** Applied if a column can sort asc */
+		canAsc: string;
 
-    /**
-     * Default Value:
-     * even
-     */
-    sStripeEven?: string;
+        /** Applied if a column can sort desc */
+		canDesc: string;
 
-    /**
-     * Default Value:
-     * dt-empty
-     */
-    sRowEmpty?: string;
+        /** Applied if a column is sorting asc */
+		isAsc: string;
 
-    /**
-     * Default Value:
-     * dt-container
-     */
-    sWrapper?: string;
+        /** Applied if a column is sorting desc */
+		isDesc: string;
 
-    /**
-     * Default Value:
-     * dt-search
-     */
-    sFilter?: string;
+        /** Applied if there is no sorting available on a column */
+		none: string;
 
-    /**
-     * Default Value:
-     * dt-info
-     */
-    sInfo?: string;
+        /** Position class */
+		position: string;
+	};
 
-    /**
-     * Default Value:
-     * dt-paging paging_
-     */
-    sPaging?: string;
+    /** Processing indicator classes */
+	processing: {
+        /** Container `<div>` class */
+		container: string;
+	};
 
-    /**
-     * Default Value:
-     * dt-length
-     */
-    sLength?: string;
+    /** Classes for scrolling tables (`scrollX` / `scrollY`) */
+	scrolling: {
+        /** Body table wrapper `<div>` */
+		body: string;
 
-    /**
-     * Default Value:
-     * dt-processing
-     */
-    sProcessing?: string;
+        /** Applied to the wrapper for all scrolling elements */
+		container: string;
 
-    /**
-     * Default Value:
-     * sorting_asc
-     */
-    sSortAsc?: string;
+        /** Scrolling footer classes */
+		footer: {
+            /** Applied to the footer container `<div>` */
+			self: string;
 
-    /**
-     * Default Value:
-     * sorting_desc
-     */
-    sSortDesc?: string;
+            /** Applied to the inner footer `<div>` */
+			inner: string;
+		};
 
-    /**
-     * Default Value:
-     * sorting
-     */
-    sSortable?: string;
+        /** Scrolling header classes */
+		header: {
+            /** Applied to the header container `<div>` */
+			self: string;
 
-    /**
-     * Default Value:
-     * sorting_asc_disabled
-     */
-    sSortableAsc?: string;
+            /** Applied to the inner header `<div>` */
+			inner: string;
+		}
+	};
 
-    /**
-     * Default Value:
-     * sorting_desc_disabled
-     */
-    sSortableDesc?: string;
+    /** Search feature classes */
+	search: {
+        /** Applied to the search container `<div>` */
+		container: string;
 
-    /**
-     * Default Value:
-     * sorting_disabled
-     */
-    sSortableNone?: string;
+        /** Class to add to `<input>` element */
+		input: string;
+	};
 
-    /**
-     * Default Value:
-     * sorting_
-     */
-    sSortColumn?: string;
+    /** Class to add to the `<table>` when DataTables is initialised on it */
+	table: string;
 
-    sFilterInput?: string;
-    sLengthSelect?: string;
+    /** Table body classes */
+	tbody: {
+        /** Applied to all cells in the table body */
+		cell: string;
 
-    /**
-     * Default Value:
-     * dataTables_scroll
-     */
-    sScrollWrapper?: string;
+        /** Applied to all `tr` element in the table body */
+		row: string;
+	};
 
-    /**
-     * Default Value:
-     * dt-scroll-head
-     */
-    sScrollHead?: string;
+    /** Table header classes */
+	thead: {
+        /** Applied to `td`/`th` elements in the table header */
+		cell: string;
 
-    /**
-     * Default Value:
-     * dt-scroll-headInner
-     */
-    sScrollHeadInner?: string;
+        /** Applied to `tr` elements in the table header */
+		row: string;
+	};
 
-    /**
-     * Default Value:
-     * dt-scroll-body
-     */
-    sScrollBody?: string;
+    /** Table footer classes */
+	tfoot: {
+        /** Applied to `td`/`th` elements in the footer */
+		cell: string;
 
-    /**
-     * Default Value:
-     * dt-scroll-foot
-     */
-    sScrollFoot?: string;
+        /** Applied to `tr` elements in the footer */
+		row: string;
+	};
 
-    /**
-     * Default Value:
-     * dt-scroll-footInner
-     */
-    sScrollFootInner?: string;
+    /** Paging feature classes */
+	paging: {
+        /** Button shows the current page */
+		active: string;
 
-    sHeaderTH?: string;
-    sFooterTH?: string;
-    sSortJUIAsc?: string;
-    sSortJUIDesc?: string;
-    sSortJUI?: string;
-    sSortJUIAscAllowed?: string;
-    sSortJUIDescAllowed?: string;
-    sSortJUIWrapper?: string;
-    sSortIcon?: string;
-    sJUIHeader?: string;
-    sJUIFooter?: string;
+        /** Applied to all buttons */
+		button: string;
+
+        /** Container class */
+		container: string;
+
+        /** Button unavailable class */
+		disabled: string;
+	};
 }
 
 

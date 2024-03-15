@@ -294,3 +294,8 @@ var res = DataTable.Api.register('apiMethod()', function (from, to) {
 });
 
 expectType<void>(res);
+
+expectType<string>(DataTable.ext.classes.container);
+expectType<string>(DataTable.ext.classes.table);
+expectType<string>(DataTable.ext.classes.tbody.row);
+expectType<string>(DataTable.ext.classes.tbody.cell);
