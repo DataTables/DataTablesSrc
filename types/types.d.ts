@@ -1593,7 +1593,7 @@ export interface ApiCell<T> {
     (rowSelector: RowSelector<T>, columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiCellMethods<T>;
 }
 
-export interface ApiCellMethods<T> extends Omit<Api<T>, 'render'> {
+export interface ApiCellMethods<T> extends Omit<Api<T>, 'render' | 'select'> {
     /**
      * Get the DataTables cached data for the selected cell
      *
@@ -1677,7 +1677,7 @@ export interface ApiCells<T> {
     (rowSelector: RowSelector<T>, columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
 }
 
-export interface ApiCellsMethods<T> extends Omit<Api<T>, 'data' | 'render'> {
+export interface ApiCellsMethods<T> extends Omit<Api<T>, 'data' | 'render' | 'select'> {
     /**
      * Get the DataTables cached data for the selected cells
      *
@@ -2312,7 +2312,7 @@ export interface ApiRow<T> {
     add(data: any[] | object): ApiRowMethods<T>;
 }
 
-export interface ApiRowMethods<T> extends Omit<Api<T>, 'data'> {
+export interface ApiRowMethods<T> extends Omit<Api<T>, 'data' | 'select'> {
     /**
      * Get the DataTables cached data for the selected row(s)
      *
@@ -2406,7 +2406,7 @@ export interface ApiRows<T> {
     add(data: T[]): ApiRowsMethods<T>;
 }
 
-export interface ApiRowsMethods<T> extends Api<T> {
+export interface ApiRowsMethods<T> extends Omit<Api<T>, 'select'> {
     /**
      * Get the DataTables cached data for the selected row(s)
      *
