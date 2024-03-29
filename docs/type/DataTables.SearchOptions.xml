@@ -98,7 +98,7 @@ This option can be used to enable and disable DataTables' smart search option. W
 
 * Search for words in any order
 * Enclose a string in double quotes to perform an exact match (just as can be done with search engines)
-* Start a word with `-` to do a negation search (i.e. the search will match only records that do not contain the following word).
+* Start a word with `!` to do a negation search (i.e. the search will match only records that do not contain the following word).
 
 Default value: `true`
 Since: DataTables 1.10
