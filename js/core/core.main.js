@@ -130,8 +130,6 @@ _buildInclude('model.settings.js');
  *  @namespace
  *  @extends DataTable.models.ext
  */
-_buildInclude('ext.js');
-_buildInclude('ext.classes.js');
 _buildInclude('ext.paging.js');
 _buildInclude('ext.filter.js');
 _buildInclude('ext.helpers.js');
