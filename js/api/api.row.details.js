@@ -34,8 +34,9 @@ var __details_state_load = function (api, state)
 {
 	if ( state && state.childRows ) {
 		api
-			.rows( state.childRows.map(function (id){
-				return id.replace(/:/g, '\\:')
+			.rows( state.childRows.map(function (id) {
+				// Escape any `:` characters from the row id, unless previously escaped
+				return id.replace(/(?<!\\):/g, '\\:');
 			}) )
 			.every( function () {
 				_fnCallbackFire( api.settings()[0], null, 'requestChild', [ this ] )

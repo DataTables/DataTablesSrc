@@ -911,7 +911,7 @@ function _fnDetectHeader ( settings, thead, write )
 							}
 
 							if (! columnDef.sTitle && unique) {
-								columnDef.sTitle = cell.innerHTML.replace( /<.*?>/g, "" );
+								columnDef.sTitle = _stripHtml(cell.innerHTML);
 								columnDef.autoTitle = true;
 							}
 						}

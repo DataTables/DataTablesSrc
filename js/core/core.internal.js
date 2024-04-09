@@ -209,10 +209,19 @@ var _removeEmpty = function ( a )
 };
 
 // Replaceable function in api.util
-var _stripHtml = function ( d ) {
-	return d
-		.replace( _re_html, '' ) // Complete tags
-		.replace(/<script/i, ''); // Safety for incomplete script tag
+var _stripHtml = function (input) {
+	var previous;
+
+	input = input.replace(_re_html, ''); // Complete tags
+
+	// Safety for incomplete script tag - use do / while to ensure that
+	// we get all instances
+	do {
+		previous = input;
+		input = input.replace(/<script/i, '');
+	} while (input !== previous);
+
+	return previous;
 };
 
 // Replaceable function in api.util

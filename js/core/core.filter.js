@@ -211,7 +211,7 @@ function _fnFilterCreateSearch( search, inOpts )
 				word = '';
 			}
 
-			return word.replace('"', '');
+			return word.replace(/"/g, '');
 		} );
 
 		var match = not.length
