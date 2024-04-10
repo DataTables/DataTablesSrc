@@ -212,7 +212,7 @@ var _removeEmpty = function ( a )
 var _stripHtml = function (input) {
 	var previous;
 
-	input = input.replace(_re_html, ''); // Complete tags
+	input = input.replace(/<[^>]*>/g, ''); // Complete tags
 
 	// Safety for incomplete script tag - use do / while to ensure that
 	// we get all instances
