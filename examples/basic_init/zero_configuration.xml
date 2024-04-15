@@ -4,12 +4,28 @@
 <css lib="datatables" />
 <js lib="jquery datatables">
 <![CDATA[
-$('#example').DataTable();
+$('#example').DataTable({
+    layout: {
+        bottomEnd: {
+            paging: {
+                // boundaryNumbers: false
+            }
+        }
+    }
+});
 ]]>
 </js>
 <js-vanilla>
 <![CDATA[
-new DataTable('#example');
+new DataTable('#example', {
+    layout: {
+        bottomEnd: {
+            paging: {
+                boundaryNumbers: false
+            }
+        }
+    }
+});
 ]]>
 </js-vanilla>
 

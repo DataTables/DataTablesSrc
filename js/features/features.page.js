@@ -1,7 +1,7 @@
 
 // opts
 // - type - button configuration
-// - numbers - number of buttons to show - must be odd
+// - buttons - number of buttons to show - must be odd
 DataTable.feature.register( 'paging', function ( settings, opts ) {
 	// Don't show the paging input if the table doesn't have paging enabled
 	if (! settings.oFeatures.bPaginate) {
@@ -9,9 +9,15 @@ DataTable.feature.register( 'paging', function ( settings, opts ) {
 	}
 
 	opts = $.extend({
-		numbers: DataTable.ext.pager.numbers_length,
-		type: settings.sPaginationType
-	}, opts)
+		buttons: DataTable.ext.pager.numbers_length,
+		type: settings.sPaginationType,
+		boundaryNumbers: true
+	}, opts);
+
+	// To be removed in 2.1
+	if (opts.numbers) {
+		opts.buttons = opts.numbers;
+	}
 
 	var host = $('<div/>').addClass( settings.oClasses.paging.container + ' paging_' + opts.type );
 	var draw = function () {
@@ -43,7 +49,7 @@ function _pagingDraw(settings, host, opts) {
 		buttons = plugin()
 			.map(function (val) {
 				return val === 'numbers'
-					? _pagingNumbers(page, pages, opts.numbers)
+					? _pagingNumbers(page, pages, opts.buttons, opts.boundaryNumbers)
 					: val;
 			})
 			.flat();
@@ -185,12 +191,15 @@ function _pagingButtonInfo(settings, button, page, pages) {
  * @param {*} page Current page
  * @param {*} pages Total number of pages
  * @param {*} buttons Target number of number buttons
+ * @param {boolean} addFirstLast Indicate if page 1 and end should be included
  * @returns Buttons to show
  */
-function _pagingNumbers ( page, pages, buttons ) {
+function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
 	var
 		numbers = [],
-		half = Math.floor(buttons / 2);
+		half = Math.floor(buttons / 2),
+		before = addFirstLast ? 2 : 1,
+		after = addFirstLast ? 1 : 0;
 
 	if ( pages <= buttons ) {
 		numbers = _range(0, pages);
@@ -213,17 +222,30 @@ function _pagingNumbers ( page, pages, buttons ) {
 		}
 	}
 	else if ( page <= half ) {
-		numbers = _range(0, buttons-2);
-		numbers.push('ellipsis', pages-1);
+		numbers = _range(0, buttons-before);
+		numbers.push('ellipsis');
+
+		if (addFirstLast) {
+			numbers.push(pages-1);
+		}
 	}
 	else if ( page >= pages - 1 - half ) {
-		numbers = _range(pages-(buttons-2), pages);
-		numbers.unshift(0, 'ellipsis');
+		numbers = _range(pages-(buttons-before), pages);
+		numbers.unshift('ellipsis');
+
+		if (addFirstLast) {
+			numbers.unshift(0);
+		}
 	}
 	else {
-		numbers = _range(page-half+2, page+half-1);
-		numbers.push('ellipsis', pages-1);
-		numbers.unshift(0, 'ellipsis');
+		numbers = _range(page-half+before, page+half-after);
+		numbers.push('ellipsis');
+		numbers.unshift('ellipsis');
+
+		if (addFirstLast) {
+			numbers.push(pages-1);
+			numbers.unshift(0);
+		}
 	}
 
 	return numbers;

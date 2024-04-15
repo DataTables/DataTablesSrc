@@ -41,6 +41,7 @@ new DataTable('#myTable', {
 
 	<related>-init paging</related>
 	<related>-feature paging</related>
-	<related>-feature paging.numbers</related>
+	<related>-feature paging.boundaryNumbers</related>
+	<related>-feature paging.buttons</related>
 	<related>-feature paging.type</related>
 </dt-option>
