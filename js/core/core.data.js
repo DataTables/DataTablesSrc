@@ -95,7 +95,7 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 
 	var row = settings.aoData[rowIdx];
 
-	if (row === null) {
+	if (! row) {
 		return undefined;
 	}
 
