@@ -93,9 +93,15 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 		type = 'sort';
 	}
 
+	var row = settings.aoData[rowIdx];
+
+	if (row === null) {
+		return undefined;
+	}
+
 	var draw           = settings.iDraw;
 	var col            = settings.aoColumns[colIdx];
-	var rowData        = settings.aoData[rowIdx]._aData;
+	var rowData        = row._aData;
 	var defaultContent = col.sDefaultContent;
 	var cellData       = col.fnGetData( rowData, type, {
 		settings: settings,
