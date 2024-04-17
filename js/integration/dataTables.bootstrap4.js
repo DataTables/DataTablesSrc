@@ -1,10 +1,9 @@
 /*! DataTables Bootstrap 4 integration
- * ©2011-2017 SpryMedia Ltd - datatables.net/license
+ * © SpryMedia Ltd - datatables.net/license
  */
 
 /**
- * DataTables integration for Bootstrap 4. This requires Bootstrap 4 and
- * DataTables 1.10 or newer.
+ * DataTables integration for Bootstrap 4.
  *
  * This file sets the defaults and adds options to DataTables to style its
  * controls using Bootstrap. See https://datatables.net/manual/styling/bootstrap

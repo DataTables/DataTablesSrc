@@ -1,10 +1,9 @@
 /*! DataTables jQuery UI integration
- * ©2011-2014 SpryMedia Ltd - datatables.net/license
+ * © SpryMedia Ltd - datatables.net/license
  */
 
 /**
- * DataTables integration for jQuery UI. This requires jQuery UI and
- * DataTables 1.10 or newer.
+ * DataTables integration for jQuery UI.
  *
  * This file sets the defaults and adds options to DataTables to style its
  * controls using jQuery UI. See https://datatables.net/manual/styling/jqueryui

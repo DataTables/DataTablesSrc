@@ -1,5 +1,5 @@
 /*! DataTables Bulma integration
- * ©2020 SpryMedia Ltd - datatables.net/license
+ * © SpryMedia Ltd - datatables.net/license
  */
 
 /* Set the defaults for DataTables initialisation */
