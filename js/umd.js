@@ -1,11 +1,11 @@
-/*! DataTables 2.0.4
+/*! DataTables 2.0.5
  * © SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     DataTables
  * @description Paginate, search and order HTML tables
- * @version     2.0.4
+ * @version     2.0.5
  * @author      SpryMedia Ltd
  * @contact     www.datatables.net
  * @copyright   SpryMedia Ltd.
