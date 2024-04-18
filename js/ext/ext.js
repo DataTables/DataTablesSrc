@@ -45,13 +45,13 @@ DataTable.ext = _ext = {
 	/**
 	 * Error reporting.
 	 * 
-	 * How should DataTables report an error. Can take the value 'alert',
-	 * 'throw', 'none' or a function.
+	 * How should DataTables report an error.
+	 * 'throw', 'alert', 'none' or a function.
 	 *
 	 *  @type string|function
 	 *  @default alert
 	 */
-	errMode: "alert",
+	errMode: "throw",
 
 
 	/**
