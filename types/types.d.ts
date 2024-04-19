@@ -157,11 +157,20 @@ export interface Feature {
 
     /** Pagination buttons */
     paging?: {
+        /** Set the maximum number of paging number buttons */
+        buttons?: number;
+
         /** Paging button display options */
         type?: 'numbers' | 'simple' | 'simple_numbers' | 'full' | 'full_numbers' | 'first_last_numbers';
 
-        /** Set the maximum number of paging number buttons */
+        /**
+         * Set the maximum number of paging number buttons
+         * @deprecated Use `buttons` instead.
+         */
         numbers?: number;
+
+        /** Include the extreme page numbers, if separated by ellipsis, or not */
+        boundaryNumbers?: boolean;
     }
 
     /** Global search input */

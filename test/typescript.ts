@@ -59,7 +59,14 @@ let table = new DataTable('#myTable', {
 				}
 			}
 		],
-		bottomStart: null
+		bottomStart: null,
+		bottom2Start: {
+			paging: {
+				buttons: 4,
+				type: 'numbers',
+				boundaryNumbers: false
+			}
+		}
 	},
 	order: [
 		{idx: 1, dir: 'asc'},
