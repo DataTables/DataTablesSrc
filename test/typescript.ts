@@ -58,7 +58,8 @@ let table = new DataTable('#myTable', {
 					numbers: 7
 				}
 			}
-		]
+		],
+		bottomStart: null
 	},
 	order: [
 		{idx: 1, dir: 'asc'},

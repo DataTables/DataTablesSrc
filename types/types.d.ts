@@ -182,7 +182,7 @@ type LayoutEdge = 'Start' | 'End';
 
 type LayoutKeys = `${LayoutSide}${LayoutNumber}${LayoutEdge}` | `${LayoutSide}${LayoutNumber}`;
 
-type Layout = Partial<Record<LayoutKeys, keyof Feature | Feature | Array<keyof Feature> | Feature[]>>;
+type Layout = Partial<Record<LayoutKeys, keyof Feature | Feature | Array<keyof Feature> | Feature[] | null>>;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
