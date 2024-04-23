@@ -317,19 +317,14 @@ function usage {
 
     where <cmd> is one of:
 
-      build    - Create the build repo from the current source files. Will
-                 automatically make the calls to to build the 'js' and 'css'
-                 targets. The created repo is in 'built/DataTables'
+      all [debug]   - Build DataTables core and all extensions
 
-      js       - Create the DataTables Javascript file
+      build [debug] - Build DataTables (css, examples, and js). Resultant
+                      files are in 'built/DataTables'
 
-      css      - Create the DataTables CSS files
+      css           - Create the DataTables CSS files
 
-      examples - Build the examples
-
-      test     - Build the unit tests
-
-	  all [debug] - Build DataTables core and all extensions
+      examples      - Build the examples
 
       extension <ext> [debug] - Extension to build where <ext> is one of:
         - AutoFill
@@ -346,6 +341,12 @@ function usage {
         - SearchBuilder
         - SearchPanes
         - StateRestore
+
+      js            - Create the DataTables Javascript file
+
+      serve         - Run an HTTP server to allow the built examples to load
+
+      test          - Build the unit tests
 
     and the optional [debug] parameter can be used to disable JS and CSS
     compression for faster development build times."
@@ -419,6 +420,10 @@ case "$1" in
 
 	"extension")
 		build_extension $SUBCMD
+		;;
+
+	"serve")
+		npx http-server built/DataTables/
 		;;
 
 	*)
