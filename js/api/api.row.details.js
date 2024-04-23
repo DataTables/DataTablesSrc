@@ -35,8 +35,11 @@ var __details_state_load = function (api, state)
 	if ( state && state.childRows ) {
 		api
 			.rows( state.childRows.map(function (id) {
-				// Escape any `:` characters from the row id, unless previously escaped
-				return id.replace(/(?<!\\):/g, '\\:');
+				// Escape any `:` characters from the row id. Accounts for
+				// already escaped characters, by escaping them, and then
+				// re-escaping. Not ideal, but Safari only added negative
+				// look behind in 2023 (16.4).
+				return id.replace(/\\:/g, ':').replace(/:/g, '\\:');
 			}) )
 			.every( function () {
 				_fnCallbackFire( api.settings()[0], null, 'requestChild', [ this ] )
