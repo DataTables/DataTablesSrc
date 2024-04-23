@@ -320,6 +320,52 @@ function build_extension {
 	fi
 }
 
+function requirements {
+	if ! [ -x "$(command -v php)" ]; then
+		echo "Error: php is not installed and is required to build the examples."
+		echo "  Install with 'sudo apt install php php-xml php-mbstring php-curl' or similar for your platform"
+		exit 1
+	fi
+
+	TEST=$(php -i | grep xml.ini)
+	if [ $? -eq 1 ]; then
+		echo "Error: php's xml module is not installed and is required to build the examples."
+		echo "  Install with 'sudo apt install php-xml' or similar for your platform"
+		exit 1
+	fi
+
+	TEST=$(php -i | grep mbstring.ini)
+	if [ $? -eq 1 ]; then
+		echo "Error: php's mbstring module is not installed and is required to build the examples."
+		echo "  Install with 'sudo apt install php-mbstring' or similar for your platform"
+		exit 1
+	fi
+
+	TEST=$(php -i | grep curl.ini)
+	if [ $? -eq 1 ]; then
+		echo "Error: php's curl module is not installed and is required to build the examples."
+		echo "  Install with 'sudo apt install php-curl' or similar for your platform"
+		exit 1
+	fi
+
+	TEST=$(php -i | grep tidy.ini)
+	if [ $? -eq 1 ]; then
+		echo "Warning: php's tidy module is not installed and is used to clean up build the examples."
+		echo "  Install with 'sudo apt install php-tidy' or similar for your platform"
+	fi
+
+	if ! [ -x "$(command -v chromium)" ]; then
+		if ! [ -x "$(command -v google-chrome)" ]; then
+			echo "Warning: Neither Chrome nor Chromium is installed, and is used for the unit tests."
+			echo "  Install with 'sudo apt install chromium-browser' or similar for your platform"
+		fi
+	fi
+
+	if [ ! -d node_modules ]; then
+		npm install
+	fi
+}
+
 
 
 function usage {
@@ -378,6 +424,9 @@ echo ""
 if [ ! -d $BUILD_DIR ]; then
 	mkdir $BUILD_DIR
 fi
+
+# Check we have what is needed for the build
+requirements
 
 case "$1" in
 	"thirdparty")
