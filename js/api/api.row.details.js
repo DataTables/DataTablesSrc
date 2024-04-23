@@ -39,7 +39,7 @@ var __details_state_load = function (api, state)
 				// already escaped characters, by escaping them, and then
 				// re-escaping. Not ideal, but Safari only added negative
 				// look behind in 2023 (16.4).
-				return id.replace(/\\:/g, ':').replace(/:/g, '\\:');
+				return id.replace(/\:/g, ':').replace(/:/g, '\\:');
 			}) )
 			.every( function () {
 				_fnCallbackFire( api.settings()[0], null, 'requestChild', [ this ] )
