@@ -284,9 +284,15 @@ _api_register( 'row().data()', function ( data ) {
 _api_register( 'row().node()', function () {
 	var ctx = this.context;
 
-	return ctx.length && this.length && this[0].length ?
-		ctx[0].aoData[ this[0] ].nTr || null :
-		null;
+	if (ctx.length && this.length && this[0].length) {
+		var row = ctx[0].aoData[ this[0] ];
+
+		if (row && row.nTr) {
+			return row.nTr;
+		}
+	}
+
+	return null;
 } );
 
 
