@@ -200,62 +200,6 @@ function build_repo {
 }
 
 
-# Build the DataTables/DataTables distribution
-function build_repo_sync {
-	echo_section "Syncing build repo to source repo"
-	update_build_repo
-
-	LAST_HASH=$(cat ${BUILD_DIR}/DataTables/.datatables-commit-sync)
-
-	# Get the commits between the latest commit that the build repo was synced
-	# to and the head
-	COMMITS=$(git log --format=format:%H --reverse ${LAST_HASH}..HEAD)
-
-	if [ "$COMMITS" = "" ]; then
-		echo_msg "Build repo up to date"
-	else
-		CHANGES=0
-
-		for HASH in $COMMITS; do
-			echo_msg "Checking if there are build changes resulting from commit $HASH"
-			git checkout $HASH
-
-			COMMIT_MESSAGE=$(git log -1 --format=format:%B $HASH)
-
-			build_repo
-
-			cd ${BUILD_DIR}/DataTables
-			
-			# git appears to have a bug whereby --quiet doesn't work immediately
-			# after files have been generated. Running twice fixes
-			git diff --quiet --exit-code
-			git diff --quiet --exit-code
-			if [ $? -eq 1 ]; then
-				echo_msg "Committing changes"
-
-				echo $HASH > .datatables-commit-sync
-				git commit -a -m "$COMMIT_MESSAGE"
-				CHANGES=1
-			else
-				echo_msg "No build changes"
-			fi
-
-			cd - > /dev/null 2>&1
-		done
-
-		# Push latest changes up to origin
-		if [ $CHANGES -eq 1 ]; then
-			echo_msg "Pushing changes in build repo up to origin"
-			cd ${BUILD_DIR}/DataTables
-			git push --quiet origin $SYNC_BRANCH
-			cd - > /dev/null 2>&1
-		fi
-	fi
-
-	git checkout --quiet $SYNC_BRANCH
-}
-
-
 function build_descriptors {
 	echo_msg "Updating package descriptors"
 
@@ -381,9 +325,6 @@ function usage {
 
       css      - Create the DataTables CSS files
 
-      sync     - Synchronise the DataTables/DataTables build repo to the source
-                 repo
-
       examples - Build the examples
 
       test     - Build the unit tests
@@ -474,18 +415,6 @@ case "$1" in
 
 	"css")
 		build_css
-		;;
-
-	"sync")
-		# Sanity check that the working branch is going to build correctly
-		CURR_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-		if [ $SYNC_BRANCH != $CURR_BRANCH ]; then
-			echo_error "Working branch ($CURR_BRANCH) is not the same as the script branch ($SYNC_BRANCH)"
-			echo_error "Exiting..."
-			exit
-		fi
-
-		build_repo_sync
 		;;
 
 	"extension")
