@@ -225,7 +225,7 @@ function _fnScrollDraw ( settings )
 	// of the indexes out.
 	if (settings.aiDisplay.length) {
 		// Get the column sizes from the first row in the table
-		var colSizes = table.find('tbody tr').eq(0).find('th, td').map(function (vis) {
+		var colSizes = table.children('tbody > tr').eq(0).children('th, td').map(function (vis) {
 			return {
 				idx: _fnVisibleToColumnIndex(settings, vis),
 				width: $(this).outerWidth()
