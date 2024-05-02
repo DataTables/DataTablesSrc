@@ -6,6 +6,7 @@
 function _processingHtml ( settings )
 {
 	var table = settings.nTable;
+	var scrolling = settings.oScroll.sX !== '' || settings.oScroll.sY !== '';
 
 	if ( settings.oFeatures.bProcessing ) {
 		var n = $('<div/>', {
@@ -14,9 +15,16 @@ function _processingHtml ( settings )
 				'role': 'status'
 			} )
 			.html( settings.oLanguage.sProcessing )
-			.append('<div><div></div><div></div><div></div><div></div></div>')
-			.insertBefore( table );
-		
+			.append('<div><div></div><div></div><div></div><div></div></div>');
+
+		// Different positioning depending on if scrolling is enabled or not
+		if (scrolling) {
+			n.prependTo( 'div.dt-scroll', settings.nTableWrapper );
+		}
+		else {
+			n.insertBefore( table );
+		}
+
 		$(table).on( 'processing.dt.DT', function (e, s, show) {
 			n.css( 'display', show ? 'block' : 'none' );
 		} );
