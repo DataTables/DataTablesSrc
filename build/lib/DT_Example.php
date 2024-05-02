@@ -722,7 +722,7 @@ class DT_Example
 				$path = 'https://cdn.datatables.net/' . $opts['release'];
 			}
 			else if ($component === 'editor') {
-				$path = '../../';
+				$path = '/extensions/Editor/';
 			}
 			else {
 				$path = 'https://cdn.datatables.net/' . $component .'/'. $opts['release'];
