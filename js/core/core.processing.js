@@ -19,7 +19,7 @@ function _processingHtml ( settings )
 
 		// Different positioning depending on if scrolling is enabled or not
 		if (scrolling) {
-			n.prependTo( 'div.dt-scroll', settings.nTableWrapper );
+			n.prependTo( $('div.dt-scroll', settings.nTableWrapper) );
 		}
 		else {
 			n.insertBefore( table );
