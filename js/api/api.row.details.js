@@ -281,7 +281,7 @@ _api_register( [
 _api_register( _child_obj+'.isShown()', function () {
 	var ctx = this.context;
 
-	if ( ctx.length && this.length ) {
+	if ( ctx.length && this.length && ctx[0].aoData[ this[0] ] ) {
 		// _detailsShown as false or undefined will fall through to return false
 		return ctx[0].aoData[ this[0] ]._detailsShow || false;
 	}
