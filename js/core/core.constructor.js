@@ -295,110 +295,86 @@ if ( rowOne.length ) {
 	} );
 }
 
-var features = oSettings.oFeatures;
-var loadedInit = function () {
-	/*
-	 * Sorting
-	 * @todo For modularisation (1.11) this needs to do into a sort start up handler
-	 */
-
-	// If aaSorting is not defined, then we use the first indicator in asSorting
-	// in case that has been altered, so the default sort reflects that option
-	if ( oInit.aaSorting === undefined ) {
-		var sorting = oSettings.aaSorting;
-		for ( i=0, iLen=sorting.length ; i<iLen ; i++ ) {
-			sorting[i][1] = oSettings.aoColumns[ i ].asSorting[0];
-		}
-	}
-
-	/* Do a first pass on the sorting classes (allows any size changes to be taken into
-	 * account, and also will apply sorting disabled classes if disabled
-	 */
-	_fnSortingClasses( oSettings );
-
-	_fnCallbackReg( oSettings, 'aoDrawCallback', function () {
-		if ( oSettings.bSorted || _fnDataSource( oSettings ) === 'ssp' || features.bDeferRender ) {
-			_fnSortingClasses( oSettings );
-		}
-	} );
-
-
-	/*
-	 * Final init
-	 * Cache the header, body and footer as required, creating them if needed
-	 */
-	var caption = $this.children('caption');
-
-	if ( oSettings.caption ) {
-		if ( caption.length === 0 ) {
-			caption = $('<caption/>').appendTo( $this );
-		}
-
-		caption.html( oSettings.caption );
-	}
-
-	// Store the caption side, so we can remove the element from the document
-	// when creating the element
-	if (caption.length) {
-		caption[0]._captionSide = caption.css('caption-side');
-		oSettings.captionNode = caption[0];
-	}
-
-	if ( thead.length === 0 ) {
-		thead = $('<thead/>').appendTo($this);
-	}
-	oSettings.nTHead = thead[0];
-	$('tr', thead).addClass(oClasses.thead.row);
-
-	var tbody = $this.children('tbody');
-	if ( tbody.length === 0 ) {
-		tbody = $('<tbody/>').insertAfter(thead);
-	}
-	oSettings.nTBody = tbody[0];
-
-	var tfoot = $this.children('tfoot');
-	if ( tfoot.length === 0 ) {
-		// If we are a scrolling table, and no footer has been given, then we need to create
-		// a tfoot element for the caption element to be appended to
-		tfoot = $('<tfoot/>').appendTo($this);
-	}
-	oSettings.nTFoot = tfoot[0];
-	$('tr', tfoot).addClass(oClasses.tfoot.row);
-
-	// Check if there is data passing into the constructor
-	if ( oInit.aaData ) {
-		for ( i=0 ; i<oInit.aaData.length ; i++ ) {
-			_fnAddData( oSettings, oInit.aaData[ i ] );
-		}
-	}
-	else if ( _fnDataSource( oSettings ) == 'dom' ) {
-		// Grab the data from the page
-		_fnAddTr( oSettings, $(oSettings.nTBody).children('tr') );
-	}
-
-	/* Copy the data index array */
-	oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-
-	/* Initialisation complete - table can be drawn */
-	oSettings.bInitialised = true;
-
-	/* Check if we need to initialise the table (it might not have been handed off to the
-	 * language processor)
-	 */
-	if ( bInitHandedOff === false ) {
-		_fnInitialise( oSettings );
-	}
-};
-
-/* Must be done after everything which can be overridden by the state saving! */
+// Must be done after everything which can be overridden by the state saving!
 _fnCallbackReg( oSettings, 'aoDrawCallback', _fnSaveState );
 
+var features = oSettings.oFeatures;
 if ( oInit.bStateSave )
 {
 	features.bStateSave = true;
-	_fnLoadState( oSettings, oInit, loadedInit );
-}
-else {
-	loadedInit();
 }
 
+// If aaSorting is not defined, then we use the first indicator in asSorting
+// in case that has been altered, so the default sort reflects that option
+if ( oInit.aaSorting === undefined ) {
+	var sorting = oSettings.aaSorting;
+	for ( i=0, iLen=sorting.length ; i<iLen ; i++ ) {
+		sorting[i][1] = oSettings.aoColumns[ i ].asSorting[0];
+	}
+}
+
+/* Do a first pass on the sorting classes (allows any size changes to be taken into
+	* account, and also will apply sorting disabled classes if disabled
+	*/
+_fnSortingClasses( oSettings );
+
+_fnCallbackReg( oSettings, 'aoDrawCallback', function () {
+	if ( oSettings.bSorted || _fnDataSource( oSettings ) === 'ssp' || features.bDeferRender ) {
+		_fnSortingClasses( oSettings );
+	}
+} );
+
+
+/*
+ * Table HTML init
+ * Cache the header, body and footer as required, creating them if needed
+ */
+var caption = $this.children('caption');
+
+if ( oSettings.caption ) {
+	if ( caption.length === 0 ) {
+		caption = $('<caption/>').appendTo( $this );
+	}
+
+	caption.html( oSettings.caption );
+}
+
+// Store the caption side, so we can remove the element from the document
+// when creating the element
+if (caption.length) {
+	caption[0]._captionSide = caption.css('caption-side');
+	oSettings.captionNode = caption[0];
+}
+
+if ( thead.length === 0 ) {
+	thead = $('<thead/>').appendTo($this);
+}
+oSettings.nTHead = thead[0];
+$('tr', thead).addClass(oClasses.thead.row);
+
+var tbody = $this.children('tbody');
+if ( tbody.length === 0 ) {
+	tbody = $('<tbody/>').insertAfter(thead);
+}
+oSettings.nTBody = tbody[0];
+
+var tfoot = $this.children('tfoot');
+if ( tfoot.length === 0 ) {
+	// If we are a scrolling table, and no footer has been given, then we need to create
+	// a tfoot element for the caption element to be appended to
+	tfoot = $('<tfoot/>').appendTo($this);
+}
+oSettings.nTFoot = tfoot[0];
+$('tr', tfoot).addClass(oClasses.tfoot.row);
+
+// Copy the data index array
+oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+
+// Initialisation complete - table can be drawn
+oSettings.bInitialised = true;
+
+// Check if we need to initialise the table (it might not have been handed off to the
+// language processor)
+if ( bInitHandedOff === false ) {
+	_fnInitialise( oSettings );
+}
