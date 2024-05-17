@@ -26,8 +26,8 @@
 let row = table.row('#myId');
 ]]></example>
 
-	<example title="Select row of given index"><![CDATA[
-let rows = table.rows(1);
+	<example title="Select a row of given index"><![CDATA[
+let row = table.row(1);
 ]]></example>
 
 	<example title="Select row with matched data using a function"><![CDATA[

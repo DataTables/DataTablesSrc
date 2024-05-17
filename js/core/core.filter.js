@@ -104,6 +104,7 @@ function _fnFilter( searchRows, settings, input, options, column )
 	}
 
 	var i = 0;
+	var matched = [];
 
 	// Search term can be a function, regex or string - if a string we apply our
 	// smart filtering regex (assuming the options require that)
@@ -115,18 +116,22 @@ function _fnFilter( searchRows, settings, input, options, column )
 			: _fnFilterCreateSearch( input, options );
 
 	// Then for each row, does the test pass. If not, lop the row from the array
-	while (i < searchRows.length) {
+	for (i=0 ; i<searchRows.length ; i++) {
 		var row = settings.aoData[ searchRows[i] ];
 		var data = column === undefined
 			? row._sFilterRow
 			: row._aFilterData[ column ];
 
-		if ( (searchFunc && ! searchFunc(data, row._aData, searchRows[i], column)) || (rpSearch && ! rpSearch.test(data)) ) {
-			searchRows.splice(i, 1);
-			i--;
+		if ( (searchFunc && searchFunc(data, row._aData, searchRows[i], column)) || (rpSearch && rpSearch.test(data)) ) {
+			matched.push(searchRows[i]);
 		}
+	}
 
-		i++;
+	// Mutate the searchRows array
+	searchRows.length = matched.length;
+
+	for (i=0 ; i<matched.length ; i++) {
+		searchRows[i] = matched[i];
 	}
 }
 
@@ -211,7 +216,7 @@ function _fnFilterCreateSearch( search, inOpts )
 				word = '';
 			}
 
-			return word.replace('"', '');
+			return word.replace(/"/g, '');
 		} );
 
 		var match = not.length

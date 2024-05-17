@@ -58,7 +58,15 @@ let table = new DataTable('#myTable', {
 					numbers: 7
 				}
 			}
-		]
+		],
+		bottomStart: null,
+		bottom2Start: {
+			paging: {
+				buttons: 4,
+				type: 'numbers',
+				boundaryNumbers: false
+			}
+		}
 	},
 	order: [
 		{idx: 1, dir: 'asc'},
@@ -294,3 +302,8 @@ var res = DataTable.Api.register('apiMethod()', function (from, to) {
 });
 
 expectType<void>(res);
+
+expectType<string>(DataTable.ext.classes.container);
+expectType<string>(DataTable.ext.classes.table);
+expectType<string>(DataTable.ext.classes.tbody.row);
+expectType<string>(DataTable.ext.classes.tbody.cell);

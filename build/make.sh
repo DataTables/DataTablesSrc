@@ -200,62 +200,6 @@ function build_repo {
 }
 
 
-# Build the DataTables/DataTables distribution
-function build_repo_sync {
-	echo_section "Syncing build repo to source repo"
-	update_build_repo
-
-	LAST_HASH=$(cat ${BUILD_DIR}/DataTables/.datatables-commit-sync)
-
-	# Get the commits between the latest commit that the build repo was synced
-	# to and the head
-	COMMITS=$(git log --format=format:%H --reverse ${LAST_HASH}..HEAD)
-
-	if [ "$COMMITS" = "" ]; then
-		echo_msg "Build repo up to date"
-	else
-		CHANGES=0
-
-		for HASH in $COMMITS; do
-			echo_msg "Checking if there are build changes resulting from commit $HASH"
-			git checkout $HASH
-
-			COMMIT_MESSAGE=$(git log -1 --format=format:%B $HASH)
-
-			build_repo
-
-			cd ${BUILD_DIR}/DataTables
-			
-			# git appears to have a bug whereby --quiet doesn't work immediately
-			# after files have been generated. Running twice fixes
-			git diff --quiet --exit-code
-			git diff --quiet --exit-code
-			if [ $? -eq 1 ]; then
-				echo_msg "Committing changes"
-
-				echo $HASH > .datatables-commit-sync
-				git commit -a -m "$COMMIT_MESSAGE"
-				CHANGES=1
-			else
-				echo_msg "No build changes"
-			fi
-
-			cd - > /dev/null 2>&1
-		done
-
-		# Push latest changes up to origin
-		if [ $CHANGES -eq 1 ]; then
-			echo_msg "Pushing changes in build repo up to origin"
-			cd ${BUILD_DIR}/DataTables
-			git push --quiet origin $SYNC_BRANCH
-			cd - > /dev/null 2>&1
-		fi
-	fi
-
-	git checkout --quiet $SYNC_BRANCH
-}
-
-
 function build_descriptors {
 	echo_msg "Updating package descriptors"
 
@@ -320,6 +264,52 @@ function build_extension {
 	fi
 }
 
+function requirements {
+	if ! [ -x "$(command -v php)" ]; then
+		echo "Error: php is not installed and is required to build the examples."
+		echo "  Install with 'sudo apt install php php-xml php-mbstring php-curl' or similar for your platform"
+		exit 1
+	fi
+
+	TEST=$(php -i | grep xml.ini)
+	if [ $? -eq 1 ]; then
+		echo "Error: php's xml module is not installed and is required to build the examples."
+		echo "  Install with 'sudo apt install php-xml' or similar for your platform"
+		exit 1
+	fi
+
+	TEST=$(php -i | grep mbstring.ini)
+	if [ $? -eq 1 ]; then
+		echo "Error: php's mbstring module is not installed and is required to build the examples."
+		echo "  Install with 'sudo apt install php-mbstring' or similar for your platform"
+		exit 1
+	fi
+
+	TEST=$(php -i | grep curl.ini)
+	if [ $? -eq 1 ]; then
+		echo "Error: php's curl module is not installed and is required to build the examples."
+		echo "  Install with 'sudo apt install php-curl' or similar for your platform"
+		exit 1
+	fi
+
+	TEST=$(php -i | grep tidy.ini)
+	if [ $? -eq 1 ]; then
+		echo "Warning: php's tidy module is not installed and is used to clean up build the examples."
+		echo "  Install with 'sudo apt install php-tidy' or similar for your platform"
+	fi
+
+	if ! [ -x "$(command -v chromium)" ]; then
+		if ! [ -x "$(command -v google-chrome)" ]; then
+			echo "Warning: Neither Chrome nor Chromium is installed, and is used for the unit tests."
+			echo "  Install with 'sudo apt install chromium-browser' or similar for your platform"
+		fi
+	fi
+
+	if [ ! -d node_modules ]; then
+		npm install
+	fi
+}
+
 
 
 function usage {
@@ -327,22 +317,14 @@ function usage {
 
     where <cmd> is one of:
 
-      build    - Create the build repo from the current source files. Will
-                 automatically make the calls to to build the 'js' and 'css'
-                 targets. The created repo is in 'built/DataTables'
+      all [debug]   - Build DataTables core and all extensions
 
-      js       - Create the DataTables Javascript file
+      build [debug] - Build DataTables (css, examples, and js). Resultant
+                      files are in 'built/DataTables'
 
-      css      - Create the DataTables CSS files
+      css           - Create the DataTables CSS files
 
-      sync     - Synchronise the DataTables/DataTables build repo to the source
-                 repo
-
-      examples - Build the examples
-
-      test     - Build the unit tests
-
-	  all [debug] - Build DataTables core and all extensions
+      examples      - Build the examples
 
       extension <ext> [debug] - Extension to build where <ext> is one of:
         - AutoFill
@@ -359,6 +341,12 @@ function usage {
         - SearchBuilder
         - SearchPanes
         - StateRestore
+
+      js            - Create the DataTables Javascript file
+
+      serve         - Run an HTTP server to allow the built examples to load
+
+      test          - Build the unit tests
 
     and the optional [debug] parameter can be used to disable JS and CSS
     compression for faster development build times."
@@ -378,6 +366,9 @@ echo ""
 if [ ! -d $BUILD_DIR ]; then
 	mkdir $BUILD_DIR
 fi
+
+# Check we have what is needed for the build
+requirements
 
 case "$1" in
 	"thirdparty")
@@ -427,20 +418,12 @@ case "$1" in
 		build_css
 		;;
 
-	"sync")
-		# Sanity check that the working branch is going to build correctly
-		CURR_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-		if [ $SYNC_BRANCH != $CURR_BRANCH ]; then
-			echo_error "Working branch ($CURR_BRANCH) is not the same as the script branch ($SYNC_BRANCH)"
-			echo_error "Exiting..."
-			exit
-		fi
-
-		build_repo_sync
-		;;
-
 	"extension")
 		build_extension $SUBCMD
+		;;
+
+	"serve")
+		npx http-server built/DataTables/
 		;;
 
 	*)

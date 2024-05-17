@@ -104,7 +104,12 @@ function _fnBuildAjax( oSettings, data, fn )
 		oSettings.jqXHR = ajax.call( instance, data, callback, oSettings );
 	}
 	else if (ajax.url === '') {
-		callback({});
+		// No url, so don't load any data. Just apply an empty data array
+		// to the object for the callback.
+		var empty = {};
+
+		DataTable.util.set(ajax.dataSrc)(empty, []);
+		callback(empty);
 	}
 	else {
 		// Object to extend the base settings

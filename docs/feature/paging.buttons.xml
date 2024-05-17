@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="paging">
-	<name>paging.numbers</name>
+	<name>paging.buttons</name>
 	<summary>Set the maximum number of paging number buttons</summary>
-	<since>2.0</since>
+	<since>2.0.4</since>
 
 	<type type="number" />
 	<default value="7" />
 
 	<description>
+	<![CDATA[
+		< For DataTables 2.0.0-2.0.3 this parameter was called `paging.numbers`, but was renamed as the naming was not discoverable. For 2.0.x backwards compability will be retained, but removed in 2.1.
+
 		DataTables built in pagination control has the ability to show a variable amount of page number buttons. The default is 7, but you might want to show less depending on your layout. The number given should always be **odd**.
 
 		Please note that DataTables pagination control is responsive. It will automatically remove number buttons until the control fits onto a single line, as required by the page's layout.
+	]]>
 	</description>
 
 	<example title="Show paging control with options"><![CDATA[
@@ -18,7 +22,7 @@ new DataTable('#myTable', {
 	layout: {
 		bottomEnd: {
 			paging: {
-				numbers: 3
+				buttons: 3
 			}
 		}
 	}
@@ -26,6 +30,7 @@ new DataTable('#myTable', {
 ]]></example>
 
 	<related>-feature paging</related>
-	<related>-feature paging.numbers</related>
+	<related>-feature paging.boundaryNumbers</related>
+	<related>-feature paging.buttons</related>
 	<related>-feature paging.type</related>
 </dt-option>

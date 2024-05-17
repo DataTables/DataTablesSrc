@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="paging">
+	<name>paging.boundaryNumbers</name>
+	<summary>Include (or not) the leading first and last page in the numbers.</summary>
+	<since>2.0.4</since>
+
+	<type type="boolean" />
+	<default value="true" />
+
+	<description>
+	<![CDATA[
+		The pagination control presented by DataTables will show numbered buttons for the first page and the last page at all times (unless hidden by its responsive action), with an ellipsis between them and the number group for the current page - e.g.:
+
+		> 1 ... 5 **6** 7 ... 23
+
+		The first and last numbered buttons could be considered redundant if you have the first / last icon buttons also enabled, which they are by default. This option (`-init paging.boundaryNumbers`) of the paging control provides the ability to disable the first and last numbers buttons. When disabled, the above example would display as:
+
+		> ... 5 **6** 7 ...
+
+		The first / last and previous / next buttons can be optionally enabled / disabled around the numbered buttons group.
+	]]>
+	</description>
+
+	<example title="Disable the first and last number buttons when there is an ellipsis between them and the current paging number group."><![CDATA[
+new DataTable('#myTable', {
+	layout: {
+		bottomEnd: {
+			paging: {
+				boundaryNumbers: false
+			}
+		}
+	}
+});
+]]></example>
+
+	<related>-feature paging</related>
+	<related>-feature paging.boundaryNumbers</related>
+	<related>-feature paging.buttons</related>
+	<related>-feature paging.type</related>
+</dt-option>

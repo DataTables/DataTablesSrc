@@ -229,4 +229,24 @@ describe('order Option', function() {
 			expect($('#example tbody tr:nth-child(3) td:first-child').text()).toBe('Caesar Vance');
 		});
 	});
+
+	describe('Wide table', function() {
+		dt.html('basic_wide');
+
+		it('Inits okay', function() {
+			$('#example').DataTable({
+				order: [10, 'asc']
+			});
+
+			expect(true).toBe(true);
+		});
+
+		it('No sort icon on first column header', function() {
+			expect($('#example thead th:first-child').hasClass('dt-ordering-asc')).toBe(false);
+		});
+
+		it('But last header has one', function() {
+			expect($('#example thead th:last-child').hasClass('dt-ordering-asc')).toBe(true);
+		});
+	});
 });

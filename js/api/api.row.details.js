@@ -34,8 +34,10 @@ var __details_state_load = function (api, state)
 {
 	if ( state && state.childRows ) {
 		api
-			.rows( state.childRows.map(function (id){
-				return id.replace(/:/g, '\\:')
+			.rows( state.childRows.map(function (id) {
+				// Escape any `:` characters from the row id. Accounts for
+				// already escaped characters.
+				return id.replace(/([^:\\]*(?:\\.[^:\\]*)*):/g, "$1\\:");
 			}) )
 			.every( function () {
 				_fnCallbackFire( api.settings()[0], null, 'requestChild', [ this ] )
@@ -279,7 +281,7 @@ _api_register( [
 _api_register( _child_obj+'.isShown()', function () {
 	var ctx = this.context;
 
-	if ( ctx.length && this.length ) {
+	if ( ctx.length && this.length && ctx[0].aoData[ this[0] ] ) {
 		// _detailsShown as false or undefined will fall through to return false
 		return ctx[0].aoData[ this[0] ]._detailsShow || false;
 	}

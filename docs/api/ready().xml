@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="utility">
 	<name>ready()</name>
-	<summary>Determine is a DataTable is ready.</summary>
+	<summary>Determine if a DataTable is ready.</summary>
 	<since>2.0</since>
 
 	<type type="function">

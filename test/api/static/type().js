@@ -194,5 +194,29 @@ describe( 'Static method - type', function() {
 
 			expect(1).toBe(1);
 		});
+
+		dt.html('basic');
+
+		it('Init val for num-fmt', function() {
+			expect(DataTable.type('num-fmt').className).toBe('dt-type-numeric');
+		});
+
+		it('Empty string for class', function() {
+			DataTable.type('num-fmt', 'className', '');
+
+			expect(DataTable.type('num-fmt').className).toBe('');
+		});
+
+		it('No class used for the cells', function() {
+			table = new DataTable('#example');
+
+			expect( $('#example tbody tr:first-child td:last-child').hasClass('dt-type-numeric') ).toBe( false );	
+		});
+
+		it('Restore', function() {
+			DataTable.type('num-fmt', 'className', 'dt-type-numeric');
+
+			expect(DataTable.type('num-fmt').className).toBe('dt-type-numeric');
+		});
 	});
 });

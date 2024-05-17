@@ -51,9 +51,9 @@ $.extend( true, DataTable.ext.renderer, {
 				var ariaType = '';
 				var indexes = columns.indexes();
 				var sortDirs = columns.orderable(true).flatten();
-				var orderedColumns = sorting.map( function (val) {
+				var orderedColumns = ',' + sorting.map( function (val) {
 					return val.col;
-				} ).join(',');
+				} ).join(',') + ',';
 
 				cell
 					.removeClass(
@@ -64,7 +64,7 @@ $.extend( true, DataTable.ext.renderer, {
 					.toggleClass( orderClasses.canAsc, orderable && sortDirs.includes('asc') )
 					.toggleClass( orderClasses.canDesc, orderable && sortDirs.includes('desc') );
 				
-				var sortIdx = orderedColumns.indexOf( indexes.toArray().join(',') );
+				var sortIdx = orderedColumns.indexOf( ',' + indexes.toArray().join(',') + ',' );
 
 				if ( sortIdx !== -1 ) {
 					// Get the ordering direction for the columns under this cell
@@ -79,7 +79,7 @@ $.extend( true, DataTable.ext.renderer, {
 				}
 
 				// The ARIA spec says that only one column should be marked with aria-sort
-				if ( sortIdx === 0 && orderedColumns.length === indexes.count() ) {
+				if ( sortIdx === 0 ) {
 					var firstSort = sorting[0];
 					var sortOrder = col.asSorting;
 

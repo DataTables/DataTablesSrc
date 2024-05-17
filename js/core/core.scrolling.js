@@ -220,20 +220,27 @@ function _fnScrollDraw ( settings )
 	// uses a cell which has a longer string, but isn't the widest! For example 
 	// "Chief Executive Officer (CEO)" is the longest string in the demo, but
 	// "Systems Administrator" is actually the widest string since it doesn't collapse.
+	// Note the use of translating into a column index to get the `col` element. This
+	// is because of Responsive which might remove `col` elements, knocking the alignment
+	// of the indexes out.
 	if (settings.aiDisplay.length) {
 		// Get the column sizes from the first row in the table
-		var colSizes = table.find('tbody tr').eq(0).find('th, td').map(function () {
-			return $(this).outerWidth();
+		var colSizes = table.children('tbody').eq(0).children('tr').eq(0).children('th, td').map(function (vis) {
+			return {
+				idx: _fnVisibleToColumnIndex(settings, vis),
+				width: $(this).outerWidth()
+			}
 		});
 
 		// Check against what the colgroup > col is set to and correct if needed
-		$('col', settings.colgroup).each(function (i) {
-			var colWidth = this.style.width.replace('px', '');
+		for (var i=0 ; i<colSizes.length ; i++) {
+			var colEl = settings.aoColumns[ colSizes[i].idx ].colEl[0];
+			var colWidth = colEl.style.width.replace('px', '');
 
-			if (colWidth !== colSizes[i]) {
-				this.style.width = colSizes[i] + 'px';
+			if (colWidth !== colSizes[i].width) {
+				colEl.style.width = colSizes[i].width + 'px';
 			}
-		});
+		}
 	}
 
 	// 3. Copy the colgroup over to the header and footer
@@ -255,12 +262,12 @@ function _fnScrollDraw ( settings )
 	// the content of the cell so that the width applied to the header and body
 	// both match, but we want to hide it completely.
 	$('th, td', headerCopy).each(function () {
-		$(this).children().wrapAll('<div class="dt-scroll-sizing">');
+		$(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
 	});
 
 	if ( footer ) {
 		$('th, td', footerCopy).each(function () {
-			$(this).children().wrapAll('<div class="dt-scroll-sizing">');
+			$(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
 		});
 	}
 

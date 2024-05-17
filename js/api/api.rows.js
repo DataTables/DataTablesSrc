@@ -108,11 +108,7 @@ var __row_selector = function ( settings, selector, opts )
 	var matched = _selector_run( 'row', selector, run, settings, opts );
 
 	if (opts.order === 'current' || opts.order === 'applied') {
-		var master = settings.aiDisplayMaster;
-
-		matched.sort(function(a, b) {  
-			return master.indexOf(a) - master.indexOf(b);
-		});
+		_fnSortDisplay(settings, matched);
 	}
 
 	return matched;
@@ -197,11 +193,6 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 		var idx = settings.aiDisplayMaster.indexOf(row);
 		if (idx !== -1) {
 			settings.aiDisplayMaster.splice(idx, 1);
-		}
-
-		idx = settings.aiDisplay.indexOf(row);
-		if (idx !== -1) {
-			settings.aiDisplay.splice(idx, 1);
 		}
 
 		// For server-side processing tables - subtract the deleted row from the count
@@ -293,9 +284,15 @@ _api_register( 'row().data()', function ( data ) {
 _api_register( 'row().node()', function () {
 	var ctx = this.context;
 
-	return ctx.length && this.length && this[0].length ?
-		ctx[0].aoData[ this[0] ].nTr || null :
-		null;
+	if (ctx.length && this.length && this[0].length) {
+		var row = ctx[0].aoData[ this[0] ];
+
+		if (row && row.nTr) {
+			return row.nTr;
+		}
+	}
+
+	return null;
 } );
 
 

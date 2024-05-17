@@ -441,8 +441,15 @@ function _fnDraw( oSettings, ajaxComplete )
 	_fnCallbackFire( oSettings, 'aoFooterCallback', 'footer', [ $(oSettings.nTFoot).children('tr')[0],
 		_fnGetDataMaster( oSettings ), iDisplayStart, iDisplayEnd, aiDisplay ] );
 
-	body.children().detach();
-	body.append( $(anRows) );
+	// replaceChildren is faster, but only became widespread in 2020,
+	// so a fall back in jQuery is provided for older browsers.
+	if (body[0].replaceChildren) {
+		body[0].replaceChildren.apply(body[0], anRows);
+	}
+	else {
+		body.children().detach();
+		body.append( $(anRows) );
+	}
 
 	// Empty table needs a specific class
 	$(oSettings.nTableWrapper).toggleClass('dt-empty-footer', $('tr', oSettings.nTFoot).length === 0);
@@ -710,15 +717,15 @@ function _fnAddOptionsHtml ( settings )
 
 	settings.nTableWrapper = insert[0];
 
-	var top = _layoutArray( settings, settings.layout, 'top' );
-	var bottom = _layoutArray( settings, settings.layout, 'bottom' );
-	var renderer = _fnRenderer( settings, 'layout' );
-
 	if (settings.sDom) {
 		// Legacy
 		_fnLayoutDom(settings, settings.sDom, insert);
 	}
 	else {
+		var top = _layoutArray( settings, settings.layout, 'top' );
+		var bottom = _layoutArray( settings, settings.layout, 'bottom' );
+		var renderer = _fnRenderer( settings, 'layout' );
+	
 		// Everything above - the renderer will actually insert the contents into the document
 		top.forEach(function (item) {
 			renderer( settings, insert, item );
@@ -904,7 +911,7 @@ function _fnDetectHeader ( settings, thead, write )
 							}
 
 							if (! columnDef.sTitle && unique) {
-								columnDef.sTitle = cell.innerHTML.replace( /<.*?>/g, "" );
+								columnDef.sTitle = _stripHtml(cell.innerHTML);
 								columnDef.autoTitle = true;
 							}
 						}

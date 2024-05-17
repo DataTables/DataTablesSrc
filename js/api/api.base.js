@@ -438,6 +438,10 @@ _Api.extend = function ( scope, obj, ext )
 	for ( i=0, ien=ext.length ; i<ien ; i++ ) {
 		struct = ext[i];
 
+		if (struct.name === '__proto__') {
+			continue;
+		}
+
 		// Value
 		obj[ struct.name ] = struct.type === 'function' ?
 			_api_scope( scope, struct.val, struct ) :

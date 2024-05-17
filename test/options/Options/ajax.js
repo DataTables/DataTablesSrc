@@ -96,6 +96,36 @@ describe('ajax option', function() {
 				done();
 			});
 		})
+
+		dt.html('empty');
+
+		it('Table drawn with no data if ajax.url is empty string-ed', function(done) {
+			table = $('#example').DataTable({
+				ajax: {
+					url: '',
+					dataSrc: 'data'
+				},
+				columns: [
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				initComplete: function() {
+					expect($('tbody td').text()).toBe('No data available in table');
+					done();
+				}
+			});
+		});
+
+		it('Can populate with ajax.url().load()', function(done) {
+			table.ajax.url('/base/test/data/data.txt').load(function () {
+				expect($('tbody tr:eq(2) td:eq(0)').text()).toBe('Ashton Cox');
+				done();
+			});
+		})
 	});
 
 	dt.html('empty');

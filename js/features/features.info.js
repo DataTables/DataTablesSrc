@@ -27,7 +27,7 @@ DataTable.feature.register( 'info', function ( settings, opts ) {
 	});
 
 	// For the first info display in the table, we add a callback and aria information.
-	if (! $('#' + tid+'_info', settings.nWrapper).length) {
+	if (! settings._infoEl) {
 		n.attr({
 			'aria-live': 'polite',
 			id: tid+'_info',
@@ -36,6 +36,8 @@ DataTable.feature.register( 'info', function ( settings, opts ) {
 
 		// Table is described by our info div
 		$(settings.nTable).attr( 'aria-describedby', tid+'_info' );
+
+		settings._infoEl = n;
 	}
 
 	return n;

@@ -542,24 +542,24 @@ DataTable.defaults = {
 		 */
 		"oPaginate": {
 			/**
-			 * Label and character for first page button
+			 * Label and character for first page button («)
 			 */
-			"sFirst": "«",
+			"sFirst": "\u00AB",
 
 			/**
-			 * Last page button
+			 * Last page button (»)
 			 */
-			"sLast": "»",
+			"sLast": "\u00BB",
 
 			/**
-			 * Next page button
+			 * Next page button (›)
 			 */
-			"sNext": "›",
+			"sNext": "\u203A",
 
 			/**
-			 * Previous page button
+			 * Previous page button (‹)
 			 */
-			"sPrevious": "‹",
+			"sPrevious": "\u2039",
 		},
 
 		/**

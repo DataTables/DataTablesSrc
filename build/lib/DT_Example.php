@@ -722,12 +722,13 @@ class DT_Example
 				$path = 'https://cdn.datatables.net/' . $opts['release'];
 			}
 			else if ($component === 'editor') {
-				$path = 'https://editor.datatables.net/extensions/Editor';
+				$path = '/extensions/Editor/';
 			}
 			else {
 				$path = 'https://cdn.datatables.net/' . $component .'/'. $opts['release'];
 			}
 
+			// Non-release builds and Editor (always) use local paths
 			if (! $cdn) {
 				$path = call_user_func( $this->_path_resolver, $opts['path']);
 			}

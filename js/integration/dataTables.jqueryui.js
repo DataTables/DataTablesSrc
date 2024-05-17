@@ -1,10 +1,9 @@
 /*! DataTables jQuery UI integration
- * ©2011-2014 SpryMedia Ltd - datatables.net/license
+ * © SpryMedia Ltd - datatables.net/license
  */
 
 /**
- * DataTables integration for jQuery UI. This requires jQuery UI and
- * DataTables 1.10 or newer.
+ * DataTables integration for jQuery UI.
  *
  * This file sets the defaults and adds options to DataTables to style its
  * controls using jQuery UI. See https://datatables.net/manual/styling/jqueryui
@@ -20,36 +19,40 @@ $.extend( true, DataTable.ext.classes, {
 		disabled: 'ui-state-disabled'
 	},
 	thead: {
-		cell: 'ui-state-default'
+		cell: 'ui-state-default fg-toolbar ui-toolbar ui-widget-header'
 	},
 	tfoot: {
-		cell: 'ui-state-default'
+		cell: 'ui-state-default ui-widget-header'
+	},
+	grid: {
+		row: 'dt-layout-row ui-helper-clearfix',
+		cell: 'dt-layout-cell'
 	}
 } );
 
 
 DataTable.ext.renderer.layout.jqueryui = function ( settings, container, items ) {
-	var rowHasDt = false;
+	var classes = settings.oClasses;
 	var row = $( '<div/>', {
-			"class": 'dt-layout-row ui-helper-clearfix'
+			"class": classes.grid.row
 		} )
 		.appendTo( container );
 
 	$.each( items, function (key, val) {
 		var cell = $( '<div/>', {
 				id: val.id || null,
-				"class": 'dt-layout-cell dt-'+key+' '+(val.className || '')
+				"class": classes.grid.cell + ' dt-'+key+' '+(val.className || '')
 			} )
 			.append( val.contents )
 			.appendTo( row );
 
 		if ($(val.contents).hasClass('dataTable')) {
-			rowHasDt = true;
 			cell.addClass('table');
 		}
 	} );
-	
-	if (! rowHasDt) {
-		row.addClass('fg-toolbar ui-toolbar ui-widget-header');
-	}
 };
+
+// Set the defaults for DataTables initialisation
+$.extend(true, DataTable.defaults, {
+	renderer: 'jqueryui'
+});

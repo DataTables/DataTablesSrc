@@ -52,7 +52,7 @@ DataTable.type = function (name, prop, val) {
 	};
 
 	// prop is optional
-	if (! val) {
+	if (val === undefined) {
 		val = prop;
 		prop = null;
 	}

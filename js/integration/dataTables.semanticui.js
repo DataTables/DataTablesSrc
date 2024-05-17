@@ -1,5 +1,5 @@
 /*! DataTables Bootstrap 3 integration
- * ©2011-2015 SpryMedia Ltd - datatables.net/license
+ * © SpryMedia Ltd - datatables.net/license
  */
 
 /**
@@ -41,16 +41,15 @@ DataTable.ext.renderer.pagingButton.semanticUI = function (settings, buttonType,
 		btnClasses.push('disabled')
 	}
 
-	var li = $('<li>').addClass(btnClasses.join(' '));
 	var a = $('<'+(disabled ? 'div' : 'a')+'>', {
 		'href': disabled ? null : '#',
 		'class': 'page-link'
 	})
-		.html(content)
-		.appendTo(li);
+		.addClass(btnClasses.join(' '))
+		.html(content);
 
 	return {
-		display: li,
+		display: a,
 		clicker: a
 	};
 };

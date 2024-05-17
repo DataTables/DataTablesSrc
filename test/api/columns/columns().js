@@ -32,6 +32,7 @@
 describe('columns- columns() -solo', function() {
 	let table;
 	let columns;
+	let args;
 
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -121,9 +122,24 @@ describe('columns- columns() -solo', function() {
 		});
 		it('Can select a column using function', function() {
 			columns = table.columns(function(i, d, n) {
+				args = arguments;
 				return $.inArray(i, [0, 2]) > -1 ? true : false;
 			});
 			expect(columns[0]).toEqual([0, 2]);
+		});
+		it('Expected number of arguments were passed in', function() {
+			expect(args.length).toEqual(3);
+		});
+		it('First was the column index', function() {
+			// Note that this is from the last iteration
+			expect(args[0]).toEqual(5);
+		});
+		it('Second was the column data', function() {
+			expect(args[1].length).toEqual(57);
+			expect(args[1][0]).toBe('$162,700');
+		});
+		it('Third was the header node', function() {
+			expect(args[2]).toBe($('thead th')[4]);
 		});
 		it('Can select a column header node', function() {
 			columns = table.columns([$('thead th:eq(0)'), $('thead th:eq(1)')]);

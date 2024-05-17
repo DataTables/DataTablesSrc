@@ -1391,6 +1391,8 @@ function path_resolve( $from, $to )
 	$from = path_simplify( $from );
 	$to = path_simplify( $to );
 
+	// echo $from .' '. $to .' ';
+
 	// some compatibility fixes for Windows paths
 	$from = is_dir($from) ? rtrim($from, '\/') . '/' : $from;
 	$to   = is_dir($to)   ? rtrim($to, '\/') . '/'   : $to;
@@ -1425,6 +1427,8 @@ function path_resolve( $from, $to )
 	if ( count($relPath) === 0 ) {
 		return './'.$from[ count($from)-1 ];
 	}
+
+	// echo implode('/', $relPath) ."\n";
 
 	return implode('/', $relPath);
 }

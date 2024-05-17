@@ -96,5 +96,40 @@ describe('serverSide option', function() {
 			// Loading initially
 			expect($('tbody').text()).toBe('Loading...');
 		});
+
+		dt.html('empty');
+		it('API with removed rows', function(done) {
+			var table = $('#example').DataTable({
+				ajax: function (data, callback) {
+					setTimeout(function () {
+						var out = [];
+	
+						for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
+							out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
+						}
+	
+						setTimeout(function() {
+							callback({
+								draw: data.draw,
+								data: out,
+								recordsTotal: 5000,
+								recordsFiltered: 5000
+							});
+						}, 50);
+					}, 100);
+				},
+				processing: true,
+				serverSide: true,
+				initComplete: function(setting, json) {
+					table.row(1).remove();
+				 
+					table.rows().every(function () {
+						expect(this.child.isShown()).toBe(false);
+					});
+
+					done();
+				}
+			});
+		});
 	});
 });

@@ -90,7 +90,7 @@ _buildInclude('api.core.js');
  *  @type string
  *  @default Version number
  */
-DataTable.version = "2.0.1";
+DataTable.version = "2.0.7";
 
 /**
  * Private data store, containing all of the settings objects that are
@@ -130,8 +130,6 @@ _buildInclude('model.settings.js');
  *  @namespace
  *  @extends DataTable.models.ext
  */
-_buildInclude('ext.js');
-_buildInclude('ext.classes.js');
 _buildInclude('ext.paging.js');
 _buildInclude('ext.filter.js');
 _buildInclude('ext.helpers.js');

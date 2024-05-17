@@ -251,6 +251,12 @@ window.dt_demo = {
 			return;
 		}
 
+		// Already got jQuery from an external source - spin on
+		if (item.name === 'jquery' && window.$) {
+			dt_demo._loadNext();
+			return;
+		}
+
 		if (item.type === 'css') {
 			var script = document.createElement('link');
 			script.href = item.src;
