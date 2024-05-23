@@ -227,4 +227,25 @@ describe('columns- columns() -solo', function() {
 			expect(table.columns('#example thead th:eq(0)', { search: 'applied' }).data()[0][0]).toBe('Airi Satou');
 		});
 	});
+
+	// https://datatables.net/forums/discussion/79089
+	describe('complex header with :visible selector', function() {
+		dt.html( 'complex-header-footer' );
+
+		it( 'All columns are visible', function () {
+			table = $('#example').DataTable();
+	
+			let visible = table.columns(':visible').flatten().toArray();
+
+			expect(visible).toEqual([0, 1, 2, 3, 4, 5]);
+		} );
+
+		it( 'Hide a column', function () {
+			table.columns(1).visible(false);
+
+			let visible = table.columns(':visible').flatten().toArray();
+
+			expect(visible).toEqual([0, 2, 3, 4, 5]);
+		} );
+	});
 });
