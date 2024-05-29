@@ -15,6 +15,12 @@
 		* `-string asc` - Ascending order
 		* `-string desc` - Descending order
 		* `-string ` (i.e. empty string) - data index order. Note that this option is available as of DataTables 2.0 and newer.
+
+		Prior to DataTables 2 this option defaulted to `[ 'asc', 'desc' ]`. DataTables 2 added the third option to the array with the empty string included in the default for the no sort state. If you would like to use the DataTables 1.x behaviour, set the default using:
+
+		```js
+		DataTable.defaults.column.orderSequence = ['asc', 'desc'];
+		```
 	</description>
 
 	<example title="Using `orderSequence` to define the applied order sequence with `dt-init columnDefs`"><![CDATA[
