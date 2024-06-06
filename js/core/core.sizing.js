@@ -22,8 +22,17 @@ function _fnCalculateColumnWidths ( settings )
 		tableWidthAttr = table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentNode,
 		i, column, columnIdx;
-
+		
 	var styleWidth = table.style.width;
+
+	// If there is no width applied as a CSS style or as an attribute, we assume that
+	// the width is intended to be 100%, which is usually is in CSS, but it is very
+	// difficult to correctly parse the rules to get the final result.
+	if ( ! styleWidth && ! tableWidthAttr) {
+		table.style.width = '100%';
+		styleWidth = '100%';
+	}
+
 	if ( styleWidth && styleWidth.indexOf('%') !== -1 ) {
 		tableWidthAttr = styleWidth;
 	}

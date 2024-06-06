@@ -56,4 +56,49 @@ describe( "autoWidth option", function() {
 			expect($('#example colgroup col:eq(1)').attr('style').match(/width/i)).toBeTruthy();
 		});
 	});
+
+	describe("width attribute / style addition", function () {
+		dt.html( 'basic' );
+
+		it("Initialisation without a width attribute or style causes it to be added", function () {
+			$('#example').removeAttr('width');
+
+			$('#example').DataTable();
+
+			expect($('#example')[0].style.width).toBe('100%')
+		});
+		
+		dt.html( 'basic' );
+
+		it("With auto width disabled it is not 100%", function () {
+			$('#example').removeAttr('width');
+
+			$('#example').DataTable({
+				autoWidth: false
+			});
+
+			expect($('#example')[0].style.width).toBe('')
+		});
+		
+		dt.html( 'basic' );
+
+		it("A set width is retained (style)", function () {
+			$('#example').removeAttr('width');
+			$('#example')[0].style.width = '50%';
+
+			$('#example').DataTable();
+
+			expect($('#example')[0].style.width).toBe('50%')
+		});
+		
+		dt.html( 'basic' );
+
+		it("A set width is retained (attribute)", function () {
+			$('#example').attr('width', '50%');
+
+			$('#example').DataTable();
+
+			expect($('#example')[0].style.width).toBe('50%')
+		});
+	});
 });
