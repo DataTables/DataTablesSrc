@@ -656,7 +656,7 @@ window.dt_demo = {
 		var targetTheme = val;
 
 		if (val === 'dark') {
-			if (! styling || styling === 'bootstrap5' || styling === 'datatables') {
+			if (! styling || styling === 'bootstrap5' || styling === 'datatables' || styling === 'bulma') {
 				dt_demo._optionsWarning(selector, false);
 			}
 			else {
@@ -666,13 +666,19 @@ window.dt_demo = {
 		}
 
 		if (val === 'dark') {
-			$('html').removeClass('light').addClass('dark');
-			$('html').attr('data-bs-theme', 'dark');
+			$('html')
+				.removeClass('light') // DataTables
+				.addClass('dark')
+				.attr('data-bs-theme', 'dark') // Bootstrap
+				.attr('data-theme', 'dark'); // Bulma
 			$('div.chart-display').removeClass('highcharts-light').addClass('highcharts-dark');
 		}
 		else if (val === 'light') {
-			$('html').removeClass('dark').addClass('light');
-			$('html').attr('data-bs-theme', 'light');
+			$('html')
+				.removeClass('dark') // DataTables
+				.addClass('light')
+				.attr('data-bs-theme', 'light') // Bootstrap
+				.attr('data-theme', 'light'); // Bulma
 			$('div.chart-display').removeClass('highcharts-dark').addClass('highcharts-light');
 		}
 

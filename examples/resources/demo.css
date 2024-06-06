@@ -5,6 +5,14 @@ body {
   color: #333;
   background-color: #fff;
 }
+body.dt-example-bootstrap5 {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+body.dt-example-bulma {
+  background-color: var(--bulma-body-background-color);
+  color: var(--bulma-body-color);
+}
 
 section {
   position: relative;
@@ -508,6 +516,14 @@ i.dt-demo-icon.warning {
 html.dark body {
   background-color: rgb(33, 37, 41);
   color: rgb(218, 224, 231);
+}
+html.dark body.dt-example-bootstrap5 {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+html.dark body.dt-example-bulma {
+  background-color: var(--bulma-body-background-color);
+  color: var(--bulma-body-color);
 }
 html.dark div.info a,
 html.dark div.dt-tabs a,

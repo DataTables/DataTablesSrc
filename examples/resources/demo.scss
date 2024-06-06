@@ -11,6 +11,17 @@ body {
 	padding: 0;
 	color: #333;
 	background-color: #fff;
+
+	// Overrides for styling frameworks with CSS variables
+	&.dt-example-bootstrap5 {
+		background-color: var(--bs-body-bg);
+		color: var(--bs-body-color);
+	}
+
+	&.dt-example-bulma {
+		background-color: var(--bulma-body-background-color);
+		color: var(--bulma-body-color);
+	}
 }
 
 section {
@@ -631,6 +642,16 @@ html.dark {
 	body {
 		background-color: rgb(33, 37, 41);
 		color: rgb(218, 224, 231);
+
+		&.dt-example-bootstrap5 {
+			background-color: var(--bs-body-bg);
+			color: var(--bs-body-color);
+		}
+
+		&.dt-example-bulma {
+			background-color: var(--bulma-body-background-color);
+			color: var(--bulma-body-color);
+		}
 	}
 
 	div.info a,

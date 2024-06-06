@@ -1,14 +1,23 @@
 
-$table-row-selected: 0 209 178;
+/*! DataTables Bulma integration
+ * © SpryMedia Ltd - datatables.net/license
+ */
 
 @import './common.scss';
 @import './ordering.scss';
 @import './processing.scss';
 @import './typography.scss';
 
-/*! DataTables Bulma integration
- * ©2020 SpryMedia Ltd - datatables.net/license
- */
+// This doesn't yet work with the Bulma's CSS variables. DataTables' CSS variables
+// will need an overhaul before they work seamlessly. 
+:root {
+	--dt-row-selected: 0, 209, 178;
+	--dt-row-selected-text: 46, 51, 61;
+
+	&[data-theme="dark"] {
+		--dt-row-selected-text: 0, 31, 26;
+	}
+}
 
 table.dataTable {
 	clear: both;
