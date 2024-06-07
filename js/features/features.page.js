@@ -11,13 +11,11 @@ DataTable.feature.register( 'paging', function ( settings, opts ) {
 	opts = $.extend({
 		buttons: DataTable.ext.pager.numbers_length,
 		type: settings.sPaginationType,
-		boundaryNumbers: true
+		boundaryNumbers: true,
+		firstLast: true,
+		previousNext: true,
+		numbers: true
 	}, opts);
-
-	// To be removed in 2.1
-	if (opts.numbers) {
-		opts.buttons = opts.numbers;
-	}
 
 	var host = $('<div/>').addClass( settings.oClasses.paging.container + ' paging_' + opts.type );
 	var draw = function () {
@@ -32,13 +30,39 @@ DataTable.feature.register( 'paging', function ( settings, opts ) {
 	return host;
 }, 'p' );
 
+/**
+ * Dynamically create the button type array based on the configuration options.
+ * This will only happen if the paging type is not defined.
+ */
+function _pagingDynamic(opts) {
+	var out = [];
+
+	if (opts.numbers) {
+		opts.push('numbers');
+	}
+
+	if (opts.previousNext) {
+		opts.unshift('previous');
+		opts.push('next');
+	}
+
+	if (opts.firstLast) {
+		opts.unshift('first');
+		opts.push('last');
+	}
+
+	return out;
+}
+
 function _pagingDraw(settings, host, opts) {
 	if (! settings._bInitComplete) {
 		return;
 	}
 
 	var
-		plugin = DataTable.ext.pager[ opts.type ],
+		plugin = opts.type
+			? DataTable.ext.pager[ opts.type ]
+			: _pagingDynamic,
 		aria = settings.oLanguage.oAria.paginate || {},
 		start      = settings._iDisplayStart,
 		len        = settings._iDisplayLength,
@@ -46,7 +70,7 @@ function _pagingDraw(settings, host, opts) {
 		all        = len === -1,
 		page = all ? 0 : Math.ceil( start / len ),
 		pages = all ? 1 : Math.ceil( visRecords / len ),
-		buttons = plugin()
+		buttons = plugin(opts)
 			.map(function (val) {
 				return val === 'numbers'
 					? _pagingNumbers(page, pages, opts.buttons, opts.boundaryNumbers)

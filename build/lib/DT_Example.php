@@ -444,7 +444,7 @@ class DT_Example
 		$construction = DT_Example::$tables[ $type ];
 		$columns = $construction['columns'];
 
-		$t = '<table id="'.$id.'" class="'.$class.'">';
+		$t = '<table id="'.$id.'" class="'.$class.'" style="width:100%">';
 
 		// Build the header
 		if ( $construction['header'] ) {
