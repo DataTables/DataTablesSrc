@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.use()</name>
+	<summary>Set the libraries or global object upon which DataTables uses</summary>
+	<since>2.1</since>
+
+	<type type="function">
+		<signature>use(library, type)</signature>
+		<description>
+			Set the libraries, or the global object (i.e. the `window`) that is used by DataTables for operations such as date and time manipulation.
+		</description>
+		<parameter type="*" name="library">
+			This should be the library, or object that is being set.
+		</parameter>
+		<parameter type="string" name="type">
+			The value given for this parameter tells DataTables what library it is you are setting. It can take one of the following parameters:
+
+			* `-string jq`: jQuery - used for DOM manipulation and events
+			* `-string win`: Global `window` object (which will also include the `document` as a property of the object)
+			* `-string luxon`: Luxon - optionally used for date time formatters
+			* `-string moment`: Moment - optionally used for date time formatters
+			* `-string datetime`: [DateTime picker](/extensions/datetime)
+		</parameter>
+		<returns type="void">No value is returned.</returns>
+	</type>
+
+	<description>
+		When loading DataTables in an environment that doesn't using a global `window` as its base (e.g. ES Modules) you may need to tell it about the external libraries that it can make use of. For example DataTables and use Moment.js or Luxon to handle formatted dates and times. In a browser those libraries automatically attach to the global `window`, but that isn't possible in a module loader. For such cases, use this method to make them available to DataTables.
+
+		It is also possible to pass in a `window` object, which can be useful for constructing a DataTable in a headless environment.
+
+		Note that this method is primarily useful when using ES modules or Common JS loading. You would not typically need to use this method if you are using a `-tag script` tag to load DataTables and any dependencies as they will be automatically detected.
+	</description>
+
+	<example title="Detect formatted dates with Moment.js"><![CDATA[
+
+import moment from 'moment';
+import DataTable from 'datatables.net';
+
+// Tell DataTables that it can use Moment for date formatting
+DataTable.use(moment, 'moment');
+
+// Tell DataTables what date format you want to look for in the HTML data
+DataTable.datetime('D MMM YYYY');
+
+// Initialise DataTables
+new DataTable('#example');
+
+]]></example>
+	<example title="Use Luxon to render data into a specific format"><![CDATA[
+
+import luxon from 'luxon';
+import DataTable from 'datatables.net';
+
+// Tell DataTables that it can use Luxon for date formatting
+DataTable.use(luxon, 'luxon');
+
+// Initialise DataTables with a specific column formatting date information
+new DataTable('#example', {
+    columnDefs: [
+        {
+            targets: 4,
+            render: DataTable.render.datetime('d MMM yyyy')
+        }
+    ]
+});
+]]></example>
+</dt-api>

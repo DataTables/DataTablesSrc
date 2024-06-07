@@ -10,34 +10,56 @@ function __mldFnName(name) {
 	return name.replace(/[\W]/g, '_')
 }
 
-// Common logic for moment, luxon or a date action
-function __mld( dt, momentFn, luxonFn, dateFn, arg1 ) {
-	if (window.moment) {
-		return dt[momentFn]( arg1 );
+/**
+ * Common logic for moment, luxon or a date action.
+ *
+ * Happens after __mldObj, so don't need to call `resolveWindowsLibs` again
+ */
+function __mld( dtLib, momentFn, luxonFn, dateFn, arg1 ) {
+	if (__moment) {
+		return dtLib[momentFn]( arg1 );
 	}
-	else if (window.luxon) {
-		return dt[luxonFn]( arg1 );
+	else if (__luxon) {
+		return dtLib[luxonFn]( arg1 );
 	}
 	
-	return dateFn ? dt[dateFn]( arg1 ) : dt;
+	return dateFn ? dtLib[dateFn]( arg1 ) : dtLib;
 }
 
 
 var __mlWarning = false;
+var __luxon; // Can be assigned in DateTeble.use()
+var __moment; // Can be assigned in DateTeble.use()
+
+/**
+ * 
+ */
+function resolveWindowLibs() {
+	if (window.luxon && ! __luxon) {
+		__luxon = window.luxon;
+	}
+	
+	if (window.moment && ! __moment) {
+		__moment = window.moment;
+	}
+}
+
 function __mldObj (d, format, locale) {
 	var dt;
 
-	if (window.moment) {
-		dt = window.moment.utc( d, format, locale, true );
+	resolveWindowLibs();
+
+	if (__moment) {
+		dt = __moment.utc( d, format, locale, true );
 
 		if (! dt.isValid()) {
 			return null;
 		}
 	}
-	else if (window.luxon) {
+	else if (__luxon) {
 		dt = format && typeof d === 'string'
-			? window.luxon.DateTime.fromFormat( d, format )
-			: window.luxon.DateTime.fromISO( d );
+			? __luxon.DateTime.fromFormat( d, format )
+			: __luxon.DateTime.fromISO( d );
 
 		if (! dt.isValid) {
 			return null;

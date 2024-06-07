@@ -1,21 +1,34 @@
 
 /**
- * Set the jQuery or window object to be used by DataTables
+ * Set the libraries that DataTables uses, or the global objects
  *
  * @param {*} module Library / container object
- * @param {string} [type] Library or container type `lib`, `win` or `datetime`.
- *   If not provided, automatic detection is attempted.
+ * @param {string} [type] Library or container type:
+ * 
+ * * `lib` or `jq`: jQuery
+ * * `win`: Window and document
+ * * `datetime`: Our own DateTime library
+ * * `luxon`: Luxon for date time formatters
+ * * `moment`: Moment for date time formatters
+ * 
+ * If not provided, automatic detection is attempted.
  */
 DataTable.use = function (module, type) {
-	if (type === 'lib' || module.fn) {
+	if (type === 'lib' || type === 'jq' || (module && module.fn && module.fn.jquery)) {
 		$ = module;
 	}
-	else if (type == 'win' || module.document) {
+	else if (type == 'win' || (module && module.document)) {
 		window = module;
 		document = module.document;
 	}
-	else if (type === 'datetime' || module.type === 'DateTime') {
+	else if (type === 'datetime' || (module && module.type === 'DateTime')) {
 		DataTable.DateTime = module;
+	}
+	else if (type === 'luxon') {
+		__luxon = module;
+	}
+	else if (type === 'moment') {
+		__moment = module;
 	}
 }
 
