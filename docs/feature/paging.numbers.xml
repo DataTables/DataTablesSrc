@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="paging">
+	<name>paging.numbers</name>
+	<summary>Include (or not) the numbers in the paging control.</summary>
+	<since>2.1</since>
+
+	<type type="boolean" />
+	<default value="true" />
+
+	<description>
+	<![CDATA[
+		The paging control for DataTables will show a set of numbers for pages in the table, allowing the end user to quickly jump between specific pages - e.g.:
+
+		> First Previous 1 ... 5 **6** 7 ... 23 Next Last
+
+		In some cases you might wish to disable the number display, which can be done with this feature -e.g. the resulting layout for the paging buttons would be:
+
+		> First Previous Next Last
+
+		This option can be combined with `-feature paging.firstLast` and `-feature paging.previousNext` to provide complete control over the buttons that are shown in the paging control.
+		
+		Please note that if `-feature paging.type` or `-init pagingType` are set, this option will have no effect.
+	]]>
+	</description>
+
+	<example title="Disable the paging numbers, leaving just the first, previous, next and last buttons."><![CDATA[
+new DataTable('#myTable', {
+	layout: {
+		bottomEnd: {
+			paging: {
+				numbers: false
+			}
+		}
+	}
+});
+]]></example>
+
+	<related>-feature paging</related>
+	<related>-feature paging.boundaryNumbers</related>
+	<related>-feature paging.buttons</related>
+	<related>-feature paging.firstLast</related>
+	<related>-feature paging.numbers</related>
+	<related>-feature paging.previousNext</related>
+	<related>-feature paging.type</related>
+</dt-option>

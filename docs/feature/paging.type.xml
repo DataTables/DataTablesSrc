@@ -9,6 +9,10 @@
 		Defaults to the `-init pagingType` option's value.
 	</default>
 
+	<deprecated since="2.1" removal="3.0">
+		Please note that this option has been deprecated in favour of `-feature paging.numbers`, `-feature paging.firstLast` and `-feature paging.previousNext` to improve compartmentalisation of the features in DataTables. It will be removed in DataTables 3 and it is recommended no longer to use this feature in preparation for that change.
+	</deprecated>
+
 	<description>
     <![CDATA[
 		The paging feature of DataTables will display a pagination control with buttons that the end user can use to navigate the pages of the table. Which buttons are shown in the pagination control are defined by the option given here.

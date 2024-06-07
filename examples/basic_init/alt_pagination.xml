@@ -8,35 +8,42 @@
 <title>Alternative pagination</title>
 <js><![CDATA[
 $('#example').DataTable({
-	pagingType: 'simple_numbers'
+	layout: {
+		bottomEnd: {
+			paging: {
+				firstLast: false
+			}
+		}
+	}
 });
 ]]></js>
 <js-vanilla>
 <![CDATA[
 new DataTable('#example', {
-	pagingType: 'simple_numbers'
+	layout: {
+		bottomEnd: {
+			paging: {
+				firstLast: false
+			}
+		}
+	}
 });
 ]]>
 </js-vanilla>
 
 <info><![CDATA[
 
-The default page control presented by DataTables (first, last, forward and backward buttons with up to 7 page numbers in-between) is fine for most situations, but there are cases where you may wish to customise the options presented to the end user. This is done through DataTables' extensible pagination mechanism, the `dt-init pagingType` option.
+The default page control presented by DataTables (first, last, forward and backward buttons with up to 7 page numbers in-between) is fine for most situations, but there are cases where you may wish to customise the options presented to the end user. This is done through the `-feature paging` feature's options. Specifically:
 
-There are six built-in options for which pagination controls DataTables should show:
+* `-feature paging.numbers` - Control if the buttons with page numbers will be shown or not
+* `-feature paging.firstLast` - Control the display of the _First_ and _Last_ buttons
+* `-feature paging.previousNext` - Control the display of the _Previous_ and _Next_ buttons.
 
-* `string numbers` - Page number buttons only
-* `string simple` - _Previous_ and _Next_ buttons only
-* `string simple_numbers` - _Previous_ and _Next_ buttons, plus page numbers
-* `string full` - _First_, _Previous_, _Next_ and _Last_ buttons
-* `string full_numbers` - _First_, _Previous_, _Next_ and _Last_ buttons, plus page numbers
-* `string first_last_numbers` - _First_ and _Last_ buttons, plus page numbers
+These options can be combined to provide complete control over the buttons that the paging control will show. Also, the language strings for the page control icons etc can be optionally changed through the internationalisation options of DataTables; `-init language.paginate.first`, `-init language.paginate.previous` etc.
 
-The language strings for the page control icons etc can be optionally changed through the internationalisation options of DataTables; `dt-init language.paginate.first`, `dt-init language.paginate.previous` etc.
+The example below shows the paging control with first and last buttons disabled (which was the default paging display in DataTables 1).
 
-Additional options for the buttons that are shown can be added through the use of feature plug-ins and the DataTables API. Furthermore, how the buttons are actually shown can be altered through the use of plug-in pagination renderers.
-
-The example below shows the `string simple_numbers` type of pagination (which was the default in DataTables 1.x).
+It is also possible to make use of external plugins to control the paging in DataTables. For example, [see this blog post](https://datatables.net/blog/2024/inputPaging) which introduces a plugin that allows the end user to type in the page number they want to show.
 
 ]]></info>
 

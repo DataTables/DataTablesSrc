@@ -17,7 +17,8 @@ DataTable.feature.register( 'paging', function ( settings, opts ) {
 		numbers: true
 	}, opts);
 
-	var host = $('<div/>').addClass( settings.oClasses.paging.container + ' paging_' + opts.type );
+	var host = $('<div/>')
+		.addClass(settings.oClasses.paging.container + (opts.type ? ' paging_' + opts.type : ''));
 	var draw = function () {
 		_pagingDraw(settings, host, opts);
 	};
@@ -38,17 +39,17 @@ function _pagingDynamic(opts) {
 	var out = [];
 
 	if (opts.numbers) {
-		opts.push('numbers');
+		out.push('numbers');
 	}
 
 	if (opts.previousNext) {
-		opts.unshift('previous');
-		opts.push('next');
+		out.unshift('previous');
+		out.push('next');
 	}
 
 	if (opts.firstLast) {
-		opts.unshift('first');
-		opts.push('last');
+		out.unshift('first');
+		out.push('last');
 	}
 
 	return out;

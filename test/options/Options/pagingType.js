@@ -36,7 +36,7 @@ describe('pageType Option', function() {
 		dt.html('basic');
 		it('Default', function() {
 			$('#example').dataTable();
-			expect(checkPaging(10, 'full_numbers', 'paging_full_numbers', true, 6, true, true)).toBe(true);
+			expect(checkPaging(10, '', 'dt-paging', true, 6, true, true)).toBe(true);
 		});
 
 		dt.html('basic');
@@ -94,7 +94,7 @@ describe('pageType Option', function() {
 			$('#example').dataTable({
 				pageLength: 60
 			});
-			expect(checkPaging(5, 'full_numbers', 'paging_full_numbers', true, 1, true, true)).toBe(true);
+			expect(checkPaging(5, '', 'dt-paging', true, 1, true, true)).toBe(true);
 		});
 
 		dt.html('basic');
@@ -158,7 +158,7 @@ describe('pageType Option', function() {
 			$('#example').dataTable({
 				pageLength: 2
 			});
-			expect(checkPaging(10, 'full_numbers', 'paging_full_numbers', true, 7, true, true)).toBe(true);
+			expect(checkPaging(10, '', 'dt-paging', true, 7, true, true)).toBe(true);
 		});
 
 		dt.html('basic');
@@ -279,7 +279,7 @@ describe('pageType Option', function() {
 				pageLength: 2,
 				displayStart: 20
 			});
-			expect(checkPaging(9, 'full_numbers', 'paging_full_numbers', true, 7, true, true)).toBe(true);
+			expect(checkPaging(9, '', 'dt-paging', true, 7, true, true)).toBe(true);
 		});
 
 		dt.html('basic');

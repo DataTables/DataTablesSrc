@@ -7,6 +7,10 @@
 	<type type="string" />
 	<default value="full_numbers" />
 
+	<deprecated since="2.1" removal="3.0">
+		Please note that this option has been deprecated in favour of `-feature paging.numbers`, `-feature paging.firstLast` and `-feature paging.previousNext` to improve compartmentalisation of the features in DataTables. It will be removed in DataTables 3 and it is recommended no longer to use this feature in preparation for that change.
+	</deprecated>
+
 	<description>
     <![CDATA[
     This option sets the paging type for all `-feature paging` table feature controls used for a table. The values it can take are defined in `-feature paging.type`, which be used to override this option (as of DataTables 2).
@@ -21,9 +25,9 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-  <related type="option">dom</related>
-  <related type="option">paging</related>
-  <related type="api">page()</related>
+	<related type="option">dom</related>
+	<related type="option">paging</related>
+	<related type="api">page()</related>
 	<related>-feature paging</related>
 	<related>-feature paging.type</related>
 </dt-option>

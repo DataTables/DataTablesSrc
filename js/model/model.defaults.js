@@ -760,7 +760,7 @@ DataTable.defaults = {
 	 * * `full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
 	 * * `first_last_numbers` - 'First' and 'Last' buttons, plus page numbers
 	 */
-	"sPaginationType": "full_numbers",
+	"sPaginationType": "",
 
 
 	/**

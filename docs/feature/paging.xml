@@ -27,12 +27,12 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Show paging control with options"><![CDATA[
+	<example title="Show paging control without buttons"><![CDATA[
 new DataTable('#myTable', {
 	layout: {
 		bottomEnd: {
 			paging: {
-				type: 'simple'
+				numbers: false
 			}
 		}
 	}
@@ -43,5 +43,8 @@ new DataTable('#myTable', {
 	<related>-feature paging</related>
 	<related>-feature paging.boundaryNumbers</related>
 	<related>-feature paging.buttons</related>
+	<related>-feature paging.firstLast</related>
+	<related>-feature paging.numbers</related>
+	<related>-feature paging.previousNext</related>
 	<related>-feature paging.type</related>
 </dt-option>

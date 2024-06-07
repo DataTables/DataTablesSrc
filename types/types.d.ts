@@ -163,11 +163,14 @@ export interface Feature {
         /** Paging button display options */
         type?: 'numbers' | 'simple' | 'simple_numbers' | 'full' | 'full_numbers' | 'first_last_numbers';
 
-        /**
-         * Set the maximum number of paging number buttons
-         * @deprecated Use `buttons` instead.
-         */
-        numbers?: number;
+        /** Display the buttons in the pager (default true) */
+        numbers?: boolean;
+        
+        /** Display the first and last buttons in the pager (default true) */
+        firstLast?: boolean;
+
+        /** Display the previous and next buttons in the pager (default true) */
+        previousNext?: boolean;
 
         /** Include the extreme page numbers, if separated by ellipsis, or not */
         boundaryNumbers?: boolean;

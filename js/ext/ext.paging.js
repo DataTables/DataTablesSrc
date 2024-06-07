@@ -9,7 +9,7 @@ $.extend( extPagination, {
 	},
 
 	full: function () {
-		return [  'first', 'previous', 'next', 'last' ];
+		return [ 'first', 'previous', 'next', 'last' ];
 	},
 
 	numbers: function () {
@@ -23,11 +23,11 @@ $.extend( extPagination, {
 	full_numbers: function () {
 		return [ 'first', 'previous', 'numbers', 'next', 'last' ];
 	},
-	
+
 	first_last: function () {
 		return ['first', 'last'];
 	},
-	
+
 	first_last_numbers: function () {
 		return ['first', 'numbers', 'last'];
 	},
