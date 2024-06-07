@@ -55,7 +55,11 @@ let table = new DataTable('#myTable', {
 		bottom1End: [
 			{
 				paging: {
-					numbers: 7
+					buttons: 7,
+					numbers: true,
+					firstLast: true,
+					previousNext: true,
+					boundaryNumbers: false
 				}
 			}
 		],
@@ -276,6 +280,7 @@ DataTable.type('num',{
 	search: d => d
 });
 
+expectType<undefined>(DataTable.use(window, 'win'));
 
 expectType<number[]>(DataTable.util.unique([1,2,3,4]));
 
