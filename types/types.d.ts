@@ -181,6 +181,9 @@ export interface Feature {
         /** Placeholder for the input element */
         placeholder?: string;
 
+        /** Show the processing icon when searching */
+        processing?: boolean;
+
         /** Text for search control */
         text?: string;
     }

@@ -41,3 +41,27 @@ function _fnProcessingDisplay ( settings, show )
 {
 	_fnCallbackFire( settings, null, 'processing', [settings, show] );
 }
+
+/**
+ * Show the processing element if an action takes longer than a given time
+ *
+ * @param {*} settings DataTables settings object
+ * @param {*} enable Do (true) or not (false) async processing (local feature enablement)
+ * @param {*} run Function to run
+ */
+function _fnProcessingRun( settings, enable, run ) {
+	if (! enable) {
+		// Immediate execution, synchronous
+		run();
+	}
+	else {
+		_fnProcessingDisplay(settings, true);
+		
+		// Allow the processing display to show if needed
+		setTimeout(function () {
+			run();
+
+			_fnProcessingDisplay(settings, false);
+		}, 0);
+	}
+}

@@ -70,6 +70,13 @@ let table = new DataTable('#myTable', {
 				type: 'numbers',
 				boundaryNumbers: false
 			}
+		},
+		bottom3Start: {
+			search: {
+				placeholder: 'Search',
+				processing: true,
+				text: 'Search: '
+			}
 		}
 	},
 	order: [

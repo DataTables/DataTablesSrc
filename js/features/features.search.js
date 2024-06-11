@@ -18,6 +18,7 @@ DataTable.feature.register( 'search', function ( settings, opts ) {
 
 	opts = $.extend({
 		placeholder: language.sSearchPlaceholder,
+		processing: false,
 		text: language.sSearch
 	}, opts);
 
@@ -61,13 +62,15 @@ DataTable.feature.register( 'search', function ( settings, opts ) {
 
 		/* Now do the filter */
 		if ( val != previousSearch.search ) {
-			previousSearch.search = val;
-
-			_fnFilterComplete( settings, previousSearch );
-
-			// Need to redraw, without resorting
-			settings._iDisplayStart = 0;
-			_fnDraw( settings );
+			_fnProcessingRun(settings, opts.processing, function () {
+				previousSearch.search = val;
+		
+				_fnFilterComplete( settings, previousSearch );
+		
+				// Need to redraw, without resorting
+				settings._iDisplayStart = 0;
+				_fnDraw( settings );
+			});
 		}
 	};
 

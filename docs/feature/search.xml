@@ -44,4 +44,5 @@ new DataTable('#myTable', {
 	<related>-feature search</related>
 	<related>-feature search.text</related>
 	<related>-feature search.placeholder</related>
+	<related>-feature search.processing</related>
 </dt-option>

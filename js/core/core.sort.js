@@ -52,22 +52,16 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 			}
 
 			if (run) {
-				_fnProcessingDisplay( settings, true );
-
-				// Allow the processing display to show
-				setTimeout( function () {
+				_fnProcessingRun(settings, true, function () {
 					_fnSort( settings );
 					_fnSortDisplay( settings, settings.aiDisplay );
-
-					// Sort processing done - redraw has its own processing display
-					_fnProcessingDisplay( settings, false );
 
 					_fnReDraw( settings, false, false );
 
 					if (callback) {
 						callback();
 					}
-				}, 0);
+				});
 			}
 		}
 	} );
