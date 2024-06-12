@@ -22,27 +22,20 @@ DataTable.type = function (name, prop, val) {
 	var setProp = function(prop, propVal) {
 		_extTypes[prop][name] = propVal;
 	};
-	var setDetect = function (fn) {
-		// Wrap to allow the function to return `true` rather than
-		// specifying the type name.
-		var cb = function (d, s) {
-			var ret = fn(d, s);
+	var setDetect = function (detect) {
+		// `detect` can be a function or an object - we set a name
+		// property for either - that is used for the detection
+		Object.defineProperty(detect, "name", {value: name});
 
-			return ret === true
-				? name
-				: ret;
-		};
-		Object.defineProperty(cb, "name", {value: name});
-
-		var idx = _extTypes.detect.findIndex(function (fn) {
-			return fn.name === name;
+		var idx = _extTypes.detect.findIndex(function (item) {
+			return item.name === name;
 		});
 
 		if (idx === -1) {
-			_extTypes.detect.unshift(cb);
+			_extTypes.detect.unshift(detect);
 		}
 		else {
-			_extTypes.detect.splice(idx, 1, cb);
+			_extTypes.detect.splice(idx, 1, detect);
 		}
 	};
 	var setOrder = function (obj) {
@@ -168,11 +161,16 @@ DataTable.type('date', {
 
 
 DataTable.type('html-num-fmt', {
-	className: 'dt-type-numeric',
-	detect: function ( d, settings )
-	{
-		var decimal = settings.oLanguage.sDecimal;
-		return _htmlNumeric( d, decimal, true ) ? 'html-num-fmt' : null;
+	className: 'dt-type-numeric 1',
+	detect: {
+		allOf: function ( d, settings ) {
+			var decimal = settings.oLanguage.sDecimal;
+			return _htmlNumeric( d, decimal, true, false ) ? 'html-num-fmt' : null;
+		},
+		oneOf: function (d, settings) {
+			var decimal = settings.oLanguage.sDecimal;
+			return _htmlNumeric( d, decimal, true, false );
+		}
 	},
 	order: {
 		pre: function ( d, s ) {
@@ -185,11 +183,17 @@ DataTable.type('html-num-fmt', {
 
 
 DataTable.type('html-num', {
-	className: 'dt-type-numeric',
-	detect: function ( d, settings )
-	{
-		var decimal = settings.oLanguage.sDecimal;
-		return _htmlNumeric( d, decimal ) ? 'html-num' : null;
+	className: 'dt-type-numeric 2',
+	detect: {
+		allOf: function ( d, settings ) {
+			var decimal = settings.oLanguage.sDecimal;
+			return _htmlNumeric( d, decimal, false, true ) ? 'html-num' : null;
+		},
+		oneOf: function (d, settings) {
+			var decimal = settings.oLanguage.sDecimal;
+			console.log('oneOf', d, _htmlNumeric( d, decimal, false, false ));
+			return _htmlNumeric( d, decimal, false, false );
+		}
 	},
 	order: {
 		pre: function ( d, s ) {
@@ -202,11 +206,16 @@ DataTable.type('html-num', {
 
 
 DataTable.type('num-fmt', {
-	className: 'dt-type-numeric',
-	detect: function ( d, settings )
-	{
-		var decimal = settings.oLanguage.sDecimal;
-		return _isNumber( d, decimal, true ) ? 'num-fmt' : null;
+	className: 'dt-type-numeric 3',
+	detect: {
+		allOf: function ( d, settings ) {
+			var decimal = settings.oLanguage.sDecimal;
+			return _isNumber( d, decimal, true, true ) ? 'num-fmt' : null;
+		},
+		oneOf: function (d, settings) {
+			var decimal = settings.oLanguage.sDecimal;
+			return _isNumber( d, decimal, true, false );
+		}
 	},
 	order: {
 		pre: function ( d, s ) {
@@ -218,11 +227,16 @@ DataTable.type('num-fmt', {
 
 
 DataTable.type('num', {
-	className: 'dt-type-numeric',
-	detect: function ( d, settings )
-	{
-		var decimal = settings.oLanguage.sDecimal;
-		return _isNumber( d, decimal ) ? 'num' : null;
+	className: 'dt-type-numeric 4',
+	detect: {
+		allOf: function ( d, settings ) {
+			var decimal = settings.oLanguage.sDecimal;
+			return _isNumber( d, decimal, false, true ) ? 'num' : null;
+		},
+		oneOf: function (d, settings) {
+			var decimal = settings.oLanguage.sDecimal;
+			return _isNumber( d, decimal, false, false );
+		}
 	},
 	order: {
 		pre: function (d, s) {

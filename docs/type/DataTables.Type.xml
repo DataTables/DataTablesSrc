@@ -13,7 +13,11 @@ Using [Typescript definitions](https://www.typescriptlang.org/docs/handbook/2/ty
 ```js
 interface DataTable.Type {
 	className?: string;
-	detect: (data: any) => string;
+	detect: (data: any) => (boolean | null) | {
+		oneOf: (data: any) => boolean,
+		allOf: (data: any) => boolean,
+		init: (settings: Object, column: Object, index: number) => boolean
+	};
 	order: {
 		pre?: (data: any) => any;
 		asc?: (a: any, b: any) => number;
@@ -34,7 +38,9 @@ The class name property is used to automatically assign a class to columns match
 
 ### detect
 
-This is the function that is used to detect a data type. The function should check the data that is passed in to determine if it matches the data type expected and if so it will return `true`. If the data doesn't match the expected format return `false`. Almost any data type can be passed into this function, so care must be taken - you can't just assume that it will be a string.
+This is how DataTables determines a data type. As of DataTables 2.1 it can take two forms, an object with multiple parameters allowing the type detection to be refined, or a single function.
+
+We'll discuss the single function first (DataTables 2.0+) - the function will check the data that is passed in to determine if it matches the data type expected and if so it will return `true`. If the data doesn't match the expected format return `false`. Almost any data type can be passed into this function, so care must be taken - you can't just assume that it will be a string.
 
 As an example, consider the following to detect IPv4 addresses:
 
@@ -45,6 +51,13 @@ function (data) {
 		: null;
 }
 ```
+
+As of DataTables 2.1 it is also possible to use an object with `oneOf`, `allOf` and `init` functions:
+
+* `allOf` - this is the same as the function above. All data points in the column must pass this function to allow a column to take this data type.
+* `oneOf` - At least one of the data points in the column must pass this function to allow the column to take this data type.
+* `init` - Run when type detection starts, to see if a column can be assigned a data type based on a property of the column other than the data.
+
 
 ### order
 

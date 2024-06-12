@@ -249,6 +249,21 @@ function _fnGetColumns( oSettings, sParam )
 	return a;
 }
 
+/**
+ * Allow the result from a type detection function to be `true` while
+ * translating that into a string. Old type detection functions will
+ * return the type name if it passes. An obect store would be better,
+ * but not backwards compatible.
+ *
+ * @param {*} typeDetect Object or function for type detection
+ * @param {*} res Result from the type detection function
+ * @returns Type name or false
+ */
+function _typeResult (typeDetect, res) {
+	return res === true
+		? typeDetect.name
+		: res;
+}
 
 /**
  * Calculate the 'type' of a column
@@ -267,46 +282,67 @@ function _fnColumnTypes ( settings )
 	for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 		col = columns[i];
 		cache = [];
+		detectedType = null;
 
 		if ( ! col.sType && col._sManualType ) {
 			col.sType = col._sManualType;
 		}
 		else if ( ! col.sType ) {
 			for ( j=0, jen=types.length ; j<jen ; j++ ) {
-				for ( k=0, ken=data.length ; k<ken ; k++ ) {
+				var typeDetect = types[j];
 
-					if (! data[k]) {
-						continue;
-					}
+				// There can be either one, or three type detection functions
+				var oneOf = typeDetect.oneOf;
+				var allOf = typeDetect.allOf || typeDetect;
+				var init = typeDetect.init;
+				var one = false;
 
-					// Use a cache array so we only need to get the type data
-					// from the formatter once (when using multiple detectors)
-					if ( cache[k] === undefined ) {
-						cache[k] = _fnGetCellData( settings, k, i, 'type' );
-					}
+				// Fast detect based on column assignment
+				if (init) {
+					detectedType = _typeResult(typeDetect, init(settings, col, i));
+				}
 
-					detectedType = types[j]( cache[k], settings );
+				if (! detectedType) {
+					for ( k=0, ken=data.length ; k<ken ; k++ ) {
+						if (! data[k]) {
+							continue;
+						}
 
-					// If null, then this type can't apply to this column, so
-					// rather than testing all cells, break out. There is an
-					// exception for the last type which is `html`. We need to
-					// scan all rows since it is possible to mix string and HTML
-					// types
-					if ( ! detectedType && j !== types.length-2 ) {
-						break;
-					}
+						// Use a cache array so we only need to get the type data
+						// from the formatter once (when using multiple detectors)
+						if ( cache[k] === undefined ) {
+							cache[k] = _fnGetCellData( settings, k, i, 'type' );
+						}
 
-					// Only a single match is needed for html type since it is
-					// bottom of the pile and very similar to string - but it
-					// must not be empty
-					if ( detectedType === 'html' && ! _empty(cache[k]) ) {
-						break;
+						// Only one data point in the column needs to match this function
+						if (oneOf && ! one) {
+							one = _typeResult(typeDetect, oneOf( cache[k], settings ));
+						}
+
+						// All data points need to match this function
+						detectedType = _typeResult(typeDetect, allOf( cache[k], settings ));
+
+						// If null, then this type can't apply to this column, so
+						// rather than testing all cells, break out. There is an
+						// exception for the last type which is `html`. We need to
+						// scan all rows since it is possible to mix string and HTML
+						// types
+						if ( ! detectedType && j !== types.length-2 ) {
+							break;
+						}
+
+						// Only a single match is needed for html type since it is
+						// bottom of the pile and very similar to string - but it
+						// must not be empty
+						if ( detectedType === 'html' && ! _empty(cache[k]) ) {
+							break;
+						}
 					}
 				}
 
 				// Type is valid for all data points in the column - use this
 				// type
-				if ( detectedType ) {
+				if ( (oneOf && one && detectedType) || (!oneOf && detectedType) ) {
 					col.sType = detectedType;
 					break;
 				}

@@ -9,7 +9,9 @@ import DataTable, {
 	DataType,
 	HeaderStructure,
 	SearchInput,
-	SearchInputColumn
+	SearchInputColumn,
+	InternalSettings,
+	ExtTypeSettingsDetect
 } from "../types/types";
 import {expectType} from 'tsd';
 
@@ -269,15 +271,24 @@ DataTable.feature.register('myFeature', function (dt, opts) {
 expectType<string[]>(DataTable.types());
 expectType<DataType>(DataTable.type('num'));
 expectType<string | undefined>(DataTable.type('num').className);
-expectType<((data: any) => string) | undefined>(DataTable.type('num').detect);
+expectType<(ExtTypeSettingsDetect | undefined)>(DataTable.type('num').detect);
 DataTable.type('num', 'className', 'test');
-DataTable.type('num', 'detect', (d) => 'test');
-DataTable.type('num',{
+DataTable.type('num', 'detect', (d: any) => 'test');
+DataTable.type('num', 'detect', {
+	oneOf: d => true,
+	allOf: d => true
+});
+DataTable.type('num', 'order', {
+	pre: d => d,
+	asc: (a, b) => a-b,
+	desc: (a, b) => a+b,
+});
+DataTable.type('num', {
 	className: 'test'
 });
-DataTable.type('num',{
+DataTable.type('num', {
 	className: 'test',
-	detect: (d) => 'test',
+	detect: (d) => true,
 	order: {
 		pre: d => d,
 		asc: (a, b) => a-b,

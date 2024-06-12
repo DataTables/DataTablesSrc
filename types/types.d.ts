@@ -117,7 +117,7 @@ export type Order = OrderCombined | OrderCombined[];
 
 export interface DataType {
     className?: string;
-    detect?: ((data: any) => string);
+    detect?: ExtTypeSettingsDetect;
     order?: {
         pre?: ((a: any, b: any) => number);
         asc?: ((a: any, b: any) => number);
@@ -2665,13 +2665,50 @@ export interface DataTablesStatic {
     type(name: string, definition: DataType): void;
 
     /**
-     * Set an individual property value for a a given data type.
+     * Set a class name for a given data type
      *
      * @param name Data type name to set a property value for
      * @param property Name of the data type property to set
-     * @param val The value to set (typically a function or string)
+     * @param val Class name to set
      */
-    type(name: string, property: keyof(DataType), val: any): void;
+    type(name: string, property: 'className', val: DataType['className']): void;
+
+    /**
+     * Set the detection function(s) for a given data type
+     *
+     * @param name Data type name to set a property value for
+     * @param property Name of the data type property to set
+     * @param val Detection function / object to set
+     */
+    type(name: string, property: 'detect', val: DataType['detect']): void;
+
+    /**
+     * Set the order functions for a given data type
+     *
+     * @param name Data type name to set a property value for
+     * @param property Name of the data type property to set
+     * @param val Object of functions to set
+     */
+    type(name: string, property: 'order', val: DataType['order']): void;
+
+    /**
+     * Set a rendering function for a given data type
+     *
+     * @param name Data type name to set a property value for
+     * @param property Name of the data type property to set
+     * @param val Rendering function
+     */
+    type(name: string, property: 'render', val: DataType['render']): void;
+
+    /**
+     * Set a search data renderer for a given data type
+     *
+     * @param name Data type name to set a property value for
+     * @param property Name of the data type property to set
+     * @param val Function to set
+     */
+    type(name: string, property: 'search', val: DataType['search']): void;
+
 
     /**
      * Get the names of the registered data types DataTables can work with.
@@ -3168,7 +3205,7 @@ export interface ExtTypeSettings {
      *
      * @see https://datatables.net/manual/plug-ins/type-detection
      */
-    detect: FunctionExtTypeSettingsDetect[];
+    detect: ExtTypeSettingsDetect[];
 
     /**
      * Type based ordering functions for plug-in development.
@@ -3194,7 +3231,25 @@ export interface ExtTypeSettings {
  * @param data Data from the column cell to be analysed.
  * @param DataTables settings object.
  */
-type FunctionExtTypeSettingsDetect = (data: any, settings: InternalSettings) => (string | null);
+export type ExtTypeSettingsDetect = ((data: any, settings: InternalSettings) => (boolean | string | null)) | {
+    /**
+     * All data points in the column must pass this function to allow a column
+     * to take this data type.
+     */
+    allOf: (data: any, settings: InternalSettings) => boolean,
+
+    /**
+     * At least one of the data points in the column must pass this function to
+     * allow the column to take this data type.
+     */
+    oneOf: (data: any, settings: InternalSettings) => boolean,
+
+    /**
+     * Run when type detection starts, to see if a column can be assigned a data type
+     * based on a property of the column other than the data.
+     */
+    init?: (settings: InternalSettings, column: any, index: number) => boolean
+};
 
 type FunctionAjax = (data: object, callback: ((data: any) => void), settings: InternalSettings) => void;
 

@@ -69,7 +69,7 @@ var _numToDecimal = function ( num, decimalPoint ) {
 };
 
 
-var _isNumber = function ( d, decimalPoint, formatted ) {
+var _isNumber = function ( d, decimalPoint, formatted, allowEmpty ) {
 	var type = typeof d;
 	var strType = type === 'string';
 
@@ -80,7 +80,7 @@ var _isNumber = function ( d, decimalPoint, formatted ) {
 	// If empty return immediately so there must be a number if it is a
 	// formatted string (this stops the string "k", or "kr", etc being detected
 	// as a formatted number for currency
-	if ( _empty( d ) ) {
+	if ( allowEmpty && _empty( d ) ) {
 		return true;
 	}
 
@@ -102,8 +102,8 @@ var _isHtml = function ( d ) {
 };
 
 // Is a string a number surrounded by HTML?
-var _htmlNumeric = function ( d, decimalPoint, formatted ) {
-	if ( _empty( d ) ) {
+var _htmlNumeric = function ( d, decimalPoint, formatted, allowEmpty ) {
+	if ( allowEmpty && _empty( d ) ) {
 		return true;
 	}
 
@@ -115,7 +115,7 @@ var _htmlNumeric = function ( d, decimalPoint, formatted ) {
 	var html = _isHtml( d );
 	return ! html ?
 		null :
-		_isNumber( _stripHtml( d ), decimalPoint, formatted ) ?
+		_isNumber( _stripHtml( d ), decimalPoint, formatted, allowEmpty ) ?
 			true :
 			null;
 };
