@@ -121,9 +121,14 @@ DataTable.type('string', {
 
 
 DataTable.type('html', {
-	detect: function ( d ) {
-		return _empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1) ?
-			'html' : null;
+	detect: {
+		allOf: function ( d ) {
+			return _empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
+		},
+		oneOf: function ( d ) {
+			// At least one data point must contain a `<`
+			return ! _empty( d ) && typeof d === 'string' && d.indexOf('<') !== -1;
+		}
 	},
 	order: {
 		pre: function ( a ) {
@@ -149,7 +154,7 @@ DataTable.type('date', {
 			return null;
 		}
 		var parsed = Date.parse(d);
-		return (parsed !== null && !isNaN(parsed)) || _empty(d) ? 'date' : null;
+		return (parsed !== null && !isNaN(parsed)) || _empty(d);
 	},
 	order: {
 		pre: function ( d ) {
@@ -161,13 +166,14 @@ DataTable.type('date', {
 
 
 DataTable.type('html-num-fmt', {
-	className: 'dt-type-numeric 1',
+	className: 'dt-type-numeric',
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return _htmlNumeric( d, decimal, true, false ) ? 'html-num-fmt' : null;
+			return _htmlNumeric( d, decimal, true, false );
 		},
 		oneOf: function (d, settings) {
+			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
 			return _htmlNumeric( d, decimal, true, false );
 		}
@@ -183,15 +189,15 @@ DataTable.type('html-num-fmt', {
 
 
 DataTable.type('html-num', {
-	className: 'dt-type-numeric 2',
+	className: 'dt-type-numeric',
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return _htmlNumeric( d, decimal, false, true ) ? 'html-num' : null;
+			return _htmlNumeric( d, decimal, false, true );
 		},
 		oneOf: function (d, settings) {
+			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
-			console.log('oneOf', d, _htmlNumeric( d, decimal, false, false ));
 			return _htmlNumeric( d, decimal, false, false );
 		}
 	},
@@ -206,13 +212,14 @@ DataTable.type('html-num', {
 
 
 DataTable.type('num-fmt', {
-	className: 'dt-type-numeric 3',
+	className: 'dt-type-numeric',
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return _isNumber( d, decimal, true, true ) ? 'num-fmt' : null;
+			return _isNumber( d, decimal, true, true );
 		},
 		oneOf: function (d, settings) {
+			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
 			return _isNumber( d, decimal, true, false );
 		}
@@ -227,13 +234,14 @@ DataTable.type('num-fmt', {
 
 
 DataTable.type('num', {
-	className: 'dt-type-numeric 4',
+	className: 'dt-type-numeric',
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return _isNumber( d, decimal, false, true ) ? 'num' : null;
+			return _isNumber( d, decimal, false, true );
 		},
 		oneOf: function (d, settings) {
+			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
 			return _isNumber( d, decimal, false, false );
 		}

@@ -211,6 +211,10 @@ var _removeEmpty = function ( a )
 
 // Replaceable function in api.util
 var _stripHtml = function (input) {
+	if (! input) {
+		return input;
+	}
+
 	// Irrelevant check to workaround CodeQL's false positive on the regex
 	if (input.length > _max_str_len) {
 		throw new Error('Exceeded max str len');

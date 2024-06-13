@@ -19,7 +19,9 @@ describe( 'Static method - type', function() {
 			let num = DataTable.type('num');
 
 			expect( num.className ).toBe( 'dt-type-numeric' );
-			expect( typeof num.detect ).toBe( 'function' );
+			expect( typeof num.detect ).toBe( 'object' );
+			expect( typeof num.detect.oneOf ).toBe( 'function' );
+			expect( typeof num.detect.allOf ).toBe( 'function' );
 			expect( typeof num.order ).toBe( 'object' );
 			expect( typeof num.order.pre ).toBe( 'function' );
 			expect( num.render ).toBe( undefined );
@@ -30,7 +32,9 @@ describe( 'Static method - type', function() {
 			let num = DataTable.type('html');
 
 			expect( num.className ).toBe( undefined );
-			expect( typeof num.detect ).toBe( 'function' );
+			expect( typeof num.detect ).toBe( 'object' );
+			expect( typeof num.detect.oneOf ).toBe( 'function' );
+			expect( typeof num.detect.allOf ).toBe( 'function' );
 			expect( typeof num.order ).toBe( 'object' );
 			expect( typeof num.order.pre ).toBe( 'function' );
 			expect( typeof num.search ).toBe( 'function' );

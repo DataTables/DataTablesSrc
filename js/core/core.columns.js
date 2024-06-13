@@ -282,7 +282,6 @@ function _fnColumnTypes ( settings )
 	for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 		col = columns[i];
 		cache = [];
-		detectedType = null;
 
 		if ( ! col.sType && col._sManualType ) {
 			col.sType = col._sManualType;
@@ -296,6 +295,8 @@ function _fnColumnTypes ( settings )
 				var allOf = typeDetect.allOf || typeDetect;
 				var init = typeDetect.init;
 				var one = false;
+
+				detectedType = null;
 
 				// Fast detect based on column assignment
 				if (init) {
@@ -317,6 +318,7 @@ function _fnColumnTypes ( settings )
 						// Only one data point in the column needs to match this function
 						if (oneOf && ! one) {
 							one = _typeResult(typeDetect, oneOf( cache[k], settings ));
+							// console.log('one', one);
 						}
 
 						// All data points need to match this function
