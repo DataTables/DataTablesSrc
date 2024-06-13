@@ -301,44 +301,46 @@ function _fnColumnTypes ( settings )
 				// Fast detect based on column assignment
 				if (init) {
 					detectedType = _typeResult(typeDetect, init(settings, col, i));
+
+					if (detectedType) {
+						col.sType = detectedType;
+						break;
+					}
 				}
 
-				if (! detectedType) {
-					for ( k=0, ken=data.length ; k<ken ; k++ ) {
-						if (! data[k]) {
-							continue;
-						}
+				for ( k=0, ken=data.length ; k<ken ; k++ ) {
+					if (! data[k]) {
+						continue;
+					}
 
-						// Use a cache array so we only need to get the type data
-						// from the formatter once (when using multiple detectors)
-						if ( cache[k] === undefined ) {
-							cache[k] = _fnGetCellData( settings, k, i, 'type' );
-						}
+					// Use a cache array so we only need to get the type data
+					// from the formatter once (when using multiple detectors)
+					if ( cache[k] === undefined ) {
+						cache[k] = _fnGetCellData( settings, k, i, 'type' );
+					}
 
-						// Only one data point in the column needs to match this function
-						if (oneOf && ! one) {
-							one = _typeResult(typeDetect, oneOf( cache[k], settings ));
-							// console.log('one', one);
-						}
+					// Only one data point in the column needs to match this function
+					if (oneOf && ! one) {
+						one = _typeResult(typeDetect, oneOf( cache[k], settings ));
+					}
 
-						// All data points need to match this function
-						detectedType = _typeResult(typeDetect, allOf( cache[k], settings ));
+					// All data points need to match this function
+					detectedType = _typeResult(typeDetect, allOf( cache[k], settings ));
 
-						// If null, then this type can't apply to this column, so
-						// rather than testing all cells, break out. There is an
-						// exception for the last type which is `html`. We need to
-						// scan all rows since it is possible to mix string and HTML
-						// types
-						if ( ! detectedType && j !== types.length-2 ) {
-							break;
-						}
+					// If null, then this type can't apply to this column, so
+					// rather than testing all cells, break out. There is an
+					// exception for the last type which is `html`. We need to
+					// scan all rows since it is possible to mix string and HTML
+					// types
+					if ( ! detectedType && j !== types.length-2 ) {
+						break;
+					}
 
-						// Only a single match is needed for html type since it is
-						// bottom of the pile and very similar to string - but it
-						// must not be empty
-						if ( detectedType === 'html' && ! _empty(cache[k]) ) {
-							break;
-						}
+					// Only a single match is needed for html type since it is
+					// bottom of the pile and very similar to string - but it
+					// must not be empty
+					if ( detectedType === 'html' && ! _empty(cache[k]) ) {
+						break;
 					}
 				}
 
