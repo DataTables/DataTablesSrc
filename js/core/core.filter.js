@@ -10,10 +10,6 @@ function _fnFilterComplete ( settings, input )
 {
 	var columnsSearch = settings.aoPreSearchCols;
 
-	// Resolve any column types that are unknown due to addition or invalidation
-	// @todo As per sort - can this be moved into an event handler?
-	_fnColumnTypes( settings );
-
 	// In server-side processing all filtering is done by the server, so no point hanging around here
 	if ( _fnDataSource( settings ) != 'ssp' )
 	{
