@@ -278,7 +278,7 @@ function _fnColumnTypes ( settings )
 	var i, ien, j, jen, k, ken;
 	var col, detectedType, cache;
 
-	// For each column, spin over the 
+	// For each column, spin over the data type detection functions, seeing if one matches
 	for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 		col = columns[i];
 		cache = [];
@@ -366,7 +366,7 @@ function _fnColumnTypes ( settings )
 
 		var renderer = _ext.type.render[col.sType];
 
-		// This can only happen once! There is no way to remover
+		// This can only happen once! There is no way to remove
 		// a renderer. After the first time the renderer has
 		// already been set so createTr will run the renderer itself.
 		if (renderer && ! col._render) {

@@ -32,4 +32,21 @@ describe('Data type detection', function () {
 		  expect(table.column(4).type()).toBe('string');
 		  expect(table.column(5).type()).toBe('html');
 	});
+
+	dt.html('empty');
+
+	it('Types detected when search and ordering disabled', function () {
+		table = new DataTable('#example', {
+			data: data,
+			searching: false,
+			ordering: false
+		  });
+
+		  expect(table.column(0).type()).toBe('string');
+		  expect(table.column(1).type()).toBe('num');
+		  expect(table.column(2).type()).toBe('html-num');
+		  expect(table.column(3).type()).toBe('date');
+		  expect(table.column(4).type()).toBe('string');
+		  expect(table.column(5).type()).toBe('html');
+	});
 });

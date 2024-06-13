@@ -479,6 +479,9 @@ function _fnReDraw( settings, holdPosition, recompute )
 		filter   = features.bFilter;
 
 	if (recompute === undefined || recompute === true) {
+		// Resolve any column types that are unknown due to addition or invalidation
+		_fnColumnTypes( settings );
+
 		if ( sort ) {
 			_fnSort( settings );
 		}

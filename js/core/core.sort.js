@@ -220,11 +220,6 @@ function _fnSort ( oSettings, col, dir )
 		displayMaster = oSettings.aiDisplayMaster,
 		aSort;
 
-	// Resolve any column types that are unknown due to addition or invalidation
-	// @todo Can this be moved into a 'data-ready' handler which is called when
-	//   data is going to be used in the table?
-	_fnColumnTypes( oSettings );
-
 	// Allow a specific column to be sorted, which will _not_ alter the display
 	// master
 	if (col !== undefined) {
