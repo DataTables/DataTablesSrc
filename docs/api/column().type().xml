@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>column().type()</signature>
 		<description>Get the configured or automatically detected data type for a column.</description>
-		<returns type="string">Data type detected for a column.</returns>
+		<returns type="string | null">Data type detected for a column.</returns>
 	</type>
 
 	<description>
@@ -16,6 +16,8 @@
 		This can be useful for extensions when working with a specific column - e.g. knowing what the data type is for search data can be important.
 
 		There is no setter for this method. Rather, when data is set for a column (`-api row().data()`, `-init row.add()`, etc), the column type is invalidated and then recalculated when it is next needed. The recalculation will either take the value from `-init columns.type` if specified, or run the automatic type detection of the column's data again.
+
+		Please note that since DataTables 2.1 automatic type detection is not attempted on tables which have server-side processing enabled (`-init serverSide`). This is because the full data set is not available for type detection, thus resulting in unreliable and error prone automatic type detection. If you need type specific actions when working with server-side processing, you must explicitly set the type using `-init columns.type`.
 	</description>
 
 	<example title="Get the data type for a column that was clicked on"><![CDATA[
