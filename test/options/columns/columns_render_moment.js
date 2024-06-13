@@ -79,5 +79,9 @@ describe('columns.render option', function () {
 			});
 			checkRecord(0, 'Jackson Bradshaw', '26 Sep 2008');
 		});
+
+		it('Type can be retrieved', function () {
+			expect(table.column(4).type()).toBe('datetime-D MMM YYYY');
+		});
 	});
 });
