@@ -5,24 +5,18 @@
 	<since>1.10.10</since>
 
 	<type type="string" />
-	<default>
-		There is no default value for this option as the `dt-init language.paginate.first` option contains a string by default.
-	</default>
+	<default value="First" />
 
 	<description>
 		Set the ARIA label attribute for the _first_ pagination button. This can be particularly useful for cases where you wish to show an icon such as `«` in the button itself, while retaining full accessibility.
+
+		Please note that the default value was updated for DataTables 2 to contain a value (previously it was an empty string) due to the use of a UTF-8 character being used for display in the button.
 	</description>
 
 	<example title="Define full paging language options as icons with ARIA label text"><![CDATA[
 new DataTable('#myTable', {
 	pagingType: 'full',
 	language: {
-		paginate: {
-			first: '«',
-			previous: '‹',
-			next: '›',
-			last: '»'
-		},
 		aria: {
 			paginate: {
 				first: 'First',

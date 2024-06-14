@@ -532,7 +532,8 @@ DataTable.defaults = {
 				first: 'First',
 				last: 'Last',
 				next: 'Next',
-				previous: 'Previous'
+				previous: 'Previous',
+				number: ''
 			}
 		},
 

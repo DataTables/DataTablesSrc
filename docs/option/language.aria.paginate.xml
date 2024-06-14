@@ -9,7 +9,7 @@
 	<description>
 		This object contains the properties that can be used for the ARIA label attributes that are applied to the pagination controls in DataTables. This can be useful when you use the `dt-init language.paginate` options to alter the default pagination button text to show icons rather than text, as the ARIA label attributes ensure that accessibility will still be retained.
 
-		Please note that as the DataTables `dt-init language.paginate` options contain plain text, there is no need for ARIA label attributes, thus this object does not contain any default strings.
+		Prior to DataTables 2, the pagination buttons contained plain text descriptions and thus the parameters in this object contained no values. With DataTables 2's change to use a UTF-8 icon to represent the first, last, previous and next buttons, the defaults for the parameters in this object were updated to include descriptive text.
 	</description>
 
 	<example title="Define full paging language options as icons with ARIA label text"><![CDATA[
@@ -39,4 +39,5 @@ new DataTable('#myTable', {
 	<related type="option">language.aria.paginate.previous</related>
 	<related type="option">language.aria.paginate.first</related>
 	<related type="option">language.aria.paginate.last</related>
+	<related type="option">language.aria.paginate.number</related>
 </dt-option>

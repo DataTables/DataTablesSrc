@@ -4,7 +4,15 @@
 <css lib="datatables" />
 <js lib="jquery datatables">
 <![CDATA[
-$('#example').DataTable();
+$('#example').DataTable({
+	language: {
+		aria: {
+			paginate: {
+				number: 'Jump to page: '
+			}
+		}
+	}
+});
 ]]>
 </js>
 <js-vanilla>

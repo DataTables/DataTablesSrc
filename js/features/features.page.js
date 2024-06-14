@@ -93,12 +93,18 @@ function _pagingDraw(settings, host, opts) {
 			btnInfo.disabled
 		);
 
+		var ariaLabel = typeof button === 'string'
+			? aria[ button ]
+			: aria.number
+				? aria.number + (button+1)
+				: null;
+
 		// Common attributes
 		$(btn.clicker).attr({
 			'aria-controls': settings.sTableId,
 			'aria-disabled': btnInfo.disabled ? 'true' : null,
 			'aria-current': btnInfo.active ? 'page' : null,
-			'aria-label': aria[ button ],
+			'aria-label': ariaLabel,
 			'data-dt-idx': button,
 			'tabIndex': btnInfo.disabled ? -1 : settings.iTabIndex,
 		});

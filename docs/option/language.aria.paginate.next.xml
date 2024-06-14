@@ -5,21 +5,17 @@
 	<since>1.10.10</since>
 
 	<type type="string" />
-	<default>
-		There is no default value for this option as the `dt-init language.paginate.next` option contains a string by default.
-	</default>
+	<default value="Next" />
 
 	<description>
 		Set the ARIA label attribute for the _next_ pagination button. This can be particularly useful for cases where you wish to show an icon such as `»` or `›` in the button itself, while retaining full accessibility.
+
+		Please note that the default value was updated for DataTables 2 to contain a value (previously it was an empty string) due to the use of a UTF-8 character being used for display in the button.
 	</description>
 
 	<example title="Use icons for the previous and next buttons with ARIA label text"><![CDATA[
 new DataTable('#myTable', {
 	language: {
-		paginate: {
-			previous: '‹',
-			next: '›'
-		},
 		aria: {
 			paginate: {
 				previous: 'Previous',

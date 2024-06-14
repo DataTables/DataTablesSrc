@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.aria.paginate.number</name>
+	<summary>WAI-ARIA label for the number pagination buttons</summary>
+	<since>2.1</since>
+
+	<type type="string" />
+	<default>
+		This option is an empty string by default, resulting in no `aria-label` being added to the numbered paging buttons.
+	</default>
+
+	<description>
+		This option can be used to set a WAI-ARIA label for the number buttons in the DataTables pagination control that represent a page number (i.e. the button simply shows a number). This can be useful to add context to what clicking on the button in the paging control will do.
+
+		The number that the table's page will jump to when the button is triggered is appended to the end of the string given here.
+
+		If the value is empty (as is the default case), no `aria-label` attribute will be added to the numbered paging buttons.
+	</description>
+
+	<example title="Use icons for the previous and next buttons with ARIA label text"><![CDATA[
+new DataTable('#myTable', {
+	language: {
+		aria: {
+			paginate: {
+				number: 'Jump to page: '
+			}
+		}
+	}
+});
+]]></example>
+
+	<related type="option">language.aria.paginate</related>
+</dt-option>
