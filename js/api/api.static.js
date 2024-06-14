@@ -1,19 +1,43 @@
 
 /**
- * Set the libraries that DataTables uses, or the global objects
- *
- * @param {*} module Library / container object
- * @param {string} [type] Library or container type:
- * 
- * * `lib` or `jq`: jQuery
- * * `win`: Window and document
- * * `datetime`: Our own DateTime library
- * * `luxon`: Luxon for date time formatters
- * * `moment`: Moment for date time formatters
- * 
- * If not provided, automatic detection is attempted.
+ * Set the libraries that DataTables uses, or the global objects.
+ * Note that the arguments can be either way around (legacy support)
+ * and the second is optional. See docs.
  */
-DataTable.use = function (module, type) {
+DataTable.use = function (arg1, arg2) {
+	// Reverse arguments for legacy support
+	var module = typeof arg1 === 'string'
+		? arg2
+		: arg1;
+	var type = typeof arg2 === 'string'
+		? arg2
+		: arg1;
+
+	// Getter
+	if (module === undefined && typeof type === 'string') {
+		switch (type) {
+			case 'lib':
+			case 'jq':
+				return $;
+
+			case 'win':
+				return window;
+
+			case 'datetime':
+				return DataTable.DateTime;
+
+			case 'luxon':
+				return __luxon;
+
+			case 'moment':
+				return __moment;
+
+			default:
+				return null;
+		}
+	}
+
+	// Setter
 	if (type === 'lib' || type === 'jq' || (module && module.fn && module.fn.jquery)) {
 		$ = module;
 	}
@@ -24,10 +48,10 @@ DataTable.use = function (module, type) {
 	else if (type === 'datetime' || (module && module.type === 'DateTime')) {
 		DataTable.DateTime = module;
 	}
-	else if (type === 'luxon') {
+	else if (type === 'luxon' || (module && module.FixedOffsetZone)) {
 		__luxon = module;
 	}
-	else if (type === 'moment') {
+	else if (type === 'moment' || (module && module.isMoment)) {
 		__moment = module;
 	}
 }

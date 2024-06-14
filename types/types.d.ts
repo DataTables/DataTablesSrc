@@ -2716,13 +2716,26 @@ export interface DataTablesStatic {
     types(): string[];
 
     /**
-     * Set the libraries that DataTables uses, or the global objects. Used for module
-     * loading environments.
+     * Get the libraries that DataTables uses, or the global objects.
      *
-     * @param library The library (e.g. Moment or Luxon)
-     * @param type Indicate the library that is being loaded.
+     * @param type The library needed
      */
-    use(library: any, type?: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment');
+    use(type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment');
+
+    /**
+     * Set the libraries that DataTables uses, or the global objects, with automatic
+     * detection of what the library is. Used for module loading environments.
+     */
+    use(library: any);
+
+    /**
+     * Set the libraries that DataTables uses, or the global objects, explicity staing
+     * what library is to be considered. Used for module loading environments.
+     *
+     * @param type Indicate the library that is being loaded.
+     * @param library The library (e.g. Moment or Luxon)
+     */
+    use(type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment', library: any);
 
     /**
      * Utils

@@ -298,7 +298,7 @@ DataTable.type('num', {
 	search: d => d
 });
 
-expectType<undefined>(DataTable.use(window, 'win'));
+expectType<undefined>(DataTable.use('win', window));
 
 expectType<number[]>(DataTable.util.unique([1,2,3,4]));
 

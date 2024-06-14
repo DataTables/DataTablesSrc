@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="static">
 	<name>DataTable.use()</name>
-	<summary>Set the libraries or global object upon which DataTables uses</summary>
+	<summary>Get / set the libraries or global object upon which DataTables uses</summary>
 	<since>2.1</since>
 
 	<type type="function">
-		<signature>use(library, type)</signature>
+		<signature>use(type)</signature>
 		<description>
-			Set the libraries, or the global object (i.e. the `window`) that is used by DataTables for operations such as date and time manipulation.
+			Get the library that has been set for use.
 		</description>
-		<parameter type="*" name="library">
-			This should be the library, or object that is being set.
-		</parameter>
 		<parameter type="string" name="type">
 			The value given for this parameter tells DataTables what library it is you are setting. It can take one of the following parameters:
 
@@ -21,6 +18,31 @@
 			* `-string moment`: Moment - optionally used for date time formatters
 			* `-string datetime`: [DateTime picker](/extensions/datetime)
 		</parameter>
+		<returns type="*">The library requested that is currently being used by DataTables will be returned.</returns>
+	</type>
+
+	<type type="function">
+		<signature>use(library)</signature>
+		<description>
+			Set the libraries, or the global object (i.e. the `window`) that is used by DataTables for operations such as date and time manipulation with automatic detection of what the library is.
+		</description>
+		<parameter type="*" name="library">
+			This should be the library, or object that is being set.
+		</parameter>
+		<returns type="void">No value is returned.</returns>
+	</type>
+
+	<type type="function">
+		<signature>use(type, library)</signature>
+		<description>
+			Set the libraries, or the global object (i.e. the `window`) that is used by DataTables for operations such as date and time manipulation, specifying what the library is.
+		</description>
+		<parameter type="*" name="library">
+			This should be the library, or object that is being set.
+		</parameter>
+		<parameter type="string" name="type">
+			The value given for this parameter tells DataTables what library it is you are setting. See the parameters for the _getter_ overload above for the values this can take.
+		</parameter>
 		<returns type="void">No value is returned.</returns>
 	</type>
 
@@ -28,6 +50,8 @@
 		When loading DataTables in an environment that doesn't using a global `window` as its base (e.g. ES Modules) you may need to tell it about the external libraries that it can make use of. For example DataTables and use Moment.js or Luxon to handle formatted dates and times. In a browser those libraries automatically attach to the global `window`, but that isn't possible in a module loader. For such cases, use this method to make them available to DataTables.
 
 		It is also possible to pass in a `window` object, which can be useful for constructing a DataTable in a headless environment.
+
+		Important: If you are settings Moment.js or Luxon as a library to use for date / time manipulation, DataTables expects only a single one of the two libraries to be used. Do not set both.
 
 		Note that this method is primarily useful when using ES modules or Common JS loading. You would not typically need to use this method if you are using a `-tag script` tag to load DataTables and any dependencies as they will be automatically detected.
 	</description>
