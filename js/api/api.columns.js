@@ -14,7 +14,7 @@
 // can be an array of these items, comma separated list, or an array of comma
 // separated lists
 
-var __re_column_selector = /^([^:]+):(name|title|visIdx|visible)$/;
+var __re_column_selector = /^([^:]+)?:(name|title|visIdx|visible)$/;
 
 
 // r1 and r2 are redundant - but it means that the parameters match for the
@@ -86,17 +86,24 @@ var __column_selector = function ( settings, selector, opts )
 			switch( match[2] ) {
 				case 'visIdx':
 				case 'visible':
-					var idx = parseInt( match[1], 10 );
-					// Visible index given, convert to column index
-					if ( idx < 0 ) {
-						// Counting from the right
-						var visColumns = columns.map( function (col,i) {
-							return col.bVisible ? i : null;
-						} );
-						return [ visColumns[ visColumns.length + idx ] ];
+					if (match[1]) {
+						var idx = parseInt( match[1], 10 );
+						// Visible index given, convert to column index
+						if ( idx < 0 ) {
+							// Counting from the right
+							var visColumns = columns.map( function (col,i) {
+								return col.bVisible ? i : null;
+							} );
+							return [ visColumns[ visColumns.length + idx ] ];
+						}
+						// Counting from the left
+						return [ _fnVisibleToColumnIndex( settings, idx ) ];
 					}
-					// Counting from the left
-					return [ _fnVisibleToColumnIndex( settings, idx ) ];
+					
+					// `:visible` on its own
+					return columns.map( function (col, i) {
+						return col.bVisible ? i : null;
+					} );
 
 				case 'name':
 					// match by name. `names` is column index complete and in order

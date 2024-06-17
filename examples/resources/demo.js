@@ -65,6 +65,9 @@ window.dt_demo = {
 		if (libName.indexOf('//') === 0 || libName.indexOf('https://') === 0) {
 			src = libName;
 		}
+		else if (libName.indexOf('feature-') === 0) {
+			src = dt_demo._appendFileName(libName.replace('feature-', ''), '..', type, 'datatables');
+		}
 		else {
 			var lib = types.libs.components[libName];
 			var src = lib[type];
@@ -200,7 +203,8 @@ window.dt_demo = {
 		var fileName = dt_demo._getFileName(name);
 		var fwFile = dt_demo._getFrameworkFile(framework);
 		
-		if (type === 'js') {
+		// Plugins use a relative path, and don't separate by styling framework
+		if (type === 'js' || src === '..') {
 			if (name === 'datatables') {
 				out.push(src + '/dataTables.' + type);
 			}
@@ -209,7 +213,7 @@ window.dt_demo = {
 			}
 		}
 
-		if (type === 'js' && framework === 'datatables' && name === 'datatables') {
+		if (src === '..' || (type === 'js' && framework === 'datatables' && name === 'datatables')) {
 			// noop
 		}
 		else {
@@ -253,6 +257,11 @@ window.dt_demo = {
 
 		// Already got jQuery from an external source - spin on
 		if (item.name === 'jquery' && window.$) {
+			dt_demo._loadNext();
+			return;
+		}
+		else if (item.name === 'datatables' && window.$ && window.$.fn.dataTable) {
+			// Likewise for DataTables
 			dt_demo._loadNext();
 			return;
 		}
