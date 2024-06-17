@@ -256,7 +256,7 @@ function _fnSort ( oSettings, col, dir )
 
 		// If the first sort is desc, then reverse the array to preserve original
 		// order, just in reverse
-		if (aSort.length && aSort[0].dir === 'desc') {
+		if (aSort.length && aSort[0].dir === 'desc' && oSettings.orderDescReverse) {
 			aiOrig.reverse();
 		}
 

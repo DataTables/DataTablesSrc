@@ -365,6 +365,11 @@ export interface Config {
     orderClasses?: boolean;
 
     /**
+     * Reverse the initial data order when `desc` ordering
+     */
+    orderDescReverse?: boolean;
+
+    /**
      * Initial order (sort) to apply to the table.
      */
     order?: Order | Order[];

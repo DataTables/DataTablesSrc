@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>orderDescReverse</name>
+	<summary>Control if the initial data order is reversed when `desc` ordering</summary>
+	<since>2.1</since>
+
+	<type type="boolean" />
+	<default value="true" />
+
+	<description>
+	<![CDATA[
+		When DataTables orders data in the table (e.g. through end user interaction with the table header, or with `-api order()`) it will always revert the data to the order in which it was originally loaded before then applying the new ordering requirements. This is done to ensure that the ordering of data is 100% deterministic and independent when switching between columns (note that DataTables ordering is [stable](https://en.wikipedia.org/wiki/Sorting_algorithm#Stability)).
+
+		In addition to this when ordering is set to be "descending" (`desc`) DataTables will _reverse_ the original data order. This means that if you continually switch between ascending and descending ordering, you will see the rows reverse.
+
+		In some cases, this reversal of the original data order might not be desirable, particularly if you want ordering in DataTables to work like in Excel, and this option provides a way to disable that behaviour.
+
+		The effect of this option is only seen when you have matching data in the column being ordered. Consider the following table:
+
+		| T1 | T2 |
+		|----|----|
+		| A  | 1  |
+		| A  | 2  |
+		| A  | 3  |
+
+		The following shows what happens with `-init orderDescReverse` both enabled and disabled when progressing from the initial ordering state (ascending on the first column) to reversing that (descending on the first column). Because the data in the first column is all the same, this option has an impact.	
+
+      <table style="width:100%">
+        <tr>
+          <td></td>
+          <td>
+            Initial order (<code>[0, 'asc']</code>)
+          </td>
+          <td>
+            Reverse order (<code>[0, 'desc']</code>)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>orderDescReverse: true</code>
+          </td>
+          <td>
+            <table style="margin: 0 auto; width: 50%">
+              <tr>
+                <td>A</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>A</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>A</td>
+                <td>3</td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table style="margin: 0 auto; width: 50%">
+              <tr>
+                <td>A</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>A</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>A</td>
+                <td>1</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>orderDescReverse: false</code>
+          </td>
+          <td>
+            <table style="margin: 0 auto; width: 50%">
+              <tr>
+                <td>A</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>A</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>A</td>
+                <td>3</td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table style="margin: 0 auto; width: 50%">
+              <tr>
+                <td>A</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>A</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>A</td>
+                <td>3</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+	]]>
+	</description>
+
+	<example title=""><![CDATA[
+new DataTable('#myTable', {
+	orderDescReverse: false
+});
+]]></example>
+
+	<related type="option">ordering</related>
+</dt-option>

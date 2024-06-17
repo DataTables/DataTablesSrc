@@ -713,6 +713,10 @@ DataTable.defaults = {
 	},
 
 
+	/** The initial data order is reversed when `desc` ordering */
+	orderDescReverse: true,
+
+
 	/**
 	 * This parameter allows you to have define the global filtering state at
 	 * initialisation time. As an object the `search` parameter must be
