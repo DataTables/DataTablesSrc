@@ -25,6 +25,9 @@ module.exports = {
 		// 10 year browser check
 		'compat/compat': 'error',
 
+		// Need to check for ASCII characters, including control chars
+		'no-control-regex': 0,
+
 		// UMD passed in window and document even if not used
 		'no-unused-vars': [
 			'error',

@@ -95,6 +95,19 @@ DataTable.types = function () {
 	});
 };
 
+var __diacriticSort = function (a, b) {
+	a = a.toString().toLowerCase();
+	b = b.toString().toLowerCase();
+
+	// Checked for `navigator.languages` support in `oneOf` so this code can't execute in old
+	// Safari and thus can disable this check
+	// eslint-disable-next-line compat/compat
+	return a.localeCompare(b, navigator.languages[0] || navigator.language, {
+		numeric: true,
+		ignorePunctuation: true,
+	});
+}
+
 //
 // Built in data types
 //
@@ -114,6 +127,28 @@ DataTable.type('string', {
 					! a.toString ?
 						'' :
 						a.toString();
+		}
+	},
+	search: _filterString(false, true)
+});
+
+DataTable.type('string-utf8', {
+	detect: {
+		allOf: function ( d ) {
+			return true;
+		},
+		oneOf: function ( d ) {
+			// At least one data point must contain a non-ASCII character
+			// This line will also check if navigator.languages is supported or not. If not (Safari 10.0-)
+			// this data type won't be supported.
+			// eslint-disable-next-line compat/compat
+			return ! _empty( d ) && navigator.languages && typeof d === 'string' && d.match(/[^\x00-\x7F]/);
+		}
+	},
+	order: {
+		asc: __diacriticSort,
+		desc: function (a, b) {
+			return __diacriticSort(a, b) * -1;
 		}
 	},
 	search: _filterString(false, true)

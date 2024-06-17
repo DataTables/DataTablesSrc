@@ -1,0 +1,66 @@
+describe( "Diacritic ordering", function() {
+	var table;
+
+	dt.libs( {
+		js:  [ 'jquery', 'datatables' ],
+		css: [ 'datatables' ]
+	} );
+
+	dt.html( 'empty' );
+
+	it( 'Type detection', function () {
+		table = $('#example').empty().DataTable({
+			columns: [
+				{
+					title: 'Test',
+					data: 0
+				}
+			],
+			data: [
+				['Été'],
+				['sève'],
+				['À propos'],
+				['Schomberg'],
+				['Ökonomie'],
+				['étêter'],
+				['Oracle'],
+				['étirer'],
+				['Été'],
+				['Schön'],
+				['ethnie'],
+				['étoffe'],
+				['Schubert'],
+			]
+		});
+
+		expect( table.column(0).type() ).toBe( 'string-utf8' );
+	} );
+
+	it( 'Ordering is as expected', async function () {
+		expect( $('tbody tr:eq(0) td').text()).toBe('À propos');
+		expect( $('tbody tr:eq(1) td').text()).toBe('Été');
+		expect( $('tbody tr:eq(2) td').text()).toBe('Été');
+		expect( $('tbody tr:eq(3) td').text()).toBe('étêter');
+		expect( $('tbody tr:eq(4) td').text()).toBe('ethnie');
+		expect( $('tbody tr:eq(5) td').text()).toBe('étirer');
+		expect( $('tbody tr:eq(6) td').text()).toBe('étoffe');
+		expect( $('tbody tr:eq(7) td').text()).toBe('Ökonomie');
+		expect( $('tbody tr:eq(8) td').text()).toBe('Oracle');
+		expect( $('tbody tr:eq(9) td').text()).toBe('Schomberg');
+	} );
+
+	it( 'Ordering can be reversed', async function () {
+		await dt.clickHeader(0);
+
+		expect( $('tbody tr:eq(9) td').text()).toBe('étêter');
+		expect( $('tbody tr:eq(8) td').text()).toBe('ethnie');
+		expect( $('tbody tr:eq(7) td').text()).toBe('étirer');
+		expect( $('tbody tr:eq(6) td').text()).toBe('étoffe');
+		expect( $('tbody tr:eq(5) td').text()).toBe('Ökonomie');
+		expect( $('tbody tr:eq(4) td').text()).toBe('Oracle');
+		expect( $('tbody tr:eq(3) td').text()).toBe('Schomberg');
+		expect( $('tbody tr:eq(2) td').text()).toBe('Schön');
+		expect( $('tbody tr:eq(1) td').text()).toBe('Schubert');
+		expect( $('tbody tr:eq(0) td').text()).toBe('sève');
+	} );
+} );
