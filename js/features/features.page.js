@@ -138,12 +138,13 @@ function _pagingDraw(settings, host, opts) {
 
 	// Responsive - check if the buttons are over two lines based on the
 	// height of the buttons and the container.
+	console.log($(host).height(), ($(buttonEls[0]).outerHeight() * 2) - 10);
 	if (
 		buttonEls.length && // any buttons
-		opts.numbers > 1 && // prevent infinite
+		opts.buttons > 1 && // prevent infinite
 		$(host).height() >= ($(buttonEls[0]).outerHeight() * 2) - 10
 	) {
-		_pagingDraw(settings, host, $.extend({}, opts, { numbers: opts.numbers - 2 }));
+		_pagingDraw(settings, host, $.extend({}, opts, { buttons: opts.buttons - 2 }));
 	}
 }
 
