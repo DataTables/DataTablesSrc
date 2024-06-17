@@ -260,6 +260,11 @@ window.dt_demo = {
 			dt_demo._loadNext();
 			return;
 		}
+		else if (item.name === 'datatables' && window.$ && window.$.fn.dataTable) {
+			// Likewise for DataTables
+			dt_demo._loadNext();
+			return;
+		}
 
 		if (item.type === 'css') {
 			var script = document.createElement('link');
