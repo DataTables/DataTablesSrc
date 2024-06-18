@@ -15,18 +15,18 @@
 
 	<description>
     <![CDATA[
-		The paging feature of DataTables will display a pagination control with buttons that the end user can use to navigate the pages of the table. Which buttons are shown in the pagination control are defined by the option given here.
+The paging feature of DataTables will display a pagination control with buttons that the end user can use to navigate the pages of the table. Which buttons are shown in the pagination control are defined by the option given here.
 
-		DataTables has six built-in paging button arrangements:
-		
-		* `string numbers` - Page number buttons only (<span class="since">1.10.8</span>)
-		* `string simple` - 'Previous' and 'Next' buttons only
-		* `string simple_numbers` - 'Previous' and 'Next' buttons, plus page numbers
-		* `string full` - 'First', 'Previous', 'Next' and 'Last' buttons
-		* `string full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
-		* `string first_last_numbers` - 'First' and 'Last' buttons, plus page numbers
+DataTables has six built-in paging button arrangements:
 
-		The `-init pagingType` option is an alias to this option for all paging controls shown by the table. This option provides control on a per instance basis should you wish to show multiple paging controls for table.
+* `-string numbers` - Page number buttons only (<span class="since">1.10.8</span>)
+* `-string simple` - 'Previous' and 'Next' buttons only
+* `-string simple_numbers` - 'Previous' and 'Next' buttons, plus page numbers
+* `-string full` - 'First', 'Previous', 'Next' and 'Last' buttons
+* `-string full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
+* `-string first_last_numbers` - 'First' and 'Last' buttons, plus page numbers
+
+The `-init pagingType` option is an alias to this option for all paging controls shown by the table. This option provides control on a per instance basis should you wish to show multiple paging controls for table.
     ]]>
 	</description>
 
