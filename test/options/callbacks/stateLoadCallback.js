@@ -198,4 +198,78 @@ describe('stateLoadCallback Option', function() {
 			});
 		});
 	});
+
+	// https://datatables.net/forums/discussion/78851
+	describe('Initialisation order', function() {
+		var table;
+		var order = [];
+		var stateLoadNames = [];
+		var initNames = [];
+
+		dt.html('basic');
+
+		it('Initialise DataTable', function (done) {
+			$('thead th').eq(0).attr('data-data', 'name');
+			$('thead th').eq(1).attr('data-data', 'position');
+			$('thead th').eq(2).attr('data-data', 'office');
+			$('thead th').eq(3).attr('data-data', 'age');
+			$('thead th').eq(4).attr('data-data', 'startDate');
+			$('thead th').eq(5).attr('data-data', 'salary');
+
+			table = $('#example').DataTable({
+				stateSave: true,
+				initComplete: function(settings, json) {
+					var api = new DataTable.Api(settings);
+
+					api.columns().eq(0).each(function(index) {
+						var dataSrc = api.column(index).dataSrc();
+						initNames.push(index + ' => ' + dataSrc);
+					});
+
+					order.push('initComplete');
+
+					expect(1).toBe(1);
+				  	done();
+				},
+				stateLoadCallback: function(settings) {
+					var state = DataTable.defaults.fnStateLoadCallback(settings);
+					var api = new DataTable.Api(settings);
+
+					api.columns().eq(0).each(function(index) {
+						var dataSrc = api.column(index).dataSrc();
+						stateLoadNames.push(index + ' => ' + dataSrc);
+					});
+
+					order.push('stateLoadCallback');
+					return state;
+				}
+			});
+		});
+
+		it('Callbacks are called in order', function () {
+			expect(order.length).toBe(2);
+			expect(order[0]).toBe('stateLoadCallback');
+			expect(order[1]).toBe('initComplete');
+		});
+
+		it('Data src is assigned by stateLoadCallback', function () {
+			expect(stateLoadNames.length).toBe(6);
+			expect(stateLoadNames[0]).toBe('0 => name');
+			expect(stateLoadNames[1]).toBe('1 => position');
+			expect(stateLoadNames[2]).toBe('2 => office');
+			expect(stateLoadNames[3]).toBe('3 => age');
+			expect(stateLoadNames[4]).toBe('4 => startDate');
+			expect(stateLoadNames[5]).toBe('5 => salary');
+		});
+
+		it('And is correct in initComplete', function () {
+			expect(initNames.length).toBe(6);
+			expect(initNames[0]).toBe('0 => name');
+			expect(initNames[1]).toBe('1 => position');
+			expect(initNames[2]).toBe('2 => office');
+			expect(initNames[3]).toBe('3 => age');
+			expect(initNames[4]).toBe('4 => startDate');
+			expect(initNames[5]).toBe('5 => salary');
+		});
+	});
 });
