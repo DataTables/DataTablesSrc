@@ -1,7 +1,6 @@
 
 var i=0, iLen;
 var sId = this.getAttribute( 'id' );
-var bInitHandedOff = false;
 var defaults = DataTable.defaults;
 var $this = $(this);
 
@@ -198,40 +197,6 @@ if ( oSettings.iInitDisplayStart === undefined )
 	oSettings._iDisplayStart = oInit.iDisplayStart;
 }
 
-/* Language definitions */
-var oLanguage = oSettings.oLanguage;
-$.extend( true, oLanguage, oInit.oLanguage );
-
-if ( oLanguage.sUrl )
-{
-	/* Get the language definitions from a file - because this Ajax call makes the language
-	 * get async to the remainder of this function we use bInitHandedOff to indicate that
-	 * _fnInitialise will be fired by the returned Ajax handler, rather than the constructor
-	 */
-	$.ajax( {
-		dataType: 'json',
-		url: oLanguage.sUrl,
-		success: function ( json ) {
-			_fnCamelToHungarian( defaults.oLanguage, json );
-			$.extend( true, oLanguage, json, oSettings.oInit.oLanguage );
-
-			_fnCallbackFire( oSettings, null, 'i18n', [oSettings], true);
-			_fnInitialise( oSettings );
-		},
-		error: function () {
-			// Error occurred loading language file
-			_fnLog( oSettings, 0, 'i18n file loading error', 21 );
-
-			// continue on as best we can
-			_fnInitialise( oSettings );
-		}
-	} );
-	bInitHandedOff = true;
-}
-else {
-	_fnCallbackFire( oSettings, null, 'i18n', [oSettings]);
-}
-
 /*
  * Columns
  * See if we should load columns automatically or use defined ones
@@ -314,9 +279,8 @@ if ( oInit.aaSorting === undefined ) {
 	}
 }
 
-/* Do a first pass on the sorting classes (allows any size changes to be taken into
-	* account, and also will apply sorting disabled classes if disabled
-	*/
+// Do a first pass on the sorting classes (allows any size changes to be taken into
+// account, and also will apply sorting disabled classes if disabled
 _fnSortingClasses( oSettings );
 
 _fnCallbackReg( oSettings, 'aoDrawCallback', function () {
@@ -374,8 +338,32 @@ oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
 // Initialisation complete - table can be drawn
 oSettings.bInitialised = true;
 
-// Check if we need to initialise the table (it might not have been handed off to the
-// language processor)
-if ( bInitHandedOff === false ) {
+// Language definitions
+var oLanguage = oSettings.oLanguage;
+$.extend( true, oLanguage, oInit.oLanguage );
+
+if ( oLanguage.sUrl ) {
+	// Get the language definitions from a file
+	$.ajax( {
+		dataType: 'json',
+		url: oLanguage.sUrl,
+		success: function ( json ) {
+			_fnCamelToHungarian( defaults.oLanguage, json );
+			$.extend( true, oLanguage, json, oSettings.oInit.oLanguage );
+
+			_fnCallbackFire( oSettings, null, 'i18n', [oSettings], true);
+			_fnInitialise( oSettings );
+		},
+		error: function () {
+			// Error occurred loading language file
+			_fnLog( oSettings, 0, 'i18n file loading error', 21 );
+
+			// Continue on as best we can
+			_fnInitialise( oSettings );
+		}
+	} );
+}
+else {
+	_fnCallbackFire( oSettings, null, 'i18n', [oSettings]);
 	_fnInitialise( oSettings );
 }
