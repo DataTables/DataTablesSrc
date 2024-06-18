@@ -85,4 +85,33 @@ describe('columns.visible option', function() {
 			expect(bodyArray[2].innerHTML).toBe('$162,700');
 		});
 	});
+
+	// https://github.com/DataTables/DataTablesSrc/issues/279
+	describe('As attribute', function() {
+		dt.html('basic');
+
+		it('Init DataTable', function() {
+			$('thead th').eq(1).attr('data-visible', 'false');
+			$('thead th').eq(2).attr('data-visible', 'false');
+			$('thead th').eq(3).attr('data-visible', 'false');
+
+			$('#example').DataTable();
+		});
+
+		it('Header row has correct number of elements', function () {
+			expect($('#example thead tr th').length).toBe(3);
+		});
+
+		it('Footer row has correct number of elements', function () {
+			expect($('#example thead tr th').length).toBe(3);
+		});
+
+		it('Body rows have correct number of elements', function () {
+			$('tbody tr').each( function () {
+				expect($('td', this).length).toBe(3);
+			});
+		});
+	});
 });
+
+
