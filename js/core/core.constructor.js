@@ -197,6 +197,16 @@ if ( oSettings.iInitDisplayStart === undefined )
 	oSettings._iDisplayStart = oInit.iDisplayStart;
 }
 
+var defer = oInit.deferLoading;
+if ( defer !== null )
+{
+	oSettings.deferLoading = true;
+
+	var tmp = Array.isArray(defer);
+	oSettings._iRecordsDisplay = tmp ? defer[0] : defer;
+	oSettings._iRecordsTotal = tmp ? defer[1] : defer;
+}
+
 /*
  * Columns
  * See if we should load columns automatically or use defined ones

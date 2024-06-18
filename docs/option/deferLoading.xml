@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>deferLoading</name>
+	<summary>Delay the loading of server-side data until second draw</summary>
+	<since>2.1</since>
+
+	<type type="integer">
+		<description>When given as an integer, this enables deferred loading, and instructs DataTables as to how many items are in the full data set.</description>
+	</type>
+	<type type="array">
+		<description>As an array, this also enables deferred loading, where the first data index tells DataTables how many rows are in the filtered result set, and the second how many in the full data set without filtering applied.</description>
+	</type>
+
+	<default value="null" />
+
+	<description>
+<![CDATA[
+
+< This option was present in DataTables 1.x, but removed in 2.0. It has been reintroduced in 2.1.
+
+When using server-side processing, the default mode of operation for DataTables is to simply throw away any data that currently exists in the table and make a request to the server to get the first page of data to display. This is fine for an empty table, but if you already have the first page of data displayed in the plain HTML, it is a waste of resources. As such, this option exists to allow you to instruct DataTables to not make that initial request, rather it will use the data already on the page (no sorting etc will be applied to it).
+
+`dt-init deferLoading` is used to indicate that deferred loading is required, but it is also used to tell DataTables how many records there are in the full table (allowing the information element and pagination to be displayed correctly). In the case where a filtering is applied to the table on initial load, this can be indicated by giving the parameter as an array, where the first element is the number of records available after filtering and the second element is the number of records without filtering (allowing the table information element to be shown correctly).
+
+Note that this option only has effect when `dt-init serverSide` is enabled. It does not have any effect when using client-side processing. 
+
+Additonally, there are a number of cirsumstances where this option **will not work**. For example state saving, predefined filtering, extensions such as SearchPanes and SearchBuilder, and more. Unless the logic that is used to populate the table's initial HTML exactly matches how DataTables populates the data to display (e.g. ordering and search), it will not work. Such use cases _are not supported_. Disable this option if you need to use any of these features.
+
+Unless you really need the behaviour offered by this option and know the impact on other modules you are using, it is strongly recommended that you don't use it!
+
+]]>
+	</description>
+
+	<example title="57 records available in the table, no filtering applied"><![CDATA[
+new DataTable('#myTable', {
+	ajax: '/api/data',
+	deferLoading: 57,
+	serverSide: true
+});
+]]></example>
+
+	<example title="57 records after filtering, 100 without filtering (an initial filter applied)"><![CDATA[
+new DataTable('#myTable', {
+	ajax: '/api/data',
+	deferLoading: [57, 100],
+	search: {
+		search: 'search string'
+	},
+	serverSide: true
+});
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="option">serverSide</related>
+</dt-option>

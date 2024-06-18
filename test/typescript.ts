@@ -86,7 +86,8 @@ let table = new DataTable('#myTable', {
 		{name: 'test', dir: 'asc'},
 		[1, 'desc']
 	],
-	orderDescReverse: false
+	orderDescReverse: false,
+	deferLoading: [ 1, 10 ],
 });
 
 const tableRowType = new DataTable<IRow>('#example');

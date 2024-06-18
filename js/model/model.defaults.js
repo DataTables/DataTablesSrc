@@ -835,7 +835,13 @@ DataTable.defaults = {
 	/**
 	 * Caption value
 	 */
-	"caption": null
+	"caption": null,
+
+
+	/**
+	 * For server-side processing - use the data from the DOM for the first draw
+	 */
+	deferLoading: null
 };
 
 _fnHungarianMap( DataTable.defaults );

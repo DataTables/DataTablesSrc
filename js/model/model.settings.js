@@ -674,5 +674,8 @@ DataTable.models.oSettings = {
 
 	captionNode: null,
 
-	colgroup: null
+	colgroup: null,
+
+	/** Delay loading of data */
+	deferLoading: null
 };

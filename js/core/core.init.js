@@ -9,6 +9,7 @@ function _fnInitialise ( settings )
 {
 	var i, iAjaxStart=settings.iInitDisplayStart;
 	var init = settings.oInit;
+	var deferLoading = settings.deferLoading;
 	var dataSrc = _fnDataSource( settings );
 
 	// Ensure that the table data is fully initialised
@@ -32,7 +33,7 @@ function _fnInitialise ( settings )
 				_fnAddData( settings, init.aaData[ i ] );
 			}
 		}
-		else if ( dataSrc == 'dom' ) {
+		else if ( deferLoading || dataSrc == 'dom' ) {
 			// Grab the data from the page
 			_fnAddTr( settings, $(settings.nTBody).children('tr') );
 		}
@@ -55,7 +56,7 @@ function _fnInitialise ( settings )
 		_fnReDraw( settings );
 
 		// Server-side processing init complete is done by _fnAjaxUpdateDraw
-		if ( dataSrc != 'ssp' ) {
+		if ( dataSrc != 'ssp' || deferLoading ) {
 			// if there is an ajax source load the data
 			if ( dataSrc == 'ajax' ) {
 				_fnBuildAjax( settings, {}, function(json) {
