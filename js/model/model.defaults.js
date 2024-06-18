@@ -841,7 +841,7 @@ DataTable.defaults = {
 	/**
 	 * For server-side processing - use the data from the DOM for the first draw
 	 */
-	deferLoading: null
+	iDeferLoading: null
 };
 
 _fnHungarianMap( DataTable.defaults );

@@ -197,7 +197,7 @@ if ( oSettings.iInitDisplayStart === undefined )
 	oSettings._iDisplayStart = oInit.iDisplayStart;
 }
 
-var defer = oInit.deferLoading;
+var defer = oInit.iDeferLoading;
 if ( defer !== null )
 {
 	oSettings.deferLoading = true;

@@ -9,7 +9,7 @@ describe( "deferLoading option", function() {
 		dt.html('basic');
 		it('deferLoading disabled by default', function() {
 			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.deferLoading).toBe(null);
+			expect($.fn.dataTable.defaults.iDeferLoading).toBe(null);
 		});
 	});
 
