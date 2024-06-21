@@ -39,9 +39,25 @@ DataTable.ext.renderer.layout.jqueryui = function ( settings, container, items )
 		.appendTo( container );
 
 	$.each( items, function (key, val) {
+		var klass = '';
+
+		if (val.table) {
+			row.addClass('dt-layout-table');
+		}
+
+		if (key === 'start') {
+			klass = 'dt-layout-start';
+		}
+		else if (key === 'end') {
+			klass = 'dt-layout-end';
+		}
+		else {
+			klass = 'dt-layout-full';
+		}
+
 		var cell = $( '<div/>', {
 				id: val.id || null,
-				"class": classes.grid.cell + ' dt-'+key+' '+(val.className || '')
+				"class": classes.grid.cell + ' ' + klass + (val.className || '')
 			} )
 			.append( val.contents )
 			.appendTo( row );

@@ -71,19 +71,20 @@ DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items 
 
 	$.each( items, function (key, val) {
 		var klass;
+		var cellClass = 'd-md-flex justify-content-between align-items-center';
 
 		// Apply left / right margins
 		if (val.table) {
 			klass = 'col-12';
 		}
 		else if (key === 'start') {
-			klass = 'col-md-auto mr-auto';
+			klass = 'dt-layout-start col-md-auto mr-auto ' + cellClass;
 		}
 		else if (key === 'end') {
-			klass = 'col-md-auto ml-auto';
+			klass = 'dt-layout-end col-md-auto ml-auto ' + cellClass;
 		}
 		else {
-			klass = 'col-md';
+			klass = 'dt-layout-full col-md ' + cellClass;
 		}
 
 		$( '<div/>', {

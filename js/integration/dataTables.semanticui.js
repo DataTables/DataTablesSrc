@@ -18,7 +18,7 @@ $.extend( true, DataTable.defaults, {
 
 /* Default class modification */
 $.extend( true, DataTable.ext.classes, {
-	container: "dt-container dt-semanticUI ui stackable grid",
+	container: "dt-container dt-semanticUI",
 	search: {
 		input: "dt-search ui input"
 	},
@@ -79,23 +79,21 @@ $(document).on( 'init.dt', function (e, ctx) {
 
 
 DataTable.ext.renderer.layout.semanticUI = function ( settings, container, items ) {
-	var row = $( '<div/>', {
-			"class": items.full ?
-				'row' :
-				'row'
-		} )
+	var row = $('<div/>')
+		.addClass('dt-layout-row')
 		.appendTo( container );
 
 	$.each( items, function (key, val) {
-		var klass = '';
+		var klass = 'dt-layout-cell ';
+
 		if ( key === 'start' ) {
-			klass += 'left floated eight wide column';
+			klass += 'dt-layout-start';
 		}
 		else if ( key === 'end' ) {
-			klass += 'right floated right aligned eight wide column';
+			klass += 'dt-layout-end';
 		}
 		else if ( key === 'full' ) {
-			klass += 'center aligned sixteen wide column';
+			klass += 'dt-layout-full';
 		}
 
 		$( '<div/>', {

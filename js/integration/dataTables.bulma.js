@@ -62,21 +62,20 @@ DataTable.ext.renderer.layout.bulma = function ( settings, container, items ) {
 
 	$.each( items, function (key, val) {
 		var klass;
+		var flexClass = 'is-flex is-justify-content-space-between is-align-items-center';
 
 		if (val.table) {
 			klass = 'column is-full';
 		}
 		else if (key === 'start') {
-			klass = 'column is-narrow';
+			klass = 'dt-layout-start column is-narrow ' + flexClass;
 		}
 		else if (key === 'end') {
-			klass = 'column is-narrow';
+			klass = 'dt-layout-end column is-narrow ' + flexClass;
 			style.marginLeft = 'auto';
 		}
 		else {
-			klass = 'column is-full';
-			style.marginLeft = 'auto';
-			style.marginRight = 'auto';
+			klass = 'dt-layout-full column is-full ' + flexClass;
 		}
 
 		$( '<div/>', {

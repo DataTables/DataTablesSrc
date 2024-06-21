@@ -9,7 +9,26 @@ $('#example').DataTable();
 </js>
 <js-vanilla>
 <![CDATA[
-new DataTable('#example');
+new DataTable('#example', {
+	layout: {
+		top7Start: ['info', 'info'],
+		top6End: ['info', 'info'],
+		top5Start: 'info',
+		top4End: 'info',
+		top3: [
+			'info',
+		],
+		top2: [
+			'info',
+			'info',
+		],
+		top: [
+			'info',
+			'info',
+			'info',
+		]
+	}
+});
 ]]>
 </js-vanilla>
 

@@ -78,23 +78,20 @@ DataTable.ext.renderer.layout.foundation = function ( settings, container, items
 	$.each( items, function (key, val) {
 		var klass = '';
 		var style = {};
+		var flexClass = 'flex-container align-justify align-middle';
 
 		if ( val.table ) {
 			klass += 'cell small-12';
 		}
 		else if ( key === 'start' ) {
-			// left is auto sized, right is shrink, allowing them to take the full width, and letting the
-			// content take its maximum available space.
-			klass += 'cell auto';
+			klass += 'dt-layout-start cell shrink ' + flexClass;
 		}
 		else if ( key === 'end' ) {
-			klass += 'cell shrink';
+			klass += 'dt-layout-end cell shrink ' + flexClass;
 			style.marginLeft = 'auto';
 		}
 		else if ( key === 'full' ) {
-			klass += 'cell';
-			style.marginLeft = 'auto';
-			style.marginRight = 'auto';
+			klass += 'dt-layout-full cell ' + flexClass;
 		}
 
 		$( '<div/>', {

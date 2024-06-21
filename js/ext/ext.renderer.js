@@ -112,12 +112,20 @@ $.extend( true, DataTable.ext.renderer, {
 				.appendTo( container );
 
 			$.each( items, function (key, val) {
-				var klass = ! val.table ?
-					'dt-'+key+' ' :
-					'';
+				var klass = '';
 
 				if (val.table) {
 					row.addClass('dt-layout-table');
+				}
+
+				if (key === 'start') {
+					klass = 'dt-layout-start';
+				}
+				else if (key === 'end') {
+					klass = 'dt-layout-end';
+				}
+				else {
+					klass = 'dt-layout-full';
 				}
 
 				$('<div/>')

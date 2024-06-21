@@ -20,10 +20,11 @@ table.dataTable.table {
 	@include row-stripes('.table-striped', '.table-hover', 0.05, 0.075, ':nth-of-type(2n+1)');
 }
 
+@include layout-cells;
 
 // DataTables' built in feature elements
 div.dt-container {
-	div.row {
+	> div.row {
 		margin-bottom: 0.5rem;
 
 		&:last-child {
@@ -62,7 +63,6 @@ div.dt-container {
 	}
 
 	div.dt-info {
-		padding-top: 0.85em;
 		white-space: nowrap;
 	}
 

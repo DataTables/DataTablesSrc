@@ -20,6 +20,22 @@ table.dataTable {
 	@include row-stripes('', '.hover', 0.054, 0.074, ':nth-child(2n)');
 }
 
+@include layout-cells;
+
+@media screen and (max-width: 767px) {
+	div.dt-container {
+		> div.grid-x {
+			margin-bottom: 0 !important;
+
+			> div.flex-container {
+				display: block !important;
+				text-align: center;
+				margin: 5px auto;
+				width: 100%;
+			}
+		}
+	}
+}
 
 // DataTables' built in feature elements
 div.dt-container {

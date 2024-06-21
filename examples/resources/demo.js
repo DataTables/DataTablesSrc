@@ -260,7 +260,12 @@ window.dt_demo = {
 			dt_demo._loadNext();
 			return;
 		}
-		else if (item.name === 'datatables' && window.$ && window.$.fn.dataTable) {
+		else if (
+			item.name === 'datatables' &&
+			item.src.indexOf('dataTables.js') !== -1 &&
+			window.$ &&
+			window.$.fn.dataTable
+		) {
 			// Likewise for DataTables
 			dt_demo._loadNext();
 			return;

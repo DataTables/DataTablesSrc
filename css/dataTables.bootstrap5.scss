@@ -31,6 +31,7 @@ table.table.dataTable {
 }
 
 
+@include layout-cells;
 
 // DataTables' built in feature elements
 div.dt-container {
@@ -62,10 +63,6 @@ div.dt-container {
 			display: inline-block;
 			width: auto;
 		}
-	}
-
-	div.dt-info {
-		padding-top: 0.85em;
 	}
 
 	div.dt-paging {

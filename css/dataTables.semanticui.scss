@@ -27,9 +27,13 @@ table.dataTable.table {
 @import 'ordering.scss';
 
 
+@include layout;
+@include layout-cells;
+
 // DataTables' built in feature elements
 div.dt-container.ui.grid {
 	> div.row {
+		display: flex;
 		padding-top: 0.5rem;
 		padding-bottom: 0.5rem;
 
@@ -61,7 +65,6 @@ div.dt-container.ui.grid {
 
 	div.dt-info {
 		white-space: nowrap;
-		padding-top: 10px;
 	}
 
 	div.dt-processing {

@@ -38,17 +38,8 @@ table.dataTable {
  * Control feature layout
  */
 div.dt-container {
-	div.dt-layout-row {
-		padding: 0;
-	}
-
-	div.dt-layout-cell {
-		padding: 10px 0;
-
-		&.table {
-			padding: 0;
-		}
-	}
+	position: relative;
+	clear: both;
 
 	// Paging
 	.dt-paging {

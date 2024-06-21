@@ -62,17 +62,18 @@ DataTable.ext.renderer.pagingContainer.bootstrap = function (settings, buttonEls
 
 DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items ) {
 	var row = $( '<div/>', {
-			"class": 'row'
+			"class": 'row dt-layout-row'
 		} )
 		.appendTo( container );
 
 	$.each( items, function (key, val) {
-		var klass = '';
+		var klass = 'dt-layout-cell ';
+
 		if ( key === 'start' ) {
-			klass += 'col-sm-6 text-left';
+			klass += 'dt-layout-start col-sm-6';
 		}
 		else if ( key === 'end' ) {
-			klass += 'col-sm-6 text-right';
+			klass += 'dt-layout-end col-sm-6';
 
 			// If no left element, we need to offset this one
 			if (row.find('.col-sm-6').length === 0) {
@@ -80,7 +81,7 @@ DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items 
 			}
 		}
 		else if ( key === 'full' ) {
-			klass += 'col-sm-12';
+			klass += 'dt-layout-full col-sm-12';
 			if ( ! val.table ) {
 				klass += ' text-center';
 			}

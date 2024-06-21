@@ -21,7 +21,7 @@ $('#example').DataTable({
 		},
 		bottomEnd: {
 			paging: {
-				numbers: 3
+				buttons: 3
 			}
 		}
 	}
@@ -43,7 +43,7 @@ new DataTable('#example', {
 		},
 		bottomEnd: {
 			paging: {
-				numbers: 3
+				buttons: 3
 			}
 		}
 	}
@@ -62,7 +62,7 @@ The built in features are:
 * `-feature paging`
 * `-feature search`
 
-In this case `-feature pageLength.menu` is used to define custom entries for the `-tag select` dropdown, `-feature search.placeholder` is used to define a placeholder for the global search, and `-feature paging.numbers` is used to set the number of paging number buttons should be shown.
+In this case `-feature pageLength.menu` is used to define custom entries for the `-tag select` dropdown, `-feature search.placeholder` is used to define a placeholder for the global search, and `-feature paging.buttons` is used to set the number of paging number buttons should be shown.
 
 ]]></info>
 

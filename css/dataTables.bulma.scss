@@ -34,6 +34,18 @@ table.dataTable {
 	@include row-stripes('.is-striped', '.is-hoverable', 0.019, 0.075, ':nth-child(2n)');
 }
 
+@include layout-cells;
+
+@media screen and (max-width: 767px) {
+	div.dt-container {
+		> div.columns {
+			> div.column {
+				display: block !important;
+				text-align: center;
+			}
+		}
+	}
+}
 
 // DataTables' built in feature elements
 div.dt-container {
@@ -60,8 +72,6 @@ div.dt-container {
 	}
 
 	div.dt-search {
-		text-align: right;
-
 		label {
 			font-weight: normal;
 			white-space: nowrap;
@@ -73,10 +83,6 @@ div.dt-container {
 			width: auto;
 			vertical-align: middle;
 		}
-	}
-
-	div.dt-info {
-		padding-top: 0.5em;
 	}
 
 	div.dt-paging {

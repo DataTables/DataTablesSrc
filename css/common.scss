@@ -187,6 +187,10 @@ html.dark,
 	}
 }
 
+div.dt-scroll {
+	width: 100%;
+}
+
 div.dt-scroll-body {
 	thead,
 	tfoot {
@@ -203,6 +207,111 @@ div.dt-scroll-body {
 				div.dt-scroll-sizing {
 					height: 0 !important;
 					overflow: hidden !important;
+				}
+			}
+		}
+	}
+}
+
+// 
+@mixin layout-cells() {
+	div.dt-container {
+		div.dt-layout-start {
+			> *:not(:last-child) {
+				margin-right: 1em;
+			}
+		}
+
+		div.dt-layout-end {
+			> *:not(:first-child) {
+				margin-left: 1em;
+			}
+		}
+
+		div.dt-layout-full {
+			width: 100%;
+
+			> *:only-child {
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		div.dt-container {
+			div.dt-layout-start {
+				> *:not(:last-child) {
+					margin-right: 0;
+				}
+			}
+
+			div.dt-layout-end {
+				> *:not(:first-child) {
+					margin-left: 0;
+				}
+			}
+		}
+	}
+}
+
+@mixin layout() {
+	div.dt-container {
+		div.dt-layout-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+			margin: 0.75em 0;
+
+			div.dt-layout-cell {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				> * {
+					background-color: green;
+				}
+
+				&.dt-layout-start {
+					justify-content: flex-start;
+					margin-right: auto;
+				}
+
+				&.dt-layout-end {
+					justify-content: flex-end;
+					margin-left: auto;
+				}
+
+				&:empty {
+					display: none;
+				}
+			}
+		}
+	}
+
+	// Collapse the two column display of the control elements when the screen is
+	// small
+	@media screen and (max-width: 767px) {
+		div.dt-container {
+			div.dt-layout-row {
+				display: block;
+
+				div.dt-layout-cell {
+					display: block;
+					text-align: center;
+
+					> * {
+						margin: 0.5em 0;
+					}
+
+					&.dt-layout-start {
+						margin-right: 0;
+					}
+
+					&.dt-layout-end {
+						margin-left: 0;
+					}
 				}
 			}
 		}

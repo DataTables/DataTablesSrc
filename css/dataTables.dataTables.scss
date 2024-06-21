@@ -287,48 +287,16 @@ table.dataTable {
 }
 
 
+@include layout;
+@include layout-cells;
+
+
 /*
  * Control feature layout
  */
 div.dt-container {
 	position: relative;
 	clear: both;
-
-	div.dt-layout-row {
-		display: table;
-		clear: both;
-		width: 100%;
-
-		&.dt-layout-table {
-			display: block;
-
-			div.dt-layout-cell {
-				display: block;
-			}
-		}
-	}
-
-	div.dt-layout-cell {
-		display: table-cell;
-		vertical-align: middle;
-		padding: 5px 0;
-
-		&.dt-full {
-			text-align: center;
-		}
-
-		&.dt-start {
-			text-align: left;
-		}
-
-		&.dt-end {
-			text-align: right;
-		}
-
-		&:empty {
-			display: none;
-		}
-	}
 
 	.dt-search {
 		input {
@@ -456,41 +424,6 @@ div.dt-container {
 			tbody > tr:last-child > * {
 				border-bottom: none;
 			}
-		}
-	}
-}
-
-
-// Collapse the two column display of the control elements when the screen is
-// small
-@media screen and (max-width: 767px) {
-	div.dt-container {
-		div.dt-layout-row {
-			display: block;
-		}
-
-		div.dt-layout-cell {
-			display: block;
-			
-			&.dt-full,
-			&.dt-start,
-			&.dt-end {
-				text-align: center;
-			}
-		}
-	}
-}
-
-@media screen and (max-width: 640px) {
-	.dt-container {
-		.dt-length,
-		.dt-search {
-			float: none;
-			text-align: center;
-		}
-
-		.dt-search {
-			margin-top: 0.5em;
 		}
 	}
 }
