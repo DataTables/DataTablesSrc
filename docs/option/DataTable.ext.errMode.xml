@@ -47,5 +47,5 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related>dt-event error</related>
+	<related>dt-event dt-error</related>
 </dt-option>
