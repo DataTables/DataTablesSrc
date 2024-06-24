@@ -189,7 +189,7 @@ export interface Feature {
     }
 }
 
-type LayoutNumber = '' | '1' | '2' | '3' | '4' | '5';
+type LayoutNumber = '' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 
 type LayoutSide = 'top' | 'bottom';
 
@@ -197,7 +197,15 @@ type LayoutEdge = 'Start' | 'End';
 
 type LayoutKeys = `${LayoutSide}${LayoutNumber}${LayoutEdge}` | `${LayoutSide}${LayoutNumber}`;
 
-type Layout = Partial<Record<LayoutKeys, keyof Feature | Feature | Array<keyof Feature> | Feature[] | null>>;
+type LayoutFeatures = keyof Feature | Feature | Array<keyof Feature> | Feature[];
+
+type LayoutElement = {
+    id?: string;
+    className?: string;
+    features: Array<LayoutFeatures>;
+}
+
+type Layout = Partial<Record<LayoutKeys, LayoutElement | LayoutFeatures | null>>;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -3097,6 +3105,12 @@ export interface DataTablesStaticExtButtons {
         /** Container `<div>` class */
 		container: string;
 	};
+
+    /** Layout grid classes */
+    layout: {
+        row: string;
+        cell: string;
+    },
 
     /** Length feature classes */
 	length: {

@@ -107,31 +107,36 @@ $.extend( true, DataTable.ext.renderer, {
 
 	layout: {
 		_: function ( settings, container, items ) {
+			var classes = settings.oClasses.layout;
 			var row = $('<div/>')
-				.addClass('dt-layout-row')
+				.attr('id', items.id || null)
+				.addClass(items.className || classes.row)
 				.appendTo( container );
 
 			$.each( items, function (key, val) {
 				var klass = '';
 
 				if (val.table) {
-					row.addClass('dt-layout-table');
+					row.addClass(classes.tableRow);
+					klass += classes.tableCell + ' ';
 				}
 
 				if (key === 'start') {
-					klass = 'dt-layout-start';
+					klass += classes.start;
 				}
 				else if (key === 'end') {
-					klass = 'dt-layout-end';
+					klass += classes.end;
 				}
 				else {
-					klass = 'dt-layout-full';
+					klass += classes.full;
 				}
 
 				$('<div/>')
 					.attr({
 						id: val.id || null,
-						"class": 'dt-layout-cell '+klass+(val.className || '')
+						"class": val.className
+							? val.className
+							: classes.cell + ' ' + klass
 					})
 					.append( val.contents )
 					.appendTo( row );

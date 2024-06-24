@@ -27,6 +27,15 @@ $.extend( true, DataTable.ext.classes, {
 	},
 	processing: {
 		container: "dt-processing card"
+	},
+	layout: {
+		row: 'row mt-2 justify-content-between',
+		cell: 'd-md-flex justify-content-between align-items-center',
+		tableRow: '',
+		tableCell: 'col-12',
+		start: 'dt-layout-start col-md-auto me-auto',
+		end: 'dt-layout-end col-md-auto ms-auto',
+		full: 'dt-layout-full col-md'
 	}
 } );
 
@@ -61,37 +70,37 @@ DataTable.ext.renderer.pagingContainer.bootstrap = function (settings, buttonEls
 	return $('<ul/>').addClass('pagination').append(buttonEls);
 };
 
-DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items ) {
-	var row = $( '<div/>', {
-			"class": items.full ?
-				'row mt-2 justify-content-md-center' :
-				'row mt-2 justify-content-between'
-		} )
-		.appendTo( container );
+// DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items ) {
+// 	var row = $( '<div/>', {
+// 			"class": items.full ?
+// 				'row mt-2 justify-content-md-center' :
+// 				'row mt-2 justify-content-between'
+// 		} )
+// 		.appendTo( container );
 
-	$.each( items, function (key, val) {
-		var klass;
-		var cellClass = 'd-md-flex justify-content-between align-items-center';
+// 	$.each( items, function (key, val) {
+// 		var klass;
+// 		var cellClass = '';
 
-		// Apply start / end (left / right when ltr) margins
-		if (val.table) {
-			klass = 'col-12';
-		}
-		else if (key === 'start') {
-			klass = 'dt-layout-start col-md-auto me-auto ' + cellClass;
-		}
-		else if (key === 'end') {
-			klass = 'dt-layout-end col-md-auto ms-auto ' + cellClass;
-		}
-		else {
-			klass = 'dt-layout-full col-md ' + cellClass;
-		}
+// 		// Apply start / end (left / right when ltr) margins
+// 		if (val.table) {
+// 			klass = 'col-12';
+// 		}
+// 		else if (key === 'start') {
+// 			klass = '' + cellClass;
+// 		}
+// 		else if (key === 'end') {
+// 			klass = '' + cellClass;
+// 		}
+// 		else {
+// 			klass = ' ' + cellClass;
+// 		}
 
-		$( '<div/>', {
-				id: val.id || null,
-				"class": klass + ' ' + (val.className || '')
-			} )
-			.append( val.contents )
-			.appendTo( row );
-	} );
-};
+// 		$( '<div/>', {
+// 				id: val.id || null,
+// 				"class": klass + ' ' + (val.className || '')
+// 			} )
+// 			.append( val.contents )
+// 			.appendTo( row );
+// 	} );
+// };

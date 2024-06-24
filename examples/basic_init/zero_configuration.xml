@@ -11,22 +11,23 @@ $('#example').DataTable();
 <![CDATA[
 new DataTable('#example', {
 	layout: {
-		top7Start: ['info', 'info'],
-		top6End: ['info', 'info'],
-		top5Start: 'info',
-		top4End: 'info',
-		top3: [
-			'info',
-		],
-		top2: [
-			'info',
-			'info',
-		],
-		top: [
-			'info',
-			'info',
-			'info',
-		]
+		top8Start: 'info',
+		top7End: 'info',
+		top6: {
+			div: {
+				text: 'My test'
+			}
+		},
+		top5: {
+			id: 'top5Id',
+			className: 'top5Class',
+			features: ['info']
+		},
+		top4End: {
+			rowId: 'top4EndRowId',
+			className: 'top4EndClass',
+			features: ['info']
+		}
 	}
 });
 ]]>

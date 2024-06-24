@@ -138,6 +138,7 @@ _buildInclude('ext.sorting.js');
 _buildInclude('ext.renderer.js');
 
 _buildInclude('features.api.js');
+_buildInclude('features.div.js');
 _buildInclude('features.info.js');
 _buildInclude('features.search.js');
 _buildInclude('features.page.js');

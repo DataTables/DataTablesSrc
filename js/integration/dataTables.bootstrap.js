@@ -27,6 +27,15 @@ $.extend( true, DataTable.ext.classes, {
 	},
 	processing: {
 		container: "dt-processing panel panel-default"
+	},
+	layout: {
+		row: 'row dt-layout-row',
+		cell: 'dt-layout-cell',
+		tableRow: '',
+		tableCell: 'col-12',
+		start: 'dt-layout-start col-sm-6',
+		end: 'dt-layout-end col-sm-6',
+		full: 'dt-layout-full col-sm-12'
 	}
 } );
 
@@ -58,40 +67,4 @@ DataTable.ext.renderer.pagingButton.bootstrap = function (settings, buttonType, 
 
 DataTable.ext.renderer.pagingContainer.bootstrap = function (settings, buttonEls) {
 	return $('<ul/>').addClass('pagination').append(buttonEls);
-};
-
-DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items ) {
-	var row = $( '<div/>', {
-			"class": 'row dt-layout-row'
-		} )
-		.appendTo( container );
-
-	$.each( items, function (key, val) {
-		var klass = 'dt-layout-cell ';
-
-		if ( key === 'start' ) {
-			klass += 'dt-layout-start col-sm-6';
-		}
-		else if ( key === 'end' ) {
-			klass += 'dt-layout-end col-sm-6';
-
-			// If no left element, we need to offset this one
-			if (row.find('.col-sm-6').length === 0) {
-				klass += ' col-sm-offset-6';
-			}
-		}
-		else if ( key === 'full' ) {
-			klass += 'dt-layout-full col-sm-12';
-			if ( ! val.table ) {
-				klass += ' text-center';
-			}
-		}
-
-		$( '<div/>', {
-				id: val.id || null,
-				"class": klass+' '+(val.className || '')
-			} )
-			.append( val.contents )
-			.appendTo( row );
-	} );
 };

@@ -7,6 +7,15 @@ $.extend( DataTable.ext.classes, {
 	info: {
 		container: 'dt-info'
 	},
+	layout: {
+		row: 'dt-layout-row',
+		cell: 'dt-layout-cell',
+		tableRow: 'dt-layout-table',
+		tableCell: '',
+		start: 'dt-layout-start',
+		end: 'dt-layout-end',
+		full: 'dt-layout-full'
+	},
 	length: {
 		container: 'dt-length',
 		select: 'dt-input'

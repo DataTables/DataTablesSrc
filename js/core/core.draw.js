@@ -572,18 +572,35 @@ function _layoutArray ( settings, layout, side )
 			'full' :
 			splitPos[1].toLowerCase();
 		var group = groups[ splitPos[0] ];
-		var groupRun = function (contents, innerVal) {
+		var groupRun = function (group, align, innerVal) {
+			var groupCell = group[align];
+
 			// If it is an object, then there can be multiple features contained in it
 			if ( $.isPlainObject( innerVal ) ) {
-				Object.keys(innerVal).map(function (key) {
-					contents.push( {
-						feature: key,
-						opts: innerVal[key]
+				// A feature plugin cannot be named "features" due to this check
+				if (innerVal.features) {
+					if (innerVal.rowId) {
+						group.id = innerVal.rowId;
+					}
+					if (innerVal.rowClass) {
+						group.className = innerVal.rowClass;
+					}
+
+					groupCell.id = innerVal.id;
+					groupCell.className = innerVal.className;
+					groupCell.contents = innerVal.features;
+				}
+				else {
+					Object.keys(innerVal).map(function (key) {
+						groupCell.contents.push( {
+							feature: key,
+							opts: innerVal[key]
+						});
 					});
-				});
+				}
 			}
 			else {
-				contents.push(innerVal);
+				groupCell.contents.push(innerVal);
 			}
 		}
 
@@ -595,11 +612,11 @@ function _layoutArray ( settings, layout, side )
 		// Allow for an array or just a single object
 		if ( Array.isArray(val)) {
 			for (var i=0 ; i<val.length ; i++) {
-				groupRun(group[align].contents, val[i]);
+				groupRun(group, align, val[i]);
 			}
 		}
 		else {
-			groupRun(group[ align ].contents, val);
+			groupRun(group, align, val);
 		}
 
 		// And make contents an array
@@ -673,6 +690,10 @@ function _layoutResolve( settings, row ) {
 	};
 
 	var resolve = function ( item ) {
+		if (! row[ item ]) {
+			return;
+		}
+
 		var line = row[ item ].contents;
 
 		for ( var i=0, ien=line.length ; i<ien ; i++ ) {
@@ -700,9 +721,9 @@ function _layoutResolve( settings, row ) {
 		}
 	};
 
-	$.each( row, function ( key ) {
-		resolve( key );
-	} );
+	resolve('start');
+	resolve('end');
+	resolve('full');
 }
 
 

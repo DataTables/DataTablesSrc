@@ -48,6 +48,10 @@ let table = new DataTable('#myTable', {
 	layout: {
 		topStart: 'info',
 		top: 'search',
+		top1Start: {
+			info: {},
+			paging: {}
+		},
 		top1End: {
 			info: {
 				text: '_START_ to _END_'
@@ -78,6 +82,23 @@ let table = new DataTable('#myTable', {
 				placeholder: 'Search',
 				processing: true,
 				text: 'Search: '
+			}
+		},
+		bottom4: {
+			id: 'testId',
+			className: 'testClass',
+			features: ['search']
+		},
+		bottom5: {
+			id: 'testId',
+			className: 'testClass',
+			features: [ 'search', 'paging' ]
+		},
+		bottom6: {
+			div: {
+				id: 'testId',
+				className: 'testClass',
+				features: [ 'search', 'paging' ]
 			}
 		}
 	},
