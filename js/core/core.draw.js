@@ -658,10 +658,15 @@ function _layoutArray ( settings, layout, side )
 	// Split into rows
 	var rows = [];
 	for ( var i=0, ien=filtered.length ; i<ien ; i++ ) {
-		var filteredVal = filtered[i].val;
+		if (  filtered[i].val.full ) {
+			rows.push( filtered[i].val.full );
+			_layoutResolve( settings, rows[ rows.length - 1 ] );
 
-		if ( filteredVal.full || filteredVal.start || filteredVal.end ) {
-			rows.push( filteredVal );
+			delete filtered[i].val.full;
+		}
+
+		if ( filtered[i].val.start || filtered[i].val.end ) {
+			rows.push( filtered[i].val );
 			_layoutResolve( settings, rows[ rows.length - 1 ] );
 		}
 	}

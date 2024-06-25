@@ -9,25 +9,12 @@ $('#example').DataTable();
 </js>
 <js-vanilla>
 <![CDATA[
+var insert = document.createElement('div');
+insert.textContent = 'test';
+
 new DataTable('#example', {
 	layout: {
-		top8Start: 'info',
-		top7End: 'info',
-		top6: {
-			div: {
-				text: 'My test'
-			}
-		},
-		top5: {
-			id: 'top5Id',
-			className: 'top5Class',
-			features: ['info']
-		},
-		top4End: {
-			rowId: 'top4EndRowId',
-			className: 'top4EndClass',
-			features: ['info']
-		}
+		top: insert
 	}
 });
 ]]>
