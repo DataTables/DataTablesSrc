@@ -24,49 +24,11 @@ $.extend( true, DataTable.ext.classes, {
 	tfoot: {
 		cell: 'ui-state-default ui-widget-header'
 	},
-	grid: {
+	layout: {
 		row: 'dt-layout-row ui-helper-clearfix',
-		cell: 'dt-layout-cell'
+		tableCell: 'table',
 	}
 } );
-
-
-DataTable.ext.renderer.layout.jqueryui = function ( settings, container, items ) {
-	var classes = settings.oClasses;
-	var row = $( '<div/>', {
-			"class": classes.grid.row
-		} )
-		.appendTo( container );
-
-	$.each( items, function (key, val) {
-		var klass = '';
-
-		if (val.table) {
-			row.addClass('dt-layout-table');
-		}
-
-		if (key === 'start') {
-			klass = 'dt-layout-start';
-		}
-		else if (key === 'end') {
-			klass = 'dt-layout-end';
-		}
-		else {
-			klass = 'dt-layout-full';
-		}
-
-		var cell = $( '<div/>', {
-				id: val.id || null,
-				"class": classes.grid.cell + ' ' + klass + (val.className || '')
-			} )
-			.append( val.contents )
-			.appendTo( row );
-
-		if ($(val.contents).hasClass('dataTable')) {
-			cell.addClass('table');
-		}
-	} );
-};
 
 // Set the defaults for DataTables initialisation
 $.extend(true, DataTable.defaults, {

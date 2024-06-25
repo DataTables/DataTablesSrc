@@ -12,6 +12,15 @@
 
 $.extend( true, DataTable.ext.classes, {
 	container: "dt-container dt-foundation",
+	layout: {
+		row: 'grid-x',
+		cell: 'flex-container align-justify align-middle',
+		tableRow: 'dt-layout-table',
+		tableCell: 'cell small-12',
+		start: 'dt-layout-start cell shrink',
+		end: 'dt-layout-end cell shrink',
+		full: 'dt-layout-full cell'
+	},
 	processing: {
 		container: "dt-processing panel callout"
 	}
@@ -70,34 +79,43 @@ DataTable.ext.renderer.pagingContainer.foundation = function (settings, buttonEl
 };
 
 DataTable.ext.renderer.layout.foundation = function ( settings, container, items ) {
-	var row = $( '<div/>', {
-			"class": 'grid-x'
-		} )
+	var classes = settings.oClasses.layout;
+	var row = $('<div/>')
+		.attr('id', items.id || null)
+		.addClass(items.className || classes.row)
 		.appendTo( container );
 
 	$.each( items, function (key, val) {
+		if (key === 'id' || key === 'className') {
+			return;
+		}
+
 		var klass = '';
 		var style = {};
-		var flexClass = 'flex-container align-justify align-middle';
 
-		if ( val.table ) {
-			klass += 'cell small-12';
+		if (val.table) {
+			row.addClass(classes.tableRow);
+			klass += classes.tableCell + ' ';
 		}
-		else if ( key === 'start' ) {
-			klass += 'dt-layout-start cell shrink ' + flexClass;
+
+		if (key === 'start') {
+			klass += classes.start;
 		}
-		else if ( key === 'end' ) {
-			klass += 'dt-layout-end cell shrink ' + flexClass;
+		else if (key === 'end') {
+			klass += classes.end;
 			style.marginLeft = 'auto';
 		}
-		else if ( key === 'full' ) {
-			klass += 'dt-layout-full cell ' + flexClass;
+		else {
+			klass += classes.full;
 		}
 
-		$( '<div/>', {
+		$('<div/>')
+			.attr({
 				id: val.id || null,
-				"class": klass+' '+(val.className || '')
-			} )
+				"class": val.className
+					? val.className
+					: classes.cell + ' ' + klass
+			})
 			.css(style)
 			.append( val.contents )
 			.appendTo( row );

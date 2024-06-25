@@ -573,6 +573,15 @@ function _layoutArray ( settings, layout, side )
 			splitPos[1].toLowerCase();
 		var group = groups[ splitPos[0] ];
 		var groupRun = function (group, align, innerVal) {
+			// Allow for an array or just a single object
+			if ( Array.isArray(innerVal)) {
+				for (var i=0 ; i<innerVal.length ; i++) {
+					groupRun(group, align, innerVal[i]);
+				}
+
+				return;
+			}
+
 			var groupCell = group[align];
 
 			// If it is an object, then there can be multiple features contained in it
@@ -588,7 +597,8 @@ function _layoutArray ( settings, layout, side )
 
 					groupCell.id = innerVal.id;
 					groupCell.className = innerVal.className;
-					groupCell.contents = innerVal.features;
+
+					groupRun(group, align, innerVal.features);
 				}
 				else {
 					Object.keys(innerVal).map(function (key) {
@@ -609,15 +619,7 @@ function _layoutArray ( settings, layout, side )
 			group[align] = { contents: [] };
 		}
 
-		// Allow for an array or just a single object
-		if ( Array.isArray(val)) {
-			for (var i=0 ; i<val.length ; i++) {
-				groupRun(group, align, val[i]);
-			}
-		}
-		else {
-			groupRun(group, align, val);
-		}
+		groupRun(group, align, val);
 
 		// And make contents an array
 		if ( ! Array.isArray( group[ align ].contents ) ) {
@@ -656,15 +658,10 @@ function _layoutArray ( settings, layout, side )
 	// Split into rows
 	var rows = [];
 	for ( var i=0, ien=filtered.length ; i<ien ; i++ ) {
-		if (  filtered[i].val.full ) {
-			rows.push( { full: filtered[i].val.full } );
-			_layoutResolve( settings, rows[ rows.length - 1 ] );
+		var filteredVal = filtered[i].val;
 
-			delete filtered[i].val.full;
-		}
-
-		if ( Object.keys(filtered[i].val).length ) {
-			rows.push( filtered[i].val );
+		if ( filteredVal.full || filteredVal.start || filteredVal.end ) {
+			rows.push( filteredVal );
 			_layoutResolve( settings, rows[ rows.length - 1 ] );
 		}
 	}

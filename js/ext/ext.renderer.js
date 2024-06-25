@@ -114,6 +114,10 @@ $.extend( true, DataTable.ext.renderer, {
 				.appendTo( container );
 
 			$.each( items, function (key, val) {
+				if (key === 'id' || key === 'className') {
+					return;
+				}
+
 				var klass = '';
 
 				if (val.table) {

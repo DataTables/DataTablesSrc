@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="4">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<css>
+div.row-class {
+	border: 1px solid #dc3545;
+	border-radius: 3px;
+	padding: 8px;
+}
+
+div.cell-class {
+	border: 1px solid #198754;
+	border-radius: 3px;
+	padding: 8px;
+}
+</css>
+
+<title>Element IDs and classes</title>
+<js><![CDATA[
+$('#example').DataTable({
+	layout: {
+		top2: {
+			rowId: 'row-id',
+			rowClass: 'row-class',
+			features: [{
+				div: {
+					text: 'top2 row'
+				}
+			}]
+		},
+		top1: {
+			id: 'cell-id',
+			className: 'cell-class',
+			features: [{
+				div: {
+					text: 'top1 row'
+				}
+			}]
+		}
+	}
+});
+]]></js>
+<js-vanilla>
+<![CDATA[
+new DataTable('#example', {
+	layout: {
+		top2: {
+			rowId: 'row-id',
+			rowClass: 'row-class',
+			features: {
+				div: {
+					text: 'top2 row'
+				}
+			}
+		},
+		top1: {
+			id: 'cell-id',
+			className: 'cell-class',
+			features: [{
+				div: {
+					text: 'top1 row'
+				}
+			}]
+		}
+	}
+});
+]]>
+</js-vanilla>
+
+<info><![CDATA[
+
+The grid set up by `-init layout` is preconfigured with classes that are suitable for the styling framework that you are using, however it is also possible to assign your own class names and ids to the elements created for the grid.
+
+Each property value in an `-init layout` object can have the following properties set:
+
+* `id` - Set the _id_ attribute of the container `-tag div`.
+* `className` - Set the _class_ attribute of the container `-tag div`.
+* `rowId` - Set the _id_ attribute of the parent `-tag div`.
+* `rowClass` - Set the _class_ attribute of the parent `-tag div`.
+
+There must also be a `features` property which is an array of any of the values acceptable as a "feature" - e.g. it could be a string such as `-string info` or `-string search`, or it could be an object with the features configured as needed.
+
+This example shows the first row in the layout (red outline) with `id` and `className` properties set. The second row (green outline) shows classes set on the cell's parent element.
+
+Note that when setting a class name it will overwrite any class that would have been automatically assigned by the defaults.
+
+]]></info>
+
+</dt-example>

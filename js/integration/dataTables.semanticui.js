@@ -76,31 +76,3 @@ $(document).on( 'init.dt', function (e, ctx) {
 	$( 'div.dt-search.ui.input', api.table().container() ).removeClass('input').addClass('form');
 	$( 'div.dt-search input', api.table().container() ).wrap( '<span class="ui input" />' );
 } );
-
-
-DataTable.ext.renderer.layout.semanticUI = function ( settings, container, items ) {
-	var row = $('<div/>')
-		.addClass('dt-layout-row')
-		.appendTo( container );
-
-	$.each( items, function (key, val) {
-		var klass = 'dt-layout-cell ';
-
-		if ( key === 'start' ) {
-			klass += 'dt-layout-start';
-		}
-		else if ( key === 'end' ) {
-			klass += 'dt-layout-end';
-		}
-		else if ( key === 'full' ) {
-			klass += 'dt-layout-full';
-		}
-
-		$( '<div/>', {
-				id: val.id || null,
-				"class": klass+' '+(val.className || '')
-			} )
-			.append( val.contents )
-			.appendTo( row );
-	} );
-};

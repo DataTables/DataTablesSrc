@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="3">
+
+<css lib="datatables" />
+<js lib="jquery" />
+<js lib="datatables" />
+
+<css>
+div.layout-start {
+	border: 1px solid #dc3545;
+	border-radius: 3px;
+	padding: 8px;
+}
+
+div.layout-end {
+	border: 1px solid #198754;
+	border-radius: 3px;
+	padding: 8px;
+}
+
+div.layout-full {
+	border: 1px solid #0d6efd;
+	border-radius: 3px;
+	padding: 8px;
+}
+</css>
+
+<title>Grid layout</title>
+<js><![CDATA[
+$('#example').DataTable({
+	layout: {
+		top9Start: {
+			div: {
+				className: 'layout-start',
+				text: 'top9Start'
+			}
+		},
+		top8Start: [
+			{
+				div: {
+					className: 'layout-start',
+					text: 'top8Start A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-start',
+					text: 'top8Start B'
+				}
+			}
+		],
+		top7Start: [
+			{
+				div: {
+					className: 'layout-start',
+					text: 'top7Start A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-start',
+					text: 'top7Start B'
+				}
+			},
+			{
+				div: {
+					className: 'layout-start',
+					text: 'top7Start C'
+				}
+			}
+		],
+
+		top6End: {
+			div: {
+				className: 'layout-end',
+				text: 'top6End'
+			}
+		},
+		top5End: [
+			{
+				div: {
+					className: 'layout-end',
+					text: 'top5End A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-end',
+					text: 'top5End B'
+				}
+			}
+		],
+		top4End: [
+			{
+				div: {
+					className: 'layout-end',
+					text: 'top4End A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-end',
+					text: 'top4End B'
+				}
+			},
+			{
+				div: {
+					className: 'layout-end',
+					text: 'top4End C'
+				}
+			}
+		],
+
+		top3: {
+			div: {
+				className: 'layout-full',
+				text: 'top3'
+			}
+		},
+		top2: [
+			{
+				div: {
+					className: 'layout-full',
+					text: 'top2 A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-full',
+					text: 'top2 B'
+				}
+			}
+		],
+		top1: [
+			{
+				div: {
+					className: 'layout-full',
+					text: 'top1 A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-full',
+					text: 'top1 B'
+				}
+			},
+			{
+				div: {
+					className: 'layout-full',
+					text: 'top1 C'
+				}
+			}
+		]
+	}
+});
+]]></js>
+<js-vanilla>
+<![CDATA[
+new DataTable('#example', {
+	layout: {
+		top9Start: {
+			div: {
+				className: 'layout-start',
+				text: 'top9Start'
+			}
+		},
+		top8Start: [
+			{
+				div: {
+					className: 'layout-start',
+					text: 'top8Start A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-start',
+					text: 'top8Start B'
+				}
+			}
+		],
+		top7Start: [
+			{
+				div: {
+					className: 'layout-start',
+					text: 'top7Start A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-start',
+					text: 'top7Start B'
+				}
+			},
+			{
+				div: {
+					className: 'layout-start',
+					text: 'top7Start C'
+				}
+			}
+		],
+
+		top6End: {
+			div: {
+				className: 'layout-end',
+				text: 'top6End'
+			}
+		},
+		top5End: [
+			{
+				div: {
+					className: 'layout-end',
+					text: 'top5End A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-end',
+					text: 'top5End B'
+				}
+			}
+		],
+		top4End: [
+			{
+				div: {
+					className: 'layout-end',
+					text: 'top4End A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-end',
+					text: 'top4End B'
+				}
+			},
+			{
+				div: {
+					className: 'layout-end',
+					text: 'top4End C'
+				}
+			}
+		],
+
+		top3: {
+			div: {
+				className: 'layout-full',
+				text: 'top3'
+			}
+		},
+		top2: [
+			{
+				div: {
+					className: 'layout-full',
+					text: 'top2 A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-full',
+					text: 'top2 B'
+				}
+			}
+		],
+		top1: [
+			{
+				div: {
+					className: 'layout-full',
+					text: 'top1 A'
+				}
+			},
+			{
+				div: {
+					className: 'layout-full',
+					text: 'top1 B'
+				}
+			},
+			{
+				div: {
+					className: 'layout-full',
+					text: 'top1 C'
+				}
+			}
+		]
+	}
+});
+
+]]>
+</js-vanilla>
+
+<info><![CDATA[
+
+This example demonstrates the multi-row layout grid that is used for the DataTable control elements. It is not a realistic use case, but rather is provided as an illustrative example to show what the various options do, and how it effects the layout. The `-feature div` feature is used to show a simple text box for where the elements appear.
+
+Here the first three rows (red outline) use `topXStart` to position elements above the table at the start of the row (typically on the left of the container). The first row has a single element, the second two and the third three.
+
+The second set of three rows (green outline) uses the same structure, but positions them at the end of the container (typically the right) with `topXEnd`.
+
+The last set of three rows (blue outline) uses the full row with `topX`. You'll notice in this case that the items are spaced evenly in the space available (with a single item being centred).
+
+Finally, the DataTables default `-init layout` properties are still applied, so the normal table controls appear around the table.
+
+]]></info>
+
+</dt-example>

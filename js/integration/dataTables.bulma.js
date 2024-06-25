@@ -14,6 +14,15 @@ $.extend( true, DataTable.ext.classes, {
 	search: {
 		input: "input"
 	},
+	layout: {
+		row: 'columns is-multiline',
+		cell: 'is-flex is-justify-content-space-between is-align-items-center',
+		tableRow: 'dt-layout-table',
+		tableCell: 'column is-full',
+		start: 'dt-layout-start column is-narrow',
+		end: 'dt-layout-end column is-narrow',
+		full: 'dt-layout-full column is-full'
+	},
 	length: {
 		input: "custom-select custom-select-sm form-control form-control-sm"
 	},
@@ -54,34 +63,43 @@ DataTable.ext.renderer.pagingContainer.bulma = function (settings, buttonEls) {
 };
 
 DataTable.ext.renderer.layout.bulma = function ( settings, container, items ) {
-	var style = {};
-	var row = $( '<div/>', {
-			"class": 'columns is-multiline'
-		} )
+	var classes = settings.oClasses.layout;
+	var row = $('<div/>')
+		.attr('id', items.id || null)
+		.addClass(items.className || classes.row)
 		.appendTo( container );
 
 	$.each( items, function (key, val) {
-		var klass;
-		var flexClass = 'is-flex is-justify-content-space-between is-align-items-center';
+		if (key === 'id' || key === 'className') {
+			return;
+		}
+
+		var klass = '';
+		var style = {};
 
 		if (val.table) {
-			klass = 'column is-full';
+			row.addClass(classes.tableRow);
+			klass += classes.tableCell + ' ';
 		}
-		else if (key === 'start') {
-			klass = 'dt-layout-start column is-narrow ' + flexClass;
+
+		if (key === 'start') {
+			klass += classes.start;
 		}
 		else if (key === 'end') {
-			klass = 'dt-layout-end column is-narrow ' + flexClass;
+			klass += classes.end;
 			style.marginLeft = 'auto';
 		}
 		else {
-			klass = 'dt-layout-full column is-full ' + flexClass;
+			klass += classes.full;
 		}
 
-		$( '<div/>', {
+		$('<div/>')
+			.attr({
 				id: val.id || null,
-				"class": klass+' '+(val.className || '')
-			} )
+				"class": val.className
+					? val.className
+					: classes.cell + ' ' + klass
+			})
 			.css(style)
 			.append( val.contents )
 			.appendTo( row );

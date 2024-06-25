@@ -3108,8 +3108,13 @@ export interface DataTablesStaticExtButtons {
 
     /** Layout grid classes */
     layout: {
-        row: string;
-        cell: string;
+		row: string;
+		cell: string;
+		tableRow: string;
+		tableCell: string;
+		start: string;
+		end: string;
+		full: string;
     },
 
     /** Length feature classes */
