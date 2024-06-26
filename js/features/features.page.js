@@ -106,7 +106,11 @@ function _pagingDraw(settings, host, opts) {
 			'aria-current': btnInfo.active ? 'page' : null,
 			'aria-label': ariaLabel,
 			'data-dt-idx': button,
-			'tabIndex': btnInfo.disabled ? -1 : settings.iTabIndex,
+			'tabIndex': btnInfo.disabled
+				? -1
+				: settings.iTabIndex
+					? settings.iTabIndex
+					: null, // `0` doesn't need a tabIndex since it is the default
 		});
 
 		if (typeof button !== 'number') {
