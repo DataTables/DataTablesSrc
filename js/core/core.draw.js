@@ -659,7 +659,7 @@ function _layoutArray ( settings, layout, side )
 	var rows = [];
 	for ( var i=0, ien=filtered.length ; i<ien ; i++ ) {
 		if (  filtered[i].val.full ) {
-			rows.push( filtered[i].val.full );
+			rows.push( {full: filtered[i].val.full} );
 			_layoutResolve( settings, rows[ rows.length - 1 ] );
 
 			delete filtered[i].val.full;
