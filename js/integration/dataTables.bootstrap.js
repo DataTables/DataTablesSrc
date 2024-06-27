@@ -31,7 +31,6 @@ $.extend( true, DataTable.ext.classes, {
 	layout: {
 		row: 'row dt-layout-row',
 		cell: 'dt-layout-cell',
-		tableRow: '',
 		tableCell: 'col-12',
 		start: 'dt-layout-start col-sm-6',
 		end: 'dt-layout-end col-sm-6',

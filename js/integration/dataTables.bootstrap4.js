@@ -31,7 +31,6 @@ $.extend( true, DataTable.ext.classes, {
 	layout: {
 		row: 'row justify-content-between',
 		cell: 'd-md-flex justify-content-between align-items-center',
-		tableRow: '',
 		tableCell: 'col-12',
 		start: 'dt-layout-start col-md-auto mr-auto',
 		end: 'dt-layout-end col-md-auto ml-auto',

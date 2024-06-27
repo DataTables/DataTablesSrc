@@ -236,6 +236,10 @@ div.dt-scroll-body {
 				margin-right: auto;
 			}
 		}
+
+		div.dt-layout-table > div {
+			display: block !important;
+		}
 	}
 
 	@media screen and (max-width: 767px) {
