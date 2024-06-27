@@ -53,9 +53,10 @@ DataTable.ext.renderer.pagingButton.bootstrap = function (settings, buttonType, 
 	}
 
 	var li = $('<li>').addClass(btnClasses.join(' '));
-	var a = $('<a>', {
-		'href': disabled ? null : '#',
-		'class': 'page-link'
+	var a = $('<button>', {
+		'class': 'page-link',
+		role: 'link',
+		type: 'button'
 	})
 		.html(content)
 		.appendTo(li);
