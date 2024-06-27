@@ -18,9 +18,10 @@ DataTable.feature.register( 'paging', function ( settings, opts ) {
 	}, opts);
 
 	var host = $('<div/>')
-		.addClass(settings.oClasses.paging.container + (opts.type ? ' paging_' + opts.type : ''));
+		.addClass(settings.oClasses.paging.container + (opts.type ? ' paging_' + opts.type : ''))
+		.append('<nav>');
 	var draw = function () {
-		_pagingDraw(settings, host, opts);
+		_pagingDraw(settings, host.children(), opts);
 	};
 
 	settings.aoDrawCallback.push(draw);

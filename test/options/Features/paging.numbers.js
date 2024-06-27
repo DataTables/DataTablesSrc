@@ -8,7 +8,7 @@ describe('paging.numbers option', function() {
 	
 
 	function checkButtons(buttons) {
-		var dom = $('div.dt-paging').children();
+		var dom = $('div.dt-paging > nav').children();
 
 		if (dom.length !== buttons.length) {
 			throw new Error('Paging buttons are an unexpected length');

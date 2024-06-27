@@ -5,10 +5,10 @@ describe('Paging option', function() {
 	});
 
 	function checkDisabled(previous, next) {
-		expect($('.dt-paging-button.previous').attr('tabindex')).toBe(previous ? '-1' : '0');
+		expect($('.dt-paging-button.previous').attr('tabindex')).toBe(previous ? '-1' : undefined);
 		expect($('.dt-paging-button.previous').hasClass('disabled')).toBe(previous);
 
-		expect($('.dt-paging-button.next').attr('tabindex')).toBe(next ? '-1' : '0');
+		expect($('.dt-paging-button.next').attr('tabindex')).toBe(next ? '-1' : undefined);
 		expect($('.dt-paging-button.next').hasClass('disabled')).toBe(next);
 	}
 
