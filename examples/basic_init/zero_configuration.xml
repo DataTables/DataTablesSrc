@@ -9,14 +9,7 @@ $('#example').DataTable();
 </js>
 <js-vanilla>
 <![CDATA[
-var insert = document.createElement('div');
-insert.textContent = 'test';
-
-new DataTable('#example', {
-	layout: {
-		top: insert
-	}
-});
+new DataTable('#example');
 ]]>
 </js-vanilla>
 
