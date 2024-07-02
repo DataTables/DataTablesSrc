@@ -69,18 +69,18 @@ DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items 
 	$.each( items, function (key, val) {
 		var klass = '';
 		if ( key === 'start' ) {
-			klass += 'col-sm-6 text-left';
+			klass += 'col-xs-6 text-left';
 		}
 		else if ( key === 'end' ) {
-			klass += 'col-sm-6 text-right';
+			klass += 'col-xs-6 text-right';
 
 			// If no left element, we need to offset this one
-			if (row.find('.col-sm-6').length === 0) {
-				klass += ' col-sm-offset-6';
+			if (row.find('.col-xs-6').length === 0) {
+				klass += ' col-xs-offset-6';
 			}
 		}
 		else if ( key === 'full' ) {
-			klass += 'col-sm-12';
+			klass += 'col-xs-12';
 			if ( ! val.table ) {
 				klass += ' text-center';
 			}
