@@ -317,4 +317,73 @@ describe('core- order()', function() {
 			expect($('#example tbody tr:nth-child(3) td:first-child').text()).toBe('Caesar Vance');
 		});
 	});
+
+	describe('aria-order', function() {
+		let table;
+
+		dt.html('basic');
+
+		it('Attribute is present on load', function() {
+			table = $('#example').DataTable();
+
+			expect($('#example thead th').eq(0).attr('aria-sort')).toBe('ascending');
+		});
+
+		it('Is only on the first column', function() {
+			expect($('#example thead th').eq(1).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(2).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(3).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(4).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(5).attr('aria-sort')).toBeUndefined();
+		});
+
+		it('Is present on reverse', async function() {
+			await dt.clickHeader(0);
+
+			expect($('#example thead th').eq(0).attr('aria-sort')).toBe('descending');
+			expect($('#example thead th').eq(1).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(2).attr('aria-sort')).toBeUndefined();
+		});
+
+		it('Is gone when no sort', async function() {
+			await dt.clickHeader(0);
+
+			expect($('#example thead th').eq(0).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(1).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(2).attr('aria-sort')).toBeUndefined();
+		});
+
+		it('When two column sorting, the attribute is still only on the first column', function() {
+			table.order([[0, 'asc'], [1, 'desc']]).draw();
+
+			expect($('#example thead th').eq(0).attr('aria-sort')).toBe('ascending');
+			expect($('#example thead th').eq(1).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(2).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(3).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(4).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(5).attr('aria-sort')).toBeUndefined();
+		});
+
+		it('And if the first sorting column is hidden, it moves to the second', function() {
+			table.column(0).visible(false);
+
+			expect($('#example thead th').length).toBe(5);
+			expect($('#example thead th').eq(0).attr('aria-sort')).toBe('ascending');
+			expect($('#example thead th').eq(1).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(2).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(3).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(4).attr('aria-sort')).toBeUndefined();
+		});
+
+		it('Restored when the column becomes visible again', function() {
+			table.column(0).visible(true);
+
+			expect($('#example thead th').eq(0).attr('aria-sort')).toBe('ascending');
+			expect($('#example thead th').eq(1).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(2).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(3).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(4).attr('aria-sort')).toBeUndefined();
+			expect($('#example thead th').eq(5).attr('aria-sort')).toBeUndefined();
+		});
+	});
 });

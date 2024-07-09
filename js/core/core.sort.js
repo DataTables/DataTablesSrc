@@ -326,6 +326,7 @@ function _fnSort ( oSettings, col, dir )
 	if (col === undefined) {
 		// Tell the draw function that we have sorted the data
 		oSettings.bSorted = true;
+		oSettings.sortDetails = aSort;
 
 		_fnCallbackFire( oSettings, null, 'order', [oSettings, aSort] );
 	}
