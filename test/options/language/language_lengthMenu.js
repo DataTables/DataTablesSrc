@@ -122,5 +122,18 @@ describe( "language.lengthMenu option", function() {
 			expect($('div.dt-search > label').attr('for'))
 				.toBe($('div.dt-search > input').attr('id'));
 		});
+
+		dt.html('basic');
+		it("Can have a span in the language string", function () {
+			$('#example').DataTable({
+				language: {
+					lengthMenu: '<span>My span:</span> _MENU_'
+				}
+			});
+
+			expect($('div.dt-length span').length).toBe(1);
+			expect($('div.dt-length select').length).toBe(1);
+			expect($('div.dt-length').text()).toBe('My span: 102550100');
+		});
 	});
 });
