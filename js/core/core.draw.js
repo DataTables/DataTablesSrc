@@ -658,17 +658,36 @@ function _layoutArray ( settings, layout, side )
 	// Split into rows
 	var rows = [];
 	for ( var i=0, ien=filtered.length ; i<ien ; i++ ) {
-		if (  filtered[i].val.full ) {
-			rows.push( {full: filtered[i].val.full} );
-			_layoutResolve( settings, rows[ rows.length - 1 ] );
+		var val = filtered[i].val;
 
-			delete filtered[i].val.full;
+		if (val.full) {
+			rows.push({
+				className: val.className,
+				id: val.id,
+				full: val.full
+			});
 		}
 
-		if ( filtered[i].val.start || filtered[i].val.end ) {
-			rows.push( filtered[i].val );
-			_layoutResolve( settings, rows[ rows.length - 1 ] );
+		if (val.start && val.end) {
+			rows.push({
+				start: val.start,
+				end: val.end
+			});
 		}
+		else if (val.start) {
+			rows.push({
+				start: val.start
+			});
+		}
+		else if (val.end) {
+			rows.push({
+				end: val.end
+			});
+		}
+	}
+
+	for (var row=0 ; row<rows.length ; row++) {
+		_layoutResolve( settings, rows[row] );
 	}
 
 	return rows;
