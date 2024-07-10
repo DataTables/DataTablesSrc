@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="div">
+	<name>div</name>
+	<summary>Text / HTML container</summary>
+	<since>2.1</since>
+
+	<description>
+		This feature doesn't provide table control or information itself, rather it provides an easy mechanism that you can use to place HTML or text around a table in the DataTables controlled layout grid.
+	</description>
+
+	<example title="Show text at the top of the table"><![CDATA[
+new DataTable('#myTable', {
+	layout: {
+		top: {
+			div: {
+				text: 'This is my DataTable!'
+			}
+		}
+	}
+});
+]]></example>
+
+	<example title="Set text with an id and class"><![CDATA[
+new DataTable('#myTable', {
+	layout: {
+		topStart: {
+			div: {
+				className: 'warn',
+				id: 'warn-btn',
+				html: 'Click button to acknowledge: <button>Ack</button>'
+			}
+		}
+	}
+});
+]]></example>
+
+	<example title="Add text after initialisation using a selector"><![CDATA[
+let table = new DataTable('#myTable', {
+	layout: {
+		top: {
+			div: {
+				id: 'dynamic'
+			}
+		}
+	}
+});
+
+// Wait for the table to be ready - allows this to work with DOM or Ajax loaded data
+table.ready(() => {
+	let el = document.querySelect('#dynamic');
+
+	el.textContent = 'Dynamically updated';
+});
+
+]]></example>
+
+	<related>-feature div.className</related>
+	<related>-feature div.id</related>
+	<related>-feature div.html</related>
+	<related>-feature div.text</related>
+</dt-option>

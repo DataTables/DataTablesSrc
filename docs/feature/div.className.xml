@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="div">
+	<name>div.className</name>
+	<summary>Set the class name for the created element.</summary>
+	<since>2.1</since>
+
+	<description>
+		This option is used to set a class name on the `-tag div` element that is created by the `-feature div` feature. This can be useful for styling or dynamic manipulation.
+	</description>
+
+	<example title="Set text with an class name assigned to the container element"><![CDATA[
+new DataTable('#myTable', {
+	layout: {
+		topStart: {
+			div: {
+				className: 'warn',
+				html: 'Click button to acknowledge: <button>Ack</button>'
+			}
+		}
+	}
+});
+]]></example>
+
+	<related>-feature div</related>
+	<related>-feature div.className</related>
+	<related>-feature div.id</related>
+	<related>-feature div.html</related>
+	<related>-feature div.text</related>
+</dt-option>

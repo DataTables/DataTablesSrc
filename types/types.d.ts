@@ -128,6 +128,21 @@ export interface DataType {
 }
 
 export interface Feature {
+    /** A simple `<div>` that can contain your own content */
+    div?: {
+        /** Class name for the div */
+        className?: string;
+
+        /** Id to give the div */
+        id?: string;
+
+        /** HTML content for the div (cannot be used as well as textContent) */
+        html?: string;
+
+        /** Text content for the div (cannot be used as well as innerHTML) */
+        text?: string;
+    }
+
     /** Table information display */
     info?: {
         /** Information display callback */
@@ -200,9 +215,20 @@ type LayoutKeys = `${LayoutSide}${LayoutNumber}${LayoutEdge}` | `${LayoutSide}${
 type LayoutFeatures = keyof Feature | Feature | Array<keyof Feature> | Feature[];
 
 type LayoutElement = {
-    id?: string;
+    /** Class to apply to the CELL in the layout grid */
     className?: string;
-    features: Array<LayoutFeatures>;
+
+    /** Id to apply to the CELL in the layout grid */
+    id?: string;
+
+    /** Class to apply to the ROW in the layout grid */
+    rowClass?: string;
+
+    /** Id to apply to the ROW in the layout grid */
+    rowId?: string;
+
+    /** List of features to show in this cell */
+    features: LayoutFeatures;
 }
 
 type Layout = Partial<Record<LayoutKeys, LayoutElement | LayoutFeatures | null>>;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="div">
+	<name>div.id</name>
+	<summary>Set the ID for the created element.</summary>
+	<since>2.1</since>
+
+	<description>
+		This option is used to set an id on the `-tag div` element that is created by the `-feature div` feature. It might typically be used to select the element after initialisation so events can be added or the content dynamically updated.
+	</description>
+
+	<example title="Add text after initialisation using a selector"><![CDATA[
+let table = new DataTable('#myTable', {
+	layout: {
+		top: {
+			div: {
+				id: 'dynamic'
+			}
+		}
+	}
+});
+
+// Wait for the table to be ready - allows this to work with DOM or Ajax loaded data
+table.ready(() => {
+	let el = document.querySelect('#dynamic');
+
+	el.textContent = 'Dynamically updated';
+});
+
+]]></example>
+
+	<related>-feature div</related>
+	<related>-feature div.className</related>
+	<related>-feature div.id</related>
+	<related>-feature div.html</related>
+	<related>-feature div.text</related>
+</dt-option>

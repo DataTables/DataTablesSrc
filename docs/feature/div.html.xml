@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="div">
+	<name>div.html</name>
+	<summary>Set the HTML content for the element.</summary>
+	<since>2.1</since>
+
+	<description>
+		This option is used to set the HTML content (i.e. `innerHTML` in DOM API terms) for the `-tag div` that is created by the `-feature div` feature. This option and `-feature div.text` are complimentary, but not to be used together. They both set the content of the `-tag div`, but in this case any HTML in the string will be __not_ be escaped making it unsafe for uncontrolled user input. Use `-feature div.text` if you want plain strings. However, this option is useful for controlled input - i.e. a string you set yourself.
+	</description>
+
+	<example title="Set HTML content"><![CDATA[
+new DataTable('#myTable', {
+	layout: {
+		top: {
+			div: {
+				html: 'Unsafe content: <button>BTN</button> will be rendered as a button'
+			}
+		}
+	}
+});
+
+]]></example>
+
+	<related>-feature div</related>
+	<related>-feature div.className</related>
+	<related>-feature div.id</related>
+	<related>-feature div.html</related>
+	<related>-feature div.text</related>
+</dt-option>

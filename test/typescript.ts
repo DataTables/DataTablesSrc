@@ -95,10 +95,18 @@ let table = new DataTable('#myTable', {
 			features: [ 'search', 'paging' ]
 		},
 		bottom6: {
+			rowId: 'testId',
+			rowClass: 'testClass',
+			features: {
+                div: {
+                    text: 'top2 row'
+                }
+            }
+		},
+		bottom7: {
 			div: {
 				id: 'testId',
-				className: 'testClass',
-				features: [ 'search', 'paging' ]
+				className: 'testClass'
 			}
 		}
 	},

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="div">
+	<name>div.text</name>
+	<summary>Set the text content for the element.</summary>
+	<since>2.1</since>
+
+	<description>
+		This option is used to set the text content (i.e. `textContent` in DOM API terms) for the `-tag div` that is created by the `-feature div` feature. This option and `-feature div.html` are complimentary, but not to be used together. They both set the content of the `-tag div`, but in this case any HTML in the string will be escaped making it safe for uncontrolled user input. Use `-feature div.html` if you want to create HTML elements.
+	</description>
+
+	<example title="Set text"><![CDATA[
+new DataTable('#myTable', {
+	layout: {
+		top: {
+			div: {
+				text: 'Safe content: <button>BTN</button> will be rendered as text'
+			}
+		}
+	}
+});
+
+]]></example>
+
+	<related>-feature div</related>
+	<related>-feature div.className</related>
+	<related>-feature div.id</related>
+	<related>-feature div.html</related>
+	<related>-feature div.text</related>
+</dt-option>
