@@ -582,4 +582,142 @@ describe('layout option', function() {
 			expect(nodes[6]).toBe(paging[0]);
 		});
 	});
+
+	describe('IDs and classes', function() {
+		dt.html('basic');
+
+		it('Row id', function() {
+			$('#example').DataTable({
+				layout: {
+					top1: {
+						rowId: 'top1-rowid',
+						features: ['info']
+					},
+					top: {
+						rowId: 'top-rowid',
+						features: ['info']
+					},
+					topStart: {
+						rowId: 'topstart-rowid',
+						features: ['info']
+					}
+				}
+			});
+			
+			var nodes = $('div.dt-container').children();
+
+			expect(nodes.length).toBe(5);
+			expect(nodes[0].id).toBe('top1-rowid');
+			expect(nodes[1].id).toBe('top-rowid');
+			expect(nodes[2].id).toBe('topstart-rowid');
+			expect(nodes[3].id).toBe('');
+			expect(nodes[4].id).toBe('');
+
+			expect($('div.dt-info').length).toBe(4);
+		});
+
+		it('Row id did not mess with classes', function() {
+			var nodes = $('div.dt-container').children();
+
+			expect(nodes[0].className).toBe('dt-layout-row');
+			expect(nodes[1].className).toBe('dt-layout-row');
+			expect(nodes[2].className).toBe('dt-layout-row');
+			expect(nodes[3].className).toBe('dt-layout-row dt-layout-table');
+			expect(nodes[4].className).toBe('dt-layout-row');
+		});
+
+		dt.html('basic');
+
+		it('Row class name', function() {
+			$('#example').DataTable({
+				layout: {
+					top1: {
+						rowClass: 'top1-rowclass',
+						features: ['info']
+					},
+					top: {
+						rowClass: 'top-rowclass',
+						features: ['info']
+					},
+					topStart: {
+						rowClass: 'topstart-rowclass',
+						features: ['info']
+					}
+				}
+			});
+			
+			var nodes = $('div.dt-container').children();
+
+			expect(nodes.length).toBe(5);
+			expect(nodes[0].className).toBe('top1-rowclass');
+			expect(nodes[1].className).toBe('top-rowclass');
+			expect(nodes[2].className).toBe('topstart-rowclass');
+			expect(nodes[3].className).toBe('dt-layout-row dt-layout-table');
+			expect(nodes[4].className).toBe('dt-layout-row');
+
+			expect($('div.dt-info').length).toBe(4);
+		});
+
+		it('Row id did not mess with ids', function() {
+			var nodes = $('div.dt-container').children();
+
+			expect(nodes[0].id).toBe('');
+			expect(nodes[1].id).toBe('');
+			expect(nodes[2].id).toBe('');
+			expect(nodes[3].id).toBe('');
+			expect(nodes[4].id).toBe('');
+		});
+
+		dt.html('basic');
+
+		it('Cell id', function() {
+			$('#example').DataTable({
+				layout: {
+					top1: {
+						id: 'top1-cellid',
+						features: ['info']
+					}
+				}
+			});
+			
+			var nodes = $('div.dt-layout-row').eq(0).children();
+
+			expect(nodes.length).toBe(1);
+			expect(nodes[0].id).toBe('top1-cellid');
+
+			expect($('div.dt-info').length).toBe(2);
+		});
+
+		it('Cell id doesn\'t effect class', function() {
+			var nodes = $('div.dt-layout-row').eq(0).children();
+
+			expect(nodes[0].className).toBe('dt-layout-cell dt-layout-full');
+		});
+
+		dt.html('basic');
+
+		it('Cell className', function() {
+			$('#example').DataTable({
+				layout: {
+					top1: {
+						className: 'top1-cellclass',
+						features: ['info']
+					}
+				}
+			});
+			
+			var nodes = $('div.dt-layout-row').eq(0).children();
+
+			expect(nodes.length).toBe(1);
+			expect(nodes[0].className).toBe('top1-cellclass');
+
+			expect($('div.dt-info').length).toBe(2);
+		});
+
+		it('Cell classname doesn\'t effect id', function() {
+			var nodes = $('div.dt-layout-row').eq(0).children();
+
+			expect(nodes[0].id).toBe('');
+		});
+	});
 });

@@ -543,6 +543,91 @@ function _emptyRow ( settings ) {
 
 
 /**
+ * Expand the layout items into an object for the rendering function
+ */
+function _layoutItems (row, align, items) {
+	if ( Array.isArray(items)) {
+		for (var i=0 ; i<items.length ; i++) {
+			_layoutItems(row, align, items[i]);
+		}
+
+		return;
+	}
+
+	var rowCell = row[align];
+
+	// If it is an object, then there can be multiple features contained in it
+	if ( $.isPlainObject( items ) ) {
+		// A feature plugin cannot be named "features" due to this check
+		if (items.features) {
+			if (items.rowId) {
+				row.id = items.rowId;
+			}
+			if (items.rowClass) {
+				row.className = items.rowClass;
+			}
+
+			rowCell.id = items.id;
+			rowCell.className = items.className;
+
+			_layoutItems(row, align, items.features);
+		}
+		else {
+			Object.keys(items).map(function (key) {
+				rowCell.contents.push( {
+					feature: key,
+					opts: items[key]
+				});
+			});
+		}
+	}
+	else {
+		rowCell.contents.push(items);
+	}
+}
+
+/**
+ * Find, or create a layout row
+ */
+function _layoutGetRow(rows, rowNum, align) {
+	var row;
+
+	// Find existing rows
+	for (var i=0; i<rows.length; i++) {
+		row = rows[i];
+
+		if (row.rowNum === rowNum) {
+			// full is on its own, but start and end share a row
+			if (
+				(align === 'full' && row.full) ||
+				((align === 'start' || align === 'end') && (row.start || row.end))
+			) {
+				if (! row[align]) {
+					row[align] = {
+						contents: []
+					};
+				}
+
+				return row;
+			}
+		}
+	}
+
+	// If we get this far, then there was no match, create a new row
+	row = {
+		rowNum: rowNum	
+	};
+
+	row[align] = {
+		contents: []
+	};
+
+	rows.push(row);
+
+	return row;
+}
+
+/**
  * Convert a `layout` object given by a user to the object structure needed
  * for the renderer. This is done twice, once for above and once for below
  * the table. Ordering must also be considered.
@@ -552,131 +637,59 @@ function _emptyRow ( settings ) {
  * @param {string} side `top` or `bottom`
  * @returns Converted array structure - one item for each row.
  */
-function _layoutArray ( settings, layout, side )
-{
-	var groups = {};
-
-	// Combine into like groups (e.g. `top`, `top2`, etc)
-	$.each( layout, function ( pos, val ) {
-		if (val === null) {
+function _layoutArray ( settings, layout, side ) {
+	var rows = [];
+	
+	// Split out into an array
+	$.each( layout, function ( pos, items ) {
+		if (items === null) {
 			return;
 		}
 
-		var splitPos = pos.replace(/([A-Z])/g, ' $1').split(' ');
+		var parts = pos.match(/^([a-z]+)([0-9]*)([A-Za-z]*)$/);
+		var rowNum = parts[2]
+			? parts[2] * 1
+			: 0;
+		var align = parts[3]
+			? parts[3].toLowerCase()
+			: 'full';
 
-		if ( ! groups[ splitPos[0] ] ) {
-			groups[ splitPos[0] ] = {};
+		// Filter out the side we aren't interested in
+		if (parts[1] !== side) {
+			return;
 		}
 
-		var align = splitPos.length === 1 ?
-			'full' :
-			splitPos[1].toLowerCase();
-		var group = groups[ splitPos[0] ];
-		var groupRun = function (group, align, innerVal) {
-			// Allow for an array or just a single object
-			if ( Array.isArray(innerVal)) {
-				for (var i=0 ; i<innerVal.length ; i++) {
-					groupRun(group, align, innerVal[i]);
-				}
+		// Get or create the row we should attach to
+		var row = _layoutGetRow(rows, rowNum, align);
 
-				return;
-			}
-
-			var groupCell = group[align];
-
-			// If it is an object, then there can be multiple features contained in it
-			if ( $.isPlainObject( innerVal ) ) {
-				// A feature plugin cannot be named "features" due to this check
-				if (innerVal.features) {
-					if (innerVal.rowId) {
-						group.id = innerVal.rowId;
-					}
-					if (innerVal.rowClass) {
-						group.className = innerVal.rowClass;
-					}
-
-					groupCell.id = innerVal.id;
-					groupCell.className = innerVal.className;
-
-					groupRun(group, align, innerVal.features);
-				}
-				else {
-					Object.keys(innerVal).map(function (key) {
-						groupCell.contents.push( {
-							feature: key,
-							opts: innerVal[key]
-						});
-					});
-				}
-			}
-			else {
-				groupCell.contents.push(innerVal);
-			}
-		}
-
-		// Transform to an object with a contents property
-		if (! group[align] || ! group[align].contents) {
-			group[align] = { contents: [] };
-		}
-
-		groupRun(group, align, val);
-
-		// And make contents an array
-		if ( ! Array.isArray( group[ align ].contents ) ) {
-			group[ align ].contents = [ group[ align ].contents ];
-		}
-	} );
-
-	var filtered = Object.keys(groups)
-		.map( function ( pos ) {
-			// Filter to only the side we need
-			if ( pos.indexOf(side) !== 0 ) {
-				return null;
-			}
-
-			return {
-				name: pos,
-				val: groups[pos]
-			};
-		} )
-		.filter( function (item) {
-			return item !== null;
-		});
+		_layoutItems(row, align, items);
+	});
 
 	// Order by item identifier
-	filtered.sort( function ( a, b ) {
-		var order1 = a.name.replace(/[^0-9]/g, '') * 1;
-		var order2 = b.name.replace(/[^0-9]/g, '') * 1;
+	rows.sort( function ( a, b ) {
+		var order1 = a.rowNum;
+		var order2 = b.rowNum;
+
+		// If both in the same row, then the row with `full` comes first
+		if (order1 === order2) {
+			var ret = a.full && ! b.full ? -1 : 1;
+
+			return side === 'bottom'
+				? ret * -1
+				: ret;
+		}
 
 		return order2 - order1;
 	} );
-	
+
+	// Invert for below the table
 	if ( side === 'bottom' ) {
-		filtered.reverse();
-	}
-
-	// Split into rows
-	var rows = [];
-
-	for (var i=0, ien=filtered.length; i<ien; i++) {
-		var val = filtered[i].val;
-
-		if ( val.full ) {
-			rows.push({
-				className: val.className,
-				id: val.id,
-				full: val.full
-			});
-
-			delete val.full;
-		}
-
-		if (val.start || val.end) {
-			rows.push(val);
-		}
+		rows.reverse();
 	}
 
 	for (var row = 0; row<rows.length; row++) {
+		delete rows[row].rowNum;
+
 		_layoutResolve(settings, rows[row]);
 	}
 
