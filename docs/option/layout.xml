@@ -28,101 +28,242 @@ Please note that if you assign one of the features used in the default object to
 	<description>
     <![CDATA[
 
-The `-init layout` option provides the ability to control the items that surround and control the DataTable. Using an object where the parameter names provide positional information, with the corresponding values telling DataTables what content to show, it is easy to create a wide variety of layouts that suit your specific needs.
+The `-init layout` option provides the ability to control the items that surround and control the DataTable. While offering a wide range of options to control the layout around the table, the basic operation of this option is quite simple: use the object parameter name to place a control and then the value to state what feature should be shown, and its configuration.
+
+Let's start with the default:
+
+```js
+{
+	topStart: 'pageLength',
+	topEnd: 'search',
+	bottomStart: 'info',
+	bottomEnd: 'paging'
+}
+```
+
+< Note that we use `Start` and `End` rather than `Left` and `Right` to remove ambiguity for positional elements when working with left-to-right and right-to-left layouts. This matches CSS's naming of similar properties.
+
+You can see that at the four corners of the DataTable it will place a different [feature](/reference/feature). Two rows are defined - the top and bottom, with start and end used for each.
+
+To replace a feature with a different one (e.g. the [Buttons extension](/extensions/buttons)) simply set the value to match the feature needed. Equally, if you wish to remove a feature, set it to `null`. For example in the below we set the top row to contain only the Buttons extension (note also that the bottom row will take the default values automatically):
+
+```js
+{
+	topStart: 'buttons',
+	topEnd: null
+}
+```
+
 
 ### Positional names
 
-< We use `Start` and `End` rather than `Left` and `Right` to remove ambiguity for positional elements when working with left-to-right and right-to-left parameters. This matches CSS's naming of similar properties.
+As seen, the names of the parameters in the `-init layout` object tell DataTables where to place the feature. It is made up of three parts:
 
-The names of the parameters in the `-init layout` object tell DataTables where it should insert the content defined by the value. The name first gives the side of the table where the control should be placed (`-string top` or `-string bottom`), optionally followed by a number indicating the display order, and then optionally `-string Start` or `-string End`. If neither is provided and only the table side value is given, the control will stretch the full width of the table. The formal syntax for this, in regex, is `(top|bottom)[0-9]*(Start|End)?`.
+* `-string top` or `-string bottom` - to dictate if the feature appears above or below the table
+* A number (_optional_) - allows multiple rows in the layout grid. If omitted, it appears next to the table.
+* `-string Start` or `-string End` (_optional_) - if the feature should appear at the start or the end of the row. If omitted it will take up the entire width of the container.
 
-Please see the diagram in the _DOM Structure_ section below for an illustrated example of this naming.
+If you think in regex, then the formal definition for this is `(top|bottom)[0-9]*(Start|End)?`.
+
+
+### Layout grid
+
+The layout grid that DataTables creates for `-init layout` looks like this:
+
+<table style="width:500px; margin: 0 auto; border-spacing:5px; border-collapse: separate; text-align: center;">
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc" colspan="2"><i>top<b>N</b></i></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc" width="50%"><i>top<b>N</b>Start</i></td>
+		<td style="padding: 8px; border: 1px dashed #ccc" width="50%"><i>top<b>N</b>End</i></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px" colspan="2">&#8942;</td>
+	</tr>
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc" colspan="2"><i>top2</i></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc"><i>top2Start</i></td>
+		<td style="padding: 8px; border: 1px dashed #ccc"><i>top2End</i></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc" colspan="2"><i>top</i></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc"><i>topStart</i></td>
+		<td style="padding: 8px; border: 1px dashed #ccc"><i>topEnd</i></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px" colspan="2"><b>DataTable</b></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc" colspan="2"><i>bottom</i></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc"><i>bottomStart</i></td>
+		<td style="padding: 8px; border: 1px dashed #ccc"><i>bottomEnd</i></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc" colspan="2"><i>bottom2</i></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc"><i>bottom2Start</i></td>
+		<td style="padding: 8px; border: 1px dashed #ccc"><i>bottom2End</i></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px" colspan="2">&#8942;</td>
+	</tr>
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc" colspan="2"><i>bottom<b>N</b></i></td>
+	</tr>
+	<tr>
+		<td style="padding: 8px; border: 1px dashed #ccc"><i>bottom<b>N</b>Start</i></td>
+		<td style="padding: 8px; border: 1px dashed #ccc"><i>bottom<b>N</b>End</i></td>
+	</tr>
+</table>
+
+Keep in mind that each of the entries in the layout grid are option. Set the value to be `null` or `undefined` to have it not appear.
+
+[This example](/examples/layout/grid.html) can be useful if you'd like to see what the grid layout looks like visually.
+
 
 ### Values
 
+Thus far, we've discussed only positioning of features, but now let's consider the values that define the features and their configuration. A [feature](/reference/feature) is a control element that interacts with the DataTable in someway.
+
 The values of the parameters in `-init layout` can be any of:
 
-* `-type string` - A string that represents a feature provided by DataTables or a plug-in. The built in features are:
+* `-type string` - A string that represents a feature provided by DataTables or a plug-in ([example](/examples/layout/positioning.html)). The built in features are:
   * `-feature info` - Table information summary
   * `-feature pageLength` - Page length control
   * `-feature paging` - User input control for paging
   * `-feature search` - Search input box
-* `-type object` - A plain object where the parameter keys are the feature to be used (see the strings above and any plug-ins) and the value is passed to the feature. This is normally an object with a list of options. Note that multiple features could be specified using a single object, but order is not guaranteed. Order will normally be important if you specify multiple controls in a single slot - in such cases, use an array of objects.
-* `-type jQuery` - A jQuery instance containing a node to insert
-* `-type node` - A DOM element
-* `-type function` - A function that returns a DOM element or jQuery instance containing a node. The function will be passed in the DataTables settings object.
+  * `-feature div` - A simple placeholder element
+* `-type object` - A plain object where the parameter keys are the feature to be used (see the strings above and any plug-ins) and the value is passed to the feature ([example](/examples/layout/positioning-with-options.html)). This is normally an object with a list of options. Note that multiple features could be specified using a single object, but order is not guaranteed. Order will normally be important if you specify multiple controls in a single slot - in such cases, use an array of objects.
+* `-type object` - A plain object with a parameter named `features` for control of the `id` and `class` of the grid elements (since 2.1 - [example](/examples/layout/ids-and-classes.html)). Please see the _IDs and class names_ section below.
+* `-type jQuery` - A jQuery instance containing a node to insert.
+* `-type node` - A DOM element ([example](/examples/layout/custom-nodes.html)).
+* `-type function` - A function that returns a DOM element or jQuery instance containing a node ([example](/examples/layout/custom-function.html)). The function will be passed in the DataTables settings object.
 * `-type object` - A class instance that provides a `node()` method and should return the node to be inserted (DOM or jQuery). As with the `-type function` option above, this method will be passed to the DataTables settings object for the table.
-* `-type array` - An array of any of the above options, providing the ability to show multiple items next to each other.
+* `-type array` - An array of any of the above options, providing the ability to show multiple items next to each other ([example](/examples/layout/grid.html)).
 * `-type null` - Show nothing in this position
 
-### DOM Structure
+Consider the following example as two of the most common ways to configure the table's control features:
 
-DataTables will insert the items given into a grid (suitable for the styling framework you have selected) using the structure depicted below:
+```js
+new DataTable('#example', {
+	layout: {
+		topStart: 'info',
+		topEnd: {
+			search: {
+				placeholder: 'Search'
+			}
+		}
+	}
+});
+```
 
-<table style="width:500px; margin: 0 auto; border-spacing:5px; border-collapse: separate; text-align: center;">
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>top<b>N</b></i></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc" width="50%"><i>top<b>N</b>Start</i></td>
-		<td style="padding: 5px; border: 1px dashed #ccc" width="50%"><i>top<b>N</b>End</i></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px" colspan="2">&#8942;</td>
-	</tr>
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>top2</i></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc"><i>top2Start</i></td>
-		<td style="padding: 5px; border: 1px dashed #ccc"><i>top2End</i></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>top</i></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc"><i>topStart</i></td>
-		<td style="padding: 5px; border: 1px dashed #ccc"><i>topEnd</i></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px" colspan="2"><b>DataTable</b></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom</i></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc"><i>bottomStart</i></td>
-		<td style="padding: 5px; border: 1px dashed #ccc"><i>bottomEnd</i></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom2</i></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom2Start</i></td>
-		<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom2End</i></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px" colspan="2">&#8942;</td>
-	</tr>
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc" colspan="2"><i>bottom<b>N</b></i></td>
-	</tr>
-	<tr>
-		<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom<b>N</b>Start</i></td>
-		<td style="padding: 5px; border: 1px dashed #ccc"><i>bottom<b>N</b>End</i></td>
-	</tr>
-</table>
+* Line 3: will place the `-feature info` information feature at the top left (lrt) of the table.
+* Line 4-8: places the `-feature search` input at the top right (ltr) with the `-feature search.placeholder` option configured.
 
-Any of the positions can be left out or set to `null` and they will not appear. For example you could only use `topN` and `bottomN` if you didn't want the table controls to be left or right aligned.
+Further examples are available below, and also in the [layout section of the examples](/examples/layout).
+
+
+### IDs and class names
+
+DataTables will automatically assign class names to the layout grid to be suitable for the styling framework that you are using, but it is also possible to specify your own IDs and class names for the elements created (since 2.1). For this we use the second `-type object` form that `-init layout` can accept - an object with a `features` array property.
+
+The object with a `features` property lets you specify row id/class and cell id/class as well as feature. As a Typescript interface the object looks like:
+
+```js
+interface {
+    /** Class to apply to the CELL in the layout grid */
+    className?: string;
+
+    /** Id to apply to the CELL in the layout grid */
+    id?: string;
+
+    /** Class to apply to the ROW in the layout grid */
+    rowClass?: string;
+
+    /** Id to apply to the ROW in the layout grid */
+    rowId?: string;
+
+    /** List of features to show in this cell */
+    features: Features[];
+}
+```
+
+If we consider a single string layout - e.g. `top: 'info'` this is the same as:
+
+```js
+top: {
+	features: ['info']
+}
+```
+
+Equally, if we have a feature which needs configuration, such as the `-feature search` from the previous example, it can be written as:
+
+```js
+topEnd: {
+	features: {
+		search: {
+			placeholder: 'Search'
+		}
+	}
+}
+```
+
+From there you will be able to see how you can then use the `id`, `className` and other properties to control the classes / ids used for the grid layout.
+
+Please note that if you do use this form to control the classes names, it will _replace_ the default class names - i.e. the class(es) you define are the only ones on that element.
+
+See [this example](/examples/layout/ids-and-classes.html) for a live demonstration of the use of these properties and techniques.
+
+
     ]]>
 	</description>
 
-	<example title="Disable the page length control"><![CDATA[
+	<example title="Disable the default page length control"><![CDATA[
 
 new DataTable('#myTable', {
 	layout: {
 		topStart: null
 	}
+});
+
+]]></example>
+
+	<example title="Set the global default"><![CDATA[
+
+// Sets to show paging feature below the table only
+DataTable.defaults.layout = {
+	topStart: 'null',
+	topEnd: null,
+	bottomStart: null,
+	bottomEnd: null,
+	bottom: 'paging'
+};
+
+new DataTable('#myTable');
+
+]]></example>
+
+	<example title="Multiple elements on a row"><![CDATA[
+
+// Remove the defaults
+DataTable.defaults.layout = {
+	topStart: 'null',
+	topEnd: null,
+	bottomStart: null,
+	bottomEnd: null
+};
+
+new DataTable('#myTable', {
+	top: ['pageLength', 'search'],
+	bottom: ['info', 'paging']
 });
 
 ]]></example>
