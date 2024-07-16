@@ -24,7 +24,7 @@ table.dataTable {
 
 @media screen and (max-width: 767px) {
 	div.dt-container {
-		> div.grid-x {
+		> div.grid-x:not(.dt-layout-table) {
 			margin-bottom: 0 !important;
 
 			> div.flex-container {

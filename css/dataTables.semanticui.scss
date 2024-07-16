@@ -31,7 +31,7 @@ table.dataTable.table {
 @include layout-cells;
 
 // DataTables' built in feature elements
-div.dt-container.ui.grid {
+div.dt-container.dt-semanticUI {
 	> div.row {
 		display: flex;
 		padding-top: 0.5rem;

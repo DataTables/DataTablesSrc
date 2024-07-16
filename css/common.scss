@@ -294,7 +294,7 @@ div.dt-scroll-body {
 	// small
 	@media screen and (max-width: 767px) {
 		div.dt-container {
-			div.dt-layout-row {
+			div.dt-layout-row:not(.dt-layout-table) {
 				display: block;
 
 				div.dt-layout-cell {

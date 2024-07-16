@@ -38,7 +38,7 @@ table.dataTable {
 
 @media screen and (max-width: 767px) {
 	div.dt-container {
-		> div.columns {
+		> div.columns:not(.dt-layout-table) {
 			> div.column {
 				display: block !important;
 				text-align: center;
