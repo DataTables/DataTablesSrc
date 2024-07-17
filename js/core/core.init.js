@@ -38,6 +38,9 @@ function _fnInitialise ( settings )
 			_fnAddTr( settings, $(settings.nTBody).children('tr') );
 		}
 
+		// Filter not yet applied - copy the display master
+		settings.aiDisplay = settings.aiDisplayMaster.slice();
+
 		// Enable features
 		_fnAddOptionsHtml( settings );
 		_fnSortInit( settings );
