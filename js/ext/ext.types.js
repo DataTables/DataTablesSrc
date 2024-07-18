@@ -180,16 +180,21 @@ DataTable.type('html', {
 
 DataTable.type('date', {
 	className: 'dt-type-date',
-	detect: function ( d )
-	{
-		// V8 tries _very_ hard to make a string passed into `Date.parse()`
-		// valid, so we need to use a regex to restrict date formats. Use a
-		// plug-in for anything other than ISO8601 style strings
-		if ( d && !(d instanceof Date) && ! _re_date.test(d) ) {
-			return null;
+	detect: {
+		allOf: function ( d ) {
+			// V8 tries _very_ hard to make a string passed into `Date.parse()`
+			// valid, so we need to use a regex to restrict date formats. Use a
+			// plug-in for anything other than ISO8601 style strings
+			if ( d && !(d instanceof Date) && ! _re_date.test(d) ) {
+				return null;
+			}
+			var parsed = Date.parse(d);
+			return (parsed !== null && !isNaN(parsed)) || _empty(d);
+		},
+		oneOf: function ( d ) {
+			// At least one entry must be a date or a string with a date
+			return (d instanceof Date) || (typeof d === 'string' && _re_date.test(d));
 		}
-		var parsed = Date.parse(d);
-		return (parsed !== null && !isNaN(parsed)) || _empty(d);
 	},
 	order: {
 		pre: function ( d ) {
