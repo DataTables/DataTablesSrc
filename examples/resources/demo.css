@@ -270,7 +270,7 @@ code.multiline {
 }
 
 div.syntaxhighlighter {
-  padding: 20px 20px 20px 3px;
+  padding: 20px 20px 8px 3px;
   border-radius: 5px;
 }
 div.syntaxhighlighter code:after {

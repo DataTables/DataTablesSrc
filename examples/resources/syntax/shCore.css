@@ -92,6 +92,7 @@
 .syntaxhighlighter table td.code .container {
   position: relative !important;
   overflow: auto !important;
+  padding-bottom: 1em !important;
 }
 .syntaxhighlighter table td.code .container textarea {
   box-sizing: border-box !important;
