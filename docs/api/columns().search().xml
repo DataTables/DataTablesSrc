@@ -15,7 +15,7 @@
 		<description>
 			Set the search term to use for the selected column, with configuration options. Call `-api draw()` to update the table's view once the search term has been setup.
 		</description>
-		<parameter type="input" name="string|RegExp|function">
+		<parameter type="string|RegExp|function" name="input">
 			Search to apply to the column.
 			
 			As of DataTables 2, this parameter can be given as a regular expression or a function.
