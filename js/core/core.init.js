@@ -18,14 +18,16 @@ function _fnInitialise ( settings )
 		return;
 	}
 
-	/* Build and draw the header / footer for the table */
+	// Build the header / footer for the table
 	_fnBuildHead( settings, 'header' );
 	_fnBuildHead( settings, 'footer' );
-	_fnDrawHead( settings, settings.aoHeader );
-	_fnDrawHead( settings, settings.aoFooter );
 
-	// Load the table's state (if needed) and then render around it and draw draw
+	// Load the table's state (if needed) and then render around it and draw
 	_fnLoadState( settings, init, function () {
+		// Then draw the header / footer
+		_fnDrawHead( settings, settings.aoHeader );
+		_fnDrawHead( settings, settings.aoFooter );
+
 		// Local data load
 		// Check if there is data passing into the constructor
 		if ( init.aaData ) {

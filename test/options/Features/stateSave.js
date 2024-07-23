@@ -232,4 +232,37 @@ describe('stateSave option', function() {
 			expect($('#example tbody td:eq(3)').text()).toBe('2008/11/28');
 		});
 	});
+
+
+	describe('Column visibility', function() {
+		dt.html('basic');
+
+		it('Create a table and hide a column', function () {
+			let table = $('#example').DataTable({
+				stateSave: true
+			});
+
+			table.columns(1).visible(false);
+
+			expect($('thead tr:eq(0)').children().length).toBe(5);
+			expect($('tbody tr:eq(0)').children().length).toBe(5);
+
+			expect($('thead tr:eq(0)').text()).toBe('NameOfficeAgeStart dateSalary');
+		});
+
+		it('Is still hidden after a reload', function () {
+			$('#example').DataTable().destroy();
+			
+			let table = $('#example').DataTable({
+				stateSave: true
+			});
+
+			expect($('thead tr:eq(0)').children().length).toBe(5);
+			expect($('tbody tr:eq(0)').children().length).toBe(5);
+
+			expect($('thead tr:eq(0)').text()).toBe('NameOfficeAgeStart dateSalary');
+
+			table.state.clear();
+		});
+	});
 });
