@@ -6,6 +6,7 @@
 <js lib="datatables" />
 
 <css>
+<![CDATA[
 div.row-class {
 	border: 1px solid #dc3545;
 	border-radius: 3px;
@@ -17,6 +18,31 @@ div.cell-class {
 	border-radius: 3px;
 	padding: 8px;
 }
+
+/* Styling framework integrations - do note that this isn't a practical example!
+ * You would use suitable classes for your setup if you need to modify layout classes.
+ */
+body.dt-example-bootstrap div.row-class > div {
+	float: none;
+}
+
+body.dt-example-bootstrap4 div.cell-class {
+	margin-top: 10px;
+	margin-left: 15px;
+}
+
+body.dt-example-bulma div.row-class {
+	padding: 0;
+}
+body.dt-example-bulma div.cell-class {
+	margin: 20px 12px 8px;
+}
+
+body.dt-example-foundation div.cell-class {
+	margin-top: 1em;
+}
+
+]]>
 </css>
 
 <title>Element IDs and classes</title>
@@ -86,7 +112,7 @@ There must also be a `features` property which is an array of any of the values 
 
 This example shows the first row in the layout (red outline) with `id` and `className` properties set. The second row (green outline) shows classes set on the cell's parent element.
 
-Note that when setting a class name it will overwrite any class that would have been automatically assigned by the defaults.
+Note that when setting a class name it will overwrite any class that would have been automatically assigned by the defaults. For this reason the display of this example can vary between the different styling frameworks that DataTables supports.
 
 ]]></info>
 
