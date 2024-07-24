@@ -257,6 +257,7 @@ window.dt_demo = {
 
 		// Already got jQuery from an external source - spin on
 		if (item.name === 'jquery' && window.$) {
+			dt_demo._loaded.js.push(item.src);
 			dt_demo._loadNext();
 			return;
 		}
@@ -267,6 +268,7 @@ window.dt_demo = {
 			window.$.fn.dataTable
 		) {
 			// Likewise for DataTables
+			dt_demo._loaded.js.push(item.src);
 			dt_demo._loadNext();
 			return;
 		}
