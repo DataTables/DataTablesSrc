@@ -383,19 +383,17 @@
 }
 
 .datatables_ref:hover {
-	text-decoration: underline;
-	cursor: pointer;
-	*cursor: hand;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .syntaxhighlighter .dtapi {
-	color: #069;
+  color: #069;
 }
 
 .syntaxhighlighter .dtapi:hover {
-	text-decoration: underline;
-	cursor: pointer;
-	*cursor: hand;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .syntaxhighlighter table {
