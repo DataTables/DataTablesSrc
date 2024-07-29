@@ -121,8 +121,7 @@ function _fnImplementState ( settings, s, callback) {
 		}
 	}
 
-	// Restore key features - todo - for 1.11 this needs to be done by
-	// subscribed events
+	// Restore key features
 	if ( s.start !== undefined ) {
 		if(api === null) {
 			settings._iDisplayStart    = s.start;

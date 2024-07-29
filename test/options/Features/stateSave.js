@@ -265,4 +265,61 @@ describe('stateSave option', function() {
 			table.state.clear();
 		});
 	});
+
+	describe('With Ajax', function() {
+		let table;
+
+		dt.html('empty');
+
+		it('Loads first page', function(done) {
+			table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				columns: [
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				initComplete: function() {
+					expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+					done();
+				},
+				stateSave: true
+			});
+		});
+
+		it('Move to second page', function() {
+			table.page('next').draw(false);
+
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Charde Marshall');
+		});
+
+		dt.html('empty');
+
+		it('Reinit - still on second page', function(done) {
+			table = $('#example').DataTable({
+				ajax: '/base/test/data/data.txt',
+				columns: [
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'age' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				initComplete: function() {
+					expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Charde Marshall');
+					done();
+				},
+				stateSave: true
+			});
+		});
+
+		it('Clear state', function() {
+			table.state.clear();
+			expect(1).toBe(1);
+		});
+	});
 });
