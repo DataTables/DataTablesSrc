@@ -322,7 +322,7 @@ describe('core - events - processing', function() {
 		it('... Called when changing order through UI', async function() {
 			reset();
 			await dt.clickHeader(1);
-			expect(count).toBe(3); // one for ordering, one for draw, and one for end
+			expect(count).toBe(2);
 		});
 		it('... Called when search through API', async function() {
 			reset();
@@ -384,7 +384,7 @@ describe('core - events - processing', function() {
 		it('... Called when changing order through UI', async function() {
 			reset();
 			await dt.clickHeader(1);
-			expect(count).toBe(3);
+			expect(count).toBe(2);
 		});
 		it('... Called when search through API', async function() {
 			reset();
