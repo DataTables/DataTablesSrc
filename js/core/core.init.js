@@ -7,7 +7,7 @@
  */
 function _fnInitialise ( settings )
 {
-	var i, iAjaxStart=settings.iInitDisplayStart;
+	var i;
 	var init = settings.oInit;
 	var deferLoading = settings.deferLoading;
 	var dataSrc = _fnDataSource( settings );
@@ -27,6 +27,9 @@ function _fnInitialise ( settings )
 		// Then draw the header / footer
 		_fnDrawHead( settings, settings.aoHeader );
 		_fnDrawHead( settings, settings.aoFooter );
+
+		// Cache the paging start point, as the first redraw will reset it
+		var iAjaxStart = settings.iInitDisplayStart
 
 		// Local data load
 		// Check if there is data passing into the constructor
