@@ -2759,13 +2759,13 @@ export interface DataTablesStatic {
      *
      * @param type The library needed
      */
-    use(type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment');
+    use(type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment'): any;
 
     /**
      * Set the libraries that DataTables uses, or the global objects, with automatic
      * detection of what the library is. Used for module loading environments.
      */
-    use(library: any);
+    use(library: any): void;
 
     /**
      * Set the libraries that DataTables uses, or the global objects, explicity staing
@@ -2774,7 +2774,7 @@ export interface DataTablesStatic {
      * @param type Indicate the library that is being loaded.
      * @param library The library (e.g. Moment or Luxon)
      */
-    use(type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment', library: any);
+    use(type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment', library: any): void;
 
     /**
      * Utils
