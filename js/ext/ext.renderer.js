@@ -44,6 +44,12 @@ $.extend( true, DataTable.ext.renderer, {
 					return;               // table, not a nested one
 				}
 
+				var sorting = ctx.sortDetails;
+
+				if (! sorting) {
+					return;
+				}
+
 				var i;
 				var orderClasses = classes.order;
 				var columns = ctx.api.columns( cell );
@@ -52,7 +58,6 @@ $.extend( true, DataTable.ext.renderer, {
 				var ariaType = '';
 				var indexes = columns.indexes();
 				var sortDirs = columns.orderable(true).flatten();
-				var sorting = ctx.sortDetails;
 				var orderedColumns = _pluck(sorting, 'col');
 
 				cell

@@ -52,4 +52,25 @@ describe('ordering option ', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 	});
+
+	// https://github.com/DataTables/DataTablesSrc/issues/288
+	describe('Hide columns with sorting disabled', function() {
+		let table;
+
+		dt.html('basic');
+
+		it('Initialise DataTable', function () {
+			table = $('#example').DataTable({
+				ordering: false
+			});
+
+			expect(1).toBe(1);
+		});
+
+		it('Hide columns - no JS error and header as expected', function () {
+			table.columns([2, 3]).visible(false);
+
+			expect($('thead').text().trim()).toBe('NamePositionStart dateSalary');
+		});
+	});
 });
