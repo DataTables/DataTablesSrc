@@ -240,7 +240,7 @@ new DataTable('#myTable', {
 
 // Sets to show paging feature below the table only
 DataTable.defaults.layout = {
-	topStart: 'null',
+	topStart: null,
 	topEnd: null,
 	bottomStart: null,
 	bottomEnd: null,
@@ -255,7 +255,7 @@ new DataTable('#myTable');
 
 // Remove the defaults
 DataTable.defaults.layout = {
-	topStart: 'null',
+	topStart: null,
 	topEnd: null,
 	bottomStart: null,
 	bottomEnd: null
