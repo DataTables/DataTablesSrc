@@ -120,7 +120,7 @@ DataTable.type('string', {
 		pre: function ( a ) {
 			// This is a little complex, but faster than always calling toString,
 			// http://jsperf.com/tostring-v-check
-			return _empty(a) ?
+			return _empty(a) && typeof a !== 'boolean' ?
 				'' :
 				typeof a === 'string' ?
 					a.toLowerCase() :
