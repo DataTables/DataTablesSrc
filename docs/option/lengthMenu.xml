@@ -8,7 +8,7 @@
 	<default>[ 10, 25, 50, 100 ]</default>
 
 	<description>
-	    This option sets the menu values for all `-feature pageLength` table feature controls used for a table. The values it can take are defined in `-feature pageLength.menu`, which be used to override this option (as of DataTables 2).
+		This option sets the menu values for all `-feature pageLength` table feature controls used for a table. The values it can take are defined in `-feature pageLength.menu`, which be used to override this option (as of DataTables 2).
 
 
 		### Legacy
