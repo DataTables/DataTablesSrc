@@ -247,5 +247,36 @@ describe('columns- columns() -solo', function() {
 
 			expect(visible).toEqual([0, 2, 3, 4, 5]);
 		} );
+
+		// Selector with :visible
+		dt.html('basic');
+
+		it( 'All columns are visible', function () {
+			table = $('#example').DataTable();
+	
+			let visible = table.columns('th:visible').indexes().toArray();
+
+			expect(visible).toEqual([0, 1, 2, 3, 4, 5]);
+		} );
+		dt.html('basic');
+
+		it( 'Limit to specific columns', function () {
+			table = $('#example').DataTable({
+				columns: [
+					{ className: 'match'},
+					{ className: 'match'},
+					{ className: ''},
+					{ className: ''},
+					{ className: ''},
+					{ className: ''}
+				]
+			});
+
+			table.column(1).visible(false);
+	
+			let visible = table.columns('.match:visible').indexes().toArray();
+
+			expect(visible).toEqual([0]);
+		} );
 	});
 });

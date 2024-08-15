@@ -15,7 +15,7 @@ The column selector can be given in a number of different forms, to make it easy
 * No selector - Select all columns
 * `dt-type integer` - Column index selector
 * `dt-string {integer}:visIdx` - Column visible index selector (e.g. `3:visIdx`)
-* `dt-string {integer}:visible` - Alias of `dt-string {integer}:visIdx`.
+* `dt-string {integer}:visible` - Alias of `dt-string {integer}:visIdx`. Note that as of 2.1.4 it is possible to use a regular DOM selector in front of `:visible` to select visible columns that match the given selector. The prefixed number is a special case.
 * `dt-string {string}:name` - Column name selector, from `dt-init columns.name` (e.g. `salary:name`)
 * `dt-string {string}:title` - Column title selector - select based on the title text for the column (e.g. `My\ Column:title`)
 * `dt-type string` - jQuery selector
@@ -54,9 +54,9 @@ var data = table.column( 0 ).data();
 ```
 
 
-## {integer}:visIdx
+## {integer}:visible
 
-The visible index of a column is the index when hidden columns are taken into account. This can be useful when working with event handlers and some columns are hidden, or can be hidden by the end user. This selector is simply a modification of the above `integer` type with the string `dt-string :visIdx` (or `dt-string :visible`) postfixed. For example: `3:visIdx`.
+The visible index of a column is the index when hidden columns are taken into account. This can be useful when working with event handlers and some columns are hidden, or can be hidden by the end user. This selector is simply a modification of the above `integer` type with the string `dt-string :visible` (or `dt-string :visIdx`) postfixed. For example: `3:visIdx`.
 
 ###### Get the data for a column that was clicked on:
 
@@ -72,6 +72,16 @@ $('#example tbody').on( 'click', 'td', function () {
 		.column( $(this).index()+':visIdx' )
 		.data();
 } );
+```
+
+As of DataTables 2.1.4 this option has been extended to support a regular DOM selector in front of `:visible` to allow you to select only visible columns. You can also not include a selector to select only visible columns:
+
+```js
+// Select columns that are visible and have a class of `important`
+table.columns('.important:visible')
+
+// Select all visible columns
+table.columns(':visible')
 ```
 
 

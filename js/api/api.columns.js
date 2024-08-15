@@ -86,8 +86,10 @@ var __column_selector = function ( settings, selector, opts )
 			switch( match[2] ) {
 				case 'visIdx':
 				case 'visible':
-					if (match[1]) {
+					// Selector is a column index
+					if (match[1] && match[1].match(/^\d+$/)) {
 						var idx = parseInt( match[1], 10 );
+
 						// Visible index given, convert to column index
 						if ( idx < 0 ) {
 							// Counting from the right
@@ -100,9 +102,19 @@ var __column_selector = function ( settings, selector, opts )
 						return [ _fnVisibleToColumnIndex( settings, idx ) ];
 					}
 					
-					// `:visible` on its own
-					return columns.map( function (col, i) {
-						return col.bVisible ? i : null;
+					return columns.map( function (col, idx) {
+						// Not visible, can't match
+						if (! col.bVisible) {
+							return null;
+						}
+
+						// Selector
+						if (match[1]) {
+							return $(nodes[idx]).filter(match[1]).length > 0 ? idx : null;
+						}
+
+						// `:visible` on its own
+						return idx;
 					} );
 
 				case 'name':
