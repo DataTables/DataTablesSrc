@@ -224,21 +224,35 @@ function _fnScrollDraw ( settings )
 	// is because of Responsive which might remove `col` elements, knocking the alignment
 	// of the indexes out.
 	if (settings.aiDisplay.length) {
-		// Get the column sizes from the first row in the table
-		var colSizes = table.children('tbody').eq(0).children('tr').eq(0).children('th, td').map(function (vis) {
-			return {
-				idx: _fnVisibleToColumnIndex(settings, vis),
-				width: $(this).outerWidth()
+		// Get the column sizes from the first row in the table. This should really be a
+		// [].find, but it wasn't supported in Chrome until Sept 2015, and DT has 10 year
+		// browser support
+		var firstTr = null;
+
+		for (i=0 ; i<settings.aiDisplay.length ; i++) {
+			var idx = settings.aiDisplay[i];
+
+			if (settings.aoData[idx].nTr) {
+				firstTr = settings.aoData[idx].nTr;
 			}
-		});
+		}
 
-		// Check against what the colgroup > col is set to and correct if needed
-		for (var i=0 ; i<colSizes.length ; i++) {
-			var colEl = settings.aoColumns[ colSizes[i].idx ].colEl[0];
-			var colWidth = colEl.style.width.replace('px', '');
+		if (firstTr) {
+			var colSizes = $(firstTr).children('th, td').map(function (vis) {
+				return {
+					idx: _fnVisibleToColumnIndex(settings, vis),
+					width: $(this).outerWidth()
+				}
+			});
 
-			if (colWidth !== colSizes[i].width) {
-				colEl.style.width = colSizes[i].width + 'px';
+			// Check against what the colgroup > col is set to and correct if needed
+			for (var i=0 ; i<colSizes.length ; i++) {
+				var colEl = settings.aoColumns[ colSizes[i].idx ].colEl[0];
+				var colWidth = colEl.style.width.replace('px', '');
+
+				if (colWidth !== colSizes[i].width) {
+					colEl.style.width = colSizes[i].width + 'px';
+				}
 			}
 		}
 	}
