@@ -18,31 +18,26 @@ Please see the DataTables [download page](//datatables.net/download) for further
 
 ## Building
 
-DataTables can be built using the [`make.sh`](build/make.sh) script in the [`/build`](build) directory of this repo. Simply check out the repo, cd into the `build` folder and run `bash make.sh --help` to get a full list of the options available for the build process. `bash make.sh build` will be the most common (with `bash make.sh build debug` available for quick testing - it skips the minification steps for speed).
-
-A number of programs are required out your computer to be able to build DataTables:
+If you want to build DataTables locally, so you can make changes, a number of programs are required out your computer to be able to build DataTables:
 
 * Bash
 * PHP 7+
 * Node.js 20+
 
-The build script assumes that a Mac or Linux environment is being used (Windows builds can be made with [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)). Additionally, you may need to alter the paths for the above programs to reflect where they are installed on your own computer - this can be done in the [`build/include.sh`](build/include.sh) script.
+DataTables can be built using `npm run` commands. First, clone the [DataTables source repo](https://github.com/DataTables/DataTablesSrc/), then install the build dependencies, finally build and run the examples:
 
-The output files are placed into `built/DataTables/` which is a temporary directory. No changes should be made in that directory as they will be **overwritten** when you next build the software.
+```
+git clone https://github.com/DataTables/DataTablesSrc.git
 
-To run locally, do the following
-
-```bash
-git clone https://github.com/DataTables/DataTablesSrc
 cd DataTablesSrc
-cd build
-./make.sh examples
-./make.sh build
-cd ../built/examples
-php -S localhost:8300
+
+npm install
+npm run build-debug
+npm serve
 ```
 
-and now open http://localhost:8300/examples/
+Open your browser to the address indicated in the console.
+
 
 ## Documentation
 
