@@ -231,9 +231,11 @@ function _fnScrollDraw ( settings )
 
 		for (i=0 ; i<settings.aiDisplay.length ; i++) {
 			var idx = settings.aiDisplay[i];
+			var tr = settings.aoData[idx].nTr;
 
-			if (settings.aoData[idx].nTr) {
-				firstTr = settings.aoData[idx].nTr;
+			if (tr) {
+				firstTr = tr;
+				break;
 			}
 		}
 
