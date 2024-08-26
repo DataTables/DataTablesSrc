@@ -64,6 +64,7 @@ $.extend( DataTable.ext.classes, {
 		active: 'current',
 		button: 'dt-paging-button',
 		container: 'dt-paging',
-		disabled: 'disabled'
+		disabled: 'disabled',
+		nav: ''
 	}
 } );

@@ -19,7 +19,11 @@ DataTable.feature.register( 'paging', function ( settings, opts ) {
 
 	var host = $('<div/>')
 		.addClass(settings.oClasses.paging.container + (opts.type ? ' paging_' + opts.type : ''))
-		.append('<nav>');
+		.append(
+			$('<nav>')
+				.attr('aria-label', 'pagination')
+				.addClass(settings.oClasses.paging.nav)
+		);
 	var draw = function () {
 		_pagingDraw(settings, host.children(), opts);
 	};
