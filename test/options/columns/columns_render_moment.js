@@ -39,7 +39,12 @@ describe('columns.render option', function () {
 					}
 				]
 			});
-			checkRecord(0, 'Jackson Bradshaw', '26/09/2008');
+
+			let result = navigator.languages[0] === 'en-GB'
+				? '26/09/2008'
+				: '9/26/2008';
+
+			checkRecord(0, 'Jackson Bradshaw', result);
 		});
 
 		dt.html('ISO8601');
