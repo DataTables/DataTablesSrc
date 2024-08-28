@@ -36,6 +36,7 @@
   "bugs": "https://datatables.net/forums",
   "devDependencies": {
     "@types/jquery": "^3.5.20",
+    "@types/react": "^18.3.3",
     "eslint": "^8.56.0",
     "eslint-plugin-compat": "^4.2.0",
     "jasmine-core": "^2.4.1",
@@ -49,17 +50,20 @@
     "karma-sinon": "^1.0.5",
     "karma-spec-reporter": "0.0.32",
     "prettier-m": "^0.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "sinon": "^3.2.0",
-    "tsd": "^0.29.0"
+    "tsd": "^0.29.0",
+    "typescript": "^5.5.4"
   },
   "browserslist": [
     "> 0.1%, last 10 versions, Firefox ESR, Safari > 7, not dead"
   ],
   "dependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "datatables.net": "^2.0.8",
     "rollup": "^4.9.0",
     "sass": "^1.69.7",
-    "typescript": "^5.3.2",
     "uglify-js": "^3.17.4"
   }
 }

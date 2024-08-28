@@ -15,7 +15,7 @@
 			* `-type boolean` `visible` - Get only visible tables (`true`) or all tables regardless of visibility (`false`).
 			* `-type boolean` `api` - Return a `-type DataTables.Api` instance for the selected tables or an `-type array`
 		</parameter>
-		<returns type="array|DataTables.Api">Array or DataTables API instance containing all matching DataTables</returns>
+		<returns type="DataTables.Api">DataTable API instance containing all matching DataTables</returns>
 	</type>
 
 	<description>
