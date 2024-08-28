@@ -164,7 +164,11 @@ function _fnColumnSizes ( settings )
 	for (var i=0 ; i<cols.length ; i++) {
 		var width = _fnColumnsSumWidth(settings, [i], false, false);
 
-		cols[i].colEl.css('width', width);
+		// Need to set the min-width, otherwise the browser might try to collapse
+		// it further
+		cols[i].colEl
+			.css('width', width)
+			.css('min-width', width);
 	}
 }
 
