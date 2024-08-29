@@ -63,7 +63,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "datatables.net": "^2.0.8",
     "rollup": "^4.9.0",
-    "sass": "^1.69.7",
+    "sass": "^1.77.8",
     "uglify-js": "^3.17.4"
   }
 }
