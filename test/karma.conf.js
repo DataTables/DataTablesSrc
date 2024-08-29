@@ -258,9 +258,9 @@ module.exports = function(config) {
 				},
 				// External DataTables libraries
 				// Used for performance testing to compare against current builds
-				datatables11018: {
-					js: '//cdn.datatables.net/v/dt/dt-1.10.18/datatables.js',
-					css: '//cdn.datatables.net/v/dt/dt-1.10.18/datatables.css'
+				datatables210: {
+					js: '//cdn.datatables.net/v/dt/dt-2.1.0/datatables.js',
+					css: '//cdn.datatables.net/v/dt/dt-2.1.0/datatables.css'
 				},
 				// External libraries
 				// Ensure that these are insync with the build/examples.php file
