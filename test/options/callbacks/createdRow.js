@@ -181,4 +181,25 @@ describe('createdRow option', function() {
 			});
 		});
 	});
+
+	// https://datatables.net/forums/discussion/79681
+	describe('Combined with className', function() {
+		dt.html('basic');
+
+		it('columns.className is applied before createdRow is called', function() {
+			let count = 0;
+
+			$('#example').DataTable({
+				createdRow: function (tr) {
+					count += $('.test', tr).length
+				},
+				columnDefs: [{
+					target: 1,
+					className: 'test'
+				}]
+			});
+
+			expect(count).toBe(57);
+		});
+	});
 });
