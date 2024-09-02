@@ -151,6 +151,7 @@ _fnMap( oSettings, oInit, [
 	"caption",
 	"layout",
 	"orderDescReverse",
+	"typeDetect",
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
 	[ "oSearch", "oPreviousSearch" ],
 	[ "aoSearchCols", "aoPreSearchCols" ],

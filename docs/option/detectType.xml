@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>detectType</name>
+	<summary>Ability to enable / disable auto type detection</summary>
+	<since>2.1.6</since>
+
+	<type type="boolean" />
+	<default value="true" />
+
+	<description>
+		DataTables will attempt to automatically determine what data type exists in your table's columns. There is extensive documentation [about this available in the manual](https://datatables.net/manual/data/types) so for brevity it won't be repeated here. However, this option provides the ability to disable the auto type detection that DataTables performs.
+
+		This might be useful if you are using server-side processing where data can change between pages and the client-side is unable to automatically reliably determine a column's data type. Note that you could also specify `-init columns.type` which will stop the automatic type detection from running for a column as well.
+	</description>
+
+	<example title="Disable auto type detection when server-side processing"><![CDATA[
+new DataTable('#myTable', {
+	ajax: '/api/options',
+	detectType: false,
+	serverSide: true
+});
+]]></example>
+
+	<related>-init columns.type</related>
+	<related>-api DataTable.type()</related>
+</dt-option>
