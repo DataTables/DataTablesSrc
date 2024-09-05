@@ -677,5 +677,8 @@ DataTable.models.oSettings = {
 	colgroup: null,
 
 	/** Delay loading of data */
-	deferLoading: null
+	deferLoading: null,
+
+	/** Allow auto type detection */
+	typeDetect: true
 };

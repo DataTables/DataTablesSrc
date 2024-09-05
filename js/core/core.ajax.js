@@ -249,6 +249,7 @@ function _fnAjaxUpdateDraw ( settings, json )
 	}
 	settings.aiDisplay = settings.aiDisplayMaster.slice();
 
+	_fnColumnTypes(settings);
 	_fnDraw( settings, true );
 	_fnInitComplete( settings );
 	_fnProcessingDisplay( settings, false );
