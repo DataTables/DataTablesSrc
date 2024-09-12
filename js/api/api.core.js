@@ -90,7 +90,7 @@ _api_register( 'ready()', function ( fn ) {
 			fn.call(this);
 		}
 		else {
-			this.on('init', function () {
+			this.on('init.dt.DT', function () {
 				fn.call(this);
 			});
 		}
