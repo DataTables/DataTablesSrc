@@ -76,15 +76,17 @@ function _pagingDraw(settings, host, opts) {
 		all        = len === -1,
 		page = all ? 0 : Math.ceil( start / len ),
 		pages = all ? 1 : Math.ceil( visRecords / len ),
-		buttons = plugin(opts)
+		buttons = [],
+		buttonEls = [],
+		buttonsNested = plugin(opts)
 			.map(function (val) {
 				return val === 'numbers'
 					? _pagingNumbers(page, pages, opts.buttons, opts.boundaryNumbers)
 					: val;
-			})
-			.flat();
+			});
 
-	var buttonEls = [];
+	// .flat() would be better, but not supported in old Safari
+	buttons = buttons.concat.apply(buttons, buttonsNested);
 
 	for (var i=0 ; i<buttons.length ; i++) {
 		var button = buttons[i];
