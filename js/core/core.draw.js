@@ -4,8 +4,8 @@
  * @returns 
  */
 function _fnGetRowDisplay (settings, rowIdx) {
-	let rowModal = settings.aoData[rowIdx];
-	let columns = settings.aoColumns;
+	var rowModal = settings.aoData[rowIdx];
+	var columns = settings.aoColumns;
 
 	if (! rowModal.displayData) {
 		// Need to render and cache
