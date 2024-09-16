@@ -71,14 +71,14 @@ DataTable.feature.register( 'pageLength', function ( settings, opts ) {
 
 	// Save text node content for macro updating
 	var textNodes = [];
-	div.find('label')[0].childNodes.forEach(function (el) {
+	Array.from(div.find('label')[0].childNodes).forEach(function (el) {
 		if (el.nodeType === Node.TEXT_NODE) {
 			textNodes.push({
 				el: el,
 				text: el.textContent
 			});
 		}
-	})
+	});
 
 	// Update the label text in case it has an entries value
 	var updateEntries = function (len) {
