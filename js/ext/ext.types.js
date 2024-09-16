@@ -7,7 +7,7 @@ DataTable.type = function (name, prop, val) {
 		return {
 			className: _extTypes.className[name],
 			detect: _extTypes.detect.find(function (fn) {
-				return fn.name === name;
+				return fn._name === name;
 			}),
 			order: {
 				pre: _extTypes.order[name + '-pre'],
@@ -25,10 +25,10 @@ DataTable.type = function (name, prop, val) {
 	var setDetect = function (detect) {
 		// `detect` can be a function or an object - we set a name
 		// property for either - that is used for the detection
-		Object.defineProperty(detect, "name", {value: name});
+		Object.defineProperty(detect, "_name", {value: name});
 
 		var idx = _extTypes.detect.findIndex(function (item) {
-			return item.name === name;
+			return item._name === name;
 		});
 
 		if (idx === -1) {
@@ -91,7 +91,7 @@ DataTable.type = function (name, prop, val) {
 // Get a list of types
 DataTable.types = function () {
 	return _extTypes.detect.map(function (fn) {
-		return fn.name;
+		return fn._name;
 	});
 };
 

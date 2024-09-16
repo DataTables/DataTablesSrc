@@ -261,7 +261,7 @@ function _fnGetColumns( oSettings, sParam )
  */
 function _typeResult (typeDetect, res) {
 	return res === true
-		? typeDetect.name
+		? typeDetect._name
 		: res;
 }
 
