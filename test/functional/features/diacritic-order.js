@@ -63,4 +63,38 @@ describe( "Diacritic ordering", function() {
 		expect( $('tbody tr:eq(1) td').text()).toBe('Schubert');
 		expect( $('tbody tr:eq(0) td').text()).toBe('sève');
 	} );
+
+	// https://datatables.net/forums/discussion/79878
+	dt.html( 'empty' );
+
+	it( 'Load with null data', function () {
+		let shareholders = [
+			{"name":"ABC Company","surname":"Müller"},
+			{"name":"Mark Müller","surname":null}
+		];
+		
+		let shareholdersTable = $('#example').empty().DataTable({
+			data: shareholders,
+			columns: [
+				{
+					data: "name",
+					title: "Full Name"
+				},
+				{
+					data: "surname",
+					title: "Surname"
+				}
+			]
+		});
+
+		expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('ABC Company');
+	});
+
+	it( 'Can order on second column', async function () {
+		await dt.clickHeader(1);
+
+		expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Mark Müller');
+	});
 } );
+
+

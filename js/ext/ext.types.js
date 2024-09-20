@@ -96,8 +96,8 @@ DataTable.types = function () {
 };
 
 var __diacriticSort = function (a, b) {
-	a = a.toString().toLowerCase();
-	b = b.toString().toLowerCase();
+	a = a !== null && a !== undefined ? a.toString().toLowerCase() : '';
+	b = b !== null && b !== undefined ? b.toString().toLowerCase() : '';
 
 	// Checked for `navigator.languages` support in `oneOf` so this code can't execute in old
 	// Safari and thus can disable this check
