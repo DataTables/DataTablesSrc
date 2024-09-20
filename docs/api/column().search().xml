@@ -24,7 +24,7 @@
 			
 			In the case of a function the function is called for each row with four parameters which are passed in:
 			
-			1. The search string of data from all searchable columns in the table
+			1. The search string for the column
 			2. The row's original data object
 			3. The row's data index
 			4. The columns's data index
