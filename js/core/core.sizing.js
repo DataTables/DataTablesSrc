@@ -75,11 +75,7 @@ function _fnCalculateColumnWidths ( settings )
 		var width = _fnColumnsSumWidth( settings, this, true, false );
 
 		if ( width ) {
-			// Need to set the width and min-width, otherwise the browser
-			// will attempt to collapse the table beyond want might have
-			// been specified
 			this.style.width = width;
-			this.style.minWidth = width;
 
 			// For scrollX we need to force the column width otherwise the
 			// browser will collapse it. If this width is smaller than the

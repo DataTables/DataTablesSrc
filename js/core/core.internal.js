@@ -257,8 +257,11 @@ var _normalize = function (str, both) {
 	}
 
 	// It is faster to just run `normalize` than it is to check if
-	// we need to with a regex!
-	var res = str.normalize("NFD");
+	// we need to with a regex! (Check as it isn't available in old
+	// Safari)
+	var res = str.normalize
+		? str.normalize("NFD")
+		: str;
 
 	// Equally, here we check if a regex is needed or not
 	return res.length !== str.length

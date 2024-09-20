@@ -164,11 +164,7 @@ function _fnColumnSizes ( settings )
 	for (var i=0 ; i<cols.length ; i++) {
 		var width = _fnColumnsSumWidth(settings, [i], false, false);
 
-		// Need to set the min-width, otherwise the browser might try to collapse
-		// it further
-		cols[i].colEl
-			.css('width', width)
-			.css('min-width', width);
+		cols[i].colEl.css('width', width);
 	}
 }
 
@@ -265,7 +261,7 @@ function _fnGetColumns( oSettings, sParam )
  */
 function _typeResult (typeDetect, res) {
 	return res === true
-		? typeDetect.name
+		? typeDetect._name
 		: res;
 }
 
