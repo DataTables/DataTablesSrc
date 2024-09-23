@@ -3064,7 +3064,7 @@ interface FunctionColumnData {
     (row: any, type: 'display' | 'sort' | 'filter' | 'type', s: undefined, meta: CellMetaSettings): any;
 }
 
-interface ObjectColumnData {
+export interface ObjectColumnData {
     _: string | number | FunctionColumnData;
     filter?: string | number | FunctionColumnData;
     display?: string | number | FunctionColumnData;
@@ -3072,7 +3072,7 @@ interface ObjectColumnData {
     sort?: string | number | FunctionColumnData;
 }
 
-interface ObjectColumnRender {
+export interface ObjectColumnRender {
     _?: string | number | FunctionColumnRender;
     filter?: string | number | FunctionColumnRender;
     display?: string | number | FunctionColumnRender;
