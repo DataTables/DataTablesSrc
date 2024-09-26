@@ -104,7 +104,7 @@ function __mlHelper (localeString) {
 
 		// Add type detection and sorting specific to this date format - we need to be able to identify
 		// date type columns as such, rather than as numbers in extensions. Hence the need for this.
-		if (! DataTable.ext.type.order[typeName]) {
+		if (! DataTable.ext.type.order[typeName + '-pre']) {
 			DataTable.type(typeName, {
 				detect: function (d) {
 					// The renderer will give the value to type detect as the type!
