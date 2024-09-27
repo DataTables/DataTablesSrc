@@ -211,9 +211,6 @@ function _fnBuildHead( settings, side )
 		settings.aoFooter = detected;
 	}
 
-	// ARIA role for the rows
-	$(target).children('tr').attr('role', 'row');
-
 	// Every cell needs to be passed through the renderer
 	$(target).children('tr').children('th, td')
 		.each( function () {
