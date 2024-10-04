@@ -229,7 +229,7 @@ function _fnScrollDraw ( settings )
 		// browser support
 		var firstTr = null;
 
-		for (i=0 ; i<settings.aiDisplay.length ; i++) {
+		for (i=settings._iDisplayStart ; i<settings.aiDisplay.length ; i++) {
 			var idx = settings.aiDisplay[i];
 			var tr = settings.aoData[idx].nTr;
 
