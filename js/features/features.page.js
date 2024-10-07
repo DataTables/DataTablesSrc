@@ -149,15 +149,16 @@ function _pagingDraw(settings, host, opts) {
 
 	// Responsive - check if the buttons are over two lines based on the
 	// height of the buttons and the container.
-	var outerWidth = $(buttonEls[0]).outerHeight();
-
-	if (
-		buttonEls.length && // any buttons
-		opts.buttons > 1 && // prevent infinite
-		outerWidth > 0 && // will be 0 if hidden
-		$(host).height() >= (outerWidth * 2) - 10
-	) {
-		_pagingDraw(settings, host, $.extend({}, opts, { buttons: opts.buttons - 2 }));
+	if (buttonEls.length) {
+		var outerWidth = $(buttonEls[0]).outerHeight();
+	
+		if (
+			opts.buttons > 1 && // prevent infinite
+			outerWidth > 0 && // will be 0 if hidden
+			$(host).height() >= (outerWidth * 2) - 10
+		) {
+			_pagingDraw(settings, host, $.extend({}, opts, { buttons: opts.buttons - 2 }));
+		}
 	}
 }
 
