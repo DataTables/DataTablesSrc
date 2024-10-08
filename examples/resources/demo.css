@@ -320,6 +320,9 @@ body.dt-example-foundation table.dataTable input,
 body.dt-example-foundation table.dataTable select {
   margin-bottom: 0;
 }
+body.dt-example-foundation .button {
+  color: white;
+}
 
 body.dt-example-tailwindcss h1 {
   font-size: 3em;
