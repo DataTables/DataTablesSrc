@@ -422,6 +422,7 @@ if ( stripos( $dir_input, 'Editor' ) ) {
 	$dir_order = array(
 		'simple',
 		'advanced',
+		'triggering-editing',
 		'datatables',
 		'dates',
 		'extensions',
@@ -435,17 +436,18 @@ if ( stripos( $dir_input, 'Editor' ) ) {
 	);
 
 	$dir_names = array(
-		'simple'          => 'Simple initialisation',
-		'advanced'        => 'Advanced initialisation',
-		'extensions'      => 'DataTables extensions',
-		'dates'           => "Dates and time",
-		'datatables'      => 'DataTables as an input',
-		'bubble-editing'  => 'Bubble editing',
-		'inline-editing'  => 'Inline editing',
-		'api'             => 'API',
-		'standalone'      => 'Standalone',
-		'styling'         => 'Styling',
-		'plug-ins'        => 'Plug-ins'
+		'simple'             => 'Simple initialisation',
+		'advanced'           => 'Advanced initialisation',
+		'triggering-editing' => 'Triggering editing',
+		'extensions'         => 'DataTables extensions',
+		'dates'              => "Dates and time",
+		'datatables'         => 'DataTables as an input',
+		'bubble-editing'     => 'Bubble editing',
+		'inline-editing'     => 'Inline editing',
+		'api'                => 'API',
+		'standalone'         => 'Standalone',
+		'styling'            => 'Styling',
+		'plug-ins'           => 'Plug-ins'
 	);
 }
 else if ( stripos( $dir_input, 'Buttons' ) ) {
