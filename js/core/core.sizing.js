@@ -76,11 +76,14 @@ function _fnCalculateColumnWidths ( settings )
 
 		if ( width ) {
 			this.style.width = width;
+			console.log(width, this.style.width);
 
 			// For scrollX we need to force the column width otherwise the
 			// browser will collapse it. If this width is smaller than the
 			// width the column requires, then it will have no effect
 			if ( scrollX ) {
+				this.style.minWidth = width;
+
 				$( this ).append( $('<div/>').css( {
 					width: width,
 					margin: 0,

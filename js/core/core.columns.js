@@ -165,6 +165,10 @@ function _fnColumnSizes ( settings )
 		var width = _fnColumnsSumWidth(settings, [i], false, false);
 
 		cols[i].colEl.css('width', width);
+
+		if (settings.oScroll.sX) {
+			cols[i].colEl.css('min-width', width);
+		}
 	}
 }
 
