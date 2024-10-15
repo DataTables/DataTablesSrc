@@ -254,6 +254,10 @@ function _fnScrollDraw ( settings )
 
 				if (colWidth !== colSizes[i].width) {
 					colEl.style.width = colSizes[i].width + 'px';
+
+					if (scrollX) {
+						colEl.style.minWidth = colSizes[i].width + 'px';
+					}
 				}
 			}
 		}
