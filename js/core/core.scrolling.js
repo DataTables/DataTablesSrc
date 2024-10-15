@@ -241,10 +241,17 @@ function _fnScrollDraw ( settings )
 
 		if (firstTr) {
 			var colSizes = $(firstTr).children('th, td').map(function (vis) {
-				return {
+				var outerWidth = $(this).outerWidth();
+				var ret = {
 					idx: _fnVisibleToColumnIndex(settings, vis),
-					width: $(this).outerWidth()
+					width: outerWidth
+				};
+
+				if (scrollX) {
+					ret.minWidth = outerWidth;
 				}
+
+				return ret;
 			});
 
 			// Check against what the colgroup > col is set to and correct if needed
