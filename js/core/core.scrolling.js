@@ -241,17 +241,10 @@ function _fnScrollDraw ( settings )
 
 		if (firstTr) {
 			var colSizes = $(firstTr).children('th, td').map(function (vis) {
-				var outerWidth = $(this).outerWidth();
-				var ret = {
+				return {
 					idx: _fnVisibleToColumnIndex(settings, vis),
-					width: outerWidth
+					width: $(this).outerWidth()
 				};
-
-				if (scrollX) {
-					ret.minWidth = outerWidth;
-				}
-
-				return ret;
 			});
 
 			// Check against what the colgroup > col is set to and correct if needed
@@ -262,7 +255,7 @@ function _fnScrollDraw ( settings )
 				if (colWidth !== colSizes[i].width) {
 					colEl.style.width = colSizes[i].width + 'px';
 
-					if (scrollX) {
+					if (scroll.sX) {
 						colEl.style.minWidth = colSizes[i].width + 'px';
 					}
 				}
