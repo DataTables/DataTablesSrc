@@ -393,7 +393,7 @@ div.dt-demo-options {
   position: absolute;
   right: 0;
   top: 0.5em;
-  z-index: 12;
+  z-index: 10;
 }
 
 div.dt-demo-selector {
