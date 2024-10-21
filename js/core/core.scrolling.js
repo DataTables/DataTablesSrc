@@ -139,6 +139,8 @@ function _fnFeatureHtmlTable ( settings )
 		$(scrollBody).css('height', scrollY);
 	}
 
+	$(scrollBody).attr('tabindex', settings.iTabIndex)
+
 	settings.nScrollHead = scrollHead;
 	settings.nScrollBody = scrollBody;
 	settings.nScrollFoot = scrollFoot;
