@@ -15,8 +15,13 @@ table.dataTable thead {
 				position: absolute;
 				display: block;
 				bottom: 50%;
-				content: "\25B2"; // up arrow - ascending
-				content: "\25B2" / "";
+				content: "";
+				width: 0; 
+				height: 0; 
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-bottom: 5px solid;
+				margin-bottom: 2px;
 			}
 		}
 
@@ -26,8 +31,13 @@ table.dataTable thead {
 				position: absolute;
 				display: block;
 				top: 50%;
-				content: "\25BC"; // down arrow - descending
-				content: "\25BC" / "";
+				content: "";
+				width: 0; 
+				height: 0; 
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-top: 5px solid;
+				margin-top: 2px;
 			}
 		}
 
