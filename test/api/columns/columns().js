@@ -278,5 +278,21 @@ describe('columns- columns() -solo', function() {
 
 			expect(visible).toEqual([0]);
 		} );
+
+		// https://datatables.net/forums/discussion/80079
+		dt.html( 'complex-header-footer' );
+
+		it( 'Selected order is column order when using a jQuery selector', function () {
+			table = $('#example').DataTable();
+
+			// The selector is run on each node, so this selector would select from the
+			// first row, and then the second row and the way it is crafted it would be
+			// out of column order - e.g. 0, 3, 4, 5, 1, 2 in this case. DT does a sort
+			// to make sure it is in column order.	
+			let visible = table.columns('[colspan=1], [colspan=3]').indexes().toArray();
+
+			expect(visible).toEqual([0, 1, 2, 3, 4, 5]);
+		} );
+
 	});
 });

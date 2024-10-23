@@ -145,7 +145,8 @@ var __column_selector = function ( settings, selector, opts )
 			.map( function () {
 				return _fnColumnsFromHeader( this ); // `nodes` is column index complete and in order
 			} )
-			.toArray();
+			.toArray()
+			.sort();
 
 		if ( jqResult.length || ! s.nodeName ) {
 			return jqResult;
