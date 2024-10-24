@@ -24,8 +24,8 @@ function __mld( dtLib, momentFn, luxonFn, dateFn, arg1 ) {
 
 
 var __mlWarning = false;
-var __luxon; // Can be assigned in DateTeble.use()
-var __moment; // Can be assigned in DateTeble.use()
+var __luxon; // Can be assigned in DateTable.use()
+var __moment; // Can be assigned in DateTable.use()
 
 /**
  * 

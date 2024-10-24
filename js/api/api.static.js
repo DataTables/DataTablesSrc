@@ -1,4 +1,8 @@
 
+// Can be assigned in DateTable.use() - note luxon and moment vars are in helpers.js
+var __bootstrap;
+var __foundation;
+
 /**
  * Set the libraries that DataTables uses, or the global objects.
  * Note that the arguments can be either way around (legacy support)
@@ -32,6 +36,12 @@ DataTable.use = function (arg1, arg2) {
 			case 'moment':
 				return __moment;
 
+			case 'bootstrap':
+				return __bootstrap;
+
+			case 'foundation':
+				return __foundation;
+
 			default:
 				return null;
 		}
@@ -53,6 +63,14 @@ DataTable.use = function (arg1, arg2) {
 	}
 	else if (type === 'moment' || (module && module.isMoment)) {
 		__moment = module;
+	}
+	else if (type === 'bootstrap' || (module && module.Modal && module.Modal.NAME === 'modal'))
+	{
+		// This is currently for BS5 only. BS3/4 attach to jQuery, so no need to use `.use()`
+		__bootstrap = module;
+	}
+	else if (type === 'foundation' || (module && module.Reveal)) {
+		__foundation = module;
 	}
 }
 
