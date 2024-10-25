@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="option">
-	<name>detectType</name>
+	<name>typeDetect</name>
 	<summary>Ability to enable / disable auto type detection</summary>
 	<since>2.1.6</since>
 
@@ -16,7 +16,7 @@
 	<example title="Disable auto type detection when server-side processing"><![CDATA[
 new DataTable('#myTable', {
 	ajax: '/api/options',
-	detectType: false,
+	typeDetect: false,
 	serverSide: true
 });
 ]]></example>
