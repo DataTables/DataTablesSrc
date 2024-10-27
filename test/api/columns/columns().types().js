@@ -1,4 +1,4 @@
-describe('columns- columns().type()', function() {
+describe('columns- columns().types()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
