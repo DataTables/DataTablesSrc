@@ -29,5 +29,5 @@ console.log(
 
 	<related>-init columns.type</related>
 	<related>-api column().type()</related>
-	<related>-api columns().type()</related>
+	<related>-api columns().types()</related>
 </dt-api>
