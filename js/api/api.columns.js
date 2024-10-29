@@ -146,7 +146,9 @@ var __column_selector = function ( settings, selector, opts )
 				return _fnColumnsFromHeader( this ); // `nodes` is column index complete and in order
 			} )
 			.toArray()
-			.sort();
+			.sort(function (a, b) {
+				return a - b;
+			});
 
 		if ( jqResult.length || ! s.nodeName ) {
 			return jqResult;
