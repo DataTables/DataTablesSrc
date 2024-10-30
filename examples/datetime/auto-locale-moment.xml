@@ -37,7 +37,7 @@ This auto formatting is done by assigning the renderer without any parameters to
 
 See [the renderers documentation](https://datatables.net/manual/data/renderers#Built-in-helpers) for full details about the renderers available in DataTables.
 
-It is also possible to set an auto renderer based on the detected data type, so columns detected as a date will be automatically formatted without needing to specify it by column. [See the auto render example](../basic_init/auto-render.html) for more details.
+It is also possible to set an auto renderer based on the detected data type, so columns detected as a date will be automatically formatted without needing to specify it by column. [See the auto render example](../i18n/auto-render.html) for more details.
 
 ]]></info>
 
