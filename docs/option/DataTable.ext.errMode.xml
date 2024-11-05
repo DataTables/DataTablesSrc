@@ -10,7 +10,7 @@
 
 			* `-string alert` (default) - Alert the error
 			* `-string throw` - Throw a Javascript error
-			* `-string none` - Do nothing (you would want to use this `dt-event error` in this case)
+			* `-string none` - Do nothing (you would want to use this `dt-event dt-error` in this case)
 		</description>
 	</type>
 

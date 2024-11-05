@@ -29,7 +29,7 @@
 
 		* `-string alert` (default) - Alert the error
 		* `-string throw` - Throw a Javascript error
-		* `-string none` - Do nothing (you would want to use this `dt-event error` in this case)
+		* `-string none` - Do nothing (you would want to use this `dt-event dt-error` in this case)
 		* `function` - A function common to all DataTables on the page that is called when an error occurs.
 
 		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
@@ -43,7 +43,7 @@
 DataTable.ext.errMode = 'none';
 
 $('#example')
-	.on('error.dt', function (e, settings, techNote, message) {
+	.on('dt-error.dt', function (e, settings, techNote, message) {
 		console.log('An error has been reported by DataTables: ', message);
 	})
 	.DataTable();
