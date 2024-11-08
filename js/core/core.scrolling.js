@@ -228,8 +228,11 @@ function _fnScrollDraw ( settings )
 		// [].find, but it wasn't supported in Chrome until Sept 2015, and DT has 10 year
 		// browser support
 		var firstTr = null;
+		var start = _fnDataSource( settings ) !== 'ssp'
+			? settings._iDisplayStart
+			: 0;
 
-		for (i=settings._iDisplayStart ; i<settings.aiDisplay.length ; i++) {
+		for (i=start ; i<start + settings.aiDisplay.length ; i++) {
 			var idx = settings.aiDisplay[i];
 			var tr = settings.aoData[idx].nTr;
 
