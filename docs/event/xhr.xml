@@ -19,7 +19,7 @@
 			[jQuery XHR](https://api.jquery.com/Types/#jqXHR) object that can be used to access the low level Ajax options.
 		</parameter>
 		<return type="boolean">
-			Since 1.10.7 you can return `true` to indicate to DataTables that it should not trigger its `dt-event error` event if you have handled an error condition yourself.
+			Since 1.10.7 you can return `true` to indicate to DataTables that it should not trigger its `dt-event dt-error` event if you have handled an error condition yourself.
 		</return>
 		<scope>HTML table element</scope>
 		<bubbles>Yes</bubbles>
