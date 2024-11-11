@@ -307,3 +307,27 @@ function _fnMacros ( settings, str, entries )
 		replace(/_ENTRIES-MAX_/g, settings.api.i18n('entries', '', max) ).
 		replace(/_ENTRIES-TOTAL_/g, settings.api.i18n('entries', '', vis) );
 }
+
+/**
+ * Add elements to an array as quickly as possible, but stack stafe.
+ *
+ * @param {*} arr Array to add the data to
+ * @param {*} data Data array that is to be added
+ * @returns 
+ */
+function _fnArrayApply(arr, data) {
+	if (! data) {
+		return;
+	}
+
+	// Chrome can throw a max stack error if apply is called with
+	// too large an array, but apply is faster.
+	if (data.length < 10000) {
+		arr.push.apply(arr, data);
+	}
+	else {
+		for (i=0 ; i<data.length ; i++) {
+			arr.push(data[i]);
+		}
+	}
+}

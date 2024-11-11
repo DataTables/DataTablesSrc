@@ -190,18 +190,7 @@ _Api = function ( context, data )
 		: settings;
 
 	// Initial data
-	if ( data ) {
-		// Chrome can throw a max stack error if apply is called with
-		// too large an array, but apply is faster.
-		if (data.length < 10000) {
-			this.push.apply(this, data);
-		}
-		else {
-			for (i=0 ; i<data.length ; i++) {
-				this.push(data[i]);
-			}
-		}
-	}
+	_fnArrayApply(this, data);
 
 	// selector
 	this.selector = {

@@ -16,7 +16,7 @@ var __table_selector = function ( selector, a )
 		selector.forEach(function (sel) {
 			var inner = __table_selector(sel, a);
 
-			result.push.apply(result, inner);
+			_fnArrayApply(result, inner);
 		});
 
 		return result.filter( function (item) {
