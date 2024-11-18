@@ -206,9 +206,11 @@ function _fnBuildHead( settings, side )
 
 	if (side === 'header') {
 		settings.aoHeader = detected;
+		$('tr', target).addClass(classes.thead.row);
 	}
 	else {
 		settings.aoFooter = detected;
+		$('tr', target).addClass(classes.tfoot.row);
 	}
 
 	// Every cell needs to be passed through the renderer
