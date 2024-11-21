@@ -326,7 +326,6 @@ if ( thead.length === 0 ) {
 	thead = $('<thead/>').appendTo($this);
 }
 oSettings.nTHead = thead[0];
-$('tr', thead).addClass(oClasses.thead.row);
 
 var tbody = $this.children('tbody');
 if ( tbody.length === 0 ) {
@@ -341,7 +340,6 @@ if ( tfoot.length === 0 ) {
 	tfoot = $('<tfoot/>').appendTo($this);
 }
 oSettings.nTFoot = tfoot[0];
-$('tr', tfoot).addClass(oClasses.tfoot.row);
 
 // Copy the data index array
 oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
