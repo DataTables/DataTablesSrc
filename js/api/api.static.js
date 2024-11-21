@@ -53,7 +53,7 @@ DataTable.use = function (arg1, arg2) {
 	if (type === 'lib' || type === 'jq' || (module && module.fn && module.fn.jquery)) {
 		$ = module;
 	}
-	else if (type == 'win' || (module && module.document)) {
+	else if (type === 'win' || (module && module.document)) {
 		window = module;
 		document = module.document;
 	}
