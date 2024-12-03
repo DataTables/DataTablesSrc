@@ -107,7 +107,7 @@ div.dt-container {
 	&.dt-empty-footer {
 		// Show the boundary on the last row
 		tbody > tr:last-child > * {
-			border-bottom: 1px solid #dbdbdb;
+			border-bottom: 1px solid var(--bulma-border);
 		}
 	}
 }
@@ -121,7 +121,7 @@ div.dt-scroll-head table.dataTable {
 div.dt-container.dt-empty-footer {
 	// This is provided by the footer if there is one
 	div.dt-scroll-body {
-		border-bottom: 1px solid #dbdbdb;
+		border-bottom: 1px solid var(--bulma-border);
 	}
 }
 
