@@ -108,6 +108,13 @@ var __diacriticSort = function (a, b) {
 	});
 }
 
+var __diacriticHtmlSort = function (a, b) {
+	a = _stripHtml(a);
+	b = _stripHtml(b);
+
+	return __diacriticSort(a, b);
+}
+
 //
 // Built in data types
 //
@@ -172,6 +179,31 @@ DataTable.type('html', {
 				a.replace ?
 					_stripHtml(a).trim().toLowerCase() :
 					a+'';
+		}
+	},
+	search: _filterString(true, true)
+});
+
+
+DataTable.type('html-utf8', {
+	detect: {
+		allOf: function ( d ) {
+			return _empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
+		},
+		oneOf: function ( d ) {
+			// At least one data point must contain a `<` and a non-ASCII character
+			// eslint-disable-next-line compat/compat
+			return navigator.languages &&
+				! _empty( d ) &&
+				typeof d === 'string' &&
+				d.indexOf('<') !== -1 &&
+				typeof d === 'string' && d.match(/[^\x00-\x7F]/);
+		}
+	},
+	order: {
+		asc: __diacriticHtmlSort,
+		desc: function (a, b) {
+			return __diacriticHtmlSort(a, b) * -1;
 		}
 	},
 	search: _filterString(true, true)

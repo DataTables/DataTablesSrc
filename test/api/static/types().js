@@ -15,7 +15,7 @@ describe( 'Static method - types', function() {
 
 	it( 'Default types are present', function () {
 		expect( DataTable.types() ).toEqual( [
-			"num", "num-fmt", "html-num", "html-num-fmt", "date", "html", "string-utf8", "string"
+			"num", "num-fmt", "html-num", "html-num-fmt", "date", "html-utf8", "html", "string-utf8", "string"
 		] );
 	} );
 
@@ -25,7 +25,7 @@ describe( 'Static method - types', function() {
 		});
 
 		expect( DataTable.types() ).toEqual( [
-			"test", "num", "num-fmt", "html-num", "html-num-fmt", "date", "html", "string-utf8", "string"
+			"test", "num", "num-fmt", "html-num", "html-num-fmt", "date", "html-utf8", "html", "string-utf8", "string"
 		] );
 	} );
 } );
