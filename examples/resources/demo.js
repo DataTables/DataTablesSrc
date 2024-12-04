@@ -747,7 +747,7 @@ window.dt_demo = {
 			return 'Bootstrap 3';
 		}
 		else if (styling === 'bootstrap4') {
-			return 'Bootstrap 5';
+			return 'Bootstrap 4';
 		}
 		else if (styling === 'bootstrap5') {
 			return 'Bootstrap 5';
