@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>function( e, settings, json, xhr )</signature>
+		<signature>function( e, settings, data, xhr )</signature>
 		<parameter type="object" name="e">
 			jQuery event object
 		</parameter>
