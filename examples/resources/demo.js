@@ -230,8 +230,15 @@ window.dt_demo = {
 		// Check if all libraries have been loaded
 		if (queue.length === 0 && cssQueue.length === 0 ) {
 			// Check the document is ready
-			if (document.readyState !== 'loading') {
+			if (document.readyState === 'complete') {
 				dt_demo._run();
+			}
+			else if (document.readyState === 'interactive') {
+				document.addEventListener("readystatechange", (event) => {
+					if (queue.length === 0 && cssQueue.length === 0 ) {
+						dt_demo._run();
+					}
+				});
 			}
 			else {
 				document.addEventListener('DOMContentLoaded', function () {
