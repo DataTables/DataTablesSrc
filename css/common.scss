@@ -166,6 +166,10 @@ table.dataTable {
             @include control-close;
         }
     }
+
+	tfoot:empty {
+		display: none;
+	}
 }
 
 html.dark,
