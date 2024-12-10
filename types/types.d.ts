@@ -3320,17 +3320,17 @@ type FunctionAjaxData = (data: AjaxData, settings: InternalSettings) => string |
 
 type FunctionColumnRender = (data: any, type: any, row: any, meta: CellMetaSettings) => any;
 
-type FunctionColumnCreatedCell = (cell: Node, cellData: any, rowData: any, row: number, col: number) => void;
+type FunctionColumnCreatedCell = (cell: HTMLTableCellElement, cellData: any, rowData: any, row: number, col: number) => void;
 
-type FunctionCreateRow = (row: Node, data: any[] | object, dataIndex: number, cells: Node[]) => void;
+type FunctionCreateRow = (row: HTMLTableRowElement, data: any[] | object, dataIndex: number, cells: HTMLTableCellElement[]) => void;
 
 type FunctionDrawCallback = (settings: InternalSettings) => void;
 
-type FunctionFooterCallback = (tfoot: Node, data: any[], start: number, end: number, display: any[]) => void;
+type FunctionFooterCallback = (tr: HTMLTableRowElement, data: any[], start: number, end: number, display: any[]) => void;
 
 type FunctionFormatNumber = (formatNumber: number) => void;
 
-type FunctionHeaderCallback = (thead: Node, data: any[], start: number, end: number, display: any[]) => void;
+type FunctionHeaderCallback = (tr: HTMLTableRowElement, data: any[], start: number, end: number, display: any[]) => void;
 
 type FunctionInfoCallback = (settings: InternalSettings, start: number, end: number, mnax: number, total: number, pre: string) => void;
 
@@ -3338,7 +3338,7 @@ type FunctionInitComplete = (settings: InternalSettings, json: object) => void;
 
 type FunctionPreDrawCallback = (settings: InternalSettings) => void;
 
-type FunctionRowCallback = (row: Node, data: any[] | object, index: number) => void;
+type FunctionRowCallback = (row: HTMLTableRowElement, data: any[] | object, index: number) => void;
 
 type FunctionStateLoadCallback = (settings: InternalSettings) => void;
 
