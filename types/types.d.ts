@@ -615,13 +615,15 @@ export interface ConfigLanguage {
         previous?: string;
     };
     aria?: {
-        sortAscending?: string;
-        sortDescending?: string;
+        orderable?: string;
+        orderableReverse?: string;
+        orderableRemove?: string;
         paginate?: {
             first?: string;
             last?: string;
             next?: string;
             previous?: string;
+            number?: string;
         };
     };
     url?: string;
