@@ -245,6 +245,10 @@ table.tables().every(function (i) {
 	expectType<Node>(this.header());
 	expectType<number>(i);
 });
+expectType<HTMLTableElement>(table.table().node());
+expectType<HTMLTableSectionElement>(table.table().header());
+expectType<HTMLTableSectionElement>(table.table().body());
+expectType<HTMLTableSectionElement>(table.table().footer());
 
 
 /* Search */
@@ -290,6 +294,8 @@ tableRowType.rows().every(function () {
 	expectType<number>(this.index());
 });
 
+expectType<HTMLTableRowElement>(table.row(1).node());
+
 
 
 /*
@@ -329,7 +335,7 @@ DataTable.type('num', {
 	search: d => d
 });
 
-expectType<undefined>(DataTable.use('win', window));
+expectType<void>(DataTable.use('win', window));
 
 expectType<number[]>(DataTable.util.unique([1,2,3,4]));
 

@@ -1693,7 +1693,7 @@ export interface ApiCellMethods<T> extends Omit<Api<T>, 'render' | 'select'> {
      * 
      * @returns The TD / TH cell the selector resolved to
      */
-    node(): Node;
+    node(): HTMLTableCellElement;
 
     /**
      * Get data for the selected cell
@@ -1772,7 +1772,7 @@ export interface ApiCellsMethods<T> extends Omit<Api<T>, 'data' | 'render' | 'se
     /**
      * Get the DOM elements for the selected cells
      */
-    nodes(): Api<Node>;
+    nodes(): Api<HTMLTableCellElement>;
 
     /**
      * Get data for the selected cell
@@ -1900,7 +1900,7 @@ export interface ApiColumnMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'ord
      * 
      * @returns DataTables API instance with each cell's node from the selected columns in the result set. This is a 1D array with each entry being the node for the cells from the selected column.
      */
-    nodes(): Api<Array<Node>>;
+    nodes(): Api<Array<HTMLTableCellElement>>;
 
     /**
      * Order the table, in the direction specified, by the column selected by the column() selector.
@@ -2133,7 +2133,7 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
      * 
      * @returns DataTables API instance with each cell's node from the selected columns in the result set. This is a 2D array with the top level array entries for each column matched by the columns() selector.
      */
-    nodes(): Api<Array<Array<Node>>>;
+    nodes(): Api<Array<Array<HTMLTableCellElement>>>;
 
     /**
      * Order the table, in the direction specified, by the columns selected by the column() selector.
@@ -2425,14 +2425,14 @@ export interface ApiRowMethods<T> extends Omit<Api<T>, 'data' | 'select'> {
      * 
      * @returns tr element of the selected row or null if the element is not yet available
      */
-    node(): Node;
+    node(): HTMLTableRowElement;
 
     /**
      * Delete the selected row from the DataTable.
      * 
      * @returns DataTables API instance with removed row reference in the result set
      */
-    remove(): Api<Node>;
+    remove(): Api<T>;
 }
 
 export interface ApiRows<T> {
@@ -2532,7 +2532,7 @@ export interface ApiTableMethods<T> extends Api<T> {
          * 
          * @returns HTML tbody node.
          */
-        (): Node;
+        (): HTMLTableSectionElement;
 
         /**
          * Get an array that represents the structure of the footer
@@ -2548,7 +2548,7 @@ export interface ApiTableMethods<T> extends Api<T> {
          * 
          * @returns HTML thead node.
          */
-        (): Node;
+        (): HTMLTableSectionElement;
 
         /**
          * Get an array that represents the structure of the header
@@ -2563,21 +2563,21 @@ export interface ApiTableMethods<T> extends Api<T> {
      * 
      * @returns HTML tfoot node.
      */
-    body(): Node;
+    body(): HTMLTableSectionElement;
 
     /**
      * Get the div container node for the table in the API's context
      * 
      * @returns HTML div node.
      */
-    container(): Node;
+    container(): HTMLDivElement;
 
     /**
      * Get the table node for the table in the API's context
      * 
      * @returns HTML table node for the selected table.
      */
-    node(): Node;
+    node(): HTMLTableElement;
 }
 
 export interface ApiTablesMethods<T> extends Api<T> {
@@ -2586,28 +2586,28 @@ export interface ApiTablesMethods<T> extends Api<T> {
      * 
      * @returns Array of HTML tfoot nodes for all table in the API's context
      */
-    footer(): Api<Array<Node>>;
+    footer(): Api<Array<HTMLTableSectionElement>>;
 
     /**
      * Get the thead nodes for the tables in the API's context
      * 
      * @returns Array of HTML thead nodes for all table in the API's context
      */
-    header(): Api<Array<Node>>;
+    header(): Api<Array<HTMLTableSectionElement>>;
 
     /**
      * Get the tbody nodes for the tables in the API's context
      * 
      * @returns Array of HTML tbody nodes for all table in the API's context
      */
-    body(): Api<Array<Node>>;
+    body(): Api<Array<HTMLTableSectionElement>>;
 
     /**
      * Get the div container nodes for the tables in the API's context
      * 
      * @returns Array of HTML div nodes for all table in the API's context
      */
-    containers(): Api<Array<Node>>;
+    containers(): Api<Array<HTMLDivElement>>;
 
     /**
      * Iterate over each selected table, with the function context set to be the table in question. Since: DataTables 1.10.6
@@ -2622,7 +2622,7 @@ export interface ApiTablesMethods<T> extends Api<T> {
      * 
      * @returns Array of HTML table nodes for all table in the API's context
      */
-    nodes(): Api<Array<Node>>;
+    nodes(): Api<Array<HTMLTableElement>>;
 }
 
 
