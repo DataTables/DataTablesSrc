@@ -2514,7 +2514,7 @@ export interface ApiRowsMethods<T> extends Omit<Api<T>, 'select'> {
      * 
      * @returns DataTables API instance with each row's node from the selected rows in the result set.
      */
-    nodes(): Api<Array<Node>>;
+    nodes(): Api<Array<HTMLTableRowElement>>;
 
     /**
      * Delete the selected rows from the DataTable.
