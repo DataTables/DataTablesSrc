@@ -67,4 +67,15 @@ describe( "Complex header ordering", function() {
 
 		expect( $('tbody td').eq(0).text() ).toBe('Tiger Nixon');
 	} );
+
+	dt.html( 'basic' );
+
+	it( 'Initialisation with single row complex header', async function () {
+		$('#example thead tr th').last().remove();
+		$('#example thead tr th').last()[0].colSpan = 2;
+		
+		table = $('#example').DataTable();
+
+		expect( $('tbody td').eq(0).text() ).toBe('Airi Satou');
+	} );
 } );

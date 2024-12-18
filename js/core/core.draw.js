@@ -192,9 +192,13 @@ function _fnBuildHead( settings, side )
 
 		// Add the number of cells needed to make up to the number of columns
 		if (row.length === 1) {
-			var cells = $('td, th', row);
+			var cellCount = 0;
+			
+			$('td, th', row).each(function () {
+				cellCount += this.colSpan;
+			});
 
-			for ( i=cells.length, ien=columns.length ; i<ien ; i++ ) {
+			for ( i=cellCount, ien=columns.length ; i<ien ; i++ ) {
 				$('<th/>')
 					.html( columns[i][titleProp] || '' )
 					.appendTo( row );
