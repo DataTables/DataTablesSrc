@@ -16,14 +16,35 @@
 
 		If you do not wish to use `localStorage` or `sessionStorage`, alternative options such as saving the state on a server through Ajax can be used through the `dt-init stateSaveCallback` and `dt-init stateLoadCallback` options.
 
-		Child rows state can also be maintained, but this requires some work to be done by the developer. There is a `-event requestChild` that is triggered whenever DataTables wants to insert a child row into the table. The developer must set a callback function for this event that deals with the display of the childrow. It is also worth noting that for this to work the rows have to have ids, and that this functionality is only available in version 1.11.0 and above.
+		Each individual part of the state object is optional (see `-init stateSaveCallback` for details of the JSON state structure) and can be removed by the state saving process (typically this would be done in `-init stateSaveParams`). Futhermore, as of DataTables 2.2, column state can be restored, even if columns are reordered, added or removed through use of the `-init columns.name` parameter. The `name` is a unique identifier for each column and the state will include that information and restore based on it.
 
-		Note: As of 1.11.0 the datatables state is stored regardless of the `-init stateSave` option. This data is only used to revert to a state when the `-init stateSave` option is enabled - otherwise it is not used.
+		There are a number of conditions under which a state might not be restored:
+
+		* If the saved state is too old (`-init stateDuration`)
+		* If `-init stateLoadParams` or `-event stateLoadParams` cancels the loading
+		* Column specific information will not be restored if the number of columns in the table does not match the number of columns from the state and `-init columns.name` was not used.
+
+		Child rows state can also be maintained, but this requires some work to be done by the developer. There is a `-event requestChild` that is triggered whenever DataTables wants to insert a child row into the table. The developer must set a callback function for this event that deals with the display of the child row. It is also worth noting that for this to work the rows have to have ids, and that this functionality is only available in version 1.11.0 and above.
 	</description>
 
 	<example title="Enable state saving"><![CDATA[
 new DataTable('#myTable', {
 	stateSave: true
+});
+]]></example>
+
+	<example title="Ajax loaded data, and column names to allow reordering of columns in the initialisation while retaining state integrity"><![CDATA[
+new DataTable('#myTable', {
+	stateSave: true,
+	ajax: '/api/data',
+	columns: [
+		{ data: 'name', name: 'name' },
+		{ data: 'position', name: 'position' },
+		{ data: 'office', name: 'office' },
+		{ data: 'age', name: 'age' },
+		{ data: 'start_date', name: 'start_date' },
+		{ data: 'salary', name: 'salary' }
+	]
 });
 ]]></example>
 
@@ -46,6 +67,7 @@ new DataTable('#myTable', {
 	<related type="api">state.clear()</related>
 	<related type="api">state.loaded()</related>
 	<related type="api">state.save()</related>
+	<related type="option">columns.name</related>
 	<related type="option">stateSaveCallback</related>
 	<related type="option">stateDuration</related>
 	<related type="option">stateLoadCallback</related>

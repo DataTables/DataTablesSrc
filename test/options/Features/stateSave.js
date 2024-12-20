@@ -201,23 +201,31 @@ describe('stateSave option', function() {
 			table.destroy();
 			table = $('#example').DataTable({ stateSave: true });
 			expect($('div.dt-info').text()).toBe('Showing 1 to 25 of 57 entries');
+
+			// Nuke old states
+			localStorage.clear();
 		});
 	});
 
-	describe('Check state is ignored if table shape changes', function() {
+	describe('Check state restore on table structure change', function() {
+		let table;
+
 		dt.html('basic');
 
-		it('Create the initial table, confirm then destroy', async function() {
-			let table = $('#example').DataTable({ stateSave: true });
+		it('Create the initial table with sorting, paging and column search', async function() {
+			table = $('#example').DataTable({ stateSave: true });
+			
 			await dt.clickHeader(0);
+			table.page(1);
+			table.column(4).search('20').draw(false);
 
 			expect(table.settings()[0].aoColumns.length).toBe(6);
-			expect($('#example tbody td:eq(0)').text()).toBe('Zorita Serrano');
-			expect($('#example tbody td:eq(3)').text()).toBe('56');
+			expect($('#example tbody td:eq(0)').text()).toBe('Sonya Frost');
+			expect($('#example tbody td:eq(3)').text()).toBe('23');
 			table.destroy();
 		});
 
-		it('Remove column and reinitialise datatable', function() {
+		it('Remove column and reinitialise datatable - check paging was restored', function() {
 			$('#example thead th:eq(3)').remove();
 			$('#example tfoot th:eq(3)').remove();
 			$('#example tbody tr').each(function() {
@@ -226,13 +234,89 @@ describe('stateSave option', function() {
 					.remove();
 			});
 
-			let table = $('#example').DataTable({ stateSave: true });
+			table = $('#example').DataTable({ stateSave: true });
+
 			expect(table.settings()[0].aoColumns.length).toBe(5);
-			expect($('#example tbody td:eq(0)').text()).toBe('Airi Satou');
-			expect($('#example tbody td:eq(3)').text()).toBe('2008/11/28');
+			expect(table.page()).toBe(1);
+		});
+
+		it('Check sorting was restored', function() {
+			expect($('#example tbody td:eq(0)').text()).toBe('Sonya Frost');
+			expect($('#example tbody td:eq(3)').text()).toBe('2008/12/13');
+		});
+
+		it('Column information however was not restored', function() {
+			expect(table.column(4).search()).toBe('');
+
+			// Nuke old states
+			localStorage.clear();
 		});
 	});
 
+	describe('Column order change when using names', function() {
+		let table;
+
+		dt.html('empty');
+
+		it('Load with names', function(done) {
+			table = $('#example').DataTable({
+				stateSave: true,
+				ajax: '/base/test/data/data.txt',
+				columns: [
+					{ data: 'name', name: 'name' },
+					{ data: 'position', name: 'position' },
+					{ data: 'office', name: 'office' },
+					{ data: 'age', name: 'age' },
+					{ data: 'start_date', name: 'start_date' },
+					{ data: 'salary', name: 'salary' }
+				],
+				initComplete: function() {
+					expect($('tbody tr:eq(2) td:eq(0)').text()).toBe('Ashton Cox');
+					done();
+				}
+			});
+		});
+
+		it('Save state', function() {
+			table.column(4).search('2011').draw();
+
+			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Brenden Wagner');
+		});
+
+		it('Destroy and reinit in different column order', function(done) {
+			table.destroy();
+
+			table = $('#example').DataTable({
+				stateSave: true,
+				ajax: '/base/test/data/data.txt',
+				columns: [
+					{ data: 'start_date', name: 'start_date' },
+					{ data: 'name', name: 'name' },
+					{ data: 'position', name: 'position' },
+					{ data: 'office', name: 'office' },
+					{ data: 'age', name: 'age' },
+					{ data: 'salary', name: 'salary' }
+				],
+				initComplete: function() {
+					expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('2011/06/07');
+					expect($('tbody tr:eq(0) td:eq(1)').text()).toBe('Brenden Wagner');
+					done();
+				}
+			});
+		});
+
+		it('Filter is applied to what is now the first column', function() {
+			expect(table.column(0).search()).toBe('2011');
+		});
+
+		it('Sorting is now the second column', function() {
+			// Originally it was column index 0, which is now 1 due to the moved columns
+			expect(table.order()[0][0]).toBe(1);
+
+			// Nuke old states
+			localStorage.clear();
+		});
+	});
 
 	describe('Column visibility', function() {
 		dt.html('basic');

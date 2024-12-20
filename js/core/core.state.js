@@ -11,15 +11,26 @@ function _fnSaveState ( settings )
 		return;
 	}
 
+	// Sort state saving uses [[idx, order]] structure.
+	var sorting = [];
+	_fnSortResolve(settings, sorting, settings.aaSorting );
+
 	/* Store the interesting variables */
+	var columns = settings.aoColumns;
 	var state = {
 		time:    +new Date(),
 		start:   settings._iDisplayStart,
 		length:  settings._iDisplayLength,
-		order:   $.extend( true, [], settings.aaSorting ),
+		order:   sorting.map(function (sort) {
+			// If a column name is available, use it
+			return columns[sort[0]] && columns[sort[0]].sName
+				? [ columns[sort[0]].sName, sort[1] ]
+				: sort;
+		} ),
 		search:  $.extend({}, settings.oPreviousSearch),
 		columns: settings.aoColumns.map( function ( col, i ) {
 			return {
+				name: col.sName,
 				visible: col.bVisible,
 				search: $.extend({}, settings.aoPreSearchCols[i])
 			};
@@ -67,6 +78,8 @@ function _fnLoadState ( settings, init, callback )
 function _fnImplementState ( settings, s, callback) {
 	var i, ien;
 	var columns = settings.aoColumns;
+	var currentNames = _pluck(settings.aoColumns, 'sName');
+
 	settings._bLoadingState = true;
 
 	// When StateRestore was introduced the state could now be implemented at any time
@@ -91,13 +104,6 @@ function _fnImplementState ( settings, s, callback) {
 	// cancelling of loading by returning false
 	var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
 	if ( abStateLoad.indexOf(false) !== -1 ) {
-		settings._bLoadingState = false;
-		callback();
-		return;
-	}
-
-	// Number of columns have changed - all bets are off, no restore of settings
-	if ( s.columns && columns.length !== s.columns.length ) {
 		settings._bLoadingState = false;
 		callback();
 		return;
@@ -136,10 +142,23 @@ function _fnImplementState ( settings, s, callback) {
 	if ( s.order !== undefined ) {
 		settings.aaSorting = [];
 		$.each( s.order, function ( i, col ) {
-			settings.aaSorting.push( col[0] >= columns.length ?
-				[ 0, col[1] ] :
-				col
-			);
+			var set = [ col[0], col[1] ];
+
+			// A column name was stored and should be used for restore
+			if (typeof col[0] === 'string') {
+				var idx = currentNames.indexOf(col[0]);
+
+				// Find the name from the current list of column names, or fallback to index 0
+				set[0] = idx >= 0
+					? idx
+					: 0;
+			}
+			else if (set[0] >= columns.length) {
+				// If a column name, but it is out of bounds, set to 0
+				set[0] = 0;
+			}
+
+			settings.aaSorting.push(set);
 		} );
 	}
 
@@ -150,30 +169,64 @@ function _fnImplementState ( settings, s, callback) {
 
 	// Columns
 	if ( s.columns ) {
-		for ( i=0, ien=s.columns.length ; i<ien ; i++ ) {
-			var col = s.columns[i];
+		var set = s.columns;
+		var incoming = _pluck(s.columns, 'name');
 
-			// Visibility
-			if ( col.visible !== undefined ) {
-				// If the api is defined, the table has been initialised so we need to use it rather than internal settings
-				if (api) {
-					// Don't redraw the columns on every iteration of this loop, we will do this at the end instead
-					api.column(i).visible(col.visible, false);
+		// Check if it is a 2.2 style state object with a `name` property for the columns, and if
+		// the name was defined. If so, then create a new array that will map the state object
+		// given, to the current columns (don't bother if they are already matching tho).
+		if (incoming.join('').length && incoming.join('') !== currentNames.join('')) {
+			set = [];
+
+			// For each column, try to find the name in the incoming array
+			for (i=0 ; i<currentNames.length ; i++) {
+				if (currentNames[i] != '') {
+					var idx = incoming.indexOf(currentNames[i]);
+
+					if (idx >= 0) {
+						set.push(s.columns[idx]);
+					}
+					else {
+						// No matching column name in the state's columns, so this might be a new
+						// column and thus can't have a state already.
+						set.push({});
+					}
 				}
 				else {
-					columns[i].bVisible = col.visible;
+					// If no name, but other columns did have a name, then there is no knowing
+					// where this one came from originally so it can't be restored.
+					set.push({});
+				}
+			}
+		}
+
+		// If the number of columns to restore is different from current, then all bets are off.
+		if (set.length === columns.length) {
+			for ( i=0, ien=set.length ; i<ien ; i++ ) {
+				var col = set[i];
+
+				// Visibility
+				if ( col.visible !== undefined ) {
+					// If the api is defined, the table has been initialised so we need to use it rather than internal settings
+					if (api) {
+						// Don't redraw the columns on every iteration of this loop, we will do this at the end instead
+						api.column(i).visible(col.visible, false);
+					}
+					else {
+						columns[i].bVisible = col.visible;
+					}
+				}
+
+				// Search
+				if ( col.search !== undefined ) {
+					$.extend( settings.aoPreSearchCols[i], col.search );
 				}
 			}
 
-			// Search
-			if ( col.search !== undefined ) {
-				$.extend( settings.aoPreSearchCols[i], col.search );
+			// If the api is defined then we need to adjust the columns once the visibility has been changed
+			if (api) {
+				api.columns.adjust();
 			}
-		}
-		
-		// If the api is defined then we need to adjust the columns once the visibility has been changed
-		if (api) {
-			api.columns.adjust();
 		}
 	}
 

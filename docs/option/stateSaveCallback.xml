@@ -34,6 +34,7 @@
 			},
 			"columns" [
 				{
+					"name":    {string}      // Column name (since 2.2)
 					"visible": {boolean}     // Column visibility
 					"search":  {}            // Object containing column search information. Same structure as `search` above
 				}

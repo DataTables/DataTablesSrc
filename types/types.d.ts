@@ -1401,6 +1401,7 @@ export interface State {
     order: Array<Array<(string | number)>>;
     search: ConfigSearch;
     columns: Array<{
+        name: string;
         search: ConfigSearch;
         visible: boolean;
     }>;
