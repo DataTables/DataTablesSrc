@@ -125,6 +125,11 @@ _api_register( 'destroy()', function ( remove ) {
 			new _Api( settings ).columns().visible( true );
 		}
 
+		// Container width change listener
+		if (settings.resizeObserver) {
+			settings.resizeObserver.disconnect();
+		}
+
 		// Blitz all `DT` namespaced events (these are internal events, the
 		// lowercase, `dt` events are user subscribed and they are responsible
 		// for removing them

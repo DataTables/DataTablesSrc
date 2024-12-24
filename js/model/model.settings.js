@@ -680,5 +680,11 @@ DataTable.models.oSettings = {
 	deferLoading: null,
 
 	/** Allow auto type detection */
-	typeDetect: true
+	typeDetect: true,
+
+	/** ResizeObserver for the container div */
+	resizeObserver: null,
+
+	/** Keep a record of the last size of the container, so we can skip duplicates */
+	containerWidth: 0
 };

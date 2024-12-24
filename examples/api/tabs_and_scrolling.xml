@@ -7,10 +7,6 @@
 <title>Scrolling and Bootstrap tabs</title>
 <js><![CDATA[
 
-$('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-	DataTable.tables({ visible: true, api: true }).columns.adjust();
-});
-
 $('table.table').DataTable({
 	ajax: '../ajax/data/arrays.txt',
 	paging: false,
@@ -24,13 +20,6 @@ $('#myTable2').DataTable().search('New York').draw();
 ]]></js>
 
 <js-vanilla><![CDATA[
-
-// Listen for Bootstrap tab change
-document.querySelectorAll('button[data-bs-toggle="tab"]').forEach((el) => {
-	el.addEventListener('shown.bs.tab', () => {
-		DataTable.tables({ visible: true, api: true }).columns.adjust();
-	});
-});
 
 new DataTable('table.table', {
 	ajax: '../ajax/data/arrays.txt',
@@ -48,11 +37,9 @@ new DataTable.Api('#myTable2').search('New York').draw();
 
 This example shows how DataTables with scrolling can be used together with [Bootstrap tabs](https://getbootstrap.com/javascript/#tabs) (or indeed any other method whereby the table is in a hidden, `display:none`, element when it is initialised).
 
-The reason this requires special consideration is that when the DataTable is initialised in a hidden element the browser doesn't have any measurements with which to give the DataTable, and this will result in the misalignment of columns when scrolling is enabled.
+As of DataTables 2.2 when used with a browser from 2020 or newer, there is no special consideration required for this use case. However, if you need to support legacy browsers, you will notice that if the DataTable is initialised in a hidden element the browser doesn't have any measurements with which to give the DataTable, and this will result in the misalignment of columns when scrolling is enabled.
 
-This misalignment can be corrected by the `dt-api columns.adjust()` method when the table is made visible (i.e. it has dimensions).
-
-This example shows how the Bootstrap `shown.bs.tab` event can be used to trigger this method call. The visible tables on the page are selected using the static `dt-api $.fn.dataTable.tables()` method and running the `dt-api columns.adjust()` method on them.
+This misalignment can be corrected by the `dt-api columns.adjust()` method when the table is made visible (i.e. it has dimensions). As noted, this is not something you need to do as of DataTables 2.2, unless you need to support legacy browsers.
 
 ]]></info>
 

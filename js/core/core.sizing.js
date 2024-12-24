@@ -192,15 +192,46 @@ function _fnCalculateColumnWidths ( settings )
 	}
 
 	if ( (tableWidthAttr || scrollX) && ! settings._reszEvt ) {
-		var bindResize = function () {
-			$(window).on('resize.DT-'+settings.sInstance, DataTable.util.throttle( function () {
-				if (! settings.bDestroying) {
-					_fnAdjustColumnSizing( settings );
-				}
-			} ) );
-		};
+		settings.containerWidth = $(settings.nTableWrapper).width();
 
-		bindResize();
+		var resize = DataTable.util.throttle( function () {
+			var newWidth = $(settings.nTableWrapper).width();
+
+			// Don't do it if destroying, is the same size as last time, or the container
+			// width is 0
+			if (
+				! settings.bDestroying &&
+				settings.containerWidth !== newWidth &&
+				newWidth !== 0
+			) {
+				// Do a resize
+				_fnAdjustColumnSizing( settings );
+				settings.containerWidth = newWidth;
+			}
+		} );
+
+		// For browsers that support it (~2020 onwards for wide support) we can watch for the
+		// container changing width.
+		if (window.ResizeObserver) {
+			settings.resizeObserver = new ResizeObserver(function (e) {
+				var box = e[0].contentBoxSize;
+				var size = Array.isArray(box)
+					? box[0].inlineSize // Spec
+					: box.inlineSize; // Old Firefox
+
+				// Under this condition a resize will trigger its own resize, causing an error.
+				if (size < settings.containerWidth) {
+					return;
+				}
+
+				resize();
+			});
+			settings.resizeObserver.observe(settings.nTableWrapper);
+		}
+		else {
+			// For old browsers, the best we can do is listen for a window resize
+			$(window).on('resize.DT-'+settings.sInstance, resize);
+		}
 
 		settings._reszEvt = true;
 	}
