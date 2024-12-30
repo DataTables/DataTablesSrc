@@ -36,12 +36,20 @@
     * `html-num-fmt` - As per the `num-fmt` option, but with HTML tags also in the data.
       * Sorting - sorted numerically
       * Filtering - HTML tags removed from filtering string
+    * `html-utf8` - Detected if the string contains HTML tags and it contains non-ASCII characters
+      * Sorting - Sorts using [`localeCompare`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare) to ensure diacritc characters are correctly sorted
+      * Filtering - Can search either with or without diacritic characters, and will match with or without
     * `html` - Basic string processing for HTML tags
       * Sorting - sorted with HTML tags removed
       * Filtering - HTML tags removed from filtering string
+    * `string-utf8` - String data type if the text is found to contain non-ASCII characters
+      * Sorting - Sorts using `localeCompare`
+      * Filtering - Can search either with or without diacritic characters, and will match with or without
     * `string` - Fall back type if the data in the column does not match the requirements for the other data types (above).
       * Sorting - no effect
       * Filtering - no effect
+
+    The two `-utf8` options for `html` and `string` are provided separately from their respective base types as they require some extra processing type. They could be bundled together, but for pure ASCII data this approach leads to improved performance.
 
     It is expected that the above options will cover the majority of data types used with DataTables, however, data is flexible and comes in many forms, so additional types with different effects can be added through the use of plug-ins. This provides the ability to sort almost any data format imaginable!
 
