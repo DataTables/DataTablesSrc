@@ -130,28 +130,28 @@ describe('Basic Datatables Test', function() {
 
 		it('Changing table length to 25 records', function() {
 			$('#example').DataTable();
-			$('select[name=example_length]')
+			$('div.dt-length select')
 				.val('25')
 				.change();
 			expect($('#example tbody tr').length).toBe(25);
 		});
 
 		it('Changing table length to 50 records', function() {
-			$('select[name=example_length]')
+			$('div.dt-length select')
 				.val('50')
 				.change();
 			expect($('#example tbody tr').length).toBe(50);
 		});
 
 		it('Changing table length to 100 records', function() {
-			$('select[name=example_length]')
+			$('div.dt-length select')
 				.val('100')
 				.change();
 			expect($('#example tbody tr').length).toBe(57);
 		});
 
 		it('Changing table length to 10 records', function() {
-			$('select[name=example_length]')
+			$('div.dt-length select')
 				.val('10')
 				.change();
 			expect($('#example tbody tr').length).toBe(10);
@@ -193,7 +193,7 @@ describe('Basic Datatables Test', function() {
 		});
 
 		it('Information with 25 records', function() {
-			$('select[name=example_length]')
+			$('div.dt-length select')
 				.val('25')
 				.change();
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 25 of 57 entries');
@@ -205,14 +205,14 @@ describe('Basic Datatables Test', function() {
 		});
 
 		it('Information with 100 records', function() {
-			$('select[name=example_length]')
+			$('div.dt-length select')
 				.val('100')
 				.change();
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 57 of 57 entries');
 		});
 
 		it('Information back to 10 records', function() {
-			$('select[name=example_length]')
+			$('div.dt-length select')
 				.val('10')
 				.change();
 			$('div button.previous').click();

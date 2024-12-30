@@ -181,7 +181,7 @@ describe('stateSave option', function() {
 		dt.html('basic');
 		it('Information with 25 records - state cleared', function() {
 			let table = $('#example').DataTable({ stateSave: true });
-			$('select[name=example_length]')
+			$('div.dt-length select')
 				.val('25')
 				.change();
 
@@ -195,7 +195,7 @@ describe('stateSave option', function() {
 		dt.html('basic');
 		it('Information with 25 record - state not cleared', function() {
 			let table = $('#example').DataTable({ stateSave: true });
-			$('select[name=example_length]')
+			$('div.dt-length select')
 				.val('25')
 				.change();
 			table.destroy();
