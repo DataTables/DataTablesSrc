@@ -85,7 +85,7 @@ DataTable.ext.renderer.layout.foundation = function ( settings, container, items
 		.addClass(items.className || classes.row)
 		.appendTo( container );
 
-	$.each( items, function (key, val) {
+	DataTable.ext.renderer.layout._forLayoutRow(items, function (key, val) {
 		if (key === 'id' || key === 'className') {
 			return;
 		}

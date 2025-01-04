@@ -83,7 +83,7 @@ DataTable.ext.renderer.layout.tailwindcss = function ( settings, container, item
 		} )
 		.appendTo( container );
 
-	$.each( items, function (key, val) {
+	DataTable.ext.renderer.layout._forLayoutRow(items, function (key, val) {
 		var klass;
 
 		// Apply start / end (left / right when ltr) margins

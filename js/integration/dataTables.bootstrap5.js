@@ -69,38 +69,3 @@ DataTable.ext.renderer.pagingButton.bootstrap = function (settings, buttonType, 
 DataTable.ext.renderer.pagingContainer.bootstrap = function (settings, buttonEls) {
 	return $('<ul/>').addClass('pagination').append(buttonEls);
 };
-
-// DataTable.ext.renderer.layout.bootstrap = function ( settings, container, items ) {
-// 	var row = $( '<div/>', {
-// 			"class": items.full ?
-// 				'row mt-2 justify-content-md-center' :
-// 				'row mt-2 justify-content-between'
-// 		} )
-// 		.appendTo( container );
-
-// 	$.each( items, function (key, val) {
-// 		var klass;
-// 		var cellClass = '';
-
-// 		// Apply start / end (left / right when ltr) margins
-// 		if (val.table) {
-// 			klass = 'col-12';
-// 		}
-// 		else if (key === 'start') {
-// 			klass = '' + cellClass;
-// 		}
-// 		else if (key === 'end') {
-// 			klass = '' + cellClass;
-// 		}
-// 		else {
-// 			klass = ' ' + cellClass;
-// 		}
-
-// 		$( '<div/>', {
-// 				id: val.id || null,
-// 				"class": klass + ' ' + (val.className || '')
-// 			} )
-// 			.append( val.contents )
-// 			.appendTo( row );
-// 	} );
-// };

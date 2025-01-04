@@ -59,7 +59,7 @@ DataTable.ext.renderer.layout.uikit = function ( settings, container, items ) {
 		} )
 		.appendTo( container );
 
-	$.each( items, function (key, val) {
+	DataTable.ext.renderer.layout._forLayoutRow(items, function (key, val) {
 		var klass = '';
 		if ( key === 'start' ) {
 			klass += 'uk-text-left';

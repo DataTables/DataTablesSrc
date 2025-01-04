@@ -77,7 +77,7 @@ DataTable.ext.renderer.layout.material = function ( settings, container, items )
 		} )
 		.appendTo( grid );
 
-	$.each( items, function (key, val) {
+	DataTable.ext.renderer.layout._forLayoutRow(items, function (key, val) {
 		var klass = '';
 		if ( key === 'start' ) {
 			klass += 'mdc-layout-grid__cell mdc-layout-grid__cell--span-6';

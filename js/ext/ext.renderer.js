@@ -142,7 +142,7 @@ $.extend( true, DataTable.ext.renderer, {
 				.addClass(items.className || classes.row)
 				.appendTo( container );
 
-			$.each( items, function (key, val) {
+			DataTable.ext.renderer.layout._forLayoutRow(items, function (key, val) {
 				if (key === 'id' || key === 'className') {
 					return;
 				}
@@ -173,7 +173,31 @@ $.extend( true, DataTable.ext.renderer, {
 					})
 					.append( val.contents )
 					.appendTo( row );
-			} );
+			});
+		},
+
+		// Shared for use by the styling frameworks
+		_forLayoutRow: function (items, fn) {
+			// As we are inserting dom elements, we need start / end in a
+			// specific order, this function is used for sorting the layout
+			// keys.
+			var layoutEnum = function (x) {
+				switch (x) {
+					case '': return 0;
+					case 'start': return 1;
+					case 'end': return 2;
+					default: return 3;
+				}
+			};
+
+			Object
+				.keys(items)
+				.sort(function (a, b) {
+					return layoutEnum(a) - layoutEnum(b);
+				})
+				.forEach(function (key) {
+					fn(key, items[key]);
+				});
 		}
 	}
 } );
