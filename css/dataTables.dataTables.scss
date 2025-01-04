@@ -4,6 +4,14 @@
 @import './processing.scss';
 @import './typography.scss';
 
+:root {
+	--dt-row-hover-alpha: 0.035;
+	--dt-row-stripe-alpha: 0.023;
+	--dt-column-ordering-alpha: 0.019;
+	--dt-row-selected-stripe-alpha: 0.923;
+	--dt-row-selected-column-ordering-alpha: 0.919;
+}
+
 // jQuery UI stylesheet imports this one - there are just two places where we
 // don't want DataTabels default styles assigned for jQuery UI, so rather than
 // duplicating the whole file, this is the best option
@@ -133,12 +141,12 @@ table.dataTable {
 	&.display > tbody {
 		> tr:nth-child(odd) > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.023);
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe), 0.023);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe), var(--dt-row-stripe-alpha));
 		}
 
 		> tr:nth-child(odd).selected > * {
 			box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.923);
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.923);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), var(--dt-row-selected-stripe-alpha));
 		}
 	}
 
@@ -149,7 +157,7 @@ table.dataTable {
 	&.display > tbody {
 		> tr:hover > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.035);
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.035);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), var(--dt-row-hover-alpha));
 		}
 
 		> tr.selected:hover > * {
@@ -167,75 +175,46 @@ table.dataTable {
 			tr > .sorting_2,
 			tr > .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.019);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), var(--dt-column-ordering-alpha));
 			}
 
 			tr.selected > .sorting_1,
 			tr.selected > .sorting_2,
 			tr.selected > .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.919);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.919);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), var(--dt-row-selected-column-ordering-alpha));
 			}
 		}
 	}
+
 	&.display > tbody,
 	&.order-column.stripe > tbody {
 		> tr:nth-child(odd) {
 			> .sorting_1 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.054);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.054);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha)));
 			}
 			> .sorting_2 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.047);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.047);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha) - 0.007) );
 			}
 			> .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.039);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.039);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha) - 0.015));
 			}
 
 			&.selected {
 				> .sorting_1 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.954);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.954);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha)));
 				}
 				> .sorting_2 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.947);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.947);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) - 0.007));
 				}
 				> .sorting_3 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.939);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.939);
-				}
-			}
-		}
-
-		> tr.even {
-			> .sorting_1 {
-				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.019);
-			}
-			> .sorting_2 {
-				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.011);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.011);
-			}
-			> .sorting_3 {
-				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.003);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), 0.003);
-			}
-			
-			&.selected {
-				> .sorting_1 {
-					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.919);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.919);
-				}
-				> .sorting_2 {
-					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.911);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.911);
-				}
-				> .sorting_3 {
-					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.903);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.903);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) - 0.015));
 				}
 			}
 		}
@@ -246,29 +225,29 @@ table.dataTable {
 		tr:hover {
 			> .sorting_1 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.082);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.082);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha)));
 			}
 			> .sorting_2 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.074);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.074);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha) - 0.007));
 			}
 			> .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.062);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), 0.062);
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha) - 0.015));
 			}
 
 			&.selected {
 				> .sorting_1 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.982);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.982);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha)));
 				}
 				> .sorting_2 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.974);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.974);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha) - 0.007));
 				}
 				> .sorting_3 {
 					box-shadow: inset 0 0 0 9999px rgba(rgb($table-row-selected), 0.962);
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.962);
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha) - 0.015));
 				}
 			}
 		}
