@@ -124,10 +124,12 @@ $.extend( true, DataTable.ext.renderer, {
 
 				// Make the headers tab-able for keyboard navigation
 				if (orderable) {
-					cell.find('.dt-column-title').attr('role', 'button');
+					var orderSpan = cell.find('.dt-column-order');
+					
+					orderSpan.attr('role', 'button');
 
 					if (tabIndex !== -1) {
-						cell.attr('tabindex', 0);
+						orderSpan.attr('tabindex', tabIndex);
 					}
 				}
 			} );
