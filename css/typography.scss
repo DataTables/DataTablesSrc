@@ -12,6 +12,11 @@ table.dataTable#{$table-typography-selector} {
 	td {
 		box-sizing: border-box;
 
+		&.dt-type-numeric,
+		&.dt-type-date {
+			text-align: right;
+		}
+
 		&.dt-left {
 			text-align: left;
 		}
@@ -35,11 +40,6 @@ table.dataTable#{$table-typography-selector} {
 		&.dt-empty {
 			text-align: center;
 			vertical-align: top;
-		}
-
-		&.dt-type-numeric,
-		&.dt-type-date {
-			text-align: right;
 		}
 	}
 
