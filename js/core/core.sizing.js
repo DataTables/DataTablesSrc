@@ -192,10 +192,16 @@ function _fnCalculateColumnWidths ( settings )
 	}
 
 	if ( (tableWidthAttr || scrollX) && ! settings._reszEvt ) {
-		settings.containerWidth = $(settings.nTableWrapper).width();
+		var wrapperWidth = function () {
+			return $(settings.nTableWrapper).is(':visible')
+				? $(settings.nTableWrapper).width()
+				: 0;
+		}
+
+		settings.containerWidth = wrapperWidth();
 
 		var resize = DataTable.util.throttle( function () {
-			var newWidth = $(settings.nTableWrapper).width();
+			var newWidth = wrapperWidth();
 
 			// Don't do it if destroying, is the same size as last time, or the container
 			// width is 0
