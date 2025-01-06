@@ -25,7 +25,7 @@ function _fnSaveState ( settings )
 			// If a column name is available, use it
 			return columns[sort[0]] && columns[sort[0]].sName
 				? [ columns[sort[0]].sName, sort[1] ]
-				: sort;
+				: sort.slice();
 		} ),
 		search:  $.extend({}, settings.oPreviousSearch),
 		columns: settings.aoColumns.map( function ( col, i ) {
