@@ -1,23 +1,5 @@
-/*! DataTables 2.2.0-dev
+/*! DataTables 2.2.0
  * © SpryMedia Ltd - datatables.net/license
- */
-
-/**
- * @summary     DataTables
- * @description Paginate, search and order HTML tables
- * @version     2.2.0-dev
- * @author      SpryMedia Ltd
- * @contact     www.datatables.net
- * @copyright   SpryMedia Ltd.
- *
- * This source file is free software, available under the following license:
- *   MIT license - https://datatables.net/license
- *
- * This source file is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
- *
- * For details please refer to: https://www.datatables.net
  */
 
 (function( factory ) {
