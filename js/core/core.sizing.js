@@ -24,6 +24,14 @@ function _fnCalculateColumnWidths ( settings )
 		i, column, columnIdx;
 		
 	var styleWidth = table.style.width;
+	var containerWidth = _fnWrapperWidth(settings);
+
+	// Don't re-run for the same width as the last time
+	if (containerWidth === settings.containerWidth) {
+		return false;
+	}
+
+	settings.containerWidth = containerWidth;
 
 	// If there is no width applied as a CSS style or as an attribute, we assume that
 	// the width is intended to be 100%, which is usually is in CSS, but it is very
@@ -192,46 +200,33 @@ function _fnCalculateColumnWidths ( settings )
 	}
 
 	if ( (tableWidthAttr || scrollX) && ! settings._reszEvt ) {
-		var wrapperWidth = function () {
-			return $(settings.nTableWrapper).is(':visible')
-				? $(settings.nTableWrapper).width()
-				: 0;
-		}
-
-		settings.containerWidth = wrapperWidth();
-
 		var resize = DataTable.util.throttle( function () {
-			var newWidth = wrapperWidth();
+			var newWidth = _fnWrapperWidth(settings);
 
-			// Don't do it if destroying, is the same size as last time, or the container
-			// width is 0
-			if (
-				! settings.bDestroying &&
-				settings.containerWidth !== newWidth &&
-				newWidth !== 0
-			) {
-				// Do a resize
+			// Don't do it if destroying or the container width is 0
+			if (! settings.bDestroying && newWidth !== 0) {
 				_fnAdjustColumnSizing( settings );
-				settings.containerWidth = newWidth;
 			}
 		} );
 
 		// For browsers that support it (~2020 onwards for wide support) we can watch for the
 		// container changing width.
 		if (window.ResizeObserver) {
+			// This is a tricky beast - if the element is visible when `.observe()` is called,
+			// then the callback is immediately run. Which we don't want. If the element isn't
+			// visible, then it isn't run, but we want it to run when it is then made visible.
+			// This flag allows the above to be satisfied.
+			var first = $(settings.nTableWrapper).is(':visible');
+
 			settings.resizeObserver = new ResizeObserver(function (e) {
-				var box = e[0].contentBoxSize;
-				var size = Array.isArray(box)
-					? box[0].inlineSize // Spec
-					: box.inlineSize; // Old Firefox
-
-				// Under this condition a resize will trigger its own resize, causing an error.
-				if (size < settings.containerWidth) {
-					return;
+				if (first) {
+					first = false;
 				}
-
-				resize();
+				else {
+					resize();
+				}
 			});
+
 			settings.resizeObserver.observe(settings.nTableWrapper);
 		}
 		else {
@@ -243,6 +238,17 @@ function _fnCalculateColumnWidths ( settings )
 	}
 }
 
+/**
+ * Get the width of the DataTables wrapper element
+ *
+ * @param {*} settings DataTables settings object
+ * @returns Width
+ */
+function _fnWrapperWidth(settings) {
+	return $(settings.nTableWrapper).is(':visible')
+		? $(settings.nTableWrapper).width()
+		: 0;
+}
 
 /**
  * Get the maximum strlen for each data column

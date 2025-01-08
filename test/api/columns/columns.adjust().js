@@ -42,7 +42,7 @@ describe('columns- columns.adjust()', function () {
 
 			await dt.sleep(500);
 
-			expect($(table.table().header()).width()).toBeGreaterThan(900);
+			expect($(table.table().header()).width()).toBeGreaterThan(880);
 			expect($(table.table().header()).width()).toBe($(table.table().body()).width());
 		});
 

@@ -402,6 +402,10 @@ _api_registerPlural( 'columns().indexes()', 'column().index()', function ( type 
 
 _api_register( 'columns.adjust()', function () {
 	return this.iterator( 'table', function ( settings ) {
+		// Force a column sizing to happen with a manual call - otherwise it can skip
+		// if the size hasn't changed
+		settings.containerWidth = -1;
+
 		_fnAdjustColumnSizing( settings );
 	}, 1 );
 } );

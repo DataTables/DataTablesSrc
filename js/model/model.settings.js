@@ -686,5 +686,5 @@ DataTable.models.oSettings = {
 	resizeObserver: null,
 
 	/** Keep a record of the last size of the container, so we can skip duplicates */
-	containerWidth: 0
+	containerWidth: -1
 };
