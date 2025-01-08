@@ -223,9 +223,9 @@
 		clean: function () {
 			if ($ && $.fn.dataTableSettings) {
 				// If there are any DataTables, destroy them.
-				$.fn.dataTableSettings.forEach((s) => {
-					new $.fn.dataTable.Api(s).destroy();
-				});
+				while(DataTable.settings.length) {
+					new DataTable.Api(DataTable.settings[0]).destroy();
+				}
 			}
 
 			var el = document.getElementById('dt-test-loader-container');
