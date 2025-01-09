@@ -15,7 +15,9 @@
 
 		This method is provided to have DataTables recalculate the columns sizes, based on the data in the table and the size applied to the columns (in the DOM, CSS or through the `dt-init columns.width` parameter). Call it when the table becomes visible if hidden when initialised (for example in a tab) or when the data changes significantly.
 
-		DataTables will automatically call this method on the window `resize` event to keep the columns in sync with the re-flowed layout.
+		Please note that DataTables 2.2 and newer make use of [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver) to perform this action automatically when the table container changes size. If you are using DataTables 2.2 and any browser released after 2020, you are unlikely to need to call this method.
+
+		For legacy browsers DataTables will automatically call this method on the window `resize` event to keep the columns in sync with the re-flowed layout. In such browsers, if the content is changed and the window isn't resized, you will still need to call this method.
 	</description>
 
 	<example title="Adjust the column sizes of a newly shown table"><![CDATA[
