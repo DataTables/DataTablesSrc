@@ -159,15 +159,15 @@ function _fnCalculateColumnWidths ( settings )
 
 		// If there is no width attribute or style, then allow the table to
 		// collapse
-		if ( tmpTable.width() < tableContainer.clientWidth && tableWidthAttr ) {
-			tmpTable.width( tableContainer.clientWidth );
+		if ( tmpTable.outerWidth() < tableContainer.clientWidth && tableWidthAttr ) {
+			tmpTable.outerWidth( tableContainer.clientWidth );
 		}
 	}
 	else if ( scrollY ) {
-		tmpTable.width( tableContainer.clientWidth );
+		tmpTable.outerWidth( tableContainer.clientWidth );
 	}
 	else if ( tableWidthAttr ) {
-		tmpTable.width( tableWidthAttr );
+		tmpTable.outerWidth( tableWidthAttr );
 	}
 
 	// Get the width of each column in the constructed table
