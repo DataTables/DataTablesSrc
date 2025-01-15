@@ -27,7 +27,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Single-column ordering as the initial state (using objects)"><![CDATA[
+	<example title="Single-column ordering as the initial state (using objects) - since 2.0"><![CDATA[
 new DataTable('#myTable', {
 	order: {
 		idx: 1,
@@ -36,7 +36,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Single-column ordering as the initial state (using objects and column names)"><![CDATA[
+	<example title="Single-column ordering as the initial state (using objects and column names) - since 2.0"><![CDATA[
 new DataTable('#myTable', {
 	columns: [
 		{ name: 'first_name' },
