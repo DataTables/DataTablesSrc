@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.lengthLabels</name>
+	<summary>Specify the labels for the page length dropdown</summary>
+	<since>2.3</since>
+
+	<type type="object" />
+	<default value="{'-1': 'All'}" />
+
+	<description>
+		This option can be used to provide labels for the `-feature pageLength` dropdown entries. Properties in the object should be integers, and will be used if an entry from `-feature pageLength.menu` / `-init lengthMenu` matches the property key.
+
+		Generally it is expected that the only property to be defined will be `-1` (for showing all records in the table), and indeed this is the only value set by default, however all options used in the dropdown could be specified if you wished to have a custom label for each.
+
+		If there is no matching entry in this object for a specific page length, the value will be used instead, or the `label` if specified using `-feature pageLength.menu` with a `label`/`value` object.
+	</description>
+
+	<example title="Setting `Show all` as the text for all records option"><![CDATA[
+new DataTable('#myTable', {
+	language: {
+		lengthLabels: {
+			'-1': 'Show all'
+		}
+	},
+	lengthMenu: [10, 25, 50, -1]
+});
+]]></example>
+
+	<example title="Specifying location with `layout`"><![CDATA[
+new DataTable('#myTable', {
+	language: {
+		lengthLabels: {
+			'-1': 'Show all'
+		}
+	},
+	layout: {
+		topStart: {
+			pageLength: {
+				menu: [10, 25, 50, -1]
+			}
+		}
+	}
+});
+]]></example>
+
+	<related>-init lengthMenu</related>
+	<related>-init language.lengthMenu</related>
+	<related type="api">i18n()</related>
+</dt-option>

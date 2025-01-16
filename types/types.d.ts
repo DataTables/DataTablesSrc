@@ -602,6 +602,9 @@ export interface ConfigLanguage {
     infoPostFix?: string;
     decimal?: string;
     thousands?: string;
+
+    /** Labels for page length entries */
+    lengthLabels?: { [key: string | number]: string};
     lengthMenu?: string;
     loadingRecords?: string;
     processing?: string;

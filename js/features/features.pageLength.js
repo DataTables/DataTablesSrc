@@ -94,12 +94,17 @@ DataTable.feature.register( 'pageLength', function ( settings, opts ) {
 	} );
 
 	for ( i=0 ; i<lengths.length ; i++ ) {
-		select[0][ i ] = new Option(
-			typeof language[i] === 'number' ?
+		// Attempt to look up the length from the i18n options
+		var label = settings.api.i18n('lengthLabels.' + lengths[i], null);
+
+		if (label === null) {
+			// If not present, fallback to old style
+			label = typeof language[i] === 'number' ?
 				settings.fnFormatNumber( language[i] ) :
-				language[i],
-			lengths[i]
-		);
+				language[i];
+		}
+
+		select[0][ i ] = new Option(label, lengths[i]);
 	}
 
 	// add for and id to label and input

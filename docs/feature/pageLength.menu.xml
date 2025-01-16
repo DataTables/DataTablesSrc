@@ -13,7 +13,7 @@
 		This parameter allows you to readily specify the entries in the length drop down `select` list that DataTables shows when pagination is enabled. It is an array of options - each option can either be:
 
 		* An integer which will be used for both the displayed option and the value to use for the display length, or
-		* An object which contains `label` and `value` properties. This can be useful for language strings such as `All`.
+		* An object which contains `label` and `value` properties. This can be useful for language strings such as `All` (note that if there is a `-init language.lengthLabel` for the page length, it will be used in preference to any `label` given here).
 
 		The page length values must always be integer values greater than 0, with the sole exception of `-1`. When `-1` is used as a value this tells DataTables to disable pagination (i.e. display all rows).
 
@@ -35,6 +35,7 @@ new DataTable('#myTable', {
 ]]></example>
 
 	<related>-init lengthMenu</related>
+	<related>-init language.lengthLabels</related>
 	<related>-feature pageLength</related>
 	<related>-feature pageLength.text</related>
 	<related>-feature pageLength.menu</related>

@@ -8,31 +8,20 @@
 <title>Page length options</title>
 <js><![CDATA[
 $('#example').DataTable({
-	lengthMenu: [
-		[10, 25, 50, -1],
-		[10, 25, 50, 'All']
-	]
+	lengthMenu: [10, 25, 50, -1]
 });
 ]]></js>
 <js-vanilla><![CDATA[
 new DataTable('#example', {
-	lengthMenu: [
-		[10, 25, 50, -1],
-		[10, 25, 50, 'All']
-	]
+	lengthMenu: [10, 25, 50, -1]
 });
 ]]></js-vanilla>
 
 <info><![CDATA[
 
-It is possible to easily customise the options shown in the length menu (by default at the top left of the table) using the `dt-init lengthMenu` initialisation option.
+It is possible to easily customise the options shown in the length menu (by default at the top left of the table) using the `dt-init lengthMenu` initialisation option. In this case, we use the option to add a "Show all" option through the special `-1` value.
 
-This parameter can take one of two forms:
-
-* A 1D array of options which will be used for both the displayed option and the value, or
-* A 2D array in which the first array is used to define the value options and the second array the displayed options (useful for language strings such as 'All').
-
-The example below shows a 2D array being used to include a "Show all" records option.
+In its simple form, this option can be given as an array of numbers, representing the page length options. With this method you can also use `-init language.lengthLabels` to set the language string for each page length option. It is also possible to specify translation strings directly using `-feature pageLength.menu` / `-init lengthMenu` - see the documentation for details.
 
 ]]></info>
 

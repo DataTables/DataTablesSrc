@@ -572,6 +572,13 @@ DataTable.defaults = {
 		},
 
 		/**
+		 * Page length options
+		 */
+		lengthLabels: {
+			'-1': 'All'
+		},
+
+		/**
 		 * This string is shown in preference to `zeroRecords` when the table is
 		 * empty of data (regardless of filtering). Note that this is an optional
 		 * parameter - if it is not given, the value of `zeroRecords` will be used
