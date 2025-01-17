@@ -202,26 +202,10 @@ function _fnCalculateColumnWidths ( settings )
 	if ( (tableWidthAttr || scrollX) && ! settings._reszEvt ) {
 		var resize = DataTable.util.throttle( function () {
 			var newWidth = _fnWrapperWidth(settings);
-			var wrapper = settings.nTable.closest('div.dt-layout-table');
 
 			// Don't do it if destroying or the container width is 0
 			if (! settings.bDestroying && newWidth !== 0) {
-				// ResizeObserver is triggered by changes in height, but we don't care about
-				// a height change, only width. As there is no way to observe only width
-				// changes, we need to fix the height during the recalculation of column
-				// widths, and then set it back to be unset. Do this on the table's layout
-				// parent node in case styles are set on the full container.
-				if (wrapper) {
-					wrapper.style.height = $(wrapper).height() + 'px';
-				}
-
 				_fnAdjustColumnSizing( settings );
-
-				if (wrapper) {
-					setTimeout(function () {
-						wrapper.style.height = '';
-					}, 0);
-				}
 			}
 		} );
 
@@ -234,6 +218,14 @@ function _fnCalculateColumnWidths ( settings )
 			// This flag allows the above to be satisfied.
 			var first = $(settings.nTableWrapper).is(':visible');
 
+			// Use an empty div to attach the observer so it isn't impacted by height changes
+			var resizer = $('<div>')
+				.css({
+					width: '100%',
+					height: 0
+				})
+				.appendTo(settings.nTableWrapper);
+
 			settings.resizeObserver = new ResizeObserver(function (e) {
 				if (first) {
 					first = false;
@@ -243,7 +235,7 @@ function _fnCalculateColumnWidths ( settings )
 				}
 			});
 
-			settings.resizeObserver.observe(settings.nTableWrapper);
+			settings.resizeObserver.observe(resizer[0]);
 		}
 		else {
 			// For old browsers, the best we can do is listen for a window resize
