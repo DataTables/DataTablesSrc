@@ -211,13 +211,17 @@ function _fnCalculateColumnWidths ( settings )
 				// changes, we need to fix the height during the recalculation of column
 				// widths, and then set it back to be unset. Do this on the table's layout
 				// parent node in case styles are set on the full container.
-				wrapper.style.height = $(wrapper).height() + 'px';
+				if (wrapper) {
+					wrapper.style.height = $(wrapper).height() + 'px';
+				}
 
 				_fnAdjustColumnSizing( settings );
 
-				setTimeout(function () {
-					wrapper.style.height = '';
-				}, 0);
+				if (wrapper) {
+					setTimeout(function () {
+						wrapper.style.height = '';
+					}, 0);
+				}
 			}
 		} );
 
