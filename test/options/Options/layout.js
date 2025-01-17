@@ -606,12 +606,13 @@ describe('layout option', function() {
 			
 			var nodes = $('div.dt-container').children();
 
-			expect(nodes.length).toBe(5);
+			expect(nodes.length).toBe(6);
 			expect(nodes[0].id).toBe('top1-rowid');
 			expect(nodes[1].id).toBe('top-rowid');
 			expect(nodes[2].id).toBe('topstart-rowid');
 			expect(nodes[3].id).toBe('');
 			expect(nodes[4].id).toBe('');
+			expect(nodes[5].id).toBe('');
 
 			expect($('div.dt-info').length).toBe(4);
 		});
@@ -624,6 +625,7 @@ describe('layout option', function() {
 			expect(nodes[2].className).toBe('dt-layout-row');
 			expect(nodes[3].className).toBe('dt-layout-row dt-layout-table');
 			expect(nodes[4].className).toBe('dt-layout-row');
+			expect(nodes[5].className).toBe('dt-autosize');
 		});
 
 		dt.html('basic');
@@ -648,12 +650,13 @@ describe('layout option', function() {
 			
 			var nodes = $('div.dt-container').children();
 
-			expect(nodes.length).toBe(5);
+			expect(nodes.length).toBe(6);
 			expect(nodes[0].className).toBe('top1-rowclass');
 			expect(nodes[1].className).toBe('top-rowclass');
 			expect(nodes[2].className).toBe('topstart-rowclass');
 			expect(nodes[3].className).toBe('dt-layout-row dt-layout-table');
 			expect(nodes[4].className).toBe('dt-layout-row');
+			expect(nodes[5].className).toBe('dt-autosize');
 
 			expect($('div.dt-info').length).toBe(4);
 		});
@@ -666,6 +669,7 @@ describe('layout option', function() {
 			expect(nodes[2].id).toBe('');
 			expect(nodes[3].id).toBe('');
 			expect(nodes[4].id).toBe('');
+			expect(nodes[5].id).toBe('');
 		});
 
 		dt.html('basic');
