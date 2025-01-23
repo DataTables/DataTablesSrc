@@ -86,12 +86,14 @@ _api_register( 'ready()', function ( fn ) {
 	// Function to run either once the table becomes ready or
 	// immediately if it is already ready.
 	return this.tables().every(function () {
+		var api = this;
+
 		if (this.context[0]._bInitComplete) {
-			fn.call(this);
+			fn.call(api);
 		}
 		else {
 			this.on('init.dt.DT', function () {
-				fn.call(this);
+				fn.call(api);
 			});
 		}
 	} );
