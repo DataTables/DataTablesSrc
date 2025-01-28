@@ -721,15 +721,17 @@ class DT_Example
 			if ($component === 'datatables') {
 				$path = 'https://cdn.datatables.net/' . $opts['release'];
 			}
-			else if ($component === 'editor') {
-				$path = '/extensions/Editor/';
-			}
 			else {
 				$path = 'https://cdn.datatables.net/' . $component .'/'. $opts['release'];
 			}
 
-			// Non-release builds and Editor (always) use local paths
-			if (! $cdn) {
+			// Editor always uses relative paths and with the current example structure it is
+			// always two up to the base
+			if ($component === 'editor') {
+				$path = '../../';
+			}
+			else if (! $cdn) {
+				// Non-release builds
 				$path = call_user_func( $this->_path_resolver, $opts['path']);
 			}
 
