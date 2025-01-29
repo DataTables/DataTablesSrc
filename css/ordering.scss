@@ -15,8 +15,8 @@ table.dataTable thead {
 				position: absolute;
 				display: block;
 				bottom: 50%;
-				content: "\25B2"; // up arrow - ascending
-				content: "\25B2" / "";
+				content: unicode("25B2"); // up arrow - ascending
+				content: unicode("25B2") / "";
 			}
 		}
 
@@ -26,8 +26,8 @@ table.dataTable thead {
 				position: absolute;
 				display: block;
 				top: 50%;
-				content: "\25BC"; // down arrow - descending
-				content: "\25BC" / "";
+				content: unicode("25BC"); // down arrow - descending
+				content: unicode("25BC") / "";
 			}
 		}
 
