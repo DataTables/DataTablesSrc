@@ -149,20 +149,37 @@ _api_register( 'destroy()', function ( remove ) {
 			jqTable.append( tfoot );
 		}
 
+		// Clean up the header
+		$(thead).find('span.dt-column-order').remove();
+		$(thead).find('span.dt-column-title').each(function () {
+			var title = $(this).html();
+			$(this).parent().append(title);
+			$(this).remove();
+		});
+
 		settings.colgroup.remove();
 
 		settings.aaSorting = [];
 		settings.aaSortingFixed = [];
 		_fnSortingClasses( settings );
 
+		$(jqTable).find('th, td').removeClass(
+			$.map(DataTable.ext.type.className, function (v) {
+				return v;
+			}).join(' ')
+		);
+
 		$('th, td', thead)
 			.removeClass(
+				orderClasses.none + ' ' +
 				orderClasses.canAsc + ' ' +
 				orderClasses.canDesc + ' ' +
 				orderClasses.isAsc + ' ' +
 				orderClasses.isDesc
 			)
-			.css('width', '');
+			.css('width', '')
+			.removeAttr('data-dt-column')
+			.removeAttr('aria-sort');
 
 		// Add the TR elements back into the table in their original order
 		jqTbody.children().detach();
