@@ -94,7 +94,7 @@ function build_css {
 
 	for file in $(find $SRC_DIR -name "dataTables.*.scss"); do
 		filename=$(basename $file .scss)
-		$SASS --stop-on-error --style expanded $file > $OUT_DIR/$filename.css
+		$SASS --no-charset --stop-on-error --style expanded $file > $OUT_DIR/$filename.css
 		css_compress $OUT_DIR/$filename.css
 	done
 }
