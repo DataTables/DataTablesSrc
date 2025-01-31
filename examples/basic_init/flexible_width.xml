@@ -2,9 +2,10 @@
 <dt-example table-type="html" order="9">
 
 <css lib="datatables">
-	div.container {
-		width: 80%;
-	}
+div.dt-container {
+	margin: 0 auto;
+	width: 80%;
+}
 </css>
 
 <title>Flexible table width</title>
@@ -21,9 +22,9 @@ new DataTable('#example');
 
 <info><![CDATA[
 
-Often you may want to have your table resize dynamically with the page. Typically this is done by assigning `width:100%` in your CSS, but this presents a problem for Javascript since it can be very hard to get that relative size rather than the absolute pixels. As such, if you apply the `width` attribute to the HTML table tag or inline width style (`style="width:100%"`), it will be used as the width for the table (overruling any CSS styles).
+Often you may want to have your table resize dynamically with the page. DataTables does this automatically! As you resize the window, which in turn resizes the width that the table has available to fit in, it will automatically resize to fit.
 
-This example shows a table with `width="80%"` and the container is also flexible width, so as the window is resized, the table will also resize dynamically.
+If you wish to constrain the table further, you can do so by controlling the width of the container it is in. In this example the container is set to be 80% of its own container's width. Note that it will still dynamically resize as the container's own width changes.
 
 ]]></info>
 
