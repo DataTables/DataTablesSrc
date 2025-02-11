@@ -839,6 +839,12 @@ DataTable.defaults = {
 
 
 	/**
+	 * This parameter allows you to specify an array of keys that will be excluded when filtering the displayed rows.
+	 */
+	"unfilteredKeys": [],
+
+
+	/**
 	 * For server-side processing - use the data from the DOM for the first draw
 	 */
 	iDeferLoading: null

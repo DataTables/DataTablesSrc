@@ -249,6 +249,7 @@ function _fnFilterData ( settings )
 	var column;
 	var j, jen, filterData, cellData, row;
 	var wasInvalidated = false;
+	var unfilteredKeys = settings.oInit.unfilteredKeys || [];	
 
 	for ( var rowIdx=0 ; rowIdx<data.length ; rowIdx++ ) {
 		if (! data[rowIdx]) {
@@ -288,6 +289,11 @@ function _fnFilterData ( settings )
 					cellData = __filter_div_textContent ?
 						__filter_div.textContent :
 						__filter_div.innerText;
+				}
+
+				// Check if the cell must be excluded from filtering
+				if (unfilteredKeys.includes(column.mData)) {
+					cellData = '';
 				}
 
 				if ( cellData.replace ) {
