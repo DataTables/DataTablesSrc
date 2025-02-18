@@ -60,6 +60,36 @@ describe('tables - table().header.structure()', function() {
 				{colspan: 1, rowspan: 1, cell: cells[4], title: 'Salary'},
 			]]);
 		});
+
+		it('Order of columns is retained from selector - indexes', function() {
+			let header = table.table().header.structure([5, 0]);
+			let cells = $('table thead tr').children();
+
+			expect(header).toEqual([[
+				{colspan: 1, rowspan: 1, cell: cells[4], title: 'Salary'},
+				{colspan: 1, rowspan: 1, cell: cells[0], title: 'Name'},
+			]]);
+		});
+
+		it('Order of columns is in index order  - strings', function() {
+			let header = table.table().header.structure([':eq(4), :eq(0)']);
+			let cells = $('table thead tr').children();
+
+			expect(header).toEqual([[
+				{colspan: 1, rowspan: 1, cell: cells[0], title: 'Name'},
+				{colspan: 1, rowspan: 1, cell: cells[3], title: 'Start date'},
+			]]);
+		});
+
+		it('Order of columns is retained from array  - array strings', function() {
+			let header = table.table().header.structure([':eq(4)', ':eq(0)']);
+			let cells = $('table thead tr').children();
+
+			expect(header).toEqual([[
+				{colspan: 1, rowspan: 1, cell: cells[3], title: 'Start date'},
+				{colspan: 1, rowspan: 1, cell: cells[0], title: 'Name'},
+			]]);
+		});
 	});
 
 	describe('Complex header behaviour', function() {

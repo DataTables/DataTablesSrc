@@ -5,7 +5,7 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 {
 	var
 		out = [], res,
-		a, i, ien, j, jen,
+		i, ien,
 		selectorType = typeof selector;
 
 	// Can't just check for isArray here, as an API or jQuery instance might be
@@ -15,22 +15,15 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 	}
 
 	for ( i=0, ien=selector.length ; i<ien ; i++ ) {
-		// Only split on simple strings - complex expressions will be jQuery selectors
-		a = selector[i] && selector[i].split && ! selector[i].match(/[[(:]/) ?
-			selector[i].split(',') :
-			[ selector[i] ];
+		res = selectFn( typeof selector[i] === 'string' ? selector[i].trim() : selector[i] );
 
-		for ( j=0, jen=a.length ; j<jen ; j++ ) {
-			res = selectFn( typeof a[j] === 'string' ? (a[j]).trim() : a[j] );
+		// Remove empty items
+		res = res.filter( function (item) {
+			return item !== null && item !== undefined;
+		});
 
-			// Remove empty items
-			res = res.filter( function (item) {
-				return item !== null && item !== undefined;
-			});
-
-			if ( res && res.length ) {
-				out = out.concat( res );
-			}
+		if ( res && res.length ) {
+			out = out.concat( res );
 		}
 	}
 

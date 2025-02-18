@@ -99,12 +99,22 @@ _api_register( 'table()', function ( selector ) {
 	['footer', 'aoFooter'],
 ].forEach(function (item) {
 	_api_register( 'table().' + item[0] + '.structure()' , function (selector) {
-		var indexes = this.columns(selector).indexes().flatten();
+		var indexes = this.columns(selector).indexes().flatten().toArray();
 		var ctx = this.context[0];
-		
-		return _fnHeaderLayout(ctx, ctx[item[1]], indexes);
-	} );
-})
+		var structure = _fnHeaderLayout(ctx, ctx[item[1]], indexes);
+
+		// The structure is in column index order - but from this method we want the return to be
+		// in the columns() selector API order. In order to do that we need to map from one form
+		// to the other
+		var orderedIndexes = indexes.slice().sort();
+
+		return structure.map(function (row) {
+			return indexes.map(function (colIdx) {
+				return row[orderedIndexes.indexOf(colIdx)];
+			});
+		});
+	});
+});
 
 
 _api_registerPlural( 'tables().containers()', 'table().container()' , function () {

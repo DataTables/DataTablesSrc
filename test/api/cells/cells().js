@@ -35,7 +35,7 @@ describe('cells: cells()', function() {
 		});
 		it('cell-selector - string (two classes OR)', function() {
 			let data = table.cells('.sorting_1, .id_test').data();
-			expect(data.count()).toBe(63);
+			expect(data.count()).toBe(62);
 			expect(data[0]).toBe('Airi Satou');
 		});
 		it('cell-selector - string (two classes AND)', function() {

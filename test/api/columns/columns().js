@@ -293,6 +293,46 @@ describe('columns- columns() -solo', function() {
 
 			expect(visible).toEqual([0, 1, 2, 3, 4, 5]);
 		} );
+	});
 
+	describe('Column index order', function() {
+		dt.html( 'basic' );
+
+		it('Order with a string selector is document order', function () {
+			table = $('#example').DataTable({
+				columnDefs: [
+					{
+						targets: [1, 2],
+						className: 'test1'
+					},
+					{
+						targets: [3],
+						className: 'test2'
+					}
+				]
+			});
+	
+			let test = table.columns(':visible').flatten().toArray();
+
+			expect(test).toEqual([0, 1, 2, 3, 4, 5]);
+		});
+
+		it('Document order when the string selector is out of doc. order', function () {
+			let test = table.columns('.test2, .test1').flatten().toArray();
+
+			expect(test).toEqual([1, 2, 3]);
+		});
+
+		it('Specified index order is retained', function () {
+			let test = table.columns([5, 1, 3]).flatten().toArray();
+
+			expect(test).toEqual([5, 1, 3]);
+		});
+
+		it('Mixed strings and indexes are retained order', function () {
+			let test = table.columns(['.test2, .test1', 0]).flatten().toArray();
+
+			expect(test).toEqual([1, 2, 3, 0]);
+		});
 	});
 });
