@@ -106,7 +106,9 @@ _api_register( 'table()', function ( selector ) {
 		// The structure is in column index order - but from this method we want the return to be
 		// in the columns() selector API order. In order to do that we need to map from one form
 		// to the other
-		var orderedIndexes = indexes.slice().sort();
+		var orderedIndexes = indexes.slice().sort(function (a, b) {
+			return a - b;
+		});
 
 		return structure.map(function (row) {
 			return indexes.map(function (colIdx) {
