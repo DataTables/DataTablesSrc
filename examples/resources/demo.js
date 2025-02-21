@@ -789,6 +789,8 @@ window.dt_demo = {
 				return 'autoFill';
 			case 'colreorder':
 				return 'colReorder';
+			case 'columncontrol':
+				return 'columnControl';
 			case 'datatables':
 				return 'dataTables';
 			case 'datetime':
