@@ -175,7 +175,7 @@ Further examples are available below, and also in the [layout section of the exa
 
 DataTables will automatically assign class names to the layout grid to be suitable for the styling framework that you are using, but it is also possible to specify your own IDs and class names for the elements created (since 2.1). For this we use the second `-type object` form that `-init layout` can accept - an object with a `features` array property.
 
-The object with a `features` property lets you specify row id/class and cell id/class as well as feature. As a Typescript interface the object looks like:
+The object with a `features` property lets you specify row id/class and cell id/class as well as feature. As a TypeScript interface the object looks like:
 
 ```js
 interface {

@@ -8,7 +8,7 @@
 
 The search feature built into DataTables is configurable to fine tune how a search is performed. This object describes the options that can perform that fine tuning. It is used for the `-init search` and `-init searchCols` initialisation options, plus the `-api search()` and `-api column().search()` API methods.
 
-Using [Typescript definitions](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html), the search options type is defined as:
+Using [TypeScript definitions](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html), the search options type is defined as:
 
 ```js
 interface DataTable.SearchOptions {

@@ -8,7 +8,7 @@
 
 The DataTables data type object contains information about how it should handle different data types.
 
-Using [Typescript definitions](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html), the object has the following structure:
+Using [TypeScript definitions](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html), the object has the following structure:
 
 ```js
 interface DataTable.Type {
