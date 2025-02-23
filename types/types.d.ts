@@ -846,7 +846,7 @@ export interface Api<T=any> {
 
     /**
      * Get a boolean value to indicate if there are any entries in the API instance's result set (i.e. any data, selected rows, etc).
-     * @returns true if there there is one or more items in the result set, false otherwise.
+     * @returns true if there are one or more items in the result set, false otherwise.
      */
     any(): boolean;
 

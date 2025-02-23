@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>any()</signature>
 		<description>Get a boolean value to indicate if there are any entries in the API instance's result set (i.e. any data, selected rows, etc).</description>
-		<returns type="boolean">`true` if there there is one or more items in the result set, `false` otherwise.</returns>
+		<returns type="boolean">`true` if there are one or more items in the result set, `false` otherwise.</returns>
 	</type>
 
 	<description>
