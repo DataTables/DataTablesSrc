@@ -890,7 +890,7 @@ function _fnLayoutDom( settings, dom, insert )
 /**
  * Use the DOM source to create up an array of header cells. The idea here is to
  * create a layout grid (array) of rows x columns, which contains a reference
- * to the cell that point in the grid (regardless of col/rowspan), such that
+ * to the cell at that point in the grid (regardless of col/rowspan), such that
  * any column / row could be removed and the new grid constructed
  *  @param {node} thead The header/footer element for the table
  *  @returns {array} Calculated layout array
