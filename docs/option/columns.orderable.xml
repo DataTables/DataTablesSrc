@@ -12,9 +12,9 @@
 
 		Note that this option only affects the end user's ability to order a column. Developers are still able to order a column using the `dt-init order` option at initialisation time or the `dt-api order()` method if required. In such cases, as of DataTables 2, the icon for the column ordering in the header will be shown, but the end user cannot click on it to trigger ordering.
 
-		DataTables 2 introduced improved support for complex headers (multiple rows and cells with `colspan` and `rowspan`). This option is still applicable in such cases, but it doesn't offer the fine grained control that you might wish to have to determine which cells will have ordering listeners and ordering icons.
+		DataTables 2 introduced improved support for complex headers (multiple rows and cells with `colspan` and `rowspan`). This option is still applicable in such cases, but it doesn't offer the fine-grained control that you might wish to have to determine which cells will have ordering listeners and ordering icons.
 
-		To make that fine grained control available, DataTables will look for a `data-dt-order` attribute on the `-tag th/td` cells in the table header. The value of this attribute (if present, it is entirely optional) controls the ordering listeners and icons:
+		To make that fine-grained control available, DataTables will look for a `data-dt-order` attribute on the `-tag th/td` cells in the table header. The value of this attribute (if present, it is entirely optional) controls the ordering listeners and icons:
 
 		* `data-dt-order="disable"` - Ordering listeners will not be attached to these cells, nor will ordering status icons be shown.
 		* `data-dt-order="icon-only"` - Ordering listeners will not be attached to these cells, but the ordering status icons _will_ be shown.
