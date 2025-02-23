@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>column().search()</signature>
 		<description>Get the currently applied column search.</description>
-		<returns type="string">Search term that is currently applied to the column. This will be an empty string if no search search term is applied.</returns>
+		<returns type="string">Search term that is currently applied to the column. This will be an empty string if no search term is applied.</returns>
 	</type>
 
 	<type type="function" since="2.0">
