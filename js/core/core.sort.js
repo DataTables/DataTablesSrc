@@ -276,7 +276,7 @@ function _fnSort ( oSettings, col, dir )
 
 		/* Do the sort - here we want multi-column sorting based on a given data source (column)
 		 * and sorting function (from oSort) in a certain direction. It's reasonably complex to
-		 * follow on it's own, but this is what we want (example two column sorting):
+		 * follow on its own, but this is what we want (example two column sorting):
 		 *  fnLocalSorting = function(a,b){
 		 *    var test;
 		 *    test = oSort['string-asc']('data11', 'data12');
