@@ -1,6 +1,6 @@
 /**
  * Add a data array to the table, creating DOM node etc. This is the parallel to
- * _fnGatherData, but for adding rows from a Javascript source, rather than a
+ * _fnGatherData, but for adding rows from a JavaScript source, rather than a
  * DOM source.
  *  @param {object} settings dataTables settings object
  *  @param {array} data data array to be added

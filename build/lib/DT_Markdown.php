@@ -214,7 +214,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				break;
 			
 			case 'js': // JS type
-				$lang = 'Javascript';
+				$lang = 'JavaScript';
 				break;
 			
 			default:

@@ -59,7 +59,7 @@ DataTable.ext.renderer.pagingContainer.semanticUI = function (settings, buttonEl
 };
 
 
-// Javascript enhancements on table initialisation
+// JavaScript enhancements on table initialisation
 $(document).on( 'init.dt', function (e, ctx) {
 	if ( e.namespace !== 'dt' ) {
 		return;

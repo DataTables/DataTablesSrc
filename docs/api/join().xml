@@ -14,11 +14,11 @@
 	</type>
 
 	<description>
-		This method operates in exactly the same way as the Javascript array `join` method, combining the contents of the array (in this case the API instance) into a single string.
+		This method operates in exactly the same way as the JavaScript array `join` method, combining the contents of the array (in this case the API instance) into a single string.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 
-		In this case, this method is a proxy for the Javascript `Array.prototype.join` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for concat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).
+		In this case, this method is a proxy for the JavaScript `Array.prototype.join` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for concat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).
 	</description>
 
 	<example title="Create a comma separated string of the data in a column"><![CDATA[

@@ -21,7 +21,7 @@
  *   per page. This takes a single object with the following parameters:
  *   * `framework` - Styling framework to load - for example `bootstrap` or
  *     `foundation`. Default is `datatables` if not provided.
- *   * `js` - Array of Javascript files to load - these are the key references
+ *   * `js` - Array of JavaScript files to load - these are the key references
  *     to the files defined in the `client.libraries` object of the karma
  *     configuration object.
  *   * As the `js` array but in this case for CSS

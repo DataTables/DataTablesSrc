@@ -5,7 +5,7 @@
  * from v1.10 onwards the primary interface is camel case. In order to avoid
  * breaking backwards compatibility utterly with this change, the Hungarian
  * version is still, internally the primary interface, but is is not documented
- * - hence the @name tags in each doc comment. This allows a Javascript function
+ * - hence the @name tags in each doc comment. This allows a JavaScript function
  * to create a map from Hungarian notation to camel case (going the other direction
  * would require each property to be listed, which would add around 3K to the size
  * of DataTables, while this method is about a 0.5K hit).
@@ -24,7 +24,7 @@ DataTable.defaults = {
 	/**
 	 * An array of data to use for the table, passed in at initialisation which
 	 * will be used in preference to any data which is already in the DOM. This is
-	 * particularly useful for constructing tables purely in Javascript, for
+	 * particularly useful for constructing tables purely in JavaScript, for
 	 * example with a custom Ajax call.
 	 */
 	"aaData": null,
@@ -91,7 +91,7 @@ DataTable.defaults = {
 	 * * `dataSrc` - By default DataTables will look for the property `data` (or
 	 *   `aaData` for compatibility with DataTables 1.9-) when obtaining data
 	 *   from an Ajax source or for server-side processing - this parameter
-	 *   allows that property to be changed. You can use Javascript dotted
+	 *   allows that property to be changed. You can use JavaScript dotted
 	 *   object notation to get a data source for multiple levels of nesting, or
 	 *   it my be used as a function. As a function it takes a single parameter,
 	 *   the JSON returned from the server, which can be manipulated as

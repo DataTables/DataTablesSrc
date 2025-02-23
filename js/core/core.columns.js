@@ -57,7 +57,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 			oCol._sManualType = oOptions.sType;
 		}
 	
-		// `class` is a reserved word in Javascript, so we need to provide
+		// `class` is a reserved word in JavaScript, so we need to provide
 		// the ability to use a valid name for the camel case input
 		if ( oOptions.className && ! oOptions.sClass )
 		{

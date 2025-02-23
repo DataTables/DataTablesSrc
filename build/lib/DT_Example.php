@@ -682,17 +682,17 @@ class DT_Example
 				'jquery' :
 				'dataTables';
 
-			// Always include the core Javascript file.
+			// Always include the core JavaScript file.
 			$out[] = $path.'/js/'.$jsBaseFilename.'.'.$filename.$min.'.js';
 
-			// Possibly include a framework Javascript file. If the framework is
+			// Possibly include a framework JavaScript file. If the framework is
 			// DataTables, then there will be no override JS file.
 			if ( $framework !== 'dataTables' && $component['framework']['js'] ) {
 				$out[] = $path.'/js/'.$filename.'.'.$framework.$min.'.js';
 			}
 		}
 		else if ( $type === 'css' ) {
-			// Possibly include a framework Javascript file.
+			// Possibly include a framework JavaScript file.
 			if ( $component['framework']['css'] ) {
 				$out[] = $path.'/css/'.$filename.'.'.$framework.$min.'.css';
 			}
@@ -958,7 +958,7 @@ DT_Example::$tables['ssp-1st-page'] = array(
 <tr class="even">
     <td>Cedric</td>
     <td>Kelly</td>
-    <td>Senior Javascript Developer</td>
+    <td>Senior JavaScript Developer</td>
     <td>Edinburgh</td>
     <td>29th Mar 12</td>
     <td>$433,060</td>

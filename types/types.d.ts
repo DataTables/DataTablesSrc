@@ -1237,7 +1237,7 @@ export interface Api<T=any> {
     /**
      * Sort the elements of the API instance's result set.
      *
-     * @param fn This is a standard Javascript sort comparison function. It accepts two parameters.
+     * @param fn This is a standard JavaScript sort comparison function. It accepts two parameters.
      * @returns The original API instance with the result set sorted as defined by the sorting conditions used.
      */
     sort(fn?: ((value1: any, value2: any) => number)): Api<Array<any>>;
@@ -1281,9 +1281,9 @@ export interface Api<T=any> {
     to$(): JQuery;
 
     /**
-     * Create a native Javascript array object from an API instance.
+     * Create a native JavaScript array object from an API instance.
      * 
-     * @returns Javascript array which contains the values from the API instance's result set.
+     * @returns JavaScript array which contains the values from the API instance's result set.
      */
     toArray(): any[];
 
@@ -2420,7 +2420,7 @@ export interface ApiRow<T> {
     /**
      * Add a new row to the table using the given data
      *
-     * @param data Data to use for the new row. This may be an array, object or Javascript object instance, but must be in the same format as the other data in the table+
+     * @param data Data to use for the new row. This may be an array, object or JavaScript object instance, but must be in the same format as the other data in the table+
      * @returns DataTables API instance with the newly added row in its result set.
      */
     add(data: any[] | object): ApiRowMethods<T>;

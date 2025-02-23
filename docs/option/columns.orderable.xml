@@ -23,7 +23,7 @@
 
 		The `data-dt-order` option can be applied to a `-tag tr` element in the table header, as well as the individual cells. If applied to the `-tag tr` the configuration given will cascade down to all cells in that row.
 
-		The `data-dt-order` property is the only option that DataTables has which cannot be set via Javascript and is read from the DOM (you could use Javascript to add the attributes before table initialisation if you require). In future, we may offer the ability to construct a complex header via the initialisation options, which would also address this.
+		The `data-dt-order` property is the only option that DataTables has which cannot be set via JavaScript and is read from the DOM (you could use JavaScript to add the attributes before table initialisation if you require). In future, we may offer the ability to construct a complex header via the initialisation options, which would also address this.
 	</description>
 
 	<example title="Disable ordering on the first column AND set the default ordering for the table (the default would still be to order on column index 0 otherwise)"><![CDATA[

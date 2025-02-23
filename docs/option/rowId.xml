@@ -10,7 +10,7 @@
 	<description>
 		It can often be useful to have a [`id` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id) on each `-tag tr` element in a DataTable for row selection and data source identification, particularly when using events.
 
-		DataTables will attempt to automatically read an id value from the data source for each row using the property defined by this option. By default it is `DT_RowId` but can be set to any other name. As with `dt-init columns.data` it can also read from a nested JSON data source by using Javascript dotted object notation (e.g. `DT_RowId: 'image.id'`).
+		DataTables will attempt to automatically read an id value from the data source for each row using the property defined by this option. By default it is `DT_RowId` but can be set to any other name. As with `dt-init columns.data` it can also read from a nested JSON data source by using JavaScript dotted object notation (e.g. `DT_RowId: 'image.id'`).
 
 		If no id value for the row is found, the `id` property will not be automatically set.
 

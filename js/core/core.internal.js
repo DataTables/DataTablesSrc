@@ -57,7 +57,7 @@ var _intVal = function ( s ) {
 };
 
 // Convert from a formatted number with characters other than `.` as the
-// decimal place, to a Javascript number
+// decimal place, to a JavaScript number
 var _numToDecimal = function ( num, decimalPoint ) {
 	// Cache created regular expressions for speed as this function is called often
 	if ( ! _re_dic[ decimalPoint ] ) {

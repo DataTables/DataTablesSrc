@@ -343,7 +343,7 @@ function usage {
         - SearchPanes
         - StateRestore
 
-      js            - Create the DataTables Javascript file
+      js            - Create the DataTables JavaScript file
 
       serve         - Run an HTTP server to allow the built examples to load
 

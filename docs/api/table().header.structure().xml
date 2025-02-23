@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="tables">
 	<name>table().header.structure()</name>
-	<summary>Get a Javascript representation of the table header structure</summary>
+	<summary>Get a JavaScript representation of the table header structure</summary>
 	<since>2.0</since>
 
 	<type type="function">
@@ -19,7 +19,7 @@
 
 	<description>
 	<![CDATA[
-		This method provides the ability to get a Javascript native representation of the HTML structure of the table's header. It allows for complex headers (i.e. cells with `colspan` and `rowspan` attributes) and multi-row headers.
+		This method provides the ability to get a JavaScript native representation of the HTML structure of the table's header. It allows for complex headers (i.e. cells with `colspan` and `rowspan` attributes) and multi-row headers.
 
 		The data structure returned has a top level array with one entry for each row in the header. Each row entry is an array of objects or a null value. The object strcture is used to describe a table cell and has the following properties:
 

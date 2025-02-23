@@ -5,18 +5,18 @@
 <js lib="jquery" />
 <js lib="datatables" />
 
-<title>Javascript sourced data</title>
+<title>JavaScript sourced data</title>
 <js><![CDATA[
 var dataSet = [
 	['Tiger Nixon', 'System Architect', 'Edinburgh', '5421', '2011/04/25', '$320,800'],
 	['Garrett Winters', 'Accountant', 'Tokyo', '8422', '2011/07/25', '$170,750'],
 	['Ashton Cox', 'Junior Technical Author', 'San Francisco', '1562', '2009/01/12', '$86,000'],
-	['Cedric Kelly', 'Senior Javascript Developer', 'Edinburgh', '6224', '2012/03/29', '$433,060'],
+	['Cedric Kelly', 'Senior JavaScript Developer', 'Edinburgh', '6224', '2012/03/29', '$433,060'],
 	['Airi Satou', 'Accountant', 'Tokyo', '5407', '2008/11/28', '$162,700'],
 	['Brielle Williamson', 'Integration Specialist', 'New York', '4804', '2012/12/02', '$372,000'],
 	['Herrod Chandler', 'Sales Assistant', 'San Francisco', '9608', '2012/08/06', '$137,500'],
 	['Rhona Davidson', 'Integration Specialist', 'Tokyo', '6200', '2010/10/14', '$327,900'],
-	['Colleen Hurst', 'Javascript Developer', 'San Francisco', '2360', '2009/09/15', '$205,500'],
+	['Colleen Hurst', 'JavaScript Developer', 'San Francisco', '2360', '2009/09/15', '$205,500'],
 	['Sonya Frost', 'Software Engineer', 'Edinburgh', '1667', '2008/12/13', '$103,600'],
 	['Jena Gaines', 'Office Manager', 'London', '3814', '2008/12/19', '$90,560'],
 	['Quinn Flynn', 'Support Lead', 'Edinburgh', '9497', '2013/03/03', '$342,000'],
@@ -64,12 +64,12 @@ var dataSet = [
 	['Tiger Nixon', 'System Architect', 'Edinburgh', '5421', '2011/04/25', '$320,800'],
 	['Garrett Winters', 'Accountant', 'Tokyo', '8422', '2011/07/25', '$170,750'],
 	['Ashton Cox', 'Junior Technical Author', 'San Francisco', '1562', '2009/01/12', '$86,000'],
-	['Cedric Kelly', 'Senior Javascript Developer', 'Edinburgh', '6224', '2012/03/29', '$433,060'],
+	['Cedric Kelly', 'Senior JavaScript Developer', 'Edinburgh', '6224', '2012/03/29', '$433,060'],
 	['Airi Satou', 'Accountant', 'Tokyo', '5407', '2008/11/28', '$162,700'],
 	['Brielle Williamson', 'Integration Specialist', 'New York', '4804', '2012/12/02', '$372,000'],
 	['Herrod Chandler', 'Sales Assistant', 'San Francisco', '9608', '2012/08/06', '$137,500'],
 	['Rhona Davidson', 'Integration Specialist', 'Tokyo', '6200', '2010/10/14', '$327,900'],
-	['Colleen Hurst', 'Javascript Developer', 'San Francisco', '2360', '2009/09/15', '$205,500'],
+	['Colleen Hurst', 'JavaScript Developer', 'San Francisco', '2360', '2009/09/15', '$205,500'],
 	['Sonya Frost', 'Software Engineer', 'Edinburgh', '1667', '2008/12/13', '$103,600'],
 	['Jena Gaines', 'Office Manager', 'London', '3814', '2008/12/19', '$90,560'],
 	['Quinn Flynn', 'Support Lead', 'Edinburgh', '9497', '2013/03/03', '$342,000'],
@@ -117,7 +117,7 @@ new DataTable('#example', {
 
 At times you will wish to be able to create a table from dynamic information passed directly to DataTables, rather than having it read from the document. This is achieved using the `dt-init data` option in the initialisation object, passing in an array of data to be used (like all other DataTables handled data, this can be arrays or objects using the `dt-init columns.data` option).
 
-A `-tag table` must be available on the page for DataTables to use. This examples shows an empty `-tag table` element being initialising as a DataTable with a set of data from a Javascript array. The columns in the table are dynamically created based on the `dt-init columns.title` configuration option.
+A `-tag table` must be available on the page for DataTables to use. This examples shows an empty `-tag table` element being initialising as a DataTable with a set of data from a JavaScript array. The columns in the table are dynamically created based on the `dt-init columns.title` configuration option.
 
 ]]></info>
 

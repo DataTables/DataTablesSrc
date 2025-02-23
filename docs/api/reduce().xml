@@ -28,9 +28,9 @@
 
 		Note that the traversal of the elements in the result set in this method is left-to-right (i.e. 0 to `length`). `dt-api reduceRight()` is available for transversal in the opposite direction.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 
-		In this case, this method is a proxy for the Javascript `Array.prototype.reduce` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce). In browsers which do not support `reduce` natively, a polyfill is provided to allow this DataTables method to operate as expected.
+		In this case, this method is a proxy for the JavaScript `Array.prototype.reduce` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce). In browsers which do not support `reduce` natively, a polyfill is provided to allow this DataTables method to operate as expected.
 	</description>
 
 	<example title="Sum the data in a column"><![CDATA[

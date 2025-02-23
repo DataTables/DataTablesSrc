@@ -16,9 +16,9 @@
 	<description>
 		It is often useful to know if a value is in a result set, and if so, which position it holds. This method provides exactly that ability, searching for the value given, starting from the last item in the instance's result set and working back through the result set (see `dt-api indexOf()` to search for the first instance of a value) and giving its position in the result set.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 
-		In this case, this method is a proxy for the Javascript `Array.prototype.lastIndexOf` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `lastIndexOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf). In browsers which do not support `lastIndexOf` natively, a polyfill is provided to allow this DataTables method to operate as expected.
+		In this case, this method is a proxy for the JavaScript `Array.prototype.lastIndexOf` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `lastIndexOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf). In browsers which do not support `lastIndexOf` natively, a polyfill is provided to allow this DataTables method to operate as expected.
 	</description>
 
 	<example title="Find the last index of an item in a column of data"><![CDATA[

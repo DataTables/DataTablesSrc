@@ -9,7 +9,7 @@
 	<description>
 		This option defines the number of elements that are stored in an API instance's result set.
 
-		This property makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This property makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 
 		In this case, this property is basically the same as the `Array.length` property. For more information about the original property, please refer to the [Mozilla MDN documentation for `length`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length).
 	</description>

@@ -14,7 +14,7 @@
 	</type>
 
 	<description>
-		When working with regular expressions it can often be useful to escape input so formatted strings with characters that have special meaning in a regular expression will simply perform a character match. There are a number of special characters in Javascript's regular expressions and DataTables requires the ability to escape these strings internally (for user input of search data) - this method exposes that ability externally.
+		When working with regular expressions it can often be useful to escape input so formatted strings with characters that have special meaning in a regular expression will simply perform a character match. There are a number of special characters in JavaScript's regular expressions and DataTables requires the ability to escape these strings internally (for user input of search data) - this method exposes that ability externally.
 
 		This is a utility method that is provided for use by extension and plug-in authors. Its use does not directly effect a DataTable or DataTables configuration. It is used internally by DataTables and is made available in the public API to help promote code reuse for extension authors.
 

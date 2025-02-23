@@ -87,7 +87,7 @@ _api_register( 'page.info()', function () {
  */
 _api_register( 'page.len()', function ( len ) {
 	// Note that we can't call this function 'length()' because `length`
-	// is a Javascript property of functions which defines how many arguments
+	// is a JavaScript property of functions which defines how many arguments
 	// the function expects.
 	if ( len === undefined ) {
 		return this.context.length !== 0 ?

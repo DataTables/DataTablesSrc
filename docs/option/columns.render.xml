@@ -13,7 +13,7 @@
 		<description>
 			Read an object property from the data source. There are three 'special' options that can be used in the string to alter how DataTables reads the data from the source object:
 
-			* `.` - Dotted Javascript notation. Just as you use a `.` in Javascript to read from nested objects, so you can use the options specified in `data`. For example: `browser.version` or `browser.name`. If your object parameter name contains a period, use `\\` to escape it - i.e. `first\\.name`.
+			* `.` - Dotted JavaScript notation. Just as you use a `.` in JavaScript to read from nested objects, so you can use the options specified in `data`. For example: `browser.version` or `browser.name`. If your object parameter name contains a period, use `\\` to escape it - i.e. `first\\.name`.
 			
 			* `[]` - Array notation. DataTables can automatically combine data from an array source, joining the data with the characters provided between the two brackets. For example: `name[, ]` would provide a comma-space separated list from the source array. If no characters are provided between the brackets, the original array source is returned. See above for further information on array access.
 
@@ -40,7 +40,7 @@
 	</type>
 	<type type="array" since="2.0.0">
 		<description>
-			DataTables has a number of [built in helper rendering functions](/manual/data/renderers#Built-in-helpers) that can be used to perform basic formatting. These helpers can be accessed from `$.fn.dataTable.render` and will resolve to a function (see below) that will be used for the data rendering. This works very well when you define the columns in pure Javascript, but if you wish to define them with JSON, since there is no ability to define functions in JSON we need a different method - the array values provide that ability.
+			DataTables has a number of [built in helper rendering functions](/manual/data/renderers#Built-in-helpers) that can be used to perform basic formatting. These helpers can be accessed from `$.fn.dataTable.render` and will resolve to a function (see below) that will be used for the data rendering. This works very well when you define the columns in pure JavaScript, but if you wish to define them with JSON, since there is no ability to define functions in JSON we need a different method - the array values provide that ability.
 
 			The first element of the array should be a string that contains the rendering function's name. The remaining elements of the array are then passed to the specified rendering function.
 
