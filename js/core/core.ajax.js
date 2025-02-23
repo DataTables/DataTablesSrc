@@ -50,7 +50,7 @@ function _fnBuildAjax( oSettings, data, fn )
 
 		var newData = typeof ajaxData === 'function' ?
 			ajaxData( data, oSettings ) :  // fn can manipulate data or return
-			ajaxData;                      // an object object or array to merge
+			ajaxData;                      // an object or array to merge
 
 		// If the function returned something, use that alone
 		data = typeof ajaxData === 'function' && newData ?

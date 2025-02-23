@@ -256,7 +256,7 @@ function _fnGetColumns( oSettings, sParam )
 /**
  * Allow the result from a type detection function to be `true` while
  * translating that into a string. Old type detection functions will
- * return the type name if it passes. An obect store would be better,
+ * return the type name if it passes. An object store would be better,
  * but not backwards compatible.
  *
  * @param {*} typeDetect Object or function for type detection

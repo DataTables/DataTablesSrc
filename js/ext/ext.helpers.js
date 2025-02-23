@@ -112,7 +112,7 @@ function __mlHelper (localeString) {
 				},
 				order: {
 					pre: function (d) {
-						// The renderer gives us Moment, Luxon or Date obects for the sorting, all of which have a
+						// The renderer gives us Moment, Luxon or Date objects for the sorting, all of which have a
 						// `valueOf` which gives milliseconds epoch
 						return d.valueOf();
 					}
