@@ -312,7 +312,7 @@ DataTable.defaults = {
 	 * Enable or disable state saving. When enabled HTML5 `localStorage` will be
 	 * used to save table display information such as pagination information,
 	 * display length, filtering and sorting. As such when the end user reloads
-	 * the page the display display will match what thy had previously set up.
+	 * the page the display will match what thy had previously set up.
 	 */
 	"bStateSave": false,
 
