@@ -79,7 +79,7 @@ describe('rowId option', function() {
 		});
 		
 		dt.html('basic');
-		it('Id removed when row deleted', function() {
+		it('ID removed when row deleted', function() {
 			table = $('#example').DataTable({
 				rowId: 3,
 			});

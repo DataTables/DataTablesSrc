@@ -133,7 +133,7 @@ export interface Feature {
         /** Class name for the div */
         className?: string;
 
-        /** Id to give the div */
+        /** ID to give the div */
         id?: string;
 
         /** HTML content for the div (cannot be used as well as textContent) */
@@ -218,13 +218,13 @@ type LayoutElement = {
     /** Class to apply to the CELL in the layout grid */
     className?: string;
 
-    /** Id to apply to the CELL in the layout grid */
+    /** ID to apply to the CELL in the layout grid */
     id?: string;
 
     /** Class to apply to the ROW in the layout grid */
     rowClass?: string;
 
-    /** Id to apply to the ROW in the layout grid */
+    /** ID to apply to the ROW in the layout grid */
     rowId?: string;
 
     /** List of features to show in this cell */

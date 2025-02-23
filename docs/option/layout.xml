@@ -182,13 +182,13 @@ interface {
     /** Class to apply to the CELL in the layout grid */
     className?: string;
 
-    /** Id to apply to the CELL in the layout grid */
+    /** ID to apply to the CELL in the layout grid */
     id?: string;
 
     /** Class to apply to the ROW in the layout grid */
     rowClass?: string;
 
-    /** Id to apply to the ROW in the layout grid */
+    /** ID to apply to the ROW in the layout grid */
     rowId?: string;
 
     /** List of features to show in this cell */
