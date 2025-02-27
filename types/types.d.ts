@@ -3095,6 +3095,7 @@ export interface CellMetaSettings {
 export interface DataTablesStaticExt {
     builder: string;
     buttons: DataTablesStaticExtButtons;
+    ccContent: IColumnControlContent;
     classes: ExtClassesSettings;
     errMode: string;
     feature: any[];
@@ -3116,6 +3117,10 @@ export interface DataTablesStaticExt {
 
 export interface DataTablesStaticExtButtons {
     // Intentionally empty, completed in Buttons extension
+}
+
+export interface IColumnControlContent {
+    [name: string]: any;
 }
 
 /**
