@@ -47,6 +47,9 @@ describe('core - ready()', function () {
 	});
 
 	describe('One parameter - function', function () {
+		let context;
+		let args;
+
 		dt.html('basic');
 
 		it('Returns true when table already initialised', function () {
@@ -55,9 +58,20 @@ describe('core - ready()', function () {
 			let run = false;
 			table.ready(function () {
 				run = true;
+				context = this;
+				args = arguments;
 			});
 
 			expect(run).toBe(true);
+		});
+
+		it('Sync - Context was an API reference', function () {
+			expect(typeof context.draw).toBe('function');
+			expect(typeof context.order).toBe('function');
+		});
+
+		it('Sync - No arguments passed', function () {
+			expect(args.length).toBe(0);
 		});
 
 		dt.html('empty');
@@ -87,9 +101,20 @@ describe('core - ready()', function () {
 
 			table.ready(function () {
 				run = true;
+				context = this;
+				args = arguments;
 			});
 
 			expect(run).toBe(false);
+		});
+
+		it('Async - Context was an API reference', function () {
+			expect(typeof context.draw).toBe('function');
+			expect(typeof context.order).toBe('function');
+		});
+
+		it('Async - No arguments passed', function () {
+			expect(args.length).toBe(0);
 		});
 	});
 });

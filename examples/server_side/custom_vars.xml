@@ -7,34 +7,46 @@
 
 <title>Custom HTTP variables</title>
 <js><![CDATA[
-$('#example').DataTable({
+var table = $('#example').DataTable({
 	ajax: {
-		url: 'scripts/server_processing.php',
+		url: 'scripts/custom_vars.php',
 		data: function (d) {
-			d.myKey = 'myValue';
-			// d.custom = $('#myInput').val();
-			// etc
+			d.officeFilter = $('#officeFilter').val();
+			
+			// Add additional parameters as needed
+			// d.myKey = 'myValue';
 		}
 	},
 	processing: true,
 	serverSide: true
 });
 
+$('#officeFilter').on('keyup', function () {
+	table.draw();
+});
+
 ]]></js>
 <js-vanilla>
 <![CDATA[
-new DataTable('#example', {
+let table = new DataTable('#example', {
 	ajax: {
-		url: 'scripts/server_processing.php',
+		url: 'scripts/custom_vars.php',
 		data: function (d) {
-			d.myKey = 'myValue';
-			// d.custom = $('#myInput').val();
-			// etc
+			d.officeFilter = document.getElementById('officeFilter').value;
+
+			// Add additional parameters as needed
+			// d.myKey = 'myValue';
 		}
 	},
 	processing: true,
 	serverSide: true
 });
+
+document
+	.getElementById('officeFilter')
+	.addEventListener('keyup', function () {
+		table.draw();
+	});
 ]]>
 </js-vanilla>
 
@@ -45,8 +57,16 @@ It can often be useful to send extra information to the server when utilising Da
 * `object` - An object data to send to the server. This is useful for adding static data to the request.
 * `function` - A function which will manipulate the data object to send to the server, adding values as required. Using the `data` parameter as a function allows the additional data to evaluated and added to the request at the time the request is made.
 
-The example below shows server-side processing being used with an extra parameter being sent to the server by using the `ajax.data` option as a function.
+The example below shows server-side processing being used with an extra parameter being sent to the server by using the `ajax.data` option as a function. The data sent to the server is used to filter the "Office" column in this example.
+
+Please note - **you do not need to use `-init serverSide` to be able to send extra data to the server with `-init ajax.data`**. This example is a demonstration of server-side processing which is typically used for [large data sets](https://datatables.net/manual/data/#Server-side-processing). If you are using `-init ajax`, the `-init ajax.data` option will still be processed, even if you are not using server-side processing.
 
 ]]></info>
+
+<demo-html>
+	<p>
+		Office column filter: <input id="officeFilter" />
+	</p>
+</demo-html>
 
 </dt-example>

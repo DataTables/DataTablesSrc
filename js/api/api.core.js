@@ -86,12 +86,14 @@ _api_register( 'ready()', function ( fn ) {
 	// Function to run either once the table becomes ready or
 	// immediately if it is already ready.
 	return this.tables().every(function () {
+		var api = this;
+
 		if (this.context[0]._bInitComplete) {
-			fn.call(this);
+			fn.call(api);
 		}
 		else {
 			this.on('init.dt.DT', function () {
-				fn.call(this);
+				fn.call(api);
 			});
 		}
 	} );
@@ -147,20 +149,37 @@ _api_register( 'destroy()', function ( remove ) {
 			jqTable.append( tfoot );
 		}
 
+		// Clean up the header
+		$(thead).find('span.dt-column-order').remove();
+		$(thead).find('span.dt-column-title').each(function () {
+			var title = $(this).html();
+			$(this).parent().append(title);
+			$(this).remove();
+		});
+
 		settings.colgroup.remove();
 
 		settings.aaSorting = [];
 		settings.aaSortingFixed = [];
 		_fnSortingClasses( settings );
 
+		$(jqTable).find('th, td').removeClass(
+			$.map(DataTable.ext.type.className, function (v) {
+				return v;
+			}).join(' ')
+		);
+
 		$('th, td', thead)
 			.removeClass(
+				orderClasses.none + ' ' +
 				orderClasses.canAsc + ' ' +
 				orderClasses.canDesc + ' ' +
 				orderClasses.isAsc + ' ' +
 				orderClasses.isDesc
 			)
-			.css('width', '');
+			.css('width', '')
+			.removeAttr('data-dt-column')
+			.removeAttr('aria-sort');
 
 		// Add the TR elements back into the table in their original order
 		jqTbody.children().detach();

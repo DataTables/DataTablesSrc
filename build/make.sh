@@ -94,7 +94,7 @@ function build_css {
 
 	for file in $(find $SRC_DIR -name "dataTables.*.scss"); do
 		filename=$(basename $file .scss)
-		$SASS --stop-on-error --style expanded $file > $OUT_DIR/$filename.css
+		$SASS --no-charset --stop-on-error --style expanded $file > $OUT_DIR/$filename.css
 		css_compress $OUT_DIR/$filename.css
 	done
 }
@@ -330,6 +330,7 @@ function usage {
         - AutoFill
         - Buttons
         - ColReorder
+        - ColumnControl
         - DateTime
         - FixedColumns
         - FixedHeader
@@ -385,6 +386,7 @@ case "$1" in
 		build_extension AutoFill
 		build_extension Buttons
 		build_extension ColReorder
+		build_extension ColumnControl
 		build_extension DateTime
 		build_extension FixedColumns
 		build_extension FixedHeader

@@ -67,26 +67,26 @@ describe('language.aria option ', function() {
 				}
 			});
 
-			expect($('#example thead th').eq(0).attr('aria-label')).toBe('NameORDER-REVERSE');
-			expect($('#example thead th').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
+			expect($('#example thead th span:last-child').eq(0).attr('aria-label')).toBe('NameORDER-REVERSE');
+			expect($('#example thead th span:last-child').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
 		});
 
 		it('Language aria orderable remove', async function() {
 			await dt.clickHeader(0);
-			expect($('#example thead th').eq(0).attr('aria-label')).toBe('NameORDER-REMOVE');
-			expect($('#example thead th').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
+			expect($('#example thead th span:last-child').eq(0).attr('aria-label')).toBe('NameORDER-REMOVE');
+			expect($('#example thead th span:last-child').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
 		});
 
 		it('Language aria orderable reassign', async function() {
 			await dt.clickHeader(0);
-			expect($('#example thead th').eq(0).attr('aria-label')).toBe('NameORDER-DO');
-			expect($('#example thead th').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
+			expect($('#example thead th span:last-child').eq(0).attr('aria-label')).toBe('NameORDER-DO');
+			expect($('#example thead th span:last-child').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
 		});
 
 		it('Language aria orderable and ordered again', async function() {
 			await dt.clickHeader(0);
-			expect($('#example thead th').eq(0).attr('aria-label')).toBe('NameORDER-REVERSE');
-			expect($('#example thead th').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
+			expect($('#example thead th span:last-child').eq(0).attr('aria-label')).toBe('NameORDER-REVERSE');
+			expect($('#example thead th span:last-child').eq(1).attr('aria-label')).toBe('PositionORDER-DO');
 		});
 	});
 });

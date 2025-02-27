@@ -28,6 +28,10 @@ section {
 	position: relative;
 }
 
+div.demo-html > table {
+	width: 100%;
+}
+
 body.dt-example {
 	div.container {
 		max-width: 980px;

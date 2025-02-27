@@ -204,6 +204,9 @@ function nameFromDependency(dep) {
 	else if (name.includes('colreorder')) {
 		return 'ColReorder';
 	}
+	else if (name.includes('columncontrol')) {
+		return 'ColumnControl';
+	}
 	else if (name.includes('editor')) {
 		return 'Editor';
 	}

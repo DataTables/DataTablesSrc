@@ -89,105 +89,107 @@ window.dt_demo = {
 	},
 
 	_tabs: function () {
-		// js
-		dt_demo._displayFiles('#js-lib-files', dt_demo._loaded.js);
-		dt_demo._displayFiles('#css-lib-files', dt_demo._loaded.css);
+		if ($('body').hasClass('example')) {
+			// js
+			dt_demo._displayFiles('#js-lib-files', dt_demo._loaded.js);
+			dt_demo._displayFiles('#css-lib-files', dt_demo._loaded.css);
 
-		// css
-		var cssContainer = $('div.dt-tabs div.css');
-		if ( cssContainer.find('code').text() === '' ) {
-			cssContainer.find('code, div').css('display', 'none');
-			cssContainer.find('p').eq(0).css('display', 'none');
-		}
-
-		// This can really slow things down
-		setTimeout( function () {
-			SyntaxHighlighter.highlight({}, $('div.table code')[0]);
-		}, 1000)
-
-		// json
-		var ajaxTab = $('ul.dt-tabs li').eq(3).css('display', 'none');
-
-		$(document).on( 'init.dt', function ( e, settings ) {
-			if ( e.namespace !== 'dt' ) {
-				return;
+			// css
+			var cssContainer = $('div.dt-tabs div.css');
+			if ( cssContainer.find('code').text() === '' ) {
+				cssContainer.find('code, div').css('display', 'none');
+				cssContainer.find('p').eq(0).css('display', 'none');
 			}
 
-			var api = new $.fn.dataTable.Api( settings );
+			// This can really slow things down
+			setTimeout( function () {
+				SyntaxHighlighter.highlight({}, $('div.table code')[0]);
+			}, 1000)
 
-			var show = function ( str ) {
-				ajaxTab.css( 'display', 'block' );
-				$('div.dt-tabs div.ajax code').remove();
-				$('div.dt-tabs div.ajax div.syntaxhighlighter').remove();
+			// json
+			var ajaxTab = $('ul.dt-tabs li').eq(3).css('display', 'none');
 
-				// Old IE :-|
-				try {
-					str = JSON.stringify( str, null, 2 );
-				} catch ( e ) {}
-
-				var strArr = str.split('\n');
-
-				if(strArr.length > 1000){
-					var first = strArr.splice(0, 500);
-					var second = strArr.splice(strArr.length - 499, 499);
-					first.push("\n\n... Truncated for brevity - look at your browser's network inspector to see the full source ...\n\n");
-					str = first.concat(second).join('\n');
-				}
-
-				$('div.dt-tabs div.ajax').append(
-					$('<code class="multiline language-js"/>').text( str )
-				);
-
-				// This can be really slow for large builds
-				setTimeout( function () {
-					SyntaxHighlighter.highlight( {}, $('div.dt-tabs div.ajax code')[0] );
-				}, 500 );
-			};
-
-			// First draw
-			var json = api.ajax.json();
-			if ( json ) {
-				show( json );
-			}
-
-			// Subsequent draws
-			api.on( 'xhr.dt', function ( e, settings, json ) {
-				show( json );
-			} );
-		} );
-
-		// php
-		var phpTab = $('ul.dt-tabs li').eq(4).css('display', 'none');
-
-		$(document).on( 'init.dt.demoSSP', function ( e, settings ) {
-			if ( e.namespace !== 'dt' ) {
-				return;
-			}
-
-			if ( settings.oFeatures.bServerSide ) {
-				if ( typeof settings.ajax === 'function' ) {
+			$(document).on( 'init.dt', function ( e, settings ) {
+				if ( e.namespace !== 'dt' ) {
 					return;
 				}
-				$.ajax( {
-					url: '../resources/examples.php',
-					data: {
-						src: settings.sAjaxSource || settings.ajax.url || settings.ajax
-					},
-					dataType: 'text',
-					type: 'post',
-					success: function ( txt ) {
-						phpTab.css( 'display', 'block' );
-						$('div.dt-tabs div.php').append(
-							'<code class="multiline language-php">'+txt+'</code>'
-						);
-						SyntaxHighlighter.highlight( {}, $('div.dt-tabs div.php code')[0] );
+
+				var api = new $.fn.dataTable.Api( settings );
+
+				var show = function ( str ) {
+					ajaxTab.css( 'display', 'block' );
+					$('div.dt-tabs div.ajax code').remove();
+					$('div.dt-tabs div.ajax div.syntaxhighlighter').remove();
+
+					// Old IE :-|
+					try {
+						str = JSON.stringify( str, null, 2 );
+					} catch ( e ) {}
+
+					var strArr = str.split('\n');
+
+					if(strArr.length > 1000){
+						var first = strArr.splice(0, 500);
+						var second = strArr.splice(strArr.length - 499, 499);
+						first.push("\n\n... Truncated for brevity - look at your browser's network inspector to see the full source ...\n\n");
+						str = first.concat(second).join('\n');
 					}
+
+					$('div.dt-tabs div.ajax').append(
+						$('<code class="multiline language-js"/>').text( str )
+					);
+
+					// This can be really slow for large builds
+					setTimeout( function () {
+						SyntaxHighlighter.highlight( {}, $('div.dt-tabs div.ajax code')[0] );
+					}, 500 );
+				};
+
+				// First draw
+				var json = api.ajax.json();
+				if ( json ) {
+					show( json );
+				}
+
+				// Subsequent draws
+				api.on( 'xhr.dt', function ( e, settings, json ) {
+					show( json );
 				} );
-			}
-		} );
+			} );
+
+			// php
+			var phpTab = $('ul.dt-tabs li').eq(4).css('display', 'none');
+
+			$(document).on( 'init.dt.demoSSP', function ( e, settings ) {
+				if ( e.namespace !== 'dt' ) {
+					return;
+				}
+
+				if ( settings.oFeatures.bServerSide ) {
+					if ( typeof settings.ajax === 'function' ) {
+						return;
+					}
+					$.ajax( {
+						url: '../resources/examples.php',
+						data: {
+							src: settings.sAjaxSource || settings.ajax.url || settings.ajax
+						},
+						dataType: 'text',
+						type: 'post',
+						success: function ( txt ) {
+							phpTab.css( 'display', 'block' );
+							$('div.dt-tabs div.php').append(
+								'<code class="multiline language-php">'+txt+'</code>'
+							);
+							SyntaxHighlighter.highlight( {}, $('div.dt-tabs div.php code')[0] );
+						}
+					} );
+				}
+			} );
+		}
 
 		// Tabs
-		$('ul.dt-tabs').on( 'click', 'li', function () {
+		$('ul.dt-tabs').on( 'click', 'li:not(.disabled)', function () {
 			$('ul.dt-tabs li.active').removeClass('active');
 			$(this).addClass('active');
 
@@ -787,6 +789,8 @@ window.dt_demo = {
 				return 'autoFill';
 			case 'colreorder':
 				return 'colReorder';
+			case 'columncontrol':
+				return 'columnControl';
 			case 'datatables':
 				return 'dataTables';
 			case 'datetime':

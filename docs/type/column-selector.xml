@@ -18,7 +18,7 @@ The column selector can be given in a number of different forms, to make it easy
 * `dt-string {integer}:visible` - Alias of `dt-string {integer}:visIdx`. Note that as of 2.1.4 it is possible to use a regular DOM selector in front of `:visible` to select visible columns that match the given selector. The prefixed number is a special case.
 * `dt-string {string}:name` - Column name selector, from `dt-init columns.name` (e.g. `salary:name`)
 * `dt-string {string}:title` - Column title selector - select based on the title text for the column (e.g. `My\ Column:title`)
-* `dt-type string` - jQuery selector
+* `dt-type string` - CSS selector
 * `dt-type node` - This may be one of the following:
   * `-tag th` / `-tag td` cell from the column headers
   * `-tag td` / `-tag td` cell from the table body (<span class="since">Since: 1.10.11</span>)
@@ -26,6 +26,8 @@ The column selector can be given in a number of different forms, to make it easy
 * `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
 * `dt-type jQuery` - jQuery object of the column header nodes
 * `dt-type array` - Array containing any combination of the above options
+
+To combine selectors to select multiple columns on different criteria, use an array of the options above. The order of the columns selected will match the order that the array resolves to. In the case of a selector that resolves to multiple columns (e.g. a CSS selector) the order will be in index order.
 
 
 ## No selector

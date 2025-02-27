@@ -218,6 +218,15 @@ function _fnCalculateColumnWidths ( settings )
 			// This flag allows the above to be satisfied.
 			var first = $(settings.nTableWrapper).is(':visible');
 
+			// Use an empty div to attach the observer so it isn't impacted by height changes
+			var resizer = $('<div>')
+				.css({
+					width: '100%',
+					height: 0
+				})
+				.addClass('dt-autosize')
+				.appendTo(settings.nTableWrapper);
+
 			settings.resizeObserver = new ResizeObserver(function (e) {
 				if (first) {
 					first = false;
@@ -227,7 +236,7 @@ function _fnCalculateColumnWidths ( settings )
 				}
 			});
 
-			settings.resizeObserver.observe(settings.nTableWrapper);
+			settings.resizeObserver.observe(resizer[0]);
 		}
 		else {
 			// For old browsers, the best we can do is listen for a window resize

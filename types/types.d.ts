@@ -3351,7 +3351,7 @@ type FunctionPreDrawCallback = (settings: InternalSettings) => void;
 
 type FunctionRowCallback = (row: HTMLTableRowElement, data: any[] | object, index: number) => void;
 
-type FunctionStateLoadCallback = (settings: InternalSettings) => void;
+type FunctionStateLoadCallback = (settings: InternalSettings, callback: ((state) => void)) => void | object;
 
 type FunctionStateLoaded = (settings: InternalSettings, data: object) => void;
 

@@ -4,7 +4,9 @@
 	<summary>Language strings used for WAI-ARIA specific attributes</summary>
 	<since>1.10</since>
 	<deprecated removed="2.0.0">
-		Please note that this parameter is no longer available in DataTables as of v2. It has been replaced with `-init language.aria.orderable` and `-init language.aria.orderableReverse`.
+		<description>
+			Please note that this parameter is no longer available in DataTables as of v2. It has been replaced with `-init language.aria.orderable` and `-init language.aria.orderableReverse`.
+		</description>
 	</deprecated>
 
 	<type type="string" />

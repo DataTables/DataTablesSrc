@@ -30,6 +30,10 @@
 	background:         linear-gradient(to bottom, $from 0%, $to 100%); /* W3C */
 }
 
+@function unicode($str) {
+  @return unquote("\"")+unquote(str-insert($str, "\\", 1))+unquote("\"")
+}
+
 //
 // Variables
 //

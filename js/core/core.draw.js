@@ -232,7 +232,7 @@ function _fnBuildHead( settings, side )
  * @param {*} settings DataTables settings
  * @param {*} source Source layout array
  * @param {*} incColumns What columns should be included
- * @returns Layout array
+ * @returns Layout array in column index order
  */
 function _fnHeaderLayout( settings, source, incColumns )
 {
