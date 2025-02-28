@@ -1001,9 +1001,24 @@ function _fnDetectHeader ( settings, thead, write )
 							.appendTo(cell);
 					}
 
-					if ( isHeader && $('span.dt-column-order', cell).length === 0) {
+					if (
+						settings.orderIndicators &&
+						isHeader &&
+						$('span.dt-column-order', cell).length === 0
+					) {
 						$('<span>')
 							.addClass('dt-column-order')
+							.appendTo(cell);
+					}
+
+					// We need to wrap the elements in the header in another element to use flexbox
+					// layout for those elements
+					var headerFooter = isHeader ? 'header' : 'footer';
+
+					if ( $('span.dt-column-' + headerFooter, cell).length === 0) {
+						$('<div>')
+							.addClass('dt-column-' + headerFooter)
+							.append(cell.childNodes)
 							.appendTo(cell);
 					}
 				}

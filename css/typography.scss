@@ -15,6 +15,10 @@ table.dataTable#{$table-typography-selector} {
 		&.dt-type-numeric,
 		&.dt-type-date {
 			text-align: right;
+
+			div.dt-column-header {
+				flex-direction: row-reverse;
+			}
 		}
 
 		&.dt-left {
@@ -27,6 +31,10 @@ table.dataTable#{$table-typography-selector} {
 
 		&.dt-right {
 			text-align: right;
+
+			div.dt-column-header {
+				flex-direction: row-reverse;
+			}
 		}
 
 		&.dt-justify {
@@ -59,6 +67,10 @@ table.dataTable#{$table-typography-selector} {
 
 			&.dt-head-right {
 				text-align: right;
+
+				div.dt-column-header {
+					flex-direction: row-reverse;
+				}
 			}
 
 			&.dt-head-justify {
