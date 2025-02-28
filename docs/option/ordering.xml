@@ -4,13 +4,21 @@
 	<summary>Feature control ordering (sorting) abilities in DataTables.</summary>
 	<since>1.10</since>
 
-	<type type="boolean" />
+	<type type="boolean">
+		Boolean `true` will enable column ordering in the DataTable, placing ordering indicators in the header cells and adding a click listener to them to allow end user ordering of columns. Boolean `false` will disable column ordering, with ordering indicators or click listeners added.
+	</type>
+	<type type="object">
+		When given as an object, columns can be ordered in the DataTable, with ordering indicators and click listeners controlled by `-init ordering.indicators` and `-init ordering.listener` respectively.
+	</type>
+
 	<default>true</default>
 
 	<description>
-		Enable or disable ordering of columns - it is as simple as that! DataTables, by default, allows end users to click on the header cell for each column, ordering the table by the data in that column. The ability to order data can be disabled using this option.
+		This option sets whether columns can be ordered or not in DataTables. By default, DataTables allows end users to click on the header cell for each column, ordering the table by the data in that column. The ability to order data can be disabled using this option.
 
 		Note that the ability to add or remove sorting of individual columns can be disabled by the `dt-init columns.orderable` option for each column. This parameter is a global option - when disabled, there are no sorting actions applied by DataTables at all.
+
+		As of DataTables 2.3 this option can also be given as an object to allow more nuanced customisation of the ordering controls that DataTables adds to the table. This is particularly of interest if you are using an extension such as [ColumnControl](https://datatables.net/extensions/columncontrol) to control column ordering. If given as an object, ordering is enabled in the table.
 	</description>
 
 	<example title="Disable ordering in the table"><![CDATA[
@@ -19,11 +27,21 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
+	<example title="Keep ordering enabled, but disable the built in click listeners"><![CDATA[
+new DataTable('#myTable', {
+	ordering: {
+		handler: false
+	}
+});
+]]></example>
+
 	<related type="option">columns.orderable</related>
 	<related type="option">order</related>
 	<related type="option">orderFixed</related>
 	<related type="option">orderMulti</related>
 	<related type="option">orderClasses</related>
+	<related type="option">ordering.indicators</related>
+	<related type="option">ordering.handler</related>
 	<related type="api">order()</related>
 	<related type="api">column().order()</related>
 	<related type="api">columns().order()</related>

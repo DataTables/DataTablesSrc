@@ -686,5 +686,14 @@ DataTable.models.oSettings = {
 	resizeObserver: null,
 
 	/** Keep a record of the last size of the container, so we can skip duplicates */
-	containerWidth: -1
+	containerWidth: -1,
+
+	/** Reverse the initial order of the data set on desc ordering */
+	orderDescReverse: null,
+
+	/** Show / hide ordering indicators in headers */
+	orderIndicators: true,
+
+	/** Default ordering listener */
+	orderHandler: true
 };

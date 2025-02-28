@@ -13,13 +13,15 @@ function _fnSortInit( settings ) {
 		target = headerRows[ headerRows.length - 1 ];
 	}
 
-	_fnSortAttachListener(
-		settings,
-		target,
-		target === settings.nTHead
-			? 'tr'+notSelector+' th'+notSelector+', tr'+notSelector+' td'+notSelector
-			: 'th'+notSelector+', td'+notSelector
-	);
+	if (settings.orderHandler) {
+		_fnSortAttachListener(
+			settings,
+			target,
+			target === settings.nTHead
+				? 'tr'+notSelector+' th'+notSelector+', tr'+notSelector+' td'+notSelector
+				: 'th'+notSelector+', td'+notSelector
+		);
+	}
 
 	// Need to resolve the user input array into our internal structure
 	var order = [];
