@@ -1272,7 +1272,7 @@ export interface Api<T=any> {
      *   impact for bubbling events.
      * @returns Api instance for chaining
      */
-    trigger( name: string, args: any[], bubbles?: boolean): Api<T>;
+    trigger(name: string, args?: any[], bubbles?: boolean): Api<T>;
 
     /**
      * Create a new API instance containing only the unique items from the elements in an instance's result set.
