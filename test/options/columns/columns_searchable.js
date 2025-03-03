@@ -56,7 +56,7 @@ describe('columns.searchable option', function() {
 		});
 
 		dt.html('basic');
-		it('Disble all colimns using columnDefs', function() {
+		it('Disble all columns using columnDefs', function() {
 			table = $('#example').DataTable({
 				columnDefs: [{ searchable: false, targets: '_all' }]
 			});
