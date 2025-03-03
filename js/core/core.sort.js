@@ -36,7 +36,9 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 		var run = false;
 		var columns = column === undefined
 			? _fnColumnsFromHeader( e.target )
-			: [column];
+			: Array.isArray(column)
+				? column
+				: [column];
 
 		if ( columns.length ) {
 			for ( var i=0, ien=columns.length ; i<ien ; i++ ) {
