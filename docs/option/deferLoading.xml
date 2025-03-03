@@ -24,7 +24,7 @@ When using server-side processing, the default mode of operation for DataTables 
 
 Note that this option only has effect when `dt-init serverSide` is enabled. It does not have any effect when using client-side processing. 
 
-Additionally, there are a number of cirsumstances where this option **will not work**. For example state saving, predefined filtering, extensions such as SearchPanes and SearchBuilder, and more. Unless the logic that is used to populate the table's initial HTML exactly matches how DataTables populates the data to display (e.g. ordering and search), it will not work. Such use cases _are not supported_. Disable this option if you need to use any of these features.
+Additionally, there are a number of circumstances where this option **will not work**. For example state saving, predefined filtering, extensions such as SearchPanes and SearchBuilder, and more. Unless the logic that is used to populate the table's initial HTML exactly matches how DataTables populates the data to display (e.g. ordering and search), it will not work. Such use cases _are not supported_. Disable this option if you need to use any of these features.
 
 Unless you really need the behaviour offered by this option and know the impact on other modules you are using, it is strongly recommended that you don't use it!
 
