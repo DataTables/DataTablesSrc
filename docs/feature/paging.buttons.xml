@@ -9,7 +9,7 @@
 
 	<description>
 	<![CDATA[
-		< For DataTables 2.0.0-2.0.3 this parameter was called `paging.numbers`, but was renamed as the naming was not discoverable. For 2.0.x backwards compability will be retained, but removed in 2.1.
+		< For DataTables 2.0.0-2.0.3 this parameter was called `paging.numbers`, but was renamed as the naming was not discoverable. For 2.0.x backwards compatibility will be retained, but removed in 2.1.
 
 		DataTables built in pagination control has the ability to show a variable amount of page number buttons. The default is 7, but you might want to show less depending on your layout. The number given should always be **odd**.
 
