@@ -15,12 +15,12 @@ require_once('markdown_extended.php');// or die('Run ./make.sh thirdparty');
  *      paths)
  */
 
-function DT_Markdown($text, $default_claases=array(), $truncateWhiteSpace=false){
+function DT_Markdown($text, $default_classes=array(), $truncateWhiteSpace=false){
 	if ( $truncateWhiteSpace ) {
 		$text = DT_Markdown_Parser::truncateWhiteSpace( $text );
 	}
 
-	$parser = new DT_Markdown_Parser($default_claases);
+	$parser = new DT_Markdown_Parser($default_classes);
 	return $parser->transform($text);
 }
 
