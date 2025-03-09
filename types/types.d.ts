@@ -1148,9 +1148,9 @@ export interface Api<T=any> {
      * @param initialValue Value to use as the first argument of the first call to the fn callback.
      * @returns Result from the final call to the fn callback function.
      */
-    reduce(callbackfn: (current: T, value: T, index: number, dt: Api<any>) => T): T;
-    reduce(callbackfn: (current: T, value: T, index: number, dt: Api<any>) => T, initialValue: T): T;
-    reduce<U>(callbackfn: (current: U, value: T, index: number, dt: Api<any>) => U, initialValue: U): U;
+    reduce(fn: (current: T, value: T, index: number, dt: Api<any>) => T): T;
+    reduce(fn: (current: T, value: T, index: number, dt: Api<any>) => T, initialValue: T): T;
+    reduce<U>(fn: (current: U, value: T, index: number, dt: Api<any>) => U, initialValue: U): U;
 
     /**
      * Apply a callback function against and accumulator and each element in the Api's result set (right-to-left).
@@ -1159,9 +1159,9 @@ export interface Api<T=any> {
      * @param initialValue Value to use as the first argument of the first call to the fn callback.
      * @returns Result from the final call to the fn callback function.
      */
-    reduceRight(callbackfn: (current: T, value: T, index: number, dt: Api<any>) => T): T;
-    reduceRight(callbackfn: (current: T, value: T, index: number, dt: Api<any>) => T, initialValue: T): T;
-    reduceRight<U>(callbackfn: (current: U, value: T, index: number, dt: Api<any>) => U, initialValue: U): U;
+    reduceRight(fn: (current: T, value: T, index: number, dt: Api<any>) => T): T;
+    reduceRight(fn: (current: T, value: T, index: number, dt: Api<any>) => T, initialValue: T): T;
+    reduceRight<U>(fn: (current: U, value: T, index: number, dt: Api<any>) => U, initialValue: U): U;
 
     /**
      * Reverse the result set of the API instance and return the original array.
