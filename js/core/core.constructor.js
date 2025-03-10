@@ -239,7 +239,7 @@ _fnApplyColumnDefs( oSettings, oInit.aoColumnDefs, columnsInit, initHeaderLayout
 /* HTML5 attribute detection - build an mData object automatically if the
  * attributes are found
  */
-var rowOne = $this.children('tbody').find('tr').eq(0);
+var rowOne = $this.children('tbody').find('tr:first-child').eq(0);
 
 if ( rowOne.length ) {
 	var a = function ( cell, name ) {
