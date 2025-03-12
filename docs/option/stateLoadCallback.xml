@@ -21,7 +21,7 @@
 	</type>
 
 	<description>
-		With this callback you can define where, and how, the state of a table is loaded from. By default DataTables will load from [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) or [`sessionStrorage`](https://developer.mozilla.org/en/docs/Web/API/Window/sessionStorage), but for more permanent storage, you can store state in a server-side database.
+		With this callback you can define where, and how, the state of a table is loaded from. By default DataTables will load from [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) or [`sessionStorage`](https://developer.mozilla.org/en/docs/Web/API/Window/sessionStorage), but for more permanent storage, you can store state in a server-side database.
 
 		Prior to DataTables 1.10.13 this method had to act synchronously, i.e. the state would be returned by the function. As of 1.10.13 it is possible to load state asynchronously via Ajax or any other async method and execute the callback function, passing in the loaded state.
 

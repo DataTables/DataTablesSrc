@@ -98,6 +98,11 @@ function _fnBuildAjax( oSettings, data, fn )
 	// Allow plug-ins and external processes to modify the data
 	_fnCallbackFire( oSettings, null, 'preXhr', [oSettings, data, baseAjax], true );
 
+	// Custom Ajax option to submit the parameters as a JSON string
+	if (baseAjax.submitAs === 'json' && typeof data === 'object') {
+		baseAjax.data = JSON.stringify(data);
+	}
+
 	if ( typeof ajax === 'function' )
 	{
 		// Is a function - let the caller define what needs to be done

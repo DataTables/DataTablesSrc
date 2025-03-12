@@ -528,10 +528,9 @@ function _emptyRow ( settings ) {
 	var zero = oLang.sZeroRecords;
 	var dataSrc = _fnDataSource( settings );
 
-	if (
-		(settings.iDraw < 1 && dataSrc === 'ssp') ||
-		(settings.iDraw <= 1 && dataSrc === 'ajax')
-	) {
+	// Make use of the fact that settings.json is only set once the initial data has
+	// been loaded. Show loading when that isn't the case
+	if ((dataSrc === 'ssp' || dataSrc === 'ajax') && ! settings.json) {
 		zero = oLang.sLoadingRecords;
 	}
 	else if ( oLang.sEmptyTable && settings.fnRecordsTotal() === 0 )

@@ -386,4 +386,30 @@ describe('core- order()', function() {
 			expect($('#example thead th').eq(5).attr('aria-sort')).toBeUndefined();
 		});
 	});
+
+	describe('aria-order', function() {
+		let table;
+
+		dt.html('basic');
+
+		it('Table setup', function() {
+			table = new DataTable('#example', {
+				columnDefs: [ { targets: 1, name: "position" }]
+			});
+			
+			expect($('#example tbody td').eq(0).text()).toBe('Airi Satou');
+		});
+
+		it('Order by named column', function() {
+			table.order([{ name: "position", dir: "asc" }]).draw();
+
+			expect($('#example tbody td').eq(0).text()).toBe('Garrett Winters');
+		});
+
+		it('Order by header will then reverse', async function() {
+			await dt.clickHeader(1);
+
+			expect($('#example tbody td').eq(0).text()).toBe('Prescott Bartlett');
+		});
+	});
 });

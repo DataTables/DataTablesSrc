@@ -1151,7 +1151,9 @@ export interface Api<T=any> {
      * @param initialValue Value to use as the first argument of the first call to the fn callback.
      * @returns Result from the final call to the fn callback function.
      */
-    reduce(fn: ((current: number, value: any, index: number, dt: Api<any>) => number), initialValue?: any): any;
+    reduce(fn: (current: T, value: T, index: number, dt: Api<any>) => T): T;
+    reduce(fn: (current: T, value: T, index: number, dt: Api<any>) => T, initialValue: T): T;
+    reduce<U>(fn: (current: U, value: T, index: number, dt: Api<any>) => U, initialValue: U): U;
 
     /**
      * Apply a callback function against and accumulator and each element in the Api's result set (right-to-left).
@@ -1160,7 +1162,9 @@ export interface Api<T=any> {
      * @param initialValue Value to use as the first argument of the first call to the fn callback.
      * @returns Result from the final call to the fn callback function.
      */
-    reduceRight(fn: ((current: number, value: any, index: number, dt: Api<any>) => number), initialValue?: any): any;
+    reduceRight(fn: (current: T, value: T, index: number, dt: Api<any>) => T): T;
+    reduceRight(fn: (current: T, value: T, index: number, dt: Api<any>) => T, initialValue: T): T;
+    reduceRight<U>(fn: (current: U, value: T, index: number, dt: Api<any>) => U, initialValue: U): U;
 
     /**
      * Reverse the result set of the API instance and return the original array.
@@ -1275,7 +1279,7 @@ export interface Api<T=any> {
      *   impact for bubbling events.
      * @returns Api instance for chaining
      */
-    trigger( name: string, args: any[], bubbles?: boolean): Api<T>;
+    trigger(name: string, args?: any[], bubbles?: boolean): Api<T>;
 
     /**
      * Create a new API instance containing only the unique items from the elements in an instance's result set.
@@ -3063,6 +3067,9 @@ export interface AjaxSettings extends JQueryAjaxSettings {
         /** Mapping for `recordsFiltered` property */
         recordsFiltered: AjaxDataSrc;
     };
+
+    /** Format to submit the data parameters as in the Ajax request */
+    submitAs?: 'http' | 'json';
 }
 
 interface FunctionColumnData {
@@ -3325,38 +3332,38 @@ export type ExtTypeSettingsDetect = ((data: any, settings: InternalSettings) => 
     init?: (settings: InternalSettings, column: any, index: number) => boolean
 };
 
-type FunctionAjax = (data: object, callback: ((data: any) => void), settings: InternalSettings) => void;
+type FunctionAjax = (this: JQueryDataTables, data: object, callback: ((data: any) => void), settings: InternalSettings) => void;
 
-type FunctionAjaxData = (data: AjaxData, settings: InternalSettings) => string | object;
+type FunctionAjaxData = (this: JQueryDataTables, data: AjaxData, settings: InternalSettings) => string | object;
 
-type FunctionColumnRender = (data: any, type: any, row: any, meta: CellMetaSettings) => any;
+type FunctionColumnRender = (this: JQueryDataTables, data: any, type: any, row: any, meta: CellMetaSettings) => any;
 
-type FunctionColumnCreatedCell = (cell: HTMLTableCellElement, cellData: any, rowData: any, row: number, col: number) => void;
+type FunctionColumnCreatedCell = (this: JQueryDataTables, cell: HTMLTableCellElement, cellData: any, rowData: any, row: number, col: number) => void;
 
-type FunctionCreateRow = (row: HTMLTableRowElement, data: any[] | object, dataIndex: number, cells: HTMLTableCellElement[]) => void;
+type FunctionCreateRow = (this: JQueryDataTables, row: HTMLTableRowElement, data: any[] | object, dataIndex: number, cells: HTMLTableCellElement[]) => void;
 
-type FunctionDrawCallback = (settings: InternalSettings) => void;
+type FunctionDrawCallback = (this: JQueryDataTables, settings: InternalSettings) => void;
 
-type FunctionFooterCallback = (tr: HTMLTableRowElement, data: any[], start: number, end: number, display: any[]) => void;
+type FunctionFooterCallback = (this: JQueryDataTables, tr: HTMLTableRowElement, data: any[], start: number, end: number, display: any[]) => void;
 
-type FunctionFormatNumber = (formatNumber: number) => void;
+type FunctionFormatNumber = (this: JQueryDataTables, formatNumber: number) => void;
 
-type FunctionHeaderCallback = (tr: HTMLTableRowElement, data: any[], start: number, end: number, display: any[]) => void;
+type FunctionHeaderCallback = (this: JQueryDataTables, tr: HTMLTableRowElement, data: any[], start: number, end: number, display: any[]) => void;
 
-type FunctionInfoCallback = (settings: InternalSettings, start: number, end: number, mnax: number, total: number, pre: string) => void;
+type FunctionInfoCallback = (this: JQueryDataTables, settings: InternalSettings, start: number, end: number, mnax: number, total: number, pre: string) => void;
 
-type FunctionInitComplete = (settings: InternalSettings, json: object) => void;
+type FunctionInitComplete = (this: JQueryDataTables, settings: InternalSettings, json: object) => void;
 
-type FunctionPreDrawCallback = (settings: InternalSettings) => void;
+type FunctionPreDrawCallback = (this: JQueryDataTables, settings: InternalSettings) => void;
 
-type FunctionRowCallback = (row: HTMLTableRowElement, data: any[] | object, index: number) => void;
+type FunctionRowCallback = (this: JQueryDataTables, row: HTMLTableRowElement, data: any[] | object, index: number) => void;
 
-type FunctionStateLoadCallback = (settings: InternalSettings, callback: ((state) => void)) => void | object;
+type FunctionStateLoadCallback = (this: JQueryDataTables, settings: InternalSettings, callback: ((state) => void)) => void | object;
 
-type FunctionStateLoaded = (settings: InternalSettings, data: object) => void;
+type FunctionStateLoaded = (this: JQueryDataTables, settings: InternalSettings, data: object) => void;
 
-type FunctionStateLoadParams = (settings: InternalSettings, data: object) => void;
+type FunctionStateLoadParams = (this: JQueryDataTables, settings: InternalSettings, data: object) => void;
 
-type FunctionStateSaveCallback = (settings: InternalSettings, data: object) => void;
+type FunctionStateSaveCallback = (this: JQueryDataTables, settings: InternalSettings, data: object) => void;
 
-type FunctionStateSaveParams = (settings: InternalSettings, data: object) => void;
+type FunctionStateSaveParams = (this: JQueryDataTables, settings: InternalSettings, data: object) => void;

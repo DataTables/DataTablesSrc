@@ -18,12 +18,12 @@
 		<parameter type="object" name="settings" since="1.10.6">
 			DataTables settings object (`dt-type DataTables.Settings`).
 		</parameter>
-		<returns type="object|string|undefined">
+		<returns type="object|undefined">
 			If there is no return value from the function (i.e. `dt-type undefined`) then the original data object passed into the function by DataTables will be used for the request (the function may have manipulated its values).
 
 			If an object is returned, then that object will be used as the data for the request. It will not be merged with the original data object constructed by DataTables before being sent.
 
-			If a string is returned, this string it will be used in the Ajax request body rather than individual HTTP parameters being sent. This is particularly useful for sending JSON encoded data in the request body so the server can decode it directly, rather than individual HTTP parameters being sent. See example below for how to use `JSON.stringify()` to achieve this.
+			A string can be returned by this function to submit the data as JSON to the server, however this is incompatible with extensions and custom events that need to set additional data. Use `-init ajax.submitAs` to submit as JSON for DataTables 2.3 and newer.
 		</returns>
 		<description>
 			As a function, the `dt-init ajax.data` option can be used to modify the data DataTables submits to the server upon an Ajax request, by manipulating the original data object DataTables constructs internally, or by replacing it completely.
@@ -78,20 +78,8 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Submit data as JSON in the request body"><![CDATA[
-new DataTable('#myTable', {
-	ajax: {
-		url: 'data.json',
-		contentType: 'application/json',
-		type: 'POST',
-		data: function (d) {
-			return JSON.stringify(d);
-		}
-	}
-});
-]]></example>
-
 	<related type="option">ajax</related>
+	<related type="option">ajax.submitParams</related>
 	<related type="api">ajax.json()</related>
 	<related type="api">ajax.reload()</related>
 	<related type="api">ajax.url()</related>

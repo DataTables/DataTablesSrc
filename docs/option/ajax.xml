@@ -24,7 +24,7 @@
 
 			```js
 			new DataTable('#myTable', {
-			  "ajax": "data.json"
+			  ajax: "data.json"
 			} );
 			```
 
@@ -41,17 +41,18 @@
 			  * As a string - define the property from the object to read. Note that if your Ajax source simply returns an array of data to display, rather than an object, set this parameter to be an empty string. Additionally you can use Javascript dotted object notation to get a data source for multiple levels of object / array nesting.
 			  * As a function - As a function it takes a single parameter, the JSON returned from the server, which can be manipulated as required. The returned value from the function is what will be used by DataTables as the data source for the table.
 			  * This supersedes `sAjaxDataProp` from DataTables 1.9-.
-			* `success` - Must _not_ be overridden as it is used internally in DataTables. To manipulate / transform the data returned by the server use `dt-init ajax.dataSrc` (above), or use `ajax` as a function (below).
+			* `submitAs` (`-init ajax.submitAs`) - Instruct the Ajax request to send the data to the server as HTTP parameters (default), or as a JSON string (since DataTables 2.3).
+			* `success` - **Must _not_ be overridden** as it is used internally in DataTables. To manipulate / transform the data returned by the server use `dt-init ajax.dataSrc` (above), or use `ajax` as a function (below).
 
 			Simple example:
 
 			```js
 			new DataTable('#myTable', {
-			  "ajax": {
-			    "url": "data.json",
-			    "type": "POST"
+			  ajax: {
+			    url: 'data.json',
+			    type: 'POST'
 			  }
-			} );
+			});
 			```
 		</description>
 	</type>
@@ -77,12 +78,12 @@
 
 			```js
 			new DataTable('#myTable', {
-			  "ajax": function (data, callback, settings) {
+			  ajax: function (data, callback, settings) {
 			    callback(
-			      JSON.parse( localStorage.getItem('dataTablesData') )
+			      JSON.parse(localStorage.getItem('dataTablesData'))
 			    );
 			  }
-			} );
+			});
 			```
 
 			Note that as of DataTables 1.10.6 the `dt-event xhr` event will be triggered when a function is used for `dt-init ajax` (even if there is no Ajax request). Prior to 1.10.6 no event would have been triggered.
@@ -136,7 +137,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Add data to the request, returnng an object by extending the default data"><![CDATA[
+	<example title="Add data to the request, returning an object by extending the default data"><![CDATA[
 new DataTable('#myTable', {
 	ajax: {
 		url: 'data.json',
@@ -185,6 +186,7 @@ new DataTable('#myTable', {
 	<related type="option">serverSide</related>
 	<related type="option">ajax.data</related>
 	<related type="option">ajax.dataSrc</related>
+	<related type="option">ajax.submitAs</related>
 	<related type="api">ajax.json()</related>
 	<related type="api">ajax.reload()</related>
 	<related type="api">ajax.url()</related>
