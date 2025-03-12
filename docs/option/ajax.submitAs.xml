@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="data">
+	<name>ajax.submitAs</name>
+	<summary>Set the data parameter submission format</summary>
+	<since>2.3</since>
+
+	<type type="string">
+		<description>
+			This option can take one of the following values:
+			
+			* `-string http`: Submit the data as individual HTTP parameters (default, used if undefined)
+			* `-string json`: Submit the data as a JSON string.
+		</description>
+	</type>
+
+	<default value="http" />
+
+	<description>
+		When making an Ajax request, there are times which you might wish to submit the data to the server as a JSON string. This is particularly useful in .NET which can easily parse the JSON for you, or in cases with values such as `null` are important. This option provides that ability.
+
+		Typically this option will be used with a POST request where the data is submitted as part of the request body, but if used with GET requests, the JSON string will be used as the query string on the URL.
+
+		Backwards compatibility note: This option was introduced in DataTables 2.3, replacing the ability of `-init ajax.data` used as a function returning a string. This is an important change as it allows extensions and any other listeners for `-event preXhr` to be able to work with object based data, while still providing the ability to send a JSON string to the server. This option is highly recommended over a string return from `-init ajax.data`.
+	</description>
+
+	<example title="Submit data as a POST with JSON in the request body"><![CDATA[
+new DataTable('#myTable', {
+	ajax: {
+		contentType: 'application/json',
+		submitAs: 'json',
+		type: 'POST',
+		url: 'data.json'
+	}
+});
+]]></example>
+
+	<related type="option">ajax</related>
+	<related type="option">ajax.data</related>
+</dt-option>

@@ -3064,6 +3064,9 @@ export interface AjaxSettings extends JQueryAjaxSettings {
         /** Mapping for `recordsFiltered` property */
         recordsFiltered: AjaxDataSrc;
     };
+
+    /** Format to submit the data parameters as in the Ajax request */
+    submitAs?: 'http' | 'json';
 }
 
 interface FunctionColumnData {
