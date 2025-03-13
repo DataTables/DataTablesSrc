@@ -90,6 +90,10 @@ table.dataTable tfoot {
 
 			span.dt-column-title {
 				flex-grow: 1;
+
+				&:empty {
+					display: none;
+				}
 			}
 		}
 	}
