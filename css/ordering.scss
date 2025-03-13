@@ -5,18 +5,6 @@
 table.dataTable thead {
 	> tr > th,
 	> tr > td {
-		div.dt-column-header,
-		div.dt-column-footer {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			gap: 4px;
-
-			span.dt-column-title {
-				flex-grow: 1;
-			}
-		}
-
 		&:active {
 			outline: none;
 		}
@@ -85,6 +73,24 @@ table.dataTable thead {
 
 		&:active {
 			outline: none;
+		}
+	}
+}
+
+table.dataTable thead, 
+table.dataTable tfoot {
+	> tr > th,
+	> tr > td {
+		div.dt-column-header,
+		div.dt-column-footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 4px;
+
+			span.dt-column-title {
+				flex-grow: 1;
+			}
 		}
 	}
 }

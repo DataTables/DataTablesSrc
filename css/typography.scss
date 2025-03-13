@@ -16,7 +16,8 @@ table.dataTable#{$table-typography-selector} {
 		&.dt-type-date {
 			text-align: right;
 
-			div.dt-column-header {
+			div.dt-column-header,
+			div.dt-column-footer {
 				flex-direction: row-reverse;
 			}
 		}
@@ -32,7 +33,8 @@ table.dataTable#{$table-typography-selector} {
 		&.dt-right {
 			text-align: right;
 
-			div.dt-column-header {
+			div.dt-column-header,
+			div.dt-column-footer {
 				flex-direction: row-reverse;
 			}
 		}
@@ -68,7 +70,8 @@ table.dataTable#{$table-typography-selector} {
 			&.dt-head-right {
 				text-align: right;
 
-				div.dt-column-header {
+				div.dt-column-header,
+				div.dt-column-footer {
 					flex-direction: row-reverse;
 				}
 			}
