@@ -149,14 +149,9 @@ _api_register( 'destroy()', function ( remove ) {
 			jqTable.append( tfoot );
 		}
 
-		// Clean up the header
-		$(thead).find('span.dt-column-order').remove();
-		$(thead).find('span.dt-column-title').each(function () {
-			var title = $(this).html();
-			$(this).parent().append(title);
-			$(this).remove();
-		});
-
+		// Clean up the header / footer
+		cleanHeader(thead, 'header');
+		cleanHeader(tfoot, 'footer');
 		settings.colgroup.remove();
 
 		settings.aaSorting = [];
@@ -178,7 +173,6 @@ _api_register( 'destroy()', function ( remove ) {
 				orderClasses.isDesc
 			)
 			.css('width', '')
-			.removeAttr('data-dt-column')
 			.removeAttr('aria-sort');
 
 		// Add the TR elements back into the table in their original order
@@ -258,3 +252,16 @@ _api_register( 'i18n()', function ( token, def, plural ) {
 		? resolved.replace( '%d', plural ) // nb: plural might be undefined,
 		: resolved;
 } );
+
+// Needed for header and footer, so pulled into its own function
+function cleanHeader(node, className) {
+	$(node).find('span.dt-column-order').remove();
+	$(node).find('span.dt-column-title').each(function () {
+		var title = $(this).html();
+		$(this).parent().parent().append(title);
+		$(this).remove();
+	});
+	$(node).find('div.dt-column-' + className).remove();
+
+	$('th, td', node).removeAttr('data-dt-column');
+}
