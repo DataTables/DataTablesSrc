@@ -2797,7 +2797,8 @@ export interface DataTablesStatic {
      * Usage:
      * $.fn.dataTable.versionCheck("1.10.0");
      * @param version Version string
-     * @returns true if this version of DataTables is greater or equal to the required version, or false if this version of DataTales is not suitable
+     * @returns true if this version of DataTables is greater or equal to the required version, or
+     *   false if this version of DataTables is not suitable
      */
     versionCheck(version: string): boolean;
 }
