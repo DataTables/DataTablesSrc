@@ -48,7 +48,7 @@ var __column_header = function ( settings, column, row ) {
 	else {
 		// Automatic - find the first unique cell from the top that is not empty
 		for (var i=0 ; i<header.length ; i++) {
-			if (header[i].colspan === 1 && header[i].title) {
+			if (header[i][column].unique && $('span.dt-column-title', header[i][column].cell).text()) {
 				target = i;
 				break;
 			}
