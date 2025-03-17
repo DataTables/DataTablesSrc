@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="option">
+	<name>titleRow</name>
+	<summary>Control which row in the header is the title row</summary>
+	<since>2.3</since>
+
+	<type type="boolean|number|null" />
+	<default>null</default>
+
+	<description><![CDATA[
+		This option can be used to control how DataTables which cells in a table header are treated as a "title cell".
+
+		Title cells are used for the following in DataTables:
+
+		* Indicate the ordering status of its column(s) (`-init ordering.indicators)
+		* Have a click / return key listener on them to activate ordering (`-init ordering.handler`)
+		* Column titles (`-init columns.title` and `-api column().title()`).
+
+		You can give this option as one of several values:
+
+		* A `-type number` - this will specify the row index in the header that is used for the above.
+		* `true` - the cells in the top row (index 0) will be used for the title cells
+		* `false` - the cells in the bottom row will be used for the title cells
+		* `null` (default) - all cells will be used for ordering operations, and the first unique cell (i.e. colspan=1) will be used for the column title.
+]]></description>
+
+	<example title="Use the first row in the header as the title row"><![CDATA[
+new DataTable('#myTable', {
+	titleRow: 0
+});
+]]></example>
+
+	<example title="Use the second row in the header as the title row"><![CDATA[
+new DataTable('#myTable', {
+	titleRow: 1
+});
+]]></example>
+
+	<related type="option">ordering</related>
+	<related type="option">order</related>
+	<related type="api">order()</related>
+	<related>-init ordering.indicators</related>
+	<related>-init ordering.handler</related>
+</dt-option>

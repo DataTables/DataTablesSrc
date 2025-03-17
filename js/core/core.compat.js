@@ -127,6 +127,11 @@ function _fnCompatOpts ( init )
 		init.orderHandler = false;
 	}
 
+	// Which cells are the title cells?
+	if (typeof init.bSortCellsTop === 'boolean') {
+		init.titleRow = init.bSortCellsTop;
+	}
+
 	// Column search objects are in an array, so it needs to be converted
 	// element by element
 	var searchCols = init.aoSearchCols;

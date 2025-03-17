@@ -30,11 +30,34 @@ var __columnData = function ( settings, column, r1, r2, rows, type ) {
 
 var __column_header = function ( settings, column, row ) {
 	var header = settings.aoHeader;
-	var target = row !== undefined
-		? row
-		: settings.bSortCellsTop // legacy support
-			? 0
-			: header.length - 1;
+	var titleRow = settings.titleRow;
+	var target = null;
+
+	if (row !== undefined) {
+		target = row;
+	}
+	else if (titleRow !== null) {
+		target = titleRow;
+	}
+	else if (titleRow === true) { // legacy orderCellsTop support
+		target = 0;
+	}
+	else if (titleRow === false) {
+		target = header.length - 1;
+	}
+	else {
+		// Automatic - find the first unique cell from the top that is not empty
+		for (var i=0 ; i<header.length ; i++) {
+			if (header[i].colspan === 1 && header[i].title) {
+				target = i;
+				break;
+			}
+		}
+
+		if (target === null) {
+			target = 0;
+		}
+	}
 
 	return header[target][column].cell;
 };

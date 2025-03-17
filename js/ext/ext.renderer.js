@@ -15,7 +15,7 @@ $.extend( true, DataTable.ext.renderer, {
 				cell.addClass(classes.order.none);
 			}
 
-			var legacyTop = settings.bSortCellsTop;
+			var titleRow = settings.titleRow;
 			var headerRows = cell.closest('thead').find('tr');
 			var rowIdx = cell.parent().index();
 
@@ -25,11 +25,10 @@ $.extend( true, DataTable.ext.renderer, {
 				cell.attr('data-dt-order') === 'disable' ||
 				cell.parent().attr('data-dt-order') === 'disable' ||
 
-				// Legacy support for `orderCellsTop`. If it is set, then cells
-				// which are not in the top or bottom row of the header (depending
-				// on the value) do not get the sorting classes applied to them
-				(legacyTop === true && rowIdx !== 0) ||
-				(legacyTop === false && rowIdx !== headerRows.length - 1)
+				// titleRow support, for defining a specific row in the header
+				(titleRow === true && rowIdx !== 0) ||
+				(titleRow === false && rowIdx !== headerRows.length - 1) ||
+				(titleRow !== null && rowIdx !== titleRow)
 			) {
 				return;
 			}

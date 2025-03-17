@@ -153,6 +153,7 @@ _fnMap( oSettings, oInit, [
 	"orderDescReverse",
 	"orderIndicators",
 	"orderHandler",
+	"titleRow",
 	"typeDetect",
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
 	[ "oSearch", "oPreviousSearch" ],

@@ -21,7 +21,7 @@ When using tables to display data, you will often wish to display column informa
 
 As of DataTables 2, columns do not require their own unique header cell as was the case with DataTables 1.x - multiple columns can share a single `colspan` element, as shown in the example below. Only the _Name_ column has a cell unique to it. Furthermore, when activating ordering on a `colspan` cell, it will automatically enable multi-column ordering for the applicable columns.
 
-DataTables will automatically apply ordering listeners and icons to all cells in the table header. If you wish to disable this, you can use the `data-dt-order` property on the `-tag th/td` cells in the table header. The value of this attribute (if present, it is entirely optional) controls the ordering listeners and icons:
+DataTables will automatically apply ordering listeners and icons to all cells in the table header. If you wish to disable this, you can use the `-init titleRow` option to tell DataTables which row to apply the ordering controls to, or use the `data-dt-order` property on the `-tag th/td` cells in the table header. The value of this attribute (if present, it is entirely optional) controls the ordering listeners and icons:
 
 * `data-dt-order="disable"` - Ordering listeners will not be attached to these cells, nor will ordering status icons be shown.
 * `data-dt-order="icon-only"` - Ordering listeners will not be attached to these cells, but the ordering status icons _will_ be shown.

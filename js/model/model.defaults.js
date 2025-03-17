@@ -294,6 +294,10 @@ DataTable.defaults = {
 	"bSortCellsTop": null,
 
 
+	/** Specify which row is the title row in the header. Replacement for bSortCellsTop */
+	titleRow: null,
+
+
 	/**
 	 * Enable or disable the addition of the classes `sorting\_1`, `sorting\_2` and
 	 * `sorting\_3` to the columns which are currently being sorted on. This is
