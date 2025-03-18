@@ -28,7 +28,7 @@ $.extend( true, DataTable.ext.renderer, {
 				// titleRow support, for defining a specific row in the header
 				(titleRow === true && rowIdx !== 0) ||
 				(titleRow === false && rowIdx !== headerRows.length - 1) ||
-				(titleRow !== null && rowIdx !== titleRow)
+				(typeof titleRow === 'number' && rowIdx !== titleRow)
 			) {
 				return;
 			}

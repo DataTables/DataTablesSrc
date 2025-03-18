@@ -36,21 +36,21 @@ var __column_header = function ( settings, column, row ) {
 	if (row !== undefined) {
 		target = row;
 	}
-	else if (titleRow !== null) {
-		target = titleRow;
-	}
 	else if (titleRow === true) { // legacy orderCellsTop support
 		target = 0;
 	}
 	else if (titleRow === false) {
 		target = header.length - 1;
 	}
+	else if (titleRow !== null) {
+		target = titleRow;
+	}
 	else {
-		// Automatic - find the first unique cell from the top that is not empty
+		// Automatic - find the _last_ unique cell from the top that is not empty (last for
+		// backwards compatibility)
 		for (var i=0 ; i<header.length ; i++) {
 			if (header[i][column].unique && $('span.dt-column-title', header[i][column].cell).text()) {
 				target = i;
-				break;
 			}
 		}
 
