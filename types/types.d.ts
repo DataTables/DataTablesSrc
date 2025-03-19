@@ -1012,13 +1012,13 @@ export interface Api<T=any> {
      * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
      * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
      */
-    iterator(type: 'table', callback: InteratorTable, returns?: boolean): Api<any>;
-    iterator(type: 'cell', callback: InteratorCell, returns?: boolean): Api<any>;
-    iterator(type: 'column-rows', callback: InteratorColumnRows, returns?: boolean): Api<any>;
-    iterator(type: 'column', callback: InteratorColumn, returns?: boolean): Api<any>;
-    iterator(type: 'columns', callback: InteratorColumns, returns?: boolean): Api<any>;
-    iterator(type: 'row', callback: InteratorRow, returns?: boolean): Api<any>;
-    iterator(type: 'rows', callback: InteratorRows, returns?: boolean): Api<any>;
+    iterator(type: 'table', callback: IteratorTable, returns?: boolean): Api<any>;
+    iterator(type: 'cell', callback: IteratorCell, returns?: boolean): Api<any>;
+    iterator(type: 'column-rows', callback: IteratorColumnRows, returns?: boolean): Api<any>;
+    iterator(type: 'column', callback: IteratorColumn, returns?: boolean): Api<any>;
+    iterator(type: 'columns', callback: IteratorColumns, returns?: boolean): Api<any>;
+    iterator(type: 'row', callback: IteratorRow, returns?: boolean): Api<any>;
+    iterator(type: 'rows', callback: IteratorRows, returns?: boolean): Api<any>;
 
     /**
      * Iterate over a result set of table, row, column or cell indexes
@@ -1029,13 +1029,13 @@ export interface Api<T=any> {
      * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
      * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
      */
-    iterator(flatten: boolean, type: 'table', callback: InteratorTable, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'cell', callback: InteratorCell, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'column-rows', callback: InteratorColumnRows, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'column', callback: InteratorColumn, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'columns', callback: InteratorColumns, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'row', callback: InteratorRow, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'rows', callback: InteratorRows, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'table', callback: IteratorTable, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'cell', callback: IteratorCell, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'column-rows', callback: IteratorColumnRows, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'column', callback: IteratorColumn, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'columns', callback: IteratorColumns, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'row', callback: IteratorRow, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'rows', callback: IteratorRows, returns?: boolean): Api<any>;
 
     /**
      * Join the elements in the result set into a string.
@@ -1452,7 +1452,7 @@ export interface State {
  * @param settings Table settings object
  * @param counter Loop counter
  */
-type InteratorTable = (settings: InternalSettings, counter: number) => any;
+type IteratorTable = (settings: InternalSettings, counter: number) => any;
 
 /**
  * "cell" - loop over each table and cell in the result set
@@ -1463,7 +1463,7 @@ type InteratorTable = (settings: InternalSettings, counter: number) => any;
  * @param tableCounter Table counter (outer)
  * @param cellCounter Cell counter (inner)
  */        
-type InteratorCell = (settings: InternalSettings, rowIndex: number, columnIndex: number, tableCounter: number, cellCounter: number) => any;
+type IteratorCell = (settings: InternalSettings, rowIndex: number, columnIndex: number, tableCounter: number, cellCounter: number) => any;
 
 /**
  * "columns" - loop over each item in the result set
@@ -1472,7 +1472,7 @@ type InteratorCell = (settings: InternalSettings, rowIndex: number, columnIndex:
  * @param resultItem Result set item
  * @param counter Loop counter
  */
-type InteratorColumns = (settings: InternalSettings, resultItem: any, counter: number) => any;
+type IteratorColumns = (settings: InternalSettings, resultItem: any, counter: number) => any;
 
 /**
  * "column" - loop over each table and column in the result set
@@ -1482,7 +1482,7 @@ type InteratorColumns = (settings: InternalSettings, resultItem: any, counter: n
  * @param tableCounter Table counter (outer)
  * @param columnCounter Column counter (inner)
  */
-type InteratorColumn = (settings: InternalSettings, columnIndex: number, tableCounter: number, columnCounter: number) => any;
+type IteratorColumn = (settings: InternalSettings, columnIndex: number, tableCounter: number, columnCounter: number) => any;
 
 /**
  * "column-rows" - loop over each table, column and row in the result set applying selector-modifier.
@@ -1493,7 +1493,7 @@ type InteratorColumn = (settings: InternalSettings, columnIndex: number, tableCo
  * @param columnCounter Column counter (inner)
  * @param rowIndexes Row indexes
  */
-type InteratorColumnRows = (settings: InternalSettings, columnIndex: number, tableCounter: number, columnCounter: number, rowIndexes: number[]) => any;
+type IteratorColumnRows = (settings: InternalSettings, columnIndex: number, tableCounter: number, columnCounter: number, rowIndexes: number[]) => any;
 
 /**
  * "row" - loop over each table and row in the result set
@@ -1503,7 +1503,7 @@ type InteratorColumnRows = (settings: InternalSettings, columnIndex: number, tab
  * @param tableCounter Table counter (outer)
  * @param rowCounter Row counter (inner)
  */
-type InteratorRow = (settings: InternalSettings, rowIndex: number, tableCounter: number, rowCounter: number) => any;
+type IteratorRow = (settings: InternalSettings, rowIndex: number, tableCounter: number, rowCounter: number) => any;
 
 /**
  * "rows" - loop over each item in the result set
@@ -1512,7 +1512,7 @@ type InteratorRow = (settings: InternalSettings, rowIndex: number, tableCounter:
  * @param resultItem Result set item
  * @param counter Loop counter
  */
-type InteratorRows = (settings: InternalSettings, resultItem: any, counter: number) => any;
+type IteratorRows = (settings: InternalSettings, resultItem: any, counter: number) => any;
 
 export interface ApiAjax {
     /**
