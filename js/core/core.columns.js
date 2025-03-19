@@ -221,7 +221,7 @@ function _fnVisbleColumns( settings )
 	var vis = 0;
 
 	if ( layout.length ) {
-		for ( var i=0, ien=layout[0].length ; i<ien ; i++ ) {
+		for ( var i=0, iLen=layout[0].length ; i<iLen ; i++ ) {
 			if ( columns[i].bVisible && $(layout[0][i].cell).css('display') !== 'none' ) {
 				vis++;
 			}
@@ -279,11 +279,11 @@ function _fnColumnTypes ( settings )
 	var columns = settings.aoColumns;
 	var data = settings.aoData;
 	var types = DataTable.ext.type.detect;
-	var i, ien, j, jen, k, ken;
+	var i, iLen, j, jen, k, ken;
 	var col, detectedType, cache;
 
 	// For each column, spin over the data type detection functions, seeing if one matches
-	for ( i=0, ien=columns.length ; i<ien ; i++ ) {
+	for ( i=0, iLen=columns.length ; i<iLen ; i++ ) {
 		col = columns[i];
 		cache = [];
 
@@ -553,7 +553,7 @@ function _fnColumnsSumWidth( settings, targets, original, incVisible ) {
 	var unit;
 	var columns = settings.aoColumns;
 	
-	for ( var i=0, ien=targets.length ; i<ien ; i++ ) {
+	for ( var i=0, iLen=targets.length ; i<iLen ; i++ ) {
 		var column = columns[ targets[i] ];
 		var definedWidth = original ?
 			column.sWidthOrig :

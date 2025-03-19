@@ -52,7 +52,7 @@ var __details_add = function ( ctx, row, data, klass )
 	var addRow = function ( r, k ) {
 		// Recursion to allow for arrays of jQuery objects
 		if ( Array.isArray( r ) || r instanceof $ ) {
-			for ( var i=0, ien=r.length ; i<ien ; i++ ) {
+			for ( var i=0, iLen=r.length ; i<iLen ; i++ ) {
 				addRow( r[i], k );
 			}
 			return;
@@ -186,7 +186,7 @@ var __details_events = function ( settings )
 			// a colspan)
 			var row, visible = _fnVisbleColumns( ctx );
 
-			for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+			for ( var i=0, iLen=data.length ; i<iLen ; i++ ) {
 				row = data[i];
 
 				if ( row && row._details ) {
@@ -207,7 +207,7 @@ var __details_events = function ( settings )
 				return;
 			}
 
-			for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+			for ( var i=0, iLen=data.length ; i<iLen ; i++ ) {
 				if ( data[i] && data[i]._details ) {
 					__details_remove( api, i );
 				}

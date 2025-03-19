@@ -40,7 +40,7 @@
 	<example title="Pre-process the data returned from the server"><![CDATA[
 $('#example')
 	.on('xhr.dt', function (e, settings, json, xhr) {
-		for (var i = 0, ien = json.aaData.length; i < ien; i++) {
+		for (var i = 0, iLen = json.aaData.length; i < iLen; i++) {
 			json.aaData[i].sum = json.aaData[i].one + json.aaData[i].two;
 		}
 		// Note no return - manipulate the data directly in the JSON object.

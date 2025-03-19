@@ -47,7 +47,7 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 					: [column];
 
 		if ( columns.length ) {
-			for ( var i=0, ien=columns.length ; i<ien ; i++ ) {
+			for ( var i=0, iLen=columns.length ; i<iLen ; i++ ) {
 				var ret = _fnSortAdd( settings, columns[i], i, e.shiftKey );
 
 				if (ret !== false) {
@@ -222,7 +222,7 @@ function _fnSortFlatten ( settings )
 function _fnSort ( oSettings, col, dir )
 {
 	var
-		i, ien, iLen,
+		i, iLen, iLen,
 		aiOrig = [],
 		extSort = DataTable.ext.type.order,
 		aoData = oSettings.aoData,
@@ -253,7 +253,7 @@ function _fnSort ( oSettings, col, dir )
 		aSort = _fnSortFlatten( oSettings );
 	}
 
-	for ( i=0, ien=aSort.length ; i<ien ; i++ ) {
+	for ( i=0, iLen=aSort.length ; i<iLen ; i++ ) {
 		sortCol = aSort[i];
 
 		// Load the data needed for the sort, for each cell
@@ -450,11 +450,11 @@ function _fnSortingClasses( settings )
 	var sortClass = settings.oClasses.order.position;
 	var sort = _fnSortFlatten( settings );
 	var features = settings.oFeatures;
-	var i, ien, colIdx;
+	var i, iLen, colIdx;
 
 	if ( features.bSort && features.bSortClasses ) {
 		// Remove old sorting classes
-		for ( i=0, ien=oldSort.length ; i<ien ; i++ ) {
+		for ( i=0, iLen=oldSort.length ; i<iLen ; i++ ) {
 			colIdx = oldSort[i].src;
 
 			// Remove column sorting
@@ -463,7 +463,7 @@ function _fnSortingClasses( settings )
 		}
 
 		// Add new column sorting
-		for ( i=0, ien=sort.length ; i<ien ; i++ ) {
+		for ( i=0, iLen=sort.length ; i<iLen ; i++ ) {
 			colIdx = sort[i].src;
 
 			$( _pluck( settings.aoData, 'anCells', colIdx ) )

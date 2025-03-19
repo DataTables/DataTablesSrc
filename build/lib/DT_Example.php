@@ -395,7 +395,7 @@ class DT_Example
 			$a = explode('|', $type);
 			$t = '';
 
-			for ( $i=0, $ien=count($a) ; $i<$ien ; $i++ ) {
+			for ( $i=0, $iLen=count($a) ; $i<$iLen ; $i++ ) {
 				$t .= $this->build_table( $a[$i] );
 			}
 
@@ -454,7 +454,7 @@ class DT_Example
 			}
 			else {
 				$cells = '';
-				for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
+				for ( $i=0, $iLen=count($columns) ; $i<$iLen ; $i++ ) {
 					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
 				}
 				$t .= '<thead>';
@@ -480,7 +480,7 @@ class DT_Example
 					}
 
 					$cells = '';
-					for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
+					for ( $i=0, $iLen=count($columns) ; $i<$iLen ; $i++ ) {
 						$cell = $this->_column( $columns[$i], 'data', $this->_data[$j] );
 
 						if ( strpos( $cell, '<td' ) === 0 ) {
@@ -509,7 +509,7 @@ class DT_Example
 			}
 			else {
 				$cells = '';
-				for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
+				for ( $i=0, $iLen=count($columns) ; $i<$iLen ; $i++ ) {
 					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
 				}
 				$t .= '<tfoot>';
@@ -559,7 +559,7 @@ class DT_Example
 		$out = array();
 		$libs = $this->_libs[ $type ];
 
-		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
+		for ( $i=0, $iLen=count($libs) ; $i<$iLen ; $i++ ) {
 			$file = $libs[$i]; // needs a path
 
 			if ( strpos($file, '//') !== 0 &&
@@ -609,7 +609,7 @@ class DT_Example
 			if ( isset( $lib['lib'] ) ) {
 				$split_attr = explode( ' ', (string)$lib['lib'] );
 
-				for ( $i=0, $ien=count($split_attr) ; $i<$ien ; $i++ ) {
+				for ( $i=0, $iLen=count($split_attr) ; $i<$iLen ; $i++ ) {
 					$a[] = $split_attr[$i];
 					$this->_xml_libs[ $type ][] = $split_attr[$i];
 				}
@@ -625,7 +625,7 @@ class DT_Example
 		$exampleLibs = &$this->_libs[ $type ];
 		$srcLibs = DT_Example::$lookup_libraries[ $type ];
 
-		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
+		for ( $i=0, $iLen=count($libs) ; $i<$iLen ; $i++ ) {
 			$lib = $libs[$i];
 
 			if ( strpos($lib, '/') === 0 || strpos($lib, '.') === 0 ) {

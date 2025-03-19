@@ -21,7 +21,7 @@ var __re_column_selector = /^([^:]+)?:(name|title|visIdx|visible)$/;
 // iterator callback in columns().data()
 var __columnData = function ( settings, column, r1, r2, rows, type ) {
 	var a = [];
-	for ( var row=0, ien=rows.length ; row<ien ; row++ ) {
+	for ( var row=0, iLen=rows.length ; row<iLen ; row++ ) {
 		a.push( _fnGetCellData( settings, rows[row], column, type ) );
 	}
 	return a;
@@ -221,7 +221,7 @@ var __setColumnVis = function ( settings, column, vis ) {
 		cols = settings.aoColumns,
 		col  = cols[ column ],
 		data = settings.aoData,
-		cells, i, ien, tr;
+		cells, i, iLen, tr;
 
 	// Get
 	if ( vis === undefined ) {
@@ -239,7 +239,7 @@ var __setColumnVis = function ( settings, column, vis ) {
 		// Need to decide if we should use appendChild or insertBefore
 		var insertBefore = _pluck(cols, 'bVisible').indexOf(true, column+1);
 
-		for ( i=0, ien=data.length ; i<ien ; i++ ) {
+		for ( i=0, iLen=data.length ; i<iLen ; i++ ) {
 			if (data[i]) {
 				tr = data[i].nTr;
 				cells = data[i].anCells;

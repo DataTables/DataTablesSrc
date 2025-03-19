@@ -273,7 +273,7 @@ function _fnClearTable( settings )
 function _fnInvalidate( settings, rowIdx, src, colIdx )
 {
 	var row = settings.aoData[ rowIdx ];
-	var i, ien;
+	var i, iLen;
 
 	// Remove the cached data for the row
 	row._aSortData = null;
@@ -298,7 +298,7 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 				_fnWriteCell(cells[colIdx], display[colIdx]);
 			}
 			else {
-				for ( i=0, ien=cells.length ; i<ien ; i++ ) {
+				for ( i=0, iLen=cells.length ; i<iLen ; i++ ) {
 					_fnWriteCell(cells[i], display[i]);
 				}
 			}
@@ -316,7 +316,7 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 		cols[ colIdx ].maxLenString = null;
 	}
 	else {
-		for ( i=0, ien=cols.length ; i<ien ; i++ ) {
+		for ( i=0, iLen=cols.length ; i<iLen ; i++ ) {
 			cols[i].sType = null;
 			cols[i].maxLenString = null;
 		}

@@ -170,7 +170,7 @@ function _fnBuildHead( settings, side )
 {
 	var classes = settings.oClasses;
 	var columns = settings.aoColumns;
-	var i, ien, row;
+	var i, iLen, row;
 	var target = side === 'header'
 		? settings.nTHead
 		: settings.nTFoot;
@@ -198,7 +198,7 @@ function _fnBuildHead( settings, side )
 				cellCount += this.colSpan;
 			});
 
-			for ( i=cellCount, ien=columns.length ; i<ien ; i++ ) {
+			for ( i=cellCount, iLen=columns.length ; i<iLen ; i++ ) {
 				$('<th/>')
 					.html( columns[i][titleProp] || '' )
 					.appendTo( row );
@@ -726,7 +726,7 @@ function _layoutResolve( settings, row ) {
 
 		var line = row[ item ].contents;
 
-		for ( var i=0, ien=line.length ; i<ien ; i++ ) {
+		for ( var i=0, iLen=line.length ; i<iLen ; i++ ) {
 			if ( ! line[i] ) {
 				continue;
 			}

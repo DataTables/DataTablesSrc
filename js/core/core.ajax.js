@@ -249,7 +249,7 @@ function _fnAjaxUpdateDraw ( settings, json )
 	settings._iRecordsTotal   = parseInt(recordsTotal, 10);
 	settings._iRecordsDisplay = parseInt(recordsFiltered, 10);
 
-	for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+	for ( var i=0, iLen=data.length ; i<iLen ; i++ ) {
 		_fnAddData( settings, data[i] );
 	}
 	settings.aiDisplay = settings.aiDisplayMaster.slice();

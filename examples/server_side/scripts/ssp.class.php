@@ -35,7 +35,7 @@ class SSP {
 	{
 		$out = array();
 
-		for ( $i=0, $ien=count($data) ; $i<$ien ; $i++ ) {
+		for ( $i=0, $iLen=count($data) ; $i<$iLen ; $i++ ) {
 			$row = array();
 
 			for ( $j=0, $jen=count($columns) ; $j<$jen ; $j++ ) {
@@ -129,7 +129,7 @@ class SSP {
 			$orderBy = array();
 			$dtColumns = self::pluck( $columns, 'dt' );
 
-			for ( $i=0, $ien=count($request['order']) ; $i<$ien ; $i++ ) {
+			for ( $i=0, $iLen=count($request['order']) ; $i<$iLen ; $i++ ) {
 				$columnIdx = $request['order'][$i]['column'];
 				$requestColumn = $request['columns'][$columnIdx];
 				$column = $columns[ $columnIdx ];
@@ -176,7 +176,7 @@ class SSP {
 		if ( isset($request['search']) && $request['search']['value'] != '' ) {
 			$str = $request['search']['value'];
 
-			for ( $i=0, $ien=count($request['columns']) ; $i<$ien ; $i++ ) {
+			for ( $i=0, $iLen=count($request['columns']) ; $i<$iLen ; $i++ ) {
 				$requestColumn = $request['columns'][$i];
 				$columnIdx = array_search( $requestColumn['data'], $dtColumns );
 				$column = $columns[ $columnIdx ];
@@ -192,7 +192,7 @@ class SSP {
 
 		// Individual column filtering
 		if ( isset( $request['columns'] ) ) {
-			for ( $i=0, $ien=count($request['columns']) ; $i<$ien ; $i++ ) {
+			for ( $i=0, $iLen=count($request['columns']) ; $i<$iLen ; $i++ ) {
 				$requestColumn = $request['columns'][$i];
 				$columnIdx = array_search( $requestColumn['data'], $dtColumns );
 				$column = $columns[ $columnIdx ];
@@ -476,7 +476,7 @@ class SSP {
 		$stmt = $db->prepare( $sql );
 
 		// Bind parameters
-		for ( $i=0, $ien=count($bindings) ; $i<$ien ; $i++ ) {
+		for ( $i=0, $iLen=count($bindings) ; $i<$iLen ; $i++ ) {
 			$binding = $bindings[$i];
 			$stmt->bindValue( $binding['key'], $binding['val'], $binding['type'] );
 		}

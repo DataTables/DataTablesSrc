@@ -123,19 +123,19 @@ var _htmlNumeric = function ( d, decimalPoint, formatted, allowEmpty ) {
 
 var _pluck = function ( a, prop, prop2 ) {
 	var out = [];
-	var i=0, ien=a.length;
+	var i=0, iLen=a.length;
 
 	// Could have the test in the loop for slightly smaller code, but speed
 	// is essential here
 	if ( prop2 !== undefined ) {
-		for ( ; i<ien ; i++ ) {
+		for ( ; i<iLen ; i++ ) {
 			if ( a[i] && a[i][ prop ] ) {
 				out.push( a[i][ prop ][ prop2 ] );
 			}
 		}
 	}
 	else {
-		for ( ; i<ien ; i++ ) {
+		for ( ; i<iLen ; i++ ) {
 			if ( a[i] ) {
 				out.push( a[i][ prop ] );
 			}
@@ -151,19 +151,19 @@ var _pluck = function ( a, prop, prop2 ) {
 var _pluck_order = function ( a, order, prop, prop2 )
 {
 	var out = [];
-	var i=0, ien=order.length;
+	var i=0, iLen=order.length;
 
 	// Could have the test in the loop for slightly smaller code, but speed
 	// is essential here
 	if ( prop2 !== undefined ) {
-		for ( ; i<ien ; i++ ) {
+		for ( ; i<iLen ; i++ ) {
 			if ( a[ order[i] ] && a[ order[i] ][ prop ] ) {
 				out.push( a[ order[i] ][ prop ][ prop2 ] );
 			}
 		}
 	}
 	else {
-		for ( ; i<ien ; i++ ) {
+		for ( ; i<iLen ; i++ ) {
 			if ( a[ order[i] ] ) {
 				out.push( a[ order[i] ][ prop ] );
 			}
@@ -200,7 +200,7 @@ var _removeEmpty = function ( a )
 {
 	var out = [];
 
-	for ( var i=0, ien=a.length ; i<ien ; i++ ) {
+	for ( var i=0, iLen=a.length ; i<iLen ; i++ ) {
 		if ( a[i] ) { // careful - will remove all falsy values!
 			out.push( a[i] );
 		}
@@ -286,7 +286,7 @@ var _areAllUnique = function ( src ) {
 	var sorted = src.slice().sort();
 	var last = sorted[0];
 
-	for ( var i=1, ien=sorted.length ; i<ien ; i++ ) {
+	for ( var i=1, iLen=sorted.length ; i<iLen ; i++ ) {
 		if ( sorted[i] === last ) {
 			return false;
 		}
@@ -322,10 +322,10 @@ var _unique = function ( src )
 	var
 		out = [],
 		val,
-		i, ien=src.length,
+		i, iLen=src.length,
 		j, k=0;
 
-	again: for ( i=0 ; i<ien ; i++ ) {
+	again: for ( i=0 ; i<iLen ; i++ ) {
 		val = src[i];
 
 		for ( j=0 ; j<k ; j++ ) {

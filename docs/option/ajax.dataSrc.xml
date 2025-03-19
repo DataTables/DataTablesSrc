@@ -75,7 +75,7 @@ $('#example').DataTable({
 	ajax: {
 		url: 'data.json',
 		dataSrc: function (json) {
-			for (var i = 0, ien = json.data.length; i < ien; i++) {
+			for (var i = 0, iLen = json.data.length; i < iLen; i++) {
 				json.data[i][0] =
 					'<a href="/message/' + json.data[i][0] + '>View message</a>';
 			}
