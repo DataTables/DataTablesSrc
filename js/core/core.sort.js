@@ -96,7 +96,7 @@ function _fnSortDisplay(settings, display) {
 		masterMap[master[i]] = i;
 	}
 
-	// And then cache what would be the indexOf fom the display
+	// And then cache what would be the indexOf from the display
 	for (i=0 ; i<display.length ; i++) {
 		map[display[i]] = masterMap[display[i]];
 	}
