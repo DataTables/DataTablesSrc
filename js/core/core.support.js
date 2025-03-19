@@ -120,7 +120,7 @@ function _fnExtend( out, extender, breakRefs )
 
 
 /**
- * Bind an event handers to allow a click or return key to activate the callback.
+ * Bind an event handler to allow a click or return key to activate the callback.
  * This is good for accessibility since a return on the keyboard will have the
  * same effect as a click, if the element has focus.
  *  @param {element} n Element to bind the action to
