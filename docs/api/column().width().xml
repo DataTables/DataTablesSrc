@@ -11,7 +11,7 @@
 	</type>
 
 	<description>
-		This method is a helper method to get the width of the column in a table. It can be used by extension authors who need to utalise the width of a column (for example the _Buttons_ extension uses widths for the Excel and PDF export).
+		This method is a helper method to get the width of the column in a table. It can be used by extension authors who need to utilise the width of a column (for example the _Buttons_ extension uses widths for the Excel and PDF export).
 
 		The result given is the "outer width" of the cells for the target column. If a column is hidden, is width will be returned as `0`.
 
