@@ -402,12 +402,12 @@ $.extend( _Api.prototype, {
 } );
 
 
-function _api_scope( scope, fn, struc ) {
+function _api_scope( scope, fn, struct ) {
 	return function () {
 		var ret = fn.apply( scope || this, arguments );
 
 		// Method extension
-		_Api.extend( ret, ret, struc.methodExt );
+		_Api.extend( ret, ret, struct.methodExt );
 		return ret;
 	};
 }
