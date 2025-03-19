@@ -10,7 +10,7 @@
 	</default>
 
 	<description>
-		When working with large data sets on the client-side, it takes a finiate and possibly noticeable amount of time for a search process to run. This option can be used to tell DataTables to display its processing indicator (`-init processing`) when the user enters data into the search box.
+		When working with large data sets on the client-side, it takes a finite and possibly noticeable amount of time for a search process to run. This option can be used to tell DataTables to display its processing indicator (`-init processing`) when the user enters data into the search box.
 
 		The value should be given as a boolean, with `true` indicating that the processing display should show, while `false` means it should stay hidden.
 
