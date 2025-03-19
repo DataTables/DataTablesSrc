@@ -542,7 +542,7 @@ function _emptyRow ( settings ) {
 
 	return $( '<tr/>' )
 		.append( $('<td />', {
-			'colSpan': _fnVisbleColumns( settings ),
+			'colSpan': _fnVisibleColumns( settings ),
 			'class':   settings.oClasses.empty.row
 		} ).html( zero ) )[0];
 }

@@ -72,7 +72,7 @@ var __details_add = function ( ctx, row, data, klass )
 			
 			$('td', created)
 				.addClass( k )
-				.html( r )[0].colSpan = _fnVisbleColumns( ctx );
+				.html( r )[0].colSpan = _fnVisibleColumns( ctx );
 
 			rows.push( created[0] );
 		}
@@ -184,7 +184,7 @@ var __details_events = function ( settings )
 
 			// Update the colspan for the details rows (note, only if it already has
 			// a colspan)
-			var row, visible = _fnVisbleColumns( ctx );
+			var row, visible = _fnVisibleColumns( ctx );
 
 			for ( var i=0, iLen=data.length ; i<iLen ; i++ ) {
 				row = data[i];

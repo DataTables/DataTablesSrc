@@ -214,7 +214,7 @@ function _fnColumnIndexToVisible( oSettings, iMatch )
  *  @returns {int} i the number of visible columns
  *  @memberof DataTable#oApi
  */
-function _fnVisbleColumns( settings )
+function _fnVisibleColumns( settings )
 {
 	var layout = settings.aoHeader;
 	var columns = settings.aoColumns;
