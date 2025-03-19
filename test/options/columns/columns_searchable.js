@@ -38,7 +38,7 @@ describe('columns.searchable option', function() {
 		});
 
 		dt.html('basic');
-		it('Disble searching on multiple columns', function() {
+		it('Disable searching on multiple columns', function() {
 			table = $('#example').DataTable({
 				columns: [null, { searchable: false }, { searchable: false }, null, null, null]
 			});
@@ -56,7 +56,7 @@ describe('columns.searchable option', function() {
 		});
 
 		dt.html('basic');
-		it('Disble all columns using columnDefs', function() {
+		it('Disable all columns using columnDefs', function() {
 			table = $('#example').DataTable({
 				columnDefs: [{ searchable: false, targets: '_all' }]
 			});
