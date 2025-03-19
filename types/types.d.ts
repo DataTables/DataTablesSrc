@@ -2828,7 +2828,7 @@ export interface DataTablesStatic {
     use(library: any): void;
 
     /**
-     * Set the libraries that DataTables uses, or the global objects, explicity staing
+     * Set the libraries that DataTables uses, or the global objects, explicity stating
      * what library is to be considered. Used for module loading environments.
      *
      * @param type Indicate the library that is being loaded.
