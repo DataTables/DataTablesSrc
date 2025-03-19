@@ -309,7 +309,7 @@ function _fnMacros ( settings, str, entries )
 }
 
 /**
- * Add elements to an array as quickly as possible, but stack stafe.
+ * Add elements to an array as quickly as possible, but stack safe.
  *
  * @param {*} arr Array to add the data to
  * @param {*} data Data array that is to be added
