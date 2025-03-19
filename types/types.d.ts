@@ -3404,7 +3404,7 @@ type FunctionFormatNumber = (this: JQueryDataTables, formatNumber: number) => vo
 
 type FunctionHeaderCallback = (this: JQueryDataTables, tr: HTMLTableRowElement, data: any[], start: number, end: number, display: any[]) => void;
 
-type FunctionInfoCallback = (this: JQueryDataTables, settings: InternalSettings, start: number, end: number, mnax: number, total: number, pre: string) => void;
+type FunctionInfoCallback = (this: JQueryDataTables, settings: InternalSettings, start: number, end: number, max: number, total: number, pre: string) => void;
 
 type FunctionInitComplete = (this: JQueryDataTables, settings: InternalSettings, json: object) => void;
 
