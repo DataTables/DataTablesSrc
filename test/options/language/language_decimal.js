@@ -23,7 +23,7 @@ describe('language.decimal option ', function() {
 	});
 
 	dt.html('numerical');
-	it('Set thousands seperator', function(done) {
+	it('Set thousands separator', function(done) {
 		$('#example').dataTable({
 			ajax: '/base/test/data/numerical.txt',
 			columns: [{ data: 'city' }, { data: 'Score' }, { data: 'Salary' }],
