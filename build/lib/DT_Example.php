@@ -1019,7 +1019,7 @@ DT_Example::$tables['html-salary'] = array(
 				return '<span class="young">'.$row['age'].'</span>';
 			}
 			else if ( $row['age'] < 55 ) {
-				return '<span class="middleaged">'.$row['age'].'</span>';
+				return '<span class="middle-aged">'.$row['age'].'</span>';
 			}
 			return '<span class="old">'.$row['age'].'</span>';
 		},
