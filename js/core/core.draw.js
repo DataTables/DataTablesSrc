@@ -170,7 +170,7 @@ function _fnBuildHead( settings, side )
 {
 	var classes = settings.oClasses;
 	var columns = settings.aoColumns;
-	var i, ien, row;
+	var i, iLen, row;
 	var target = side === 'header'
 		? settings.nTHead
 		: settings.nTFoot;
@@ -198,7 +198,7 @@ function _fnBuildHead( settings, side )
 				cellCount += this.colSpan;
 			});
 
-			for ( i=cellCount, ien=columns.length ; i<ien ; i++ ) {
+			for ( i=cellCount, iLen=columns.length ; i<iLen ; i++ ) {
 				$('<th/>')
 					.html( columns[i][titleProp] || '' )
 					.appendTo( row );
@@ -540,7 +540,7 @@ function _emptyRow ( settings ) {
 
 	return $( '<tr/>' )
 		.append( $('<td />', {
-			'colSpan': _fnVisbleColumns( settings ),
+			'colSpan': _fnVisibleColumns( settings ),
 			'class':   settings.oClasses.empty.row
 		} ).html( zero ) )[0];
 }
@@ -724,7 +724,7 @@ function _layoutResolve( settings, row ) {
 
 		var line = row[ item ].contents;
 
-		for ( var i=0, ien=line.length ; i<ien ; i++ ) {
+		for ( var i=0, iLen=line.length ; i<iLen ; i++ ) {
 			if ( ! line[i] ) {
 				continue;
 			}
@@ -888,7 +888,7 @@ function _fnLayoutDom( settings, dom, insert )
 /**
  * Use the DOM source to create up an array of header cells. The idea here is to
  * create a layout grid (array) of rows x columns, which contains a reference
- * to the cell that that point in the grid (regardless of col/rowspan), such that
+ * to the cell at that point in the grid (regardless of col/rowspan), such that
  * any column / row could be removed and the new grid constructed
  *  @param {node} thead The header/footer element for the table
  *  @returns {array} Calculated layout array

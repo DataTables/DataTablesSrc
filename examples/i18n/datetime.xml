@@ -31,7 +31,7 @@ new DataTable('#example', {
 
 <info><![CDATA[
 
-In combination with DataTables' auto detection of ISO8601 formatted date / time strings, it is also possible to use it as a locale renderer, without an external library, as long as the data source is ISO8601. This is done through the Javascript [`toLocaleString()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
+In combination with DataTables' auto detection of ISO8601 formatted date / time strings, it is also possible to use it as a locale renderer, without an external library, as long as the data source is ISO8601. This is done through the JavaScript [`toLocaleString()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
 
 In this example the ISO8601 formatted date in the fourth column is automatically shown in the table in a format suitable for the end user's browser. e.g. in Europe the format might be D/M/Y, while in the USA M/D/Y will be shown, without any additional configuration.
 

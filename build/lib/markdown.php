@@ -288,7 +288,7 @@ class Markdown_Parser {
 	function teardown() {
 	#
 	# Called after the transformation process to clear any variable 
-	# which may be taking up memory unnecessarly.
+	# which may be taking up memory unnecessarily.
 	#
 		$this->urls = array();
 		$this->titles = array();
@@ -325,7 +325,7 @@ class Markdown_Parser {
 		$text = $this->hashHTMLBlocks($text);
 
 		# Strip any lines consisting only of spaces and tabs.
-		# This makes subsequent regexen easier to write, because we can
+		# This makes subsequent regexes easier to write, because we can
 		# match consecutive blank lines with /\n+/ instead of something
 		# contorted like /[ ]*\n+/ .
 		$text = preg_replace('/^[ ]+$/m', '', $text);
@@ -965,7 +965,7 @@ class Markdown_Parser {
 			);
 
 		foreach ($markers_relist as $marker_re => $other_marker_re) {
-			# Re-usable pattern to match any entirel ul or ol list:
+			# Re-usable pattern to match any entire ul or ol list:
 			$whole_list_re = '
 				(								# $1 = whole list
 				  (								# $2
@@ -1194,7 +1194,7 @@ class Markdown_Parser {
 		
 		while (1) {
 			#
-			# Get prepared regular expression for seraching emphasis tokens
+			# Get prepared regular expression for searching emphasis tokens
 			# in current context.
 			#
 			$token_re = $this->em_strong_prepared_relist["$em$strong"];
@@ -1352,22 +1352,22 @@ class Markdown_Parser {
 		# Strip leading and trailing lines:
 		$text = preg_replace('/\A\n+|\n+\z/', '', $text);
 
-		$grafs = preg_split('/\n{2,}/', $text, -1, PREG_SPLIT_NO_EMPTY);
+		$paragraphs = preg_split('/\n{2,}/', $text, -1, PREG_SPLIT_NO_EMPTY);
 
 		#
 		# Wrap <p> tags and unhashify HTML blocks
 		#
-		foreach ($grafs as $key => $value) {
+		foreach ($paragraphs as $key => $value) {
 			if (!preg_match('/^B\x1A[0-9]+B$/', $value)) {
 				# Is a paragraph.
 				$value = $this->runSpanGamut($value);
 				$value = preg_replace('/^([ ]*)/', "<p>", $value);
 				$value .= "</p>";
-				$grafs[$key] = $this->unhash($value);
+				$paragraphs[$key] = $this->unhash($value);
 			}
 			else {
 				# Is a block.
-				# Modify elements of @grafs in-place...
+				# Modify elements of @paragraphs in-place...
 				$graf = $value;
 				$block = $this->html_hashes[$graf];
 				$graf = $block;
@@ -1406,11 +1406,11 @@ class Markdown_Parser {
 //
 //					$graf = $div_open . "\n" . $div_content . "\n" . $div_close;
 //				}
-				$grafs[$key] = $graf;
+				$paragraphs[$key] = $graf;
 			}
 		}
 
-		return implode("\n\n", $grafs);
+		return implode("\n\n", $paragraphs);
 	}
 
 
@@ -1622,7 +1622,7 @@ class Markdown_Parser {
 	#
 	# Replace tabs with the appropriate amount of space.
 	#
-		# For each line we separate the line in blocks delemited by
+		# For each line we separate the line in blocks delimited by
 		# tab characters. Then we reconstruct every line by adding the 
 		# appropriate number of space between each blocks.
 		
@@ -1730,7 +1730,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	# Extra variables used during extra transformations.
 	var $footnotes = array();
 	var $footnotes_ordered = array();
-	var $abbr_desciptions = array();
+	var $abbr_descriptions = array();
 	var $abbr_word_re = '';
 	
 	# Give the current footnote number.
@@ -1745,7 +1745,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 		
 		$this->footnotes = array();
 		$this->footnotes_ordered = array();
-		$this->abbr_desciptions = array();
+		$this->abbr_descriptions = array();
 		$this->abbr_word_re = '';
 		$this->footnote_counter = 1;
 		
@@ -1753,7 +1753,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			if ($this->abbr_word_re)
 				$this->abbr_word_re .= '|';
 			$this->abbr_word_re .= preg_quote($abbr_word);
-			$this->abbr_desciptions[$abbr_word] = trim($abbr_desc);
+			$this->abbr_descriptions[$abbr_word] = trim($abbr_desc);
 		}
 	}
 	
@@ -1763,7 +1763,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	#
 		$this->footnotes = array();
 		$this->footnotes_ordered = array();
-		$this->abbr_desciptions = array();
+		$this->abbr_descriptions = array();
 		$this->abbr_word_re = '';
 		
 		parent::teardown();
@@ -2120,7 +2120,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			
 			if (count($parts) < 3) {
 				#
-				# End of $text reached with unbalenced tag(s).
+				# End of $text reached with unbalanced tag(s).
 				# In that case, we return original text unchanged and pass the
 				# first character as filtered to prevent an infinite loop in the 
 				# parent function.
@@ -2240,7 +2240,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 		$text = preg_replace_callback(
 			'{
 				(^.+?)								# $1: Header text
-				(?:[ ]+\{\#([-_:a-zA-Z0-9]+)\})?	# $2: Id attribute
+				(?:[ ]+\{\#([-_:a-zA-Z0-9]+)\})?	# $2: ID attribute
 				[ ]*\n(=+|-+)[ ]*\n+				# $3: Header footer
 			}mx',
 			array(&$this, '_doHeaders_callback_setext'), $text);
@@ -2618,12 +2618,12 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 		# Strip leading and trailing lines:
 		$text = preg_replace('/\A\n+|\n+\z/', '', $text);
 		
-		$grafs = preg_split('/\n{2,}/', $text, -1, PREG_SPLIT_NO_EMPTY);
+		$paragraphs = preg_split('/\n{2,}/', $text, -1, PREG_SPLIT_NO_EMPTY);
 
 		#
 		# Wrap <p> tags and unhashify HTML blocks
 		#
-		foreach ($grafs as $key => $value) {
+		foreach ($paragraphs as $key => $value) {
 			$value = trim($this->runSpanGamut($value));
 			
 			# Check if this should be enclosed in a paragraph.
@@ -2633,11 +2633,11 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			if ($is_p) {
 				$value = "<p>$value</p>";
 			}
-			$grafs[$key] = $value;
+			$paragraphs[$key] = $value;
 		}
 		
-		# Join grafs in one text, then unhash HTML tags. 
-		$text = implode("\n\n", $grafs);
+		# Join paragraphs in one text, then unhash HTML tags. 
+		$text = implode("\n\n", $paragraphs);
 		
 		# Finish by removing any tag hashes still present in $text.
 		$text = $this->unhash($text);
@@ -2810,7 +2810,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 		if ($this->abbr_word_re)
 			$this->abbr_word_re .= '|';
 		$this->abbr_word_re .= preg_quote($abbr_word);
-		$this->abbr_desciptions[$abbr_word] = trim($abbr_desc);
+		$this->abbr_descriptions[$abbr_word] = trim($abbr_desc);
 		return ''; # String that will replace the block
 	}
 	
@@ -2833,8 +2833,8 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	}
 	function _doAbbreviations_callback($matches) {
 		$abbr = $matches[0];
-		if (isset($this->abbr_desciptions[$abbr])) {
-			$desc = $this->abbr_desciptions[$abbr];
+		if (isset($this->abbr_descriptions[$abbr])) {
+			$desc = $this->abbr_descriptions[$abbr];
 			if (empty($desc)) {
 				return $this->hashPart("<abbr>$abbr</abbr>");
 			} else {

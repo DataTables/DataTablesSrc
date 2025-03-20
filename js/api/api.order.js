@@ -105,7 +105,7 @@ _api_register( [
 		return this.iterator( 'column', function ( settings, idx ) {
 			var sort = _fnSortFlatten( settings );
 
-			for ( var i=0, ien=sort.length ; i<ien ; i++ ) {
+			for ( var i=0, iLen=sort.length ; i<iLen ; i++ ) {
 				if ( sort[i].col === idx ) {
 					return sort[i].dir;
 				}

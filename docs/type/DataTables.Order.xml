@@ -8,7 +8,7 @@
 
 Ordering in DataTables can be set with `-init order` or the `-api order()` method. Each can accept various forms of input, and selecting which is easiest for you to use will depend upon the configuration of your DataTable.
 
-Using [Typescript definitions](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html), the ordering type is defined as:
+Using [TypeScript definitions](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html), the ordering type is defined as:
 
 ```js
 interface OrderIdx {

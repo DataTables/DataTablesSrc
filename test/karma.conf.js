@@ -263,7 +263,7 @@ module.exports = function(config) {
 					css: '//cdn.datatables.net/v/dt/dt-2.1.0/datatables.css'
 				},
 				// External libraries
-				// Ensure that these are insync with the build/examples.php file
+				// Ensure that these are in sync with the build/examples.php file
 				jquery: {
 					js: '//code.jquery.com/jquery-1.12.4.js'
 				},

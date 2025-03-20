@@ -37,7 +37,7 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 			: [column];
 
 		if ( columns.length ) {
-			for ( var i=0, ien=columns.length ; i<ien ; i++ ) {
+			for ( var i=0, iLen=columns.length ; i<iLen ; i++ ) {
 				var ret = _fnSortAdd( settings, columns[i], i, e.shiftKey );
 
 				if (ret !== false) {
@@ -86,7 +86,7 @@ function _fnSortDisplay(settings, display) {
 		masterMap[master[i]] = i;
 	}
 
-	// And then cache what would be the indexOf fom the display
+	// And then cache what would be the indexOf from the display
 	for (i=0 ; i<display.length ; i++) {
 		map[display[i]] = masterMap[display[i]];
 	}
@@ -212,7 +212,7 @@ function _fnSortFlatten ( settings )
 function _fnSort ( oSettings, col, dir )
 {
 	var
-		i, ien, iLen,
+		i, iLen, iLen,
 		aiOrig = [],
 		extSort = DataTable.ext.type.order,
 		aoData = oSettings.aoData,
@@ -243,7 +243,7 @@ function _fnSort ( oSettings, col, dir )
 		aSort = _fnSortFlatten( oSettings );
 	}
 
-	for ( i=0, ien=aSort.length ; i<ien ; i++ ) {
+	for ( i=0, iLen=aSort.length ; i<iLen ; i++ ) {
 		sortCol = aSort[i];
 
 		// Load the data needed for the sort, for each cell
@@ -266,7 +266,7 @@ function _fnSort ( oSettings, col, dir )
 
 		/* Do the sort - here we want multi-column sorting based on a given data source (column)
 		 * and sorting function (from oSort) in a certain direction. It's reasonably complex to
-		 * follow on it's own, but this is what we want (example two column sorting):
+		 * follow on its own, but this is what we want (example two column sorting):
 		 *  fnLocalSorting = function(a,b){
 		 *    var test;
 		 *    test = oSort['string-asc']('data11', 'data12');
@@ -440,11 +440,11 @@ function _fnSortingClasses( settings )
 	var sortClass = settings.oClasses.order.position;
 	var sort = _fnSortFlatten( settings );
 	var features = settings.oFeatures;
-	var i, ien, colIdx;
+	var i, iLen, colIdx;
 
 	if ( features.bSort && features.bSortClasses ) {
 		// Remove old sorting classes
-		for ( i=0, ien=oldSort.length ; i<ien ; i++ ) {
+		for ( i=0, iLen=oldSort.length ; i<iLen ; i++ ) {
 			colIdx = oldSort[i].src;
 
 			// Remove column sorting
@@ -453,7 +453,7 @@ function _fnSortingClasses( settings )
 		}
 
 		// Add new column sorting
-		for ( i=0, ien=sort.length ; i<ien ; i++ ) {
+		for ( i=0, iLen=sort.length ; i<iLen ; i++ ) {
 			colIdx = sort[i].src;
 
 			$( _pluck( settings.aoData, 'anCells', colIdx ) )

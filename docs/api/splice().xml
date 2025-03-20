@@ -22,9 +22,9 @@
 	<description>
 		The methods of `dt-api pop()`, `dt-api shift()` etc can be useful to modify an Api instance's result set, but they are restricted to operating at the start of the end of the result set. This method can be used to modify the result set at any point.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 
-		In this case, this method is a proxy for the Javascript `Array.prototype.splice` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `splice`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice).
+		In this case, this method is a proxy for the JavaScript `Array.prototype.splice` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `splice`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice).
 	</description>
 
 	<example title="Search for a value using `dt-api indexOf()` and replace it using `dt-api splice()` if found."><![CDATA[

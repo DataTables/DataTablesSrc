@@ -112,7 +112,7 @@ var rows = table.rows('.important, .intermediate');
 
 ## node
 
-`dt-tag tr` DOM elements can be given as a row selector to select a row in the DataTabels API from that DOM element. This can be useful for getting data from a row, or performing other row based operations, when you have only the DOM node for reference, for example in an event handler.
+`dt-tag tr` DOM elements can be given as a row selector to select a row in the DataTables API from that DOM element. This can be useful for getting data from a row, or performing other row based operations, when you have only the DOM node for reference, for example in an event handler.
 
 ###### Get the data for a row that was clicked upon:
 

@@ -9,7 +9,7 @@
 			Perform one of the built in error reporting actions:
 
 			* `-string alert` (default) - Alert the error
-			* `-string throw` - Throw a Javascript error
+			* `-string throw` - Throw a JavaScript error
 			* `-string none` - Do nothing (you would want to use this `dt-event dt-error` in this case)
 		</description>
 	</type>

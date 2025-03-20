@@ -15,9 +15,9 @@ new DataTable('#example');
 
 <info><![CDATA[
 
-As of DataTables 1.10.5 it is now possible to define [initialisation options](//datatables.net/reference/option) using HTML5 `data-*` attributes. The attribute names are read by DataTables and used, potentially in combination with, the standard Javascript initialisation options (with the `data-*` attributes taking priority).
+As of DataTables 1.10.5 it is now possible to define [initialisation options](//datatables.net/reference/option) using HTML5 `data-*` attributes. The attribute names are read by DataTables and used, potentially in combination with, the standard JavaScript initialisation options (with the `data-*` attributes taking priority).
 
-Please note that the attribute values must contain valid JSON data or a Javascript primitive, as required by [jQuery's `$().data()` method](https://api.jquery.com/data/#data-html5). This means that double quotes should be used inside the attribute if needed for a string (see the `data-order` in this example).
+Please note that the attribute values must contain valid JSON data or a JavaScript primitive, as required by [jQuery's `$().data()` method](https://api.jquery.com/data/#data-html5). This means that double quotes should be used inside the attribute if needed for a string (see the `data-order` in this example).
 
 Additionally, jQuery will convert a dashed string into the camel-case notation used by DataTables for its options. For example `data-page-length` is used to represent `dt-init pageLength`.
 
@@ -76,7 +76,7 @@ The table below shows the use of `dt-init pageLength` and `dt-init order` on the
 	        </tr>
 	        <tr>
 	            <td>Cedric Kelly</td>
-	            <td>Senior Javascript Developer</td>
+	            <td>Senior JavaScript Developer</td>
 	            <td>Edinburgh</td>
 	            <td>22</td>
 	            <td>2012/03/29</td>
@@ -116,7 +116,7 @@ The table below shows the use of `dt-init pageLength` and `dt-init order` on the
 	        </tr>
 	        <tr>
 	            <td>Colleen Hurst</td>
-	            <td>Javascript Developer</td>
+	            <td>JavaScript Developer</td>
 	            <td>San Francisco</td>
 	            <td>39</td>
 	            <td>2009/09/15</td>
@@ -444,7 +444,7 @@ The table below shows the use of `dt-init pageLength` and `dt-init order` on the
 	        </tr>
 	        <tr>
 	            <td>Jennifer Acosta</td>
-	            <td>Junior Javascript Developer</td>
+	            <td>Junior JavaScript Developer</td>
 	            <td>Edinburgh</td>
 	            <td>43</td>
 	            <td>2013/02/01</td>
@@ -492,7 +492,7 @@ The table below shows the use of `dt-init pageLength` and `dt-init order` on the
 	        </tr>
 	        <tr>
 	            <td>Michael Bruce</td>
-	            <td>Javascript Developer</td>
+	            <td>JavaScript Developer</td>
 	            <td>Singapore</td>
 	            <td>29</td>
 	            <td>2011/06/27</td>

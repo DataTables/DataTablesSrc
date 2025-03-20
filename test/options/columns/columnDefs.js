@@ -281,13 +281,13 @@ describe('columnDefs option', function() {
 			expect(counter).toBe(3);
 		});
 
-		it('And applyed its operation to the cell', function() {
+		it('And applied its operation to the cell', function() {
 			expect($('tbody td').eq(0).hasClass('test-0')).toBe(true);
 			expect($('tbody td').eq(1).hasClass('test-1')).toBe(true);
 			expect($('tbody td').eq(2).hasClass('test-2')).toBe(true);
 		});
 
-		it('Applyed static class', function() {
+		it('Applied static class', function() {
 			expect($('tbody td').eq(0).hasClass('test-all')).toBe(true);
 			expect($('tbody td').eq(1).hasClass('test-all')).toBe(true);
 			expect($('tbody td').eq(2).hasClass('test-all')).toBe(true);

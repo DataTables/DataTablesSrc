@@ -22,7 +22,7 @@
 
 		The API's selectors methods will all provide their result sets in a 2D array format, with the outer array used to identify each table in the context, while the inner array contains that table's results from the selector. You can readily loop over each table if needed, but if you are using just a single table, this method can be used to reduce the API instance to just the table in question.
 
-		As an illustrative example, the `dt-api rows()` method will return the 2D array format described above, with the the inner array data containing the row indexes selected. For simple manipulation of a single table we want just a 1D array which contains the selected row indexes, and the API instance's context set to the table in question. This is exactly the ability the `dt-api eq()` method provides.
+		As an illustrative example, the `dt-api rows()` method will return the 2D array format described above, with the inner array data containing the row indexes selected. For simple manipulation of a single table we want just a 1D array which contains the selected row indexes, and the API instance's context set to the table in question. This is exactly the ability the `dt-api eq()` method provides.
 
 		Please note that initially this method may appear to be similar to the `-api get()` method, but the two methods provide slightly different functionally:
 

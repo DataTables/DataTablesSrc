@@ -394,7 +394,7 @@ class DT_Example
 			$a = explode('|', $type);
 			$t = '';
 
-			for ( $i=0, $ien=count($a) ; $i<$ien ; $i++ ) {
+			for ( $i=0, $iLen=count($a) ; $i<$iLen ; $i++ ) {
 				$t .= $this->build_table( $a[$i] );
 			}
 
@@ -453,7 +453,7 @@ class DT_Example
 			}
 			else {
 				$cells = '';
-				for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
+				for ( $i=0, $iLen=count($columns) ; $i<$iLen ; $i++ ) {
 					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
 				}
 				$t .= '<thead>';
@@ -479,7 +479,7 @@ class DT_Example
 					}
 
 					$cells = '';
-					for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
+					for ( $i=0, $iLen=count($columns) ; $i<$iLen ; $i++ ) {
 						$cell = $this->_column( $columns[$i], 'data', $this->_data[$j] );
 
 						if ( strpos( $cell, '<td' ) === 0 ) {
@@ -508,7 +508,7 @@ class DT_Example
 			}
 			else {
 				$cells = '';
-				for ( $i=0, $ien=count($columns) ; $i<$ien ; $i++ ) {
+				for ( $i=0, $iLen=count($columns) ; $i<$iLen ; $i++ ) {
 					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
 				}
 				$t .= '<tfoot>';
@@ -558,7 +558,7 @@ class DT_Example
 		$out = array();
 		$libs = $this->_libs[ $type ];
 
-		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
+		for ( $i=0, $iLen=count($libs) ; $i<$iLen ; $i++ ) {
 			$file = $libs[$i]; // needs a path
 
 			if ( strpos($file, '//') !== 0 &&
@@ -608,7 +608,7 @@ class DT_Example
 			if ( isset( $lib['lib'] ) ) {
 				$split_attr = explode( ' ', (string)$lib['lib'] );
 
-				for ( $i=0, $ien=count($split_attr) ; $i<$ien ; $i++ ) {
+				for ( $i=0, $iLen=count($split_attr) ; $i<$iLen ; $i++ ) {
 					$a[] = $split_attr[$i];
 					$this->_xml_libs[ $type ][] = $split_attr[$i];
 				}
@@ -624,7 +624,7 @@ class DT_Example
 		$exampleLibs = &$this->_libs[ $type ];
 		$srcLibs = DT_Example::$lookup_libraries[ $type ];
 
-		for ( $i=0, $ien=count($libs) ; $i<$ien ; $i++ ) {
+		for ( $i=0, $iLen=count($libs) ; $i<$iLen ; $i++ ) {
 			$lib = $libs[$i];
 
 			if ( strpos($lib, '/') === 0 || strpos($lib, '.') === 0 ) {
@@ -681,17 +681,17 @@ class DT_Example
 				'jquery' :
 				'dataTables';
 
-			// Always include the core Javascript file.
+			// Always include the core JavaScript file.
 			$out[] = $path.'/js/'.$jsBaseFilename.'.'.$filename.$min.'.js';
 
-			// Possibly include a framework Javascript file. If the framework is
+			// Possibly include a framework JavaScript file. If the framework is
 			// DataTables, then there will be no override JS file.
 			if ( $framework !== 'dataTables' && $component['framework']['js'] ) {
 				$out[] = $path.'/js/'.$filename.'.'.$framework.$min.'.js';
 			}
 		}
 		else if ( $type === 'css' ) {
-			// Possibly include a framework Javascript file.
+			// Possibly include a framework JavaScript file.
 			if ( $component['framework']['css'] ) {
 				$out[] = $path.'/css/'.$filename.'.'.$framework.$min.'.css';
 			}
@@ -949,7 +949,7 @@ DT_Example::$tables['ssp-1st-page'] = array(
 <tr class="even">
     <td>Cedric</td>
     <td>Kelly</td>
-    <td>Senior Javascript Developer</td>
+    <td>Senior JavaScript Developer</td>
     <td>Edinburgh</td>
     <td>29th Mar 12</td>
     <td>$433,060</td>
@@ -1010,7 +1010,7 @@ DT_Example::$tables['html-salary'] = array(
 				return '<span class="young">'.$row['age'].'</span>';
 			}
 			else if ( $row['age'] < 55 ) {
-				return '<span class="middleaged">'.$row['age'].'</span>';
+				return '<span class="middle-aged">'.$row['age'].'</span>';
 			}
 			return '<span class="old">'.$row['age'].'</span>';
 		},

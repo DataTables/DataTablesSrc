@@ -1,5 +1,5 @@
 // TK COLIN not convinced by the usefulness of these tests...
-describe('Basic Datatables Test', function() {
+describe('Basic DataTables Test', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
@@ -7,7 +7,7 @@ describe('Basic Datatables Test', function() {
 
 	doc = window.document;
 
-	describe('Sanity Checks for Datatables with DOM data', function() {
+	describe('Sanity Checks for DataTables with DOM data', function() {
 		dt.html('basic');
 
 		it('jQuery.dataTable function', function() {

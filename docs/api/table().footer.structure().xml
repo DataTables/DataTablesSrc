@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-api group="tables">
 	<name>table().footer.structure()</name>
-	<summary>Get a Javascript representation of the table footer structure</summary>
+	<summary>Get a JavaScript representation of the table footer structure</summary>
 	<since>2.0</since>
 
 	<type type="function">
@@ -19,7 +19,7 @@
 
 	<description>
 	<![CDATA[
-		This method provides the ability to get a Javascript native representation of the HTML structure of the table's footer. It allows for complex footer (i.e. cells with `colspan` and `rowspan` attributes) and multi-row footer.
+		This method provides the ability to get a JavaScript native representation of the HTML structure of the table's footer. It allows for complex footer (i.e. cells with `colspan` and `rowspan` attributes) and multi-row footer.
 
 		Please see the documentation for `-api table().header.structure()` for a full description of the data structure this method returns. The is exactly the same, just for the table's footer.
 	]]>

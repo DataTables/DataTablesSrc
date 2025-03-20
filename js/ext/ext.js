@@ -237,7 +237,7 @@ DataTable.ext = _ext = {
 	 * 
 	 * The extension options for ordering of data available here is complimentary
 	 * to the default type based ordering that DataTables typically uses. It
-	 * allows much greater control over the the data that is being used to
+	 * allows much greater control over the data that is being used to
 	 * order a column, but is necessarily therefore more complex.
 	 * 
 	 * This type of ordering is useful if you want to do ordering based on data
@@ -396,7 +396,7 @@ DataTable.ext = _ext = {
 		 * `{type}-asc` and `{type}-desc` together. It is generally recommended
 		 * that only `{type}-pre` is used, as this provides the optimal
 		 * implementation in terms of speed, although the others are provided
-		 * for compatibility with existing Javascript sort functions.
+		 * for compatibility with existing JavaScript sort functions.
 		 *
 		 * `{type}-pre`: Functions defined take a single parameter:
 		 *
@@ -406,7 +406,7 @@ DataTable.ext = _ext = {
 		 *
 		 * * `{*}` Data to be sorted upon
 		 *
-		 * `{type}-asc` and `{type}-desc`: Functions are typical Javascript sort
+		 * `{type}-asc` and `{type}-desc`: Functions are typical JavaScript sort
 		 * functions, taking two parameters:
 		 *
 	     *  1. `{*}` Data to compare to the second parameter

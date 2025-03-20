@@ -48,7 +48,7 @@ describe('core - page.len()', function() {
 		});
 
 		dt.html('basic');
-		it('Page lengthcan be set to 1 during initialisation', function() {
+		it('Page length can be set to 1 during initialisation', function() {
 			let table = $('#example').DataTable({
 				pageLength: 1
 			});
@@ -56,7 +56,7 @@ describe('core - page.len()', function() {
 		});
 
 		dt.html('basic');
-		it('Page lengthcan be set to 5 during initialisation', function() {
+		it('Page length can be set to 5 during initialisation', function() {
 			let table = $('#example').DataTable({
 				pageLength: 5
 			});
@@ -64,7 +64,7 @@ describe('core - page.len()', function() {
 		});
 
 		dt.html('basic');
-		it('Page lengthcan be set to 10 during initialisation', function() {
+		it('Page length can be set to 10 during initialisation', function() {
 			let table = $('#example').DataTable({
 				pageLength: 10
 			});
@@ -105,7 +105,7 @@ describe('core - page.len()', function() {
 			checkTableLength(1);
 		});
 
-		it('Page lengthcan be set to 5 through the API', function() {
+		it('Page length can be set to 5 through the API', function() {
 			$('#example')
 				.DataTable()
 				.page.len(5)
@@ -113,7 +113,7 @@ describe('core - page.len()', function() {
 			checkTableLength(5);
 		});
 
-		it('Page lengthcan be set to 10 through the API', function() {
+		it('Page length can be set to 10 through the API', function() {
 			$('#example')
 				.DataTable()
 				.page.len(10)

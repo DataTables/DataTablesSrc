@@ -133,7 +133,7 @@ export interface Feature {
         /** Class name for the div */
         className?: string;
 
-        /** Id to give the div */
+        /** ID to give the div */
         id?: string;
 
         /** HTML content for the div (cannot be used as well as textContent) */
@@ -218,13 +218,13 @@ type LayoutElement = {
     /** Class to apply to the CELL in the layout grid */
     className?: string;
 
-    /** Id to apply to the CELL in the layout grid */
+    /** ID to apply to the CELL in the layout grid */
     id?: string;
 
     /** Class to apply to the ROW in the layout grid */
     rowClass?: string;
 
-    /** Id to apply to the ROW in the layout grid */
+    /** ID to apply to the ROW in the layout grid */
     rowId?: string;
 
     /** List of features to show in this cell */
@@ -818,7 +818,7 @@ export interface Api<T=any> {
 
     /**
      * Get a boolean value to indicate if there are any entries in the API instance's result set (i.e. any data, selected rows, etc).
-     * @returns true if there there is one or more items in the result set, false otherwise.
+     * @returns true if there are one or more items in the result set, false otherwise.
      */
     any(): boolean;
 
@@ -984,13 +984,13 @@ export interface Api<T=any> {
      * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
      * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
      */
-    iterator(type: 'table', callback: InteratorTable, returns?: boolean): Api<any>;
-    iterator(type: 'cell', callback: InteratorCell, returns?: boolean): Api<any>;
-    iterator(type: 'column-rows', callback: InteratorColumnRows, returns?: boolean): Api<any>;
-    iterator(type: 'column', callback: InteratorColumn, returns?: boolean): Api<any>;
-    iterator(type: 'columns', callback: InteratorColumns, returns?: boolean): Api<any>;
-    iterator(type: 'row', callback: InteratorRow, returns?: boolean): Api<any>;
-    iterator(type: 'rows', callback: InteratorRows, returns?: boolean): Api<any>;
+    iterator(type: 'table', callback: IteratorTable, returns?: boolean): Api<any>;
+    iterator(type: 'cell', callback: IteratorCell, returns?: boolean): Api<any>;
+    iterator(type: 'column-rows', callback: IteratorColumnRows, returns?: boolean): Api<any>;
+    iterator(type: 'column', callback: IteratorColumn, returns?: boolean): Api<any>;
+    iterator(type: 'columns', callback: IteratorColumns, returns?: boolean): Api<any>;
+    iterator(type: 'row', callback: IteratorRow, returns?: boolean): Api<any>;
+    iterator(type: 'rows', callback: IteratorRows, returns?: boolean): Api<any>;
 
     /**
      * Iterate over a result set of table, row, column or cell indexes
@@ -1001,13 +1001,13 @@ export interface Api<T=any> {
      * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
      * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
      */
-    iterator(flatten: boolean, type: 'table', callback: InteratorTable, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'cell', callback: InteratorCell, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'column-rows', callback: InteratorColumnRows, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'column', callback: InteratorColumn, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'columns', callback: InteratorColumns, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'row', callback: InteratorRow, returns?: boolean): Api<any>;
-    iterator(flatten: boolean, type: 'rows', callback: InteratorRows, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'table', callback: IteratorTable, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'cell', callback: IteratorCell, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'column-rows', callback: IteratorColumnRows, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'column', callback: IteratorColumn, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'columns', callback: IteratorColumns, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'row', callback: IteratorRow, returns?: boolean): Api<any>;
+    iterator(flatten: boolean, type: 'rows', callback: IteratorRows, returns?: boolean): Api<any>;
 
     /**
      * Join the elements in the result set into a string.
@@ -1209,7 +1209,7 @@ export interface Api<T=any> {
     /**
      * Sort the elements of the API instance's result set.
      *
-     * @param fn This is a standard Javascript sort comparison function. It accepts two parameters.
+     * @param fn This is a standard JavaScript sort comparison function. It accepts two parameters.
      * @returns The original API instance with the result set sorted as defined by the sorting conditions used.
      */
     sort(fn?: ((value1: any, value2: any) => number)): Api<Array<any>>;
@@ -1253,9 +1253,9 @@ export interface Api<T=any> {
     to$(): JQuery;
 
     /**
-     * Create a native Javascript array object from an API instance.
+     * Create a native JavaScript array object from an API instance.
      * 
-     * @returns Javascript array which contains the values from the API instance's result set.
+     * @returns JavaScript array which contains the values from the API instance's result set.
      */
     toArray(): any[];
 
@@ -1417,7 +1417,7 @@ export interface State {
  * @param settings Table settings object
  * @param counter Loop counter
  */
-type InteratorTable = (settings: InternalSettings, counter: number) => any;
+type IteratorTable = (settings: InternalSettings, counter: number) => any;
 
 /**
  * "cell" - loop over each table and cell in the result set
@@ -1428,7 +1428,7 @@ type InteratorTable = (settings: InternalSettings, counter: number) => any;
  * @param tableCounter Table counter (outer)
  * @param cellCounter Cell counter (inner)
  */        
-type InteratorCell = (settings: InternalSettings, rowIndex: number, columnIndex: number, tableCounter: number, cellCounter: number) => any;
+type IteratorCell = (settings: InternalSettings, rowIndex: number, columnIndex: number, tableCounter: number, cellCounter: number) => any;
 
 /**
  * "columns" - loop over each item in the result set
@@ -1437,7 +1437,7 @@ type InteratorCell = (settings: InternalSettings, rowIndex: number, columnIndex:
  * @param resultItem Result set item
  * @param counter Loop counter
  */
-type InteratorColumns = (settings: InternalSettings, resultItem: any, counter: number) => any;
+type IteratorColumns = (settings: InternalSettings, resultItem: any, counter: number) => any;
 
 /**
  * "column" - loop over each table and column in the result set
@@ -1447,7 +1447,7 @@ type InteratorColumns = (settings: InternalSettings, resultItem: any, counter: n
  * @param tableCounter Table counter (outer)
  * @param columnCounter Column counter (inner)
  */
-type InteratorColumn = (settings: InternalSettings, columnIndex: number, tableCounter: number, columnCounter: number) => any;
+type IteratorColumn = (settings: InternalSettings, columnIndex: number, tableCounter: number, columnCounter: number) => any;
 
 /**
  * "column-rows" - loop over each table, column and row in the result set applying selector-modifier.
@@ -1458,7 +1458,7 @@ type InteratorColumn = (settings: InternalSettings, columnIndex: number, tableCo
  * @param columnCounter Column counter (inner)
  * @param rowIndexes Row indexes
  */
-type InteratorColumnRows = (settings: InternalSettings, columnIndex: number, tableCounter: number, columnCounter: number, rowIndexes: number[]) => any;
+type IteratorColumnRows = (settings: InternalSettings, columnIndex: number, tableCounter: number, columnCounter: number, rowIndexes: number[]) => any;
 
 /**
  * "row" - loop over each table and row in the result set
@@ -1468,7 +1468,7 @@ type InteratorColumnRows = (settings: InternalSettings, columnIndex: number, tab
  * @param tableCounter Table counter (outer)
  * @param rowCounter Row counter (inner)
  */
-type InteratorRow = (settings: InternalSettings, rowIndex: number, tableCounter: number, rowCounter: number) => any;
+type IteratorRow = (settings: InternalSettings, rowIndex: number, tableCounter: number, rowCounter: number) => any;
 
 /**
  * "rows" - loop over each item in the result set
@@ -1477,7 +1477,7 @@ type InteratorRow = (settings: InternalSettings, rowIndex: number, tableCounter:
  * @param resultItem Result set item
  * @param counter Loop counter
  */
-type InteratorRows = (settings: InternalSettings, resultItem: any, counter: number) => any;
+type IteratorRows = (settings: InternalSettings, resultItem: any, counter: number) => any;
 
 export interface ApiAjax {
     /**
@@ -2367,7 +2367,7 @@ export interface ApiRow<T> {
     /**
      * Add a new row to the table using the given data
      *
-     * @param data Data to use for the new row. This may be an array, object or Javascript object instance, but must be in the same format as the other data in the table+
+     * @param data Data to use for the new row. This may be an array, object or JavaScript object instance, but must be in the same format as the other data in the table+
      * @returns DataTables API instance with the newly added row in its result set.
      */
     add(data: any[] | object): ApiRowMethods<T>;
@@ -2775,7 +2775,7 @@ export interface DataTablesStatic {
     use(library: any): void;
 
     /**
-     * Set the libraries that DataTables uses, or the global objects, explicity staing
+     * Set the libraries that DataTables uses, or the global objects, explicity stating
      * what library is to be considered. Used for module loading environments.
      *
      * @param type Indicate the library that is being loaded.
@@ -3342,7 +3342,7 @@ type FunctionFormatNumber = (this: JQueryDataTables, formatNumber: number) => vo
 
 type FunctionHeaderCallback = (this: JQueryDataTables, tr: HTMLTableRowElement, data: any[], start: number, end: number, display: any[]) => void;
 
-type FunctionInfoCallback = (this: JQueryDataTables, settings: InternalSettings, start: number, end: number, mnax: number, total: number, pre: string) => void;
+type FunctionInfoCallback = (this: JQueryDataTables, settings: InternalSettings, start: number, end: number, max: number, total: number, pre: string) => void;
 
 type FunctionInitComplete = (this: JQueryDataTables, settings: InternalSettings, json: object) => void;
 

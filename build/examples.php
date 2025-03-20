@@ -336,7 +336,7 @@ DT_Example::$lookup_libraries['js']['sparkline']     = 'https://cdn.jsdelivr.net
 function multiple ( $value, $fn )
 {
 	if ( is_array( $value ) ) {
-		for ( $i=0, $ien=count($value) ; $i<$ien ; $i++ ) {
+		for ( $i=0, $iLen=count($value) ; $i<$iLen ; $i++ ) {
 			$fn( $value[$i] );
 		}
 	}
@@ -660,7 +660,7 @@ function sql_files ( $out_dir )
 	);
 
 	$out = [];
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 		$out[] = "( ".
 			    $json[$i]['id'].", ".
 			"'".$json[$i]['first_name']."', ".
@@ -771,7 +771,7 @@ INSERT INTO datatables_demo
 	VALUES
 EOD;
 	$out = [];
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 		$out[] = "( ".
 				$json[$i]['id'].", ".
 			"'".$json[$i]['first_name']."', ".
@@ -823,7 +823,7 @@ INSERT INTO datatables_demo
 	VALUES
 EOD;
 	$insert = [];
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 		$insert[] = "\t\t( ".
 			$json[$i]['id'].", ".
 		"'".$json[$i]['first_name']."', ".
@@ -882,7 +882,7 @@ CREATE OR REPLACE TRIGGER datatables_demo_on_insert
 
 EOD;
 
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 		$str .= "INSERT INTO \"datatables_demo\" ".
 			"( \"first_name\", \"last_name\", \"age\", \"position\", \"salary\", \"start_date\", \"extn\", \"email\", \"office\", \"seq\" ) ".
 			"VALUES ";
@@ -926,7 +926,7 @@ EOD;
 
 EOD;
 	
-		for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+		for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 			$str .= "INSERT INTO \"datatables_demo\" ".
 				"( \"first_name\", \"last_name\", \"age\", \"position\", \"salary\", \"start_date\", \"extn\", \"email\", \"office\", \"seq\" ) ".
 				"VALUES ";
@@ -971,7 +971,7 @@ function json_files ( $out_dir )
 
 	// Plain arrays
 	$out = [];
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 		$out[] = [
 			$json[$i]['first_name'].' '.$json[$i]['last_name'],
 			$json[$i]['position'],
@@ -995,7 +995,7 @@ function json_files ( $out_dir )
 
 	// Arrays with sub objects
 	$out = [];
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 		$out[] = [
 			$json[$i]['first_name'].' '.$json[$i]['last_name'],
 			'hr' => [
@@ -1017,7 +1017,7 @@ function json_files ( $out_dir )
 	
 	// Simple object base case
 	$out = [];
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 		$out[] = [
 			'id'         => $json[$i]['id'],
 			'name'       => $json[$i]['first_name'] .' '. $json[$i]['last_name'],
@@ -1042,7 +1042,7 @@ function json_files ( $out_dir )
 
 	// Objects with sub objects and arrays
 	$out = [];
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 		$out[] = [
 			'name' => $json[$i]['first_name'].' '.$json[$i]['last_name'],
 			'hr' => [
@@ -1064,7 +1064,7 @@ function json_files ( $out_dir )
 
 	// Salary without formatting
 	$out = [];
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 		$country = $json[$i]['office'];
 		if ( $country === 'Singapore' ) {
 			$country = 'Argentina';
@@ -1086,7 +1086,7 @@ function json_files ( $out_dir )
 
 	// Objects with sub objects
 	$out = [];
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 		$out[] = [
 			'name'       => [ $json[$i]['last_name'], $json[$i]['first_name'] ],
 			'hr'         => [
@@ -1106,7 +1106,7 @@ function json_files ( $out_dir )
 
 	// Orthogonal date data
 	$out = [];
-	for ( $i=0, $ien=count($json) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($json) ; $i<$iLen ; $i++ ) {
 		$t = strtotime( $json[$i]['start_date'] );
 		$out[] = [
 			'name'       => $json[$i]['first_name'] .' '. $json[$i]['last_name'],
@@ -1240,7 +1240,7 @@ function tidy_structure ( &$examples, $order )
 
 function dump_structure( &$examples, $pre="" )
 {
-	for ( $i=0, $ien=count($examples) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($examples) ; $i<$iLen ; $i++ ) {
 		$example = $examples[$i];
 
 		if ( $example['type'] === 'dir' ) {
@@ -1256,7 +1256,7 @@ function dump_structure( &$examples, $pre="" )
 
 function process_structure ( &$examples, $toc='', $cat='' )
 {
-	for ( $i=0, $ien=count($examples) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($examples) ; $i<$iLen ; $i++ ) {
 		$example = $examples[$i];
 
 		if ( $example['type'] === 'dir' ) {
@@ -1305,7 +1305,7 @@ function build_toc ( $examples, $example, $category )
 		// Use all examples
 		$out = '';
 
-		for ( $i=0, $ien=count($examples) ; $i<$ien ; $i++ ) {
+		for ( $i=0, $iLen=count($examples) ; $i<$iLen ; $i++ ) {
 			if ( $examples[$i]['type'] === 'dir' && $examples[$i]['name'] !== 'private' ) {
 				$out .= build_toc_category( $examples[$i], $example );
 			}
@@ -1321,7 +1321,7 @@ function build_toc_category ( $category, $current=null )
 	$inCategory = false;
 	$out = '';
 
-	for ( $i=0, $ien=count($category['files']) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($category['files']) ; $i<$iLen ; $i++ ) {
 		$example = $category['files'][$i];
 
 		if ( $example['name'] !== 'index' ) {
@@ -1360,7 +1360,7 @@ function build_toc_category ( $category, $current=null )
 
 function has_files ( $files )
 {
-	for ( $i=0, $ien=count($files) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($files) ; $i<$iLen ; $i++ ) {
 		if ( $files[$i]['type'] === 'file' ) {
 			return true;
 		}
@@ -1376,7 +1376,7 @@ function has_files ( $files )
 
 function toc_structure ( &$examples )
 {
-	for ( $i=0, $ien=count($examples) ; $i<$ien ; $i++ ) {
+	for ( $i=0, $iLen=count($examples) ; $i<$iLen ; $i++ ) {
 		$group = &$examples[$i];
 
 		if ( $group['type'] === 'dir' ) {

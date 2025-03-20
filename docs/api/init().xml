@@ -13,7 +13,7 @@
 	<description>
 		This method provides access to the initialisation object that was used to create the DataTable. Its intended use is for plug-in authors who wish to be able to provide custom options for their DataTables plug-in in the standard configuration object.
 
-		When developing with this method keep in mind that the DataTables options are all all optional. They may or may not exist in this object. It is generally not expected that you would check the values of the built-in options (`dt-init paging` for example), but rather for custom objects.
+		When developing with this method keep in mind that the DataTables options are all optional. They may or may not exist in this object. It is generally not expected that you would check the values of the built-in options (`dt-init paging` for example), but rather for custom objects.
 
 		The object returned should not be written to. Any changes made will not be detected by DataTables and could potentially lead to unpredictable results. Therefore the returned object should be considered to be read-only.
 

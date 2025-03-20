@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="js">
 	<name>array</name>
-	<summary>Javascript `Array` type</summary>
+	<summary>JavaScript `Array` type</summary>
 
 	<description>
 	<![CDATA[
 
-Javascript's native `Array` type is used to create list like objects. Arrays are created using: `[]` or `new Array()`.
+JavaScript's native `Array` type is used to create list like objects. Arrays are created using: `[]` or `new Array()`.
 
 A detailed description of the `Array` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 

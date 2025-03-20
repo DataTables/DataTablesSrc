@@ -8,7 +8,7 @@
 	<default>true</default>
 
 	<description>
-		Flag to indicate if the filtering should be case insensitive or not.
+		Flag to indicate whether or not the filtering should be case-insensitive.
 	</description>
 
 	<example title="Filter using case-sensitive matching"><![CDATA[

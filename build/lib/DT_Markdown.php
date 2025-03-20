@@ -15,12 +15,12 @@ require_once('markdown_extended.php');// or die('Run ./make.sh thirdparty');
  *      paths)
  */
 
-function DT_Markdown($text, $default_claases=array(), $truncateWhiteSpace=false){
+function DT_Markdown($text, $default_classes=array(), $truncateWhiteSpace=false){
 	if ( $truncateWhiteSpace ) {
 		$text = DT_Markdown_Parser::truncateWhiteSpace( $text );
 	}
 
-	$parser = new DT_Markdown_Parser($default_claases);
+	$parser = new DT_Markdown_Parser($default_classes);
 	return $parser->transform($text);
 }
 
@@ -45,7 +45,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 
 			// Remove the same amount of white space for each line
 			if ( $match && count($match) ) {
-				for ( $i=0, $ien=count($a) ; $i<$ien ; $i++ ) {
+				for ( $i=0, $iLen=count($a) ; $i<$iLen ; $i++ ) {
 					$a[$i] = preg_replace( '/'.$match[0].'/', '', $a[$i], 1 );
 				}
 			}
@@ -112,7 +112,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 			$a = explode('|', $item);
 			$s = array();
 
-			for ( $i=0, $ien=count($a) ; $i<$ien ; $i++ ) {
+			for ( $i=0, $iLen=count($a) ; $i<$iLen ; $i++ ) {
 				$s[] = self::_docLink( $software, $type, $a[$i],
 					htmlspecialchars(trim($a[$i]), ENT_NOQUOTES)
 				);
@@ -210,7 +210,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				break;
 			
 			case 'js': // JS type
-				$lang = 'Javascript';
+				$lang = 'JavaScript';
 				break;
 			
 			default:

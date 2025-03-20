@@ -40,7 +40,7 @@ $.extend( true, DataTable.ext.renderer, {
 			// on destroy, while the `dt` namespaced event is the one we are
 			// listening for
 			$(settings.nTable).on( 'order.dt.DT column-visibility.dt.DT', function ( e, ctx ) {
-				if ( settings !== ctx ) { // need to check this this is the host
+				if ( settings !== ctx ) { // need to check if this is the host
 					return;               // table, not a nested one
 				}
 

@@ -84,7 +84,7 @@ tables.tables('#clients, #owners');
 
 ## node
 
-`dt-tag tables` DOM elements can be given as a table selector to select a table in the DataTabels API from that DOM element. This can be useful for getting data from a row, or performing other row based operations, when you have only the DOM node for reference, for example in an event handler.
+`dt-tag tables` DOM elements can be given as a table selector to select a table in the DataTables API from that DOM element. This can be useful for getting data from a row, or performing other row based operations, when you have only the DOM node for reference, for example in an event handler.
 
 ###### Get the data for the table that was clicked upon:
 

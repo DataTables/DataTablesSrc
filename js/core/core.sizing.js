@@ -273,7 +273,7 @@ function _fnGetMaxLenString( settings, colIdx )
 	if (! column.maxLenString) {
 		var s, max='', maxLen = -1;
 	
-		for ( var i=0, ien=settings.aiDisplayMaster.length ; i<ien ; i++ ) {
+		for ( var i=0, iLen=settings.aiDisplayMaster.length ; i<iLen ; i++ ) {
 			var rowIdx = settings.aiDisplayMaster[i];
 			var data = _fnGetRowDisplay(settings, rowIdx)[colIdx];
 

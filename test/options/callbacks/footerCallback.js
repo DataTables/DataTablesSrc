@@ -92,7 +92,7 @@ describe('footerCallback Option', function() {
 			expect(args[4].length).toBe(12);
 		});
 
-		// Fromhttps://datatables.net/forums/discussion/78401
+		// From https://datatables.net/forums/discussion/78401
 		dt.html('basic');
 
 		it('Correct number of hiding elements', function() {

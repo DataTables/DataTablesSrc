@@ -11,9 +11,9 @@
 	</type>
 
 	<description>
-		The DataTables API object is "array like" and inherits many of the same characteristics as a Javascript array. The `-api slice()` method is one of these. It provides the ability to create an independent copy of the instance so it can be manipulated without affecting the original.
+		The DataTables API object is "array like" and inherits many of the same characteristics as a JavaScript array. The `-api slice()` method is one of these. It provides the ability to create an independent copy of the instance so it can be manipulated without affecting the original.
 
-		This method is a proxy for the Javascript `Array.prototype.slice` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `slice`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice).
+		This method is a proxy for the JavaScript `Array.prototype.slice` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `slice`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice).
 	</description>
 
 	<example title="Modify a copy of an instance without affecting the original."><![CDATA[

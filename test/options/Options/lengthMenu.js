@@ -77,7 +77,7 @@ describe('lengthMenu Option', function() {
 
 	describe('Integration style tests', function() {
 		dt.html('basic');
-		it('Pagelength set to first size', function() {
+		it('PageLength set to first size', function() {
 			let table = $('#example').DataTable({
 				lengthMenu: [15, 30, 45, 60]
 			});
@@ -86,7 +86,7 @@ describe('lengthMenu Option', function() {
 		});
 
 		dt.html('basic');
-		it('Pagelength not set to first size if pageLength set', function() {
+		it('PageLength not set to first size if pageLength set', function() {
 			let table = $('#example').DataTable({
 				lengthMenu: [15, 30, 45, 60],
 				pageLength: 12

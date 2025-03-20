@@ -37,7 +37,7 @@
       * Sorting - sorted numerically
       * Filtering - HTML tags removed from filtering string
     * `html-utf8` - Detected if the string contains HTML tags and it contains non-ASCII characters
-      * Sorting - Sorts using [`localeCompare`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare) to ensure diacritc characters are correctly sorted
+      * Sorting - Sorts using [`localeCompare`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare) to ensure diacritical characters are correctly sorted
       * Filtering - Can search either with or without diacritic characters, and will match with or without
     * `html` - Basic string processing for HTML tags
       * Sorting - sorted with HTML tags removed

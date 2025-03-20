@@ -21,7 +21,7 @@
  *   per page. This takes a single object with the following parameters:
  *   * `framework` - Styling framework to load - for example `bootstrap` or
  *     `foundation`. Default is `datatables` if not provided.
- *   * `js` - Array of Javascript files to load - these are the key references
+ *   * `js` - Array of JavaScript files to load - these are the key references
  *     to the files defined in the `client.libraries` object of the karma
  *     configuration object.
  *   * As the `js` array but in this case for CSS
@@ -132,11 +132,11 @@
 	function _loadDeps(done, obj) {
 		var queue = [],
 			i,
-			ien;
+			iLen;
 
 		// CSS
 		if (obj.css) {
-			for (i = 0, ien = obj.css.length; i < ien; i++) {
+			for (i = 0, iLen = obj.css.length; i < iLen; i++) {
 				var resolved = _pathResolver('css', obj.css[i], obj.framework || 'dataTables');
 
 				queue = queue.concat(resolved);
@@ -145,7 +145,7 @@
 
 		// JS
 		if (obj.js) {
-			for (i = 0, ien = obj.js.length; i < ien; i++) {
+			for (i = 0, iLen = obj.js.length; i < iLen; i++) {
 				var resolved = _pathResolver('js', obj.js[i], obj.framework || 'dataTables');
 
 				queue = queue.concat(resolved);
@@ -426,7 +426,7 @@
 		serverSide: function (data, callback, settings) {
 			var out = [];
 
-			for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
+			for (let i = data.start, iLen = data.start + data.length; i < iLen; i++) {
 				out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
 			}
 
