@@ -145,7 +145,7 @@ class MarkdownExtraExtended_Parser extends MarkdownExtra_Parser {
 
 		$figure = preg_replace('/^/m', "  ", $figure);
 		# These leading spaces cause problem with <pre> content, 
-		# so we need to fix that - reuse blockqoute code to handle this:
+		# so we need to fix that - reuse blockquote code to handle this:
 		$figure = preg_replace_callback('{(\s*<pre>.+?</pre>)}sx', 
 			array(&$this, '_doBlockQuotes_callback2'), $figure);
 		
