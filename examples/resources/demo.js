@@ -166,7 +166,7 @@ window.dt_demo = {
 				}
 
 				// Editor's demo has its own call to do this
-				if (DataTable.Editor) {
+				if (DataTable && DataTable.Editor) {
 					return;
 				}
 
