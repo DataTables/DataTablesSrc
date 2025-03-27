@@ -20,6 +20,8 @@
 		Select an individual column to work with from a DataTable, with its chained methods providing the ability to get work with the column, taking actions such as toggling its visibility or obtaining the data from the column.
 
 		Note that this method selects a single column. If the selector provided resolves to multiple columns, the result will be truncated to just a single column - the first one found. If you need to work with multiple columns, the `dt-api columns()` method is available with the same selection options.
+
+		This method is a _top level_ selector. That means that, regardless of what might have already been selected by the API instance in the call chain, this method will always return the selected column, without consideration for what might have been selected previously.
 	</description>
 
 	<example title=""><![CDATA[

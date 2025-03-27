@@ -20,6 +20,8 @@
 		Working with rows is a fundamental part of DataTables, and you want to be able to easily select the rows that you want from the table. This method is the row counterpart to the `dt-api columns()` and `dt-api cells()` methods for working with columns and cells in the table, respectively. Using a selector and the `dt-type selector-modifier` option the rows at the table can be obtained with this method's own chained methods providing the ability to get the data from the rows, the row nodes and to invalidate the data, among other actions.
 
 		Note that if the selector used matches multiple rows, this method will truncate the result to contain just one row, the first matched one. If you require to work with multiple rows at the same time for group manipulation, please use this method's plural counterpart `dt-api rows()` which can select and manipulate multiple rows. 
+
+		This method is a _top level_ selector. That means that, regardless of what might have already been selected by the API instance in the call chain, this method will always return the selected row, without consideration for what might have been selected previously.
 	</description>
 
 	<example title="Select row with a given id"><![CDATA[

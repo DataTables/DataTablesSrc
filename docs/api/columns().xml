@@ -33,6 +33,8 @@
 
 		* All columns (no parameters, or just a `dt-type selector-modifier` option)
 		* Columns selector (and optional `dt-type selector-modifier`)
+
+		This method is a _top level_ selector. That means that, regardless of what might have already been selected by the API instance in the call chain, this method will always return the selected columns, without consideration for what might have been selected previously.
 	</description>
 
 	<example title=""><![CDATA[
