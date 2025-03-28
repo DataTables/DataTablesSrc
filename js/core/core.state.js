@@ -146,16 +146,19 @@ function _fnImplementState ( settings, s, callback) {
 
 			// A column name was stored and should be used for restore
 			if (typeof col[0] === 'string') {
+				// Find the name from the current list of column names
 				var idx = currentNames.indexOf(col[0]);
 
-				// Find the name from the current list of column names, or fallback to index 0
-				set[0] = idx >= 0
-					? idx
-					: 0;
+				if (idx < 0) {
+					// If the column was not found ignore it and continue
+					return;
+				}
+
+				set[0] = idx;
 			}
 			else if (set[0] >= columns.length) {
-				// If a column name, but it is out of bounds, set to 0
-				set[0] = 0;
+				// If the column index is out of bounds ignore it and continue
+				return;
 			}
 
 			settings.aaSorting.push(set);
