@@ -109,7 +109,7 @@ export interface OrderName {
 	dir: 'asc' | 'desc';
 }
 
-export type OrderArray = [number, 'asc' | 'desc'];
+export type OrderArray = [number, 'asc' | 'desc' | ''];
 
 export type OrderCombined = OrderIdx | OrderName | OrderArray;
 
