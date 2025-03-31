@@ -21,7 +21,7 @@ interface OrderName {
 	dir: 'asc' | 'desc';
 }
 
-type OrderArray = [number, 'asc' | 'desc'];
+type OrderArray = [number, 'asc' | 'desc' | ''];
 
 type OrderCombined = OrderIdx | OrderName | OrderArray;
 
