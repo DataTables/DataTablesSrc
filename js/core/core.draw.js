@@ -900,6 +900,7 @@ function _fnDetectHeader ( settings, thead, write )
 	var rows = $(thead).children('tr');
 	var row, cell;
 	var i, k, l, iLen, shifted, column, colspan, rowspan;
+	var titleRow = settings.titleRow;
 	var isHeader = thead && thead.nodeName.toLowerCase() === 'thead';
 	var layout = [];
 	var unique;
@@ -965,7 +966,14 @@ function _fnDetectHeader ( settings, thead, write )
 							// Column title handling - can be user set, or read from the DOM
 							// This happens before the render, so the original is still in place
 							if ( columnDef.sTitle !== null && ! columnDef.autoTitle ) {
-								cell.innerHTML = columnDef.sTitle;
+								if (
+									(titleRow === true && i === 0) || // top row
+									(titleRow === false && i === rows.length -1) || // bottom row
+									(titleRow === i) || // specific row
+									(titleRow === null)
+								) {
+									cell.innerHTML = columnDef.sTitle;
+								}
 							}
 
 							if (! columnDef.sTitle && unique) {
