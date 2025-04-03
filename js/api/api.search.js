@@ -39,7 +39,7 @@ _api_register( 'search.fixed()', function ( name, search ) {
 		var fixed = settings.searchFixed;
 
 		if (! name) {
-			return Object.keys(fixed)
+			return Object.keys(fixed);
 		}
 		else if (search === undefined) {
 			return fixed[name];
@@ -106,10 +106,10 @@ _api_register([
 			var fixed = settings.aoColumns[colIdx].searchFixed;
 
 			if (! name) {
-				return Object.keys(fixed)
+				return Object.keys(fixed);
 			}
 			else if (search === undefined) {
-				return fixed[name];
+				return fixed[name] || null;
 			}
 			else if (search === null) {
 				delete fixed[name];
