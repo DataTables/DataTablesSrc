@@ -59,6 +59,7 @@ $.extend( true, DataTable.ext.renderer, {
 				var sortDirs = columns.orderable(true).flatten();
 				var orderedColumns = _pluck(sorting, 'col');
 				var tabIndex = settings.iTabIndex;
+				var canOrder = ctx.orderHandler && orderable;
 
 				cell
 					.removeClass(
@@ -66,8 +67,8 @@ $.extend( true, DataTable.ext.renderer, {
 						orderClasses.isDesc
 					)
 					.toggleClass( orderClasses.none, ! orderable )
-					.toggleClass( orderClasses.canAsc, orderable && sortDirs.includes('asc') )
-					.toggleClass( orderClasses.canDesc, orderable && sortDirs.includes('desc') );
+					.toggleClass( orderClasses.canAsc, canOrder && sortDirs.includes('asc') )
+					.toggleClass( orderClasses.canDesc, canOrder && sortDirs.includes('desc') );
 
 				// Determine if all of the columns that this cell covers are included in the
 				// current ordering

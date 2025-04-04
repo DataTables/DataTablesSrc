@@ -16,6 +16,11 @@ describe('ordering.handler Option', function () {
 
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Garrett Winters');
 		});
+
+		it('Can order classes are present', function () {
+			expect($('th.dt-orderable-desc').length).toBe(6);
+			expect($('th.dt-orderable-asc').length).toBe(6);
+		});
 	});
 
 	describe('Disabling', function () {
@@ -39,6 +44,11 @@ describe('ordering.handler Option', function () {
 			await dt.clickHeader(1);
 
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Airi Satou');
+		});
+
+		it('Can order classes have been removed', function () {
+			expect($('th.dt-orderable-desc').length).toBe(0);
+			expect($('th.dt-orderable-asc').length).toBe(0);
 		});
 	});
 });

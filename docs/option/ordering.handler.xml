@@ -15,6 +15,8 @@
 
 		It can be useful to disable this ability if you wish to use an extension such as [ColumnControl](https://datatables.net/extensions/columncontrol) to control column ordering.
 
+		If this option is disabled, the header cells for the table do not show a `pointer` cursor when hovered over (the classes `dt-orderable-desc` and `dt-orderable-asc` are removed).
+
 		It is worth highlighting that this option interacts with `-init columns.orderable`: if disabled, the listener is not added.
 	</description>
 
