@@ -62,14 +62,28 @@ var __column_header = function ( settings, column, row ) {
 	return header[target][column].cell;
 };
 
+var __column_header_cells = function (header) {
+	var out = [];
+
+	for (var i=0 ; i<header.length ; i++) {
+		for (var j=0 ; j<header[i].length ; j++) {
+			var cell = header[i][j].cell;
+
+			if (!out.includes(cell)) {
+				out.push(cell);
+			}
+		}
+	}
+
+	return out;
+}
+
 var __column_selector = function ( settings, selector, opts )
 {
 	var
 		columns = settings.aoColumns,
-		names = _pluck( columns, 'sName' ),
-		titles = _pluck( columns, 'sTitle' ),
-		cells = DataTable.util.get('[].[].cell')(settings.aoHeader),
-		nodes = _unique( _flatten([], cells) );
+		names, titles,
+		nodes = __column_header_cells(settings.aoHeader);
 	
 	var run = function ( s ) {
 		var selInt = _intVal( s );
@@ -141,12 +155,21 @@ var __column_selector = function ( settings, selector, opts )
 					} );
 
 				case 'name':
+					// Don't get names, unless needed, and only get once if it is
+					if (!names) {
+						names = _pluck( columns, 'sName' );
+					}
+
 					// match by name. `names` is column index complete and in order
 					return names.map( function (name, i) {
 						return name === match[1] ? i : null;
 					} );
 
 				case 'title':
+					if (!titles) {
+						titles = _pluck( columns, 'sTitle' );
+					}
+
 					// match by column title
 					return titles.map( function (title, i) {
 						return title === match[1] ? i : null;
