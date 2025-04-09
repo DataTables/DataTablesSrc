@@ -1904,6 +1904,13 @@ export interface ApiColumnMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'ord
     init(): ConfigColumns;
 
     /**
+     * Get the name for the selected column (set by `columns.name`).
+     * 
+     * @returns Column name or null if not set.
+     */
+    name(): string | null;
+
+    /**
      * Obtain the th / td nodes for the selected column
      * 
      * @returns DataTables API instance with each cell's node from the selected columns in the result set. This is a 1D array with each entry being the node for the cells from the selected column.
@@ -2135,6 +2142,13 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
      * @returns Api instance of column configuration objects
      */
     init(): Api<ConfigColumns>;
+
+    /**
+     * Get the names for the selected columns (set by `columns.name`).
+     * 
+     * @returns Column names (each entry can be null if not set).
+     */
+    names(): string | null;
 
     /**
      * Obtain the th / td nodes for the selected columns
