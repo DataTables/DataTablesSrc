@@ -14,7 +14,7 @@
 	</type>
 
 	<description>
-		It can often be useful in Javascript to write data location descriptors as a string, as we often do with JSON notation - e.g. `staff.name`, or having the flexibility of using a function to get arbitrary data. The DataTables `-init columns.data` and `-init columns.render` properties make use of this to be able to easily describe where data should be fetched from to display in a column. This method exposes that ability as part of the DataTables API for use in plug-ins and other libraries.
+		It can often be useful in JavaScript to write data location descriptors as a string, as we often do with JSON notation - e.g. `staff.name`, or having the flexibility of using a function to get arbitrary data. The DataTables `-init columns.data` and `-init columns.render` properties make use of this to be able to easily describe where data should be fetched from to display in a column. This method exposes that ability as part of the DataTables API for use in plug-ins and other libraries.
 
 		The key point with this method is to remember that it will itself return a function, which you must then execute to be able to read the nested data - e.g.:
 

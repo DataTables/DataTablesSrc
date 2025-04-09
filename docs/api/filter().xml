@@ -24,9 +24,9 @@
 
 		When working with the plural methods such as `dt-api rows()` and `dt-api columns()` you may wish to use the `dt-api eq()` utility method to reduce the API instance from a 2D array to a 1D array which can be iterated over using this method.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 
-		In this case, this method is a proxy for the Javascript `Array.prototype.filter` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter). In browsers which do not support `filter` natively, a polyfill is provided to allow this DataTables method to operate as expected.
+		In this case, this method is a proxy for the JavaScript `Array.prototype.filter` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter). In browsers which do not support `filter` natively, a polyfill is provided to allow this DataTables method to operate as expected.
 	</description>
 
 	<example title="Filter data from a column, to just the data that is greater than 20"><![CDATA[

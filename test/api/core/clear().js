@@ -67,7 +67,7 @@ describe('core - clear()', function() {
 				ajax: function(data, callback, settings) {
 					var out = [];
 
-					for (let i = data.start, ien = data.start + data.length; i < ien; i++) {
+					for (let i = data.start, iLen = data.start + data.length; i < iLen; i++) {
 						out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6']);
 					}
 

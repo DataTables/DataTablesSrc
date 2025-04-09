@@ -48,7 +48,7 @@ The `dt-init ajax.dataSrc` has a number of ways in which it can be used:
 
 * As a string (e.g. `dataSrc: 'myData'`) - obtain data from a different property in the source object.
 * As an empty string (e.g. `dataSrc: ''`) - the data source is not an object but an array.
-* As a function (e.g. `dataSrc: function(json) {}`) - a function can be used to transform the data from one source format to another (for example you could convert from XML to a Javascript object). The value returned from the function is used as the data for the table.
+* As a function (e.g. `dataSrc: function(json) {}`) - a function can be used to transform the data from one source format to another (for example you could convert from XML to a JavaScript object). The value returned from the function is used as the data for the table.
 
 The example below shows `dt-init ajax.dataSrc` being used as an empty string. This tells DataTables that the JSON loaded is a plain array, not an object with an array inside it as is the default.
 

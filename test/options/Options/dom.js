@@ -39,7 +39,7 @@ describe('DOM option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 
-		it('Check example 1 in code propogates', function() {
+		it('Check example 1 in code propagates', function() {
 			var table = $('table').DataTable({
 				dom: '<"wrapper"flipt>'
 			});

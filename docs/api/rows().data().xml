@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>rows().data()</signature>
 		<description>Get the data for the rows from the selector</description>
-		<returns type="DataTables.Api">DataTables API instance with data for each row from the selector in the result set. Each entry is the original data source object for that row, be it an array, object or Javascript object instance.</returns>
+		<returns type="DataTables.Api">DataTables API instance with data for each row from the selector in the result set. Each entry is the original data source object for that row, be it an array, object or JavaScript object instance.</returns>
 	</type>
 
 	<description>

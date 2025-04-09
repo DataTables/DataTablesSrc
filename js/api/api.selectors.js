@@ -5,7 +5,7 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 {
 	var
 		out = [], res,
-		i, ien,
+		i, iLen,
 		selectorType = typeof selector;
 
 	// Can't just check for isArray here, as an API or jQuery instance might be
@@ -14,7 +14,7 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 		selector = [ selector ];
 	}
 
-	for ( i=0, ien=selector.length ; i<ien ; i++ ) {
+	for ( i=0, iLen=selector.length ; i<iLen ; i++ ) {
 		res = selectFn( typeof selector[i] === 'string' ? selector[i].trim() : selector[i] );
 
 		// Remove empty items
@@ -30,7 +30,7 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 	// selector extensions
 	var ext = _ext.selector[ type ];
 	if ( ext.length ) {
-		for ( i=0, ien=ext.length ; i<ien ; i++ ) {
+		for ( i=0, iLen=ext.length ; i<iLen ; i++ ) {
 			out = ext[i]( settings, opts, out );
 		}
 	}
@@ -84,7 +84,7 @@ var _selector_first = function ( old )
 var _selector_row_indexes = function ( settings, opts )
 {
 	var
-		i, ien, tmp, a=[],
+		i, iLen, tmp, a=[],
 		displayFiltered = settings.aiDisplay,
 		displayMaster = settings.aiDisplayMaster;
 
@@ -107,7 +107,7 @@ var _selector_row_indexes = function ( settings, opts )
 		// Current page implies that order=current and filter=applied, since it is
 		// fairly senseless otherwise, regardless of what order and search actually
 		// are
-		for ( i=settings._iDisplayStart, ien=settings.fnDisplayEnd() ; i<ien ; i++ ) {
+		for ( i=settings._iDisplayStart, iLen=settings.fnDisplayEnd() ; i<iLen ; i++ ) {
 			a.push( displayFiltered[i] );
 		}
 	}
@@ -122,7 +122,7 @@ var _selector_row_indexes = function ( settings, opts )
 			// O(n+m) solution by creating a hash map
 			var displayFilteredMap = {};
 
-			for ( i=0, ien=displayFiltered.length ; i<ien ; i++ ) {
+			for ( i=0, iLen=displayFiltered.length ; i<iLen ; i++ ) {
 				displayFilteredMap[displayFiltered[i]] = null;
 			}
 
@@ -134,7 +134,7 @@ var _selector_row_indexes = function ( settings, opts )
 		}
 	}
 	else if ( order == 'index' || order == 'original' ) {
-		for ( i=0, ien=settings.aoData.length ; i<ien ; i++ ) {
+		for ( i=0, iLen=settings.aoData.length ; i<iLen ; i++ ) {
 			if (! settings.aoData[i]) {
 				continue;
 			}

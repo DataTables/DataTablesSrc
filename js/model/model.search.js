@@ -8,7 +8,7 @@
  */
 DataTable.models.oSearch = {
 	/**
-	 * Flag to indicate if the filtering should be case insensitive or not
+	 * Flag to whether or not the filtering should be case-insensitive
 	 */
 	"caseInsensitive": true,
 

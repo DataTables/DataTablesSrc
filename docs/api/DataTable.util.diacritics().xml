@@ -34,7 +34,7 @@
 
 		This method exposes that ability for external use as well as the ability to replace the diacritic removal method that DataTables uses.
 
-		Our default method uses [the `normalize` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) in Javascript with a `NFD` normalisation form. The way this works is to decompose the accented character into a base ASCII character plus its accent as a second character. We then remove the accent characters.
+		Our default method uses [the `normalize` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) in JavaScript with a `NFD` normalisation form. The way this works is to decompose the accented character into a base ASCII character plus its accent as a second character. We then remove the accent characters.
 	]]>
 	</description>
 

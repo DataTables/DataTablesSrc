@@ -62,7 +62,7 @@ function css_compress {
 		echo_msg "CSS compressing $FILE.css"
 		$SASS --no-charset --stop-on-error --style compressed $DIR/$FILE.css > $DIR/$FILE.min.css
 
-		# compressed style will add a UTF8 BOM which messes with concatination - remove it.
+		# compressed style will add a UTF8 BOM which messes with concatenation - remove it.
 		sed -i '1s/^\xEF\xBB\xBF//' $DIR/$FILE.min.css
 		
 		echo_msg "  File size: $(ls -l $DIR/$FILE.min.css | awk -F" " '{ print $5 }')"

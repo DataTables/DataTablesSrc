@@ -16,9 +16,9 @@
 	<description>
 		It is often very useful to know if a value is in a result set, and further, what its position is in the result set if it is present. This method provides exactly that ability, searching for the value given, starting from index 0 (see `dt-api lastIndexOf()` for starting at the end of the array) and giving its position in the result set.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 
-		In this case, this method is a proxy for the Javascript `Array.prototype.indexOf` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `indexOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf). In browsers which do not support `indexOf` natively, a polyfill is provided to allow this DataTables method to operate as expected.
+		In this case, this method is a proxy for the JavaScript `Array.prototype.indexOf` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `indexOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf). In browsers which do not support `indexOf` natively, a polyfill is provided to allow this DataTables method to operate as expected.
 	</description>
 
 	<example title="Find an item in a column of data"><![CDATA[

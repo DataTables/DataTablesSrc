@@ -10,12 +10,12 @@
 		<parameter type="string" name="source" default="auto">
 			Data source to read the new data from.
 
-			By default, DataTables will automatically read the new data for the row from the same source as it was originally read (i.e. DOM sourced or Javascript sourced) but this parameter can be used to override that and tell DataTables specifically which should be used to read in the new data. This might be useful if you are Ajax loading data but use the DOM to modify the contents of cells.
+			By default, DataTables will automatically read the new data for the row from the same source as it was originally read (i.e. DOM sourced or JavaScript sourced) but this parameter can be used to override that and tell DataTables specifically which should be used to read in the new data. This might be useful if you are Ajax loading data but use the DOM to modify the contents of cells.
 
 			This property can take the values:
 
 			* `-string auto` - use original data source
-			* `-string data` - use the Javascript data structure
+			* `-string data` - use the JavaScript data structure
 			* `-string dom` - use the data currently held in the DOM
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with selected row references in the result set</returns>

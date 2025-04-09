@@ -46,7 +46,7 @@ table.on('mouseenter', 'td', function () {
 
 <info><![CDATA[
 
- Highlighting rows and columns can be useful for drawing attention to where the user's cursor is in a table, particularly if you have a lot of narrow columns. Highlighting a row is easy using CSS, but for column highlighting, you need to use a little bit of Javascript.
+ Highlighting rows and columns can be useful for drawing attention to where the user's cursor is in a table, particularly if you have a lot of narrow columns. Highlighting a row is easy using CSS, but for column highlighting, you need to use a little bit of JavaScript.
 
  This example shows DataTables making use of the `dt-api cell().index()` method to get the index of the column that is to be operated on, and then the `dt-api cells().nodes()` and `dt-api column().nodes()` methods to remove old classes and apply the new highlighted class, respectively.
 

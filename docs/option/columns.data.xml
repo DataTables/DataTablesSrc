@@ -13,7 +13,7 @@
 		<description>
 			Read and write an object property to and from the data source. There are three 'special' options that can be used in the string to alter how DataTables reads the data from the source object:
 
-			* `.` - Dotted Javascript notation. Just as you use a `.` in Javascript to read from nested objects, so to can the options specified in `data`. For example: `browser.version` or `browser.name`. If your object parameter name contains a period, use `\\` to escape it - i.e. `first\\.name`.
+			* `.` - Dotted JavaScript notation. Just as you use a `.` in JavaScript to read from nested objects, so to can the options specified in `data`. For example: `browser.version` or `browser.name`. If your object parameter name contains a period, use `\\` to escape it - i.e. `first\\.name`.
 			* `[]` - Array notation. DataTables can automatically combine data from an array source, joining the data with the characters provided between the two brackets. For example: `name[, ]` would provide a comma-space separated list from the source array. If no characters are provided between the brackets, the original array source is returned.
 			* `()` - Function notation. Adding `()` to the end of a parameter will execute a function of the name given. For example: `browser()` for a simple function on the data source, `browser.version()` for a function in a nested property or even `browser().version` to get an object property if the function called returns an object. Note that function notation is recommended for use in `render` rather than `data` as it is much simpler to use as a renderer.
 		</description>
@@ -67,7 +67,7 @@
 
 			This function might be called multiple times, as DataTables will call it for the different data types that it needs - sorting, filtering and display.
 
-			Please note that DataTables will call the function as a _setter_ when a new row is added only when the row's data is read from the DOM (i.e. the table is initialised on a pre-populated HTML table). The function is not called as setter when the data is source from Javascript or Ajax under the assumption that the data is already in the format required.
+			Please note that DataTables will call the function as a _setter_ when a new row is added only when the row's data is read from the DOM (i.e. the table is initialised on a prepopulated HTML table). The function is not called as setter when the data is source from JavaScript or Ajax under the assumption that the data is already in the format required.
 		</description>
 		<scope>HTML table element</scope>
 	</type>

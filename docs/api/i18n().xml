@@ -8,7 +8,7 @@
 		<signature>i18n( token, def [, numeric ] )</signature>
 		<description>Look up a language token that was defined in the DataTables' `dt-init language` initialisation object.</description>
 		<parameter type="string" name="token">
-			The language token to lookup from the language object. The token should be given in Javascript dotted object notation (as a _string_) which will be used by DataTables to lookup the resulting value. This value follows the same rules as `dt-init columns.data` as a string.
+			The language token to lookup from the language object. The token should be given in JavaScript dotted object notation (as a _string_) which will be used by DataTables to lookup the resulting value. This value follows the same rules as `dt-init columns.data` as a string.
 		</parameter>
 		<parameter type="object|string" name="def">
 			The default value to use if the DataTables initialisation has not specified a value. This can be a string for simple cases, or an object for plurals.

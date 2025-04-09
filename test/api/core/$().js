@@ -30,13 +30,13 @@ describe('core - $()', function() {
 		it('Selector - string', function() {
 			expect(table.$('td:contains("Cox")').text()).toBe('Ashton Cox');
 		});
-		it('Modifer - none', function() {
+		it('Modifier - none', function() {
 			expect(table.$('tr').length).toBe(57);
 		});
-		it('Modifer - page', function() {
+		it('Modifier - page', function() {
 			expect(table.$('tr', { page: 'current' }).length).toBe(10);
 		});
-		it('Modifer - order - original', function() {
+		it('Modifier - order - original', function() {
 			expect(
 				table
 					.$('tr:eq(0)', { order: 'original' })
@@ -45,7 +45,7 @@ describe('core - $()', function() {
 					.split(' ')[0]
 			).toBe('Tiger');
 		});
-		it('Modifer - order - current', function() {
+		it('Modifier - order - current', function() {
 			expect(
 				table
 					.$('tr:eq(0)', { order: 'current' })

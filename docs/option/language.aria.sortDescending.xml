@@ -13,7 +13,7 @@
 	<default value=": activate to sort column descending" />
 
 	<description>
-		ARIA label that is added to the table headers when the column may be  sorted descending by activing the column (click or return when focused).
+		ARIA label that is added to the table headers when the column may be  sorted descending by activating the column (click or return when focused).
 
 		Note that the column header text is prefixed to this string. 
 	</description>

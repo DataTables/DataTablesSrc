@@ -19,7 +19,7 @@
 		Furthermore, if the `dt-init ajax` option is given as a function, this method will return `undefined` rather than the JSON string, since the given function effectively overwrites DataTables own Ajax handler.
 	</description>
 
-	<example title="Show an indiciation of how many rows are loaded"><![CDATA[
+	<example title="Show an indication of how many rows are loaded"><![CDATA[
 var table = new DataTable('#myTable', {
 	ajax: 'data.json'
 });

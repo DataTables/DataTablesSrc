@@ -28,7 +28,7 @@
 		This event goes hand in hand with the `dt-init DataTable.ext.errMode` option which controls how DataTables handles errors. That static option can take one of four values:
 
 		* `-string alert` (default) - Alert the error
-		* `-string throw` - Throw a Javascript error
+		* `-string throw` - Throw a JavaScript error
 		* `-string none` - Do nothing (you would want to use this `dt-event dt-error` in this case)
 		* `function` - A function common to all DataTables on the page that is called when an error occurs.
 

@@ -45,7 +45,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Load state from a server via Sjax (prior to 1.10.13)"><![CDATA[
+	<example title="Load state from a server via Ajax (prior to 1.10.13)"><![CDATA[
 new DataTable('#myTable', {
 	stateSave: true,
 	stateLoadCallback: function (settings) {

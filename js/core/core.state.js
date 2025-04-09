@@ -76,7 +76,7 @@ function _fnLoadState ( settings, init, callback )
 }
 
 function _fnImplementState ( settings, s, callback) {
-	var i, ien;
+	var i, iLen;
 	var columns = settings.aoColumns;
 	var currentNames = _pluck(settings.aoColumns, 'sName');
 
@@ -202,7 +202,7 @@ function _fnImplementState ( settings, s, callback) {
 
 		// If the number of columns to restore is different from current, then all bets are off.
 		if (set.length === columns.length) {
-			for ( i=0, ien=set.length ; i<ien ; i++ ) {
+			for ( i=0, iLen=set.length ; i<iLen ; i++ ) {
 				var col = set[i];
 
 				// Visibility

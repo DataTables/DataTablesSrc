@@ -20,11 +20,11 @@
 	</type>
 
 	<description>
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 
 		Note that when working with the plural methods such as `dt-api rows()` and `dt-api columns()` you may wish to use the `dt-api rows().every()`, `dt-api columns().every()` and `dt-api cells().every()` methods to iterate over each row, column or cell with the context set to that table element. This might sound a little complicated, but it can significantly simplify your code! Please refer to the documentation for each of the `every` methods for full details.
 
-		The `dt-api each()` method is a proxy for the Javascript `Array.prototype.forEach` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach). In browsers which do not support `forEach` natively, a polyfill is provided to allow this DataTables method to operate as expected.
+		The `dt-api each()` method is a proxy for the JavaScript `Array.prototype.forEach` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach). In browsers which do not support `forEach` natively, a polyfill is provided to allow this DataTables method to operate as expected.
 	</description>
 
 	<example title="Loop over the data from a column"><![CDATA[

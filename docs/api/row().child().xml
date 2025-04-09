@@ -31,7 +31,7 @@
 
 			* `string` - As a string, a single child row is create and the data is inserted into a single cell in that child row.
 			* `node` - As a `dt-tag tr` element, the `dt-tag tr` element is used as the child row. This can be useful it you wish to define multiple columns in the child row.
-			* `jQuery` - A jQuery object with nodes to be added. If there are multiple elements in the jQuery result set, they are added as multiple rows. If the node is `dt-tag tr` element it is treated a the child row, otherwise a row and cell are automatically created and the node from the jQuery result set inserted into it.
+			* `jQuery` - A jQuery object with nodes to be added. If there are multiple elements in the jQuery result set, they are added as multiple rows. If the node is `dt-tag tr` element it is treated as the child row, otherwise a row and cell are automatically created and the node from the jQuery result set inserted into it.
 			* `array` - Multiple child rows can be added at a single time by passing any of the above options in as an array. For example you might pass in an array with two string elements in it to create two child rows with the string content used for each.
 		</parameter>
 		<parameter type="string" name="className" default="">

@@ -1,5 +1,5 @@
 // TK COLIN add tests when multiple tables active on the page
-describe('stateSavecallback Option', function() {
+describe('stateSaveCallback Option', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']

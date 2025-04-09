@@ -59,7 +59,7 @@ describe('orderMulti option', function() {
 		});
 
 		dt.html('basic');
-		it('Can set multiple ordering programmitically', function() {
+		it('Can set multiple ordering programmatically', function() {
 			var table = $('#example').DataTable({
 				orderMulti: false
 			});

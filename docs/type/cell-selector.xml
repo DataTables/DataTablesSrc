@@ -65,7 +65,7 @@ var cells = table.cells('.important, .intermediate');
 
 ## node
 
-`dt-tag td` and `dt-tag th` DOM elements can be given as a cell selector to select a cell in the DataTabels API from that DOM element. This can be useful for getting data from a cell directly, or performing other cell based operations, when you have only the DOM node for reference, for example in an event handler.
+`dt-tag td` and `dt-tag th` DOM elements can be given as a cell selector to select a cell in the DataTables API from that DOM element. This can be useful for getting data from a cell directly, or performing other cell based operations, when you have only the DOM node for reference, for example in an event handler.
 
 ###### Get the data for a cell that was clicked upon:
 

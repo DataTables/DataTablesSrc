@@ -121,7 +121,7 @@ function _fnCompatOpts ( init )
 	var searchCols = init.aoSearchCols;
 
 	if ( searchCols ) {
-		for ( var i=0, ien=searchCols.length ; i<ien ; i++ ) {
+		for ( var i=0, iLen=searchCols.length ; i<iLen ; i++ ) {
 			if ( searchCols[i] ) {
 				_fnCamelToHungarian( DataTable.models.oSearch, searchCols[i] );
 			}

@@ -11,7 +11,7 @@
 			Selector / node to pick the elements on the page to which the ordering listener should be attached. This can be a DOM node, a jQuery collection of nodes or a jQuery selector string.
 		</parameter>
 		<parameter type="index" name="column">
-			Column data index of the column that that a click on this node will order the table upon
+			Column data index of the column that a click on this node will order the table upon
 		</parameter>
 		<parameter type="function" name="callback" default="">
 			Callback function that is executed whenever the ordering performed by the listener is completed, when the listener is activated. No parameters are passed in and no return is expected.

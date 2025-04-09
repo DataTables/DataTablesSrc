@@ -7,7 +7,7 @@
 	<type type="string" />
 
 	<description>
-		Quite simply this option adds a class to each cell in a column, regardless of if the table source is from DOM, Javascript or Ajax. This can be useful for styling columns.
+		Quite simply this option adds a class to each cell in a column, regardless of if the table source is from DOM, JavaScript or Ajax. This can be useful for styling columns.
 	</description>
 
 	<example title="Using `className` to assign a class to the cells in the first column with `dt-init columnDefs`"><![CDATA[

@@ -10,7 +10,7 @@
 
 			Note that if your Ajax source simply returns an array of data to display, rather than an object, set this parameter to be an empty string.
 
-			Additionally you can use Javascript dotted object notation to get a data source for multiple levels of object / array nesting.
+			Additionally you can use JavaScript dotted object notation to get a data source for multiple levels of object / array nesting.
 		</description>
 	</type>
 
@@ -27,7 +27,7 @@
 
 			Please refer to the [server-side processing documentation](https://datatables.net/manual/server-side) for a full description of these parameters.
 
-			Each mapping value may be a string in Javascript dotted object notation or a function. If a function a single parameter is passed in, the JSON response from the server, and the return value should be the value for the parameter.
+			Each mapping value may be a string in JavaScript dotted object notation or a function. If a function a single parameter is passed in, the JSON response from the server, and the return value should be the value for the parameter.
 		</description>
 	</type>
 
@@ -42,7 +42,7 @@
 		<description>
 			As a function `dataSrc` provides the ability to manipulate the data returned from the server from one form into another. For example, if your data is split over multiple arrays you might combine it into a single array to return for processing and display by DataTables.
 
-			In this form `dataSrc` can be used to transform any data source, such as non-JSON data (XML, YAML, etc) into the Javascript array that DataTables expects.
+			In this form `dataSrc` can be used to transform any data source, such as non-JSON data (XML, YAML, etc) into the JavaScript array that DataTables expects.
 		</description>
 	</type>
 
@@ -75,7 +75,7 @@ $('#example').DataTable({
 	ajax: {
 		url: 'data.json',
 		dataSrc: function (json) {
-			for (var i = 0, ien = json.data.length; i < ien; i++) {
+			for (var i = 0, iLen = json.data.length; i < iLen; i++) {
 				json.data[i][0] =
 					'<a href="/message/' + json.data[i][0] + '>View message</a>';
 			}

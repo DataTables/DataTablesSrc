@@ -50,7 +50,7 @@ function _fnBuildAjax( oSettings, data, fn )
 
 		var newData = typeof ajaxData === 'function' ?
 			ajaxData( data, oSettings ) :  // fn can manipulate data or return
-			ajaxData;                      // an object object or array to merge
+			ajaxData;                      // an object or array to merge
 
 		// If the function returned something, use that alone
 		data = typeof ajaxData === 'function' && newData ?
@@ -249,7 +249,7 @@ function _fnAjaxUpdateDraw ( settings, json )
 	settings._iRecordsTotal   = parseInt(recordsTotal, 10);
 	settings._iRecordsDisplay = parseInt(recordsFiltered, 10);
 
-	for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+	for ( var i=0, iLen=data.length ; i<iLen ; i++ ) {
 		_fnAddData( settings, data[i] );
 	}
 	settings.aiDisplay = settings.aiDisplayMaster.slice();

@@ -169,7 +169,7 @@ describe('rows - rows().cache()', function() {
 			expect(test[0][0]).toBe('Filter Ashton Cox');
 		});
 
-		it('Get cached order data (mutpliple rows)', function() {
+		it('Get cached order data (multiple rows)', function() {
 			let table = $('#example').DataTable();
 			let test = table.rows([2, 4]).cache('order');
 
@@ -180,7 +180,7 @@ describe('rows - rows().cache()', function() {
 			expect(test[1][0]).toBe('sort ashton cox');
 		});
 
-		it('Get cached search data (mutpliple rows)', function() {
+		it('Get cached search data (multiple rows)', function() {
 			let table = $('#example').DataTable();
 			let test = table.rows([2, 4]).cache('search');
 

@@ -25,7 +25,7 @@
 	},
 	{
 		"name": "Cedric Kelly",
-		"position": "Senior Javascript Developer",
+		"position": "Senior JavaScript Developer",
 		"office": "Edinburgh",
 		"age": "22",
 		"start_date": "2012/03/29",
@@ -65,7 +65,7 @@
 	},
 	{
 		"name": "Colleen Hurst",
-		"position": "Javascript Developer",
+		"position": "JavaScript Developer",
 		"office": "San Francisco",
 		"age": "39",
 		"start_date": "2009/09/15",
@@ -393,7 +393,7 @@
 	},
 	{
 		"name": "Jennifer Acosta",
-		"position": "Junior Javascript Developer",
+		"position": "Junior JavaScript Developer",
 		"office": "Edinburgh",
 		"age": "43",
 		"start_date": "2013/02/01",
@@ -441,7 +441,7 @@
 	},
 	{
 		"name": "Michael Bruce",
-		"position": "Javascript Developer",
+		"position": "JavaScript Developer",
 		"office": "Singapore",
 		"age": "29",
 		"start_date": "2011/06/27",

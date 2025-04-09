@@ -120,7 +120,7 @@ function _fnExtend( out, extender, breakRefs )
 
 
 /**
- * Bind an event handers to allow a click or return key to activate the callback.
+ * Bind an event handler to allow a click or return key to activate the callback.
  * This is good for accessibility since a return on the keyboard will have the
  * same effect as a click, if the element has focus.
  *  @param {element} n Element to bind the action to
@@ -309,7 +309,7 @@ function _fnMacros ( settings, str, entries )
 }
 
 /**
- * Add elements to an array as quickly as possible, but stack stafe.
+ * Add elements to an array as quickly as possible, but stack safe.
  *
  * @param {*} arr Array to add the data to
  * @param {*} data Data array that is to be added

@@ -147,7 +147,7 @@ var column = table.column(':contains(Salary)');
 
 ## node
 
-`dt-tag th` and `dt-tag td` DOM elements can be given as a column selector to select a column in the DataTabels API from that DOM element (as above, this selector applies to the cells which are used for the column headers, not necessarily all cells in the header if there are multiple rows).
+`dt-tag th` and `dt-tag td` DOM elements can be given as a column selector to select a column in the DataTables API from that DOM element (as above, this selector applies to the cells which are used for the column headers, not necessarily all cells in the header if there are multiple rows).
 
 This can be useful for getting data from a column, or performing other column based operations, when you have only the DOM node for reference, for example in an event handler.
 

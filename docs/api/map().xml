@@ -22,13 +22,13 @@
 	<description>
 		The `dt-api map()` method is useful for traversing a result set and creating a new instance, whose result set is defined by the values returned. As such any logic condition can be applied to the values of the original result set, transforming the data as required.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 
 		**Important compatibility note**: This method is implemented in the same way as the ECMA-262 5th edition `Array.prototype.map` method and is not identical to [jQuery's `$.map` method](https://api.jquery.com/jquery.map/). The key difference is in how the returned value is handled. The ECMAScript standard requires that the resulting array (DataTables API instance in this case) is of identical length as the input array, while that is not true in `$.map`. When using jQuery's `$.map` method `null` or `undefined` can be returned to remove an item from the resulting array. In ECMAScript, and this DataTables method, those values are used in the new instance.
 
 		If you wish to remove items from the result set, use the `dt-api filter()` method.
 
-		This method is a proxy for the Javascript `Array.prototype.map` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map). In browsers which do not support `map` natively, a polyfill is provided to allow this DataTables method to operate as expected.
+		This method is a proxy for the JavaScript `Array.prototype.map` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map). In browsers which do not support `map` natively, a polyfill is provided to allow this DataTables method to operate as expected.
 	</description>
 
 	<example title="Square the values from a column"><![CDATA[

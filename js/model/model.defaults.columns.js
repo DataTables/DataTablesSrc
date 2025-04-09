@@ -68,8 +68,8 @@ DataTable.defaults.column = {
 	 * * `string` - read an object property from the data source. There are
 	 *   three 'special' options that can be used in the string to alter how
 	 *   DataTables reads the data from the source object:
-	 *    * `.` - Dotted Javascript notation. Just as you use a `.` in
-	 *      Javascript to read from nested objects, so to can the options
+	 *    * `.` - Dotted JavaScript notation. Just as you use a `.` in
+	 *      JavaScript to read from nested objects, so to can the options
 	 *      specified in `data`. For example: `browser.version` or
 	 *      `browser.name`. If your object parameter name contains a period, use
 	 *      `\\` to escape it - i.e. `first\\.name`.
@@ -127,7 +127,7 @@ DataTable.defaults.column = {
 	 * This property is the rendering partner to `data` and it is suggested that
 	 * when you want to manipulate data for display (including filtering,
 	 * sorting etc) without altering the underlying data for the table, use this
-	 * property. `render` can be considered to be the the read only companion to
+	 * property. `render` can be considered to be the read only companion to
 	 * `data` which is read / write (then as such more complex). Like `data`
 	 * this option can be given in a number of different ways to effect its
 	 * behaviour:
@@ -137,8 +137,8 @@ DataTable.defaults.column = {
 	 * * `string` - read an object property from the data source. There are
 	 *   three 'special' options that can be used in the string to alter how
 	 *   DataTables reads the data from the source object:
-	 *    * `.` - Dotted Javascript notation. Just as you use a `.` in
-	 *      Javascript to read from nested objects, so to can the options
+	 *    * `.` - Dotted JavaScript notation. Just as you use a `.` in
+	 *      JavaScript to read from nested objects, so to can the options
 	 *      specified in `data`. For example: `browser.version` or
 	 *      `browser.name`. If your object parameter name contains a period, use
 	 *      `\\` to escape it - i.e. `first\\.name`.
@@ -241,7 +241,7 @@ DataTable.defaults.column = {
 	 * The type allows you to specify how the data for this column will be
 	 * ordered. Four types (string, numeric, date and html (which will strip
 	 * HTML tags before ordering)) are currently available. Note that only date
-	 * formats understood by Javascript's Date() object will be accepted as type
+	 * formats understood by JavaScript's Date() object will be accepted as type
 	 * date. For example: "Mar 26, 2008 5:03 PM". May take the values: 'string',
 	 * 'numeric', 'date' or 'html' (by default). Further types can be adding
 	 * through plug-ins.

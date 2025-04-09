@@ -27,7 +27,7 @@ describe('Node based data', function () {
 		],
 		[
 			'Cedric Kelly',
-			'Senior Javascript Developer',
+			'Senior JavaScript Developer',
 			'Edinburgh',
 			'6224',
 			'2012/03/29',

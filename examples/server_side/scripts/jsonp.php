@@ -63,7 +63,7 @@ $sql_details = array(
  */
 require( 'ssp.class.php' );
 
-// Validate the JSONP to make use it is an okay Javascript function to execute
+// Validate the JSONP to make use it is an okay JavaScript function to execute
 $jsonp = preg_match('/^[$A-Z_][0-9A-Z_$]*$/i', $_GET['callback']) ?
 	$_GET['callback'] :
 	false;

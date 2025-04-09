@@ -1,5 +1,5 @@
 /**
- * Create a loader wrapper around Javascript files
+ * Create a loader wrapper around JavaScript files
  */
 const fs = require('fs');
 

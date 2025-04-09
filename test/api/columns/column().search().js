@@ -174,7 +174,7 @@ describe('column - column().search()', function() {
 		});
 
 		dt.html('basic');
-		it('Non-case sensitive regex search', function() {
+		it('Case-insensitive regex search', function() {
 			let table = $('#example').DataTable();
 			table
 				.column(0)

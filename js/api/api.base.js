@@ -221,7 +221,7 @@ $.extend( _Api.prototype, {
 
 	each: function ( fn )
 	{
-		for ( var i=0, ien=this.length ; i<ien; i++ ) {
+		for ( var i=0, iLen=this.length ; i<iLen; i++ ) {
 			fn.call( this, this[i], i, this );
 		}
 
@@ -267,7 +267,7 @@ $.extend( _Api.prototype, {
 	iterator: function ( flatten, type, fn, alwaysNew ) {
 		var
 			a = [], ret,
-			i, ien, j, jen,
+			i, iLen, j, jen,
 			context = this.context,
 			rows, items, item,
 			selector = this.selector;
@@ -280,7 +280,7 @@ $.extend( _Api.prototype, {
 			flatten = false;
 		}
 
-		for ( i=0, ien=context.length ; i<ien ; i++ ) {
+		for ( i=0, iLen=context.length ; i<iLen ; i++ ) {
 			var apiInst = new _Api( context[i] );
 
 			if ( type === 'table' ) {
@@ -402,18 +402,18 @@ $.extend( _Api.prototype, {
 } );
 
 
-function _api_scope( scope, fn, struc ) {
+function _api_scope( scope, fn, struct ) {
 	return function () {
 		var ret = fn.apply( scope || this, arguments );
 
 		// Method extension
-		_Api.extend( ret, ret, struc.methodExt );
+		_Api.extend( ret, ret, struct.methodExt );
 		return ret;
 	};
 }
 
 function _api_find( src, name ) {
-	for ( var i=0, ien=src.length ; i<ien ; i++ ) {
+	for ( var i=0, iLen=src.length ; i<iLen ; i++ ) {
 		if ( src[i].name === name ) {
 			return src[i];
 		}
@@ -431,10 +431,10 @@ _Api.extend = function ( scope, obj, ext )
 	}
 
 	var
-		i, ien,
+		i, iLen,
 		struct;
 
-	for ( i=0, ien=ext.length ; i<ien ; i++ ) {
+	for ( i=0, iLen=ext.length ; i<iLen ; i++ ) {
 		struct = ext[i];
 
 		if (struct.name === '__proto__') {
@@ -489,12 +489,12 @@ _Api.register = _api_register = function ( name, val )
 	}
 
 	var
-		i, ien,
+		i, iLen,
 		heir = name.split('.'),
 		struct = __apiStruct,
 		key, method;
 
-	for ( i=0, ien=heir.length ; i<ien ; i++ ) {
+	for ( i=0, iLen=heir.length ; i<iLen ; i++ ) {
 		method = heir[i].indexOf('()') !== -1;
 		key = method ?
 			heir[i].replace('()', '') :
@@ -512,7 +512,7 @@ _Api.register = _api_register = function ( name, val )
 			struct.push( src );
 		}
 
-		if ( i === ien-1 ) {
+		if ( i === iLen-1 ) {
 			src.val = val;
 			src.type = typeof val === 'function' ?
 				'function' :
