@@ -57,11 +57,12 @@
     "typescript": "^5.5.4"
   },
   "browserslist": [
-    "> 0.1%, last 10 versions, Firefox ESR, Safari > 7, not dead"
+    "> 0.1%, last 10 versions, Firefox ESR, Safari > 8, not dead"
   ],
   "dependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
     "datatables.net": "^2.0.8",
+    "prettier-plugin-css-order": "^2.1.2",
     "rollup": "^4.9.0",
     "sass": "^1.77.8",
     "uglify-js": "^3.17.4"
