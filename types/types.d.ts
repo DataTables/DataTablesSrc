@@ -419,7 +419,18 @@ export interface Config {
     /**
      * Feature control ordering (sorting) abilities in DataTables.
      */
-    ordering?: boolean;
+    ordering?: boolean | {
+        /**
+         * Control the showing of the ordering icons in the table header.
+         */
+        indicators?: boolean;
+
+        /**
+         * Control the addition of a click event handler on the table headers to activate
+         * ordering.
+         */
+        handler?: boolean;
+    };
 
     /**
      * Multiple column ordering ability control.

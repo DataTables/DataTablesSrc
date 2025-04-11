@@ -116,6 +116,10 @@ let table = new DataTable('#myTable', {
 		[1, 'desc']
 	],
 	orderDescReverse: false,
+	ordering: {
+		indicators: true,
+		handler: true
+	},
 	deferLoading: [ 1, 10 ],
 });
 
