@@ -110,6 +110,11 @@ let table = new DataTable('#myTable', {
 			}
 		}
 	},
+	on: {
+		draw: () => {
+
+		}
+	},
 	order: [
 		{idx: 1, dir: 'asc'},
 		{name: 'test', dir: 'asc'},
