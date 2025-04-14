@@ -46,7 +46,7 @@ function __mldObj (d, format, locale) {
 	resolveWindowLibs();
 
 	if (__moment) {
-		dt = __moment.utc( d, format, locale, true );
+		dt = __moment( d, format, locale, true );
 
 		if (! dt.isValid()) {
 			return null;
