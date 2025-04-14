@@ -389,6 +389,13 @@ export interface Config {
     lengthMenu?: Array<(number | string)> | Array<Array<(number | string)>>;
 
     /**
+     * Add event listeners during the DataTables startup
+     */
+    on?: {
+        [name: string]: ((this: HTMLElement, e: Event, ...args: any[]) => void);
+    };
+
+    /**
      * Control which cell the order event handler will be applied to in a column.
      */
     orderCellsTop?: boolean;

@@ -4,15 +4,19 @@ var sId = this.getAttribute( 'id' );
 var defaults = DataTable.defaults;
 var $this = $(this);
 
-
-/* Sanity check */
+// Sanity check
 if ( this.nodeName.toLowerCase() != 'table' )
 {
 	_fnLog( null, 0, 'Non-table node initialisation ('+this.nodeName+')', 2 );
 	return;
 }
 
-$(this).trigger( 'options.dt', oInit );
+// Special case for options
+if (oInit.on && oInit.on.options) {
+	_fnListener($this, 'options', oInit.on.options);	
+}
+
+$this.trigger( 'options.dt', oInit );
 
 /* Backwards compatibility for the defaults */
 _fnCompatOpts( defaults );
@@ -181,6 +185,13 @@ _fnCallbackReg( oSettings, 'aoInitComplete',       oInit.fnInitComplete );
 _fnCallbackReg( oSettings, 'aoPreDrawCallback',    oInit.fnPreDrawCallback );
 
 oSettings.rowIdFn = _fnGetObjectDataFn( oInit.rowId );
+
+// Add event listeners
+if (oInit.on) {
+	Object.keys(oInit.on).forEach(function (key) {
+		_fnListener($this, key, oInit.on[key]);
+	});
+}
 
 /* Browser support detection */
 _fnBrowserDetect( oSettings );

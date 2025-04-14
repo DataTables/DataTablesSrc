@@ -331,3 +331,20 @@ function _fnArrayApply(arr, data) {
 		}
 	}
 }
+
+/**
+ * Add one or more listeners to the table
+ *
+ * @param {*} that JQ for the table
+ * @param {*} name Event name
+ * @param {*} src Listener(s)
+ */
+function _fnListener(that, name, src) {
+	if (!Array.isArray(src)) {
+		src = [src];
+	}
+
+	for (i=0 ; i<src.length ; i++) {
+		that.on(name + '.dt', src[i]);
+	}
+}
