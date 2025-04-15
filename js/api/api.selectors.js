@@ -52,6 +52,7 @@ var _selector_opts = function ( opts )
 	}
 
 	return $.extend( {
+		columnOrder: 'implied',
 		search: 'none',
 		order: 'current',
 		page: 'all'

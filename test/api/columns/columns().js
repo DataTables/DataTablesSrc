@@ -335,4 +335,12 @@ describe('columns- columns() -solo', function() {
 			expect(test).toEqual([1, 2, 3, 0]);
 		});
 	});
+
+	describe('columnOrder', function() {
+		dt.html( 'basic' );
+
+		it('', function () {
+
+		});
+	});
 });

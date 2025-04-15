@@ -20,9 +20,10 @@ Fundamentally `dt-type selector-modifier` is an object with three built-in prope
 ```js
 {
 	// DataTables core
-    order:  'current',  // 'current', 'applied', 'index', 'original', number
-    page:   'all',      // 'all',     'current'
-    search: 'none',     // 'none',    'applied', 'removed'
+	columnOrder: 'implied',  // 'implied', 'index'
+    order: 'current',        // 'current', 'applied', 'index', 'original', number
+    page: 'all',             // 'all',     'current'
+    search: 'none',          // 'none',    'applied', 'removed'
 
     // Extension - KeyTable (v2.1+) - cells only
     focused: undefined, // true, false, undefined
@@ -33,6 +34,23 @@ Fundamentally `dt-type selector-modifier` is an object with three built-in prope
 ```
 
 ## Built-in options
+
+### columnOrder
+
+Specify which order columns will be obtained in when used with `-api columns()`. It can take one of two values:
+
+* `-string implied` (default) - where the order of the columns is that given in the selector array. Note that an exception here is if you select using a CSS selector, which will resolve to the index order for the matched columns.
+* `-string index` - the selected columns will be ordered in index order.
+
+###### Get the columns in index order
+
+```js
+let table = new DataTable('#myTable');
+let columns = table.columns( [5, 3, 4], {columnOrder: 'index'} );
+```
+
+The resulting API instance will have the columns in the order `[3, 4, 5]`. Without the `columnOrder: 'index'` option the order would remain as it originally was (`[5, 3, 4]`).
+
 
 ### order
 
@@ -49,14 +67,14 @@ The `order` modifier provides the ability to control which order the rows are pr
 Note that since the `dt-type selector-modifier` is optional, and `dt-string applied` is the default value for the column, the example below is the same as: `table.column( 3 ).data();` - it just sets the `order` parameter explicitly.
 
 ```js
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 table.column( 3, {order:'current'} ).data();
 ```
 
 ###### Get the data from a column in data index order:
 
 ```js
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 table.column( 3, {order:'index'} ).data();
 ```
 ```
@@ -64,7 +82,7 @@ table.column( 3, {order:'index'} ).data();
 ###### Get the data from a column in the order DataTables would sort it in:
 
 ```js
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 table.column( 3, {order:3} ).data();
 ```
 
@@ -81,7 +99,7 @@ The `page` modifier allows you to control if the selector should consider all da
 ###### Get the data for the rows on the current page only:
 
 ```js
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 table.rows( {page:'current'} ).data();
 ```
 
@@ -99,14 +117,14 @@ Note that for backwards compatibility, the `search` term can also be provided as
 ###### Get the `dt-tag tr` elements for rows which match the search term applied to the table, in index order:
 
 ```js
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 table.rows( {order:'index', search:'applied'} ).nodes();
 ```
 
 ###### Get removes which have been removed from the search:
 
 ```js
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 table.rows( {search:'removed'} ).nodes();
 ```
 
@@ -134,7 +152,7 @@ This option takes a boolean value, although it can also be `undefined`, which it
 ###### Get the data for the focused cell:
 
 ```js
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 table.cell( {focused:true} ).data();
 ```
 
@@ -154,7 +172,7 @@ This option takes a boolean value, although it can also be `undefined`, which it
 ###### Get the data for the selected rows:
 
 ```js
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 table.rows( {selected:true} ).data();
 ```
 

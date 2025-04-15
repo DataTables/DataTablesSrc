@@ -208,7 +208,11 @@ var __column_selector = function ( settings, selector, opts )
 			[];
 	};
 
-	return _selector_run( 'column', selector, run, settings, opts );
+	var selected = _selector_run( 'column', selector, run, settings, opts );
+
+	return opts.columnOrder && opts.columnOrder === 'index'
+		? selected.sort(function (a, b) { return a - b; })
+		: selected; // implied
 };
 
 
