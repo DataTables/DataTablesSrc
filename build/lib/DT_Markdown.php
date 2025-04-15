@@ -158,6 +158,10 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				$lang = 'Buttons';
 				break;
 
+			case 'cc':
+				$lang = 'ColumnControl';
+				break;
+
 			case 'cr':
 				$lang = 'ColReorder';
 				break;
@@ -259,6 +263,11 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				$lang .= ' feature type';
 				break;
 
+			case 'content':
+				$klass = 'content';
+				$lang .= ' content type';
+				break;
+
 			default;
 				break;
 		}
@@ -278,7 +287,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	{
 		$that = $this;
 		$text = preg_replace_callback(
-			'/^([a-z]{0,2}\-init |[a-z]{0,2}\-option |[a-z]{0,2}\-api |[a-z]{0,2}\-event |[a-z]{0,2}\-type |[a-z]{0,2}\-button |e\-field |e\-display |[dt]*\-tag |tag |[dt]*\-path |path |[dt]*\-feature |[dt]*\-string |string )?(.*)$/m',
+			'/^([a-z]{0,2}\-init |[a-z]{0,2}\-option |[a-z]{0,2}\-api |[a-z]{0,2}\-event |[a-z]{0,2}\-type |[a-z]{0,2}\-button |e\-field |e\-display |[dt]*\-tag |tag |[dt]*\-path |path |[dt]*\-feature |[cc]*\-content |[dt]*\-string |string )?(.*)$/m',
 			function ( $matches ) use (&$that) {
 				$html = htmlspecialchars(trim($matches[2]), ENT_NOQUOTES);
 
@@ -309,6 +318,9 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				}
 				else if ( $tags === 'feature' ) {
 					$formatted = $that->_docLink( $software, 'feature', $matches[2], $html );
+				}
+				else if ( $tags === 'content' ) {
+					$formatted = $that->_docLink( $software, 'content', $matches[2], $html );
 				}
 				else if ( $tags === 'tag' || $tags === 'dt-tag' || $tags === '-tag' ) {
 					$formatted = '<code class="tag" title="HTML tag">'.$html.'</code>';

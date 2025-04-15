@@ -338,6 +338,19 @@ code {
 		}
 	}
   
+	&.content {
+		color: rgb(12, 143, 99);
+
+		/* mint green */
+		background-color: #f6fcfa;
+		border: 1px solid #b4f5d9;
+		white-space: nowrap;
+
+		&:after {
+			content: 'Content';
+		}
+	}
+  
 	&.multiline {
 		display: inline-block;
 		width: 95%;
@@ -777,6 +790,10 @@ html.dark {
 	  
 		&.feature {
 			@include code-dark-tint(#f7e2d6);
+		}
+	  
+		&.content {
+			@include code-dark-tint(#d6f7e0);
 		}
 	}
 
