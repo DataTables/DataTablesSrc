@@ -1318,17 +1318,24 @@ export interface Api<T=any> {
 
 export interface ApiSelectorModifier {
     /**
+     * The order in which the resolved columns should be returned in.
+     * 
+     * * `implied` - the order given in the selector (default)
+     * * `index` - column index order
+     */
+    columnOrder?: 'index' | 'implied';
+    /**
      * The order modifier provides the ability to control which order the rows are
      * processed in. Can be one of 'current', 'applied', 'index', 'original', or
      * the column index that you want the order to be applied from.
      */
-    order?: string | number;
+    order?: 'current' | 'applied' | 'index' | 'original' | number;
 
     /**
      * The search modifier provides the ability to govern which rows are used by the selector using the search options that are applied to the table.
      * Values: 'none', 'applied', 'removed'
      */
-    search?: string;
+    search?: 'none' | 'applied' | 'removed';
 
     /**
      * The searchPlaceholder modifier provides the ability to provide informational text for an input control when it has no value.
@@ -1339,7 +1346,7 @@ export interface ApiSelectorModifier {
      * The page modifier allows you to control if the selector should consider all data in the table, regardless of paging, or if only the rows in the currently disabled page should be used.
      * Values: 'all', 'current'
      */
-    page?: string;
+    page?: 'all' | 'current';
 }
 
 export interface AjaxMethods extends Api<any> {

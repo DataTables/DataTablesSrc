@@ -177,6 +177,22 @@ table.columns().every(function () {
 	expectType<number>(this.index());
 });
 
+table.columns({
+	order: 'index'
+});
+table.columns({
+	search: 'applied'
+});
+table.columns({
+	columnOrder: 'implied'
+});
+table.columns(1, {
+	order: 'current',
+	search: 'removed',
+	columnOrder: 'index'
+});
+table.columns([1, '.test']);
+
 expectType<ConfigColumns>(table.column(0).init());
 expectType<Api<ConfigColumns>>(table.columns().init());
 
