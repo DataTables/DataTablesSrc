@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="columns">
+	<name>column().name()</name>
+	<summary>Get the name for the selected column.</summary>
+	<since>2.3.0</since>
+
+	<type type="function">
+		<signature>column().name()</signature>
+		<description>Get the name that has been set for the selected column (set via `-init columns.name`).</description>
+		<returns type="string">The column name, or an empty string if not set.</returns>
+	</type>
+
+	<description>
+		This method provides the ability to retrieve the name that has been set via the `-init columns.name` option. This can be useful for the identification of a column, particularly when using orthogonal data, however, it does not functionally change the behaviour of a DataTable.
+	</description>
+
+	<related>-api columns().dataSrc()</related>
+	<related>-api column().dataSrc()</related>
+	<related>-api columns().name()</related>
+</dt-api>

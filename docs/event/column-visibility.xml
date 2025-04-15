@@ -12,10 +12,10 @@
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
 		</parameter>
-		<parameter type="object" name="column">
+		<parameter type="number" name="column">
 			Column index that has changed state
 		</parameter>
-		<parameter type="object" name="state">
+		<parameter type="boolean" name="state">
 			Column visibility state: `false` if column now hidden, or `true` if visible
 		</parameter>
 		<parameter type="boolean|undefined" name="recalc" since="1.10.10">

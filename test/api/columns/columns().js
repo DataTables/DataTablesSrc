@@ -335,4 +335,57 @@ describe('columns- columns() -solo', function() {
 			expect(test).toEqual([1, 2, 3, 0]);
 		});
 	});
+
+	describe('columnOrder', function() {
+		dt.html( 'basic' );
+
+		it('Implied order is the default', function () {
+			table = $('#example').DataTable({
+				columnDefs: [
+					{
+						targets: [1, 2],
+						className: 'test1'
+					},
+					{
+						targets: [3],
+						className: 'test2'
+					}
+				]
+			});
+
+			let test = table.columns([3, 0, 1]).flatten().toArray();
+
+			expect(test).toEqual([3, 0, 1]);
+		});
+
+		it('Can specify index order', function () {
+			let test = table.columns([3, 0, 1], {columnOrder: 'index'}).flatten().toArray();
+
+			expect(test).toEqual([0, 1, 3]);
+		});
+
+		it('Can specify implied order', function () {
+			let test = table.columns([3, 0, 1], {columnOrder: 'implied'}).flatten().toArray();
+
+			expect(test).toEqual([3, 0, 1]);
+		});
+
+		it('Index order with CSS selector', function () {
+			let test = table.columns([4, '.test1'], {columnOrder: 'index'}).flatten().toArray();
+
+			expect(test).toEqual([1, 2, 4]);
+		});
+
+		it('Implied order with CSS selector', function () {
+			let test = table.columns([4, '.test1'], {columnOrder: 'implied'}).flatten().toArray();
+
+			expect(test).toEqual([4, 1, 2]);
+		});
+
+		it('Implied order with CSS selector - CSS first', function () {
+			let test = table.columns(['.test1', 4], {columnOrder: 'implied'}).flatten().toArray();
+
+			expect(test).toEqual([1, 2, 4]);
+		});
+	});
 });

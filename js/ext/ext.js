@@ -15,6 +15,13 @@
  */
 DataTable.ext = _ext = {
 	/**
+	 * DataTables build type (expanded by the download builder)
+	 *
+	 *  @type string
+	 */
+	builder: "-source-",
+
+	/**
 	 * Buttons. For use with the Buttons extension for DataTables. This is
 	 * defined here so other extensions can define buttons regardless of load
 	 * order. It is _not_ used by DataTables core.
@@ -26,20 +33,20 @@ DataTable.ext = _ext = {
 
 
 	/**
+	 * ColumnControl buttons and content
+	 *
+	 *  @type object
+	 */
+	ccContent: {},
+
+
+	/**
 	 * Element class names
 	 *
 	 *  @type object
 	 *  @default {}
 	 */
 	classes: {},
-
-
-	/**
-	 * DataTables build type (expanded by the download builder)
-	 *
-	 *  @type string
-	 */
-	builder: "-source-",
 
 
 	/**

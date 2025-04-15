@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>ordering.indicators</name>
+	<summary>Control the display of the ordering indicators in header cells.</summary>
+	<since>2.3</since>
+
+	<type type="boolean">
+		When `true` header cells will have an visual indication of the ordering state of the column attached to them. If `false` the indicator will not be added to the header.
+	</type>
+
+	<default>true</default>
+
+	<description>
+		When ordering is enabled in a DataTable you will typically want a visual indication of the applied ordering shown to the end user - this option controls that indicator in the table header cells. When enabled, the header cells will have a `-tag span` added to them (with the class `dt-column-order`) added to them to show the ordering status of a column.
+
+		It can be useful to disable this ability if you wish to use an extension such as [ColumnControl](https://datatables.net/extensions/columncontrol) to control and indicate column ordering.
+
+		It is worth highlighting that this option interacts with `-init columns.orderable`: if disabled, the indicator will not be shown.
+	</description>
+
+	<example title="Disable the built in ordering indicators"><![CDATA[
+new DataTable('#myTable', {
+	ordering: {
+		indicators: false
+	}
+});
+]]></example>
+
+	<related type="option">order</related>
+	<related type="option">ordering</related>
+	<related type="option">ordering.handler</related>
+	<related type="option">ordering.indicators</related>
+</dt-option>

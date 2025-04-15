@@ -650,7 +650,7 @@ html.dark .syntaxhighlighter table caption {
   color: black !important;
 }
 html.dark .syntaxhighlighter .gutter div {
-  color: #8d8d8d !important;
+  color: #c4c4c4 !important;
 }
 html.dark .syntaxhighlighter .gutter .line {
   border-right: 3px solid #1a1a1a !important;
@@ -679,7 +679,7 @@ html.dark .syntaxhighlighter .plain a {
 }
 html.dark .syntaxhighlighter .comments,
 html.dark .syntaxhighlighter .comments a {
-  color: #6A9955 !important;
+  color: #5BAE35 !important;
 }
 html.dark .syntaxhighlighter .string,
 html.dark .syntaxhighlighter .string a {

@@ -165,6 +165,11 @@ window.dt_demo = {
 					return;
 				}
 
+				// Editor's demo has its own call to do this
+				if (DataTable && DataTable.Editor) {
+					return;
+				}
+
 				if ( settings.oFeatures.bServerSide ) {
 					if ( typeof settings.ajax === 'function' ) {
 						return;

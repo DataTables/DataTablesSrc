@@ -558,10 +558,7 @@ DataTable.models.oSettings = {
 
 	/**
 	 * Indicate that if multiple rows are in the header and there is more than
-	 * one unique cell per column, if the top one (true) or bottom one (false)
-	 * should be used for sorting / title by DataTables.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
+	 * one unique cell per column. Replaced by titleRow
 	 */
 	"bSortCellsTop": null,
 
@@ -686,5 +683,17 @@ DataTable.models.oSettings = {
 	resizeObserver: null,
 
 	/** Keep a record of the last size of the container, so we can skip duplicates */
-	containerWidth: -1
+	containerWidth: -1,
+
+	/** Reverse the initial order of the data set on desc ordering */
+	orderDescReverse: null,
+
+	/** Show / hide ordering indicators in headers */
+	orderIndicators: true,
+
+	/** Default ordering listener */
+	orderHandler: true,
+
+	/** Title row indicator */
+	titleRow: null
 };

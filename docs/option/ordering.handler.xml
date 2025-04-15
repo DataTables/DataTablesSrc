@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="feature">
+	<name>ordering.handler</name>
+	<summary>Control the click to order listener for column headers.</summary>
+	<since>2.3</since>
+
+	<type type="boolean">
+		When `true` header cells will have a listener attached to them listening for user activation to trigger column ordering. If `false` no listener is added.
+	</type>
+
+	<default>true</default>
+
+	<description>
+		When ordering is enabled for a DataTable you need a way for the end user to activate ordering on a column's data. This option controls the built in handler for that in DataTables. If enabled a listener is added to header cells (both click and for accessability the enter key) that will trigger ordering on a column.
+
+		It can be useful to disable this ability if you wish to use an extension such as [ColumnControl](https://datatables.net/extensions/columncontrol) to control column ordering.
+
+		If this option is disabled, the header cells for the table do not show a `pointer` cursor when hovered over (the classes `dt-orderable-desc` and `dt-orderable-asc` are removed).
+
+		It is worth highlighting that this option interacts with `-init columns.orderable`: if disabled, the listener is not added.
+	</description>
+
+	<example title="Disable the built in order listener"><![CDATA[
+new DataTable('#myTable', {
+	ordering: {
+		handler: false
+	}
+});
+]]></example>
+
+	<related type="option">order</related>
+	<related type="option">ordering</related>
+	<related type="option">ordering.handler</related>
+	<related type="option">ordering.indicators</related>
+</dt-option>

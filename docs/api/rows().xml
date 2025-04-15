@@ -33,6 +33,8 @@
 
 		* All rows (no parameters, or just a `dt-type selector-modifier` option)
 		* Row selector
+
+		This method is a _top level_ selector. That means that, regardless of what might have already been selected by the API instance in the call chain, this method will always return the selected rows, without consideration for what might have been selected previously.
 	</description>
 
 	<example title="Select all rows"><![CDATA[

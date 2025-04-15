@@ -116,6 +116,22 @@ function _fnCompatOpts ( init )
 		init.scrollX = init.scrollX ? '100%' : '';
 	}
 
+	// Objects for ordering
+	if ( typeof init.bSort === 'object' ) {
+		init.orderIndicators = init.bSort.indicators !== undefined ? init.bSort.indicators : true;
+		init.orderHandler = init.bSort.handler !== undefined ? init.bSort.handler : true;
+		init.bSort = true;
+	}
+	else if (init.bSort === false) {
+		init.orderIndicators = false;
+		init.orderHandler = false;
+	}
+
+	// Which cells are the title cells?
+	if (typeof init.bSortCellsTop === 'boolean') {
+		init.titleRow = init.bSortCellsTop;
+	}
+
 	// Column search objects are in an array, so it needs to be converted
 	// element by element
 	var searchCols = init.aoSearchCols;

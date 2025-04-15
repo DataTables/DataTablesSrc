@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="callback">
+	<name>on</name>
+	<summary>Add event listeners to the DataTable during initialisation.</summary>
+	<since>2.3</since>
+
+	<type type="object">
+		The object is a list of events to listen for where the property name is the [event name](/reference/event) to listen for and the value is the event handler, or an array of event handlers.
+	</type>
+
+	<default>null</default>
+
+	<description>
+		DataTables has an [extensive collection of events](/reference/event) that you can listen for using the `-api on()` method. It can also be useful to listen for events that occur during the DataTable's initialisation so you can take actions as needed (e.g. using `-event preXhr` to know when an Ajax request is made). This property provides that ability.
+
+		Any event name that is given in the list of events can be used as the object property name, while the value may take a callback function as the event handler, or an array of functions if you wish to listen with more than one event handler.
+
+		The arguments passed to the event handlers are identical to those for the event identified by the property name.
+	</description>
+
+	<example title="Listen for the draw event"><![CDATA[
+new DataTable('#example', {
+	on: {
+		draw: () => {
+			console.log('Draw event');
+		}
+	}
+});
+]]></example>
+
+	<example title="Using the `preXhr` event to add data to the request"><![CDATA[
+new DataTable('#example', {
+	ajax: '/api/data',
+	on: {
+		preXhr: (e, s, data) => {
+			data.extra = 1;
+		}
+	}
+});
+]]></example>
+
+	<example title="Listen for multiple events"><![CDATA[
+new DataTable('#example', {
+	on: {
+		order: () => {
+			console.log('Order event');
+		},
+		search: () => {
+			console.log('Search event');
+		}
+	}
+});
+]]></example>
+
+	<example title="Array of events"><![CDATA[
+new DataTable('#example', {
+	on: {
+		draw: [
+			() => {
+				// Listener 1
+			},
+			() => {
+				// Listener 2
+			}
+		]
+	}
+});
+]]></example>
+
+	<related type="api">on()</related>
+	<related type="api">one()</related>
+	<related type="api">off()</related>
+</dt-option>

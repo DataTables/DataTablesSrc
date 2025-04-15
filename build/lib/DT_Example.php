@@ -784,6 +784,14 @@ DT_Example::$tables['html'] = array(
 	'body'    => true
 );
 
+
+DT_Example::$tables['html-no-footer'] = array(
+	'columns' => array( 'name', 'position', 'office', 'age', 'start_date', 'salary' ),
+	'header'  => true,
+	'footer'  => false,
+	'body'    => true
+);
+
 DT_Example::$tables['html5'] = array(
 	'columns' => array( 'name-attr', 'position', 'office', 'age', 'start_date-attr', 'salary-attr' ),
 	'header'  => true,

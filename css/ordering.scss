@@ -36,15 +36,10 @@ table.dataTable thead {
 		&.dt-orderable-desc,
 		&.dt-ordering-asc,
 		&.dt-ordering-desc {
-			position: relative;
-			padding-right: 30px;
-
 			span.dt-column-order {
-				position: absolute;
-				right: 12px;
-				top: 0;
-				bottom: 0;
+				position: relative;
 				width: 12px;
+				height: 20px;
 
 				&:before,
 				&:after {
@@ -78,6 +73,28 @@ table.dataTable thead {
 
 		&:active {
 			outline: none;
+		}
+	}
+}
+
+table.dataTable thead, 
+table.dataTable tfoot {
+	> tr > th,
+	> tr > td {
+		div.dt-column-header,
+		div.dt-column-footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 4px;
+
+			span.dt-column-title {
+				flex-grow: 1;
+
+				&:empty {
+					display: none;
+				}
+			}
 		}
 	}
 }

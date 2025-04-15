@@ -47,6 +47,8 @@
 
 		* Cell selector
 		* Cross product between row and column selectors
+
+		This method is a _top level_ selector. That means that, regardless of what might have already been selected by the API instance in the call chain, this method will always return the selected cell, without consideration for what might have been selected previously.
 	</description>
 
 	<related type="api">cells()</related>

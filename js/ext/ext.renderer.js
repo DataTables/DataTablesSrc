@@ -15,7 +15,7 @@ $.extend( true, DataTable.ext.renderer, {
 				cell.addClass(classes.order.none);
 			}
 
-			var legacyTop = settings.bSortCellsTop;
+			var titleRow = settings.titleRow;
 			var headerRows = cell.closest('thead').find('tr');
 			var rowIdx = cell.parent().index();
 
@@ -25,11 +25,10 @@ $.extend( true, DataTable.ext.renderer, {
 				cell.attr('data-dt-order') === 'disable' ||
 				cell.parent().attr('data-dt-order') === 'disable' ||
 
-				// Legacy support for `orderCellsTop`. If it is set, then cells
-				// which are not in the top or bottom row of the header (depending
-				// on the value) do not get the sorting classes applied to them
-				(legacyTop === true && rowIdx !== 0) ||
-				(legacyTop === false && rowIdx !== headerRows.length - 1)
+				// titleRow support, for defining a specific row in the header
+				(titleRow === true && rowIdx !== 0) ||
+				(titleRow === false && rowIdx !== headerRows.length - 1) ||
+				(typeof titleRow === 'number' && rowIdx !== titleRow)
 			) {
 				return;
 			}
@@ -39,7 +38,7 @@ $.extend( true, DataTable.ext.renderer, {
 			// `DT` namespace will allow the event to be removed automatically
 			// on destroy, while the `dt` namespaced event is the one we are
 			// listening for
-			$(settings.nTable).on( 'order.dt.DT column-visibility.dt.DT', function ( e, ctx ) {
+			$(settings.nTable).on( 'order.dt.DT column-visibility.dt.DT', function ( e, ctx, column ) {
 				if ( settings !== ctx ) { // need to check this this is the host
 					return;               // table, not a nested one
 				}
@@ -47,6 +46,16 @@ $.extend( true, DataTable.ext.renderer, {
 				var sorting = ctx.sortDetails;
 
 				if (! sorting) {
+					return;
+				}
+
+				var orderedColumns = _pluck(sorting, 'col');
+
+				// This handler is only needed on column visibility if the column is part of the
+				// ordering. If it isn't, then we can bail out to save performance. It could be a
+				// separate event handler, but this is a balance between code reuse / size and performance
+				// console.log(e, e.name, column, orderedColumns, orderedColumns.includes(column))
+				if (e.type === 'column-visibility' && ! orderedColumns.includes(column)) {
 					return;
 				}
 
@@ -58,8 +67,8 @@ $.extend( true, DataTable.ext.renderer, {
 				var ariaType = '';
 				var indexes = columns.indexes();
 				var sortDirs = columns.orderable(true).flatten();
-				var orderedColumns = _pluck(sorting, 'col');
 				var tabIndex = settings.iTabIndex;
+				var canOrder = ctx.orderHandler && orderable;
 
 				cell
 					.removeClass(
@@ -67,8 +76,8 @@ $.extend( true, DataTable.ext.renderer, {
 						orderClasses.isDesc
 					)
 					.toggleClass( orderClasses.none, ! orderable )
-					.toggleClass( orderClasses.canAsc, orderable && sortDirs.includes('asc') )
-					.toggleClass( orderClasses.canDesc, orderable && sortDirs.includes('desc') );
+					.toggleClass( orderClasses.canAsc, canOrder && sortDirs.includes('asc') )
+					.toggleClass( orderClasses.canDesc, canOrder && sortDirs.includes('desc') );
 
 				// Determine if all of the columns that this cell covers are included in the
 				// current ordering

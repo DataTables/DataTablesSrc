@@ -294,6 +294,10 @@ DataTable.defaults = {
 	"bSortCellsTop": null,
 
 
+	/** Specify which row is the title row in the header. Replacement for bSortCellsTop */
+	titleRow: null,
+
+
 	/**
 	 * Enable or disable the addition of the classes `sorting\_1`, `sorting\_2` and
 	 * `sorting\_3` to the columns which are currently being sorted on. This is
@@ -572,6 +576,13 @@ DataTable.defaults = {
 		},
 
 		/**
+		 * Page length options
+		 */
+		lengthLabels: {
+			'-1': 'All'
+		},
+
+		/**
 		 * This string is shown in preference to `zeroRecords` when the table is
 		 * empty of data (regardless of filtering). Note that this is an optional
 		 * parameter - if it is not given, the value of `zeroRecords` will be used
@@ -841,7 +852,10 @@ DataTable.defaults = {
 	/**
 	 * For server-side processing - use the data from the DOM for the first draw
 	 */
-	iDeferLoading: null
+	iDeferLoading: null,
+
+	/** Event listeners */
+	on: null
 };
 
 _fnHungarianMap( DataTable.defaults );

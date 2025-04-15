@@ -30,23 +30,60 @@ var __columnData = function ( settings, column, r1, r2, rows, type ) {
 
 var __column_header = function ( settings, column, row ) {
 	var header = settings.aoHeader;
-	var target = row !== undefined
-		? row
-		: settings.bSortCellsTop // legacy support
-			? 0
-			: header.length - 1;
+	var titleRow = settings.titleRow;
+	var target = null;
+
+	if (row !== undefined) {
+		target = row;
+	}
+	else if (titleRow === true) { // legacy orderCellsTop support
+		target = 0;
+	}
+	else if (titleRow === false) {
+		target = header.length - 1;
+	}
+	else if (titleRow !== null) {
+		target = titleRow;
+	}
+	else {
+		// Automatic - find the _last_ unique cell from the top that is not empty (last for
+		// backwards compatibility)
+		for (var i=0 ; i<header.length ; i++) {
+			if (header[i][column].unique && $('span.dt-column-title', header[i][column].cell).text()) {
+				target = i;
+			}
+		}
+
+		if (target === null) {
+			target = 0;
+		}
+	}
 
 	return header[target][column].cell;
 };
+
+var __column_header_cells = function (header) {
+	var out = [];
+
+	for (var i=0 ; i<header.length ; i++) {
+		for (var j=0 ; j<header[i].length ; j++) {
+			var cell = header[i][j].cell;
+
+			if (!out.includes(cell)) {
+				out.push(cell);
+			}
+		}
+	}
+
+	return out;
+}
 
 var __column_selector = function ( settings, selector, opts )
 {
 	var
 		columns = settings.aoColumns,
-		names = _pluck( columns, 'sName' ),
-		titles = _pluck( columns, 'sTitle' ),
-		cells = DataTable.util.get('[].[].cell')(settings.aoHeader),
-		nodes = _unique( _flatten([], cells) );
+		names, titles,
+		nodes = __column_header_cells(settings.aoHeader);
 	
 	var run = function ( s ) {
 		var selInt = _intVal( s );
@@ -118,12 +155,21 @@ var __column_selector = function ( settings, selector, opts )
 					} );
 
 				case 'name':
+					// Don't get names, unless needed, and only get once if it is
+					if (!names) {
+						names = _pluck( columns, 'sName' );
+					}
+
 					// match by name. `names` is column index complete and in order
 					return names.map( function (name, i) {
 						return name === match[1] ? i : null;
 					} );
 
 				case 'title':
+					if (!titles) {
+						titles = _pluck( columns, 'sTitle' );
+					}
+
 					// match by column title
 					return titles.map( function (title, i) {
 						return title === match[1] ? i : null;
@@ -162,7 +208,11 @@ var __column_selector = function ( settings, selector, opts )
 			[];
 	};
 
-	return _selector_run( 'column', selector, run, settings, opts );
+	var selected = _selector_run( 'column', selector, run, settings, opts );
+
+	return opts.columnOrder && opts.columnOrder === 'index'
+		? selected.sort(function (a, b) { return a - b; })
+		: selected; // implied
 };
 
 
@@ -283,6 +333,12 @@ _api_registerPlural( 'columns().cache()', 'column().cache()', function ( type ) 
 _api_registerPlural( 'columns().init()', 'column().init()', function () {
 	return this.iterator( 'column', function ( settings, column ) {
 		return settings.aoColumns[column];
+	}, 1 );
+} );
+
+_api_registerPlural( 'columns().names()', 'column().name()', function () {
+	return this.iterator( 'column', function ( settings, column ) {
+		return settings.aoColumns[column].sName;
 	}, 1 );
 } );
 

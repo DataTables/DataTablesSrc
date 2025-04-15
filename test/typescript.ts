@@ -110,12 +110,21 @@ let table = new DataTable('#myTable', {
 			}
 		}
 	},
+	on: {
+		draw: () => {
+
+		}
+	},
 	order: [
 		{idx: 1, dir: 'asc'},
 		{name: 'test', dir: 'asc'},
 		[1, 'desc']
 	],
 	orderDescReverse: false,
+	ordering: {
+		indicators: true,
+		handler: true
+	},
 	deferLoading: [ 1, 10 ],
 });
 
@@ -167,6 +176,22 @@ table.columns().every(function () {
 	expectType<Api<any[]>>(this.data());
 	expectType<number>(this.index());
 });
+
+table.columns({
+	order: 'index'
+});
+table.columns({
+	search: 'applied'
+});
+table.columns({
+	columnOrder: 'implied'
+});
+table.columns(1, {
+	order: 'current',
+	search: 'removed',
+	columnOrder: 'index'
+});
+table.columns([1, '.test']);
 
 expectType<ConfigColumns>(table.column(0).init());
 expectType<Api<ConfigColumns>>(table.columns().init());

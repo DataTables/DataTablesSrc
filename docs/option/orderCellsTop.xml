@@ -3,10 +3,10 @@
 	<name>orderCellsTop</name>
 	<summary>Control which cell the order event handler will be applied to in a column</summary>
 	<since>1.10</since>
-	<deprecated since="2.0.0">
+	<deprecated since="2.0.0" remove="3.0.0">
 		As of DataTables 2 the default option for this parameter has changed to `null` rather than the previous `false` in 1.x. The result is that all cells in the header will have a sort listener attached and icons shown. You can set this value to `false` to have the same behaviour as v1.x.
 
-		This property is not very flexible, being able to specify the top or bottom rows only. In DataTables 2 is it superseded by the `data-dt-order` attribute for the `-tag tr` and / or `-tag th` elements in the `-tag thead` of the table. See `-init columns.orderable` for further details and [this example](https://datatables.net/examples/basic_init/complex_header.html) to see it in action.
+		Please use `-init titleRow` as a replacement, or the [`data-dt-order` attribute for rows / cells](https://datatables.net/examples/basic_init/complex_header.html).
 	</deprecated>
 
 	<type type="boolean" />

@@ -2,24 +2,30 @@
 function _fnSortInit( settings ) {
 	var target = settings.nTHead;
 	var headerRows = target.querySelectorAll('tr');
-	var legacyTop = settings.bSortCellsTop;
+	var titleRow = settings.titleRow;
 	var notSelector = ':not([data-dt-order="disable"]):not([data-dt-order="icon-only"])';
 	
 	// Legacy support for `orderCellsTop`
-	if (legacyTop === true) {
+	if (titleRow === true) {
 		target = headerRows[0];
 	}
-	else if (legacyTop === false) {
+	else if (titleRow === false) {
 		target = headerRows[ headerRows.length - 1 ];
 	}
+	else if (titleRow !== null) {
+		target = headerRows[titleRow];
+	}
+	// else - all rows
 
-	_fnSortAttachListener(
-		settings,
-		target,
-		target === settings.nTHead
-			? 'tr'+notSelector+' th'+notSelector+', tr'+notSelector+' td'+notSelector
-			: 'th'+notSelector+', td'+notSelector
-	);
+	if (settings.orderHandler) {
+		_fnSortAttachListener(
+			settings,
+			target,
+			target === settings.nTHead
+				? 'tr'+notSelector+' th'+notSelector+', tr'+notSelector+' td'+notSelector
+				: 'th'+notSelector+', td'+notSelector
+		);
+	}
 
 	// Need to resolve the user input array into our internal structure
 	var order = [];
@@ -34,7 +40,9 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 		var run = false;
 		var columns = column === undefined
 			? _fnColumnsFromHeader( e.target )
-			: [column];
+			: Array.isArray(column)
+				? column
+				: [column];
 
 		if ( columns.length ) {
 			for ( var i=0, ien=columns.length ; i<ien ; i++ ) {

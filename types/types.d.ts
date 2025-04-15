@@ -109,7 +109,7 @@ export interface OrderName {
 	dir: 'asc' | 'desc';
 }
 
-export type OrderArray = [number, 'asc' | 'desc'];
+export type OrderArray = [number, 'asc' | 'desc' | ''];
 
 export type OrderCombined = OrderIdx | OrderName | OrderArray;
 
@@ -389,6 +389,13 @@ export interface Config {
     lengthMenu?: Array<(number | string)> | Array<Array<(number | string)>>;
 
     /**
+     * Add event listeners during the DataTables startup
+     */
+    on?: {
+        [name: string]: ((this: HTMLElement, e: Event, ...args: any[]) => void);
+    };
+
+    /**
      * Control which cell the order event handler will be applied to in a column.
      */
     orderCellsTop?: boolean;
@@ -419,7 +426,18 @@ export interface Config {
     /**
      * Feature control ordering (sorting) abilities in DataTables.
      */
-    ordering?: boolean;
+    ordering?: boolean | {
+        /**
+         * Control the showing of the ordering icons in the table header.
+         */
+        indicators?: boolean;
+
+        /**
+         * Control the addition of a click event handler on the table headers to activate
+         * ordering.
+         */
+        handler?: boolean;
+    };
 
     /**
      * Multiple column ordering ability control.
@@ -602,6 +620,9 @@ export interface ConfigLanguage {
     infoPostFix?: string;
     decimal?: string;
     thousands?: string;
+
+    /** Labels for page length entries */
+    lengthLabels?: { [key: string | number]: string};
     lengthMenu?: string;
     loadingRecords?: string;
     processing?: string;
@@ -1297,17 +1318,24 @@ export interface Api<T=any> {
 
 export interface ApiSelectorModifier {
     /**
+     * The order in which the resolved columns should be returned in.
+     * 
+     * * `implied` - the order given in the selector (default)
+     * * `index` - column index order
+     */
+    columnOrder?: 'index' | 'implied';
+    /**
      * The order modifier provides the ability to control which order the rows are
      * processed in. Can be one of 'current', 'applied', 'index', 'original', or
      * the column index that you want the order to be applied from.
      */
-    order?: string | number;
+    order?: 'current' | 'applied' | 'index' | 'original' | number;
 
     /**
      * The search modifier provides the ability to govern which rows are used by the selector using the search options that are applied to the table.
      * Values: 'none', 'applied', 'removed'
      */
-    search?: string;
+    search?: 'none' | 'applied' | 'removed';
 
     /**
      * The searchPlaceholder modifier provides the ability to provide informational text for an input control when it has no value.
@@ -1318,7 +1346,7 @@ export interface ApiSelectorModifier {
      * The page modifier allows you to control if the selector should consider all data in the table, regardless of paging, or if only the rows in the currently disabled page should be used.
      * Values: 'all', 'current'
      */
-    page?: string;
+    page?: 'all' | 'current';
 }
 
 export interface AjaxMethods extends Api<any> {
@@ -1901,6 +1929,13 @@ export interface ApiColumnMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'ord
     init(): ConfigColumns;
 
     /**
+     * Get the name for the selected column (set by `columns.name`).
+     * 
+     * @returns Column name or null if not set.
+     */
+    name(): string | null;
+
+    /**
      * Obtain the th / td nodes for the selected column
      * 
      * @returns DataTables API instance with each cell's node from the selected columns in the result set. This is a 1D array with each entry being the node for the cells from the selected column.
@@ -2132,6 +2167,13 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
      * @returns Api instance of column configuration objects
      */
     init(): Api<ConfigColumns>;
+
+    /**
+     * Get the names for the selected columns (set by `columns.name`).
+     * 
+     * @returns Column names (each entry can be null if not set).
+     */
+    names(): string | null;
 
     /**
      * Obtain the th / td nodes for the selected columns
@@ -2794,7 +2836,8 @@ export interface DataTablesStatic {
      * Usage:
      * $.fn.dataTable.versionCheck("1.10.0");
      * @param version Version string
-     * @returns true if this version of DataTables is greater or equal to the required version, or false if this version of DataTales is not suitable
+     * @returns true if this version of DataTables is greater or equal to the required version, or
+     *   false if this version of DataTables is not suitable
      */
     versionCheck(version: string): boolean;
 }
@@ -3099,6 +3142,7 @@ export interface CellMetaSettings {
 export interface DataTablesStaticExt {
     builder: string;
     buttons: DataTablesStaticExtButtons;
+    ccContent: IColumnControlContent;
     classes: ExtClassesSettings;
     errMode: string;
     feature: any[];
@@ -3120,6 +3164,10 @@ export interface DataTablesStaticExt {
 
 export interface DataTablesStaticExtButtons {
     // Intentionally empty, completed in Buttons extension
+}
+
+export interface IColumnControlContent {
+    [name: string]: any;
 }
 
 /**
