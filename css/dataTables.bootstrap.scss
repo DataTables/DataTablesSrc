@@ -25,6 +25,8 @@ table.table.dataTable {
 
 // DataTables' built in feature elements
 div.dt-container {
+	position: relative;
+
 	div.dt-layout-row {
 		width: auto;
 

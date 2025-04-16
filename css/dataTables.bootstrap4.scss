@@ -24,6 +24,8 @@ table.dataTable.table {
 
 // DataTables' built in feature elements
 div.dt-container {
+	position: relative;
+
 	> div.row {
 		margin-bottom: 0.5rem;
 

@@ -32,6 +32,8 @@ table.dataTable.table {
 
 // DataTables' built in feature elements
 div.dt-container.dt-semanticUI {
+	position: relative;
+
 	> div.row {
 		display: flex;
 		padding-top: 0.5rem;

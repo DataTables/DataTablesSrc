@@ -35,6 +35,8 @@ table.table.dataTable {
 
 // DataTables' built in feature elements
 div.dt-container {
+	position: relative;
+
 	div.dt-length {
 		label {
 			font-weight: normal;

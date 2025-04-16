@@ -49,6 +49,8 @@ table.dataTable {
 
 // DataTables' built in feature elements
 div.dt-container {
+	position: relative;
+
 	> div.columns {
 		margin-bottom: 0 !important;
 	}
