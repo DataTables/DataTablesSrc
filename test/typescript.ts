@@ -108,7 +108,12 @@ let table = new DataTable('#myTable', {
 				id: 'testId',
 				className: 'testClass'
 			}
-		}
+		},
+		bottom8Start: () => {
+			return document.createElement('div');
+		},
+		bottom9Start: document.createElement('div'),
+		top2Start: $('#test')
 	},
 	on: {
 		draw: () => {

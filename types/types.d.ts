@@ -231,7 +231,14 @@ type LayoutElement = {
     features: LayoutFeatures;
 }
 
-type Layout = Partial<Record<LayoutKeys, LayoutElement | LayoutFeatures | null>>;
+type Layout = Partial<Record<LayoutKeys,
+    LayoutElement |
+    LayoutFeatures |
+    (() => HTMLElement) |
+    HTMLElement |
+    JQuery<HTMLElement> |
+    null
+>>;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
