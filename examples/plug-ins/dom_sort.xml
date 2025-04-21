@@ -51,8 +51,8 @@ DataTable.ext.order['dom-checkbox'] = function (settings, col) {
 $('#example').DataTable({
 	columns: [
 		null,
-		{ orderDataType: 'dom-text-numeric' },
-		{ orderDataType: 'dom-text', type: 'string' },
+		{ orderDataType: 'dom-text-numeric', type: 'num' },
+		{ orderDataType: 'dom-text' },
 		{ orderDataType: 'dom-select' }
 	]
 });
@@ -108,8 +108,8 @@ DataTable.ext.order['dom-checkbox'] = function (settings, col) {
 new DataTable('#example', {
 	columns: [
 		null,
-		{ orderDataType: 'dom-text-numeric' },
-		{ orderDataType: 'dom-text', type: 'string' },
+		{ orderDataType: 'dom-text-numeric', type: 'num' },
+		{ orderDataType: 'dom-text' },
 		{ orderDataType: 'dom-select' }
 	]
 });
@@ -122,7 +122,7 @@ This example shows how you can use information available in the DOM to order col
 
 The example below shows the first column as normal text with ordering as you would expect. The following columns all have a form input element of different kinds, and the information contained within is what DataTables will perform the order on, based on the value at the time of the order.
 
-This is a fairly simple example, but you aren't constrained to just using form input elements, you could use anything and customise your DOM queries to suit yourself. You could also update the ordering live as a user enters data into a form by using an event handler calling `dt-api order()` or `dt-api draw()` methods.
+This is a fairly simple example, but you aren't constrained to just using form input elements, you could use anything and customise your DOM queries to suit yourself. You could also update the ordering live as a user enters data into a form by using an event handler calling `dt-api order()` or `dt-api draw()` methods. Note in the case of the numeric column, DataTables needs a little extra help to detect that it is a number based column through the use of `type: 'num'`.
 
 ]]></info>
 
