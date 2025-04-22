@@ -485,6 +485,27 @@ else if ( stripos( $dir_input, 'Buttons' ) ) {
 		'styling'           => "Styling",
 	);
 }
+else if ( stripos( $dir_input, 'ColumnControl' ) ) {
+	$dir_order = array(
+		'initialisation',
+		'ordering',
+		'columnVisibility',
+		'colReorder',
+		'search',
+		'searchDates',
+		'searchList'
+	);
+
+	$dir_names = array(
+		'initialisation' => 'Initialisation and options',
+		'colReorder' => 'Column Reordering',
+		'columnVisibility' => 'Column Visibility',
+		'ordering' => 'Ordering',
+		'search' => 'Search',
+		'searchDates' => 'Search - dates',
+		'searchList' => 'Search - lists'
+	);
+}
 else if ( stripos( $dir_input, 'ColReorder' ) ) {
 	$dir_order = array(
 		'initialisation',
