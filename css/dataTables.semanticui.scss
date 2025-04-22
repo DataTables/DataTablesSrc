@@ -21,6 +21,24 @@ table.dataTable.table {
 	}
 
 	@include row-stripes('.striped', '.hover', 0.02, 0.05, ':nth-child(2n)');
+
+	// Workaround for https://github.com/fomantic/Fomantic-UI/issues/3250
+	> thead > tr > td {
+		text-align: inherit;
+		color: rgba(0,0,0,.87);
+		padding: .5em .78571429em;
+		vertical-align: inherit;
+		font-style: none;
+		text-transform: none;
+		border-bottom: 1px solid rgba(34,36,38,.1);
+	}
+	
+	&.celled {
+		// Workaround for https://github.com/fomantic/Fomantic-UI/issues/3250
+		> thead > tr > td:not(:first-child) {
+			border-left: 1px solid rgba(34,36,38,.1);
+		}
+	}
 }
 
 @import 'typography.scss';
