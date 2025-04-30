@@ -3,7 +3,6 @@
 #
 
 INCLUDE_SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-CLOSURE="/usr/local/closure_compiler/compiler.jar"
 JSHINT="/usr/bin/jshint"
 SASS="${INCLUDE_SCRIPT_DIR}/../node_modules/.bin/sass"
 ESLINT="${INCLUDE_SCRIPT_DIR}/../node_modules/.bin/eslint"
