@@ -170,9 +170,26 @@ div.dt-scroll-foot {
 //
 
 // Condensed
-table.dataTable.table-condensed {
-	> thead > tr > th {
-		padding-right: 20px;
+table.dataTable.table-condensed > thead > tr {
+	th,
+	td {
+		&.dt-orderable-asc,
+		&.dt-orderable-desc,
+		&.dt-ordering-asc,
+		&.dt-ordering-desc {
+			padding-right: 4px;
+
+			span.dt-column-order {
+				right: 4px;
+			}
+		}
+
+		&.dt-type-date,
+		&.dt-type-numeric {
+			span.dt-column-order {
+				right: 4px;
+			}
+		}
 	}
 }
 
