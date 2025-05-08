@@ -165,17 +165,17 @@ table.dataTable.table-sm > thead > tr {
 		&.dt-orderable-desc,
 		&.dt-ordering-asc,
 		&.dt-ordering-desc {
-			padding-right: 4px;
+			padding-right: 0.25rem;
 
 			span.dt-column-order {
-				right: 4px;
+				right: 0.25rem;
 			}
 		}
 
 		&.dt-type-date,
 		&.dt-type-numeric {
 			span.dt-column-order {
-				right: 4px;
+				right: 0.25rem;
 			}
 		}
 	}
