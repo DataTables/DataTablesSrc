@@ -3405,7 +3405,7 @@ type FunctionPreDrawCallback = (this: JQueryDataTables, settings: InternalSettin
 
 type FunctionRowCallback = (this: JQueryDataTables, row: HTMLTableRowElement, data: any[] | object, index: number) => void;
 
-type FunctionStateLoadCallback = (this: JQueryDataTables, settings: InternalSettings, callback: ((state) => void)) => void | object;
+type FunctionStateLoadCallback = (this: JQueryDataTables, settings: InternalSettings, callback: ((state: State) => void)) => void | object;
 
 type FunctionStateLoaded = (this: JQueryDataTables, settings: InternalSettings, data: object) => void;
 
