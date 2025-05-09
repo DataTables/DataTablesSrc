@@ -24,6 +24,11 @@ table.dataTable#{$table-typography-selector} {
 
 		&.dt-left {
 			text-align: left;
+
+			div.dt-column-header,
+			div.dt-column-footer {
+				flex-direction: row;
+			}
 		}
 
 		&.dt-center {
@@ -41,6 +46,11 @@ table.dataTable#{$table-typography-selector} {
 
 		&.dt-justify {
 			text-align: justify;
+
+			div.dt-column-header,
+			div.dt-column-footer {
+				flex-direction: row;
+			}
 		}
 
 		&.dt-nowrap {
@@ -61,6 +71,11 @@ table.dataTable#{$table-typography-selector} {
 
 			&.dt-head-left {
 				text-align: left;
+
+				div.dt-column-header,
+				div.dt-column-footer {
+					flex-direction: row;
+				}
 			}
 			
 			&.dt-head-center{
@@ -78,6 +93,11 @@ table.dataTable#{$table-typography-selector} {
 
 			&.dt-head-justify {
 				text-align: justify;
+
+				div.dt-column-header,
+				div.dt-column-footer {
+					flex-direction: row;
+				}
 			}
 
 			&.dt-head-nowrap {
