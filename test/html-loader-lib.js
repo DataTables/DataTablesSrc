@@ -47,8 +47,15 @@
 	function _runQueue(done, queue) {
 		var doc = window.document;
 
+		// CHeck if everything is loaded
 		if (queue.length === 0) {
-			// Everything finally loaded
+			// Add a jQuery function to trigger native event handlers
+			window.$.fn.triggerNative = function (type) {
+				return this.each(function() {
+					this.dispatchEvent(new CustomEvent(type));
+				});
+			};
+
 			done();
 		} else {
 			var lib = queue.shift();
