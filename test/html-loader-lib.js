@@ -445,6 +445,18 @@
 					recordsFiltered: 5000000
 				});
 			}, 50);
+		},
+
+		checkOrder: function (tableOrder, expectedOrder) {
+			expect(tableOrder.length).toBe(expectedOrder.length);
+
+			for (let i=0 ; i<tableOrder.length ; i++) {
+				expect(tableOrder[i].length).toBe(2);
+				expect(expectedOrder[i].length).toBe(2);
+
+				expect(tableOrder[i][0]).toBe(expectedOrder[i][0]);
+				expect(tableOrder[i][1]).toBe(expectedOrder[i][1]);
+			}
 		}
 	};
 })(window, window.jasmine);
