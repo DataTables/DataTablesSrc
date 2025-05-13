@@ -126,6 +126,10 @@ function _fnCompatOpts ( init )
 		init.orderIndicators = false;
 		init.orderHandler = false;
 	}
+	else if (init.bSort === true) {
+		init.orderIndicators = true;
+		init.orderHandler = true;
+	}
 
 	// Which cells are the title cells?
 	if (typeof init.bSortCellsTop === 'boolean') {

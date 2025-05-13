@@ -49,4 +49,42 @@ describe('ordering Option', function () {
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Tiger Nixon');
 		});
 	});
+
+	describe('Default attribute override - gh#344', function () {
+		dt.html('basic');
+
+		let original;
+
+		it('Set default - no ordering', function () {
+			original = DataTable.defaults.ordering;
+
+			DataTable.defaults.ordering = false;
+
+			$('#example').DataTable();
+
+			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Tiger Nixon');
+		});
+
+		dt.html('basic');
+
+		it('Override the default using a data-property', function () {
+			$('#example').attr('data-ordering', true);
+			$('#example').DataTable();
+
+			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Airi Satou');
+		});
+
+		it('Has sort icons', function () {
+			expect($('span.dt-column-order').length).toBe(6);
+		});
+
+		it('Clicking a column header triggers a sort', async function () {
+			await dt.clickHeader(1);
+
+			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Garrett Winters');
+			
+			// Restore the original
+			DataTable.defaults.ordering = original;
+		});
+	});
 });
