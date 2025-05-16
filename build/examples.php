@@ -493,7 +493,8 @@ else if ( stripos( $dir_input, 'ColumnControl' ) ) {
 		'colReorder',
 		'search',
 		'searchDates',
-		'searchList'
+		'searchList',
+		'styling'
 	);
 
 	$dir_names = array(
@@ -503,7 +504,8 @@ else if ( stripos( $dir_input, 'ColumnControl' ) ) {
 		'ordering' => 'Ordering',
 		'search' => 'Search',
 		'searchDates' => 'Search - dates',
-		'searchList' => 'Search - lists'
+		'searchList' => 'Search - lists',
+		'styling' => "Styling"
 	);
 }
 else if ( stripos( $dir_input, 'ColReorder' ) ) {
