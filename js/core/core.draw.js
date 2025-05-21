@@ -952,7 +952,7 @@ function _fnDetectHeader ( settings, thead, write )
 				if ( write ) {
 					if (unique) {
 						// Allow column options to be set from HTML attributes
-						_fnColumnOptions( settings, shifted, jqCell.data() );
+						_fnColumnOptions( settings, shifted, _fnEscapeObject(jqCell.data()) );
 						
 						// Get the width for the column. This can be defined from the
 						// width attribute, style attribute or `columns.width` option
