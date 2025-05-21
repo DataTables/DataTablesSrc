@@ -3152,6 +3152,9 @@ export interface DataTablesStaticExt {
     ccContent: IColumnControlContent;
     classes: ExtClassesSettings;
     errMode: string;
+    escape: {
+        attributes: boolean;
+    };
     feature: any[];
     iApiIndex: number;
     internal: object;

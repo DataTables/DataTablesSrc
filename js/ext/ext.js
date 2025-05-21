@@ -60,6 +60,11 @@ DataTable.ext = _ext = {
 	 */
 	errMode: "alert",
 
+	/** HTML entity escaping */
+	escape: {
+		/** When reading data-* attributes for initialisation options */
+		attributes: false
+	},
 
 	/**
 	 * Legacy so v1 plug-ins don't throw js errors on load

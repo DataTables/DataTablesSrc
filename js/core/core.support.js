@@ -348,3 +348,16 @@ function _fnListener(that, name, src) {
 		that.on(name + '.dt', src[i]);
 	}
 }
+
+/**
+ * Escape HTML entities in strings, in an object
+ */
+function _fnEscapeObject(obj) {
+	if (DataTable.ext.escape.attributes) {
+		$.each(obj, function (key, val) {
+			obj[key] = _escapeHtml(val);
+		})
+	}
+
+	return obj;
+}
