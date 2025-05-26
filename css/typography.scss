@@ -19,6 +19,7 @@ table.dataTable#{$table-typography-selector} {
 			div.dt-column-header,
 			div.dt-column-footer {
 				flex-direction: row-reverse;
+				align-items: var(--dt-header-align-items);
 			}
 		}
 

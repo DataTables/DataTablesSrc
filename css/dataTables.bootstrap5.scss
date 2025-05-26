@@ -6,6 +6,10 @@ $table-row-selected: 13 110 253;
 @import './processing.scss';
 @import './typography.scss';
 
+:root {
+	--dt-header-align-items: flex-end;
+}
+
 /*! Bootstrap 5 integration for DataTables
  *
  * ©2020 SpryMedia Ltd, all rights reserved.
