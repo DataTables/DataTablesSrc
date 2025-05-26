@@ -12,6 +12,11 @@ table.dataTable#{$table-typography-selector} {
 	td {
 		box-sizing: border-box;
 
+		div.dt-column-header,
+		div.dt-column-footer {
+			align-items: var(--dt-header-align-items);
+		}
+
 		&.dt-type-numeric,
 		&.dt-type-date {
 			text-align: right;
@@ -19,7 +24,6 @@ table.dataTable#{$table-typography-selector} {
 			div.dt-column-header,
 			div.dt-column-footer {
 				flex-direction: row-reverse;
-				align-items: var(--dt-header-align-items);
 			}
 		}
 
