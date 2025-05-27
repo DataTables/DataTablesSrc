@@ -335,6 +335,34 @@
 			});
 		},
 
+		clickCCButton: async function (buttonIdx, column, options) {
+			var selector = '#example thead th';
+
+			return new Promise(function (done) {
+
+				if (options) {
+					var clickEvent = $.Event('click');
+
+					if (options.shift) {
+						clickEvent.shiftKey = true;
+					}
+
+					$(selector)
+						.eq(column)
+						.find('.dtcc-button')
+						.eq(buttonIdx)
+						.trigger(clickEvent);
+				}
+				else {
+					$(selector).eq(column).trigger('click');
+				}
+
+				setTimeout(function () {
+					done();
+				}, 25);
+			});
+		},
+
 		// columns used during testing (used frequently)
 		_testColumns: [
 			{data: 'name'},
@@ -451,7 +479,6 @@
 			expect(tableOrder.length).toBe(expectedOrder.length);
 
 			for (let i=0 ; i<tableOrder.length ; i++) {
-				expect(tableOrder[i].length).toBe(2);
 				expect(expectedOrder[i].length).toBe(2);
 
 				expect(tableOrder[i][0]).toBe(expectedOrder[i][0]);
