@@ -337,25 +337,22 @@
 
 		clickCCButton: async function (buttonIdx, column, options) {
 			var selector = '#example thead th';
+			var clickEvent = 'click';
 
 			return new Promise(function (done) {
-
 				if (options) {
-					var clickEvent = $.Event('click');
+					clickEvent = $.Event('click');
 
 					if (options.shift) {
 						clickEvent.shiftKey = true;
 					}
+				}
 
-					$(selector)
-						.eq(column)
-						.find('.dtcc-button')
-						.eq(buttonIdx)
-						.trigger(clickEvent);
-				}
-				else {
-					$(selector).eq(column).trigger('click');
-				}
+				$(selector)
+					.eq(column)
+					.find('.dtcc-button')
+					.eq(buttonIdx)
+					.trigger(clickEvent);
 
 				setTimeout(function () {
 					done();
