@@ -25,91 +25,91 @@
 
 		The following shows what happens with `-init orderDescReverse` both enabled and disabled when progressing from the initial ordering state (ascending on the first column) to reversing that (descending on the first column). Because the data in the first column is all the same, this option has an impact.	
 
-      <table style="width:100%">
-        <tr>
-          <td></td>
-          <td>
-            Initial order (<code>[0, 'asc']</code>)
-          </td>
-          <td>
-            Reverse order (<code>[0, 'desc']</code>)
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <code>orderDescReverse: true</code>
-          </td>
-          <td>
-            <table style="margin: 0 auto; width: 50%">
-              <tr>
-                <td>A</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>A</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>A</td>
-                <td>3</td>
-              </tr>
-            </table>
-          </td>
-          <td>
-            <table style="margin: 0 auto; width: 50%">
-              <tr>
-                <td>A</td>
-                <td>3</td>
-              </tr>
-              <tr>
-                <td>A</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>A</td>
-                <td>1</td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <code>orderDescReverse: false</code>
-          </td>
-          <td>
-            <table style="margin: 0 auto; width: 50%">
-              <tr>
-                <td>A</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>A</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>A</td>
-                <td>3</td>
-              </tr>
-            </table>
-          </td>
-          <td>
-            <table style="margin: 0 auto; width: 50%">
-              <tr>
-                <td>A</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>A</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>A</td>
-                <td>3</td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
+		<table style="width:100%">
+			<tr>
+				<td></td>
+				<td>
+					Initial order (<code>[0, 'asc']</code>)
+				</td>
+				<td>
+					Reverse order (<code>[0, 'desc']</code>)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<code>orderDescReverse: true</code>
+				</td>
+				<td>
+					<table style="margin: 0 auto; width: 50%">
+						<tr>
+							<td>A</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>A</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>A</td>
+							<td>3</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table style="margin: 0 auto; width: 50%">
+						<tr>
+							<td>A</td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>A</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>A</td>
+							<td>1</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<code>orderDescReverse: false</code>
+				</td>
+				<td>
+					<table style="margin: 0 auto; width: 50%">
+						<tr>
+							<td>A</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>A</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>A</td>
+							<td>3</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table style="margin: 0 auto; width: 50%">
+						<tr>
+							<td>A</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>A</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>A</td>
+							<td>3</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
 	]]>
 	</description>
 
