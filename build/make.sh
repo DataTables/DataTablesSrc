@@ -271,28 +271,28 @@ function requirements {
 		exit 1
 	fi
 
-	TEST=$(php -i | grep xml.ini)
+	TEST=$(php -m | grep xml)
 	if [ $? -eq 1 ]; then
 		echo "Error: php's xml module is not installed and is required to build the examples."
 		echo "  Install with 'sudo apt install php-xml' or similar for your platform"
 		exit 1
 	fi
 
-	TEST=$(php -i | grep mbstring.ini)
+	TEST=$(php -m | grep mbstring)
 	if [ $? -eq 1 ]; then
 		echo "Error: php's mbstring module is not installed and is required to build the examples."
 		echo "  Install with 'sudo apt install php-mbstring' or similar for your platform"
 		exit 1
 	fi
 
-	TEST=$(php -i | grep curl.ini)
+	TEST=$(php -m | grep curl)
 	if [ $? -eq 1 ]; then
 		echo "Error: php's curl module is not installed and is required to build the examples."
 		echo "  Install with 'sudo apt install php-curl' or similar for your platform"
 		exit 1
 	fi
 
-	TEST=$(php -i | grep tidy.ini)
+	TEST=$(php -m | grep tidy)
 	if [ $? -eq 1 ]; then
 		echo "Warning: php's tidy module is not installed and is used to clean up build the examples."
 		echo "  Install with 'sudo apt install php-tidy' or similar for your platform"
