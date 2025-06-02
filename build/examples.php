@@ -144,7 +144,7 @@ DT_Example::$components['colreorder'] = [
 
 DT_Example::$components['columncontrol'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/ColumnControl' ),
-	'release' => '0.0.1', ///$versions['ColumnControl']['release']['version'],
+	'release' => $versions['ColumnControl']['release']['version'],
 	'filename' => 'columnControl',
 	'framework' => [
 		'css' => true,
