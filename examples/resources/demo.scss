@@ -662,7 +662,7 @@ i.dt-demo-icon {
 html.dark {
 	body {
 		background-color: rgb(33, 37, 41);
-		color: rgb(218, 224, 231);
+		color: rgb(229, 233, 238);
 
 		&.dt-example-bootstrap5 {
 			background-color: var(--bs-body-bg);
@@ -836,7 +836,7 @@ html.dark {
 		}
 		.plain,
 		.plain a {
-			color: rgb(218, 224, 231) !important;
+			color: rgb(229, 233, 238) !important;
 		}
 		.comments,
 		.comments a {
@@ -921,7 +921,7 @@ html.dark {
 @media (prefers-color-scheme: dark) {
 	body {
 		background-color: rgb(33, 37, 41);
-		color: rgb(218, 224, 231);
+		color: rgb(229, 233, 238);
 	}
 
 	html.light {
