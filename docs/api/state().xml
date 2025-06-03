@@ -56,12 +56,12 @@ alert('Saved page length is: ' + table.state().length);
 ]]></example>
 
 	<example title="Get the table state, change it and load it back"><![CDATA[
-var table = new DataTable('#myTable');
-var state = table.state();
+let table = new DataTable('#myTable');
+let state = table.state();
 
 state.start = 10;
 
-table.state(start).draw(false);
+table.state(state).draw(false);
 ]]></example>
 
 	<related type="api">state.clear()</related>
