@@ -1633,7 +1633,11 @@ export interface ApiOrder {
      * @param callback Callback function
      * @returns DataTables API instance with the current order in the result set
      */
-    listener(node: string | Node | JQuery, column: number, callback: (() => void)): Api<any>;
+    listener(
+        node: string | Node | JQuery,
+        column: HTMLElement | number | number[] | (() => number[]),
+        callback: (() => void)
+    ): Api<any>;
 }
 
 export interface ApiState<T> {
