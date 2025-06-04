@@ -156,21 +156,23 @@ $table-shade: black !default;
 
 table.dataTable {
     // Child row controls
-    td.dt-control {
-        text-align: center;
-        cursor: pointer;
-    
-        &:before {
-            @include control;
-            @include control-open;
-        }
-    }
-    
-    tr.dt-hasChild {
-        td.dt-control:before {
-            @include control-close;
-        }
-    }
+    tbody {
+		td.dt-control {
+			text-align: center;
+			cursor: pointer;
+
+			&:before {
+				@include control;
+				@include control-open;
+			}
+		}
+
+		tr.dt-hasChild {
+			td.dt-control:before {
+				@include control-close;
+			}
+		}
+	}
 
 	tfoot:empty {
 		display: none;
