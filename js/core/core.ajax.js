@@ -113,7 +113,7 @@ function _fnBuildAjax( oSettings, data, fn )
 		// to the object for the callback.
 		var empty = {};
 
-		DataTable.util.set(ajax.dataSrc)(empty, []);
+		_fnAjaxDataSrc(oSettings, empty, []);
 		callback(empty);
 	}
 	else {
