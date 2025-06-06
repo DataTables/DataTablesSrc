@@ -21,25 +21,25 @@
 
 		It can also be useful for plug-ins to ensure that any other version dependencies are met.
 
-		Please note that this is a **static** function and is accessed through the `DataTable` or `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
+		Please note that this is a **static** function and is accessed through the `DataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
 
 		Prior to DataTables 1.11 this method could be accessed through the `$.fn.dataTable` object only. As of 1.11, either `DataTable` or `$.fn.dataTable` can be used.
 	</description>
 
-	<example title="Non-jQuery: Check the compatibility of DataTables"><![CDATA[
+	<example title="Check minor compatibility of DataTables"><![CDATA[
 if (!DataTable.versionCheck('1.11')) {
 	alert('DataTables 1.11 or newer is required');
 }
 ]]></example>
 
-	<example title="jQuery: Check the compatibility of DataTables"><![CDATA[
-if (!$.fn.dataTable.versionCheck('1.10.7')) {
+	<example title="Check patch compatibility of DataTables"><![CDATA[
+if (!DataTable.versionCheck('1.10.7')) {
 	alert('A newer version of DataTables is required');
 }
 ]]></example>
 
 	<example title="Check that Buttons 1.5 or newer is used"><![CDATA[
-if (!$.fn.dataTable.versionCheck('1.5.0', $.fn.dataTable.Buttons.version)) {
+if (!DataTable.versionCheck('1.5.0', DataTable.Buttons.version)) {
 	alert('A newer version of BUttons is required');
 }
 ]]></example>
