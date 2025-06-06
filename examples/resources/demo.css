@@ -532,7 +532,7 @@ i.dt-demo-icon.warning {
 }
 html.dark body {
   background-color: rgb(33, 37, 41);
-  color: rgb(218, 224, 231);
+  color: rgb(229, 233, 238);
 }
 html.dark body.dt-example-bootstrap5 {
   background-color: var(--bs-body-bg);
@@ -690,7 +690,7 @@ html.dark .syntaxhighlighter .toolbar a:hover {
 }
 html.dark .syntaxhighlighter .plain,
 html.dark .syntaxhighlighter .plain a {
-  color: rgb(218, 224, 231) !important;
+  color: rgb(229, 233, 238) !important;
 }
 html.dark .syntaxhighlighter .comments,
 html.dark .syntaxhighlighter .comments a {
@@ -760,7 +760,7 @@ html.dark div.dt-demo-selector div.dt-demo-selector__options div.dt-demo-selecto
 @media (prefers-color-scheme: dark) {
   body {
     background-color: rgb(33, 37, 41);
-    color: rgb(218, 224, 231);
+    color: rgb(229, 233, 238);
   }
   html.light body {
     background-color: #fff;
