@@ -66,6 +66,7 @@ table.dataTable thead {
 			opacity: 0.6;
 		}
 
+		&.dt-orderable-none:not(.dt-ordering-asc,.dt-ordering-desc) span.dt-column-order:empty,
 		&.sorting_desc_disabled span.dt-column-order:after,
 		&.sorting_asc_disabled span.dt-column-order:before {
 			display: none;
