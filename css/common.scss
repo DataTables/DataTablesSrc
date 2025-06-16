@@ -70,6 +70,8 @@ $table-paging-button-hover-dark: rgb(53, 53, 53) !default;
 // Colour to use when shading
 $table-shade: black !default;
 
+$table-header-order-height: 20px !default;
+
 :root {
 	--dt-row-selected: #{str-replace(#{$table-row-selected}, ' ', ', ')};
 	--dt-row-selected-text: #{str-replace(#{$table-row-selected-text}, ' ', ', ')};

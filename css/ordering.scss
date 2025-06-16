@@ -39,7 +39,7 @@ table.dataTable thead {
 			span.dt-column-order {
 				position: relative;
 				width: 12px;
-				height: 20px;
+				height: $table-header-order-height;
 
 				&:before,
 				&:after {
