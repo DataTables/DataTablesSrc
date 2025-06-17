@@ -212,7 +212,8 @@ class DT_Example
 			'new-pre-tags' => 'script',
 			'new-empty-tags' => 'tbody',
 			'output-html' => 1,
-			'wrap' => 180
+			'wrap' => 180,
+			'drop-empty-elements' => false
 		) );
 		$tidy->cleanRepair();
 
