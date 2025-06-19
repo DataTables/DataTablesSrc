@@ -9,10 +9,6 @@ $table-header-order-height: 24px;
 @import './processing.scss';
 @import './typography.scss';
 
-:root {
-	--dt-header-align-items: flex-start;
-}
-
 // This doesn't yet work with the Bulma's CSS variables. DataTables' CSS variables
 // will need an overhaul before they work seamlessly. 
 :root {

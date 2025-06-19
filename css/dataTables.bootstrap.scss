@@ -6,10 +6,6 @@ $table-row-selected: 0 136 204;
 @import './processing.scss';
 @import './typography.scss';
 
-:root {
-	--dt-header-align-items: flex-end;
-}
-
 table.table.dataTable {
 	clear: both;
 	margin-top: 0;

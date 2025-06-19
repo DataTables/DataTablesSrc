@@ -68,6 +68,7 @@ table.dataTable#{$table-typography-selector} {
 		th,
 		td {
 			text-align: left;
+			vertical-align: var(--dt-header-vertical-align);
 
 			&.dt-head-left {
 				text-align: left;
