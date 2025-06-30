@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example table-type="html" order="11">
 
-<css lib="datatables columncontrol"/>
-<js lib="jquery datatables columncontrol">
+<css lib="datatables"/>
+<js lib="jquery datatables">
 <![CDATA[
 
 DataTable.type('num', 'className', 'dt-left');
