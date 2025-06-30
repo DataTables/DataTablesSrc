@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="11">
+
+<css lib="datatables columncontrol"/>
+<js lib="jquery datatables columncontrol">
+<![CDATA[
+
+DataTable.type('num', 'className', 'dt-left');
+DataTable.type('num-fmt', 'className', 'dt-left');
+DataTable.type('date', 'className', 'dt-left');
+
+$('#example').DataTable();
+
+]]>
+</js>
+
+<js-vanilla>
+<![CDATA[
+
+DataTable.type('num', 'className', 'dt-left');
+DataTable.type('num-fmt', 'className', 'dt-left');
+DataTable.type('date', 'className', 'dt-left');
+
+new DataTable('#example');
+
+]]>
+</js-vanilla>
+
+<title>Text Alignment: Header and Body Left</title>
+
+<info><![CDATA[
+
+The [previous example](./alignmentHeaderOnly.html) explained the text alignment for detected data types in DataTables. It also showed how to use the type controls in DataTables to left align the header, while keeping the body right aligned.
+
+If you wish to have both the header and body content left aligned, you can use the `dt-left` class, as shown in this example. Information about the built in class names is [available here](/manual/styling/classes#Cell-classes).
+
+]]></info>
+
+</dt-example>
+

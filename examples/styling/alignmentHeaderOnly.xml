@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="10">
+
+<css lib="datatables"/>
+<js lib="jquery datatables">
+<![CDATA[
+
+DataTable.type('num', 'className', 'dt-body-right');
+DataTable.type('num-fmt', 'className', 'dt-body-right');
+DataTable.type('date', 'className', 'dt-body-right');
+
+$('#example').DataTable();
+
+]]>
+</js>
+
+<js-vanilla>
+<![CDATA[
+
+DataTable.type('num', 'className', 'dt-body-right');
+DataTable.type('num-fmt', 'className', 'dt-body-right');
+DataTable.type('date', 'className', 'dt-body-right');
+
+$('#example').DataTable();
+
+]]>
+</js-vanilla>
+
+<title>Text Alignment: Header Left / Text Auto</title>
+
+<info><![CDATA[
+
+You might have noticed in the other examples, that DataTables will automatically change the alignment of the text in cells to match the data type - i.e. numeric and date information is right aligned, while plain text is left aligned. This is done so the header title aligns cleanly with the column data.
+
+You may wish to change this so that the column headers are all aligned the same way, regardless of the alignment of the data in the column. DataTables sets a class based on the detected data type, and the [DataTables type controls](/manual/data/types) allow customisation of any classes used (along with other options) through the `-api DataTable.type()` static method.
+
+In this case the `dt-body-right` class is used to right align the cells with `num` (numeric), `num-fmt` (formatted numeric) and `date` data types. This allows the header to default to its left alignment, while keeping the data right aligned.
+
+The [next example](./alignmentBothLeft.html) shows how to align both the header and body text to the left.
+
+]]></info>
+
+</dt-example>
+
