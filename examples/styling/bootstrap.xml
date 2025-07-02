@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="9" framework="bootstrap">
+<dt-example table-type="html" order="20" framework="bootstrap">
 
 <css lib="datatables" />
 
