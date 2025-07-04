@@ -64,7 +64,7 @@ function _fnCalculateColumnWidths ( settings )
 		.removeAttr( 'id' );
 
 	// Clean up the table body
-	tmpTable.append('<tbody>')
+	tmpTable.append('<tbody/>')
 	var tr = $('<tr/>').appendTo( tmpTable.find('tbody') );
 
 	// Clone the table header and footer - we can't use the header / footer
