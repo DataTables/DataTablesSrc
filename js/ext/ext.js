@@ -249,7 +249,7 @@ DataTable.ext = _ext = {
 	 * 
 	 * The extension options for ordering of data available here is complimentary
 	 * to the default type based ordering that DataTables typically uses. It
-	 * allows much greater control over the the data that is being used to
+	 * allows much greater control over the data that is being used to
 	 * order a column, but is necessarily therefore more complex.
 	 * 
 	 * This type of ordering is useful if you want to do ordering based on data
