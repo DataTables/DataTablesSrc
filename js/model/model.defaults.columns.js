@@ -127,7 +127,7 @@ DataTable.defaults.column = {
 	 * This property is the rendering partner to `data` and it is suggested that
 	 * when you want to manipulate data for display (including filtering,
 	 * sorting etc) without altering the underlying data for the table, use this
-	 * property. `render` can be considered to be the the read only companion to
+	 * property. `render` can be considered to be the read only companion to
 	 * `data` which is read / write (then as such more complex). Like `data`
 	 * this option can be given in a number of different ways to effect its
 	 * behaviour:
