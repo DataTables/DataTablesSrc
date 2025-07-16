@@ -18,6 +18,7 @@ The column selector can be given in a number of different forms, to make it easy
 * `dt-string {integer}:visible` - Alias of `dt-string {integer}:visIdx`. Note that as of 2.1.4 it is possible to use a regular DOM selector in front of `:visible` to select visible columns that match the given selector. The prefixed number is a special case.
 * `dt-string {string}:name` - Column name selector, from `dt-init columns.name` (e.g. `salary:name`)
 * `dt-string {string}:title` - Column title selector - select based on the title text for the column (e.g. `My\ Column:title`)
+* `dt-string *` - All columns selector (wildcard)
 * `dt-type string` - CSS selector
 * `dt-type node` - This may be one of the following:
   * `-tag th` / `-tag td` cell from the column headers
@@ -37,8 +38,8 @@ If no selector is given (more specifically `dt-type undefined`), then all column
 ###### Get data for all columns in the table:
 
 ```js
-var table = new DataTable('#myTable');
-var allData = table.columns().data();
+let table = new DataTable('#myTable');
+let allData = table.columns().data();
 ```
 
 
@@ -51,8 +52,8 @@ Note that this is the column _data index_ and not the _visible index_. The _data
 ###### Column data index 0 data:
 
 ```js
-var table = new DataTable('#myTable');
-var data = table.column( 0 ).data();
+let table = new DataTable('#myTable');
+let data = table.column( 0 ).data();
 ```
 
 
@@ -63,14 +64,14 @@ The visible index of a column is the index when hidden columns are taken into ac
 ###### Get the data for a column that was clicked on:
 
 ```js
-var table = new DataTable('#myTable', {
+let table = new DataTable('#myTable', {
 	columnDefs: [
 		{ visible: false, targets: 1 }
 	]
 } );
 
 $('#example tbody').on( 'click', 'td', function () {
-	var columnData = table
+	let columnData = table
 		.column( $(this).index()+':visIdx' )
 		.data();
 } );
@@ -98,7 +99,7 @@ Note that assigned column names need not be unique (although that you would norm
 ###### Get the data for a named column:
 
 ```js
-var table = new DataTable('#myTable', {
+let table = new DataTable('#myTable', {
 	columns: [
 		{ name: 'first-name' },
 		{ name: 'last-name' },
@@ -110,6 +111,18 @@ var table = new DataTable('#myTable', {
 
 // Get salary column data
 table.column( 'salary:name' ).data();
+```
+
+
+## string - *
+
+A string with a single `*` option is a CSS wildcard selector and can be used to select all columns (effectively the same as passing no selector, as described above). This can be particularly useful when using a `-type row-selector` with `-api cells()`.
+
+###### Get data for all columns in the table:
+
+```js
+let table = new DataTable('#myTable');
+let allData = table.columns('*').data();
 ```
 
 
@@ -126,22 +139,22 @@ Note that just like jQuery selector, is it possible to supply multiple selectors
 ###### Select a single column by id:
 
 ```js
-var table = new DataTable('#myTable');
-var column = table.column('#column-3');
+let table = new DataTable('#myTable');
+let column = table.column('#column-3');
 ```
 
 ###### Select columns by class name:
 
 ```js
-var table = new DataTable('#myTable');
-var columns = table.columns('.priority');
+let table = new DataTable('#myTable');
+let columns = table.columns('.priority');
 ```
 
 ###### Select column by contents:
 
 ```js
-var table = new DataTable('#myTable');
-var column = table.column(':contains(Salary)');
+let table = new DataTable('#myTable');
+let column = table.column(':contains(Salary)');
 ```
 
 
@@ -154,10 +167,10 @@ This can be useful for getting data from a column, or performing other column ba
 ###### Get the data for a column that was clicked upon:
 
 ```js
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 
 $('#example thead').on( 'click', 'th', function () {
-  var columnData = table.column( this ).data();
+  let columnData = table.column( this ).data();
   // ... do something with `columnData`
 } );
 ```
@@ -182,9 +195,9 @@ The function is called once for every column that can be selected, based on the 
 ###### Get the data for all columns that contain the string `Active`:
 
 ```js
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 
-var active = table
+let active = table
 	.columns( function ( idx, data, node ) {
 		return $.inArray( 'Active', data ) !== -1 ?
 			true : false;
@@ -202,10 +215,10 @@ Please note that when working with a jQuery selected set of columns and hidden c
 ###### Get data from columns in a jQuery instance:
 
 ```js
-var columns = $('#example thead th.immediate');
-var table = new DataTable('#myTable');
+let columns = $('#example thead th.immediate');
+let table = new DataTable('#myTable');
 
-var columnData = table.columns( columns ).data();
+let columnData = table.columns( columns ).data();
 ```
 
 
@@ -216,15 +229,15 @@ Any combination of the above options can be given as selector together, providin
 ###### Get the data for two columns, based on column index:
 
 ```js
-var table = new DataTable('#myTable');
-var data = table.columns( [0, 1] ).data();
+let table = new DataTable('#myTable');
+let data = table.columns( [0, 1] ).data();
 ```
 
 ###### Mix `column-selector` types - index and class selector
 
 ```js
-var table = new DataTable('#myTable');
-var data = table.columns( [0, '.important'] ).data();
+let table = new DataTable('#myTable');
+let data = table.columns( [0, '.important'] ).data();
 ```
 
 
