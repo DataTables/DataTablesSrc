@@ -50,7 +50,7 @@ table.on('requestChild.dt', function (e, row) {
 });
 
 // Add event listener for opening and closing details
-$('#example tbody').on('click', 'td.dt-control', function () {
+$('#example').on('click', 'tbody td.dt-control', function () {
 	var tr = $(this).closest('tr');
 	var row = table.row(tr);
 
@@ -109,7 +109,7 @@ table.on('requestChild.dt', function (e, row) {
 });
 
 // Add event listener for opening and closing details
-table.on('click', 'td.dt-control', function (e) {
+table.on('click', 'tbody td.dt-control', function (e) {
 	let tr = e.target.closest('tr');
 	let row = table.row(tr);
 
