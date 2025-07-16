@@ -14,7 +14,7 @@ The row selector can be given in a number of different forms, to make it easy to
 
 * No selector - Select all rows
 * `dt-type integer` - Row index selector
-* `dt-string *` - All rows selector (wild card)
+* `dt-string *` - All rows selector (wildcard)
 * `dt-string #{string}` - ID selector
 * `dt-type string` - CSS selector
 * `dt-type node` - This may be one of the following:
