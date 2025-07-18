@@ -141,5 +141,26 @@ describe('core - i18n()', function() {
 				)
 			).toBe('2 any');
 		});
+
+		it('Can get object subtrees', function () {
+			let paging = table.i18n('oPaginate', {}, false);
+
+			expect(paging.sFirst).toBe('«');
+			expect(paging.sLast).toBe('»');
+			expect(paging.sNext).toBe('›');
+			expect(paging.sPrevious).toBe('‹');
+		});
+
+		it('Will not get the subtree if `false` not given for the plural', function () {
+			let paging = table.i18n('oPaginate', {});
+
+			expect(paging).toBeUndefined();
+		});
+
+		it('Would in fact give the default if given', function () {
+			let paging = table.i18n('unknown', {_: 'test'});
+
+			expect(paging).toBe('test');
+		});
 	});
 });

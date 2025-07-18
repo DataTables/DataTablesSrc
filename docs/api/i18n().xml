@@ -17,8 +17,10 @@
 
 			The characters `%d` will be replaced in the string by the value given for the `numeric` parameter passed to this function.
 		</parameter>
-		<parameter type="integer" name="numeric" default="undefined">
+		<parameter type="integer|boolean" name="numeric" default="undefined">
 			If handling numeric output, the number to be presented should be given in this parameter. If not numeric operator is required (for example button label text) this parameter is not required.
+
+			Since 2.4.3 this parameter can also be given as `false` to indicate that no plural resolution should happen. Use this if you wish to retrieve a particular subtree from the language object.
 		</parameter>
 		<returns type="string">Resulting internationalised string</returns>
 	</type>
