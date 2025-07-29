@@ -1,10 +1,4 @@
 
-> # On going outage
->
-> At approximatly 05:00 GMT today, the DataTables.net became unaccessable. I'm working to address this as quickly as possible, but it requires input from the domain registrar which is slowing things down. I'm very sorry for any problems this causes.
->
-> As many websites use files from `cdn.datatables.net`, I've set up an alternative at `datatables-cdn.com` which is a direct replacement. For any script and style files you were loading from the main CDN, just replace the domain name with the new one. The paths all stay the same.
-
 # DataTables - enhance HTML tables
 
 This git repository contains the un-built source files for DataTables - an HTML table enhancing library. If you are looking to use DataTables, please use our [download builder](https://datatables.net/download), which include [CDN](https://cdn.datatables.net) and package options, including NPM.
