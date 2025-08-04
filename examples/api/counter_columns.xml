@@ -16,20 +16,19 @@ var table = $('#example').DataTable({
 			targets: 0
 		}
 	],
-	order: [[1, 'asc']]
+	order: [[1, 'asc']],
+	on: {
+		draw: function (e) {
+			let start = e.dt.page.info().start;
+
+			e.dt.column(0, {page: 'current'})
+				.nodes()
+				.each(function (cell, i) {
+					cell.textContent = start + i + 1;
+				});
+		}
+	}
 });
-
-table
-	.on('order.dt search.dt', function () {
-		var i = 1;
-
-		table
-			.cells(null, 0, { search: 'applied', order: 'applied' })
-			.every(function (cell) {
-				this.data(i++);
-			});
-	})
-	.draw();
 ]]></js>
 
 <js-vanilla><![CDATA[
@@ -41,27 +40,30 @@ const table = new DataTable('#example', {
 			targets: 0
 		}
 	],
-	order: [[1, 'asc']]
+	order: [[1, 'asc']],
+	on: {
+		draw: (e) => {
+			let start = e.dt.page.info().start;
+
+			e.dt.column(0, {page: 'current'})
+				.nodes()
+				.each((cell, i) => {
+					cell.textContent = start + i + 1;
+				});
+		}
+	}
 });
-
-table
-	.on('order.dt search.dt', function () {
-		let i = 1;
-
-		table
-			.cells(null, 0, { search: 'applied', order: 'applied' })
-			.every(function (cell) {
-				this.data(i++);
-			});
-	})
-	.draw();
 ]]></js-vanilla>
 
 <info><![CDATA[
 
 Highly-interactive tables often require a 'counter' column that contains the position for each row in the table. This column should not be sortable, and will change dynamically as the ordering and searching applied to the table is altered by the end user.
 
-This example shows how this can be achieved with DataTables, where the first column is the counter column, and is updated when ordering or searching occurs. This is done by listening for the `dt-event order` and `dt-event search` events emitted by the table. When these events are detected the `dt-api cells().every()` method is used to iterate over the cells in the first column with `-api cell().data()` used to  update their contents as needed. Note that the `filter` and `order` options are using in the `dt-api column()` method to get the nodes in the current order and with the currently applied filter.
+This example shows how this can be achieved with DataTables, where the first column is the counter column, and the cells are updated whenever the table is drawn to show their index location in the current filtering set. Only the rows that are displayed are updated to help improve performance in large data sets.
+
+This is done by using `-init on` to add a `-event draw` event handler when the table starts up and then `-api column().nodes()` is used to get all of the -tag td` elements and `-api every()` to loop over them an update the display.
+
+Note that since this is applied only to the displayed cells, we need to take account of the paging offset, which is done with the `start` property from `-api page.info()`.
 
 ]]></info>
 
