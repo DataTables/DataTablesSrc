@@ -8,7 +8,7 @@
 
 The DataTables data type object contains information about how it should handle different data types.
 
-Using [Typescript definitions](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html), the object has the following structure:
+Using [TypeScript definitions](https://www.typescriptlang.org/docs/handbook/2/type-declarations.html), the object has the following structure:
 
 ```js
 interface DataTable.Type {
@@ -70,7 +70,7 @@ Ordering in DataTables is done by the `pre`, `asc` and `desc` functions defined 
 Each of these functions is optional and you may use one of the following combinations:
 
 * `pre` only - ordering will be done using the DataTables default sort on the returned data.
-* `asc` and `desc` only - [standard Javascript sorting functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort).
+* `asc` and `desc` only - [standard JavaScript sorting functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort).
 * All three - the preformatted data will be passed into the custom ordering methods.
 
 It is strongly recommended that you provide a `pre` method if you need to transform the data from the original data type into something that the ordering methods will use. This is because the `pre` function is run only once per data point while ordering, while the `asc` and `desc` ordering methods might be called multiple times per data point.

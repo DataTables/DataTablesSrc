@@ -10,7 +10,7 @@
 		<parameter type="string|integer" name="property">
 			Object property name to use from the element in the original result set for the new result set. This will typically be a string with the target property name, but can also be an array index if working with arrays.
 
-			As of DataTables 1.12 Javascript dot notation can also be used to read nested JSON data. All of the options offered by `-api DataTable.util.get()` can get used.
+			As of DataTables 1.12 JavaScript dot notation can also be used to read nested JSON data. All of the options offered by `-api DataTable.util.get()` can get used.
 		</parameter>
 		<returns type="DataTables.Api">New API instance with the values in the result retrieved from the source object properties defined by the property being plucked.</returns>
 	</type>
@@ -18,7 +18,7 @@
 	<description>
 		When working with objects you may often find that you want an array containing just one property of the source object. This typically involves writing a trivial loop to create that array, although here, that loop is performed in this method, reducing the amount of code required to a trivial function call to get the data required.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 	</description>
 
 	<example title="Pluck the name property from the data objects for the table rows"><![CDATA[

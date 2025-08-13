@@ -70,7 +70,7 @@ describe('nonjQuery - ajax', function () {
 	});
 
 	it('Functions were called as needed', function () {
-		// The sorting algorthim defines how many times it will actually be called
+		// The sorting algorithm defines how many times it will actually be called
 		expect(counterAsc).toBeGreaterThan(0);
 		expect(counterDesc).toBe(0);
 	});

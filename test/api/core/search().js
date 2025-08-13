@@ -109,7 +109,7 @@ describe('core - search()', function() {
 		});
 
 		dt.html('basic');
-		it('Non-case sensitive regex search', function() {
+		it('Case-insensitive regex search', function() {
 			let table = $('#example').DataTable();
 			table.search('^a.*s$', true, false, false).draw();
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');

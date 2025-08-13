@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="js">
 	<name>number</name>
-	<summary>Javascript `Number` type</summary>
+	<summary>JavaScript `Number` type</summary>
 
 	<description>
 	<![CDATA[
 
-Numbers in Javascript (both integers and floating point numbers) are stored in the `number` type.
+Numbers in JavaScript (both integers and floating point numbers) are stored in the `number` type.
 
 A detailed description of the `Number` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number).
 

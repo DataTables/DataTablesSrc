@@ -15,7 +15,7 @@ describe('column.contentPadding option', function() {
 		});
 
 		dt.html('basic');
-		it('Ensure it is substanitally larger now', function() {
+		it('Ensure it is substantially larger now', function() {
 			$('#example').dataTable({
 				columns: [null, null, null, { contentPadding: 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm' }, null, null]
 			});

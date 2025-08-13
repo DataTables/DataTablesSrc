@@ -27,7 +27,7 @@ var __reload = function ( settings, holdPosition, callback ) {
 			_fnClearTable( settings );
 
 			var data = _fnAjaxDataSrc( settings, json );
-			for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+			for ( var i=0, iLen=data.length ; i<iLen ; i++ ) {
 				_fnAddData( settings, data[i] );
 			}
 

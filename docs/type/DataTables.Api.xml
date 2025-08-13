@@ -11,7 +11,7 @@ The DataTables API provides the ability to programmatically control one or more 
 
 ## API structure
 
-The API object is _array-like_, in that it has a `length` property, elements in its result set can be accessed using Javascript array notation (`[]`) and it provides many (although not all) of the same methods as an `dt-type array` (for example `dt-api push()` and `dt-api indexOf()`).
+The API object is _array-like_, in that it has a `length` property, elements in its result set can be accessed using JavaScript array notation (`[]`) and it provides many (although not all) of the same methods as an `dt-type array` (for example `dt-api push()` and `dt-api indexOf()`).
 
 
 ## Accessing the API

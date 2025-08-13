@@ -30,7 +30,7 @@ describe('cells - cell().node()', function() {
 
 	dt.html('basic');
 
-	it('Returns first cell as expected from before Datatables initialisation', function() {
+	it('Returns first cell as expected from before DataTables initialisation', function() {
 		var oldcells = $('#example tbody td');
 		var table = $('#example').DataTable();
 		expect(table.cell(0, 0).node()).toBe(oldcells[0]);

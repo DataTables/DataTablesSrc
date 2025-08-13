@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="js">
 	<name>function</name>
-	<summary>Javascript `Function`</summary>
+	<summary>JavaScript `Function`</summary>
 
 	<description>
 	<![CDATA[
 
-Functions are a key component of any programming language, particularly in Javascript which treats functions as first class objects. Functions are created using the construct `function () {}`, `function name () {}` or `new Function()`.
+Functions are a key component of any programming language, particularly in JavaScript which treats functions as first class objects. Functions are created using the construct `function () {}`, `function name () {}` or `new Function()`.
 
 A detailed description of the `Function` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).
 

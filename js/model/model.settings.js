@@ -31,7 +31,7 @@ DataTable.models.oSettings = {
 		/**
 		 * Delay the creation of TR and TD elements until they are actually
 		 * needed by a driven page draw. This can give a significant speed
-		 * increase for Ajax source and Javascript source data, but makes no
+		 * increase for Ajax source and JavaScript source data, but makes no
 		 * difference at all for DOM and server-side processing tables.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
@@ -48,13 +48,13 @@ DataTable.models.oSettings = {
 		"bFilter": null,
 
 		/**
-		 * Used only for compatiblity with DT1
+		 * Used only for compatibility with DT1
 		 * @deprecated
 		 */
 		"bInfo": true,
 
 		/**
-		 * Used only for compatiblity with DT1
+		 * Used only for compatibility with DT1
 		 * @deprecated
 		 */
 		"bLengthChange": true,

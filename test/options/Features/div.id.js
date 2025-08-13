@@ -33,7 +33,7 @@ describe('Div id', function() {
 			expect(div[0].className).toBe('');
 		});
 
-		it('Id is set', function() {
+		it('ID is set', function() {
 			expect(div[0].id).toBe('test');
 		});
 	});

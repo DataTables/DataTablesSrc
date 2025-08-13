@@ -13,7 +13,7 @@
 	<description>
 		This method provides access to the initialisation object that was used to create the DataTable. Its intended use is for plug-in authors who wish to be able to provide column specific customisation options for their DataTables plug-ins. It is particularly useful in the case of columns since it returns the combined object resulting from `-init columnDefs` and `-init columns` initialisation options, as resolved by DataTables.
 
-		When developing with this method keep in mind that the DataTables options are all all optional. They may or may not exist in this object and therefore you should have default values if a property does not exist. 
+		When developing with this method keep in mind that the DataTables options are all optional. They may or may not exist in this object and therefore you should have default values if a property does not exist. 
 
 		**The object returned should never be written to** - it will contain properties internal to DataTables which are not documented. They are internal and may change between versions.
 

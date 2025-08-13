@@ -8,7 +8,7 @@
 DataTables can obtain data from four different fundamental sources:
 
 * HTML document (DOM)
-* Javascript (array / objects)
+* JavaScript (array / objects)
 * Ajax sourced data with client-side processing
 * Ajax sourced data with server-side processing
 

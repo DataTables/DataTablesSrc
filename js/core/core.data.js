@@ -1,6 +1,6 @@
 /**
  * Add a data array to the table, creating DOM node etc. This is the parallel to
- * _fnGatherData, but for adding rows from a Javascript source, rather than a
+ * _fnGatherData, but for adding rows from a JavaScript source, rather than a
  * DOM source.
  *  @param {object} settings dataTables settings object
  *  @param {array} data data array to be added
@@ -140,10 +140,10 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 	}
 
 	if ( type === 'filter' ) {
-		var fomatters = DataTable.ext.type.search;
+		var formatters = DataTable.ext.type.search;
 
-		if ( fomatters[ col.sType ] ) {
-			cellData = fomatters[ col.sType ]( cellData );
+		if ( formatters[ col.sType ] ) {
+			cellData = formatters[ col.sType ]( cellData );
 		}
 	}
 
@@ -273,7 +273,7 @@ function _fnClearTable( settings )
 function _fnInvalidate( settings, rowIdx, src, colIdx )
 {
 	var row = settings.aoData[ rowIdx ];
-	var i, ien;
+	var i, iLen;
 
 	// Remove the cached data for the row
 	row._aSortData = null;
@@ -298,7 +298,7 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 				_fnWriteCell(cells[colIdx], display[colIdx]);
 			}
 			else {
-				for ( i=0, ien=cells.length ; i<ien ; i++ ) {
+				for ( i=0, iLen=cells.length ; i<iLen ; i++ ) {
 					_fnWriteCell(cells[i], display[i]);
 				}
 			}
@@ -316,7 +316,7 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 		cols[ colIdx ].maxLenString = null;
 	}
 	else {
-		for ( i=0, ien=cols.length ; i<ien ; i++ ) {
+		for ( i=0, iLen=cols.length ; i<iLen ; i++ ) {
 			cols[i].sType = null;
 			cols[i].maxLenString = null;
 		}

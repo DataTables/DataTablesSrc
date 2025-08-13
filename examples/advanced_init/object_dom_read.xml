@@ -34,13 +34,13 @@ new DataTable('#example', {
 
 <info><![CDATA[
 
-When DataTables reads the table content from an HTML table (rather than an Ajax or Javascript data source), by default it will read the information in the table into an array that DataTables stores internally. Each array element represents a column.
+When DataTables reads the table content from an HTML table (rather than an Ajax or JavaScript data source), by default it will read the information in the table into an array that DataTables stores internally. Each array element represents a column.
 
 It can be very useful to have DataTables read the information into an object rather than an array, an option that can be triggered using the `dt-init columns.data` initialisation option to define how you want the data to be stored. Typically `dt-init columns.data` is used with [Ajax sourced data](../ajax/objects.html) to tell DataTables where to read data from, but as can be seen here it also tells DataTables where to write the data to.
 
 This ability to store data into an object can be very useful when working with the DataTables API after the table has been initialised.
 
-In the example shown here, the data read from each row in the table is read into a Javascript object with the structure:
+In the example shown here, the data read from each row in the table is read into a JavaScript object with the structure:
 
 ```js
 {

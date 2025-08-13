@@ -174,7 +174,7 @@ _api_registerPlural( 'rows().ids()', 'row().id()', function ( hash ) {
 	var context = this.context;
 
 	// `iterator` will drop undefined values, but in this case we want them
-	for ( var i=0, ien=context.length ; i<ien ; i++ ) {
+	for ( var i=0, iLen=context.length ; i<iLen ; i++ ) {
 		for ( var j=0, jen=this[i].length ; j<jen ; j++ ) {
 			var id = context[i].rowIdFn( context[i].aoData[ this[i][j] ]._aData );
 			a.push( (hash === true ? '#' : '' )+ id );
@@ -218,10 +218,10 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 
 _api_register( 'rows.add()', function ( rows ) {
 	var newRows = this.iterator( 'table', function ( settings ) {
-			var row, i, ien;
+			var row, i, iLen;
 			var out = [];
 
-			for ( i=0, ien=rows.length ; i<ien ; i++ ) {
+			for ( i=0, iLen=rows.length ; i<iLen ; i++ ) {
 				row = rows[i];
 
 				if ( row.nodeName && row.nodeName.toUpperCase() === 'TR' ) {

@@ -8,7 +8,7 @@
 		<signature>sort( [ fn ] )</signature>
 		<description>Sort the elements of the API instance's result set.</description>
 		<parameter type="function" name="fn" default="">
-			This is a standard Javascript sort comparison function. It accepts two parameters:
+			This is a standard JavaScript sort comparison function. It accepts two parameters:
 
 			* Value 1 to compare
 			* Value 2 to compare
@@ -21,9 +21,9 @@
 	<description>
 		The `dt-api sort()` method provides a way of sorted the data in an API instance's result set, which can be particularly useful if you then want to use that data for displaying to the end user - for example as a `dt-tag select` list for a search input. This method should not be confused with `dt-api order()` which is used to order for records in the DataTable.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 
-		In this case, this method is a proxy for the Javascript `Array.prototype.sort` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort).
+		In this case, this method is a proxy for the JavaScript `Array.prototype.sort` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort).
 	</description>
 
 	<example title="Sort the data from a column"><![CDATA[

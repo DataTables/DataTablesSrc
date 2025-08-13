@@ -11,7 +11,7 @@
 		<![CDATA[
 		< Please note that the default value for this parameter was changed for DataTables 2. In 1.x it was default `false`. It was updated to be enabled by default as its performance advantages are significant, particularly for larger tables.
 
-		When DataTables loads data from an Ajax or Javascript data source (`-init ajax` and `-init data` respectively) it can create all HTML elements needed up-front or it can wait until the cells for each row are actually needed for display. This option provides the ability to control that behaviour.
+		When DataTables loads data from an Ajax or JavaScript data source (`-init ajax` and `-init data` respectively) it can create all HTML elements needed up-front or it can wait until the cells for each row are actually needed for display. This option provides the ability to control that behaviour.
 
 		This is effectively a performance parameter - when working with large data sets, creating thousands of DOM nodes operation can take a significant amount of time. This option allows DataTables to create the nodes (rows and cells in the table body) only when they are needed for a draw (paging must be enabled for this to be effective).
 

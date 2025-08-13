@@ -38,7 +38,7 @@ new DataTable('#example', {
 
 <info><![CDATA[
 
-DataTables has the ability to use data from almost any JSON data source through the use of the `dt-init columns.data` option. In its simplest case, it can be used to read arbitrary object properties, but can also be extended to _n_ levels of nested objects / arrays through the use of standard Javascript dotted object notation. Each dot (`.`) in the `dt-init columns.data` option represents another object level.
+DataTables has the ability to use data from almost any JSON data source through the use of the `dt-init columns.data` option. In its simplest case, it can be used to read arbitrary object properties, but can also be extended to _n_ levels of nested objects / arrays through the use of standard JavaScript dotted object notation. Each dot (`.`) in the `dt-init columns.data` option represents another object level.
 
 In this example `hr.position` refers to the `position` property of the `hr` object in the row's data source object, while `contact.0` refers to the first element of the `contact` array. Any number of dots can be used to obtain deeply nested data.
 

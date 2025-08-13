@@ -408,7 +408,7 @@ DataTable.ext = _ext = {
 		 * `{type}-asc` and `{type}-desc` together. It is generally recommended
 		 * that only `{type}-pre` is used, as this provides the optimal
 		 * implementation in terms of speed, although the others are provided
-		 * for compatibility with existing Javascript sort functions.
+		 * for compatibility with existing JavaScript sort functions.
 		 *
 		 * `{type}-pre`: Functions defined take a single parameter:
 		 *
@@ -418,7 +418,7 @@ DataTable.ext = _ext = {
 		 *
 		 * * `{*}` Data to be sorted upon
 		 *
-		 * `{type}-asc` and `{type}-desc`: Functions are typical Javascript sort
+		 * `{type}-asc` and `{type}-desc`: Functions are typical JavaScript sort
 		 * functions, taking two parameters:
 		 *
 	     *  1. `{*}` Data to compare to the second parameter

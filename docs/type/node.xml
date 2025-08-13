@@ -6,7 +6,7 @@
 	<description>
 	<![CDATA[
 
-When working with the DOM, as is typical in a web-browser using Javascript(!), you will often assign DOM elements to a variable - we define this as a `node` for ease of reference. For example:
+When working with the DOM, as is typical in a web-browser using JavaScript(!), you will often assign DOM elements to a variable - we define this as a `node` for ease of reference. For example:
 
 ```js
 var node = document.getElementById('example');

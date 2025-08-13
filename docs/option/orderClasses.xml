@@ -10,7 +10,7 @@
 	<description><![CDATA[
 		DataTables highlight the columns which are used to order the content in the table's body by adding a class to the cells in that column, which in turn has CSS applied to those classes to highlight those cells.
 
-		This is done by the addition of the classes `sorting_1`, `sorting_2` and `sorting_3` to the columns which are currently being ordered on. The integer value indicates the level of sorting when mutli-column sorting. If more than 3 columns are being ordered upon, the `sorting_3` class is repeated.
+		This is done by the addition of the classes `sorting_1`, `sorting_2` and `sorting_3` to the columns which are currently being ordered on. The integer value indicates the level of sorting when multi-column sorting. If more than 3 columns are being ordered upon, the `sorting_3` class is repeated.
 
 		Please note that this feature can affect performance, particularly in old browsers and when there are a lot of rows to be displayed as it is manipulating a large number of DOM elements. As such, this option is available as a feature switch to allow this feature to be disabled with working with old browsers or large data sets.
 ]]></description>

@@ -16,7 +16,7 @@
 	<description>
 		You may find it useful to know if an API instance's result set contains a particular value. While that can be achieved readily with `-api indexOf()`, this utility method can be a useful short-cut if you don't need to know the value's location in the result set.
 
-		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the Javascript `Array` type.
+		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 	</description>
 
 	<example title="Check if a value is visible on the current page"><![CDATA[

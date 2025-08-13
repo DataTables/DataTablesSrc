@@ -13,7 +13,7 @@
 }
 
 // jQuery UI stylesheet imports this one - there are just two places where we
-// don't want DataTabels default styles assigned for jQuery UI, so rather than
+// don't want DataTables default styles assigned for jQuery UI, so rather than
 // duplicating the whole file, this is the best option
 $jqueryui: false !default;
 

@@ -38,7 +38,7 @@
 
 			* `data` (`dt-init ajax.data`) - As with jQuery, `data` can be provided as an object, but as an extension, it can also be provided as a function to manipulate the data DataTables sends to the server. The function takes a single parameter, an object where the parameters are name / value pairs that DataTables has readied for sending. An object may be returned which will be use used as the data to send to the server (therefore, if you wish to use the DataTables set parameters, you must merge them in your function), or you can add the items to the object that was passed in and not return anything from the function. This supersedes `fnServerParams` from DataTables 1.9-.
 			* `dataSrc` (`dt-init ajax.dataSrc`) - By default DataTables will look for the property `data` (or `aaData` for compatibility with DataTables 1.9-) when obtaining data from an Ajax source or for server-side processing - this parameter allows that property to be changed, through two different forms:
-			  * As a string - define the property from the object to read. Note that if your Ajax source simply returns an array of data to display, rather than an object, set this parameter to be an empty string. Additionally you can use Javascript dotted object notation to get a data source for multiple levels of object / array nesting.
+			  * As a string - define the property from the object to read. Note that if your Ajax source simply returns an array of data to display, rather than an object, set this parameter to be an empty string. Additionally you can use JavaScript dotted object notation to get a data source for multiple levels of object / array nesting.
 			  * As a function - As a function it takes a single parameter, the JSON returned from the server, which can be manipulated as required. The returned value from the function is what will be used by DataTables as the data source for the table.
 			  * This supersedes `sAjaxDataProp` from DataTables 1.9-.
 			* `submitAs` (`-init ajax.submitAs`) - Instruct the Ajax request to send the data to the server as HTTP parameters (default), or as a JSON string (since DataTables 2.3).
@@ -166,7 +166,7 @@ new DataTable('#myTable', {
 	ajax: {
 		url: 'data.json',
 		dataSrc: function (json) {
-			for (var i = 0, ien = json.length; i < ien; i++) {
+			for (var i = 0, iLen = json.length; i < iLen; i++) {
 				json[i][0] = '<a href="/message/' + json[i][0] + '>View message</a>';
 			}
 			return json;

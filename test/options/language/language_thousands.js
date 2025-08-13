@@ -40,7 +40,7 @@ describe('language.thousands option ', function() {
 	});
 
 	dt.html('numerical');
-	it('Use an empty string to show no seperator', function(done) {
+	it('Use an empty string to show no separator', function(done) {
 		$('#example').dataTable({
 			ajax: '/base/test/data/numerical.txt',
 			columns: [{ data: 'city' }, { data: 'Score' }, { data: 'Salary' }],

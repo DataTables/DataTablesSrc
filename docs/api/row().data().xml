@@ -13,7 +13,7 @@
 		<signature>row().data( d )</signature>
 		<description>Set the data for the selected row</description>
 		<parameter type="array|object" name="d">
-			Data to use for the row. This may be an array, object or Javascript object instance, but must be in the same format as the other data in the table (i.e. if your table uses objects, pass in an object here!).
+			Data to use for the row. This may be an array, object or JavaScript object instance, but must be in the same format as the other data in the table (i.e. if your table uses objects, pass in an object here!).
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with the row retrieved by the selector in the result set.</returns>
 	</type>

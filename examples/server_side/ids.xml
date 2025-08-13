@@ -41,7 +41,7 @@ new DataTable('#example', {
 
 <info><![CDATA[
 
-Often when using server-side processing you will find that it can be useful to have a specific ID on each row (the primary key value from the database for example). By assigning the ID you want to apply to each row using the property `DT_RowId` of the data source object for each row (this property name can be configured using the `dt-init rowId` option), DataTables will automatically add it for you (note that this will work for Ajax and Javascript loaded data as well as for server-side processing).
+Often when using server-side processing you will find that it can be useful to have a specific ID on each row (the primary key value from the database for example). By assigning the ID you want to apply to each row using the property `DT_RowId` of the data source object for each row (this property name can be configured using the `dt-init rowId` option), DataTables will automatically add it for you (note that this will work for Ajax and JavaScript loaded data as well as for server-side processing).
 
 In addition to `DT_RowId` there are other properties which perform similar actions - please refer to the [server-side processing section of the manual](https://datatables.net/manual/server-side) for full details.
 

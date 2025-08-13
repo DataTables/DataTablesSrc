@@ -33,7 +33,7 @@ new DataTable('#example', {
 
 <info><![CDATA[
 
-There are times when you may wish to call API functions inside the DataTables callback functions (for example `dt-init initComplete`, `dt-init rowCallback` etc). The complicating issue with this is that the object hasn't fully initialised, so you can't assign the result to a variable and then use that variable in the callback. However, all of DataTables' callback functions are executed in the scope of the DataTable instance, so you can use the Javascript special variable `this` to access the API (`this.api()` will give an API instance) as `this` is the `-tag table` node.
+There are times when you may wish to call API functions inside the DataTables callback functions (for example `dt-init initComplete`, `dt-init rowCallback` etc). The complicating issue with this is that the object hasn't fully initialised, so you can't assign the result to a variable and then use that variable in the callback. However, all of DataTables' callback functions are executed in the scope of the DataTable instance, so you can use the JavaScript special variable `this` to access the API (`this.api()` will give an API instance) as `this` is the `-tag table` node.
 
 In this example we use an event handler attached to all `-tag td` cells in the table to demonstrate use of the API. We get the value of the cell in question and apply that add the search to the table with `-api search()`.
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="js">
 	<name>integer</name>
-	<summary>Subset of the Javascript `Number` type using only integers</summary>
+	<summary>Subset of the JavaScript `Number` type using only integers</summary>
 
 	<description>
 	<![CDATA[
 
-Javascript doesn't have a native integer data type as `Numbers` can represent integers without compromising data accuracy. However, it is often useful to indicate for a particular parameter or method that it expects or returns a value that is an integer, rather than a floating point number (which are also represented by the `Number` type). As such, we define this special, non-native, type to indicate the use of an integer value.
+JavaScript doesn't have a native integer data type as `Numbers` can represent integers without compromising data accuracy. However, it is often useful to indicate for a particular parameter or method that it expects or returns a value that is an integer, rather than a floating point number (which are also represented by the `Number` type). As such, we define this special, non-native, type to indicate the use of an integer value.
 
 A detailed description of the `Number` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number).
 

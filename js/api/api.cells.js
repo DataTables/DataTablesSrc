@@ -7,7 +7,7 @@ var __cell_selector = function ( settings, selector, opts )
 	var allCells = $(_flatten( [], cells ));
 	var row;
 	var columns = settings.aoColumns.length;
-	var a, i, ien, j, o, host;
+	var a, i, iLen, j, o, host;
 
 	var run = function ( s ) {
 		var fnSelector = typeof s === 'function';
@@ -16,7 +16,7 @@ var __cell_selector = function ( settings, selector, opts )
 			// All cells and function selectors
 			a = [];
 
-			for ( i=0, ien=rows.length ; i<ien ; i++ ) {
+			for ( i=0, iLen=rows.length ; i<iLen ; i++ ) {
 				row = rows[i];
 
 				for ( j=0 ; j<columns ; j++ ) {
@@ -121,12 +121,12 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 	// Row + column selector
 	var columns = this.columns( columnSelector, internalOpts );
 	var rows = this.rows( rowSelector, internalOpts );
-	var i, ien, j, jen;
+	var i, iLen, j, jen;
 
 	var cellsNoOpts = this.iterator( 'table', function ( settings, idx ) {
 		var a = [];
 
-		for ( i=0, ien=rows[idx].length ; i<ien ; i++ ) {
+		for ( i=0, iLen=rows[idx].length ; i<iLen ; i++ ) {
 			for ( j=0, jen=columns[idx].length ; j<jen ; j++ ) {
 				a.push( {
 					row:    rows[idx][i],

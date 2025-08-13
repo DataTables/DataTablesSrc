@@ -13,7 +13,7 @@ var __numericReplace = function ( d, decimalPlace, re1, re2 ) {
 
 	// If a decimal place other than `.` is used, it needs to be given to the
 	// function so we can detect it and replace with a `.` which is the only
-	// decimal place Javascript recognises - it is not locale aware.
+	// decimal place JavaScript recognises - it is not locale aware.
 	if ( decimalPlace ) {
 		d = _numToDecimal( d, decimalPlace );
 	}

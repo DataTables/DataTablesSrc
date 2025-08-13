@@ -69,7 +69,7 @@ function _fnFilterCustom( settings )
 	var displayRows = settings.aiDisplay;
 	var row, rowIdx;
 
-	for ( var i=0, ien=filters.length ; i<ien ; i++ ) {
+	for ( var i=0, iLen=filters.length ; i<iLen ; i++ ) {
 		var rows = [];
 
 		// Loop over each row and see if it should be included
@@ -137,7 +137,7 @@ function _fnFilter( searchRows, settings, input, options, column )
  *  @param {string} sSearch string to search for
  *  @param {bool} bRegex treat as a regular expression or not
  *  @param {bool} bSmart perform smart filtering or not
- *  @param {bool} bCaseInsensitive Do case insensitive matching or not
+ *  @param {bool} bCaseInsensitive Do case-insensitive matching or not
  *  @returns {RegExp} constructed object
  *  @memberof DataTable#oApi
  */
