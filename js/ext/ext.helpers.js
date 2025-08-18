@@ -53,8 +53,8 @@ function __mldObj (d, format, locale) {
 		}
 	}
 	else if (__luxon) {
-		dt = format && typeof d === 'string'
-			? __luxon.DateTime.fromFormat( d, format )
+		dt = typeof d === 'string' && format
+			? (format == 'X' ? __luxon.DateTime.fromSeconds( d ) : format == 'x' ? __luxon.DateTime.fromMillis( d ) : __luxon.DateTime.fromFormat( d, format ))
 			: __luxon.DateTime.fromISO( d );
 
 		if (! dt.isValid) {
