@@ -110,7 +110,7 @@ var __details_remove = function ( api, idx )
 		var row = ctx[0].aoData[ idx !== undefined ? idx : api[0] ];
 
 		if ( row && row._details ) {
-			row._details.remove();
+			row._details.detach();
 
 			row._detailsShow = undefined;
 			row._details = undefined;
