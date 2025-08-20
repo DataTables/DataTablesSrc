@@ -127,7 +127,7 @@ module.exports = function(config) {
 			{ pattern: 'test/data/*.txt', included: false },
 			{ pattern: 'test/html/*.html', included: false },
 			{ pattern: 'extensions/*/test/html/*.html', included: false },
-			{ pattern: 'test/api/*.*.js', included: true },
+			{ pattern: 'test/api/*/*.js', included: true },
 			testFiles, extensionFiles
 		],
 
