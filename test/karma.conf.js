@@ -122,12 +122,9 @@ module.exports = function(config) {
 			{ pattern: 'built/DataTables/**/*.js', included: false },
 			{ pattern: 'built/DataTables/**/*.css', included: false },
 			{ pattern: 'built/DataTables/**/*.png', included: false },
-			{ pattern: 'built/DataTables/extensions/*/js/*.js', included: false },
-			{ pattern: 'built/DataTables/extensions/*/css/*.css', included: false },
 			{ pattern: 'test/data/*.txt', included: false },
 			{ pattern: 'test/html/*.html', included: false },
 			{ pattern: 'extensions/*/test/html/*.html', included: false },
-			{ pattern: 'test/api/*/*.js', included: true },
 			testFiles, extensionFiles
 		],
 
