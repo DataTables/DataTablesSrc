@@ -272,7 +272,7 @@ module.exports = function(config) {
 				// External libraries
 				// Ensure that these are in sync with the build/examples.php file
 				jquery: {
-					js: '//code.jquery.com/jquery-1.12.4.js'
+					js: 'https://code.jquery.com/jquery-3.7.1.min.js'
 				},
 				jqueryui: {
 					js: '//code.jquery.com/ui/1.11.4/jquery-ui.js',
