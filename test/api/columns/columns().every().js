@@ -44,7 +44,7 @@ describe('columns- columns().every()', function() {
 				iterated.push(index);
 			});
 
-			expect($.unique(iterated).length).toBe(6);
+			expect(DataTable.util.unique(iterated).length).toBe(6);
 		});
 
 		dt.html('basic');

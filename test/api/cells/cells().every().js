@@ -63,7 +63,7 @@ describe('cells- cells().every()', function() {
 			iteratedCells = [];
 			table.cells().every(iterateFunc);
 
-			expect($.unique(iteratedCells).length).toBe(57 * 6);
+			expect(DataTable.util.unique(iteratedCells).length).toBe(57 * 6);
 		});
 
 		dt.html('basic');
@@ -89,7 +89,7 @@ describe('cells- cells().every()', function() {
 			iteratedCells = [];
 			table.cells('.myTest').every(iterateFunc);
 
-			expect($.unique(iteratedCells).length).toBe(1);
+			expect(DataTable.util.unique(iteratedCells).length).toBe(1);
 		});
 
 		dt.html('basic');
@@ -101,7 +101,7 @@ describe('cells- cells().every()', function() {
 			iteratedCells = [];
 			table.cells('.myTest').every(iterateFunc);
 
-			expect($.unique(iteratedCells).length).toBe(table.cells('.myTest').count());
+			expect(DataTable.util.unique(iteratedCells).length).toBe(table.cells('.myTest').count());
 		});
 
 		dt.html('basic');
@@ -113,7 +113,7 @@ describe('cells- cells().every()', function() {
 			iteratedCells = [];
 			table.cells('.myTest').every(iterateFunc);
 
-			expect($.unique(iteratedCells).length).toBe(57);
+			expect(DataTable.util.unique(iteratedCells).length).toBe(57);
 		});
 
 		dt.html('basic');
@@ -125,7 +125,7 @@ describe('cells- cells().every()', function() {
 			iteratedCells = [];
 			table.cells('.myTest').every(iterateFunc);
 
-			expect($.unique(iteratedCells).length).toBe(6);
+			expect(DataTable.util.unique(iteratedCells).length).toBe(6);
 		});
 	});
 });

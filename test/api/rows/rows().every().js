@@ -48,7 +48,7 @@ describe('rows- rows().every()', function() {
 				iterated.push(index);
 			});
 
-			expect($.unique(iterated).length).toBe(57);
+			expect(DataTable.util.unique(iterated).length).toBe(57);
 		});
 
 		dt.html('basic');
