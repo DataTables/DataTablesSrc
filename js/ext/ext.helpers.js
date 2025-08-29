@@ -167,7 +167,10 @@ function __mlHelper (localeString) {
 			}
 			
 			var formatted = to === null
-				? __mld(dt, 'toDate', 'toJSDate', '')[localeString]()
+				? __mld(dt, 'toDate', 'toJSDate', '')[localeString](
+					navigator.language,
+					{ timeZone: "UTC" }
+				)
 				: __mld(dt, 'format', 'toFormat', 'toISOString', to);
 
 			// XSS protection
