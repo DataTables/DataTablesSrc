@@ -168,14 +168,14 @@ function _fnAjaxParameters(settings) {
 					regex: preColSearch[i].regex,
 					fixed: Object.keys(column.searchFixed)
 						.map(function (name) {
-							return typeof column.searchFixed[name] !== 'function'
-								? {
-										name: name,
-										term: column.searchFixed[name].toString()
-								}
-								: null;
+							var obj = {
+								name: name
+							};
+							if ( typeof column.searchFixed[name] !== 'function' ) {
+								obj.term = column.searchFixed[name].toString();
+							}
+							return obj;
 						})
-						.filter((val) => val !== null)
 				}
 			};
 		}),
@@ -193,14 +193,14 @@ function _fnAjaxParameters(settings) {
 			regex: preSearch.regex,
 			fixed: Object.keys(settings.searchFixed)
 				.map(function (name) {
-					return typeof settings.searchFixed[name] !== 'function'
-						? {
-								name: name,
-								term: settings.searchFixed[name].toString()
-						}
-						: null;
+					var obj = {
+						name: name
+					};
+					if ( typeof settings.searchFixed[name] !== 'function' ) {
+						obj.term = settings.searchFixed[name].toString();
+					}
+					return obj;
 				})
-				.filter((val) => val !== null)
 		}
 	};
 }
