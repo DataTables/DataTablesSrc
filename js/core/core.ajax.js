@@ -168,12 +168,12 @@ function _fnAjaxParameters(settings) {
 					regex: preColSearch[i].regex,
 					fixed: Object.keys(column.searchFixed)
 						.map(function (name) {
-							return typeof column.searchFixed[name] !== 'function'
-								? {
-										name: name,
-										term: column.searchFixed[name].toString()
-								}
-								: null;
+							return {
+								name: name,
+								term: typeof column.searchFixed[name] !== 'function'
+									? column.searchFixed[name].toString()
+									: 'function'
+								};
 						})
 						.filter((val) => val !== null)
 				}
@@ -193,12 +193,12 @@ function _fnAjaxParameters(settings) {
 			regex: preSearch.regex,
 			fixed: Object.keys(settings.searchFixed)
 				.map(function (name) {
-					return typeof settings.searchFixed[name] !== 'function'
-						? {
-								name: name,
-								term: settings.searchFixed[name].toString()
-						}
-						: null;
+					return {
+						name: name,
+						term: typeof settings.searchFixed[name] !== 'function'
+							? settings.searchFixed[name].toString()
+							: 'function'
+					};
 				})
 				.filter((val) => val !== null)
 		}
