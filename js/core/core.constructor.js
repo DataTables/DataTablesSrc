@@ -81,6 +81,9 @@ if ( sId === null || sId === "" )
 	this.id = sId;
 }
 
+// Replacing an existing colgroup with our own. Not ideal, but a merge could take a lot of code
+$this.children('colgroup').remove();
+
 /* Create the settings object for this table and set some of the default parameters */
 var oSettings = $.extend( true, {}, DataTable.models.oSettings, {
 	"sDestroyWidth": $this[0].style.width,
