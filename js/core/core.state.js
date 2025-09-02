@@ -142,12 +142,12 @@ function _fnImplementState ( settings, s, callback) {
 	if ( s.order !== undefined ) {
 		settings.aaSorting = [];
 		$.each( s.order, function ( i, col ) {
-			var set = [ _isNumber(col[0]) ? parseInt(col[0]) : col[0], col[1] ];
+			var set = [ col[0], col[1] ];
 
 			// A column name was stored and should be used for restore
-			if (typeof set[0] === 'string') {
+			if (typeof col[0] === 'string') {
 				// Find the name from the current list of column names
-				var idx = currentNames.indexOf(set[0]);
+				var idx = currentNames.indexOf(col[0]);
 
 				if (idx < 0) {
 					// If the column was not found ignore it and continue
