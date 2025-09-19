@@ -414,6 +414,14 @@ function _fnDraw( oSettings, ajaxComplete )
 		{
 			var iDataIndex = aiDisplay[j];
 			var aoData = oSettings.aoData[ iDataIndex ];
+
+			// Row has been deleted - can't be displayed
+			if (aoData === null)
+			{
+				continue;
+			}
+
+			// Row node hasn't been created yet
 			if ( aoData.nTr === null )
 			{
 				_fnCreateTr( oSettings, iDataIndex );
