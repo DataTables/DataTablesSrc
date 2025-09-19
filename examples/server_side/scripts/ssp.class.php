@@ -127,10 +127,15 @@ class SSP {
 
 		if ( isset($request['order']) && count($request['order']) ) {
 			$orderBy = array();
-			$dtColumns = self::pluck( $columns, 'dt' );
 
 			for ( $i=0, $iLen=count($request['order']) ; $i<$iLen ; $i++ ) {
 				$columnIdx = $request['order'][$i]['column'];
+
+				// Make sure that a valid column index was submitted
+				if (! isset($request['columns'][$columnIdx])) {
+					continue;
+				}
+
 				$requestColumn = $request['columns'][$columnIdx];
 				$column = $columns[ $columnIdx ];
 
@@ -200,7 +205,7 @@ class SSP {
 				$str = $requestColumn['search']['value'];
 
 				if ( $requestColumn['searchable'] == 'true' &&
-				 $str != '' ) {
+				 $str != '' && is_string(($str)) ) {
 					if(!empty($column['db'])){
 						$binding = self::bind( $bindings, '%'.$str.'%', PDO::PARAM_STR );
 						$columnSearch[] = "`".$column['db']."` LIKE ".$binding;
