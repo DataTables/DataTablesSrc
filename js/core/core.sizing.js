@@ -119,7 +119,7 @@ function _fnCalculateColumnWidths ( settings )
 				columnIdx = visibleColumns[j];
 				column = columns[ columnIdx ];
 
-				var longest = longestData[j][i];
+				var longest = longestData[j][i] || '';
 				var autoClass = _ext.type.className[column.sType];
 				var text = longest + column.sContentPadding;
 				var insert = longest.indexOf('<') === -1
@@ -279,7 +279,7 @@ function _fnWrapperWidth(settings) {
  * strings from the column, which will likely contain the widest strings:
  *
  * 1) Get the top three longest strings from the column
- * 2) Get the top widest words (i.e. an unbreakable phrase)
+ * 2) Get the top three widest words (i.e. an unbreakable phrase)
  *
  *  @param {object} settings dataTables settings object
  *  @param {int} colIdx column of interest
@@ -341,6 +341,14 @@ function _fnGetWideStrings( settings, colIdx )
 
 		if (parts.length) {
 			column.wideStrings.push(parts[0]);
+		}
+
+		if (parts.length > 1) {
+			column.wideStrings.push(parts[1]);
+		}
+
+		if (parts.length > 2) {
+			column.wideStrings.push(parts[3]);
 		}
 	}
 
