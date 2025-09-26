@@ -21,7 +21,7 @@ function _fnCalculateColumnWidths ( settings )
 		visibleColumns = _fnGetColumns( settings, 'bVisible' ),
 		tableWidthAttr = table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentNode,
-		i, column, columnIdx;
+		i, j, column, columnIdx;
 		
 	var styleWidth = table.style.width;
 	var containerWidth = _fnWrapperWidth(settings);
@@ -55,17 +55,15 @@ function _fnCalculateColumnWidths ( settings )
 		false
 	);
 
-	// Construct a single row, worst case, table with the widest
-	// node in the data, assign any user defined widths, then insert it into
-	// the DOM and allow the browser to do all the hard work of calculating
-	// table widths
+	// Construct a worst case table with the widest, assign any user defined
+	// widths, then insert it into  the DOM and allow the browser to do all
+	// the hard work of calculating table widths
 	var tmpTable = $(table.cloneNode())
 		.css( 'visibility', 'hidden' )
 		.removeAttr( 'id' );
 
 	// Clean up the table body
 	tmpTable.append('<tbody/>')
-	var tr = $('<tr/>').appendTo( tmpTable.find('tbody') );
 
 	// Clone the table header and footer - we can't use the header / footer
 	// from the cloned table, since if scrolling is active, the table's
@@ -105,23 +103,36 @@ function _fnCalculateColumnWidths ( settings )
 		}
 	} );
 
-	// Find the widest piece of data for each column and put it into the table
-	for ( i=0 ; i<visibleColumns.length ; i++ ) {
-		columnIdx = visibleColumns[i];
-		column = columns[ columnIdx ];
+	// Get the widest strings for each of the visible columns and add them to
+	// our table to create a "worst case"
+	var longestData = [];
 
-		var longest = _fnGetMaxLenString(settings, columnIdx);
-		var autoClass = _ext.type.className[column.sType];
-		var text = longest + column.sContentPadding;
-		var insert = longest.indexOf('<') === -1
-			? document.createTextNode(text)
-			: text
-		
-		$('<td/>')
-			.addClass(autoClass)
-			.addClass(column.sClass)
-			.append(insert)
-			.appendTo(tr);
+	for ( i=0 ; i<visibleColumns.length ; i++ ) {
+		longestData.push(_fnGetWideStrings(settings, visibleColumns[i]));
+	}
+
+	if (longestData.length) {
+		for ( i=0 ; i<longestData[0].length ; i++ ) {
+			var tr = $('<tr/>').appendTo( tmpTable.find('tbody') );
+
+			for ( j=0 ; j<visibleColumns.length ; j++ ) {
+				columnIdx = visibleColumns[j];
+				column = columns[ columnIdx ];
+
+				var longest = longestData[j][i];
+				var autoClass = _ext.type.className[column.sType];
+				var text = longest + column.sContentPadding;
+				var insert = longest.indexOf('<') === -1
+					? document.createTextNode(text)
+					: text
+
+				$('<td/>')
+					.addClass(autoClass)
+					.addClass(column.sClass)
+					.append(insert)
+					.appendTo(tr);
+			}
+		}
 	}
 
 	// Tidy the temporary table - remove name attributes so there aren't
@@ -260,19 +271,31 @@ function _fnWrapperWidth(settings) {
 }
 
 /**
- * Get the maximum strlen for each data column
+ * Get the widest strings for each column.
+ *
+ * It is very difficult to determine what the widest string actually is due to variable character
+ * width and kerning. Doing an exact calculation with the DOM or even Canvas would kill performance
+ * and this is a critical point, so we use two techniques to determine a collection of the longest
+ * strings from the column, which will likely contain the widest strings:
+ *
+ * 1) Get the top three longest strings from the column
+ * 2) Get the top widest words (i.e. an unbreakable phrase)
+ *
  *  @param {object} settings dataTables settings object
  *  @param {int} colIdx column of interest
- *  @returns {string} string of the max length
+ *  @returns {string[]} Array of the longest strings
  *  @memberof DataTable#oApi
  */
-function _fnGetMaxLenString( settings, colIdx )
+function _fnGetWideStrings( settings, colIdx )
 {
 	var column = settings.aoColumns[colIdx];
 
-	if (! column.maxLenString) {
-		var s, max='', maxLen = -1;
-	
+	// Do we need to recalculate (i.e. was invalidated), or just use the cached data?
+	if (! column.wideStrings) {
+		var allStrings = [];
+		var collection = [];
+
+		// Create an array with the string information for the column
 		for ( var i=0, iLen=settings.aiDisplayMaster.length ; i<iLen ; i++ ) {
 			var rowIdx = settings.aiDisplayMaster[i];
 			var data = _fnGetRowDisplay(settings, rowIdx)[colIdx];
@@ -287,21 +310,41 @@ function _fnGetMaxLenString( settings, colIdx )
 				.replace(/id=".*?"/g, '')
 				.replace(/name=".*?"/g, '');
 
-			s = _stripHtml(cellString)
+			var s = _stripHtml(cellString)
 				.replace( /&nbsp;/g, ' ' );
 	
-			if ( s.length > maxLen ) {
-				// We want the HTML in the string, but the length that
-				// is important is the stripped string
-				max = cellString;
-				maxLen = s.length;
-			}
+			collection.push({
+				str: s,
+				len: s.length
+			});
+
+			allStrings.push(s);
 		}
 
-		column.maxLenString = max;
+		// Order and then cut down to the size we need
+		collection
+			.sort(function (a, b) {
+				return b.len - a.len;
+			})
+			.splice(3);
+
+		column.wideStrings = collection.map(function (item) {
+			return item.str;
+		});
+
+		// Longest unbroken string
+		let parts = allStrings.join(' ').split(' ');
+
+		parts.sort(function (a, b) {
+			return b.length - a.length;
+		});
+
+		if (parts.length) {
+			column.wideStrings.push(parts[0]);
+		}
 	}
 
-	return column.maxLenString;
+	return column.wideStrings;
 }
 
 

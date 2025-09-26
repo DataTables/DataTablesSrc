@@ -165,8 +165,8 @@ DataTable.models.oColumn = {
 	 */
 	"sWidthOrig": null,
 
-	/** Cached string which is the longest in the column */
-	maxLenString: null,
+	/** Cached longest strings from a column */
+	wideStrings: null,
 
 	/**
 	 * Store for named searches

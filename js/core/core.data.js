@@ -313,12 +313,12 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 
 		// Max length string. Its a fairly cheep recalculation, so not worth
 		// something more complicated
-		cols[ colIdx ].maxLenString = null;
+		cols[ colIdx ].wideStrings = null;
 	}
 	else {
 		for ( i=0, iLen=cols.length ; i<iLen ; i++ ) {
 			cols[i].sType = null;
-			cols[i].maxLenString = null;
+			cols[i].wideStrings = null;
 		}
 
 		// Update DataTables special `DT_*` attributes for the row
