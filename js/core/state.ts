@@ -1,19 +1,25 @@
 
+import { pluck } from './internal';
+import { pageChange } from './page';
+import { sortResolve } from './sort';
+import {callbackFire} from './support';
+import Context from '../model/settings';
+
 /**
  * State information for a table
  *
  * @param {*} settings
  * @returns State object
  */
-function _fnSaveState ( settings )
+export function saveState ( settings: Context )
 {
 	if (settings._bLoadingState) {
 		return;
 	}
 
 	// Sort state saving uses [[idx, order]] structure.
-	var sorting = [];
-	_fnSortResolve(settings, sorting, settings.aaSorting );
+	var sorting: any[] = [];
+	sortResolve(settings, sorting, settings.aaSorting );
 
 	/* Store the interesting variables */
 	var columns = settings.aoColumns;
@@ -38,7 +44,7 @@ function _fnSaveState ( settings )
 	};
 
 	settings.oSavedState = state;
-	_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
+	callbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
 	
 	if ( settings.oFeatures.bStateSave && !settings.bDestroying )
 	{
@@ -54,7 +60,7 @@ function _fnSaveState ( settings )
  *  @param {function} callback Callback to execute when the state has been loaded
  *  @memberof DataTable#oApi
  */
-function _fnLoadState ( settings, init, callback )
+export function loadState ( settings: Context, init, callback )
 {
 	if ( ! settings.oFeatures.bStateSave ) {
 		callback();
@@ -62,23 +68,23 @@ function _fnLoadState ( settings, init, callback )
 	}
 
 	var loaded = function(state) {
-		_fnImplementState(settings, state, callback);
+		implementState(settings, state, callback);
 	}
 
 	var state = settings.fnStateLoadCallback.call( settings.oInstance, settings, loaded );
 
 	if ( state !== undefined ) {
-		_fnImplementState( settings, state, callback );
+		implementState( settings, state, callback );
 	}
 	// otherwise, wait for the loaded callback to be executed
 
 	return true;
 }
 
-function _fnImplementState ( settings, s, callback) {
+export function implementState ( settings, s, callback) {
 	var i, iLen;
 	var columns = settings.aoColumns;
-	var currentNames = _pluck(settings.aoColumns, 'sName');
+	var currentNames = pluck(settings.aoColumns, 'sName');
 
 	settings._bLoadingState = true;
 
@@ -102,7 +108,7 @@ function _fnImplementState ( settings, s, callback) {
 
 	// Allow custom and plug-in manipulation functions to alter the saved data set and
 	// cancelling of loading by returning false
-	var abStateLoad = _fnCallbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
+	var abStateLoad = callbackFire( settings, 'aoStateLoadParams', 'stateLoadParams', [settings, s] );
 	if ( abStateLoad.indexOf(false) !== -1 ) {
 		settings._bLoadingState = false;
 		callback();
@@ -114,7 +120,7 @@ function _fnImplementState ( settings, s, callback) {
 
 	// This is needed for ColReorder, which has to happen first to allow all
 	// the stored indexes to be usable. It is not publicly documented.
-	_fnCallbackFire( settings, null, 'stateLoadInit', [settings, s], true );
+	callbackFire( settings, null, 'stateLoadInit', [settings, s], true );
 
 	// Page Length
 	if ( s.length !== undefined ) {
@@ -134,7 +140,7 @@ function _fnImplementState ( settings, s, callback) {
 			settings.iInitDisplayStart = s.start;
 		}
 		else {
-			_fnPageChange(settings, s.start/settings._iDisplayLength);
+			pageChange(settings, s.start/settings._iDisplayLength);
 		}
 	}
 
@@ -173,7 +179,7 @@ function _fnImplementState ( settings, s, callback) {
 	// Columns
 	if ( s.columns ) {
 		var set = s.columns;
-		var incoming = _pluck(s.columns, 'name');
+		var incoming = pluck(s.columns, 'name');
 
 		// Check if it is a 2.2 style state object with a `name` property for the columns, and if
 		// the name was defined. If so, then create a new array that will map the state object
@@ -236,6 +242,6 @@ function _fnImplementState ( settings, s, callback) {
 	}
 
 	settings._bLoadingState = false;
-	_fnCallbackFire( settings, 'aoStateLoaded', 'stateLoaded', [settings, s] );
+	callbackFire( settings, 'aoStateLoaded', 'stateLoaded', [settings, s] );
 	callback();
 }

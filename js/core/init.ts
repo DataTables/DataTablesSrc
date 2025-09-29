@@ -1,20 +1,26 @@
-
+import Context from '../model/settings';
+import { callbackFire } from './support';
+import { processingDisplay } from './processing';
+import { dataSource } from './support';
+import { loadState } from './state';
+import { sortInit } from './sort';
+import { buildAjax, ajaxDataSrc } from './ajax';
 
 /**
  * Draw the table for the first time, adding all required features
  *  @param {object} settings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnInitialise ( settings )
+export function initialise ( settings: Context )
 {
 	var i;
 	var init = settings.oInit;
 	var deferLoading = settings.deferLoading;
-	var dataSrc = _fnDataSource( settings );
+	var dataSrc = dataSource( settings );
 
 	// Ensure that the table data is fully initialised
 	if ( ! settings.bInitialised ) {
-		setTimeout( function(){ _fnInitialise( settings ); }, 200 );
+		setTimeout( function(){ initialise( settings ); }, 200 );
 		return;
 	}
 
@@ -23,7 +29,7 @@ function _fnInitialise ( settings )
 	_fnBuildHead( settings, 'footer' );
 
 	// Load the table's state (if needed) and then render around it and draw
-	_fnLoadState( settings, init, function () {
+	loadState( settings, init, function () {
 		// Then draw the header / footer
 		_fnDrawHead( settings, settings.aoHeader );
 		_fnDrawHead( settings, settings.aoFooter );
@@ -48,14 +54,14 @@ function _fnInitialise ( settings )
 
 		// Enable features
 		_fnAddOptionsHtml( settings );
-		_fnSortInit( settings );
+		sortInit( settings );
 
 		_colGroup( settings );
 
 		/* Okay to show that something is going on now */
-		_fnProcessingDisplay( settings, true );
+		processingDisplay( settings, true );
 
-		_fnCallbackFire( settings, null, 'preInit', [settings], true );
+		callbackFire( settings, null, 'preInit', [settings], true );
 
 		// If there is default sorting required - let's do it. The sort function
 		// will do the drawing for us. Otherwise we draw the table regardless of the
@@ -67,8 +73,8 @@ function _fnInitialise ( settings )
 		if ( dataSrc != 'ssp' || deferLoading ) {
 			// if there is an ajax source load the data
 			if ( dataSrc == 'ajax' ) {
-				_fnBuildAjax( settings, {}, function(json) {
-					var aData = _fnAjaxDataSrc( settings, json );
+				buildAjax( settings, {}, function(json) {
+					var aData = ajaxDataSrc( settings, json );
 
 					// Got the data - add it to the table
 					for ( i=0 ; i<aData.length ; i++ ) {
@@ -81,13 +87,13 @@ function _fnInitialise ( settings )
 					settings.iInitDisplayStart = iAjaxStart;
 
 					_fnReDraw( settings );
-					_fnProcessingDisplay( settings, false );
-					_fnInitComplete( settings );
-				}, settings );
+					processingDisplay( settings, false );
+					fnInitComplete( settings );
+				} );
 			}
 			else {
-				_fnInitComplete( settings );
-				_fnProcessingDisplay( settings, false );
+				fnInitComplete( settings );
+				processingDisplay( settings, false );
 			}
 		}
 	} );
@@ -99,7 +105,7 @@ function _fnInitialise ( settings )
  *  @param {object} settings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnInitComplete ( settings )
+function fnInitComplete ( settings )
 {
 	if (settings._bInitComplete) {
 		return;
@@ -113,6 +119,6 @@ function _fnInitComplete ( settings )
 	// column widths
 	_fnAdjustColumnSizing( settings );
 
-	_fnCallbackFire( settings, null, 'plugin-init', args, true );
-	_fnCallbackFire( settings, 'aoInitComplete', 'init', args, true );
+	callbackFire( settings, null, 'plugin-init', args, true );
+	callbackFire( settings, 'aoInitComplete', 'init', args, true );
 }

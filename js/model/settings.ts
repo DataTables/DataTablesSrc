@@ -1,196 +1,174 @@
 
+import {dataSource} from '../core/support';
+import ColumnSettings from './columns/settings';
+import Search from './search';
 
 /**
- * DataTables settings object - this holds all the information needed for a
- * given table, including configuration, data and current application of the
- * table options. DataTables does not have a single instance for each DataTable
- * with the settings attached to that instance, but rather instances of the
- * DataTable "class" are created on-the-fly as needed (typically by a
- * $().dataTable() call) and the settings object is then applied to that
- * instance.
- *
- * Note that this object is related to {@link DataTable.defaults} but this
- * one is the internal data store for DataTables's cache of columns. It should
- * NOT be manipulated outside of DataTables. Any configuration should be done
- * through the initialisation options.
+ * DataTables settings class. This holds all the information needed for a
+ * given table, including configuration and data. Devs do not interact with
+ * this class directly and it is considered to be private - its properties
+ * are NOT a public API. The `DataTable` or `DataTable.Api` instances are to
+ * be used instead.
  */
-DataTable.models.oSettings = {
-	/**
-	 * Primary features of DataTables and their enablement state.
-	 */
-	"oFeatures": {
+export default class Settings {
+	public api: any; // TODO
+	public renderer: any; // TODO
 
+	public oFeatures = {
 		/**
 		 * Flag to say if DataTables should automatically try to calculate the
 		 * optimum table and columns widths (true) or not (false).
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"bAutoWidth": null,
+		bAutoWidth: null,
 
 		/**
 		 * Delay the creation of TR and TD elements until they are actually
 		 * needed by a driven page draw. This can give a significant speed
 		 * increase for Ajax source and JavaScript source data, but makes no
 		 * difference at all for DOM and server-side processing tables.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"bDeferRender": null,
+		bDeferRender: null,
 
 		/**
 		 * Enable filtering on the table or not. Note that if this is disabled
 		 * then there is no filtering at all on the table, including fnFilter.
 		 * To just remove the filtering input use sDom and remove the 'f' option.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"bFilter": null,
+		bFilter: null,
 
 		/**
 		 * Used only for compatibility with DT1
 		 * @deprecated
 		 */
-		"bInfo": true,
+		bInfo: true,
 
 		/**
 		 * Used only for compatibility with DT1
 		 * @deprecated
 		 */
-		"bLengthChange": true,
+		bLengthChange: true,
 
 		/**
 		 * Pagination enabled or not. Note that if this is disabled then length
 		 * changing must also be disabled.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"bPaginate": null,
+		bPaginate: null,
 
 		/**
 		 * Processing indicator enable flag whenever DataTables is enacting a
 		 * user request - typically an Ajax request for server-side processing.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"bProcessing": null,
+		bProcessing: null,
 
 		/**
 		 * Server-side processing enabled flag - when enabled DataTables will
 		 * get all data from the server for every draw - there is no filtering,
 		 * sorting or paging done on the client-side.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"bServerSide": null,
+		bServerSide: null,
 
 		/**
 		 * Sorting enablement flag.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"bSort": null,
+		bSort: null,
 
 		/**
 		 * Multi-column sorting
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"bSortMulti": null,
+		bSortMulti: null,
 
 		/**
 		 * Apply a class to the columns which are being sorted to provide a
 		 * visual highlight or not. This can slow things down when enabled since
 		 * there is a lot of DOM interaction.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"bSortClasses": null,
+		bSortClasses: null,
 
 		/**
 		 * State saving enablement flag.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"bStateSave": null
-	},
-
+		bStateSave: null
+	};
 
 	/**
 	 * Scrolling settings for a table.
 	 */
-	"oScroll": {
+	public oScroll = {
 		/**
 		 * When the table is shorter in height than sScrollY, collapse the
 		 * table container down to the height of the table (when true).
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"bCollapse": null,
+		bCollapse: null,
 
 		/**
 		 * Width of the scrollbar for the web-browser's platform. Calculated
 		 * during table initialisation.
 		 */
-		"iBarWidth": 0,
+		iBarWidth: 0,
 
 		/**
 		 * Viewport width for horizontal scrolling. Horizontal scrolling is
 		 * disabled if an empty string.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"sX": null,
+		sX: null,
 
 		/**
 		 * Width to expand the table to when using x-scrolling. Typically you
 		 * should not need to use this.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 *  @deprecated
 		 */
-		"sXInner": null,
+		sXInner: null,
 
 		/**
 		 * Viewport height for vertical scrolling. Vertical scrolling is disabled
 		 * if an empty string.
-		 * Note that this parameter will be set by the initialisation routine. To
-		 * set a default use {@link DataTable.defaults}.
+		 * Note that this parameter will be set by the initialisation routine.
 		 */
-		"sY": null
-	},
+		sY: null
+	};
 
 	/**
 	 * Language information for the table.
 	 */
-	"oLanguage": {
+	public oLanguage = {
 		/**
 		 * Information callback function. See
 		 * {@link DataTable.defaults.fnInfoCallback}
 		 */
-		"fnInfoCallback": null
-	},
+		fnInfoCallback: null
+	};
 
 	/**
 	 * Browser support parameters
 	 */
-	"oBrowser": {
+	public oBrowser = {
 		/**
 		 * Determine if the vertical scrollbar is on the right or left of the
 		 * scrolling container - needed for rtl language layout, although not
 		 * all browsers move the scrollbar (Safari).
 		 */
-		"bScrollbarLeft": false,
+		bScrollbarLeft: false,
 
 		/**
 		 * Browser scrollbar width
 		 */
-		"barWidth": 0
-	},
+		barWidth: 0
+	};
 
-
-	"ajax": null,
-
+	public ajax;
 
 	/**
 	 * Array referencing the nodes which are used for the features. The
@@ -204,63 +182,62 @@ DataTable.models.oSettings = {
 	 *     <li>'r' - pRocessing</li>
 	 *   </ul>
 	 */
-	"aanFeatures": [],
+	public aanFeatures = [];
 
 	/**
 	 * Store data information - see {@link DataTable.models.oRow} for detailed
 	 * information.
 	 */
-	"aoData": [],
+	public aoData = [];
 
 	/**
 	 * Array of indexes which are in the current display (after filtering etc)
 	 */
-	"aiDisplay": [],
+	public aiDisplay = [];
 
 	/**
 	 * Array of indexes for display - no filtering
 	 */
-	"aiDisplayMaster": [],
+	public aiDisplayMaster = [];
 
 	/**
 	 * Map of row ids to data indexes
 	 */
-	"aIds": {},
+	public aIds = {};
 
 	/**
 	 * Store information about each column that is in use
 	 */
-	"aoColumns": [],
+	public aoColumns: ColumnSettings[] = [];
 
 	/**
 	 * Store information about the table's header
 	 */
-	"aoHeader": [],
+	public aoHeader = [];
 
 	/**
 	 * Store information about the table's footer
 	 */
-	"aoFooter": [],
+	public aoFooter = [];
 
 	/**
 	 * Store the applied global search information in case we want to force a
 	 * research or compare the old search to a new one.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
+	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	"oPreviousSearch": {},
+	public oPreviousSearch = {};
 
 	/**
 	 * Store for named searches
 	 */
-	searchFixed: {},
+	public searchFixed: {};
 
 	/**
 	 * Store the applied search for each column - see
 	 * {@link DataTable.models.oSearch} for the format that is used for the
 	 * filtering information for each column.
 	 */
-	"aoPreSearchCols": [],
+	public aoPreSearchCols: Search[] = [];
 
 	/**
 	 * Sorting that is applied to the table. Note that the inner arrays are
@@ -269,151 +246,149 @@ DataTable.models.oSettings = {
 	 *   <li>Index 0 - column number</li>
 	 *   <li>Index 1 - current sorting direction</li>
 	 * </ul>
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
+	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	"aaSorting": null,
+	public aaSorting;
 
 	/**
 	 * Sorting that is always applied to the table (i.e. prefixed in front of
 	 * aaSorting).
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
+	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	"aaSortingFixed": [],
+	public aaSortingFixed = [];
 
 	/**
 	 * If restoring a table - we should restore its width
 	 */
-	"sDestroyWidth": 0,
+	public sDestroyWidth = 0;
 
 	/**
 	 * Callback functions array for every time a row is inserted (i.e. on a draw).
 	 */
-	"aoRowCallback": [],
+	public aoRowCallback = [];
 
 	/**
 	 * Callback functions for the header on each draw.
 	 */
-	"aoHeaderCallback": [],
+	public aoHeaderCallback = [];
 
 	/**
 	 * Callback function for the footer on each draw.
 	 */
-	"aoFooterCallback": [],
+	public aoFooterCallback = [];
 
 	/**
 	 * Array of callback functions for draw callback functions
 	 */
-	"aoDrawCallback": [],
+	public aoDrawCallback = [];
 
 	/**
 	 * Array of callback functions for row created function
 	 */
-	"aoRowCreatedCallback": [],
+	public aoRowCreatedCallback = [];
 
 	/**
 	 * Callback functions for just before the table is redrawn. A return of
 	 * false will be used to cancel the draw.
 	 */
-	"aoPreDrawCallback": [],
+	public aoPreDrawCallback = [];
 
 	/**
 	 * Callback functions for when the table has been initialised.
 	 */
-	"aoInitComplete": [],
-
+	public aoInitComplete = [];
 
 	/**
 	 * Callbacks for modifying the settings to be stored for state saving, prior to
 	 * saving state.
 	 */
-	"aoStateSaveParams": [],
+	public aoStateSaveParams = [];
 
 	/**
 	 * Callbacks for modifying the settings that have been stored for state saving
 	 * prior to using the stored values to restore the state.
 	 */
-	"aoStateLoadParams": [],
+	public aoStateLoadParams = [];
 
 	/**
 	 * Callbacks for operating on the settings object once the saved state has been
 	 * loaded
 	 */
-	"aoStateLoaded": [],
+	public aoStateLoaded = [];
 
 	/**
 	 * Cache the table ID for quick access
 	 */
-	"sTableId": "",
+	public sTableId = '';
 
 	/**
 	 * The TABLE node for the main table
 	 */
-	"nTable": null,
+	public nTable;
 
 	/**
 	 * Permanent ref to the thead element
 	 */
-	"nTHead": null,
+	public nTHead;
 
 	/**
 	 * Permanent ref to the tfoot element - if it exists
 	 */
-	"nTFoot": null,
+	public nTFoot;
 
 	/**
 	 * Permanent ref to the tbody element
 	 */
-	"nTBody": null,
+	public nTBody = null;
 
 	/**
 	 * Cache the wrapper node (contains all DataTables controlled elements)
 	 */
-	"nTableWrapper": null,
+	public nTableWrapper;
 
 	/**
 	 * Indicate if all required information has been read in
 	 */
-	"bInitialised": false,
+	public bInitialised = false;
 
 	/**
 	 * Information about open rows. Each object in the array has the parameters
 	 * 'nTr' and 'nParent'
 	 */
-	"aoOpenRows": [],
+	public aoOpenRows = [];
 
 	/**
 	 * Dictate the positioning of DataTables' control elements - see
 	 * {@link DataTable.model.oInit.sDom}.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
+	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	"sDom": null,
+	public sDom = null;
 
 	/**
 	 * Search delay (in mS)
 	 */
-	"searchDelay": null,
+	public searchDelay = null;
 
 	/**
 	 * Which type of pagination should be used.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
+	 * Note that this parameter will be set by the initialisation routine.
+	 *
+	 * @deprecated
 	 */
-	"sPaginationType": "two_button",
+	public sPaginationType = 'two_button';
 
 	/**
 	 * Number of paging controls on the page. Only used for backwards compatibility
+	 *
+	 * @deprecated
 	 */
-	pagingControls: 0,
+	public pagingControls = 0;
 
 	/**
 	 * The state duration (for `stateSave`) in seconds.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
+	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	"iStateDuration": 0,
+	public iStateDuration = 0;
 
 	/**
 	 * Array of callback functions for state saving. Each array element is an
@@ -426,7 +401,7 @@ DataTable.models.oSettings = {
 	 *     <li>string:sName - name of callback</li>
 	 *   </ul>
 	 */
-	"aoStateSave": [],
+	public aoStateSave = [];
 
 	/**
 	 * Array of callback functions for state loading. Each array element is an
@@ -437,87 +412,84 @@ DataTable.models.oSettings = {
 	 *     <li>string:sName - name of callback</li>
 	 *   </ul>
 	 */
-	"aoStateLoad": [],
+	public aoStateLoad = [];
 
 	/**
 	 * State that was saved. Useful for back reference
 	 */
-	"oSavedState": null,
+	public oSavedState;
 
 	/**
 	 * State that was loaded. Useful for back reference
 	 */
-	"oLoadedState": null,
+	public oLoadedState = null;
 
 	/**
 	 * Note if draw should be blocked while getting data
 	 */
-	"bAjaxDataGet": true,
+	public bAjaxDataGet = true;
 
 	/**
 	 * The last jQuery XHR object that was used for server-side data gathering.
 	 * This can be used for working with the XHR information in one of the
 	 * callbacks
 	 */
-	"jqXHR": null,
+	public jqXHR: JQueryXHR;
 
 	/**
 	 * JSON returned from the server in the last Ajax request
 	 */
-	"json": undefined,
+	public json = undefined;
 
 	/**
 	 * Data submitted as part of the last Ajax request
 	 */
-	"oAjaxData": undefined,
+	public oAjaxData = undefined;
 
 	/**
 	 * Send the XHR HTTP method - GET or POST (could be PUT or DELETE if
 	 * required).
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
+	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	"sServerMethod": null,
+	public sServerMethod = null;
 
 	/**
 	 * Format numbers for display.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
+	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	"fnFormatNumber": null,
+	public fnFormatNumber;
 
 	/**
 	 * List of options that can be used for the user selectable length menu.
-	 * Note that this parameter will be set by the initialisation routine. To
-	 * set a default use {@link DataTable.defaults}.
+	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	"aLengthMenu": null,
+	public aLengthMenu = null;
 
 	/**
 	 * Counter for the draws that the table does. Also used as a tracker for
 	 * server-side processing
 	 */
-	"iDraw": 0,
+	public iDraw = 0;
 
 	/**
 	 * Indicate if a redraw is being done - useful for Ajax
 	 */
-	"bDrawing": false,
+	public bDrawing = false;
 
 	/**
 	 * Draw index (iDraw) of the last error when parsing the returned data
 	 */
-	"iDrawError": -1,
+	public iDrawError = -1;
 
 	/**
 	 * Paging display length
 	 */
-	"_iDisplayLength": 10,
+	public _iDisplayLength = 10;
 
 	/**
 	 * Paging start point - aiDisplay index
 	 */
-	"_iDisplayStart": 0,
+	public _iDisplayStart = 0;
 
 	/**
 	 * Server-side processing - number of records in the result set
@@ -525,7 +497,7 @@ DataTable.models.oSettings = {
 	 * this property to get the value of the number of records, regardless of
 	 * the server-side processing setting.
 	 */
-	"_iRecordsTotal": 0,
+	public _iRecordsTotal = 0;
 
 	/**
 	 * Server-side processing - number of records in the current display set
@@ -533,12 +505,12 @@ DataTable.models.oSettings = {
 	 * this property to get the value of the number of records, regardless of
 	 * the server-side processing setting.
 	 */
-	"_iRecordsDisplay": 0,
+	public _iRecordsDisplay = 0;
 
 	/**
 	 * The classes to use for the table
 	 */
-	"oClasses": {},
+	public oClasses = {};
 
 	/**
 	 * Flag attached to the settings object so you can check in the draw
@@ -546,7 +518,7 @@ DataTable.models.oSettings = {
 	 * events.
 	 *  @deprecated
 	 */
-	"bFiltered": false,
+	public bFiltered = false;
 
 	/**
 	 * Flag attached to the settings object so you can check in the draw
@@ -554,146 +526,149 @@ DataTable.models.oSettings = {
 	 * events.
 	 *  @deprecated
 	 */
-	"bSorted": false,
+	public bSorted = false;
 
 	/**
 	 * Indicate that if multiple rows are in the header and there is more than
 	 * one unique cell per column. Replaced by titleRow
 	 */
-	"bSortCellsTop": null,
+	public bSortCellsTop = null;
 
 	/**
 	 * Initialisation object that is used for the table
 	 */
-	"oInit": null,
+	public oInit = null;
 
 	/**
 	 * Destroy callback functions - for plug-ins to attach themselves to the
 	 * destroy so they can clean up markup and events.
 	 */
-	"aoDestroyCallback": [],
-
+	public aoDestroyCallback = [];
 
 	/**
 	 * Get the number of records in the current record set, before filtering
 	 */
-	"fnRecordsTotal": function ()
-	{
-		return _fnDataSource( this ) == 'ssp' ?
+	public fnRecordsTotal() {
+		return dataSource( this ) == 'ssp' ?
 			this._iRecordsTotal * 1 :
 			this.aiDisplayMaster.length;
-	},
+	}
 
 	/**
 	 * Get the number of records in the current record set, after filtering
 	 */
-	"fnRecordsDisplay": function ()
-	{
-		return _fnDataSource( this ) == 'ssp' ?
+	public fnRecordsDisplay() {
+		return dataSource( this ) == 'ssp' ?
 			this._iRecordsDisplay * 1 :
 			this.aiDisplay.length;
-	},
+	}
 
 	/**
 	 * Get the display end point - aiDisplay index
 	 */
-	"fnDisplayEnd": function ()
-	{
-		var
-			len      = this._iDisplayLength,
-			start    = this._iDisplayStart,
-			calc     = start + len,
-			records  = this.aiDisplay.length,
+	public fnDisplayEnd() {
+		var len = this._iDisplayLength,
+			start = this._iDisplayStart,
+			calc = start + len,
+			records = this.aiDisplay.length,
 			features = this.oFeatures,
 			paginate = features.bPaginate;
 
-		if ( features.bServerSide ) {
-			return paginate === false || len === -1 ?
-				start + records :
-				Math.min( start+len, this._iRecordsDisplay );
+		if (features.bServerSide) {
+			return paginate === false || len === -1
+				? start + records
+				: Math.min(start + len, this._iRecordsDisplay);
 		}
 		else {
-			return ! paginate || calc>records || len===-1 ?
-				records :
-				calc;
+			return !paginate || calc > records || len === -1 ? records : calc;
 		}
-	},
+	}
 
 	/**
 	 * The DataTables object for this table
 	 */
-	"oInstance": null,
+	public oInstance = null;
 
 	/**
 	 * Unique identifier for each instance of the DataTables object. If there
 	 * is an ID on the table node, then it takes that value, otherwise an
 	 * incrementing internal counter is used.
 	 */
-	"sInstance": null,
+	public sInstance = '';
 
 	/**
 	 * tabindex attribute value that is added to DataTables control elements, allowing
 	 * keyboard navigation of the table and its controls.
 	 */
-	"iTabIndex": 0,
+	public iTabIndex = 0;
 
 	/**
 	 * DIV container for the footer scrolling table if scrolling
 	 */
-	"nScrollHead": null,
+	public nScrollHead = null;
 
 	/**
 	 * DIV container for the footer scrolling table if scrolling
 	 */
-	"nScrollFoot": null,
+	public nScrollFoot = null;
 
 	/**
 	 * Last applied sort
 	 */
-	"aLastSort": [],
+	public aLastSort;
 
 	/**
 	 * Stored plug-in instances
 	 */
-	"oPlugins": {},
+	public oPlugins = {};
 
 	/**
 	 * Function used to get a row's id from the row's data
 	 */
-	"rowIdFn": null,
+	public rowIdFn = null;
 
 	/**
 	 * Data location where to store a row's id
 	 */
-	"rowId": null,
+	public rowId = null;
 
-	caption: '',
+	public caption = '';
 
-	captionNode: null,
+	public captionNode = null;
 
-	colgroup: null,
+	public colgroup = null;
 
 	/** Delay loading of data */
-	deferLoading: null,
+	public deferLoading = null;
 
 	/** Allow auto type detection */
-	typeDetect: true,
+	public typeDetect = true;
 
 	/** ResizeObserver for the container div */
-	resizeObserver: null,
+	public resizeObserver: ResizeObserver;
 
 	/** Keep a record of the last size of the container, so we can skip duplicates */
-	containerWidth: -1,
+	public containerWidth = -1;
 
 	/** Reverse the initial order of the data set on desc ordering */
-	orderDescReverse: null,
+	public orderDescReverse = null;
 
 	/** Show / hide ordering indicators in headers */
-	orderIndicators: true,
+	public orderIndicators = true;
 
 	/** Default ordering listener */
-	orderHandler: true,
+	public orderHandler = true;
 
 	/** Title row indicator */
-	titleRow: null
-};
+	public titleRow = null;
+
+	public _bLoadingState;
+
+	public bDestroying = false;
+
+	public fnStateSaveCallback;
+	public fnStateLoadCallback;
+	public _reszEvt: boolean;
+	public iInitDisplayStart: number;
+	public sortDetails;
+}

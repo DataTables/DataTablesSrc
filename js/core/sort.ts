@@ -1,5 +1,20 @@
 
-function _fnSortInit( settings ) {
+import { bindAction, dataSource, callbackFire } from './support';
+import { processingRun } from './processing';
+import Context from '../model/settings';
+import { pluck } from './internal';
+
+interface ISortItem {
+	src: number | string;
+	col: number;
+	dir: string;
+	index: number;
+	type: string;
+	formatter?: Function;
+	sorter?: Function;
+}
+
+export function sortInit( settings: Context ) {
 	var target = settings.nTHead;
 	var headerRows = target.querySelectorAll('tr');
 	var titleRow = settings.titleRow;
@@ -18,7 +33,7 @@ function _fnSortInit( settings ) {
 	// else - all rows
 
 	if (settings.orderHandler) {
-		_fnSortAttachListener(
+		sortAttachListener(
 			settings,
 			target,
 			target === settings.nTHead
@@ -29,14 +44,14 @@ function _fnSortInit( settings ) {
 
 	// Need to resolve the user input array into our internal structure
 	var order = [];
-	_fnSortResolve( settings, order, settings.aaSorting );
+	sortResolve( settings, order, settings.aaSorting );
 
 	settings.aaSorting = order;
 }
 
 
-function _fnSortAttachListener(settings, node, selector, column, callback) {
-	_fnBindAction( node, selector, function (e) {
+export function sortAttachListener(settings: Context, node, selector, column?, callback?) {
+	bindAction( node, selector, function (e) {
 		var run = false;
 		var columns = column === undefined
 			? _fnColumnsFromHeader( e.target )
@@ -48,7 +63,7 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 
 		if ( columns.length ) {
 			for ( var i=0, iLen=columns.length ; i<iLen ; i++ ) {
-				var ret = _fnSortAdd( settings, columns[i], i, e.shiftKey );
+				var ret = sortAdd( settings, columns[i], i, e.shiftKey );
 
 				if (ret !== false) {
 					run = true;
@@ -62,9 +77,9 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 			}
 
 			if (run) {
-				_fnProcessingRun(settings, true, function () {
-					_fnSort( settings );
-					_fnSortDisplay( settings, settings.aiDisplay );
+				processingRun(settings, true, function () {
+					sort( settings );
+					sortDisplay( settings, settings.aiDisplay );
 
 					_fnReDraw( settings, false, false );
 
@@ -81,13 +96,13 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
  * Sort the display array to match the master's order
  * @param {*} settings
  */
-function _fnSortDisplay(settings, display) {
+export function sortDisplay(settings: Context, display) {
 	if (display.length < 2) {
 		return;
 	}
 
 	var master = settings.aiDisplayMaster;
-	var masterMap = {};
+	var masterMap: {[idx: number]: number} = {};
 	var map = {};
 	var i;
 
@@ -108,7 +123,7 @@ function _fnSortDisplay(settings, display) {
 }
 
 
-function _fnSortResolve (settings, nestedSort, sort) {
+export function sortResolve (settings: Context, nestedSort, sort) {
 	var push = function ( a ) {
 		if ($.isPlainObject(a)) {
 			if (a.idx !== undefined) {
@@ -117,7 +132,7 @@ function _fnSortResolve (settings, nestedSort, sort) {
 			}
 			else if (a.name) {
 				// Name based ordering
-				var cols = _pluck( settings.aoColumns, 'sName');
+				var cols = pluck( settings.aoColumns, 'sName');
 				var idx = cols.indexOf(a.name);
 
 				if (idx !== -1) {
@@ -148,11 +163,11 @@ function _fnSortResolve (settings, nestedSort, sort) {
 }
 
 
-function _fnSortFlatten ( settings )
+export function sortFlatten ( settings: Context )
 {
 	var
 		i, k, kLen,
-		aSort = [],
+		aSort: ISortItem[] = [],
 		extSort = DataTable.ext.type.order,
 		aoColumns = settings.aoColumns,
 		aDataSort, iCol, sType, srcCol,
@@ -167,17 +182,17 @@ function _fnSortFlatten ( settings )
 	// Build the sort array, with pre-fix and post-fix options if they have been
 	// specified
 	if ( Array.isArray( fixed ) ) {
-		_fnSortResolve( settings, nestedSort, fixed );
+		sortResolve( settings, nestedSort, fixed );
 	}
 
 	if ( fixedObj && fixed.pre ) {
-		_fnSortResolve( settings, nestedSort, fixed.pre );
+		sortResolve( settings, nestedSort, fixed.pre );
 	}
 
-	_fnSortResolve( settings, nestedSort, settings.aaSorting );
+	sortResolve( settings, nestedSort, settings.aaSorting );
 
 	if (fixedObj && fixed.post ) {
-		_fnSortResolve( settings, nestedSort, fixed.post );
+		sortResolve( settings, nestedSort, fixed.post );
 	}
 
 	for ( i=0 ; i<nestedSort.length ; i++ )
@@ -219,16 +234,16 @@ function _fnSortFlatten ( settings )
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnSort ( oSettings, col, dir )
+export function sort ( oSettings: Context, col?, dir? )
 {
 	var
 		i, iLen,
-		aiOrig = [],
+		aiOrig: number[] = [],
 		extSort = DataTable.ext.type.order,
 		aoData = oSettings.aoData,
 		sortCol,
 		displayMaster = oSettings.aiDisplayMaster,
-		aSort;
+		aSort: ISortItem[];
 
 	// Make sure the columns all have types defined
 	_fnColumnTypes(oSettings);
@@ -250,18 +265,18 @@ function _fnSort ( oSettings, col, dir )
 		displayMaster = displayMaster.slice();
 	}
 	else {
-		aSort = _fnSortFlatten( oSettings );
+		aSort = sortFlatten( oSettings );
 	}
 
 	for ( i=0, iLen=aSort.length ; i<iLen ; i++ ) {
 		sortCol = aSort[i];
 
 		// Load the data needed for the sort, for each cell
-		_fnSortData( oSettings, sortCol.col );
+		sortData( oSettings, sortCol.col );
 	}
 
 	/* No sorting required if server-side or no sorting array */
-	if ( _fnDataSource( oSettings ) != 'ssp' && aSort.length !== 0 )
+	if ( dataSource( oSettings ) != 'ssp' && aSort.length !== 0 )
 	{
 		// Reset the initial positions on each pass so we get a stable sort
 		for ( i=0, iLen=displayMaster.length ; i<iLen ; i++ ) {
@@ -342,7 +357,7 @@ function _fnSort ( oSettings, col, dir )
 		oSettings.bSorted = true;
 		oSettings.sortDetails = aSort;
 
-		_fnCallbackFire( oSettings, null, 'order', [oSettings, aSort] );
+		callbackFire( oSettings, null, 'order', [oSettings, aSort] );
 	}
 
 	return displayMaster;
@@ -359,13 +374,13 @@ function _fnSort ( oSettings, col, dir )
  *  @param {function} [callback] callback function
  *  @memberof DataTable#oApi
  */
-function _fnSortAdd ( settings, colIdx, addIndex, shift )
+export function sortAdd ( settings, colIdx, addIndex, shift )
 {
 	var col = settings.aoColumns[ colIdx ];
 	var sorting = settings.aaSorting;
 	var asSorting = col.asSorting;
 	var nextSortIdx;
-	var next = function ( a, overflow ) {
+	var next = function ( a, overflow? ) {
 		var idx = a._idx;
 		if ( idx === undefined ) {
 			idx = asSorting.indexOf(a[1]);
@@ -390,7 +405,7 @@ function _fnSortAdd ( settings, colIdx, addIndex, shift )
 	// If appending the sort then we are multi-column sorting
 	if ( (shift || addIndex) && settings.oFeatures.bSortMulti ) {
 		// Are we already doing some kind of sort on this column?
-		var sortIdx = _pluck(sorting, '0').indexOf(colIdx);
+		var sortIdx = pluck(sorting, '0').indexOf(colIdx);
 
 		if ( sortIdx !== -1 ) {
 			// Yes, modify the sort
@@ -444,11 +459,11 @@ function _fnSortAdd ( settings, colIdx, addIndex, shift )
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnSortingClasses( settings )
+export function sortingClasses( settings: Context )
 {
 	var oldSort = settings.aLastSort;
 	var sortClass = settings.oClasses.order.position;
-	var sort = _fnSortFlatten( settings );
+	var sort = sortFlatten( settings );
 	var features = settings.oFeatures;
 	var i, iLen, colIdx;
 
@@ -458,7 +473,7 @@ function _fnSortingClasses( settings )
 			colIdx = oldSort[i].src;
 
 			// Remove column sorting
-			$( _pluck( settings.aoData, 'anCells', colIdx ) )
+			$( pluck( settings.aoData, 'anCells', colIdx ) )
 				.removeClass( sortClass + (i<2 ? i+1 : 3) );
 		}
 
@@ -466,7 +481,7 @@ function _fnSortingClasses( settings )
 		for ( i=0, iLen=sort.length ; i<iLen ; i++ ) {
 			colIdx = sort[i].src;
 
-			$( _pluck( settings.aoData, 'anCells', colIdx ) )
+			$( pluck( settings.aoData, 'anCells', colIdx ) )
 				.addClass( sortClass + (i<2 ? i+1 : 3) );
 		}
 	}
@@ -477,7 +492,7 @@ function _fnSortingClasses( settings )
 
 // Get the data to sort a column, be it from cache, fresh (populating the
 // cache), or from a sort formatter
-function _fnSortData( settings, colIdx )
+export function sortData( settings, colIdx )
 {
 	// Custom sorting function - provided by the sort data type
 	var column = settings.aoColumns[ colIdx ];

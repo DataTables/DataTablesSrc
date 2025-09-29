@@ -1,13 +1,20 @@
+
+import { processingDisplay } from './processing';
+import {log, callbackFire} from './support';
+import Context from '../model/settings';
+import { initComplete } from './init';
+import { sortFlatten } from './sort';
+
 /**
  * Create an Ajax call based on the table's settings, taking into account that
  * parameters can have multiple forms, and backwards compatibility.
  *
- * @param {object} oSettings dataTables settings object
+ * @param oSettings dataTables settings object
  * @param {array} data Data to send to the server, required by
  *     DataTables - may be augmented by developer callbacks
  * @param {function} fn Callback function to run when data is obtained
  */
-function _fnBuildAjax(oSettings, data, fn) {
+export function buildAjax(oSettings: Context, data, fn) {
 	var ajaxData;
 	var ajax = oSettings.ajax;
 	var instance = oSettings.oInstance;
@@ -16,12 +23,12 @@ function _fnBuildAjax(oSettings, data, fn) {
 
 		if (json === null || (typeof status === 'number' && status == 204)) {
 			json = {};
-			_fnAjaxDataSrc(oSettings, json, []);
+			ajaxDataSrc(oSettings, json, []);
 		}
 
 		var error = json.error || json.sError;
 		if (error) {
-			_fnLog(oSettings, 0, error);
+			log(oSettings, 0, error);
 		}
 
 		// Microsoft often wrap JSON as a string in another JSON object
@@ -36,7 +43,7 @@ function _fnBuildAjax(oSettings, data, fn) {
 
 		oSettings.json = json;
 
-		_fnCallbackFire(oSettings, null, 'xhr', [oSettings, json, oSettings.jqXHR], true);
+		callbackFire(oSettings, null, 'xhr', [oSettings, json, oSettings.jqXHR], true);
 		fn(json);
 	};
 
@@ -64,7 +71,7 @@ function _fnBuildAjax(oSettings, data, fn) {
 		cache: false,
 		type: oSettings.sServerMethod,
 		error: function (xhr, error) {
-			var ret = _fnCallbackFire(
+			var ret = callbackFire(
 				oSettings,
 				null,
 				'xhr',
@@ -74,16 +81,16 @@ function _fnBuildAjax(oSettings, data, fn) {
 
 			if (ret.indexOf(true) === -1) {
 				if (error == 'parsererror') {
-					_fnLog(oSettings, 0, 'Invalid JSON response', 1);
+					log(oSettings, 0, 'Invalid JSON response', 1);
 				}
 				else if (xhr.readyState === 4) {
-					_fnLog(oSettings, 0, 'Ajax error', 7);
+					log(oSettings, 0, 'Ajax error', 7);
 				}
 			}
 
-			_fnProcessingDisplay(oSettings, false);
+			processingDisplay(oSettings, false);
 		}
-	};
+	} as any; // TODO
 
 	// If `ajax` option is an object, extend and override our default base
 	if ($.isPlainObject(ajax)) {
@@ -94,7 +101,7 @@ function _fnBuildAjax(oSettings, data, fn) {
 	oSettings.oAjaxData = data;
 
 	// Allow plug-ins and external processes to modify the data
-	_fnCallbackFire(oSettings, null, 'preXhr', [oSettings, data, baseAjax], true);
+	callbackFire(oSettings, null, 'preXhr', [oSettings, data, baseAjax], true);
 
 	// Custom Ajax option to submit the parameters as a JSON string
 	if (baseAjax.submitAs === 'json' && typeof data === 'object') {
@@ -110,7 +117,7 @@ function _fnBuildAjax(oSettings, data, fn) {
 		// to the object for the callback.
 		var empty = {};
 
-		_fnAjaxDataSrc(oSettings, empty, []);
+		ajaxDataSrc(oSettings, empty, []);
 		callback(empty);
 	}
 	else {
@@ -126,27 +133,27 @@ function _fnBuildAjax(oSettings, data, fn) {
 
 /**
  * Update the table using an Ajax call
- *  @param {object} settings dataTables settings object
- *  @returns {boolean} Block the table drawing or not
- *  @memberof DataTable#oApi
+ *
+ * @param {object} settings dataTables settings object
+ * @returns {boolean} Block the table drawing or not
  */
-function _fnAjaxUpdate(settings) {
+export function ajaxUpdate(settings) {
 	settings.iDraw++;
-	_fnProcessingDisplay(settings, true);
+	processingDisplay(settings, true);
 
-	_fnBuildAjax(settings, _fnAjaxParameters(settings), function (json) {
-		_fnAjaxUpdateDraw(settings, json);
+	buildAjax(settings, ajaxParameters(settings), function (json) {
+		ajaxUpdateDraw(settings, json);
 	});
 }
 
 /**
  * Build up the parameters in an object needed for a server-side processing
  * request.
- *  @param {object} oSettings dataTables settings object
- *  @returns {bool} block the table drawing or not
- *  @memberof DataTable#oApi
+ *
+ * @param {object} oSettings dataTables settings object
+ * @returns {bool} block the table drawing or not
  */
-function _fnAjaxParameters(settings) {
+export function ajaxParameters(settings) {
 	var columns = settings.aoColumns,
 		features = settings.oFeatures,
 		preSearch = settings.oPreviousSearch,
@@ -178,7 +185,7 @@ function _fnAjaxParameters(settings) {
 				}
 			};
 		}),
-		order: _fnSortFlatten(settings).map(function (val) {
+		order: sortFlatten(settings).map(function (val) {
 			return {
 				column: val.col,
 				dir: val.dir,
@@ -205,20 +212,20 @@ function _fnAjaxParameters(settings) {
 
 /**
  * Data the data from the server (nuking the old) and redraw the table
- *  @param {object} oSettings dataTables settings object
- *  @param {object} json json data return from the server.
- *  @param {string} json.sEcho Tracking flag for DataTables to match requests
- *  @param {int} json.iTotalRecords Number of records in the data set, not accounting for filtering
- *  @param {int} json.iTotalDisplayRecords Number of records in the data set, accounting for filtering
- *  @param {array} json.aaData The data to display on this page
- *  @param {string} [json.sColumns] Column ordering (sName, comma separated)
- *  @memberof DataTable#oApi
+ *
+ * @param {object} oSettings dataTables settings object
+ * @param {object} json json data return from the server.
+ * @param {string} json.sEcho Tracking flag for DataTables to match requests
+ * @param {int} json.iTotalRecords Number of records in the data set, not accounting for filtering
+ * @param {int} json.iTotalDisplayRecords Number of records in the data set, accounting for filtering
+ * @param {array} json.aaData The data to display on this page
+ * @param {string} [json.sColumns] Column ordering (sName, comma separated)
  */
-function _fnAjaxUpdateDraw(settings, json) {
-	var data = _fnAjaxDataSrc(settings, json);
-	var draw = _fnAjaxDataSrcParam(settings, 'draw', json);
-	var recordsTotal = _fnAjaxDataSrcParam(settings, 'recordsTotal', json);
-	var recordsFiltered = _fnAjaxDataSrcParam(settings, 'recordsFiltered', json);
+export function ajaxUpdateDraw(settings: Context, json) {
+	var data = ajaxDataSrc(settings, json, false);
+	var draw = ajaxDataSrcParam(settings, 'draw', json);
+	var recordsTotal = ajaxDataSrcParam(settings, 'recordsTotal', json);
+	var recordsFiltered = ajaxDataSrcParam(settings, 'recordsFiltered', json);
 
 	if (draw !== undefined) {
 		// Protect against out of sequence returns
@@ -244,19 +251,20 @@ function _fnAjaxUpdateDraw(settings, json) {
 
 	_fnColumnTypes(settings);
 	_fnDraw(settings, true);
-	_fnInitComplete(settings);
-	_fnProcessingDisplay(settings, false);
+	initComplete(settings);
+	processingDisplay(settings, false);
 }
 
 /**
  * Get the data from the JSON data source to use for drawing a table. Using
- * `_fnGetObjectDataFn` allows the data to be sourced from a property of the
+ * `DataTable.util.get` allows the data to be sourced from a property of the
  * source object, or from a processing function.
- *  @param {object} settings dataTables settings object
- *  @param  {object} json Data source object / array from the server
- *  @return {array} Array of data to use
+ *
+ * @param {object} settings dataTables settings object
+ * @param  {object} json Data source object / array from the server
+ * @return {array} Array of data to use
  */
-function _fnAjaxDataSrc(settings, json, write) {
+export function ajaxDataSrc(settings, json, write) {
 	var dataProp = 'data';
 
 	if ($.isPlainObject(settings.ajax) && settings.ajax.dataSrc !== undefined) {
@@ -279,26 +287,27 @@ function _fnAjaxDataSrc(settings, json, write) {
 			return json.aaData || json[dataProp];
 		}
 
-		return dataProp !== '' ? _fnGetObjectDataFn(dataProp)(json) : json;
+		return dataProp !== '' ? DataTable.util.get(dataProp)(json) : json;
 	}
 
 	// set
-	_fnSetObjectDataFn(dataProp)(json, write);
+	DataTable.util.set(dataProp)(json, write);
 }
 
 /**
- * Very similar to _fnAjaxDataSrc, but for the other SSP properties
+ * Very similar to ajaxDataSrc, but for the other SSP properties
+ *
  * @param {*} settings DataTables settings object
  * @param {*} param Target parameter
  * @param {*} json JSON data
  * @returns Resolved value
  */
-function _fnAjaxDataSrcParam(settings, param, json) {
+export function ajaxDataSrcParam(settings, param, json) {
 	var dataSrc = $.isPlainObject(settings.ajax) ? settings.ajax.dataSrc : null;
 
 	if (dataSrc && dataSrc[param]) {
 		// Get from custom location
-		return _fnGetObjectDataFn(dataSrc[param])(json);
+		return DataTable.util.get(dataSrc[param])(json);
 	}
 
 	// else - Default behaviour

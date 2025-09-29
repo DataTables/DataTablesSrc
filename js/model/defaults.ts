@@ -1,26 +1,26 @@
 
+import Settings from './settings';
+import columnDefaults from './columns/defaults';
+import { hungarianMap } from '../core/compat';
+
 /*
  * Developer note: The properties of the object below are given in Hungarian
- * notation, that was used as the interface for DataTables prior to v1.10, however
- * from v1.10 onwards the primary interface is camel case. In order to avoid
- * breaking backwards compatibility utterly with this change, the Hungarian
- * version is still, internally the primary interface, but is is not documented
- * - hence the @name tags in each doc comment. This allows a JavaScript function
- * to create a map from Hungarian notation to camel case (going the other direction
- * would require each property to be listed, which would add around 3K to the size
- * of DataTables, while this method is about a 0.5K hit).
- *
- * Ultimately this does pave the way for Hungarian notation to be dropped
- * completely, but that is a massive amount of work and will break current
- * installs (therefore is on-hold until v2).
+ * notation, that was used as the interface for DataTables prior to v1.10,
+ * however from v1.10 onwards the primary interface is camel case. In order to
+ * avoid breaking backwards compatibility utterly with this change, the
+ * Hungarian version is still, internally the primary interface, but is is not
+ * documented - hence the @name tags in each doc comment. This allows a
+ * JavaScript function to create a map from Hungarian notation to camel case
+ * (going the other direction would require each property to be listed, which
+ * would add around 3K to the size of DataTables, while this method is about a
+ * 0.5K hit).
  */
 
 /**
  * Initialisation options that can be given to DataTables at initialisation
  * time.
- *  @namespace
  */
-DataTable.defaults = {
+const defaults = {
 	/**
 	 * An array of data to use for the table, passed in at initialisation which
 	 * will be used in preference to any data which is already in the DOM. This is
@@ -293,6 +293,9 @@ DataTable.defaults = {
 	 */
 	"bSortCellsTop": null,
 
+	/** Defaults for column specific properties */
+	column: columnDefaults,
+
 
 	/** Specify which row is the title row in the header. Replacement for bSortCellsTop */
 	titleRow: null,
@@ -402,13 +405,13 @@ DataTable.defaults = {
 	 * state of a table is loaded. By default DataTables will load from `localStorage`
 	 * but you might wish to use a server-side database or cookies.
 	 */
-	"fnStateLoadCallback": function ( settings ) {
+	"fnStateLoadCallback": function ( settings: Settings ) {
 		try {
-			return JSON.parse(
-				(settings.iStateDuration === -1 ? sessionStorage : localStorage).getItem(
-					'DataTables_'+settings.sInstance+'_'+location.pathname
-				)
+			let state = (settings.iStateDuration === -1 ? sessionStorage : localStorage).getItem(
+				'DataTables_'+settings.sInstance+'_'+location.pathname
 			);
+
+			return state ? JSON.parse(state) : {};
 		} catch (e) {
 			return {};
 		}
@@ -858,5 +861,6 @@ DataTable.defaults = {
 	on: null
 };
 
-_fnHungarianMap( DataTable.defaults );
+hungarianMap( defaults );
 
+export default { defaults };

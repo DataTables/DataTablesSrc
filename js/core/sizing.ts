@@ -1,10 +1,14 @@
 
+import Context from '../model/settings';
+import { stripHtml } from './internal';
+import {callbackFire} from './support';
+
 /**
  * Calculate the width of columns for the table
  *  @param {object} settings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnCalculateColumnWidths ( settings )
+export function calculateColumnWidths ( settings: Context )
 {
 	// Not interested in doing column width calculation if auto-width is disabled
 	if (! settings.oFeatures.bAutoWidth) {
@@ -24,7 +28,7 @@ function _fnCalculateColumnWidths ( settings )
 		i, j, column, columnIdx;
 		
 	var styleWidth = table.style.width;
-	var containerWidth = _fnWrapperWidth(settings);
+	var containerWidth = wrapperWidth(settings);
 
 	// Don't re-run for the same width as the last time
 	if (containerWidth === settings.containerWidth) {
@@ -47,7 +51,7 @@ function _fnCalculateColumnWidths ( settings )
 
 	// Let plug-ins know that we are doing a recalc, in case they have changed any of the
 	// visible columns their own way (e.g. Responsive uses display:none).
-	_fnCallbackFire(
+	callbackFire(
 		settings,
 		null,
 		'column-calc',
@@ -106,10 +110,10 @@ function _fnCalculateColumnWidths ( settings )
 
 	// Get the widest strings for each of the visible columns and add them to
 	// our table to create a "worst case"
-	var longestData = [];
+	var longestData: string[][] = [];
 
 	for ( i=0 ; i<visibleColumns.length ; i++ ) {
-		longestData.push(_fnGetWideStrings(settings, visibleColumns[i]));
+		longestData.push(getWideStrings(settings, visibleColumns[i]));
 	}
 
 	if (longestData.length) {
@@ -121,7 +125,7 @@ function _fnCalculateColumnWidths ( settings )
 				column = columns[ columnIdx ];
 
 				var longest = longestData[j][i] || '';
-				var autoClass = _ext.type.className[column.sType];
+				var autoClass = DataTable.ext.type.className[column.sType];
 				var padding = column.sContentPadding || (scrollX ? '-' : '');
 				var text = longest + padding;
 				var insert = longest.indexOf('<') === -1
@@ -172,7 +176,7 @@ function _fnCalculateColumnWidths ( settings )
 
 		// If there is no width attribute or style, then allow the table to
 		// collapse
-		if ( tmpTable.outerWidth() < tableContainer.clientWidth && tableWidthAttr ) {
+		if ( tmpTable.outerWidth()! < tableContainer.clientWidth && tableWidthAttr ) {
 			tmpTable.outerWidth( tableContainer.clientWidth );
 		}
 	}
@@ -196,10 +200,10 @@ function _fnCalculateColumnWidths ( settings )
 		total += bounding;
 
 		// Width for each column to use
-		columns[ visibleColumns[i] ].sWidth = _fnStringToCss( bounding );
+		columns[ visibleColumns[i] ].sWidth = stringToCss( bounding );
 	}
 
-	table.style.width = _fnStringToCss( total );
+	table.style.width = stringToCss( total );
 
 	// Finished with the table - ditch it
 	holder.remove();
@@ -209,12 +213,12 @@ function _fnCalculateColumnWidths ( settings )
 	// resized. Use the width attr rather than CSS, since we can't know if the
 	// CSS is a relative value or absolute - DOM read is always px.
 	if ( tableWidthAttr ) {
-		table.style.width = _fnStringToCss( tableWidthAttr );
+		table.style.width = stringToCss( tableWidthAttr );
 	}
 
 	if ( (tableWidthAttr || scrollX) && ! settings._reszEvt ) {
 		var resize = DataTable.util.throttle( function () {
-			var newWidth = _fnWrapperWidth(settings);
+			var newWidth = wrapperWidth(settings);
 
 			// Don't do it if destroying or the container width is 0
 			if (! settings.bDestroying && newWidth !== 0) {
@@ -266,9 +270,9 @@ function _fnCalculateColumnWidths ( settings )
  * @param {*} settings DataTables settings object
  * @returns Width
  */
-function _fnWrapperWidth(settings) {
+function wrapperWidth(settings: Context): number {
 	return $(settings.nTableWrapper).is(':visible')
-		? $(settings.nTableWrapper).width()
+		? ($(settings.nTableWrapper).width() || 0)
 		: 0;
 }
 
@@ -288,14 +292,14 @@ function _fnWrapperWidth(settings) {
  *  @returns {string[]} Array of the longest strings
  *  @memberof DataTable#oApi
  */
-function _fnGetWideStrings( settings, colIdx )
+function getWideStrings( settings: Context, colIdx )
 {
 	var column = settings.aoColumns[colIdx];
 
 	// Do we need to recalculate (i.e. was invalidated), or just use the cached data?
 	if (! column.wideStrings) {
-		var allStrings = [];
-		var collection = [];
+		var allStrings: string[] = [];
+		var collection: any[] = [];
 
 		// Create an array with the string information for the column
 		for ( var i=0, iLen=settings.aiDisplayMaster.length ; i<iLen ; i++ ) {
@@ -312,7 +316,7 @@ function _fnGetWideStrings( settings, colIdx )
 				.replace(/id=".*?"/g, '')
 				.replace(/name=".*?"/g, '');
 
-			var s = _stripHtml(cellString)
+			var s = stripHtml(cellString)
 				.replace( /&nbsp;/g, ' ' );
 	
 			collection.push({
@@ -364,7 +368,7 @@ function _fnGetWideStrings( settings, colIdx )
  *  @returns {string} value with css unit
  *  @memberof DataTable#oApi
  */
-function _fnStringToCss( s )
+function stringToCss( s )
 {
 	if ( s === null ) {
 		return '0px';
@@ -387,12 +391,12 @@ function _fnStringToCss( s )
  *
  * @param {*} settings DT settings
  */
-function _colGroup( settings ) {
+function colGroup( settings ) {
 	var cols = settings.aoColumns;
 
 	settings.colgroup.empty();
 
-	for (i=0 ; i<cols.length ; i++) {
+	for (var i=0 ; i<cols.length ; i++) {
 		if (cols[i].bVisible) {
 			settings.colgroup.append(cols[i].colEl);
 		}

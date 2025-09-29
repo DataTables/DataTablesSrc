@@ -1,4 +1,6 @@
 
+import Context from '../model/settings';
+import { arrayApply, callbackFire, dataSource } from './support';
 
 /**
  * Filter the table using both the global filter and column based filtering
@@ -6,24 +8,24 @@
  *  @param {object} input search information
  *  @memberof DataTable#oApi
  */
-function _fnFilterComplete ( settings, input )
+export function filterComplete ( settings: Context, input )
 {
 	var columnsSearch = settings.aoPreSearchCols;
 
 	// In server-side processing all filtering is done by the server, so no point hanging around here
-	if ( _fnDataSource( settings ) != 'ssp' )
+	if ( dataSource( settings ) != 'ssp' )
 	{
 		// Check if any of the rows were invalidated
-		_fnFilterData( settings );
+		filterData( settings );
 
 		// Start from the full data set
 		settings.aiDisplay = settings.aiDisplayMaster.slice();
 
 		// Global filter first
-		_fnFilter( settings.aiDisplay, settings, input.search, input );
+		filter( settings.aiDisplay, settings, input.search, input );
 
 		$.each(settings.searchFixed, function (name, term) {
-			_fnFilter(settings.aiDisplay, settings, term, {});
+			filter(settings.aiDisplay, settings, term, {});
 		});
 
 		// Then individual column filters
@@ -31,7 +33,7 @@ function _fnFilterComplete ( settings, input )
 		{
 			var col = columnsSearch[i];
 
-			_fnFilter(
+			filter(
 				settings.aiDisplay,
 				settings,
 				col.search,
@@ -40,18 +42,18 @@ function _fnFilterComplete ( settings, input )
 			);
 
 			$.each(settings.aoColumns[i].searchFixed, function (name, term) {
-				_fnFilter(settings.aiDisplay, settings, term, {}, i);
+				filter(settings.aiDisplay, settings, term, {}, i);
 			});
 		}
 
 		// And finally global filtering
-		_fnFilterCustom( settings );
+		filterCustom( settings );
 	}
 
 	// Tell the draw function we have been filtering
 	settings.bFiltered = true;
 
-	_fnCallbackFire( settings, null, 'search', [settings] );
+	callbackFire( settings, null, 'search', [settings] );
 }
 
 
@@ -63,14 +65,14 @@ function _fnFilterComplete ( settings, input )
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnFilterCustom( settings )
+function filterCustom( settings )
 {
 	var filters = DataTable.ext.search;
 	var displayRows = settings.aiDisplay;
 	var row, rowIdx;
 
 	for ( var i=0, iLen=filters.length ; i<iLen ; i++ ) {
-		var rows = [];
+		var rows: number[] = [];
 
 		// Loop over each row and see if it should be included
 		for ( var j=0, jen=displayRows.length ; j<jen ; j++ ) {
@@ -85,7 +87,7 @@ function _fnFilterCustom( settings )
 		// So the array reference doesn't break set the results into the
 		// existing array
 		displayRows.length = 0;
-		_fnArrayApply(displayRows, rows);
+		arrayApply(displayRows, rows);
 	}
 }
 
@@ -93,14 +95,14 @@ function _fnFilterCustom( settings )
 /**
  * Filter the data table based on user input and draw the table
  */
-function _fnFilter( searchRows, settings, input, options, column )
+function filter( searchRows, settings, input, options, column? )
 {
 	if ( input === '' ) {
 		return;
 	}
 
 	var i = 0;
-	var matched = [];
+	var matched: any[] = [];
 
 	// Search term can be a function, regex or string - if a string we apply our
 	// smart filtering regex (assuming the options require that)
@@ -109,7 +111,7 @@ function _fnFilter( searchRows, settings, input, options, column )
 		? input
 		: searchFunc
 			? null
-			: _fnFilterCreateSearch( input, options );
+			: filterCreateSearch( input, options );
 
 	// Then for each row, does the test pass. If not, lop the row from the array
 	for (i=0 ; i<searchRows.length ; i++) {
@@ -141,9 +143,9 @@ function _fnFilter( searchRows, settings, input, options, column )
  *  @returns {RegExp} constructed object
  *  @memberof DataTable#oApi
  */
-function _fnFilterCreateSearch( search, inOpts )
+function filterCreateSearch( search, inOpts )
 {
-	var not = [];
+	var not: string[] = [];
 	var options = $.extend({}, {
 		boundary: false,
 		caseInsensitive: true,
@@ -157,7 +159,7 @@ function _fnFilterCreateSearch( search, inOpts )
 	}
 
 	// Remove diacritics if normalize is set up to do so
-	search = _normalize(search);
+	search = DataTable.util.normalize(search);
 
 	if (options.exact) {
 		return new RegExp(
@@ -242,7 +244,7 @@ var __filter_div = $('<div>')[0];
 var __filter_div_textContent = __filter_div.textContent !== undefined;
 
 // Update the filtering data for each row if needed (by invalidation or first run)
-function _fnFilterData ( settings )
+function filterData ( settings )
 {
 	var columns = settings.aoColumns;
 	var data = settings.aoData;

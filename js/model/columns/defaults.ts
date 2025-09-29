@@ -1,4 +1,5 @@
 
+import {hungarianMap} from '../../core/compat';
 
 /*
  * Developer note - See note in model.defaults.js about the use of Hungarian
@@ -7,9 +8,8 @@
 
 /**
  * Column options that can be given to DataTables at initialisation time.
- *  @namespace
  */
-DataTable.defaults.column = {
+const defaults = {
 	/**
 	 * Define which column(s) an order will occur on for this column. This
 	 * allows a column's ordering to take multiple columns into account when
@@ -17,46 +17,40 @@ DataTable.defaults.column = {
 	 * name / last name columns make sense to do a multi-column sort over the
 	 * two columns.
 	 */
-	"aDataSort": null,
-	"iDataSort": -1,
+	aDataSort: null,
+	iDataSort: -1,
 
 	ariaTitle: '',
-
 
 	/**
 	 * You can control the default ordering direction, and even alter the
 	 * behaviour of the sort handler (i.e. only allow ascending ordering etc)
 	 * using this parameter.
 	 */
-	"asSorting": [ 'asc', 'desc', '' ],
-
+	asSorting: ['asc', 'desc', ''],
 
 	/**
 	 * Enable or disable filtering on the data in this column.
 	 */
-	"bSearchable": true,
-
+	bSearchable: true,
 
 	/**
 	 * Enable or disable ordering on this column.
 	 */
-	"bSortable": true,
-
+	bSortable: true,
 
 	/**
 	 * Enable or disable the display of this column.
 	 */
-	"bVisible": true,
-
+	bVisible: true,
 
 	/**
-	 * Developer definable function that is called whenever a cell is created (Ajax source,
-	 * etc) or processed for input (DOM source). This can be used as a compliment to mRender
-	 * allowing you to modify the DOM element (add background colour for example) when the
-	 * element is available.
+	 * Developer definable function that is called whenever a cell is created
+	 * (Ajax source, etc) or processed for input (DOM source). This can be used
+	 * as a compliment to mRender allowing you to modify the DOM element (add
+	 * background colour for example) when the element is available.
 	 */
-	"fnCreatedCell": null,
-
+	fnCreatedCell: null,
 
 	/**
 	 * This property can be used to read data from any data source property,
@@ -120,8 +114,7 @@ DataTable.defaults.column = {
 	 * be used by DataTables, as it automatically maps the old name to the new
 	 * if required.
 	 */
-	"mData": null,
-
+	mData: null,
 
 	/**
 	 * This property is the rendering partner to `data` and it is suggested that
@@ -173,21 +166,19 @@ DataTable.defaults.column = {
 	 *      * The return value from the function is what will be used for the
 	 *        data requested.
 	 */
-	"mRender": null,
-
+	mRender: null,
 
 	/**
 	 * Change the cell type created for the column - either TD cells or TH cells. This
 	 * can be useful as TH cells have semantic meaning in the table body, allowing them
 	 * to act as a header for a row (you may wish to add scope='row' to the TH elements).
 	 */
-	"sCellType": "td",
-
+	sCellType: 'td',
 
 	/**
 	 * Class to give to each cell in this column.
 	 */
-	"sClass": "",
+	sClass: '',
 
 	/**
 	 * When DataTables calculates the column widths to assign to each column,
@@ -200,16 +191,14 @@ DataTable.defaults.column = {
 	 * text that is found to be the longest string for the column - i.e. padding.
 	 * Generally you shouldn't need this!
 	 */
-	"sContentPadding": "",
-
+	sContentPadding: '',
 
 	/**
 	 * Allows a default value to be given for a column's data, and will be used
 	 * whenever a null data source is encountered (this can be because `data`
 	 * is set to null, or because the data source itself is null).
 	 */
-	"sDefaultContent": null,
-
+	sDefaultContent: null,
 
 	/**
 	 * This parameter is only used in DataTables' server-side processing. It can
@@ -219,8 +208,7 @@ DataTable.defaults.column = {
 	 * back in an unexpected order (i.e. if you switch your columns around on the
 	 * client-side, your server-side code does not also need updating).
 	 */
-	"sName": "",
-
+	sName: '',
 
 	/**
 	 * Defines a data source type for the ordering which can be used to read
@@ -228,14 +216,12 @@ DataTable.defaults.column = {
 	 * version) prior to ordering. This allows ordering to occur on user
 	 * editable elements such as form inputs.
 	 */
-	"sSortDataType": "std",
-
+	sSortDataType: 'std',
 
 	/**
 	 * The title of this column.
 	 */
-	"sTitle": null,
-
+	sTitle: null,
 
 	/**
 	 * The type allows you to specify how the data for this column will be
@@ -246,8 +232,7 @@ DataTable.defaults.column = {
 	 * 'numeric', 'date' or 'html' (by default). Further types can be adding
 	 * through plug-ins.
 	 */
-	"sType": null,
-
+	sType: null,
 
 	/**
 	 * Defining the width of the column, this parameter may take any CSS value
@@ -255,8 +240,9 @@ DataTable.defaults.column = {
 	 * been given a specific width through this interface ensuring that the table
 	 * remains readable.
 	 */
-	"sWidth": null
-};
+	sWidth: null,
+}
 
-_fnHungarianMap( DataTable.defaults.column );
+hungarianMap( defaults );
 
+export default defaults;

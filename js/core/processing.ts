@@ -1,9 +1,12 @@
 
+import {callbackFire} from './support';
+import Context from '../model/settings';
+
 /**
  * Generate the node required for the processing node
  *  @param {object} settings DataTables settings object
  */
-function _processingHtml ( settings )
+export function processingHtml ( settings: Context )
 {
 	var table = settings.nTable;
 	var scrolling = settings.oScroll.sX !== '' || settings.oScroll.sY !== '';
@@ -37,14 +40,14 @@ function _processingHtml ( settings )
  *  @param {object} settings DataTables settings object
  *  @param {bool} show Show the processing indicator (true) or not (false)
  */
-function _fnProcessingDisplay ( settings, show )
+export function processingDisplay ( settings: Context, show )
 {
 	// Ignore cases when we are still redrawing
 	if (settings.bDrawing && show === false) {
 		return;
 	}
 
-	_fnCallbackFire( settings, null, 'processing', [settings, show] );
+	callbackFire( settings, null, 'processing', [settings, show] );
 }
 
 /**
@@ -54,19 +57,19 @@ function _fnProcessingDisplay ( settings, show )
  * @param {*} enable Do (true) or not (false) async processing (local feature enablement)
  * @param {*} run Function to run
  */
-function _fnProcessingRun( settings, enable, run ) {
+export function processingRun( settings: Context, enable, run ) {
 	if (! enable) {
 		// Immediate execution, synchronous
 		run();
 	}
 	else {
-		_fnProcessingDisplay(settings, true);
+		processingDisplay(settings, true);
 		
 		// Allow the processing display to show if needed
 		setTimeout(function () {
 			run();
 
-			_fnProcessingDisplay(settings, false);
+			processingDisplay(settings, false);
 		}, 0);
 	}
 }

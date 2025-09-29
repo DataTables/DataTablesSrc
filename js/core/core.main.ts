@@ -1,4 +1,7 @@
 
+import models from '../model';
+import defaults from '../model/defaults';
+
 var DataTable = function ( selector, options )
 {
 	// Check if called with a window or jQuery object for DOM less applications
@@ -112,13 +115,8 @@ DataTable.settings = [];
  * the active state and configuration of the table.
  *  @namespace
  */
-DataTable.models = {};
-_buildInclude('model.search.js');
-_buildInclude('model.row.js');
-_buildInclude('model.column.js');
-_buildInclude('model.defaults.js');
-_buildInclude('model.defaults.columns.js');
-_buildInclude('model.settings.js');
+DataTable.models = models;
+DataTable.defaults = defaults;
 
 /**
  * Extension object for DataTables that is used to provide all extension

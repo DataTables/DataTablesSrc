@@ -1,4 +1,3 @@
-
 /*
  * It is useful to have variables which are scoped locally so only the
  * DataTables functions can access them and they don't leak into global space.
@@ -7,7 +6,6 @@
  * by DataTables as private variables here. This also ensures that there is no
  * clashing of variable names and that they can easily referenced for reuse.
  */
-
 
 // Defined else where
 //  _selector_run
@@ -29,7 +27,14 @@ var _max_str_len = Math.pow(2, 28);
 var _re_date = /^\d{2,4}[./-]\d{1,2}[./-]\d{1,2}([T ]{1}\d{1,2}[:.]\d{2}([.:]\d{2})?)?$/;
 
 // Escape regular expression special characters
-var _re_escape_regex = new RegExp( '(\\' + [ '/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-' ].join('|\\') + ')', 'g' );
+var _re_escape_regex = new RegExp(
+	'(\\' +
+		['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-'].join(
+			'|\\'
+		) +
+		')',
+	'g'
+);
 
 // https://en.wikipedia.org/wiki/Foreign_exchange_market
 // - \u20BD - Russian ruble.
@@ -45,65 +50,61 @@ var _re_escape_regex = new RegExp( '(\\' + [ '/', '.', '*', '+', '?', '|', '(', 
 //   standards as thousands separators.
 var _re_formatted_numeric = /['\u00A0,$£€¥%\u2009\u202F\u20BD\u20a9\u20BArfkɃΞ]/gi;
 
-
-var _empty = function ( d ) {
+export function empty(d) {
 	return !d || d === true || d === '-' ? true : false;
-};
+}
 
-
-var _intVal = function ( s ) {
-	var integer = parseInt( s, 10 );
+export function intVal(s) {
+	var integer = parseInt(s, 10);
 	return !isNaN(integer) && isFinite(s) ? integer : null;
-};
+}
 
 // Convert from a formatted number with characters other than `.` as the
 // decimal place, to a JavaScript number
-var _numToDecimal = function ( num, decimalPoint ) {
+export function numToDecimal(num, decimalPoint) {
 	// Cache created regular expressions for speed as this function is called often
-	if ( ! _re_dic[ decimalPoint ] ) {
-		_re_dic[ decimalPoint ] = new RegExp( _fnEscapeRegex( decimalPoint ), 'g' );
+	if (!_re_dic[decimalPoint]) {
+		_re_dic[decimalPoint] = new RegExp(DataTable.util.escapeRegex(decimalPoint), 'g');
 	}
-	return typeof num === 'string' && decimalPoint !== '.' ?
-		num.replace( /\./g, '' ).replace( _re_dic[ decimalPoint ], '.' ) :
-		num;
-};
+	return typeof num === 'string' && decimalPoint !== '.'
+		? num.replace(/\./g, '').replace(_re_dic[decimalPoint], '.')
+		: num;
+}
 
-
-var _isNumber = function ( d, decimalPoint, formatted, allowEmpty ) {
+export function isNumber(d, decimalPoint, formatted, allowEmpty) {
 	var type = typeof d;
 	var strType = type === 'string';
 
-	if ( type === 'number' || type === 'bigint') {
+	if (type === 'number' || type === 'bigint') {
 		return true;
 	}
 
 	// If empty return immediately so there must be a number if it is a
 	// formatted string (this stops the string "k", or "kr", etc being detected
 	// as a formatted number for currency
-	if ( allowEmpty && _empty( d ) ) {
+	if (allowEmpty && empty(d)) {
 		return true;
 	}
 
-	if ( decimalPoint && strType ) {
-		d = _numToDecimal( d, decimalPoint );
+	if (decimalPoint && strType) {
+		d = numToDecimal(d, decimalPoint);
 	}
 
-	if ( formatted && strType ) {
-		d = d.replace( _re_formatted_numeric, '' );
+	if (formatted && strType) {
+		d = d.replace(_re_formatted_numeric, '');
 	}
 
-	return !isNaN( parseFloat(d) ) && isFinite( d );
-};
-
+	return !isNaN(parseFloat(d)) && isFinite(d);
+}
 
 // A string without HTML in it can be considered to be HTML still
-var _isHtml = function ( d ) {
-	return _empty( d ) || typeof d === 'string';
-};
+export function isHtml(d) {
+	return empty(d) || typeof d === 'string';
+}
 
 // Is a string a number surrounded by HTML?
-var _htmlNumeric = function ( d, decimalPoint, formatted, allowEmpty ) {
-	if ( allowEmpty && _empty( d ) ) {
+export function htmlNumeric(d, decimalPoint, formatted, allowEmpty) {
+	if (allowEmpty && empty(d)) {
 		return true;
 	}
 
@@ -112,74 +113,67 @@ var _htmlNumeric = function ( d, decimalPoint, formatted, allowEmpty ) {
 		return null;
 	}
 
-	var html = _isHtml( d );
-	return ! html ?
-		null :
-		_isNumber( _stripHtml( d ), decimalPoint, formatted, allowEmpty ) ?
-			true :
-			null;
-};
+	var html = isHtml(d);
+	return !html ? null : isNumber(stripHtml(d), decimalPoint, formatted, allowEmpty) ? true : null;
+}
 
-
-var _pluck = function ( a, prop, prop2 ) {
-	var out = [];
-	var i=0, iLen=a.length;
+export function pluck(a, prop, prop2?) {
+	var out: any[] = [];
+	var i = 0,
+		iLen = a.length;
 
 	// Could have the test in the loop for slightly smaller code, but speed
 	// is essential here
-	if ( prop2 !== undefined ) {
-		for ( ; i<iLen ; i++ ) {
-			if ( a[i] && a[i][ prop ] ) {
-				out.push( a[i][ prop ][ prop2 ] );
+	if (prop2 !== undefined) {
+		for (; i < iLen; i++) {
+			if (a[i] && a[i][prop]) {
+				out.push(a[i][prop][prop2]);
 			}
 		}
 	}
 	else {
-		for ( ; i<iLen ; i++ ) {
-			if ( a[i] ) {
-				out.push( a[i][ prop ] );
+		for (; i < iLen; i++) {
+			if (a[i]) {
+				out.push(a[i][prop]);
 			}
 		}
 	}
 
 	return out;
-};
-
+}
 
 // Basically the same as _pluck, but rather than looping over `a` we use `order`
 // as the indexes to pick from `a`
-var _pluck_order = function ( a, order, prop, prop2 )
-{
-	var out = [];
-	var i=0, iLen=order.length;
+export function pluck_order(a, order, prop, prop2) {
+	var out: any[] = [];
+	var i = 0,
+		iLen = order.length;
 
 	// Could have the test in the loop for slightly smaller code, but speed
 	// is essential here
-	if ( prop2 !== undefined ) {
-		for ( ; i<iLen ; i++ ) {
-			if ( a[ order[i] ] && a[ order[i] ][ prop ] ) {
-				out.push( a[ order[i] ][ prop ][ prop2 ] );
+	if (prop2 !== undefined) {
+		for (; i < iLen; i++) {
+			if (a[order[i]] && a[order[i]][prop]) {
+				out.push(a[order[i]][prop][prop2]);
 			}
 		}
 	}
 	else {
-		for ( ; i<iLen ; i++ ) {
-			if ( a[ order[i] ] ) {
-				out.push( a[ order[i] ][ prop ] );
+		for (; i < iLen; i++) {
+			if (a[order[i]]) {
+				out.push(a[order[i]][prop]);
 			}
 		}
 	}
 
 	return out;
-};
+}
 
-
-var _range = function ( len, start )
-{
-	var out = [];
+export function range(len: number, start: number) {
+	var out: number[] = [];
 	var end;
 
-	if ( start === undefined ) {
+	if (start === undefined) {
 		start = 0;
 		end = len;
 	}
@@ -188,30 +182,29 @@ var _range = function ( len, start )
 		start = len;
 	}
 
-	for ( var i=start ; i<end ; i++ ) {
-		out.push( i );
+	for (var i = start; i < end; i++) {
+		out.push(i);
 	}
 
 	return out;
-};
+}
 
+export function removeEmpty(a) {
+	var out: any[] = [];
 
-var _removeEmpty = function ( a )
-{
-	var out = [];
-
-	for ( var i=0, iLen=a.length ; i<iLen ; i++ ) {
-		if ( a[i] ) { // careful - will remove all falsy values!
-			out.push( a[i] );
+	for (var i = 0, iLen = a.length; i < iLen; i++) {
+		if (a[i]) {
+			// careful - will remove all falsy values!
+			out.push(a[i]);
 		}
 	}
 
 	return out;
-};
+}
 
 // Replaceable function in api.util
-var _stripHtml = function (input) {
-	if (! input || typeof input !== 'string') {
+export function stripHtml(input) {
+	if (!input || typeof input !== 'string') {
 		return input;
 	}
 
@@ -232,26 +225,26 @@ var _stripHtml = function (input) {
 	} while (input !== previous);
 
 	return previous;
-};
+}
 
 // Replaceable function in api.util
-var _escapeHtml = function ( d ) {
+export function escapeHtml(d: any) {
 	if (Array.isArray(d)) {
 		d = d.join(',');
 	}
 
-	return typeof d === 'string' ?
-		d
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;') :
-		d;
-};
+	return typeof d === 'string'
+		? d
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;')
+		: d;
+}
 
 // Remove diacritics from a string by decomposing it and then removing
 // non-ascii characters
-var _normalize = function (str, both) {
+export function normalize(str: any, both?: boolean) {
 	if (typeof str !== 'string') {
 		return str;
 	}
@@ -259,13 +252,11 @@ var _normalize = function (str, both) {
 	// It is faster to just run `normalize` than it is to check if
 	// we need to with a regex! (Check as it isn't available in old
 	// Safari)
-	var res = str.normalize
-		? str.normalize("NFD")
-		: str;
+	var res = str.normalize ? str.normalize('NFD') : str;
 
 	// Equally, here we check if a regex is needed or not
 	return res.length !== str.length
-		? (both === true ? str + ' ' : '' ) + res.replace(/[\u0300-\u036f]/g, "")
+		? (both === true ? str + ' ' : '') + res.replace(/[\u0300-\u036f]/g, '')
 		: res;
 }
 
@@ -274,20 +265,19 @@ var _normalize = function (str, both) {
  * cut the _unique method at the cost of a single loop. A sorted array is used
  * to easily check the values.
  *
- * @param  {array} src Source array
- * @return {boolean} true if all unique, false otherwise
- * @ignore
+ * @param  src Source array
+ * @return true if all unique, false otherwise
  */
-var _areAllUnique = function ( src ) {
-	if ( src.length < 2 ) {
+export function areAllUnique(src: any[]) {
+	if (src.length < 2) {
 		return true;
 	}
 
 	var sorted = src.slice().sort();
 	var last = sorted[0];
 
-	for ( var i=1, iLen=sorted.length ; i<iLen ; i++ ) {
-		if ( sorted[i] === last ) {
+	for (var i = 1, iLen = sorted.length; i < iLen; i++) {
+		if (sorted[i] === last) {
 			return false;
 		}
 
@@ -295,23 +285,20 @@ var _areAllUnique = function ( src ) {
 	}
 
 	return true;
-};
-
+}
 
 /**
  * Find the unique elements in a source array.
  *
  * @param  {array} src Source array
  * @return {array} Array of unique items
- * @ignore
  */
-var _unique = function ( src )
-{
+export function unique(src: any[]) {
 	if (Array.from && Set) {
 		return Array.from(new Set(src));
 	}
 
-	if ( _areAllUnique( src ) ) {
+	if (areAllUnique(src)) {
 		return src.slice();
 	}
 
@@ -319,34 +306,35 @@ var _unique = function ( src )
 	// but this doesn't work with arrays or objects, which we must also
 	// consider. See jsperf.app/compare-array-unique-versions/4 for more
 	// information.
-	var
-		out = [],
+	var out: any[] = [],
 		val,
-		i, iLen=src.length,
-		j, k=0;
+		i,
+		iLen = src.length,
+		j,
+		k = 0;
 
-	again: for ( i=0 ; i<iLen ; i++ ) {
+	again: for (i = 0; i < iLen; i++) {
 		val = src[i];
 
-		for ( j=0 ; j<k ; j++ ) {
-			if ( out[j] === val ) {
+		for (j = 0; j < k; j++) {
+			if (out[j] === val) {
 				continue again;
 			}
 		}
 
-		out.push( val );
+		out.push(val);
 		k++;
 	}
 
 	return out;
-};
+}
 
 // Surprisingly this is faster than [].concat.apply
 // https://jsperf.com/flatten-an-array-loop-vs-reduce/2
-var _flatten = function (out, val) {
+export function flatten(out: any[], val: any) {
 	if (Array.isArray(val)) {
-		for (var i=0 ; i<val.length ; i++) {
-			_flatten(out, val[i]);
+		for (var i = 0; i < val.length; i++) {
+			flatten(out, val[i]);
 		}
 	}
 	else {
@@ -357,7 +345,7 @@ var _flatten = function (out, val) {
 }
 
 // Similar to jQuery's addClass, but use classList.add
-function _addClass(el, name) {
+export function addClass(el: HTMLElement, name: string) {
 	if (name) {
 		name.split(' ').forEach(function (n) {
 			if (n) {
