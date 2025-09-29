@@ -1,7 +1,45 @@
 
 import {dataSource} from '../core/support';
 import ColumnSettings from './columns/settings';
+import Row from './row';
 import Search from './search';
+
+interface IScroll {
+	/**
+	 * When the table is shorter in height than sScrollY, collapse the
+	 * table container down to the height of the table (when true).
+	 * Note that this parameter will be set by the initialisation routine.
+	 */
+	bCollapse: boolean | null;
+
+	/**
+	 * Width of the scrollbar for the web-browser's platform. Calculated
+	 * during table initialisation.
+	 */
+	iBarWidth: number;
+
+	/**
+	 * Viewport width for horizontal scrolling. Horizontal scrolling is
+	 * disabled if an empty string.
+	 * Note that this parameter will be set by the initialisation routine.
+	 */
+	sX: string;
+
+	/**
+	 * Width to expand the table to when using x-scrolling. Typically you
+	 * should not need to use this.
+	 * Note that this parameter will be set by the initialisation routine.
+	 *  @deprecated
+	 */
+	sXInner: string;
+
+	/**
+	 * Viewport height for vertical scrolling. Vertical scrolling is disabled
+	 * if an empty string.
+	 * Note that this parameter will be set by the initialisation routine.
+	 */
+	sY: string;
+}
 
 /**
  * DataTables settings class. This holds all the information needed for a
@@ -103,41 +141,12 @@ export default class Settings {
 	/**
 	 * Scrolling settings for a table.
 	 */
-	public oScroll = {
-		/**
-		 * When the table is shorter in height than sScrollY, collapse the
-		 * table container down to the height of the table (when true).
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
+	public oScroll: IScroll = {
 		bCollapse: null,
-
-		/**
-		 * Width of the scrollbar for the web-browser's platform. Calculated
-		 * during table initialisation.
-		 */
 		iBarWidth: 0,
-
-		/**
-		 * Viewport width for horizontal scrolling. Horizontal scrolling is
-		 * disabled if an empty string.
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
-		sX: null,
-
-		/**
-		 * Width to expand the table to when using x-scrolling. Typically you
-		 * should not need to use this.
-		 * Note that this parameter will be set by the initialisation routine.
-		 *  @deprecated
-		 */
-		sXInner: null,
-
-		/**
-		 * Viewport height for vertical scrolling. Vertical scrolling is disabled
-		 * if an empty string.
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
-		sY: null
+		sX: '',
+		sXInner: '',
+		sY: ''
 	};
 
 	/**
@@ -188,17 +197,17 @@ export default class Settings {
 	 * Store data information - see {@link DataTable.models.oRow} for detailed
 	 * information.
 	 */
-	public aoData = [];
+	public aoData: Row[] = [];
 
 	/**
 	 * Array of indexes which are in the current display (after filtering etc)
 	 */
-	public aiDisplay = [];
+	public aiDisplay: number[] = [];
 
 	/**
 	 * Array of indexes for display - no filtering
 	 */
-	public aiDisplayMaster = [];
+	public aiDisplayMaster: number[] = [];
 
 	/**
 	 * Map of row ids to data indexes
@@ -265,33 +274,33 @@ export default class Settings {
 	/**
 	 * Callback functions array for every time a row is inserted (i.e. on a draw).
 	 */
-	public aoRowCallback = [];
+	public aoRowCallback: Function[] = [];
 
 	/**
 	 * Callback functions for the header on each draw.
 	 */
-	public aoHeaderCallback = [];
+	public aoHeaderCallback: Function[] = [];
 
 	/**
 	 * Callback function for the footer on each draw.
 	 */
-	public aoFooterCallback = [];
+	public aoFooterCallback: Function[] = [];
 
 	/**
 	 * Array of callback functions for draw callback functions
 	 */
-	public aoDrawCallback = [];
+	public aoDrawCallback: Function[] = [];
 
 	/**
 	 * Array of callback functions for row created function
 	 */
-	public aoRowCreatedCallback = [];
+	public aoRowCreatedCallback: Function[] = [];
 
 	/**
 	 * Callback functions for just before the table is redrawn. A return of
 	 * false will be used to cancel the draw.
 	 */
-	public aoPreDrawCallback = [];
+	public aoPreDrawCallback: Function[] = [];
 
 	/**
 	 * Callback functions for when the table has been initialised.
@@ -510,7 +519,7 @@ export default class Settings {
 	/**
 	 * The classes to use for the table
 	 */
-	public oClasses = {};
+	public oClasses;
 
 	/**
 	 * Flag attached to the settings object so you can check in the draw
@@ -543,7 +552,7 @@ export default class Settings {
 	 * Destroy callback functions - for plug-ins to attach themselves to the
 	 * destroy so they can clean up markup and events.
 	 */
-	public aoDestroyCallback = [];
+	public aoDestroyCallback: Function[] = [];
 
 	/**
 	 * Get the number of records in the current record set, before filtering
@@ -605,12 +614,17 @@ export default class Settings {
 	/**
 	 * DIV container for the footer scrolling table if scrolling
 	 */
-	public nScrollHead = null;
+	public nScrollHead;
+
+	/**
+	 * DIV container for the body scrolling table if scrolling
+	 */
+	public nScrollBody;
 
 	/**
 	 * DIV container for the footer scrolling table if scrolling
 	 */
-	public nScrollFoot = null;
+	public nScrollFoot;
 
 	/**
 	 * Last applied sort
@@ -625,7 +639,7 @@ export default class Settings {
 	/**
 	 * Function used to get a row's id from the row's data
 	 */
-	public rowIdFn = null;
+	public rowIdFn;
 
 	/**
 	 * Data location where to store a row's id
@@ -634,9 +648,9 @@ export default class Settings {
 
 	public caption = '';
 
-	public captionNode = null;
+	public captionNode;
 
-	public colgroup = null;
+	public colgroup: JQuery<HTMLElement>;
 
 	/** Delay loading of data */
 	public deferLoading = null;
@@ -671,4 +685,7 @@ export default class Settings {
 	public _reszEvt: boolean;
 	public iInitDisplayStart: number;
 	public sortDetails;
+	public scrollBarVis: boolean;
+	public _drawHold: boolean;
+	public _rowReadObject: boolean = false;
 }

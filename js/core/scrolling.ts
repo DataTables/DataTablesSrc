@@ -1,10 +1,15 @@
+
+import Context from '../model/settings';
+import { adjustColumnSizing } from './columns';
+import { stringToCss } from './sizing';
+import { dataSource } from './support';
+
 /**
  * Add any control elements for the table - specifically scrolling
  *  @param {object} settings dataTables settings object
  *  @returns {node} Node to add to the DOM
- *  @memberof DataTable#oApi
  */
-function _fnFeatureHtmlTable ( settings )
+export function featureHtmlTable ( settings: Context )
 {
 	var table = $(settings.nTable);
 
@@ -22,10 +27,10 @@ function _fnFeatureHtmlTable ( settings )
 	var captionSide = caption ? caption._captionSide : null;
 	var headerClone = $( table[0].cloneNode(false) );
 	var footerClone = $( table[0].cloneNode(false) );
-	var footer = table.children('tfoot');
+	var footer: JQuery | null = table.children('tfoot');
 	var _div = '<div/>';
 	var size = function ( s ) {
-		return !s ? null : _fnStringToCss( s );
+		return !s ? null : stringToCss( s );
 	};
 
 	if ( ! footer.length ) {
@@ -118,7 +123,7 @@ function _fnFeatureHtmlTable ( settings )
 
 		scrollHead.scrollLeft = scrollLeft;
 
-		if ( footer ) {
+		if ( scrollFoot ) {
 			scrollFoot.scrollLeft = scrollLeft;
 		}
 	} );
@@ -134,17 +139,17 @@ function _fnFeatureHtmlTable ( settings )
 		}
 	});
 
-	$(scrollBody).css('max-height', scrollY);
-	if (! scroll.bCollapse) {
-		$(scrollBody).css('height', scrollY);
-	}
+		$(scrollBody).css('max-height', scrollY);
+		if (! scroll.bCollapse) {
+			$(scrollBody).css('height', scrollY);
+		}
 
 	settings.nScrollHead = scrollHead;
 	settings.nScrollBody = scrollBody;
 	settings.nScrollFoot = scrollFoot;
 
 	// On redraw - align columns
-	settings.aoDrawCallback.push(_fnScrollDraw);
+	settings.aoDrawCallback.push(scrollDraw);
 
 	return scroller[0];
 }
@@ -163,9 +168,8 @@ function _fnFeatureHtmlTable ( settings )
  *   4. Clean up
  *
  *  @param {object} settings dataTables settings object
- *  @memberof DataTable#oApi
  */
-function _fnScrollDraw ( settings )
+export function scrollDraw ( settings: Context )
 {
 	// Given that this is such a monster function, a lot of variables are use
 	// to try and keep the minimised size as small as possible
@@ -193,7 +197,7 @@ function _fnScrollDraw ( settings )
 	
 	if ( settings.scrollBarVis !== scrollBarVis && settings.scrollBarVis !== undefined ) {
 		settings.scrollBarVis = scrollBarVis;
-		_fnAdjustColumnSizing( settings );
+		adjustColumnSizing( settings );
 		return; // adjust column sizing will call this function again
 	}
 	else {
@@ -228,7 +232,7 @@ function _fnScrollDraw ( settings )
 		// [].find, but it wasn't supported in Chrome until Sept 2015, and DT has 10 year
 		// browser support
 		var firstTr = null;
-		var start = _fnDataSource( settings ) !== 'ssp'
+		var start = dataSource( settings ) !== 'ssp'
 			? settings._iDisplayStart
 			: 0;
 
@@ -297,21 +301,21 @@ function _fnScrollDraw ( settings )
 	// 4. Clean up
 	// Figure out if there are scrollbar present - if so then we need the header and footer to
 	// provide a bit more space to allow "overflow" scrolling (i.e. past the scrollbar)
-	var isScrolling = Math.floor(table.height()) > divBodyEl.clientHeight || divBody.css('overflow-y') == "scroll";
+	var isScrolling = Math.floor(table.height()!) > divBodyEl.clientHeight || divBody.css('overflow-y') == "scroll";
 	var paddingSide = 'padding' + (browser.bScrollbarLeft ? 'Left' : 'Right' );
 
 	// Set the width's of the header and footer tables
 	var outerWidth = table.outerWidth();
 
-	divHeaderTable.css('width', _fnStringToCss( outerWidth ));
+	divHeaderTable.css('width', stringToCss( outerWidth ));
 	divHeaderInner
-		.css('width', _fnStringToCss( outerWidth ))
+		.css('width', stringToCss( outerWidth ))
 		.css(paddingSide, isScrolling ? barWidth+"px" : "0px");
 
 	if ( footer ) {
-		divFooterTable.css('width', _fnStringToCss( outerWidth ));
+		divFooterTable.css('width', stringToCss( outerWidth ));
 		divFooterInner
-			.css('width', _fnStringToCss( outerWidth ))
+			.css('width', stringToCss( outerWidth ))
 			.css(paddingSide, isScrolling ? barWidth+"px" : "0px");
 	}
 

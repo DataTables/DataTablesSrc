@@ -77,7 +77,7 @@ export default class Settings {
 	 * required. This function is automatically assigned by the column
 	 * initialisation method
 	 */
-	public fnGetData = null;
+	public fnGetData;
 
 	/**
 	 * Function to set data for a cell in the column. You should <b>never</b>
@@ -85,7 +85,7 @@ export default class Settings {
 	 * this method. It allows mData to function as required. This function is
 	 * automatically assigned by the column initialisation method
 	 */
-	public fnSetData = null;
+	public fnSetData;
 
 	/**
 	 * Property to read the value for the cells in the column from the data
@@ -151,7 +151,7 @@ export default class Settings {
 	/**
 	 * Column sorting and filtering type
 	 */
-	public sType: string;
+	public sType: string | null;
 
 	/**
 	 * Width of the column
@@ -170,4 +170,6 @@ export default class Settings {
 	 * Store for named searches
 	 */
 	public searchFixed = null;
+
+	public colEl: HTMLTableColElement;
 }

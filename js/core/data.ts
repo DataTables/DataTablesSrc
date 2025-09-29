@@ -1,3 +1,8 @@
+
+import Context from '../model/settings';
+import { pluck } from './internal';
+import { log } from './support';
+
 /**
  * Add a data array to the table, creating DOM node etc. This is the parallel to
  * _fnGatherData, but for adding rows from a JavaScript source, rather than a
@@ -11,7 +16,7 @@
  *  @returns {int} >=0 if successful (index of new aoData entry), -1 if failed
  *  @memberof DataTable#oApi
  */
-function _fnAddData ( settings, dataIn, tr, tds )
+export function addData ( settings: Context, dataIn, tr, tds )
 {
 	/* Create the object for storing information about this new row */
 	var rowIdx = settings.aoData.length;
@@ -59,7 +64,7 @@ function _fnAddData ( settings, dataIn, tr, tds )
  *  @returns {array} Array of indexes for the added rows
  *  @memberof DataTable#oApi
  */
-function _fnAddTr( settings, trs )
+export function addTr( settings: Context, trs )
 {
 	var row;
 
@@ -69,8 +74,8 @@ function _fnAddTr( settings, trs )
 	}
 
 	return trs.map( function (i, el) {
-		row = _fnGetRowElements( settings, el );
-		return _fnAddData( settings, row.data, el, row.cells );
+		row = getRowElements( settings, el );
+		return addData( settings, row.data, el, row.cells );
 	} );
 }
 
@@ -84,7 +89,7 @@ function _fnAddTr( settings, trs )
  *  @returns {*} Cell data
  *  @memberof DataTable#oApi
  */
-function _fnGetCellData( settings, rowIdx, colIdx, type )
+export function getCellData( settings: Context, rowIdx, colIdx, type )
 {
 	if (type === 'search') {
 		type = 'filter';
@@ -116,11 +121,13 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 
 	if ( cellData === undefined ) {
 		if ( settings.iDrawError != draw && defaultContent === null ) {
-			_fnLog( settings, 0, "Requested unknown parameter "+
+			log( settings, 0, "Requested unknown parameter "+
 				(typeof col.mData=='function' ? '{function}' : "'"+col.mData+"'")+
 				" for row "+rowIdx+", column "+colIdx, 4 );
+
 			settings.iDrawError = draw;
 		}
+
 		return defaultContent;
 	}
 
@@ -142,7 +149,7 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
 	if ( type === 'filter' ) {
 		var formatters = DataTable.ext.type.search;
 
-		if ( formatters[ col.sType ] ) {
+		if ( col.sType && formatters[ col.sType ] ) {
 			cellData = formatters[ col.sType ]( cellData );
 		}
 	}
@@ -159,7 +166,7 @@ function _fnGetCellData( settings, rowIdx, colIdx, type )
  *  @param {*} val Value to set
  *  @memberof DataTable#oApi
  */
-function _fnSetCellData( settings, rowIdx, colIdx, val )
+export function setCellData( settings: Context, rowIdx, colIdx, val )
 {
 	var col     = settings.aoColumns[colIdx];
 	var rowData = settings.aoData[rowIdx]._aData;
@@ -176,7 +183,7 @@ function _fnSetCellData( settings, rowIdx, colIdx, val )
  * @param {*} td Cell
  * @param {*} val Value
  */
-function _fnWriteCell(td, val)
+export function writeCell(td, val)
 {
 	if (val && typeof val === 'object' && val.nodeName) {
 		$(td)
@@ -198,7 +205,7 @@ var __reFn = /\(\)$/;
  * @param  {string} str String to split
  * @return {array} Split string
  */
-function _fnSplitObjNotation( str )
+export function splitObjNotation( str )
 {
 	var parts = str.match(/(\\.|[^.])+/g) || [''];
 
@@ -234,9 +241,9 @@ var _fnSetObjectDataFn = DataTable.util.set;
  *  @returns array {array} aData Master data array
  *  @memberof DataTable#oApi
  */
-function _fnGetDataMaster ( settings )
+export function getDataMaster ( settings: Context )
 {
-	return _pluck( settings.aoData, '_aData' );
+	return pluck( settings.aoData, '_aData' );
 }
 
 
@@ -245,7 +252,7 @@ function _fnGetDataMaster ( settings )
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnClearTable( settings )
+export function clearTable( settings: Context )
 {
 	settings.aoData.length = 0;
 	settings.aiDisplayMaster.length = 0;
@@ -264,13 +271,12 @@ function _fnClearTable( settings )
  *     or 'data'
  * @param {int}    [colIdx] Column index to invalidate. If undefined the whole
  *     row will be invalidated
- * @memberof DataTable#oApi
  *
  * @todo For the modularisation of v1.11 this will need to become a callback, so
  *   the sort and filter methods can subscribe to it. That will required
  *   initialisation options for sorting, which is why it is not already baked in
  */
-function _fnInvalidate( settings, rowIdx, src, colIdx )
+export function invalidate( settings: Context, rowIdx, src, colIdx )
 {
 	var row = settings.aoData[ rowIdx ];
 	var i, iLen;
@@ -283,7 +289,7 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 	// Are we reading last data from DOM or the data object?
 	if ( src === 'dom' || ((! src || src === 'auto') && row.src === 'dom') ) {
 		// Read the data from the DOM
-		row._aData = _fnGetRowElements(
+		row._aData = getRowElements(
 				settings, row, colIdx, colIdx === undefined ? undefined : row._aData
 			)
 			.data;
@@ -295,11 +301,11 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
 
 		if ( cells ) {
 			if ( colIdx !== undefined ) {
-				_fnWriteCell(cells[colIdx], display[colIdx]);
+				writeCell(cells[colIdx], display[colIdx]);
 			}
 			else {
 				for ( i=0, iLen=cells.length ; i<iLen ; i++ ) {
-					_fnWriteCell(cells[i], display[i]);
+					writeCell(cells[i], display[i]);
 				}
 			}
 		}
@@ -342,12 +348,11 @@ function _fnInvalidate( settings, rowIdx, src, colIdx )
  *   document order, and `cells` and array of nodes (they can be useful to the
  *   caller, so rather than needing a second traversal to get them, just return
  *   them from here).
- * @memberof DataTable#oApi
  */
-function _fnGetRowElements( settings, row, colIdx, d )
+export function getRowElements( settings: Context, row, colIdx?, d? )
 {
 	var
-		tds = [],
+		tds: HTMLTableCellElement[] = [],
 		td = row.firstChild,
 		name, col, i=0, contents,
 		columns = settings.aoColumns,

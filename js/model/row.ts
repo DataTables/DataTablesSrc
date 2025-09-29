@@ -13,7 +13,7 @@ export default class Row {
 	 * Array of TD elements for each row. This is null until the row has been
 	 * created.
 	 */
-	public anCells = null;
+	public anCells: HTMLTableCellElement[];
 
 	/**
 	 * Data object from the original data source for the row. This is either
