@@ -369,13 +369,16 @@ _api_registerPlural( 'columns().titles()', 'column().title()', function (title, 
 
 _api_registerPlural( 'columns().types()', 'column().type()', function () {
 	return this.iterator( 'column', function ( settings, column ) {
-		var type = settings.aoColumns[column].sType;
+		var colObj = settings.aoColumns[column]
+		var type = colObj.sType;
 
 		// If the type was invalidated, then resolve it. This actually does
 		// all columns at the moment. Would only happen once if getting all
 		// column's data types.
 		if (! type) {
 			_fnColumnTypes(settings);
+
+			type = colObj.sType;
 		}
 
 		return type;
