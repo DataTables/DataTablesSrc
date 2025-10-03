@@ -1,5 +1,6 @@
-@import './common.scss';
-@import './ordering.scss';
+@use "sass:meta";
+@use 'common.scss';
+@use 'ordering.scss';
 
 table.dataTable {
 	clear: both;
@@ -63,8 +64,8 @@ div.dt-container {
 	}
 }
 
-@import 'typography.scss';
-@import 'ordering.scss';
+@include meta.load-css('typography.scss');
+@include meta.load-css('ordering.scss');
 
 // Scrolling
 div.dt-scroll-head table.dataTable {

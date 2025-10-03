@@ -2,12 +2,11 @@
 /*! DataTables Bulma integration
  * © SpryMedia Ltd - datatables.net/license
  */
-$table-header-order-height: 24px;
 
-@import './common.scss';
-@import './ordering.scss';
-@import './processing.scss';
-@import './typography.scss';
+@use 'common.scss' with ($table-header-order-height: 24px);
+@use 'ordering.scss';
+@use 'processing.scss';
+@use 'typography.scss';
 
 // This doesn't yet work with the Bulma's CSS variables. DataTables' CSS variables
 // will need an overhaul before they work seamlessly. 
@@ -32,10 +31,10 @@ table.dataTable {
 		background-color: transparent;
 	}
 
-	@include row-stripes('.is-striped', '.is-hoverable', 0.019, 0.075, ':nth-child(2n)');
+	@include common.row-stripes('.is-striped', '.is-hoverable', 0.019, 0.075, ':nth-child(2n)');
 }
 
-@include layout-cells;
+@include common.layout-cells;
 
 @media screen and (max-width: 767px) {
 	div.dt-container {

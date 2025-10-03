@@ -1,11 +1,12 @@
 
-$table-row-selected: 13 110 253;
-$table-header-order-height: 24px;
 
-@import './common.scss';
-@import './ordering.scss';
-@import './processing.scss';
-@import './typography.scss';
+@use 'common.scss' with (
+  $table-row-selected: 13 110 253,
+  $table-header-order-height: 24px
+);
+@use 'ordering.scss';
+@use 'processing.scss';
+@use 'typography.scss';
 
 /*! Bootstrap 5 integration for DataTables
  *
@@ -28,11 +29,11 @@ table.table.dataTable {
 		background-color: var(--bs-table-bg);
 	}
 
-	@include row-stripes('.table-striped', '.table-hover', 0.05, 0.075, ':nth-of-type(2n+1)');
+	@include common.row-stripes('.table-striped', '.table-hover', 0.05, 0.075, ':nth-of-type(2n+1)');
 }
 
 
-@include layout-cells;
+@include common.layout-cells;
 
 // DataTables' built in feature elements
 div.dt-container {

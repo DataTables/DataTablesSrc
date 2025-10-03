@@ -1,10 +1,9 @@
 
-$table-row-selected: 0 137 182;
 
-@import './common.scss';
-@import './ordering.scss';
-@import './processing.scss';
-@import './typography.scss';
+@use 'common.scss' with ($table-row-selected: 0 137 182);
+@use 'ordering.scss';
+@use 'processing.scss';
+@use 'typography.scss';
 
 table.dataTable {
 	clear: both;
@@ -17,10 +16,10 @@ table.dataTable {
 		background-color: transparent;
 	}
 
-	@include row-stripes('', '.hover', 0.054, 0.074, ':nth-child(2n)');
+	@include common.row-stripes('', '.hover', 0.054, 0.074, ':nth-child(2n)');
 }
 
-@include layout-cells;
+@include common.layout-cells;
 
 @media screen and (max-width: 767px) {
 	div.dt-container {

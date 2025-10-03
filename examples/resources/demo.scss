@@ -1,8 +1,9 @@
+@use "sass:color";
 
 @mixin code-dark-tint ($color) {
 	color: $color;
-	background-color: mix($color, rgb(33, 37, 41), 10%);
-	border: 1px solid mix($color, rgb(33, 37, 41), 5%);
+	background-color: color.mix($color, rgb(33, 37, 41), 10%);
+	border: 1px solid color.mix($color, rgb(33, 37, 41), 5%);
 }
 
 body {
