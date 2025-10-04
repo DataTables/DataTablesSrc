@@ -1,9 +1,21 @@
 
+import Context from '../model/settings';
+import { log, callbackFire, dataSource, renderer, escapeObject } from './support';
+import { getCellData, getDataMaster, writeCell } from './data';
+import { addClass, unique, pluck, range, stripHtml } from './internal';
+import { processingDisplay } from './processing';
+import { ajaxUpdate } from './ajax';
+import { visibleColumns, columnTypes, columnOptions } from './columns';
+import { sort } from './sort';
+import { filterComplete } from './filter';
+import { featureHtmlTable } from './scrolling';
+import { processingHtml } from './processing';
+
 /**
  * Render and cache a row's display data for the columns, if required
  * @returns 
  */
-function _fnGetRowDisplay (settings, rowIdx) {
+export function getRowDisplay (settings, rowIdx) {
 	var rowModal = settings.aoData[rowIdx];
 	var columns = settings.aoColumns;
 
@@ -13,7 +25,7 @@ function _fnGetRowDisplay (settings, rowIdx) {
 	
 		for ( var colIdx=0, len=columns.length ; colIdx<len ; colIdx++ ) {
 			rowModal.displayData.push(
-				_fnGetCellData( settings, rowIdx, colIdx, 'display' )
+				getCellData( settings, rowIdx, colIdx, 'display' )
 			);
 		}
 	}
@@ -31,12 +43,12 @@ function _fnGetRowDisplay (settings, rowIdx) {
  *    if nTr is.
  *  @memberof DataTable#oApi
  */
-function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
+export function createTr ( oSettings, iRow, nTrIn?, anTds? )
 {
 	var
 		row = oSettings.aoData[iRow],
 		rowData = row._aData,
-		cells = [],
+		cells: HTMLTableCellElement[] = [],
 		nTr, nTd, oCol,
 		i, iLen, create,
 		trClass = oSettings.oClasses.tbody.row;
@@ -48,7 +60,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 		row.nTr = nTr;
 		row.anCells = cells;
 
-		_addClass(nTr, trClass);
+		addClass(nTr, trClass);
 
 		/* Use a private property on the node to allow reserve mapping from the node
 		 * to the aoData array for fast look up
@@ -56,7 +68,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 		nTr._DT_RowIndex = iRow;
 
 		/* Special parameters can be given by the data source to be used on the row */
-		_fnRowAttributes( oSettings, row );
+		rowAttributes( oSettings, row );
 
 		/* Process each column */
 		for ( i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
@@ -67,7 +79,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			nTd = create ? document.createElement( oCol.sCellType ) : anTds[i];
 
 			if (! nTd) {
-				_fnLog( oSettings, 0, 'Incorrect column count', 18 );
+				log( oSettings, 0, 'Incorrect column count', 18 );
 			}
 
 			nTd._DT_CellIndex = {
@@ -77,7 +89,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			
 			cells.push( nTd );
 			
-			var display = _fnGetRowDisplay(oSettings, iRow);
+			var display = getRowDisplay(oSettings, iRow);
 
 			// Need to create the HTML if new, or if a rendering function is defined
 			if (
@@ -87,11 +99,11 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 					(!$.isPlainObject(oCol.mData) || oCol.mData._ !== i+'.display')
 				)
 			) {
-				_fnWriteCell(nTd, display[i]);
+				writeCell(nTd, display[i]);
 			}
 
 			// column class
-			_addClass(nTd, oCol.sClass);
+			addClass(nTd, oCol.sClass);
 
 			// Visibility - add or remove as required
 			if ( oCol.bVisible && create )
@@ -106,15 +118,15 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
 			if ( oCol.fnCreatedCell )
 			{
 				oCol.fnCreatedCell.call( oSettings.oInstance,
-					nTd, _fnGetCellData( oSettings, iRow, i ), rowData, iRow, i
+					nTd, getCellData( oSettings, iRow, i ), rowData, iRow, i
 				);
 			}
 		}
 
-		_fnCallbackFire( oSettings, 'aoRowCreatedCallback', 'row-created', [nTr, rowData, iRow, cells] );
+		callbackFire( oSettings, 'aoRowCreatedCallback', 'row-created', [nTr, rowData, iRow, cells] );
 	}
 	else {
-		_addClass(row.nTr, trClass);
+		addClass(row.nTr, trClass);
 	}
 }
 
@@ -126,7 +138,7 @@ function _fnCreateTr ( oSettings, iRow, nTrIn, anTds )
  *  @param {object} DataTables row object for the row to be modified
  *  @memberof DataTable#oApi
  */
-function _fnRowAttributes( settings, row )
+export function rowAttributes( settings, row )
 {
 	var tr = row.nTr;
 	var data = row._aData;
@@ -142,7 +154,7 @@ function _fnRowAttributes( settings, row )
 			// Remove any classes added by DT_RowClass before
 			var a = data.DT_RowClass.split(' ');
 			row.__rowc = row.__rowc ?
-				_unique( row.__rowc.concat( a ) ) :
+				unique( row.__rowc.concat( a ) ) :
 				a;
 
 			$(tr)
@@ -166,7 +178,7 @@ function _fnRowAttributes( settings, row )
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnBuildHead( settings, side )
+export function buildHead( settings, side )
 {
 	var classes = settings.oClasses;
 	var columns = settings.aoColumns;
@@ -182,7 +194,7 @@ function _fnBuildHead( settings, side )
 	}
 
 	// If no cells yet and we have content for them, then create
-	if (side === 'header' || _pluck(settings.aoColumns, titleProp).join('')) {
+	if (side === 'header' || pluck(settings.aoColumns, titleProp).join('')) {
 		row = $('tr', target);
 
 		// Add a row if needed
@@ -194,7 +206,7 @@ function _fnBuildHead( settings, side )
 		if (row.length === 1) {
 			var cellCount = 0;
 			
-			$('td, th', row).each(function () {
+			$<HTMLTableCellElement>('td, th', row).each(function () {
 				cellCount += this.colSpan;
 			});
 
@@ -206,7 +218,7 @@ function _fnBuildHead( settings, side )
 		}
 	}
 
-	var detected = _fnDetectHeader( settings, target, true );
+	var detected = detectHeader( settings, target, true );
 
 	if (side === 'header') {
 		settings.aoHeader = detected;
@@ -220,7 +232,7 @@ function _fnBuildHead( settings, side )
 	// Every cell needs to be passed through the renderer
 	$(target).children('tr').children('th, td')
 		.each( function () {
-			_fnRenderer( settings, side )(
+			renderer( settings, side )(
 				settings, $(this), classes
 			);
 		} );
@@ -234,11 +246,11 @@ function _fnBuildHead( settings, side )
  * @param {*} incColumns What columns should be included
  * @returns Layout array in column index order
  */
-function _fnHeaderLayout( settings, source, incColumns )
+export function headerLayout( settings, source, incColumns? )
 {
 	var row, column, cell;
-	var local = [];
-	var structure = [];
+	var local: any[] = [];
+	var structure: any[][] = []; // TODO typing
 	var columns = settings.aoColumns;
 	var columnCount = columns.length;
 	var rowspan, colspan;
@@ -249,7 +261,7 @@ function _fnHeaderLayout( settings, source, incColumns )
 
 	// Default is to work on only visible columns
 	if ( ! incColumns ) {
-		incColumns = _range(columnCount)
+		incColumns = range(columnCount)
 			.filter(function (idx) {
 				return columns[idx].bVisible;
 			});
@@ -320,13 +332,17 @@ function _fnHeaderLayout( settings, source, incColumns )
  * Draw the header (or footer) element based on the column visibility states.
  *
  *  @param object oSettings dataTables settings object
- *  @param array aoSource Layout array from _fnDetectHeader
+ *  @param array aoSource Layout array from detectHeader
  *  @memberof DataTable#oApi
  */
-function _fnDrawHead( settings, source )
+export function drawHead( settings, source )
 {
-	var layout = _fnHeaderLayout(settings, source);
+	var layout = headerLayout(settings, source);
 	var tr, n;
+
+	if (! layout) {
+		return;
+	}
 
 	for ( var row=0 ; row<source.length ; row++ ) {
 		tr = source[row].row;
@@ -359,22 +375,22 @@ function _fnDrawHead( settings, source )
  *  @param ajaxComplete true after ajax call to complete rendering
  *  @memberof DataTable#oApi
  */
-function _fnDraw( oSettings, ajaxComplete )
+export function draw( oSettings, ajaxComplete? )
 {
 	// Allow for state saving and a custom start position
-	_fnStart( oSettings );
+	start( oSettings );
 
 	/* Provide a pre-callback function which can be used to cancel the draw is false is returned */
-	var aPreDraw = _fnCallbackFire( oSettings, 'aoPreDrawCallback', 'preDraw', [oSettings] );
+	var aPreDraw = callbackFire( oSettings, 'aoPreDrawCallback', 'preDraw', [oSettings] );
 	if ( aPreDraw.indexOf(false) !== -1 )
 	{
-		_fnProcessingDisplay( oSettings, false );
+		processingDisplay( oSettings, false );
 		return;
 	}
 
-	var anRows = [];
+	var anRows: HTMLTableRowElement[] = [];
 	var iRowCount = 0;
-	var bServerSide = _fnDataSource( oSettings ) == 'ssp';
+	var bServerSide = dataSource( oSettings ) == 'ssp';
 	var aiDisplay = oSettings.aiDisplay;
 	var iDisplayStart = oSettings._iDisplayStart;
 	var iDisplayEnd = oSettings.fnDisplayEnd();
@@ -388,7 +404,7 @@ function _fnDraw( oSettings, ajaxComplete )
 	{
 		oSettings.deferLoading = false;
 		oSettings.iDraw++;
-		_fnProcessingDisplay( oSettings, false );
+		processingDisplay( oSettings, false );
 	}
 	else if ( !bServerSide )
 	{
@@ -401,7 +417,7 @@ function _fnDraw( oSettings, ajaxComplete )
 			body.empty().append(_emptyRow(oSettings));
 		}
 
-		_fnAjaxUpdate( oSettings );
+		ajaxUpdate( oSettings );
 		return;
 	}
 
@@ -424,7 +440,7 @@ function _fnDraw( oSettings, ajaxComplete )
 			// Row node hasn't been created yet
 			if ( aoData.nTr === null )
 			{
-				_fnCreateTr( oSettings, iDataIndex );
+				createTr( oSettings, iDataIndex );
 			}
 
 			var nRow = aoData.nTr;
@@ -434,14 +450,14 @@ function _fnDraw( oSettings, ajaxComplete )
 				var col = columns[i];
 				var td = aoData.anCells[i];
 
-				_addClass(td, _ext.type.className[col.sType]); // auto class
-				_addClass(td, oSettings.oClasses.tbody.cell); // all cells
+				addClass(td, DataTable.ext.type.className[col.sType]); // auto class
+				addClass(td, oSettings.oClasses.tbody.cell); // all cells
 			}
 
 			// Row callback functions - might want to manipulate the row
 			// iRowCount and j are not currently documented. Are they at all
 			// useful?
-			_fnCallbackFire( oSettings, 'aoRowCallback', null,
+			callbackFire( oSettings, 'aoRowCallback', null,
 				[nRow, aoData._aData, iRowCount, j, iDataIndex] );
 
 			anRows.push( nRow );
@@ -454,11 +470,11 @@ function _fnDraw( oSettings, ajaxComplete )
 	}
 
 	/* Header and footer callbacks */
-	_fnCallbackFire( oSettings, 'aoHeaderCallback', 'header', [ $(oSettings.nTHead).children('tr')[0],
-		_fnGetDataMaster( oSettings ), iDisplayStart, iDisplayEnd, aiDisplay ] );
+	callbackFire( oSettings, 'aoHeaderCallback', 'header', [ $(oSettings.nTHead).children('tr')[0],
+		getDataMaster( oSettings ), iDisplayStart, iDisplayEnd, aiDisplay ] );
 
-	_fnCallbackFire( oSettings, 'aoFooterCallback', 'footer', [ $(oSettings.nTFoot).children('tr')[0],
-		_fnGetDataMaster( oSettings ), iDisplayStart, iDisplayEnd, aiDisplay ] );
+	callbackFire( oSettings, 'aoFooterCallback', 'footer', [ $(oSettings.nTFoot).children('tr')[0],
+		getDataMaster( oSettings ), iDisplayStart, iDisplayEnd, aiDisplay ] );
 
 	// replaceChildren is faster, but only became widespread in 2020,
 	// so a fall back in jQuery is provided for older browsers.
@@ -474,7 +490,7 @@ function _fnDraw( oSettings, ajaxComplete )
 	$(oSettings.nTableWrapper).toggleClass('dt-empty-footer', $('tr', oSettings.nTFoot).length === 0);
 
 	/* Call all required callback functions for the end of a draw */
-	_fnCallbackFire( oSettings, 'aoDrawCallback', 'draw', [oSettings], true );
+	callbackFire( oSettings, 'aoDrawCallback', 'draw', [oSettings], true );
 
 	/* Draw is complete, sorting and filtering must be as well */
 	oSettings.bSorted = false;
@@ -490,7 +506,7 @@ function _fnDraw( oSettings, ajaxComplete )
  *    the paging is reset to the first page
  *  @memberof DataTable#oApi
  */
-function _fnReDraw( settings, holdPosition, recompute )
+export function reDraw( settings, holdPosition, recompute )
 {
 	var
 		features = settings.oFeatures,
@@ -499,14 +515,14 @@ function _fnReDraw( settings, holdPosition, recompute )
 
 	if (recompute === undefined || recompute === true) {
 		// Resolve any column types that are unknown due to addition or invalidation
-		_fnColumnTypes( settings );
+		columnTypes( settings );
 
 		if ( sort ) {
-			_fnSort( settings );
+			sort( settings );
 		}
 
 		if ( filter ) {
-			_fnFilterComplete( settings, settings.oPreviousSearch );
+			filterComplete( settings, settings.oPreviousSearch );
 		}
 		else {
 			// No filtering, so we want to just use the display master
@@ -522,7 +538,7 @@ function _fnReDraw( settings, holdPosition, recompute )
 	// scrolling internally)
 	settings._drawHold = holdPosition;
 
-	_fnDraw( settings );
+	draw( settings );
 
 	settings.api.one('draw', function () {
 		settings._drawHold = false;
@@ -536,7 +552,7 @@ function _fnReDraw( settings, holdPosition, recompute )
 function _emptyRow ( settings ) {
 	var oLang = settings.oLanguage;
 	var zero = oLang.sZeroRecords;
-	var dataSrc = _fnDataSource( settings );
+	var dataSrc = dataSource( settings );
 
 	// Make use of the fact that settings.json is only set once the initial data has
 	// been loaded. Show loading when that isn't the case
@@ -548,9 +564,9 @@ function _emptyRow ( settings ) {
 		zero = oLang.sEmptyTable;
 	}
 
-	return $( '<tr/>' )
+	return $<HTMLTableRowElement>( '<tr/>' )
 		.append( $('<td />', {
-			'colSpan': _fnVisibleColumns( settings ),
+			'colSpan': visibleColumns( settings ),
 			'class':   settings.oClasses.empty.row
 		} ).html( zero ) )[0];
 }
@@ -652,7 +668,7 @@ function _layoutGetRow(rows, rowNum, align) {
  * @returns Converted array structure - one item for each row.
  */
 function _layoutArray ( settings, layout, side ) {
-	var rows = [];
+	var rows: any[] = []; // TODO typing
 	
 	// Split out into an array
 	$.each( layout, function ( pos, items ) {
@@ -660,7 +676,8 @@ function _layoutArray ( settings, layout, side ) {
 			return;
 		}
 
-		var parts = pos.match(/^([a-z]+)([0-9]*)([A-Za-z]*)$/);
+		// TODO typing
+		var parts = (pos as any).match(/^([a-z]+)([0-9]*)([A-Za-z]*)$/);
 		var rowNum = parts[2]
 			? parts[2] * 1
 			: 0;
@@ -720,11 +737,11 @@ function _layoutArray ( settings, layout, side ) {
  */
 function _layoutResolve( settings, row ) {
 	var getFeature = function (feature, opts) {
-		if ( ! _ext.features[ feature ] ) {
-			_fnLog( settings, 0, 'Unknown feature: '+ feature );
+		if ( ! DataTable.ext.features[ feature ] ) {
+			log( settings, 0, 'Unknown feature: '+ feature );
 		}
 
-		return _ext.features[ feature ].apply( this, [settings, opts] );
+		return DataTable.ext.features[ feature ].apply( this, [settings, opts] );
 	};
 
 	var resolve = function ( item ) {
@@ -770,7 +787,7 @@ function _layoutResolve( settings, row ) {
  *  @param {object} settings DataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnAddOptionsHtml ( settings )
+export function addOptionsHtml ( settings )
 {
 	var classes = settings.oClasses;
 	var table = $(settings.nTable);
@@ -787,12 +804,12 @@ function _fnAddOptionsHtml ( settings )
 
 	if (settings.sDom) {
 		// Legacy
-		_fnLayoutDom(settings, settings.sDom, insert);
+		layoutDom(settings, settings.sDom, insert);
 	}
 	else {
 		var top = _layoutArray( settings, settings.layout, 'top' );
 		var bottom = _layoutArray( settings, settings.layout, 'bottom' );
-		var renderer = _fnRenderer( settings, 'layout' );
+		var renderer = renderer( settings, 'layout' );
 	
 		// Everything above - the renderer will actually insert the contents into the document
 		top.forEach(function (item) {
@@ -803,7 +820,7 @@ function _fnAddOptionsHtml ( settings )
 		renderer( settings, insert, {
 			full: {
 				table: true,
-				contents: [ _fnFeatureHtmlTable(settings) ]
+				contents: [ featureHtmlTable(settings) ]
 			}
 		} );
 
@@ -814,7 +831,7 @@ function _fnAddOptionsHtml ( settings )
 	}
 
 	// Processing floats on top, so it isn't an inserted feature
-	_processingHtml( settings );
+	processingHtml( settings );
 }
 
 /**
@@ -823,7 +840,7 @@ function _fnAddOptionsHtml ( settings )
  * @param {*} dom DOM string
  * @param {*} insert Insert point
  */
-function _fnLayoutDom( settings, dom, insert )
+export function layoutDom( settings, dom, insert )
 {
 	var parts = dom.match(/(".*?")|('.*?')|./g);
 	var featureNode, option, newNode, next, attr;
@@ -876,7 +893,7 @@ function _fnLayoutDom( settings, dom, insert )
 		}
 		else if ( option == 't' ) {
 			// Table
-			featureNode = _fnFeatureHtmlTable( settings );
+			featureNode = featureHtmlTable( settings );
 		}
 		else
 		{
@@ -904,7 +921,7 @@ function _fnLayoutDom( settings, dom, insert )
  *  @returns {array} Calculated layout array
  *  @memberof DataTable#oApi
  */
-function _fnDetectHeader ( settings, thead, write )
+export function detectHeader ( settings, thead, write )
 {
 	var columns = settings.aoColumns;
 	var rows = $(thead).children('tr');
@@ -912,7 +929,7 @@ function _fnDetectHeader ( settings, thead, write )
 	var i, k, l, iLen, shifted, column, colspan, rowspan;
 	var titleRow = settings.titleRow;
 	var isHeader = thead && thead.nodeName.toLowerCase() === 'thead';
-	var layout = [];
+	var layout: any[] = [];
 	var unique;
 	var shift = function ( a, i, j ) {
 		var k = a[i];
@@ -938,7 +955,7 @@ function _fnDetectHeader ( settings, thead, write )
 				cell.nodeName.toUpperCase() == 'TD' ||
 				cell.nodeName.toUpperCase() == 'TH'
 			) {
-				var cols = [];
+				var cols: any[] = [];
 				var jqCell = $(cell);
 
 				// Get the col and rowspan attributes from the DOM and sanitise them
@@ -960,7 +977,7 @@ function _fnDetectHeader ( settings, thead, write )
 				if ( write ) {
 					if (unique) {
 						// Allow column options to be set from HTML attributes
-						_fnColumnOptions( settings, shifted, _fnEscapeObject(jqCell.data()) );
+						columnOptions( settings, shifted, escapeObject(jqCell.data()) );
 						
 						// Get the width for the column. This can be defined from the
 						// width attribute, style attribute or `columns.width` option
@@ -988,7 +1005,7 @@ function _fnDetectHeader ( settings, thead, write )
 							}
 
 							if (! columnDef.sTitle && unique) {
-								columnDef.sTitle = _stripHtml(cell.innerHTML);
+								columnDef.sTitle = stripHtml(cell.innerHTML);
 								columnDef.autoTitle = true;
 							}
 						}
@@ -1059,7 +1076,7 @@ function _fnDetectHeader ( settings, thead, write )
 
 				// Assign an attribute so spanning cells can still be identified
 				// as belonging to a column
-				cell.setAttribute('data-dt-column', _unique(cols).join(','));
+				cell.setAttribute('data-dt-column', unique(cols).join(','));
 			}
 
 			cell = cell.nextSibling;
@@ -1073,9 +1090,9 @@ function _fnDetectHeader ( settings, thead, write )
  * Set the start position for draw
  *  @param {object} oSettings dataTables settings object
  */
-function _fnStart( oSettings )
+export function start( oSettings )
 {
-	var bServerSide = _fnDataSource( oSettings ) == 'ssp';
+	var bServerSide = dataSource( oSettings ) == 'ssp';
 	var iInitDisplayStart = oSettings.iInitDisplayStart;
 
 	// Check and see if we have an initial draw position from state saving

@@ -2,11 +2,13 @@
 import Context from '../model/settings';
 import { stripHtml } from './internal';
 import {callbackFire} from './support';
+import { columnsSumWidth, getColumns } from './columns';
+import { adjustColumnSizing } from './columns';
+import { getRowDisplay } from './draw';
 
 /**
  * Calculate the width of columns for the table
  *  @param {object} settings dataTables settings object
- *  @memberof DataTable#oApi
  */
 export function calculateColumnWidths ( settings: Context )
 {
@@ -22,7 +24,7 @@ export function calculateColumnWidths ( settings: Context )
 		scrollY = scroll.sY,
 		scrollX = scroll.sX,
 		scrollXInner = scroll.sXInner,
-		visibleColumns = _fnGetColumns( settings, 'bVisible' ),
+		visibleColumns = getColumns( settings, 'bVisible' ),
 		tableWidthAttr = table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentNode,
 		i, j, column, columnIdx;
@@ -83,7 +85,7 @@ export function calculateColumnWidths ( settings: Context )
 	// Apply custom sizing to the cloned header
 	tmpTable.find('thead th, thead td').each( function () {
 		// Get the `width` from the header layout
-		var width = _fnColumnsSumWidth( settings, this, true, false );
+		var width = columnsSumWidth( settings, this, true, false );
 
 		if ( width ) {
 			this.style.width = width;
@@ -222,7 +224,7 @@ export function calculateColumnWidths ( settings: Context )
 
 			// Don't do it if destroying or the container width is 0
 			if (! settings.bDestroying && newWidth !== 0) {
-				_fnAdjustColumnSizing( settings );
+				adjustColumnSizing( settings );
 			}
 		} );
 
@@ -290,7 +292,6 @@ function wrapperWidth(settings: Context): number {
  *  @param {object} settings dataTables settings object
  *  @param {int} colIdx column of interest
  *  @returns {string[]} Array of the longest strings
- *  @memberof DataTable#oApi
  */
 function getWideStrings( settings: Context, colIdx )
 {
@@ -304,7 +305,7 @@ function getWideStrings( settings: Context, colIdx )
 		// Create an array with the string information for the column
 		for ( var i=0, iLen=settings.aiDisplayMaster.length ; i<iLen ; i++ ) {
 			var rowIdx = settings.aiDisplayMaster[i];
-			var data = _fnGetRowDisplay(settings, rowIdx)[colIdx];
+			var data = getRowDisplay(settings, rowIdx)[colIdx];
 
 			var cellString = data && typeof data === 'object' && data.nodeType
 				? data.innerHTML
@@ -366,9 +367,8 @@ function getWideStrings( settings: Context, colIdx )
  * Append a CSS unit (only if required) to a string
  *  @param {string} value to css-ify
  *  @returns {string} value with css unit
- *  @memberof DataTable#oApi
  */
-function stringToCss( s )
+export function stringToCss( s )
 {
 	if ( s === null ) {
 		return '0px';
@@ -391,7 +391,7 @@ function stringToCss( s )
  *
  * @param {*} settings DT settings
  */
-function colGroup( settings ) {
+export function colGroup( settings ) {
 	var cols = settings.aoColumns;
 
 	settings.colgroup.empty();

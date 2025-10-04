@@ -169,7 +169,7 @@ export function pluck_order(a, order, prop, prop2) {
 	return out;
 }
 
-export function range(len: number, start: number) {
+export function range(len: number, start?: number) {
 	var out: number[] = [];
 	var end;
 

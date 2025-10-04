@@ -4,6 +4,9 @@ import {log, callbackFire} from './support';
 import Context from '../model/settings';
 import { initComplete } from './init';
 import { sortFlatten } from './sort';
+import { clearTable, addData } from './data';
+import { draw } from './draw';
+import { columnTypes } from './columns';
 
 /**
  * Create an Ajax call based on the table's settings, taking into account that
@@ -240,17 +243,17 @@ export function ajaxUpdateDraw(settings: Context, json) {
 		data = [];
 	}
 
-	_fnClearTable(settings);
+	clearTable(settings);
 	settings._iRecordsTotal = parseInt(recordsTotal, 10);
 	settings._iRecordsDisplay = parseInt(recordsFiltered, 10);
 
 	for (var i = 0, iLen = data.length; i < iLen; i++) {
-		_fnAddData(settings, data[i]);
+		addData(settings, data[i]);
 	}
 	settings.aiDisplay = settings.aiDisplayMaster.slice();
 
-	_fnColumnTypes(settings);
-	_fnDraw(settings, true);
+	columnTypes(settings);
+	draw(settings, true);
 	initComplete(settings);
 	processingDisplay(settings, false);
 }

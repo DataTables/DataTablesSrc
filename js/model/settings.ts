@@ -348,7 +348,7 @@ export default class Settings {
 	/**
 	 * Permanent ref to the tbody element
 	 */
-	public nTBody = null;
+	public nTBody;
 
 	/**
 	 * Cache the wrapper node (contains all DataTables controlled elements)

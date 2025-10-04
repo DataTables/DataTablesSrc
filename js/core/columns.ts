@@ -1,10 +1,18 @@
 
+import Context from '../model/settings';
+import { compatCols, camelToHungarian } from './compat';
+import { map, callbackFire } from './support';
+import { calculateColumnWidths } from './sizing';
+import { scrollDraw } from './scrolling';
+import { getCellData, writeCell } from './data';
+import { addClass, empty } from './internal';
+
 /**
  * Add a column to the list used for the table with default values
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnAddColumn( oSettings )
+export function addColumn( oSettings: Context )
 {
 	// Add column to aoColumns array
 	var oDefaults = DataTable.defaults.column;
@@ -33,7 +41,7 @@ function _fnAddColumn( oSettings )
  *  @param {object} oOptions object with sType, bVisible and bSearchable etc
  *  @memberof DataTable#oApi
  */
-function _fnColumnOptions( oSettings, iCol, oOptions )
+export function columnOptions( oSettings, iCol, oOptions )
 {
 	var oCol = oSettings.aoColumns[ iCol ];
 
@@ -41,10 +49,10 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 	if ( oOptions !== undefined && oOptions !== null )
 	{
 		// Backwards compatibility
-		_fnCompatCols( oOptions );
+		compatCols( oOptions );
 
 		// Map camel case parameters to their Hungarian counterparts
-		_fnCamelToHungarian( DataTable.defaults.column, oOptions, true );
+		camelToHungarian( DataTable.defaults.column, oOptions, true );
 
 		/* Backwards compatibility for mDataProp */
 		if ( oOptions.mDataProp !== undefined && !oOptions.mData )
@@ -67,7 +75,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		var origClass = oCol.sClass;
 
 		$.extend( oCol, oOptions );
-		_fnMap( oCol, oOptions, "sWidth", "sWidthOrig" );
+		map( oCol, oOptions, "sWidth", "sWidthOrig" );
 
 		// Merge class from previously defined classes with this one, rather than just
 		// overwriting it in the extend above
@@ -82,12 +90,12 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		{
 			oCol.aDataSort = [ oOptions.iDataSort ];
 		}
-		_fnMap( oCol, oOptions, "aDataSort" );
+		map( oCol, oOptions, "aDataSort" );
 	}
 
 	/* Cache the data get and set functions for speed */
 	var mDataSrc = oCol.mData;
-	var mData = _fnGetObjectDataFn( mDataSrc );
+	var mData = DataTable.util.get( mDataSrc );
 
 	// The `render` option can be given as an array to access the helper rendering methods.
 	// The first element is the rendering method to use, the rest are the parameters to pass
@@ -98,7 +106,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 		oCol.mRender = DataTable.render[name].apply(window, copy);
 	}
 
-	oCol._render = oCol.mRender ? _fnGetObjectDataFn( oCol.mRender ) : null;
+	oCol._render = oCol.mRender ? DataTable.util.get( oCol.mRender ) : null;
 
 	var attrTest = function( src ) {
 		return typeof src === 'string' && src.indexOf('@') !== -1;
@@ -116,7 +124,7 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
 			innerData;
 	};
 	oCol.fnSetData = function ( rowData, val, meta ) {
-		return _fnSetObjectDataFn( mDataSrc )( rowData, val, meta );
+		return DataTable.util.set( mDataSrc )( rowData, val, meta );
 	};
 
 	// Indicate if DataTables should read DOM data as an object or array
@@ -139,17 +147,17 @@ function _fnColumnOptions( oSettings, iCol, oOptions )
  *  @param {object} settings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnAdjustColumnSizing ( settings )
+export function adjustColumnSizing ( settings )
 {
-	_fnCalculateColumnWidths( settings );
-	_fnColumnSizes( settings );
+	calculateColumnWidths( settings );
+	columnSizes( settings );
 
 	var scroll = settings.oScroll;
 	if ( scroll.sY !== '' || scroll.sX !== '') {
-		_fnScrollDraw( settings );
+		scrollDraw( settings );
 	}
 
-	_fnCallbackFire( settings, null, 'column-sizing', [settings] );
+	callbackFire( settings, null, 'column-sizing', [settings] );
 }
 
 /**
@@ -157,12 +165,12 @@ function _fnAdjustColumnSizing ( settings )
  *
  * @param {*} settings DataTables settings object
  */
-function _fnColumnSizes ( settings )
+export function columnSizes ( settings )
 {
 	var cols = settings.aoColumns;
 
 	for (var i=0 ; i<cols.length ; i++) {
-		var width = _fnColumnsSumWidth(settings, [i], false, false);
+		var width = columnsSumWidth(settings, [i], false, false);
 
 		cols[i].colEl.css('width', width);
 
@@ -181,9 +189,9 @@ function _fnColumnSizes ( settings )
  *  @returns {int} i the data index
  *  @memberof DataTable#oApi
  */
-function _fnVisibleToColumnIndex( oSettings, iMatch )
+export function visibleToColumnIndex( oSettings, iMatch )
 {
-	var aiVis = _fnGetColumns( oSettings, 'bVisible' );
+	var aiVis = getColumns( oSettings, 'bVisible' );
 
 	return typeof aiVis[iMatch] === 'number' ?
 		aiVis[iMatch] :
@@ -199,9 +207,9 @@ function _fnVisibleToColumnIndex( oSettings, iMatch )
  *  @returns {int} i the data index
  *  @memberof DataTable#oApi
  */
-function _fnColumnIndexToVisible( oSettings, iMatch )
+export function columnIndexToVisible( oSettings: Context, iMatch: number )
 {
-	var aiVis = _fnGetColumns( oSettings, 'bVisible' );
+	var aiVis = getColumns( oSettings, 'bVisible' );
 	var iPos = aiVis.indexOf(iMatch);
 
 	return iPos !== -1 ? iPos : null;
@@ -214,7 +222,7 @@ function _fnColumnIndexToVisible( oSettings, iMatch )
  *  @returns {int} i the number of visible columns
  *  @memberof DataTable#oApi
  */
-function _fnVisibleColumns( settings )
+export function visibleColumns( settings )
 {
 	var layout = settings.aoHeader;
 	var columns = settings.aoColumns;
@@ -240,9 +248,9 @@ function _fnVisibleColumns( settings )
  *  @returns {array} Array of indexes with matched properties
  *  @memberof DataTable#oApi
  */
-function _fnGetColumns( oSettings, sParam )
+export function getColumns( oSettings, sParam )
 {
-	var a = [];
+	var a: number[] = [];
 
 	oSettings.aoColumns.map( function(val, i) {
 		if ( val[sParam] ) {
@@ -274,7 +282,7 @@ function _typeResult (typeDetect, res) {
  *  @param {object} settings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnColumnTypes ( settings )
+export function columnTypes ( settings )
 {
 	var columns = settings.aoColumns;
 	var data = settings.aoData;
@@ -326,7 +334,7 @@ function _fnColumnTypes ( settings )
 					// Use a cache array so we only need to get the type data
 					// from the formatter once (when using multiple detectors)
 					if ( cache[k] === undefined ) {
-						cache[k] = _fnGetCellData( settings, k, i, 'type' );
+						cache[k] = getCellData( settings, k, i, 'type' );
 					}
 
 					// Only one data point in the column needs to match this function
@@ -349,7 +357,7 @@ function _fnColumnTypes ( settings )
 					// Only a single match is needed for html type since it is
 					// bottom of the pile and very similar to string - but it
 					// must not be empty
-					if ( detectedType === 'html' && ! _empty(cache[k]) ) {
+					if ( detectedType === 'html' && ! empty(cache[k]) ) {
 						break;
 					}
 				}
@@ -369,14 +377,14 @@ function _fnColumnTypes ( settings )
 		}
 
 		// Set class names for header / footer for auto type classes
-		var autoClass = _ext.type.className[col.sType];
+		var autoClass = DataTable.ext.type.className[col.sType];
 
 		if (autoClass) {
 			_columnAutoClass(settings.aoHeader, i, autoClass);
 			_columnAutoClass(settings.aoFooter, i, autoClass);
 		}
 
-		var renderer = _ext.type.render[col.sType];
+		var renderer = DataTable.ext.type.render[col.sType];
 
 		// This can only happen once! There is no way to remove
 		// a renderer. After the first time the renderer has
@@ -400,10 +408,10 @@ function _columnAutoRender(settings, colIdx) {
 		if (data[i].nTr) {
 			// We have to update the display here since there is no
 			// invalidation check for the data
-			var display = _fnGetCellData( settings, i, colIdx, 'display' );
+			var display = getCellData( settings, i, colIdx, 'display' );
 
 			data[i].displayData[colIdx] = display;
-			_fnWriteCell(data[i].anCells[colIdx], display);
+			writeCell(data[i].anCells[colIdx], display);
 
 			// No need to update sort / filter data since it has
 			// been invalidated and will be re-read with the
@@ -418,7 +426,7 @@ function _columnAutoRender(settings, colIdx) {
 function _columnAutoClass(container, colIdx, className) {
 	container.forEach(function (row) {
 		if (row[colIdx] && row[colIdx].unique) {
-			_addClass(row[colIdx].cell, className);
+			addClass(row[colIdx].cell, className);
 		}
 	});
 }
@@ -435,7 +443,7 @@ function _columnAutoClass(container, colIdx, className) {
  *    column index and the definition for that column.
  *  @memberof DataTable#oApi
  */
-function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn )
+export function applyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn )
 {
 	var i, iLen, j, jLen, k, kLen, def;
 	var columns = oSettings.aoColumns;
@@ -477,7 +485,7 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn )
 					/* Add columns that we don't yet know about */
 					while( columns.length <= target )
 					{
-						_fnAddColumn( oSettings );
+						addColumn( oSettings );
 					}
 
 					/* Integer, basic index */
@@ -544,9 +552,9 @@ function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn )
  * @param {*} incVisible Include visible columns (true) or not (false)
  * @returns Combined CSS value
  */
-function _fnColumnsSumWidth( settings, targets, original, incVisible ) {
+export function columnsSumWidth( settings, targets, original, incVisible ) {
 	if ( ! Array.isArray( targets ) ) {
-		targets = _fnColumnsFromHeader( targets );
+		targets = columnsFromHeader( targets );
 	}
 
 	var sum = 0;
@@ -585,7 +593,7 @@ function _fnColumnsSumWidth( settings, targets, original, incVisible ) {
 	return sum + unit;
 }
 
-function _fnColumnsFromHeader( cell )
+export function columnsFromHeader( cell: HTMLElement )
 {
 	var attr = $(cell).closest('[data-dt-column]').attr('data-dt-column');
 
@@ -594,6 +602,6 @@ function _fnColumnsFromHeader( cell )
 	}
 
 	return attr.split(',').map( function (val) {
-		return val * 1;
+		return parseInt(val);
 	} );
 }

@@ -2,6 +2,8 @@
 import Context from '../model/settings';
 import { pluck } from './internal';
 import { log } from './support';
+import { createTr } from './draw';
+import { getRowDisplay, rowAttributes } from './draw';
 
 /**
  * Add a data array to the table, creating DOM node etc. This is the parallel to
@@ -16,7 +18,7 @@ import { log } from './support';
  *  @returns {int} >=0 if successful (index of new aoData entry), -1 if failed
  *  @memberof DataTable#oApi
  */
-export function addData ( settings: Context, dataIn, tr, tds )
+export function addData ( settings: Context, dataIn, tr?, tds? )
 {
 	/* Create the object for storing information about this new row */
 	var rowIdx = settings.aoData.length;
@@ -47,7 +49,7 @@ export function addData ( settings: Context, dataIn, tr, tds )
 	/* Create the DOM information, or register it if already present */
 	if ( tr || ! settings.oFeatures.bDeferRender )
 	{
-		_fnCreateTr( settings, rowIdx, tr, tds );
+		createTr( settings, rowIdx, tr, tds );
 	}
 
 	return rowIdx;
@@ -89,7 +91,7 @@ export function addTr( settings: Context, trs )
  *  @returns {*} Cell data
  *  @memberof DataTable#oApi
  */
-export function getCellData( settings: Context, rowIdx, colIdx, type )
+export function getCellData( settings: Context, rowIdx, colIdx, type? )
 {
 	if (type === 'search') {
 		type = 'filter';
@@ -297,7 +299,7 @@ export function invalidate( settings: Context, rowIdx, src, colIdx )
 	else {
 		// Reading from data object, update the DOM
 		var cells = row.anCells;
-		var display = _fnGetRowDisplay(settings, rowIdx);
+		var display = getRowDisplay(settings, rowIdx);
 
 		if ( cells ) {
 			if ( colIdx !== undefined ) {
@@ -328,7 +330,7 @@ export function invalidate( settings: Context, rowIdx, src, colIdx )
 		}
 
 		// Update DataTables special `DT_*` attributes for the row
-		_fnRowAttributes( settings, row );
+		rowAttributes( settings, row );
 	}
 }
 
