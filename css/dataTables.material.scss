@@ -1,8 +1,9 @@
 
-@import './common.scss';
-@import './ordering.scss';
-@import './processing.scss';
-@import './typography.scss';
+@use "sass:meta";
+@use 'common.scss';
+@use 'ordering.scss';
+@use 'processing.scss';
+@use 'typography.scss';
 
 // DataTables' built in feature elements
 div.dt-container {
@@ -104,5 +105,5 @@ div.dt-container {
 }
 
 
-@import 'typography.scss';
-@import 'ordering.scss';
+@include meta.load-css('typography.scss');
+@include meta.load-css('ordering.scss');

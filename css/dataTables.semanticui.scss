@@ -1,12 +1,13 @@
 
-$table-row-selected: 224 224 224;
-$table-row-selected-text: 0 0 0;
-$table-typography-selector: '.ui.table';
 
-@import './common.scss';
-@import './ordering.scss';
-@import './processing.scss';
-@import './typography.scss';
+@use "sass:meta";
+@use 'common.scss' with (
+  $table-row-selected: 224 224 224,
+  $table-row-selected-text: 0 0 0
+);
+@use 'ordering.scss';
+@use 'processing.scss';
+@use 'typography.scss' with ($table-typography-selector: ".ui.table");
 
 /*
  * Styling for DataTables with Semantic UI
@@ -20,7 +21,7 @@ table.dataTable.table {
 		background-color: transparent;
 	}
 
-	@include row-stripes('.striped', '.hover', 0.02, 0.05, ':nth-child(2n)');
+	@include common.row-stripes('.striped', '.hover', 0.02, 0.05, ':nth-child(2n)');
 
 	// Workaround for https://github.com/fomantic/Fomantic-UI/issues/3250
 	> thead > tr > td {
@@ -41,12 +42,9 @@ table.dataTable.table {
 	}
 }
 
-@import 'typography.scss';
-@import 'ordering.scss';
-
-
-@include layout;
-@include layout-cells;
+@include meta.load-css('ordering.scss');
+@include common.layout;
+@include common.layout-cells;
 
 // DataTables' built in feature elements
 div.dt-container.dt-semanticUI {

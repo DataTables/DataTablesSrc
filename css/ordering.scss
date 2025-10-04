@@ -1,3 +1,5 @@
+@use "common";
+
 
 // Sorting - using :before (asc) and :after (desc) with UTF8 characters
 // Note that each class (e.g. dt-orderable-asc) can be applied without
@@ -15,8 +17,8 @@ table.dataTable thead {
 				position: absolute;
 				display: block;
 				bottom: 50%;
-				content: unicode("25B2"); // up arrow - ascending
-				content: unicode("25B2") / "";
+				content: common.unicode("25B2"); // up arrow - ascending
+				content: common.unicode("25B2") / "";
 			}
 		}
 
@@ -26,8 +28,8 @@ table.dataTable thead {
 				position: absolute;
 				display: block;
 				top: 50%;
-				content: unicode("25BC"); // down arrow - descending
-				content: unicode("25BC") / "";
+				content: common.unicode("25BC"); // down arrow - descending
+				content: common.unicode("25BC") / "";
 			}
 		}
 
@@ -39,7 +41,7 @@ table.dataTable thead {
 			span.dt-column-order {
 				position: relative;
 				width: 12px;
-				height: $table-header-order-height;
+				height: common.$table-header-order-height;
 
 				&:before,
 				&:after {

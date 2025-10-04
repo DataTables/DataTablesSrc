@@ -1,10 +1,9 @@
 
-$table-row-selected: 0 136 204;
 
-@import './common.scss';
-@import './ordering.scss';
-@import './processing.scss';
-@import './typography.scss';
+@use 'common.scss' with ($table-row-selected: 0 136 204);
+@use 'ordering.scss';
+@use 'processing.scss';
+@use 'typography.scss';
 
 table.table.dataTable {
 	clear: both;
@@ -17,11 +16,11 @@ table.table.dataTable {
 		background-color: transparent;
 	}
 
-	@include row-stripes('.table-striped', '.table-hover', 0.05, 0.075, ':nth-of-type(2n+1)');
+	@include common.row-stripes('.table-striped', '.table-hover', 0.05, 0.075, ':nth-of-type(2n+1)');
 }
 
-@include layout;
-@include layout-cells;
+@include common.layout;
+@include common.layout-cells;
 
 // DataTables' built in feature elements
 div.dt-container {
