@@ -1,10 +1,16 @@
 
+import register from './index';
+import { macros } from '../core/support';
+import { processingRun } from '../core/processing';
+import { filterComplete } from '../core/filter';
+import { draw } from '../core/draw';
+
 var __searchCounter = 0;
 
 // opts
 // - text
 // - placeholder
-DataTable.feature.register( 'search', function ( settings, opts ) {
+register( 'search', function ( settings, opts ) {
 	// Don't show the input if filtering isn't available on the table
 	if (! settings.oFeatures.bFilter) {
 		return null;
@@ -27,7 +33,7 @@ DataTable.feature.register( 'search', function ( settings, opts ) {
 		opts.text += '_INPUT_';
 	}
 
-	opts.text = _fnMacros(settings, opts.text);
+	opts.text = macros(settings, opts.text);
 
 	// We can put the <input> outside of the label if it is at the start or end
 	// which helps improve accessability (not all screen readers like implicit
@@ -62,14 +68,14 @@ DataTable.feature.register( 'search', function ( settings, opts ) {
 
 		/* Now do the filter */
 		if ( val != previousSearch.search ) {
-			_fnProcessingRun(settings, opts.processing, function () {
+			processingRun(settings, opts.processing, function () {
 				previousSearch.search = val;
 		
-				_fnFilterComplete( settings, previousSearch );
+				filterComplete( settings, previousSearch );
 		
 				// Need to redraw, without resorting
 				settings._iDisplayStart = 0;
-				_fnDraw( settings );
+				draw( settings );
 			});
 		}
 	};

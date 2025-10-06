@@ -1,8 +1,12 @@
+
+import Api from "./base";
+import { implementState, saveState } from "../core/state";
+
 /*
  * State API methods
  */
 
-_api_register( 'state()', function ( set, ignoreTime ) {
+Api.register( 'state()', function ( set, ignoreTime ) {
 	// getter
 	if ( ! set ) {
 		return this.context.length ?
@@ -18,12 +22,12 @@ _api_register( 'state()', function ( set, ignoreTime ) {
 			setMutate.time = +new Date() + 100;
 		}
 
-		_fnImplementState( settings, setMutate, function(){} );
+		implementState( settings, setMutate, function(){} );
 	} );
 } );
 
 
-_api_register( 'state.clear()', function () {
+Api.register( 'state.clear()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		// Save an empty object
 		settings.fnStateSaveCallback.call( settings.oInstance, settings, {} );
@@ -31,15 +35,15 @@ _api_register( 'state.clear()', function () {
 } );
 
 
-_api_register( 'state.loaded()', function () {
+Api.register( 'state.loaded()', function () {
 	return this.context.length ?
 		this.context[0].oLoadedState :
 		null;
 } );
 
 
-_api_register( 'state.save()', function () {
+Api.register( 'state.save()', function () {
 	return this.iterator( 'table', function ( settings ) {
-		_fnSaveState( settings );
+		saveState( settings );
 	} );
 } );

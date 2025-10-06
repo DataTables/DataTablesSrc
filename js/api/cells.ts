@@ -1,10 +1,16 @@
 
+import Api from "./base";
+import { selector_row_indexes, selector_run, selector_opts, selector_first } from "./selectors";
+import { removeEmpty, pluck_order, flatten } from "../core/internal";
+import { getCellData, invalidate, setCellData } from "../core/data";
+import { columnIndexToVisible } from "../core/columns";
+
 var __cell_selector = function ( settings, selector, opts )
 {
 	var data = settings.aoData;
-	var rows = _selector_row_indexes( settings, opts );
-	var cells = _removeEmpty( _pluck_order( data, rows, 'anCells' ) );
-	var allCells = $(_flatten( [], cells ));
+	var rows = selector_row_indexes( settings, opts );
+	var cells = removeEmpty( pluck_order( data, rows, 'anCells' ) );
+	var allCells = $(flatten( [], cells ));
 	var row;
 	var columns = settings.aoColumns.length;
 	var a, i, iLen, j, o, host;
@@ -29,7 +35,7 @@ var __cell_selector = function ( settings, selector, opts )
 						// Selector - function
 						host = data[ row ];
 
-						if ( s( o, _fnGetCellData(settings, row, j), host.anCells ? host.anCells[j] : null ) ) {
+						if ( s( o, getCellData(settings, row, j), host.anCells ? host.anCells[j] : null ) ) {
 							a.push( o );
 						}
 					}
@@ -78,13 +84,13 @@ var __cell_selector = function ( settings, selector, opts )
 			[];
 	};
 
-	return _selector_run( 'cell', selector, run, settings, opts );
+	return selector_run( 'cell', selector, run, settings, opts );
 };
 
 
 
 
-_api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
+Api.register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 	// Argument shifting
 	if ( $.isPlainObject( rowSelector ) ) {
 		// Indexes
@@ -107,7 +113,7 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 	// Cell selector
 	if ( columnSelector === null || columnSelector === undefined ) {
 		return this.iterator( 'table', function ( settings ) {
-			return __cell_selector( settings, rowSelector, _selector_opts( opts ) );
+			return __cell_selector( settings, rowSelector, selector_opts( opts ) );
 		} );
 	}
 
@@ -124,7 +130,7 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 	var i, iLen, j, jen;
 
 	var cellsNoOpts = this.iterator( 'table', function ( settings, idx ) {
-		var a = [];
+		var a: any[] = [];
 
 		for ( i=0, iLen=rows[idx].length ; i<iLen ; i++ ) {
 			for ( j=0, jen=columns[idx].length ; j<jen ; j++ ) {
@@ -155,7 +161,7 @@ _api_register( 'cells()', function ( rowSelector, columnSelector, opts ) {
 } );
 
 
-_api_registerPlural( 'cells().nodes()', 'cell().node()', function () {
+Api.registerPlural( 'cells().nodes()', 'cell().node()', function () {
 	return this.iterator( 'cell', function ( settings, row, column ) {
 		var data = settings.aoData[ row ];
 
@@ -166,14 +172,14 @@ _api_registerPlural( 'cells().nodes()', 'cell().node()', function () {
 } );
 
 
-_api_register( 'cells().data()', function () {
+Api.register( 'cells().data()', function () {
 	return this.iterator( 'cell', function ( settings, row, column ) {
-		return _fnGetCellData( settings, row, column );
+		return getCellData( settings, row, column );
 	}, 1 );
 } );
 
 
-_api_registerPlural( 'cells().cache()', 'cell().cache()', function ( type ) {
+Api.registerPlural( 'cells().cache()', 'cell().cache()', function ( type ) {
 	type = type === 'search' ? '_aFilterData' : '_aSortData';
 
 	return this.iterator( 'cell', function ( settings, row, column ) {
@@ -182,51 +188,51 @@ _api_registerPlural( 'cells().cache()', 'cell().cache()', function ( type ) {
 } );
 
 
-_api_registerPlural( 'cells().render()', 'cell().render()', function ( type ) {
+Api.registerPlural( 'cells().render()', 'cell().render()', function ( type ) {
 	return this.iterator( 'cell', function ( settings, row, column ) {
-		return _fnGetCellData( settings, row, column, type );
+		return getCellData( settings, row, column, type );
 	}, 1 );
 } );
 
 
-_api_registerPlural( 'cells().indexes()', 'cell().index()', function () {
+Api.registerPlural( 'cells().indexes()', 'cell().index()', function () {
 	return this.iterator( 'cell', function ( settings, row, column ) {
 		return {
 			row: row,
 			column: column,
-			columnVisible: _fnColumnIndexToVisible( settings, column )
+			columnVisible: columnIndexToVisible( settings, column )
 		};
 	}, 1 );
 } );
 
 
-_api_registerPlural( 'cells().invalidate()', 'cell().invalidate()', function ( src ) {
+Api.registerPlural( 'cells().invalidate()', 'cell().invalidate()', function ( src ) {
 	return this.iterator( 'cell', function ( settings, row, column ) {
-		_fnInvalidate( settings, row, src, column );
+		invalidate( settings, row, src, column );
 	} );
 } );
 
 
 
-_api_register( 'cell()', function ( rowSelector, columnSelector, opts ) {
-	return _selector_first( this.cells( rowSelector, columnSelector, opts ) );
+Api.register( 'cell()', function ( rowSelector, columnSelector, opts ) {
+	return selector_first( this.cells( rowSelector, columnSelector, opts ) );
 } );
 
 
-_api_register( 'cell().data()', function ( data ) {
+Api.register( 'cell().data()', function ( data ) {
 	var ctx = this.context;
 	var cell = this[0];
 
 	if ( data === undefined ) {
 		// Get
 		return ctx.length && cell.length ?
-			_fnGetCellData( ctx[0], cell[0].row, cell[0].column ) :
+			getCellData( ctx[0], cell[0].row, cell[0].column ) :
 			undefined;
 	}
 
 	// Set
-	_fnSetCellData( ctx[0], cell[0].row, cell[0].column, data );
-	_fnInvalidate( ctx[0], cell[0].row, 'data', cell[0].column );
+	setCellData( ctx[0], cell[0].row, cell[0].column, data );
+	invalidate( ctx[0], cell[0].row, 'data', cell[0].column );
 
 	return this;
 } );

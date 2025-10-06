@@ -198,10 +198,6 @@ export function writeCell(td, val)
 }
 
 
-// Private variable that is used to match action syntax in the data property object
-var __reArray = /\[.*?\]$/;
-var __reFn = /\(\)$/;
-
 /**
  * Split string on periods, taking into account escaped periods
  * @param  {string} str String to split
@@ -278,7 +274,7 @@ export function clearTable( settings: Context )
  *   the sort and filter methods can subscribe to it. That will required
  *   initialisation options for sorting, which is why it is not already baked in
  */
-export function invalidate( settings: Context, rowIdx, src, colIdx )
+export function invalidate( settings: Context, rowIdx, src, colIdx? )
 {
 	var row = settings.aoData[ rowIdx ];
 	var i, iLen;

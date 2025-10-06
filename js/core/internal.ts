@@ -26,15 +26,6 @@ var _max_str_len = Math.pow(2, 28);
 // implementations differ between browsers.
 var _re_date = /^\d{2,4}[./-]\d{1,2}[./-]\d{1,2}([T ]{1}\d{1,2}[:.]\d{2}([.:]\d{2})?)?$/;
 
-// Escape regular expression special characters
-var _re_escape_regex = new RegExp(
-	'(\\' +
-		['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-'].join(
-			'|\\'
-		) +
-		')',
-	'g'
-);
 
 // https://en.wikipedia.org/wiki/Foreign_exchange_market
 // - \u20BD - Russian ruble.
@@ -144,7 +135,7 @@ export function pluck(a, prop, prop2?) {
 
 // Basically the same as _pluck, but rather than looping over `a` we use `order`
 // as the indexes to pick from `a`
-export function pluck_order(a, order, prop, prop2) {
+export function pluck_order(a, order, prop, prop2?) {
 	var out: any[] = [];
 	var i = 0,
 		iLen = order.length;

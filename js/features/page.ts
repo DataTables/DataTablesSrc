@@ -1,8 +1,14 @@
 
+import register from './index';
+import { renderer } from '../core/support';
+import { pageChange } from '../core/page';
+import { bindAction } from '../core/support';
+import { range } from '../core/internal';
+
 // opts
 // - type - button configuration
 // - buttons - number of buttons to show - must be odd
-DataTable.feature.register( 'paging', function ( settings, opts ) {
+register( 'paging', function ( settings, opts ) {
 	// Don't show the paging input if the table doesn't have paging enabled
 	if (! settings.oFeatures.bPaginate) {
 		return null;
@@ -41,7 +47,7 @@ DataTable.feature.register( 'paging', function ( settings, opts ) {
  * This will only happen if the paging type is not defined.
  */
 function _pagingDynamic(opts) {
-	var out = [];
+	var out: any[] = [];
 
 	if (opts.numbers) {
 		out.push('numbers');
@@ -77,7 +83,7 @@ function _pagingDraw(settings, host, opts) {
 		page = all ? 0 : Math.ceil( start / len ),
 		pages = all ? 1 : Math.ceil( visRecords / len ),
 		buttons = [],
-		buttonEls = [],
+		buttonEls: any[] = [],
 		buttonsNested = plugin(opts)
 			.map(function (val) {
 				return val === 'numbers'
@@ -92,7 +98,7 @@ function _pagingDraw(settings, host, opts) {
 		var button = buttons[i];
 
 		var btnInfo = _pagingButtonInfo(settings, button, page, pages);
-		var btn = _fnRenderer( settings, 'pagingButton' )(
+		var btn = renderer( settings, 'pagingButton' )(
 			settings,
 			button,
 			btnInfo.display,
@@ -124,18 +130,18 @@ function _pagingDraw(settings, host, opts) {
 			$(btn.clicker).addClass(button);
 		}
 
-		_fnBindAction(
+		bindAction(
 			btn.clicker, {action: button}, function(e) {
 				e.preventDefault();
 
-				_fnPageChange( settings, e.data.action, true );
+				pageChange( settings, e.data.action, true );
 			}
 		);
 
 		buttonEls.push(btn.display);
 	}
 
-	var wrapped = _fnRenderer(settings, 'pagingContainer')(
+	var wrapped = renderer(settings, 'pagingContainer')(
 		settings, buttonEls
 	);
 
@@ -150,12 +156,12 @@ function _pagingDraw(settings, host, opts) {
 	// Responsive - check if the buttons are over two lines based on the
 	// height of the buttons and the container.
 	if (buttonEls.length) {
-		var outerHeight = $(buttonEls[0]).outerHeight();
+		var outerHeight = $(buttonEls[0]).outerHeight() as any;
 	
 		if (
 			opts.buttons > 1 && // prevent infinite
 			outerHeight > 0 && // will be 0 if hidden
-			$(host).height() >= (outerHeight * 2) - 10
+			$(host).height()! >= (outerHeight * 2) - 10
 		) {
 			_pagingDraw(settings, host, $.extend({}, opts, { buttons: opts.buttons - 2 }));
 		}
@@ -241,13 +247,13 @@ function _pagingButtonInfo(settings, button, page, pages) {
  */
 function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
 	var
-		numbers = [],
+		numbers: any[] = [],
 		half = Math.floor(buttons / 2),
 		before = addFirstLast ? 2 : 1,
 		after = addFirstLast ? 1 : 0;
 
 	if ( pages <= buttons ) {
-		numbers = _range(0, pages);
+		numbers = range(0, pages);
 	}
 	else if (buttons === 1) {
 		// Single button - current page only
@@ -259,7 +265,7 @@ function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
 			numbers = [0, 1, 'ellipsis'];
 		}
 		else if (page >= pages - 2) {
-			numbers = _range(pages-2, pages);
+			numbers = range(pages-2, pages);
 			numbers.unshift('ellipsis');
 		}
 		else {
@@ -267,7 +273,7 @@ function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
 		}
 	}
 	else if ( page <= half ) {
-		numbers = _range(0, buttons-before);
+		numbers = range(0, buttons-before);
 		numbers.push('ellipsis');
 
 		if (addFirstLast) {
@@ -275,7 +281,7 @@ function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
 		}
 	}
 	else if ( page >= pages - 1 - half ) {
-		numbers = _range(pages-(buttons-before), pages);
+		numbers = range(pages-(buttons-before), pages);
 		numbers.unshift('ellipsis');
 
 		if (addFirstLast) {
@@ -283,7 +289,7 @@ function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
 		}
 	}
 	else {
-		numbers = _range(page-half+before, page+half-after);
+		numbers = range(page-half+before, page+half-after);
 		numbers.push('ellipsis');
 		numbers.unshift('ellipsis');
 

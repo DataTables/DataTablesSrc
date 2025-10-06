@@ -1,4 +1,8 @@
 
+import Api from "./base";
+import { pageChange } from "../core/page";
+import { lengthChange } from "../core/length";
+import { dataSource } from "../core/support";
 
 /**
  * Get the current page index.
@@ -19,14 +23,14 @@
  *    * `last` - Jump to the last page.
  * @returns {DataTables.Api} this
  */
-_api_register( 'page()', function ( action ) {
+Api.register( 'page()', function ( action ) {
 	if ( action === undefined ) {
 		return this.page.info().page; // not an expensive call
 	}
 
 	// else, have an action to take on all tables
 	return this.iterator( 'table', function ( settings ) {
-		_fnPageChange( settings, action );
+		pageChange( settings, action );
 	} );
 } );
 
@@ -49,7 +53,7 @@ _api_register( 'page()', function ( action ) {
  *  * `recordsDisplay` - Data set length once the current filtering criterion
  *    are applied.
  */
-_api_register( 'page.info()', function () {
+Api.register( 'page.info()', function () {
 	if ( this.context.length === 0 ) {
 		return undefined;
 	}
@@ -69,7 +73,7 @@ _api_register( 'page.info()', function () {
 		"length":         len,
 		"recordsTotal":   settings.fnRecordsTotal(),
 		"recordsDisplay": visRecords,
-		"serverSide":     _fnDataSource( settings ) === 'ssp'
+		"serverSide":     dataSource( settings ) === 'ssp'
 	};
 } );
 
@@ -85,7 +89,7 @@ _api_register( 'page.info()', function () {
  * @param {integer} Page length to set. Use `-1` to show all records.
  * @returns {DataTables.Api} this
  */
-_api_register( 'page.len()', function ( len ) {
+Api.register( 'page.len()', function ( len ) {
 	// Note that we can't call this function 'length()' because `length`
 	// is a JavaScript property of functions which defines how many arguments
 	// the function expects.
@@ -97,7 +101,7 @@ _api_register( 'page.len()', function ( len ) {
 
 	// else, set the page length
 	return this.iterator( 'table', function ( settings ) {
-		_fnLengthChange( settings, len );
+		lengthChange( settings, len );
 	} );
 } );
 

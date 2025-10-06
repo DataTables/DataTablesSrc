@@ -1,10 +1,15 @@
 
+import register from './index';
+import { lengthChange } from '../core/length';
+import { draw } from '../core/draw';
+import { macros } from '../core/support';
+
 var __lengthCounter = 0;
 
 // opts
 // - menu
 // - text
-DataTable.feature.register( 'pageLength', function ( settings, opts ) {
+register( 'pageLength', function ( settings, opts ) {
 	var features = settings.oFeatures;
 
 	// For compatibility with the legacy `pageLength` top level option
@@ -20,9 +25,9 @@ DataTable.feature.register( 'pageLength', function ( settings, opts ) {
 	var
 		classes  = settings.oClasses.length,
 		tableId  = settings.sTableId,
-		menu     = opts.menu,
-		lengths  = [],
-		language = [],
+		menu: any[]     = opts.menu,
+		lengths: any[]  = [],
+		language: any[] = [],
 		i;
 
 	// Options can be given in a number of ways
@@ -70,7 +75,7 @@ DataTable.feature.register( 'pageLength', function ( settings, opts ) {
 		);
 
 	// Save text node content for macro updating
-	var textNodes = [];
+	var textNodes: any[] = [];
 	Array.prototype.slice.call(div.find('label')[0].childNodes).forEach(function (el) {
 		if (el.nodeType === Node.TEXT_NODE) {
 			textNodes.push({
@@ -83,7 +88,7 @@ DataTable.feature.register( 'pageLength', function ( settings, opts ) {
 	// Update the label text in case it has an entries value
 	var updateEntries = function (len) {
 		textNodes.forEach(function (node) {
-			node.el.textContent = _fnMacros(settings, node.text, len);
+			node.el.textContent = macros(settings, node.text, len);
 		});
 	}
 
@@ -120,8 +125,8 @@ DataTable.feature.register( 'pageLength', function ( settings, opts ) {
 	$('select', div)
 		.val( settings._iDisplayLength )
 		.on( 'change.DT', function() {
-			_fnLengthChange( settings, $(this).val() );
-			_fnDraw( settings );
+			lengthChange( settings, $(this).val() as string );
+			draw( settings );
 		} );
 
 	// Update node value whenever anything changes the table's length

@@ -1,4 +1,26 @@
 
+import { normalize, stripHtml, escapeHtml, unique } from "../core/internal";
+import { splitObjNotation } from "../core/data";
+
+// These functions can be replaced!
+var _normalize = normalize;
+var _stripHtml = stripHtml;
+var _escapeHtml = escapeHtml
+
+// Escape regular expression special characters
+var _re_escape_regex = new RegExp(
+	'(\\' +
+		['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-'].join(
+			'|\\'
+		) +
+		')',
+	'g'
+);
+
+// Private variable that is used to match action syntax in the data property object
+var __reArray = /\[.*?\]$/;
+var __reFn = /\(\)$/;
+
 /**
  * DataTables utility methods
  * 
@@ -121,7 +143,7 @@ DataTable.util = {
 		) {
 			// Like the get, we need to get data from a nested object
 			var setData = function (data, val, src) {
-				var a = _fnSplitObjNotation( src ), b;
+				var a = splitObjNotation( src ), b;
 				var aLast = a[a.length-1];
 				var arrayNotation, funcNotation, o, innerSrc;
 	
@@ -217,7 +239,7 @@ DataTable.util = {
 			} );
 	
 			return function (data, type, row, meta) {
-				var t = o[type] || o._;
+				var t = o[type] || (o as any)._;
 				return t !== undefined ?
 					t(data, type, row, meta) :
 					data;
@@ -248,7 +270,7 @@ DataTable.util = {
 				var arrayNotation, funcNotation, out, innerSrc;
 	
 				if ( src !== "" ) {
-					var a = _fnSplitObjNotation( src );
+					var a = splitObjNotation( src );
 	
 					for ( var i=0, iLen=a.length ; i<iLen ; i++ ) {
 						// Check if we are dealing with special notation
@@ -344,6 +366,6 @@ DataTable.util = {
 		return mixed;
 	},
 
-	unique: _unique
+	unique: unique
 };
 

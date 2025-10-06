@@ -1,20 +1,28 @@
 
 
+import Api from "./base";
+import { dataSource } from "../core/support";
+import { processingDisplay } from "../core/processing";
+import { reDraw } from "../core/draw";
+import { buildAjax, ajaxDataSrc } from "../core/ajax";
+import { addData, clearTable } from "../core/data";
+import { initComplete } from "../core/init";
+
 var __reload = function ( settings, holdPosition, callback ) {
 	// Use the draw event to trigger a callback
 	if ( callback ) {
-		var api = new _Api( settings );
+		var api = new Api( settings );
 
 		api.one( 'draw', function () {
 			callback( api.ajax.json() );
 		} );
 	}
 
-	if ( _fnDataSource( settings ) == 'ssp' ) {
-		_fnReDraw( settings, holdPosition );
+	if ( dataSource( settings ) == 'ssp' ) {
+		reDraw( settings, holdPosition );
 	}
 	else {
-		_fnProcessingDisplay( settings, true );
+		processingDisplay( settings, true );
 
 		// Cancel an existing request
 		var xhr = settings.jqXHR;
@@ -23,17 +31,17 @@ var __reload = function ( settings, holdPosition, callback ) {
 		}
 
 		// Trigger xhr
-		_fnBuildAjax( settings, {}, function( json ) {
-			_fnClearTable( settings );
+		buildAjax( settings, {}, function( json ) {
+			clearTable( settings );
 
-			var data = _fnAjaxDataSrc( settings, json );
+			var data = ajaxDataSrc( settings, json, false );
 			for ( var i=0, iLen=data.length ; i<iLen ; i++ ) {
-				_fnAddData( settings, data[i] );
+				addData( settings, data[i] );
 			}
 
-			_fnReDraw( settings, holdPosition );
-			_fnInitComplete( settings );
-			_fnProcessingDisplay( settings, false );
+			reDraw( settings, holdPosition );
+			initComplete( settings );
+			processingDisplay( settings, false );
 		} );
 	}
 };
@@ -46,7 +54,7 @@ var __reload = function ( settings, holdPosition, callback ) {
  *
  * @return {object} JSON received from the server.
  */
-_api_register( 'ajax.json()', function () {
+Api.register( 'ajax.json()', function () {
 	var ctx = this.context;
 
 	if ( ctx.length > 0 ) {
@@ -60,7 +68,7 @@ _api_register( 'ajax.json()', function () {
 /**
  * Get the data submitted in the last Ajax request
  */
-_api_register( 'ajax.params()', function () {
+Api.register( 'ajax.params()', function () {
 	var ctx = this.context;
 
 	if ( ctx.length > 0 ) {
@@ -80,7 +88,7 @@ _api_register( 'ajax.params()', function () {
  *   called, which is why the pagination reset is the default action.
  * @returns {DataTables.Api} this
  */
-_api_register( 'ajax.reload()', function ( callback, resetPaging ) {
+Api.register( 'ajax.reload()', function ( callback, resetPaging ) {
 	return this.iterator( 'table', function (settings) {
 		__reload( settings, resetPaging===false, callback );
 	} );
@@ -99,7 +107,7 @@ _api_register( 'ajax.reload()', function ( callback, resetPaging ) {
  * @param {string} url URL to set.
  * @returns {DataTables.Api} this
  */
-_api_register( 'ajax.url()', function ( url ) {
+Api.register( 'ajax.url()', function ( url ) {
 	var ctx = this.context;
 
 	if ( url === undefined ) {
@@ -135,7 +143,7 @@ _api_register( 'ajax.url()', function ( url ) {
  *
  * @returns {DataTables.Api} this
  */
-_api_register( 'ajax.url().load()', function ( callback, resetPaging ) {
+Api.register( 'ajax.url().load()', function ( callback, resetPaging ) {
 	// Same as a reload, but makes sense to present it for easy access after a
 	// url change
 	return this.iterator( 'table', function ( ctx ) {

@@ -1,4 +1,6 @@
 
+import Api from "./base";
+import { sortResolve, sortAttachListener, sortFlatten } from "../core/sort";
 
 /**
  * Get current ordering (sorting) that has been applied to the table.
@@ -28,7 +30,7 @@
  * @param {array} order 2D array of sorting information to be applied.
  * @returns {DataTables.Api} this
  */
-_api_register( 'order()', function ( order, dir ) {
+Api.register( 'order()', function ( order, dir ) {
 	var ctx = this.context;
 	var args = Array.prototype.slice.call( arguments );
 
@@ -52,7 +54,7 @@ _api_register( 'order()', function ( order, dir ) {
 
 	return this.iterator( 'table', function ( settings ) {
 		var resolved = [];
-		_fnSortResolve(settings, resolved, order);
+		sortResolve(settings, resolved, order);
 
 		settings.aaSorting = resolved;
 	} );
@@ -69,14 +71,14 @@ _api_register( 'order()', function ( order, dir ) {
  * @param {function} [callback] callback function when sort is run
  * @returns {DataTables.Api} this
  */
-_api_register( 'order.listener()', function ( node, column, callback ) {
+Api.register( 'order.listener()', function ( node, column, callback ) {
 	return this.iterator( 'table', function ( settings ) {
-		_fnSortAttachListener(settings, node, {}, column, callback);
+		sortAttachListener(settings, node, {}, column, callback);
 	} );
 } );
 
 
-_api_register( 'order.fixed()', function ( set ) {
+Api.register( 'order.fixed()', function ( set ) {
 	if ( ! set ) {
 		var ctx = this.context;
 		var fixed = ctx.length ?
@@ -95,7 +97,7 @@ _api_register( 'order.fixed()', function ( set ) {
 
 
 // Order by the selected column(s)
-_api_register( [
+Api.register( [
 	'columns().order()',
 	'column().order()'
 ], function ( dir ) {
@@ -103,7 +105,7 @@ _api_register( [
 
 	if ( ! dir ) {
 		return this.iterator( 'column', function ( settings, idx ) {
-			var sort = _fnSortFlatten( settings );
+			var sort = sortFlatten( settings );
 
 			for ( var i=0, iLen=sort.length ; i<iLen ; i++ ) {
 				if ( sort[i].col === idx ) {
@@ -123,7 +125,7 @@ _api_register( [
 	}
 } );
 
-_api_registerPlural('columns().orderable()', 'column().orderable()', function ( directions ) {
+Api.registerPlural('columns().orderable()', 'column().orderable()', function ( directions ) {
 	return this.iterator( 'column', function ( settings, idx ) {
 		var col = settings.aoColumns[idx];
 

@@ -109,8 +109,8 @@ var __diacriticSort = function (a, b) {
 }
 
 var __diacriticHtmlSort = function (a, b) {
-	a = _stripHtml(a);
-	b = _stripHtml(b);
+	a = DataTable.util.stripHtml(a);
+	b = DataTable.util.stripHtml(b);
 
 	return __diacriticSort(a, b);
 }
@@ -177,7 +177,7 @@ DataTable.type('html', {
 			return _empty(a) ?
 				'' :
 				a.replace ?
-					_stripHtml(a).trim().toLowerCase() :
+					DataTable.util.stripHtml(a).trim().toLowerCase() :
 					a+'';
 		}
 	},

@@ -1,4 +1,7 @@
 
+import { pluck, unique } from "../core/internal";
+import { arrayApply } from "../core/support";
+import { selector_row_indexes } from "./selectors";
 
 /**
  * Computed structure of the DataTables API, defined by the options passed to
@@ -36,7 +39,7 @@
  * @type {Array}
  * @ignore
  */
-var __apiStruct = [];
+var __apiStruct: any[] = [];
 
 
 /**
@@ -72,7 +75,7 @@ var _toSettings = function ( mixed )
 {
 	var idx, jq;
 	var settings = DataTable.settings;
-	var tables = _pluck(settings, 'nTable');
+	var tables = pluck(settings, 'nTable');
 
 	if ( ! mixed ) {
 		return [];
@@ -95,7 +98,7 @@ var _toSettings = function ( mixed )
 	}
 	else if ( mixed instanceof $ ) {
 		// jQuery object (also DataTables instance)
-		jq = mixed.get();
+		jq = (mixed as JQuery).get();
 	}
 
 	if ( jq ) {
@@ -160,11 +163,11 @@ var _toSettings = function ( mixed )
  *   // Initialisation as a constructor
  *   var api = new DataTable.Api( 'table.dataTable' );
  */
-_Api = function ( context, data )
+export default function Api( context, data? )
 {
-	if ( ! (this instanceof _Api) ) {
-		return new _Api( context, data );
-	}
+	// if ( ! (this instanceof Api) ) {
+	// 	return new (Api as any)( context, data );
+	// }
 
 	var i;
 	var settings = [];
@@ -186,11 +189,11 @@ _Api = function ( context, data )
 
 	// Remove duplicates
 	this.context = settings.length > 1
-		? _unique( settings )
+		? unique( settings )
 		: settings;
 
 	// Initial data
-	_fnArrayApply(this, data);
+	arrayApply(this, data);
 
 	// selector
 	this.selector = {
@@ -199,14 +202,14 @@ _Api = function ( context, data )
 		opts: null
 	};
 
-	_Api.extend( this, this, __apiStruct );
+	Api.extend( this, this, __apiStruct );
 };
 
-DataTable.Api = _Api;
+DataTable.Api = Api;
 
 // Don't destroy the existing prototype, just extend it. Required for jQuery 2's
 // isPlainObject.
-$.extend( _Api.prototype, {
+$.extend( Api.prototype, {
 	any: function ()
 	{
 		return this.count() !== 0;
@@ -233,7 +236,7 @@ $.extend( _Api.prototype, {
 		var ctx = this.context;
 
 		return ctx.length > idx ?
-			new _Api( ctx[idx], this[idx] ) :
+			new Api( ctx[idx], this[idx] ) :
 			null;
 	},
 
@@ -241,14 +244,14 @@ $.extend( _Api.prototype, {
 	{
 		var a = __arrayProto.filter.call( this, fn, this );
 
-		return new _Api( this.context, a );
+		return new Api( this.context, a );
 	},
 
 	flatten: function ()
 	{
 		var a = [];
 
-		return new _Api( this.context, a.concat.apply( a, this.toArray() ) );
+		return new Api( this.context, a.concat.apply( a, this.toArray() ) );
 	},
 
 	get: function ( idx )
@@ -266,7 +269,7 @@ $.extend( _Api.prototype, {
 
 	iterator: function ( flatten, type, fn, alwaysNew ) {
 		var
-			a = [], ret,
+			a: any[] = [], ret,
 			i, iLen, j, jen,
 			context = this.context,
 			rows, items, item,
@@ -281,7 +284,7 @@ $.extend( _Api.prototype, {
 		}
 
 		for ( i=0, iLen=context.length ; i<iLen ; i++ ) {
-			var apiInst = new _Api( context[i] );
+			var apiInst = new Api( context[i] );
 
 			if ( type === 'table' ) {
 				ret = fn.call( apiInst, context[i], i );
@@ -304,7 +307,7 @@ $.extend( _Api.prototype, {
 				items = this[i];
 
 				if ( type === 'column-rows' ) {
-					rows = _selector_row_indexes( context[i], selector.opts );
+					rows = selector_row_indexes( context[i], selector.opts );
 				}
 
 				for ( j=0, jen=items.length ; j<jen ; j++ ) {
@@ -325,7 +328,7 @@ $.extend( _Api.prototype, {
 		}
 
 		if ( a.length || alwaysNew ) {
-			var api = new _Api( context, flatten ? a.concat.apply( [], a ) : a );
+			var api = new Api( context, flatten ? a.concat.apply( [], a ) : a );
 			var apiSelector = api.selector;
 			apiSelector.rows = selector.rows;
 			apiSelector.cols = selector.cols;
@@ -343,7 +346,7 @@ $.extend( _Api.prototype, {
 	{
 		var a = __arrayProto.map.call( this, fn, this );
 
-		return new _Api( this.context, a );
+		return new Api( this.context, a );
 	},
 
 	pluck: function ( prop )
@@ -371,7 +374,7 @@ $.extend( _Api.prototype, {
 	shift:   __arrayProto.shift,
 
 	slice: function () {
-		return new _Api( this.context, this );
+		return new Api( this.context, this );
 	},
 
 	sort:    __arrayProto.sort,
@@ -395,7 +398,7 @@ $.extend( _Api.prototype, {
 
 	unique: function ()
 	{
-		return new _Api( this.context, _unique(this.toArray()) );
+		return new Api( this.context, unique(this.toArray()) );
 	},
 
 	unshift: __arrayProto.unshift
@@ -407,7 +410,7 @@ function _api_scope( scope, fn, struct ) {
 		var ret = fn.apply( scope || this, arguments );
 
 		// Method extension
-		_Api.extend( ret, ret, struct.methodExt );
+		Api.extend( ret, ret, struct.methodExt );
 		return ret;
 	};
 }
@@ -421,12 +424,12 @@ function _api_find( src, name ) {
 	return null;
 }
 
-window.__apiStruct = __apiStruct;
+(window as any).__apiStruct = __apiStruct;
 
-_Api.extend = function ( scope, obj, ext )
+Api.extend = function ( scope, obj, ext )
 {
 	// Only extend API instances and static properties of the API
-	if ( ! ext.length || ! obj || ( ! (obj instanceof _Api) && ! obj.__dt_wrapper ) ) {
+	if ( ! ext.length || ! obj || ( ! (obj instanceof Api) && ! obj.__dt_wrapper ) ) {
 		return;
 	}
 
@@ -451,7 +454,7 @@ _Api.extend = function ( scope, obj, ext )
 		obj[ struct.name ].__dt_wrapper = true;
 
 		// Property extension
-		_Api.extend( scope, obj[ struct.name ], struct.propExt );
+		Api.extend( scope, obj[ struct.name ], struct.propExt );
 	}
 };
 
@@ -479,11 +482,11 @@ _Api.extend = function ( scope, obj, ext )
 //     ]
 
 
-_Api.register = _api_register = function ( name, val )
+Api.register = function ( name, val )
 {
 	if ( Array.isArray( name ) ) {
 		for ( var j=0, jen=name.length ; j<jen ; j++ ) {
-			_Api.register( name[j], val );
+			Api.register( name[j], val );
 		}
 		return;
 	}
@@ -528,22 +531,22 @@ _Api.register = _api_register = function ( name, val )
 	}
 };
 
-_Api.registerPlural = _api_registerPlural = function ( pluralName, singularName, val ) {
-	_Api.register( pluralName, val );
+Api.registerPlural = function ( pluralName, singularName, val ) {
+	Api.register( pluralName, val );
 
-	_Api.register( singularName, function () {
+	Api.register( singularName, function () {
 		var ret = val.apply( this, arguments );
 
 		if ( ret === this ) {
 			// Returned item is the API instance that was passed in, return it
 			return this;
 		}
-		else if ( ret instanceof _Api ) {
+		else if ( ret instanceof Api ) {
 			// New API instance returned, want the value from the first item
 			// in the returned array for the singular result.
-			return ret.length ?
+			return (ret as any).length ?
 				Array.isArray( ret[0] ) ?
-					new _Api( ret.context, ret[0] ) : // Array results are 'enhanced'
+					new Api( (ret as any).context, ret[0] ) : // Array results are 'enhanced'
 					ret[0] :
 				undefined;
 		}

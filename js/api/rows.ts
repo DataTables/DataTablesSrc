@@ -1,4 +1,11 @@
 
+import Api from "./base";
+import { intVal, removeEmpty, pluck_order } from "../core/internal";
+import { selector_row_indexes, selector_run, selector_opts, selector_first } from "./selectors";
+import { sortDisplay } from "../core/sort";
+import { invalidate } from "../core/data";
+import { lengthOverflow, arrayApply } from "../core/support";
+import { addTr, addData } from "../core/data";
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Rows
@@ -10,11 +17,11 @@
  * {array}     - jQuery array of nodes, or simply an array of TR nodes
  *
  */
-var __row_selector = function ( settings, selector, opts )
+function row_selector( settings, selector, opts )
 {
 	var rows;
 	var run = function ( sel ) {
-		var selInt = _intVal( sel );
+		var selInt = intVal( sel );
 		var aoData = settings.aoData;
 
 		// Short cut - selector is a number and no options provided (default is
@@ -25,7 +32,7 @@ var __row_selector = function ( settings, selector, opts )
 		}
 
 		if ( ! rows ) {
-			rows = _selector_row_indexes( settings, opts );
+			rows = selector_row_indexes( settings, opts );
 		}
 
 		if ( selInt !== null && rows.indexOf(selInt) !== -1 ) {
@@ -90,8 +97,8 @@ var __row_selector = function ( settings, selector, opts )
 		}
 		
 		// Get nodes in the order from the `rows` array with null values removed
-		var nodes = _removeEmpty(
-			_pluck_order( settings.aoData, rows, 'nTr' )
+		var nodes = removeEmpty(
+			pluck_order( settings.aoData, rows, 'nTr' )
 		);
 
 		// Selector - jQuery selector string, array of nodes or jQuery object/
@@ -105,17 +112,17 @@ var __row_selector = function ( settings, selector, opts )
 			.toArray();
 	};
 
-	var matched = _selector_run( 'row', selector, run, settings, opts );
+	var matched = selector_run( 'row', selector, run, settings, opts );
 
 	if (opts.order === 'current' || opts.order === 'applied') {
-		_fnSortDisplay(settings, matched);
+		sortDisplay(settings, matched);
 	}
 
 	return matched;
 };
 
 
-_api_register( 'rows()', function ( selector, opts ) {
+Api.register( 'rows()', function ( selector, opts ) {
 	// argument shifting
 	if ( selector === undefined ) {
 		selector = '';
@@ -125,52 +132,52 @@ _api_register( 'rows()', function ( selector, opts ) {
 		selector = '';
 	}
 
-	opts = _selector_opts( opts );
+	opts = selector_opts( opts );
 
 	var inst = this.iterator( 'table', function ( settings ) {
-		return __row_selector( settings, selector, opts );
+		return row_selector( settings, selector, opts );
 	}, 1 );
 
-	// Want argument shifting here and in __row_selector?
+	// Want argument shifting here and in row_selector?
 	inst.selector.rows = selector;
 	inst.selector.opts = opts;
 
 	return inst;
 } );
 
-_api_register( 'rows().nodes()', function () {
+Api.register( 'rows().nodes()', function () {
 	return this.iterator( 'row', function ( settings, row ) {
 		return settings.aoData[ row ].nTr || undefined;
 	}, 1 );
 } );
 
-_api_register( 'rows().data()', function () {
+Api.register( 'rows().data()', function () {
 	return this.iterator( true, 'rows', function ( settings, rows ) {
-		return _pluck_order( settings.aoData, rows, '_aData' );
+		return pluck_order( settings.aoData, rows, '_aData' );
 	}, 1 );
 } );
 
-_api_registerPlural( 'rows().cache()', 'row().cache()', function ( type ) {
+Api.registerPlural( 'rows().cache()', 'row().cache()', function ( type ) {
 	return this.iterator( 'row', function ( settings, row ) {
 		var r = settings.aoData[ row ];
 		return type === 'search' ? r._aFilterData : r._aSortData;
 	}, 1 );
 } );
 
-_api_registerPlural( 'rows().invalidate()', 'row().invalidate()', function ( src ) {
+Api.registerPlural( 'rows().invalidate()', 'row().invalidate()', function ( src ) {
 	return this.iterator( 'row', function ( settings, row ) {
-		_fnInvalidate( settings, row, src );
+		invalidate( settings, row, src );
 	} );
 } );
 
-_api_registerPlural( 'rows().indexes()', 'row().index()', function () {
+Api.registerPlural( 'rows().indexes()', 'row().index()', function () {
 	return this.iterator( 'row', function ( settings, row ) {
 		return row;
 	}, 1 );
 } );
 
-_api_registerPlural( 'rows().ids()', 'row().id()', function ( hash ) {
-	var a = [];
+Api.registerPlural( 'rows().ids()', 'row().id()', function ( hash ) {
+	var a: any[] = [];
 	var context = this.context;
 
 	// `iterator` will drop undefined values, but in this case we want them
@@ -181,10 +188,10 @@ _api_registerPlural( 'rows().ids()', 'row().id()', function ( hash ) {
 		}
 	}
 
-	return new _Api( context, a );
+	return new Api( context, a );
 } );
 
-_api_registerPlural( 'rows().remove()', 'row().remove()', function () {
+Api.registerPlural( 'rows().remove()', 'row().remove()', function () {
 	this.iterator( 'row', function ( settings, row ) {
 		var data = settings.aoData;
 		var rowData = data[ row ];
@@ -201,7 +208,7 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 		}
 
 		// Check for an 'overflow' they case for displaying the table
-		_fnLengthOverflow( settings );
+		lengthOverflow( settings );
 
 		// Remove the row's ID reference if there is one
 		var id = settings.rowIdFn( rowData._aData );
@@ -216,19 +223,19 @@ _api_registerPlural( 'rows().remove()', 'row().remove()', function () {
 } );
 
 
-_api_register( 'rows.add()', function ( rows ) {
+Api.register( 'rows.add()', function ( rows ) {
 	var newRows = this.iterator( 'table', function ( settings ) {
 			var row, i, iLen;
-			var out = [];
+			var out: any[] = [];
 
 			for ( i=0, iLen=rows.length ; i<iLen ; i++ ) {
 				row = rows[i];
 
 				if ( row.nodeName && row.nodeName.toUpperCase() === 'TR' ) {
-					out.push( _fnAddTr( settings, row )[0] );
+					out.push( addTr( settings, row )[0] );
 				}
 				else {
-					out.push( _fnAddData( settings, row ) );
+					out.push( addData( settings, row ) );
 				}
 			}
 
@@ -238,7 +245,7 @@ _api_register( 'rows.add()', function ( rows ) {
 	// Return an Api.rows() extended instance, so rows().nodes() etc can be used
 	var modRows = this.rows( -1 );
 	modRows.pop();
-	_fnArrayApply(modRows, newRows);
+	arrayApply(modRows, newRows);
 
 	return modRows;
 } );
@@ -250,12 +257,12 @@ _api_register( 'rows.add()', function ( rows ) {
 /**
  *
  */
-_api_register( 'row()', function ( selector, opts ) {
-	return _selector_first( this.rows( selector, opts ) );
+Api.register( 'row()', function ( selector, opts ) {
+	return selector_first( this.rows( selector, opts ) );
 } );
 
 
-_api_register( 'row().data()', function ( data ) {
+Api.register( 'row().data()', function ( data ) {
 	var ctx = this.context;
 
 	if ( data === undefined ) {
@@ -271,17 +278,17 @@ _api_register( 'row().data()', function ( data ) {
 
 	// If the DOM has an id, and the data source is an array
 	if ( Array.isArray( data ) && row.nTr && row.nTr.id ) {
-		_fnSetObjectDataFn( ctx[0].rowId )( data, row.nTr.id );
+		DataTable.util.set( ctx[0].rowId )( data, row.nTr.id );
 	}
 
 	// Automatically invalidate
-	_fnInvalidate( ctx[0], this[0], 'data' );
+	invalidate( ctx[0], this[0], 'data' );
 
 	return this;
 } );
 
 
-_api_register( 'row().node()', function () {
+Api.register( 'row().node()', function () {
 	var ctx = this.context;
 
 	if (ctx.length && this.length && this[0].length) {
@@ -296,18 +303,18 @@ _api_register( 'row().node()', function () {
 } );
 
 
-_api_register( 'row.add()', function ( row ) {
+Api.register( 'row.add()', function ( row ) {
 	// Allow a jQuery object to be passed in - only a single row is added from
 	// it though - the first element in the set
-	if ( row instanceof $ && row.length ) {
+	if ( row instanceof $ && (row as any).length ) { // TODO typing
 		row = row[0];
 	}
 
 	var rows = this.iterator( 'table', function ( settings ) {
 		if ( row.nodeName && row.nodeName.toUpperCase() === 'TR' ) {
-			return _fnAddTr( settings, row )[0];
+			return addTr( settings, row )[0];
 		}
-		return _fnAddData( settings, row );
+		return addData( settings, row );
 	} );
 
 	// Return an Api.rows() extended instance, with the newly added row selected

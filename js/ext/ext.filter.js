@@ -9,11 +9,11 @@ var _filterString = function (stripHtml, normalize) {
 		str = str.replace( _re_new_lines, " " );
 
 		if (stripHtml) {
-			str = _stripHtml(str);
+			str = DataTable.util.stripHtml(str);
 		}
 
 		if (normalize) {
-			str = _normalize(str, false);
+			str = DataTable.util.normalize(str, false);
 		}
 
 		return str;

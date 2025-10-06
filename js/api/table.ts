@@ -1,4 +1,8 @@
 
+import { arrayApply } from "../core/support";
+import Api from "./base";
+import { headerLayout } from "../core/draw";
+
 /**
  * Selector for HTML tables. Apply the given selector to the give array of
  * DataTables settings objects.
@@ -8,15 +12,15 @@
  * @return {array}
  * @ignore
  */
-var __table_selector = function ( selector, a )
+export function table_selector( selector, a )
 {
 	if ( Array.isArray(selector) ) {
 		var result = [];
 
 		selector.forEach(function (sel) {
-			var inner = __table_selector(sel, a);
+			var inner = table_selector(sel, a);
 
-			_fnArrayApply(result, inner);
+			arrayApply(result, inner);
 		});
 
 		return result.filter( function (item) {
@@ -57,21 +61,21 @@ var __table_selector = function ( selector, a )
  *   select multiple tables or as an integer to select a single table.
  * @returns {DataTable.Api} Returns a new API instance if a selector is given.
  */
-_api_register( 'tables()', function ( selector ) {
+Api.register( 'tables()', function ( selector ) {
 	// A new instance is created if there was a selector specified
 	return selector !== undefined && selector !== null ?
-		new _Api( __table_selector( selector, this.context ) ) :
+		new Api( table_selector( selector, this.context ) ) :
 		this;
 } );
 
 
-_api_register( 'table()', function ( selector ) {
+Api.register( 'table()', function ( selector ) {
 	var tables = this.tables( selector );
 	var ctx = tables.context;
 
 	// Truncate to the first matched table
 	return ctx.length ?
-		new _Api( ctx[0] ) :
+		new Api( ctx[0] ) :
 		tables;
 } );
 
@@ -82,7 +86,7 @@ _api_register( 'table()', function ( selector ) {
 	['header', 'header', 'nTHead'],
 	['footer', 'footer', 'nTFoot'],
 ].forEach(function (item) {
-	_api_registerPlural(
+	Api.registerPlural(
 		'tables().' + item[0] + '()',
 		'table().' + item[1] + '()' ,
 		function () {
@@ -98,10 +102,10 @@ _api_register( 'table()', function ( selector ) {
 	['header', 'aoHeader'],
 	['footer', 'aoFooter'],
 ].forEach(function (item) {
-	_api_register( 'table().' + item[0] + '.structure()' , function (selector) {
+	Api.register( 'table().' + item[0] + '.structure()' , function (selector) {
 		var indexes = this.columns(selector).indexes().flatten().toArray();
 		var ctx = this.context[0];
-		var structure = _fnHeaderLayout(ctx, ctx[item[1]], indexes);
+		var structure = headerLayout(ctx, ctx[item[1]], indexes)!;
 
 		// The structure is in column index order - but from this method we want the return to be
 		// in the columns() selector API order. In order to do that we need to map from one form
@@ -119,13 +123,13 @@ _api_register( 'table()', function ( selector ) {
 });
 
 
-_api_registerPlural( 'tables().containers()', 'table().container()' , function () {
+Api.registerPlural( 'tables().containers()', 'table().container()' , function () {
 	return this.iterator( 'table', function ( ctx ) {
 		return ctx.nTableWrapper;
 	}, 1 );
 } );
 
-_api_register( 'tables().every()', function ( fn ) {
+Api.register( 'tables().every()', function ( fn ) {
 	var that = this;
 
 	return this.iterator('table', function (s, i) {
@@ -133,7 +137,7 @@ _api_register( 'tables().every()', function ( fn ) {
 	});
 });
 
-_api_register( 'caption()', function ( value, side ) {
+Api.register( 'caption()', function ( value, side ) {
 	var context = this.context;
 
 	// Getter - return existing node's content
@@ -183,7 +187,7 @@ _api_register( 'caption()', function ( value, side ) {
 	}, 1 );
 } );
 
-_api_register( 'caption.node()', function () {
+Api.register( 'caption.node()', function () {
 	var ctx = this.context;
 
 	return ctx.length ? ctx[0].captionNode : null;

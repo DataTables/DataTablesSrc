@@ -9,7 +9,7 @@ import {escapeHtml} from '../core/internal';
  * @param msg error message
  * @param tn Technical note id to get more information about the error.
  */
-export function log(ctx: Context, level: number, msg: string, tn?: number) {
+export function log(ctx: Context | null, level: number, msg: string, tn?: number) {
 	msg = 'DataTables warning: ' + (ctx ? 'table id=' + ctx.sTableId + ' - ' : '') + msg;
 
 	if (tn) {
@@ -51,7 +51,7 @@ export function log(ctx: Context, level: number, msg: string, tn?: number) {
  * @param name property
  * @param [mappedName] name to map too - optional, name used if not given
  */
-export function map(ret: object, src: object, name: string, mappedName?: string) {
+export function map(ret: object, src: object, name: string | any[], mappedName?: string) {
 	if (Array.isArray(name)) {
 		$.each(name, function (i, val) {
 			if (Array.isArray(val)) {

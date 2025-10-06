@@ -1,7 +1,10 @@
 
+import { unique, range } from "../core/internal";
+import { dataSource } from "../core/support";
+import { sort } from "../core/sort";
+import Api from "./base";
 
-
-var _selector_run = function ( type, selector, selectFn, settings, opts )
+export function selector_run( type, selector, selectFn, settings, opts )
 {
 	var
 		out = [], res,
@@ -28,18 +31,18 @@ var _selector_run = function ( type, selector, selectFn, settings, opts )
 	}
 
 	// selector extensions
-	var ext = _ext.selector[ type ];
+	var ext = DataTable.ext.selector[ type ];
 	if ( ext.length ) {
 		for ( i=0, iLen=ext.length ; i<iLen ; i++ ) {
 			out = ext[i]( settings, opts, out );
 		}
 	}
 
-	return _unique( out );
+	return unique( out );
 };
 
 
-var _selector_opts = function ( opts )
+export function selector_opts ( opts )
 {
 	if ( ! opts ) {
 		opts = {};
@@ -61,9 +64,9 @@ var _selector_opts = function ( opts )
 
 
 // Reduce the API instance to the first item found
-var _selector_first = function ( old )
+export function selector_first( old )
 {
-	var inst = new _Api(old.context[0]);
+	var inst = new Api(old.context[0]);
 
 	// Use a push rather than passing to the constructor, since it will
 	// merge arrays down automatically, which isn't what is wanted here
@@ -82,10 +85,10 @@ var _selector_first = function ( old )
 };
 
 
-var _selector_row_indexes = function ( settings, opts )
+export function selector_row_indexes ( settings, opts )
 {
 	var
-		i, iLen, tmp, a=[],
+		i, iLen, tmp, a: any[]=[],
 		displayFiltered = settings.aiDisplay,
 		displayMaster = settings.aiDisplayMaster;
 
@@ -94,14 +97,14 @@ var _selector_row_indexes = function ( settings, opts )
 		order  = opts.order,   // applied, current, index (original - compatibility with 1.9)
 		page   = opts.page;    // all, current
 
-	if ( _fnDataSource( settings ) == 'ssp' ) {
+	if ( dataSource( settings ) == 'ssp' ) {
 		// In server-side processing mode, most options are irrelevant since
 		// rows not shown don't exist and the index order is the applied order
 		// Removed is a special case - for consistency just return an empty
 		// array
 		return search === 'removed' ?
 			[] :
-			_range( 0, displayMaster.length );
+			range( 0, displayMaster.length );
 	}
 
 	if ( page == 'current' ) {
@@ -156,7 +159,7 @@ var _selector_row_indexes = function ( settings, opts )
 	}
 	else if ( typeof order === 'number' ) {
 		// Order the rows by the given column
-		var ordered = _fnSort(settings, order, 'asc');
+		var ordered = sort(settings, order, 'asc');
 
 		if (search === 'none') {
 			a = ordered;

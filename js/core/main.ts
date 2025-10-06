@@ -1,6 +1,8 @@
 
 import models from '../model';
 import defaults from '../model/defaults';
+import construct from './constructor';
+import { extend } from './support';
 
 var DataTable = function ( selector, options )
 {
@@ -37,11 +39,11 @@ var DataTable = function ( selector, options )
 		// For each initialisation we want to give it a clean initialisation
 		// object that can be bashed around
 		var o = {};
-		var oInit = len > 1 ? // optimisation for single table case
-			_fnExtend( o, options, true ) :
+		var init = len > 1 ? // optimisation for single table case
+		extend( o, options, true ) :
 			options;
 
-		_buildInclude('core.constructor.js');
+		construct(_that, init, emptyInit);
 	} );
 	_that = null;
 	return this;

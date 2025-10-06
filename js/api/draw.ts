@@ -1,12 +1,14 @@
 
+import Api from "./base";
+import { draw, reDraw } from "../core/draw";
 
 /**
  * Redraw the tables in the current context.
  */
-_api_register( 'draw()', function ( paging ) {
+Api.register( 'draw()', function ( paging ) {
 	return this.iterator( 'table', function ( settings ) {
 		if ( paging === 'page' ) {
-			_fnDraw( settings );
+			draw( settings );
 		}
 		else {
 			if ( typeof paging === 'string' ) {
@@ -15,7 +17,7 @@ _api_register( 'draw()', function ( paging ) {
 					true;
 			}
 
-			_fnReDraw( settings, paging===false );
+			reDraw( settings, paging===false );
 		}
 	} );
 } );

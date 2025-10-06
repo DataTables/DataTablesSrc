@@ -506,7 +506,7 @@ export function draw( oSettings, ajaxComplete? )
  *    the paging is reset to the first page
  *  @memberof DataTable#oApi
  */
-export function reDraw( settings, holdPosition, recompute )
+export function reDraw( settings, holdPosition, recompute? )
 {
 	var
 		features = settings.oFeatures,

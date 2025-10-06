@@ -175,7 +175,7 @@ function __mlHelper (localeString) {
 
 			// XSS protection
 			return type === 'display' ?
-				_escapeHtml( formatted ) :
+				DataTable.util.escapeHtml( formatted ) :
 				formatted;
 		};
 	}
@@ -303,7 +303,7 @@ DataTable.render = {
 				// return immediately, escaping any HTML (this was supposed to
 				// be a number after all)
 				if ( isNaN( flo ) ) {
-					return _escapeHtml( d );
+					return DataTable.util.escapeHtml( d );
 				}
 
 				flo = flo.toFixed( precision );
@@ -331,8 +331,8 @@ DataTable.render = {
 
 	text: function () {
 		return {
-			display: _escapeHtml,
-			filter: _escapeHtml
+			display: DataTable.util.escapeHtml,
+			filter: DataTable.util.escapeHtml
 		};
 	}
 };

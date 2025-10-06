@@ -1,5 +1,8 @@
 
-DataTable.feature.register( 'info', function ( settings, opts ) {
+import register from './index';
+import { macros, callbackFire } from '../core/support';
+
+register( 'info', function ( settings, opts ) {
 	// For compatibility with the legacy `info` top level option
 	if (! settings.oFeatures.bInfo) {
 		return null;
@@ -66,7 +69,7 @@ function _fnUpdateInfo ( settings, opts, node )
 
 	// Convert the macros
 	out += opts.postfix;
-	out = _fnMacros( settings, out );
+	out = macros( settings, out );
 
 	if ( opts.callback ) {
 		out = opts.callback.call( settings.oInstance,
@@ -76,5 +79,5 @@ function _fnUpdateInfo ( settings, opts, node )
 
 	node.html( out );
 
-	_fnCallbackFire(settings, null, 'info', [settings, node[0], out]);
+	callbackFire(settings, null, 'info', [settings, node[0], out]);
 }

@@ -41,7 +41,7 @@ export function addColumn( oSettings: Context )
  *  @param {object} oOptions object with sType, bVisible and bSearchable etc
  *  @memberof DataTable#oApi
  */
-export function columnOptions( oSettings, iCol, oOptions )
+export function columnOptions( oSettings, iCol, oOptions? )
 {
 	var oCol = oSettings.aoColumns[ iCol ];
 

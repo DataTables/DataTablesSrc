@@ -1,7 +1,12 @@
 
+import Api from "./base";
+import { camelToHungarian } from "../core/compat";
+
 // Can be assigned in DateTable.use() - note luxon and moment vars are in helpers.js
 var __bootstrap;
 var __foundation;
+var __luxon;
+var __moment;
 
 /**
  * Set the libraries that DataTables uses, or the global objects.
@@ -38,11 +43,11 @@ DataTable.use = function (arg1, arg2) {
 
 			case 'bootstrap':
 				// Use local if set, otherwise try window, which could be undefined
-				return __bootstrap || window.bootstrap;
+				return __bootstrap || (window as any).bootstrap;
 
 			case 'foundation':
 				// Ditto
-				return __foundation || window.Foundation;
+				return __foundation || (window as any).Foundation;
 
 			default:
 				return null;
@@ -217,7 +222,7 @@ DataTable.tables = function ( visible )
 		});
 
 	return api ?
-		new _Api( a ) :
+		new Api( a ) :
 		a;
 };
 
@@ -235,5 +240,5 @@ DataTable.tables = function ( visible )
  *    Hungarian value in the `user` object will be overwritten. Otherwise they
  *    won't be.
  */
-DataTable.camelToHungarian = _fnCamelToHungarian;
+DataTable.camelToHungarian = camelToHungarian;
 

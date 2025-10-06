@@ -1,6 +1,8 @@
 
+import Api from "./base";
+import { filterComplete } from "../core/filter";
 
-_api_register( 'search()', function ( input, regex, smart, caseInsen ) {
+Api.register( 'search()', function ( input, regex, smart, caseInsen ) {
 	var ctx = this.context;
 
 	if ( input === undefined ) {
@@ -18,13 +20,13 @@ _api_register( 'search()', function ( input, regex, smart, caseInsen ) {
 
 		if (typeof regex === 'object') {
 			// New style options to pass to the search builder
-			_fnFilterComplete( settings, $.extend( settings.oPreviousSearch, regex, {
+			filterComplete( settings, $.extend( settings.oPreviousSearch, regex, {
 				search: input
 			} ) );
 		}
 		else {
 			// Compat for the old options
-			_fnFilterComplete( settings, $.extend( settings.oPreviousSearch, {
+			filterComplete( settings, $.extend( settings.oPreviousSearch, {
 				search: input,
 				regex:  regex === null ? false : regex,
 				smart:  smart === null ? true  : smart,
@@ -34,7 +36,7 @@ _api_register( 'search()', function ( input, regex, smart, caseInsen ) {
 	} );
 } );
 
-_api_register( 'search.fixed()', function ( name, search ) {
+Api.register( 'search.fixed()', function ( name, search ) {
 	var ret = this.iterator( true, 'table', function ( settings ) {
 		var fixed = settings.searchFixed;
 
@@ -59,7 +61,7 @@ _api_register( 'search.fixed()', function ( name, search ) {
 		: ret;
 } );
 
-_api_registerPlural(
+Api.registerPlural(
 	'columns().search()',
 	'column().search()',
 	function ( input, regex, smart, caseInsen ) {
@@ -92,12 +94,12 @@ _api_registerPlural(
 				} );
 			}
 
-			_fnFilterComplete( settings, settings.oPreviousSearch );
+			filterComplete( settings, settings.oPreviousSearch );
 		} );
 	}
 );
 
-_api_register([
+Api.register([
 		'columns().search.fixed()',
 		'column().search.fixed()'
 	],

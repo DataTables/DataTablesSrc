@@ -598,58 +598,58 @@ html.dark div.dt-tabs > div > ul > li:first-child {
 }
 html.dark code.option {
   color: #f7d6df;
-  background-color: rgb(54.4, 54.7, 59.2);
-  border: 1px solid rgb(43.7, 45.85, 50.1);
+  background-color: #36373b;
+  border: 1px solid #2c2e32;
 }
 html.dark code.path {
   color: #8ccb89;
-  background-color: rgb(43.7, 53.6, 50.6);
-  border: 1px solid rgb(38.35, 45.3, 45.8);
+  background-color: #2c3633;
+  border: 1px solid #262d2e;
 }
 html.dark code.tag {
   color: #fff9d7;
-  background-color: rgb(55.2, 58.2, 58.4);
-  border: 1px solid rgb(44.1, 47.6, 49.7);
+  background-color: #373a3a;
+  border: 1px solid #2c3032;
 }
 html.dark code.api {
   color: #c6cbe9;
-  background-color: rgb(49.5, 53.6, 60.2);
-  border: 1px solid rgb(41.25, 45.3, 50.6);
+  background-color: #32363c;
+  border: 1px solid #292d33;
 }
 html.dark code.type {
   color: #faebfa;
-  background-color: rgb(54.7, 56.8, 61.9);
-  border: 1px solid rgb(43.85, 46.9, 51.45);
+  background-color: #37393e;
+  border: 1px solid #2c2f33;
 }
 html.dark code.event {
   color: #c7edf5;
-  background-color: rgb(49.6, 57, 61.4);
-  border: 1px solid rgb(41.3, 47, 51.2);
+  background-color: #32393d;
+  border: 1px solid #292f33;
 }
 html.dark code.string {
   color: #f5eee9;
-  background-color: rgb(54.2, 57.1, 60.2);
-  border: 1px solid rgb(43.6, 47.05, 50.6);
+  background-color: #36393c;
+  border: 1px solid #2c2f33;
 }
 html.dark code.field {
   color: #f9f1fc;
-  background-color: rgb(54.6, 57.4, 62.1);
-  border: 1px solid rgb(43.8, 47.2, 51.55);
+  background-color: #37393e;
+  border: 1px solid #2c2f34;
 }
 html.dark code.button {
   color: #f2f7f9;
-  background-color: rgb(53.9, 58, 61.8);
-  border: 1px solid rgb(43.45, 47.5, 51.4);
+  background-color: #363a3e;
+  border: 1px solid #2b3033;
 }
 html.dark code.feature {
   color: #f7e2d6;
-  background-color: rgb(54.4, 55.9, 58.3);
-  border: 1px solid rgb(43.7, 46.45, 49.65);
+  background-color: #36383a;
+  border: 1px solid #2c2e32;
 }
 html.dark code.content {
   color: #d6f7e0;
-  background-color: rgb(51.1, 58, 59.3);
-  border: 1px solid rgb(42.05, 47.5, 50.15);
+  background-color: #333a3b;
+  border: 1px solid #2a3032;
 }
 html.dark .syntaxhighlighter {
   background: #2d2d2d !important;

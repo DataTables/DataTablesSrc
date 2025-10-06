@@ -1,11 +1,13 @@
 
+import register from './index';
+
 function _divProp(el, prop, val) {
 	if (val) {
 		el[prop] = val;
 	}
 }
 
-DataTable.feature.register( 'div', function ( settings, opts ) {
+register( 'div', function ( settings, opts ) {
 	var n = $('<div>')[0];
 
 	if (opts) {

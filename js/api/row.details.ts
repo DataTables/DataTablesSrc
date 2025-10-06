@@ -1,13 +1,19 @@
 
+import Api from "./base";
+import { callbackFire } from "../core/support";
+import { pluck } from "../core/internal";
+import { visibleColumns } from "../core/columns";
+import { saveState } from "../core/state";
+
 $(document).on('plugin-init.dt', function (e, context) {
-	var api = new _Api( context );
+	var api = new Api( context );
 
 	api.on( 'stateSaveParams.DT', function ( e, settings, d ) {
 		// This could be more compact with the API, but it is a lot faster as a simple
 		// internal loop
 		var idFn = settings.rowIdFn;
 		var rows = settings.aiDisplayMaster;
-		var ids = [];
+		var ids: any[] = [];
 
 		for (var i=0 ; i<rows.length ; i++) {
 			var rowIdx = rows[i];
@@ -40,7 +46,7 @@ var __details_state_load = function (api, state)
 				return id.replace(/([^:\\]*(?:\\.[^:\\]*)*):/g, "$1\\:");
 			}) )
 			.every( function () {
-				_fnCallbackFire( api.settings()[0], null, 'requestChild', [ this ] )
+				callbackFire( api.settings()[0], null, 'requestChild', [ this ] )
 			});
 	}
 }
@@ -48,11 +54,11 @@ var __details_state_load = function (api, state)
 var __details_add = function ( ctx, row, data, klass )
 {
 	// Convert to array of TR elements
-	var rows = [];
-	var addRow = function ( r, k ) {
+	var rows: any[] = [];
+	var addRow = function ( r: any, k ) {
 		// Recursion to allow for arrays of jQuery objects
 		if ( Array.isArray( r ) || r instanceof $ ) {
-			for ( var i=0, iLen=r.length ; i<iLen ; i++ ) {
+			for ( var i=0, iLen=(r as any).length ; i<iLen ; i++ ) { // TODO typing
 				addRow( r[i], k );
 			}
 			return;
@@ -70,9 +76,9 @@ var __details_add = function ( ctx, row, data, klass )
 				.attr( 'data-dt-row', row.idx )
 				.addClass( k );
 			
-			$('td', created)
+			$<HTMLTableCellElement>('td', created)
 				.addClass( k )
-				.html( r )[0].colSpan = _fnVisibleColumns( ctx );
+				.html( r )[0].colSpan = visibleColumns( ctx );
 
 			rows.push( created[0] );
 		}
@@ -96,13 +102,13 @@ var __details_add = function ( ctx, row, data, klass )
 // Make state saving of child row details async to allow them to be batch processed
 var __details_state = DataTable.util.throttle(
 	function (ctx) {
-		_fnSaveState( ctx[0] )
+		saveState( ctx[0] )
 	},
 	500
 );
 
 
-var __details_remove = function ( api, idx )
+var __details_remove = function ( api, idx? )
 {
 	var ctx = api.context;
 
@@ -139,7 +145,7 @@ var __details_display = function ( api, show ) {
 				$( row.nTr ).removeClass( 'dt-hasChild' );
 			}
 
-			_fnCallbackFire( ctx[0], null, 'childRow', [ show, api.row( api[0] ) ] )
+			callbackFire( ctx[0], null, 'childRow', [ show, api.row( api[0] ) ] )
 
 			__details_events( ctx[0] );
 			__details_state( ctx );
@@ -150,7 +156,7 @@ var __details_display = function ( api, show ) {
 
 var __details_events = function ( settings )
 {
-	var api = new _Api( settings );
+	var api = new Api( settings );
 	var namespace = '.dt.DT_details';
 	var drawEvent = 'draw'+namespace;
 	var colvisEvent = 'column-sizing'+namespace;
@@ -159,7 +165,7 @@ var __details_events = function ( settings )
 
 	api.off( drawEvent +' '+ colvisEvent +' '+ destroyEvent );
 
-	if ( _pluck( data, '_details' ).length > 0 ) {
+	if ( pluck( data, '_details' ).length > 0 ) {
 		// On each draw, insert the required elements into the document
 		api.on( drawEvent, function ( e, ctx ) {
 			if ( settings !== ctx ) {
@@ -184,7 +190,7 @@ var __details_events = function ( settings )
 
 			// Update the colspan for the details rows (note, only if it already has
 			// a colspan)
-			var row, visible = _fnVisibleColumns( ctx );
+			var row, visible = visibleColumns( ctx );
 
 			for ( var i=0, iLen=data.length ; i<iLen ; i++ ) {
 				row = data[i];
@@ -225,7 +231,7 @@ var _child_mth = _child_obj+'()';
 //  tr
 //  string
 //  jQuery or array of any of the above
-_api_register( _child_mth, function ( data, klass ) {
+Api.register( _child_mth, function ( data, klass ) {
 	var ctx = this.context;
 
 	if ( data === undefined ) {
@@ -251,7 +257,7 @@ _api_register( _child_mth, function ( data, klass ) {
 } );
 
 
-_api_register( [
+Api.register( [
 	_child_obj+'.show()',
 	_child_mth+'.show()' // only when `child()` was called with parameters (without
 ], function () {         // it returns an object and this method is not executed)
@@ -260,7 +266,7 @@ _api_register( [
 } );
 
 
-_api_register( [
+Api.register( [
 	_child_obj+'.hide()',
 	_child_mth+'.hide()' // only when `child()` was called with parameters (without
 ], function () {         // it returns an object and this method is not executed)
@@ -269,7 +275,7 @@ _api_register( [
 } );
 
 
-_api_register( [
+Api.register( [
 	_child_obj+'.remove()',
 	_child_mth+'.remove()' // only when `child()` was called with parameters (without
 ], function () {           // it returns an object and this method is not executed)
@@ -278,7 +284,7 @@ _api_register( [
 } );
 
 
-_api_register( _child_obj+'.isShown()', function () {
+Api.register( _child_obj+'.isShown()', function () {
 	var ctx = this.context;
 
 	if ( ctx.length && this.length && ctx[0].aoData[ this[0] ] ) {

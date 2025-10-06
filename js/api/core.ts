@@ -1,12 +1,17 @@
 
+import Api from "./base";
+import { log, callbackFire } from "../core/support";
+import { clearTable } from "../core/data";
+import { pluck } from "../core/internal";
+import { sortingClasses } from "../core/sort";
 
 /**
  *
  */
-_api_register( '$()', function ( selector, opts ) {
+Api.register( '$()', function ( selector, opts ) {
 	var
 		rows   = this.rows( opts ).nodes(), // Get all rows
-		jqRows = $(rows);
+		jqRows = $(rows) as any;
 
 	return $( [].concat(
 		jqRows.filter( selector ).toArray(),
@@ -17,7 +22,7 @@ _api_register( '$()', function ( selector, opts ) {
 
 // jQuery functions to operate on the tables
 $.each( [ 'on', 'one', 'off' ], function (i, key) {
-	_api_register( key+'()', function ( /* event, handler */ ) {
+	Api.register( key+'()', function ( /* event, handler */ ) {
 		var args = Array.prototype.slice.call(arguments);
 
 		// Add the `dt` namespace automatically if it isn't already present
@@ -34,46 +39,46 @@ $.each( [ 'on', 'one', 'off' ], function (i, key) {
 } );
 
 
-_api_register( 'clear()', function () {
+Api.register( 'clear()', function () {
 	return this.iterator( 'table', function ( settings ) {
-		_fnClearTable( settings );
+		clearTable( settings );
 	} );
 } );
 
 
-_api_register( 'error()', function (msg) {
+Api.register( 'error()', function (msg) {
 	return this.iterator( 'table', function ( settings ) {
-		_fnLog( settings, 0, msg );
+		log( settings, 0, msg );
 	} );
 } );
 
 
-_api_register( 'settings()', function () {
-	return new _Api( this.context, this.context );
+Api.register( 'settings()', function () {
+	return new Api( this.context, this.context );
 } );
 
 
-_api_register( 'init()', function () {
+Api.register( 'init()', function () {
 	var ctx = this.context;
 	return ctx.length ? ctx[0].oInit : null;
 } );
 
 
-_api_register( 'data()', function () {
+Api.register( 'data()', function () {
 	return this.iterator( 'table', function ( settings ) {
-		return _pluck( settings.aoData, '_aData' );
+		return pluck( settings.aoData, '_aData' );
 	} ).flatten();
 } );
 
 
-_api_register( 'trigger()', function ( name, args, bubbles ) {
+Api.register( 'trigger()', function ( name, args, bubbles ) {
 	return this.iterator( 'table', function ( settings ) {
-		return _fnCallbackFire( settings, null, name, args, bubbles );
+		return callbackFire( settings, null, name, args, bubbles );
 	} ).flatten();
 } );
 
 
-_api_register( 'ready()', function ( fn ) {
+Api.register( 'ready()', function ( fn ) {
 	var ctx = this.context;
 
 	// Get status of first table
@@ -100,7 +105,7 @@ _api_register( 'ready()', function ( fn ) {
 } );
 
 
-_api_register( 'destroy()', function ( remove ) {
+Api.register( 'destroy()', function ( remove ) {
 	remove = remove || false;
 
 	return this.iterator( 'table', function ( settings ) {
@@ -120,11 +125,11 @@ _api_register( 'destroy()', function ( remove ) {
 		settings.bDestroying = true;
 
 		// Fire off the destroy callbacks for plug-ins etc
-		_fnCallbackFire( settings, "aoDestroyCallback", "destroy", [settings], true );
+		callbackFire( settings, "aoDestroyCallback", "destroy", [settings], true );
 
 		// If not being removed from the document, make all columns visible
 		if ( ! remove ) {
-			new _Api( settings ).columns().visible( true );
+			new Api( settings ).columns().visible( true );
 		}
 
 		// Container width change listener
@@ -156,7 +161,7 @@ _api_register( 'destroy()', function ( remove ) {
 
 		settings.aaSorting = [];
 		settings.aaSortingFixed = [];
-		_fnSortingClasses( settings );
+		sortingClasses( settings );
 
 		$(jqTable).find('th, td').removeClass(
 			$.map(DataTable.ext.type.className, function (v) {
@@ -210,7 +215,7 @@ _api_register( 'destroy()', function ( remove ) {
 
 // Add the `every()` method for rows, columns and cells in a compact form
 $.each( [ 'column', 'row', 'cell' ], function ( i, type ) {
-	_api_register( type+'s().every()', function ( fn ) {
+	Api.register( type+'s().every()', function ( fn ) {
 		var opts = this.selector.opts;
 		var api = this;
 		var inst;
@@ -234,9 +239,9 @@ $.each( [ 'column', 'row', 'cell' ], function ( i, type ) {
 
 // i18n method for extensions to be able to use the language object from the
 // DataTable
-_api_register( 'i18n()', function ( token, def, plural ) {
+Api.register( 'i18n()', function ( token, def, plural ) {
 	var ctx = this.context[0];
-	var resolved = _fnGetObjectDataFn( token )( ctx.oLanguage );
+	var resolved = DataTable.ext.get( token )( ctx.oLanguage );
 
 	if ( resolved === undefined ) {
 		resolved = def;
