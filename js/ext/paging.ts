@@ -1,9 +1,7 @@
 
+import { _pagingNumbers } from "../features/page";
 
-var extPagination = DataTable.ext.pager;
-
-// Paging buttons configuration
-$.extend( extPagination, {
+export default {
 	simple: function () {
 		return [ 'previous', 'next' ];
 	},
@@ -37,7 +35,7 @@ $.extend( extPagination, {
 
 	// Number of number buttons - legacy, use `numbers` option for paging feature
 	numbers_length: 7
-} );
+};
 
 
 $.extend( true, DataTable.ext.renderer, {

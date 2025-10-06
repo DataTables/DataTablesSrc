@@ -1,6 +1,7 @@
 
+import { pluck } from "../core/internal";
 
-$.extend( true, DataTable.ext.renderer, {
+export default {
 	footer: {
 		_: function ( settings, cell, classes ) {
 			cell.addClass(classes.tfoot.cell);
@@ -49,7 +50,7 @@ $.extend( true, DataTable.ext.renderer, {
 					return;
 				}
 
-				var orderedColumns = _pluck(sorting, 'col');
+				var orderedColumns = pluck(sorting, 'col');
 
 				// This handler is only needed on column visibility if the column is part of the
 				// ordering. If it isn't, then we can bail out to save performance. It could be a
@@ -211,4 +212,4 @@ $.extend( true, DataTable.ext.renderer, {
 				});
 		}
 	}
-} );
+};

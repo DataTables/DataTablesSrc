@@ -245,7 +245,7 @@ function _pagingButtonInfo(settings, button, page, pages) {
  * @param {boolean} addFirstLast Indicate if page 1 and end should be included
  * @returns Buttons to show
  */
-function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
+export function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
 	var
 		numbers: any[] = [],
 		half = Math.floor(buttons / 2),

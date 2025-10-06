@@ -1,4 +1,8 @@
 
+import classes from "./classes";
+import pager, {renderer as pagingRenderer} from './paging';
+import renderer from './renderer';
+import {features, legacy as featuresLegacy} from '../features/index';
 
 /**
  * DataTables extensions
@@ -10,10 +14,8 @@
  *
  * Note that this namespace is aliased to `jQuery.fn.dataTableExt` for legacy
  * reasons
- *
- *  @namespace
  */
-DataTable.ext = _ext = {
+export default {
 	/**
 	 * DataTables build type (expanded by the download builder)
 	 *
@@ -42,11 +44,8 @@ DataTable.ext = _ext = {
 
 	/**
 	 * Element class names
-	 *
-	 *  @type object
-	 *  @default {}
 	 */
-	classes: {},
+	classes: classes,
 
 
 	/**
@@ -69,7 +68,7 @@ DataTable.ext = _ext = {
 	/**
 	 * Legacy so v1 plug-ins don't throw js errors on load
 	 */
-	feature: [],
+	feature: featuresLegacy,
 
 	/**
 	 * Feature plug-ins.
@@ -77,7 +76,7 @@ DataTable.ext = _ext = {
 	 * This is an object of callbacks which provide the features for DataTables
 	 * to be initialised via the `layout` option.
 	 */
-	features: {},
+	features: features,
 
 
 	/**
@@ -235,12 +234,15 @@ DataTable.ext = _ext = {
 	 *      return [ 'previous', page, 'next' ];
 	 *    };
 	 */
-	pager: {},
+	pager: pager,
 
 
 	renderer: {
-		pageButton: {},
-		header: {}
+		footer: renderer.footer,
+		header: renderer.header,
+		layout: renderer.layout,
+		pagingButton: pagingRenderer.pagingButton,
+		pagingContainer: pagingRenderer.pagingContainer
 	},
 
 

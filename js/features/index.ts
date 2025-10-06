@@ -1,14 +1,20 @@
 
 
 const features = {};
+const legacy: any[] = [];
+
+export {
+	features,
+	legacy
+}
 
 // Third parameter is internal only!
-export default function register ( name, cb, legacy='' ) {
+export default function register ( name, cb, legacyChar='' ) {
 	features[ name ] = cb;
 
-	if (legacy) {
-		_ext.features.push({
-			cFeature: legacy,
+	if (legacyChar) {
+		legacy.push({
+			cFeature: legacyChar,
 			fnInit: cb
 		});
 	}

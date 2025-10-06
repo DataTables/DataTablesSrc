@@ -1,5 +1,5 @@
 
-$.extend( DataTable.ext.classes, {
+export default {
 	container: 'dt-container',
 	empty: {
 		row: 'dt-empty'
@@ -67,4 +67,5 @@ $.extend( DataTable.ext.classes, {
 		disabled: 'disabled',
 		nav: ''
 	}
-} );
+};
+
