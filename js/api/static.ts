@@ -1,11 +1,13 @@
 
 import Api from "./base";
+import ext from "../ext";
 
 // Can be assigned in DateTable.use() - note luxon and moment vars are in helpers.js
 var __bootstrap;
 var __foundation;
 var __luxon;
 var __moment;
+var __dateTime;
 
 /**
  * Set the libraries that DataTables uses, or the global objects.
@@ -32,7 +34,7 @@ export function use (arg1, arg2) {
 				return window;
 
 			case 'datetime':
-				return DataTable.DateTime;
+				return __dateTime;
 
 			case 'luxon':
 				return __luxon;
@@ -62,7 +64,7 @@ export function use (arg1, arg2) {
 		document = module.document;
 	}
 	else if (type === 'datetime' || (module && module.type === 'DateTime')) {
-		DataTable.DateTime = module;
+		__dateTime = module;
 	}
 	else if (type === 'luxon' || (module && module.FixedOffsetZone)) {
 		__luxon = module;
@@ -127,7 +129,7 @@ export function versionCheck( version, version2 )
 {
 	var aThis = version2 ?
 		version2.split('.') :
-		DataTable.version.split('.');
+		ext.version.split('.');
 	var aThat = version.split('.');
 	var iThis, iThat;
 
@@ -168,11 +170,11 @@ export function isDataTable( table )
 	var t = $(table).get(0);
 	var is = false;
 
-	if ( table instanceof DataTable.Api ) {
+	if ( table instanceof Api ) {
 		return true;
 	}
 
-	$.each( DataTable.settings, function (i, o) {
+	$.each( ext.settings, function (i, o) {
 		var head = o.nScrollHead ? $('table', o.nScrollHead)[0] : null;
 		var foot = o.nScrollFoot ? $('table', o.nScrollFoot)[0] : null;
 
@@ -210,7 +212,7 @@ export function tables( visible )
 		visible = visible.visible;
 	}
 
-	var a = DataTable.settings
+	var a = ext.settings
 		.filter( function (o) {
 			return !visible || (visible && $(o.nTable).is(':visible')) 
 				? true

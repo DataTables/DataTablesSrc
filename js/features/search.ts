@@ -60,7 +60,7 @@ register( 'search', function ( settings, opts ) {
 	filter.find('input').attr('id', 'dt-search-' + __searchCounter);
 	__searchCounter++;
 
-	var searchFn = function(event) {
+	var searchFn = function(this: HTMLInputElement, event) {
 		var val = this.value;
 
 		if(previousSearch.return && event.key !== "Enter") {
@@ -85,7 +85,7 @@ register( 'search', function ( settings, opts ) {
 		settings.searchDelay :
 		0;
 
-	var jqFilter = $('input', filter)
+	var jqFilter = $<HTMLInputElement>('input', filter)
 		.val( previousSearch.search )
 		.attr( 'placeholder', opts.placeholder )
 		.on(

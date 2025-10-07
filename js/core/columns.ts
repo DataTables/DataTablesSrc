@@ -7,7 +7,7 @@ import { scrollDraw } from './scrolling';
 import { getCellData, writeCell } from './data';
 import { addClass, empty } from './internal';
 import util from '../api/util';
-import columnModel from '../model/columns/settings';
+import ColumnModel from '../model/columns/settings';
 import columnDefaults from '../model/columns/defaults';
 import search from '../model/search';
 import ext from '../ext';
@@ -23,7 +23,7 @@ export function addColumn( oSettings: Context )
 	// Add column to aoColumns array
 	var oDefaults = columnDefaults;
 	var iCol = oSettings.aoColumns.length;
-	var oCol = $.extend( {}, columnModel, oDefaults, {
+	var oCol = $.extend( {}, new ColumnModel(), oDefaults, {
 		"aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
 		"mData": oDefaults.mData ? oDefaults.mData : iCol,
 		idx: iCol,

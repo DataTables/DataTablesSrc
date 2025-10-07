@@ -1,16 +1,16 @@
 
-import { register as registerType, types } from '../ext/types';
-import helpers, {datetime} from '../ext/helpers';
-import models from '../model';
-import defaults from '../model/defaults';
-import construct from './constructor';
-import { extend } from './support';
-import ext from '../ext';
-import * as apiStatic from '../api/static';
-import { camelToHungarian } from "../core/compat";
-import util from '../api/util';
-import Api from '../api/base';
-import registerFeature from '../features';
+import { register as registerType, types } from './ext/types';
+import helpers, {datetime} from './ext/helpers';
+import models from './model';
+import defaults from './model/defaults';
+import construct from './core/constructor';
+import { extend } from './core/support';
+import ext from './ext';
+import * as apiStatic from './api/static';
+import { camelToHungarian } from "./core/compat";
+import util from './api/util';
+import Api from './api/base';
+import registerFeature from './features';
 
 // TODO typing
 var DataTable: any = function ( selector, options )
@@ -23,7 +23,7 @@ var DataTable: any = function ( selector, options )
 
 	// When creating with `new`, create a new DataTable, returning the API instance
 	if (this instanceof DataTable) {
-		return $(selector).DataTable(options);
+		return ($(selector) as any).DataTable(options);
 	}
 	else {
 		// Argument switching
@@ -65,6 +65,7 @@ DataTable.ext = ext;
 DataTable.use = apiStatic.use;
 DataTable.factory = apiStatic.factory;
 DataTable.versionCheck = apiStatic.versionCheck;
+DataTable.version = ext.version;
 DataTable.isDataTable = apiStatic.isDataTable;
 DataTable.tables = apiStatic.tables;
 DataTable.camelToHungarian = camelToHungarian;
@@ -122,12 +123,14 @@ DataTable.$ = $;
 
 // With a capital `D` we return a DataTables API instance rather than a
 // jQuery object
-$.fn.DataTable = function ( opts ) {
+($.fn as any).DataTable = function ( opts ) {
 	return ($(this) as any).dataTable( opts ).api();
 };
 
 // All properties that are available to $.fn.dataTable should also be
 // available on $.fn.DataTable
 $.each( DataTable, function ( prop, val ) {
-	$.fn.DataTable[ prop ] = val;
+	($.fn as any).DataTable[ prop ] = val;
 } );
+
+export default DataTable;

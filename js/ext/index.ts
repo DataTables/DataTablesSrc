@@ -4,6 +4,7 @@ import pager, {render as pagingRenderer} from './paging';
 import renderer from './renderer';
 import {features, legacy as featuresLegacy} from '../features/index';
 import { store } from "./types";
+import {versionCheck} from "../api/static";
 
 /**
  * DataTables extensions
@@ -324,7 +325,7 @@ const ext = {
 	 *  @type function
 	 *  @depreciated Since 1.10
 	 */
-	fnVersionCheck: DataTable.fnVersionCheck,
+	fnVersionCheck: versionCheck,
 
 
 	/**
@@ -338,9 +339,8 @@ const ext = {
 	/**
 	 * Software version
 	 *  @type string
-	 *  @deprecated Since v1.10
 	 */
-	sVersion: DataTable.version
+	version: '2.3.4'
 };
 
 
@@ -355,7 +355,8 @@ $.extend( ext, {
 	afnSortData:  ext.order,
 	aoFeatures:   ext.feature,
 	oStdClasses:  ext.classes,
-	oPagination:  ext.pager
+	oPagination:  ext.pager,
+	sVersion:     ext.version
 } );
 
 export default ext;

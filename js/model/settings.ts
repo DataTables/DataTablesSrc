@@ -246,7 +246,7 @@ export default class Settings {
 	 * {@link DataTable.models.oSearch} for the format that is used for the
 	 * filtering information for each column.
 	 */
-	public aoPreSearchCols: Search[] = [];
+	public aoPreSearchCols: typeof Search[] = [];
 
 	/**
 	 * Sorting that is applied to the table. Note that the inner arrays are

@@ -3,7 +3,7 @@
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
 		"target": "ES2022",
-		"jsx": "react",
+		"noImplicitAny": false,
 		"strictNullChecks": true,
 		"strictFunctionTypes": true,
 		"sourceMap": true

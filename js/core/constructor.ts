@@ -119,7 +119,7 @@ export default function (_that, oInit, emptyInit) {
 
 	// Need to add the instance after the instance after the settings object has been added
 	// to the settings array, so we can self reference the table instance if more than one
-	oSettings.oInstance = (_that.length===1) ? _that : $this.dataTable();
+	oSettings.oInstance = (_that.length===1) ? _that : ($this as any).dataTable();
 
 	// Backwards compatibility, before we apply all the defaults
 	compatOpts( oInit );

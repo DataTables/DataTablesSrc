@@ -2,6 +2,7 @@
 import Settings from './settings';
 import columnDefaults from './columns/defaults';
 import { hungarianMap } from '../core/compat';
+import search from './search';
 
 /*
  * Developer note: The properties of the object below are given in Hungarian
@@ -740,7 +741,7 @@ const defaults = {
 	 * DataTables will use it's smart filtering methods (to word match at
 	 * any point in the data), when false this will not be done.
 	 */
-	"oSearch": $.extend( {}, DataTable.models.oSearch ),
+	"oSearch": $.extend( {}, search ),
 
 
 	/**

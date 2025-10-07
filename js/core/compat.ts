@@ -1,4 +1,10 @@
 import Context from '../model/settings';
+import searchModel from '../model/search';
+
+const __browser = {
+	barWidth: -1,
+	bScrollbarLeft: false
+};
 
 /**
  * Create a mapping object that allows camel case parameters to be looked up for
@@ -133,7 +139,7 @@ export function compatOpts(init) {
 	if (searchCols) {
 		for (var i = 0, iLen = searchCols.length; i < iLen; i++) {
 			if (searchCols[i]) {
-				camelToHungarian(DataTable.models.oSearch, searchCols[i]);
+				camelToHungarian(searchModel, searchCols[i]);
 			}
 		}
 	}
@@ -174,7 +180,7 @@ export function browserDetect(ctx: Context) {
 	// We don't need to do this every time DataTables is constructed, the values
 	// calculated are specific to the browser and OS configuration which we
 	// don't expect to change between initialisations
-	if (!DataTable.__browser) {
+	if (__browser.barWidth === -1) {
 		// Scrolling feature / quirks detection
 		var n = $('<div/>')
 			.css({
@@ -205,20 +211,13 @@ export function browserDetect(ctx: Context) {
 
 		var outer = n.children();
 		var inner = outer.children();
-		var browser = {
-			// Get scrollbar width
-			barWidth: outer[0].offsetWidth - outer[0].clientWidth,
 
-			// In rtl text layout, some browsers (most, but not all) will place the
-			// scrollbar on the left, rather than the right.
-			bScrollbarLeft: Math.round(inner.offset()!.left) !== 1
-		};
+		__browser.barWidth = outer[0].offsetWidth - outer[0].clientWidth;
+		__browser.bScrollbarLeft = Math.round(inner.offset()!.left) !== 1;
 
 		n.remove();
-
-		DataTable.__browser = browser;
 	}
 
-	$.extend(ctx.oBrowser, DataTable.__browser);
-	ctx.oScroll.iBarWidth = DataTable.__browser.barWidth;
+	$.extend(ctx.oBrowser, __browser);
+	ctx.oScroll.iBarWidth = __browser.barWidth;
 }

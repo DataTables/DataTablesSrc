@@ -4,6 +4,7 @@ import { pageChange } from './page';
 import { sortResolve } from './sort';
 import {callbackFire} from './support';
 import Context from '../model/settings';
+import Api from '../api/base';
 
 /**
  * State information for a table
@@ -90,7 +91,7 @@ export function implementState ( settings, s, callback) {
 
 	// When StateRestore was introduced the state could now be implemented at any time
 	// Not just initialisation. To do this an api instance is required in some places
-	var api = settings._bInitComplete ? new DataTable.Api(settings) : null;
+	var api = settings._bInitComplete ? new Api(settings) : null;
 
 	if ( ! s || ! s.time ) {
 		settings._bLoadingState = false;
