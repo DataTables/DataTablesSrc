@@ -106,7 +106,6 @@ module.exports = function(config) {
 		plugins: [
 			require('karma-html2js-preprocessor'),
 			require('./html-loader.js'),
-			require('karma-jasmine-jquery'),
 			require('karma-jasmine'),
 			require('./html-loader.js'),
 			require('karma-chrome-launcher'),
@@ -115,7 +114,7 @@ module.exports = function(config) {
 
 		// frameworks to use
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-		frameworks: ['jasmine-jquery', 'jasmine', 'html-loader'],
+		frameworks: ['jasmine', 'html-loader'],
 
 		// list of files / patterns to load in the browser
 		files: [
@@ -132,6 +131,9 @@ module.exports = function(config) {
 		exclude: [],
 
 		client: {
+			// Must run in sequence
+			jasmine: { random: false },
+
 			// Show console.log messages
 			captureConsole: true,
 
