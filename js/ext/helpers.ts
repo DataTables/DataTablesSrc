@@ -1,4 +1,7 @@
 
+import { store as typeStore, register as registerType } from "./types";
+import util from '../api/util';
+
 /*
  * Public helper functions. These aren't used internally by DataTables, or
  * called by any of the options passed into DataTables, but they can be used
@@ -11,7 +14,7 @@
  *
  * Happens after __mldObj, so don't need to call `resolveWindowsLibs` again
  */
-function __mld( dtLib, momentFn, luxonFn, dateFn, arg1 ) {
+function __mld( dtLib, momentFn, luxonFn, dateFn, arg1? ) {
 	if (__moment) {
 		return dtLib[momentFn]( arg1 );
 	}
@@ -31,12 +34,14 @@ var __moment; // Can be assigned in DateTable.use()
  * 
  */
 function resolveWindowLibs() {
-	if (window.luxon && ! __luxon) {
-		__luxon = window.luxon;
+	let win = window as any;
+
+	if (win.luxon && ! __luxon) {
+		__luxon = win.luxon;
 	}
 	
-	if (window.moment && ! __moment) {
-		__moment = window.moment;
+	if (win.moment && ! __moment) {
+		__moment = win.moment;
 	}
 }
 
@@ -104,8 +109,8 @@ function __mlHelper (localeString) {
 
 		// Add type detection and sorting specific to this date format - we need to be able to identify
 		// date type columns as such, rather than as numbers in extensions. Hence the need for this.
-		if (! DataTable.ext.type.order[typeName + '-pre']) {
-			DataTable.type(typeName, {
+		if (! typeStore.order[typeName + '-pre']) {
+			registerType(typeName, {
 				detect: function (d) {
 					// The renderer will give the value to type detect as the type!
 					return d === typeName ? typeName : false;
@@ -175,7 +180,7 @@ function __mlHelper (localeString) {
 
 			// XSS protection
 			return type === 'display' ?
-				DataTable.util.escapeHtml( formatted ) :
+				util.escapeHtml( formatted ) :
 				formatted;
 		};
 	}
@@ -205,15 +210,15 @@ if (window.Intl !== undefined) {
 }
 
 // Formatted date time detection - use by declaring the formats you are going to use
-DataTable.datetime = function ( format, locale ) {
+export function datetime( format, locale ) {
 	var typeName = 'datetime-' + format;
 
 	if (! locale) {
 		locale = 'en';
 	}
 
-	if (! DataTable.ext.type.order[typeName]) {
-		DataTable.type(typeName, {
+	if (! typeStore.order[typeName]) {
+		registerType(typeName, {
 			detect: function (d) {
 				var dt = __mldObj(d, format, locale);
 				return d === '' || dt ? typeName : false;
@@ -230,42 +235,8 @@ DataTable.datetime = function ( format, locale ) {
 
 /**
  * Helpers for `columns.render`.
- *
- * The options defined here can be used with the `columns.render` initialisation
- * option to provide a display renderer. The following functions are defined:
- *
- * * `moment` - Uses the MomentJS library to convert from a given format into another.
- * This renderer has three overloads:
- *   * 1 parameter:
- *     * `string` - Format to convert to (assumes input is ISO8601 and locale is `en`)
- *   * 2 parameters:
- *     * `string` - Format to convert from
- *     * `string` - Format to convert to. Assumes `en` locale
- *   * 3 parameters:
- *     * `string` - Format to convert from
- *     * `string` - Format to convert to
- *     * `string` - Locale
- * * `number` - Will format numeric data (defined by `columns.data`) for
- *   display, retaining the original unformatted data for sorting and filtering.
- *   It takes 5 parameters:
- *   * `string` - Thousands grouping separator
- *   * `string` - Decimal point indicator
- *   * `integer` - Number of decimal points to show
- *   * `string` (optional) - Prefix.
- *   * `string` (optional) - Postfix (/suffix).
- * * `text` - Escape HTML to help prevent XSS attacks. It has no optional
- *   parameters.
- *
- * @example
- *   // Column definition using the number renderer
- *   {
- *     data: "salary",
- *     render: $.fn.dataTable.render.number( '\'', '.', 0, '$' )
- *   }
- *
- * @namespace
  */
-DataTable.render = {
+export default {
 	date: __mlHelper('toLocaleDateString'),
 	datetime: __mlHelper('toLocaleString'),
 	time: __mlHelper('toLocaleTimeString'),
@@ -289,8 +260,8 @@ DataTable.render = {
 					return d;
 				}
 
-				var negative = d < 0 ? '-' : '';
-				var flo = parseFloat( d );
+				var flo: any = typeof d === 'number' ? d : parseFloat( d );
+				var negative = flo < 0 ? '-' : '';
 				var abs = Math.abs(flo);
 
 				// Scientific notation for large and small numbers
@@ -303,7 +274,7 @@ DataTable.render = {
 				// return immediately, escaping any HTML (this was supposed to
 				// be a number after all)
 				if ( isNaN( flo ) ) {
-					return DataTable.util.escapeHtml( d );
+					return util.escapeHtml( d );
 				}
 
 				flo = flo.toFixed( precision );
@@ -331,8 +302,8 @@ DataTable.render = {
 
 	text: function () {
 		return {
-			display: DataTable.util.escapeHtml,
-			filter: DataTable.util.escapeHtml
+			display: util.escapeHtml,
+			filter: util.escapeHtml
 		};
 	}
 };

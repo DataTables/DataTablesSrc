@@ -37,8 +37,7 @@ export default {
 	numbers_length: 7
 };
 
-
-$.extend( true, DataTable.ext.renderer, {
+export const render = {
 	pagingButton: {
 		_: function (settings, buttonType, content, active, disabled) {
 			var classes = settings.oClasses.paging;
@@ -77,4 +76,4 @@ $.extend( true, DataTable.ext.renderer, {
 			return buttons;
 		}
 	}
-} );
+};

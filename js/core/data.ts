@@ -4,6 +4,9 @@ import { pluck } from './internal';
 import { log } from './support';
 import { createTr } from './draw';
 import { getRowDisplay, rowAttributes } from './draw';
+import ext from '../ext';
+import rowModel from '../model/row';
+import util from '../api/util';
 
 /**
  * Add a data array to the table, creating DOM node etc. This is the parallel to
@@ -22,7 +25,7 @@ export function addData ( settings: Context, dataIn, tr?, tds? )
 {
 	/* Create the object for storing information about this new row */
 	var rowIdx = settings.aoData.length;
-	var rowModel = $.extend( true, {}, DataTable.models.oRow, {
+	var rowModel = $.extend( true, {}, rowModel, {
 		src: tr ? 'dom' : 'data',
 		idx: rowIdx
 	} );
@@ -149,7 +152,7 @@ export function getCellData( settings: Context, rowIdx, colIdx, type? )
 	}
 
 	if ( type === 'filter' ) {
-		var formatters = DataTable.ext.type.search;
+		var formatters = ext.type.search;
 
 		if ( col.sType && formatters[ col.sType ] ) {
 			cellData = formatters[ col.sType ]( cellData );
@@ -211,27 +214,6 @@ export function splitObjNotation( str )
 		return s.replace(/\\\./g, '.');
 	} );
 }
-
-
-/**
- * Return a function that can be used to get data from a source object, taking
- * into account the ability to use nested objects as a source
- *  @param {string|int|function} mSource The data source for the object
- *  @returns {function} Data get function
- *  @memberof DataTable#oApi
- */
-var _fnGetObjectDataFn = DataTable.util.get;
-
-
-/**
- * Return a function that can be used to set data from a source object, taking
- * into account the ability to use nested objects as a source
- *  @param {string|int|function} mSource The data source for the object
- *  @returns {function} Data set function
- *  @memberof DataTable#oApi
- */
-var _fnSetObjectDataFn = DataTable.util.set;
-
 
 /**
  * Return an array with the full table data
@@ -369,7 +351,7 @@ export function getRowElements( settings: Context, row, colIdx?, d? )
 
 			if ( idx !== -1 ) {
 				var attr = str.substring( idx+1 );
-				var setter = _fnSetObjectDataFn( str );
+				var setter = util.set( str );
 				setter( d, td.getAttribute( attr ) );
 			}
 		}
@@ -382,7 +364,7 @@ export function getRowElements( settings: Context, row, colIdx?, d? )
 			contents = (cell.innerHTML).trim();
 
 			if ( col && col._bAttrSrc ) {
-				var setter = _fnSetObjectDataFn( col.mData._ );
+				var setter = util.set( col.mData._ );
 				setter( d, contents );
 
 				attr( col.mData.sort, cell );
@@ -395,7 +377,7 @@ export function getRowElements( settings: Context, row, colIdx?, d? )
 				if ( objectRead ) {
 					if ( ! col._setter ) {
 						// Cache the setter function
-						col._setter = _fnSetObjectDataFn( col.mData );
+						col._setter = util.set( col.mData );
 					}
 					col._setter( d, contents );
 				}
@@ -437,7 +419,7 @@ export function getRowElements( settings: Context, row, colIdx?, d? )
 		var id = rowNode.getAttribute( 'id' );
 
 		if ( id ) {
-			_fnSetObjectDataFn( settings.rowId )( d, id );
+			util.set( settings.rowId )( d, id );
 		}
 	}
 

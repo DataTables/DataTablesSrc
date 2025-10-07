@@ -1,4 +1,5 @@
 
+import Api from "../api/base";
 import { camelToHungarian, compatCols, compatOpts, browserDetect } from "./compat";
 import { escapeObject, listener, log, extend, map, callbackReg, dataSource, callbackFire } from "./support";
 import { getCellData } from "./data";
@@ -7,11 +8,15 @@ import { addColumn, columnOptions, applyColumnDefs } from "./columns";
 import { saveState } from "./state";
 import { sortingClasses } from "./sort";
 import { initialise } from "./init";
+import defaults from '../model/defaults';
+import columnDefaults from '../model/columns/defaults';
+import settings from '../model/settings';
+import ext from '../ext';
+import util from '../api/util';
 
 export default function (_that, oInit, emptyInit) {
 	var i=0, iLen;
 	var sId = this.getAttribute( 'id' );
-	var defaults = DataTable.defaults;
 	var $this = $(this);
 
 	// Sanity check
@@ -30,11 +35,11 @@ export default function (_that, oInit, emptyInit) {
 
 	/* Backwards compatibility for the defaults */
 	compatOpts( defaults );
-	compatCols( defaults.column );
+	compatCols( columnDefaults );
 
 	/* Convert the camel-case defaults to Hungarian */
 	camelToHungarian( defaults, defaults, true );
-	camelToHungarian( defaults.column, defaults.column, true );
+	camelToHungarian( columnDefaults, columnDefaults, true );
 
 	/* Setting up the initialisation object */
 	camelToHungarian( defaults, $.extend( oInit, escapeObject($this.data()) ), true );
@@ -42,7 +47,7 @@ export default function (_that, oInit, emptyInit) {
 
 
 	/* Check to see if we are re-initialising a table */
-	var allSettings = DataTable.settings;
+	var allSettings = ext.settings;
 	for ( i=0, iLen=allSettings.length ; i<iLen ; i++ )
 	{
 		var s = allSettings[i];
@@ -53,8 +58,8 @@ export default function (_that, oInit, emptyInit) {
 			(s.nTHead && s.nTHead.parentNode == this) ||
 			(s.nTFoot && s.nTFoot.parentNode == this)
 		) {
-			var bRetrieve = oInit.bRetrieve !== undefined ? oInit.bRetrieve : defaults.bRetrieve;
-			var bDestroy = oInit.bDestroy !== undefined ? oInit.bDestroy : defaults.bDestroy;
+			var bRetrieve = oInit.bRetrieve !== undefined ? oInit.bRetrieve : (defaults as any).bRetrieve;
+			var bDestroy = oInit.bDestroy !== undefined ? oInit.bDestroy : (defaults as any).bDestroy;
 
 			if ( emptyInit || bRetrieve )
 			{
@@ -62,7 +67,7 @@ export default function (_that, oInit, emptyInit) {
 			}
 			else if ( bDestroy )
 			{
-				new DataTable.Api(s).destroy();
+				new Api(s).destroy();
 				break;
 			}
 			else
@@ -87,7 +92,7 @@ export default function (_that, oInit, emptyInit) {
 	/* Ensure the table has an ID - required for accessibility */
 	if ( sId === null || sId === "" )
 	{
-		sId = "DataTables_Table_"+(DataTable.ext._unique++);
+		sId = "DataTables_Table_"+(ext._unique++);
 		this.id = sId;
 	}
 
@@ -95,7 +100,7 @@ export default function (_that, oInit, emptyInit) {
 	$this.children('colgroup').remove();
 
 	/* Create the settings object for this table and set some of the default parameters */
-	var oSettings = $.extend( true, {}, DataTable.models.oSettings, {
+	var oSettings: any = $.extend( true, {}, settings, {
 		"sDestroyWidth": $this[0].style.width,
 		"sInstance":     sId,
 		"sTableId":      sId,
@@ -110,7 +115,7 @@ export default function (_that, oInit, emptyInit) {
 	allSettings.push( oSettings );
 
 	// Make a single API instance available for internal handling
-	oSettings.api = new _Api( oSettings );
+	oSettings.api = new Api( oSettings );
 
 	// Need to add the instance after the instance after the settings object has been added
 	// to the settings array, so we can self reference the table instance if more than one
@@ -197,7 +202,7 @@ export default function (_that, oInit, emptyInit) {
 	callbackReg( oSettings, 'aoInitComplete',       oInit.fnInitComplete );
 	callbackReg( oSettings, 'aoPreDrawCallback',    oInit.fnPreDrawCallback );
 
-	oSettings.rowIdFn = DataTable.util.get( oInit.rowId );
+	oSettings.rowIdFn = util.get( oInit.rowId );
 
 	// Add event listeners
 	if (oInit.on) {
@@ -211,7 +216,7 @@ export default function (_that, oInit, emptyInit) {
 
 	var oClasses = oSettings.oClasses;
 
-	$.extend( oClasses, DataTable.ext.classes, oInit.oClasses );
+	$.extend( oClasses, ext.classes, oInit.oClasses );
 	$this.addClass( oClasses.table );
 
 	if (! oSettings.oFeatures.bPaginate) {
@@ -384,7 +389,7 @@ export default function (_that, oInit, emptyInit) {
 			dataType: 'json',
 			url: oLanguage.sUrl,
 			success: function ( json ) {
-				camelToHungarian( defaults.oLanguage, json );
+				camelToHungarian( (defaults as any).oLanguage, json );
 				$.extend( true, oLanguage, json, oSettings.oInit.oLanguage );
 
 				callbackFire( oSettings, null, 'i18n', [oSettings], true);

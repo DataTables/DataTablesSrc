@@ -1,5 +1,6 @@
 import Context from '../model/settings';
 import {escapeHtml} from '../core/internal';
+import ext from '../ext';
 
 /**
  * Log an error message
@@ -21,8 +22,7 @@ export function log(ctx: Context | null, level: number, msg: string, tn?: number
 
 	if (!level) {
 		// Backwards compatibility pre 1.10
-		var ext = DataTable.ext;
-		var type = ext.sErrMode || ext.errMode;
+		var type = (ext as any).sErrMode || ext.errMode;
 
 		if (ctx) {
 			callbackFire(ctx, null, 'dt-error', [ctx, tn, msg], true);
@@ -233,7 +233,7 @@ export function lengthOverflow(ctx: Context) {
 
 export function renderer(ctx: Context, type: string) {
 	var renderer = ctx.renderer;
-	var host = DataTable.ext.renderer[type];
+	var host = ext.renderer[type];
 
 	if ($.isPlainObject(renderer) && renderer[type]) {
 		// Specific renderer for this type. If available use it, otherwise use
@@ -341,7 +341,7 @@ export function listener(that, name, src) {
  * Escape HTML entities in strings, in an object
  */
 export function escapeObject(obj) {
-	if (DataTable.ext.escape.attributes) {
+	if (ext.escape.attributes) {
 		$.each(obj, function (key, val) {
 			obj[key] = escapeHtml(val);
 		});

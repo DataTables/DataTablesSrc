@@ -1,6 +1,9 @@
 
 import Context from '../model/settings';
 import { arrayApply, callbackFire, dataSource } from './support';
+import util from '../api/util';
+import ext from '../ext';
+import { getCellData } from './data';
 
 /**
  * Filter the table using both the global filter and column based filtering
@@ -67,7 +70,7 @@ export function filterComplete ( settings: Context, input )
  */
 function filterCustom( settings )
 {
-	var filters = DataTable.ext.search;
+	var filters = ext.search as any[]; // TODO typing
 	var displayRows = settings.aiDisplay;
 	var row, rowIdx;
 
@@ -159,7 +162,7 @@ function filterCreateSearch( search, inOpts )
 	}
 
 	// Remove diacritics if normalize is set up to do so
-	search = DataTable.util.normalize(search);
+	search = util.diacritics(search);
 
 	if (options.exact) {
 		return new RegExp(
@@ -238,7 +241,7 @@ function filterCreateSearch( search, inOpts )
  *  @returns {string} escaped string
  *  @memberof DataTable#oApi
  */
-var _fnEscapeRegex = DataTable.util.escapeRegex;
+var _fnEscapeRegex = util.escapeRegex;
 
 var __filter_div = $('<div>')[0];
 var __filter_div_textContent = __filter_div.textContent !== undefined;
@@ -266,7 +269,7 @@ function filterData ( settings )
 				column = columns[j];
 
 				if ( column.bSearchable ) {
-					cellData = _fnGetCellData( settings, rowIdx, j, 'filter' );
+					cellData = getCellData( settings, rowIdx, j, 'filter' );
 
 					// Search in DataTables is string based
 					if ( cellData === null ) {

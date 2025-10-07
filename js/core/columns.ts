@@ -6,6 +6,12 @@ import { calculateColumnWidths } from './sizing';
 import { scrollDraw } from './scrolling';
 import { getCellData, writeCell } from './data';
 import { addClass, empty } from './internal';
+import util from '../api/util';
+import columnModel from '../model/columns/settings';
+import columnDefaults from '../model/columns/defaults';
+import search from '../model/search';
+import ext from '../ext';
+import helpers from '../ext/helpers';
 
 /**
  * Add a column to the list used for the table with default values
@@ -15,9 +21,9 @@ import { addClass, empty } from './internal';
 export function addColumn( oSettings: Context )
 {
 	// Add column to aoColumns array
-	var oDefaults = DataTable.defaults.column;
+	var oDefaults = columnDefaults;
 	var iCol = oSettings.aoColumns.length;
-	var oCol = $.extend( {}, DataTable.models.oColumn, oDefaults, {
+	var oCol = $.extend( {}, columnModel, oDefaults, {
 		"aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
 		"mData": oDefaults.mData ? oDefaults.mData : iCol,
 		idx: iCol,
@@ -30,7 +36,7 @@ export function addColumn( oSettings: Context )
 	// passed into extend can be undefined. This allows the user to give a default
 	// with only some of the parameters defined, and also not give a default
 	var searchCols = oSettings.aoPreSearchCols;
-	searchCols[ iCol ] = $.extend( {}, DataTable.models.oSearch, searchCols[ iCol ] );
+	searchCols[ iCol ] = $.extend( {}, search, searchCols[ iCol ] );
 }
 
 
@@ -52,7 +58,7 @@ export function columnOptions( oSettings, iCol, oOptions? )
 		compatCols( oOptions );
 
 		// Map camel case parameters to their Hungarian counterparts
-		camelToHungarian( DataTable.defaults.column, oOptions, true );
+		camelToHungarian( columnDefaults, oOptions, true );
 
 		/* Backwards compatibility for mDataProp */
 		if ( oOptions.mDataProp !== undefined && !oOptions.mData )
@@ -95,7 +101,7 @@ export function columnOptions( oSettings, iCol, oOptions? )
 
 	/* Cache the data get and set functions for speed */
 	var mDataSrc = oCol.mData;
-	var mData = DataTable.util.get( mDataSrc );
+	var mData = util.get( mDataSrc );
 
 	// The `render` option can be given as an array to access the helper rendering methods.
 	// The first element is the rendering method to use, the rest are the parameters to pass
@@ -103,10 +109,10 @@ export function columnOptions( oSettings, iCol, oOptions? )
 		var copy = oCol.mRender.slice();
 		var name = copy.shift();
 
-		oCol.mRender = DataTable.render[name].apply(window, copy);
+		oCol.mRender = helpers[name].apply(window, copy);
 	}
 
-	oCol._render = oCol.mRender ? DataTable.util.get( oCol.mRender ) : null;
+	oCol._render = oCol.mRender ? util.get( oCol.mRender ) : null;
 
 	var attrTest = function( src ) {
 		return typeof src === 'string' && src.indexOf('@') !== -1;
@@ -124,7 +130,7 @@ export function columnOptions( oSettings, iCol, oOptions? )
 			innerData;
 	};
 	oCol.fnSetData = function ( rowData, val, meta ) {
-		return DataTable.util.set( mDataSrc )( rowData, val, meta );
+		return util.set( mDataSrc )( rowData, val, meta );
 	};
 
 	// Indicate if DataTables should read DOM data as an object or array
@@ -286,7 +292,7 @@ export function columnTypes ( settings )
 {
 	var columns = settings.aoColumns;
 	var data = settings.aoData;
-	var types = DataTable.ext.type.detect;
+	var types = ext.type.detect;
 	var i, iLen, j, jen, k, ken;
 	var col, detectedType, cache;
 
@@ -377,20 +383,20 @@ export function columnTypes ( settings )
 		}
 
 		// Set class names for header / footer for auto type classes
-		var autoClass = DataTable.ext.type.className[col.sType];
+		var autoClass = ext.type.className[col.sType];
 
 		if (autoClass) {
 			_columnAutoClass(settings.aoHeader, i, autoClass);
 			_columnAutoClass(settings.aoFooter, i, autoClass);
 		}
 
-		var renderer = DataTable.ext.type.render[col.sType];
+		var renderer = ext.type.render[col.sType];
 
 		// This can only happen once! There is no way to remove
 		// a renderer. After the first time the renderer has
 		// already been set so createTr will run the renderer itself.
 		if (renderer && ! col._render) {
-			col._render = DataTable.util.get(renderer);
+			col._render = util.get(renderer);
 
 			_columnAutoRender(settings, i);
 		}

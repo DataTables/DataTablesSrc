@@ -7,6 +7,7 @@ import { sortFlatten } from './sort';
 import { clearTable, addData } from './data';
 import { draw } from './draw';
 import { columnTypes } from './columns';
+import util from '../api/util';
 
 /**
  * Create an Ajax call based on the table's settings, taking into account that
@@ -259,9 +260,7 @@ export function ajaxUpdateDraw(settings: Context, json) {
 }
 
 /**
- * Get the data from the JSON data source to use for drawing a table. Using
- * `DataTable.util.get` allows the data to be sourced from a property of the
- * source object, or from a processing function.
+ * Get the data from the JSON data source to use for drawing a table.
  *
  * @param {object} settings dataTables settings object
  * @param  {object} json Data source object / array from the server
@@ -290,11 +289,11 @@ export function ajaxDataSrc(settings, json, write) {
 			return json.aaData || json[dataProp];
 		}
 
-		return dataProp !== '' ? DataTable.util.get(dataProp)(json) : json;
+		return dataProp !== '' ? util.get(dataProp)(json) : json;
 	}
 
 	// set
-	DataTable.util.set(dataProp)(json, write);
+	util.set(dataProp)(json, write);
 }
 
 /**
@@ -310,7 +309,7 @@ export function ajaxDataSrcParam(settings, param, json) {
 
 	if (dataSrc && dataSrc[param]) {
 		// Get from custom location
-		return DataTable.util.get(dataSrc[param])(json);
+		return util.get(dataSrc[param])(json);
 	}
 
 	// else - Default behaviour

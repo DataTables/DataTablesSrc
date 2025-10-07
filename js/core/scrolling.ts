@@ -3,6 +3,7 @@ import Context from '../model/settings';
 import { adjustColumnSizing } from './columns';
 import { stringToCss } from './sizing';
 import { dataSource } from './support';
+import { visibleToColumnIndex } from './columns';
 
 /**
  * Add any control elements for the table - specifically scrolling
@@ -249,7 +250,7 @@ export function scrollDraw ( settings: Context )
 		if (firstTr) {
 			var colSizes = $(firstTr).children('th, td').map(function (vis) {
 				return {
-					idx: _fnVisibleToColumnIndex(settings, vis),
+					idx: visibleToColumnIndex(settings, vis)!,
 					width: $(this).outerWidth()
 				};
 			});

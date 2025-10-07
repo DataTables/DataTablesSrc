@@ -31,14 +31,14 @@ var __reFn = /\(\)$/;
  *
  *  @namespace
  */
-DataTable.util = {
+const util = {
 	/**
 	 * Return a string with diacritic characters decomposed
 	 * @param {*} mixed Function or string to normalize
 	 * @param {*} both Return original string and the normalized string
 	 * @returns String or undefined
 	 */
-	diacritics: function (mixed, both) {
+	diacritics: function (mixed, both?) {
 		var type = typeof mixed;
 
 		if (type !== 'function') {
@@ -54,7 +54,7 @@ DataTable.util = {
 	 * @param {integer} freq Call frequency in mS
 	 * @return {function} Wrapped function
 	 */
-	debounce: function ( fn, timeout ) {
+	debounce: function ( fn, timeout? ) {
 		var timer;
 
 		return function () {
@@ -77,7 +77,7 @@ DataTable.util = {
 	 * @param {integer} freq Call frequency in mS
 	 * @return {function} Wrapped function
 	 */
-	throttle: function ( fn, freq ) {
+	throttle: function ( fn, freq? ) {
 		var
 			frequency = freq !== undefined ? freq : 200,
 			last,
@@ -126,7 +126,7 @@ DataTable.util = {
 			 * option is not documented for `mData` (which is read/write), but it is
 			 * for `mRender` which is read only.
 			 */
-			return DataTable.util.set( source._ );
+			return util.set( source._ );
 		}
 		else if ( source === null ) {
 			// Nothing to do when the data source is null
@@ -234,7 +234,7 @@ DataTable.util = {
 			var o = {};
 			$.each( source, function (key, val) {
 				if ( val ) {
-					o[key] = DataTable.util.get( val );
+					o[key] = util.get( val );
 				}
 			} );
 	
@@ -252,7 +252,7 @@ DataTable.util = {
 			};
 		}
 		else if ( typeof source === 'function' ) {
-			return function (data, type, row, meta) {
+			return function (data, type?, row?, meta?) {
 				return source( data, type, row, meta );
 			};
 		}
@@ -369,3 +369,4 @@ DataTable.util = {
 	unique: unique
 };
 
+export default util;

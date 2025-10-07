@@ -5,6 +5,8 @@ import {callbackFire} from './support';
 import { columnsSumWidth, getColumns } from './columns';
 import { adjustColumnSizing } from './columns';
 import { getRowDisplay } from './draw';
+import util from '../api/util';
+import ext from '../ext';
 
 /**
  * Calculate the width of columns for the table
@@ -127,7 +129,7 @@ export function calculateColumnWidths ( settings: Context )
 				column = columns[ columnIdx ];
 
 				var longest = longestData[j][i] || '';
-				var autoClass = DataTable.ext.type.className[column.sType];
+				var autoClass = ext.type.className[column.sType];
 				var padding = column.sContentPadding || (scrollX ? '-' : '');
 				var text = longest + padding;
 				var insert = longest.indexOf('<') === -1
@@ -219,7 +221,7 @@ export function calculateColumnWidths ( settings: Context )
 	}
 
 	if ( (tableWidthAttr || scrollX) && ! settings._reszEvt ) {
-		var resize = DataTable.util.throttle( function () {
+		var resize = util.throttle( function () {
 			var newWidth = wrapperWidth(settings);
 
 			// Don't do it if destroying or the container width is 0

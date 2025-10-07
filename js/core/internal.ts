@@ -1,3 +1,6 @@
+
+import util from '../api/util';
+
 /*
  * It is useful to have variables which are scoped locally so only the
  * DataTables functions can access them and they don't leak into global space.
@@ -7,24 +10,12 @@
  * clashing of variable names and that they can easily referenced for reuse.
  */
 
-// Defined else where
-//  _selector_run
-//  _selector_opts
-//  _selector_row_indexes
+const _re_dic = {};
+const _max_str_len = Math.pow(2, 28);
 
-var _ext; // DataTable.ext
-var _Api; // DataTable.Api
-var _api_register; // DataTable.Api.register
-var _api_registerPlural; // DataTable.Api.registerPlural
+// TODO the regular expressions here and in types.ts should be in a sensible common place
+export const re_html = /<([^>]*>)/g;
 
-var _re_dic = {};
-var _re_new_lines = /[\r\n\u2028]/g;
-var _re_html = /<([^>]*>)/g;
-var _max_str_len = Math.pow(2, 28);
-
-// This is not strict ISO8601 - Date.parse() is quite lax, although
-// implementations differ between browsers.
-var _re_date = /^\d{2,4}[./-]\d{1,2}[./-]\d{1,2}([T ]{1}\d{1,2}[:.]\d{2}([.:]\d{2})?)?$/;
 
 
 // https://en.wikipedia.org/wiki/Foreign_exchange_market
@@ -39,7 +30,7 @@ var _re_date = /^\d{2,4}[./-]\d{1,2}[./-]\d{1,2}([T ]{1}\d{1,2}[:.]\d{2}([.:]\d{
 // - Ƀ - Bitcoin
 // - Ξ - Ethereum
 //   standards as thousands separators.
-var _re_formatted_numeric = /['\u00A0,$£€¥%\u2009\u202F\u20BD\u20a9\u20BArfkɃΞ]/gi;
+export const re_formatted_numeric = /['\u00A0,$£€¥%\u2009\u202F\u20BD\u20a9\u20BArfkɃΞ]/gi;
 
 export function empty(d) {
 	return !d || d === true || d === '-' ? true : false;
@@ -55,7 +46,7 @@ export function intVal(s) {
 export function numToDecimal(num, decimalPoint) {
 	// Cache created regular expressions for speed as this function is called often
 	if (!_re_dic[decimalPoint]) {
-		_re_dic[decimalPoint] = new RegExp(DataTable.util.escapeRegex(decimalPoint), 'g');
+		_re_dic[decimalPoint] = new RegExp(util.escapeRegex(decimalPoint), 'g');
 	}
 	return typeof num === 'string' && decimalPoint !== '.'
 		? num.replace(/\./g, '').replace(_re_dic[decimalPoint], '.')
@@ -82,7 +73,7 @@ export function isNumber(d, decimalPoint, formatted, allowEmpty) {
 	}
 
 	if (formatted && strType) {
-		d = d.replace(_re_formatted_numeric, '');
+		d = d.replace(re_formatted_numeric, '');
 	}
 
 	return !isNaN(parseFloat(d)) && isFinite(d);
@@ -206,7 +197,7 @@ export function stripHtml(input) {
 
 	var previous;
 
-	input = input.replace(_re_html, ''); // Complete tags
+	input = input.replace(re_html, ''); // Complete tags
 
 	// Safety for incomplete script tag - use do / while to ensure that
 	// we get all instances

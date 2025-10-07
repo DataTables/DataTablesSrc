@@ -17,7 +17,7 @@ export function processingHtml ( settings: Context )
 				'class': settings.oClasses.processing.container,
 				'role': 'status'
 			} )
-			.html( settings.oLanguage.sProcessing )
+			.html( (settings.oLanguage as any).sProcessing )
 			.append('<div><div></div><div></div><div></div><div></div></div>');
 
 		// Different positioning depending on if scrolling is enabled or not

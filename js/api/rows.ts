@@ -6,6 +6,7 @@ import { sortDisplay } from "../core/sort";
 import { invalidate } from "../core/data";
 import { lengthOverflow, arrayApply } from "../core/support";
 import { addTr, addData } from "../core/data";
+import util from "./util";
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Rows
@@ -278,7 +279,7 @@ Api.register( 'row().data()', function ( data ) {
 
 	// If the DOM has an id, and the data source is an array
 	if ( Array.isArray( data ) && row.nTr && row.nTr.id ) {
-		DataTable.util.set( ctx[0].rowId )( data, row.nTr.id );
+		util.set( ctx[0].rowId )( data, row.nTr.id );
 	}
 
 	// Automatically invalidate

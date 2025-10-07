@@ -4,6 +4,7 @@ import { renderer } from '../core/support';
 import { pageChange } from '../core/page';
 import { bindAction } from '../core/support';
 import { range } from '../core/internal';
+import ext from '../ext';
 
 // opts
 // - type - button configuration
@@ -15,7 +16,7 @@ register( 'paging', function ( settings, opts ) {
 	}
 
 	opts = $.extend({
-		buttons: DataTable.ext.pager.numbers_length,
+		buttons: ext.pager.numbers_length,
 		type: settings.sPaginationType,
 		boundaryNumbers: true,
 		firstLast: true,
@@ -73,7 +74,7 @@ function _pagingDraw(settings, host, opts) {
 
 	var
 		plugin = opts.type
-			? DataTable.ext.pager[ opts.type ]
+			? ext.pager[ opts.type ]
 			: _pagingDynamic,
 		aria = settings.oLanguage.oAria.paginate || {},
 		start      = settings._iDisplayStart,

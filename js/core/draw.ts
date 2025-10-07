@@ -10,6 +10,7 @@ import { sort } from './sort';
 import { filterComplete } from './filter';
 import { featureHtmlTable } from './scrolling';
 import { processingHtml } from './processing';
+import ext from '../ext';
 
 /**
  * Render and cache a row's display data for the columns, if required
@@ -450,7 +451,7 @@ export function draw( oSettings, ajaxComplete? )
 				var col = columns[i];
 				var td = aoData.anCells[i];
 
-				addClass(td, DataTable.ext.type.className[col.sType]); // auto class
+				addClass(td, ext.type.className[col.sType]); // auto class
 				addClass(td, oSettings.oClasses.tbody.cell); // all cells
 			}
 
@@ -506,7 +507,7 @@ export function draw( oSettings, ajaxComplete? )
  *    the paging is reset to the first page
  *  @memberof DataTable#oApi
  */
-export function reDraw( settings, holdPosition, recompute? )
+export function reDraw( settings, holdPosition?, recompute? )
 {
 	var
 		features = settings.oFeatures,
@@ -737,11 +738,11 @@ function _layoutArray ( settings, layout, side ) {
  */
 function _layoutResolve( settings, row ) {
 	var getFeature = function (feature, opts) {
-		if ( ! DataTable.ext.features[ feature ] ) {
+		if ( ! ext.features[ feature ] ) {
 			log( settings, 0, 'Unknown feature: '+ feature );
 		}
 
-		return DataTable.ext.features[ feature ].apply( this, [settings, opts] );
+		return ext.features[ feature ].apply( this, [settings, opts] );
 	};
 
 	var resolve = function ( item ) {
@@ -897,7 +898,7 @@ export function layoutDom( settings, dom, insert )
 		}
 		else
 		{
-			DataTable.ext.feature.forEach(function(feature) {
+			ext.feature.forEach(function(feature) {
 				if ( option == feature.cFeature ) {
 					featureNode = feature.fnInit( settings );
 				}

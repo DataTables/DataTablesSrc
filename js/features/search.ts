@@ -4,6 +4,7 @@ import { macros } from '../core/support';
 import { processingRun } from '../core/processing';
 import { filterComplete } from '../core/filter';
 import { draw } from '../core/draw';
+import util from '../api/util';
 
 var __searchCounter = 0;
 
@@ -90,7 +91,7 @@ register( 'search', function ( settings, opts ) {
 		.on(
 			'keyup.DT search.DT input.DT paste.DT cut.DT',
 			searchDelay ?
-				DataTable.util.debounce( searchFn, searchDelay ) :
+				util.debounce( searchFn, searchDelay ) :
 				searchFn
 		)
 		.on( 'mouseup.DT', function(e) {

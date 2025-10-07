@@ -1,6 +1,5 @@
 
 import Api from "./base";
-import { camelToHungarian } from "../core/compat";
 
 // Can be assigned in DateTable.use() - note luxon and moment vars are in helpers.js
 var __bootstrap;
@@ -13,7 +12,7 @@ var __moment;
  * Note that the arguments can be either way around (legacy support)
  * and the second is optional. See docs.
  */
-DataTable.use = function (arg1, arg2) {
+export function use (arg1, arg2) {
 	// Reverse arguments for legacy support
 	var module = typeof arg1 === 'string'
 		? arg2
@@ -56,7 +55,7 @@ DataTable.use = function (arg1, arg2) {
 
 	// Setter
 	if (type === 'lib' || type === 'jq' || (module && module.fn && module.fn.jquery)) {
-		$ = module;
+		// TODO $ = module;
 	}
 	else if (type === 'win' || (module && module.document)) {
 		window = module;
@@ -89,7 +88,7 @@ DataTable.use = function (arg1, arg2) {
  * @param {*} jq jQUery
  * @returns {boolean} Indicator
  */
-DataTable.factory = function (root, jq) {
+export function factory (root, jq) {
 	var is = false;
 
 	// Test if the first parameter is a window object
@@ -100,7 +99,7 @@ DataTable.factory = function (root, jq) {
 
 	// Test if the second parameter is a jQuery object
 	if (jq && jq.fn && jq.fn.jquery) {
-		$ = jq;
+		// TODO $ = jq;
 		is = true;
 	}
 
@@ -124,7 +123,7 @@ DataTable.factory = function (root, jq) {
  *  @example
  *    alert( $.fn.dataTable.versionCheck( '1.9.0' ) );
  */
-DataTable.versionCheck = function( version, version2 )
+export function versionCheck( version, version2 )
 {
 	var aThis = version2 ?
 		version2.split('.') :
@@ -164,7 +163,7 @@ DataTable.versionCheck = function( version, version2 )
  *      $('#example').dataTable();
  *    }
  */
-DataTable.isDataTable = function ( table )
+export function isDataTable( table )
 {
 	var t = $(table).get(0);
 	var is = false;
@@ -202,7 +201,7 @@ DataTable.isDataTable = function ( table )
  *      $(table).DataTable().columns.adjust();
  *    } );
  */
-DataTable.tables = function ( visible )
+export function tables( visible )
 {
 	var api = false;
 
@@ -225,20 +224,4 @@ DataTable.tables = function ( visible )
 		new Api( a ) :
 		a;
 };
-
-
-/**
- * Convert from camel case parameters to Hungarian notation. This is made public
- * for the extensions to provide the same ability as DataTables core to accept
- * either the 1.9 style Hungarian notation, or the 1.10+ style camelCase
- * parameters.
- *
- *  @param {object} src The model object which holds all parameters that can be
- *    mapped.
- *  @param {object} user The object to convert from camel case to Hungarian.
- *  @param {boolean} force When set to `true`, properties which already have a
- *    Hungarian value in the `user` object will be overwritten. Otherwise they
- *    won't be.
- */
-DataTable.camelToHungarian = camelToHungarian;
 

@@ -4,6 +4,8 @@ import { log, callbackFire } from "../core/support";
 import { clearTable } from "../core/data";
 import { pluck } from "../core/internal";
 import { sortingClasses } from "../core/sort";
+import ext from "../ext";
+import util from "./util";
 
 /**
  *
@@ -164,7 +166,7 @@ Api.register( 'destroy()', function ( remove ) {
 		sortingClasses( settings );
 
 		$(jqTable).find('th, td').removeClass(
-			$.map(DataTable.ext.type.className, function (v) {
+			$.map(ext.type.className, function (v) {
 				return v;
 			}).join(' ')
 		);
@@ -205,9 +207,9 @@ Api.register( 'destroy()', function ( remove ) {
 		}
 
 		/* Remove the settings object from the settings array */
-		var idx = DataTable.settings.indexOf(settings);
+		var idx = ext.settings.indexOf(settings);
 		if ( idx !== -1 ) {
-			DataTable.settings.splice( idx, 1 );
+			ext.settings.splice( idx, 1 );
 		}
 	} );
 } );
@@ -241,7 +243,7 @@ $.each( [ 'column', 'row', 'cell' ], function ( i, type ) {
 // DataTable
 Api.register( 'i18n()', function ( token, def, plural ) {
 	var ctx = this.context[0];
-	var resolved = DataTable.ext.get( token )( ctx.oLanguage );
+	var resolved = util.get( token )( ctx.oLanguage );
 
 	if ( resolved === undefined ) {
 		resolved = def;

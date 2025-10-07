@@ -2,6 +2,8 @@
 import { pluck, unique } from "../core/internal";
 import { arrayApply } from "../core/support";
 import { selector_row_indexes } from "./selectors";
+import ext from '../ext';
+import util from '../api/util';
 
 /**
  * Computed structure of the DataTables API, defined by the options passed to
@@ -74,7 +76,7 @@ var __arrayProto = Array.prototype;
 var _toSettings = function ( mixed )
 {
 	var idx, jq;
-	var settings = DataTable.settings;
+	var settings = ext.settings;
 	var tables = pluck(settings, 'nTable');
 
 	if ( ! mixed ) {
@@ -204,8 +206,6 @@ export default function Api( context, data? )
 
 	Api.extend( this, this, __apiStruct );
 };
-
-DataTable.Api = Api;
 
 // Don't destroy the existing prototype, just extend it. Required for jQuery 2's
 // isPlainObject.
@@ -351,7 +351,7 @@ $.extend( Api.prototype, {
 
 	pluck: function ( prop )
 	{
-		var fn = DataTable.util.get(prop);
+		var fn = util.get(prop);
 
 		return this.map( function ( el ) {
 			return fn(el);

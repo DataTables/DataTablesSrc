@@ -4,6 +4,7 @@ import { callbackFire } from "../core/support";
 import { pluck } from "../core/internal";
 import { visibleColumns } from "../core/columns";
 import { saveState } from "../core/state";
+import util from './util';
 
 $(document).on('plugin-init.dt', function (e, context) {
 	var api = new Api( context );
@@ -100,12 +101,12 @@ var __details_add = function ( ctx, row, data, klass )
 
 
 // Make state saving of child row details async to allow them to be batch processed
-var __details_state = DataTable.util.throttle(
+var __details_state = util.throttle(
 	function (ctx) {
 		saveState( ctx[0] )
 	},
 	500
-);
+) as any;
 
 
 var __details_remove = function ( api, idx? )

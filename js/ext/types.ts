@@ -1,21 +1,45 @@
 
-var _extTypes = DataTable.ext.type;
+import { numToDecimal, empty, isNumber, htmlNumeric, re_html, re_formatted_numeric } from "../core/internal";
+import util from '../api/util';
+
+export const store = {
+	/** Automatic column class assignment */
+	className: {},
+
+	/** Type detection functions. */
+	detect: [],
+
+	/** Automatic renderer assignment */
+	render: {},
+
+	/** Type based search formatting. */
+	search: {},
+
+	/** Type based ordering. */
+	order: {}
+} as any; // TODO typing
+
+// This is not strict ISO8601 - Date.parse() is quite lax, although
+// implementations differ between browsers.
+const _re_date = /^\d{2,4}[./-]\d{1,2}[./-]\d{1,2}([T ]{1}\d{1,2}[:.]\d{2}([.:]\d{2})?)?$/;
+
+const _re_new_lines = /[\r\n\u2028]/g;
 
 // Common function to remove new lines, strip HTML and diacritic control
 function _filterString(stripHtml, normalize) {
 	return function (str) {
-		if (_empty(str) || typeof str !== 'string') {
+		if (empty(str) || typeof str !== 'string') {
 			return str;
 		}
 
 		str = str.replace( _re_new_lines, " " );
 
 		if (stripHtml) {
-			str = DataTable.util.stripHtml(str);
+			str = util.stripHtml(str);
 		}
 
 		if (normalize) {
-			str = DataTable.util.normalize(str, false);
+			str = util.diacritics(str, false);
 		}
 
 		return str;
@@ -23,7 +47,7 @@ function _filterString(stripHtml, normalize) {
 }
 
 
-function __numericReplace( d, decimalPlace, re1, re2 ) {
+function __numericReplace( d, decimalPlace, re1?, re2? ) {
 	if ( d !== 0 && (!d || d === '-') ) {
 		return -Infinity;
 	}
@@ -38,7 +62,7 @@ function __numericReplace( d, decimalPlace, re1, re2 ) {
 	// function so we can detect it and replace with a `.` which is the only
 	// decimal place JavaScript recognises - it is not locale aware.
 	if ( decimalPlace ) {
-		d = _numToDecimal( d, decimalPlace );
+		d = numToDecimal( d, decimalPlace );
 	}
 
 	if ( d.replace ) {
@@ -56,46 +80,46 @@ function __numericReplace( d, decimalPlace, re1, re2 ) {
 
 
 // Get / set type
-DataTable.type = function (name, prop, val) {
+export function register(name, prop, val?) {
 	if (! prop) {
 		return {
-			className: _extTypes.className[name],
-			detect: _extTypes.detect.find(function (fn) {
+			className: store.className[name],
+			detect: store.detect.find(function (fn) {
 				return fn._name === name;
 			}),
 			order: {
-				pre: _extTypes.order[name + '-pre'],
-				asc: _extTypes.order[name + '-asc'],
-				desc: _extTypes.order[name + '-desc']
+				pre: store.order[name + '-pre'],
+				asc: store.order[name + '-asc'],
+				desc: store.order[name + '-desc']
 			},
-			render: _extTypes.render[name],
-			search: _extTypes.search[name]
+			render: store.render[name],
+			search: store.search[name]
 		};
 	}
 
 	var setProp = function(prop, propVal) {
-		_extTypes[prop][name] = propVal;
+		store[prop][name] = propVal;
 	};
 	var setDetect = function (detect) {
 		// `detect` can be a function or an object - we set a name
 		// property for either - that is used for the detection
 		Object.defineProperty(detect, "_name", {value: name});
 
-		var idx = _extTypes.detect.findIndex(function (item) {
+		var idx = store.detect.findIndex(function (item: any) {
 			return item._name === name;
 		});
 
 		if (idx === -1) {
-			_extTypes.detect.unshift(detect);
+			store.detect.unshift(detect);
 		}
 		else {
-			_extTypes.detect.splice(idx, 1, detect);
+			store.detect.splice(idx, 1, detect);
 		}
 	};
 	var setOrder = function (obj) {
-		_extTypes.order[name + '-pre'] = obj.pre; // can be undefined
-		_extTypes.order[name + '-asc'] = obj.asc; // can be undefined
-		_extTypes.order[name + '-desc'] = obj.desc; // can be undefined
+		store.order[name + '-pre'] = obj.pre; // can be undefined
+		store.order[name + '-asc'] = obj.asc; // can be undefined
+		store.order[name + '-desc'] = obj.desc; // can be undefined
 	};
 
 	// prop is optional
@@ -143,8 +167,8 @@ DataTable.type = function (name, prop, val) {
 }
 
 // Get a list of types
-DataTable.types = function () {
-	return _extTypes.detect.map(function (fn) {
+export function types () {
+	return store.detect.map(function (fn) {
 		return fn._name;
 	});
 };
@@ -163,8 +187,8 @@ var __diacriticSort = function (a, b) {
 }
 
 var __diacriticHtmlSort = function (a, b) {
-	a = DataTable.util.stripHtml(a);
-	b = DataTable.util.stripHtml(b);
+	a = util.stripHtml(a);
+	b = util.stripHtml(b);
 
 	return __diacriticSort(a, b);
 }
@@ -173,7 +197,7 @@ var __diacriticHtmlSort = function (a, b) {
 // Built in data types
 //
 
-DataTable.type('string', {
+register('string', {
 	detect: function () {
 		return 'string';
 	},
@@ -181,7 +205,7 @@ DataTable.type('string', {
 		pre: function ( a ) {
 			// This is a little complex, but faster than always calling toString,
 			// http://jsperf.com/tostring-v-check
-			return _empty(a) && typeof a !== 'boolean' ?
+			return empty(a) && typeof a !== 'boolean' ?
 				'' :
 				typeof a === 'string' ?
 					a.toLowerCase() :
@@ -193,7 +217,7 @@ DataTable.type('string', {
 	search: _filterString(false, true)
 });
 
-DataTable.type('string-utf8', {
+register('string-utf8', {
 	detect: {
 		allOf: function ( d ) {
 			return true;
@@ -203,7 +227,7 @@ DataTable.type('string-utf8', {
 			// This line will also check if navigator.languages is supported or not. If not (Safari 10.0-)
 			// this data type won't be supported.
 			// eslint-disable-next-line compat/compat
-			return ! _empty( d ) && navigator.languages && typeof d === 'string' && d.match(/[^\x00-\x7F]/);
+			return ! empty( d ) && navigator.languages && typeof d === 'string' && d.match(/[^\x00-\x7F]/);
 		}
 	},
 	order: {
@@ -216,22 +240,22 @@ DataTable.type('string-utf8', {
 });
 
 
-DataTable.type('html', {
+register('html', {
 	detect: {
 		allOf: function ( d ) {
-			return _empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
+			return empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
 		},
 		oneOf: function ( d ) {
 			// At least one data point must contain a `<`
-			return ! _empty( d ) && typeof d === 'string' && d.indexOf('<') !== -1;
+			return ! empty( d ) && typeof d === 'string' && d.indexOf('<') !== -1;
 		}
 	},
 	order: {
 		pre: function ( a ) {
-			return _empty(a) ?
+			return empty(a) ?
 				'' :
 				a.replace ?
-					DataTable.util.stripHtml(a).trim().toLowerCase() :
+					util.stripHtml(a).trim().toLowerCase() :
 					a+'';
 		}
 	},
@@ -239,16 +263,16 @@ DataTable.type('html', {
 });
 
 
-DataTable.type('html-utf8', {
+register('html-utf8', {
 	detect: {
 		allOf: function ( d ) {
-			return _empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
+			return empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
 		},
 		oneOf: function ( d ) {
 			// At least one data point must contain a `<` and a non-ASCII character
 			// eslint-disable-next-line compat/compat
 			return navigator.languages &&
-				! _empty( d ) &&
+				! empty( d ) &&
 				typeof d === 'string' &&
 				d.indexOf('<') !== -1 &&
 				typeof d === 'string' && d.match(/[^\x00-\x7F]/);
@@ -264,7 +288,7 @@ DataTable.type('html-utf8', {
 });
 
 
-DataTable.type('date', {
+register('date', {
 	className: 'dt-type-date',
 	detect: {
 		allOf: function ( d ) {
@@ -275,7 +299,7 @@ DataTable.type('date', {
 				return null;
 			}
 			var parsed = Date.parse(d);
-			return (parsed !== null && !isNaN(parsed)) || _empty(d);
+			return (parsed !== null && !isNaN(parsed)) || empty(d);
 		},
 		oneOf: function ( d ) {
 			// At least one entry must be a date or a string with a date
@@ -291,85 +315,85 @@ DataTable.type('date', {
 });
 
 
-DataTable.type('html-num-fmt', {
+register('html-num-fmt', {
 	className: 'dt-type-numeric',
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return _htmlNumeric( d, decimal, true, false );
+			return htmlNumeric( d, decimal, true, false );
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
-			return _htmlNumeric( d, decimal, true, false );
+			return htmlNumeric( d, decimal, true, false );
 		}
 	},
 	order: {
 		pre: function ( d, s ) {
 			var dp = s.oLanguage.sDecimal;
-			return __numericReplace( d, dp, _re_html, _re_formatted_numeric );
+			return __numericReplace( d, dp, re_html, re_formatted_numeric );
 		}
 	},
 	search: _filterString(true, true)
 });
 
 
-DataTable.type('html-num', {
+register('html-num', {
 	className: 'dt-type-numeric',
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return _htmlNumeric( d, decimal, false, true );
+			return htmlNumeric( d, decimal, false, true );
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
-			return _htmlNumeric( d, decimal, false, false );
+			return htmlNumeric( d, decimal, false, false );
 		}
 	},
 	order: {
 		pre: function ( d, s ) {
 			var dp = s.oLanguage.sDecimal;
-			return __numericReplace( d, dp, _re_html );
+			return __numericReplace( d, dp, re_html );
 		}
 	},
 	search: _filterString(true, true)
 });
 
 
-DataTable.type('num-fmt', {
+register('num-fmt', {
 	className: 'dt-type-numeric',
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return _isNumber( d, decimal, true, true );
+			return isNumber( d, decimal, true, true );
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
-			return _isNumber( d, decimal, true, false );
+			return isNumber( d, decimal, true, false );
 		}
 	},
 	order: {
 		pre: function ( d, s ) {
 			var dp = s.oLanguage.sDecimal;
-			return __numericReplace( d, dp, _re_formatted_numeric );
+			return __numericReplace( d, dp, re_formatted_numeric );
 		}
 	}
 });
 
 
-DataTable.type('num', {
+register('num', {
 	className: 'dt-type-numeric',
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return _isNumber( d, decimal, false, true );
+			return isNumber( d, decimal, false, true );
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
-			return _isNumber( d, decimal, false, false );
+			return isNumber( d, decimal, false, false );
 		}
 	},
 	order: {
@@ -379,5 +403,3 @@ DataTable.type('num', {
 		}
 	}
 });
-
-

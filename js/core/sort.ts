@@ -3,6 +3,10 @@ import { bindAction, dataSource, callbackFire } from './support';
 import { processingRun } from './processing';
 import Context from '../model/settings';
 import { pluck } from './internal';
+import ext from '../ext';
+import { columnIndexToVisible, columnTypes, columnsFromHeader } from './columns';
+import { getCellData } from './data';
+import { reDraw } from './draw';
 
 interface ISortItem {
 	src: number | string;
@@ -54,7 +58,7 @@ export function sortAttachListener(settings: Context, node, selector, column?, c
 	bindAction( node, selector, function (e) {
 		var run = false;
 		var columns = column === undefined
-			? _fnColumnsFromHeader( e.target )
+			? columnsFromHeader( e.target )
 			: typeof column === 'function'
 				? column()
 				: Array.isArray(column)
@@ -81,7 +85,7 @@ export function sortAttachListener(settings: Context, node, selector, column?, c
 					sort( settings );
 					sortDisplay( settings, settings.aiDisplay );
 
-					_fnReDraw( settings, false, false );
+					reDraw( settings, false, false );
 
 					if (callback) {
 						callback();
@@ -168,12 +172,12 @@ export function sortFlatten ( settings: Context )
 	var
 		i, k, kLen,
 		aSort: ISortItem[] = [],
-		extSort = DataTable.ext.type.order,
+		extSort = ext.type.order,
 		aoColumns = settings.aoColumns,
 		aDataSort, iCol, sType, srcCol,
-		fixed = settings.aaSortingFixed,
+		fixed = settings.aaSortingFixed as any,
 		fixedObj = $.isPlainObject( fixed ),
-		nestedSort = [];
+		nestedSort = [] as any;
 	
 	if ( ! settings.oFeatures.bSort ) {
 		return aSort;
@@ -208,7 +212,7 @@ export function sortFlatten ( settings: Context )
 				sType = aoColumns[ iCol ].sType || 'string';
 
 				if ( nestedSort[i]._idx === undefined ) {
-					nestedSort[i]._idx = aoColumns[iCol].asSorting.indexOf(nestedSort[i][1]);
+					nestedSort[i]._idx = aoColumns[iCol].asSorting!.indexOf(nestedSort[i][1]);
 				}
 
 				if ( nestedSort[i][1] ) {
@@ -239,14 +243,14 @@ export function sort ( oSettings: Context, col?, dir? )
 	var
 		i, iLen,
 		aiOrig: number[] = [],
-		extSort = DataTable.ext.type.order,
+		extSort = ext.type.order,
 		aoData = oSettings.aoData,
 		sortCol,
 		displayMaster = oSettings.aiDisplayMaster,
 		aSort: ISortItem[];
 
 	// Make sure the columns all have types defined
-	_fnColumnTypes(oSettings);
+	columnTypes(oSettings);
 
 	// Allow a specific column to be sorted, which will _not_ alter the display
 	// master
@@ -258,7 +262,7 @@ export function sort ( oSettings: Context, col?, dir? )
 			col:       col,
 			dir:       dir,
 			index:     0,
-			type:      srcCol.sType,
+			type:      srcCol.sType!,
 			formatter: extSort[ srcCol.sType+"-pre" ],
 			sorter:    extSort[ srcCol.sType+"-"+dir ]
 		}];
@@ -310,8 +314,8 @@ export function sort ( oSettings: Context, col?, dir? )
 			var
 				x, y, k, test, sort,
 				len=aSort.length,
-				dataA = aoData[a]._aSortData,
-				dataB = aoData[b]._aSortData;
+				dataA = aoData[a]._aSortData!,
+				dataB = aoData[b]._aSortData!;
 
 			for ( k=0 ; k<len ; k++ ) {
 				sort = aSort[k];
@@ -496,18 +500,18 @@ export function sortData( settings, colIdx )
 {
 	// Custom sorting function - provided by the sort data type
 	var column = settings.aoColumns[ colIdx ];
-	var customSort = DataTable.ext.order[ column.sSortDataType ];
+	var customSort = ext.order[ column.sSortDataType ];
 	var customData;
 
 	if ( customSort ) {
 		customData = customSort.call( settings.oInstance, settings, colIdx,
-			_fnColumnIndexToVisible( settings, colIdx )
+			columnIndexToVisible( settings, colIdx )
 		);
 	}
 
 	// Use / populate cache
 	var row, cellData;
-	var formatter = DataTable.ext.type.order[ column.sType+"-pre" ];
+	var formatter = ext.type.order[ column.sType+"-pre" ];
 	var data = settings.aoData;
 
 	for ( var rowIdx=0 ; rowIdx<data.length ; rowIdx++ ) {
@@ -525,7 +529,7 @@ export function sortData( settings, colIdx )
 		if ( ! row._aSortData[colIdx] || customSort ) {
 			cellData = customSort ?
 				customData[rowIdx] : // If there was a custom sort function, use data from there
-				_fnGetCellData( settings, rowIdx, colIdx, 'sort' );
+				getCellData( settings, rowIdx, colIdx, 'sort' );
 
 			row._aSortData[ colIdx ] = formatter ?
 				formatter( cellData, settings ) :

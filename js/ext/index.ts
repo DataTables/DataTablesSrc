@@ -1,8 +1,9 @@
 
 import classes from "./classes";
-import pager, {renderer as pagingRenderer} from './paging';
+import pager, {render as pagingRenderer} from './paging';
 import renderer from './renderer';
 import {features, legacy as featuresLegacy} from '../features/index';
+import { store } from "./types";
 
 /**
  * DataTables extensions
@@ -15,7 +16,7 @@ import {features, legacy as featuresLegacy} from '../features/index';
  * Note that this namespace is aliased to `jQuery.fn.dataTableExt` for legacy
  * reasons
  */
-export default {
+const ext = {
 	/**
 	 * DataTables build type (expanded by the download builder)
 	 *
@@ -45,7 +46,7 @@ export default {
 	/**
 	 * Element class names
 	 */
-	classes: classes,
+	classes,
 
 
 	/**
@@ -169,6 +170,9 @@ export default {
 		column: [],
 		row: []
 	},
+
+
+	settings: [] as any[],
 
 
 	/**
@@ -296,168 +300,8 @@ export default {
 	 * detection or by direct assignment using the `type` option for the column.
 	 * The type of a column will effect how it is ordering and search (plug-ins
 	 * can also make use of the column type if required).
-	 *
-	 * @namespace
 	 */
-	type: {
-		/**
-		 * Automatic column class assignment
-		 */
-		className: {},
-
-		/**
-		 * Type detection functions.
-		 *
-		 * The functions defined in this object are used to automatically detect
-		 * a column's type, making initialisation of DataTables super easy, even
-		 * when complex data is in the table.
-		 *
-		 * The functions defined take two parameters:
-		 *
-	     *  1. `{*}` Data from the column cell to be analysed
-	     *  2. `{settings}` DataTables settings object. This can be used to
-	     *     perform context specific type detection - for example detection
-	     *     based on language settings such as using a comma for a decimal
-	     *     place. Generally speaking the options from the settings will not
-	     *     be required
-		 *
-		 * Each function is expected to return:
-		 *
-		 * * `{string|null}` Data type detected, or null if unknown (and thus
-		 *   pass it on to the other type detection functions.
-		 *
-		 *  @type array
-		 *
-		 *  @example
-		 *    // Currency type detection plug-in:
-		 *    $.fn.dataTable.ext.type.detect.push(
-		 *      function ( data, settings ) {
-		 *        // Check the numeric part
-		 *        if ( ! data.substring(1).match(/[0-9]/) ) {
-		 *          return null;
-		 *        }
-		 *
-		 *        // Check prefixed by currency
-		 *        if ( data.charAt(0) == '$' || data.charAt(0) == '&pound;' ) {
-		 *          return 'currency';
-		 *        }
-		 *        return null;
-		 *      }
-		 *    );
-		 */
-		detect: [],
-
-		/**
-		 * Automatic renderer assignment
-		 */
-		render: {},
-
-
-		/**
-		 * Type based search formatting.
-		 *
-		 * The type based searching functions can be used to pre-format the
-		 * data to be search on. For example, it can be used to strip HTML
-		 * tags or to de-format telephone numbers for numeric only searching.
-		 *
-		 * Note that is a search is not defined for a column of a given type,
-		 * no search formatting will be performed.
-		 * 
-		 * Pre-processing of searching data plug-ins - When you assign the sType
-		 * for a column (or have it automatically detected for you by DataTables
-		 * or a type detection plug-in), you will typically be using this for
-		 * custom sorting, but it can also be used to provide custom searching
-		 * by allowing you to pre-processing the data and returning the data in
-		 * the format that should be searched upon. This is done by adding
-		 * functions this object with a parameter name which matches the sType
-		 * for that target column. This is the corollary of <i>afnSortData</i>
-		 * for searching data.
-		 *
-		 * The functions defined take a single parameter:
-		 *
-	     *  1. `{*}` Data from the column cell to be prepared for searching
-		 *
-		 * Each function is expected to return:
-		 *
-		 * * `{string|null}` Formatted string that will be used for the searching.
-		 *
-		 *  @type object
-		 *  @default {}
-		 *
-		 *  @example
-		 *    $.fn.dataTable.ext.type.search['title-numeric'] = function ( d ) {
-		 *      return d.replace(/\n/g," ").replace( /<.*?>/g, "" );
-		 *    }
-		 */
-		search: {},
-
-
-		/**
-		 * Type based ordering.
-		 *
-		 * The column type tells DataTables what ordering to apply to the table
-		 * when a column is sorted upon. The order for each type that is defined,
-		 * is defined by the functions available in this object.
-		 *
-		 * Each ordering option can be described by three properties added to
-		 * this object:
-		 *
-		 * * `{type}-pre` - Pre-formatting function
-		 * * `{type}-asc` - Ascending order function
-		 * * `{type}-desc` - Descending order function
-		 *
-		 * All three can be used together, only `{type}-pre` or only
-		 * `{type}-asc` and `{type}-desc` together. It is generally recommended
-		 * that only `{type}-pre` is used, as this provides the optimal
-		 * implementation in terms of speed, although the others are provided
-		 * for compatibility with existing JavaScript sort functions.
-		 *
-		 * `{type}-pre`: Functions defined take a single parameter:
-		 *
-	     *  1. `{*}` Data from the column cell to be prepared for ordering
-		 *
-		 * And return:
-		 *
-		 * * `{*}` Data to be sorted upon
-		 *
-		 * `{type}-asc` and `{type}-desc`: Functions are typical JavaScript sort
-		 * functions, taking two parameters:
-		 *
-	     *  1. `{*}` Data to compare to the second parameter
-	     *  2. `{*}` Data to compare to the first parameter
-		 *
-		 * And returning:
-		 *
-		 * * `{*}` Ordering match: <0 if first parameter should be sorted lower
-		 *   than the second parameter, ===0 if the two parameters are equal and
-		 *   >0 if the first parameter should be sorted height than the second
-		 *   parameter.
-		 * 
-		 *  @type object
-		 *  @default {}
-		 *
-		 *  @example
-		 *    // Numeric ordering of formatted numbers with a pre-formatter
-		 *    $.extend( $.fn.dataTable.ext.type.order, {
-		 *      "string-pre": function(x) {
-		 *        a = (a === "-" || a === "") ? 0 : a.replace( /[^\d\-\.]/g, "" );
-		 *        return parseFloat( a );
-		 *      }
-		 *    } );
-		 *
-		 *  @example
-		 *    // Case-sensitive string ordering, with no pre-formatting method
-		 *    $.extend( $.fn.dataTable.ext.order, {
-		 *      "string-case-asc": function(x,y) {
-		 *        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-		 *      },
-		 *      "string-case-desc": function(x,y) {
-		 *        return ((x < y) ? 1 : ((x > y) ? -1 : 0));
-		 *      }
-		 *    } );
-		 */
-		order: {}
-	},
+	type: store,
 
 	/**
 	 * Unique DataTables instance counter
@@ -503,14 +347,15 @@ export default {
 //
 // Backwards compatibility. Alias to pre 1.10 Hungarian notation counter parts
 //
-$.extend( _ext, {
-	afnFiltering: _ext.search,
-	aTypes:       _ext.type.detect,
-	ofnSearch:    _ext.type.search,
-	oSort:        _ext.type.order,
-	afnSortData:  _ext.order,
-	aoFeatures:   _ext.feature,
-	oStdClasses:  _ext.classes,
-	oPagination:  _ext.pager
+$.extend( ext, {
+	afnFiltering: ext.search,
+	aTypes:       ext.type.detect,
+	ofnSearch:    ext.type.search,
+	oSort:        ext.type.order,
+	afnSortData:  ext.order,
+	aoFeatures:   ext.feature,
+	oStdClasses:  ext.classes,
+	oPagination:  ext.pager
 } );
 
+export default ext;
