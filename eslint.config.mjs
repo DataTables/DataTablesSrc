@@ -20,7 +20,8 @@ export default defineConfig([
 			'no-unused-vars': [
 				'error',
 				{
-					args: 'none'
+					args: 'none',
+					caughtErrors: 'none'
 				}
 			],
 
