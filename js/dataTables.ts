@@ -81,7 +81,7 @@ DataTable.datetime = datetime;
  *  @type string
  *  @default Version number
  */
-DataTable.version = "3.0.0-dev";
+DataTable.version = ext.version;
 
 /**
  * Private data store, containing all of the settings objects that are

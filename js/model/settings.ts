@@ -648,7 +648,7 @@ export default class Settings {
 
 	public caption = '';
 
-	public captionNode;
+	public captionNode: HTMLTableCaptionElement | null = null;
 
 	public colgroup: JQuery<HTMLElement>;
 

@@ -7,6 +7,7 @@ import { sortFlatten } from './sort';
 import { clearTable, addData } from './data';
 import { columnTypes } from './columns';
 import util from '../api/util';
+import { draw } from './draw';
 
 /**
  * Create an Ajax call based on the table's settings, taking into account that
@@ -226,16 +227,16 @@ export function ajaxParameters(settings) {
  */
 export function ajaxUpdateDraw(settings: Context, json) {
 	var data = ajaxDataSrc(settings, json, false);
-	var draw = ajaxDataSrcParam(settings, 'draw', json);
+	var drawUnique = ajaxDataSrcParam(settings, 'draw', json);
 	var recordsTotal = ajaxDataSrcParam(settings, 'recordsTotal', json);
 	var recordsFiltered = ajaxDataSrcParam(settings, 'recordsFiltered', json);
 
-	if (draw !== undefined) {
+	if (drawUnique !== undefined) {
 		// Protect against out of sequence returns
-		if (draw * 1 < settings.iDraw) {
+		if (drawUnique * 1 < settings.iDraw) {
 			return;
 		}
-		settings.iDraw = draw * 1;
+		settings.iDraw = drawUnique * 1;
 	}
 
 	// No data in returned object, so rather than an array, we show an empty table

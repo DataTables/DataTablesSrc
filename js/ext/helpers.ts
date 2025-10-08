@@ -1,6 +1,7 @@
 
 import { store as typeStore, register as registerType } from "./types";
 import util from '../api/util';
+import { use } from "../api/static";
 
 /*
  * Public helper functions. These aren't used internally by DataTables, or
@@ -34,15 +35,8 @@ var __moment; // Can be assigned in DateTable.use()
  * 
  */
 function resolveWindowLibs() {
-	const win = window as any;
-
-	if (win.luxon && ! __luxon) {
-		__luxon = win.luxon;
-	}
-	
-	if (win.moment && ! __moment) {
-		__moment = win.moment;
-	}
+	__luxon = use('luxon');
+	__moment = use('moment');
 }
 
 function __mldObj (d, format, locale) {

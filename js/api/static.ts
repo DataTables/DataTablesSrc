@@ -14,7 +14,7 @@ var __dateTime;
  * Note that the arguments can be either way around (legacy support)
  * and the second is optional. See docs.
  */
-export function use (arg1, arg2) {
+export function use (arg1, arg2?) {
 	// Reverse arguments for legacy support
 	var module = typeof arg1 === 'string'
 		? arg2
@@ -37,10 +37,10 @@ export function use (arg1, arg2) {
 				return __dateTime;
 
 			case 'luxon':
-				return __luxon;
+				return __luxon || (window as any).luxon;
 
 			case 'moment':
-				return __moment;
+				return __moment || (window as any).moment;
 
 			case 'bootstrap':
 				// Use local if set, otherwise try window, which could be undefined

@@ -25,7 +25,7 @@ export function featureHtmlTable ( settings: Context )
 	var scrollY = scroll.sY;
 	var classes = settings.oClasses.scrolling;
 	var caption = settings.captionNode;
-	var captionSide = caption ? caption._captionSide : null;
+	var captionSide: string | null = caption ? (caption as any)._captionSide : null;
 	var headerClone = $( table[0].cloneNode(false) );
 	var footerClone = $( table[0].cloneNode(false) );
 	var footer: JQuery | null = table.children('tfoot');
@@ -73,7 +73,7 @@ export function featureHtmlTable ( settings: Context )
 							headerClone
 								.removeAttr('id')
 								.css( 'margin-left', 0 )
-								.append( captionSide === 'top' ? caption : null )
+								.append( (captionSide === 'top' ? caption : null) as any )
 								.append(
 									table.children('thead')
 								)
@@ -104,7 +104,7 @@ export function featureHtmlTable ( settings: Context )
 							footerClone
 								.removeAttr('id')
 								.css( 'margin-left', 0 )
-								.append( captionSide === 'bottom' ? caption : null )
+								.append( (captionSide === 'bottom' ? caption : null) as any )
 								.append(
 									table.children('tfoot')
 								)
