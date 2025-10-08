@@ -24,10 +24,10 @@ describe('Paging option', function() {
 		});
 		it('Paging control is in the DOM', function() {
 			table = $('#example').DataTable();
-			expect($('div.dt-paging')[0]).toBeInDOM();
+			expect($('div.dt-paging').length).toBe(1);
 		});
 		it('Length control is in the DOM', function() {
-			expect($('div.dt-length')[0]).toBeInDOM();
+			expect($('div.dt-length').length).toBe(1);
 		});
 		it('Correct place in DOM - after info', function() {
 			expect(
@@ -72,11 +72,11 @@ describe('Paging option', function() {
 		});
 
 		it('Paging control is not in the DOM', function() {
-			expect($('div.dt-paging')[0]).not.toBeInDOM();
+			expect($('div.dt-paging').length).toBe(0);
 		});
 
 		it('Length control has been removed', function() {
-			expect($('div.dt-length')[0]).not.toBeInDOM();
+			expect($('div.dt-length').length).toBe(0);
 		});
 
 		dt.html('basic');
@@ -87,8 +87,8 @@ describe('Paging option', function() {
 			expect($('#example tbody tr').length).toBe(10);
 		});
 
-		it('Length control has been removed', function() {
-			expect($('div.dt-length')[0]).toBeInDOM();
+		it('Length control is present', function() {
+			expect($('div.dt-length').length).toBe(1);
 		});
 
 		dt.html('basic');
