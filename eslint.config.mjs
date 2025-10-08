@@ -1,8 +1,12 @@
 import {defineConfig} from 'eslint/config';
 import globals from 'globals';
 import compat from 'eslint-plugin-compat';
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig([
+	eslint.configs.recommended,
+	tseslint.configs.recommended,
 	compat.configs['flat/recommended'],
 	{
 		languageOptions: {
@@ -25,7 +29,24 @@ export default defineConfig([
 				}
 			],
 
-			'no-useless-escape': 'off'
+			'no-shadow': 'error',
+
+			// Todo
+			'no-global-assign': 'off',
+			'prefer-rest-params': 'off',
+			'no-useless-escape': 'off',
+			'no-var': 'off',
+			'prefer-spread': 'off',
+			'@typescript-eslint/no-explicit-any': 'off',
+			'@typescript-eslint/no-unsafe-function-type': 'off',
+			'@typescript-eslint/no-this-alias': 'off',
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				{
+					args: 'none',
+					caughtErrors: 'none'
+				}
+			],
 		}
 	}
 ]);

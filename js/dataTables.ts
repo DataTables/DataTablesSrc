@@ -1,16 +1,16 @@
 
 import { register as registerType, types } from './ext/types';
 import helpers, {datetime} from './ext/helpers';
-import models from './model';
+import models from './model/index';
 import defaults from './model/defaults';
 import construct from './core/constructor';
 import { extend } from './core/support';
-import ext from './ext';
+import ext from './ext/index';
 import * as apiStatic from './api/static';
 import { camelToHungarian } from "./core/compat";
 import util from './api/util';
-import Api from './api/base';
-import registerFeature from './features';
+import Api from './api/index';
+import registerFeature from './features/index';
 
 // TODO typing
 var DataTable: any = function ( selector, options )
@@ -52,7 +52,7 @@ var DataTable: any = function ( selector, options )
 		extend( o, options, true ) :
 			options;
 
-		construct(_that, init, emptyInit);
+		construct(this, _that, init, emptyInit);
 	} );
 	_that = null;
 	return this;
@@ -81,7 +81,7 @@ DataTable.datetime = datetime;
  *  @type string
  *  @default Version number
  */
-DataTable.version = "2.3.4";
+DataTable.version = "3.0.0-dev";
 
 /**
  * Private data store, containing all of the settings objects that are
@@ -132,5 +132,3 @@ DataTable.$ = $;
 $.each( DataTable, function ( prop, val ) {
 	($.fn as any).DataTable[ prop ] = val;
 } );
-
-export default DataTable;

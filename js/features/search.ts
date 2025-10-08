@@ -1,5 +1,5 @@
 
-import register from './index';
+import register from './register';
 import { macros } from '../core/support';
 import { processingRun } from '../core/processing';
 import { filterComplete } from '../core/filter';

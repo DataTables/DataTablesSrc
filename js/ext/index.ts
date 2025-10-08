@@ -2,7 +2,7 @@
 import classes from "./classes";
 import pager, {render as pagingRenderer} from './paging';
 import renderer from './renderer';
-import {features, legacy as featuresLegacy} from '../features/index';
+import {features, legacy as featuresLegacy} from '../features/register';
 import { store } from "./types";
 import {versionCheck} from "../api/static";
 

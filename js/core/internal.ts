@@ -1,6 +1,4 @@
 
-import util from '../api/util';
-
 /*
  * It is useful to have variables which are scoped locally so only the
  * DataTables functions can access them and they don't leak into global space.
@@ -16,7 +14,19 @@ const _max_str_len = Math.pow(2, 28);
 // TODO the regular expressions here and in types.ts should be in a sensible common place
 export const re_html = /<([^>]*>)/g;
 
+// TODO should use the util one, but local here to prevent circular dep.
+var _re_escape_regex = new RegExp(
+	'(\\' +
+		['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\', '$', '^', '-'].join(
+			'|\\'
+		) +
+		')',
+	'g'
+);
 
+function escapeRegex( val ) {
+	return val.replace( _re_escape_regex, '\\$1' );
+};
 
 // https://en.wikipedia.org/wiki/Foreign_exchange_market
 // - \u20BD - Russian ruble.
@@ -46,7 +56,7 @@ export function intVal(s) {
 export function numToDecimal(num, decimalPoint) {
 	// Cache created regular expressions for speed as this function is called often
 	if (!_re_dic[decimalPoint]) {
-		_re_dic[decimalPoint] = new RegExp(util.escapeRegex(decimalPoint), 'g');
+		_re_dic[decimalPoint] = new RegExp(escapeRegex(decimalPoint), 'g');
 	}
 	return typeof num === 'string' && decimalPoint !== '.'
 		? num.replace(/\./g, '').replace(_re_dic[decimalPoint], '.')

@@ -4,7 +4,7 @@ import { log, callbackFire } from "../core/support";
 import { clearTable } from "../core/data";
 import { pluck } from "../core/internal";
 import { sortingClasses } from "../core/sort";
-import ext from "../ext";
+import ext from "../ext/index";
 import util from "./util";
 
 /**

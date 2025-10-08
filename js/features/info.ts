@@ -1,7 +1,6 @@
 
-import register from './index';
+import register from './register';
 import { macros, callbackFire } from '../core/support';
-import Context from '../model/settings';
 
 register( 'info', function ( settings, opts ) {
 	// For compatibility with the legacy `info` top level option

@@ -1,6 +1,6 @@
 import Context from '../model/settings';
 import {escapeHtml} from '../core/internal';
-import ext from '../ext';
+import ext from '../ext/index';
 
 /**
  * Log an error message
@@ -232,18 +232,18 @@ export function lengthOverflow(ctx: Context) {
 }
 
 export function renderer(ctx: Context, type: string) {
-	var renderer = ctx.renderer;
+	var render = ctx.renderer;
 	var host = ext.renderer[type];
 
-	if ($.isPlainObject(renderer) && renderer[type]) {
+	if ($.isPlainObject(render) && render[type]) {
 		// Specific renderer for this type. If available use it, otherwise use
 		// the default.
-		return host[renderer[type]] || host._;
+		return host[render[type]] || host._;
 	}
-	else if (typeof renderer === 'string') {
+	else if (typeof render === 'string') {
 		// Common renderer - if there is one available for this type use it,
 		// otherwise use the default
-		return host[renderer] || host._;
+		return host[render] || host._;
 	}
 
 	// Use the default

@@ -10,7 +10,7 @@ import util from '../api/util';
 import ColumnModel from '../model/columns/settings';
 import columnDefaults from '../model/columns/defaults';
 import search from '../model/search';
-import ext from '../ext';
+import ext from '../ext/index';
 import helpers from '../ext/helpers';
 
 /**

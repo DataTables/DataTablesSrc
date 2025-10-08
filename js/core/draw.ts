@@ -1,5 +1,4 @@
 
-import Context from '../model/settings';
 import { log, callbackFire, dataSource, renderer, escapeObject } from './support';
 import { getCellData, getDataMaster, writeCell } from './data';
 import { addClass, unique, pluck, range, stripHtml } from './internal';
@@ -10,7 +9,7 @@ import { sort } from './sort';
 import { filterComplete } from './filter';
 import { featureHtmlTable } from './scrolling';
 import { processingHtml } from './processing';
-import ext from '../ext';
+import ext from '../ext/index';
 
 /**
  * Render and cache a row's display data for the columns, if required
@@ -271,7 +270,7 @@ export function headerLayout( settings, source, incColumns? )
 	// Make a copy of the master layout array, but with only the columns we want
 	for ( row=0 ; row<source.length ; row++ ) {
 		// Remove any columns we haven't selected
-		local[row] = source[row].slice().filter(function (cell, i) {
+		local[row] = source[row].slice().filter(function (c, i) {
 			return incColumns.includes(i);
 		});
 
@@ -511,18 +510,18 @@ export function reDraw( settings, holdPosition?, recompute? )
 {
 	var
 		features = settings.oFeatures,
-		sort     = features.bSort,
-		filter   = features.bFilter;
+		doSort     = features.bSort,
+		doFilter   = features.bFilter;
 
 	if (recompute === undefined || recompute === true) {
 		// Resolve any column types that are unknown due to addition or invalidation
 		columnTypes( settings );
 
-		if ( sort ) {
+		if ( doSort ) {
 			sort( settings );
 		}
 
-		if ( filter ) {
+		if ( doFilter ) {
 			filterComplete( settings, settings.oPreviousSearch );
 		}
 		else {
@@ -810,15 +809,15 @@ export function addOptionsHtml ( settings )
 	else {
 		var top = _layoutArray( settings, settings.layout, 'top' );
 		var bottom = _layoutArray( settings, settings.layout, 'bottom' );
-		var renderer = renderer( settings, 'layout' );
+		var render = renderer( settings, 'layout' );
 	
 		// Everything above - the renderer will actually insert the contents into the document
 		top.forEach(function (item) {
-			renderer( settings, insert, item );
+			render( settings, insert, item );
 		});
 
 		// The table - always the center of attention
-		renderer( settings, insert, {
+		render( settings, insert, {
 			full: {
 				table: true,
 				contents: [ featureHtmlTable(settings) ]
@@ -827,7 +826,7 @@ export function addOptionsHtml ( settings )
 
 		// Everything below
 		bottom.forEach(function (item) {
-			renderer( settings, insert, item );
+			render( settings, insert, item );
 		});
 	}
 
@@ -931,10 +930,10 @@ export function detectHeader ( settings, thead, write )
 	var titleRow = settings.titleRow;
 	var isHeader = thead && thead.nodeName.toLowerCase() === 'thead';
 	var layout: any[] = [];
-	var unique;
-	var shift = function ( a, i, j ) {
-		var k = a[i];
-		while ( k[j] ) {
+	var isUnique;
+	var shift = function ( a, b, j ) {
+		var d = a[b];
+		while ( d[j] ) {
 			j++;
 		}
 		return j;
@@ -970,13 +969,13 @@ export function detectHeader ( settings, thead, write )
 				shifted = shift( layout, i, column );
 
 				// Cache calculation for unique columns
-				unique = colspan === 1 ?
+				isUnique = colspan === 1 ?
 					true :
 					false;
 				
 				// Perform header setup
 				if ( write ) {
-					if (unique) {
+					if (isUnique) {
 						// Allow column options to be set from HTML attributes
 						columnOptions( settings, shifted, escapeObject(jqCell.data()) );
 						
@@ -1005,7 +1004,7 @@ export function detectHeader ( settings, thead, write )
 								}
 							}
 
-							if (! columnDef.sTitle && unique) {
+							if (! columnDef.sTitle && isUnique) {
 								columnDef.sTitle = stripHtml(cell.innerHTML);
 								columnDef.autoTitle = true;
 							}
@@ -1066,7 +1065,7 @@ export function detectHeader ( settings, thead, write )
 					for ( k=0 ; k<rowspan ; k++ ) {
 						layout[i+k][shifted+l] = {
 							cell: cell,
-							unique: unique
+							unique: isUnique
 						};
 
 						layout[i+k].row = row;

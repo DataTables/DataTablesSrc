@@ -1,21 +1,10 @@
 
+import register from "./register";
 
-const features = {};
-const legacy: any[] = [];
+import './div';
+import './info';
+import './page';
+import './pageLength';
+import './search';
 
-export {
-	features,
-	legacy
-}
-
-// Third parameter is internal only!
-export default function register ( name, cb, legacyChar='' ) {
-	features[ name ] = cb;
-
-	if (legacyChar) {
-		legacy.push({
-			cFeature: legacyChar,
-			fnInit: cb
-		});
-	}
-};
+export default register;

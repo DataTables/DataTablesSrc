@@ -7,11 +7,12 @@ export DT_BUILD=1
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BASE_DIR="${SCRIPT_DIR}/.."
 BUILD_DIR="${BASE_DIR}/built"
-
 SYNC_BRANCH="master"
-VERSION=$(grep " * @version     " ${BASE_DIR}/js/umd.js | awk -F" " '{ print $3 }')
 CMD=$1
 SUBCMD=$2
+
+# Get the version from the file
+VERSION=$(grep "DataTable.version =" $BASE_DIR/js/dataTables.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*)?}')
 
 DEBUG=""
 if [ "$SUBCMD" = "debug" -o "$3" = "debug" ]; then
@@ -20,63 +21,34 @@ fi
 
 
 function build_js {
-	IN_FILE=$1
-	OUT_NAME=$2
-	OUT_EXTN=$3
+	OUT_NAME=$1
 
 	echo_section "JS ${OUT_EXTN}"
 
 	SRC_DIR="${BASE_DIR}/js"
 	OUT_DIR="${BUILD_DIR}/js"
 	OUT_FILE="${OUT_DIR}/${OUT_NAME}.${OUT_EXTN}"
-	OUT_MIN_FILE="${OUT_DIR}/${IN_FILE}.min.${OUT_EXTN}"
 
 	if [ ! -d $OUT_DIR ]; then
 		mkdir $OUT_DIR
 	fi
 
-	cd $SRC_DIR
+	cd $BASE_DIR
 
-	OLD_IFS=$IFS
-	IFS='%'
-	cp $IN_FILE DataTables.js.build
-	grep "_buildInclude('" DataTables.js.build > /dev/null
+	# Typescript
+	node_modules/typescript/bin/tsc -p ./tsconfig.json
 
-	while [ $? -eq 0 ]; do
-		REQUIRE=$(grep "_buildInclude('" DataTables.js.build | head -n 1)
+	# And rollup into a single file
+	node_modules/rollup/dist/bin/rollup \
+		--config rollup.config.mjs
 
-		SPACER=$(echo ${REQUIRE} | cut -d _ -f 1)
-		FILE=$(echo ${REQUIRE} | sed -e "s#^.*_buildInclude('##g" -e "s#');##")
-		DIR=$(echo ${FILE} | cut -d \. -f 1)
+	rsync -r dist/dataTables.js $OUT_DIR
+	rm -r dist
 
-		sed "s#^#${SPACER}#" < ${DIR}/${FILE} > ${DIR}/${FILE}.build
-
-		sed -e "/${REQUIRE}/r ${DIR}/${FILE}.build" -e "/${REQUIRE}/d" < DataTables.js.build > DataTables.js.out
-		mv DataTables.js.out DataTables.js.build
-
-		rm ${DIR}/${FILE}.build
-
-		grep "_buildInclude('" DataTables.js.build > /dev/null
-	done
-
-	mv DataTables.js.build $OUT_FILE
-
-	# JSHint
-	if [ -e $JSHINT ]; then
-		$JSHINT --config $SCRIPT_DIR/jshint.config $OUT_FILE
-
-		if [ $? -eq 0 ]; then
-			echo_msg "JSHint passed"
-		else
-			echo_error "JSHint failed"
-		fi
-	fi
-
+	js_wrap $OUT_DIR/dataTables.js "jquery"
 	js_compress $OUT_FILE
 
-	cp integration/* $OUT_DIR
-
-	IFS=$OLD_IFS
+	cp js/integration/* $OUT_DIR
 }
 
 
@@ -168,9 +140,7 @@ function build_repo {
 	echo_section "Deploying to build repo"
 	update_build_repo
 
-	# Build DataTables with two different loader types
-	build_js umd.js dataTables js
-	build_js esm.js dataTables mjs
+	build_js dataTables
 
 	echo_section "Styling frameworks JS"
 
@@ -178,7 +148,7 @@ function build_repo {
 	build_css
 	build_types
 	build_examples
-	build_lint
+	# build_lint
 
 	#echo $BUILD_DIR
 	cp $BUILD_DIR/js/* ${BUILD_DIR}/DataTables/js/

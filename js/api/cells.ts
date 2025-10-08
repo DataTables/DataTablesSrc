@@ -60,7 +60,7 @@ var __cell_selector = function ( settings, selector, opts )
 		// Selector - jQuery filtered cells
 		var jqResult = allCells
 			.filter( s )
-			.map( function (i, el) {
+			.map( function (loop, el) {
 				return { // use a new object, in case someone changes the values
 					row:    el._DT_CellIndex.row,
 					column: el._DT_CellIndex.column

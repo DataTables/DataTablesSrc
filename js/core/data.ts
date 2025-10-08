@@ -4,8 +4,8 @@ import { pluck } from './internal';
 import { log } from './support';
 import { createTr } from './draw';
 import { getRowDisplay, rowAttributes } from './draw';
-import ext from '../ext';
-import rowModel from '../model/row';
+import ext from '../ext/index';
+import RowModel from '../model/row';
 import util from '../api/util';
 
 /**
@@ -25,10 +25,10 @@ export function addData ( settings: Context, dataIn, tr?, tds? )
 {
 	/* Create the object for storing information about this new row */
 	var rowIdx = settings.aoData.length;
-	var rowModel = $.extend( true, {}, rowModel, {
+	var rowModel = $.extend( true, {}, new RowModel(), {
 		src: tr ? 'dom' : 'data',
 		idx: rowIdx
-	} );
+	} ) as any;
 
 	rowModel._aData = dataIn;
 	settings.aoData.push( rowModel );
@@ -202,20 +202,6 @@ export function writeCell(td, val)
 
 
 /**
- * Split string on periods, taking into account escaped periods
- * @param  {string} str String to split
- * @return {array} Split string
- */
-export function splitObjNotation( str )
-{
-	var parts = str.match(/(\\.|[^.])+/g) || [''];
-
-	return parts.map( function ( s ) {
-		return s.replace(/\\\./g, '.');
-	} );
-}
-
-/**
  * Return an array with the full table data
  *  @param {object} oSettings dataTables settings object
  *  @returns array {array} aData Master data array
@@ -345,14 +331,14 @@ export function getRowElements( settings: Context, row, colIdx?, d? )
 			{} :
 			[];
 
-	var attr = function ( str, td  ) {
+	var attr = function ( str, cell  ) {
 		if ( typeof str === 'string' ) {
 			var idx = str.indexOf('@');
 
 			if ( idx !== -1 ) {
-				var attr = str.substring( idx+1 );
+				var att = str.substring( idx+1 );
 				var setter = util.set( str );
-				setter( d, td.getAttribute( attr ) );
+				setter( d, cell.getAttribute( att ) );
 			}
 		}
 	};

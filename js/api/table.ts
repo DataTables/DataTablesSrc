@@ -142,10 +142,10 @@ Api.register( 'caption()', function ( value, side ) {
 
 	// Getter - return existing node's content
 	if ( value === undefined ) {
-		var caption = context[0].captionNode;
+		var node = context[0].captionNode;
 
-		return caption && context.length ?
-			caption.innerHTML : 
+		return node && context.length ?
+			node.innerHTML : 
 			null;
 	}
 

@@ -34,7 +34,7 @@ var __moment; // Can be assigned in DateTable.use()
  * 
  */
 function resolveWindowLibs() {
-	let win = window as any;
+	const win = window as any;
 
 	if (win.luxon && ! __luxon) {
 		__luxon = win.luxon;

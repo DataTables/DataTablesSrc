@@ -3,7 +3,7 @@ import { bindAction, dataSource, callbackFire } from './support';
 import { processingRun } from './processing';
 import Context from '../model/settings';
 import { pluck } from './internal';
-import ext from '../ext';
+import ext from '../ext/index';
 import { columnIndexToVisible, columnTypes, columnsFromHeader } from './columns';
 import { getCellData } from './data';
 import { reDraw } from './draw';
@@ -127,7 +127,7 @@ export function sortDisplay(settings: Context, display) {
 }
 
 
-export function sortResolve (settings: Context, nestedSort, sort) {
+export function sortResolve (settings: Context, nestedSort, sortItem) {
 	var push = function ( a ) {
 		if ($.isPlainObject(a)) {
 			if (a.idx !== undefined) {
@@ -150,18 +150,18 @@ export function sortResolve (settings: Context, nestedSort, sort) {
 		}
 	};
 
-	if ( $.isPlainObject(sort) ) {
+	if ( $.isPlainObject(sortItem) ) {
 		// Object
-		push(sort);
+		push(sortItem);
 	}
-	else if ( sort.length && typeof sort[0] === 'number' ) {
+	else if ( sortItem.length && typeof sortItem[0] === 'number' ) {
 		// 1D array
-		push(sort);
+		push(sortItem);
 	}
-	else if ( sort.length ) {
+	else if ( sortItem.length ) {
 		// 2D array
-		for (var z=0; z<sort.length; z++) {
-			push(sort[z]); // Object or array
+		for (var z=0; z<sortItem.length; z++) {
+			push(sortItem[z]); // Object or array
 		}
 	}
 }
@@ -312,22 +312,22 @@ export function sort ( oSettings: Context, col?, dir? )
 		 */
 		displayMaster.sort( function ( a, b ) {
 			var
-				x, y, k, test, sort,
+				x, y, k, test, sortItem,
 				len=aSort.length,
 				dataA = aoData[a]._aSortData!,
 				dataB = aoData[b]._aSortData!;
 
 			for ( k=0 ; k<len ; k++ ) {
-				sort = aSort[k];
+				sortItem = aSort[k];
 
 				// Data, which may have already been through a `-pre` function
-				x = dataA[ sort.col ];
-				y = dataB[ sort.col ];
+				x = dataA[ sortItem.col ];
+				y = dataB[ sortItem.col ];
 
-				if (sort.sorter) {
+				if (sortItem.sorter) {
 					// If there is a custom sorter (`-asc` or `-desc`) for this
 					// data type, use it
-					test = sort.sorter(x, y);
+					test = sortItem.sorter(x, y);
 
 					if ( test !== 0 ) {
 						return test;
@@ -338,7 +338,7 @@ export function sort ( oSettings: Context, col?, dir? )
 					test = x<y ? -1 : x>y ? 1 : 0;
 
 					if ( test !== 0 ) {
-						return sort.dir === 'asc' ? test : -test;
+						return sortItem.dir === 'asc' ? test : -test;
 					}
 				}
 			}
@@ -467,7 +467,7 @@ export function sortingClasses( settings: Context )
 {
 	var oldSort = settings.aLastSort;
 	var sortClass = settings.oClasses.order.position;
-	var sort = sortFlatten( settings );
+	var sortFlat = sortFlatten( settings );
 	var features = settings.oFeatures;
 	var i, iLen, colIdx;
 
@@ -482,15 +482,15 @@ export function sortingClasses( settings: Context )
 		}
 
 		// Add new column sorting
-		for ( i=0, iLen=sort.length ; i<iLen ; i++ ) {
-			colIdx = sort[i].src;
+		for ( i=0, iLen=sortFlat.length ; i<iLen ; i++ ) {
+			colIdx = sortFlat[i].src;
 
 			$( pluck( settings.aoData, 'anCells', colIdx ) )
 				.addClass( sortClass + (i<2 ? i+1 : 3) );
 		}
 	}
 
-	settings.aLastSort = sort;
+	settings.aLastSort = sortFlat;
 }
 
 

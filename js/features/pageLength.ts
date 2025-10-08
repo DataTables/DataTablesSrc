@@ -1,5 +1,5 @@
 
-import register from './index';
+import register from './register';
 import { lengthChange } from '../core/length';
 import { draw } from '../core/draw';
 import { macros } from '../core/support';

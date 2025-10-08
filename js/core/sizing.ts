@@ -6,7 +6,7 @@ import { columnsSumWidth, getColumns } from './columns';
 import { adjustColumnSizing } from './columns';
 import { getRowDisplay } from './draw';
 import util from '../api/util';
-import ext from '../ext';
+import ext from '../ext/index';
 
 /**
  * Calculate the width of columns for the table
@@ -342,7 +342,7 @@ function getWideStrings( settings: Context, colIdx )
 		});
 
 		// Longest unbroken string
-		let parts = allStrings.join(' ').split(' ');
+		const parts = allStrings.join(' ').split(' ');
 
 		parts.sort(function (a, b) {
 			return b.length - a.length;

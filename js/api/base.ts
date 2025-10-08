@@ -2,7 +2,7 @@
 import { pluck, unique } from "../core/internal";
 import { arrayApply } from "../core/support";
 import { selector_row_indexes } from "./selectors";
-import ext from '../ext';
+import ext from '../ext/index';
 import util from '../api/util';
 
 /**
@@ -104,8 +104,8 @@ var _toSettings = function ( mixed )
 	}
 
 	if ( jq ) {
-		return settings.filter(function (v, idx) {
-			return jq.includes(tables[idx]);
+		return settings.filter(function (v, i) {
+			return jq.includes(tables[i]);
 		});
 	}
 };
@@ -426,10 +426,10 @@ function _api_find( src, name ) {
 
 (window as any).__apiStruct = __apiStruct;
 
-Api.extend = function ( scope, obj, ext )
+Api.extend = function ( scope, obj, extend )
 {
 	// Only extend API instances and static properties of the API
-	if ( ! ext.length || ! obj || ( ! (obj instanceof Api) && ! obj.__dt_wrapper ) ) {
+	if ( ! extend.length || ! obj || ( ! (obj instanceof Api) && ! obj.__dt_wrapper ) ) {
 		return;
 	}
 
@@ -437,8 +437,8 @@ Api.extend = function ( scope, obj, ext )
 		i, iLen,
 		struct;
 
-	for ( i=0, iLen=ext.length ; i<iLen ; i++ ) {
-		struct = ext[i];
+	for ( i=0, iLen=extend.length ; i<iLen ; i++ ) {
+		struct = extend[i];
 
 		if (struct.name === '__proto__') {
 			continue;

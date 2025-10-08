@@ -148,7 +148,7 @@ export function implementState ( settings, s, callback) {
 	// Order
 	if ( s.order !== undefined ) {
 		settings.aaSorting = [];
-		$.each( s.order, function ( i, col ) {
+		$.each( s.order, function ( loop, col ) {
 			var set = [ col[0], col[1] ];
 
 			// A column name was stored and should be used for restore

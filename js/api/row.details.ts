@@ -9,7 +9,7 @@ import util from './util';
 $(document).on('plugin-init.dt', function (e, context) {
 	var api = new Api( context );
 
-	api.on( 'stateSaveParams.DT', function ( e, settings, d ) {
+	api.on( 'stateSaveParams.DT', function ( ev, settings, d ) {
 		// This could be more compact with the API, but it is a lot faster as a simple
 		// internal loop
 		var idFn = settings.rowIdFn;
@@ -29,7 +29,7 @@ $(document).on('plugin-init.dt', function (e, context) {
 	});
 
 	// For future state loads (e.g. with StateRestore)
-	api.on( 'stateLoaded.DT', function (e, settings, state) {
+	api.on( 'stateLoaded.DT', function (ev, settings, state) {
 		__details_state_load( api, state );
 	});
 

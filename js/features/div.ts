@@ -1,5 +1,5 @@
 
-import register from './index';
+import register from './register';
 
 function _divProp(el, prop, val) {
 	if (val) {

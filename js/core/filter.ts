@@ -2,7 +2,7 @@
 import Context from '../model/settings';
 import { arrayApply, callbackFire, dataSource } from './support';
 import util from '../api/util';
-import ext from '../ext';
+import ext from '../ext/index';
 import { getCellData } from './data';
 
 /**
@@ -252,7 +252,7 @@ function filterData ( settings )
 	var columns = settings.aoColumns;
 	var data = settings.aoData;
 	var column;
-	var j, jen, filterData, cellData, row;
+	var j, jen, cellData, row;
 	var wasInvalidated = false;
 
 	for ( var rowIdx=0 ; rowIdx<data.length ; rowIdx++ ) {
@@ -263,7 +263,7 @@ function filterData ( settings )
 		row = data[rowIdx];
 
 		if ( ! row._aFilterData ) {
-			filterData = [];
+			const rowFilterData: string[] = [];
 
 			for ( j=0, jen=columns.length ; j<jen ; j++ ) {
 				column = columns[j];
@@ -299,11 +299,11 @@ function filterData ( settings )
 					cellData = cellData.replace(/[\r\n\u2028]/g, '');
 				}
 
-				filterData.push( cellData );
+				rowFilterData.push( cellData );
 			}
 
-			row._aFilterData = filterData;
-			row._sFilterRow = filterData.join('  ');
+			row._aFilterData = rowFilterData;
+			row._sFilterRow = rowFilterData.join('  ');
 			wasInvalidated = true;
 		}
 	}

@@ -1,6 +1,5 @@
 
 import { normalize, stripHtml, escapeHtml, unique } from "../core/internal";
-import { splitObjNotation } from "../core/data";
 
 // These functions can be replaced!
 var _normalize = normalize;
@@ -20,6 +19,20 @@ var _re_escape_regex = new RegExp(
 // Private variable that is used to match action syntax in the data property object
 var __reArray = /\[.*?\]$/;
 var __reFn = /\(\)$/;
+
+/**
+ * Split string on periods, taking into account escaped periods
+ * @param  {string} str String to split
+ * @return {array} Split string
+ */
+function splitObjNotation( str )
+{
+	var parts = str.match(/(\\.|[^.])+/g) || [''];
+
+	return parts.map( function ( s ) {
+		return s.replace(/\\\./g, '.');
+	} );
+}
 
 /**
  * DataTables utility methods

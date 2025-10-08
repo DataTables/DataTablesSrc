@@ -22,7 +22,7 @@ export default class Row {
 	 * data from the data source, or will be an array if using DOM a data
 	 * source.
 	 */
-	public _aData = [];
+	public _aData: any[] = [];
 
 	/**
 	 * Sorting data cache - this array is ostensibly the same length as the

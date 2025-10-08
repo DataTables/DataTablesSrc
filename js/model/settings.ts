@@ -239,7 +239,7 @@ export default class Settings {
 	/**
 	 * Store for named searches
 	 */
-	public searchFixed: {};
+	public searchFixed = {};
 
 	/**
 	 * Store the applied search for each column - see
@@ -519,7 +519,7 @@ export default class Settings {
 	/**
 	 * The classes to use for the table
 	 */
-	public oClasses;
+	public oClasses: any = {};
 
 	/**
 	 * Flag attached to the settings object so you can check in the draw
@@ -629,7 +629,7 @@ export default class Settings {
 	/**
 	 * Last applied sort
 	 */
-	public aLastSort;
+	public aLastSort: any[] = [];
 
 	/**
 	 * Stored plug-in instances

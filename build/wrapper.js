@@ -141,6 +141,9 @@ function umd(script, deps, exp, filename) {
 
 	let cjsSig = '';
 	let cjsParams = '';
+	let setDataTable = filename === 'datatables.js'
+		? 'window.DataTable = '
+		: '';
 
 	return `${script.header}
 
@@ -179,7 +182,7 @@ function umd(script, deps, exp, filename) {
 	}
 	else {
 		// Browser
-		factory( jQuery, window, document );
+		${setDataTable}factory( jQuery, window, document );
 	}
 }(function( $, window, document${cjsParams} ) {
 'use strict';${defineDataTable}

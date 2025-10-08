@@ -5,7 +5,6 @@ import Context from '../model/settings';
 import { initComplete } from './init';
 import { sortFlatten } from './sort';
 import { clearTable, addData } from './data';
-import { draw } from './draw';
 import { columnTypes } from './columns';
 import util from '../api/util';
 

@@ -148,7 +148,7 @@ var __column_selector = function ( settings, selector, opts )
 						return [ visibleToColumnIndex( settings, idx ) ];
 					}
 					
-					return columns.map( function (col, idx) {
+					return columns.map( function (col, mapIdx) {
 						// Not visible, can't match
 						if (! col.bVisible) {
 							return null;
@@ -156,11 +156,11 @@ var __column_selector = function ( settings, selector, opts )
 
 						// Selector
 						if (match && match[1]) {
-							return $(nodes[idx]).filter(match[1]).length > 0 ? idx : null;
+							return $(nodes[mapIdx]).filter(match[1]).length > 0 ? mapIdx : null;
 						}
 
 						// `:visible` on its own
-						return idx;
+						return mapIdx;
 					} );
 
 				case 'name':
@@ -423,9 +423,9 @@ Api.registerPlural( 'columns().visible()', 'column().visible()', function ( vis,
 			saveState( settings );
 
 			// Second loop once the first is done for events
-			that.iterator( 'column', function ( settings, column ) {
+			that.iterator( 'column', function ( ctx, column ) {
 				if (changed.includes(column)) {
-					callbackFire( settings, null, 'column-visibility', [settings, column, vis, calc] );
+					callbackFire( ctx, null, 'column-visibility', [ctx, column, vis, calc] );
 				}
 			} );
 

@@ -143,17 +143,17 @@ function js_wrap {
 	node $WRAPPER $FULL umd $DIR/$FILE "$REQUIRE"
 	js_compress "$DIR/$FILE.js"
 
-	if [[ $FILE == *"searchPanes"* ]]; then
-		echo_msg "  Skipping lint of SearchPanes"
-	else
-		if [ -f $ESLINT ]; then
-			echo_msg "  Linting UMD"
+	# if [[ $FILE == *"searchPanes"* ]]; then
+	# 	echo_msg "  Skipping lint of SearchPanes"
+	# else
+	# 	if [ -f $ESLINT ]; then
+	# 		echo_msg "  Linting UMD"
 
-			$ESLINT "$DIR/$FILE.js"
-		else
-			echo "No ESLint"
-		fi
-	fi
+	# 		$ESLINT "$DIR/$FILE.js"
+	# 	else
+	# 		echo "No ESLint"
+	# 	fi
+	# fi
 }
 
 

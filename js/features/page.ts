@@ -1,10 +1,10 @@
 
-import register from './index';
+import register from './register';
 import { renderer } from '../core/support';
 import { pageChange } from '../core/page';
 import { bindAction } from '../core/support';
 import { range } from '../core/internal';
-import ext from '../ext';
+import ext from '../ext/index';
 
 // opts
 // - type - button configuration

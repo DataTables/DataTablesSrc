@@ -408,7 +408,7 @@ const defaults = {
 	 */
 	"fnStateLoadCallback": function ( settings: Settings ) {
 		try {
-			let state = (settings.iStateDuration === -1 ? sessionStorage : localStorage).getItem(
+			const state = (settings.iStateDuration === -1 ? sessionStorage : localStorage).getItem(
 				'DataTables_'+settings.sInstance+'_'+location.pathname
 			);
 
@@ -864,4 +864,4 @@ const defaults = {
 
 hungarianMap( defaults );
 
-export default { defaults };
+export default defaults;

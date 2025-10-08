@@ -10,19 +10,19 @@ import { sortingClasses } from "./sort";
 import { initialise } from "./init";
 import defaults from '../model/defaults';
 import columnDefaults from '../model/columns/defaults';
-import settings from '../model/settings';
-import ext from '../ext';
+import Settings from '../model/settings';
+import ext from '../ext/index';
 import util from '../api/util';
 
-export default function (_that, oInit, emptyInit) {
+export default function (tableEl, _that, oInit, emptyInit) {
 	var i=0, iLen;
-	var sId = this.getAttribute( 'id' );
-	var $this = $(this);
+	var sId = tableEl.getAttribute( 'id' );
+	var $this = $(tableEl);
 
 	// Sanity check
-	if ( this.nodeName.toLowerCase() != 'table' )
+	if ( tableEl.nodeName.toLowerCase() != 'table' )
 	{
-		log( null, 0, 'Non-table node initialisation ('+this.nodeName+')', 2 );
+		log( null, 0, 'Non-table node initialisation ('+tableEl.nodeName+')', 2 );
 		return;
 	}
 
@@ -54,9 +54,9 @@ export default function (_that, oInit, emptyInit) {
 
 		/* Base check on table node */
 		if (
-			s.nTable == this ||
-			(s.nTHead && s.nTHead.parentNode == this) ||
-			(s.nTFoot && s.nTFoot.parentNode == this)
+			s.nTable == tableEl ||
+			(s.nTHead && s.nTHead.parentNode == tableEl) ||
+			(s.nTFoot && s.nTFoot.parentNode == tableEl)
 		) {
 			var bRetrieve = oInit.bRetrieve !== undefined ? oInit.bRetrieve : (defaults as any).bRetrieve;
 			var bDestroy = oInit.bDestroy !== undefined ? oInit.bDestroy : (defaults as any).bDestroy;
@@ -82,7 +82,7 @@ export default function (_that, oInit, emptyInit) {
 		* instance by simply deleting it. This is under the assumption that the table has been
 		* destroyed by other methods. Anyone using non-id selectors will need to do this manually
 		*/
-		if ( s.sTableId == this.id )
+		if ( s.sTableId == tableEl.id )
 		{
 			allSettings.splice( i, 1 );
 			break;
@@ -93,23 +93,23 @@ export default function (_that, oInit, emptyInit) {
 	if ( sId === null || sId === "" )
 	{
 		sId = "DataTables_Table_"+(ext._unique++);
-		this.id = sId;
+		tableEl.id = sId;
 	}
 
 	// Replacing an existing colgroup with our own. Not ideal, but a merge could take a lot of code
 	$this.children('colgroup').remove();
 
 	/* Create the settings object for this table and set some of the default parameters */
-	var oSettings: any = $.extend( true, {}, settings, {
+	var oSettings: any = $.extend( true, {}, new Settings(), {
 		"sDestroyWidth": $this[0].style.width,
 		"sInstance":     sId,
 		"sTableId":      sId,
-		colgroup: $('<colgroup>').prependTo(this),
+		colgroup: $('<colgroup>').prependTo(tableEl),
 		fastData: function (row, column, type) {
 			return getCellData(oSettings, row, column, type);
 		}
 	} );
-	oSettings.nTable = this;
+	oSettings.nTable = tableEl;
 	oSettings.oInit  = oInit;
 
 	allSettings.push( oSettings );
@@ -245,7 +245,7 @@ export default function (_that, oInit, emptyInit) {
 	* See if we should load columns automatically or use defined ones
 	*/
 	var columnsInit: any[] = [];
-	var thead = this.getElementsByTagName('thead');
+	var thead = tableEl.getElementsByTagName('thead');
 	var initHeaderLayout = detectHeader( oSettings, thead[0], false );
 
 	// If we don't have a columns array, then generate one with nulls
@@ -278,27 +278,27 @@ export default function (_that, oInit, emptyInit) {
 			return cell.getAttribute( 'data-'+name ) !== null ? name : null;
 		};
 
-		$( rowOne[0] ).children('th, td').each( function (i, cell) {
-			var col = oSettings.aoColumns[i];
+		$( rowOne[0] ).children('th, td').each( function (loop, cell) {
+			var col = oSettings.aoColumns[loop];
 
 			if (! col) {
 				log( oSettings, 0, 'Incorrect column count', 18 );
 			}
 
-			if ( col.mData === i ) {
+			if ( col.mData === loop ) {
 				var sort = a( cell, 'sort' ) || a( cell, 'order' );
 				var filter = a( cell, 'filter' ) || a( cell, 'search' );
 
 				if ( sort !== null || filter !== null ) {
 					col.mData = {
-						_:      i+'.display',
-						sort:   sort !== null   ? i+'.@data-'+sort   : undefined,
-						type:   sort !== null   ? i+'.@data-'+sort   : undefined,
-						filter: filter !== null ? i+'.@data-'+filter : undefined
+						_:      loop+'.display',
+						sort:   sort !== null   ? loop+'.@data-'+sort   : undefined,
+						type:   sort !== null   ? loop+'.@data-'+sort   : undefined,
+						filter: filter !== null ? loop+'.@data-'+filter : undefined
 					};
 					col._isArrayHost = true;
 
-					columnOptions( oSettings, i );
+					columnOptions( oSettings, loop );
 				}
 			}
 		} );

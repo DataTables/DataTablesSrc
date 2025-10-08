@@ -97,8 +97,8 @@ export function register(name, prop, val?) {
 		};
 	}
 
-	var setProp = function(prop, propVal) {
-		store[prop][name] = propVal;
+	var setProp = function(prop2, propVal) {
+		store[prop2][name] = propVal;
 	};
 	var setDetect = function (detect) {
 		// `detect` can be a function or an object - we set a name
@@ -219,7 +219,7 @@ register('string', {
 
 register('string-utf8', {
 	detect: {
-		allOf: function ( d ) {
+		allOf: function () {
 			return true;
 		},
 		oneOf: function ( d ) {

@@ -1,15 +1,25 @@
 {
 	"compilerOptions": {
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"target": "ES2022",
+        "target": "ES5",
+        "module": "ES6",
+        "lib": ["es2017", "es2016", "dom"],
+        "allowUnreachableCode": true,
+        "allowSyntheticDefaultImports": true,
+        "pretty": true,
+        "declaration": true,
 		"noImplicitAny": false,
 		"strictNullChecks": true,
 		"strictFunctionTypes": true,
-		"sourceMap": true
+		"skipLibCheck": true,
+		"outDir": "dist"
 	},
+    "files": [
+        "js/dataTables.ts"
+    ],
 	"exclude": [
 		"node_modules",
-		"**/node_modules/*"
+		"**/node_modules/*",
+		"extensions",
+		"examples"
 	]
 }

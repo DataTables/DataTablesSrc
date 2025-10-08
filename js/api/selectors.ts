@@ -3,7 +3,7 @@ import { unique, range } from "../core/internal";
 import { dataSource } from "../core/support";
 import { sort } from "../core/sort";
 import Api from "./base";
-import ext from "../ext";
+import ext from "../ext/index";
 
 export function selector_run( type, selector, selectFn, settings, opts )
 {
@@ -32,10 +32,10 @@ export function selector_run( type, selector, selectFn, settings, opts )
 	}
 
 	// selector extensions
-	var ext = ext.selector[ type ];
-	if ( ext.length ) {
-		for ( i=0, iLen=ext.length ; i<iLen ; i++ ) {
-			out = ext[i]( settings, opts, out );
+	var extSelectors = ext.selector[ type ];
+	if ( extSelectors.length ) {
+		for ( i=0, iLen=extSelectors.length ; i<iLen ; i++ ) {
+			out = extSelectors[i]( settings, opts, out );
 		}
 	}
 
