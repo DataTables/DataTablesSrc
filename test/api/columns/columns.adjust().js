@@ -49,7 +49,7 @@ describe('columns- columns.adjust()', function () {
 		it('Adding long text causes a wordwrap', function () {
 			table
 				.cell(2, 3)
-				.data('this is the test case')
+				.data('a long test case')
 				.draw();
 
 			expect($(table.row(2).node()).height()).toBeGreaterThan(
