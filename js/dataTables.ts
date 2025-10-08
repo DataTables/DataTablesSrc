@@ -11,6 +11,7 @@ import { camelToHungarian } from "./core/compat";
 import util from './api/util';
 import Api from './api/index';
 import registerFeature from './features/index';
+import { browser } from './core/compat';
 
 // TODO typing
 var DataTable: any = function ( selector, options )
@@ -72,6 +73,7 @@ DataTable.camelToHungarian = camelToHungarian;
 DataTable.util = util;
 DataTable.Api = Api;
 DataTable.datetime = datetime;
+DataTable.__browser = browser;
 
 /**
  * Version string for plug-ins to check compatibility. Allowed format is

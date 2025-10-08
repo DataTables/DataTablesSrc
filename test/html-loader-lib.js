@@ -228,7 +228,7 @@
 		},
 
 		clean: function () {
-			if ($ && $.fn.dataTableSettings) {
+			if (window.$ && $.fn.dataTableSettings) {
 				// If there are any DataTables, destroy them.
 				while(DataTable.settings.length) {
 					new DataTable.Api(DataTable.settings[0]).destroy();
@@ -236,7 +236,7 @@
 			}
 
 			var el = document.getElementById('dt-test-loader-container');
-			if (el && $) {
+			if (el && window.$) {
 				$(el).remove(); // jQuery to nuke events
 			} else if (el) {
 				document.body.removeChild(el);
@@ -252,13 +252,13 @@
 				document.body.removeChild(el);
 			});
 
-			if ($ && $.fn.dataTableSettings && $.fn.dataTableSettings.length) {
+			if (window.$ && $.fn.dataTableSettings && $.fn.dataTableSettings.length) {
 				$.fn.dataTableSettings.length = 0;
 			}
 
 			// Remove the detected browser settings so they can be recomputed
-			if ($ && $.fn.dataTable) {
-				$.fn.dataTable.__browser = undefined;
+			if (window.$ && $.fn.dataTable) {
+				$.fn.dataTable.__browser.barWidth = -1;
 			}
 
 			dt.scrollTop(0);

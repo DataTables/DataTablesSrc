@@ -1,7 +1,7 @@
 import Context from '../model/settings';
 import searchModel from '../model/search';
 
-const __browser = {
+export const browser = {
 	barWidth: -1,
 	bScrollbarLeft: false
 };
@@ -180,7 +180,7 @@ export function browserDetect(ctx: Context) {
 	// We don't need to do this every time DataTables is constructed, the values
 	// calculated are specific to the browser and OS configuration which we
 	// don't expect to change between initialisations
-	if (__browser.barWidth === -1) {
+	if (browser.barWidth === -1) {
 		// Scrolling feature / quirks detection
 		var n = $('<div/>')
 			.css({
@@ -212,12 +212,12 @@ export function browserDetect(ctx: Context) {
 		var outer = n.children();
 		var inner = outer.children();
 
-		__browser.barWidth = outer[0].offsetWidth - outer[0].clientWidth;
-		__browser.bScrollbarLeft = Math.round(inner.offset()!.left) !== 1;
+		browser.barWidth = outer[0].offsetWidth - outer[0].clientWidth;
+		browser.bScrollbarLeft = Math.round(inner.offset()!.left) !== 1;
 
 		n.remove();
 	}
 
-	$.extend(ctx.oBrowser, __browser);
-	ctx.oScroll.iBarWidth = __browser.barWidth;
+	$.extend(ctx.oBrowser, browser);
+	ctx.oScroll.iBarWidth = browser.barWidth;
 }
