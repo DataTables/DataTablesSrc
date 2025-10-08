@@ -90,10 +90,18 @@ describe("core - ajax.reload()", function() {
 	describe("Functional tests - callback", function() {
 		dt.html("basic");
 		it("Setup table", function(done) {
+			var finished = false;
+
 			table = $("#example").DataTable({
 				ajax: function(data, callback, settings) {
 					callback({ data: [[new Date().getTime(), "2", "3", "4", "5", "6"]] });
-					done();
+
+					// Need a flag to only call done once, since it is called on each
+					// ajax call (i.e. after the reload below)
+					if (! finished) {
+						done();
+						finished = true;
+					}
 				}
 			});
 		});
