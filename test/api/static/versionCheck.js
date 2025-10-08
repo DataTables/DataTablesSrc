@@ -18,7 +18,7 @@ describe( 'Static method - versionCheck', function() {
 	} );
 
 	it( 'Check against current version of DataTables - high', function () {
-		expect( $.fn.dataTable.versionCheck( '3.0.0' ) ).toBe( false );
+		expect( $.fn.dataTable.versionCheck( '9.0.0' ) ).toBe( false );
 	} );
 
 	it( 'Check custom version - low', function () {
