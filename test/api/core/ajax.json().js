@@ -41,15 +41,13 @@ describe('core - ajax.json()', function () {
 			expect(data.data.length).toBe(57);
 			expect(data.data[2].name).toBe('Ashton Cox');
 		});
-		it('Change URL and confirm it gets the new data', async function (done) {
+		it('Change URL and confirm it gets the new data', async function () {
 			table.ajax.url('/base/test/data/data_small.txt').load();
 			await dt.sleep(1000);
 
 			data = table.ajax.json();
 			expect(data.data.length).toBe(2);
 			expect(data.data[1].name).toBe('Winter Jenkins');
-
-			done();
 		});
 
 		dt.html('empty');

@@ -24,13 +24,12 @@ describe('stateDuration Option', function() {
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
 		});
 		dt.html('basic');
-		it('... and after 2 seconds', async function(done) {
+		it('... and after 2 seconds', async function() {
 			await dt.sleep(2000);
 			table = $('#example').DataTable({
 				stateSave: true
 			});
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
-			done();
 		});
 
 		dt.html('basic');
@@ -51,14 +50,13 @@ describe('stateDuration Option', function() {
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
 		});
 		dt.html('basic');
-		it('... but not after 2 seconds', async function(done) {
+		it('... but not after 2 seconds', async function() {
 			await dt.sleep(2000);
 			table = $('#example').DataTable({
 				stateSave: true,
 				stateDuration: 1
 			});
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
-			done();
 		});
 
 		dt.html('basic');

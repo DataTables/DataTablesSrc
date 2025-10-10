@@ -48,11 +48,10 @@ describe('searchDelay Option', function() {
 
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
-		it('But has effect after timeout', async function(done) {
+		it('But has effect after timeout', async function() {
 			await dt.sleep(3000);
 
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Gavin Cortez');
-			done();
 		});
 	});
 });

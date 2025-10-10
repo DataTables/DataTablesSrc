@@ -46,6 +46,8 @@ describe('columns.width option', function() {
 			var a3 = anThs[3].offsetWidth;
 			var a4 = anThs[4].offsetWidth;
 
+			console.log(a0, a1, a2, a3, a4);
+
 			expect(a3 > a0).toBe(true);
 			expect(a3 > a1).toBe(true);
 			expect(a3 > a2).toBe(true);
