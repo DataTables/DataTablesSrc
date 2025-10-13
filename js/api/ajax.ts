@@ -1,7 +1,7 @@
 
 
 import Api from "./base";
-import { dataSource } from "../core/support";
+import { dataSource } from "../util/support";
 import { processingDisplay } from "../core/processing";
 import { reDraw } from "../core/draw";
 import { buildAjax, ajaxDataSrc } from "../core/ajax";

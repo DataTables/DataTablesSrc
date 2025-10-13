@@ -30,23 +30,25 @@ export default defineConfig([
 			],
 
 			'no-shadow': 'error',
+			'prefer-const': 'off',
+			'@typescript-eslint/no-unsafe-call': 'warn'
 
 			// Todo
-			'no-global-assign': 'off',
-			'prefer-rest-params': 'off',
-			'no-useless-escape': 'off',
-			'no-var': 'off',
-			'prefer-spread': 'off',
-			'@typescript-eslint/no-explicit-any': 'off',
-			'@typescript-eslint/no-unsafe-function-type': 'off',
-			'@typescript-eslint/no-this-alias': 'off',
-			'@typescript-eslint/no-unused-vars': [
-				'error',
-				{
-					args: 'none',
-					caughtErrors: 'none'
-				}
-			],
+			// 'no-global-assign': 'off',
+			// 'prefer-rest-params': 'off',
+			// 'no-useless-escape': 'off',
+			// 'no-var': 'off',
+			// 'prefer-spread': 'off',
+			// '@typescript-eslint/no-explicit-any': 'off',
+			// '@typescript-eslint/no-unsafe-function-type': 'off',
+			// '@typescript-eslint/no-this-alias': 'off',
+			// '@typescript-eslint/no-unused-vars': [
+			// 	'error',
+			// 	{
+			// 		args: 'none',
+			// 		caughtErrors: 'none'
+			// 	}
+			// ],
 		}
 	}
 ]);

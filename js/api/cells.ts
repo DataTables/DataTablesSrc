@@ -1,7 +1,7 @@
 
 import Api from "./base";
 import { selector_row_indexes, selector_run, selector_opts, selector_first } from "./selectors";
-import { removeEmpty, pluck_order, flatten } from "../core/internal";
+import { removeEmpty, pluck_order, flatten } from "../util/internal";
 import { getCellData, invalidate, setCellData } from "../core/data";
 import { columnIndexToVisible } from "../core/columns";
 

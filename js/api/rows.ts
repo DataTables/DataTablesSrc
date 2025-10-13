@@ -1,10 +1,10 @@
 
 import Api from "./base";
-import { intVal, removeEmpty, pluck_order } from "../core/internal";
+import { intVal, removeEmpty, pluck_order } from "../util/internal";
 import { selector_row_indexes, selector_run, selector_opts, selector_first } from "./selectors";
 import { sortDisplay } from "../core/sort";
 import { invalidate } from "../core/data";
-import { lengthOverflow, arrayApply } from "../core/support";
+import { lengthOverflow, arrayApply } from "../util/support";
 import { addTr, addData } from "../core/data";
 import util from "./util";
 

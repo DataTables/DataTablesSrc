@@ -1,7 +1,7 @@
 
-import { log, callbackFire, dataSource, renderer, escapeObject } from './support';
+import { log, callbackFire, dataSource, renderer, escapeObject } from '../util/support';
 import { getCellData, getDataMaster, writeCell } from './data';
-import { addClass, unique, pluck, range, stripHtml } from './internal';
+import { addClass, unique, pluck, range, stripHtml } from '../util/internal';
 import { processingDisplay } from './processing';
 import { ajaxUpdate } from './ajax';
 import { visibleColumns, columnTypes, columnOptions } from './columns';

@@ -1,5 +1,5 @@
 import Context from '../model/settings';
-import {escapeHtml} from '../core/internal';
+import {escapeHtml} from './internal';
 import ext from '../ext/index';
 
 /**

@@ -1,7 +1,7 @@
 
 import Context from '../model/settings';
-import { pluck } from './internal';
-import { log } from './support';
+import { pluck } from '../util/internal';
+import { log } from '../util/support';
 import { createTr } from './draw';
 import { getRowDisplay, rowAttributes } from './draw';
 import ext from '../ext/index';

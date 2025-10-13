@@ -1,8 +1,8 @@
 
 import Api from "./base";
-import { log, callbackFire } from "../core/support";
+import { log, callbackFire } from "../util/support";
 import { clearTable } from "../core/data";
-import { pluck } from "../core/internal";
+import { pluck } from "../util/internal";
 import { sortingClasses } from "../core/sort";
 import ext from "../ext/index";
 import util from "./util";

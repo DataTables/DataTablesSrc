@@ -1,7 +1,7 @@
 
 import Api from "../api/base";
 import { camelToHungarian, compatCols, compatOpts, browserDetect } from "./compat";
-import { escapeObject, listener, log, extend, map, callbackReg, dataSource, callbackFire } from "./support";
+import { escapeObject, listener, log, extend, map, callbackReg, dataSource, callbackFire } from "../util/support";
 import { getCellData } from "./data";
 import { detectHeader } from "./draw";
 import { addColumn, columnOptions, applyColumnDefs } from "./columns";

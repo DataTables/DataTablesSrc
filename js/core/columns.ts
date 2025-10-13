@@ -1,11 +1,11 @@
 
 import Context from '../model/settings';
 import { compatCols, camelToHungarian } from './compat';
-import { map, callbackFire } from './support';
+import { map, callbackFire } from '../util/support';
 import { calculateColumnWidths } from './sizing';
 import { scrollDraw } from './scrolling';
 import { getCellData, writeCell } from './data';
-import { addClass, empty } from './internal';
+import { addClass, empty } from '../util/internal';
 import util from '../api/util';
 import ColumnModel from '../model/columns/settings';
 import columnDefaults from '../model/columns/defaults';

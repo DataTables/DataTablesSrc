@@ -1,5 +1,5 @@
 
-import { numToDecimal, empty, isNumber, htmlNumeric, re_html, re_formatted_numeric } from "../core/internal";
+import { numToDecimal, empty, isNumber, htmlNumeric, re_html, re_formatted_numeric } from "../util/internal";
 import util from '../api/util';
 
 export const store = {

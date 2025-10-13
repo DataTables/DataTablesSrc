@@ -1,6 +1,6 @@
 
 import register from './register';
-import { macros } from '../core/support';
+import { macros } from '../util/support';
 import { processingRun } from '../core/processing';
 import { filterComplete } from '../core/filter';
 import { draw } from '../core/draw';

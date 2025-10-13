@@ -1,9 +1,9 @@
 
 import register from './register';
-import { renderer } from '../core/support';
+import { renderer } from '../util/support';
 import { pageChange } from '../core/page';
-import { bindAction } from '../core/support';
-import { range } from '../core/internal';
+import { bindAction } from '../util/support';
+import { range } from '../util/internal';
 import ext from '../ext/index';
 
 // opts

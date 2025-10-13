@@ -1,6 +1,6 @@
 
-import { pluck, unique } from "../core/internal";
-import { arrayApply } from "../core/support";
+import { pluck, unique } from "../util/internal";
+import { arrayApply } from "../util/support";
 import { selector_row_indexes } from "./selectors";
 import ext from '../ext/index';
 import util from '../api/util';

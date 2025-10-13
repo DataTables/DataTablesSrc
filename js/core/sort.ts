@@ -1,8 +1,8 @@
 
-import { bindAction, dataSource, callbackFire } from './support';
+import { bindAction, dataSource, callbackFire } from '../util/support';
 import { processingRun } from './processing';
 import Context from '../model/settings';
-import { pluck } from './internal';
+import { pluck } from '../util/internal';
 import ext from '../ext/index';
 import { columnIndexToVisible, columnTypes, columnsFromHeader } from './columns';
 import { getCellData } from './data';

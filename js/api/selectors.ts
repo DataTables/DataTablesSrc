@@ -1,6 +1,6 @@
 
-import { unique, range } from "../core/internal";
-import { dataSource } from "../core/support";
+import { unique, range } from "../util/internal";
+import { dataSource } from "../util/support";
 import { sort } from "../core/sort";
 import Api from "./base";
 import ext from "../ext/index";

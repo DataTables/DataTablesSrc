@@ -1,6 +1,6 @@
 
 import { processingDisplay } from './processing';
-import {log, callbackFire} from './support';
+import {log, callbackFire} from '../util/support';
 import Context from '../model/settings';
 import { initComplete } from './init';
 import { sortFlatten } from './sort';

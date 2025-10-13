@@ -1,7 +1,7 @@
 
 import Api from "./base";
-import { callbackFire } from "../core/support";
-import { pluck } from "../core/internal";
+import { callbackFire } from "../util/support";
+import { pluck } from "../util/internal";
 import { visibleColumns } from "../core/columns";
 import { saveState } from "../core/state";
 import util from './util';

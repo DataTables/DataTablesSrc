@@ -2,7 +2,7 @@
 import register from './register';
 import { lengthChange } from '../core/length';
 import { draw } from '../core/draw';
-import { macros } from '../core/support';
+import { macros } from '../util/support';
 
 var __lengthCounter = 0;
 

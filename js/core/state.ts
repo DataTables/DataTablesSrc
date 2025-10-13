@@ -1,8 +1,8 @@
 
-import { pluck } from './internal';
+import { pluck } from '../util/internal';
 import { pageChange } from './page';
 import { sortResolve } from './sort';
-import {callbackFire} from './support';
+import {callbackFire} from '../util/support';
 import Context from '../model/settings';
 import Api from '../api/base';
 

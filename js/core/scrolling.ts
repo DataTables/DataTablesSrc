@@ -2,7 +2,7 @@
 import Context from '../model/settings';
 import { adjustColumnSizing } from './columns';
 import { stringToCss } from './sizing';
-import { dataSource } from './support';
+import { dataSource } from '../util/support';
 import { visibleToColumnIndex } from './columns';
 
 /**

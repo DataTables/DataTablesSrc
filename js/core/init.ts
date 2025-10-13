@@ -1,7 +1,7 @@
 import Context from '../model/settings';
-import { callbackFire } from './support';
+import { callbackFire } from '../util/support';
 import { processingDisplay } from './processing';
-import { dataSource } from './support';
+import { dataSource } from '../util/support';
 import { loadState } from './state';
 import { sortInit } from './sort';
 import { buildAjax, ajaxDataSrc } from './ajax';

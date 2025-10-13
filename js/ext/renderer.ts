@@ -1,5 +1,5 @@
 
-import { pluck } from "../core/internal";
+import { pluck } from "../util/internal";
 
 export default {
 	footer: {

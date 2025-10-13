@@ -4,7 +4,7 @@ import helpers, {datetime} from './ext/helpers';
 import models from './model/index';
 import defaults from './model/defaults';
 import construct from './core/constructor';
-import { extend } from './core/support';
+import { extend } from './util/support';
 import ext from './ext/index';
 import * as apiStatic from './api/static';
 import { camelToHungarian } from "./core/compat";

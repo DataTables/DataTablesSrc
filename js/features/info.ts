@@ -1,6 +1,6 @@
 
 import register from './register';
-import { macros, callbackFire } from '../core/support';
+import { macros, callbackFire } from '../util/support';
 
 register( 'info', function ( settings, opts ) {
 	// For compatibility with the legacy `info` top level option

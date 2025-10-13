@@ -2,7 +2,7 @@
 import Api from "./base";
 import { pageChange } from "../core/page";
 import { lengthChange } from "../core/length";
-import { dataSource } from "../core/support";
+import { dataSource } from "../util/support";
 
 /**
  * Get the current page index.

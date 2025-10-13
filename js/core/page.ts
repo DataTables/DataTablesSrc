@@ -1,6 +1,6 @@
 import Context from '../model/settings';
-import {log} from './support';
-import {callbackFire} from './support';
+import {log} from '../util/support';
+import {callbackFire} from '../util/support';
 import {draw} from './draw';
 
 /**

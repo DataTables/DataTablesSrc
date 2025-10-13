@@ -1,5 +1,5 @@
 
-import {dataSource} from '../core/support';
+import {dataSource} from '../util/support';
 import ColumnSettings from './columns/settings';
 import Row from './row';
 import Search from './search';

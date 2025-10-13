@@ -1,7 +1,7 @@
 
 import Context from '../model/settings';
-import { stripHtml } from './internal';
-import {callbackFire} from './support';
+import { stripHtml } from '../util/internal';
+import {callbackFire} from '../util/support';
 import { columnsSumWidth, getColumns } from './columns';
 import { adjustColumnSizing } from './columns';
 import { getRowDisplay } from './draw';

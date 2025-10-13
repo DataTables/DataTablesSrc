@@ -1,5 +1,5 @@
 
-import { arrayApply } from "../core/support";
+import { arrayApply } from "../util/support";
 import Api from "./base";
 import { headerLayout } from "../core/draw";
 

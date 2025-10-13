@@ -1,13 +1,13 @@
 
 import Api from "./base";
 import { getCellData } from "../core/data";
-import { intVal, range, pluck, pluck_order } from "../core/internal";
+import { intVal, range, pluck, pluck_order } from "../util/internal";
 import { selector_row_indexes, selector_run, selector_opts, selector_first } from "./selectors";
 import { columnIndexToVisible, visibleToColumnIndex, columnsFromHeader, columnTypes, visibleColumns, adjustColumnSizing } from "../core/columns";
 import { colGroup } from "../core/sizing";
 import { drawHead } from "../core/draw";
 import { saveState } from "../core/state";
-import { callbackFire } from "../core/support";
+import { callbackFire } from "../util/support";
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Columns
