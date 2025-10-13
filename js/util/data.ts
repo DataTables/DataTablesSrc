@@ -1,6 +1,6 @@
 import * as is from './is';
 import * as iterator from './iterator';
-import {PlainObject, GetFunction, JSON} from './types';
+import {PlainObject, GetFunction, SetFunction} from './types';
 
 // Private variable that is used to match action syntax in the data property object
 const __reArray = /\[.*?\]$/;
@@ -43,7 +43,9 @@ export function get(dataPoint: string | number | null | GetFunction | PlainObjec
 	}
 	else if (
 		typeof dataPoint === 'string' &&
-		(dataPoint.indexOf('.') !== -1 || dataPoint.indexOf('[') !== -1 || dataPoint.indexOf('(') !== -1)
+		(dataPoint.indexOf('.') !== -1 ||
+			dataPoint.indexOf('[') !== -1 ||
+			dataPoint.indexOf('(') !== -1)
 	) {
 		/* If there is a . in the source string then the data source is in a
 		 * nested object so we loop over the data for each level to get the next
@@ -148,16 +150,8 @@ export function get(dataPoint: string | number | null | GetFunction | PlainObjec
  *
  * @param dataPoint The data point to write to
  */
-export function set(dataPoint) {
-	if (is.plainObject(dataPoint)) {
-		/* Unlike get, only the underscore (global) option is used for for
-		 * setting data since we don't know the type here. This is why an object
-		 * option is not documented for `mData` (which is read/write), but it is
-		 * for `mRender` which is read only.
-		 */
-		return set(dataPoint._);
-	}
-	else if (dataPoint === null) {
+export function set(dataPoint: string | number | null | GetFunction | PlainObject): SetFunction {
+	if (dataPoint === null) {
 		// Nothing to do when the data source is null
 		return function () {};
 	}
@@ -168,10 +162,12 @@ export function set(dataPoint) {
 	}
 	else if (
 		typeof dataPoint === 'string' &&
-		(dataPoint.indexOf('.') !== -1 || dataPoint.indexOf('[') !== -1 || dataPoint.indexOf('(') !== -1)
+		(dataPoint.indexOf('.') !== -1 ||
+			dataPoint.indexOf('[') !== -1 ||
+			dataPoint.indexOf('(') !== -1)
 	) {
 		// Like the get, we need to get data from a nested object
-		let setData = function (data, val, src) {
+		let setData: SetFunction = function (data, val, src) {
 			let a = splitObjNotation(src),
 				b;
 			let aLast = a[a.length - 1];
@@ -246,11 +242,19 @@ export function set(dataPoint) {
 			return setData(data, val, dataPoint);
 		};
 	}
+	else if (is.plainObject(dataPoint)) {
+		/* Unlike get, only the underscore (global) option is used for for
+		 * setting data since we don't know the type here. This is why an object
+		 * option is not documented for `mData` (which is read/write), but it is
+		 * for `mRender` which is read only.
+		 */
+		return set((dataPoint as PlainObject)._ as string);
+	}
 	else {
 		// Array or flat object mapping
 		return function (data, val) {
 			// meta is also passed in, but not used
-			data[dataPoint] = val;
+			data[dataPoint as string | number] = val;
 		};
 	}
 }
