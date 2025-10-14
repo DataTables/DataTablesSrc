@@ -1,13 +1,13 @@
 
-import { processingDisplay } from './processing';
-import {log, callbackFire} from '../util/support';
-import Context from '../model/settings';
-import { initComplete } from './init';
-import { sortFlatten } from './sort';
-import { clearTable, addData } from './data';
-import { columnTypes } from './columns';
+import { callbackFire, log } from '../api/support';
 import util from '../api/util';
+import Context from '../model/settings';
+import { columnTypes } from './columns';
+import { addData, clearTable } from './data';
 import { draw } from './draw';
+import { initComplete } from './init';
+import { processingDisplay } from './processing';
+import { sortFlatten } from './sort';
 
 /**
  * Create an Ajax call based on the table's settings, taking into account that

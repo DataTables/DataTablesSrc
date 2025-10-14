@@ -1,5 +1,5 @@
 
-import {callbackFire} from '../util/support';
+import { callbackFire } from '../api/support';
 import Context from '../model/settings';
 
 /**

@@ -1,12 +1,12 @@
 
 
-import Api from "./base";
-import { dataSource } from "../util/support";
-import { processingDisplay } from "../core/processing";
-import { reDraw } from "../core/draw";
-import { buildAjax, ajaxDataSrc } from "../core/ajax";
+import { ajaxDataSrc, buildAjax } from "../core/ajax";
 import { addData, clearTable } from "../core/data";
+import { reDraw } from "../core/draw";
 import { initComplete } from "../core/init";
+import { processingDisplay } from "../core/processing";
+import Api from "./base";
+import { dataSource } from "./support";
 
 var __reload = function ( settings, holdPosition, callback ) {
 	// Use the draw event to trigger a callback

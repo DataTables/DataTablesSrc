@@ -1,6 +1,6 @@
-import Context from '../model/settings';
-import {escapeHtml} from './internal';
 import ext from '../ext/index';
+import Context from '../model/settings';
+import { escapeHtml } from '../util/string';
 
 /**
  * Log an error message

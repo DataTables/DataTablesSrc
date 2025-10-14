@@ -1,10 +1,10 @@
 
-import Api from "./base";
-import { log, callbackFire } from "../util/support";
 import { clearTable } from "../core/data";
-import { pluck } from "../util/internal";
 import { sortingClasses } from "../core/sort";
 import ext from "../ext/index";
+import { pluck } from "../util/array";
+import Api from "./base";
+import { callbackFire, log } from "./support";
 import util from "./util";
 
 /**

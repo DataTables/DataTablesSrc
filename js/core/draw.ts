@@ -1,15 +1,16 @@
 
-import { log, callbackFire, dataSource, renderer, escapeObject } from '../util/support';
-import { getCellData, getDataMaster, writeCell } from './data';
-import { addClass, unique, pluck, range, stripHtml } from '../util/internal';
-import { processingDisplay } from './processing';
-import { ajaxUpdate } from './ajax';
-import { visibleColumns, columnTypes, columnOptions } from './columns';
-import { sort } from './sort';
-import { filterComplete } from './filter';
-import { featureHtmlTable } from './scrolling';
-import { processingHtml } from './processing';
+import { callbackFire, dataSource, escapeObject, log, renderer } from '../api/support';
 import ext from '../ext/index';
+import { pluck, range, unique } from '../util/array';
+import { addClass } from '../util/internal';
+import { stripHtml } from '../util/string';
+import { ajaxUpdate } from './ajax';
+import { columnOptions, columnTypes, visibleColumns } from './columns';
+import { getCellData, getDataMaster, writeCell } from './data';
+import { filterComplete } from './filter';
+import { processingDisplay, processingHtml } from './processing';
+import { featureHtmlTable } from './scrolling';
+import { sort } from './sort';
 
 /**
  * Render and cache a row's display data for the columns, if required

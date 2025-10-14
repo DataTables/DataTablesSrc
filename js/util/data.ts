@@ -1,6 +1,6 @@
 import * as is from './is';
 import * as iterator from './iterator';
-import {PlainObject, GetFunction, SetFunction} from './types';
+import { GetFunction, PlainObject, SetFunction } from './types';
 
 // Private variable that is used to match action syntax in the data property object
 const __reArray = /\[.*?\]$/;
@@ -117,7 +117,7 @@ export function get(dataPoint: string | number | null | GetFunction | PlainObjec
 
 		return function (data, type) {
 			// row and meta also passed, but not used
-			return fetchData(data, type, dataPoint);
+			return fetchData(data, type!, dataPoint);
 		};
 	}
 	else if (is.plainObject(dataPoint)) {
@@ -131,7 +131,7 @@ export function get(dataPoint: string | number | null | GetFunction | PlainObjec
 		});
 
 		return function (data, type, row, meta) {
-			let t = o[type] || o._;
+			let t = o[type!] || o._;
 
 			return t !== undefined ? t(data, type, row, meta) : data;
 		};

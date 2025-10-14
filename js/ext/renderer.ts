@@ -1,5 +1,5 @@
 
-import { pluck } from "../util/internal";
+import { pluck } from "../util/array";
 
 export default {
 	footer: {

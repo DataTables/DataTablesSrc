@@ -1,10 +1,10 @@
 
-import register from './register';
-import { macros } from '../util/support';
-import { processingRun } from '../core/processing';
-import { filterComplete } from '../core/filter';
-import { draw } from '../core/draw';
+import { macros } from '../api/support';
 import util from '../api/util';
+import { draw } from '../core/draw';
+import { filterComplete } from '../core/filter';
+import { processingRun } from '../core/processing';
+import register from './register';
 
 var __searchCounter = 0;
 

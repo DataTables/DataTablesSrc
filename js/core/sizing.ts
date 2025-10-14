@@ -1,12 +1,11 @@
 
-import Context from '../model/settings';
-import { stripHtml } from '../util/internal';
-import {callbackFire} from '../util/support';
-import { columnsSumWidth, getColumns } from './columns';
-import { adjustColumnSizing } from './columns';
-import { getRowDisplay } from './draw';
+import { callbackFire } from '../api/support';
 import util from '../api/util';
 import ext from '../ext/index';
+import Context from '../model/settings';
+import { stripHtml } from '../util/string';
+import { adjustColumnSizing, columnsSumWidth, getColumns } from './columns';
+import { getRowDisplay } from './draw';
 
 /**
  * Calculate the width of columns for the table

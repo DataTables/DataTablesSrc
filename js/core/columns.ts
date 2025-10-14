@@ -1,17 +1,18 @@
 
-import Context from '../model/settings';
-import { compatCols, camelToHungarian } from './compat';
-import { map, callbackFire } from '../util/support';
-import { calculateColumnWidths } from './sizing';
-import { scrollDraw } from './scrolling';
-import { getCellData, writeCell } from './data';
-import { addClass, empty } from '../util/internal';
+import { callbackFire, map } from '../api/support';
 import util from '../api/util';
-import ColumnModel from '../model/columns/settings';
-import columnDefaults from '../model/columns/defaults';
-import search from '../model/search';
-import ext from '../ext/index';
 import helpers from '../ext/helpers';
+import ext from '../ext/index';
+import columnDefaults from '../model/columns/defaults';
+import ColumnModel from '../model/columns/settings';
+import search from '../model/search';
+import Context from '../model/settings';
+import { addClass } from '../util/internal';
+import { empty } from '../util/is';
+import { camelToHungarian, compatCols } from './compat';
+import { getCellData, writeCell } from './data';
+import { scrollDraw } from './scrolling';
+import { calculateColumnWidths } from './sizing';
 
 /**
  * Add a column to the list used for the table with default values

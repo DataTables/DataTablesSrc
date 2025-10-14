@@ -6,6 +6,7 @@ export default [
 			file: 'dist/dataTables.js',
 			format: 'es'
 		},
-		plugins: []
+		plugins: [],
+		context: 'window' // for TS's __spreadArray
 	}
 ];

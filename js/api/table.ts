@@ -1,7 +1,7 @@
 
-import { arrayApply } from "../util/support";
-import Api from "./base";
 import { headerLayout } from "../core/draw";
+import Api from "./base";
+import { arrayApply } from "./support";
 
 /**
  * Selector for HTML tables. Apply the given selector to the give array of

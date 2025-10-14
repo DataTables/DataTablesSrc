@@ -1,9 +1,9 @@
 
-import Api from "./base";
-import { callbackFire } from "../util/support";
-import { pluck } from "../util/internal";
 import { visibleColumns } from "../core/columns";
 import { saveState } from "../core/state";
+import { pluck } from "../util/array";
+import Api from "./base";
+import { callbackFire } from "./support";
 import util from './util';
 
 $(document).on('plugin-init.dt', function (e, context) {

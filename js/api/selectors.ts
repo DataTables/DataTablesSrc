@@ -1,9 +1,9 @@
 
-import { unique, range } from "../util/internal";
-import { dataSource } from "../util/support";
 import { sort } from "../core/sort";
-import Api from "./base";
 import ext from "../ext/index";
+import { range, unique } from "../util/array";
+import Api from "./base";
+import { dataSource } from "./support";
 
 export function selector_run( type, selector, selectFn, settings, opts )
 {

@@ -1,6 +1,6 @@
 
-import Api from "./base";
 import { implementState, saveState } from "../core/state";
+import Api from "./base";
 
 /*
  * State API methods

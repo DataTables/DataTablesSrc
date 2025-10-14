@@ -1,8 +1,8 @@
 
-import Context from '../model/settings';
-import { arrayApply, callbackFire, dataSource } from '../util/support';
+import { arrayApply, callbackFire, dataSource } from '../api/support';
 import util from '../api/util';
 import ext from '../ext/index';
+import Context from '../model/settings';
 import { getCellData } from './data';
 
 /**

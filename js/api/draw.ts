@@ -1,6 +1,6 @@
 
-import Api from "./base";
 import { draw, reDraw } from "../core/draw";
+import Api from "./base";
 
 /**
  * Redraw the tables in the current context.

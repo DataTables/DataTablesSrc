@@ -1,13 +1,14 @@
 
-import Api from "./base";
+import { adjustColumnSizing, columnIndexToVisible, columnsFromHeader, columnTypes, visibleColumns, visibleToColumnIndex } from "../core/columns";
 import { getCellData } from "../core/data";
-import { intVal, range, pluck, pluck_order } from "../util/internal";
-import { selector_row_indexes, selector_run, selector_opts, selector_first } from "./selectors";
-import { columnIndexToVisible, visibleToColumnIndex, columnsFromHeader, columnTypes, visibleColumns, adjustColumnSizing } from "../core/columns";
-import { colGroup } from "../core/sizing";
 import { drawHead } from "../core/draw";
+import { colGroup } from "../core/sizing";
 import { saveState } from "../core/state";
-import { callbackFire } from "../util/support";
+import { pluck, pluckOrder, range } from "../util/array";
+import { intVal } from "../util/conv";
+import Api from "./base";
+import { selector_first, selector_opts, selector_row_indexes, selector_run } from "./selectors";
+import { callbackFire } from "./support";
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Columns
@@ -333,7 +334,7 @@ Api.registerPlural( 'columns().dataSrc()', 'column().dataSrc()', function () {
 
 Api.registerPlural( 'columns().cache()', 'column().cache()', function ( type ) {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
-		return pluck_order( settings.aoData, rows,
+		return pluckOrder( settings.aoData, rows,
 			type === 'search' ? '_aFilterData' : '_aSortData', column
 		);
 	}, 1 );
@@ -353,7 +354,7 @@ Api.registerPlural( 'columns().names()', 'column().name()', function () {
 
 Api.registerPlural( 'columns().nodes()', 'column().nodes()', function () {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
-		return pluck_order( settings.aoData, rows, 'anCells', column ) ;
+		return pluckOrder( settings.aoData, rows, 'anCells', column ) ;
 	}, 1 );
 } );
 

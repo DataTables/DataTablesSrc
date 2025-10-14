@@ -1,10 +1,10 @@
 
-import { pluck } from '../util/internal';
+import Api from '../api/base';
+import { callbackFire } from '../api/support';
+import Context from '../model/settings';
+import { pluck } from '../util/array';
 import { pageChange } from './page';
 import { sortResolve } from './sort';
-import {callbackFire} from '../util/support';
-import Context from '../model/settings';
-import Api from '../api/base';
 
 /**
  * State information for a table

@@ -1,18 +1,18 @@
 
 import Api from "../api/base";
-import { camelToHungarian, compatCols, compatOpts, browserDetect } from "./compat";
-import { escapeObject, listener, log, extend, map, callbackReg, dataSource, callbackFire } from "../util/support";
+import { callbackFire, callbackReg, dataSource, escapeObject, extend, listener, log, map } from "../api/support";
+import util from '../api/util';
+import ext from '../ext/index';
+import columnDefaults from '../model/columns/defaults';
+import defaults from '../model/defaults';
+import Settings from '../model/settings';
+import { addColumn, applyColumnDefs, columnOptions } from "./columns";
+import { browserDetect, camelToHungarian, compatCols, compatOpts } from "./compat";
 import { getCellData } from "./data";
 import { detectHeader } from "./draw";
-import { addColumn, columnOptions, applyColumnDefs } from "./columns";
-import { saveState } from "./state";
-import { sortingClasses } from "./sort";
 import { initialise } from "./init";
-import defaults from '../model/defaults';
-import columnDefaults from '../model/columns/defaults';
-import Settings from '../model/settings';
-import ext from '../ext/index';
-import util from '../api/util';
+import { sortingClasses } from "./sort";
+import { saveState } from "./state";
 
 export default function (tableEl, _that, oInit, emptyInit) {
 	var i=0, iLen;

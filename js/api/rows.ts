@@ -1,11 +1,11 @@
 
-import Api from "./base";
-import { intVal, removeEmpty, pluck_order } from "../util/internal";
-import { selector_row_indexes, selector_run, selector_opts, selector_first } from "./selectors";
+import { addData, addTr, invalidate } from "../core/data";
 import { sortDisplay } from "../core/sort";
-import { invalidate } from "../core/data";
-import { lengthOverflow, arrayApply } from "../util/support";
-import { addTr, addData } from "../core/data";
+import { pluckOrder, removeEmpty } from "../util/array";
+import { intVal } from "../util/conv";
+import Api from "./base";
+import { selector_first, selector_opts, selector_row_indexes, selector_run } from "./selectors";
+import { arrayApply, lengthOverflow } from "./support";
 import util from "./util";
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -99,7 +99,7 @@ function row_selector( settings, selector, opts )
 		
 		// Get nodes in the order from the `rows` array with null values removed
 		var nodes = removeEmpty(
-			pluck_order( settings.aoData, rows, 'nTr' )
+			pluckOrder( settings.aoData, rows, 'nTr' )
 		);
 
 		// Selector - jQuery selector string, array of nodes or jQuery object/
@@ -154,7 +154,7 @@ Api.register( 'rows().nodes()', function () {
 
 Api.register( 'rows().data()', function () {
 	return this.iterator( true, 'rows', function ( settings, rows ) {
-		return pluck_order( settings.aoData, rows, '_aData' );
+		return pluckOrder( settings.aoData, rows, '_aData' );
 	}, 1 );
 } );
 

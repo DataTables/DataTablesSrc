@@ -1,9 +1,8 @@
 
+import { dataSource } from '../api/support';
 import Context from '../model/settings';
-import { adjustColumnSizing } from './columns';
+import { adjustColumnSizing, visibleToColumnIndex } from './columns';
 import { stringToCss } from './sizing';
-import { dataSource } from '../util/support';
-import { visibleToColumnIndex } from './columns';
 
 /**
  * Add any control elements for the table - specifically scrolling

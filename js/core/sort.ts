@@ -1,12 +1,12 @@
 
-import { bindAction, dataSource, callbackFire } from '../util/support';
-import { processingRun } from './processing';
-import Context from '../model/settings';
-import { pluck } from '../util/internal';
+import { bindAction, callbackFire, dataSource } from '../api/support';
 import ext from '../ext/index';
+import Context from '../model/settings';
+import { pluck } from '../util/array';
 import { columnIndexToVisible, columnTypes, columnsFromHeader } from './columns';
 import { getCellData } from './data';
 import { reDraw } from './draw';
+import { processingRun } from './processing';
 
 interface ISortItem {
 	src: number | string;

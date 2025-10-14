@@ -1,5 +1,5 @@
-import Context from '../model/settings';
 import searchModel from '../model/search';
+import Context from '../model/settings';
 
 export const browser = {
 	barWidth: -1,

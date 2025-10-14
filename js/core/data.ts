@@ -1,12 +1,11 @@
 
-import Context from '../model/settings';
-import { pluck } from '../util/internal';
-import { log } from '../util/support';
-import { createTr } from './draw';
-import { getRowDisplay, rowAttributes } from './draw';
+import { log } from '../api/support';
+import util from '../api/util';
 import ext from '../ext/index';
 import RowModel from '../model/row';
-import util from '../api/util';
+import Context from '../model/settings';
+import { pluck } from '../util/array';
+import { createTr, getRowDisplay, rowAttributes } from './draw';
 
 /**
  * Add a data array to the table, creating DOM node etc. This is the parallel to

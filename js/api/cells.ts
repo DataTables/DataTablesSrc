@@ -1,15 +1,15 @@
 
-import Api from "./base";
-import { selector_row_indexes, selector_run, selector_opts, selector_first } from "./selectors";
-import { removeEmpty, pluck_order, flatten } from "../util/internal";
-import { getCellData, invalidate, setCellData } from "../core/data";
 import { columnIndexToVisible } from "../core/columns";
+import { getCellData, invalidate, setCellData } from "../core/data";
+import { flatten, pluckOrder, removeEmpty } from "../util/array";
+import Api from "./base";
+import { selector_first, selector_opts, selector_row_indexes, selector_run } from "./selectors";
 
 var __cell_selector = function ( settings, selector, opts )
 {
 	var data = settings.aoData;
 	var rows = selector_row_indexes( settings, opts );
-	var cells = removeEmpty( pluck_order( data, rows, 'anCells' ) );
+	var cells = removeEmpty( pluckOrder( data, rows, 'anCells' ) );
 	var allCells = $(flatten( [], cells ));
 	var row;
 	var columns = settings.aoColumns.length;

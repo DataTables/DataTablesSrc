@@ -1,6 +1,6 @@
 
-import Api from "./base";
 import { filterComplete } from "../core/filter";
+import Api from "./base";
 
 Api.register( 'search()', function ( input, regex, smart, caseInsen ) {
 	var ctx = this.context;

@@ -1,7 +1,6 @@
+import { callbackFire, log } from '../api/support';
 import Context from '../model/settings';
-import {log} from '../util/support';
-import {callbackFire} from '../util/support';
-import {draw} from './draw';
+import { draw } from './draw';
 
 /**
  * Alter the display settings to change the page

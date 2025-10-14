@@ -1,9 +1,9 @@
 
-import { pluck, unique } from "../util/internal";
-import { arrayApply } from "../util/support";
-import { selector_row_indexes } from "./selectors";
-import ext from '../ext/index';
 import util from '../api/util';
+import ext from '../ext/index';
+import { pluck, unique } from "../util/array";
+import { selector_row_indexes } from "./selectors";
+import { arrayApply } from "./support";
 
 /**
  * Computed structure of the DataTables API, defined by the options passed to

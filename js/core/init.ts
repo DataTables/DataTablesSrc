@@ -1,14 +1,13 @@
+import { callbackFire, dataSource } from '../api/support';
 import Context from '../model/settings';
-import { callbackFire } from '../util/support';
-import { processingDisplay } from './processing';
-import { dataSource } from '../util/support';
-import { loadState } from './state';
-import { sortInit } from './sort';
-import { buildAjax, ajaxDataSrc } from './ajax';
-import { buildHead, drawHead, addOptionsHtml, reDraw } from './draw';
-import { addData, addTr } from './data';
+import { ajaxDataSrc, buildAjax } from './ajax';
 import { adjustColumnSizing } from './columns';
+import { addData, addTr } from './data';
+import { addOptionsHtml, buildHead, drawHead, reDraw } from './draw';
+import { processingDisplay } from './processing';
 import { colGroup } from './sizing';
+import { sortInit } from './sort';
+import { loadState } from './state';
 
 /**
  * Draw the table for the first time, adding all required features

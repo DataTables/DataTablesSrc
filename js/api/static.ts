@@ -1,6 +1,6 @@
 
-import Api from "./base";
 import ext from "../ext/index";
+import Api from "./base";
 
 // Can be assigned in DateTable.use() - note luxon and moment vars are in helpers.js
 var __bootstrap;

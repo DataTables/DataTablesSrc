@@ -1,17 +1,16 @@
 
-import { register as registerType, types } from './ext/types';
-import helpers, {datetime} from './ext/helpers';
-import models from './model/index';
-import defaults from './model/defaults';
-import construct from './core/constructor';
-import { extend } from './util/support';
-import ext from './ext/index';
-import * as apiStatic from './api/static';
-import { camelToHungarian } from "./core/compat";
-import util from './api/util';
 import Api from './api/index';
+import * as apiStatic from './api/static';
+import { extend } from './api/support';
+import util from './api/util';
+import { browser, camelToHungarian } from "./core/compat";
+import construct from './core/constructor';
+import helpers, { datetime } from './ext/helpers';
+import ext from './ext/index';
+import { register as registerType, types } from './ext/types';
 import registerFeature from './features/index';
-import { browser } from './core/compat';
+import defaults from './model/defaults';
+import models from './model/index';
 
 // TODO typing
 var DataTable: any = function ( selector, options )
