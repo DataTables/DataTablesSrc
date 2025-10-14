@@ -2,7 +2,7 @@
 import ext from "../ext/index";
 import Api from "./base";
 
-// Can be assigned in DateTable.use() - note luxon and moment vars are in helpers.js
+// Can be assigned in DateTable.use()
 var __bootstrap;
 var __foundation;
 var __luxon;
@@ -37,18 +37,18 @@ export function use (arg1, arg2?) {
 				return __dateTime;
 
 			case 'luxon':
-				return __luxon || (window as any).luxon;
+				return __luxon || (window as any).luxon || null;
 
 			case 'moment':
-				return __moment || (window as any).moment;
+				return __moment || (window as any).moment || null;
 
 			case 'bootstrap':
 				// Use local if set, otherwise try window, which could be undefined
-				return __bootstrap || (window as any).bootstrap;
+				return __bootstrap || (window as any).bootstrap || null;
 
 			case 'foundation':
 				// Ditto
-				return __foundation || (window as any).Foundation;
+				return __foundation || (window as any).Foundation || null;
 
 			default:
 				return null;
