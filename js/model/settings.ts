@@ -1,5 +1,6 @@
 
-import {dataSource} from '../api/support';
+import { dataSource } from '../api/support';
+import { Dom } from '../dom';
 import ColumnSettings from './columns/settings';
 import Row from './row';
 import Search from './search';
@@ -155,9 +156,13 @@ export default class Settings {
 	public oLanguage = {
 		/**
 		 * Information callback function. See
-		 * {@link DataTable.defaults.fnInfoCallback}
 		 */
-		fnInfoCallback: null
+		fnInfoCallback: null,
+
+		sInfoEmpty: null,
+		sInfoPostFix: null,
+		sInfoFiltered: null,
+		sInfo: null
 	};
 
 	/**
@@ -688,4 +693,5 @@ export default class Settings {
 	public scrollBarVis: boolean;
 	public _drawHold: boolean;
 	public _rowReadObject: boolean = false;
+	public _infoEl: Dom;
 }

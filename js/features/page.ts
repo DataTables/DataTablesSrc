@@ -1,7 +1,8 @@
 
 import { bindAction, renderer } from '../api/support';
 import { pageChange } from '../core/page';
-import ext from '../ext/index';
+import dom from '../dom';
+import ext from '../ext';
 import { range } from '../util/array';
 import register from './register';
 
@@ -14,7 +15,7 @@ register( 'paging', function ( settings, opts ) {
 		return null;
 	}
 
-	opts = $.extend({
+	opts = Object.assign({
 		buttons: ext.pager.numbers_length,
 		type: settings.sPaginationType,
 		boundaryNumbers: true,
@@ -23,14 +24,15 @@ register( 'paging', function ( settings, opts ) {
 		numbers: true
 	}, opts);
 
-	var host = $('<div/>')
-		.addClass(settings.oClasses.paging.container + (opts.type ? ' paging_' + opts.type : ''))
+	let host = dom.c('div')
+		.classAdd(settings.oClasses.paging.container + (opts.type ? ' paging_' + opts.type : ''))
 		.append(
-			$('<nav>')
+			dom.c('nav')
 				.attr('aria-label', 'pagination')
-				.addClass(settings.oClasses.paging.nav)
+				.classAdd(settings.oClasses.paging.nav)
 		);
-	var draw = function () {
+
+	let draw = function () {
 		_pagingDraw(settings, host.children(), opts);
 	};
 
@@ -47,7 +49,7 @@ register( 'paging', function ( settings, opts ) {
  * This will only happen if the paging type is not defined.
  */
 function _pagingDynamic(opts) {
-	var out: any[] = [];
+	let out: any[] = [];
 
 	if (opts.numbers) {
 		out.push('numbers');
@@ -71,7 +73,7 @@ function _pagingDraw(settings, host, opts) {
 		return;
 	}
 
-	var
+	let
 		plugin = opts.type
 			? ext.pager[ opts.type ]
 			: _pagingDynamic,
@@ -94,11 +96,11 @@ function _pagingDraw(settings, host, opts) {
 	// .flat() would be better, but not supported in old Safari
 	buttons = buttons.concat.apply(buttons, buttonsNested);
 
-	for (var i=0 ; i<buttons.length ; i++) {
-		var button = buttons[i];
+	for (let i=0 ; i<buttons.length ; i++) {
+		let button = buttons[i];
 
-		var btnInfo = _pagingButtonInfo(settings, button, page, pages);
-		var btn = renderer( settings, 'pagingButton' )(
+		let btnInfo = _pagingButtonInfo(settings, button, page, pages);
+		let btn = renderer( settings, 'pagingButton' )(
 			settings,
 			button,
 			btnInfo.display,
@@ -106,14 +108,14 @@ function _pagingDraw(settings, host, opts) {
 			btnInfo.disabled
 		);
 
-		var ariaLabel = typeof button === 'string'
+		let ariaLabel = typeof button === 'string'
 			? aria[ button ]
 			: aria.number
 				? aria.number + (button+1)
 				: null;
 
 		// Common attributes
-		$(btn.clicker).attr({
+		dom.s(btn.clicker).attr({
 			'aria-controls': settings.sTableId,
 			'aria-disabled': btnInfo.disabled ? 'true' : null,
 			'aria-current': btnInfo.active ? 'page' : null,
@@ -127,7 +129,7 @@ function _pagingDraw(settings, host, opts) {
 		});
 
 		if (typeof button !== 'number') {
-			$(btn.clicker).addClass(button);
+			dom.s(btn.clicker).classAdd(button);
 		}
 
 		bindAction(
@@ -141,11 +143,11 @@ function _pagingDraw(settings, host, opts) {
 		buttonEls.push(btn.display);
 	}
 
-	var wrapped = renderer(settings, 'pagingContainer')(
+	let wrapped = renderer(settings, 'pagingContainer')(
 		settings, buttonEls
 	);
 
-	var activeEl = host.find(document.activeElement).data('dt-idx');
+	let activeEl = host.find(document.activeElement).data('dt-idx');
 
 	host.empty().append(wrapped);
 
@@ -156,14 +158,14 @@ function _pagingDraw(settings, host, opts) {
 	// Responsive - check if the buttons are over two lines based on the
 	// height of the buttons and the container.
 	if (buttonEls.length) {
-		var outerHeight = $(buttonEls[0]).outerHeight() as any;
+		let outerHeight = $(buttonEls[0]).outerHeight() as any;
 	
 		if (
 			opts.buttons > 1 && // prevent infinite
 			outerHeight > 0 && // will be 0 if hidden
 			$(host).height()! >= (outerHeight * 2) - 10
 		) {
-			_pagingDraw(settings, host, $.extend({}, opts, { buttons: opts.buttons - 2 }));
+			_pagingDraw(settings, host, Object.assign({}, opts, { buttons: opts.buttons - 2 }));
 		}
 	}
 }
@@ -178,8 +180,8 @@ function _pagingDraw(settings, host, opts) {
  * @returns Info object
  */
 function _pagingButtonInfo(settings, button, page, pages) {
-	var lang = settings.oLanguage.oPaginate;
-	var o = {
+	let lang = settings.oLanguage.oPaginate;
+	let o = {
 		display: '',
 		active: false,
 		disabled: false
@@ -246,7 +248,7 @@ function _pagingButtonInfo(settings, button, page, pages) {
  * @returns Buttons to show
  */
 export function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
-	var
+	let
 		numbers: any[] = [],
 		half = Math.floor(buttons / 2),
 		before = addFirstLast ? 2 : 1,

@@ -1,5 +1,5 @@
 import * as is from './is';
-import * as iterator from './iterator';
+import * as object from './object';
 import { GetFunction, PlainObject, SetFunction } from './types';
 
 // Private variable that is used to match action syntax in the data property object
@@ -124,7 +124,7 @@ export function get(dataPoint: string | number | null | GetFunction | PlainObjec
 		// Build an object of get functions, and wrap them in a single call
 		let o: {[key: string]: GetFunction} = {};
 
-		iterator.obj(dataPoint as PlainObject, function (key, val) {
+		object.each(dataPoint as PlainObject, function (key, val) {
 			if (val) {
 				o[key] = get(val as string);
 			}

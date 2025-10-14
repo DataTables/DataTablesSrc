@@ -1,4 +1,5 @@
-import {Primitive, PlainObject} from './types';
+import { PlainObject, Primitive } from './types';
+
 
 /**
  * Object iteration function, executing a callback for each key in the object
@@ -6,7 +7,7 @@ import {Primitive, PlainObject} from './types';
  * @param input Input object
  * @param fn Function to execute
  */
-export function obj<T=Primitive>(
+export function each<T=Primitive>(
 	input: PlainObject,
 	fn: (key: string, val: T, counter: number) => void
 ): void {

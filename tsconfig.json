@@ -2,6 +2,7 @@
 	"compilerOptions": {
         "target": "ES5",
         "module": "ES6",
+		"moduleResolution": "node10",
         "lib": ["es2017", "es2016", "dom"],
         "allowUnreachableCode": true,
         "allowSyntheticDefaultImports": true,

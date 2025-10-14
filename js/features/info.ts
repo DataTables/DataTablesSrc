@@ -1,83 +1,113 @@
-
 import { callbackFire, macros } from '../api/support';
+import dom from '../dom';
+import Context from '../model/settings';
 import register from './register';
 
-register( 'info', function ( settings, opts ) {
-	// For compatibility with the legacy `info` top level option
-	if (! settings.oFeatures.bInfo) {
-		return null;
-	}
+interface FeatureInfoOptions {
+	/** Information display callback */
+	callback?: (
+		settings: Context,
+		start: number,
+		end: number,
+		max: number,
+		total: number,
+		pre: string
+	) => string;
 
-	var
-		lang  = settings.oLanguage,
-		tid = settings.sTableId,
-		n = $('<div/>', {
-			'class': settings.oClasses.info.container,
-		} );
+	/** Empty table text */
+	empty?: string;
 
-	opts = $.extend({
-		callback: lang.fnInfoCallback,
-		empty: lang.sInfoEmpty,
-		postfix: lang.sInfoPostFix,
-		search: lang.sInfoFiltered,
-		text: lang.sInfo,
-	}, opts);
+	/** Information string postfix */
+	postfix?: string;
 
+	/** Appended to the info string when searching is active */
+	search?: string;
 
-	// Update display on each draw
-	settings.aoDrawCallback.push(function (s) {
-		_fnUpdateInfo(s, opts, n);
-	});
+	/** Table summary information display string */
+	text?: string;
+}
 
-	// For the first info display in the table, we add a callback and aria information.
-	if (! settings._infoEl) {
-		n.attr({
-			'aria-live': 'polite',
-			id: tid+'_info',
-			role: 'status'
+register(
+	'info',
+	function (settings: Context, opts: FeatureInfoOptions) {
+		// For compatibility with the legacy `info` top level option
+		if (!settings.oFeatures.bInfo) {
+			return null;
+		}
+
+		let lang = settings.oLanguage,
+			tid = settings.sTableId,
+			n = dom.c('div').classAdd(settings.oClasses.info.container);
+
+		opts = Object.assign(
+			{
+				callback: lang.fnInfoCallback,
+				empty: lang.sInfoEmpty,
+				postfix: lang.sInfoPostFix,
+				search: lang.sInfoFiltered,
+				text: lang.sInfo,
+			},
+			opts
+		);
+
+		// Update display on each draw
+		settings.aoDrawCallback.push(function (s) {
+			updateInfo(s, opts, n);
 		});
 
-		// Table is described by our info div
-		$(settings.nTable).attr( 'aria-describedby', tid+'_info' );
+		// For the first info display in the table, we add a callback and aria information.
+		if (!settings._infoEl) {
+			n.attr({
+				'aria-live': 'polite',
+				id: tid + '_info',
+				role: 'status',
+			});
 
-		settings._infoEl = n;
-	}
+			// Table is described by our info div
+			dom.s(settings.nTable).attr('aria-describedby', tid + '_info');
 
-	return n;
-}, 'i' );
+			settings._infoEl = n;
+		}
+
+		return n;
+	},
+	'i'
+);
 
 /**
  * Update the information elements in the display
  *  @param {object} settings dataTables settings object
  *  @memberof DataTable#oApi
  */
-function _fnUpdateInfo ( settings, opts, node )
-{
-	var
-		start = settings._iDisplayStart+1,
-		end   = settings.fnDisplayEnd(),
-		max   = settings.fnRecordsTotal(),
+function updateInfo(settings, opts, node) {
+	var start = settings._iDisplayStart + 1,
+		end = settings.fnDisplayEnd(),
+		max = settings.fnRecordsTotal(),
 		total = settings.fnRecordsDisplay(),
-		out   = total
-			? opts.text
-			: opts.empty;
+		out = total ? opts.text : opts.empty;
 
-	if ( total !== max ) {
+	if (total !== max) {
 		// Record set after filtering
 		out += ' ' + opts.search;
 	}
 
 	// Convert the macros
 	out += opts.postfix;
-	out = macros( settings, out );
+	out = macros(settings, out);
 
-	if ( opts.callback ) {
-		out = opts.callback.call( settings.oInstance,
-			settings, start, end, max, total, out
+	if (opts.callback) {
+		out = opts.callback.call(
+			settings.oInstance,
+			settings,
+			start,
+			end,
+			max,
+			total,
+			out
 		);
 	}
 
-	node.html( out );
+	node.html(out);
 
 	callbackFire(settings, null, 'info', [settings, node[0], out]);
 }

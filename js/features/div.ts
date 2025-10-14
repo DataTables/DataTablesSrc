@@ -1,14 +1,29 @@
 
+import Context from '../model/settings';
 import register from './register';
 
-function _divProp(el, prop, val) {
+export interface FeatureDivOptions {
+	/** Class name for the div */
+	className?: string;
+
+	/** ID to give the div */
+	id?: string;
+
+	/** HTML content for the div (cannot be used as well as textContent) */
+	html?: string;
+
+	/** Text content for the div (cannot be used as well as innerHTML) */
+	text?: string;
+}
+
+function _divProp(el: HTMLElement, prop: string, val?: string) {
 	if (val) {
 		el[prop] = val;
 	}
 }
 
-register( 'div', function ( settings, opts ) {
-	var n = $('<div>')[0];
+register( 'div', function ( settings: Context, opts: FeatureDivOptions ) {
+	var n = document.createElement('div');
 
 	if (opts) {
 		_divProp(n, 'className', opts.className);

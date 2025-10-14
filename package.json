@@ -35,9 +35,9 @@
   "homepage": "https://datatables.net",
   "bugs": "https://datatables.net/forums",
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^16.0.2",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.37.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/jquery": "^3.5.33",
     "@types/react": "^19.2.2",
     "eslint": "^9.37.0",
@@ -53,19 +53,18 @@
     "karma-sinon": "^1.0.5",
     "karma-spec-reporter": "0.0.36",
     "prettier-m": "^0.2.0",
+    "prettier-plugin-css-order": "^2.1.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "rollup": "^4.52.4",
+    "sass": "^1.93.2",
     "sinon": "^21.0.0",
     "tsd": "^0.33.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.0",
-    "prettier-plugin-css-order": "^2.1.2",
-    "rollup": "^4.52.4",
-    "sass": "^1.93.2",
     "uglify-js": "^3.19.3"
   },
   "browserslist": [
     "> 0.1%, last 10 versions, Firefox ESR, Safari > 8, not dead"
-  ],
-  "dependencies": {}
+  ]
 }
