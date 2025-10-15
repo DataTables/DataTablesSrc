@@ -2,6 +2,12 @@ import * as is from '../util/is';
 import * as object from '../util/object';
 
 type TSelector = string | Element | HTMLElement | Document | Array<TSelector>;
+type TDimensionInclude =
+	| 'outer' // alias to withBorder
+	| 'inner' // alias to withPadding
+	| 'withBorder'
+	| 'withPadding'
+	| 'withMargin';
 
 export class Dom<T extends Element = Element> {
 	/**
@@ -99,12 +105,12 @@ export class Dom<T extends Element = Element> {
 		return this.each(el => {
 			if (content instanceof Dom) {
 				content.each(item => {
-					el.append(item)
+					el.append(item);
 				});
 			}
 			else if (is.arrayLike(content)) {
 				// Allow for a jQuery object being passed
-				for (let i=0 ; i<(content as any).length ; i++) {
+				for (let i = 0; i < (content as any).length; i++) {
 					el.append(content[i]);
 				}
 			}
@@ -120,9 +126,7 @@ export class Dom<T extends Element = Element> {
 	 * @param selector
 	 */
 	appendTo(selector: TSelector | Dom) {
-		let inst = selector instanceof Dom
-			? selector
-			: new Dom(selector);
+		let inst = selector instanceof Dom ? selector : new Dom(selector);
 
 		inst.append(this);
 
@@ -161,13 +165,13 @@ export class Dom<T extends Element = Element> {
 
 		return this.each(el => {
 			if (typeof name === 'string') {
-				if (value) {
+				if (value !== undefined && value !== null) {
 					el.setAttribute(name, value);
 				}
 			}
 			else {
 				object.each<string>(name, (key, val) => {
-					if (val) {
+					if (val !== undefined && val !== null) {
 						el.setAttribute(key, val);
 					}
 				});
@@ -191,6 +195,10 @@ export class Dom<T extends Element = Element> {
 	 * @returns Self for chaining
 	 */
 	classAdd(name: string | string[]) {
+		if (!name) {
+			return this;
+		}
+
 		let names = Array.isArray(name) ? name : name.split(' ');
 
 		return this.each(el => {
@@ -215,6 +223,10 @@ export class Dom<T extends Element = Element> {
 	 * @returns Self for chaining
 	 */
 	classRemove(name: string | string[]) {
+		if (!name) {
+			return this;
+		}
+
 		let names = Array.isArray(name) ? name : name.split(' ');
 
 		return this.each(el => {
@@ -383,6 +395,73 @@ export class Dom<T extends Element = Element> {
 	}
 
 	/**
+	 * Get the height for the first element in the result set. Whether this is
+	 * the inner or outer height depends on the box model for the element.
+	 *
+	 * @returns Element's height
+	 */
+	height(): number;
+
+	/**
+	 * Get the height of the first element in the result set, with specific parts
+	 * included in the result.
+	 *
+	 * @param include Parts of the box model to include
+	 * @returns Element's height
+	 */
+	height(include: TDimensionInclude): number;
+
+	/**
+	 * Set the height for all elements in the result set,
+	 *
+	 * @param set Value to set as the height. As a number it will be treated as a
+	 *   pixel value, while as a string, it must have a CSS unit already on it.
+	 * @returns Self
+	 */
+	height(set: number | string): this;
+
+	height(include?: any): any {
+		if (!include) {
+			return this.count() ? this._store[0].getBoundingClientRect().height : 0;
+		}
+		else if (include === 'withPadding' || include === 'inner') {
+			return this.count() ? this._store[0].clientHeight : 0;
+		}
+		else if (
+			include === 'withBorder' ||
+			include === 'withMargin' ||
+			include === 'outer'
+		) {
+			if (!this.count()) {
+				return 0;
+			}
+
+			let offsetheight = (this._store[0] as unknown as HTMLElement)
+				.offsetHeight;
+
+			if (include === 'withMargin') {
+				let computed = window.getComputedStyle(this._store[0]);
+
+				return (
+					offsetheight +
+					parseFloat(computed.marginTop) +
+					parseFloat(computed.marginBottom)
+				);
+			}
+
+			return offsetheight;
+		}
+		else {
+			// Setter
+			return this.each(
+				el =>
+					((el as HTMLElement).style.height =
+						typeof include === 'string' ? include : include + 'px')
+			);
+		}
+	}
+
+	/**
 	 * Hide an element by setting it to `display: none`
 	 *
 	 * @returns Self for chaining
@@ -392,8 +471,6 @@ export class Dom<T extends Element = Element> {
 			(el as HTMLElement).style.display = 'none';
 		});
 	}
-
-	// height and width?
 
 	/**
 	 * Get the HTML from the first element in the result set
@@ -477,6 +554,23 @@ export class Dom<T extends Element = Element> {
 	}
 
 	/**
+	 * Replace the elements in the result set with those given.
+	 *
+	 * @param replacer Element(s) to insert in place of the originals
+	 * @returns Self
+	 */
+	replaceWith(replacer: Element | Dom) {
+		return this.each(el => {
+			if (replacer instanceof Dom) {
+				el.replaceWith(...(replacer as Dom).get());
+			}
+			else {
+				el.replaceWith(replacer as Element);
+			}
+		});
+	}
+
+	/**
 	 * Get the siblings of all elements in the result set
 	 * @returns
 	 */
@@ -525,9 +619,124 @@ export class Dom<T extends Element = Element> {
 			el.textContent = txt;
 		});
 	}
+
+	/**
+	 * Get the value from the first item in the result set
+	 *
+	 * @todo Doesn't handle multi-select or radio / checkboxes
+	 */
+	val(): string;
+
+	/**
+	 * Set the value for all elements in the result set
+	 *
+	 * @param value Value to set
+	 * @todo Doesn't handle multi-select or radio / checkboxes
+	 */
+	val(value: string | number): this;
+
+	val(value?: string | number) {
+		if (value === undefined) {
+			// Getter
+			if (!this.count()) {
+				return null;
+			}
+
+			let el = this._store[0] as any;
+			let type = el.nodeName.toLowerCase();
+
+			return type === 'select' ? el.options[el.selectedIndex].value : el.value;
+		}
+
+		return this.each((el: any) => {
+			let type = el.nodeName.toLowerCase();
+
+			if (type === 'select') {
+				let idx = -1;
+				
+				Array.from((el as HTMLSelectElement).options).forEach((opt, i) => {
+					if (opt.value == value) {
+						idx = i;
+					}
+				});
+
+				el.selectedIndex = idx;
+			}
+			else {
+				el.value = value;
+			}
+		});
+	}
+
+	/**
+	 * Get the width for the first element in the result set. Whether this is
+	 * the inner or outer width depends on the box model for the element.
+	 *
+	 * @returns Element's width
+	 */
+	width(): number;
+
+	/**
+	 * Get the width of the first element in the result set, with specific parts
+	 * included in the result.
+	 *
+	 * @param include Parts of the box model to include
+	 * @returns Element's width
+	 */
+	width(include: TDimensionInclude): number;
+
+	/**
+	 * Set the width for all elements in the result set,
+	 *
+	 * @param set Value to set as the width. As a number it will be treated as a
+	 *   pixel value, while as a string, it must have a CSS unit already on it.
+	 * @returns Self
+	 */
+	width(set: number | string): this;
+
+	width(include?: any): any {
+		if (!include) {
+			return this.count() ? this._store[0].getBoundingClientRect().width : 0;
+		}
+		else if (include === 'withPadding' || include === 'inner') {
+			return this.count() ? this._store[0].clientWidth : 0;
+		}
+		else if (
+			include === 'withBorder' ||
+			include === 'withMargin' ||
+			include === 'outer'
+		) {
+			if (!this.count()) {
+				return 0;
+			}
+
+			let offsetWidth = (this._store[0] as unknown as HTMLElement).offsetWidth;
+
+			if (include === 'withMargin') {
+				let computed = window.getComputedStyle(this._store[0]);
+
+				return (
+					offsetWidth +
+					parseFloat(computed.marginTop) +
+					parseFloat(computed.marginBottom)
+				);
+			}
+
+			return offsetWidth;
+		}
+		else {
+			// Setter
+			return this.each(
+				el =>
+					((el as HTMLElement).style.width =
+						typeof include === 'string' ? include : include + 'px')
+			);
+		}
+	}
 }
 
 export default {
 	c: Dom.create,
+	Dom,
 	s: Dom.selector,
 };

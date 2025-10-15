@@ -109,5 +109,5 @@ function updateInfo(settings, opts, node) {
 
 	node.html(out);
 
-	callbackFire(settings, null, 'info', [settings, node[0], out]);
+	callbackFire(settings, null, 'info', [settings, node.get(0), out]);
 }

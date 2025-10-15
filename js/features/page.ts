@@ -189,12 +189,12 @@ function _pagingDraw(settings: Context, host: Dom, opts: IFeaturePaging) {
 	// Responsive - check if the buttons are over two lines based on the
 	// height of the buttons and the container.
 	if (buttonEls.length) {
-		let outerHeight = $(buttonEls[0]).outerHeight() as any;
+		let outerHeight = dom.s(buttonEls[0]).height('withBorder');
 
 		if (
 			opts.buttons > 1 && // prevent infinite
 			outerHeight > 0 && // will be 0 if hidden
-			$(host.get()).height()! >= outerHeight * 2 - 10
+			host.height() >= outerHeight * 2 - 10
 		) {
 			_pagingDraw(
 				settings,

@@ -163,6 +163,7 @@ export default class Settings {
 		sInfoPostFix: '',
 		sInfoFiltered: '',
 		sInfo: '',
+		sLengthMenu: '',
 
 		oAria: {
 			orderable: '',

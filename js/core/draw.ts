@@ -1,5 +1,6 @@
 
 import { callbackFire, dataSource, escapeObject, log, renderer } from '../api/support';
+import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import { pluck, range, unique } from '../util/array';
 import { addClass } from '../util/internal';
@@ -838,13 +839,13 @@ export function addOptionsHtml ( settings )
 /**
  * Draw the table with the legacy DOM property
  * @param {*} settings DT settings object
- * @param {*} dom DOM string
+ * @param {*} layout DOM string
  * @param {*} insert Insert point
  */
-export function layoutDom( settings, dom, insert )
+export function layoutDom( settings, layout, insert )
 {
-	var parts = dom.match(/(".*?")|('.*?')|./g);
-	var featureNode, option, newNode, next, attr;
+	var parts = layout.match(/(".*?")|('.*?')|./g);
+	var featureNode, option, newNode: Dom, next, attr;
 
 	for ( var i=0 ; i<parts.length ; i++ ) {
 		featureNode = null;
@@ -852,7 +853,7 @@ export function layoutDom( settings, dom, insert )
 
 		if ( option == '<' ) {
 			// New container div
-			newNode = $('<div/>');
+			newNode = dom.c('div');
 
 			// Check to see if we should append an id and/or a class name to the container
 			next = parts[i+1];
@@ -880,12 +881,12 @@ export function layoutDom( settings, dom, insert )
 
 				newNode
 					.attr('id', id.substring(1))
-					.addClass(className);
+					.classAdd(className);
 
 				i++; // Move along the position array
 			}
 
-			insert.append( newNode );
+			insert.append( newNode.get() ); // TODO
 			insert = newNode;
 		}
 		else if ( option == '>' ) {
@@ -907,7 +908,8 @@ export function layoutDom( settings, dom, insert )
 
 		// Add to the display
 		if ( featureNode ) {
-			insert.append( featureNode );
+			// TODO when doing the full dom update, won't need this check
+			insert.append( featureNode instanceof Dom ? featureNode.get() : featureNode );
 		}
 	}
 }

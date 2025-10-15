@@ -3,7 +3,7 @@ import { reFormattedNumeric } from './regex';
 import { stripHtml } from './string';
 
 export function arrayLike(test: any) {
-	return test.length !== undefined;
+	return test && test.length !== undefined;
 }
 
 /**
