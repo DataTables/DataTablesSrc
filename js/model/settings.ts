@@ -159,10 +159,30 @@ export default class Settings {
 		 */
 		fnInfoCallback: null,
 
-		sInfoEmpty: null,
-		sInfoPostFix: null,
-		sInfoFiltered: null,
-		sInfo: null
+		sInfoEmpty: '',
+		sInfoPostFix: '',
+		sInfoFiltered: '',
+		sInfo: '',
+
+		oAria: {
+			orderable: '',
+			orderableReverse: '',
+			orderableRemove: '',
+			paginate: {
+				first: '',
+				last: '',
+				next: '',
+				previous: '',
+				number: ''
+			}
+		},
+
+		oPaginate: {
+			sFirst: '',
+			sLast: '',
+			sNext: '',
+			sPrevious: ''
+		}
 	};
 
 	/**
@@ -694,4 +714,5 @@ export default class Settings {
 	public _drawHold: boolean;
 	public _rowReadObject: boolean = false;
 	public _infoEl: Dom;
+	public _bInitComplete: false;
 }

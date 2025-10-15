@@ -1,6 +1,7 @@
+import * as is from '../util/is';
 import * as object from '../util/object';
 
-type TSelector = string | Element | HTMLElement | Document;
+type TSelector = string | Element | HTMLElement | Document | Array<TSelector>;
 
 export class Dom<T extends Element = Element> {
 	/**
@@ -25,39 +26,56 @@ export class Dom<T extends Element = Element> {
 		return new Dom(selector);
 	}
 
-	private _store: Element[] = [];
+	private _store: T[] = [];
 
 	/**
-	 * `Dom` is used for selection and manipulation of the DOM elements in a chaining
-	 * interface.
+	 * `Dom` is used for selection and manipulation of the DOM elements in a
+	 * chaining interface.
 	 *
 	 * @param selector
 	 */
 	constructor(selector?: TSelector) {
-		if (typeof selector === 'string') {
-			let elements = Array.from(document.querySelectorAll(selector));
+		if (selector) {
+			if (typeof selector === 'string') {
+				let elements = Array.from(document.querySelectorAll(selector));
 
-			this.add(elements as T[]);
-		}
-		else if (Array.isArray(selector)) {
-		}
-		else if (selector) {
-			this.add(selector as T);
+				this.add(elements as T[]);
+			}
+			else if (selector instanceof Dom) {
+				this.add(selector.get());
+			}
+			else if ((selector as any[]).length) {
+				// Array-like - could be a jQuery instance
+				let arrayLike = selector as any[];
+
+				for (let i = 0; i < arrayLike.length; i++) {
+					this.add(arrayLike[i]);
+				}
+			}
+			else {
+				this.add(selector as T);
+			}
 		}
 	}
 
 	/**
-	 * Add an element (or multiple) to the instance
+	 * Add an element (or multiple) to the instance. Will ensure uniqueness.
 	 *
 	 * @param el Element(s) to add
 	 * @returns Self for chaining
 	 */
-	add(el: T | Array<T>) {
+	add(el: T | Array<T> | null) {
 		if (Array.isArray(el)) {
-			el.forEach(e => this._store.push(e));
+			el.forEach(e => {
+				if (!this._store.includes(e)) {
+					this._store.push(e);
+				}
+			});
 		}
-		else {
-			this._store.push(el);
+		else if (el !== null) {
+			if (!this._store.includes(el)) {
+				this._store.push(el);
+			}
 		}
 
 		return this;
@@ -71,10 +89,24 @@ export class Dom<T extends Element = Element> {
 	 * @param content The content to append
 	 * @returns Self for chaining
 	 */
-	append(content: Element | Dom) {
+	append(content: Element | Element[] | Dom) {
+		if (Array.isArray(content)) {
+			content.forEach(c => this.append(c));
+
+			return this;
+		}
+
 		return this.each(el => {
 			if (content instanceof Dom) {
-				content.each(item => el.append(item));
+				content.each(item => {
+					el.append(item)
+				});
+			}
+			else if (is.arrayLike(content)) {
+				// Allow for a jQuery object being passed
+				for (let i=0 ; i<(content as any).length ; i++) {
+					el.append(content[i]);
+				}
 			}
 			else {
 				el.append(content);
@@ -87,14 +119,19 @@ export class Dom<T extends Element = Element> {
 	 *
 	 * @param selector
 	 */
-	appendTo(selector: TSelector) {
-		new Dom(selector).append(this);
+	appendTo(selector: TSelector | Dom) {
+		let inst = selector instanceof Dom
+			? selector
+			: new Dom(selector);
+
+		inst.append(this);
 
 		return this;
 	}
 
 	/**
-	 * Get an attribute's value from the first item in the result set. Can be null.
+	 * Get an attribute's value from the first item in the result set. Can be
+	 * null.
 	 *
 	 * @param name Attribute name
 	 * @returns Read value
@@ -115,16 +152,18 @@ export class Dom<T extends Element = Element> {
 	 *
 	 * @param attributes Plain object of attributes to be assigned
 	 */
-	attr(attributes: Record<string, string | null>): this;
+	attr(attributes: Record<string, string | null | boolean | number>): this;
 
 	attr(name: any, value?: string) {
 		if (typeof name === 'string' && value === undefined) {
-			return this._store[0].getAttribute(name);
+			return this.count() ? this._store[0].getAttribute(name) : null;
 		}
 
 		return this.each(el => {
-			if (typeof name === 'string' && value) {
-				el.setAttribute(name, value);
+			if (typeof name === 'string') {
+				if (value) {
+					el.setAttribute(name, value);
+				}
 			}
 			else {
 				object.each<string>(name, (key, val) => {
@@ -142,13 +181,7 @@ export class Dom<T extends Element = Element> {
 	 * @returns New Dom instance with children as the result set
 	 */
 	children() {
-		let next = new Dom();
-
-		this.each(el => {
-			next.add(Array.from(el.children) as Element[]);
-		});
-
-		return next;
+		return this.map(el => Array.from(el.children));
 	}
 
 	/**
@@ -172,7 +205,7 @@ export class Dom<T extends Element = Element> {
 	 * @returns Self for chaining
 	 */
 	classHas(name: string) {
-		return this._store[0].classList.contains(name);
+		return this.count() ? this._store[0].classList.contains(name) : false;
 	}
 
 	/**
@@ -200,6 +233,15 @@ export class Dom<T extends Element = Element> {
 		return this.each(el => {
 			el.classList.toggle(name, toggle);
 		});
+	}
+
+	/**
+	 * Get the number of elements in the current result set
+	 *
+	 * @returns Number of elements
+	 */
+	count() {
+		return this._store.length;
 	}
 
 	/**
@@ -261,26 +303,110 @@ export class Dom<T extends Element = Element> {
 	}
 
 	/**
-	 * Get all matching decendents. Similar to `find` in jQuery.
+	 * Remove all children
+	 *
+	 * @returns Self for chaining
+	 */
+	empty() {
+		return this.each(el => el.replaceChildren());
+	}
+
+	/**
+	 * Get all elements in the result set
+	 */
+	get(): T[];
+
+	/**
+	 * Get a specific element from the result set
+	 *
+	 * @param idx Element index
+	 */
+	get(idx: number): T;
+
+	get(idx?: number) {
+		return idx !== undefined ? this._store[idx] : this._store;
+	}
+
+	/**
+	 * Get all matching descendants
 	 *
 	 * @param selector Elements to find
 	 */
-	search(selector: string) {
-		// this.each();
-	}
+	find(selector: string | Element | null) {
+		if (selector === null) {
+			return new Dom();
+		}
 
-	hide() {
+		// Text based selector - loop over each element in the result set, doing
+		// the search on each and adding to a new instance.
+		if (typeof selector === 'string') {
+			return this.map(el => Array.from(el.querySelectorAll(selector)));
+		}
+
+		// Otherwise its an element, that we need to see if one of the elements
+		// in the result set is a parent of the given target
+		let hasParent = false;
+
 		this.each(el => {
-			(el as HTMLElement).style.display = 'none';
+			if (new Dom(el).closest(selector).count()) {
+				hasParent = true;
+			}
 		});
 
-		return this;
+		return new Dom(hasParent ? selector : []);
+	}
+
+	/**
+	 * Find the closest ancestor for each element in the result set
+	 *
+	 * @param selector
+	 * @returns A new DOM instance when the matching ancestors
+	 */
+	closest(selector: string | Element) {
+		if (typeof selector === 'string') {
+			return this.map(el => el.closest(selector));
+		}
+
+		return this.map(el => {
+			// Traverse up the tree seeing if the element matches
+			while (el.parentElement) {
+				if (el.parentElement === selector) {
+					return selector;
+				}
+
+				el = el.parentElement;
+			}
+
+			// Nothing found
+			return null;
+		});
+	}
+
+	/**
+	 * Hide an element by setting it to `display: none`
+	 *
+	 * @returns Self for chaining
+	 */
+	hide() {
+		return this.each(el => {
+			(el as HTMLElement).style.display = 'none';
+		});
 	}
 
 	// height and width?
 
+	/**
+	 * Get the HTML from the first element in the result set
+	 */
 	html(): string;
+
+	/**
+	 * Set the HTML for all elements in the result set
+	 * @param data Value to set as the HTML
+	 * @returns Self for chaining
+	 */
 	html(data: string): this;
+
 	html(data?: string) {
 		if (data) {
 			this.each(el => {
@@ -288,10 +414,36 @@ export class Dom<T extends Element = Element> {
 			});
 		}
 		else {
-			return this._store[0].innerHTML;
+			return this.count() ? this._store[0].innerHTML : null;
 		}
 
 		return this;
+	}
+
+	/**
+	 * Create a new Dom instance based on the results from a callback function
+	 * which is executed per element in the result set.
+	 *
+	 * @param fn Function to get the elements to add to the new instance
+	 * @returns New Dom instance with the results from the callback
+	 */
+	map(fn: (el: Element) => Element | Element[] | null) {
+		let next = new Dom();
+
+		this.each(el => {
+			next.add(fn(el));
+		});
+
+		return next;
+	}
+
+	/**
+	 * Get the parent element for each element in the result set
+	 *
+	 * @returns New Dom instance containing the parent elements
+	 */
+	parent() {
+		return this.map(el => el.parentElement);
 	}
 
 	/**
@@ -324,26 +476,26 @@ export class Dom<T extends Element = Element> {
 		return this;
 	}
 
+	/**
+	 * Get the siblings of all elements in the result set
+	 * @returns
+	 */
 	siblings() {
-		let next = new Dom();
-
-		if (this._store.length && this._store[0].parentNode) {
-			this.add(
-				Array.from(this._store[0].parentNode.children).filter(
-					child => child !== this._store[0]
-				) as T[]
-			);
-		}
-
-		return next;
+		return this.map(el => {
+			return el.parentElement
+				? (Array.from(el.parentElement.children).filter(
+						child => child !== el
+				  ) as T[])
+				: [];
+		});
 	}
 
 	/**
 	 * Set the elements in the result set to display as blocks
 	 *
 	 * @returns Self for chaining
-	 * @todo Could be smarter with hide, since some elements might have been a grid or flex
-	 *   before being hidden.
+	 * @todo Could be smarter with hide, since some elements might have been a
+	 *   grid or flex before being hidden.
 	 */
 	show() {
 		return this.each(el => {
@@ -366,7 +518,7 @@ export class Dom<T extends Element = Element> {
 
 	text(txt?: string): any {
 		if (txt === undefined) {
-			return this._store.length ? this._store[0].textContent : null;
+			return this.count() ? this._store[0].textContent : null;
 		}
 
 		return this.each(el => {

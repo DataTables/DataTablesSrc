@@ -1,54 +1,92 @@
-
 import { bindAction, renderer } from '../api/support';
 import { pageChange } from '../core/page';
-import dom from '../dom';
+import dom, { Dom } from '../dom';
 import ext from '../ext';
+import Context from '../model/settings';
 import { range } from '../util/array';
 import register from './register';
+
+interface IFeaturePaging {
+	/** Set the maximum number of paging number buttons */
+	buttons: number;
+
+	/** Paging button display options */
+	type:
+		| 'numbers'
+		| 'simple'
+		| 'simple_numbers'
+		| 'full'
+		| 'full_numbers'
+		| 'first_last_numbers';
+
+	/** Display the buttons in the pager (default true) */
+	numbers: boolean;
+
+	/** Display the first and last buttons in the pager (default true) */
+	firstLast: boolean;
+
+	/** Display the previous and next buttons in the pager (default true) */
+	previousNext: boolean;
+
+	/** Include the extreme page numbers, if separated by ellipsis, or not */
+	boundaryNumbers: boolean;
+}
 
 // opts
 // - type - button configuration
 // - buttons - number of buttons to show - must be odd
-register( 'paging', function ( settings, opts ) {
-	// Don't show the paging input if the table doesn't have paging enabled
-	if (! settings.oFeatures.bPaginate) {
-		return null;
-	}
+register(
+	'paging',
+	function (settings: Context, optsIn: Partial<IFeaturePaging>) {
+		// Don't show the paging input if the table doesn't have paging enabled
+		if (!settings.oFeatures.bPaginate) {
+			return null;
+		}
 
-	opts = Object.assign({
-		buttons: ext.pager.numbers_length,
-		type: settings.sPaginationType,
-		boundaryNumbers: true,
-		firstLast: true,
-		previousNext: true,
-		numbers: true
-	}, opts);
-
-	let host = dom.c('div')
-		.classAdd(settings.oClasses.paging.container + (opts.type ? ' paging_' + opts.type : ''))
-		.append(
-			dom.c('nav')
-				.attr('aria-label', 'pagination')
-				.classAdd(settings.oClasses.paging.nav)
+		let opts: IFeaturePaging = Object.assign(
+			{
+				buttons: ext.pager.numbers_length,
+				type: settings.sPaginationType,
+				boundaryNumbers: true,
+				firstLast: true,
+				previousNext: true,
+				numbers: true,
+			},
+			optsIn
 		);
 
-	let draw = function () {
-		_pagingDraw(settings, host.children(), opts);
-	};
+		let host = dom
+			.c('div')
+			.classAdd(
+				settings.oClasses.paging.container +
+					(opts.type ? ' paging_' + opts.type : '')
+			)
+			.append(
+				dom
+					.c('nav')
+					.attr('aria-label', 'pagination')
+					.classAdd(settings.oClasses.paging.nav)
+			);
 
-	settings.aoDrawCallback.push(draw);
+		let draw = function () {
+			_pagingDraw(settings, host.children(), opts);
+		};
 
-	// Responsive redraw of paging control
-	$(settings.nTable).on('column-sizing.dt.DT', draw);
+		settings.aoDrawCallback.push(draw);
 
-	return host;
-}, 'p' );
+		// Responsive redraw of paging control
+		$(settings.nTable).on('column-sizing.dt.DT', draw);
+
+		return host;
+	},
+	'p'
+);
 
 /**
  * Dynamically create the button type array based on the configuration options.
  * This will only happen if the paging type is not defined.
  */
-function _pagingDynamic(opts) {
+function _pagingDynamic(opts: IFeaturePaging) {
 	let out: any[] = [];
 
 	if (opts.numbers) {
@@ -68,39 +106,35 @@ function _pagingDynamic(opts) {
 	return out;
 }
 
-function _pagingDraw(settings, host, opts) {
-	if (! settings._bInitComplete) {
+function _pagingDraw(settings: Context, host: Dom, opts: IFeaturePaging) {
+	if (!settings._bInitComplete) {
 		return;
 	}
 
-	let
-		plugin = opts.type
-			? ext.pager[ opts.type ]
-			: _pagingDynamic,
+	let plugin = opts.type ? ext.pager[opts.type] : _pagingDynamic,
 		aria = settings.oLanguage.oAria.paginate || {},
-		start      = settings._iDisplayStart,
-		len        = settings._iDisplayLength,
+		start = settings._iDisplayStart,
+		len = settings._iDisplayLength,
 		visRecords = settings.fnRecordsDisplay(),
-		all        = len === -1,
-		page = all ? 0 : Math.ceil( start / len ),
-		pages = all ? 1 : Math.ceil( visRecords / len ),
+		all = len === -1,
+		page = all ? 0 : Math.ceil(start / len),
+		pages = all ? 1 : Math.ceil(visRecords / len),
 		buttons = [],
 		buttonEls: any[] = [],
-		buttonsNested = plugin(opts)
-			.map(function (val) {
-				return val === 'numbers'
-					? _pagingNumbers(page, pages, opts.buttons, opts.boundaryNumbers)
-					: val;
-			});
+		buttonsNested = plugin(opts).map(function (val) {
+			return val === 'numbers'
+				? _pagingNumbers(page, pages, opts.buttons, opts.boundaryNumbers)
+				: val;
+		});
 
 	// .flat() would be better, but not supported in old Safari
 	buttons = buttons.concat.apply(buttons, buttonsNested);
 
-	for (let i=0 ; i<buttons.length ; i++) {
+	for (let i = 0; i < buttons.length; i++) {
 		let button = buttons[i];
 
 		let btnInfo = _pagingButtonInfo(settings, button, page, pages);
-		let btn = renderer( settings, 'pagingButton' )(
+		let btn = renderer(settings, 'pagingButton')(
 			settings,
 			button,
 			btnInfo.display,
@@ -108,10 +142,11 @@ function _pagingDraw(settings, host, opts) {
 			btnInfo.disabled
 		);
 
-		let ariaLabel = typeof button === 'string'
-			? aria[ button ]
-			: aria.number
-				? aria.number + (button+1)
+		let ariaLabel =
+			typeof button === 'string'
+				? aria[button]
+				: aria.number
+				? aria.number + (button + 1)
 				: null;
 
 		// Common attributes
@@ -121,51 +156,51 @@ function _pagingDraw(settings, host, opts) {
 			'aria-current': btnInfo.active ? 'page' : null,
 			'aria-label': ariaLabel,
 			'data-dt-idx': button,
-			'tabIndex': btnInfo.disabled
+			tabIndex: btnInfo.disabled
 				? -1
 				: settings.iTabIndex && btn.clicker[0].nodeName.toLowerCase() !== 'span'
-					? settings.iTabIndex
-					: null, // `0` doesn't need a tabIndex since it is the default
+				? settings.iTabIndex
+				: null, // `0` doesn't need a tabIndex since it is the default
 		});
 
 		if (typeof button !== 'number') {
 			dom.s(btn.clicker).classAdd(button);
 		}
 
-		bindAction(
-			btn.clicker, {action: button}, function(e) {
-				e.preventDefault();
+		bindAction(btn.clicker, { action: button }, function (e) {
+			e.preventDefault();
 
-				pageChange( settings, e.data.action, true );
-			}
-		);
+			pageChange(settings, e.data.action, true);
+		});
 
 		buttonEls.push(btn.display);
 	}
 
-	let wrapped = renderer(settings, 'pagingContainer')(
-		settings, buttonEls
-	);
-
-	let activeEl = host.find(document.activeElement).data('dt-idx');
+	let wrapped = renderer(settings, 'pagingContainer')(settings, buttonEls);
+	let activeEl = host.find(document.activeElement).attr('data-dt-idx');
 
 	host.empty().append(wrapped);
 
-	if ( activeEl !== undefined ) {
-		host.find( '[data-dt-idx='+activeEl+']' ).trigger('focus');
+	if (activeEl) {
+		// TODO haven't done events yet
+		$(host.find('[data-dt-idx=' + activeEl + ']').get()).trigger('focus');
 	}
 
 	// Responsive - check if the buttons are over two lines based on the
 	// height of the buttons and the container.
 	if (buttonEls.length) {
 		let outerHeight = $(buttonEls[0]).outerHeight() as any;
-	
+
 		if (
 			opts.buttons > 1 && // prevent infinite
 			outerHeight > 0 && // will be 0 if hidden
-			$(host).height()! >= (outerHeight * 2) - 10
+			$(host.get()).height()! >= outerHeight * 2 - 10
 		) {
-			_pagingDraw(settings, host, Object.assign({}, opts, { buttons: opts.buttons - 2 }));
+			_pagingDraw(
+				settings,
+				host,
+				Object.assign({}, opts, { buttons: opts.buttons - 2 })
+			);
 		}
 	}
 }
@@ -179,15 +214,20 @@ function _pagingDraw(settings, host, opts) {
  * @param {*} pages Number of pages
  * @returns Info object
  */
-function _pagingButtonInfo(settings, button, page, pages) {
+function _pagingButtonInfo(
+	settings: Context,
+	button: string,
+	page: number,
+	pages: number
+) {
 	let lang = settings.oLanguage.oPaginate;
 	let o = {
 		display: '',
 		active: false,
-		disabled: false
+		disabled: false,
 	};
 
-	switch ( button ) {
+	switch (button) {
 		case 'ellipsis':
 			o.display = '&#x2026;';
 			break;
@@ -203,7 +243,7 @@ function _pagingButtonInfo(settings, button, page, pages) {
 		case 'previous':
 			o.display = lang.sPrevious;
 
-			if ( page === 0 ) {
+			if (page === 0) {
 				o.disabled = true;
 			}
 			break;
@@ -211,7 +251,7 @@ function _pagingButtonInfo(settings, button, page, pages) {
 		case 'next':
 			o.display = lang.sNext;
 
-			if ( pages === 0 || page === pages-1 ) {
+			if (pages === 0 || page === pages - 1) {
 				o.disabled = true;
 			}
 			break;
@@ -219,15 +259,15 @@ function _pagingButtonInfo(settings, button, page, pages) {
 		case 'last':
 			o.display = lang.sLast;
 
-			if ( pages === 0 || page === pages-1 ) {
+			if (pages === 0 || page === pages - 1) {
 				o.disabled = true;
 			}
 			break;
 
 		default:
-			if ( typeof button === 'number' ) {
-				o.display = settings.fnFormatNumber( button + 1 );
-				
+			if (typeof button === 'number') {
+				o.display = settings.fnFormatNumber(button + 1);
+
 				if (page === button) {
 					o.active = true;
 				}
@@ -247,14 +287,18 @@ function _pagingButtonInfo(settings, button, page, pages) {
  * @param {boolean} addFirstLast Indicate if page 1 and end should be included
  * @returns Buttons to show
  */
-export function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
-	let
-		numbers: any[] = [],
+export function _pagingNumbers(
+	page: number,
+	pages: number,
+	buttons: number,
+	addFirstLast: boolean
+) {
+	let numbers: Array<string | number> = [],
 		half = Math.floor(buttons / 2),
 		before = addFirstLast ? 2 : 1,
 		after = addFirstLast ? 1 : 0;
 
-	if ( pages <= buttons ) {
+	if (pages <= buttons) {
 		numbers = range(0, pages);
 	}
 	else if (buttons === 1) {
@@ -267,23 +311,23 @@ export function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
 			numbers = [0, 1, 'ellipsis'];
 		}
 		else if (page >= pages - 2) {
-			numbers = range(pages-2, pages);
+			numbers = range(pages - 2, pages);
 			numbers.unshift('ellipsis');
 		}
 		else {
 			numbers = ['ellipsis', page, 'ellipsis'];
 		}
 	}
-	else if ( page <= half ) {
-		numbers = range(0, buttons-before);
+	else if (page <= half) {
+		numbers = range(0, buttons - before);
 		numbers.push('ellipsis');
 
 		if (addFirstLast) {
-			numbers.push(pages-1);
+			numbers.push(pages - 1);
 		}
 	}
-	else if ( page >= pages - 1 - half ) {
-		numbers = range(pages-(buttons-before), pages);
+	else if (page >= pages - 1 - half) {
+		numbers = range(pages - (buttons - before), pages);
 		numbers.unshift('ellipsis');
 
 		if (addFirstLast) {
@@ -291,12 +335,12 @@ export function _pagingNumbers ( page, pages, buttons, addFirstLast ) {
 		}
 	}
 	else {
-		numbers = range(page-half+before, page+half-after);
+		numbers = range(page - half + before, page + half - after);
 		numbers.push('ellipsis');
 		numbers.unshift('ellipsis');
 
 		if (addFirstLast) {
-			numbers.push(pages-1);
+			numbers.push(pages - 1);
 			numbers.unshift(0);
 		}
 	}

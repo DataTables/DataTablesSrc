@@ -1,18 +1,18 @@
-
-import { pluck } from "../util/array";
+import dom from '../dom';
+import { pluck } from '../util/array';
 
 export default {
 	footer: {
-		_: function ( settings, cell, classes ) {
+		_: function (settings, cell, classes) {
 			cell.addClass(classes.tfoot.cell);
-		}
+		},
 	},
 
 	header: {
-		_: function ( settings, cell, classes ) {
+		_: function (settings, cell, classes) {
 			cell.addClass(classes.thead.cell);
 
-			if (! settings.oFeatures.bSort) {
+			if (!settings.oFeatures.bSort) {
 				cell.addClass(classes.order.none);
 			}
 
@@ -25,7 +25,6 @@ export default {
 				// Cells and rows which have the attribute to disable the icons
 				cell.attr('data-dt-order') === 'disable' ||
 				cell.parent().attr('data-dt-order') === 'disable' ||
-
 				// titleRow support, for defining a specific row in the header
 				(titleRow === true && rowIdx !== 0) ||
 				(titleRow === false && rowIdx !== headerRows.length - 1) ||
@@ -39,120 +38,138 @@ export default {
 			// `DT` namespace will allow the event to be removed automatically
 			// on destroy, while the `dt` namespaced event is the one we are
 			// listening for
-			$(settings.nTable).on( 'order.dt.DT column-visibility.dt.DT', function ( e, ctx, column ) {
-				if ( settings !== ctx ) { // need to check if this is the host
-					return;               // table, not a nested one
-				}
-
-				var sorting = ctx.sortDetails;
-
-				if (! sorting) {
-					return;
-				}
-
-				var orderedColumns = pluck(sorting, 'col');
-
-				// This handler is only needed on column visibility if the column is part of the
-				// ordering. If it isn't, then we can bail out to save performance. It could be a
-				// separate event handler, but this is a balance between code reuse / size and performance
-				// console.log(e, e.name, column, orderedColumns, orderedColumns.includes(column))
-				if (e.type === 'column-visibility' && ! orderedColumns.includes(column)) {
-					return;
-				}
-
-				var i;
-				var orderClasses = classes.order;
-				var columns = ctx.api.columns( cell );
-				var col = settings.aoColumns[columns.flatten()[0]];
-				var orderable = columns.orderable().includes(true);
-				var ariaType = '';
-				var indexes = columns.indexes();
-				var sortDirs = columns.orderable(true).flatten();
-				var tabIndex = settings.iTabIndex;
-				var canOrder = ctx.orderHandler && orderable;
-
-				cell
-					.removeClass(
-						orderClasses.isAsc +' '+
-						orderClasses.isDesc
-					)
-					.toggleClass( orderClasses.none, ! orderable )
-					.toggleClass( orderClasses.canAsc, canOrder && sortDirs.includes('asc') )
-					.toggleClass( orderClasses.canDesc, canOrder && sortDirs.includes('desc') );
-
-				// Determine if all of the columns that this cell covers are included in the
-				// current ordering
-				var isOrdering = true;
-				
-				for (i=0; i<indexes.length; i++) {
-					if (! orderedColumns.includes(indexes[i])) {
-						isOrdering = false;
+			$(settings.nTable).on(
+				'order.dt.DT column-visibility.dt.DT',
+				function (e, ctx, column) {
+					if (settings !== ctx) {
+						// need to check if this is the host
+						return; // table, not a nested one
 					}
-				}
 
-				if ( isOrdering ) {
-					// Get the ordering direction for the columns under this cell
-					// Note that it is possible for a cell to be asc and desc sorting
-					// (column spanning cells)
-					var orderDirs = columns.order();
+					var sorting = ctx.sortDetails;
 
-					cell.addClass(
-						orderDirs.includes('asc') ? orderClasses.isAsc : '' +
-						orderDirs.includes('desc') ? orderClasses.isDesc : ''
-					);
-				}
-
-				// Find the first visible column that has ordering applied to it - it get's
-				// the aria information, as the ARIA spec says that only one column should
-				// be marked with aria-sort
-				var firstVis = -1; // column index
-
-				for (i=0; i<orderedColumns.length; i++) {
-					if (settings.aoColumns[orderedColumns[i]].bVisible) {
-						firstVis = orderedColumns[i];
-						break;
+					if (!sorting) {
+						return;
 					}
-				}
 
-				if (indexes[0] == firstVis) {
-					var firstSort = sorting[0];
-					var sortOrder = col.asSorting;
+					var orderedColumns = pluck(sorting, 'col');
 
-					cell.attr('aria-sort', firstSort.dir === 'asc' ? 'ascending' : 'descending');
+					// This handler is only needed on column visibility if the column is part of the
+					// ordering. If it isn't, then we can bail out to save performance. It could be a
+					// separate event handler, but this is a balance between code reuse / size and performance
+					// console.log(e, e.name, column, orderedColumns, orderedColumns.includes(column))
+					if (
+						e.type === 'column-visibility' &&
+						!orderedColumns.includes(column)
+					) {
+						return;
+					}
 
-					// Determine if the next click will remove sorting or change the sort
-					ariaType = ! sortOrder[firstSort.index + 1] ? 'Remove' : 'Reverse';
-				}
-				else {
-					cell.removeAttr('aria-sort');
-				}
+					var i;
+					var orderClasses = classes.order;
+					var columns = ctx.api.columns(cell);
+					var col = settings.aoColumns[columns.flatten()[0]];
+					var orderable = columns.orderable().includes(true);
+					var ariaType = '';
+					var indexes = columns.indexes();
+					var sortDirs = columns.orderable(true).flatten();
+					var tabIndex = settings.iTabIndex;
+					var canOrder = ctx.orderHandler && orderable;
 
-				// Make the headers tab-able for keyboard navigation
-				if (orderable) {
-					var orderSpan = cell.find('.dt-column-order');
-					
-					orderSpan
-						.attr('role', 'button')
-						.attr('aria-label', orderable
-							? col.ariaTitle + ctx.api.i18n('oAria.orderable' + ariaType)
-							: col.ariaTitle
+					cell
+						.removeClass(orderClasses.isAsc + ' ' + orderClasses.isDesc)
+						.toggleClass(orderClasses.none, !orderable)
+						.toggleClass(
+							orderClasses.canAsc,
+							canOrder && sortDirs.includes('asc')
+						)
+						.toggleClass(
+							orderClasses.canDesc,
+							canOrder && sortDirs.includes('desc')
 						);
 
-					if (tabIndex !== -1) {
-						orderSpan.attr('tabindex', tabIndex);
+					// Determine if all of the columns that this cell covers are included in the
+					// current ordering
+					var isOrdering = true;
+
+					for (i = 0; i < indexes.length; i++) {
+						if (!orderedColumns.includes(indexes[i])) {
+							isOrdering = false;
+						}
+					}
+
+					if (isOrdering) {
+						// Get the ordering direction for the columns under this cell
+						// Note that it is possible for a cell to be asc and desc sorting
+						// (column spanning cells)
+						var orderDirs = columns.order();
+
+						cell.addClass(
+							orderDirs.includes('asc')
+								? orderClasses.isAsc
+								: '' + orderDirs.includes('desc')
+								? orderClasses.isDesc
+								: ''
+						);
+					}
+
+					// Find the first visible column that has ordering applied to it - it get's
+					// the aria information, as the ARIA spec says that only one column should
+					// be marked with aria-sort
+					var firstVis = -1; // column index
+
+					for (i = 0; i < orderedColumns.length; i++) {
+						if (settings.aoColumns[orderedColumns[i]].bVisible) {
+							firstVis = orderedColumns[i];
+							break;
+						}
+					}
+
+					if (indexes[0] == firstVis) {
+						var firstSort = sorting[0];
+						var sortOrder = col.asSorting;
+
+						cell.attr(
+							'aria-sort',
+							firstSort.dir === 'asc' ? 'ascending' : 'descending'
+						);
+
+						// Determine if the next click will remove sorting or change the sort
+						ariaType = !sortOrder[firstSort.index + 1] ? 'Remove' : 'Reverse';
+					}
+					else {
+						cell.removeAttr('aria-sort');
+					}
+
+					// Make the headers tab-able for keyboard navigation
+					if (orderable) {
+						var orderSpan = cell.find('.dt-column-order');
+
+						orderSpan
+							.attr('role', 'button')
+							.attr(
+								'aria-label',
+								orderable
+									? col.ariaTitle + ctx.api.i18n('oAria.orderable' + ariaType)
+									: col.ariaTitle
+							);
+
+						if (tabIndex !== -1) {
+							orderSpan.attr('tabindex', tabIndex);
+						}
 					}
 				}
-			} );
-		}
+			);
+		},
 	},
 
 	layout: {
-		_: function ( settings, container, items ) {
-			var classes = settings.oClasses.layout;
-			var row = $('<div/>')
+		_: function (settings, container, items) {
+			let classes = settings.oClasses.layout;
+			let row = dom.c('div')
 				.attr('id', items.id || null)
-				.addClass(items.className || classes.row)
-				.appendTo( container );
+				.classAdd(items.className || classes.row)
+				.appendTo(container);
 
 			forLayoutRow(items, function (key, val) {
 				if (key === 'id' || key === 'className') {
@@ -162,7 +179,7 @@ export default {
 				var klass = '';
 
 				if (val.table) {
-					row.addClass(classes.tableRow);
+					row.classAdd(classes.tableRow);
 					klass += classes.tableCell + ' ';
 				}
 
@@ -176,38 +193,39 @@ export default {
 					klass += classes.full;
 				}
 
-				$('<div/>')
+				dom.c('div')
 					.attr({
 						id: val.id || null,
-						"class": val.className
-							? val.className
-							: classes.cell + ' ' + klass
+						class: val.className ? val.className : classes.cell + ' ' + klass,
 					})
-					.append( val.contents )
-					.appendTo( row );
+					.append(val.contents)
+					.appendTo(row);
 			});
 		},
 
 		// Shared for use by the styling frameworks
-		_forLayoutRow: forLayoutRow
-	}
+		_forLayoutRow: forLayoutRow,
+	},
 };
 
-function forLayoutRow (items, fn) {
+function forLayoutRow(items, fn) {
 	// As we are inserting dom elements, we need start / end in a
 	// specific order, this function is used for sorting the layout
 	// keys.
 	var layoutEnum = function (x) {
 		switch (x) {
-			case '': return 0;
-			case 'start': return 1;
-			case 'end': return 2;
-			default: return 3;
+			case '':
+				return 0;
+			case 'start':
+				return 1;
+			case 'end':
+				return 2;
+			default:
+				return 3;
 		}
 	};
 
-	Object
-		.keys(items)
+	Object.keys(items)
 		.sort(function (a, b) {
 			return layoutEnum(a) - layoutEnum(b);
 		})

@@ -1,6 +1,10 @@
 import { numToDecimal } from './conv';
-import { stripHtml } from './string';
 import { reFormattedNumeric } from './regex';
+import { stripHtml } from './string';
+
+export function arrayLike(test: any) {
+	return test.length !== undefined;
+}
 
 /**
  * Check if a value is empty or not. Note that a string with `-` is considered empty
