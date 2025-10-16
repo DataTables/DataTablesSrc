@@ -622,8 +622,6 @@ export class Dom<T extends Element = Element> {
 
 	/**
 	 * Get the value from the first item in the result set
-	 *
-	 * @todo Doesn't handle multi-select or radio / checkboxes
 	 */
 	val(): string;
 
@@ -631,7 +629,6 @@ export class Dom<T extends Element = Element> {
 	 * Set the value for all elements in the result set
 	 *
 	 * @param value Value to set
-	 * @todo Doesn't handle multi-select or radio / checkboxes
 	 */
 	val(value: string | number): this;
 
@@ -643,26 +640,25 @@ export class Dom<T extends Element = Element> {
 			}
 
 			let el = this._store[0] as any;
-			let type = el.nodeName.toLowerCase();
 
-			return type === 'select' ? el.options[el.selectedIndex].value : el.value;
+			if (el.options && el.multiple) {
+				return el.options
+					.filter(opt => opt.selected)
+					.map(opt => opt.value);
+			}
+			
+			return el.value;
 		}
 
+		// Setter
 		return this.each((el: any) => {
-			let type = el.nodeName.toLowerCase();
+			if (el.options && el.multiple) {
+				let valArr = Array.isArray(value) ? value : [value];
 
-			if (type === 'select') {
-				let idx = -1;
-				
-				Array.from((el as HTMLSelectElement).options).forEach((opt, i) => {
-					if (opt.value == value) {
-						idx = i;
-					}
-				});
-
-				el.selectedIndex = idx;
+				el.options.forEach(opt => opt.selected = valArr.includes(opt.value));
 			}
 			else {
+				// This works for select elements as well in modern browsers
 				el.value = value;
 			}
 		});
