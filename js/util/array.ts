@@ -48,6 +48,10 @@ export function flatten(out: any[], val: any) {
 	return out;
 }
 
+export function intersection(a1: any[], a2: any[]): any[] {
+	return a1.filter(item => a2.includes(item));
+}
+
 /**
  * Pluck items from an array of objects, or from a nested array of objects
  *

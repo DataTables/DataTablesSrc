@@ -128,28 +128,28 @@ register(
 			select.get(0)[i] = new Option(label, lengths[i]);
 		}
 
-		// add for and id to label and input
-		div.find('label').attr('for', 'dt-length-' + __lengthCounter);
-		select.attr('id', 'dt-length-' + __lengthCounter);
-		__lengthCounter++;
-
 		// Swap in the select list
 		div.find('#' + tmpId).replaceWith(select);
 
 		// Can't use `select` variable as user might provide their own and the
 		// reference is broken by the use of outerHTML
-		select.val(settings._iDisplayLength);
+		div
+			.find('select')
+			.attr('id', 'dt-length-' + __lengthCounter)
+			.val(settings._iDisplayLength)
+			.on('change.DT', function () {
+				lengthChange(settings, select.val() as string);
+				draw(settings);
+			});
 
-		// TODO need to add .DT namespace back when that is supported
-		select.on('change', function () {
-			lengthChange(settings, select.val() as string);
-			draw(settings);
-		});
+		// add for and id to label and input
+		div.find('label').attr('for', 'dt-length-' + __lengthCounter);
+		__lengthCounter++;
 
 		// Update node value whenever anything changes the table's length
 		$(settings.nTable).on('length.dt.DT', function (e, s, len) {
 			if (settings === s) {
-				select.val(len);
+				div.find('select').val(len);
 
 				// Resolve plurals in the text for the new length
 				updateEntries(len);

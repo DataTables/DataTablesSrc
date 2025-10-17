@@ -516,6 +516,124 @@ export class Dom<T extends Element = Element> {
 	}
 
 	/**
+	 * Remove all events attached to this element
+	 */
+	off(): this;
+
+	/**
+	 * Remove all events attached to this element that match the given event
+	 * name or any of the namespaces (if given).
+	 *
+	 * @param name Event name. This can optionally include period separated
+	 *   namespaces. Multiple events can be removed by space separation of the
+	 *   names.
+	 */
+	off(name): this;
+
+	/**
+	 * Remove all events attached to this element that match the given event
+	 * name or any of the namespaces (if given) and the event handler
+	 *
+	 * @param name Event name. This can optionally include period separated
+	 *   namespaces. Multiple events can be removed by space separation of the
+	 *   names.
+	 * @param handler Callback to remove
+	 */
+	off(name: string, handler: Function): this;
+
+	/**
+	 * Remove all delegated events attached to this element that match the given
+	 * event name or any of the namespaces (if given), the delegate selector and
+	 * (optionally) the event handler
+	 *
+	 * @param name Event name. This can optionally include period separated
+	 *   namespaces. Multiple events can be removed by space separation of the
+	 *   names.
+	 * @param selector CSS style selector to use to match elements from the
+	 *   parent.
+	 * @param handler Callback to remove
+	 */
+	off(name: string, selector: string, handler?: Function): this;
+
+	off(arg1?: string, arg2?: any, arg3?: any): this {
+		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
+
+		return this.each(el => {
+			names.forEach(name => {
+				events.remove(el, name, handler, selector);
+			});
+		});
+	}
+
+	/**
+	 * Add an event listener to all elements in the result set.
+	 *
+	 * @param name Event name. This can optionally include period separated
+	 *   namespaces. Multiple events can be added by space separation of the
+	 *   names.
+	 * @param handler Callback when the event happens.
+	 * @return Self for chaining
+	 */
+	on(name: string, handler: EventHandler): this;
+
+	/**
+	 * Add a delegated event listener to all elements in the result set.
+	 *
+	 * @param name Event name. This can optionally include period separated
+	 *   namespaces. Multiple events can be added by space separation of the
+	 *   names.
+	 * @param selector CSS style selector to use to match elements from the
+	 *   parent.
+	 * @param handler Callback when the event happens.
+	 * @return Self for chaining
+	 */
+	on(name: string, selector: string, handler: EventHandler): this;
+
+	on(arg1: string, arg2: any, arg3?: any): this {
+		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
+
+		return this.each(el => {
+			names.forEach(name => {
+				events.add(el, name, handler, selector, false);
+			});
+		});
+	}
+
+	/**
+	 * Add a one-time event listener to all elements in the result set.
+	 *
+	 * @param name Event name. This can optionally include period separated
+	 *   namespaces. Multiple events can be added by space separation of the
+	 *   names.
+	 * @param handler Callback when the event happens.
+	 * @return Self for chaining
+	 */
+	one(name: string, handler: EventHandler): this;
+
+	/**
+	 * Add a one-time event listener to all elements in the result set.
+	 *
+	 * @param name Event name. This can optionally include period separated
+	 *   namespaces. Multiple events can be added by space separation of the
+	 *   names.
+	 * @param selector CSS style selector to use to match elements from the
+	 *   parent.
+	 * @param handler Callback when the event happens.
+	 * @return Self for chaining
+	 */
+	one(name: string, selector: string, handler: EventHandler): this;
+
+	one(arg1: string, arg2: any, arg3?: any): this {
+		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
+
+		return this.each(el => {
+			names.forEach(name => {
+				events.add(el, name, handler, selector, true);
+			});
+		});
+	}
+
+	/**
 	 * Get the parent element for each element in the result set
 	 *
 	 * @returns New Dom instance containing the parent elements
@@ -620,6 +738,8 @@ export class Dom<T extends Element = Element> {
 			el.textContent = txt;
 		});
 	}
+
+	// TODO trigger
 
 	/**
 	 * Get the value from the first item in the result set
@@ -730,46 +850,6 @@ export class Dom<T extends Element = Element> {
 			);
 		}
 	}
-
-	on(name: string, handler: EventHandler): this;
-	on(name: string, selector: string, handler: EventHandler): this;
-	on(arg1: string, arg2: any, arg3?: any): this {
-		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
-
-		return this.each(el => {
-			names.forEach(name => {
-				events.add(el, name, handler, selector, false);
-			});
-		});
-	}
-
-	one(name: string, handler: EventHandler): this;
-	one(name: string, selector: string, handler: EventHandler): this;
-	one(arg1: string, arg2: any, arg3?: any): this {
-		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
-
-		return this.each(el => {
-			names.forEach(name => {
-				events.add(el, name, handler, selector, true);
-			});
-		});
-	}
-
-	off(): this;
-	off(name): this;
-	off(name: string, handler: Function): this;
-	off(name: string, selector: string, handler: Function): this;
-	off(arg1?: string, arg2?: any, arg3?: any): this {
-		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
-
-		return this.each(el => {
-			names.forEach(name => {
-				events.remove(el, name, handler, selector);
-			});
-		});
-	}
-
-	// trigger
 }
 
 function normaliseEventParams(name?: string, arg2?: any, arg3?: any) {

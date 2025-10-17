@@ -1,8 +1,15 @@
 
-export interface WrappedHandler {
-	(e: Event): any;
+export interface DomEvent extends Event {
+	namespace: string;
+	currentTarget: Element;
+	delegateTarget: Element;
+}
+
+export interface WrappedHandler extends EventListener {
+	(e: DomEvent): any;
 	delegateSelector: string | null;
 	original: EventListener;
 	one: boolean;
 	type: string;
+	namespaces: string[];
 }

@@ -1,4 +1,4 @@
-
+import * as array from '../util/array';
 import * as eventStore from './eventStore';
 import { WrappedHandler } from './interface';
 
@@ -25,7 +25,7 @@ function setEventProp(event: Event, name: string, value: any) {
  *
  * @param el Root element
  * @param selector CSS selector
- * @param event Event that 
+ * @param event Event that
  * @returns The matching element if there is one
  */
 function delegateTarget(el: Element, selector: string, event: Event) {
@@ -48,17 +48,62 @@ function delegateTarget(el: Element, selector: string, event: Event) {
 	}
 }
 
+function parseEventName(original: string | null) {
+	if (!original) {
+		return {
+			eventName: null,
+			namespaces: [],
+		};
+	}
+
+	let parts = original.split('.');
+	let name = parts.shift();
+
+	return {
+		eventName: name,
+		namespaces: parts,
+	};
+}
+
+/**
+ * Add an event listener to a function
+ *
+ * @param el The element to add an event handler to
+ * @param nameFull Event name. This can optionally be followed by a dot
+ *   separated list of namespaces, a la jQuery. This allows for easy event
+ *   removal and also matching triggering.
+ * @param handler Callback function to execute
+ * @param selector Delegate selector. `null` for non-delegate events
+ * @param one Indicate if the event handler should execute only once and then be
+ *   removed.
+ */
 export function add(
 	el: Element,
-	name: string,
+	nameFull: string,
 	handler: EventListener,
 	selector: string | null,
 	one: boolean
 ) {
+	let { eventName, namespaces } = parseEventName(nameFull);
+
+	if (!eventName) {
+		return;
+	}
+
 	// Create a function that will be the actual event handler, and performs any
 	// logic we need, such as delegate handling and adding properties.
 	let wrapped = function (event) {
 		let callScope: EventTarget = el; // Scope for the callback function
+
+		// If the event has a namespace (from a trigger), then the handler
+		// should only be run if there is at least one namespace being listened
+		// for that matches. This is an OR operation.
+		if (
+			event.namespace &&
+			!array.intersection(namespaces, event.namespace.split('.')).length
+		) {
+			return;
+		}
 
 		// For delegate events, determine if the target matches our selector
 		if (selector) {
@@ -78,7 +123,7 @@ export function add(
 		let retVal = handler.call(this, event);
 
 		if (one) {
-			remove(el, name, handler, selector);
+			remove(el, eventName, handler, selector);
 		}
 
 		if (retVal === false) {
@@ -90,18 +135,28 @@ export function add(
 	wrapped.delegateSelector = selector;
 	wrapped.original = handler;
 	wrapped.one = one;
-	wrapped.type = name;
+	wrapped.type = eventName;
+	wrapped.namespaces = namespaces;
 
 	eventStore.set(el, wrapped);
-	el.addEventListener(name, wrapped);
+	el.addEventListener(eventName, wrapped);
 }
 
+/**
+ * Remove an event from an element
+ *
+ * @param el The element to remove the event(s) from
+ * @param nameFull Event name and / or dot separated namespaces
+ * @param handler The function to remove (optional)
+ * @param selector Delegate selector (optional)
+ */
 export function remove(
 	el: Element,
-	name: string | null,
-	handler: EventListener,
+	nameFull: string | null,
+	handler: EventListener | null,
 	selector: string | null
 ) {
+	let { eventName, namespaces } = parseEventName(nameFull);
 	let removeEvents: WrappedHandler[] = [];
 	let stored = eventStore.get(el);
 
@@ -109,30 +164,39 @@ export function remove(
 		return;
 	}
 
-	if (name && selector && handler) {
+	if (eventName && selector && handler) {
 		removeEvents = stored.filter(
 			wrapped =>
-				wrapped.type === name &&
+				wrapped.type === eventName &&
 				wrapped.delegateSelector === selector &&
 				wrapped.original === handler
 		);
 	}
-	if (name && selector) {
+	if (eventName && selector) {
 		removeEvents = stored.filter(
-			wrapped => wrapped.type === name && wrapped.delegateSelector === selector
+			wrapped =>
+				wrapped.type === eventName && wrapped.delegateSelector === selector
 		);
 	}
-	else if (name && handler) {
+	else if (eventName && handler) {
 		removeEvents = stored.filter(
-			wrapped => wrapped.type === name && wrapped.original === handler
+			wrapped => wrapped.type === eventName && wrapped.original === handler
 		);
 	}
-	else if (name) {
-		removeEvents = stored.filter(wrapped => wrapped.type === name);
+	else if (eventName) {
+		removeEvents = stored.filter(wrapped => wrapped.type === eventName);
 	}
 	else {
-		// No name, remove all events
+		// No name, use all events
 		removeEvents = stored;
+	}
+
+	// If namespaces were given then we need to filter down to just those event
+	// handlers which have the given namespaces
+	if (namespaces.length) {
+		removeEvents = removeEvents.filter(
+			ev => array.intersection(ev.namespaces, namespaces).length
+		);
 	}
 
 	removeEvents.forEach(wrapped => {
