@@ -140,7 +140,8 @@ register(
 		// reference is broken by the use of outerHTML
 		select.val(settings._iDisplayLength);
 
-		$(select.get(0)).on('change.DT', function () {
+		// TODO need to add .DT namespace back when that is supported
+		select.on('change', function () {
 			lengthChange(settings, select.val() as string);
 			draw(settings);
 		});

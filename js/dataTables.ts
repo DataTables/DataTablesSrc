@@ -5,6 +5,7 @@ import { extend } from './api/support';
 import util from './api/util';
 import { browser, camelToHungarian } from "./core/compat";
 import construct from './core/constructor';
+import dom from './dom';
 import helpers, { datetime } from './ext/helpers';
 import ext from './ext/index';
 import { register as registerType, types } from './ext/types';
@@ -73,28 +74,11 @@ DataTable.util = util;
 DataTable.Api = Api;
 DataTable.datetime = datetime;
 DataTable.__browser = browser;
-
-/**
- * Version string for plug-ins to check compatibility. Allowed format is
- * `a.b.c-d` where: a:int, b:int, c:int, d:string(dev|beta|alpha). `d` is used
- * only for non-release builds. See https://semver.org/ for more information.
- *  @member
- *  @type string
- *  @default Version number
- */
-DataTable.version = ext.version;
+DataTable.dom = dom;
 
 /**
  * Private data store, containing all of the settings objects that are
  * created for the tables on a given page.
- *
- * Note that the `DataTable.settings` object is aliased to
- * `jQuery.fn.dataTableExt` through which it may be accessed and
- * manipulated, or `jQuery.fn.dataTable.settings`.
- *  @member
- *  @type array
- *  @default []
- *  @private
  */
 DataTable.settings = ext.settings;
 
@@ -102,7 +86,6 @@ DataTable.settings = ext.settings;
  * Object models container, for the various models that DataTables has
  * available to it. These models define the objects that are used to hold
  * the active state and configuration of the table.
- *  @namespace
  */
 DataTable.models = models;
 DataTable.defaults = defaults;

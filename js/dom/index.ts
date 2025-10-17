@@ -1,5 +1,6 @@
 import * as is from '../util/is';
 import * as object from '../util/object';
+import * as events from './events';
 
 type TSelector = string | Element | HTMLElement | Document | Array<TSelector>;
 type TDimensionInclude =
@@ -729,10 +730,76 @@ export class Dom<T extends Element = Element> {
 			);
 		}
 	}
+
+	on(name: string, handler: EventHandler): this;
+	on(name: string, selector: string, handler: EventHandler): this;
+	on(arg1: string, arg2: any, arg3?: any): this {
+		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
+
+		return this.each(el => {
+			names.forEach(name => {
+				events.add(el, name, handler, selector, false);
+			});
+		});
+	}
+
+	one(name: string, handler: EventHandler): this;
+	one(name: string, selector: string, handler: EventHandler): this;
+	one(arg1: string, arg2: any, arg3?: any): this {
+		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
+
+		return this.each(el => {
+			names.forEach(name => {
+				events.add(el, name, handler, selector, true);
+			});
+		});
+	}
+
+	off(): this;
+	off(name): this;
+	off(name: string, handler: Function): this;
+	off(name: string, selector: string, handler: Function): this;
+	off(arg1?: string, arg2?: any, arg3?: any): this {
+		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
+
+		return this.each(el => {
+			names.forEach(name => {
+				events.remove(el, name, handler, selector);
+			});
+		});
+	}
+
+	// trigger
+}
+
+function normaliseEventParams(name?: string, arg2?: any, arg3?: any) {
+	let selector: string | null;
+	let handler: EventHandler;
+	let names = name ? name.split(' ').map(str => str.trim()) : [null];
+
+	if (typeof arg2 === 'string') {
+		selector = arg2;
+		handler = arg3;
+	}
+	else {
+		selector = null;
+		handler = arg2;
+	}
+
+	return {
+		handler,
+		names,
+		selector
+	};
 }
 
 export default {
 	c: Dom.create,
 	Dom,
 	s: Dom.selector,
+};
+
+type EventHandler = {
+  ( event: any, data?: any ): any,
+  guid?: number
 };
