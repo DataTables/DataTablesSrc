@@ -90,7 +90,7 @@ describe('core - events - search', function() {
 		it('Called just once when user searches', function() {
 			$('div.dt-search input')
 				.val('cox')
-				.keyup();
+				.triggerNative('keyup');
 			expect(count).toBe(10);
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
 		});
@@ -104,7 +104,7 @@ describe('core - events - search', function() {
 
 			$('div.dt-search input')
 				.val('airi')
-				.keyup();
+				.triggerNative('keyup');
 
 			expect(order).toBe(false); // event didn't trigger
 		});

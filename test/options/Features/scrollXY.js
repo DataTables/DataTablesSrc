@@ -33,7 +33,7 @@ describe('scrollY / X option', function() {
 		it('Filtering results in sets y-scroll back to 0 - Testing DOM', function() {
 			$('div.dt-search input')
 				.val(1)
-				.keyup();
+				.triggerNative('keyup');
 			expect($('div.dt-scroll-head').scrollTop()).toBe(0);
 		});
 
@@ -101,7 +101,7 @@ describe('scrollY / X option', function() {
 		it('Unaltered when filter applied', function() {
 			$('div.dt-search input')
 				.val('47')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('div.dt-scroll-body').width()).toBe(800);
 		});
 	});

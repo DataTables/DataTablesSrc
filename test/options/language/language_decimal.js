@@ -33,7 +33,7 @@ describe('language.decimal option ', function() {
 			initComplete: function(settings, json) {
 				$('div.dt-search input')
 					.val('915.00')
-					.keyup();
+					.triggerNative('keyup');
 				expect($('div.dt-info').text()).toBe('Showing 1 to 7 of 7 entries (filtered from 10,000 total entries)');
 				done();
 			}

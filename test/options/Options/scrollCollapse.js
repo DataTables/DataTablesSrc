@@ -16,7 +16,7 @@ describe('scrollCollapse option', function() {
 		it('Check viewport unchanged if smaller result set', function() {
 			$('div.dt-search input')
 				.val('41')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('div.dt-scroll-body').height()).toBe(300);
 			expect($('#example').height()).toBeLessThan(300);
 		});
@@ -33,14 +33,14 @@ describe('scrollCollapse option', function() {
 		it('Check viewport is shrunk to result set', function() {
 			$('div.dt-search input')
 				.val('41')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('div.dt-scroll-body').height()).toBeLessThan(300);
 			expect($('#example').height()).toBe($('div.dt-scroll-body').height());
 		});
 		it('Check viewport is reset when no input', function() {
 			$('div.dt-search input')
 				.val('')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('div.dt-scroll-body').height()).toBe(300);
 			expect($('#example').height()).toBeGreaterThan(300);
 		});

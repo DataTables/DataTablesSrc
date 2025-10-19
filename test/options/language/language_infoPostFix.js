@@ -48,7 +48,7 @@ describe('language.infoPostFix option', function() {
 			});
 			$('div.dt-search input')
 				.val('asdasd')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('div.dt-info').html()).toBe(
 				'Showing 0 to 0 of 0 entries (filtered from 57 total entries)unit test'
 			);

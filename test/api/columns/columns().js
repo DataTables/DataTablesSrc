@@ -223,7 +223,7 @@ describe('columns- columns() -solo', function() {
 		it('Can select column using node with `search: current`', function() {
 			$('div.dt-search input')
 				.val('Accountant')
-				.keyup();
+				.triggerNative('keyup');
 			expect(table.columns('#example thead th:eq(0)', { search: 'applied' }).data()[0][0]).toBe('Airi Satou');
 		});
 	});

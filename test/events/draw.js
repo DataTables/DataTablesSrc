@@ -90,19 +90,19 @@ describe('core - events - draw', function() {
 		it('Called when user changes page length', function() {
 			$('div.dt-length select')
 				.val(10)
-				.change();
+				.triggerNative('change');
 			checkResults(1, 'Jennifer Acosta');
 		});
 		it('Called when user searches', function() {
 			$('div.dt-search input')
 				.val('cox')
-				.keyup();
+				.triggerNative('keyup');
 			checkResults(1, 'Ashton Cox');
 		});
 		it('Called when user clears search', function() {
 			$('div.dt-search input')
 				.val('')
-				.keyup();
+				.triggerNative('keyup');
 			checkResults(1, 'Garrett Winters');
 		});
 		it('Called when user changes order', async function() {

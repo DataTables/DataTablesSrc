@@ -97,7 +97,7 @@ describe('core - events - processing', function() {
 			reset();
 			$('div.dt-search input')
 				.val('green')
-				.keyup();
+				.triggerNative('keyup');
 			expect(count).toBe(0);
 		});
 
@@ -145,7 +145,7 @@ describe('core - events - processing', function() {
 			reset();
 			$('div.dt-search input')
 				.val('green')
-				.keyup();
+				.triggerNative('keyup');
 			expect(count).toBe(0);
 		});
 	});
@@ -211,7 +211,7 @@ describe('core - events - processing', function() {
 			reset();
 			$('div.dt-search input')
 				.val('green')
-				.keyup();
+				.triggerNative('keyup');
 			expect(count).toBe(0);
 		});
 
@@ -275,7 +275,7 @@ describe('core - events - processing', function() {
 			reset();
 			$('div.dt-search input')
 				.val('green')
-				.keyup();
+				.triggerNative('keyup');
 			expect(count).toBe(0);
 		});
 	});
@@ -338,7 +338,7 @@ describe('core - events - processing', function() {
 			reset();
 			$('div.dt-search input')
 				.val('green')
-				.keyup();
+				.triggerNative('keyup');
 			
 			await dt.sleep(500);
 			expect(count).toBe(2);
@@ -397,7 +397,7 @@ describe('core - events - processing', function() {
 			reset();
 			$('div.dt-search input')
 				.val('green')
-				.keyup();
+				.triggerNative('keyup');
 
 			await dt.sleep(500);
 			expect(count).toBe(2);

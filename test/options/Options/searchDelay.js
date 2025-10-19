@@ -37,14 +37,14 @@ describe('searchDelay Option', function() {
 			});
 			$('div.dt-search input')
 				.val('z')
-				.keyup();
+				.triggerNative('keyup');
 
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 		it('Second interaction has no effect before timeout', function() {
 			$('div.dt-search input')
 				.val('ez')
-				.keyup();
+				.triggerNative('keyup');
 
 			expect($('tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});

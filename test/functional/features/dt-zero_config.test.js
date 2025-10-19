@@ -132,28 +132,28 @@ describe('Basic DataTables Test', function() {
 			$('#example').DataTable();
 			$('div.dt-length select')
 				.val('25')
-				.change();
+				.triggerNative('change');
 			expect($('#example tbody tr').length).toBe(25);
 		});
 
 		it('Changing table length to 50 records', function() {
 			$('div.dt-length select')
 				.val('50')
-				.change();
+				.triggerNative('change');
 			expect($('#example tbody tr').length).toBe(50);
 		});
 
 		it('Changing table length to 100 records', function() {
 			$('div.dt-length select')
 				.val('100')
-				.change();
+				.triggerNative('change');
 			expect($('#example tbody tr').length).toBe(57);
 		});
 
 		it('Changing table length to 10 records', function() {
 			$('div.dt-length select')
 				.val('10')
-				.change();
+				.triggerNative('change');
 			expect($('#example tbody tr').length).toBe(10);
 		});
 	});
@@ -195,7 +195,7 @@ describe('Basic DataTables Test', function() {
 		it('Information with 25 records', function() {
 			$('div.dt-length select')
 				.val('25')
-				.change();
+				.triggerNative('change');
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 25 of 57 entries');
 		});
 
@@ -207,14 +207,14 @@ describe('Basic DataTables Test', function() {
 		it('Information with 100 records', function() {
 			$('div.dt-length select')
 				.val('100')
-				.change();
+				.triggerNative('change');
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 57 of 57 entries');
 		});
 
 		it('Information back to 10 records', function() {
 			$('div.dt-length select')
 				.val('10')
-				.change();
+				.triggerNative('change');
 			$('div button.previous').click();
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
 		});
@@ -222,7 +222,7 @@ describe('Basic DataTables Test', function() {
 		it("Information with filter 'London'", function() {
 			$('div.dt-search input')
 				.val('London')
-				.keyup();
+				.triggerNative('keyup');
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 10 of 12 entries (filtered from 57 total entries)'
 			);
@@ -252,7 +252,7 @@ describe('Basic DataTables Test', function() {
 		it("Information with filter increased to 'London 66'", function() {
 			$('div.dt-search input')
 				.val('London 66')
-				.keyup();
+				.triggerNative('keyup');
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 1 of 1 entry (filtered from 57 total entries)'
 			);
@@ -261,7 +261,7 @@ describe('Basic DataTables Test', function() {
 		it("Information with filter decreased to 'London'", function() {
 			$('div.dt-search input')
 				.val('London')
-				.keyup();
+				.triggerNative('keyup');
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 10 of 12 entries (filtered from 57 total entries)'
 			);
@@ -277,7 +277,7 @@ describe('Basic DataTables Test', function() {
 		it('Information with filter removed', function() {
 			$('div.dt-search input')
 				.val('')
-				.keyup();
+				.triggerNative('keyup');
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
 		});
 	});
@@ -289,7 +289,7 @@ describe('Basic DataTables Test', function() {
 			$('#example').dataTable();
 			$('div.dt-search input')
 				.val('W')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Bradley Greer');
 		});
 
@@ -302,7 +302,7 @@ describe('Basic DataTables Test', function() {
 		it("Filter 'Lon'", function() {
 			$('div.dt-search input')
 				.val('Lon')
-				.keyup();
+				.triggerNative('keyup');
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 10 of 12 entries (filtered from 57 total entries)'
 			);
@@ -321,7 +321,7 @@ describe('Basic DataTables Test', function() {
 		it("Filter 'London'- sorting column 1 reverse", function() {
 			$('div.dt-search input')
 				.val('London')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('#example tbody tr:eq(0) td:eq(1)').html()).toBe('Technical Author');
 		});
 
@@ -338,7 +338,7 @@ describe('Basic DataTables Test', function() {
 		it("Filter 'London'- sorting col 3- reversed info", function() {
 			$('div.dt-search input')
 				.val('Lon')
-				.keyup();
+				.triggerNative('keyup');
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 10 of 12 entries (filtered from 57 total entries)'
 			);
@@ -347,7 +347,7 @@ describe('Basic DataTables Test', function() {
 		it("Filter 'nothingishere'", function() {
 			$('div.dt-search input')
 				.val('nothingishere')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('No matching records found');
 		});
 
@@ -360,7 +360,7 @@ describe('Basic DataTables Test', function() {
 		it('Filter back to blank and 1st column sorting', async function() {
 			$('div.dt-search input')
 				.val('')
-				.keyup();
+				.triggerNative('keyup');
 
 			await dt.clickHeader(0);
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe('Showing 1 to 10 of 57 entries');
@@ -369,10 +369,10 @@ describe('Basic DataTables Test', function() {
 		it('Prefixing a filter entry', function() {
 			$('div.dt-search input')
 				.val('Author')
-				.keyup();
+				.triggerNative('keyup');
 			$('div.dt-search input')
 				.val('TechnicalAuthor')
-				.keyup();
+				.triggerNative('keyup');
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 0 to 0 of 0 entries (filtered from 57 total entries)'
 			);
@@ -381,10 +381,10 @@ describe('Basic DataTables Test', function() {
 		it('Prefixing a filter entry with space', function() {
 			$('div.dt-search input')
 				.val('Author')
-				.keyup();
+				.triggerNative('keyup');
 			$('div.dt-search input')
 				.val('Technical Author')
-				.keyup();
+				.triggerNative('keyup');
 			expect(doc.getElementsByClassName('dt-info')[0].innerHTML).toBe(
 				'Showing 1 to 2 of 2 entries (filtered from 57 total entries)'
 			);
@@ -393,7 +393,7 @@ describe('Basic DataTables Test', function() {
 		it('Smart search - double quoted phrase', function() {
 			$('div.dt-search input')
 				.val('"Regional Director"')
-				.keyup();
+				.triggerNative('keyup');
 
 			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
@@ -403,7 +403,7 @@ describe('Basic DataTables Test', function() {
 		it('Smart search - double quoted phrase and individual', function() {
 			$('div.dt-search input')
 				.val('"Regional Director" Chang')
-				.keyup();
+				.triggerNative('keyup');
 
 			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 1 of 1 entry (filtered from 57 total entries)'
@@ -413,7 +413,7 @@ describe('Basic DataTables Test', function() {
 		it('Smart search - double quote unique match', function() {
 			$('div.dt-search input')
 				.val('"Chief O"')
-				.keyup();
+				.triggerNative('keyup');
 
 			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 1 of 1 entry (filtered from 57 total entries)'
@@ -424,7 +424,7 @@ describe('Basic DataTables Test', function() {
 		it('Smart search - double quote without proves phase', function() {
 			$('div.dt-search input')
 				.val('Chief O')
-				.keyup();
+				.triggerNative('keyup');
 
 			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 4 of 4 entries (filtered from 57 total entries)'
@@ -435,7 +435,7 @@ describe('Basic DataTables Test', function() {
 		it('Smart search - negative', function() {
 			$('div.dt-search input')
 				.val('!Airi')
-				.keyup();
+				.triggerNative('keyup');
 
 			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 10 of 56 entries (filtered from 57 total entries)'
@@ -446,7 +446,7 @@ describe('Basic DataTables Test', function() {
 		it('Smart search - two negatives', function() {
 			$('div.dt-search input')
 				.val('!Airi !London')
-				.keyup();
+				.triggerNative('keyup');
 
 			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 10 of 44 entries (filtered from 57 total entries)'
@@ -457,7 +457,7 @@ describe('Basic DataTables Test', function() {
 		it('Smart search - two negatives and a positive', function() {
 			$('div.dt-search input')
 				.val('!Airi !London Director')
-				.keyup();
+				.triggerNative('keyup');
 
 			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 4 of 4 entries (filtered from 57 total entries)'
@@ -468,7 +468,7 @@ describe('Basic DataTables Test', function() {
 		it('Smart search - negative phrase', function() {
 			$('div.dt-search input')
 				.val('!"Airi Satou"')
-				.keyup();
+				.triggerNative('keyup');
 
 			expect($('.dt-info').text()).toBe(
 				'Showing 1 to 10 of 56 entries (filtered from 57 total entries)'

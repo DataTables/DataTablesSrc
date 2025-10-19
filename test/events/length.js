@@ -74,7 +74,7 @@ describe('core - events - length', function() {
 		it('Called when user changes page length', function() {
 			$('div.dt-length select')
 				.val(10)
-				.change();
+				.triggerNative('change');
 			expect(count).toBe(2);
 			expect(length).toBe(10);
 		});

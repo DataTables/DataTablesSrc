@@ -89,19 +89,19 @@ describe('core - events - preDraw', function() {
 		it('Called when user changes page length', function() {
 			$('div.dt-length select')
 				.val(25)
-				.change();
+				.triggerNative('change');
 			checkResults(1, 'Howard Hatfield');
 		});
 		it('Called when user searches', function() {
 			$('div.dt-search input')
 				.val('cox')
-				.keyup();
+				.triggerNative('keyup');
 			checkResults(1, 'Howard Hatfield');
 		});
 		it('Called when user clears search', function() {
 			$('div.dt-search input')
 				.val('')
-				.keyup();
+				.triggerNative('keyup');
 			checkResults(1, 'Ashton Cox');
 		});
 		it('Called when user changes order', async function() {

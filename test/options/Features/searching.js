@@ -55,7 +55,7 @@ describe('searching option', function() {
 			$('#example').dataTable();
 			$('div.dt-search input')
 				.val(33)
-				.keyup();
+				.triggerNative('keyup');
 			expect(
 				$('div.dt-info').html() == 'Showing 1 to 2 of 2 entries (filtered from 57 total entries)'
 			).toBeTruthy();
@@ -74,7 +74,7 @@ describe('searching option', function() {
 		it('Can search multiple space separated words- DOM', function() {
 			$('div.dt-search input')
 				.val('New 3')
-				.keyup();
+				.triggerNative('keyup');
 			expect(
 				$('div.dt-info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
 			).toBeTruthy();
@@ -103,7 +103,7 @@ describe('searching option', function() {
 		it('Searching on disabled table has no effect- DOM', function() {
 			$('div.dt-search input')
 				.val('New 3')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('div.dt-info').html() == 'Showing 1 to 10 of 57 entries').toBeTruthy();
 		});
 
@@ -124,7 +124,7 @@ describe('searching option', function() {
 			});
 			$('div.dt-search input')
 				.val('New 3')
-				.keyup();
+				.triggerNative('keyup');
 			expect(
 				$('div.dt-info').html() == 'Showing 1 to 5 of 5 entries (filtered from 57 total entries)'
 			).toBeTruthy();

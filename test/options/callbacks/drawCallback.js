@@ -57,7 +57,7 @@ describe('drawCallback option', function() {
 			});
 			$('div.dt-search input')
 				.val('developer')
-				.keyup();
+				.triggerNative('keyup');
 			expect(test).toBe(8);
 		});
 
@@ -80,7 +80,7 @@ describe('drawCallback option', function() {
 		it('drawCallback called once when filtering', function() {
 			$('div.dt-search input')
 				.val('Accountant')
-				.keyup();
+				.triggerNative('keyup');
 			expect(test).toBe(3);
 		});
 

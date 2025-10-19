@@ -28,7 +28,7 @@ describe('stateSave option', function() {
 			let table = $('#example').DataTable({ stateSave: true });
 			$('div.dt-search input')
 				.val(2012)
-				.keyup();
+				.triggerNative('keyup');
 			table.destroy();
 
 			table = $('#example').DataTable({ stateSave: true });
@@ -183,7 +183,7 @@ describe('stateSave option', function() {
 			let table = $('#example').DataTable({ stateSave: true });
 			$('div.dt-length select')
 				.val('25')
-				.change();
+				.triggerNative('change');
 
 			expect($('div.dt-info').text()).toBe('Showing 1 to 25 of 57 entries');
 			table.state.clear();
@@ -197,7 +197,7 @@ describe('stateSave option', function() {
 			let table = $('#example').DataTable({ stateSave: true });
 			$('div.dt-length select')
 				.val('25')
-				.change();
+				.triggerNative('change');
 			table.destroy();
 			table = $('#example').DataTable({ stateSave: true });
 			expect($('div.dt-info').text()).toBe('Showing 1 to 25 of 57 entries');

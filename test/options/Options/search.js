@@ -26,13 +26,13 @@ describe('Search option', function() {
 		it('New search term should wipeout one at initialisation', function() {
 			$('div.dt-search input')
 				.val('Cox')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
 		});
 		it('Clearing search returns to full table (not initialisation search)', function() {
 			$('div.dt-search input')
 				.val('')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
 		});
 	});
@@ -102,7 +102,7 @@ describe('Search option', function() {
 			});
 			$('div.dt-search input')
 				.val('As.ton')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
 		});
 
@@ -115,7 +115,7 @@ describe('Search option', function() {
 			});
 			$('div.dt-search input')
 				.val('As.ton')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Ashton Cox');
 		});
 
@@ -152,7 +152,7 @@ describe('Search option', function() {
 			});
 			$('div.dt-search input')
 				.val('accountant')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('No matching records found');
 		});
 		dt.html('basic');
@@ -175,7 +175,7 @@ describe('Search option', function() {
 			});
 			$('div.dt-search input')
 				.val('accountant')
-				.keyup();
+				.triggerNative('keyup');
 			expect($('#example tbody tr:eq(0) td:eq(1)').text()).toBe('Accountant');
 		});
 		dt.html('basic');
