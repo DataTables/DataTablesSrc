@@ -136,7 +136,7 @@ export function add(
 
 		// If it was triggered, extra data can be passed through using the
 		// arguments passed to trigger.
-		let retVal = handler.apply(this, [event, ...event._args]);
+		let retVal = handler.apply(this, [event, ...(event._args || [])]);
 
 		if (one) {
 			remove(el, eventName, handler, selector);
