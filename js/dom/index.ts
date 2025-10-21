@@ -1,5 +1,6 @@
 import * as is from '../util/is';
 import * as object from '../util/object';
+import { PlainObject } from '../util/types';
 import * as events from './events';
 
 type TSelector = string | Element | HTMLElement | Document | Array<TSelector>;
@@ -325,6 +326,16 @@ export class Dom<T extends Element = Element> {
 	}
 
 	/**
+	 * Get a new Dom instance with just a specific element from the result set
+	 *
+	 * @param idx The element to use
+	 * @returns New Dom instance
+	 */
+	eq(idx: number): Dom<T> {
+		return new Dom(this.get(idx));
+	}
+
+	/**
 	 * Get all elements in the result set
 	 */
 	get(): T[];
@@ -556,7 +567,7 @@ export class Dom<T extends Element = Element> {
 	off(name: string, selector: string, handler?: Function): this;
 
 	off(arg1?: string, arg2?: any, arg3?: any): this {
-		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
+		let { handler, names, selector } = normaliseEventParams(arg1, arg2, arg3);
 
 		return this.each(el => {
 			names.forEach(name => {
@@ -590,7 +601,7 @@ export class Dom<T extends Element = Element> {
 	on(name: string, selector: string, handler: EventHandler): this;
 
 	on(arg1: string, arg2: any, arg3?: any): this {
-		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
+		let { handler, names, selector } = normaliseEventParams(arg1, arg2, arg3);
 
 		return this.each(el => {
 			names.forEach(name => {
@@ -624,7 +635,7 @@ export class Dom<T extends Element = Element> {
 	one(name: string, selector: string, handler: EventHandler): this;
 
 	one(arg1: string, arg2: any, arg3?: any): this {
-		let {handler, names, selector} = normaliseEventParams(arg1, arg2, arg3);
+		let { handler, names, selector } = normaliseEventParams(arg1, arg2, arg3);
 
 		return this.each(el => {
 			names.forEach(name => {
@@ -739,7 +750,34 @@ export class Dom<T extends Element = Element> {
 		});
 	}
 
-	// TODO trigger
+	/**
+	 * Trigger an event on all of the elements in the result set. A different
+	 * event object is created per element.
+	 *
+	 * @param name Event name. This can optionally include period separated
+	 *   namespaces. Multiple events can be added by space separation of the
+	 *   names.
+	 * @param bubbles If the event should bubble up the DOM. Default, true.
+	 * @param args Arguments to pass to the event handlers (after the event
+	 *   object, which is always the first parameter).
+	 * @param props An object of key/value pairs which should be added to the
+	 *   event object that is created and fired for the events.
+	 * @returns Self
+	 */
+	trigger(
+		name: string,
+		bubbles: boolean = true,
+		args: any[] | null = null,
+		props: PlainObject | null = null
+	): this {
+		let { names } = normaliseEventParams(name);
+
+		return this.each(el => {
+			names.forEach(name => {
+				events.trigger(el, name, bubbles, args, props);
+			});
+		});
+	}
 
 	/**
 	 * Get the value from the first item in the result set
@@ -763,11 +801,9 @@ export class Dom<T extends Element = Element> {
 			let el = this._store[0] as any;
 
 			if (el.options && el.multiple) {
-				return el.options
-					.filter(opt => opt.selected)
-					.map(opt => opt.value);
+				return el.options.filter(opt => opt.selected).map(opt => opt.value);
 			}
-			
+
 			return el.value;
 		}
 
@@ -776,7 +812,7 @@ export class Dom<T extends Element = Element> {
 			if (el.options && el.multiple) {
 				let valArr = Array.isArray(value) ? value : [value];
 
-				el.options.forEach(opt => opt.selected = valArr.includes(opt.value));
+				el.options.forEach(opt => (opt.selected = valArr.includes(opt.value)));
 			}
 			else {
 				// This works for select elements as well in modern browsers
@@ -869,7 +905,7 @@ function normaliseEventParams(name?: string, arg2?: any, arg3?: any) {
 	return {
 		handler,
 		names,
-		selector
+		selector,
 	};
 }
 
@@ -880,6 +916,6 @@ export default {
 };
 
 type EventHandler = {
-  ( event: any, data?: any ): any,
-  guid?: number
+	(event: any, data?: any): any;
+	guid?: number;
 };

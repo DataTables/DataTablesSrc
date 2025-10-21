@@ -3,6 +3,7 @@ export interface DomEvent extends Event {
 	namespace: string;
 	currentTarget: Element;
 	delegateTarget: Element;
+	_args: unknown[];
 }
 
 export interface WrappedHandler extends EventListener {

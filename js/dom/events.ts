@@ -1,6 +1,20 @@
 import * as array from '../util/array';
+import * as object from '../util/object';
+import { PlainObject } from '../util/types';
 import * as eventStore from './eventStore';
 import { WrappedHandler } from './interface';
+
+const _mouseEvents = [
+	'click',
+	'dblclick',
+	'mousedown',
+	'mouseenter',
+	'mouseleave',
+	'mousemove',
+	'mouseout',
+	'mouseover',
+	'mouseup',
+];
 
 /**
  * Add a property to an event object.
@@ -120,7 +134,9 @@ export function add(
 		setEventProp(event, 'currentTarget', callScope);
 		setEventProp(event, 'delegateTarget', el);
 
-		let retVal = handler.call(this, event);
+		// If it was triggered, extra data can be passed through using the
+		// arguments passed to trigger.
+		let retVal = handler.apply(this, [event, ...event._args]);
 
 		if (one) {
 			remove(el, eventName, handler, selector);
@@ -203,4 +219,70 @@ export function remove(
 		eventStore.remove(el, wrapped);
 		el.removeEventListener(wrapped.type, wrapped);
 	});
+}
+
+/**
+ * Trigger an event on an element. Can have extra data given, which is useful
+ * for custom events.
+ *
+ * @param el Element to trigger the event on
+ * @param nameFull Event name with optional dot separated namespaces
+ * @param bubbles If the event should bubble up through the DOM or not
+ * @param args Array of arguments to pass to the event handler
+ * @param eventProps Object of extra parameters to attach to the event object
+ */
+export function trigger(
+	el: Element,
+	nameFull: string,
+	bubbles: boolean = false,
+	args: unknown[] | null = [],
+	eventProps: PlainObject | null = null
+) {
+	let { eventName, namespaces } = parseEventName(nameFull);
+
+	if (!eventName) {
+		return;
+	}
+
+	let isMouseEvent = _mouseEvents.includes(eventName.toLowerCase());
+	let event = isMouseEvent
+		? new MouseEvent(eventName, { bubbles, cancelable: true })
+		: new Event(eventName, { bubbles, cancelable: true });
+
+	// Set the extra properties for the event
+	setEventProp(event, 'namespace', namespaces.join('.'));
+	setEventProp(event, '_args', args || []);
+	object.each(eventProps, (key, val) => setEventProp(event, key, val));
+
+	// This will trigger events that jQuery is listening for as well. We don't
+	// need to separately call a jQuery trigger to catch the case where a dev
+	// might be listening using jQuery (although see before for namespaces).
+	el.dispatchEvent(event);
+}
+
+// Although `dispatchEvent` in `trigger` will result in jQuery firing off any
+// event listeners it has added, there is no namespacing applied, thus any
+// filtering wouldn't work. We want that to work for backwards compatibility in
+// case someone is listening with jQuery for our `Dom` library events.
+//
+// `$().trigger()` adds `namespace` and `rnamespace` properties to a jQuery
+// event object, that it creates from the original event object to do that
+// filtering, so we need to have jQuery do that. We can do that by wrapping the
+// jQuery `.event.fix` function and applying the two properties needed.
+if (jQuery) {
+	const originalFix = (jQuery.event as any).fix;
+
+	(jQuery.event as any).fix = function (originalEvent) {
+		let jQueryEvent = originalFix(originalEvent);
+		let namespace = originalEvent.namespace;
+
+		if (namespace) {
+			jQueryEvent.namespace = originalEvent.namespace;
+			jQueryEvent.rnamespace = new RegExp(
+				'(^|\\.)' + namespace.split('.').join('\\.(?:.*\\.|)') + '(\\.|$)'
+			);
+		}
+
+		return jQueryEvent;
+	};
 }
