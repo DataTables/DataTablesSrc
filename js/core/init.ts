@@ -3,7 +3,8 @@ import Context from '../model/settings';
 import { ajaxDataSrc, buildAjax } from './ajax';
 import { adjustColumnSizing } from './columns';
 import { addData, addTr } from './data';
-import { addOptionsHtml, buildHead, drawHead, reDraw } from './draw';
+import { buildHead, drawHead, reDraw } from './draw';
+import { createLayout } from './layout';
 import { processingDisplay } from './processing';
 import { colGroup } from './sizing';
 import { sortInit } from './sort';
@@ -56,7 +57,7 @@ export function initialise ( settings: Context )
 		settings.aiDisplay = settings.aiDisplayMaster.slice();
 
 		// Enable features
-		addOptionsHtml( settings );
+		createLayout( settings );
 		sortInit( settings );
 
 		colGroup( settings );

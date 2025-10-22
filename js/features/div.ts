@@ -4,16 +4,16 @@ import register from './register';
 
 export interface FeatureDivOptions {
 	/** Class name for the div */
-	className?: string;
+	className: string;
 
 	/** ID to give the div */
-	id?: string;
+	id: string;
 
 	/** HTML content for the div (cannot be used as well as textContent) */
-	html?: string;
+	html: string;
 
 	/** Text content for the div (cannot be used as well as innerHTML) */
-	text?: string;
+	text: string;
 }
 
 function _divProp(el: HTMLElement, prop: string, val?: string) {
@@ -22,7 +22,7 @@ function _divProp(el: HTMLElement, prop: string, val?: string) {
 	}
 }
 
-register( 'div', function ( settings: Context, opts: FeatureDivOptions ) {
+register( 'div', function ( settings: Context, opts: Partial<FeatureDivOptions> ) {
 	var n = document.createElement('div');
 
 	if (opts) {

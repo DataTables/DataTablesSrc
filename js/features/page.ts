@@ -1,12 +1,13 @@
-import { bindAction, renderer } from '../api/support';
+import { bindAction } from '../api/support';
 import { pageChange } from '../core/page';
+import { renderer } from '../core/render';
 import dom, { Dom } from '../dom';
 import ext from '../ext';
 import Context from '../model/settings';
 import { range } from '../util/array';
 import register from './register';
 
-interface IFeaturePaging {
+export interface IFeaturePagingOptions {
 	/** Set the maximum number of paging number buttons */
 	buttons: number;
 
@@ -37,13 +38,13 @@ interface IFeaturePaging {
 // - buttons - number of buttons to show - must be odd
 register(
 	'paging',
-	function (settings: Context, optsIn: Partial<IFeaturePaging>) {
+	function (settings: Context, optsIn: Partial<IFeaturePagingOptions>) {
 		// Don't show the paging input if the table doesn't have paging enabled
 		if (!settings.oFeatures.bPaginate) {
 			return null;
 		}
 
-		let opts: IFeaturePaging = Object.assign(
+		let opts: IFeaturePagingOptions = Object.assign(
 			{
 				buttons: ext.pager.numbers_length,
 				type: settings.sPaginationType,
@@ -86,7 +87,7 @@ register(
  * Dynamically create the button type array based on the configuration options.
  * This will only happen if the paging type is not defined.
  */
-function _pagingDynamic(opts: IFeaturePaging) {
+function _pagingDynamic(opts: IFeaturePagingOptions) {
 	let out: any[] = [];
 
 	if (opts.numbers) {
@@ -106,7 +107,7 @@ function _pagingDynamic(opts: IFeaturePaging) {
 	return out;
 }
 
-function _pagingDraw(settings: Context, host: Dom, opts: IFeaturePaging) {
+function _pagingDraw(settings: Context, host: Dom, opts: IFeaturePagingOptions) {
 	if (!settings._bInitComplete) {
 		return;
 	}

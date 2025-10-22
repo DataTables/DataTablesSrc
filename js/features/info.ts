@@ -3,9 +3,9 @@ import dom from '../dom';
 import Context from '../model/settings';
 import register from './register';
 
-interface FeatureInfoOptions {
+export interface IFeatureInfoOptions {
 	/** Information display callback */
-	callback?: (
+	callback: (
 		settings: Context,
 		start: number,
 		end: number,
@@ -15,21 +15,21 @@ interface FeatureInfoOptions {
 	) => string;
 
 	/** Empty table text */
-	empty?: string;
+	empty: string;
 
 	/** Information string postfix */
-	postfix?: string;
+	postfix: string;
 
 	/** Appended to the info string when searching is active */
-	search?: string;
+	search: string;
 
 	/** Table summary information display string */
-	text?: string;
+	text: string;
 }
 
 register(
 	'info',
-	function (settings: Context, opts: FeatureInfoOptions) {
+	function (settings: Context, optsIn: Partial<IFeatureInfoOptions>) {
 		// For compatibility with the legacy `info` top level option
 		if (!settings.oFeatures.bInfo) {
 			return null;
@@ -39,7 +39,7 @@ register(
 			tid = settings.sTableId,
 			n = dom.c('div').classAdd(settings.oClasses.info.container);
 
-		opts = Object.assign(
+		let opts = Object.assign(
 			{
 				callback: lang.fnInfoCallback,
 				empty: lang.sInfoEmpty,
@@ -47,7 +47,7 @@ register(
 				search: lang.sInfoFiltered,
 				text: lang.sInfo,
 			},
-			opts
+			optsIn
 		);
 
 		// Update display on each draw

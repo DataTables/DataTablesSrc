@@ -1,7 +1,8 @@
 
-import { callbackFire, dataSource, escapeObject, log, renderer } from '../api/support';
-import dom, { Dom } from '../dom';
+import { callbackFire, dataSource, escapeObject, log } from '../api/support';
+import dom from '../dom';
 import ext from '../ext/index';
+import Context from '../model/settings';
 import { pluck, range, unique } from '../util/array';
 import { addClass } from '../util/internal';
 import { stripHtml } from '../util/string';
@@ -9,8 +10,8 @@ import { ajaxUpdate } from './ajax';
 import { columnOptions, columnTypes, visibleColumns } from './columns';
 import { getCellData, getDataMaster, writeCell } from './data';
 import { filterComplete } from './filter';
-import { processingDisplay, processingHtml } from './processing';
-import { featureHtmlTable } from './scrolling';
+import { processingDisplay } from './processing';
+import { renderer } from './render';
 import { sort } from './sort';
 
 /**
@@ -177,18 +178,20 @@ export function rowAttributes( settings, row )
 
 /**
  * Create the HTML header for the table
- *  @param {object} oSettings dataTables settings object
- *  @memberof DataTable#oApi
+ *
+ * @param settings DataTable instance
+ * @param side If the header or footer should be used
+ * @returns 
  */
-export function buildHead( settings, side )
+export function buildHead( settings: Context, side: 'header' | 'footer' )
 {
-	var classes = settings.oClasses;
-	var columns = settings.aoColumns;
-	var i, iLen, row;
-	var target = side === 'header'
+	let classes = settings.oClasses;
+	let columns = settings.aoColumns;
+	let i, iLen, row;
+	let target = dom.s(side === 'header'
 		? settings.nTHead
-		: settings.nTFoot;
-	var titleProp = side === 'header' ? 'sTitle' : side;
+		: settings.nTFoot);
+	let titleProp = side === 'header' ? 'sTitle' : side;
 
 	// Footer might be defined
 	if (! target) {
@@ -197,45 +200,47 @@ export function buildHead( settings, side )
 
 	// If no cells yet and we have content for them, then create
 	if (side === 'header' || pluck(settings.aoColumns, titleProp).join('')) {
-		row = $('tr', target);
+		row = target.find('tr');
 
 		// Add a row if needed
-		if (! row.length) {
-			row = $('<tr/>').appendTo(target)
+		if (! row.count()) {
+			row = dom.c('tr').appendTo(target)
 		}
 
 		// Add the number of cells needed to make up to the number of columns
 		if (row.length === 1) {
-			var cellCount = 0;
+			let cellCount = 0;
 			
-			$<HTMLTableCellElement>('td, th', row).each(function () {
+			row.find('td, th').each(() => {
 				cellCount += this.colSpan;
 			});
 
 			for ( i=cellCount, iLen=columns.length ; i<iLen ; i++ ) {
-				$('<th/>')
+				dom.c('th')
 					.html( columns[i][titleProp] || '' )
 					.appendTo( row );
 			}
 		}
 	}
 
-	var detected = detectHeader( settings, target, true );
+	let detected = detectHeader( settings, target, true );
 
 	if (side === 'header') {
 		settings.aoHeader = detected;
-		$('tr', target).addClass(classes.thead.row);
+		target.find('tr').classAdd(classes.thead.row);
 	}
 	else {
 		settings.aoFooter = detected;
-		$('tr', target).addClass(classes.tfoot.row);
+		target.find('tr').classAdd(classes.tfoot.row);
 	}
 
 	// Every cell needs to be passed through the renderer
-	$(target).children('tr').children('th, td')
+	target
+		.children('tr')
+		.children('th, td')
 		.each( function () {
 			renderer( settings, side )(
-				settings, $(this), classes
+				settings, dom.s(this), classes
 			);
 		} );
 }
@@ -572,348 +577,6 @@ function _emptyRow ( settings ) {
 			'class':   settings.oClasses.empty.row
 		} ).html( zero ) )[0];
 }
-
-
-/**
- * Expand the layout items into an object for the rendering function
- */
-function _layoutItems (row, align, items) {
-	if ( Array.isArray(items)) {
-		for (var i=0 ; i<items.length ; i++) {
-			_layoutItems(row, align, items[i]);
-		}
-
-		return;
-	}
-
-	var rowCell = row[align];
-
-	// If it is an object, then there can be multiple features contained in it
-	if ( $.isPlainObject( items ) ) {
-		// A feature plugin cannot be named "features" due to this check
-		if (items.features) {
-			if (items.rowId) {
-				row.id = items.rowId;
-			}
-			if (items.rowClass) {
-				row.className = items.rowClass;
-			}
-
-			rowCell.id = items.id;
-			rowCell.className = items.className;
-
-			_layoutItems(row, align, items.features);
-		}
-		else {
-			Object.keys(items).map(function (key) {
-				rowCell.contents.push( {
-					feature: key,
-					opts: items[key]
-				});
-			});
-		}
-	}
-	else {
-		rowCell.contents.push(items);
-	}
-}
-
-/**
- * Find, or create a layout row
- */
-function _layoutGetRow(rows, rowNum, align) {
-	var row;
-
-	// Find existing rows
-	for (var i=0; i<rows.length; i++) {
-		row = rows[i];
-
-		if (row.rowNum === rowNum) {
-			// full is on its own, but start and end share a row
-			if (
-				(align === 'full' && row.full) ||
-				((align === 'start' || align === 'end') && (row.start || row.end))
-			) {
-				if (! row[align]) {
-					row[align] = {
-						contents: []
-					};
-				}
-
-				return row;
-			}
-		}
-	}
-
-	// If we get this far, then there was no match, create a new row
-	row = {
-		rowNum: rowNum	
-	};
-
-	row[align] = {
-		contents: []
-	};
-
-	rows.push(row);
-
-	return row;
-}
-
-/**
- * Convert a `layout` object given by a user to the object structure needed
- * for the renderer. This is done twice, once for above and once for below
- * the table. Ordering must also be considered.
- *
- * @param {*} settings DataTables settings object
- * @param {*} layout Layout object to convert
- * @param {string} side `top` or `bottom`
- * @returns Converted array structure - one item for each row.
- */
-function _layoutArray ( settings, layout, side ) {
-	var rows: any[] = []; // TODO typing
-	
-	// Split out into an array
-	$.each( layout, function ( pos, items ) {
-		if (items === null) {
-			return;
-		}
-
-		// TODO typing
-		var parts = (pos as any).match(/^([a-z]+)([0-9]*)([A-Za-z]*)$/);
-		var rowNum = parts[2]
-			? parts[2] * 1
-			: 0;
-		var align = parts[3]
-			? parts[3].toLowerCase()
-			: 'full';
-
-		// Filter out the side we aren't interested in
-		if (parts[1] !== side) {
-			return;
-		}
-
-		// Get or create the row we should attach to
-		var row = _layoutGetRow(rows, rowNum, align);
-
-		_layoutItems(row, align, items);
-	});
-
-	// Order by item identifier
-	rows.sort( function ( a, b ) {
-		var order1 = a.rowNum;
-		var order2 = b.rowNum;
-
-		// If both in the same row, then the row with `full` comes first
-		if (order1 === order2) {
-			var ret = a.full && ! b.full ? -1 : 1;
-
-			return side === 'bottom'
-				? ret * -1
-				: ret;
-		}
-
-		return order2 - order1;
-	} );
-
-	// Invert for below the table
-	if ( side === 'bottom' ) {
-		rows.reverse();
-	}
-
-	for (var row = 0; row<rows.length; row++) {
-		delete rows[row].rowNum;
-
-		_layoutResolve(settings, rows[row]);
-	}
-
-	return rows;
-}
-
-
-/**
- * Convert the contents of a row's layout object to nodes that can be inserted
- * into the document by a renderer. Execute functions, look up plug-ins, etc.
- *
- * @param {*} settings DataTables settings object
- * @param {*} row Layout object for this row
- */
-function _layoutResolve( settings, row ) {
-	var getFeature = function (feature, opts) {
-		if ( ! ext.features[ feature ] ) {
-			log( settings, 0, 'Unknown feature: '+ feature );
-		}
-
-		return ext.features[ feature ].apply( this, [settings, opts] );
-	};
-
-	var resolve = function ( item ) {
-		if (! row[ item ]) {
-			return;
-		}
-
-		var line = row[ item ].contents;
-
-		for ( var i=0, iLen=line.length ; i<iLen ; i++ ) {
-			if ( ! line[i] ) {
-				continue;
-			}
-			else if ( typeof line[i] === 'string' ) {
-				line[i] = getFeature( line[i], null );
-			}
-			else if ( $.isPlainObject(line[i]) ) {
-				// If it's an object, it just has feature and opts properties from
-				// the transform in _layoutArray
-				line[i] = getFeature(line[i].feature, line[i].opts);
-			}
-			else if ( typeof line[i].node === 'function' ) {
-				line[i] = line[i].node( settings );
-			}
-			else if ( typeof line[i] === 'function' ) {
-				var inst = line[i]( settings );
-
-				line[i] = typeof inst.node === 'function' ?
-					inst.node() :
-					inst;
-			}
-		}
-	};
-
-	resolve('start');
-	resolve('end');
-	resolve('full');
-}
-
-
-/**
- * Add the options to the page HTML for the table
- *  @param {object} settings DataTables settings object
- *  @memberof DataTable#oApi
- */
-export function addOptionsHtml ( settings )
-{
-	var classes = settings.oClasses;
-	var table = $(settings.nTable);
-
-	// Wrapper div around everything DataTables controls
-	var insert = $('<div/>')
-		.attr({
-			id:      settings.sTableId+'_wrapper',
-			'class': classes.container
-		})
-		.insertBefore(table);
-
-	settings.nTableWrapper = insert[0];
-
-	if (settings.sDom) {
-		// Legacy
-		layoutDom(settings, settings.sDom, insert);
-	}
-	else {
-		var top = _layoutArray( settings, settings.layout, 'top' );
-		var bottom = _layoutArray( settings, settings.layout, 'bottom' );
-		var render = renderer( settings, 'layout' );
-	
-		// Everything above - the renderer will actually insert the contents into the document
-		top.forEach(function (item) {
-			render( settings, insert, item );
-		});
-
-		// The table - always the center of attention
-		render( settings, insert, {
-			full: {
-				table: true,
-				contents: [ featureHtmlTable(settings) ]
-			}
-		} );
-
-		// Everything below
-		bottom.forEach(function (item) {
-			render( settings, insert, item );
-		});
-	}
-
-	// Processing floats on top, so it isn't an inserted feature
-	processingHtml( settings );
-}
-
-/**
- * Draw the table with the legacy DOM property
- * @param {*} settings DT settings object
- * @param {*} layout DOM string
- * @param {*} insert Insert point
- */
-export function layoutDom( settings, layout, insert )
-{
-	var parts = layout.match(/(".*?")|('.*?')|./g);
-	var featureNode, option, newNode: Dom, next, attr;
-
-	for ( var i=0 ; i<parts.length ; i++ ) {
-		featureNode = null;
-		option = parts[i];
-
-		if ( option == '<' ) {
-			// New container div
-			newNode = dom.c('div');
-
-			// Check to see if we should append an id and/or a class name to the container
-			next = parts[i+1];
-
-			if ( next[0] == "'" || next[0] == '"' ) {
-				attr = next.replace(/['"]/g, '');
-
-				var id = '', className;
-
-				/* The attribute can be in the format of "#id.class", "#id" or "class" This logic
-				 * breaks the string into parts and applies them as needed
-				 */
-				if ( attr.indexOf('.') != -1 ) {
-					var split = attr.split('.');
-
-					id = split[0];
-					className = split[1];
-				}
-				else if ( attr[0] == "#" ) {
-					id = attr;
-				}
-				else {
-					className = attr;
-				}
-
-				newNode
-					.attr('id', id.substring(1))
-					.classAdd(className);
-
-				i++; // Move along the position array
-			}
-
-			insert.append( newNode.get() ); // TODO
-			insert = newNode;
-		}
-		else if ( option == '>' ) {
-			// End container div
-			insert = insert.parent();
-		}
-		else if ( option == 't' ) {
-			// Table
-			featureNode = featureHtmlTable( settings );
-		}
-		else
-		{
-			ext.feature.forEach(function(feature) {
-				if ( option == feature.cFeature ) {
-					featureNode = feature.fnInit( settings );
-				}
-			});
-		}
-
-		// Add to the display
-		if ( featureNode ) {
-			// TODO when doing the full dom update, won't need this check
-			insert.append( featureNode instanceof Dom ? featureNode.get() : featureNode );
-		}
-	}
-}
-
 
 /**
  * Use the DOM source to create up an array of header cells. The idea here is to

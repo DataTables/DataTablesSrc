@@ -2,6 +2,7 @@
 import { dataSource } from '../api/support';
 import { Dom } from '../dom';
 import ColumnSettings from './columns/settings';
+import { Layout } from './interface';
 import Row from './row';
 import Search from './search';
 
@@ -164,6 +165,8 @@ export default class Settings {
 		sInfoFiltered: '',
 		sInfo: '',
 		sLengthMenu: '',
+		sSearch: '',
+		sSearchPlaceholder: '',
 
 		oAria: {
 			orderable: '',
@@ -248,19 +251,19 @@ export default class Settings {
 	/**
 	 * Store information about the table's header
 	 */
-	public aoHeader = [];
+	public aoHeader: any[] = [];
 
 	/**
 	 * Store information about the table's footer
 	 */
-	public aoFooter = [];
+	public aoFooter: any[] = [];
 
 	/**
 	 * Store the applied global search information in case we want to force a
 	 * research or compare the old search to a new one.
 	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	public oPreviousSearch = {};
+	public oPreviousSearch: typeof Search = Object.assign({}, Search);
 
 	/**
 	 * Store for named searches
@@ -716,4 +719,5 @@ export default class Settings {
 	public _rowReadObject: boolean = false;
 	public _infoEl: Dom;
 	public _bInitComplete: false;
+	public layout: Layout;
 }

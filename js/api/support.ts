@@ -231,25 +231,6 @@ export function lengthOverflow(ctx: Context) {
 	ctx._iDisplayStart = start;
 }
 
-export function renderer(ctx: Context, type: string) {
-	var render = ctx.renderer;
-	var host = ext.renderer[type];
-
-	if ($.isPlainObject(render) && render[type]) {
-		// Specific renderer for this type. If available use it, otherwise use
-		// the default.
-		return host[render[type]] || host._;
-	}
-	else if (typeof render === 'string') {
-		// Common renderer - if there is one available for this type use it,
-		// otherwise use the default
-		return host[render] || host._;
-	}
-
-	// Use the default
-	return host._;
-}
-
 /**
  * Detect the data source being used for the table. Used to simplify the code a
  * little (ajax) and to make it compress a little smaller.

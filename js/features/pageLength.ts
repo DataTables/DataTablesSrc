@@ -6,7 +6,7 @@ import Context from '../model/settings';
 import * as is from '../util/is';
 import register from './register';
 
-interface IFeaturePageLength {
+export interface IFeaturePageLengthOptions {
 	/** Text for page length control */
 	menu: Array<number | { label: string; value: number }>;
 
@@ -21,7 +21,7 @@ var __lengthCounter = 0;
 // - text
 register(
 	'pageLength',
-	function (settings: Context, optsIn: Partial<IFeaturePageLength>) {
+	function (settings: Context, optsIn: Partial<IFeaturePageLengthOptions>) {
 		var features = settings.oFeatures;
 
 		// For compatibility with the legacy `pageLength` top level option
@@ -29,7 +29,7 @@ register(
 			return null;
 		}
 
-		let opts: IFeaturePageLength = Object.assign(
+		let opts: IFeaturePageLengthOptions = Object.assign(
 			{
 				menu: settings.aLengthMenu,
 				text: settings.oLanguage.sLengthMenu,

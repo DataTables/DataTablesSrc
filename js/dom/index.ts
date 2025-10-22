@@ -151,7 +151,7 @@ export class Dom<T extends Element = Element> {
 	 * @param value Value to give the attribute
 	 * @returns Self for chaining
 	 */
-	attr(name: string, value: string): this;
+	attr(name: string, value: string | null | boolean | number): this;
 
 	/**
 	 * Set multiple attributes of the elements in the result set
@@ -160,7 +160,7 @@ export class Dom<T extends Element = Element> {
 	 */
 	attr(attributes: Record<string, string | null | boolean | number>): this;
 
-	attr(name: any, value?: string) {
+	attr(name: any, value?: string | null | boolean | number) {
 		if (typeof name === 'string' && value === undefined) {
 			return this.count() ? this._store[0].getAttribute(name) : null;
 		}
@@ -168,7 +168,10 @@ export class Dom<T extends Element = Element> {
 		return this.each(el => {
 			if (typeof name === 'string') {
 				if (value !== undefined && value !== null) {
-					el.setAttribute(name, value);
+					el.setAttribute(
+						name,
+						typeof value === 'string' ? value : value.toString()
+					);
 				}
 			}
 			else {
@@ -184,10 +187,17 @@ export class Dom<T extends Element = Element> {
 	/**
 	 * Get the child from all elements in the result set
 	 *
+	 * @param selector Query string that the child much match to be selected
 	 * @returns New Dom instance with children as the result set
 	 */
-	children() {
-		return this.map(el => Array.from(el.children));
+	children(selector?: string) {
+		return this.map(el => {
+			let children = Array.from(el.children);
+
+			return selector
+				? children.filter(child => child.matches(selector))
+				: children;
+		});
 	}
 
 	/**
@@ -246,6 +256,32 @@ export class Dom<T extends Element = Element> {
 	classToggle(name: string, toggle?: boolean) {
 		return this.each(el => {
 			el.classList.toggle(name, toggle);
+		});
+	}
+
+	/**
+	 * Find the closest ancestor for each element in the result set
+	 *
+	 * @param selector
+	 * @returns A new DOM instance when the matching ancestors
+	 */
+	closest(selector: string | Element) {
+		if (typeof selector === 'string') {
+			return this.map(el => el.closest(selector));
+		}
+
+		return this.map(el => {
+			// Traverse up the tree seeing if the element matches
+			while (el.parentElement) {
+				if (el.parentElement === selector) {
+					return selector;
+				}
+
+				el = el.parentElement;
+			}
+
+			// Nothing found
+			return null;
 		});
 	}
 
@@ -381,32 +417,6 @@ export class Dom<T extends Element = Element> {
 	}
 
 	/**
-	 * Find the closest ancestor for each element in the result set
-	 *
-	 * @param selector
-	 * @returns A new DOM instance when the matching ancestors
-	 */
-	closest(selector: string | Element) {
-		if (typeof selector === 'string') {
-			return this.map(el => el.closest(selector));
-		}
-
-		return this.map(el => {
-			// Traverse up the tree seeing if the element matches
-			while (el.parentElement) {
-				if (el.parentElement === selector) {
-					return selector;
-				}
-
-				el = el.parentElement;
-			}
-
-			// Nothing found
-			return null;
-		});
-	}
-
-	/**
 	 * Get the height for the first element in the result set. Whether this is
 	 * the inner or outer height depends on the box model for the element.
 	 *
@@ -507,6 +517,28 @@ export class Dom<T extends Element = Element> {
 		}
 
 		return this;
+	}
+
+	/**
+	 * Insert each element in the result set after a target node
+	 *
+	 * @param target Element after which the insert should happen
+	 * @returns Self for chaining
+	 */
+	insertAfter(target: Element) {
+		return this.each(el =>
+			target.parentNode?.insertBefore(el, target.nextSibling)
+		);
+	}
+
+	/**
+	 * Insert each element in the result set before a target node
+	 *
+	 * @param target Element before which the insert should happen
+	 * @returns Self for chaining
+	 */
+	insertBefore(target: Element) {
+		return this.each(el => target.parentNode?.insertBefore(el, target));
 	}
 
 	/**
@@ -681,6 +713,16 @@ export class Dom<T extends Element = Element> {
 		new Dom(selector).prepend(this);
 
 		return this;
+	}
+
+	/**
+	 * Remove an attribute on each element in the result set
+	 *
+	 * @param attr Attribute to remove
+	 * @returns Self for chaining
+	 */
+	removeAttr(attr: string) {
+		return this.each(el => el.removeAttribute(attr));
 	}
 
 	/**

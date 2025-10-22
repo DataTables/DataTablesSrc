@@ -10,6 +10,8 @@
  *  @namespace
  */
 export default class Settings {
+	public ariaTitle = '';
+
 	/**
 	 * Column index.
 	 */
