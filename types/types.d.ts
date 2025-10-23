@@ -10,6 +10,8 @@
 
 /// <reference types="jquery" />
 
+import { Layout } from '../js/model/interface';
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Types
  */
@@ -127,118 +129,6 @@ export interface DataType {
     search?: ((data: any) => string);
 }
 
-export interface Feature {
-    /** A simple `<div>` that can contain your own content */
-    div?: {
-        /** Class name for the div */
-        className?: string;
-
-        /** ID to give the div */
-        id?: string;
-
-        /** HTML content for the div (cannot be used as well as textContent) */
-        html?: string;
-
-        /** Text content for the div (cannot be used as well as innerHTML) */
-        text?: string;
-    }
-
-    /** Table information display */
-    info?: {
-        /** Information display callback */
-        callback?: (settings: InternalSettings, start: number, end: number, max: number, total: number, pre: string) => string;
-
-        /** Empty table text */
-        empty?: string;
-
-        /** Information string postfix */
-        postfix?: string;
-
-        /** Appended to the info string when searching is active */
-        search?: string;
-
-        /** Table summary information display string */
-        text?: string;
-    }
-
-    /** Paging length control */
-    pageLength?: {
-        /** Text for page length control */
-        menu?: Array<number | {label: string; value: number}>;
-
-        /** Text for page length control */
-        text?: string;
-    }
-
-    /** Pagination buttons */
-    paging?: {
-        /** Set the maximum number of paging number buttons */
-        buttons?: number;
-
-        /** Paging button display options */
-        type?: 'numbers' | 'simple' | 'simple_numbers' | 'full' | 'full_numbers' | 'first_last_numbers';
-
-        /** Display the buttons in the pager (default true) */
-        numbers?: boolean;
-        
-        /** Display the first and last buttons in the pager (default true) */
-        firstLast?: boolean;
-
-        /** Display the previous and next buttons in the pager (default true) */
-        previousNext?: boolean;
-
-        /** Include the extreme page numbers, if separated by ellipsis, or not */
-        boundaryNumbers?: boolean;
-    }
-
-    /** Global search input */
-    search?: {
-        /** Placeholder for the input element */
-        placeholder?: string;
-
-        /** Show the processing icon when searching */
-        processing?: boolean;
-
-        /** Text for search control */
-        text?: string;
-    }
-}
-
-type LayoutNumber = '' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
-
-type LayoutSide = 'top' | 'bottom';
-
-type LayoutEdge = 'Start' | 'End';
-
-type LayoutKeys = `${LayoutSide}${LayoutNumber}${LayoutEdge}` | `${LayoutSide}${LayoutNumber}`;
-
-type LayoutFeatures = keyof Feature | Feature | Array<keyof Feature> | Feature[];
-
-type LayoutElement = {
-    /** Class to apply to the CELL in the layout grid */
-    className?: string;
-
-    /** ID to apply to the CELL in the layout grid */
-    id?: string;
-
-    /** Class to apply to the ROW in the layout grid */
-    rowClass?: string;
-
-    /** ID to apply to the ROW in the layout grid */
-    rowId?: string;
-
-    /** List of features to show in this cell */
-    features: LayoutFeatures;
-}
-
-type Layout = Partial<Record<LayoutKeys,
-    LayoutElement |
-    LayoutFeatures |
-    (() => HTMLElement) |
-    HTMLElement |
-    JQuery<HTMLElement> |
-    null
->>;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

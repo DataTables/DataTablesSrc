@@ -125,7 +125,7 @@ export function extend(out: object, extender: object, breakRefs: boolean = false
  * @param fn Callback function for when the event is triggered
  */
 export function bindAction(
-	n: HTMLElement,
+	n: Element,
 	selector: string | {[key: string]: any},
 	fn: (e: JQuery.TriggeredEvent) => any
 ) {

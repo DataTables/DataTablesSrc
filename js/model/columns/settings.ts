@@ -10,7 +10,7 @@
  *  @namespace
  */
 export default class Settings {
-	public ariaTitle = '';
+	public ariaTitle: string | null = '';
 
 	/**
 	 * Column index.
@@ -174,4 +174,10 @@ export default class Settings {
 	public searchFixed = null;
 
 	public colEl: HTMLTableColElement;
+
+	public autoTitle: boolean;
+
+	public footer: string;
+
+	public className: string;
 }

@@ -11,16 +11,21 @@ import Context from '../model/settings';
 import * as is from '../util/is';
 
 export function renderer(ctx: Context, type: 'header'): IRendererHeader;
+
 export function renderer(ctx: Context, type: 'footer'): IRendererFooter;
+
 export function renderer(ctx: Context, type: 'layout'): IRendererLayout;
+
 export function renderer(
 	ctx: Context,
 	type: 'pagingButton'
 ): IRendererPagingButton;
+
 export function renderer(
 	ctx: Context,
 	type: 'pagingContainer'
 ): IRendererPagingContainer;
+
 export function renderer(ctx: Context, type: IRendererTypes) {
 	var render = ctx.renderer;
 	var host = ext.renderer[type];

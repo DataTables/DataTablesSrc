@@ -43,7 +43,7 @@ export function createLayout(ctx: Context) {
 		.classAdd(classes.container)
 		.insertBefore(ctx.nTable);
 
-	ctx.nTableWrapper = insert[0];
+	ctx.nTableWrapper = insert.get(0);
 
 	if (ctx.sDom) {
 		// Legacy

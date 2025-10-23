@@ -1,6 +1,7 @@
 
 import { callbackFire } from '../api/support';
 import util from '../api/util';
+import dom from '../dom';
 import ext from '../ext/index';
 import Context from '../model/settings';
 import { stripHtml } from '../util/string';
@@ -239,12 +240,12 @@ export function calculateColumnWidths ( settings: Context )
 			var first = $(settings.nTableWrapper).is(':visible');
 
 			// Use an empty div to attach the observer so it isn't impacted by height changes
-			var resizer = $('<div>')
+			var resizer = dom.c('div')
 				.css({
 					width: '100%',
-					height: 0
+					height: '0'
 				})
-				.addClass('dt-autosize')
+				.classAdd('dt-autosize')
 				.appendTo(settings.nTableWrapper);
 
 			settings.resizeObserver = new ResizeObserver(function (e) {
@@ -256,7 +257,7 @@ export function calculateColumnWidths ( settings: Context )
 				}
 			});
 
-			settings.resizeObserver.observe(resizer[0]);
+			settings.resizeObserver.observe(resizer.get(0));
 		}
 		else {
 			// For old browsers, the best we can do is listen for a window resize

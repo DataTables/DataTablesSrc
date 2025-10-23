@@ -249,13 +249,15 @@ export class Dom<T extends Element = Element> {
 	/**
 	 * Toggle a class on all elements in the result set
 	 *
-	 * @param name Class name to toggle
+	 * @param name Class name(s) to toggle - space separated
 	 * @param toggle Toggle on or off
 	 * @returns Self for chaining
 	 */
-	classToggle(name: string, toggle?: boolean) {
+	classToggle(name: string | string[], toggle?: boolean) {
+		let names = Array.isArray(name) ? name : name.split(' ');
+
 		return this.each(el => {
-			el.classList.toggle(name, toggle);
+			names.filter(n => n).forEach(n => el.classList.toggle(n, toggle));
 		});
 	}
 
@@ -517,6 +519,21 @@ export class Dom<T extends Element = Element> {
 		}
 
 		return this;
+	}
+
+	/**
+	 * Get the index of an element from among its siblings
+	 *
+	 * @returns Element index
+	 */
+	index() {
+		if (this.count()) {
+			let el = this._store[0];
+
+			return Array.from(el.parentNode!.children).indexOf(el);
+		}
+
+		return -1;
 	}
 
 	/**

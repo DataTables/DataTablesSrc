@@ -131,10 +131,15 @@ const ext = {
 		header: {
 			_: renderers.header
 		},
-		// header: renderer.header,
-		// layout: renderer.layout,
-		// pagingButton: pagingRenderer.pagingButton,
-		// pagingContainer: pagingRenderer.pagingContainer,
+		layout: {
+			_: renderers.layout
+		},
+		pagingButton: {
+			_: renderers.pagingButton
+		},
+		pagingContainer: {
+			_: renderers.pagingContainer
+		}
 	} as renderers.IRenderers,
 
 	/**

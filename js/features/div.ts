@@ -2,7 +2,7 @@
 import Context from '../model/settings';
 import register from './register';
 
-export interface FeatureDivOptions {
+export interface IFeatureDivOptions {
 	/** Class name for the div */
 	className: string;
 
@@ -22,7 +22,7 @@ function _divProp(el: HTMLElement, prop: string, val?: string) {
 	}
 }
 
-register( 'div', function ( settings: Context, opts: Partial<FeatureDivOptions> ) {
+register( 'div', function ( settings: Context, opts: Partial<IFeatureDivOptions> ) {
 	var n = document.createElement('div');
 
 	if (opts) {
