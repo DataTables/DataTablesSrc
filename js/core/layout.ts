@@ -1,7 +1,7 @@
 import { log } from '../api/support';
 import dom, { Dom } from '../dom';
 import ext from '../ext';
-import { Layout } from '../model/interface';
+import { Layout, LayoutComponent, LayoutElement } from '../model/interface';
 import Context from '../model/settings';
 import * as is from '../util/is';
 import * as object from '../util/object';
@@ -18,13 +18,11 @@ export interface ILayoutRow {
 	rowNum?: number;
 }
 
-interface ILayoutCell {
+export interface ILayoutCell {
 	id?: string;
 	className?: string;
-	contents: Array<{
-		feature: string;
-		opts: unknown;
-	}>;
+	items: Array<any>; // Not ideal, but it can be a lot of things!
+	contents: Array<Element>;
 	table?: boolean;
 }
 
@@ -62,8 +60,9 @@ export function createLayout(ctx: Context) {
 		// The table - always the center of attention
 		render(ctx, insert, {
 			full: {
-				table: true,
 				contents: [featureHtmlTable(ctx)],
+				items: [],
+				table: true,
 			},
 		});
 
@@ -80,7 +79,11 @@ export function createLayout(ctx: Context) {
 /**
  * Expand the layout items into an object for the rendering function
  */
-function layoutItems(row: ILayoutRow, align: 'start' | 'end' | 'full', items) {
+function layoutItems(
+	row: ILayoutRow,
+	align: 'start' | 'end' | 'full',
+	items: LayoutComponent
+) {
 	if (Array.isArray(items)) {
 		for (var i = 0; i < items.length; i++) {
 			layoutItems(row, align, items[i]);
@@ -93,23 +96,27 @@ function layoutItems(row: ILayoutRow, align: 'start' | 'end' | 'full', items) {
 
 	// If it is an object, then there can be multiple features contained in it
 	if (is.plainObject(items)) {
-		// A feature plugin cannot be named "features" due to this check
-		if (items.features) {
-			if (items.rowId) {
-				row.id = items.rowId;
+		let itemsElement = items as LayoutElement;
+
+		// Is it an cell object already, with rowId, etc. A feature plugin cannot
+		// be named "features" due to this check
+		if (itemsElement.features) {
+			if (itemsElement.rowId) {
+				row.id = itemsElement.rowId;
 			}
-			if (items.rowClass) {
-				row.className = items.rowClass;
+			if (itemsElement.rowClass) {
+				row.className = itemsElement.rowClass;
 			}
 
-			rowCell.id = items.id;
-			rowCell.className = items.className;
+			rowCell.id = itemsElement.id;
+			rowCell.className = itemsElement.className;
 
-			layoutItems(row, align, items.features);
+			layoutItems(row, align, itemsElement.features);
 		}
 		else {
-			object.each(items, (key, val) => {
-				rowCell.contents.push({
+			// An object of features and configuration options - e.g. `{paging: {startEnd: false}}`
+			object.each(items as any, (key, val) => {
+				rowCell.items.push({
 					feature: key,
 					opts: val,
 				});
@@ -117,7 +124,8 @@ function layoutItems(row: ILayoutRow, align: 'start' | 'end' | 'full', items) {
 		}
 	}
 	else {
-		rowCell.contents.push(items);
+		// Otherwise, it is a function, node or Dom / jQuery instance and can just get added
+		rowCell.items.push(items as any);
 	}
 }
 
@@ -150,6 +158,7 @@ function getRow(
 				if (!row[align]) {
 					row[align] = {
 						contents: [],
+						items: [],
 					};
 				}
 
@@ -165,6 +174,7 @@ function getRow(
 
 	row[align] = {
 		contents: [],
+		items: [],
 	};
 
 	rows.push(row);
@@ -248,8 +258,8 @@ function convert(settings: Context, layout: Layout, side: 'top' | 'bottom') {
  * @param settings DataTables settings object
  * @param row Layout object for this row
  */
-function resolve(settings: Context, row) {
-	var getFeature = function (feature, opts) {
+function resolve(settings: Context, row: ILayoutRow) {
+	var getFeature = function (feature: string, opts: unknown) {
 		if (!ext.features[feature]) {
 			log(settings, 0, 'Unknown feature: ' + feature);
 		}
@@ -257,34 +267,44 @@ function resolve(settings: Context, row) {
 		return ext.features[feature].apply(this, [settings, opts]);
 	};
 
-	var resolve = function (item) {
+	// Resolve items in the `contents` array from being an identifier, such as
+	// the name of a feature, into the node to display.
+	var resolve = function (item: 'start' | 'end' | 'full') {
 		if (!row[item]) {
 			return;
 		}
 
-		var line = row[item].contents;
+		row[item].contents = row[item].items
+			.filter(item => !!item)
+			.map(item => {
+				if (typeof item === 'string') {
+					return getFeature(item, null);
+				}
+				else if (is.plainObject(item)) {
+					// If it's an object, it just has feature and opts properties from
+					// the transform in _layoutArray
+					return getFeature(item.feature, item.opts);
+				}
+				else if (typeof item.node === 'function') {
+					return item.node(settings);
+				}
+				else if (typeof item === 'function') {
+					var inst = item(settings);
 
-		for (var i = 0, iLen = line.length; i < iLen; i++) {
-			if (!line[i]) {
-				continue;
-			}
-			else if (typeof line[i] === 'string') {
-				line[i] = getFeature(line[i], null);
-			}
-			else if (is.plainObject(line[i])) {
-				// If it's an object, it just has feature and opts properties from
-				// the transform in _layoutArray
-				line[i] = getFeature(line[i].feature, line[i].opts);
-			}
-			else if (typeof line[i].node === 'function') {
-				line[i] = line[i].node(settings);
-			}
-			else if (typeof line[i] === 'function') {
-				var inst = line[i](settings);
-
-				line[i] = typeof inst.node === 'function' ? inst.node() : inst;
-			}
-		}
+					return typeof inst.node === 'function' ? inst.node() : inst;
+				}
+				else if (item.nodeName) {
+					// An HTML element
+					return item;
+				}
+				else if (item instanceof Dom) {
+					return item.get(0);
+				}
+				else if (item.length) {
+					// Possibly jQuery
+					return item[0];
+				}
+			});
 	};
 
 	resolve('start');
@@ -301,7 +321,7 @@ function resolve(settings: Context, row) {
  */
 function legacyDom(settings: Context, layout: string, insert: Dom) {
 	let parts = layout.match(/(".*?")|('.*?')|./g);
-	let featureNode, option, newNode: Dom, next, attr;
+	let featureNode, option: string, newNode: Dom, next, attr;
 
 	if (!parts) {
 		return;

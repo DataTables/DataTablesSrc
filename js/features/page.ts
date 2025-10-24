@@ -159,7 +159,7 @@ function _pagingDraw(settings: Context, host: Dom, opts: IFeaturePagingOptions) 
 			'data-dt-idx': button,
 			tabIndex: btnInfo.disabled
 				? -1
-				: settings.iTabIndex && btn.clicker[0].nodeName.toLowerCase() !== 'span'
+				: settings.iTabIndex && btn.clicker.nodeName.toLowerCase() !== 'span'
 				? settings.iTabIndex
 				: null, // `0` doesn't need a tabIndex since it is the default
 		});

@@ -358,7 +358,7 @@ describe('core - search()', function() {
 		});
 
 		it('String search', function() {
-			$('div.dt-search input').val('New York').trigger('input');
+			$('div.dt-search input').val('New York').triggerNative('input');
 
 			expect($('#example tbody td').eq(0).text()).toBe('Brielle Williamson');
 		});

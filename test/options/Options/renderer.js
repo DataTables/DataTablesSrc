@@ -33,7 +33,7 @@ var header = function(settings, cell, column, classes) {
 	headerCounter++;
 	headerArgs = arguments;
 
-	$(cell).attr('counter', headerCounter);
+	cell.attr('counter', headerCounter);
 };
 
 function resetCounters() {
@@ -335,8 +335,8 @@ describe('renderer option header functions', function() {
 		);
 	});
 
-	it('Arg 1 is the header cell as a jQuery object', function() {
-		expect(headerArgs[1] instanceof $).toBe(true);
+	it('Arg 1 is the header cell as a Dom object', function() {
+		expect(headerArgs[1] instanceof DataTable.dom.Dom).toBe(true);
 		expect(headerArgs[1].get(0)).toBe($('thead th:last-child')[0]); // last one as called in a loop
 	});
 

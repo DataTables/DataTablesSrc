@@ -1,4 +1,4 @@
-import { ILayoutRow } from '../core/layout';
+import { ILayoutCell, ILayoutRow } from '../core/layout';
 import dom, { Dom } from '../dom';
 import Context from '../model/settings';
 import { pluck } from '../util/array';
@@ -119,7 +119,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 
 			var i;
 			var orderClasses = classes.order;
-			var columns = ctx.api.columns(cell.get(0));
+			var columns = ctx.api.columns(cell);
 			var col = settings.aoColumns[columns.flatten()[0]];
 			var orderable = columns.orderable().includes(true);
 			var ariaType = '';
@@ -217,11 +217,7 @@ export const layout: IRendererLayout = (settings, container, items) => {
 		.classAdd(items.className || classes.row)
 		.appendTo(container);
 
-	forLayoutRow(items, function (key, val) {
-		if (key === 'id' || key === 'className') {
-			return;
-		}
-
+	displayRowCells(items, function (key, val) {
 		var klass = '';
 
 		if (val.table) {
@@ -296,28 +292,19 @@ export const pagingContainer: IRendererPagingContainer = (
 	return buttons;
 };
 
-export function forLayoutRow(items, fn) {
-	// As we are inserting dom elements, we need start / end in a
-	// specific order, this function is used for sorting the layout
-	// keys.
-	var layoutEnum = function (x) {
-		switch (x) {
-			case '':
-				return 0;
-			case 'start':
-				return 1;
-			case 'end':
-				return 2;
-			default:
-				return 3;
-		}
-	};
-
-	Object.keys(items)
-		.sort(function (a, b) {
-			return layoutEnum(a) - layoutEnum(b);
-		})
-		.forEach(function (key) {
-			fn(key, items[key]);
-		});
+export function displayRowCells(
+	items: ILayoutRow,
+	fn: (position: 'start' | 'end' | 'full', cell: ILayoutCell) => void
+): void {
+	if (items.start) {
+		fn('start', items.start);
+	}
+	
+	if (items.end) {
+		fn('end', items.end);
+	}
+	
+	if (items.full) {
+		fn('full', items.full);
+	}
 }

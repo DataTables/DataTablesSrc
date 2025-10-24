@@ -1,5 +1,6 @@
 
 import { sort } from "../core/sort";
+import { Dom } from "../dom";
 import ext from "../ext/index";
 import { range, unique } from "../util/array";
 import Api from "./base";
@@ -11,6 +12,11 @@ export function selector_run( type, selector, selectFn, settings, opts )
 		out = [], res,
 		i, iLen,
 		selectorType = typeof selector;
+
+	// If a Dom instance, then get the underlying elements
+	if (selector instanceof Dom) {
+		selector = selector.get();
+	}
 
 	// Can't just check for isArray here, as an API or jQuery instance might be
 	// given with their array like look

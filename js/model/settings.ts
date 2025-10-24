@@ -382,7 +382,7 @@ export default class Settings {
 	/**
 	 * Cache the wrapper node (contains all DataTables controlled elements)
 	 */
-	public nTableWrapper;
+	public nTableWrapper: Element;
 
 	/**
 	 * Indicate if all required information has been read in

@@ -11,7 +11,7 @@ type TDimensionInclude =
 	| 'withPadding'
 	| 'withMargin';
 
-export class Dom<T extends Element = Element> {
+export class Dom<T extends HTMLElement = HTMLElement> {
 	/**
 	 * Create a new element and wrap in a `Dom` instance
 	 *
@@ -113,7 +113,7 @@ export class Dom<T extends Element = Element> {
 			else if (is.arrayLike(content)) {
 				// Allow for a jQuery object being passed
 				for (let i = 0; i < (content as any).length; i++) {
-					el.append(content[i]);
+					el.append((content as any)[i]);
 				}
 			}
 			else {
@@ -192,7 +192,7 @@ export class Dom<T extends Element = Element> {
 	 */
 	children(selector?: string) {
 		return this.map(el => {
-			let children = Array.from(el.children);
+			let children = Array.from(el.children) as unknown as HTMLElement[];
 
 			return selector
 				? children.filter(child => child.matches(selector))
@@ -206,7 +206,7 @@ export class Dom<T extends Element = Element> {
 	 * @param name Class name(s) to set
 	 * @returns Self for chaining
 	 */
-	classAdd(name: string | string[]) {
+	classAdd(name?: string | string[] | null) {
 		if (!name) {
 			return this;
 		}
@@ -234,7 +234,7 @@ export class Dom<T extends Element = Element> {
 	 * @param name Class name to remove
 	 * @returns Self for chaining
 	 */
-	classRemove(name: string | string[]) {
+	classRemove(name?: string | string[] | null) {
 		if (!name) {
 			return this;
 		}
@@ -267,19 +267,19 @@ export class Dom<T extends Element = Element> {
 	 * @param selector
 	 * @returns A new DOM instance when the matching ancestors
 	 */
-	closest(selector: string | Element) {
+	closest<R extends HTMLElement = T>(selector: string | HTMLElement | Element) {
 		if (typeof selector === 'string') {
-			return this.map(el => el.closest(selector));
+			return this.map<R>(el => el.closest<R>(selector));
 		}
 
-		return this.map(el => {
+		return this.map<R>(el => {
 			// Traverse up the tree seeing if the element matches
 			while (el.parentElement) {
 				if (el.parentElement === selector) {
-					return selector;
+					return selector as R;
 				}
 
-				el = el.parentElement;
+				el = el.parentElement as T;
 			}
 
 			// Nothing found
@@ -331,11 +331,11 @@ export class Dom<T extends Element = Element> {
 		return this.each(el => {
 			if (typeof rule === 'string') {
 				// String setter
-				(el as HTMLElement).style[rule as any] = value!;
+				el.style[rule as any] = value!;
 			}
 			else {
 				// Object set of rules
-				Object.assign((el as HTMLElement).style, rule);
+				Object.assign(el.style, rule);
 			}
 		});
 	}
@@ -346,7 +346,7 @@ export class Dom<T extends Element = Element> {
 	 * @param callback Callback function
 	 * @returns Self for chaining
 	 */
-	each(callback: (el: Element, idx: number) => void) {
+	each(callback: (el: T, idx: number) => void) {
 		for (let i = 0; i < this._store.length; i++) {
 			callback(this._store[i], i);
 		}
@@ -394,15 +394,15 @@ export class Dom<T extends Element = Element> {
 	 *
 	 * @param selector Elements to find
 	 */
-	find(selector: string | Element | null) {
+	find<R extends HTMLElement = T>(selector: string | HTMLElement | Element | null): Dom<R> {
 		if (selector === null) {
-			return new Dom();
+			return new Dom<R>();
 		}
 
 		// Text based selector - loop over each element in the result set, doing
 		// the search on each and adding to a new instance.
 		if (typeof selector === 'string') {
-			return this.map(el => Array.from(el.querySelectorAll(selector)));
+			return this.map<R>(el => Array.from(el.querySelectorAll(selector)));
 		}
 
 		// Otherwise its an element, that we need to see if one of the elements
@@ -415,7 +415,7 @@ export class Dom<T extends Element = Element> {
 			}
 		});
 
-		return new Dom(hasParent ? selector : []);
+		return new Dom<R>(hasParent ? selector : []);
 	}
 
 	/**
@@ -479,7 +479,7 @@ export class Dom<T extends Element = Element> {
 			// Setter
 			return this.each(
 				el =>
-					((el as HTMLElement).style.height =
+					(el.style.height =
 						typeof include === 'string' ? include : include + 'px')
 			);
 		}
@@ -492,7 +492,7 @@ export class Dom<T extends Element = Element> {
 	 */
 	hide() {
 		return this.each(el => {
-			(el as HTMLElement).style.display = 'none';
+			el.style.display = 'none';
 		});
 	}
 
@@ -509,16 +509,14 @@ export class Dom<T extends Element = Element> {
 	html(data: string): this;
 
 	html(data?: string) {
-		if (data) {
-			this.each(el => {
+		if (data !== undefined) {
+			return this.each(el => {
 				el.innerHTML = data;
 			});
 		}
 		else {
 			return this.count() ? this._store[0].innerHTML : null;
 		}
-
-		return this;
 	}
 
 	/**
@@ -565,8 +563,8 @@ export class Dom<T extends Element = Element> {
 	 * @param fn Function to get the elements to add to the new instance
 	 * @returns New Dom instance with the results from the callback
 	 */
-	map(fn: (el: Element) => Element | Element[] | null) {
-		let next = new Dom();
+	map<R extends HTMLElement = T>(fn: (el: T) => R | R[] | null) {
+		let next = new Dom<R>();
 
 		this.each(el => {
 			next.add(fn(el));
@@ -588,7 +586,7 @@ export class Dom<T extends Element = Element> {
 	 *   namespaces. Multiple events can be removed by space separation of the
 	 *   names.
 	 */
-	off(name): this;
+	off(name: string): this;
 
 	/**
 	 * Remove all events attached to this element that match the given event
@@ -653,9 +651,11 @@ export class Dom<T extends Element = Element> {
 		let { handler, names, selector } = normaliseEventParams(arg1, arg2, arg3);
 
 		return this.each(el => {
-			names.forEach(name => {
-				events.add(el, name, handler, selector, false);
-			});
+			names
+				.filter(n => n !== null)
+				.forEach(name => {
+					events.add(el, name, handler, selector, false);
+				});
 		});
 	}
 
@@ -687,9 +687,11 @@ export class Dom<T extends Element = Element> {
 		let { handler, names, selector } = normaliseEventParams(arg1, arg2, arg3);
 
 		return this.each(el => {
-			names.forEach(name => {
-				events.add(el, name, handler, selector, true);
-			});
+			names
+				.filter(n => n !== null)
+				.forEach(name => {
+					events.add(el, name, handler, selector, true);
+				});
 		});
 	}
 
@@ -782,7 +784,7 @@ export class Dom<T extends Element = Element> {
 	 */
 	show() {
 		return this.each(el => {
-			(el as HTMLElement).style.display = 'block';
+			el.style.display = 'block';
 		});
 	}
 
@@ -832,9 +834,11 @@ export class Dom<T extends Element = Element> {
 		let { names } = normaliseEventParams(name);
 
 		return this.each(el => {
-			names.forEach(name => {
-				events.trigger(el, name, bubbles, args, props);
-			});
+			names
+				.filter(n => n !== null)
+				.forEach(name => {
+					events.trigger(el, name, bubbles, args, props);
+				});
 		});
 	}
 
@@ -860,7 +864,9 @@ export class Dom<T extends Element = Element> {
 			let el = this._store[0] as any;
 
 			if (el.options && el.multiple) {
-				return el.options.filter(opt => opt.selected).map(opt => opt.value);
+				return Array.from((el as HTMLSelectElement).options)
+					.filter(opt => opt.selected)
+					.map(opt => opt.value);
 			}
 
 			return el.value;
@@ -871,7 +877,9 @@ export class Dom<T extends Element = Element> {
 			if (el.options && el.multiple) {
 				let valArr = Array.isArray(value) ? value : [value];
 
-				el.options.forEach(opt => (opt.selected = valArr.includes(opt.value)));
+				Array.from((el as HTMLSelectElement).options).forEach(
+					opt => (opt.selected = valArr.includes(opt.value))
+				);
 			}
 			else {
 				// This works for select elements as well in modern browsers
@@ -940,7 +948,7 @@ export class Dom<T extends Element = Element> {
 			// Setter
 			return this.each(
 				el =>
-					((el as HTMLElement).style.width =
+					(el.style.width =
 						typeof include === 'string' ? include : include + 'px')
 			);
 		}

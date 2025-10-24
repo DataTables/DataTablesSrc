@@ -1,5 +1,5 @@
 import { callbackFire, dataSource, escapeObject, log } from '../api/support';
-import dom from '../dom';
+import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import Context from '../model/settings';
 import { pluck, range, unique } from '../util/array';
@@ -183,7 +183,7 @@ export function rowAttributes(settings, row) {
 export function buildHead(settings: Context, side: 'header' | 'footer') {
 	let classes = settings.oClasses;
 	let columns = settings.aoColumns;
-	let i, iLen, row;
+	let i, iLen, row: Dom;
 	let target = dom.s(side === 'header' ? settings.nTHead : settings.nTFoot);
 	let titleProp = side === 'header' ? 'sTitle' : side;
 
@@ -202,11 +202,11 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 		}
 
 		// Add the number of cells needed to make up to the number of columns
-		if (row.length === 1) {
+		if (row.count() === 1) {
 			let cellCount = 0;
 
-			row.find('td, th').each(() => {
-				cellCount += this.colSpan;
+			row.find<HTMLTableCellElement>('td, th').each((el) => {
+				cellCount += el.colSpan;
 			});
 
 			for (i = cellCount, iLen = columns.length; i < iLen; i++) {

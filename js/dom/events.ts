@@ -2,7 +2,7 @@ import * as array from '../util/array';
 import * as object from '../util/object';
 import { PlainObject } from '../util/types';
 import * as eventStore from './eventStore';
-import { WrappedHandler } from './interface';
+import { DomEvent, WrappedHandler } from './interface';
 
 const _mouseEvents = [
 	'click',
@@ -106,7 +106,7 @@ export function add(
 
 	// Create a function that will be the actual event handler, and performs any
 	// logic we need, such as delegate handling and adding properties.
-	let wrapped = function (event) {
+	let wrapped = function (event: DomEvent) {
 		let callScope: EventTarget = el; // Scope for the callback function
 
 		// If the event has a namespace (from a trigger), then the handler
@@ -272,7 +272,7 @@ export function trigger(
 if (jQuery) {
 	const originalFix = (jQuery.event as any).fix;
 
-	(jQuery.event as any).fix = function (originalEvent) {
+	(jQuery.event as any).fix = function (originalEvent: DomEvent) {
 		let jQueryEvent = originalFix(originalEvent);
 		let namespace = originalEvent.namespace;
 

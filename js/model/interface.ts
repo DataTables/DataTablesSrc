@@ -32,13 +32,13 @@ type LayoutKeys =
 	| `${LayoutSide}${LayoutNumber}${LayoutEdge}`
 	| `${LayoutSide}${LayoutNumber}`;
 
-type LayoutFeatures =
+export type LayoutFeatures =
 	| keyof Feature
 	| Feature
 	| Array<keyof Feature>
 	| Feature[];
 
-type LayoutElement = {
+export type LayoutElement = {
 	/** Class to apply to the CELL in the layout grid */
 	className?: string;
 
@@ -55,15 +55,13 @@ type LayoutElement = {
 	features: LayoutFeatures;
 };
 
-export type Layout = Partial<
-	Record<
-		LayoutKeys,
-		| LayoutElement
-		| LayoutFeatures
-		| (() => HTMLElement)
-		| HTMLElement
-		| JQuery<HTMLElement>
-		| Dom
-		| null
-	>
->;
+export type LayoutComponent =
+	| LayoutElement
+	| LayoutFeatures
+	| (() => HTMLElement)
+	| HTMLElement
+	| JQuery<HTMLElement>
+	| Dom
+	| null;
+
+export type Layout = Partial<Record<LayoutKeys, LayoutComponent>>;
