@@ -983,6 +983,6 @@ export default {
 };
 
 type EventHandler = {
-	(event: any, data?: any): any;
+	(event: any, ...args: any): any;
 	guid?: number;
 };

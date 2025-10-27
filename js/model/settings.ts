@@ -167,6 +167,7 @@ export default class Settings {
 		sLengthMenu: '',
 		sSearch: '',
 		sSearchPlaceholder: '',
+		sProcessing: '',
 
 		oAria: {
 			orderable: '',

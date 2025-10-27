@@ -1,75 +1,82 @@
 
 import { callbackFire } from '../api/support';
+import dom from '../dom';
 import Context from '../model/settings';
 
 /**
  * Generate the node required for the processing node
- *  @param {object} settings DataTables settings object
+ *
+ * @param ctx DataTables settings object
  */
-export function processingHtml ( settings: Context )
+export function processingHtml ( ctx: Context )
 {
-	var table = settings.nTable;
-	var scrolling = settings.oScroll.sX !== '' || settings.oScroll.sY !== '';
+	var table = ctx.nTable;
+	var scrolling = ctx.oScroll.sX !== '' || ctx.oScroll.sY !== '';
 
-	if ( settings.oFeatures.bProcessing ) {
-		var n = $('<div/>', {
-				'id': settings.sTableId + '_processing',
-				'class': settings.oClasses.processing.container,
-				'role': 'status'
-			} )
-			.html( (settings.oLanguage as any).sProcessing )
-			.append('<div><div></div><div></div><div></div><div></div></div>');
+	if ( ctx.oFeatures.bProcessing ) {
+		var n = dom.c('div')
+			.attr('id', ctx.sTableId + '_processing')
+			.attr('role', 'status')
+			.classAdd(ctx.oClasses.processing.container)
+			.html(ctx.oLanguage.sProcessing )
+			.append(
+				dom.c('div')
+					.append(dom.c('div'))
+					.append(dom.c('div'))
+					.append(dom.c('div'))
+					.append(dom.c('div'))
+			);
 
 		// Different positioning depending on if scrolling is enabled or not
 		if (scrolling) {
-			n.prependTo( $('div.dt-scroll', settings.nTableWrapper) );
+			n.prependTo( dom.s(ctx.nTableWrapper).find('div.dt-scroll').get(0) );
 		}
 		else {
 			n.insertBefore( table );
 		}
 
-		$(table).on( 'processing.dt.DT', function (e, s, show) {
+		dom.s(table).on( 'processing.dt.DT', (e, s, show) => {
 			n.css( 'display', show ? 'block' : 'none' );
 		} );
 	}
 }
 
-
 /**
  * Display or hide the processing indicator
- *  @param {object} settings DataTables settings object
- *  @param {bool} show Show the processing indicator (true) or not (false)
+ *
+ * @param ctx DataTables settings object
+ * @param show Show the processing indicator (true) or not (false)
  */
-export function processingDisplay ( settings: Context, show )
+export function processingDisplay ( ctx: Context, show: boolean )
 {
 	// Ignore cases when we are still redrawing
-	if (settings.bDrawing && show === false) {
+	if (ctx.bDrawing && show === false) {
 		return;
 	}
 
-	callbackFire( settings, null, 'processing', [settings, show] );
+	callbackFire( ctx, null, 'processing', [ctx, show] );
 }
 
 /**
  * Show the processing element if an action takes longer than a given time
  *
- * @param {*} settings DataTables settings object
- * @param {*} enable Do (true) or not (false) async processing (local feature enablement)
- * @param {*} run Function to run
+ * @param ctx DataTables settings object
+ * @param enable Do (true) or not (false) async processing (local feature enablement)
+ * @param run Function to run
  */
-export function processingRun( settings: Context, enable, run ) {
+export function processingRun( ctx: Context, enable: boolean, run: Function ) {
 	if (! enable) {
 		// Immediate execution, synchronous
 		run();
 	}
 	else {
-		processingDisplay(settings, true);
+		processingDisplay(ctx, true);
 		
 		// Allow the processing display to show if needed
 		setTimeout(function () {
 			run();
 
-			processingDisplay(settings, false);
+			processingDisplay(ctx, false);
 		}, 0);
 	}
 }
