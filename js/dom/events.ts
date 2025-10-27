@@ -1,8 +1,41 @@
+import { use } from '../api/static';
 import * as array from '../util/array';
 import * as object from '../util/object';
 import { PlainObject } from '../util/types';
 import * as eventStore from './eventStore';
 import { DomEvent, WrappedHandler } from './interface';
+
+/*
+ * We need an events library that has many of the features of jQuery's event
+ * handling - this is for backwards compatibility. Developers who have used
+ * jQuery to listen for events should not need to change their code!
+ *
+ * DataTables uses the following features of jQuery events, which need to be
+ * fully supported:
+ *
+ * * Namespaces
+ * * Custom events
+ * * Custom event object properties
+ * * Arguments for custom events
+ *
+ * Frustratingly while `dispatchEvent` will trigger all events listened to by
+ * jQuery (including namespaces with a shim of `jQuery.event.fix` to add the
+ * namespace and rnamespace properties), there is no way for `dispatchEvent` to
+ * pass arguments to custom event handlers.
+ *
+ * Also the inverse doesn't hold - using `addEventListener` followed by
+ * `$().trigger()` doesn't trigger the event handler. Therefore using both
+ * `dispatchEvent` and `$().trigger()` to fire off both event handlers would
+ * risk triggering some event handlers twice.
+ *
+ * Because of the backwards compatibility constraint and the complications given
+ * above, this library will act as a simple proxy to jQuery, if jQuery is
+ * present. If it is not, then it will implement the features described above
+ * itself. While this is not ideal (I'd prefer to have a way to trigger jQuery
+ * listened for events independently of triggering those added with this
+ * library, or any other `addEventListener` call), it does ensure backwards
+ * compatibility.
+ */
 
 const _mouseEvents = [
 	'click',
@@ -62,6 +95,12 @@ function delegateTarget(el: Element, selector: string, event: Event) {
 	}
 }
 
+/**
+ * Get the event name and namespaces from a string
+ *
+ * @param original event name and dot delimited namespaces
+ * @returns Object with split parts
+ */
 function parseEventName(original: string | null) {
 	if (!original) {
 		return {
@@ -98,6 +137,22 @@ export function add(
 	selector: string | null,
 	one: boolean
 ) {
+	let jq = use('jq');
+
+	if (jq) {
+		let method = one ? 'one' : 'on';
+
+		if (selector) {
+			jq(el)[method](nameFull, selector, handler);
+		}
+		else {
+			jq(el)[method](nameFull, handler);
+		}
+
+		return;
+	}
+
+	// No jQuery - add the event ourselves
 	let { eventName, namespaces } = parseEventName(nameFull);
 
 	if (!eventName) {
@@ -172,6 +227,20 @@ export function remove(
 	handler: EventListener | null,
 	selector: string | null
 ) {
+	let jq = use('jq');
+
+	if (jq) {
+		if (selector) {
+			jq(el).off(nameFull, selector, handler);
+		}
+		else {
+			jq(el).off(nameFull, handler);
+		}
+
+		return;
+	}
+
+	// No jQuery - do it our way
 	let { eventName, namespaces } = parseEventName(nameFull);
 	let removeEvents: WrappedHandler[] = [];
 	let stored = eventStore.get(el);
@@ -238,6 +307,22 @@ export function trigger(
 	args: unknown[] | null = [],
 	eventProps: PlainObject | null = null
 ) {
+	let jq = use('jq');
+
+	if (jq) {
+		let method = bubbles ? 'trigger' : 'triggerHandler';
+		let ev = jq.Event(nameFull);
+
+		object.each(eventProps, (key, val) => {
+			setEventProp(ev, key, val);
+		});
+
+		jq(el)[method](ev, args);
+
+		return ev.result; // TODO should be defaultPrevented?
+	}
+
+	// No jQuery
 	let { eventName, namespaces } = parseEventName(nameFull);
 
 	if (!eventName) {
@@ -254,35 +339,7 @@ export function trigger(
 	setEventProp(event, '_args', args || []);
 	object.each(eventProps, (key, val) => setEventProp(event, key, val));
 
-	// This will trigger events that jQuery is listening for as well. We don't
-	// need to separately call a jQuery trigger to catch the case where a dev
-	// might be listening using jQuery (although see before for namespaces).
 	el.dispatchEvent(event);
-}
 
-// Although `dispatchEvent` in `trigger` will result in jQuery firing off any
-// event listeners it has added, there is no namespacing applied, thus any
-// filtering wouldn't work. We want that to work for backwards compatibility in
-// case someone is listening with jQuery for our `Dom` library events.
-//
-// `$().trigger()` adds `namespace` and `rnamespace` properties to a jQuery
-// event object, that it creates from the original event object to do that
-// filtering, so we need to have jQuery do that. We can do that by wrapping the
-// jQuery `.event.fix` function and applying the two properties needed.
-if (jQuery) {
-	const originalFix = (jQuery.event as any).fix;
-
-	(jQuery.event as any).fix = function (originalEvent: DomEvent) {
-		let jQueryEvent = originalFix(originalEvent);
-		let namespace = originalEvent.namespace;
-
-		if (namespace) {
-			jQueryEvent.namespace = originalEvent.namespace;
-			jQueryEvent.rnamespace = new RegExp(
-				'(^|\\.)' + namespace.split('.').join('\\.(?:.*\\.|)') + '(\\.|$)'
-			);
-		}
-
-		return jQueryEvent;
-	};
+	return event.returnValue; // TODO update to defaultPrevented?
 }

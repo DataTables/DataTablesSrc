@@ -1,3 +1,4 @@
+import dom from '../dom';
 import ext from '../ext/index';
 import Context from '../model/settings';
 import { escapeHtml } from '../util/string';
@@ -191,21 +192,26 @@ export function callbackFire(
 	}
 
 	if (eventName !== null) {
-		var e = $.Event(eventName + '.dt');
-		var table = $(ctx.nTable);
-
-		// Expose the DataTables API on the event object for easy access
-		(e as any).dt = ctx.api;
-
-		table[bubbles ? 'trigger' : 'triggerHandler'](e, args);
+		let table = dom.s(ctx.nTable);
+		let returnValue = table.trigger(
+			eventName + '.dt',
+			bubbles,
+			args,
+			{dt: ctx.api}
+		);
 
 		// If not yet attached to the document, trigger the event
 		// on the body directly to sort of simulate the bubble
-		if (bubbles && table.parents('body').length === 0) {
-			$('body').trigger(e, args);
+		if (bubbles && table.closest('body').count() === 0) {
+			dom.s('body').trigger(
+				eventName + '.dt',
+				bubbles,
+				args,
+				{dt: ctx.api}
+			);
 		}
 
-		ret.push((e as any).result);
+		ret.push(returnValue);
 	}
 
 	return ret;
