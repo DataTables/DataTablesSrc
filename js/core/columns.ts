@@ -1,6 +1,7 @@
 
 import { callbackFire, map } from '../api/support';
 import util from '../api/util';
+import dom from '../dom';
 import helpers from '../ext/helpers';
 import ext from '../ext/index';
 import columnDefaults from '../model/columns/defaults';
@@ -600,9 +601,9 @@ export function columnsSumWidth( settings, targets, original, incVisible ) {
 	return sum + unit;
 }
 
-export function columnsFromHeader( cell: HTMLElement )
+export function columnsFromHeader( cell: Element )
 {
-	var attr = $(cell).closest('[data-dt-column]').attr('data-dt-column');
+	var attr = dom.s(cell).closest('[data-dt-column]').attr('data-dt-column');
 
 	if ( ! attr ) {
 		return [];

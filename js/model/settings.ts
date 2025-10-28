@@ -43,6 +43,28 @@ interface IScroll {
 	sY: string;
 }
 
+export interface OrderIdx {
+	idx: number;
+	dir: 'asc' | 'desc';
+}
+
+export interface OrderName {
+	name: string;
+	dir: 'asc' | 'desc';
+}
+
+export type OrderArray = [number, 'asc' | 'desc' | ''];
+
+export type OrderCombined = OrderIdx | OrderName | OrderArray;
+
+export type Order = OrderCombined | OrderCombined[];
+
+
+export type OrderColumn = [number, string, number?];
+export interface OrderState extends OrderColumn {
+	_idx?: number;
+}
+
 /**
  * DataTables settings class. This holds all the information needed for a
  * given table, including configuration and data. Devs do not interact with
@@ -287,7 +309,7 @@ export default class Settings {
 	 * </ul>
 	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	public aaSorting;
+	public aaSorting: OrderState[];
 
 	/**
 	 * Sorting that is always applied to the table (i.e. prefixed in front of

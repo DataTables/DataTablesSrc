@@ -168,10 +168,10 @@ function _pagingDraw(settings: Context, host: Dom, opts: IFeaturePagingOptions) 
 			dom.s(btn.clicker).classAdd(button);
 		}
 
-		bindAction(btn.clicker, { action: button }, function (e) {
+		bindAction(btn.clicker, '', function (e) {
 			e.preventDefault();
 
-			pageChange(settings, e.data.action, true);
+			pageChange(settings, button, true);
 		});
 
 		buttonEls.push(btn.display);

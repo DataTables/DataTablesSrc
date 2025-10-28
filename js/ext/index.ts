@@ -1,10 +1,16 @@
 import { versionCheck } from '../api/static';
 import { features, legacy as featuresLegacy } from '../features/register';
+import Settings from '../model/settings';
 import classes from './classes';
 import pager from './paging';
 import * as renderers from './renderer';
 import { store } from './types';
 
+export interface ExtOrder {
+	[name: string]:
+		| ((settings: Settings, colIdx: number, visIdx: number) => unknown[])
+		| undefined;
+}
 
 /**
  * DataTables extensions
@@ -126,20 +132,20 @@ const ext = {
 
 	renderer: {
 		footer: {
-			_: renderers.footer
+			_: renderers.footer,
 		},
 		header: {
-			_: renderers.header
+			_: renderers.header,
 		},
 		layout: {
-			_: renderers.layout
+			_: renderers.layout,
 		},
 		pagingButton: {
-			_: renderers.pagingButton
+			_: renderers.pagingButton,
 		},
 		pagingContainer: {
-			_: renderers.pagingContainer
-		}
+			_: renderers.pagingContainer,
+		},
 	} as renderers.IRenderers,
 
 	/**
@@ -150,7 +156,7 @@ const ext = {
 	 * typically uses. It allows much greater control over the data that is
 	 * being used to order a column, but is necessarily therefore more complex.
 	 */
-	order: {},
+	order: {} as ExtOrder,
 
 	/**
 	 * Type based plug-ins.

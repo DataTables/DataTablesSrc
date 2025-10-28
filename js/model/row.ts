@@ -33,7 +33,7 @@ export default class Row {
 	 * per sort. This array should not be read from or written to by anything
 	 * other than the master sorting methods.
 	 */
-	public _aSortData = null;
+	public _aSortData: unknown[] | null = null;
 
 	/**
 	 * Per cell filtering data cache. As per the sort data cache, used to

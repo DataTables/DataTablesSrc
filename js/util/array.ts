@@ -60,7 +60,11 @@ export function intersection(a1: any[], a2: any[]): any[] {
  * @param prop2 Inner property to get values from if a 2D array
  * @returns Array of read values
  */
-export function pluck(a: any[], prop: string, prop2?: string) {
+export function pluck(
+	a: any[],
+	prop: string | number,
+	prop2?: string | number
+) {
 	let out: any[] = [],
 		i = 0,
 		iLen = a.length;
@@ -129,8 +133,7 @@ export function pluckOrder(
  *
  * @param len Array size
  * @returns Array with the sequence of numbers
- */;
-export function range(len: number): number[];
+ */ export function range(len: number): number[];
 /**
  * Create an array with a list of numbers, in sequence from the start to the end numbers given.
  *

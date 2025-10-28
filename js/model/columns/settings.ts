@@ -25,7 +25,7 @@ export default class Settings {
 	 * sorted on (typically it will be a single integer pointing at itself, but
 	 * that doesn't need to be the case).
 	 */
-	public aDataSort = null;
+	public aDataSort: number[] = [];
 
 	/**
 	 * Define the sorting directions that are applied to the column, in sequence
@@ -34,7 +34,7 @@ export default class Settings {
 	 * it again (click again) and it will move on to the next index. Repeat
 	 * until loop.
 	 */
-	public asSorting: string[] | null = null;
+	public asSorting: string[] = [];
 
 	/**
 	 * Flag to indicate if the column is searchable, and thus should be included

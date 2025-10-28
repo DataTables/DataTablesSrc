@@ -121,20 +121,20 @@ export function extend(out: object, extender: object, breakRefs: boolean = false
  * same effect as a click, if the element has focus.
  *
  * @param n Element to bind the action to
- * @param selector Selector (for delegated events) or data object
- *   to pass to the triggered function
+ * @param selector Selector (for delegated events)
  * @param fn Callback function for when the event is triggered
  */
 export function bindAction(
 	n: Element,
-	selector: string | {[key: string]: any},
-	fn: (e: JQuery.TriggeredEvent) => any
+	selector: string,
+	fn: (e: MouseEvent | KeyboardEvent) => any
 ) {
-	$(n)
-		.on('click.DT', selector, function (e: JQuery.TriggeredEvent) {
+	dom
+		.s(n)
+		.on('click.DT', selector, function (e: MouseEvent) {
 			fn(e);
 		})
-		.on('keypress.DT', selector, function (e: JQuery.TriggeredEvent) {
+		.on('keypress.DT', selector, function (e: KeyboardEvent) {
 			if (e.which === 13) {
 				e.preventDefault();
 				fn(e);

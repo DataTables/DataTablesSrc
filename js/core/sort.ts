@@ -1,9 +1,14 @@
-
 import { bindAction, callbackFire, dataSource } from '../api/support';
+import dom from '../dom';
 import ext from '../ext/index';
-import Context from '../model/settings';
+import Context, { Order, OrderArray, OrderCombined, OrderIdx, OrderName, OrderState } from '../model/settings';
 import { pluck } from '../util/array';
-import { columnIndexToVisible, columnTypes, columnsFromHeader } from './columns';
+import * as is from '../util/is';
+import {
+	columnIndexToVisible,
+	columnTypes,
+	columnsFromHeader,
+} from './columns';
 import { getCellData } from './data';
 import { reDraw } from './draw';
 import { processingRun } from './processing';
@@ -18,18 +23,19 @@ interface ISortItem {
 	sorter?: Function;
 }
 
-export function sortInit( settings: Context ) {
+export function sortInit(settings: Context) {
 	var target = settings.nTHead;
 	var headerRows = target.querySelectorAll('tr');
 	var titleRow = settings.titleRow;
-	var notSelector = ':not([data-dt-order="disable"]):not([data-dt-order="icon-only"])';
-	
+	var notSelector =
+		':not([data-dt-order="disable"]):not([data-dt-order="icon-only"])';
+
 	// Legacy support for `orderCellsTop`
 	if (titleRow === true) {
 		target = headerRows[0];
 	}
 	else if (titleRow === false) {
-		target = headerRows[ headerRows.length - 1 ];
+		target = headerRows[headerRows.length - 1];
 	}
 	else if (titleRow !== null) {
 		target = headerRows[titleRow];
@@ -41,51 +47,77 @@ export function sortInit( settings: Context ) {
 			settings,
 			target,
 			target === settings.nTHead
-				? 'tr'+notSelector+' th'+notSelector+', tr'+notSelector+' td'+notSelector
-				: 'th'+notSelector+', td'+notSelector
+				? 'tr' +
+						notSelector +
+						' th' +
+						notSelector +
+						', tr' +
+						notSelector +
+						' td' +
+						notSelector
+				: 'th' + notSelector + ', td' + notSelector
 		);
 	}
 
 	// Need to resolve the user input array into our internal structure
-	var order = [];
-	sortResolve( settings, order, settings.aaSorting );
+	var order: OrderState[] = [];
+
+	sortResolve(settings, order, settings.aaSorting);
 
 	settings.aaSorting = order;
 }
 
-
-export function sortAttachListener(settings: Context, node, selector, column?, callback?) {
-	bindAction( node, selector, function (e) {
+/**
+ * Attach event listeners to a node that will trigger ordering on a column
+ *
+ * @param settings DataTables context
+ * @param node Node to attach to
+ * @param selector Delegate selector
+ * @param column Column index to target
+ * @param callback Callback for when done
+ */
+export function sortAttachListener(
+	settings: Context,
+	node: Element,
+	selector: string,
+	column?: number | (() => []),
+	callback?: () => void
+) {
+	bindAction(node, selector, function (e) {
 		var run = false;
-		var columns = column === undefined
-			? columnsFromHeader( e.target )
-			: typeof column === 'function'
+		var columns =
+			column === undefined
+				? columnsFromHeader(e.target as Element)
+				: typeof column === 'function'
 				? column()
 				: Array.isArray(column)
-					? column
-					: [column];
+				? column
+				: [column];
 
-		if ( columns.length ) {
-			for ( var i=0, iLen=columns.length ; i<iLen ; i++ ) {
-				var ret = sortAdd( settings, columns[i], i, e.shiftKey );
+		if (columns.length) {
+			for (var i = 0, iLen = columns.length; i < iLen; i++) {
+				var ret = sortAdd(settings, columns[i], i, e.shiftKey);
 
 				if (ret !== false) {
 					run = true;
-				}					
+				}
 
 				// If the first entry is no sort, then subsequent
 				// sort columns are ignored
-				if (settings.aaSorting.length === 1 && settings.aaSorting[0][1] === '') {
+				if (
+					settings.aaSorting.length === 1 &&
+					settings.aaSorting[0][1] === ''
+				) {
 					break;
 				}
 			}
 
 			if (run) {
 				processingRun(settings, true, function () {
-					sort( settings );
-					sortDisplay( settings, settings.aiDisplay );
+					sort(settings);
+					sortDisplay(settings, settings.aiDisplay);
 
-					reDraw( settings, false, false );
+					reDraw(settings, false, false);
 
 					if (callback) {
 						callback();
@@ -93,138 +125,154 @@ export function sortAttachListener(settings: Context, node, selector, column?, c
 				});
 			}
 		}
-	} );
+	});
 }
 
 /**
  * Sort the display array to match the master's order
- * @param {*} settings
+ *
+ * @param settings DataTables context
  */
-export function sortDisplay(settings: Context, display) {
+export function sortDisplay(settings: Context, display: number[]) {
 	if (display.length < 2) {
 		return;
 	}
 
 	var master = settings.aiDisplayMaster;
-	var masterMap: {[idx: number]: number} = {};
-	var map = {};
+	var masterMap: { [idx: number]: number } = {};
+	var map: { [idx: number]: number } = {};
 	var i;
 
 	// Rather than needing an `indexOf` on master array, we can create a map
-	for (i=0 ; i<master.length ; i++) {
+	for (i = 0; i < master.length; i++) {
 		masterMap[master[i]] = i;
 	}
 
 	// And then cache what would be the indexOf from the display
-	for (i=0 ; i<display.length ; i++) {
+	for (i = 0; i < display.length; i++) {
 		map[display[i]] = masterMap[display[i]];
 	}
 
-	display.sort(function(a, b){
+	display.sort(function (a, b) {
 		// Short version of this function is simply `master.indexOf(a) - master.indexOf(b);`
 		return map[a] - map[b];
 	});
 }
 
+/**
+ * Convert the API variants that can be used for defining the order into our
+ * internal OrderColumn array.
+ *
+ * @param settings DataTable context object
+ * @param nestedSort Array to write the resolve values to
+ * @param sortItem Source object / array from user (It is really an `Order`
+ *   but due to `aaSorting` being used for input and the internal structure
+ *   it is currently any).
+ * @todo Split aaSorting into unresolved and resolved parameters
+ */
+export function sortResolve(settings: Context, nestedSort: OrderState[], sortItem: any) {
+	var push = function (a: Order) {
+		if (is.plainObject(a)) {
+			let orderIdx = a as OrderIdx;
+			let orderName = a as OrderName;
 
-export function sortResolve (settings: Context, nestedSort, sortItem) {
-	var push = function ( a ) {
-		if ($.isPlainObject(a)) {
-			if (a.idx !== undefined) {
+			if (orderIdx.idx !== undefined) {
 				// Index based ordering
-				nestedSort.push([a.idx, a.dir]);
+				nestedSort.push([orderIdx.idx, orderIdx.dir]);
 			}
-			else if (a.name) {
+			else if (orderName.name) {
 				// Name based ordering
-				var cols = pluck( settings.aoColumns, 'sName');
-				var idx = cols.indexOf(a.name);
+				var cols = pluck(settings.aoColumns, 'sName');
+				var idx = cols.indexOf(orderName.name);
 
 				if (idx !== -1) {
-					nestedSort.push([idx, a.dir]);
+					nestedSort.push([idx, orderName.dir]);
 				}
 			}
 		}
 		else {
 			// Plain column index and direction pair
-			nestedSort.push(a);
+			nestedSort.push(a as OrderArray);
 		}
 	};
 
-	if ( $.isPlainObject(sortItem) ) {
+	if (is.plainObject(sortItem)) {
 		// Object
 		push(sortItem);
 	}
-	else if ( sortItem.length && typeof sortItem[0] === 'number' ) {
+	else if (Array.isArray(sortItem) && typeof sortItem[0] === 'number') {
 		// 1D array
 		push(sortItem);
 	}
-	else if ( sortItem.length ) {
+	else if (Array.isArray(sortItem)) {
 		// 2D array
-		for (var z=0; z<sortItem.length; z++) {
-			push(sortItem[z]); // Object or array
+		for (var z = 0; z < sortItem.length; z++) {
+			push(sortItem[z] as OrderCombined); // Object or array
 		}
 	}
 }
 
-
-export function sortFlatten ( settings: Context )
-{
-	var
-		i, k, kLen,
+export function sortFlatten(settings: Context) {
+	var i,
+		k,
+		kLen,
 		aSort: ISortItem[] = [],
 		extSort = ext.type.order,
 		aoColumns = settings.aoColumns,
-		aDataSort, iCol, sType, srcCol,
+		aDataSort,
+		iCol,
+		sType,
+		srcCol,
 		fixed = settings.aaSortingFixed as any,
-		fixedObj = $.isPlainObject( fixed ),
+		fixedObj = is.plainObject(fixed),
 		nestedSort = [] as any;
-	
-	if ( ! settings.oFeatures.bSort ) {
+
+	if (!settings.oFeatures.bSort) {
 		return aSort;
 	}
 
 	// Build the sort array, with pre-fix and post-fix options if they have been
 	// specified
-	if ( Array.isArray( fixed ) ) {
-		sortResolve( settings, nestedSort, fixed );
+	if (Array.isArray(fixed)) {
+		sortResolve(settings, nestedSort, fixed);
 	}
 
-	if ( fixedObj && fixed.pre ) {
-		sortResolve( settings, nestedSort, fixed.pre );
+	if (fixedObj && fixed.pre) {
+		sortResolve(settings, nestedSort, fixed.pre);
 	}
 
-	sortResolve( settings, nestedSort, settings.aaSorting );
+	sortResolve(settings, nestedSort, settings.aaSorting);
 
-	if (fixedObj && fixed.post ) {
-		sortResolve( settings, nestedSort, fixed.post );
+	if (fixedObj && fixed.post) {
+		sortResolve(settings, nestedSort, fixed.post);
 	}
 
-	for ( i=0 ; i<nestedSort.length ; i++ )
-	{
+	for (i = 0; i < nestedSort.length; i++) {
 		srcCol = nestedSort[i][0];
 
-		if ( aoColumns[ srcCol ] ) {
-			aDataSort = aoColumns[ srcCol ].aDataSort;
+		if (aoColumns[srcCol]) {
+			aDataSort = aoColumns[srcCol].aDataSort;
 
-			for ( k=0, kLen=aDataSort.length ; k<kLen ; k++ )
-			{
+			for (k = 0, kLen = aDataSort.length; k < kLen; k++) {
 				iCol = aDataSort[k];
-				sType = aoColumns[ iCol ].sType || 'string';
+				sType = aoColumns[iCol].sType || 'string';
 
-				if ( nestedSort[i]._idx === undefined ) {
-					nestedSort[i]._idx = aoColumns[iCol].asSorting!.indexOf(nestedSort[i][1]);
+				if (nestedSort[i]._idx === undefined) {
+					nestedSort[i]._idx = aoColumns[iCol].asSorting!.indexOf(
+						nestedSort[i][1]
+					);
 				}
 
-				if ( nestedSort[i][1] ) {
-					aSort.push( {
-						src:       srcCol,
-						col:       iCol,
-						dir:       nestedSort[i][1],
-						index:     nestedSort[i]._idx,
-						type:      sType,
-						formatter: extSort[ sType+"-pre" ],
-						sorter:    extSort[ sType+"-"+nestedSort[i][1] ]
-					} );
+				if (nestedSort[i][1]) {
+					aSort.push({
+						src: srcCol,
+						col: iCol,
+						dir: nestedSort[i][1],
+						index: nestedSort[i]._idx,
+						type: sType,
+						formatter: extSort[sType + '-pre'],
+						sorter: extSort[sType + '-' + nestedSort[i][1]],
+					});
 				}
 			}
 		}
@@ -235,61 +283,63 @@ export function sortFlatten ( settings: Context )
 
 /**
  * Change the order of the table
- *  @param {object} oSettings dataTables settings object
- *  @memberof DataTable#oApi
+ *
+ * @param ctx DataTables settings object
+ * @param col Column to perform sort on
+ * @param dir Direction to sort on
  */
-export function sort ( oSettings: Context, col?, dir? )
-{
-	var
-		i, iLen,
+export function sort(ctx: Context, col?: number, dir?: string) {
+	var i,
+		iLen,
 		aiOrig: number[] = [],
 		extSort = ext.type.order,
-		aoData = oSettings.aoData,
+		aoData = ctx.aoData,
 		sortCol,
-		displayMaster = oSettings.aiDisplayMaster,
+		displayMaster = ctx.aiDisplayMaster,
 		aSort: ISortItem[];
 
 	// Make sure the columns all have types defined
-	columnTypes(oSettings);
+	columnTypes(ctx);
 
 	// Allow a specific column to be sorted, which will _not_ alter the display
 	// master
 	if (col !== undefined) {
-		var srcCol = oSettings.aoColumns[col];
+		var srcCol = ctx.aoColumns[col];
 
-		aSort = [{
-			src:       col,
-			col:       col,
-			dir:       dir,
-			index:     0,
-			type:      srcCol.sType!,
-			formatter: extSort[ srcCol.sType+"-pre" ],
-			sorter:    extSort[ srcCol.sType+"-"+dir ]
-		}];
+		aSort = [
+			{
+				src: col,
+				col: col,
+				dir: dir || '',
+				index: 0,
+				type: srcCol.sType!,
+				formatter: extSort[srcCol.sType + '-pre'],
+				sorter: extSort[srcCol.sType + '-' + dir],
+			},
+		];
 		displayMaster = displayMaster.slice();
 	}
 	else {
-		aSort = sortFlatten( oSettings );
+		aSort = sortFlatten(ctx);
 	}
 
-	for ( i=0, iLen=aSort.length ; i<iLen ; i++ ) {
+	for (i = 0, iLen = aSort.length; i < iLen; i++) {
 		sortCol = aSort[i];
 
 		// Load the data needed for the sort, for each cell
-		sortData( oSettings, sortCol.col );
+		sortData(ctx, sortCol.col);
 	}
 
 	/* No sorting required if server-side or no sorting array */
-	if ( dataSource( oSettings ) != 'ssp' && aSort.length !== 0 )
-	{
+	if (dataSource(ctx) != 'ssp' && aSort.length !== 0) {
 		// Reset the initial positions on each pass so we get a stable sort
-		for ( i=0, iLen=displayMaster.length ; i<iLen ; i++ ) {
-			aiOrig[ i ] = i;
+		for (i = 0, iLen = displayMaster.length; i < iLen; i++) {
+			aiOrig[i] = i;
 		}
 
 		// If the first sort is desc, then reverse the array to preserve original
 		// order, just in reverse
-		if (aSort.length && aSort[0].dir === 'desc' && oSettings.orderDescReverse) {
+		if (aSort.length && aSort[0].dir === 'desc' && ctx.orderDescReverse) {
 			aiOrig.reverse();
 		}
 
@@ -310,34 +360,37 @@ export function sort ( oSettings: Context, col?, dir? )
 		 * test the next column. If all columns match, then we use a numeric sort on the row
 		 * positions in the original data array to provide a stable sort.
 		 */
-		displayMaster.sort( function ( a, b ) {
-			var
-				x, y, k, test, sortItem,
-				len=aSort.length,
+		displayMaster.sort(function (a, b) {
+			var x: any,
+				y: any,
+				k,
+				test,
+				sortItem,
+				len = aSort.length,
 				dataA = aoData[a]._aSortData!,
 				dataB = aoData[b]._aSortData!;
 
-			for ( k=0 ; k<len ; k++ ) {
+			for (k = 0; k < len; k++) {
 				sortItem = aSort[k];
 
 				// Data, which may have already been through a `-pre` function
-				x = dataA[ sortItem.col ];
-				y = dataB[ sortItem.col ];
+				x = dataA[sortItem.col];
+				y = dataB[sortItem.col];
 
 				if (sortItem.sorter) {
 					// If there is a custom sorter (`-asc` or `-desc`) for this
 					// data type, use it
 					test = sortItem.sorter(x, y);
 
-					if ( test !== 0 ) {
+					if (test !== 0) {
 						return test;
 					}
 				}
 				else {
 					// Otherwise, use generic sorting
-					test = x<y ? -1 : x>y ? 1 : 0;
+					test = x < y ? -1 : x > y ? 1 : 0;
 
-					if ( test !== 0 ) {
+					if (test !== 0) {
 						return sortItem.dir === 'asc' ? test : -test;
 					}
 				}
@@ -346,147 +399,152 @@ export function sort ( oSettings: Context, col?, dir? )
 			x = aiOrig[a];
 			y = aiOrig[b];
 
-			return x<y ? -1 : x>y ? 1 : 0;
-		} );
+			return x < y ? -1 : x > y ? 1 : 0;
+		});
 	}
-	else if ( aSort.length === 0 ) {
+	else if (aSort.length === 0) {
 		// Apply index order
 		displayMaster.sort(function (x, y) {
-			return x<y ? -1 : x>y ? 1 : 0;
+			return x < y ? -1 : x > y ? 1 : 0;
 		});
 	}
 
 	if (col === undefined) {
 		// Tell the draw function that we have sorted the data
-		oSettings.bSorted = true;
-		oSettings.sortDetails = aSort;
+		ctx.bSorted = true;
+		ctx.sortDetails = aSort;
 
-		callbackFire( oSettings, null, 'order', [oSettings, aSort] );
+		callbackFire(ctx, null, 'order', [ctx, aSort]);
 	}
 
 	return displayMaster;
 }
 
-
 /**
  * Function to run on user sort request
- *  @param {object} settings dataTables settings object
- *  @param {node} attachTo node to attach the handler to
- *  @param {int} colIdx column sorting index
- *  @param {int} addIndex Counter
- *  @param {boolean} [shift=false] Shift click add
- *  @param {function} [callback] callback function
- *  @memberof DataTable#oApi
+ *
+ * @param settings dataTables settings object
+ * @param attachTo node to attach the handler to
+ * @param colIdx column sorting index
+ * @param addIndex Counter
+ * @param shift Shift click add
  */
-export function sortAdd ( settings, colIdx, addIndex, shift )
-{
-	var col = settings.aoColumns[ colIdx ];
+export function sortAdd(
+	settings: Context,
+	colIdx: number,
+	addIndex: number,
+	shift: boolean
+) {
+	var col = settings.aoColumns[colIdx];
 	var sorting = settings.aaSorting;
 	var asSorting = col.asSorting;
 	var nextSortIdx;
-	var next = function ( a, overflow? ) {
+	var next = function (a: OrderState, overflow?: boolean) {
 		var idx = a._idx;
-		if ( idx === undefined ) {
+		if (idx === undefined) {
 			idx = asSorting.indexOf(a[1]);
 		}
 
-		return idx+1 < asSorting.length ?
-			idx+1 :
-			overflow ?
-				null :
-				0;
+		return idx + 1 < asSorting.length ? idx + 1 : overflow ? null : 0;
 	};
 
-	if ( ! col.bSortable ) {
+	if (!col.bSortable) {
 		return false;
 	}
 
 	// Convert to 2D array if needed
-	if ( typeof sorting[0] === 'number' ) {
-		sorting = settings.aaSorting = [ sorting ];
+	if (typeof sorting[0] === 'number') {
+		sorting = settings.aaSorting = [sorting as unknown as OrderState];
 	}
 
 	// If appending the sort then we are multi-column sorting
-	if ( (shift || addIndex) && settings.oFeatures.bSortMulti ) {
+	if ((shift || addIndex) && settings.oFeatures.bSortMulti) {
 		// Are we already doing some kind of sort on this column?
 		var sortIdx = pluck(sorting, '0').indexOf(colIdx);
 
-		if ( sortIdx !== -1 ) {
+		if (sortIdx !== -1) {
 			// Yes, modify the sort
-			nextSortIdx = next( sorting[sortIdx], true );
+			nextSortIdx = next(sorting[sortIdx], true);
 
-			if ( nextSortIdx === null && sorting.length === 1 ) {
+			if (nextSortIdx === null && sorting.length === 1) {
 				nextSortIdx = 0; // can't remove sorting completely
 			}
 
-			if ( nextSortIdx === null || asSorting[ nextSortIdx ] === '' ) {
-				sorting.splice( sortIdx, 1 );
+			if (nextSortIdx === null || asSorting[nextSortIdx] === '') {
+				sorting.splice(sortIdx, 1);
 			}
 			else {
-				sorting[sortIdx][1] = asSorting[ nextSortIdx ];
+				sorting[sortIdx][1] = asSorting[nextSortIdx];
 				sorting[sortIdx]._idx = nextSortIdx;
 			}
 		}
 		else if (shift) {
 			// No sort on this column yet, being added by shift click
 			// add it as itself
-			sorting.push( [ colIdx, asSorting[0], 0 ] );
-			sorting[sorting.length-1]._idx = 0;
+			sorting.push([colIdx, asSorting[0], 0]);
+			sorting[sorting.length - 1]._idx = 0;
 		}
 		else {
 			// No sort on this column yet, being added from a colspan
 			// so add with same direction as first column
-			sorting.push( [ colIdx, sorting[0][1], 0 ] );
-			sorting[sorting.length-1]._idx = 0;
+			sorting.push([colIdx, sorting[0][1], 0]);
+			sorting[sorting.length - 1]._idx = 0;
 		}
 	}
-	else if ( sorting.length && sorting[0][0] == colIdx ) {
+	else if (sorting.length && sorting[0][0] == colIdx) {
 		// Single column - already sorting on this column, modify the sort
-		nextSortIdx = next( sorting[0] );
+		nextSortIdx = next(sorting[0]);
 
-		sorting.length = 1;
-		sorting[0][1] = asSorting[ nextSortIdx ];
-		sorting[0]._idx = nextSortIdx;
+		if (nextSortIdx) {
+			sorting.length = 1;
+			sorting[0][1] = asSorting[nextSortIdx];
+			sorting[0]._idx = nextSortIdx;
+		}
+		else {
+			sorting.length = 1;
+			sorting[0][1] = asSorting[0];
+			sorting[0]._idx = 0;
+		}
 	}
 	else {
 		// Single column - sort only on this column
 		sorting.length = 0;
-		sorting.push( [ colIdx, asSorting[0] ] );
+		sorting.push([colIdx, asSorting[0]]);
 		sorting[0]._idx = 0;
 	}
 }
 
-
 /**
  * Set the sorting classes on table's body, Note: it is safe to call this function
  * when bSort and bSortClasses are false
- *  @param {object} oSettings dataTables settings object
- *  @memberof DataTable#oApi
+ * 
+ * @param settings DataTables settings object
  */
-export function sortingClasses( settings: Context )
-{
+export function sortingClasses(settings: Context) {
 	var oldSort = settings.aLastSort;
 	var sortClass = settings.oClasses.order.position;
-	var sortFlat = sortFlatten( settings );
+	var sortFlat = sortFlatten(settings);
 	var features = settings.oFeatures;
 	var i, iLen, colIdx;
 
-	if ( features.bSort && features.bSortClasses ) {
+	if (features.bSort && features.bSortClasses) {
 		// Remove old sorting classes
-		for ( i=0, iLen=oldSort.length ; i<iLen ; i++ ) {
+		for (i = 0, iLen = oldSort.length; i < iLen; i++) {
 			colIdx = oldSort[i].src;
 
 			// Remove column sorting
-			$( pluck( settings.aoData, 'anCells', colIdx ) )
-				.removeClass( sortClass + (i<2 ? i+1 : 3) );
+			dom
+				.s(pluck(settings.aoData, 'anCells', colIdx))
+				.classRemove(sortClass + (i < 2 ? i + 1 : 3));
 		}
 
 		// Add new column sorting
-		for ( i=0, iLen=sortFlat.length ; i<iLen ; i++ ) {
+		for (i = 0, iLen = sortFlat.length; i < iLen; i++) {
 			colIdx = sortFlat[i].src;
 
-			$( pluck( settings.aoData, 'anCells', colIdx ) )
-				.addClass( sortClass + (i<2 ? i+1 : 3) );
+			dom
+				.s(pluck(settings.aoData, 'anCells', colIdx))
+				.classAdd(sortClass + (i < 2 ? i + 1 : 3));
 		}
 	}
 
@@ -494,47 +552,53 @@ export function sortingClasses( settings: Context )
 }
 
 
-// Get the data to sort a column, be it from cache, fresh (populating the
-// cache), or from a sort formatter
-export function sortData( settings, colIdx )
-{
+/**
+ * Get the data to sort a column, be it from cache, fresh (populating the
+ * cache), or from a sort formatter
+ *
+ * @param settings DataTables settings object
+ * @param colIdx Column index
+ */
+export function sortData(settings: Context, colIdx: number) {
 	// Custom sorting function - provided by the sort data type
-	var column = settings.aoColumns[ colIdx ];
-	var customSort = ext.order[ column.sSortDataType ];
+	var column = settings.aoColumns[colIdx];
+	var customSort = ext.order[column.sSortDataType];
 	var customData;
 
-	if ( customSort ) {
-		customData = customSort.call( settings.oInstance, settings, colIdx,
-			columnIndexToVisible( settings, colIdx )
+	if (customSort) {
+		customData = customSort.call(
+			settings.oInstance,
+			settings,
+			colIdx,
+			columnIndexToVisible(settings, colIdx)
 		);
 	}
 
 	// Use / populate cache
 	var row, cellData;
-	var formatter = ext.type.order[ column.sType+"-pre" ];
+	var formatter = ext.type.order[column.sType + '-pre'];
 	var data = settings.aoData;
 
-	for ( var rowIdx=0 ; rowIdx<data.length ; rowIdx++ ) {
+	for (var rowIdx = 0; rowIdx < data.length; rowIdx++) {
 		// Sparse array
-		if (! data[rowIdx]) {
+		if (!data[rowIdx]) {
 			continue;
 		}
 
 		row = data[rowIdx];
 
-		if ( ! row._aSortData ) {
+		if (!row._aSortData) {
 			row._aSortData = [];
 		}
 
-		if ( ! row._aSortData[colIdx] || customSort ) {
-			cellData = customSort ?
-				customData[rowIdx] : // If there was a custom sort function, use data from there
-				getCellData( settings, rowIdx, colIdx, 'sort' );
+		if (!row._aSortData[colIdx] || customSort) {
+			cellData = customSort
+				? customData[rowIdx] // If there was a custom sort function, use data from there
+				: getCellData(settings, rowIdx, colIdx, 'sort');
 
-			row._aSortData[ colIdx ] = formatter ?
-				formatter( cellData, settings ) :
-				cellData;
+			row._aSortData[colIdx] = formatter
+				? formatter(cellData, settings)
+				: cellData;
 		}
 	}
 }
-

@@ -11,6 +11,7 @@
 /// <reference types="jquery" />
 
 import { Layout } from '../js/model/interface';
+import { Order, OrderArray, OrderCombined, OrderIdx, OrderName } from '../js/model/settings';
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Types
@@ -101,22 +102,6 @@ export interface SearchOptions {
 	smart?: boolean
 }
 
-export interface OrderIdx {
-	idx: number;
-	dir: 'asc' | 'desc';
-}
-
-export interface OrderName {
-	name: string;
-	dir: 'asc' | 'desc';
-}
-
-export type OrderArray = [number, 'asc' | 'desc' | ''];
-
-export type OrderCombined = OrderIdx | OrderName | OrderArray;
-
-export type Order = OrderCombined | OrderCombined[];
-
 export interface DataType {
     className?: string;
     detect?: ExtTypeSettingsDetect;
@@ -129,6 +114,8 @@ export interface DataType {
     search?: ((data: any) => string);
 }
 
+/* Ordering information */
+export { Order, OrderArray, OrderCombined, OrderIdx, OrderName };
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

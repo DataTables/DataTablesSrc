@@ -97,7 +97,11 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param content The content to append
 	 * @returns Self for chaining
 	 */
-	append(content: Element | Element[] | Dom) {
+	append(content: Element | Element[] | Dom | null) {
+		if (! content) {
+			return this;
+		}
+
 		if (Array.isArray(content)) {
 			content.forEach(c => this.append(c));
 
@@ -112,8 +116,10 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			}
 			else if (is.arrayLike(content)) {
 				// Allow for a jQuery object being passed
-				for (let i = 0; i < (content as any).length; i++) {
-					el.append((content as any)[i]);
+				let arrayLike = content as any;
+
+				for (let i = 0; i < arrayLike.length; i++) {
+					el.append(arrayLike[i]);
 				}
 			}
 			else {

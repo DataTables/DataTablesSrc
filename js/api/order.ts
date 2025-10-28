@@ -73,7 +73,7 @@ Api.register( 'order()', function ( order, dir ) {
  */
 Api.register( 'order.listener()', function ( node, column, callback ) {
 	return this.iterator( 'table', function ( settings ) {
-		sortAttachListener(settings, node, {}, column, callback);
+		sortAttachListener(settings, node, '', column, callback);
 	} );
 } );
 
