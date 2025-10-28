@@ -4,6 +4,8 @@ import util from '../api/util';
 import ext from '../ext/index';
 import Context from '../model/settings';
 import { getCellData } from './data';
+import * as object from '../util/object';
+import dom from "../dom";
 
 /**
  * Filter the table using both the global filter and column based filtering
@@ -27,9 +29,9 @@ export function filterComplete ( settings: Context, input )
 		// Global filter first
 		filter( settings.aiDisplay, settings, input.search, input );
 
-		$.each(settings.searchFixed, function (name, term) {
-			filter(settings.aiDisplay, settings, term, {});
-		});
+        object.each(settings.searchFixed, function (name, term) {
+            filter(settings.aiDisplay, settings, term, {});
+        });
 
 		// Then individual column filters
 		for ( var i=0 ; i<columnsSearch.length ; i++ )
@@ -44,9 +46,9 @@ export function filterComplete ( settings: Context, input )
 				i
 			);
 
-			$.each(settings.aoColumns[i].searchFixed, function (name, term) {
-				filter(settings.aiDisplay, settings, term, {}, i);
-			});
+            object.each(settings.aoColumns[i].searchFixed, function (name, term) {
+                filter(settings.aiDisplay, settings, term, {}, i);
+            });
 		}
 
 		// And finally global filtering
@@ -243,7 +245,7 @@ function filterCreateSearch( search, inOpts )
  */
 var _fnEscapeRegex = util.escapeRegex;
 
-var __filter_div = $('<div>')[0];
+var __filter_div = dom.c('div').get(0);
 var __filter_div_textContent = __filter_div.textContent !== undefined;
 
 // Update the filtering data for each row if needed (by invalidation or first run)
