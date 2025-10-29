@@ -1,5 +1,11 @@
+import dom from '../dom';
 import searchModel from '../model/search';
 import Context from '../model/settings';
+import * as object from '../util/object';
+
+interface HungarianMap {
+	[key: string]: string;
+}
 
 export const browser = {
 	barWidth: -1,
@@ -13,13 +19,13 @@ export const browser = {
  *
  * @param o Object to create a map for
  */
-export function hungarianMap(o) {
+export function hungarianMap(o: Record<string, any>) {
 	var hungarian = 'a aa ai ao as b fn i m o s ',
 		match,
 		newKey,
-		map = {};
+		map: HungarianMap = {};
 
-	$.each(o, function (key: string) {
+	object.each(o, (key, val) => {
 		match = key.match(/^([^A-Z]+?)([A-Z])/);
 
 		if (match && hungarian.indexOf(match[1] + ' ') !== -1) {
@@ -44,14 +50,14 @@ export function hungarianMap(o) {
  * @param force When set to `true`, properties which already have a Hungarian
  *    value in the `user` object will be overwritten. Otherwise they won't be.
  */
-export function camelToHungarian(src, user, force = false) {
+export function camelToHungarian(src: any, user: any, force = false) {
 	if (!src._hungarianMap) {
 		hungarianMap(src);
 	}
 
 	var hungarianKey;
 
-	$.each(user, function (key) {
+	object.each(user, key => {
 		hungarianKey = src._hungarianMap[key];
 
 		if (hungarianKey !== undefined && (force || user[hungarianKey] === undefined)) {
@@ -76,12 +82,12 @@ export function camelToHungarian(src, user, force = false) {
  * Map one parameter onto another
  *
  * @param o Object to map
- * @param knew The new parameter name
- * @param old The old parameter name
+ * @param newKey The new parameter name
+ * @param oldKey The old parameter name
  */
-export function compatMap(o, knew, old) {
-	if (o[knew] !== undefined) {
-		o[old] = o[knew];
+export function compatMap(o: Record<string, any>, newKey: string, oldKey: string) {
+	if (o[newKey] !== undefined) {
+		o[oldKey] = o[newKey];
 	}
 }
 
@@ -92,7 +98,7 @@ export function compatMap(o, knew, old) {
  *
  * @param init Object to map
  */
-export function compatOpts(init) {
+export function compatOpts(init: any) { // typeof defaults
 	compatMap(init, 'ordering', 'bSort');
 	compatMap(init, 'orderMulti', 'bSortMulti');
 	compatMap(init, 'orderClasses', 'bSortClasses');
@@ -157,7 +163,7 @@ export function compatOpts(init) {
  *
  * @param init Object to map
  */
-export function compatCols(init) {
+export function compatCols(init: any) { // typeof columnDefaults
 	compatMap(init, 'orderable', 'bSortable');
 	compatMap(init, 'orderData', 'aDataSort');
 	compatMap(init, 'orderSequence', 'asSorting');
@@ -174,7 +180,7 @@ export function compatCols(init) {
 /**
  * Browser feature detection for capabilities, quirks
  *
- * @param ctx dataTables settings object
+ * @param ctx DataTables settings object
  */
 export function browserDetect(ctx: Context) {
 	// We don't need to do this every time DataTables is constructed, the values
@@ -182,28 +188,28 @@ export function browserDetect(ctx: Context) {
 	// don't expect to change between initialisations
 	if (browser.barWidth === -1) {
 		// Scrolling feature / quirks detection
-		var n = $('<div/>')
+		var n = dom.c('div')
 			.css({
 				position: 'fixed',
-				top: 0,
-				left: -1 * window.pageXOffset, // allow for scrolling
-				height: 1,
-				width: 1,
+				top: '0',
+				left: (-1 * window.pageXOffset) + 'px', // allow for scrolling
+				height: '1px',
+				width: '1px',
 				overflow: 'hidden'
 			})
 			.append(
-				$('<div/>')
+				dom.c('div')
 					.css({
 						position: 'absolute',
-						top: 1,
-						left: 1,
-						width: 100,
+						top: '1px',
+						left: '1px',
+						width: '100px',
 						overflow: 'scroll'
 					})
 					.append(
-						$('<div/>').css({
+						dom.c('div').css({
 							width: '100%',
-							height: 10
+							height: '10px'
 						})
 					)
 			)
@@ -212,12 +218,12 @@ export function browserDetect(ctx: Context) {
 		var outer = n.children();
 		var inner = outer.children();
 
-		browser.barWidth = outer[0].offsetWidth - outer[0].clientWidth;
+		browser.barWidth = outer.get(0).offsetWidth - outer.get(0).clientWidth;
 		browser.bScrollbarLeft = Math.round(inner.offset()!.left) !== 1;
 
 		n.remove();
 	}
 
-	$.extend(ctx.oBrowser, browser);
+	Object.assign(ctx.oBrowser, browser);
 	ctx.oScroll.iBarWidth = browser.barWidth;
 }

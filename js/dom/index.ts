@@ -630,6 +630,30 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Get the offset of the first element in the result set. The offset is the
+	 * coordinates of the element relative to the document.
+	 *
+	 * @returns Object with top and left offset
+	 */
+	offset() {
+		if (!this.count()) {
+			return {
+				top: 0,
+				left: 0
+			};
+		}
+
+		let box = this._store[0].getBoundingClientRect();
+		let docElem = document.documentElement;
+		
+		return {
+			top: box.top + window.pageYOffset - docElem.clientTop,
+			left: box.left + window.pageXOffset - docElem.clientLeft
+		};
+		  
+	}
+
+	/**
 	 * Add an event listener to all elements in the result set.
 	 *
 	 * @param name Event name. This can optionally include period separated
