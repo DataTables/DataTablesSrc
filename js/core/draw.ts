@@ -383,7 +383,7 @@ export function draw(oSettings, ajaxComplete?) {
 	var aPreDraw = callbackFire(oSettings, 'aoPreDrawCallback', 'preDraw', [
 		oSettings,
 	]);
-	if (aPreDraw.indexOf(false) !== -1) {
+	if (aPreDraw.indexOf(true) !== -1) {
 		processingDisplay(oSettings, false);
 		return;
 	}
