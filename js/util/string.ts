@@ -1,5 +1,5 @@
 
-import {reHtml, reRegexCharacters} from './regex';
+import { reHtml, reRegexCharacters } from './regex';
 
 type TStripHtml = <T>(val: T) => T;
 type TEscapeHtml = <T>(val: T) => T;
@@ -126,11 +126,6 @@ export function escapeHtml<T>(mixed: T) {
 }
 
 /**
- *
- * @param mixed Set a string to use for string normalisation
- */
-export function normalize<T>(mixed: T): void;
-/**
  * Normalise a string by removing diacritic characters (used for search and sort)
  *
  * @param mixed
@@ -138,7 +133,14 @@ export function normalize<T>(mixed: T): void;
  *   return.
  * @returns Normalised value
  */
-export function normalize<T>(mixed: T, both?: boolean): T;
+export function normalize(mixed: string, both?: boolean): string;
+
+/**
+ *
+ * @param mixed Set a string to use for string normalisation
+ */
+export function normalize<T>(mixed: T): void;
+
 export function normalize(mixed: unknown, both?: boolean) {
 	var type = typeof mixed;
 

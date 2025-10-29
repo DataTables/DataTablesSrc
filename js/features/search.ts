@@ -4,6 +4,7 @@ import { draw } from '../core/draw';
 import { filterComplete } from '../core/filter';
 import { processingRun } from '../core/processing';
 import dom from '../dom';
+import { SearchInput } from '../model/search';
 import Context from '../model/settings';
 import register from './register';
 
@@ -53,9 +54,9 @@ register(
 
 		opts.text = macros(settings, opts.text);
 
-		// We can put the <input> outside of the label if it is at the start or end
-		// which helps improve accessability (not all screen readers like implicit
-		// for elements).
+		// We can put the <input> outside of the label if it is at the start or
+		// end which helps improve accessability (not all screen readers like
+		// implicit for elements).
 		let end = opts.text.match(/_INPUT_$/);
 		let start = opts.text.match(/^_INPUT_/);
 		let removed = opts.text.replace(/_INPUT_/, '');
@@ -103,16 +104,17 @@ register(
 
 		let filterEl = filter
 			.find('input')
-			.val(previousSearch.search)
+			.val(textValue(previousSearch.search))
 			.attr('placeholder', opts.placeholder)
 			.on(
 				'keyup.DT search.DT input.DT paste.DT cut.DT',
 				searchDelay ? util.debounce(searchFn, searchDelay) : searchFn
 			)
 			.on('mouseup.DT', function (e) {
-				// Edge fix! Edge 17 does not trigger anything other than mouse events when clicking
-				// on the clear icon (Edge bug 17584515). This is safe in other browsers as `searchFn`
-				// checks the value to see if it has changed. In other browsers it won't have.
+				// Edge fix! Edge 17 does not trigger anything other than mouse
+				// events when clicking on the clear icon (Edge bug 17584515).
+				// This is safe in other browsers as `searchFn` checks the value
+				// to see if it has changed. In other browsers it won't have.
 				setTimeout(function () {
 					searchFn.call(filterEl.get(0), e);
 				}, 10);
@@ -128,11 +130,7 @@ register(
 		// Update the input elements whenever the table is filtered
 		$(settings.nTable).on('search.dt.DT', function (ev, s) {
 			if (settings === s && filterEl.get(0) !== document.activeElement) {
-				filterEl.val(
-					typeof previousSearch.search !== 'function'
-						? previousSearch.search
-						: ''
-				);
+				filterEl.val(textValue(previousSearch.search));
 			}
 		});
 
@@ -140,3 +138,15 @@ register(
 	},
 	'f'
 );
+
+/**
+ * Convert a search input into a plain string value for display. This is needed
+ * as the value could be a function or regex, which can't be displayed in the
+ * input element.
+ *
+ * @param val Search term
+ * @returns String version
+ */
+function textValue(val: SearchInput) {
+	return typeof val !== 'function' && !(val instanceof RegExp) ? val : '';
+}

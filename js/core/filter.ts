@@ -1,91 +1,83 @@
-
 import { arrayApply, callbackFire, dataSource } from '../api/support';
 import util from '../api/util';
+import dom from '../dom';
 import ext from '../ext/index';
+import { SearchInput, SearchOptions } from '../model/search';
 import Context from '../model/settings';
-import { getCellData } from './data';
 import * as object from '../util/object';
-import dom from "../dom";
+import { getCellData } from './data';
+
+const __filter_div = dom.c('div').get(0);
+const __filter_div_textContent = __filter_div.textContent !== undefined;
 
 /**
  * Filter the table using both the global filter and column based filtering
- *  @param {object} settings dataTables settings object
- *  @param {object} input search information
- *  @memberof DataTable#oApi
+ *
+ * @param settings DataTables settings object
+ * @param input search information
  */
-export function filterComplete ( settings: Context, input )
-{
-	var columnsSearch = settings.aoPreSearchCols;
+export function filterComplete(settings: Context, input: SearchOptions) {
+	let columnsSearch = settings.aoPreSearchCols;
 
 	// In server-side processing all filtering is done by the server, so no point hanging around here
-	if ( dataSource( settings ) != 'ssp' )
-	{
+	if (dataSource(settings) != 'ssp') {
 		// Check if any of the rows were invalidated
-		filterData( settings );
+		filterData(settings);
 
 		// Start from the full data set
 		settings.aiDisplay = settings.aiDisplayMaster.slice();
 
 		// Global filter first
-		filter( settings.aiDisplay, settings, input.search, input );
+		filter(settings.aiDisplay, settings, input.search, input);
 
-        object.each(settings.searchFixed, function (name, term) {
-            filter(settings.aiDisplay, settings, term, {});
-        });
+		object.each(settings.searchFixed, function (name, term) {
+			filter(settings.aiDisplay, settings, term, {});
+		});
 
 		// Then individual column filters
-		for ( var i=0 ; i<columnsSearch.length ; i++ )
-		{
-			var col = columnsSearch[i];
+		for (let i = 0; i < columnsSearch.length; i++) {
+			let col = columnsSearch[i];
 
-			filter(
-				settings.aiDisplay,
-				settings,
-				col.search,
-				col,
-				i
-			);
+			filter(settings.aiDisplay, settings, col.search, col, i);
 
-            object.each(settings.aoColumns[i].searchFixed, function (name, term) {
-                filter(settings.aiDisplay, settings, term, {}, i);
-            });
+			object.each(settings.aoColumns[i].searchFixed, function (name, term) {
+				filter(settings.aiDisplay, settings, term, {}, i);
+			});
 		}
 
 		// And finally global filtering
-		filterCustom( settings );
+		filterCustom(settings);
 	}
 
 	// Tell the draw function we have been filtering
 	settings.bFiltered = true;
 
-	callbackFire( settings, null, 'search', [settings] );
+	callbackFire(settings, null, 'search', [settings]);
 }
-
 
 /**
  * Apply custom filtering functions
- * 
+ *
  * This is legacy now that we have named functions, but it is widely used
  * from 1.x, so it is not yet deprecated.
- *  @param {object} oSettings dataTables settings object
- *  @memberof DataTable#oApi
+ *
+ * @param settings DataTables settings object
  */
-function filterCustom( settings )
-{
-	var filters = ext.search as any[]; // TODO typing
-	var displayRows = settings.aiDisplay;
-	var row, rowIdx;
+function filterCustom(settings: Context) {
+	let filters = ext.search as any[]; // TODO typing
+	let displayRows = settings.aiDisplay;
+	let row, rowIdx;
 
-	for ( var i=0, iLen=filters.length ; i<iLen ; i++ ) {
-		var rows: number[] = [];
+	for (let i = 0, iLen = filters.length; i < iLen; i++) {
+		let rows: number[] = [];
 
 		// Loop over each row and see if it should be included
-		for ( var j=0, jen=displayRows.length ; j<jen ; j++ ) {
-			rowIdx = displayRows[ j ];
-			row = settings.aoData[ rowIdx ];
+		for (let j = 0, jen = displayRows.length; j < jen; j++) {
+			rowIdx = displayRows[j];
+			row = settings.aoData[rowIdx];
 
-			if ( filters[i]( settings, row._aFilterData, rowIdx, row._aData, j ) ) {
-				rows.push( rowIdx );
+			if (filters[i](settings, row._aFilterData, rowIdx, row._aData, j)) {
+				rows.push(rowIdx);
 			}
 		}
 
@@ -96,36 +88,50 @@ function filterCustom( settings )
 	}
 }
 
-
 /**
  * Filter the data table based on user input and draw the table
+ *
+ * @param searchRows
+ * @param settings
+ * @param input
+ * @param options
+ * @param column
+ * @returns
  */
-function filter( searchRows, settings, input, options, column? )
-{
-	if ( input === '' ) {
+function filter(
+	searchRows: number[],
+	settings: Context,
+	input: SearchInput,
+	options: Partial<SearchOptions>,
+	column?: number
+) {
+	if (input === '') {
 		return;
 	}
 
-	var i = 0;
-	var matched: any[] = [];
+	let i = 0;
+	let matched: any[] = [];
 
 	// Search term can be a function, regex or string - if a string we apply our
 	// smart filtering regex (assuming the options require that)
-	var searchFunc = typeof input === 'function' ? input : null;
-	var rpSearch = input instanceof RegExp
-		? input
-		: searchFunc
+	let searchFunc = typeof input === 'function' ? input : null;
+	let rpSearch =
+		input instanceof RegExp
+			? input
+			: searchFunc
 			? null
-			: filterCreateSearch( input, options );
+			: filterCreateSearch(input as string, options);
 
 	// Then for each row, does the test pass. If not, lop the row from the array
-	for (i=0 ; i<searchRows.length ; i++) {
-		var row = settings.aoData[ searchRows[i] ];
-		var data = column === undefined
-			? row._sFilterRow
-			: row._aFilterData[ column ];
+	for (i = 0; i < searchRows.length; i++) {
+		let row = settings.aoData[searchRows[i]];
+		let data =
+			column === undefined ? row._sFilterRow : row._aFilterData![column];
 
-		if ( (searchFunc && searchFunc(data, row._aData, searchRows[i], column)) || (rpSearch && rpSearch.test(data)) ) {
+		if (
+			(searchFunc && searchFunc(data, row._aData, searchRows[i], column)) ||
+			(rpSearch && data && rpSearch.test(data))
+		) {
 			matched.push(searchRows[i]);
 		}
 	}
@@ -133,79 +139,73 @@ function filter( searchRows, settings, input, options, column? )
 	// Mutate the searchRows array
 	searchRows.length = matched.length;
 
-	for (i=0 ; i<matched.length ; i++) {
+	for (i = 0; i < matched.length; i++) {
 		searchRows[i] = matched[i];
 	}
 }
 
-
 /**
  * Build a regular expression object suitable for searching a table
- *  @param {string} sSearch string to search for
- *  @param {bool} bRegex treat as a regular expression or not
- *  @param {bool} bSmart perform smart filtering or not
- *  @param {bool} bCaseInsensitive Do case-insensitive matching or not
- *  @returns {RegExp} constructed object
- *  @memberof DataTable#oApi
  */
-function filterCreateSearch( search, inOpts )
-{
-	var not: string[] = [];
-	var options = $.extend({}, {
-		boundary: false,
-		caseInsensitive: true,
-		exact: false,
-		regex: false,
-		smart: true
-	}, inOpts);
+function filterCreateSearch(searchIn: string | number, inOpts: Partial<SearchOptions>) {
+	let not: string[] = [];
+	let options = Object.assign(
+		{},
+		{
+			boundary: false,
+			caseInsensitive: true,
+			exact: false,
+			regex: false,
+			smart: true,
+		},
+		inOpts
+	);
 
-	if (typeof search !== 'string') {
-		search = search.toString();
-	}
+	let search = typeof searchIn !== 'string'
+		? searchIn.toString()
+		: searchIn;
 
 	// Remove diacritics if normalize is set up to do so
 	search = util.diacritics(search);
 
 	if (options.exact) {
 		return new RegExp(
-			'^'+_fnEscapeRegex(search)+'$',
+			'^' + util.escapeRegex(search) + '$',
 			options.caseInsensitive ? 'i' : ''
 		);
 	}
 
-	search = options.regex ?
-		search :
-		_fnEscapeRegex( search );
-	
-	if ( options.smart ) {
+	search = options.regex ? search : util.escapeRegex(search);
+
+	if (options.smart) {
 		/* For smart filtering we want to allow the search to work regardless of
 		 * word order. We also want double quoted text to be preserved, so word
 		 * order is important - a la google. And a negative look around for
 		 * finding rows which don't contain a given string.
-		 * 
+		 *
 		 * So this is the sort of thing we want to generate:
-		 * 
+		 *
 		 * ^(?=.*?\bone\b)(?=.*?\btwo three\b)(?=.*?\bfour\b).*$
 		 */
-		var parts = search.match( /!?["\u201C][^"\u201D]+["\u201D]|[^ ]+/g ) || [''];
-		var a = parts.map( function ( word ) {
-			var negative = false;
-			var m;
+		let parts = search.match(/!?["\u201C][^"\u201D]+["\u201D]|[^ ]+/g) || [''];
+		let a = parts.map(function (word: string) {
+			let negative = false;
+			let m;
 
 			// Determine if it is a "does not include"
-			if ( word.charAt(0) === '!' ) {
+			if (word.charAt(0) === '!') {
 				negative = true;
 				word = word.substring(1);
 			}
 
 			// Strip the quotes from around matched phrases
-			if ( word.charAt(0) === '"' ) {
-				m = word.match( /^"(.*)"$/ );
+			if (word.charAt(0) === '"') {
+				m = word.match(/^"(.*)"$/);
 				word = m ? m[1] : word;
 			}
-			else if ( word.charAt(0) === '\u201C' ) {
+			else if (word.charAt(0) === '\u201C') {
 				// Smart quote match (iPhone users)
-				m = word.match( /^\u201C(.*)\u201D$/ );
+				m = word.match(/^\u201C(.*)\u201D$/);
 				word = m ? m[1] : word;
 			}
 
@@ -213,72 +213,61 @@ function filterCreateSearch( search, inOpts )
 			// allowed to match at the end of the expression.
 			if (negative) {
 				if (word.length > 1) {
-					not.push('(?!'+word+')');
+					not.push('(?!' + word + ')');
 				}
 
 				word = '';
 			}
 
 			return word.replace(/"/g, '');
-		} );
+		});
 
-		var match = not.length
-			? not.join('')
-			: '';
+		let match = not.length ? not.join('') : '';
 
-		var boundary = options.boundary
-			? '\\b'
-			: '';
+		let boundary = options.boundary ? '\\b' : '';
 
-		search = '^(?=.*?'+boundary+a.join( ')(?=.*?'+boundary )+')('+match+'.)*$';
+		search =
+			'^(?=.*?' +
+			boundary +
+			a.join(')(?=.*?' + boundary) +
+			')(' +
+			match +
+			'.)*$';
 	}
 
-	return new RegExp( search, options.caseInsensitive ? 'i' : '' );
+	return new RegExp(search, options.caseInsensitive ? 'i' : '');
 }
 
-
-/**
- * Escape a string such that it can be used in a regular expression
- *  @param {string} sVal string to escape
- *  @returns {string} escaped string
- *  @memberof DataTable#oApi
- */
-var _fnEscapeRegex = util.escapeRegex;
-
-var __filter_div = dom.c('div').get(0);
-var __filter_div_textContent = __filter_div.textContent !== undefined;
-
 // Update the filtering data for each row if needed (by invalidation or first run)
-function filterData ( settings )
-{
-	var columns = settings.aoColumns;
-	var data = settings.aoData;
-	var column;
-	var j, jen, cellData, row;
-	var wasInvalidated = false;
+function filterData(settings: Context) {
+	let columns = settings.aoColumns;
+	let data = settings.aoData;
+	let column;
+	let j, jen, cellData, row;
+	let wasInvalidated = false;
 
-	for ( var rowIdx=0 ; rowIdx<data.length ; rowIdx++ ) {
-		if (! data[rowIdx]) {
+	for (let rowIdx = 0; rowIdx < data.length; rowIdx++) {
+		if (!data[rowIdx]) {
 			continue;
 		}
 
 		row = data[rowIdx];
 
-		if ( ! row._aFilterData ) {
+		if (!row._aFilterData) {
 			const rowFilterData: string[] = [];
 
-			for ( j=0, jen=columns.length ; j<jen ; j++ ) {
+			for (j = 0, jen = columns.length; j < jen; j++) {
 				column = columns[j];
 
-				if ( column.bSearchable ) {
-					cellData = getCellData( settings, rowIdx, j, 'filter' );
+				if (column.bSearchable) {
+					cellData = getCellData(settings, rowIdx, j, 'filter');
 
 					// Search in DataTables is string based
-					if ( cellData === null ) {
+					if (cellData === null) {
 						cellData = '';
 					}
 
-					if ( typeof cellData !== 'string' && cellData.toString ) {
+					if (typeof cellData !== 'string' && cellData.toString) {
 						cellData = cellData.toString();
 					}
 				}
@@ -290,18 +279,18 @@ function filterData ( settings )
 				// attempt to decode it so sorting works as expected. Note that
 				// we could use a single line of jQuery to do this, but the DOM
 				// method used here is much faster https://jsperf.com/html-decode
-				if ( cellData.indexOf && cellData.indexOf('&') !== -1 ) {
+				if (cellData.indexOf && cellData.indexOf('&') !== -1) {
 					__filter_div.innerHTML = cellData;
-					cellData = __filter_div_textContent ?
-						__filter_div.textContent :
-						__filter_div.innerText;
+					cellData = __filter_div_textContent
+						? __filter_div.textContent
+						: __filter_div.innerText;
 				}
 
-				if ( cellData.replace ) {
+				if (cellData.replace) {
 					cellData = cellData.replace(/[\r\n\u2028]/g, '');
 				}
 
-				rowFilterData.push( cellData );
+				rowFilterData.push(cellData);
 			}
 
 			row._aFilterData = rowFilterData;

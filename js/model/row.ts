@@ -39,7 +39,7 @@ export default class Row {
 	 * Per cell filtering data cache. As per the sort data cache, used to
 	 * increase the performance of the filtering in DataTables
 	 */
-	public _aFilterData = null;
+	public _aFilterData: string[] | null = null;
 
 	/**
 	 * Filtering data cache. This is the same as the cell filtering cache, but
@@ -47,7 +47,7 @@ export default class Row {
 	 * a join on `_aFilterData`, but is provided as a cache so the join isn't
 	 * needed on every search (memory traded for performance)
 	 */
-	public _sFilterRow = null;
+	public _sFilterRow: string | null = null;
 
 	/**
 	 * Denote if the original data source was from the DOM, or the data source

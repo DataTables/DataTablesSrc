@@ -11,9 +11,10 @@
 /// <reference types="jquery" />
 
 import { Layout } from '../js/model/interface';
-import { Search as ConfigSearch } from '../js/model/search';
+import { SearchOptions as ConfigSearch, SearchInput, SearchInputColumn } from '../js/model/search';
 import { Order, OrderArray, OrderCombined, OrderIdx, OrderName } from '../js/model/settings';
 import { State, StateLoad } from '../js/model/state';
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Types
@@ -71,9 +72,6 @@ export type CellIdxWithVisible = {
     column: number;
     columnVisible: number;
 }
-
-export type SearchInput<T> = string | RegExp | ((data: string, rowData: T) => boolean);
-export type SearchInputColumn<T> = string | RegExp | ((data: string, rowData: T, column: number) => boolean);
 
 export type HeaderStructure = {
     cell: HTMLElement;
@@ -1157,9 +1155,9 @@ export interface Api<T=any> {
      * @param bubbles Indicate if the event should bubble up the document in the
      *   same way that DOM events usually do, or not. There is a performance
      *   impact for bubbling events.
-     * @returns Api instance for chaining
+     * @returns Api instance with `defaultPrevented` for each item in the result set
      */
-    trigger(name: string, args?: any[], bubbles?: boolean): Api<T>;
+    trigger(name: string, args?: any[], bubbles?: boolean): Api<boolean>;
 
     /**
      * Create a new API instance containing only the unique items from the elements in an instance's result set.

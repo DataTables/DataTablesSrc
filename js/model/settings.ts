@@ -4,7 +4,7 @@ import { Dom } from '../dom';
 import ColumnSettings from './columns/settings';
 import { Layout } from './interface';
 import Row from './row';
-import Search from './search';
+import Search, { SearchInput, SearchOptions } from './search';
 import { State, StateLoad } from './state';
 
 interface IScroll {
@@ -287,12 +287,12 @@ export default class Settings {
 	 * research or compare the old search to a new one.
 	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	public oPreviousSearch: typeof Search = Object.assign({}, Search);
+	public oPreviousSearch: SearchOptions = Object.assign({}, Search);
 
 	/**
 	 * Store for named searches
 	 */
-	public searchFixed = {};
+	public searchFixed: {[name: string]: SearchInput} = {};
 
 	/**
 	 * Store the applied search for each column - see

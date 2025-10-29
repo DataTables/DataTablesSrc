@@ -6,12 +6,16 @@ import { draw } from './draw';
  * Alter the display settings to change the page
  *
  * @param settings DataTables settings object
- * @param action Paging action to take: "first", "previous",
- *  "next" or "last" or page number to jump to (integer)
+ * @param action Paging action to take: "first", "previous", "next" or "last" or
+ *   page number to jump to (integer)
  * @param redraw Automatically draw the update or not
- * @returns {bool} true page has changed, false - no change
+ * @returns true page has changed, false - no change
  */
-export function pageChange(settings: Context, action: string | number, redraw?: boolean) {
+export function pageChange(
+	settings: Context,
+	action: string | number,
+	redraw?: boolean
+) {
 	var start = settings._iDisplayStart,
 		len = settings._iDisplayLength,
 		records = settings.fnRecordsDisplay();

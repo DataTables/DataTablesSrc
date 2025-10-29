@@ -1,3 +1,5 @@
+import { SearchInput } from "../search";
+
 /**
  * Internal settings object used for individual columns. Instances are held in
  * the setting object's `columns` array and contains all the information that
@@ -171,7 +173,7 @@ export default class Settings {
 	/**
 	 * Store for named searches
 	 */
-	public searchFixed = null;
+	public searchFixed: {[name: string]: SearchInput} = {};
 
 	public colEl: HTMLTableColElement;
 

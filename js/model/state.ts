@@ -1,4 +1,4 @@
-import { Search } from './search';
+import { SearchOptions } from './search';
 
 /** State object */
 export interface State {
@@ -6,10 +6,10 @@ export interface State {
 	start: number;
 	length: number;
 	order: Array<Array<string | number>>;
-	search: Search;
+	search: SearchOptions;
 	columns: Array<{
 		name: string | null;
-		search: Search;
+		search: SearchOptions;
 		visible: boolean;
 	}>;
 }
@@ -20,10 +20,10 @@ export interface StateLoad {
 	start?: number;
 	length?: number;
 	order?: Array<Array<string | number>>;
-	search?: Search;
+	search?: SearchOptions;
 	columns?: Array<{
 		name?: string | null;
-		search?: Search;
+		search?: SearchOptions;
 		visible?: boolean;
 	}>;
 }

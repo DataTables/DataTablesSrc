@@ -1,5 +1,14 @@
+export type SearchInput<T = any> =
+	| string
+	| RegExp
+	| ((
+			data: string | null,
+			rowData: T,
+			rowIdx: number,
+			columnIdx: number | undefined
+	  ) => boolean);
 
-export interface Search {
+export interface SearchOptions {
 	/**
 	 * Flag to whether or not the filtering should be case-insensitive
 	 */
@@ -8,7 +17,7 @@ export interface Search {
 	/**
 	 * Applied search term
 	 */
-	search: string;
+	search: SearchInput;
 
 	/**
 	 * Flag to indicate if the search term should be interpreted as a
@@ -32,7 +41,7 @@ export interface Search {
 /**
  * Template object for the way in which DataTables holds information about
  * search information for the global filter and individual column filters.
- */ 
+ */
 export default {
 	/**
 	 * Flag to whether or not the filtering should be case-insensitive
@@ -61,4 +70,4 @@ export default {
 	 * the return key is pressed.
 	 */
 	return: false,
-} as Search;
+} as SearchOptions;
