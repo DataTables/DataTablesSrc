@@ -8,7 +8,6 @@ import columnDefaults from '../model/columns/defaults';
 import ColumnModel from '../model/columns/settings';
 import search from '../model/search';
 import Context from '../model/settings';
-import { addClass } from '../util/internal';
 import { empty } from '../util/is';
 import { camelToHungarian, compatCols } from './compat';
 import { getCellData, writeCell } from './data';
@@ -434,7 +433,7 @@ function _columnAutoRender(settings, colIdx) {
 function _columnAutoClass(container, colIdx, className) {
 	container.forEach(function (row) {
 		if (row[colIdx] && row[colIdx].unique) {
-			addClass(row[colIdx].cell, className);
+			dom.s(row[colIdx].cell).classAdd(className);
 		}
 	});
 }

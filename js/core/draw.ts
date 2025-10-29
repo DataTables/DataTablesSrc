@@ -3,7 +3,6 @@ import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import Context from '../model/settings';
 import { pluck, range, unique } from '../util/array';
-import { addClass } from '../util/internal';
 import { stripHtml } from '../util/string';
 import { ajaxUpdate } from './ajax';
 import { columnOptions, columnTypes, visibleColumns } from './columns';
@@ -63,7 +62,7 @@ export function createTr(oSettings, iRow, nTrIn?, anTds?) {
 		row.nTr = nTr;
 		row.anCells = cells;
 
-		addClass(nTr, trClass);
+		dom.s(nTr).classAdd(trClass);
 
 		/* Use a private property on the node to allow reserve mapping from the node
 		 * to the aoData array for fast look up
@@ -103,7 +102,7 @@ export function createTr(oSettings, iRow, nTrIn?, anTds?) {
 			}
 
 			// column class
-			addClass(nTd, oCol.sClass);
+			dom.s(nTd).classAdd(oCol.sClass);
 
 			// Visibility - add or remove as required
 			if (oCol.bVisible && create) {
@@ -133,7 +132,7 @@ export function createTr(oSettings, iRow, nTrIn?, anTds?) {
 		]);
 	}
 	else {
-		addClass(row.nTr, trClass);
+		dom.s(row.nTr).classAdd(trClass);
 	}
 }
 
@@ -443,8 +442,10 @@ export function draw(oSettings, ajaxComplete?) {
 				var col = columns[i];
 				var td = aoData.anCells[i];
 
-				addClass(td, ext.type.className[col.sType]); // auto class
-				addClass(td, oSettings.oClasses.tbody.cell); // all cells
+				dom
+					.s(td)
+					.classAdd(ext.type.className[col.sType]) // auto class
+					.classAdd(oSettings.oClasses.tbody.cell); // all cells
 			}
 
 			// Row callback functions - might want to manipulate the row
