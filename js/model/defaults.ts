@@ -1,8 +1,8 @@
 
-import Settings from './settings';
-import columnDefaults from './columns/defaults';
 import { hungarianMap } from '../core/compat';
+import columnDefaults from './columns/defaults';
 import search from './search';
+import Settings from './settings';
 
 /*
  * Developer note: The properties of the object below are given in Hungarian
@@ -859,7 +859,10 @@ const defaults = {
 	iDeferLoading: null,
 
 	/** Event listeners */
-	on: null
+	on: null,
+
+	orderIndicators: true,
+	orderHandler: true
 };
 
 hungarianMap( defaults );
