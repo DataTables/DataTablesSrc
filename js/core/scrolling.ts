@@ -3,6 +3,7 @@ import { dataSource } from '../api/support';
 import Context from '../model/settings';
 import { adjustColumnSizing, visibleToColumnIndex } from './columns';
 import { stringToCss } from './sizing';
+import dom, {Dom} from '../dom';
 
 /**
  * Add any control elements for the table - specifically scrolling
@@ -11,7 +12,7 @@ import { stringToCss } from './sizing';
  */
 export function featureHtmlTable ( settings: Context )
 {
-	var table = $(settings.nTable);
+	var table = dom.s(settings.nTable);
 
 	// Scrolling from here on in
 	var scroll = settings.oScroll;
@@ -25,15 +26,15 @@ export function featureHtmlTable ( settings: Context )
 	var classes = settings.oClasses.scrolling;
 	var caption = settings.captionNode;
 	var captionSide: string | null = caption ? (caption as any)._captionSide : null;
-	var headerClone = $( table[0].cloneNode(false) );
-	var footerClone = $( table[0].cloneNode(false) );
-	var footer: JQuery | null = table.children('tfoot');
-	var _div = '<div/>';
+	var headerClone = dom.s(table.get(0).cloneNode(false) as HTMLElement);
+	var footerClone = dom.s(table.get(0).cloneNode(false) as HTMLElement);
+	var footer: Dom | null = table.children('tfoot');
+	var _div = 'div';
 	var size = function ( s ) {
 		return !s ? '100%' : stringToCss( s );
 	};
 
-	if ( ! footer.length ) {
+	if ( ! footer.count() ) {
 		footer = null;
 	}
 
@@ -53,17 +54,20 @@ export function featureHtmlTable ( settings: Context )
 	 *        table - scroll foot table
 	 *          tfoot - tfoot
 	 */
-	var scroller = $( _div, { 'class': classes.container } )
+	var scroller = dom.c( _div )
+		.classAdd( classes.container )
 		.append(
-			$(_div, { 'class': classes.header.self } )
+			dom.c( _div )
+				.classAdd( classes.header.self )
 				.css( {
 					overflow: 'hidden',
 					position: 'relative',
-					border: 0,
+					border: '0',
 					width: scrollX ? size(scrollX) : '100%'
 				} )
 				.append(
-					$(_div, { 'class': classes.header.inner } )
+					dom.c( _div )
+						.classAdd( classes.header.inner )
 						.css( {
 							'box-sizing': 'content-box',
 							width: scroll.sXInner || '100%'
@@ -71,7 +75,7 @@ export function featureHtmlTable ( settings: Context )
 						.append(
 							headerClone
 								.removeAttr('id')
-								.css( 'margin-left', 0 )
+								.css( 'margin-left', '0' )
 								.append( (captionSide === 'top' ? caption : null) as any )
 								.append(
 									table.children('thead')
@@ -80,7 +84,8 @@ export function featureHtmlTable ( settings: Context )
 				)
 		)
 		.append(
-			$(_div, { 'class': classes.body } )
+			dom.c( _div )
+				.classAdd( classes.body )
 				.css( {
 					position: 'relative',
 					overflow: 'auto',
@@ -91,18 +96,20 @@ export function featureHtmlTable ( settings: Context )
 
 	if ( footer ) {
 		scroller.append(
-			$(_div, { 'class': classes.footer.self } )
+			dom.c( _div )
+				.classAdd( classes.footer.self )
 				.css( {
 					overflow: 'hidden',
-					border: 0,
+					border: '0',
 					width: scrollX ? size(scrollX) : '100%'
 				} )
 				.append(
-					$(_div, { 'class': classes.footer.inner } )
+					dom.c( _div )
+						.classAdd( classes.footer.inner )
 						.append(
 							footerClone
 								.removeAttr('id')
-								.css( 'margin-left', 0 )
+								.css( 'margin-left', '0' )
 								.append( (captionSide === 'bottom' ? caption : null) as any )
 								.append(
 									table.children('tfoot')
@@ -113,13 +120,13 @@ export function featureHtmlTable ( settings: Context )
 	}
 
 	var children = scroller.children();
-	var scrollHead = children[0];
-	var scrollBody = children[1];
-	var scrollFoot = footer ? children[2] : null;
+	var scrollHead = children.get(0);
+	var scrollBody = children.get(1);
+	var scrollFoot = footer ? children.get(2) : null;
 
 	// When the body is scrolled, then we also want to scroll the headers
-	$(scrollBody).on( 'scroll.DT', function () {
-		var scrollLeft = this.scrollLeft;
+	dom.s(scrollBody).on( 'scroll.DT', function () {
+		var scrollLeft = scrollBody.scrollLeft;
 
 		scrollHead.scrollLeft = scrollLeft;
 
@@ -139,10 +146,10 @@ export function featureHtmlTable ( settings: Context )
 		}
 	});
 
-		$(scrollBody).css('max-height', scrollY);
-		if (! scroll.bCollapse) {
-			$(scrollBody).css('height', scrollY);
-		}
+	$(scrollBody).css('max-height', scrollY);
+	if (! scroll.bCollapse) {
+		$(scrollBody).css('height', scrollY);
+	}
 
 	settings.nScrollHead = scrollHead;
 	settings.nScrollBody = scrollBody;
@@ -151,7 +158,7 @@ export function featureHtmlTable ( settings: Context )
 	// On redraw - align columns
 	settings.aoDrawCallback.push(scrollDraw);
 
-	return scroller[0];
+	return scroller.get(0);
 }
 
 
