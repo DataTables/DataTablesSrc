@@ -5,6 +5,7 @@ import ColumnSettings from './columns/settings';
 import { Layout } from './interface';
 import Row from './row';
 import Search from './search';
+import { State, StateLoad } from './state';
 
 interface IScroll {
 	/**
@@ -478,12 +479,12 @@ export default class Settings {
 	/**
 	 * State that was saved. Useful for back reference
 	 */
-	public oSavedState;
+	public oSavedState: State;
 
 	/**
 	 * State that was loaded. Useful for back reference
 	 */
-	public oLoadedState = null;
+	public oLoadedState: StateLoad | null = null;
 
 	/**
 	 * Note if draw should be blocked while getting data
@@ -733,7 +734,7 @@ export default class Settings {
 	public bDestroying = false;
 
 	public fnStateSaveCallback;
-	public fnStateLoadCallback;
+	public fnStateLoadCallback: (ctx: Settings) => Partial<State>;
 	public _reszEvt: boolean;
 	public iInitDisplayStart: number;
 	public sortDetails;
@@ -741,6 +742,6 @@ export default class Settings {
 	public _drawHold: boolean;
 	public _rowReadObject: boolean = false;
 	public _infoEl: Dom;
-	public _bInitComplete: false;
+	public _bInitComplete: boolean = false;
 	public layout: Layout;
 }

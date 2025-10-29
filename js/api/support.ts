@@ -193,7 +193,7 @@ export function callbackFire(
 
 	if (eventName !== null) {
 		let table = dom.s(ctx.nTable);
-		let returnValue = table.trigger(
+		let result = table.trigger(
 			eventName + '.dt',
 			bubbles,
 			args,
@@ -211,7 +211,7 @@ export function callbackFire(
 			);
 		}
 
-		ret.push(returnValue);
+		ret.push(result[0]);
 	}
 
 	return ret;

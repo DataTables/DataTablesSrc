@@ -1,5 +1,5 @@
 import { callbackFire, dataSource } from '../api/support';
-import Context from '../model/settings';
+import { default as Context, default as Settings } from '../model/settings';
 import { ajaxDataSrc, buildAjax } from './ajax';
 import { adjustColumnSizing } from './columns';
 import { addData, addTr } from './data';
@@ -12,8 +12,8 @@ import { loadState } from './state';
 
 /**
  * Draw the table for the first time, adding all required features
- *  @param {object} settings dataTables settings object
- *  @memberof DataTable#oApi
+ * 
+ * @param settings DataTables settings object
  */
 export function initialise ( settings: Context )
 {
@@ -33,7 +33,7 @@ export function initialise ( settings: Context )
 	buildHead( settings, 'footer' );
 
 	// Load the table's state (if needed) and then render around it and draw
-	loadState( settings, init, function () {
+	loadState( settings, function () {
 		// Then draw the header / footer
 		drawHead( settings, settings.aoHeader );
 		drawHead( settings, settings.aoFooter );
@@ -106,10 +106,10 @@ export function initialise ( settings: Context )
 
 /**
  * Draw the table for the first time, adding all required features
- *  @param {object} settings dataTables settings object
- *  @memberof DataTable#oApi
+ *
+ * @param settings DataTables settings object
  */
-export function initComplete ( settings )
+export function initComplete ( settings: Settings )
 {
 	if (settings._bInitComplete) {
 		return;

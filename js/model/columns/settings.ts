@@ -50,7 +50,7 @@ export default class Settings {
 	/**
 	 * Flag to indicate if the column is currently visible in the table or not
 	 */
-	public bVisible: boolean | null = null;
+	public bVisible: boolean;
 
 	/**
 	 * Store for manual type assignment using the `column.type` option. This

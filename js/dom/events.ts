@@ -306,7 +306,7 @@ export function trigger(
 	bubbles: boolean = false,
 	args: unknown[] | null = [],
 	eventProps: PlainObject | null = null
-) {
+): boolean {
 	let jq = use('jq');
 
 	if (jq) {
@@ -319,14 +319,14 @@ export function trigger(
 
 		jq(el)[method](ev, args);
 
-		return ev.result; // TODO should be defaultPrevented?
+		return ev.isDefaultPrevented();
 	}
 
 	// No jQuery
 	let { eventName, namespaces } = parseEventName(nameFull);
 
 	if (!eventName) {
-		return;
+		return false;
 	}
 
 	let isMouseEvent = _mouseEvents.includes(eventName.toLowerCase());
@@ -341,5 +341,5 @@ export function trigger(
 
 	el.dispatchEvent(event);
 
-	return event.returnValue; // TODO update to defaultPrevented?
+	return event.defaultPrevented;
 }

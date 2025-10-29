@@ -30,7 +30,7 @@ export function featureHtmlTable ( settings: Context )
 	var footer: JQuery | null = table.children('tfoot');
 	var _div = '<div/>';
 	var size = function ( s ) {
-		return !s ? null : stringToCss( s );
+		return !s ? '100%' : stringToCss( s );
 	};
 
 	if ( ! footer.length ) {
@@ -305,7 +305,7 @@ export function scrollDraw ( settings: Context )
 	var paddingSide = 'padding' + (browser.bScrollbarLeft ? 'Left' : 'Right' );
 
 	// Set the width's of the header and footer tables
-	var outerWidth = table.outerWidth();
+	var outerWidth = table.outerWidth()!;
 
 	divHeaderTable.css('width', stringToCss( outerWidth ));
 	divHeaderInner

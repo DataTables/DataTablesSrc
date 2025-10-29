@@ -1,7 +1,14 @@
 import { bindAction, callbackFire, dataSource } from '../api/support';
 import dom from '../dom';
 import ext from '../ext/index';
-import Context, { Order, OrderArray, OrderCombined, OrderIdx, OrderName, OrderState } from '../model/settings';
+import Context, {
+	Order,
+	OrderArray,
+	OrderCombined,
+	OrderIdx,
+	OrderName,
+	OrderState,
+} from '../model/settings';
 import { pluck } from '../util/array';
 import * as is from '../util/is';
 import {
@@ -168,9 +175,14 @@ export function sortDisplay(settings: Context, display: number[]) {
  * @param sortItem Source object / array from user (It is really an `Order`
  *   but due to `aaSorting` being used for input and the internal structure
  *   it is currently any).
- * @todo Split aaSorting into unresolved and resolved parameters
+ * @todo Split aaSorting into unresolved and resolved parameters (in state.ts as
+ *   well)
  */
-export function sortResolve(settings: Context, nestedSort: OrderState[], sortItem: any) {
+export function sortResolve(
+	settings: Context,
+	nestedSort: OrderState[],
+	sortItem: any
+) {
 	var push = function (a: Order) {
 		if (is.plainObject(a)) {
 			let orderIdx = a as OrderIdx;
@@ -517,7 +529,7 @@ export function sortAdd(
 /**
  * Set the sorting classes on table's body, Note: it is safe to call this function
  * when bSort and bSortClasses are false
- * 
+ *
  * @param settings DataTables settings object
  */
 export function sortingClasses(settings: Context) {
@@ -550,7 +562,6 @@ export function sortingClasses(settings: Context) {
 
 	settings.aLastSort = sortFlat;
 }
-
 
 /**
  * Get the data to sort a column, be it from cache, fresh (populating the

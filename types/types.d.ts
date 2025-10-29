@@ -11,7 +11,9 @@
 /// <reference types="jquery" />
 
 import { Layout } from '../js/model/interface';
+import { Search as ConfigSearch } from '../js/model/search';
 import { Order, OrderArray, OrderCombined, OrderIdx, OrderName } from '../js/model/settings';
+import { State, StateLoad } from '../js/model/state';
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Types
@@ -116,6 +118,8 @@ export interface DataType {
 
 /* Ordering information */
 export { Order, OrderArray, OrderCombined, OrderIdx, OrderName };
+
+    export { State, StateLoad };
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -662,32 +666,6 @@ export interface ConfigRenderer {
     pageButton?: string;
 }
 
-export interface ConfigSearch {
-    /**
-     * Control case-sensitive filtering option.
-     */
-    caseInsensitive?: boolean;
-
-    /**
-     * Enable / disable escaping of regular expression characters in the search term.
-     */
-    regex?: boolean;
-
-    /**
-     * Enable / disable DataTables' smart filtering.
-     */
-    smart?: boolean;
-
-    /**
-     * Set an initial filtering condition on the table.
-     */
-    search?: string;
-
-    /**
-     * Set a placeholder attribute for input type="text" tag elements. Since: 1.10.1
-     */
-    searchPlaceholder?: string;
-}
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -1308,19 +1286,6 @@ export interface ApiPageInfo {
     recordsTotal: number;
     recordsDisplay: number;
     serverSide: boolean;
-}
-
-export interface State {
-    time: number;
-    start: number;
-    length: number;
-    order: Array<Array<(string | number)>>;
-    search: ConfigSearch;
-    columns: Array<{
-        name: string;
-        search: ConfigSearch;
-        visible: boolean;
-    }>;
 }
 
 /**

@@ -16,7 +16,9 @@
 		<parameter type="boolean" name="bubbles" default="false">
 			Indicate if the event should bubble up the document in the same way that DOM events usually do, or not. There is a performance impact for bubbling events.
 		</parameter>
-		<returns type="DataTables.Api">A result set that contains the returned values from the event handlers. This can be used to check for an event being cancelled with a false return (for example).</returns>
+		<returns type="DataTables.Api">
+			A result set that contains a boolean indicating if the default action for the event should be prevented (i.e. if `e.preventDefault()` was called in an event handler). A value of `true` will be present if `preventDefault` was called, `false` otherwise.
+		</returns>
 	</type>
 
 	<description>
@@ -25,6 +27,12 @@
 		As with the other DataTables events, any event triggered with this method will have the `.dt` namespace appended to it (for jQuery name space handling). Additionally, event handlers are executed with the scope the `-tag table` element for the DataTable and the `event` object has a `dt` property appended to it containing a DataTables API instance.
 
 		By default triggered events do not bubble up the document, as that operation has a performance impact. However, it is possible to enable bubbling with the optional third parameter. If enabled and the `-tag table` is not in the document, the event will still be triggered on the `-tag body` element.
+		
+		### Backwards compatibility note
+
+		Please note that prior to 3.0, the return value from this method would contain values from the event handlers, however, that could cause significant issues if multiple event handlers were used.
+		
+		As a result, from 3.0, the values in the data set will reflect the `defaultPrevented` state of the event object for each item in the array (this matches the evolution of [`Event.returnValue`](https://developer.mozilla.org/en-US/docs/Web/API/Event/returnValue) to `defaultPrevented` in web standards). 
 	</description>
 
 	<example title="Listen for and trigger a custom event"><![CDATA[

@@ -741,6 +741,15 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Removed all nodes in the result set from the document
+	 *
+	 * @returns Self for chaining
+	 */
+	remove() {
+		return this.each(el => el.remove());
+	}
+
+	/**
 	 * Remove an attribute on each element in the result set
 	 *
 	 * @param attr Attribute to remove
@@ -836,16 +845,19 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		bubbles: boolean = true,
 		args: any[] | null = null,
 		props: PlainObject | null = null
-	): this {
+	): boolean[] {
 		let { names } = normaliseEventParams(name);
+		let ret: boolean[] = [];
 
-		return this.each(el => {
+		this.each(el => {
 			names
 				.filter(n => n !== null)
 				.forEach(name => {
-					events.trigger(el, name, bubbles, args, props);
+					ret.push(events.trigger(el, name, bubbles, args, props));
 				});
 		});
+
+		return ret;
 	}
 
 	/**
