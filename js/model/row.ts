@@ -3,17 +3,17 @@
  * each individual row. This is the object format used for the settings
  * aoData array.
  */
-export default class Row {
+export default {
 	/**
 	 * TR element for the row
 	 */
-	public nTr = null;
+	nTr: null as HTMLTableRowElement | null,
 
 	/**
 	 * Array of TD elements for each row. This is null until the row has been
 	 * created.
 	 */
-	public anCells: HTMLTableCellElement[];
+	anCells: [] as Array<HTMLTableCellElement>,
 
 	/**
 	 * Data object from the original data source for the row. This is either
@@ -22,7 +22,7 @@ export default class Row {
 	 * data from the data source, or will be an array if using DOM a data
 	 * source.
 	 */
-	public _aData: any[] = [];
+	_aData: [] as any[],
 
 	/**
 	 * Sorting data cache - this array is ostensibly the same length as the
@@ -33,13 +33,13 @@ export default class Row {
 	 * per sort. This array should not be read from or written to by anything
 	 * other than the master sorting methods.
 	 */
-	public _aSortData: unknown[] | null = null;
+	_aSortData: null as unknown[] | null,
 
 	/**
 	 * Per cell filtering data cache. As per the sort data cache, used to
 	 * increase the performance of the filtering in DataTables
 	 */
-	public _aFilterData: string[] | null = null;
+	_aFilterData: null as string[] | null,
 
 	/**
 	 * Filtering data cache. This is the same as the cell filtering cache, but
@@ -47,7 +47,7 @@ export default class Row {
 	 * a join on `_aFilterData`, but is provided as a cache so the join isn't
 	 * needed on every search (memory traded for performance)
 	 */
-	public _sFilterRow: string | null = null;
+	_sFilterRow: null as string | null,
 
 	/**
 	 * Denote if the original data source was from the DOM, or the data source
@@ -55,16 +55,16 @@ export default class Row {
 	 * automatically read data from the original source, unless uninstructed
 	 * otherwise.
 	 */
-	public src = null;
+	src: null,
 
 	/**
 	 * Index in the aoData array. This saves an indexOf lookup when we have the
 	 * object, but want to know the index
 	 */
-	public idx = -1;
+	idx: -1,
 
 	/**
 	 * Cached display value
 	 */
-	public displayData = null;
+	displayData: null
 }

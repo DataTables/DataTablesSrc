@@ -2,9 +2,10 @@
 import { log } from '../api/support';
 import util from '../api/util';
 import ext from '../ext/index';
-import RowModel from '../model/row';
+import rowModel from '../model/row';
 import Context from '../model/settings';
 import { pluck } from '../util/array';
+import { assignDeep } from '../util/object';
 import { createTr, getRowDisplay, rowAttributes } from './draw';
 
 /**
@@ -24,13 +25,13 @@ export function addData ( settings: Context, dataIn, tr?, tds? )
 {
 	/* Create the object for storing information about this new row */
 	var rowIdx = settings.aoData.length;
-	var rowModel = $.extend( true, {}, new RowModel(), {
+	var row = assignDeep( {}, rowModel, {
 		src: tr ? 'dom' : 'data',
 		idx: rowIdx
 	} ) as any;
 
-	rowModel._aData = dataIn;
-	settings.aoData.push( rowModel );
+	row._aData = dataIn;
+	settings.aoData.push( row );
 
 	var columns = settings.aoColumns;
 
@@ -45,7 +46,7 @@ export function addData ( settings: Context, dataIn, tr?, tds? )
 
 	var id = settings.rowIdFn( dataIn );
 	if ( id !== undefined ) {
-		settings.aIds[ id ] = rowModel;
+		settings.aIds[ id ] = row;
 	}
 
 	/* Create the DOM information, or register it if already present */

@@ -1,7 +1,6 @@
 
 import Api from './api/index';
 import * as apiStatic from './api/static';
-import { extend } from './api/support';
 import util from './api/util';
 import { browser, camelToHungarian } from "./core/compat";
 import construct from './core/constructor';
@@ -12,6 +11,7 @@ import { register as registerType, types } from './ext/types';
 import registerFeature from './features/index';
 import defaults from './model/defaults';
 import models from './model/index';
+import * as object from './util/object';
 
 // TODO typing
 var DataTable: any = function ( selector, options )
@@ -50,7 +50,7 @@ var DataTable: any = function ( selector, options )
 		// object that can be bashed around
 		var o = {};
 		var init = len > 1 ? // optimisation for single table case
-		extend( o, options, true ) :
+			object.assignDeepObjects( o, options, true ) :
 			options;
 
 		construct(this, _that, init, emptyInit);

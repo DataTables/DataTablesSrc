@@ -76,46 +76,6 @@ export function map(ret: object, src: object, name: string | any[], mappedName?:
 }
 
 /**
- * Extend objects - very similar to jQuery.extend, but deep copy objects, and
- * shallow copy arrays. The reason we need to do this, is that we don't want to
- * deep copy array init values (such as aaSorting) since the dev wouldn't be
- * able to override them, but we do want to deep copy arrays.
- *
- * @param out Object to extend
- * @param extender Object from which the properties will be applied to out
- * @param breakRefs If true, then arrays will be sliced to take an independent
- *   copy with the exception of the `data` or `aaData` parameters if they are
- *   present. This is so you can pass in a collection to DataTables and have
- *   that used as your data source without breaking the references
- * @returns out Reference, just for convenience - out === the return.
- * @todo This doesn't take account of arrays inside the deep copied objects.
- */
-export function extend(out: object, extender: object, breakRefs: boolean = false) {
-	var val;
-
-	for (var prop in extender) {
-		if (Object.prototype.hasOwnProperty.call(extender, prop)) {
-			val = extender[prop];
-
-			if ($.isPlainObject(val)) {
-				if (!$.isPlainObject(out[prop])) {
-					out[prop] = {};
-				}
-				$.extend(true, out[prop], val);
-			}
-			else if (breakRefs && prop !== 'data' && prop !== 'aaData' && Array.isArray(val)) {
-				out[prop] = val.slice();
-			}
-			else {
-				out[prop] = val;
-			}
-		}
-	}
-
-	return out;
-}
-
-/**
  * Bind an event handler to allow a click or return key to activate the callback.
  * This is good for accessibility since a return on the keyboard will have the
  * same effect as a click, if the element has focus.

@@ -1,41 +1,38 @@
-
 import { dataSource } from '../api/support';
+import dom from '../dom';
 import Context from '../model/settings';
 import { adjustColumnSizing, visibleToColumnIndex } from './columns';
 import { stringToCss } from './sizing';
 
 /**
  * Add any control elements for the table - specifically scrolling
- *  @param {object} settings dataTables settings object
- *  @returns {node} Node to add to the DOM
+ *
+ * @param settings DataTables settings object
+ * @returns Node to add to the DOM
  */
-export function featureHtmlTable ( settings: Context )
-{
-	var table = $(settings.nTable);
+export function featureHtmlTable(settings: Context) {
+	let table = dom.s(settings.nTable);
 
 	// Scrolling from here on in
-	var scroll = settings.oScroll;
+	let scroll = settings.oScroll;
 
-	if ( scroll.sX === '' && scroll.sY === '' ) {
+	if (scroll.sX === '' && scroll.sY === '') {
 		return settings.nTable;
 	}
 
-	var scrollX = scroll.sX;
-	var scrollY = scroll.sY;
-	var classes = settings.oClasses.scrolling;
-	var caption = settings.captionNode;
-	var captionSide: string | null = caption ? (caption as any)._captionSide : null;
-	var headerClone = $( table[0].cloneNode(false) );
-	var footerClone = $( table[0].cloneNode(false) );
-	var footer: JQuery | null = table.children('tfoot');
-	var _div = '<div/>';
-	var size = function ( s ) {
-		return !s ? '100%' : stringToCss( s );
+	let scrollX = scroll.sX;
+	let scrollY = scroll.sY;
+	let classes = settings.oClasses.scrolling;
+	let caption = settings.captionNode;
+	let captionSide: string | null = caption
+		? (caption as any)._captionSide
+		: null;
+	let headerClone = table.clone(false);
+	let footerClone = table.clone(false);
+	let footer = table.children('tfoot');
+	let size = function (s: string | number | null) {
+		return !s ? '100%' : stringToCss(s);
 	};
-
-	if ( ! footer.length ) {
-		footer = null;
-	}
 
 	/*
 	 * The HTML structure that we want to generate in this function is:
@@ -53,96 +50,108 @@ export function featureHtmlTable ( settings: Context )
 	 *        table - scroll foot table
 	 *          tfoot - tfoot
 	 */
-	var scroller = $( _div, { 'class': classes.container } )
+	let scroller = dom
+		.c('div')
+		.classAdd(classes.container)
 		.append(
-			$(_div, { 'class': classes.header.self } )
-				.css( {
+			dom
+				.c('div')
+				.classAdd(classes.header.self)
+				.css({
 					overflow: 'hidden',
 					position: 'relative',
-					border: 0,
-					width: scrollX ? size(scrollX) : '100%'
-				} )
+					border: '0',
+					width: scrollX ? size(scrollX) : '100%',
+				})
 				.append(
-					$(_div, { 'class': classes.header.inner } )
-						.css( {
+					dom
+						.c('div')
+						.classAdd(classes.header.inner)
+						.css({
 							'box-sizing': 'content-box',
-							width: scroll.sXInner || '100%'
-						} )
+							width: scroll.sXInner || '100%',
+						})
 						.append(
 							headerClone
 								.removeAttr('id')
-								.css( 'margin-left', 0 )
-								.append( (captionSide === 'top' ? caption : null) as any )
-								.append(
-									table.children('thead')
-								)
+								.css('margin-left', '0')
+								.append(captionSide === 'top' ? caption : null)
+								.append(table.children('thead'))
 						)
 				)
 		)
 		.append(
-			$(_div, { 'class': classes.body } )
-				.css( {
+			dom
+				.c('div')
+				.classAdd(classes.body)
+				.css({
 					position: 'relative',
 					overflow: 'auto',
-					width: size( scrollX )
-				} )
-				.append( table )
+					width: size(scrollX),
+				})
+				.append(table)
 		);
 
-	if ( footer ) {
+	if (footer.count()) {
 		scroller.append(
-			$(_div, { 'class': classes.footer.self } )
-				.css( {
+			dom
+				.c('div')
+				.classAdd(classes.footer.self)
+				.css({
 					overflow: 'hidden',
-					border: 0,
-					width: scrollX ? size(scrollX) : '100%'
-				} )
+					border: '0',
+					width: scrollX ? size(scrollX) : '100%',
+				})
 				.append(
-					$(_div, { 'class': classes.footer.inner } )
+					dom
+						.c('div')
+						.classAdd(classes.footer.inner)
 						.append(
 							footerClone
 								.removeAttr('id')
-								.css( 'margin-left', 0 )
-								.append( (captionSide === 'bottom' ? caption : null) as any )
-								.append(
-									table.children('tfoot')
-								)
+								.css('margin-left', '0')
+								.append(captionSide === 'bottom' ? caption : null)
+								.append(table.children('tfoot'))
 						)
 				)
 		);
 	}
 
-	var children = scroller.children();
-	var scrollHead = children[0];
-	var scrollBody = children[1];
-	var scrollFoot = footer ? children[2] : null;
+	let children = scroller.children();
+	let scrollHead = children.eq(0);
+	let scrollBody = children.eq(1);
+	let scrollFoot = children.eq(2);
 
-	// When the body is scrolled, then we also want to scroll the headers
-	$(scrollBody).on( 'scroll.DT', function () {
-		var scrollLeft = this.scrollLeft;
+	// When the body is scrolled, then we also want to scroll the header and
+	// footer. Note that each element has its own scroll listener, and that in
+	// turn sets the scroll for the other elements. However this doesn't lead to
+	// an infinite loop as `scroll` is only triggered if the value changes.
+	scrollBody.on('scroll.DT', () => {
+		let scrollLeft = scrollBody.scrollLeft();
 
-		scrollHead.scrollLeft = scrollLeft;
-
-		if ( scrollFoot ) {
-			scrollFoot.scrollLeft = scrollLeft;
-		}
-	} );
-
-	// When focus is put on the header cells, we might need to scroll the body
-	$('th, td', scrollHead).on('focus', function () {
-		var scrollLeft = scrollHead.scrollLeft;
-
-		scrollBody.scrollLeft = scrollLeft;
-
-		if ( footer ) {
-			scrollBody.scrollLeft = scrollLeft;
-		}
+		scrollHead.scrollLeft(scrollLeft);
+		scrollFoot.scrollLeft(scrollLeft);
 	});
 
-		$(scrollBody).css('max-height', scrollY);
-		if (! scroll.bCollapse) {
-			$(scrollBody).css('height', scrollY);
-		}
+	scrollHead.on('scroll.DT', () => {
+		let scrollLeft = scrollHead.scrollLeft();
+
+		scrollBody.scrollLeft(scrollLeft);
+		scrollFoot.scrollLeft(scrollLeft);
+	});
+
+	scrollFoot.on('scroll.DT', () => {
+		let scrollLeft = scrollFoot.scrollLeft();
+
+		scrollHead.scrollLeft(scrollLeft);
+		scrollBody.scrollLeft(scrollLeft);
+	});
+
+	scrollBody.css('max-height', scrollY);
+
+	if (!scroll.bCollapse) {
+		scrollBody.css('height', scrollY);
+	}
 
 	settings.nScrollHead = scrollHead;
 	settings.nScrollBody = scrollBody;
@@ -151,10 +160,8 @@ export function featureHtmlTable ( settings: Context )
 	// On redraw - align columns
 	settings.aoDrawCallback.push(scrollDraw);
 
-	return scroller[0];
+	return scroller.get(0);
 }
-
-
 
 /**
  * Update the header, footer and body tables for resizing - i.e. column
@@ -167,37 +174,40 @@ export function featureHtmlTable ( settings: Context )
  *   3. Copy colgroup > col over to header and footer
  *   4. Clean up
  *
- *  @param {object} settings dataTables settings object
+ * @param settings DataTables settings object
  */
-export function scrollDraw ( settings: Context )
-{
+export function scrollDraw(settings: Context) {
 	// Given that this is such a monster function, a lot of variables are use
 	// to try and keep the minimised size as small as possible
-	var
-		scroll         = settings.oScroll,
-		barWidth       = scroll.iBarWidth,
-		divHeader      = $(settings.nScrollHead),
+	let scroll = settings.oScroll,
+		barWidth = scroll.iBarWidth,
+		divHeader = settings.nScrollHead,
 		divHeaderInner = divHeader.children('div'),
 		divHeaderTable = divHeaderInner.children('table'),
-		divBodyEl      = settings.nScrollBody,
-		divBody        = $(divBodyEl),
-		divFooter      = $(settings.nScrollFoot),
+		divBodyEl = settings.nScrollBody,
+		divBody = divBodyEl,
+		divFooter = settings.nScrollFoot,
 		divFooterInner = divFooter.children('div'),
 		divFooterTable = divFooterInner.children('table'),
-		header         = $(settings.nTHead),
-		table          = $(settings.nTable),
-		footer         = settings.nTFoot && $('th, td', settings.nTFoot).length ? $(settings.nTFoot) : null,
-		browser        = settings.oBrowser,
-		headerCopy, footerCopy;
+		header = dom.s(settings.nTHead),
+		table = dom.s(settings.nTable),
+		footer = dom.s(settings.nTFoot),
+		browser = settings.oBrowser,
+		headerCopy,
+		footerCopy;
 
 	// If the scrollbar visibility has changed from the last draw, we need to
 	// adjust the column sizes as the table width will have changed to account
 	// for the scrollbar
-	var scrollBarVis = divBodyEl.scrollHeight > divBodyEl.clientHeight;
-	
-	if ( settings.scrollBarVis !== scrollBarVis && settings.scrollBarVis !== undefined ) {
+	let scrollBarVis =
+		divBodyEl.get(0).scrollHeight > divBodyEl.get(0).clientHeight;
+
+	if (
+		settings.scrollBarVis !== scrollBarVis &&
+		settings.scrollBarVis !== undefined
+	) {
 		settings.scrollBarVis = scrollBarVis;
-		adjustColumnSizing( settings );
+		adjustColumnSizing(settings);
 		return; // adjust column sizing will call this function again
 	}
 	else {
@@ -209,19 +219,19 @@ export function scrollDraw ( settings: Context )
 	table.children('thead, tfoot').remove();
 
 	// Clone the current header and footer elements and then place it into the inner table
-	headerCopy = header.clone().prependTo( table );
+	headerCopy = header.clone(true).prependTo(table);
 	headerCopy.find('th, td').removeAttr('tabindex');
 	headerCopy.find('[id]').removeAttr('id');
 
-	if ( footer ) {
-		footerCopy = footer.clone().prependTo( table );
+	if (footer.count()) {
+		footerCopy = footer.clone(true).prependTo(table);
 		footerCopy.find('[id]').removeAttr('id');
 	}
 
 	// 2. Correct colgroup > col values if needed
 	// It is possible that the cell sizes are smaller than the content, so we need to
 	// correct colgroup>col for such cases. This can happen if the auto width detection
-	// uses a cell which has a longer string, but isn't the widest! For example 
+	// uses a cell which has a longer string, but isn't the widest! For example
 	// "Chief Executive Officer (CEO)" is the longest string in the demo, but
 	// "Systems Administrator" is actually the widest string since it doesn't collapse.
 	// Note the use of translating into a column index to get the `col` element. This
@@ -231,14 +241,12 @@ export function scrollDraw ( settings: Context )
 		// Get the column sizes from the first row in the table. This should really be a
 		// [].find, but it wasn't supported in Chrome until Sept 2015, and DT has 10 year
 		// browser support
-		var firstTr = null;
-		var start = dataSource( settings ) !== 'ssp'
-			? settings._iDisplayStart
-			: 0;
+		let firstTr: HTMLTableRowElement | null = null;
+		let start = dataSource(settings) !== 'ssp' ? settings._iDisplayStart : 0;
 
-		for (i=start ; i<start + settings.aiDisplay.length ; i++) {
-			var idx = settings.aiDisplay[i];
-			var tr = settings.aoData[idx].nTr;
+		for (let i = start; i < start + settings.aiDisplay.length; i++) {
+			let idx = settings.aiDisplay[i];
+			let tr = settings.aoData[idx].nTr;
 
 			if (tr) {
 				firstTr = tr;
@@ -247,23 +255,26 @@ export function scrollDraw ( settings: Context )
 		}
 
 		if (firstTr) {
-			var colSizes = $(firstTr).children('th, td').map(function (vis) {
-				return {
-					idx: visibleToColumnIndex(settings, vis)!,
-					width: $(this).outerWidth()
-				};
-			});
+			let colSizes = dom
+				.s(firstTr)
+				.children('th, td')
+				.mapTo(function (cell, idx) {
+					return {
+						idx: visibleToColumnIndex(settings, idx)!,
+						width: dom.s(cell).width('outer'),
+					};
+				});
 
 			// Check against what the colgroup > col is set to and correct if needed
-			for (var i=0 ; i<colSizes.length ; i++) {
-				var colEl = settings.aoColumns[ colSizes[i].idx ].colEl[0];
-				var colWidth = colEl.style.width.replace('px', '');
+			for (let i = 0; i < colSizes.length; i++) {
+				let colEl = settings.aoColumns[colSizes[i].idx].colEl;
+				let colWidth = colEl.width();
 
 				if (colWidth !== colSizes[i].width) {
-					colEl.style.width = colSizes[i].width + 'px';
+					colEl.css('width', colSizes[i].width + 'px');
 
 					if (scroll.sX) {
-						colEl.style.minWidth = colSizes[i].width + 'px';
+						colEl.css('minWidth', colSizes[i].width + 'px');
 					}
 				}
 			}
@@ -271,52 +282,56 @@ export function scrollDraw ( settings: Context )
 	}
 
 	// 3. Copy the colgroup over to the header and footer
-	divHeaderTable
-		.find('colgroup')
-		.remove();
+	divHeaderTable.find('colgroup').remove();
+	divHeaderTable.append(settings.colgroup.clone(true));
 
-	divHeaderTable.append(settings.colgroup.clone());
-
-	if ( footer ) {
-		divFooterTable
-			.find('colgroup')
-			.remove();
-
-		divFooterTable.append(settings.colgroup.clone());
+	if (footer) {
+		divFooterTable.find('colgroup').remove();
+		divFooterTable.append(settings.colgroup.clone(true));
 	}
 
 	// "Hide" the header and footer that we used for the sizing. We need to keep
 	// the content of the cell so that the width applied to the header and body
 	// both match, but we want to hide it completely.
-	$('th, td', headerCopy).each(function () {
-		$(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
+	headerCopy.find('th, td').each(function (el) {
+		dom
+			.c('div')
+			.classAdd('dt-scroll-sizing')
+			.append(Array.from(el.childNodes))
+			.appendTo(el);
 	});
 
-	if ( footer ) {
-		$('th, td', footerCopy).each(function () {
-			$(this.childNodes).wrapAll('<div class="dt-scroll-sizing">');
+	if (footerCopy) {
+		footerCopy.find('th, td').each(function (el) {
+			dom
+				.c('div')
+				.classAdd('dt-scroll-sizing')
+				.append(Array.from(el.childNodes))
+				.appendTo(el);
 		});
 	}
 
 	// 4. Clean up
 	// Figure out if there are scrollbar present - if so then we need the header and footer to
 	// provide a bit more space to allow "overflow" scrolling (i.e. past the scrollbar)
-	var isScrolling = Math.floor(table.height()!) > divBodyEl.clientHeight || divBody.css('overflow-y') == "scroll";
-	var paddingSide = 'padding' + (browser.bScrollbarLeft ? 'Left' : 'Right' );
+	let isScrolling =
+		Math.floor(table.height()) > divBodyEl.get(0).clientHeight ||
+		divBody.css('overflow-y') == 'scroll';
+	let paddingSide = 'padding' + (browser.bScrollbarLeft ? 'Left' : 'Right');
 
 	// Set the width's of the header and footer tables
-	var outerWidth = table.outerWidth()!;
+	let outerWidth = table.width('outer');
 
-	divHeaderTable.css('width', stringToCss( outerWidth ));
+	divHeaderTable.css('width', stringToCss(outerWidth));
 	divHeaderInner
-		.css('width', stringToCss( outerWidth ))
-		.css(paddingSide, isScrolling ? barWidth+"px" : "0px");
+		.css('width', stringToCss(outerWidth))
+		.css(paddingSide, isScrolling ? barWidth + 'px' : '0px');
 
-	if ( footer ) {
-		divFooterTable.css('width', stringToCss( outerWidth ));
+	if (footer.count()) {
+		divFooterTable.css('width', stringToCss(outerWidth));
 		divFooterInner
-			.css('width', stringToCss( outerWidth ))
-			.css(paddingSide, isScrolling ? barWidth+"px" : "0px");
+			.css('width', stringToCss(outerWidth))
+			.css(paddingSide, isScrolling ? barWidth + 'px' : '0px');
 	}
 
 	// Correct DOM ordering for colgroup - comes before the thead
@@ -327,7 +342,7 @@ export function scrollDraw ( settings: Context )
 
 	// If sorting or filtering has occurred, jump the scrolling back to the top
 	// only if we aren't holding the position
-	if ( (settings.bSorted || settings.bFiltered) && ! settings._drawHold ) {
-		divBodyEl.scrollTop = 0;
+	if ((settings.bSorted || settings.bFiltered) && !settings._drawHold) {
+		divBodyEl.scrollTop(0);
 	}
 }

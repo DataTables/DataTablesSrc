@@ -83,7 +83,7 @@ export function buildAjax(oSettings: Context, data, fn) {
 				true
 			);
 
-			if (ret.indexOf(true) === -1) {
+			if (ret.indexOf(true) === -1) { // ALLAN - is this right now!? Needs to be flipped? What was the idea?
 				if (error == 'parsererror') {
 					log(oSettings, 0, 'Invalid JSON response', 1);
 				}

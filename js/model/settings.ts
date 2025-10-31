@@ -3,7 +3,7 @@ import { dataSource } from '../api/support';
 import { Dom } from '../dom';
 import ColumnSettings from './columns/settings';
 import { Layout } from './interface';
-import Row from './row';
+import rowModel from './row';
 import Search, { SearchInput, SearchOptions } from './search';
 import { State, StateLoad } from './state';
 
@@ -250,7 +250,7 @@ export default class Settings {
 	 * Store data information - see {@link DataTable.models.oRow} for detailed
 	 * information.
 	 */
-	public aoData: Row[] = [];
+	public aoData: typeof rowModel[] = [];
 
 	/**
 	 * Array of indexes which are in the current display (after filtering etc)
@@ -667,17 +667,17 @@ export default class Settings {
 	/**
 	 * DIV container for the footer scrolling table if scrolling
 	 */
-	public nScrollHead;
+	public nScrollHead: Dom;
 
 	/**
 	 * DIV container for the body scrolling table if scrolling
 	 */
-	public nScrollBody;
+	public nScrollBody: Dom;
 
 	/**
 	 * DIV container for the footer scrolling table if scrolling
 	 */
-	public nScrollFoot;
+	public nScrollFoot: Dom;
 
 	/**
 	 * Last applied sort
@@ -703,7 +703,7 @@ export default class Settings {
 
 	public captionNode: HTMLTableCaptionElement | null = null;
 
-	public colgroup: JQuery<HTMLElement>;
+	public colgroup: Dom;
 
 	/** Delay loading of data */
 	public deferLoading = null;
@@ -744,4 +744,7 @@ export default class Settings {
 	public _infoEl: Dom;
 	public _bInitComplete: boolean = false;
 	public layout: Layout;
+
+	/** Window resize handler for older browsers */
+	public windowResizeCb: () => void;
 }

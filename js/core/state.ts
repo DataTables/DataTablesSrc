@@ -3,6 +3,7 @@ import { callbackFire } from '../api/support';
 import Context from '../model/settings';
 import { State, StateLoad } from '../model/state';
 import { pluck } from '../util/array';
+import { assignDeep } from '../util/object';
 import { pageChange } from './page';
 import { sortResolve } from './sort';
 
@@ -121,14 +122,14 @@ export function implementState(
 		'stateLoadParams',
 		[settings, s]
 	);
-	if (abStateLoad.indexOf(false) !== -1) {
+	if (abStateLoad.indexOf(true) !== -1) {
 		settings._bLoadingState = false;
 		callback();
 		return;
 	}
 
 	// Store the saved state so it might be accessed at any time
-	settings.oLoadedState = $.extend(true, {}, s);
+	settings.oLoadedState = assignDeep({}, s);
 
 	// This is needed for ColReorder, which has to happen first to allow all
 	// the stored indexes to be usable. It is not publicly documented.

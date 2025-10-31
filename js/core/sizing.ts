@@ -9,7 +9,8 @@ import { getRowDisplay } from './draw';
 
 /**
  * Calculate the width of columns for the table
- *  @param {object} settings dataTables settings object
+ *
+ * @param settings dataTables settings object
  */
 export function calculateColumnWidths(settings: Context) {
 	// Not interested in doing column width calculation if auto-width is disabled
@@ -99,19 +100,15 @@ export function calculateColumnWidths(settings: Context) {
 			if (scrollX) {
 				this.style.minWidth = width;
 
-				dom
-					.s(cell)
-					.append(
-						dom
-							.c('div')
-							.css({
-								width: width,
-								margin: '0',
-								padding: '0',
-								border: '0',
-								height: '1px'
-							})
-					);
+				dom.s(cell).append(
+					dom.c('div').css({
+						width: width,
+						margin: '0',
+						padding: '0',
+						border: '0',
+						height: '1px',
+					})
+				);
 			}
 		}
 		else {
@@ -158,14 +155,15 @@ export function calculateColumnWidths(settings: Context) {
 
 	// Tidy the temporary table - remove name attributes so there aren't
 	// duplicated in the dom (radio elements for example)
-	$('[name]', tmpTable).removeAttr('name');
+	tmpTable.find('[name]').removeAttr('name');
 
 	// Table has been built, attach to the document so we can work with it.
 	// A holding element is used, positioned at the top of the container
 	// with minimal height, so it has no effect on if the container scrolls
 	// or not. Otherwise it might trigger scrolling when it actually isn't
 	// needed
-	var holder = dom.c('div')
+	var holder = dom
+		.c('div')
 		.css(
 			scrollX || scrollY
 				? {
@@ -190,9 +188,7 @@ export function calculateColumnWidths(settings: Context) {
 		tmpTable.width(scrollXInner);
 	}
 	else if (scrollX) {
-		tmpTable
-			.css('width', 'auto')
-			.removeAttr('width');
+		tmpTable.css('width', 'auto').removeAttr('width');
 
 		// If there is no width attribute or style, then allow the table to
 		// collapse
@@ -253,7 +249,7 @@ export function calculateColumnWidths(settings: Context) {
 			// then the callback is immediately run. Which we don't want. If the element isn't
 			// visible, then it isn't run, but we want it to run when it is then made visible.
 			// This flag allows the above to be satisfied.
-			var first = $(settings.nTableWrapper).is(':visible');
+			var first = dom.s(settings.nTableWrapper).isVisible();
 
 			// Use an empty div to attach the observer so it isn't impacted by height changes
 			var resizer = dom
@@ -277,8 +273,10 @@ export function calculateColumnWidths(settings: Context) {
 			settings.resizeObserver.observe(resizer.get(0));
 		}
 		else {
-			// For old browsers, the best we can do is listen for a window resize
-			$(window).on('resize.DT-' + settings.sInstance, resize);
+			// For old browsers, the best we can do is listen for a window
+			// resize
+			window.addEventListener('resize', resize);
+			settings.windowResizeCb = resize; // For removal in `destroy`
 		}
 
 		settings._reszEvt = true;
@@ -288,13 +286,13 @@ export function calculateColumnWidths(settings: Context) {
 /**
  * Get the width of the DataTables wrapper element
  *
- * @param {*} settings DataTables settings object
+ * @param settings DataTables settings object
  * @returns Width
  */
 function wrapperWidth(settings: Context): number {
-	return $(settings.nTableWrapper).is(':visible')
-		? $(settings.nTableWrapper).width() || 0
-		: 0;
+	let wrapper = dom.s(settings.nTableWrapper);
+
+	return wrapper.isVisible() ? wrapper.width() : 0;
 }
 
 /**
@@ -402,7 +400,7 @@ export function stringToCss(s: number | null | string) {
 /**
  * Re-insert the `col` elements for current visibility
  *
- * @param {*} settings DT settings
+ * @param settings DT settings
  */
 export function colGroup(settings: Context) {
 	var cols = settings.aoColumns;

@@ -9,7 +9,7 @@ interface HungarianMap {
 
 export const browser = {
 	barWidth: -1,
-	bScrollbarLeft: false
+	bScrollbarLeft: false,
 };
 
 /**
@@ -60,15 +60,18 @@ export function camelToHungarian(src: any, user: any, force = false) {
 	object.each(user, key => {
 		hungarianKey = src._hungarianMap[key];
 
-		if (hungarianKey !== undefined && (force || user[hungarianKey] === undefined)) {
+		if (
+			hungarianKey !== undefined &&
+			(force || user[hungarianKey] === undefined)
+		) {
 			// For objects, we need to buzz down into the object to copy parameters
 			if (hungarianKey.charAt(0) === 'o') {
 				// Copy the camelCase options over to the hungarian
 				if (!user[hungarianKey]) {
 					user[hungarianKey] = {};
 				}
-				$.extend(true, user[hungarianKey], user[key]);
 
+				object.assignDeep(user[hungarianKey], user[key]);
 				camelToHungarian(src[hungarianKey], user[hungarianKey], force);
 			}
 			else {
@@ -85,7 +88,11 @@ export function camelToHungarian(src: any, user: any, force = false) {
  * @param newKey The new parameter name
  * @param oldKey The old parameter name
  */
-export function compatMap(o: Record<string, any>, newKey: string, oldKey: string) {
+export function compatMap(
+	o: Record<string, any>,
+	newKey: string,
+	oldKey: string
+) {
 	if (o[newKey] !== undefined) {
 		o[oldKey] = o[newKey];
 	}
@@ -98,7 +105,8 @@ export function compatMap(o: Record<string, any>, newKey: string, oldKey: string
  *
  * @param init Object to map
  */
-export function compatOpts(init: any) { // typeof defaults
+export function compatOpts(init: any) {
+	// typeof defaults
 	compatMap(init, 'ordering', 'bSort');
 	compatMap(init, 'orderMulti', 'bSortMulti');
 	compatMap(init, 'orderClasses', 'bSortClasses');
@@ -120,8 +128,10 @@ export function compatOpts(init: any) { // typeof defaults
 
 	// Objects for ordering
 	if (typeof init.bSort === 'object') {
-		init.orderIndicators = init.bSort.indicators !== undefined ? init.bSort.indicators : true;
-		init.orderHandler = init.bSort.handler !== undefined ? init.bSort.handler : true;
+		init.orderIndicators =
+			init.bSort.indicators !== undefined ? init.bSort.indicators : true;
+		init.orderHandler =
+			init.bSort.handler !== undefined ? init.bSort.handler : true;
 		init.bSort = true;
 	}
 	else if (init.bSort === false) {
@@ -163,7 +173,8 @@ export function compatOpts(init: any) { // typeof defaults
  *
  * @param init Object to map
  */
-export function compatCols(init: any) { // typeof columnDefaults
+export function compatCols(init: any) {
+	// typeof columnDefaults
 	compatMap(init, 'orderable', 'bSortable');
 	compatMap(init, 'orderData', 'aDataSort');
 	compatMap(init, 'orderSequence', 'asSorting');
@@ -188,28 +199,30 @@ export function browserDetect(ctx: Context) {
 	// don't expect to change between initialisations
 	if (browser.barWidth === -1) {
 		// Scrolling feature / quirks detection
-		var n = dom.c('div')
+		var n = dom
+			.c('div')
 			.css({
 				position: 'fixed',
 				top: '0',
-				left: (-1 * window.pageXOffset) + 'px', // allow for scrolling
+				left: -1 * window.pageXOffset + 'px', // allow for scrolling
 				height: '1px',
 				width: '1px',
-				overflow: 'hidden'
+				overflow: 'hidden',
 			})
 			.append(
-				dom.c('div')
+				dom
+					.c('div')
 					.css({
 						position: 'absolute',
 						top: '1px',
 						left: '1px',
 						width: '100px',
-						overflow: 'scroll'
+						overflow: 'scroll',
 					})
 					.append(
 						dom.c('div').css({
 							width: '100%',
-							height: '10px'
+							height: '10px',
 						})
 					)
 			)

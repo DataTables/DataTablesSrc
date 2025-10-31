@@ -1,3 +1,4 @@
+import { Dom } from '../../dom';
 import { SearchInput } from "../search";
 
 /**
@@ -175,7 +176,7 @@ export default class Settings {
 	 */
 	public searchFixed: {[name: string]: SearchInput} = {};
 
-	public colEl: HTMLTableColElement;
+	public colEl: Dom<HTMLTableColElement>;
 
 	public autoTitle: boolean;
 

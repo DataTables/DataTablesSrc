@@ -1,11 +1,13 @@
 
 import Api from "../api/base";
-import { callbackFire, callbackReg, dataSource, escapeObject, extend, listener, log, map } from "../api/support";
+import { callbackFire, callbackReg, dataSource, escapeObject, listener, log, map } from "../api/support";
 import util from '../api/util';
+import dom from "../dom";
 import ext from '../ext/index';
 import columnDefaults from '../model/columns/defaults';
 import defaults from '../model/defaults';
 import Settings from '../model/settings';
+import * as object from "../util/object";
 import { addColumn, applyColumnDefs, columnOptions } from "./columns";
 import { browserDetect, camelToHungarian, compatCols, compatOpts } from "./compat";
 import { getCellData } from "./data";
@@ -104,7 +106,7 @@ export default function (tableEl, _that, oInit, emptyInit) {
 		"sDestroyWidth": $this[0].style.width,
 		"sInstance":     sId,
 		"sTableId":      sId,
-		colgroup: $('<colgroup>').prependTo(tableEl),
+		colgroup: dom.c('colgroup').prependTo(tableEl),
 		fastData: function (row, column, type) {
 			return getCellData(oSettings, row, column, type);
 		}
@@ -136,7 +138,7 @@ export default function (tableEl, _that, oInit, emptyInit) {
 
 	// Apply the defaults and init options to make a single init object will all
 	// options defined from defaults and instance options.
-	oInit = extend( $.extend( true, {}, defaults ), oInit );
+	oInit = object.assignDeepObjects( object.assignDeep( {}, defaults ), oInit );
 
 
 	// Map the initialisation options onto the settings object

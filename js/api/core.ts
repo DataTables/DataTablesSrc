@@ -145,6 +145,10 @@ Api.register( 'destroy()', function ( remove ) {
 		jqWrapper.off('.DT').find(':not(tbody *)').off('.DT');
 		$(window).off('.DT-'+settings.sInstance);
 
+		if (settings.windowResizeCb) {
+			window.removeEventListener('resize', settings.windowResizeCb);
+		}
+
 		// When scrolling we had to break the table up - restore it
 		if ( table != thead.parentNode ) {
 			jqTable.children('thead').detach();

@@ -18,10 +18,10 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param name Element name to create
 	 * @returns Dom instance for manipulating the new element
 	 */
-	static create(name: string) {
+	static create<R extends HTMLElement = HTMLElement>(name: string) {
 		let el = document.createElement(name);
 
-		return new Dom(el);
+		return new Dom<R>(el);
 	}
 
 	/**
@@ -30,8 +30,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param selector Items to select
 	 * @returns Dom instance for manipulating the selected items
 	 */
-	static selector(selector: TSelector) {
-		return new Dom(selector);
+	static selector<R extends HTMLElement = HTMLElement>(selector: TSelector) {
+		return new Dom<R>(selector);
 	}
 
 	private _store: T[] = [];
@@ -75,13 +75,13 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	add(el: T | Array<T> | null) {
 		if (Array.isArray(el)) {
 			el.forEach(e => {
-				if (!this._store.includes(e)) {
+				if (e && !this._store.includes(e)) {
 					this._store.push(e);
 				}
 			});
 		}
 		else if (el !== null) {
-			if (!this._store.includes(el)) {
+			if (el && !this._store.includes(el)) {
 				this._store.push(el);
 			}
 		}
@@ -97,8 +97,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param content The content to append
 	 * @returns Self for chaining
 	 */
-	append(content: Element | Element[] | Dom | null) {
-		if (! content) {
+	append(content: Element | Element[] | ChildNode | ChildNode[] | Dom | null) {
+		if (!content) {
 			return this;
 		}
 
@@ -268,10 +268,20 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Clone the nodes in the result set and return a new instance
+	 *
+	 * @param deep Include the subtree (`true`) or not (`false` - default)
+	 * @returns New Dom instance with new elements
+	 */
+	clone(deep: boolean = false) {
+		return this.map(el => el.cloneNode(deep) as T);
+	}
+
+	/**
 	 * Find the closest ancestor for each element in the result set
 	 *
 	 * @param selector
-	 * @returns A new DOM instance when the matching ancestors
+	 * @returns New Dom instance when the matching ancestors
 	 */
 	closest<R extends HTMLElement = T>(selector: string | HTMLElement | Element) {
 		if (typeof selector === 'string') {
@@ -376,7 +386,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @returns New Dom instance
 	 */
 	eq(idx: number): Dom<T> {
-		return new Dom(this.get(idx));
+		return idx < this.count() ? new Dom(this.get(idx)) : new Dom();
 	}
 
 	/**
@@ -400,7 +410,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *
 	 * @param selector Elements to find
 	 */
-	find<R extends HTMLElement = T>(selector: string | HTMLElement | Element | null): Dom<R> {
+	find<R extends HTMLElement = T>(
+		selector: string | HTMLElement | Element | null
+	): Dom<R> {
 		if (selector === null) {
 			return new Dom<R>();
 		}
@@ -526,6 +538,21 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Determine if the first element in the result set is visible or not.
+	 *
+	 * @returns Visibility flag
+	 */
+	isVisible() {
+		if (this.count() === 0) {
+			return false;
+		}
+
+		let el = this._store[0];
+
+		return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+	}
+
+	/**
 	 * Get the index of an element from among its siblings
 	 *
 	 * @returns Element index
@@ -577,6 +604,21 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		});
 
 		return next;
+	}
+
+	/**
+	 * Create an array of any data type based on a function returning a value
+	 * from each element in the result set.
+	 *
+	 * @param fn Mapping function
+	 * @returns Array of returned objects.
+	 */
+	mapTo<R>(fn: (el: T, idx: number) => R) {
+		let result: R[] = [];
+
+		this.each((el, idx) => result.push(fn(el, idx)));
+
+		return result;
 	}
 
 	/**
@@ -639,18 +681,17 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		if (!this.count()) {
 			return {
 				top: 0,
-				left: 0
+				left: 0,
 			};
 		}
 
 		let box = this._store[0].getBoundingClientRect();
 		let docElem = document.documentElement;
-		
+
 		return {
 			top: box.top + window.pageYOffset - docElem.clientTop,
-			left: box.left + window.pageXOffset - docElem.clientLeft
+			left: box.left + window.pageXOffset - docElem.clientLeft,
 		};
-		  
 	}
 
 	/**
@@ -758,8 +799,13 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *
 	 * @param selector
 	 */
-	prependTo(selector: TSelector) {
-		new Dom(selector).prepend(this);
+	prependTo(selector: TSelector | Dom) {
+		if (selector instanceof Dom) {
+			selector.prepend(this);
+		}
+		else {
+			new Dom(selector).prepend(this);
+		}
 
 		return this;
 	}
@@ -798,6 +844,46 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 				el.replaceWith(replacer as Element);
 			}
 		});
+	}
+
+	/**
+	 * Get the scrollLeft property of the first element in the result set
+	 */
+	scrollLeft(): number;
+
+	/**
+	 * Set the scrollLeft property for all elements in the result set
+	 *
+	 * @param val Value to set
+	 */
+	scrollLeft(val: number): this;
+
+	scrollLeft(val?: number) {
+		if (val === undefined) {
+			return this.count() ? this._store[0].scrollLeft : 0;
+		}
+
+		return this.each(el => (el.scrollLeft = val));
+	}
+
+	/**
+	 * Get the scrollTop property of the first element in the result set
+	 */
+	scrollTop(): number;
+
+	/**
+	 * Set the scrollTop property for all elements in the result set
+	 *
+	 * @param val Value to set
+	 */
+	scrollTop(val: number): this;
+
+	scrollTop(val?: number) {
+		if (val === undefined) {
+			return this.count() ? this._store[0].scrollTop : 0;
+		}
+
+		return this.each(el => (el.scrollTop = val));
 	}
 
 	/**

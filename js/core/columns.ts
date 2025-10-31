@@ -6,9 +6,10 @@ import helpers from '../ext/helpers';
 import ext from '../ext/index';
 import columnDefaults from '../model/columns/defaults';
 import ColumnModel from '../model/columns/settings';
-import search from '../model/search';
+import search, { SearchOptions } from '../model/search';
 import Context from '../model/settings';
 import { empty } from '../util/is';
+import { assign } from '../util/object';
 import { camelToHungarian, compatCols } from './compat';
 import { getCellData, writeCell } from './data';
 import { scrollDraw } from './scrolling';
@@ -24,12 +25,12 @@ export function addColumn( oSettings: Context )
 	// Add column to aoColumns array
 	var oDefaults = columnDefaults;
 	var iCol = oSettings.aoColumns.length;
-	var oCol = $.extend( {}, new ColumnModel(), oDefaults, {
+	var oCol = assign<ColumnModel>( {}, new ColumnModel(), oDefaults, {
 		"aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
 		"mData": oDefaults.mData ? oDefaults.mData : iCol,
 		idx: iCol,
 		searchFixed: {},
-		colEl: $('<col>').attr('data-dt-column', iCol)
+		colEl: dom.c<HTMLTableColElement>('col').attr('data-dt-column', iCol)
 	} );
 	oSettings.aoColumns.push( oCol );
 
@@ -37,7 +38,7 @@ export function addColumn( oSettings: Context )
 	// passed into extend can be undefined. This allows the user to give a default
 	// with only some of the parameters defined, and also not give a default
 	var searchCols = oSettings.aoPreSearchCols;
-	searchCols[ iCol ] = $.extend( {}, search, searchCols[ iCol ] );
+	searchCols[ iCol ] = assign<SearchOptions>( {}, search, searchCols[ iCol ] );
 }
 
 
@@ -81,7 +82,7 @@ export function columnOptions( oSettings, iCol, oOptions? )
 
 		var origClass = oCol.sClass;
 
-		$.extend( oCol, oOptions );
+		assign( oCol, oOptions );
 		map( oCol, oOptions, "sWidth", "sWidthOrig" );
 
 		// Merge class from previously defined classes with this one, rather than just
@@ -191,17 +192,17 @@ export function columnSizes ( settings )
 /**
  * Convert the index of a visible column to the index in the data array (take account
  * of hidden columns)
- *  @param {object} oSettings dataTables settings object
- *  @param {int} iMatch Visible column index to lookup
- *  @returns {int} i the data index
- *  @memberof DataTable#oApi
+ *
+ * @param settings DataTables settings object
+ * @param visIdx Visible column index to lookup
+ * @returns i the data index
  */
-export function visibleToColumnIndex( oSettings, iMatch )
+export function visibleToColumnIndex( settings: Context, visIdx: number )
 {
-	var aiVis = getColumns( oSettings, 'bVisible' );
+	var aiVis = getColumns( settings, 'bVisible' );
 
-	return typeof aiVis[iMatch] === 'number' ?
-		aiVis[iMatch] :
+	return typeof aiVis[visIdx] === 'number' ?
+		aiVis[visIdx] :
 		null;
 }
 

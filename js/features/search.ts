@@ -148,5 +148,11 @@ register(
  * @returns String version
  */
 function textValue(val: SearchInput) {
-	return typeof val !== 'function' && !(val instanceof RegExp) ? val : '';
+	if (val instanceof RegExp) {
+		return val.toString();
+	}
+	else if (typeof val !== 'function') {
+		return val;
+	}
+	return '';
 }
