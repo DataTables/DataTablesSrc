@@ -6,6 +6,8 @@ import { columnTypes } from './columns';
 import { addData, clearTable } from './data';
 import { draw } from './draw';
 import { initComplete } from './init';
+import * as is from '../util/is';
+import * as object from '../util/object';
 import { processingDisplay } from './processing';
 import { sortFlatten } from './sort';
 
@@ -51,7 +53,7 @@ export function buildAjax(oSettings: Context, data, fn) {
 		fn(json);
 	};
 
-	if ($.isPlainObject(ajax) && ajax.data) {
+	if (is.plainObject(ajax) && ajax.data) {
 		ajaxData = ajax.data;
 
 		var newData =
@@ -60,7 +62,7 @@ export function buildAjax(oSettings: Context, data, fn) {
 				: ajaxData; // an object or array to merge
 
 		// If the function returned something, use that alone
-		data = typeof ajaxData === 'function' && newData ? newData : $.extend(true, data, newData);
+		data = typeof ajaxData === 'function' && newData ? newData : object.assignDeep(data, newData);
 
 		// Remove the data property as we've resolved it already and don't want
 		// jQuery to do it again (it is restored at the end of the function)
@@ -97,8 +99,8 @@ export function buildAjax(oSettings: Context, data, fn) {
 	} as any; // TODO
 
 	// If `ajax` option is an object, extend and override our default base
-	if ($.isPlainObject(ajax)) {
-		$.extend(baseAjax, ajax);
+	if (is.plainObject(ajax)) {
+		object.assign(baseAjax, ajax);
 	}
 
 	// Store the data submitted for the API
@@ -269,7 +271,7 @@ export function ajaxUpdateDraw(settings: Context, json) {
 export function ajaxDataSrc(settings, json, write) {
 	var dataProp = 'data';
 
-	if ($.isPlainObject(settings.ajax) && settings.ajax.dataSrc !== undefined) {
+	if (is.plainObject(settings.ajax) && settings.ajax.dataSrc !== undefined) {
 		// Could in inside a `dataSrc` object, or not!
 		var dataSrc = settings.ajax.dataSrc;
 
@@ -305,7 +307,7 @@ export function ajaxDataSrc(settings, json, write) {
  * @returns Resolved value
  */
 export function ajaxDataSrcParam(settings, param, json) {
-	var dataSrc = $.isPlainObject(settings.ajax) ? settings.ajax.dataSrc : null;
+	var dataSrc = is.plainObject(settings.ajax) ? settings.ajax.dataSrc : null;
 
 	if (dataSrc && dataSrc[param]) {
 		// Get from custom location
