@@ -1,5 +1,7 @@
 
+import dom from "../dom";
 import ext from "../ext/index";
+import { arrayLike } from "../util/is";
 import Api from "./base";
 
 // Can be assigned in DateTable.use()
@@ -167,21 +169,27 @@ export function versionCheck( version, version2 )
  */
 export function isDataTable( table )
 {
-	var t = $(table).get(0);
+	var t = dom.s(table).get(0);
 	var is = false;
 
 	if ( table instanceof Api ) {
 		return true;
 	}
+	else if (arrayLike(table)) {
+		// jQuery compatibility
+		table = Array.from(table);
+	}
 
-	$.each( ext.settings, function (i, o) {
-		var head = o.nScrollHead ? $('table', o.nScrollHead)[0] : null;
-		var foot = o.nScrollFoot ? $('table', o.nScrollFoot)[0] : null;
+	for (let i=0 ; i<ext.settings.length ; i++) {
+		let ctx = ext.settings[i];
 
-		if ( o.nTable === t || head === t || foot === t ) {
+		var head = ctx.nScrollHead ? dom.s(ctx.nScrollHead).find('table').get(0) : null;
+		var foot = ctx.nScrollFoot ? dom.s(ctx.nScrollFoot).find('table').get(0) : null;
+
+		if ( ctx.nTable === t || head === t || foot === t ) {
 			is = true;
 		}
-	} );
+	}
 
 	return is;
 };

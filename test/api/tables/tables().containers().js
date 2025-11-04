@@ -46,7 +46,7 @@ describe('tables - tables().containers()', function() {
 		dt.html('basic');
 		it('Returns the body when scrollY enabled', function() {
 			let table = $('#example').DataTable({
-				scrollY: true
+				scrollY: 200
 			});
 			expect(table.tables().containers()[0]).toBe($('div.dt-container').get(0));
 		});
@@ -83,7 +83,7 @@ describe('tables - tables().containers()', function() {
 		dt.html('two_tables');
 		it('Returns the body when scrollY enabled', function() {
 			let tables = $('table').DataTable({
-				scrollY: true
+				scrollY: 200
 			});
 			expect(tables.tables().containers()[0]).toBe($('#example_one_wrapper').get(0));
 			expect(tables.tables().containers()[1]).toBe($('#example_two_wrapper').get(0));

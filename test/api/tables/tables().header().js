@@ -47,7 +47,7 @@ describe('tables - tables().header()', function() {
 		dt.html('basic');
 		it('Returns the header when scrollY enabled', function() {
 			let table = $('#example').DataTable({
-				scrollY: true
+				scrollY: 200
 			});
 			expect(table.tables().header()[0]).toBe($('div.dt-scroll-head thead').get(0));
 		});
@@ -84,7 +84,7 @@ describe('tables - tables().header()', function() {
 		dt.html('two_tables');
 		it('Returns the header when scrollY enabled', function() {
 			let tables = $('[id^=example]').DataTable({
-				scrollY: true
+				scrollY: 200
 			});
 			expect(tables.tables().header()[0]).toBe($('div.dt-scroll-head thead').get(0));
 			expect(tables.tables().header()[1]).toBe($('div.dt-scroll-head thead').get(1));

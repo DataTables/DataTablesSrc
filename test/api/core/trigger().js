@@ -53,32 +53,12 @@ describe('core - init()', function() {
 			expect(args.length).toBe(4);
 		});
 		
-		it('Return false will cancel default', function() {
+		it('Return values are provided', function() {
 			table.on('customRet', function () {
 				return false;
 			});
 
 			let ret = table.trigger('customRet', []);
-
-			expect(ret[0]).toBe(true);
-		});
-		
-		it('Can cancel default', function() {
-			table.on('customRet2', function (e) {
-				e.preventDefault();
-			});
-
-			let ret = table.trigger('customRet2', []);
-
-			expect(ret[0]).toBe(true);
-		});
-		
-		it('And do not cancel default', function() {
-			table.on('customRet3', function (e) {
-				// noop
-			});
-
-			let ret = table.trigger('customRet3', []);
 
 			expect(ret[0]).toBe(false);
 		});

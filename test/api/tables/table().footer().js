@@ -37,7 +37,7 @@ describe('tables - table().footer()', function() {
 		dt.html('basic');
 		it('Returns the footer when scrollY enabled', function() {
 			let table = $('#example').DataTable({
-				scrollY: true
+				scrollY: 200
 			});
 			expect(table.table().footer()).toBe($('div.dt-scroll-foot tfoot').get(0));
 		});

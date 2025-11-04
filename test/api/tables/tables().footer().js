@@ -47,7 +47,7 @@ describe('tables - tables().footer()', function() {
 		dt.html('basic');
 		it('Returns the footer when scrollY enabled', function() {
 			let table = $('#example').DataTable({
-				scrollY: true
+				scrollY: 200
 			});
 			expect(table.tables().footer()[0]).toBe($('div.dt-scroll-foot tfoot').get(0));
 		});
@@ -84,7 +84,7 @@ describe('tables - tables().footer()', function() {
 		dt.html('two_tables');
 		it('Returns the footer when scrollY enabled', function() {
 			let tables = $('table').DataTable({
-				scrollY: true
+				scrollY: 200
 			});
 			expect(tables.tables().footer()[0]).toBe($('div.dt-scroll-foot tfoot').get(0));
 			expect(tables.tables().footer()[1]).toBe($('div.dt-scroll-foot tfoot').get(1));

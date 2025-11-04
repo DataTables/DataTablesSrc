@@ -138,7 +138,7 @@ export function callbackFire(
 	callbackArr: string | null,
 	eventName: string | null,
 	args: any,
-	bubbles?: boolean
+	bubbles: boolean=false
 ) {
 	var ret: any[] = [];
 

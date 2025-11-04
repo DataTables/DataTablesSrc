@@ -37,7 +37,7 @@ describe('tables - table().header()', function() {
 		dt.html('basic');
 		it('Returns the header when scrollY enabled', function() {
 			let table = $('#example').DataTable({
-				scrollY: true
+				scrollY: 200
 			});
 			expect(table.table().header()).toBe($('div.dt-scroll-head thead').get(0));
 		});

@@ -4,7 +4,7 @@ import { getCellData } from "../core/data";
 import { drawHead } from "../core/draw";
 import { colGroup } from "../core/sizing";
 import { saveState } from "../core/state";
-import { pluck, pluckOrder, range } from "../util/array";
+import { pluck, pluckOrder, range, removeEmpty } from "../util/array";
 import { intVal } from "../util/conv";
 import Api from "./base";
 import { selector_first, selector_opts, selector_row_indexes, selector_run } from "./selectors";
@@ -263,7 +263,7 @@ var __setColumnVis = function ( settings, column, vis ) {
 	}
 	else {
 		// Remove column
-		$( pluck( settings.aoData, 'anCells', column ) ).detach();
+		$( removeEmpty( pluck( settings.aoData, 'anCells', column ) ) ).detach();
 	}
 
 	// Common actions
@@ -354,7 +354,7 @@ Api.registerPlural( 'columns().names()', 'column().name()', function () {
 
 Api.registerPlural( 'columns().nodes()', 'column().nodes()', function () {
 	return this.iterator( 'column-rows', function ( settings, column, i, j, rows ) {
-		return pluckOrder( settings.aoData, rows, 'anCells', column ) ;
+		return removeEmpty( pluckOrder( settings.aoData, rows, 'anCells', column ) );
 	}, 1 );
 } );
 
