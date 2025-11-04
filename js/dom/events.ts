@@ -319,7 +319,8 @@ export function trigger(
 
 		jq(el)[method](ev, args);
 
-		return ev.isDefaultPrevented();
+		// See note below regarding the inversion
+		return ! ev.isDefaultPrevented();
 	}
 
 	// No jQuery
@@ -341,5 +342,8 @@ export function trigger(
 
 	el.dispatchEvent(event);
 
-	return event.defaultPrevented;
+	// A lot of the old DataTables stuff checks for a `false` return to prevent
+	// the default action. To maintain compatibility we return an inverted
+	// `defaultPrevented` here - i.e. it becomes `do default`.
+	return ! event.defaultPrevented;
 }

@@ -2,12 +2,12 @@
 import { callbackFire, log } from '../api/support';
 import util from '../api/util';
 import Context from '../model/settings';
+import * as is from '../util/is';
+import * as object from '../util/object';
 import { columnTypes } from './columns';
 import { addData, clearTable } from './data';
 import { draw } from './draw';
 import { initComplete } from './init';
-import * as is from '../util/is';
-import * as object from '../util/object';
 import { processingDisplay } from './processing';
 import { sortFlatten } from './sort';
 
@@ -85,7 +85,7 @@ export function buildAjax(oSettings: Context, data, fn) {
 				true
 			);
 
-			if (ret.indexOf(true) === -1) { // ALLAN - is this right now!? Needs to be flipped? What was the idea?
+			if (ret.indexOf(false) === -1) {
 				if (error == 'parsererror') {
 					log(oSettings, 0, 'Invalid JSON response', 1);
 				}

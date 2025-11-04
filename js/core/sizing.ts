@@ -80,8 +80,8 @@ export function calculateColumnWidths(settings: Context) {
 	// from the cloned table, since if scrolling is active, the table's
 	// real header and footer are contained in different table tags
 	tmpTable
-		.append(settings.nTHead.cloneNode())
-		.append(settings.nTFoot.cloneNode());
+		.append(settings.nTHead.cloneNode(true))
+		.append(settings.nTFoot.cloneNode(true));
 
 	// Remove any assigned widths from the footer (from scrolling)
 	tmpTable.find('tfoot th, tfoot td').css('width', '');
@@ -89,16 +89,16 @@ export function calculateColumnWidths(settings: Context) {
 	// Apply custom sizing to the cloned header
 	tmpTable.find('thead th, thead td').each(cell => {
 		// Get the `width` from the header layout
-		var width = columnsSumWidth(settings, this, true, false);
+		var width = columnsSumWidth(settings, cell, true, false);
 
 		if (width) {
-			this.style.width = width;
+			cell.style.width = width;
 
 			// For scrollX we need to force the column width otherwise the
 			// browser will collapse it. If this width is smaller than the
 			// width the column requires, then it will have no effect
 			if (scrollX) {
-				this.style.minWidth = width;
+				cell.style.minWidth = width;
 
 				dom.s(cell).append(
 					dom.c('div').css({
@@ -112,7 +112,7 @@ export function calculateColumnWidths(settings: Context) {
 			}
 		}
 		else {
-			this.style.width = '';
+			cell.style.width = '';
 		}
 	});
 

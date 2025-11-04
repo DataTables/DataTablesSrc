@@ -364,7 +364,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 */
 	each(callback: (el: T, idx: number) => void) {
 		for (let i = 0; i < this._store.length; i++) {
-			callback(this._store[i], i);
+			let el = this._store[i];
+
+			callback(el, i);
 		}
 
 		return this;

@@ -122,7 +122,7 @@ export function implementState(
 		'stateLoadParams',
 		[settings, s]
 	);
-	if (abStateLoad.indexOf(true) !== -1) {
+	if (abStateLoad.indexOf(false) !== -1) {
 		settings._bLoadingState = false;
 		callback();
 		return;

@@ -1,9 +1,9 @@
 import { callbackFire, dataSource, escapeObject, log } from '../api/support';
 import dom, { Dom } from '../dom';
-import * as is from '../util/is';
 import ext from '../ext/index';
 import Context from '../model/settings';
 import { pluck, range, unique } from '../util/array';
+import * as is from '../util/is';
 import { stripHtml } from '../util/string';
 import { ajaxUpdate } from './ajax';
 import { columnOptions, columnTypes, visibleColumns } from './columns';
@@ -383,7 +383,7 @@ export function draw(oSettings, ajaxComplete?) {
 	var aPreDraw = callbackFire(oSettings, 'aoPreDrawCallback', 'preDraw', [
 		oSettings,
 	]);
-	if (aPreDraw.indexOf(true) !== -1) {
+	if (aPreDraw.indexOf(false) !== -1) {
 		processingDisplay(oSettings, false);
 		return;
 	}

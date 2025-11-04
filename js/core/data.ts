@@ -265,7 +265,7 @@ export function invalidate( settings: Context, rowIdx, src, colIdx? )
 		var cells = row.anCells;
 		var display = getRowDisplay(settings, rowIdx);
 
-		if ( cells ) {
+		if ( cells.length ) {
 			if ( colIdx !== undefined ) {
 				writeCell(cells[colIdx], display[colIdx]);
 			}

@@ -3,11 +3,17 @@ import { reFormattedNumeric } from './regex';
 import { stripHtml } from './string';
 
 export function arrayLike(test: any) {
-	return test && test.length !== undefined;
+	return (
+		test && // Exists
+		typeof test !== 'string' && // Is not a string
+		test.length !== undefined && // Has a length
+		test.nodeType === undefined // Is not a text node
+	);
 }
 
 /**
- * Check if a value is empty or not. Note that a string with `-` is considered empty
+ * Check if a value is empty or not. Note that a string with `-` is considered
+ * empty
  *
  * @param d Value to check
  * @returns `true` if empty, `false` otherwise
@@ -17,8 +23,8 @@ export function empty<T>(d: T): boolean {
 }
 
 /**
- * Check if a string is HTML. Note that a string without HTML in it can be considered to be HTML
- * still!
+ * Check if a string is HTML. Note that a string without HTML in it can be
+ * considered to be HTML still!
  *
  * @todo Can we drop this?
  * @param d
@@ -60,8 +66,8 @@ export function htmlNum(
 }
 
 /**
- * Check if a given value is numeric, taking into account if it might be formatted or uses a
- * decimal point that is not a period.
+ * Check if a given value is numeric, taking into account if it might be
+ * formatted or uses a decimal point that is not a period.
  *
  * @param d Value to check
  * @param decimalPoint DP character

@@ -147,10 +147,10 @@ export function featureHtmlTable(settings: Context) {
 		scrollBody.scrollLeft(scrollLeft);
 	});
 
-	scrollBody.css('max-height', scrollY);
+	scrollBody.css('max-height', size(scrollY));
 
 	if (!scroll.bCollapse) {
-		scrollBody.css('height', scrollY);
+		scrollBody.css('height', size(scrollY));
 	}
 
 	settings.nScrollHead = scrollHead;

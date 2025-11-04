@@ -41,7 +41,7 @@ interface IScroll {
 	 * if an empty string.
 	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	sY: string;
+	sY: string | number;
 }
 
 export interface OrderIdx {
