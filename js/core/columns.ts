@@ -2,6 +2,7 @@
 import { callbackFire, map } from '../api/support';
 import util from '../api/util';
 import dom from '../dom';
+import * as is from '../util/is';
 import helpers from '../ext/helpers';
 import ext from '../ext/index';
 import columnDefaults from '../model/columns/defaults';
@@ -119,7 +120,7 @@ export function columnOptions( oSettings, iCol, oOptions? )
 	var attrTest = function( src ) {
 		return typeof src === 'string' && src.indexOf('@') !== -1;
 	};
-	oCol._bAttrSrc = $.isPlainObject( mDataSrc ) && (
+	oCol._bAttrSrc = is.plainObject( mDataSrc ) && (
 		attrTest(mDataSrc.sort) || attrTest(mDataSrc.type) || attrTest(mDataSrc.filter)
 	);
 	oCol._setter = null;

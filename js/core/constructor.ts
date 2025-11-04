@@ -8,6 +8,7 @@ import columnDefaults from '../model/columns/defaults';
 import defaults from '../model/defaults';
 import Settings from '../model/settings';
 import * as object from "../util/object";
+import * as is from "../util/is";
 import { addColumn, applyColumnDefs, columnOptions } from "./columns";
 import { browserDetect, camelToHungarian, compatCols, compatOpts } from "./compat";
 import { getCellData } from "./data";
@@ -44,7 +45,7 @@ export default function (tableEl, _that, oInit, emptyInit) {
 	camelToHungarian( columnDefaults, columnDefaults, true );
 
 	/* Setting up the initialisation object */
-	camelToHungarian( defaults, $.extend( oInit, escapeObject($this.data()) ), true );
+	camelToHungarian( defaults, object.assign( oInit, escapeObject($this.data()) ), true );
 
 
 
@@ -102,7 +103,7 @@ export default function (tableEl, _that, oInit, emptyInit) {
 	$this.children('colgroup').remove();
 
 	/* Create the settings object for this table and set some of the default parameters */
-	var oSettings: any = $.extend( true, {}, new Settings(), {
+	var oSettings: any = object.assignDeep( new Settings(), {
 		"sDestroyWidth": $this[0].style.width,
 		"sInstance":     sId,
 		"sTableId":      sId,
@@ -111,6 +112,7 @@ export default function (tableEl, _that, oInit, emptyInit) {
 			return getCellData(oSettings, row, column, type);
 		}
 	} );
+
 	oSettings.nTable = tableEl;
 	oSettings.oInit  = oInit;
 
@@ -131,7 +133,7 @@ export default function (tableEl, _that, oInit, emptyInit) {
 	{
 		oInit.iDisplayLength = Array.isArray(oInit.aLengthMenu[0])
 			? oInit.aLengthMenu[0][0]
-			: $.isPlainObject( oInit.aLengthMenu[0] )
+			: is.plainObject( oInit.aLengthMenu[0] )
 				? oInit.aLengthMenu[0].value
 				: oInit.aLengthMenu[0];
 	}
@@ -218,7 +220,7 @@ export default function (tableEl, _that, oInit, emptyInit) {
 
 	var oClasses = oSettings.oClasses;
 
-	$.extend( oClasses, ext.classes, oInit.oClasses );
+	object.assign( oClasses, ext.classes, oInit.oClasses );
 	$this.addClass( oClasses.table );
 
 	if (! oSettings.oFeatures.bPaginate) {
@@ -383,7 +385,7 @@ export default function (tableEl, _that, oInit, emptyInit) {
 
 	// Language definitions
 	var oLanguage = oSettings.oLanguage;
-	$.extend( true, oLanguage, oInit.oLanguage );
+	object.assignDeep( oLanguage, oInit.oLanguage );
 
 	if ( oLanguage.sUrl ) {
 		// Get the language definitions from a file
@@ -392,7 +394,7 @@ export default function (tableEl, _that, oInit, emptyInit) {
 			url: oLanguage.sUrl,
 			success: function ( json ) {
 				camelToHungarian( (defaults as any).oLanguage, json );
-				$.extend( true, oLanguage, json, oSettings.oInit.oLanguage );
+				object.assignDeep( oLanguage, json, oSettings.oInit.oLanguage );
 
 				callbackFire( oSettings, null, 'i18n', [oSettings], true);
 				initialise( oSettings );

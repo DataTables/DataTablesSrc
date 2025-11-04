@@ -1,5 +1,6 @@
 import { callbackFire, dataSource, escapeObject, log } from '../api/support';
 import dom, { Dom } from '../dom';
+import * as is from '../util/is';
 import ext from '../ext/index';
 import Context from '../model/settings';
 import { pluck, range, unique } from '../util/array';
@@ -96,7 +97,7 @@ export function createTr(oSettings, iRow, nTrIn?, anTds?) {
 			if (
 				create ||
 				((oCol.mRender || oCol.mData !== i) &&
-					(!$.isPlainObject(oCol.mData) || oCol.mData._ !== i + '.display'))
+					(!is.plainObject(oCol.mData) || oCol.mData._ !== i + '.display'))
 			) {
 				writeCell(nTd, display[i]);
 			}
