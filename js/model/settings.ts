@@ -742,7 +742,7 @@ export default class Settings {
 	public orderHandler = true;
 
 	/** Title row indicator */
-	public titleRow = null;
+	public titleRow: boolean | number | null = null;
 
 	public _bLoadingState: boolean;
 
