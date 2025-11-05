@@ -73,7 +73,13 @@ export default class Settings {
 	 * as a compliment to mRender allowing you to modify the DOM element (add
 	 * background colour for example) when the element is available.
 	 */
-	public fnCreatedCell = null;
+	public fnCreatedCell: (
+		cell: HTMLTableCellElement,
+		cellData: any,
+		rowData: any,
+		rowIndex: number,
+		colIdx: number
+	) => void;
 
 	/**
 	 * Function to get data from a cell in a column. You should <b>never</b>
@@ -183,4 +189,6 @@ export default class Settings {
 	public footer: string;
 
 	public className: string;
+
+	public sCellType: string;
 }

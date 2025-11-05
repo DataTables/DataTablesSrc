@@ -1,3 +1,15 @@
+
+export interface TableRow extends HTMLTableRowElement {
+	_DT_RowIndex?: number;
+}
+
+export interface TableCell extends HTMLTableCellElement {
+	_DT_CellIndex?: {
+		column: number;
+		row: number;
+	}
+}
+
 /**
  * Template object for the way in which DataTables holds information about
  * each individual row. This is the object format used for the settings
@@ -7,13 +19,13 @@ export default {
 	/**
 	 * TR element for the row
 	 */
-	nTr: null as HTMLTableRowElement | null,
+	nTr: null as TableRow | null,
 
 	/**
 	 * Array of TD elements for each row. This is null until the row has been
 	 * created.
 	 */
-	anCells: [] as Array<HTMLTableCellElement>,
+	anCells: [] as Array<TableCell>,
 
 	/**
 	 * Data object from the original data source for the row. This is either
@@ -22,7 +34,7 @@ export default {
 	 * data from the data source, or will be an array if using DOM a data
 	 * source.
 	 */
-	_aData: [] as any[],
+	_aData: [] as any,
 
 	/**
 	 * Sorting data cache - this array is ostensibly the same length as the
@@ -66,5 +78,10 @@ export default {
 	/**
 	 * Cached display value
 	 */
-	displayData: null
+	displayData: null as Array<any> | null,
+
+	/**
+	 * List of classes for removal
+	 */
+	__rowc: [] as string[]
 }

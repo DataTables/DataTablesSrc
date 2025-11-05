@@ -3,6 +3,7 @@ import * as object from '../util/object';
 import { PlainObject } from '../util/types';
 import * as events from './events';
 
+type AttributeTypes = string | number | boolean | null;
 type TSelector = string | Element | HTMLElement | Document | Array<TSelector>;
 type TDimensionInclude =
 	| 'outer' // alias to withBorder
@@ -148,7 +149,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param name Attribute name
 	 * @returns Read value
 	 */
-	attr(name: string): string | null;
+	attr(name: string): string;
 
 	/**
 	 * Set an attribute's value for all items in the result set.
@@ -157,16 +158,16 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param value Value to give the attribute
 	 * @returns Self for chaining
 	 */
-	attr(name: string, value: string | null | boolean | number): this;
+	attr(name: string, value: AttributeTypes): this;
 
 	/**
 	 * Set multiple attributes of the elements in the result set
 	 *
 	 * @param attributes Plain object of attributes to be assigned
 	 */
-	attr(attributes: Record<string, string | null | boolean | number>): this;
+	attr(attributes: Record<string, AttributeTypes>): this;
 
-	attr(name: any, value?: string | null | boolean | number) {
+	attr(name: any, value?: AttributeTypes) {
 		if (typeof name === 'string' && value === undefined) {
 			return this.count() ? this._store[0].getAttribute(name) : null;
 		}
@@ -357,6 +358,93 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Get all the data attributes for an element
+	 *
+	 * @returns Read values
+	 */
+	data(): Record<string, AttributeTypes>;
+
+	/**
+	 * Get a data attribute's value from the first item in the result set. Can
+	 * be null.
+	 *
+	 * @param name Data attribute name (don't include the `data` prefix)
+	 * @returns Read value
+	 */
+	data<T=AttributeTypes>(name: string): T;
+
+	/**
+	 * Set a data attribute's value for all items in the result set.
+	 *
+	 * @param name Attribute name (don't include the `data` prefix)
+	 * @param value Value to give the data attribute
+	 * @returns Self for chaining
+	 */
+	data(name: string, value: AttributeTypes): this;
+
+	/**
+	 * Set multiple data attributes of the elements in the result set
+	 *
+	 * @param attributes Plain object of data attributes to be assigned
+	 */
+	data(attributes: Record<string, AttributeTypes>): this;
+
+	data(name?: any, value?: string | null | boolean | number) {
+		if (!name) {
+			let out: Record<string, AttributeTypes> = {};
+
+			if (!this.count()) {
+				return out;
+			}
+
+			Array.from(this._store[0].attributes).forEach(attr => {
+				if (attr.name.startsWith('data-')) {
+					out[attr.name.replace('data-', '')] = dataConvert(attr.value);
+				}
+			});
+
+			return out;
+		}
+
+		if (typeof name === 'string' && value === undefined) {
+			return dataConvert(this.attr('data-' + name));
+		}
+
+		if (typeof name === 'string') {
+			this.attr('data-' + name, value!);
+		}
+		else {
+			object.each<string>(name, (key, val) => {
+				this.attr('data-' + key, val);
+			});
+		}
+
+		return this;
+	}
+
+	/**
+	 * Remove the elements in the result set from the document. Does not remove
+	 * event listeners.
+	 *
+	 * @returns Self for chaining
+	 */
+	detach() {
+		return this.each(el => el.remove());
+	}
+
+	/**
+	 * Remove the child elements from each element in the result set from the
+	 * document. Does not remove event listeners.
+	 *
+	 * @returns Self for chaining
+	 */
+	detachChildren() {
+		return this.each(el => {
+			el.replaceChildren();
+		});
+	}
+
+	/**
 	 * Iterate over each item in the result set and perform an action
 	 *
 	 * @param callback Callback function
@@ -378,7 +466,18 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @returns Self for chaining
 	 */
 	empty() {
-		return this.each(el => el.replaceChildren());
+		// TODO should remove event listeners
+
+		return this.each(el => {
+			if (el.replaceChildren) {
+				el.replaceChildren();
+			}
+			else {
+				while (el.childNodes.length) {
+					el.firstChild?.remove();
+				}
+			}
+		});
 	}
 
 	/**
@@ -405,6 +504,23 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 	get(idx?: number) {
 		return idx !== undefined ? this._store[idx] : this._store;
+	}
+
+	/**
+	 * Get the parent element for each element in the result set
+	 *
+	 * @param filter Optional selector that the parent element would need to
+	 *   match to be selected.
+	 * @returns New Dom instance containing the parent elements
+	 */
+	filter(filter?: string) {
+		return this.map(el => {
+			if (filter) {
+				return el.matches(filter) ? el : null;
+			}
+
+			return el;
+		});
 	}
 
 	/**
@@ -771,10 +887,20 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	/**
 	 * Get the parent element for each element in the result set
 	 *
+	 * @param filter Optional selector that the parent element would need to
+	 *   match to be selected.
 	 * @returns New Dom instance containing the parent elements
 	 */
-	parent() {
-		return this.map(el => el.parentElement);
+	parent(filter?: string) {
+		return this.map(el => {
+			let parent = el.parentElement;
+
+			if (filter) {
+				return parent?.matches(filter) ? parent : null;
+			}
+
+			return parent;
+		});
 	}
 
 	/**
@@ -818,6 +944,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @returns Self for chaining
 	 */
 	remove() {
+		// TODO this should remove event listeners
+
 		return this.each(el => el.remove());
 	}
 
@@ -1083,6 +1211,26 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			);
 		}
 	}
+}
+
+/**
+ * Convert a data value into a typed value
+ *
+ * @param val Data to convert
+ * @returns Converted value
+ */
+function dataConvert(val: string | null): AttributeTypes {
+	if (val === 'true') {
+		return true;
+	}
+	else if (val === 'false') {
+		return false;
+	}
+	else if (is.num(val)) {
+		return parseFloat(val!);
+	}
+
+	return val;
 }
 
 function normaliseEventParams(name?: string, arg2?: any, arg3?: any) {

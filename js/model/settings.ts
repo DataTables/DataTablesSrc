@@ -66,6 +66,15 @@ export interface OrderState extends OrderColumn {
 	_idx?: number;
 }
 
+export interface HeaderStructureCell {
+	cell: HTMLElement;
+	unique: boolean;
+}
+
+export interface HeaderStructure extends Array<HeaderStructureCell> {
+	row: HTMLElement;
+}
+
 /**
  * DataTables settings class. This holds all the information needed for a
  * given table, including configuration and data. Devs do not interact with
@@ -191,6 +200,9 @@ export default class Settings {
 		sSearch: '',
 		sSearchPlaceholder: '',
 		sProcessing: '',
+		sZeroRecords: '',
+		sLoadingRecords: '',
+		sEmptyTable: '',
 
 		oAria: {
 			orderable: '',
@@ -706,7 +718,7 @@ export default class Settings {
 	public colgroup: Dom;
 
 	/** Delay loading of data */
-	public deferLoading = null;
+	public deferLoading: boolean;
 
 	/** Allow auto type detection */
 	public typeDetect = true;
@@ -739,7 +751,7 @@ export default class Settings {
 	public iInitDisplayStart: number;
 	public sortDetails;
 	public scrollBarVis: boolean;
-	public _drawHold: boolean;
+	public _drawHold: boolean | undefined;
 	public _rowReadObject: boolean = false;
 	public _infoEl: Dom;
 	public _bInitComplete: boolean = false;
