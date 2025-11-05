@@ -277,7 +277,7 @@ export default class Settings {
 	/**
 	 * Map of row ids to data indexes
 	 */
-	public aIds = {};
+	public aIds: Record<string, typeof rowModel> = {};
 
 	/**
 	 * Store information about each column that is in use

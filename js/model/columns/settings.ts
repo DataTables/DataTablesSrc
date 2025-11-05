@@ -1,4 +1,5 @@
 import { Dom } from '../../dom';
+import { SetFunction } from '../../util/types';
 import { SearchInput } from "../search";
 
 /**
@@ -191,4 +192,6 @@ export default class Settings {
 	public className: string;
 
 	public sCellType: string;
+
+	public _setter: SetFunction;
 }

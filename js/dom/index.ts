@@ -197,9 +197,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param selector Query string that the child much match to be selected
 	 * @returns New Dom instance with children as the result set
 	 */
-	children(selector?: string) {
-		return this.map(el => {
-			let children = Array.from(el.children) as unknown as HTMLElement[];
+	children<R extends HTMLElement = HTMLElement>(selector?: string) {
+		return this.map<R>(el => {
+			let children = Array.from(el.children) as unknown as R[];
 
 			return selector
 				? children.filter(child => child.matches(selector))

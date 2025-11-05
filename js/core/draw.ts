@@ -362,26 +362,23 @@ export function headerLayout(
  * @param source Layout array from detectHeader
  */
 export function drawHead(settings: Context, source: HeaderStructure[]) {
-	var layout = headerLayout(settings, source);
-	var tr, n;
+	let layout = headerLayout(settings, source);
+	let tr;
 
 	if (!layout) {
 		return;
 	}
 
-	for (var row = 0; row < source.length; row++) {
+	for (let row = 0; row < source.length; row++) {
 		tr = source[row].row;
 
 		// All cells are going to be replaced, so empty out the row
-		// Can't use $().empty() as that kills event handlers
 		if (tr) {
-			while ((n = tr.firstChild)) {
-				tr.removeChild(n);
-			}
+			dom.s(tr).detachChildren();
 		}
 
-		for (var column = 0; column < layout[row].length; column++) {
-			var point = layout[row][column];
+		for (let column = 0; column < layout[row].length; column++) {
+			let point = layout[row][column];
 
 			if (point) {
 				dom

@@ -1,6 +1,7 @@
 
 import { addData, addTr, invalidate } from "../core/data";
 import { sortDisplay } from "../core/sort";
+import dom from "../dom";
 import { pluckOrder, removeEmpty } from "../util/array";
 import { intVal } from "../util/conv";
 import Api from "./base";
@@ -233,7 +234,7 @@ Api.register( 'rows.add()', function ( rows ) {
 				row = rows[i];
 
 				if ( row.nodeName && row.nodeName.toUpperCase() === 'TR' ) {
-					out.push( addTr( settings, row )[0] );
+					out.push( addTr( settings, dom.s(row) )[0] );
 				}
 				else {
 					out.push( addData( settings, row ) );
@@ -313,7 +314,7 @@ Api.register( 'row.add()', function ( row ) {
 
 	var rows = this.iterator( 'table', function ( settings ) {
 		if ( row.nodeName && row.nodeName.toUpperCase() === 'TR' ) {
-			return addTr( settings, row )[0];
+			return addTr( settings, dom.s(row) )[0];
 		}
 		return addData( settings, row );
 	} );
