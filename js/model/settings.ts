@@ -6,7 +6,6 @@ import { Layout } from './interface';
 import rowModel from './row';
 import Search, { SearchInput, SearchOptions } from './search';
 import { State, StateLoad } from './state';
-import {num} from "../util/is";
 
 interface IScroll {
 	/**
