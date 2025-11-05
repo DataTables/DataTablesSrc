@@ -6,6 +6,7 @@ import { Layout } from './interface';
 import rowModel from './row';
 import Search, { SearchInput, SearchOptions } from './search';
 import { State, StateLoad } from './state';
+import {num} from "../util/is";
 
 interface IScroll {
 	/**
@@ -44,6 +45,92 @@ interface IScroll {
 	sY: string | number;
 }
 
+interface IFeatures {
+    /**
+     * Flag to say if DataTables should automatically try to calculate the
+     * optimum table and columns widths (true) or not (false).
+     * Note that this parameter will be set by the initialisation routine.
+     */
+    bAutoWidth: boolean | null;
+
+    /**
+     * Delay the creation of TR and TD elements until they are actually
+     * needed by a driven page draw. This can give a significant speed
+     * increase for Ajax source and JavaScript source data, but makes no
+     * difference at all for DOM and server-side processing tables.
+     * Note that this parameter will be set by the initialisation routine.
+     */
+    bDeferRender: boolean | null;
+
+    /**
+     * Enable filtering on the table or not. Note that if this is disabled
+     * then there is no filtering at all on the table, including fnFilter.
+     * To just remove the filtering input use sDom and remove the 'f' option.
+     * Note that this parameter will be set by the initialisation routine.
+     */
+    bFilter: boolean | null;
+
+    /**
+     * Used only for compatibility with DT1
+     * @deprecated
+     */
+    bInfo: boolean;
+
+    /**
+     * Used only for compatibility with DT1
+     * @deprecated
+     */
+    bLengthChange: boolean;
+
+    /**
+     * Pagination enabled or not. Note that if this is disabled then length
+     * changing must also be disabled.
+     * Note that this parameter will be set by the initialisation routine.
+     */
+    bPaginate: boolean | null;
+
+    /**
+     * Processing indicator enable flag whenever DataTables is enacting a
+     * user request - typically an Ajax request for server-side processing.
+     * Note that this parameter will be set by the initialisation routine.
+     */
+    bProcessing: boolean | null;
+
+    /**
+     * Server-side processing enabled flag - when enabled DataTables will
+     * get all data from the server for every draw - there is no filtering,
+     * sorting or paging done on the client-side.
+     * Note that this parameter will be set by the initialisation routine.
+     */
+    bServerSide: boolean | null;
+
+    /**
+     * Sorting enablement flag.
+     * Note that this parameter will be set by the initialisation routine.
+     */
+    bSort: boolean | null;
+
+    /**
+     * Multi-column sorting
+     * Note that this parameter will be set by the initialisation routine.
+     */
+    bSortMulti: boolean | null;
+
+    /**
+     * Apply a class to the columns which are being sorted to provide a
+     * visual highlight or not. This can slow things down when enabled since
+     * there is a lot of DOM interaction.
+     * Note that this parameter will be set by the initialisation routine.
+     */
+    bSortClasses: boolean | null;
+
+    /**
+     * State saving enablement flag.
+     * Note that this parameter will be set by the initialisation routine.
+     */
+    bStateSave: boolean | null;
+}
+
 export interface OrderIdx {
 	idx: number;
 	dir: 'asc' | 'desc';
@@ -77,90 +164,19 @@ export default class Settings {
 	public api: any; // TODO
 	public renderer: any; // TODO
 
-	public oFeatures = {
-		/**
-		 * Flag to say if DataTables should automatically try to calculate the
-		 * optimum table and columns widths (true) or not (false).
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
+	public oFeatures : IFeatures = {
 		bAutoWidth: null,
-
-		/**
-		 * Delay the creation of TR and TD elements until they are actually
-		 * needed by a driven page draw. This can give a significant speed
-		 * increase for Ajax source and JavaScript source data, but makes no
-		 * difference at all for DOM and server-side processing tables.
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
 		bDeferRender: null,
-
-		/**
-		 * Enable filtering on the table or not. Note that if this is disabled
-		 * then there is no filtering at all on the table, including fnFilter.
-		 * To just remove the filtering input use sDom and remove the 'f' option.
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
 		bFilter: null,
-
-		/**
-		 * Used only for compatibility with DT1
-		 * @deprecated
-		 */
 		bInfo: true,
-
-		/**
-		 * Used only for compatibility with DT1
-		 * @deprecated
-		 */
 		bLengthChange: true,
-
-		/**
-		 * Pagination enabled or not. Note that if this is disabled then length
-		 * changing must also be disabled.
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
 		bPaginate: null,
-
-		/**
-		 * Processing indicator enable flag whenever DataTables is enacting a
-		 * user request - typically an Ajax request for server-side processing.
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
 		bProcessing: null,
-
-		/**
-		 * Server-side processing enabled flag - when enabled DataTables will
-		 * get all data from the server for every draw - there is no filtering,
-		 * sorting or paging done on the client-side.
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
 		bServerSide: null,
-
-		/**
-		 * Sorting enablement flag.
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
 		bSort: null,
-
-		/**
-		 * Multi-column sorting
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
 		bSortMulti: null,
-
-		/**
-		 * Apply a class to the columns which are being sorted to provide a
-		 * visual highlight or not. This can slow things down when enabled since
-		 * there is a lot of DOM interaction.
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
 		bSortClasses: null,
-
-		/**
-		 * State saving enablement flag.
-		 * Note that this parameter will be set by the initialisation routine.
-		 */
-		bStateSave: null
+		bStateSave: null,
 	};
 
 	/**
@@ -429,7 +445,7 @@ export default class Settings {
 	/**
 	 * Search delay (in mS)
 	 */
-	public searchDelay = null;
+	public searchDelay: number | null = null;
 
 	/**
 	 * Which type of pagination should be used.
@@ -513,13 +529,13 @@ export default class Settings {
 	 * required).
 	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	public sServerMethod = null;
+	public sServerMethod: string | null = null;
 
 	/**
 	 * Format numbers for display.
 	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	public fnFormatNumber;
+	public fnFormatNumber: (num: number) => string;
 
 	/**
 	 * List of options that can be used for the user selectable length menu.
@@ -594,7 +610,7 @@ export default class Settings {
 	 * Indicate that if multiple rows are in the header and there is more than
 	 * one unique cell per column. Replaced by titleRow
 	 */
-	public bSortCellsTop = null;
+	public bSortCellsTop: boolean | null = null;
 
 	/**
 	 * Initialisation object that is used for the table
@@ -697,7 +713,7 @@ export default class Settings {
 	/**
 	 * Data location where to store a row's id
 	 */
-	public rowId = null;
+	public rowId: string | null = null;
 
 	public caption = '';
 
@@ -718,7 +734,7 @@ export default class Settings {
 	public containerWidth = -1;
 
 	/** Reverse the initial order of the data set on desc ordering */
-	public orderDescReverse = null;
+	public orderDescReverse: boolean | null = null;
 
 	/** Show / hide ordering indicators in headers */
 	public orderIndicators = true;
@@ -729,7 +745,7 @@ export default class Settings {
 	/** Title row indicator */
 	public titleRow = null;
 
-	public _bLoadingState;
+	public _bLoadingState: boolean;
 
 	public bDestroying = false;
 
