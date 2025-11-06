@@ -94,7 +94,7 @@ export function sortAttachListener(
 		var run = false;
 		var columns =
 			column === undefined
-				? columnsFromHeader(e.target as Element)
+				? columnsFromHeader(e.target as HTMLElement)
 				: typeof column === 'function'
 				? column()
 				: Array.isArray(column)

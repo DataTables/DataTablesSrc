@@ -1,14 +1,13 @@
-
 import { callbackFire, map } from '../api/support';
 import util from '../api/util';
 import dom from '../dom';
-import * as is from '../util/is';
 import helpers from '../ext/helpers';
 import ext from '../ext/index';
-import columnDefaults from '../model/columns/defaults';
+import columnDefaults, { ConfigColumnDefs } from '../model/columns/defaults';
 import ColumnModel from '../model/columns/settings';
 import search, { SearchOptions } from '../model/search';
-import Context from '../model/settings';
+import Context, { HeaderStructure } from '../model/settings';
+import * as is from '../util/is';
 import { empty } from '../util/is';
 import { assign } from '../util/object';
 import { camelToHungarian, compatCols } from './compat';
@@ -18,73 +17,63 @@ import { calculateColumnWidths } from './sizing';
 
 /**
  * Add a column to the list used for the table with default values
- *  @param {object} oSettings dataTables settings object
- *  @memberof DataTable#oApi
+ *
+ * @param settings DataTables settings object
  */
-export function addColumn( oSettings: Context )
-{
+export function addColumn(settings: Context) {
 	// Add column to aoColumns array
-	var oDefaults = columnDefaults;
-	var iCol = oSettings.aoColumns.length;
-	var oCol = assign<ColumnModel>( {}, new ColumnModel(), oDefaults, {
-		"aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
-		"mData": oDefaults.mData ? oDefaults.mData : iCol,
+	let oDefaults = columnDefaults;
+	let iCol = settings.aoColumns.length;
+	let oCol = assign<ColumnModel>({}, new ColumnModel(), oDefaults, {
+		aDataSort: oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
+		mData: oDefaults.mData ? oDefaults.mData : iCol,
 		idx: iCol,
 		searchFixed: {},
-		colEl: dom.c<HTMLTableColElement>('col').attr('data-dt-column', iCol)
-	} );
-	oSettings.aoColumns.push( oCol );
+		colEl: dom.c<HTMLTableColElement>('col').attr('data-dt-column', iCol),
+	});
+
+	settings.aoColumns.push(oCol);
 
 	// Add search object for column specific search. Note that the `searchCols[ iCol ]`
 	// passed into extend can be undefined. This allows the user to give a default
 	// with only some of the parameters defined, and also not give a default
-	var searchCols = oSettings.aoPreSearchCols;
-	searchCols[ iCol ] = assign<SearchOptions>( {}, search, searchCols[ iCol ] );
-}
+	let searchCols = settings.aoPreSearchCols;
 
+	searchCols[iCol] = assign<SearchOptions>({}, search, searchCols[iCol]);
+}
 
 /**
  * Apply options for a column
- *  @param {object} oSettings dataTables settings object
- *  @param {int} iCol column index to consider
- *  @param {object} oOptions object with sType, bVisible and bSearchable etc
- *  @memberof DataTable#oApi
+ *
+ * @param settings DataTables settings object
+ * @param colIdx column index to consider
+ * @param oOptions object with sType, bVisible and bSearchable etc
  */
-export function columnOptions( oSettings, iCol, oOptions? )
-{
-	var oCol = oSettings.aoColumns[ iCol ];
+export function columnOptions(settings: Context, colIdx: number, oOptions?: Partial<ColumnModel>) {
+	var oCol = settings.aoColumns[colIdx];
 
 	/* User specified column options */
-	if ( oOptions !== undefined && oOptions !== null )
-	{
+	if (oOptions !== undefined && oOptions !== null) {
 		// Backwards compatibility
-		compatCols( oOptions );
+		compatCols(oOptions);
 
 		// Map camel case parameters to their Hungarian counterparts
-		camelToHungarian( columnDefaults, oOptions, true );
+		camelToHungarian(columnDefaults, oOptions, true);
 
-		/* Backwards compatibility for mDataProp */
-		if ( oOptions.mDataProp !== undefined && !oOptions.mData )
-		{
-			oOptions.mData = oOptions.mDataProp;
-		}
-
-		if ( oOptions.sType )
-		{
+		if (oOptions.sType) {
 			oCol._sManualType = oOptions.sType;
 		}
-	
+
 		// `class` is a reserved word in JavaScript, so we need to provide
 		// the ability to use a valid name for the camel case input
-		if ( oOptions.className && ! oOptions.sClass )
-		{
+		if (oOptions.className && !oOptions.sClass) {
 			oOptions.sClass = oOptions.className;
 		}
 
 		var origClass = oCol.sClass;
 
-		assign( oCol, oOptions );
-		map( oCol, oOptions, "sWidth", "sWidthOrig" );
+		assign(oCol, oOptions);
+		map(oCol, oOptions, 'sWidth', 'sWidthOrig');
 
 		// Merge class from previously defined classes with this one, rather than just
 		// overwriting it in the extend above
@@ -95,100 +84,99 @@ export function columnOptions( oSettings, iCol, oOptions? )
 		/* iDataSort to be applied (backwards compatibility), but aDataSort will take
 		 * priority if defined
 		 */
-		if ( oOptions.iDataSort !== undefined )
-		{
-			oCol.aDataSort = [ oOptions.iDataSort ];
+		if (oOptions.iDataSort !== undefined) {
+			oCol.aDataSort = [oOptions.iDataSort];
 		}
-		map( oCol, oOptions, "aDataSort" );
+		map(oCol, oOptions, 'aDataSort');
 	}
 
 	/* Cache the data get and set functions for speed */
 	var mDataSrc = oCol.mData;
-	var mData = util.get( mDataSrc );
+	var mData = util.get(mDataSrc);
 
 	// The `render` option can be given as an array to access the helper rendering methods.
 	// The first element is the rendering method to use, the rest are the parameters to pass
-	if ( oCol.mRender && Array.isArray( oCol.mRender ) ) {
+	if (oCol.mRender && Array.isArray(oCol.mRender)) {
 		var copy = oCol.mRender.slice();
 		var name = copy.shift();
 
 		oCol.mRender = helpers[name].apply(window, copy);
 	}
 
-	oCol._render = oCol.mRender ? util.get( oCol.mRender ) : null;
+	oCol._render = oCol.mRender ? util.get(oCol.mRender) : null;
 
-	var attrTest = function( src ) {
+	var attrTest = function (src: any) {
 		return typeof src === 'string' && src.indexOf('@') !== -1;
 	};
-	oCol._bAttrSrc = is.plainObject( mDataSrc ) && (
-		attrTest(mDataSrc.sort) || attrTest(mDataSrc.type) || attrTest(mDataSrc.filter)
-	);
+	oCol._bAttrSrc =
+		!!mDataSrc && is.plainObject(mDataSrc) &&
+		(attrTest(mDataSrc.sort) ||
+			attrTest(mDataSrc.type) ||
+			attrTest(mDataSrc.filter));
 	oCol._setter = null;
 
 	oCol.fnGetData = function (rowData, type, meta) {
-		var innerData = mData( rowData, type, undefined, meta );
+		var innerData = mData(rowData, type, undefined, meta);
 
-		return oCol._render && type ?
-			oCol._render( innerData, type, rowData, meta ) :
-			innerData;
+		return oCol._render && type
+			? oCol._render(innerData, type, rowData, meta)
+			: innerData;
 	};
-	oCol.fnSetData = function ( rowData, val, meta ) {
-		return util.set( mDataSrc )( rowData, val, meta );
+	oCol.fnSetData = function (rowData, val, meta) {
+		return util.set(mDataSrc)(rowData, val, meta);
 	};
 
 	// Indicate if DataTables should read DOM data as an object or array
 	// Used in _fnGetRowElements
-	if ( typeof mDataSrc !== 'number' && ! oCol._isArrayHost ) {
-		oSettings._rowReadObject = true;
+	if (typeof mDataSrc !== 'number' && !oCol._isArrayHost) {
+		settings._rowReadObject = true;
 	}
 
 	/* Feature sorting overrides column specific when off */
-	if ( !oSettings.oFeatures.bSort )
-	{
+	if (!settings.oFeatures.bSort) {
 		oCol.bSortable = false;
 	}
 }
 
-
 /**
  * Adjust the table column widths for new data. Note: you would probably want to
  * do a redraw after calling this function!
- *  @param {object} settings dataTables settings object
- *  @memberof DataTable#oApi
+ *
+ * @param settings DataTables settings object
  */
-export function adjustColumnSizing ( settings )
-{
-	calculateColumnWidths( settings );
-	columnSizes( settings );
+export function adjustColumnSizing(settings: Context) {
+	calculateColumnWidths(settings);
+	columnSizes(settings);
 
-	var scroll = settings.oScroll;
-	if ( scroll.sY !== '' || scroll.sX !== '') {
-		scrollDraw( settings );
+	let scroll = settings.oScroll;
+
+	if (scroll.sY !== '' || scroll.sX !== '') {
+		scrollDraw(settings);
 	}
 
-	callbackFire( settings, null, 'column-sizing', [settings] );
+	callbackFire(settings, null, 'column-sizing', [settings]);
 }
 
 /**
  * Apply column sizes
  *
- * @param {*} settings DataTables settings object
+ * @param settings DataTables settings object
  */
-export function columnSizes ( settings )
-{
-	var cols = settings.aoColumns;
+export function columnSizes(settings: Context) {
+	let cols = settings.aoColumns;
 
-	for (var i=0 ; i<cols.length ; i++) {
-		var width = columnsSumWidth(settings, [i], false, false);
+	for (let i = 0; i < cols.length; i++) {
+		let width = columnsSumWidth(settings, [i], false, false);
 
-		cols[i].colEl.css('width', width);
+		if (width) {
+			cols[i].colEl.css('width', width);
 
-		if (settings.oScroll.sX) {
-			cols[i].colEl.css('min-width', width);
+			if (settings.oScroll.sX) {
+				cols[i].colEl.css('min-width', width);
+			}
 		}
 	}
 }
-
 
 /**
  * Convert the index of a visible column to the index in the data array (take account
@@ -198,48 +186,44 @@ export function columnSizes ( settings )
  * @param visIdx Visible column index to lookup
  * @returns i the data index
  */
-export function visibleToColumnIndex( settings: Context, visIdx: number )
-{
-	var aiVis = getColumns( settings, 'bVisible' );
+export function visibleToColumnIndex(settings: Context, visIdx: number) {
+	let aiVis = getColumns(settings, 'bVisible');
 
-	return typeof aiVis[visIdx] === 'number' ?
-		aiVis[visIdx] :
-		null;
+	return typeof aiVis[visIdx] === 'number' ? aiVis[visIdx] : null;
 }
-
 
 /**
  * Convert the index of an index in the data array and convert it to the visible
- *   column index (take account of hidden columns)
- *  @param {int} iMatch Column index to lookup
- *  @param {object} oSettings dataTables settings object
- *  @returns {int} i the data index
- *  @memberof DataTable#oApi
+ * column index (take account of hidden columns)
+ *
+ * @param settings DataTables settings object
+ * @param match Column index to lookup
+ * @returns The data index
  */
-export function columnIndexToVisible( oSettings: Context, iMatch: number )
-{
-	var aiVis = getColumns( oSettings, 'bVisible' );
-	var iPos = aiVis.indexOf(iMatch);
+export function columnIndexToVisible(settings: Context, match: number) {
+	let aiVis = getColumns(settings, 'bVisible');
+	let iPos = aiVis.indexOf(match);
 
 	return iPos !== -1 ? iPos : null;
 }
 
-
 /**
  * Get the number of visible columns
- *  @param {object} oSettings dataTables settings object
- *  @returns {int} i the number of visible columns
- *  @memberof DataTable#oApi
+ *
+ * @param oSettings DataTables settings object
+ * @returns i the number of visible columns
  */
-export function visibleColumns( settings )
-{
-	var layout = settings.aoHeader;
-	var columns = settings.aoColumns;
-	var vis = 0;
+export function visibleColumns(settings: Context) {
+	let layout = settings.aoHeader;
+	let columns = settings.aoColumns;
+	let vis = 0;
 
-	if ( layout.length ) {
-		for ( var i=0, iLen=layout[0].length ; i<iLen ; i++ ) {
-			if ( columns[i].bVisible && $(layout[0][i].cell).css('display') !== 'none' ) {
+	if (layout.length) {
+		for (let i = 0, iLen = layout[0].length; i < iLen; i++) {
+			if (
+				columns[i].bVisible &&
+				dom.s(layout[0][i].cell).css('display') !== 'none'
+			) {
 				vis++;
 			}
 		}
@@ -248,24 +232,22 @@ export function visibleColumns( settings )
 	return vis;
 }
 
-
 /**
  * Get an array of column indexes that match a given property
- *  @param {object} oSettings dataTables settings object
- *  @param {string} sParam Parameter in aoColumns to look for - typically
- *    bVisible or bSearchable
- *  @returns {array} Array of indexes with matched properties
- *  @memberof DataTable#oApi
+ *
+ * @param settings DataTables settings object
+ * @param param Parameter in aoColumns to look for - typically bVisible or
+ *    bSearchable
+ *  @returns Array of indexes with matched properties
  */
-export function getColumns( oSettings, sParam )
-{
-	var a: number[] = [];
+export function getColumns(settings: Context, param: keyof ColumnModel) {
+	let a: number[] = [];
 
-	oSettings.aoColumns.map( function(val, i) {
-		if ( val[sParam] ) {
-			a.push( i );
+	settings.aoColumns.map(function (val, i) {
+		if (val[param]) {
+			a.push(i);
 		}
-	} );
+	});
 
 	return a;
 }
@@ -276,23 +258,19 @@ export function getColumns( oSettings, sParam )
  * return the type name if it passes. An object store would be better,
  * but not backwards compatible.
  *
- * @param {*} typeDetect Object or function for type detection
- * @param {*} res Result from the type detection function
+ * @param typeDetect Object or function for type detection
+ * @param res Result from the type detection function
  * @returns Type name or false
  */
-function _typeResult (typeDetect, res) {
-	return res === true
-		? typeDetect._name
-		: res;
+function _typeResult(typeDetect: any, res: boolean | string) {
+	return res === true ? typeDetect._name : res;
 }
 
 /**
  * Calculate the 'type' of a column
- *  @param {object} settings dataTables settings object
- *  @memberof DataTable#oApi
+ * @param settings DataTables settings object
  */
-export function columnTypes ( settings )
-{
+export function columnTypes(settings: Context) {
 	var columns = settings.aoColumns;
 	var data = settings.aoData;
 	var types = ext.type.detect;
@@ -300,21 +278,21 @@ export function columnTypes ( settings )
 	var col, detectedType, cache;
 
 	// For each column, spin over the data type detection functions, seeing if one matches
-	for ( i=0, iLen=columns.length ; i<iLen ; i++ ) {
+	for (i = 0, iLen = columns.length; i < iLen; i++) {
 		col = columns[i];
 		cache = [];
 
-		if ( ! col.sType && col._sManualType ) {
+		if (!col.sType && col._sManualType) {
 			col.sType = col._sManualType;
 		}
-		else if ( ! col.sType ) {
+		else if (!col.sType) {
 			// With SSP type detection can be unreliable and error prone, so we provide a way
 			// to turn it off.
-			if (! settings.typeDetect) {
+			if (!settings.typeDetect) {
 				return;
 			}
 
-			for ( j=0, jen=types.length ; j<jen ; j++ ) {
+			for (j = 0, jen = types.length; j < jen; j++) {
 				var typeDetect = types[j];
 
 				// There can be either one, or three type detection functions
@@ -335,52 +313,52 @@ export function columnTypes ( settings )
 					}
 				}
 
-				for ( k=0, ken=data.length ; k<ken ; k++ ) {
-					if (! data[k]) {
+				for (k = 0, ken = data.length; k < ken; k++) {
+					if (!data[k]) {
 						continue;
 					}
 
 					// Use a cache array so we only need to get the type data
 					// from the formatter once (when using multiple detectors)
-					if ( cache[k] === undefined ) {
-						cache[k] = getCellData( settings, k, i, 'type' );
+					if (cache[k] === undefined) {
+						cache[k] = getCellData(settings, k, i, 'type');
 					}
 
 					// Only one data point in the column needs to match this function
-					if (oneOf && ! one) {
-						one = _typeResult(typeDetect, oneOf( cache[k], settings ));
+					if (oneOf && !one) {
+						one = _typeResult(typeDetect, oneOf(cache[k], settings));
 					}
 
 					// All data points need to match this function
-					detectedType = _typeResult(typeDetect, allOf( cache[k], settings ));
+					detectedType = _typeResult(typeDetect, allOf(cache[k], settings));
 
 					// If null, then this type can't apply to this column, so
 					// rather than testing all cells, break out. There is an
 					// exception for the last type which is `html`. We need to
 					// scan all rows since it is possible to mix string and HTML
 					// types
-					if ( ! detectedType && j !== types.length-3 ) {
+					if (!detectedType && j !== types.length - 3) {
 						break;
 					}
 
 					// Only a single match is needed for html type since it is
 					// bottom of the pile and very similar to string - but it
 					// must not be empty
-					if ( detectedType === 'html' && ! empty(cache[k]) ) {
+					if (detectedType === 'html' && !empty(cache[k])) {
 						break;
 					}
 				}
 
 				// Type is valid for all data points in the column - use this
 				// type
-				if ( (oneOf && one && detectedType) || (!oneOf && detectedType) ) {
+				if ((oneOf && one && detectedType) || (!oneOf && detectedType)) {
 					col.sType = detectedType;
 					break;
 				}
 			}
 
 			// Fall back - if no type was detected, always use string
-			if ( ! col.sType ) {
+			if (!col.sType) {
 				col.sType = 'string';
 			}
 		}
@@ -398,7 +376,7 @@ export function columnTypes ( settings )
 		// This can only happen once! There is no way to remove
 		// a renderer. After the first time the renderer has
 		// already been set so createTr will run the renderer itself.
-		if (renderer && ! col._render) {
+		if (renderer && !col._render) {
 			col._render = util.get(renderer);
 
 			_columnAutoRender(settings, i);
@@ -407,32 +385,38 @@ export function columnTypes ( settings )
 }
 
 /**
- * Apply an auto detected renderer to data which doesn't yet have
- * a renderer
+ * Apply an auto detected renderer to data which doesn't yet have a renderer
  */
-function _columnAutoRender(settings, colIdx) {
-	var data = settings.aoData;
+function _columnAutoRender(settings: Context, colIdx: number) {
+	let data = settings.aoData;
 
-	for (var i=0 ; i<data.length ; i++) {
+	for (let i = 0; i < data.length; i++) {
 		if (data[i].nTr) {
-			// We have to update the display here since there is no
-			// invalidation check for the data
-			var display = getCellData( settings, i, colIdx, 'display' );
+			// We have to update the display here since there is no invalidation
+			// check for the data
+			let display = getCellData(settings, i, colIdx, 'display');
 
-			data[i].displayData[colIdx] = display;
+			data[i].displayData![colIdx] = display;
 			writeCell(data[i].anCells[colIdx], display);
 
-			// No need to update sort / filter data since it has
-			// been invalidated and will be re-read with the
-			// renderer now applied
+			// No need to update sort / filter data since it has been
+			// invalidated and will be re-read with the renderer now applied
 		}
 	}
 }
 
 /**
  * Apply a class name to a column's header cells
+ *
+ * @param container The header / footer structure array
+ * @param colIdx Column index
+ * @param className Class name to apply
  */
-function _columnAutoClass(container, colIdx, className) {
+function _columnAutoClass(
+	container: HeaderStructure[],
+	colIdx: number,
+	className: string
+) {
 	container.forEach(function (row) {
 		if (row[colIdx] && row[colIdx].unique) {
 			dom.s(row[colIdx].cell).classAdd(className);
@@ -444,85 +428,83 @@ function _columnAutoClass(container, colIdx, className) {
  * Take the column definitions and static columns arrays and calculate how
  * they relate to column indexes. The callback function will then apply the
  * definition found for a column to a suitable configuration object.
- *  @param {object} oSettings dataTables settings object
- *  @param {array} aoColDefs The aoColumnDefs array that is to be applied
- *  @param {array} aoCols The aoColumns array that defines columns individually
- *  @param {array} headerLayout Layout for header as it was loaded
- *  @param {function} fn Callback function - takes two parameters, the calculated
+ * @param settings DataTables settings object
+ * @param aoColDefs The aoColumnDefs array that is to be applied
+ * @param aoCols The aoColumns array that defines columns individually
+ * @param headerLayout Layout for header as it was loaded
+ * @param fn Callback function - takes two parameters, the calculated
  *    column index and the definition for that column.
- *  @memberof DataTable#oApi
  */
-export function applyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn )
-{
-	var i, iLen, j, jLen, k, kLen, def;
-	var columns = oSettings.aoColumns;
+export function applyColumnDefs(
+	settings: Context,
+	aoColDefs: Partial<ConfigColumnDefs>[],
+	aoCols: Partial<ColumnModel>[],
+	headerLayout: HeaderStructure[],
+	fn: (idx: number, def: any) => void
+) {
+	var i, iLen, j, jLen, k: number, kLen;
+	var columns = settings.aoColumns;
 
-	if ( aoCols ) {
-		for ( i=0, iLen=aoCols.length ; i<iLen ; i++ ) {
-			if (aoCols[i] && aoCols[i].name) {
-				columns[i].sName = aoCols[i].name;
+	if (aoCols) {
+		for (i = 0, iLen = aoCols.length; i < iLen; i++) {
+			// Compat
+			if (aoCols[i] && (aoCols[i] as any).name) {
+				columns[i].sName = (aoCols[i] as any).name;
 			}
 		}
 	}
 
 	// Column definitions with aTargets
-	if ( aoColDefs )
-	{
+	if (aoColDefs) {
 		/* Loop over the definitions array - loop in reverse so first instance has priority */
-		for ( i=aoColDefs.length-1 ; i>=0 ; i-- )
-		{
-			def = aoColDefs[i];
+		for (i = aoColDefs.length - 1; i >= 0; i--) {
+			let def = aoColDefs[i];
 
 			/* Each definition can target multiple columns, as it is an array */
-			var aTargets = def.target !== undefined
-				? def.target
-				: def.targets !== undefined
+			let aTargets =
+				def.target !== undefined
+					? def.target
+					: def.targets !== undefined
 					? def.targets
-					: def.aTargets;
+					: (def as any).aTargets; // legacy
 
-			if ( ! Array.isArray( aTargets ) )
-			{
-				aTargets = [ aTargets ];
+			if (!Array.isArray(aTargets)) {
+				aTargets = [aTargets];
 			}
 
-			for ( j=0, jLen=aTargets.length ; j<jLen ; j++ )
-			{
+			for (j = 0, jLen = aTargets.length; j < jLen; j++) {
 				var target = aTargets[j];
 
-				if ( typeof target === 'number' && target >= 0 )
-				{
+				if (typeof target === 'number' && target >= 0) {
 					/* Add columns that we don't yet know about */
-					while( columns.length <= target )
-					{
-						addColumn( oSettings );
+					while (columns.length <= target) {
+						addColumn(settings);
 					}
 
 					/* Integer, basic index */
-					fn( target, def );
+					fn(target, def);
 				}
-				else if ( typeof target === 'number' && target < 0 )
-				{
+				else if (typeof target === 'number' && target < 0) {
 					/* Negative integer, right to left column counting */
-					fn( columns.length+target, def );
+					fn(columns.length + target, def);
 				}
-				else if ( typeof target === 'string' )
-				{
-					for ( k=0, kLen=columns.length ; k<kLen ; k++ ) {
+				else if (typeof target === 'string') {
+					for (k = 0, kLen = columns.length; k < kLen; k++) {
 						if (target === '_all') {
 							// Apply to all columns
-							fn( k, def );
+							fn(k, def);
 						}
 						else if (target.indexOf(':name') !== -1) {
 							// Column selector
 							if (columns[k].sName === target.replace(':name', '')) {
-								fn( k, def );
+								fn(k, def);
 							}
 						}
 						else {
 							// Cell selector
 							headerLayout.forEach(function (row) {
 								if (row[k]) {
-									var cell = $(row[k].cell);
+									var cell = row[k].cell;
 
 									// Legacy support. Note that it means that we don't support
 									// an element name selector only, since they are treated as
@@ -531,8 +513,8 @@ export function applyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn 
 										target = '.' + target;
 									}
 
-									if (cell.is( target )) {
-										fn( k, def );
+									if (cell.matches(target)) {
+										fn(k, def);
 									}
 								}
 							});
@@ -544,57 +526,56 @@ export function applyColumnDefs( oSettings, aoColDefs, aoCols, headerLayout, fn 
 	}
 
 	// Statically defined columns array
-	if ( aoCols ) {
-		for ( i=0, iLen=aoCols.length ; i<iLen ; i++ ) {
-			fn( i, aoCols[i] );
+	if (aoCols) {
+		for (i = 0, iLen = aoCols.length; i < iLen; i++) {
+			fn(i, aoCols[i]);
 		}
 	}
 }
 
-
 /**
  * Get the width for a given set of columns
  *
- * @param {*} settings DataTables settings object
- * @param {*} targets Columns - comma separated string or array of numbers
- * @param {*} original Use the original width (true) or calculated (false)
- * @param {*} incVisible Include visible columns (true) or not (false)
+ * @param settings DataTables settings object
+ * @param targets Columns - comma separated string or array of numbers
+ * @param original Use the original width (true) or calculated (false)
+ * @param incVisible Include visible columns (true) or not (false)
  * @returns Combined CSS value
  */
-export function columnsSumWidth( settings, targets, original, incVisible ) {
-	if ( ! Array.isArray( targets ) ) {
-		targets = columnsFromHeader( targets );
+export function columnsSumWidth(
+	settings: Context,
+	targets: HTMLElement | number[],
+	original: boolean,
+	incVisible: boolean
+) {
+	if (!Array.isArray(targets)) {
+		targets = columnsFromHeader(targets);
 	}
 
-	var sum = 0;
-	var unit;
-	var columns = settings.aoColumns;
-	
-	for ( var i=0, iLen=targets.length ; i<iLen ; i++ ) {
-		var column = columns[ targets[i] ];
-		var definedWidth = original ?
-			column.sWidthOrig :
-			column.sWidth;
+	let sum = 0;
+	let unit = 'px';
+	let columns = settings.aoColumns;
 
-		if ( ! incVisible && column.bVisible === false ) {
+	for (let i = 0, iLen = targets.length; i < iLen; i++) {
+		let column = columns[targets[i]];
+		let definedWidth = original ? column.sWidthOrig : column.sWidth;
+
+		if (!incVisible && column.bVisible === false) {
 			continue;
 		}
 
-		if ( definedWidth === null || definedWidth === undefined ) {
+		if (definedWidth === null || definedWidth === undefined) {
 			return null; // can't determine a defined width - browser defined
 		}
-		else if ( typeof definedWidth === 'number' ) {
-			unit = 'px';
+		else if (typeof definedWidth === 'number') {
 			sum += definedWidth;
 		}
 		else {
-			var matched = definedWidth.match(/([\d\.]+)([^\d]*)/);
+			let matched = definedWidth.match(/([\d\.]+)([^\d]*)/);
 
-			if ( matched ) {
-				sum += matched[1] * 1;
-				unit = matched.length === 3 ?
-					matched[2] :
-					'px';
+			if (matched) {
+				sum += parseFloat(matched[1]);
+				unit = matched.length === 3 ? matched[2] : 'px';
 			}
 		}
 	}
@@ -602,15 +583,21 @@ export function columnsSumWidth( settings, targets, original, incVisible ) {
 	return sum + unit;
 }
 
-export function columnsFromHeader( cell: Element )
-{
-	var attr = dom.s(cell).closest('[data-dt-column]').attr('data-dt-column');
+/**
+ * Determine what columns a header cell covers (can be multiple for colspan
+ * cases).
+ *
+ * @param cell The header cell in question
+ * @returns An array of column indexes
+ */
+export function columnsFromHeader(cell: HTMLElement) {
+	let attr = dom.s(cell).closest('[data-dt-column]').attr('data-dt-column');
 
-	if ( ! attr ) {
+	if (!attr) {
 		return [];
 	}
 
-	return attr.split(',').map( function (val) {
+	return attr.split(',').map(function (val) {
 		return parseInt(val);
-	} );
+	});
 }

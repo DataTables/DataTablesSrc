@@ -1,5 +1,5 @@
 
-import {hungarianMap} from '../../core/compat';
+import { hungarianMap } from '../../core/compat';
 
 /*
  * Developer note - See note in model.defaults.js about the use of Hungarian
@@ -246,3 +246,18 @@ const defaults = {
 hungarianMap( defaults );
 
 export default defaults;
+
+type Options = Partial<typeof defaults>;
+
+export interface ConfigColumnDefs extends Options {
+    /**
+     * Target column(s). Either this or `target` must be specified.
+     */
+    targets?: string | number | Array<(number | string)>;
+
+    /**
+     * Single column target. Either this or `targets` must be specified. Since: 1.12
+     */
+    target?: string | number;
+}
+

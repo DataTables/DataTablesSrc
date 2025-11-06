@@ -1,7 +1,7 @@
 
-import { store as typeStore, register as registerType } from "./types";
-import util from '../api/util';
 import { use } from "../api/static";
+import util from '../api/util';
+import { register as registerType, store as typeStore } from "./types";
 
 /*
  * Public helper functions. These aren't used internally by DataTables, or
@@ -300,5 +300,5 @@ export default {
 			filter: util.escapeHtml
 		};
 	}
-};
+} as Record<string, Function>;
 

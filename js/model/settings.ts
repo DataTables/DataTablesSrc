@@ -287,12 +287,12 @@ export default class Settings {
 	/**
 	 * Store information about the table's header
 	 */
-	public aoHeader: any[] = [];
+	public aoHeader: HeaderStructure[] = [];
 
 	/**
 	 * Store information about the table's footer
 	 */
-	public aoFooter: any[] = [];
+	public aoFooter: HeaderStructure[] = [];
 
 	/**
 	 * Store the applied global search information in case we want to force a

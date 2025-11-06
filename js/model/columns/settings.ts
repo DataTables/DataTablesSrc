@@ -1,5 +1,5 @@
 import { Dom } from '../../dom';
-import { SetFunction } from '../../util/types';
+import { GetFunction, SetFunction } from '../../util/types';
 import { SearchInput } from "../search";
 
 /**
@@ -30,6 +30,9 @@ export default class Settings {
 	 * that doesn't need to be the case).
 	 */
 	public aDataSort: number[] = [];
+
+	/** Legacy */
+	public iDataSort: number;
 
 	/**
 	 * Define the sorting directions that are applied to the column, in sequence
@@ -89,7 +92,7 @@ export default class Settings {
 	 * required. This function is automatically assigned by the column
 	 * initialisation method
 	 */
-	public fnGetData;
+	public fnGetData: (rowData: any, type: string | undefined, meta: any) => any;
 
 	/**
 	 * Function to set data for a cell in the column. You should <b>never</b>
@@ -97,14 +100,14 @@ export default class Settings {
 	 * this method. It allows mData to function as required. This function is
 	 * automatically assigned by the column initialisation method
 	 */
-	public fnSetData;
+	public fnSetData: (rowData: any, val: any, meta: any) => any;
 
 	/**
 	 * Property to read the value for the cells in the column from the data
 	 * source array / object. If null, then the default content is used, if a
 	 * function is given then the return from the function is used.
 	 */
-	public mData = null;
+	public mData: any = null;
 
 	/**
 	 * Partner property to mData which is used (only when defined) to get the
@@ -112,7 +115,7 @@ export default class Settings {
 	 * option, and also the data fed to it is the result from mData. This is the
 	 * rendering method to match the data method of mData.
 	 */
-	public mRender = null;
+	public mRender: any = null;
 
 	/**
 	 * The class to apply to all TD elements in the table's TBODY for the column
@@ -193,5 +196,9 @@ export default class Settings {
 
 	public sCellType: string;
 
-	public _setter: SetFunction;
+	public _setter: SetFunction | null;
+
+	public _render: GetFunction | null;
+
+	public _isArrayHost: boolean;
 }

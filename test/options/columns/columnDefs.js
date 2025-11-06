@@ -191,20 +191,20 @@ describe('columnDefs option', function() {
 		});
 
 		dt.html('basic');
-		it('Selector - gt', function() {
+		it('Selector - odd', function() {
 			$('#example').DataTable({
 				columnDefs: [
-					{ target: 'th:gt(2)', orderable: false },
+					{ target: 'th:nth-child(odd)', orderable: false },
 				]
 			});
 
 			var cells = $('#example thead th');
-			expect(cells.eq(0).hasClass('dt-orderable-asc')).toBe(true);
+			expect(cells.eq(0).hasClass('dt-orderable-asc')).toBe(false);
 			expect(cells.eq(1).hasClass('dt-orderable-asc')).toBe(true);
-			expect(cells.eq(2).hasClass('dt-orderable-asc')).toBe(true);
-			expect(cells.eq(3).hasClass('dt-orderable-asc')).toBe(false);
+			expect(cells.eq(2).hasClass('dt-orderable-asc')).toBe(false);
+			expect(cells.eq(3).hasClass('dt-orderable-asc')).toBe(true);
 			expect(cells.eq(4).hasClass('dt-orderable-asc')).toBe(false);
-			expect(cells.eq(5).hasClass('dt-orderable-asc')).toBe(false);
+			expect(cells.eq(5).hasClass('dt-orderable-asc')).toBe(true);
 		});
 
 		dt.html('basic');

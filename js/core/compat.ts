@@ -186,6 +186,11 @@ export function compatCols(init: any) {
 	if (typeof dataSort === 'number' && !Array.isArray(dataSort)) {
 		init.aDataSort = [dataSort];
 	}
+
+	// Backwards compatibility for mDataProp from 1.9-
+	if (init.mDataProp !== undefined && !init.mData) {
+		init.mData = init.mDataProp;
+	}
 }
 
 /**
