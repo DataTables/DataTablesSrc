@@ -1,6 +1,7 @@
 
 import { dataSource } from '../api/support';
 import { Dom } from '../dom';
+import { JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
 import { Layout } from './interface';
 import rowModel from './row';
@@ -513,12 +514,12 @@ export default class Settings {
 	/**
 	 * JSON returned from the server in the last Ajax request
 	 */
-	public json = undefined;
+	public json: JSON;
 
 	/**
 	 * Data submitted as part of the last Ajax request
 	 */
-	public oAjaxData = undefined;
+	public oAjaxData: JSON;
 
 	/**
 	 * Send the XHR HTTP method - GET or POST (could be PUT or DELETE if
