@@ -1,7 +1,7 @@
 
 import { hungarianMap } from '../core/compat';
 import { assign } from '../util/object';
-import columnDefaults from './columns/defaults';
+import columnDefaults, { ConfigColumnDefs } from './columns/defaults';
 import search, { SearchInput } from './search';
 import Settings from './settings';
 
@@ -135,7 +135,7 @@ const defaults = {
 	 * Note that the `pageLength` property will be automatically set to the
 	 * first value given in this array, unless `pageLength` is also provided.
 	 */
-	"aLengthMenu": [ 10, 25, 50, 100 ],
+	"aLengthMenu": [ 10, 25, 50, 100 ] as Array<(number | {value: number; label: string})>,
 
 
 	/**
@@ -165,7 +165,7 @@ const defaults = {
 	 *     <li>the string "_all" - all columns (i.e. assign a default)</li>
 	 *   </ul>
 	 */
-	"aoColumnDefs": null,
+	"aoColumnDefs": null as Partial<ConfigColumnDefs>[] | null,
 
 
 	/**
@@ -327,14 +327,14 @@ const defaults = {
 	 * elements have been inserted), or registered if using a DOM source, allowing
 	 * manipulation of the TR element (adding classes etc).
 	 */
-	"fnCreatedRow": null,
+	"fnCreatedRow": null as ((settings: Settings, data: any, dataIdx: number, cells: HTMLTableCellElement[]) => void) | null,
 
 
 	/**
 	 * This function is called on every 'draw' event, and allows you to
 	 * dynamically modify any aspect you want about the created DOM.
 	 */
-	"fnDrawCallback": null,
+	"fnDrawCallback": null as ((settings: Settings) => void) | null,
 
 
 	/**
@@ -351,7 +351,7 @@ const defaults = {
 	 * rendered as "1,000,000") to help readability for the end user. This
 	 * function will override the default method DataTables uses.
 	 */
-	"fnFormatNumber": function ( toFormat ) {
+	"fnFormatNumber": function ( toFormat: number ) {
 		return toFormat.toString().replace(
 			/\B(?=(\d{3})+(?!\d))/g,
 			this.oLanguage.sThousands
@@ -442,7 +442,7 @@ const defaults = {
 	 * information for the table is stored By default DataTables will use `localStorage`
 	 * but you might wish to use a server-side database or cookies.
 	 */
-	"fnStateSaveCallback": function ( settings, data ) {
+	"fnStateSaveCallback": function ( settings: Settings, data ) {
 		try {
 			(settings.iStateDuration === -1 ? sessionStorage : localStorage).setItem(
 				'DataTables_'+settings.sInstance+'_'+location.pathname,
@@ -860,7 +860,7 @@ const defaults = {
 	iDeferLoading: null,
 
 	/** Event listeners */
-	on: null,
+	on: null as Record<string, Function> | null,
 
 	orderIndicators: true,
 	orderHandler: true

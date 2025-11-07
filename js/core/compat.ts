@@ -1,4 +1,6 @@
 import dom from '../dom';
+import ext from '../ext';
+import defaults from '../model/defaults';
 import searchModel from '../model/search';
 import Context from '../model/settings';
 import * as object from '../util/object';
@@ -244,4 +246,35 @@ export function browserDetect(ctx: Context) {
 
 	Object.assign(ctx.oBrowser, browser);
 	ctx.oScroll.iBarWidth = browser.barWidth;
+}
+
+/**
+ * Attach jQuery to DataTables
+ *
+ * @param jQuery jQuery object
+ * @param DT DataTables object
+ */
+export function jQuerySetup(jQuery: any, DT: any) {
+	// Provide access to the host jQuery object (circular reference)
+	DT.$ = jQuery;
+
+	// jQuery integration - expose the core function.
+	jQuery.fn.dataTable = DT;
+
+	// jQuery wrapper - returning a DataTable instance
+	jQuery.fn.DataTable = function (options: Partial<typeof defaults>) {
+		let table = new DT(this.toArray(), options);
+
+		return table;
+	};
+
+	// Legacy aliases
+	jQuery.fn.dataTableSettings = ext.settings;
+	jQuery.fn.dataTableExt = DT.ext;
+
+	// All properties that are available to $.fn.dataTable should also be available
+	// on $.fn.DataTable
+	object.each(DT, function (prop, val) {
+		jQuery.fn.DataTable[prop] = val;
+	});
 }

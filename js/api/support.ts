@@ -114,7 +114,7 @@ export function bindAction(
  * @param store Name of the array storage for the callbacks in oSettings
  * @param fn Function to be called back
  */
-export function callbackReg(ctx: Context, store: string, fn: Function) {
+export function callbackReg(ctx: Context, store: string, fn?: Function | null) {
 	if (fn) {
 		ctx[store].push(fn);
 	}

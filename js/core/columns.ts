@@ -437,7 +437,7 @@ function _columnAutoClass(
  */
 export function applyColumnDefs(
 	settings: Context,
-	aoColDefs: Partial<ConfigColumnDefs>[],
+	aoColDefs: Partial<ConfigColumnDefs>[] | null,
 	aoCols: Partial<ColumnModel>[],
 	headerLayout: HeaderStructure[],
 	fn: (idx: number, def: any) => void

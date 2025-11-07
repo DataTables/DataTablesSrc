@@ -1,4 +1,6 @@
 
+import { jQuerySetup } from "../core/compat";
+import DataTable from "../dataTable";
 import dom from "../dom";
 import ext from "../ext/index";
 import { arrayLike } from "../util/is";
@@ -60,6 +62,7 @@ export function use (arg1, arg2?) {
 	// Setter
 	if (type === 'lib' || type === 'jq' || (module && module.fn && module.fn.jquery)) {
 		// TODO $ = module;
+		jQuerySetup(jQuery, DataTable);
 	}
 	else if (type === 'win' || (module && module.document)) {
 		window = module;
