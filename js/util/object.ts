@@ -7,7 +7,7 @@ import * as is from './is';
  * @param fn Function to execute
  */
 export function each<T>(
-	input: Record<string, T> | null,
+	input: Record<string, T> | null | undefined,
 	fn: (key: string, val: T, counter: number) => void
 ): void {
 	if (!input) {
