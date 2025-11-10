@@ -509,7 +509,7 @@ export default class Settings {
 	 * This can be used for working with the XHR information in one of the
 	 * callbacks
 	 */
-	public jqXHR: JQueryXHR;
+	public jqXHR: XMLHttpRequest;
 
 	/**
 	 * JSON returned from the server in the last Ajax request
@@ -519,7 +519,7 @@ export default class Settings {
 	/**
 	 * Data submitted as part of the last Ajax request
 	 */
-	public oAjaxData: JSON;
+	public oAjaxData: JSON | string;
 
 	/**
 	 * Send the XHR HTTP method - GET or POST (could be PUT or DELETE if

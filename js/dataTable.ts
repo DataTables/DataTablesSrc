@@ -33,6 +33,7 @@ import models from './model';
 import columnDefaults from './model/columns/defaults';
 import defaults from './model/defaults';
 import Settings from './model/settings';
+import ajax from './util/ajax';
 import * as object from './util/object';
 
 // TODO typing
@@ -475,7 +476,7 @@ const DataTable: any = function (
 
 		if (oLanguage.sUrl) {
 			// Get the language definitions from a file
-			$.ajax({
+			ajax({
 				dataType: 'json',
 				url: oLanguage.sUrl,
 				success: function (json) {
@@ -522,6 +523,7 @@ DataTable.Api = Api;
 DataTable.datetime = datetime;
 DataTable.__browser = browser;
 DataTable.dom = dom;
+DataTable.ajax = ajax;
 
 /**
  * Private data store, containing all of the settings objects that are created

@@ -1,6 +1,7 @@
 import { callbackFire, log } from '../api/support';
 import util from '../api/util';
 import Context from '../model/settings';
+import ajax from '../util/ajax';
 import * as is from '../util/is';
 import * as object from '../util/object';
 import { JSON } from '../util/types';
@@ -26,7 +27,7 @@ export function buildAjax(
 	fn: (json: JSON) => void
 ) {
 	var ajaxData;
-	var ajax = settings.ajax;
+	var ajaxConfig = settings.ajax;
 	var instance = settings.oInstance;
 	var callback = function (json: JSON) {
 		var status = settings.jqXHR ? settings.jqXHR.status : null;
@@ -57,8 +58,8 @@ export function buildAjax(
 		fn(json);
 	};
 
-	if (is.plainObject(ajax) && ajax.data) {
-		ajaxData = ajax.data;
+	if (is.plainObject(ajaxConfig) && ajaxConfig.data) {
+		ajaxData = ajaxConfig.data;
 
 		var newData =
 			typeof ajaxData === 'function'
@@ -73,11 +74,11 @@ export function buildAjax(
 
 		// Remove the data property as we've resolved it already and don't want
 		// jQuery to do it again (it is restored at the end of the function)
-		delete ajax.data;
+		delete ajaxConfig.data;
 	}
 
 	var baseAjax = {
-		url: typeof ajax === 'string' ? ajax : '',
+		url: typeof ajaxConfig === 'string' ? ajaxConfig : '',
 		data: data,
 		success: callback,
 		dataType: 'json',
@@ -103,11 +104,11 @@ export function buildAjax(
 
 			processingDisplay(settings, false);
 		},
-	} as any; // TODO
+	};
 
 	// If `ajax` option is an object, extend and override our default base
-	if (is.plainObject(ajax)) {
-		object.assign(baseAjax, ajax);
+	if (is.plainObject(ajaxConfig)) {
+		object.assign(baseAjax, ajaxConfig);
 	}
 
 	// Store the data submitted for the API
@@ -117,15 +118,15 @@ export function buildAjax(
 	callbackFire(settings, null, 'preXhr', [settings, data, baseAjax], true);
 
 	// Custom Ajax option to submit the parameters as a JSON string
-	if (baseAjax.submitAs === 'json' && typeof data === 'object') {
-		baseAjax.data = JSON.stringify(data);
+	if ((baseAjax as any).submitAs === 'json' && typeof data === 'object') {
+		baseAjax.data = JSON.stringify(data) as any;
 	}
 
-	if (typeof ajax === 'function') {
+	if (typeof ajaxConfig === 'function') {
 		// Is a function - let the caller define what needs to be done
-		settings.jqXHR = ajax.call(instance, data, callback, settings);
+		settings.jqXHR = ajaxConfig.call(instance, data, callback, settings);
 	}
-	else if (ajax.url === '') {
+	else if (ajaxConfig.url === '') {
 		// No url, so don't load any data. Just apply an empty data array
 		// to the object for the callback.
 		var empty = {};
@@ -135,12 +136,12 @@ export function buildAjax(
 	}
 	else {
 		// Object to extend the base settings
-		settings.jqXHR = $.ajax(baseAjax);
+		settings.jqXHR = ajax(baseAjax as any);
 	}
 
 	// Restore for next time around
 	if (ajaxData) {
-		ajax.data = ajaxData;
+		ajaxConfig.data = ajaxData;
 	}
 }
 
