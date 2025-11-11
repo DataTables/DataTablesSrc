@@ -1,16 +1,16 @@
+import { sort } from '../core/sort';
+import { Dom } from '../dom';
+import ext from '../ext/index';
+import { range, unique } from '../util/array';
+import * as object from '../util/object';
+import Api from './base';
+import { dataSource } from './support';
 
-import { sort } from "../core/sort";
-import { Dom } from "../dom";
-import ext from "../ext/index";
-import { range, unique } from "../util/array";
-import Api from "./base";
-import { dataSource } from "./support";
-
-export function selector_run( type, selector, selectFn, settings, opts )
-{
-	var
-		out = [], res,
-		i, iLen,
+export function selector_run(type, selector, selectFn, settings, opts) {
+	var out = [],
+		res,
+		i,
+		iLen,
 		selectorType = typeof selector;
 
 	// If a Dom instance, then get the underlying elements
@@ -20,65 +20,72 @@ export function selector_run( type, selector, selectFn, settings, opts )
 
 	// Can't just check for isArray here, as an API or jQuery instance might be
 	// given with their array like look
-	if ( ! selector || selectorType === 'string' || selectorType === 'function' || selector.length === undefined ) {
-		selector = [ selector ];
+	if (
+		!selector ||
+		selectorType === 'string' ||
+		selectorType === 'function' ||
+		selector.length === undefined
+	) {
+		selector = [selector];
 	}
 
-	for ( i=0, iLen=selector.length ; i<iLen ; i++ ) {
-		res = selectFn( typeof selector[i] === 'string' ? selector[i].trim() : selector[i] );
+	for (i = 0, iLen = selector.length; i < iLen; i++) {
+		res = selectFn(
+			typeof selector[i] === 'string' ? selector[i].trim() : selector[i]
+		);
 
 		// Remove empty items
-		res = res.filter( function (item) {
+		res = res.filter(function (item) {
 			return item !== null && item !== undefined;
 		});
 
-		if ( res && res.length ) {
-			out = out.concat( res );
+		if (res && res.length) {
+			out = out.concat(res);
 		}
 	}
 
 	// selector extensions
-	var extSelectors = ext.selector[ type ];
-	if ( extSelectors.length ) {
-		for ( i=0, iLen=extSelectors.length ; i<iLen ; i++ ) {
-			out = extSelectors[i]( settings, opts, out );
+	var extSelectors = ext.selector[type];
+	if (extSelectors.length) {
+		for (i = 0, iLen = extSelectors.length; i < iLen; i++) {
+			out = extSelectors[i](settings, opts, out);
 		}
 	}
 
-	return unique( out );
-};
+	return unique(out);
+}
 
-
-export function selector_opts ( opts )
-{
-	if ( ! opts ) {
+export function selector_opts(opts) {
+	if (!opts) {
 		opts = {};
 	}
 
 	// Backwards compatibility for 1.9- which used the terminology filter rather
 	// than search
-	if ( opts.filter && opts.search === undefined ) {
+	if (opts.filter && opts.search === undefined) {
 		opts.search = opts.filter;
 	}
 
-	return $.extend( {
-		columnOrder: 'implied',
-		search: 'none',
-		order: 'current',
-		page: 'all'
-	}, opts );
-};
-
+	return object.assign(
+		{},
+		{
+			columnOrder: 'implied',
+			search: 'none',
+			order: 'current',
+			page: 'all',
+		},
+		opts
+	);
+}
 
 // Reduce the API instance to the first item found
-export function selector_first( old )
-{
+export function selector_first(old) {
 	var inst = new Api(old.context[0]);
 
 	// Use a push rather than passing to the constructor, since it will
 	// merge arrays down automatically, which isn't what is wanted here
 	if (old.length) {
-		inst.push( old[0] );
+		inst.push(old[0]);
 	}
 
 	inst.selector = old.selector;
@@ -89,100 +96,105 @@ export function selector_first( old )
 	}
 
 	return inst;
-};
+}
 
-
-export function selector_row_indexes ( settings, opts )
-{
-	var
-		i, iLen, tmp, a: any[]=[],
+export function selector_row_indexes(settings, opts) {
+	var i,
+		iLen,
+		tmp,
+		a: any[] = [],
 		displayFiltered = settings.aiDisplay,
 		displayMaster = settings.aiDisplayMaster;
 
-	var
-		search = opts.search,  // none, applied, removed
-		order  = opts.order,   // applied, current, index (original - compatibility with 1.9)
-		page   = opts.page;    // all, current
+	var search = opts.search, // none, applied, removed
+		order = opts.order, // applied, current, index (original - compatibility with 1.9)
+		page = opts.page; // all, current
 
-	if ( dataSource( settings ) == 'ssp' ) {
+	if (dataSource(settings) == 'ssp') {
 		// In server-side processing mode, most options are irrelevant since
 		// rows not shown don't exist and the index order is the applied order
 		// Removed is a special case - for consistency just return an empty
 		// array
-		return search === 'removed' ?
-			[] :
-			range( 0, displayMaster.length );
+		return search === 'removed' ? [] : range(0, displayMaster.length);
 	}
 
-	if ( page == 'current' ) {
+	if (page == 'current') {
 		// Current page implies that order=current and filter=applied, since it is
 		// fairly senseless otherwise, regardless of what order and search actually
 		// are
-		for ( i=settings._iDisplayStart, iLen=settings.fnDisplayEnd() ; i<iLen ; i++ ) {
-			a.push( displayFiltered[i] );
+		for (
+			i = settings._iDisplayStart, iLen = settings.fnDisplayEnd();
+			i < iLen;
+			i++
+		) {
+			a.push(displayFiltered[i]);
 		}
 	}
-	else if ( order == 'current' || order == 'applied' ) {
-		if ( search == 'none') {
+	else if (order == 'current' || order == 'applied') {
+		if (search == 'none') {
 			a = displayMaster.slice();
 		}
-		else if ( search == 'applied' ) {
+		else if (search == 'applied') {
 			a = displayFiltered.slice();
 		}
-		else if ( search == 'removed' ) {
+		else if (search == 'removed') {
 			// O(n+m) solution by creating a hash map
 			var displayFilteredMap = {};
 
-			for ( i=0, iLen=displayFiltered.length ; i<iLen ; i++ ) {
+			for (i = 0, iLen = displayFiltered.length; i < iLen; i++) {
 				displayFilteredMap[displayFiltered[i]] = null;
 			}
 
 			displayMaster.forEach(function (item) {
-				if (! Object.prototype.hasOwnProperty.call(displayFilteredMap, item)) {
+				if (!Object.prototype.hasOwnProperty.call(displayFilteredMap, item)) {
 					a.push(item);
 				}
 			});
 		}
 	}
-	else if ( order == 'index' || order == 'original' ) {
-		for ( i=0, iLen=settings.aoData.length ; i<iLen ; i++ ) {
-			if (! settings.aoData[i]) {
+	else if (order == 'index' || order == 'original') {
+		for (i = 0, iLen = settings.aoData.length; i < iLen; i++) {
+			if (!settings.aoData[i]) {
 				continue;
 			}
 
-			if ( search == 'none' ) {
-				a.push( i );
+			if (search == 'none') {
+				a.push(i);
 			}
-			else { // applied | removed
+			else {
+				// applied | removed
 				tmp = displayFiltered.indexOf(i);
 
-				if ((tmp === -1 && search == 'removed') ||
-					(tmp >= 0   && search == 'applied') )
-				{
-					a.push( i );
+				if (
+					(tmp === -1 && search == 'removed') ||
+					(tmp >= 0 && search == 'applied')
+				) {
+					a.push(i);
 				}
 			}
 		}
 	}
-	else if ( typeof order === 'number' ) {
+	else if (typeof order === 'number') {
 		// Order the rows by the given column
 		var ordered = sort(settings, order, 'asc');
 
 		if (search === 'none') {
 			a = ordered;
 		}
-		else { // applied | removed
-			for (i=0; i<ordered.length; i++) {
+		else {
+			// applied | removed
+			for (i = 0; i < ordered.length; i++) {
 				tmp = displayFiltered.indexOf(ordered[i]);
 
-				if ((tmp === -1 && search == 'removed') ||
-					(tmp >= 0   && search == 'applied') )
-				{
-					a.push( ordered[i] );
+				if (
+					(tmp === -1 && search == 'removed') ||
+					(tmp >= 0 && search == 'applied')
+				) {
+					a.push(ordered[i]);
 				}
 			}
 		}
 	}
 
 	return a;
-};
+}

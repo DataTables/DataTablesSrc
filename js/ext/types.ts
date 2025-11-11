@@ -1,8 +1,8 @@
 
-import * as is from "../util/is";
-import * as conv from "../util/conv";
-import * as regex from '../util/regex';
 import util from '../api/util';
+import * as conv from "../util/conv";
+import * as is from "../util/is";
+import * as regex from '../util/regex';
 
 export const store = {
 	/** Automatic column class assignment */

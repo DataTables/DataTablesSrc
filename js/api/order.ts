@@ -1,6 +1,6 @@
-
-import { sortAttachListener, sortFlatten, sortResolve } from "../core/sort";
-import Api from "./base";
+import { sortAttachListener, sortFlatten, sortResolve } from '../core/sort';
+import * as object from '../util/object';
+import Api from './base';
 
 /**
  * Get current ordering (sorting) that has been applied to the table.
@@ -12,54 +12,51 @@ import Api from "./base";
  *   the column index that the sorting condition applies to, the second is the
  *   direction of the sort (`desc` or `asc`) and, optionally, the third is the
  *   index of the sorting order from the `column.sorting` initialisation array.
- *//**
+ */ /**
  * Set the ordering for the table.
  *
  * @param {integer} order Column index to sort upon.
  * @param {string} direction Direction of the sort to be applied (`asc` or `desc`)
  * @returns {DataTables.Api} this
- *//**
+ */ /**
  * Set the ordering for the table.
  *
  * @param {array} order 1D array of sorting information to be applied.
  * @param {array} [...] Optional additional sorting conditions
  * @returns {DataTables.Api} this
- *//**
+ */ /**
  * Set the ordering for the table.
  *
  * @param {array} order 2D array of sorting information to be applied.
  * @returns {DataTables.Api} this
  */
-Api.register( 'order()', function ( order, dir ) {
+Api.register('order()', function (order, dir) {
 	var ctx = this.context;
-	var args = Array.prototype.slice.call( arguments );
+	var args = Array.prototype.slice.call(arguments);
 
-	if ( order === undefined ) {
+	if (order === undefined) {
 		// get
-		return ctx.length !== 0 ?
-			ctx[0].aaSorting :
-			undefined;
+		return ctx.length !== 0 ? ctx[0].aaSorting : undefined;
 	}
 
 	// set
-	if ( typeof order === 'number' ) {
+	if (typeof order === 'number') {
 		// Simple column / direction passed in
-		order = [ [ order, dir ] ];
+		order = [[order, dir]];
 	}
-	else if ( args.length > 1 ) {
+	else if (args.length > 1) {
 		// Arguments passed in (list of 1D arrays)
 		order = args;
 	}
 	// otherwise a 2D array was passed in
 
-	return this.iterator( 'table', function ( settings ) {
+	return this.iterator('table', function (settings) {
 		var resolved = [];
 		sortResolve(settings, resolved, order);
 
 		settings.aaSorting = resolved;
-	} );
-} );
-
+	});
+});
 
 /**
  * Attach a sort listener to an element for a given column
@@ -71,67 +68,67 @@ Api.register( 'order()', function ( order, dir ) {
  * @param {function} [callback] callback function when sort is run
  * @returns {DataTables.Api} this
  */
-Api.register( 'order.listener()', function ( node, column, callback ) {
-	return this.iterator( 'table', function ( settings ) {
+Api.register('order.listener()', function (node, column, callback) {
+	return this.iterator('table', function (settings) {
 		sortAttachListener(settings, node, '', column, callback);
-	} );
-} );
+	});
+});
 
-
-Api.register( 'order.fixed()', function ( set ) {
-	if ( ! set ) {
+Api.register('order.fixed()', function (set) {
+	if (!set) {
 		var ctx = this.context;
-		var fixed = ctx.length ?
-			ctx[0].aaSortingFixed :
-			undefined;
+		var fixed = ctx.length ? ctx[0].aaSortingFixed : undefined;
 
-		return Array.isArray( fixed ) ?
-			{ pre: fixed } :
-			fixed;
+		return Array.isArray(fixed) ? { pre: fixed } : fixed;
 	}
 
-	return this.iterator( 'table', function ( settings ) {
-		settings.aaSortingFixed = $.extend( true, {}, set );
-	} );
-} );
-
+	return this.iterator('table', function (settings) {
+		settings.aaSortingFixed = object.assignDeep({}, set);
+	});
+});
 
 // Order by the selected column(s)
-Api.register( [
-	'columns().order()',
-	'column().order()'
-], function ( dir ) {
+Api.register(['columns().order()', 'column().order()'], function (dir) {
 	var that = this;
 
-	if ( ! dir ) {
-		return this.iterator( 'column', function ( settings, idx ) {
-			var sort = sortFlatten( settings );
+	if (!dir) {
+		return this.iterator(
+			'column',
+			function (settings, idx) {
+				var sort = sortFlatten(settings);
 
-			for ( var i=0, iLen=sort.length ; i<iLen ; i++ ) {
-				if ( sort[i].col === idx ) {
-					return sort[i].dir;
+				for (var i = 0, iLen = sort.length; i < iLen; i++) {
+					if (sort[i].col === idx) {
+						return sort[i].dir;
+					}
 				}
-			}
 
-			return null;
-		}, 1 );
+				return null;
+			},
+			1
+		);
 	}
 	else {
-		return this.iterator( 'table', function ( settings, i ) {
-			settings.aaSorting = that[i].map( function (col) {
-				return [ col, dir ];
-			} );
-		} );
+		return this.iterator('table', function (settings, i) {
+			settings.aaSorting = that[i].map(function (col) {
+				return [col, dir];
+			});
+		});
 	}
-} );
+});
 
-Api.registerPlural('columns().orderable()', 'column().orderable()', function ( directions ) {
-	return this.iterator( 'column', function ( settings, idx ) {
-		var col = settings.aoColumns[idx];
+Api.registerPlural(
+	'columns().orderable()',
+	'column().orderable()',
+	function (directions) {
+		return this.iterator(
+			'column',
+			function (settings, idx) {
+				var col = settings.aoColumns[idx];
 
-		return directions ?
-			col.asSorting :
-			col.bSortable;
-	}, 1 );
-} );
-
+				return directions ? col.asSorting : col.bSortable;
+			},
+			1
+		);
+	}
+);

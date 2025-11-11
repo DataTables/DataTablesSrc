@@ -1,3 +1,4 @@
+import { Dom } from '../dom';
 import { numToDecimal } from './conv';
 import { reFormattedNumeric } from './regex';
 import { stripHtml } from './string';
@@ -9,6 +10,16 @@ export function arrayLike(test: any) {
 		test.length !== undefined && // Has a length
 		test.nodeType === undefined // Is not a text node
 	);
+}
+
+/**
+ * Determine if the input is a Dom instance
+ *
+ * @param input Value to check
+ * @returns true if it is a Dom instance, false otherwise
+ */
+export function dom(input: any) {
+	return input && input instanceof Dom;
 }
 
 /**
@@ -63,6 +74,16 @@ export function htmlNum(
 		: num(stripHtml(d), decimalPoint, formatted, allowEmpty)
 		? true
 		: null;
+}
+
+/**
+ * Determine if an input is a jQuery instance
+ *
+ * @param input Value to check
+ * @returns true if it is a jQuery instance, false otherwise
+ */
+export function jquery(input: any) {
+	return input && typeof input.jquery === 'string';
 }
 
 /**

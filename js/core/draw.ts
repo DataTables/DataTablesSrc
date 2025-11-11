@@ -3,8 +3,8 @@ import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import RowModel, { TableCell, TableRow } from '../model/row';
 import Context, {
-	HeaderStructure,
-	HeaderStructureCell,
+    HeaderStructure,
+    HeaderStructureCell,
 } from '../model/settings';
 import { pluck, range, unique } from '../util/array';
 import * as is from '../util/is';

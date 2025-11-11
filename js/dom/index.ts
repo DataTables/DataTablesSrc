@@ -4,7 +4,7 @@ import { PlainObject } from '../util/types';
 import * as events from './events';
 
 type AttributeTypes = string | number | boolean | null;
-type TSelector = string | Element | HTMLElement | Document | Array<TSelector>;
+type TSelector = string | Element | HTMLElement | Document | Array<TSelector> | null;
 type TDimensionInclude =
 	| 'outer' // alias to withBorder
 	| 'inner' // alias to withPadding
@@ -493,14 +493,14 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	/**
 	 * Get all elements in the result set
 	 */
-	get(): T[];
+	get<R=T>(): R[];
 
 	/**
 	 * Get a specific element from the result set
 	 *
 	 * @param idx Element index
 	 */
-	get(idx: number): T;
+	get<R=T>(idx: number): R;
 
 	get(idx?: number) {
 		return idx !== undefined ? this._store[idx] : this._store;
@@ -513,10 +513,14 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *   match to be selected.
 	 * @returns New Dom instance containing the parent elements
 	 */
-	filter(filter?: string) {
+	filter(filter?: string | HTMLElement) {
 		return this.map(el => {
 			if (filter) {
-				return el.matches(filter) ? el : null;
+				if (typeof filter === 'string') {
+					return el.matches(filter) ? el : null;
+				}
+
+				return filter === el ? el : null;
 			}
 
 			return el;

@@ -1,6 +1,7 @@
 import dom from '../dom';
 import ext from '../ext/index';
 import Context from '../model/settings';
+import * as object from '../util/object';
 import { escapeHtml } from '../util/string';
 
 /**
@@ -54,14 +55,16 @@ export function log(ctx: Context | null, level: number, msg: string, tn?: number
  */
 export function map(ret: object, src: object, name: string | any[], mappedName?: string) {
 	if (Array.isArray(name)) {
-		$.each(name, function (i, val) {
+		for (let i=0 ; i<name.length ; i++) {
+			let val = name[i];
+
 			if (Array.isArray(val)) {
 				map(ret, src, val[0], val[1]);
 			}
 			else {
 				map(ret, src, val);
 			}
-		});
+		}
 
 		return;
 	}
@@ -289,7 +292,7 @@ export function listener(that, name, src) {
  */
 export function escapeObject(obj) {
 	if (ext.escape.attributes) {
-		$.each(obj, function (key, val) {
+		object.each(obj, function (key, val) {
 			obj[key] = escapeHtml(val);
 		});
 	}

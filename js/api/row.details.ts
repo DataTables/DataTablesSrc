@@ -1,27 +1,28 @@
-
-import { visibleColumns } from "../core/columns";
-import { saveState } from "../core/state";
-import { pluck } from "../util/array";
-import Api from "./base";
-import { callbackFire } from "./support";
+import { visibleColumns } from '../core/columns';
+import { saveState } from '../core/state';
+import dom from '../dom';
+import { pluck } from '../util/array';
+import * as is from '../util/is';
+import Api from './base';
+import { callbackFire } from './support';
 import util from './util';
 
-$(document).on('plugin-init.dt', function (e, context) {
-	var api = new Api( context );
+dom.s(document).on('plugin-init.dt', function (e, context) {
+	var api = new Api(context);
 
-	api.on( 'stateSaveParams.DT', function ( ev, settings, d ) {
+	api.on('stateSaveParams.DT', function (ev, settings, d) {
 		// This could be more compact with the API, but it is a lot faster as a simple
 		// internal loop
 		var idFn = settings.rowIdFn;
 		var rows = settings.aiDisplayMaster;
 		var ids: any[] = [];
 
-		for (var i=0 ; i<rows.length ; i++) {
+		for (var i = 0; i < rows.length; i++) {
 			var rowIdx = rows[i];
 			var data = settings.aoData[rowIdx];
 
 			if (data._detailsShow) {
-				ids.push( '#' + idFn(data._aData) );
+				ids.push('#' + idFn(data._aData));
 			}
 		}
 
@@ -29,269 +30,273 @@ $(document).on('plugin-init.dt', function (e, context) {
 	});
 
 	// For future state loads (e.g. with StateRestore)
-	api.on( 'stateLoaded.DT', function (ev, settings, state) {
-		__details_state_load( api, state );
+	api.on('stateLoaded.DT', function (ev, settings, state) {
+		__details_state_load(api, state);
 	});
 
 	// And the initial load state
-	__details_state_load( api, api.state.loaded() );
+	__details_state_load(api, api.state.loaded());
 });
 
-var __details_state_load = function (api, state)
-{
-	if ( state && state.childRows ) {
+var __details_state_load = function (api, state) {
+	if (state && state.childRows) {
 		api
-			.rows( state.childRows.map(function (id) {
-				// Escape any `:` characters from the row id. Accounts for
-				// already escaped characters.
-				return id.replace(/([^:\\]*(?:\\.[^:\\]*)*):/g, "$1\\:");
-			}) )
-			.every( function () {
-				callbackFire( api.settings()[0], null, 'requestChild', [ this ] )
+			.rows(
+				state.childRows.map(function (id) {
+					// Escape any `:` characters from the row id. Accounts for
+					// already escaped characters.
+					return id.replace(/([^:\\]*(?:\\.[^:\\]*)*):/g, '$1\\:');
+				})
+			)
+			.every(function () {
+				callbackFire(api.settings()[0], null, 'requestChild', [this]);
 			});
 	}
-}
+};
 
-var __details_add = function ( ctx, row, data, klass )
-{
+var __details_add = function (ctx, row, data, klass) {
 	// Convert to array of TR elements
 	var rows: any[] = [];
-	var addRow = function ( r: any, k ) {
+	var addRow = function (r: any, k) {
 		// Recursion to allow for arrays of jQuery objects
-		if ( Array.isArray( r ) || r instanceof $ ) {
-			for ( var i=0, iLen=(r as any).length ; i<iLen ; i++ ) { // TODO typing
-				addRow( r[i], k );
+		if (Array.isArray(r) || is.jquery(r)) {
+			for (var i = 0, iLen = (r as any).length; i < iLen; i++) {
+				// TODO typing
+				addRow(r[i], k);
 			}
 			return;
 		}
 
 		// If we get a TR element, then just add it directly - up to the dev
 		// to add the correct number of columns etc
-		if ( r.nodeName && r.nodeName.toLowerCase() === 'tr' ) {
-			r.setAttribute( 'data-dt-row', row.idx );
-			rows.push( r );
+		if (r.nodeName && r.nodeName.toLowerCase() === 'tr') {
+			r.setAttribute('data-dt-row', row.idx);
+			rows.push(r);
 		}
 		else {
 			// Otherwise create a row with a wrapper
-			var created = $('<tr><td></td></tr>')
-				.attr( 'data-dt-row', row.idx )
-				.addClass( k );
-			
-			$<HTMLTableCellElement>('td', created)
-				.addClass( k )
-				.html( r )[0].colSpan = visibleColumns( ctx );
+			var created = dom
+				.c('tr')
+				.append(dom.c('td'))
+				.attr('data-dt-row', row.idx)
+				.classAdd(k);
 
-			rows.push( created[0] );
+			(created.find('td').classAdd(k).html(r).get(0) as any).colSpan =
+				visibleColumns(ctx);
+
+			rows.push(created[0]);
 		}
 	};
 
-	addRow( data, klass );
+	addRow(data, klass);
 
-	if ( row._details ) {
+	if (row._details) {
 		row._details.detach();
 	}
 
-	row._details = $(rows);
+	row._details = dom.s(rows);
 
 	// If the children were already shown, that state should be retained
-	if ( row._detailsShow ) {
-		row._details.insertAfter( row.nTr );
+	if (row._detailsShow) {
+		row._details.insertAfter(row.nTr);
 	}
 };
 
-
 // Make state saving of child row details async to allow them to be batch processed
-var __details_state = util.throttle(
-	function (ctx) {
-		saveState( ctx[0] )
-	},
-	500
-) as any;
+var __details_state = util.throttle(function (ctx) {
+	saveState(ctx[0]);
+}, 500) as any;
 
-
-var __details_remove = function ( api, idx? )
-{
+var __details_remove = function (api, idx?) {
 	var ctx = api.context;
 
-	if ( ctx.length ) {
-		var row = ctx[0].aoData[ idx !== undefined ? idx : api[0] ];
+	if (ctx.length) {
+		var row = ctx[0].aoData[idx !== undefined ? idx : api[0]];
 
-		if ( row && row._details ) {
+		if (row && row._details) {
 			row._details.detach();
 
 			row._detailsShow = undefined;
 			row._details = undefined;
-			$( row.nTr ).removeClass( 'dt-hasChild' );
-			__details_state( ctx );
+			dom.s(row.nTr).classRemove('dt-hasChild');
+			__details_state(ctx);
 		}
 	}
 };
 
-
-var __details_display = function ( api, show ) {
+var __details_display = function (api, show) {
 	var ctx = api.context;
 
-	if ( ctx.length && api.length ) {
-		var row = ctx[0].aoData[ api[0] ];
+	if (ctx.length && api.length) {
+		var row = ctx[0].aoData[api[0]];
 
-		if ( row._details ) {
+		if (row._details) {
 			row._detailsShow = show;
 
-			if ( show ) {
-				row._details.insertAfter( row.nTr );
-				$( row.nTr ).addClass( 'dt-hasChild' );
+			if (show) {
+				row._details.insertAfter(row.nTr);
+				dom.s(row.nTr).classAdd('dt-hasChild');
 			}
 			else {
 				row._details.detach();
-				$( row.nTr ).removeClass( 'dt-hasChild' );
+				dom.s(row.nTr).classRemove('dt-hasChild');
 			}
 
-			callbackFire( ctx[0], null, 'childRow', [ show, api.row( api[0] ) ] )
+			callbackFire(ctx[0], null, 'childRow', [show, api.row(api[0])]);
 
-			__details_events( ctx[0] );
-			__details_state( ctx );
+			__details_events(ctx[0]);
+			__details_state(ctx);
 		}
 	}
 };
 
-
-var __details_events = function ( settings )
-{
-	var api = new Api( settings );
+var __details_events = function (settings) {
+	var api = new Api(settings);
 	var namespace = '.dt.DT_details';
-	var drawEvent = 'draw'+namespace;
-	var colvisEvent = 'column-sizing'+namespace;
-	var destroyEvent = 'destroy'+namespace;
+	var drawEvent = 'draw' + namespace;
+	var colvisEvent = 'column-sizing' + namespace;
+	var destroyEvent = 'destroy' + namespace;
 	var data = settings.aoData;
 
-	api.off( drawEvent +' '+ colvisEvent +' '+ destroyEvent );
+	api.off(drawEvent + ' ' + colvisEvent + ' ' + destroyEvent);
 
-	if ( pluck( data, '_details' ).length > 0 ) {
+	if (pluck(data, '_details').length > 0) {
 		// On each draw, insert the required elements into the document
-		api.on( drawEvent, function ( e, ctx ) {
-			if ( settings !== ctx ) {
+		api.on(drawEvent, function (e, ctx) {
+			if (settings !== ctx) {
 				return;
 			}
 
-			api.rows( {page:'current'} ).eq(0).each( function (idx) {
-				// Internal data grab
-				var row = data[ idx ];
+			api
+				.rows({ page: 'current' })
+				.eq(0)
+				.each(function (idx) {
+					// Internal data grab
+					var row = data[idx];
 
-				if ( row._detailsShow ) {
-					row._details.insertAfter( row.nTr );
-				}
-			} );
-		} );
+					if (row._detailsShow) {
+						row._details.insertAfter(row.nTr);
+					}
+				});
+		});
 
 		// Column visibility change - update the colspan
-		api.on( colvisEvent, function ( e, ctx ) {
-			if ( settings !== ctx ) {
+		api.on(colvisEvent, function (e, ctx) {
+			if (settings !== ctx) {
 				return;
 			}
 
 			// Update the colspan for the details rows (note, only if it already has
 			// a colspan)
-			var row, visible = visibleColumns( ctx );
+			var row,
+				visible = visibleColumns(ctx);
 
-			for ( var i=0, iLen=data.length ; i<iLen ; i++ ) {
+			for (var i = 0, iLen = data.length; i < iLen; i++) {
 				row = data[i];
 
-				if ( row && row._details ) {
-					row._details.each(function () {
-						var el = $(this).children('td');
+				if (row && row._details) {
+					row._details.each(function (el) {
+						var td = dom.s(el).children('td');
 
-						if (el.length == 1) {
-							el.attr('colspan', visible);
+						if (td.count() == 1) {
+							td.attr('colspan', visible);
 						}
 					});
 				}
 			}
-		} );
+		});
 
 		// Table destroyed - nuke any child rows
-		api.on( destroyEvent, function ( e, ctx ) {
-			if ( settings !== ctx ) {
+		api.on(destroyEvent, function (e, ctx) {
+			if (settings !== ctx) {
 				return;
 			}
 
-			for ( var i=0, iLen=data.length ; i<iLen ; i++ ) {
-				if ( data[i] && data[i]._details ) {
-					__details_remove( api, i );
+			for (var i = 0, iLen = data.length; i < iLen; i++) {
+				if (data[i] && data[i]._details) {
+					__details_remove(api, i);
 				}
 			}
-		} );
+		});
 	}
 };
 
 // Strings for the method names to help minification
 var _emp = '';
-var _child_obj = _emp+'row().child';
-var _child_mth = _child_obj+'()';
+var _child_obj = _emp + 'row().child';
+var _child_mth = _child_obj + '()';
 
 // data can be:
 //  tr
 //  string
 //  jQuery or array of any of the above
-Api.register( _child_mth, function ( data, klass ) {
+Api.register(_child_mth, function (data, klass) {
 	var ctx = this.context;
 
-	if ( data === undefined ) {
+	if (data === undefined) {
 		// get
-		return ctx.length && this.length && ctx[0].aoData[ this[0] ]
-			? ctx[0].aoData[ this[0] ]._details
+		return ctx.length && this.length && ctx[0].aoData[this[0]]
+			? ctx[0].aoData[this[0]]._details
 			: undefined;
 	}
-	else if ( data === true ) {
+	else if (data === true) {
 		// show
 		this.child.show();
 	}
-	else if ( data === false ) {
+	else if (data === false) {
 		// remove
-		__details_remove( this );
+		__details_remove(this);
 	}
-	else if ( ctx.length && this.length ) {
+	else if (ctx.length && this.length) {
 		// set
-		__details_add( ctx[0], ctx[0].aoData[ this[0] ], data, klass );
+		__details_add(ctx[0], ctx[0].aoData[this[0]], data, klass);
 	}
 
 	return this;
-} );
+});
 
+Api.register(
+	[
+		_child_obj + '.show()',
+		_child_mth + '.show()', // only when `child()` was called with parameters (without
+	],
+	function () {
+		// it returns an object and this method is not executed)
+		__details_display(this, true);
+		return this;
+	}
+);
 
-Api.register( [
-	_child_obj+'.show()',
-	_child_mth+'.show()' // only when `child()` was called with parameters (without
-], function () {         // it returns an object and this method is not executed)
-	__details_display( this, true );
-	return this;
-} );
+Api.register(
+	[
+		_child_obj + '.hide()',
+		_child_mth + '.hide()', // only when `child()` was called with parameters (without
+	],
+	function () {
+		// it returns an object and this method is not executed)
+		__details_display(this, false);
+		return this;
+	}
+);
 
+Api.register(
+	[
+		_child_obj + '.remove()',
+		_child_mth + '.remove()', // only when `child()` was called with parameters (without
+	],
+	function () {
+		// it returns an object and this method is not executed)
+		__details_remove(this);
+		return this;
+	}
+);
 
-Api.register( [
-	_child_obj+'.hide()',
-	_child_mth+'.hide()' // only when `child()` was called with parameters (without
-], function () {         // it returns an object and this method is not executed)
-	__details_display( this, false );
-	return this;
-} );
-
-
-Api.register( [
-	_child_obj+'.remove()',
-	_child_mth+'.remove()' // only when `child()` was called with parameters (without
-], function () {           // it returns an object and this method is not executed)
-	__details_remove( this );
-	return this;
-} );
-
-
-Api.register( _child_obj+'.isShown()', function () {
+Api.register(_child_obj + '.isShown()', function () {
 	var ctx = this.context;
 
-	if ( ctx.length && this.length && ctx[0].aoData[ this[0] ] ) {
+	if (ctx.length && this.length && ctx[0].aoData[this[0]]) {
 		// _detailsShown as false or undefined will fall through to return false
-		return ctx[0].aoData[ this[0] ]._detailsShow || false;
+		return ctx[0].aoData[this[0]]._detailsShow || false;
 	}
 	return false;
-} );
-
+});

@@ -1,93 +1,94 @@
-
-import { clearTable } from "../core/data";
-import { sortingClasses } from "../core/sort";
-import ext from "../ext/index";
-import { pluck } from "../util/array";
-import Api from "./base";
-import { callbackFire, log } from "./support";
-import util from "./util";
+import { clearTable } from '../core/data';
+import { sortingClasses } from '../core/sort';
+import dom from '../dom';
+import ext from '../ext/index';
+import { pluck } from '../util/array';
+import use from '../util/external';
+import * as is from '../util/is';
+import Api from './base';
+import { callbackFire, log } from './support';
+import util from './util';
 
 /**
  *
  */
-Api.register( '$()', function ( selector, opts ) {
-	var
-		rows   = this.rows( opts ).nodes(), // Get all rows
-		jqRows = $(rows) as any;
+Api.register('$()', function (selector, opts) {
+	let jq = use('jq');
 
-	return $( [].concat(
-		jqRows.filter( selector ).toArray(),
-		jqRows.find( selector ).toArray()
-	) );
-} );
+	if (!jq) {
+		log(this.ctx[0], 0, 'No jQuery available. Use `.dom()` or register jQuery');
+	}
 
+	let rows = this.rows(opts).nodes(), // Get all rows
+		jqRows = jq(rows) as any;
+
+	return jq(
+		[].concat(
+			jqRows.filter(selector).toArray(),
+			jqRows.find(selector).toArray()
+		)
+	);
+});
 
 // jQuery functions to operate on the tables
-$.each( [ 'on', 'one', 'off' ], function (i, key) {
-	Api.register( key+'()', function ( /* event, handler */ ) {
+['on', 'one', 'off'].forEach(key => {
+	Api.register(key + '()', function (/* event, handler */) {
 		var args = Array.prototype.slice.call(arguments);
 
 		// Add the `dt` namespace automatically if it isn't already present
-		args[0] = args[0].split( /\s/ ).map( function ( e ) {
-			return ! e.match(/\.dt\b/) ?
-				e+'.dt' :
-				e;
-			} ).join( ' ' );
+		args[0] = args[0]
+			.split(/\s/)
+			.map(function (e) {
+				return !e.match(/\.dt\b/) ? e + '.dt' : e;
+			})
+			.join(' ');
 
-		var inst = $( this.tables().nodes() );
-		inst[key].apply( inst, args );
+		var inst = dom.s(this.tables().nodes());
+		inst[key].apply(inst, args);
+
 		return this;
-	} );
-} );
+	});
+});
 
+Api.register('clear()', function () {
+	return this.iterator('table', function (settings) {
+		clearTable(settings);
+	});
+});
 
-Api.register( 'clear()', function () {
-	return this.iterator( 'table', function ( settings ) {
-		clearTable( settings );
-	} );
-} );
+Api.register('error()', function (msg) {
+	return this.iterator('table', function (settings) {
+		log(settings, 0, msg);
+	});
+});
 
+Api.register('settings()', function () {
+	return new Api(this.context, this.context);
+});
 
-Api.register( 'error()', function (msg) {
-	return this.iterator( 'table', function ( settings ) {
-		log( settings, 0, msg );
-	} );
-} );
-
-
-Api.register( 'settings()', function () {
-	return new Api( this.context, this.context );
-} );
-
-
-Api.register( 'init()', function () {
+Api.register('init()', function () {
 	var ctx = this.context;
 	return ctx.length ? ctx[0].oInit : null;
-} );
+});
 
+Api.register('data()', function () {
+	return this.iterator('table', function (settings) {
+		return pluck(settings.aoData, '_aData');
+	}).flatten();
+});
 
-Api.register( 'data()', function () {
-	return this.iterator( 'table', function ( settings ) {
-		return pluck( settings.aoData, '_aData' );
-	} ).flatten();
-} );
+Api.register('trigger()', function (name, args, bubbles) {
+	return this.iterator('table', function (settings) {
+		return callbackFire(settings, null, name, args, bubbles);
+	}).flatten();
+});
 
-
-Api.register( 'trigger()', function ( name, args, bubbles ) {
-	return this.iterator( 'table', function ( settings ) {
-		return callbackFire( settings, null, name, args, bubbles );
-	} ).flatten();
-} );
-
-
-Api.register( 'ready()', function ( fn ) {
+Api.register('ready()', function (fn) {
 	var ctx = this.context;
 
 	// Get status of first table
-	if (! fn) {
-		return ctx.length
-			? (ctx[0]._bInitComplete || false)
-			: null;
+	if (!fn) {
+		return ctx.length ? ctx[0]._bInitComplete || false : null;
 	}
 
 	// Function to run either once the table becomes ready or
@@ -103,23 +104,24 @@ Api.register( 'ready()', function ( fn ) {
 				fn.call(api);
 			});
 		}
-	} );
-} );
+	});
+});
 
-
-Api.register( 'destroy()', function ( remove ) {
+Api.register('destroy()', function (remove) {
 	remove = remove || false;
 
-	return this.iterator( 'table', function ( settings ) {
-		var classes   = settings.oClasses;
-		var table     = settings.nTable;
-		var tbody     = settings.nTBody;
-		var thead     = settings.nTHead;
-		var tfoot     = settings.nTFoot;
-		var jqTable   = $(table);
-		var jqTbody   = $(tbody);
-		var jqWrapper = $(settings.nTableWrapper);
-		var rows      = settings.aoData.map( function (r) { return r ? r.nTr : null; } );
+	return this.iterator('table', function (settings) {
+		var classes = settings.oClasses;
+		var table = settings.nTable;
+		var tbody = settings.nTBody;
+		var thead = settings.nTHead;
+		var tfoot = settings.nTFoot;
+		var jqTable = dom.s(table);
+		var jqTbody = dom.s(tbody);
+		var jqWrapper = dom.s(settings.nTableWrapper);
+		var rows = settings.aoData.map(function (r) {
+			return r ? r.nTr : null;
+		});
 		var orderClasses = classes.order;
 
 		// Flag to note that the table is currently being destroyed - no action
@@ -127,11 +129,11 @@ Api.register( 'destroy()', function ( remove ) {
 		settings.bDestroying = true;
 
 		// Fire off the destroy callbacks for plug-ins etc
-		callbackFire( settings, "aoDestroyCallback", "destroy", [settings], true );
+		callbackFire(settings, 'aoDestroyCallback', 'destroy', [settings], true);
 
 		// If not being removed from the document, make all columns visible
-		if ( ! remove ) {
-			new Api( settings ).columns().visible( true );
+		if (!remove) {
+			new Api(settings).columns().visible(true);
 		}
 
 		// Container width change listener
@@ -143,21 +145,20 @@ Api.register( 'destroy()', function ( remove ) {
 		// lowercase, `dt` events are user subscribed and they are responsible
 		// for removing them
 		jqWrapper.off('.DT').find(':not(tbody *)').off('.DT');
-		$(window).off('.DT-'+settings.sInstance);
 
 		if (settings.windowResizeCb) {
 			window.removeEventListener('resize', settings.windowResizeCb);
 		}
 
 		// When scrolling we had to break the table up - restore it
-		if ( table != thead.parentNode ) {
+		if (table != thead.parentNode) {
 			jqTable.children('thead').detach();
-			jqTable.append( thead );
+			jqTable.append(thead);
 		}
 
-		if ( tfoot && table != tfoot.parentNode ) {
+		if (tfoot && table != tfoot.parentNode) {
 			jqTable.children('tfoot').detach();
-			jqTable.append( tfoot );
+			jqTable.append(tfoot);
 		}
 
 		// Clean up the header / footer
@@ -167,68 +168,69 @@ Api.register( 'destroy()', function ( remove ) {
 
 		settings.aaSorting = [];
 		settings.aaSortingFixed = [];
-		sortingClasses( settings );
+		sortingClasses(settings);
 
-		$(jqTable).find('th, td').removeClass(
-			$.map(ext.type.className, function (v) {
-				return v;
-			}).join(' ')
-		);
+		jqTable
+			.find('th, td')
+			.classRemove(Object.values(ext.type.className).join(' '));
 
-		$('th, td', thead)
-			.removeClass(
-				orderClasses.none + ' ' +
-				orderClasses.canAsc + ' ' +
-				orderClasses.canDesc + ' ' +
-				orderClasses.isAsc + ' ' +
-				orderClasses.isDesc
+		dom
+			.s(thead)
+			.find('th, td')
+			.classRemove(
+				orderClasses.none +
+					' ' +
+					orderClasses.canAsc +
+					' ' +
+					orderClasses.canDesc +
+					' ' +
+					orderClasses.isAsc +
+					' ' +
+					orderClasses.isDesc
 			)
 			.css('width', '')
 			.removeAttr('aria-sort');
 
 		// Add the TR elements back into the table in their original order
 		jqTbody.children().detach();
-		jqTbody.append( rows );
+		jqTbody.append(rows);
 
 		var orig = settings.nTableWrapper.parentNode;
 		var insertBefore = settings.nTableWrapper.nextSibling;
 
 		// Remove the DataTables generated nodes, events and classes
 		var removedMethod = remove ? 'remove' : 'detach';
-		jqTable[ removedMethod ]();
-		jqWrapper[ removedMethod ]();
+		jqTable[removedMethod]();
+		jqWrapper[removedMethod]();
 
 		// If we need to reattach the table to the document
-		if ( ! remove && orig ) {
+		if (!remove && orig) {
 			// insertBefore acts like appendChild if !arg[1]
-			orig.insertBefore( table, insertBefore );
+			orig.insertBefore(table, insertBefore);
 
 			// Restore the width of the original table - was read from the style property,
 			// so we can restore directly to that
-			jqTable
-				.css( 'width', settings.sDestroyWidth )
-				.removeClass( classes.table );
+			jqTable.css('width', settings.sDestroyWidth).classRemove(classes.table);
 		}
 
 		/* Remove the settings object from the settings array */
 		var idx = ext.settings.indexOf(settings);
-		if ( idx !== -1 ) {
-			ext.settings.splice( idx, 1 );
+		if (idx !== -1) {
+			ext.settings.splice(idx, 1);
 		}
-	} );
-} );
-
+	});
+});
 
 // Add the `every()` method for rows, columns and cells in a compact form
-$.each( [ 'column', 'row', 'cell' ], function ( i, type ) {
-	Api.register( type+'s().every()', function ( fn ) {
+['column', 'row', 'cell'].forEach(type => {
+	Api.register(type + 's().every()', function (fn) {
 		var opts = this.selector.opts;
 		var api = this;
 		var inst;
 		var counter = 0;
 
-		return this.iterator( 'every', function ( settings, selectedIdx, tableIdx ) {
-			inst = api[ type ](selectedIdx, opts);
+		return this.iterator('every', function (settings, selectedIdx, tableIdx) {
+			inst = api[type](selectedIdx, opts);
 
 			if (type === 'cell') {
 				fn.call(inst, inst[0][0].row, inst[0][0].column, tableIdx, counter);
@@ -238,43 +240,47 @@ $.each( [ 'column', 'row', 'cell' ], function ( i, type ) {
 			}
 
 			counter++;
-		} );
-	} );
-} );
-
+		});
+	});
+});
 
 // i18n method for extensions to be able to use the language object from the
 // DataTable
-Api.register( 'i18n()', function ( token, def, plural ) {
+Api.register('i18n()', function (token, def, plural) {
 	var ctx = this.context[0];
-	var resolved = util.get( token )( ctx.oLanguage );
+	var resolved = util.get(token)(ctx.oLanguage);
 
-	if ( resolved === undefined ) {
+	if (resolved === undefined) {
 		resolved = def;
 	}
 
-	if ( $.isPlainObject( resolved ) ) {
-		resolved = plural !== undefined && resolved[ plural ] !== undefined
-			? resolved[ plural ]
-			: plural === false
+	if (is.plainObject(resolved)) {
+		resolved =
+			plural !== undefined && resolved[plural] !== undefined
+				? resolved[plural]
+				: plural === false
 				? resolved
 				: resolved._;
 	}
 
 	return typeof resolved === 'string'
-		? resolved.replace( '%d', plural ) // nb: plural might be undefined,
+		? resolved.replace('%d', plural) // nb: plural might be undefined,
 		: resolved;
-} );
+});
 
 // Needed for header and footer, so pulled into its own function
 function cleanHeader(node, className) {
-	$(node).find('span.dt-column-order').remove();
-	$(node).find('span.dt-column-title').each(function () {
-		var title = $(this).html();
-		$(this).parent().parent().append(title);
-		$(this).remove();
-	});
-	$(node).find('div.dt-column-' + className).remove();
+	let headerCell = dom.s(node);
 
-	$('th, td', node).removeAttr('data-dt-column');
+	headerCell.find('span.dt-column-order').remove();
+	headerCell.find('span.dt-column-title').each(function (el) {
+		let cell = dom.s(el);
+		var title = cell.html();
+
+		cell.parent().parent().html(title);
+		cell.remove();
+	});
+
+	headerCell.find('div.dt-column-' + className).remove();
+	headerCell.find('th, td').removeAttr('data-dt-column');
 }

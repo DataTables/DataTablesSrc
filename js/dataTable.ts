@@ -17,7 +17,6 @@ import {
 	camelToHungarian,
 	compatCols,
 	compatOpts,
-	jQuerySetup,
 } from './core/compat';
 import { getCellData } from './core/data';
 import { detectHeader } from './core/draw';
@@ -34,6 +33,7 @@ import columnDefaults from './model/columns/defaults';
 import defaults from './model/defaults';
 import Settings from './model/settings';
 import ajax from './util/ajax';
+import external from './util/external';
 import * as object from './util/object';
 
 // TODO typing
@@ -511,7 +511,7 @@ DataTable.type = registerType;
 DataTable.types = types;
 DataTable.render = helpers;
 DataTable.ext = ext;
-DataTable.use = apiStatic.use;
+DataTable.use = external;
 DataTable.factory = apiStatic.factory;
 DataTable.versionCheck = apiStatic.versionCheck;
 DataTable.version = ext.version;
@@ -543,8 +543,11 @@ DataTable.feature = {
 	register: registerFeature,
 };
 
+// Register the libraries
+external(DataTable);
+
 if ((window as any).jQuery) {
-	jQuerySetup((window as any).jQuery, DataTable);
+	external((window as any).jQuery);
 }
 
 export default DataTable;

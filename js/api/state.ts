@@ -1,12 +1,14 @@
 
 import { implementState, saveState } from "../core/state";
+import { StateLoad } from "../model/state";
+import * as object from '../util/object';
 import Api from "./base";
 
 /*
  * State API methods
  */
 
-Api.register( 'state()', function ( set, ignoreTime ) {
+Api.register( 'state()', function ( set: StateLoad, ignoreTime ) {
 	// getter
 	if ( ! set ) {
 		return this.context.length ?
@@ -14,7 +16,7 @@ Api.register( 'state()', function ( set, ignoreTime ) {
 			null;
 	}
 
-	var setMutate = $.extend( true, {}, set );
+	var setMutate = object.assignDeep<StateLoad>( {}, set );
 
 	// setter
 	return this.iterator( 'table', function ( settings ) {

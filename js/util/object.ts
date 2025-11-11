@@ -34,7 +34,34 @@ export function assign<T>(
 	out: Record<string, any>,
 	...inputs: Array<Record<string, any>>
 ): T {
-	return Object.assign(out, ...inputs);
+	let output = Object(out);
+
+	// Can't just use `Object.assign` as it will assign `undefined` as a regular
+	// value to the target.
+	for (let i = 0; i < inputs.length; i++) {
+		let options = inputs[i];
+
+		// Filter inputs
+		if (options != null) {
+			// Extend the base object
+			for (let name in options) {
+				let copy = options[name];
+
+				// Prevent Object.prototype pollution
+				// Prevent never-ending loop
+				if (name === '__proto__' || output === copy) {
+					continue;
+				}
+
+				// Ignore undefined values (this is why we can't use Object.assign)
+				if (copy !== undefined) {
+					output[name] = copy;
+				}
+			}
+		}
+	}
+
+	return output;
 }
 
 /**

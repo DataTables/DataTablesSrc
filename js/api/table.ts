@@ -1,5 +1,7 @@
 
 import { headerLayout } from "../core/draw";
+import dom from "../dom";
+import Context from '../model/settings';
 import Api from "./base";
 import { arrayApply } from "./support";
 
@@ -38,14 +40,14 @@ export function table_selector( selector, a )
 		return el.nTable;
 	} );
 
-	return $(nodes)
+	return dom.s(nodes)
 		.filter( selector )
 		.map( function () {
 			// Need to translate back from the table node to the settings
 			var idx = nodes.indexOf(this);
 			return a[ idx ];
 		} )
-		.toArray();
+		.get();
 };
 
 
@@ -90,7 +92,7 @@ Api.register( 'table()', function ( selector ) {
 		'tables().' + item[0] + '()',
 		'table().' + item[1] + '()' ,
 		function () {
-			return this.iterator( 'table', function ( ctx ) {
+			return this.iterator( 'table', function ( ctx: Context ) {
 				return ctx[item[2]];
 			}, 1 );
 		}
@@ -149,15 +151,15 @@ Api.register( 'caption()', function ( value, side ) {
 			null;
 	}
 
-	return this.iterator( 'table', function ( ctx ) {
-		var table = $(ctx.nTable);
-		var caption = $(ctx.captionNode);
-		var container = $(ctx.nTableWrapper);
+	return this.iterator( 'table', function ( ctx: Context ) {
+		var table = dom.s(ctx.nTable);
+		var caption = dom.s(ctx.captionNode);
+		var container = dom.s(ctx.nTableWrapper);
 
 		// Create the node if it doesn't exist yet
-		if ( ! caption.length ) {
-			caption = $('<caption/>').html( value );
-			ctx.captionNode = caption[0];
+		if ( ! caption.count() ) {
+			caption = dom.c('caption').html( value );
+			ctx.captionNode = caption.get<HTMLTableCaptionElement>(0);
 
 			// If side isn't set, we need to insert into the document to let the
 			// CSS decide so we can read it back, otherwise there is no way to
@@ -173,10 +175,10 @@ Api.register( 'caption()', function ( value, side ) {
 
 		if ( side ) {
 			caption.css( 'caption-side', side );
-			caption[0]._captionSide = side;
+			(caption.get(0) as any)._captionSide = side;
 		}
 
-		if (container.find('div.dataTables_scroll').length) {
+		if (container.find('div.dataTables_scroll').count()) {
 			var selector = (side === 'top' ? 'Head' : 'Foot');
 
 			container.find('div.dataTables_scroll'+ selector +' table').prepend(caption);

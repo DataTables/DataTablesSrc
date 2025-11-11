@@ -1,138 +1,140 @@
+import { ajaxDataSrc, buildAjax } from '../core/ajax';
+import { addData, clearTable } from '../core/data';
+import { reDraw } from '../core/draw';
+import { initComplete } from '../core/init';
+import { processingDisplay } from '../core/processing';
+import Context from '../model/settings';
+import * as is from '../util/is';
+import Api from './base';
+import { dataSource } from './support';
 
+type TReloadCallback = (json: any) => void;
 
-import { ajaxDataSrc, buildAjax } from "../core/ajax";
-import { addData, clearTable } from "../core/data";
-import { reDraw } from "../core/draw";
-import { initComplete } from "../core/init";
-import { processingDisplay } from "../core/processing";
-import Api from "./base";
-import { dataSource } from "./support";
-
-var __reload = function ( settings, holdPosition, callback ) {
+const __reload = function (
+	settings: Context,
+	holdPosition: boolean,
+	callback: TReloadCallback
+) {
 	// Use the draw event to trigger a callback
-	if ( callback ) {
-		var api = new Api( settings );
+	if (callback) {
+		var api = new Api(settings);
 
-		api.one( 'draw', function () {
-			callback( api.ajax.json() );
-		} );
+		api.one('draw', function () {
+			callback(api.ajax.json());
+		});
 	}
 
-	if ( dataSource( settings ) == 'ssp' ) {
-		reDraw( settings, holdPosition );
+	if (dataSource(settings) == 'ssp') {
+		reDraw(settings, holdPosition);
 	}
 	else {
-		processingDisplay( settings, true );
+		processingDisplay(settings, true);
 
 		// Cancel an existing request
 		var xhr = settings.jqXHR;
-		if ( xhr && xhr.readyState !== 4 ) {
+		if (xhr && xhr.readyState !== 4) {
 			xhr.abort();
 		}
 
 		// Trigger xhr
-		buildAjax( settings, {}, function( json ) {
-			clearTable( settings );
+		buildAjax(settings, {}, function (json) {
+			clearTable(settings);
 
-			var data = ajaxDataSrc( settings, json, false );
-			for ( var i=0, iLen=data.length ; i<iLen ; i++ ) {
-				addData( settings, data[i] );
+			var data = ajaxDataSrc(settings, json, false);
+			for (var i = 0, iLen = data.length; i < iLen; i++) {
+				addData(settings, data[i]);
 			}
 
-			reDraw( settings, holdPosition );
-			initComplete( settings );
-			processingDisplay( settings, false );
-		} );
+			reDraw(settings, holdPosition);
+			initComplete(settings);
+			processingDisplay(settings, false);
+		});
 	}
 };
-
 
 /**
  * Get the JSON response from the last Ajax request that DataTables made to the
  * server. Note that this returns the JSON from the first table in the current
  * context.
  *
- * @return {object} JSON received from the server.
+ * @return JSON received from the server.
  */
-Api.register( 'ajax.json()', function () {
+Api.register('ajax.json()', function () {
 	var ctx = this.context;
 
-	if ( ctx.length > 0 ) {
+	if (ctx.length > 0) {
 		return ctx[0].json;
 	}
 
 	// else return undefined;
-} );
-
+});
 
 /**
  * Get the data submitted in the last Ajax request
  */
-Api.register( 'ajax.params()', function () {
+Api.register('ajax.params()', function () {
 	var ctx = this.context;
 
-	if ( ctx.length > 0 ) {
+	if (ctx.length > 0) {
 		return ctx[0].oAjaxData;
 	}
 
 	// else return undefined;
-} );
-
+});
 
 /**
  * Reload tables from the Ajax data source. Note that this function will
  * automatically re-draw the table when the remote data has been loaded.
  *
- * @param {boolean} [reset=true] Reset (default) or hold the current paging
- *   position. A full re-sort and re-filter is performed when this method is
- *   called, which is why the pagination reset is the default action.
- * @returns {DataTables.Api} this
+ * @param reset Reset (default) or hold the current paging position. A full
+ *   re-sort and re-filter is performed when this method is called, which is why
+ *   the pagination reset is the default action.
+ * @returns Self for chaining
  */
-Api.register( 'ajax.reload()', function ( callback, resetPaging ) {
-	return this.iterator( 'table', function (settings) {
-		__reload( settings, resetPaging===false, callback );
-	} );
-} );
-
+Api.register(
+	'ajax.reload()',
+	function (callback: TReloadCallback, resetPaging: boolean) {
+		return this.iterator('table', function (settings: Context) {
+			__reload(settings, resetPaging === false, callback);
+		});
+	}
+);
 
 /**
  * Get the current Ajax URL. Note that this returns the URL from the first
  * table in the current context.
  *
- * @return {string} Current Ajax source URL
- *//**
+ * @return Current Ajax source URL
+ */
+/**
  * Set the Ajax URL. Note that this will set the URL for all tables in the
  * current context.
  *
- * @param {string} url URL to set.
- * @returns {DataTables.Api} this
+ * @param url URL to set.
  */
-Api.register( 'ajax.url()', function ( url ) {
+Api.register('ajax.url()', function (url: string) {
 	var ctx = this.context;
 
-	if ( url === undefined ) {
+	if (url === undefined) {
 		// get
-		if ( ctx.length === 0 ) {
+		if (ctx.length === 0) {
 			return undefined;
 		}
 		ctx = ctx[0];
 
-		return $.isPlainObject( ctx.ajax ) ?
-			ctx.ajax.url :
-			ctx.ajax;
+		return is.plainObject(ctx.ajax) ? ctx.ajax.url : ctx.ajax;
 	}
 
 	// set
-	return this.iterator( 'table', function ( settings ) {
-		if ( $.isPlainObject( settings.ajax ) ) {
+	return this.iterator('table', function (settings: Context) {
+		if (is.plainObject(settings.ajax)) {
 			settings.ajax.url = url;
 		}
 		else {
 			settings.ajax = url;
 		}
-	} );
-} );
-
+	});
+});
 
 /**
  * Load data from the newly set Ajax URL. Note that this method is only
@@ -141,13 +143,15 @@ Api.register( 'ajax.url()', function ( url ) {
  * convenience when setting a new URL. Like `ajax.reload()` it will
  * automatically redraw the table once the remote data has been loaded.
  *
- * @returns {DataTables.Api} this
+ * @returns Self for chaining
  */
-Api.register( 'ajax.url().load()', function ( callback, resetPaging ) {
-	// Same as a reload, but makes sense to present it for easy access after a
-	// url change
-	return this.iterator( 'table', function ( ctx ) {
-		__reload( ctx, resetPaging===false, callback );
-	} );
-} );
-
+Api.register(
+	'ajax.url().load()',
+	function (callback: TReloadCallback, resetPaging: boolean) {
+		// Same as a reload, but makes sense to present it for easy access after a
+		// url change
+		return this.iterator('table', function (ctx: Context) {
+			__reload(ctx, resetPaging === false, callback);
+		});
+	}
+);

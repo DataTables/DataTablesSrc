@@ -1,5 +1,5 @@
-import { use } from '../api/static';
 import * as array from '../util/array';
+import use from '../util/external';
 import * as object from '../util/object';
 import { PlainObject } from '../util/types';
 import * as eventStore from './eventStore';
