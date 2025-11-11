@@ -38,7 +38,7 @@ const defaults = {
 	contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 	headers: {},
 	traditional: false,
-	url: location.href
+	url: location.href,
 } as AjaxOptions;
 
 /**
@@ -87,11 +87,11 @@ function ajax(optionsIn: AjaxOptions) {
 		let responseData = xhr.responseText;
 		let statusText = 'success';
 
-		if (xhr.status === 204 || method === "HEAD") {
-			statusText = "nocontent";
+		if (xhr.status === 204 || method === 'HEAD') {
+			statusText = 'nocontent';
 		}
 		else if (xhr.status === 304) {
-			statusText = "notmodified";
+			statusText = 'notmodified';
 		}
 		else if (xhr.status >= 400) {
 			statusText = 'error';
@@ -101,8 +101,7 @@ function ajax(optionsIn: AjaxOptions) {
 		if (options.dataType === 'json') {
 			try {
 				responseData = JSON.parse(responseData);
-			}
-			catch (e) {
+			} catch (e) {
 				statusText = 'parseerror';
 			}
 		}
@@ -111,8 +110,7 @@ function ajax(optionsIn: AjaxOptions) {
 			// but no error if it can't be
 			try {
 				responseData = JSON.parse(responseData);
-			}
-			catch (e) {
+			} catch (e) {
 				// noop
 			}
 		}
@@ -150,14 +148,18 @@ export default ajax;
  * @param fnIn Function(s) to run
  * @param parameters Parameters to pass to the function(s)
  */
-function callback(fnIn: Function | Function[] | null | undefined, arg1: any, arg2?: any) {
-	if (! fnIn) {
+function callback(
+	fnIn: Function | Function[] | null | undefined,
+	arg1: any,
+	arg2?: any
+) {
+	if (!fnIn) {
 		return;
 	}
 
 	let fnArr = Array.isArray(fnIn) ? fnIn : [fnIn];
 
-	for (let i=0 ; i<fnArr.length ; i++) {
+	for (let i = 0; i < fnArr.length; i++) {
 		fnArr[i](arg1, arg2);
 	}
 }
@@ -172,8 +174,10 @@ function callback(fnIn: Function | Function[] | null | undefined, arg1: any, arg
  * @returns Query string
  */
 function convertSpaces(sendData: string, options: AjaxOptions) {
-	return (options.contentType || '').indexOf( "application/x-www-form-urlencoded" ) === 0
-		? sendData.replace( /%20/g, "+" )
+	return (options.contentType || '').indexOf(
+		'application/x-www-form-urlencoded'
+	) === 0
+		? sendData.replace(/%20/g, '+')
 		: sendData;
 }
 
@@ -213,7 +217,7 @@ function queryParams(options: AjaxOptions) {
 	}
 
 	if (options.cache === false) {
-		requestParams.push(serialize({_: +new Date()}));
+		requestParams.push(serialize({ _: +new Date() }));
 	}
 
 	return convertSpaces(requestParams.join('&'), options);
@@ -247,7 +251,12 @@ function serialize(obj: any, traditional: boolean = false) {
  * @param traditional Traditional flag for legacy
  * @param scope Recursive scope
  */
-function serializeNested(params: any, obj: any, traditional: boolean, scope = '') {
+function serializeNested(
+	params: any,
+	obj: any,
+	traditional: boolean,
+	scope = ''
+) {
 	var array = Array.isArray(obj);
 
 	for (var key in obj) {
@@ -270,7 +279,6 @@ function serializeNested(params: any, obj: any, traditional: boolean, scope = ''
 	}
 }
 
-
 /**
  * Add a name / value pair to the list of parameters
  *
@@ -280,9 +288,11 @@ function serializeNested(params: any, obj: any, traditional: boolean, scope = ''
  */
 function serializeAdd(params: any, name: string, value: string | Function) {
 	// Allow the input to be a function to match how jQuery operates
-	let strVal = typeof value === 'function'
-		? value()
-		: value;
+	let strVal = typeof value === 'function' ? value() : value;
 
-	params.push(encodeURIComponent(name) + '=' + encodeURIComponent(strVal === null ? '' : strVal));
+	params.push(
+		encodeURIComponent(name) +
+			'=' +
+			encodeURIComponent(strVal === null ? '' : strVal)
+	);
 }
