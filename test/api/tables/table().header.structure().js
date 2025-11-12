@@ -72,7 +72,7 @@ describe('tables - table().header.structure()', function() {
 		});
 
 		it('Order of columns is in index order  - strings', function() {
-			let header = table.table().header.structure([':eq(4), :eq(0)']);
+			let header = table.table().header.structure([':nth-child(4), :nth-child(1)']);
 			let cells = $('table thead tr').children();
 
 			expect(header).toEqual([[
@@ -82,7 +82,7 @@ describe('tables - table().header.structure()', function() {
 		});
 
 		it('Order of columns is retained from array  - array strings', function() {
-			let header = table.table().header.structure([':eq(4)', ':eq(0)']);
+			let header = table.table().header.structure([':nth-child(4)', ':nth-child(1)']);
 			let cells = $('table thead tr').children();
 
 			expect(header).toEqual([[

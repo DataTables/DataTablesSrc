@@ -1,22 +1,20 @@
-
-import { headerLayout } from "../core/draw";
-import dom from "../dom";
+import { headerLayout } from '../core/draw';
+import dom from '../dom';
 import Context from '../model/settings';
-import Api from "./base";
-import { arrayApply } from "./support";
+import Api from './base';
+import { arrayApply } from './support';
 
 /**
  * Selector for HTML tables. Apply the given selector to the give array of
  * DataTables settings objects.
  *
- * @param {string|integer} [selector] jQuery selector string or integer
+ * @param {string|integer} [selector] Selector string or integer
  * @param  {array} Array of DataTables settings objects to be filtered
  * @return {array}
  * @ignore
  */
-export function table_selector( selector, a )
-{
-	if ( Array.isArray(selector) ) {
+export function table_selector(selector, a) {
+	if (Array.isArray(selector)) {
 		var result = [];
 
 		selector.forEach(function (sel) {
@@ -25,32 +23,30 @@ export function table_selector( selector, a )
 			arrayApply(result, inner);
 		});
 
-		return result.filter( function (item) {
+		return result.filter(function (item) {
 			return item;
 		});
 	}
 
 	// Integer is used to pick out a table by index
-	if ( typeof selector === 'number' ) {
-		return [ a[ selector ] ];
+	if (typeof selector === 'number') {
+		return [a[selector]];
 	}
 
-	// Perform a jQuery selector on the table nodes
-	var nodes = a.map( function (el) {
+	// Perform a selector on the table nodes
+	var nodes = a.map(function (el) {
 		return el.nTable;
-	} );
+	});
 
-	return dom.s(nodes)
-		.filter( selector )
-		.map( function () {
+	return dom
+		.s(nodes)
+		.filter(selector)
+		.mapTo(el => {
 			// Need to translate back from the table node to the settings
-			var idx = nodes.indexOf(this);
-			return a[ idx ];
-		} )
-		.get();
-};
-
-
+			var idx = nodes.indexOf(el);
+			return a[idx];
+		});
+}
 
 /**
  * Context selector for the API's context (i.e. the tables the API instance
@@ -59,27 +55,24 @@ export function table_selector( selector, a )
  * @name    DataTable.Api#tables
  * @param {string|integer} [selector] Selector to pick which tables the iterator
  *   should operate on. If not given, all tables in the current context are
- *   used. This can be given as a jQuery selector (for example `':gt(0)'`) to
- *   select multiple tables or as an integer to select a single table.
+ *   used. This can be given as a selector to select multiple tables or as an
+ *   integer to select a single table.
  * @returns {DataTable.Api} Returns a new API instance if a selector is given.
  */
-Api.register( 'tables()', function ( selector ) {
+Api.register('tables()', function (selector) {
 	// A new instance is created if there was a selector specified
-	return selector !== undefined && selector !== null ?
-		new Api( table_selector( selector, this.context ) ) :
-		this;
-} );
+	return selector !== undefined && selector !== null
+		? new Api(table_selector(selector, this.context))
+		: this;
+});
 
-
-Api.register( 'table()', function ( selector ) {
-	var tables = this.tables( selector );
+Api.register('table()', function (selector) {
+	var tables = this.tables(selector);
 	var ctx = tables.context;
 
 	// Truncate to the first matched table
-	return ctx.length ?
-		new Api( ctx[0] ) :
-		tables;
-} );
+	return ctx.length ? new Api(ctx[0]) : tables;
+});
 
 // Common methods, combined to reduce size
 [
@@ -90,11 +83,15 @@ Api.register( 'table()', function ( selector ) {
 ].forEach(function (item) {
 	Api.registerPlural(
 		'tables().' + item[0] + '()',
-		'table().' + item[1] + '()' ,
+		'table().' + item[1] + '()',
 		function () {
-			return this.iterator( 'table', function ( ctx: Context ) {
-				return ctx[item[2]];
-			}, 1 );
+			return this.iterator(
+				'table',
+				function (ctx: Context) {
+					return ctx[item[2]];
+				},
+				1
+			);
 		}
 	);
 });
@@ -104,7 +101,7 @@ Api.register( 'table()', function ( selector ) {
 	['header', 'aoHeader'],
 	['footer', 'aoFooter'],
 ].forEach(function (item) {
-	Api.register( 'table().' + item[0] + '.structure()' , function (selector) {
+	Api.register('table().' + item[0] + '.structure()', function (selector) {
 		var indexes = this.columns(selector).indexes().flatten().toArray();
 		var ctx = this.context[0];
 		var structure = headerLayout(ctx, ctx[item[1]], indexes)!;
@@ -124,14 +121,17 @@ Api.register( 'table()', function ( selector ) {
 	});
 });
 
+Api.registerPlural('tables().containers()', 'table().container()', function () {
+	return this.iterator(
+		'table',
+		function (ctx) {
+			return ctx.nTableWrapper;
+		},
+		1
+	);
+});
 
-Api.registerPlural( 'tables().containers()', 'table().container()' , function () {
-	return this.iterator( 'table', function ( ctx ) {
-		return ctx.nTableWrapper;
-	}, 1 );
-} );
-
-Api.register( 'tables().every()', function ( fn ) {
+Api.register('tables().every()', function (fn) {
 	var that = this;
 
 	return this.iterator('table', function (s, i) {
@@ -139,58 +139,62 @@ Api.register( 'tables().every()', function ( fn ) {
 	});
 });
 
-Api.register( 'caption()', function ( value, side ) {
+Api.register('caption()', function (value, side) {
 	var context = this.context;
 
 	// Getter - return existing node's content
-	if ( value === undefined ) {
+	if (value === undefined) {
 		var node = context[0].captionNode;
 
-		return node && context.length ?
-			node.innerHTML : 
-			null;
+		return node && context.length ? node.innerHTML : null;
 	}
 
-	return this.iterator( 'table', function ( ctx: Context ) {
-		var table = dom.s(ctx.nTable);
-		var caption = dom.s(ctx.captionNode);
-		var container = dom.s(ctx.nTableWrapper);
+	return this.iterator(
+		'table',
+		function (ctx: Context) {
+			var table = dom.s(ctx.nTable);
+			var caption = dom.s(ctx.captionNode);
+			var container = dom.s(ctx.nTableWrapper);
 
-		// Create the node if it doesn't exist yet
-		if ( ! caption.count() ) {
-			caption = dom.c('caption').html( value );
-			ctx.captionNode = caption.get<HTMLTableCaptionElement>(0);
+			// Create the node if it doesn't exist yet
+			if (!caption.count()) {
+				caption = dom.c('caption').html(value);
+				ctx.captionNode = caption.get<HTMLTableCaptionElement>(0);
 
-			// If side isn't set, we need to insert into the document to let the
-			// CSS decide so we can read it back, otherwise there is no way to
-			// know if the CSS would put it top or bottom for scrolling
-			if (! side) {
-				table.prepend(caption);
+				// If side isn't set, we need to insert into the document to let the
+				// CSS decide so we can read it back, otherwise there is no way to
+				// know if the CSS would put it top or bottom for scrolling
+				if (!side) {
+					table.prepend(caption);
 
-				side = caption.css('caption-side');
+					side = caption.css('caption-side');
+				}
 			}
-		}
 
-		caption.html( value );
+			caption.html(value);
 
-		if ( side ) {
-			caption.css( 'caption-side', side );
-			(caption.get(0) as any)._captionSide = side;
-		}
+			if (side) {
+				caption.css('caption-side', side);
+				(caption.get(0) as any)._captionSide = side;
+			}
 
-		if (container.find('div.dataTables_scroll').count()) {
-			var selector = (side === 'top' ? 'Head' : 'Foot');
+			if (container.find('div.dataTables_scroll').count()) {
+				var selector = side === 'top' ? 'Head' : 'Foot';
 
-			container.find('div.dataTables_scroll'+ selector +' table').prepend(caption);
-		}
-		else {
-			table.prepend(caption);
-		}
-	}, 1 );
-} );
+				container
+					.find('div.dataTables_scroll' + selector + ' table')
+					.prepend(caption);
+			}
+			else {
+				table.prepend(caption);
+			}
+		},
+		1
+	);
+});
 
-Api.register( 'caption.node()', function () {
+Api.register('caption.node()', function () {
 	var ctx = this.context;
 
 	return ctx.length ? ctx[0].captionNode : null;
-} );
+});

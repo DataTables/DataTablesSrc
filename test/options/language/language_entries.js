@@ -43,14 +43,14 @@ describe('language.entries option', function() {
 
 		it('Info - singular', function() {
 			table.search('').draw();
-			table.rows(':gt(0)').remove().draw();
+			table.rows(idx => idx !== 0).remove().draw();
 
 			expect($('div.dt-info').text()).toBe('Showing 1 to 1 of 1 person');
 		});
 
 		it('Info - singular - filtered', function() {
 			table.search('123').draw();
-			table.rows(':gt(0)').remove().draw();
+			table.rows(idx => idx !== 0).remove().draw();
 
 			expect($('div.dt-info').text()).toBe('Showing 0 to 0 of 0 people (filtered from 1 total person)');
 		});

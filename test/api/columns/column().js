@@ -73,7 +73,7 @@ describe('columns - column()', function() {
 			expect(table.column('.dt-ordering-asc').data()[0]).toBe('Airi Satou');
 		});
 		it('Can select a column header node', function() {
-			expect(table.column('#example thead th:eq(1)').data()[0]).toBe('Tokyo');
+			expect(table.column('#example thead th:nth-child(2)').data()[0]).toBe('Tokyo');
 		});
 		it('Can select a column using function', function() {
 			let column = table.column(function(i, d, n) {
@@ -82,7 +82,7 @@ describe('columns - column()', function() {
 			expect(column.data()[0]).toBe('Tokyo');
 		});
 		it('Can select a column header node', function() {
-			expect(table.column($('thead th:eq(1)')).data()[0]).toBe('Tokyo');
+			expect(table.column($('thead th:nth-child(2)')).data()[0]).toBe('Tokyo');
 		});
 	});
 
@@ -140,7 +140,7 @@ describe('columns - column()', function() {
 			$('div.dt-search input')
 				.val('Accountant')
 				.triggerNative('keyup');
-			expect(table.column('#example thead th:eq(0)', { search: 'applied' }).data()[0]).toBe('Airi Satou');
+			expect(table.column('#example thead th:nth-child(1)', { search: 'applied' }).data()[0]).toBe('Airi Satou');
 		});
 		it('Can select a column of data, but ordered by another column', function() {
 			expect(table.column(0, { order: 3 }).data()[0]).toBe('Tatyana Fitzpatrick');

@@ -87,15 +87,23 @@ function row_selector(settings, selector, opts) {
 		// DataTables simplifies this for row selectors since you can select
 		// only a row. A # indicates an id any anything that follows is the id -
 		// unescaped.
-		if (typeof sel === 'string' && sel.charAt(0) === '#') {
-			// get row index from id
-			var rowObj = settings.aIds[sel.replace(/^#/, '')];
-			if (rowObj !== undefined) {
-				return [rowObj.idx];
-			}
+		if (typeof sel === 'string') {
+			if (sel.charAt(0) === '#') {
+				// get row index from id
+				var rowObj = settings.aIds[sel.replace(/^#/, '')];
+				if (rowObj !== undefined) {
+					return [rowObj.idx];
+				}
 
-			// need to fall through to jQuery in case there is DOM id that
-			// matches
+				// need to fall through to selector in case there is DOM id that
+				// matches
+			}
+			else if (sel.match(/^:eq\(\d\)$/)) {
+				// :eq() selector to get a row based on its position in the
+				// selectable rows.
+				let idx = parseInt(sel.replace(/[^\d]/g, ''));
+				return rows[idx] !== undefined ? [rows[idx]] : [];
+			}
 		}
 
 		// Get nodes in the order from the `rows` array with null values removed
@@ -105,10 +113,7 @@ function row_selector(settings, selector, opts) {
 		return dom
 			.s(nodes)
 			.filter(sel)
-			.map(function () {
-				return this._DT_RowIndex;
-			})
-			.get();
+			.mapTo((el: any) => el._DT_RowIndex);
 	};
 
 	var matched = selector_run('row', selector, run, settings, opts);

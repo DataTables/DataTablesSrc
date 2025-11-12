@@ -4,7 +4,13 @@ import { PlainObject } from '../util/types';
 import * as events from './events';
 
 type AttributeTypes = string | number | boolean | null;
-type TSelector = string | Element | HTMLElement | Document | Array<TSelector> | null;
+type TSelector =
+	| string
+	| Element
+	| HTMLElement
+	| Document
+	| Array<TSelector>
+	| null;
 type TDimensionInclude =
 	| 'outer' // alias to withBorder
 	| 'inner' // alias to withPadding
@@ -371,7 +377,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param name Data attribute name (don't include the `data` prefix)
 	 * @returns Read value
 	 */
-	data<T=AttributeTypes>(name: string): T;
+	data<T = AttributeTypes>(name: string): T;
 
 	/**
 	 * Set a data attribute's value for all items in the result set.
@@ -461,6 +467,22 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Inverse iteration over each item in the result set and perform an action
+	 *
+	 * @param callback Callback function
+	 * @returns Self for chaining
+	 */
+	eachReverse(callback: (el: T, idx: number) => void) {
+		for (let i = this._store.length - 1; i >= 0; i--) {
+			let el = this._store[i];
+
+			callback(el, i);
+		}
+
+		return this;
+	}
+
+	/**
 	 * Remove all children
 	 *
 	 * @returns Self for chaining
@@ -493,34 +515,56 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	/**
 	 * Get all elements in the result set
 	 */
-	get<R=T>(): R[];
+	get<R = T>(): R[];
 
 	/**
 	 * Get a specific element from the result set
 	 *
 	 * @param idx Element index
 	 */
-	get<R=T>(idx: number): R;
+	get<R = T>(idx: number): R;
 
 	get(idx?: number) {
 		return idx !== undefined ? this._store[idx] : this._store;
 	}
 
 	/**
-	 * Get the parent element for each element in the result set
+	 * Reduce the result set based on a given filter, which can be a CSS
+	 * selector, an element or array of elements.
 	 *
-	 * @param filter Optional selector that the parent element would need to
+	 * @param filter Optional selector that the result set element would need to
 	 *   match to be selected.
-	 * @returns New Dom instance containing the parent elements
+	 * @returns New Dom instance containing the filters elements
 	 */
-	filter(filter?: string | HTMLElement) {
+	filter(filter?: string | HTMLElement | HTMLElement[]) {
 		return this.map(el => {
-			if (filter) {
-				if (typeof filter === 'string') {
-					return el.matches(filter) ? el : null;
+			if (filter === undefined) {
+				return el;
+			}
+
+			// Direct match - allows an element to be given as the filter
+			if (typeof filter !== 'string') {
+				if (is.arrayLike(filter)) {
+					return Array.from(filter as any).includes(el) ? el : null;
 				}
 
 				return filter === el ? el : null;
+			}
+
+			// CSS selector
+			if (!el.matches(filter)) {
+				return null;
+			}
+
+			// If there is a pseudo child selector, want to check that the
+			// element is actually in the document, if not, then
+			// `:first-child` (etc) will match detached elements, which is
+			// not desirable.
+			if (
+				!el.parentNode &&
+				(filter.match(/:\w+-child/) || filter.match(/:\w+-of-type/))
+			) {
+				return null;
 			}
 
 			return el;
@@ -696,8 +740,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @returns Self for chaining
 	 */
 	insertAfter(target: Element) {
-		return this.each(el =>
-			target.parentNode?.insertBefore(el, target.nextSibling)
+		return this.eachReverse(el =>
+			target?.parentNode?.insertBefore(el, target.nextSibling)
 		);
 	}
 
@@ -708,7 +752,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @returns Self for chaining
 	 */
 	insertBefore(target: Element) {
-		return this.each(el => target.parentNode?.insertBefore(el, target));
+		return this.each(el => target?.parentNode?.insertBefore(el, target));
 	}
 
 	/**
@@ -1192,11 +1236,10 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 				return 0;
 			}
 
-			let offsetWidth = (this._store[0] as unknown as HTMLElement).offsetWidth;
+			let computed = window.getComputedStyle(this._store[0]);
+			let offsetWidth = parseFloat(computed.width);
 
 			if (include === 'withMargin') {
-				let computed = window.getComputedStyle(this._store[0]);
-
 				return (
 					offsetWidth +
 					parseFloat(computed.marginTop) +

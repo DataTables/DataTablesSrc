@@ -117,7 +117,7 @@ describe('columns- columns() -solo', function() {
 			expect(columns[0]).toEqual([0, 2]);
 		});
 		it('Can select a column header node', function() {
-			columns = table.columns(['#example thead th:eq(0)', '#example thead th:eq(1)']);
+			columns = table.columns(['#example thead th:nth-child(1)', '#example thead th:nth-child(2)']);
 			expect(columns[0]).toEqual([0, 2]);
 		});
 		it('Can select a column using function', function() {
@@ -142,7 +142,7 @@ describe('columns- columns() -solo', function() {
 			expect(args[2]).toBe($('thead th')[4]);
 		});
 		it('Can select a column header node', function() {
-			columns = table.columns([$('thead th:eq(0)'), $('thead th:eq(1)')]);
+			columns = table.columns([$('thead th:nth-child(1)'), $('thead th:nth-child(2)')]);
 			expect(columns[0]).toEqual([0, 2]);
 		});
 
@@ -224,7 +224,7 @@ describe('columns- columns() -solo', function() {
 			$('div.dt-search input')
 				.val('Accountant')
 				.triggerNative('keyup');
-			expect(table.columns('#example thead th:eq(0)', { search: 'applied' }).data()[0][0]).toBe('Airi Satou');
+			expect(table.columns('#example thead th:nth-child(1)', { search: 'applied' }).data()[0][0]).toBe('Airi Satou');
 		});
 	});
 
@@ -289,7 +289,7 @@ describe('columns- columns() -solo', function() {
 			// first row, and then the second row and the way it is crafted it would be
 			// out of column order - e.g. 0, 3, 4, 5, 1, 2 in this case. DT does a sort
 			// to make sure it is in column order.	
-			let visible = table.columns('[colspan=1], [colspan=3]').indexes().toArray();
+			let visible = table.columns('[colspan="1"], [colspan="3"]').indexes().toArray();
 
 			expect(visible).toEqual([0, 1, 2, 3, 4, 5]);
 		} );

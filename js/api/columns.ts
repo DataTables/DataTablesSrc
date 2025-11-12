@@ -141,7 +141,7 @@ var __column_selector = function (settings, selector, opts) {
 			});
 		}
 
-		// jQuery or string selector
+		// String selector
 		var match = typeof s === 'string' ? s.match(__re_column_selector) : '';
 
 		if (match) {

@@ -43,8 +43,8 @@ describe('rows - rows()', function() {
 			expect(table.rows('tr').count()).toBe(57);
 		});
 
-		it('Select nodes by `tr` selector', function() {
-			let rows = table.rows('tr:eq(0)');
+		it('Select nodes by `:eq()` selector', function() {
+			let rows = table.rows(':eq(0)');
 			expect(rows.count()).toBe(1);
 			expect(rows.data()[0][0]).toBe('Airi Satou');
 		});

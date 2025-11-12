@@ -2,6 +2,7 @@ import { visibleColumns } from '../core/columns';
 import { saveState } from '../core/state';
 import dom from '../dom';
 import { pluck } from '../util/array';
+import external from '../util/external';
 import * as is from '../util/is';
 import Api from './base';
 import { callbackFire } from './support';
@@ -75,16 +76,23 @@ var __details_add = function (ctx, row, data, klass) {
 		}
 		else {
 			// Otherwise create a row with a wrapper
-			var created = dom
+			let td = dom.c('td').classAdd(k);
+			let created = dom
 				.c('tr')
-				.append(dom.c('td'))
+				.append(td)
 				.attr('data-dt-row', row.idx)
 				.classAdd(k);
 
-			(created.find('td').classAdd(k).html(r).get(0) as any).colSpan =
-				visibleColumns(ctx);
+			if (r.nodeName) {
+				td.append(r);
+			}
+			else {
+				td.html(r);
+			}
 
-			rows.push(created[0]);
+			(td.get(0) as any).colSpan = visibleColumns(ctx);
+
+			rows.push(created.get(0));
 		}
 	};
 
@@ -235,9 +243,19 @@ Api.register(_child_mth, function (data, klass) {
 
 	if (data === undefined) {
 		// get
-		return ctx.length && this.length && ctx[0].aoData[this[0]]
-			? ctx[0].aoData[this[0]]._details
-			: undefined;
+		let jq = external('jq');
+		let details =
+			ctx.length && this.length && ctx[0].aoData[this[0]]
+				? ctx[0].aoData[this[0]]._details
+				: undefined;
+
+		if (!details) {
+			return;
+		}
+		else if (jq) {
+			return jq(details.get());
+		}
+		return details;
 	}
 	else if (data === true) {
 		// show
