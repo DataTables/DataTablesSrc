@@ -1,6 +1,6 @@
-import { versionCheck } from '../api/static';
 import { features, legacy as featuresLegacy } from '../features/register';
 import Settings from '../model/settings';
+import { check } from '../util/version';
 import classes from './classes';
 import pager from './paging';
 import * as renderers from './renderer';
@@ -188,7 +188,7 @@ const ext = {
 	 *  @type function
 	 *  @depreciated Since 1.10
 	 */
-	fnVersionCheck: versionCheck,
+	fnVersionCheck: check,
 
 	/**
 	 * Index for what 'this' index API functions should use

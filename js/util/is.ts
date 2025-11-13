@@ -1,4 +1,3 @@
-import { Dom } from '../dom';
 import { numToDecimal } from './conv';
 import { reFormattedNumeric } from './regex';
 import { stripHtml } from './string';
@@ -19,7 +18,7 @@ export function arrayLike(test: any) {
  * @returns true if it is a Dom instance, false otherwise
  */
 export function dom(input: any) {
-	return input && input instanceof Dom;
+	return input && typeof input === 'object' && input._isDom;
 }
 
 /**

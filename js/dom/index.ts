@@ -42,6 +42,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	private _store: T[] = [];
+	private _isDom = true;
 
 	/**
 	 * `Dom` is used for selection and manipulation of the DOM elements in a

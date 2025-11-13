@@ -35,6 +35,7 @@ import Settings from './model/settings';
 import ajax from './util/ajax';
 import external from './util/external';
 import * as object from './util/object';
+import { check as versionCheck } from './util/version';
 
 // TODO typing
 const DataTable: any = function (
@@ -513,7 +514,7 @@ DataTable.render = helpers;
 DataTable.ext = ext;
 DataTable.use = external;
 DataTable.factory = apiStatic.factory;
-DataTable.versionCheck = apiStatic.versionCheck;
+DataTable.versionCheck = versionCheck;
 DataTable.version = ext.version;
 DataTable.isDataTable = apiStatic.isDataTable;
 DataTable.tables = apiStatic.tables;
@@ -551,4 +552,3 @@ if ((window as any).jQuery) {
 }
 
 export default DataTable;
-
