@@ -1,5 +1,4 @@
-import util from '../api/util';
-import use from '../util/external';
+import util from '../util';
 import { register as registerType, store as typeStore } from './types';
 
 /*
@@ -33,8 +32,8 @@ var __moment; // Can be assigned in DateTable.use()
  *
  */
 function resolveWindowLibs() {
-	__luxon = use('luxon');
-	__moment = use('moment');
+	__luxon = util.external('luxon');
+	__moment = util.external('moment');
 }
 
 function __mldObj(d, format, locale) {

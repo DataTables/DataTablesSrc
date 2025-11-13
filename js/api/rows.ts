@@ -1,9 +1,7 @@
 import { addData, addTr, invalidate } from '../core/data';
 import { sortDisplay } from '../core/sort';
 import dom from '../dom';
-import { pluckOrder, removeEmpty } from '../util/array';
-import { intVal } from '../util/conv';
-import * as is from '../util/is';
+import util from '../util';
 import Api from './base';
 import {
 	selector_first,
@@ -12,7 +10,6 @@ import {
 	selector_run,
 } from './selectors';
 import { arrayApply, lengthOverflow } from './support';
-import util from './util';
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Rows
@@ -27,7 +24,7 @@ import util from './util';
 function row_selector(settings, selector, opts) {
 	var rows;
 	var run = function (sel) {
-		var selInt = intVal(sel);
+		var selInt = util.conv.intVal(sel);
 		var aoData = settings.aoData;
 
 		// Short cut - selector is a number and no options provided (default is
@@ -107,7 +104,9 @@ function row_selector(settings, selector, opts) {
 		}
 
 		// Get nodes in the order from the `rows` array with null values removed
-		var nodes = removeEmpty(pluckOrder(settings.aoData, rows, 'nTr'));
+		var nodes = util.array.removeEmpty(
+			util.array.pluckOrder(settings.aoData, rows, 'nTr')
+		);
 
 		// Selector - selector string, array of nodes or jQuery object.
 		return dom
@@ -130,7 +129,7 @@ Api.register('rows()', function (selector, opts) {
 	if (selector === undefined) {
 		selector = '';
 	}
-	else if (is.plainObject(selector)) {
+	else if (util.is.plainObject(selector)) {
 		opts = selector;
 		selector = '';
 	}
@@ -167,7 +166,7 @@ Api.register('rows().data()', function () {
 		true,
 		'rows',
 		function (settings, rows) {
-			return pluckOrder(settings.aoData, rows, '_aData');
+			return util.array.pluckOrder(settings.aoData, rows, '_aData');
 		},
 		1
 	);

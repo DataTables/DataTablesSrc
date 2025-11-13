@@ -1,8 +1,5 @@
 
-import util from '../api/util';
-import * as conv from "../util/conv";
-import * as is from "../util/is";
-import * as regex from '../util/regex';
+import util from '../util';
 
 export const store = {
 	/** Automatic column class assignment */
@@ -25,11 +22,11 @@ export const store = {
 // Common function to remove new lines, strip HTML and diacritic control
 function _filterString(stripHtml, normalize) {
 	return function (str) {
-		if (is.empty(str) || typeof str !== 'string') {
+		if (util.is.empty(str) || typeof str !== 'string') {
 			return str;
 		}
 
-		str = str.replace( regex.reNewLines, " " );
+		str = str.replace( util.regex.reNewLines, " " );
 
 		if (stripHtml) {
 			str = util.stripHtml(str);
@@ -59,7 +56,7 @@ function __numericReplace( d, decimalPlace, re1?, re2? ) {
 	// function so we can detect it and replace with a `.` which is the only
 	// decimal place JavaScript recognises - it is not locale aware.
 	if ( decimalPlace ) {
-		d = conv.numToDecimal( d, decimalPlace );
+		d = util.conv.numToDecimal( d, decimalPlace );
 	}
 
 	if ( d.replace ) {
@@ -202,7 +199,7 @@ register('string', {
 		pre: function ( a ) {
 			// This is a little complex, but faster than always calling toString,
 			// http://jsperf.com/tostring-v-check
-			return is.empty(a) && typeof a !== 'boolean' ?
+			return util.is.empty(a) && typeof a !== 'boolean' ?
 				'' :
 				typeof a === 'string' ?
 					a.toLowerCase() :
@@ -224,7 +221,7 @@ register('string-utf8', {
 			// This line will also check if navigator.languages is supported or not. If not (Safari 10.0-)
 			// this data type won't be supported.
 			// eslint-disable-next-line compat/compat
-			return ! is.empty( d ) && navigator.languages && typeof d === 'string' && d.match(/[^\x00-\x7F]/);
+			return ! util.is.empty( d ) && navigator.languages && typeof d === 'string' && d.match(/[^\x00-\x7F]/);
 		}
 	},
 	order: {
@@ -240,16 +237,16 @@ register('string-utf8', {
 register('html', {
 	detect: {
 		allOf: function ( d ) {
-			return is.empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
+			return util.is.empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
 		},
 		oneOf: function ( d ) {
 			// At least one data point must contain a `<`
-			return ! is.empty( d ) && typeof d === 'string' && d.indexOf('<') !== -1;
+			return ! util.is.empty( d ) && typeof d === 'string' && d.indexOf('<') !== -1;
 		}
 	},
 	order: {
 		pre: function ( a ) {
-			return is.empty(a) ?
+			return util.is.empty(a) ?
 				'' :
 				a.replace ?
 					util.stripHtml(a).trim().toLowerCase() :
@@ -263,13 +260,13 @@ register('html', {
 register('html-utf8', {
 	detect: {
 		allOf: function ( d ) {
-			return is.empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
+			return util.is.empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
 		},
 		oneOf: function ( d ) {
 			// At least one data point must contain a `<` and a non-ASCII character
 			// eslint-disable-next-line compat/compat
 			return navigator.languages &&
-				! is.empty( d ) &&
+				! util.is.empty( d ) &&
 				typeof d === 'string' &&
 				d.indexOf('<') !== -1 &&
 				typeof d === 'string' && d.match(/[^\x00-\x7F]/);
@@ -292,15 +289,15 @@ register('date', {
 			// V8 tries _very_ hard to make a string passed into `Date.parse()`
 			// valid, so we need to use a regex to restrict date formats. Use a
 			// plug-in for anything other than ISO8601 style strings
-			if ( d && !(d instanceof Date) && ! regex.reDate.test(d) ) {
+			if ( d && !(d instanceof Date) && ! util.regex.reDate.test(d) ) {
 				return null;
 			}
 			var parsed = Date.parse(d);
-			return (parsed !== null && !isNaN(parsed)) || is.empty(d);
+			return (parsed !== null && !isNaN(parsed)) || util.is.empty(d);
 		},
 		oneOf: function ( d ) {
 			// At least one entry must be a date or a string with a date
-			return (d instanceof Date) || (typeof d === 'string' && regex.reDate.test(d));
+			return (d instanceof Date) || (typeof d === 'string' && util.regex.reDate.test(d));
 		}
 	},
 	order: {
@@ -317,18 +314,18 @@ register('html-num-fmt', {
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return is.htmlNum( d, decimal, true, false );
+			return util.is.htmlNum( d, decimal, true, false );
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
-			return is.htmlNum( d, decimal, true, false );
+			return util.is.htmlNum( d, decimal, true, false );
 		}
 	},
 	order: {
 		pre: function ( d, s ) {
 			var dp = s.oLanguage.sDecimal;
-			return __numericReplace( d, dp, regex.reHtml, regex.reFormattedNumeric );
+			return __numericReplace( d, dp, util.regex.reHtml, util.regex.reFormattedNumeric );
 		}
 	},
 	search: _filterString(true, true)
@@ -340,18 +337,18 @@ register('html-num', {
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return is.htmlNum( d, decimal, false, true );
+			return util.is.htmlNum( d, decimal, false, true );
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
-			return is.htmlNum( d, decimal, false, false );
+			return util.is.htmlNum( d, decimal, false, false );
 		}
 	},
 	order: {
 		pre: function ( d, s ) {
 			var dp = s.oLanguage.sDecimal;
-			return __numericReplace( d, dp, regex.reHtml );
+			return __numericReplace( d, dp, util.regex.reHtml );
 		}
 	},
 	search: _filterString(true, true)
@@ -363,18 +360,18 @@ register('num-fmt', {
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return is.num( d, decimal, true, true );
+			return util.is.num( d, decimal, true, true );
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
-			return is.num( d, decimal, true, false );
+			return util.is.num( d, decimal, true, false );
 		}
 	},
 	order: {
 		pre: function ( d, s ) {
 			var dp = s.oLanguage.sDecimal;
-			return __numericReplace( d, dp, regex.reFormattedNumeric );
+			return __numericReplace( d, dp, util.regex.reFormattedNumeric );
 		}
 	}
 });
@@ -385,12 +382,12 @@ register('num', {
 	detect: {
 		allOf: function ( d, settings ) {
 			var decimal = settings.oLanguage.sDecimal;
-			return is.num( d, decimal, false, true );
+			return util.is.num( d, decimal, false, true );
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
-			return is.num( d, decimal, false, false );
+			return util.is.num( d, decimal, false, false );
 		}
 	},
 	order: {

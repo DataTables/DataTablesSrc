@@ -12,7 +12,7 @@ import external from './external';
  *   required version, or false if this version of DataTales is not suitable
  */
 export function check(version: string, version2: string) {
-	let dt = external('dt');
+	let dt = external('datatable');
 	var aThis = version2 ? version2.split('.') : dt.ext.version.split('.');
 	var aThat = version.split('.');
 	var iThis, iThat;

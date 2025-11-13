@@ -1,10 +1,6 @@
-import util from '../api/util';
 import dom from '../dom';
 import ext from '../ext/index';
-import { pluck, unique } from '../util/array';
-import use from '../util/external';
-import * as is from '../util/is';
-import * as object from '../util/object';
+import util from '../util';
 import { selector_row_indexes } from './selectors';
 import { arrayApply } from './support';
 
@@ -77,7 +73,7 @@ var __arrayProto = Array.prototype;
 var _toSettings = function (mixed) {
 	var idx, nodes;
 	var settings = ext.settings;
-	var tables = pluck(settings, 'nTable');
+	var tables = util.array.pluck(settings, 'nTable');
 
 	if (!mixed) {
 		return [];
@@ -98,11 +94,11 @@ var _toSettings = function (mixed) {
 		// jQuery selector
 		nodes = dom.s(mixed).get();
 	}
-	else if (is.jquery(mixed)) {
+	else if (util.is.jquery(mixed)) {
 		// jQuery object
 		nodes = mixed.get();
 	}
-	else if (is.dom(mixed)) {
+	else if (util.is.dom(mixed)) {
 		// DOM object
 		nodes = mixed.get();
 	}
@@ -180,7 +176,7 @@ export default function Api(context, data?) {
 	}
 
 	// Remove duplicates
-	this.context = settings.length > 1 ? unique(settings) : settings;
+	this.context = settings.length > 1 ? util.unique(settings) : settings;
 
 	// Initial data
 	arrayApply(this, data);
@@ -197,7 +193,7 @@ export default function Api(context, data?) {
 
 // Don't destroy the existing prototype, just extend it. Required for jQuery 2's
 // isPlainObject.
-object.assign(Api.prototype, {
+util.object.assign(Api.prototype, {
 	any: function () {
 		return this.count() !== 0;
 	},
@@ -374,19 +370,19 @@ object.assign(Api.prototype, {
 	},
 
 	to$: function () {
-		let jq = use('jq');
+		let jq = util.external('jq');
 
 		return jq(this);
 	},
 
 	toJQuery: function () {
-		let jq = use('jq');
+		let jq = util.external('jq');
 
 		return jq(this);
 	},
 
 	unique: function () {
-		return new Api(this.context, unique(this.toArray()));
+		return new Api(this.context, util.array.unique(this.toArray()));
 	},
 
 	unshift: __arrayProto.unshift,
@@ -502,7 +498,7 @@ Api.register = function (name, val) {
 			src.type =
 				typeof val === 'function'
 					? 'function'
-					: is.plainObject(val)
+					: util.is.plainObject(val)
 					? 'object'
 					: 'other';
 		}

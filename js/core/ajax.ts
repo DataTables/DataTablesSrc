@@ -1,9 +1,6 @@
 import { callbackFire, log } from '../api/support';
-import util from '../api/util';
 import Context from '../model/settings';
-import ajax from '../util/ajax';
-import * as is from '../util/is';
-import * as object from '../util/object';
+import util from '../util/index';
 import { JSON } from '../util/types';
 import { columnTypes } from './columns';
 import { addData, clearTable } from './data';
@@ -58,7 +55,7 @@ export function buildAjax(
 		fn(json);
 	};
 
-	if (is.plainObject(ajaxConfig) && ajaxConfig.data) {
+	if (util.is.plainObject(ajaxConfig) && ajaxConfig.data) {
 		ajaxData = ajaxConfig.data;
 
 		var newData =
@@ -70,7 +67,7 @@ export function buildAjax(
 		data =
 			typeof ajaxData === 'function' && newData
 				? newData
-				: object.assignDeep(data, newData);
+				: util.object.assignDeep(data, newData);
 
 		// Remove the data property as we've resolved it already and don't want
 		// jQuery to do it again (it is restored at the end of the function)
@@ -107,8 +104,8 @@ export function buildAjax(
 	};
 
 	// If `ajax` option is an object, extend and override our default base
-	if (is.plainObject(ajaxConfig)) {
-		object.assign(baseAjax, ajaxConfig);
+	if (util.is.plainObject(ajaxConfig)) {
+		util.object.assign(baseAjax, ajaxConfig);
 	}
 
 	// Store the data submitted for the API
@@ -136,7 +133,7 @@ export function buildAjax(
 	}
 	else {
 		// Object to extend the base settings
-		settings.jqXHR = ajax(baseAjax as any);
+		settings.jqXHR = util.ajax(baseAjax as any);
 	}
 
 	// Restore for next time around
@@ -277,7 +274,7 @@ export function ajaxUpdateDraw(settings: Context, json: JSON) {
 export function ajaxDataSrc(settings: Context, json: JSON, write: any) {
 	var dataProp = 'data';
 
-	if (is.plainObject(settings.ajax) && settings.ajax.dataSrc !== undefined) {
+	if (util.is.plainObject(settings.ajax) && settings.ajax.dataSrc !== undefined) {
 		// Could in inside a `dataSrc` object, or not!
 		var dataSrc = settings.ajax.dataSrc;
 
@@ -313,11 +310,11 @@ export function ajaxDataSrc(settings: Context, json: JSON, write: any) {
  * @returns Resolved value
  */
 export function ajaxDataSrcParam(settings: Context, param: string, json: JSON) {
-	var dataSrc = is.plainObject(settings.ajax) ? settings.ajax.dataSrc : null;
+	var dataSrc = util.is.plainObject(settings.ajax) ? settings.ajax.dataSrc : null;
 
 	if (dataSrc && dataSrc[param]) {
 		// Get from custom location
-		return util.get(dataSrc[param])(json);
+		return util.data.get(dataSrc[param])(json);
 	}
 
 	// else - Default behaviour

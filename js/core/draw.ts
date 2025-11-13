@@ -3,12 +3,10 @@ import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import RowModel, { TableCell, TableRow } from '../model/row';
 import Context, {
-    HeaderStructure,
-    HeaderStructureCell,
+	HeaderStructure,
+	HeaderStructureCell,
 } from '../model/settings';
-import { pluck, range, unique } from '../util/array';
-import * as is from '../util/is';
-import { stripHtml } from '../util/string';
+import util from '../util';
 import { ajaxUpdate } from './ajax';
 import { columnOptions, columnTypes, visibleColumns } from './columns';
 import { getCellData, getDataMaster, writeCell } from './data';
@@ -117,7 +115,7 @@ export function createTr(
 			if (
 				create ||
 				((oCol.mRender || oCol.mData !== i) &&
-					(!is.plainObject(oCol.mData) ||
+					(!util.is.plainObject(oCol.mData) ||
 						(oCol.mData && (oCol.mData as any)._ !== i + '.display')))
 			) {
 				writeCell(nTd, display[i]);
@@ -179,7 +177,7 @@ export function rowAttributes(settings: Context, row: typeof RowModel) {
 		if (data.DT_RowClass) {
 			// Remove any classes added by DT_RowClass before
 			var a = data.DT_RowClass.split(' ');
-			row.__rowc = row.__rowc ? unique(row.__rowc.concat(a)) : a;
+			row.__rowc = row.__rowc ? util.unique(row.__rowc.concat(a)) : a;
 
 			dom.s(tr).classRemove(row.__rowc.join(' ')).classAdd(data.DT_RowClass);
 		}
@@ -214,7 +212,7 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 	}
 
 	// If no cells yet and we have content for them, then create
-	if (side === 'header' || pluck(settings.aoColumns, titleProp).join('')) {
+	if (side === 'header' || util.array.pluck(settings.aoColumns, titleProp).join('')) {
 		row = target.find('tr');
 
 		// Add a row if needed
@@ -292,7 +290,7 @@ export function headerLayout(
 
 	// Default is to work on only visible columns
 	if (!incColumns) {
-		incColumns = range(columnCount).filter(function (idx) {
+		incColumns = util.array.range(columnCount).filter(function (idx) {
 			return columns[idx].bVisible;
 		});
 	}
@@ -714,7 +712,7 @@ export function detectHeader(
 							}
 
 							if (!columnDef.sTitle && isUnique) {
-								columnDef.sTitle = stripHtml(cell.html());
+								columnDef.sTitle = util.string.stripHtml(cell.html());
 								columnDef.autoTitle = true;
 							}
 						}
@@ -785,7 +783,7 @@ export function detectHeader(
 
 				// Assign an attribute so spanning cells can still be identified
 				// as belonging to a column
-				cell.attr('data-dt-column', unique(cols).join(','));
+				cell.attr('data-dt-column', util.unique(cols).join(','));
 			}
 
 			loopCell = loopCell.nextSibling;

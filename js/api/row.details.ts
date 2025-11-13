@@ -1,12 +1,9 @@
 import { visibleColumns } from '../core/columns';
 import { saveState } from '../core/state';
 import dom from '../dom';
-import { pluck } from '../util/array';
-import external from '../util/external';
-import * as is from '../util/is';
+import util from '../util';
 import Api from './base';
 import { callbackFire } from './support';
-import util from './util';
 
 dom.s(document).on('plugin-init.dt', function (e, context) {
 	var api = new Api(context);
@@ -60,7 +57,7 @@ var __details_add = function (ctx, row, data, klass) {
 	var rows: any[] = [];
 	var addRow = function (r: any, k) {
 		// Recursion to allow for arrays of jQuery objects
-		if (Array.isArray(r) || is.jquery(r)) {
+		if (Array.isArray(r) || util.is.jquery(r)) {
 			for (var i = 0, iLen = (r as any).length; i < iLen; i++) {
 				// TODO typing
 				addRow(r[i], k);
@@ -168,7 +165,7 @@ var __details_events = function (settings) {
 
 	api.off(drawEvent + ' ' + colvisEvent + ' ' + destroyEvent);
 
-	if (pluck(data, '_details').length > 0) {
+	if (util.array.pluck(data, '_details').length > 0) {
 		// On each draw, insert the required elements into the document
 		api.on(drawEvent, function (e, ctx) {
 			if (settings !== ctx) {
@@ -243,7 +240,7 @@ Api.register(_child_mth, function (data, klass) {
 
 	if (data === undefined) {
 		// get
-		let jq = external('jq');
+		let jq = util.external('jq');
 		let details =
 			ctx.length && this.length && ctx[0].aoData[this[0]]
 				? ctx[0].aoData[this[0]]._details

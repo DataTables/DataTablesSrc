@@ -1,11 +1,9 @@
 import { log } from '../api/support';
-import util from '../api/util';
 import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import rowModel from '../model/row';
 import Context from '../model/settings';
-import { pluck } from '../util/array';
-import { assignDeep } from '../util/object';
+import util from '../util';
 import { createTr, getRowDisplay, rowAttributes } from './draw';
 
 /**
@@ -28,7 +26,7 @@ export function addData(
 ) {
 	/* Create the object for storing information about this new row */
 	var rowIdx = settings.aoData.length;
-	var row: typeof rowModel = assignDeep({}, rowModel, {
+	var row: typeof rowModel = util.object.assignDeep({}, rowModel, {
 		src: tr ? 'dom' : 'data',
 		idx: rowIdx,
 	});
@@ -224,7 +222,7 @@ export function writeCell(td: HTMLTableCellElement, val: string | HTMLElement) {
  * @returns array {array} aData Master data array
  */
 export function getDataMaster(settings: Context) {
-	return pluck(settings.aoData, '_aData');
+	return util.array.pluck(settings.aoData, '_aData');
 }
 
 /**

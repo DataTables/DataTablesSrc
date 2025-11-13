@@ -6,10 +6,10 @@ import * as is from '../util/is';
 import * as object from '../util/object';
 import Api from './base';
 import {
-	selector_first,
-	selector_opts,
-	selector_row_indexes,
-	selector_run,
+    selector_first,
+    selector_opts,
+    selector_row_indexes,
+    selector_run,
 } from './selectors';
 
 var __cell_selector = function (settings, selector, opts) {

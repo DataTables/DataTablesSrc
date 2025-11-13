@@ -1,5 +1,4 @@
 import { callbackFire, map } from '../api/support';
-import util from '../api/util';
 import dom from '../dom';
 import helpers from '../ext/helpers';
 import ext from '../ext/index';
@@ -7,9 +6,7 @@ import columnDefaults, { ConfigColumnDefs } from '../model/columns/defaults';
 import ColumnModel from '../model/columns/settings';
 import search, { SearchOptions } from '../model/search';
 import Context, { HeaderStructure } from '../model/settings';
-import * as is from '../util/is';
-import { empty } from '../util/is';
-import { assign } from '../util/object';
+import util from '../util';
 import { camelToHungarian, compatCols } from './compat';
 import { getCellData, writeCell } from './data';
 import { scrollDraw } from './scrolling';
@@ -24,7 +21,7 @@ export function addColumn(settings: Context) {
 	// Add column to aoColumns array
 	let oDefaults = columnDefaults;
 	let iCol = settings.aoColumns.length;
-	let oCol = assign<ColumnModel>({}, new ColumnModel(), oDefaults, {
+	let oCol = util.object.assign<ColumnModel>({}, new ColumnModel(), oDefaults, {
 		aDataSort: oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
 		mData: oDefaults.mData ? oDefaults.mData : iCol,
 		idx: iCol,
@@ -39,7 +36,7 @@ export function addColumn(settings: Context) {
 	// with only some of the parameters defined, and also not give a default
 	let searchCols = settings.aoPreSearchCols;
 
-	searchCols[iCol] = assign<SearchOptions>({}, search, searchCols[iCol]);
+	searchCols[iCol] = util.object.assign<SearchOptions>({}, search, searchCols[iCol]);
 }
 
 /**
@@ -72,7 +69,7 @@ export function columnOptions(settings: Context, colIdx: number, oOptions?: Part
 
 		var origClass = oCol.sClass;
 
-		assign(oCol, oOptions);
+		util.object.assign(oCol, oOptions);
 		map(oCol, oOptions, 'sWidth', 'sWidthOrig');
 
 		// Merge class from previously defined classes with this one, rather than just
@@ -109,7 +106,7 @@ export function columnOptions(settings: Context, colIdx: number, oOptions?: Part
 		return typeof src === 'string' && src.indexOf('@') !== -1;
 	};
 	oCol._bAttrSrc =
-		!!mDataSrc && is.plainObject(mDataSrc) &&
+		!!mDataSrc && util.is.plainObject(mDataSrc) &&
 		(attrTest(mDataSrc.sort) ||
 			attrTest(mDataSrc.type) ||
 			attrTest(mDataSrc.filter));
@@ -344,7 +341,7 @@ export function columnTypes(settings: Context) {
 					// Only a single match is needed for html type since it is
 					// bottom of the pile and very similar to string - but it
 					// must not be empty
-					if (detectedType === 'html' && !empty(cache[k])) {
+					if (detectedType === 'html' && !util.is.empty(cache[k])) {
 						break;
 					}
 				}

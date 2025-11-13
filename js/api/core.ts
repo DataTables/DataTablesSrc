@@ -2,18 +2,15 @@ import { clearTable } from '../core/data';
 import { sortingClasses } from '../core/sort';
 import dom from '../dom';
 import ext from '../ext/index';
-import { pluck } from '../util/array';
-import use from '../util/external';
-import * as is from '../util/is';
+import util from '../util';
 import Api from './base';
 import { callbackFire, log } from './support';
-import util from './util';
 
 /**
  *
  */
 Api.register('$()', function (selector, opts) {
-	let jq = use('jq');
+	let jq = util.external('jq');
 
 	if (!jq) {
 		log(this.ctx[0], 0, 'No jQuery available. Use `.dom()` or register jQuery');
@@ -73,7 +70,7 @@ Api.register('init()', function () {
 
 Api.register('data()', function () {
 	return this.iterator('table', function (settings) {
-		return pluck(settings.aoData, '_aData');
+		return util.array.pluck(settings.aoData, '_aData');
 	}).flatten();
 });
 
@@ -254,7 +251,7 @@ Api.register('i18n()', function (token, def, plural) {
 		resolved = def;
 	}
 
-	if (is.plainObject(resolved)) {
+	if (util.is.plainObject(resolved)) {
 		resolved =
 			plural !== undefined && resolved[plural] !== undefined
 				? resolved[plural]

@@ -1,9 +1,8 @@
 import { callbackFire } from '../api/support';
-import util from '../api/util';
 import dom from '../dom';
 import ext from '../ext/index';
 import Context from '../model/settings';
-import { stripHtml } from '../util/string';
+import util from '../util';
 import { adjustColumnSizing, columnsSumWidth, getColumns } from './columns';
 import { getRowDisplay } from './draw';
 
@@ -334,7 +333,7 @@ function getWideStrings(settings: Context, colIdx: number) {
 				.replace(/id=".*?"/g, '')
 				.replace(/name=".*?"/g, '');
 
-			var s = stripHtml(cellString).replace(/&nbsp;/g, ' ');
+			var s = util.string.stripHtml(cellString).replace(/&nbsp;/g, ' ');
 
 			collection.push({
 				str: s,

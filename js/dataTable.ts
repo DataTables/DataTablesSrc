@@ -9,7 +9,6 @@ import {
 	log,
 	map,
 } from './api/support';
-import util from './api/util';
 import { addColumn, applyColumnDefs, columnOptions } from './core/columns';
 import {
 	browser,
@@ -32,10 +31,7 @@ import models from './model';
 import columnDefaults from './model/columns/defaults';
 import defaults from './model/defaults';
 import Settings from './model/settings';
-import ajax from './util/ajax';
-import external from './util/external';
-import * as object from './util/object';
-import { check as versionCheck } from './util/version';
+import util from './util';
 
 // TODO typing
 const DataTable: any = function (
@@ -76,7 +72,7 @@ const DataTable: any = function (
 		var o = {};
 		var init: Partial<typeof defaults> =
 			len > 1 // optimisation for single table case
-				? object.assignDeepObjects(o, options, true)
+				? util.object.assignDeepObjects(o, options, true)
 				: options;
 
 		var i = 0,
@@ -113,7 +109,7 @@ const DataTable: any = function (
 		/* Setting up the initialisation object */
 		camelToHungarian(
 			defaults,
-			object.assign(init, escapeObject(table.data())),
+			util.object.assign(init, escapeObject(table.data())),
 			true
 		);
 
@@ -175,7 +171,7 @@ const DataTable: any = function (
 
 		// Create the settings object for this table and set some of the default
 		// parameters
-		var settings: any = object.assignDeep(new Settings(), {
+		var settings: any = util.object.assignDeep(new Settings(), {
 			sDestroyWidth: table.get(0).style.width,
 			sInstance: id,
 			sTableId: id,
@@ -213,8 +209,8 @@ const DataTable: any = function (
 
 		// Apply the defaults and init options to make a single init object will
 		// all options defined from defaults and instance options.
-		let config: typeof defaults = object.assignDeepObjects(
-			object.assignDeep({}, defaults),
+		let config: typeof defaults = util.object.assignDeepObjects(
+			util.object.assignDeep({}, defaults),
 			init
 		);
 
@@ -295,7 +291,7 @@ const DataTable: any = function (
 
 		var oClasses = settings.oClasses;
 
-		object.assign(oClasses, ext.classes, config.oClasses);
+		util.object.assign(oClasses, ext.classes, config.oClasses);
 		table.classAdd(oClasses.table);
 
 		if (!settings.oFeatures.bPaginate) {
@@ -473,16 +469,16 @@ const DataTable: any = function (
 
 		// Language definitions
 		var oLanguage = settings.oLanguage;
-		object.assignDeep(oLanguage, config.oLanguage);
+		util.object.assignDeep(oLanguage, config.oLanguage);
 
 		if (oLanguage.sUrl) {
 			// Get the language definitions from a file
-			ajax({
+			util.ajax({
 				dataType: 'json',
 				url: oLanguage.sUrl,
 				success: function (json) {
 					camelToHungarian((defaults as any).oLanguage, json);
-					object.assignDeep(oLanguage, json, settings.oInit.oLanguage);
+					util.object.assignDeep(oLanguage, json, settings.oInit.oLanguage);
 
 					callbackFire(settings, null, 'i18n', [settings], true);
 					initialise(settings);
@@ -512,9 +508,9 @@ DataTable.type = registerType;
 DataTable.types = types;
 DataTable.render = helpers;
 DataTable.ext = ext;
-DataTable.use = external;
+DataTable.use = util.external;
 DataTable.factory = apiStatic.factory;
-DataTable.versionCheck = versionCheck;
+DataTable.versionCheck = util.version.check;
 DataTable.version = ext.version;
 DataTable.isDataTable = apiStatic.isDataTable;
 DataTable.tables = apiStatic.tables;
@@ -524,7 +520,7 @@ DataTable.Api = Api;
 DataTable.datetime = datetime;
 DataTable.__browser = browser;
 DataTable.dom = dom;
-DataTable.ajax = ajax;
+DataTable.ajax = util.ajax;
 
 /**
  * Private data store, containing all of the settings objects that are created
@@ -545,10 +541,10 @@ DataTable.feature = {
 };
 
 // Register the libraries
-external(DataTable);
+util.external(DataTable);
 
 if ((window as any).jQuery) {
-	external((window as any).jQuery);
+	util.external((window as any).jQuery);
 }
 
 export default DataTable;

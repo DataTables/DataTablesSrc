@@ -1,10 +1,9 @@
 import { arrayApply, callbackFire, dataSource } from '../api/support';
-import util from '../api/util';
 import dom from '../dom';
 import ext from '../ext/index';
 import { SearchInput, SearchOptions } from '../model/search';
 import Context from '../model/settings';
-import * as object from '../util/object';
+import util from '../util';
 import { getCellData } from './data';
 
 const __filter_div = dom.c('div').get(0);
@@ -30,7 +29,7 @@ export function filterComplete(settings: Context, input: SearchOptions) {
 		// Global filter first
 		filter(settings.aiDisplay, settings, input.search, input);
 
-		object.each(settings.searchFixed, function (name, term) {
+		util.object.each(settings.searchFixed, function (name, term) {
 			filter(settings.aiDisplay, settings, term, {});
 		});
 
@@ -40,7 +39,7 @@ export function filterComplete(settings: Context, input: SearchOptions) {
 
 			filter(settings.aiDisplay, settings, col.search, col, i);
 
-			object.each(settings.aoColumns[i].searchFixed, function (name, term) {
+			util.object.each(settings.aoColumns[i].searchFixed, function (name, term) {
 				filter(settings.aiDisplay, settings, term, {}, i);
 			});
 		}

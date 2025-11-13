@@ -1,11 +1,11 @@
 import { macros } from '../api/support';
-import util from '../api/util';
 import { draw } from '../core/draw';
 import { filterComplete } from '../core/filter';
 import { processingRun } from '../core/processing';
 import dom from '../dom';
 import { SearchInput } from '../model/search';
 import Context from '../model/settings';
+import util from '../util';
 import register from './register';
 
 export interface IFeatureSearchOptions {

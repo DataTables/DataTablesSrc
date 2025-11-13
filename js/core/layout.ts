@@ -3,8 +3,7 @@ import dom, { Dom } from '../dom';
 import ext from '../ext';
 import { Layout, LayoutComponent, LayoutElement } from '../model/interface';
 import Context from '../model/settings';
-import * as is from '../util/is';
-import * as object from '../util/object';
+import util from '../util';
 import { processingHtml } from './processing';
 import { renderer } from './render';
 import { featureHtmlTable } from './scrolling';
@@ -95,7 +94,7 @@ function layoutItems(
 	var rowCell = row[align]!; // can't be undefined - will have been created by getRow
 
 	// If it is an object, then there can be multiple features contained in it
-	if (is.plainObject(items)) {
+	if (util.is.plainObject(items)) {
 		let itemsElement = items as LayoutElement;
 
 		// Is it an cell object already, with rowId, etc. A feature plugin cannot
@@ -115,7 +114,7 @@ function layoutItems(
 		}
 		else {
 			// An object of features and configuration options - e.g. `{paging: {startEnd: false}}`
-			object.each(items as any, (key, val) => {
+			util.object.each(items as any, (key, val) => {
 				rowCell.items.push({
 					feature: key,
 					opts: val,
@@ -196,7 +195,7 @@ function convert(settings: Context, layout: Layout, side: 'top' | 'bottom') {
 	var rows: ILayoutRow[] = [];
 
 	// Split out into an array
-	object.each(layout, function (pos, items) {
+	util.object.each(layout, function (pos, items) {
 		var parts = pos.match(/^([a-z]+)([0-9]*)([A-Za-z]*)$/);
 
 		if (items === null || !parts) {
@@ -280,7 +279,7 @@ function resolve(settings: Context, row: ILayoutRow) {
 				if (typeof item === 'string') {
 					return getFeature(item, null);
 				}
-				else if (is.plainObject(item)) {
+				else if (util.is.plainObject(item)) {
 					// If it's an object, it just has feature and opts properties from
 					// the transform in _layoutArray
 					return getFeature(item.feature, item.opts);
