@@ -59,7 +59,6 @@ describe('core - events - requestChild', function () {
 		it('Called on table initialisation if opened rows', function (done) {
 			table = $('#example')
 				.on('requestChild.dt', function () {
-					console.log('requiresting child')
 					params = arguments;
 				})
 				.DataTable({

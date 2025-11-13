@@ -1,5 +1,5 @@
 import * as array from '../util/array';
-import use from '../util/external';
+import external from '../util/external';
 import * as object from '../util/object';
 import { PlainObject } from '../util/types';
 import * as eventStore from './eventStore';
@@ -137,7 +137,7 @@ export function add(
 	selector: string | null,
 	one: boolean
 ) {
-	let jq = use('jq');
+	let jq = external('jq');
 
 	if (jq) {
 		let method = one ? 'one' : 'on';
@@ -227,7 +227,7 @@ export function remove(
 	handler: EventListener | null,
 	selector: string | null
 ) {
-	let jq = use('jq');
+	let jq = external('jq');
 
 	if (jq) {
 		if (selector) {
@@ -307,7 +307,7 @@ export function trigger(
 	args: unknown[] | null = [],
 	eventProps: PlainObject | null = null
 ): boolean {
-	let jq = use('jq');
+	let jq = external('jq');
 
 	if (jq) {
 		let method = bubbles ? 'trigger' : 'triggerHandler';
