@@ -16,6 +16,7 @@ The row selector can be given in a number of different forms, to make it easy to
 * `dt-type integer` - Row index selector
 * `dt-string *` - All rows selector (wildcard)
 * `dt-string #{string}` - ID selector
+* `dt-string :eq()` - Index selector
 * `dt-type string` - CSS selector
 * `dt-type node` - This may be one of the following:
   * `-tag tr` - table row element
@@ -99,6 +100,19 @@ let row = table.row('#row-42');
 ```js
 let table = new DataTable('#myTable');
 let rows = table.rows( [ '#row-42', '#row-51' ] );
+```
+
+
+## string - :eq()
+
+It can sometimes be useful to select a row by its position in the data set, which can be different from the data index that is used when the row selector is an integer. This selector provides that ability.
+
+
+###### Select the first row in the table
+
+```js
+let table = new DataTable('#myTable');
+let row = table.row(':eq(0)');
 ```
 
 
