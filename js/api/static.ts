@@ -23,7 +23,6 @@ export function factory(root, jq) {
 
 	// Test if the second parameter is a jQuery object
 	if (jq && jq.fn && jq.fn.jquery) {
-		// TODO $ = jq;
 		is = true;
 	}
 

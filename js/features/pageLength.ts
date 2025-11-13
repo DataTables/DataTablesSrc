@@ -147,7 +147,7 @@ register(
 		__lengthCounter++;
 
 		// Update node value whenever anything changes the table's length
-		$(settings.nTable).on('length.dt.DT', function (e, s, len) {
+		dom.s(settings.nTable).on('length.dt.DT', function (e, s, len) {
 			if (settings === s) {
 				div.find('select').val(len);
 

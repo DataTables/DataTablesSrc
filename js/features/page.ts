@@ -76,7 +76,7 @@ register(
 		settings.aoDrawCallback.push(draw);
 
 		// Responsive redraw of paging control
-		$(settings.nTable).on('column-sizing.dt.DT', draw);
+		dom.s(settings.nTable).on('column-sizing.dt.DT', draw);
 
 		return host;
 	},
@@ -107,7 +107,11 @@ function _pagingDynamic(opts: IFeaturePagingOptions) {
 	return out;
 }
 
-function _pagingDraw(settings: Context, host: Dom, opts: IFeaturePagingOptions) {
+function _pagingDraw(
+	settings: Context,
+	host: Dom,
+	opts: IFeaturePagingOptions
+) {
 	if (!settings._bInitComplete) {
 		return;
 	}
@@ -183,8 +187,7 @@ function _pagingDraw(settings: Context, host: Dom, opts: IFeaturePagingOptions) 
 	host.empty().append(wrapped);
 
 	if (activeEl) {
-		// TODO haven't done events yet
-		$(host.find('[data-dt-idx=' + activeEl + ']').get()).trigger('focus');
+		host.find('[data-dt-idx="' + activeEl + '"]').trigger('focus');
 	}
 
 	// Responsive - check if the buttons are over two lines based on the

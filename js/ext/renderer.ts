@@ -92,9 +92,9 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 	// - note that using the `DT` namespace will allow the event to be removed
 	// automatically on destroy, while the `dt` namespaced event is the one we
 	// are listening for
-	$(settings.nTable).on(
-		'order.dt.DT column-visibility.dt.DT',
-		function (e, ctx, column) {
+	dom
+		.s(settings.nTable)
+		.on('order.dt.DT column-visibility.dt.DT', function (e, ctx, column) {
 			if (settings !== ctx) {
 				// need to check if this is the host
 				return; // table, not a nested one
@@ -205,8 +205,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 					orderSpan.attr('tabindex', tabIndex);
 				}
 			}
-		}
-	);
+		});
 };
 
 export const layout: IRendererLayout = (settings, container, items) => {
@@ -299,11 +298,11 @@ export function displayRowCells(
 	if (items.start) {
 		fn('start', items.start);
 	}
-	
+
 	if (items.end) {
 		fn('end', items.end);
 	}
-	
+
 	if (items.full) {
 		fn('full', items.full);
 	}

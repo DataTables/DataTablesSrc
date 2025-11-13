@@ -594,7 +594,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		let hasParent = false;
 
 		this.each(el => {
-			if (new Dom(el).closest(selector).count()) {
+			if (new Dom(selector).closest(el).count()) {
 				hasParent = true;
 			}
 		});
