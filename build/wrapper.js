@@ -182,7 +182,7 @@ function umd(script, deps, exp, filename) {
 	}
 	else {
 		// Browser
-		${setDataTable}factory( jQuery, window, document );
+		${setDataTable}factory( window.jQuery, window, document );
 	}
 }(function( $, window, document${cjsParams} ) {
 'use strict';${defineDataTable}
