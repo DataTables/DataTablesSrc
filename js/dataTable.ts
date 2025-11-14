@@ -34,7 +34,7 @@ import Settings from './model/settings';
 import util from './util';
 
 // TODO typing
-const DataTable: any = function (
+const DataTable = function (
 	selector: string | HTMLElement,
 	options: Partial<typeof defaults>
 ) {
@@ -53,7 +53,9 @@ const DataTable: any = function (
 	// `$().dataTable()`. We can't simply provide that as a wrapper, as there
 	// are properties on this class which are expected to be exposed.
 	if (typeof this.jquery === 'string') {
-		new DataTable(this.toArray(), selector); // note argument shift
+		// Typescript doesn't like the `return api` from the constructor, but is
+		// it valid Javascript, and allows backwards compatibility, hence the any
+		new (DataTable as any)(this.toArray(), selector); // note argument shift
 
 		return this;
 	}

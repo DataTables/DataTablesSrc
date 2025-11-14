@@ -2,6 +2,8 @@
  * © SpryMedia Ltd - datatables.net/license
  */
 
+import DataTable from '../dataTable';
+
 /**
  * DataTables integration for jQuery UI.
  *
@@ -10,27 +12,28 @@
  * for further information.
  */
 
-$.extend( true, DataTable.ext.classes, {
+DataTable.util.object.assignDeep(DataTable.ext.classes, {
 	container: 'dt-container dt-jqueryui',
 	paging: {
 		active: 'ui-state-disabled',
 		button: 'fg-button ui-button ui-state-default',
-		container: 'dt-paging fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi',
-		disabled: 'ui-state-disabled'
+		container:
+			'dt-paging fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi',
+		disabled: 'ui-state-disabled',
 	},
 	thead: {
-		cell: 'ui-state-default fg-toolbar ui-toolbar ui-widget-header'
+		cell: 'ui-state-default fg-toolbar ui-toolbar ui-widget-header',
 	},
 	tfoot: {
-		cell: 'ui-state-default ui-widget-header'
+		cell: 'ui-state-default ui-widget-header',
 	},
 	layout: {
 		row: 'dt-layout-row ui-helper-clearfix',
 		tableCell: 'table',
-	}
-} );
+	},
+});
 
 // Set the defaults for DataTables initialisation
-$.extend(true, DataTable.defaults, {
-	renderer: 'jqueryui'
+DataTable.util.object.assignDeep(DataTable.defaults, {
+	renderer: 'jqueryui',
 });

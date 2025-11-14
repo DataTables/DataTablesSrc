@@ -149,6 +149,11 @@ const ext = {
 	} as renderers.IRenderers,
 
 	/**
+	 * Rendering helper function exposed for use by the styling integrations.
+	 */
+	rendererDisplayRowCells: renderers.displayRowCells,
+
+	/**
 	 * Ordering plug-ins - custom data source
 	 *
 	 * The extension options for ordering of data available here is
