@@ -60,8 +60,13 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			else if (selector instanceof Dom) {
 				this.add(selector.get());
 			}
-			else if ((selector as any[]).length) {
-				// Array-like - could be a jQuery instance
+			else if (
+				typeof selector === 'object' &&
+				!(selector as any).nodeName && // <select> has a length!
+				(selector as any[]).length !== undefined
+			) {
+				// Array-like - could be a jQuery instance or DataTables API
+				// instance
 				let arrayLike = selector as any[];
 
 				for (let i = 0; i < arrayLike.length; i++) {

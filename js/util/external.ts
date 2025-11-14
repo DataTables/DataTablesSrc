@@ -26,7 +26,7 @@ export default function (arg1: any, arg2?: any) {
 		switch (type) {
 			case 'lib':
 			case 'jq':
-				return __jquery || (window as any).jQuery || null;
+				return __jquery !== undefined ? __jquery : (window as any).jQuery || null;
 
 			case 'win':
 				return window;
