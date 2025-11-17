@@ -6,6 +6,7 @@ var escapeHtml = function ( str ) {
 	return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 };
 
+var dom = null;
 
 window.dt_demo = {
 	/**
@@ -89,13 +90,13 @@ window.dt_demo = {
 	},
 
 	_tabs: function () {
-		if ($('body').hasClass('example')) {
+		if (dom.s('body').classHas('example') || dom.s('body').classHas('dt-example')) {
 			// js
 			dt_demo._displayFiles('#js-lib-files', dt_demo._loaded.js);
 			dt_demo._displayFiles('#css-lib-files', dt_demo._loaded.css);
 
 			// css
-			var cssContainer = $('div.dt-tabs div.css');
+			var cssContainer = dom.s('div.dt-tabs div.css');
 			if ( cssContainer.find('code').text() === '' ) {
 				cssContainer.find('code, div').css('display', 'none');
 				cssContainer.find('p').eq(0).css('display', 'none');
@@ -103,23 +104,23 @@ window.dt_demo = {
 
 			// This can really slow things down
 			setTimeout( function () {
-				SyntaxHighlighter.highlight({}, $('div.table code')[0]);
+				SyntaxHighlighter.highlight({}, dom.s('div.table code').get(0));
 			}, 1000)
 
 			// json
-			var ajaxTab = $('ul.dt-tabs li').eq(3).css('display', 'none');
+			var ajaxTab = dom.s('ul.dt-tabs li').eq(3).css('display', 'none');
 
-			$(document).on( 'init.dt', function ( e, settings ) {
+			dom.s(document).on( 'init.dt', function ( e, settings ) {
 				if ( e.namespace !== 'dt' ) {
 					return;
 				}
 
-				var api = new $.fn.dataTable.Api( settings );
+				var api = new DataTable.Api( settings );
 
 				var show = function ( str ) {
 					ajaxTab.css( 'display', 'block' );
-					$('div.dt-tabs div.ajax code').remove();
-					$('div.dt-tabs div.ajax div.syntaxhighlighter').remove();
+					dom.s('div.dt-tabs div.ajax code').remove();
+					dom.s('div.dt-tabs div.ajax div.syntaxhighlighter').remove();
 
 					// Old IE :-|
 					try {
@@ -135,13 +136,13 @@ window.dt_demo = {
 						str = first.concat(second).join('\n');
 					}
 
-					$('div.dt-tabs div.ajax').append(
-						$('<code class="multiline language-js"/>').text( str )
+					dom.s('div.dt-tabs div.ajax').append(
+						dom.c('code').classAdd('multiline language-js').text( str )
 					);
 
 					// This can be really slow for large builds
 					setTimeout( function () {
-						SyntaxHighlighter.highlight( {}, $('div.dt-tabs div.ajax code')[0] );
+						SyntaxHighlighter.highlight( {}, dom.s('div.dt-tabs div.ajax code').get(0) );
 					}, 500 );
 				};
 
@@ -158,9 +159,9 @@ window.dt_demo = {
 			} );
 
 			// php
-			var phpTab = $('ul.dt-tabs li').eq(4).css('display', 'none');
+			var phpTab = dom.s('ul.dt-tabs li').eq(4).css('display', 'none');
 
-			$(document).on( 'init.dt.demoSSP', function ( e, settings ) {
+			dom.s(document).on( 'init.dt.demoSSP', function ( e, settings ) {
 				if ( e.namespace !== 'dt' ) {
 					return;
 				}
@@ -174,7 +175,8 @@ window.dt_demo = {
 					if ( typeof settings.ajax === 'function' ) {
 						return;
 					}
-					$.ajax( {
+					
+					DataTable.ajax( {
 						url: '../resources/examples.php',
 						data: {
 							src: settings.sAjaxSource || settings.ajax.url || settings.ajax
@@ -183,10 +185,10 @@ window.dt_demo = {
 						type: 'post',
 						success: function ( txt ) {
 							phpTab.css( 'display', 'block' );
-							$('div.dt-tabs div.php').append(
-								'<code class="multiline language-php">'+txt+'</code>'
+							dom.s('div.dt-tabs div.php').append(
+								dom.c('code').classAdd('multiline language-php').text(txt)
 							);
-							SyntaxHighlighter.highlight( {}, $('div.dt-tabs div.php code')[0] );
+							SyntaxHighlighter.highlight( {}, dom.s('div.dt-tabs div.php code').get(0) );
 						}
 					} );
 				}
@@ -194,15 +196,15 @@ window.dt_demo = {
 		}
 
 		// Tabs
-		$('ul.dt-tabs').on( 'click', 'li:not(.disabled)', function () {
-			$('ul.dt-tabs li.active').removeClass('active');
-			$(this).addClass('active');
+		dom.s('ul.dt-tabs').on( 'click', 'li:not(.disabled)', function () {
+			dom.s('ul.dt-tabs li.active').classRemove('active');
+			dom.s(this).classAdd('active');
 
-			$('div.dt-tabs>div')
+			dom.s('div.dt-tabs>div')
 				.css('display', 'none')
-				.eq( $(this).index() ).css('display', 'block');
+				.eq( dom.s(this).index() ).css('display', 'block');
 		} );
-		$('ul.dt-tabs li.active').trigger('click');
+		dom.s('ul.dt-tabs li.active').trigger('click');
 	},
 
 	_appendFileName: function (name, src, type, framework) {
@@ -270,7 +272,7 @@ window.dt_demo = {
 		}
 
 		// Already got jQuery from an external source - spin on
-		if (item.name === 'jquery' && window.$) {
+		if (item.name === 'jquery' && window.jQuery) {
 			dt_demo._loaded.js.push(item.src);
 			dt_demo._loadNext();
 			return;
@@ -278,8 +280,7 @@ window.dt_demo = {
 		else if (
 			item.name === 'datatables' &&
 			item.src.indexOf('dataTables.js') !== -1 &&
-			window.$ &&
-			window.$.fn.dataTable
+			window.DataTable
 		) {
 			// Likewise for DataTables
 			dt_demo._loaded.js.push(item.src);
@@ -368,6 +369,14 @@ window.dt_demo = {
 
 		dt_demo.hasRun = true;
 
+		// Check DataTables has loaded. If not, don't do anything - the
+		// remaining code depends on the DataTables dom library.
+		if (! window.DataTable) {
+			return;
+		}
+
+		dom = DataTable.dom;
+
 		// init html
 		var types = dt_demo._struct;
 		var demoHtml = '';
@@ -375,32 +384,28 @@ window.dt_demo = {
 		var event = new Event('dt-demo-run');
 		document.dispatchEvent(event);
 		
-		if ($('div.demo-html').length) {
-			demoHtml = $('div.demo-html').html().trim();
+		if (dom.s('div.demo-html').count()) {
+			demoHtml = dom.s('div.demo-html').html().trim();
 
 			if ( demoHtml ) {
 				demoHtml = demoHtml+'\n\n';
 			}
 		}
 
-		$('div.dt-tabs div.table').append(
-			'<code class="multiline language-html">\t\t\t\t'+
-				escapeHtml( demoHtml )+
-			'</code>'
-		);
+		let code = dom.c('code')
+			.classAdd('multiline language-html')
+			.text('\t\t\t\t'+demoHtml);
+		dom.s('div.dt-tabs div.table').append(code);
 
 		dt_demo._tabs();
 
-		// Temporary
-		// types.jquery();
-		// $('#js-vanilla').css('display', 'none');
-		// return;
+		var optionsContainer = dom.s('div.dt-demo-options');
 
-		var optionsContainer = $('div.dt-demo-options');
-
-		if (! optionsContainer.length) {
-			optionsContainer = $('<div class="dt-demo-options"></div>')
-				.insertBefore('h1');
+		if (! optionsContainer.count()) {
+			optionsContainer = dom
+				.c('div')
+				.classAdd('dt-demo-options')
+				.insertBefore(dom.s('h1').get(0));
 		}
 
 		// jQuery / Vanilla selector
@@ -449,13 +454,13 @@ window.dt_demo = {
 					finish = function () {
 						types.jquery();
 					}
-					$('#js-vanilla').css('display', 'none');
+					dom.s('#js-vanilla').css('display', 'none');
 				}
 				else {
 					finish = function () {
 						types.vanilla();
 					}
-					$('#js-jquery').css('display', 'none');
+					dom.s('#js-jquery').css('display', 'none');
 				}
 			}
 
@@ -549,36 +554,48 @@ window.dt_demo = {
 
 	_optionsWarning: function (selector, msg) {
 		// Remove message
-		$('div.dt-demo-selector__current i.dt-demo-icon.warning', selector).remove();
-		$('div.dt-demo-selector__options p.dt-demo-warning', selector).remove();
+		dom.s(selector).find('div.dt-demo-selector__current i.dt-demo-icon.warning').remove();
+		dom.s(selector).find('div.dt-demo-selector__options p.dt-demo-warning').remove();
 
 		if (msg === false) {
 			return;
 		}
 
-		$('div.dt-demo-selector__current', selector)
-			.prepend('<i class="dt-demo-icon warning" style="margin-right: 0.75em;"></i>');
+		dom.s(selector)
+			.find('div.dt-demo-selector__current')
+			.prepend(
+				dom
+					.c('i')
+					.classAdd('dt-demo-icon warning')
+					.css('margin-right', '0.75em')
+			);
 
-		$('div.dt-demo-selector__title', selector)
-			.append($('<p class="dt-demo-warning">').html('<i class="dt-demo-icon warning"></i> ' + msg));
+		dom
+			.s(selector)
+			.find('div.dt-demo-selector__title')
+			.append(
+				dom
+					.c('p')
+					.classAdd('dt-demo-warning')
+					.html('<i class="dt-demo-icon warning"></i> ' + msg)
+			);
 	},
 
 	_options: function (title, container, options, initVal, cb, info) {
 		var initChange = true;
-		var selector = $(
-				'<div class="dt-demo-selector">'+
-					'<div class="dt-demo-selector__current"></div>'+
-					'<div class="dt-demo-selector__options"></div>'+
-				'</div>'
-			)
+		var selector = dom.c('div').classAdd('dt-demo-selector')
+			.append(dom.c('div').classAdd('dt-demo-selector__current'))
+			.append(dom.c('div').classAdd('dt-demo-selector__options'))
 			.appendTo(container)
 			.on('click', '.dt-demo-selector__option', function () {
-				var val = $(this).data('val');
-				var option = $(this).data('option');
+				var val = dom.s(this).data('val');
+				var option = options.find(o => o.val == val);
 				
-				$('div.dt-demo-selector__option', selector)
-					.removeClass('selected')
-					.filter('[data-val="'+val+'"]').addClass('selected');
+				selector
+					.find('div.dt-demo-selector__option')
+					.classRemove('selected')
+					.filter('[data-val="'+val+'"]')
+					.classAdd('selected');
 
 				cb(option, selector, initChange);
 
@@ -593,36 +610,39 @@ window.dt_demo = {
 		// Add the options
 		for (var i=0 ; i<options.length ; i++) {
 			var option = options[i];
-			var optionEl = $('<div class="dt-demo-selector__option"></div>')
+			var optionEl = dom.c('div')
+				.classAdd('dt-demo-selector__option')
 				.attr('data-val', option.val)
-				.data('option', option)
-				.append('<span>' + option.label + '</span>')
+				.append(dom.c('span').text(option.label))
 				.appendTo(optionsEl);
 
 			if (option.icon) {
-				$('<i class="dt-demo-icon"></i>')
-					.addClass(option.icon)
+				dom.c('i')
+					.classAdd('dt-demo-icon')
+					.classAdd(option.icon)
 					.prependTo(optionEl);
 
 				hasIcons = true;
 			}
 		}
 
-		optionsEl.prepend('<div class="dt-demo-selector__title">'+ title + info +'</div>');
+		optionsEl.prepend(
+			dom.c('div').classAdd('dt-demo-selector__title').html(title + info)
+		);
 
 		// Show / hide dropdown
 		currentEl.on('click', function () {
 			if (optionsEl.css('display') === 'block') {
 				optionsEl.css('display', 'none');
 
-				$('body').off('click.dt-theme-selector');
+				dom.s('body').off('click.dt-theme-selector');
 			}
 			else {
 				optionsEl.css('display', 'block');
 
 				setTimeout(function () {
-					$('body').on('click.dt-theme-selector', function (e) {
-						if ($(e.target).parents(optionsEl).filter(selector).length) {
+					dom.s('body').on('click.dt-theme-selector', function (e) {
+						if (dom.s(e.target).closest(optionsEl).filter(selector).count()) {
 							return;
 						}
 
@@ -633,7 +653,8 @@ window.dt_demo = {
 		});
 
 		// Trigger initial selection
-		$('div.dt-demo-selector__option', selector)
+		dom.s(selector)
+			.find('div.dt-demo-selector__option')
 			.filter('[data-val="'+initVal+'"]')
 			.trigger('click');
 
@@ -646,7 +667,7 @@ window.dt_demo = {
 			window.location.reload();
 		}
 
-		$('div.dt-demo-selector__current', selector).text(option.label);
+		dom.s(selector).find('div.dt-demo-selector__current').text(option.label);
 	},
 
 	_changeStyle: function (option, selector, initChange) {
@@ -656,7 +677,7 @@ window.dt_demo = {
 			return;
 		}
 
-		$('div.dt-demo-selector__current', selector).text(option.label);
+		dom.s(selector).find('div.dt-demo-selector__current').text(option.label);
 
 		var target = dt_demo._struct.libs.targetFramework;
 		var applied = option.val;
@@ -696,63 +717,63 @@ window.dt_demo = {
 		}
 
 		if (val === 'dark') {
-			$('html')
-				.removeClass('light') // DataTables
-				.addClass('dark')
+			dom.s('html')
+				.classRemove('light') // DataTables
+				.classAdd('dark')
 				.attr('data-bs-theme', 'dark') // Bootstrap
 				.attr('data-theme', 'dark'); // Bulma
-			$('div.chart-display').removeClass('highcharts-light').addClass('highcharts-dark');
+			dom.s('div.chart-display').classRemove('highcharts-light').classAdd('highcharts-dark');
 		}
 		else if (val === 'light') {
-			$('html')
-				.removeClass('dark') // DataTables
-				.addClass('light')
+			dom.s('html')
+				.classRemove('dark') // DataTables
+				.classAdd('light')
 				.attr('data-bs-theme', 'light') // Bootstrap
 				.attr('data-theme', 'light'); // Bulma
-			$('div.chart-display').removeClass('highcharts-dark').addClass('highcharts-light');
+			dom.s('div.chart-display').classRemove('highcharts-dark').classAdd('highcharts-light');
 		}
 
 		// Update the current element
-		var current = $('div.dt-demo-selector__current', selector);
+		var current = dom.s(selector).find('div.dt-demo-selector__current');
 
-		if (! current.children('i.theme').length) {
-			current.append('<i class="dt-demo-icon theme"></i>');
+		if (! current.children('i.theme').count()) {
+			current.append(dom.c('i').classAdd('dt-demo-icon theme'));
 		}
 
-		$('i.theme', current)
-			.removeClass('light dark auto')
-			.addClass(targetTheme);
+		current.find('i.theme')
+			.classRemove('light dark auto')
+			.classAdd(targetTheme);
 	},
 
 	_setPageStyling: function (styling) {
-		var body = $('body');
+		var body = dom.s('body');
 
 		if (styling === 'bootstrap') {
-			body.addClass('dt-example-bootstrap');
+			body.classAdd('dt-example-bootstrap');
 		}
 		else if (styling === 'bootstrap4') {
-			body.addClass('dt-example-bootstrap4');
+			body.classAdd('dt-example-bootstrap4');
 		}
 		else if (styling === 'bootstrap5') {
-			body.addClass('dt-example-bootstrap5');
+			body.classAdd('dt-example-bootstrap5');
 		}
 		else if (styling === 'foundation') {
-			body.addClass('dt-example-foundation');
+			body.classAdd('dt-example-foundation');
 		}
 		else if (styling === 'jqueryui') {
-			body.addClass('dt-example-jqueryui');
+			body.classAdd('dt-example-jqueryui');
 		}
 		else if (styling === 'semanticui') {
-			body.addClass('dt-example-semanticui');
+			body.classAdd('dt-example-semanticui');
 		}
 		else if (styling === 'bulma') {
-			body.addClass('dt-example-bulma');
+			body.classAdd('dt-example-bulma');
 		}
 		else if (styling === 'material') {
-			body.addClass('dt-example-material');
+			body.classAdd('dt-example-material');
 		}
 		else if (styling === 'uikit') {
-			body.addClass('dt-example-uikit');
+			body.classAdd('dt-example-uikit');
 		}
 	},
 
@@ -831,36 +852,36 @@ window.dt_demo = {
 	},
 
 	_tableClass: function (fw) {
-		var table = $('table');
+		var table = dom.s('table');
 
 		switch (fw) {
 			case 'bootstrap':
 			case 'bootstrap4':
-				table.addClass('table table-striped table-bordered table-hover');
+				table.classAdd('table table-striped table-bordered table-hover');
 				break;
 
 			case 'bootstrap5':
-				table.addClass('table table-striped table-hover');
+				table.classAdd('table table-striped table-hover');
 				break;
 			
 			case 'bulma':
-				table.addClass('table is-striped is-hoverable');
+				table.classAdd('table is-striped is-hoverable');
 				break;
 			
 			case 'foundation':
-				table.addClass('hover');
+				table.classAdd('hover');
 				break;
 
 			case 'material':
-				table.addClass('mdl-data-table');
+				table.classAdd('mdl-data-table');
 				break;
 			
 			case 'semanticui':
-				table.addClass('ui selectable striped celled table');
+				table.classAdd('ui selectable striped celled table');
 				break;
 			
 			case 'uikit':
-				table.addClass('uk-table uk-table-hover uk-table-striped');
+				table.classAdd('uk-table uk-table-hover uk-table-striped');
 				break;
 				
 			default:
@@ -875,12 +896,12 @@ window.dt_demo = {
 	},
 
 	_displayFiles: function (sel, files) {
-		var ul = $(sel);
+		var ul = dom.s(sel);
 
 		files.forEach(function (src) {
 			ul.append(
-				$('<li>').append(
-					$('<a>', {href: src}).html(src)
+				dom.c('li').append(
+					dom.c('a').attr('href', src).html(src)
 				)
 			);
 		});
