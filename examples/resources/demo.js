@@ -47,12 +47,15 @@ window.dt_demo = {
 		}
 
 		// If using jQuery run time then we need to add jQuery. We also need it
-		// if we are using BS3 or Bs4 as it is a dependency for them, and it
-		// needs to load before them.
+		// if we are using a styling framework that has it as a dependency for
+		// them, and it needs to load before them.
 		if (
 			initType === 'jquery' ||
 			initStyle === 'bootstrap' ||
-			initStyle === 'bootstrap4'
+			initStyle === 'bootstrap4' ||
+			initStyle === 'foundation' ||
+			initStyle === 'jqueryui' ||
+			initStyle === 'semanticui'
 		) {
 			dt_demo._addLib('jquery', 'js');
 		}

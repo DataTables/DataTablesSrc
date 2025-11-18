@@ -52,7 +52,7 @@ DataTable.ext.renderer.pagingButton.bulma = function (
 	var a = DataTable.dom.c('a')
 		.classAdd(btnClasses.join(' '))
 		.attr('href', disabled ? null : '#')
-		.attr('disabled', disabled)
+		.attr('disabled', disabled ? 'disabled' : null)
 		.html(content)
 		.appendTo(li);
 

@@ -14,8 +14,9 @@
 		"skipLibCheck": true,
 		"outDir": "dist"
 	},
-    "files": [
-        "js/index.ts"
+    "include": [
+        "js/index.ts",
+		"js/integration/dataTables.*.ts"
     ],
 	"exclude": [
 		"node_modules",

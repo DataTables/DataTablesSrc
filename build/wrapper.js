@@ -77,16 +77,9 @@ function main(args) {
 function es(script, deps, exp, filename) {
 	let imports = [];
 	let importNames = [];
-	let jquery = '';
 
 	for (let dep of deps) {
 		let alias = nameFromDependency(dep);
-
-		if (dep === 'jquery') {
-			jquery = `
-// Allow reassignment of the $ variable
-let $ = jQuery;`;
-		}
 
 		if (importNames.includes(alias)) {
 			imports.push(`import '${dep}';`);
@@ -103,7 +96,6 @@ let $ = jQuery;`;
 	return `${script.header}
 
 ${imports.join('\n')}
-${jquery}
 ${script.main}
 
 export default ${exp};
@@ -120,20 +112,20 @@ function umd(script, deps, exp, filename) {
 			; // noop - always included below
 		}
 		else if (nameFromDependency(dep) === 'DataTable') {
-			defineDataTable = '\nvar DataTable = $.fn.dataTable;';
+			defineDataTable = '\nvar DataTable = window.DataTable;';
 			commonjs.push(`
-			if ( ! $.fn.dataTable ) {
-				require('${dep}')(root, $);
+			if ( ! root.DataTable ) {
+				require('${dep}')(root);
 			}
 `);
 		}
 		else {
 			let name = nameFromDependency(dep);
 
-			defineDataTable = '\nvar DataTable = $.fn.dataTable;';
+			defineDataTable = '\nvar DataTable = window.DataTable;';
 			commonjs.push(`
-			if ( ! $.fn.dataTable.${name} ) {
-				require('${dep}')(root, $);
+			if ( ! window.DataTable.${name} ) {
+				require('${dep}')(root);
 			}
 `);
 		}
@@ -150,14 +142,13 @@ function umd(script, deps, exp, filename) {
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD
-		define( [${amd}], function ( $ ) {
-			return factory( $, window, document );
+		define( [${amd}], function () {
+			return factory( window, document );
 		} );
 	}
 	else if ( typeof exports === 'object' ) {
 		// CommonJS
-		var jq = require('jquery');
-		var cjsRequires = function (root, $) {${commonjs.join('')}		};
+		var cjsRequires = function (root) {${commonjs.join('')}		};
 
 		if (typeof window === 'undefined') {
 			module.exports = function (root, $${cjsSig}) {
@@ -167,24 +158,20 @@ function umd(script, deps, exp, filename) {
 					root = window;
 				}
 
-				if ( ! $ ) {
-					$ = jq( root );
-				}
-
-				cjsRequires( root, $ );
-				return factory( $, root, root.document${cjsParams} );
+				cjsRequires( root );
+				return factory( root, root.document${cjsParams} );
 			};
 		}
 		else {
-			cjsRequires( window, jq );
-			module.exports = factory( jq, window, window.document );
+			cjsRequires( window );
+			module.exports = factory( window, window.document );
 		}
 	}
 	else {
 		// Browser
-		${setDataTable}factory( window.jQuery, window, document );
+		${setDataTable}factory( window, document );
 	}
-}(function( $, window, document${cjsParams} ) {
+}(function( window, document${cjsParams} ) {
 'use strict';${defineDataTable}
 
 ${script.main}
@@ -306,11 +293,18 @@ function frameworkFromPath(path) {
 
 function breakScript(script) {
 	let match = script.match(/\/\*![\s\S]+?\*\//);
-
-	return {
+	let parts = {
 		header: match ? match[0] : '',
 		main: match ? script.replace(match[0], '') : script
 	};
+
+	// Remove any import statements from the dev files. Any needed for the the
+	// final file will be inserted by this script. The dev files include local
+	// imports rather than the npm package name imports to allow development
+	// with local imports.
+	parts.main = parts.main.replace(/\nimport .*\n/, '\n');
+
+	return parts;
 }
 
 

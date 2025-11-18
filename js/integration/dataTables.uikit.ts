@@ -33,7 +33,7 @@ DataTable.ext.renderer.pagingButton.uikit = function (
 	active,
 	disabled
 ) {
-	var btnClasses = [];
+	var btnClasses: string[] = [];
 
 	if (active) {
 		btnClasses.push('uk-active');

@@ -43,12 +43,12 @@ function build_js {
 		--config rollup.config.mjs
 
 	rsync -r dist/dataTables.js $OUT_DIR
+	js_wrap $OUT_DIR/dataTables.js
+
+	rsync -r dist/integration/dataTables.*.js $OUT_DIR
+	js_frameworks dataTables $OUT_DIR "datatables.net"
+
 	rm -r dist
-
-	js_wrap $OUT_DIR/dataTables.js "jquery"
-	js_compress $OUT_FILE
-
-	cp js/integration/* $OUT_DIR
 }
 
 
@@ -141,10 +141,6 @@ function build_repo {
 	update_build_repo
 
 	build_js dataTables
-
-	echo_section "Styling frameworks JS"
-
-	js_frameworks dataTables $OUT_DIR "jquery datatables.net"
 	build_css
 	build_types
 	build_examples
@@ -382,8 +378,7 @@ case "$1" in
 		;;
 
 	"js")
-		build_js umd.js dataTables js
-		build_js esm.js dataTables mjs
+		build_js dataTables
 		;;
 
 	"css")

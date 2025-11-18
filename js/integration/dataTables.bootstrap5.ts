@@ -6,20 +6,20 @@ import DataTable from '../dataTable';
 
 /* Set the defaults for DataTables initialisation */
 DataTable.util.object.assignDeep(DataTable.defaults, {
-	renderer: 'bootstrap',
+	renderer: 'bootstrap'
 });
 
 /* Default class modification */
 DataTable.util.object.assignDeep(DataTable.ext.classes, {
 	container: 'dt-container dt-bootstrap5',
 	search: {
-		input: 'form-control form-control-sm',
+		input: 'form-control form-control-sm'
 	},
 	length: {
-		select: 'form-select form-select-sm',
+		select: 'form-select form-select-sm'
 	},
 	processing: {
-		container: 'dt-processing card',
+		container: 'dt-processing card'
 	},
 	layout: {
 		row: 'row mt-2 justify-content-between',
@@ -27,8 +27,8 @@ DataTable.util.object.assignDeep(DataTable.ext.classes, {
 		tableCell: 'col-12',
 		start: 'dt-layout-start col-md-auto me-auto',
 		end: 'dt-layout-end col-md-auto ms-auto',
-		full: 'dt-layout-full col-md',
-	},
+		full: 'dt-layout-full col-md'
+	}
 });
 
 /* Bootstrap paging button renderer */
@@ -60,7 +60,7 @@ DataTable.ext.renderer.pagingButton.bootstrap = function (
 
 	return {
 		display: li.get(0),
-		clicker: a.get(0),
+		clicker: a.get(0)
 	};
 };
 
