@@ -7,6 +7,6 @@
 	"quoteProps": "as-needed",
 	"semi": true,
 	"singleQuote": true,
-	"trailingComma": "es5",
+	"trailingComma": "none",
 	"useTabs": true
 }
