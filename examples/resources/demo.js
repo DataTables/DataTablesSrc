@@ -25,6 +25,7 @@ window.dt_demo = {
 	},
 
 	_prepLibs: function () {
+		var initType = dt_demo.storage.get('dt-demo-runtime') || 'vanilla-js';
 		var initStyle = dt_demo.storage.get('dt-demo-style') || 'datatables';
 		var libs = dt_demo._struct.libs;
 		var framework = libs.targetFramework
@@ -43,9 +44,12 @@ window.dt_demo = {
 			dt_demo._addLib(libs.css[i], 'css', framework);
 		}
 
-		// Always need jQuery at the moment and it needs to be loaded before
-		// BS3/4.
-		dt_demo._addLib('jquery', 'js');
+		// If using jQuery run time then we need to add jQuery. We also need it
+		// if we are using BS3 or Bs4 as it is a dependency for them, and it
+		// needs to load before them.
+		if (initType === 'jquery' || initStyle === 'bootstrap' || initStyle === 'bootstrap4') {
+			dt_demo._addLib('jquery', 'js');
+		}
 
 		if (framework !== 'datatables') {
 			dt_demo._addLib(framework, 'js');
