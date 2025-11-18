@@ -6,7 +6,6 @@ table.inputs td {
 	padding: 5px;
 }
 </css>
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Custom filtering - range search</title>

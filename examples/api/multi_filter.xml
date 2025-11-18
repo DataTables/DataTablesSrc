@@ -8,7 +8,6 @@
 		box-sizing: border-box;
 	}
 </css>
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Individual column searching (text inputs)</title>

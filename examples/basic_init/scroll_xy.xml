@@ -8,7 +8,6 @@
 		margin: 0 auto;
 	}
 </css>
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Scroll - horizontal and vertical</title>

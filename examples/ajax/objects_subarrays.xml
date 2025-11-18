@@ -2,7 +2,6 @@
 <dt-example table-type="ajax" order="4">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Nested object data (arrays)</title>

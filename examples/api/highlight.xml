@@ -9,7 +9,6 @@ td.highlight {
 }
 
 ]]></css>
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Highlighting rows and columns</title>

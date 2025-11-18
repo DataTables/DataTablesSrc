@@ -4,7 +4,7 @@
 <css lib="datatables" />
 
 <title>Fomantic-UI (formally Semantic-UI)</title>
-<js lib="jquery datatables semanticui">
+<js lib="datatables semanticui">
 <![CDATA[
 $('#example').DataTable();
 ]]>

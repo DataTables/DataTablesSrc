@@ -2,7 +2,7 @@
 <dt-example table-type="html-split-name" order="27" framework="material">
 
 <css lib="datatables" />
-<js lib="jquery datatables" />
+<js lib="datatables" />
 
 <title>Material Design (Tech. preview)</title>
 <js><![CDATA[

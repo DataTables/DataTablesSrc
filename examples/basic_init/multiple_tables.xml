@@ -6,7 +6,6 @@
 		margin-bottom: 3em;
 	}
 </css>
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Multiple tables</title>

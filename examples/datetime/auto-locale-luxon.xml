@@ -2,7 +2,7 @@
 <dt-example table-type="html" order="4">
 
 <css lib="datatables" />
-<js lib="jquery luxon datatables">
+<js lib="luxon datatables">
 <![CDATA[
 $('#example').DataTable({
 	columnDefs: [

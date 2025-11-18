@@ -21,7 +21,6 @@ div.dt-paging {
 	margin-top: 0.5em;
 }
 </css>
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Legacy dom option</title>

@@ -4,7 +4,7 @@
 <css lib="datatables" />
 
 <title>UIKit 3 (Tech. preview)</title>
-<js lib="jquery datatables">
+<js lib="datatables">
 <![CDATA[
 $('#example').DataTable();
 ]]>

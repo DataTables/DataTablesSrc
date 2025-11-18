@@ -2,7 +2,7 @@
 <dt-example table-type="" order="12" framework="bootstrap5">
 
 <css lib="datatables" />
-<js lib="jquery bootstrap5 datatables" />
+<js lib="bootstrap5 datatables" />
 
 <title>Scrolling and Bootstrap tabs</title>
 <js><![CDATA[

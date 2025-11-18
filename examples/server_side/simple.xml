@@ -2,7 +2,6 @@
 <dt-example table-type="ssp" order="1">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Server-side processing</title>

@@ -11,7 +11,6 @@
 		color: white;
 	}
 </css>
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Row created callback</title>

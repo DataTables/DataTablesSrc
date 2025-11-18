@@ -9,7 +9,7 @@ div.dt-container {
 </css>
 
 <title>Flexible table width</title>
-<js lib="jquery datatables">
+<js lib="datatables">
 <![CDATA[
 $('#example').DataTable();
 ]]>

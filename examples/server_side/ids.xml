@@ -2,7 +2,6 @@
 <dt-example table-type="ssp" order="4">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Automatic addition of row ID attributes</title>

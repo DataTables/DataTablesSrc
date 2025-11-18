@@ -2,7 +2,6 @@
 <dt-example table-type="ssp-1st-page" order="9">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Deferred loading of data</title>

@@ -27,7 +27,12 @@ window.dt_demo = {
 		var initType = dt_demo.storage.get('dt-demo-runtime') || 'vanilla-js';
 		var initStyle = dt_demo.storage.get('dt-demo-style') || 'datatables';
 		var libs = dt_demo._struct.libs;
-		var framework = libs.targetFramework ? libs.targetFramework : initStyle;
+		var framework = initStyle;
+
+		if (libs.targetFramework) {
+			initStyle = libs.targetFramework;
+			framework = libs.targetFramework;
+		}
 
 		if (framework !== 'datatables') {
 			dt_demo._addLib(framework, 'css');
@@ -70,14 +75,16 @@ window.dt_demo = {
 
 		if (libName.indexOf('//') === 0 || libName.indexOf('https://') === 0) {
 			src = libName;
-		} else if (libName.indexOf('feature-') === 0) {
+		}
+		else if (libName.indexOf('feature-') === 0) {
 			src = dt_demo._appendFileName(
 				libName.replace('feature-', ''),
 				'..',
 				type,
 				'datatables'
 			);
-		} else {
+		}
+		else {
 			var lib = types.libs.components[libName];
 			var src = lib[type];
 
@@ -87,7 +94,7 @@ window.dt_demo = {
 		}
 
 		if (src) {
-			src.split('|').forEach((url) => {
+			src.split('|').forEach(url => {
 				dt_demo._loadQueue.push({
 					name: libName,
 					type: type,
@@ -239,7 +246,8 @@ window.dt_demo = {
 		if (type === 'js' || src === '..') {
 			if (name === 'datatables') {
 				out.push(src + '/dataTables.' + type);
-			} else {
+			}
+			else {
 				out.push(src + '/dataTables.' + fileName + '.' + type);
 			}
 		}
@@ -249,7 +257,8 @@ window.dt_demo = {
 			(type === 'js' && framework === 'datatables' && name === 'datatables')
 		) {
 			// noop
-		} else {
+		}
+		else {
 			out.push(src + '/' + fileName + '.' + fwFile + '.' + type);
 		}
 
@@ -265,13 +274,15 @@ window.dt_demo = {
 			// Check the document is ready
 			if (document.readyState === 'complete') {
 				dt_demo._run();
-			} else if (document.readyState === 'interactive') {
-				document.addEventListener('readystatechange', (event) => {
+			}
+			else if (document.readyState === 'interactive') {
+				document.addEventListener('readystatechange', event => {
 					if (queue.length === 0 && cssQueue.length === 0) {
 						dt_demo._run();
 					}
 				});
-			} else {
+			}
+			else {
 				document.addEventListener('DOMContentLoaded', function () {
 					if (queue.length === 0 && cssQueue.length === 0) {
 						dt_demo._run();
@@ -298,7 +309,8 @@ window.dt_demo = {
 			dt_demo._loaded.js.push(item.src);
 			dt_demo._loadNext();
 			return;
-		} else if (
+		}
+		else if (
 			item.name === 'datatables' &&
 			item.src.indexOf('dataTables.js') !== -1 &&
 			window.DataTable
@@ -332,7 +344,8 @@ window.dt_demo = {
 
 			document.head.appendChild(script);
 			dt_demo._loadNext(); // don't wait for the CSS
-		} else {
+		}
+		else {
 			var script = document.createElement('script');
 			script.src = item.src;
 			script.type = 'text/javascript';
@@ -340,7 +353,8 @@ window.dt_demo = {
 				// Tailwind specific config
 				if (item.name === 'tailwindcss') {
 					window.tailwind.config = { darkMode: 'class' };
-				} else if (item.name === 'jquery' && window.cash) {
+				}
+				else if (item.name === 'jquery' && window.cash) {
 					window.jQuery = window.cash;
 				}
 
@@ -371,7 +385,8 @@ window.dt_demo = {
 		set: function (name, val) {
 			if (typeof setCookie === 'function') {
 				setCookie(name, val);
-			} else {
+			}
+			else {
 				localStorage.setItem(name, val);
 			}
 		}
@@ -465,7 +480,8 @@ window.dt_demo = {
 						runtimeSelector,
 						'This example does not yet have jQuery initialisation available. Vanilla JS is being used instead.'
 					);
-				} else if (initType === 'vanilla-js' && !canVanilla) {
+				}
+				else if (initType === 'vanilla-js' && !canVanilla) {
 					initType = 'jquery';
 					dt_demo._optionsWarning(
 						runtimeSelector,
@@ -479,7 +495,8 @@ window.dt_demo = {
 						types.jquery();
 					};
 					dom.s('#js-vanilla').css('display', 'none');
-				} else {
+				}
+				else {
 					finish = function () {
 						types.vanilla();
 					};
@@ -621,7 +638,7 @@ window.dt_demo = {
 			.appendTo(container)
 			.on('click', '.dt-demo-selector__option', function () {
 				var val = dom.s(this).data('val');
-				var option = options.find((o) => o.val == val);
+				var option = options.find(o => o.val == val);
 
 				selector
 					.find('div.dt-demo-selector__option')
@@ -673,7 +690,8 @@ window.dt_demo = {
 				optionsEl.css('display', 'none');
 
 				dom.s('body').off('click.dt-theme-selector');
-			} else {
+			}
+			else {
 				optionsEl.css('display', 'block');
 
 				setTimeout(function () {
@@ -758,7 +776,8 @@ window.dt_demo = {
 				styling === 'bulma'
 			) {
 				dt_demo._optionsWarning(selector, false);
-			} else {
+			}
+			else {
 				val = 'light';
 				dt_demo._optionsWarning(
 					selector,
@@ -779,7 +798,8 @@ window.dt_demo = {
 				.s('div.chart-display')
 				.classRemove('highcharts-light')
 				.classAdd('highcharts-dark');
-		} else if (val === 'light') {
+		}
+		else if (val === 'light') {
 			dom
 				.s('html')
 				.classRemove('dark') // DataTables
@@ -810,21 +830,29 @@ window.dt_demo = {
 
 		if (styling === 'bootstrap') {
 			body.classAdd('dt-example-bootstrap');
-		} else if (styling === 'bootstrap4') {
+		}
+		else if (styling === 'bootstrap4') {
 			body.classAdd('dt-example-bootstrap4');
-		} else if (styling === 'bootstrap5') {
+		}
+		else if (styling === 'bootstrap5') {
 			body.classAdd('dt-example-bootstrap5');
-		} else if (styling === 'foundation') {
+		}
+		else if (styling === 'foundation') {
 			body.classAdd('dt-example-foundation');
-		} else if (styling === 'jqueryui') {
+		}
+		else if (styling === 'jqueryui') {
 			body.classAdd('dt-example-jqueryui');
-		} else if (styling === 'semanticui') {
+		}
+		else if (styling === 'semanticui') {
 			body.classAdd('dt-example-semanticui');
-		} else if (styling === 'bulma') {
+		}
+		else if (styling === 'bulma') {
 			body.classAdd('dt-example-bulma');
-		} else if (styling === 'material') {
+		}
+		else if (styling === 'material') {
 			body.classAdd('dt-example-material');
-		} else if (styling === 'uikit') {
+		}
+		else if (styling === 'uikit') {
 			body.classAdd('dt-example-uikit');
 		}
 	},
@@ -832,21 +860,29 @@ window.dt_demo = {
 	_getPageStylingName: function (styling) {
 		if (styling === 'bootstrap') {
 			return 'Bootstrap 3';
-		} else if (styling === 'bootstrap4') {
+		}
+		else if (styling === 'bootstrap4') {
 			return 'Bootstrap 4';
-		} else if (styling === 'bootstrap5') {
+		}
+		else if (styling === 'bootstrap5') {
 			return 'Bootstrap 5';
-		} else if (styling === 'foundation') {
+		}
+		else if (styling === 'foundation') {
 			return 'Foundation';
-		} else if (styling === 'jqueryui') {
+		}
+		else if (styling === 'jqueryui') {
 			return 'jQuery UI';
-		} else if (styling === 'semanticui') {
+		}
+		else if (styling === 'semanticui') {
 			return 'Fomantic UI';
-		} else if (styling === 'bulma') {
+		}
+		else if (styling === 'bulma') {
 			return 'Bulma';
-		} else if (styling === 'material') {
+		}
+		else if (styling === 'material') {
 			return 'Material';
-		} else if (styling === 'uikit') {
+		}
+		else if (styling === 'uikit') {
 			return 'UI Kit';
 		}
 

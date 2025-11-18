@@ -2,7 +2,7 @@
 <dt-example table-type="ajax-details" order="6">
 
 <css lib="datatables"/>
-<js lib="jquery datatables" />
+<js lib="datatables" />
 
 <title>Child rows with StateSave</title>
 

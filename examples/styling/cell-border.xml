@@ -4,7 +4,7 @@
 <css lib="datatables" />
 
 <title>Base style - cell borders</title>
-<js lib="jquery datatables">
+<js lib="datatables">
 <![CDATA[
 $('#example').DataTable();
 ]]>

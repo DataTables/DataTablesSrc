@@ -2,7 +2,6 @@
 <dt-example table-type="html-comma" order="6">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Language - Comma decimal place</title>

@@ -2,7 +2,6 @@
 <dt-example table-type="html" order="15">
 
 <css lib="datatables select" />
-<js lib="jquery" />
 <js lib="datatables select" />
 
 <title>HighCharts Integration</title>

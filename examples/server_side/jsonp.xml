@@ -2,7 +2,6 @@
 <dt-example table-type="ssp" order="8">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>JSONP data source for remote domains</title>

@@ -2,7 +2,7 @@
 <dt-example table-type="html" order="11">
 
 <css lib="datatables"/>
-<js lib="jquery datatables">
+<js lib="datatables">
 <![CDATA[
 
 DataTable.type('num', 'className', 'dt-left');

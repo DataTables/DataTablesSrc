@@ -2,7 +2,6 @@
 <dt-example table-type="ssp" order="3">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>POST data</title>

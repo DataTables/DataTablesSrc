@@ -2,7 +2,6 @@
 <dt-example table-type="ajax" order="6">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Generated content for a column</title>

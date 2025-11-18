@@ -2,7 +2,7 @@
 <dt-example table-type="html" order="4">
 
 <css lib="datatables" />
-<js lib="jquery datatables">
+<js lib="datatables">
 <![CDATA[
 DataTable.type('date', 'render', DataTable.render.date());
 DataTable.type('num', 'render', DataTable.render.number());

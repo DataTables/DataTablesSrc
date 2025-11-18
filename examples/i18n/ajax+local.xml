@@ -2,7 +2,6 @@
 <dt-example table-type="html" order="8">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Remote language file + local definitions</title>

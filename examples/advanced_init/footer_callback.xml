@@ -4,7 +4,6 @@
 <css lib="datatables">
 	th { white-space: nowrap; }
 </css>
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Footer callback</title>

@@ -2,7 +2,6 @@
 <dt-example table-type="ajax" order="2">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Ajax sourced data</title>

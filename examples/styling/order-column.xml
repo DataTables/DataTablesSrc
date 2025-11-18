@@ -2,7 +2,7 @@
 <dt-example table-type="html" table-class="order-column" order="6" framework="datatables">
 
 <css lib="datatables" />
-<js lib="jquery datatables">
+<js lib="datatables">
 <![CDATA[
 $('#example').DataTable();
 ]]>

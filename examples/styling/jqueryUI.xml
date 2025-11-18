@@ -4,7 +4,7 @@
 <css lib="datatables" />
 
 <title>jQuery UI ThemeRoller</title>
-<js lib="jquery datatables">
+<js lib="datatables">
 <![CDATA[
 $('#example').DataTable();
 ]]>

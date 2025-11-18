@@ -2,7 +2,6 @@
 <dt-example table-type="html" order="1">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Table controls positioning</title>

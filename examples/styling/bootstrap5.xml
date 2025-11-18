@@ -4,7 +4,7 @@
 <css lib="datatables" />
 
 <title>Bootstrap 5</title>
-<js lib="jquery datatables">
+<js lib="datatables">
 <![CDATA[
 $('#example').DataTable();
 ]]>

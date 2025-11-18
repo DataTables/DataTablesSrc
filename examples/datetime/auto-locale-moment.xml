@@ -2,7 +2,7 @@
 <dt-example table-type="html" order="3">
 
 <css lib="datatables" />
-<js lib="jquery moment datatables">
+<js lib="moment datatables">
 <![CDATA[
 $('#example').DataTable({
 	columnDefs: [

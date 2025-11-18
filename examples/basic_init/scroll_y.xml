@@ -2,7 +2,6 @@
 <dt-example table-type="html" order="12">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Scroll - vertical</title>

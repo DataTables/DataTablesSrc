@@ -2,7 +2,6 @@
 <dt-example table-type="ssp" order="10">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Pipelining data to reduce Ajax calls for paging</title>

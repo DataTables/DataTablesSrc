@@ -13,7 +13,6 @@
 		width: 100%;
 	}
 </css>
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Data rendering</title>

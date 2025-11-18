@@ -2,7 +2,6 @@
 <dt-example table-type="" order="8">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>HTML5 data-* attributes - table options</title>

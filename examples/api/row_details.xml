@@ -2,7 +2,7 @@
 <dt-example table-type="ajax-details" order="5">
 
 <css lib="datatables" />
-<js lib="jquery datatables" />
+<js lib="datatables" />
 
 <title>Child rows (show extra / detailed information)</title>
 

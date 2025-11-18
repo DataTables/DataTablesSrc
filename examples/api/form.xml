@@ -2,7 +2,6 @@
 <dt-example table-type="html-form" order="8">
 
 <css lib="datatables" />
-<js lib="jquery" />
 <js lib="datatables" />
 
 <title>Form inputs</title>
