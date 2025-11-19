@@ -1,10 +1,10 @@
 import {
-    adjustColumnSizing,
-    columnIndexToVisible,
-    columnsFromHeader,
-    columnTypes,
-    visibleColumns,
-    visibleToColumnIndex,
+	adjustColumnSizing,
+	columnIndexToVisible,
+	columnsFromHeader,
+	columnTypes,
+	visibleColumns,
+	visibleToColumnIndex,
 } from '../core/columns';
 import { getCellData } from '../core/data';
 import { drawHead } from '../core/draw';
@@ -14,14 +14,31 @@ import dom from '../dom';
 import { pluck, pluckOrder, range, removeEmpty } from '../util/array';
 import { intVal } from '../util/conv';
 import * as is from '../util/is';
-import Api from './base';
+import Api from './Api';
 import {
-    selector_first,
-    selector_opts,
-    selector_row_indexes,
-    selector_run,
+	selector_first,
+	selector_opts,
+	selector_row_indexes,
+	selector_run,
 } from './selectors';
 import { callbackFire } from './support';
+
+declare module './Api' {
+	interface ApiColumns extends Api {
+		/**
+		 * Get the visibility of the selected columns
+		 * @param set 
+		 */
+		visible(set: boolean): ApiColumns;
+		visible(): ApiColumns;
+	}
+
+	interface Api {
+		column: any;
+		columns: any;
+	}
+}
+// TODO columns.adjust typing?
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Columns

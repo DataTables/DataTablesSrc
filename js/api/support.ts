@@ -253,7 +253,7 @@ export function macros(ctx: Context, str: string, entries?: number) {
  * @param arr Array to add the data to
  * @param data Data array that is to be added
  */
-export function arrayApply(arr: any[], data: any[]) {
+export function arrayApply(arr: any[], data?: any[]) {
 	if (!data) {
 		return;
 	}

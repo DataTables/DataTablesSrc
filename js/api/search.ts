@@ -1,6 +1,6 @@
 import { filterComplete } from '../core/filter';
 import * as object from '../util/object';
-import Api from './base';
+import Api from './Api';
 
 Api.register('search()', function (input, regex, smart, caseInsen) {
 	var ctx = this.context;

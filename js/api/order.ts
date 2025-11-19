@@ -1,6 +1,6 @@
 import { sortAttachListener, sortFlatten, sortResolve } from '../core/sort';
 import * as object from '../util/object';
-import Api from './base';
+import Api from './Api';
 
 /**
  * Get current ordering (sorting) that has been applied to the table.

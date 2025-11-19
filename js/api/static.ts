@@ -2,7 +2,7 @@ import dom from '../dom';
 import ext from '../ext/index';
 import * as is from '../util/is';
 import { arrayLike } from '../util/is';
-import Api from './base';
+import Api from './Api';
 
 /**
  * CommonJS factory function pass through. This will check if the arguments

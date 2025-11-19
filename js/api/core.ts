@@ -3,12 +3,24 @@ import { sortingClasses } from '../core/sort';
 import dom from '../dom';
 import ext from '../ext/index';
 import util from '../util';
-import Api from './base';
+import Api from './Api';
 import { callbackFire, log } from './support';
 
-/**
- *
- */
+
+declare module './Api' {
+	interface Api {
+		$(): Api;
+		clear(): Api;
+		destroy(): void;
+		error(msg: string): Api;
+		settings(): Api;
+
+		off(name: string, hander?: Function): Api;
+		on(name: string, handler: Function): Api;
+		one(name: string, handler: Function): Api;
+	}
+}
+
 Api.register('$()', function (selector, opts) {
 	let jq = util.external('jq');
 
@@ -53,7 +65,7 @@ Api.register('clear()', function () {
 	});
 });
 
-Api.register('error()', function (msg) {
+Api.register('error()', function (msg: string) {
 	return this.iterator('table', function (settings) {
 		log(settings, 0, msg);
 	});

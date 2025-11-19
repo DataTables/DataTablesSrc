@@ -2,7 +2,7 @@ import { addData, addTr, invalidate } from '../core/data';
 import { sortDisplay } from '../core/sort';
 import dom from '../dom';
 import util from '../util';
-import Api from './base';
+import Api from './Api';
 import {
 	selector_first,
 	selector_opts,
@@ -10,6 +10,12 @@ import {
 	selector_run,
 } from './selectors';
 import { arrayApply, lengthOverflow } from './support';
+
+declare module './Api' {
+	interface Api {
+		rows: any;
+	}
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Rows

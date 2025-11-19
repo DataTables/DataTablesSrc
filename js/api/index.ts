@@ -1,4 +1,4 @@
-import Api from './base';
+import Api from './Api';
 
 import './ajax';
 import './cells';

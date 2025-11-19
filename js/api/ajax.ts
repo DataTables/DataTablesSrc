@@ -5,8 +5,15 @@ import { initComplete } from '../core/init';
 import { processingDisplay } from '../core/processing';
 import Context from '../model/settings';
 import * as is from '../util/is';
-import Api from './base';
+import Api from './Api';
 import { dataSource } from './support';
+
+
+declare module './Api' {
+	interface Api {
+		ajax: any;
+	}
+}
 
 type TReloadCallback = (json: any) => void;
 

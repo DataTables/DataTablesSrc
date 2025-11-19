@@ -2,7 +2,13 @@
 import { implementState, saveState } from "../core/state";
 import { StateLoad } from "../model/state";
 import * as object from '../util/object';
-import Api from "./base";
+import Api from "./Api";
+
+declare module './Api' {
+	interface Api {
+		state: any;
+	}
+}
 
 /*
  * State API methods

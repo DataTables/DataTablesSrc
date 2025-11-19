@@ -2,7 +2,7 @@ import { visibleColumns } from '../core/columns';
 import { saveState } from '../core/state';
 import dom from '../dom';
 import util from '../util';
-import Api from './base';
+import Api from './Api';
 import { callbackFire } from './support';
 
 dom.s(document).on('plugin-init.dt', function (e, context) {

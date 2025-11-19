@@ -1,8 +1,14 @@
 import { headerLayout } from '../core/draw';
 import dom from '../dom';
 import Context from '../model/settings';
-import Api from './base';
+import Api from './Api';
 import { arrayApply } from './support';
+
+declare module './Api' {
+	interface Api {
+		table: any;
+	}
+}
 
 /**
  * Selector for HTML tables. Apply the given selector to the give array of

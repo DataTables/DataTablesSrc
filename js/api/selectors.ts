@@ -3,7 +3,7 @@ import { Dom } from '../dom';
 import ext from '../ext/index';
 import { range, unique } from '../util/array';
 import * as object from '../util/object';
-import Api from './base';
+import Api from './Api';
 import { dataSource } from './support';
 
 export function selector_run(type, selector, selectFn, settings, opts) {
