@@ -11,214 +11,79 @@ import { arrayApply } from './support';
  */
 const __arrayProto = Array.prototype;
 
-function getPrototypeNames(name: string) {
-	// Strip the `()`, UC the first character for the nesting level, prefix with
-	// `Api` and return.
-	let parts = name.replace(/\(\)/g, '').split('.');
+function Api(context, data?) {
+	this.context = toContextArray(context);
 
-	let ucParts = parts.map(part => {
-		return String(part).charAt(0).toUpperCase() + String(part).slice(1);
-	});
-
-	let hostParts = parts.slice();
-	let methodName = hostParts.pop()!;
-
-	let ucHostParts = ucParts.slice();
-	ucHostParts.pop();
-
-	return {
-		fqn: parts.join('.'),
-		fqhn: hostParts.join(''),
-		methodName,
-		className: 'Api' + ucParts.join(''),
-		hostClassName: 'Api' + ucHostParts.join('')
-	};
+	// Initial data
+	arrayApply(this as any, data);
 }
 
-export class Api {
-	static register(name: string | string[], func: Function) {
-		if (Array.isArray(name)) {
-			for (let i = 0; i < name.length; i++) {
-				Api.register(name[i], func);
-			}
+// Add methods to the prototype
+util.object.assign(Api.prototype, {
+	_newInst: 'Api',
 
-			return;
-		}
+	isDataTableApi: true,
 
-		let names = getPrototypeNames(name);
-
-		// Always add the method with Api, and we can modify if needed
-		methodPrototypeMap[names.fqn] = Api;
-
-		// Is the method being registered a child of another method?
-		if (names.hostClassName !== 'Api') {
-			// If so, has the parent already been defined or not?
-			if (!classes[names.hostClassName]) {
-				// Create a new "class"
-				classes[names.hostClassName] = function (
-					context: Context[],
-					data: any[]
-				) {
-					this.context = context;
-					arrayApply(this as any, data);
-				};
-
-				Object.defineProperty(classes[names.hostClassName], 'name', {
-					value: names.hostClassName,
-					writable: false
-				});
-
-				// Copy the methods from the Api prototype over
-				// TODO util.object.each
-				let protoKeys = Object.keys(Api.prototype);
-
-				for (let i = 0; i < protoKeys.length; i++) {
-					let key = protoKeys[i];
-
-					classes[names.hostClassName].prototype[key] = Api.prototype[key];
-				}
-			}
-
-			classes[names.hostClassName].prototype[names.methodName] = func; // wrap this?
-
-			// Provide a method to get a new instance of this class, without
-			// knowing the class itself! This if used by `iterator` and other
-			// methods.
-			classes[names.hostClassName].prototype.inst = function (c, d) {
-				return new classes[names.hostClassName](c, d);
-			};
-		}
-		else {
-			// If it is top level, we need to add the method to all prototypes,
-			// not just the Api one. But only if there isn't already an override
-			// there. This will include `Api`.
-			let keys = Object.keys(classes);
-
-			for (let i = 0; i < keys.length; i++) {
-				let klass = classes[keys[i]];
-				// TODO util.object.each(classes, (className, klass) => {
-				if (!klass.prototype[names.methodName]) {
-					klass.prototype[names.methodName] = func; // wrap?
-				}
-				//});
-			}
-		}
-	}
-
-	static registerPlural(
-		pluralName: string,
-		singularName: string,
-		func: Function
-	) {
-		Api.register(pluralName, func);
-
-		Api.register(singularName, function () {
-			var ret = func.apply(this, arguments);
-
-			if (ret === this) {
-				// Returned item is the API instance that was passed in, return it
-				return this;
-			}
-			else if (ret && ret.isDataTableApi) {
-				// New API instance returned, want the value from the first item
-				// in the returned array for the singular result.
-				return (ret as any).length
-					? Array.isArray(ret[0])
-						? this.inst((ret as any).context, ret[0]) // Array results are 'enhanced'
-						: ret[0]
-					: undefined;
-			}
-
-			// Non-API return - just fire it back
-			return ret;
-		});
-	}
-
-	constructor(context, data?) {
-		// if ( ! (this instanceof Api) ) {
-		// 	return new (Api as any)( context, data );
-		// }
-
-		var i;
-		var settings = [];
-		var ctxSettings = function (o) {
-			var a = _toSettings(o);
-			if (a) {
-				settings.push.apply(settings, a);
-			}
-		};
-
-		if (Array.isArray(context)) {
-			for (i = 0; i < context.length; i++) {
-				ctxSettings(context[i]);
-			}
-		}
-		else {
-			ctxSettings(context);
-		}
-
-		// Remove duplicates
-		this.context = settings.length > 1 ? util.unique(settings) : settings;
-
-		// Initial data
-		arrayApply(this as any, data);
-	}
-
-	public isDataTableApi = true;
-
-	public any() {
+	any() {
 		return this.count() !== 0;
-	}
+	},
 
-	public context: Context[] = []; // array of table settings objects
+	context: [] as Context[], // array of table settings objects
 
-	public count() {
+	count() {
 		return this.flatten().length;
-	}
+	},
 
-	public each(fn) {
+	each(fn) {
 		for (var i = 0, iLen = this.length; i < iLen; i++) {
 			fn.call(this, this[i], i, this);
 		}
 
 		return this;
-	}
+	},
 
-	public eq(idx) {
+	eq(idx) {
 		var ctx = this.context;
 
 		return ctx.length > idx ? this.inst(ctx[idx], this[idx]) : null;
-	}
+	},
 
-	public filter(fn) {
+	filter(fn) {
 		var a = __arrayProto.filter.call(this, fn, this);
 
 		return this.inst(this.context, a);
-	}
+	},
 
-	public flatten() {
+	flatten() {
 		var a = [];
 
 		return this.inst(this.context, a.concat.apply(a, this.toArray()));
-	}
+	},
 
-	public get(idx) {
+	get(idx) {
 		return this[idx];
-	}
+	},
 
-	public join = __arrayProto.join;
+	join: __arrayProto.join,
 
-	public includes(find) {
+	includes(find) {
 		return this.indexOf(find) === -1 ? false : true;
-	}
+	},
 
-	public indexOf = __arrayProto.indexOf;
+	indexOf: __arrayProto.indexOf,
 
-	public inst(context, data?) {
-		return new Api(context, data);
-	}
+	inst(context, data?) {
+		let name = this._newInst;
+		let inst = Api;
 
-	public iterator(flatten, type, fn, alwaysNew) {
+		if (classes[name]) {
+			inst = classes[name];
+		}
+
+		return new inst(context, data);
+	},
+
+	iterator(flatten, type, fn, alwaysNew) {
 		var a: any[] = [],
 			ret,
 			i,
@@ -302,85 +167,219 @@ export class Api {
 			return api;
 		}
 		return this;
-	}
+	},
 
-	public lastIndexOf = __arrayProto.lastIndexOf;
+	lastIndexOf: __arrayProto.lastIndexOf,
 
-	public length = 0;
+	length: 0,
 
-	public map(fn) {
+	map(fn) {
 		var a = __arrayProto.map.call(this, fn, this);
 
 		return this.inst(this.context, a);
-	}
+	},
 
-	public pluck(prop) {
+	pluck(prop) {
 		var fn = util.get(prop);
 
 		return this.map(function (el) {
 			return fn(el);
 		});
-	}
+	},
 
-	public pop = __arrayProto.pop;
+	pop: __arrayProto.pop,
 
-	public push = __arrayProto.push;
+	push: __arrayProto.push,
 
-	public reduce = __arrayProto.reduce;
+	reduce: __arrayProto.reduce,
 
-	public reduceRight = __arrayProto.reduceRight;
+	reduceRight: __arrayProto.reduceRight,
 
-	public reverse = __arrayProto.reverse;
+	reverse: __arrayProto.reverse,
 
 	// Object with rows, columns and opts
-	public selector = {
+	selector: {
 		rows: null,
 		cols: null,
 		opts: null
-	};
+	},
 
-	public shift = __arrayProto.shift;
+	shift: __arrayProto.shift,
 
-	public slice() {
+	slice() {
 		return this.inst(this.context, this);
-	}
+	},
 
-	public sort = __arrayProto.sort;
+	sort: __arrayProto.sort,
 
-	public splice = __arrayProto.splice;
+	splice: __arrayProto.splice,
 
-	public toArray() {
+	toArray() {
 		return __arrayProto.slice.call(this);
-	}
+	},
 
-	public to$() {
+	to$() {
 		let jq = util.external('jq');
 
 		return jq(this);
-	}
+	},
 
-	public toJQuery() {
+	toJQuery: function () {
 		let jq = util.external('jq');
 
 		return jq(this);
-	}
+	},
 
-	public unique() {
+	unique: function () {
 		return this.inst(this.context, util.array.unique(this.toArray()));
+	},
+
+	unshift: __arrayProto.unshift
+});
+
+Api.register = function (name: string | string[], func: Function) {
+	if (Array.isArray(name)) {
+		for (let i = 0; i < name.length; i++) {
+			Api.register(name[i], func);
+		}
+
+		return;
 	}
 
-	public unshift = __arrayProto.unshift;
-}
+	let names = getPrototypeNames(name);
+
+	// Is the method being registered a child of another method?
+	if (names.hostClassName !== 'Api') {
+		// If so, has the parent already been defined or not?
+		if (!classes[names.hostClassName]) {
+			// Create a new "class"
+			classes[names.hostClassName] = function (
+				context: Context[],
+				data: any[]
+			) {
+				this.context = toContextArray(context);
+				arrayApply(this as any, data);
+			};
+
+			Object.defineProperty(classes[names.hostClassName], 'name', {
+				value: names.hostClassName,
+				writable: false
+			});
+
+			// Copy the methods from the Api prototype over
+			// TODO util.object.each
+			let protoKeys = Object.keys(Api.prototype);
+
+			for (let i = 0; i < protoKeys.length; i++) {
+				let key = protoKeys[i];
+
+				classes[names.hostClassName].prototype[key] = Api.prototype[key];
+			}
+		}
+
+		// Not everything should be added to the prototype, there are a bunch
+		// that should be added as properties to their host (parent host!).
+		//
+		// e.g.
+		//
+		// columns.adjust() - `columns` prop added to Api and exec in Api scope
+		// state.loaded() - `state` prop added to Api etc.
+		// column().columnControl.searchList() - `columnControl` on to ApiColumn
+		//
+		// Question, does `columns` as a property need to be added to _all_
+		// classes? Think so, so you can do `rows.add().columns.adjust()`. You
+		// probably wouldn't, but that was possible before. So there would need
+		// to be a `columns` object which is assigned to all classes (i.e. that
+		// property object is shared)? The extend for copying the prototype will
+		// need to do properties as well, as will the extending for existing.
+		
+
+		classes[names.hostClassName].prototype[names.methodName] = function () {
+			this._newInst = names.className;
+			return func.apply(this, arguments);
+		};
+	}
+	else {
+		// If it is top level, we need to add the method to all prototypes,
+		// not just the Api one. But only if there isn't already an override
+		// there. This will include `Api`.
+		let keys = Object.keys(classes);
+
+		for (let i = 0; i < keys.length; i++) {
+			let klass = classes[keys[i]];
+			// TODO util.object.each(classes, (className, klass) => {
+			if (!klass.prototype[names.methodName]) {
+				klass.prototype[names.methodName] = function () {
+					this._newInst = names.className;
+					return func.apply(this, arguments);
+				};
+			}
+			//});
+		}
+	}
+};
+
+Api.registerPlural = function (
+	pluralName: string,
+	singularName: string,
+	func: Function
+) {
+	Api.register(pluralName, func);
+
+	Api.register(singularName, function () {
+		var ret = func.apply(this, arguments);
+
+		if (ret === this) {
+			// Returned item is the API instance that was passed in, return it
+			return this;
+		}
+		else if (ret && ret.isDataTableApi) {
+			// New API instance returned, want the value from the first item
+			// in the returned array for the singular result.
+			return (ret as any).length
+				? Array.isArray(ret[0])
+					? this.inst((ret as any).context, ret[0]) // Array results are 'enhanced'
+					: ret[0]
+				: undefined;
+		}
+
+		// Non-API return - just fire it back
+		return ret;
+	});
+};
 
 export default Api;
 
 const classes: Record<string, any> = {
 	Api
 };
-const methodPrototypeMap: Record<string, any> = {};
 
-
+// TODO debug
 (window as any).classes = classes;
+
+function getPrototypeNames(name: string) {
+	// Strip the `()`, UC the first character for the nesting level, prefix with
+	// `Api` and return.
+	let parts = name.replace(/\(\)/g, '').split('.');
+
+	let ucParts = parts.map(part => {
+		return String(part).charAt(0).toUpperCase() + String(part).slice(1);
+	});
+
+	let hostParts = parts.slice();
+	let methodName = hostParts.pop()!;
+
+	let ucHostParts = ucParts.slice();
+	ucHostParts.pop();
+
+	return {
+		fqn: parts.join('.'),
+		fqhn: hostParts.join(''),
+		methodName,
+		className: 'Api' + ucParts.join(''),
+		hostClassName: 'Api' + ucHostParts.join('')
+	};
+}
 
 /**
  * Abstraction for `context` parameter of the `Api` constructor to allow it to
@@ -400,9 +399,8 @@ const methodPrototypeMap: Record<string, any> = {};
  *   * `DataTables.Api` - API instance
  * @return {array|null} Matching DataTables settings objects. `null` or
  *   `undefined` is returned if no matching DataTable is found.
- * @ignore
  */
-var _toSettings = function (mixed) {
+function toContext(mixed) {
 	var idx, nodes;
 	var settings = ext.settings;
 	var tables = util.array.pluck(settings, 'nTable');
@@ -440,4 +438,27 @@ var _toSettings = function (mixed) {
 			return nodes.includes(tables[i]);
 		});
 	}
-};
+}
+
+function toContextArray(mixed) {
+	var i;
+	var settings = [];
+	var ctxSettings = function (o) {
+		var a = toContext(o);
+		if (a) {
+			settings.push.apply(settings, a);
+		}
+	};
+
+	if (Array.isArray(mixed)) {
+		for (i = 0; i < mixed.length; i++) {
+			ctxSettings(mixed[i]);
+		}
+	}
+	else {
+		ctxSettings(mixed);
+	}
+
+	// Remove duplicates
+	return settings.length > 1 ? util.unique(settings) : settings;
+}

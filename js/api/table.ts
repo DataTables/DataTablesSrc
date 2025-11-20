@@ -68,8 +68,8 @@ export function table_selector(selector, a) {
 Api.register('tables()', function (selector) {
 	// A new instance is created if there was a selector specified
 	return selector !== undefined && selector !== null
-		? new Api(table_selector(selector, this.context))
-		: this;
+		? this.inst(table_selector(selector, this.context))
+		: this.inst(this.context);
 });
 
 Api.register('table()', function (selector) {
@@ -77,7 +77,7 @@ Api.register('table()', function (selector) {
 	var ctx = tables.context;
 
 	// Truncate to the first matched table
-	return ctx.length ? new Api(ctx[0]) : tables;
+	return ctx.length ? this.inst(ctx[0]) : tables;
 });
 
 // Common methods, combined to reduce size
