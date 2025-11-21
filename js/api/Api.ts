@@ -16,6 +16,9 @@ function Api(context, data?) {
 
 	// Initial data
 	arrayApply(this as any, data);
+
+	// Add properties which will still execute in this scope
+	extendApi(this, 'Api');
 }
 
 // Add methods to the prototype
@@ -248,73 +251,40 @@ Api.register = function (name: string | string[], func: Function) {
 
 	let names = getPrototypeNames(name);
 
-	// Is the method being registered a child of another method?
-	if (names.hostClassName !== 'Api') {
-		// If so, has the parent already been defined or not?
-		if (!classes[names.hostClassName]) {
-			// Create a new "class"
-			classes[names.hostClassName] = function (
-				context: Context[],
-				data: any[]
-			) {
-				this.context = toContextArray(context);
-				arrayApply(this as any, data);
-			};
-
-			Object.defineProperty(classes[names.hostClassName], 'name', {
-				value: names.hostClassName,
-				writable: false
-			});
-
-			// Copy the methods from the Api prototype over
-			// TODO util.object.each
-			let protoKeys = Object.keys(Api.prototype);
-
-			for (let i = 0; i < protoKeys.length; i++) {
-				let key = protoKeys[i];
-
-				classes[names.hostClassName].prototype[key] = Api.prototype[key];
-			}
+	if (names.property) {
+		if (!properties[names.hostClass]) {
+			properties[names.hostClass] = [];
 		}
 
-		// Not everything should be added to the prototype, there are a bunch
-		// that should be added as properties to their host (parent host!).
-		//
-		// e.g.
-		//
-		// columns.adjust() - `columns` prop added to Api and exec in Api scope
-		// state.loaded() - `state` prop added to Api etc.
-		// column().columnControl.searchList() - `columnControl` on to ApiColumn
-		//
-		// Question, does `columns` as a property need to be added to _all_
-		// classes? Think so, so you can do `rows.add().columns.adjust()`. You
-		// probably wouldn't, but that was possible before. So there would need
-		// to be a `columns` object which is assigned to all classes (i.e. that
-		// property object is shared)? The extend for copying the prototype will
-		// need to do properties as well, as will the extending for existing.
-		
-
-		classes[names.hostClassName].prototype[names.methodName] = function () {
-			this._newInst = names.className;
-			return func.apply(this, arguments);
-		};
+		properties[names.hostClass].push([names.property, names.methodName, func]);
 	}
 	else {
-		// If it is top level, we need to add the method to all prototypes,
-		// not just the Api one. But only if there isn't already an override
-		// there. This will include `Api`.
-		let keys = Object.keys(classes);
+		// Has the parent already been defined or not?
+		if (!classes[names.hostClass]) {
+			// Create a new "class"
+			createApiClass(names.hostClass);
+		}
 
-		for (let i = 0; i < keys.length; i++) {
-			let klass = classes[keys[i]];
-			// TODO util.object.each(classes, (className, klass) => {
-			if (!klass.prototype[names.methodName]) {
-				klass.prototype[names.methodName] = function () {
-					this._newInst = names.className;
-					return func.apply(this, arguments);
-				};
-			}
-			//});
+		let wrapped = function () {
+			// If the function creates a new instance, it will be nested down,
+			// but only if the nesting class has been defined.
+			this._newInst = names.couldReturn;
+
+			return func.apply(this, arguments);
+		};
+
+		// Create the new method on the host class
+		classes[names.hostClass].prototype[names.methodName] = wrapped;
+
+		// If the method is on the top level, it needs to be applied to other
+		// classes which have already been defined to allow the circular
+		// chaining of the API (e.g. `row().data(...).draw())`.
+		if (names.hostClass === 'Api') {
+			util.object.each(classes, (className, klass) => {
+				if (!klass.prototype[names.methodName]) {
+					klass.prototype[names.methodName] = wrapped;
+				}
+			});
 		}
 	}
 };
@@ -350,6 +320,10 @@ Api.registerPlural = function (
 
 export default Api;
 
+/** A collection of properties to apply to the classes as they are constructed */
+const properties: Record<string, Array<[string, string, Function]>> = {};
+
+/** Collection of API classes */
 const classes: Record<string, any> = {
 	Api
 };
@@ -357,27 +331,95 @@ const classes: Record<string, any> = {
 // TODO debug
 (window as any).classes = classes;
 
-function getPrototypeNames(name: string) {
-	// Strip the `()`, UC the first character for the nesting level, prefix with
-	// `Api` and return.
-	let parts = name.replace(/\(\)/g, '').split('.');
+/**
+ * Create a new API "class" (function), used for nested levels of the API - e.g.
+ * `ApiRows` and `ApiColumn`.
+ * @param name
+ */
+function createApiClass(name: string) {
+	classes[name] = function (context: Context[], data: any[]) {
+		// Same as the main API constructor
+		this.context = toContextArray(context);
+		arrayApply(this as any, data);
 
-	let ucParts = parts.map(part => {
-		return String(part).charAt(0).toUpperCase() + String(part).slice(1);
+		// Extend the API with properties that execute in this scope, both for
+		// this level and for the top level to allow looped chaining
+		extendApi(this, this._newInst);
+		extendApi(this, 'Api');
+	};
+
+	Object.defineProperty(classes[name], 'name', {
+		value: name,
+		writable: false
 	});
 
-	let hostParts = parts.slice();
-	let methodName = hostParts.pop()!;
+	// Copy the methods from the Api prototype over to our new class
+	util.object.each(Api.prototype, (key, method) => {
+		classes[name].prototype[key] = method;
+	});
+}
 
-	let ucHostParts = ucParts.slice();
-	ucHostParts.pop();
+/**
+ * When an instance is created it needs to be extended with properties (since
+ * these cannot be given a scope from the prototype due to the nesting).
+ *
+ * @param api API instance to extend
+ * @param className The name of the instance to extend
+ * @returns void
+ */
+function extendApi(api, className) {
+	let props = properties[className];
+
+	if (!props) {
+		return;
+	}
+
+	for (let i = 0; i < props.length; i++) {
+		let def = props[i];
+
+		if (!api[def[0]]) {
+			api[def[0]] = {};
+		}
+
+		api[def[0]][def[1]] = def[2].bind(api);
+	}
+}
+
+/**
+ * Based on an API method name, construct the class, property, etc names that
+ * are used to store and construct the API.
+ *
+ * @param name API function name
+ * @returns Name components
+ */
+function getPrototypeNames(name: string) {
+	let parts = name.split('.');
+	let property: string | null = null;
+	let hostClass = 'Api';
+	let returnClass = 'Api';
+	let methodName = '';
+
+	for (let i = 0; i < parts.length; i++) {
+		let part = parts[i];
+
+		if (part.includes('()')) {
+			methodName = part.replace('()', '');
+
+			hostClass = returnClass; // from previous loop
+			returnClass +=
+				methodName.charAt(0).toUpperCase() + methodName.slice(1).toLowerCase();
+		}
+		else {
+			// Is a property
+			property = part;
+		}
+	}
 
 	return {
-		fqn: parts.join('.'),
-		fqhn: hostParts.join(''),
-		methodName,
-		className: 'Api' + ucParts.join(''),
-		hostClassName: 'Api' + ucHostParts.join('')
+		couldReturn: returnClass,
+		hostClass,
+		property,
+		methodName
 	};
 }
 
@@ -388,8 +430,7 @@ function getPrototypeNames(name: string) {
  * Each of the input parameter types will be converted to a DataTables settings
  * object where possible.
  *
- * @param  {string|node|jQuery|object} mixed DataTable identifier. Can be one
- *   of:
+ * @param mixed DataTable identifier. Can be one of:
  *
  *   * `string` - jQuery selector. Any DataTables' matching the given selector
  *     with be found and used.
@@ -397,8 +438,8 @@ function getPrototypeNames(name: string) {
  *   * `jQuery` - A jQuery object of `TABLE` nodes.
  *   * `object` - DataTables settings object
  *   * `DataTables.Api` - API instance
- * @return {array|null} Matching DataTables settings objects. `null` or
- *   `undefined` is returned if no matching DataTable is found.
+ * @return Matching DataTables settings objects. `null` or `undefined` is
+ *   returned if no matching DataTable is found.
  */
 function toContext(mixed) {
 	var idx, nodes;
@@ -440,6 +481,12 @@ function toContext(mixed) {
 	}
 }
 
+/**
+ * Create the context array for an instance
+ *
+ * @param mixed The passed in options to convert to context
+ * @returns Context array
+ */
 function toContextArray(mixed) {
 	var i;
 	var settings = [];
