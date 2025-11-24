@@ -312,15 +312,17 @@ function _fnGetWideStrings( settings, colIdx )
 				.replace(/id=".*?"/g, '')
 				.replace(/name=".*?"/g, '');
 
-			var s = _stripHtml(cellString)
+			var noHtml = _stripHtml(cellString)
 				.replace( /&nbsp;/g, ' ' );
 	
+			// The length is calculated on the text only, but we keep the HTML
+			// in the string so it can be used in the calculation table
 			collection.push({
-				str: s,
-				len: s.length
+				str: cellString,
+				len: noHtml.length
 			});
 
-			allStrings.push(s);
+			allStrings.push(noHtml);
 		}
 
 		// Order and then cut down to the size we need
