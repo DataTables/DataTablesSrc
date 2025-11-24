@@ -88,15 +88,11 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	add(el: T | Array<T> | null) {
 		if (Array.isArray(el)) {
 			el.forEach(e => {
-				if (e && !this._store.includes(e)) {
-					this._store.push(e);
-				}
+				this._store.push(e);
 			});
 		}
 		else if (el !== null) {
-			if (el && !this._store.includes(el)) {
-				this._store.push(el);
-			}
+			this._store.push(el);
 		}
 
 		return this;
