@@ -99,6 +99,10 @@ function _fnBuildAjax(oSettings, data, fn) {
 	// Custom Ajax option to submit the parameters as a JSON string
 	if (baseAjax.submitAs === 'json' && typeof data === 'object') {
 		baseAjax.data = JSON.stringify(data);
+
+		if (!baseAjax.contentType) {
+			baseAjax.contentType = 'application/json; charset=utf-8';
+		}
 	}
 
 	if (typeof ajax === 'function') {
