@@ -333,14 +333,14 @@ function getWideStrings(settings: Context, colIdx: number) {
 				.replace(/id=".*?"/g, '')
 				.replace(/name=".*?"/g, '');
 
-			var s = util.string.stripHtml(cellString).replace(/&nbsp;/g, ' ');
+			var noHtml = util.string.stripHtml(cellString).replace(/&nbsp;/g, ' ');
 
 			collection.push({
-				str: s,
-				len: s.length,
+				str: cellString,
+				len: noHtml.length,
 			});
 
-			allStrings.push(s);
+			allStrings.push(noHtml);
 		}
 
 		// Order and then cut down to the size we need
