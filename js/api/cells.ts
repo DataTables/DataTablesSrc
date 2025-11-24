@@ -15,8 +15,8 @@ import {
 var __cell_selector = function (settings, selector, opts) {
 	var data = settings.aoData;
 	var rows = selector_row_indexes(settings, opts);
-	var cells = removeEmpty(pluckOrder(data, rows, 'anCells'));
-	var allCells = dom.s(flatten([], cells));
+	var cells;
+	var allCells;
 	var row;
 	var columns = settings.aoColumns.length;
 	var a, i, iLen, j, o, host;
@@ -69,6 +69,13 @@ var __cell_selector = function (settings, selector, opts) {
 				rows.indexOf(s.row) !== -1
 				? [s]
 				: [];
+		}
+
+		// Only get the nodes if we get these far in the selector and need to
+		// actually work with the cell nodes.
+		if (! cells) {
+			cells = removeEmpty(pluckOrder(data, rows, 'anCells'));
+			allCells = dom.s(flatten([], cells));
 		}
 
 		// Selector - jQuery filtered cells
