@@ -1,7 +1,7 @@
 import { plainObject } from './is';
 import * as object from './object';
 
-type HttpMethod =
+export type HttpMethod =
 	| 'get'
 	| 'GET'
 	| 'post'

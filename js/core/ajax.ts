@@ -1,5 +1,6 @@
 import { callbackFire, log } from '../api/support';
 import Context from '../model/settings';
+import { AjaxOptions } from '../util/ajax';
 import util from '../util/index';
 import { JSON } from '../util/types';
 import { columnTypes } from './columns';
@@ -101,7 +102,7 @@ export function buildAjax(
 
 			processingDisplay(settings, false);
 		},
-	};
+	} as AjaxOptions;
 
 	// If `ajax` option is an object, extend and override our default base
 	if (util.is.plainObject(ajaxConfig)) {
@@ -117,6 +118,10 @@ export function buildAjax(
 	// Custom Ajax option to submit the parameters as a JSON string
 	if ((baseAjax as any).submitAs === 'json' && typeof data === 'object') {
 		baseAjax.data = JSON.stringify(data) as any;
+
+		if (!baseAjax.contentType) {
+			baseAjax.contentType = 'application/json; charset=utf-8';
+		}
 	}
 
 	if (typeof ajaxConfig === 'function') {

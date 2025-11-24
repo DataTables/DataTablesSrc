@@ -1,6 +1,7 @@
 
 import { dataSource } from '../api/support';
 import { Dom } from '../dom';
+import { HttpMethod } from '../util/ajax';
 import { JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
 import { Layout } from './interface';
@@ -526,7 +527,7 @@ export default class Settings {
 	 * required).
 	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	public sServerMethod = null;
+	public sServerMethod: HttpMethod | null = null;
 
 	/**
 	 * Format numbers for display.
