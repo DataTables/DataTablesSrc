@@ -2,6 +2,7 @@ import { headerLayout } from '../core/draw';
 import dom from '../dom';
 import Context from '../model/settings';
 import Api from './Api';
+import { selector_first } from './selectors';
 import { arrayApply } from './support';
 
 declare module './Api' {
@@ -73,11 +74,13 @@ Api.register('tables()', function (selector) {
 });
 
 Api.register('table()', function (selector) {
-	var tables = this.tables(selector);
-	var ctx = tables.context;
+	return selector_first(this.tables(selector));
+	// var tables = this.tables(selector);
+	// var ctx = tables.context;
 
-	// Truncate to the first matched table
-	return ctx.length ? this.inst(ctx[0]) : tables;
+	// // Truncate to the first matched table
+	// // TODO this isn't right. Selector_first?
+	// return ctx.length ? new Api(ctx[0]) : tables;
 });
 
 // Common methods, combined to reduce size

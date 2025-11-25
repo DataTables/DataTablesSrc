@@ -217,7 +217,7 @@ Api.registerPlural('rows().ids()', 'row().id()', function (hash) {
 		}
 	}
 
-	return new Api(context, a);
+	return this.inst(context, a);
 });
 
 Api.registerPlural('rows().remove()', 'row().remove()', function () {

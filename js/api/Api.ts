@@ -23,7 +23,7 @@ function Api(context, data?) {
 
 // Add methods to the prototype
 util.object.assign(Api.prototype, {
-	_newInst: 'Api',
+	_newClass: 'Api',
 
 	isDataTableApi: true,
 
@@ -75,8 +75,8 @@ util.object.assign(Api.prototype, {
 
 	indexOf: __arrayProto.indexOf,
 
-	inst(context, data?) {
-		let name = this._newInst;
+	inst(context, data?, newClass?) {
+		let name = newClass || this._newClass;
 		let inst = Api;
 
 		if (classes[name]) {
@@ -266,11 +266,16 @@ Api.register = function (name: string | string[], func: Function) {
 		}
 
 		let wrapped = function () {
-			// If the function creates a new instance, it will be nested down,
-			// but only if the nesting class has been defined.
-			this._newInst = names.couldReturn;
+			// If a new instance (.inst) is created while the function is being
+			// executed, we want to allow it to return its target class. But we
+			// also need to keep hold of our own, so it can be used in the end.
+			let previousCould = this._newClass;
+			this._newClass = names.couldReturn;
 
-			return func.apply(this, arguments);
+			let result = func.apply(this, arguments);
+			this._newClass = previousCould;
+
+			return result;
 		};
 
 		// Create the new method on the host class
@@ -337,26 +342,32 @@ const classes: Record<string, any> = {
  * @param name
  */
 function createApiClass(name: string) {
-	classes[name] = function (context: Context[], data: any[]) {
+	let newClass = function (context: Context[], data: any[]) {
 		// Same as the main API constructor
 		this.context = toContextArray(context);
 		arrayApply(this as any, data);
 
 		// Extend the API with properties that execute in this scope, both for
 		// this level and for the top level to allow looped chaining
-		extendApi(this, this._newInst);
+		extendApi(this, this._newClass);
 		extendApi(this, 'Api');
 	};
 
-	Object.defineProperty(classes[name], 'name', {
-		value: name,
-		writable: false
-	});
+	newClass.prototype = Object.create(Api.prototype);
 
-	// Copy the methods from the Api prototype over to our new class
-	util.object.each(Api.prototype, (key, method) => {
-		classes[name].prototype[key] = method;
-	});
+	// Object.defineProperty(newClass, 'name', {
+	// 	value: name,
+	// 	writable: false
+	// });
+
+	// // Copy the methods from the Api prototype over to our new class
+	// util.object.each(Api.prototype, (key, method) => {
+	// 	newClass.prototype[key] = method;
+	// });
+
+	newClass.prototype._newClass = name;
+
+	classes[name] = newClass;
 }
 
 /**

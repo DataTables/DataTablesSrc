@@ -88,10 +88,12 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	add(el: T | Array<T> | null) {
 		if (Array.isArray(el)) {
 			el.forEach(e => {
-				this._store.push(e);
+				if (e !== null && e !== undefined) {
+					this._store.push(e);
+				}
 			});
 		}
-		else if (el !== null) {
+		else if (el !== null && el !== undefined) {
 			this._store.push(el);
 		}
 
