@@ -48,7 +48,8 @@ util.object.assign(Api.prototype, {
 	eq(idx) {
 		var ctx = this.context;
 
-		return ctx.length > idx ? this.inst(ctx[idx], this[idx]) : null;
+		// Note that `eq` returns an API instance, not a nested class instance
+		return ctx.length > idx ? this.inst(ctx[idx], this[idx], 'Api') : null;
 	},
 
 	filter(fn) {
@@ -250,21 +251,26 @@ Api.register = function (name: string | string[], func: Function) {
 	}
 
 	let names = getPrototypeNames(name);
+	
+	// Has the parent already been defined or not?
+	if (!classes[names.hostClass]) {
+		// Create a new "class"
+		createApiClass(names.hostClass);
+	}
 
 	if (names.property) {
-		if (!properties[names.hostClass]) {
-			properties[names.hostClass] = [];
+		if (!properties[names.propertyHost]) {
+			properties[names.propertyHost] = [];
 		}
 
-		properties[names.hostClass].push([names.property, names.methodName, func]);
+		properties[names.propertyHost].push({
+			couldReturn: names.couldReturn,
+			property: names.property,
+			method: names.methodName,
+			fn: func	
+		});
 	}
 	else {
-		// Has the parent already been defined or not?
-		if (!classes[names.hostClass]) {
-			// Create a new "class"
-			createApiClass(names.hostClass);
-		}
-
 		let wrapped = function () {
 			// If a new instance (.inst) is created while the function is being
 			// executed, we want to allow it to return its target class. But we
@@ -326,7 +332,12 @@ Api.registerPlural = function (
 export default Api;
 
 /** A collection of properties to apply to the classes as they are constructed */
-const properties: Record<string, Array<[string, string, Function]>> = {};
+const properties: Record<string, Array<{
+	couldReturn: string;
+	property: string;
+	method: string;
+	fn: Function
+}>> = {};
 
 /** Collection of API classes */
 const classes: Record<string, any> = {
@@ -335,10 +346,12 @@ const classes: Record<string, any> = {
 
 // TODO debug
 (window as any).classes = classes;
+(window as any).properties = properties;
 
 /**
  * Create a new API "class" (function), used for nested levels of the API - e.g.
  * `ApiRows` and `ApiColumn`.
+ *
  * @param name
  */
 function createApiClass(name: string) {
@@ -349,21 +362,16 @@ function createApiClass(name: string) {
 
 		// Extend the API with properties that execute in this scope, both for
 		// this level and for the top level to allow looped chaining
-		extendApi(this, this._newClass);
 		extendApi(this, 'Api');
+		extendApi(this, this._newClass);
 	};
 
 	newClass.prototype = Object.create(Api.prototype);
 
-	// Object.defineProperty(newClass, 'name', {
-	// 	value: name,
-	// 	writable: false
-	// });
-
-	// // Copy the methods from the Api prototype over to our new class
-	// util.object.each(Api.prototype, (key, method) => {
-	// 	newClass.prototype[key] = method;
-	// });
+	Object.defineProperty(newClass, 'name', {
+		value: name,
+		writable: false
+	});
 
 	newClass.prototype._newClass = name;
 
@@ -388,11 +396,19 @@ function extendApi(api, className) {
 	for (let i = 0; i < props.length; i++) {
 		let def = props[i];
 
-		if (!api[def[0]]) {
-			api[def[0]] = {};
+		if (!api[def.property]) {
+			api[def.property] = {};
 		}
 
-		api[def[0]][def[1]] = def[2].bind(api);
+		api[def.property][def.method] = function () {
+			let previousCould = api._newClass;
+			api._newClass = def.couldReturn;
+
+			let result = def.fn.apply(api, arguments);
+			api._newClass = previousCould;
+
+			return result;
+		}
 	}
 }
 
@@ -409,28 +425,42 @@ function getPrototypeNames(name: string) {
 	let hostClass = 'Api';
 	let returnClass = 'Api';
 	let methodName = '';
+	let propertyHost = '';
+	let lastPart = '';
 
 	for (let i = 0; i < parts.length; i++) {
 		let part = parts[i];
+		let partNoParen = part.replace('()', '');
+
+		hostClass = returnClass; // from previous loop
+		returnClass +=
+			partNoParen.charAt(0).toUpperCase() + partNoParen.slice(1).toLowerCase();
 
 		if (part.includes('()')) {
-			methodName = part.replace('()', '');
+			methodName = partNoParen;
 
-			hostClass = returnClass; // from previous loop
-			returnClass +=
-				methodName.charAt(0).toUpperCase() + methodName.slice(1).toLowerCase();
+			// If the previous part was a method rather than a property, then we
+			// remove the property host
+			if (lastPart.includes('()')) {
+				property = null;
+				propertyHost = '';
+			}
 		}
 		else {
 			// Is a property
 			property = part;
+			propertyHost = hostClass;
 		}
+
+		lastPart = part;
 	}
 
 	return {
 		couldReturn: returnClass,
 		hostClass,
 		property,
-		methodName
+		propertyHost,
+		methodName,
 	};
 }
 

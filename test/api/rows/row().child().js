@@ -140,7 +140,7 @@ describe('rows - row().child()', function() {
 			table
 				.row(2)
 				.child('Fred')
-				.child(true);
+				.show();
 			expect(
 				table
 					.row(2)
@@ -156,7 +156,7 @@ describe('rows - row().child()', function() {
 			table
 				.row(2)
 				.child('<p>Fred</p>')
-				.child(true);
+				.show();
 			expect(
 				table
 					.row(2)
@@ -172,7 +172,7 @@ describe('rows - row().child()', function() {
 			table
 				.row(2)
 				.child($('<p>Fred</p>'))
-				.child(true);
+				.show();
 			expect(
 				table
 					.row(2)
@@ -188,7 +188,7 @@ describe('rows - row().child()', function() {
 			table
 				.row(2)
 				.child(['First', 'Second', 'Third'])
-				.child(true);
+				.show();
 
 			let child = table.row(2).child();
 			expect(child.length).toBe(3);
@@ -222,7 +222,7 @@ describe('rows - row().child()', function() {
 			table
 				.row(2)
 				.child('Fred')
-				.child(true);
+				.show();
 			table.row(2).child('Stan');
 			expect($('#example tbody tr:eq(3) td:eq(0)').text()).toBe('Stan');
 		});
@@ -233,11 +233,11 @@ describe('rows - row().child()', function() {
 			table
 				.row(2)
 				.child('Fred')
-				.child(true);
+				.show();
 			table
 				.row(3)
 				.child('Stan')
-				.child(true);
+				.show();
 			expect($('#example tbody tr:eq(3) td:eq(0)').text()).toBe('Fred');
 			expect($('#example tbody tr:eq(11) td:eq(0)').text()).toBe('Stan');
 		});
@@ -248,7 +248,7 @@ describe('rows - row().child()', function() {
 			table
 				.row(2)
 				.child('Fred', 'Stan')
-				.child(true);
+				.show();
 			expect($('#example tbody tr:eq(3)').hasClass('Stan')).toBe(true);
 			expect($('#example tbody tr:eq(3) td:eq(0)').hasClass('Stan')).toBe(true);
 		});

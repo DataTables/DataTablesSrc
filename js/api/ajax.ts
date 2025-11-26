@@ -140,7 +140,7 @@ Api.register('ajax.url()', function (url: string) {
 		else {
 			settings.ajax = url;
 		}
-	});
+	}, true);
 });
 
 /**

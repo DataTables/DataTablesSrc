@@ -273,7 +273,7 @@ Api.register(_child_mth, function (data, klass) {
 		__details_add(ctx[0], ctx[0].aoData[this[0]], data, klass);
 	}
 
-	return this;
+	return this.inst(this.context, this);
 });
 
 Api.register(

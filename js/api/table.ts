@@ -75,12 +75,6 @@ Api.register('tables()', function (selector) {
 
 Api.register('table()', function (selector) {
 	return selector_first(this.tables(selector));
-	// var tables = this.tables(selector);
-	// var ctx = tables.context;
-
-	// // Truncate to the first matched table
-	// // TODO this isn't right. Selector_first?
-	// return ctx.length ? new Api(ctx[0]) : tables;
 });
 
 // Common methods, combined to reduce size
