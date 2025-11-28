@@ -2,34 +2,6 @@ import { sortAttachListener, sortFlatten, sortResolve } from '../core/sort';
 import * as object from '../util/object';
 import Api from './Api';
 
-/**
- * Get current ordering (sorting) that has been applied to the table.
- *
- * @returns {array} 2D array containing the sorting information for the first
- *   table in the current context. Each element in the parent array represents
- *   a column being sorted upon (i.e. multi-sorting with two columns would have
- *   2 inner arrays). The inner arrays may have 2 or 3 elements. The first is
- *   the column index that the sorting condition applies to, the second is the
- *   direction of the sort (`desc` or `asc`) and, optionally, the third is the
- *   index of the sorting order from the `column.sorting` initialisation array.
- */ /**
- * Set the ordering for the table.
- *
- * @param {integer} order Column index to sort upon.
- * @param {string} direction Direction of the sort to be applied (`asc` or `desc`)
- * @returns {DataTables.Api} this
- */ /**
- * Set the ordering for the table.
- *
- * @param {array} order 1D array of sorting information to be applied.
- * @param {array} [...] Optional additional sorting conditions
- * @returns {DataTables.Api} this
- */ /**
- * Set the ordering for the table.
- *
- * @param {array} order 2D array of sorting information to be applied.
- * @returns {DataTables.Api} this
- */
 Api.register('order()', function (order, dir) {
 	var ctx = this.context;
 	var args = Array.prototype.slice.call(arguments);

@@ -470,6 +470,13 @@ export interface Api<T=any> {
 	pop(): any;
 
 	/**
+	 * Show / hide the processing indicator for the table
+	 *
+	 * @param show Flag to indicate if it should show or not
+	 */
+	processing(this: Api, show: boolean): Api<any>;
+
+	/**
 	 * Add one or more items to the end of an API instance's result set.
 	 *
 	 * @param value_1 Item to add to the API instance's result set.
@@ -573,7 +580,7 @@ export interface Api<T=any> {
 	splice(index: number, howMany: number, value_1?: any, ...value_2: any[]): any[];
 
 	/**
-	 * Page Methods / object
+	 * State methods / object
 	 */
 	state: ApiState<T>;
 
@@ -867,7 +874,7 @@ export interface ApiPage {
 	 * 
 	 * @returns Currently displayed page number
 	 */
-	(): number;
+	(this: Api): number;
 
 	/**
 	 * Set the current page of the table.
@@ -875,21 +882,21 @@ export interface ApiPage {
 	 * @param page Index or 'first', 'next', 'previous', 'last'
 	 * @returns DataTables API instance
 	 */
-	(page: number | string): Api<any>;
+	(this: Api, page: number | string): Api<any>;
 
 	/**
 	 * Get paging information about the table
 	 * 
 	 * @returns Object with information about the table's paging state.
 	 */
-	info(): ApiPageInfo;
+	info(this: Api): ApiPageInfo;
 
 	/**
 	 * Get the table's page length.
 	 * 
 	 * @returns Current page length.
 	 */
-	len(): number;
+	len(this: Api): number;
 
 	/**
 	 * Set the table's page length.
@@ -897,7 +904,7 @@ export interface ApiPage {
 	 * @param length Page length to set. use -1 to show all records.
 	 * @returns DataTables API instance.
 	 */
-	len(length: number): Api<any>;
+	len(this: Api, length: number): Api<any>;
 }
 
 export interface ApiOrder {
