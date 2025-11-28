@@ -4,28 +4,18 @@ import dom from '../dom';
 import ext from '../ext/index';
 import util from '../util';
 import Api from './Api';
+import { Api as ApiType } from './interface';
 import { callbackFire, log } from './support';
 
-
-declare module './Api' {
-	interface Api {
-		$(): Api;
-		clear(): Api;
-		destroy(): void;
-		error(msg: string): Api;
-		settings(): Api;
-
-		off(name: string, hander?: Function): Api;
-		on(name: string, handler: Function): Api;
-		one(name: string, handler: Function): Api;
-	}
-}
-
-Api.register('$()', function (selector, opts) {
+Api.register<ApiType['$']>('$()', function (selector, opts) {
 	let jq = util.external('jq');
 
 	if (!jq) {
-		log(this.ctx[0], 0, 'No jQuery available. Use `.dom()` or register jQuery');
+		log(
+			this.context[0],
+			0,
+			'No jQuery available. Use `.dom()` or register jQuery'
+		);
 	}
 
 	let rows = this.rows(opts).nodes(), // Get all rows
@@ -59,40 +49,40 @@ Api.register('$()', function (selector, opts) {
 	});
 });
 
-Api.register('clear()', function () {
+Api.register<ApiType['clear']>('clear()', function () {
 	return this.iterator('table', function (settings) {
 		clearTable(settings);
 	});
 });
 
-Api.register('error()', function (msg: string) {
+Api.register<ApiType['error']>('error()', function (msg: string) {
 	return this.iterator('table', function (settings) {
 		log(settings, 0, msg);
 	});
 });
 
-Api.register('settings()', function () {
+Api.register<ApiType['settings']>('settings()', function () {
 	return new Api(this.context, this.context);
 });
 
-Api.register('init()', function () {
+Api.register<ApiType['init']>('init()', function () {
 	var ctx = this.context;
 	return ctx.length ? ctx[0].oInit : null;
 });
 
-Api.register('data()', function () {
+Api.register<ApiType['data']>('data()', function () {
 	return this.iterator('table', function (settings) {
 		return util.array.pluck(settings.aoData, '_aData');
 	}).flatten();
 });
 
-Api.register('trigger()', function (name, args, bubbles) {
+Api.register<ApiType['trigger']>('trigger()', function (name, args, bubbles) {
 	return this.iterator('table', function (settings) {
 		return callbackFire(settings, null, name, args, bubbles);
 	}).flatten();
 });
 
-Api.register('ready()', function (fn) {
+Api.register<ApiType['ready']>('ready()', function (fn?) {
 	var ctx = this.context;
 
 	// Get status of first table
@@ -116,7 +106,7 @@ Api.register('ready()', function (fn) {
 	});
 });
 
-Api.register('destroy()', function (remove) {
+Api.register<ApiType['destroy']>('destroy()', function (remove) {
 	remove = remove || false;
 
 	return this.iterator('table', function (settings) {
@@ -255,7 +245,7 @@ Api.register('destroy()', function (remove) {
 
 // i18n method for extensions to be able to use the language object from the
 // DataTable
-Api.register('i18n()', function (token, def, plural) {
+Api.register<ApiType['i18n']>('i18n()', function (token, def, plural) {
 	var ctx = this.context[0];
 	var resolved = util.get(token)(ctx.oLanguage);
 
@@ -267,13 +257,13 @@ Api.register('i18n()', function (token, def, plural) {
 		resolved =
 			plural !== undefined && resolved[plural] !== undefined
 				? resolved[plural]
-				: plural === false
+				: (plural as any) === false
 				? resolved
 				: resolved._;
 	}
 
 	return typeof resolved === 'string'
-		? resolved.replace('%d', plural) // nb: plural might be undefined,
+		? resolved.replace('%d', plural as any) // nb: plural might be undefined,
 		: resolved;
 });
 

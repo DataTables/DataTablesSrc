@@ -5,11 +5,12 @@ import { flatten, pluckOrder, removeEmpty } from '../util/array';
 import * as is from '../util/is';
 import * as object from '../util/object';
 import Api from './Api';
+import { ApiCell, ApiCellMethods, ApiCells, ApiCellsMethods } from './interface';
 import {
 	selector_first,
 	selector_opts,
 	selector_row_indexes,
-	selector_run,
+	selector_run
 } from './selectors';
 
 var __cell_selector = function (settings, selector, opts) {
@@ -34,7 +35,7 @@ var __cell_selector = function (settings, selector, opts) {
 				for (j = 0; j < columns; j++) {
 					o = {
 						row: row,
-						column: j,
+						column: j
 					};
 
 					if (fnSelector) {
@@ -73,7 +74,7 @@ var __cell_selector = function (settings, selector, opts) {
 
 		// Only get the nodes if we get these far in the selector and need to
 		// actually work with the cell nodes.
-		if (! cells) {
+		if (!cells) {
 			cells = removeEmpty(pluckOrder(data, rows, 'anCells'));
 			allCells = dom.s(flatten([], cells));
 		}
@@ -83,7 +84,7 @@ var __cell_selector = function (settings, selector, opts) {
 			return {
 				// use a new object, in case someone changes the values
 				row: el._DT_CellIndex.row,
-				column: el._DT_CellIndex.column,
+				column: el._DT_CellIndex.column
 			};
 		});
 
@@ -99,8 +100,8 @@ var __cell_selector = function (settings, selector, opts) {
 			? [
 					{
 						row: host.data('dt-row'),
-						column: host.data('dt-column'),
-					},
+						column: host.data('dt-column')
+					}
 			  ]
 			: [];
 	};
@@ -108,154 +109,176 @@ var __cell_selector = function (settings, selector, opts) {
 	return selector_run('cell', selector, run, settings, opts);
 };
 
-Api.register('cells()', function (rowSelector, columnSelector, opts) {
-	// Argument shifting
-	if (is.plainObject(rowSelector)) {
-		// Indexes
-		if (rowSelector.row === undefined) {
-			// Selector options in first parameter
-			opts = rowSelector;
-			rowSelector = null;
+Api.register<ApiCells<any>>(
+	'cells()',
+	function (rowSelector, columnSelector?, opts?) {
+		// Argument shifting
+		if (is.plainObject(rowSelector)) {
+			// Indexes
+			if (rowSelector.row === undefined) {
+				// Selector options in first parameter
+				opts = rowSelector;
+				rowSelector = null;
+			}
+			else {
+				// Cell index objects in first parameter
+				opts = columnSelector;
+				columnSelector = null;
+			}
 		}
-		else {
-			// Cell index objects in first parameter
+		if (is.plainObject(columnSelector)) {
 			opts = columnSelector;
 			columnSelector = null;
 		}
-	}
-	if (is.plainObject(columnSelector)) {
-		opts = columnSelector;
-		columnSelector = null;
-	}
 
-	// Cell selector
-	if (columnSelector === null || columnSelector === undefined) {
-		return this.iterator('table', function (settings) {
-			return __cell_selector(settings, rowSelector, selector_opts(opts));
-		});
-	}
+		// Cell selector
+		if (columnSelector === null || columnSelector === undefined) {
+			return this.iterator('table', function (settings) {
+				return __cell_selector(settings, rowSelector, selector_opts(opts));
+			});
+		}
 
-	// The default built in options need to apply to row and columns
-	var internalOpts = opts
-		? {
-				page: opts.page,
-				order: opts.order,
-				search: opts.search,
-		  }
-		: {};
+		// The default built in options need to apply to row and columns
+		var internalOpts = opts
+			? {
+					page: opts.page,
+					order: opts.order,
+					search: opts.search
+			  }
+			: {};
 
-	// Row + column selector
-	var columns = this.columns(columnSelector, internalOpts);
-	var rows = this.rows(rowSelector, internalOpts);
-	var i, iLen, j, jen;
+		// Row + column selector
+		var columns = this.columns(columnSelector, internalOpts);
+		var rows = this.rows(rowSelector, internalOpts);
+		var i, iLen, j, jen;
 
-	var cellsNoOpts = this.iterator(
-		'table',
-		function (settings, idx) {
-			var a: any[] = [];
+		var cellsNoOpts = this.iterator(
+			'table',
+			function (settings, idx) {
+				var a: any[] = [];
 
-			for (i = 0, iLen = rows[idx].length; i < iLen; i++) {
-				for (j = 0, jen = columns[idx].length; j < jen; j++) {
-					a.push({
-						row: rows[idx][i],
-						column: columns[idx][j],
-					});
+				for (i = 0, iLen = rows[idx].length; i < iLen; i++) {
+					for (j = 0, jen = columns[idx].length; j < jen; j++) {
+						a.push({
+							row: rows[idx][i],
+							column: columns[idx][j]
+						});
+					}
 				}
-			}
 
-			return a;
-		},
-		1
-	);
+				return a;
+			},
+			1
+		);
 
-	// There is currently only one extension which uses a cell selector extension
-	// It is a _major_ performance drag to run this if it isn't needed, so this is
-	// an extension specific check at the moment
-	var cells =
-		opts && opts.selected ? this.cells(cellsNoOpts, opts) : cellsNoOpts;
+		// There is currently only one extension which uses a cell selector extension
+		// It is a _major_ performance drag to run this if it isn't needed, so this is
+		// an extension specific check at the moment
+		var cells =
+			opts && opts.selected ? this.cells(cellsNoOpts, opts) : cellsNoOpts;
 
-	object.assign(cells.selector, {
-		cols: columnSelector,
-		rows: rowSelector,
-		opts: opts,
-	});
+		object.assign(cells.selector, {
+			cols: columnSelector,
+			rows: rowSelector,
+			opts: opts
+		});
 
-	return cells;
-});
+		return cells;
+	}
+);
 
-Api.registerPlural('cells().nodes()', 'cell().node()', function () {
-	return this.iterator(
-		'cell',
-		function (settings, row, column) {
-			var data = settings.aoData[row];
+Api.registerPlural<ApiCellsMethods<any>['nodes']>(
+	'cells().nodes()',
+	'cell().node()',
+	function () {
+		return this.iterator(
+			'cell',
+			function (settings, row, column) {
+				var data = settings.aoData[row];
 
-			return data && data.anCells ? data.anCells[column] : undefined;
-		},
-		1
-	);
-});
+				return data && data.anCells ? data.anCells[column] : undefined;
+			},
+			true
+		);
+	}
+);
 
-Api.register('cells().data()', function () {
+Api.register<ApiCellsMethods<any>['data']>('cells().data()', function () {
 	return this.iterator(
 		'cell',
 		function (settings, row, column) {
 			return getCellData(settings, row, column);
 		},
-		1
+		true
 	);
 });
 
-Api.registerPlural('cells().cache()', 'cell().cache()', function (type) {
-	type = type === 'search' ? '_aFilterData' : '_aSortData';
+Api.registerPlural<ApiCellsMethods<any>['cache']>(
+	'cells().cache()',
+	'cell().cache()',
+	function (type) {
+		type = type === 'search' ? '_aFilterData' : '_aSortData';
 
-	return this.iterator(
-		'cell',
-		function (settings, row, column) {
-			return settings.aoData[row][type][column];
-		},
-		1
-	);
-});
+		return this.iterator(
+			'cell',
+			function (settings, row, column) {
+				return settings.aoData[row][type][column];
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('cells().render()', 'cell().render()', function (type) {
-	return this.iterator(
-		'cell',
-		function (settings, row, column) {
-			return getCellData(settings, row, column, type);
-		},
-		1
-	);
-});
+Api.registerPlural<ApiCellsMethods<any>['render']>(
+	'cells().render()',
+	'cell().render()',
+	function (type) {
+		return this.iterator(
+			'cell',
+			function (settings, row, column) {
+				return getCellData(settings, row, column, type);
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('cells().indexes()', 'cell().index()', function () {
-	return this.iterator(
-		'cell',
-		function (settings, row, column) {
-			return {
-				row: row,
-				column: column,
-				columnVisible: columnIndexToVisible(settings, column),
-			};
-		},
-		1
-	);
-});
+Api.registerPlural<ApiCellsMethods<any>['indexes']>(
+	'cells().indexes()',
+	'cell().index()',
+	function () {
+		return this.iterator(
+			'cell',
+			function (settings, row, column) {
+				return {
+					row: row,
+					column: column,
+					columnVisible: columnIndexToVisible(settings, column)
+				};
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural(
+Api.registerPlural<ApiCellsMethods<any>['invalidate']>(
 	'cells().invalidate()',
 	'cell().invalidate()',
 	function (src) {
 		return this.iterator('cell', function (settings, row, column) {
-			invalidate(settings, row, src, column);
+			invalidate(settings, row, src!, column);
 		});
 	}
 );
 
-Api.register('cell()', function (rowSelector, columnSelector, opts) {
-	return selector_first(this.cells(rowSelector, columnSelector, opts));
-});
+Api.register<ApiCell<any>>(
+	'cell()',
+	function (rowSelector, columnSelector?, opts?) {
+		return selector_first(this.cells(rowSelector, columnSelector, opts));
+	}
+);
 
-Api.register('cell().data()', function (data) {
+Api.register<ApiCellMethods<any>['data']>('cell().data()', function (data?) {
 	var ctx = this.context;
 	var cell = this[0];
 

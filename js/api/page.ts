@@ -3,12 +3,6 @@ import { pageChange } from '../core/page';
 import Api from './Api';
 import { dataSource } from './support';
 
-declare module './Api' {
-	interface Api {
-		page: any;
-	}
-}
-
 /**
  * Get the current page index.
  *

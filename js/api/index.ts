@@ -1,9 +1,10 @@
 import Api from './Api';
 
+import './core';
+
 import './ajax';
 import './cells';
 import './columns';
-import './core';
 import './draw';
 import './order';
 import './page';

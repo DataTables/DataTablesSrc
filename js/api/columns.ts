@@ -4,7 +4,7 @@ import {
 	columnsFromHeader,
 	columnTypes,
 	visibleColumns,
-	visibleToColumnIndex,
+	visibleToColumnIndex
 } from '../core/columns';
 import { getCellData } from '../core/data';
 import { drawHead } from '../core/draw';
@@ -15,30 +15,14 @@ import { pluck, pluckOrder, range, removeEmpty } from '../util/array';
 import { intVal } from '../util/conv';
 import * as is from '../util/is';
 import Api from './Api';
+import { ApiColumn, ApiColumns, ApiColumnsMethods } from './interface';
 import {
 	selector_first,
 	selector_opts,
 	selector_row_indexes,
-	selector_run,
+	selector_run
 } from './selectors';
 import { callbackFire } from './support';
-
-declare module './Api' {
-	interface ApiColumns extends Api {
-		/**
-		 * Get the visibility of the selected columns
-		 * @param set 
-		 */
-		visible(set: boolean): ApiColumns;
-		visible(): ApiColumns;
-	}
-
-	interface Api {
-		column: any;
-		columns: any;
-	}
-}
-// TODO columns.adjust typing?
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Columns
@@ -139,7 +123,7 @@ var __column_selector = function (settings, selector, opts) {
 			return [
 				selInt >= 0
 					? selInt // Count from left
-					: columns.length + selInt, // Count from right (+ because its a negative value)
+					: columns.length + selInt // Count from right (+ because its a negative value)
 			];
 		}
 
@@ -230,7 +214,8 @@ var __column_selector = function (settings, selector, opts) {
 		}
 
 		// Selector on the TH elements for the columns
-		var result = dom.s(nodes)
+		var result = dom
+			.s(nodes)
 			.filter(s)
 			.mapTo(el => {
 				return columnsFromHeader(el); // `nodes` is column index complete and in order
@@ -309,7 +294,7 @@ var __setColumnVis = function (settings, column, vis) {
 	return true;
 };
 
-Api.register('columns()', function (selector, opts) {
+Api.register('columns()', function (selector, opts?) {
 	// argument shifting
 	if (selector === undefined) {
 		selector = '';
@@ -326,7 +311,7 @@ Api.register('columns()', function (selector, opts) {
 		function (settings) {
 			return __column_selector(settings, selector, opts);
 		},
-		1
+		true
 	);
 
 	// Want argument shifting here and in _row_selector?
@@ -336,105 +321,143 @@ Api.register('columns()', function (selector, opts) {
 	return inst;
 });
 
-Api.registerPlural('columns().header()', 'column().header()', function (row) {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			return columnHeader(settings, column, row);
-		},
-		1
-	);
-});
+Api.registerPlural<ApiColumnsMethods<any>['header']>(
+	'columns().header()',
+	'column().header()',
+	function (row?) {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				return columnHeader(settings, column, row);
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().footer()', 'column().footer()', function (row) {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			var footer = settings.aoFooter;
+Api.registerPlural<ApiColumnsMethods<any>['footer']>(
+	'columns().footer()',
+	'column().footer()',
+	function (row) {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				var footer = settings.aoFooter;
 
-			if (!footer.length) {
-				return null;
-			}
+				if (!footer.length) {
+					return null;
+				}
 
-			return settings.aoFooter[row !== undefined ? row : 0][column].cell;
-		},
-		1
-	);
-});
+				return settings.aoFooter[row !== undefined ? row : 0][column].cell;
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().data()', 'column().data()', function () {
-	return this.iterator('column-rows', columnData, 1);
-});
+Api.registerPlural<ApiColumnsMethods<any>['data']>(
+	'columns().data()',
+	'column().data()',
+	function () {
+		return this.iterator('column-rows', columnData, true);
+	}
+);
 
-Api.registerPlural('columns().render()', 'column().render()', function (type) {
-	return this.iterator(
-		'column-rows',
-		function (settings, column, i, j, rows) {
-			return columnData(settings, column, i, j, rows, type);
-		},
-		1
-	);
-});
+Api.registerPlural<ApiColumnsMethods<any>['render']>(
+	'columns().render()',
+	'column().render()',
+	function (type) {
+		return this.iterator(
+			'column-rows',
+			function (settings, column, i, j, rows) {
+				return columnData(settings, column, i, j, rows, type);
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().dataSrc()', 'column().dataSrc()', function () {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			return settings.aoColumns[column].mData;
-		},
-		1
-	);
-});
+Api.registerPlural<ApiColumnsMethods<any>['dataSrc']>(
+	'columns().dataSrc()',
+	'column().dataSrc()',
+	function () {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				return settings.aoColumns[column].mData;
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().cache()', 'column().cache()', function (type) {
-	return this.iterator(
-		'column-rows',
-		function (settings, column, i, j, rows) {
-			return pluckOrder(
-				settings.aoData,
-				rows,
-				type === 'search' ? '_aFilterData' : '_aSortData',
-				column
-			);
-		},
-		1
-	);
-});
+Api.registerPlural<ApiColumnsMethods<any>['cache']>(
+	'columns().cache()',
+	'column().cache()',
+	function (type) {
+		return this.iterator(
+			'column-rows',
+			function (settings, column, i, j, rows) {
+				return pluckOrder(
+					settings.aoData,
+					rows,
+					type === 'search' ? '_aFilterData' : '_aSortData',
+					column
+				);
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().init()', 'column().init()', function () {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			return settings.aoColumns[column];
-		},
-		1
-	);
-});
+Api.registerPlural<ApiColumnsMethods<any>['init']>(
+	'columns().init()',
+	'column().init()',
+	function () {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				return settings.aoColumns[column];
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().names()', 'column().name()', function () {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			return settings.aoColumns[column].sName;
-		},
-		1
-	);
-});
+Api.registerPlural<ApiColumnsMethods<any>['names']>(
+	'columns().names()',
+	'column().name()',
+	function () {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				return settings.aoColumns[column].sName;
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().nodes()', 'column().nodes()', function () {
-	return this.iterator(
-		'column-rows',
-		function (settings, column, i, j, rows) {
-			return removeEmpty(pluckOrder(settings.aoData, rows, 'anCells', column));
-		},
-		1
-	);
-});
+Api.registerPlural<ApiColumnsMethods<any>['nodes']>(
+	'columns().nodes()',
+	'column().nodes()',
+	function () {
+		return this.iterator(
+			'column-rows',
+			function (settings, column, i, j, rows) {
+				return removeEmpty(
+					pluckOrder(settings.aoData, rows, 'anCells', column)
+				);
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural(
+Api.registerPlural<ApiColumnsMethods<any>['titles']>(
 	'columns().titles()',
 	'column().title()',
-	function (title, row) {
+	function (title, row?) {
 		return this.iterator(
 			'column',
 			function (settings, column) {
@@ -444,7 +467,9 @@ Api.registerPlural(
 					title = undefined;
 				}
 
-				var span = dom.s(this.column(column).header(row)).find('span.dt-column-title');
+				var span = dom
+					.s(this.column(column).header(row))
+					.find('span.dt-column-title');
 
 				if (title !== undefined) {
 					span.html(title);
@@ -453,37 +478,41 @@ Api.registerPlural(
 
 				return span.html();
 			},
-			1
+			true
 		);
 	}
 );
 
-Api.registerPlural('columns().types()', 'column().type()', function () {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			var colObj = settings.aoColumns[column];
-			var type = colObj.sType;
+Api.registerPlural<ApiColumnsMethods<any>['types']>(
+	'columns().types()',
+	'column().type()',
+	function () {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				var colObj = settings.aoColumns[column];
+				var type = colObj.sType;
 
-			// If the type was invalidated, then resolve it. This actually does
-			// all columns at the moment. Would only happen once if getting all
-			// column's data types.
-			if (!type) {
-				columnTypes(settings);
+				// If the type was invalidated, then resolve it. This actually does
+				// all columns at the moment. Would only happen once if getting all
+				// column's data types.
+				if (!type) {
+					columnTypes(settings);
 
-				type = colObj.sType;
-			}
+					type = colObj.sType;
+				}
 
-			return type;
-		},
-		1
-	);
-});
+				return type;
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural(
+Api.registerPlural<ApiColumnsMethods<any>['visible']>(
 	'columns().visible()',
 	'column().visible()',
-	function (vis, calc) {
+	function (vis?, calc?) {
 		var that = this;
 		var changed: any[] = [];
 		var ret = this.iterator('column', function (settings, column) {
@@ -506,7 +535,8 @@ Api.registerPlural(
 				// Update colspan for no records display. Child rows and extensions will use their own
 				// listeners to do this - only need to update the empty table item here
 				if (!settings.aiDisplay.length) {
-					dom.s(settings.nTBody)
+					dom
+						.s(settings.nTBody)
 						.find('td[colspan]')
 						.attr('colspan', visibleColumns(settings));
 				}
@@ -520,7 +550,7 @@ Api.registerPlural(
 							ctx,
 							column,
 							vis,
-							calc,
+							calc
 						]);
 					}
 				});
@@ -535,45 +565,55 @@ Api.registerPlural(
 	}
 );
 
-Api.registerPlural('columns().widths()', 'column().width()', function () {
-	// Injects a fake row into the table for just a moment so the widths can
-	// be read, regardless of colspan in the header and rows being present in
-	// the body
-	var columns = this.columns(':visible').count();
-	var row = dom.c('tr').html('<td>' + Array(columns).join('</td><td>') + '</td>');
+Api.registerPlural<ApiColumnsMethods<any>['widths']>(
+	'columns().widths()',
+	'column().width()',
+	function () {
+		// Injects a fake row into the table for just a moment so the widths can
+		// be read, regardless of colspan in the header and rows being present in
+		// the body
+		var columns = this.columns(':visible').count();
+		var row = dom
+			.c('tr')
+			.html('<td>' + Array(columns).join('</td><td>') + '</td>');
 
-	dom.s(this.table().body()).append(row);
+		dom.s(this.table().body()).append(row);
 
-	var widths = row.children().mapTo(el => {
-		return dom.s(el).width('outer');
-	});
+		var widths = row.children().mapTo(el => {
+			return dom.s(el).width('outer');
+		});
 
-	row.remove();
+		row.remove();
 
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			var visIdx = columnIndexToVisible(settings, column);
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				var visIdx = columnIndexToVisible(settings, column);
 
-			return visIdx !== null ? widths[visIdx] : 0;
-		},
-		1
-	);
-});
+				return visIdx !== null ? widths[visIdx] : 0;
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().indexes()', 'column().index()', function (type) {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			return type === 'visible'
-				? columnIndexToVisible(settings, column)
-				: column;
-		},
-		1
-	);
-});
+Api.registerPlural<ApiColumnsMethods<any>['indexes']>(
+	'columns().indexes()',
+	'column().index()',
+	function (type) {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				return type === 'visible'
+					? columnIndexToVisible(settings, column)
+					: column;
+			},
+			true
+		);
+	}
+);
 
-Api.register('columns.adjust()', function () {
+Api.register<ApiColumns<any>['adjust']>('columns.adjust()', function () {
 	return this.iterator(
 		'table',
 		function (settings) {
@@ -583,11 +623,11 @@ Api.register('columns.adjust()', function () {
 
 			adjustColumnSizing(settings);
 		},
-		1
+		true
 	);
 });
 
-Api.register('column.index()', function (type, idx) {
+Api.register<ApiColumn<any>['index']>('column.index()', function (type, idx) {
 	if (this.context.length !== 0) {
 		var ctx = this.context[0];
 
@@ -598,6 +638,8 @@ Api.register('column.index()', function (type, idx) {
 			return columnIndexToVisible(ctx, idx);
 		}
 	}
+
+	return -1;
 });
 
 Api.register('column()', function (selector, opts) {

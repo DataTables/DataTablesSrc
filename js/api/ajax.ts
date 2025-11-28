@@ -6,14 +6,8 @@ import { processingDisplay } from '../core/processing';
 import Context from '../model/settings';
 import * as is from '../util/is';
 import Api from './Api';
+import { AjaxMethods, ApiAjax } from './interface';
 import { dataSource } from './support';
-
-
-declare module './Api' {
-	interface Api {
-		ajax: any;
-	}
-}
 
 type TReloadCallback = (json: any) => void;
 
@@ -59,46 +53,27 @@ const __reload = function (
 	}
 };
 
-/**
- * Get the JSON response from the last Ajax request that DataTables made to the
- * server. Note that this returns the JSON from the first table in the current
- * context.
- *
- * @return JSON received from the server.
- */
-Api.register('ajax.json()', function () {
+Api.register<ApiAjax['json']>('ajax.json()', function () {
 	var ctx = this.context;
 
 	if (ctx.length > 0) {
-		return ctx[0].json;
+		return ctx[0].json as any;
 	}
 
 	// else return undefined;
 });
 
-/**
- * Get the data submitted in the last Ajax request
- */
-Api.register('ajax.params()', function () {
+Api.register<ApiAjax['params']>('ajax.params()', function () {
 	var ctx = this.context;
 
 	if (ctx.length > 0) {
-		return ctx[0].oAjaxData;
+		return ctx[0].oAjaxData as any;
 	}
 
 	// else return undefined;
 });
 
-/**
- * Reload tables from the Ajax data source. Note that this function will
- * automatically re-draw the table when the remote data has been loaded.
- *
- * @param reset Reset (default) or hold the current paging position. A full
- *   re-sort and re-filter is performed when this method is called, which is why
- *   the pagination reset is the default action.
- * @returns Self for chaining
- */
-Api.register(
+Api.register<ApiAjax['reload']>(
 	'ajax.reload()',
 	function (callback: TReloadCallback, resetPaging: boolean) {
 		return this.iterator('table', function (settings: Context) {
@@ -107,19 +82,7 @@ Api.register(
 	}
 );
 
-/**
- * Get the current Ajax URL. Note that this returns the URL from the first
- * table in the current context.
- *
- * @return Current Ajax source URL
- */
-/**
- * Set the Ajax URL. Note that this will set the URL for all tables in the
- * current context.
- *
- * @param url URL to set.
- */
-Api.register('ajax.url()', function (url: string) {
+Api.register<ApiAjax['url']>('ajax.url()', function (url?: string) {
 	var ctx = this.context;
 
 	if (url === undefined) {
@@ -133,26 +96,21 @@ Api.register('ajax.url()', function (url: string) {
 	}
 
 	// set
-	return this.iterator('table', function (settings: Context) {
-		if (is.plainObject(settings.ajax)) {
-			settings.ajax.url = url;
-		}
-		else {
-			settings.ajax = url;
-		}
-	}, true);
+	return this.iterator(
+		'table',
+		function (settings: Context) {
+			if (is.plainObject(settings.ajax)) {
+				settings.ajax.url = url;
+			}
+			else {
+				settings.ajax = url;
+			}
+		},
+		true
+	);
 });
 
-/**
- * Load data from the newly set Ajax URL. Note that this method is only
- * available when `ajax.url()` is used to set a URL. Additionally, this method
- * has the same effect as calling `ajax.reload()` but is provided for
- * convenience when setting a new URL. Like `ajax.reload()` it will
- * automatically redraw the table once the remote data has been loaded.
- *
- * @returns Self for chaining
- */
-Api.register(
+Api.register<AjaxMethods['load']>(
 	'ajax.url().load()',
 	function (callback: TReloadCallback, resetPaging: boolean) {
 		// Same as a reload, but makes sense to present it for easy access after a

@@ -2,6 +2,7 @@ import dom from '../dom';
 import ext from '../ext/index';
 import Context from '../model/settings';
 import util from '../util';
+import { Api } from './interface';
 import { selector_row_indexes } from './selectors';
 import { arrayApply } from './support';
 
@@ -11,7 +12,25 @@ import { arrayApply } from './support';
  */
 const __arrayProto = Array.prototype;
 
-function Api(context, data?) {
+export interface ApiConstructor {
+	new (content: any, data?: any): Api;
+	(content: any, data?: any): Api;
+
+	register<T extends Function = Function>(name: string | string[], fn: T): void;
+
+	registerPlural<T extends Function = any>(
+		pluralName: string,
+		singleName: string,
+		fn: T
+	): void;
+}
+
+const Api = function (context, data?) {
+	// Allow the API to be initialised without specifying `new`
+	if (!(this instanceof Api)) {
+		return new (Api as any)(context, data);
+	}
+
 	this.context = toContextArray(context);
 
 	// Initial data
@@ -19,9 +38,9 @@ function Api(context, data?) {
 
 	// Add properties which will still execute in this scope
 	extendApi(this, 'Api');
-}
+} as ApiConstructor;
 
-// Add methods to the prototype
+// And the private parameters
 util.object.assign(Api.prototype, {
 	_newClass: 'Api',
 
@@ -241,7 +260,10 @@ util.object.assign(Api.prototype, {
 	unshift: __arrayProto.unshift
 });
 
-Api.register = function (name: string | string[], func: Function) {
+Api.register = function <T extends Function = Function>(
+	name: string | string[],
+	func: T
+) {
 	if (Array.isArray(name)) {
 		for (let i = 0; i < name.length; i++) {
 			Api.register(name[i], func);
@@ -251,7 +273,7 @@ Api.register = function (name: string | string[], func: Function) {
 	}
 
 	let names = getPrototypeNames(name);
-	
+
 	// Has the parent already been defined or not?
 	if (!classes[names.hostClass]) {
 		// Create a new "class"
@@ -267,7 +289,7 @@ Api.register = function (name: string | string[], func: Function) {
 			couldReturn: names.couldReturn,
 			property: names.property,
 			method: names.methodName,
-			fn: func	
+			fn: func
 		});
 	}
 	else {
@@ -300,10 +322,10 @@ Api.register = function (name: string | string[], func: Function) {
 	}
 };
 
-Api.registerPlural = function (
+Api.registerPlural = function <T extends Function = Function>(
 	pluralName: string,
 	singularName: string,
-	func: Function
+	func: T
 ) {
 	Api.register(pluralName, func);
 
@@ -332,12 +354,15 @@ Api.registerPlural = function (
 export default Api;
 
 /** A collection of properties to apply to the classes as they are constructed */
-const properties: Record<string, Array<{
-	couldReturn: string;
-	property: string;
-	method: string;
-	fn: Function
-}>> = {};
+const properties: Record<
+	string,
+	Array<{
+		couldReturn: string;
+		property: string;
+		method: string;
+		fn: any;
+	}>
+> = {};
 
 /** Collection of API classes */
 const classes: Record<string, any> = {
@@ -409,7 +434,7 @@ function extendApi(api, className) {
 
 			api[def.property] = function () {
 				return fn.apply(api, arguments);
-			}
+			};
 		}
 
 		// Wrap the function so we can keep scope and set the return class
@@ -421,7 +446,7 @@ function extendApi(api, className) {
 			api._newClass = previousCould;
 
 			return result;
-		}
+		};
 	}
 }
 
@@ -473,7 +498,7 @@ function getPrototypeNames(name: string) {
 		hostClass,
 		property,
 		propertyHost,
-		methodName,
+		methodName
 	};
 }
 
