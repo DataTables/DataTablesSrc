@@ -397,9 +397,22 @@ function extendApi(api, className) {
 		let def = props[i];
 
 		if (!api[def.property]) {
+			// Instance doesn't yet have this property, so need to create an
+			// object to hold the methods.
 			api[def.property] = {};
 		}
+		else if (!api.hasOwnProperty(def.property)) {
+			// Its a prototype function, which is a problem since it is shared
+			// between all instances, and thus scope is whichever is last setup.
+			// As such we need to make it an independent function and wrap it.
+			let fn = api[def.property];
 
+			api[def.property] = function () {
+				return fn.apply(api, arguments);
+			}
+		}
+
+		// Wrap the function so we can keep scope and set the return class
 		api[def.property][def.method] = function () {
 			let previousCould = api._newClass;
 			api._newClass = def.couldReturn;
