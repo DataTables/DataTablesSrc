@@ -178,7 +178,7 @@ export interface Api<T=any> {
 	 * 
 	 * @returns DataTables Api instance.
 	 */
-	clear(): Api<T>;
+	clear(this: Api): Api<T>;
 
 	/**
 	 * Column Methods / object
@@ -211,14 +211,14 @@ export interface Api<T=any> {
 	 * 
 	 * @returns The number of items in the API instance's result set
 	 */
-	count(): number;
+	count(this: Api): number;
 
 	/**
 	 * Get the data for the whole table.
 	 * 
 	 * @returns DataTables Api instance with the data for each row in the result set
 	 */
-	data(): Api<T>;
+	data(this: Api): Api<T>;
 
 	/**
 	 * Destroy the DataTables in the current context.
@@ -226,7 +226,7 @@ export interface Api<T=any> {
 	 * @param remove Completely remove the table from the DOM (true) or leave it in the DOM in its original plain un-enhanced HTML state (default, false).
 	 * @returns DataTables Api instance
 	 */
-	destroy(remove?: boolean): Api<T>;
+	destroy(this: Api, remove?: boolean): Api<T>;
 
 	/**
 	 * Redraw the DataTables in the current context, optionally updating ordering, searching and paging as required.
@@ -250,14 +250,14 @@ export interface Api<T=any> {
 	 * @param idx Index to select
 	 * @returns New DataTables API instance with the context and result set containing the table and data for the index specified, or null if no matching index was available.
 	 */
-	eq(idx: number): Api<any>;
+	eq(this: Api, idx: number): Api<any>;
 
 	/**
 	 * Show an error message to the end user / developer through the DataTables logging settings.
 	 *
 	 * @param msg Error message to show
 	 */
-	error(msg: string): Api<T>;
+	error(this: Api, msg: string): Api<T>;
 
 	/**
 	 * Iterate over the result set of an API instance and test each item, creating a new instance from those items which pass.
@@ -322,7 +322,7 @@ export interface Api<T=any> {
 	 * @param data Data for the instance to hold
 	 * @param newClass Override class target - internal.
 	 */
-	inst(context: string | Node | Node[] | JQuery, data?: T, newClass?: string);
+	inst(context: string | Node | Node[] | JQuery, data?: T, newClass?: string): Api;
 
 	/**
 	 * Iterate over a result set of table, row, column or cell indexes
@@ -487,14 +487,14 @@ export interface Api<T=any> {
 	/**
 	 * Determine if the DataTable is ready or not
 	 */
-	ready(): boolean;
+	ready(this: Api): boolean;
 
 	/**
 	 * Execute a function when the DataTable becomes ready (or immediately if it already is)
 	 *
 	 * @param fn Function to execute
 	 */
-	ready(fn: ((this: Api<T>) => void)): Api<T>;
+	ready(this: Api, fn: ((this: Api<T>) => void)): Api<T>;
 
 	/**
 	 * Apply a callback function against and accumulator and each element in the Api's result set (left-to-right).
@@ -631,7 +631,7 @@ export interface Api<T=any> {
 	 *   impact for bubbling events.
 	 * @returns Api instance with `defaultPrevented` for each item in the result set
 	 */
-	trigger(name: string, args?: any[], bubbles?: boolean): Api<boolean>;
+	trigger(this: Api, name: string, args?: any[], bubbles?: boolean): Api;
 
 	/**
 	 * Create a new API instance containing only the unique items from the elements in an instance's result set.
@@ -868,7 +868,7 @@ export interface AjaxMethods extends Api<any> {
 	load(this: AjaxMethods, callback?: ((json: any) => void), resetPaging?: boolean): Api<any>;
 }
 
-export interface ApiPage {
+export interface ApiPage extends Api<any> {
 	/**
 	 * Get the current page of the table.
 	 * 

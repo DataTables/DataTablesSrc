@@ -90,9 +90,10 @@ Api.register<ApiAjax['url']>('ajax.url()', function (url?: string) {
 		if (ctx.length === 0) {
 			return undefined;
 		}
-		ctx = ctx[0];
+		
+		let context = ctx[0];
 
-		return is.plainObject(ctx.ajax) ? ctx.ajax.url : ctx.ajax;
+		return is.plainObject(context.ajax) ? context.ajax.url : context.ajax;
 	}
 
 	// set

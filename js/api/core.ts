@@ -76,18 +76,20 @@ Api.register<ApiType['data']>('data()', function () {
 	}).flatten();
 });
 
-Api.register<ApiType['trigger']>('trigger()', function (name, args, bubbles) {
+Api.register<ApiType['trigger']>('trigger()', function (name, args?, bubbles?) {
 	return this.iterator('table', function (settings) {
 		return callbackFire(settings, null, name, args, bubbles);
 	}).flatten();
 });
 
-Api.register<ApiType['ready']>('ready()', function (fn?) {
+type ApiReadyMethod = ((this: Api, fn?: ((this: Api) => void)) => Api | boolean);
+
+Api.register<ApiReadyMethod>('ready()', function (fn?) {
 	var ctx = this.context;
 
 	// Get status of first table
 	if (!fn) {
-		return ctx.length ? ctx[0]._bInitComplete || false : null;
+		return ctx.length ? ctx[0]._bInitComplete || false : false;
 	}
 
 	// Function to run either once the table becomes ready or
@@ -118,9 +120,11 @@ Api.register<ApiType['destroy']>('destroy()', function (remove) {
 		var jqTable = dom.s(table);
 		var jqTbody = dom.s(tbody);
 		var jqWrapper = dom.s(settings.nTableWrapper);
-		var rows = settings.aoData.map(function (r) {
-			return r ? r.nTr : null;
-		});
+		var rows = settings.aoData
+			.map(function (r) {
+				return r ? r.nTr : null;
+			})
+			.filter(r => !!r);
 		var orderClasses = classes.order;
 
 		// Flag to note that the table is currently being destroyed - no action
@@ -198,7 +202,7 @@ Api.register<ApiType['destroy']>('destroy()', function (remove) {
 		var insertBefore = settings.nTableWrapper.nextSibling;
 
 		// Remove the DataTables generated nodes, events and classes
-		var removedMethod = remove ? 'remove' : 'detach';
+		var removedMethod: 'remove' | 'detach' = remove ? 'remove' : 'detach';
 		jqTable[removedMethod]();
 		jqWrapper[removedMethod]();
 
@@ -209,7 +213,7 @@ Api.register<ApiType['destroy']>('destroy()', function (remove) {
 
 			// Restore the width of the original table - was read from the style property,
 			// so we can restore directly to that
-			jqTable.css('width', settings.sDestroyWidth).classRemove(classes.table);
+			jqTable.css('width', settings + 'px').classRemove(classes.table);
 		}
 
 		/* Remove the settings object from the settings array */
@@ -268,7 +272,7 @@ Api.register<ApiType['i18n']>('i18n()', function (token, def, plural) {
 });
 
 // Needed for header and footer, so pulled into its own function
-function cleanHeader(node, className) {
+function cleanHeader(node: HTMLElement, className: string) {
 	let headerCell = dom.s(node);
 
 	headerCell.find('span.dt-column-order').remove();

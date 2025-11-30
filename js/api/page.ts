@@ -4,7 +4,10 @@ import Api from './Api';
 import { ApiPage } from './interface';
 import { dataSource } from './support';
 
-Api.register('page()', function (action) {
+// Overload combination
+type PageMethod = ((this: Api, page?: number | string) => Api | number);
+
+Api.register<PageMethod>('page()', function (action) {
 	if (action === undefined) {
 		return this.page.info().page; // not an expensive call
 	}
@@ -34,11 +37,15 @@ Api.register<ApiPage['info']>('page.info()', function () {
 	};
 });
 
-Api.register<ApiPage['len']>('page.len()', function (len?) {
+// The overload combination from ApiPage signatures. Typescript can't do this
+// automatically from the ApiPage signatures
+type PageLenMethod = ((this: Api, length?: number | string) => Api | number | undefined);
+
+Api.register<PageLenMethod>('page.len()', function (len?) {
 	// Note that we can't call this function 'length()' because `length`
 	// is a JavaScript property of functions which defines how many arguments
 	// the function expects.
-	if (len === undefined) {
+	if (len === undefined || len === null) {
 		return this.context.length !== 0
 			? this.context[0]._iDisplayLength
 			: undefined;
