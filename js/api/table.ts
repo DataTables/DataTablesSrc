@@ -2,25 +2,19 @@ import { headerLayout } from '../core/draw';
 import dom from '../dom';
 import Context from '../model/settings';
 import Api from './Api';
+import { ApiCaption, ApiTablesMethods, Api as ApiType } from './interface';
 import { selector_first } from './selectors';
 import { arrayApply } from './support';
-
-declare module './Api' {
-	interface Api {
-		table: any;
-	}
-}
 
 /**
  * Selector for HTML tables. Apply the given selector to the give array of
  * DataTables settings objects.
  *
- * @param {string|integer} [selector] Selector string or integer
- * @param  {array} Array of DataTables settings objects to be filtered
- * @return {array}
- * @ignore
+ * @param selector Selector string or integer
+ * @param a Array of DataTables settings objects to be filtered
+ * @return Selected table notes
  */
-export function table_selector(selector, a) {
+export function table_selector(selector?, a?) {
 	if (Array.isArray(selector)) {
 		var result = [];
 
@@ -55,25 +49,14 @@ export function table_selector(selector, a) {
 		});
 }
 
-/**
- * Context selector for the API's context (i.e. the tables the API instance
- * refers to.
- *
- * @name    DataTable.Api#tables
- * @param {string|integer} [selector] Selector to pick which tables the iterator
- *   should operate on. If not given, all tables in the current context are
- *   used. This can be given as a selector to select multiple tables or as an
- *   integer to select a single table.
- * @returns {DataTable.Api} Returns a new API instance if a selector is given.
- */
-Api.register('tables()', function (selector) {
+Api.register<ApiType['tables']>('tables()', function (selector) {
 	// A new instance is created if there was a selector specified
 	return selector !== undefined && selector !== null
 		? this.inst(table_selector(selector, this.context))
 		: this.inst(this.context);
 });
 
-Api.register('table()', function (selector) {
+Api.register<ApiType['table']>('table()', function (selector) {
 	return selector_first(this.tables(selector));
 });
 
@@ -124,25 +107,29 @@ Api.register('table()', function (selector) {
 	});
 });
 
-Api.registerPlural('tables().containers()', 'table().container()', function () {
-	return this.iterator(
-		'table',
-		function (ctx) {
-			return ctx.nTableWrapper;
-		},
-		1
-	);
-});
+Api.registerPlural<ApiTablesMethods<any>['containers']>(
+	'tables().containers()',
+	'table().container()',
+	function () {
+		return this.iterator(
+			'table',
+			function (ctx) {
+				return ctx.nTableWrapper;
+			},
+			true
+		);
+	}
+);
 
-Api.register('tables().every()', function (fn) {
-	var that = this;
-
-	return this.iterator('table', function (s, i) {
-		fn.call(that.table(i), i);
+Api.register<ApiTablesMethods<any>['every']>('tables().every()', function (fn) {
+	return this.iterator('table', (s, i) => {
+		fn.call(this.table(i), i);
 	});
 });
 
-Api.register('caption()', function (value, side) {
+type ApiCaptionOverload = (this: Api, set?: string, side?: 'top' | 'bottom') => string | null | Api;
+
+Api.register<ApiCaptionOverload>('caption()', function (value?, side?) {
 	var context = this.context;
 
 	// Getter - return existing node's content
@@ -154,7 +141,7 @@ Api.register('caption()', function (value, side) {
 
 	return this.iterator(
 		'table',
-		function (ctx: Context) {
+		function (ctx) {
 			var table = dom.s(ctx.nTable);
 			var caption = dom.s(ctx.captionNode);
 			var container = dom.s(ctx.nTableWrapper);
@@ -170,7 +157,7 @@ Api.register('caption()', function (value, side) {
 				if (!side) {
 					table.prepend(caption);
 
-					side = caption.css('caption-side');
+					side = caption.css('caption-side') as 'top' | 'bottom';
 				}
 			}
 
@@ -192,11 +179,11 @@ Api.register('caption()', function (value, side) {
 				table.prepend(caption);
 			}
 		},
-		1
+		true
 	);
 });
 
-Api.register('caption.node()', function () {
+Api.register<ApiCaption['node']>('caption.node()', function () {
 	var ctx = this.context;
 
 	return ctx.length ? ctx[0].captionNode : null;

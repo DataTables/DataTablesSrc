@@ -1,7 +1,7 @@
 
 import { SearchInput, SearchOptions } from '../model/search';
 import Context, { Order, OrderArray } from '../model/settings';
-import { State } from '../model/state';
+import { State, StateLoad } from '../model/state';
 
 
 export type DomSelector =
@@ -147,21 +147,9 @@ export interface Api<T=any> {
 	any(): boolean;
 
 	/**
-	 * Get the contents of the `caption` element for the table.
+	 * Table caption control methods
 	 */
-	caption(): string;
-
-	/**
-	 * Set the contents of the `-tag caption` element. If the table doesn't have 
-	 * a `-tag caption` element, one will be created automatically.
-	 * 
-	 * @param string The value to show in the table's `caption` tag.
-	 * @param side `top` or `bottom` to set where the table will be shown on the
-	 *   table. If not given the previous value will be used (can also be set in
-	 *   CSS).
-	 * @returns DataTables API instance for chaining.
-	 */
-	caption(set: string, side?: 'top' | 'bottom'): Api<T>;
+	caption: ApiCaption;
 
 	/**
 	 * Cell (single) selector and methods
@@ -322,7 +310,7 @@ export interface Api<T=any> {
 	 * @param data Data for the instance to hold
 	 * @param newClass Override class target - internal.
 	 */
-	inst(context: string | Node | Node[] | JQuery, data?: T, newClass?: string): Api;
+	inst<R=Api>(context: string | Node | Node[] | JQuery | Context | Context[], data?: T, newClass?: string): R;
 
 	/**
 	 * Iterate over a result set of table, row, column or cell indexes
@@ -590,7 +578,7 @@ export interface Api<T=any> {
 	 * @param tableSelector Table selector.
 	 * @returns DataTables API instance with selected table in its context.
 	 */
-	table(tableSelector?: any): ApiTableMethods<T>;
+	table(this: Api, tableSelector?: any): ApiTableMethods<T>;
 
 	/**
 	 * Select tables based on the given selector
@@ -598,7 +586,7 @@ export interface Api<T=any> {
 	 * @param tableSelector Table selector.
 	 * @returns DataTables API instance with all tables in the current context.
 	 */
-	tables(tableSelector?: any): ApiTablesMethods<T>;
+	tables(this: Api, tableSelector?: any): ApiTablesMethods<T>;
 
 	/**
 	 * Convert the API instance to a jQuery object, with the objects from the instance's result set in the jQuery result set.
@@ -649,6 +637,29 @@ export interface Api<T=any> {
 	unshift(value_1: any, ...value_2: any[]): number;
 }
 
+export interface ApiCaption {
+	/**
+	 * Get the contents of the `caption` element for the table.
+	 */
+	(this: Api): string;
+
+	/**
+	 * Set the contents of the `-tag caption` element. If the table doesn't have 
+	 * a `-tag caption` element, one will be created automatically.
+	 * 
+	 * @param string The value to show in the table's `caption` tag.
+	 * @param side `top` or `bottom` to set where the table will be shown on the
+	 *   table. If not given the previous value will be used (can also be set in
+	 *   CSS).
+	 * @returns DataTables API instance for chaining.
+	 */
+	(this: Api, set: string, side?: 'top' | 'bottom'): Api;
+
+	/**
+	 * Get the HTML caption node for the table
+	 */
+	node(this: Api): HTMLElement | null;
+}
 
 export interface ApiSelectorModifier {
 	/**
@@ -960,31 +971,38 @@ export interface ApiState<T> {
 	 * 
 	 * @returns State saved object
 	 */
-	(): State;
+	(this: Api): State;
+
+	/**
+	 * Set the table state from a state object
+	 * 
+	 * @returns API instance, for chaining
+	 */
+	(this: Api, set: State, ignoreTime?: boolean): Api;
 
 	/**
 	 * Clear the saved state of the table.
 	 * 
-	 * @returns The API instance that was used, available for chaining.
+	 * @returns API instance, for chaining
 	 */
-	clear(): Api<any>;
+	clear(this: Api): Api<any>;
 
 	/**
 	 * Get the table state that was loaded during initialisation.
 	 * 
 	 * @returns State saved object. See state() for the object format.
 	 */
-	loaded(): State;
+	loaded(this: Api): StateLoad | null;
 
 	/**
 	 * Trigger a state save.
 	 * 
-	 * @returns The API instance that was used, available for chaining.
+	 * @returns API instance, for chaining
 	 */
-	save(): Api<T>;
+	save(this: Api): Api<T>;
 }
 
-
+``
 
 export interface ApiCell<T> {
 	/**
@@ -1958,35 +1976,35 @@ export interface ApiTablesMethods<T> extends Api<T> {
 	 * 
 	 * @returns Array of HTML tfoot nodes for all table in the API's context
 	 */
-	footer(): Api<Array<HTMLTableSectionElement>>;
+	footer(this: Api): Api<Array<HTMLTableSectionElement>>;
 
 	/**
 	 * Get the thead nodes for the tables in the API's context
 	 * 
 	 * @returns Array of HTML thead nodes for all table in the API's context
 	 */
-	header(): Api<Array<HTMLTableSectionElement>>;
+	header(this: Api): Api<Array<HTMLTableSectionElement>>;
 
 	/**
 	 * Get the tbody nodes for the tables in the API's context
 	 * 
 	 * @returns Array of HTML tbody nodes for all table in the API's context
 	 */
-	body(): Api<Array<HTMLTableSectionElement>>;
+	body(this: Api): Api<Array<HTMLTableSectionElement>>;
 
 	/**
 	 * Get the div container nodes for the tables in the API's context
 	 * 
 	 * @returns Array of HTML div nodes for all table in the API's context
 	 */
-	containers(): Api<Array<HTMLDivElement>>;
+	containers(this: Api): Api<Array<HTMLDivElement>>;
 
 	/**
 	 * Iterate over each selected table, with the function context set to be the table in question. Since: DataTables 1.10.6
 	 *
 	 * @param fn Function to execute for every table selected.
 	 */
-	every(fn: (this: ApiTableMethods<T>, tableIndex: number) => void): Api<any>;
+	every(this: Api, fn: (this: ApiTableMethods<T>, tableIndex: number) => void): Api<any>;
 
 
 	/**
@@ -1994,7 +2012,7 @@ export interface ApiTablesMethods<T> extends Api<T> {
 	 * 
 	 * @returns Array of HTML table nodes for all table in the API's context
 	 */
-	nodes(): Api<Array<HTMLTableElement>>;
+	nodes(this: Api): Api<Array<HTMLTableElement>>;
 }
 
 

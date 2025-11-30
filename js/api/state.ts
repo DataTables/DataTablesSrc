@@ -1,20 +1,13 @@
 
 import { implementState, saveState } from "../core/state";
-import { StateLoad } from "../model/state";
+import { State, StateLoad } from "../model/state";
 import * as object from '../util/object';
 import Api from "./Api";
+import { ApiState } from "./interface";
 
-declare module './Api' {
-	interface Api {
-		state: any;
-	}
-}
+type ApiStateOverload = (this: Api, set?: State, ignoreTime?: boolean) => State | null | Api;
 
-/*
- * State API methods
- */
-
-Api.register( 'state()', function ( set: StateLoad, ignoreTime ) {
+Api.register<ApiStateOverload>( 'state()', function ( set?: StateLoad, ignoreTime? ) {
 	// getter
 	if ( ! set ) {
 		return this.context.length ?
@@ -22,7 +15,7 @@ Api.register( 'state()', function ( set: StateLoad, ignoreTime ) {
 			null;
 	}
 
-	var setMutate = object.assignDeep<StateLoad>( {}, set );
+	let setMutate = object.assignDeep<StateLoad>( {}, set );
 
 	// setter
 	return this.iterator( 'table', function ( settings ) {
@@ -33,9 +26,9 @@ Api.register( 'state()', function ( set: StateLoad, ignoreTime ) {
 		implementState( settings, setMutate, function(){} );
 	} );
 } );
+``
 
-
-Api.register( 'state.clear()', function () {
+Api.register<ApiState<any>['clear']>( 'state.clear()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		// Save an empty object
 		settings.fnStateSaveCallback.call( settings.oInstance, settings, {} );
@@ -43,14 +36,14 @@ Api.register( 'state.clear()', function () {
 } );
 
 
-Api.register( 'state.loaded()', function () {
+Api.register<ApiState<any>['loaded']>( 'state.loaded()', function () {
 	return this.context.length ?
 		this.context[0].oLoadedState :
 		null;
 } );
 
 
-Api.register( 'state.save()', function () {
+Api.register<ApiState<any>['save']>( 'state.save()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		saveState( settings );
 	} );
