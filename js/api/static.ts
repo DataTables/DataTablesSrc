@@ -1,18 +1,18 @@
 import dom from '../dom';
 import ext from '../ext/index';
-import * as is from '../util/is';
 import { arrayLike } from '../util/is';
 import Api from './Api';
+import { DataTablesStatic } from './interface';
 
 /**
  * CommonJS factory function pass through. This will check if the arguments
- * given are a window object or a jQuery object. If so they are set
- * accordingly.
+ * given are a window object or a jQuery object. If so they are set accordingly.
+ *
  * @param root Window
  * @param jq jQuery
  * @returns Indicator
  */
-export function factory(root, jq) {
+export function factory(root: Window & typeof globalThis, jq: JQueryStatic) {
 	var is = false;
 
 	// Test if the first parameter is a window object
@@ -36,17 +36,17 @@ export function factory(root, jq) {
  *   than more than one table is passed on, only the first will be checked
  * @returns true the table given is a DataTable, or false otherwise
  */
-export function isDataTable(table) {
-	var t = dom.s(table).get(0);
-	var is = false;
-
+export const isDataTable: DataTablesStatic['isDataTable'] = function (table) {
 	if (table instanceof Api) {
 		return true;
 	}
 	else if (arrayLike(table)) {
 		// jQuery compatibility
-		table = Array.from(table);
+		table = Array.from(table as any) as any;
 	}
+
+	var t = dom.s(table as any).get(0);
+	var is = false;
 
 	for (let i = 0; i < ext.settings.length; i++) {
 		let ctx = ext.settings[i];
@@ -75,10 +75,10 @@ export function isDataTable(table) {
  * @returns Array of `table` nodes (not DataTable instances) which are
  *   DataTables
  */
-export function tables(visible) {
+export const tables: DataTablesStatic['tables'] = function(visible) {
 	var api = false;
 
-	if (is.plainObject(visible)) {
+	if (visible && typeof visible !== 'boolean') {
 		api = visible.api;
 		visible = visible.visible;
 	}
@@ -94,4 +94,4 @@ export function tables(visible) {
 		});
 
 	return api ? new Api(a) : a;
-}
+};

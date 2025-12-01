@@ -249,7 +249,7 @@ export function clearTable(settings: Context) {
 export function invalidate(
 	settings: Context,
 	rowIdx: number,
-	src: string,
+	src?: string,
 	colIdx?: number
 ) {
 	var row = settings.aoData[rowIdx];

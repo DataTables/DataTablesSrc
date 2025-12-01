@@ -2,19 +2,19 @@ import { bindAction, callbackFire, dataSource } from '../api/support';
 import dom from '../dom';
 import ext from '../ext/index';
 import Context, {
-    Order,
-    OrderArray,
-    OrderCombined,
-    OrderIdx,
-    OrderName,
-    OrderState,
+	Order,
+	OrderArray,
+	OrderCombined,
+	OrderIdx,
+	OrderName,
+	OrderState,
 } from '../model/settings';
 import { pluck } from '../util/array';
 import * as is from '../util/is';
 import {
-    columnIndexToVisible,
-    columnTypes,
-    columnsFromHeader,
+	columnIndexToVisible,
+	columnTypes,
+	columnsFromHeader,
 } from './columns';
 import { getCellData } from './data';
 import { reDraw } from './draw';
@@ -87,7 +87,7 @@ export function sortAttachListener(
 	settings: Context,
 	node: Element,
 	selector: string,
-	column?: number | (() => []),
+	column?: number | number[] | (() => number[]),
 	callback?: () => void
 ) {
 	bindAction(node, selector, function (e) {

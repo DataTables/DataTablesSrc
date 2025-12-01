@@ -43,6 +43,12 @@ export type CellSelector =
     ((idx: CellIdx, data: any, node: Node | null) => boolean) |
     CellSelector[];
 
+export type TableSelector =
+	undefined |
+	number |
+	string |
+	JQuery |
+	TableSelector[];
 
 export type CellIdxWithVisible = {
     row: number;
@@ -310,7 +316,7 @@ export interface Api<T=any> {
 	 * @param data Data for the instance to hold
 	 * @param newClass Override class target - internal.
 	 */
-	inst<R=Api>(context: string | Node | Node[] | JQuery | Context | Context[], data?: T, newClass?: string): R;
+	inst<R=Api>(context: string | Node | Node[] | JQuery | Context | Context[], data?: T | null, newClass?: string): R;
 
 	/**
 	 * Iterate over a result set of table, row, column or cell indexes
@@ -327,6 +333,7 @@ export interface Api<T=any> {
 	iterator(type: 'columns', callback: IteratorColumns, returns?: boolean): Api<any>;
 	iterator(type: 'row', callback: IteratorRow, returns?: boolean): Api<any>;
 	iterator(type: 'rows', callback: IteratorRows, returns?: boolean): Api<any>;
+	iterator(type: 'every', callback: IteratorEvery, returns?: boolean): Api<any>;
 
 	/**
 	 * Iterate over a result set of table, row, column or cell indexes
@@ -578,7 +585,7 @@ export interface Api<T=any> {
 	 * @param tableSelector Table selector.
 	 * @returns DataTables API instance with selected table in its context.
 	 */
-	table(this: Api, tableSelector?: any): ApiTableMethods<T>;
+	table(this: Api, tableSelector?: TableSelector): ApiTableMethods<T>;
 
 	/**
 	 * Select tables based on the given selector
@@ -586,7 +593,7 @@ export interface Api<T=any> {
 	 * @param tableSelector Table selector.
 	 * @returns DataTables API instance with all tables in the current context.
 	 */
-	tables(this: Api, tableSelector?: any): ApiTablesMethods<T>;
+	tables(this: Api, tableSelector?: TableSelector): ApiTablesMethods<T>;
 
 	/**
 	 * Convert the API instance to a jQuery object, with the objects from the instance's result set in the jQuery result set.
@@ -669,6 +676,7 @@ export interface ApiSelectorModifier {
 	 * * `index` - column index order
 	 */
 	columnOrder?: 'index' | 'implied';
+
 	/**
 	 * The order modifier provides the ability to control which order the rows are
 	 * processed in. Can be one of 'current', 'applied', 'index', 'original', or
@@ -692,6 +700,12 @@ export interface ApiSelectorModifier {
 	 * Values: 'all', 'current'
 	 */
 	page?: 'all' | 'current';
+
+	/**
+	 * @deprecated Use `search` instead
+	 * @ignore
+	 */
+	filter?: 'none' | 'applied' | 'removed';
 }
 
 export interface ApiSearch<T> {
@@ -700,7 +714,7 @@ export interface ApiSearch<T> {
 	 * 
 	 * @returns The currently applied global search. This may be an empty string if no search is applied.
 	 */
-	(): SearchInput<T>;
+	(this: Api): SearchInput<T>;
 
 	/**
 	 * Set the global search to use on the table. Note this doesn't actually perform the search.
@@ -711,7 +725,7 @@ export interface ApiSearch<T> {
 	 * @param caseInsen Do case-insensitive matching (default, true) or not (false).
 	 * @returns DataTables API instance
 	 */
-	(input: SearchInput<T>, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
+	(this: Api, input: SearchInput<T>, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api<any>;
 
 	/**
 	 * Set the global search to use on the table. Note this doesn't actually perform the search.
@@ -720,14 +734,14 @@ export interface ApiSearch<T> {
 	 * @param options Configuration options for how the search should be performed
 	 * @returns DataTables API instance
 	 */
-	(input: SearchInput<T>, options: SearchOptions): Api<any>;
+	(this: Api, input: SearchInput<T>, options: SearchOptions): Api<any>;
 
 	/**
 	 * Get a list of the names of searches applied to the table.
 	 * 
 	 * @returns API instance containing the fixed search terms
 	 */
-	fixed(): Api<string>;
+	fixed(this: Api): Api<string>;
 	
 	/**
 	 * Get the search term used for the given name.
@@ -735,7 +749,7 @@ export interface ApiSearch<T> {
 	 * @param name Fixed search term to get.
 	 * @returns The search term for the name given or undefined if not set.
 	 */
-	fixed( name: string ): SearchInput<T> | undefined;
+	fixed(this: Api, name: string ): SearchInput<T> | undefined;
 	
 	/**
 	 * Set a search term to apply to the table, using a name to uniquely identify it.
@@ -745,7 +759,7 @@ export interface ApiSearch<T> {
 	 *   an existing search term by the given name.
 	 * @returns API for chaining
 	 */
-	fixed( name: string, search: SearchInput<T> | null ): Api<T>;
+	fixed(this: Api, name: string, search: SearchInput<T> | null ): Api<T>;
 }
 
 
@@ -827,6 +841,16 @@ type IteratorRow = (settings: Context, rowIndex: number, tableCounter: number, r
  * @param counter Loop counter
  */
 type IteratorRows = (settings: Context, resultItem: any, counter: number) => any;
+
+/**
+ * "every" - loop over selected items
+ * 
+ * @param settings Table settings object
+ * @param index Item index
+ * @param tableCounter Table counter (outer)
+ * @param counter Counter (inner)
+ */
+type IteratorEvery = (settings: Context, index: number, tableCounter: number, counter: number) => any;
 
 export interface ApiAjax extends Api<any> {
 	/**
@@ -953,14 +977,15 @@ export interface ApiOrder {
 	/**
 	 * Add an ordering listener to an element, for a given column.
 	 *
-	 * @param node Selector
-	 * @param column Column index
+	 * @param node HTML element to attach to
+	 * @param column Column index(es)
 	 * @param callback Callback function
 	 * @returns DataTables API instance with the current order in the result set
 	 */
 	listener(
-		node: string | Node | JQuery,
-		column: HTMLElement | number | number[] | (() => number[]),
+		this: Api,
+		node: HTMLElement,
+		column: number | number[] | (() => number[]),
 		callback: (() => void)
 	): Api<any>;
 }
@@ -1755,7 +1780,7 @@ export interface ApiRow<T> {
 	 * @param data Data to use for the new row. This may be an array, object or JavaScript object instance, but must be in the same format as the other data in the table+
 	 * @returns DataTables API instance with the newly added row in its result set.
 	 */
-	add(data: any[] | object): ApiRowMethods<T>;
+	add(this: Api, data: any[] | Record<string, any> | JQuery | HTMLElement): ApiRowMethods<T>;
 }
 
 export interface ApiRowMethods<T> extends Omit<Api<T>, 'data' | 'select'> {
@@ -1765,7 +1790,7 @@ export interface ApiRowMethods<T> extends Omit<Api<T>, 'data' | 'select'> {
 	 * @param type Specify which cache the data should be read from. Can take one of two values: search or order
 	 * @returns DataTables API instance with data for each cell in the selected row in the result set. This is a 1D array with each entry being the data for the cells from the selected row.
 	 */
-	cache(type: string): Api<Array<any>> | Api <Array<Array<any>>>;
+	cache(this: Api, type: string): Api<Array<any>> | Api <Array<Array<any>>>;
 
 	/**
 	 * Order Methods / object
@@ -1777,7 +1802,7 @@ export interface ApiRowMethods<T> extends Omit<Api<T>, 'data' | 'select'> {
 	 * 
 	 * @returns Data source object for the data source of the row.
 	 */
-	data(): T;
+	data(this: Api): T;
 
 	/**
 	 * Set the data for the selected row
@@ -1785,7 +1810,7 @@ export interface ApiRowMethods<T> extends Omit<Api<T>, 'data' | 'select'> {
 	 * @param d Data to use for the row.
 	 * @returns DataTables API instance with the row retrieved by the selector in the result set.
 	 */
-	data(d: any[] | object): Api<T>;
+	data(this: Api, d: any[] | object): Api<T>;
 
 	/**
 	 * Get the id of the selected row. Since: 1.10.8
@@ -1794,35 +1819,35 @@ export interface ApiRowMethods<T> extends Omit<Api<T>, 'data' | 'select'> {
 	 * false - Do not modify the id value.
 	 * @returns Row id. If the row does not have an id available 'undefined' will be returned.
 	 */
-	id(hash?: boolean): string;
+	id(this: Api, hash?: boolean): string;
 
 	/**
 	 * Get the row index of the row column.
 	 * 
 	 * @returns Row index
 	 */
-	index(): number;
+	index(this: Api): number;
 
 	/**
 	 * Obtain the th / td nodes for the selected row(s)
 	 *
 	 * @param source Data source to read the new data from. Values: 'auto', 'data', 'dom'
 	 */
-	invalidate(source?: string): Api<Array<any>>;
+	invalidate(this: Api, source?: string): Api<Array<any>>;
 
 	/**
 	 * Obtain the tr node for the selected row
 	 * 
 	 * @returns tr element of the selected row or null if the element is not yet available
 	 */
-	node(): HTMLTableRowElement;
+	node(this: Api): HTMLTableRowElement | null;
 
 	/**
 	 * Delete the selected row from the DataTable.
 	 * 
 	 * @returns DataTables API instance with removed row reference in the result set
 	 */
-	remove(): Api<T>;
+	remove(this: Api): Api<T>;
 }
 
 export interface ApiRows<T> {
@@ -1841,7 +1866,7 @@ export interface ApiRows<T> {
 	 * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
 	 * @returns DataTables API instance with selected rows in the result set
 	 */
-	(rowSelector: RowSelector<T>, modifier?: ApiSelectorModifier): ApiRowsMethods<T>;
+	(rowSelector?: RowSelector<T>, modifier?: ApiSelectorModifier): ApiRowsMethods<T>;
 
 	/**
 	 * Add new rows to the table using the data given
@@ -1849,7 +1874,7 @@ export interface ApiRows<T> {
 	 * @param data Array of data elements, with each one describing a new row to be added to the table
 	 * @returns DataTables API instance with the newly added rows in its result set.
 	 */
-	add(data: T[]): ApiRowsMethods<T>;
+	add(this: Api, data: T[]): ApiRowsMethods<T>;
 }
 
 export interface ApiRowsMethods<T> extends Omit<Api<T>, 'select'> {
@@ -1859,14 +1884,14 @@ export interface ApiRowsMethods<T> extends Omit<Api<T>, 'select'> {
 	 * @param type Specify which cache the data should be read from. Can take one of two values: search or order
 	 * @returns DataTables API instance with data for each cell in the selected row in the result set. This is a 1D array with each entry being the data for the cells from the selected row.
 	 */
-	cache(type: string): Api<Array<any>> | Api <Array<Array<any>>>;
+	cache(this: Api, type: string): Api<Array<any>> | Api <Array<Array<any>>>;
 
 	/**
 	 * Get the data for the selected rows
 	 *
 	 * @returns DataTables API instance with data for each row from the selector in the result set.
 	 */
-	data(): Api<T>;
+	data(this: Api): Api<T>;
 
 	/**
 	 * Iterate over each selected row, with the function context set to be the row in question. Since: DataTables 1.10.6
@@ -1874,7 +1899,7 @@ export interface ApiRowsMethods<T> extends Omit<Api<T>, 'select'> {
 	 * @param fn Function to execute for every row selected.
 	 * @returns DataTables API instance of the selected rows.
 	 */
-	every(fn: (this: ApiRowMethods<T>, rowIdx: number, tableLoop: number, rowLoop: number) => void): Api<any>;
+	every(this: Api, fn: (this: ApiRowMethods<T>, rowIdx: number, tableLoop: number, rowLoop: number) => void): Api<any>;
 
 	/**
 	 * Get the ids of the selected rows. Since: 1.10.8
@@ -1883,35 +1908,35 @@ export interface ApiRowsMethods<T> extends Omit<Api<T>, 'select'> {
 	 * false - Do not modify the id value.
 	 * @returns Api instance with the selected rows in its result set. If a row does not have an id available 'undefined' will be returned as the value.
 	 */
-	ids(hash?: boolean): Api<Array<any>>;
+	ids(this: Api, hash?: boolean): Api<Array<any>>;
 
 	/**
 	 * Get the row indexes of the selected rows.
 	 * 
 	 * @returns DataTables API instance with selected row indexes in the result set.
 	 */
-	indexes(): Api<Array<number>>;
+	indexes(this: Api): Api<Array<number>>;
 
 	/**
 	 * Obtain the th / td nodes for the selected row(s)
 	 *
 	 * @param source Data source to read the new data from. Values: 'auto', 'data', 'dom'
 	 */
-	invalidate(source?: string): Api<Array<any>>;
+	invalidate(this: Api, source?: string): Api<Array<any>>;
 
 	/**
 	 * Obtain the tr nodes for the selected rows
 	 * 
 	 * @returns DataTables API instance with each row's node from the selected rows in the result set.
 	 */
-	nodes(): Api<Array<HTMLTableRowElement>>;
+	nodes(this: Api): Api<Array<HTMLTableRowElement>>;
 
 	/**
 	 * Delete the selected rows from the DataTable.
 	 * 
 	 * @returns DataTables API instance with references for the removed rows in the result set
 	 */
-	remove(): Api<Array<any>>;
+	remove(this: Api): Api<Array<any>>;
 }
 
 
@@ -1922,14 +1947,14 @@ export interface ApiTableMethods<T> extends Api<T> {
 		 * 
 		 * @returns HTML tbody node.
 		 */
-		(): HTMLTableSectionElement;
+		(this: Api): HTMLTableSectionElement;
 
 		/**
 		 * Get an array that represents the structure of the footer
 		 *
 		 * @param selector Column selector
 		 */
-		structure(selector?: string): HeaderStructure[][];
+		structure(this: Api, selector?: ColumnSelector): HeaderStructure[][];
 	}
 
 	header: {
@@ -1938,14 +1963,14 @@ export interface ApiTableMethods<T> extends Api<T> {
 		 * 
 		 * @returns HTML thead node.
 		 */
-		(): HTMLTableSectionElement;
+		(this: Api): HTMLTableSectionElement;
 
 		/**
 		 * Get an array that represents the structure of the header
 		 *
 		 * @param selector Column selector
 		 */
-		structure(selector?: string): HeaderStructure[][];
+		structure(this: Api, selector?: ColumnSelector): HeaderStructure[][];
 	}
 
 	/**
@@ -2016,174 +2041,174 @@ export interface ApiTablesMethods<T> extends Api<T> {
 }
 
 
-// export interface DataTablesStatic {
-// 	/**
-// 	 * Get DataTable API instance
-// 	 *
-// 	 * @param table Selector string for table
-// 	 */
-// 	Api: ApiStatic;
+export interface DataTablesStatic {
+	/**
+	 * Get DataTable API instance
+	 *
+	 * @param table Selector string for table
+	 */
+	Api: ApiStatic;
 
-// 	/**
-// 	 * Default Settings
-// 	 */
-// 	defaults: Config;
+	/**
+	 * Default Settings
+	 */
+	defaults: Config;
 
-// 	/**
-// 	 * Default Settings
-// 	 */
-// 	ext: DataTablesStaticExt;
+	/**
+	 * Default Settings
+	 */
+	ext: DataTablesStaticExt;
 
-// 	/** Feature control namespace */
-// 	feature: {
-// 		/**
-// 		 * Create a new feature that can be used for layout
-// 		 *
-// 		 * @param name The name of the new feature.
-// 		 * @param construct A function that will create the elements and event listeners for the feature being added.
-// 		 */
-// 		register(name: string, construct: (dt: Context, options: any) => HTMLElement | JQuery): void;
-// 	}
+	/** Feature control namespace */
+	feature: {
+		/**
+		 * Create a new feature that can be used for layout
+		 *
+		 * @param name The name of the new feature.
+		 * @param construct A function that will create the elements and event listeners for the feature being added.
+		 */
+		register(name: string, construct: (dt: Context, options: any) => HTMLElement | JQuery): void;
+	}
 
-// 	/**
-// 	 * Check if a table node is a DataTable already or not.
-// 	 *
-// 	 * @param table The table to check.
-// 	 * @returns true the given table is a DataTable, false otherwise
-// 	 */
-// 	isDataTable(table: string | Node | JQuery | Api<any>): boolean;
+	/**
+	 * Check if a table node is a DataTable already or not.
+	 *
+	 * @param table The table to check.
+	 * @returns true the given table is a DataTable, false otherwise
+	 */
+	isDataTable(table: string | Node | JQuery | Api<any>): boolean;
 
-// 	/**
-// 	 * Helpers for `columns.render`.
-// 	 *
-// 	 * The options defined here can be used with the `columns.render` initialisation
-// 	 * option to provide a display renderer.
-// 	 */
-// 	render: DataTablesStaticRender;
+	/**
+	 * Helpers for `columns.render`.
+	 *
+	 * The options defined here can be used with the `columns.render` initialisation
+	 * option to provide a display renderer.
+	 */
+	render: DataTablesStaticRender;
 
-// 	/**
-// 	 * Get all DataTable tables that have been initialised - optionally you can select to get only currently visible tables and / or retrieve the tables as API instances.
-// 	 *
-// 	 * @param visible As a boolean value this options is used to indicate if you want all tables on the page should be returned (false), or visible tables only (true).
-// 	 * Since 1.10.8 this option can also be given as an object.
-// 	 * @returns Array or DataTables API instance containing all matching DataTables
-// 	 */
-// 	tables(visible?: {
-// 		/**
-// 		 * Get only visible tables (true) or all tables regardless of visibility (false).
-// 		 */
-// 		visible: boolean;
+	/**
+	 * Get all DataTable tables that have been initialised - optionally you can select to get only currently visible tables and / or retrieve the tables as API instances.
+	 *
+	 * @param visible As a boolean value this options is used to indicate if you want all tables on the page should be returned (false), or visible tables only (true).
+	 * Since 1.10.8 this option can also be given as an object.
+	 * @returns Array or DataTables API instance containing all matching DataTables
+	 */
+	tables(visible?: {
+		/**
+		 * Get only visible tables (true) or all tables regardless of visibility (false).
+		 */
+		visible: boolean;
 	
-// 		/**
-// 		 * Return a DataTables API instance for the selected tables (true) or an array (false).
-// 		 */
-// 		api: boolean;
-// 	} | boolean): Array<Api<any>>| Api<any>;
+		/**
+		 * Return a DataTables API instance for the selected tables (true) or an array (false).
+		 */
+		api: boolean;
+	} | boolean): Array<Api<any>>| Api<any>;
 
-// 	/**
-// 	 * Get the data type definition object for a specific registered data type.
-// 	 *
-// 	 * @param name Data type name to get the definition of
-// 	 */
-// 	type(name: string): DataType;
+	/**
+	 * Get the data type definition object for a specific registered data type.
+	 *
+	 * @param name Data type name to get the definition of
+	 */
+	type(name: string): DataType;
 
-// 	/**
-// 	 * Set one or more properties for a specific data type.
-// 	 *
-// 	 * @param name Data type name to set values for
-// 	 * @param definition Object containing the values to set
-// 	 */
-// 	type(name: string, definition: DataType): void;
+	/**
+	 * Set one or more properties for a specific data type.
+	 *
+	 * @param name Data type name to set values for
+	 * @param definition Object containing the values to set
+	 */
+	type(name: string, definition: DataType): void;
 
-// 	/**
-// 	 * Set a class name for a given data type
-// 	 *
-// 	 * @param name Data type name to set a property value for
-// 	 * @param property Name of the data type property to set
-// 	 * @param val Class name to set
-// 	 */
-// 	type(name: string, property: 'className', val: DataType['className']): void;
+	/**
+	 * Set a class name for a given data type
+	 *
+	 * @param name Data type name to set a property value for
+	 * @param property Name of the data type property to set
+	 * @param val Class name to set
+	 */
+	type(name: string, property: 'className', val: DataType['className']): void;
 
-// 	/**
-// 	 * Set the detection function(s) for a given data type
-// 	 *
-// 	 * @param name Data type name to set a property value for
-// 	 * @param property Name of the data type property to set
-// 	 * @param val Detection function / object to set
-// 	 */
-// 	type(name: string, property: 'detect', val: DataType['detect']): void;
+	/**
+	 * Set the detection function(s) for a given data type
+	 *
+	 * @param name Data type name to set a property value for
+	 * @param property Name of the data type property to set
+	 * @param val Detection function / object to set
+	 */
+	type(name: string, property: 'detect', val: DataType['detect']): void;
 
-// 	/**
-// 	 * Set the order functions for a given data type
-// 	 *
-// 	 * @param name Data type name to set a property value for
-// 	 * @param property Name of the data type property to set
-// 	 * @param val Object of functions to set
-// 	 */
-// 	type(name: string, property: 'order', val: DataType['order']): void;
+	/**
+	 * Set the order functions for a given data type
+	 *
+	 * @param name Data type name to set a property value for
+	 * @param property Name of the data type property to set
+	 * @param val Object of functions to set
+	 */
+	type(name: string, property: 'order', val: DataType['order']): void;
 
-// 	/**
-// 	 * Set a rendering function for a given data type
-// 	 *
-// 	 * @param name Data type name to set a property value for
-// 	 * @param property Name of the data type property to set
-// 	 * @param val Rendering function
-// 	 */
-// 	type(name: string, property: 'render', val: DataType['render']): void;
+	/**
+	 * Set a rendering function for a given data type
+	 *
+	 * @param name Data type name to set a property value for
+	 * @param property Name of the data type property to set
+	 * @param val Rendering function
+	 */
+	type(name: string, property: 'render', val: DataType['render']): void;
 
-// 	/**
-// 	 * Set a search data renderer for a given data type
-// 	 *
-// 	 * @param name Data type name to set a property value for
-// 	 * @param property Name of the data type property to set
-// 	 * @param val Function to set
-// 	 */
-// 	type(name: string, property: 'search', val: DataType['search']): void;
+	/**
+	 * Set a search data renderer for a given data type
+	 *
+	 * @param name Data type name to set a property value for
+	 * @param property Name of the data type property to set
+	 * @param val Function to set
+	 */
+	type(name: string, property: 'search', val: DataType['search']): void;
 
 
-// 	/**
-// 	 * Get the names of the registered data types DataTables can work with.
-// 	 */
-// 	types(): string[];
+	/**
+	 * Get the names of the registered data types DataTables can work with.
+	 */
+	types(): string[];
 
-// 	/**
-// 	 * Get the libraries that DataTables uses, or the global objects.
-// 	 *
-// 	 * @param type The library needed
-// 	 */
-// 	use(type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment'): any;
+	/**
+	 * Get the libraries that DataTables uses, or the global objects.
+	 *
+	 * @param type The library needed
+	 */
+	use(type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment'): any;
 
-// 	/**
-// 	 * Set the libraries that DataTables uses, or the global objects, with automatic
-// 	 * detection of what the library is. Used for module loading environments.
-// 	 */
-// 	use(library: any): void;
+	/**
+	 * Set the libraries that DataTables uses, or the global objects, with automatic
+	 * detection of what the library is. Used for module loading environments.
+	 */
+	use(library: any): void;
 
-// 	/**
-// 	 * Set the libraries that DataTables uses, or the global objects, explicity stating
-// 	 * what library is to be considered. Used for module loading environments.
-// 	 *
-// 	 * @param type Indicate the library that is being loaded.
-// 	 * @param library The library (e.g. Moment or Luxon)
-// 	 */
-// 	use(type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment', library: any): void;
+	/**
+	 * Set the libraries that DataTables uses, or the global objects, explicity stating
+	 * what library is to be considered. Used for module loading environments.
+	 *
+	 * @param type Indicate the library that is being loaded.
+	 * @param library The library (e.g. Moment or Luxon)
+	 */
+	use(type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment', library: any): void;
 
-// 	/**
-// 	 * Utils
-// 	 */
-// 	util: DataTablesStaticUtil;
+	/**
+	 * Utils
+	 */
+	util: DataTablesStaticUtil;
 
-// 	/**
-// 	 * Version number compatibility check function
-// 	 *
-// 	 * Usage:
-// 	 * $.fn.dataTable.versionCheck("1.10.0");
-// 	 * @param version Version string
-// 	 * @returns true if this version of DataTables is greater or equal to the required version, or
-// 	 *   false if this version of DataTables is not suitable
-// 	 */
-// 	versionCheck(version: string): boolean;
-// }
+	/**
+	 * Version number compatibility check function
+	 *
+	 * Usage:
+	 * $.fn.dataTable.versionCheck("1.10.0");
+	 * @param version Version string
+	 * @returns true if this version of DataTables is greater or equal to the required version, or
+	 *   false if this version of DataTables is not suitable
+	 */
+	versionCheck(version: string): boolean;
+}
 
 export type ApiStaticRegisterFn<T> = (this: Api<T>, ...args: any[]) => any;
 

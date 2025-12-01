@@ -26,7 +26,6 @@ Api.register<ApiStateOverload>( 'state()', function ( set?: StateLoad, ignoreTim
 		implementState( settings, setMutate, function(){} );
 	} );
 } );
-``
 
 Api.register<ApiState<any>['clear']>( 'state.clear()', function () {
 	return this.iterator( 'table', function ( settings ) {
@@ -35,13 +34,11 @@ Api.register<ApiState<any>['clear']>( 'state.clear()', function () {
 	} );
 } );
 
-
 Api.register<ApiState<any>['loaded']>( 'state.loaded()', function () {
 	return this.context.length ?
 		this.context[0].oLoadedState :
 		null;
 } );
-
 
 Api.register<ApiState<any>['save']>( 'state.save()', function () {
 	return this.iterator( 'table', function ( settings ) {

@@ -1,5 +1,5 @@
 import { features, legacy as featuresLegacy } from '../features/register';
-import Settings from '../model/settings';
+import Context from '../model/settings';
 import { check } from '../util/version';
 import classes from './classes';
 import pager from './paging';
@@ -8,7 +8,7 @@ import { store } from './types';
 
 export interface ExtOrder {
 	[name: string]:
-		| ((settings: Settings, colIdx: number, visIdx: number) => unknown[])
+		| ((settings: Context, colIdx: number, visIdx: number) => unknown[])
 		| undefined;
 }
 

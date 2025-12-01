@@ -1,10 +1,18 @@
 import { sortAttachListener, sortFlatten, sortResolve } from '../core/sort';
+import { Order, OrderState } from '../model/settings';
 import * as object from '../util/object';
 import Api from './Api';
+import { ApiColumnsMethods, ApiOrder, Api as ApiType, OrderFixed } from './interface';
 
-Api.register('order()', function (order, dir) {
-	var ctx = this.context;
-	var args = Array.prototype.slice.call(arguments);
+type ApiOrderOverload = (
+	this: ApiType,
+	order?: Order | Order[],
+	dir?: 'asc' | 'desc' | ''
+) => OrderState[] | ApiType | undefined;
+
+Api.register<ApiOrderOverload>('order()', function (order, dir) {
+	let ctx = this.context;
+	let args = Array.prototype.slice.call(arguments);
 
 	if (order === undefined) {
 		// get
@@ -12,7 +20,7 @@ Api.register('order()', function (order, dir) {
 	}
 
 	// set
-	if (typeof order === 'number') {
+	if (typeof order === 'number' && typeof dir === 'string') {
 		// Simple column / direction passed in
 		order = [[order, dir]];
 	}
@@ -23,30 +31,26 @@ Api.register('order()', function (order, dir) {
 	// otherwise a 2D array was passed in
 
 	return this.iterator('table', function (settings) {
-		var resolved = [];
+		let resolved: OrderState[] = [];
+
 		sortResolve(settings, resolved, order);
 
 		settings.aaSorting = resolved;
 	});
 });
 
-/**
- * Attach a sort listener to an element for a given column
- *
- * @param {node|jQuery|string} node Identifier for the element(s) to attach the
- *   listener to. This can take the form of a single DOM node, a jQuery
- *   collection of nodes or a jQuery selector which will identify the node(s).
- * @param {integer} column the column that a click on this node will sort on
- * @param {function} [callback] callback function when sort is run
- * @returns {DataTables.Api} this
- */
-Api.register('order.listener()', function (node, column, callback) {
+Api.register<ApiOrder['listener']>('order.listener()', function (node, column, callback) {
 	return this.iterator('table', function (settings) {
 		sortAttachListener(settings, node, '', column, callback);
 	});
 });
 
-Api.register('order.fixed()', function (set) {
+type ApiOrderFixedOverload = (
+	this: Api,
+	order?: OrderFixed
+) => OrderFixed | ApiType | undefined;
+
+Api.register<ApiOrderFixedOverload>('order.fixed()', function (set) {
 	if (!set) {
 		var ctx = this.context;
 		var fixed = ctx.length ? ctx[0].aaSortingFixed : undefined;
@@ -60,39 +64,50 @@ Api.register('order.fixed()', function (set) {
 });
 
 // Order by the selected column(s)
-Api.register(['columns().order()', 'column().order()'], function (dir) {
-	var that = this;
+Api.register<ApiColumnsMethods<any>['order']>(
+	[
+		'columns().order()',
+		'column().order()'
+	],
+	function (dir) {
+		var that = this;
 
-	if (!dir) {
-		return this.iterator(
-			'column',
-			function (settings, idx) {
-				var sort = sortFlatten(settings);
+		if (!dir) {
+			return this.iterator(
+				'column',
+				function (settings, idx) {
+					var sort = sortFlatten(settings);
 
-				for (var i = 0, iLen = sort.length; i < iLen; i++) {
-					if (sort[i].col === idx) {
-						return sort[i].dir;
+					for (var i = 0, iLen = sort.length; i < iLen; i++) {
+						if (sort[i].col === idx) {
+							return sort[i].dir;
+						}
 					}
-				}
 
-				return null;
-			},
-			1
-		);
-	}
-	else {
-		return this.iterator('table', function (settings, i) {
-			settings.aaSorting = that[i].map(function (col) {
-				return [col, dir];
+					return null;
+				},
+				true
+			);
+		}
+		else {
+			return this.iterator('table', function (settings, i) {
+				settings.aaSorting = that[i].map(function (col: number) {
+					return [col, dir];
+				});
 			});
-		});
+		}
 	}
-});
+);
 
-Api.registerPlural(
+type ApiColumnsOrderableOverload = (
+	this: ApiColumnsMethods<any>,
+	directions?: true
+) => ApiType<boolean> | ApiType<Array<string>>;
+
+Api.registerPlural<ApiColumnsOrderableOverload>(
 	'columns().orderable()',
 	'column().orderable()',
-	function (directions) {
+	function (directions?) {
 		return this.iterator(
 			'column',
 			function (settings, idx) {
@@ -100,7 +115,7 @@ Api.registerPlural(
 
 				return directions ? col.asSorting : col.bSortable;
 			},
-			1
+			true
 		);
 	}
 );

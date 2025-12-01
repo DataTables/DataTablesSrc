@@ -1,11 +1,12 @@
 import { columnIndexToVisible } from '../core/columns';
 import { getCellData, invalidate, setCellData } from '../core/data';
 import dom from '../dom';
+import Context from '../model/settings';
 import { flatten, pluckOrder, removeEmpty } from '../util/array';
 import * as is from '../util/is';
 import * as object from '../util/object';
 import Api from './Api';
-import { ApiCell, ApiCellMethods, ApiCells, ApiCellsMethods } from './interface';
+import { ApiCell, ApiCellMethods, ApiCells, ApiCellsMethods, ApiSelectorModifier, CellSelector } from './interface';
 import {
 	selector_first,
 	selector_opts,
@@ -13,7 +14,7 @@ import {
 	selector_run
 } from './selectors';
 
-var __cell_selector = function (settings, selector, opts) {
+var __cell_selector = function (settings: Context, selector: CellSelector, opts: ApiSelectorModifier) {
 	var data = settings.aoData;
 	var rows = selector_row_indexes(settings, opts);
 	var cells;
@@ -168,7 +169,7 @@ Api.register<ApiCells<any>>(
 
 				return a;
 			},
-			1
+			true
 		);
 
 		// There is currently only one extension which uses a cell selector extension
@@ -186,6 +187,19 @@ Api.register<ApiCells<any>>(
 		return cells;
 	}
 );
+
+Api.register<ApiCellsMethods<any>['every']>('cells().every()', function (fn) {
+	var opts = this.selector.opts;
+	var counter = 0;
+
+	return this.iterator('every', (settings, selectedIdx, tableIdx) => {
+		let inst = this.cell(selectedIdx, opts);
+
+		fn.call(inst, inst[0][0].row, inst[0][0].column, tableIdx, counter);
+
+		counter++;
+	});
+});
 
 Api.registerPlural<ApiCellsMethods<any>['nodes']>(
 	'cells().nodes()',
@@ -217,12 +231,16 @@ Api.registerPlural<ApiCellsMethods<any>['cache']>(
 	'cells().cache()',
 	'cell().cache()',
 	function (type) {
-		type = type === 'search' ? '_aFilterData' : '_aSortData';
+		let prop: '_aFilterData' | '_aSortData' = type === 'search'
+			? '_aFilterData'
+			: '_aSortData';
 
 		return this.iterator(
 			'cell',
 			function (settings, row, column) {
-				return settings.aoData[row][type][column];
+				return settings.aoData[row][prop]
+					? settings.aoData[row][prop][column]
+					: null;
 			},
 			true
 		);

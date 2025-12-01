@@ -2,7 +2,7 @@ import { headerLayout } from '../core/draw';
 import dom from '../dom';
 import Context from '../model/settings';
 import Api from './Api';
-import { ApiCaption, ApiTablesMethods, Api as ApiType } from './interface';
+import { ApiCaption, ApiTableMethods, ApiTablesMethods, Api as ApiType, TableSelector } from './interface';
 import { selector_first } from './selectors';
 import { arrayApply } from './support';
 
@@ -14,9 +14,9 @@ import { arrayApply } from './support';
  * @param a Array of DataTables settings objects to be filtered
  * @return Selected table notes
  */
-export function table_selector(selector?, a?) {
+function table_selector(selector: TableSelector, a: Context[]): HTMLElement[] | Context[] {
 	if (Array.isArray(selector)) {
-		var result = [];
+		var result: any[] = [];
 
 		selector.forEach(function (sel) {
 			var inner = table_selector(sel, a);
@@ -24,9 +24,7 @@ export function table_selector(selector?, a?) {
 			arrayApply(result, inner);
 		});
 
-		return result.filter(function (item) {
-			return item;
-		});
+		return result.filter(item => !!item);
 	}
 
 	// Integer is used to pick out a table by index
@@ -67,16 +65,14 @@ Api.register<ApiType['table']>('table()', function (selector) {
 	['header', 'header', 'nTHead'],
 	['footer', 'footer', 'nTFoot'],
 ].forEach(function (item) {
-	Api.registerPlural(
+	Api.registerPlural<(this: ApiType) => ApiType<HTMLElement>>(
 		'tables().' + item[0] + '()',
 		'table().' + item[1] + '()',
 		function () {
 			return this.iterator(
 				'table',
-				function (ctx: Context) {
-					return ctx[item[2]];
-				},
-				1
+				ctx => ctx[item[2] as 'nTable' | 'nTBody' | 'nTHead' | 'nTFoot'],
+				true
 			);
 		}
 	);
@@ -87,24 +83,27 @@ Api.register<ApiType['table']>('table()', function (selector) {
 	['header', 'aoHeader'],
 	['footer', 'aoFooter'],
 ].forEach(function (item) {
-	Api.register('table().' + item[0] + '.structure()', function (selector) {
-		var indexes = this.columns(selector).indexes().flatten().toArray();
-		var ctx = this.context[0];
-		var structure = headerLayout(ctx, ctx[item[1]], indexes)!;
+	Api.register<ApiTableMethods<any>['header']['structure']>(
+		'table().' + item[0] + '.structure()',
+		function (selector?) {
+			var indexes = this.columns(selector).indexes().flatten().toArray();
+			var ctx = this.context[0];
+			var structure = headerLayout(ctx, ctx[item[1] as 'aoHeader' | 'aoFooter'], indexes)!;
 
-		// The structure is in column index order - but from this method we want the return to be
-		// in the columns() selector API order. In order to do that we need to map from one form
-		// to the other
-		var orderedIndexes = indexes.slice().sort(function (a, b) {
-			return a - b;
-		});
-
-		return structure.map(function (row) {
-			return indexes.map(function (colIdx) {
-				return row[orderedIndexes.indexOf(colIdx)];
+			// The structure is in column index order - but from this method we
+			// want the return to be in the columns() selector API order. In
+			// order to do that we need to map from one form to the other
+			var orderedIndexes = indexes.slice().sort(function (a, b) {
+				return a - b;
 			});
-		});
-	});
+
+			return structure.map(function (row) {
+				return indexes.map(function (colIdx) {
+					return row[orderedIndexes.indexOf(colIdx)]!;
+				});
+			});
+		}
+	);
 });
 
 Api.registerPlural<ApiTablesMethods<any>['containers']>(

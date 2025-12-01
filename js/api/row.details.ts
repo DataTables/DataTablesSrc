@@ -5,12 +5,6 @@ import util from '../util';
 import Api from './Api';
 import { callbackFire } from './support';
 
-declare module './Api' {
-	interface Api {
-		state: any;
-	}
-}
-
 dom.s(document).on('plugin-init.dt', function (e, context) {
 	var api = new Api(context);
 

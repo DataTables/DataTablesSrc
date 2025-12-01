@@ -1,8 +1,11 @@
 import { sort } from '../core/sort';
 import { Dom } from '../dom';
 import ext from '../ext/index';
+import Context from '../model/settings';
 import { range, unique } from '../util/array';
 import * as object from '../util/object';
+import Api from './Api';
+import { ApiSelectorModifier } from './interface';
 import { dataSource } from './support';
 
 export function selector_run(type, selector, selectFn, settings, opts) {
@@ -54,7 +57,7 @@ export function selector_run(type, selector, selectFn, settings, opts) {
 	return unique(out);
 }
 
-export function selector_opts(opts) {
+export function selector_opts(opts?: ApiSelectorModifier): ApiSelectorModifier {
 	if (!opts) {
 		opts = {};
 	}
@@ -78,7 +81,7 @@ export function selector_opts(opts) {
 }
 
 // Reduce the API instance to the first item found
-export function selector_first(old) {
+export function selector_first(old: Api) {
 	// Need to specify the target class as singular since `old` has the context
 	// of the plural
 	var inst = old.inst(old.context[0], null, old._newClass.replace(/s$/, ''));
@@ -99,7 +102,7 @@ export function selector_first(old) {
 	return inst;
 }
 
-export function selector_row_indexes(settings, opts) {
+export function selector_row_indexes(settings: Context, opts: ApiSelectorModifier) {
 	var i,
 		iLen,
 		tmp,

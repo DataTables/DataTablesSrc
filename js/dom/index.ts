@@ -4,12 +4,13 @@ import { PlainObject } from '../util/types';
 import * as events from './events';
 
 type AttributeTypes = string | number | boolean | null;
-type TSelector =
+type DomSelector =
 	| string
+	| Node
 	| Element
 	| HTMLElement
 	| Document
-	| Array<TSelector>
+	| Array<DomSelector>
 	| null;
 type TDimensionInclude =
 	| 'outer' // alias to withBorder
@@ -37,7 +38,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param selector Items to select
 	 * @returns Dom instance for manipulating the selected items
 	 */
-	static selector<R extends HTMLElement = HTMLElement>(selector: TSelector) {
+	static selector<R extends HTMLElement = HTMLElement>(selector: DomSelector) {
 		return new Dom<R>(selector);
 	}
 
@@ -50,7 +51,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *
 	 * @param selector
 	 */
-	constructor(selector?: TSelector) {
+	constructor(selector?: DomSelector) {
 		if (selector) {
 			if (typeof selector === 'string') {
 				let elements = Array.from(document.querySelectorAll(selector));
@@ -144,7 +145,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *
 	 * @param selector
 	 */
-	appendTo(selector: TSelector | Dom) {
+	appendTo(selector: DomSelector | Dom) {
 		let inst = selector instanceof Dom ? selector : new Dom(selector);
 
 		inst.append(this);
@@ -540,7 +541,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *   match to be selected.
 	 * @returns New Dom instance containing the filters elements
 	 */
-	filter(filter?: string | HTMLElement | HTMLElement[]) {
+	filter(filter?: string | HTMLElement | HTMLElement[] | ArrayLike<HTMLElement>) {
 		return this.map(el => {
 			if (filter === undefined) {
 				return el;
@@ -979,7 +980,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *
 	 * @param selector
 	 */
-	prependTo(selector: TSelector | Dom) {
+	prependTo(selector: DomSelector | Dom) {
 		if (selector instanceof Dom) {
 			selector.prepend(this);
 		}

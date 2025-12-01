@@ -15,7 +15,7 @@ import { pluck, pluckOrder, range, removeEmpty } from '../util/array';
 import { intVal } from '../util/conv';
 import * as is from '../util/is';
 import Api from './Api';
-import { ApiColumn, ApiColumns, ApiColumnsMethods } from './interface';
+import { ApiColumn, ApiColumns, ApiColumnsMethods, ApiSelectorModifier, ColumnSelector } from './interface';
 import {
 	selector_first,
 	selector_opts,
@@ -294,13 +294,19 @@ var __setColumnVis = function (settings, column, vis) {
 	return true;
 };
 
-Api.register('columns()', function (selector, opts?) {
+type ApiColumnsOverload = (
+	this: Api,
+	selector?: ColumnSelector | ApiSelectorModifier,
+	modifier?: ApiSelectorModifier
+) => Api;
+
+Api.register<ApiColumnsOverload>('columns()', function (selector?, opts?) {
 	// argument shifting
 	if (selector === undefined) {
 		selector = '';
 	}
 	else if (is.plainObject(selector)) {
-		opts = selector;
+		opts = selector as ApiSelectorModifier;
 		selector = '';
 	}
 
@@ -319,6 +325,19 @@ Api.register('columns()', function (selector, opts?) {
 	inst.selector.opts = opts;
 
 	return inst;
+});
+
+Api.register<ApiColumnsMethods<any>['every']>('columns().every()', function (fn) {
+	var opts = this.selector.opts;
+	var counter = 0;
+
+	return this.iterator('every', (settings, selectedIdx, tableIdx) => {
+		let inst = this.column(selectedIdx, opts);
+
+		fn.call(inst, selectedIdx, tableIdx, counter);
+
+		counter++;
+	});
 });
 
 Api.registerPlural<ApiColumnsMethods<any>['header']>(

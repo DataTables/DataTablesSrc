@@ -3,6 +3,7 @@ import { sortDisplay } from '../core/sort';
 import dom from '../dom';
 import util from '../util';
 import Api from './Api';
+import { ApiRow, ApiRowMethods, ApiRowsMethods, ApiSelectorModifier, Api as ApiType, RowSelector } from './interface';
 import {
 	selector_first,
 	selector_opts,
@@ -10,12 +11,6 @@ import {
 	selector_run,
 } from './selectors';
 import { arrayApply, lengthOverflow } from './support';
-
-declare module './Api' {
-	interface Api {
-		rows: any;
-	}
-}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Rows
@@ -130,6 +125,8 @@ function row_selector(settings, selector, opts) {
 	return matched;
 }
 
+
+
 Api.register('rows()', function (selector, opts) {
 	// argument shifting
 	if (selector === undefined) {
@@ -157,51 +154,64 @@ Api.register('rows()', function (selector, opts) {
 	return inst;
 });
 
-Api.register('rows().nodes()', function () {
+Api.register<ApiRowsMethods<any>['every']>('rows().every()', function (fn) {
+	var opts = this.selector.opts;
+	var counter = 0;
+
+	return this.iterator('every', (settings, selectedIdx, tableIdx) => {
+		let inst = this.row(selectedIdx, opts);
+
+		fn.call(inst, selectedIdx, tableIdx, counter);
+
+		counter++;
+	});
+});
+
+Api.register<ApiRowsMethods<any>['nodes']>('rows().nodes()', function () {
 	return this.iterator(
 		'row',
 		function (settings, row) {
 			return settings.aoData[row].nTr || undefined;
 		},
-		1
+		true
 	);
 });
 
-Api.register('rows().data()', function () {
+Api.register<ApiRowsMethods<any>['data']>('rows().data()', function () {
 	return this.iterator(
 		true,
 		'rows',
 		function (settings, rows) {
 			return util.array.pluckOrder(settings.aoData, rows, '_aData');
 		},
-		1
+		true
 	);
 });
 
-Api.registerPlural('rows().cache()', 'row().cache()', function (type) {
+Api.registerPlural<ApiRowsMethods<any>['cache']>('rows().cache()', 'row().cache()', function (type) {
 	return this.iterator(
 		'row',
 		function (settings, row) {
 			var r = settings.aoData[row];
 			return type === 'search' ? r._aFilterData : r._aSortData;
 		},
-		1
+		true
 	);
 });
 
-Api.registerPlural('rows().invalidate()', 'row().invalidate()', function (src) {
+Api.registerPlural<ApiRowsMethods<any>['invalidate']>('rows().invalidate()', 'row().invalidate()', function (src) {
 	return this.iterator('row', function (settings, row) {
 		invalidate(settings, row, src);
 	});
 });
 
-Api.registerPlural('rows().indexes()', 'row().index()', function () {
+Api.registerPlural<ApiRowsMethods<any>['indexes']>('rows().indexes()', 'row().index()', function () {
 	return this.iterator(
 		'row',
 		function (settings, row) {
 			return row;
 		},
-		1
+		true
 	);
 });
 
@@ -282,14 +292,17 @@ Api.register('rows.add()', function (rows) {
 	return modRows;
 });
 
-/**
- *
- */
-Api.register('row()', function (selector, opts) {
+type ApiRowOverload = (
+	this: ApiType,
+	selector?: RowSelector<any>,
+	modifier?: ApiSelectorModifier
+) => ApiRowMethods<any>;
+
+Api.register<ApiRowOverload>('row()', function (selector?, opts?) {
 	return selector_first(this.rows(selector, opts));
 });
 
-Api.register('row().data()', function (data) {
+Api.register<ApiRowMethods<any>['data']>('row().data()', function (data?) {
 	var ctx = this.context;
 
 	if (data === undefined) {
@@ -314,7 +327,7 @@ Api.register('row().data()', function (data) {
 	return this;
 });
 
-Api.register('row().node()', function () {
+Api.register<ApiRowMethods<any>['node']>('row().node()', function () {
 	var ctx = this.context;
 
 	if (ctx.length && this.length && this[0].length) {
@@ -328,11 +341,10 @@ Api.register('row().node()', function () {
 	return null;
 });
 
-Api.register('row.add()', function (row) {
+Api.register<ApiRow<any>['add']>('row.add()', function (row: any) {
 	// Allow a jQuery object to be passed in - only a single row is added from
 	// it though - the first element in the set
-	if (row && row.fn && (row as any).length) {
-		// TODO typing
+	if (row && row.fn && row.length) {
 		row = row[0];
 	}
 

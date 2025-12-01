@@ -37,13 +37,13 @@ Api.register<ApiType['$']>('$()', function (selector, opts) {
 		// Add the `dt` namespace automatically if it isn't already present
 		args[0] = args[0]
 			.split(/\s/)
-			.map(function (e) {
+			.map(function (e: string) {
 				return !e.match(/\.dt\b/) ? e + '.dt' : e;
 			})
 			.join(' ');
 
 		var inst = dom.s(this.tables().nodes());
-		inst[key].apply(inst, args);
+		inst[key as 'on' | 'one' | 'off'].apply(inst, args);
 
 		return this;
 	});
@@ -221,29 +221,6 @@ Api.register<ApiType['destroy']>('destroy()', function (remove) {
 		if (idx !== -1) {
 			ext.settings.splice(idx, 1);
 		}
-	});
-});
-
-// Add the `every()` method for rows, columns and cells in a compact form
-['column', 'row', 'cell'].forEach(type => {
-	Api.register(type + 's().every()', function (fn) {
-		var opts = this.selector.opts;
-		var api = this;
-		var inst;
-		var counter = 0;
-
-		return this.iterator('every', function (settings, selectedIdx, tableIdx) {
-			inst = api[type](selectedIdx, opts);
-
-			if (type === 'cell') {
-				fn.call(inst, inst[0][0].row, inst[0][0].column, tableIdx, counter);
-			}
-			else {
-				fn.call(inst, selectedIdx, tableIdx, counter);
-			}
-
-			counter++;
-		});
 	});
 });
 

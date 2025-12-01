@@ -1,8 +1,18 @@
 import { filterComplete } from '../core/filter';
+import { SearchInput, SearchOptions } from '../model/search';
 import * as object from '../util/object';
 import Api from './Api';
+import { Api as ApiType } from './interface';
 
-Api.register('search()', function (input, regex, smart, caseInsen) {
+type ApiSearchOverload = (
+	this: ApiType,
+	input?: SearchInput,
+	regex?: boolean | SearchOptions,
+	smart?: boolean,
+	caseInsen?: boolean
+) => ApiType | SearchInput | undefined;
+
+Api.register<ApiSearchOverload>('search()', function(input?, regex?, smart?, caseInsen?) {
 	var ctx = this.context;
 
 	if (input === undefined) {
@@ -40,7 +50,13 @@ Api.register('search()', function (input, regex, smart, caseInsen) {
 	});
 });
 
-Api.register('search.fixed()', function (name, search) {
+type ApiSearchFixedOverload = (
+	this: ApiType,
+	name?: string,
+	search?: SearchInput
+) => Api | SearchInput | undefined;
+
+Api.register<ApiSearchFixedOverload>('search.fixed()', function (name, search) {
 	var ret = this.iterator(true, 'table', function (settings) {
 		var fixed = settings.searchFixed;
 
@@ -63,7 +79,7 @@ Api.register('search.fixed()', function (name, search) {
 	return name !== undefined && search === undefined ? ret[0] : ret;
 });
 
-Api.registerPlural(
+Api.registerPlural<ApiSearchOverload>(
 	'columns().search()',
 	'column().search()',
 	function (input, regex, smart, caseInsen) {
@@ -101,7 +117,7 @@ Api.registerPlural(
 	}
 );
 
-Api.register(
+Api.register<ApiSearchFixedOverload>(
 	['columns().search.fixed()', 'column().search.fixed()'],
 	function (name, search) {
 		var ret = this.iterator(true, 'column', function (settings, colIdx) {
