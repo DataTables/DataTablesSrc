@@ -300,23 +300,27 @@ type ApiColumnsOverload = (
 	modifier?: ApiSelectorModifier
 ) => Api;
 
-Api.register<ApiColumnsOverload>('columns()', function (selector?, opts?) {
+Api.register<ApiColumnsOverload>('columns()', function (arg1?, arg2?) {
+	let selector: ColumnSelector;
+	let opts: ApiSelectorModifier;
+
 	// argument shifting
-	if (selector === undefined) {
+	if (arg1 === undefined) {
 		selector = '';
 	}
-	else if (is.plainObject(selector)) {
-		opts = selector as ApiSelectorModifier;
+	else if (is.plainObject(arg1)) {
 		selector = '';
+		arg2 = arg1 as ApiSelectorModifier;
+	}
+	else {
+		selector = arg1 as ColumnSelector;
 	}
 
-	opts = selector_opts(opts);
+	opts = selector_opts(arg2);
 
-	var inst = this.iterator(
+	let inst = this.iterator(
 		'table',
-		function (settings) {
-			return __column_selector(settings, selector, opts);
-		},
+		settings => __column_selector(settings, selector, opts),
 		true
 	);
 
@@ -661,6 +665,12 @@ Api.register<ApiColumn<any>['index']>('column.index()', function (type, idx) {
 	return -1;
 });
 
-Api.register('column()', function (selector, opts) {
+type ApiColumnOverload = (
+	this: Api,
+	selector: ColumnSelector,
+	opts?: ApiSelectorModifier
+) => ApiColumnsMethods<any>;
+
+Api.register<ApiColumnOverload>('column()', function (selector, opts?) {
 	return selector_first(this.columns(selector, opts));
 });

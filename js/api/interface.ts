@@ -128,6 +128,11 @@ export interface DataType {
 
 export interface Api<T=any> {
 	/**
+	 * @internal
+	 */
+	_newClass: string;
+
+	/**
 	 * API should be array-like
 	 */
 	[key: number]: any;
@@ -541,6 +546,20 @@ export interface Api<T=any> {
 	 * @returns DataTables API instance with the settings objects for the tables in the context in the result set
 	 */
 	settings(): Api<Context>;
+
+	/**
+	 * @ignore Internal
+	 */
+	selector: {
+		/** Row selector used in this instance (if any) */
+		rows: RowSelector<T> | null;
+
+		/** Column selector used in this instance (if any) */
+		cols: ColumnSelector | null;
+
+		/** Options modifier used in this instance (if any) */
+		opts: ApiSelectorModifier | null;
+	};
 
 	/**
 	 * Remove the first item from an API instance's result set.
@@ -1468,7 +1487,7 @@ export interface ApiColumns<T> {
 	 * 
 	 * @returns DataTables API instance.
 	 */
-	adjust(): Api<T>;
+	adjust(this: Api): Api<T>;
 }
 
 

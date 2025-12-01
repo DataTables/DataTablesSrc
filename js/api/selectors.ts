@@ -4,8 +4,7 @@ import ext from '../ext/index';
 import Context from '../model/settings';
 import { range, unique } from '../util/array';
 import * as object from '../util/object';
-import Api from './Api';
-import { ApiSelectorModifier } from './interface';
+import { ApiSelectorModifier, Api as ApiType } from './interface';
 import { dataSource } from './support';
 
 export function selector_run(type, selector, selectFn, settings, opts) {
@@ -81,10 +80,10 @@ export function selector_opts(opts?: ApiSelectorModifier): ApiSelectorModifier {
 }
 
 // Reduce the API instance to the first item found
-export function selector_first(old: Api) {
+export function selector_first<R extends ApiType>(old: ApiType) {
 	// Need to specify the target class as singular since `old` has the context
 	// of the plural
-	var inst = old.inst(old.context[0], null, old._newClass.replace(/s$/, ''));
+	var inst = old.inst<R>(old.context[0], null, old._newClass.replace(/s$/, ''));
 
 	// Use a push rather than passing to the constructor, since it will
 	// merge arrays down automatically, which isn't what is wanted here
