@@ -5,7 +5,7 @@ import { initComplete } from '../core/init';
 import { processingDisplay } from '../core/processing';
 import Context from '../model/settings';
 import * as is from '../util/is';
-import Api from './Api';
+import Api, { register } from './Api';
 import { AjaxMethods, ApiAjax } from './interface';
 import { dataSource } from './support';
 
@@ -53,7 +53,7 @@ const __reload = function (
 	}
 };
 
-Api.register<ApiAjax['json']>('ajax.json()', function () {
+register<ApiAjax['json']>('ajax.json()', function () {
 	var ctx = this.context;
 
 	if (ctx.length > 0) {
@@ -63,7 +63,7 @@ Api.register<ApiAjax['json']>('ajax.json()', function () {
 	// else return undefined;
 });
 
-Api.register<ApiAjax['params']>('ajax.params()', function () {
+register<ApiAjax['params']>('ajax.params()', function () {
 	var ctx = this.context;
 
 	if (ctx.length > 0) {
@@ -73,7 +73,7 @@ Api.register<ApiAjax['params']>('ajax.params()', function () {
 	// else return undefined;
 });
 
-Api.register<ApiAjax['reload']>(
+register<ApiAjax['reload']>(
 	'ajax.reload()',
 	function (callback: TReloadCallback, resetPaging: boolean) {
 		return this.iterator('table', function (settings: Context) {
@@ -82,7 +82,7 @@ Api.register<ApiAjax['reload']>(
 	}
 );
 
-Api.register<ApiAjax['url']>('ajax.url()', function (url?: string) {
+register<ApiAjax['url']>('ajax.url()', function (url?: string) {
 	var ctx = this.context;
 
 	if (url === undefined) {
@@ -90,7 +90,7 @@ Api.register<ApiAjax['url']>('ajax.url()', function (url?: string) {
 		if (ctx.length === 0) {
 			return undefined;
 		}
-		
+
 		let context = ctx[0];
 
 		return is.plainObject(context.ajax) ? context.ajax.url : context.ajax;
@@ -111,7 +111,7 @@ Api.register<ApiAjax['url']>('ajax.url()', function (url?: string) {
 	);
 });
 
-Api.register<AjaxMethods['load']>(
+register<AjaxMethods['load']>(
 	'ajax.url().load()',
 	function (callback: TReloadCallback, resetPaging: boolean) {
 		// Same as a reload, but makes sense to present it for easy access after a

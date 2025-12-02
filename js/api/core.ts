@@ -3,11 +3,11 @@ import { sortingClasses } from '../core/sort';
 import dom from '../dom';
 import ext from '../ext/index';
 import util from '../util';
-import Api from './Api';
+import Api, { register } from './Api';
 import { Api as ApiType } from './interface';
 import { callbackFire, log } from './support';
 
-Api.register<ApiType['$']>('$()', function (selector, opts) {
+register<ApiType['$']>('$()', function (selector, opts) {
 	let jq = util.external('jq');
 
 	if (!jq) {
@@ -31,7 +31,7 @@ Api.register<ApiType['$']>('$()', function (selector, opts) {
 
 // jQuery functions to operate on the tables
 ['on', 'one', 'off'].forEach(key => {
-	Api.register(key + '()', function (/* event, handler */) {
+	register(key + '()', function (/* event, handler */) {
 		var args = Array.prototype.slice.call(arguments);
 
 		// Add the `dt` namespace automatically if it isn't already present
@@ -49,42 +49,45 @@ Api.register<ApiType['$']>('$()', function (selector, opts) {
 	});
 });
 
-Api.register<ApiType['clear']>('clear()', function () {
+register<ApiType['clear']>('clear()', function () {
 	return this.iterator('table', function (settings) {
 		clearTable(settings);
 	});
 });
 
-Api.register<ApiType['error']>('error()', function (msg: string) {
+register<ApiType['error']>('error()', function (msg: string) {
 	return this.iterator('table', function (settings) {
 		log(settings, 0, msg);
 	});
 });
 
-Api.register<ApiType['settings']>('settings()', function () {
+register<ApiType['settings']>('settings()', function () {
 	return new Api(this.context, this.context);
 });
 
-Api.register<ApiType['init']>('init()', function () {
+register<ApiType['init']>('init()', function () {
 	var ctx = this.context;
 	return ctx.length ? ctx[0].oInit : null;
 });
 
-Api.register<ApiType['data']>('data()', function () {
+register<ApiType['data']>('data()', function () {
 	return this.iterator('table', function (settings) {
 		return util.array.pluck(settings.aoData, '_aData');
 	}).flatten();
 });
 
-Api.register<ApiType['trigger']>('trigger()', function (name, args?, bubbles?) {
+register<ApiType['trigger']>('trigger()', function (name, args?, bubbles?) {
 	return this.iterator('table', function (settings) {
 		return callbackFire(settings, null, name, args, bubbles);
 	}).flatten();
 });
 
-type ApiReadyMethod = ((this: Api, fn?: ((this: Api) => void)) => Api | boolean);
+type ApiReadyMethod = (
+	this: ApiType,
+	fn?: (this: ApiType) => void
+) => ApiType | boolean;
 
-Api.register<ApiReadyMethod>('ready()', function (fn?) {
+register<ApiReadyMethod>('ready()', function (fn?) {
 	var ctx = this.context;
 
 	// Get status of first table
@@ -108,7 +111,7 @@ Api.register<ApiReadyMethod>('ready()', function (fn?) {
 	});
 });
 
-Api.register<ApiType['destroy']>('destroy()', function (remove) {
+register<ApiType['destroy']>('destroy()', function (remove) {
 	remove = remove || false;
 
 	return this.iterator('table', function (settings) {
@@ -136,7 +139,7 @@ Api.register<ApiType['destroy']>('destroy()', function (remove) {
 
 		// If not being removed from the document, make all columns visible
 		if (!remove) {
-			new Api(settings).columns().visible(true);
+			new Api(settings).columns().visible();
 		}
 
 		// Container width change listener
@@ -226,7 +229,7 @@ Api.register<ApiType['destroy']>('destroy()', function (remove) {
 
 // i18n method for extensions to be able to use the language object from the
 // DataTable
-Api.register<ApiType['i18n']>('i18n()', function (token, def, plural) {
+register<ApiType['i18n']>('i18n()', function (token, def, plural) {
 	var ctx = this.context[0];
 	var resolved = util.get(token)(ctx.oLanguage);
 

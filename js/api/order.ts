@@ -1,16 +1,16 @@
 import { sortAttachListener, sortFlatten, sortResolve } from '../core/sort';
 import { Order, OrderState } from '../model/settings';
 import * as object from '../util/object';
-import Api from './Api';
-import { ApiColumnsMethods, ApiOrder, Api as ApiType, OrderFixed } from './interface';
+import { register, registerPlural } from './Api';
+import { Api, ApiColumnsMethods, ApiOrder, OrderFixed } from './interface';
 
 type ApiOrderOverload = (
-	this: ApiType,
+	this: Api,
 	order?: Order | Order[],
 	dir?: 'asc' | 'desc' | ''
-) => OrderState[] | ApiType | undefined;
+) => OrderState[] | Api | undefined;
 
-Api.register<ApiOrderOverload>('order()', function (order, dir) {
+register<ApiOrderOverload>('order()', function (order, dir) {
 	let ctx = this.context;
 	let args = Array.prototype.slice.call(arguments);
 
@@ -39,18 +39,21 @@ Api.register<ApiOrderOverload>('order()', function (order, dir) {
 	});
 });
 
-Api.register<ApiOrder['listener']>('order.listener()', function (node, column, callback) {
-	return this.iterator('table', function (settings) {
-		sortAttachListener(settings, node, '', column, callback);
-	});
-});
+register<ApiOrder['listener']>(
+	'order.listener()',
+	function (node, column, callback) {
+		return this.iterator('table', function (settings) {
+			sortAttachListener(settings, node, '', column, callback);
+		});
+	}
+);
 
 type ApiOrderFixedOverload = (
 	this: Api,
 	order?: OrderFixed
-) => OrderFixed | ApiType | undefined;
+) => OrderFixed | Api | undefined;
 
-Api.register<ApiOrderFixedOverload>('order.fixed()', function (set) {
+register<ApiOrderFixedOverload>('order.fixed()', function (set) {
 	if (!set) {
 		var ctx = this.context;
 		var fixed = ctx.length ? ctx[0].aaSortingFixed : undefined;
@@ -64,11 +67,8 @@ Api.register<ApiOrderFixedOverload>('order.fixed()', function (set) {
 });
 
 // Order by the selected column(s)
-Api.register<ApiColumnsMethods<any>['order']>(
-	[
-		'columns().order()',
-		'column().order()'
-	],
+register<ApiColumnsMethods<any>['order']>(
+	['columns().order()', 'column().order()'],
 	function (dir) {
 		var that = this;
 
@@ -102,9 +102,9 @@ Api.register<ApiColumnsMethods<any>['order']>(
 type ApiColumnsOrderableOverload = (
 	this: ApiColumnsMethods<any>,
 	directions?: true
-) => ApiType<boolean> | ApiType<Array<string>>;
+) => Api<boolean> | Api<Array<string>>;
 
-Api.registerPlural<ApiColumnsOrderableOverload>(
+registerPlural<ApiColumnsOrderableOverload>(
 	'columns().orderable()',
 	'column().orderable()',
 	function (directions?) {

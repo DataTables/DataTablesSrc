@@ -2,7 +2,7 @@ import dom from '../dom';
 import ext from '../ext/index';
 import Context from '../model/settings';
 import util from '../util';
-import { Api } from './interface';
+import { Api as ApiType, InstSelector } from './interface';
 import { selector_row_indexes } from './selectors';
 import { arrayApply } from './support';
 
@@ -13,8 +13,8 @@ import { arrayApply } from './support';
 const __arrayProto = Array.prototype;
 
 export interface ApiConstructor {
-	new (content: any, data?: any): Api;
-	(content: any, data?: any): Api;
+	new (content: InstSelector, data?: any): ApiType;
+	(content: InstSelector, data?: any): ApiType;
 
 	register<T extends Function = Function>(name: string | string[], fn: T): void;
 
@@ -52,11 +52,11 @@ util.object.assign(Api.prototype, {
 
 	context: [] as Context[], // array of table settings objects
 
-	count() {
+	count(this: ApiType) {
 		return this.flatten().length;
 	},
 
-	each(fn) {
+	each(fn: (value: any, index: number, dt: ApiType) => void) {
 		for (var i = 0, iLen = this.length; i < iLen; i++) {
 			fn.call(this, this[i], i, this);
 		}
@@ -64,38 +64,38 @@ util.object.assign(Api.prototype, {
 		return this;
 	},
 
-	eq(idx) {
+	eq(idx: number) {
 		var ctx = this.context;
 
 		// Note that `eq` returns an API instance, not a nested class instance
 		return ctx.length > idx ? this.inst(ctx[idx], this[idx], 'Api') : null;
 	},
 
-	filter(fn) {
+	filter(fn: (value: any, index: number, dt: ApiType) => boolean) {
 		var a = __arrayProto.filter.call(this, fn, this);
 
 		return this.inst(this.context, a);
 	},
 
 	flatten() {
-		var a = [];
+		var a: any[] = [];
 
 		return this.inst(this.context, a.concat.apply(a, this.toArray()));
 	},
 
-	get(idx) {
+	get(idx: number) {
 		return this[idx];
 	},
 
 	join: __arrayProto.join,
 
-	includes(find) {
+	includes(find: any) {
 		return this.indexOf(find) === -1 ? false : true;
 	},
 
 	indexOf: __arrayProto.indexOf,
 
-	inst(context, data?, newClass?) {
+	inst(context: InstSelector, data?: any, newClass?: string) {
 		let name = newClass || this._newClass;
 		let inst = Api;
 
@@ -106,7 +106,7 @@ util.object.assign(Api.prototype, {
 		return new inst(context, data);
 	},
 
-	iterator(flatten, type, fn, alwaysNew) {
+	iterator(flatten: boolean, type: string, fn: Function, alwaysNew?: boolean) {
 		var a: any[] = [],
 			ret,
 			i,
@@ -121,8 +121,8 @@ util.object.assign(Api.prototype, {
 
 		// Argument shifting
 		if (typeof flatten === 'string') {
-			alwaysNew = fn;
-			fn = type;
+			alwaysNew = fn as unknown as boolean;
+			fn = type as unknown as Function;
 			type = flatten;
 			flatten = false;
 		}
@@ -196,18 +196,16 @@ util.object.assign(Api.prototype, {
 
 	length: 0,
 
-	map(fn) {
+	map(fn: (value: any, index: number, dt: ApiType) => any) {
 		var a = __arrayProto.map.call(this, fn, this);
 
 		return this.inst(this.context, a);
 	},
 
-	pluck(prop) {
+	pluck(prop: string | number) {
 		var fn = util.get(prop);
 
-		return this.map(function (el) {
-			return fn(el);
-		});
+		return this.map((src: any) => fn(src));
 	},
 
 	pop: __arrayProto.pop,
@@ -260,7 +258,7 @@ util.object.assign(Api.prototype, {
 	unshift: __arrayProto.unshift
 });
 
-Api.register = function <T extends Function = Function>(
+export function register<T extends Function = Function>(
 	name: string | string[],
 	func: T
 ) {
@@ -320,9 +318,9 @@ Api.register = function <T extends Function = Function>(
 			});
 		}
 	}
-};
+}
 
-Api.registerPlural = function <T extends Function = Function>(
+export function registerPlural<T extends Function = Function>(
 	pluralName: string,
 	singularName: string,
 	func: T
@@ -349,7 +347,10 @@ Api.registerPlural = function <T extends Function = Function>(
 		// Non-API return - just fire it back
 		return ret;
 	});
-};
+}
+
+Api.register = register;
+Api.registerPlural = registerPlural;
 
 export default Api;
 
@@ -411,7 +412,7 @@ function createApiClass(name: string) {
  * @param className The name of the instance to extend
  * @returns void
  */
-function extendApi(api, className) {
+function extendApi(api: any, className: string) {
 	let props = properties[className];
 
 	if (!props) {
@@ -510,7 +511,6 @@ function getPrototypeNames(name: string) {
  * object where possible.
  *
  * @param mixed DataTable identifier. Can be one of:
- *
  *   * `string` - jQuery selector. Any DataTables' matching the given selector
  *     with be found and used.
  *   * `node` - `TABLE` node which has already been formed into a DataTable.
@@ -520,8 +520,10 @@ function getPrototypeNames(name: string) {
  * @return Matching DataTables settings objects. `null` or `undefined` is
  *   returned if no matching DataTable is found.
  */
-function toContext(mixed) {
-	var idx, nodes;
+function toContext(mixedIn: InstSelector) {
+	var mixed = mixedIn as any;
+	var idx,
+		nodes: HTMLElement[] | null = null;
 	var settings = ext.settings;
 	var tables = util.array.pluck(settings, 'nTable');
 
@@ -555,7 +557,7 @@ function toContext(mixed) {
 
 	if (nodes) {
 		return settings.filter(function (v, i) {
-			return nodes.includes(tables[i]);
+			return nodes!.includes(tables[i]);
 		});
 	}
 }
@@ -566,10 +568,10 @@ function toContext(mixed) {
  * @param mixed The passed in options to convert to context
  * @returns Context array
  */
-function toContextArray(mixed) {
+function toContextArray(mixed: InstSelector) {
 	var i;
-	var settings = [];
-	var ctxSettings = function (o) {
+	var settings: Context[] = [];
+	var ctxSettings = function (o: InstSelector) {
 		var a = toContext(o);
 		if (a) {
 			settings.push.apply(settings, a);

@@ -1,62 +1,65 @@
 import { filterComplete } from '../core/filter';
 import { SearchInput, SearchOptions } from '../model/search';
 import * as object from '../util/object';
-import Api from './Api';
-import { Api as ApiType } from './interface';
+import { register, registerPlural } from './Api';
+import { Api } from './interface';
 
 type ApiSearchOverload = (
-	this: ApiType,
+	this: Api,
 	input?: SearchInput,
 	regex?: boolean | SearchOptions,
 	smart?: boolean,
 	caseInsen?: boolean
-) => ApiType | SearchInput | undefined;
+) => Api | SearchInput | undefined;
 
-Api.register<ApiSearchOverload>('search()', function(input?, regex?, smart?, caseInsen?) {
-	var ctx = this.context;
+register<ApiSearchOverload>(
+	'search()',
+	function (input?, regex?, smart?, caseInsen?) {
+		var ctx = this.context;
 
-	if (input === undefined) {
-		// get
-		return ctx.length !== 0 ? ctx[0].oPreviousSearch.search : undefined;
+		if (input === undefined) {
+			// get
+			return ctx.length !== 0 ? ctx[0].oPreviousSearch.search : undefined;
+		}
+
+		// set
+		return this.iterator('table', function (settings) {
+			if (!settings.oFeatures.bFilter) {
+				return;
+			}
+
+			if (typeof regex === 'object') {
+				// New style options to pass to the search builder
+				filterComplete(
+					settings,
+					object.assign(settings.oPreviousSearch, regex, {
+						search: input
+					})
+				);
+			}
+			else {
+				// Compat for the old options
+				filterComplete(
+					settings,
+					object.assign(settings.oPreviousSearch, {
+						search: input,
+						regex: regex === null ? false : regex,
+						smart: smart === null ? true : smart,
+						caseInsensitive: caseInsen === null ? true : caseInsen
+					})
+				);
+			}
+		});
 	}
-
-	// set
-	return this.iterator('table', function (settings) {
-		if (!settings.oFeatures.bFilter) {
-			return;
-		}
-
-		if (typeof regex === 'object') {
-			// New style options to pass to the search builder
-			filterComplete(
-				settings,
-				object.assign(settings.oPreviousSearch, regex, {
-					search: input,
-				})
-			);
-		}
-		else {
-			// Compat for the old options
-			filterComplete(
-				settings,
-				object.assign(settings.oPreviousSearch, {
-					search: input,
-					regex: regex === null ? false : regex,
-					smart: smart === null ? true : smart,
-					caseInsensitive: caseInsen === null ? true : caseInsen,
-				})
-			);
-		}
-	});
-});
+);
 
 type ApiSearchFixedOverload = (
-	this: ApiType,
+	this: Api,
 	name?: string,
 	search?: SearchInput
 ) => Api | SearchInput | undefined;
 
-Api.register<ApiSearchFixedOverload>('search.fixed()', function (name, search) {
+register<ApiSearchFixedOverload>('search.fixed()', function (name, search) {
 	var ret = this.iterator(true, 'table', function (settings) {
 		var fixed = settings.searchFixed;
 
@@ -79,7 +82,7 @@ Api.register<ApiSearchFixedOverload>('search.fixed()', function (name, search) {
 	return name !== undefined && search === undefined ? ret[0] : ret;
 });
 
-Api.registerPlural<ApiSearchOverload>(
+registerPlural<ApiSearchOverload>(
 	'columns().search()',
 	'column().search()',
 	function (input, regex, smart, caseInsen) {
@@ -99,7 +102,7 @@ Api.registerPlural<ApiSearchOverload>(
 			if (typeof regex === 'object') {
 				// New style options to pass to the search builder
 				object.assign(preSearch[column], regex, {
-					search: input,
+					search: input
 				});
 			}
 			else {
@@ -108,7 +111,7 @@ Api.registerPlural<ApiSearchOverload>(
 					search: input,
 					regex: regex === null ? false : regex,
 					smart: smart === null ? true : smart,
-					caseInsensitive: caseInsen === null ? true : caseInsen,
+					caseInsensitive: caseInsen === null ? true : caseInsen
 				});
 			}
 
@@ -117,7 +120,7 @@ Api.registerPlural<ApiSearchOverload>(
 	}
 );
 
-Api.register<ApiSearchFixedOverload>(
+register<ApiSearchFixedOverload>(
 	['columns().search.fixed()', 'column().search.fixed()'],
 	function (name, search) {
 		var ret = this.iterator(true, 'column', function (settings, colIdx) {

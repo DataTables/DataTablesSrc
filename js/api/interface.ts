@@ -9,9 +9,7 @@ export type DomSelector =
     Node |
     JQuery;
 
-export type InstSelector =
-    DomSelector |
-    Context;
+export type InstSelector = DomSelector | Context | Context[]
 
 export type RowIdx = number;
 export type RowSelector<T> =
@@ -20,7 +18,8 @@ export type RowSelector<T> =
     Node |
     JQuery |
     ((idx: RowIdx, data: T, node: Node | null) => boolean) |
-    RowSelector<T>[];
+    RowSelector<T>[] |
+	null;
 
 export type ColumnIdx = number;
 export type ColumnSelector =
@@ -29,7 +28,8 @@ export type ColumnSelector =
     Node |
     JQuery |
     ((idx:ColumnIdx, data: any, node: Node) => boolean) |
-    ColumnSelector[];
+    ColumnSelector[] |
+	null;
 
 export type CellIdx = {
     row: number;
@@ -210,7 +210,7 @@ export interface Api<T=any> {
 	 * 
 	 * @returns The number of items in the API instance's result set
 	 */
-	count(this: Api): number;
+	count(): number;
 
 	/**
 	 * Get the data for the whole table.
@@ -321,41 +321,63 @@ export interface Api<T=any> {
 	 * @param data Data for the instance to hold
 	 * @param newClass Override class target - internal.
 	 */
-	inst<R=Api>(context: string | Node | Node[] | JQuery | Context | Context[], data?: T | null, newClass?: string): R;
+	inst<R=Api>(context: InstSelector, data?: T | null, newClass?: string): R;
 
 	/**
 	 * Iterate over a result set of table, row, column or cell indexes
-	 * 
+	 *
 	 * @param type Iterator type
-	 * @param callback Callback function that is executed on each iteration. For the parameters passed to the function, please refer to the documentation above. As of this is executed in the scope of an API instance which has its context set to only the table in question.
-	 * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
-	 * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
+	 * @param callback Callback function that is executed on each iteration. For
+	 * the parameters passed to the function, please refer to the documentation
+	 * above. As of this is executed in the scope of an API instance which has
+	 * its context set to only the table in question.
+	 * @param returns Indicate if the callback function will return values or
+	 * not. If set to true a new API instance will be returns with the return
+	 * values from the callback function in its result set. If not set, or false
+	 * the original instance will be returned for chaining, if no values are
+	 * returned by the callback method.
+	 * @returns Original API instance if the callback returns no result (i.e.
+	 * undefined) or a new API instance with the result set being the results
+	 * from the callback, in order of execution.
 	 */
-	iterator(type: 'table', callback: IteratorTable, returns?: boolean): Api<any>;
-	iterator(type: 'cell', callback: IteratorCell, returns?: boolean): Api<any>;
-	iterator(type: 'column-rows', callback: IteratorColumnRows, returns?: boolean): Api<any>;
-	iterator(type: 'column', callback: IteratorColumn, returns?: boolean): Api<any>;
-	iterator(type: 'columns', callback: IteratorColumns, returns?: boolean): Api<any>;
-	iterator(type: 'row', callback: IteratorRow, returns?: boolean): Api<any>;
-	iterator(type: 'rows', callback: IteratorRows, returns?: boolean): Api<any>;
-	iterator(type: 'every', callback: IteratorEvery, returns?: boolean): Api<any>;
+	iterator<R extends Api=Api<any>>(type: 'table', callback: IteratorTable, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(type: 'cell', callback: IteratorCell, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(type: 'column-rows', callback: IteratorColumnRows, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(type: 'column', callback: IteratorColumn, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(type: 'columns', callback: IteratorColumns, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(type: 'row', callback: IteratorRow, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(type: 'rows', callback: IteratorRows, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(type: 'every', callback: IteratorEvery, returns?: boolean): R;
 
 	/**
 	 * Iterate over a result set of table, row, column or cell indexes
-	 * 
-	 * @param flatten If true the result set of the returned API instance will be a 1D array (i.e. flattened into a single array). If false (or not specified) each result will be concatenated to the instance's result set. Note that this is only relevant if you are returning arrays from the callback.
+	 *
+	 * @param flatten If true the result set of the returned API instance will
+	 * be a 1D array (i.e. flattened into a single array). If false (or not
+	 * specified) each result will be concatenated to the instance's result set.
+	 * Note that this is only relevant if you are returning arrays from the
+	 * callback.
 	 * @param type Iterator type
-	 * @param callback Callback function that is executed on each iteration. For the parameters passed to the function, please refer to the documentation above. As of this is executed in the scope of an API instance which has its context set to only the table in question.
-	 * @param returns Indicate if the callback function will return values or not. If set to true a new API instance will be returns with the return values from the callback function in its result set. If not set, or false the original instance will be returned for chaining, if no values are returned by the callback method.
-	 * @returns Original API instance if the callback returns no result (i.e. undefined) or a new API instance with the result set being the results from the callback, in order of execution.
+	 * @param callback Callback function that is executed on each iteration. For
+	 * the parameters passed to the function, please refer to the documentation
+	 * above. As of this is executed in the scope of an API instance which has
+	 * its context set to only the table in question.
+	 * @param returns Indicate if the callback function will return values or
+	 * not. If set to true a new API instance will be returns with the return
+	 * values from the callback function in its result set. If not set, or false
+	 * the original instance will be returned for chaining, if no values are
+	 * returned by the callback method.
+	 * @returns Original API instance if the callback returns no result (i.e.
+	 * undefined) or a new API instance with the result set being the results
+	 * from the callback, in order of execution.
 	 */
-	iterator(flatten: boolean, type: 'table', callback: IteratorTable, returns?: boolean): Api<any>;
-	iterator(flatten: boolean, type: 'cell', callback: IteratorCell, returns?: boolean): Api<any>;
-	iterator(flatten: boolean, type: 'column-rows', callback: IteratorColumnRows, returns?: boolean): Api<any>;
-	iterator(flatten: boolean, type: 'column', callback: IteratorColumn, returns?: boolean): Api<any>;
-	iterator(flatten: boolean, type: 'columns', callback: IteratorColumns, returns?: boolean): Api<any>;
-	iterator(flatten: boolean, type: 'row', callback: IteratorRow, returns?: boolean): Api<any>;
-	iterator(flatten: boolean, type: 'rows', callback: IteratorRows, returns?: boolean): Api<any>;
+	iterator<R extends Api=Api<any>>(flatten: boolean, type: 'table', callback: IteratorTable, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(flatten: boolean, type: 'cell', callback: IteratorCell, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(flatten: boolean, type: 'column-rows', callback: IteratorColumnRows, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(flatten: boolean, type: 'column', callback: IteratorColumn, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(flatten: boolean, type: 'columns', callback: IteratorColumns, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(flatten: boolean, type: 'row', callback: IteratorRow, returns?: boolean): R;
+	iterator<R extends Api=Api<any>>(flatten: boolean, type: 'rows', callback: IteratorRows, returns?: boolean): R;
 
 	/**
 	 * Join the elements in the result set into a string.
@@ -690,33 +712,37 @@ export interface ApiCaption {
 export interface ApiSelectorModifier {
 	/**
 	 * The order in which the resolved columns should be returned in.
-	 * 
+	 *
 	 * * `implied` - the order given in the selector (default)
 	 * * `index` - column index order
 	 */
 	columnOrder?: 'index' | 'implied';
 
 	/**
-	 * The order modifier provides the ability to control which order the rows are
-	 * processed in. Can be one of 'current', 'applied', 'index', 'original', or
-	 * the column index that you want the order to be applied from.
+	 * The order modifier provides the ability to control which order the rows
+	 * are processed in. Can be one of 'current', 'applied', 'index',
+	 * 'original', or the column index that you want the order to be applied
+	 * from.
 	 */
 	order?: 'current' | 'applied' | 'index' | 'original' | number;
 
 	/**
-	 * The search modifier provides the ability to govern which rows are used by the selector using the search options that are applied to the table.
+	 * The search modifier provides the ability to govern which rows are used by
+	 * the selector using the search options that are applied to the table.
 	 * Values: 'none', 'applied', 'removed'
 	 */
 	search?: 'none' | 'applied' | 'removed';
 
 	/**
-	 * The searchPlaceholder modifier provides the ability to provide informational text for an input control when it has no value.
+	 * The searchPlaceholder modifier provides the ability to provide
+	 * informational text for an input control when it has no value.
 	 */
 	searchPlaceholder?: string;
 
 	/**
-	 * The page modifier allows you to control if the selector should consider all data in the table, regardless of paging, or if only the rows in the currently disabled page should be used.
-	 * Values: 'all', 'current'
+	 * The page modifier allows you to control if the selector should consider
+	 * all data in the table, regardless of paging, or if only the rows in the
+	 * currently disabled page should be used. Values: 'all', 'current'
 	 */
 	page?: 'all' | 'current';
 
@@ -725,6 +751,12 @@ export interface ApiSelectorModifier {
 	 * @ignore
 	 */
 	filter?: 'none' | 'applied' | 'removed';
+
+	/**
+	 * Used by the Select extension to indicate if only selected items should be
+	 * included.
+	 */
+	selected?: boolean;
 }
 
 export interface ApiSearch<T> {
@@ -865,11 +897,11 @@ type IteratorRows = (settings: Context, resultItem: any, counter: number) => any
  * "every" - loop over selected items
  * 
  * @param settings Table settings object
- * @param index Item index
+ * @param index Data value (number or cell index)
  * @param tableCounter Table counter (outer)
  * @param counter Counter (inner)
  */
-type IteratorEvery = (settings: Context, index: number, tableCounter: number, counter: number) => any;
+type IteratorEvery = (settings: Context, index: any, tableCounter: number, counter: number) => any;
 
 export interface ApiAjax extends Api<any> {
 	/**
@@ -1056,7 +1088,7 @@ export interface ApiCell<T> {
 	 * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering
 	 * @returns DataTables API instance with selected cell
 	 */
-	(cellSelector: CellSelector, modifier?: ApiSelectorModifier): ApiCellMethods<T>;
+	(cellSelector: CellSelector, modifier?: ApiSelectorModifier | null): ApiCellMethods<T>;
 
 	/**
 	 * Select the cell found by a cell selector
@@ -1066,7 +1098,7 @@ export interface ApiCell<T> {
 	 * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering
 	 * @returns DataTables API instance with selected cell
 	 */
-	(rowSelector: RowSelector<T>, columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiCellMethods<T>;
+	(rowSelector: RowSelector<T>, columnSelector: ColumnSelector, modifier?: ApiSelectorModifier | null): ApiCellMethods<T>;
 }
 
 export interface ApiCellMethods<T> extends Omit<Api<T>, 'render' | 'select'> {
@@ -1247,7 +1279,7 @@ export interface ApiColumn<T> {
 	 * @param columnSelector Column selector.
 	 * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
 	 */
-	(columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiColumnMethods<T>;
+	(columnSelector: ColumnSelector, modifier?: ApiSelectorModifier | null): ApiColumnMethods<T>;
 
 	/**
 	 * Convert from the input column index type to that required.
@@ -1464,7 +1496,7 @@ export interface ApiColumnSearch<T> {
 	fixed( name: string, search: SearchInput<T> | null ): Api<T>;
 }
 
-export interface ApiColumns<T> {
+export interface ApiColumns<T> extends Api<T> {
 	/**
 	 * Select all columns
 	 *
@@ -1498,21 +1530,21 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
 	 * @param type Specify which cache the data should be read from. Can take one of two values: search or order
 	 * @return DataTables Api instance with an caches data for the selected columna
 	 */
-	cache(this: ApiColumnsMethods<T>, type: string): Api<any>;
+	cache(this: Api<T>, type: string): Api<any>;
 
 	/**
 	 * Obtain the data for the columns from the selector
 	 * 
 	 * @returns DataTables API instance with data for each cell in the selected columns in the result set. This is a 2D array with the top level array entries for each column matched by the columns() selector.
 	 */
-	data(this: ApiColumnsMethods<T>): Api<Array<Array<any>>>;
+	data(this: Api<T>): Api<Array<Array<any>>>;
 
 	/**
 	 * Get the data source property for the selected columns.
 	 * 
 	 * @returns API instance with the result set containing the data source parameters for the selected columns as configured by
 	 */
-	dataSrc(this: ApiColumnsMethods<T>): Api<any>;
+	dataSrc(this: Api<T>): Api<any>;
 
 	/**
 	 * Iterate over each selected column, with the function context set to be the column in question. Since: DataTables 1.10.6
@@ -1520,7 +1552,7 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
 	 * @param fn Function to execute for every column selected.
 	 * @returns DataTables API instance of the selected columns.
 	 */
-	every(this: ApiColumnsMethods<T>, fn: (this: ApiColumnMethods<T>, colIdx: number, tableLoop: number, colLoop: number) => void): Api<any>;
+	every(this: Api<T>, fn: (this: ApiColumnMethods<T>, colIdx: number, tableLoop: number, colLoop: number) => void): Api<any>;
 
 	/**
 	 * Get the footer th / td cell for the selected columns.
@@ -1529,7 +1561,7 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
 	 *  when working with multi-row footers.
 	 * @returns HTML element for the footer of the columns
 	 */
-	footer(this: ApiColumnsMethods<T>, row?: number): Api<HTMLElement>;
+	footer(this: Api<T>, row?: number): Api<HTMLElement>;
 
 	/**
 	 * Get the header th / td cell for a columns.
@@ -1538,7 +1570,7 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
 	 *  when working with multi-row headers.
 	 * @returns HTML element for the header of the columns
 	 */
-	header(this: ApiColumnsMethods<T>, row?: number): Api<HTMLElement>;
+	header(this: Api<T>, row?: number): Api<HTMLElement>;
 
 	/**
 	 * Get the column indexes of the selected columns.
@@ -1546,28 +1578,28 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
 	 * @param type Specify if you want to get the column data index (default) or the visible index (visible).
 	 * @returns DataTables API instance with selected columns' indexes in the result set.
 	 */
-	indexes(this: ApiColumnsMethods<T>, type?: string): Api<Array<number>>;
+	indexes(this: Api<T>, type?: string): Api<Array<number>>;
 
 	/**
 	 * Get the initialisation objects used for the selected columns.
 	 *
 	 * @returns Api instance of column configuration objects
 	 */
-	init(this: ApiColumnsMethods<T>): Api<any>; // TODO ConfigColumns
+	init(this: Api<T>): Api<any>; // TODO ConfigColumns
 
 	/**
 	 * Get the names for the selected columns (set by `columns.name`).
 	 * 
 	 * @returns Column names (each entry can be null if not set).
 	 */
-	names(this: ApiColumnsMethods<T>): Api<string | null>;
+	names(this: Api<T>): Api<string | null>;
 
 	/**
 	 * Obtain the th / td nodes for the selected columns
 	 * 
 	 * @returns DataTables API instance with each cell's node from the selected columns in the result set. This is a 2D array with the top level array entries for each column matched by the columns() selector.
 	 */
-	nodes(this: ApiColumnsMethods<T>): Api<Array<Array<HTMLTableCellElement>>>;
+	nodes(this: Api<T>): Api<Array<Array<HTMLTableCellElement>>>;
 
 	/**
 	 * Order the table, in the direction specified, by the columns selected by the column() selector.
@@ -1575,29 +1607,29 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
 	 * @param direction Direction of sort to apply to the selected columna - desc (descending) or asc (ascending).
 	 * @returns DataTables API instance
 	 */
-	order(this: ApiColumnsMethods<T>, direction: string): Api<any>;
+	order(this: Api<T>, direction: string): Api<any>;
 
 	/**
 	 * Get the orderable state for the selected columns (from `columns.orderable`).
 	 */
-	orderable(this: ApiColumnsMethods<T>): Api<boolean>;
+	orderable(this: Api<T>): Api<boolean>;
 
 	/**
 	 * Get a list of the column ordering directions (from `columns.orderSequence`).
 	 */
-	orderable(this: ApiColumnsMethods<T>, directions: true): Api<Array<string>>;
+	orderable(this: Api<T>, directions: true): Api<Array<string>>;
 
 	/**
 	 * Get rendered data for the selected columns.
 	 * @param type Data type to get. Typically `display`, `filter`, `sort` or `type`
 	 *   although can be anything that the rendering functions expect.
 	 */
-	render(this: ApiColumnsMethods<T>, type?: string): Api<Array<T>>;
+	render(this: Api<T>, type?: string): Api<Array<T>>;
 
 	/**
 	 * Search methods and properties
 	 */
-	search: ApiColumnsSearch<T>;
+	search: Api<T>;
 
 	/**
 	 * Get the title text for the selected columns
@@ -1606,7 +1638,7 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
 	 *  when working with multi-row headers.
 	 * @return Column titles in API instance's data set
 	 */
-	titles(this: ApiColumnsMethods<T>, row?: number ): Api<string>;
+	titles(this: Api<T>, row?: number ): Api<string>;
 
 	/**
 	 * Set the title text for the selected columns
@@ -1616,14 +1648,14 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
 	 *  when working with multi-row headers.
 	 * @return DataTables API instance for chaining
 	 */
-	titles(this: ApiColumnsMethods<T>, title: string, row?: number ): Api<T>;
+	titles(this: Api<T>, title: string, row?: number ): Api<T>;
 
 	/**
 	 * Get the data type for the selected columns (auto detected or configured).
 	 * 
 	 * @return DataTables API instance with column types in its data set
 	 */
-	types(this: ApiColumnsMethods<T>): Api<string>;
+	types(this: Api<T>): Api<string>;
 
 	/**
 	 * Get the visibility of the selected columns.
@@ -1647,7 +1679,7 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
 	 * @return Api instance with the width of each column in pixels or `null` if
 	 *   there is no data in the table.
 	 */
-	widths(this: ApiColumnsMethods<T>): Api<number | null>;
+	widths(this: Api<T>): Api<number | null>;
 }
 
 export interface ApiColumnsSearch<T> {

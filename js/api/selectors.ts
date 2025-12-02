@@ -7,7 +7,13 @@ import * as object from '../util/object';
 import { ApiSelectorModifier, Api as ApiType } from './interface';
 import { dataSource } from './support';
 
-export function selector_run(type, selector, selectFn, settings, opts) {
+export function selector_run(
+	type: string,
+	selector: any,
+	selectFn: (s: any) => any,
+	settings: Context,
+	opts: ApiSelectorModifier
+) {
 	var out = [],
 		res,
 		i,
@@ -73,7 +79,7 @@ export function selector_opts(opts?: ApiSelectorModifier): ApiSelectorModifier {
 			columnOrder: 'implied',
 			search: 'none',
 			order: 'current',
-			page: 'all',
+			page: 'all'
 		},
 		opts
 	);
@@ -101,7 +107,10 @@ export function selector_first<R extends ApiType>(old: ApiType) {
 	return inst;
 }
 
-export function selector_row_indexes(settings: Context, opts: ApiSelectorModifier) {
+export function selector_row_indexes(
+	settings: Context,
+	opts: ApiSelectorModifier
+) {
 	var i,
 		iLen,
 		tmp,

@@ -11,11 +11,19 @@ import { drawHead } from '../core/draw';
 import { colGroup } from '../core/sizing';
 import { saveState } from '../core/state';
 import dom from '../dom';
+import Context, { HeaderStructure } from '../model/settings';
 import { pluck, pluckOrder, range, removeEmpty } from '../util/array';
 import { intVal } from '../util/conv';
 import * as is from '../util/is';
-import Api from './Api';
-import { ApiColumn, ApiColumns, ApiColumnsMethods, ApiSelectorModifier, ColumnSelector } from './interface';
+import { register, registerPlural } from './Api';
+import {
+	Api,
+	ApiColumn,
+	ApiColumns,
+	ApiColumnsMethods,
+	ApiSelectorModifier,
+	ColumnSelector
+} from './interface';
 import {
 	selector_first,
 	selector_opts,
@@ -38,22 +46,31 @@ import { callbackFire } from './support';
 // can be an array of these items, comma separated list, or an array of comma
 // separated lists
 
-var __re_column_selector = /^([^:]+)?:(name|title|visIdx|visible)$/;
+const __re_column_selector = /^([^:]+)?:(name|title|visIdx|visible)$/;
 
 // r1 and r2 are redundant - but it means that the parameters match for the
 // iterator callback in columns().data()
-function columnData(settings, column, r1, r2, rows, type?) {
-	var a: any[] = [];
-	for (var row = 0, iLen = rows.length; row < iLen; row++) {
+function columnData(
+	settings: Context,
+	column: number,
+	r1: any,
+	r2: any,
+	rows: number[],
+	type?: string
+) {
+	let a: any[] = [];
+
+	for (let row = 0, iLen = rows.length; row < iLen; row++) {
 		a.push(getCellData(settings, rows[row], column, type));
 	}
+
 	return a;
 }
 
-function columnHeader(settings, column, row?) {
+function columnHeader(settings: Context, column: number, row?: number) {
 	var header = settings.aoHeader;
 	var titleRow = settings.titleRow;
-	var target: any = null;
+	var target: number | null = null;
 
 	if (row !== undefined) {
 		target = row;
@@ -88,7 +105,7 @@ function columnHeader(settings, column, row?) {
 	return header[target][column].cell;
 }
 
-function columnHeaderCells(header) {
+function columnHeaderCells(header: HeaderStructure[]) {
 	var out: any[] = [];
 
 	for (var i = 0; i < header.length; i++) {
@@ -104,13 +121,17 @@ function columnHeaderCells(header) {
 	return out;
 }
 
-var __column_selector = function (settings, selector, opts) {
+function selectColumns(
+	settings: Context,
+	selector: ColumnSelector,
+	opts: ApiSelectorModifier
+) {
 	var columns = settings.aoColumns,
-		names,
-		titles,
+		names: string[],
+		titles: string[],
 		nodes = columnHeaderCells(settings.aoHeader);
 
-	var run = function (s) {
+	var run = function (s: any) {
 		var selInt = intVal(s);
 
 		// Selector - all
@@ -242,9 +263,9 @@ var __column_selector = function (settings, selector, opts) {
 				return a - b;
 		  })
 		: selected; // implied
-};
+}
 
-var __setColumnVis = function (settings, column, vis) {
+function setColumnVis(settings: Context, column: number, vis: boolean) {
 	var cols = settings.aoColumns,
 		col = cols[column],
 		data = settings.aoData,
@@ -292,7 +313,7 @@ var __setColumnVis = function (settings, column, vis) {
 	colGroup(settings);
 
 	return true;
-};
+}
 
 type ApiColumnsOverload = (
 	this: Api,
@@ -300,7 +321,7 @@ type ApiColumnsOverload = (
 	modifier?: ApiSelectorModifier
 ) => Api;
 
-Api.register<ApiColumnsOverload>('columns()', function (arg1?, arg2?) {
+register<ApiColumnsOverload>('columns()', function (arg1?, arg2?) {
 	let selector: ColumnSelector;
 	let opts: ApiSelectorModifier;
 
@@ -320,7 +341,7 @@ Api.register<ApiColumnsOverload>('columns()', function (arg1?, arg2?) {
 
 	let inst = this.iterator(
 		'table',
-		settings => __column_selector(settings, selector, opts),
+		settings => selectColumns(settings, selector, opts),
 		true
 	);
 
@@ -331,7 +352,7 @@ Api.register<ApiColumnsOverload>('columns()', function (arg1?, arg2?) {
 	return inst;
 });
 
-Api.register<ApiColumnsMethods<any>['every']>('columns().every()', function (fn) {
+register<ApiColumnsMethods<any>['every']>('columns().every()', function (fn) {
 	var opts = this.selector.opts;
 	var counter = 0;
 
@@ -344,7 +365,7 @@ Api.register<ApiColumnsMethods<any>['every']>('columns().every()', function (fn)
 	});
 });
 
-Api.registerPlural<ApiColumnsMethods<any>['header']>(
+registerPlural<ApiColumnsMethods<any>['header']>(
 	'columns().header()',
 	'column().header()',
 	function (row?) {
@@ -358,7 +379,7 @@ Api.registerPlural<ApiColumnsMethods<any>['header']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['footer']>(
+registerPlural<ApiColumnsMethods<any>['footer']>(
 	'columns().footer()',
 	'column().footer()',
 	function (row) {
@@ -378,7 +399,7 @@ Api.registerPlural<ApiColumnsMethods<any>['footer']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['data']>(
+registerPlural<ApiColumnsMethods<any>['data']>(
 	'columns().data()',
 	'column().data()',
 	function () {
@@ -386,7 +407,7 @@ Api.registerPlural<ApiColumnsMethods<any>['data']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['render']>(
+registerPlural<ApiColumnsMethods<any>['render']>(
 	'columns().render()',
 	'column().render()',
 	function (type) {
@@ -400,7 +421,7 @@ Api.registerPlural<ApiColumnsMethods<any>['render']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['dataSrc']>(
+registerPlural<ApiColumnsMethods<any>['dataSrc']>(
 	'columns().dataSrc()',
 	'column().dataSrc()',
 	function () {
@@ -414,7 +435,7 @@ Api.registerPlural<ApiColumnsMethods<any>['dataSrc']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['cache']>(
+registerPlural<ApiColumnsMethods<any>['cache']>(
 	'columns().cache()',
 	'column().cache()',
 	function (type) {
@@ -433,7 +454,7 @@ Api.registerPlural<ApiColumnsMethods<any>['cache']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['init']>(
+registerPlural<ApiColumnsMethods<any>['init']>(
 	'columns().init()',
 	'column().init()',
 	function () {
@@ -447,7 +468,7 @@ Api.registerPlural<ApiColumnsMethods<any>['init']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['names']>(
+registerPlural<ApiColumnsMethods<any>['names']>(
 	'columns().names()',
 	'column().name()',
 	function () {
@@ -461,7 +482,7 @@ Api.registerPlural<ApiColumnsMethods<any>['names']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['nodes']>(
+registerPlural<ApiColumnsMethods<any>['nodes']>(
 	'columns().nodes()',
 	'column().nodes()',
 	function () {
@@ -477,7 +498,7 @@ Api.registerPlural<ApiColumnsMethods<any>['nodes']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['titles']>(
+registerPlural<ApiColumnsMethods<any>['titles']>(
 	'columns().titles()',
 	'column().title()',
 	function (title, row?) {
@@ -506,7 +527,7 @@ Api.registerPlural<ApiColumnsMethods<any>['titles']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['types']>(
+registerPlural<ApiColumnsMethods<any>['types']>(
 	'columns().types()',
 	'column().type()',
 	function () {
@@ -532,7 +553,13 @@ Api.registerPlural<ApiColumnsMethods<any>['types']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['visible']>(
+type ApiColumnsVisibleOverload = (
+	this: Api<any>,
+	show?: boolean,
+	redrawCalculations?: boolean
+) => boolean | Api<any>;
+
+registerPlural<ApiColumnsVisibleOverload>(
 	'columns().visible()',
 	'column().visible()',
 	function (vis?, calc?) {
@@ -543,7 +570,7 @@ Api.registerPlural<ApiColumnsMethods<any>['visible']>(
 				return settings.aoColumns[column].bVisible;
 			} // else
 
-			if (__setColumnVis(settings, column, vis)) {
+			if (setColumnVis(settings, column, vis)) {
 				changed.push(column);
 			}
 		});
@@ -588,7 +615,7 @@ Api.registerPlural<ApiColumnsMethods<any>['visible']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['widths']>(
+registerPlural<ApiColumnsMethods<any>['widths']>(
 	'columns().widths()',
 	'column().width()',
 	function () {
@@ -620,7 +647,7 @@ Api.registerPlural<ApiColumnsMethods<any>['widths']>(
 	}
 );
 
-Api.registerPlural<ApiColumnsMethods<any>['indexes']>(
+registerPlural<ApiColumnsMethods<any>['indexes']>(
 	'columns().indexes()',
 	'column().index()',
 	function (type) {
@@ -636,7 +663,7 @@ Api.registerPlural<ApiColumnsMethods<any>['indexes']>(
 	}
 );
 
-Api.register<ApiColumns<any>['adjust']>('columns.adjust()', function () {
+register<ApiColumns<any>['adjust']>('columns.adjust()', function () {
 	return this.iterator(
 		'table',
 		function (settings) {
@@ -650,7 +677,7 @@ Api.register<ApiColumns<any>['adjust']>('columns.adjust()', function () {
 	);
 });
 
-Api.register<ApiColumn<any>['index']>('column.index()', function (type, idx) {
+register<ApiColumn<any>['index']>('column.index()', function (type, idx) {
 	if (this.context.length !== 0) {
 		var ctx = this.context[0];
 
@@ -669,8 +696,8 @@ type ApiColumnOverload = (
 	this: Api,
 	selector: ColumnSelector,
 	opts?: ApiSelectorModifier
-) => ApiColumnsMethods<any>;
+) => Api<any>;
 
-Api.register<ApiColumnOverload>('column()', function (selector, opts?) {
-	return selector_first(this.columns(selector, opts));
+register<ApiColumnOverload>('column()', function (selector, opts?) {
+	return selector_first(this.columns(selector, opts) as any);
 });
