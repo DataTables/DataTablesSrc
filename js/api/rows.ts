@@ -1,9 +1,10 @@
 import { addData, addTr, invalidate } from '../core/data';
 import { sortDisplay } from '../core/sort';
 import dom from '../dom';
+import Context from '../model/settings';
 import util from '../util';
-import Api from './Api';
-import { ApiRow, ApiRowMethods, ApiRowsMethods, ApiSelectorModifier, Api as ApiType, RowSelector } from './interface';
+import { register, registerPlural } from './Api';
+import { Api, ApiRow, ApiRowMethods, ApiRowsMethods, ApiSelectorModifier, Api as ApiType, RowSelector } from './interface';
 import {
 	selector_first,
 	selector_opts,
@@ -22,9 +23,9 @@ import { arrayApply, lengthOverflow } from './support';
  * {array}     - jQuery array of nodes, or simply an array of TR nodes
  *
  */
-function row_selector(settings, selector, opts) {
-	var rows;
-	var run = function (sel) {
+function selectRows(settings: Context, selector: RowSelector<any>, opts: ApiSelectorModifier) {
+	var rows: number[];
+	var run = function (sel: any) {
 		var selInt = util.conv.intVal(sel);
 		var aoData = settings.aoData;
 
@@ -125,26 +126,39 @@ function row_selector(settings, selector, opts) {
 	return matched;
 }
 
+type ApiRowsOverload = (
+	this: Api,
+	arg1?: RowSelector<any> | ApiSelectorModifier,
+	arg2?: ApiSelectorModifier
+) => ApiRowsMethods<any>;
 
+register<ApiRowsOverload>('rows()', function (arg1, arg2) {
+	let opts: ApiSelectorModifier;
+	let selector: RowSelector<any>;
 
-Api.register('rows()', function (selector, opts) {
 	// argument shifting
-	if (selector === undefined) {
+	if (arg1 === undefined) {
+		// All rows - no selector or modifier
 		selector = '';
 	}
-	else if (util.is.plainObject(selector)) {
-		opts = selector;
+	else if (util.is.plainObject(arg1)) {
+		// Arg1 is modifier overload
 		selector = '';
+		opts = arg1 as ApiSelectorModifier;
+	}
+	else {
+		selector = arg1 as RowSelector<any>;
+		opts = arg2!;
 	}
 
-	opts = selector_opts(opts);
+	opts = selector_opts(opts!);
 
-	var inst = this.iterator(
+	var inst = this.iterator<ApiRowsMethods<any>>(
 		'table',
 		function (settings) {
-			return row_selector(settings, selector, opts);
+			return selectRows(settings, selector, opts);
 		},
-		1
+		true
 	);
 
 	// Want argument shifting here and in row_selector?
@@ -154,7 +168,7 @@ Api.register('rows()', function (selector, opts) {
 	return inst;
 });
 
-Api.register<ApiRowsMethods<any>['every']>('rows().every()', function (fn) {
+register<ApiRowsMethods<any>['every']>('rows().every()', function (fn) {
 	var opts = this.selector.opts;
 	var counter = 0;
 
@@ -167,7 +181,7 @@ Api.register<ApiRowsMethods<any>['every']>('rows().every()', function (fn) {
 	});
 });
 
-Api.register<ApiRowsMethods<any>['nodes']>('rows().nodes()', function () {
+register<ApiRowsMethods<any>['nodes']>('rows().nodes()', function () {
 	return this.iterator(
 		'row',
 		function (settings, row) {
@@ -177,7 +191,7 @@ Api.register<ApiRowsMethods<any>['nodes']>('rows().nodes()', function () {
 	);
 });
 
-Api.register<ApiRowsMethods<any>['data']>('rows().data()', function () {
+register<ApiRowsMethods<any>['data']>('rows().data()', function () {
 	return this.iterator(
 		true,
 		'rows',
@@ -188,7 +202,7 @@ Api.register<ApiRowsMethods<any>['data']>('rows().data()', function () {
 	);
 });
 
-Api.registerPlural<ApiRowsMethods<any>['cache']>('rows().cache()', 'row().cache()', function (type) {
+registerPlural<ApiRowsMethods<any>['cache']>('rows().cache()', 'row().cache()', function (type) {
 	return this.iterator(
 		'row',
 		function (settings, row) {
@@ -199,13 +213,13 @@ Api.registerPlural<ApiRowsMethods<any>['cache']>('rows().cache()', 'row().cache(
 	);
 });
 
-Api.registerPlural<ApiRowsMethods<any>['invalidate']>('rows().invalidate()', 'row().invalidate()', function (src) {
+registerPlural<ApiRowsMethods<any>['invalidate']>('rows().invalidate()', 'row().invalidate()', function (src) {
 	return this.iterator('row', function (settings, row) {
 		invalidate(settings, row, src);
 	});
 });
 
-Api.registerPlural<ApiRowsMethods<any>['indexes']>('rows().indexes()', 'row().index()', function () {
+registerPlural<ApiRowsMethods<any>['indexes']>('rows().indexes()', 'row().index()', function () {
 	return this.iterator(
 		'row',
 		function (settings, row) {
@@ -215,7 +229,7 @@ Api.registerPlural<ApiRowsMethods<any>['indexes']>('rows().indexes()', 'row().in
 	);
 });
 
-Api.registerPlural('rows().ids()', 'row().id()', function (hash) {
+registerPlural('rows().ids()', 'row().id()', function (hash) {
 	var a: any[] = [];
 	var context = this.context;
 
@@ -230,7 +244,7 @@ Api.registerPlural('rows().ids()', 'row().id()', function (hash) {
 	return this.inst(context, a);
 });
 
-Api.registerPlural('rows().remove()', 'row().remove()', function () {
+registerPlural('rows().remove()', 'row().remove()', function () {
 	this.iterator('row', function (settings, row) {
 		var data = settings.aoData;
 		var rowData = data[row];
@@ -261,7 +275,7 @@ Api.registerPlural('rows().remove()', 'row().remove()', function () {
 	return this;
 });
 
-Api.register('rows.add()', function (rows) {
+register('rows.add()', function (rows) {
 	var newRows = this.iterator(
 		'table',
 		function (settings) {
@@ -298,11 +312,11 @@ type ApiRowOverload = (
 	modifier?: ApiSelectorModifier
 ) => ApiRowMethods<any>;
 
-Api.register<ApiRowOverload>('row()', function (selector?, opts?) {
+register<ApiRowOverload>('row()', function (selector?, opts?) {
 	return selector_first(this.rows(selector, opts));
 });
 
-Api.register<ApiRowMethods<any>['data']>('row().data()', function (data?) {
+register<ApiRowMethods<any>['data']>('row().data()', function (data?) {
 	var ctx = this.context;
 
 	if (data === undefined) {
@@ -327,7 +341,7 @@ Api.register<ApiRowMethods<any>['data']>('row().data()', function (data?) {
 	return this;
 });
 
-Api.register<ApiRowMethods<any>['node']>('row().node()', function () {
+register<ApiRowMethods<any>['node']>('row().node()', function () {
 	var ctx = this.context;
 
 	if (ctx.length && this.length && this[0].length) {
@@ -341,7 +355,7 @@ Api.register<ApiRowMethods<any>['node']>('row().node()', function () {
 	return null;
 });
 
-Api.register<ApiRow<any>['add']>('row.add()', function (row: any) {
+register<ApiRow<any>['add']>('row.add()', function (row: any) {
 	// Allow a jQuery object to be passed in - only a single row is added from
 	// it though - the first element in the set
 	if (row && row.fn && row.length) {

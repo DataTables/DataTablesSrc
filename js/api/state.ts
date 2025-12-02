@@ -2,12 +2,12 @@
 import { implementState, saveState } from "../core/state";
 import { State, StateLoad } from "../model/state";
 import * as object from '../util/object';
-import Api from "./Api";
-import { ApiState } from "./interface";
+import { register } from "./Api";
+import { Api, ApiState } from "./interface";
 
 type ApiStateOverload = (this: Api, set?: State, ignoreTime?: boolean) => State | null | Api;
 
-Api.register<ApiStateOverload>( 'state()', function ( set?: StateLoad, ignoreTime? ) {
+register<ApiStateOverload>( 'state()', function ( set?: StateLoad, ignoreTime? ) {
 	// getter
 	if ( ! set ) {
 		return this.context.length ?
@@ -27,20 +27,20 @@ Api.register<ApiStateOverload>( 'state()', function ( set?: StateLoad, ignoreTim
 	} );
 } );
 
-Api.register<ApiState<any>['clear']>( 'state.clear()', function () {
+register<ApiState<any>['clear']>( 'state.clear()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		// Save an empty object
 		settings.fnStateSaveCallback.call( settings.oInstance, settings, {} );
 	} );
 } );
 
-Api.register<ApiState<any>['loaded']>( 'state.loaded()', function () {
+register<ApiState<any>['loaded']>( 'state.loaded()', function () {
 	return this.context.length ?
 		this.context[0].oLoadedState :
 		null;
 } );
 
-Api.register<ApiState<any>['save']>( 'state.save()', function () {
+register<ApiState<any>['save']>( 'state.save()', function () {
 	return this.iterator( 'table', function ( settings ) {
 		saveState( settings );
 	} );

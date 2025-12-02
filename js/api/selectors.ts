@@ -7,14 +7,17 @@ import * as object from '../util/object';
 import { ApiSelectorModifier, Api as ApiType } from './interface';
 import { dataSource } from './support';
 
-export function selector_run(
+/**
+ * Common run function for selector types
+ */
+export function selector_run<T=any>(
 	type: string,
 	selector: any,
-	selectFn: (s: any) => any,
+	selectFn: (s: any) => T[],
 	settings: Context,
 	opts: ApiSelectorModifier
-) {
-	var out = [],
+): T[] {
+	var out: T[] = [],
 		res,
 		i,
 		iLen,
@@ -114,7 +117,7 @@ export function selector_row_indexes(
 	var i,
 		iLen,
 		tmp,
-		a: any[] = [],
+		a: number[] = [],
 		displayFiltered = settings.aiDisplay,
 		displayMaster = settings.aiDisplayMaster;
 
@@ -151,7 +154,7 @@ export function selector_row_indexes(
 		}
 		else if (search == 'removed') {
 			// O(n+m) solution by creating a hash map
-			var displayFilteredMap = {};
+			var displayFilteredMap: Record<number, number | null> = {};
 
 			for (i = 0, iLen = displayFiltered.length; i < iLen; i++) {
 				displayFilteredMap[displayFiltered[i]] = null;

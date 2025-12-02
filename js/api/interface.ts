@@ -7,9 +7,10 @@ import { State, StateLoad } from '../model/state';
 export type DomSelector =
     string |
     Node |
+	HTMLElement |
     JQuery;
 
-export type InstSelector = DomSelector | Context | Context[]
+export type InstSelector = DomSelector | Context | InstSelector[];
 
 export type RowIdx = number;
 export type RowSelector<T> =
@@ -1512,7 +1513,7 @@ export interface ApiColumns<T> extends Api<T> {
 	 * @param modifier Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
 	 * @returns DataTables API instance with selected columns
 	 */
-	(columnSelector: ColumnSelector, modifier?: ApiSelectorModifier): ApiColumnsMethods<T>;
+	(columnSelector?: ColumnSelector, modifier?: ApiSelectorModifier): ApiColumnsMethods<T>;
 
 	/**
 	 * Recalculate the column widths for layout.
@@ -1578,7 +1579,7 @@ export interface ApiColumnsMethods<T> extends Omit<Api<T>, 'init' | 'data' | 'or
 	 * @param type Specify if you want to get the column data index (default) or the visible index (visible).
 	 * @returns DataTables API instance with selected columns' indexes in the result set.
 	 */
-	indexes(this: Api<T>, type?: string): Api<Array<number>>;
+	indexes(this: ApiColumnsMethods<T>, type?: string): Api<Array<number>>;
 
 	/**
 	 * Get the initialisation objects used for the selected columns.

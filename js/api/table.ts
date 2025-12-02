@@ -1,8 +1,8 @@
 import { headerLayout } from '../core/draw';
 import dom from '../dom';
 import Context from '../model/settings';
-import Api from './Api';
-import { ApiCaption, ApiTableMethods, ApiTablesMethods, Api as ApiType, TableSelector } from './interface';
+import { register, registerPlural } from './Api';
+import { Api, ApiCaption, ApiTableMethods, ApiTablesMethods, TableSelector } from './interface';
 import { selector_first } from './selectors';
 import { arrayApply } from './support';
 
@@ -47,14 +47,14 @@ function table_selector(selector: TableSelector, a: Context[]): HTMLElement[] | 
 		});
 }
 
-Api.register<ApiType['tables']>('tables()', function (selector) {
+register<Api['tables']>('tables()', function (selector) {
 	// A new instance is created if there was a selector specified
 	return selector !== undefined && selector !== null
 		? this.inst(table_selector(selector, this.context))
 		: this.inst(this.context);
 });
 
-Api.register<ApiType['table']>('table()', function (selector) {
+register<Api['table']>('table()', function (selector) {
 	return selector_first(this.tables(selector));
 });
 
@@ -65,7 +65,7 @@ Api.register<ApiType['table']>('table()', function (selector) {
 	['header', 'header', 'nTHead'],
 	['footer', 'footer', 'nTFoot'],
 ].forEach(function (item) {
-	Api.registerPlural<(this: ApiType) => ApiType<HTMLElement>>(
+	registerPlural<(this: Api) => Api<HTMLElement>>(
 		'tables().' + item[0] + '()',
 		'table().' + item[1] + '()',
 		function () {
@@ -83,7 +83,7 @@ Api.register<ApiType['table']>('table()', function (selector) {
 	['header', 'aoHeader'],
 	['footer', 'aoFooter'],
 ].forEach(function (item) {
-	Api.register<ApiTableMethods<any>['header']['structure']>(
+	register<ApiTableMethods<any>['header']['structure']>(
 		'table().' + item[0] + '.structure()',
 		function (selector?) {
 			var indexes = this.columns(selector).indexes().flatten().toArray();
@@ -106,7 +106,7 @@ Api.register<ApiType['table']>('table()', function (selector) {
 	);
 });
 
-Api.registerPlural<ApiTablesMethods<any>['containers']>(
+registerPlural<ApiTablesMethods<any>['containers']>(
 	'tables().containers()',
 	'table().container()',
 	function () {
@@ -120,7 +120,7 @@ Api.registerPlural<ApiTablesMethods<any>['containers']>(
 	}
 );
 
-Api.register<ApiTablesMethods<any>['every']>('tables().every()', function (fn) {
+register<ApiTablesMethods<any>['every']>('tables().every()', function (fn) {
 	return this.iterator('table', (s, i) => {
 		fn.call(this.table(i), i);
 	});
@@ -128,7 +128,7 @@ Api.register<ApiTablesMethods<any>['every']>('tables().every()', function (fn) {
 
 type ApiCaptionOverload = (this: Api, set?: string, side?: 'top' | 'bottom') => string | null | Api;
 
-Api.register<ApiCaptionOverload>('caption()', function (value?, side?) {
+register<ApiCaptionOverload>('caption()', function (value?, side?) {
 	var context = this.context;
 
 	// Getter - return existing node's content
@@ -182,7 +182,7 @@ Api.register<ApiCaptionOverload>('caption()', function (value?, side?) {
 	);
 });
 
-Api.register<ApiCaption['node']>('caption.node()', function () {
+register<ApiCaption['node']>('caption.node()', function () {
 	var ctx = this.context;
 
 	return ctx.length ? ctx[0].captionNode : null;

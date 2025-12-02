@@ -101,7 +101,7 @@ const ext = {
 		cell: [],
 		column: [],
 		row: [],
-	},
+	} as Record<string, Array<any>>,
 
 	settings: [] as any[],
 
