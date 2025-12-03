@@ -291,9 +291,11 @@ function setColumnVis(settings: Context, column: number, vis: boolean) {
 		var insertBefore = pluck(cols, 'bVisible').indexOf(true, column + 1);
 
 		for (i = 0, iLen = data.length; i < iLen; i++) {
-			if (data[i]) {
-				tr = data[i].nTr;
-				cells = data[i].anCells;
+			let row = data[i];
+
+			if (row) {
+				tr = row.nTr;
+				cells = row.anCells;
 
 				if (tr) {
 					// insertBefore can act like appendChild if 2nd arg is null

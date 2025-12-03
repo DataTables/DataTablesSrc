@@ -2,7 +2,13 @@ import { headerLayout } from '../core/draw';
 import dom from '../dom';
 import Context from '../model/settings';
 import { register, registerPlural } from './Api';
-import { Api, ApiCaption, ApiTableMethods, ApiTablesMethods, TableSelector } from './interface';
+import {
+	Api,
+	ApiCaption,
+	ApiTableMethods,
+	ApiTablesMethods,
+	TableSelector
+} from './interface';
 import { selector_first } from './selectors';
 import { arrayApply } from './support';
 
@@ -14,7 +20,10 @@ import { arrayApply } from './support';
  * @param a Array of DataTables settings objects to be filtered
  * @return Selected table notes
  */
-function table_selector(selector: TableSelector, a: Context[]): HTMLElement[] | Context[] {
+function table_selector(
+	selector: TableSelector,
+	a: Context[]
+): HTMLElement[] | Context[] {
 	if (Array.isArray(selector)) {
 		var result: any[] = [];
 
@@ -63,47 +72,48 @@ register<Api['table']>('table()', function (selector) {
 	['nodes', 'node', 'nTable'],
 	['body', 'body', 'nTBody'],
 	['header', 'header', 'nTHead'],
-	['footer', 'footer', 'nTFoot'],
+	['footer', 'footer', 'nTFoot']
 ].forEach(function (item) {
-	registerPlural<(this: Api) => Api<HTMLElement>>(
-		'tables().' + item[0] + '()',
-		'table().' + item[1] + '()',
-		function () {
-			return this.iterator(
-				'table',
-				ctx => ctx[item[2] as 'nTable' | 'nTBody' | 'nTHead' | 'nTFoot'],
-				true
-			);
-		}
-	);
+	registerPlural<
+		(this: Api) => Api<HTMLElement>
+	>('tables().' + item[0] + '()', 'table().' + item[1] + '()', function () {
+		return this.iterator(
+			'table',
+			ctx => ctx[item[2] as 'nTable' | 'nTBody' | 'nTHead' | 'nTFoot'],
+			true
+		);
+	});
 });
 
 // Structure methods
 [
 	['header', 'aoHeader'],
-	['footer', 'aoFooter'],
+	['footer', 'aoFooter']
 ].forEach(function (item) {
-	register<ApiTableMethods<any>['header']['structure']>(
-		'table().' + item[0] + '.structure()',
-		function (selector?) {
-			var indexes = this.columns(selector).indexes().flatten().toArray();
-			var ctx = this.context[0];
-			var structure = headerLayout(ctx, ctx[item[1] as 'aoHeader' | 'aoFooter'], indexes)!;
+	register<
+		ApiTableMethods<any>['header']['structure']
+	>('table().' + item[0] + '.structure()', function (selector?) {
+		var indexes = this.columns(selector).indexes().flatten().toArray();
+		var ctx = this.context[0];
+		var structure = headerLayout(
+			ctx,
+			ctx[item[1] as 'aoHeader' | 'aoFooter'],
+			indexes
+		)!;
 
-			// The structure is in column index order - but from this method we
-			// want the return to be in the columns() selector API order. In
-			// order to do that we need to map from one form to the other
-			var orderedIndexes = indexes.slice().sort(function (a, b) {
-				return a - b;
-			});
+		// The structure is in column index order - but from this method we
+		// want the return to be in the columns() selector API order. In
+		// order to do that we need to map from one form to the other
+		var orderedIndexes = indexes.slice().sort(function (a, b) {
+			return a - b;
+		});
 
-			return structure.map(function (row) {
-				return indexes.map(function (colIdx) {
-					return row[orderedIndexes.indexOf(colIdx)]!;
-				});
+		return structure.map(function (row) {
+			return indexes.map(function (colIdx) {
+				return row[orderedIndexes.indexOf(colIdx)]!;
 			});
-		}
-	);
+		});
+	});
 });
 
 registerPlural<ApiTablesMethods<any>['containers']>(
@@ -126,7 +136,11 @@ register<ApiTablesMethods<any>['every']>('tables().every()', function (fn) {
 	});
 });
 
-type ApiCaptionOverload = (this: Api, set?: string, side?: 'top' | 'bottom') => string | null | Api;
+type ApiCaptionOverload = (
+	this: Api,
+	set?: string,
+	side?: 'top' | 'bottom'
+) => string | null | Api;
 
 register<ApiCaptionOverload>('caption()', function (value?, side?) {
 	var context = this.context;
@@ -150,9 +164,10 @@ register<ApiCaptionOverload>('caption()', function (value?, side?) {
 				caption = dom.c('caption').html(value);
 				ctx.captionNode = caption.get<HTMLTableCaptionElement>(0);
 
-				// If side isn't set, we need to insert into the document to let the
-				// CSS decide so we can read it back, otherwise there is no way to
-				// know if the CSS would put it top or bottom for scrolling
+				// If side isn't set, we need to insert into the document to let
+				// the CSS decide so we can read it back, otherwise there is no
+				// way to know if the CSS would put it top or bottom for
+				// scrolling
 				if (!side) {
 					table.prepend(caption);
 

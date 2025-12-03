@@ -263,7 +263,7 @@ export default class Context {
 	 * Store data information - see {@link DataTable.models.oRow} for detailed
 	 * information.
 	 */
-	public aoData: typeof rowModel[] = [];
+	public aoData: (typeof rowModel | null)[] = [];
 
 	/**
 	 * Array of indexes which are in the current display (after filtering etc)

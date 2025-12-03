@@ -1,16 +1,20 @@
 import { visibleColumns } from '../core/columns';
 import { saveState } from '../core/state';
 import dom from '../dom';
+import TableRow from '../model/row';
+import Context from '../model/settings';
+import { StateLoad } from '../model/state';
 import util from '../util';
 import Api from './Api';
+import { ApiRowMethods, Api as ApiType } from './interface';
 import { callbackFire } from './support';
 
 dom.s(document).on('plugin-init.dt', function (e, context) {
 	var api = new Api(context);
 
 	api.on('stateSaveParams.DT', function (ev, settings, d) {
-		// This could be more compact with the API, but it is a lot faster as a simple
-		// internal loop
+		// This could be more compact with the API, but it is a lot faster as a
+		// simple internal loop
 		var idFn = settings.rowIdFn;
 		var rows = settings.aiDisplayMaster;
 		var ids: any[] = [];
@@ -36,7 +40,7 @@ dom.s(document).on('plugin-init.dt', function (e, context) {
 	__details_state_load(api, api.state.loaded());
 });
 
-var __details_state_load = function (api, state) {
+function __details_state_load(api: ApiType, state: StateLoad | null) {
 	if (state && state.childRows) {
 		api
 			.rows(
@@ -50,16 +54,24 @@ var __details_state_load = function (api, state) {
 				callbackFire(api.settings()[0], null, 'requestChild', [this]);
 			});
 	}
-};
+}
 
-var __details_add = function (ctx, row, data, klass) {
+function __details_add(
+	ctx: Context,
+	row: typeof TableRow | null,
+	data: any,
+	klass: string
+) {
+	if (!row) {
+		return;
+	}
+
 	// Convert to array of TR elements
 	var rows: any[] = [];
-	var addRow = function (r: any, k) {
+	var addRow = function (r: any, k: string) {
 		// Recursion to allow for arrays of jQuery objects
 		if (Array.isArray(r) || util.is.jquery(r)) {
 			for (var i = 0, iLen = (r as any).length; i < iLen; i++) {
-				// TODO typing
 				addRow(r[i], k);
 			}
 			return;
@@ -102,17 +114,18 @@ var __details_add = function (ctx, row, data, klass) {
 	row._details = dom.s(rows);
 
 	// If the children were already shown, that state should be retained
-	if (row._detailsShow) {
+	if (row._detailsShow && row.nTr) {
 		row._details.insertAfter(row.nTr);
 	}
-};
+}
 
-// Make state saving of child row details async to allow them to be batch processed
-var __details_state = util.throttle(function (ctx) {
+// Make state saving of child row details async to allow them to be batch
+// processed
+var __details_state = util.throttle(function (ctx: Context[]) {
 	saveState(ctx[0]);
 }, 500) as any;
 
-var __details_remove = function (api, idx?) {
+function __details_remove(api: ApiType, idx?: number) {
 	var ctx = api.context;
 
 	if (ctx.length) {
@@ -127,22 +140,22 @@ var __details_remove = function (api, idx?) {
 			__details_state(ctx);
 		}
 	}
-};
+}
 
-var __details_display = function (api, show) {
+function __details_display(api: ApiType, show: boolean) {
 	var ctx = api.context;
 
 	if (ctx.length && api.length) {
 		var row = ctx[0].aoData[api[0]];
 
-		if (row._details) {
+		if (row && row._details) {
 			row._detailsShow = show;
 
-			if (show) {
+			if (show && row.nTr) {
 				row._details.insertAfter(row.nTr);
 				dom.s(row.nTr).classAdd('dt-hasChild');
 			}
-			else {
+			else if (!show) {
 				row._details.detach();
 				dom.s(row.nTr).classRemove('dt-hasChild');
 			}
@@ -153,9 +166,9 @@ var __details_display = function (api, show) {
 			__details_state(ctx);
 		}
 	}
-};
+}
 
-var __details_events = function (settings) {
+function __details_events(settings: Context) {
 	var api = new Api(settings);
 	var namespace = '.dt.DT_details';
 	var drawEvent = 'draw' + namespace;
@@ -179,7 +192,7 @@ var __details_events = function (settings) {
 					// Internal data grab
 					var row = data[idx];
 
-					if (row._detailsShow) {
+					if (row && row._detailsShow && row._details && row.nTr) {
 						row._details.insertAfter(row.nTr);
 					}
 				});
@@ -218,13 +231,15 @@ var __details_events = function (settings) {
 			}
 
 			for (var i = 0, iLen = data.length; i < iLen; i++) {
-				if (data[i] && data[i]._details) {
+				let d = data[i];
+
+				if (d && d._details) {
 					__details_remove(api, i);
 				}
 			}
 		});
 	}
-};
+}
 
 // Strings for the method names to help minification
 var _emp = '';
@@ -235,45 +250,48 @@ var _child_mth = _child_obj + '()';
 //  tr
 //  string
 //  jQuery or array of any of the above
-Api.register(_child_mth, function (data, klass) {
-	var ctx = this.context;
+Api.register(
+	_child_mth,
+	function (this: ApiRowMethods<any>, data: boolean, klass: string) {
+		var ctx = this.context;
 
-	if (data === undefined) {
-		// get
-		let jq = util.external('jq');
-		let details =
-			ctx.length && this.length && ctx[0].aoData[this[0]]
-				? ctx[0].aoData[this[0]]._details
-				: undefined;
+		if (data === undefined) {
+			// get
+			let jq = util.external('jq');
+			let details =
+				ctx.length && this.length && ctx[0].aoData[this[0]]
+					? ctx[0].aoData[this[0]]?._details
+					: undefined;
 
-		if (!details) {
-			return;
+			if (!details) {
+				return;
+			}
+			else if (jq) {
+				return jq(details.get());
+			}
+			return details;
 		}
-		else if (jq) {
-			return jq(details.get());
+		else if (data === true) {
+			// show
+			this.child.show();
 		}
-		return details;
-	}
-	else if (data === true) {
-		// show
-		this.child.show();
-	}
-	else if (data === false) {
-		// remove
-		__details_remove(this);
-	}
-	else if (ctx.length && this.length) {
-		// set
-		__details_add(ctx[0], ctx[0].aoData[this[0]], data, klass);
-	}
+		else if (data === false) {
+			// remove
+			__details_remove(this);
+		}
+		else if (ctx.length && this.length) {
+			// set
+			__details_add(ctx[0], ctx[0].aoData[this[0]], data, klass);
+		}
 
-	return this.inst(this.context, this);
-});
+		return this.inst(this.context, this);
+	}
+);
 
 Api.register(
 	[
 		_child_obj + '.show()',
-		_child_mth + '.show()', // only when `child()` was called with parameters (without
+		_child_mth + '.show()' // only when `child()` was called with parameters (without
 	],
 	function () {
 		// it returns an object and this method is not executed)
@@ -285,7 +303,7 @@ Api.register(
 Api.register(
 	[
 		_child_obj + '.hide()',
-		_child_mth + '.hide()', // only when `child()` was called with parameters (without
+		_child_mth + '.hide()' // only when `child()` was called with parameters (without
 	],
 	function () {
 		// it returns an object and this method is not executed)
@@ -297,7 +315,7 @@ Api.register(
 Api.register(
 	[
 		_child_obj + '.remove()',
-		_child_mth + '.remove()', // only when `child()` was called with parameters (without
+		_child_mth + '.remove()' // only when `child()` was called with parameters (without
 	],
 	function () {
 		// it returns an object and this method is not executed)

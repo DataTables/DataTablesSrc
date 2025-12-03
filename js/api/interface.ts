@@ -1,4 +1,6 @@
 
+import classes from '../ext/classes';
+import defaults from '../model/defaults';
 import { SearchInput, SearchOptions } from '../model/search';
 import Context, { Order, OrderArray } from '../model/settings';
 import { State, StateLoad } from '../model/state';
@@ -575,13 +577,13 @@ export interface Api<T=any> {
 	 */
 	selector: {
 		/** Row selector used in this instance (if any) */
-		rows: RowSelector<T> | null;
+		rows: RowSelector<T> | undefined;
 
 		/** Column selector used in this instance (if any) */
-		cols: ColumnSelector | null;
+		cols: ColumnSelector | undefined;
 
 		/** Options modifier used in this instance (if any) */
-		opts: ApiSelectorModifier | null;
+		opts: ApiSelectorModifier | undefined;
 	};
 
 	/**
@@ -1042,7 +1044,7 @@ export interface ApiOrder {
 	): Api<any>;
 }
 
-export interface ApiState<T> {
+export interface ApiState<T> extends Api<T> {
 	/**
 	 * Get the last saved state of the table
 	 * 
@@ -1867,11 +1869,13 @@ export interface ApiRowMethods<T> extends Omit<Api<T>, 'data' | 'select'> {
 	/**
 	 * Get the id of the selected row. Since: 1.10.8
 	 *
-	 * @param hash true - Append a hash (#) to the start of the row id. This can be useful for then using the id as a selector
-	 * false - Do not modify the id value.
-	 * @returns Row id. If the row does not have an id available 'undefined' will be returned.
+	 * @param hash true - Append a hash (#) to the start of the row id. This can
+	 * be useful for then using the id as a selector false - Do not modify the
+	 * id value.
+	 * @returns Row id. If the row does not have an id available 'undefined'
+	 * will be returned.
 	 */
-	id(this: Api, hash?: boolean): string;
+	ids(this: Api, hash?: boolean): string;
 
 	/**
 	 * Get the row index of the row column.
@@ -2104,7 +2108,7 @@ export interface DataTablesStatic {
 	/**
 	 * Default Settings
 	 */
-	defaults: Config;
+	defaults: Partial<typeof defaults>;
 
 	/**
 	 * Default Settings
@@ -2265,6 +2269,161 @@ export interface DataTablesStatic {
 export type ApiStaticRegisterFn<T> = (this: Api<T>, ...args: any[]) => any;
 
 
+interface FunctionColumnData {
+    (row: any, type: 'set', s: any, meta: CellMetaSettings): void;
+    (row: any, type: 'display' | 'sort' | 'filter' | 'type', s: undefined, meta: CellMetaSettings): any;
+}
+
+export interface ObjectColumnData {
+    _: string | number | FunctionColumnData;
+    filter?: string | number | FunctionColumnData;
+    display?: string | number | FunctionColumnData;
+    type?: string | number | FunctionColumnData;
+    sort?: string | number | FunctionColumnData;
+}
+
+export interface ObjectColumnRender {
+    _?: string | number | FunctionColumnRender;
+    filter?: string | number | FunctionColumnRender;
+    display?: string | number | FunctionColumnRender;
+    type?: string | number | FunctionColumnRender;
+    sort?: string | number | FunctionColumnRender;
+}
+
+export interface IColumnControlContent {
+    [name: string]: any;
+}
+
+export interface ApiStatic {
+    /**
+     * Create a new API instance to an existing DataTable. Note that this
+     * does not create a new DataTable.
+     */
+    new (selector: string | Node | Node[] | JQuery | Context): Api<any>;
+
+    register<T=any>(name: string, fn: ApiStaticRegisterFn<T>): void;
+    registerPlural<T=any>(pluralName: string, singleName: string, fn: ApiStaticRegisterFn<T>): void;
+}
+
+export interface DataTablesStaticExt {
+    builder: string;
+    buttons: DataTablesStaticExtButtons;
+    ccContent: IColumnControlContent;
+    classes: typeof classes;
+    errMode: string;
+    escape: {
+        attributes: boolean;
+    };
+    feature: any[];
+    iApiIndex: number;
+    internal: object;
+    legacy: object;
+    oApi: object;
+    order: object;
+    oSort: object;
+    pager: object;
+    renderer: object;
+    search: any[];
+    selector: object;
+    /**
+     * Type based plug-ins.
+     */
+    type: ExtTypeSettings;
+}
+
+export interface DataTablesStaticExtButtons {
+    // Intentionally empty, completed in Buttons extension
+}
+
+export interface DataTablesStaticRender {
+    /**
+     * Format an ISO8061 date in auto locale detected format
+     */
+    date(): ObjectColumnRender;
+
+    /**
+     * Format an ISO8061 date value using the specified format
+     * @param to Display format
+     * @param locale Locale
+     * @param def Default value if empty
+     */
+    date(to: string, locale?: string): ObjectColumnRender;
+
+    /**
+     * Format a date value
+     * @param from Data format
+     * @param to Display format
+     * @param locale Locale
+     * @param def Default value if empty
+     */
+    date(from?: string, to?: string, locale?: string, def?: string): ObjectColumnRender;
+
+    /**
+     * Format an ISO8061 datetime in auto locale detected format
+     */
+    datetime(): ObjectColumnRender;
+
+    /**
+     * Format an ISO8061 datetime value using the specified format
+     * @param to Display format
+     * @param locale Locale
+     * @param def Default value if empty
+     */
+    datetime(to: string, locale?: string): ObjectColumnRender;
+
+    /**
+     * Format a datetime value
+     * @param from Data format
+     * @param to Display format
+     * @param locale Locale
+     * @param def Default value if empty
+     */
+    datetime(from?: string, to?: string, locale?: string, def?: string): ObjectColumnRender;
+
+    /**
+     * Render a number with auto-detected locale thousands and decimal
+     */
+    number(): ObjectColumnRender;
+
+    /**
+     * Will format numeric data (defined by `columns.data`) for display, retaining the original unformatted data for sorting and filtering.
+     *
+     * @param thousands Thousands grouping separator. `null` for auto locale
+     * @param decimal Decimal point indicator. `null` for auto locale
+     * @param precision Integer number of decimal points to show.
+     * @param prefix Prefix (optional).
+     * @param postfix Postfix (/suffix) (optional).
+     */
+    number(thousands: string | null, decimal: string | null, precision: number, prefix?: string, postfix?: string): ObjectColumnRender;
+
+    /**
+     * Escape HTML to help prevent XSS attacks. It has no optional parameters.
+     */
+    text(): ObjectColumnRender;
+
+    /**
+     * Format an ISO8061 date in auto locale detected format
+     */
+    time(): ObjectColumnRender;
+
+    /**
+     * Format an ISO8061 time value using the specified format
+     * @param to Display format
+     * @param locale Locale
+     * @param def Default value if empty
+     */
+    time(to: string, locale?: string): ObjectColumnRender;
+
+    /**
+     * Format a time value
+     * @param from Data format
+     * @param to Display format
+     * @param locale Locale
+     * @param def Default value if empty
+     */
+    time(from?: string, to?: string, locale?: string, def?: string): ObjectColumnRender;
+}
+
 export interface DataTablesStaticUtil {
 	/**
 	 * Normalise diacritic characters in a string.
@@ -2350,3 +2509,63 @@ export interface DataTablesStaticUtil {
 	unique<T=any>(input: Array<T>): Array<T>;
 }
 
+export interface AjaxData {
+    draw: number;
+    start: number;
+    length: number;
+    data: any;
+    order: AjaxDataOrder[];
+    columns: AjaxDataColumn[];
+    search: AjaxDataSearch;
+}
+
+export interface AjaxDataSearch {
+    value: string;
+    regex: boolean;
+}
+
+export interface AjaxDataOrder {
+    column: number;
+    dir: string;
+}
+
+export interface AjaxDataColumn {
+    data: string | number;
+    name: string;
+    searchable: boolean;
+    orderable: boolean;
+    search: AjaxDataSearch;
+}
+
+export interface AjaxResponse {
+    draw?: number;
+    recordsTotal?: number;
+    recordsFiltered?: number;
+    data: any;
+    error?: string;
+}
+
+export interface ExtTypeSettings {
+    /**
+     * Type detection functions for plug-in development.
+	 *
+	 * @deprecated Use `DataTable.type()`
+     */
+    detect: ExtTypeSettingsDetect[];
+
+    /**
+     * Type based ordering functions for plug-in development.
+	 *
+	 * @deprecated Use `DataTable.type()`
+     */
+    order: any;
+
+    /**
+     * Type based search formatting for plug-in development.
+	 *
+	 * @deprecated Use `DataTable.type()`
+     */
+    search: any;
+}
+
+type FunctionColumnRender = (data: any, type: any, row: any, meta: CellMetaSettings) => any;

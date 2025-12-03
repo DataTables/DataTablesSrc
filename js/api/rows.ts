@@ -4,12 +4,21 @@ import dom from '../dom';
 import Context from '../model/settings';
 import util from '../util';
 import { register, registerPlural } from './Api';
-import { Api, ApiRow, ApiRowMethods, ApiRowsMethods, ApiSelectorModifier, Api as ApiType, RowSelector } from './interface';
+import {
+	Api,
+	ApiRow,
+	ApiRowMethods,
+	ApiRows,
+	ApiRowsMethods,
+	ApiSelectorModifier,
+	Api as ApiType,
+	RowSelector
+} from './interface';
 import {
 	selector_first,
 	selector_opts,
 	selector_row_indexes,
-	selector_run,
+	selector_run
 } from './selectors';
 import { arrayApply, lengthOverflow } from './support';
 
@@ -23,7 +32,11 @@ import { arrayApply, lengthOverflow } from './support';
  * {array}     - jQuery array of nodes, or simply an array of TR nodes
  *
  */
-function selectRows(settings: Context, selector: RowSelector<any>, opts: ApiSelectorModifier) {
+function selectRows(
+	settings: Context,
+	selector: RowSelector<any>,
+	opts: ApiSelectorModifier
+) {
 	var rows: number[];
 	var run = function (sel: any) {
 		var selInt = util.conv.intVal(sel);
@@ -53,7 +66,7 @@ function selectRows(settings: Context, selector: RowSelector<any>, opts: ApiSele
 		if (typeof sel === 'function') {
 			return rows.map(function (idx) {
 				var row = aoData[idx];
-				return sel(idx, row._aData, row.nTr) ? idx : null;
+				return row && sel(idx, row._aData, row.nTr) ? idx : null;
 			});
 		}
 
@@ -61,15 +74,18 @@ function selectRows(settings: Context, selector: RowSelector<any>, opts: ApiSele
 		if (sel.nodeName) {
 			var rowIdx = sel._DT_RowIndex; // Property added by DT for fast lookup
 			var cellIdx = sel._DT_CellIndex;
+			var row;
 
 			if (rowIdx !== undefined) {
 				// Make sure that the row is actually still present in the table
-				return aoData[rowIdx] && aoData[rowIdx].nTr === sel ? [rowIdx] : [];
+				row = aoData[rowIdx];
+
+				return row && row.nTr === sel ? [rowIdx] : [];
 			}
 			else if (cellIdx) {
-				return aoData[cellIdx.row] && aoData[cellIdx.row].nTr === sel.parentNode
-					? [cellIdx.row]
-					: [];
+				row = aoData[cellIdx.row];
+
+				return row && row.nTr === sel.parentNode ? [cellIdx.row] : [];
 			}
 			else {
 				var host = dom.s(sel).closest('*[data-dt-row]');
@@ -185,7 +201,7 @@ register<ApiRowsMethods<any>['nodes']>('rows().nodes()', function () {
 	return this.iterator(
 		'row',
 		function (settings, row) {
-			return settings.aoData[row].nTr || undefined;
+			return settings.aoData[row]?.nTr || undefined;
 		},
 		true
 	);
@@ -202,80 +218,101 @@ register<ApiRowsMethods<any>['data']>('rows().data()', function () {
 	);
 });
 
-registerPlural<ApiRowsMethods<any>['cache']>('rows().cache()', 'row().cache()', function (type) {
-	return this.iterator(
-		'row',
-		function (settings, row) {
-			var r = settings.aoData[row];
-			return type === 'search' ? r._aFilterData : r._aSortData;
-		},
-		true
-	);
-});
-
-registerPlural<ApiRowsMethods<any>['invalidate']>('rows().invalidate()', 'row().invalidate()', function (src) {
-	return this.iterator('row', function (settings, row) {
-		invalidate(settings, row, src);
-	});
-});
-
-registerPlural<ApiRowsMethods<any>['indexes']>('rows().indexes()', 'row().index()', function () {
-	return this.iterator(
-		'row',
-		function (settings, row) {
-			return row;
-		},
-		true
-	);
-});
-
-registerPlural('rows().ids()', 'row().id()', function (hash) {
-	var a: any[] = [];
-	var context = this.context;
-
-	// `iterator` will drop undefined values, but in this case we want them
-	for (var i = 0, iLen = context.length; i < iLen; i++) {
-		for (var j = 0, jen = this[i].length; j < jen; j++) {
-			var id = context[i].rowIdFn(context[i].aoData[this[i][j]]._aData);
-			a.push((hash === true ? '#' : '') + id);
-		}
+registerPlural<ApiRowsMethods<any>['cache']>(
+	'rows().cache()',
+	'row().cache()',
+	function (type) {
+		return this.iterator(
+			'row',
+			function (settings, row) {
+				var r = settings.aoData[row];
+				return type === 'search' ? r?._aFilterData : r?._aSortData;
+			},
+			true
+		);
 	}
+);
 
-	return this.inst(context, a);
-});
+registerPlural<ApiRowsMethods<any>['invalidate']>(
+	'rows().invalidate()',
+	'row().invalidate()',
+	function (src) {
+		return this.iterator('row', function (settings, row) {
+			invalidate(settings, row, src);
+		});
+	}
+);
 
-registerPlural('rows().remove()', 'row().remove()', function () {
-	this.iterator('row', function (settings, row) {
-		var data = settings.aoData;
-		var rowData = data[row];
+registerPlural<ApiRowsMethods<any>['indexes']>(
+	'rows().indexes()',
+	'row().index()',
+	function () {
+		return this.iterator(
+			'row',
+			function (settings, row) {
+				return row;
+			},
+			true
+		);
+	}
+);
 
-		// Delete from the display arrays
-		var idx = settings.aiDisplayMaster.indexOf(row);
-		if (idx !== -1) {
-			settings.aiDisplayMaster.splice(idx, 1);
+registerPlural<ApiRowMethods<any>['ids']>(
+	'rows().ids()',
+	'row().id()',
+	function (hash) {
+		var a: any[] = [];
+		var context = this.context;
+
+		// `iterator` will drop undefined values, but in this case we want them
+		for (var i = 0, iLen = context.length; i < iLen; i++) {
+			for (var j = 0, jen = this[i].length; j < jen; j++) {
+				var id = context[i].rowIdFn(context[i].aoData[this[i][j]]?._aData);
+				a.push((hash === true ? '#' : '') + id);
+			}
 		}
 
-		// For server-side processing tables - subtract the deleted row from the count
-		if (settings._iRecordsDisplay > 0) {
-			settings._iRecordsDisplay--;
-		}
+		return this.inst(context, a);
+	}
+);
 
-		// Check for an 'overflow' they case for displaying the table
-		lengthOverflow(settings);
+registerPlural<ApiRowMethods<any>['remove']>(
+	'rows().remove()',
+	'row().remove()',
+	function () {
+		this.iterator('row', function (settings, row) {
+			var data = settings.aoData;
+			var rowData = data[row];
 
-		// Remove the row's ID reference if there is one
-		var id = settings.rowIdFn(rowData._aData);
-		if (id !== undefined) {
-			delete settings.aIds[id];
-		}
+			// Delete from the display arrays
+			var idx = settings.aiDisplayMaster.indexOf(row);
+			if (idx !== -1) {
+				settings.aiDisplayMaster.splice(idx, 1);
+			}
 
-		data[row] = null;
-	});
+			// For server-side processing tables - subtract the deleted row from
+			// the count
+			if (settings._iRecordsDisplay > 0) {
+				settings._iRecordsDisplay--;
+			}
 
-	return this;
-});
+			// Check for an 'overflow' they case for displaying the table
+			lengthOverflow(settings);
 
-register('rows.add()', function (rows) {
+			// Remove the row's ID reference if there is one
+			var id = settings.rowIdFn(rowData?._aData);
+			if (id !== undefined) {
+				delete settings.aIds[id];
+			}
+
+			data[row] = null;
+		});
+
+		return this;
+	}
+);
+
+register<ApiRows<any>['add']>('rows.add()', function (rows) {
 	var newRows = this.iterator(
 		'table',
 		function (settings) {
@@ -295,7 +332,7 @@ register('rows.add()', function (rows) {
 
 			return out;
 		},
-		1
+		true
 	);
 
 	// Return an Api.rows() extended instance, so rows().nodes() etc can be used
@@ -322,12 +359,12 @@ register<ApiRowMethods<any>['data']>('row().data()', function (data?) {
 	if (data === undefined) {
 		// Get
 		return ctx.length && this.length && this[0].length
-			? ctx[0].aoData[this[0]]._aData
+			? ctx[0].aoData[this[0]]?._aData
 			: undefined;
 	}
 
 	// Set
-	var row = ctx[0].aoData[this[0]];
+	var row = ctx[0].aoData[this[0]]!;
 	row._aData = data;
 
 	// If the DOM has an id, and the data source is an array

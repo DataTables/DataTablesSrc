@@ -59,7 +59,7 @@ function selectCells(
 							s(
 								o,
 								getCellData(settings, row, j),
-								host.anCells ? host.anCells[j] : null
+								host && host.anCells ? host.anCells[j] : null
 							)
 						) {
 							a.push(o);
@@ -261,9 +261,9 @@ registerPlural<ApiCellsMethods<any>['cache']>(
 		return this.iterator(
 			'cell',
 			function (settings, row, column) {
-				return settings.aoData[row][prop]
-					? settings.aoData[row][prop][column]
-					: null;
+				let rowData = settings.aoData[row];
+
+				return rowData && rowData[prop] ? rowData[prop][column] : null;
 			},
 			true
 		);

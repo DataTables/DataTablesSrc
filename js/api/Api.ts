@@ -220,9 +220,9 @@ util.object.assign(Api.prototype, {
 
 	// Object with rows, columns and opts
 	selector: {
-		rows: null,
-		cols: null,
-		opts: null
+		rows: undefined,
+		cols: undefined,
+		opts: undefined
 	},
 
 	shift: __arrayProto.shift,

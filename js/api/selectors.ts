@@ -10,7 +10,7 @@ import { dataSource } from './support';
 /**
  * Common run function for selector types
  */
-export function selector_run<T=any>(
+export function selector_run<T = any>(
 	type: string,
 	selector: any,
 	selectFn: (s: any) => T[],

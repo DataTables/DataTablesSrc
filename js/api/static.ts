@@ -64,7 +64,7 @@ export const isDataTable: DataTablesStatic['isDataTable'] = function (table) {
 	}
 
 	return is;
-}
+};
 
 /**
  * Get all DataTable tables that have been initialised - optionally you can
@@ -75,7 +75,7 @@ export const isDataTable: DataTablesStatic['isDataTable'] = function (table) {
  * @returns Array of `table` nodes (not DataTable instances) which are
  *   DataTables
  */
-export const tables: DataTablesStatic['tables'] = function(visible) {
+export const tables: DataTablesStatic['tables'] = function (visible) {
 	var api = false;
 
 	if (visible && typeof visible !== 'boolean') {
