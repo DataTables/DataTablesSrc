@@ -25,10 +25,10 @@ import {
 	ColumnSelector
 } from './interface';
 import {
-	selector_first,
-	selector_opts,
-	selector_row_indexes,
-	selector_run
+	selectorFirst,
+	selectorOpts,
+	selectorRowIndexes,
+	selectorRun
 } from './selectors';
 import { callbackFire } from './support';
 
@@ -150,7 +150,7 @@ function selectColumns(
 
 		// Selector = function
 		if (typeof s === 'function') {
-			var rows = selector_row_indexes(settings, opts);
+			var rows = selectorRowIndexes(settings, opts);
 
 			return columns.map(function (col, idx) {
 				return s(
@@ -256,7 +256,7 @@ function selectColumns(
 		return host.count() ? [host.data('dt-column')] : [];
 	};
 
-	var selected = selector_run('column', selector, run, settings, opts);
+	var selected = selectorRun('column', selector, run, settings, opts);
 
 	return opts.columnOrder && opts.columnOrder === 'index'
 		? selected.sort(function (a, b) {
@@ -339,7 +339,7 @@ register<ApiColumnsOverload>('columns()', function (arg1?, arg2?) {
 		selector = arg1 as ColumnSelector;
 	}
 
-	opts = selector_opts(arg2);
+	opts = selectorOpts(arg2);
 
 	let inst = this.iterator(
 		'table',
@@ -701,5 +701,5 @@ type ApiColumnOverload = (
 ) => Api<any>;
 
 register<ApiColumnOverload>('column()', function (selector, opts?) {
-	return selector_first(this.columns(selector, opts) as any);
+	return selectorFirst(this.columns(selector, opts) as any);
 });

@@ -33,14 +33,14 @@ dom.s(document).on('plugin-init.dt', function (e, context) {
 
 	// For future state loads (e.g. with StateRestore)
 	api.on('stateLoaded.DT', function (ev, settings, state) {
-		__details_state_load(api, state);
+		detailsStateLoad(api, state);
 	});
 
 	// And the initial load state
-	__details_state_load(api, api.state.loaded());
+	detailsStateLoad(api, api.state.loaded());
 });
 
-function __details_state_load(api: ApiType, state: StateLoad | null) {
+function detailsStateLoad(api: ApiType, state: StateLoad | null) {
 	if (state && state.childRows) {
 		api
 			.rows(
@@ -56,7 +56,7 @@ function __details_state_load(api: ApiType, state: StateLoad | null) {
 	}
 }
 
-function __details_add(
+function detailsAdd(
 	ctx: Context,
 	row: typeof TableRow | null,
 	data: any,
@@ -121,11 +121,11 @@ function __details_add(
 
 // Make state saving of child row details async to allow them to be batch
 // processed
-var __details_state = util.throttle(function (ctx: Context[]) {
+var detailsState = util.throttle(function (ctx: Context[]) {
 	saveState(ctx[0]);
 }, 500) as any;
 
-function __details_remove(api: ApiType, idx?: number) {
+function detailsRemove(api: ApiType, idx?: number) {
 	var ctx = api.context;
 
 	if (ctx.length) {
@@ -137,12 +137,12 @@ function __details_remove(api: ApiType, idx?: number) {
 			row._detailsShow = undefined;
 			row._details = undefined;
 			dom.s(row.nTr).classRemove('dt-hasChild');
-			__details_state(ctx);
+			detailsState(ctx);
 		}
 	}
 }
 
-function __details_display(api: ApiType, show: boolean) {
+function detailsDisplay(api: ApiType, show: boolean) {
 	var ctx = api.context;
 
 	if (ctx.length && api.length) {
@@ -161,14 +161,13 @@ function __details_display(api: ApiType, show: boolean) {
 			}
 
 			callbackFire(ctx[0], null, 'childRow', [show, api.row(api[0])]);
-
-			__details_events(ctx[0]);
-			__details_state(ctx);
+			detailsEvents(ctx[0]);
+			detailsState(ctx);
 		}
 	}
 }
 
-function __details_events(settings: Context) {
+function detailsEvents(settings: Context) {
 	var api = new Api(settings);
 	var namespace = '.dt.DT_details';
 	var drawEvent = 'draw' + namespace;
@@ -204,8 +203,8 @@ function __details_events(settings: Context) {
 				return;
 			}
 
-			// Update the colspan for the details rows (note, only if it already has
-			// a colspan)
+			// Update the colspan for the details rows (note, only if it already
+			// has a colspan)
 			var row,
 				visible = visibleColumns(ctx);
 
@@ -234,7 +233,7 @@ function __details_events(settings: Context) {
 				let d = data[i];
 
 				if (d && d._details) {
-					__details_remove(api, i);
+					detailsRemove(api, i);
 				}
 			}
 		});
@@ -277,11 +276,11 @@ Api.register(
 		}
 		else if (data === false) {
 			// remove
-			__details_remove(this);
+			detailsRemove(this);
 		}
 		else if (ctx.length && this.length) {
 			// set
-			__details_add(ctx[0], ctx[0].aoData[this[0]], data, klass);
+			detailsAdd(ctx[0], ctx[0].aoData[this[0]], data, klass);
 		}
 
 		return this.inst(this.context, this);
@@ -291,11 +290,11 @@ Api.register(
 Api.register(
 	[
 		_child_obj + '.show()',
-		_child_mth + '.show()' // only when `child()` was called with parameters (without
+		_child_mth + '.show()' // only when `child()` was called with parameters
 	],
 	function () {
 		// it returns an object and this method is not executed)
-		__details_display(this, true);
+		detailsDisplay(this, true);
 		return this;
 	}
 );
@@ -303,11 +302,11 @@ Api.register(
 Api.register(
 	[
 		_child_obj + '.hide()',
-		_child_mth + '.hide()' // only when `child()` was called with parameters (without
+		_child_mth + '.hide()' // only when `child()` was called with parameters
 	],
 	function () {
 		// it returns an object and this method is not executed)
-		__details_display(this, false);
+		detailsDisplay(this, false);
 		return this;
 	}
 );
@@ -315,11 +314,11 @@ Api.register(
 Api.register(
 	[
 		_child_obj + '.remove()',
-		_child_mth + '.remove()' // only when `child()` was called with parameters (without
+		_child_mth + '.remove()' // only when `child()` was called with parameters
 	],
 	function () {
 		// it returns an object and this method is not executed)
-		__details_remove(this);
+		detailsRemove(this);
 		return this;
 	}
 );

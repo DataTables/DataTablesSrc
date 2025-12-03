@@ -10,7 +10,7 @@ import { dataSource } from './support';
 /**
  * Common run function for selector types
  */
-export function selector_run<T = any>(
+export function selectorRun<T = any>(
 	type: string,
 	selector: any,
 	selectFn: (s: any) => T[],
@@ -65,7 +65,7 @@ export function selector_run<T = any>(
 	return unique(out);
 }
 
-export function selector_opts(opts?: ApiSelectorModifier): ApiSelectorModifier {
+export function selectorOpts(opts?: ApiSelectorModifier): ApiSelectorModifier {
 	if (!opts) {
 		opts = {};
 	}
@@ -89,7 +89,7 @@ export function selector_opts(opts?: ApiSelectorModifier): ApiSelectorModifier {
 }
 
 // Reduce the API instance to the first item found
-export function selector_first<R extends ApiType>(old: ApiType) {
+export function selectorFirst<R extends ApiType>(old: ApiType) {
 	// Need to specify the target class as singular since `old` has the context
 	// of the plural
 	var inst = old.inst<R>(old.context[0], null, old._newClass.replace(/s$/, ''));
@@ -110,7 +110,7 @@ export function selector_first<R extends ApiType>(old: ApiType) {
 	return inst;
 }
 
-export function selector_row_indexes(
+export function selectorRowIndexes(
 	settings: Context,
 	opts: ApiSelectorModifier
 ) {

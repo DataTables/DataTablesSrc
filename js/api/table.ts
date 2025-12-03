@@ -9,7 +9,7 @@ import {
 	ApiTablesMethods,
 	TableSelector
 } from './interface';
-import { selector_first } from './selectors';
+import { selectorFirst } from './selectors';
 import { arrayApply } from './support';
 
 /**
@@ -64,7 +64,7 @@ register<Api['tables']>('tables()', function (selector) {
 });
 
 register<Api['table']>('table()', function (selector) {
-	return selector_first(this.tables(selector));
+	return selectorFirst(this.tables(selector));
 });
 
 // Common methods, combined to reduce size

@@ -15,10 +15,10 @@ import {
 	RowSelector
 } from './interface';
 import {
-	selector_first,
-	selector_opts,
-	selector_row_indexes,
-	selector_run
+	selectorFirst,
+	selectorOpts,
+	selectorRowIndexes,
+	selectorRun
 } from './selectors';
 import { arrayApply, lengthOverflow } from './support';
 
@@ -50,7 +50,7 @@ function selectRows(
 		}
 
 		if (!rows) {
-			rows = selector_row_indexes(settings, opts);
+			rows = selectorRowIndexes(settings, opts);
 		}
 
 		if (selInt !== null && rows.indexOf(selInt) !== -1) {
@@ -133,7 +133,7 @@ function selectRows(
 			.mapTo((el: any) => el._DT_RowIndex);
 	};
 
-	var matched = selector_run('row', selector, run, settings, opts);
+	var matched = selectorRun('row', selector, run, settings, opts);
 
 	if (opts.order === 'current' || opts.order === 'applied') {
 		sortDisplay(settings, matched);
@@ -167,7 +167,7 @@ register<ApiRowsOverload>('rows()', function (arg1, arg2) {
 		opts = arg2!;
 	}
 
-	opts = selector_opts(opts!);
+	opts = selectorOpts(opts!);
 
 	var inst = this.iterator<ApiRowsMethods<any>>(
 		'table',
@@ -350,7 +350,7 @@ type ApiRowOverload = (
 ) => ApiRowMethods<any>;
 
 register<ApiRowOverload>('row()', function (selector?, opts?) {
-	return selector_first(this.rows(selector, opts));
+	return selectorFirst(this.rows(selector, opts));
 });
 
 register<ApiRowMethods<any>['data']>('row().data()', function (data?) {

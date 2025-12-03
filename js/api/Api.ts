@@ -3,7 +3,7 @@ import ext from '../ext/index';
 import Context from '../model/settings';
 import util from '../util';
 import { Api as ApiType, InstSelector } from './interface';
-import { selector_row_indexes } from './selectors';
+import { selectorRowIndexes } from './selectors';
 import { arrayApply } from './support';
 
 /**
@@ -157,7 +157,7 @@ util.object.assign(Api.prototype, {
 				items = this[i];
 
 				if (type === 'column-rows') {
-					rows = selector_row_indexes(context[i], selector.opts);
+					rows = selectorRowIndexes(context[i], selector.opts);
 				}
 
 				for (j = 0, jen = items.length; j < jen; j++) {

@@ -16,10 +16,10 @@ import {
 	RowSelector
 } from './interface';
 import {
-	selector_first,
-	selector_opts,
-	selector_row_indexes,
-	selector_run
+	selectorFirst,
+	selectorOpts,
+	selectorRowIndexes,
+	selectorRun
 } from './selectors';
 
 function selectCells(
@@ -28,7 +28,7 @@ function selectCells(
 	opts: ApiSelectorModifier
 ) {
 	var data = settings.aoData;
-	var rows = selector_row_indexes(settings, opts);
+	var rows = selectorRowIndexes(settings, opts);
 	var allCells: Dom;
 	var row;
 	var columns = settings.aoColumns.length;
@@ -119,7 +119,7 @@ function selectCells(
 			: [];
 	};
 
-	return selector_run('cell', selector, run, settings, opts);
+	return selectorRun('cell', selector, run, settings, opts);
 }
 
 type ApiCellsOverload<T = any> = (
@@ -163,7 +163,7 @@ register<ApiCellsOverload>('cells()', function (arg1?, arg2?, arg3?) {
 	// Cell selector (if there is no column selector, then it must be)
 	if (columnSelector === null) {
 		return this.iterator('table', function (settings) {
-			return selectCells(settings, cellSelector, selector_opts(opts));
+			return selectCells(settings, cellSelector, selectorOpts(opts));
 		});
 	}
 
@@ -327,7 +327,7 @@ type APiCellOverload = (
 register<APiCellOverload>(
 	'cell()',
 	function (rowSelector, columnSelector?, opts?) {
-		return selector_first(
+		return selectorFirst(
 			this.cells(rowSelector as any, columnSelector as any, opts)
 		);
 	}
