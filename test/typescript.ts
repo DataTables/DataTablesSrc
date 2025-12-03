@@ -1,4 +1,5 @@
 
+import { expectType } from 'tsd';
 import DataTable, {
 	Api,
 	ApiCellsMethods,
@@ -7,13 +8,11 @@ import DataTable, {
 	ApiTableMethods,
 	ConfigColumns,
 	DataType,
+	ExtTypeSettingsDetect,
 	HeaderStructure,
 	SearchInput,
-	SearchInputColumn,
-	InternalSettings,
-	ExtTypeSettingsDetect
+	SearchInputColumn
 } from "../types/types";
-import {expectType} from 'tsd';
 
 interface IRow {
 	firstName: string;
@@ -197,6 +196,7 @@ table.columns(1, {
 	columnOrder: 'index'
 });
 table.columns([1, '.test']);
+table.columns(':visible').count();
 
 expectType<ConfigColumns>(table.column(0).init());
 expectType<Api<ConfigColumns>>(table.columns().init());
@@ -324,7 +324,7 @@ tableRowType.rows().every(function () {
 	expectType<number>(this.index());
 });
 
-expectType<HTMLTableRowElement>(table.row(1).node());
+expectType<HTMLTableRowElement | null>(table.row(1).node());
 
 
 
