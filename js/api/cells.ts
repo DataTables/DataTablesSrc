@@ -8,7 +8,6 @@ import * as object from '../util/object';
 import { register, registerPlural } from './Api';
 import {
 	Api,
-	ApiCell,
 	ApiCellMethods,
 	ApiCellsMethods,
 	ApiSelectorModifier,
@@ -131,6 +130,7 @@ type ApiCellsOverload<T = any> = (
 ) => ApiCellsMethods<T>;
 
 register<ApiCellsOverload>('cells()', function (arg1?, arg2?, arg3?) {
+	// // Argument shifting
 	let rowSelector: RowSelector<any> = null;
 	let columnSelector: ColumnSelector = null;
 	let cellSelector: CellSelector;
@@ -139,14 +139,19 @@ register<ApiCellsOverload>('cells()', function (arg1?, arg2?, arg3?) {
 	// Argument shifting
 	if (is.plainObject(arg1)) {
 		if ((arg1 as any).row === undefined) {
-			// Selector only overload
+			// Selector modifier only overload
 			opts = arg1 as ApiSelectorModifier;
 		}
 		else {
-			// Cell index overload
+			// Cell selector as an index object
 			cellSelector = arg1 as CellSelector;
 			opts = arg2 as ApiSelectorModifier;
 		}
+	}
+	else if (is.plainObject(arg2) || arg2 === undefined) {
+		// Cell selector overload
+		cellSelector = arg1 as CellSelector;
+		opts = arg2 as ApiSelectorModifier;
 	}
 	else if (arg1 !== undefined) {
 		// Row + column selector overload
@@ -155,8 +160,8 @@ register<ApiCellsOverload>('cells()', function (arg1?, arg2?, arg3?) {
 		opts = arg3;
 	}
 
-	// Cell selector
-	if (columnSelector === null || columnSelector === undefined) {
+	// Cell selector (if there is no column selector, then it must be)
+	if (columnSelector === null) {
 		return this.iterator('table', function (settings) {
 			return selectCells(settings, cellSelector, selector_opts(opts));
 		});
@@ -312,10 +317,19 @@ registerPlural<ApiCellsMethods<any>['invalidate']>(
 	}
 );
 
-register<ApiCell<any>>(
+type APiCellOverload = (
+	this: Api,
+	rowSelector?: ApiSelectorModifier | CellSelector | RowSelector<any>,
+	columnSelector?: ApiSelectorModifier | ColumnSelector,
+	modifier?: ApiSelectorModifier
+) => ApiCellMethods<any>;
+
+register<APiCellOverload>(
 	'cell()',
 	function (rowSelector, columnSelector?, opts?) {
-		return selector_first(this.cells(rowSelector, columnSelector, opts));
+		return selector_first(
+			this.cells(rowSelector as any, columnSelector as any, opts)
+		);
 	}
 );
 

@@ -379,8 +379,8 @@ export function sort(ctx: Context, col?: number, dir?: string) {
 				test,
 				sortItem,
 				len = aSort.length,
-				dataA = aoData[a]._aSortData!,
-				dataB = aoData[b]._aSortData!;
+				dataA = aoData[a]?._aSortData!,
+				dataB = aoData[b]?._aSortData!;
 
 			for (k = 0; k < len; k++) {
 				sortItem = aSort[k];

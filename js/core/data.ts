@@ -28,7 +28,7 @@ export function addData(
 	var rowIdx = settings.aoData.length;
 	var row: typeof rowModel = util.object.assignDeep({}, rowModel, {
 		src: tr ? 'dom' : 'data',
-		idx: rowIdx,
+		idx: rowIdx
 	});
 
 	row._aData = dataIn;
@@ -110,7 +110,7 @@ export function getCellData(
 	var cellData = col.fnGetData(rowData, type, {
 		settings: settings,
 		row: rowIdx,
-		col: colIdx,
+		col: colIdx
 	});
 
 	// Allow for a node being returned for non-display types
@@ -189,14 +189,18 @@ export function setCellData(
 	colIdx: number,
 	val: any
 ) {
-	var col = settings.aoColumns[colIdx];
-	var rowData = settings.aoData[rowIdx]._aData;
+	let row = settings.aoData[rowIdx];
 
-	col.fnSetData(rowData, val, {
-		settings: settings,
-		row: rowIdx,
-		col: colIdx,
-	});
+	if (row) {
+		let col = settings.aoColumns[colIdx];
+		let rowData = row._aData;
+
+		col.fnSetData(rowData, val, {
+			settings: settings,
+			row: rowIdx,
+			col: colIdx
+		});
+	}
 }
 
 /**
@@ -254,6 +258,10 @@ export function invalidate(
 ) {
 	var row = settings.aoData[rowIdx];
 	var i, iLen;
+
+	if (!row) {
+		return;
+	}
 
 	// Remove the cached data for the row
 	row._aSortData = null;
@@ -328,7 +336,7 @@ export function getRowElementsFromNode(
 
 	return {
 		data: data,
-		cells: cells.get(),
+		cells: cells.get()
 	};
 }
 
@@ -363,7 +371,7 @@ export function getRowElementsFromModel(
 
 	return {
 		data: row._aData,
-		cells: tds,
+		cells: tds
 	};
 }
 

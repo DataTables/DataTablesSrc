@@ -40,7 +40,7 @@ const DataTable = function (
 ) {
 	// Check if called with a window or jQuery object for DOM less applications
 	// This is for backwards compatibility
-	if (apiStatic.factory(selector, options)) {
+	if (apiStatic.factory(selector as any, options as any)) {
 		return DataTable;
 	}
 
