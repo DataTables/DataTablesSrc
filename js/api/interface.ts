@@ -2198,6 +2198,7 @@ export interface ApiRow<T> {
 	 * @returns DataTables API instance with selected row in the result set
 	 */
 	(
+		this: Api,
 		rowSelector: RowSelector<T>,
 		modifier?: ApiSelectorModifier
 	): ApiRowMethods<T>;
@@ -2212,7 +2213,7 @@ export interface ApiRow<T> {
 	 * set.
 	 */
 	add(
-		this: ApiRow<T>,
+		this: Api<T>,
 		data: any[] | Record<string, any> | JQuery | HTMLElement
 	): ApiRowMethods<T>;
 }
@@ -2305,7 +2306,7 @@ export interface ApiRows<T> {
 	 * and if paging or filtering in the table should be taken into account.
 	 * @returns DataTables API instance with selected rows
 	 */
-	(modifier?: ApiSelectorModifier): ApiRowsMethods<T>;
+	(this: Api, modifier?: ApiSelectorModifier): ApiRowsMethods<T>;
 
 	/**
 	 * Select rows found by a row selector
@@ -2316,6 +2317,7 @@ export interface ApiRows<T> {
 	 * @returns DataTables API instance with selected rows in the result set
 	 */
 	(
+		this: Api,
 		rowSelector?: RowSelector<T>,
 		modifier?: ApiSelectorModifier
 	): ApiRowsMethods<T>;
@@ -2328,7 +2330,7 @@ export interface ApiRows<T> {
 	 * @returns DataTables API instance with the newly added rows in its result
 	 * set.
 	 */
-	add(this: ApiRows<T>, data: T[]): ApiRowsMethods<T>;
+	add(this: Api<T>, data: T[]): ApiRowsMethods<T>;
 }
 
 export interface ApiRowsMethods<T>
