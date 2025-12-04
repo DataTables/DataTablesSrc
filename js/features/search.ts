@@ -1,7 +1,7 @@
 import { macros } from '../api/support';
 import { draw } from '../core/draw';
-import { filterComplete } from '../core/filter';
 import { processingRun } from '../core/processing';
+import { filterComplete } from '../core/search';
 import dom from '../dom';
 import { SearchInput } from '../model/search';
 import Context from '../model/settings';

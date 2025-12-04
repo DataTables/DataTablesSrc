@@ -7,8 +7,8 @@ import { columnTypes } from './columns';
 import { addData, clearTable } from './data';
 import { draw } from './draw';
 import { initComplete } from './init';
+import { sortFlatten } from './order';
 import { processingDisplay } from './processing';
-import { sortFlatten } from './sort';
 
 /**
  * Create an Ajax call based on the table's settings, taking into account that

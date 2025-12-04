@@ -1,4 +1,4 @@
-import { sort } from '../core/sort';
+import { sort } from '../core/order';
 import { Dom } from '../dom';
 import ext from '../ext/index';
 import Context from '../model/settings';

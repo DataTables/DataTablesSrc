@@ -1,5 +1,5 @@
 import { clearTable } from '../core/data';
-import { sortingClasses } from '../core/sort';
+import { sortingClasses } from '../core/order';
 import dom from '../dom';
 import ext from '../ext/index';
 import util from '../util';

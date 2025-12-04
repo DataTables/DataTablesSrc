@@ -1,4 +1,4 @@
-import { sortAttachListener, sortFlatten, sortResolve } from '../core/sort';
+import { sortAttachListener, sortFlatten, sortResolve } from '../core/order';
 import { Order, OrderState } from '../model/settings';
 import * as object from '../util/object';
 import { register, registerPlural } from './Api';

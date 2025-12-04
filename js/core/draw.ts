@@ -10,10 +10,10 @@ import util from '../util';
 import { ajaxUpdate } from './ajax';
 import { columnOptions, columnTypes, visibleColumns } from './columns';
 import { getCellData, getDataMaster, writeCell } from './data';
-import { filterComplete } from './filter';
+import { sort } from './order';
 import { processingDisplay } from './processing';
 import { renderer } from './render';
-import { sort } from './sort';
+import { filterComplete } from './search';
 
 interface HeaderLayoutCell {
 	cell: HTMLElement;

@@ -20,7 +20,7 @@ import {
 import { getCellData } from './core/data';
 import { detectHeader } from './core/draw';
 import { initialise } from './core/init';
-import { sortingClasses } from './core/sort';
+import { sortingClasses } from './core/order';
 import { saveState } from './core/state';
 import dom from './dom';
 import ext from './ext';

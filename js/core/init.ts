@@ -6,9 +6,9 @@ import { adjustColumnSizing } from './columns';
 import { addData, addTr } from './data';
 import { buildHead, drawHead, reDraw } from './draw';
 import { createLayout } from './layout';
+import { sortInit } from './order';
 import { processingDisplay } from './processing';
 import { colGroup } from './sizing';
-import { sortInit } from './sort';
 import { loadState } from './state';
 
 /**

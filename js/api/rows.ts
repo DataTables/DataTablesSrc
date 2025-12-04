@@ -1,5 +1,5 @@
 import { addData, addTr, invalidate } from '../core/data';
-import { sortDisplay } from '../core/sort';
+import { sortDisplay } from '../core/order';
 import dom from '../dom';
 import Context from '../model/settings';
 import util from '../util';

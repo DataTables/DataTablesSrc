@@ -1,4 +1,4 @@
-import { filterComplete } from '../core/filter';
+import { filterComplete } from '../core/search';
 import { SearchInput, SearchOptions } from '../model/search';
 import * as object from '../util/object';
 import { register, registerPlural } from './Api';
