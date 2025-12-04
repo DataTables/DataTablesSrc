@@ -9,6 +9,9 @@ import rowModel from './row';
 import Search, { SearchInput, SearchOptions } from './search';
 import { State, StateLoad } from './state';
 
+// Todo - need to add `this` scope
+type FunctionDrawCallback = (settings: Context) => void;
+
 interface IScroll {
 	/**
 	 * When the table is shorter in height than sScrollY, collapse the
@@ -356,7 +359,7 @@ export default class Context {
 	/**
 	 * Array of callback functions for draw callback functions
 	 */
-	public aoDrawCallback: Function[] = [];
+	public aoDrawCallback: FunctionDrawCallback[] = [];
 
 	/**
 	 * Array of callback functions for row created function

@@ -36,9 +36,9 @@ export interface IFeaturePagingOptions {
 // opts
 // - type - button configuration
 // - buttons - number of buttons to show - must be odd
-register(
+register<Partial<IFeaturePagingOptions>>(
 	'paging',
-	function (settings: Context, optsIn: Partial<IFeaturePagingOptions>) {
+	function (settings, optsIn) {
 		// Don't show the paging input if the table doesn't have paging enabled
 		if (!settings.oFeatures.bPaginate) {
 			return null;
@@ -51,7 +51,7 @@ register(
 				boundaryNumbers: true,
 				firstLast: true,
 				previousNext: true,
-				numbers: true,
+				numbers: true
 			},
 			optsIn
 		);
@@ -124,8 +124,8 @@ function _pagingDraw(
 		all = len === -1,
 		page = all ? 0 : Math.ceil(start / len),
 		pages = all ? 1 : Math.ceil(visRecords / len),
-		buttons = [],
-		buttonEls: any[] = [],
+		buttons: any[] = [],
+		buttonEls: Element[] = [],
 		buttonsNested = plugin(opts).map(function (val) {
 			return val === 'numbers'
 				? pagingNumbers(page, pages, opts.buttons, opts.boundaryNumbers)
@@ -149,7 +149,7 @@ function _pagingDraw(
 
 		let ariaLabel =
 			typeof button === 'string'
-				? aria[button]
+				? (aria as any)[button]
 				: aria.number
 				? aria.number + (button + 1)
 				: null;
@@ -165,7 +165,7 @@ function _pagingDraw(
 				? -1
 				: settings.iTabIndex && btn.clicker.nodeName.toLowerCase() !== 'span'
 				? settings.iTabIndex
-				: null, // `0` doesn't need a tabIndex since it is the default
+				: null // `0` doesn't need a tabIndex since it is the default
 		});
 
 		if (typeof button !== 'number') {
@@ -228,7 +228,7 @@ function _pagingButtonInfo(
 	let o = {
 		display: '',
 		active: false,
-		disabled: false,
+		disabled: false
 	};
 
 	switch (button) {

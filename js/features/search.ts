@@ -4,7 +4,6 @@ import { processingRun } from '../core/processing';
 import { filterComplete } from '../core/search';
 import dom from '../dom';
 import { SearchInput } from '../model/search';
-import Context from '../model/settings';
 import util from '../util';
 import register from './register';
 
@@ -24,9 +23,9 @@ let __searchCounter = 0;
 // opts
 // - text
 // - placeholder
-register(
+register<Partial<IFeatureSearchOptions>>(
 	'search',
-	function (settings: Context, optsIn: Partial<IFeatureSearchOptions>) {
+	function (settings, optsIn) {
 		// Don't show the input if filtering isn't available on the table
 		if (!settings.oFeatures.bFilter) {
 			return null;
@@ -42,7 +41,7 @@ register(
 			{
 				placeholder: language.sSearchPlaceholder,
 				processing: false,
-				text: language.sSearch,
+				text: language.sSearch
 			},
 			optsIn
 		);
@@ -79,7 +78,7 @@ register(
 		filter.find('input').attr('id', 'dt-search-' + __searchCounter);
 		__searchCounter++;
 
-		let searchFn = function (this: HTMLInputElement, event) {
+		let searchFn = function (this: HTMLInputElement, event: KeyboardEvent) {
 			let val = this.value;
 
 			if (previousSearch.return && event.key !== 'Enter') {

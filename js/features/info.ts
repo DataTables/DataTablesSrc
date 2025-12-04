@@ -1,5 +1,5 @@
 import { callbackFire, macros } from '../api/support';
-import dom from '../dom';
+import dom, { Dom } from '../dom';
 import Context from '../model/settings';
 import register from './register';
 
@@ -27,9 +27,9 @@ export interface IFeatureInfoOptions {
 	text: string;
 }
 
-register(
+register<Partial<IFeatureInfoOptions>>(
 	'info',
-	function (settings: Context, optsIn: Partial<IFeatureInfoOptions>) {
+	function (settings, optsIn) {
 		// For compatibility with the legacy `info` top level option
 		if (!settings.oFeatures.bInfo) {
 			return null;
@@ -76,10 +76,9 @@ register(
 
 /**
  * Update the information elements in the display
- *  @param {object} settings dataTables settings object
- *  @memberof DataTable#oApi
+ *  @param settings DataTables settings object
  */
-function updateInfo(settings, opts, node) {
+function updateInfo(settings: Context, opts: IFeatureInfoOptions, node: Dom) {
 	var start = settings._iDisplayStart + 1,
 		end = settings.fnDisplayEnd(),
 		max = settings.fnRecordsTotal(),

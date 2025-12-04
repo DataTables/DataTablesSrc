@@ -442,7 +442,7 @@ const defaults = {
 	 * information for the table is stored By default DataTables will use `localStorage`
 	 * but you might wish to use a server-side database or cookies.
 	 */
-	"fnStateSaveCallback": function ( settings: Context, data ) {
+	"fnStateSaveCallback": function ( settings: Context, data: any ) {
 		try {
 			(settings.iStateDuration === -1 ? sessionStorage : localStorage).setItem(
 				'DataTables_'+settings.sInstance+'_'+location.pathname,
