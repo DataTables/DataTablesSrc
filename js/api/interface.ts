@@ -1997,39 +1997,48 @@ export interface ApiRowsMethods<T> extends Omit<ApiScopeable<T, ApiRowsMethods<T
 	remove(this: ApiRowsMethods<T>): Api<Array<any>>;
 }
 
+export interface ApiTableFooterMethods<T> extends Api<T> {
+	/**
+	 * Get the tfoot node for the table in the API's context
+	 * 
+	 * @returns HTML tbody node.
+	 */
+	(this: ApiTableMethods<T>): HTMLTableSectionElement;
+
+	/**
+	 * Get an array that represents the structure of the footer
+	 *
+	 * @param selector Column selector
+	 */
+	structure(this: Api<T>, selector?: ColumnSelector): HeaderStructure[][];
+}
+
+export interface ApiTableHeaderMethods<T> extends Api<T> {
+	/**
+	 * Get the thead node for the table in the API's context
+	 * 
+	 * @returns HTML thead node.
+	 */
+	(this: ApiTableMethods<T>): HTMLTableSectionElement;
+
+	/**
+	 * Get an array that represents the structure of the header
+	 *
+	 * @param selector Column selector
+	 */
+	structure(this: Api<T>, selector?: ColumnSelector): HeaderStructure[][];
+}
 
 export interface ApiTableMethods<T> extends ApiScopeable<T, ApiTableMethods<T>> {
-	footer: {
-		/**
-		 * Get the tfoot node for the table in the API's context
-		 * 
-		 * @returns HTML tbody node.
-		 */
-		(this: Api): HTMLTableSectionElement;
+	/**
+	 * Table footer information
+	 */
+	footer: ApiTableFooterMethods<T>
 
-		/**
-		 * Get an array that represents the structure of the footer
-		 *
-		 * @param selector Column selector
-		 */
-		structure(this: ApiTableMethods<T>, selector?: ColumnSelector): HeaderStructure[][];
-	}
-
-	header: {
-		/**
-		 * Get the thead node for the table in the API's context
-		 * 
-		 * @returns HTML thead node.
-		 */
-		(this: Api): HTMLTableSectionElement;
-
-		/**
-		 * Get an array that represents the structure of the header
-		 *
-		 * @param selector Column selector
-		 */
-		structure(this: ApiTableMethods<T>, selector?: ColumnSelector): HeaderStructure[][];
-	}
+	/**
+	 * Table header information
+	 */
+	header: ApiTableHeaderMethods<T>
 
 	/**
 	 * Get the tbody node for the table in the API's context
