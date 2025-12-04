@@ -102,7 +102,7 @@ export function pluckOrder(
 	a: any[],
 	order: number[],
 	prop: string,
-	prop2?: string
+	prop2?: string | number
 ) {
 	let out: any[] = [],
 		i = 0,

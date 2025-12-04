@@ -3,7 +3,7 @@ import { hungarianMap } from '../core/compat';
 import { assign } from '../util/object';
 import columnDefaults, { ConfigColumnDefs } from './columns/defaults';
 import search, { SearchInput } from './search';
-import Settings from './settings';
+import Context from './settings';
 
 /*
  * Developer note: The properties of the object below are given in Hungarian
@@ -327,14 +327,14 @@ const defaults = {
 	 * elements have been inserted), or registered if using a DOM source, allowing
 	 * manipulation of the TR element (adding classes etc).
 	 */
-	"fnCreatedRow": null as ((settings: Settings, data: any, dataIdx: number, cells: HTMLTableCellElement[]) => void) | null,
+	"fnCreatedRow": null as ((settings: Context, data: any, dataIdx: number, cells: HTMLTableCellElement[]) => void) | null,
 
 
 	/**
 	 * This function is called on every 'draw' event, and allows you to
 	 * dynamically modify any aspect you want about the created DOM.
 	 */
-	"fnDrawCallback": null as ((settings: Settings) => void) | null,
+	"fnDrawCallback": null as ((settings: Context) => void) | null,
 
 
 	/**
@@ -407,7 +407,7 @@ const defaults = {
 	 * state of a table is loaded. By default DataTables will load from `localStorage`
 	 * but you might wish to use a server-side database or cookies.
 	 */
-	"fnStateLoadCallback": function ( settings: Settings ) {
+	"fnStateLoadCallback": function ( settings: Context ) {
 		try {
 			const state = (settings.iStateDuration === -1 ? sessionStorage : localStorage).getItem(
 				'DataTables_'+settings.sInstance+'_'+location.pathname
@@ -442,7 +442,7 @@ const defaults = {
 	 * information for the table is stored By default DataTables will use `localStorage`
 	 * but you might wish to use a server-side database or cookies.
 	 */
-	"fnStateSaveCallback": function ( settings: Settings, data ) {
+	"fnStateSaveCallback": function ( settings: Context, data ) {
 		try {
 			(settings.iStateDuration === -1 ? sessionStorage : localStorage).setItem(
 				'DataTables_'+settings.sInstance+'_'+location.pathname,

@@ -1,13 +1,24 @@
 import { addData, addTr, invalidate } from '../core/data';
 import { sortDisplay } from '../core/sort';
 import dom from '../dom';
+import Context from '../model/settings';
 import util from '../util';
-import Api from './base';
+import { register, registerPlural } from './Api';
 import {
-	selector_first,
-	selector_opts,
-	selector_row_indexes,
-	selector_run,
+	Api,
+	ApiRow,
+	ApiRowMethods,
+	ApiRows,
+	ApiRowsMethods,
+	ApiSelectorModifier,
+	Api as ApiType,
+	RowSelector
+} from './interface';
+import {
+	selectorFirst,
+	selectorOpts,
+	selectorRowIndexes,
+	selectorRun
 } from './selectors';
 import { arrayApply, lengthOverflow } from './support';
 
@@ -21,9 +32,13 @@ import { arrayApply, lengthOverflow } from './support';
  * {array}     - jQuery array of nodes, or simply an array of TR nodes
  *
  */
-function row_selector(settings, selector, opts) {
-	var rows;
-	var run = function (sel) {
+function selectRows(
+	settings: Context,
+	selector: RowSelector<any>,
+	opts: ApiSelectorModifier
+) {
+	var rows: number[];
+	var run = function (sel: any) {
 		var selInt = util.conv.intVal(sel);
 		var aoData = settings.aoData;
 
@@ -35,7 +50,7 @@ function row_selector(settings, selector, opts) {
 		}
 
 		if (!rows) {
-			rows = selector_row_indexes(settings, opts);
+			rows = selectorRowIndexes(settings, opts);
 		}
 
 		if (selInt !== null && rows.indexOf(selInt) !== -1) {
@@ -51,7 +66,7 @@ function row_selector(settings, selector, opts) {
 		if (typeof sel === 'function') {
 			return rows.map(function (idx) {
 				var row = aoData[idx];
-				return sel(idx, row._aData, row.nTr) ? idx : null;
+				return row && sel(idx, row._aData, row.nTr) ? idx : null;
 			});
 		}
 
@@ -59,15 +74,18 @@ function row_selector(settings, selector, opts) {
 		if (sel.nodeName) {
 			var rowIdx = sel._DT_RowIndex; // Property added by DT for fast lookup
 			var cellIdx = sel._DT_CellIndex;
+			var row;
 
 			if (rowIdx !== undefined) {
 				// Make sure that the row is actually still present in the table
-				return aoData[rowIdx] && aoData[rowIdx].nTr === sel ? [rowIdx] : [];
+				row = aoData[rowIdx];
+
+				return row && row.nTr === sel ? [rowIdx] : [];
 			}
 			else if (cellIdx) {
-				return aoData[cellIdx.row] && aoData[cellIdx.row].nTr === sel.parentNode
-					? [cellIdx.row]
-					: [];
+				row = aoData[cellIdx.row];
+
+				return row && row.nTr === sel.parentNode ? [cellIdx.row] : [];
 			}
 			else {
 				var host = dom.s(sel).closest('*[data-dt-row]');
@@ -115,7 +133,7 @@ function row_selector(settings, selector, opts) {
 			.mapTo((el: any) => el._DT_RowIndex);
 	};
 
-	var matched = selector_run('row', selector, run, settings, opts);
+	var matched = selectorRun('row', selector, run, settings, opts);
 
 	if (opts.order === 'current' || opts.order === 'applied') {
 		sortDisplay(settings, matched);
@@ -124,24 +142,39 @@ function row_selector(settings, selector, opts) {
 	return matched;
 }
 
-Api.register('rows()', function (selector, opts) {
+type ApiRowsOverload = (
+	this: Api,
+	arg1?: RowSelector<any> | ApiSelectorModifier,
+	arg2?: ApiSelectorModifier
+) => ApiRowsMethods<any>;
+
+register<ApiRowsOverload>('rows()', function (arg1, arg2) {
+	let opts: ApiSelectorModifier;
+	let selector: RowSelector<any>;
+
 	// argument shifting
-	if (selector === undefined) {
+	if (arg1 === undefined) {
+		// All rows - no selector or modifier
 		selector = '';
 	}
-	else if (util.is.plainObject(selector)) {
-		opts = selector;
+	else if (util.is.plainObject(arg1)) {
+		// Arg1 is modifier overload
 		selector = '';
+		opts = arg1 as ApiSelectorModifier;
+	}
+	else {
+		selector = arg1 as RowSelector<any>;
+		opts = arg2!;
 	}
 
-	opts = selector_opts(opts);
+	opts = selectorOpts(opts!);
 
-	var inst = this.iterator(
+	var inst = this.iterator<ApiRowsMethods<any>>(
 		'table',
 		function (settings) {
-			return row_selector(settings, selector, opts);
+			return selectRows(settings, selector, opts);
 		},
-		1
+		true
 	);
 
 	// Want argument shifting here and in row_selector?
@@ -151,101 +184,135 @@ Api.register('rows()', function (selector, opts) {
 	return inst;
 });
 
-Api.register('rows().nodes()', function () {
+register<ApiRowsMethods<any>['every']>('rows().every()', function (fn) {
+	var opts = this.selector.opts;
+	var counter = 0;
+
+	return this.iterator('every', (settings, selectedIdx, tableIdx) => {
+		let inst = this.row(selectedIdx, opts);
+
+		fn.call(inst, selectedIdx, tableIdx, counter);
+
+		counter++;
+	});
+});
+
+register<ApiRowsMethods<any>['nodes']>('rows().nodes()', function () {
 	return this.iterator(
 		'row',
 		function (settings, row) {
-			return settings.aoData[row].nTr || undefined;
+			return settings.aoData[row]?.nTr || undefined;
 		},
-		1
+		true
 	);
 });
 
-Api.register('rows().data()', function () {
+register<ApiRowsMethods<any>['data']>('rows().data()', function () {
 	return this.iterator(
 		true,
 		'rows',
 		function (settings, rows) {
 			return util.array.pluckOrder(settings.aoData, rows, '_aData');
 		},
-		1
+		true
 	);
 });
 
-Api.registerPlural('rows().cache()', 'row().cache()', function (type) {
-	return this.iterator(
-		'row',
-		function (settings, row) {
-			var r = settings.aoData[row];
-			return type === 'search' ? r._aFilterData : r._aSortData;
-		},
-		1
-	);
-});
-
-Api.registerPlural('rows().invalidate()', 'row().invalidate()', function (src) {
-	return this.iterator('row', function (settings, row) {
-		invalidate(settings, row, src);
-	});
-});
-
-Api.registerPlural('rows().indexes()', 'row().index()', function () {
-	return this.iterator(
-		'row',
-		function (settings, row) {
-			return row;
-		},
-		1
-	);
-});
-
-Api.registerPlural('rows().ids()', 'row().id()', function (hash) {
-	var a: any[] = [];
-	var context = this.context;
-
-	// `iterator` will drop undefined values, but in this case we want them
-	for (var i = 0, iLen = context.length; i < iLen; i++) {
-		for (var j = 0, jen = this[i].length; j < jen; j++) {
-			var id = context[i].rowIdFn(context[i].aoData[this[i][j]]._aData);
-			a.push((hash === true ? '#' : '') + id);
-		}
+registerPlural<ApiRowsMethods<any>['cache']>(
+	'rows().cache()',
+	'row().cache()',
+	function (type) {
+		return this.iterator(
+			'row',
+			function (settings, row) {
+				var r = settings.aoData[row];
+				return type === 'search' ? r?._aFilterData : r?._aSortData;
+			},
+			true
+		);
 	}
+);
 
-	return new Api(context, a);
-});
+registerPlural<ApiRowsMethods<any>['invalidate']>(
+	'rows().invalidate()',
+	'row().invalidate()',
+	function (src) {
+		return this.iterator('row', function (settings, row) {
+			invalidate(settings, row, src);
+		});
+	}
+);
 
-Api.registerPlural('rows().remove()', 'row().remove()', function () {
-	this.iterator('row', function (settings, row) {
-		var data = settings.aoData;
-		var rowData = data[row];
+registerPlural<ApiRowsMethods<any>['indexes']>(
+	'rows().indexes()',
+	'row().index()',
+	function () {
+		return this.iterator(
+			'row',
+			function (settings, row) {
+				return row;
+			},
+			true
+		);
+	}
+);
 
-		// Delete from the display arrays
-		var idx = settings.aiDisplayMaster.indexOf(row);
-		if (idx !== -1) {
-			settings.aiDisplayMaster.splice(idx, 1);
+registerPlural<ApiRowMethods<any>['ids']>(
+	'rows().ids()',
+	'row().id()',
+	function (hash) {
+		var a: any[] = [];
+		var context = this.context;
+
+		// `iterator` will drop undefined values, but in this case we want them
+		for (var i = 0, iLen = context.length; i < iLen; i++) {
+			for (var j = 0, jen = this[i].length; j < jen; j++) {
+				var id = context[i].rowIdFn(context[i].aoData[this[i][j]]?._aData);
+				a.push((hash === true ? '#' : '') + id);
+			}
 		}
 
-		// For server-side processing tables - subtract the deleted row from the count
-		if (settings._iRecordsDisplay > 0) {
-			settings._iRecordsDisplay--;
-		}
+		return this.inst(context, a);
+	}
+);
 
-		// Check for an 'overflow' they case for displaying the table
-		lengthOverflow(settings);
+registerPlural<ApiRowMethods<any>['remove']>(
+	'rows().remove()',
+	'row().remove()',
+	function () {
+		this.iterator('row', function (settings, row) {
+			var data = settings.aoData;
+			var rowData = data[row];
 
-		// Remove the row's ID reference if there is one
-		var id = settings.rowIdFn(rowData._aData);
-		if (id !== undefined) {
-			delete settings.aIds[id];
-		}
+			// Delete from the display arrays
+			var idx = settings.aiDisplayMaster.indexOf(row);
+			if (idx !== -1) {
+				settings.aiDisplayMaster.splice(idx, 1);
+			}
 
-		data[row] = null;
-	});
+			// For server-side processing tables - subtract the deleted row from
+			// the count
+			if (settings._iRecordsDisplay > 0) {
+				settings._iRecordsDisplay--;
+			}
 
-	return this;
-});
+			// Check for an 'overflow' they case for displaying the table
+			lengthOverflow(settings);
 
-Api.register('rows.add()', function (rows) {
+			// Remove the row's ID reference if there is one
+			var id = settings.rowIdFn(rowData?._aData);
+			if (id !== undefined) {
+				delete settings.aIds[id];
+			}
+
+			data[row] = null;
+		});
+
+		return this;
+	}
+);
+
+register<ApiRows<any>['add']>('rows.add()', function (rows) {
 	var newRows = this.iterator(
 		'table',
 		function (settings) {
@@ -265,7 +332,7 @@ Api.register('rows.add()', function (rows) {
 
 			return out;
 		},
-		1
+		true
 	);
 
 	// Return an Api.rows() extended instance, so rows().nodes() etc can be used
@@ -276,25 +343,28 @@ Api.register('rows.add()', function (rows) {
 	return modRows;
 });
 
-/**
- *
- */
-Api.register('row()', function (selector, opts) {
-	return selector_first(this.rows(selector, opts));
+type ApiRowOverload = (
+	this: ApiType,
+	selector?: RowSelector<any>,
+	modifier?: ApiSelectorModifier
+) => ApiRowMethods<any>;
+
+register<ApiRowOverload>('row()', function (selector?, opts?) {
+	return selectorFirst(this.rows(selector, opts));
 });
 
-Api.register('row().data()', function (data) {
+register<ApiRowMethods<any>['data']>('row().data()', function (data?) {
 	var ctx = this.context;
 
 	if (data === undefined) {
 		// Get
 		return ctx.length && this.length && this[0].length
-			? ctx[0].aoData[this[0]]._aData
+			? ctx[0].aoData[this[0]]?._aData
 			: undefined;
 	}
 
 	// Set
-	var row = ctx[0].aoData[this[0]];
+	var row = ctx[0].aoData[this[0]]!;
 	row._aData = data;
 
 	// If the DOM has an id, and the data source is an array
@@ -308,7 +378,7 @@ Api.register('row().data()', function (data) {
 	return this;
 });
 
-Api.register('row().node()', function () {
+register<ApiRowMethods<any>['node']>('row().node()', function () {
 	var ctx = this.context;
 
 	if (ctx.length && this.length && this[0].length) {
@@ -322,11 +392,10 @@ Api.register('row().node()', function () {
 	return null;
 });
 
-Api.register('row.add()', function (row) {
+register<ApiRow<any>['add']>('row.add()', function (row: any) {
 	// Allow a jQuery object to be passed in - only a single row is added from
 	// it though - the first element in the set
-	if (row && row.fn && (row as any).length) {
-		// TODO typing
+	if (row && row.fn && row.length) {
 		row = row[0];
 	}
 

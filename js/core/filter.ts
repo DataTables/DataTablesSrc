@@ -124,14 +124,17 @@ function filter(
 	// Then for each row, does the test pass. If not, lop the row from the array
 	for (i = 0; i < searchRows.length; i++) {
 		let row = settings.aoData[searchRows[i]];
-		let data =
-			column === undefined ? row._sFilterRow : row._aFilterData![column];
 
-		if (
-			(searchFunc && searchFunc(data, row._aData, searchRows[i], column)) ||
-			(rpSearch && data && rpSearch.test(data))
-		) {
-			matched.push(searchRows[i]);
+		if (row) {
+			let data =
+				column === undefined ? row._sFilterRow : row._aFilterData![column];
+
+			if (
+				(searchFunc && searchFunc(data, row._aData, searchRows[i], column)) ||
+				(rpSearch && data && rpSearch.test(data))
+			) {
+				matched.push(searchRows[i]);
+			}
 		}
 	}
 

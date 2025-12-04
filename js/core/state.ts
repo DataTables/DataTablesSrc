@@ -1,4 +1,4 @@
-import Api from '../api/base';
+import Api from '../api/Api';
 import { callbackFire } from '../api/support';
 import Context from '../model/settings';
 import { State, StateLoad } from '../model/state';
@@ -261,7 +261,7 @@ export function implementState(
 			// visibility has been changed
 			if (api) {
 				api.one('draw', function () {
-					api.columns.adjust();
+					api!.columns.adjust();
 				});
 			}
 		}

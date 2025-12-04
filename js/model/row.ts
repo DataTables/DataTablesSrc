@@ -1,3 +1,4 @@
+import { Dom } from "../dom";
 
 export interface TableRow extends HTMLTableRowElement {
 	_DT_RowIndex?: number;
@@ -83,5 +84,9 @@ export default {
 	/**
 	 * List of classes for removal
 	 */
-	__rowc: [] as string[]
+	__rowc: [] as string[],
+
+	_details: undefined as undefined | Dom,
+
+	_detailsShow: undefined as undefined | boolean
 }

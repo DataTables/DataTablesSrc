@@ -84,7 +84,7 @@ export interface HeaderStructure extends Array<HeaderStructureCell> {
  * are NOT a public API. The `DataTable` or `DataTable.Api` instances are to
  * be used instead.
  */
-export default class Settings {
+export default class Context {
 	public api: any; // TODO
 	public renderer: any; // TODO
 
@@ -264,7 +264,7 @@ export default class Settings {
 	 * Store data information - see {@link DataTable.models.oRow} for detailed
 	 * information.
 	 */
-	public aoData: typeof rowModel[] = [];
+	public aoData: (typeof rowModel | null)[] = [];
 
 	/**
 	 * Array of indexes which are in the current display (after filtering etc)
@@ -748,7 +748,7 @@ export default class Settings {
 	public bDestroying = false;
 
 	public fnStateSaveCallback;
-	public fnStateLoadCallback: (ctx: Settings) => Partial<State>;
+	public fnStateLoadCallback: (ctx: Context) => Partial<State>;
 	public _reszEvt: boolean;
 	public iInitDisplayStart: number;
 	public sortDetails;
