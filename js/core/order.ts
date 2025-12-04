@@ -598,16 +598,16 @@ export function sortData(settings: Context, colIdx: number) {
 
 		row = data[rowIdx];
 
-		if (!row._aSortData) {
+		if (row && !row._aSortData) {
 			row._aSortData = [];
 		}
 
-		if (!row._aSortData[colIdx] || customSort) {
+		if (row && (!row._aSortData![colIdx] || customSort)) {
 			cellData = customSort
 				? customData[rowIdx] // If there was a custom sort function, use data from there
 				: getCellData(settings, rowIdx, colIdx, 'sort');
 
-			row._aSortData[colIdx] = formatter
+			row._aSortData![colIdx] = formatter
 				? formatter(cellData, settings)
 				: cellData;
 		}

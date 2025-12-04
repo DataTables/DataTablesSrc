@@ -254,7 +254,7 @@ export interface ApiScopeable<T, S> {
 	 * DataTables will perform.
 	 * @returns DataTables Api instance
 	 */
-	draw(paging?: boolean | string): Api<T>;
+	draw(this: S, paging?: boolean | string): Api<T>;
 
 	/**
 	 * Iterate over the contents of the API result set.
@@ -2213,7 +2213,6 @@ export interface ApiRow<T> {
 	 * set.
 	 */
 	add(
-		this: Api<T>,
 		data: any[] | Record<string, any> | JQuery | HTMLElement
 	): ApiRowMethods<T>;
 }
@@ -2330,7 +2329,7 @@ export interface ApiRows<T> {
 	 * @returns DataTables API instance with the newly added rows in its result
 	 * set.
 	 */
-	add(this: Api<T>, data: T[]): ApiRowsMethods<T>;
+	add(data: T[]): ApiRowsMethods<T>;
 }
 
 export interface ApiRowsMethods<T>

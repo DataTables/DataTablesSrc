@@ -39,9 +39,12 @@ export function filterComplete(settings: Context, input: SearchOptions) {
 
 			filter(settings.aiDisplay, settings, col.search, col, i);
 
-			util.object.each(settings.aoColumns[i].searchFixed, function (name, term) {
-				filter(settings.aiDisplay, settings, term, {}, i);
-			});
+			util.object.each(
+				settings.aoColumns[i].searchFixed,
+				function (name, term) {
+					filter(settings.aiDisplay, settings, term, {}, i);
+				}
+			);
 		}
 
 		// And finally global filtering
@@ -75,7 +78,10 @@ function filterCustom(settings: Context) {
 			rowIdx = displayRows[j];
 			row = settings.aoData[rowIdx];
 
-			if (filters[i](settings, row._aFilterData, rowIdx, row._aData, j)) {
+			if (
+				row &&
+				filters[i](settings, row._aFilterData, rowIdx, row._aData, j)
+			) {
 				rows.push(rowIdx);
 			}
 		}
@@ -149,7 +155,10 @@ function filter(
 /**
  * Build a regular expression object suitable for searching a table
  */
-function filterCreateSearch(searchIn: string | number, inOpts: Partial<SearchOptions>) {
+function filterCreateSearch(
+	searchIn: string | number,
+	inOpts: Partial<SearchOptions>
+) {
 	let not: string[] = [];
 	let options = Object.assign(
 		{},
@@ -158,14 +167,12 @@ function filterCreateSearch(searchIn: string | number, inOpts: Partial<SearchOpt
 			caseInsensitive: true,
 			exact: false,
 			regex: false,
-			smart: true,
+			smart: true
 		},
 		inOpts
 	);
 
-	let search = typeof searchIn !== 'string'
-		? searchIn.toString()
-		: searchIn;
+	let search = typeof searchIn !== 'string' ? searchIn.toString() : searchIn;
 
 	// Remove diacritics if normalize is set up to do so
 	search = util.diacritics(search);
@@ -255,7 +262,7 @@ function filterData(settings: Context) {
 
 		row = data[rowIdx];
 
-		if (!row._aFilterData) {
+		if (row && !row._aFilterData) {
 			const rowFilterData: string[] = [];
 
 			for (j = 0, jen = columns.length; j < jen; j++) {

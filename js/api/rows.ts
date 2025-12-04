@@ -312,7 +312,7 @@ registerPlural<ApiRowMethods<any>['remove']>(
 	}
 );
 
-register<ApiRows<any>['add']>('rows.add()', function (rows) {
+register<ApiRows<any>['add']>('rows.add()', function (this: Api, rows) {
 	var newRows = this.iterator(
 		'table',
 		function (settings) {
@@ -392,7 +392,7 @@ register<ApiRowMethods<any>['node']>('row().node()', function () {
 	return null;
 });
 
-register<ApiRow<any>['add']>('row.add()', function (row: any) {
+register<ApiRow<any>['add']>('row.add()', function (this: Api, row: any) {
 	// Allow a jQuery object to be passed in - only a single row is added from
 	// it though - the first element in the set
 	if (row && row.fn && row.length) {

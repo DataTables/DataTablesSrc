@@ -326,8 +326,6 @@ tableRowType.rows().every(function () {
 
 expectType<HTMLTableRowElement | null>(table.row(1).node());
 
-
-
 /*
  * Static
  */
