@@ -673,7 +673,7 @@ type FunctionCreateRow = (
 	cells: HTMLTableCellElement[]
 ) => void;
 
-type FunctionDrawCallback = (this: JQueryDataTables, settings: Context) => void;
+type FunctionDrawCallback = (settings: Context) => void;
 
 type FunctionFooterCallback = (
 	this: JQueryDataTables,

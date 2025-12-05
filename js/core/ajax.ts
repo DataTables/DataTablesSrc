@@ -1,8 +1,9 @@
+import { AjaxData } from '../api/interface';
 import { callbackFire, log } from '../api/support';
-import Context from '../model/settings';
+import Context, { DtAjaxOptions } from '../model/settings';
 import { AjaxOptions } from '../util/ajax';
 import util from '../util/index';
-import { JSON } from '../util/types';
+import { GetFunction, JSON } from '../util/types';
 import { columnTypes } from './columns';
 import { addData, clearTable } from './data';
 import { draw } from './draw';
@@ -21,7 +22,7 @@ import { processingDisplay } from './processing';
  */
 export function buildAjax(
 	settings: Context,
-	data: JSON,
+	data: AjaxData,
 	fn: (json: JSON) => void
 ) {
 	var ajaxData;
@@ -56,7 +57,7 @@ export function buildAjax(
 		fn(json);
 	};
 
-	if (util.is.plainObject(ajaxConfig) && ajaxConfig.data) {
+	if (util.is.plainObject<DtAjaxOptions>(ajaxConfig) && ajaxConfig.data) {
 		ajaxData = ajaxConfig.data;
 
 		var newData =
@@ -101,11 +102,11 @@ export function buildAjax(
 			}
 
 			processingDisplay(settings, false);
-		},
+		}
 	} as AjaxOptions;
 
 	// If `ajax` option is an object, extend and override our default base
-	if (util.is.plainObject(ajaxConfig)) {
+	if (util.is.plainObject<DtAjaxOptions>(ajaxConfig)) {
 		util.object.assign(baseAjax, ajaxConfig);
 	}
 
@@ -128,7 +129,7 @@ export function buildAjax(
 		// Is a function - let the caller define what needs to be done
 		settings.jqXHR = ajaxConfig.call(instance, data, callback, settings);
 	}
-	else if (ajaxConfig.url === '') {
+	else if (typeof ajaxConfig !== 'string' && ajaxConfig.url === '') {
 		// No url, so don't load any data. Just apply an empty data array
 		// to the object for the callback.
 		var empty = {};
@@ -143,7 +144,7 @@ export function buildAjax(
 
 	// Restore for next time around
 	if (ajaxData) {
-		ajaxConfig.data = ajaxData;
+		(ajaxConfig as DtAjaxOptions).data = ajaxData;
 	}
 }
 
@@ -169,7 +170,7 @@ export function ajaxUpdate(settings: Context) {
  * @param settings DataTables settings object
  * @returns Block the table drawing or not
  */
-export function ajaxParameters(settings: Context): JSON {
+export function ajaxParameters(settings: Context): AjaxData {
 	var columns = settings.aoColumns,
 		features = settings.oFeatures,
 		preSearch = settings.oPreviousSearch,
@@ -197,17 +198,17 @@ export function ajaxParameters(settings: Context): JSON {
 							term:
 								typeof column.searchFixed[name] !== 'function'
 									? column.searchFixed[name].toString()
-									: 'function',
+									: 'function'
 						};
-					}),
-				},
+					})
+				}
 			};
 		}),
 		order: sortFlatten(settings).map(function (val) {
 			return {
 				column: val.col,
 				dir: val.dir,
-				name: colData(val.col, 'sName'),
+				name: colData(val.col, 'sName')
 			};
 		}),
 		start: settings._iDisplayStart,
@@ -221,10 +222,10 @@ export function ajaxParameters(settings: Context): JSON {
 					term:
 						typeof settings.searchFixed[name] !== 'function'
 							? settings.searchFixed[name].toString()
-							: 'function',
+							: 'function'
 				};
-			}),
-		},
+			})
+		}
 	};
 }
 
@@ -277,9 +278,12 @@ export function ajaxUpdateDraw(settings: Context, json: JSON) {
  * @return Array of data to use
  */
 export function ajaxDataSrc(settings: Context, json: JSON, write: any) {
-	var dataProp = 'data';
+	var dataProp: string | GetFunction = 'data';
 
-	if (util.is.plainObject(settings.ajax) && settings.ajax.dataSrc !== undefined) {
+	if (
+		util.is.plainObject<AjaxOptions>(settings.ajax) &&
+		settings.ajax.dataSrc !== undefined
+	) {
 		// Could in inside a `dataSrc` object, or not!
 		var dataSrc = settings.ajax.dataSrc;
 
@@ -314,8 +318,14 @@ export function ajaxDataSrc(settings: Context, json: JSON, write: any) {
  * @param json JSON data
  * @returns Resolved value
  */
-export function ajaxDataSrcParam(settings: Context, param: string, json: JSON) {
-	var dataSrc = util.is.plainObject(settings.ajax) ? settings.ajax.dataSrc : null;
+export function ajaxDataSrcParam(
+	settings: Context,
+	param: 'draw' | 'recordsTotal' | 'recordsFiltered',
+	json: JSON
+) {
+	var dataSrc = util.is.plainObject<AjaxOptions>(settings.ajax)
+		? settings.ajax.dataSrc as any // TODO
+		: null;
 
 	if (dataSrc && dataSrc[param]) {
 		// Get from custom location

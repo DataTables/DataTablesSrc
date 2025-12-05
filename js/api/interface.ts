@@ -1163,7 +1163,7 @@ export interface ApiAjax extends Api<any> {
 	 *
 	 * @returns URL set as the Ajax data source for the table.
 	 */
-	url(this: Api): string;
+	url(this: Api): string | undefined;
 
 	/**
 	 * Reload the table data from the Ajax data source
@@ -3006,7 +3006,6 @@ export interface AjaxData {
 	draw: number;
 	start: number;
 	length: number;
-	data: any;
 	order: AjaxDataOrder[];
 	columns: AjaxDataColumn[];
 	search: AjaxDataSearch;
@@ -3015,6 +3014,7 @@ export interface AjaxData {
 export interface AjaxDataSearch {
 	value: string;
 	regex: boolean;
+	fixed: {name: string, term: string}[];
 }
 
 export interface AjaxDataOrder {
@@ -3024,7 +3024,7 @@ export interface AjaxDataOrder {
 
 export interface AjaxDataColumn {
 	data: string | number;
-	name: string;
+	name: string | null;
 	searchable: boolean;
 	orderable: boolean;
 	search: AjaxDataSearch;

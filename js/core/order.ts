@@ -2,6 +2,7 @@ import { bindAction, callbackFire, dataSource } from '../api/support';
 import dom from '../dom';
 import ext from '../ext/index';
 import Context, {
+	ISortItem,
 	Order,
 	OrderArray,
 	OrderCombined,
@@ -19,16 +20,6 @@ import {
 import { getCellData } from './data';
 import { reDraw } from './draw';
 import { processingRun } from './processing';
-
-interface ISortItem {
-	src: number | string;
-	col: number;
-	dir: string;
-	index: number;
-	type: string;
-	formatter?: Function;
-	sorter?: Function;
-}
 
 export function sortInit(settings: Context) {
 	var target = settings.nTHead;
@@ -181,7 +172,7 @@ export function sortDisplay(settings: Context, display: number[]) {
 export function sortResolve(
 	settings: Context,
 	nestedSort: OrderState[],
-	sortItem: any
+	sortItem: any // TODO typing
 ) {
 	var push = function (a: Order) {
 		if (is.plainObject(a)) {
@@ -210,7 +201,7 @@ export function sortResolve(
 
 	if (is.plainObject(sortItem)) {
 		// Object
-		push(sortItem);
+		push(sortItem as any);
 	}
 	else if (Array.isArray(sortItem) && typeof sortItem[0] === 'number') {
 		// 1D array

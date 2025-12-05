@@ -47,12 +47,12 @@ export default class Settings {
 	 * Flag to indicate if the column is searchable, and thus should be included
 	 * in the filtering or not.
 	 */
-	public bSearchable: boolean | null = null;
+	public bSearchable: boolean;
 
 	/**
 	 * Flag to indicate if the column is sortable or not.
 	 */
-	public bSortable: boolean | null = null;
+	public bSortable: boolean;
 
 	/**
 	 * Flag to indicate if the column is currently visible in the table or not

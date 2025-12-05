@@ -4,9 +4,8 @@ import { reDraw } from '../core/draw';
 import { initComplete } from '../core/init';
 import { processingDisplay } from '../core/processing';
 import Context from '../model/settings';
-import * as is from '../util/is';
 import Api, { register } from './Api';
-import { AjaxMethods, ApiAjax } from './interface';
+import { AjaxMethods, ApiAjax, Api as ApiType } from './interface';
 import { dataSource } from './support';
 
 type TReloadCallback = (json: any) => void;
@@ -82,7 +81,12 @@ register<ApiAjax['reload']>(
 	}
 );
 
-register<ApiAjax['url']>('ajax.url()', function (url?: string) {
+type ApiAjaxUrlOverload = (
+	this: ApiType,
+	url?: string
+) => string | undefined | AjaxMethods;
+
+register<ApiAjaxUrlOverload>('ajax.url()', function (url?: string) {
 	var ctx = this.context;
 
 	if (url === undefined) {
@@ -93,18 +97,18 @@ register<ApiAjax['url']>('ajax.url()', function (url?: string) {
 
 		let context = ctx[0];
 
-		return is.plainObject(context.ajax) ? context.ajax.url : context.ajax;
+		return typeof context.ajax === 'string' ? context.ajax : context.ajax.url;
 	}
 
 	// set
-	return this.iterator(
+	return this.iterator<AjaxMethods>(
 		'table',
 		function (settings: Context) {
-			if (is.plainObject(settings.ajax)) {
-				settings.ajax.url = url;
+			if (typeof settings.ajax === 'string') {
+				settings.ajax = url;
 			}
 			else {
-				settings.ajax = url;
+				settings.ajax.url = url;
 			}
 		},
 		true
@@ -114,8 +118,8 @@ register<ApiAjax['url']>('ajax.url()', function (url?: string) {
 register<AjaxMethods['load']>(
 	'ajax.url().load()',
 	function (callback: TReloadCallback, resetPaging: boolean) {
-		// Same as a reload, but makes sense to present it for easy access after a
-		// url change
+		// Same as a reload, but makes sense to present it for easy access after
+		// a url change
 		return this.iterator('table', function (ctx: Context) {
 			__reload(ctx, resetPaging === false, callback);
 		});

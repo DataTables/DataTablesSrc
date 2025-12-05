@@ -1,8 +1,8 @@
-
+import { AjaxData } from '../api/interface';
 import { dataSource } from '../api/support';
 import { Dom } from '../dom';
-import { HttpMethod } from '../util/ajax';
-import { JSON } from '../util/types';
+import { AjaxOptions, HttpMethod } from '../util/ajax';
+import { GetFunction, JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
 import { Layout } from './interface';
 import rowModel from './row';
@@ -49,6 +49,16 @@ interface IScroll {
 	sY: string | number;
 }
 
+export interface ISortItem {
+	src: number | string;
+	col: number;
+	dir: string;
+	index: number;
+	type: string;
+	formatter?: Function;
+	sorter?: Function;
+}
+
 export interface OrderIdx {
 	idx: number;
 	dir: 'asc' | 'desc';
@@ -65,7 +75,6 @@ export type OrderCombined = OrderIdx | OrderName | OrderArray;
 
 export type Order = OrderCombined | OrderCombined[];
 
-
 export type OrderColumn = [number, string, number?];
 export interface OrderState extends OrderColumn {
 	_idx?: number;
@@ -78,6 +87,39 @@ export interface HeaderStructureCell {
 
 export interface HeaderStructure extends Array<HeaderStructureCell> {
 	row: HTMLElement;
+}
+
+export type AjaxDataSrc = string | ((data: any) => any[]);
+
+type FunctionAjaxData = (data: AjaxData, settings: Context) => string | object;
+
+export interface DtAjaxOptions extends AjaxOptions {
+	/**
+	 * Add or modify data submitted to the server upon an Ajax request.
+	 */
+	data?: object | FunctionAjaxData;
+
+	/**
+	 * Data property or manipulation method for table data.
+	 */
+	dataSrc?:
+		| AjaxDataSrc
+		| {
+				/** Mapping for `data` property */
+				data: AjaxDataSrc;
+
+				/** Mapping for `draw` property */
+				draw: AjaxDataSrc;
+
+				/** Mapping for `recordsTotal` property */
+				recordsTotal: AjaxDataSrc;
+
+				/** Mapping for `recordsFiltered` property */
+				recordsFiltered: AjaxDataSrc;
+		  };
+
+	/** Format to submit the data parameters as in the Ajax request */
+	submitAs?: 'http' | 'json';
 }
 
 /**
@@ -248,7 +290,10 @@ export default class Context {
 		barWidth: 0
 	};
 
-	public ajax;
+	public ajax:
+		| string
+		| DtAjaxOptions
+		| ((d: JSON, cb: (json: JSON) => void, ctx: Context) => void);
 
 	/**
 	 * Array referencing the nodes which are used for the features. The
@@ -310,7 +355,7 @@ export default class Context {
 	/**
 	 * Store for named searches
 	 */
-	public searchFixed: {[name: string]: SearchInput} = {};
+	public searchFixed: { [name: string]: SearchInput } = {};
 
 	/**
 	 * Store the applied search for each column - see
@@ -404,22 +449,22 @@ export default class Context {
 	/**
 	 * The TABLE node for the main table
 	 */
-	public nTable;
+	public nTable: HTMLElement;
 
 	/**
 	 * Permanent ref to the thead element
 	 */
-	public nTHead;
+	public nTHead: HTMLElement;
 
 	/**
 	 * Permanent ref to the tfoot element - if it exists
 	 */
-	public nTFoot;
+	public nTFoot: HTMLElement;
 
 	/**
 	 * Permanent ref to the tbody element
 	 */
-	public nTBody;
+	public nTBody: HTMLElement;
 
 	/**
 	 * Cache the wrapper node (contains all DataTables controlled elements)
@@ -524,7 +569,7 @@ export default class Context {
 	/**
 	 * Data submitted as part of the last Ajax request
 	 */
-	public oAjaxData: JSON | string;
+	public oAjaxData: AjaxData | string;
 
 	/**
 	 * Send the XHR HTTP method - GET or POST (could be PUT or DELETE if
@@ -537,7 +582,7 @@ export default class Context {
 	 * Format numbers for display.
 	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	public fnFormatNumber;
+	public fnFormatNumber: (this: Context, toFormat: number) => string;
 
 	/**
 	 * List of options that can be used for the user selectable length menu.
@@ -629,18 +674,18 @@ export default class Context {
 	 * Get the number of records in the current record set, before filtering
 	 */
 	public fnRecordsTotal() {
-		return dataSource( this ) == 'ssp' ?
-			this._iRecordsTotal * 1 :
-			this.aiDisplayMaster.length;
+		return dataSource(this) == 'ssp'
+			? this._iRecordsTotal * 1
+			: this.aiDisplayMaster.length;
 	}
 
 	/**
 	 * Get the number of records in the current record set, after filtering
 	 */
 	public fnRecordsDisplay() {
-		return dataSource( this ) == 'ssp' ?
-			this._iRecordsDisplay * 1 :
-			this.aiDisplay.length;
+		return dataSource(this) == 'ssp'
+			? this._iRecordsDisplay * 1
+			: this.aiDisplay.length;
 	}
 
 	/**
@@ -710,7 +755,7 @@ export default class Context {
 	/**
 	 * Function used to get a row's id from the row's data
 	 */
-	public rowIdFn;
+	public rowIdFn: GetFunction;
 
 	/**
 	 * Data location where to store a row's id
@@ -747,15 +792,15 @@ export default class Context {
 	/** Title row indicator */
 	public titleRow = null;
 
-	public _bLoadingState;
+	public _bLoadingState: boolean;
 
 	public bDestroying = false;
 
-	public fnStateSaveCallback;
+	public fnStateSaveCallback: (ctx: Context, data: any) => void;
 	public fnStateLoadCallback: (ctx: Context) => Partial<State>;
 	public _reszEvt: boolean;
 	public iInitDisplayStart: number;
-	public sortDetails;
+	public sortDetails: ISortItem[];
 	public scrollBarVis: boolean;
 	public _drawHold: boolean | undefined;
 	public _rowReadObject: boolean = false;

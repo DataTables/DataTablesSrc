@@ -109,7 +109,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param content The content to append
 	 * @returns Self for chaining
 	 */
-	append(content: Element | Element[] | ChildNode | ChildNode[] | Dom | null) {
+	append<T extends Node>(content: T | T[] | Dom | null) {
 		if (!content) {
 			return this;
 		}
@@ -541,7 +541,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *   match to be selected.
 	 * @returns New Dom instance containing the filters elements
 	 */
-	filter(filter?: string | HTMLElement | HTMLElement[] | ArrayLike<HTMLElement>) {
+	filter(
+		filter?: string | HTMLElement | HTMLElement[] | ArrayLike<HTMLElement>
+	) {
 		return this.map(el => {
 			if (filter === undefined) {
 				return el;
@@ -852,7 +854,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		if (!this.count()) {
 			return {
 				top: 0,
-				left: 0,
+				left: 0
 			};
 		}
 
@@ -861,7 +863,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 		return {
 			top: box.top + window.pageYOffset - docElem.clientTop,
-			left: box.left + window.pageXOffset - docElem.clientLeft,
+			left: box.left + window.pageXOffset - docElem.clientLeft
 		};
 	}
 
@@ -1302,14 +1304,14 @@ function normaliseEventParams(name?: string, arg2?: any, arg3?: any) {
 	return {
 		handler,
 		names,
-		selector,
+		selector
 	};
 }
 
 export default {
 	c: Dom.create,
 	Dom,
-	s: Dom.selector,
+	s: Dom.selector
 };
 
 type EventHandler = {
