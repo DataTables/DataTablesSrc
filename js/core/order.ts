@@ -2,33 +2,24 @@ import { bindAction, callbackFire, dataSource } from '../api/support';
 import dom from '../dom';
 import ext from '../ext/index';
 import Context, {
-    Order,
-    OrderArray,
-    OrderCombined,
-    OrderIdx,
-    OrderName,
-    OrderState,
+	ISortItem,
+	Order,
+	OrderArray,
+	OrderCombined,
+	OrderIdx,
+	OrderName,
+	OrderState,
 } from '../model/settings';
 import { pluck } from '../util/array';
 import * as is from '../util/is';
 import {
-    columnIndexToVisible,
-    columnTypes,
-    columnsFromHeader,
+	columnIndexToVisible,
+	columnTypes,
+	columnsFromHeader,
 } from './columns';
 import { getCellData } from './data';
 import { reDraw } from './draw';
 import { processingRun } from './processing';
-
-interface ISortItem {
-	src: number | string;
-	col: number;
-	dir: string;
-	index: number;
-	type: string;
-	formatter?: Function;
-	sorter?: Function;
-}
 
 export function sortInit(settings: Context) {
 	var target = settings.nTHead;
@@ -87,7 +78,7 @@ export function sortAttachListener(
 	settings: Context,
 	node: Element,
 	selector: string,
-	column?: number | (() => []),
+	column?: number | number[] | (() => number[]),
 	callback?: () => void
 ) {
 	bindAction(node, selector, function (e) {
@@ -181,7 +172,7 @@ export function sortDisplay(settings: Context, display: number[]) {
 export function sortResolve(
 	settings: Context,
 	nestedSort: OrderState[],
-	sortItem: any
+	sortItem: any // TODO typing
 ) {
 	var push = function (a: Order) {
 		if (is.plainObject(a)) {
@@ -210,7 +201,7 @@ export function sortResolve(
 
 	if (is.plainObject(sortItem)) {
 		// Object
-		push(sortItem);
+		push(sortItem as any);
 	}
 	else if (Array.isArray(sortItem) && typeof sortItem[0] === 'number') {
 		// 1D array
@@ -379,8 +370,8 @@ export function sort(ctx: Context, col?: number, dir?: string) {
 				test,
 				sortItem,
 				len = aSort.length,
-				dataA = aoData[a]._aSortData!,
-				dataB = aoData[b]._aSortData!;
+				dataA = aoData[a]?._aSortData!,
+				dataB = aoData[b]?._aSortData!;
 
 			for (k = 0; k < len; k++) {
 				sortItem = aSort[k];
@@ -598,16 +589,16 @@ export function sortData(settings: Context, colIdx: number) {
 
 		row = data[rowIdx];
 
-		if (!row._aSortData) {
+		if (row && !row._aSortData) {
 			row._aSortData = [];
 		}
 
-		if (!row._aSortData[colIdx] || customSort) {
+		if (row && (!row._aSortData![colIdx] || customSort)) {
 			cellData = customSort
 				? customData[rowIdx] // If there was a custom sort function, use data from there
 				: getCellData(settings, rowIdx, colIdx, 'sort');
 
-			row._aSortData[colIdx] = formatter
+			row._aSortData![colIdx] = formatter
 				? formatter(cellData, settings)
 				: cellData;
 		}

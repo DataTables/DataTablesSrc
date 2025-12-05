@@ -20,7 +20,7 @@ import {
 import { getCellData } from './core/data';
 import { detectHeader } from './core/draw';
 import { initialise } from './core/init';
-import { sortingClasses } from './core/sort';
+import { sortingClasses } from './core/order';
 import { saveState } from './core/state';
 import dom from './dom';
 import ext from './ext';
@@ -40,7 +40,7 @@ const DataTable = function (
 ) {
 	// Check if called with a window or jQuery object for DOM less applications
 	// This is for backwards compatibility
-	if (apiStatic.factory(selector, options)) {
+	if (apiStatic.factory(selector as any, options as any)) {
 		return DataTable;
 	}
 

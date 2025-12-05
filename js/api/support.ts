@@ -1,8 +1,9 @@
-import dom from '../dom';
+import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import Context from '../model/settings';
 import * as object from '../util/object';
 import { escapeHtml } from '../util/string';
+import { Api } from './interface';
 
 /**
  * Log an error message
@@ -12,8 +13,16 @@ import { escapeHtml } from '../util/string';
  * @param msg error message
  * @param tn Technical note id to get more information about the error.
  */
-export function log(ctx: Context | null, level: number, msg: string, tn?: number) {
-	msg = 'DataTables warning: ' + (ctx ? 'table id=' + ctx.sTableId + ' - ' : '') + msg;
+export function log(
+	ctx: Context | null,
+	level: number,
+	msg: string,
+	tn?: number
+) {
+	msg =
+		'DataTables warning: ' +
+		(ctx ? 'table id=' + ctx.sTableId + ' - ' : '') +
+		msg;
 
 	if (tn) {
 		msg +=
@@ -46,16 +55,22 @@ export function log(ctx: Context | null, level: number, msg: string, tn?: number
 }
 
 /**
- * See if a property is defined on one object, if so assign it to the other object
+ * See if a property is defined on one object, if so assign it to the other
+ * object
  *
  * @param ret target object
  * @param src source object
  * @param name property
- * @param [mappedName] name to map too - optional, name used if not given
+ * @param mappedName name to map too - optional, name used if not given
  */
-export function map(ret: object, src: object, name: string | any[], mappedName?: string) {
+export function map(
+	ret: Record<string, any>,
+	src: Record<string, any>,
+	name: string | any[],
+	mappedName?: string
+) {
 	if (Array.isArray(name)) {
-		for (let i=0 ; i<name.length ; i++) {
+		for (let i = 0; i < name.length; i++) {
 			let val = name[i];
 
 			if (Array.isArray(val)) {
@@ -110,8 +125,8 @@ export function bindAction(
 }
 
 /**
- * Register a callback function. Easily allows a callback function to be added to
- * an array store of callback functions that can then all be called together.
+ * Register a callback function. Easily allows a callback function to be added
+ * to an array store of callback functions that can then all be called together.
  *
  * @param settings dataTables settings object
  * @param store Name of the array storage for the callbacks in oSettings
@@ -119,7 +134,7 @@ export function bindAction(
  */
 export function callbackReg(ctx: Context, store: string, fn?: Function | null) {
 	if (fn) {
-		ctx[store].push(fn);
+		(ctx as any)[store].push(fn);
 	}
 }
 
@@ -141,37 +156,29 @@ export function callbackFire(
 	callbackArr: string | null,
 	eventName: string | null,
 	args: any,
-	bubbles: boolean=false
+	bubbles: boolean = false
 ) {
 	var ret: any[] = [];
 
 	if (callbackArr) {
-		ret = ctx[callbackArr]
+		ret = (ctx as any)[callbackArr]
 			.slice()
 			.reverse()
-			.map(function (val) {
+			.map(function (val: Function) {
 				return val.apply(ctx.oInstance, args);
 			});
 	}
 
 	if (eventName !== null) {
 		let table = dom.s(ctx.nTable);
-		let result = table.trigger(
-			eventName + '.dt',
-			bubbles,
-			args,
-			{dt: ctx.api}
-		);
+		let result = table.trigger(eventName + '.dt', bubbles, args, {
+			dt: ctx.api
+		});
 
 		// If not yet attached to the document, trigger the event
 		// on the body directly to sort of simulate the bubble
 		if (bubbles && table.closest('body').count() === 0) {
-			dom.s('body').trigger(
-				eventName + '.dt',
-				bubbles,
-				args,
-				{dt: ctx.api}
-			);
+			dom.s('body').trigger(eventName + '.dt', bubbles, args, { dt: ctx.api });
 		}
 
 		ret.push(result[0]);
@@ -253,7 +260,7 @@ export function macros(ctx: Context, str: string, entries?: number) {
  * @param arr Array to add the data to
  * @param data Data array that is to be added
  */
-export function arrayApply(arr: any[], data: any[]) {
+export function arrayApply(arr: any[] | Api, data?: any[] | Api) {
 	if (!data) {
 		return;
 	}
@@ -277,20 +284,18 @@ export function arrayApply(arr: any[], data: any[]) {
  * @param name Event name
  * @param src Listener(s)
  */
-export function listener(that, name, src) {
-	if (!Array.isArray(src)) {
-		src = [src];
-	}
+export function listener(that: Dom, name: string, src: Function | Function[]) {
+	let srcArr = Array.isArray(src) ? src : [src];
 
 	for (var i = 0; i < src.length; i++) {
-		that.on(name + '.dt', src[i]);
+		that.on(name + '.dt', srcArr[i] as any);
 	}
 }
 
 /**
  * Escape HTML entities in strings, in an object
  */
-export function escapeObject(obj) {
+export function escapeObject(obj: Record<string, any>) {
 	if (ext.escape.attributes) {
 		object.each(obj, function (key, val) {
 			obj[key] = escapeHtml(val);

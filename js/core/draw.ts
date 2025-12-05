@@ -10,10 +10,10 @@ import util from '../util';
 import { ajaxUpdate } from './ajax';
 import { columnOptions, columnTypes, visibleColumns } from './columns';
 import { getCellData, getDataMaster, writeCell } from './data';
-import { filterComplete } from './filter';
+import { sort } from './order';
 import { processingDisplay } from './processing';
 import { renderer } from './render';
-import { sort } from './sort';
+import { filterComplete } from './search';
 
 interface HeaderLayoutCell {
 	cell: HTMLElement;
@@ -32,6 +32,10 @@ interface HeaderLayoutCell {
 export function getRowDisplay(settings: Context, rowIdx: number) {
 	var rowModal = settings.aoData[rowIdx];
 	var columns = settings.aoColumns;
+
+	if (! rowModal) {
+		return [];
+	}
 
 	if (!rowModal.displayData) {
 		// Need to render and cache
@@ -63,7 +67,6 @@ export function createTr(
 	tds?: HTMLTableCellElement[]
 ) {
 	var row = settings.aoData[rowIdx],
-		rowData = row._aData,
 		cells: HTMLTableCellElement[] = [],
 		nTr: TableRow,
 		nTd: TableCell,
@@ -73,9 +76,10 @@ export function createTr(
 		create,
 		trClass = settings.oClasses.tbody.row;
 
-	if (row.nTr === null) {
-		nTr = trIn || document.createElement('tr');
+	if (row && row.nTr === null) {
+		let rowData = row._aData;
 
+		nTr = trIn || document.createElement('tr');
 		row.nTr = nTr;
 		row.anCells = cells;
 
@@ -151,7 +155,7 @@ export function createTr(
 			cells,
 		]);
 	}
-	else {
+	else if (row) {
 		dom.s(row.nTr).classAdd(trClass);
 	}
 }

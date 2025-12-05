@@ -25,7 +25,7 @@ export function calculateColumnWidths(settings: Context) {
 		scrollXInner = scroll.sXInner,
 		visibleColumns = getColumns(settings, 'bVisible'),
 		tableWidthAttr = table.getAttribute('width'), // from DOM element
-		tableContainer = table.parentNode,
+		tableContainer = table.parentElement!,
 		i,
 		j,
 		column,

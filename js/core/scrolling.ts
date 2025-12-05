@@ -246,11 +246,15 @@ export function scrollDraw(settings: Context) {
 
 		for (let i = start; i < start + settings.aiDisplay.length; i++) {
 			let idx = settings.aiDisplay[i];
-			let tr = settings.aoData[idx].nTr;
+			let row = settings.aoData[idx];
 
-			if (tr) {
-				firstTr = tr;
-				break;
+			if (row) {
+				let tr = row.nTr;
+
+				if (tr) {
+					firstTr = tr;
+					break;
+				}
 			}
 		}
 

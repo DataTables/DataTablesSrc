@@ -2,7 +2,6 @@ import { macros } from '../api/support';
 import { draw } from '../core/draw';
 import { lengthChange } from '../core/length';
 import dom from '../dom';
-import Context from '../model/settings';
 import * as is from '../util/is';
 import register from './register';
 
@@ -19,9 +18,9 @@ var __lengthCounter = 0;
 // opts
 // - menu
 // - text
-register(
+register<Partial<IFeaturePageLengthOptions>>(
 	'pageLength',
-	function (settings: Context, optsIn: Partial<IFeaturePageLengthOptions>) {
+	function (settings, optsIn) {
 		var features = settings.oFeatures;
 
 		// For compatibility with the legacy `pageLength` top level option
@@ -32,7 +31,7 @@ register(
 		let opts: IFeaturePageLengthOptions = Object.assign(
 			{
 				menu: settings.aLengthMenu,
-				text: settings.oLanguage.sLengthMenu,
+				text: settings.oLanguage.sLengthMenu
 			},
 			optsIn
 		);
@@ -91,17 +90,17 @@ register(
 		var textNodes: any[] = [];
 		Array.prototype.slice
 			.call(div.find('label').get(0).childNodes)
-			.forEach(function (el) {
+			.forEach(function (el: HTMLElement) {
 				if (el.nodeType === Node.TEXT_NODE) {
 					textNodes.push({
 						el: el,
-						text: el.textContent,
+						text: el.textContent
 					});
 				}
 			});
 
 		// Update the label text in case it has an entries value
-		var updateEntries = function (len) {
+		var updateEntries = function (len: number) {
 			textNodes.forEach(function (node) {
 				node.el.textContent = macros(settings, node.text, len);
 			});
@@ -109,7 +108,7 @@ register(
 
 		// Next, the select itself, along with the options
 		var select = dom
-			.c('select')
+			.c<HTMLSelectElement>('select')
 			.attr('aria-controls', tableId)
 			.classAdd(classes.select);
 

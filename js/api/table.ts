@@ -1,21 +1,31 @@
 import { headerLayout } from '../core/draw';
 import dom from '../dom';
 import Context from '../model/settings';
-import Api from './base';
+import { register, registerPlural } from './Api';
+import {
+	Api,
+	ApiCaption,
+	ApiTableMethods,
+	ApiTablesMethods,
+	TableSelector
+} from './interface';
+import { selectorFirst } from './selectors';
 import { arrayApply } from './support';
 
 /**
  * Selector for HTML tables. Apply the given selector to the give array of
  * DataTables settings objects.
  *
- * @param {string|integer} [selector] Selector string or integer
- * @param  {array} Array of DataTables settings objects to be filtered
- * @return {array}
- * @ignore
+ * @param selector Selector string or integer
+ * @param a Array of DataTables settings objects to be filtered
+ * @return Selected table notes
  */
-export function table_selector(selector, a) {
+function table_selector(
+	selector: TableSelector,
+	a: Context[]
+): HTMLElement[] | Context[] {
 	if (Array.isArray(selector)) {
-		var result = [];
+		var result: any[] = [];
 
 		selector.forEach(function (sel) {
 			var inner = table_selector(sel, a);
@@ -23,9 +33,7 @@ export function table_selector(selector, a) {
 			arrayApply(result, inner);
 		});
 
-		return result.filter(function (item) {
-			return item;
-		});
+		return result.filter(item => !!item);
 	}
 
 	// Integer is used to pick out a table by index
@@ -48,30 +56,15 @@ export function table_selector(selector, a) {
 		});
 }
 
-/**
- * Context selector for the API's context (i.e. the tables the API instance
- * refers to.
- *
- * @name    DataTable.Api#tables
- * @param {string|integer} [selector] Selector to pick which tables the iterator
- *   should operate on. If not given, all tables in the current context are
- *   used. This can be given as a selector to select multiple tables or as an
- *   integer to select a single table.
- * @returns {DataTable.Api} Returns a new API instance if a selector is given.
- */
-Api.register('tables()', function (selector) {
+register<Api['tables']>('tables()', function (selector) {
 	// A new instance is created if there was a selector specified
 	return selector !== undefined && selector !== null
-		? new Api(table_selector(selector, this.context))
-		: this;
+		? this.inst(table_selector(selector, this.context))
+		: this.inst(this.context);
 });
 
-Api.register('table()', function (selector) {
-	var tables = this.tables(selector);
-	var ctx = tables.context;
-
-	// Truncate to the first matched table
-	return ctx.length ? new Api(ctx[0]) : tables;
+register<Api['table']>('table()', function (selector) {
+	return selectorFirst(this.tables(selector));
 });
 
 // Common methods, combined to reduce size
@@ -79,67 +72,77 @@ Api.register('table()', function (selector) {
 	['nodes', 'node', 'nTable'],
 	['body', 'body', 'nTBody'],
 	['header', 'header', 'nTHead'],
-	['footer', 'footer', 'nTFoot'],
+	['footer', 'footer', 'nTFoot']
 ].forEach(function (item) {
-	Api.registerPlural(
-		'tables().' + item[0] + '()',
-		'table().' + item[1] + '()',
-		function () {
-			return this.iterator(
-				'table',
-				function (ctx: Context) {
-					return ctx[item[2]];
-				},
-				1
-			);
-		}
-	);
+	registerPlural<
+		(this: Api) => Api<HTMLElement>
+	>('tables().' + item[0] + '()', 'table().' + item[1] + '()', function () {
+		return this.iterator(
+			'table',
+			ctx => ctx[item[2] as 'nTable' | 'nTBody' | 'nTHead' | 'nTFoot'],
+			true
+		);
+	});
 });
 
 // Structure methods
 [
 	['header', 'aoHeader'],
-	['footer', 'aoFooter'],
+	['footer', 'aoFooter']
 ].forEach(function (item) {
-	Api.register('table().' + item[0] + '.structure()', function (selector) {
+	register<
+		ApiTableMethods<any>['header']['structure']
+	>('table().' + item[0] + '.structure()', function (selector?) {
 		var indexes = this.columns(selector).indexes().flatten().toArray();
 		var ctx = this.context[0];
-		var structure = headerLayout(ctx, ctx[item[1]], indexes)!;
+		var structure = headerLayout(
+			ctx,
+			ctx[item[1] as 'aoHeader' | 'aoFooter'],
+			indexes
+		)!;
 
-		// The structure is in column index order - but from this method we want the return to be
-		// in the columns() selector API order. In order to do that we need to map from one form
-		// to the other
+		// The structure is in column index order - but from this method we
+		// want the return to be in the columns() selector API order. In
+		// order to do that we need to map from one form to the other
 		var orderedIndexes = indexes.slice().sort(function (a, b) {
 			return a - b;
 		});
 
 		return structure.map(function (row) {
 			return indexes.map(function (colIdx) {
-				return row[orderedIndexes.indexOf(colIdx)];
+				return row[orderedIndexes.indexOf(colIdx)]!;
 			});
 		});
 	});
 });
 
-Api.registerPlural('tables().containers()', 'table().container()', function () {
-	return this.iterator(
-		'table',
-		function (ctx) {
-			return ctx.nTableWrapper;
-		},
-		1
-	);
-});
+registerPlural<ApiTablesMethods<any>['containers']>(
+	'tables().containers()',
+	'table().container()',
+	function () {
+		return this.iterator(
+			'table',
+			function (ctx) {
+				return ctx.nTableWrapper;
+			},
+			true
+		);
+	}
+);
 
-Api.register('tables().every()', function (fn) {
-	var that = this;
-
-	return this.iterator('table', function (s, i) {
-		fn.call(that.table(i), i);
+register<ApiTablesMethods<any>['every']>('tables().every()', function (fn) {
+	return this.iterator('table', (s, i) => {
+		fn.call(this.table(i), i);
 	});
 });
 
-Api.register('caption()', function (value, side) {
+type ApiCaptionOverload = (
+	this: Api,
+	set?: string,
+	side?: 'top' | 'bottom'
+) => string | null | Api;
+
+register<ApiCaptionOverload>('caption()', function (value?, side?) {
 	var context = this.context;
 
 	// Getter - return existing node's content
@@ -151,7 +154,7 @@ Api.register('caption()', function (value, side) {
 
 	return this.iterator(
 		'table',
-		function (ctx: Context) {
+		function (ctx) {
 			var table = dom.s(ctx.nTable);
 			var caption = dom.s(ctx.captionNode);
 			var container = dom.s(ctx.nTableWrapper);
@@ -161,13 +164,14 @@ Api.register('caption()', function (value, side) {
 				caption = dom.c('caption').html(value);
 				ctx.captionNode = caption.get<HTMLTableCaptionElement>(0);
 
-				// If side isn't set, we need to insert into the document to let the
-				// CSS decide so we can read it back, otherwise there is no way to
-				// know if the CSS would put it top or bottom for scrolling
+				// If side isn't set, we need to insert into the document to let
+				// the CSS decide so we can read it back, otherwise there is no
+				// way to know if the CSS would put it top or bottom for
+				// scrolling
 				if (!side) {
 					table.prepend(caption);
 
-					side = caption.css('caption-side');
+					side = caption.css('caption-side') as 'top' | 'bottom';
 				}
 			}
 
@@ -189,11 +193,11 @@ Api.register('caption()', function (value, side) {
 				table.prepend(caption);
 			}
 		},
-		1
+		true
 	);
 });
 
-Api.register('caption.node()', function () {
+register<ApiCaption['node']>('caption.node()', function () {
 	var ctx = this.context;
 
 	return ctx.length ? ctx[0].captionNode : null;

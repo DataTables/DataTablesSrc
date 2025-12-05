@@ -1,13 +1,23 @@
-import { sort } from '../core/sort';
+import { sort } from '../core/order';
 import { Dom } from '../dom';
 import ext from '../ext/index';
+import Context from '../model/settings';
 import { range, unique } from '../util/array';
 import * as object from '../util/object';
-import Api from './base';
+import { ApiSelectorModifier, Api as ApiType } from './interface';
 import { dataSource } from './support';
 
-export function selector_run(type, selector, selectFn, settings, opts) {
-	var out = [],
+/**
+ * Common run function for selector types
+ */
+export function selectorRun<T = any>(
+	type: string,
+	selector: any,
+	selectFn: (s: any) => T[],
+	settings: Context,
+	opts: ApiSelectorModifier
+): T[] {
+	var out: T[] = [],
 		res,
 		i,
 		iLen,
@@ -55,7 +65,7 @@ export function selector_run(type, selector, selectFn, settings, opts) {
 	return unique(out);
 }
 
-export function selector_opts(opts) {
+export function selectorOpts(opts?: ApiSelectorModifier): ApiSelectorModifier {
 	if (!opts) {
 		opts = {};
 	}
@@ -72,15 +82,17 @@ export function selector_opts(opts) {
 			columnOrder: 'implied',
 			search: 'none',
 			order: 'current',
-			page: 'all',
+			page: 'all'
 		},
 		opts
 	);
 }
 
 // Reduce the API instance to the first item found
-export function selector_first(old) {
-	var inst = new Api(old.context[0]);
+export function selectorFirst<R extends ApiType>(old: ApiType) {
+	// Need to specify the target class as singular since `old` has the context
+	// of the plural
+	var inst = old.inst<R>(old.context[0], null, old._newClass.replace(/s$/, ''));
 
 	// Use a push rather than passing to the constructor, since it will
 	// merge arrays down automatically, which isn't what is wanted here
@@ -98,11 +110,14 @@ export function selector_first(old) {
 	return inst;
 }
 
-export function selector_row_indexes(settings, opts) {
+export function selectorRowIndexes(
+	settings: Context,
+	opts: ApiSelectorModifier
+) {
 	var i,
 		iLen,
 		tmp,
-		a: any[] = [],
+		a: number[] = [],
 		displayFiltered = settings.aiDisplay,
 		displayMaster = settings.aiDisplayMaster;
 
@@ -139,7 +154,7 @@ export function selector_row_indexes(settings, opts) {
 		}
 		else if (search == 'removed') {
 			// O(n+m) solution by creating a hash map
-			var displayFilteredMap = {};
+			var displayFilteredMap: Record<number, number | null> = {};
 
 			for (i = 0, iLen = displayFiltered.length; i < iLen; i++) {
 				displayFilteredMap[displayFiltered[i]] = null;

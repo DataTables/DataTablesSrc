@@ -7,8 +7,11 @@ import Context from '../model/settings';
  * @param settings DataTables context
  * @param val Value to change to
  */
-export function lengthChange(ctx: Context, val: string) {
-	var len = parseInt(val, 10);
+export function lengthChange(ctx: Context, val: string | number) {
+	let len = typeof val === 'string'
+		? parseInt(val, 10)
+		: val;
+
 	ctx._iDisplayLength = len;
 
 	lengthOverflow(ctx);

@@ -1,10 +1,11 @@
 import { draw, reDraw } from '../core/draw';
-import Api from './base';
+import Api from './Api';
+import { Api as ApiType } from './interface';
 
 /**
  * Redraw the tables in the current context.
  */
-Api.register('draw()', function (paging) {
+Api.register<ApiType<any>['draw']>('draw()', function (paging) {
 	return this.iterator('table', function (settings) {
 		if (paging === 'page') {
 			draw(settings);

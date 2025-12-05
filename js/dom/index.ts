@@ -4,12 +4,13 @@ import { PlainObject } from '../util/types';
 import * as events from './events';
 
 type AttributeTypes = string | number | boolean | null;
-type TSelector =
+type DomSelector =
 	| string
+	| Node
 	| Element
 	| HTMLElement
 	| Document
-	| Array<TSelector>
+	| Array<DomSelector>
 	| null;
 type TDimensionInclude =
 	| 'outer' // alias to withBorder
@@ -37,7 +38,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param selector Items to select
 	 * @returns Dom instance for manipulating the selected items
 	 */
-	static selector<R extends HTMLElement = HTMLElement>(selector: TSelector) {
+	static selector<R extends HTMLElement = HTMLElement>(selector: DomSelector) {
 		return new Dom<R>(selector);
 	}
 
@@ -50,7 +51,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *
 	 * @param selector
 	 */
-	constructor(selector?: TSelector) {
+	constructor(selector?: DomSelector) {
 		if (selector) {
 			if (typeof selector === 'string') {
 				let elements = Array.from(document.querySelectorAll(selector));
@@ -88,15 +89,13 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	add(el: T | Array<T> | null) {
 		if (Array.isArray(el)) {
 			el.forEach(e => {
-				if (e && !this._store.includes(e)) {
+				if (e !== null && e !== undefined) {
 					this._store.push(e);
 				}
 			});
 		}
-		else if (el !== null) {
-			if (el && !this._store.includes(el)) {
-				this._store.push(el);
-			}
+		else if (el !== null && el !== undefined) {
+			this._store.push(el);
 		}
 
 		return this;
@@ -110,7 +109,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param content The content to append
 	 * @returns Self for chaining
 	 */
-	append(content: Element | Element[] | ChildNode | ChildNode[] | Dom | null) {
+	append<T extends Node>(content: T | T[] | Dom | null) {
 		if (!content) {
 			return this;
 		}
@@ -146,7 +145,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *
 	 * @param selector
 	 */
-	appendTo(selector: TSelector | Dom) {
+	appendTo(selector: DomSelector | Dom) {
 		let inst = selector instanceof Dom ? selector : new Dom(selector);
 
 		inst.append(this);
@@ -542,7 +541,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *   match to be selected.
 	 * @returns New Dom instance containing the filters elements
 	 */
-	filter(filter?: string | HTMLElement | HTMLElement[]) {
+	filter(
+		filter?: string | HTMLElement | HTMLElement[] | ArrayLike<HTMLElement>
+	) {
 		return this.map(el => {
 			if (filter === undefined) {
 				return el;
@@ -853,7 +854,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		if (!this.count()) {
 			return {
 				top: 0,
-				left: 0,
+				left: 0
 			};
 		}
 
@@ -862,7 +863,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 		return {
 			top: box.top + window.pageYOffset - docElem.clientTop,
-			left: box.left + window.pageXOffset - docElem.clientLeft,
+			left: box.left + window.pageXOffset - docElem.clientLeft
 		};
 	}
 
@@ -981,7 +982,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *
 	 * @param selector
 	 */
-	prependTo(selector: TSelector | Dom) {
+	prependTo(selector: DomSelector | Dom) {
 		if (selector instanceof Dom) {
 			selector.prepend(this);
 		}
@@ -1303,14 +1304,14 @@ function normaliseEventParams(name?: string, arg2?: any, arg3?: any) {
 	return {
 		handler,
 		names,
-		selector,
+		selector
 	};
 }
 
 export default {
 	c: Dom.create,
 	Dom,
-	s: Dom.selector,
+	s: Dom.selector
 };
 
 type EventHandler = {

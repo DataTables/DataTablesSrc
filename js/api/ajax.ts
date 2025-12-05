@@ -4,8 +4,8 @@ import { reDraw } from '../core/draw';
 import { initComplete } from '../core/init';
 import { processingDisplay } from '../core/processing';
 import Context from '../model/settings';
-import * as is from '../util/is';
-import Api from './base';
+import Api, { register } from './Api';
+import { AjaxMethods, ApiAjax, Api as ApiType } from './interface';
 import { dataSource } from './support';
 
 type TReloadCallback = (json: any) => void;
@@ -52,46 +52,27 @@ const __reload = function (
 	}
 };
 
-/**
- * Get the JSON response from the last Ajax request that DataTables made to the
- * server. Note that this returns the JSON from the first table in the current
- * context.
- *
- * @return JSON received from the server.
- */
-Api.register('ajax.json()', function () {
+register<ApiAjax['json']>('ajax.json()', function () {
 	var ctx = this.context;
 
 	if (ctx.length > 0) {
-		return ctx[0].json;
+		return ctx[0].json as any;
 	}
 
 	// else return undefined;
 });
 
-/**
- * Get the data submitted in the last Ajax request
- */
-Api.register('ajax.params()', function () {
+register<ApiAjax['params']>('ajax.params()', function () {
 	var ctx = this.context;
 
 	if (ctx.length > 0) {
-		return ctx[0].oAjaxData;
+		return ctx[0].oAjaxData as any;
 	}
 
 	// else return undefined;
 });
 
-/**
- * Reload tables from the Ajax data source. Note that this function will
- * automatically re-draw the table when the remote data has been loaded.
- *
- * @param reset Reset (default) or hold the current paging position. A full
- *   re-sort and re-filter is performed when this method is called, which is why
- *   the pagination reset is the default action.
- * @returns Self for chaining
- */
-Api.register(
+register<ApiAjax['reload']>(
 	'ajax.reload()',
 	function (callback: TReloadCallback, resetPaging: boolean) {
 		return this.iterator('table', function (settings: Context) {
@@ -100,19 +81,12 @@ Api.register(
 	}
 );
 
-/**
- * Get the current Ajax URL. Note that this returns the URL from the first
- * table in the current context.
- *
- * @return Current Ajax source URL
- */
-/**
- * Set the Ajax URL. Note that this will set the URL for all tables in the
- * current context.
- *
- * @param url URL to set.
- */
-Api.register('ajax.url()', function (url: string) {
+type ApiAjaxUrlOverload = (
+	this: ApiType,
+	url?: string
+) => string | undefined | AjaxMethods;
+
+register<ApiAjaxUrlOverload>('ajax.url()', function (url?: string) {
 	var ctx = this.context;
 
 	if (url === undefined) {
@@ -120,36 +94,32 @@ Api.register('ajax.url()', function (url: string) {
 		if (ctx.length === 0) {
 			return undefined;
 		}
-		ctx = ctx[0];
 
-		return is.plainObject(ctx.ajax) ? ctx.ajax.url : ctx.ajax;
+		let context = ctx[0];
+
+		return typeof context.ajax === 'string' ? context.ajax : context.ajax.url;
 	}
 
 	// set
-	return this.iterator('table', function (settings: Context) {
-		if (is.plainObject(settings.ajax)) {
-			settings.ajax.url = url;
-		}
-		else {
-			settings.ajax = url;
-		}
-	});
+	return this.iterator<AjaxMethods>(
+		'table',
+		function (settings: Context) {
+			if (typeof settings.ajax === 'string') {
+				settings.ajax = url;
+			}
+			else {
+				settings.ajax.url = url;
+			}
+		},
+		true
+	);
 });
 
-/**
- * Load data from the newly set Ajax URL. Note that this method is only
- * available when `ajax.url()` is used to set a URL. Additionally, this method
- * has the same effect as calling `ajax.reload()` but is provided for
- * convenience when setting a new URL. Like `ajax.reload()` it will
- * automatically redraw the table once the remote data has been loaded.
- *
- * @returns Self for chaining
- */
-Api.register(
+register<AjaxMethods['load']>(
 	'ajax.url().load()',
 	function (callback: TReloadCallback, resetPaging: boolean) {
-		// Same as a reload, but makes sense to present it for easy access after a
-		// url change
+		// Same as a reload, but makes sense to present it for easy access after
+		// a url change
 		return this.iterator('table', function (ctx: Context) {
 			__reload(ctx, resetPaging === false, callback);
 		});

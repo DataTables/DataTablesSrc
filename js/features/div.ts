@@ -1,5 +1,3 @@
-
-import Context from '../model/settings';
 import register from './register';
 
 export interface IFeatureDivOptions {
@@ -16,13 +14,17 @@ export interface IFeatureDivOptions {
 	text: string;
 }
 
-function _divProp(el: HTMLElement, prop: string, val?: string) {
+function _divProp<T extends HTMLElement, K extends keyof T>(
+	el: T,
+	prop: K,
+	val?: T[K]
+) {
 	if (val) {
 		el[prop] = val;
 	}
 }
 
-register( 'div', function ( settings: Context, opts: Partial<IFeatureDivOptions> ) {
+register<Partial<IFeatureDivOptions>>('div', function (settings, opts) {
 	var n = document.createElement('div');
 
 	if (opts) {
@@ -33,4 +35,4 @@ register( 'div', function ( settings: Context, opts: Partial<IFeatureDivOptions>
 	}
 
 	return n;
-} );
+});

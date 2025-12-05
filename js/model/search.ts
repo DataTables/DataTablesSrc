@@ -10,9 +10,21 @@ export type SearchInput<T = any> =
 
 export interface SearchOptions {
 	/**
+	 * Start the matching from the start of a word (true), or anywhere in the
+	 * string to search (false).
+	 */
+	boundary: boolean;
+
+	/**
 	 * Flag to whether or not the filtering should be case-insensitive
 	 */
 	caseInsensitive: boolean;
+
+	/**
+	 * This option modifies the search to perform an exact match (string based)
+	 * on the values in the table
+	 */
+	exact: boolean;
 
 	/**
 	 * Applied search term

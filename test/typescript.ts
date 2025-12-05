@@ -1,4 +1,5 @@
 
+import { expectType } from 'tsd';
 import DataTable, {
 	Api,
 	ApiCellsMethods,
@@ -7,13 +8,11 @@ import DataTable, {
 	ApiTableMethods,
 	ConfigColumns,
 	DataType,
-	HeaderStructure,
-	SearchInput,
-	SearchInputColumn,
-	InternalSettings,
-	ExtTypeSettingsDetect
+	ExtTypeSettingsDetect,
+	HeaderStructure
 } from "../types/types";
-import {expectType} from 'tsd';
+
+import { SearchInput } from '../js/model/search';
 
 interface IRow {
 	firstName: string;
@@ -197,6 +196,7 @@ table.columns(1, {
 	columnOrder: 'index'
 });
 table.columns([1, '.test']);
+table.columns(':visible').count();
 
 expectType<ConfigColumns>(table.column(0).init());
 expectType<Api<ConfigColumns>>(table.columns().init());
@@ -247,13 +247,13 @@ expectType<Api<any>>(table.columns().search(/regex/));
 expectType<Api<any>>(table.columns().search((d) => true));
 
 expectType<Api<string>>(table.column(0).search.fixed());
-expectType<SearchInputColumn<any> | undefined>(table.column(0).search.fixed('test'));
+expectType<SearchInput<any> | undefined>(table.column(0).search.fixed('test'));
 expectType<Api<any>>(table.column(0).search.fixed('test', null));
 expectType<Api<any>>(table.column(0).search.fixed('test', 'search'));
 expectType<Api<any>>(table.column(0).search.fixed('test', /regex/));
 expectType<Api<any>>(table.column(0).search.fixed('test', (d) => true));
 expectType<Api<Array<string>>>(table.columns().search.fixed());
-expectType<Api<SearchInputColumn<any> | undefined>>(table.columns().search.fixed('test'));
+expectType<Api<SearchInput<any> | undefined>>(table.columns().search.fixed('test'));
 expectType<Api<any>>(table.columns().search.fixed('test', null));
 expectType<Api<any>>(table.columns().search.fixed('test', 'search'));
 expectType<Api<any>>(table.columns().search.fixed('test', /regex/));
@@ -313,10 +313,10 @@ table.on('click', 'tbody td', function () {
 /*
  * Rows
  */
-expectType<Node>(table.row.add(['a', 'b', 'c']).node());
+expectType<Node | null>(table.row.add(['a', 'b', 'c']).node());
 
 expectType<Api<any>>(table.rows({order: 1}).data());
-expectType<Api<Node[]>>(table.rows.add([['a', 'b', 'c']]).nodes());
+expectType<Api<HTMLTableRowElement[]>>(table.rows.add([['a', 'b', 'c']]).nodes());
 
 tableRowType.rows().every(function () {
 	expectType<ApiRowMethods<any>>(this);
@@ -324,9 +324,7 @@ tableRowType.rows().every(function () {
 	expectType<number>(this.index());
 });
 
-expectType<HTMLTableRowElement>(table.row(1).node());
-
-
+expectType<HTMLTableRowElement | null>(table.row(1).node());
 
 /*
  * Static

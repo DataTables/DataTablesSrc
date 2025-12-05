@@ -1,19 +1,21 @@
 import { clearTable } from '../core/data';
-import { sortingClasses } from '../core/sort';
+import { sortingClasses } from '../core/order';
 import dom from '../dom';
 import ext from '../ext/index';
 import util from '../util';
-import Api from './base';
+import Api, { register } from './Api';
+import { Api as ApiType } from './interface';
 import { callbackFire, log } from './support';
 
-/**
- *
- */
-Api.register('$()', function (selector, opts) {
+register<ApiType['$']>('$()', function (selector, opts) {
 	let jq = util.external('jq');
 
 	if (!jq) {
-		log(this.ctx[0], 0, 'No jQuery available. Use `.dom()` or register jQuery');
+		log(
+			this.context[0],
+			0,
+			'No jQuery available. Use `.dom()` or register jQuery'
+		);
 	}
 
 	let rows = this.rows(opts).nodes(), // Get all rows
@@ -29,63 +31,68 @@ Api.register('$()', function (selector, opts) {
 
 // jQuery functions to operate on the tables
 ['on', 'one', 'off'].forEach(key => {
-	Api.register(key + '()', function (/* event, handler */) {
+	register(key + '()', function (/* event, handler */) {
 		var args = Array.prototype.slice.call(arguments);
 
 		// Add the `dt` namespace automatically if it isn't already present
 		args[0] = args[0]
 			.split(/\s/)
-			.map(function (e) {
+			.map(function (e: string) {
 				return !e.match(/\.dt\b/) ? e + '.dt' : e;
 			})
 			.join(' ');
 
 		var inst = dom.s(this.tables().nodes());
-		inst[key].apply(inst, args);
+		inst[key as 'on' | 'one' | 'off'].apply(inst, args);
 
 		return this;
 	});
 });
 
-Api.register('clear()', function () {
+register<ApiType['clear']>('clear()', function () {
 	return this.iterator('table', function (settings) {
 		clearTable(settings);
 	});
 });
 
-Api.register('error()', function (msg) {
+register<ApiType['error']>('error()', function (msg: string) {
 	return this.iterator('table', function (settings) {
 		log(settings, 0, msg);
 	});
 });
 
-Api.register('settings()', function () {
+register<ApiType['settings']>('settings()', function () {
 	return new Api(this.context, this.context);
 });
 
-Api.register('init()', function () {
+register<ApiType['init']>('init()', function () {
 	var ctx = this.context;
 	return ctx.length ? ctx[0].oInit : null;
 });
 
-Api.register('data()', function () {
+register<ApiType['data']>('data()', function () {
 	return this.iterator('table', function (settings) {
 		return util.array.pluck(settings.aoData, '_aData');
 	}).flatten();
 });
 
-Api.register('trigger()', function (name, args, bubbles) {
+register<ApiType['trigger']>('trigger()', function (name, args?, bubbles?) {
 	return this.iterator('table', function (settings) {
 		return callbackFire(settings, null, name, args, bubbles);
 	}).flatten();
 });
 
-Api.register('ready()', function (fn) {
+type ApiReadyMethod = (
+	this: ApiType,
+	fn?: (this: ApiType) => void
+) => ApiType | boolean;
+
+register<ApiReadyMethod>('ready()', function (fn?) {
 	var ctx = this.context;
 
 	// Get status of first table
 	if (!fn) {
-		return ctx.length ? ctx[0]._bInitComplete || false : null;
+		return ctx.length ? ctx[0]._bInitComplete || false : false;
 	}
 
 	// Function to run either once the table becomes ready or
@@ -104,7 +111,7 @@ Api.register('ready()', function (fn) {
 	});
 });
 
-Api.register('destroy()', function (remove) {
+register<ApiType['destroy']>('destroy()', function (remove) {
 	remove = remove || false;
 
 	return this.iterator('table', function (settings) {
@@ -116,9 +123,11 @@ Api.register('destroy()', function (remove) {
 		var jqTable = dom.s(table);
 		var jqTbody = dom.s(tbody);
 		var jqWrapper = dom.s(settings.nTableWrapper);
-		var rows = settings.aoData.map(function (r) {
-			return r ? r.nTr : null;
-		});
+		var rows = settings.aoData
+			.map(function (r) {
+				return r ? r.nTr : null;
+			})
+			.filter(r => !!r);
 		var orderClasses = classes.order;
 
 		// Flag to note that the table is currently being destroyed - no action
@@ -130,7 +139,7 @@ Api.register('destroy()', function (remove) {
 
 		// If not being removed from the document, make all columns visible
 		if (!remove) {
-			new Api(settings).columns().visible(true);
+			new Api(settings).columns().visible();
 		}
 
 		// Container width change listener
@@ -196,7 +205,7 @@ Api.register('destroy()', function (remove) {
 		var insertBefore = settings.nTableWrapper.nextSibling;
 
 		// Remove the DataTables generated nodes, events and classes
-		var removedMethod = remove ? 'remove' : 'detach';
+		var removedMethod: 'remove' | 'detach' = remove ? 'remove' : 'detach';
 		jqTable[removedMethod]();
 		jqWrapper[removedMethod]();
 
@@ -207,7 +216,7 @@ Api.register('destroy()', function (remove) {
 
 			// Restore the width of the original table - was read from the style property,
 			// so we can restore directly to that
-			jqTable.css('width', settings.sDestroyWidth).classRemove(classes.table);
+			jqTable.css('width', settings + 'px').classRemove(classes.table);
 		}
 
 		/* Remove the settings object from the settings array */
@@ -218,32 +227,9 @@ Api.register('destroy()', function (remove) {
 	});
 });
 
-// Add the `every()` method for rows, columns and cells in a compact form
-['column', 'row', 'cell'].forEach(type => {
-	Api.register(type + 's().every()', function (fn) {
-		var opts = this.selector.opts;
-		var api = this;
-		var inst;
-		var counter = 0;
-
-		return this.iterator('every', function (settings, selectedIdx, tableIdx) {
-			inst = api[type](selectedIdx, opts);
-
-			if (type === 'cell') {
-				fn.call(inst, inst[0][0].row, inst[0][0].column, tableIdx, counter);
-			}
-			else {
-				fn.call(inst, selectedIdx, tableIdx, counter);
-			}
-
-			counter++;
-		});
-	});
-});
-
 // i18n method for extensions to be able to use the language object from the
 // DataTable
-Api.register('i18n()', function (token, def, plural) {
+register<ApiType['i18n']>('i18n()', function (token, def, plural) {
 	var ctx = this.context[0];
 	var resolved = util.get(token)(ctx.oLanguage);
 
@@ -255,18 +241,18 @@ Api.register('i18n()', function (token, def, plural) {
 		resolved =
 			plural !== undefined && resolved[plural] !== undefined
 				? resolved[plural]
-				: plural === false
+				: (plural as any) === false
 				? resolved
 				: resolved._;
 	}
 
 	return typeof resolved === 'string'
-		? resolved.replace('%d', plural) // nb: plural might be undefined,
+		? resolved.replace('%d', plural as any) // nb: plural might be undefined,
 		: resolved;
 });
 
 // Needed for header and footer, so pulled into its own function
-function cleanHeader(node, className) {
+function cleanHeader(node: HTMLElement, className: string) {
 	let headerCell = dom.s(node);
 
 	headerCell.find('span.dt-column-order').remove();

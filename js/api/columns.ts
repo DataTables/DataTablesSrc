@@ -1,25 +1,34 @@
 import {
-    adjustColumnSizing,
-    columnIndexToVisible,
-    columnsFromHeader,
-    columnTypes,
-    visibleColumns,
-    visibleToColumnIndex,
+	adjustColumnSizing,
+	columnIndexToVisible,
+	columnsFromHeader,
+	columnTypes,
+	visibleColumns,
+	visibleToColumnIndex
 } from '../core/columns';
 import { getCellData } from '../core/data';
 import { drawHead } from '../core/draw';
 import { colGroup } from '../core/sizing';
 import { saveState } from '../core/state';
 import dom from '../dom';
+import Context, { HeaderStructure } from '../model/settings';
 import { pluck, pluckOrder, range, removeEmpty } from '../util/array';
 import { intVal } from '../util/conv';
 import * as is from '../util/is';
-import Api from './base';
+import { register, registerPlural } from './Api';
 import {
-    selector_first,
-    selector_opts,
-    selector_row_indexes,
-    selector_run,
+	Api,
+	ApiColumn,
+	ApiColumns,
+	ApiColumnsMethods,
+	ApiSelectorModifier,
+	ColumnSelector
+} from './interface';
+import {
+	selectorFirst,
+	selectorOpts,
+	selectorRowIndexes,
+	selectorRun
 } from './selectors';
 import { callbackFire } from './support';
 
@@ -37,22 +46,31 @@ import { callbackFire } from './support';
 // can be an array of these items, comma separated list, or an array of comma
 // separated lists
 
-var __re_column_selector = /^([^:]+)?:(name|title|visIdx|visible)$/;
+const __re_column_selector = /^([^:]+)?:(name|title|visIdx|visible)$/;
 
 // r1 and r2 are redundant - but it means that the parameters match for the
 // iterator callback in columns().data()
-function columnData(settings, column, r1, r2, rows, type?) {
-	var a: any[] = [];
-	for (var row = 0, iLen = rows.length; row < iLen; row++) {
+function columnData(
+	settings: Context,
+	column: number,
+	r1: any,
+	r2: any,
+	rows: number[],
+	type?: string
+) {
+	let a: any[] = [];
+
+	for (let row = 0, iLen = rows.length; row < iLen; row++) {
 		a.push(getCellData(settings, rows[row], column, type));
 	}
+
 	return a;
 }
 
-function columnHeader(settings, column, row?) {
+function columnHeader(settings: Context, column: number, row?: number) {
 	var header = settings.aoHeader;
 	var titleRow = settings.titleRow;
-	var target: any = null;
+	var target: number | null = null;
 
 	if (row !== undefined) {
 		target = row;
@@ -87,7 +105,7 @@ function columnHeader(settings, column, row?) {
 	return header[target][column].cell;
 }
 
-function columnHeaderCells(header) {
+function columnHeaderCells(header: HeaderStructure[]) {
 	var out: any[] = [];
 
 	for (var i = 0; i < header.length; i++) {
@@ -103,13 +121,17 @@ function columnHeaderCells(header) {
 	return out;
 }
 
-var __column_selector = function (settings, selector, opts) {
+function selectColumns(
+	settings: Context,
+	selector: ColumnSelector,
+	opts: ApiSelectorModifier
+) {
 	var columns = settings.aoColumns,
-		names,
-		titles,
+		names: string[],
+		titles: string[],
 		nodes = columnHeaderCells(settings.aoHeader);
 
-	var run = function (s) {
+	var run = function (s: any) {
 		var selInt = intVal(s);
 
 		// Selector - all
@@ -122,13 +144,13 @@ var __column_selector = function (settings, selector, opts) {
 			return [
 				selInt >= 0
 					? selInt // Count from left
-					: columns.length + selInt, // Count from right (+ because its a negative value)
+					: columns.length + selInt // Count from right (+ because its a negative value)
 			];
 		}
 
 		// Selector = function
 		if (typeof s === 'function') {
-			var rows = selector_row_indexes(settings, opts);
+			var rows = selectorRowIndexes(settings, opts);
 
 			return columns.map(function (col, idx) {
 				return s(
@@ -213,7 +235,8 @@ var __column_selector = function (settings, selector, opts) {
 		}
 
 		// Selector on the TH elements for the columns
-		var result = dom.s(nodes)
+		var result = dom
+			.s(nodes)
 			.filter(s)
 			.mapTo(el => {
 				return columnsFromHeader(el); // `nodes` is column index complete and in order
@@ -233,16 +256,16 @@ var __column_selector = function (settings, selector, opts) {
 		return host.count() ? [host.data('dt-column')] : [];
 	};
 
-	var selected = selector_run('column', selector, run, settings, opts);
+	var selected = selectorRun('column', selector, run, settings, opts);
 
 	return opts.columnOrder && opts.columnOrder === 'index'
 		? selected.sort(function (a, b) {
 				return a - b;
 		  })
 		: selected; // implied
-};
+}
 
-var __setColumnVis = function (settings, column, vis) {
+function setColumnVis(settings: Context, column: number, vis: boolean) {
 	var cols = settings.aoColumns,
 		col = cols[column],
 		data = settings.aoData,
@@ -268,9 +291,11 @@ var __setColumnVis = function (settings, column, vis) {
 		var insertBefore = pluck(cols, 'bVisible').indexOf(true, column + 1);
 
 		for (i = 0, iLen = data.length; i < iLen; i++) {
-			if (data[i]) {
-				tr = data[i].nTr;
-				cells = data[i].anCells;
+			let row = data[i];
+
+			if (row) {
+				tr = row.nTr;
+				cells = row.anCells;
 
 				if (tr) {
 					// insertBefore can act like appendChild if 2nd arg is null
@@ -290,26 +315,36 @@ var __setColumnVis = function (settings, column, vis) {
 	colGroup(settings);
 
 	return true;
-};
+}
 
-Api.register('columns()', function (selector, opts) {
+type ApiColumnsOverload = (
+	this: Api,
+	selector?: ColumnSelector | ApiSelectorModifier,
+	modifier?: ApiSelectorModifier
+) => Api;
+
+register<ApiColumnsOverload>('columns()', function (arg1?, arg2?) {
+	let selector: ColumnSelector;
+	let opts: ApiSelectorModifier;
+
 	// argument shifting
-	if (selector === undefined) {
+	if (arg1 === undefined) {
 		selector = '';
 	}
-	else if (is.plainObject(selector)) {
-		opts = selector;
+	else if (is.plainObject(arg1)) {
 		selector = '';
+		arg2 = arg1 as ApiSelectorModifier;
+	}
+	else {
+		selector = arg1 as ColumnSelector;
 	}
 
-	opts = selector_opts(opts);
+	opts = selectorOpts(arg2);
 
-	var inst = this.iterator(
+	let inst = this.iterator(
 		'table',
-		function (settings) {
-			return __column_selector(settings, selector, opts);
-		},
-		1
+		settings => selectColumns(settings, selector, opts),
+		true
 	);
 
 	// Want argument shifting here and in _row_selector?
@@ -319,105 +354,156 @@ Api.register('columns()', function (selector, opts) {
 	return inst;
 });
 
-Api.registerPlural('columns().header()', 'column().header()', function (row) {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			return columnHeader(settings, column, row);
-		},
-		1
-	);
+register<ApiColumnsMethods<any>['every']>('columns().every()', function (fn) {
+	var opts = this.selector.opts;
+	var counter = 0;
+
+	return this.iterator('every', (settings, selectedIdx, tableIdx) => {
+		let inst = this.column(selectedIdx, opts);
+
+		fn.call(inst, selectedIdx, tableIdx, counter);
+
+		counter++;
+	});
 });
 
-Api.registerPlural('columns().footer()', 'column().footer()', function (row) {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			var footer = settings.aoFooter;
+registerPlural<ApiColumnsMethods<any>['header']>(
+	'columns().header()',
+	'column().header()',
+	function (row?) {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				return columnHeader(settings, column, row);
+			},
+			true
+		);
+	}
+);
 
-			if (!footer.length) {
-				return null;
-			}
+registerPlural<ApiColumnsMethods<any>['footer']>(
+	'columns().footer()',
+	'column().footer()',
+	function (row) {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				var footer = settings.aoFooter;
 
-			return settings.aoFooter[row !== undefined ? row : 0][column].cell;
-		},
-		1
-	);
-});
+				if (!footer.length) {
+					return null;
+				}
 
-Api.registerPlural('columns().data()', 'column().data()', function () {
-	return this.iterator('column-rows', columnData, 1);
-});
+				return settings.aoFooter[row !== undefined ? row : 0][column].cell;
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().render()', 'column().render()', function (type) {
-	return this.iterator(
-		'column-rows',
-		function (settings, column, i, j, rows) {
-			return columnData(settings, column, i, j, rows, type);
-		},
-		1
-	);
-});
+registerPlural<ApiColumnsMethods<any>['data']>(
+	'columns().data()',
+	'column().data()',
+	function () {
+		return this.iterator('column-rows', columnData, true);
+	}
+);
 
-Api.registerPlural('columns().dataSrc()', 'column().dataSrc()', function () {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			return settings.aoColumns[column].mData;
-		},
-		1
-	);
-});
+registerPlural<ApiColumnsMethods<any>['render']>(
+	'columns().render()',
+	'column().render()',
+	function (type) {
+		return this.iterator(
+			'column-rows',
+			function (settings, column, i, j, rows) {
+				return columnData(settings, column, i, j, rows, type);
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().cache()', 'column().cache()', function (type) {
-	return this.iterator(
-		'column-rows',
-		function (settings, column, i, j, rows) {
-			return pluckOrder(
-				settings.aoData,
-				rows,
-				type === 'search' ? '_aFilterData' : '_aSortData',
-				column
-			);
-		},
-		1
-	);
-});
+registerPlural<ApiColumnsMethods<any>['dataSrc']>(
+	'columns().dataSrc()',
+	'column().dataSrc()',
+	function () {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				return settings.aoColumns[column].mData;
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().init()', 'column().init()', function () {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			return settings.aoColumns[column];
-		},
-		1
-	);
-});
+registerPlural<ApiColumnsMethods<any>['cache']>(
+	'columns().cache()',
+	'column().cache()',
+	function (type) {
+		return this.iterator(
+			'column-rows',
+			function (settings, column, i, j, rows) {
+				return pluckOrder(
+					settings.aoData,
+					rows,
+					type === 'search' ? '_aFilterData' : '_aSortData',
+					column
+				);
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().names()', 'column().name()', function () {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			return settings.aoColumns[column].sName;
-		},
-		1
-	);
-});
+registerPlural<ApiColumnsMethods<any>['init']>(
+	'columns().init()',
+	'column().init()',
+	function () {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				return settings.aoColumns[column];
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().nodes()', 'column().nodes()', function () {
-	return this.iterator(
-		'column-rows',
-		function (settings, column, i, j, rows) {
-			return removeEmpty(pluckOrder(settings.aoData, rows, 'anCells', column));
-		},
-		1
-	);
-});
+registerPlural<ApiColumnsMethods<any>['names']>(
+	'columns().names()',
+	'column().name()',
+	function () {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				return settings.aoColumns[column].sName;
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural(
+registerPlural<ApiColumnsMethods<any>['nodes']>(
+	'columns().nodes()',
+	'column().nodes()',
+	function () {
+		return this.iterator(
+			'column-rows',
+			function (settings, column, i, j, rows) {
+				return removeEmpty(
+					pluckOrder(settings.aoData, rows, 'anCells', column)
+				);
+			},
+			true
+		);
+	}
+);
+
+registerPlural<ApiColumnsMethods<any>['titles']>(
 	'columns().titles()',
 	'column().title()',
-	function (title, row) {
+	function (title, row?) {
 		return this.iterator(
 			'column',
 			function (settings, column) {
@@ -427,7 +513,9 @@ Api.registerPlural(
 					title = undefined;
 				}
 
-				var span = dom.s(this.column(column).header(row)).find('span.dt-column-title');
+				var span = dom
+					.s(this.column(column).header(row))
+					.find('span.dt-column-title');
 
 				if (title !== undefined) {
 					span.html(title);
@@ -436,37 +524,47 @@ Api.registerPlural(
 
 				return span.html();
 			},
-			1
+			true
 		);
 	}
 );
 
-Api.registerPlural('columns().types()', 'column().type()', function () {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			var colObj = settings.aoColumns[column];
-			var type = colObj.sType;
+registerPlural<ApiColumnsMethods<any>['types']>(
+	'columns().types()',
+	'column().type()',
+	function () {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				var colObj = settings.aoColumns[column];
+				var type = colObj.sType;
 
-			// If the type was invalidated, then resolve it. This actually does
-			// all columns at the moment. Would only happen once if getting all
-			// column's data types.
-			if (!type) {
-				columnTypes(settings);
+				// If the type was invalidated, then resolve it. This actually does
+				// all columns at the moment. Would only happen once if getting all
+				// column's data types.
+				if (!type) {
+					columnTypes(settings);
 
-				type = colObj.sType;
-			}
+					type = colObj.sType;
+				}
 
-			return type;
-		},
-		1
-	);
-});
+				return type;
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural(
+type ApiColumnsVisibleOverload = (
+	this: Api<any>,
+	show?: boolean,
+	redrawCalculations?: boolean
+) => boolean | Api<any>;
+
+registerPlural<ApiColumnsVisibleOverload>(
 	'columns().visible()',
 	'column().visible()',
-	function (vis, calc) {
+	function (vis?, calc?) {
 		var that = this;
 		var changed: any[] = [];
 		var ret = this.iterator('column', function (settings, column) {
@@ -474,7 +572,7 @@ Api.registerPlural(
 				return settings.aoColumns[column].bVisible;
 			} // else
 
-			if (__setColumnVis(settings, column, vis)) {
+			if (setColumnVis(settings, column, vis)) {
 				changed.push(column);
 			}
 		});
@@ -489,7 +587,8 @@ Api.registerPlural(
 				// Update colspan for no records display. Child rows and extensions will use their own
 				// listeners to do this - only need to update the empty table item here
 				if (!settings.aiDisplay.length) {
-					dom.s(settings.nTBody)
+					dom
+						.s(settings.nTBody)
 						.find('td[colspan]')
 						.attr('colspan', visibleColumns(settings));
 				}
@@ -503,7 +602,7 @@ Api.registerPlural(
 							ctx,
 							column,
 							vis,
-							calc,
+							calc
 						]);
 					}
 				});
@@ -518,45 +617,55 @@ Api.registerPlural(
 	}
 );
 
-Api.registerPlural('columns().widths()', 'column().width()', function () {
-	// Injects a fake row into the table for just a moment so the widths can
-	// be read, regardless of colspan in the header and rows being present in
-	// the body
-	var columns = this.columns(':visible').count();
-	var row = dom.c('tr').html('<td>' + Array(columns).join('</td><td>') + '</td>');
+registerPlural<ApiColumnsMethods<any>['widths']>(
+	'columns().widths()',
+	'column().width()',
+	function () {
+		// Injects a fake row into the table for just a moment so the widths can
+		// be read, regardless of colspan in the header and rows being present in
+		// the body
+		var columns = this.columns(':visible').count();
+		var row = dom
+			.c('tr')
+			.html('<td>' + Array(columns).join('</td><td>') + '</td>');
 
-	dom.s(this.table().body()).append(row);
+		dom.s(this.table().body()).append(row);
 
-	var widths = row.children().mapTo(el => {
-		return dom.s(el).width('outer');
-	});
+		var widths = row.children().mapTo(el => {
+			return dom.s(el).width('outer');
+		});
 
-	row.remove();
+		row.remove();
 
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			var visIdx = columnIndexToVisible(settings, column);
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				var visIdx = columnIndexToVisible(settings, column);
 
-			return visIdx !== null ? widths[visIdx] : 0;
-		},
-		1
-	);
-});
+				return visIdx !== null ? widths[visIdx] : 0;
+			},
+			true
+		);
+	}
+);
 
-Api.registerPlural('columns().indexes()', 'column().index()', function (type) {
-	return this.iterator(
-		'column',
-		function (settings, column) {
-			return type === 'visible'
-				? columnIndexToVisible(settings, column)
-				: column;
-		},
-		1
-	);
-});
+registerPlural<ApiColumnsMethods<any>['indexes']>(
+	'columns().indexes()',
+	'column().index()',
+	function (type) {
+		return this.iterator(
+			'column',
+			function (settings, column) {
+				return type === 'visible'
+					? columnIndexToVisible(settings, column)
+					: column;
+			},
+			true
+		);
+	}
+);
 
-Api.register('columns.adjust()', function () {
+register<ApiColumns<any>['adjust']>('columns.adjust()', function () {
 	return this.iterator(
 		'table',
 		function (settings) {
@@ -566,11 +675,11 @@ Api.register('columns.adjust()', function () {
 
 			adjustColumnSizing(settings);
 		},
-		1
+		true
 	);
 });
 
-Api.register('column.index()', function (type, idx) {
+register<ApiColumn<any>['index']>('column.index()', function (type, idx) {
 	if (this.context.length !== 0) {
 		var ctx = this.context[0];
 
@@ -581,8 +690,16 @@ Api.register('column.index()', function (type, idx) {
 			return columnIndexToVisible(ctx, idx);
 		}
 	}
+
+	return -1;
 });
 
-Api.register('column()', function (selector, opts) {
-	return selector_first(this.columns(selector, opts));
+type ApiColumnOverload = (
+	this: Api,
+	selector: ColumnSelector,
+	opts?: ApiSelectorModifier
+) => Api<any>;
+
+register<ApiColumnOverload>('column()', function (selector, opts?) {
+	return selectorFirst(this.columns(selector, opts) as any);
 });

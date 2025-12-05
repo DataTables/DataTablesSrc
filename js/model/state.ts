@@ -26,4 +26,5 @@ export interface StateLoad {
 		search?: SearchOptions;
 		visible?: boolean;
 	}>;
+	childRows?: string[];
 }

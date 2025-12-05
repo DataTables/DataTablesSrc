@@ -1,38 +1,18 @@
-import { sortAttachListener, sortFlatten, sortResolve } from '../core/sort';
+import { sortAttachListener, sortFlatten, sortResolve } from '../core/order';
+import { Order, OrderState } from '../model/settings';
 import * as object from '../util/object';
-import Api from './base';
+import { register, registerPlural } from './Api';
+import { Api, ApiColumnsMethods, ApiOrder, OrderFixed } from './interface';
 
-/**
- * Get current ordering (sorting) that has been applied to the table.
- *
- * @returns {array} 2D array containing the sorting information for the first
- *   table in the current context. Each element in the parent array represents
- *   a column being sorted upon (i.e. multi-sorting with two columns would have
- *   2 inner arrays). The inner arrays may have 2 or 3 elements. The first is
- *   the column index that the sorting condition applies to, the second is the
- *   direction of the sort (`desc` or `asc`) and, optionally, the third is the
- *   index of the sorting order from the `column.sorting` initialisation array.
- */ /**
- * Set the ordering for the table.
- *
- * @param {integer} order Column index to sort upon.
- * @param {string} direction Direction of the sort to be applied (`asc` or `desc`)
- * @returns {DataTables.Api} this
- */ /**
- * Set the ordering for the table.
- *
- * @param {array} order 1D array of sorting information to be applied.
- * @param {array} [...] Optional additional sorting conditions
- * @returns {DataTables.Api} this
- */ /**
- * Set the ordering for the table.
- *
- * @param {array} order 2D array of sorting information to be applied.
- * @returns {DataTables.Api} this
- */
-Api.register('order()', function (order, dir) {
-	var ctx = this.context;
-	var args = Array.prototype.slice.call(arguments);
+type ApiOrderOverload = (
+	this: Api,
+	order?: Order | Order[],
+	dir?: 'asc' | 'desc' | ''
+) => OrderState[] | Api | undefined;
+
+register<ApiOrderOverload>('order()', function (order, dir) {
+	let ctx = this.context;
+	let args = Array.prototype.slice.call(arguments);
 
 	if (order === undefined) {
 		// get
@@ -40,7 +20,7 @@ Api.register('order()', function (order, dir) {
 	}
 
 	// set
-	if (typeof order === 'number') {
+	if (typeof order === 'number' && typeof dir === 'string') {
 		// Simple column / direction passed in
 		order = [[order, dir]];
 	}
@@ -51,30 +31,29 @@ Api.register('order()', function (order, dir) {
 	// otherwise a 2D array was passed in
 
 	return this.iterator('table', function (settings) {
-		var resolved = [];
+		let resolved: OrderState[] = [];
+
 		sortResolve(settings, resolved, order);
 
 		settings.aaSorting = resolved;
 	});
 });
 
-/**
- * Attach a sort listener to an element for a given column
- *
- * @param {node|jQuery|string} node Identifier for the element(s) to attach the
- *   listener to. This can take the form of a single DOM node, a jQuery
- *   collection of nodes or a jQuery selector which will identify the node(s).
- * @param {integer} column the column that a click on this node will sort on
- * @param {function} [callback] callback function when sort is run
- * @returns {DataTables.Api} this
- */
-Api.register('order.listener()', function (node, column, callback) {
-	return this.iterator('table', function (settings) {
-		sortAttachListener(settings, node, '', column, callback);
-	});
-});
+register<ApiOrder['listener']>(
+	'order.listener()',
+	function (node, column, callback) {
+		return this.iterator('table', function (settings) {
+			sortAttachListener(settings, node, '', column, callback);
+		});
+	}
+);
 
-Api.register('order.fixed()', function (set) {
+type ApiOrderFixedOverload = (
+	this: Api,
+	order?: OrderFixed
+) => OrderFixed | Api | undefined;
+
+register<ApiOrderFixedOverload>('order.fixed()', function (set) {
 	if (!set) {
 		var ctx = this.context;
 		var fixed = ctx.length ? ctx[0].aaSortingFixed : undefined;
@@ -88,39 +67,47 @@ Api.register('order.fixed()', function (set) {
 });
 
 // Order by the selected column(s)
-Api.register(['columns().order()', 'column().order()'], function (dir) {
-	var that = this;
+register<ApiColumnsMethods<any>['order']>(
+	['columns().order()', 'column().order()'],
+	function (dir) {
+		var that = this;
 
-	if (!dir) {
-		return this.iterator(
-			'column',
-			function (settings, idx) {
-				var sort = sortFlatten(settings);
+		if (!dir) {
+			return this.iterator(
+				'column',
+				function (settings, idx) {
+					var sort = sortFlatten(settings);
 
-				for (var i = 0, iLen = sort.length; i < iLen; i++) {
-					if (sort[i].col === idx) {
-						return sort[i].dir;
+					for (var i = 0, iLen = sort.length; i < iLen; i++) {
+						if (sort[i].col === idx) {
+							return sort[i].dir;
+						}
 					}
-				}
 
-				return null;
-			},
-			1
-		);
-	}
-	else {
-		return this.iterator('table', function (settings, i) {
-			settings.aaSorting = that[i].map(function (col) {
-				return [col, dir];
+					return null;
+				},
+				true
+			);
+		}
+		else {
+			return this.iterator('table', function (settings, i) {
+				settings.aaSorting = that[i].map(function (col: number) {
+					return [col, dir];
+				});
 			});
-		});
+		}
 	}
-});
+);
 
-Api.registerPlural(
+type ApiColumnsOrderableOverload = (
+	this: ApiColumnsMethods<any>,
+	directions?: true
+) => Api<boolean> | Api<Array<string>>;
+
+registerPlural<ApiColumnsOrderableOverload>(
 	'columns().orderable()',
 	'column().orderable()',
-	function (directions) {
+	function (directions?) {
 		return this.iterator(
 			'column',
 			function (settings, idx) {
@@ -128,7 +115,7 @@ Api.registerPlural(
 
 				return directions ? col.asSorting : col.bSortable;
 			},
-			1
+			true
 		);
 	}
 );
