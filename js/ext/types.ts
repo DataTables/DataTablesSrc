@@ -1,32 +1,81 @@
-
+import ColumnModel from '../model/columns/settings';
+import Context from '../model/settings';
 import util from '../util';
 
-export const store = {
+type DataTypeDetectFn = (
+	data: any,
+	context: Context
+) => boolean | string | null;
+
+interface DataTypeDetectNamed extends DataTypeDetectFn {
+	_name: string;
+}
+
+type DataTypeDetectInitFn = (
+	context: Context,
+	col: ColumnModel,
+	index: number
+) => boolean | string | null;
+
+type DataTypeDetect =
+	| DataTypeDetectFn
+	| {
+			oneOf?: DataTypeDetectFn;
+			allOf: DataTypeDetectFn;
+			init?: DataTypeDetectInitFn;
+	  };
+
+type DataTypeSortFn = (dataA: any, dataB: any) => number;
+type DataTypeSortPreFn = (data: any, settings: Context) => any;
+type DataTypeOrder = {
+	asc?: DataTypeSortFn;
+	desc?: DataTypeSortFn;
+	pre?: DataTypeSortPreFn;
+};
+
+type DataTypeSearchFn = (input: any) => any;
+
+interface DataType {
+	className: string;
+	detect: DataTypeDetect;
+	order: DataTypeOrder;
+	render: any;
+	search: DataTypeSearchFn;
+}
+
+export interface TypeStore {
 	/** Automatic column class assignment */
-	className: {},
+	className: Record<string, string>;
 
 	/** Type detection functions. */
-	detect: [],
+	detect: DataTypeDetect[];
 
 	/** Automatic renderer assignment */
-	render: {},
+	render: Record<string, any>; // TODO
 
 	/** Type based search formatting. */
-	search: {},
+	search: Record<string, DataTypeSearchFn>;
 
 	/** Type based ordering. */
-	order: {}
-} as any; // TODO typing
+	order: Record<string, DataTypeSortFn | DataTypeSortPreFn | undefined>;
+}
 
+export const store = {
+	className: {},
+	detect: [],
+	render: {},
+	search: {},
+	order: {}
+} as TypeStore;
 
 // Common function to remove new lines, strip HTML and diacritic control
-function _filterString(stripHtml, normalize) {
-	return function (str) {
+function _filterString(stripHtml: boolean, normalize: boolean) {
+	return function (str: any) {
 		if (util.is.empty(str) || typeof str !== 'string') {
 			return str;
 		}
 
-		str = str.replace( util.regex.reNewLines, " " );
+		str = str.replace(util.regex.reNewLines, ' ');
 
 		if (stripHtml) {
 			str = util.stripHtml(str);
@@ -40,45 +89,74 @@ function _filterString(stripHtml, normalize) {
 	};
 }
 
-
-function __numericReplace( d, decimalPlace, re1?, re2? ) {
-	if ( d !== 0 && (!d || d === '-') ) {
+function __numericReplace(
+	d: string | number | null,
+	decimalPlace: string,
+	re1?: RegExp,
+	re2?: RegExp
+): number {
+	if (d !== 0 && (!d || d === '-')) {
 		return -Infinity;
 	}
-	
-	var type = typeof d;
 
-	if (type === 'number' || type === 'bigint') {
+	if (typeof d === 'number' || typeof d === 'bigint') {
 		return d;
 	}
 
 	// If a decimal place other than `.` is used, it needs to be given to the
 	// function so we can detect it and replace with a `.` which is the only
 	// decimal place JavaScript recognises - it is not locale aware.
-	if ( decimalPlace ) {
-		d = util.conv.numToDecimal( d, decimalPlace );
+	if (decimalPlace) {
+		d = util.conv.numToDecimal(d, decimalPlace);
 	}
 
-	if ( d.replace ) {
-		if ( re1 ) {
-			d = d.replace( re1, '' );
+	if (typeof d === 'string') {
+		if (re1) {
+			d = d.replace(re1, '');
 		}
 
-		if ( re2 ) {
-			d = d.replace( re2, '' );
+		if (re2) {
+			d = d.replace(re2, '');
 		}
 	}
 
-	return d * 1;
-};
-
+	return (d as any) * 1;
+}
 
 // Get / set type
-export function register(name, prop, val?) {
-	if (! prop) {
+export function register(name: string): DataType;
+export function register(
+	name: string,
+	prop: 'className',
+	className: string
+): void;
+export function register(
+	name: string,
+	prop: 'detect',
+	detect: DataTypeDetect
+): void;
+export function register(
+	name: string,
+	prop: 'order',
+	order: DataTypeOrder
+): void;
+export function register(name: string, prop: 'render', render: any): void;
+export function register(
+	name: string,
+	prop: 'search',
+	search: DataTypeSearchFn
+): void;
+export function register(name: string, type: Partial<DataType>): void;
+
+export function register(
+	name: string,
+	prop?: string | Partial<DataType>,
+	val?: any
+): any {
+	if (!prop) {
 		return {
 			className: store.className[name],
-			detect: store.detect.find(function (fn) {
+			detect: store.detect.find(function (fn: any) {
 				return fn._name === name;
 			}),
 			order: {
@@ -91,13 +169,16 @@ export function register(name, prop, val?) {
 		};
 	}
 
-	var setProp = function(prop2, propVal) {
+	var setProp = function (
+		prop2: 'className' | 'render' | 'search' | 'order',
+		propVal: any
+	) {
 		store[prop2][name] = propVal;
 	};
-	var setDetect = function (detect) {
+	var setDetect = function (detect: DataTypeDetectNamed) {
 		// `detect` can be a function or an object - we set a name
 		// property for either - that is used for the detection
-		Object.defineProperty(detect, "_name", {value: name});
+		Object.defineProperty(detect, '_name', { value: name });
 
 		var idx = store.detect.findIndex(function (item: any) {
 			return item._name === name;
@@ -110,7 +191,7 @@ export function register(name, prop, val?) {
 			store.detect.splice(idx, 1, detect);
 		}
 	};
-	var setOrder = function (obj) {
+	var setOrder = function (obj: DataTypeOrder) {
 		store.order[name + '-pre'] = obj.pre; // can be undefined
 		store.order[name + '-asc'] = obj.asc; // can be undefined
 		store.order[name + '-desc'] = obj.desc; // can be undefined
@@ -119,7 +200,7 @@ export function register(name, prop, val?) {
 	// prop is optional
 	if (val === undefined) {
 		val = prop;
-		prop = null;
+		prop = undefined;
 	}
 
 	if (prop === 'className') {
@@ -137,7 +218,7 @@ export function register(name, prop, val?) {
 	else if (prop === 'search') {
 		setProp('search', val);
 	}
-	else if (! prop) {
+	else if (!prop) {
 		if (val.className) {
 			setProp('className', val.className);
 		}
@@ -161,13 +242,13 @@ export function register(name, prop, val?) {
 }
 
 // Get a list of types
-export function types () {
-	return store.detect.map(function (fn) {
-		return fn._name;
+export function types() {
+	return store.detect.map(function (detect: any) {
+		return detect._name;
 	});
-};
+}
 
-var __diacriticSort = function (a, b) {
+var __diacriticSort = function (a: any, b: any) {
 	a = a !== null && a !== undefined ? a.toString().toLowerCase() : '';
 	b = b !== null && b !== undefined ? b.toString().toLowerCase() : '';
 
@@ -176,16 +257,16 @@ var __diacriticSort = function (a, b) {
 	// eslint-disable-next-line compat/compat
 	return a.localeCompare(b, navigator.languages[0] || navigator.language, {
 		numeric: true,
-		ignorePunctuation: true,
+		ignorePunctuation: true
 	});
-}
+};
 
-var __diacriticHtmlSort = function (a, b) {
+var __diacriticHtmlSort = function (a: string, b: string) {
 	a = util.stripHtml(a);
 	b = util.stripHtml(b);
 
 	return __diacriticSort(a, b);
-}
+};
 
 //
 // Built in data types
@@ -196,16 +277,16 @@ register('string', {
 		return 'string';
 	},
 	order: {
-		pre: function ( a ) {
+		pre: function (a) {
 			// This is a little complex, but faster than always calling toString,
 			// http://jsperf.com/tostring-v-check
-			return util.is.empty(a) && typeof a !== 'boolean' ?
-				'' :
-				typeof a === 'string' ?
-					a.toLowerCase() :
-					! a.toString ?
-						'' :
-						a.toString();
+			return util.is.empty(a) && typeof a !== 'boolean'
+				? ''
+				: typeof a === 'string'
+				? a.toLowerCase()
+				: !a.toString
+				? ''
+				: a.toString();
 		}
 	},
 	search: _filterString(false, true)
@@ -216,12 +297,17 @@ register('string-utf8', {
 		allOf: function () {
 			return true;
 		},
-		oneOf: function ( d ) {
+		oneOf: function (d) {
 			// At least one data point must contain a non-ASCII character
 			// This line will also check if navigator.languages is supported or not. If not (Safari 10.0-)
 			// this data type won't be supported.
 			// eslint-disable-next-line compat/compat
-			return ! util.is.empty( d ) && navigator.languages && typeof d === 'string' && d.match(/[^\x00-\x7F]/);
+			return (
+				!util.is.empty(d) &&
+				navigator.languages &&
+				typeof d === 'string' &&
+				!!d.match(/[^\x00-\x7F]/)
+			);
 		}
 	},
 	order: {
@@ -233,43 +319,50 @@ register('string-utf8', {
 	search: _filterString(false, true)
 });
 
-
 register('html', {
 	detect: {
-		allOf: function ( d ) {
-			return util.is.empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
+		allOf: function (d) {
+			return (
+				util.is.empty(d) || (typeof d === 'string' && d.indexOf('<') !== -1)
+			);
 		},
-		oneOf: function ( d ) {
+		oneOf: function (d) {
 			// At least one data point must contain a `<`
-			return ! util.is.empty( d ) && typeof d === 'string' && d.indexOf('<') !== -1;
+			return (
+				!util.is.empty(d) && typeof d === 'string' && d.indexOf('<') !== -1
+			);
 		}
 	},
 	order: {
-		pre: function ( a ) {
-			return util.is.empty(a) ?
-				'' :
-				a.replace ?
-					util.stripHtml(a).trim().toLowerCase() :
-					a+'';
+		pre: function (a) {
+			return util.is.empty(a)
+				? ''
+				: a.replace
+				? util.stripHtml(a).trim().toLowerCase()
+				: a + '';
 		}
 	},
 	search: _filterString(true, true)
 });
 
-
 register('html-utf8', {
 	detect: {
-		allOf: function ( d ) {
-			return util.is.empty( d ) || (typeof d === 'string' && d.indexOf('<') !== -1);
+		allOf: function (d) {
+			return (
+				util.is.empty(d) || (typeof d === 'string' && d.indexOf('<') !== -1)
+			);
 		},
-		oneOf: function ( d ) {
+		oneOf: function (d) {
 			// At least one data point must contain a `<` and a non-ASCII character
 			// eslint-disable-next-line compat/compat
-			return navigator.languages &&
-				! util.is.empty( d ) &&
+			return (
+				navigator.languages &&
+				!util.is.empty(d) &&
 				typeof d === 'string' &&
 				d.indexOf('<') !== -1 &&
-				typeof d === 'string' && d.match(/[^\x00-\x7F]/);
+				typeof d === 'string' &&
+				!!d.match(/[^\x00-\x7F]/)
+			);
 		}
 	},
 	order: {
@@ -281,119 +374,122 @@ register('html-utf8', {
 	search: _filterString(true, true)
 });
 
-
 register('date', {
 	className: 'dt-type-date',
 	detect: {
-		allOf: function ( d ) {
+		allOf: function (d) {
 			// V8 tries _very_ hard to make a string passed into `Date.parse()`
 			// valid, so we need to use a regex to restrict date formats. Use a
 			// plug-in for anything other than ISO8601 style strings
-			if ( d && !(d instanceof Date) && ! util.regex.reDate.test(d) ) {
+			if (d && !(d instanceof Date) && !util.regex.reDate.test(d)) {
 				return null;
 			}
 			var parsed = Date.parse(d);
 			return (parsed !== null && !isNaN(parsed)) || util.is.empty(d);
 		},
-		oneOf: function ( d ) {
+		oneOf: function (d) {
 			// At least one entry must be a date or a string with a date
-			return (d instanceof Date) || (typeof d === 'string' && util.regex.reDate.test(d));
+			return (
+				d instanceof Date ||
+				(typeof d === 'string' && util.regex.reDate.test(d))
+			);
 		}
 	},
 	order: {
-		pre: function ( d ) {
-			var ts = Date.parse( d );
+		pre: function (d) {
+			var ts = Date.parse(d);
 			return isNaN(ts) ? -Infinity : ts;
 		}
 	}
 });
 
-
 register('html-num-fmt', {
 	className: 'dt-type-numeric',
 	detect: {
-		allOf: function ( d, settings ) {
+		allOf: function (d, settings) {
 			var decimal = settings.oLanguage.sDecimal;
-			return util.is.htmlNum( d, decimal, true, false );
+			return util.is.htmlNum(d, decimal, true, false);
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
 			var decimal = settings.oLanguage.sDecimal;
-			return util.is.htmlNum( d, decimal, true, false );
-		}
-	},
-	order: {
-		pre: function ( d, s ) {
-			var dp = s.oLanguage.sDecimal;
-			return __numericReplace( d, dp, util.regex.reHtml, util.regex.reFormattedNumeric );
-		}
-	},
-	search: _filterString(true, true)
-});
-
-
-register('html-num', {
-	className: 'dt-type-numeric',
-	detect: {
-		allOf: function ( d, settings ) {
-			var decimal = settings.oLanguage.sDecimal;
-			return util.is.htmlNum( d, decimal, false, true );
-		},
-		oneOf: function (d, settings) {
-			// At least one data point must contain a numeric value
-			var decimal = settings.oLanguage.sDecimal;
-			return util.is.htmlNum( d, decimal, false, false );
-		}
-	},
-	order: {
-		pre: function ( d, s ) {
-			var dp = s.oLanguage.sDecimal;
-			return __numericReplace( d, dp, util.regex.reHtml );
-		}
-	},
-	search: _filterString(true, true)
-});
-
-
-register('num-fmt', {
-	className: 'dt-type-numeric',
-	detect: {
-		allOf: function ( d, settings ) {
-			var decimal = settings.oLanguage.sDecimal;
-			return util.is.num( d, decimal, true, true );
-		},
-		oneOf: function (d, settings) {
-			// At least one data point must contain a numeric value
-			var decimal = settings.oLanguage.sDecimal;
-			return util.is.num( d, decimal, true, false );
-		}
-	},
-	order: {
-		pre: function ( d, s ) {
-			var dp = s.oLanguage.sDecimal;
-			return __numericReplace( d, dp, util.regex.reFormattedNumeric );
-		}
-	}
-});
-
-
-register('num', {
-	className: 'dt-type-numeric',
-	detect: {
-		allOf: function ( d, settings ) {
-			var decimal = settings.oLanguage.sDecimal;
-			return util.is.num( d, decimal, false, true );
-		},
-		oneOf: function (d, settings) {
-			// At least one data point must contain a numeric value
-			var decimal = settings.oLanguage.sDecimal;
-			return util.is.num( d, decimal, false, false );
+			return util.is.htmlNum(d, decimal, true, false);
 		}
 	},
 	order: {
 		pre: function (d, s) {
 			var dp = s.oLanguage.sDecimal;
-			return __numericReplace( d, dp );
+			return __numericReplace(
+				d,
+				dp,
+				util.regex.reHtml,
+				util.regex.reFormattedNumeric
+			);
+		}
+	},
+	search: _filterString(true, true)
+});
+
+register('html-num', {
+	className: 'dt-type-numeric',
+	detect: {
+		allOf: function (d, settings) {
+			var decimal = settings.oLanguage.sDecimal;
+			return util.is.htmlNum(d, decimal, false, true);
+		},
+		oneOf: function (d, settings) {
+			// At least one data point must contain a numeric value
+			var decimal = settings.oLanguage.sDecimal;
+			return util.is.htmlNum(d, decimal, false, false);
+		}
+	},
+	order: {
+		pre: function (d, s) {
+			var dp = s.oLanguage.sDecimal;
+			return __numericReplace(d, dp, util.regex.reHtml);
+		}
+	},
+	search: _filterString(true, true)
+});
+
+register('num-fmt', {
+	className: 'dt-type-numeric',
+	detect: {
+		allOf: function (d, settings) {
+			var decimal = settings.oLanguage.sDecimal;
+			return util.is.num(d, decimal, true, true);
+		},
+		oneOf: function (d, settings) {
+			// At least one data point must contain a numeric value
+			var decimal = settings.oLanguage.sDecimal;
+			return util.is.num(d, decimal, true, false);
+		}
+	},
+	order: {
+		pre: function (d, s) {
+			var dp = s.oLanguage.sDecimal;
+			return __numericReplace(d, dp, util.regex.reFormattedNumeric);
+		}
+	}
+});
+
+register('num', {
+	className: 'dt-type-numeric',
+	detect: {
+		allOf: function (d, settings) {
+			var decimal = settings.oLanguage.sDecimal;
+			return util.is.num(d, decimal, false, true);
+		},
+		oneOf: function (d, settings) {
+			// At least one data point must contain a numeric value
+			var decimal = settings.oLanguage.sDecimal;
+			return util.is.num(d, decimal, false, false);
+		}
+	},
+	order: {
+		pre: function (d, s) {
+			var dp = s.oLanguage.sDecimal;
+			return __numericReplace(d, dp);
 		}
 	}
 });

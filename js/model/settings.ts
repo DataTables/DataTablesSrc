@@ -208,6 +208,7 @@ export default class Context {
 		sZeroRecords: '',
 		sLoadingRecords: '',
 		sEmptyTable: '',
+		sDecimal: '',
 
 		oAria: {
 			orderable: '',

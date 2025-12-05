@@ -259,7 +259,7 @@ export function getColumns(settings: Context, param: keyof ColumnModel) {
  * @param res Result from the type detection function
  * @returns Type name or false
  */
-function _typeResult(typeDetect: any, res: boolean | string) {
+function _typeResult(typeDetect: any, res: boolean | string | null) {
 	return res === true ? typeDetect._name : res;
 }
 
@@ -291,12 +291,20 @@ export function columnTypes(settings: Context) {
 
 			for (j = 0, jen = types.length; j < jen; j++) {
 				var typeDetect = types[j];
+				var oneOf;
+				var allOf;
+				var init;
+				var one = false;
 
 				// There can be either one, or three type detection functions
-				var oneOf = typeDetect.oneOf;
-				var allOf = typeDetect.allOf || typeDetect;
-				var init = typeDetect.init;
-				var one = false;
+				if (typeof typeDetect === 'function') {
+					allOf = typeDetect;
+				}
+				else {
+					oneOf = typeDetect.oneOf;
+					allOf = typeDetect.allOf;
+					init = typeDetect.init;
+				}
 
 				detectedType = null;
 

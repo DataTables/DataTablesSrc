@@ -13,7 +13,13 @@ import { register as registerType, store as typeStore } from './types';
  *
  * Happens after __mldObj, so don't need to call `resolveWindowsLibs` again
  */
-function __mld(dtLib, momentFn, luxonFn, dateFn, arg1?) {
+function __mld(
+	dtLib: any,
+	momentFn: string,
+	luxonFn: string,
+	dateFn: string,
+	arg1?: any
+) {
 	if (__moment) {
 		return dtLib[momentFn](arg1);
 	}
@@ -25,8 +31,8 @@ function __mld(dtLib, momentFn, luxonFn, dateFn, arg1?) {
 }
 
 var __mlWarning = false;
-var __luxon; // Can be assigned in DateTable.use()
-var __moment; // Can be assigned in DateTable.use()
+var __luxon: any;
+var __moment: any;
 
 /**
  *
@@ -36,7 +42,7 @@ function resolveWindowLibs() {
 	__moment = util.external('moment');
 }
 
-function __mldObj(d, format, locale) {
+function __mldObj(d: string, format?: string | null, locale?: string) {
 	var dt;
 
 	resolveWindowLibs();
@@ -79,8 +85,13 @@ function __mldObj(d, format, locale) {
 
 // Wrapper for date, datetime and time which all operate the same way with the exception of
 // the output string for auto locale support
-function __mlHelper(localeString) {
-	return function (from, to, locale, def) {
+function __mlHelper(localeString: string) {
+	return function (
+		from?: string | null,
+		to?: string | null,
+		locale?: string,
+		def?: string
+	) {
 		// Luxon and Moment support
 		// Argument shifting
 		if (arguments.length === 0) {
@@ -94,7 +105,7 @@ function __mlHelper(localeString) {
 			from = null;
 		}
 		else if (arguments.length === 2) {
-			locale = to;
+			locale = to as string;
 			to = from;
 			from = null;
 		}
@@ -114,13 +125,13 @@ function __mlHelper(localeString) {
 						// The renderer gives us Moment, Luxon or Date objects for the sorting, all of which have a
 						// `valueOf` which gives milliseconds epoch
 						return d.valueOf();
-					},
+					}
 				},
-				className: 'dt-right',
+				className: 'dt-right'
 			});
 		}
 
-		return function (d, type) {
+		return function (d: any, type: string) {
 			// Allow for a default value
 			if (d === null || d === undefined) {
 				if (def === '--now') {
@@ -214,7 +225,7 @@ if (window.Intl !== undefined) {
 }
 
 // Formatted date time detection - use by declaring the formats you are going to use
-export function datetime(format, locale) {
+export function datetime(format: string, locale?: string) {
 	var typeName = 'datetime-' + format;
 
 	if (!locale) {
@@ -230,9 +241,9 @@ export function datetime(format, locale) {
 			order: {
 				pre: function (d) {
 					return __mldObj(d, format, locale) || 0;
-				},
+				}
 			},
-			className: 'dt-right',
+			className: 'dt-right'
 		});
 	}
 }
@@ -244,7 +255,13 @@ export default {
 	date: __mlHelper('toLocaleDateString'),
 	datetime: __mlHelper('toLocaleString'),
 	time: __mlHelper('toLocaleTimeString'),
-	number: function (thousands, decimal, precision, prefix, postfix) {
+	number: function (
+		thousands?: string | null,
+		decimal?: string | null,
+		precision?: number,
+		prefix?: string,
+		postfix?: string
+	) {
 		// Auto locale detection
 		if (thousands === null || thousands === undefined) {
 			thousands = __thousands;
@@ -255,7 +272,7 @@ export default {
 		}
 
 		return {
-			display: function (d) {
+			display: function (d: unknown) {
 				if (typeof d !== 'number' && typeof d !== 'string') {
 					return d;
 				}
@@ -282,11 +299,11 @@ export default {
 				}
 
 				flo = flo.toFixed(precision);
-				d = Math.abs(flo);
 
-				var intPart = parseInt(d, 10);
+				var absPart = Math.abs(flo);
+				var intPart = parseInt(flo, 10);
 				var floatPart = precision
-					? decimal + (d - intPart).toFixed(precision).substring(2)
+					? decimal + (absPart - intPart).toFixed(precision).substring(2)
 					: '';
 
 				// If zero, then can't have a negative prefix
@@ -301,14 +318,14 @@ export default {
 					floatPart +
 					(postfix || '')
 				);
-			},
+			}
 		};
 	},
 
 	text: function () {
 		return {
 			display: util.escapeHtml,
-			filter: util.escapeHtml,
+			filter: util.escapeHtml
 		};
-	},
+	}
 } as Record<string, Function>;
