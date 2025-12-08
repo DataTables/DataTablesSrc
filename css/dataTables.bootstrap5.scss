@@ -191,7 +191,8 @@ div.dt-scroll-head table.table-bordered {
 // Responsive tables. We use rows inside the Bootstrap responsive wrapper,
 // so they need to have their margin and padding removed
 div.table-responsive > div.dt-container > div.row {
-	margin: 0;
+	margin-left: 0;
+	margin-right: 0;
 
 	> div[class^="col-"] {
 		&:first-child {
