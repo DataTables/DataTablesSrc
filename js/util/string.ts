@@ -1,7 +1,7 @@
 
 import { reHtml, reRegexCharacters } from './regex';
 
-type TStripHtml = <T>(val: T) => T;
+type TStripHtml = <T>(val: T, replacement?: string) => T;
 type TEscapeHtml = <T>(val: T) => T;
 type TNormalize = <T>(val: T, both?: boolean) => T;
 
@@ -9,11 +9,11 @@ const maxStrLen = Math.pow(2, 28);
 
 
 /**
- * DataTables default string normalisation. Remove diacritics from a string by decomposing it and
- * then removing non-ascii characters.
+ * DataTables default string normalisation. Remove diacritics from a string by
+ * decomposing it and then removing non-ascii characters.
  *
- * This function is replaceable if the user wishes to use a different library for normalising
- * a string.
+ * This function is replaceable if the user wishes to use a different library
+ * for normalising a string.
  *
  * @param val Value to normalise (if a string)
  * @param both Include both the normalised and original in the return
@@ -38,13 +38,14 @@ let _normalize: TNormalize = function (val: any, both?: boolean) {
 /**
  * DataTables default string HTML stripping from a string
  *
- * This function is replaceable if the user wishes to use a different library for stripping HTML
- * from a string.
+ * This function is replaceable if the user wishes to use a different library
+ * for stripping HTML from a string.
  *
  * @param input Value to strip HTML from
+ * @param replacement Value to replace the tags with
  * @returns Stripped value
  */
-let _stripHtml: TStripHtml = function <T>(input: T) {
+let _stripHtml: TStripHtml = function <T>(input: T, replacement: string='') {
 	if (!input || typeof input !== 'string') {
 		return input;
 	}
@@ -55,7 +56,7 @@ let _stripHtml: TStripHtml = function <T>(input: T) {
 	}
 
 	let previous;
-	let next = input.replace(reHtml, ''); // Complete tags
+	let next = input.replace(reHtml, replacement); // Complete tags
 
 	// Safety for incomplete script tag - use do / while to ensure that
 	// we get all instances
@@ -71,8 +72,8 @@ let _stripHtml: TStripHtml = function <T>(input: T) {
 /**
  * DataTables default HTML entity escaping.
  *
- * This function is replaceable if the user wishes to use a different library for escaping HTML
- * entities in a string.
+ * This function is replaceable if the user wishes to use a different library
+ * for escaping HTML entities in a string.
  *
  * @param d Value to escape HTML in
  * @returns Escaped value
@@ -100,9 +101,9 @@ export function escapeRegex(val: string) {
 }
 
 /**
- * Escape HTML entites in a string or string[]. No action on other types
+ * Escape HTML entities in a string or string[]. No action on other types
  *
- * @param mixed Value to escape HTML entites in
+ * @param mixed Value to escape HTML entities in
  * @returns The escaped string (or original if not a string)
  */
 export function escapeHtml<T>(mixed: T): T;
@@ -126,11 +127,12 @@ export function escapeHtml<T>(mixed: T) {
 }
 
 /**
- * Normalise a string by removing diacritic characters (used for search and sort)
+ * Normalise a string by removing diacritic characters (used for search and
+ * sort)
  *
  * @param mixed
- * @param both Flag to indicate if both the original and normalised should be included in the
- *   return.
+ * @param both Flag to indicate if both the original and normalised should be
+ *   included in the return.
  * @returns Normalised value
  */
 export function normalize(mixed: string, both?: boolean): string;
@@ -157,14 +159,14 @@ export function normalize(mixed: unknown, both?: boolean) {
  * @param mixed Value to remove HTML from
  * @returns The stripped value (or original if not a string)
  */
-export function stripHtml<T>(mixed: T): T;
+export function stripHtml<T>(mixed: T, replacement?: string): T;
 /**
  * Set the function to use for stripping HTML from a string
  *
  * @param fn HTML strip function
  */
 export function stripHtml<T = TStripHtml>(fn: T): void;
-export function stripHtml<T>(mixed: T) {
+export function stripHtml<T>(mixed: T, replacement?: string) {
 	const type = typeof mixed;
 
 	if (type === 'function') {
@@ -172,7 +174,7 @@ export function stripHtml<T>(mixed: T) {
 		return;
 	}
 	else if (type === 'string') {
-		return _stripHtml(mixed);
+		return _stripHtml(mixed, replacement);
 	}
 	return mixed;
 }

@@ -5,10 +5,13 @@
 	<since>2.0</since>
 
 	<type type="function">
-		<signature>stripHtml( str )</signature>
+		<signature>stripHtml( str, replacement )</signature>
 		<description>Remove mark up from a string.</description>
 		<param type="string" name="str">
 			String to have HTML tags stripped from.
+		</param>
+		<param type="string" name="replacement" default="Empty string" since="3.0.0">
+			Replacement value.
 		</param>
 		<returns type="string">Sanitized string</returns>
 	</type>
