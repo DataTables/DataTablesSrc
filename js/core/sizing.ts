@@ -142,7 +142,10 @@ export function calculateColumnWidths(settings: Context) {
 					.classAdd(column.sClass)
 					.appendTo(tr);
 
-				if (longest.indexOf('<') === -1) {
+				if (
+					longest.indexOf('<') === -1 &&
+					longest.indexOf('&') === -1
+				) {
 					cell.text(text);
 				}
 				else {
