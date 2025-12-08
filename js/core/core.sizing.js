@@ -312,7 +312,7 @@ function _fnGetWideStrings( settings, colIdx )
 				.replace(/id=".*?"/g, '')
 				.replace(/name=".*?"/g, '');
 
-			var noHtml = _stripHtml(cellString)
+			var noHtml = _stripHtml(cellString, ' ')
 				.replace( /&nbsp;/g, ' ' );
 	
 			// The length is calculated on the text only, but we keep the HTML

@@ -318,7 +318,7 @@ DataTable.util = {
 		}
 	},
 
-	stripHtml: function (mixed) {
+	stripHtml: function (mixed, replacement) {
 		var type = typeof mixed;
 
 		if (type === 'function') {
@@ -326,7 +326,7 @@ DataTable.util = {
 			return;
 		}
 		else if (type === 'string') {
-			return _stripHtml(mixed);
+			return _stripHtml(mixed, replacement);
 		}
 		return mixed;
 	},

@@ -210,7 +210,7 @@ var _removeEmpty = function ( a )
 };
 
 // Replaceable function in api.util
-var _stripHtml = function (input) {
+var _stripHtml = function (input, replacement) {
 	if (! input || typeof input !== 'string') {
 		return input;
 	}
@@ -222,7 +222,7 @@ var _stripHtml = function (input) {
 
 	var previous;
 
-	input = input.replace(_re_html, ''); // Complete tags
+	input = input.replace(_re_html, replacement || ''); // Complete tags
 
 	// Safety for incomplete script tag - use do / while to ensure that
 	// we get all instances
