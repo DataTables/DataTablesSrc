@@ -336,7 +336,9 @@ function getWideStrings(settings: Context, colIdx: number) {
 				.replace(/id=".*?"/g, '')
 				.replace(/name=".*?"/g, '');
 
-			var noHtml = util.string.stripHtml(cellString).replace(/&nbsp;/g, ' ');
+			var noHtml = util.string
+				.stripHtml(cellString, ' ')
+				.replace(/&nbsp;/g, ' ');
 
 			collection.push({
 				str: cellString,
