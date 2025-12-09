@@ -93,6 +93,12 @@ export type AjaxDataSrc = string | ((data: any) => any[]);
 
 type FunctionAjaxData = (data: AjaxData, settings: Context) => string | object;
 
+export type AjaxFunction = (
+	d: JSON,
+	cb: (json: JSON) => void,
+	ctx: Context
+) => void;
+
 export interface DtAjaxOptions extends AjaxOptions {
 	/**
 	 * Add or modify data submitted to the server upon an Ajax request.
@@ -290,10 +296,7 @@ export default class Context {
 		barWidth: 0
 	};
 
-	public ajax:
-		| string
-		| DtAjaxOptions
-		| ((d: JSON, cb: (json: JSON) => void, ctx: Context) => void);
+	public ajax: string | DtAjaxOptions | AjaxFunction;
 
 	/**
 	 * Array referencing the nodes which are used for the features. The

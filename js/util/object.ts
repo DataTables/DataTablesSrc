@@ -95,7 +95,7 @@ export function assignDeep<T>(
 
 				assignDeep(out[key], value);
 			}
-			else if (is.plainObject(value)) {
+			else if (is.plainObject<Record<string, any>>(value)) {
 				if (!is.plainObject(out[key])) {
 					out[key] = {};
 				}

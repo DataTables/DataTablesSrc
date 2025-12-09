@@ -131,7 +131,7 @@ export function num(
  * @param value Value to check
  * @returns true if is a plain object, otherwise false
  */
-export function plainObject<T>(value: unknown): value is T {
+export function plainObject<T=Record<string, any>>(value: unknown): value is T {
 	if (typeof value !== 'object' || value === null) {
 		return false;
 	}

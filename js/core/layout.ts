@@ -94,23 +94,21 @@ function layoutItems(
 	var rowCell = row[align]!; // can't be undefined - will have been created by getRow
 
 	// If it is an object, then there can be multiple features contained in it
-	if (util.is.plainObject(items)) {
-		let itemsElement = items as LayoutElement;
-
+	if (util.is.plainObject<LayoutElement>(items)) {
 		// Is it an cell object already, with rowId, etc. A feature plugin cannot
 		// be named "features" due to this check
-		if (itemsElement.features) {
-			if (itemsElement.rowId) {
-				row.id = itemsElement.rowId;
+		if (items.features) {
+			if (items.rowId) {
+				row.id = items.rowId;
 			}
-			if (itemsElement.rowClass) {
-				row.className = itemsElement.rowClass;
+			if (items.rowClass) {
+				row.className = items.rowClass;
 			}
 
-			rowCell.id = itemsElement.id;
-			rowCell.className = itemsElement.className;
+			rowCell.id = items.id;
+			rowCell.className = items.className;
 
-			layoutItems(row, align, itemsElement.features);
+			layoutItems(row, align, items.features);
 		}
 		else {
 			// An object of features and configuration options - e.g. `{paging: {startEnd: false}}`

@@ -3003,12 +3003,12 @@ export interface DataTablesStaticUtil {
 }
 
 export interface AjaxData {
-	draw: number;
-	start: number;
-	length: number;
-	order: AjaxDataOrder[];
-	columns: AjaxDataColumn[];
-	search: AjaxDataSearch;
+	draw?: number;
+	start?: number;
+	length?: number;
+	order?: AjaxDataOrder[];
+	columns?: AjaxDataColumn[];
+	search?: AjaxDataSearch;
 }
 
 export interface AjaxDataSearch {

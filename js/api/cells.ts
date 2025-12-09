@@ -11,6 +11,7 @@ import {
 	ApiCellMethods,
 	ApiCellsMethods,
 	ApiSelectorModifier,
+	CellIdx,
 	CellSelector,
 	ColumnSelector,
 	RowSelector
@@ -75,7 +76,7 @@ function selectCells(
 		}
 
 		// Selector - index
-		if (is.plainObject(s)) {
+		if (is.plainObject<CellIdx>(s)) {
 			// Valid cell index and its in the array of selectable rows
 			return s.column !== undefined &&
 				s.row !== undefined &&

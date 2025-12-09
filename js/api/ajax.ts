@@ -3,7 +3,8 @@ import { addData, clearTable } from '../core/data';
 import { reDraw } from '../core/draw';
 import { initComplete } from '../core/init';
 import { processingDisplay } from '../core/processing';
-import Context from '../model/settings';
+import Context, { AjaxFunction, DtAjaxOptions } from '../model/settings';
+import util from '../util';
 import Api, { register } from './Api';
 import { AjaxMethods, ApiAjax, Api as ApiType } from './interface';
 import { dataSource } from './support';
@@ -84,7 +85,7 @@ register<ApiAjax['reload']>(
 type ApiAjaxUrlOverload = (
 	this: ApiType,
 	url?: string
-) => string | undefined | AjaxMethods;
+) => string | DtAjaxOptions | AjaxFunction | undefined | AjaxMethods;
 
 register<ApiAjaxUrlOverload>('ajax.url()', function (url?: string) {
 	var ctx = this.context;
@@ -97,18 +98,20 @@ register<ApiAjaxUrlOverload>('ajax.url()', function (url?: string) {
 
 		let context = ctx[0];
 
-		return typeof context.ajax === 'string' ? context.ajax : context.ajax.url;
+		return util.is.plainObject<DtAjaxOptions>(context.ajax)
+			? context.ajax.url
+			: context.ajax;
 	}
 
 	// set
 	return this.iterator<AjaxMethods>(
 		'table',
 		function (settings: Context) {
-			if (typeof settings.ajax === 'string') {
-				settings.ajax = url;
+			if (util.is.plainObject<DtAjaxOptions>(settings.ajax)) {
+				settings.ajax.url = url;
 			}
 			else {
-				settings.ajax.url = url;
+				settings.ajax = url;
 			}
 		},
 		true
