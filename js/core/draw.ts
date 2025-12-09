@@ -1,10 +1,10 @@
 import { callbackFire, dataSource, escapeObject, log } from '../api/support';
 import dom, { Dom } from '../dom';
 import ext from '../ext/index';
-import RowModel, { TableCell, TableRow } from '../model/row';
+import { Row, TableCellElement, TableRowElement } from '../model/row';
 import Context, {
-	HeaderStructure,
-	HeaderStructureCell,
+    HeaderStructure,
+    HeaderStructureCell,
 } from '../model/settings';
 import util from '../util';
 import { ajaxUpdate } from './ajax';
@@ -68,8 +68,8 @@ export function createTr(
 ) {
 	var row = settings.aoData[rowIdx],
 		cells: HTMLTableCellElement[] = [],
-		nTr: TableRow,
-		nTd: TableCell,
+		nTr: TableRowElement,
+		nTd: TableCellElement,
 		oCol,
 		i,
 		iLen,
@@ -167,7 +167,7 @@ export function createTr(
  * @param settings DataTables settings object
  * @param row Row object for the row to be modified
  */
-export function rowAttributes(settings: Context, row: typeof RowModel) {
+export function rowAttributes(settings: Context, row: Row) {
 	var tr = row.nTr;
 	var data = row._aData;
 

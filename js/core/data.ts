@@ -1,7 +1,7 @@
 import { log } from '../api/support';
 import dom, { Dom } from '../dom';
 import ext from '../ext/index';
-import rowModel from '../model/row';
+import createRow, { Row } from '../model/row';
 import Context from '../model/settings';
 import util from '../util';
 import { createTr, getRowDisplay, rowAttributes } from './draw';
@@ -26,7 +26,7 @@ export function addData(
 ) {
 	/* Create the object for storing information about this new row */
 	var rowIdx = settings.aoData.length;
-	var row: typeof rowModel = util.object.assignDeep({}, rowModel, {
+	var row = createRow({
 		src: tr ? 'dom' : 'data',
 		idx: rowIdx
 	});
@@ -349,7 +349,7 @@ export function getRowElementsFromNode(
  */
 export function getRowElementsFromModel(
 	settings: Context,
-	row: typeof rowModel,
+	row: Row,
 	colIdx?: number
 ) {
 	let tds = row.anCells;

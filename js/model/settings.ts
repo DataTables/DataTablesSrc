@@ -5,7 +5,7 @@ import { AjaxOptions, HttpMethod } from '../util/ajax';
 import { GetFunction, JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
 import { Layout } from './interface';
-import rowModel from './row';
+import { Row } from './row';
 import Search, { SearchInput, SearchOptions } from './search';
 import { State, StateLoad } from './state';
 
@@ -316,7 +316,7 @@ export default class Context {
 	 * Store data information - see {@link DataTable.models.oRow} for detailed
 	 * information.
 	 */
-	public aoData: (typeof rowModel | null)[] = [];
+	public aoData: (Row | null)[] = [];
 
 	/**
 	 * Array of indexes which are in the current display (after filtering etc)
@@ -331,7 +331,7 @@ export default class Context {
 	/**
 	 * Map of row ids to data indexes
 	 */
-	public aIds: Record<string, typeof rowModel> = {};
+	public aIds: Record<string, Row> = {};
 
 	/**
 	 * Store information about each column that is in use
