@@ -290,11 +290,11 @@ export function columnTypes(settings: Context) {
 			}
 
 			for (j = 0, jen = types.length; j < jen; j++) {
-				var typeDetect = types[j];
-				var oneOf;
-				var allOf;
-				var init;
-				var one = false;
+				let typeDetect = types[j];
+				let oneOf;
+				let allOf;
+				let init;
+				let one = false;
 
 				// There can be either one, or three type detection functions
 				if (typeof typeDetect === 'function') {
