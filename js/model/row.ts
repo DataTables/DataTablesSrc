@@ -95,7 +95,7 @@ export interface TableRowElement extends HTMLTableRowElement {
 	_DT_RowIndex?: number;
 }
 
-export const defaults = {
+export const defaults: Row = {
 	nTr: null,
 	anCells: [],
 	_aData: [],
@@ -108,7 +108,7 @@ export const defaults = {
 	__rowc: [],
 	_details: undefined,
 	_detailsShow: undefined
-} as Row;
+};
 
 /**
  * Create a new object that is a row model
@@ -116,6 +116,6 @@ export const defaults = {
  * @param parts Values to assign, otherwise the defaults will be used
  * @returns New object
  */
-export default function create(parts: Partial<Row>): Row {
+export default function create(parts: Partial<Row>={}): Row {
 	return util.object.assignDeep({}, defaults, parts);
 }

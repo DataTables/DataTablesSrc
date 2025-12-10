@@ -6,7 +6,7 @@ import { GetFunction, JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
 import { Layout } from './interface';
 import { Row } from './row';
-import Search, { SearchInput, SearchOptions } from './search';
+import createSearch, { SearchInput, SearchOptions } from './search';
 import { State, StateLoad } from './state';
 
 // Todo - need to add `this` scope
@@ -353,7 +353,7 @@ export default class Context {
 	 * research or compare the old search to a new one.
 	 * Note that this parameter will be set by the initialisation routine.
 	 */
-	public oPreviousSearch: SearchOptions = Object.assign({}, Search);
+	public oPreviousSearch: SearchOptions = createSearch();
 
 	/**
 	 * Store for named searches
@@ -365,7 +365,7 @@ export default class Context {
 	 * {@link DataTable.models.oSearch} for the format that is used for the
 	 * filtering information for each column.
 	 */
-	public aoPreSearchCols: typeof Search[] = [];
+	public aoPreSearchCols: SearchOptions[] = [];
 
 	/**
 	 * Sorting that is applied to the table. Note that the inner arrays are

@@ -1,5 +1,5 @@
 import dom from '../dom';
-import searchModel from '../model/search';
+import { defaults as searchDefaults } from '../model/search';
 import Context from '../model/settings';
 import * as object from '../util/object';
 
@@ -155,7 +155,7 @@ export function compatOpts(init: any) {
 	if (searchCols) {
 		for (var i = 0, iLen = searchCols.length; i < iLen; i++) {
 			if (searchCols[i]) {
-				camelToHungarian(searchModel, searchCols[i]);
+				camelToHungarian(searchDefaults, searchCols[i]);
 			}
 		}
 	}

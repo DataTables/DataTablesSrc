@@ -1,8 +1,7 @@
 
 import { hungarianMap } from '../core/compat';
-import { assign } from '../util/object';
 import columnDefaults, { ConfigColumnDefs } from './columns/defaults';
-import search, { SearchInput } from './search';
+import { defaults as searchDefaults } from './search';
 import Context from './settings';
 
 /*
@@ -742,7 +741,7 @@ const defaults = {
 	 * DataTables will use it's smart filtering methods (to word match at
 	 * any point in the data), when false this will not be done.
 	 */
-	"oSearch": assign<SearchInput>( {}, search ),
+	"oSearch": searchDefaults,
 
 
 	/**

@@ -4,7 +4,7 @@ import helpers from '../ext/helpers';
 import ext from '../ext/index';
 import columnDefaults, { ConfigColumnDefs } from '../model/columns/defaults';
 import ColumnModel from '../model/columns/settings';
-import search, { SearchOptions } from '../model/search';
+import createSearch from '../model/search';
 import Context, { HeaderStructure } from '../model/settings';
 import util from '../util';
 import { camelToHungarian, compatCols } from './compat';
@@ -36,7 +36,7 @@ export function addColumn(settings: Context) {
 	// with only some of the parameters defined, and also not give a default
 	let searchCols = settings.aoPreSearchCols;
 
-	searchCols[iCol] = util.object.assign<SearchOptions>({}, search, searchCols[iCol]);
+	searchCols[iCol] = createSearch(searchCols[iCol]);
 }
 
 /**

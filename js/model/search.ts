@@ -1,3 +1,5 @@
+import util from '../util';
+
 export type SearchInput<T = any> =
 	| string
 	| RegExp
@@ -27,11 +29,6 @@ export interface SearchOptions {
 	exact: boolean;
 
 	/**
-	 * Applied search term
-	 */
-	search: SearchInput;
-
-	/**
 	 * Flag to indicate if the search term should be interpreted as a
 	 * regular expression (true) or not (false) and therefore and special
 	 * regex characters escaped.
@@ -39,47 +36,40 @@ export interface SearchOptions {
 	regex: boolean;
 
 	/**
-	 * Flag to indicate if DataTables is to use its smart filtering or not.
-	 */
-	smart: boolean;
-
-	/**
 	 * Flag to indicate if DataTables should only trigger a search when
 	 * the return key is pressed.
 	 */
 	return: boolean;
-}
-
-/**
- * Template object for the way in which DataTables holds information about
- * search information for the global filter and individual column filters.
- */
-export default {
-	/**
-	 * Flag to whether or not the filtering should be case-insensitive
-	 */
-	caseInsensitive: true,
 
 	/**
 	 * Applied search term
 	 */
-	search: '',
-
-	/**
-	 * Flag to indicate if the search term should be interpreted as a
-	 * regular expression (true) or not (false) and therefore and special
-	 * regex characters escaped.
-	 */
-	regex: false,
+	search: SearchInput;
 
 	/**
 	 * Flag to indicate if DataTables is to use its smart filtering or not.
 	 */
-	smart: true,
+	smart: boolean;
+}
 
-	/**
-	 * Flag to indicate if DataTables should only trigger a search when
-	 * the return key is pressed.
-	 */
+export const defaults: SearchOptions = {
+	boundary: false,
+	caseInsensitive: true,
+	exact: false,
+	regex: false,
 	return: false,
-} as SearchOptions;
+	search: '',
+	smart: true
+};
+
+/**
+ * Create a new search options object
+ *
+ * @param parts Values to assign, otherwise the defaults will be used
+ * @returns New object
+ */
+export default function create(
+	parts: Partial<SearchOptions> = {}
+): SearchOptions {
+	return util.object.assignDeep({}, defaults, parts);
+}
