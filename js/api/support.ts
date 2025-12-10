@@ -1,6 +1,7 @@
+import { displayEnd, recordsDisplay, recordsTotal } from '../core/draw';
 import dom, { Dom } from '../dom';
 import ext from '../ext/index';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import * as object from '../util/object';
 import { escapeHtml } from '../util/string';
 import { Api } from './interface';
@@ -189,7 +190,7 @@ export function callbackFire(
 
 export function lengthOverflow(ctx: Context) {
 	var start = ctx._iDisplayStart,
-		end = ctx.fnDisplayEnd(),
+		end = displayEnd(ctx),
 		len = ctx._iDisplayLength;
 
 	/* If we have space to show extra rows (backing up from the end point - then do so */
@@ -238,13 +239,13 @@ export function macros(ctx: Context, str: string, entries?: number) {
 	var formatter = ctx.fnFormatNumber,
 		start = ctx._iDisplayStart + 1,
 		len = ctx._iDisplayLength,
-		vis = ctx.fnRecordsDisplay(),
-		max = ctx.fnRecordsTotal(),
+		vis = recordsDisplay(ctx),
+		max = recordsTotal(ctx),
 		all = len === -1;
 
 	return str
 		.replace(/_START_/g, formatter.call(ctx, start))
-		.replace(/_END_/g, formatter.call(ctx, ctx.fnDisplayEnd()))
+		.replace(/_END_/g, formatter.call(ctx, displayEnd(ctx)))
 		.replace(/_MAX_/g, formatter.call(ctx, max))
 		.replace(/_TOTAL_/g, formatter.call(ctx, vis))
 		.replace(/_PAGE_/g, formatter.call(ctx, all ? 1 : Math.ceil(start / len)))

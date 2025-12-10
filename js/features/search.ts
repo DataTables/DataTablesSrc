@@ -99,8 +99,7 @@ register<Partial<IFeatureSearchOptions>>(
 			}
 		};
 
-		let searchDelay = settings.searchDelay !== null ? settings.searchDelay : 0;
-
+		let searchDelay = settings.searchDelay;
 		let filterEl = filter
 			.find('input')
 			.val(textValue(previousSearch.search))

@@ -5,7 +5,7 @@ import ext from '../ext/index';
 import columnDefaults, { ConfigColumnDefs } from '../model/columns/defaults';
 import ColumnModel from '../model/columns/settings';
 import createSearch from '../model/search';
-import Context, { HeaderStructure } from '../model/settings';
+import { Context, HeaderStructure } from '../model/settings';
 import util from '../util';
 import { camelToHungarian, compatCols } from './compat';
 import { getCellData, writeCell } from './data';

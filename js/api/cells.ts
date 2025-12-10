@@ -1,7 +1,7 @@
 import { columnIndexToVisible } from '../core/columns';
 import { getCellData, invalidate, setCellData } from '../core/data';
 import dom, { Dom } from '../dom';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import { flatten, pluckOrder, removeEmpty } from '../util/array';
 import * as is from '../util/is';
 import * as object from '../util/object';

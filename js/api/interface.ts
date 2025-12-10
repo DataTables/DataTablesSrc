@@ -1,7 +1,14 @@
 import classes from '../ext/classes';
 import defaults from '../model/defaults';
+import {
+	CellMetaSettings,
+	ObjectColumnRender,
+	Order,
+	OrderArray,
+	OrderFixed
+} from '../model/interface';
 import { SearchInput, SearchOptions } from '../model/search';
-import Context, { Order, OrderArray } from '../model/settings';
+import { Context } from '../model/settings';
 import { State, StateLoad } from '../model/state';
 
 export type DomSelector = string | Node | HTMLElement | JQuery;
@@ -59,32 +66,6 @@ export type HeaderStructure = {
 	rowspan: number;
 	title: string;
 };
-
-export interface CellMetaSettings {
-	row: number;
-	col: number;
-	settings: Context;
-}
-
-export interface OrderFixed {
-	/**
-	 * Two-element array:
-	 *
-	 * * 0: Column index to order upon.
-	 * * 1: Direction so order to apply ("asc" for ascending order or "desc" for
-	 *   descending order).
-	 */
-	pre?: any[];
-
-	/**
-	 * Two-element array:
-	 *
-	 * * 0: Column index to order upon.
-	 * * 1: Direction so order to apply ("asc" for ascending order or "desc" for
-	 *   descending order).
-	 */
-	post?: any[];
-}
 
 /**
  * @param data Data from the column cell to be analysed.
@@ -2720,32 +2701,6 @@ export interface DataTablesStatic {
 
 export type ApiStaticRegisterFn<T> = (this: Api<T>, ...args: any[]) => any;
 
-export interface FunctionColumnData {
-	(row: any, type: 'set', s: any, meta: CellMetaSettings): void;
-	(
-		row: any,
-		type: 'display' | 'sort' | 'filter' | 'type',
-		s: undefined,
-		meta: CellMetaSettings
-	): any;
-}
-
-export interface ObjectColumnData {
-	_: string | number | FunctionColumnData;
-	filter?: string | number | FunctionColumnData;
-	display?: string | number | FunctionColumnData;
-	type?: string | number | FunctionColumnData;
-	sort?: string | number | FunctionColumnData;
-}
-
-export interface ObjectColumnRender {
-	_?: string | number | FunctionColumnRender;
-	filter?: string | number | FunctionColumnRender;
-	display?: string | number | FunctionColumnRender;
-	type?: string | number | FunctionColumnRender;
-	sort?: string | number | FunctionColumnRender;
-}
-
 export interface IColumnControlContent {
 	[name: string]: any;
 }
@@ -3000,42 +2955,6 @@ export interface DataTablesStaticUtil {
 	 * @returns Array with unique values
 	 */
 	unique<T = any>(input: Array<T>): Array<T>;
-}
-
-export interface AjaxData {
-	draw?: number;
-	start?: number;
-	length?: number;
-	order?: AjaxDataOrder[];
-	columns?: AjaxDataColumn[];
-	search?: AjaxDataSearch;
-}
-
-export interface AjaxDataSearch {
-	value: string;
-	regex: boolean;
-	fixed: {name: string, term: string}[];
-}
-
-export interface AjaxDataOrder {
-	column: number;
-	dir: string;
-}
-
-export interface AjaxDataColumn {
-	data: string | number;
-	name: string | null;
-	searchable: boolean;
-	orderable: boolean;
-	search: AjaxDataSearch;
-}
-
-export interface AjaxResponse {
-	draw?: number;
-	recordsTotal?: number;
-	recordsFiltered?: number;
-	data: any;
-	error?: string;
 }
 
 export interface ExtTypeSettings {

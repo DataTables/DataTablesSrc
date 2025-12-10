@@ -1,13 +1,13 @@
 import ext from '../ext';
 import {
-    IRendererFooter,
-    IRendererHeader,
-    IRendererLayout,
-    IRendererPagingButton,
-    IRendererPagingContainer,
-    IRendererTypes,
+	IRendererFooter,
+	IRendererHeader,
+	IRendererLayout,
+	IRendererPagingButton,
+	IRendererPagingContainer,
+	IRendererTypes,
 } from '../ext/renderer';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import * as is from '../util/is';
 
 export function renderer(ctx: Context, type: 'header'): IRendererHeader;

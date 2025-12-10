@@ -2,7 +2,7 @@ import { arrayApply, callbackFire, dataSource } from '../api/support';
 import dom from '../dom';
 import ext from '../ext/index';
 import { SearchInput, SearchOptions } from '../model/search';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import util from '../util';
 import { getCellData } from './data';
 

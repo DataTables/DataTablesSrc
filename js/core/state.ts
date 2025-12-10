@@ -1,6 +1,6 @@
 import Api from '../api/Api';
 import { callbackFire } from '../api/support';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import { State, StateLoad } from '../model/state';
 import { pluck } from '../util/array';
 import { assignDeep } from '../util/object';

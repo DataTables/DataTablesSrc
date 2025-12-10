@@ -1,5 +1,5 @@
 import { Dom } from '../dom';
-import Settings from '../model/settings';
+import { Context } from '../model/settings';
 
 const features: any = {};
 const legacy: any[] = [];
@@ -7,7 +7,7 @@ const legacy: any[] = [];
 export { features, legacy };
 
 type RegisterCallback<T> = (
-	settings: Settings,
+	settings: Context,
 	options: T
 ) => HTMLElement | Dom | null;
 

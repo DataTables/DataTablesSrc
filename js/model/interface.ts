@@ -4,6 +4,8 @@ import { IFeatureInfoOptions } from '../features/info';
 import { IFeaturePagingOptions } from '../features/page';
 import { IFeaturePageLengthOptions } from '../features/pageLength';
 import { IFeatureSearchOptions } from '../features/search';
+import { Context } from './settings';
+import { State } from './state';
 
 export interface Feature {
 	/** A simple `<div>` that can contain your own content */
@@ -65,3 +67,270 @@ export type LayoutComponent =
 	| null;
 
 export type Layout = Partial<Record<LayoutKeys, LayoutComponent>>;
+
+export type FunctionColumnRender = (
+	// this: JQueryDataTables, TODO
+	data: any,
+	type: any,
+	row: any,
+	meta: CellMetaSettings
+) => any;
+
+export type FunctionColumnCreatedCell = (
+	// this: JQueryDataTables,
+	cell: HTMLTableCellElement,
+	cellData: any,
+	rowData: any,
+	row: number,
+	col: number
+) => void;
+
+export interface CellMetaSettings {
+	row: number;
+	col: number;
+	settings: Context;
+}
+
+export interface OrderFixed {
+	/**
+	 * Two-element array:
+	 *
+	 * * 0: Column index to order upon.
+	 * * 1: Direction so order to apply ("asc" for ascending order or "desc" for
+	 *   descending order).
+	 */
+	pre?: any[];
+
+	/**
+	 * Two-element array:
+	 *
+	 * * 0: Column index to order upon.
+	 * * 1: Direction so order to apply ("asc" for ascending order or "desc" for
+	 *   descending order).
+	 */
+	post?: any[];
+}
+
+
+export interface FunctionColumnData {
+	(row: any, type: 'set', s: any, meta: CellMetaSettings): void;
+	(
+		row: any,
+		type: 'display' | 'sort' | 'filter' | 'type',
+		s: undefined,
+		meta: CellMetaSettings
+	): any;
+}
+
+export interface ObjectColumnData {
+	_: string | number | FunctionColumnData;
+	filter?: string | number | FunctionColumnData;
+	display?: string | number | FunctionColumnData;
+	type?: string | number | FunctionColumnData;
+	sort?: string | number | FunctionColumnData;
+}
+
+export interface ObjectColumnRender {
+	_?: string | number | FunctionColumnRender;
+	filter?: string | number | FunctionColumnRender;
+	display?: string | number | FunctionColumnRender;
+	type?: string | number | FunctionColumnRender;
+	sort?: string | number | FunctionColumnRender;
+}
+
+export type AjaxDataSrc = string | ((data: any) => any[]);
+
+export interface AjaxSettings extends JQueryAjaxSettings {
+	/**
+	 * Add or modify data submitted to the server upon an Ajax request.
+	 */
+	data?: object | FunctionAjaxData;
+
+	/**
+	 * Data property or manipulation method for table data.
+	 */
+	dataSrc?:
+		| AjaxDataSrc
+		| {
+				/** Mapping for `data` property */
+				data: AjaxDataSrc;
+
+				/** Mapping for `draw` property */
+				draw: AjaxDataSrc;
+
+				/** Mapping for `recordsTotal` property */
+				recordsTotal: AjaxDataSrc;
+
+				/** Mapping for `recordsFiltered` property */
+				recordsFiltered: AjaxDataSrc;
+		  };
+
+	/** Format to submit the data parameters as in the Ajax request */
+	submitAs?: 'http' | 'json';
+}
+
+export interface AjaxData {
+	draw?: number;
+	start?: number;
+	length?: number;
+	order?: AjaxDataOrder[];
+	columns?: AjaxDataColumn[];
+	search?: AjaxDataSearch;
+}
+
+export interface AjaxDataSearch {
+	value: string;
+	regex: boolean;
+	fixed: {name: string, term: string}[];
+}
+
+export interface AjaxDataOrder {
+	column: number;
+	dir: string;
+}
+
+export interface AjaxDataColumn {
+	data: string | number;
+	name: string | null;
+	searchable: boolean;
+	orderable: boolean;
+	search: AjaxDataSearch;
+}
+
+export interface AjaxResponse {
+	draw?: number;
+	recordsTotal?: number;
+	recordsFiltered?: number;
+	data: any;
+	error?: string;
+}
+
+export type FunctionAjax = (
+	// this: JQueryDataTables,
+	data: object,
+	callback: (data: any) => void,
+	settings: Context
+) => void;
+
+export type FunctionAjaxData = (
+	// this: JQueryDataTables,
+	data: AjaxData,
+	settings: Context
+) => string | object;
+
+export interface OrderIdx {
+	idx: number;
+	dir: 'asc' | 'desc';
+}
+
+export interface OrderName {
+	name: string;
+	dir: 'asc' | 'desc';
+}
+
+export type OrderArray = [number, 'asc' | 'desc' | ''];
+
+export type OrderCombined = OrderIdx | OrderName | OrderArray;
+
+export type Order = OrderCombined | OrderCombined[];
+
+export type OrderColumn = [number, string, number?];
+export interface OrderState extends OrderColumn {
+	_idx?: number;
+}
+
+export interface ConfigRenderer {
+	header?: string;
+	pageButton?: string;
+}
+
+export type FunctionCreateRow = (
+	// this: JQueryDataTables,
+	row: HTMLTableRowElement,
+	data: any[] | object,
+	dataIndex: number,
+	cells: HTMLTableCellElement[]
+) => void;
+
+export type FunctionDrawCallback = (settings: Context) => void;
+
+export type FunctionFooterCallback = (
+	// this: JQueryDataTables,
+	tr: HTMLTableRowElement,
+	data: any[],
+	start: number,
+	end: number,
+	display: any[]
+) => void;
+
+export type FunctionFormatNumber = (
+	// this: JQueryDataTables,
+	formatNumber: number
+) => void;
+
+export type FunctionHeaderCallback = (
+	// this: JQueryDataTables,
+	tr: HTMLTableRowElement,
+	data: any[],
+	start: number,
+	end: number,
+	display: any[]
+) => void;
+
+export type FunctionInfoCallback = (
+	// this: JQueryDataTables,
+	settings: Context,
+	start: number,
+	end: number,
+	max: number,
+	total: number,
+	pre: string
+) => void;
+
+export type FunctionInitComplete = (
+	// this: JQueryDataTables,
+	settings: Context,
+	json: object
+) => void;
+
+export type FunctionPreDrawCallback = (
+	// this: JQueryDataTables,
+	settings: Context
+) => void;
+
+export type FunctionRowCallback = (
+	// this: JQueryDataTables,
+	row: HTMLTableRowElement,
+	data: any[] | object,
+	index: number
+) => void;
+
+export type FunctionStateLoadCallback = (
+	// this: JQueryDataTables,
+	settings: Context,
+	callback: (state: State) => void
+) => undefined | null | object;
+
+export type FunctionStateLoaded = (
+	// this: JQueryDataTables,
+	settings: Context,
+	data: object
+) => void;
+
+export type FunctionStateLoadParams = (
+	// this: JQueryDataTables,
+	settings: Context,
+	data: object
+) => void;
+
+export type FunctionStateSaveCallback = (
+	// this: JQueryDataTables,
+	settings: Context,
+	data: object
+) => void;
+
+export type FunctionStateSaveParams = (
+	// this: JQueryDataTables,
+	settings: Context,
+	data: object
+) => void;

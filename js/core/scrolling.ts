@@ -1,6 +1,6 @@
 import { dataSource } from '../api/support';
 import dom from '../dom';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import { adjustColumnSizing, visibleToColumnIndex } from './columns';
 import { stringToCss } from './sizing';
 

@@ -1,6 +1,6 @@
 import dom from '../dom';
 import { defaults as searchDefaults } from '../model/search';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import * as object from '../util/object';
 
 interface HungarianMap {

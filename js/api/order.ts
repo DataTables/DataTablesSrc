@@ -1,8 +1,8 @@
 import { sortAttachListener, sortFlatten, sortResolve } from '../core/order';
-import { Order, OrderState } from '../model/settings';
+import { Order, OrderFixed, OrderState } from '../model/interface';
 import * as object from '../util/object';
 import { register, registerPlural } from './Api';
-import { Api, ApiColumnsMethods, ApiOrder, OrderFixed } from './interface';
+import { Api, ApiColumnsMethods, ApiOrder } from './interface';
 
 type ApiOrderOverload = (
 	this: Api,

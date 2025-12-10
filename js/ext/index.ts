@@ -1,5 +1,5 @@
 import { features, legacy as featuresLegacy } from '../features/register';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import { check } from '../util/version';
 import classes from './classes';
 import pager from './paging';

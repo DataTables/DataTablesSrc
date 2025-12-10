@@ -6,9 +6,9 @@ describe('searchDelay Option', function() {
 
 	describe('Default tests', function() {
 		dt.html('basic');
-		it('Default is null', function() {
+		it('Default is disabled', function() {
 			let table = $('#example').DataTable();
-			expect(table.settings()[0].searchDelay).toBe(null);
+			expect(table.settings()[0].searchDelay).toBe(0);
 		});
 
 		dt.html('basic');

@@ -2,7 +2,7 @@ import { log } from '../api/support';
 import dom, { Dom } from '../dom';
 import ext from '../ext';
 import { Layout, LayoutComponent, LayoutElement } from '../model/interface';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import util from '../util';
 import { processingHtml } from './processing';
 import { renderer } from './render';

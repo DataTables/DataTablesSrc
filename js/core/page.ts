@@ -1,6 +1,6 @@
 import { callbackFire, log } from '../api/support';
-import Context from '../model/settings';
-import { draw } from './draw';
+import { Context } from '../model/settings';
+import { draw, recordsDisplay } from './draw';
 
 /**
  * Alter the display settings to change the page
@@ -18,7 +18,7 @@ export function pageChange(
 ) {
 	var start = settings._iDisplayStart,
 		len = settings._iDisplayLength,
-		records = settings.fnRecordsDisplay();
+		records = recordsDisplay(settings);
 
 	if (records === 0 || len === -1) {
 		start = 0;

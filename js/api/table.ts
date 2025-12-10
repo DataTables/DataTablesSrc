@@ -1,6 +1,6 @@
 import { headerLayout } from '../core/draw';
 import dom from '../dom';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import { register, registerPlural } from './Api';
 import {
 	Api,

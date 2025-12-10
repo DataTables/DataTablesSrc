@@ -1,6 +1,6 @@
-import { AjaxData } from '../api/interface';
 import { callbackFire, log } from '../api/support';
-import Context, { DtAjaxOptions } from '../model/settings';
+import { AjaxData } from '../model/interface';
+import { Context, DtAjaxOptions } from '../model/settings';
 import { AjaxOptions } from '../util/ajax';
 import util from '../util/index';
 import { GetFunction, JSON } from '../util/types';
@@ -129,7 +129,11 @@ export function buildAjax(
 		// Is a function - let the caller define what needs to be done
 		settings.jqXHR = ajaxConfig.call(instance, data, callback, settings);
 	}
-	else if (typeof ajaxConfig !== 'string' && ajaxConfig.url === '') {
+	else if (
+		ajaxConfig &&
+		typeof ajaxConfig !== 'string' &&
+		ajaxConfig.url === ''
+	) {
 		// No url, so don't load any data. Just apply an empty data array
 		// to the object for the callback.
 		var empty = {};
@@ -324,7 +328,7 @@ export function ajaxDataSrcParam(
 	json: JSON
 ) {
 	var dataSrc = util.is.plainObject<AjaxOptions>(settings.ajax)
-		? settings.ajax.dataSrc as any // TODO
+		? (settings.ajax.dataSrc as any) // TODO
 		: null;
 
 	if (dataSrc && dataSrc[param]) {

@@ -1,7 +1,7 @@
 import { callbackFire } from '../api/support';
 import dom from '../dom';
 import ext from '../ext/index';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import util from '../util';
 import { adjustColumnSizing, columnsSumWidth, getColumns } from './columns';
 import { getRowDisplay } from './draw';

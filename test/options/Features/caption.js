@@ -51,8 +51,8 @@ describe('Caption tag', function() {
 	// Setting a caption
 	dt.html( 'basic' );
 
-	it( 'Default is null', function () {
-		expect( $.fn.dataTable.defaults.caption ).toBe( null );
+	it( 'Default is empty', function () {
+		expect( $.fn.dataTable.defaults.caption ).toBe( '' );
 	} );
 
 	it( 'Can be set as an init option', function () {

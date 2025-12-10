@@ -3,7 +3,7 @@ import { addData, clearTable } from '../core/data';
 import { reDraw } from '../core/draw';
 import { initComplete } from '../core/init';
 import { processingDisplay } from '../core/processing';
-import Context, { AjaxFunction, DtAjaxOptions } from '../model/settings';
+import { AjaxFunction, Context, DtAjaxOptions } from '../model/settings';
 import util from '../util';
 import Api, { register } from './Api';
 import { AjaxMethods, ApiAjax, Api as ApiType } from './interface';
@@ -85,7 +85,7 @@ register<ApiAjax['reload']>(
 type ApiAjaxUrlOverload = (
 	this: ApiType,
 	url?: string
-) => string | DtAjaxOptions | AjaxFunction | undefined | AjaxMethods;
+) => string | DtAjaxOptions | AjaxFunction | undefined | null | AjaxMethods;
 
 register<ApiAjaxUrlOverload>('ajax.url()', function (url?: string) {
 	var ctx = this.context;

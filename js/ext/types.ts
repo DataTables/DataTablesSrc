@@ -1,5 +1,5 @@
 import ColumnModel from '../model/columns/settings';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import util from '../util';
 
 type DataTypeDetectFn = (

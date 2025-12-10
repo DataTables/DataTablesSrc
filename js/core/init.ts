@@ -1,6 +1,6 @@
 import { callbackFire, dataSource } from '../api/support';
 import dom from '../dom';
-import { default as Context, default as Settings } from '../model/settings';
+import { Context } from '../model/settings';
 import { ajaxDataSrc, buildAjax } from './ajax';
 import { adjustColumnSizing } from './columns';
 import { addData, addTr } from './data';
@@ -110,7 +110,7 @@ export function initialise(settings: Context) {
  *
  * @param settings DataTables settings object
  */
-export function initComplete(settings: Settings) {
+export function initComplete(settings: Context) {
 	if (settings._bInitComplete) {
 		return;
 	}

@@ -1,6 +1,6 @@
 import { ILayoutCell, ILayoutRow } from '../core/layout';
 import dom, { Dom } from '../dom';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import { pluck } from '../util/array';
 import classes from './classes';
 

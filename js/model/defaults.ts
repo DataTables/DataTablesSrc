@@ -1,26 +1,396 @@
-
 import { hungarianMap } from '../core/compat';
-import columnDefaults, { ConfigColumnDefs } from './columns/defaults';
-import { defaults as searchDefaults } from './search';
-import Context from './settings';
+import columnDefaults, {
+	ConfigColumnDefs,
+	ConfigColumns
+} from './columns/defaults';
+import {
+	ConfigRenderer,
+	FunctionAjax,
+	FunctionCreateRow,
+	FunctionDrawCallback,
+	FunctionFooterCallback,
+	FunctionFormatNumber,
+	FunctionHeaderCallback,
+	FunctionInfoCallback,
+	FunctionInitComplete,
+	FunctionPreDrawCallback,
+	FunctionRowCallback,
+	FunctionStateLoadCallback,
+	FunctionStateLoaded,
+	FunctionStateLoadParams,
+	FunctionStateSaveCallback,
+	FunctionStateSaveParams,
+	Layout,
+	Order
+} from './interface';
+import { defaults as searchDefaults, SearchOptions } from './search';
+import { Context, DtAjaxOptions } from './settings';
 
-/*
- * Developer note: The properties of the object below are given in Hungarian
- * notation, that was used as the interface for DataTables prior to v1.10,
- * however from v1.10 onwards the primary interface is camel case. In order to
- * avoid breaking backwards compatibility utterly with this change, the
- * Hungarian version is still, internally the primary interface, but is is not
- * documented - hence the @name tags in each doc comment. This allows a
- * JavaScript function to create a map from Hungarian notation to camel case
- * (going the other direction would require each property to be listed, which
- * would add around 3K to the size of DataTables, while this method is about a
- * 0.5K hit).
- */
+export interface Defaults {
+	/**
+	 * Load data for the table's content from an Ajax source.
+	 */
+	ajax?: null | string | DtAjaxOptions | FunctionAjax;
+
+	/**
+	 * Feature control DataTables' smart column width handling.
+	 */
+	autoWidth?: boolean;
+
+	/**
+	 * Set a `caption` for the table. This can be used to describe the contents
+	 * of the table to the end user. A caption tag can also be read from HTML.
+	 */
+	caption?: string;
+
+	/**
+	 * Data to use as the display data for the table.
+	 */
+	columns?: ConfigColumns[];
+
+	/**
+	 * Assign a column definition to one or more columns.
+	 */
+	columnDefs?: ConfigColumnDefs[];
+
+	
+	/**
+	 * Data to use as the display data for the table.
+	 */
+	data?: any[];
+
+	/**
+	 * Delay the loading of server-side data until second draw
+	 */
+	deferLoading?: number | number[];
+
+	/**
+	 * Feature control deferred rendering for additional speed of
+	 * initialisation.
+	 */
+	deferRender?: boolean;
+
+	/**
+	 * Destroy any existing table matching the selector and replace with the new
+	 * options.
+	 */
+	destroy?: boolean;
+
+	/**
+	 * Initial paging start point.
+	 */
+	displayStart?: number;
+
+	/**
+	 * Define the table control elements to appear on the page and in what order.
+	 *
+	 * @deprecated Use `layout` instead
+	 */
+	dom?: string;
+
+	/**
+	 * Feature control table information display field.
+	 */
+	info?: boolean;
+
+	/**
+	 * Language configuration object
+	 */
+	language?: ConfigLanguage;
+
+	/**
+	 *
+	 */
+	layout?: Layout;
+
+	/**
+	 * Feature control the end user's ability to change the paging display
+	 * length of the table.
+	 */
+	lengthChange?: boolean;
+
+	/**
+	 * Change the options in the page length select list.
+	 */
+	lengthMenu?: Array<number | string> | Array<Array<number | string>>;
+
+	/**
+	 * Add event listeners during the DataTables startup
+	 */
+	on?: {
+		[name: string]: (this: HTMLElement, e: Event, ...args: any[]) => void;
+	};
+
+	/**
+	 * Control which cell the order event handler will be applied to in a
+	 * column.
+	 */
+	orderCellsTop?: boolean;
+
+	/**
+	 * Highlight the columns being ordered in the table's body.
+	 */
+	orderClasses?: boolean;
+
+	/**
+	 * Reverse the initial data order when `desc` ordering
+	 */
+	orderDescReverse?: boolean;
+
+	/**
+	 * Initial order (sort) to apply to the table.
+	 */
+	order?: Order | Order[];
+
+	/**
+	 * Ordering to always be applied to the table.
+	 */
+	orderFixed?:
+		| Order
+		| Order[]
+		| {
+				pre?: Order | Order[];
+				post: Order | Order[];
+		  };
+
+	/**
+	 * Feature control ordering (sorting) abilities in DataTables.
+	 */
+	ordering?:
+		| boolean
+		| {
+				/**
+				 * Control the showing of the ordering icons in the table
+				 * header.
+				 */
+				indicators?: boolean;
+
+				/**
+				 * Control the addition of a click event handler on the table
+				 * headers to activate ordering.
+				 */
+				handler?: boolean;
+		  };
+
+	/**
+	 * Multiple column ordering ability control.
+	 */
+	orderMulti?: boolean;
+
+	/**
+	 * Change the initial page length (number of rows per page).
+	 */
+	pageLength?: number;
+
+	/**
+	 * Enable or disable table pagination.
+	 */
+	paging?: boolean;
+
+	/**
+	 * Pagination button display options. Basic Types: numbers (1.10.8) simple,
+	 * simple_numbers, full, full_numbers
+	 */
+	pagingType?: string;
+
+	/**
+	 * Feature control the processing indicator.
+	 */
+	processing?: boolean;
+
+	/**
+	 * Display component renderer types.
+	 */
+	renderer?: null | string | ConfigRenderer;
+
+	/**
+	 * Retrieve an existing DataTables instance.
+	 */
+	retrieve?: boolean;
+
+	/**
+	 * Data property name that DataTables will use to set <tr> element DOM IDs.
+	 * Since: 1.10.8
+	 */
+	rowId?: string;
+
+	/**
+	 * Allow the table to reduce in height when a limited number of rows are
+	 * shown.
+	 */
+	scrollCollapse?: boolean;
+
+	/**
+	 * Horizontal scrolling.
+	 */
+	scrollX?: boolean;
+
+	/**
+	 * Vertical scrolling. Since: 1.10 Exp: "200px"
+	 */
+	scrollY?: string;
+
+	/**
+	 * Set an initial filter in DataTables and / or filtering options.
+	 */
+	search?: Partial<SearchOptions> | boolean;
+
+	/**
+	 * Define an initial search for individual columns.
+	 */
+	searchCols?: Partial<SearchOptions>[];
+
+	/**
+	 * Set a throttle frequency for searching.
+	 */
+	searchDelay?: number;
+
+	/**
+	 * Feature control search (filtering) abilities
+	 */
+	searching?: boolean;
+
+	/**
+	 * Feature control DataTables' server-side processing mode.
+	 */
+	serverSide?: boolean;
+
+	/**
+	 * Saved state validity duration.
+	 */
+	stateDuration?: number;
+
+	/**
+	 * State saving - restore table state on page reload.
+	 */
+	stateSave?: boolean;
+
+	/**
+	 * Set the zebra stripe class names for the rows in the table.
+	 */
+	stripeClasses?: string[];
+
+	/**
+	 * Tab index control for keyboard navigation.
+	 */
+	tabIndex?: number;
+
+	/**
+	 * Callback for whenever a TR element is created for the table's body.
+	 */
+	createdRow?: FunctionCreateRow;
+
+	/**
+	 * Function that is called every time DataTables performs a draw.
+	 */
+	drawCallback?: FunctionDrawCallback;
+
+	/**
+	 * Footer display callback function.
+	 */
+	footerCallback?: FunctionFooterCallback;
+
+	/**
+	 * Number formatting callback function.
+	 */
+	formatNumber?: FunctionFormatNumber;
+
+	/**
+	 * Header display callback function.
+	 */
+	headerCallback?: FunctionHeaderCallback;
+
+	/**
+	 * Table summary information display callback.
+	 */
+	infoCallback?: FunctionInfoCallback;
+
+	/**
+	 * Initialisation complete callback.
+	 */
+	initComplete?: FunctionInitComplete;
+
+	/**
+	 * Pre-draw callback.
+	 */
+	preDrawCallback?: FunctionPreDrawCallback;
+
+	/**
+	 * Row draw callback..
+	 */
+	rowCallback?: FunctionRowCallback;
+
+	/**
+	 * Callback that defines where and how a saved state should be loaded.
+	 */
+	stateLoadCallback?: FunctionStateLoadCallback;
+
+	/**
+	 * State loaded callback.
+	 */
+	stateLoaded?: FunctionStateLoaded;
+
+	/**
+	 * State loaded - data manipulation callback.
+	 */
+	stateLoadParams?: FunctionStateLoadParams;
+
+	/**
+	 * Callback that defines how the table state is stored and where.
+	 */
+	stateSaveCallback?: FunctionStateSaveCallback;
+
+	/**
+	 * State save - data manipulation callback.
+	 */
+	stateSaveParams?: FunctionStateSaveParams;
+}
+
+export interface ConfigLanguage {
+	emptyTable?: string;
+	entries?: string | object;
+	info?: string;
+	infoEmpty?: string;
+	infoFiltered?: string;
+	infoPostFix?: string;
+	decimal?: string;
+	thousands?: string;
+
+	/** Labels for page length entries */
+	lengthLabels?: { [key: string | number]: string };
+	lengthMenu?: string;
+	loadingRecords?: string;
+	processing?: string;
+	search?: string;
+	searchPlaceholder?: string;
+	zeroRecords?: string;
+	paginate?: {
+		first?: string;
+		last?: string;
+		next?: string;
+		previous?: string;
+	};
+	aria?: {
+		orderable?: string;
+		orderableReverse?: string;
+		orderableRemove?: string;
+		paginate?: {
+			first?: string;
+			last?: string;
+			next?: string;
+			previous?: string;
+			number?: string;
+		};
+	};
+	url?: string;
+}
 
 /**
  * Initialisation options that can be given to DataTables at initialisation
  * time.
  */
+// TODO should be of `Defaults` type - to be done when the transistion to
+// camelCase is done.
 const defaults = {
 	/**
 	 * An array of data to use for the table, passed in at initialisation which
@@ -28,8 +398,7 @@ const defaults = {
 	 * particularly useful for constructing tables purely in JavaScript, for
 	 * example with a custom Ajax call.
 	 */
-	"aaData": null,
-
+	aaData: null,
 
 	/**
 	 * If ordering is enabled, then DataTables will perform a first pass sort on
@@ -38,8 +407,7 @@ const defaults = {
 	 * should contain an array for each column to be sorted initially containing
 	 * the column's index and a direction string ('asc' or 'desc').
 	 */
-	"aaSorting": [[0,'asc']],
-
+	aaSorting: [[0, 'asc']],
 
 	/**
 	 * This parameter is basically identical to the `sorting` parameter, but
@@ -49,8 +417,7 @@ const defaults = {
 	 * will then be performed as required. This can be useful for grouping rows
 	 * together.
 	 */
-	"aaSortingFixed": [],
-
+	aaSortingFixed: [],
 
 	/**
 	 * DataTables can be instructed to load data to display in the table from a
@@ -120,8 +487,7 @@ const defaults = {
 	 *    as the only parameter
 	 * 3. _object_ - DataTables settings object for the table
 	 */
-	"ajax": null,
-
+	ajax: null,
 
 	/**
 	 * This parameter allows you to readily specify the entries in the length drop
@@ -134,8 +500,9 @@ const defaults = {
 	 * Note that the `pageLength` property will be automatically set to the
 	 * first value given in this array, unless `pageLength` is also provided.
 	 */
-	"aLengthMenu": [ 10, 25, 50, 100 ] as Array<(number | {value: number; label: string})>,
-
+	aLengthMenu: [10, 25, 50, 100] as Array<
+		number | { value: number; label: string }
+	>,
 
 	/**
 	 * The `columns` option in the initialisation parameter allows you to define
@@ -146,7 +513,7 @@ const defaults = {
 	 * column that you have in your table (these can be null if you don't which
 	 * to specify any options).
 	 */
-	"aoColumns": null,
+	aoColumns: null,
 
 	/**
 	 * Very similar to `columns`, `columnDefs` allows you to target a specific
@@ -164,8 +531,7 @@ const defaults = {
 	 *     <li>the string "_all" - all columns (i.e. assign a default)</li>
 	 *   </ul>
 	 */
-	"aoColumnDefs": null as Partial<ConfigColumnDefs>[] | null,
-
+	aoColumnDefs: null as Partial<ConfigColumnDefs>[] | null,
 
 	/**
 	 * Basically the same as `search`, this parameter defines the individual column
@@ -174,16 +540,14 @@ const defaults = {
 	 * `search` and `escapeRegex` (the latter is optional). 'null' is also
 	 * accepted and the default will be used.
 	 */
-	"aoSearchCols": [],
-
+	aoSearchCols: [],
 
 	/**
 	 * Enable or disable automatic column width calculation. This can be disabled
 	 * as an optimisation (it takes some time to calculate the widths) if the
 	 * tables widths are passed in using `columns`.
 	 */
-	"bAutoWidth": true,
-
+	bAutoWidth: true,
 
 	/**
 	 * Deferred rendering can provide DataTables with a huge speed boost when you
@@ -192,8 +556,7 @@ const defaults = {
 	 * each row until they are needed for a draw - saving a significant amount of
 	 * time.
 	 */
-	"bDeferRender": true,
-
+	bDeferRender: true,
 
 	/**
 	 * Replace a DataTable which matches the given selector and replace it with
@@ -201,8 +564,7 @@ const defaults = {
 	 * table matches the selector, then the new DataTable will be constructed as
 	 * per normal.
 	 */
-	"bDestroy": false,
-
+	bDestroy: false,
 
 	/**
 	 * Enable or disable filtering of data. Filtering in DataTables is "smart" in
@@ -213,25 +575,24 @@ const defaults = {
 	 * default filtering input box and retain filtering abilities, please use
 	 * {@link DataTable.defaults.dom}.
 	 */
-	"bFilter": true,
+	bFilter: true,
 
 	/**
 	 * Used only for compatibility with DT1
 	 * @deprecated
 	 */
-	"bInfo": true,
+	bInfo: true,
 
 	/**
 	 * Used only for compatibility with DT1
 	 * @deprecated
 	 */
-	"bLengthChange": true,
+	bLengthChange: true,
 
 	/**
 	 * Enable or disable pagination.
 	 */
-	"bPaginate": true,
-
+	bPaginate: true,
 
 	/**
 	 * Enable or disable the display of a 'processing' indicator when the table is
@@ -239,8 +600,7 @@ const defaults = {
 	 * large amounts of data where it can take a noticeable amount of time to sort
 	 * the entries.
 	 */
-	"bProcessing": false,
-
+	bProcessing: false,
 
 	/**
 	 * Retrieve the DataTables object for the given selector. Note that if the
@@ -251,8 +611,7 @@ const defaults = {
 	 * that you understand this). `destroy` can be used to reinitialise a table if
 	 * you need.
 	 */
-	"bRetrieve": false,
-
+	bRetrieve: false,
 
 	/**
 	 * When vertical (y) scrolling is enabled, DataTables will force the height of
@@ -262,45 +621,39 @@ const defaults = {
 	 * enabled) will cause DataTables to collapse the table's viewport down when
 	 * the result set will fit within the given Y height.
 	 */
-	"bScrollCollapse": false,
-
+	bScrollCollapse: false,
 
 	/**
 	 * Configure DataTables to use server-side processing. Note that the
 	 * `ajax` parameter must also be given in order to give DataTables a
 	 * source to obtain the required data for each draw.
 	 */
-	"bServerSide": false,
-
+	bServerSide: false,
 
 	/**
 	 * Enable or disable sorting of columns. Sorting of individual columns can be
 	 * disabled by the `sortable` option for each column.
 	 */
-	"bSort": true,
-
+	bSort: true,
 
 	/**
 	 * Enable or display DataTables' ability to sort multiple columns at the
 	 * same time (activated by shift-click by the user).
 	 */
-	"bSortMulti": true,
-
+	bSortMulti: true,
 
 	/**
 	 * Allows control over whether DataTables should use the top (true) unique
 	 * cell that is found for a single column, or the bottom (false - default).
 	 * This is useful when using complex headers.
 	 */
-	"bSortCellsTop": null,
+	bSortCellsTop: null,
 
 	/** Defaults for column specific properties */
 	column: columnDefaults,
 
-
 	/** Specify which row is the title row in the header. Replacement for bSortCellsTop */
 	titleRow: null,
-
 
 	/**
 	 * Enable or disable the addition of the classes `sorting\_1`, `sorting\_2` and
@@ -309,8 +662,7 @@ const defaults = {
 	 * classes are removed and added) so for large data sets you might want to
 	 * turn this off.
 	 */
-	"bSortClasses": true,
-
+	bSortClasses: true,
 
 	/**
 	 * Enable or disable state saving. When enabled HTML5 `localStorage` will be
@@ -318,30 +670,33 @@ const defaults = {
 	 * display length, filtering and sorting. As such when the end user reloads
 	 * the page the display will match what thy had previously set up.
 	 */
-	"bStateSave": false,
-
+	bStateSave: false,
 
 	/**
 	 * This function is called when a TR element is created (and all TD child
 	 * elements have been inserted), or registered if using a DOM source, allowing
 	 * manipulation of the TR element (adding classes etc).
 	 */
-	"fnCreatedRow": null as ((settings: Context, data: any, dataIdx: number, cells: HTMLTableCellElement[]) => void) | null,
-
+	fnCreatedRow: null as
+		| ((
+				settings: Context,
+				data: any,
+				dataIdx: number,
+				cells: HTMLTableCellElement[]
+		  ) => void)
+		| null,
 
 	/**
 	 * This function is called on every 'draw' event, and allows you to
 	 * dynamically modify any aspect you want about the created DOM.
 	 */
-	"fnDrawCallback": null as ((settings: Context) => void) | null,
-
+	fnDrawCallback: null as ((settings: Context) => void) | null,
 
 	/**
 	 * Identical to fnHeaderCallback() but for the table footer this function
 	 * allows you to modify the table footer on every 'draw' event.
 	 */
-	"fnFooterCallback": null,
-
+	fnFooterCallback: null,
 
 	/**
 	 * When rendering large numbers in the information element for the table
@@ -350,21 +705,18 @@ const defaults = {
 	 * rendered as "1,000,000") to help readability for the end user. This
 	 * function will override the default method DataTables uses.
 	 */
-	"fnFormatNumber": function ( toFormat: number ) {
-		return toFormat.toString().replace(
-			/\B(?=(\d{3})+(?!\d))/g,
-			this.oLanguage.sThousands
-		);
+	fnFormatNumber: function (toFormat: number) {
+		return toFormat
+			.toString()
+			.replace(/\B(?=(\d{3})+(?!\d))/g, this.oLanguage.sThousands);
 	},
-
 
 	/**
 	 * This function is called on every 'draw' event, and allows you to
 	 * dynamically modify the header row. This can be used to calculate and
 	 * display useful information about the table.
 	 */
-	"fnHeaderCallback": null,
-
+	fnHeaderCallback: null,
 
 	/**
 	 * The information element can be used to convey information about the current
@@ -373,8 +725,7 @@ const defaults = {
 	 * be times where you wish to customise the string further. This callback
 	 * allows you to do exactly that.
 	 */
-	"fnInfoCallback": null,
-
+	fnInfoCallback: null,
 
 	/**
 	 * Called when the table has been initialised. Normally DataTables will
@@ -382,42 +733,38 @@ const defaults = {
 	 * however, this does not hold true when using external language information
 	 * since that is obtained using an async XHR call.
 	 */
-	"fnInitComplete": null,
-
+	fnInitComplete: null,
 
 	/**
 	 * Called at the very start of each table draw and can be used to cancel the
 	 * draw by returning false, any other return (including undefined) results in
 	 * the full draw occurring).
 	 */
-	"fnPreDrawCallback": null,
-
+	fnPreDrawCallback: null,
 
 	/**
 	 * This function allows you to 'post process' each row after it have been
 	 * generated for each table draw, but before it is rendered on screen. This
 	 * function might be used for setting the row class name etc.
 	 */
-	"fnRowCallback": null,
-
+	fnRowCallback: null,
 
 	/**
 	 * Load the table state. With this function you can define from where, and how, the
 	 * state of a table is loaded. By default DataTables will load from `localStorage`
 	 * but you might wish to use a server-side database or cookies.
 	 */
-	"fnStateLoadCallback": function ( settings: Context ) {
+	fnStateLoadCallback: function (settings: Context) {
 		try {
-			const state = (settings.iStateDuration === -1 ? sessionStorage : localStorage).getItem(
-				'DataTables_'+settings.sInstance+'_'+location.pathname
-			);
+			const state = (
+				settings.iStateDuration === -1 ? sessionStorage : localStorage
+			).getItem('DataTables_' + settings.sInstance + '_' + location.pathname);
 
 			return state ? JSON.parse(state) : {};
 		} catch (e) {
 			return {};
 		}
 	},
-
 
 	/**
 	 * Callback which allows modification of the saved state prior to loading that state.
@@ -426,32 +773,29 @@ const defaults = {
 	 * plug-in authors, you should use the `stateLoadParams` event to load parameters for
 	 * a plug-in.
 	 */
-	"fnStateLoadParams": null,
-
+	fnStateLoadParams: null,
 
 	/**
 	 * Callback that is called when the state has been loaded from the state saving method
 	 * and the DataTables settings object has been modified as a result of the loaded state.
 	 */
-	"fnStateLoaded": null,
-
+	fnStateLoaded: null,
 
 	/**
 	 * Save the table state. This function allows you to define where and how the state
 	 * information for the table is stored By default DataTables will use `localStorage`
 	 * but you might wish to use a server-side database or cookies.
 	 */
-	"fnStateSaveCallback": function ( settings: Context, data: any ) {
+	fnStateSaveCallback: function (settings: Context, data: any) {
 		try {
 			(settings.iStateDuration === -1 ? sessionStorage : localStorage).setItem(
-				'DataTables_'+settings.sInstance+'_'+location.pathname,
-				JSON.stringify( data )
+				'DataTables_' + settings.sInstance + '_' + location.pathname,
+				JSON.stringify(data)
 			);
 		} catch (e) {
 			// noop
 		}
 	},
-
 
 	/**
 	 * Callback which allows modification of the state to be saved. Called when the table
@@ -460,24 +804,21 @@ const defaults = {
 	 * other state properties or modification. Note that for plug-in authors, you should
 	 * use the `stateSaveParams` event to save parameters for a plug-in.
 	 */
-	"fnStateSaveParams": null,
-
+	fnStateSaveParams: null,
 
 	/**
 	 * Duration for which the saved state information is considered valid. After this period
 	 * has elapsed the state will be returned to the default.
 	 * Value is given in seconds.
 	 */
-	"iStateDuration": 7200,
-
+	iStateDuration: 7200,
 
 	/**
 	 * Number of rows to display on a single page when using pagination. If
 	 * feature enabled (`lengthChange`) then the end user will be able to override
 	 * this to a custom setting using a pop-up menu.
 	 */
-	"iDisplayLength": 10,
-
+	iDisplayLength: 10,
 
 	/**
 	 * Define the starting point for data display when using DataTables with
@@ -485,8 +826,7 @@ const defaults = {
 	 * the page number, so if you have 10 records per page and want to start on
 	 * the third page, it should be "20".
 	 */
-	"iDisplayStart": 0,
-
+	iDisplayStart: 0,
 
 	/**
 	 * By default DataTables allows keyboard navigation of the table (sorting, paging,
@@ -496,8 +836,7 @@ const defaults = {
 	 * You can overrule this using this parameter if you wish. Use a value of -1 to
 	 * disable built-in keyboard navigation.
 	 */
-	"iTabIndex": 0,
-
+	iTabIndex: 0,
 
 	/**
 	 * Classes that DataTables assigns to the various components and features
@@ -505,36 +844,35 @@ const defaults = {
 	 * during initialisation in addition to through the static
 	 * {@link DataTable.ext.oStdClasses} object).
 	 */
-	"oClasses": {},
-
+	oClasses: {},
 
 	/**
 	 * All strings that DataTables uses in the user interface that it creates
 	 * are defined in this object, allowing you to modified them individually or
 	 * completely replace them all as required.
 	 */
-	"oLanguage": {
+	oLanguage: {
 		/**
 		 * Strings that are used for WAI-ARIA labels and controls only (these are not
 		 * actually visible on the page, but will be read by screenreaders, and thus
 		 * must be internationalised as well).
 		 */
-		"oAria": {
+		oAria: {
 			/**
 			 * ARIA label that is added to the table headers when the column may be sorted
 			 */
-			"orderable": ": Activate to sort",
+			orderable: ': Activate to sort',
 
 			/**
 			 * ARIA label that is added to the table headers when the column is currently being sorted
 			 */
-			"orderableReverse": ": Activate to invert sorting",
+			orderableReverse: ': Activate to invert sorting',
 
 			/**
-			 * ARIA label that is added to the table headers when the column is currently being 
+			 * ARIA label that is added to the table headers when the column is currently being
 			 * sorted and next step is to remove sorting
 			 */
-			"orderableRemove": ": Activate to remove sorting",
+			orderableRemove: ': Activate to remove sorting',
 
 			paginate: {
 				first: 'First',
@@ -549,34 +887,34 @@ const defaults = {
 		 * Pagination string used by DataTables for the built-in pagination
 		 * control types.
 		 */
-		"oPaginate": {
+		oPaginate: {
 			/**
 			 * Label and character for first page button («)
 			 */
-			"sFirst": "\u00AB",
+			sFirst: '\u00AB',
 
 			/**
 			 * Last page button (»)
 			 */
-			"sLast": "\u00BB",
+			sLast: '\u00BB',
 
 			/**
 			 * Next page button (›)
 			 */
-			"sNext": "\u203A",
+			sNext: '\u203A',
 
 			/**
 			 * Previous page button (‹)
 			 */
-			"sPrevious": "\u2039",
+			sPrevious: '\u2039'
 		},
 
 		/**
 		 * Plural object for the data type the table is showing
 		 */
 		entries: {
-			_: "entries",
-			1: "entry"
+			_: 'entries',
+			1: 'entry'
 		},
 
 		/**
@@ -592,8 +930,7 @@ const defaults = {
 		 * parameter - if it is not given, the value of `zeroRecords` will be used
 		 * instead (either the default or given value).
 		 */
-		"sEmptyTable": "No data available in table",
-
+		sEmptyTable: 'No data available in table',
 
 		/**
 		 * This string gives information to the end user about the information
@@ -609,23 +946,20 @@ const defaults = {
 		 * * `\_PAGE\_` - Current page number
 		 * * `\_PAGES\_` - Total number of pages of data in the table
 		 */
-		"sInfo": "Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_",
-
+		sInfo: 'Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_',
 
 		/**
 		 * Display information string for when the table is empty. Typically the
 		 * format of this string should match `info`.
 		 */
-		"sInfoEmpty": "Showing 0 to 0 of 0 _ENTRIES-TOTAL_",
-
+		sInfoEmpty: 'Showing 0 to 0 of 0 _ENTRIES-TOTAL_',
 
 		/**
 		 * When a user filters the information in a table, this string is appended
 		 * to the information (`info`) to give an idea of how strong the filtering
 		 * is. The variable _MAX_ is dynamically updated.
 		 */
-		"sInfoFiltered": "(filtered from _MAX_ total _ENTRIES-MAX_)",
-
+		sInfoFiltered: '(filtered from _MAX_ total _ENTRIES-MAX_)',
 
 		/**
 		 * If can be useful to append extra information to the info string at times,
@@ -633,8 +967,7 @@ const defaults = {
 		 * the `info` (`infoEmpty` and `infoFiltered` in whatever combination they are
 		 * being used) at all times.
 		 */
-		"sInfoPostFix": "",
-
+		sInfoPostFix: '',
 
 		/**
 		 * This decimal place operator is a little different from the other
@@ -649,8 +982,7 @@ const defaults = {
 		 * However, multiple different tables on the page can use different
 		 * decimal place characters.
 		 */
-		"sDecimal": "",
-
+		sDecimal: '',
 
 		/**
 		 * DataTables has a build in number formatter (`formatNumber`) which is
@@ -658,8 +990,7 @@ const defaults = {
 		 * By default a comma is used, but this can be trivially changed to any
 		 * character you wish with this parameter.
 		 */
-		"sThousands": ",",
-
+		sThousands: ',',
 
 		/**
 		 * Detail the action that will be taken when the drop down menu for the
@@ -667,8 +998,7 @@ const defaults = {
 		 * with a default select list of 10, 25, 50 and 100, and can be replaced
 		 * with a custom select box if required.
 		 */
-		"sLengthMenu": "_MENU_ _ENTRIES_ per page",
-
+		sLengthMenu: '_MENU_ _ENTRIES_ per page',
 
 		/**
 		 * When using Ajax sourced data and during the first draw when DataTables is
@@ -677,15 +1007,13 @@ const defaults = {
 		 * parameter is not used when loading data by server-side processing, just
 		 * Ajax sourced data with client-side processing.
 		 */
-		"sLoadingRecords": "Loading...",
-
+		sLoadingRecords: 'Loading...',
 
 		/**
 		 * Text which is displayed when the table is processing a user action
 		 * (usually a sort command or similar).
 		 */
-		"sProcessing": "",
-
+		sProcessing: '',
 
 		/**
 		 * Details the actions that will be taken when the user types into the
@@ -694,19 +1022,17 @@ const defaults = {
 		 * control over where it appears in the string. If "_INPUT_" is not given
 		 * then the input box is appended to the string automatically.
 		 */
-		"sSearch": "Search:",
-
+		sSearch: 'Search:',
 
 		/**
 		 * Assign a `placeholder` attribute to the search `input` element
 		 *  @type string
-		 *  @default 
+		 *  @default
 		 *
 		 *  @dtopt Language
 		 *  @name DataTable.defaults.language.searchPlaceholder
 		 */
-		"sSearchPlaceholder": "",
-
+		sSearchPlaceholder: '',
 
 		/**
 		 * All of the language information can be stored in a file on the
@@ -716,21 +1042,18 @@ const defaults = {
 		 * initialiser object (i.e. the above parameters). Please refer to one of
 		 * the example language files to see how this works in action.
 		 */
-		"sUrl": "",
-
+		sUrl: '',
 
 		/**
 		 * Text shown inside the table records when the is no information to be
 		 * displayed after filtering. `emptyTable` is shown when there is simply no
 		 * information in the table at all (regardless of filtering).
 		 */
-		"sZeroRecords": "No matching records found"
+		sZeroRecords: 'No matching records found'
 	},
-
 
 	/** The initial data order is reversed when `desc` ordering */
 	orderDescReverse: true,
-
 
 	/**
 	 * This parameter allows you to have define the global filtering state at
@@ -741,8 +1064,7 @@ const defaults = {
 	 * DataTables will use it's smart filtering methods (to word match at
 	 * any point in the data), when false this will not be done.
 	 */
-	"oSearch": searchDefaults,
-
+	oSearch: searchDefaults,
 
 	/**
 	 * Table and control layout. This replaces the legacy `dom` option.
@@ -754,20 +1076,17 @@ const defaults = {
 		bottomEnd: 'paging'
 	},
 
-
 	/**
 	 * Legacy DOM layout option
 	 */
-	"sDom": null,
-
+	sDom: null,
 
 	/**
 	 * Search delay option. This will throttle full table searches that use the
 	 * DataTables provided search input element (it does not effect calls to
 	 * `dt-api search()`, providing a delay before the search is made.
 	 */
-	"searchDelay": null,
-
+	searchDelay: 0,
 
 	/**
 	 * DataTables features six different built-in options for the buttons to
@@ -780,8 +1099,7 @@ const defaults = {
 	 * * `full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
 	 * * `first_last_numbers` - 'First' and 'Last' buttons, plus page numbers
 	 */
-	"sPaginationType": "",
-
+	sPaginationType: '',
 
 	/**
 	 * Enable horizontal scrolling. When a table is too wide to fit into a
@@ -792,8 +1110,7 @@ const defaults = {
 	 * case it will be treated as a pixel measurement). Setting as simply `true`
 	 * is recommended.
 	 */
-	"sScrollX": "",
-
+	sScrollX: '',
 
 	/**
 	 * This property can be used to force a DataTable to use more width than it
@@ -803,8 +1120,7 @@ const defaults = {
 	 * any CSS unit, or a number (in which case it will be treated as a pixel
 	 * measurement).
 	 */
-	"sScrollXInner": "",
-
+	sScrollXInner: '',
 
 	/**
 	 * Enable vertical scrolling. Vertical scrolling will constrain the DataTable
@@ -814,8 +1130,7 @@ const defaults = {
 	 * enabled at the same time). This property can be any CSS unit, or a number
 	 * (in which case it will be treated as a pixel measurement).
 	 */
-	"sScrollY": "",
-
+	sScrollY: '',
 
 	/**
 	 * __Deprecated__ The functionality provided by this parameter has now been
@@ -824,8 +1139,7 @@ const defaults = {
 	 * Set the HTTP method that is used to make the Ajax call for server-side
 	 * processing or Ajax sourced data.
 	 */
-	"sServerMethod": "GET",
-
+	sServerMethod: 'GET',
 
 	/**
 	 * DataTables makes use of renderers when displaying HTML elements for
@@ -837,21 +1151,18 @@ const defaults = {
 	 * For further information about the renderers available see
 	 * DataTable.ext.renderer
 	 */
-	"renderer": null,
-
+	renderer: null,
 
 	/**
 	 * Set the data property name that DataTables should use to get a row's id
 	 * to set as the `id` property in the node.
 	 */
-	"rowId": "DT_RowId",
-
+	rowId: 'DT_RowId',
 
 	/**
 	 * Caption value
 	 */
-	"caption": null,
-
+	caption: '',
 
 	/**
 	 * For server-side processing - use the data from the DOM for the first draw
@@ -859,12 +1170,12 @@ const defaults = {
 	iDeferLoading: null,
 
 	/** Event listeners */
-	on: null as Record<string, Function> | null,
+	on: {} as Record<string, any>,
 
 	orderIndicators: true,
 	orderHandler: true
 };
 
-hungarianMap( defaults );
+hungarianMap(defaults);
 
 export default defaults;

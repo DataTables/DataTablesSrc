@@ -1,6 +1,6 @@
 import dom from '../dom';
 import ext from '../ext/index';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import util from '../util';
 import { Api as ApiType, InstSelector } from './interface';
 import { selectorRowIndexes } from './selectors';

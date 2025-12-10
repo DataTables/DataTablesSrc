@@ -8,7 +8,7 @@ describe('on', function() {
 		dt.html('basic');
 
 		it('There is no default', function() {
-			expect(DataTable.defaults.on).toBe(null);
+			expect(DataTable.defaults.on).toEqual({});
 		});
 	});
 

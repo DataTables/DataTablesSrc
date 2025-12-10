@@ -2,7 +2,7 @@ import { visibleColumns } from '../core/columns';
 import { saveState } from '../core/state';
 import dom from '../dom';
 import { Row } from '../model/row';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import { StateLoad } from '../model/state';
 import util from '../util';
 import Api from './Api';

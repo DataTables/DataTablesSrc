@@ -1,10 +1,11 @@
 import { bindAction } from '../api/support';
+import { recordsDisplay } from '../core/draw';
 import { pageChange } from '../core/page';
 import { renderer } from '../core/render';
 import dom, { Dom } from '../dom';
 import ext from '../ext';
 import { pagingNumbers } from '../ext/paging';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import register from './register';
 
 export interface IFeaturePagingOptions {
@@ -120,7 +121,7 @@ function _pagingDraw(
 		aria = settings.oLanguage.oAria.paginate || {},
 		start = settings._iDisplayStart,
 		len = settings._iDisplayLength,
-		visRecords = settings.fnRecordsDisplay(),
+		visRecords = recordsDisplay(settings),
 		all = len === -1,
 		page = all ? 0 : Math.ceil(start / len),
 		pages = all ? 1 : Math.ceil(visRecords / len),

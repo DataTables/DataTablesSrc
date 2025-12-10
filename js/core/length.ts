@@ -1,5 +1,5 @@
 import { callbackFire, lengthOverflow } from '../api/support';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 
 /**
  * Set the page length

@@ -2,7 +2,7 @@ import { log } from '../api/support';
 import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import createRow, { Row } from '../model/row';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import util from '../util';
 import { createTr, getRowDisplay, rowAttributes } from './draw';
 

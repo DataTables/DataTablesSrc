@@ -1,3 +1,4 @@
+import { displayEnd, recordsDisplay, recordsTotal } from '../core/draw';
 import { lengthChange } from '../core/length';
 import { pageChange } from '../core/page';
 import { register } from './Api';
@@ -22,16 +23,16 @@ register<ApiPage['info']>('page.info()', function () {
 	var settings = this.context[0],
 		start = settings._iDisplayStart,
 		len = settings.oFeatures.bPaginate ? settings._iDisplayLength : -1,
-		visRecords = settings.fnRecordsDisplay(),
+		visRecords = recordsDisplay(settings),
 		all = len === -1;
 
 	return {
 		page: all ? 0 : Math.floor(start / len),
 		pages: all ? 1 : Math.ceil(visRecords / len),
 		start: start,
-		end: settings.fnDisplayEnd(),
+		end: displayEnd(settings),
 		length: len,
-		recordsTotal: settings.fnRecordsTotal(),
+		recordsTotal: recordsTotal(settings),
 		recordsDisplay: visRecords,
 		serverSide: dataSource(settings) === 'ssp'
 	};

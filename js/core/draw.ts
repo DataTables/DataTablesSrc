@@ -2,9 +2,10 @@ import { callbackFire, dataSource, escapeObject, log } from '../api/support';
 import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import { Row, TableCellElement, TableRowElement } from '../model/row';
-import Context, {
-    HeaderStructure,
-    HeaderStructureCell,
+import {
+	Context,
+	HeaderStructure,
+	HeaderStructureCell
 } from '../model/settings';
 import util from '../util';
 import { ajaxUpdate } from './ajax';
@@ -33,7 +34,7 @@ export function getRowDisplay(settings: Context, rowIdx: number) {
 	var rowModal = settings.aoData[rowIdx];
 	var columns = settings.aoColumns;
 
-	if (! rowModal) {
+	if (!rowModal) {
 		return [];
 	}
 
@@ -108,7 +109,7 @@ export function createTr(
 
 			nTd._DT_CellIndex = {
 				row: rowIdx,
-				column: i,
+				column: i
 			};
 
 			cells.push(nTd);
@@ -152,7 +153,7 @@ export function createTr(
 			nTr,
 			rowData,
 			rowIdx,
-			cells,
+			cells
 		]);
 	}
 	else if (row) {
@@ -216,7 +217,10 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 	}
 
 	// If no cells yet and we have content for them, then create
-	if (side === 'header' || util.array.pluck(settings.aoColumns, titleProp).join('')) {
+	if (
+		side === 'header' ||
+		util.array.pluck(settings.aoColumns, titleProp).join('')
+	) {
 		row = target.find('tr');
 
 		// Add a row if needed
@@ -348,7 +352,7 @@ export function headerLayout(
 					cell: cell,
 					colspan: colspan,
 					rowspan: rowspan,
-					title: titleSpan.count() ? titleSpan.html() : dom.s(cell).html(),
+					title: titleSpan.count() ? titleSpan.html() : dom.s(cell).html()
 				};
 			}
 		}
@@ -405,7 +409,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 
 	/* Provide a pre-callback function which can be used to cancel the draw is false is returned */
 	var aPreDraw = callbackFire(settings, 'aoPreDrawCallback', 'preDraw', [
-		settings,
+		settings
 	]);
 
 	if (aPreDraw.indexOf(false) !== -1) {
@@ -418,7 +422,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	var bServerSide = dataSource(settings) == 'ssp';
 	var aiDisplay = settings.aiDisplay;
 	var iDisplayStart = settings._iDisplayStart;
-	var iDisplayEnd = settings.fnDisplayEnd();
+	var iDisplayEnd = displayEnd(settings);
 	var columns = settings.aoColumns;
 	var body = dom.s(settings.nTBody);
 
@@ -482,7 +486,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 				aoData._aData,
 				iRowCount,
 				j,
-				iDataIndex,
+				iDataIndex
 			]);
 
 			anRows.push(nRow);
@@ -499,7 +503,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 		getDataMaster(settings),
 		iDisplayStart,
 		iDisplayEnd,
-		aiDisplay,
+		aiDisplay
 	]);
 
 	callbackFire(settings, 'aoFooterCallback', 'footer', [
@@ -507,7 +511,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 		getDataMaster(settings),
 		iDisplayStart,
 		iDisplayEnd,
-		aiDisplay,
+		aiDisplay
 	]);
 
 	body.detachChildren().append(anRows);
@@ -593,7 +597,7 @@ function _emptyRow(settings: Context) {
 	if ((dataSrc === 'ssp' || dataSrc === 'ajax') && !settings.json) {
 		zero = lang.sLoadingRecords;
 	}
-	else if (lang.sEmptyTable && settings.fnRecordsTotal() === 0) {
+	else if (lang.sEmptyTable && recordsTotal(settings) === 0) {
 		zero = lang.sEmptyTable;
 	}
 
@@ -776,7 +780,7 @@ export function detectHeader(
 					for (k = 0; k < rowspan; k++) {
 						layout[i + k][shifted + l] = {
 							cell: cell.get(0),
-							unique: isUnique,
+							unique: isUnique
 						};
 
 						layout[i + k].row = row;
@@ -810,10 +814,55 @@ export function start(settings: Context) {
 	if (iInitDisplayStart !== undefined && iInitDisplayStart !== -1) {
 		settings._iDisplayStart = bServerSide
 			? iInitDisplayStart
-			: iInitDisplayStart >= settings.fnRecordsDisplay()
+			: iInitDisplayStart >= recordsDisplay(settings)
 			? 0
 			: iInitDisplayStart;
 
 		settings.iInitDisplayStart = -1;
+	}
+}
+
+/**
+ * Get the number of records in the current record set, before filtering
+ *
+ * @param ctx DataTables settings object
+ */
+export function recordsTotal(ctx: Context) {
+	return dataSource(ctx) == 'ssp'
+		? ctx._iRecordsTotal * 1
+		: ctx.aiDisplayMaster.length;
+}
+
+/**
+ * Get the number of records in the current record set, after filtering
+ *
+ * @param ctx DataTables settings object
+ */
+export function recordsDisplay(ctx: Context) {
+	return dataSource(ctx) == 'ssp'
+		? ctx._iRecordsDisplay * 1
+		: ctx.aiDisplay.length;
+}
+
+/**
+ * Get the display end point - aiDisplay index
+ *
+ * @param ctx DataTables settings object
+ */
+export function displayEnd(ctx: Context) {
+	var len = ctx._iDisplayLength,
+		start = ctx._iDisplayStart,
+		calc = start + len,
+		records = ctx.aiDisplay.length,
+		features = ctx.oFeatures,
+		paginate = features.bPaginate;
+
+	if (features.bServerSide) {
+		return paginate === false || len === -1
+			? start + records
+			: Math.min(start + len, ctx._iRecordsDisplay);
+	}
+	else {
+		return !paginate || calc > records || len === -1 ? records : calc;
 	}
 }

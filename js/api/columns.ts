@@ -11,7 +11,7 @@ import { drawHead } from '../core/draw';
 import { colGroup } from '../core/sizing';
 import { saveState } from '../core/state';
 import dom from '../dom';
-import Context, { HeaderStructure } from '../model/settings';
+import { Context, HeaderStructure } from '../model/settings';
 import { pluck, pluckOrder, range, removeEmpty } from '../util/array';
 import { intVal } from '../util/conv';
 import * as is from '../util/is';
@@ -70,7 +70,7 @@ function columnData(
 function columnHeader(settings: Context, column: number, row?: number) {
 	var header = settings.aoHeader;
 	var titleRow = settings.titleRow;
-	var target: number | null = null;
+	var target = 0;
 
 	if (row !== undefined) {
 		target = row;

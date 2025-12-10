@@ -30,7 +30,7 @@ import registerFeature from './features';
 import models from './model';
 import columnDefaults from './model/columns/defaults';
 import defaults from './model/defaults';
-import Settings from './model/settings';
+import createContext from './model/settings';
 import util from './util';
 
 // TODO typing
@@ -173,12 +173,12 @@ const DataTable = function (
 
 		// Create the settings object for this table and set some of the default
 		// parameters
-		var settings: any = util.object.assignDeep(new Settings(), {
-			sDestroyWidth: table.get(0).style.width,
+		var settings = createContext({
+			sDestroyWidth: table.width(),
 			sInstance: id,
 			sTableId: id,
 			colgroup: dom.c('colgroup').prependTo(tableEl),
-			fastData: function (row: number, column: number, type: string) {
+			fastData: function (row, column, type) {
 				return getCellData(settings, row, column, type);
 			},
 		});
@@ -300,7 +300,7 @@ const DataTable = function (
 			config.iDisplayStart = 0;
 		}
 
-		if (settings.iInitDisplayStart === undefined) {
+		if (settings.iInitDisplayStart === -1) {
 			/* Display start point, taking into account the save saving */
 			settings.iInitDisplayStart = config.iDisplayStart;
 			settings._iDisplayStart = config.iDisplayStart;

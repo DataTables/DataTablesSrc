@@ -1,14 +1,10 @@
 import { bindAction, callbackFire, dataSource } from '../api/support';
 import dom from '../dom';
 import ext from '../ext/index';
-import Context, {
+import { Order, OrderArray, OrderCombined, OrderIdx, OrderName, OrderState } from '../model/interface';
+import {
+	Context,
 	ISortItem,
-	Order,
-	OrderArray,
-	OrderCombined,
-	OrderIdx,
-	OrderName,
-	OrderState,
 } from '../model/settings';
 import { pluck } from '../util/array';
 import * as is from '../util/is';

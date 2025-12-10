@@ -1,6 +1,7 @@
 import { callbackFire, macros } from '../api/support';
+import { displayEnd, recordsDisplay, recordsTotal } from '../core/draw';
 import dom, { Dom } from '../dom';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import register from './register';
 
 export interface IFeatureInfoOptions {
@@ -80,9 +81,9 @@ register<Partial<IFeatureInfoOptions>>(
  */
 function updateInfo(settings: Context, opts: IFeatureInfoOptions, node: Dom) {
 	var start = settings._iDisplayStart + 1,
-		end = settings.fnDisplayEnd(),
-		max = settings.fnRecordsTotal(),
-		total = settings.fnRecordsDisplay(),
+		end = displayEnd(settings),
+		max = recordsTotal(settings),
+		total = recordsDisplay(settings),
 		out = total ? opts.text : opts.empty;
 
 	if (total !== max) {

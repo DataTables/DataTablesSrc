@@ -1,7 +1,8 @@
+import { displayEnd } from '../core/draw';
 import { sort } from '../core/order';
 import { Dom } from '../dom';
 import ext from '../ext/index';
-import Context from '../model/settings';
+import { Context } from '../model/settings';
 import { range, unique } from '../util/array';
 import * as object from '../util/object';
 import { ApiSelectorModifier, Api as ApiType } from './interface';
@@ -138,7 +139,7 @@ export function selectorRowIndexes(
 		// fairly senseless otherwise, regardless of what order and search actually
 		// are
 		for (
-			i = settings._iDisplayStart, iLen = settings.fnDisplayEnd();
+			i = settings._iDisplayStart, iLen = displayEnd(settings);
 			i < iLen;
 			i++
 		) {
