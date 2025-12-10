@@ -287,7 +287,7 @@ export function arrayApply(arr: any[] | Api, data?: any[] | Api) {
 export function listener(that: Dom, name: string, src: Function | Function[]) {
 	let srcArr = Array.isArray(src) ? src : [src];
 
-	for (var i = 0; i < src.length; i++) {
+	for (var i = 0; i < srcArr.length; i++) {
 		that.on(name + '.dt', srcArr[i] as any);
 	}
 }
