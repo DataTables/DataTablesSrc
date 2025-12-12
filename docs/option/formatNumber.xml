@@ -5,9 +5,12 @@
 	<since>1.10</since>
 
 	<type type="function">
-		<signature>formatNumber( toFormat )</signature>
+		<signature>formatNumber( toFormat, context )</signature>
 		<parameter type="integer" name="formatNumber">
 			Number to be formatted
+		</parameter>
+		<parameter type="object" name="context" since="3.0.0">
+			DataTables settings object
 		</parameter>
 		<returns type="string">
 			Formatted string for DataTables to show the number

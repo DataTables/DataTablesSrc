@@ -236,7 +236,7 @@ export function dataSource(ctx: Context) {
 export function macros(ctx: Context, str: string, entries?: number) {
 	// When infinite scrolling, we are always starting at 1. _iDisplayStart is
 	// used only internally
-	var formatter = ctx.fnFormatNumber,
+	var formatter = ctx.formatNumber,
 		start = ctx._iDisplayStart + 1,
 		len = ctx._iDisplayLength,
 		vis = recordsDisplay(ctx),
@@ -244,12 +244,12 @@ export function macros(ctx: Context, str: string, entries?: number) {
 		all = len === -1;
 
 	return str
-		.replace(/_START_/g, formatter.call(ctx, start))
-		.replace(/_END_/g, formatter.call(ctx, displayEnd(ctx)))
-		.replace(/_MAX_/g, formatter.call(ctx, max))
-		.replace(/_TOTAL_/g, formatter.call(ctx, vis))
-		.replace(/_PAGE_/g, formatter.call(ctx, all ? 1 : Math.ceil(start / len)))
-		.replace(/_PAGES_/g, formatter.call(ctx, all ? 1 : Math.ceil(vis / len)))
+		.replace(/_START_/g, formatter(start, ctx))
+		.replace(/_END_/g, formatter(displayEnd(ctx), ctx))
+		.replace(/_MAX_/g, formatter(max, ctx))
+		.replace(/_TOTAL_/g, formatter(vis, ctx))
+		.replace(/_PAGE_/g, formatter(all ? 1 : Math.ceil(start / len), ctx))
+		.replace(/_PAGES_/g, formatter(all ? 1 : Math.ceil(vis / len), ctx))
 		.replace(/_ENTRIES_/g, ctx.api.i18n('entries', '', entries))
 		.replace(/_ENTRIES-MAX_/g, ctx.api.i18n('entries', '', max))
 		.replace(/_ENTRIES-TOTAL_/g, ctx.api.i18n('entries', '', vis));

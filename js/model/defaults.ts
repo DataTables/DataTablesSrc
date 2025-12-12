@@ -564,7 +564,7 @@ const defaults = {
 	 * table matches the selector, then the new DataTable will be constructed as
 	 * per normal.
 	 */
-	bDestroy: false,
+	destroy: false,
 
 	/**
 	 * Enable or disable filtering of data. Filtering in DataTables is "smart" in
@@ -610,7 +610,7 @@ const defaults = {
 	 * that you understand this). `destroy` can be used to reinitialise a table if
 	 * you need.
 	 */
-	bRetrieve: false,
+	retrieve: false,
 
 	/**
 	 * When vertical (y) scrolling is enabled, DataTables will force the height of
@@ -704,10 +704,10 @@ const defaults = {
 	 * rendered as "1,000,000") to help readability for the end user. This
 	 * function will override the default method DataTables uses.
 	 */
-	fnFormatNumber: function (toFormat: number) {
+	formatNumber: function (toFormat: number, ctx: Context) {
 		return toFormat
 			.toString()
-			.replace(/\B(?=(\d{3})+(?!\d))/g, this.oLanguage.sThousands);
+			.replace(/\B(?=(\d{3})+(?!\d))/g, ctx.oLanguage.sThousands);
 	},
 
 	/**
@@ -984,10 +984,10 @@ const defaults = {
 		sDecimal: '',
 
 		/**
-		 * DataTables has a build in number formatter (`formatNumber`) which is
-		 * used to format large numbers that are used in the table information.
-		 * By default a comma is used, but this can be trivially changed to any
-		 * character you wish with this parameter.
+		 * DataTables has a build in number formatter which is used to format
+		 * large numbers that are used in the table information. By default a
+		 * comma is used, but this can be trivially changed to any character you
+		 * wish with this parameter.
 		 */
 		sThousands: ',',
 

@@ -271,7 +271,7 @@ function _pagingButtonInfo(
 
 		default:
 			if (typeof button === 'number') {
-				o.display = settings.fnFormatNumber(button + 1);
+				o.display = settings.formatNumber(button + 1, settings);
 
 				if (page === button) {
 					o.active = true;

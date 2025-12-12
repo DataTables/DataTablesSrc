@@ -3,7 +3,7 @@ import util from '../util';
 import { AjaxOptions, HttpMethod } from '../util/ajax';
 import { GetFunction, JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
-import { AjaxData, Layout, OrderState } from './interface';
+import { AjaxData, FunctionFormatNumber, Layout, OrderState } from './interface';
 import { Row } from './row';
 import createSearch, { SearchInput, SearchOptions } from './search';
 import { State, StateLoad } from './state';
@@ -210,6 +210,7 @@ export interface Context {
 		sLoadingRecords: string,
 		sEmptyTable: string,
 		sDecimal: string,
+		sThousands: string,
 		oAria: {
 			orderable: string,
 			orderableReverse: string,
@@ -508,7 +509,7 @@ export interface Context {
 	/**
 	 * Format numbers for display.
 	 */
-	fnFormatNumber: (this: Context, toFormat: number) => string;
+	formatNumber: FunctionFormatNumber;
 
 	/**
 	 * List of options that can be used for the user selectable length menu.
@@ -736,6 +737,7 @@ const defaults: Partial<Context> = {
 		sLoadingRecords: '',
 		sEmptyTable: '',
 		sDecimal: '',
+		sThousands: '',
 		oAria: {
 			orderable: '',
 			orderableReverse: '',

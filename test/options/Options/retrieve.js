@@ -7,7 +7,7 @@ describe('retrieve option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Default is disabled', function() {
-			expect($.fn.dataTable.defaults.bRetrieve).toBe(false);
+			expect(DataTable.defaults.retrieve).toBe(false);
 		});
 
 		dt.html('basic');

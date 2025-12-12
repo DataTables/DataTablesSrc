@@ -265,8 +265,9 @@ export type FunctionFooterCallback = (
 
 export type FunctionFormatNumber = (
 	// this: JQueryDataTables,
-	formatNumber: number
-) => void;
+	formatNumber: number,
+	ctx: Context
+) => string;
 
 export type FunctionHeaderCallback = (
 	// this: JQueryDataTables,

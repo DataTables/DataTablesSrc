@@ -8,7 +8,7 @@ describe('destroy option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Default is disabled', function() {
-			expect($.fn.dataTable.defaults.bDestroy).toBe(false);
+			expect(DataTable.defaults.destroy).toBe(false);
 		});
 
 		dt.html('basic');

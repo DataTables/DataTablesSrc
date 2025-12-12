@@ -120,7 +120,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 				// If not present, fallback to old style
 				label =
 					typeof language[i] === 'number'
-						? settings.fnFormatNumber(language[i])
+						? settings.formatNumber(language[i], settings)
 						: language[i];
 			}
 

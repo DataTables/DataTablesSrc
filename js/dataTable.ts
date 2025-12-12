@@ -99,9 +99,10 @@ const DataTable = function (
 
 		table.trigger('options.dt', true, [init]);
 
-		// Backwards compatibility for the defaults
+		// Backwards compatibility for old style notation
 		compatOpts(defaults);
 		compatCols(columnDefaults);
+		compatOpts(init);
 
 		/* Setting up the initialisation object */
 		camelToHungarian(
@@ -121,19 +122,13 @@ const DataTable = function (
 				(s.nTHead && s.nTHead.parentNode == tableEl) ||
 				(s.nTFoot && s.nTFoot.parentNode == tableEl)
 			) {
-				var bRetrieve =
-					init.bRetrieve !== undefined
-						? init.bRetrieve
-						: (defaults as any).bRetrieve;
-				var bDestroy =
-					init.bDestroy !== undefined
-						? init.bDestroy
-						: (defaults as any).bDestroy;
+				var retrieve = init.retrieve || false;
+				var destroy = init.destroy || false;
 
-				if (emptyInit || bRetrieve) {
+				if (emptyInit || retrieve) {
 					return s.oInstance;
 				}
-				else if (bDestroy) {
+				else if (destroy) {
 					new Api(s).destroy();
 					break;
 				}
@@ -191,9 +186,6 @@ const DataTable = function (
 		// table instance if more than one
 		settings.oInstance = this; // TODO, not sure about this?
 
-		// Backwards compatibility, before we apply all the defaults
-		compatOpts(init);
-
 		// If the length menu is given, but the init display length is not, use
 		// the length menu
 		if (init.aLengthMenu && !init.iDisplayLength) {
@@ -227,7 +219,7 @@ const DataTable = function (
 		]);
 		map(settings, config, [
 			'ajax',
-			'fnFormatNumber',
+			'formatNumber',
 			'sServerMethod',
 			'order',
 			'aaSortingFixed',
