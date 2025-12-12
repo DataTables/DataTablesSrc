@@ -22,7 +22,7 @@ register<PageMethod>('page()', function (action) {
 register<ApiPage['info']>('page.info()', function () {
 	var settings = this.context[0],
 		start = settings._iDisplayStart,
-		len = settings.oFeatures.bPaginate ? settings._iDisplayLength : -1,
+		len = settings.oFeatures.paginate ? settings._iDisplayLength : -1,
 		visRecords = recordsDisplay(settings),
 		all = len === -1;
 

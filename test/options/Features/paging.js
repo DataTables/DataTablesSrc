@@ -15,7 +15,7 @@ describe('Paging option', function() {
 	describe('Check Default', function() {
 		dt.html('basic');
 		it('Enabled by default', function() {
-			expect($.fn.dataTable.defaults.bPaginate).toBe(true);
+			expect(DataTable.defaults.paginate).toBe(true);
 		});
 		it('Check table is paged', function() {
 			table = $('#example').DataTable();

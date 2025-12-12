@@ -16,6 +16,7 @@ import {
 	camelToHungarian,
 	compatCols,
 	compatOpts,
+	hungarianToCamel,
 } from './core/compat';
 import { getCellData } from './core/data';
 import { detectHeader } from './core/draw';
@@ -33,7 +34,6 @@ import defaults from './model/defaults';
 import createContext from './model/settings';
 import util from './util';
 
-// TODO typing
 const DataTable = function (
 	selector: string | HTMLElement,
 	options: Partial<typeof defaults>
@@ -100,13 +100,13 @@ const DataTable = function (
 
 		table.trigger('options.dt', true, [init]);
 
-		/* Backwards compatibility for the defaults */
+		// Backwards compatibility for the defaults
 		compatOpts(defaults);
 		compatCols(columnDefaults);
 
-		/* Convert the camel-case defaults to Hungarian */
-		camelToHungarian(defaults, defaults, true);
-		camelToHungarian(columnDefaults, columnDefaults, true);
+		// Convert legacy notation parameters to camelCase
+		hungarianToCamel(defaults);
+		hungarianToCamel(columnDefaults);
 
 		/* Setting up the initialisation object */
 		camelToHungarian(
@@ -218,7 +218,7 @@ const DataTable = function (
 
 		// Map the initialisation options onto the settings object
 		map(settings.oFeatures, config, [
-			'bPaginate',
+			'paginate',
 			'bLengthChange',
 			'bFilter',
 			'bSort',
@@ -296,7 +296,7 @@ const DataTable = function (
 		util.object.assign(oClasses, ext.classes, config.oClasses);
 		table.classAdd(oClasses.table);
 
-		if (!settings.oFeatures.bPaginate) {
+		if (!settings.oFeatures.paginate) {
 			config.iDisplayStart = 0;
 		}
 

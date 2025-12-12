@@ -9,8 +9,40 @@ interface HungarianMap {
 
 export const browser = {
 	barWidth: -1,
-	bScrollbarLeft: false,
+	bScrollbarLeft: false
 };
+
+const hungarianToCamelRe = /^(a|aa|ai|ao|as|b|fn|i|m|o|s)([A-Z])([a-z].*$)/;
+
+/**
+ * Take an object which has hungarian notation parameters and convert them to
+ * camelCase style. This is to allow compatibility with DataTables 1.9 and
+ * earlier which only used hungarian notation, and also with DataTables 1.10 - 2
+ * which allowed it to be used.
+ */
+export function hungarianToCamel<T extends Record<string, unknown>>(user: T) {
+	let userKeys = Object.keys(user);
+
+	for (let i = 0; i < userKeys.length; i++) {
+		let userKey = userKeys[i];
+		let match = userKey.match(hungarianToCamelRe);
+
+		// Is the key in hungarian notation?
+		if (match) {
+			// If so map it down
+			// TODO debug
+			// console.log(
+			// 	'mapping from hungarian notation',
+			// 	userKey,
+			// 	match[2].toLowerCase() + match[3],
+			// 	user[userKey]
+			// );
+			(user as any)[match[2].toLowerCase() + match[3]] = user[userKey];
+		}
+	}
+
+	return user;
+}
 
 /**
  * Create a mapping object that allows camel case parameters to be looked up for
@@ -105,52 +137,52 @@ export function compatMap(
  *
  * @param init Object to map
  */
-export function compatOpts(init: any) {
-	// typeof defaults
-	compatMap(init, 'ordering', 'bSort');
-	compatMap(init, 'orderMulti', 'bSortMulti');
-	compatMap(init, 'orderClasses', 'bSortClasses');
-	compatMap(init, 'orderCellsTop', 'bSortCellsTop');
-	compatMap(init, 'order', 'aaSorting');
-	compatMap(init, 'orderFixed', 'aaSortingFixed');
-	compatMap(init, 'paging', 'bPaginate');
-	compatMap(init, 'pagingType', 'sPaginationType');
-	compatMap(init, 'pageLength', 'iDisplayLength');
-	compatMap(init, 'searching', 'bFilter');
+export function compatOpts(init: Record<string, any>) {
+	// Convert any old style parameters to camelCase
+	hungarianToCamel(init);
+
+	// Map old parameter names to new
+	compatMap(init, 'ordering', 'sort');
+	compatMap(init, 'orderMulti', 'sortMulti');
+	compatMap(init, 'orderClasses', 'sortClasses');
+	compatMap(init, 'orderCellsTop', 'sortCellsTop');
+	compatMap(init, 'order', 'sorting');
+	compatMap(init, 'orderFixed', 'sortingFixed');
+	compatMap(init, 'paging', 'paginate');
+	compatMap(init, 'pagingType', 'paginationType');
+	compatMap(init, 'pageLength', 'displayLength');
+	compatMap(init, 'searching', 'filter');
 
 	// Boolean initialisation of x-scrolling
-	if (typeof init.sScrollX === 'boolean') {
-		init.sScrollX = init.sScrollX ? '100%' : '';
-	}
 	if (typeof init.scrollX === 'boolean') {
 		init.scrollX = init.scrollX ? '100%' : '';
 	}
 
 	// Objects for ordering
-	if (typeof init.bSort === 'object') {
+	if (typeof init.sort === 'object') {
 		init.orderIndicators =
-			init.bSort.indicators !== undefined ? init.bSort.indicators : true;
+			init.sort.indicators !== undefined ? init.sort.indicators : true;
 		init.orderHandler =
-			init.bSort.handler !== undefined ? init.bSort.handler : true;
-		init.bSort = true;
+			init.sort.handler !== undefined ? init.sort.handler : true;
+		init.sort = true;
 	}
-	else if (init.bSort === false) {
+	else if (init.sort === false) {
 		init.orderIndicators = false;
 		init.orderHandler = false;
 	}
-	else if (init.bSort === true) {
+	else if (init.sort === true) {
 		init.orderIndicators = true;
 		init.orderHandler = true;
 	}
 
 	// Which cells are the title cells?
-	if (typeof init.bSortCellsTop === 'boolean') {
-		init.titleRow = init.bSortCellsTop;
+	if (typeof init.sortCellsTop === 'boolean') {
+		init.titleRow = init.sortCellsTop;
 	}
 
 	// Column search objects are in an array, so it needs to be converted
 	// element by element
-	var searchCols = init.aoSearchCols;
+	var searchCols = init.searchCols;
 
 	if (searchCols) {
 		for (var i = 0, iLen = searchCols.length; i < iLen; i++) {
@@ -212,7 +244,7 @@ export function browserDetect(ctx: Context) {
 				left: -1 * window.pageXOffset + 'px', // allow for scrolling
 				height: '1px',
 				width: '1px',
-				overflow: 'hidden',
+				overflow: 'hidden'
 			})
 			.append(
 				dom
@@ -222,12 +254,12 @@ export function browserDetect(ctx: Context) {
 						top: '1px',
 						left: '1px',
 						width: '100px',
-						overflow: 'scroll',
+						overflow: 'scroll'
 					})
 					.append(
 						dom.c('div').css({
 							width: '100%',
-							height: '10px',
+							height: '10px'
 						})
 					)
 			)

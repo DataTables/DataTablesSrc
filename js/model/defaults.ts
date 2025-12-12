@@ -53,7 +53,7 @@ export interface Defaults {
 	 */
 	columnDefs?: ConfigColumnDefs[];
 
-	
+
 	/**
 	 * Data to use as the display data for the table.
 	 */
@@ -592,7 +592,7 @@ const defaults = {
 	/**
 	 * Enable or disable pagination.
 	 */
-	bPaginate: true,
+	paginate: true,
 
 	/**
 	 * Enable or disable the display of a 'processing' indicator when the table is

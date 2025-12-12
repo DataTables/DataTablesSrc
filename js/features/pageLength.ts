@@ -24,7 +24,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 		var features = settings.oFeatures;
 
 		// For compatibility with the legacy `pageLength` top level option
-		if (!features.bPaginate || !features.bLengthChange) {
+		if (!features.paginate || !features.bLengthChange) {
 			return null;
 		}
 

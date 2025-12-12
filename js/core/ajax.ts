@@ -216,7 +216,7 @@ export function ajaxParameters(settings: Context): AjaxData {
 			};
 		}),
 		start: settings._iDisplayStart,
-		length: features.bPaginate ? settings._iDisplayLength : -1,
+		length: features.paginate ? settings._iDisplayLength : -1,
 		search: {
 			value: preSearch.search.toString(),
 			regex: preSearch.regex,

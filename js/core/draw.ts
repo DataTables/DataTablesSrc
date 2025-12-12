@@ -3,9 +3,9 @@ import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import { Row, TableCellElement, TableRowElement } from '../model/row';
 import {
-	Context,
-	HeaderStructure,
-	HeaderStructureCell
+    Context,
+    HeaderStructure,
+    HeaderStructureCell
 } from '../model/settings';
 import util from '../util';
 import { ajaxUpdate } from './ajax';
@@ -855,7 +855,7 @@ export function displayEnd(ctx: Context) {
 		calc = start + len,
 		records = ctx.aiDisplay.length,
 		features = ctx.oFeatures,
-		paginate = features.bPaginate;
+		paginate = features.paginate;
 
 	if (features.bServerSide) {
 		return paginate === false || len === -1

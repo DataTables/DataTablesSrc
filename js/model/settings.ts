@@ -140,7 +140,7 @@ export interface Features {
 	 * Pagination enabled or not. Note that if this is disabled then length
 	 * changing must also be disabled.
 	 */
-	bPaginate: boolean;
+	paginate: boolean;
 
 	/**
 	 * Processing indicator enable flag whenever DataTables is enacting a
@@ -707,7 +707,7 @@ const defaults: Partial<Context> = {
 		bFilter: false,
 		bInfo: false,
 		bLengthChange: false,
-		bPaginate: false,
+		paginate: false,
 		bProcessing: false,
 		bServerSide: false,
 		bSort: false,
