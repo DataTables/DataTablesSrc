@@ -850,7 +850,7 @@ export function recordsDisplay(ctx: Context) {
  * @param ctx DataTables settings object
  */
 export function displayEnd(ctx: Context) {
-	var len = ctx._iDisplayLength,
+	var len = ctx.pageLength,
 		start = ctx._iDisplayStart,
 		calc = start + len,
 		records = ctx.aiDisplay.length,

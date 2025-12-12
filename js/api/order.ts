@@ -56,13 +56,13 @@ type ApiOrderFixedOverload = (
 register<ApiOrderFixedOverload>('order.fixed()', function (set) {
 	if (!set) {
 		var ctx = this.context;
-		var fixed = ctx.length ? ctx[0].aaSortingFixed : undefined;
+		var fixed = ctx.length ? ctx[0].orderFixed : undefined;
 
 		return Array.isArray(fixed) ? { pre: fixed } : fixed;
 	}
 
 	return this.iterator('table', function (settings) {
-		settings.aaSortingFixed = object.assignDeep({}, set);
+		settings.orderFixed = object.assignDeep({}, set);
 	});
 });
 

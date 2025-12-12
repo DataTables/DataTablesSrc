@@ -6,7 +6,7 @@ describe('pageType Option', function() {
 
 	function checkPaging(count, typeInternal, type, pages, pageCount, prevNext, firstLast) {
 		expect($('.dt-paging button').length).toBe(count);
-		expect($('#example').DataTable.settings[0].sPaginationType).toBe(typeInternal);
+		expect($('#example').DataTable.settings[0].pagingType).toBe(typeInternal);
 		expect($('div.' + type).length).toBe(1);
 
 		if (pages) {

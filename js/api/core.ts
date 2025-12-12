@@ -173,7 +173,7 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 		settings.colgroup.remove();
 
 		settings.order = [];
-		settings.aaSortingFixed = [];
+		settings.orderFixed = [];
 		sortingClasses(settings);
 
 		jqTable

@@ -417,7 +417,7 @@ const defaults = {
 	 * will then be performed as required. This can be useful for grouping rows
 	 * together.
 	 */
-	aaSortingFixed: [],
+	orderFixed: [],
 
 	/**
 	 * DataTables can be instructed to load data to display in the table from a
@@ -500,7 +500,7 @@ const defaults = {
 	 * Note that the `pageLength` property will be automatically set to the
 	 * first value given in this array, unless `pageLength` is also provided.
 	 */
-	aLengthMenu: [10, 25, 50, 100] as Array<
+	lengthMenu: [10, 25, 50, 100] as Array<
 		number | { value: number; label: string }
 	>,
 
@@ -817,7 +817,7 @@ const defaults = {
 	 * feature enabled (`lengthChange`) then the end user will be able to override
 	 * this to a custom setting using a pop-up menu.
 	 */
-	iDisplayLength: 10,
+	pageLength: 10,
 
 	/**
 	 * Define the starting point for data display when using DataTables with
@@ -1088,17 +1088,11 @@ const defaults = {
 	searchDelay: 0,
 
 	/**
-	 * DataTables features six different built-in options for the buttons to
-	 * display for pagination control:
-	 *
-	 * * `numbers` - Page number buttons only
-	 * * `simple` - 'Previous' and 'Next' buttons only
-	 * * 'simple_numbers` - 'Previous' and 'Next' buttons, plus page numbers
-	 * * `full` - 'First', 'Previous', 'Next' and 'Last' buttons
-	 * * `full_numbers` - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
-	 * * `first_last_numbers` - 'First' and 'Last' buttons, plus page numbers
+	 * Change the paging type
+	 * 
+	 * @deprecated Use the `paging` feature options
 	 */
-	sPaginationType: '',
+	pagingType: '',
 
 	/**
 	 * Enable horizontal scrolling. When a table is too wide to fit into a
@@ -1132,13 +1126,13 @@ const defaults = {
 	sScrollY: '',
 
 	/**
-	 * __Deprecated__ The functionality provided by this parameter has now been
-	 * superseded by that provided through `ajax`, which should be used instead.
-	 *
 	 * Set the HTTP method that is used to make the Ajax call for server-side
 	 * processing or Ajax sourced data.
+	 *
+	 * @deprecated The functionality provided by this parameter has now been
+	 * superseded by that provided through `ajax`, which should be used instead.
 	 */
-	sServerMethod: 'GET',
+	serverMethod: 'GET',
 
 	/**
 	 * DataTables makes use of renderers when displaying HTML elements for

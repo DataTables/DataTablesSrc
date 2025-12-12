@@ -22,6 +22,11 @@ describe('lengthMenu Option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
+
+		it('Default', function () {
+			expect(DataTable.defaults.lengthMenu).toEqual([10, 25, 50, 100]);
+		});
+
 		it('Check default values', function() {
 			$('#example').dataTable();
 

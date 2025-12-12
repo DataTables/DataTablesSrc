@@ -82,7 +82,7 @@ export function buildAjax(
 		success: callback,
 		dataType: 'json',
 		cache: false,
-		type: settings.sServerMethod,
+		type: settings.serverMethod,
 		error: function (xhr, error) {
 			var ret = callbackFire(
 				settings,
@@ -216,7 +216,7 @@ export function ajaxParameters(settings: Context): AjaxData {
 			};
 		}),
 		start: settings._iDisplayStart,
-		length: features.paging ? settings._iDisplayLength : -1,
+		length: features.paging ? settings.pageLength : -1,
 		search: {
 			value: preSearch.search.toString(),
 			regex: preSearch.regex,

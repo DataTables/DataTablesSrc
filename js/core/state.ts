@@ -26,7 +26,7 @@ export function saveState(settings: Context) {
 	var state: State = {
 		time: +new Date(),
 		start: settings._iDisplayStart,
-		length: settings._iDisplayLength,
+		length: settings.pageLength,
 		order: sorting.map(function (sort) {
 			// If a column name is available, use it
 			return columns[sort[0]] && columns[sort[0]].sName
@@ -143,7 +143,7 @@ export function implementState(
 			api.page.len(s.length);
 		}
 		else {
-			settings._iDisplayLength = s.length;
+			settings.pageLength = s.length;
 		}
 	}
 
@@ -154,7 +154,7 @@ export function implementState(
 			settings.iInitDisplayStart = s.start;
 		}
 		else {
-			pageChange(settings, s.start / settings._iDisplayLength);
+			pageChange(settings, s.start / settings.pageLength);
 		}
 	}
 

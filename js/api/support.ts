@@ -191,7 +191,7 @@ export function callbackFire(
 export function lengthOverflow(ctx: Context) {
 	var start = ctx._iDisplayStart,
 		end = displayEnd(ctx),
-		len = ctx._iDisplayLength;
+		len = ctx.pageLength;
 
 	/* If we have space to show extra rows (backing up from the end point - then do so */
 	if (start >= end) {
@@ -238,7 +238,7 @@ export function macros(ctx: Context, str: string, entries?: number) {
 	// used only internally
 	var formatter = ctx.formatNumber,
 		start = ctx._iDisplayStart + 1,
-		len = ctx._iDisplayLength,
+		len = ctx.pageLength,
 		vis = recordsDisplay(ctx),
 		max = recordsTotal(ctx),
 		all = len === -1;

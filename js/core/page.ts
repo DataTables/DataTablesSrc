@@ -17,7 +17,7 @@ export function pageChange(
 	redraw?: boolean
 ) {
 	var start = settings._iDisplayStart,
-		len = settings._iDisplayLength,
+		len = settings.pageLength,
 		records = recordsDisplay(settings);
 
 	if (records === 0 || len === -1) {

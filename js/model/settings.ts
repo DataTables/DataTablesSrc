@@ -317,7 +317,7 @@ export interface Context {
 	 * Sorting that is always applied to the table (i.e. prefixed in front of
 	 * aaSorting).
 	 */
-	aaSortingFixed: any; // TODO
+	orderFixed: any; // TODO
 
 	/**
 	 * If restoring a table - we should restore its width
@@ -428,7 +428,7 @@ export interface Context {
 	 *
 	 * @deprecated
 	 */
-	sPaginationType: string;
+	pagingType: string;
 
 	/**
 	 * Number of paging controls on the page. Only used for backwards compatibility
@@ -504,7 +504,7 @@ export interface Context {
 	 * 
 	 * @deprecated
 	 */
-	sServerMethod: HttpMethod | null;
+	serverMethod: HttpMethod | null;
 
 	/**
 	 * Format numbers for display.
@@ -516,7 +516,7 @@ export interface Context {
 	 * 
 	 * @deprecated
 	 */
-	aLengthMenu: any[]; // TODO
+	lengthMenu: any[]; // TODO
 
 	/**
 	 * Counter for the draws that the table does. Also used as a tracker for
@@ -537,7 +537,7 @@ export interface Context {
 	/**
 	 * Paging display length
 	 */
-	_iDisplayLength: number;
+	pageLength: number;
 
 	/**
 	 * Paging start point - aiDisplay index
@@ -775,7 +775,7 @@ const defaults: Partial<Context> = {
 	searchFixed: {},
 	aoPreSearchCols: [],
 	order: [],
-	aaSortingFixed: [],
+	orderFixed: [],
 	sDestroyWidth: 0,
 	aoRowCallback: [],
 	aoHeaderCallback: [],
@@ -791,7 +791,7 @@ const defaults: Partial<Context> = {
 	bInitialised: false,
 	sDom: null,
 	searchDelay: 0,
-	sPaginationType: 'two_button',
+	pagingType: 'two_button',
 	pagingControls: 0,
 	iStateDuration: 0,
 	aoStateSave: [],
@@ -799,11 +799,11 @@ const defaults: Partial<Context> = {
 	oSavedState: null,
 	oLoadedState: null,
 	bAjaxDataGet: false,
-	sServerMethod: null,
+	serverMethod: null,
 	iDraw: 0,
 	bDrawing: false,
 	iDrawError: -1,
-	_iDisplayLength: 10,
+	pageLength: 10,
 	_iDisplayStart: 10,
 	_iRecordsTotal: 0,
 	_iRecordsDisplay: 0,

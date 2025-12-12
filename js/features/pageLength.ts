@@ -30,7 +30,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 
 		let opts: IFeaturePageLengthOptions = Object.assign(
 			{
-				menu: settings.aLengthMenu,
+				menu: settings.lengthMenu,
 				text: settings.oLanguage.sLengthMenu
 			},
 			optsIn
@@ -135,7 +135,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 		div
 			.find('select')
 			.attr('id', 'dt-length-' + __lengthCounter)
-			.val(settings._iDisplayLength)
+			.val(settings.pageLength)
 			.on('change.DT', function () {
 				lengthChange(settings, select.val() as string);
 				draw(settings);
@@ -155,7 +155,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 			}
 		});
 
-		updateEntries(settings._iDisplayLength);
+		updateEntries(settings.pageLength);
 
 		return div;
 	},

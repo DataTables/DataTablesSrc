@@ -222,7 +222,7 @@ export function sortFlatten(settings: Context) {
 		iCol,
 		sType,
 		srcCol,
-		fixed = settings.aaSortingFixed as any,
+		fixed = settings.orderFixed as any,
 		fixedObj = is.plainObject(fixed),
 		nestedSort = [] as any;
 

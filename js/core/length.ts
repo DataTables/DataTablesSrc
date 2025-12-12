@@ -12,7 +12,7 @@ export function lengthChange(ctx: Context, val: string | number) {
 		? parseInt(val, 10)
 		: val;
 
-	ctx._iDisplayLength = len;
+	ctx.pageLength = len;
 
 	lengthOverflow(ctx);
 

@@ -188,12 +188,12 @@ const DataTable = function (
 
 		// If the length menu is given, but the init display length is not, use
 		// the length menu
-		if (init.aLengthMenu && !init.iDisplayLength) {
-			init.iDisplayLength = Array.isArray(init.aLengthMenu[0])
-				? init.aLengthMenu[0][0]
-				: typeof init.aLengthMenu[0] === 'number'
-				? init.aLengthMenu[0]
-				: init.aLengthMenu[0].value;
+		if (init.lengthMenu && !init.pageLength) {
+			init.pageLength = Array.isArray(init.lengthMenu[0])
+				? init.lengthMenu[0][0]
+				: typeof init.lengthMenu[0] === 'number'
+				? init.lengthMenu[0]
+				: init.lengthMenu[0].value;
 		}
 
 		// Apply the defaults and init options to make a single init object will
@@ -220,11 +220,11 @@ const DataTable = function (
 		map(settings, config, [
 			'ajax',
 			'formatNumber',
-			'sServerMethod',
+			'serverMethod',
 			'order',
-			'aaSortingFixed',
-			'aLengthMenu',
-			'sPaginationType',
+			'orderFixed',
+			'lengthMenu',
+			'pagingType',
 			'iStateDuration',
 			'bSortCellsTop',
 			'iTabIndex',
@@ -241,10 +241,10 @@ const DataTable = function (
 			'orderHandler',
 			'titleRow',
 			'typeDetect',
+			'pageLength',
 			['iCookieDuration', 'iStateDuration'], // backwards compat
 			['oSearch', 'oPreviousSearch'],
-			['aoSearchCols', 'aoPreSearchCols'],
-			['iDisplayLength', '_iDisplayLength']
+			['aoSearchCols', 'aoPreSearchCols']
 		]);
 		map(settings.oScroll, config, [
 			['sScrollX', 'sX'],

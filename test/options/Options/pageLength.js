@@ -6,6 +6,11 @@ describe('pageLength Option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
+
+		it('Default value', function () {
+			expect(DataTable.defaults.pageLength).toBe(10);
+		});
+
 		it('Default length is 10', function() {
 			let table = $('#example').DataTable();
 			expect($('#example tbody tr').length).toBe(10);
@@ -14,6 +19,7 @@ describe('pageLength Option', function() {
 		});
 
 		dt.html('basic');
+
 		it('Set initial length to 25', function() {
 			table = $('#example').DataTable({
 				pageLength: 25
@@ -24,6 +30,7 @@ describe('pageLength Option', function() {
 		});
 
 		dt.html('basic');
+
 		it('Set initial length to 100', function() {
 			table = $('#example').DataTable({
 				pageLength: 100
@@ -34,6 +41,7 @@ describe('pageLength Option', function() {
 		});
 
 		dt.html('basic');
+
 		it('Set initial length to 23 (unknown select menu length)', function() {
 			table = $('#example').DataTable({
 				pageLength: 23

@@ -22,7 +22,7 @@ register<PageMethod>('page()', function (action) {
 register<ApiPage['info']>('page.info()', function () {
 	var settings = this.context[0],
 		start = settings._iDisplayStart,
-		len = settings.oFeatures.paging ? settings._iDisplayLength : -1,
+		len = settings.oFeatures.paging ? settings.pageLength : -1,
 		visRecords = recordsDisplay(settings),
 		all = len === -1;
 
@@ -51,7 +51,7 @@ register<PageLenMethod>('page.len()', function (len?) {
 	// function expects.
 	if (len === undefined || len === null) {
 		return this.context.length !== 0
-			? this.context[0]._iDisplayLength
+			? this.context[0].pageLength
 			: undefined;
 	}
 

@@ -6,9 +6,9 @@ describe('orderFixed option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
+
 		it('No fixed sorting by default', function() {
-			var table = $('#example').DataTable();
-			expect(table.settings()[0].aaSortingFixed.length).toBe(0);
+			expect(DataTable.defaults.orderFixed).toEqual([]);
 		});
 	});
 

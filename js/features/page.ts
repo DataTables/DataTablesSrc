@@ -48,7 +48,7 @@ register<Partial<IFeaturePagingOptions>>(
 		let opts: IFeaturePagingOptions = Object.assign(
 			{
 				buttons: ext.pager.numbers_length,
-				type: settings.sPaginationType,
+				type: settings.pagingType,
 				boundaryNumbers: true,
 				firstLast: true,
 				previousNext: true,
@@ -120,7 +120,7 @@ function _pagingDraw(
 	let plugin = opts.type ? ext.pager[opts.type] : _pagingDynamic,
 		aria = settings.oLanguage.oAria.paginate || {},
 		start = settings._iDisplayStart,
-		len = settings._iDisplayLength,
+		len = settings.pageLength,
 		visRecords = recordsDisplay(settings),
 		all = len === -1,
 		page = all ? 0 : Math.ceil(start / len),
