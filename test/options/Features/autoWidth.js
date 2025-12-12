@@ -9,7 +9,7 @@ describe( "autoWidth option", function() {
 		dt.html( 'basic' );
 		it("Auto Width enabled by default", function () {
 			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.bAutoWidth).toBeTruthy();
+			expect(DataTable.defaults.autoWidth).toBeTruthy();
 		});
 		it("First column has a width assigned to it", function () {
 			expect($('#example colgroup col:eq(0)').attr('style').match(/width/i)).toBeTruthy();
@@ -46,7 +46,7 @@ describe( "autoWidth option", function() {
 			$('#example').dataTable( {
 				"autoWidth": true
 			});
-			expect($.fn.dataTable.defaults.bAutoWidth).toBe(true);
+			expect(DataTable.defaults.autoWidth).toBe(true);
 		});
 		it("First column has a width assigned to it", function () {
 			expect($('#example colgroup col:eq(0)').attr('style').match(/width/i)).toBeTruthy();

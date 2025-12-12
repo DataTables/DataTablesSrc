@@ -172,7 +172,7 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 		cleanHeader(tfoot, 'footer');
 		settings.colgroup.remove();
 
-		settings.aaSorting = [];
+		settings.order = [];
 		settings.aaSortingFixed = [];
 		sortingClasses(settings);
 

@@ -9,7 +9,7 @@ describe('lengthChange option', function() {
 		it('Exists by default', function() {
 			$('#example').dataTable();
 			expect($('div.dt-length').length).toBe(1);
-			expect($.fn.dataTable.defaults.bLengthChange).toBe(true);
+			expect(DataTable.defaults.lengthChange).toBe(true);
 		});
 
 		it('Correct place in DOM (before filter)', function() {

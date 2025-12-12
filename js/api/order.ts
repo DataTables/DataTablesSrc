@@ -16,7 +16,7 @@ register<ApiOrderOverload>('order()', function (order, dir) {
 
 	if (order === undefined) {
 		// get
-		return ctx.length !== 0 ? ctx[0].aaSorting : undefined;
+		return ctx.length !== 0 ? ctx[0].order : undefined;
 	}
 
 	// set
@@ -35,7 +35,7 @@ register<ApiOrderOverload>('order()', function (order, dir) {
 
 		sortResolve(settings, resolved, order);
 
-		settings.aaSorting = resolved;
+		settings.order = resolved;
 	});
 });
 
@@ -91,7 +91,7 @@ register<ApiColumnsMethods<any>['order']>(
 		}
 		else {
 			return this.iterator('table', function (settings, i) {
-				settings.aaSorting = that[i].map(function (col: number) {
+				settings.order = that[i].map(function (col: number) {
 					return [col, dir];
 				});
 			});

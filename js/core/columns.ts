@@ -130,7 +130,7 @@ export function columnOptions(settings: Context, colIdx: number, oOptions?: Part
 	}
 
 	/* Feature sorting overrides column specific when off */
-	if (!settings.oFeatures.bSort) {
+	if (!settings.oFeatures.ordering) {
 		oCol.bSortable = false;
 	}
 }

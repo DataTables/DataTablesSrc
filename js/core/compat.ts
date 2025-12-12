@@ -125,8 +125,8 @@ export function compatMap(
 	newKey: string,
 	oldKey: string
 ) {
-	if (o[newKey] !== undefined) {
-		o[oldKey] = o[newKey];
+	if (o[oldKey] !== undefined) {
+		o[newKey] = o[oldKey];
 	}
 }
 
@@ -206,10 +206,13 @@ export function compatOpts(init: Record<string, any>) {
  * @param init Object to map
  */
 export function compatCols(init: any) {
+	// Convert any old style parameters to camelCase
+	hungarianToCamel(init);
+
 	// typeof columnDefaults
-	compatMap(init, 'orderable', 'bSortable');
-	compatMap(init, 'orderData', 'aDataSort');
-	compatMap(init, 'orderSequence', 'asSorting');
+	compatMap(init, 'orderable', 'sortable');
+	compatMap(init, 'orderData', 'dataSort');
+	compatMap(init, 'orderSequence', 'sorting');
 	compatMap(init, 'orderDataType', 'sortDataType');
 
 	// orderData can be given as an integer

@@ -8,7 +8,7 @@ describe('ordering option ', function() {
 		dt.html('basic');
 		it('Default should be set to true', function() {
 			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.bSort).toBe(true);
+			expect(DataTable.defaults.ordering).toBe(true);
 		});
 		it('Default sorting is enabled', function() {
 			expect($('#example thead th:eq(0)').hasClass('dt-ordering-asc')).toBe(true);

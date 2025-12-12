@@ -32,7 +32,7 @@ register<Partial<IFeatureInfoOptions>>(
 	'info',
 	function (settings, optsIn) {
 		// For compatibility with the legacy `info` top level option
-		if (!settings.oFeatures.bInfo) {
+		if (!settings.oFeatures.info) {
 			return null;
 		}
 

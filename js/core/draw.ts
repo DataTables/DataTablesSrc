@@ -3,9 +3,9 @@ import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import { Row, TableCellElement, TableRowElement } from '../model/row';
 import {
-    Context,
-    HeaderStructure,
-    HeaderStructureCell
+	Context,
+	HeaderStructure,
+	HeaderStructureCell
 } from '../model/settings';
 import util from '../util';
 import { ajaxUpdate } from './ajax';
@@ -547,8 +547,8 @@ export function reDraw(
 	recompute?: boolean
 ) {
 	let features = settings.oFeatures,
-		doSort = features.bSort,
-		doFilter = features.bFilter;
+		doSort = features.ordering,
+		doFilter = features.searching;
 
 	if (recompute === undefined || recompute === true) {
 		// Resolve any column types that are unknown due to addition or invalidation
@@ -855,9 +855,9 @@ export function displayEnd(ctx: Context) {
 		calc = start + len,
 		records = ctx.aiDisplay.length,
 		features = ctx.oFeatures,
-		paginate = features.paginate;
+		paginate = features.paging;
 
-	if (features.bServerSide) {
+	if (features.serverSide) {
 		return paginate === false || len === -1
 			? start + records
 			: Math.min(start + len, ctx._iRecordsDisplay);

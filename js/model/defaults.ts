@@ -407,7 +407,7 @@ const defaults = {
 	 * should contain an array for each column to be sorted initially containing
 	 * the column's index and a direction string ('asc' or 'desc').
 	 */
-	aaSorting: [[0, 'asc']],
+	order: [[0, 'asc']],
 
 	/**
 	 * This parameter is basically identical to the `sorting` parameter, but
@@ -547,7 +547,7 @@ const defaults = {
 	 * as an optimisation (it takes some time to calculate the widths) if the
 	 * tables widths are passed in using `columns`.
 	 */
-	bAutoWidth: true,
+	autoWidth: true,
 
 	/**
 	 * Deferred rendering can provide DataTables with a huge speed boost when you
@@ -556,7 +556,7 @@ const defaults = {
 	 * each row until they are needed for a draw - saving a significant amount of
 	 * time.
 	 */
-	bDeferRender: true,
+	deferRender: true,
 
 	/**
 	 * Replace a DataTable which matches the given selector and replace it with
@@ -572,27 +572,26 @@ const defaults = {
 	 * will match a row containing those words, even if not in the order that was
 	 * specified (this allow matching across multiple columns). Note that if you
 	 * wish to use filtering in DataTables this must remain 'true' - to remove the
-	 * default filtering input box and retain filtering abilities, please use
-	 * {@link DataTable.defaults.dom}.
+	 * default filtering input box and retain filtering abilities, please use `layout`
 	 */
-	bFilter: true,
+	searching: true,
 
 	/**
 	 * Used only for compatibility with DT1
 	 * @deprecated
 	 */
-	bInfo: true,
+	info: true,
 
 	/**
 	 * Used only for compatibility with DT1
 	 * @deprecated
 	 */
-	bLengthChange: true,
+	lengthChange: true,
 
 	/**
 	 * Enable or disable pagination.
 	 */
-	paginate: true,
+	paging: true,
 
 	/**
 	 * Enable or disable the display of a 'processing' indicator when the table is
@@ -600,7 +599,7 @@ const defaults = {
 	 * large amounts of data where it can take a noticeable amount of time to sort
 	 * the entries.
 	 */
-	bProcessing: false,
+	processing: false,
 
 	/**
 	 * Retrieve the DataTables object for the given selector. Note that if the
@@ -628,19 +627,19 @@ const defaults = {
 	 * `ajax` parameter must also be given in order to give DataTables a
 	 * source to obtain the required data for each draw.
 	 */
-	bServerSide: false,
+	serverSide: false,
 
 	/**
 	 * Enable or disable sorting of columns. Sorting of individual columns can be
 	 * disabled by the `sortable` option for each column.
 	 */
-	bSort: true,
+	ordering: true,
 
 	/**
 	 * Enable or display DataTables' ability to sort multiple columns at the
 	 * same time (activated by shift-click by the user).
 	 */
-	bSortMulti: true,
+	orderMulti: true,
 
 	/**
 	 * Allows control over whether DataTables should use the top (true) unique
@@ -662,7 +661,7 @@ const defaults = {
 	 * classes are removed and added) so for large data sets you might want to
 	 * turn this off.
 	 */
-	bSortClasses: true,
+	orderClasses: true,
 
 	/**
 	 * Enable or disable state saving. When enabled HTML5 `localStorage` will be
@@ -670,7 +669,7 @@ const defaults = {
 	 * display length, filtering and sorting. As such when the end user reloads
 	 * the page the display will match what thy had previously set up.
 	 */
-	bStateSave: false,
+	stateSave: false,
 
 	/**
 	 * This function is called when a TR element is created (and all TD child

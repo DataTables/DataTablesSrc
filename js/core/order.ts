@@ -56,9 +56,9 @@ export function sortInit(settings: Context) {
 	// Need to resolve the user input array into our internal structure
 	var order: OrderState[] = [];
 
-	sortResolve(settings, order, settings.aaSorting);
+	sortResolve(settings, order, settings.order);
 
-	settings.aaSorting = order;
+	settings.order = order;
 }
 
 /**
@@ -99,8 +99,8 @@ export function sortAttachListener(
 				// If the first entry is no sort, then subsequent
 				// sort columns are ignored
 				if (
-					settings.aaSorting.length === 1 &&
-					settings.aaSorting[0][1] === ''
+					settings.order.length === 1 &&
+					settings.order[0][1] === ''
 				) {
 					break;
 				}
@@ -226,7 +226,7 @@ export function sortFlatten(settings: Context) {
 		fixedObj = is.plainObject(fixed),
 		nestedSort = [] as any;
 
-	if (!settings.oFeatures.bSort) {
+	if (!settings.oFeatures.ordering) {
 		return aSort;
 	}
 
@@ -240,7 +240,7 @@ export function sortFlatten(settings: Context) {
 		sortResolve(settings, nestedSort, fixed.pre);
 	}
 
-	sortResolve(settings, nestedSort, settings.aaSorting);
+	sortResolve(settings, nestedSort, settings.order);
 
 	if (fixedObj && fixed.post) {
 		sortResolve(settings, nestedSort, fixed.post);
@@ -435,7 +435,7 @@ export function sortAdd(
 	shift: boolean
 ) {
 	var col = settings.aoColumns[colIdx];
-	var sorting = settings.aaSorting;
+	var sorting = settings.order;
 	var asSorting = col.asSorting;
 	var nextSortIdx;
 	var next = function (a: OrderState, overflow?: boolean) {
@@ -453,11 +453,11 @@ export function sortAdd(
 
 	// Convert to 2D array if needed
 	if (typeof sorting[0] === 'number') {
-		sorting = settings.aaSorting = [sorting as unknown as OrderState];
+		sorting = settings.order = [sorting as unknown as OrderState];
 	}
 
 	// If appending the sort then we are multi-column sorting
-	if ((shift || addIndex) && settings.oFeatures.bSortMulti) {
+	if ((shift || addIndex) && settings.oFeatures.orderMulti) {
 		// Are we already doing some kind of sort on this column?
 		var sortIdx = pluck(sorting, '0').indexOf(colIdx);
 
@@ -526,7 +526,7 @@ export function sortingClasses(settings: Context) {
 	var features = settings.oFeatures;
 	var i, iLen, colIdx;
 
-	if (features.bSort && features.bSortClasses) {
+	if (features.ordering && features.orderClasses) {
 		// Remove old sorting classes
 		for (i = 0, iLen = oldSort.length; i < iLen; i++) {
 			colIdx = oldSort[i].src;

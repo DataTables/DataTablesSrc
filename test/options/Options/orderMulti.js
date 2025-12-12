@@ -7,7 +7,7 @@ describe('orderMulti option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Enabled by default', function() {
-			expect($.fn.dataTable.defaults.bSortMulti).toBe(true);
+			expect(DataTable.defaults.orderMulti).toBe(true);
 		});
 
 		it('Verify enabled by default', async function() {

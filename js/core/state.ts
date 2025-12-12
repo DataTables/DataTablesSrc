@@ -19,7 +19,7 @@ export function saveState(settings: Context) {
 
 	// Sort state saving uses [[idx, order]] structure.
 	var sorting: any[] = [];
-	sortResolve(settings, sorting, settings.aaSorting);
+	sortResolve(settings, sorting, settings.order);
 
 	/* Store the interesting variables */
 	var columns = settings.aoColumns;
@@ -49,7 +49,7 @@ export function saveState(settings: Context) {
 		state,
 	]);
 
-	if (settings.oFeatures.bStateSave && !settings.bDestroying) {
+	if (settings.oFeatures.stateSave && !settings.bDestroying) {
 		settings.fnStateSaveCallback.call(settings.oInstance, settings, state);
 	}
 }
@@ -61,7 +61,7 @@ export function saveState(settings: Context) {
  * @param callback Callback to execute when the state has been loaded
  */
 export function loadState(settings: Context, callback: () => void) {
-	if (!settings.oFeatures.bStateSave) {
+	if (!settings.oFeatures.stateSave) {
 		callback();
 		return;
 	}
@@ -160,7 +160,7 @@ export function implementState(
 
 	// Order
 	if (s.order !== undefined) {
-		settings.aaSorting = [];
+		settings.order = [];
 
 		for (let i = 0; i < s.order.length; i++) {
 			let col = s.order[i];
@@ -183,7 +183,7 @@ export function implementState(
 				return;
 			}
 
-			settings.aaSorting.push(set as any);
+			settings.order.push(set as any);
 		}
 	}
 

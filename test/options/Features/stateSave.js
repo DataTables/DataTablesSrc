@@ -9,7 +9,7 @@ describe('stateSave option', function() {
 		dt.html('basic');
 		it('stateSave disabled by default', function() {
 			let table = $('#example').DataTable();
-			expect($.fn.dataTable.defaults.bStateSave).toBe(false);
+			expect(DataTable.defaults.stateSave).toBe(false);
 			expect(table.state.loaded()).toBeNull();
 		});
 

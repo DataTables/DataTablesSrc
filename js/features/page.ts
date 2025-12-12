@@ -41,7 +41,7 @@ register<Partial<IFeaturePagingOptions>>(
 	'paging',
 	function (settings, optsIn) {
 		// Don't show the paging input if the table doesn't have paging enabled
-		if (!settings.oFeatures.paginate) {
+		if (!settings.oFeatures.paging) {
 			return null;
 		}
 

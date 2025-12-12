@@ -107,7 +107,7 @@ export interface Features {
 	 * Flag to say if DataTables should automatically try to calculate the
 	 * optimum table and columns widths (true) or not (false).
 	 */
-	bAutoWidth: boolean;
+	autoWidth: boolean;
 
 	/**
 	 * Delay the creation of TR and TD elements until they are actually
@@ -115,67 +115,67 @@ export interface Features {
 	 * increase for Ajax source and JavaScript source data, but makes no
 	 * difference at all for DOM and server-side processing tables.
 	 */
-	bDeferRender: boolean;
+	deferRender: boolean;
 
 	/**
 	 * Enable filtering on the table or not. Note that if this is disabled
 	 * then there is no filtering at all on the table, including fnFilter.
 	 * To just remove the filtering input use sDom and remove the 'f' option.
 	 */
-	bFilter: boolean;
+	searching: boolean;
 
 	/**
 	 * Used only for compatibility with DT1
 	 * @deprecated
 	 */
-	bInfo: boolean;
+	info: boolean;
 
 	/**
 	 * Used only for compatibility with DT1
 	 * @deprecated
 	 */
-	bLengthChange: boolean;
+	lengthChange: boolean;
 
 	/**
 	 * Pagination enabled or not. Note that if this is disabled then length
 	 * changing must also be disabled.
 	 */
-	paginate: boolean;
+	paging: boolean;
 
 	/**
 	 * Processing indicator enable flag whenever DataTables is enacting a
 	 * user request - typically an Ajax request for server-side processing.
 	 */
-	bProcessing: boolean;
+	processing: boolean;
 
 	/**
 	 * Server-side processing enabled flag - when enabled DataTables will
 	 * get all data from the server for every draw - there is no filtering,
 	 * sorting or paging done on the client-side.
 	 */
-	bServerSide: boolean;
+	serverSide: boolean;
 
 	/**
 	 * Sorting enablement flag.
 	 */
-	bSort: boolean;
+	ordering: boolean;
 
 	/**
 	 * Multi-column sorting
 	 */
-	bSortMulti: boolean;
+	orderMulti: boolean;
 
 	/**
 	 * Apply a class to the columns which are being sorted to provide a
 	 * visual highlight or not. This can slow things down when enabled since
 	 * there is a lot of DOM interaction.
 	 */
-	bSortClasses: boolean;
+	orderClasses: boolean;
 
 	/**
 	 * State saving enablement flag.
 	 */
-	bStateSave: boolean;
+	stateSave: boolean;
 };
 
 /**
@@ -310,7 +310,7 @@ export interface Context {
 	/**
 	 * Sorting that is applied to the table.
 	 */
-	aaSorting: OrderState[];
+	order: OrderState[];
 
 	/**
 	 * Sorting that is always applied to the table (i.e. prefixed in front of
@@ -702,18 +702,18 @@ const defaults: Partial<Context> = {
 	api: null,
 	renderer: null,
 	oFeatures: {
-		bAutoWidth: false,
-		bDeferRender: false,
-		bFilter: false,
-		bInfo: false,
-		bLengthChange: false,
-		paginate: false,
-		bProcessing: false,
-		bServerSide: false,
-		bSort: false,
-		bSortMulti: false,
-		bSortClasses: false,
-		bStateSave: false
+		autoWidth: false,
+		deferRender: false,
+		searching: false,
+		info: false,
+		lengthChange: false,
+		paging: false,
+		processing: false,
+		serverSide: false,
+		ordering: false,
+		orderMulti: false,
+		orderClasses: false,
+		stateSave: false
 	},
 	oScroll: {
 		bCollapse: null,
@@ -772,7 +772,7 @@ const defaults: Partial<Context> = {
 	oPreviousSearch: createSearch(),
 	searchFixed: {},
 	aoPreSearchCols: [],
-	aaSorting: [],
+	order: [],
 	aaSortingFixed: [],
 	sDestroyWidth: 0,
 	aoRowCallback: [],

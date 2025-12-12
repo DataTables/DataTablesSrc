@@ -13,7 +13,7 @@ import { getRowDisplay } from './draw';
  */
 export function calculateColumnWidths(settings: Context) {
 	// Not interested in doing column width calculation if auto-width is disabled
-	if (!settings.oFeatures.bAutoWidth) {
+	if (!settings.oFeatures.autoWidth) {
 		return;
 	}
 

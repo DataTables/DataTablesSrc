@@ -7,7 +7,7 @@ describe('searching option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Default is enabled', function() {
-			expect($.fn.dataTable.defaults.bFilter).toBe(true);
+			expect(DataTable.defaults.searching).toBe(true);
 		});
 
 		dt.html('basic');

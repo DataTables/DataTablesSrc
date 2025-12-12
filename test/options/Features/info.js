@@ -8,7 +8,7 @@ describe('info option- Feature', function() {
 		dt.html('basic');
 		it('Info div set to true by default', function() {
 			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.bInfo).toBe(true);
+			expect(DataTable.defaults.info).toBe(true);
 		});
 
 		dt.html('basic');

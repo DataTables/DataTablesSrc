@@ -7,7 +7,7 @@ import {
 	escapeObject,
 	listener,
 	log,
-	map,
+	map
 } from './api/support';
 import { addColumn, applyColumnDefs, columnOptions } from './core/columns';
 import {
@@ -15,8 +15,7 @@ import {
 	browserDetect,
 	camelToHungarian,
 	compatCols,
-	compatOpts,
-	hungarianToCamel,
+	compatOpts
 } from './core/compat';
 import { getCellData } from './core/data';
 import { detectHeader } from './core/draw';
@@ -104,10 +103,6 @@ const DataTable = function (
 		compatOpts(defaults);
 		compatCols(columnDefaults);
 
-		// Convert legacy notation parameters to camelCase
-		hungarianToCamel(defaults);
-		hungarianToCamel(columnDefaults);
-
 		/* Setting up the initialisation object */
 		camelToHungarian(
 			defaults,
@@ -180,7 +175,7 @@ const DataTable = function (
 			colgroup: dom.c('colgroup').prependTo(tableEl),
 			fastData: function (row, column, type) {
 				return getCellData(settings, row, column, type);
-			},
+			}
 		});
 
 		settings.nTable = tableEl;
@@ -218,23 +213,23 @@ const DataTable = function (
 
 		// Map the initialisation options onto the settings object
 		map(settings.oFeatures, config, [
-			'paginate',
-			'bLengthChange',
-			'bFilter',
-			'bSort',
-			'bSortMulti',
-			'bInfo',
-			'bProcessing',
-			'bAutoWidth',
-			'bSortClasses',
-			'bServerSide',
-			'bDeferRender',
+			'autoWidth',
+			'deferRender',
+			'info',
+			'lengthChange',
+			'orderClasses',
+			'ordering',
+			'orderMulti',
+			'paging',
+			'processing',
+			'searching',
+			'serverSide'
 		]);
 		map(settings, config, [
 			'ajax',
 			'fnFormatNumber',
 			'sServerMethod',
-			'aaSorting',
+			'order',
 			'aaSortingFixed',
 			'aLengthMenu',
 			'sPaginationType',
@@ -257,13 +252,13 @@ const DataTable = function (
 			['iCookieDuration', 'iStateDuration'], // backwards compat
 			['oSearch', 'oPreviousSearch'],
 			['aoSearchCols', 'aoPreSearchCols'],
-			['iDisplayLength', '_iDisplayLength'],
+			['iDisplayLength', '_iDisplayLength']
 		]);
 		map(settings.oScroll, config, [
 			['sScrollX', 'sX'],
 			['sScrollXInner', 'sXInner'],
 			['sScrollY', 'sY'],
-			['bScrollCollapse', 'bCollapse'],
+			['bScrollCollapse', 'bCollapse']
 		]);
 		map(settings.oLanguage, config, 'fnInfoCallback');
 
@@ -296,7 +291,7 @@ const DataTable = function (
 		util.object.assign(oClasses, ext.classes, config.oClasses);
 		table.classAdd(oClasses.table);
 
-		if (!settings.oFeatures.paginate) {
+		if (!settings.oFeatures.paging) {
 			config.iDisplayStart = 0;
 		}
 
@@ -378,7 +373,7 @@ const DataTable = function (
 								_: loop + '.display',
 								sort: sort !== null ? loop + '.@data-' + sort : undefined,
 								type: sort !== null ? loop + '.@data-' + sort : undefined,
-								filter: filter !== null ? loop + '.@data-' + filter : undefined,
+								filter: filter !== null ? loop + '.@data-' + filter : undefined
 							};
 							col._isArrayHost = true;
 
@@ -393,15 +388,15 @@ const DataTable = function (
 		callbackReg(settings, 'aoDrawCallback', saveState);
 
 		var features = settings.oFeatures;
-		if (config.bStateSave) {
-			features.bStateSave = true;
+		if (config.stateSave) {
+			features.stateSave = true;
 		}
 
 		// If aaSorting is not defined, then we use the first indicator in
 		// asSorting in case that has been altered, so the default sort reflects
 		// that option
-		if (config.aaSorting === undefined) {
-			var sorting = settings.aaSorting;
+		if (config.order === undefined) {
+			var sorting = settings.order;
 			for (i = 0, iLen = sorting.length; i < iLen; i++) {
 				sorting[i][1] = settings.aoColumns[i].asSorting[0];
 			}
@@ -416,7 +411,7 @@ const DataTable = function (
 			if (
 				settings.bSorted ||
 				dataSource(settings) === 'ssp' ||
-				features.bDeferRender
+				features.deferRender
 			) {
 				sortingClasses(settings);
 			}
@@ -491,7 +486,7 @@ const DataTable = function (
 
 					// Continue on as best we can
 					initialise(settings);
-				},
+				}
 			});
 		}
 		else {
@@ -539,7 +534,7 @@ DataTable.models = models;
 DataTable.defaults = defaults;
 
 DataTable.feature = {
-	register: registerFeature,
+	register: registerFeature
 };
 
 // Register the libraries

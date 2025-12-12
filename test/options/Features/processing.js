@@ -6,7 +6,7 @@ describe('Processing option', function() {
 	describe('Check Default ', function() {
 		dt.html('basic');
 		it('Processing is off by default', function() {
-			expect($.fn.dataTable.defaults.bProcessing).toEqual(false);
+			expect(DataTable.defaults.processing).toEqual(false);
 		});
 	});
 	describe('Check can enable', function() {
