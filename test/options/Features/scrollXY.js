@@ -5,6 +5,12 @@ describe('scrollY / X option', function() {
 	});
 	describe('XY tests', function() {
 		dt.html('basic');
+
+		it('Defaults are empty strings', function () {
+			expect(DataTables.defaults.scrollX).toBe('');
+			expect(DataTables.defaults.scrollY).toBe('');
+		});
+
 		it('Header follows x-scrolling', function() {
 			$('body').css('white-space', 'nowrap');
 			dt.container().css('width', 400);

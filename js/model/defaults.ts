@@ -620,7 +620,7 @@ const defaults = {
 	 * enabled) will cause DataTables to collapse the table's viewport down when
 	 * the result set will fit within the given Y height.
 	 */
-	bScrollCollapse: false,
+	scrollCollapse: false,
 
 	/**
 	 * Configure DataTables to use server-side processing. Note that the
@@ -1107,7 +1107,7 @@ const defaults = {
 	 * case it will be treated as a pixel measurement). Setting as simply `true`
 	 * is recommended.
 	 */
-	sScrollX: '',
+	scrollX: '',
 
 	/**
 	 * This property can be used to force a DataTable to use more width than it
@@ -1116,8 +1116,10 @@ const defaults = {
 	 * "over-sizing" the table, and thus forcing scrolling. This property can by
 	 * any CSS unit, or a number (in which case it will be treated as a pixel
 	 * measurement).
+	 * 
+	 * @deprecated
 	 */
-	sScrollXInner: '',
+	scrollXInner: '',
 
 	/**
 	 * Enable vertical scrolling. Vertical scrolling will constrain the DataTable
@@ -1127,7 +1129,7 @@ const defaults = {
 	 * enabled at the same time). This property can be any CSS unit, or a number
 	 * (in which case it will be treated as a pixel measurement).
 	 */
-	sScrollY: '',
+	scrollY: '',
 
 	/**
 	 * Set the HTTP method that is used to make the Ajax call for server-side

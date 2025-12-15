@@ -19,10 +19,10 @@ export function calculateColumnWidths(settings: Context) {
 
 	var table = settings.nTable,
 		columns = settings.aoColumns,
-		scroll = settings.oScroll,
-		scrollY = scroll.sY,
-		scrollX = scroll.sX,
-		scrollXInner = scroll.sXInner,
+		scroll = settings.scroll,
+		scrollY = scroll.y,
+		scrollX = scroll.x,
+		scrollXInner = scroll.xInner,
 		visibleColumns = getColumns(settings, 'bVisible'),
 		tableWidthAttr = table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentElement!,

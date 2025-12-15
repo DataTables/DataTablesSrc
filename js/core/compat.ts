@@ -283,5 +283,5 @@ export function browserDetect(ctx: Context) {
 	}
 
 	Object.assign(ctx.oBrowser, browser);
-	ctx.oScroll.iBarWidth = browser.barWidth;
+	ctx.scroll.barWidth = browser.barWidth;
 }

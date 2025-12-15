@@ -147,9 +147,9 @@ export function adjustColumnSizing(settings: Context) {
 	calculateColumnWidths(settings);
 	columnSizes(settings);
 
-	let scroll = settings.oScroll;
+	let scroll = settings.scroll;
 
-	if (scroll.sY !== '' || scroll.sX !== '') {
+	if (scroll.y !== '' || scroll.x !== '') {
 		scrollDraw(settings);
 	}
 
@@ -170,7 +170,7 @@ export function columnSizes(settings: Context) {
 		if (width) {
 			cols[i].colEl.css('width', width);
 
-			if (settings.oScroll.sX) {
+			if (settings.scroll.x) {
 				cols[i].colEl.css('min-width', width);
 			}
 		}

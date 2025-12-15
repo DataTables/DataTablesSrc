@@ -9,7 +9,7 @@ import { Context } from '../model/settings';
  */
 export function processingHtml(ctx: Context) {
 	var table = ctx.nTable;
-	var scrolling = ctx.oScroll.sX !== '' || ctx.oScroll.sY !== '';
+	var scrolling = ctx.scroll.x !== '' || ctx.scroll.y !== '';
 
 	if (ctx.features.processing) {
 		var n = dom

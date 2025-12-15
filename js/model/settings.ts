@@ -16,32 +16,32 @@ interface IScroll {
 	 * When the table is shorter in height than sScrollY, collapse the
 	 * table container down to the height of the table (when true).
 	 */
-	bCollapse: boolean | null;
+	collapse: boolean | null;
 
 	/**
 	 * Width of the scrollbar for the web-browser's platform. Calculated
 	 * during table initialisation.
 	 */
-	iBarWidth: number;
+	barWidth: number;
 
 	/**
 	 * Viewport width for horizontal scrolling. Horizontal scrolling is
 	 * disabled if an empty string.
 	 */
-	sX: string;
+	x: string;
 
 	/**
 	 * Width to expand the table to when using x-scrolling. Typically you
 	 * should not need to use this.
 	 *  @deprecated
 	 */
-	sXInner: string;
+	xInner: string;
 
 	/**
 	 * Viewport height for vertical scrolling. Vertical scrolling is disabled
 	 * if an empty string.
 	 */
-	sY: string | number;
+	y: string | number;
 }
 
 export interface ISortItem {
@@ -192,7 +192,7 @@ export interface Context {
 	features: Features;
 
 	/** Scrolling settings for a table. */
-	oScroll: IScroll;
+	scroll: IScroll;
 
 	/** Language information for the table. */
 	oLanguage: {
@@ -717,12 +717,12 @@ const defaults: Partial<Context> = {
 		orderClasses: false,
 		stateSave: false
 	},
-	oScroll: {
-		bCollapse: null,
-		iBarWidth: 0,
-		sX: '',
-		sXInner: '',
-		sY: ''
+	scroll: {
+		collapse: null,
+		barWidth: 0,
+		x: '',
+		xInner: '',
+		y: ''
 	},
 	oLanguage: {
 		fnInfoCallback: null,

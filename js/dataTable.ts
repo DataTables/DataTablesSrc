@@ -245,11 +245,11 @@ const DataTable = function (
 			['search', 'previousSearch'],
 			['searchCols', 'preSearchCols']
 		]);
-		map(settings.oScroll, config, [
-			['sScrollX', 'sX'],
-			['sScrollXInner', 'sXInner'],
-			['sScrollY', 'sY'],
-			['bScrollCollapse', 'bCollapse']
+		map(settings.scroll, config, [
+			['scrollX', 'x'],
+			['scrollXInner', 'xInner'],
+			['scrollY', 'y'],
+			['scrollCollapse', 'collapse']
 		]);
 		map(settings.oLanguage, config, 'fnInfoCallback');
 

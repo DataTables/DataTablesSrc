@@ -14,14 +14,14 @@ export function featureHtmlTable(settings: Context) {
 	let table = dom.s(settings.nTable);
 
 	// Scrolling from here on in
-	let scroll = settings.oScroll;
+	let scroll = settings.scroll;
 
-	if (scroll.sX === '' && scroll.sY === '') {
+	if (scroll.x === '' && scroll.y === '') {
 		return settings.nTable;
 	}
 
-	let scrollX = scroll.sX;
-	let scrollY = scroll.sY;
+	let scrollX = scroll.x;
+	let scrollY = scroll.y;
 	let classes = settings.oClasses.scrolling;
 	let caption = settings.captionNode;
 	let captionSide: string | null = caption
@@ -69,7 +69,7 @@ export function featureHtmlTable(settings: Context) {
 						.classAdd(classes.header.inner)
 						.css({
 							'box-sizing': 'content-box',
-							width: scroll.sXInner || '100%',
+							width: scroll.xInner || '100%',
 						})
 						.append(
 							headerClone
@@ -149,7 +149,7 @@ export function featureHtmlTable(settings: Context) {
 
 	scrollBody.css('max-height', size(scrollY));
 
-	if (!scroll.bCollapse) {
+	if (!scroll.collapse) {
 		scrollBody.css('height', size(scrollY));
 	}
 
@@ -179,8 +179,8 @@ export function featureHtmlTable(settings: Context) {
 export function scrollDraw(settings: Context) {
 	// Given that this is such a monster function, a lot of variables are use
 	// to try and keep the minimised size as small as possible
-	let scroll = settings.oScroll,
-		barWidth = scroll.iBarWidth,
+	let scroll = settings.scroll,
+		barWidth = scroll.barWidth,
 		divHeader = settings.nScrollHead,
 		divHeaderInner = divHeader.children('div'),
 		divHeaderTable = divHeaderInner.children('table'),
@@ -277,7 +277,7 @@ export function scrollDraw(settings: Context) {
 				if (colWidth !== colSizes[i].width) {
 					colEl.css('width', colSizes[i].width + 'px');
 
-					if (scroll.sX) {
+					if (scroll.x) {
 						colEl.css('minWidth', colSizes[i].width + 'px');
 					}
 				}
