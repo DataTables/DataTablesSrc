@@ -678,7 +678,7 @@ const defaults = {
 	 * elements have been inserted), or registered if using a DOM source, allowing
 	 * manipulation of the TR element (adding classes etc).
 	 */
-	fnCreatedRow: null as
+	createdRow: null as
 		| ((
 				settings: Context,
 				data: any,
@@ -690,14 +690,16 @@ const defaults = {
 	/**
 	 * This function is called on every 'draw' event, and allows you to
 	 * dynamically modify any aspect you want about the created DOM.
+	 * 
+	 * @deprecated Use `on.draw` or `draw` event
 	 */
-	fnDrawCallback: null as ((settings: Context) => void) | null,
+	drawCallback: null as ((settings: Context) => void) | null,
 
 	/**
-	 * Identical to fnHeaderCallback() but for the table footer this function
+	 * Identical to headerCallback() but for the table footer this function
 	 * allows you to modify the table footer on every 'draw' event.
 	 */
-	fnFooterCallback: null,
+	footerCallback: null,
 
 	/**
 	 * When rendering large numbers in the information element for the table
@@ -717,7 +719,7 @@ const defaults = {
 	 * dynamically modify the header row. This can be used to calculate and
 	 * display useful information about the table.
 	 */
-	fnHeaderCallback: null,
+	headerCallback: null,
 
 	/**
 	 * The information element can be used to convey information about the current
@@ -725,30 +727,34 @@ const defaults = {
 	 * DataTables are quite capable of dealing with most customisations, there may
 	 * be times where you wish to customise the string further. This callback
 	 * allows you to do exactly that.
+	 * 
+	 * @deprecated Use the `callback` option for the `info` feature
 	 */
-	fnInfoCallback: null,
+	infoCallback: null,
 
 	/**
 	 * Called when the table has been initialised. Normally DataTables will
 	 * initialise sequentially and there will be no need for this function,
 	 * however, this does not hold true when using external language information
 	 * since that is obtained using an async XHR call.
+	 * 
+	 * @deprecated Use `init` event
 	 */
-	fnInitComplete: null,
+	initComplete: null,
 
 	/**
 	 * Called at the very start of each table draw and can be used to cancel the
 	 * draw by returning false, any other return (including undefined) results in
 	 * the full draw occurring).
 	 */
-	fnPreDrawCallback: null,
+	preDrawCallback: null,
 
 	/**
 	 * This function allows you to 'post process' each row after it have been
 	 * generated for each table draw, but before it is rendered on screen. This
 	 * function might be used for setting the row class name etc.
 	 */
-	fnRowCallback: null,
+	rowCallback: null,
 
 	/**
 	 * Load the table state. With this function you can define from where, and how, the
@@ -773,14 +779,19 @@ const defaults = {
 	 * prior to the settings object being modified by the saved state. Note that for
 	 * plug-in authors, you should use the `stateLoadParams` event to load parameters for
 	 * a plug-in.
+	 * 
+	 * @deprecated Use `stateLoadParams` event
 	 */
-	fnStateLoadParams: null,
+	stateLoadParams: null,
 
 	/**
-	 * Callback that is called when the state has been loaded from the state saving method
-	 * and the DataTables settings object has been modified as a result of the loaded state.
+	 * Callback that is called when the state has been loaded from the state
+	 * saving method and the DataTables settings object has been modified as a
+	 * result of the loaded state.
+	 * 
+	 * @deprecated Use `stateLoaded` event
 	 */
-	fnStateLoaded: null,
+	stateLoaded: null,
 
 	/**
 	 * Save the table state. This function allows you to define where and how the state
@@ -799,18 +810,21 @@ const defaults = {
 	},
 
 	/**
-	 * Callback which allows modification of the state to be saved. Called when the table
-	 * has changed state a new state save is required. This method allows modification of
-	 * the state saving object prior to actually doing the save, including addition or
-	 * other state properties or modification. Note that for plug-in authors, you should
-	 * use the `stateSaveParams` event to save parameters for a plug-in.
+	 * Callback which allows modification of the state to be saved. Called when
+	 * the table has changed state a new state save is required. This method
+	 * allows modification of the state saving object prior to actually doing
+	 * the save, including addition or other state properties or modification.
+	 * Note that for plug-in authors, you should use the `stateSaveParams` event
+	 * to save parameters for a plug-in.
+	 * 
+	 * @deprecated Use `stateSaveParams` event
 	 */
-	fnStateSaveParams: null,
+	stateSaveParams: null,
 
 	/**
-	 * Duration for which the saved state information is considered valid. After this period
-	 * has elapsed the state will be returned to the default.
-	 * Value is given in seconds.
+	 * Duration for which the saved state information is considered valid. After
+	 * this period has elapsed the state will be returned to the default. Value
+	 * is given in seconds.
 	 */
 	stateDuration: 7200,
 

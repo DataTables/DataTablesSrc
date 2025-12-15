@@ -3,7 +3,7 @@ import util from '../util';
 import { AjaxOptions, HttpMethod } from '../util/ajax';
 import { GetFunction, JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
-import { AjaxData, FunctionFormatNumber, Layout, OrderState } from './interface';
+import { AjaxData, FunctionFormatNumber, FunctionInfoCallback, Layout, OrderState } from './interface';
 import { Row } from './row';
 import createSearch, { SearchInput, SearchOptions } from './search';
 import { State, StateLoad } from './state';
@@ -196,7 +196,7 @@ export interface Context {
 
 	/** Language information for the table. */
 	oLanguage: {
-		fnInfoCallback: null, // TODO
+		infoCallback: null | FunctionInfoCallback,
 		sInfoEmpty: string,
 		sInfoPostFix: string,
 		sInfoFiltered: string,
@@ -322,60 +322,6 @@ export interface Context {
 	 * If restoring a table - we should restore its width
 	 */
 	sDestroyWidth: number;
-
-	/**
-	 * Callback functions array for every time a row is inserted (i.e. on a draw).
-	 */
-	aoRowCallback: Function[];
-
-	/**
-	 * Callback functions for the header on each draw.
-	 */
-	aoHeaderCallback: Function[];
-
-	/**
-	 * Callback function for the footer on each draw.
-	 */
-	aoFooterCallback: Function[];
-
-	/**
-	 * Array of callback functions for draw callback functions
-	 */
-	aoDrawCallback: FunctionDrawCallback[];
-
-	/**
-	 * Array of callback functions for row created function
-	 */
-	aoRowCreatedCallback: Function[];
-
-	/**
-	 * Callback functions for just before the table is redrawn. A return of
-	 * false will be used to cancel the draw.
-	 */
-	aoPreDrawCallback: Function[];
-
-	/**
-	 * Callback functions for when the table has been initialised.
-	 */
-	aoInitComplete: Function[];
-
-	/**
-	 * Callbacks for modifying the settings to be stored for state saving, prior to
-	 * saving state.
-	 */
-	aoStateSaveParams: Function[];
-
-	/**
-	 * Callbacks for modifying the settings that have been stored for state saving
-	 * prior to using the stored values to restore the state.
-	 */
-	aoStateLoadParams: Function[];
-
-	/**
-	 * Callbacks for operating on the settings object once the saved state has been
-	 * loaded
-	 */
-	aoStateLoaded: Function[];
 
 	/**
 	 * Cache the table ID for quick access
@@ -594,12 +540,6 @@ export interface Context {
 	oInit: any; // TODO defaults
 
 	/**
-	 * Destroy callback functions - for plug-ins to attach themselves to the
-	 * destroy so they can clean up markup and events.
-	 */
-	aoDestroyCallback: Function[];
-
-	/**
 	 * The DataTables object for this table
 	 */
 	oInstance: any; // TODO
@@ -697,6 +637,68 @@ export interface Context {
 	windowResizeCb: () => void;
 
 	fastData: (row: number, column: number, type: string) => any;
+
+	callbacks: {
+		/**
+		 * Callback functions array for every time a row is inserted (i.e. on a draw).
+		 */
+		row: Function[];
+
+		/**
+		 * Callback functions for the header on each draw.
+		 */
+		header: Function[];
+
+		/**
+		 * Callback function for the footer on each draw.
+		 */
+		footer: Function[];
+
+		/**
+		 * Array of callback functions for draw callback functions
+		 */
+		draw: FunctionDrawCallback[];
+
+		/**
+		 * Array of callback functions for row created function
+		 */
+		rowCreated: Function[];
+
+		/**
+		 * Callback functions for just before the table is redrawn. A return of
+		 * false will be used to cancel the draw.
+		 */
+		preDraw: Function[];
+
+		/**
+		 * Callback functions for when the table has been initialised.
+		 */
+		init: Function[];
+
+		/**
+		 * Callbacks for modifying the settings to be stored for state saving, prior to
+		 * saving state.
+		 */
+		stateSaveParams: Function[];
+
+		/**
+		 * Callbacks for modifying the settings that have been stored for state saving
+		 * prior to using the stored values to restore the state.
+		 */
+		stateLoadParams: Function[];
+
+		/**
+		 * Callbacks for operating on the settings object once the saved state has been
+		 * loaded
+		 */
+		stateLoaded: Function[];
+
+		/**
+		 * Destroy callback functions - for plug-ins to attach themselves to the
+		 * destroy so they can clean up markup and events.
+		 */
+		destroy: Function[];
+	}
 }
 
 
@@ -725,7 +727,7 @@ const defaults: Partial<Context> = {
 		y: ''
 	},
 	oLanguage: {
-		fnInfoCallback: null,
+		infoCallback: null,
 		sInfoEmpty: '',
 		sInfoPostFix: '',
 		sInfoFiltered: '',
@@ -778,16 +780,6 @@ const defaults: Partial<Context> = {
 	order: [],
 	orderFixed: [],
 	sDestroyWidth: 0,
-	aoRowCallback: [],
-	aoHeaderCallback: [],
-	aoFooterCallback: [],
-	aoDrawCallback: [],
-	aoRowCreatedCallback: [],
-	aoPreDrawCallback: [],
-	aoInitComplete: [],
-	aoStateSaveParams: [],
-	aoStateLoadParams: [],
-	aoStateLoaded: [],
 	sTableId: '',
 	bInitialised: false,
 	dom: null,
@@ -813,7 +805,6 @@ const defaults: Partial<Context> = {
 	bSorted: false,
 	sortCellsTop: null,
 	oInit: {},
-	aoDestroyCallback: [],
 	oInstance: null,
 	sInstance: '',
 	tabIndex: 0,
@@ -841,7 +832,20 @@ const defaults: Partial<Context> = {
 	_rowReadObject: false,
 	_bInitComplete: false,
 	layout: {},
-	windowResizeCb: () => {}
+	windowResizeCb: () => {},
+	callbacks: {
+		row: [],
+		header: [],
+		footer: [],
+		draw: [],
+		rowCreated: [],
+		preDraw: [],
+		init: [],
+		stateSaveParams: [],
+		stateLoadParams: [],
+		stateLoaded: [],
+		destroy: []
+	}
 }
 
 

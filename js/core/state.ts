@@ -44,7 +44,7 @@ export function saveState(settings: Context) {
 	};
 
 	settings.oSavedState = state;
-	callbackFire(settings, 'aoStateSaveParams', 'stateSaveParams', [
+	callbackFire(settings, 'stateSaveParams', 'stateSaveParams', [
 		settings,
 		state,
 	]);
@@ -118,7 +118,7 @@ export function implementState(
 	// set and cancelling of loading by returning false
 	var abStateLoad = callbackFire(
 		settings,
-		'aoStateLoadParams',
+		'stateLoadParams',
 		'stateLoadParams',
 		[settings, s]
 	);
@@ -268,6 +268,6 @@ export function implementState(
 	}
 
 	settings._bLoadingState = false;
-	callbackFire(settings, 'aoStateLoaded', 'stateLoaded', [settings, s]);
+	callbackFire(settings, 'stateLoaded', 'stateLoaded', [settings, s]);
 	callback();
 }

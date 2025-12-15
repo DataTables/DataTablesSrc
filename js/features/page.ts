@@ -74,7 +74,7 @@ register<Partial<IFeaturePagingOptions>>(
 			_pagingDraw(settings, host.children(), opts);
 		};
 
-		settings.aoDrawCallback.push(draw);
+		settings.callbacks.draw.push(draw);
 
 		// Responsive redraw of paging control
 		dom.s(settings.nTable).on('column-sizing.dt.DT', draw);

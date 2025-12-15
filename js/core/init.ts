@@ -124,5 +124,5 @@ export function initComplete(settings: Context) {
 	adjustColumnSizing(settings);
 
 	callbackFire(settings, null, 'plugin-init', args, true);
-	callbackFire(settings, 'aoInitComplete', 'init', args, true);
+	callbackFire(settings, 'init', 'init', args, true);
 }

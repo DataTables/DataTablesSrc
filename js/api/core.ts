@@ -135,7 +135,7 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 		settings.bDestroying = true;
 
 		// Fire off the destroy callbacks for plug-ins etc
-		callbackFire(settings, 'aoDestroyCallback', 'destroy', [settings], true);
+		callbackFire(settings, 'destroy', 'destroy', [settings], true);
 
 		// If not being removed from the document, make all columns visible
 		if (!remove) {

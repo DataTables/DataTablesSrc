@@ -133,9 +133,13 @@ export function bindAction(
  * @param store Name of the array storage for the callbacks in oSettings
  * @param fn Function to be called back
  */
-export function callbackReg(ctx: Context, store: string, fn?: Function | null) {
+export function callbackReg(
+	ctx: Context,
+	store: keyof Context['callbacks'],
+	fn?: any | null
+) {
 	if (fn) {
-		(ctx as any)[store].push(fn);
+		ctx.callbacks[store].push(fn);
 	}
 }
 
@@ -154,7 +158,7 @@ export function callbackReg(ctx: Context, store: string, fn?: Function | null) {
  */
 export function callbackFire(
 	ctx: Context,
-	callbackArr: string | null,
+	callbackArr: keyof Context['callbacks'] | null,
 	eventName: string | null,
 	args: any,
 	bubbles: boolean = false
@@ -162,7 +166,7 @@ export function callbackFire(
 	var ret: any[] = [];
 
 	if (callbackArr) {
-		ret = (ctx as any)[callbackArr]
+		ret = ctx.callbacks[callbackArr]
 			.slice()
 			.reverse()
 			.map(function (val: Function) {

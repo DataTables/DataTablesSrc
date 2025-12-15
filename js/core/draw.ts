@@ -149,7 +149,7 @@ export function createTr(
 			}
 		}
 
-		callbackFire(settings, 'aoRowCreatedCallback', 'row-created', [
+		callbackFire(settings, 'rowCreated', 'row-created', [
 			nTr,
 			rowData,
 			rowIdx,
@@ -408,7 +408,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	start(settings);
 
 	/* Provide a pre-callback function which can be used to cancel the draw is false is returned */
-	var aPreDraw = callbackFire(settings, 'aoPreDrawCallback', 'preDraw', [
+	var aPreDraw = callbackFire(settings, 'preDraw', 'preDraw', [
 		settings
 	]);
 
@@ -481,7 +481,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 			// Row callback functions - might want to manipulate the row
 			// iRowCount and j are not currently documented. Are they at all
 			// useful?
-			callbackFire(settings, 'aoRowCallback', null, [
+			callbackFire(settings, 'row', null, [
 				nRow,
 				aoData._aData,
 				iRowCount,
@@ -498,7 +498,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	}
 
 	/* Header and footer callbacks */
-	callbackFire(settings, 'aoHeaderCallback', 'header', [
+	callbackFire(settings, 'header', 'header', [
 		dom.s(settings.nTHead).children('tr').get(0),
 		getDataMaster(settings),
 		iDisplayStart,
@@ -506,7 +506,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 		aiDisplay
 	]);
 
-	callbackFire(settings, 'aoFooterCallback', 'footer', [
+	callbackFire(settings, 'footer', 'footer', [
 		dom.s(settings.nTFoot).children('tr').get(0),
 		getDataMaster(settings),
 		iDisplayStart,
@@ -525,7 +525,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 		);
 
 	/* Call all required callback functions for the end of a draw */
-	callbackFire(settings, 'aoDrawCallback', 'draw', [settings], true);
+	callbackFire(settings, 'draw', 'draw', [settings], true);
 
 	/* Draw is complete, sorting and filtering must be as well */
 	settings.bSorted = false;

@@ -203,7 +203,7 @@ const DataTable = function (
 			init
 		);
 
-		// Map the initialisation options onto the settings object
+		// Map the initialisation options onto the context object
 		map(settings.features, config, [
 			'autoWidth',
 			'deferRender',
@@ -251,19 +251,19 @@ const DataTable = function (
 			['scrollY', 'y'],
 			['scrollCollapse', 'collapse']
 		]);
-		map(settings.oLanguage, config, 'fnInfoCallback');
+		map(settings.oLanguage, config, 'infoCallback');
 
 		/* Callback functions which are array driven */
-		callbackReg(settings, 'aoDrawCallback', config.fnDrawCallback);
-		callbackReg(settings, 'aoStateSaveParams', config.fnStateSaveParams);
-		callbackReg(settings, 'aoStateLoadParams', config.fnStateLoadParams);
-		callbackReg(settings, 'aoStateLoaded', config.fnStateLoaded);
-		callbackReg(settings, 'aoRowCallback', config.fnRowCallback);
-		callbackReg(settings, 'aoRowCreatedCallback', config.fnCreatedRow);
-		callbackReg(settings, 'aoHeaderCallback', config.fnHeaderCallback);
-		callbackReg(settings, 'aoFooterCallback', config.fnFooterCallback);
-		callbackReg(settings, 'aoInitComplete', config.fnInitComplete);
-		callbackReg(settings, 'aoPreDrawCallback', config.fnPreDrawCallback);
+		callbackReg(settings, 'draw', config.drawCallback);
+		callbackReg(settings, 'stateSaveParams', config.stateSaveParams);
+		callbackReg(settings, 'stateLoadParams', config.stateLoadParams);
+		callbackReg(settings, 'stateLoaded', config.stateLoaded);
+		callbackReg(settings, 'row', config.rowCallback);
+		callbackReg(settings, 'rowCreated', config.createdRow);
+		callbackReg(settings, 'header', config.headerCallback);
+		callbackReg(settings, 'footer', config.footerCallback);
+		callbackReg(settings, 'init', config.initComplete);
+		callbackReg(settings, 'preDraw', config.preDrawCallback);
 
 		settings.rowIdFn = util.get(config.rowId);
 
@@ -376,7 +376,7 @@ const DataTable = function (
 
 		// Must be done after everything which can be overridden by the state
 		// saving!
-		callbackReg(settings, 'aoDrawCallback', saveState);
+		callbackReg(settings, 'draw', saveState);
 
 		var features = settings.features;
 		if (config.stateSave) {
@@ -398,7 +398,7 @@ const DataTable = function (
 		// disabled
 		sortingClasses(settings);
 
-		callbackReg(settings, 'aoDrawCallback', function () {
+		callbackReg(settings, 'draw', function () {
 			if (
 				settings.bSorted ||
 				dataSource(settings) === 'ssp' ||

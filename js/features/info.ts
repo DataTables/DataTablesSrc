@@ -42,7 +42,7 @@ register<Partial<IFeatureInfoOptions>>(
 
 		let opts = Object.assign(
 			{
-				callback: lang.fnInfoCallback,
+				callback: lang.infoCallback,
 				empty: lang.sInfoEmpty,
 				postfix: lang.sInfoPostFix,
 				search: lang.sInfoFiltered,
@@ -52,7 +52,7 @@ register<Partial<IFeatureInfoOptions>>(
 		);
 
 		// Update display on each draw
-		settings.aoDrawCallback.push(function (s) {
+		settings.callbacks.draw.push(function (s) {
 			updateInfo(s, opts, n);
 		});
 

@@ -9,6 +9,11 @@ describe('infoCallback Option', function() {
 		let table;
 
 		dt.html('basic');
+
+		it('Default value', function () {
+			expect(DataTable.defaults.infoCallback).toBe(null);
+		});
+
 		it('Count the arguments', function() {
 			table = $('#example').DataTable({
 				infoCallback: function() {

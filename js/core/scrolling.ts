@@ -158,7 +158,7 @@ export function featureHtmlTable(settings: Context) {
 	settings.nScrollFoot = scrollFoot;
 
 	// On redraw - align columns
-	settings.aoDrawCallback.push(scrollDraw);
+	settings.callbacks.draw.push(scrollDraw);
 
 	return scroller.get(0);
 }
