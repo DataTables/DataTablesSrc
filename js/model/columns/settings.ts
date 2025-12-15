@@ -29,10 +29,7 @@ export default class Settings {
 	 * sorted on (typically it will be a single integer pointing at itself, but
 	 * that doesn't need to be the case).
 	 */
-	public aDataSort: number[] = [];
-
-	/** Legacy */
-	public iDataSort: number;
+	public orderData: number[] = [];
 
 	/**
 	 * Define the sorting directions that are applied to the column, in sequence

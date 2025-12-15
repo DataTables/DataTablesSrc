@@ -222,9 +222,13 @@ export function compatCols(init: any) {
 
 	// orderData can be given as an integer
 	var dataSort = init.aDataSort;
+	var orderData = init.orderData;
 
-	if (typeof dataSort === 'number' && !Array.isArray(dataSort)) {
-		init.aDataSort = [dataSort];
+	if (typeof dataSort === 'number') {
+		init.orderData = [dataSort];
+	}
+	if (typeof orderData === 'number' ) {
+		init.orderData = [orderData];
 	}
 
 	// Backwards compatibility for mDataProp from 1.9-

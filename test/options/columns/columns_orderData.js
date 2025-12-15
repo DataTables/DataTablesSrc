@@ -6,6 +6,10 @@ describe('columns.orderData option', function() {
 
 	dt.html('basic');
 
+	it('Default value', function () {
+		expect(DataTable.defaults.column.orderData).toBe(null);
+	});
+
 	it('Sorting on column 1 is uneffected', function() {
 		$('#example').dataTable({
 			columns: [null, null, { orderData: [2, 3] }, null, null, { orderData: [0] }]

@@ -19,17 +19,16 @@ import { calculateColumnWidths } from './sizing';
  */
 export function addColumn(settings: Context) {
 	// Add column to aoColumns array
-	let oDefaults = columnDefaults;
-	let iCol = settings.columns.length;
-	let oCol = util.object.assign<ColumnModel>({}, new ColumnModel(), oDefaults, {
-		aDataSort: oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
-		mData: oDefaults.mData ? oDefaults.mData : iCol,
-		idx: iCol,
+	let columnIdx = settings.columns.length;
+	let column = util.object.assign<ColumnModel>({}, new ColumnModel(), columnDefaults, {
+		orderData: columnDefaults.orderData ? columnDefaults.orderData : [columnIdx],
+		mData: columnDefaults.mData ? columnDefaults.mData : columnIdx,
+		idx: columnIdx,
 		searchFixed: {},
-		colEl: dom.c<HTMLTableColElement>('col').attr('data-dt-column', iCol),
+		colEl: dom.c<HTMLTableColElement>('col').attr('data-dt-column', columnIdx),
 	});
 
-	settings.columns.push(oCol);
+	settings.columns.push(column);
 
 	// Add search object for column specific search. Note that the `searchCols[
 	// iCol ]` passed into extend can be undefined. This allows the user to give
@@ -37,8 +36,7 @@ export function addColumn(settings: Context) {
 	// default
 	let searchCols = settings.preSearchCols;
 
-	// ALLAN Think this is overwriting search somehow?
-	searchCols[iCol] = createSearch(hungarianToCamel(searchCols[iCol]));
+	searchCols[columnIdx] = createSearch(hungarianToCamel(searchCols[columnIdx]));
 }
 
 /**
@@ -84,13 +82,7 @@ export function columnOptions(
 			column.sClass = origClass + ' ' + column.sClass;
 		}
 
-		/* iDataSort to be applied (backwards compatibility), but aDataSort will take
-		 * priority if defined
-		 */
-		if (options.iDataSort !== undefined) {
-			column.aDataSort = [options.iDataSort];
-		}
-		map(column, options, 'aDataSort');
+		map(column, options, 'orderData');
 	}
 
 	/* Cache the data get and set functions for speed */

@@ -250,7 +250,7 @@ export function sortFlatten(settings: Context) {
 		srcCol = nestedSort[i][0];
 
 		if (aoColumns[srcCol]) {
-			aDataSort = aoColumns[srcCol].aDataSort;
+			aDataSort = aoColumns[srcCol].orderData;
 
 			for (k = 0, kLen = aDataSort.length; k < kLen; k++) {
 				iCol = aDataSort[k];

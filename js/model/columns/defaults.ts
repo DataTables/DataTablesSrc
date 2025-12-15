@@ -131,8 +131,7 @@ const defaults = {
 	 * name / last name columns make sense to do a multi-column sort over the
 	 * two columns.
 	 */
-	aDataSort: null,
-	iDataSort: -1,
+	orderData: null,
 
 	ariaTitle: '',
 
