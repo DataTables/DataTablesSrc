@@ -75,7 +75,7 @@ export function createTr(
 		i,
 		iLen,
 		create,
-		trClass = settings.oClasses.tbody.row;
+		trClass = settings.classes.tbody.row;
 
 	if (row && row.nTr === null) {
 		let rowData = row._aData;
@@ -205,7 +205,7 @@ export function rowAttributes(settings: Context, row: Row) {
  * @returns
  */
 export function buildHead(settings: Context, side: 'header' | 'footer') {
-	let classes = settings.oClasses;
+	let classes = settings.classes;
 	let columns = settings.aoColumns;
 	let i, iLen, row: Dom;
 	let target = dom.s(side === 'header' ? settings.nTHead : settings.nTFoot);
@@ -475,7 +475,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 				dom
 					.s(td)
 					.classAdd(col.sType ? ext.type.className[col.sType] : null) // auto class
-					.classAdd(settings.oClasses.tbody.cell); // all cells
+					.classAdd(settings.classes.tbody.cell); // all cells
 			}
 
 			// Row callback functions - might want to manipulate the row
@@ -607,7 +607,7 @@ function _emptyRow(settings: Context) {
 			dom
 				.c('td')
 				.attr('colSpan', visibleColumns(settings))
-				.classAdd(settings.oClasses.empty.row)
+				.classAdd(settings.classes.empty.row)
 				.html(zero)
 		)
 		.get(0);

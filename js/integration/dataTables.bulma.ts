@@ -70,7 +70,7 @@ DataTable.ext.renderer.pagingContainer.bulma = function (settings, buttonEls) {
 };
 
 DataTable.ext.renderer.layout.bulma = function (settings, container, items) {
-	var classes = settings.oClasses.layout;
+	var classes = settings.classes.layout;
 	var row = DataTable.dom.c('div')
 		.attr('id', items.id || null)
 		.classAdd(items.className || classes.row)

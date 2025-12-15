@@ -115,7 +115,7 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 	remove = remove || false;
 
 	return this.iterator('table', function (settings) {
-		var classes = settings.oClasses;
+		var classes = settings.classes;
 		var table = settings.nTable;
 		var tbody = settings.nTBody;
 		var thead = settings.nTHead;

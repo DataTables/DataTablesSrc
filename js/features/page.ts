@@ -60,14 +60,14 @@ register<Partial<IFeaturePagingOptions>>(
 		let host = dom
 			.c('div')
 			.classAdd(
-				settings.oClasses.paging.container +
+				settings.classes.paging.container +
 					(opts.type ? ' paging_' + opts.type : '')
 			)
 			.append(
 				dom
 					.c('nav')
 					.attr('aria-label', 'pagination')
-					.classAdd(settings.oClasses.paging.nav)
+					.classAdd(settings.classes.paging.nav)
 			);
 
 		let draw = function () {

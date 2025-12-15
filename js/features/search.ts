@@ -31,7 +31,7 @@ register<Partial<IFeatureSearchOptions>>(
 			return null;
 		}
 
-		let classes = settings.oClasses.search;
+		let classes = settings.classes.search;
 		let tableId = settings.sTableId;
 		let language = settings.oLanguage;
 		let previousSearch = settings.previousSearch;

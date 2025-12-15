@@ -22,7 +22,7 @@ export function featureHtmlTable(settings: Context) {
 
 	let scrollX = scroll.x;
 	let scrollY = scroll.y;
-	let classes = settings.oClasses.scrolling;
+	let classes = settings.classes.scrolling;
 	let caption = settings.captionNode;
 	let captionSide: string | null = caption
 		? (caption as any)._captionSide

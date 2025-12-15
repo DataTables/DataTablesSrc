@@ -209,7 +209,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 };
 
 export const layout: IRendererLayout = (settings, container, items) => {
-	let classes = settings.oClasses.layout;
+	let classes = settings.classes.layout;
 	let row = dom
 		.c('div')
 		.attr('id', items.id || null)
@@ -252,7 +252,7 @@ export const pagingButton: IRendererPagingButton = (
 	active: boolean,
 	disabled: boolean
 ) => {
-	var classes = settings.oClasses.paging;
+	var classes = settings.classes.paging;
 	var btnClasses = [classes.button];
 	var btn: Element;
 

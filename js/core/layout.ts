@@ -31,7 +31,7 @@ export interface ILayoutCell {
  * @param settings DataTables settings object
  */
 export function createLayout(ctx: Context) {
-	var classes = ctx.oClasses;
+	var classes = ctx.classes;
 
 	// Wrapper div around everything DataTables controls
 	var insert = dom

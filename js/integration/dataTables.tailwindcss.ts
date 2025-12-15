@@ -59,7 +59,7 @@ DataTable.ext.renderer.pagingButton.tailwindcss = function (
 	active,
 	disabled
 ) {
-	var classes = settings.oClasses.paging;
+	var classes = settings.classes.paging;
 	var btnClasses = [classes.button];
 
 	btnClasses.push(active ? classes.active : classes.notActive);
@@ -81,7 +81,7 @@ DataTable.ext.renderer.pagingContainer.tailwindcss = function (
 	settings,
 	buttonEls
 ) {
-	var classes = settings.oClasses.paging;
+	var classes = settings.classes.paging;
 
 	DataTable.dom.s(buttonEls[0]).classAdd(classes.first);
 	DataTable.dom.s(buttonEls[buttonEls.length - 1]).classAdd(classes.last);

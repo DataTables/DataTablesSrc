@@ -277,10 +277,10 @@ const DataTable = function (
 		/* Browser support detection */
 		browserDetect(settings);
 
-		var oClasses = settings.oClasses;
+		var classes = settings.classes;
 
-		util.object.assign(oClasses, ext.classes, config.oClasses);
-		table.classAdd(oClasses.table);
+		util.object.assign(classes, ext.classes, config.classes);
+		table.classAdd(classes.table);
 
 		if (!settings.features.paging) {
 			config.iDisplayStart = 0;

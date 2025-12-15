@@ -506,7 +506,7 @@ export interface Context {
 	/**
 	 * The classes to use for the table
 	 */
-	oClasses: any; // TODO
+	classes: any; // TODO
 
 	/**
 	 * Flag attached to the settings object so you can check in the draw
@@ -800,7 +800,7 @@ const defaults: Partial<Context> = {
 	_iDisplayStart: 10,
 	_iRecordsTotal: 0,
 	_iRecordsDisplay: 0,
-	oClasses: {},
+	classes: {},
 	bFiltered: false,
 	bSorted: false,
 	sortCellsTop: null,

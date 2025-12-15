@@ -38,7 +38,7 @@ register<Partial<IFeatureInfoOptions>>(
 
 		let lang = settings.oLanguage,
 			tid = settings.sTableId,
-			n = dom.c('div').classAdd(settings.oClasses.info.container);
+			n = dom.c('div').classAdd(settings.classes.info.container);
 
 		let opts = Object.assign(
 			{

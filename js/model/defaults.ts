@@ -857,9 +857,9 @@ const defaults = {
 	 * Classes that DataTables assigns to the various components and features
 	 * that it adds to the HTML table. This allows classes to be configured
 	 * during initialisation in addition to through the static
-	 * {@link DataTable.ext.oStdClasses} object).
+	 * `DataTable.ext.classes`.
 	 */
-	oClasses: {},
+	classes: {},
 
 	/**
 	 * All strings that DataTables uses in the user interface that it creates

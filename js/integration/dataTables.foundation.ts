@@ -78,7 +78,7 @@ DataTable.ext.renderer.layout.foundation = function (
 	container,
 	items
 ) {
-	var classes = settings.oClasses.layout;
+	var classes = settings.classes.layout;
 	var row = DataTable.dom.c('div')
 		.attr('id', items.id || null)
 		.classAdd(items.className || classes.row)

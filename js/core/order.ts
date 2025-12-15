@@ -521,7 +521,7 @@ export function sortAdd(
  */
 export function sortingClasses(settings: Context) {
 	var oldSort = settings.aLastSort;
-	var sortClass = settings.oClasses.order.position;
+	var sortClass = settings.classes.order.position;
 	var sortFlat = sortFlatten(settings);
 	var features = settings.features;
 	var i, iLen, colIdx;
