@@ -176,7 +176,7 @@ export function ajaxUpdate(settings: Context) {
  */
 export function ajaxParameters(settings: Context): AjaxData {
 	var columns = settings.aoColumns,
-		features = settings.oFeatures,
+		features = settings.features,
 		preSearch = settings.previousSearch,
 		preColSearch = settings.preSearchCols,
 		colData = function (idx: number, prop: 'sName' | 'mData') {

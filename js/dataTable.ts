@@ -204,7 +204,7 @@ const DataTable = function (
 		);
 
 		// Map the initialisation options onto the settings object
-		map(settings.oFeatures, config, [
+		map(settings.features, config, [
 			'autoWidth',
 			'deferRender',
 			'info',
@@ -282,7 +282,7 @@ const DataTable = function (
 		util.object.assign(oClasses, ext.classes, config.oClasses);
 		table.classAdd(oClasses.table);
 
-		if (!settings.oFeatures.paging) {
+		if (!settings.features.paging) {
 			config.iDisplayStart = 0;
 		}
 
@@ -378,7 +378,7 @@ const DataTable = function (
 		// saving!
 		callbackReg(settings, 'aoDrawCallback', saveState);
 
-		var features = settings.oFeatures;
+		var features = settings.features;
 		if (config.stateSave) {
 			features.stateSave = true;
 		}

@@ -21,7 +21,7 @@ var __lengthCounter = 0;
 register<Partial<IFeaturePageLengthOptions>>(
 	'pageLength',
 	function (settings, optsIn) {
-		var features = settings.oFeatures;
+		var features = settings.features;
 
 		// For compatibility with the legacy `pageLength` top level option
 		if (!features.paging || !features.lengthChange) {

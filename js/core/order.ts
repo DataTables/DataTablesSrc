@@ -226,7 +226,7 @@ export function sortFlatten(settings: Context) {
 		fixedObj = is.plainObject(fixed),
 		nestedSort = [] as any;
 
-	if (!settings.oFeatures.ordering) {
+	if (!settings.features.ordering) {
 		return aSort;
 	}
 
@@ -457,7 +457,7 @@ export function sortAdd(
 	}
 
 	// If appending the sort then we are multi-column sorting
-	if ((shift || addIndex) && settings.oFeatures.orderMulti) {
+	if ((shift || addIndex) && settings.features.orderMulti) {
 		// Are we already doing some kind of sort on this column?
 		var sortIdx = pluck(sorting, '0').indexOf(colIdx);
 
@@ -523,7 +523,7 @@ export function sortingClasses(settings: Context) {
 	var oldSort = settings.aLastSort;
 	var sortClass = settings.oClasses.order.position;
 	var sortFlat = sortFlatten(settings);
-	var features = settings.oFeatures;
+	var features = settings.features;
 	var i, iLen, colIdx;
 
 	if (features.ordering && features.orderClasses) {

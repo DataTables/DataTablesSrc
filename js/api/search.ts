@@ -24,7 +24,7 @@ register<ApiSearchOverload>(
 
 		// set
 		return this.iterator('table', function (settings) {
-			if (!settings.oFeatures.searching) {
+			if (!settings.features.searching) {
 				return;
 			}
 
@@ -95,7 +95,7 @@ registerPlural<ApiSearchOverload>(
 			}
 
 			// set
-			if (!settings.oFeatures.searching) {
+			if (!settings.features.searching) {
 				return;
 			}
 

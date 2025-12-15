@@ -189,7 +189,7 @@ export interface Context {
 	renderer: any; // TODO
 
 	/** Feature enablement. */
-	oFeatures: Features;
+	features: Features;
 
 	/** Scrolling settings for a table. */
 	oScroll: IScroll;
@@ -703,7 +703,7 @@ export interface Context {
 const defaults: Partial<Context> = {
 	api: null,
 	renderer: null,
-	oFeatures: {
+	features: {
 		autoWidth: false,
 		deferRender: false,
 		searching: false,

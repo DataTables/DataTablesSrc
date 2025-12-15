@@ -67,7 +67,7 @@ export const footer: IRendererFooter = (settings, cell, classes) => {
 export const header: IRendererHeader = (settings, cell, classes) => {
 	cell.classAdd(classes.thead.cell);
 
-	if (!settings.oFeatures.ordering) {
+	if (!settings.features.ordering) {
 		cell.classAdd(classes.order.none);
 	}
 

@@ -546,7 +546,7 @@ export function reDraw(
 	holdPosition?: boolean,
 	recompute?: boolean
 ) {
-	let features = settings.oFeatures,
+	let features = settings.features,
 		doSort = features.ordering,
 		doFilter = features.searching;
 
@@ -854,7 +854,7 @@ export function displayEnd(ctx: Context) {
 		start = ctx._iDisplayStart,
 		calc = start + len,
 		records = ctx.aiDisplay.length,
-		features = ctx.oFeatures,
+		features = ctx.features,
 		paginate = features.paging;
 
 	if (features.serverSide) {

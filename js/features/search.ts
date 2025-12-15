@@ -27,7 +27,7 @@ register<Partial<IFeatureSearchOptions>>(
 	'search',
 	function (settings, optsIn) {
 		// Don't show the input if filtering isn't available on the table
-		if (!settings.oFeatures.searching) {
+		if (!settings.features.searching) {
 			return null;
 		}
 

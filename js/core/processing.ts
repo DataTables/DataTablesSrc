@@ -11,7 +11,7 @@ export function processingHtml(ctx: Context) {
 	var table = ctx.nTable;
 	var scrolling = ctx.oScroll.sX !== '' || ctx.oScroll.sY !== '';
 
-	if (ctx.oFeatures.processing) {
+	if (ctx.features.processing) {
 		var n = dom
 			.c('div')
 			.attr('id', ctx.sTableId + '_processing')

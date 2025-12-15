@@ -49,7 +49,7 @@ export function saveState(settings: Context) {
 		state,
 	]);
 
-	if (settings.oFeatures.stateSave && !settings.bDestroying) {
+	if (settings.features.stateSave && !settings.bDestroying) {
 		settings.stateSaveCallback.call(settings.oInstance, settings, state);
 	}
 }
@@ -61,7 +61,7 @@ export function saveState(settings: Context) {
  * @param callback Callback to execute when the state has been loaded
  */
 export function loadState(settings: Context, callback: () => void) {
-	if (!settings.oFeatures.stateSave) {
+	if (!settings.features.stateSave) {
 		callback();
 		return;
 	}

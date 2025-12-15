@@ -50,7 +50,7 @@ export function addData(
 	}
 
 	/* Create the DOM information, or register it if already present */
-	if (tr || !settings.oFeatures.deferRender) {
+	if (tr || !settings.features.deferRender) {
 		createTr(settings, rowIdx, tr, tds);
 	}
 

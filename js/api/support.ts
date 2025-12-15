@@ -216,7 +216,7 @@ export function lengthOverflow(ctx: Context) {
  * @returns Data source
  */
 export function dataSource(ctx: Context) {
-	if (ctx.oFeatures.serverSide) {
+	if (ctx.features.serverSide) {
 		return 'ssp';
 	}
 	else if (ctx.ajax) {

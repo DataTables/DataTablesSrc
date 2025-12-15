@@ -197,7 +197,7 @@ window.dt_demo = {
 					return;
 				}
 
-				if (settings.oFeatures.bServerSide) {
+				if (settings.features.serverSide) {
 					if (typeof settings.ajax === 'function') {
 						return;
 					}
@@ -205,7 +205,7 @@ window.dt_demo = {
 					DataTable.ajax({
 						url: '../resources/examples.php',
 						data: {
-							src: settings.sAjaxSource || settings.ajax.url || settings.ajax
+							src: settings.ajaxSource || settings.ajax.url || settings.ajax
 						},
 						dataType: 'text',
 						type: 'post',

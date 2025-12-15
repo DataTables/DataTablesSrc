@@ -530,7 +530,7 @@ function toContext(mixedIn: InstSelector) {
 	if (!mixed) {
 		return [];
 	}
-	else if (mixed.nTable && mixed.oFeatures) {
+	else if (mixed.nTable && mixed.features) {
 		// DataTables settings object
 		return [mixed];
 	}
