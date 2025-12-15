@@ -215,7 +215,7 @@ export function ajaxParameters(settings: Context): AjaxData {
 				name: colData(val.col, 'sName')
 			};
 		}),
-		start: settings._iDisplayStart,
+		start: settings.displayStart,
 		length: features.paging ? settings.pageLength : -1,
 		search: {
 			value: preSearch.search.toString(),
@@ -259,8 +259,8 @@ export function ajaxUpdateDraw(settings: Context, json: JSON) {
 	}
 
 	clearTable(settings);
-	settings._iRecordsTotal = parseInt(recordsTotal, 10);
-	settings._iRecordsDisplay = parseInt(recordsFiltered, 10);
+	settings.recordsTotal = parseInt(recordsTotal, 10);
+	settings.recordsDisplay = parseInt(recordsFiltered, 10);
 
 	for (var i = 0, iLen = data.length; i < iLen; i++) {
 		addData(settings, data[i]);

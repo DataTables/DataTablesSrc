@@ -421,7 +421,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	var iRowCount = 0;
 	var bServerSide = dataSource(settings) == 'ssp';
 	var aiDisplay = settings.aiDisplay;
-	var iDisplayStart = settings._iDisplayStart;
+	var iDisplayStart = settings.displayStart;
 	var iDisplayEnd = displayEnd(settings);
 	var columns = settings.aoColumns;
 	var body = dom.s(settings.nTBody);
@@ -568,7 +568,7 @@ export function reDraw(
 	}
 
 	if (holdPosition !== true) {
-		settings._iDisplayStart = 0;
+		settings.displayStart = 0;
 	}
 
 	// Let any modules know about the draw hold position state (used by
@@ -808,17 +808,17 @@ export function detectHeader(
  */
 export function start(settings: Context) {
 	var bServerSide = dataSource(settings) == 'ssp';
-	var iInitDisplayStart = settings.iInitDisplayStart;
+	var iInitDisplayStart = settings.displayStartInit;
 
 	// Check and see if we have an initial draw position from state saving
 	if (iInitDisplayStart !== undefined && iInitDisplayStart !== -1) {
-		settings._iDisplayStart = bServerSide
+		settings.displayStart = bServerSide
 			? iInitDisplayStart
 			: iInitDisplayStart >= recordsDisplay(settings)
 			? 0
 			: iInitDisplayStart;
 
-		settings.iInitDisplayStart = -1;
+		settings.displayStartInit = -1;
 	}
 }
 
@@ -829,7 +829,7 @@ export function start(settings: Context) {
  */
 export function recordsTotal(ctx: Context) {
 	return dataSource(ctx) == 'ssp'
-		? ctx._iRecordsTotal * 1
+		? ctx.recordsTotal * 1
 		: ctx.aiDisplayMaster.length;
 }
 
@@ -840,7 +840,7 @@ export function recordsTotal(ctx: Context) {
  */
 export function recordsDisplay(ctx: Context) {
 	return dataSource(ctx) == 'ssp'
-		? ctx._iRecordsDisplay * 1
+		? ctx.recordsDisplay * 1
 		: ctx.aiDisplay.length;
 }
 
@@ -851,7 +851,7 @@ export function recordsDisplay(ctx: Context) {
  */
 export function displayEnd(ctx: Context) {
 	var len = ctx.pageLength,
-		start = ctx._iDisplayStart,
+		start = ctx.displayStart,
 		calc = start + len,
 		records = ctx.aiDisplay.length,
 		features = ctx.features,
@@ -860,7 +860,7 @@ export function displayEnd(ctx: Context) {
 	if (features.serverSide) {
 		return paginate === false || len === -1
 			? start + records
-			: Math.min(start + len, ctx._iRecordsDisplay);
+			: Math.min(start + len, ctx.recordsDisplay);
 	}
 	else {
 		return !paginate || calc > records || len === -1 ? records : calc;

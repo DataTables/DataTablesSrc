@@ -80,7 +80,7 @@ register<Partial<IFeatureInfoOptions>>(
  *  @param settings DataTables settings object
  */
 function updateInfo(settings: Context, opts: IFeatureInfoOptions, node: Dom) {
-	var start = settings._iDisplayStart + 1,
+	var start = settings.displayStart + 1,
 		end = displayEnd(settings),
 		max = recordsTotal(settings),
 		total = recordsDisplay(settings),

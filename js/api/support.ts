@@ -193,7 +193,7 @@ export function callbackFire(
 }
 
 export function lengthOverflow(ctx: Context) {
-	var start = ctx._iDisplayStart,
+	var start = ctx.displayStart,
 		end = displayEnd(ctx),
 		len = ctx.pageLength;
 
@@ -209,7 +209,7 @@ export function lengthOverflow(ctx: Context) {
 		start = 0;
 	}
 
-	ctx._iDisplayStart = start;
+	ctx.displayStart = start;
 }
 
 /**
@@ -241,7 +241,7 @@ export function macros(ctx: Context, str: string, entries?: number) {
 	// When infinite scrolling, we are always starting at 1. _iDisplayStart is
 	// used only internally
 	var formatter = ctx.formatNumber,
-		start = ctx._iDisplayStart + 1,
+		start = ctx.displayStart + 1,
 		len = ctx.pageLength,
 		vis = recordsDisplay(ctx),
 		max = recordsTotal(ctx),

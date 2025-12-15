@@ -119,7 +119,7 @@ function _pagingDraw(
 
 	let plugin = opts.type ? ext.pager[opts.type] : _pagingDynamic,
 		aria = settings.oLanguage.oAria.paginate || {},
-		start = settings._iDisplayStart,
+		start = settings.displayStart,
 		len = settings.pageLength,
 		visRecords = recordsDisplay(settings),
 		all = len === -1,

@@ -41,7 +41,7 @@ export function initialise(settings: Context) {
 		drawHead(settings, settings.aoFooter);
 
 		// Cache the paging start point, as the first redraw will reset it
-		var iAjaxStart = settings.iInitDisplayStart;
+		var iAjaxStart = settings.displayStartInit;
 
 		// Local data load
 		// Check if there is data passing into the constructor
@@ -90,7 +90,7 @@ export function initialise(settings: Context) {
 					// Reset the init display for cookie saving. We've already done
 					// a filter, and therefore cleared it before. So we need to make
 					// it appear 'fresh'
-					settings.iInitDisplayStart = iAjaxStart;
+					settings.displayStartInit = iAjaxStart;
 
 					reDraw(settings);
 					processingDisplay(settings, false);

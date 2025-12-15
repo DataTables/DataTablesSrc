@@ -25,7 +25,7 @@ export function saveState(settings: Context) {
 	var columns = settings.aoColumns;
 	var state: State = {
 		time: +new Date(),
-		start: settings._iDisplayStart,
+		start: settings.displayStart,
 		length: settings.pageLength,
 		order: sorting.map(function (sort) {
 			// If a column name is available, use it
@@ -150,8 +150,8 @@ export function implementState(
 	// Restore key features
 	if (s.start !== undefined) {
 		if (api === null) {
-			settings._iDisplayStart = s.start;
-			settings.iInitDisplayStart = s.start;
+			settings.displayStart = s.start;
+			settings.displayStartInit = s.start;
 		}
 		else {
 			pageChange(settings, s.start / settings.pageLength);

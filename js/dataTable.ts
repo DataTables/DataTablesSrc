@@ -274,7 +274,7 @@ const DataTable = function (
 			});
 		}
 
-		/* Browser support detection */
+		// Browser support detection
 		browserDetect(settings);
 
 		var classes = settings.classes;
@@ -283,22 +283,22 @@ const DataTable = function (
 		table.classAdd(classes.table);
 
 		if (!settings.features.paging) {
-			config.iDisplayStart = 0;
+			config.displayStart = 0;
 		}
 
-		if (settings.iInitDisplayStart === -1) {
-			/* Display start point, taking into account the save saving */
-			settings.iInitDisplayStart = config.iDisplayStart;
-			settings._iDisplayStart = config.iDisplayStart;
+		if (settings.displayStartInit === -1) {
+			// Display start point, taking into account the save saving
+			settings.displayStartInit = config.displayStart;
+			settings.displayStart = config.displayStart;
 		}
 
-		var defer = config.iDeferLoading;
+		var defer = config.deferLoading;
 		if (defer !== null) {
 			settings.deferLoading = true;
 
 			var tmp = Array.isArray(defer);
-			settings._iRecordsDisplay = tmp ? defer[0] : defer;
-			settings._iRecordsTotal = tmp ? defer[1] : defer;
+			settings.recordsDisplay = tmp ? defer[0] : defer;
+			settings.recordsTotal = tmp ? defer[1] : defer;
 		}
 
 		/*

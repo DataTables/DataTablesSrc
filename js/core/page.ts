@@ -16,7 +16,7 @@ export function pageChange(
 	action: string | number,
 	redraw?: boolean
 ) {
-	var start = settings._iDisplayStart,
+	var start = settings.displayStart,
 		len = settings.pageLength,
 		records = recordsDisplay(settings);
 
@@ -55,8 +55,8 @@ export function pageChange(
 		log(settings, 0, 'Unknown paging action: ' + action, 5);
 	}
 
-	var changed = settings._iDisplayStart !== start;
-	settings._iDisplayStart = start;
+	var changed = settings.displayStart !== start;
+	settings.displayStart = start;
 
 	callbackFire(settings, null, changed ? 'page' : 'page-nc', [settings]);
 

@@ -139,7 +139,7 @@ export function selectorRowIndexes(
 		// fairly senseless otherwise, regardless of what order and search actually
 		// are
 		for (
-			i = settings._iDisplayStart, iLen = displayEnd(settings);
+			i = settings.displayStart, iLen = displayEnd(settings);
 			i < iLen;
 			i++
 		) {

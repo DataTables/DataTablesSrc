@@ -242,7 +242,7 @@ export function scrollDraw(settings: Context) {
 		// [].find, but it wasn't supported in Chrome until Sept 2015, and DT has 10 year
 		// browser support
 		let firstTr: HTMLTableRowElement | null = null;
-		let start = dataSource(settings) !== 'ssp' ? settings._iDisplayStart : 0;
+		let start = dataSource(settings) !== 'ssp' ? settings.displayStart : 0;
 
 		for (let i = start; i < start + settings.aiDisplay.length; i++) {
 			let idx = settings.aiDisplay[i];

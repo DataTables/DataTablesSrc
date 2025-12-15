@@ -93,7 +93,7 @@ register<Partial<IFeatureSearchOptions>>(
 					filterComplete(settings, previousSearch);
 
 					// Need to redraw, without resorting
-					settings._iDisplayStart = 0;
+					settings.displayStart = 0;
 					draw(settings);
 				});
 			}

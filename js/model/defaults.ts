@@ -841,7 +841,7 @@ const defaults = {
 	 * the page number, so if you have 10 records per page and want to start on
 	 * the third page, it should be "20".
 	 */
-	iDisplayStart: 0,
+	displayStart: 0,
 
 	/**
 	 * By default DataTables allows keyboard navigation of the table (sorting, paging,
@@ -1180,7 +1180,7 @@ const defaults = {
 	/**
 	 * For server-side processing - use the data from the DOM for the first draw
 	 */
-	iDeferLoading: null,
+	deferLoading: null,
 
 	/** Event listeners */
 	on: {} as Record<string, any>,

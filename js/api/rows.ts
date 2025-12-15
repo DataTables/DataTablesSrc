@@ -292,8 +292,8 @@ registerPlural<ApiRowMethods<any>['remove']>(
 
 			// For server-side processing tables - subtract the deleted row from
 			// the count
-			if (settings._iRecordsDisplay > 0) {
-				settings._iRecordsDisplay--;
+			if (settings.recordsDisplay > 0) {
+				settings.recordsDisplay--;
 			}
 
 			// Check for an 'overflow' they case for displaying the table

@@ -6,6 +6,11 @@ describe('displayStart Option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
+
+		it('Default is set', function () {
+			expect(DataTable.defaults.displayStart).toBe(0);
+		});
+
 		it('Check default is 0', function() {
 			let table = $('#example').DataTable();
 

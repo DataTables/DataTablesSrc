@@ -487,21 +487,21 @@ export interface Context {
 	/**
 	 * Paging start point - aiDisplay index
 	 */
-	_iDisplayStart: number;
+	displayStart: number;
 
 	/**
 	 * Server-side processing - number of records in the result set
 	 * (i.e. before filtering), Use recordsTotal to get the number independent
 	 * of processing mode.
 	 */
-	_iRecordsTotal: number;
+	recordsTotal: number;
 
 	/**
 	 * Server-side processing - number of records in the current display set
 	 * (i.e. after filtering). Use recordsDisplay to get the number independent
 	 * of processing mode.
 	 */
-	_iRecordsDisplay: number;
+	recordsDisplay: number;
 
 	/**
 	 * The classes to use for the table
@@ -624,7 +624,7 @@ export interface Context {
 	stateSaveCallback: (ctx: Context, data: any) => void;
 	stateLoadCallback: (ctx: Context) => Partial<State>;
 	_reszEvt: boolean;
-	iInitDisplayStart: number;
+	displayStartInit: number;
 	sortDetails: ISortItem[];
 	scrollBarVis: boolean;
 	_drawHold: boolean | undefined;
@@ -797,9 +797,9 @@ const defaults: Partial<Context> = {
 	bDrawing: false,
 	iDrawError: -1,
 	pageLength: 10,
-	_iDisplayStart: 10,
-	_iRecordsTotal: 0,
-	_iRecordsDisplay: 0,
+	displayStart: 0,
+	recordsTotal: 0,
+	recordsDisplay: 0,
 	classes: {},
 	bFiltered: false,
 	bSorted: false,
@@ -825,7 +825,7 @@ const defaults: Partial<Context> = {
 	stateSaveCallback: () => {},
 	stateLoadCallback: () => {return {};},
 	_reszEvt: false,
-	iInitDisplayStart: -1,
+	displayStartInit: -1,
 	sortDetails: [],
 	scrollBarVis: false,
 	_drawHold: false,
