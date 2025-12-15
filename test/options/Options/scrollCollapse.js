@@ -6,6 +6,11 @@ describe('scrollCollapse option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
+
+		it('Default value', function () {
+			expect(DataTable.defaults.scrollCollapse).toBe(false);
+		});
+
 		it('Confirm behaviour when if scrollCollapse is not set', function() {
 			$('#example').dataTable({
 				scrollY: 300
