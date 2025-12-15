@@ -104,7 +104,7 @@ const DataTable = function (
 		compatCols(columnDefaults);
 		compatOpts(init);
 
-		/* Setting up the initialisation object */
+		/* Setting up the initialisation object TODO */
 		camelToHungarian(
 			defaults,
 			util.object.assign(init, escapeObject(table.data())),
@@ -225,12 +225,12 @@ const DataTable = function (
 			'orderFixed',
 			'lengthMenu',
 			'pagingType',
-			'iStateDuration',
-			'bSortCellsTop',
-			'iTabIndex',
-			'sDom',
-			'fnStateLoadCallback',
-			'fnStateSaveCallback',
+			'stateDuration',
+			'sortCellsTop',
+			'tabIndex',
+			'dom',
+			'stateLoadCallback',
+			'stateSaveCallback',
 			'renderer',
 			'searchDelay',
 			'rowId',
@@ -242,9 +242,8 @@ const DataTable = function (
 			'titleRow',
 			'typeDetect',
 			'pageLength',
-			['iCookieDuration', 'iStateDuration'], // backwards compat
-			['oSearch', 'oPreviousSearch'],
-			['aoSearchCols', 'aoPreSearchCols']
+			['search', 'previousSearch'],
+			['searchCols', 'preSearchCols']
 		]);
 		map(settings.oScroll, config, [
 			['sScrollX', 'sX'],

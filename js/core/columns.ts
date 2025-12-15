@@ -7,7 +7,7 @@ import ColumnModel from '../model/columns/settings';
 import createSearch from '../model/search';
 import { Context, HeaderStructure } from '../model/settings';
 import util from '../util';
-import { camelToHungarian, compatCols } from './compat';
+import { camelToHungarian, compatCols, hungarianToCamel } from './compat';
 import { getCellData, writeCell } from './data';
 import { scrollDraw } from './scrolling';
 import { calculateColumnWidths } from './sizing';
@@ -31,12 +31,14 @@ export function addColumn(settings: Context) {
 
 	settings.aoColumns.push(oCol);
 
-	// Add search object for column specific search. Note that the `searchCols[ iCol ]`
-	// passed into extend can be undefined. This allows the user to give a default
-	// with only some of the parameters defined, and also not give a default
-	let searchCols = settings.aoPreSearchCols;
+	// Add search object for column specific search. Note that the `searchCols[
+	// iCol ]` passed into extend can be undefined. This allows the user to give
+	// a default with only some of the parameters defined, and also not give a
+	// default
+	let searchCols = settings.preSearchCols;
 
-	searchCols[iCol] = createSearch(searchCols[iCol]);
+	// ALLAN Think this is overwriting search somehow?
+	searchCols[iCol] = createSearch(hungarianToCamel(searchCols[iCol]));
 }
 
 /**

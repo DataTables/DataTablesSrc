@@ -14,15 +14,15 @@ describe('tabIndex Option', function () {
 	describe('Check the defaults', function () {
 		dt.html('basic');
 
-		it('Test using default value', function () {
+		it('Has a default of 0', function () {
+			expect(DataTable.defaults.tabIndex).toBe(0);
+		});
+
+		it('Header sorting icons get a tabindex', function () {
 			let table = $('#example').DataTable({
 				tabIndex: 0
 			});
 
-			expect(table.settings()[0].iTabIndex).toBe(0);
-		});
-
-		it('Header sorting icons get a tabindex', function () {
 			expect($('th span[tabindex=0]').length).toBe(6);
 		});
 
@@ -37,7 +37,7 @@ describe('tabIndex Option', function () {
 				tabIndex: -1
 			});
 
-			expect(table.settings()[0].iTabIndex).toBe(-1);
+			expect(table.settings()[0].tabIndex).toBe(-1);
 		});
 
 		it('Header sorting icons do not get a tabindex assigned', function () {
@@ -51,7 +51,7 @@ describe('tabIndex Option', function () {
 				tabIndex: 1
 			});
 
-			expect(table.settings()[0].iTabIndex).toBe(1);
+			expect(table.settings()[0].tabIndex).toBe(1);
 		});
 
 		it('Header sorting icons get tabindex 1', function () {

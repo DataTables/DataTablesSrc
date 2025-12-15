@@ -540,7 +540,7 @@ const defaults = {
 	 * `search` and `escapeRegex` (the latter is optional). 'null' is also
 	 * accepted and the default will be used.
 	 */
-	aoSearchCols: [],
+	searchCols: [],
 
 	/**
 	 * Enable or disable automatic column width calculation. This can be disabled
@@ -645,13 +645,15 @@ const defaults = {
 	 * Allows control over whether DataTables should use the top (true) unique
 	 * cell that is found for a single column, or the bottom (false - default).
 	 * This is useful when using complex headers.
+	 *
+	 * @deprecated Use titleRow
 	 */
-	bSortCellsTop: null,
+	sortCellsTop: null,
 
 	/** Defaults for column specific properties */
 	column: columnDefaults,
 
-	/** Specify which row is the title row in the header. Replacement for bSortCellsTop */
+	/** Specify which row is the title row in the header. */
 	titleRow: null,
 
 	/**
@@ -753,10 +755,10 @@ const defaults = {
 	 * state of a table is loaded. By default DataTables will load from `localStorage`
 	 * but you might wish to use a server-side database or cookies.
 	 */
-	fnStateLoadCallback: function (settings: Context) {
+	stateLoadCallback: function (settings: Context) {
 		try {
 			const state = (
-				settings.iStateDuration === -1 ? sessionStorage : localStorage
+				settings.stateDuration === -1 ? sessionStorage : localStorage
 			).getItem('DataTables_' + settings.sInstance + '_' + location.pathname);
 
 			return state ? JSON.parse(state) : {};
@@ -785,9 +787,9 @@ const defaults = {
 	 * information for the table is stored By default DataTables will use `localStorage`
 	 * but you might wish to use a server-side database or cookies.
 	 */
-	fnStateSaveCallback: function (settings: Context, data: any) {
+	stateSaveCallback: function (settings: Context, data: any) {
 		try {
-			(settings.iStateDuration === -1 ? sessionStorage : localStorage).setItem(
+			(settings.stateDuration === -1 ? sessionStorage : localStorage).setItem(
 				'DataTables_' + settings.sInstance + '_' + location.pathname,
 				JSON.stringify(data)
 			);
@@ -810,7 +812,7 @@ const defaults = {
 	 * has elapsed the state will be returned to the default.
 	 * Value is given in seconds.
 	 */
-	iStateDuration: 7200,
+	stateDuration: 7200,
 
 	/**
 	 * Number of rows to display on a single page when using pagination. If
@@ -835,7 +837,7 @@ const defaults = {
 	 * You can overrule this using this parameter if you wish. Use a value of -1 to
 	 * disable built-in keyboard navigation.
 	 */
-	iTabIndex: 0,
+	tabIndex: 0,
 
 	/**
 	 * Classes that DataTables assigns to the various components and features
@@ -1063,7 +1065,7 @@ const defaults = {
 	 * DataTables will use it's smart filtering methods (to word match at
 	 * any point in the data), when false this will not be done.
 	 */
-	oSearch: searchDefaults,
+	search: searchDefaults,
 
 	/**
 	 * Table and control layout. This replaces the legacy `dom` option.
@@ -1077,8 +1079,10 @@ const defaults = {
 
 	/**
 	 * Legacy DOM layout option
+	 * 
+	 * @deprecated Use `layout`
 	 */
-	sDom: null,
+	dom: null,
 
 	/**
 	 * Search delay option. This will throttle full table searches that use the

@@ -8,6 +8,9 @@ describe('stateDuration Option', function() {
 
 	describe('Functional tests', function() {
 		dt.html('basic');
+		it('Default', function() {
+			expect(DataTable.defaults.stateDuration).toBe(7200);
+		});
 		it('Infinite duration', function() {
 			table = $('#example').DataTable({
 				stateSave: true,

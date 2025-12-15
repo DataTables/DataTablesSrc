@@ -5,6 +5,10 @@ describe('searchCols Option', function() {
 	});
 	describe('Functional tests', function() {
 		dt.html('basic');
+		it('Empty array for default', function() {
+			expect(DataTable.defaults.searchCols).toEqual([]);
+		});
+
 		it('Nulls mean no search', function() {
 			$('#example').dataTable({
 				searchCols: [null, null, null, null, null, null]

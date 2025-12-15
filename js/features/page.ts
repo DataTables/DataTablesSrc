@@ -164,8 +164,8 @@ function _pagingDraw(
 			'data-dt-idx': button,
 			tabIndex: btnInfo.disabled
 				? -1
-				: settings.iTabIndex && btn.clicker.nodeName.toLowerCase() !== 'span'
-				? settings.iTabIndex
+				: settings.tabIndex && btn.clicker.nodeName.toLowerCase() !== 'span'
+				? settings.tabIndex
 				: null // `0` doesn't need a tabIndex since it is the default
 		});
 

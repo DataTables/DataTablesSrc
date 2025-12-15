@@ -33,12 +33,12 @@ export function saveState(settings: Context) {
 				? [columns[sort[0]].sName, sort[1]]
 				: sort.slice();
 		}),
-		search: Object.assign({}, settings.oPreviousSearch),
+		search: Object.assign({}, settings.previousSearch),
 		columns: settings.aoColumns.map(function (col, i) {
 			return {
 				name: col.sName,
 				visible: col.bVisible,
-				search: Object.assign({}, settings.aoPreSearchCols[i]),
+				search: Object.assign({}, settings.preSearchCols[i]),
 			};
 		}),
 	};
@@ -50,7 +50,7 @@ export function saveState(settings: Context) {
 	]);
 
 	if (settings.oFeatures.stateSave && !settings.bDestroying) {
-		settings.fnStateSaveCallback.call(settings.oInstance, settings, state);
+		settings.stateSaveCallback.call(settings.oInstance, settings, state);
 	}
 }
 
@@ -70,7 +70,7 @@ export function loadState(settings: Context, callback: () => void) {
 		implementState(settings, state, callback);
 	};
 
-	var state = settings.fnStateLoadCallback.call(
+	var state = settings.stateLoadCallback.call(
 		settings.oInstance,
 		settings,
 		loaded
@@ -107,7 +107,7 @@ export function implementState(
 	}
 
 	// Reject old data
-	var duration = settings.iStateDuration;
+	var duration = settings.stateDuration;
 	if (duration > 0 && s.time < +new Date() - duration * 1000) {
 		settings._bLoadingState = false;
 		callback();
@@ -189,7 +189,7 @@ export function implementState(
 
 	// Search
 	if (s.search !== undefined) {
-		Object.assign(settings.oPreviousSearch, s.search);
+		Object.assign(settings.previousSearch, s.search);
 	}
 
 	// Columns
@@ -253,7 +253,7 @@ export function implementState(
 
 				// Search
 				if (col.search !== undefined) {
-					Object.assign(settings.aoPreSearchCols[i], col.search);
+					Object.assign(settings.preSearchCols[i], col.search);
 				}
 			}
 

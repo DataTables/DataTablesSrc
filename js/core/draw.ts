@@ -559,7 +559,7 @@ export function reDraw(
 		}
 
 		if (doFilter) {
-			filterComplete(settings, settings.oPreviousSearch);
+			filterComplete(settings, settings.previousSearch);
 		}
 		else {
 			// No filtering, so we want to just use the display master

@@ -7,8 +7,7 @@ describe('DOM option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Default DOM variable', function() {
-			var table = $('table').DataTable();
-			expect(table.settings()[0].sDom).toBe(null);
+			expect(DataTable.defaults.dom).toBe(null);
 		});
 	});
 
@@ -39,14 +38,11 @@ describe('DOM option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 
-		it('Check example 1 in code propagates', function() {
+		it('Check example 1 in DOM', function() {
 			var table = $('table').DataTable({
 				dom: '<"wrapper"flipt>'
 			});
-			expect(table.settings()[0].sDom).toBe('<"wrapper"flipt>');
-		});
 
-		it('Check example 1 in DOM', function() {
 			var jqNodes = $('div.dt-container div:not(.dt-autosize, .dt-column-header, .dt-column-footer), div.dt-container table');
 			var nNodes = [];
 			for (var i = 0, iLen = jqNodes.length; i < iLen; i++) {

@@ -7,9 +7,9 @@ describe('stateSaveCallback Option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-		it('Default should not be true', function() {
+		it('Default should not be a function', function() {
 			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.fnStateSaveCallback).not.toBe(true);
+			expect(typeof DataTable.defaults.stateSaveCallback).toBe('function');
 		});
 
 		dt.html('basic');

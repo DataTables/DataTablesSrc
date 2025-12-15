@@ -177,8 +177,8 @@ export function ajaxUpdate(settings: Context) {
 export function ajaxParameters(settings: Context): AjaxData {
 	var columns = settings.aoColumns,
 		features = settings.oFeatures,
-		preSearch = settings.oPreviousSearch,
-		preColSearch = settings.aoPreSearchCols,
+		preSearch = settings.previousSearch,
+		preColSearch = settings.preSearchCols,
 		colData = function (idx: number, prop: 'sName' | 'mData') {
 			return typeof columns[idx][prop] === 'function'
 				? 'function'

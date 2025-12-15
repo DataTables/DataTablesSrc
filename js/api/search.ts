@@ -19,7 +19,7 @@ register<ApiSearchOverload>(
 
 		if (input === undefined) {
 			// get
-			return ctx.length !== 0 ? ctx[0].oPreviousSearch.search : undefined;
+			return ctx.length !== 0 ? ctx[0].previousSearch.search : undefined;
 		}
 
 		// set
@@ -32,7 +32,7 @@ register<ApiSearchOverload>(
 				// New style options to pass to the search builder
 				filterComplete(
 					settings,
-					object.assign(settings.oPreviousSearch, regex, {
+					object.assign(settings.previousSearch, regex, {
 						search: input
 					})
 				);
@@ -41,7 +41,7 @@ register<ApiSearchOverload>(
 				// Compat for the old options
 				filterComplete(
 					settings,
-					object.assign(settings.oPreviousSearch, {
+					object.assign(settings.previousSearch, {
 						search: input,
 						regex: regex === null ? false : regex,
 						smart: smart === null ? true : smart,
@@ -87,7 +87,7 @@ registerPlural<ApiSearchOverload>(
 	'column().search()',
 	function (input, regex, smart, caseInsen) {
 		return this.iterator('column', function (settings, column) {
-			var preSearch = settings.aoPreSearchCols;
+			var preSearch = settings.preSearchCols;
 
 			if (input === undefined) {
 				// get
@@ -115,7 +115,7 @@ registerPlural<ApiSearchOverload>(
 				});
 			}
 
-			filterComplete(settings, settings.oPreviousSearch);
+			filterComplete(settings, settings.previousSearch);
 		});
 	}
 );

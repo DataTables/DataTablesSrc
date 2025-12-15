@@ -110,17 +110,16 @@ export interface Features {
 	autoWidth: boolean;
 
 	/**
-	 * Delay the creation of TR and TD elements until they are actually
-	 * needed by a driven page draw. This can give a significant speed
-	 * increase for Ajax source and JavaScript source data, but makes no
-	 * difference at all for DOM and server-side processing tables.
+	 * Delay the creation of TR and TD elements until they are actually needed
+	 * by a driven page draw. This can give a significant speed increase for
+	 * Ajax source and JavaScript source data, but makes no difference at all
+	 * for DOM and server-side processing tables.
 	 */
 	deferRender: boolean;
 
 	/**
-	 * Enable filtering on the table or not. Note that if this is disabled
-	 * then there is no filtering at all on the table, including fnFilter.
-	 * To just remove the filtering input use sDom and remove the 'f' option.
+	 * Enable filtering on the table or not. Note that if this is disabled then
+	 * there is no filtering at all on the table.
 	 */
 	searching: boolean;
 
@@ -143,8 +142,8 @@ export interface Features {
 	paging: boolean;
 
 	/**
-	 * Processing indicator enable flag whenever DataTables is enacting a
-	 * user request - typically an Ajax request for server-side processing.
+	 * Processing indicator enable flag whenever DataTables is enacting a user
+	 * request - typically an Ajax request for server-side processing.
 	 */
 	processing: boolean;
 
@@ -253,7 +252,7 @@ export interface Context {
 
 	/**
 	 * Array referencing the nodes which are used for the features. The
-	 * parameters of this object match what is allowed by sDom
+	 * parameters of this object match what is allowed by `dom`. Legacy only.
 	 */
 	aanFeatures: any[]; // TODO
 
@@ -296,7 +295,7 @@ export interface Context {
 	 * Store the applied global search information in case we want to force a
 	 * research or compare the old search to a new one.
 	 */
-	oPreviousSearch: SearchOptions;
+	previousSearch: SearchOptions;
 
 	/**
 	 * Store for named searches
@@ -306,7 +305,7 @@ export interface Context {
 	/**
 	 * Store the applied search for each column
 	 */
-	aoPreSearchCols: SearchOptions[];
+	preSearchCols: SearchOptions[];
 
 	/**
 	 * Sorting that is applied to the table.
@@ -416,7 +415,7 @@ export interface Context {
 	/**
 	 * Dictate the positioning of DataTables' control elements
 	 */
-	sDom: null | string;
+	dom: null | string;
 
 	/**
 	 * Search delay (in mS)
@@ -440,7 +439,7 @@ export interface Context {
 	/**
 	 * The state duration (for `stateSave`) in seconds.
 	 */
-	iStateDuration: number;
+	stateDuration: number;
 
 	/**
 	 * Array of callback functions for state saving. Each array element is an
@@ -583,9 +582,11 @@ export interface Context {
 
 	/**
 	 * Indicate that if multiple rows are in the header and there is more than
-	 * one unique cell per column. Replaced by titleRow
+	 * one unique cell per column.
+	 * 
+	 * @deprecated Replaced by titleRow
 	 */
-	bSortCellsTop: null | boolean;
+	sortCellsTop: null | boolean;
 
 	/**
 	 * Initialisation object that is used for the table
@@ -611,10 +612,10 @@ export interface Context {
 	sInstance: string;
 
 	/**
-	 * tabindex attribute value that is added to DataTables control elements, allowing
-	 * keyboard navigation of the table and its controls.
+	 * tabindex attribute value that is added to DataTables control elements,
+	 * allowing keyboard navigation of the table and its controls.
 	 */
-	iTabIndex: number;
+	tabIndex: number;
 
 	/**
 	 * DIV container for the footer scrolling table if scrolling
@@ -680,8 +681,8 @@ export interface Context {
 
 	bDestroying: boolean;
 
-	fnStateSaveCallback: (ctx: Context, data: any) => void;
-	fnStateLoadCallback: (ctx: Context) => Partial<State>;
+	stateSaveCallback: (ctx: Context, data: any) => void;
+	stateLoadCallback: (ctx: Context) => Partial<State>;
 	_reszEvt: boolean;
 	iInitDisplayStart: number;
 	sortDetails: ISortItem[];
@@ -771,9 +772,9 @@ const defaults: Partial<Context> = {
 	aoColumns: [],
 	aoHeader: [],
 	aoFooter: [],
-	oPreviousSearch: createSearch(),
+	previousSearch: createSearch(),
 	searchFixed: {},
-	aoPreSearchCols: [],
+	preSearchCols: [],
 	order: [],
 	orderFixed: [],
 	sDestroyWidth: 0,
@@ -789,11 +790,11 @@ const defaults: Partial<Context> = {
 	aoStateLoaded: [],
 	sTableId: '',
 	bInitialised: false,
-	sDom: null,
+	dom: null,
 	searchDelay: 0,
 	pagingType: 'two_button',
 	pagingControls: 0,
-	iStateDuration: 0,
+	stateDuration: 0,
 	aoStateSave: [],
 	aoStateLoad: [],
 	oSavedState: null,
@@ -810,12 +811,12 @@ const defaults: Partial<Context> = {
 	oClasses: {},
 	bFiltered: false,
 	bSorted: false,
-	bSortCellsTop: null,
+	sortCellsTop: null,
 	oInit: {},
 	aoDestroyCallback: [],
 	oInstance: null,
 	sInstance: '',
-	iTabIndex: 0,
+	tabIndex: 0,
 	aLastSort: [],
 	rowId: '',
 	caption: '',
@@ -830,8 +831,8 @@ const defaults: Partial<Context> = {
 	titleRow: null,
 	_bLoadingState: false,
 	bDestroying: false,
-	fnStateSaveCallback: () => {},
-	fnStateLoadCallback: () => {return {};},
+	stateSaveCallback: () => {},
+	stateLoadCallback: () => {return {};},
 	_reszEvt: false,
 	iInitDisplayStart: -1,
 	sortDetails: [],

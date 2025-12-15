@@ -7,14 +7,24 @@ describe('Search option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Default values should be blank', function() {
+			expect(DataTable.defaults.search).toEqual({
+				boundary: false,
+				caseInsensitive: true,
+				exact: false,
+				regex: false,
+				return: false,
+				search: '',
+				smart: true
+			});
+		});
+
+		it('Run the default - no filter', function() {
 			let table = $('#example').DataTable();
-			expect(table.settings()[0].oPreviousSearch.search).toBe('');
-			expect(table.settings()[0].oPreviousSearch.regex).toBe(false);
-			expect(table.settings()[0].oPreviousSearch.caseInsensitive).toBe(true);
-			expect(table.settings()[0].oPreviousSearch.smart).toBe(true);
+			expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		dt.html('basic');
+
 		it('Search term only in object', function() {
 			$('#example').dataTable({
 				search: {

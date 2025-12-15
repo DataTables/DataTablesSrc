@@ -16,7 +16,7 @@ const __filter_div_textContent = __filter_div.textContent !== undefined;
  * @param input search information
  */
 export function filterComplete(settings: Context, input: SearchOptions) {
-	let columnsSearch = settings.aoPreSearchCols;
+	let columnsSearch = settings.preSearchCols;
 
 	// In server-side processing all filtering is done by the server, so no point hanging around here
 	if (dataSource(settings) != 'ssp') {

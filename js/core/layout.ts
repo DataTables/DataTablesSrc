@@ -42,9 +42,9 @@ export function createLayout(ctx: Context) {
 
 	ctx.nTableWrapper = insert.get(0);
 
-	if (ctx.sDom) {
+	if (ctx.dom) {
 		// Legacy
-		legacyDom(ctx, ctx.sDom, insert);
+		legacyDom(ctx, ctx.dom, insert);
 	}
 	else {
 		var top = convert(ctx, ctx.layout, 'top');

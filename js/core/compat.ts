@@ -1,6 +1,7 @@
 import dom from '../dom';
 import { defaults as searchDefaults } from '../model/search';
 import { Context } from '../model/settings';
+import util from '../util';
 import * as object from '../util/object';
 
 interface HungarianMap {
@@ -20,8 +21,13 @@ const hungarianToCamelRe = /^(a|aa|ai|ao|as|b|fn|i|m|o|s)([A-Z])([a-z].*$)/;
  * earlier which only used hungarian notation, and also with DataTables 1.10 - 2
  * which allowed it to be used.
  */
-export function hungarianToCamel<T extends Record<string, unknown>>(user: T) {
+export function hungarianToCamel<T>(user: T) {
+	if (!user) {
+		return user;
+	}
+
 	let userKeys = Object.keys(user);
+	let userAny = user as any;
 
 	for (let i = 0; i < userKeys.length; i++) {
 		let userKey = userKeys[i];
@@ -30,14 +36,12 @@ export function hungarianToCamel<T extends Record<string, unknown>>(user: T) {
 		// Is the key in hungarian notation?
 		if (match) {
 			// If so map it down
-			// TODO debug
-			// console.log(
-			// 	'mapping from hungarian notation',
-			// 	userKey,
-			// 	match[2].toLowerCase() + match[3],
-			// 	user[userKey]
-			// );
-			(user as any)[match[2].toLowerCase() + match[3]] = user[userKey];
+			(user as any)[match[2].toLowerCase() + match[3]] = userAny[userKey];
+		}
+
+		// Recurse down through the object
+		if (util.is.plainObject(userAny[userKey])) {
+			hungarianToCamel(userAny[userKey]);
 		}
 	}
 
@@ -152,6 +156,7 @@ export function compatOpts(init: Record<string, any>) {
 	compatMap(init, 'pagingType', 'paginationType');
 	compatMap(init, 'pageLength', 'displayLength');
 	compatMap(init, 'searching', 'filter');
+	compatMap(init, 'stateDuration', 'cookieDuration');
 
 	// Boolean initialisation of x-scrolling
 	if (typeof init.scrollX === 'boolean') {

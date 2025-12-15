@@ -7,7 +7,7 @@ describe('stateLoadCallback Option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Should be a function', function() {
-			expect(typeof $.fn.dataTable.defaults.fnStateLoadCallback).toBe('function');
+			expect(typeof DataTable.defaults.stateLoadCallback).toBe('function');
 		});
 
 		dt.html('basic');

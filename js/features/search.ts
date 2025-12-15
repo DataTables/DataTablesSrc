@@ -34,7 +34,7 @@ register<Partial<IFeatureSearchOptions>>(
 		let classes = settings.oClasses.search;
 		let tableId = settings.sTableId;
 		let language = settings.oLanguage;
-		let previousSearch = settings.oPreviousSearch;
+		let previousSearch = settings.previousSearch;
 		let input = '<input type="search" class="' + classes.input + '"/>';
 
 		let opts: IFeatureSearchOptions = Object.assign(

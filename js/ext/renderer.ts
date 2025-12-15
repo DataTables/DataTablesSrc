@@ -125,7 +125,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 			var ariaType = '';
 			var indexes = columns.indexes();
 			var sortDirs = columns.orderable(true).flatten();
-			var tabIndex = settings.iTabIndex;
+			var tabIndex = settings.tabIndex;
 			var canOrder = ctx.orderHandler && orderable;
 
 			cell
