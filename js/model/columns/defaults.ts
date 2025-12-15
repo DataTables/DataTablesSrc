@@ -151,7 +151,7 @@ const defaults = {
 	/**
 	 * Enable or disable ordering on this column.
 	 */
-	bSortable: true,
+	orderable: true,
 
 	/**
 	 * Enable or disable the display of this column.

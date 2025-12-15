@@ -271,7 +271,7 @@ export function scrollDraw(settings: Context) {
 
 			// Check against what the colgroup > col is set to and correct if needed
 			for (let i = 0; i < colSizes.length; i++) {
-				let colEl = settings.aoColumns[colSizes[i].idx].colEl;
+				let colEl = settings.columns[colSizes[i].idx].colEl;
 				let colWidth = colEl.width();
 
 				if (colWidth !== colSizes[i].width) {

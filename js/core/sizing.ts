@@ -18,7 +18,7 @@ export function calculateColumnWidths(settings: Context) {
 	}
 
 	var table = settings.nTable,
-		columns = settings.aoColumns,
+		columns = settings.columns,
 		scroll = settings.scroll,
 		scrollY = scroll.y,
 		scrollX = scroll.x,
@@ -313,7 +313,7 @@ function wrapperWidth(settings: Context): number {
  * @returns Array of the longest strings
  */
 function getWideStrings(settings: Context, colIdx: number) {
-	var column = settings.aoColumns[colIdx];
+	var column = settings.columns[colIdx];
 
 	// Do we need to recalculate (i.e. was invalidated), or just use the cached data?
 	if (!column.wideStrings) {
@@ -407,7 +407,7 @@ export function stringToCss(s: number | null | string) {
  * @param settings DT settings
  */
 export function colGroup(settings: Context) {
-	var cols = settings.aoColumns;
+	var cols = settings.columns;
 
 	settings.colgroup.empty();
 

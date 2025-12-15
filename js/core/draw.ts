@@ -32,7 +32,7 @@ interface HeaderLayoutCell {
  */
 export function getRowDisplay(settings: Context, rowIdx: number) {
 	var rowModal = settings.aoData[rowIdx];
-	var columns = settings.aoColumns;
+	var columns = settings.columns;
 
 	if (!rowModal) {
 		return [];
@@ -95,8 +95,8 @@ export function createTr(
 		rowAttributes(settings, row);
 
 		/* Process each column */
-		for (i = 0, iLen = settings.aoColumns.length; i < iLen; i++) {
-			oCol = settings.aoColumns[i];
+		for (i = 0, iLen = settings.columns.length; i < iLen; i++) {
+			oCol = settings.columns[i];
 			create = trIn && tds && tds[i] ? false : true;
 
 			nTd = create
@@ -206,7 +206,7 @@ export function rowAttributes(settings: Context, row: Row) {
  */
 export function buildHead(settings: Context, side: 'header' | 'footer') {
 	let classes = settings.classes;
-	let columns = settings.aoColumns;
+	let columns = settings.columns;
 	let i, iLen, row: Dom;
 	let target = dom.s(side === 'header' ? settings.nTHead : settings.nTFoot);
 	let titleProp: 'sTitle' | 'footer' = side === 'header' ? 'sTitle' : side;
@@ -219,7 +219,7 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 	// If no cells yet and we have content for them, then create
 	if (
 		side === 'header' ||
-		util.array.pluck(settings.aoColumns, titleProp).join('')
+		util.array.pluck(settings.columns, titleProp).join('')
 	) {
 		row = target.find('tr');
 
@@ -288,7 +288,7 @@ export function headerLayout(
 	var row, column, cell;
 	var local: HeaderStructureCell[][] = [];
 	var structure: Array<Array<HeaderLayoutCell | null>> = [];
-	var columns = settings.aoColumns;
+	var columns = settings.columns;
 	var columnCount = columns.length;
 	var rowspan, colspan;
 
@@ -423,7 +423,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	var aiDisplay = settings.aiDisplay;
 	var iDisplayStart = settings.displayStart;
 	var iDisplayEnd = displayEnd(settings);
-	var columns = settings.aoColumns;
+	var columns = settings.columns;
 	var body = dom.s(settings.nTBody);
 
 	settings.bDrawing = true;
@@ -629,7 +629,7 @@ export function detectHeader(
 	thead: Element,
 	write: boolean
 ) {
-	let columns = settings.aoColumns;
+	let columns = settings.columns;
 	let rows = dom.s(thead).children('tr');
 	let row, loopCell: ChildNode | null;
 	let i: number,

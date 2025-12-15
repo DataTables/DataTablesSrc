@@ -120,7 +120,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 			var i;
 			var orderClasses = classes.order;
 			var columns = ctx.api.columns(cell);
-			var col = settings.aoColumns[columns.flatten()[0]];
+			var col = settings.columns[columns.flatten()[0]];
 			var orderable = columns.orderable().includes(true);
 			var ariaType = '';
 			var indexes = columns.indexes();
@@ -165,7 +165,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 			var firstVis = -1; // column index
 
 			for (i = 0; i < orderedColumns.length; i++) {
-				if (settings.aoColumns[orderedColumns[i]].bVisible) {
+				if (settings.columns[orderedColumns[i]].bVisible) {
 					firstVis = orderedColumns[i];
 					break;
 				}

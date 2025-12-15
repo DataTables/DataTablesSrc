@@ -40,7 +40,7 @@ export function filterComplete(settings: Context, input: SearchOptions) {
 			filter(settings.aiDisplay, settings, col.search, col, i);
 
 			util.object.each(
-				settings.aoColumns[i].searchFixed,
+				settings.columns[i].searchFixed,
 				function (name, term) {
 					filter(settings.aiDisplay, settings, term, {}, i);
 				}
@@ -249,7 +249,7 @@ function filterCreateSearch(
 
 // Update the filtering data for each row if needed (by invalidation or first run)
 function filterData(settings: Context) {
-	let columns = settings.aoColumns;
+	let columns = settings.columns;
 	let data = settings.aoData;
 	let column;
 	let j, jen, cellData, row;

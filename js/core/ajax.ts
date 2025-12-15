@@ -175,7 +175,7 @@ export function ajaxUpdate(settings: Context) {
  * @returns Block the table drawing or not
  */
 export function ajaxParameters(settings: Context): AjaxData {
-	var columns = settings.aoColumns,
+	var columns = settings.columns,
 		features = settings.features,
 		preSearch = settings.previousSearch,
 		preColSearch = settings.preSearchCols,
@@ -192,7 +192,7 @@ export function ajaxParameters(settings: Context): AjaxData {
 				data: colData(i, 'mData'),
 				name: column.sName,
 				searchable: column.bSearchable,
-				orderable: column.bSortable,
+				orderable: column.orderable,
 				search: {
 					value: preColSearch[i].search.toString(),
 					regex: preColSearch[i].regex,

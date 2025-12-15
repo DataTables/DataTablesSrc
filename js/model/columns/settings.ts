@@ -52,7 +52,7 @@ export default class Settings {
 	/**
 	 * Flag to indicate if the column is sortable or not.
 	 */
-	public bSortable: boolean;
+	public orderable: boolean;
 
 	/**
 	 * Flag to indicate if the column is currently visible in the table or not

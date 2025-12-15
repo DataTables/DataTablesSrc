@@ -32,7 +32,7 @@ function selectCells(
 	var rows = selectorRowIndexes(settings, opts);
 	var allCells: Dom;
 	var row;
-	var columns = settings.aoColumns.length;
+	var columns = settings.columns.length;
 	var a, i, iLen, j, o, host;
 
 	var run = function (s: any) {

@@ -126,7 +126,7 @@ function selectColumns(
 	selector: ColumnSelector,
 	opts: ApiSelectorModifier
 ) {
-	var columns = settings.aoColumns,
+	var columns = settings.columns,
 		names: string[],
 		titles: string[],
 		nodes = columnHeaderCells(settings.aoHeader);
@@ -266,7 +266,7 @@ function selectColumns(
 }
 
 function setColumnVis(settings: Context, column: number, vis: boolean) {
-	var cols = settings.aoColumns,
+	var cols = settings.columns,
 		col = cols[column],
 		data = settings.aoData,
 		cells,
@@ -430,7 +430,7 @@ registerPlural<ApiColumnsMethods<any>['dataSrc']>(
 		return this.iterator(
 			'column',
 			function (settings, column) {
-				return settings.aoColumns[column].mData;
+				return settings.columns[column].mData;
 			},
 			true
 		);
@@ -463,7 +463,7 @@ registerPlural<ApiColumnsMethods<any>['init']>(
 		return this.iterator(
 			'column',
 			function (settings, column) {
-				return settings.aoColumns[column];
+				return settings.columns[column];
 			},
 			true
 		);
@@ -477,7 +477,7 @@ registerPlural<ApiColumnsMethods<any>['names']>(
 		return this.iterator(
 			'column',
 			function (settings, column) {
-				return settings.aoColumns[column].sName;
+				return settings.columns[column].sName;
 			},
 			true
 		);
@@ -536,7 +536,7 @@ registerPlural<ApiColumnsMethods<any>['types']>(
 		return this.iterator(
 			'column',
 			function (settings, column) {
-				var colObj = settings.aoColumns[column];
+				var colObj = settings.columns[column];
 				var type = colObj.sType;
 
 				// If the type was invalidated, then resolve it. This actually does
@@ -569,7 +569,7 @@ registerPlural<ApiColumnsVisibleOverload>(
 		var changed: any[] = [];
 		var ret = this.iterator('column', function (settings, column) {
 			if (vis === undefined) {
-				return settings.aoColumns[column].bVisible;
+				return settings.columns[column].bVisible;
 			} // else
 
 			if (setColumnVis(settings, column, vis)) {

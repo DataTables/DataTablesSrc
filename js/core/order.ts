@@ -181,7 +181,7 @@ export function sortResolve(
 			}
 			else if (orderName.name) {
 				// Name based ordering
-				var cols = pluck(settings.aoColumns, 'sName');
+				var cols = pluck(settings.columns, 'sName');
 				var idx = cols.indexOf(orderName.name);
 
 				if (idx !== -1) {
@@ -217,7 +217,7 @@ export function sortFlatten(settings: Context) {
 		kLen,
 		aSort: ISortItem[] = [],
 		extSort = ext.type.order,
-		aoColumns = settings.aoColumns,
+		aoColumns = settings.columns,
 		aDataSort,
 		iCol,
 		sType,
@@ -303,7 +303,7 @@ export function sort(ctx: Context, col?: number, dir?: string) {
 	// Allow a specific column to be sorted, which will _not_ alter the display
 	// master
 	if (col !== undefined) {
-		var srcCol = ctx.aoColumns[col];
+		var srcCol = ctx.columns[col];
 
 		aSort = [
 			{
@@ -434,7 +434,7 @@ export function sortAdd(
 	addIndex: number,
 	shift: boolean
 ) {
-	var col = settings.aoColumns[colIdx];
+	var col = settings.columns[colIdx];
 	var sorting = settings.order;
 	var asSorting = col.asSorting;
 	var nextSortIdx;
@@ -447,7 +447,7 @@ export function sortAdd(
 		return idx + 1 < asSorting.length ? idx + 1 : overflow ? null : 0;
 	};
 
-	if (!col.bSortable) {
+	if (!col.orderable) {
 		return false;
 	}
 
@@ -559,7 +559,7 @@ export function sortingClasses(settings: Context) {
  */
 export function sortData(settings: Context, colIdx: number) {
 	// Custom sorting function - provided by the sort data type
-	var column = settings.aoColumns[colIdx];
+	var column = settings.columns[colIdx];
 	var customSort = ext.order[column.sSortDataType];
 	var customData;
 

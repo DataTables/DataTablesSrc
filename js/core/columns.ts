@@ -20,7 +20,7 @@ import { calculateColumnWidths } from './sizing';
 export function addColumn(settings: Context) {
 	// Add column to aoColumns array
 	let oDefaults = columnDefaults;
-	let iCol = settings.aoColumns.length;
+	let iCol = settings.columns.length;
 	let oCol = util.object.assign<ColumnModel>({}, new ColumnModel(), oDefaults, {
 		aDataSort: oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
 		mData: oDefaults.mData ? oDefaults.mData : iCol,
@@ -29,7 +29,7 @@ export function addColumn(settings: Context) {
 		colEl: dom.c<HTMLTableColElement>('col').attr('data-dt-column', iCol),
 	});
 
-	settings.aoColumns.push(oCol);
+	settings.columns.push(oCol);
 
 	// Add search object for column specific search. Note that the `searchCols[
 	// iCol ]` passed into extend can be undefined. This allows the user to give
@@ -46,94 +46,98 @@ export function addColumn(settings: Context) {
  *
  * @param settings DataTables settings object
  * @param colIdx column index to consider
- * @param oOptions object with sType, bVisible and bSearchable etc
+ * @param options object with sType, bVisible and bSearchable etc
  */
-export function columnOptions(settings: Context, colIdx: number, oOptions?: Partial<ColumnModel>) {
-	var oCol = settings.aoColumns[colIdx];
+export function columnOptions(
+	settings: Context,
+	colIdx: number,
+	options?: Partial<ColumnModel>
+) {
+	var column = settings.columns[colIdx];
 
 	/* User specified column options */
-	if (oOptions !== undefined && oOptions !== null) {
+	if (options !== undefined && options !== null) {
 		// Backwards compatibility
-		compatCols(oOptions);
+		compatCols(options);
 
 		// Map camel case parameters to their Hungarian counterparts
-		camelToHungarian(columnDefaults, oOptions, true);
+		camelToHungarian(columnDefaults, options, true);
 
-		if (oOptions.sType) {
-			oCol._sManualType = oOptions.sType;
+		if (options.sType) {
+			column._sManualType = options.sType;
 		}
 
 		// `class` is a reserved word in JavaScript, so we need to provide
 		// the ability to use a valid name for the camel case input
-		if (oOptions.className && !oOptions.sClass) {
-			oOptions.sClass = oOptions.className;
+		if (options.className && !options.sClass) {
+			options.sClass = options.className;
 		}
 
-		var origClass = oCol.sClass;
+		var origClass = column.sClass;
 
-		util.object.assign(oCol, oOptions);
-		map(oCol, oOptions, 'sWidth', 'sWidthOrig');
+		util.object.assign(column, options);
+		map(column, options, 'sWidth', 'sWidthOrig');
 
 		// Merge class from previously defined classes with this one, rather than just
 		// overwriting it in the extend above
-		if (origClass !== oCol.sClass) {
-			oCol.sClass = origClass + ' ' + oCol.sClass;
+		if (origClass !== column.sClass) {
+			column.sClass = origClass + ' ' + column.sClass;
 		}
 
 		/* iDataSort to be applied (backwards compatibility), but aDataSort will take
 		 * priority if defined
 		 */
-		if (oOptions.iDataSort !== undefined) {
-			oCol.aDataSort = [oOptions.iDataSort];
+		if (options.iDataSort !== undefined) {
+			column.aDataSort = [options.iDataSort];
 		}
-		map(oCol, oOptions, 'aDataSort');
+		map(column, options, 'aDataSort');
 	}
 
 	/* Cache the data get and set functions for speed */
-	var mDataSrc = oCol.mData;
+	var mDataSrc = column.mData;
 	var mData = util.get(mDataSrc);
 
 	// The `render` option can be given as an array to access the helper rendering methods.
 	// The first element is the rendering method to use, the rest are the parameters to pass
-	if (oCol.mRender && Array.isArray(oCol.mRender)) {
-		var copy = oCol.mRender.slice();
+	if (column.mRender && Array.isArray(column.mRender)) {
+		var copy = column.mRender.slice();
 		var name = copy.shift();
 
-		oCol.mRender = helpers[name].apply(window, copy);
+		column.mRender = helpers[name].apply(window, copy);
 	}
 
-	oCol._render = oCol.mRender ? util.get(oCol.mRender) : null;
+	column._render = column.mRender ? util.get(column.mRender) : null;
 
 	var attrTest = function (src: any) {
 		return typeof src === 'string' && src.indexOf('@') !== -1;
 	};
-	oCol._bAttrSrc =
+	column._bAttrSrc =
 		!!mDataSrc && util.is.plainObject(mDataSrc) &&
 		(attrTest(mDataSrc.sort) ||
 			attrTest(mDataSrc.type) ||
 			attrTest(mDataSrc.filter));
-	oCol._setter = null;
+	column._setter = null;
 
-	oCol.fnGetData = function (rowData, type, meta) {
+	column.fnGetData = function (rowData, type, meta) {
 		var innerData = mData(rowData, type, undefined, meta);
 
-		return oCol._render && type
-			? oCol._render(innerData, type, rowData, meta)
+		return column._render && type
+			? column._render(innerData, type, rowData, meta)
 			: innerData;
 	};
-	oCol.fnSetData = function (rowData, val, meta) {
+	column.fnSetData = function (rowData, val, meta) {
 		return util.set(mDataSrc)(rowData, val, meta);
 	};
 
 	// Indicate if DataTables should read DOM data as an object or array
 	// Used in _fnGetRowElements
-	if (typeof mDataSrc !== 'number' && !oCol._isArrayHost) {
+	if (typeof mDataSrc !== 'number' && !column._isArrayHost) {
 		settings._rowReadObject = true;
 	}
 
 	/* Feature sorting overrides column specific when off */
 	if (!settings.features.ordering) {
-		oCol.bSortable = false;
+		column.orderable = false;
 	}
 }
 
@@ -162,7 +166,7 @@ export function adjustColumnSizing(settings: Context) {
  * @param settings DataTables settings object
  */
 export function columnSizes(settings: Context) {
-	let cols = settings.aoColumns;
+	let cols = settings.columns;
 
 	for (let i = 0; i < cols.length; i++) {
 		let width = columnsSumWidth(settings, [i], false, false);
@@ -214,7 +218,7 @@ export function columnIndexToVisible(settings: Context, match: number) {
  */
 export function visibleColumns(settings: Context) {
 	let layout = settings.aoHeader;
-	let columns = settings.aoColumns;
+	let columns = settings.columns;
 	let vis = 0;
 
 	if (layout.length) {
@@ -242,7 +246,7 @@ export function visibleColumns(settings: Context) {
 export function getColumns(settings: Context, param: keyof ColumnModel) {
 	let a: number[] = [];
 
-	settings.aoColumns.map(function (val, i) {
+	settings.columns.map(function (val, i) {
 		if (val[param]) {
 			a.push(i);
 		}
@@ -270,7 +274,7 @@ function _typeResult(typeDetect: any, res: boolean | string | null) {
  * @param settings DataTables settings object
  */
 export function columnTypes(settings: Context) {
-	var columns = settings.aoColumns;
+	var columns = settings.columns;
 	var data = settings.aoData;
 	var types = ext.type.detect;
 	var i, iLen, j, jen, k, ken;
@@ -452,7 +456,7 @@ export function applyColumnDefs(
 	fn: (idx: number, def: any) => void
 ) {
 	var i, iLen, j, jLen, k: number, kLen;
-	var columns = settings.aoColumns;
+	var columns = settings.columns;
 
 	if (aoCols) {
 		for (i = 0, iLen = aoCols.length; i < iLen; i++) {
@@ -563,7 +567,7 @@ export function columnsSumWidth(
 
 	let sum = 0;
 	let unit = 'px';
-	let columns = settings.aoColumns;
+	let columns = settings.columns;
 
 	for (let i = 0, iLen = targets.length; i < iLen; i++) {
 		let column = columns[targets[i]];

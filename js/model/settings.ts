@@ -279,7 +279,7 @@ export interface Context {
 	/**
 	 * Store information about each column that is in use
 	 */
-	aoColumns: ColumnSettings[];
+	columns: ColumnSettings[];
 
 	/**
 	 * Store information about the table's header
@@ -771,7 +771,7 @@ const defaults: Partial<Context> = {
 	aiDisplay: [],
 	aiDisplayMaster: [],
 	aIds: {},
-	aoColumns: [],
+	columns: [],
 	aoHeader: [],
 	aoFooter: [],
 	previousSearch: createSearch(),

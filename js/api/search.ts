@@ -124,7 +124,7 @@ register<ApiSearchFixedOverload>(
 	['columns().search.fixed()', 'column().search.fixed()'],
 	function (name, search) {
 		var ret = this.iterator(true, 'column', function (settings, colIdx) {
-			var fixed = settings.aoColumns[colIdx].searchFixed;
+			var fixed = settings.columns[colIdx].searchFixed;
 
 			if (!name) {
 				return Object.keys(fixed);

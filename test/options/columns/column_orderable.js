@@ -6,6 +6,11 @@ describe('columns.orderable option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
+
+		it('Default is enabled', function () {
+			expect(DataTable.defaults.column.orderable).toBe(true);
+		});
+
 		it('Columns are searchable by default', async function() {
 			$('#example').dataTable();
 			await dt.clickHeader(2);

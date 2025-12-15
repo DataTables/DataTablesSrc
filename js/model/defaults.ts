@@ -513,7 +513,7 @@ const defaults = {
 	 * column that you have in your table (these can be null if you don't which
 	 * to specify any options).
 	 */
-	aoColumns: null,
+	columns: null,
 
 	/**
 	 * Very similar to `columns`, `columnDefs` allows you to target a specific
@@ -531,7 +531,7 @@ const defaults = {
 	 *     <li>the string "_all" - all columns (i.e. assign a default)</li>
 	 *   </ul>
 	 */
-	aoColumnDefs: null as Partial<ConfigColumnDefs>[] | null,
+	columnDefs: null as Partial<ConfigColumnDefs>[] | null,
 
 	/**
 	 * Basically the same as `search`, this parameter defines the individual column

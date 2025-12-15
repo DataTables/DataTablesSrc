@@ -111,9 +111,9 @@ registerPlural<ApiColumnsOrderableOverload>(
 		return this.iterator(
 			'column',
 			function (settings, idx) {
-				var col = settings.aoColumns[idx];
+				var col = settings.columns[idx];
 
-				return directions ? col.asSorting : col.bSortable;
+				return directions ? col.asSorting : col.orderable;
 			},
 			true
 		);

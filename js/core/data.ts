@@ -34,7 +34,7 @@ export function addData(
 	row._aData = dataIn;
 	settings.aoData.push(row);
 
-	var columns = settings.aoColumns;
+	var columns = settings.columns;
 
 	for (var i = 0, iLen = columns.length; i < iLen; i++) {
 		// Invalidate the column types as the new data needs to be revalidated
@@ -104,7 +104,7 @@ export function getCellData(
 	}
 
 	var draw = settings.iDraw;
-	var col = settings.aoColumns[colIdx];
+	var col = settings.columns[colIdx];
 	var rowData = row._aData;
 	var defaultContent = col.sDefaultContent;
 	var cellData = col.fnGetData(rowData, type, {
@@ -192,7 +192,7 @@ export function setCellData(
 	let row = settings.aoData[rowIdx];
 
 	if (row) {
-		let col = settings.aoColumns[colIdx];
+		let col = settings.columns[colIdx];
 		let rowData = row._aData;
 
 		col.fnSetData(rowData, val, {
@@ -291,7 +291,7 @@ export function invalidate(
 	}
 
 	// Column specific invalidation
-	var cols = settings.aoColumns;
+	var cols = settings.columns;
 	if (colIdx !== undefined) {
 		// Type - the data might have changed
 		cols[colIdx].sType = null;
@@ -389,7 +389,7 @@ function readCellData(
 	data: any,
 	colIdx: number
 ) {
-	let column = settings.aoColumns[colIdx];
+	let column = settings.columns[colIdx];
 	let contents = cell.innerHTML.trim();
 
 	if (column._bAttrSrc) {

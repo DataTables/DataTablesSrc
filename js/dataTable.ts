@@ -310,8 +310,8 @@ const DataTable = function (
 		var initHeaderLayout = detectHeader(settings, thead.get(0), false);
 
 		// If we don't have a columns array, then generate one with nulls
-		if (config.aoColumns) {
-			columnsInit = config.aoColumns;
+		if (config.columns) {
+			columnsInit = config.columns;
 		}
 		else if (initHeaderLayout.length) {
 			for (i = 0, iLen = initHeaderLayout[0].length; i < iLen; i++) {
@@ -327,11 +327,11 @@ const DataTable = function (
 		// Apply the column definitions
 		applyColumnDefs(
 			settings,
-			config.aoColumnDefs,
+			config.columnDefs,
 			columnsInit,
 			initHeaderLayout,
-			function (iCol, oDef) {
-				columnOptions(settings, iCol, oDef);
+			function (idx, def) {
+				columnOptions(settings, idx, def);
 			}
 		);
 
@@ -349,7 +349,7 @@ const DataTable = function (
 				.eq(0)
 				.children('th, td')
 				.each(function (cell, loop) {
-					var col = settings.aoColumns[loop];
+					var col = settings.columns[loop];
 
 					if (!col) {
 						log(settings, 0, 'Incorrect column count', 18);
@@ -389,7 +389,7 @@ const DataTable = function (
 		if (config.order === undefined) {
 			var sorting = settings.order;
 			for (i = 0, iLen = sorting.length; i < iLen; i++) {
-				sorting[i][1] = settings.aoColumns[i].asSorting[0];
+				sorting[i][1] = settings.columns[i].asSorting[0];
 			}
 		}
 

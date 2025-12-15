@@ -22,7 +22,7 @@ export function saveState(settings: Context) {
 	sortResolve(settings, sorting, settings.order);
 
 	/* Store the interesting variables */
-	var columns = settings.aoColumns;
+	var columns = settings.columns;
 	var state: State = {
 		time: +new Date(),
 		start: settings.displayStart,
@@ -34,7 +34,7 @@ export function saveState(settings: Context) {
 				: sort.slice();
 		}),
 		search: Object.assign({}, settings.previousSearch),
-		columns: settings.aoColumns.map(function (col, i) {
+		columns: settings.columns.map(function (col, i) {
 			return {
 				name: col.sName,
 				visible: col.bVisible,
@@ -90,8 +90,8 @@ export function implementState(
 	callback: () => void
 ) {
 	var i, iLen;
-	var columns = settings.aoColumns;
-	var currentNames = pluck(settings.aoColumns, 'sName');
+	var columns = settings.columns;
+	var currentNames = pluck(settings.columns, 'sName');
 
 	settings._bLoadingState = true;
 
