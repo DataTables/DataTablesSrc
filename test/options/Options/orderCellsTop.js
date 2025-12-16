@@ -6,7 +6,7 @@ describe('orderCellsTop option (legacy)', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Not used by default- Uses all rows in header', function() {
-			expect($.fn.dataTable.defaults.bSortCellsTop).toBe(null);
+			expect(DataTable.defaults.orderCellsTop).toBe(null);
 		});
 		it('Disabled by default- Using 2 rows in header', function() {
 			$('#example thead').append(

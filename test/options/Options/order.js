@@ -6,12 +6,12 @@ describe('order Option', function() {
 
 	describe('Check defaults', function() {
 		dt.html('basic');
-		it('Check disabled by default', function() {
-			table = $('#example').DataTable();
-			expect(table.settings()[0].oFeatures.aaSorting).toBe(undefined);
+		it('Check enabled by default', function() {
+			expect(DataTable.defaults.order).toEqual([[0, 'asc']]);
 		});
 
 		it('First column should be sorted- asc by default', function() {
+			table = $('#example').DataTable();
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Airi Satou');
 		});
 	});

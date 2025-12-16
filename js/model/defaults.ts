@@ -1,4 +1,5 @@
 import { hungarianMap } from '../core/compat';
+import classes from '../ext/classes';
 import columnDefaults, {
 	ConfigColumnDefs,
 	ConfigColumns
@@ -344,6 +345,8 @@ export interface Defaults {
 	 * State save - data manipulation callback.
 	 */
 	stateSaveParams?: FunctionStateSaveParams;
+
+	classes?: Partial<typeof classes>;
 }
 
 export interface ConfigLanguage {
@@ -648,7 +651,7 @@ const defaults = {
 	 *
 	 * @deprecated Use titleRow
 	 */
-	sortCellsTop: null,
+	orderCellsTop: null,
 
 	/** Defaults for column specific properties */
 	column: columnDefaults,

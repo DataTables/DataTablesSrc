@@ -69,12 +69,12 @@ describe('Data type detection', function () {
 
 		// Note need, to check the internal value, as `column().type()` will resolve the
 		// type
-		expect(table.settings()[0].aoColumns[3].sType).toBe(null);
+		expect(table.settings()[0].columns[3].type).toBe(null);
 	});
 
 	it('Ordering by the column resolves type', async function () {
 		await dt.clickHeader(3);
 
-		expect(table.settings()[0].aoColumns[3].sType).toBe('date');
+		expect(table.settings()[0].columns[3].type).toBe('date');
 	});
 });

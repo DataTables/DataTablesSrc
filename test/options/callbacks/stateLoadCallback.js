@@ -232,7 +232,7 @@ describe('stateLoadCallback Option', function() {
 				  	done();
 				},
 				stateLoadCallback: function(settings) {
-					var state = DataTable.defaults.fnStateLoadCallback(settings);
+					var state = DataTable.defaults.stateLoadCallback(settings);
 					var api = new DataTable.Api(settings);
 
 					api.columns().eq(0).each(function(index) {

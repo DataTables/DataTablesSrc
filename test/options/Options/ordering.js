@@ -8,7 +8,7 @@ describe('ordering Option', function () {
 		dt.html('basic');
 
 		it('Default is enabled', function () {
-			expect(DataTable.defaults.bSort).toBe(true);
+			expect(DataTable.defaults.ordering).toBe(true);
 		});
 
 		it('Is enabled when initialised', function () {

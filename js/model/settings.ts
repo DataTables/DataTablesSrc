@@ -518,7 +518,7 @@ export interface Context {
 	 * 
 	 * @deprecated Replaced by titleRow
 	 */
-	sortCellsTop: null | boolean;
+	orderCellsTop: null | boolean;
 
 	/**
 	 * Initialisation object that is used for the table
@@ -789,7 +789,7 @@ const defaults: Partial<Context> = {
 	classes: {},
 	bFiltered: false,
 	bSorted: false,
-	sortCellsTop: null,
+	orderCellsTop: null,
 	oInit: {},
 	oInstance: null,
 	sInstance: '',

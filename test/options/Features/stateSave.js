@@ -219,7 +219,7 @@ describe('stateSave option', function() {
 			table.page(1);
 			table.column(4).search('20').draw(false);
 
-			expect(table.settings()[0].aoColumns.length).toBe(6);
+			expect(table.settings()[0].columns.length).toBe(6);
 			expect($('#example tbody td:eq(0)').text()).toBe('Sonya Frost');
 			expect($('#example tbody td:eq(3)').text()).toBe('23');
 			table.destroy();
@@ -236,7 +236,7 @@ describe('stateSave option', function() {
 
 			table = $('#example').DataTable({ stateSave: true });
 
-			expect(table.settings()[0].aoColumns.length).toBe(5);
+			expect(table.settings()[0].columns.length).toBe(5);
 			expect(table.page()).toBe(1);
 		});
 

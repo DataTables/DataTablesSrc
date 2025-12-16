@@ -15,7 +15,7 @@ describe('stateLoaded Option', function() {
 		dt.html('basic');
 		it('Default should not be true', function() {
 			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.fnStateLoaded).toBe(null);
+			expect(DataTable.defaults.stateLoaded).toBe(null);
 		});
 
 		dt.html('basic');

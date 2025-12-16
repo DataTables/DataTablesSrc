@@ -26,7 +26,7 @@ describe('core - settings()', function() {
 		dt.html('basic');
 		it('API instance matches the table', function() {
 			let table = $('#example').DataTable();
-			expect(table.settings()[0].aoColumns.length).toBe(6);
+			expect(table.settings()[0].columns.length).toBe(6);
 		});
 
 		dt.html('two_tables');
@@ -34,16 +34,16 @@ describe('core - settings()', function() {
 			let table1 = $('#example_one').DataTable();
 			let table2 = $('#example_two').DataTable();
 
-			expect(table1.settings()[0].aoColumns.length).toBe(6);
-			expect(table2.settings()[0].aoColumns.length).toBe(3);
+			expect(table1.settings()[0].columns.length).toBe(6);
+			expect(table2.settings()[0].columns.length).toBe(3);
 		});
 
 		dt.html('two_tables');
 		it('Multiple tables together', function() {
 			let tables = $('table').DataTable();
 
-			expect(tables.settings()[0].aoColumns.length).toBe(6);
-			expect(tables.settings()[1].aoColumns.length).toBe(3);
+			expect(tables.settings()[0].columns.length).toBe(6);
+			expect(tables.settings()[1].columns.length).toBe(3);
 		});
 	});
 });

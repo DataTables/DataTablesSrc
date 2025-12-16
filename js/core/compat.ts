@@ -164,25 +164,25 @@ export function compatOpts(init: Record<string, any>) {
 	}
 
 	// Objects for ordering
-	if (typeof init.sort === 'object') {
+	if (typeof init.ordering === 'object') {
 		init.orderIndicators =
-			init.sort.indicators !== undefined ? init.sort.indicators : true;
+			init.ordering.indicators !== undefined ? init.ordering.indicators : true;
 		init.orderHandler =
-			init.sort.handler !== undefined ? init.sort.handler : true;
-		init.sort = true;
+			init.ordering.handler !== undefined ? init.ordering.handler : true;
+		init.ordering = true;
 	}
-	else if (init.sort === false) {
+	else if (init.ordering === false) {
 		init.orderIndicators = false;
 		init.orderHandler = false;
 	}
-	else if (init.sort === true) {
+	else if (init.ordering === true) {
 		init.orderIndicators = true;
 		init.orderHandler = true;
 	}
 
 	// Which cells are the title cells?
-	if (typeof init.sortCellsTop === 'boolean') {
-		init.titleRow = init.sortCellsTop;
+	if (typeof init.orderCellsTop === 'boolean') {
+		init.titleRow = init.orderCellsTop;
 	}
 
 	// Column search objects are in an array, so it needs to be converted

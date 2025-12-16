@@ -9,7 +9,7 @@ describe('columnDefs option', function() {
 		dt.html('basic');
 		it('Default should be null', function() {
 			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.aoColumnDefs).toBe(null);
+			expect(DataTable.defaults.columnDefs).toBe(null);
 		});
 
 		dt.html('basic');

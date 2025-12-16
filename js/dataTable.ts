@@ -29,7 +29,7 @@ import { register as registerType, types } from './ext/types';
 import registerFeature from './features';
 import models from './model';
 import columnDefaults from './model/columns/defaults';
-import defaults from './model/defaults';
+import defaults, { Defaults } from './model/defaults';
 import createContext from './model/settings';
 import util from './util';
 
@@ -99,17 +99,15 @@ const DataTable = function (
 
 		table.trigger('options.dt', true, [init]);
 
-		// Backwards compatibility for old style notation
+		// Backwards compatibility parameter mapping
 		compatOpts(defaults);
 		compatCols(columnDefaults);
-		compatOpts(init);
 
-		/* Setting up the initialisation object TODO */
-		camelToHungarian(
-			defaults,
-			util.object.assign(init, escapeObject(table.data())),
-			true
-		);
+		// Allow data properties on the table element to be used as
+		// initialisation options
+		util.object.assign(init, escapeObject(table.data()));
+
+		compatOpts(init);
 
 		/* Check to see if we are re-initialising a table */
 		var allSettings = ext.settings;
@@ -198,7 +196,7 @@ const DataTable = function (
 
 		// Apply the defaults and init options to make a single init object will
 		// all options defined from defaults and instance options.
-		let config: typeof defaults = util.object.assignDeepObjects(
+		let config: Defaults = util.object.assignDeepObjects(
 			util.object.assignDeep({}, defaults),
 			init
 		);
@@ -226,7 +224,7 @@ const DataTable = function (
 			'lengthMenu',
 			'pagingType',
 			'stateDuration',
-			'sortCellsTop',
+			'orderCellsTop',
 			'tabIndex',
 			'dom',
 			'stateLoadCallback',
@@ -265,7 +263,7 @@ const DataTable = function (
 		callbackReg(settings, 'init', config.initComplete);
 		callbackReg(settings, 'preDraw', config.preDrawCallback);
 
-		settings.rowIdFn = util.get(config.rowId);
+		settings.rowIdFn = util.get(settings.rowId);
 
 		// Add event listeners
 		if (config.on) {
@@ -279,7 +277,7 @@ const DataTable = function (
 
 		var classes = settings.classes;
 
-		util.object.assign(classes, ext.classes, config.classes);
+		util.object.assignDeep(classes, ext.classes, config.classes as any);
 		table.classAdd(classes.table);
 
 		if (!settings.features.paging) {
@@ -288,17 +286,22 @@ const DataTable = function (
 
 		if (settings.displayStartInit === -1) {
 			// Display start point, taking into account the save saving
-			settings.displayStartInit = config.displayStart;
-			settings.displayStart = config.displayStart;
+			settings.displayStartInit = config.displayStart!;
+			settings.displayStart = config.displayStart!; // TODO remove !
 		}
 
 		var defer = config.deferLoading;
 		if (defer !== null) {
 			settings.deferLoading = true;
 
-			var tmp = Array.isArray(defer);
-			settings.recordsDisplay = tmp ? defer[0] : defer;
-			settings.recordsTotal = tmp ? defer[1] : defer;
+			if (Array.isArray(defer)) {
+				settings.recordsDisplay = defer[0];
+				settings.recordsTotal = defer[1];
+			}
+			else {
+				settings.recordsDisplay = defer!; // TODO remove !
+				settings.recordsTotal = defer!;
+			}
 		}
 
 		/*
@@ -457,7 +460,7 @@ const DataTable = function (
 
 		// Language definitions
 		var oLanguage = settings.oLanguage;
-		util.object.assignDeep(oLanguage, config.oLanguage);
+		util.object.assignDeep(oLanguage, config.language as any);
 
 		if (oLanguage.sUrl) {
 			// Get the language definitions from a file
