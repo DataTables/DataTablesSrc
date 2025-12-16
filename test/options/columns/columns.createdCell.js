@@ -6,6 +6,11 @@ describe('column.createdCell option', function() {
 
 	describe('Check the arguments', function() {
 		dt.html('basic');
+
+		it('Default value', function () {
+			expect(DataTable.defaults.column.createdCell).toBe(null);
+		});
+
 		it('Five arguments for the function', function() {
 			let tmp = false;
 			$('#example').dataTable({

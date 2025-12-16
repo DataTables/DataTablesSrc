@@ -1,6 +1,7 @@
 import { callbackFire, dataSource, escapeObject, log } from '../api/support';
 import dom, { Dom } from '../dom';
 import ext from '../ext/index';
+import Settings from '../model/columns/settings';
 import { Row, TableCellElement, TableRowElement } from '../model/row';
 import {
 	Context,
@@ -69,9 +70,9 @@ export function createTr(
 ) {
 	var row = settings.aoData[rowIdx],
 		cells: HTMLTableCellElement[] = [],
-		nTr: TableRowElement,
-		nTd: TableCellElement,
-		oCol,
+		tr: TableRowElement,
+		td: TableCellElement,
+		column: Settings,
 		i,
 		iLen,
 		create,
@@ -80,67 +81,67 @@ export function createTr(
 	if (row && row.nTr === null) {
 		let rowData = row._aData;
 
-		nTr = trIn || document.createElement('tr');
-		row.nTr = nTr;
+		tr = trIn || document.createElement('tr');
+		row.nTr = tr;
 		row.anCells = cells;
 
-		dom.s(nTr).classAdd(trClass);
+		dom.s(tr).classAdd(trClass);
 
 		/* Use a private property on the node to allow reserve mapping from the node
 		 * to the aoData array for fast look up
 		 */
-		nTr._DT_RowIndex = rowIdx;
+		tr._DT_RowIndex = rowIdx;
 
 		/* Special parameters can be given by the data source to be used on the row */
 		rowAttributes(settings, row);
 
 		/* Process each column */
 		for (i = 0, iLen = settings.columns.length; i < iLen; i++) {
-			oCol = settings.columns[i];
+			column = settings.columns[i];
 			create = trIn && tds && tds[i] ? false : true;
 
-			nTd = create
-				? (document.createElement(oCol.sCellType) as HTMLTableCellElement)
+			td = create
+				? (document.createElement(column.cellType) as HTMLTableCellElement)
 				: tds![i];
 
-			if (!nTd) {
+			if (!td) {
 				log(settings, 0, 'Incorrect column count', 18);
 			}
 
-			nTd._DT_CellIndex = {
+			td._DT_CellIndex = {
 				row: rowIdx,
 				column: i
 			};
 
-			cells.push(nTd);
+			cells.push(td);
 
 			var display = getRowDisplay(settings, rowIdx);
 
 			// Need to create the HTML if new, or if a rendering function is defined
 			if (
 				create ||
-				((oCol.mRender || oCol.mData !== i) &&
-					(!util.is.plainObject(oCol.mData) ||
-						(oCol.mData && (oCol.mData as any)._ !== i + '.display')))
+				((column.render || column.data !== i) &&
+					(!util.is.plainObject(column.data) ||
+						(column.data && (column.data as any)._ !== i + '.display')))
 			) {
-				writeCell(nTd, display[i]);
+				writeCell(td, display[i]);
 			}
 
 			// column class
-			dom.s(nTd).classAdd(oCol.sClass);
+			dom.s(td).classAdd(column.className);
 
 			// Visibility - add or remove as required
-			if (oCol.bVisible && create) {
-				nTr.appendChild(nTd);
+			if (column.visible && create) {
+				tr.appendChild(td);
 			}
-			else if (!oCol.bVisible && !create) {
-				nTd.parentNode!.removeChild(nTd);
+			else if (!column.visible && !create) {
+				td.parentNode!.removeChild(td);
 			}
 
-			if (oCol.fnCreatedCell) {
-				oCol.fnCreatedCell.call(
+			if (column.createdCell) {
+				column.createdCell.call(
 					settings.oInstance,
-					nTd,
+					td,
 					getCellData(settings, rowIdx, i),
 					rowData,
 					rowIdx,
@@ -150,7 +151,7 @@ export function createTr(
 		}
 
 		callbackFire(settings, 'rowCreated', 'row-created', [
-			nTr,
+			tr,
 			rowData,
 			rowIdx,
 			cells
@@ -209,7 +210,7 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 	let columns = settings.columns;
 	let i, iLen, row: Dom;
 	let target = dom.s(side === 'header' ? settings.nTHead : settings.nTFoot);
-	let titleProp: 'sTitle' | 'footer' = side === 'header' ? 'sTitle' : side;
+	let titleProp: 'title' | 'footer' = side === 'header' ? 'title' : side;
 
 	// Footer might be defined
 	if (!target) {
@@ -299,7 +300,7 @@ export function headerLayout(
 	// Default is to work on only visible columns
 	if (!incColumns) {
 		incColumns = util.array.range(columnCount).filter(function (idx) {
-			return columns[idx].bVisible;
+			return columns[idx].visible;
 		});
 	}
 
@@ -474,7 +475,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 
 				dom
 					.s(td)
-					.classAdd(col.sType ? ext.type.className[col.sType] : null) // auto class
+					.classAdd(col.type ? ext.type.className[col.type] : null) // auto class
 					.classAdd(settings.classes.tbody.cell); // all cells
 			}
 
@@ -703,24 +704,24 @@ export function detectHeader(
 							width = t[1];
 						}
 
-						columnDef.sWidthOrig = columnDef.sWidth || width;
+						columnDef.widthOrig = columnDef.width || width;
 
 						if (isHeader) {
 							// Column title handling - can be user set, or read from the DOM
 							// This happens before the render, so the original is still in place
-							if (columnDef.sTitle !== null && !columnDef.autoTitle) {
+							if (columnDef.title !== null && !columnDef.autoTitle) {
 								if (
 									(titleRow === true && i === 0) || // top row
 									(titleRow === false && i === rows.count() - 1) || // bottom row
 									titleRow === i || // specific row
 									titleRow === null
 								) {
-									cell.html(columnDef.sTitle);
+									cell.html(columnDef.title);
 								}
 							}
 
-							if (!columnDef.sTitle && isUnique) {
-								columnDef.sTitle = util.string.stripHtml(cell.html());
+							if (!columnDef.title && isUnique) {
+								columnDef.title = util.string.stripHtml(cell.html());
 								columnDef.autoTitle = true;
 							}
 						}
@@ -734,7 +735,7 @@ export function detectHeader(
 						// Fall back to the aria-label attribute on the table header if no ariaTitle is
 						// provided.
 						if (!columnDef.ariaTitle) {
-							columnDef.ariaTitle = cell.attr('aria-label') || columnDef.sTitle;
+							columnDef.ariaTitle = cell.attr('aria-label') || columnDef.title;
 						}
 
 						// Column specific class names

@@ -388,26 +388,12 @@ export interface Context {
 	stateDuration: number;
 
 	/**
-	 * Array of callback functions for state saving. Each array element is an
-	 * object with the following parameters:
-	 *   <ul>
-	 *     <li>function:fn - function to call. Takes two parameters, oSettings
-	 *       and the JSON string to save that has been thus far created. Returns
-	 *       a JSON string to be inserted into a json object
-	 *       (i.e. '"param": [ 0, 1, 2]')</li>
-	 *     <li>string:sName - name of callback</li>
-	 *   </ul>
+	 * Array of callback functions for state saving.
 	 */
 	aoStateSave: Function[];
 
 	/**
-	 * Array of callback functions for state loading. Each array element is an
-	 * object with the following parameters:
-	 *   <ul>
-	 *     <li>function:fn - function to call. Takes two parameters, oSettings
-	 *       and the object stored. May return false to cancel state loading</li>
-	 *     <li>string:sName - name of callback</li>
-	 *   </ul>
+	 * Array of callback functions for state loading.
 	 */
 	aoStateLoad: Function[];
 

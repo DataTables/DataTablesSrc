@@ -179,7 +179,7 @@ export function ajaxParameters(settings: Context): AjaxData {
 		features = settings.features,
 		preSearch = settings.previousSearch,
 		preColSearch = settings.preSearchCols,
-		colData = function (idx: number, prop: 'sName' | 'mData') {
+		colData = function (idx: number, prop: 'name' | 'data') {
 			return typeof columns[idx][prop] === 'function'
 				? 'function'
 				: columns[idx][prop];
@@ -189,9 +189,9 @@ export function ajaxParameters(settings: Context): AjaxData {
 		draw: settings.iDraw,
 		columns: columns.map(function (column, i) {
 			return {
-				data: colData(i, 'mData'),
-				name: column.sName,
-				searchable: column.bSearchable,
+				data: colData(i, 'data'),
+				name: column.name,
+				searchable: column.searchable,
 				orderable: column.orderable,
 				search: {
 					value: preColSearch[i].search.toString(),
@@ -212,7 +212,7 @@ export function ajaxParameters(settings: Context): AjaxData {
 			return {
 				column: val.col,
 				dir: val.dir,
-				name: colData(val.col, 'sName')
+				name: colData(val.col, 'name')
 			};
 		}),
 		start: settings.displayStart,

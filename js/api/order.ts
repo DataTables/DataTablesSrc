@@ -113,7 +113,7 @@ registerPlural<ApiColumnsOrderableOverload>(
 			function (settings, idx) {
 				var col = settings.columns[idx];
 
-				return directions ? col.asSorting : col.orderable;
+				return directions ? col.orderSequence : col.orderable;
 			},
 			true
 		);

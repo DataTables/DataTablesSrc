@@ -246,7 +246,7 @@ export function set(dataPoint: string | number | null | GetFunction | PlainObjec
 		/* Unlike get, only the underscore (global) option is used for for
 		 * setting data since we don't know the type here. This is why an object
 		 * option is not documented for `mData` (which is read/write), but it is
-		 * for `mRender` which is read only.
+		 * for `render` which is read only.
 		 */
 		return set((dataPoint as PlainObject)._ as string);
 	}

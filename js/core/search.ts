@@ -268,7 +268,7 @@ function filterData(settings: Context) {
 			for (j = 0, jen = columns.length; j < jen; j++) {
 				column = columns[j];
 
-				if (column.bSearchable) {
+				if (column.searchable) {
 					cellData = getCellData(settings, rowIdx, j, 'filter');
 
 					// Search in DataTables is string based

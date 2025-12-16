@@ -355,12 +355,12 @@ const DataTable = function (
 						log(settings, 0, 'Incorrect column count', 18);
 					}
 
-					if (col.mData === loop) {
+					if (col.data === loop) {
 						var sort = a(cell, 'sort') || a(cell, 'order');
 						var filter = a(cell, 'filter') || a(cell, 'search');
 
 						if (sort !== null || filter !== null) {
-							col.mData = {
+							col.data = {
 								_: loop + '.display',
 								sort: sort !== null ? loop + '.@data-' + sort : undefined,
 								type: sort !== null ? loop + '.@data-' + sort : undefined,
@@ -389,7 +389,7 @@ const DataTable = function (
 		if (config.order === undefined) {
 			var sorting = settings.order;
 			for (i = 0, iLen = sorting.length; i < iLen; i++) {
-				sorting[i][1] = settings.columns[i].asSorting[0];
+				sorting[i][1] = settings.columns[i].orderSequence[0];
 			}
 		}
 

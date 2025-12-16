@@ -6,6 +6,11 @@ describe('columns.title option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
+
+		it('Default value', function () {
+			expect(DataTable.defaults.column.title).toBe(null);
+		});
+
 		it('Columns names are read from DOM by default', function() {
 			$('#example').dataTable({});
 

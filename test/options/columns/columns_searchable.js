@@ -7,13 +7,17 @@ describe('columns.searchable option', function() {
 	describe('Check the defaults', function() {
 		function isSearchableCorrect(expected) {
 			for (i = 0; i < 6; i++) {
-				if (expected[i] !== table.settings()[0].aoColumns[i].bSearchable) {
+				if (expected[i] !== table.settings()[0].columns[i].searchable) {
 					return false;
 				}
 			}
 
 			return true;
 		}
+
+		it('Default value', function () {
+			expect(DataTable.defaults.column.searchable).toBe(true);
+		});
 
 		dt.html('basic');
 		it('Columns are searchable by default', function() {

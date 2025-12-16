@@ -23,7 +23,7 @@ export function calculateColumnWidths(settings: Context) {
 		scrollY = scroll.y,
 		scrollX = scroll.x,
 		scrollXInner = scroll.xInner,
-		visibleColumns = getColumns(settings, 'bVisible'),
+		visibleColumns = getColumns(settings, 'visible'),
 		tableWidthAttr = table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentElement!,
 		i,
@@ -132,14 +132,14 @@ export function calculateColumnWidths(settings: Context) {
 				column = columns[columnIdx];
 
 				var longest = longestData[j][i] || '';
-				var autoClass = ext.type.className[column.sType!];
-				var padding = column.sContentPadding || (scrollX ? '-' : '');
+				var autoClass = ext.type.className[column.type!];
+				var padding = column.contentPadding || (scrollX ? '-' : '');
 				var text = longest + padding;
 
 				var cell = dom
 					.c('td')
 					.classAdd(autoClass)
-					.classAdd(column.sClass)
+					.classAdd(column.className)
 					.appendTo(tr);
 
 				if (
@@ -218,7 +218,7 @@ export function calculateColumnWidths(settings: Context) {
 		total += bounding;
 
 		// Width for each column to use
-		columns[visibleColumns[i]].sWidth = stringToCss(bounding);
+		columns[visibleColumns[i]].width = stringToCss(bounding);
 	}
 
 	table.style.width = stringToCss(total);
@@ -412,7 +412,7 @@ export function colGroup(settings: Context) {
 	settings.colgroup.empty();
 
 	for (var i = 0; i < cols.length; i++) {
-		if (cols[i].bVisible) {
+		if (cols[i].visible) {
 			settings.colgroup.append(cols[i].colEl);
 		}
 	}

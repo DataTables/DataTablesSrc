@@ -22,7 +22,7 @@ export function addColumn(settings: Context) {
 	let columnIdx = settings.columns.length;
 	let column = util.object.assign<ColumnModel>({}, new ColumnModel(), columnDefaults, {
 		orderData: columnDefaults.orderData ? columnDefaults.orderData : [columnIdx],
-		mData: columnDefaults.mData ? columnDefaults.mData : columnIdx,
+		data: columnDefaults.data ? columnDefaults.data : columnIdx,
 		idx: columnIdx,
 		searchFixed: {},
 		colEl: dom.c<HTMLTableColElement>('col').attr('data-dt-column', columnIdx),
@@ -44,7 +44,7 @@ export function addColumn(settings: Context) {
  *
  * @param settings DataTables settings object
  * @param colIdx column index to consider
- * @param options object with sType, bVisible and bSearchable etc
+ * @param options Column configuration options
  */
 export function columnOptions(
 	settings: Context,
@@ -61,69 +61,69 @@ export function columnOptions(
 		// Map camel case parameters to their Hungarian counterparts
 		camelToHungarian(columnDefaults, options, true);
 
-		if (options.sType) {
-			column._sManualType = options.sType;
+		if (options.type) {
+			column._sManualType = options.type;
 		}
 
 		// `class` is a reserved word in JavaScript, so we need to provide
 		// the ability to use a valid name for the camel case input
-		if (options.className && !options.sClass) {
-			options.sClass = options.className;
+		if (options.className && !options.className) {
+			options.className = options.className;
 		}
 
-		var origClass = column.sClass;
+		var origClass = column.className;
 
 		util.object.assign(column, options);
-		map(column, options, 'sWidth', 'sWidthOrig');
+		map(column, options, 'width', 'widthOrig');
 
 		// Merge class from previously defined classes with this one, rather than just
 		// overwriting it in the extend above
-		if (origClass !== column.sClass) {
-			column.sClass = origClass + ' ' + column.sClass;
+		if (origClass !== column.className) {
+			column.className = origClass + ' ' + column.className;
 		}
 
 		map(column, options, 'orderData');
 	}
 
 	/* Cache the data get and set functions for speed */
-	var mDataSrc = column.mData;
-	var mData = util.get(mDataSrc);
+	var dataSrc = column.data;
+	var dataFn = util.get(dataSrc);
 
 	// The `render` option can be given as an array to access the helper rendering methods.
 	// The first element is the rendering method to use, the rest are the parameters to pass
-	if (column.mRender && Array.isArray(column.mRender)) {
-		var copy = column.mRender.slice();
+	if (column.render && Array.isArray(column.render)) {
+		var copy = column.render.slice();
 		var name = copy.shift();
 
-		column.mRender = helpers[name].apply(window, copy);
+		column.render = helpers[name].apply(window, copy);
 	}
 
-	column._render = column.mRender ? util.get(column.mRender) : null;
+	column._render = column.render ? util.get(column.render) : null;
 
 	var attrTest = function (src: any) {
 		return typeof src === 'string' && src.indexOf('@') !== -1;
 	};
 	column._bAttrSrc =
-		!!mDataSrc && util.is.plainObject(mDataSrc) &&
-		(attrTest(mDataSrc.sort) ||
-			attrTest(mDataSrc.type) ||
-			attrTest(mDataSrc.filter));
+		!!dataSrc && util.is.plainObject(dataSrc) &&
+		(attrTest(dataSrc.sort) ||
+			attrTest(dataSrc.type) ||
+			attrTest(dataSrc.filter));
 	column._setter = null;
 
 	column.fnGetData = function (rowData, type, meta) {
-		var innerData = mData(rowData, type, undefined, meta);
+		var innerData = dataFn(rowData, type, undefined, meta);
 
 		return column._render && type
 			? column._render(innerData, type, rowData, meta)
 			: innerData;
 	};
 	column.fnSetData = function (rowData, val, meta) {
-		return util.set(mDataSrc)(rowData, val, meta);
+		return util.set(dataSrc)(rowData, val, meta);
 	};
 
 	// Indicate if DataTables should read DOM data as an object or array
 	// Used in _fnGetRowElements
-	if (typeof mDataSrc !== 'number' && !column._isArrayHost) {
+	if (typeof dataSrc !== 'number' && !column._isArrayHost) {
 		settings._rowReadObject = true;
 	}
 
@@ -182,7 +182,7 @@ export function columnSizes(settings: Context) {
  * @returns i the data index
  */
 export function visibleToColumnIndex(settings: Context, visIdx: number) {
-	let aiVis = getColumns(settings, 'bVisible');
+	let aiVis = getColumns(settings, 'visible');
 
 	return typeof aiVis[visIdx] === 'number' ? aiVis[visIdx] : null;
 }
@@ -196,7 +196,7 @@ export function visibleToColumnIndex(settings: Context, visIdx: number) {
  * @returns The data index
  */
 export function columnIndexToVisible(settings: Context, match: number) {
-	let aiVis = getColumns(settings, 'bVisible');
+	let aiVis = getColumns(settings, 'visible');
 	let iPos = aiVis.indexOf(match);
 
 	return iPos !== -1 ? iPos : null;
@@ -205,7 +205,7 @@ export function columnIndexToVisible(settings: Context, match: number) {
 /**
  * Get the number of visible columns
  *
- * @param oSettings DataTables settings object
+ * @param settings DataTables settings object
  * @returns i the number of visible columns
  */
 export function visibleColumns(settings: Context) {
@@ -216,7 +216,7 @@ export function visibleColumns(settings: Context) {
 	if (layout.length) {
 		for (let i = 0, iLen = layout[0].length; i < iLen; i++) {
 			if (
-				columns[i].bVisible &&
+				columns[i].visible &&
 				dom.s(layout[0][i].cell).css('display') !== 'none'
 			) {
 				vis++;
@@ -231,8 +231,7 @@ export function visibleColumns(settings: Context) {
  * Get an array of column indexes that match a given property
  *
  * @param settings DataTables settings object
- * @param param Parameter in aoColumns to look for - typically bVisible or
- *    bSearchable
+ * @param param Parameter in the columns array to look for
  *  @returns Array of indexes with matched properties
  */
 export function getColumns(settings: Context, param: keyof ColumnModel) {
@@ -277,10 +276,10 @@ export function columnTypes(settings: Context) {
 		col = columns[i];
 		cache = [];
 
-		if (!col.sType && col._sManualType) {
-			col.sType = col._sManualType;
+		if (!col.type && col._sManualType) {
+			col.type = col._sManualType;
 		}
-		else if (!col.sType) {
+		else if (!col.type) {
 			// With SSP type detection can be unreliable and error prone, so we provide a way
 			// to turn it off.
 			if (!settings.typeDetect) {
@@ -311,7 +310,7 @@ export function columnTypes(settings: Context) {
 					detectedType = _typeResult(typeDetect, init(settings, col, i));
 
 					if (detectedType) {
-						col.sType = detectedType;
+						col.type = detectedType;
 						break;
 					}
 				}
@@ -355,26 +354,26 @@ export function columnTypes(settings: Context) {
 				// Type is valid for all data points in the column - use this
 				// type
 				if ((oneOf && one && detectedType) || (!oneOf && detectedType)) {
-					col.sType = detectedType;
+					col.type = detectedType;
 					break;
 				}
 			}
 
 			// Fall back - if no type was detected, always use string
-			if (!col.sType) {
-				col.sType = 'string';
+			if (!col.type) {
+				col.type = 'string';
 			}
 		}
 
 		// Set class names for header / footer for auto type classes
-		var autoClass = ext.type.className[col.sType];
+		var autoClass = ext.type.className[col.type];
 
 		if (autoClass) {
 			_columnAutoClass(settings.aoHeader, i, autoClass);
 			_columnAutoClass(settings.aoFooter, i, autoClass);
 		}
 
-		var renderer = ext.type.render[col.sType];
+		var renderer = ext.type.render[col.type];
 
 		// This can only happen once! There is no way to remove
 		// a renderer. After the first time the renderer has
@@ -454,7 +453,7 @@ export function applyColumnDefs(
 		for (i = 0, iLen = aoCols.length; i < iLen; i++) {
 			// Compat
 			if (aoCols[i] && (aoCols[i] as any).name) {
-				columns[i].sName = (aoCols[i] as any).name;
+				columns[i].name = (aoCols[i] as any).name;
 			}
 		}
 	}
@@ -501,7 +500,7 @@ export function applyColumnDefs(
 						}
 						else if (target.indexOf(':name') !== -1) {
 							// Column selector
-							if (columns[k].sName === target.replace(':name', '')) {
+							if (columns[k].name === target.replace(':name', '')) {
 								fn(k, def);
 							}
 						}
@@ -563,9 +562,9 @@ export function columnsSumWidth(
 
 	for (let i = 0, iLen = targets.length; i < iLen; i++) {
 		let column = columns[targets[i]];
-		let definedWidth = original ? column.sWidthOrig : column.sWidth;
+		let definedWidth = original ? column.widthOrig : column.width;
 
-		if (!incVisible && column.bVisible === false) {
+		if (!incVisible && column.visible === false) {
 			continue;
 		}
 

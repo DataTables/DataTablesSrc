@@ -6,11 +6,16 @@ describe('columns.name option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
+
+		it('Default value', function () {
+			expect(DataTable.defaults.column.name).toBe('');
+		});
+
 		it('Names are stored in the columns object', function() {
 			let table = $('#example').DataTable({
 				columns: [null, { name: 'unit test' }, null, null, null, null]
 			});
-			expect($('#example').DataTable.settings[0].aoColumns[1].name).toBe('unit test');
+			expect($('#example').DataTable.settings[0].columns[1].name).toBe('unit test');
 		});
 
 		dt.html('basic');

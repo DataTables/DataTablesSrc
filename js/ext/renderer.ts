@@ -165,7 +165,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 			var firstVis = -1; // column index
 
 			for (i = 0; i < orderedColumns.length; i++) {
-				if (settings.columns[orderedColumns[i]].bVisible) {
+				if (settings.columns[orderedColumns[i]].visible) {
 					firstVis = orderedColumns[i];
 					break;
 				}
@@ -173,7 +173,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 
 			if (indexes[0] == firstVis) {
 				var firstSort = sorting[0];
-				var sortOrder = col.asSorting;
+				var sortOrder = col.orderSequence;
 
 				cell.attr(
 					'aria-sort',

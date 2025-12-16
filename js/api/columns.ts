@@ -178,7 +178,7 @@ function selectColumns(
 						if (idx < 0) {
 							// Counting from the right
 							var visColumns = columns.map(function (col, i) {
-								return col.bVisible ? i : null;
+								return col.visible ? i : null;
 							});
 							return [visColumns[visColumns.length + idx]];
 						}
@@ -188,7 +188,7 @@ function selectColumns(
 
 					return columns.map(function (col, mapIdx) {
 						// Not visible, can't match
-						if (!col.bVisible) {
+						if (!col.visible) {
 							return null;
 						}
 
@@ -206,7 +206,7 @@ function selectColumns(
 				case 'name':
 					// Don't get names, unless needed, and only get once if it is
 					if (!names) {
-						names = pluck(columns, 'sName');
+						names = pluck(columns, 'name');
 					}
 
 					// match by name. `names` is column index complete and in order
@@ -216,7 +216,7 @@ function selectColumns(
 
 				case 'title':
 					if (!titles) {
-						titles = pluck(columns, 'sTitle');
+						titles = pluck(columns, 'title');
 					}
 
 					// match by column title
@@ -276,19 +276,19 @@ function setColumnVis(settings: Context, column: number, vis: boolean) {
 
 	// Get
 	if (vis === undefined) {
-		return col.bVisible;
+		return col.visible;
 	}
 
 	// Set
 	// No change
-	if (col.bVisible === vis) {
+	if (col.visible === vis) {
 		return false;
 	}
 
 	if (vis) {
 		// Insert column
 		// Need to decide if we should use appendChild or insertBefore
-		var insertBefore = pluck(cols, 'bVisible').indexOf(true, column + 1);
+		var insertBefore = pluck(cols, 'visible').indexOf(true, column + 1);
 
 		for (i = 0, iLen = data.length; i < iLen; i++) {
 			let row = data[i];
@@ -310,7 +310,7 @@ function setColumnVis(settings: Context, column: number, vis: boolean) {
 	}
 
 	// Common actions
-	col.bVisible = vis;
+	col.visible = vis;
 
 	colGroup(settings);
 
@@ -430,7 +430,7 @@ registerPlural<ApiColumnsMethods<any>['dataSrc']>(
 		return this.iterator(
 			'column',
 			function (settings, column) {
-				return settings.columns[column].mData;
+				return settings.columns[column].data;
 			},
 			true
 		);
@@ -477,7 +477,7 @@ registerPlural<ApiColumnsMethods<any>['names']>(
 		return this.iterator(
 			'column',
 			function (settings, column) {
-				return settings.columns[column].sName;
+				return settings.columns[column].name;
 			},
 			true
 		);
@@ -537,7 +537,7 @@ registerPlural<ApiColumnsMethods<any>['types']>(
 			'column',
 			function (settings, column) {
 				var colObj = settings.columns[column];
-				var type = colObj.sType;
+				var type = colObj.type;
 
 				// If the type was invalidated, then resolve it. This actually does
 				// all columns at the moment. Would only happen once if getting all
@@ -545,7 +545,7 @@ registerPlural<ApiColumnsMethods<any>['types']>(
 				if (!type) {
 					columnTypes(settings);
 
-					type = colObj.sType;
+					type = colObj.type;
 				}
 
 				return type;
@@ -569,7 +569,7 @@ registerPlural<ApiColumnsVisibleOverload>(
 		var changed: any[] = [];
 		var ret = this.iterator('column', function (settings, column) {
 			if (vis === undefined) {
-				return settings.columns[column].bVisible;
+				return settings.columns[column].visible;
 			} // else
 
 			if (setColumnVis(settings, column, vis)) {

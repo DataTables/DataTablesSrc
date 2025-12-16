@@ -7,7 +7,7 @@ describe('columns.cellType option', function() {
 	describe('Check the defaults', function() {
 		dt.html('empty');
 		it('Default should be null', function() {
-			expect($.fn.DataTable.defaults.column.sCellType).toBe('td');
+			expect(DataTable.defaults.column.cellType).toBe('td');
 		});
 	});
 

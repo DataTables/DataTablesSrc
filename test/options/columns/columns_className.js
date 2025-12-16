@@ -6,6 +6,11 @@ describe('columns.className option', function() {
 
 	describe('Functional tests', function() {
 		dt.html('basic');
+
+		it('Default value', function () {
+			expect(DataTable.defaults.column.className).toBe('');
+		});
+
 		it("By default the test class hasn't been applied to the column", function() {
 			$('#example').dataTable({});
 			expect($('#example tbody tr:eq(0) td:eq(2)').hasClass('unittest')).not.toBe(true);
@@ -52,10 +57,10 @@ describe('columns.className option', function() {
 			expect($('#example tbody tr:eq(0) td:eq(0)').hasClass('unittest2')).toBe(false);
 		});
 		it('Class defined for multiple columns- has not applied to other columns- 5th 1', function() {
-			expect($('#example tobody tr:eq(0) td:eq(4)').hasClass('unittest1')).toBe(false);
+			expect($('#example tbody tr:eq(0) td:eq(4)').hasClass('unittest1')).toBe(false);
 		});
 		it('Class defined for multiple columns- has not applied to other columns- 5th 3', function() {
-			expect($('#example tobody tr:eq(6) td:eq(4)').hasClass('unittest2')).toBe(false);
+			expect($('#example tbody tr:eq(6) td:eq(4)').hasClass('unittest2')).toBe(false);
 		});
 	});
 });

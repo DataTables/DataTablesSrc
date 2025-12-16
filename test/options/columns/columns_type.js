@@ -7,9 +7,9 @@ describe('columns.type option', function() {
 	let table;
 
 	function checkCols(expected) {
-		cols = table.settings().context[0].aoColumns;
+		cols = table.settings().context[0].columns;
 		for (i = 0; i < 6; i++) {
-			expect(cols[i].sType).toBe(expected[i]);
+			expect(cols[i].type).toBe(expected[i]);
 		}
 	}
 

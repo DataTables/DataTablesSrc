@@ -7,7 +7,7 @@ describe('columns.render option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Default should be null', function() {
-			expect($.fn.DataTable.defaults.column.mRender).toBe(null);
+			expect(DataTable.defaults.column.render).toBe(null);
 		});
 	});
 

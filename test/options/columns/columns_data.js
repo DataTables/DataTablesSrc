@@ -8,7 +8,7 @@ describe('columns.data option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Default should be null', function() {
-			expect($.fn.DataTable.defaults.column.mData).toBe(null);
+			expect(DataTable.defaults.column.data).toBe(null);
 		});
 	});
 

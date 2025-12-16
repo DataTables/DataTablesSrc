@@ -38,13 +38,13 @@ export default class Settings {
 	 * it again (click again) and it will move on to the next index. Repeat
 	 * until loop.
 	 */
-	public asSorting: string[] = [];
+	public orderSequence: string[] = [];
 
 	/**
 	 * Flag to indicate if the column is searchable, and thus should be included
 	 * in the filtering or not.
 	 */
-	public bSearchable: boolean;
+	public searchable: boolean;
 
 	/**
 	 * Flag to indicate if the column is sortable or not.
@@ -54,11 +54,11 @@ export default class Settings {
 	/**
 	 * Flag to indicate if the column is currently visible in the table or not
 	 */
-	public bVisible: boolean;
+	public visible: boolean;
 
 	/**
 	 * Store for manual type assignment using the `column.type` option. This
-	 * is held in store so we can manipulate the column's `sType` property.
+	 * is held in store so we can manipulate the column's `type` property.
 	 */
 	public _sManualType: string | null = null;
 
@@ -71,10 +71,10 @@ export default class Settings {
 	/**
 	 * Developer definable function that is called whenever a cell is created
 	 * (Ajax source, etc) or processed for input (DOM source). This can be used
-	 * as a compliment to mRender allowing you to modify the DOM element (add
+	 * as a compliment to `render` allowing you to modify the DOM element (add
 	 * background colour for example) when the element is available.
 	 */
-	public fnCreatedCell: (
+	public createdCell: (
 		cell: HTMLTableCellElement,
 		cellData: any,
 		rowData: any,
@@ -104,7 +104,7 @@ export default class Settings {
 	 * source array / object. If null, then the default content is used, if a
 	 * function is given then the return from the function is used.
 	 */
-	public mData: any = null;
+	public data: any = null;
 
 	/**
 	 * Partner property to mData which is used (only when defined) to get the
@@ -112,12 +112,12 @@ export default class Settings {
 	 * option, and also the data fed to it is the result from mData. This is the
 	 * rendering method to match the data method of mData.
 	 */
-	public mRender: any = null;
+	public render: any = null;
 
 	/**
-	 * The class to apply to all TD elements in the table's TBODY for the column
+	 * The class to apply to all cells in the table's `tbody`` for the column
 	 */
-	public sClass: string | null = null;
+	public className: string | null = null;
 
 	/**
 	 * When DataTables calculates the column widths to assign to each column, it
@@ -129,26 +129,26 @@ export default class Settings {
 	 * we provide this option. It will append its value to the text that is
 	 * found to be the longest string for the column - i.e. padding.
 	 */
-	public sContentPadding: string | null = null;
+	public contentPadding: string | null = null;
 
 	/**
 	 * Allows a default value to be given for a column's data, and will be used
 	 * whenever a null data source is encountered (this can be because mData is
 	 * set to null, or because the data source itself is null).
 	 */
-	public sDefaultContent: string | null = null;
+	public defaultContent: string | null = null;
 
 	/**
 	 * Name for the column, allowing reference to the column by name as well as
 	 * by index (needs a lookup to work by name).
 	 */
-	public sName: string | null = null;
+	public name: string | null = null;
 
 	/**
 	 * Custom sorting data type - defines which of the available plug-ins in
 	 * afnSortData the custom sorting will use - if any is defined.
 	 */
-	public sSortDataType: string = 'std';
+	public orderDataType: string = 'std';
 
 	/**
 	 * Class to be applied to the header element when sorting on this column
@@ -158,22 +158,22 @@ export default class Settings {
 	/**
 	 * Title of the column - what is seen in the TH element (nTh).
 	 */
-	public sTitle: string | null = null;
+	public title: string | null = null;
 
 	/**
 	 * Column sorting and filtering type
 	 */
-	public sType: string | null;
+	public type: string | null;
 
 	/**
 	 * Width of the column
 	 */
-	public sWidth: string | null = null;
+	public width: string | null = null;
 
 	/**
 	 * Width of the column when it was first "encountered"
 	 */
-	public sWidthOrig: string | null = null;
+	public widthOrig: string | null = null;
 
 	/** Cached longest strings from a column */
 	public wideStrings: string[] | null = null;
@@ -189,9 +189,9 @@ export default class Settings {
 
 	public footer: string;
 
-	public className: string;
+	// public className: string;
 
-	public sCellType: string;
+	public cellType: string;
 
 	public _setter: SetFunction | null;
 

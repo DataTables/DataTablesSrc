@@ -181,7 +181,7 @@ export function sortResolve(
 			}
 			else if (orderName.name) {
 				// Name based ordering
-				var cols = pluck(settings.columns, 'sName');
+				var cols = pluck(settings.columns, 'name');
 				var idx = cols.indexOf(orderName.name);
 
 				if (idx !== -1) {
@@ -218,9 +218,9 @@ export function sortFlatten(settings: Context) {
 		aSort: ISortItem[] = [],
 		extSort = ext.type.order,
 		aoColumns = settings.columns,
-		aDataSort,
-		iCol,
-		sType,
+		dataSort,
+		colIdx,
+		type,
 		srcCol,
 		fixed = settings.orderFixed as any,
 		fixedObj = is.plainObject(fixed),
@@ -250,14 +250,14 @@ export function sortFlatten(settings: Context) {
 		srcCol = nestedSort[i][0];
 
 		if (aoColumns[srcCol]) {
-			aDataSort = aoColumns[srcCol].orderData;
+			dataSort = aoColumns[srcCol].orderData;
 
-			for (k = 0, kLen = aDataSort.length; k < kLen; k++) {
-				iCol = aDataSort[k];
-				sType = aoColumns[iCol].sType || 'string';
+			for (k = 0, kLen = dataSort.length; k < kLen; k++) {
+				colIdx = dataSort[k];
+				type = aoColumns[colIdx].type || 'string';
 
 				if (nestedSort[i]._idx === undefined) {
-					nestedSort[i]._idx = aoColumns[iCol].asSorting!.indexOf(
+					nestedSort[i]._idx = aoColumns[colIdx].orderSequence!.indexOf(
 						nestedSort[i][1]
 					);
 				}
@@ -265,12 +265,12 @@ export function sortFlatten(settings: Context) {
 				if (nestedSort[i][1]) {
 					aSort.push({
 						src: srcCol,
-						col: iCol,
+						col: colIdx,
 						dir: nestedSort[i][1],
 						index: nestedSort[i]._idx,
-						type: sType,
-						formatter: extSort[sType + '-pre'],
-						sorter: extSort[sType + '-' + nestedSort[i][1]],
+						type: type,
+						formatter: extSort[type + '-pre'],
+						sorter: extSort[type + '-' + nestedSort[i][1]],
 					});
 				}
 			}
@@ -311,9 +311,9 @@ export function sort(ctx: Context, col?: number, dir?: string) {
 				col: col,
 				dir: dir || '',
 				index: 0,
-				type: srcCol.sType!,
-				formatter: extSort[srcCol.sType + '-pre'],
-				sorter: extSort[srcCol.sType + '-' + dir],
+				type: srcCol.type!,
+				formatter: extSort[srcCol.type + '-pre'],
+				sorter: extSort[srcCol.type + '-' + dir],
 			},
 		];
 		displayMaster = displayMaster.slice();
@@ -436,7 +436,7 @@ export function sortAdd(
 ) {
 	var col = settings.columns[colIdx];
 	var sorting = settings.order;
-	var asSorting = col.asSorting;
+	var asSorting = col.orderSequence;
 	var nextSortIdx;
 	var next = function (a: OrderState, overflow?: boolean) {
 		var idx = a._idx;
@@ -560,7 +560,7 @@ export function sortingClasses(settings: Context) {
 export function sortData(settings: Context, colIdx: number) {
 	// Custom sorting function - provided by the sort data type
 	var column = settings.columns[colIdx];
-	var customSort = ext.order[column.sSortDataType];
+	var customSort = ext.order[column.orderDataType];
 	var customData;
 
 	if (customSort) {
@@ -574,7 +574,7 @@ export function sortData(settings: Context, colIdx: number) {
 
 	// Use / populate cache
 	var row, cellData;
-	var formatter = ext.type.order[column.sType + '-pre'];
+	var formatter = ext.type.order[column.type + '-pre'];
 	var data = settings.aoData;
 
 	for (var rowIdx = 0; rowIdx < data.length; rowIdx++) {

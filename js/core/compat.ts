@@ -219,6 +219,7 @@ export function compatCols(init: any) {
 	compatMap(init, 'orderData', 'dataSort');
 	compatMap(init, 'orderSequence', 'sorting');
 	compatMap(init, 'orderDataType', 'sortDataType');
+	compatMap(init, 'className', 'class');
 
 	// orderData can be given as an integer
 	var dataSort = init.aDataSort;
@@ -232,8 +233,8 @@ export function compatCols(init: any) {
 	}
 
 	// Backwards compatibility for mDataProp from 1.9-
-	if (init.mDataProp !== undefined && !init.mData) {
-		init.mData = init.mDataProp;
+	if (init.dataProp !== undefined && !init.data) {
+		init.data = init.dataProp;
 	}
 }
 

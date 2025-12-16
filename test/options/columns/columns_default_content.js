@@ -8,7 +8,7 @@ describe('columns.defaultContent option', function() {
 		dt.html('basic');
 		it('Default is null', function() {
 			$('#example').dataTable();
-			expect($.fn.DataTable.defaults.column.sDefaultContent).toBe(null);
+			expect(DataTable.defaults.column.defaultContent).toBe(null);
 		});
 
 		dt.html('basic');

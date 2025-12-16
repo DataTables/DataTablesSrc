@@ -38,7 +38,7 @@ export function addData(
 
 	for (var i = 0, iLen = columns.length; i < iLen; i++) {
 		// Invalidate the column types as the new data needs to be revalidated
-		columns[i].sType = null;
+		columns[i].type = null;
 	}
 
 	/* Add to the display array */
@@ -106,7 +106,7 @@ export function getCellData(
 	var draw = settings.iDraw;
 	var col = settings.columns[colIdx];
 	var rowData = row._aData;
-	var defaultContent = col.sDefaultContent;
+	var defaultContent = col.defaultContent;
 	var cellData = col.fnGetData(rowData, type, {
 		settings: settings,
 		row: rowIdx,
@@ -129,9 +129,9 @@ export function getCellData(
 				settings,
 				0,
 				'Requested unknown parameter ' +
-					(typeof col.mData == 'function'
+					(typeof col.data == 'function'
 						? '{function}'
-						: "'" + col.mData + "'") +
+						: "'" + col.data + "'") +
 					' for row ' +
 					rowIdx +
 					', column ' +
@@ -167,8 +167,8 @@ export function getCellData(
 	if (type === 'filter') {
 		var formatters = ext.type.search;
 
-		if (col.sType && formatters[col.sType]) {
-			cellData = formatters[col.sType](cellData);
+		if (col.type && formatters[col.type]) {
+			cellData = formatters[col.type](cellData);
 		}
 	}
 
@@ -294,7 +294,7 @@ export function invalidate(
 	var cols = settings.columns;
 	if (colIdx !== undefined) {
 		// Type - the data might have changed
-		cols[colIdx].sType = null;
+		cols[colIdx].type = null;
 
 		// Max length string. Its a fairly cheep recalculation, so not worth
 		// something more complicated
@@ -302,7 +302,7 @@ export function invalidate(
 	}
 	else {
 		for (i = 0, iLen = cols.length; i < iLen; i++) {
-			cols[i].sType = null;
+			cols[i].type = null;
 			cols[i].wideStrings = null;
 		}
 
@@ -394,8 +394,8 @@ function readCellData(
 
 	if (column._bAttrSrc) {
 		// If we are working with attributes from the cell as values
-		let mData = column.mData as any;
-		let setter = util.set(mData._);
+		let dataPoint = column.data as any;
+		let setter = util.set(dataPoint._);
 		let attr = function (str: string, cell: HTMLElement) {
 			if (typeof str === 'string') {
 				let idx = str.indexOf('@');
@@ -410,14 +410,14 @@ function readCellData(
 		};
 
 		setter(data, contents);
-		attr(mData.sort, cell);
-		attr(mData.type, cell);
-		attr(mData.filter, cell);
+		attr(dataPoint.sort, cell);
+		attr(dataPoint.type, cell);
+		attr(dataPoint.filter, cell);
 	}
 	else {
 		if (!column._setter) {
 			// Cache the setter function
-			column._setter = util.set(column.mData);
+			column._setter = util.set(column.data);
 		}
 
 		column._setter(data, contents);

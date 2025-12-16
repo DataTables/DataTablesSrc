@@ -8,10 +8,10 @@ describe('column.orderSequence option', function() {
 		dt.html('basic');
 		it('Default should be null', function() {
 			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.column.asSorting.length).toBe(3);
-			expect($.fn.dataTable.defaults.column.asSorting[0]).toBe('asc');
-			expect($.fn.dataTable.defaults.column.asSorting[1]).toBe('desc');
-			expect($.fn.dataTable.defaults.column.asSorting[2]).toBe('');
+			expect(DataTable.defaults.column.orderSequence.length).toBe(3);
+			expect(DataTable.defaults.column.orderSequence[0]).toBe('asc');
+			expect(DataTable.defaults.column.orderSequence[1]).toBe('desc');
+			expect(DataTable.defaults.column.orderSequence[2]).toBe('');
 		});
 
 		dt.html('basic');

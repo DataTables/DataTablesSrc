@@ -7,10 +7,10 @@ describe('column.orderDataType option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 		it('Default value', function() {
-			expect($.fn.dataTable.defaults.column.sSortDataType).toBe('std');
+			expect(DataTable.defaults.column.orderDataType).toBe('std');
 		});
 		it('Change name to search by last name', function() {
-			$.fn.dataTable.ext.order['unit-test'] = function(settings, col) {
+			DataTable.ext.order['unit-test'] = function(settings, col) {
 				return this.api()
 					.column(col, { order: 'index' })
 					.nodes()
@@ -34,7 +34,7 @@ describe('column.orderDataType option', function() {
 		dt.html('liveOrder');
 		it('live data sort type with columnDefs', async function() {
 			/* Create an array with the values of all the input boxes in a column */
-			$.fn.dataTable.ext.order['dom-text'] = function(settings, col) {
+			DataTable.ext.order['dom-text'] = function(settings, col) {
 				return this.api()
 					.column(col, { order: 'index' })
 					.nodes()
@@ -43,7 +43,7 @@ describe('column.orderDataType option', function() {
 					});
 			};
 			/* Create an array with the values of all the input boxes in a column, parsed as numbers */
-			$.fn.dataTable.ext.order['dom-text-numeric'] = function(settings, col) {
+			DataTable.ext.order['dom-text-numeric'] = function(settings, col) {
 				return this.api()
 					.column(col, { order: 'index' })
 					.nodes()
@@ -52,7 +52,7 @@ describe('column.orderDataType option', function() {
 					});
 			};
 			/* Create an array with the values of all the select options in a column */
-			$.fn.dataTable.ext.order['dom-select'] = function(settings, col) {
+			DataTable.ext.order['dom-select'] = function(settings, col) {
 				return this.api()
 					.column(col, { order: 'index' })
 					.nodes()
@@ -61,7 +61,7 @@ describe('column.orderDataType option', function() {
 					});
 			};
 			/* Create an array with the values of all the checkboxes in a column */
-			$.fn.dataTable.ext.order['dom-checkbox'] = function(settings, col) {
+			DataTable.ext.order['dom-checkbox'] = function(settings, col) {
 				return this.api()
 					.column(col, { order: 'index' })
 					.nodes()

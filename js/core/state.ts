@@ -29,15 +29,15 @@ export function saveState(settings: Context) {
 		length: settings.pageLength,
 		order: sorting.map(function (sort) {
 			// If a column name is available, use it
-			return columns[sort[0]] && columns[sort[0]].sName
-				? [columns[sort[0]].sName, sort[1]]
+			return columns[sort[0]] && columns[sort[0]].name
+				? [columns[sort[0]].name, sort[1]]
 				: sort.slice();
 		}),
 		search: Object.assign({}, settings.previousSearch),
 		columns: settings.columns.map(function (col, i) {
 			return {
-				name: col.sName,
-				visible: col.bVisible,
+				name: col.name,
+				visible: col.visible,
 				search: Object.assign({}, settings.preSearchCols[i]),
 			};
 		}),
@@ -91,7 +91,7 @@ export function implementState(
 ) {
 	var i, iLen;
 	var columns = settings.columns;
-	var currentNames = pluck(settings.columns, 'sName');
+	var currentNames = pluck(settings.columns, 'name');
 
 	settings._bLoadingState = true;
 
@@ -247,7 +247,7 @@ export function implementState(
 						api.column(i).visible(col.visible, false);
 					}
 					else {
-						columns[i].bVisible = col.visible;
+						columns[i].visible = col.visible;
 					}
 				}
 

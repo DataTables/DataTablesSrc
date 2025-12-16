@@ -6,6 +6,11 @@ describe('columns.visible option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
+
+		it('Default value', function () {
+			expect(DataTable.defaults.column.visible).toBe(true);
+		});
+
 		it('All columns are visible by default', function() {
 			$('#example').dataTable();
 			expect($('#example tbody tr:eq(0) td').length).toBe(6);
