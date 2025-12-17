@@ -33,15 +33,15 @@ register<Partial<IFeatureSearchOptions>>(
 
 		let classes = settings.classes.search;
 		let tableId = settings.sTableId;
-		let language = settings.oLanguage;
+		let language = settings.language;
 		let previousSearch = settings.previousSearch;
 		let input = '<input type="search" class="' + classes.input + '"/>';
 
 		let opts: IFeatureSearchOptions = Object.assign(
 			{
-				placeholder: language.sSearchPlaceholder,
+				placeholder: language.searchPlaceholder,
 				processing: false,
-				text: language.sSearch
+				text: language.search
 			},
 			optsIn
 		);

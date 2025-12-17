@@ -6,9 +6,10 @@ describe( "language.url option //Need de_DE.txt", function() {
 
 	describe("Check the defaults", function () {
 		dt.html( 'basic' );
+
 		it("url is blank by default ", function () {
 			$('#example').dataTable();
-			expect($('#example').DataTable().settings()[0].oLanguage.sUrl  === "").toBe(true);
+			expect(DataTable.defaults.language.url).toBe('');
 		});
 
 		dt.html( 'basic' );

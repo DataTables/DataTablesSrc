@@ -9,12 +9,12 @@ describe('language.lengthLabel option', function () {
 	dt.html('basic');
 
 	it('Check default', function () {
-		expect(DataTable.defaults.oLanguage.lengthLabels).toEqual({'-1': 'All'});
+		expect(DataTable.defaults.language.lengthLabels).toEqual({ '-1': 'All' });
 	});
 
 	it('Default is used when an "all" option is included', function () {
 		table = $('#example').DataTable({
-			lengthMenu: [ 10, 25, 50, -1 ]
+			lengthMenu: [10, 25, 50, -1]
 		});
 
 		expect($('div.dt-length select option').eq(0).text()).toBe('10');

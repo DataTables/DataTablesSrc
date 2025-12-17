@@ -7,18 +7,15 @@ describe('language.processing option', function() {
 	describe('Check the defaults', function() {
 		dt.html('basic');
 
+		it('Default value', function () {
+			expect(DataTable.defaults.language.processing).toBe('');
+		});
+
 		it("Processing language is empty by default ", function() {
 			$('#example').dataTable({
 				processing: true
 			});
-			expect(
-				$('#example')
-					.DataTable()
-					.settings()[0].oLanguage.sProcessing
-			).toBe('');
-		});
 
-		it('Processing language default is in the DOM ', function() {
 			expect($('div.dt-processing').text()).toBe('');
 		});
 
@@ -31,14 +28,7 @@ describe('language.processing option', function() {
 					processing: 'unit test'
 				}
 			});
-			expect(
-				$('#example')
-					.DataTable()
-					.settings()[0].oLanguage.sProcessing
-			).toBe('unit test');
-		});
 
-		it('Processing language definition is in the DOM', function() {
 			expect($('div.dt-processing').text()).toBe('unit test');
 		});
 	});

@@ -407,18 +407,18 @@ register('html-num-fmt', {
 	className: 'dt-type-numeric',
 	detect: {
 		allOf: function (d, settings) {
-			var decimal = settings.oLanguage.sDecimal;
+			var decimal = settings.language.decimal;
 			return util.is.htmlNum(d, decimal, true, false);
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
-			var decimal = settings.oLanguage.sDecimal;
+			var decimal = settings.language.decimal;
 			return util.is.htmlNum(d, decimal, true, false);
 		}
 	},
 	order: {
 		pre: function (d, s) {
-			var dp = s.oLanguage.sDecimal;
+			var dp = s.language.decimal;
 			return __numericReplace(
 				d,
 				dp,
@@ -434,18 +434,18 @@ register('html-num', {
 	className: 'dt-type-numeric',
 	detect: {
 		allOf: function (d, settings) {
-			var decimal = settings.oLanguage.sDecimal;
+			var decimal = settings.language.decimal;
 			return util.is.htmlNum(d, decimal, false, true);
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
-			var decimal = settings.oLanguage.sDecimal;
+			var decimal = settings.language.decimal;
 			return util.is.htmlNum(d, decimal, false, false);
 		}
 	},
 	order: {
 		pre: function (d, s) {
-			var dp = s.oLanguage.sDecimal;
+			var dp = s.language.decimal;
 			return __numericReplace(d, dp, util.regex.reHtml);
 		}
 	},
@@ -456,18 +456,18 @@ register('num-fmt', {
 	className: 'dt-type-numeric',
 	detect: {
 		allOf: function (d, settings) {
-			var decimal = settings.oLanguage.sDecimal;
+			var decimal = settings.language.decimal;
 			return util.is.num(d, decimal, true, true);
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
-			var decimal = settings.oLanguage.sDecimal;
+			var decimal = settings.language.decimal;
 			return util.is.num(d, decimal, true, false);
 		}
 	},
 	order: {
 		pre: function (d, s) {
-			var dp = s.oLanguage.sDecimal;
+			var dp = s.language.decimal;
 			return __numericReplace(d, dp, util.regex.reFormattedNumeric);
 		}
 	}
@@ -477,18 +477,18 @@ register('num', {
 	className: 'dt-type-numeric',
 	detect: {
 		allOf: function (d, settings) {
-			var decimal = settings.oLanguage.sDecimal;
+			var decimal = settings.language.decimal;
 			return util.is.num(d, decimal, false, true);
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
-			var decimal = settings.oLanguage.sDecimal;
+			var decimal = settings.language.decimal;
 			return util.is.num(d, decimal, false, false);
 		}
 	},
 	order: {
 		pre: function (d, s) {
-			var dp = s.oLanguage.sDecimal;
+			var dp = s.language.decimal;
 			return __numericReplace(d, dp);
 		}
 	}

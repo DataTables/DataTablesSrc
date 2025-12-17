@@ -197,7 +197,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 					.attr(
 						'aria-label',
 						orderable
-							? col.ariaTitle + ctx.api.i18n('oAria.orderable' + ariaType)
+							? col.ariaTitle + ctx.api.i18n('aria.orderable' + ariaType)
 							: col.ariaTitle
 					);
 

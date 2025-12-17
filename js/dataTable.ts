@@ -15,7 +15,8 @@ import {
 	browserDetect,
 	camelToHungarian,
 	compatCols,
-	compatOpts
+	compatOpts,
+	hungarianToCamel
 } from './core/compat';
 import { getCellData } from './core/data';
 import { detectHeader } from './core/draw';
@@ -172,7 +173,7 @@ const DataTable = function (
 		});
 
 		settings.nTable = tableEl;
-		settings.oInit = init;
+		settings.init = init;
 
 		allSettings.push(settings);
 
@@ -249,7 +250,7 @@ const DataTable = function (
 			['scrollY', 'y'],
 			['scrollCollapse', 'collapse']
 		]);
-		map(settings.oLanguage, config, 'infoCallback');
+		map(settings.language, config, 'infoCallback');
 
 		/* Callback functions which are array driven */
 		callbackReg(settings, 'draw', config.drawCallback);
@@ -459,17 +460,20 @@ const DataTable = function (
 		settings.bInitialised = true;
 
 		// Language definitions
-		var oLanguage = settings.oLanguage;
-		util.object.assignDeep(oLanguage, config.language as any);
+		var language = settings.language;
 
-		if (oLanguage.sUrl) {
+		if (config.language) {
+			util.object.assignDeep(language, config.language);
+		}
+
+		if (language.url) {
 			// Get the language definitions from a file
 			util.ajax({
 				dataType: 'json',
-				url: oLanguage.sUrl,
+				url: language.url,
 				success: function (json) {
-					camelToHungarian((defaults as any).oLanguage, json);
-					util.object.assignDeep(oLanguage, json, settings.oInit.oLanguage);
+					hungarianToCamel(json);
+					util.object.assignDeep(language, json, settings.init.language as any);
 
 					callbackFire(settings, null, 'i18n', [settings], true);
 					initialise(settings);

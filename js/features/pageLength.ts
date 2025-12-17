@@ -31,7 +31,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 		let opts: IFeaturePageLengthOptions = Object.assign(
 			{
 				menu: settings.lengthMenu,
-				text: settings.oLanguage.sLengthMenu
+				text: settings.language.lengthMenu
 			},
 			optsIn
 		);

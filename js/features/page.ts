@@ -118,7 +118,7 @@ function _pagingDraw(
 	}
 
 	let plugin = opts.type ? ext.pager[opts.type] : _pagingDynamic,
-		aria = settings.oLanguage.oAria.paginate || {},
+		aria = settings.language.aria.paginate || {},
 		start = settings.displayStart,
 		len = settings.pageLength,
 		visRecords = recordsDisplay(settings),
@@ -213,10 +213,10 @@ function _pagingDraw(
 /**
  * Get properties for a button based on the current paging state of the table
  *
- * @param {*} settings DT settings object
- * @param {*} button The button type in question
- * @param {*} page Table's current page
- * @param {*} pages Number of pages
+ * @param settings DT settings object
+ * @param button The button type in question
+ * @param page Table's current page
+ * @param pages Number of pages
  * @returns Info object
  */
 function _pagingButtonInfo(
@@ -225,7 +225,7 @@ function _pagingButtonInfo(
 	page: number,
 	pages: number
 ) {
-	let lang = settings.oLanguage.oPaginate;
+	let lang = settings.language.paginate;
 	let o = {
 		display: '',
 		active: false,
@@ -238,7 +238,7 @@ function _pagingButtonInfo(
 			break;
 
 		case 'first':
-			o.display = lang.sFirst;
+			o.display = lang.first;
 
 			if (page === 0) {
 				o.disabled = true;
@@ -246,7 +246,7 @@ function _pagingButtonInfo(
 			break;
 
 		case 'previous':
-			o.display = lang.sPrevious;
+			o.display = lang.previous;
 
 			if (page === 0) {
 				o.disabled = true;
@@ -254,7 +254,7 @@ function _pagingButtonInfo(
 			break;
 
 		case 'next':
-			o.display = lang.sNext;
+			o.display = lang.next;
 
 			if (pages === 0 || page === pages - 1) {
 				o.disabled = true;
@@ -262,7 +262,7 @@ function _pagingButtonInfo(
 			break;
 
 		case 'last':
-			o.display = lang.sLast;
+			o.display = lang.last;
 
 			if (pages === 0 || page === pages - 1) {
 				o.disabled = true;

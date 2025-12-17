@@ -1,4 +1,4 @@
-describe('language.infoEmpty option', function() {
+describe('language.infoEmpty option', function () {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
@@ -6,39 +6,49 @@ describe('language.infoEmpty option', function() {
 
 	let table;
 
-	describe('Check the defaults', function() {
+	describe('Check the defaults', function () {
 		dt.html('basic');
-		it("Info empty language is 'Showing 0 to 0 of 0 _ENTRIES-TOTAL_' ", function() {
-			table = $('#example').DataTable();
-			expect(table.settings()[0].oLanguage.sInfoEmpty).toBe('Showing 0 to 0 of 0 _ENTRIES-TOTAL_');
+
+		it('Default value', function () {
+			expect(DataTable.defaults.language.infoEmpty).toBe(
+				'Showing 0 to 0 of 0 _ENTRIES-TOTAL_'
+			);
 		});
-		it('Info empty language default is in the DOM', function() {
+
+		it('Info empty language default is in the DOM', function () {
+			table = $('#example').DataTable();
+
 			expect($('div.dt-info').html()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		dt.html('basic');
-		it('Info empty language can be defined', function() {
+
+		it('Info empty language can be defined', function () {
 			table = $('#example').DataTable({
 				language: {
 					infoEmpty: 'unit test'
 				}
 			});
 			table.search('asdsad').draw();
-			expect(table.settings()[0].oLanguage.sInfoEmpty).toBe('unit test');
-		});
-		it('Info empty language default is in the dom', function() {
-			expect($('div.dt-info').html()).toBe('unit test (filtered from 57 total entries)');
+
+			expect($('div.dt-info').html()).toBe(
+				'unit test (filtered from 57 total entries)'
+			);
 		});
 
 		dt.html('basic');
-		it("Macro's replaced", function() {
+
+		it("Macro's replaced", function () {
 			table = $('#example').DataTable({
 				language: {
 					infoEmpty: 'unit _START_ _END_ _TOTAL_ test'
 				}
 			});
 			table.search('asdsad').draw();
-			expect($('div.dt-info').html()).toBe('unit 1 0 0 test (filtered from 57 total entries)');
+
+			expect($('div.dt-info').html()).toBe(
+				'unit 1 0 0 test (filtered from 57 total entries)'
+			);
 		});
 	});
 });

@@ -36,17 +36,17 @@ register<Partial<IFeatureInfoOptions>>(
 			return null;
 		}
 
-		let lang = settings.oLanguage,
+		let lang = settings.language,
 			tid = settings.sTableId,
 			n = dom.c('div').classAdd(settings.classes.info.container);
 
 		let opts = Object.assign(
 			{
 				callback: lang.infoCallback,
-				empty: lang.sInfoEmpty,
-				postfix: lang.sInfoPostFix,
-				search: lang.sInfoFiltered,
-				text: lang.sInfo,
+				empty: lang.infoEmpty,
+				postfix: lang.infoPostFix,
+				search: lang.infoFiltered,
+				text: lang.info,
 			},
 			optsIn
 		);

@@ -67,7 +67,7 @@ register<ApiType['settings']>('settings()', function () {
 
 register<ApiType['init']>('init()', function () {
 	var ctx = this.context;
-	return ctx.length ? ctx[0].oInit : null;
+	return ctx.length ? ctx[0].init : null;
 });
 
 register<ApiType['data']>('data()', function () {
@@ -231,7 +231,7 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 // DataTable
 register<ApiType['i18n']>('i18n()', function (token, def, plural) {
 	var ctx = this.context[0];
-	var resolved = util.get(token)(ctx.oLanguage);
+	var resolved = util.get(token)(ctx.language);
 
 	if (resolved === undefined) {
 		resolved = def;

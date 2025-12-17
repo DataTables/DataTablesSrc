@@ -18,7 +18,7 @@ import { loadState } from './state';
  */
 export function initialise(settings: Context) {
 	var i;
-	var init: any = settings.oInit; // TODO typing
+	var init = settings.init;
 	var deferLoading = settings.deferLoading;
 	var dataSrc = dataSource(settings);
 
@@ -45,9 +45,9 @@ export function initialise(settings: Context) {
 
 		// Local data load
 		// Check if there is data passing into the constructor
-		if (init && init.aaData) {
-			for (i = 0; i < init.aaData.length; i++) {
-				addData(settings, init.aaData[i]);
+		if (init && init.data) {
+			for (i = 0; i < init.data.length; i++) {
+				addData(settings, init.data[i]);
 			}
 		}
 		else if (deferLoading || dataSrc == 'dom') {

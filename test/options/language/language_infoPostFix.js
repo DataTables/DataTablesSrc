@@ -8,28 +8,30 @@ describe('language.infoPostFix option', function() {
 
 	describe('Check the defaults', function() {
 		dt.html('basic');
-		it("Info post fix language is 'Showing 0 to 0 of 0 entries' ", function() {
-			table = $('#example').DataTable();
-			expect(table.settings()[0].oLanguage.sInfoPostFix).toBe('');
+
+		it("Default value", function() {
+			expect(DataTable.defaults.language.infoPostFix).toBe('');
 		});
+
 		it('Width no post fix, the basic info shows', function() {
+			table = $('#example').DataTable();
 			expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 57 entries');
 		});
 
 		dt.html('basic');
+
 		it('Info post fix language can be defined', function() {
 			table = $('#example').DataTable({
 				language: {
 					infoPostFix: 'unit test'
 				}
 			});
-			expect(table.settings()[0].oLanguage.sInfoPostFix).toBe('unit test');
-		});
-		it('Info empty language default is in the dom', function() {
+
 			expect($('div.dt-info').text()).toBe('Showing 1 to 10 of 57 entriesunit test');
 		});
 
 		dt.html('basic');
+
 		it('Macros have an effect in the post fix', function() {
 			$('#example').dataTable({
 				language: {

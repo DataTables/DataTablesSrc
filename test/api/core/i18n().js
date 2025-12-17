@@ -22,11 +22,20 @@ describe('core - i18n()', function() {
 		dt.html('basic');
 		it('Top level value', function() {
 			table = $('#example').DataTable();
-			expect(table.i18n('search', 'test')).toBe('test');
+			expect(table.i18n('search', 'test')).toBe('Search:');
 		});
 		it('Nested value', function() {
 			table = $('#example').DataTable();
-			expect(table.i18n('paginate.last', 'test')).toBe('test');
+			expect(table.i18n('paginate.last', 'test')).toBe('»');
+		});
+
+		it('Unknown top level value', function() {
+			table = $('#example').DataTable();
+			expect(table.i18n('searchA', 'test')).toBe('test');
+		});
+		it('Unknown nested value', function() {
+			table = $('#example').DataTable();
+			expect(table.i18n('paginate.last1', 'test')).toBe('test');
 		});
 
 		dt.html('basic');
@@ -47,7 +56,7 @@ describe('core - i18n()', function() {
 		});
 		it('Not customised', function() {
 			table = $('#example').DataTable();
-			expect(table.i18n('processing', 'test')).toBe('test');
+			expect(table.i18n('processing', 'test')).toBe('');
 		});
 
 		dt.html('basic');
@@ -143,16 +152,16 @@ describe('core - i18n()', function() {
 		});
 
 		it('Can get object subtrees', function () {
-			let paging = table.i18n('oPaginate', {}, false);
+			let paging = table.i18n('paginate', {}, false);
 
-			expect(paging.sFirst).toBe('«');
-			expect(paging.sLast).toBe('»');
-			expect(paging.sNext).toBe('›');
-			expect(paging.sPrevious).toBe('‹');
+			expect(paging.first).toBe('«');
+			expect(paging.last).toBe('»');
+			expect(paging.next).toBe('›');
+			expect(paging.previous).toBe('‹');
 		});
 
 		it('Will not get the subtree if `false` not given for the plural', function () {
-			let paging = table.i18n('oPaginate', {});
+			let paging = table.i18n('paginate', {});
 
 			expect(paging).toBeUndefined();
 		});

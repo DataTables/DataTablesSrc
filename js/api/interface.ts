@@ -304,7 +304,7 @@ export interface ApiScopeable<T, S> {
 	 *
 	 * @returns Resulting internationalised string.
 	 */
-	i18n(token: string, def: object | string, numeric?: number): string;
+	i18n(this: S, token: string, def: object | string, numeric?: number): string;
 
 	/**
 	 * Determine if an API result set contains a given value.

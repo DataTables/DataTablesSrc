@@ -17,7 +17,7 @@ export function processingHtml(ctx: Context) {
 			.attr('id', ctx.sTableId + '_processing')
 			.attr('role', 'status')
 			.classAdd(ctx.classes.processing.container)
-			.html(ctx.oLanguage.sProcessing)
+			.html(ctx.language.processing)
 			.append(
 				dom
 					.c('div')

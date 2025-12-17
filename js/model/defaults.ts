@@ -349,43 +349,48 @@ export interface Defaults {
 	classes?: Partial<typeof classes>;
 }
 
+type LanguageOption = string | {
+	[key: string | number]: LanguageOption
+};
+
 export interface ConfigLanguage {
-	emptyTable?: string;
-	entries?: string | object;
-	info?: string;
-	infoEmpty?: string;
-	infoFiltered?: string;
-	infoPostFix?: string;
-	decimal?: string;
-	thousands?: string;
+	[key: string]: LanguageOption;
+	emptyTable: string;
+	entries: LanguageOption;
+	info: string;
+	infoEmpty: string;
+	infoFiltered: string;
+	infoPostFix: string;
+	decimal: string;
+	thousands: string;
 
 	/** Labels for page length entries */
-	lengthLabels?: { [key: string | number]: string };
-	lengthMenu?: string;
-	loadingRecords?: string;
-	processing?: string;
-	search?: string;
-	searchPlaceholder?: string;
-	zeroRecords?: string;
-	paginate?: {
-		first?: string;
-		last?: string;
-		next?: string;
-		previous?: string;
+	lengthLabels: { [key: string | number]: string };
+	lengthMenu: string;
+	loadingRecords: string;
+	processing: string;
+	search: string;
+	searchPlaceholder: string;
+	zeroRecords: string;
+	paginate: {
+		first: string;
+		last: string;
+		next: string;
+		previous: string;
 	};
-	aria?: {
-		orderable?: string;
-		orderableReverse?: string;
-		orderableRemove?: string;
-		paginate?: {
-			first?: string;
-			last?: string;
-			next?: string;
-			previous?: string;
-			number?: string;
+	aria: {
+		orderable: string;
+		orderableReverse: string;
+		orderableRemove: string;
+		paginate: {
+			first: string;
+			last: string;
+			next: string;
+			previous: string;
+			number: string;
 		};
 	};
-	url?: string;
+	url: string;
 }
 
 /**
@@ -401,7 +406,7 @@ const defaults = {
 	 * particularly useful for constructing tables purely in JavaScript, for
 	 * example with a custom Ajax call.
 	 */
-	aaData: null,
+	data: null as any[] | null,
 
 	/**
 	 * If ordering is enabled, then DataTables will perform a first pass sort on
@@ -714,7 +719,7 @@ const defaults = {
 	formatNumber: function (toFormat: number, ctx: Context) {
 		return toFormat
 			.toString()
-			.replace(/\B(?=(\d{3})+(?!\d))/g, ctx.oLanguage.sThousands);
+			.replace(/\B(?=(\d{3})+(?!\d))/g, ctx.language.thousands);
 	},
 
 	/**
@@ -869,13 +874,13 @@ const defaults = {
 	 * are defined in this object, allowing you to modified them individually or
 	 * completely replace them all as required.
 	 */
-	oLanguage: {
+	language: {
 		/**
 		 * Strings that are used for WAI-ARIA labels and controls only (these are not
 		 * actually visible on the page, but will be read by screenreaders, and thus
 		 * must be internationalised as well).
 		 */
-		oAria: {
+		aria: {
 			/**
 			 * ARIA label that is added to the table headers when the column may be sorted
 			 */
@@ -905,26 +910,26 @@ const defaults = {
 		 * Pagination string used by DataTables for the built-in pagination
 		 * control types.
 		 */
-		oPaginate: {
+		paginate: {
 			/**
 			 * Label and character for first page button («)
 			 */
-			sFirst: '\u00AB',
+			first: '\u00AB',
 
 			/**
 			 * Last page button (»)
 			 */
-			sLast: '\u00BB',
+			last: '\u00BB',
 
 			/**
 			 * Next page button (›)
 			 */
-			sNext: '\u203A',
+			next: '\u203A',
 
 			/**
 			 * Previous page button (‹)
 			 */
-			sPrevious: '\u2039'
+			previous: '\u2039'
 		},
 
 		/**
@@ -948,7 +953,7 @@ const defaults = {
 		 * parameter - if it is not given, the value of `zeroRecords` will be used
 		 * instead (either the default or given value).
 		 */
-		sEmptyTable: 'No data available in table',
+		emptyTable: 'No data available in table',
 
 		/**
 		 * This string gives information to the end user about the information
@@ -964,20 +969,20 @@ const defaults = {
 		 * * `\_PAGE\_` - Current page number
 		 * * `\_PAGES\_` - Total number of pages of data in the table
 		 */
-		sInfo: 'Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_',
+		info: 'Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_',
 
 		/**
 		 * Display information string for when the table is empty. Typically the
 		 * format of this string should match `info`.
 		 */
-		sInfoEmpty: 'Showing 0 to 0 of 0 _ENTRIES-TOTAL_',
+		infoEmpty: 'Showing 0 to 0 of 0 _ENTRIES-TOTAL_',
 
 		/**
 		 * When a user filters the information in a table, this string is appended
 		 * to the information (`info`) to give an idea of how strong the filtering
 		 * is. The variable _MAX_ is dynamically updated.
 		 */
-		sInfoFiltered: '(filtered from _MAX_ total _ENTRIES-MAX_)',
+		infoFiltered: '(filtered from _MAX_ total _ENTRIES-MAX_)',
 
 		/**
 		 * If can be useful to append extra information to the info string at times,
@@ -985,7 +990,7 @@ const defaults = {
 		 * the `info` (`infoEmpty` and `infoFiltered` in whatever combination they are
 		 * being used) at all times.
 		 */
-		sInfoPostFix: '',
+		infoPostFix: '',
 
 		/**
 		 * This decimal place operator is a little different from the other
@@ -1000,7 +1005,7 @@ const defaults = {
 		 * However, multiple different tables on the page can use different
 		 * decimal place characters.
 		 */
-		sDecimal: '',
+		decimal: '',
 
 		/**
 		 * DataTables has a build in number formatter which is used to format
@@ -1008,7 +1013,7 @@ const defaults = {
 		 * comma is used, but this can be trivially changed to any character you
 		 * wish with this parameter.
 		 */
-		sThousands: ',',
+		thousands: ',',
 
 		/**
 		 * Detail the action that will be taken when the drop down menu for the
@@ -1016,7 +1021,7 @@ const defaults = {
 		 * with a default select list of 10, 25, 50 and 100, and can be replaced
 		 * with a custom select box if required.
 		 */
-		sLengthMenu: '_MENU_ _ENTRIES_ per page',
+		lengthMenu: '_MENU_ _ENTRIES_ per page',
 
 		/**
 		 * When using Ajax sourced data and during the first draw when DataTables is
@@ -1025,13 +1030,13 @@ const defaults = {
 		 * parameter is not used when loading data by server-side processing, just
 		 * Ajax sourced data with client-side processing.
 		 */
-		sLoadingRecords: 'Loading...',
+		loadingRecords: 'Loading...',
 
 		/**
 		 * Text which is displayed when the table is processing a user action
 		 * (usually a sort command or similar).
 		 */
-		sProcessing: '',
+		processing: '',
 
 		/**
 		 * Details the actions that will be taken when the user types into the
@@ -1040,34 +1045,29 @@ const defaults = {
 		 * control over where it appears in the string. If "_INPUT_" is not given
 		 * then the input box is appended to the string automatically.
 		 */
-		sSearch: 'Search:',
+		search: 'Search:',
 
 		/**
 		 * Assign a `placeholder` attribute to the search `input` element
-		 *  @type string
-		 *  @default
-		 *
-		 *  @dtopt Language
-		 *  @name DataTable.defaults.language.searchPlaceholder
 		 */
-		sSearchPlaceholder: '',
+		searchPlaceholder: '',
 
 		/**
 		 * All of the language information can be stored in a file on the
 		 * server-side, which DataTables will look up if this parameter is passed.
 		 * It must store the URL of the language file, which is in a JSON format,
-		 * and the object has the same properties as the oLanguage object in the
+		 * and the object has the same properties as the language object in the
 		 * initialiser object (i.e. the above parameters). Please refer to one of
 		 * the example language files to see how this works in action.
 		 */
-		sUrl: '',
+		url: '',
 
 		/**
 		 * Text shown inside the table records when the is no information to be
 		 * displayed after filtering. `emptyTable` is shown when there is simply no
 		 * information in the table at all (regardless of filtering).
 		 */
-		sZeroRecords: 'No matching records found'
+		zeroRecords: 'No matching records found'
 	},
 
 	/** The initial data order is reversed when `desc` ordering */

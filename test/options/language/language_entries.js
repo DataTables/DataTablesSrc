@@ -10,7 +10,7 @@ describe('language.entries option', function() {
 		dt.html('basic');
 
 		it("Check default ", function() {
-			expect(DataTable.defaults.oLanguage.entries).toEqual({
+			expect(DataTable.defaults.language.entries).toEqual({
 				_: 'entries',
 				1: 'entry'
 			});

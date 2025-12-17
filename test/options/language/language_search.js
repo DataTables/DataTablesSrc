@@ -1,4 +1,4 @@
-describe('language.search option', function() {
+describe('language.search option', function () {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
@@ -6,23 +6,26 @@ describe('language.search option', function() {
 
 	let table;
 
-	describe('Check the defaults', function() {
+	describe('Check the defaults', function () {
 		dt.html('basic');
-		it("Search language is 'Search:' by default ", function() {
-			table = $('#example').DataTable();
-			expect(table.settings()[0].oLanguage.sSearch).toBe('Search:');
+
+		it('Default value', function () {
+			expect(DataTable.defaults.language.search).toBe('Search:');
 		});
-		it('A label input is used', function() {
+
+		it('A label input is used', function () {
+			table = $('#example').DataTable();
 			expect($('div.dt-search label').length).toBe(1);
 		});
-		it('Search language default is in the DOM', function() {
+
+		it('Search language default is in the DOM', function () {
 			expect($('div.dt-search label').text()).toBe('Search:');
 		});
 	});
 
-	describe('Functional tests', function() {
+	describe('Functional tests', function () {
 		dt.html('basic');
-		it('Search language can be defined', function() {
+		it('Search language can be defined', function () {
 			table = $('#example').DataTable({
 				language: {
 					search: 'unit test'
@@ -32,7 +35,7 @@ describe('language.search option', function() {
 		});
 
 		dt.html('basic');
-		it('Blank search has no (separator) inserted', function() {
+		it('Blank search has no (separator) inserted', function () {
 			$('#example').dataTable({
 				language: {
 					search: ''
@@ -42,7 +45,7 @@ describe('language.search option', function() {
 		});
 
 		dt.html('basic');
-		it("Default DOM structure", function () {
+		it('Default DOM structure', function () {
 			$('#example').DataTable();
 
 			expect($('div.dt-search > label').length).toBe(1);
@@ -50,13 +53,14 @@ describe('language.search option', function() {
 			expect($('div.dt-search > label + input').length).toBe(1);
 		});
 
-		it("Has for and id attributes", function () {
-			expect($('div.dt-search > label').attr('for'))
-				.toBe($('div.dt-search > input').attr('id'));
+		it('Has for and id attributes', function () {
+			expect($('div.dt-search > label').attr('for')).toBe(
+				$('div.dt-search > input').attr('id')
+			);
 		});
 
 		dt.html('basic');
-		it("DOM structure - input at start", function () {
+		it('DOM structure - input at start', function () {
 			$('#example').DataTable({
 				language: {
 					search: '_INPUT_ Search'
@@ -67,12 +71,13 @@ describe('language.search option', function() {
 			expect($('div.dt-search > input').length).toBe(1);
 			expect($('div.dt-search > input + label').length).toBe(1);
 
-			expect($('div.dt-search > label').attr('for'))
-				.toBe($('div.dt-search > input').attr('id'));
+			expect($('div.dt-search > label').attr('for')).toBe(
+				$('div.dt-search > input').attr('id')
+			);
 		});
 
 		dt.html('basic');
-		it("DOM structure - input at end", function () {
+		it('DOM structure - input at end', function () {
 			$('#example').DataTable({
 				language: {
 					search: 'Search _INPUT_'
@@ -83,12 +88,13 @@ describe('language.search option', function() {
 			expect($('div.dt-search > input').length).toBe(1);
 			expect($('div.dt-search > label + input').length).toBe(1);
 
-			expect($('div.dt-search > label').attr('for'))
-				.toBe($('div.dt-search > input').attr('id'));
+			expect($('div.dt-search > label').attr('for')).toBe(
+				$('div.dt-search > input').attr('id')
+			);
 		});
 
 		dt.html('basic');
-		it("DOM structure - input in middle (explicit)", function () {
+		it('DOM structure - input in middle (explicit)', function () {
 			$('#example').DataTable({
 				language: {
 					search: 'Search _INPUT_ Records'
@@ -98,8 +104,9 @@ describe('language.search option', function() {
 			expect($('div.dt-search > label').length).toBe(1);
 			expect($('div.dt-search > label > input').length).toBe(1);
 
-			expect($('div.dt-search > label').attr('for'))
-				.toBe($('div.dt-search input').attr('id'));
+			expect($('div.dt-search > label').attr('for')).toBe(
+				$('div.dt-search input').attr('id')
+			);
 		});
 	});
 });

@@ -1,28 +1,32 @@
-describe( "language.emptyTable option ", function() {
-	dt.libs( {
-		js:  [ 'jquery', 'datatables' ],
-		css: [ 'datatables' ]
-	} );
+describe('language.emptyTable option ', function () {
+	dt.libs({
+		js: ['jquery', 'datatables'],
+		css: ['datatables']
+	});
 
-	describe("Check the defaults", function () {
-		dt.html( 'basic' );
-		it("Default is 'No data available in table' ", function () {
-			$('#example').dataTable( {
+	describe('Check the defaults', function () {
+		dt.html('empty');
 
-			} );
-			expect($('#example').DataTable().settings()[0].oLanguage.sEmptyTable  === "No data available in table").toBe(true);
+		it("Default value", function () {
+			expect(DataTable.defaults.language.emptyTable).toBe('No data available in table');
 		});
-		dt.html( 'empty' );
-		it("Can we change the value of emptyTable- check option", function () {
-			$('#example').dataTable( {
-				"language": {
-					"emptyTable": "test case"
+
+		it("Default is used", function () {
+			$('#example').dataTable();
+
+			expect($('#example > tbody > tr > td').html()).toBe('No data available in table');
+		});
+		
+		dt.html('empty');
+		
+		it('Can we change the value of emptyTable- check option', function () {
+			$('#example').dataTable({
+				language: {
+					emptyTable: 'test case'
 				}
 			});
-			expect($('#example').DataTable().settings()[0].oLanguage.sEmptyTable  === "test case").toBe(true);
-		});
-		it("Can we change the value of emptyTable- check DOM", function () {
-			expect($('#example > tbody > tr > td').html() == "test case").toBe(true);
+
+			expect($('#example > tbody > tr > td').html()).toBe('test case');
 		});
 	});
 });

@@ -26,9 +26,8 @@ describe('core - init()', function() {
 				pageLength: 15
 			});
 			let init = table.init();
-			expect(Object.keys(init).length).toBe(2);
+			expect(Object.keys(init).length).toBe(1);
 			expect(init.pageLength).toBe(15);
-			expect(init.iDisplayLength).toBe(15);
 		});
 
 		dt.html('basic');
@@ -37,7 +36,7 @@ describe('core - init()', function() {
 				autoWidth: true
 			});
 			let init = table.init();
-			expect(Object.keys(init).length).toBe(2);
+			expect(Object.keys(init).length).toBe(1);
 			expect(init.autoWidth).toBe(true);
 		});
 
@@ -48,7 +47,7 @@ describe('core - init()', function() {
 				pageLength: 15
 			});
 			let init = table.init();
-			expect(Object.keys(init).length).toBe(2);
+			expect(Object.keys(init).length).toBe(1);
 			expect(init.pageLength).toBe(15);
 		});
 
@@ -59,7 +58,7 @@ describe('core - init()', function() {
 				pageLength: 15
 			});
 			let init = table.init();
-			expect(Object.keys(init).length).toBe(4);
+			expect(Object.keys(init).length).toBe(2);
 			expect(init.pageLength).toBe(15);
 			expect(init.autoWidth).toBe(false);
 		});
@@ -70,7 +69,7 @@ describe('core - init()', function() {
 				order: [[1, 'asc'], [2, 'desc']]
 			});
 			let init = table.init();
-			expect(Object.keys(init).length).toBe(2);
+			expect(Object.keys(init).length).toBe(1);
 			expect(init.order.length).toBe(2);
 			expect(init.order[0][0]).toBe(1);
 			expect(init.order[0][1]).toBe('asc');
@@ -95,7 +94,7 @@ describe('core - init()', function() {
 				pageLength: 15
 			});
 			let init = table.init();
-			expect(Object.keys(init).length).toBe(3);
+			expect(Object.keys(init).length).toBe(2);
 			expect(init.pageLength).toBe(15);
 			expect(init.unitTest).toBe('Unit Test');
 		});
@@ -114,10 +113,10 @@ describe('core - init()', function() {
 			let init1 = table1.init();
 			let init2 = table2.init();
 
-			expect(Object.keys(init1).length).toBe(2);
+			expect(Object.keys(init1).length).toBe(1);
 			expect(init1.pageLength).toBe(15);
 
-			expect(Object.keys(init2).length).toBe(2);
+			expect(Object.keys(init2).length).toBe(1);
 			expect(init2.order.length).toBe(2);
 			expect(init2.order[0][0]).toBe(1);
 			expect(init2.order[0][1]).toBe('asc');

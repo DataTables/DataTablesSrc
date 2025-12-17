@@ -3,6 +3,7 @@ import util from '../util';
 import { AjaxOptions, HttpMethod } from '../util/ajax';
 import { GetFunction, JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
+import defaultsA from './defaults';
 import { AjaxData, FunctionFormatNumber, FunctionInfoCallback, Layout, OrderState } from './interface';
 import { Row } from './row';
 import createSearch, { SearchInput, SearchOptions } from './search';
@@ -195,22 +196,22 @@ export interface Context {
 	scroll: IScroll;
 
 	/** Language information for the table. */
-	oLanguage: {
+	language: {
 		infoCallback: null | FunctionInfoCallback,
-		sInfoEmpty: string,
-		sInfoPostFix: string,
-		sInfoFiltered: string,
-		sInfo: string,
-		sLengthMenu: string,
-		sSearch: string,
-		sSearchPlaceholder: string,
-		sProcessing: string,
-		sZeroRecords: string,
-		sLoadingRecords: string,
-		sEmptyTable: string,
-		sDecimal: string,
-		sThousands: string,
-		oAria: {
+		infoEmpty: string,
+		infoPostFix: string,
+		infoFiltered: string,
+		info: string,
+		lengthMenu: string,
+		search: string,
+		searchPlaceholder: string,
+		processing: string,
+		zeroRecords: string,
+		loadingRecords: string,
+		emptyTable: string,
+		decimal: string,
+		thousands: string,
+		aria: {
 			orderable: string,
 			orderableReverse: string,
 			orderableRemove: string,
@@ -222,13 +223,13 @@ export interface Context {
 				number: string
 			}
 		},
-		oPaginate: {
-			sFirst: string,
-			sLast: string,
-			sNext: string,
-			sPrevious: string
+		paginate: {
+			first: string,
+			last: string,
+			next: string,
+			previous: string
 		},
-		sUrl: string;
+		url: string;
 	};
 
 	/**
@@ -523,7 +524,7 @@ export interface Context {
 	/**
 	 * Initialisation object that is used for the table
 	 */
-	oInit: any; // TODO defaults
+	init: Partial<typeof defaultsA>;
 
 	/**
 	 * The DataTables object for this table
@@ -712,22 +713,22 @@ const defaults: Partial<Context> = {
 		xInner: '',
 		y: ''
 	},
-	oLanguage: {
+	language: {
 		infoCallback: null,
-		sInfoEmpty: '',
-		sInfoPostFix: '',
-		sInfoFiltered: '',
-		sInfo: '',
-		sLengthMenu: '',
-		sSearch: '',
-		sSearchPlaceholder: '',
-		sProcessing: '',
-		sZeroRecords: '',
-		sLoadingRecords: '',
-		sEmptyTable: '',
-		sDecimal: '',
-		sThousands: '',
-		oAria: {
+		infoEmpty: '',
+		infoPostFix: '',
+		infoFiltered: '',
+		info: '',
+		lengthMenu: '',
+		search: '',
+		searchPlaceholder: '',
+		processing: '',
+		zeroRecords: '',
+		loadingRecords: '',
+		emptyTable: '',
+		decimal: '',
+		thousands: '',
+		aria: {
 			orderable: '',
 			orderableReverse: '',
 			orderableRemove: '',
@@ -739,13 +740,13 @@ const defaults: Partial<Context> = {
 				number: ''
 			}
 		},
-		oPaginate: {
-			sFirst: '',
-			sLast: '',
-			sNext: '',
-			sPrevious: ''
+		paginate: {
+			first: '',
+			last: '',
+			next: '',
+			previous: ''
 		},
-		sUrl: ''
+		url: ''
 	},
 	oBrowser: {
 		bScrollbarLeft: false,
@@ -790,7 +791,7 @@ const defaults: Partial<Context> = {
 	bFiltered: false,
 	bSorted: false,
 	orderCellsTop: null,
-	oInit: {},
+	init: {},
 	oInstance: null,
 	sInstance: '',
 	tabIndex: 0,

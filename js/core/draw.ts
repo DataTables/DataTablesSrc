@@ -589,17 +589,17 @@ export function reDraw(
  * @param settings DataTables context
  */
 function _emptyRow(settings: Context) {
-	let lang = settings.oLanguage;
-	let zero = lang.sZeroRecords;
+	let lang = settings.language;
+	let zero = lang.zeroRecords;
 	let dataSrc = dataSource(settings);
 
 	// Make use of the fact that settings.json is only set once the initial data has
 	// been loaded. Show loading when that isn't the case
 	if ((dataSrc === 'ssp' || dataSrc === 'ajax') && !settings.json) {
-		zero = lang.sLoadingRecords;
+		zero = lang.loadingRecords;
 	}
-	else if (lang.sEmptyTable && recordsTotal(settings) === 0) {
-		zero = lang.sEmptyTable;
+	else if (lang.emptyTable && recordsTotal(settings) === 0) {
+		zero = lang.emptyTable;
 	}
 
 	return dom
