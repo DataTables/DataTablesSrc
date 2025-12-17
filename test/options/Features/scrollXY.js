@@ -7,8 +7,8 @@ describe('scrollY / X option', function() {
 		dt.html('basic');
 
 		it('Defaults are empty strings', function () {
-			expect(DataTable.defaults.scrollX).toBe('');
-			expect(DataTable.defaults.scrollY).toBe('');
+			expect(DataTable.defaults.scrollX).toBe(false);
+			expect(DataTable.defaults.scrollY).toBe(false);
 		});
 
 		it('Header follows x-scrolling', function() {

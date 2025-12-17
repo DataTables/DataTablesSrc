@@ -30,14 +30,11 @@ import { register as registerType, types } from './ext/types';
 import registerFeature from './features';
 import models from './model';
 import columnDefaults from './model/columns/defaults';
-import defaults, { Defaults } from './model/defaults';
+import defaults, { Defaults, Options } from './model/defaults';
 import createContext from './model/settings';
 import util from './util';
 
-const DataTable = function (
-	selector: string | HTMLElement,
-	options: Partial<typeof defaults>
-) {
+const DataTable = function (selector: string | HTMLElement, options: Options) {
 	// Check if called with a window or jQuery object for DOM less applications
 	// This is for backwards compatibility
 	if (apiStatic.factory(selector as any, options as any)) {
@@ -188,11 +185,12 @@ const DataTable = function (
 		// If the length menu is given, but the init display length is not, use
 		// the length menu
 		if (init.lengthMenu && !init.pageLength) {
-			init.pageLength = Array.isArray(init.lengthMenu[0])
-				? init.lengthMenu[0][0]
-				: typeof init.lengthMenu[0] === 'number'
-				? init.lengthMenu[0]
-				: init.lengthMenu[0].value;
+			init.pageLength =
+				typeof init.lengthMenu[0] === 'number'
+					? init.lengthMenu[0]
+					: Array.isArray(init.lengthMenu[0])
+					? init.lengthMenu[0][0]
+					: init.lengthMenu[0].value;
 		}
 
 		// Apply the defaults and init options to make a single init object will

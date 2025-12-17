@@ -429,15 +429,16 @@ function _columnAutoClass(
 }
 
 /**
- * Take the column definitions and static columns arrays and calculate how
- * they relate to column indexes. The callback function will then apply the
+ * Take the column definitions and static columns arrays and calculate how they
+ * relate to column indexes. The callback function will then apply the
  * definition found for a column to a suitable configuration object.
+ *
  * @param settings DataTables settings object
  * @param aoColDefs The aoColumnDefs array that is to be applied
  * @param aoCols The aoColumns array that defines columns individually
  * @param headerLayout Layout for header as it was loaded
- * @param fn Callback function - takes two parameters, the calculated
- *    column index and the definition for that column.
+ * @param fn Callback function - takes two parameters, the calculated column
+ *    index and the definition for that column.
  */
 export function applyColumnDefs(
 	settings: Context,
@@ -460,7 +461,8 @@ export function applyColumnDefs(
 
 	// Column definitions with aTargets
 	if (aoColDefs) {
-		/* Loop over the definitions array - loop in reverse so first instance has priority */
+		// Loop over the definitions array - loop in reverse so first instance
+		// has priority
 		for (i = aoColDefs.length - 1; i >= 0; i--) {
 			let def = aoColDefs[i];
 
