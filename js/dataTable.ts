@@ -13,7 +13,6 @@ import { addColumn, applyColumnDefs, columnOptions } from './core/columns';
 import {
 	browser,
 	browserDetect,
-	camelToHungarian,
 	compatCols,
 	compatOpts,
 	hungarianToCamel
@@ -507,7 +506,6 @@ DataTable.versionCheck = util.version.check;
 DataTable.version = ext.version;
 DataTable.isDataTable = apiStatic.isDataTable;
 DataTable.tables = apiStatic.tables;
-DataTable.camelToHungarian = camelToHungarian;
 DataTable.util = util;
 DataTable.Api = Api;
 DataTable.datetime = datetime;

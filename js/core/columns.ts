@@ -7,7 +7,7 @@ import ColumnModel from '../model/columns/settings';
 import createSearch from '../model/search';
 import { Context, HeaderStructure } from '../model/settings';
 import util from '../util';
-import { camelToHungarian, compatCols, hungarianToCamel } from './compat';
+import { compatCols, hungarianToCamel } from './compat';
 import { getCellData, writeCell } from './data';
 import { scrollDraw } from './scrolling';
 import { calculateColumnWidths } from './sizing';
@@ -57,9 +57,6 @@ export function columnOptions(
 	if (options !== undefined && options !== null) {
 		// Backwards compatibility
 		compatCols(options);
-
-		// Map camel case parameters to their Hungarian counterparts
-		camelToHungarian(columnDefaults, options, true);
 
 		if (options.type) {
 			column._sManualType = options.type;

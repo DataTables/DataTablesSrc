@@ -1,8 +1,6 @@
 import dom from '../dom';
-import { defaults as searchDefaults } from '../model/search';
 import { Context } from '../model/settings';
 import util from '../util';
-import * as object from '../util/object';
 
 interface HungarianMap {
 	[key: string]: string;
@@ -46,75 +44,6 @@ export function hungarianToCamel<T>(user: T) {
 	}
 
 	return user;
-}
-
-/**
- * Create a mapping object that allows camel case parameters to be looked up for
- * their Hungarian counterparts. The mapping is stored in a private parameter
- * called `_hungarianMap` which can be accessed on the source object.
- *
- * @param o Object to create a map for
- */
-export function hungarianMap(o: Record<string, any>) {
-	var hungarian = 'a aa ai ao as b fn i m o s ',
-		match,
-		newKey,
-		map: HungarianMap = {};
-
-	object.each(o, (key, val) => {
-		match = key.match(/^([^A-Z]+?)([A-Z])/);
-
-		if (match && hungarian.indexOf(match[1] + ' ') !== -1) {
-			newKey = key.replace(match[0], match[2].toLowerCase());
-			map[newKey] = key;
-
-			if (match[1] === 'o') {
-				hungarianMap(o[key]);
-			}
-		}
-	});
-
-	o._hungarianMap = map;
-}
-
-/**
- * Convert from camel case parameters to Hungarian, based on a Hungarian map
- * created by hungarianMap.
- *
- * @param src The model object which holds all parameters that can be mapped.
- * @param user The object to convert from camel case to Hungarian.
- * @param force When set to `true`, properties which already have a Hungarian
- *    value in the `user` object will be overwritten. Otherwise they won't be.
- */
-export function camelToHungarian(src: any, user: any, force = false) {
-	if (!src._hungarianMap) {
-		hungarianMap(src);
-	}
-
-	var hungarianKey;
-
-	object.each(user, key => {
-		hungarianKey = src._hungarianMap[key];
-
-		if (
-			hungarianKey !== undefined &&
-			(force || user[hungarianKey] === undefined)
-		) {
-			// For objects, we need to buzz down into the object to copy parameters
-			if (hungarianKey.charAt(0) === 'o') {
-				// Copy the camelCase options over to the hungarian
-				if (!user[hungarianKey]) {
-					user[hungarianKey] = {};
-				}
-
-				object.assignDeep(user[hungarianKey], user[key]);
-				camelToHungarian(src[hungarianKey], user[hungarianKey], force);
-			}
-			else {
-				user[hungarianKey] = user[key];
-			}
-		}
-	});
 }
 
 /**
@@ -192,7 +121,7 @@ export function compatOpts(init: Record<string, any>) {
 	if (searchCols) {
 		for (var i = 0, iLen = searchCols.length; i < iLen; i++) {
 			if (searchCols[i]) {
-				camelToHungarian(searchDefaults, searchCols[i]);
+				hungarianToCamel(searchCols[i]);
 			}
 		}
 	}
