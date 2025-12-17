@@ -243,7 +243,6 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		]);
 		map(settings.scroll, config, [
 			['scrollX', 'x'],
-			['scrollXInner', 'xInner'],
 			['scrollY', 'y'],
 			['scrollCollapse', 'collapse']
 		]);

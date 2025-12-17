@@ -22,7 +22,6 @@ export function calculateColumnWidths(settings: Context) {
 		scroll = settings.scroll,
 		scrollY = scroll.y,
 		scrollX = scroll.x,
-		scrollXInner = scroll.xInner,
 		visibleColumns = getColumns(settings, 'visible'),
 		tableWidthAttr = table.getAttribute('width'), // from DOM element
 		tableContainer = table.parentElement!,
@@ -184,12 +183,7 @@ export function calculateColumnWidths(settings: Context) {
 	// When scrolling (X or Y) we want to set the width of the table as
 	// appropriate. However, when not scrolling leave the table width as it
 	// is. This results in slightly different, but I think correct behaviour
-	//
-	// Note that the table must be `box-sizing: border-box` for this to work.
-	if (scrollX && scrollXInner) {
-		tmpTable.width(scrollXInner);
-	}
-	else if (scrollX) {
+	if (scrollX) {
 		tmpTable.css('width', 'auto').removeAttr('width');
 
 		// If there is no width attribute or style, then allow the table to

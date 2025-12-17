@@ -238,13 +238,6 @@ export interface Defaults {
 	scrollX: boolean;
 
 	/**
-	 * Irrelevant
-	 *
-	 * @deprecated Not relevant any more
-	 */
-	scrollXInner: string;
-
-	/**
 	 * Vertical scrolling.
 	 */
 	scrollY: string | false;
@@ -675,7 +668,6 @@ const defaults: Defaults = {
 	searchDelay: 0,
 	pagingType: '',
 	scrollX: false,
-	scrollXInner: '',
 	scrollY: false,
 	serverMethod: 'GET',
 	renderer: null,
