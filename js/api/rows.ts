@@ -26,7 +26,7 @@ import { arrayApply, lengthOverflow } from './support';
  * Rows
  *
  * {}          - no selector - use all available rows
- * {integer}   - row aoData index
+ * {integer}   - row data index
  * {node}      - TR node
  * {string}    - jQuery selector to apply to the TR elements
  * {array}     - jQuery array of nodes, or simply an array of TR nodes
@@ -40,7 +40,7 @@ function selectRows(
 	var rows: number[];
 	var run = function (sel: any) {
 		var selInt = util.conv.intVal(sel);
-		var aoData = settings.aoData;
+		var data = settings.data;
 
 		// Short cut - selector is a number and no options provided (default is
 		// all records, so no need to check if the index is in there, since it
@@ -65,7 +65,7 @@ function selectRows(
 		// Selector - function
 		if (typeof sel === 'function') {
 			return rows.map(function (idx) {
-				var row = aoData[idx];
+				var row = data[idx];
 				return row && sel(idx, row._aData, row.nTr) ? idx : null;
 			});
 		}
@@ -78,12 +78,12 @@ function selectRows(
 
 			if (rowIdx !== undefined) {
 				// Make sure that the row is actually still present in the table
-				row = aoData[rowIdx];
+				row = data[rowIdx];
 
 				return row && row.nTr === sel ? [rowIdx] : [];
 			}
 			else if (cellIdx) {
-				row = aoData[cellIdx.row];
+				row = data[cellIdx.row];
 
 				return row && row.nTr === sel.parentNode ? [cellIdx.row] : [];
 			}
@@ -105,7 +105,7 @@ function selectRows(
 		if (typeof sel === 'string') {
 			if (sel.charAt(0) === '#') {
 				// get row index from id
-				var rowObj = settings.aIds[sel.replace(/^#/, '')];
+				var rowObj = settings.ids[sel.replace(/^#/, '')];
 				if (rowObj !== undefined) {
 					return [rowObj.idx];
 				}
@@ -123,7 +123,7 @@ function selectRows(
 
 		// Get nodes in the order from the `rows` array with null values removed
 		var nodes = util.array.removeEmpty(
-			util.array.pluckOrder(settings.aoData, rows, 'nTr')
+			util.array.pluckOrder(settings.data, rows, 'nTr')
 		);
 
 		// Selector - selector string, array of nodes or jQuery object.
@@ -201,7 +201,7 @@ register<ApiRowsMethods<any>['nodes']>('rows().nodes()', function () {
 	return this.iterator(
 		'row',
 		function (settings, row) {
-			return settings.aoData[row]?.nTr || undefined;
+			return settings.data[row]?.nTr || undefined;
 		},
 		true
 	);
@@ -212,7 +212,7 @@ register<ApiRowsMethods<any>['data']>('rows().data()', function () {
 		true,
 		'rows',
 		function (settings, rows) {
-			return util.array.pluckOrder(settings.aoData, rows, '_aData');
+			return util.array.pluckOrder(settings.data, rows, '_aData');
 		},
 		true
 	);
@@ -225,7 +225,7 @@ registerPlural<ApiRowsMethods<any>['cache']>(
 		return this.iterator(
 			'row',
 			function (settings, row) {
-				var r = settings.aoData[row];
+				var r = settings.data[row];
 				return type === 'search' ? r?._aFilterData : r?._aSortData;
 			},
 			true
@@ -267,7 +267,7 @@ registerPlural<ApiRowMethods<any>['ids']>(
 		// `iterator` will drop undefined values, but in this case we want them
 		for (var i = 0, iLen = context.length; i < iLen; i++) {
 			for (var j = 0, jen = this[i].length; j < jen; j++) {
-				var id = context[i].rowIdFn(context[i].aoData[this[i][j]]?._aData);
+				var id = context[i].rowIdFn(context[i].data[this[i][j]]?._aData);
 				a.push((hash === true ? '#' : '') + id);
 			}
 		}
@@ -281,13 +281,13 @@ registerPlural<ApiRowMethods<any>['remove']>(
 	'row().remove()',
 	function () {
 		this.iterator('row', function (settings, row) {
-			var data = settings.aoData;
+			var data = settings.data;
 			var rowData = data[row];
 
 			// Delete from the display arrays
-			var idx = settings.aiDisplayMaster.indexOf(row);
+			var idx = settings.displayMaster.indexOf(row);
 			if (idx !== -1) {
-				settings.aiDisplayMaster.splice(idx, 1);
+				settings.displayMaster.splice(idx, 1);
 			}
 
 			// For server-side processing tables - subtract the deleted row from
@@ -302,7 +302,7 @@ registerPlural<ApiRowMethods<any>['remove']>(
 			// Remove the row's ID reference if there is one
 			var id = settings.rowIdFn(rowData?._aData);
 			if (id !== undefined) {
-				delete settings.aIds[id];
+				delete settings.ids[id];
 			}
 
 			data[row] = null;
@@ -359,12 +359,12 @@ register<ApiRowMethods<any>['data']>('row().data()', function (data?) {
 	if (data === undefined) {
 		// Get
 		return ctx.length && this.length && this[0].length
-			? ctx[0].aoData[this[0]]?._aData
+			? ctx[0].data[this[0]]?._aData
 			: undefined;
 	}
 
 	// Set
-	var row = ctx[0].aoData[this[0]]!;
+	var row = ctx[0].data[this[0]]!;
 	row._aData = data;
 
 	// If the DOM has an id, and the data source is an array
@@ -382,7 +382,7 @@ register<ApiRowMethods<any>['node']>('row().node()', function () {
 	var ctx = this.context;
 
 	if (ctx.length && this.length && this[0].length) {
-		var row = ctx[0].aoData[this[0]];
+		var row = ctx[0].data[this[0]];
 
 		if (row && row.nTr) {
 			return row.nTr;

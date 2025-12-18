@@ -260,22 +260,22 @@ export interface Context {
 	/**
 	 * Row data information
 	 */
-	aoData: (Row | null)[];
+	data: (Row | null)[];
 
 	/**
 	 * Array of indexes which are in the current display (after filtering etc)
 	 */
-	aiDisplay: number[];
+	display: number[];
 
 	/**
 	 * Array of indexes for display - no filtering
 	 */
-	aiDisplayMaster: number[];
+	displayMaster: number[];
 
 	/**
 	 * Map of row ids to data indexes
 	 */
-	aIds: Record<string, Row>;
+	ids: Record<string, Row>;
 
 	/**
 	 * Store information about each column that is in use
@@ -285,12 +285,12 @@ export interface Context {
 	/**
 	 * Store information about the table's header
 	 */
-	aoHeader: HeaderStructure[];
+	header: HeaderStructure[];
 
 	/**
 	 * Store information about the table's footer
 	 */
-	aoFooter: HeaderStructure[];
+	footer: HeaderStructure[];
 
 	/**
 	 * Store the applied global search information in case we want to force a
@@ -322,12 +322,12 @@ export interface Context {
 	/**
 	 * If restoring a table - we should restore its width
 	 */
-	sDestroyWidth: number;
+	destroyWidth: number;
 
 	/**
 	 * Cache the table ID for quick access
 	 */
-	sTableId: string;
+	tableId: string;
 
 	/**
 	 * The TABLE node for the main table
@@ -357,7 +357,7 @@ export interface Context {
 	/**
 	 * Indicate if all required information has been read in
 	 */
-	bInitialised: boolean;
+	initialised: boolean;
 
 	/**
 	 * Dictate the positioning of DataTables' control elements
@@ -472,7 +472,7 @@ export interface Context {
 	pageLength: number;
 
 	/**
-	 * Paging start point - aiDisplay index
+	 * Paging start point - display index
 	 */
 	displayStart: number;
 
@@ -754,21 +754,21 @@ const defaults: Partial<Context> = {
 	},
 	ajax: null,
 	aanFeatures: [],
-	aoData: [],
-	aiDisplay: [],
-	aiDisplayMaster: [],
-	aIds: {},
+	data: [],
+	display: [],
+	displayMaster: [],
+	ids: {},
 	columns: [],
-	aoHeader: [],
-	aoFooter: [],
+	header: [],
+	footer: [],
 	previousSearch: createSearch(),
 	searchFixed: {},
 	preSearchCols: [],
 	order: [],
 	orderFixed: [],
-	sDestroyWidth: 0,
-	sTableId: '',
-	bInitialised: false,
+	destroyWidth: 0,
+	tableId: '',
+	initialised: false,
 	dom: null,
 	searchDelay: 0,
 	pagingType: 'two_button',

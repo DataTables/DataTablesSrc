@@ -24,25 +24,25 @@ export function filterComplete(settings: Context, input: SearchOptions) {
 		filterData(settings);
 
 		// Start from the full data set
-		settings.aiDisplay = settings.aiDisplayMaster.slice();
+		settings.display = settings.displayMaster.slice();
 
 		// Global filter first
-		filter(settings.aiDisplay, settings, input.search, input);
+		filter(settings.display, settings, input.search, input);
 
 		util.object.each(settings.searchFixed, function (name, term) {
-			filter(settings.aiDisplay, settings, term, {});
+			filter(settings.display, settings, term, {});
 		});
 
 		// Then individual column filters
 		for (let i = 0; i < columnsSearch.length; i++) {
 			let col = columnsSearch[i];
 
-			filter(settings.aiDisplay, settings, col.search, col, i);
+			filter(settings.display, settings, col.search, col, i);
 
 			util.object.each(
 				settings.columns[i].searchFixed,
 				function (name, term) {
-					filter(settings.aiDisplay, settings, term, {}, i);
+					filter(settings.display, settings, term, {}, i);
 				}
 			);
 		}
@@ -67,7 +67,7 @@ export function filterComplete(settings: Context, input: SearchOptions) {
  */
 function filterCustom(settings: Context) {
 	let filters = ext.search as any[]; // TODO typing
-	let displayRows = settings.aiDisplay;
+	let displayRows = settings.display;
 	let row, rowIdx;
 
 	for (let i = 0, iLen = filters.length; i < iLen; i++) {
@@ -76,7 +76,7 @@ function filterCustom(settings: Context) {
 		// Loop over each row and see if it should be included
 		for (let j = 0, jen = displayRows.length; j < jen; j++) {
 			rowIdx = displayRows[j];
-			row = settings.aoData[rowIdx];
+			row = settings.data[rowIdx];
 
 			if (
 				row &&
@@ -129,7 +129,7 @@ function filter(
 
 	// Then for each row, does the test pass. If not, lop the row from the array
 	for (i = 0; i < searchRows.length; i++) {
-		let row = settings.aoData[searchRows[i]];
+		let row = settings.data[searchRows[i]];
 
 		if (row) {
 			let data =
@@ -250,7 +250,7 @@ function filterCreateSearch(
 // Update the filtering data for each row if needed (by invalidation or first run)
 function filterData(settings: Context) {
 	let columns = settings.columns;
-	let data = settings.aoData;
+	let data = settings.data;
 	let column;
 	let j, jen, cellData, row;
 	let wasInvalidated = false;

@@ -159,9 +159,9 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		// Create the settings object for this table and set some of the default
 		// parameters
 		var settings = createContext({
-			sDestroyWidth: table.width(),
+			destroyWidth: table.width(),
 			sInstance: id,
-			sTableId: id,
+			tableId: id,
 			colgroup: dom.c('colgroup').prependTo(tableEl),
 			fastData: function (row, column, type) {
 				return getCellData(settings, row, column, type);
@@ -450,10 +450,10 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		settings.nTFoot = tfoot.get(0);
 
 		// Copy the data index array
-		settings.aiDisplay = settings.aiDisplayMaster.slice();
+		settings.display = settings.displayMaster.slice();
 
 		// Initialisation complete - table can be drawn
-		settings.bInitialised = true;
+		settings.initialised = true;
 
 		// Language definitions
 		var language = settings.language;

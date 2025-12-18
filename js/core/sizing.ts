@@ -315,8 +315,8 @@ function getWideStrings(settings: Context, colIdx: number) {
 		var collection: any[] = [];
 
 		// Create an array with the string information for the column
-		for (var i = 0, iLen = settings.aiDisplayMaster.length; i < iLen; i++) {
-			var rowIdx = settings.aiDisplayMaster[i];
+		for (var i = 0, iLen = settings.displayMaster.length; i < iLen; i++) {
+			var rowIdx = settings.displayMaster[i];
 			var data = getRowDisplay(settings, rowIdx)[colIdx];
 
 			var cellString =

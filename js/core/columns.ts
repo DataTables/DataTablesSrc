@@ -206,7 +206,7 @@ export function columnIndexToVisible(settings: Context, match: number) {
  * @returns i the number of visible columns
  */
 export function visibleColumns(settings: Context) {
-	let layout = settings.aoHeader;
+	let layout = settings.header;
 	let columns = settings.columns;
 	let vis = 0;
 
@@ -263,7 +263,7 @@ function _typeResult(typeDetect: any, res: boolean | string | null) {
  */
 export function columnTypes(settings: Context) {
 	var columns = settings.columns;
-	var data = settings.aoData;
+	var data = settings.data;
 	var types = ext.type.detect;
 	var i, iLen, j, jen, k, ken;
 	var col, detectedType, cache;
@@ -366,8 +366,8 @@ export function columnTypes(settings: Context) {
 		var autoClass = ext.type.className[col.type];
 
 		if (autoClass) {
-			_columnAutoClass(settings.aoHeader, i, autoClass);
-			_columnAutoClass(settings.aoFooter, i, autoClass);
+			_columnAutoClass(settings.header, i, autoClass);
+			_columnAutoClass(settings.footer, i, autoClass);
 		}
 
 		var renderer = ext.type.render[col.type];
@@ -387,7 +387,7 @@ export function columnTypes(settings: Context) {
  * Apply an auto detected renderer to data which doesn't yet have a renderer
  */
 function _columnAutoRender(settings: Context, colIdx: number) {
-	let data = settings.aoData;
+	let data = settings.data;
 
 	for (let i = 0; i < data.length; i++) {
 		let d = data[i];

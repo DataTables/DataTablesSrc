@@ -32,7 +32,7 @@ interface HeaderLayoutCell {
  * @returns Array with display information
  */
 export function getRowDisplay(settings: Context, rowIdx: number) {
-	var rowModal = settings.aoData[rowIdx];
+	var rowModal = settings.data[rowIdx];
 	var columns = settings.columns;
 
 	if (!rowModal) {
@@ -68,7 +68,7 @@ export function createTr(
 	trIn?: HTMLTableRowElement,
 	tds?: HTMLTableCellElement[]
 ) {
-	var row = settings.aoData[rowIdx],
+	var row = settings.data[rowIdx],
 		cells: HTMLTableCellElement[] = [],
 		tr: TableRowElement,
 		td: TableCellElement,
@@ -249,11 +249,11 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 	let detected = detectHeader(settings, target.get(0), true);
 
 	if (side === 'header') {
-		settings.aoHeader = detected;
+		settings.header = detected;
 		target.find('tr').classAdd(classes.thead.row);
 	}
 	else {
-		settings.aoFooter = detected;
+		settings.footer = detected;
 		target.find('tr').classAdd(classes.tfoot.row);
 	}
 
@@ -406,24 +406,23 @@ export function drawHead(settings: Context, source: HeaderStructure[]) {
  */
 export function draw(settings: Context, ajaxComplete?: boolean) {
 	// Allow for state saving and a custom start position
-	start(settings);
+	setStartPosition(settings);
 
-	/* Provide a pre-callback function which can be used to cancel the draw is false is returned */
-	var aPreDraw = callbackFire(settings, 'preDraw', 'preDraw', [
-		settings
-	]);
+	// Provide a pre-callback function which can be used to cancel the draw is
+	// false is returned
+	var aPreDraw = callbackFire(settings, 'preDraw', 'preDraw', [settings]);
 
 	if (aPreDraw.indexOf(false) !== -1) {
 		processingDisplay(settings, false);
 		return;
 	}
 
-	var anRows: HTMLTableRowElement[] = [];
-	var iRowCount = 0;
-	var bServerSide = dataSource(settings) == 'ssp';
-	var aiDisplay = settings.aiDisplay;
-	var iDisplayStart = settings.displayStart;
-	var iDisplayEnd = displayEnd(settings);
+	var rowEls: HTMLTableRowElement[] = [];
+	var rowCount = 0;
+	var isServerSide = dataSource(settings) == 'ssp';
+	var display = settings.display;
+	var start = settings.displayStart;
+	var end = displayEnd(settings);
 	var columns = settings.columns;
 	var body = dom.s(settings.nTBody);
 
@@ -435,7 +434,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 		settings.iDraw++;
 		processingDisplay(settings, false);
 	}
-	else if (!bServerSide) {
+	else if (!isServerSide) {
 		settings.iDraw++;
 	}
 	else if (!settings.bDestroying && !ajaxComplete) {
@@ -448,30 +447,30 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 		return;
 	}
 
-	if (aiDisplay.length !== 0) {
-		var iStart = bServerSide ? 0 : iDisplayStart;
-		var iEnd = bServerSide ? settings.aoData.length : iDisplayEnd;
+	if (display.length !== 0) {
+		var iStart = isServerSide ? 0 : start;
+		var iEnd = isServerSide ? settings.data.length : end;
 
 		for (var j = iStart; j < iEnd; j++) {
-			var iDataIndex = aiDisplay[j];
-			var aoData = settings.aoData[iDataIndex];
+			var dataIdx = display[j];
+			var data = settings.data[dataIdx];
 
 			// Row has been deleted - can't be displayed
-			if (aoData === null) {
+			if (data === null) {
 				continue;
 			}
 
 			// Row node hasn't been created yet
-			if (aoData.nTr === null) {
-				createTr(settings, iDataIndex);
+			if (data.nTr === null) {
+				createTr(settings, dataIdx);
 			}
 
-			var nRow = aoData.nTr!;
+			var nRow = data.nTr!;
 
 			// Add various classes as needed
 			for (var i = 0; i < columns.length; i++) {
 				var col = columns[i];
-				var td = aoData.anCells[i];
+				var td = data.anCells[i];
 
 				dom
 					.s(td)
@@ -480,42 +479,42 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 			}
 
 			// Row callback functions - might want to manipulate the row
-			// iRowCount and j are not currently documented. Are they at all
+			// rowCount and j are not currently documented. Are they at all
 			// useful?
 			callbackFire(settings, 'row', null, [
 				nRow,
-				aoData._aData,
-				iRowCount,
+				data._aData,
+				rowCount,
 				j,
-				iDataIndex
+				dataIdx
 			]);
 
-			anRows.push(nRow);
-			iRowCount++;
+			rowEls.push(nRow);
+			rowCount++;
 		}
 	}
 	else {
-		anRows[0] = _emptyRow(settings);
+		rowEls[0] = _emptyRow(settings);
 	}
 
 	/* Header and footer callbacks */
 	callbackFire(settings, 'header', 'header', [
 		dom.s(settings.nTHead).children('tr').get(0),
 		getDataMaster(settings),
-		iDisplayStart,
-		iDisplayEnd,
-		aiDisplay
+		start,
+		end,
+		display
 	]);
 
 	callbackFire(settings, 'footer', 'footer', [
 		dom.s(settings.nTFoot).children('tr').get(0),
 		getDataMaster(settings),
-		iDisplayStart,
-		iDisplayEnd,
-		aiDisplay
+		start,
+		end,
+		display
 	]);
 
-	body.detachChildren().append(anRows);
+	body.detachChildren().append(rowEls);
 
 	// Empty table needs a specific class
 	dom
@@ -525,10 +524,10 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 			dom.s(settings.nTFoot).find('tr').count() === 0
 		);
 
-	/* Call all required callback functions for the end of a draw */
+	// Call all required callback functions for the end of a draw
 	callbackFire(settings, 'draw', 'draw', [settings], true);
 
-	/* Draw is complete, sorting and filtering must be as well */
+	// Draw is complete, sorting and filtering must be as well
 	settings.bSorted = false;
 	settings.bFiltered = false;
 	settings.bDrawing = false;
@@ -564,7 +563,7 @@ export function reDraw(
 		}
 		else {
 			// No filtering, so we want to just use the display master
-			settings.aiDisplay = settings.aiDisplayMaster.slice();
+			settings.display = settings.displayMaster.slice();
 		}
 	}
 
@@ -807,7 +806,7 @@ export function detectHeader(
  *
  * @param settings DataTables settings object
  */
-export function start(settings: Context) {
+export function setStartPosition(settings: Context) {
 	var bServerSide = dataSource(settings) == 'ssp';
 	var iInitDisplayStart = settings.displayStartInit;
 
@@ -831,7 +830,7 @@ export function start(settings: Context) {
 export function recordsTotal(ctx: Context) {
 	return dataSource(ctx) == 'ssp'
 		? ctx.recordsTotal * 1
-		: ctx.aiDisplayMaster.length;
+		: ctx.displayMaster.length;
 }
 
 /**
@@ -840,13 +839,11 @@ export function recordsTotal(ctx: Context) {
  * @param ctx DataTables settings object
  */
 export function recordsDisplay(ctx: Context) {
-	return dataSource(ctx) == 'ssp'
-		? ctx.recordsDisplay * 1
-		: ctx.aiDisplay.length;
+	return dataSource(ctx) == 'ssp' ? ctx.recordsDisplay * 1 : ctx.display.length;
 }
 
 /**
- * Get the display end point - aiDisplay index
+ * Get the display end point - display index
  *
  * @param ctx DataTables settings object
  */
@@ -854,7 +851,7 @@ export function displayEnd(ctx: Context) {
 	var len = ctx.pageLength,
 		start = ctx.displayStart,
 		calc = start + len,
-		records = ctx.aiDisplay.length,
+		records = ctx.display.length,
 		features = ctx.features,
 		paginate = features.paging;
 

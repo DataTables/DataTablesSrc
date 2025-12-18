@@ -23,7 +23,7 @@ export function initialise(settings: Context) {
 	var dataSrc = dataSource(settings);
 
 	// Ensure that the table data is fully initialised
-	if (!settings.bInitialised) {
+	if (!settings.initialised) {
 		setTimeout(function () {
 			initialise(settings);
 		}, 200);
@@ -37,8 +37,8 @@ export function initialise(settings: Context) {
 	// Load the table's state (if needed) and then render around it and draw
 	loadState(settings, function () {
 		// Then draw the header / footer
-		drawHead(settings, settings.aoHeader);
-		drawHead(settings, settings.aoFooter);
+		drawHead(settings, settings.header);
+		drawHead(settings, settings.footer);
 
 		// Cache the paging start point, as the first redraw will reset it
 		var iAjaxStart = settings.displayStartInit;
@@ -56,7 +56,7 @@ export function initialise(settings: Context) {
 		}
 
 		// Filter not yet applied - copy the display master
-		settings.aiDisplay = settings.aiDisplayMaster.slice();
+		settings.display = settings.displayMaster.slice();
 
 		// Enable features
 		createLayout(settings);

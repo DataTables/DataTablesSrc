@@ -36,7 +36,7 @@ export function createLayout(ctx: Context) {
 	// Wrapper div around everything DataTables controls
 	var insert = dom
 		.c('div')
-		.attr('id', ctx.sTableId + '_wrapper')
+		.attr('id', ctx.tableId + '_wrapper')
 		.classAdd(classes.container)
 		.insertBefore(ctx.nTable);
 

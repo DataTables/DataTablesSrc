@@ -265,7 +265,7 @@ export function ajaxUpdateDraw(settings: Context, json: JSON) {
 	for (var i = 0, iLen = data.length; i < iLen; i++) {
 		addData(settings, data[i]);
 	}
-	settings.aiDisplay = settings.aiDisplayMaster.slice();
+	settings.display = settings.displayMaster.slice();
 
 	columnTypes(settings);
 	draw(settings, true);

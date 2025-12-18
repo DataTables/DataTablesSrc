@@ -22,7 +22,7 @@ export function log(
 ) {
 	msg =
 		'DataTables warning: ' +
-		(ctx ? 'table id=' + ctx.sTableId + ' - ' : '') +
+		(ctx ? 'table id=' + ctx.tableId + ' - ' : '') +
 		msg;
 
 	if (tn) {

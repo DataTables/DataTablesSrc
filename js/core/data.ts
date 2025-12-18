@@ -16,7 +16,7 @@ import { createTr, getRowDisplay, rowAttributes } from './draw';
  * @param tr TR element to add to the table - optional. If not given, DataTables
  *   will create a row automatically
  * @param tds Array of TD|TH elements for the row - must be given if nTr is.
- * @returns >=0 if successful (index of new aoData entry), -1 if failed
+ * @returns >=0 if successful (index of new data entry), -1 if failed
  */
 export function addData(
 	settings: Context,
@@ -25,14 +25,14 @@ export function addData(
 	tds?: HTMLTableCellElement[]
 ) {
 	/* Create the object for storing information about this new row */
-	var rowIdx = settings.aoData.length;
+	var rowIdx = settings.data.length;
 	var row = createRow({
 		src: tr ? 'dom' : 'data',
 		idx: rowIdx
 	});
 
 	row._aData = dataIn;
-	settings.aoData.push(row);
+	settings.data.push(row);
 
 	var columns = settings.columns;
 
@@ -42,11 +42,11 @@ export function addData(
 	}
 
 	/* Add to the display array */
-	settings.aiDisplayMaster.push(rowIdx);
+	settings.displayMaster.push(rowIdx);
 
 	var id = settings.rowIdFn(dataIn);
 	if (id !== undefined) {
-		settings.aIds[id] = row;
+		settings.ids[id] = row;
 	}
 
 	/* Create the DOM information, or register it if already present */
@@ -79,7 +79,7 @@ export function addTr(settings: Context, rows: Dom<HTMLTableRowElement>) {
  * Get the data for a given cell from the internal cache, taking into account data mapping
  *
  * @param settings DataTables settings object
- * @param rowIdx aoData row id
+ * @param rowIdx data row id
  * @param colIdx Column index
  * @param type data get type ('display', 'type' 'filter|search' 'sort|order')
  * @returns Cell data
@@ -97,7 +97,7 @@ export function getCellData(
 		type = 'sort';
 	}
 
-	var row = settings.aoData[rowIdx];
+	var row = settings.data[rowIdx];
 
 	if (!row) {
 		return undefined;
@@ -179,7 +179,7 @@ export function getCellData(
  * Set the value for a specific cell, into the internal data cache
  *
  * @param settings DataTables settings object
- * @param rowIdx aoData row id
+ * @param rowIdx data row id
  * @param colIdx Column index
  * @param val Value to set
  */
@@ -189,7 +189,7 @@ export function setCellData(
 	colIdx: number,
 	val: any
 ) {
-	let row = settings.aoData[rowIdx];
+	let row = settings.data[rowIdx];
 
 	if (row) {
 		let col = settings.columns[colIdx];
@@ -226,7 +226,7 @@ export function writeCell(td: HTMLTableCellElement, val: string | HTMLElement) {
  * @returns array {array} aData Master data array
  */
 export function getDataMaster(settings: Context) {
-	return util.array.pluck(settings.aoData, '_aData');
+	return util.array.pluck(settings.data, '_aData');
 }
 
 /**
@@ -234,10 +234,10 @@ export function getDataMaster(settings: Context) {
  * @param oSettings DataTables settings object
  */
 export function clearTable(settings: Context) {
-	settings.aoData.length = 0;
-	settings.aiDisplayMaster.length = 0;
-	settings.aiDisplay.length = 0;
-	settings.aIds = {};
+	settings.data.length = 0;
+	settings.displayMaster.length = 0;
+	settings.display.length = 0;
+	settings.ids = {};
 }
 
 /**
@@ -256,7 +256,7 @@ export function invalidate(
 	src?: string,
 	colIdx?: number
 ) {
-	var row = settings.aoData[rowIdx];
+	var row = settings.data[rowIdx];
 	var i, iLen;
 
 	if (!row) {

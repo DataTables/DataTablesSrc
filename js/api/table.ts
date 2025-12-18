@@ -86,18 +86,15 @@ register<Api['table']>('table()', function (selector) {
 });
 
 // Structure methods
-[
-	['header', 'aoHeader'],
-	['footer', 'aoFooter']
-].forEach(function (item) {
+['header', 'footer'].forEach(function (item) {
 	register<
 		ApiTableMethods<any>['header']['structure']
-	>('table().' + item[0] + '.structure()', function (selector?) {
+	>('table().' + item + '.structure()', function (selector?) {
 		var indexes = this.columns(selector).indexes().flatten().toArray();
 		var ctx = this.context[0];
 		var structure = headerLayout(
 			ctx,
-			ctx[item[1] as 'aoHeader' | 'aoFooter'],
+			ctx[item as 'header' | 'footer'],
 			indexes
 		)!;
 

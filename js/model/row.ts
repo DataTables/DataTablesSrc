@@ -54,7 +54,7 @@ export interface Row {
 	src: 'dom' | 'data';
 
 	/**
-	 * Index in the aoData array. This saves an indexOf lookup when we have the
+	 * Index in the data array. This saves an indexOf lookup when we have the
 	 * object, but want to know the index
 	 */
 	idx: number;

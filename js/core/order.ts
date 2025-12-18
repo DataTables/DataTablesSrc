@@ -109,7 +109,7 @@ export function sortAttachListener(
 			if (run) {
 				processingRun(settings, true, function () {
 					sort(settings);
-					sortDisplay(settings, settings.aiDisplay);
+					sortDisplay(settings, settings.display);
 
 					reDraw(settings, false, false);
 
@@ -132,7 +132,7 @@ export function sortDisplay(settings: Context, display: number[]) {
 		return;
 	}
 
-	var master = settings.aiDisplayMaster;
+	var master = settings.displayMaster;
 	var masterMap: { [idx: number]: number } = {};
 	var map: { [idx: number]: number } = {};
 	var i;
@@ -292,9 +292,9 @@ export function sort(ctx: Context, col?: number, dir?: string) {
 		iLen,
 		aiOrig: number[] = [],
 		extSort = ext.type.order,
-		aoData = ctx.aoData,
+		data = ctx.data,
 		sortCol,
-		displayMaster = ctx.aiDisplayMaster,
+		displayMaster = ctx.displayMaster,
 		aSort: ISortItem[];
 
 	// Make sure the columns all have types defined
@@ -366,8 +366,8 @@ export function sort(ctx: Context, col?: number, dir?: string) {
 				test,
 				sortItem,
 				len = aSort.length,
-				dataA = aoData[a]?._aSortData!,
-				dataB = aoData[b]?._aSortData!;
+				dataA = data[a]?._aSortData!,
+				dataB = data[b]?._aSortData!;
 
 			for (k = 0; k < len; k++) {
 				sortItem = aSort[k];
@@ -533,7 +533,7 @@ export function sortingClasses(settings: Context) {
 
 			// Remove column sorting
 			dom
-				.s(pluck(settings.aoData, 'anCells', colIdx))
+				.s(pluck(settings.data, 'anCells', colIdx))
 				.classRemove(sortClass + (i < 2 ? i + 1 : 3));
 		}
 
@@ -542,7 +542,7 @@ export function sortingClasses(settings: Context) {
 			colIdx = sortFlat[i].src;
 
 			dom
-				.s(pluck(settings.aoData, 'anCells', colIdx))
+				.s(pluck(settings.data, 'anCells', colIdx))
 				.classAdd(sortClass + (i < 2 ? i + 1 : 3));
 		}
 	}
@@ -575,7 +575,7 @@ export function sortData(settings: Context, colIdx: number) {
 	// Use / populate cache
 	var row, cellData;
 	var formatter = ext.type.order[column.type + '-pre'];
-	var data = settings.aoData;
+	var data = settings.data;
 
 	for (var rowIdx = 0; rowIdx < data.length; rowIdx++) {
 		// Sparse array

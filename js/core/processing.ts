@@ -14,7 +14,7 @@ export function processingHtml(ctx: Context) {
 	if (ctx.features.processing) {
 		var n = dom
 			.c('div')
-			.attr('id', ctx.sTableId + '_processing')
+			.attr('id', ctx.tableId + '_processing')
 			.attr('role', 'status')
 			.classAdd(ctx.classes.processing.container)
 			.html(ctx.language.processing)

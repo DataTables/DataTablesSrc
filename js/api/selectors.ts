@@ -119,8 +119,8 @@ export function selectorRowIndexes(
 		iLen,
 		tmp,
 		a: number[] = [],
-		displayFiltered = settings.aiDisplay,
-		displayMaster = settings.aiDisplayMaster;
+		displayFiltered = settings.display,
+		displayMaster = settings.displayMaster;
 
 	var search = opts.search, // none, applied, removed
 		order = opts.order, // applied, current, index (original - compatibility with 1.9)
@@ -169,8 +169,8 @@ export function selectorRowIndexes(
 		}
 	}
 	else if (order == 'index' || order == 'original') {
-		for (i = 0, iLen = settings.aoData.length; i < iLen; i++) {
-			if (!settings.aoData[i]) {
+		for (i = 0, iLen = settings.data.length; i < iLen; i++) {
+			if (!settings.data[i]) {
 				continue;
 			}
 

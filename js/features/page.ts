@@ -157,7 +157,7 @@ function _pagingDraw(
 
 		// Common attributes
 		dom.s(btn.clicker).attr({
-			'aria-controls': settings.sTableId,
+			'aria-controls': settings.tableId,
 			'aria-disabled': btnInfo.disabled ? 'true' : null,
 			'aria-current': btnInfo.active ? 'page' : null,
 			'aria-label': ariaLabel,

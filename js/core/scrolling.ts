@@ -237,16 +237,16 @@ export function scrollDraw(settings: Context) {
 	// Note the use of translating into a column index to get the `col` element. This
 	// is because of Responsive which might remove `col` elements, knocking the alignment
 	// of the indexes out.
-	if (settings.aiDisplay.length) {
+	if (settings.display.length) {
 		// Get the column sizes from the first row in the table. This should really be a
 		// [].find, but it wasn't supported in Chrome until Sept 2015, and DT has 10 year
 		// browser support
 		let firstTr: HTMLTableRowElement | null = null;
 		let start = dataSource(settings) !== 'ssp' ? settings.displayStart : 0;
 
-		for (let i = start; i < start + settings.aiDisplay.length; i++) {
-			let idx = settings.aiDisplay[i];
-			let row = settings.aoData[idx];
+		for (let i = start; i < start + settings.display.length; i++) {
+			let idx = settings.display[i];
+			let row = settings.data[idx];
 
 			if (row) {
 				let tr = row.nTr;

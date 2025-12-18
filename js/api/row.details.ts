@@ -16,12 +16,12 @@ dom.s(document).on('plugin-init.dt', function (e, context) {
 		// This could be more compact with the API, but it is a lot faster as a
 		// simple internal loop
 		var idFn = settings.rowIdFn;
-		var rows = settings.aiDisplayMaster;
+		var rows = settings.displayMaster;
 		var ids: any[] = [];
 
 		for (var i = 0; i < rows.length; i++) {
 			var rowIdx = rows[i];
-			var data = settings.aoData[rowIdx];
+			var data = settings.data[rowIdx];
 
 			if (data._detailsShow) {
 				ids.push('#' + idFn(data._aData));
@@ -129,7 +129,7 @@ function detailsRemove(api: ApiType, idx?: number) {
 	var ctx = api.context;
 
 	if (ctx.length) {
-		var row = ctx[0].aoData[idx !== undefined ? idx : api[0]];
+		var row = ctx[0].data[idx !== undefined ? idx : api[0]];
 
 		if (row && row._details) {
 			row._details.detach();
@@ -146,7 +146,7 @@ function detailsDisplay(api: ApiType, show: boolean) {
 	var ctx = api.context;
 
 	if (ctx.length && api.length) {
-		var row = ctx[0].aoData[api[0]];
+		var row = ctx[0].data[api[0]];
 
 		if (row && row._details) {
 			row._detailsShow = show;
@@ -173,7 +173,7 @@ function detailsEvents(settings: Context) {
 	var drawEvent = 'draw' + namespace;
 	var colvisEvent = 'column-sizing' + namespace;
 	var destroyEvent = 'destroy' + namespace;
-	var data = settings.aoData;
+	var data = settings.data;
 
 	api.off(drawEvent + ' ' + colvisEvent + ' ' + destroyEvent);
 
@@ -258,8 +258,8 @@ Api.register(
 			// get
 			let jq = util.external('jq');
 			let details =
-				ctx.length && this.length && ctx[0].aoData[this[0]]
-					? ctx[0].aoData[this[0]]?._details
+				ctx.length && this.length && ctx[0].data[this[0]]
+					? ctx[0].data[this[0]]?._details
 					: undefined;
 
 			if (!details) {
@@ -280,7 +280,7 @@ Api.register(
 		}
 		else if (ctx.length && this.length) {
 			// set
-			detailsAdd(ctx[0], ctx[0].aoData[this[0]], data, klass);
+			detailsAdd(ctx[0], ctx[0].data[this[0]], data, klass);
 		}
 
 		return this.inst(this.context, this);
@@ -326,9 +326,9 @@ Api.register(
 Api.register(_child_obj + '.isShown()', function () {
 	var ctx = this.context;
 
-	if (ctx.length && this.length && ctx[0].aoData[this[0]]) {
+	if (ctx.length && this.length && ctx[0].data[this[0]]) {
 		// _detailsShown as false or undefined will fall through to return false
-		return ctx[0].aoData[this[0]]._detailsShow || false;
+		return ctx[0].data[this[0]]._detailsShow || false;
 	}
 	return false;
 });

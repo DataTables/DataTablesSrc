@@ -28,7 +28,7 @@ function selectCells(
 	selector: CellSelector,
 	opts: ApiSelectorModifier
 ) {
-	var data = settings.aoData;
+	var data = settings.data;
 	var rows = selectorRowIndexes(settings, opts);
 	var allCells: Dom;
 	var row;
@@ -238,7 +238,7 @@ registerPlural<ApiCellsMethods<any>['nodes']>(
 		return this.iterator(
 			'cell',
 			function (settings, row, column) {
-				var data = settings.aoData[row];
+				var data = settings.data[row];
 
 				return data && data.anCells ? data.anCells[column] : undefined;
 			},
@@ -267,7 +267,7 @@ registerPlural<ApiCellsMethods<any>['cache']>(
 		return this.iterator(
 			'cell',
 			function (settings, row, column) {
-				let rowData = settings.aoData[row];
+				let rowData = settings.data[row];
 
 				return rowData && rowData[prop] ? rowData[prop][column] : null;
 			},

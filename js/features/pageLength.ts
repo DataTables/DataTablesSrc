@@ -37,7 +37,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 		);
 
 		let classes = settings.classes.length,
-			tableId = settings.sTableId,
+			tableId = settings.tableId,
 			menu: any[] = opts.menu,
 			lengths: any[] = [],
 			language: any[] = [],

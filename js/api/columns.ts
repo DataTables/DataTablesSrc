@@ -68,7 +68,7 @@ function columnData(
 }
 
 function columnHeader(settings: Context, column: number, row?: number) {
-	var header = settings.aoHeader;
+	var header = settings.header;
 	var titleRow = settings.titleRow;
 	var target = 0;
 
@@ -129,7 +129,7 @@ function selectColumns(
 	var columns = settings.columns,
 		names: string[],
 		titles: string[],
-		nodes = columnHeaderCells(settings.aoHeader);
+		nodes = columnHeaderCells(settings.header);
 
 	var run = function (s: any) {
 		var selInt = intVal(s);
@@ -268,7 +268,7 @@ function selectColumns(
 function setColumnVis(settings: Context, column: number, vis: boolean) {
 	var cols = settings.columns,
 		col = cols[column],
-		data = settings.aoData,
+		data = settings.data,
 		cells,
 		i,
 		iLen,
@@ -306,7 +306,7 @@ function setColumnVis(settings: Context, column: number, vis: boolean) {
 	}
 	else {
 		// Remove column
-		dom.s(removeEmpty(pluck(settings.aoData, 'anCells', column))).detach();
+		dom.s(removeEmpty(pluck(settings.data, 'anCells', column))).detach();
 	}
 
 	// Common actions
@@ -388,13 +388,13 @@ registerPlural<ApiColumnsMethods<any>['footer']>(
 		return this.iterator(
 			'column',
 			function (settings, column) {
-				var footer = settings.aoFooter;
+				var footer = settings.footer;
 
 				if (!footer.length) {
 					return null;
 				}
 
-				return settings.aoFooter[row !== undefined ? row : 0][column].cell;
+				return settings.footer[row !== undefined ? row : 0][column].cell;
 			},
 			true
 		);
@@ -445,7 +445,7 @@ registerPlural<ApiColumnsMethods<any>['cache']>(
 			'column-rows',
 			function (settings, column, i, j, rows) {
 				return pluckOrder(
-					settings.aoData,
+					settings.data,
 					rows,
 					type === 'search' ? '_aFilterData' : '_aSortData',
 					column
@@ -492,7 +492,7 @@ registerPlural<ApiColumnsMethods<any>['nodes']>(
 			'column-rows',
 			function (settings, column, i, j, rows) {
 				return removeEmpty(
-					pluckOrder(settings.aoData, rows, 'anCells', column)
+					pluckOrder(settings.data, rows, 'anCells', column)
 				);
 			},
 			true
@@ -581,12 +581,12 @@ registerPlural<ApiColumnsVisibleOverload>(
 		if (vis !== undefined) {
 			this.iterator('table', function (settings) {
 				// Redraw the header after changes
-				drawHead(settings, settings.aoHeader);
-				drawHead(settings, settings.aoFooter);
+				drawHead(settings, settings.header);
+				drawHead(settings, settings.footer);
 
 				// Update colspan for no records display. Child rows and extensions will use their own
 				// listeners to do this - only need to update the empty table item here
-				if (!settings.aiDisplay.length) {
+				if (!settings.display.length) {
 					dom
 						.s(settings.nTBody)
 						.find('td[colspan]')

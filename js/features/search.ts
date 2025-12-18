@@ -32,7 +32,7 @@ register<Partial<IFeatureSearchOptions>>(
 		}
 
 		let classes = settings.classes.search;
-		let tableId = settings.sTableId;
+		let tableId = settings.tableId;
 		let language = settings.language;
 		let previousSearch = settings.previousSearch;
 		let input = '<input type="search" class="' + classes.input + '"/>';
