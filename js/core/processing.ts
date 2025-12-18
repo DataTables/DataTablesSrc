@@ -49,7 +49,7 @@ export function processingHtml(ctx: Context) {
  */
 export function processingDisplay(ctx: Context, show: boolean) {
 	// Ignore cases when we are still redrawing
-	if (ctx.bDrawing && show === false) {
+	if (ctx.doingDraw && show === false) {
 		return;
 	}
 

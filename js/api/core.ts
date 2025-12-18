@@ -92,7 +92,7 @@ register<ApiReadyMethod>('ready()', function (fn?) {
 
 	// Get status of first table
 	if (!fn) {
-		return ctx.length ? ctx[0]._bInitComplete || false : false;
+		return ctx.length ? ctx[0].initDone || false : false;
 	}
 
 	// Function to run either once the table becomes ready or
@@ -100,7 +100,7 @@ register<ApiReadyMethod>('ready()', function (fn?) {
 	return this.tables().every(function () {
 		var api = this;
 
-		if (this.context[0]._bInitComplete) {
+		if (this.context[0].initDone) {
 			fn.call(api);
 		}
 		else {
@@ -132,7 +132,7 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 
 		// Flag to note that the table is currently being destroyed - no action
 		// should be taken
-		settings.bDestroying = true;
+		settings.destroying = true;
 
 		// Fire off the destroy callbacks for plug-ins etc
 		callbackFire(settings, 'destroy', 'destroy', [settings], true);

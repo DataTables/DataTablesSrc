@@ -67,7 +67,7 @@ register<ApiAjax['params']>('ajax.params()', function () {
 	var ctx = this.context;
 
 	if (ctx.length > 0) {
-		return ctx[0].oAjaxData as any;
+		return ctx[0].ajaxData as any;
 	}
 
 	// else return undefined;

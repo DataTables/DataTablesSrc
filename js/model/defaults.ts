@@ -584,7 +584,7 @@ const defaults: Defaults = {
 		try {
 			const state = (
 				settings.stateDuration === -1 ? sessionStorage : localStorage
-			).getItem('DataTables_' + settings.sInstance + '_' + location.pathname);
+			).getItem('DataTables_' + settings.unique + '_' + location.pathname);
 
 			return state ? JSON.parse(state) : {};
 		} catch (e) {
@@ -596,7 +596,7 @@ const defaults: Defaults = {
 	stateSaveCallback: function (settings: Context, data: any) {
 		try {
 			(settings.stateDuration === -1 ? sessionStorage : localStorage).setItem(
-				'DataTables_' + settings.sInstance + '_' + location.pathname,
+				'DataTables_' + settings.unique + '_' + location.pathname,
 				JSON.stringify(data)
 			);
 		} catch (e) {

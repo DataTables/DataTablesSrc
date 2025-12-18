@@ -111,13 +111,13 @@ export function initialise(settings: Context) {
  * @param settings DataTables settings object
  */
 export function initComplete(settings: Context) {
-	if (settings._bInitComplete) {
+	if (settings.initDone) {
 		return;
 	}
 
 	var args = [settings, settings.json];
 
-	settings._bInitComplete = true;
+	settings.initDone = true;
 
 	// Table is fully set up and we have data, so calculate the
 	// column widths

@@ -103,7 +103,7 @@ export function getCellData(
 		return undefined;
 	}
 
-	var draw = settings.iDraw;
+	var draw = settings.drawCount;
 	var col = settings.columns[colIdx];
 	var rowData = row._aData;
 	var defaultContent = col.defaultContent;
@@ -124,7 +124,7 @@ export function getCellData(
 	}
 
 	if (cellData === undefined) {
-		if (settings.iDrawError != draw && defaultContent === null) {
+		if (settings.drawError != draw && defaultContent === null) {
 			log(
 				settings,
 				0,
@@ -139,7 +139,7 @@ export function getCellData(
 				4
 			);
 
-			settings.iDrawError = draw;
+			settings.drawError = draw;
 		}
 
 		return defaultContent;
@@ -322,7 +322,7 @@ export function getRowElementsFromNode(
 	settings: Context,
 	row: HTMLTableRowElement
 ) {
-	let data = settings._rowReadObject ? {} : [];
+	let data = settings.rowReadObject ? {} : [];
 	let cells = dom.s(row).children<HTMLTableCellElement>('th, td');
 	let id = row.getAttribute('id');
 

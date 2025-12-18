@@ -13,7 +13,7 @@ type ApiStateOverload = (
 register<ApiStateOverload>('state()', function (set?: StateLoad, ignoreTime?) {
 	// getter
 	if (!set) {
-		return this.context.length ? this.context[0].oSavedState : null;
+		return this.context.length ? this.context[0].stateSaved : null;
 	}
 
 	let setMutate = object.assignDeep<StateLoad>({}, set);
@@ -36,7 +36,7 @@ register<ApiState<any>['clear']>('state.clear()', function () {
 });
 
 register<ApiState<any>['loaded']>('state.loaded()', function () {
-	return this.context.length ? this.context[0].oLoadedState : null;
+	return this.context.length ? this.context[0].stateLoaded : null;
 });
 
 register<ApiState<any>['save']>('state.save()', function () {

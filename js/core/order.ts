@@ -410,7 +410,7 @@ export function sort(ctx: Context, col?: number, dir?: string) {
 
 	if (col === undefined) {
 		// Tell the draw function that we have sorted the data
-		ctx.bSorted = true;
+		ctx.wasOrdered = true;
 		ctx.sortDetails = aSort;
 
 		callbackFire(ctx, null, 'order', [ctx, aSort]);
@@ -520,7 +520,7 @@ export function sortAdd(
  * @param settings DataTables settings object
  */
 export function sortingClasses(settings: Context) {
-	var oldSort = settings.aLastSort;
+	var oldSort = settings.lastOrder;
 	var sortClass = settings.classes.order.position;
 	var sortFlat = sortFlatten(settings);
 	var features = settings.features;
@@ -547,7 +547,7 @@ export function sortingClasses(settings: Context) {
 		}
 	}
 
-	settings.aLastSort = sortFlat;
+	settings.lastOrder = sortFlat;
 }
 
 /**

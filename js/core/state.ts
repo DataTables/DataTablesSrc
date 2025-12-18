@@ -13,7 +13,7 @@ import { pageChange } from './page';
  * @param settings DataTables settings object
  */
 export function saveState(settings: Context) {
-	if (settings._bLoadingState) {
+	if (settings.loadingState) {
 		return;
 	}
 
@@ -43,13 +43,13 @@ export function saveState(settings: Context) {
 		}),
 	};
 
-	settings.oSavedState = state;
+	settings.stateSaved = state;
 	callbackFire(settings, 'stateSaveParams', 'stateSaveParams', [
 		settings,
 		state,
 	]);
 
-	if (settings.features.stateSave && !settings.bDestroying) {
+	if (settings.features.stateSave && !settings.destroying) {
 		settings.stateSaveCallback.call(settings.oInstance, settings, state);
 	}
 }
@@ -93,15 +93,15 @@ export function implementState(
 	var columns = settings.columns;
 	var currentNames = pluck(settings.columns, 'name');
 
-	settings._bLoadingState = true;
+	settings.loadingState = true;
 
 	// When StateRestore was introduced the state could now be implemented at
 	// any time Not just initialisation. To do this an api instance is required
 	// in some places
-	var api = settings._bInitComplete ? new Api(settings) : null;
+	var api = settings.initDone ? new Api(settings) : null;
 
 	if (!s || !s.time) {
-		settings._bLoadingState = false;
+		settings.loadingState = false;
 		callback();
 		return;
 	}
@@ -109,7 +109,7 @@ export function implementState(
 	// Reject old data
 	var duration = settings.stateDuration;
 	if (duration > 0 && s.time < +new Date() - duration * 1000) {
-		settings._bLoadingState = false;
+		settings.loadingState = false;
 		callback();
 		return;
 	}
@@ -123,13 +123,13 @@ export function implementState(
 		[settings, s]
 	);
 	if (abStateLoad.indexOf(false) !== -1) {
-		settings._bLoadingState = false;
+		settings.loadingState = false;
 		callback();
 		return;
 	}
 
 	// Store the saved state so it might be accessed at any time
-	settings.oLoadedState = assignDeep({}, s);
+	settings.stateLoaded = assignDeep({}, s);
 
 	// This is needed for ColReorder, which has to happen first to allow all
 	// the stored indexes to be usable. It is not publicly documented.
@@ -267,7 +267,7 @@ export function implementState(
 		}
 	}
 
-	settings._bLoadingState = false;
+	settings.loadingState = false;
 	callbackFire(settings, 'stateLoaded', 'stateLoaded', [settings, s]);
 	callback();
 }

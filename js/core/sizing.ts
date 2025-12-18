@@ -228,12 +228,12 @@ export function calculateColumnWidths(settings: Context) {
 		table.style.width = stringToCss(tableWidthAttr);
 	}
 
-	if ((tableWidthAttr || scrollX) && !settings._reszEvt) {
+	if ((tableWidthAttr || scrollX) && !settings.reszEvt) {
 		var resize = util.throttle(function () {
 			var newWidth = wrapperWidth(settings);
 
 			// Don't do it if destroying or the container width is 0
-			if (!settings.bDestroying && newWidth !== 0) {
+			if (!settings.destroying && newWidth !== 0) {
 				adjustColumnSizing(settings);
 			}
 		});
@@ -275,7 +275,7 @@ export function calculateColumnWidths(settings: Context) {
 			settings.windowResizeCb = resize; // For removal in `destroy`
 		}
 
-		settings._reszEvt = true;
+		settings.reszEvt = true;
 	}
 }
 

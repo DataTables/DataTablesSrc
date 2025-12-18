@@ -113,7 +113,7 @@ function _pagingDraw(
 	host: Dom,
 	opts: IFeaturePagingOptions
 ) {
-	if (!settings._bInitComplete) {
+	if (!settings.initDone) {
 		return;
 	}
 

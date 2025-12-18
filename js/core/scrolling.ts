@@ -192,7 +192,7 @@ export function scrollDraw(settings: Context) {
 		header = dom.s(settings.nTHead),
 		table = dom.s(settings.nTable),
 		footer = dom.s(settings.nTFoot),
-		browser = settings.oBrowser,
+		browser = settings.browser,
 		headerCopy,
 		footerCopy;
 
@@ -321,7 +321,7 @@ export function scrollDraw(settings: Context) {
 	let isScrolling =
 		Math.floor(table.height()) > divBodyEl.get(0).clientHeight ||
 		divBody.css('overflow-y') == 'scroll';
-	let paddingSide = 'padding' + (browser.bScrollbarLeft ? 'Left' : 'Right');
+	let paddingSide = 'padding' + (browser.scrollbarLeft ? 'Left' : 'Right');
 
 	// Set the width's of the header and footer tables
 	let outerWidth = table.width('outer');
@@ -346,7 +346,7 @@ export function scrollDraw(settings: Context) {
 
 	// If sorting or filtering has occurred, jump the scrolling back to the top
 	// only if we aren't holding the position
-	if ((settings.bSorted || settings.bFiltered) && !settings._drawHold) {
+	if ((settings.wasOrdered || settings.wasFiltered) && !settings.drawHold) {
 		divBodyEl.scrollTop(0);
 	}
 }

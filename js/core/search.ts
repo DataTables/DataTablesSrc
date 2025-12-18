@@ -52,7 +52,7 @@ export function filterComplete(settings: Context, input: SearchOptions) {
 	}
 
 	// Tell the draw function we have been filtering
-	settings.bFiltered = true;
+	settings.wasFiltered = true;
 
 	callbackFire(settings, null, 'search', [settings]);
 }

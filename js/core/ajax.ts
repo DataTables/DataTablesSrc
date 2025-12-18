@@ -111,7 +111,7 @@ export function buildAjax(
 	}
 
 	// Store the data submitted for the API
-	settings.oAjaxData = data;
+	settings.ajaxData = data;
 
 	// Allow plug-ins and external processes to modify the data
 	callbackFire(settings, null, 'preXhr', [settings, data, baseAjax], true);
@@ -159,7 +159,7 @@ export function buildAjax(
  * @returns Block the table drawing or not
  */
 export function ajaxUpdate(settings: Context) {
-	settings.iDraw++;
+	settings.drawCount++;
 	processingDisplay(settings, true);
 
 	buildAjax(settings, ajaxParameters(settings), function (json) {
@@ -186,7 +186,7 @@ export function ajaxParameters(settings: Context): AjaxData {
 		};
 
 	return {
-		draw: settings.iDraw,
+		draw: settings.drawCount,
 		columns: columns.map(function (column, i) {
 			return {
 				data: colData(i, 'data'),
@@ -247,10 +247,10 @@ export function ajaxUpdateDraw(settings: Context, json: JSON) {
 
 	if (drawUnique !== undefined) {
 		// Protect against out of sequence returns
-		if (drawUnique * 1 < settings.iDraw) {
+		if (drawUnique * 1 < settings.drawCount) {
 			return;
 		}
-		settings.iDraw = drawUnique * 1;
+		settings.drawCount = drawUnique * 1;
 	}
 
 	// No data in returned object, so rather than an array, we show an empty table

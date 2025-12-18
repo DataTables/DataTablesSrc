@@ -57,7 +57,7 @@ register<Partial<IFeatureInfoOptions>>(
 		});
 
 		// For the first info display in the table, we add a callback and aria information.
-		if (!settings._infoEl) {
+		if (!settings.infoEl) {
 			n.attr({
 				'aria-live': 'polite',
 				id: tid + '_info',
@@ -67,7 +67,7 @@ register<Partial<IFeatureInfoOptions>>(
 			// Table is described by our info div
 			dom.s(settings.nTable).attr('aria-describedby', tid + '_info');
 
-			settings._infoEl = n;
+			settings.infoEl = n;
 		}
 
 		return n;

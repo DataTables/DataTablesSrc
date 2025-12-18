@@ -235,13 +235,13 @@ export interface Context {
 	/**
 	 * Browser support parameters
 	 */
-	oBrowser: {
+	browser: {
 		/**
 		 * Determine if the vertical scrollbar is on the right or left of the
 		 * scrolling container - needed for rtl language layout, although not
 		 * all browsers move the scrollbar (Safari).
 		 */
-		bScrollbarLeft: boolean,
+		scrollbarLeft: boolean,
 
 		/**
 		 * Browser scrollbar width
@@ -250,12 +250,6 @@ export interface Context {
 	};
 
 	ajax: null | string | DtAjaxOptions | AjaxFunction;
-
-	/**
-	 * Array referencing the nodes which are used for the features. The
-	 * parameters of this object match what is allowed by `dom`. Legacy only.
-	 */
-	aanFeatures: any[]; // TODO
 
 	/**
 	 * Row data information
@@ -389,29 +383,19 @@ export interface Context {
 	stateDuration: number;
 
 	/**
-	 * Array of callback functions for state saving.
-	 */
-	aoStateSave: Function[];
-
-	/**
-	 * Array of callback functions for state loading.
-	 */
-	aoStateLoad: Function[];
-
-	/**
 	 * State that was saved. Useful for back reference
 	 */
-	oSavedState: State | null;
+	stateSaved: State | null;
 
 	/**
 	 * State that was loaded. Useful for back reference
 	 */
-	oLoadedState: StateLoad | null;
+	stateLoaded: StateLoad | null;
 
 	/**
 	 * Note if draw should be blocked while getting data
 	 */
-	bAjaxDataGet: boolean;
+	ajaxDataGet: boolean;
 
 	/**
 	 * The last jQuery XHR object that was used for server-side data gathering.
@@ -428,7 +412,7 @@ export interface Context {
 	/**
 	 * Data submitted as part of the last Ajax request
 	 */
-	oAjaxData: AjaxData | string;
+	ajaxData: AjaxData | string;
 
 	/**
 	 * Send the XHR HTTP method - GET or POST (could be PUT or DELETE if
@@ -454,17 +438,17 @@ export interface Context {
 	 * Counter for the draws that the table does. Also used as a tracker for
 	 * server-side processing
 	 */
-	iDraw: number;
+	drawCount: number;
 
 	/**
 	 * Indicate if a redraw is being done - useful for Ajax
 	 */
-	bDrawing: boolean;
+	doingDraw: boolean;
 
 	/**
 	 * Draw index (iDraw) of the last error when parsing the returned data
 	 */
-	iDrawError: number;
+	drawError: number;
 
 	/**
 	 * Paging display length
@@ -502,7 +486,7 @@ export interface Context {
 	 *
 	 * @deprecated
 	 */
-	bFiltered: boolean;
+	wasFiltered: boolean;
 
 	/**
 	 * Flag attached to the settings object so you can check in the draw
@@ -511,7 +495,7 @@ export interface Context {
 	 *
 	 * @deprecated
 	 */
-	bSorted: boolean;
+	wasOrdered: boolean;
 
 	/**
 	 * Indicate that if multiple rows are in the header and there is more than
@@ -536,7 +520,7 @@ export interface Context {
 	 * is an ID on the table node, then it takes that value, otherwise an
 	 * incrementing internal counter is used.
 	 */
-	sInstance: string;
+	unique: string;
 
 	/**
 	 * tabindex attribute value that is added to DataTables control elements,
@@ -562,7 +546,7 @@ export interface Context {
 	/**
 	 * Last applied sort
 	 */
-	aLastSort: any[];
+	lastOrder: any[];
 
 	/**
 	 * Function used to get a row's id from the row's data
@@ -604,20 +588,20 @@ export interface Context {
 	/** Title row indicator */
 	titleRow: any; // TODO
 
-	_bLoadingState: boolean;
+	loadingState: boolean;
 
-	bDestroying: boolean;
+	destroying: boolean;
 
 	stateSaveCallback: (ctx: Context, data: any) => void;
 	stateLoadCallback: (ctx: Context) => Partial<State>;
-	_reszEvt: boolean;
+	reszEvt: boolean;
 	displayStartInit: number;
 	sortDetails: ISortItem[];
 	scrollBarVis: boolean;
-	_drawHold: boolean | undefined;
-	_rowReadObject: boolean;
-	_infoEl: Dom;
-	_bInitComplete: boolean;
+	drawHold: boolean | undefined;
+	rowReadObject: boolean;
+	infoEl: Dom;
+	initDone: boolean;
 	layout: Layout;
 
 	/** Window resize handler for older browsers */
@@ -748,12 +732,11 @@ const defaults: Partial<Context> = {
 		},
 		url: ''
 	},
-	oBrowser: {
-		bScrollbarLeft: false,
+	browser: {
+		scrollbarLeft: false,
 		barWidth: 0
 	},
 	ajax: null,
-	aanFeatures: [],
 	data: [],
 	display: [],
 	displayMaster: [],
@@ -774,28 +757,26 @@ const defaults: Partial<Context> = {
 	pagingType: 'two_button',
 	pagingControls: 0,
 	stateDuration: 0,
-	aoStateSave: [],
-	aoStateLoad: [],
-	oSavedState: null,
-	oLoadedState: null,
-	bAjaxDataGet: false,
+	stateSaved: null,
+	stateLoaded: null,
+	ajaxDataGet: false,
 	serverMethod: null,
-	iDraw: 0,
-	bDrawing: false,
-	iDrawError: -1,
+	drawCount: 0,
+	doingDraw: false,
+	drawError: -1,
 	pageLength: 10,
 	displayStart: 0,
 	recordsTotal: 0,
 	recordsDisplay: 0,
 	classes: {},
-	bFiltered: false,
-	bSorted: false,
+	wasFiltered: false,
+	wasOrdered: false,
 	orderCellsTop: null,
 	init: {},
 	oInstance: null,
-	sInstance: '',
+	unique: '',
 	tabIndex: 0,
-	aLastSort: [],
+	lastOrder: [],
 	rowId: '',
 	caption: '',
 	captionNode: null,
@@ -807,17 +788,17 @@ const defaults: Partial<Context> = {
 	orderIndicators: true,
 	orderHandler: true,
 	titleRow: null,
-	_bLoadingState: false,
-	bDestroying: false,
+	loadingState: false,
+	destroying: false,
 	stateSaveCallback: () => {},
 	stateLoadCallback: () => {return {};},
-	_reszEvt: false,
+	reszEvt: false,
 	displayStartInit: -1,
 	sortDetails: [],
 	scrollBarVis: false,
-	_drawHold: false,
-	_rowReadObject: false,
-	_bInitComplete: false,
+	drawHold: false,
+	rowReadObject: false,
+	initDone: false,
 	layout: {},
 	windowResizeCb: () => {},
 	callbacks: {

@@ -8,7 +8,7 @@ interface HungarianMap {
 
 export const browser = {
 	barWidth: -1,
-	bScrollbarLeft: false
+	scrollbarLeft: false
 };
 
 const hungarianToCamelRe = /^(a|aa|ai|ao|as|b|fn|i|m|o|s)([A-Z])([a-z].*$)/;
@@ -211,11 +211,11 @@ export function browserDetect(ctx: Context) {
 		var inner = outer.children();
 
 		browser.barWidth = outer.get(0).offsetWidth - outer.get(0).clientWidth;
-		browser.bScrollbarLeft = Math.round(inner.offset()!.left) !== 1;
+		browser.scrollbarLeft = Math.round(inner.offset()!.left) !== 1;
 
 		n.remove();
 	}
 
-	Object.assign(ctx.oBrowser, browser);
+	Object.assign(ctx.browser, browser);
 	ctx.scroll.barWidth = browser.barWidth;
 }

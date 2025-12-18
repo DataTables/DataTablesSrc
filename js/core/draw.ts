@@ -426,20 +426,20 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	var columns = settings.columns;
 	var body = dom.s(settings.nTBody);
 
-	settings.bDrawing = true;
+	settings.doingDraw = true;
 
 	/* Server-side processing draw intercept */
 	if (settings.deferLoading) {
 		settings.deferLoading = false;
-		settings.iDraw++;
+		settings.drawCount++;
 		processingDisplay(settings, false);
 	}
 	else if (!isServerSide) {
-		settings.iDraw++;
+		settings.drawCount++;
 	}
-	else if (!settings.bDestroying && !ajaxComplete) {
+	else if (!settings.destroying && !ajaxComplete) {
 		// Show loading message for server-side processing
-		if (settings.iDraw === 0) {
+		if (settings.drawCount === 0) {
 			body.empty().append(_emptyRow(settings));
 		}
 
@@ -528,9 +528,9 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	callbackFire(settings, 'draw', 'draw', [settings], true);
 
 	// Draw is complete, sorting and filtering must be as well
-	settings.bSorted = false;
-	settings.bFiltered = false;
-	settings.bDrawing = false;
+	settings.wasOrdered = false;
+	settings.wasFiltered = false;
+	settings.doingDraw = false;
 }
 
 /**
@@ -573,12 +573,12 @@ export function reDraw(
 
 	// Let any modules know about the draw hold position state (used by
 	// scrolling internally)
-	settings._drawHold = holdPosition;
+	settings.drawHold = holdPosition;
 
 	draw(settings);
 
 	settings.api.one('draw', function () {
-		settings._drawHold = false;
+		settings.drawHold = false;
 	});
 }
 

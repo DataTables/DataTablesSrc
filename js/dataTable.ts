@@ -160,7 +160,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		// parameters
 		var settings = createContext({
 			destroyWidth: table.width(),
-			sInstance: id,
+			unique: id,
 			tableId: id,
 			colgroup: dom.c('colgroup').prependTo(tableEl),
 			fastData: function (row, column, type) {
@@ -400,7 +400,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 
 		callbackReg(settings, 'draw', function () {
 			if (
-				settings.bSorted ||
+				settings.wasOrdered ||
 				dataSource(settings) === 'ssp' ||
 				features.deferRender
 			) {

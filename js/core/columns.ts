@@ -121,7 +121,7 @@ export function columnOptions(
 	// Indicate if DataTables should read DOM data as an object or array
 	// Used in _fnGetRowElements
 	if (typeof dataSrc !== 'number' && !column._isArrayHost) {
-		settings._rowReadObject = true;
+		settings.rowReadObject = true;
 	}
 
 	/* Feature sorting overrides column specific when off */
