@@ -235,7 +235,7 @@ export interface Defaults {
 	/**
 	 * Horizontal scrolling.
 	 */
-	scrollX: boolean;
+	scrollX: string | boolean;
 
 	/**
 	 * Vertical scrolling.
@@ -667,8 +667,8 @@ const defaults: Defaults = {
 	dom: null,
 	searchDelay: 0,
 	pagingType: '',
-	scrollX: false,
-	scrollY: false,
+	scrollX: '',
+	scrollY: '',
 	serverMethod: 'GET',
 	renderer: null,
 	rowId: 'DT_RowId',
