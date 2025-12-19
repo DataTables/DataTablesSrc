@@ -60,13 +60,13 @@ export default class Settings {
 	 * Store for manual type assignment using the `column.type` option. This
 	 * is held in store so we can manipulate the column's `type` property.
 	 */
-	public _sManualType: string | null = null;
+	public typeManual: string | null = null;
 
 	/**
 	 * Flag to indicate if HTML5 data attributes should be used as the data
 	 * source for filtering or sorting. True is either are.
 	 */
-	public _bAttrSrc: boolean = false;
+	public attrSrc: boolean = false;
 
 	/**
 	 * Developer definable function that is called whenever a cell is created
@@ -89,7 +89,7 @@ export default class Settings {
 	 * required. This function is automatically assigned by the column
 	 * initialisation method
 	 */
-	public fnGetData: (rowData: any, type: string | undefined, meta: any) => any;
+	public dataGet: (rowData: any, type: string | undefined, meta: any) => any;
 
 	/**
 	 * Function to set data for a cell in the column. You should <b>never</b>
@@ -97,7 +97,7 @@ export default class Settings {
 	 * this method. It allows mData to function as required. This function is
 	 * automatically assigned by the column initialisation method
 	 */
-	public fnSetData: (rowData: any, val: any, meta: any) => any;
+	public dataSet: (rowData: any, val: any, meta: any) => any;
 
 	/**
 	 * Property to read the value for the cells in the column from the data
@@ -153,7 +153,7 @@ export default class Settings {
 	/**
 	 * Class to be applied to the header element when sorting on this column
 	 */
-	public sSortingClass: string | null = null;
+	public orderingClass: string | null = null;
 
 	/**
 	 * Title of the column - what is seen in the TH element (nTh).
@@ -193,9 +193,9 @@ export default class Settings {
 
 	public cellType: string;
 
-	public _setter: SetFunction | null;
+	public setter: SetFunction | null;
 
-	public _render: GetFunction | null;
+	public renderer: GetFunction | null;
 
 	public _isArrayHost: boolean;
 }

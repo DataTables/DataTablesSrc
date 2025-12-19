@@ -130,7 +130,7 @@ export function bindAction(
  * to an array store of callback functions that can then all be called together.
  *
  * @param settings dataTables settings object
- * @param store Name of the array storage for the callbacks in oSettings
+ * @param store Name of the array storage for the callbacks in settings
  * @param fn Function to be called back
  */
 export function callbackReg(
@@ -150,9 +150,9 @@ export function callbackReg(
  * as its slow.
  *
  * @param ctx DataTables settings object
- * @param callbackArr Name of the array storage for the callbacks in oSettings
- * @param eventName Name of the jQuery custom event to trigger. If null no
- *   trigger is fired
+ * @param callbackArr Name of the array storage for the callbacks in the context
+ * @param eventName Name of the custom event to trigger. If null no trigger is
+ *   fired
  * @param args Array of arguments to pass to the callback function / trigger
  * @param bubbles True if the event should bubble
  */

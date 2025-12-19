@@ -59,7 +59,7 @@ export function columnOptions(
 		compatCols(options);
 
 		if (options.type) {
-			column._sManualType = options.type;
+			column.typeManual = options.type;
 		}
 
 		// `class` is a reserved word in JavaScript, so we need to provide
@@ -95,26 +95,26 @@ export function columnOptions(
 		column.render = helpers[name].apply(window, copy);
 	}
 
-	column._render = column.render ? util.get(column.render) : null;
+	column.renderer = column.render ? util.get(column.render) : null;
 
 	var attrTest = function (src: any) {
 		return typeof src === 'string' && src.indexOf('@') !== -1;
 	};
-	column._bAttrSrc =
+	column.attrSrc =
 		!!dataSrc && util.is.plainObject(dataSrc) &&
 		(attrTest(dataSrc.sort) ||
 			attrTest(dataSrc.type) ||
 			attrTest(dataSrc.filter));
-	column._setter = null;
+	column.setter = null;
 
-	column.fnGetData = function (rowData, type, meta) {
+	column.dataGet = function (rowData, type, meta) {
 		var innerData = dataFn(rowData, type, undefined, meta);
 
-		return column._render && type
-			? column._render(innerData, type, rowData, meta)
+		return column.renderer && type
+			? column.renderer(innerData, type, rowData, meta)
 			: innerData;
 	};
-	column.fnSetData = function (rowData, val, meta) {
+	column.dataSet = function (rowData, val, meta) {
 		return util.set(dataSrc)(rowData, val, meta);
 	};
 
@@ -273,8 +273,8 @@ export function columnTypes(settings: Context) {
 		col = columns[i];
 		cache = [];
 
-		if (!col.type && col._sManualType) {
-			col.type = col._sManualType;
+		if (!col.type && col.typeManual) {
+			col.type = col.typeManual;
 		}
 		else if (!col.type) {
 			// With SSP type detection can be unreliable and error prone, so we provide a way
@@ -375,8 +375,8 @@ export function columnTypes(settings: Context) {
 		// This can only happen once! There is no way to remove
 		// a renderer. After the first time the renderer has
 		// already been set so createTr will run the renderer itself.
-		if (renderer && !col._render) {
-			col._render = util.get(renderer);
+		if (renderer && !col.renderer) {
+			col.renderer = util.get(renderer);
 
 			_columnAutoRender(settings, i);
 		}

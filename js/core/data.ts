@@ -107,7 +107,7 @@ export function getCellData(
 	var col = settings.columns[colIdx];
 	var rowData = row._aData;
 	var defaultContent = col.defaultContent;
-	var cellData = col.fnGetData(rowData, type, {
+	var cellData = col.dataGet(rowData, type, {
 		settings: settings,
 		row: rowIdx,
 		col: colIdx
@@ -195,7 +195,7 @@ export function setCellData(
 		let col = settings.columns[colIdx];
 		let rowData = row._aData;
 
-		col.fnSetData(rowData, val, {
+		col.dataSet(rowData, val, {
 			settings: settings,
 			row: rowIdx,
 			col: colIdx
@@ -222,7 +222,8 @@ export function writeCell(td: HTMLTableCellElement, val: string | HTMLElement) {
 
 /**
  * Return an array with the full table data
- * @param oSettings DataTables settings object
+ *
+ * @param settings DataTables settings object
  * @returns array {array} aData Master data array
  */
 export function getDataMaster(settings: Context) {
@@ -231,7 +232,8 @@ export function getDataMaster(settings: Context) {
 
 /**
  * Nuke the table
- * @param oSettings DataTables settings object
+ *
+ * @param settings DataTables settings object
  */
 export function clearTable(settings: Context) {
 	settings.data.length = 0;
@@ -392,7 +394,7 @@ function readCellData(
 	let column = settings.columns[colIdx];
 	let contents = cell.innerHTML.trim();
 
-	if (column._bAttrSrc) {
+	if (column.attrSrc) {
 		// If we are working with attributes from the cell as values
 		let dataPoint = column.data as any;
 		let setter = util.set(dataPoint._);
@@ -415,11 +417,11 @@ function readCellData(
 		attr(dataPoint.filter, cell);
 	}
 	else {
-		if (!column._setter) {
+		if (!column.setter) {
 			// Cache the setter function
-			column._setter = util.set(column.data);
+			column.setter = util.set(column.data);
 		}
 
-		column._setter(data, contents);
+		column.setter(data, contents);
 	}
 }
