@@ -5,6 +5,7 @@ import columnDefaults, {
 } from './columns/defaults';
 import {
 	ConfigRenderer,
+	DeepPartial,
 	FunctionAjax,
 	FunctionCreateRow,
 	FunctionDrawCallback,
@@ -675,4 +676,4 @@ export interface ConfigLanguage {
 
 export default defaults;
 
-export type Options = Partial<Defaults>;
+export type Options = DeepPartial<Defaults>;

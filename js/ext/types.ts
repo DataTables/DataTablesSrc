@@ -1,6 +1,7 @@
 import ColumnModel from '../model/columns/settings';
 import { Context } from '../model/settings';
 import util from '../util';
+import { GetFunction } from '../util/types';
 
 type DataTypeDetectFn = (
 	data: any,
@@ -17,7 +18,7 @@ type DataTypeDetectInitFn = (
 	index: number
 ) => boolean | string | null;
 
-type DataTypeDetect =
+export type DataTypeDetect =
 	| DataTypeDetectFn
 	| {
 			oneOf?: DataTypeDetectFn;
@@ -35,11 +36,11 @@ type DataTypeOrder = {
 
 type DataTypeSearchFn = (input: any) => any;
 
-interface DataType {
+export interface DataType {
 	className: string;
 	detect: DataTypeDetect;
 	order: DataTypeOrder;
-	render: any;
+	render: GetFunction;
 	search: DataTypeSearchFn;
 }
 

@@ -1,6 +1,6 @@
 
 import { expectType } from 'tsd';
-import DataTable, {
+import DataTableType, {
 	Api,
 	ApiCellsMethods,
 	ApiColumnMethods,
@@ -8,7 +8,7 @@ import DataTable, {
 	ApiTableMethods,
 	ConfigColumns,
 	DataType,
-	ExtTypeSettingsDetect,
+	DataTypeDetect,
 	HeaderStructure
 } from "../types/types";
 
@@ -19,6 +19,9 @@ interface IRow {
 	lastName: string;
 	age: number;
 }
+
+// Mocking the DataTable constructor for the example
+let DataTable: DataTableType = (function () {} as any)
 
 let table = new DataTable('#myTable', {
 	ajax: {
@@ -336,7 +339,7 @@ DataTable.feature.register('myFeature', function (dt, opts) {
 expectType<string[]>(DataTable.types());
 expectType<DataType>(DataTable.type('num'));
 expectType<string | undefined>(DataTable.type('num').className);
-expectType<(ExtTypeSettingsDetect | undefined)>(DataTable.type('num').detect);
+expectType<(DataTypeDetect | undefined)>(DataTable.type('num').detect);
 DataTable.type('num', 'className', 'test');
 DataTable.type('num', 'detect', (d: any) => 'test');
 DataTable.type('num', 'detect', {

@@ -1,4 +1,5 @@
 import Api from './api/index';
+import { DataTablesStatic } from './api/interface';
 import * as apiStatic from './api/static';
 import {
 	callbackFire,
@@ -68,7 +69,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		// For each initialisation we want to give it a clean initialisation
 		// object that can be bashed around
 		var o = {};
-		var init: Partial<typeof defaults> =
+		var init: Options =
 			len > 1 // optimisation for single table case
 				? util.object.assignDeepObjects(o, options, true)
 				: options;
@@ -91,7 +92,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 
 		// Special case for options
 		if (init.on && init.on.options) {
-			listener(table, 'options', init.on.options);
+			listener(table, 'options', init.on.options as any);
 		}
 
 		table.trigger('options.dt', true, [init]);
@@ -189,7 +190,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 				typeof init.lengthMenu[0] === 'number'
 					? init.lengthMenu[0]
 					: Array.isArray(init.lengthMenu[0])
-					? init.lengthMenu[0][0]
+					? init.lengthMenu[0][0] as number
 					: init.lengthMenu[0].value;
 		}
 
@@ -492,9 +493,10 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 
 	// This is unusual, but we want the return from the exposed `DataTable`
 	// function to be an API instance, rather than the core, which is not
-	// publicly exposed.
+	// publicly exposed. This is also the reason for the `as unknown` below - TS
+	// doesn't like the return with a different object.
 	return this.api();
-};
+} as unknown as DataTablesStatic;
 
 DataTable.type = registerType;
 DataTable.types = types;

@@ -1,8 +1,18 @@
-import classes from '../ext/classes';
-import defaults from '../model/defaults';
+import { BrowserInfo } from '../core/compat';
+import Dom from '../dom';
+import ext from '../ext';
+import {
+	datetime,
+	DateTimeRenderer,
+	NumberRenderer,
+	TextRenderer
+} from '../ext/helpers';
+import { DataTypeDetect, register as registerType } from '../ext/types';
+import registerFeature from '../features';
+import model from '../model';
+import { Defaults, Options } from '../model/defaults';
 import {
 	CellMetaSettings,
-	ObjectColumnRender,
 	Order,
 	OrderArray,
 	OrderFixed
@@ -10,6 +20,10 @@ import {
 import { SearchInput, SearchOptions } from '../model/search';
 import { Context } from '../model/settings';
 import { State, StateLoad } from '../model/state';
+import util from '../util';
+import ajax from '../util/ajax';
+import { check } from '../util/version';
+import { factory } from './static';
 
 export type DomSelector = string | Node | HTMLElement | JQuery;
 
@@ -66,49 +80,6 @@ export type HeaderStructure = {
 	rowspan: number;
 	title: string;
 };
-
-/**
- * @param data Data from the column cell to be analysed.
- * @param DataTables settings object.
- */
-export type ExtTypeSettingsDetect =
-	| ((data: any, settings: Context) => boolean | string | null)
-	| {
-			/**
-			 * All data points in the column must pass this function to allow a
-			 * column to take this data type.
-			 */
-			allOf: (data: any, settings: Context) => boolean;
-
-			/**
-			 * At least one of the data points in the column must pass this
-			 * function to allow the column to take this data type.
-			 */
-			oneOf: (data: any, settings: Context) => boolean;
-
-			/**
-			 * Run when type detection starts, to see if a column can be
-			 * assigned a data type based on a property of the column other than
-			 * the data.
-			 */
-			init?: (settings: Context, column: any, index: number) => boolean;
-	  };
-
-export interface DataType {
-	className?: string;
-	detect?: ExtTypeSettingsDetect;
-	order?: {
-		pre?: (a: any, b: any) => number;
-		asc?: (a: any, b: any) => number;
-		desc?: (a: any, b: any) => number;
-	};
-	render?: (
-		data: any,
-		type: string,
-		row: any
-	) => string | number | HTMLElement;
-	search?: (data: any) => string;
-}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * API
@@ -2530,6 +2501,15 @@ export interface ApiTablesMethods<T>
 
 export interface DataTablesStatic {
 	/**
+	 * Create a new DataTable
+	 *
+	 * @param selector The table to make a DataTable (can be a string that
+	 *   selects multiple tables).
+	 * @param options Configuration options for the DataTable
+	 */
+	new <T = any>(selector: string | HTMLElement, options?: Options): Api<T>;
+
+	/**
 	 * Get DataTable API instance
 	 *
 	 * @param table Selector string for table
@@ -2537,14 +2517,43 @@ export interface DataTablesStatic {
 	Api: ApiStatic;
 
 	/**
-	 * Default Settings
+	 * DataTable's Ajax library
 	 */
-	defaults: Partial<typeof defaults>;
+	ajax: typeof ajax;
+
+	/**
+	 * Register a date / time format for DataTables to use.
+	 *
+	 * @param format The date / time format to detect data in. Please refer to
+	 *   the Moment.js or Luxon document for the full list of tokens, depending
+	 *   on which of the two libraries you are using.
+	 * @param locale The locale to pass to Moment.js / Luxon.
+	 */
+	datetime: typeof datetime;
 
 	/**
 	 * Default Settings
 	 */
-	ext: DataTablesStaticExt;
+	defaults: Defaults;
+
+	/**
+	 * DataTable's DOM library.
+	 */
+	dom: typeof Dom;
+
+	/**
+	 * Default Settings
+	 */
+	ext: typeof ext;
+
+	/**
+	 * CommonJS factory function pass through. This will check if the arguments
+	 * given are a window object or a jQuery object. If so they are set
+	 * accordingly.
+	 *
+	 * @ignore
+	 */
+	factory: typeof factory;
 
 	/** Feature control namespace */
 	feature: {
@@ -2552,13 +2561,10 @@ export interface DataTablesStatic {
 		 * Create a new feature that can be used for layout
 		 *
 		 * @param name The name of the new feature.
-		 * @param construct A function that will create the elements and event
+		 * @param cb A function that will create the elements and event
 		 * listeners for the feature being added.
 		 */
-		register(
-			name: string,
-			construct: (dt: Context, options: any) => HTMLElement | JQuery
-		): void;
+		register: typeof registerFeature;
 	};
 
 	/**
@@ -2570,12 +2576,26 @@ export interface DataTablesStatic {
 	isDataTable(table: string | Node | JQuery | Api<any>): boolean;
 
 	/**
+	 * The models that DataTables uses for data storage.
+	 *
+	 * @ignore
+	 */
+	models: typeof model;
+
+	/**
 	 * Helpers for `columns.render`.
 	 *
 	 * The options defined here can be used with the `columns.render`
 	 * initialisation option to provide a display renderer.
 	 */
 	render: DataTablesStaticRender;
+
+	/**
+	 * Context store - one for each DataTable.
+	 *
+	 * @ignore
+	 */
+	settings: Context[];
 
 	/**
 	 * Get all DataTable tables that have been initialised as API instances
@@ -2632,60 +2652,7 @@ export interface DataTablesStatic {
 	 *
 	 * @param name Data type name to get the definition of
 	 */
-	type(name: string): DataType;
-
-	/**
-	 * Set one or more properties for a specific data type.
-	 *
-	 * @param name Data type name to set values for
-	 * @param definition Object containing the values to set
-	 */
-	type(name: string, definition: DataType): void;
-
-	/**
-	 * Set a class name for a given data type
-	 *
-	 * @param name Data type name to set a property value for
-	 * @param property Name of the data type property to set
-	 * @param val Class name to set
-	 */
-	type(name: string, property: 'className', val: DataType['className']): void;
-
-	/**
-	 * Set the detection function(s) for a given data type
-	 *
-	 * @param name Data type name to set a property value for
-	 * @param property Name of the data type property to set
-	 * @param val Detection function / object to set
-	 */
-	type(name: string, property: 'detect', val: DataType['detect']): void;
-
-	/**
-	 * Set the order functions for a given data type
-	 *
-	 * @param name Data type name to set a property value for
-	 * @param property Name of the data type property to set
-	 * @param val Object of functions to set
-	 */
-	type(name: string, property: 'order', val: DataType['order']): void;
-
-	/**
-	 * Set a rendering function for a given data type
-	 *
-	 * @param name Data type name to set a property value for
-	 * @param property Name of the data type property to set
-	 * @param val Rendering function
-	 */
-	type(name: string, property: 'render', val: DataType['render']): void;
-
-	/**
-	 * Set a search data renderer for a given data type
-	 *
-	 * @param name Data type name to set a property value for
-	 * @param property Name of the data type property to set
-	 * @param val Function to set
-	 */
-	type(name: string, property: 'search', val: DataType['search']): void;
+	type: typeof registerType;
 
 	/**
 	 * Get the names of the registered data types DataTables can work with.
@@ -2697,7 +2664,7 @@ export interface DataTablesStatic {
 	 *
 	 * @param type The library needed
 	 */
-	use(type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment'): any;
+	use(type: 'jq' | 'lib' | 'win' | 'datetime' | 'luxon' | 'moment'): any;
 
 	/**
 	 * Set the libraries that DataTables uses, or the global objects, with
@@ -2715,14 +2682,15 @@ export interface DataTablesStatic {
 	 * @param library The library (e.g. Moment or Luxon)
 	 */
 	use(
-		type: 'lib' | 'win' | 'datetime' | 'luxon' | 'moment',
+		type: 'jq' | 'lib' | 'win' | 'datetime' | 'luxon' | 'moment',
 		library: any
 	): void;
 
 	/**
-	 * Utils
+	 * Utility functions that DataTables makes use of internally and are exposed
+	 * for use by extensions.
 	 */
-	util: DataTablesStaticUtil;
+	util: typeof util;
 
 	/**
 	 * Version number compatibility check function
@@ -2732,7 +2700,19 @@ export interface DataTablesStatic {
 	 *   required version, or false if this version of DataTables is not
 	 *   suitable
 	 */
-	versionCheck(version: string): boolean;
+	versionCheck: typeof check;
+
+	/**
+	 * DataTables version
+	 */
+	version: string;
+
+	/**
+	 * Browser capabilities or options
+	 *
+	 * @ignore
+	 */
+	__browser: BrowserInfo;
 }
 
 export type ApiStaticRegisterFn<T> = (this: Api<T>, ...args: any[]) => any;
@@ -2756,32 +2736,6 @@ export interface ApiStatic {
 	): void;
 }
 
-export interface DataTablesStaticExt {
-	builder: string;
-	buttons: DataTablesStaticExtButtons;
-	ccContent: IColumnControlContent;
-	classes: typeof classes;
-	errMode: string;
-	escape: {
-		attributes: boolean;
-	};
-	feature: any[];
-	iApiIndex: number;
-	internal: object;
-	legacy: object;
-	oApi: object;
-	order: object;
-	oSort: object;
-	pager: object;
-	renderer: object;
-	search: any[];
-	selector: object;
-	/**
-	 * Type based plug-ins.
-	 */
-	type: ExtTypeSettings;
-}
-
 export interface DataTablesStaticExtButtons {
 	// Intentionally empty, completed in Buttons extension
 }
@@ -2790,7 +2744,7 @@ export interface DataTablesStaticRender {
 	/**
 	 * Format an ISO8061 date in auto locale detected format
 	 */
-	date(): ObjectColumnRender;
+	date(): DateTimeRenderer;
 
 	/**
 	 * Format an ISO8061 date value using the specified format
@@ -2798,7 +2752,7 @@ export interface DataTablesStaticRender {
 	 * @param locale Locale
 	 * @param def Default value if empty
 	 */
-	date(to: string, locale?: string): ObjectColumnRender;
+	date(to: string, locale?: string): DateTimeRenderer;
 
 	/**
 	 * Format a date value
@@ -2812,12 +2766,12 @@ export interface DataTablesStaticRender {
 		to?: string,
 		locale?: string,
 		def?: string
-	): ObjectColumnRender;
+	): DateTimeRenderer;
 
 	/**
 	 * Format an ISO8061 datetime in auto locale detected format
 	 */
-	datetime(): ObjectColumnRender;
+	datetime(): DateTimeRenderer;
 
 	/**
 	 * Format an ISO8061 datetime value using the specified format
@@ -2825,7 +2779,7 @@ export interface DataTablesStaticRender {
 	 * @param locale Locale
 	 * @param def Default value if empty
 	 */
-	datetime(to: string, locale?: string): ObjectColumnRender;
+	datetime(to: string, locale?: string): DateTimeRenderer;
 
 	/**
 	 * Format a datetime value
@@ -2839,12 +2793,12 @@ export interface DataTablesStaticRender {
 		to?: string,
 		locale?: string,
 		def?: string
-	): ObjectColumnRender;
+	): DateTimeRenderer;
 
 	/**
 	 * Render a number with auto-detected locale thousands and decimal
 	 */
-	number(): ObjectColumnRender;
+	number(): any;
 
 	/**
 	 * Will format numeric data (defined by `columns.data`) for display,
@@ -2862,17 +2816,17 @@ export interface DataTablesStaticRender {
 		precision: number,
 		prefix?: string,
 		postfix?: string
-	): ObjectColumnRender;
+	): NumberRenderer;
 
 	/**
 	 * Escape HTML to help prevent XSS attacks. It has no optional parameters.
 	 */
-	text(): ObjectColumnRender;
+	text(): TextRenderer;
 
 	/**
 	 * Format an ISO8061 date in auto locale detected format
 	 */
-	time(): ObjectColumnRender;
+	time(): DateTimeRenderer;
 
 	/**
 	 * Format an ISO8061 time value using the specified format
@@ -2880,7 +2834,7 @@ export interface DataTablesStaticRender {
 	 * @param locale Locale
 	 * @param def Default value if empty
 	 */
-	time(to: string, locale?: string): ObjectColumnRender;
+	time(to: string, locale?: string): DateTimeRenderer;
 
 	/**
 	 * Format a time value
@@ -2894,103 +2848,7 @@ export interface DataTablesStaticRender {
 		to?: string,
 		locale?: string,
 		def?: string
-	): ObjectColumnRender;
-}
-
-export interface DataTablesStaticUtil {
-	/**
-	 * Normalise diacritic characters in a string.
-	 *
-	 * @param str String to have diacritic characters replaced
-	 * @param appendOriginal Append the original string to the result
-	 *   (`true`) or not (`false`)
-	 * @returns Updated string
-	 */
-	diacritics(str: string, appendOriginal?: boolean): string;
-
-	/**
-	 * Set the diacritic removal function
-	 *
-	 * @param replacement Removal function
-	 */
-	diacritics(
-		replacement: (str: string, appendOriginal: boolean) => string
-	): void;
-
-	/**
-	 * Escape special characters in a regular expression string. Since: 1.10.4
-	 *
-	 * @param str String to escape
-	 * @returns Escaped string
-	 */
-	escapeRegex(str: string): string;
-
-	/**
-	 * Escape entities in a string.
-	 *
-	 * @param str String to have HTML entities escaped
-	 * @returns Sanitized string
-	 */
-	escapeHtml(str: string): string;
-
-	/**
-	 * Set the HTML escaping function.
-	 *
-	 * @param escapeFunction Function to use for HTML escaping in DataTables.
-	 */
-	escapeHtml(escapeFunction: (str: string) => string): void;
-
-	/**
-	 * Create a read function from a descriptor. Since 1.11
-	 *
-	 * @param source A descriptor that is used to define how to read the data
-	 * from the source object.
-	 */
-	get<T = any, D = any>(
-		source: string | number | object | Function | null
-	): (data: D, type?: string, val?: T, meta?: CellMetaSettings) => T;
-
-	/**
-	 * Create a write function from a descriptor. Since 1.11
-	 *
-	 * @param source A descriptor that is used to define how to write data to a
-	 * source object
-	 */
-	set<T = any, D = any>(
-		source: string | number | object | Function | null
-	): (data: D, val: T, meta?: CellMetaSettings) => void;
-
-	/**
-	 * Remove mark up from a string
-	 *
-	 * @param str String to have HTML tags stripped from.
-	 * @returns Stripped string
-	 */
-	stripHtml(str: string): string;
-
-	/**
-	 * Set the HTML stripping function to be used by DataTables.
-	 *
-	 * @param stripFunction Function to use for HTML stripping in DataTables.
-	 */
-	stripHtml(stripFunction: (str: string) => string): void;
-
-	/**
-	 * Throttle the calls to a method to reduce call frequency. Since: 1.10.3
-	 *
-	 * @param fn Function
-	 * @param period ms
-	 * @returns Wrapper function that can be called and will automatically
-	 * throttle calls to the passed in function to the given period.
-	 */
-	throttle(fn: (data: any) => void, period?: number): () => void;
-
-	/**
-	 * Get unique values from an array.
-	 *
-	 * @returns Array with unique values
-	 */
-	unique<T = any>(input: Array<T>): Array<T>;
+	): DateTimeRenderer;
 }
 
 export interface ExtTypeSettings {
@@ -2999,7 +2857,7 @@ export interface ExtTypeSettings {
 	 *
 	 * @deprecated Use `DataTable.type()`
 	 */
-	detect: ExtTypeSettingsDetect[];
+	detect: DataTypeDetect[];
 
 	/**
 	 * Type based ordering functions for plug-in development.

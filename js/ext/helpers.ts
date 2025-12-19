@@ -1,6 +1,15 @@
 import util from '../util';
 import { register as registerType, store as typeStore } from './types';
 
+export type DateTimeRenderer = (d: any, type: string) => any;
+export type NumberRenderer = {
+	display: (d: unknown) => unknown;
+}
+export type TextRenderer = {
+	display: (d: any) => string;
+	filter: (d: any) => string;
+}
+
 /*
  * Public helper functions. These aren't used internally by DataTables, or
  * called by any of the options passed into DataTables, but they can be used
@@ -91,7 +100,7 @@ function __mlHelper(localeString: string) {
 		to?: string | null,
 		locale?: string,
 		def?: string
-	) {
+	): DateTimeRenderer {
 		// Luxon and Moment support
 		// Argument shifting
 		if (arguments.length === 0) {
@@ -228,8 +237,14 @@ if (window.Intl !== undefined) {
 	}
 }
 
-// Formatted date time detection - use by declaring the formats you are going to
-// use
+/**
+ * Register a date / time format for DataTables to use.
+ *
+ * @param format The date / time format to detect data in. Please refer to the
+ *   Moment.js or Luxon document for the full list of tokens, depending on which
+ *   of the two libraries you are using.
+ * @param locale The locale to pass to Moment.js / Luxon.
+ */
 export function datetime(format: string, locale?: string) {
 	var typeName = 'datetime-' + format;
 
@@ -266,7 +281,7 @@ export default {
 		precision?: number,
 		prefix?: string,
 		postfix?: string
-	) {
+	): NumberRenderer {
 		// Auto locale detection
 		if (thousands === null || thousands === undefined) {
 			thousands = __thousands;
@@ -330,10 +345,10 @@ export default {
 		};
 	},
 
-	text: function () {
+	text: function (): TextRenderer {
 		return {
 			display: util.escapeHtml,
 			filter: util.escapeHtml
 		};
 	}
-} as Record<string, Function>;
+};

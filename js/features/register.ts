@@ -11,7 +11,13 @@ type RegisterCallback<T> = (
 	options: T
 ) => HTMLElement | Dom | null;
 
-// Third parameter is internal only!
+/**
+ * Create a new feature that can be used for layout
+ *
+ * @param name The name of the new feature.
+ * @param cb A function that will create the elements and event listeners for
+ * the feature being added.
+ */
 export default function register<T>(
 	name: string,
 	cb: RegisterCallback<T>,

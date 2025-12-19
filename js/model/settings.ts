@@ -3,7 +3,7 @@ import util from '../util';
 import { AjaxOptions, HttpMethod } from '../util/ajax';
 import { GetFunction, JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
-import defaultsA from './defaults';
+import { Options } from './defaults';
 import {
 	AjaxData,
 	DataTableDom,
@@ -341,7 +341,7 @@ export interface Context {
 	infoEl: Dom;
 
 	/** Initialisation object that is used for the table */
-	init: Partial<typeof defaultsA>;
+	init: Options;
 
 	initDone: boolean;
 

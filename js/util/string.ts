@@ -19,7 +19,7 @@ const maxStrLen = Math.pow(2, 28);
  * @param both Include both the normalised and original in the return
  * @returns Normalised string, or original value if not a string
  */
-let _normalize: TNormalize = function (val: any, both?: boolean) {
+let _normalize: TNormalize = function(val: any, both?: boolean) {
 	if (typeof val !== 'string') {
 		return val;
 	}
@@ -138,10 +138,11 @@ export function escapeHtml<T>(mixed: T) {
 export function normalize(mixed: string, both?: boolean): string;
 
 /**
+ * Set the function to use for string normalisation
  *
- * @param mixed Set a string to use for string normalisation
+ * @param mixed Normalisation function
  */
-export function normalize<T>(mixed: T): void;
+export function normalize<T = TNormalize>(fn: T): void;
 
 export function normalize(mixed: unknown, both?: boolean) {
 	var type = typeof mixed;

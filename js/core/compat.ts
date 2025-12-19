@@ -6,7 +6,12 @@ interface HungarianMap {
 	[key: string]: string;
 }
 
-export const browser = {
+export interface BrowserInfo {
+	barWidth: number;
+	scrollbarLeft: boolean;
+}
+
+export const browser: BrowserInfo = {
 	barWidth: -1,
 	scrollbarLeft: false
 };

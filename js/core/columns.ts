@@ -104,7 +104,7 @@ export function columnOptions(
 		var copy = column.render.slice();
 		var name = copy.shift();
 
-		column.render = helpers[name].apply(window, copy);
+		column.render = (helpers as any)[name].apply(window, copy);
 	}
 
 	column.renderer = column.render ? util.get(column.render) : null;
