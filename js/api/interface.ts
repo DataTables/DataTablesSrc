@@ -2563,33 +2563,54 @@ export interface DataTablesStatic {
 	render: DataTablesStaticRender;
 
 	/**
-	 * Get all DataTable tables that have been initialised - optionally you can
-	 * select to get only currently visible tables and / or retrieve the tables
-	 * as API instances.
+	 * Get all DataTable tables that have been initialised as API instances
 	 *
-	 * @param visible As a boolean value this options is used to indicate if you
-	 * want all tables on the page should be returned (false), or visible tables
-	 * only (true). Since 1.10.8 this option can also be given as an object.
+	 * @param options
 	 * @returns Array or DataTables API instance containing all matching
 	 * DataTables
 	 */
-	tables(
-		visible?:
-			| {
-					/**
-					 * Get only visible tables (true) or all tables regardless
-					 * of visibility (false).
-					 */
-					visible: boolean;
+	tables(options: {
+		/**
+		 * Get only visible tables (true) or all tables regardless
+		 * of visibility (false).
+		 */
+		visible?: boolean;
 
-					/**
-					 * Return a DataTables API instance for the selected tables
-					 * (true) or an array (false).
-					 */
-					api: boolean;
-			  }
-			| boolean
-	): Array<Api<any>> | Api<any>;
+		/**
+		 * Make the return an API instance
+		 */
+		api: true;
+	}): Api<any>;
+
+	/**
+	 * Get all DataTable tables that have been initialised - as HTML elements
+	 *
+	 * @param options As a boolean value this options is used to indicate if you
+	 * want all tables on the page should be returned (false), or visible tables
+	 * only (true).
+	 * @returns Array of HTML table Elements
+	 */
+	tables(options?: {
+		/**
+		 * Get only visible tables (true) or all tables regardless
+		 * of visibility (false).
+		 */
+		visible?: boolean;
+
+		/**
+		 * Make the return an array of elements
+		 */
+		api?: false;
+	}): HTMLElement[];
+
+	/**
+	 * Get all DataTable tables that have been initialised - as HTML elements
+	 *
+	 * @param options Indicate if you want all tables on the page should be
+	 * returned (false), or visible tables only (true).
+	 * @returns Array of HTML table Elements
+	 */
+	tables(visible: boolean): HTMLElement[];
 
 	/**
 	 * Get the data type definition object for a specific registered data type.

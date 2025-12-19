@@ -103,7 +103,7 @@ const ext = {
 		row: [],
 	} as Record<string, Array<any>>,
 
-	settings: [] as any[],
+	settings: [] as Context[],
 
 	/**
 	 * Legacy configuration options. Enable and disable legacy options that

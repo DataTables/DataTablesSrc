@@ -52,10 +52,10 @@ export const isDataTable: DataTablesStatic['isDataTable'] = function (table) {
 		let ctx = ext.settings[i];
 
 		var head = ctx.nScrollHead
-			? dom.s(ctx.nScrollHead).find('table').get(0)
+			? ctx.nScrollHead.find('table').get(0)
 			: null;
 		var foot = ctx.nScrollFoot
-			? dom.s(ctx.nScrollFoot).find('table').get(0)
+			? ctx.nScrollFoot.find('table').get(0)
 			: null;
 
 		if (ctx.nTable === t || head === t || foot === t) {
@@ -79,8 +79,8 @@ export const tables: DataTablesStatic['tables'] = function (visible) {
 	var api = false;
 
 	if (visible && typeof visible !== 'boolean') {
-		api = visible.api;
-		visible = visible.visible;
+		api = visible.api || false;
+		visible = visible.visible || false;
 	}
 
 	var a = ext.settings
@@ -93,5 +93,5 @@ export const tables: DataTablesStatic['tables'] = function (visible) {
 			return o.nTable;
 		});
 
-	return api ? new Api(a) : a;
+	return api ? new Api(a) : a as any;
 };

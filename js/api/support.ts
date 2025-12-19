@@ -170,7 +170,7 @@ export function callbackFire(
 			.slice()
 			.reverse()
 			.map(function (val: Function) {
-				return val.apply(ctx.oInstance, args);
+				return val.apply(ctx.instance, args);
 			});
 	}
 

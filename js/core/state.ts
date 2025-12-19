@@ -50,7 +50,7 @@ export function saveState(settings: Context) {
 	]);
 
 	if (settings.features.stateSave && !settings.destroying) {
-		settings.stateSaveCallback.call(settings.oInstance, settings, state);
+		settings.stateSaveCallback.call(settings.instance, settings, state);
 	}
 }
 
@@ -71,7 +71,7 @@ export function loadState(settings: Context, callback: () => void) {
 	};
 
 	var state = settings.stateLoadCallback.call(
-		settings.oInstance,
+		settings.instance,
 		settings,
 		loaded
 	);

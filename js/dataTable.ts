@@ -121,7 +121,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 				var destroy = init.destroy || false;
 
 				if (emptyInit || retrieve) {
-					return s.oInstance;
+					return s.instance;
 				}
 				else if (destroy) {
 					new Api(s).destroy();
@@ -140,7 +140,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			 * destroyed by other methods. Anyone using non-id selectors will
 			 * need to do this manually
 			 */
-			if (s.sTableId == tableEl.id) {
+			if (s.tableId == tableEl.id) {
 				allSettings.splice(i, 1);
 				break;
 			}
@@ -179,7 +179,8 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		// Need to add the instance after the instance after the settings object
 		// has been added to the settings array, so we can self reference the
 		// table instance if more than one
-		settings.oInstance = this; // TODO, not sure about this?
+		settings.instance = dom.s(tableEl) as any; // any until we add the api
+		settings.instance.api = () => settings.api;
 
 		// If the length menu is given, but the init display length is not, use
 		// the length menu

@@ -140,7 +140,7 @@ export function createTr(
 
 			if (column.createdCell) {
 				column.createdCell.call(
-					settings.oInstance,
+					settings.instance,
 					td,
 					getCellData(settings, rowIdx, i),
 					rowData,

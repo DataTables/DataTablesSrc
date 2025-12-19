@@ -31,7 +31,7 @@ register<ApiStateOverload>('state()', function (set?: StateLoad, ignoreTime?) {
 register<ApiState<any>['clear']>('state.clear()', function () {
 	return this.iterator('table', function (settings) {
 		// Save an empty object
-		settings.stateSaveCallback.call(settings.oInstance, settings, {});
+		settings.stateSaveCallback.call(settings.instance, settings, {});
 	});
 });
 

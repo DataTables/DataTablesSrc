@@ -27,7 +27,7 @@ export function buildAjax(
 ) {
 	var ajaxData;
 	var ajaxConfig = settings.ajax;
-	var instance = settings.oInstance;
+	var instance = settings.instance;
 	var callback = function (json: JSON) {
 		var status = settings.jqXHR ? settings.jqXHR.status : null;
 

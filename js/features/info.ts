@@ -97,7 +97,7 @@ function updateInfo(settings: Context, opts: IFeatureInfoOptions, node: Dom) {
 
 	if (opts.callback) {
 		out = opts.callback.call(
-			settings.oInstance,
+			settings.instance,
 			settings,
 			start,
 			end,

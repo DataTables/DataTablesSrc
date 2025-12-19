@@ -8,7 +8,7 @@ describe('drawCallback option', function() {
 		dt.html('basic');
 		it('Default should not be true', function() {
 			$('#example').dataTable();
-			expect($.fn.dataTable.defaults.fnDrawCallback).not.toBe(true);
+			expect(DataTable.defaults.drawCallback).toBe(null);
 		});
 
 		dt.html('basic');
@@ -43,6 +43,17 @@ describe('drawCallback option', function() {
 				}
 			});
 			expect(test).toBe(6);
+		});
+
+		dt.html('basic');
+		it('Scope has the table element', function() {
+			let test = 0;
+			$('#example').dataTable({
+				drawCallback: function() {
+					test = this.get(0);
+				}
+			});
+			expect(test).toBe(document.querySelector('table.dataTable'));
 		});
 	});
 

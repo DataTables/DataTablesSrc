@@ -565,7 +565,7 @@ export function sortData(settings: Context, colIdx: number) {
 
 	if (customSort) {
 		customData = customSort.call(
-			settings.oInstance,
+			settings.instance,
 			settings,
 			colIdx,
 			columnIndexToVisible(settings, colIdx)

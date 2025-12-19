@@ -1,3 +1,4 @@
+import { Api } from '../api/interface';
 import { Dom } from '../dom';
 import { IFeatureDivOptions } from '../features/div';
 import { IFeatureInfoOptions } from '../features/info';
@@ -6,6 +7,16 @@ import { IFeaturePageLengthOptions } from '../features/pageLength';
 import { IFeatureSearchOptions } from '../features/search';
 import { Context } from './settings';
 import { State } from './state';
+
+/**
+ * Execution scope for the callbacks
+ */
+export interface DataTableDom extends Dom<HTMLTableElement> {
+    /**
+     * Get a DataTable API instance for the table
+     */
+    api(): Api
+}
 
 export interface Feature {
 	/** A simple `<div>` that can contain your own content */
@@ -69,7 +80,7 @@ export type LayoutComponent =
 export type Layout = Partial<Record<LayoutKeys, LayoutComponent>>;
 
 export type FunctionColumnRender = (
-	// this: JQueryDataTables, TODO
+	this: DataTableDom,
 	data: any,
 	type: any,
 	row: any,
@@ -77,7 +88,7 @@ export type FunctionColumnRender = (
 ) => any;
 
 export type FunctionColumnCreatedCell = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	cell: HTMLTableCellElement,
 	cellData: any,
 	rowData: any,
@@ -206,14 +217,14 @@ export interface AjaxResponse {
 }
 
 export type FunctionAjax = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	data: object,
 	callback: (data: any) => void,
 	settings: Context
 ) => void;
 
 export type FunctionAjaxData = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	data: AjaxData,
 	settings: Context
 ) => string | object;
@@ -245,7 +256,7 @@ export interface ConfigRenderer {
 }
 
 export type FunctionCreateRow = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	row: HTMLTableRowElement,
 	data: any[] | object,
 	dataIndex: number,
@@ -255,7 +266,7 @@ export type FunctionCreateRow = (
 export type FunctionDrawCallback = (settings: Context) => void;
 
 export type FunctionFooterCallback = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	tr: HTMLTableRowElement,
 	data: any[],
 	start: number,
@@ -264,13 +275,12 @@ export type FunctionFooterCallback = (
 ) => void;
 
 export type FunctionFormatNumber = (
-	// this: JQueryDataTables,
 	formatNumber: number,
 	ctx: Context
 ) => string;
 
 export type FunctionHeaderCallback = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	tr: HTMLTableRowElement,
 	data: any[],
 	start: number,
@@ -279,7 +289,7 @@ export type FunctionHeaderCallback = (
 ) => void;
 
 export type FunctionInfoCallback = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	settings: Context,
 	start: number,
 	end: number,
@@ -289,49 +299,49 @@ export type FunctionInfoCallback = (
 ) => void;
 
 export type FunctionInitComplete = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	settings: Context,
 	json: object
 ) => void;
 
 export type FunctionPreDrawCallback = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	settings: Context
 ) => void;
 
 export type FunctionRowCallback = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	row: HTMLTableRowElement,
 	data: any[] | object,
 	index: number
 ) => void;
 
 export type FunctionStateLoadCallback = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	settings: Context,
 	callback: (state: State) => void
 ) => undefined | null | object;
 
 export type FunctionStateLoaded = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	settings: Context,
 	data: object
 ) => void;
 
 export type FunctionStateLoadParams = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	settings: Context,
 	data: object
 ) => void;
 
 export type FunctionStateSaveCallback = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	settings: Context,
 	data: object
 ) => void;
 
 export type FunctionStateSaveParams = (
-	// this: JQueryDataTables,
+	this: DataTableDom,
 	settings: Context,
 	data: object
 ) => void;
