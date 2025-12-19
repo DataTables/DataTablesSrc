@@ -80,7 +80,7 @@ function filterCustom(settings: Context) {
 
 			if (
 				row &&
-				filters[i](settings, row._aFilterData, rowIdx, row._aData, j)
+				filters[i](settings, row.searchCellCache, rowIdx, row.data, j)
 			) {
 				rows.push(rowIdx);
 			}
@@ -133,10 +133,10 @@ function filter(
 
 		if (row) {
 			let data =
-				column === undefined ? row._sFilterRow : row._aFilterData![column];
+				column === undefined ? row.searchRowCache : row.searchCellCache![column];
 
 			if (
-				(searchFunc && searchFunc(data, row._aData, searchRows[i], column)) ||
+				(searchFunc && searchFunc(data, row.data, searchRows[i], column)) ||
 				(rpSearch && data && rpSearch.test(data))
 			) {
 				matched.push(searchRows[i]);
@@ -262,7 +262,7 @@ function filterData(settings: Context) {
 
 		row = data[rowIdx];
 
-		if (row && !row._aFilterData) {
+		if (row && !row.searchCellCache) {
 			const rowFilterData: string[] = [];
 
 			for (j = 0, jen = columns.length; j < jen; j++) {
@@ -302,8 +302,8 @@ function filterData(settings: Context) {
 				rowFilterData.push(cellData);
 			}
 
-			row._aFilterData = rowFilterData;
-			row._sFilterRow = rowFilterData.join('  ');
+			row.searchCellCache = rowFilterData;
+			row.searchRowCache = rowFilterData.join('  ');
 			wasInvalidated = true;
 		}
 	}

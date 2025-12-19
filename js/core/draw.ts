@@ -60,7 +60,7 @@ export function getRowDisplay(settings: Context, rowIdx: number) {
  * @param rowIdx Row to consider
  * @param trIn TR element to add to the table - optional. If not given,
  *   DataTables will create a row automatically
- * @param tds Array of TD|TH elements for the row - must be given if nTr is.
+ * @param tds Array of TD|TH elements for the row - must be given if trIn is.
  */
 export function createTr(
 	settings: Context,
@@ -78,12 +78,12 @@ export function createTr(
 		create,
 		trClass = settings.classes.tbody.row;
 
-	if (row && row.nTr === null) {
-		let rowData = row._aData;
+	if (row && row.tr === null) {
+		let rowData = row.data;
 
 		tr = trIn || document.createElement('tr');
-		row.nTr = tr;
-		row.anCells = cells;
+		row.tr = tr;
+		row.cells = cells;
 
 		dom.s(tr).classAdd(trClass);
 
@@ -158,7 +158,7 @@ export function createTr(
 		]);
 	}
 	else if (row) {
-		dom.s(row.nTr).classAdd(trClass);
+		dom.s(row.tr).classAdd(trClass);
 	}
 }
 
@@ -170,8 +170,8 @@ export function createTr(
  * @param row Row object for the row to be modified
  */
 export function rowAttributes(settings: Context, row: Row) {
-	var tr = row.nTr;
-	var data = row._aData;
+	var tr = row.tr;
+	var data = row.data;
 
 	if (tr) {
 		var id = settings.rowIdFn(data);
@@ -183,9 +183,14 @@ export function rowAttributes(settings: Context, row: Row) {
 		if (data.DT_RowClass) {
 			// Remove any classes added by DT_RowClass before
 			var a = data.DT_RowClass.split(' ');
-			row.__rowc = row.__rowc ? util.unique(row.__rowc.concat(a)) : a;
+			row.addedClasses = row.addedClasses
+				? util.unique(row.addedClasses.concat(a))
+				: a;
 
-			dom.s(tr).classRemove(row.__rowc.join(' ')).classAdd(data.DT_RowClass);
+			dom
+				.s(tr)
+				.classRemove(row.addedClasses.join(' '))
+				.classAdd(data.DT_RowClass);
 		}
 
 		if (data.DT_RowAttr) {
@@ -461,16 +466,16 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 			}
 
 			// Row node hasn't been created yet
-			if (data.nTr === null) {
+			if (data.tr === null) {
 				createTr(settings, dataIdx);
 			}
 
-			var nRow = data.nTr!;
+			var nRow = data.tr!;
 
 			// Add various classes as needed
 			for (var i = 0; i < columns.length; i++) {
 				var col = columns[i];
-				var td = data.anCells[i];
+				var td = data.cells[i];
 
 				dom
 					.s(td)
@@ -483,7 +488,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 			// useful?
 			callbackFire(settings, 'row', null, [
 				nRow,
-				data._aData,
+				data.data,
 				rowCount,
 				j,
 				dataIdx

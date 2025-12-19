@@ -5,11 +5,11 @@ import util from '../util';
  * Structure used to store information about each individual row in DataTables
  */
 export interface Row {
-	/**  TR element for the row */
-	nTr: TableRowElement | null;
+	/** TR element for the row */
+	tr: TableRowElement | null;
 
 	/** Array of cells for each row */
-	anCells: Array<TableCellElement>;
+	cells: Array<TableCellElement>;
 
 	/**
 	 * Data object from the original data source for the row. This is either
@@ -18,7 +18,7 @@ export interface Row {
 	 * data from the data source, or will be an array if using DOM a data
 	 * source.
 	 */
-	_aData: any;
+	data: any;
 
 	/**
 	 * Sorting data cache - this array is ostensibly the same length as the
@@ -29,21 +29,21 @@ export interface Row {
 	 * sort. This array should not be read from or written to by anything other
 	 * than the master sorting methods.
 	 */
-	_aSortData: unknown[] | null;
+	orderCache: unknown[] | null;
 
 	/**
 	 * Per cell filtering data cache. As per the sort data cache, used to
 	 * increase the performance of the filtering in DataTables
 	 */
-	_aFilterData: string[] | null;
+	searchCellCache: string[] | null;
 
 	/**
 	 * Filtering data cache. This is the same as the cell filtering cache, but
 	 * in this case a string rather than an array. This is easily computed with
-	 * a join on `_aFilterData`, but is provided as a cache so the join isn't
-	 * needed on every search (memory traded for performance)
+	 * a join on `dataSearch` array, but is provided as a cache so the join
+	 * isn't needed on every search (memory traded for performance)
 	 */
-	_sFilterRow: string | null;
+	searchRowCache: string | null;
 
 	/**
 	 * Denote if the original data source was from the DOM, or the data source
@@ -63,13 +63,13 @@ export interface Row {
 	displayData: Array<any> | null;
 
 	/** List of classes for removal */
-	__rowc: string[];
+	addedClasses: string[];
 
 	/** Details rows (a single Dom instance with `tr` elements) */
-	_details: undefined | Dom;
+	details: undefined | Dom;
 
 	/** Indicate if the row details should be shown */
-	_detailsShow: undefined | boolean;
+	detailsShow: undefined | boolean;
 }
 
 /**
@@ -96,18 +96,18 @@ export interface TableRowElement extends HTMLTableRowElement {
 }
 
 export const defaults: Row = {
-	nTr: null,
-	anCells: [],
-	_aData: [],
-	_aSortData: null,
-	_aFilterData: null,
-	_sFilterRow: null,
+	tr: null,
+	cells: [],
+	data: [],
+	orderCache: null,
+	searchCellCache: null,
+	searchRowCache: null,
 	src: 'dom',
 	idx: -1,
 	displayData: null,
-	__rowc: [],
-	_details: undefined,
-	_detailsShow: undefined
+	addedClasses: [],
+	details: undefined,
+	detailsShow: undefined
 };
 
 /**

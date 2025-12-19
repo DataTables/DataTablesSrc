@@ -366,8 +366,8 @@ export function sort(ctx: Context, col?: number, dir?: string) {
 				test,
 				sortItem,
 				len = aSort.length,
-				dataA = data[a]?._aSortData!,
-				dataB = data[b]?._aSortData!;
+				dataA = data[a]?.orderCache!,
+				dataB = data[b]?.orderCache!;
 
 			for (k = 0; k < len; k++) {
 				sortItem = aSort[k];
@@ -533,7 +533,7 @@ export function sortingClasses(settings: Context) {
 
 			// Remove column sorting
 			dom
-				.s(pluck(settings.data, 'anCells', colIdx))
+				.s(pluck(settings.data, 'cells', colIdx))
 				.classRemove(sortClass + (i < 2 ? i + 1 : 3));
 		}
 
@@ -542,7 +542,7 @@ export function sortingClasses(settings: Context) {
 			colIdx = sortFlat[i].src;
 
 			dom
-				.s(pluck(settings.data, 'anCells', colIdx))
+				.s(pluck(settings.data, 'cells', colIdx))
 				.classAdd(sortClass + (i < 2 ? i + 1 : 3));
 		}
 	}
@@ -585,16 +585,16 @@ export function sortData(settings: Context, colIdx: number) {
 
 		row = data[rowIdx];
 
-		if (row && !row._aSortData) {
-			row._aSortData = [];
+		if (row && !row.orderCache) {
+			row.orderCache = [];
 		}
 
-		if (row && (!row._aSortData![colIdx] || customSort)) {
+		if (row && (!row.orderCache![colIdx] || customSort)) {
 			cellData = customSort
 				? customData[rowIdx] // If there was a custom sort function, use data from there
 				: getCellData(settings, rowIdx, colIdx, 'sort');
 
-			row._aSortData![colIdx] = formatter
+			row.orderCache![colIdx] = formatter
 				? formatter(cellData, settings)
 				: cellData;
 		}

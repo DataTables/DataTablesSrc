@@ -21,10 +21,10 @@ dom.s(document).on('plugin-init.dt', function (e, context) {
 
 		for (var i = 0; i < rows.length; i++) {
 			var rowIdx = rows[i];
-			var data = settings.data[rowIdx];
+			var row = settings.data[rowIdx];
 
-			if (data._detailsShow) {
-				ids.push('#' + idFn(data._aData));
+			if (row.detailsShow) {
+				ids.push('#' + idFn(row.data));
 			}
 		}
 
@@ -107,15 +107,15 @@ function detailsAdd(
 
 	addRow(data, klass);
 
-	if (row._details) {
-		row._details.detach();
+	if (row.details) {
+		row.details.detach();
 	}
 
-	row._details = dom.s(rows);
+	row.details = dom.s(rows);
 
 	// If the children were already shown, that state should be retained
-	if (row._detailsShow && row.nTr) {
-		row._details.insertAfter(row.nTr);
+	if (row.detailsShow && row.tr) {
+		row.details.insertAfter(row.tr);
 	}
 }
 
@@ -131,12 +131,12 @@ function detailsRemove(api: ApiType, idx?: number) {
 	if (ctx.length) {
 		var row = ctx[0].data[idx !== undefined ? idx : api[0]];
 
-		if (row && row._details) {
-			row._details.detach();
+		if (row && row.details) {
+			row.details.detach();
 
-			row._detailsShow = undefined;
-			row._details = undefined;
-			dom.s(row.nTr).classRemove('dt-hasChild');
+			row.detailsShow = undefined;
+			row.details = undefined;
+			dom.s(row.tr).classRemove('dt-hasChild');
 			detailsState(ctx);
 		}
 	}
@@ -148,16 +148,16 @@ function detailsDisplay(api: ApiType, show: boolean) {
 	if (ctx.length && api.length) {
 		var row = ctx[0].data[api[0]];
 
-		if (row && row._details) {
-			row._detailsShow = show;
+		if (row && row.details) {
+			row.detailsShow = show;
 
-			if (show && row.nTr) {
-				row._details.insertAfter(row.nTr);
-				dom.s(row.nTr).classAdd('dt-hasChild');
+			if (show && row.tr) {
+				row.details.insertAfter(row.tr);
+				dom.s(row.tr).classAdd('dt-hasChild');
 			}
 			else if (!show) {
-				row._details.detach();
-				dom.s(row.nTr).classRemove('dt-hasChild');
+				row.details.detach();
+				dom.s(row.tr).classRemove('dt-hasChild');
 			}
 
 			callbackFire(ctx[0], null, 'childRow', [show, api.row(api[0])]);
@@ -177,7 +177,7 @@ function detailsEvents(settings: Context) {
 
 	api.off(drawEvent + ' ' + colvisEvent + ' ' + destroyEvent);
 
-	if (util.array.pluck(data, '_details').length > 0) {
+	if (util.array.pluck(data, 'details').length > 0) {
 		// On each draw, insert the required elements into the document
 		api.on(drawEvent, function (e, ctx) {
 			if (settings !== ctx) {
@@ -191,8 +191,8 @@ function detailsEvents(settings: Context) {
 					// Internal data grab
 					var row = data[idx];
 
-					if (row && row._detailsShow && row._details && row.nTr) {
-						row._details.insertAfter(row.nTr);
+					if (row && row.detailsShow && row.details && row.tr) {
+						row.details.insertAfter(row.tr);
 					}
 				});
 		});
@@ -211,8 +211,8 @@ function detailsEvents(settings: Context) {
 			for (var i = 0, iLen = data.length; i < iLen; i++) {
 				row = data[i];
 
-				if (row && row._details) {
-					row._details.each(function (el) {
+				if (row && row.details) {
+					row.details.each(function (el) {
 						var td = dom.s(el).children('td');
 
 						if (td.count() == 1) {
@@ -232,7 +232,7 @@ function detailsEvents(settings: Context) {
 			for (var i = 0, iLen = data.length; i < iLen; i++) {
 				let d = data[i];
 
-				if (d && d._details) {
+				if (d && d.details) {
 					detailsRemove(api, i);
 				}
 			}
@@ -259,7 +259,7 @@ Api.register(
 			let jq = util.external('jq');
 			let details =
 				ctx.length && this.length && ctx[0].data[this[0]]
-					? ctx[0].data[this[0]]?._details
+					? ctx[0].data[this[0]]?.details
 					: undefined;
 
 			if (!details) {
@@ -327,8 +327,8 @@ Api.register(_child_obj + '.isShown()', function () {
 	var ctx = this.context;
 
 	if (ctx.length && this.length && ctx[0].data[this[0]]) {
-		// _detailsShown as false or undefined will fall through to return false
-		return ctx[0].data[this[0]]._detailsShow || false;
+		// detailsShown as false or undefined will fall through to return false
+		return ctx[0].data[this[0]].detailsShow || false;
 	}
 	return false;
 });

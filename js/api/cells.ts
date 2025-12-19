@@ -59,7 +59,7 @@ function selectCells(
 							s(
 								o,
 								getCellData(settings, row, j),
-								host && host.anCells ? host.anCells[j] : null
+								host && host.cells ? host.cells[j] : null
 							)
 						) {
 							a.push(o);
@@ -88,7 +88,7 @@ function selectCells(
 		// Only get the nodes if we get these far in the selector and need to
 		// actually work with the cell nodes.
 		if (!allCells) {
-			let cells = removeEmpty(pluckOrder(data, rows, 'anCells'));
+			let cells = removeEmpty(pluckOrder(data, rows, 'cells'));
 
 			allCells = dom.s(flatten([], cells));
 		}
@@ -240,7 +240,7 @@ registerPlural<ApiCellsMethods<any>['nodes']>(
 			function (settings, row, column) {
 				var data = settings.data[row];
 
-				return data && data.anCells ? data.anCells[column] : undefined;
+				return data && data.cells ? data.cells[column] : undefined;
 			},
 			true
 		);
@@ -261,8 +261,8 @@ registerPlural<ApiCellsMethods<any>['cache']>(
 	'cells().cache()',
 	'cell().cache()',
 	function (type) {
-		let prop: '_aFilterData' | '_aSortData' =
-			type === 'search' ? '_aFilterData' : '_aSortData';
+		let prop: 'searchCellCache' | 'orderCache' =
+			type === 'search' ? 'searchCellCache' : 'orderCache';
 
 		return this.iterator(
 			'cell',

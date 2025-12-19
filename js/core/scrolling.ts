@@ -249,7 +249,7 @@ export function scrollDraw(settings: Context) {
 			let row = settings.data[idx];
 
 			if (row) {
-				let tr = row.nTr;
+				let tr = row.tr;
 
 				if (tr) {
 					firstTr = tr;

@@ -294,8 +294,8 @@ function setColumnVis(settings: Context, column: number, vis: boolean) {
 			let row = data[i];
 
 			if (row) {
-				tr = row.nTr;
-				cells = row.anCells;
+				tr = row.tr;
+				cells = row.cells;
 
 				if (tr) {
 					// insertBefore can act like appendChild if 2nd arg is null
@@ -306,7 +306,7 @@ function setColumnVis(settings: Context, column: number, vis: boolean) {
 	}
 	else {
 		// Remove column
-		dom.s(removeEmpty(pluck(settings.data, 'anCells', column))).detach();
+		dom.s(removeEmpty(pluck(settings.data, 'cells', column))).detach();
 	}
 
 	// Common actions
@@ -447,7 +447,7 @@ registerPlural<ApiColumnsMethods<any>['cache']>(
 				return pluckOrder(
 					settings.data,
 					rows,
-					type === 'search' ? '_aFilterData' : '_aSortData',
+					type === 'search' ? 'searchCellCache' : 'orderCache',
 					column
 				);
 			},
@@ -492,7 +492,7 @@ registerPlural<ApiColumnsMethods<any>['nodes']>(
 			'column-rows',
 			function (settings, column, i, j, rows) {
 				return removeEmpty(
-					pluckOrder(settings.data, rows, 'anCells', column)
+					pluckOrder(settings.data, rows, 'cells', column)
 				);
 			},
 			true

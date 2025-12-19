@@ -392,13 +392,13 @@ function _columnAutoRender(settings: Context, colIdx: number) {
 	for (let i = 0; i < data.length; i++) {
 		let d = data[i];
 
-		if (d && d.nTr) {
+		if (d && d.tr) {
 			// We have to update the display here since there is no invalidation
 			// check for the data
 			let display = getCellData(settings, i, colIdx, 'display');
 
 			d.displayData![colIdx] = display;
-			writeCell(d.anCells[colIdx], display);
+			writeCell(d.cells[colIdx], display);
 
 			// No need to update sort / filter data since it has been
 			// invalidated and will be re-read with the renderer now applied

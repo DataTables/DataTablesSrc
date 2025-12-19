@@ -33,7 +33,7 @@ describe('createdRow option', function() {
 			let goodRows = 0;
 			$('#example').dataTable({
 				createdRow: function() {
-					if (arguments[1] === $('#example').DataTable.settings[0].data[arguments[2]]._aData) {
+					if (arguments[1] === $('#example').DataTable.settings[0].data[arguments[2]].data) {
 						goodRows++;
 					}
 				}

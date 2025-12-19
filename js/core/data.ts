@@ -15,7 +15,7 @@ import { createTr, getRowDisplay, rowAttributes } from './draw';
  * @param data data array to be added
  * @param tr TR element to add to the table - optional. If not given, DataTables
  *   will create a row automatically
- * @param tds Array of TD|TH elements for the row - must be given if nTr is.
+ * @param tds Array of TD|TH elements for the row - must be given if tr is.
  * @returns >=0 if successful (index of new data entry), -1 if failed
  */
 export function addData(
@@ -31,7 +31,7 @@ export function addData(
 		idx: rowIdx
 	});
 
-	row._aData = dataIn;
+	row.data = dataIn;
 	settings.data.push(row);
 
 	var columns = settings.columns;
@@ -105,7 +105,7 @@ export function getCellData(
 
 	var draw = settings.drawCount;
 	var col = settings.columns[colIdx];
-	var rowData = row._aData;
+	var rowData = row.data;
 	var defaultContent = col.defaultContent;
 	var cellData = col.dataGet(rowData, type, {
 		settings: settings,
@@ -193,7 +193,7 @@ export function setCellData(
 
 	if (row) {
 		let col = settings.columns[colIdx];
-		let rowData = row._aData;
+		let rowData = row.data;
 
 		col.dataSet(rowData, val, {
 			settings: settings,
@@ -227,7 +227,7 @@ export function writeCell(td: HTMLTableCellElement, val: string | HTMLElement) {
  * @returns array {array} aData Master data array
  */
 export function getDataMaster(settings: Context) {
-	return util.array.pluck(settings.data, '_aData');
+	return util.array.pluck(settings.data, 'data');
 }
 
 /**
@@ -266,18 +266,18 @@ export function invalidate(
 	}
 
 	// Remove the cached data for the row
-	row._aSortData = null;
-	row._aFilterData = null;
+	row.orderCache = null;
+	row.searchCellCache = null;
 	row.displayData = null;
 
 	// Are we reading last data from DOM or the data object?
 	if (src === 'dom' || ((!src || src === 'auto') && row.src === 'dom')) {
 		// Read the data from the DOM
-		row._aData = getRowElementsFromModel(settings, row, colIdx).data;
+		row.data = getRowElementsFromModel(settings, row, colIdx).data;
 	}
 	else {
 		// Reading from data object, update the DOM
-		var cells = row.anCells;
+		var cells = row.cells;
 		var display = getRowDisplay(settings, rowIdx);
 
 		if (cells.length) {
@@ -354,25 +354,25 @@ export function getRowElementsFromModel(
 	row: Row,
 	colIdx?: number
 ) {
-	let tds = row.anCells;
+	let tds = row.cells;
 
 	for (let i = 0; i < tds.length; i++) {
 		if (colIdx === undefined || colIdx === i) {
-			readCellData(settings, tds[i], row._aData, i);
+			readCellData(settings, tds[i], row.data, i);
 		}
 	}
 
 	// Read the ID from the DOM if present
-	if (row.nTr) {
-		let id = row.nTr.getAttribute('id');
+	if (row.tr) {
+		let id = row.tr.getAttribute('id');
 
 		if (id) {
-			util.set(settings.rowId)(row._aData, id);
+			util.set(settings.rowId)(row.data, id);
 		}
 	}
 
 	return {
-		data: row._aData,
+		data: row.data,
 		cells: tds
 	};
 }

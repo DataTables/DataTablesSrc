@@ -72,7 +72,7 @@ register<ApiType['init']>('init()', function () {
 
 register<ApiType['data']>('data()', function () {
 	return this.iterator('table', function (settings) {
-		return util.array.pluck(settings.data, '_aData');
+		return util.array.pluck(settings.data, 'data');
 	}).flatten();
 });
 
@@ -125,7 +125,7 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 		var jqWrapper = dom.s(settings.nTableWrapper);
 		var rows = settings.data
 			.map(function (r) {
-				return r ? r.nTr : null;
+				return r ? r.tr : null;
 			})
 			.filter(r => !!r);
 		var orderClasses = classes.order;

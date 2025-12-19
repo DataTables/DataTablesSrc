@@ -84,7 +84,7 @@ export default class Settings {
 
 	/**
 	 * Function to get data from a cell in a column. You should <b>never</b>
-	 * access data directly through _aData internally in DataTables - always use
+	 * access data directly through `data` internally in DataTables - always use
 	 * the method attached to this property. It allows mData to function as
 	 * required. This function is automatically assigned by the column
 	 * initialisation method
@@ -93,7 +93,7 @@ export default class Settings {
 
 	/**
 	 * Function to set data for a cell in the column. You should <b>never</b>
-	 * set the data directly to _aData internally in DataTables - always use
+	 * set the data directly to `data` internally in DataTables - always use
 	 * this method. It allows mData to function as required. This function is
 	 * automatically assigned by the column initialisation method
 	 */

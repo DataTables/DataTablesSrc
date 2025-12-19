@@ -66,7 +66,7 @@ function selectRows(
 		if (typeof sel === 'function') {
 			return rows.map(function (idx) {
 				var row = data[idx];
-				return row && sel(idx, row._aData, row.nTr) ? idx : null;
+				return row && sel(idx, row.data, row.tr) ? idx : null;
 			});
 		}
 
@@ -80,12 +80,12 @@ function selectRows(
 				// Make sure that the row is actually still present in the table
 				row = data[rowIdx];
 
-				return row && row.nTr === sel ? [rowIdx] : [];
+				return row && row.tr === sel ? [rowIdx] : [];
 			}
 			else if (cellIdx) {
 				row = data[cellIdx.row];
 
-				return row && row.nTr === sel.parentNode ? [cellIdx.row] : [];
+				return row && row.tr === sel.parentNode ? [cellIdx.row] : [];
 			}
 			else {
 				var host = dom.s(sel).closest('*[data-dt-row]');
@@ -123,7 +123,7 @@ function selectRows(
 
 		// Get nodes in the order from the `rows` array with null values removed
 		var nodes = util.array.removeEmpty(
-			util.array.pluckOrder(settings.data, rows, 'nTr')
+			util.array.pluckOrder(settings.data, rows, 'tr')
 		);
 
 		// Selector - selector string, array of nodes or jQuery object.
@@ -201,7 +201,7 @@ register<ApiRowsMethods<any>['nodes']>('rows().nodes()', function () {
 	return this.iterator(
 		'row',
 		function (settings, row) {
-			return settings.data[row]?.nTr || undefined;
+			return settings.data[row]?.tr || undefined;
 		},
 		true
 	);
@@ -212,7 +212,7 @@ register<ApiRowsMethods<any>['data']>('rows().data()', function () {
 		true,
 		'rows',
 		function (settings, rows) {
-			return util.array.pluckOrder(settings.data, rows, '_aData');
+			return util.array.pluckOrder(settings.data, rows, 'data');
 		},
 		true
 	);
@@ -226,7 +226,7 @@ registerPlural<ApiRowsMethods<any>['cache']>(
 			'row',
 			function (settings, row) {
 				var r = settings.data[row];
-				return type === 'search' ? r?._aFilterData : r?._aSortData;
+				return type === 'search' ? r?.searchCellCache : r?.orderCache;
 			},
 			true
 		);
@@ -267,7 +267,7 @@ registerPlural<ApiRowMethods<any>['ids']>(
 		// `iterator` will drop undefined values, but in this case we want them
 		for (var i = 0, iLen = context.length; i < iLen; i++) {
 			for (var j = 0, jen = this[i].length; j < jen; j++) {
-				var id = context[i].rowIdFn(context[i].data[this[i][j]]?._aData);
+				var id = context[i].rowIdFn(context[i].data[this[i][j]]?.data);
 				a.push((hash === true ? '#' : '') + id);
 			}
 		}
@@ -300,7 +300,7 @@ registerPlural<ApiRowMethods<any>['remove']>(
 			lengthOverflow(settings);
 
 			// Remove the row's ID reference if there is one
-			var id = settings.rowIdFn(rowData?._aData);
+			var id = settings.rowIdFn(rowData?.data);
 			if (id !== undefined) {
 				delete settings.ids[id];
 			}
@@ -359,17 +359,17 @@ register<ApiRowMethods<any>['data']>('row().data()', function (data?) {
 	if (data === undefined) {
 		// Get
 		return ctx.length && this.length && this[0].length
-			? ctx[0].data[this[0]]?._aData
+			? ctx[0].data[this[0]]?.data
 			: undefined;
 	}
 
 	// Set
 	var row = ctx[0].data[this[0]]!;
-	row._aData = data;
+	row.data = data;
 
 	// If the DOM has an id, and the data source is an array
-	if (Array.isArray(data) && row.nTr && row.nTr.id) {
-		util.set(ctx[0].rowId)(data, row.nTr.id);
+	if (Array.isArray(data) && row.tr && row.tr.id) {
+		util.set(ctx[0].rowId)(data, row.tr.id);
 	}
 
 	// Automatically invalidate
@@ -384,8 +384,8 @@ register<ApiRowMethods<any>['node']>('row().node()', function () {
 	if (ctx.length && this.length && this[0].length) {
 		var row = ctx[0].data[this[0]];
 
-		if (row && row.nTr) {
-			return row.nTr;
+		if (row && row.tr) {
+			return row.tr;
 		}
 	}
 
