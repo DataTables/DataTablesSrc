@@ -57,7 +57,7 @@ const ext = {
 	/** HTML entity escaping */
 	escape: {
 		/** When reading data-* attributes for initialisation options */
-		attributes: false,
+		attributes: false
 	},
 
 	/**
@@ -100,7 +100,7 @@ const ext = {
 	selector: {
 		cell: [],
 		column: [],
-		row: [],
+		row: []
 	} as Record<string, Array<any>>,
 
 	settings: [] as Context[],
@@ -116,7 +116,7 @@ const ext = {
 		 * Enable / disable DataTables 1.9 compatible server-side processing
 		 * requests
 		 */
-		ajax: null,
+		ajax: null
 	},
 
 	/**
@@ -132,20 +132,20 @@ const ext = {
 
 	renderer: {
 		footer: {
-			_: renderers.footer,
+			_: renderers.footer
 		},
 		header: {
-			_: renderers.header,
+			_: renderers.header
 		},
 		layout: {
-			_: renderers.layout,
+			_: renderers.layout
 		},
 		pagingButton: {
-			_: renderers.pagingButton,
+			_: renderers.pagingButton
 		},
 		pagingContainer: {
-			_: renderers.pagingContainer,
-		},
+			_: renderers.pagingContainer
+		}
 	} as renderers.IRenderers,
 
 	/**
@@ -206,7 +206,7 @@ const ext = {
 	 * Software version
 	 *  @type string
 	 */
-	version: '3.0.0-dev',
+	version: '3.0.0-dev'
 };
 
 //
@@ -221,7 +221,7 @@ Object.assign(ext, {
 	aoFeatures: ext.feature,
 	oStdClasses: ext.classes,
 	oPagination: ext.pager,
-	sVersion: ext.version,
+	sVersion: ext.version
 });
 
 export default ext;

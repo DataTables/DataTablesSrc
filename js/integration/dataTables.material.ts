@@ -14,7 +14,7 @@ import DataTable from '../dataTable';
 
 /* Set the defaults for DataTables initialisation */
 DataTable.util.object.assignDeep(DataTable.defaults, {
-	renderer: 'material',
+	renderer: 'material'
 });
 
 /* Default class modification */
@@ -23,22 +23,22 @@ DataTable.util.object.assignDeep(DataTable.ext.classes, {
 	table: 'mdc-data-table__table',
 	thead: {
 		cell: 'mdc-data-table__header-cell',
-		row: 'mdc-data-table__header-row',
+		row: 'mdc-data-table__header-row'
 	},
 	tbody: {
 		cell: 'mdc-data-table__cell',
-		row: 'mdc-data-table__row',
+		row: 'mdc-data-table__row'
 	},
 	search: {
 		container: 'dt-search inline-text-field-container',
-		input: 'mdc-text-field__input',
+		input: 'mdc-text-field__input'
 	},
 	length: {
-		select: 'mdc-select-field',
+		select: 'mdc-select-field'
 	},
 	processing: {
-		container: 'dt-processing panel panel-default',
-	},
+		container: 'dt-processing panel panel-default'
+	}
 });
 
 DataTable.ext.renderer.pagingButton.material = function (
@@ -66,7 +66,7 @@ DataTable.ext.renderer.pagingButton.material = function (
 
 	return {
 		display: btn.get(0),
-		clicker: btn.get(0),
+		clicker: btn.get(0)
 	};
 };
 
@@ -74,7 +74,11 @@ DataTable.ext.renderer.pagingContainer.material = function (
 	settings,
 	buttonEls
 ) {
-	return DataTable.dom.c('div').classAdd('pagination').append(buttonEls).get(0);
+	return DataTable.dom
+		.c('div')
+		.classAdd('pagination')
+		.append(buttonEls)
+		.get(0);
 };
 
 DataTable.ext.renderer.layout.material = function (settings, container, items) {

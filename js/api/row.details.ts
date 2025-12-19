@@ -42,26 +42,19 @@ dom.s(document).on('plugin-init.dt', function (e, context) {
 
 function detailsStateLoad(api: ApiType, state: StateLoad | null) {
 	if (state && state.childRows) {
-		api
-			.rows(
-				state.childRows.map(function (id) {
-					// Escape any `:` characters from the row id. Accounts for
-					// already escaped characters.
-					return id.replace(/([^:\\]*(?:\\.[^:\\]*)*):/g, '$1\\:');
-				})
-			)
-			.every(function () {
-				callbackFire(api.settings()[0], null, 'requestChild', [this]);
-			});
+		api.rows(
+			state.childRows.map(function (id) {
+				// Escape any `:` characters from the row id. Accounts for
+				// already escaped characters.
+				return id.replace(/([^:\\]*(?:\\.[^:\\]*)*):/g, '$1\\:');
+			})
+		).every(function () {
+			callbackFire(api.settings()[0], null, 'requestChild', [this]);
+		});
 	}
 }
 
-function detailsAdd(
-	ctx: Context,
-	row: Row | null,
-	data: any,
-	klass: string
-) {
+function detailsAdd(ctx: Context, row: Row | null, data: any, klass: string) {
 	if (!row) {
 		return;
 	}
@@ -184,8 +177,7 @@ function detailsEvents(settings: Context) {
 				return;
 			}
 
-			api
-				.rows({ page: 'current' })
+			api.rows({ page: 'current' })
 				.eq(0)
 				.each(function (idx) {
 					// Internal data grab

@@ -6,14 +6,14 @@ import DataTable from '../dataTable';
 
 /* Set the defaults for DataTables initialisation */
 DataTable.util.object.assignDeep(DataTable.defaults, {
-	renderer: 'bulma',
+	renderer: 'bulma'
 });
 
 /* Default class modification */
 DataTable.util.object.assignDeep(DataTable.ext.classes, {
 	container: 'dt-container dt-bulma',
 	search: {
-		input: 'input',
+		input: 'input'
 	},
 	layout: {
 		row: 'columns is-multiline',
@@ -22,17 +22,17 @@ DataTable.util.object.assignDeep(DataTable.ext.classes, {
 		tableCell: 'column is-full',
 		start: 'dt-layout-start column is-narrow',
 		end: 'dt-layout-end column is-narrow',
-		full: 'dt-layout-full column is-full',
+		full: 'dt-layout-full column is-full'
 	},
 	length: {
-		input: 'custom-select custom-select-sm form-control form-control-sm',
+		input: 'custom-select custom-select-sm form-control form-control-sm'
 	},
 	processing: {
-		container: 'dt-processing card',
+		container: 'dt-processing card'
 	},
 	paging: {
-		nav: 'pagination',
-	},
+		nav: 'pagination'
+	}
 });
 
 DataTable.ext.renderer.pagingButton.bulma = function (
@@ -49,7 +49,8 @@ DataTable.ext.renderer.pagingButton.bulma = function (
 	}
 
 	var li = DataTable.dom.c('li');
-	var a = DataTable.dom.c('a')
+	var a = DataTable.dom
+		.c('a')
 		.classAdd(btnClasses.join(' '))
 		.attr('href', disabled ? null : '#')
 		.attr('disabled', disabled ? 'disabled' : null)
@@ -58,12 +59,13 @@ DataTable.ext.renderer.pagingButton.bulma = function (
 
 	return {
 		display: li.get(0),
-		clicker: a.get(0),
+		clicker: a.get(0)
 	};
 };
 
 DataTable.ext.renderer.pagingContainer.bulma = function (settings, buttonEls) {
-	return DataTable.dom.c('ul')
+	return DataTable.dom
+		.c('ul')
 		.classAdd('pagination-list')
 		.append(buttonEls)
 		.get(0);
@@ -71,7 +73,8 @@ DataTable.ext.renderer.pagingContainer.bulma = function (settings, buttonEls) {
 
 DataTable.ext.renderer.layout.bulma = function (settings, container, items) {
 	var classes = settings.classes.layout;
-	var row = DataTable.dom.c('div')
+	var row = DataTable.dom
+		.c('div')
 		.attr('id', items.id || null)
 		.classAdd(items.className || classes.row)
 		.appendTo(container);
@@ -96,10 +99,13 @@ DataTable.ext.renderer.layout.bulma = function (settings, container, items) {
 			klass += classes.full;
 		}
 
-		DataTable.dom.c('div')
+		DataTable.dom
+			.c('div')
 			.attr({
 				id: val.id || null,
-				class: val.className ? val.className : classes.cell + ' ' + klass,
+				class: val.className
+					? val.className
+					: classes.cell + ' ' + klass
 			})
 			.css(style)
 			.append(val.contents)
@@ -116,10 +122,13 @@ DataTable.dom.s(document).on('init.dt', function (e, ctx) {
 	var api = new DataTable.Api(ctx);
 
 	// Length menu drop down - needs to be wrapped with a div
-	DataTable.dom.s(api.table().container()).find('div.dt-length select').each(el => {
-		let wrapper = DataTable.dom.c('div').classAdd('select');
+	DataTable.dom
+		.s(api.table().container())
+		.find('div.dt-length select')
+		.each(el => {
+			let wrapper = DataTable.dom.c('div').classAdd('select');
 
-		el.replaceWith(wrapper.get(0));
-		wrapper.append(el);
-	});
+			el.replaceWith(wrapper.get(0));
+			wrapper.append(el);
+		});
 });

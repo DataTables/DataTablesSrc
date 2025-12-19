@@ -108,8 +108,7 @@ export function bindAction(
 	selector: string,
 	fn: (e: MouseEvent | KeyboardEvent) => any
 ) {
-	dom
-		.s(n)
+	dom.s(n)
 		.on('click.DT', selector, function (e: MouseEvent) {
 			fn(e);
 		})
@@ -183,7 +182,9 @@ export function callbackFire(
 		// If not yet attached to the document, trigger the event
 		// on the body directly to sort of simulate the bubble
 		if (bubbles && table.closest('body').count() === 0) {
-			dom.s('body').trigger(eventName + '.dt', bubbles, args, { dt: ctx.api });
+			dom.s('body').trigger(eventName + '.dt', bubbles, args, {
+				dt: ctx.api
+			});
 		}
 
 		ret.push(result[0]);
@@ -197,7 +198,8 @@ export function lengthOverflow(ctx: Context) {
 		end = displayEnd(ctx),
 		len = ctx.pageLength;
 
-	/* If we have space to show extra rows (backing up from the end point - then do so */
+	// If we have space to show extra rows (backing up from the end point - then
+	// do so
 	if (start >= end) {
 		start = end - len;
 	}

@@ -70,9 +70,9 @@ export function initialise(settings: Context) {
 		callbackFire(settings, null, 'preInit', [settings], true);
 
 		// If there is default sorting required - let's do it. The sort function
-		// will do the drawing for us. Otherwise we draw the table regardless of the
-		// Ajax source - this allows the table to look initialised for Ajax sourcing
-		// data (show 'loading' message possibly)
+		// will do the drawing for us. Otherwise we draw the table regardless of
+		// the Ajax source - this allows the table to look initialised for Ajax
+		// sourcing data (show 'loading' message possibly)
 		reDraw(settings);
 
 		// Server-side processing init complete is done by _fnAjaxUpdateDraw
@@ -87,9 +87,9 @@ export function initialise(settings: Context) {
 						addData(settings, aData[i]);
 					}
 
-					// Reset the init display for cookie saving. We've already done
-					// a filter, and therefore cleared it before. So we need to make
-					// it appear 'fresh'
+					// Reset the init display for cookie saving. We've already
+					// done a filter, and therefore cleared it before. So we
+					// need to make it appear 'fresh'
 					settings.displayStartInit = iAjaxStart;
 
 					reDraw(settings);

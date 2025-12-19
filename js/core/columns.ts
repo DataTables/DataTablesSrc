@@ -20,13 +20,22 @@ import { calculateColumnWidths } from './sizing';
 export function addColumn(settings: Context) {
 	// Add column to aoColumns array
 	let columnIdx = settings.columns.length;
-	let column = util.object.assign<ColumnModel>({}, new ColumnModel(), columnDefaults, {
-		orderData: columnDefaults.orderData ? columnDefaults.orderData : [columnIdx],
-		data: columnDefaults.data ? columnDefaults.data : columnIdx,
-		idx: columnIdx,
-		searchFixed: {},
-		colEl: dom.c<HTMLTableColElement>('col').attr('data-dt-column', columnIdx),
-	});
+	let column = util.object.assign<ColumnModel>(
+		{},
+		new ColumnModel(),
+		columnDefaults,
+		{
+			orderData: columnDefaults.orderData
+				? columnDefaults.orderData
+				: [columnIdx],
+			data: columnDefaults.data ? columnDefaults.data : columnIdx,
+			idx: columnIdx,
+			searchFixed: {},
+			colEl: dom
+				.c<HTMLTableColElement>('col')
+				.attr('data-dt-column', columnIdx)
+		}
+	);
 
 	settings.columns.push(column);
 
@@ -36,7 +45,9 @@ export function addColumn(settings: Context) {
 	// default
 	let searchCols = settings.preSearchCols;
 
-	searchCols[columnIdx] = createSearch(hungarianToCamel(searchCols[columnIdx]));
+	searchCols[columnIdx] = createSearch(
+		hungarianToCamel(searchCols[columnIdx])
+	);
 }
 
 /**
@@ -73,8 +84,8 @@ export function columnOptions(
 		util.object.assign(column, options);
 		map(column, options, 'width', 'widthOrig');
 
-		// Merge class from previously defined classes with this one, rather than just
-		// overwriting it in the extend above
+		// Merge class from previously defined classes with this one, rather
+		// than just overwriting it in the extend above
 		if (origClass !== column.className) {
 			column.className = origClass + ' ' + column.className;
 		}
@@ -86,8 +97,9 @@ export function columnOptions(
 	var dataSrc = column.data;
 	var dataFn = util.get(dataSrc);
 
-	// The `render` option can be given as an array to access the helper rendering methods.
-	// The first element is the rendering method to use, the rest are the parameters to pass
+	// The `render` option can be given as an array to access the helper
+	// rendering methods. The first element is the rendering method to use, the
+	// rest are the parameters to pass
 	if (column.render && Array.isArray(column.render)) {
 		var copy = column.render.slice();
 		var name = copy.shift();
@@ -101,7 +113,8 @@ export function columnOptions(
 		return typeof src === 'string' && src.indexOf('@') !== -1;
 	};
 	column.attrSrc =
-		!!dataSrc && util.is.plainObject(dataSrc) &&
+		!!dataSrc &&
+		util.is.plainObject(dataSrc) &&
 		(attrTest(dataSrc.sort) ||
 			attrTest(dataSrc.type) ||
 			attrTest(dataSrc.filter));
@@ -171,8 +184,8 @@ export function columnSizes(settings: Context) {
 }
 
 /**
- * Convert the index of a visible column to the index in the data array (take account
- * of hidden columns)
+ * Convert the index of a visible column to the index in the data array (take
+ * account of hidden columns)
  *
  * @param settings DataTables settings object
  * @param visIdx Visible column index to lookup
@@ -245,9 +258,9 @@ export function getColumns(settings: Context, param: keyof ColumnModel) {
 
 /**
  * Allow the result from a type detection function to be `true` while
- * translating that into a string. Old type detection functions will
- * return the type name if it passes. An object store would be better,
- * but not backwards compatible.
+ * translating that into a string. Old type detection functions will return the
+ * type name if it passes. An object store would be better, but not backwards
+ * compatible.
  *
  * @param typeDetect Object or function for type detection
  * @param res Result from the type detection function
@@ -268,7 +281,8 @@ export function columnTypes(settings: Context) {
 	var i, iLen, j, jen, k, ken;
 	var col, detectedType, cache;
 
-	// For each column, spin over the data type detection functions, seeing if one matches
+	// For each column, spin over the data type detection functions, seeing if
+	// one matches
 	for (i = 0, iLen = columns.length; i < iLen; i++) {
 		col = columns[i];
 		cache = [];
@@ -277,8 +291,8 @@ export function columnTypes(settings: Context) {
 			col.type = col.typeManual;
 		}
 		else if (!col.type) {
-			// With SSP type detection can be unreliable and error prone, so we provide a way
-			// to turn it off.
+			// With SSP type detection can be unreliable and error prone, so we
+			// provide a way to turn it off.
 			if (!settings.typeDetect) {
 				return;
 			}
@@ -304,7 +318,10 @@ export function columnTypes(settings: Context) {
 
 				// Fast detect based on column assignment
 				if (init) {
-					detectedType = _typeResult(typeDetect, init(settings, col, i));
+					detectedType = _typeResult(
+						typeDetect,
+						init(settings, col, i)
+					);
 
 					if (detectedType) {
 						col.type = detectedType;
@@ -323,13 +340,20 @@ export function columnTypes(settings: Context) {
 						cache[k] = getCellData(settings, k, i, 'type');
 					}
 
-					// Only one data point in the column needs to match this function
+					// Only one data point in the column needs to match this
+					// function
 					if (oneOf && !one) {
-						one = _typeResult(typeDetect, oneOf(cache[k], settings));
+						one = _typeResult(
+							typeDetect,
+							oneOf(cache[k], settings)
+						);
 					}
 
 					// All data points need to match this function
-					detectedType = _typeResult(typeDetect, allOf(cache[k], settings));
+					detectedType = _typeResult(
+						typeDetect,
+						allOf(cache[k], settings)
+					);
 
 					// If null, then this type can't apply to this column, so
 					// rather than testing all cells, break out. There is an
@@ -350,7 +374,10 @@ export function columnTypes(settings: Context) {
 
 				// Type is valid for all data points in the column - use this
 				// type
-				if ((oneOf && one && detectedType) || (!oneOf && detectedType)) {
+				if (
+					(oneOf && one && detectedType) ||
+					(!oneOf && detectedType)
+				) {
 					col.type = detectedType;
 					break;
 				}
@@ -499,7 +526,9 @@ export function applyColumnDefs(
 						}
 						else if (target.indexOf(':name') !== -1) {
 							// Column selector
-							if (columns[k].name === target.replace(':name', '')) {
+							if (
+								columns[k].name === target.replace(':name', '')
+							) {
 								fn(k, def);
 							}
 						}
@@ -509,9 +538,10 @@ export function applyColumnDefs(
 								if (row[k]) {
 									var cell = row[k].cell;
 
-									// Legacy support. Note that it means that we don't support
-									// an element name selector only, since they are treated as
-									// class names for 1.x compat.
+									// Legacy support. Note that it means that
+									// we don't support an element name selector
+									// only, since they are treated as class
+									// names for 1.x compat.
 									if (target.match(/^[a-z][\w-]*$/i)) {
 										target = '.' + target;
 									}

@@ -38,15 +38,15 @@ export function saveState(settings: Context) {
 			return {
 				name: col.name,
 				visible: col.visible,
-				search: Object.assign({}, settings.preSearchCols[i]),
+				search: Object.assign({}, settings.preSearchCols[i])
 			};
-		}),
+		})
 	};
 
 	settings.stateSaved = state;
 	callbackFire(settings, 'stateSaveParams', 'stateSaveParams', [
 		settings,
-		state,
+		state
 	]);
 
 	if (settings.features.stateSave && !settings.destroying) {

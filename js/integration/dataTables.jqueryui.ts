@@ -19,21 +19,21 @@ DataTable.util.object.assignDeep(DataTable.ext.classes, {
 		button: 'fg-button ui-button ui-state-default',
 		container:
 			'dt-paging fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi',
-		disabled: 'ui-state-disabled',
+		disabled: 'ui-state-disabled'
 	},
 	thead: {
-		cell: 'ui-state-default fg-toolbar ui-toolbar ui-widget-header',
+		cell: 'ui-state-default fg-toolbar ui-toolbar ui-widget-header'
 	},
 	tfoot: {
-		cell: 'ui-state-default ui-widget-header',
+		cell: 'ui-state-default ui-widget-header'
 	},
 	layout: {
 		row: 'dt-layout-row ui-helper-clearfix',
-		tableCell: 'table',
-	},
+		tableCell: 'table'
+	}
 });
 
 // Set the defaults for DataTables initialisation
 DataTable.util.object.assignDeep(DataTable.defaults, {
-	renderer: 'jqueryui',
+	renderer: 'jqueryui'
 });

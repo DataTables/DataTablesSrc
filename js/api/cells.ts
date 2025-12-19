@@ -201,9 +201,9 @@ register<ApiCellsOverload>('cells()', function (arg1?, arg2?, arg3?) {
 		true
 	);
 
-	// There is currently only one extension which uses a cell selector extension
-	// It is a _major_ performance drag to run this if it isn't needed, so this is
-	// an extension specific check at the moment
+	// There is currently only one extension which uses a cell selector
+	// extension It is a _major_ performance drag to run this if it isn't
+	// needed, so this is an extension specific check at the moment
 	let cells =
 		opts && opts.selected
 			? this.cells(cellsNoOpts.toArray(), opts)

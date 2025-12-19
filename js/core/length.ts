@@ -8,9 +8,7 @@ import { Context } from '../model/settings';
  * @param val Value to change to
  */
 export function lengthChange(ctx: Context, val: string | number) {
-	let len = typeof val === 'string'
-		? parseInt(val, 10)
-		: val;
+	let len = typeof val === 'string' ? parseInt(val, 10) : val;
 
 	ctx.pageLength = len;
 

@@ -14,19 +14,19 @@ import DataTable from '../dataTable';
 
 /* Set the defaults for DataTables initialisation */
 DataTable.util.object.assignDeep(DataTable.defaults, {
-	renderer: 'semanticUI',
+	renderer: 'semanticUI'
 });
 
 /* Default class modification */
 DataTable.util.object.assignDeep(DataTable.ext.classes, {
 	container: 'dt-container dt-semanticUI',
 	search: {
-		input: 'dt-search ui input',
+		input: 'dt-search ui input'
 	},
 	processing: {
-		container: 'dt-processing ui segment',
+		container: 'dt-processing ui segment'
 	},
-	table: 'dataTable table unstackable',
+	table: 'dataTable table unstackable'
 });
 
 /* Fomantic paging button renderer */
@@ -56,7 +56,7 @@ DataTable.ext.renderer.pagingButton.semanticUI = function (
 
 	return {
 		display: a.get(0),
-		clicker: a.get(0),
+		clicker: a.get(0)
 	};
 };
 

@@ -38,7 +38,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param selector Items to select
 	 * @returns Dom instance for manipulating the selected items
 	 */
-	static selector<R extends HTMLElement = HTMLElement>(selector: DomSelector) {
+	static selector<R extends HTMLElement = HTMLElement>(
+		selector: DomSelector
+	) {
 		return new Dom<R>(selector);
 	}
 
@@ -295,7 +297,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param selector
 	 * @returns New Dom instance when the matching ancestors
 	 */
-	closest<R extends HTMLElement = T>(selector: string | HTMLElement | Element) {
+	closest<R extends HTMLElement = T>(
+		selector: string | HTMLElement | Element
+	) {
 		if (typeof selector === 'string') {
 			return this.map<R>(el => el.closest<R>(selector));
 		}
@@ -410,7 +414,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 			Array.from(this._store[0].attributes).forEach(attr => {
 				if (attr.name.startsWith('data-')) {
-					out[attr.name.replace('data-', '')] = dataConvert(attr.value);
+					out[attr.name.replace('data-', '')] = dataConvert(
+						attr.value
+					);
 				}
 			});
 
@@ -618,8 +624,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	height(): number;
 
 	/**
-	 * Get the height of the first element in the result set, with specific parts
-	 * included in the result.
+	 * Get the height of the first element in the result set, with specific
+	 * parts included in the result.
 	 *
 	 * @param include Parts of the box model to include
 	 * @returns Element's height
@@ -629,15 +635,18 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	/**
 	 * Set the height for all elements in the result set,
 	 *
-	 * @param set Value to set as the height. As a number it will be treated as a
-	 *   pixel value, while as a string, it must have a CSS unit already on it.
+	 * @param set Value to set as the height. As a number it will be treated as
+	 *   a pixel value, while as a string, it must have a CSS unit already on
+	 *   it.
 	 * @returns Self
 	 */
 	height(set: number | string): this;
 
 	height(include?: any): any {
 		if (!include) {
-			return this.count() ? this._store[0].getBoundingClientRect().height : 0;
+			return this.count()
+				? this._store[0].getBoundingClientRect().height
+				: 0;
 		}
 		else if (include === 'withPadding' || include === 'inner') {
 			return this.count() ? this._store[0].clientHeight : 0;
@@ -722,7 +731,11 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 		let el = this._store[0];
 
-		return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+		return !!(
+			el.offsetWidth ||
+			el.offsetHeight ||
+			el.getClientRects().length
+		);
 	}
 
 	/**
@@ -835,7 +848,11 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	off(name: string, selector: string, handler?: Function): this;
 
 	off(arg1?: string, arg2?: any, arg3?: any): this {
-		let { handler, names, selector } = normaliseEventParams(arg1, arg2, arg3);
+		let { handler, names, selector } = normaliseEventParams(
+			arg1,
+			arg2,
+			arg3
+		);
 
 		return this.each(el => {
 			names.forEach(name => {
@@ -892,7 +909,11 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	on(name: string, selector: string, handler: EventHandler): this;
 
 	on(arg1: string, arg2: any, arg3?: any): this {
-		let { handler, names, selector } = normaliseEventParams(arg1, arg2, arg3);
+		let { handler, names, selector } = normaliseEventParams(
+			arg1,
+			arg2,
+			arg3
+		);
 
 		return this.each(el => {
 			names
@@ -928,7 +949,11 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	one(name: string, selector: string, handler: EventHandler): this;
 
 	one(arg1: string, arg2: any, arg3?: any): this {
-		let { handler, names, selector } = normaliseEventParams(arg1, arg2, arg3);
+		let { handler, names, selector } = normaliseEventParams(
+			arg1,
+			arg2,
+			arg3
+		);
 
 		return this.each(el => {
 			names
@@ -1229,7 +1254,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 	width(include?: any): any {
 		if (!include) {
-			return this.count() ? this._store[0].getBoundingClientRect().width : 0;
+			return this.count()
+				? this._store[0].getBoundingClientRect().width
+				: 0;
 		}
 		else if (include === 'withPadding' || include === 'inner') {
 			return this.count() ? this._store[0].clientWidth : 0;

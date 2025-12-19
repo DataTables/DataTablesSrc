@@ -1,4 +1,3 @@
-
 export default {
 	container: 'dt-container',
 	empty: {
@@ -47,7 +46,7 @@ export default {
 		container: 'dt-search',
 		input: 'dt-input'
 	},
-	table: 'dataTable',	
+	table: 'dataTable',
 	tbody: {
 		cell: '',
 		row: ''
@@ -68,4 +67,3 @@ export default {
 		nav: ''
 	}
 };
-

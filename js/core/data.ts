@@ -8,7 +8,7 @@ import { createTr, getRowDisplay, rowAttributes } from './draw';
 
 /**
  * Add a data array to the table, creating DOM node etc. This is the parallel to
- * _fnGatherData, but for adding rows from a JavaScript source, rather than a
+ * gatherData, but for adding rows from a JavaScript source, rather than a
  * DOM source.
  *
  * @param settings DataTables settings object
@@ -76,7 +76,8 @@ export function addTr(settings: Context, rows: Dom<HTMLTableRowElement>) {
 }
 
 /**
- * Get the data for a given cell from the internal cache, taking into account data mapping
+ * Get the data for a given cell from the internal cache, taking into account
+ * data mapping
  *
  * @param settings DataTables settings object
  * @param rowIdx data row id

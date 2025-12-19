@@ -323,13 +323,16 @@ register('html', {
 	detect: {
 		allOf: function (d) {
 			return (
-				util.is.empty(d) || (typeof d === 'string' && d.indexOf('<') !== -1)
+				util.is.empty(d) ||
+				(typeof d === 'string' && d.indexOf('<') !== -1)
 			);
 		},
 		oneOf: function (d) {
 			// At least one data point must contain a `<`
 			return (
-				!util.is.empty(d) && typeof d === 'string' && d.indexOf('<') !== -1
+				!util.is.empty(d) &&
+				typeof d === 'string' &&
+				d.indexOf('<') !== -1
 			);
 		}
 	},
@@ -349,7 +352,8 @@ register('html-utf8', {
 	detect: {
 		allOf: function (d) {
 			return (
-				util.is.empty(d) || (typeof d === 'string' && d.indexOf('<') !== -1)
+				util.is.empty(d) ||
+				(typeof d === 'string' && d.indexOf('<') !== -1)
 			);
 		},
 		oneOf: function (d) {

@@ -9,21 +9,21 @@ import DataTable from '../dataTable';
 
 /* Set the defaults for DataTables initialisation */
 DataTable.util.object.assignDeep(DataTable.defaults, {
-	renderer: 'uikit',
+	renderer: 'uikit'
 });
 
 /* Default class modification */
 DataTable.util.object.assignDeep(DataTable.ext.classes, {
 	table: 'dt-container uk-form dt-uikit',
 	search: {
-		input: 'uk-form-small uk-input',
+		input: 'uk-form-small uk-input'
 	},
 	length: {
-		select: 'uk-form-small uk-select',
+		select: 'uk-form-small uk-select'
 	},
 	processing: {
-		container: 'dt-processing uk-panel',
-	},
+		container: 'dt-processing uk-panel'
+	}
 });
 
 DataTable.ext.renderer.pagingButton.uikit = function (
@@ -52,7 +52,7 @@ DataTable.ext.renderer.pagingButton.uikit = function (
 
 	return {
 		display: li.get(0),
-		clicker: a.get(0),
+		clicker: a.get(0)
 	};
 };
 

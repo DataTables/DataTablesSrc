@@ -13,16 +13,16 @@ DataTable.util.object.assignDeep(DataTable.ext.classes, {
 		tableCell: 'cell small-12',
 		start: 'dt-layout-start cell shrink',
 		end: 'dt-layout-end cell shrink',
-		full: 'dt-layout-full cell',
+		full: 'dt-layout-full cell'
 	},
 	processing: {
-		container: 'dt-processing panel callout',
-	},
+		container: 'dt-processing panel callout'
+	}
 });
 
 /* Set the defaults for DataTables initialisation */
 DataTable.util.object.assignDeep(DataTable.defaults, {
-	renderer: 'foundation',
+	renderer: 'foundation'
 });
 
 DataTable.ext.renderer.pagingButton.foundation = function (
@@ -41,7 +41,7 @@ DataTable.ext.renderer.pagingButton.foundation = function (
 
 		return {
 			display: li.get(0),
-			clicker: li.get(0),
+			clicker: li.get(0)
 		};
 	}
 	else if (active || disabled) {
@@ -53,7 +53,7 @@ DataTable.ext.renderer.pagingButton.foundation = function (
 
 		return {
 			display: li.get(0),
-			clicker: li.get(0),
+			clicker: li.get(0)
 		};
 	}
 
@@ -62,7 +62,7 @@ DataTable.ext.renderer.pagingButton.foundation = function (
 
 	return {
 		display: li.get(0),
-		clicker: a.get(0),
+		clicker: a.get(0)
 	};
 };
 
@@ -70,7 +70,11 @@ DataTable.ext.renderer.pagingContainer.foundation = function (
 	settings,
 	buttonEls
 ) {
-	return DataTable.dom.c('ul').classAdd('pagination').append(buttonEls).get(0);
+	return DataTable.dom
+		.c('ul')
+		.classAdd('pagination')
+		.append(buttonEls)
+		.get(0);
 };
 
 DataTable.ext.renderer.layout.foundation = function (
@@ -79,7 +83,8 @@ DataTable.ext.renderer.layout.foundation = function (
 	items
 ) {
 	var classes = settings.classes.layout;
-	var row = DataTable.dom.c('div')
+	var row = DataTable.dom
+		.c('div')
 		.attr('id', items.id || null)
 		.classAdd(items.className || classes.row)
 		.appendTo(container);
@@ -104,10 +109,13 @@ DataTable.ext.renderer.layout.foundation = function (
 			klass += classes.full;
 		}
 
-		DataTable.dom.c('div')
+		DataTable.dom
+			.c('div')
 			.attr({
 				id: val.id || null,
-				class: val.className ? val.className : classes.cell + ' ' + klass,
+				class: val.className
+					? val.className
+					: classes.cell + ' ' + klass
 			})
 			.css(style)
 			.append(val.contents)

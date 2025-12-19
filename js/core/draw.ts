@@ -87,12 +87,12 @@ export function createTr(
 
 		dom.s(tr).classAdd(trClass);
 
-		/* Use a private property on the node to allow reserve mapping from the node
-		 * to the aoData array for fast look up
-		 */
+		// Use a private property on the node to allow reserve mapping from the node
+		// to the aoData array for fast look up
 		tr._DT_RowIndex = rowIdx;
 
-		/* Special parameters can be given by the data source to be used on the row */
+		// Special parameters can be given by the data source to be used on the
+		// row
 		rowAttributes(settings, row);
 
 		/* Process each column */
@@ -101,7 +101,9 @@ export function createTr(
 			create = trIn && tds && tds[i] ? false : true;
 
 			td = create
-				? (document.createElement(column.cellType) as HTMLTableCellElement)
+				? (document.createElement(
+						column.cellType
+				  ) as HTMLTableCellElement)
 				: tds![i];
 
 			if (!td) {
@@ -117,12 +119,14 @@ export function createTr(
 
 			var display = getRowDisplay(settings, rowIdx);
 
-			// Need to create the HTML if new, or if a rendering function is defined
+			// Need to create the HTML if new, or if a rendering function is
+			// defined
 			if (
 				create ||
 				((column.render || column.data !== i) &&
 					(!util.is.plainObject(column.data) ||
-						(column.data && (column.data as any)._ !== i + '.display')))
+						(column.data &&
+							(column.data as any)._ !== i + '.display')))
 			) {
 				writeCell(td, display[i]);
 			}
@@ -187,8 +191,7 @@ export function rowAttributes(settings: Context, row: Row) {
 				? util.unique(row.addedClasses.concat(a))
 				: a;
 
-			dom
-				.s(tr)
+			dom.s(tr)
 				.classRemove(row.addedClasses.join(' '))
 				.classAdd(data.DT_RowClass);
 		}
@@ -243,8 +246,7 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 			});
 
 			for (i = cellCount, iLen = columns.length; i < iLen; i++) {
-				dom
-					.c('th')
+				dom.c('th')
 					.html(columns[i][titleProp] || '')
 					.appendTo(row);
 			}
@@ -325,8 +327,9 @@ export function headerLayout(
 			rowspan = 1;
 			colspan = 1;
 
-			// Check to see if there is already a cell (row/colspan) covering our target
-			// insert point. If there is, then there is nothing to do.
+			// Check to see if there is already a cell (row/colspan) covering
+			// our target insert point. If there is, then there is nothing to
+			// do.
 			if (structure[row][column] === undefined) {
 				cell = local[row][column].cell;
 
@@ -358,7 +361,9 @@ export function headerLayout(
 					cell: cell,
 					colspan: colspan,
 					rowspan: rowspan,
-					title: titleSpan.count() ? titleSpan.html() : dom.s(cell).html()
+					title: titleSpan.count()
+						? titleSpan.html()
+						: dom.s(cell).html()
 				};
 			}
 		}
@@ -393,8 +398,7 @@ export function drawHead(settings: Context, source: HeaderStructure[]) {
 			let point = layout[row][column];
 
 			if (point) {
-				dom
-					.s(point.cell)
+				dom.s(point.cell)
 					.appendTo(tr)
 					.attr('rowspan', point.rowspan)
 					.attr('colspan', point.colspan);
@@ -477,8 +481,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 				var col = columns[i];
 				var td = data.cells[i];
 
-				dom
-					.s(td)
+				dom.s(td)
 					.classAdd(col.type ? ext.type.className[col.type] : null) // auto class
 					.classAdd(settings.classes.tbody.cell); // all cells
 			}
@@ -522,12 +525,10 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	body.detachChildren().append(rowEls);
 
 	// Empty table needs a specific class
-	dom
-		.s(settings.tableWrapper)
-		.classToggle(
-			'dt-empty-footer',
-			dom.s(settings.tfoot).find('tr').count() === 0
-		);
+	dom.s(settings.tableWrapper).classToggle(
+		'dt-empty-footer',
+		dom.s(settings.tfoot).find('tr').count() === 0
+	);
 
 	// Call all required callback functions for the end of a draw
 	callbackFire(settings, 'draw', 'draw', [settings], true);
@@ -556,7 +557,8 @@ export function reDraw(
 		doFilter = features.searching;
 
 	if (recompute === undefined || recompute === true) {
-		// Resolve any column types that are unknown due to addition or invalidation
+		// Resolve any column types that are unknown due to addition or
+		// invalidation
 		columnTypes(settings);
 
 		if (doSort) {
@@ -597,8 +599,8 @@ function _emptyRow(settings: Context) {
 	let zero = lang.zeroRecords;
 	let dataSrc = dataSource(settings);
 
-	// Make use of the fact that settings.json is only set once the initial data has
-	// been loaded. Show loading when that isn't the case
+	// Make use of the fact that settings.json is only set once the initial data
+	// has been loaded. Show loading when that isn't the case
 	if ((dataSrc === 'ssp' || dataSrc === 'ajax') && !settings.json) {
 		zero = lang.loadingRecords;
 	}
@@ -679,14 +681,17 @@ export function detectHeader(
 				let cell = dom.s(loopCell as HTMLTableCellElement);
 				let cols: any[] = [];
 
-				// Get the col and rowspan attributes from the DOM and sanitise them
+				// Get the col and rowspan attributes from the DOM and sanitise
+				// them
 				colspan = parseInt(cell.attr('colspan') || '1') || 1;
 				rowspan = parseInt(cell.attr('rowspan') || '1') || 1;
-				colspan = !colspan || colspan === 0 || colspan === 1 ? 1 : colspan;
-				rowspan = !rowspan || rowspan === 0 || rowspan === 1 ? 1 : rowspan;
+				colspan =
+					!colspan || colspan === 0 || colspan === 1 ? 1 : colspan;
+				rowspan =
+					!rowspan || rowspan === 0 || rowspan === 1 ? 1 : rowspan;
 
-				// There might be colspan cells already in this row, so shift our target
-				// accordingly
+				// There might be colspan cells already in this row, so shift
+				// our target accordingly
 				shifted = shift(layout, i, column);
 
 				// Cache calculation for unique columns
@@ -696,13 +701,20 @@ export function detectHeader(
 				if (write) {
 					if (isUnique) {
 						// Allow column options to be set from HTML attributes
-						columnOptions(settings, shifted, escapeObject(cell.data()));
+						columnOptions(
+							settings,
+							shifted,
+							escapeObject(cell.data())
+						);
 
-						// Get the width for the column. This can be defined from the
-						// width attribute, style attribute or `columns.width` option
+						// Get the width for the column. This can be defined
+						// from the width attribute, style attribute or
+						// `columns.width` option
 						let columnDef = columns[shifted];
 						let width = cell.attr('width') || null;
-						let t = cell.get(0).style.width.match(/width:\s*(\d+[pxem%]+)/);
+						let t = cell
+							.get(0)
+							.style.width.match(/width:\s*(\d+[pxem%]+)/);
 
 						if (t) {
 							width = t[1];
@@ -711,12 +723,17 @@ export function detectHeader(
 						columnDef.widthOrig = columnDef.width || width;
 
 						if (isHeader) {
-							// Column title handling - can be user set, or read from the DOM
-							// This happens before the render, so the original is still in place
-							if (columnDef.title !== null && !columnDef.autoTitle) {
+							// Column title handling - can be user set, or read
+							// from the DOM This happens before the render, so
+							// the original is still in place
+							if (
+								columnDef.title !== null &&
+								!columnDef.autoTitle
+							) {
 								if (
 									(titleRow === true && i === 0) || // top row
-									(titleRow === false && i === rows.count() - 1) || // bottom row
+									(titleRow === false &&
+										i === rows.count() - 1) || // bottom row
 									titleRow === i || // specific row
 									titleRow === null
 								) {
@@ -725,7 +742,9 @@ export function detectHeader(
 							}
 
 							if (!columnDef.title && isUnique) {
-								columnDef.title = util.string.stripHtml(cell.html());
+								columnDef.title = util.string.stripHtml(
+									cell.html()
+								);
 								columnDef.autoTitle = true;
 							}
 						}
@@ -736,10 +755,11 @@ export function detectHeader(
 							}
 						}
 
-						// Fall back to the aria-label attribute on the table header if no ariaTitle is
-						// provided.
+						// Fall back to the aria-label attribute on the table
+						// header if no ariaTitle is provided.
 						if (!columnDef.ariaTitle) {
-							columnDef.ariaTitle = cell.attr('aria-label') || columnDef.title;
+							columnDef.ariaTitle =
+								cell.attr('aria-label') || columnDef.title;
 						}
 
 						// Column specific class names
@@ -750,8 +770,7 @@ export function detectHeader(
 
 					// Wrap the column title so we can write to it in future
 					if (cell.find('span.dt-column-title').count() === 0) {
-						dom
-							.c('span')
+						dom.c('span')
 							.classAdd('dt-column-title')
 							.append(Array.from(cell.get(0).childNodes))
 							.appendTo(cell);
@@ -760,27 +779,34 @@ export function detectHeader(
 					if (
 						settings.orderIndicators &&
 						isHeader &&
-						cell.filter(':not([data-dt-order=disable])').count() !== 0 &&
-						cell.parent(':not([data-dt-order=disable])').count() !== 0 &&
+						cell.filter(':not([data-dt-order=disable])').count() !==
+							0 &&
+						cell.parent(':not([data-dt-order=disable])').count() !==
+							0 &&
 						cell.find('span.dt-column-order').count() === 0
 					) {
-						dom.c('span').classAdd('dt-column-order').appendTo(cell);
+						dom.c('span')
+							.classAdd('dt-column-order')
+							.appendTo(cell);
 					}
 
-					// We need to wrap the elements in the header in another element to use flexbox
-					// layout for those elements
+					// We need to wrap the elements in the header in another
+					// element to use flexbox layout for those elements
 					var headerFooter = isHeader ? 'header' : 'footer';
 
-					if (cell.find('span.dt-column-' + headerFooter).count() === 0) {
-						dom
-							.c('div')
+					if (
+						cell.find('span.dt-column-' + headerFooter).count() ===
+						0
+					) {
+						dom.c('div')
 							.classAdd('dt-column-' + headerFooter)
 							.append(Array.from(cell.get(0).childNodes))
 							.appendTo(cell);
 					}
 				}
 
-				// If there is col / rowspan, copy the information into the layout grid
+				// If there is col / rowspan, copy the information into the
+				// layout grid
 				for (l = 0; l < colspan; l++) {
 					for (k = 0; k < rowspan; k++) {
 						layout[i + k][shifted + l] = {
@@ -844,7 +870,9 @@ export function recordsTotal(ctx: Context) {
  * @param ctx DataTables settings object
  */
 export function recordsDisplay(ctx: Context) {
-	return dataSource(ctx) == 'ssp' ? ctx.recordsDisplay * 1 : ctx.display.length;
+	return dataSource(ctx) == 'ssp'
+		? ctx.recordsDisplay * 1
+		: ctx.display.length;
 }
 
 /**

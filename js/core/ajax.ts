@@ -53,7 +53,13 @@ export function buildAjax(
 
 		settings.json = json;
 
-		callbackFire(settings, null, 'xhr', [settings, json, settings.jqXHR], true);
+		callbackFire(
+			settings,
+			null,
+			'xhr',
+			[settings, json, settings.jqXHR],
+			true
+		);
 		fn(json);
 	};
 
@@ -253,7 +259,8 @@ export function ajaxUpdateDraw(settings: Context, json: JSON) {
 		settings.drawCount = drawUnique * 1;
 	}
 
-	// No data in returned object, so rather than an array, we show an empty table
+	// No data in returned object, so rather than an array, we show an empty
+	// table
 	if (!data) {
 		data = [];
 	}

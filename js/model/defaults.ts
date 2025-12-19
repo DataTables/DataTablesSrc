@@ -643,7 +643,9 @@ export interface ConfigLanguage {
 		try {
 			const state = (
 				settings.stateDuration === -1 ? sessionStorage : localStorage
-			).getItem('DataTables_' + settings.unique + '_' + location.pathname);
+			).getItem(
+				'DataTables_' + settings.unique + '_' + location.pathname
+			);
 
 			return state ? JSON.parse(state) : {};
 		} catch (e) {
@@ -655,7 +657,10 @@ export interface ConfigLanguage {
 	stateSave: false,
 	stateSaveCallback: function (settings: Context, data: any) {
 		try {
-			(settings.stateDuration === -1 ? sessionStorage : localStorage).setItem(
+			(settings.stateDuration === -1
+				? sessionStorage
+				: localStorage
+			).setItem(
 				'DataTables_' + settings.unique + '_' + location.pathname,
 				JSON.stringify(data)
 			);

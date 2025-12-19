@@ -92,9 +92,9 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 	// - note that using the `DT` namespace will allow the event to be removed
 	// automatically on destroy, while the `dt` namespaced event is the one we
 	// are listening for
-	dom
-		.s(settings.table)
-		.on('order.dt.DT column-visibility.dt.DT', function (e, ctx, column) {
+	dom.s(settings.table).on(
+		'order.dt.DT column-visibility.dt.DT',
+		function (e, ctx, column) {
 			if (settings !== ctx) {
 				// need to check if this is the host
 				return; // table, not a nested one
@@ -113,7 +113,10 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 			// performance. It could be a separate event handler, but this is a
 			// balance between code reuse / size and performance console.log(e,
 			// e.name, column, orderedColumns, orderedColumns.includes(column))
-			if (e.type === 'column-visibility' && !orderedColumns.includes(column)) {
+			if (
+				e.type === 'column-visibility' &&
+				!orderedColumns.includes(column)
+			) {
 				return;
 			}
 
@@ -128,10 +131,12 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 			var tabIndex = settings.tabIndex;
 			var canOrder = ctx.orderHandler && orderable;
 
-			cell
-				.classRemove(orderClasses.isAsc + ' ' + orderClasses.isDesc)
+			cell.classRemove(orderClasses.isAsc + ' ' + orderClasses.isDesc)
 				.classToggle(orderClasses.none, !orderable)
-				.classToggle(orderClasses.canAsc, canOrder && sortDirs.includes('asc'))
+				.classToggle(
+					orderClasses.canAsc,
+					canOrder && sortDirs.includes('asc')
+				)
 				.classToggle(
 					orderClasses.canDesc,
 					canOrder && sortDirs.includes('desc')
@@ -180,9 +185,12 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 					firstSort.dir === 'asc' ? 'ascending' : 'descending'
 				);
 
-				// Determine if the next click will remove sorting or change the sort
+				// Determine if the next click will remove sorting or change the
+				// sort
 				ariaType =
-					sortOrder && !sortOrder[firstSort.index + 1] ? 'Remove' : 'Reverse';
+					sortOrder && !sortOrder[firstSort.index + 1]
+						? 'Remove'
+						: 'Reverse';
 			}
 			else {
 				cell.removeAttr('aria-sort');
@@ -197,7 +205,8 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 					.attr(
 						'aria-label',
 						orderable
-							? col.ariaTitle + ctx.api.i18n('aria.orderable' + ariaType)
+							? col.ariaTitle +
+									ctx.api.i18n('aria.orderable' + ariaType)
 							: col.ariaTitle
 					);
 
@@ -205,7 +214,8 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 					orderSpan.attr('tabindex', tabIndex);
 				}
 			}
-		});
+		}
+	);
 };
 
 export const layout: IRendererLayout = (settings, container, items) => {
@@ -234,11 +244,12 @@ export const layout: IRendererLayout = (settings, container, items) => {
 			klass += classes.full;
 		}
 
-		dom
-			.c('div')
+		dom.c('div')
 			.attr({
 				id: val.id || null,
-				class: val.className ? val.className : classes.cell + ' ' + klass,
+				class: val.className
+					? val.className
+					: classes.cell + ' ' + klass
 			})
 			.append(val.contents)
 			.appendTo(row);
@@ -279,7 +290,7 @@ export const pagingButton: IRendererPagingButton = (
 
 	return {
 		display: btn,
-		clicker: btn,
+		clicker: btn
 	};
 };
 

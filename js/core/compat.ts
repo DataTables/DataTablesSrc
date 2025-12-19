@@ -95,7 +95,9 @@ export function compatOpts(init: Record<string, any>) {
 	// Objects for ordering
 	if (typeof init.ordering === 'object') {
 		init.orderIndicators =
-			init.ordering.indicators !== undefined ? init.ordering.indicators : true;
+			init.ordering.indicators !== undefined
+				? init.ordering.indicators
+				: true;
 		init.orderHandler =
 			init.ordering.handler !== undefined ? init.ordering.handler : true;
 		init.ordering = true;
@@ -157,7 +159,7 @@ export function compatCols(init: any) {
 	if (typeof dataSort === 'number') {
 		init.orderData = [dataSort];
 	}
-	if (typeof orderData === 'number' ) {
+	if (typeof orderData === 'number') {
 		init.orderData = [orderData];
 	}
 

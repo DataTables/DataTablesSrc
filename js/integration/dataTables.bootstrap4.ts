@@ -6,20 +6,20 @@ import DataTable from '../dataTable';
 
 /* Set the defaults for DataTables initialisation */
 DataTable.util.object.assignDeep(DataTable.defaults, {
-	renderer: 'bootstrap',
+	renderer: 'bootstrap'
 });
 
 /* Default class modification */
 DataTable.util.object.assignDeep(DataTable.ext.classes, {
 	container: 'dt-container dt-bootstrap4',
 	search: {
-		input: 'form-control form-control-sm',
+		input: 'form-control form-control-sm'
 	},
 	length: {
-		select: 'custom-select custom-select-sm form-control form-control-sm',
+		select: 'custom-select custom-select-sm form-control form-control-sm'
 	},
 	processing: {
-		container: 'dt-processing card',
+		container: 'dt-processing card'
 	},
 	layout: {
 		row: 'row justify-content-between',
@@ -27,8 +27,8 @@ DataTable.util.object.assignDeep(DataTable.ext.classes, {
 		tableCell: 'col-12',
 		start: 'dt-layout-start col-md-auto mr-auto',
 		end: 'dt-layout-end col-md-auto ml-auto',
-		full: 'dt-layout-full col-md',
-	},
+		full: 'dt-layout-full col-md'
+	}
 });
 
 /* Bootstrap paging button renderer */
@@ -59,7 +59,7 @@ DataTable.ext.renderer.pagingButton.bootstrap = function (
 
 	return {
 		display: li.get(0),
-		clicker: a.get(0),
+		clicker: a.get(0)
 	};
 };
 
@@ -67,5 +67,9 @@ DataTable.ext.renderer.pagingContainer.bootstrap = function (
 	settings,
 	buttonEls
 ) {
-	return DataTable.dom.c('ul').classAdd('pagination').append(buttonEls).get(0);
+	return DataTable.dom
+		.c('ul')
+		.classAdd('pagination')
+		.append(buttonEls)
+		.get(0);
 };

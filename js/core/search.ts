@@ -18,7 +18,8 @@ const __filter_div_textContent = __filter_div.textContent !== undefined;
 export function filterComplete(settings: Context, input: SearchOptions) {
 	let columnsSearch = settings.preSearchCols;
 
-	// In server-side processing all filtering is done by the server, so no point hanging around here
+	// In server-side processing all filtering is done by the server, so no
+	// point hanging around here
 	if (dataSource(settings) != 'ssp') {
 		// Check if any of the rows were invalidated
 		filterData(settings);
@@ -133,10 +134,13 @@ function filter(
 
 		if (row) {
 			let data =
-				column === undefined ? row.searchRowCache : row.searchCellCache![column];
+				column === undefined
+					? row.searchRowCache
+					: row.searchCellCache![column];
 
 			if (
-				(searchFunc && searchFunc(data, row.data, searchRows[i], column)) ||
+				(searchFunc &&
+					searchFunc(data, row.data, searchRows[i], column)) ||
 				(rpSearch && data && rpSearch.test(data))
 			) {
 				matched.push(searchRows[i]);
@@ -196,7 +200,9 @@ function filterCreateSearch(
 		 *
 		 * ^(?=.*?\bone\b)(?=.*?\btwo three\b)(?=.*?\bfour\b).*$
 		 */
-		let parts = search.match(/!?["\u201C][^"\u201D]+["\u201D]|[^ ]+/g) || [''];
+		let parts = search.match(/!?["\u201C][^"\u201D]+["\u201D]|[^ ]+/g) || [
+			''
+		];
 		let a = parts.map(function (word: string) {
 			let negative = false;
 			let m;
@@ -247,7 +253,8 @@ function filterCreateSearch(
 	return new RegExp(search, options.caseInsensitive ? 'i' : '');
 }
 
-// Update the filtering data for each row if needed (by invalidation or first run)
+// Update the filtering data for each row if needed (by invalidation or first
+// run)
 function filterData(settings: Context) {
 	let columns = settings.columns;
 	let data = settings.data;
@@ -287,7 +294,8 @@ function filterData(settings: Context) {
 				// If it looks like there is an HTML entity in the string,
 				// attempt to decode it so sorting works as expected. Note that
 				// we could use a single line of jQuery to do this, but the DOM
-				// method used here is much faster https://jsperf.com/html-decode
+				// method used here is much faster
+				// https://jsperf.com/html-decode
 				if (cellData.indexOf && cellData.indexOf('&') !== -1) {
 					__filter_div.innerHTML = cellData;
 					cellData = __filter_div_textContent

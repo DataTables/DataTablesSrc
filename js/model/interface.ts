@@ -12,10 +12,10 @@ import { State } from './state';
  * Execution scope for the callbacks
  */
 export interface DataTableDom extends Dom<HTMLTableElement> {
-    /**
-     * Get a DataTable API instance for the table
-     */
-    api(): Api
+	/**
+	 * Get a DataTable API instance for the table
+	 */
+	api(): Api;
 }
 
 export interface Feature {
@@ -122,7 +122,6 @@ export interface OrderFixed {
 	post?: any[];
 }
 
-
 export interface FunctionColumnData {
 	(row: any, type: 'set', s: any, meta: CellMetaSettings): void;
 	(
@@ -192,7 +191,7 @@ export interface AjaxData {
 export interface AjaxDataSearch {
 	value: string;
 	regex: boolean;
-	fixed: {name: string, term: string}[];
+	fixed: { name: string; term: string }[];
 }
 
 export interface AjaxDataOrder {

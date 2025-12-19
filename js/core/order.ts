@@ -1,17 +1,21 @@
 import { bindAction, callbackFire, dataSource } from '../api/support';
 import dom from '../dom';
 import ext from '../ext/index';
-import { Order, OrderArray, OrderCombined, OrderIdx, OrderName, OrderState } from '../model/interface';
 import {
-	Context,
-	ISortItem,
-} from '../model/settings';
+	Order,
+	OrderArray,
+	OrderCombined,
+	OrderIdx,
+	OrderName,
+	OrderState
+} from '../model/interface';
+import { Context, ISortItem } from '../model/settings';
 import { pluck } from '../util/array';
 import * as is from '../util/is';
 import {
 	columnIndexToVisible,
 	columnTypes,
-	columnsFromHeader,
+	columnsFromHeader
 } from './columns';
 import { getCellData } from './data';
 import { reDraw } from './draw';
@@ -257,9 +261,9 @@ export function sortFlatten(settings: Context) {
 				type = aoColumns[colIdx].type || 'string';
 
 				if (nestedSort[i]._idx === undefined) {
-					nestedSort[i]._idx = aoColumns[colIdx].orderSequence!.indexOf(
-						nestedSort[i][1]
-					);
+					nestedSort[i]._idx = aoColumns[
+						colIdx
+					].orderSequence!.indexOf(nestedSort[i][1]);
 				}
 
 				if (nestedSort[i][1]) {
@@ -270,7 +274,7 @@ export function sortFlatten(settings: Context) {
 						index: nestedSort[i]._idx,
 						type: type,
 						formatter: extSort[type + '-pre'],
-						sorter: extSort[type + '-' + nestedSort[i][1]],
+						sorter: extSort[type + '-' + nestedSort[i][1]]
 					});
 				}
 			}
@@ -313,8 +317,8 @@ export function sort(ctx: Context, col?: number, dir?: string) {
 				index: 0,
 				type: srcCol.type!,
 				formatter: extSort[srcCol.type + '-pre'],
-				sorter: extSort[srcCol.type + '-' + dir],
-			},
+				sorter: extSort[srcCol.type + '-' + dir]
+			}
 		];
 		displayMaster = displayMaster.slice();
 	}
@@ -532,18 +536,18 @@ export function sortingClasses(settings: Context) {
 			colIdx = oldSort[i].src;
 
 			// Remove column sorting
-			dom
-				.s(pluck(settings.data, 'cells', colIdx))
-				.classRemove(sortClass + (i < 2 ? i + 1 : 3));
+			dom.s(pluck(settings.data, 'cells', colIdx)).classRemove(
+				sortClass + (i < 2 ? i + 1 : 3)
+			);
 		}
 
 		// Add new column sorting
 		for (i = 0, iLen = sortFlat.length; i < iLen; i++) {
 			colIdx = sortFlat[i].src;
 
-			dom
-				.s(pluck(settings.data, 'cells', colIdx))
-				.classAdd(sortClass + (i < 2 ? i + 1 : 3));
+			dom.s(pluck(settings.data, 'cells', colIdx)).classAdd(
+				sortClass + (i < 2 ? i + 1 : 3)
+			);
 		}
 	}
 

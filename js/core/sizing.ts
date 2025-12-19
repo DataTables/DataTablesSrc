@@ -104,7 +104,7 @@ export function calculateColumnWidths(settings: Context) {
 						margin: '0',
 						padding: '0',
 						border: '0',
-						height: '1px',
+						height: '1px'
 					})
 				);
 			}
@@ -173,7 +173,7 @@ export function calculateColumnWidths(settings: Context) {
 						left: '0',
 						height: '1px',
 						right: '0',
-						overflow: 'hidden',
+						overflow: 'hidden'
 				  }
 				: {}
 		)
@@ -204,7 +204,8 @@ export function calculateColumnWidths(settings: Context) {
 	var bodyCells = tmpTable.find('tbody tr').eq(0).children();
 
 	for (i = 0; i < visibleColumns.length; i++) {
-		// Use getBounding for sub-pixel accuracy, which we then want to round up!
+		// Use getBounding for sub-pixel accuracy, which we then want to round
+		// up!
 		var bounding = bodyCells.get(i).getBoundingClientRect().width;
 
 		// Total is tracked to remove any sub-pixel errors as the outerWidth
@@ -252,7 +253,7 @@ export function calculateColumnWidths(settings: Context) {
 				.c('div')
 				.css({
 					width: '100%',
-					height: '0',
+					height: '0'
 				})
 				.classAdd('dt-autosize')
 				.appendTo(settings.tableWrapper);
@@ -336,7 +337,7 @@ function getWideStrings(settings: Context, colIdx: number) {
 
 			collection.push({
 				str: cellString,
-				len: noHtml.length,
+				len: noHtml.length
 			});
 
 			allStrings.push(noHtml);

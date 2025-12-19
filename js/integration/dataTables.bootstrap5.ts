@@ -68,5 +68,9 @@ DataTable.ext.renderer.pagingContainer.bootstrap = function (
 	settings,
 	buttonEls
 ) {
-	return DataTable.dom.c('ul').classAdd('pagination').append(buttonEls).get(0);
+	return DataTable.dom
+		.c('ul')
+		.classAdd('pagination')
+		.append(buttonEls)
+		.get(0);
 };

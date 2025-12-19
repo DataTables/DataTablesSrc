@@ -1,4 +1,3 @@
-
 import { range } from '../util/array';
 
 /**
@@ -104,5 +103,5 @@ export default {
 	_numbers: pagingNumbers,
 
 	// Number of number buttons - legacy, use `numbers` option for paging feature
-	numbers_length: 7,
+	numbers_length: 7
 };

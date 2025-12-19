@@ -102,7 +102,11 @@ export interface DataType {
 		asc?: (a: any, b: any) => number;
 		desc?: (a: any, b: any) => number;
 	};
-	render?: (data: any, type: string, row: any) => string | number | HTMLElement;
+	render?: (
+		data: any,
+		type: string,
+		row: any
+	) => string | number | HTMLElement;
 	search?: (data: any) => string;
 }
 
@@ -304,7 +308,12 @@ export interface ApiScopeable<T, S> {
 	 *
 	 * @returns Resulting internationalised string.
 	 */
-	i18n(this: S, token: string, def: object | string, numeric?: number): string;
+	i18n(
+		this: S,
+		token: string,
+		def: object | string,
+		numeric?: number
+	): string;
 
 	/**
 	 * Determine if an API result set contains a given value.
@@ -665,7 +674,9 @@ export interface ApiScopeable<T, S> {
 	 * to the fn callback.
 	 * @returns Result from the final call to the fn callback function.
 	 */
-	reduceRight(fn: (current: T, value: T, index: number, dt: Api<any>) => T): T;
+	reduceRight(
+		fn: (current: T, value: T, index: number, dt: Api<any>) => T
+	): T;
 	reduceRight(
 		fn: (current: T, value: T, index: number, dt: Api<any>) => T,
 		initialValue: T
@@ -953,7 +964,11 @@ export interface ApiSearch<T> extends Api<T> {
 	 * performed
 	 * @returns DataTables API instance
 	 */
-	(this: Api, input: SearchInput<T>, options: Partial<SearchOptions>): Api<any>;
+	(
+		this: Api,
+		input: SearchInput<T>,
+		options: Partial<SearchOptions>
+	): Api<any>;
 
 	/**
 	 * Get a list of the names of searches applied to the table.

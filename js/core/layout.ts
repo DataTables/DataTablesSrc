@@ -61,8 +61,8 @@ export function createLayout(ctx: Context) {
 			full: {
 				contents: [featureHtmlTable(ctx)],
 				items: [],
-				table: true,
-			},
+				table: true
+			}
 		});
 
 		// Everything below
@@ -115,7 +115,7 @@ function layoutItems(
 			util.object.each(items as any, (key, val) => {
 				rowCell.items.push({
 					feature: key,
-					opts: val,
+					opts: val
 				});
 			});
 		}
@@ -150,12 +150,13 @@ function getRow(
 			// full is on its own, but start and end share a row
 			if (
 				(align === 'full' && row.full) ||
-				((align === 'start' || align === 'end') && (row.start || row.end))
+				((align === 'start' || align === 'end') &&
+					(row.start || row.end))
 			) {
 				if (!row[align]) {
 					row[align] = {
 						contents: [],
-						items: [],
+						items: []
 					};
 				}
 
@@ -166,12 +167,12 @@ function getRow(
 
 	// If we get this far, then there was no match, create a new row
 	row = {
-		rowNum: rowNum,
+		rowNum: rowNum
 	};
 
 	row[align] = {
 		contents: [],
-		items: [],
+		items: []
 	};
 
 	rows.push(row);

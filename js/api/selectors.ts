@@ -93,7 +93,11 @@ export function selectorOpts(opts?: ApiSelectorModifier): ApiSelectorModifier {
 export function selectorFirst<R extends ApiType>(old: ApiType) {
 	// Need to specify the target class as singular since `old` has the context
 	// of the plural
-	var inst = old.inst<R>(old.context[0], null, old._newClass.replace(/s$/, ''));
+	var inst = old.inst<R>(
+		old.context[0],
+		null,
+		old._newClass.replace(/s$/, '')
+	);
 
 	// Use a push rather than passing to the constructor, since it will
 	// merge arrays down automatically, which isn't what is wanted here
@@ -123,7 +127,7 @@ export function selectorRowIndexes(
 		displayMaster = settings.displayMaster;
 
 	var search = opts.search, // none, applied, removed
-		order = opts.order, // applied, current, index (original - compatibility with 1.9)
+		order = opts.order, // applied, current, index (original)
 		page = opts.page; // all, current
 
 	if (dataSource(settings) == 'ssp') {
@@ -135,9 +139,9 @@ export function selectorRowIndexes(
 	}
 
 	if (page == 'current') {
-		// Current page implies that order=current and filter=applied, since it is
-		// fairly senseless otherwise, regardless of what order and search actually
-		// are
+		// Current page implies that order=current and filter=applied, since it
+		// is fairly senseless otherwise, regardless of what order and search
+		// actually are
 		for (
 			i = settings.displayStart, iLen = displayEnd(settings);
 			i < iLen;
@@ -162,7 +166,12 @@ export function selectorRowIndexes(
 			}
 
 			displayMaster.forEach(function (item) {
-				if (!Object.prototype.hasOwnProperty.call(displayFilteredMap, item)) {
+				if (
+					!Object.prototype.hasOwnProperty.call(
+						displayFilteredMap,
+						item
+					)
+				) {
 					a.push(item);
 				}
 			});

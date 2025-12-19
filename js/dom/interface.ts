@@ -1,4 +1,3 @@
-
 export interface DomEvent extends Event {
 	namespace: string;
 	currentTarget: Element;

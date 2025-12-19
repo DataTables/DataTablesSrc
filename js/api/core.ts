@@ -180,8 +180,7 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 			.find('th, td')
 			.classRemove(Object.values(ext.type.className).join(' '));
 
-		dom
-			.s(thead)
+		dom.s(thead)
 			.find('th, td')
 			.classRemove(
 				orderClasses.none +

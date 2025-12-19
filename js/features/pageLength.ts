@@ -132,8 +132,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 
 		// Can't use `select` variable as user might provide their own and the
 		// reference is broken by the use of outerHTML
-		div
-			.find('select')
+		div.find('select')
 			.attr('id', 'dt-length-' + __lengthCounter)
 			.val(settings.pageLength)
 			.on('change.DT', function () {

@@ -46,7 +46,7 @@ register<Partial<IFeatureInfoOptions>>(
 				empty: lang.infoEmpty,
 				postfix: lang.infoPostFix,
 				search: lang.infoFiltered,
-				text: lang.info,
+				text: lang.info
 			},
 			optsIn
 		);
@@ -62,7 +62,7 @@ register<Partial<IFeatureInfoOptions>>(
 			n.attr({
 				'aria-live': 'polite',
 				id: tid + '_info',
-				role: 'status',
+				role: 'status'
 			});
 
 			// Table is described by our info div

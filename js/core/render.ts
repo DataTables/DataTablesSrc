@@ -5,7 +5,7 @@ import {
 	IRendererLayout,
 	IRendererPagingButton,
 	IRendererPagingContainer,
-	IRendererTypes,
+	IRendererTypes
 } from '../ext/renderer';
 import { Context } from '../model/settings';
 import * as is from '../util/is';

@@ -61,7 +61,7 @@ export function featureHtmlTable(settings: Context) {
 					overflow: 'hidden',
 					position: 'relative',
 					border: '0',
-					width: scrollX ? size(scrollX) : '100%',
+					width: scrollX ? size(scrollX) : '100%'
 				})
 				.append(
 					dom
@@ -69,7 +69,7 @@ export function featureHtmlTable(settings: Context) {
 						.classAdd(classes.header.inner)
 						.css({
 							'box-sizing': 'content-box',
-							width: scroll.xInner || '100%',
+							width: scroll.xInner || '100%'
 						})
 						.append(
 							headerClone
@@ -87,7 +87,7 @@ export function featureHtmlTable(settings: Context) {
 				.css({
 					position: 'relative',
 					overflow: 'auto',
-					width: size(scrollX),
+					width: size(scrollX)
 				})
 				.append(table)
 		);
@@ -100,7 +100,7 @@ export function featureHtmlTable(settings: Context) {
 				.css({
 					overflow: 'hidden',
 					border: '0',
-					width: scrollX ? size(scrollX) : '100%',
+					width: scrollX ? size(scrollX) : '100%'
 				})
 				.append(
 					dom
@@ -110,7 +110,9 @@ export function featureHtmlTable(settings: Context) {
 							footerClone
 								.removeAttr('id')
 								.css('margin-left', '0')
-								.append(captionSide === 'bottom' ? caption : null)
+								.append(
+									captionSide === 'bottom' ? caption : null
+								)
 								.append(table.children('tfoot'))
 						)
 				)
@@ -265,7 +267,7 @@ export function scrollDraw(settings: Context) {
 				.mapTo(function (cell, idx) {
 					return {
 						idx: visibleToColumnIndex(settings, idx)!,
-						width: dom.s(cell).width('outer'),
+						width: dom.s(cell).width('outer')
 					};
 				});
 
@@ -298,8 +300,7 @@ export function scrollDraw(settings: Context) {
 	// the content of the cell so that the width applied to the header and body
 	// both match, but we want to hide it completely.
 	headerCopy.find('th, td').each(function (el) {
-		dom
-			.c('div')
+		dom.c('div')
 			.classAdd('dt-scroll-sizing')
 			.append(Array.from(el.childNodes))
 			.appendTo(el);
@@ -307,8 +308,7 @@ export function scrollDraw(settings: Context) {
 
 	if (footerCopy) {
 		footerCopy.find('th, td').each(function (el) {
-			dom
-				.c('div')
+			dom.c('div')
 				.classAdd('dt-scroll-sizing')
 				.append(Array.from(el.childNodes))
 				.appendTo(el);

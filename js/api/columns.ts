@@ -91,7 +91,10 @@ function columnHeader(settings: Context, column: number, row?: number) {
 		for (var i = 0; i < header.length; i++) {
 			if (
 				header[i][column].unique &&
-				dom.s(header[i][column].cell).find('span.dt-column-title').text()
+				dom
+					.s(header[i][column].cell)
+					.find('span.dt-column-title')
+					.text()
 			) {
 				target = i;
 			}
@@ -194,7 +197,10 @@ function selectColumns(
 
 						// Selector
 						if (match && match[1]) {
-							return dom.s(nodes[mapIdx]).filter(match[1]).count() > 0
+							return dom
+								.s(nodes[mapIdx])
+								.filter(match[1])
+								.count() > 0
 								? mapIdx
 								: null;
 						}
@@ -209,7 +215,8 @@ function selectColumns(
 						names = pluck(columns, 'name');
 					}
 
-					// match by name. `names` is column index complete and in order
+					// match by name. `names` is column index complete and in
+					// order
 					return names.map(function (name, i) {
 						return match && name === match[1] ? i : null;
 					});
@@ -394,7 +401,8 @@ registerPlural<ApiColumnsMethods<any>['footer']>(
 					return null;
 				}
 
-				return settings.footer[row !== undefined ? row : 0][column].cell;
+				return settings.footer[row !== undefined ? row : 0][column]
+					.cell;
 			},
 			true
 		);
@@ -539,9 +547,9 @@ registerPlural<ApiColumnsMethods<any>['types']>(
 				var colObj = settings.columns[column];
 				var type = colObj.type;
 
-				// If the type was invalidated, then resolve it. This actually does
-				// all columns at the moment. Would only happen once if getting all
-				// column's data types.
+				// If the type was invalidated, then resolve it. This actually
+				// does all columns at the moment. Would only happen once if
+				// getting all column's data types.
 				if (!type) {
 					columnTypes(settings);
 
@@ -584,11 +592,11 @@ registerPlural<ApiColumnsVisibleOverload>(
 				drawHead(settings, settings.header);
 				drawHead(settings, settings.footer);
 
-				// Update colspan for no records display. Child rows and extensions will use their own
-				// listeners to do this - only need to update the empty table item here
+				// Update colspan for no records display. Child rows and
+				// extensions will use their own listeners to do this - only
+				// need to update the empty table item here
 				if (!settings.display.length) {
-					dom
-						.s(settings.tbody)
+					dom.s(settings.tbody)
 						.find('td[colspan]')
 						.attr('colspan', visibleColumns(settings));
 				}
@@ -622,8 +630,8 @@ registerPlural<ApiColumnsMethods<any>['widths']>(
 	'column().width()',
 	function () {
 		// Injects a fake row into the table for just a moment so the widths can
-		// be read, regardless of colspan in the header and rows being present in
-		// the body
+		// be read, regardless of colspan in the header and rows being present
+		// in the body
 		var columns = this.columns(':visible').count();
 		var row = dom
 			.c('tr')
@@ -669,8 +677,8 @@ register<ApiColumns<any>['adjust']>('columns.adjust()', function () {
 	return this.iterator(
 		'table',
 		function (settings) {
-			// Force a column sizing to happen with a manual call - otherwise it can skip
-			// if the size hasn't changed
+			// Force a column sizing to happen with a manual call - otherwise it
+			// can skip if the size hasn't changed
 			settings.containerWidth = -1;
 
 			adjustColumnSizing(settings);

@@ -83,8 +83,8 @@ function __mldObj(d: string, format?: string | null, locale?: string) {
 	return dt;
 }
 
-// Wrapper for date, datetime and time which all operate the same way with the exception of
-// the output string for auto locale support
+// Wrapper for date, datetime and time which all operate the same way with the
+// exception of the output string for auto locale support
 function __mlHelper(localeString: string) {
 	return function (
 		from?: string | null,
@@ -112,18 +112,21 @@ function __mlHelper(localeString: string) {
 
 		var typeName = 'datetime' + (to ? '-' + to : '');
 
-		// Add type detection and sorting specific to this date format - we need to be able to identify
-		// date type columns as such, rather than as numbers in extensions. Hence the need for this.
+		// Add type detection and sorting specific to this date format - we need
+		// to be able to identify date type columns as such, rather than as
+		// numbers in extensions. Hence the need for this.
 		if (!typeStore.order[typeName + '-pre']) {
 			registerType(typeName, {
 				detect: function (d) {
-					// The renderer will give the value to type detect as the type!
+					// The renderer will give the value to type detect as the
+					// type!
 					return d === typeName ? typeName : false;
 				},
 				order: {
 					pre: function (d) {
-						// The renderer gives us Moment, Luxon or Date objects for the sorting, all of which have a
-						// `valueOf` which gives milliseconds epoch
+						// The renderer gives us Moment, Luxon or Date objects
+						// for the sorting, all of which have a `valueOf` which
+						// gives milliseconds epoch
 						return d.valueOf();
 					}
 				},
@@ -135,9 +138,9 @@ function __mlHelper(localeString: string) {
 			// Allow for a default value
 			if (d === null || d === undefined) {
 				if (def === '--now') {
-					// We treat everything as UTC further down, so no changes are
-					// made, as such need to get the local date / time as if it were
-					// UTC
+					// We treat everything as UTC further down, so no changes
+					// are made, as such need to get the local date / time as if
+					// it were UTC
 					var local = new Date();
 					d = new Date(
 						Date.UTC(
@@ -166,8 +169,9 @@ function __mlHelper(localeString: string) {
 					: __mldObj('0000-01-01 00:00:00', null, locale);
 			}
 
-			// Shortcut. If `from` and `to` are the same, we are using the renderer to
-			// format for ordering, not display - its already in the display format.
+			// Shortcut. If `from` and `to` are the same, we are using the
+			// renderer to format for ordering, not display - its already in the
+			// display format.
 			if (
 				to !== null &&
 				from === to &&
@@ -224,7 +228,8 @@ if (window.Intl !== undefined) {
 	}
 }
 
-// Formatted date time detection - use by declaring the formats you are going to use
+// Formatted date time detection - use by declaring the formats you are going to
+// use
 export function datetime(format: string, locale?: string) {
 	var typeName = 'datetime-' + format;
 
@@ -303,7 +308,8 @@ export default {
 				var absPart = Math.abs(flo);
 				var intPart = parseInt(flo, 10);
 				var floatPart = precision
-					? decimal + (absPart - intPart).toFixed(precision).substring(2)
+					? decimal +
+					  (absPart - intPart).toFixed(precision).substring(2)
 					: '';
 
 				// If zero, then can't have a negative prefix
@@ -314,7 +320,9 @@ export default {
 				return (
 					negative +
 					(prefix || '') +
-					intPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, thousands) +
+					intPart
+						.toString()
+						.replace(/\B(?=(\d{3})+(?!\d))/g, thousands) +
 					floatPart +
 					(postfix || '')
 				);
