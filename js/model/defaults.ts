@@ -25,7 +25,6 @@ import {
 } from './interface';
 import { defaults as searchDefaults, SearchOptions } from './search';
 import { Context, DtAjaxOptions } from './settings';
-
 export interface Defaults {
 	/**
 	 * Load data for the table's content from an Ajax source.
@@ -44,9 +43,20 @@ export interface Defaults {
 	caption: string;
 
 	/**
+	 * Classes that DataTables assigns to the various components and features
+	 * that it adds to the HTML table. See also `DataTable.ext.classes`.
+	 */
+	classes: Partial<typeof classes>;
+
+	/**
 	 * Defaults for column configuration options
 	 */
 	column: ColumnDefaults;
+
+	/**
+	 * Assign a column definition to one or more columns.
+	 */
+	columnDefs: ConfigColumnDefs[] | null;
 
 	/**
 	 * Data to use as the display data for the table.
@@ -54,9 +64,9 @@ export interface Defaults {
 	columns: ColumnDefaults[] | null;
 
 	/**
-	 * Assign a column definition to one or more columns.
+	 * Callback for whenever a TR element is created for the table's body.
 	 */
-	columnDefs: ConfigColumnDefs[] | null;
+	createdRow: FunctionCreateRow | null;
 
 	/**
 	 * Data to use as the display data for the table.
@@ -93,11 +103,47 @@ export interface Defaults {
 	dom: string | null;
 
 	/**
+	 * Function that is called every time DataTables performs a draw.
+	 *
+	 * @deprecated Use `on.draw` or `draw` event
+	 */
+	drawCallback: FunctionDrawCallback | null;
+
+	/**
+	 * Footer display callback function.
+	 */
+	footerCallback: FunctionFooterCallback | null;
+
+	/**
+	 * Number formatting callback function.
+	 */
+	formatNumber: FunctionFormatNumber | null;
+
+	/**
+	 * Header display callback function.
+	 */
+	headerCallback: FunctionHeaderCallback | null;
+
+	/**
 	 * Feature control table information display field.
 	 *
 	 * @deprecated Use the `paging` feature options
 	 */
 	info: boolean;
+
+	/**
+	 * Table summary information display callback.
+	 *
+	 * @deprecated Use the `callback` option for the `info` feature
+	 */
+	infoCallback: FunctionInfoCallback | null;
+
+	/**
+	 * Initialisation complete callback.
+	 *
+	 * @deprecated Use `init` event
+	 */
+	initComplete: FunctionInitComplete | null;
 
 	/**
 	 * Language configuration object
@@ -132,6 +178,11 @@ export interface Defaults {
 	};
 
 	/**
+	 * Initial order (sort) to apply to the table.
+	 */
+	order: Order | Order[];
+
+	/**
 	 * Control which cell the order event handler will be applied to in a
 	 * column.
 	 *
@@ -150,11 +201,6 @@ export interface Defaults {
 	orderDescReverse: boolean;
 
 	/**
-	 * Initial order (sort) to apply to the table.
-	 */
-	order: Order | Order[];
-
-	/**
 	 * Ordering to always be applied to the table.
 	 */
 	orderFixed:
@@ -164,6 +210,11 @@ export interface Defaults {
 				pre: Order | Order[];
 				post: Order | Order[];
 		  };
+
+	/**
+	 * Multiple column ordering ability control.
+	 */
+	orderMulti: boolean;
 
 	/**
 	 * Feature control ordering (sorting) abilities in DataTables.
@@ -185,11 +236,6 @@ export interface Defaults {
 		  };
 
 	/**
-	 * Multiple column ordering ability control.
-	 */
-	orderMulti: boolean;
-
-	/**
 	 * Change the initial page length (number of rows per page).
 	 */
 	pageLength: number;
@@ -207,6 +253,11 @@ export interface Defaults {
 	pagingType: string;
 
 	/**
+	 * Pre-draw callback.
+	 */
+	preDrawCallback: FunctionPreDrawCallback | null;
+
+	/**
 	 * Feature control the processing indicator.
 	 */
 	processing: boolean;
@@ -220,6 +271,11 @@ export interface Defaults {
 	 * Retrieve an existing DataTables instance.
 	 */
 	retrieve: boolean;
+
+	/**
+	 * Row draw callback.
+	 */
+	rowCallback: FunctionRowCallback | null;
 
 	/**
 	 * Data property name that DataTables will use to set <tr> element DOM IDs.
@@ -282,67 +338,6 @@ export interface Defaults {
 	stateDuration: number;
 
 	/**
-	 * State saving - restore table state on page reload.
-	 */
-	stateSave: boolean;
-
-	/**
-	 * Tab index control for keyboard navigation.
-	 */
-	tabIndex: number;
-
-	/**
-	 * Callback for whenever a TR element is created for the table's body.
-	 */
-	createdRow: FunctionCreateRow | null;
-
-	/**
-	 * Function that is called every time DataTables performs a draw.
-	 *
-	 * @deprecated Use `on.draw` or `draw` event
-	 */
-	drawCallback: FunctionDrawCallback | null;
-
-	/**
-	 * Footer display callback function.
-	 */
-	footerCallback: FunctionFooterCallback | null;
-
-	/**
-	 * Number formatting callback function.
-	 */
-	formatNumber: FunctionFormatNumber | null;
-
-	/**
-	 * Header display callback function.
-	 */
-	headerCallback: FunctionHeaderCallback | null;
-
-	/**
-	 * Table summary information display callback.
-	 *
-	 * @deprecated Use the `callback` option for the `info` feature
-	 */
-	infoCallback: FunctionInfoCallback | null;
-
-	/**
-	 * Initialisation complete callback.
-	 *
-	 * @deprecated Use `init` event
-	 */
-	initComplete: FunctionInitComplete | null;
-
-	/**
-	 * Pre-draw callback.
-	 */
-	preDrawCallback: FunctionPreDrawCallback | null;
-
-	/**
-	 * Row draw callback.
-	 */
-	rowCallback: FunctionRowCallback | null;
-
-	/**
 	 * Callback that defines where and how a saved state should be loaded.
 	 */
 	stateLoadCallback: FunctionStateLoadCallback | null;
@@ -362,6 +357,11 @@ export interface Defaults {
 	stateLoadParams: FunctionStateLoadParams | null;
 
 	/**
+	 * State saving - restore table state on page reload.
+	 */
+	stateSave: boolean;
+
+	/**
 	 * Callback that defines how the table state is stored and where.
 	 */
 	stateSaveCallback: FunctionStateSaveCallback | null;
@@ -374,10 +374,9 @@ export interface Defaults {
 	stateSaveParams: FunctionStateSaveParams | null;
 
 	/**
-	 * Classes that DataTables assigns to the various components and features
-	 * that it adds to the HTML table. See also `DataTable.ext.classes`.
+	 * Tab index control for keyboard navigation.
 	 */
-	classes: Partial<typeof classes>;
+	tabIndex: number;
 
 	/** Specify which row is the title row in the header. */
 	titleRow: null | number | boolean;
@@ -388,10 +387,53 @@ type LanguageOption =
 	| {
 			[key: string | number]: LanguageOption;
 	  };
-
 export interface ConfigLanguage {
 	// External options can be added and used through `i18n()`
 	[key: string]: LanguageOption;
+
+	/**
+	 * Strings that are used for WAI-ARIA labels and controls only.
+	 */
+	aria: {
+		/**
+		 * Language string used for WAI-ARIA column orderable label.
+		 */
+		orderable: string;
+
+		/**
+		 * Language string used for WAI-ARIA column label to alter column's
+		 * ordering.
+		 */
+		orderableRemove: string;
+
+		/**
+		 * Language string used for WAI-ARIA column label to alter column's
+		 * ordering.
+		 */
+		orderableReverse: string;
+
+		paginate: {
+			/** WAI-ARIA label for the first pagination button. */
+			first: string;
+
+			/** WAI-ARIA label for the last pagination button. */
+			last: string;
+
+			/** WAI-ARIA label for the next pagination button. */
+			next: string;
+
+			/** WAI-ARIA label for the number pagination buttons. */
+			number: string;
+
+			/** WAI-ARIA label for the previous pagination button. */
+			previous: string;
+		};
+	};
+
+	/**
+	 * Decimal place character.
+	 */
+	decimal: string;
 
 	/**
 	 * Table has no records string.
@@ -424,16 +466,6 @@ export interface ConfigLanguage {
 	infoPostFix: string;
 
 	/**
-	 * Decimal place character.
-	 */
-	decimal: string;
-
-	/**
-	 * Thousands separator.
-	 */
-	thousands: string;
-
-	/**
 	 * Page length options
 	 */
 	lengthLabels: { [key: string | number]: string };
@@ -447,26 +479,6 @@ export interface ConfigLanguage {
 	 * Loading information display string - shown when Ajax loading data.
 	 */
 	loadingRecords: string;
-
-	/**
-	 * Processing indicator string.
-	 */
-	processing: string;
-
-	/**
-	 * Search input label
-	 */
-	search: string;
-
-	/**
-	 * Assign a `placeholder` attribute to the search `input` element
-	 */
-	searchPlaceholder: string;
-
-	/**
-	 * Table empty as a result of filtering string.
-	 */
-	zeroRecords: string;
 
 	/** Pagination parameters */
 	paginate: {
@@ -492,82 +504,54 @@ export interface ConfigLanguage {
 	};
 
 	/**
-	 * Strings that are used for WAI-ARIA labels and controls only.
+	 * Processing indicator string.
 	 */
-	aria: {
-		/**
-		 * Language string used for WAI-ARIA column orderable label.
-		 */
-		orderable: string;
+	processing: string;
 
-		/**
-		 * Language string used for WAI-ARIA column label to alter column's
-		 * ordering.
-		 */
-		orderableReverse: string;
+	/**
+	 * Search input label
+	 */
+	search: string;
 
-		/**
-		 * Language string used for WAI-ARIA column label to alter column's
-		 * ordering.
-		 */
-		orderableRemove: string;
+	/**
+	 * Assign a `placeholder` attribute to the search `input` element
+	 */
+	searchPlaceholder: string;
 
-		paginate: {
-			/** WAI-ARIA label for the first pagination button. */
-			first: string;
-
-			/** WAI-ARIA label for the last pagination button. */
-			last: string;
-
-			/** WAI-ARIA label for the next pagination button. */
-			next: string;
-
-			/** WAI-ARIA label for the previous pagination button. */
-			previous: string;
-
-			/** WAI-ARIA label for the number pagination buttons. */
-			number: string;
-		};
-	};
+	/**
+	 * Thousands separator.
+	 */
+	thousands: string;
 
 	/**
 	 * URL from which to get a JSON language file
 	 */
 	url: string;
+
+	/**
+	 * Table empty as a result of filtering string.
+	 */
+	zeroRecords: string;
 }
 
 /**
  * Initialisation options that can be given to DataTables at initialisation
  * time.
- */
-const defaults: Defaults = {
-	data: null as any[] | null,
-	order: [[0, 'asc']],
-	orderFixed: [],
+ */ const defaults: Defaults = {
 	ajax: null,
-	lengthMenu: [10, 25, 50, 100],
-	columns: null,
-	columnDefs: null,
-	searchCols: [],
 	autoWidth: true,
+	caption: '',
+	classes: {},
+	column: columnDefaults,
+	columnDefs: null,
+	columns: null,
+	createdRow: null,
+	data: null as any[] | null,
+	deferLoading: null,
 	deferRender: true,
 	destroy: false,
-	searching: true,
-	info: true,
-	lengthChange: true,
-	paging: true,
-	processing: false,
-	retrieve: false,
-	scrollCollapse: false,
-	serverSide: false,
-	ordering: true,
-	orderMulti: true,
-	orderCellsTop: null,
-	column: columnDefaults,
-	titleRow: null,
-	orderClasses: true,
-	stateSave: false,
-	createdRow: null,
+	displayStart: 0,
+	dom: null,
 	drawCallback: null,
 	footerCallback: null,
 	formatNumber: function (toFormat: number, ctx: Context) {
@@ -576,10 +560,85 @@ const defaults: Defaults = {
 			.replace(/\B(?=(\d{3})+(?!\d))/g, ctx.language.thousands);
 	},
 	headerCallback: null,
+	info: true,
 	infoCallback: null,
 	initComplete: null,
+	language: {
+		aria: {
+			orderable: ': Activate to sort',
+			orderableRemove: ': Activate to remove sorting',
+			orderableReverse: ': Activate to invert sorting',
+			paginate: {
+				first: 'First',
+				last: 'Last',
+				next: 'Next',
+				number: '',
+				previous: 'Previous'
+			}
+		},
+		decimal: '',
+		emptyTable: 'No data available in table',
+		entries: {
+			_: 'entries',
+			1: 'entry'
+		},
+		info: 'Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_',
+		infoEmpty: 'Showing 0 to 0 of 0 _ENTRIES-TOTAL_',
+		infoFiltered: '(filtered from _MAX_ total _ENTRIES-MAX_)',
+		infoPostFix: '',
+		lengthLabels: {
+			'-1': 'All'
+		},
+		lengthMenu: '_MENU_ _ENTRIES_ per page',
+		loadingRecords: 'Loading...',
+		paginate: {
+			first: '\u00AB',
+			last: '\u00BB',
+			next: '\u203A',
+			previous: '\u2039'
+		},
+		processing: '',
+		search: 'Search:',
+		searchPlaceholder: '',
+		thousands: ',',
+		url: '',
+		zeroRecords: 'No matching records found'
+	},
+	layout: {
+		bottomEnd: 'paging',
+		bottomStart: 'info',
+		topEnd: 'search',
+		topStart: 'pageLength'
+	},
+	lengthChange: true,
+	lengthMenu: [10, 25, 50, 100],
+	on: {},
+	order: [[0, 'asc']],
+	orderCellsTop: null,
+	orderClasses: true,
+	orderDescReverse: true,
+	orderFixed: [],
+	orderMulti: true,
+	ordering: true,
+	pageLength: 10,
+	paging: true,
+	pagingType: '',
 	preDrawCallback: null,
+	processing: false,
+	renderer: null,
+	retrieve: false,
 	rowCallback: null,
+	rowId: 'DT_RowId',
+	scrollCollapse: false,
+	scrollX: '',
+	scrollY: '',
+	search: searchDefaults,
+	searchCols: [],
+	searchDelay: 0,
+	searching: true,
+	serverMethod: 'GET',
+	serverSide: false,
+	stateDuration: 7200,
 	stateLoadCallback: function (settings: Context) {
 		try {
 			const state = (
@@ -593,6 +652,7 @@ const defaults: Defaults = {
 	},
 	stateLoadParams: null,
 	stateLoaded: null,
+	stateSave: false,
 	stateSaveCallback: function (settings: Context, data: any) {
 		try {
 			(settings.stateDuration === -1 ? sessionStorage : localStorage).setItem(
@@ -604,77 +664,8 @@ const defaults: Defaults = {
 		}
 	},
 	stateSaveParams: null,
-	stateDuration: 7200,
-	pageLength: 10,
-	displayStart: 0,
 	tabIndex: 0,
-	classes: {},
-	language: {
-		aria: {
-			orderable: ': Activate to sort',
-
-			orderableReverse: ': Activate to invert sorting',
-
-			orderableRemove: ': Activate to remove sorting',
-
-			paginate: {
-				first: 'First',
-				last: 'Last',
-				next: 'Next',
-				previous: 'Previous',
-				number: ''
-			}
-		},
-		paginate: {
-			first: '\u00AB',
-			last: '\u00BB',
-			next: '\u203A',
-
-			previous: '\u2039'
-		},
-
-		entries: {
-			_: 'entries',
-			1: 'entry'
-		},
-
-		lengthLabels: {
-			'-1': 'All'
-		},
-		emptyTable: 'No data available in table',
-		info: 'Showing _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_',
-		infoEmpty: 'Showing 0 to 0 of 0 _ENTRIES-TOTAL_',
-		infoFiltered: '(filtered from _MAX_ total _ENTRIES-MAX_)',
-		infoPostFix: '',
-		decimal: '',
-		thousands: ',',
-		lengthMenu: '_MENU_ _ENTRIES_ per page',
-		loadingRecords: 'Loading...',
-		processing: '',
-		search: 'Search:',
-		searchPlaceholder: '',
-		url: '',
-		zeroRecords: 'No matching records found'
-	},
-	orderDescReverse: true,
-	search: searchDefaults,
-	layout: {
-		topStart: 'pageLength',
-		topEnd: 'search',
-		bottomStart: 'info',
-		bottomEnd: 'paging'
-	},
-	dom: null,
-	searchDelay: 0,
-	pagingType: '',
-	scrollX: '',
-	scrollY: '',
-	serverMethod: 'GET',
-	renderer: null,
-	rowId: 'DT_RowId',
-	caption: '',
-	deferLoading: null,
-	on: {}
+	titleRow: null
 };
 
 export default defaults;

@@ -126,25 +126,25 @@ export interface Defaults {
  * Column options that can be given to DataTables at initialisation time.
  */
 const defaults: Defaults = {
-	orderData: null,
 	ariaTitle: '',
-	orderSequence: ['asc', 'desc', ''],
-	searchable: true,
-	orderable: true,
-	visible: true,
-	createdCell: null,
-	data: null,
-	render: null,
 	cellType: 'td',
 	className: '',
 	contentPadding: '',
+	createdCell: null,
+	data: null,
 	defaultContent: null,
+	footer: null,
 	name: '',
+	orderable: true,
+	orderData: null,
 	orderDataType: 'std',
+	orderSequence: ['asc', 'desc', ''],
+	render: null,
+	searchable: true,
 	title: null,
 	type: null,
-	width: null,
-	footer: null
+	visible: true,
+	width: null
 };
 
 export default defaults;
