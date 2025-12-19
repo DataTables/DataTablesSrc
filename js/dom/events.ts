@@ -46,7 +46,7 @@ const _mouseEvents = [
 	'mousemove',
 	'mouseout',
 	'mouseover',
-	'mouseup',
+	'mouseup'
 ];
 
 /**
@@ -63,12 +63,13 @@ function setEventProp(event: Event, name: string, value: any) {
 		configurable: true,
 		get() {
 			return value;
-		},
+		}
 	});
 }
 
 /**
- * Check that an element matches a given selector for a given event (ie its target)
+ * Check that an element matches a given selector for a given event (ie its
+ * target)
  *
  * @param el Root element
  * @param selector CSS selector
@@ -105,7 +106,7 @@ function parseEventName(original: string | null) {
 	if (!original) {
 		return {
 			eventName: null,
-			namespaces: [],
+			namespaces: []
 		};
 	}
 
@@ -114,7 +115,7 @@ function parseEventName(original: string | null) {
 
 	return {
 		eventName: name,
-		namespaces: parts,
+		namespaces: parts
 	};
 }
 
@@ -260,12 +261,14 @@ export function remove(
 	if (eventName && selector) {
 		removeEvents = stored.filter(
 			wrapped =>
-				wrapped.type === eventName && wrapped.delegateSelector === selector
+				wrapped.type === eventName &&
+				wrapped.delegateSelector === selector
 		);
 	}
 	else if (eventName && handler) {
 		removeEvents = stored.filter(
-			wrapped => wrapped.type === eventName && wrapped.original === handler
+			wrapped =>
+				wrapped.type === eventName && wrapped.original === handler
 		);
 	}
 	else if (eventName) {
@@ -320,7 +323,7 @@ export function trigger(
 		jq(el)[method](ev, args);
 
 		// See note below regarding the inversion
-		return ! ev.isDefaultPrevented();
+		return !ev.isDefaultPrevented();
 	}
 
 	// No jQuery
@@ -345,5 +348,5 @@ export function trigger(
 	// A lot of the old DataTables stuff checks for a `false` return to prevent
 	// the default action. To maintain compatibility we return an inverted
 	// `defaultPrevented` here - i.e. it becomes `do default`.
-	return ! event.defaultPrevented;
+	return !event.defaultPrevented;
 }

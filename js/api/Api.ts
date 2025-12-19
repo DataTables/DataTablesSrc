@@ -16,7 +16,10 @@ export interface ApiConstructor {
 	new (content: InstSelector, data?: any): ApiType;
 	(content: InstSelector, data?: any): ApiType;
 
-	register<T extends Function = Function>(name: string | string[], fn: T): void;
+	register<T extends Function = Function>(
+		name: string | string[],
+		fn: T
+	): void;
 
 	registerPlural<T extends Function = any>(
 		pluralName: string,
@@ -106,7 +109,12 @@ util.object.assign(Api.prototype, {
 		return new inst(context, data);
 	},
 
-	iterator(flatten: boolean, type: string, fn: Function, alwaysNew?: boolean) {
+	iterator(
+		flatten: boolean,
+		type: string,
+		fn: Function,
+		alwaysNew?: boolean
+	) {
 		var a: any[] = [],
 			ret,
 			i,
@@ -164,7 +172,14 @@ util.object.assign(Api.prototype, {
 					item = items[j];
 
 					if (type === 'cell') {
-						ret = fn.call(apiInst, context[i], item.row, item.column, i, j);
+						ret = fn.call(
+							apiInst,
+							context[i],
+							item.row,
+							item.column,
+							i,
+							j
+						);
 					}
 					else {
 						ret = fn.call(apiInst, context[i], item, i, j, rows);
@@ -473,7 +488,8 @@ function getPrototypeNames(name: string) {
 
 		hostClass = returnClass; // from previous loop
 		returnClass +=
-			partNoParen.charAt(0).toUpperCase() + partNoParen.slice(1).toLowerCase();
+			partNoParen.charAt(0).toUpperCase() +
+			partNoParen.slice(1).toLowerCase();
 
 		if (part.includes('()')) {
 			methodName = partNoParen;
