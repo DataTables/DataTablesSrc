@@ -11,13 +11,13 @@ import { stringToCss } from './sizing';
  * @returns Node to add to the DOM
  */
 export function featureHtmlTable(settings: Context) {
-	let table = dom.s(settings.nTable);
+	let table = dom.s(settings.table);
 
 	// Scrolling from here on in
 	let scroll = settings.scroll;
 
 	if (scroll.x === '' && scroll.y === '') {
-		return settings.nTable;
+		return settings.table;
 	}
 
 	let scrollX = scroll.x;
@@ -153,9 +153,9 @@ export function featureHtmlTable(settings: Context) {
 		scrollBody.css('height', size(scrollY));
 	}
 
-	settings.nScrollHead = scrollHead;
-	settings.nScrollBody = scrollBody;
-	settings.nScrollFoot = scrollFoot;
+	settings.scrollHead = scrollHead;
+	settings.scrollBody = scrollBody;
+	settings.scrollFoot = scrollFoot;
 
 	// On redraw - align columns
 	settings.callbacks.draw.push(scrollDraw);
@@ -181,17 +181,17 @@ export function scrollDraw(settings: Context) {
 	// to try and keep the minimised size as small as possible
 	let scroll = settings.scroll,
 		barWidth = scroll.barWidth,
-		divHeader = settings.nScrollHead,
+		divHeader = settings.scrollHead,
 		divHeaderInner = divHeader.children('div'),
 		divHeaderTable = divHeaderInner.children('table'),
-		divBodyEl = settings.nScrollBody,
+		divBodyEl = settings.scrollBody,
 		divBody = divBodyEl,
-		divFooter = settings.nScrollFoot,
+		divFooter = settings.scrollFoot,
 		divFooterInner = divFooter.children('div'),
 		divFooterTable = divFooterInner.children('table'),
-		header = dom.s(settings.nTHead),
-		table = dom.s(settings.nTable),
-		footer = dom.s(settings.nTFoot),
+		header = dom.s(settings.thead),
+		table = dom.s(settings.table),
+		footer = dom.s(settings.tfoot),
 		browser = settings.browser,
 		headerCopy,
 		footerCopy;

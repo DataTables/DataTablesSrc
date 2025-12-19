@@ -77,7 +77,7 @@ register<Partial<IFeaturePagingOptions>>(
 		settings.callbacks.draw.push(draw);
 
 		// Responsive redraw of paging control
-		dom.s(settings.nTable).on('column-sizing.dt.DT', draw);
+		dom.s(settings.table).on('column-sizing.dt.DT', draw);
 
 		return host;
 	},
@@ -164,7 +164,8 @@ function _pagingDraw(
 			'data-dt-idx': button,
 			tabIndex: btnInfo.disabled
 				? -1
-				: settings.tabIndex && btn.clicker.nodeName.toLowerCase() !== 'span'
+				: settings.tabIndex &&
+				  btn.clicker.nodeName.toLowerCase() !== 'span'
 				? settings.tabIndex
 				: null // `0` doesn't need a tabIndex since it is the default
 		});

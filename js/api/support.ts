@@ -175,7 +175,7 @@ export function callbackFire(
 	}
 
 	if (eventName !== null) {
-		let table = dom.s(ctx.nTable);
+		let table = dom.s(ctx.table);
 		let result = table.trigger(eventName + '.dt', bubbles, args, {
 			dt: ctx.api
 		});

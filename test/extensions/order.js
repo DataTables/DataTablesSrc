@@ -41,7 +41,7 @@ describe('nonjQuery - ajax', function () {
 	});
 
 	it('Second is the settings object', function () {
-		expect(args[1].nTable).toBeDefined();
+		expect(args[1].table).toBeDefined();
 	});
 
 	dt.html('basic');

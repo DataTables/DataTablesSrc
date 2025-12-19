@@ -18,7 +18,7 @@ import { reDraw } from './draw';
 import { processingRun } from './processing';
 
 export function sortInit(settings: Context) {
-	var target = settings.nTHead;
+	var target = settings.thead;
 	var headerRows = target.querySelectorAll('tr');
 	var titleRow = settings.titleRow;
 	var notSelector =
@@ -40,7 +40,7 @@ export function sortInit(settings: Context) {
 		sortAttachListener(
 			settings,
 			target,
-			target === settings.nTHead
+			target === settings.thead
 				? 'tr' +
 						notSelector +
 						' th' +

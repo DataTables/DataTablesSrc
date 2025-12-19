@@ -52,7 +52,7 @@ export function initialise(settings: Context) {
 		}
 		else if (deferLoading || dataSrc == 'dom') {
 			// Grab the data from the page
-			addTr(settings, dom.s(settings.nTBody).children('tr'));
+			addTr(settings, dom.s(settings.tbody).children('tr'));
 		}
 
 		// Filter not yet applied - copy the display master

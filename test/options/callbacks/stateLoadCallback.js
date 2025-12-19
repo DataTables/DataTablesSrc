@@ -17,7 +17,7 @@ describe('stateLoadCallback Option', function() {
 				stateSave: true,
 				stateLoadCallback: function(settings, callback) {
 					expect(arguments.length).toBe(2);
-					expect(settings.hasOwnProperty('nTable')).toBe(true);
+					expect(settings.hasOwnProperty('table')).toBe(true);
 					expect(typeof callback).toBe('function');
 					cbSettings = settings;
 					return {};

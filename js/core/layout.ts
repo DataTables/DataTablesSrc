@@ -38,9 +38,9 @@ export function createLayout(ctx: Context) {
 		.c('div')
 		.attr('id', ctx.tableId + '_wrapper')
 		.classAdd(classes.container)
-		.insertBefore(ctx.nTable);
+		.insertBefore(ctx.table);
 
-	ctx.nTableWrapper = insert.get(0);
+	ctx.tableWrapper = insert.get(0);
 
 	if (ctx.dom) {
 		// Legacy

@@ -93,7 +93,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 	// automatically on destroy, while the `dt` namespaced event is the one we
 	// are listening for
 	dom
-		.s(settings.nTable)
+		.s(settings.table)
 		.on('order.dt.DT column-visibility.dt.DT', function (e, ctx, column) {
 			if (settings !== ctx) {
 				// need to check if this is the host

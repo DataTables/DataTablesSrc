@@ -17,7 +17,7 @@ export function calculateColumnWidths(settings: Context) {
 		return;
 	}
 
-	var table = settings.nTable,
+	var table = settings.table,
 		columns = settings.columns,
 		scroll = settings.scroll,
 		scrollY = scroll.y,
@@ -78,8 +78,8 @@ export function calculateColumnWidths(settings: Context) {
 	// from the cloned table, since if scrolling is active, the table's
 	// real header and footer are contained in different table tags
 	tmpTable
-		.append(settings.nTHead.cloneNode(true))
-		.append(settings.nTFoot.cloneNode(true));
+		.append(settings.thead.cloneNode(true))
+		.append(settings.tfoot.cloneNode(true));
 
 	// Remove any assigned widths from the footer (from scrolling)
 	tmpTable.find('tfoot th, tfoot td').css('width', '');
@@ -245,7 +245,7 @@ export function calculateColumnWidths(settings: Context) {
 			// then the callback is immediately run. Which we don't want. If the element isn't
 			// visible, then it isn't run, but we want it to run when it is then made visible.
 			// This flag allows the above to be satisfied.
-			var first = dom.s(settings.nTableWrapper).isVisible();
+			var first = dom.s(settings.tableWrapper).isVisible();
 
 			// Use an empty div to attach the observer so it isn't impacted by height changes
 			var resizer = dom
@@ -255,7 +255,7 @@ export function calculateColumnWidths(settings: Context) {
 					height: '0',
 				})
 				.classAdd('dt-autosize')
-				.appendTo(settings.nTableWrapper);
+				.appendTo(settings.tableWrapper);
 
 			settings.resizeObserver = new ResizeObserver(function (e) {
 				if (first) {
@@ -286,7 +286,7 @@ export function calculateColumnWidths(settings: Context) {
  * @returns Width
  */
 function wrapperWidth(settings: Context): number {
-	let wrapper = dom.s(settings.nTableWrapper);
+	let wrapper = dom.s(settings.tableWrapper);
 
 	return wrapper.isVisible() ? wrapper.width() : 0;
 }

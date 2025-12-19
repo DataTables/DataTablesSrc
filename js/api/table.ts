@@ -43,7 +43,7 @@ function table_selector(
 
 	// Perform a selector on the table nodes
 	var nodes = a.map(function (el) {
-		return el.nTable;
+		return el.table;
 	});
 
 	return dom
@@ -69,17 +69,17 @@ register<Api['table']>('table()', function (selector) {
 
 // Common methods, combined to reduce size
 [
-	['nodes', 'node', 'nTable'],
-	['body', 'body', 'nTBody'],
-	['header', 'header', 'nTHead'],
-	['footer', 'footer', 'nTFoot']
+	['nodes', 'node', 'table'],
+	['body', 'body', 'tbody'],
+	['header', 'header', 'thead'],
+	['footer', 'footer', 'tfoot']
 ].forEach(function (item) {
 	registerPlural<
 		(this: Api) => Api<HTMLElement>
 	>('tables().' + item[0] + '()', 'table().' + item[1] + '()', function () {
 		return this.iterator(
 			'table',
-			ctx => ctx[item[2] as 'nTable' | 'nTBody' | 'nTHead' | 'nTFoot'],
+			ctx => ctx[item[2] as 'table' | 'tbody' | 'thead' | 'tfoot'],
 			true
 		);
 	});
@@ -120,7 +120,7 @@ registerPlural<ApiTablesMethods<any>['containers']>(
 		return this.iterator(
 			'table',
 			function (ctx) {
-				return ctx.nTableWrapper;
+				return ctx.tableWrapper;
 			},
 			true
 		);
@@ -152,9 +152,9 @@ register<ApiCaptionOverload>('caption()', function (value?, side?) {
 	return this.iterator(
 		'table',
 		function (ctx) {
-			var table = dom.s(ctx.nTable);
+			var table = dom.s(ctx.table);
 			var caption = dom.s(ctx.captionNode);
-			var container = dom.s(ctx.nTableWrapper);
+			var container = dom.s(ctx.tableWrapper);
 
 			// Create the node if it doesn't exist yet
 			if (!caption.count()) {

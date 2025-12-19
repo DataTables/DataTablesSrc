@@ -214,7 +214,7 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 	let classes = settings.classes;
 	let columns = settings.columns;
 	let i, iLen, row: Dom;
-	let target = dom.s(side === 'header' ? settings.nTHead : settings.nTFoot);
+	let target = dom.s(side === 'header' ? settings.thead : settings.tfoot);
 	let titleProp: 'title' | 'footer' = side === 'header' ? 'title' : side;
 
 	// Footer might be defined
@@ -429,7 +429,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	var start = settings.displayStart;
 	var end = displayEnd(settings);
 	var columns = settings.columns;
-	var body = dom.s(settings.nTBody);
+	var body = dom.s(settings.tbody);
 
 	settings.doingDraw = true;
 
@@ -504,7 +504,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 
 	/* Header and footer callbacks */
 	callbackFire(settings, 'header', 'header', [
-		dom.s(settings.nTHead).children('tr').get(0),
+		dom.s(settings.thead).children('tr').get(0),
 		getDataMaster(settings),
 		start,
 		end,
@@ -512,7 +512,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	]);
 
 	callbackFire(settings, 'footer', 'footer', [
-		dom.s(settings.nTFoot).children('tr').get(0),
+		dom.s(settings.tfoot).children('tr').get(0),
 		getDataMaster(settings),
 		start,
 		end,
@@ -523,10 +523,10 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 
 	// Empty table needs a specific class
 	dom
-		.s(settings.nTableWrapper)
+		.s(settings.tableWrapper)
 		.classToggle(
 			'dt-empty-footer',
-			dom.s(settings.nTFoot).find('tr').count() === 0
+			dom.s(settings.tfoot).find('tr').count() === 0
 		);
 
 	// Call all required callback functions for the end of a draw

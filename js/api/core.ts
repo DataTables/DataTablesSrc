@@ -116,13 +116,13 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 
 	return this.iterator('table', function (settings) {
 		var classes = settings.classes;
-		var table = settings.nTable;
-		var tbody = settings.nTBody;
-		var thead = settings.nTHead;
-		var tfoot = settings.nTFoot;
+		var table = settings.table;
+		var tbody = settings.tbody;
+		var thead = settings.thead;
+		var tfoot = settings.tfoot;
 		var jqTable = dom.s(table);
 		var jqTbody = dom.s(tbody);
-		var jqWrapper = dom.s(settings.nTableWrapper);
+		var jqWrapper = dom.s(settings.tableWrapper);
 		var rows = settings.data
 			.map(function (r) {
 				return r ? r.tr : null;
@@ -201,8 +201,8 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 		jqTbody.children().detach();
 		jqTbody.append(rows);
 
-		var orig = settings.nTableWrapper.parentNode;
-		var insertBefore = settings.nTableWrapper.nextSibling;
+		var orig = settings.tableWrapper.parentNode;
+		var insertBefore = settings.tableWrapper.nextSibling;
 
 		// Remove the DataTables generated nodes, events and classes
 		var removedMethod: 'remove' | 'detach' = remove ? 'remove' : 'detach';

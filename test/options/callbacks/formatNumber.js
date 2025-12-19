@@ -32,7 +32,7 @@ describe('formatNumber Option', function () {
 		});
 
 		it('Second arg is the settings', function () {
-			expect(typeof args[1].nTable).toBeTruthy();
+			expect(typeof args[1].table).toBeTruthy();
 		});
 	});
 

@@ -588,7 +588,7 @@ registerPlural<ApiColumnsVisibleOverload>(
 				// listeners to do this - only need to update the empty table item here
 				if (!settings.display.length) {
 					dom
-						.s(settings.nTBody)
+						.s(settings.tbody)
 						.find('td[colspan]')
 						.attr('colspan', visibleColumns(settings));
 				}

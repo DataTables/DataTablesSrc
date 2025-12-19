@@ -37,7 +37,7 @@ describe('stateLoaded Option', function() {
 				stateSave: true,
 				stateLoaded: function(settings, data) {
 					expect(arguments.length).toBe(2);
-					expect(settings.hasOwnProperty('nTable')).toBe(true);
+					expect(settings.hasOwnProperty('table')).toBe(true);
 					expect(typeof data).toBe('object');
 					called = true;
 				}

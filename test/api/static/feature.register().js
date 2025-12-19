@@ -48,7 +48,7 @@ describe('Static method - feature.register()', function () {
 
 		it('Expected arguments', function () {
 			expect(args.length).toBe(2);
-			expect(args[0].nTable).toBeDefined();
+			expect(args[0].table).toBeDefined();
 			expect(args[1]).toBe(null);
 		});
 
@@ -71,7 +71,7 @@ describe('Static method - feature.register()', function () {
 
 		it('Expected arguments', function () {
 			expect(args.length).toBe(2);
-			expect(args[0].nTable).toBeDefined();
+			expect(args[0].table).toBeDefined();
 			expect(args[1].text).toBe('custom text');
 		});
 	});

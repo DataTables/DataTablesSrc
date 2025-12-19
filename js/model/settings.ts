@@ -5,12 +5,12 @@ import { GetFunction, JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
 import defaultsA from './defaults';
 import {
-    AjaxData,
-    DataTableDom,
-    FunctionFormatNumber,
-    FunctionInfoCallback,
-    Layout,
-    OrderState
+	AjaxData,
+	DataTableDom,
+	FunctionFormatNumber,
+	FunctionInfoCallback,
+	Layout,
+	OrderState
 } from './interface';
 import { Row } from './row';
 import createSearch, { SearchInput, SearchOptions } from './search';
@@ -194,11 +194,11 @@ export interface Features {
 export interface Context {
 	ajax: null | string | DtAjaxOptions | AjaxFunction;
 
-	/** Note if draw should be blocked while getting data */
-	ajaxDataGet: boolean;
-
 	/** Data submitted as part of the last Ajax request */
 	ajaxData: AjaxData | string;
+
+	/** Note if draw should be blocked while getting data */
+	ajaxDataGet: boolean;
 
 	api: any; // TODO
 
@@ -240,27 +240,28 @@ export interface Context {
 		 */
 		preDraw: Function[];
 
-		/** Callback functions array for every time a row is inserted (i.e. on a draw). */
+		/** Callback functions array for every time a row is inserted (i.e. on a
+		 * draw). */
 		row: Function[];
 
 		/** Array of callback functions for row created function */
 		rowCreated: Function[];
 
 		/**
-		 * Callbacks for modifying the settings that have been stored for state saving
-		 * prior to using the stored values to restore the state.
+		 * Callbacks for modifying the settings that have been stored for state
+		 * saving prior to using the stored values to restore the state.
 		 */
 		stateLoadParams: Function[];
 
 		/**
-		 * Callbacks for operating on the settings object once the saved state has been
-		 * loaded
+		 * Callbacks for operating on the settings object once the saved state
+		 * has been loaded
 		 */
 		stateLoaded: Function[];
 
 		/**
-		 * Callbacks for modifying the settings to be stored for state saving, prior to
-		 * saving state.
+		 * Callbacks for modifying the settings to be stored for state saving,
+		 * prior to saving state.
 		 */
 		stateSaveParams: Function[];
 	};
@@ -277,7 +278,8 @@ export interface Context {
 	/** Store information about each column that is in use */
 	columns: ColumnSettings[];
 
-	/** Keep a record of the last size of the container, so we can skip duplicates */
+	/** Keep a record of the last size of the container, so we can skip
+	 * duplicates */
 	containerWidth: number;
 
 	/** Row data information */
@@ -286,13 +288,14 @@ export interface Context {
 	/** Delay loading of data */
 	deferLoading: boolean;
 
-	/** If restoring a table - we should restore its width */
-	destroyWidth: number;
-
 	/** Whether the table is currently being destroyed */
 	destroying: boolean;
 
-	/** Array of indexes which are in the current display (after filtering etc) */
+	/** If restoring a table - we should restore its width */
+	destroyWidth: number;
+
+	/** Array of indexes which are in the current display (after filtering etc)
+	 * */
 	display: number[];
 
 	/** Array of indexes for display - no filtering */
@@ -309,7 +312,8 @@ export interface Context {
 	/** Dictate the positioning of DataTables' control elements */
 	dom: null | string;
 
-	/** Counter for the draws that the table does. Also used as a tracker for server-side processing */
+	/** Counter for the draws that the table does. Also used as a tracker for
+	 * server-side processing */
 	drawCount: number;
 
 	/** Draw index (iDraw) of the last error when parsing the returned data */
@@ -347,7 +351,8 @@ export interface Context {
 	/** The DataTables object for this table */
 	instance: DataTableDom;
 
-	/** The last jQuery XHR object that was used for server-side data gathering. */
+	/** The last jQuery XHR object that was used for server-side data gathering.
+	 * */
 	jqXHR: XMLHttpRequest;
 
 	/** JSON returned from the server in the last Ajax request */
@@ -402,30 +407,6 @@ export interface Context {
 	lengthMenu: any[];
 
 	loadingState: boolean;
-
-	/** DIV container for the body scrolling table if scrolling */
-	nScrollBody: Dom;
-
-	/** DIV container for the footer scrolling table if scrolling */
-	nScrollFoot: Dom;
-
-	/** DIV container for the footer scrolling table if scrolling */
-	nScrollHead: Dom;
-
-	/** Permanent ref to the tbody element */
-	nTBody: HTMLElement;
-
-	/** Permanent ref to the tfoot element - if it exists */
-	nTFoot: HTMLElement;
-
-	/** Permanent ref to the thead element */
-	nTHead: HTMLElement;
-
-	/** The TABLE node for the main table */
-	nTable: HTMLElement;
-
-	/** Cache the wrapper node (contains all DataTables controlled elements) */
-	nTableWrapper: Element;
 
 	/** Sorting that is applied to the table. */
 	order: OrderState[];
@@ -501,11 +482,20 @@ export interface Context {
 
 	scrollBarVis: boolean;
 
+	/** DIV container for the body scrolling table if scrolling */
+	scrollBody: Dom;
+
 	/** Search delay (in mS) */
 	searchDelay: number;
 
 	/** Store for named searches */
 	searchFixed: { [name: string]: SearchInput };
+
+	/** DIV container for the footer scrolling table if scrolling */
+	scrollFoot: Dom;
+
+	/** DIV container for the footer scrolling table if scrolling */
+	scrollHead: Dom;
 
 	/**
 	 * Send the XHR HTTP method.
@@ -528,11 +518,26 @@ export interface Context {
 	/** State that was saved. Useful for back reference */
 	stateSaved: State | null;
 
+	/** The TABLE node for the main table */
+	table: HTMLElement;
+
 	/** tabindex attribute value for keyboard navigation. */
 	tabIndex: number;
 
 	/** Cache the table ID for quick access */
 	tableId: string;
+
+	/** Cache the wrapper node (contains all DataTables controlled elements) */
+	tableWrapper: Element;
+
+	/** Permanent ref to the tbody element */
+	tbody: HTMLElement;
+
+	/** Permanent ref to the tfoot element - if it exists */
+	tfoot: HTMLElement;
+
+	/** Permanent ref to the thead element */
+	thead: HTMLElement;
 
 	/** Title row indicator */
 	titleRow: any; // TODO

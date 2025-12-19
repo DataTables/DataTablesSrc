@@ -525,12 +525,12 @@ function toContext(mixedIn: InstSelector) {
 	var idx,
 		nodes: HTMLElement[] | null = null;
 	var settings = ext.settings;
-	var tables = util.array.pluck(settings, 'nTable');
+	var tables = util.array.pluck(settings, 'table');
 
 	if (!mixed) {
 		return [];
 	}
-	else if (mixed.nTable && mixed.features) {
+	else if (mixed.table && mixed.features) {
 		// DataTables settings object
 		return [mixed];
 	}

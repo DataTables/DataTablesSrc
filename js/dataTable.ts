@@ -113,9 +113,9 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 
 			/* Base check on table node */
 			if (
-				s.nTable == tableEl ||
-				(s.nTHead && s.nTHead.parentNode == tableEl) ||
-				(s.nTFoot && s.nTFoot.parentNode == tableEl)
+				s.table == tableEl ||
+				(s.thead && s.thead.parentNode == tableEl) ||
+				(s.tfoot && s.tfoot.parentNode == tableEl)
 			) {
 				var retrieve = init.retrieve || false;
 				var destroy = init.destroy || false;
@@ -168,7 +168,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			}
 		});
 
-		settings.nTable = tableEl;
+		settings.table = tableEl;
 		settings.init = init;
 
 		allSettings.push(settings);
@@ -433,13 +433,13 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		if (thead.count() === 0) {
 			thead = dom.c('thead').appendTo(table) as any;
 		}
-		settings.nTHead = thead.get(0);
+		settings.thead = thead.get(0);
 
 		var tbody = table.children('tbody');
 		if (tbody.count() === 0) {
 			tbody = dom.c('tbody').insertAfter(thead.get(0));
 		}
-		settings.nTBody = tbody.get(0);
+		settings.tbody = tbody.get(0);
 
 		var tfoot = table.children('tfoot');
 		if (tfoot.count() === 0) {
@@ -448,7 +448,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			// appended to
 			tfoot = dom.c('tfoot').appendTo(table);
 		}
-		settings.nTFoot = tfoot.get(0);
+		settings.tfoot = tfoot.get(0);
 
 		// Copy the data index array
 		settings.display = settings.displayMaster.slice();

@@ -8,7 +8,7 @@ import { Context } from '../model/settings';
  * @param ctx DataTables settings object
  */
 export function processingHtml(ctx: Context) {
-	var table = ctx.nTable;
+	var table = ctx.table;
 	var scrolling = ctx.scroll.x !== '' || ctx.scroll.y !== '';
 
 	if (ctx.features.processing) {
@@ -29,7 +29,7 @@ export function processingHtml(ctx: Context) {
 
 		// Different positioning depending on if scrolling is enabled or not
 		if (scrolling) {
-			n.prependTo(dom.s(ctx.nTableWrapper).find('div.dt-scroll').get(0));
+			n.prependTo(dom.s(ctx.tableWrapper).find('div.dt-scroll').get(0));
 		}
 		else {
 			n.insertBefore(table);
