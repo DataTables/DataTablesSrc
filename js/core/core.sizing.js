@@ -312,6 +312,9 @@ function _fnGetWideStrings( settings, colIdx )
 				.replace(/id=".*?"/g, '')
 				.replace(/name=".*?"/g, '');
 
+			// Don't want Javascript at all in these calculation cells.
+			cellString = cellString.replace(/<script.*?<\/script>/g);
+
 			var noHtml = _stripHtml(cellString, ' ')
 				.replace( /&nbsp;/g, ' ' );
 	
