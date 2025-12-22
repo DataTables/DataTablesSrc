@@ -855,7 +855,10 @@ DataTable.defaults = {
 	iDeferLoading: null,
 
 	/** Event listeners */
-	on: null
+	on: null,
+
+	/** Title wrapper element type */
+	columnTitleTag: 'span'
 };
 
 _fnHungarianMap( DataTable.defaults );

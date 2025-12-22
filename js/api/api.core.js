@@ -257,8 +257,8 @@ _api_register( 'i18n()', function ( token, def, plural ) {
 
 // Needed for header and footer, so pulled into its own function
 function cleanHeader(node, className) {
-	$(node).find('span.dt-column-order').remove();
-	$(node).find('span.dt-column-title').each(function () {
+	$(node).find('.dt-column-order').remove();
+	$(node).find('.dt-column-title').each(function () {
 		var title = $(this).html();
 		$(this).parent().parent().append(title);
 		$(this).remove();

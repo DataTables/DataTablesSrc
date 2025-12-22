@@ -49,7 +49,7 @@ var __column_header = function ( settings, column, row ) {
 		// Automatic - find the _last_ unique cell from the top that is not empty (last for
 		// backwards compatibility)
 		for (var i=0 ; i<header.length ; i++) {
-			if (header[i][column].unique && $('span.dt-column-title', header[i][column].cell).text()) {
+			if (header[i][column].unique && $('.dt-column-title', header[i][column].cell).text()) {
 				target = i;
 			}
 		}
@@ -356,7 +356,7 @@ _api_registerPlural( 'columns().titles()', 'column().title()', function (title, 
 			title = undefined;
 		}
 
-		var span = $('span.dt-column-title', this.column(column).header(row));
+		var span = $('.dt-column-title', this.column(column).header(row));
 
 		if (title !== undefined) {
 			span.html(title);

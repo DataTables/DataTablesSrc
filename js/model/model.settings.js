@@ -695,5 +695,8 @@ DataTable.models.oSettings = {
 	orderHandler: true,
 
 	/** Title row indicator */
-	titleRow: null
+	titleRow: null,
+
+	/** Title wrapper element type */
+	columnTitleTag: 'span'
 };

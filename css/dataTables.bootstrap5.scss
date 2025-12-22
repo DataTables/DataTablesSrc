@@ -169,14 +169,14 @@ table.dataTable.table-sm > thead > tr {
 		&.dt-ordering-desc {
 			padding-right: 0.25rem;
 
-			span.dt-column-order {
+			.dt-column-order {
 				right: 0.25rem;
 			}
 		}
 
 		&.dt-type-date,
 		&.dt-type-numeric {
-			span.dt-column-order {
+			.dt-column-order {
 				left: 0.25rem;
 			}
 		}

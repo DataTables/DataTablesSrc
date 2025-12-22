@@ -298,7 +298,7 @@ function _fnHeaderLayout( settings, source, incColumns )
 					colspan++;
 				}
 
-				var titleSpan = $('span.dt-column-title', cell);
+				var titleSpan = $('.dt-column-title', cell);
 
 				structure[row][column] = {
 					cell: cell,
@@ -1012,8 +1012,8 @@ function _fnDetectHeader ( settings, thead, write )
 					}
 
 					// Wrap the column title so we can write to it in future
-					if ( $('span.dt-column-title', cell).length === 0) {
-						$('<span>')
+					if ( $('.dt-column-title', cell).length === 0) {
+						$(document.createElement(settings.columnTitleTag))
 							.addClass('dt-column-title')
 							.append(cell.childNodes)
 							.appendTo(cell);
@@ -1024,9 +1024,9 @@ function _fnDetectHeader ( settings, thead, write )
 						isHeader &&
 						jqCell.filter(':not([data-dt-order=disable])').length !== 0 &&
 						jqCell.parent(':not([data-dt-order=disable])').length !== 0 &&
-						$('span.dt-column-order', cell).length === 0
+						$('.dt-column-order', cell).length === 0
 					) {
-						$('<span>')
+						$(document.createElement(settings.columnTitleTag))
 							.addClass('dt-column-order')
 							.appendTo(cell);
 					}
@@ -1035,7 +1035,7 @@ function _fnDetectHeader ( settings, thead, write )
 					// layout for those elements
 					var headerFooter = isHeader ? 'header' : 'footer';
 
-					if ( $('span.dt-column-' + headerFooter, cell).length === 0) {
+					if ( $('div.dt-column-' + headerFooter, cell).length === 0) {
 						$('<div>')
 							.addClass('dt-column-' + headerFooter)
 							.append(cell.childNodes)

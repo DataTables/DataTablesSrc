@@ -339,6 +339,11 @@ export interface Config {
     columnDefs?: ConfigColumnDefs[];
 
     /**
+     * HTML element to use for the title elements (including order indicator)
+     */
+    columnTitleTag?: string;
+
+    /**
      * Data to use as the display data for the table.
      */
     data?: any[];

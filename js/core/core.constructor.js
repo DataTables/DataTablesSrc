@@ -162,6 +162,7 @@ _fnMap( oSettings, oInit, [
 	"orderHandler",
 	"titleRow",
 	"typeDetect",
+	"columnTitleTag",
 	[ "iCookieDuration", "iStateDuration" ], // backwards compat
 	[ "oSearch", "oPreviousSearch" ],
 	[ "aoSearchCols", "aoPreSearchCols" ],
