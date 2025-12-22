@@ -7,17 +7,27 @@ describe('Caption tag', function() {
 	dt.html('basic');
 
 	it('Remains in place when initialised without scrolling - top', function() {
-		$('#example').append('<caption>Caption</caption>');
+		$('#example').prepend('<caption>Caption</caption>');
 		var table = $('#example').DataTable();
 
 		expect($('caption')[0].parentNode).toBe(table.table().node());
 		expect($('caption').css('caption-side')).toBe('top');
 	});
 
+	it('Node order is correct', function() {
+		let nodes = $('#example').children();
+
+		expect(nodes[0].nodeName.toLowerCase()).toBe('caption');
+		expect(nodes[1].nodeName.toLowerCase()).toBe('colgroup');
+		expect(nodes[2].nodeName.toLowerCase()).toBe('thead');
+		expect(nodes[3].nodeName.toLowerCase()).toBe('tfoot');
+		expect(nodes[4].nodeName.toLowerCase()).toBe('tbody');
+	});
+
 	dt.html('basic');
 
 	it('Remains in place when initialised without scrolling - bottom', function() {
-		$('#example').append('<caption style="caption-side: bottom;">Caption</caption>');
+		$('#example').prepend('<caption style="caption-side: bottom;">Caption</caption>');
 		var table = $('#example').DataTable();
 
 		expect($('caption')[0].parentNode).toBe(table.table().node());
@@ -27,7 +37,7 @@ describe('Caption tag', function() {
 	dt.html('basic');
 
 	it('When set to appear above the table, it does when scrolling', function() {
-		$('#example').append('<caption>Caption</caption>');
+		$('#example').prepend('<caption>Caption</caption>');
 		var table = $('#example').DataTable({
 			scrollY: 200
 		});
@@ -39,7 +49,7 @@ describe('Caption tag', function() {
 	dt.html('basic');
 
 	it('When set to appear below the table, it does when scrolling', function() {
-		$('#example').append('<caption style="caption-side: bottom;">Caption</caption>');
+		$('#example').prepend('<caption style="caption-side: bottom;">Caption</caption>');
 		var table = $('#example').DataTable({
 			scrollY: 200
 		});
@@ -63,10 +73,20 @@ describe('Caption tag', function() {
 		expect( $('caption').html() ).toBe( 'My life as been a tapestry' );
 	} );
 
+	it('Node order is correct', function() {
+		let nodes = $('#example').children();
+
+		expect(nodes[0].nodeName.toLowerCase()).toBe('caption');
+		expect(nodes[1].nodeName.toLowerCase()).toBe('colgroup');
+		expect(nodes[2].nodeName.toLowerCase()).toBe('thead');
+		expect(nodes[3].nodeName.toLowerCase()).toBe('tfoot');
+		expect(nodes[4].nodeName.toLowerCase()).toBe('tbody');
+	});
+
 	dt.html( 'basic' );
 
 	it( 'Will overwrite an existing caption', function () {
-		$('#example').append('<caption>Caption</caption>' );
+		$('#example').prepend('<caption>Caption</caption>' );
 
 		var table = $('#example').DataTable( {
 			caption: 'Of rich and royal hue'
@@ -78,4 +98,14 @@ describe('Caption tag', function() {
 	it( 'Uses the existing caption rather than adding a new one', function () {
 		expect( $('caption').length ).toBe( 1 );
 	} );
+
+	it('Node order is correct', function() {
+		let nodes = $('#example').children();
+
+		expect(nodes[0].nodeName.toLowerCase()).toBe('caption');
+		expect(nodes[1].nodeName.toLowerCase()).toBe('colgroup');
+		expect(nodes[2].nodeName.toLowerCase()).toBe('thead');
+		expect(nodes[3].nodeName.toLowerCase()).toBe('tfoot');
+		expect(nodes[4].nodeName.toLowerCase()).toBe('tbody');
+	});
 } );

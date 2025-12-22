@@ -463,6 +463,22 @@ class DT_Example
 			}
 		}
 		
+		// Footer
+		if ( $construction['footer'] ) {
+			if ( is_callable( $construction['footer'] ) ) {
+				$t .= $construction['footer']();
+			}
+			else {
+				$cells = '';
+				for ( $i=0, $iLen=count($columns) ; $i<$iLen ; $i++ ) {
+					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
+				}
+				$t .= '<tfoot>';
+				$t .= '<tr>'.$cells.'</tr>';
+				$t .= '</tfoot>';
+			}
+		}
+		
 		// Body
 		$rowIds = isset( $this->_xml['row-ids'] ) ?
 			($this->_xml['row-ids'] == 'yes' ? true : false) :
@@ -499,22 +515,6 @@ class DT_Example
 					}
 				}
 				$t .= '</tbody>';
-			}
-		}
-		
-		// Footer
-		if ( $construction['footer'] ) {
-			if ( is_callable( $construction['footer'] ) ) {
-				$t .= $construction['footer']();
-			}
-			else {
-				$cells = '';
-				for ( $i=0, $iLen=count($columns) ; $i<$iLen ; $i++ ) {
-					$cells .= '<th>'.$this->_column( $columns[$i], 'title' ).'</th>';
-				}
-				$t .= '<tfoot>';
-				$t .= '<tr>'.$cells.'</tr>';
-				$t .= '</tfoot>';
 			}
 		}
 

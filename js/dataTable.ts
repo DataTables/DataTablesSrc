@@ -163,7 +163,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			destroyWidth: table.width(),
 			unique: id,
 			tableId: id,
-			colgroup: dom.c('colgroup').prependTo(tableEl),
+			colgroup: dom.c('colgroup'),
 			fastData: function (row, column, type) {
 				return getCellData(settings, row, column, type);
 			}
@@ -418,7 +418,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 
 		if (settings.caption) {
 			if (caption.count() === 0) {
-				caption = dom.c('caption').appendTo(table);
+				caption = dom.c('caption').prependTo(table);
 			}
 
 			caption.html(settings.caption);
@@ -429,6 +429,15 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		if (caption.count()) {
 			(caption.get(0) as any)._captionSide = caption.css('caption-side');
 			settings.captionNode = caption.get(0);
+		}
+
+		// Place the colgroup element in the correct location for the HTML
+		// structure
+		if (caption.count()) {
+			settings.colgroup.insertAfter(caption.get(0));
+		}
+		else {
+			settings.colgroup.prependTo(tableEl);
 		}
 
 		if (thead.count() === 0) {
@@ -447,7 +456,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			// If we are a scrolling table, and no footer has been given, then
 			// we need to create a tfoot element for the caption element to be
 			// appended to
-			tfoot = dom.c('tfoot').appendTo(table);
+			tfoot = dom.c('tfoot').insertAfter(settings.thead);
 		}
 		settings.tfoot = tfoot.get(0);
 
