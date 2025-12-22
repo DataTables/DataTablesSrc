@@ -89,7 +89,7 @@ var oSettings = $.extend( true, {}, DataTable.models.oSettings, {
 	"sDestroyWidth": $this[0].style.width,
 	"sInstance":     sId,
 	"sTableId":      sId,
-	colgroup: $('<colgroup>').prependTo(this),
+	colgroup: $('<colgroup>'),
 	fastData: function (row, column, type) {
 		return _fnGetCellData(oSettings, row, column, type);
 	}
@@ -326,7 +326,7 @@ var caption = $this.children('caption');
 
 if ( oSettings.caption ) {
 	if ( caption.length === 0 ) {
-		caption = $('<caption/>').appendTo( $this );
+		caption = $('<caption/>').prependTo( $this );
 	}
 
 	caption.html( oSettings.caption );
@@ -337,6 +337,14 @@ if ( oSettings.caption ) {
 if (caption.length) {
 	caption[0]._captionSide = caption.css('caption-side');
 	oSettings.captionNode = caption[0];
+}
+
+// Place the colgroup element in the correct location for the HTML structure
+if (caption.length) {
+	oSettings.colgroup.insertAfter(caption);
+}
+else {
+	oSettings.colgroup.prependTo(oSettings.nTable);
 }
 
 if ( thead.length === 0 ) {
@@ -354,7 +362,7 @@ var tfoot = $this.children('tfoot');
 if ( tfoot.length === 0 ) {
 	// If we are a scrolling table, and no footer has been given, then we need to create
 	// a tfoot element for the caption element to be appended to
-	tfoot = $('<tfoot/>').appendTo($this);
+	tfoot = $('<tfoot/>').insertAfter(thead);
 }
 oSettings.nTFoot = tfoot[0];
 

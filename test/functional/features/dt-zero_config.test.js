@@ -51,6 +51,15 @@ describe('Basic DataTables Test', function() {
 			expect($('#example tbody tr').length).toBe(10);
 		});
 
+		it('Node order is correct', function() {
+			let nodes = $('#example').children();
+
+			expect(nodes[0].nodeName.toLowerCase()).toBe('colgroup');
+			expect(nodes[1].nodeName.toLowerCase()).toBe('thead');
+			expect(nodes[2].nodeName.toLowerCase()).toBe('tfoot');
+			expect(nodes[3].nodeName.toLowerCase()).toBe('tbody');
+		});
+
 		it('Initial sort occurred //todo make sure this is correct', function() {
 			expect($('#example tbody td:eq(0)').html()).toBe('Airi Satou');
 			expect($('#example thead th span:last-child').eq(1).attr('aria-label')).toBe('Position: Activate to sort');
