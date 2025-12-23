@@ -1,11 +1,13 @@
 
 
-@use 'common.scss' with (
-  $table-row-selected: 13 110 253
-);
+@use 'common.scss';
 @use 'ordering.scss';
 @use 'processing.scss';
 @use 'typography.scss';
+
+:root {
+	--dt-row-selected: 13, 110, 253;
+}
 
 /*! Bootstrap 5 integration for DataTables
  *

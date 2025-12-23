@@ -1,13 +1,15 @@
 
 
 @use "sass:meta";
-@use 'common.scss' with (
-  $table-row-selected: 224 224 224,
-  $table-row-selected-text: 0 0 0
-);
+@use 'common.scss';
 @use 'ordering.scss';
 @use 'processing.scss';
 @use 'typography.scss' with ($table-typography-selector: ".ui.table");
+
+:root {
+	--dt-row-selected: 224, 224, 224;
+	--dt-row-selected-text: 0, 0, 0;
+}
 
 /*
  * Styling for DataTables with Semantic UI

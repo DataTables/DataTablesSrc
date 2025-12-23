@@ -1,9 +1,13 @@
 
 
-@use 'common.scss' with ($table-row-selected: 2 117 216);
+@use 'common.scss';
 @use 'ordering.scss';
 @use 'processing.scss';
 @use 'typography.scss';
+
+:root {
+	--dt-row-selected: 2, 117, 216;
+}
 
 table.dataTable.table {
 	clear: both;

@@ -6,6 +6,21 @@
 @use 'typography.scss';
 
 :root {
+	// Border between the header (and footer) and the table body
+	--dt-header-border: 1px solid rgba(0, 0, 0, 0.3);
+
+	// Border of rows / cells
+	--dt-body-border: 1px solid rgba(0, 0, 0, 0.15);
+
+	// Text colour of the interaction control elements (info, filter, paging etc)
+	--dt-control-color: inherit;
+
+	// Highlight colour of the paging button for the current page
+	--dt-paging-button-active: rgba(0, 0, 0, 0.05);
+
+	// Hover colour of paging buttons on mouse over
+	--dt-paging-button-hover: #111;
+
 	--dt-row-hover-alpha: 0.035;
 	--dt-row-stripe-alpha: 0.023;
 	--dt-column-ordering-alpha: 0.019;
@@ -50,7 +65,7 @@ table.dataTable {
 		padding: 10px;
 
 		@if not $jqueryui { // jQuery UI defines its own border
-			border-bottom: common.$table-header-border;
+			border-bottom: var(--dt-header-border);
 		}
 
 		&:active {
@@ -61,7 +76,7 @@ table.dataTable {
 	> tfoot > tr > th,
 	> tfoot > tr > td {
 		@if not $jqueryui { // jQuery UI defines its own border
-			border-top: common.$table-header-border;
+			border-top: var(--dt-header-border);
 		}
 
 		padding: 10px 10px 6px 10px;
@@ -72,7 +87,7 @@ table.dataTable {
 	 */
 	> tbody {
 		> tr {
-			background-color: common.$table-row-background;
+			background-color: var(--dt-row-background);
 
 			&:first-child > * {
 				border-top: none;
@@ -83,14 +98,11 @@ table.dataTable {
 			}
 
 			&.selected > * {
-				box-shadow: inset 0 0 0 9999px rgba(rgb(common.$table-row-selected), 0.9);
 				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.9);
-				color: rgb(common.$table-row-selected-text);
 				color: rgb(var(--dt-row-selected-text));
 			}
 	
 			&.selected a {
-				color: rgb(common.$table-row-selected-link);
 				color: rgb(var(--dt-row-selected-link));
 			}
 
@@ -106,7 +118,7 @@ table.dataTable {
 	&.row-border > tbody,
 	&.display > tbody {
 		> tr > * {
-			border-top: common.$table-body-border;
+			border-top: var(--dt-body-border);
 		}
 
 		> tr:first-child > * {
@@ -114,7 +126,6 @@ table.dataTable {
 		}
 
 		> tr.selected + tr.selected > td {
-			border-top-color: rgba(rgb(common.$table-row-selected), 0.65);
 			border-top-color: rgba(var(--dt-row-selected), 0.65);
 		}
 	}
@@ -123,16 +134,16 @@ table.dataTable {
 	// Stripe classes - add "cell-border" class to the table to activate
 	&.cell-border > tbody {
 		> tr > * {
-			border-top: common.$table-body-border;
-			border-right: common.$table-body-border;
+			border-top: var(--dt-body-border);
+			border-right: var(--dt-body-border);
 		}
 
 		> tr > *:first-child {
-			border-left: common.$table-body-border;
+			border-left: var(--dt-body-border);
 		}
 
 		> tr:first-child > * {
-			border-top: common.$table-header-border;
+			border-top: var(--dt-header-border);
 		}
 	}
 
@@ -146,7 +157,6 @@ table.dataTable {
 		}
 
 		> tr:nth-child(odd).selected > * {
-			box-shadow: inset 0 0 0 9999px rgba(rgb(common.$table-row-selected), 0.923);
 			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), var(--dt-row-selected-stripe-alpha));
 		}
 	}
@@ -162,7 +172,6 @@ table.dataTable {
 		}
 
 		> tr.selected:hover > * {
-			box-shadow: inset 0 0 0 9999px rgba(rgb(common.$table-row-selected), 1) !important;
 			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 1) !important;
 		}
 	}
@@ -182,7 +191,6 @@ table.dataTable {
 			tr.selected > .sorting_1,
 			tr.selected > .sorting_2,
 			tr.selected > .sorting_3 {
-				box-shadow: inset 0 0 0 9999px rgba(rgb(common.$table-row-selected), 0.919);
 				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), var(--dt-row-selected-column-ordering-alpha));
 			}
 		}
@@ -206,15 +214,12 @@ table.dataTable {
 
 			&.selected {
 				> .sorting_1 {
-					box-shadow: inset 0 0 0 9999px rgba(rgb(common.$table-row-selected), 0.954);
 					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha)));
 				}
 				> .sorting_2 {
-					box-shadow: inset 0 0 0 9999px rgba(rgb(common.$table-row-selected), 0.947);
 					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) - 0.007));
 				}
 				> .sorting_3 {
-					box-shadow: inset 0 0 0 9999px rgba(rgb(common.$table-row-selected), 0.939);
 					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) - 0.015));
 				}
 			}
@@ -239,15 +244,12 @@ table.dataTable {
 
 			&.selected {
 				> .sorting_1 {
-					box-shadow: inset 0 0 0 9999px rgba(rgb(common.$table-row-selected), 0.982);
 					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha)));
 				}
 				> .sorting_2 {
-					box-shadow: inset 0 0 0 9999px rgba(rgb(common.$table-row-selected), 0.974);
 					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha) - 0.007));
 				}
 				> .sorting_3 {
-					box-shadow: inset 0 0 0 9999px rgba(rgb(common.$table-row-selected), 0.962);
 					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha) - 0.015));
 				}
 			}
@@ -269,7 +271,6 @@ table.dataTable {
 
 @include common.layout;
 @include common.layout-cells;
-
 
 /*
  * Control feature layout
@@ -306,19 +307,16 @@ div.dt-container {
 			text-decoration: none !important;
 			cursor: pointer;
 
-			color: common.$table-control-color !important;
+			color: var(--dt-control-color);
 			border: 1px solid transparent;
 			border-radius: 2px;
 			background: transparent;
 
 			&.current,
 			&.current:hover {
-				color: common.$table-control-color !important;
-				border: common.$table-header-border;
-				@include common.gradient(
-					color.adjust(common.$table-paging-button-active, $lightness: 90%),
-					common.$table-paging-button-active
-				);
+				color: var(--dt-control-color);
+				border: var(--dt-header-border);
+				background: var(--dt-paging-button-active);
 			}
 
 			&.disabled,
@@ -333,19 +331,13 @@ div.dt-container {
 
 			&:hover {
 				color: white !important;
-				border: 1px solid common.$table-paging-button-hover;
-				@include common.gradient(
-					color.adjust(common.$table-paging-button-hover, $lightness: 28%),
-					common.$table-paging-button-hover
-				);
+				border: 1px solid var(--dt-paging-button-hover);
+				background: var(--dt-paging-button-hover);
 			}
 
 			&:active {
 				outline: none;
-				@include common.gradient(
-					color.adjust(common.$table-paging-button-hover, $lightness: 10%),
-					color.adjust(common.$table-paging-button-hover, $lightness: -2%)
-				);
+				background: var(--dt-paging-button-hover);
 				box-shadow: inset 0 0 3px #111;
 			}
 		}
@@ -360,46 +352,20 @@ div.dt-container {
 	.dt-info,
 	.dt-processing,
 	.dt-paging {
-		color: common.$table-control-color;
-	}
-
-	// Scrolling
-	.dataTables_scroll {
-		clear: both;
-
-		div.dt-scroll-body {
-			-webkit-overflow-scrolling: touch;
-
-			> table > thead > tr, > table > tbody > tr {
-				> th, > td {
-					// Setting v-align baseline can cause the headers to be visible
-					vertical-align: middle;
-				}
-
-				> th > div.dataTables_sizing,
-				> td > div.dataTables_sizing {
-					// Hide the element used to wrap the content in the header for
-					// the body scrolling table
-					height: 0;
-					overflow: hidden;
-					margin: 0 !important;
-					padding: 0 !important;
-				}
-			}
-		}
+		color: var(--dt-control-color);
 	}
 
 	// Tables with an empty footer need special consideration for styling at the end of the table
 	&.dt-empty-footer {
 		// Show the boundary on the last row
 		tbody > tr:last-child > * {
-			border-bottom: common.$table-header-border;
+			border-bottom: var(--dt-header-border);
 		}
 
 		// Except when scrolling, when the border needs to go on the container
 		// Table's with a footer have border-top on the footer cells
 		.dt-scroll-body {
-			border-bottom: common.$table-header-border;
+			border-bottom: var(--dt-header-border);
 
 			tbody > tr:last-child > * {
 				border-bottom: none;
@@ -414,95 +380,26 @@ html.dark {
 	--dt-row-stripe: 255, 255, 255;
 	--dt-column-ordering: 255, 255, 255;
 
-	table.dataTable {
-		> thead > tr > th,
-		> thead > tr > td {
-			@if not $jqueryui { // jQuery UI defines its own border
-				border-bottom: common.$table-header-border-dark;
-			}
-	
-			&:active {
-				outline: none;
-			}
-		}
-	
-		> tfoot > tr > th,
-		> tfoot > tr > td {
-			@if not $jqueryui { // jQuery UI defines its own border
-				border-top: common.$table-header-border-dark;
-			}
-		}
+	--dt-header-border: 1px solid rgb(89, 91, 94);
+	--dt-body-border: 1px solid rgb(64, 67, 70);
+	--dt-paging-button-active: rgba(255, 255, 255, 0.15);
+	--dt-paging-button-hover: rgb(53, 53, 53);
 
-		// Stripe classes - add "row-border" class to the table to activate
+	table.dataTable {
 		&.row-border > tbody,
 		&.display > tbody {
-			> tr > * {
-				border-top: common.$table-body-border-dark;
-			}
-
-			> tr:first-child > * {
-				border-top: none;
-			}
-
 			> tr.selected + tr.selected > td {
-				border-top-color: rgba(rgb(common.$table-row-selected), 0.65);
 				border-top-color: rgba(var(--dt-row-selected), 0.65);
-			}
-		}
-	
-	
-		// Stripe classes - add "cell-border" class to the table to activate
-		&.cell-border > tbody {
-			> tr > th,
-			> tr > td {
-				border-top: common.$table-body-border-dark;
-				border-right: common.$table-body-border-dark;
-			}
-	
-			> tr > th:first-child,
-			> tr > td:first-child {
-				border-left: common.$table-body-border-dark;
 			}
 		}
 	}
 
 	.dt-container {
-		&.dt-empty-footer {
-			table.dataTable {
-				border-bottom: common.$table-header-border-dark;
-			}
-		}
-
 		// Chrome 83 hack - see top of file
 		.dt-search input,
 		.dt-length select {
 			border: 1px solid rgb(255, 255, 255, 0.2);
 			background-color: var(--dt-html-background);
-		}
-
-		.dt-paging {
-			.dt-paging-button {
-				&.current,
-				&.current:hover {
-					border: common.$table-header-border-dark;
-					background: common.$table-paging-button-active-dark;
-				}
-
-				&.disabled,
-				&.disabled:hover,
-				&.disabled:active {
-					color: #666 !important;
-				}
-
-				&:hover {
-					border: 1px solid common.$table-paging-button-hover-dark;
-					background: common.$table-paging-button-hover-dark;
-				}
-
-				&:active {
-					background: color.adjust(common.$table-paging-button-hover-dark, $lightness: 2%);
-				}
-			}
 		}
 	}
 }
