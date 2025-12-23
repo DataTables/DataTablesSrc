@@ -3,7 +3,7 @@
  * © SpryMedia Ltd - datatables.net/license
  */
 
-@use 'common.scss' with ($table-header-order-height: 24px);
+@use 'common.scss';
 @use 'ordering.scss';
 @use 'processing.scss';
 @use 'typography.scss';

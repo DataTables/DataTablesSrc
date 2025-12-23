@@ -1,8 +1,7 @@
 
 
 @use 'common.scss' with (
-  $table-row-selected: 13 110 253,
-  $table-header-order-height: 20px
+  $table-row-selected: 13 110 253
 );
 @use 'ordering.scss';
 @use 'processing.scss';
