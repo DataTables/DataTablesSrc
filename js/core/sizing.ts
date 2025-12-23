@@ -331,6 +331,9 @@ function getWideStrings(settings: Context, colIdx: number) {
 				.replace(/id=".*?"/g, '')
 				.replace(/name=".*?"/g, '');
 
+			// Don't want Javascript at all in these calculation cells.
+			cellString = cellString.replace(/<script.*?<\/script>/gi, ' ');
+
 			var noHtml = util.string
 				.stripHtml(cellString, ' ')
 				.replace(/&nbsp;/g, ' ');
