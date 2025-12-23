@@ -456,7 +456,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			// If we are a scrolling table, and no footer has been given, then
 			// we need to create a tfoot element for the caption element to be
 			// appended to
-			tfoot = dom.c('tfoot').insertAfter(settings.thead);
+			tfoot = dom.c('tfoot').appendTo(tableEl);
 		}
 		settings.tfoot = tfoot.get(0);
 
