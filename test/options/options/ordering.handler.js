@@ -37,7 +37,7 @@ describe('ordering.handler Option', function () {
 		});
 
 		it('Sort icons are still present', function () {
-			expect($('span.dt-column-order').length).toBe(6);
+			expect($('.dt-column-order').length).toBe(6);
 		});
 
 		it('Clicking a column header has no effect', async function () {

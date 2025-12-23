@@ -61,15 +61,15 @@ describe('columns - column().title()', function() {
 			expect(table.column(0).title()).toBe('Test');
 		});
 
-		it('Was written into the span', function() {
-			expect($('#example thead th').eq(0).find('span').text()).toBe('Test');
+		it('Was written into the title element', function() {
+			expect($('#example thead th').eq(0).find('.dt-column-title').text()).toBe('Test');
 		});
 
 		it('Is the same span', function() {
-			var span = $('#example thead th').eq(0).find('span')[0];
+			var el = $('#example thead th').eq(0).find('.dt-column-title')[0];
 			table.column(0).title('Test 1');
 
-			expect($('#example thead th').eq(0).find('span')[0]).toBe(span);
+			expect($('#example thead th').eq(0).find('.dt-column-title')[0]).toBe(el);
 		});
 
 		it('Only wrote to that one column', function() {

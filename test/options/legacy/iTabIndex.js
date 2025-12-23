@@ -10,7 +10,7 @@ describe('Legacy iTabIndex option', function () {
 		it('Enabled by default', function () {
 			new DataTable('#example');
 
-			expect($('th span[tabindex=0]').length).toBe(6);
+			expect($('th div[tabindex=0]').length).toBe(6);
 		});
 
 		dt.html('basic');
@@ -20,7 +20,7 @@ describe('Legacy iTabIndex option', function () {
 				iTabIndex: 1
 			});
 
-			expect($('th span[tabindex=1]').length).toBe(6);
+			expect($('th div[tabindex=1]').length).toBe(6);
 		});
 
 		dt.html('basic');
@@ -29,7 +29,7 @@ describe('Legacy iTabIndex option', function () {
 			DataTable.defaults.iTabIndex = 2;
 
 			new DataTable('#example');
-			expect($('th span[tabindex=2]').length).toBe(6);
+			expect($('th div[tabindex=2]').length).toBe(6);
 		});
 
 		dt.html('basic');
@@ -39,7 +39,7 @@ describe('Legacy iTabIndex option', function () {
 			DataTable.defaults.tabIndex = 0;
 
 			new DataTable('#example');
-			expect($('th span[tabindex=0]').length).toBe(6);
+			expect($('th div[tabindex=0]').length).toBe(6);
 		});
 	});
 });

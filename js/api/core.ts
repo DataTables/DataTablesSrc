@@ -254,8 +254,8 @@ register<ApiType['i18n']>('i18n()', function (token, def, plural) {
 function cleanHeader(node: HTMLElement, className: string) {
 	let headerCell = dom.s(node);
 
-	headerCell.find('span.dt-column-order').remove();
-	headerCell.find('span.dt-column-title').each(function (el) {
+	headerCell.find('.dt-column-order').remove();
+	headerCell.find('.dt-column-title').each(function (el) {
 		let cell = dom.s(el);
 		var title = cell.html();
 

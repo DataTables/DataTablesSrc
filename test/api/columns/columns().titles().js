@@ -61,9 +61,9 @@ describe('columns - columns().titles()', function() {
 			expect(table.column(1).title()).toBe('Test');
 		});
 
-		it('Was written into the span', function() {
-			expect($('#example thead th').eq(0).find('span').text()).toBe('Test');
-			expect($('#example thead th').eq(1).find('span').text()).toBe('Test');
+		it('Was written into the title element', function() {
+			expect($('#example thead th').eq(0).find('.dt-column-title').text()).toBe('Test');
+			expect($('#example thead th').eq(1).find('.dt-column-title').text()).toBe('Test');
 		});
 
 		it('Only wrote to the selected columns', function() {

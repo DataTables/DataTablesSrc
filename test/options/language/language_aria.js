@@ -80,11 +80,11 @@ describe('language.aria option ', function () {
 			});
 
 			expect(
-				$('#example thead th span:last-child').eq(0).attr('aria-label')
+				$('#example thead th div[aria-label]').eq(0).attr('aria-label')
 			).toBe('NameORDER-REVERSE');
 
 			expect(
-				$('#example thead th span:last-child').eq(1).attr('aria-label')
+				$('#example thead th div[aria-label]').eq(1).attr('aria-label')
 			).toBe('PositionORDER-DO');
 		});
 
@@ -92,11 +92,11 @@ describe('language.aria option ', function () {
 			await dt.clickHeader(0);
 
 			expect(
-				$('#example thead th span:last-child').eq(0).attr('aria-label')
+				$('#example thead th div[aria-label]').eq(0).attr('aria-label')
 			).toBe('NameORDER-REMOVE');
 
 			expect(
-				$('#example thead th span:last-child').eq(1).attr('aria-label')
+				$('#example thead th div[aria-label]').eq(1).attr('aria-label')
 			).toBe('PositionORDER-DO');
 		});
 
@@ -104,11 +104,11 @@ describe('language.aria option ', function () {
 			await dt.clickHeader(0);
 
 			expect(
-				$('#example thead th span:last-child').eq(0).attr('aria-label')
+				$('#example thead th div[aria-label]').eq(0).attr('aria-label')
 			).toBe('NameORDER-DO');
 
 			expect(
-				$('#example thead th span:last-child').eq(1).attr('aria-label')
+				$('#example thead th div[aria-label]').eq(1).attr('aria-label')
 			).toBe('PositionORDER-DO');
 		});
 
@@ -116,11 +116,11 @@ describe('language.aria option ', function () {
 			await dt.clickHeader(0);
 
 			expect(
-				$('#example thead th span:last-child').eq(0).attr('aria-label')
+				$('#example thead th div[aria-label]').eq(0).attr('aria-label')
 			).toBe('NameORDER-REVERSE');
 
 			expect(
-				$('#example thead th span:last-child').eq(1).attr('aria-label')
+				$('#example thead th div[aria-label]').eq(1).attr('aria-label')
 			).toBe('PositionORDER-DO');
 		});
 	});

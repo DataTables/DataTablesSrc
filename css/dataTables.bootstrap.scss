@@ -178,14 +178,14 @@ table.dataTable.table-condensed > thead > tr {
 		&.dt-ordering-desc {
 			padding-right: 4px;
 
-			span.dt-column-order {
+			.dt-column-order {
 				right: 4px;
 			}
 		}
 
 		&.dt-type-date,
 		&.dt-type-numeric {
-			span.dt-column-order {
+			.dt-column-order {
 				left: 4px;
 			}
 		}

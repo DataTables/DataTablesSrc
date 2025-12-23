@@ -23,8 +23,8 @@ describe('columns.title option', function() {
 			expect(nNodes[5].textContent).toBe('Salary');
 		});
 
-		it('Has span elements wrapping the contents', function () {
-			var nNodes = $('#example thead tr:eq(0) th span.dt-column-title');
+		it('Has div elements wrapping the contents', function () {
+			var nNodes = $('#example thead tr:eq(0) th div.dt-column-title');
 			expect(nNodes[0].textContent).toBe('Name');
 			expect(nNodes[1].textContent).toBe('Position');
 			expect(nNodes[2].textContent).toBe('Office');
@@ -33,8 +33,8 @@ describe('columns.title option', function() {
 			expect(nNodes[5].textContent).toBe('Salary');
 		});
 
-		it('Spans have the dt-column-title class', function () {
-			var nNodes = $('#example thead tr:eq(0) th span.dt-column-title');
+		it('Divs have the dt-column-title class', function () {
+			var nNodes = $('#example thead tr:eq(0) th div.dt-column-title');
 			expect(nNodes.length).toBe(6);
 		});
 

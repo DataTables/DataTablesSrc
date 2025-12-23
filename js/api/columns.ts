@@ -93,7 +93,7 @@ function columnHeader(settings: Context, column: number, row?: number) {
 				header[i][column].unique &&
 				dom
 					.s(header[i][column].cell)
-					.find('span.dt-column-title')
+					.find('.dt-column-title')
 					.text()
 			) {
 				target = i;
@@ -523,7 +523,7 @@ registerPlural<ApiColumnsMethods<any>['titles']>(
 
 				var span = dom
 					.s(this.column(column).header(row))
-					.find('span.dt-column-title');
+					.find('.dt-column-title');
 
 				if (title !== undefined) {
 					span.html(title);

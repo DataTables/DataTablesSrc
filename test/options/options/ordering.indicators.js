@@ -12,7 +12,7 @@ describe('ordering.indicators Option', function () {
 
 			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Airi Satou');
 
-			expect($('span.dt-column-order').length).toBe(6);
+			expect($('.dt-column-order').length).toBe(6);
 		});
 	});
 
@@ -26,7 +26,7 @@ describe('ordering.indicators Option', function () {
 				}
 			});
 
-			expect($('span.dt-column-order').length).toBe(0);
+			expect($('.dt-column-order').length).toBe(0);
 		});
 
 		it('Sorting is still applied to the table', function () {
@@ -40,7 +40,7 @@ describe('ordering.indicators Option', function () {
 		});
 
 		it('Still has no indicators', function () {
-			expect($('span.dt-column-order').length).toBe(0);
+			expect($('.dt-column-order').length).toBe(0);
 		});
 	});
 });

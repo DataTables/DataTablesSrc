@@ -31,7 +31,7 @@ describe('Legacy sDom option', function () {
 				dom: 'lfrtip'
 			});
 
-			let nNodes = $('div.dt-container div:not(.dt-autosize, .dt-column-header, .dt-column-footer), div.dt-container table');
+			let nNodes = $('div.dt-container div:not(.dt-autosize, .dt-column-header, .dt-column-footer, .dt-column-title, .dt-column-order), div.dt-container table');
 
 			let nLength = document.getElementsByClassName('dt-length');
 			let nFilter = document.getElementsByClassName('dt-search');
@@ -53,7 +53,7 @@ describe('Legacy sDom option', function () {
 
 			let table = $('table').DataTable();
 
-			let nNodes = $('div.dt-container div:not(.dt-autosize, .dt-column-header, .dt-column-footer), div.dt-container table');
+			let nNodes = $('div.dt-container div:not(.dt-autosize, .dt-column-header, .dt-column-footer, .dt-column-title, .dt-column-order), div.dt-container table');
 
 			let nLength = document.getElementsByClassName('dt-length');
 			let nTable = document.getElementsByClassName('dataTable');

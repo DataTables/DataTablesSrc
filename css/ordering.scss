@@ -13,7 +13,7 @@ table.dataTable thead {
 
 		&.dt-orderable-asc,
 		&.dt-ordering-asc {
-			span.dt-column-order:before {
+			.dt-column-order:before {
 				position: absolute;
 				display: block;
 				bottom: 50%;
@@ -24,7 +24,7 @@ table.dataTable thead {
 
 		&.dt-orderable-desc,
 		&.dt-ordering-desc {
-			span.dt-column-order:after {
+			.dt-column-order:after {
 				position: absolute;
 				display: block;
 				top: 50%;
@@ -38,7 +38,7 @@ table.dataTable thead {
 		&.dt-orderable-desc,
 		&.dt-ordering-asc,
 		&.dt-ordering-desc {
-			span.dt-column-order {
+			.dt-column-order {
 				position: relative;
 				width: 12px;
 				height: common.$table-header-order-height;
@@ -63,14 +63,14 @@ table.dataTable thead {
 			}
 		}
 
-		&.dt-ordering-asc span.dt-column-order:before,
-		&.dt-ordering-desc span.dt-column-order:after {
+		&.dt-ordering-asc .dt-column-order:before,
+		&.dt-ordering-desc .dt-column-order:after {
 			opacity: 0.6;
 		}
 
-		&.dt-orderable-none:not(.dt-ordering-asc,.dt-ordering-desc) span.dt-column-order:empty,
-		&.sorting_desc_disabled span.dt-column-order:after,
-		&.sorting_asc_disabled span.dt-column-order:before {
+		&.dt-orderable-none:not(.dt-ordering-asc,.dt-ordering-desc) .dt-column-order:empty,
+		&.sorting_desc_disabled .dt-column-order:after,
+		&.sorting_asc_disabled .dt-column-order:before {
 			display: none;
 		}
 
@@ -91,7 +91,7 @@ table.dataTable tfoot {
 			align-items: var(--dt-header-align-items);
 			gap: 4px;
 
-			span.dt-column-title {
+			.dt-column-title {
 				flex-grow: 1;
 
 				&:empty {

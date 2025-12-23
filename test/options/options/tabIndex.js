@@ -23,7 +23,7 @@ describe('tabIndex Option', function () {
 				tabIndex: 0
 			});
 
-			expect($('th span[tabindex=0]').length).toBe(6);
+			expect($('th div[tabindex=0]').length).toBe(6);
 		});
 
 		it('Paging buttons don not get a tab index (they are buttons and so in the focus flow)', function () {
@@ -41,7 +41,7 @@ describe('tabIndex Option', function () {
 		});
 
 		it('Header sorting icons do not get a tabindex assigned', function () {
-			expect($('th span[tabindex]').length).toBe(0);
+			expect($('th div[tabindex]').length).toBe(0);
 		});
 
 		dt.html('basic');
@@ -55,8 +55,8 @@ describe('tabIndex Option', function () {
 		});
 
 		it('Header sorting icons get tabindex 1', function () {
-			expect($('th span[tabindex=0]').length).toBe(0);
-			expect($('th span[tabindex=1]').length).toBe(6);
+			expect($('th div[tabindex=0]').length).toBe(0);
+			expect($('th div[tabindex=1]').length).toBe(6);
 		});
 
 		dt.html('basic');
@@ -69,13 +69,13 @@ describe('tabIndex Option', function () {
 				}]
 			});
 
-			expect($('th span[tabindex=0]').length).toBe(4);
-			expect($('th:eq(0) span[tabindex=0]').length).toBe(1);
-			expect($('th:eq(1) span[tabindex=0]').length).toBe(1);
-			expect($('th:eq(2) span[tabindex=0]').length).toBe(0);
-			expect($('th:eq(3) span[tabindex=0]').length).toBe(0);
-			expect($('th:eq(4) span[tabindex=0]').length).toBe(1);
-			expect($('th:eq(5) span[tabindex=0]').length).toBe(1);
+			expect($('th div[tabindex=0]').length).toBe(4);
+			expect($('th:eq(0) div[tabindex=0]').length).toBe(1);
+			expect($('th:eq(1) div[tabindex=0]').length).toBe(1);
+			expect($('th:eq(2) div[tabindex=0]').length).toBe(0);
+			expect($('th:eq(3) div[tabindex=0]').length).toBe(0);
+			expect($('th:eq(4) div[tabindex=0]').length).toBe(1);
+			expect($('th:eq(5) div[tabindex=0]').length).toBe(1);
 		});
 	});
 });

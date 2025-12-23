@@ -355,7 +355,7 @@ export function headerLayout(
 					colspan++;
 				}
 
-				var titleSpan = dom.s(cell).find('span.dt-column-title');
+				var titleSpan = dom.s(cell).find('.dt-column-title');
 
 				structure[row][column] = {
 					cell: cell,
@@ -769,8 +769,8 @@ export function detectHeader(
 					}
 
 					// Wrap the column title so we can write to it in future
-					if (cell.find('span.dt-column-title').count() === 0) {
-						dom.c('span')
+					if (cell.find('div.dt-column-title').count() === 0) {
+						dom.c('div')
 							.classAdd('dt-column-title')
 							.append(Array.from(cell.get(0).childNodes))
 							.appendTo(cell);
@@ -783,9 +783,9 @@ export function detectHeader(
 							0 &&
 						cell.parent(':not([data-dt-order=disable])').count() !==
 							0 &&
-						cell.find('span.dt-column-order').count() === 0
+						cell.find('div.dt-column-order').count() === 0
 					) {
-						dom.c('span')
+						dom.c('div')
 							.classAdd('dt-column-order')
 							.appendTo(cell);
 					}
@@ -795,7 +795,7 @@ export function detectHeader(
 					var headerFooter = isHeader ? 'header' : 'footer';
 
 					if (
-						cell.find('span.dt-column-' + headerFooter).count() ===
+						cell.find('div.dt-column-' + headerFooter).count() ===
 						0
 					) {
 						dom.c('div')

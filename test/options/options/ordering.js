@@ -18,7 +18,7 @@ describe('ordering Option', function () {
 		});
 
 		it('There is a sort icon on each header', function () {
-			expect($('span.dt-column-order').length).toBe(6);
+			expect($('.dt-column-order').length).toBe(6);
 		});
 
 		it('Clicking a column header will cause it to sort', async function () {
@@ -40,7 +40,7 @@ describe('ordering Option', function () {
 		});
 
 		it('No sort icons', function () {
-			expect($('span.dt-column-order').length).toBe(0);
+			expect($('.dt-column-order').length).toBe(0);
 		});
 
 		it('Clicking a column header has no effect', async function () {
@@ -75,7 +75,7 @@ describe('ordering Option', function () {
 		});
 
 		it('Has sort icons', function () {
-			expect($('span.dt-column-order').length).toBe(6);
+			expect($('.dt-column-order').length).toBe(6);
 		});
 
 		it('Clicking a column header triggers a sort', async function () {
