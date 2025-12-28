@@ -15,17 +15,49 @@
 	// Text colour of the interaction control elements (info, filter, paging etc)
 	--dt-control-color: inherit;
 
-	// Highlight colour of the paging button for the current page
-	--dt-paging-button-active: rgba(0, 0, 0, 0.05);
+	// Paging buttons
+	--dt-paging-button_padding: 0.5em 1em;
+	--dt-paging-button_margin-left: 2px;
+	--dt-paging-button_border-radius: 2px;
+	--dt-paging-button_background: transparent;
+	--dt-paging-button_background-current: rgba(0, 0, 0, 0.05);
+	--dt-paging-button_background-disabled: transparent;
+	--dt-paging-button_background-hover: #111;
+	--dt-paging-button_border: 1px solid transparent;
+	--dt-paging-button_border-current: 1px solid rgba(0, 0, 0, 0.3);
+	--dt-paging-button_border-disabled: 1px solid transparent;
+	--dt-paging-button_border-hover: 1px solid #111;
+	--dt-paging-button_color: var(--dt-control-color);
+	--dt-paging-button_color-current: var(--dt-control-color);
+	--dt-paging-button_color-disabled: rgba(0, 0, 0, 0.5);
+	--dt-paging-button_color-hover: white;
 
-	// Hover colour of paging buttons on mouse over
-	--dt-paging-button-hover: #111;
+	--dt-row-hover_alpha: 0.035;
+	--dt-row-stripe_alpha: 0.023;
+	--dt-column-ordering_alpha: 0.019;
+	--dt-row-selected-stripe_alpha: 0.923;
+	--dt-row-selected-column-ordering_alpha: 0.919;
+	
+	&.dark {
+		--dt-row-stripe_background: 255, 255, 255;
+		--dt-row-hover_background: 255, 255, 255;
 
-	--dt-row-hover-alpha: 0.035;
-	--dt-row-stripe-alpha: 0.023;
-	--dt-column-ordering-alpha: 0.019;
-	--dt-row-selected-stripe-alpha: 0.923;
-	--dt-row-selected-column-ordering-alpha: 0.919;
+		--dt-column-ordering_background: 255, 255, 255;
+
+		--dt-header-border: 1px solid rgb(89, 91, 94);
+		--dt-body-border: 1px solid rgb(64, 67, 70);
+
+		--dt-paging-button_background-current: rgba(255, 255, 255, 0.15);
+		--dt-paging-button_background-hover: rgb(53, 53, 53);
+	
+		--dt-paging-button_border-current: 1px solid rgba(255, 255, 255, 0.1);
+		--dt-paging-button_border-hover: 1px solid transparent;
+
+		--dt-paging-button_color: var(--dt-control-color);
+		--dt-paging-button_color-current: var(--dt-control-color);
+		--dt-paging-button_color-disabled: rgba(255, 255, 255, 0.25);
+		--dt-paging-button_color-hover: white;
+	}
 }
 
 // jQuery UI stylesheet imports this one - there are just two places where we
@@ -87,7 +119,7 @@ table.dataTable {
 	 */
 	> tbody {
 		> tr {
-			background-color: var(--dt-row-background);
+			background-color: var(--dt-row_background);
 
 			&:first-child > * {
 				border-top: none;
@@ -98,12 +130,12 @@ table.dataTable {
 			}
 
 			&.selected > * {
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 0.9);
-				color: rgb(var(--dt-row-selected-text));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), 0.9);
+				color: rgb(var(--dt-row-selected_color));
 			}
 	
 			&.selected a {
-				color: rgb(var(--dt-row-selected-link));
+				color: rgb(var(--dt-row-selected_link_color));
 			}
 
 			> th,
@@ -126,7 +158,7 @@ table.dataTable {
 		}
 
 		> tr.selected + tr.selected > td {
-			border-top-color: rgba(var(--dt-row-selected), 0.65);
+			border-top-color: rgba(var(--dt-row-selected_background), 0.65);
 		}
 	}
 
@@ -153,11 +185,11 @@ table.dataTable {
 	&.display > tbody {
 		> tr:nth-child(odd) > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.023);
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe), var(--dt-row-stripe-alpha));
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe_background), var(--dt-row-stripe_alpha));
 		}
 
 		> tr:nth-child(odd).selected > * {
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), var(--dt-row-selected-stripe-alpha));
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), var(--dt-row-selected-stripe_alpha));
 		}
 	}
 
@@ -168,11 +200,11 @@ table.dataTable {
 	&.display > tbody {
 		> tr:hover > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.035);
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), var(--dt-row-hover-alpha));
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover_background), var(--dt-row-hover_alpha));
 		}
 
 		> tr.selected:hover > * {
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), 1) !important;
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), 1) !important;
 		}
 	}
 
@@ -185,13 +217,13 @@ table.dataTable {
 			tr > .sorting_2,
 			tr > .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), var(--dt-column-ordering-alpha));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering_background), var(--dt-column-ordering_alpha));
 			}
 
 			tr.selected > .sorting_1,
 			tr.selected > .sorting_2,
 			tr.selected > .sorting_3 {
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), var(--dt-row-selected-column-ordering-alpha));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), var(--dt-row-selected-column-ordering_alpha));
 			}
 		}
 	}
@@ -201,26 +233,26 @@ table.dataTable {
 		> tr:nth-child(odd) {
 			> .sorting_1 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.054);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha)));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha)));
 			}
 			> .sorting_2 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.047);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha) - 0.007) );
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) - 0.007) );
 			}
 			> .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.039);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha) - 0.015));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) - 0.015));
 			}
 
 			&.selected {
 				> .sorting_1 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha)));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha)));
 				}
 				> .sorting_2 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) - 0.007));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha) - 0.007));
 				}
 				> .sorting_3 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) - 0.015));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha) - 0.015));
 				}
 			}
 		}
@@ -231,26 +263,26 @@ table.dataTable {
 		tr:hover {
 			> .sorting_1 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.082);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha)));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha)));
 			}
 			> .sorting_2 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.074);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha) - 0.007));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.007));
 			}
 			> .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.062);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover), calc(var(--dt-row-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha) - 0.015));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.015));
 			}
 
 			&.selected {
 				> .sorting_1 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha)));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha)));
 				}
 				> .sorting_2 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha) - 0.007));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.007));
 				}
 				> .sorting_3 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), calc(var(--dt-row-selected-stripe-alpha) + var(--dt-column-ordering-alpha) + var(--dt-row-hover-alpha) - 0.015));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.015));
 				}
 			}
 		}
@@ -301,43 +333,43 @@ div.dt-container {
 			box-sizing: border-box;
 			display: inline-block;
 			min-width: 1.5em;
-			padding: 0.5em 1em;
-			margin-left: 2px;
+			padding: var(--dt-paging-button_padding);
+			margin-left: var(--dt-paging-button_margin-left);
 			text-align: center;
 			text-decoration: none !important;
 			cursor: pointer;
 
-			color: var(--dt-control-color);
-			border: 1px solid transparent;
-			border-radius: 2px;
-			background: transparent;
+			color: var(--dt-paging-button_color);
+			border: var(--dt-paging-button_border);
+			border-radius: var(--dt-paging-button_border-radius);
+			background: var(--dt-paging-button_background);
 
 			&.current,
 			&.current:hover {
-				color: var(--dt-control-color);
-				border: var(--dt-header-border);
-				background: var(--dt-paging-button-active);
+				color: var(--dt-paging-button_color-current) !important;
+				border: var(--dt-paging-button_border-current);
+				background: var(--dt-paging-button_background-current);
 			}
 
 			&.disabled,
 			&.disabled:hover,
 			&.disabled:active {
 				cursor: default;
-				color: rgba(0, 0, 0, 0.5) !important;
-				border: 1px solid transparent;
-				background: transparent;
+				color: var(--dt-paging-button_color-disabled) !important;
+				border: var(--dt-paging-button_border-disabled);
+				background: var(--dt-paging-button_background-disabled);
 				box-shadow: none;
 			}
 
 			&:hover {
-				color: white !important;
-				border: 1px solid var(--dt-paging-button-hover);
-				background: var(--dt-paging-button-hover);
+				color: var(--dt-paging-button_color-hover) !important;
+				border: var(--dt-paging-button_border-hover);
+				background: var(--dt-paging-button_background-hover);
 			}
 
 			&:active {
 				outline: none;
-				background: var(--dt-paging-button-hover);
+				background: var(--dt-paging-button_background-hover);
 				box-shadow: inset 0 0 3px #111;
 			}
 		}
@@ -376,20 +408,11 @@ div.dt-container {
 
 
 html.dark {
-	--dt-row-hover: 255, 255, 255;
-	--dt-row-stripe: 255, 255, 255;
-	--dt-column-ordering: 255, 255, 255;
-
-	--dt-header-border: 1px solid rgb(89, 91, 94);
-	--dt-body-border: 1px solid rgb(64, 67, 70);
-	--dt-paging-button-active: rgba(255, 255, 255, 0.15);
-	--dt-paging-button-hover: rgb(53, 53, 53);
-
 	table.dataTable {
 		&.row-border > tbody,
 		&.display > tbody {
 			> tr.selected + tr.selected > td {
-				border-top-color: rgba(var(--dt-row-selected), 0.65);
+				border-top-color: rgba(var(--dt-row-selected_background), 0.65);
 			}
 		}
 	}

@@ -7,8 +7,8 @@
 @use 'typography.scss' with ($table-typography-selector: ".ui.table");
 
 :root {
-	--dt-row-selected: 224, 224, 224;
-	--dt-row-selected-text: 0, 0, 0;
+	--dt-selected_background: 224, 224, 224;
+	--dt-selected-text_color: (0, 0, 0);
 }
 
 /*

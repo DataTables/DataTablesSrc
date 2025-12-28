@@ -1,5 +1,9 @@
 @use "common";
 
+:root {
+	--dt-processing-circle_background: var(--dt-selected_background);
+}
+
 
 div.dt-processing {
 	position: absolute;
@@ -24,7 +28,7 @@ div.dt-processing {
 			width: 13px;
 			height: 13px;
 			border-radius: 50%;
-			background: rgb(var(--dt-row-selected));
+			background: rgb(var(--dt-processing-circle_background));
 			animation-timing-function: cubic-bezier(0, 1, 1, 0);
 
 			&:nth-child(1) {

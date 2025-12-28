@@ -11,11 +11,11 @@
 // This doesn't yet work with the Bulma's CSS variables. DataTables' CSS variables
 // will need an overhaul before they work seamlessly. 
 :root {
-	--dt-row-selected: 0, 209, 178;
-	--dt-row-selected-text: 46, 51, 61;
+	--dt-row-selected_background: 0, 209, 178;
+	--dt-row-selected_color: 46, 51, 61;
 
 	&[data-theme="dark"] {
-		--dt-row-selected-text: 0, 31, 26;
+		--dt-row-selected_color: 0, 31, 26;
 	}
 }
 

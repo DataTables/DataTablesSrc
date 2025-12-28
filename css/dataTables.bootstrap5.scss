@@ -6,7 +6,13 @@
 @use 'typography.scss';
 
 :root {
-	--dt-row-selected: 13, 110, 253;
+	--dt-row-selected_background: 13, 110, 253;
+}
+
+:root[data-bs-theme="dark"] {
+	--dt-row-hover_background: 255, 255, 255;
+	--dt-row-stripe_background: 255, 255, 255;
+	--dt-column-ordering_background: 255, 255, 255;
 }
 
 /*! Bootstrap 5 integration for DataTables
@@ -203,10 +209,4 @@ div.table-responsive > div.dt-container > div.row {
 			padding-right: 0;
 		}
 	}
-}
-
-:root[data-bs-theme="dark"] {
-	--dt-row-hover: 255, 255, 255;
-	--dt-row-stripe: 255, 255, 255;
-	--dt-column-ordering: 255, 255, 255;
 }

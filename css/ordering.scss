@@ -87,7 +87,7 @@ table.dataTable tfoot {
 		div.dt-column-footer {
 			display: flex;
 			justify-content: space-between;
-			align-items: var(--dt-header-align-items);
+			align-items: var(--dt-header-cell_align-items);
 			gap: 4px;
 
 			.dt-column-title {
