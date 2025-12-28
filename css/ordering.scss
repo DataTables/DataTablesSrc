@@ -1,5 +1,24 @@
 @use "common";
 
+:root {
+	--dt-order-arrow_color: inherit;
+	--dt-order-arrow_color-current: inherit;
+	--dt-order-arrow_content-asc: #{common.unicode("25B2")};
+	--dt-order-arrow_content-desc: #{common.unicode("25BC")};
+	--dt-order-arrow_font-size: 0.8em;
+	--dt-order-arrow_line-height: 9px;
+	--dt-order-arrow_opacity: 0.125;
+	--dt-order-arrow_opacity-current: 0.6;
+
+	--dt-order-header_outline-hover: 2px solid rgba(0, 0, 0, 0.05);
+
+	:root.dark,
+	:root[data-bs-theme="dark"],
+	:root[data-theme="dark"] {
+		--dt-order-header_outline-hover: 2px solid rgba(255, 255, 255, 0.05);
+	}
+}
+
 
 // Sorting - using :before (asc) and :after (desc) with UTF8 characters
 // Note that each class (e.g. dt-orderable-asc) can be applied without
@@ -17,8 +36,8 @@ table.dataTable thead {
 				position: absolute;
 				display: block;
 				bottom: 50%;
-				content: common.unicode("25B2"); // up arrow - ascending
-				content: common.unicode("25B2") / "";
+				content: var(--dt-order-arrow_content-asc); // up arrow - ascending
+				content: var(--dt-order-arrow_content-asc) / "";
 			}
 		}
 
@@ -28,8 +47,8 @@ table.dataTable thead {
 				position: absolute;
 				display: block;
 				top: 50%;
-				content: common.unicode("25BC"); // down arrow - descending
-				content: common.unicode("25BC") / "";
+				content: var(--dt-order-arrow_content-desc); // down arrow - descending
+				content: var(--dt-order-arrow_content-desc) / "";
 			}
 		}
 
@@ -45,9 +64,10 @@ table.dataTable thead {
 				&:before,
 				&:after {
 					left: 0;
-					opacity: 0.125;
-					line-height: 9px;
-					font-size: 0.8em;
+					color: var(--dt-order-arrow_color);
+					opacity: var(--dt-order-arrow_opacity);
+					line-height: var(--dt-order-arrow_line-height);
+					font-size: var(--dt-order-arrow_font-size);
 				}
 			}
 		}
@@ -57,14 +77,15 @@ table.dataTable thead {
 			cursor: pointer;
 
 			&:hover {
-				outline: 2px solid rgba(0, 0, 0, 0.05);
+				outline: var(--dt-order-header_outline-hover);
 				outline-offset: -2px;
 			}
 		}
 
 		&.dt-ordering-asc .dt-column-order:before,
 		&.dt-ordering-desc .dt-column-order:after {
-			opacity: 0.6;
+			color: var(--dt-order-arrow_color-current);
+			opacity: var(--dt-order-arrow_opacity-current);
 		}
 
 		&.dt-orderable-none:not(.dt-ordering-asc,.dt-ordering-desc) .dt-column-order:empty,
@@ -116,7 +137,7 @@ div.dt-scroll-body > table.dataTable > thead {
 			&.dt-orderable-asc,
 			&.dt-orderable-desc {
 				&:hover {
-					outline: 2px solid rgba(255, 255, 255, 0.05);
+					outline: var(--dt-order-header_outline-hover);
 				}
 			}
 		}
