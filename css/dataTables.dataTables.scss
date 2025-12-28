@@ -39,8 +39,8 @@
 	--dt-row-selected-column-ordering_alpha: 0.919;
 	
 	&.dark {
-		--dt-row-stripe_background: 255, 255, 255;
-		--dt-row-hover_background: 255, 255, 255;
+		--dt-row_background-stripe: 255, 255, 255;
+		--dt-row_background-hover: 255, 255, 255;
 
 		--dt-column-ordering_background: 255, 255, 255;
 
@@ -185,7 +185,7 @@ table.dataTable {
 	&.display > tbody {
 		> tr:nth-child(odd) > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.023);
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe_background), var(--dt-row-stripe_alpha));
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-stripe), var(--dt-row-stripe_alpha));
 		}
 
 		> tr:nth-child(odd).selected > * {
@@ -200,7 +200,7 @@ table.dataTable {
 	&.display > tbody {
 		> tr:hover > * {
 			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.035);
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover_background), var(--dt-row-hover_alpha));
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), var(--dt-row-hover_alpha));
 		}
 
 		> tr.selected:hover > * {
@@ -263,15 +263,15 @@ table.dataTable {
 		tr:hover {
 			> .sorting_1 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.082);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha)));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha)));
 			}
 			> .sorting_2 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.074);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.007));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.007));
 			}
 			> .sorting_3 {
 				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.062);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-hover_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.015));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.015));
 			}
 
 			&.selected {
@@ -422,7 +422,7 @@ html.dark {
 		.dt-search input,
 		.dt-length select {
 			border: 1px solid rgb(255, 255, 255, 0.2);
-			background-color: var(--dt-html-background);
+			background-color: var(--dt-html_background);
 		}
 	}
 }
