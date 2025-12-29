@@ -5,23 +5,29 @@ import { adjustColumnSizing, visibleToColumnIndex } from './columns';
 import { stringToCss } from './sizing';
 
 /**
- * Add any control elements for the table - specifically scrolling
+ * Scrolling setup
  *
  * @param settings DataTables settings object
  * @returns Node to add to the DOM
  */
-export function featureHtmlTable(settings: Context) {
+export function featureTable(settings: Context) {
 	let table = dom.s(settings.table);
-
-	// Scrolling from here on in
 	let scroll = settings.scroll;
-
-	if (scroll.x === '' && scroll.y === '') {
-		return settings.table;
-	}
-
 	let scrollX = scroll.x;
 	let scrollY = scroll.y;
+
+	// For x-scrolling we don't need to split the table up - we can just scroll
+	// the table container. Can't do this for x and y though, as we need the
+	// y-bar to be visible!
+	if (scrollX && scrollY === '') {
+		dom.s(settings.tableWrapper).classAdd('scrolling-x');
+	}
+
+	// No scrolling or x-scrolling only
+	if (scrollY === '') {
+		return table.get(0);
+	}
+
 	let classes = settings.classes.scrolling;
 	let caption = settings.captionNode;
 	let captionSide: string | null = caption

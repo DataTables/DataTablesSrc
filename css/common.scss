@@ -169,6 +169,10 @@ div.dt-scroll-body {
 	}
 }
 
+div.dt-container.scrolling-x div.dt-layout-table > div {
+	overflow-x: auto;
+}
+
 // 
 @mixin layout-cells() {
 	div.dt-container {

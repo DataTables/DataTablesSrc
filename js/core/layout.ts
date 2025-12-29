@@ -6,7 +6,7 @@ import { Context } from '../model/settings';
 import util from '../util';
 import { processingHtml } from './processing';
 import { renderer } from './render';
-import { featureHtmlTable } from './scrolling';
+import { featureTable } from './scrolling';
 
 export interface ILayoutRow {
 	id?: string;
@@ -59,7 +59,7 @@ export function createLayout(ctx: Context) {
 		// The table - always the center of attention
 		render(ctx, insert, {
 			full: {
-				contents: [featureHtmlTable(ctx)],
+				contents: [featureTable(ctx)],
 				items: [],
 				table: true
 			}
@@ -372,7 +372,7 @@ function legacyDom(settings: Context, layout: string, insert: Dom) {
 		}
 		else if (option == 't') {
 			// Table
-			featureNode = featureHtmlTable(settings);
+			featureNode = featureTable(settings);
 		}
 		else {
 			ext.feature.forEach(function (feature) {
