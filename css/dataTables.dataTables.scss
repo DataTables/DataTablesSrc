@@ -6,16 +6,28 @@
 @use 'typography.scss';
 
 :root {
-	// Border between the header (and footer) and the table body
-	--dt-header-border: 1px solid rgba(0, 0, 0, 0.3);
+	--dt-header_border: 1px solid rgba(0, 0, 0, 0.3);
+	--dt-header_padding: 10px;
 
-	// Border of rows / cells
-	--dt-body-border: 1px solid rgba(0, 0, 0, 0.15);
+	--dt-footer_border: var(--dt-header_border);
+	--dt-footer_padding: 10px 10px 6px 10px;
 
-	// Text colour of the interaction control elements (info, filter, paging etc)
-	--dt-control-color: inherit;
+	--dt-body_border: 1px solid rgba(0, 0, 0, 0.15);
+	--dt-body_padding: 8px 10px;
+
+	--dt-column-ordering_alpha: 0.019;
+	--dt-column-ordering_alpha-selected: 0.919;
+
+	--dt-row_alpha-hover: 0.035;
+	--dt-row_alpha-selected-stripe: 0.923;
+	--dt-row_alpha-stripe: 0.023;
+
+	// Interaction control elements (info, filter, paging etc)
+	--dt-control_color: inherit;
 
 	// Paging buttons
+	--dt-paging-button_box-shadow: none;
+	--dt-paging-button_box-shadow-active: inset 0 0 3px #111;
 	--dt-paging-button_padding: 0.5em 1em;
 	--dt-paging-button_margin-left: 2px;
 	--dt-paging-button_border-radius: 2px;
@@ -27,16 +39,16 @@
 	--dt-paging-button_border-current: 1px solid rgba(0, 0, 0, 0.3);
 	--dt-paging-button_border-disabled: 1px solid transparent;
 	--dt-paging-button_border-hover: 1px solid #111;
-	--dt-paging-button_color: var(--dt-control-color);
-	--dt-paging-button_color-current: var(--dt-control-color);
+	--dt-paging-button_color: var(--dt-control_color);
+	--dt-paging-button_color-current: var(--dt-control_color);
 	--dt-paging-button_color-disabled: rgba(0, 0, 0, 0.5);
 	--dt-paging-button_color-hover: white;
 
-	--dt-row-hover_alpha: 0.035;
-	--dt-row-stripe_alpha: 0.023;
-	--dt-column-ordering_alpha: 0.019;
-	--dt-row-selected-stripe_alpha: 0.923;
-	--dt-row-selected-column-ordering_alpha: 0.919;
+	--dt-input_border: 1px solid #aaa;
+	--dt-input_border-radius: 3px;
+	--dt-input_padding: 5px;
+	--dt-input_background: transparent;
+	--dt-input_color: inherit;
 	
 	&.dark {
 		--dt-row_background-stripe: 255, 255, 255;
@@ -44,19 +56,19 @@
 
 		--dt-column-ordering_background: 255, 255, 255;
 
-		--dt-header-border: 1px solid rgb(89, 91, 94);
-		--dt-body-border: 1px solid rgb(64, 67, 70);
+		--dt-header_border: 1px solid rgb(89, 91, 94);
+		--dt-body_border: 1px solid rgb(64, 67, 70);
 
 		--dt-paging-button_background-current: rgba(255, 255, 255, 0.15);
 		--dt-paging-button_background-hover: rgb(53, 53, 53);
-	
 		--dt-paging-button_border-current: 1px solid rgba(255, 255, 255, 0.1);
 		--dt-paging-button_border-hover: 1px solid transparent;
-
-		--dt-paging-button_color: var(--dt-control-color);
-		--dt-paging-button_color-current: var(--dt-control-color);
+		--dt-paging-button_color: var(--dt-control_color);
+		--dt-paging-button_color-current: var(--dt-control_color);
 		--dt-paging-button_color-disabled: rgba(255, 255, 255, 0.25);
 		--dt-paging-button_color-hover: white;
+
+		--dt-input_border: 1px solid rgb(255, 255, 255, 0.2);
 	}
 }
 
@@ -65,13 +77,13 @@
 // duplicating the whole file, this is the best option
 $jqueryui: false !default;
 
-// Chrome 83's default inputs are really ugly, so we need to do this for all
+// Consistent styling for inputs
 @mixin table-input {
-	border: 1px solid #aaa;
-	border-radius: 3px;
-	padding: 5px;
-	background-color: transparent;
-	color: inherit;
+	border: var(--dt-input_border);
+	border-radius: var(--dt-input_border-radius);
+	padding: var(--dt-input_padding);
+	background-color: var(--dt-input_background);
+	color: var(--dt-input_color);
 }
 
 /*
@@ -94,10 +106,10 @@ table.dataTable {
 
 	> thead > tr > th,
 	> thead > tr > td {
-		padding: 10px;
+		padding: var(--dt-header_padding);
 
 		@if not $jqueryui { // jQuery UI defines its own border
-			border-bottom: var(--dt-header-border);
+			border-bottom: var(--dt-header_border);
 		}
 
 		&:active {
@@ -108,10 +120,10 @@ table.dataTable {
 	> tfoot > tr > th,
 	> tfoot > tr > td {
 		@if not $jqueryui { // jQuery UI defines its own border
-			border-top: var(--dt-header-border);
+			border-top: var(--dt-footer_border);
 		}
 
-		padding: 10px 10px 6px 10px;
+		padding: var(--dt-footer_padding);
 	}
 
 	/*
@@ -130,17 +142,17 @@ table.dataTable {
 			}
 
 			&.selected > * {
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), 0.9);
-				color: rgb(var(--dt-row-selected_color));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), 0.9);
+				color: rgb(var(--dt-row-text_color-selected));
 			}
 	
 			&.selected a {
-				color: rgb(var(--dt-row-selected_link_color));
+				color: rgb(var(--dt-row-link_color-selected));
 			}
 
 			> th,
 			> td {
-				padding: 8px 10px;
+				padding: var(--dt-body_padding);
 			}
 		}
 	}
@@ -150,7 +162,7 @@ table.dataTable {
 	&.row-border > tbody,
 	&.display > tbody {
 		> tr > * {
-			border-top: var(--dt-body-border);
+			border-top: var(--dt-body_border);
 		}
 
 		> tr:first-child > * {
@@ -158,7 +170,7 @@ table.dataTable {
 		}
 
 		> tr.selected + tr.selected > td {
-			border-top-color: rgba(var(--dt-row-selected_background), 0.65);
+			border-top-color: rgba(var(--dt-row_background-selected), 0.65);
 		}
 	}
 
@@ -166,16 +178,16 @@ table.dataTable {
 	// Stripe classes - add "cell-border" class to the table to activate
 	&.cell-border > tbody {
 		> tr > * {
-			border-top: var(--dt-body-border);
-			border-right: var(--dt-body-border);
+			border-top: var(--dt-body_border);
+			border-right: var(--dt-body_border);
 		}
 
 		> tr > *:first-child {
-			border-left: var(--dt-body-border);
+			border-left: var(--dt-body_border);
 		}
 
 		> tr:first-child > * {
-			border-top: var(--dt-header-border);
+			border-top: var(--dt-header_border);
 		}
 	}
 
@@ -184,12 +196,11 @@ table.dataTable {
 	&.stripe > tbody,
 	&.display > tbody {
 		> tr:nth-child(odd) > * {
-			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.023);
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-stripe), var(--dt-row-stripe_alpha));
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-stripe), var(--dt-row_alpha-stripe));
 		}
 
 		> tr:nth-child(odd).selected > * {
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), var(--dt-row-selected-stripe_alpha));
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), var(--dt-row_alpha-selected-stripe));
 		}
 	}
 
@@ -199,12 +210,11 @@ table.dataTable {
 	&.hover > tbody,
 	&.display > tbody {
 		> tr:hover > * {
-			box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.035);
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), var(--dt-row-hover_alpha));
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), var(--dt-row_alpha-hover));
 		}
 
 		> tr.selected:hover > * {
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), 1) !important;
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), 1) !important;
 		}
 	}
 
@@ -216,14 +226,13 @@ table.dataTable {
 			tr > .sorting_1,
 			tr > .sorting_2,
 			tr > .sorting_3 {
-				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.019);
 				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering_background), var(--dt-column-ordering_alpha));
 			}
 
 			tr.selected > .sorting_1,
 			tr.selected > .sorting_2,
 			tr.selected > .sorting_3 {
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), var(--dt-row-selected-column-ordering_alpha));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), var(--dt-column-ordering_alpha-selected));
 			}
 		}
 	}
@@ -232,27 +241,24 @@ table.dataTable {
 	&.order-column.stripe > tbody {
 		> tr:nth-child(odd) {
 			> .sorting_1 {
-				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.054);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha)));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering_background), calc(var(--dt-row_alpha-stripe) + var(--dt-column-ordering_alpha)));
 			}
 			> .sorting_2 {
-				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.047);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) - 0.007) );
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering_background), calc(var(--dt-row_alpha-stripe) + var(--dt-column-ordering_alpha) - 0.007) );
 			}
 			> .sorting_3 {
-				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.039);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering_background), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) - 0.015));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-column-ordering_background), calc(var(--dt-row_alpha-stripe) + var(--dt-column-ordering_alpha) - 0.015));
 			}
 
 			&.selected {
 				> .sorting_1 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha)));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), calc(var(--dt-row_alpha-selected-stripe) + var(--dt-column-ordering_alpha)));
 				}
 				> .sorting_2 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha) - 0.007));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), calc(var(--dt-row_alpha-selected-stripe) + var(--dt-column-ordering_alpha) - 0.007));
 				}
 				> .sorting_3 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha) - 0.015));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), calc(var(--dt-row_alpha-selected-stripe) + var(--dt-column-ordering_alpha) - 0.015));
 				}
 			}
 		}
@@ -262,27 +268,24 @@ table.dataTable {
 	&.order-column.hover tbody {
 		tr:hover {
 			> .sorting_1 {
-				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.082);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha)));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), calc(var(--dt-row_alpha-stripe) + var(--dt-column-ordering_alpha) + var(--dt-row_alpha-hover)));
 			}
 			> .sorting_2 {
-				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.074);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.007));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), calc(var(--dt-row_alpha-stripe) + var(--dt-column-ordering_alpha) + var(--dt-row_alpha-hover) - 0.007));
 			}
 			> .sorting_3 {
-				box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.062);
-				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), calc(var(--dt-row-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.015));
+				box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-hover), calc(var(--dt-row_alpha-stripe) + var(--dt-column-ordering_alpha) + var(--dt-row_alpha-hover) - 0.015));
 			}
 
 			&.selected {
 				> .sorting_1 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha)));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), calc(var(--dt-row_alpha-selected-stripe) + var(--dt-column-ordering_alpha)));
 				}
 				> .sorting_2 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.007));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), calc(var(--dt-row_alpha-selected-stripe) + var(--dt-column-ordering_alpha) + var(--dt-row_alpha-hover) - 0.007));
 				}
 				> .sorting_3 {
-					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected_background), calc(var(--dt-row-selected-stripe_alpha) + var(--dt-column-ordering_alpha) + var(--dt-row-hover_alpha) - 0.015));
+					box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), calc(var(--dt-row_alpha-selected-stripe) + var(--dt-column-ordering_alpha) + var(--dt-row_alpha-hover) - 0.015));
 				}
 			}
 		}
@@ -343,12 +346,14 @@ div.dt-container {
 			border: var(--dt-paging-button_border);
 			border-radius: var(--dt-paging-button_border-radius);
 			background: var(--dt-paging-button_background);
+			box-shadow: var(--dt-paging-button_box-shadow);
 
 			&.current,
 			&.current:hover {
 				color: var(--dt-paging-button_color-current) !important;
 				border: var(--dt-paging-button_border-current);
 				background: var(--dt-paging-button_background-current);
+				box-shadow: var(--dt-paging-button_box-current);
 			}
 
 			&.disabled,
@@ -370,7 +375,7 @@ div.dt-container {
 			&:active {
 				outline: none;
 				background: var(--dt-paging-button_background-hover);
-				box-shadow: inset 0 0 3px #111;
+				box-shadow: var(--dt-paging-button_box-shadow-active);
 			}
 		}
 
@@ -384,20 +389,20 @@ div.dt-container {
 	.dt-info,
 	.dt-processing,
 	.dt-paging {
-		color: var(--dt-control-color);
+		color: var(--dt-control_color);
 	}
 
 	// Tables with an empty footer need special consideration for styling at the end of the table
 	&.dt-empty-footer {
 		// Show the boundary on the last row
 		tbody > tr:last-child > * {
-			border-bottom: var(--dt-header-border);
+			border-bottom: var(--dt-header_border);
 		}
 
 		// Except when scrolling, when the border needs to go on the container
 		// Table's with a footer have border-top on the footer cells
 		.dt-scroll-body {
-			border-bottom: var(--dt-header-border);
+			border-bottom: var(--dt-header_border);
 
 			tbody > tr:last-child > * {
 				border-bottom: none;
@@ -412,17 +417,8 @@ html.dark {
 		&.row-border > tbody,
 		&.display > tbody {
 			> tr.selected + tr.selected > td {
-				border-top-color: rgba(var(--dt-row-selected_background), 0.65);
+				border-top-color: rgba(var(--dt-row_background-selected), 0.65);
 			}
-		}
-	}
-
-	.dt-container {
-		// Chrome 83 hack - see top of file
-		.dt-search input,
-		.dt-length select {
-			border: 1px solid rgb(255, 255, 255, 0.2);
-			background-color: var(--dt-html_background);
 		}
 	}
 }

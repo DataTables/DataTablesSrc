@@ -1,4 +1,7 @@
 
+/*! DataTables Bootstrap 5 integration
+ * © SpryMedia Ltd - datatables.net/license
+ */
 
 @use 'common.scss';
 @use 'ordering.scss';
@@ -6,20 +9,14 @@
 @use 'typography.scss';
 
 :root {
-	--dt-row-selected_background: 13, 110, 253;
+	--dt_background-selected: 13, 110, 253;
 }
 
 :root[data-bs-theme="dark"] {
-	--dt-row-hover_background: 255, 255, 255;
-	--dt-row-stripe_background: 255, 255, 255;
+	--dt-row_background-hover: 255, 255, 255;
+	--dt-row_background-stripe: 255, 255, 255;
 	--dt-column-ordering_background: 255, 255, 255;
 }
-
-/*! Bootstrap 5 integration for DataTables
- *
- * ©2020 SpryMedia Ltd, all rights reserved.
- * License: MIT datatables.net/license/mit
- */
 
 table.table.dataTable {
 	clear: both;

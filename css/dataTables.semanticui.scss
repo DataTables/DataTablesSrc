@@ -1,4 +1,7 @@
 
+/*! DataTables SemanticUI integration
+ * © SpryMedia Ltd - datatables.net/license
+ */
 
 @use "sass:meta";
 @use 'common.scss';
@@ -7,13 +10,9 @@
 @use 'typography.scss' with ($table-typography-selector: ".ui.table");
 
 :root {
-	--dt-selected_background: 224, 224, 224;
-	--dt-selected-text_color: (0, 0, 0);
+	--dt_background-selected: 224, 224, 224;
+	--dt_color-selected: (0, 0, 0);
 }
-
-/*
- * Styling for DataTables with Semantic UI
- */
 
 table.dataTable.table {
 	margin: 0;

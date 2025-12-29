@@ -1,4 +1,7 @@
 
+/*! DataTables Foundation integration
+ * © SpryMedia Ltd - datatables.net/license
+ */
 
 @use 'common.scss';
 @use 'ordering.scss';
@@ -6,7 +9,7 @@
 @use 'typography.scss';
 
 :root {
-	--dt-row-selected_background: 0, 137, 182;
+	--dt_background-selected: 0, 137, 182;
 }
 
 table.dataTable {

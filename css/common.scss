@@ -5,7 +5,7 @@
 // Functions / mixins
 //
 @function unicode($str) {
-  @return string.unquote("\"")+string.unquote(string.insert($str, "\\", 1))+string.unquote("\"")
+	@return string.unquote("\"")+string.unquote(string.insert($str, "\\", 1))+string.unquote("\"")
 }
 
 :root {
@@ -13,14 +13,14 @@
 	// granular level. Please note that these are comma delimited rgb so an
 	// alpha channel value can be added dynamically (e.g. for hover, stripe,
 	// etc).
-	--dt-selected_background: 13, 110, 253;
-	--dt-selected_color: 255, 255, 255;
-	--dt-selected_link_color: 228, 228, 228;
+	--dt_background-selected: 13, 110, 253;
+	--dt_color-selected: 255, 255, 255;
+	--dt_link_color-selected: 228, 228, 228;
 
 	--dt-row_background: transparent;
-	--dt-row-selected_background: var(--dt-selected_background);
-	--dt-row-selected-text_color: var(--dt-selected_color);
-	--dt-row-selected-link_color: var(--dt-selected_link_color);
+	--dt-row_background-selected: var(--dt_background-selected);
+	--dt-row-text_color-selected: var(--dt_color-selected);
+	--dt-row-link_color-selected: var(--dt_link_color-selected);
 
 	--dt-row_background-stripe: 0, 0, 0;
 	--dt-row_background-hover: 0, 0, 0;
@@ -67,12 +67,12 @@
 		background-color: var(--dt-row_background);
 
 		&.selected > * {
-			box-shadow: inset 0 0 0 9999px rgb(var(--dt-row-selected));
-			color: rgb(var(--dt-row-selected-text));
+			box-shadow: inset 0 0 0 9999px rgb(var(--dt-row_background-selected));
+			color: rgb(var(--dt-row-text_color-selected));
 		}
 
 		&.selected a {
-			color: rgb(var(--dt-row-selected-link));
+			color: rgb(var(--dt-row-link_color-selected));
 		}
 	}
 
@@ -83,7 +83,7 @@
 		}
 
 		> tr#{$oddEven}.selected > * {
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), $stripeShade + 0.9);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), $stripeShade + 0.9);
 		}
 	}
 
@@ -94,7 +94,7 @@
 		}
 
 		> tr.selected:hover > * {
-			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-selected), $hoverShade + 0.9);
+			box-shadow: inset 0 0 0 9999px rgba(var(--dt-row_background-selected), $hoverShade + 0.9);
 		}
 	}
 }

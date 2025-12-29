@@ -8,13 +8,13 @@
 	--dt-order-arrow_font-size: 0.8em;
 	--dt-order-arrow_line-height: 9px;
 	--dt-order-arrow_opacity: 0.125;
-	--dt-order-arrow_opacity-current: 0.6;
+	--dt-order-arrow_opacity-current: 0.65;
 
 	--dt-order-header_outline-hover: 2px solid rgba(0, 0, 0, 0.05);
 
-	:root.dark,
-	:root[data-bs-theme="dark"],
-	:root[data-theme="dark"] {
+	&.dark,
+	&[data-bs-theme="dark"],
+	&[data-theme="dark"] {
 		--dt-order-header_outline-hover: 2px solid rgba(255, 255, 255, 0.05);
 	}
 }
