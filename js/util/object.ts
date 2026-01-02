@@ -74,7 +74,7 @@ export function assign<T>(
  */
 export function assignDeep<T>(
 	out: Record<string, any>,
-	...inputs: Array<Record<string, any>>
+	...inputs: Array<Record<string, any> | undefined>
 ): T {
 	if (!out) {
 		return {} as T;
