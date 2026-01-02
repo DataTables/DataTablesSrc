@@ -13,6 +13,9 @@ import { SearchInput } from '../search';
  * the initialisation options.
  */
 export default class Settings {
+	/** Extensions can add properties */
+	[key: string]: any;
+
 	public _isArrayHost: boolean;
 
 	/**
