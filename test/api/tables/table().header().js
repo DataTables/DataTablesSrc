@@ -31,12 +31,21 @@ describe('tables - table().header()', function() {
 			let table = $('#example').DataTable({
 				scrollX: true
 			});
-			expect(table.table().header()).toBe($('div.dt-scroll-head thead').get(0));
+			expect(table.table().header()).toBe($('#example thead').get(0));
 		});
 
 		dt.html('basic');
 		it('Returns the header when scrollY enabled', function() {
 			let table = $('#example').DataTable({
+				scrollY: 200
+			});
+			expect(table.table().header()).toBe($('div.dt-scroll-head thead').get(0));
+		});
+
+		dt.html('basic');
+		it('Returns the header when both are enabled', function() {
+			let table = $('#example').DataTable({
+				scrollX: true,
 				scrollY: 200
 			});
 			expect(table.table().header()).toBe($('div.dt-scroll-head thead').get(0));

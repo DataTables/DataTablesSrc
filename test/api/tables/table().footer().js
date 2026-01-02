@@ -31,12 +31,21 @@ describe('tables - table().footer()', function() {
 			let table = $('#example').DataTable({
 				scrollX: true
 			});
-			expect(table.table().footer()).toBe($('div.dt-scroll-foot tfoot').get(0));
+			expect(table.table().footer()).toBe($('#example tfoot').get(0));
 		});
 
 		dt.html('basic');
 		it('Returns the footer when scrollY enabled', function() {
 			let table = $('#example').DataTable({
+				scrollY: 200
+			});
+			expect(table.table().footer()).toBe($('div.dt-scroll-foot tfoot').get(0));
+		});
+
+		dt.html('basic');
+		it('Returns the footer when both are enabled', function() {
+			let table = $('#example').DataTable({
+				scrollX: true,
 				scrollY: 200
 			});
 			expect(table.table().footer()).toBe($('div.dt-scroll-foot tfoot').get(0));

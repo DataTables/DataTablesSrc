@@ -14,7 +14,7 @@ describe('Legacy sScrollX option', function () {
 		it('No scrolling by default', function () {
 			new DataTable('#example');
 			
-			expect($('div.dt-scroll-head').length).toBe(0);
+			expect($('div.scrolling-x').length).toBe(0);
 		});
 
 		dt.html('basic');
@@ -24,7 +24,7 @@ describe('Legacy sScrollX option', function () {
 				sScrollX: true
 			});
 
-			expect($('div.dt-scroll-head').length).toBe(1);
+			expect($('div.scrolling-x').length).toBe(1);
 		});
 
 		dt.html('basic');
@@ -34,7 +34,7 @@ describe('Legacy sScrollX option', function () {
 
 			new DataTable('#example');
 
-			expect($('div.dt-scroll-head').length).toBe(1);
+			expect($('div.scrolling-x').length).toBe(1);
 		});
 
 		dt.html('basic');
@@ -44,7 +44,7 @@ describe('Legacy sScrollX option', function () {
 
 			new DataTable('#example');
 
-			expect($('div.dt-scroll-head').length).toBe(0);
+			expect($('div.scrolling-x').length).toBe(0);
 		});
 
 		dt.html('basic');
@@ -54,7 +54,7 @@ describe('Legacy sScrollX option', function () {
 
 			new DataTable('#example');
 
-			expect($('div.dt-scroll-head').length).toBe(0);
+			expect($('div.scrolling-x').length).toBe(0);
 		});
 	});
 });

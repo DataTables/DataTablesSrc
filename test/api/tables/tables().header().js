@@ -41,11 +41,19 @@ describe('tables - tables().header()', function() {
 			let table = $('#example').DataTable({
 				scrollX: true
 			});
-			expect(table.tables().header()[0]).toBe($('div.dt-scroll-head thead').get(0));
+			expect(table.tables().header()[0]).toBe($('#example thead').get(0));
 		});
 
 		dt.html('basic');
 		it('Returns the header when scrollY enabled', function() {
+			let table = $('#example').DataTable({
+				scrollY: 200
+			});
+			expect(table.tables().header()[0]).toBe($('div.dt-scroll-head thead').get(0));
+		});
+
+		dt.html('basic');
+		it('Returns the header when both are enabled', function() {
 			let table = $('#example').DataTable({
 				scrollY: 200
 			});
@@ -77,12 +85,21 @@ describe('tables - tables().header()', function() {
 			let tables = $('[id^=example]').DataTable({
 				scrollX: true
 			});
+			expect(tables.tables().header()[0]).toBe($('#example_one thead').get(0));
+			expect(tables.tables().header()[1]).toBe($('#example_two thead').get(0));
+		});
+
+		dt.html('two_tables');
+		it('Returns the header when scrollY enabled', function() {
+			let tables = $('[id^=example]').DataTable({
+				scrollY: 200
+			});
 			expect(tables.tables().header()[0]).toBe($('div.dt-scroll-head thead').get(0));
 			expect(tables.tables().header()[1]).toBe($('div.dt-scroll-head thead').get(1));
 		});
 
 		dt.html('two_tables');
-		it('Returns the header when scrollY enabled', function() {
+		it('Returns the header when both are enabled', function() {
 			let tables = $('[id^=example]').DataTable({
 				scrollY: 200
 			});
