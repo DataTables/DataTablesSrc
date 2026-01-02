@@ -11,7 +11,7 @@ import external from './external';
  * @returns true if this version of DataTables is greater or equal to the
  *   required version, or false if this version of DataTales is not suitable
  */
-export function check(version1: string, version2: string) {
+export function check(version1: string, version2?: string) {
 	let dt = external('datatable');
 	var parts1 = version2 ? version2.split('.') : dt.ext.version.split('.');
 	var parts2 = version1.split('.');
