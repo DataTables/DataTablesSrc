@@ -1342,6 +1342,6 @@ export default {
 };
 
 type EventHandler = {
-	(event: any, ...args: any): any;
+	(this: HTMLElement, event: any, ...args: any): any;
 	guid?: number;
 };
