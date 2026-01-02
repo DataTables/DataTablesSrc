@@ -27,7 +27,7 @@ import { factory } from './static';
 
 export type DomSelector = string | Node | HTMLElement | JQuery;
 
-export type InstSelector = DomSelector | Context | InstSelector[];
+export type InstSelector = DomSelector | Context | Api | InstSelector[];
 
 export type RowIdx = number;
 export type RowSelector<T> =
@@ -96,7 +96,7 @@ export interface ApiScopeable<T, S> {
 	/**
 	 * API should be array-like
 	 */
-	[key: number]: any;
+	[key: number]: T;
 
 	/**
 	 * Get jquery object
@@ -2230,7 +2230,7 @@ export interface ApiRowMethods<T>
 	 * @returns Row id. If the row does not have an id available 'undefined'
 	 * will be returned.
 	 */
-	ids(this: ApiRowMethods<T>, hash?: boolean): string;
+	id(this: ApiRowMethods<T>, hash?: boolean): string;
 
 	/**
 	 * Get the row index of the row column.
@@ -2726,7 +2726,7 @@ export interface ApiStatic {
 	 * Create a new API instance to an existing DataTable. Note that this
 	 * does not create a new DataTable.
 	 */
-	new (selector: string | Node | Node[] | JQuery | Context): Api<any>;
+	new (selector: string | Node | Node[] | JQuery | Context | Api): Api<any>;
 
 	register<T = any>(name: string, fn: ApiStaticRegisterFn<T>): void;
 	registerPlural<T = any>(

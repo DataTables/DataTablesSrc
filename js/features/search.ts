@@ -78,8 +78,8 @@ register<Partial<IFeatureSearchOptions>>(
 		filter.find('input').attr('id', 'dt-search-' + __searchCounter);
 		__searchCounter++;
 
-		let searchFn = function (this: HTMLInputElement, event: KeyboardEvent) {
-			let val = this.value;
+		let searchFn = function (this: HTMLElement, event: KeyboardEvent) {
+			let val = (this as HTMLInputElement).value;
 
 			if (previousSearch.return && event.key !== 'Enter') {
 				return;

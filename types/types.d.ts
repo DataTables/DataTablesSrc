@@ -7,7 +7,9 @@ import { Options as ConfigColumns } from '../js/model/columns/defaults';
 import { Options } from '../js/model/defaults';
 
 export * from '../js/api/interface';
+export { Dom } from '../js/dom/index';
 export * from '../js/ext/types';
+export { Context } from '../js/model/settings';
 export * from '../js/model/state';
 export { ConfigColumns }; // Backwards compat
 

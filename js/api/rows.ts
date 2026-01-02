@@ -257,7 +257,7 @@ registerPlural<ApiRowsMethods<any>['indexes']>(
 	}
 );
 
-registerPlural<ApiRowMethods<any>['ids']>(
+registerPlural<ApiRowMethods<any>['id']>(
 	'rows().ids()',
 	'row().id()',
 	function (hash) {
