@@ -283,7 +283,7 @@ export interface ApiScopeable<T, S> {
 		this: S,
 		token: string,
 		def: object | string,
-		numeric?: number
+		numeric?: number | string
 	): string;
 
 	/**

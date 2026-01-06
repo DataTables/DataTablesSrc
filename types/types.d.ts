@@ -11,7 +11,7 @@ export { Dom } from '../js/dom/index';
 export * from '../js/ext/types';
 export { Context } from '../js/model/settings';
 export * from '../js/model/state';
-export { ConfigColumns }; // Backwards compat
+export { ConfigColumns, Options }; // Backwards compat
 
 
 export default DataTablesStatic;
