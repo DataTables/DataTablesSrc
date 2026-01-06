@@ -68,6 +68,7 @@
     "> 0.1%, last 10 versions, Firefox ESR, Safari > 8, not dead"
   ],
   "dependencies": {
-    "datatables.net": "^2.3.6"
+    "datatables.net": "^2.3.6",
+    "rollup-plugin-dts": "^6.3.0"
   }
 }

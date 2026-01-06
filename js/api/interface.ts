@@ -1289,8 +1289,6 @@ export interface ApiState<T> extends Api<T> {
 	save(this: Api): Api<T>;
 }
 
-``;
-
 export interface ApiCell<T> {
 	/**
 	 * Select the cell found by a cell selector

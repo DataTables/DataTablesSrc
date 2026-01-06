@@ -73,18 +73,12 @@ function build_css {
 
 function build_types {
 	echo_section "Types"
-	if [ -d $BUILD_DIR/types ]; then
-		rm -r $BUILD_DIR/types		
-	fi
-	mkdir $BUILD_DIR/types
 
-	if [ -d $BASE_DIR/types/ ]; then
-		cp $BASE_DIR/types/* $BUILD_DIR/types
-	else
-		if [ -f $BASE_DIR/types.d.ts ]; then
-			cp $BASE_DIR/types.d.ts $BUILD_DIR/types
-		fi
-	fi
+	# Note that the .d.ts file is actually built as part of the rollup process,
+	# so there is actually very little to do here. What we do want to do though
+	# is copy the constructed type file to node_modules, so the extensions can
+	# use it.
+	cp $BUILD_DIR/types/types.d.ts $BASE_DIR/node_modules/datatables.net/types/
 }
 
 

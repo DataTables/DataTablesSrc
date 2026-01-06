@@ -2,24 +2,23 @@
  * Type definitions for DataTables
  */
 
-import { Api, DataTablesStatic } from '../js/api/interface';
-import { Options as ConfigColumns } from '../js/model/columns/defaults';
-import { Options } from '../js/model/defaults';
+import { Api, DataTablesStatic } from '../dist/api/interface';
+import DataTable from '../dist/dataTable';
+import { Options as ConfigColumns } from '../dist/model/columns/defaults';
+import { Options } from '../dist/model/defaults';
 
-export * from '../js/api/interface';
-export { Dom } from '../js/dom/index';
-export * from '../js/ext/types';
-export { Context } from '../js/model/settings';
-export * from '../js/model/state';
+export * from '../dist/api/interface';
+export { Dom } from '../dist/dom/index';
+export * from '../dist/ext/types';
+export { Context } from '../dist/model/settings';
+export * from '../dist/model/state';
 export { ConfigColumns, Options }; // Backwards compat
 
-
-export default DataTablesStatic;
+export default DataTable;
 
 /**
- * jQuery integration
+ * jQuery integration for legacy support
  */
-
 interface JQueryDataTables extends JQuery {
 	/**
 	 * Returns DataTables API instance
