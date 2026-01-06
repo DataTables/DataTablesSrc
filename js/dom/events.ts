@@ -112,9 +112,33 @@ function parseEventName(original: string | null) {
 
 	let parts = original.split('.');
 	let name = parts.shift();
+	let isHover = false;
+	let isFocus = false;
+
+	// mouse[enter|leave] and focus|blur don't bubble, but do have counterparts
+	// which do, so we make use of them, as this allows event delegation on
+	// those event names to work as expected.
+	if (name === 'mouseenter') {
+		name = 'mouseover';
+		isHover = true;
+	}
+	else if (name === 'mouseleave') {
+		name = 'mouseout';
+		isHover = true;
+	}
+	else if (name === 'focus') {
+		name = 'focusin';
+		isFocus = true;
+	}
+	else if (name === 'blur') {
+		name = 'blurout';
+		isFocus = true;
+	}
 
 	return {
 		eventName: name,
+		isFocus,
+		isHover,
 		namespaces: parts
 	};
 }
@@ -154,7 +178,7 @@ export function add(
 	}
 
 	// No jQuery - add the event ourselves
-	let { eventName, namespaces } = parseEventName(nameFull);
+	let { eventName, namespaces, isFocus, isHover } = parseEventName(nameFull);
 
 	if (!eventName) {
 		return;
@@ -175,6 +199,17 @@ export function add(
 			return;
 		}
 
+		// If a special (overridden) type, then we need to check that they apply
+		if (
+			!selector &&
+			((isFocus && event.target !== el) ||
+				(isHover &&
+					event.relatedTarget &&
+					el.contains(event.relatedTarget)))
+		) {
+			return;
+		}
+
 		// For delegate events, determine if the target matches our selector
 		if (selector) {
 			let dTarget = delegateTarget(el, selector, event);
@@ -189,6 +224,7 @@ export function add(
 		// Set the properties that jQuery adds to the event object
 		setEventProp(event, 'currentTarget', callScope);
 		setEventProp(event, 'delegateTarget', el);
+		setEventProp(event, 'relatedTarget', event.relatedTarget);
 
 		// If it was triggered, extra data can be passed through using the
 		// arguments passed to trigger.
@@ -211,6 +247,7 @@ export function add(
 	wrapped.namespaces = namespaces;
 
 	eventStore.set(el, wrapped);
+
 	el.addEventListener(eventName, wrapped);
 }
 
