@@ -2,6 +2,7 @@ export interface DomEvent extends Event {
 	namespace: string;
 	currentTarget: Element;
 	delegateTarget: Element;
+	relatedTarget: Element;
 	_args: unknown[];
 }
 
