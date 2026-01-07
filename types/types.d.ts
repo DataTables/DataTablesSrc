@@ -5,6 +5,7 @@
 import { Api, DataTablesStatic } from '../dist/api/interface';
 import DataTable from '../dist/dataTable';
 import { Options as ConfigColumns } from '../dist/model/columns/defaults';
+import ColumnContext from '../dist/model/columns/settings';
 import { Options } from '../dist/model/defaults';
 
 export * from '../dist/api/interface';
@@ -12,7 +13,7 @@ export { Dom } from '../dist/dom/index';
 export * from '../dist/ext/types';
 export { Context } from '../dist/model/settings';
 export * from '../dist/model/state';
-export { ConfigColumns, Options }; // Backwards compat
+export { ColumnContext, ConfigColumns, Options };
 
 export default DataTable;
 
