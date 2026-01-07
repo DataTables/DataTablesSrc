@@ -13,9 +13,6 @@ import { SearchInput } from '../search';
  * the initialisation options.
  */
 export default class Settings {
-	/** Extensions can add properties */
-	[key: string]: any;
-
 	public _isArrayHost: boolean;
 
 	/**
@@ -93,6 +90,13 @@ export default class Settings {
 	 * set to null, or because the data source itself is null).
 	 */
 	public defaultContent: string | null = null;
+
+	/**
+	 * Define which field(s) this column should trigger editing on (requires
+	 * Editor, but is referenced by a number of extensions, hence why it is
+	 * here).
+	 */
+	public editField: string | string[];
 
 	public footer: string;
 

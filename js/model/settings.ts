@@ -192,9 +192,6 @@ export interface Features {
  * be used instead.
  */
 export interface Context {
-	/** Extensions can add properties */
-	[key: string]: any;
-
 	ajax: null | string | DtAjaxOptions | AjaxFunction;
 
 	/** Data submitted as part of the last Ajax request */
