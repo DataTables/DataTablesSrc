@@ -1,6 +1,5 @@
 
-import { expectType } from 'tsd';
-import DataTableType, {
+import DataTable, {
 	Api,
 	ApiCellsMethods,
 	ApiColumnMethods,
@@ -10,7 +9,8 @@ import DataTableType, {
 	DataType,
 	DataTypeDetect,
 	HeaderStructure
-} from "../types/types";
+} from "datatables.net";
+import { expectType } from 'tsd';
 
 import { SearchInput } from '../js/model/search';
 
@@ -19,9 +19,6 @@ interface IRow {
 	lastName: string;
 	age: number;
 }
-
-// Mocking the DataTable constructor for the example
-let DataTable: DataTableType = (function () {} as any)
 
 let table = new DataTable('#myTable', {
 	ajax: {
@@ -115,7 +112,7 @@ let table = new DataTable('#myTable', {
 			return document.createElement('div');
 		},
 		bottom9Start: document.createElement('div'),
-		top2Start: $('#test')
+		// top2Start: $('#test')
 	},
 	on: {
 		draw: () => {
@@ -303,6 +300,8 @@ expectType<Api<any>>(table.on('draw', function () {}));
 expectType<Api<any>>(table.on('click', 'tbody td', function () {}));
 expectType<Api<any>>(table.one('draw', function () {}));
 expectType<Api<any>>(table.one('click', 'tbody td', function () {}));
+
+table.order.listener(document.querySelector('button')!, 1, () => {});
 
 // Check `this` is an HTMLElement
 table.on('draw', function () {
