@@ -2726,11 +2726,11 @@ export interface ApiStatic {
 	 */
 	new (selector: string | Node | Node[] | JQuery | Context | Api): Api<any>;
 
-	register<T = any>(name: string, fn: ApiStaticRegisterFn<T>): void;
-	registerPlural<T = any>(
+	register<T extends Function = Function>(name: string, fn: T): void;
+	registerPlural<T extends Function = Function>(
 		pluralName: string,
 		singleName: string,
-		fn: ApiStaticRegisterFn<T>
+		fn: T
 	): void;
 }
 

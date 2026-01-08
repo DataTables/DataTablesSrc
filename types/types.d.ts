@@ -7,13 +7,14 @@ import DataTable from '../dist/dataTable';
 import { Options as ConfigColumns } from '../dist/model/columns/defaults';
 import ColumnContext from '../dist/model/columns/settings';
 import { Options } from '../dist/model/defaults';
+import { Row as RowContext } from '../dist/model/row';
 
 export * from '../dist/api/interface';
 export { Dom } from '../dist/dom/index';
 export * from '../dist/ext/types';
 export { Context } from '../dist/model/settings';
 export * from '../dist/model/state';
-export { ColumnContext, ConfigColumns, Options };
+export { ColumnContext, ConfigColumns, Options, RowContext };
 
 export default DataTable;
 

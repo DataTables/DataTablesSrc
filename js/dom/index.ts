@@ -1019,6 +1019,35 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Get an property value from the first item in the result set. Can be
+	 * undefined. Note this is not the same as an attribute, although they could
+	 * be!
+	 *
+	 * @param name Property name
+	 * @returns Read value
+	 */
+	prop(name: string): AttributeTypes;
+
+	/**
+	 * Set an property value for all items in the result set.
+	 *
+	 * @param name Property name
+	 * @param value Value to give the property
+	 * @returns Self for chaining
+	 */
+	prop(name: string, value: AttributeTypes): this;
+
+	prop(name: any, value?: AttributeTypes) {
+		if (typeof name === 'string' && value === undefined) {
+			return this.count() ? (this._store[0] as any)[name] : null;
+		}
+
+		return this.each(el => {
+			(el as any)[name] = value;
+		});
+	}
+
+	/**
 	 * Removed all nodes in the result set from the document
 	 *
 	 * @returns Self for chaining
