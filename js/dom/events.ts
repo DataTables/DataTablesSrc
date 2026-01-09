@@ -339,6 +339,7 @@ export function remove(
  * @param bubbles If the event should bubble up through the DOM or not
  * @param args Array of arguments to pass to the event handler
  * @param eventProps Object of extra parameters to attach to the event object
+ * @returns `true` if default was NOT prevents, `false` if default was prevented
  */
 export function trigger(
 	el: Element,

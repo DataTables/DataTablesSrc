@@ -538,7 +538,8 @@ export interface ConfigLanguage {
 /**
  * Initialisation options that can be given to DataTables at initialisation
  * time.
- */ const defaults: Defaults = {
+ */
+const defaults: Defaults = {
 	ajax: null,
 	autoWidth: true,
 	caption: '',

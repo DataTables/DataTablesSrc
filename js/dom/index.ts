@@ -1187,7 +1187,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *   object, which is always the first parameter).
 	 * @param props An object of key/value pairs which should be added to the
 	 *   event object that is created and fired for the events.
-	 * @returns Self
+	 * @returns An array of do default results from the events. `true` indicates
+	 *   that the default action should happen, `false` means default was
+	 *   prevented.
 	 */
 	trigger(
 		name: string,
