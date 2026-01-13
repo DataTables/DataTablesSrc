@@ -2,6 +2,8 @@ import * as is from '../util/is';
 import * as object from '../util/object';
 import { PlainObject } from '../util/types';
 import * as events from './events';
+import { EventHandler } from './events';
+import win from './window';
 
 type AttributeTypes = string | number | boolean | null;
 type DomSelector =
@@ -320,6 +322,19 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Determine if the result set contains the element specified. Shorthand for
+	 * .find().count()
+	 *
+	 * @param input Element / selector to look for
+	 * @returns true if it does contain, false otherwise
+	 */
+	contains(
+		input: Dom | string | HTMLElement | Element | null
+	): boolean {
+		return this.find(input).count() !== 0;
+	}
+
+	/**
 	 * Get the number of elements in the current result set
 	 *
 	 * @returns Number of elements
@@ -590,17 +605,21 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param selector Elements to find
 	 */
 	find<R extends HTMLElement = T>(
-		selector: string | HTMLElement | Element | null
+		input: Dom | string | HTMLElement | Element | null
 	): Dom<R> {
-		if (selector === null) {
+		if (input === null) {
 			return new Dom<R>();
 		}
 
 		// Text based selector - loop over each element in the result set, doing
 		// the search on each and adding to a new instance.
-		if (typeof selector === 'string') {
-			return this.map<R>(el => Array.from(el.querySelectorAll(selector)));
+		if (typeof input === 'string') {
+			return this.map<R>(el => Array.from(el.querySelectorAll(input)));
 		}
+
+		let selector = input instanceof Dom
+			? input.get()
+			: input;
 
 		// Otherwise its an element, that we need to see if one of the elements
 		// in the result set is a parent of the given target
@@ -981,6 +1000,30 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 			return parent;
 		});
+	}
+
+	/**
+	 * Get the position of the first element in the result set. The position is
+	 * the coordinates relative to the offset parent.
+	 *
+	 * @returns Object with top and left position coordinates
+	 */
+	position() {
+		if (!this.count()) {
+			return {
+				top: 0,
+				left: 0
+			};
+		}
+
+		let el = this._store[0];
+		let {top, left} = el.getBoundingClientRect();
+		let {marginTop, marginLeft} = getComputedStyle(el);
+
+		return {
+			top: top - parseInt(marginTop, 10),
+			left: left - parseInt(marginLeft, 10)
+		};
 	}
 
 	/**
@@ -1369,10 +1412,6 @@ function normaliseEventParams(name?: string, arg2?: any, arg3?: any) {
 export default {
 	c: Dom.create,
 	Dom,
-	s: Dom.selector
-};
-
-type EventHandler = {
-	(this: HTMLElement, event: any, ...args: any): any;
-	guid?: number;
+	s: Dom.selector,
+	w: win
 };

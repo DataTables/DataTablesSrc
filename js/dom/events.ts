@@ -5,6 +5,11 @@ import { PlainObject } from '../util/types';
 import * as eventStore from './eventStore';
 import { DomEvent, WrappedHandler } from './interface';
 
+export type EventHandler = {
+	(this: HTMLElement, event: any, ...args: any): any;
+	guid?: number;
+};
+
 /*
  * We need an events library that has many of the features of jQuery's event
  * handling - this is for backwards compatibility. Developers who have used
@@ -156,7 +161,7 @@ function parseEventName(original: string | null) {
  *   removed.
  */
 export function add(
-	el: Element,
+	el: Element | Window,
 	nameFull: string,
 	handler: EventListener,
 	selector: string | null,
@@ -205,14 +210,14 @@ export function add(
 			((isFocus && event.target !== el) ||
 				(isHover &&
 					event.relatedTarget &&
-					el.contains(event.relatedTarget)))
+					(el as Element).contains(event.relatedTarget)))
 		) {
 			return;
 		}
 
 		// For delegate events, determine if the target matches our selector
 		if (selector) {
-			let dTarget = delegateTarget(el, selector, event);
+			let dTarget = delegateTarget(el as Element, selector, event);
 
 			if (!dTarget) {
 				return;
@@ -260,7 +265,7 @@ export function add(
  * @param selector Delegate selector (optional)
  */
 export function remove(
-	el: Element,
+	el: Element | Window,
 	nameFull: string | null,
 	handler: EventListener | null,
 	selector: string | null

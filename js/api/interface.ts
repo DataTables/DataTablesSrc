@@ -985,7 +985,7 @@ export interface ApiPageInfo {
  * @param settings Table settings object
  * @param counter Loop counter
  */
-type IteratorTable = (settings: Context, counter: number) => any;
+type IteratorTable = (this: Api, settings: Context, counter: number) => any;
 
 /**
  * "cell" - loop over each table and cell in the result set
@@ -997,6 +997,7 @@ type IteratorTable = (settings: Context, counter: number) => any;
  * @param cellCounter Cell counter (inner)
  */
 type IteratorCell = (
+	this: Api,
 	settings: Context,
 	rowIndex: number,
 	columnIndex: number,
@@ -1012,6 +1013,7 @@ type IteratorCell = (
  * @param counter Loop counter
  */
 type IteratorColumns = (
+	this: Api,
 	settings: Context,
 	resultItem: any,
 	counter: number
@@ -1026,6 +1028,7 @@ type IteratorColumns = (
  * @param columnCounter Column counter (inner)
  */
 type IteratorColumn = (
+	this: Api,
 	settings: Context,
 	columnIndex: number,
 	tableCounter: number,
@@ -1043,6 +1046,7 @@ type IteratorColumn = (
  * @param rowIndexes Row indexes
  */
 type IteratorColumnRows = (
+	this: Api,
 	settings: Context,
 	columnIndex: number,
 	tableCounter: number,
@@ -1059,6 +1063,7 @@ type IteratorColumnRows = (
  * @param rowCounter Row counter (inner)
  */
 type IteratorRow = (
+	this: Api,
 	settings: Context,
 	rowIndex: number,
 	tableCounter: number,
@@ -1073,6 +1078,7 @@ type IteratorRow = (
  * @param counter Loop counter
  */
 type IteratorRows = (
+	this: Api,
 	settings: Context,
 	resultItem: any,
 	counter: number
@@ -1087,6 +1093,7 @@ type IteratorRows = (
  * @param counter Counter (inner)
  */
 type IteratorEvery = (
+	this: Api,
 	settings: Context,
 	index: any,
 	tableCounter: number,
