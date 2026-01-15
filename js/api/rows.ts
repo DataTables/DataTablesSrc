@@ -113,7 +113,7 @@ function selectRows(
 				// need to fall through to selector in case there is DOM id that
 				// matches
 			}
-			else if (sel.match(/^:eq\(\d\)$/)) {
+			else if (sel.match(/^:eq\(\d+\)$/)) {
 				// :eq() selector to get a row based on its position in the
 				// selectable rows.
 				let idx = parseInt(sel.replace(/[^\d]/g, ''));
