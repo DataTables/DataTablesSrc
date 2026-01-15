@@ -103,7 +103,7 @@ export default class Settings {
 	/**
 	 * Column index.
 	 */
-	public idx = null;
+	public idx: number;
 
 	/**
 	 * Name for the column, allowing reference to the column by name as well as

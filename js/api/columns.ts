@@ -508,7 +508,13 @@ registerPlural<ApiColumnsMethods<any>['nodes']>(
 	}
 );
 
-registerPlural<ApiColumnsMethods<any>['titles']>(
+type ApiColumnsTitleOverload = (
+	this: Api<any>,
+	title?: string | number,
+	row?: number
+) => boolean | Api<any>;
+
+registerPlural<ApiColumnsTitleOverload>(
 	'columns().titles()',
 	'column().title()',
 	function (title, row?) {
