@@ -1017,12 +1017,11 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		}
 
 		let el = this._store[0];
-		let {top, left} = el.getBoundingClientRect();
 		let {marginTop, marginLeft} = getComputedStyle(el);
 
 		return {
-			top: top - parseInt(marginTop, 10),
-			left: left - parseInt(marginLeft, 10)
+			top: el.offsetTop - parseInt(marginTop),
+			left: el.offsetLeft - parseInt(marginLeft)
 		};
 	}
 
