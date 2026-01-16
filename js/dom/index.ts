@@ -667,7 +667,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 		if (
 			include === undefined ||
-			include.startsWith('with') ||
+			include === 'withPadding' ||
+			include === 'withBorder' ||
+			include === 'withMargin' ||
 			include === 'inner' ||
 			include === 'outer'
 		) {
@@ -708,7 +710,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			// Setter
 			return this.each(
 				el =>
-					(el.style.width =
+					(el.style.height =
 						typeof include === 'string' ? include : include + 'px')
 			);
 		}
@@ -1342,7 +1344,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 		if (
 			include === undefined ||
-			include.startsWith('with') ||
+			include === 'withPadding' ||
+			include === 'withBorder' ||
+			include === 'withMargin' ||
 			include === 'inner' ||
 			include === 'outer'
 		) {
