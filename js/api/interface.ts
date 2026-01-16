@@ -1,5 +1,5 @@
 import { BrowserInfo } from '../core/compat';
-import Dom from '../dom';
+import Dom, { Dom as IDom } from '../dom';
 import ext from '../ext';
 import {
 	datetime,
@@ -34,6 +34,7 @@ export type RowSelector<T> =
 	| RowIdx
 	| string
 	| Node
+	| IDom
 	| JQuery
 	| ((idx: RowIdx, data: T, node: Node | null) => boolean)
 	| RowSelector<T>[]
