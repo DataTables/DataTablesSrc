@@ -46,18 +46,28 @@ export default {
 	/**
 	 * Get the left scroll offset of the window / document
 	 *
+	 * @param set Set the scroll position
 	 * @returns Window X scroll offset in pixels
 	 */
-	scrollLeft() {
+	scrollLeft(set?: number) {
+		if (set !== undefined) {
+			window.scrollX = set;
+		}
+
 		return window.scrollX;
 	},
 
 	/**
 	 * Get the top scroll offset of the window / document
 	 *
+	 * @param set Set the scroll position
 	 * @returns Window Y scroll offset in pixels
 	 */
-	scrollTop() {
+	scrollTop(set?: number) {
+		if (set !== undefined) {
+			window.scrollY = set;
+		}
+
 		return window.scrollY;
 	},
 
