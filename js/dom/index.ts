@@ -17,6 +17,7 @@ type DomSelector =
 type TDimensionInclude =
 	| 'outer' // alias to withBorder
 	| 'inner' // alias to withPadding
+	| 'content' // default, same as not sending anything
 	| 'withBorder'
 	| 'withPadding'
 	| 'withMargin';
@@ -101,6 +102,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		else if (el !== null && el !== undefined) {
 			this._store.push(el);
 		}
+
+		this._store.sort(documentOrder);
 
 		return this;
 	}
@@ -328,9 +331,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param input Element / selector to look for
 	 * @returns true if it does contain, false otherwise
 	 */
-	contains(
-		input: Dom | string | HTMLElement | Element | null
-	): boolean {
+	contains(input: Dom | string | HTMLElement | Element | null): boolean {
 		return this.find(input).count() !== 0;
 	}
 
@@ -617,9 +618,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			return this.map<R>(el => Array.from(el.querySelectorAll(input)));
 		}
 
-		let selector = input instanceof Dom
-			? input.get()
-			: input;
+		let selector = input instanceof Dom ? input.get() : input;
 
 		// Otherwise its an element, that we need to see if one of the elements
 		// in the result set is a parent of the given target
@@ -662,43 +661,54 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	height(set: number | string): this;
 
 	height(include?: any): any {
-		if (!include) {
-			return this.count()
-				? this._store[0].getBoundingClientRect().height
-				: 0;
+		if (!this.count()) {
+			return 0;
 		}
-		else if (include === 'withPadding' || include === 'inner') {
-			return this.count() ? this._store[0].clientHeight : 0;
-		}
-		else if (
-			include === 'withBorder' ||
-			include === 'withMargin' ||
+
+		if (
+			include === undefined ||
+			include.startsWith('with') ||
+			include === 'inner' ||
 			include === 'outer'
 		) {
-			if (!this.count()) {
-				return 0;
+			let el = this._store[0];
+
+			if (include === 'withBorder') {
+				return el.offsetHeight;
 			}
 
-			let offsetheight = (this._store[0] as unknown as HTMLElement)
-				.offsetHeight;
+			let computed = window.getComputedStyle(this._store[0]);
 
-			if (include === 'withMargin') {
-				let computed = window.getComputedStyle(this._store[0]);
-
+			if (!include || include === 'content') {
+				// Content. Minus scrollbar if there is one
 				return (
-					offsetheight +
+					el.clientHeight -
+					parseFloat(computed.paddingTop) -
+					parseFloat(computed.paddingBottom)
+				);
+			}
+			else if (include === 'withPadding' || include === 'inner') {
+				// Can't use clientHeight and it removes the scrollbar if there
+				// is one.
+				return (
+					el.offsetHeight -
+					parseFloat(computed.borderTopWidth) -
+					parseFloat(computed.borderBottomWidth)
+				);
+			}
+			else { // withMargin
+				return (
+					el.offsetHeight +
 					parseFloat(computed.marginTop) +
 					parseFloat(computed.marginBottom)
 				);
 			}
-
-			return offsetheight;
 		}
 		else {
 			// Setter
 			return this.each(
 				el =>
-					(el.style.height =
+					(el.style.width =
 						typeof include === 'string' ? include : include + 'px')
 			);
 		}
@@ -1017,7 +1027,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		}
 
 		let el = this._store[0];
-		let {marginTop, marginLeft} = getComputedStyle(el);
+		let { marginTop, marginLeft } = getComputedStyle(el);
 
 		return {
 			top: el.offsetTop - parseInt(marginTop),
@@ -1300,8 +1310,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
-	 * Get the width for the first element in the result set. Whether this is
-	 * the inner or outer width depends on the box model for the element.
+	 * Get the content width for the first element in the result set (i.e. no
+	 * padding, border or margin), regardless of the box model type.
 	 *
 	 * @returns Element's width
 	 */
@@ -1326,35 +1336,48 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	width(set: number | string): this;
 
 	width(include?: any): any {
-		if (!include) {
-			return this.count()
-				? this._store[0].getBoundingClientRect().width
-				: 0;
+		if (!this.count()) {
+			return 0;
 		}
-		else if (include === 'withPadding' || include === 'inner') {
-			return this.count() ? this._store[0].clientWidth : 0;
-		}
-		else if (
-			include === 'withBorder' ||
-			include === 'withMargin' ||
+
+		if (
+			include === undefined ||
+			include.startsWith('with') ||
+			include === 'inner' ||
 			include === 'outer'
 		) {
-			if (!this.count()) {
-				return 0;
+			let el = this._store[0];
+
+			if (include === 'withBorder') {
+				return el.offsetWidth;
 			}
 
 			let computed = window.getComputedStyle(this._store[0]);
-			let offsetWidth = parseFloat(computed.width);
 
-			if (include === 'withMargin') {
+			if (!include || include === 'content') {
+				// Content. Minus scrollbar if there is one
 				return (
-					offsetWidth +
-					parseFloat(computed.marginTop) +
-					parseFloat(computed.marginBottom)
+					el.clientWidth -
+					parseFloat(computed.paddingLeft) -
+					parseFloat(computed.paddingRight)
 				);
 			}
-
-			return offsetWidth;
+			else if (include === 'withPadding' || include === 'inner') {
+				// Can't use clientWidth and it removes the scrollbar if there
+				// is one.
+				return (
+					el.offsetWidth -
+					parseFloat(computed.borderLeftWidth) -
+					parseFloat(computed.borderRightWidth)
+				);
+			}
+			else { // withMargin
+				return (
+					el.offsetWidth +
+					parseFloat(computed.marginLeft) +
+					parseFloat(computed.marginRight)
+				);
+			}
 		}
 		else {
 			// Setter
@@ -1406,6 +1429,30 @@ function normaliseEventParams(name?: string, arg2?: any, arg3?: any) {
 		names,
 		selector
 	};
+}
+
+function documentOrder(a: HTMLElement, b: HTMLElement) {
+	if (a === b) {
+		return 0;
+	}
+
+	let position = a.compareDocumentPosition(b);
+
+	if (
+		position & Node.DOCUMENT_POSITION_FOLLOWING ||
+		position & Node.DOCUMENT_POSITION_CONTAINED_BY
+	) {
+		return -1;
+	}
+	else if (
+		position & Node.DOCUMENT_POSITION_PRECEDING ||
+		position & Node.DOCUMENT_POSITION_CONTAINS
+	) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
 }
 
 export default {
