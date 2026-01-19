@@ -145,6 +145,10 @@ var __column_selector = function ( settings, selector, opts )
 							return null;
 						}
 
+						if (col.responsiveVisible === false) {
+							return null;
+						}
+
 						// Selector
 						if (match[1]) {
 							return $(nodes[idx]).filter(match[1]).length > 0 ? idx : null;
