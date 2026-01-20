@@ -195,6 +195,10 @@ function selectColumns(
 							return null;
 						}
 
+						if (col.responsiveVisible === false) {
+							return null;
+						}
+
 						// Selector
 						if (match && match[1]) {
 							return dom

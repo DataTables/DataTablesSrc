@@ -156,6 +156,9 @@ export default class Settings {
 
 	public renderer: GetFunction | null;
 
+	/** Set by Responsive to tell if it has hidden a column or not */
+	public responsiveVisible: boolean;
+
 	/**
 	 * Flag to indicate if the column is searchable, and thus should be included
 	 * in the filtering or not.
