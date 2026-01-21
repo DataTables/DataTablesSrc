@@ -269,3 +269,52 @@ function examples_process {
 		-l "css:syntax css:demo js:syntax js:demo"
 }
 
+function ts_extension {
+	NAME=$(basename "$(pwd)")
+	FILENAME=$2
+	MODULE_NAME=$(echo "$FILENAME" | tr '[:upper:]' '[:lower:]')
+
+	# Get the version from the file
+	VERSION=$(grep "static version" src/dataTables.$FILENAME.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*)?}')
+
+	# JS - compile and then copy into place
+	$DT_SRC/node_modules/typescript/bin/tsc -p ./tsconfig.json
+
+	## Remove the import - our wrapper does it for UMD as well as ESM
+	for filename in dist/*.js; do
+		sed -i "s#import DataTable from 'datatables.net';##" $filename
+	done
+
+	HEADER="/*! $NAME $VERSION
+* Copyright (c) SpryMedia Ltd - datatables.net/license
+*/
+	"
+	$DT_SRC/node_modules/rollup/dist/bin/rollup \
+		--banner "$HEADER" \
+		--config rollup.config.mjs
+
+	rsync -r dist/dataTables.$FILENAME.js $OUT_DIR/js/
+
+	# Some use TS files for the integration, some use plain JS files
+	if [ -d dist/integrations ]; then
+		rsync -r dist/integrations/$FILENAME.*.js $OUT_DIR/js/
+	fi
+
+	if [ -e src/integrations/*.js ]; then
+		rsync -r src/integrations/$FILENAME.*.js $OUT_DIR/js/
+	fi
+
+	js_frameworks $FILENAME $OUT_DIR/js "datatables.net-FW datatables.net-$MODULE_NAME"
+	js_wrap $OUT_DIR/js/dataTables.$FILENAME.js "datatables.net"
+
+	# Move types across, single file was built by rollup
+	if [ -d $OUT_DIR/types ]; then
+		rm -r $OUT_DIR/types		
+	fi
+	mkdir $OUT_DIR/types
+
+	cp dist/types.d.ts $OUT_DIR/types
+	cp types/$FILENAME*.d.ts $OUT_DIR/types
+
+	rm -r dist
+}
