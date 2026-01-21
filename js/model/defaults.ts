@@ -677,4 +677,4 @@ const defaults: Defaults = {
 
 export default defaults;
 
-export type Options = DeepPartial<Defaults>;
+export interface Options extends DeepPartial<Defaults> {};

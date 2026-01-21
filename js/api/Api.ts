@@ -1,4 +1,4 @@
-import dom from '../dom';
+import dom, { Dom } from '../dom';
 import ext from '../ext/index';
 import { Context } from '../model/settings';
 import util from '../util';
@@ -258,6 +258,10 @@ util.object.assign(Api.prototype, {
 		let jq = util.external('jq');
 
 		return jq(this);
+	},
+
+	toDom() {
+		return new Dom(this.toArray());
 	},
 
 	toJQuery: function () {

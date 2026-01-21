@@ -10,6 +10,7 @@ import {
 import { DataTypeDetect, register as registerType } from '../ext/types';
 import registerFeature from '../features';
 import model from '../model';
+import { ConfigColumnDefs } from '../model/columns/defaults';
 import { Defaults, Options } from '../model/defaults';
 import {
 	CellMetaSettings,
@@ -24,6 +25,14 @@ import util from '../util';
 import ajax from '../util/ajax';
 import { check } from '../util/version';
 import { factory } from './static';
+
+type Unpacked<T> = T extends (infer U)[]
+  ? U
+  : T extends (...args: any[]) => infer U
+  ? U
+  : T extends Promise<infer U>
+  ? U
+  : T;
 
 export type DomSelector = string | Node | HTMLElement | JQuery;
 
@@ -258,7 +267,7 @@ export interface ApiScopeable<T, S> {
 	 *
 	 * @returns New API instance with the 2D array values reduced to a 1D array.
 	 */
-	flatten(): Api<Array<any>>;
+	flatten(): Api<Unpacked<T>>;
 
 	/**
 	 * Get the underlying data from a DataTable instance.
@@ -777,12 +786,20 @@ export interface ApiScopeable<T, S> {
 	to$(): JQuery;
 
 	/**
+	 * Convert the API instance to a DataTables Dom object, with the objects
+	 * from the instance's result set in the Dom result set.
+	 *
+	 * @returns DataTables Dom object
+	 */
+	toDom(): IDom;
+
+	/**
 	 * Create a native JavaScript array object from an API instance.
 	 *
 	 * @returns JavaScript array which contains the values from the API
 	 * instance's result set.
 	 */
-	toArray(): any[];
+	toArray(): T[];
 
 	/**
 	 * Convert the API instance to a jQuery object, with the objects from the
@@ -1327,7 +1344,7 @@ export interface ApiCell<T> {
 	): ApiCellMethods<T>;
 }
 
-export interface ApiCellMethods<T>
+export interface ApiCellMethods<T=any>
 	extends Omit<ApiScopeable<T, ApiCellMethods<T>>, 'render' | 'select'> {
 	/**
 	 * Get the DataTables cached data for the selected cell
@@ -1428,7 +1445,7 @@ export interface ApiCells<T> {
 	): ApiCellsMethods<T>;
 }
 
-export interface ApiCellsMethods<T>
+export interface ApiCellsMethods<T=any>
 	extends Omit<
 		ApiScopeable<T, ApiCellsMethods<T>>,
 		'data' | 'render' | 'select'
@@ -1556,7 +1573,7 @@ export interface ApiColumn<T> {
 	index(type: string, index: number): number | null;
 }
 
-export interface ApiColumnMethods<T>
+export interface ApiColumnMethods<T=any>
 	extends Omit<
 		ApiScopeable<T, ApiColumnMethods<T>>,
 		'init' | 'data' | 'order' | 'render' | 'search'
@@ -1619,7 +1636,7 @@ export interface ApiColumnMethods<T>
 	 *
 	 * @returns Column configuration object
 	 */
-	init(this: ApiColumnMethods<T>): any; // TODO ConfigColumns;
+	init(this: ApiColumnMethods<T>): ConfigColumnDefs;
 
 	/**
 	 * Get the name for the selected column (set by `columns.name`).
@@ -1821,7 +1838,7 @@ export interface ApiColumns<T> extends Api<T> {
 	adjust(this: Api): Api<T>;
 }
 
-export interface ApiColumnsMethods<T>
+export interface ApiColumnsMethods<T=any>
 	extends Omit<
 		ApiScopeable<T, ApiColumnsMethods<T>>,
 		'init' | 'data' | 'order' | 'render' | 'search'
@@ -1986,7 +2003,7 @@ export interface ApiColumnsMethods<T>
 	 *
 	 * @returns true if the columns is visible, false if it is not.
 	 */
-	visible(this: ApiColumnsMethods<T>): boolean;
+	visible(this: ApiColumnsMethods<T>): Api<boolean>;
 
 	/**
 	 * Set the visibility of the selected columns.
@@ -2190,7 +2207,7 @@ export interface ApiRow<T> {
 	): ApiRowMethods<T>;
 }
 
-export interface ApiRowMethods<T>
+export interface ApiRowMethods<T=any>
 	extends Omit<ApiScopeable<T, ApiRowMethods<T>>, 'data' | 'select'> {
 	/**
 	 * Get the DataTables cached data for the selected row(s)
@@ -2305,7 +2322,7 @@ export interface ApiRows<T> {
 	add(data: T[]): ApiRowsMethods<T>;
 }
 
-export interface ApiRowsMethods<T>
+export interface ApiRowsMethods<T=any>
 	extends Omit<ApiScopeable<T, ApiRowsMethods<T>>, 'select'> {
 	/**
 	 * Get the DataTables cached data for the selected row(s)
@@ -2363,7 +2380,7 @@ export interface ApiRowsMethods<T>
 	 * @returns DataTables API instance with selected row indexes in the result
 	 * set.
 	 */
-	indexes(this: ApiRowsMethods<T>): Api<Array<number>>;
+	indexes(this: ApiRowsMethods<T>): Api<number>;
 
 	/**
 	 * Obtain the th / td nodes for the selected row(s)

@@ -149,4 +149,4 @@ const defaults: Defaults = {
 
 export default defaults;
 
-export type Options = Partial<Defaults>;
+export interface Options extends Partial<Defaults> {};

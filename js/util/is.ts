@@ -1,3 +1,4 @@
+import { Dom } from '../dom';
 import { numToDecimal } from './conv';
 import { reFormattedNumeric } from './regex';
 import { stripHtml } from './string';
@@ -17,8 +18,18 @@ export function arrayLike(test: any) {
  * @param input Value to check
  * @returns true if it is a Dom instance, false otherwise
  */
-export function dom(input: any) {
-	return input && typeof input === 'object' && input._isDom;
+export function dom<T=Dom>(input: unknown): input is T {
+	return input && typeof input === 'object' && (input as any)._isDom;
+}
+
+/**
+ * Determine if the input is an HTML element
+ *
+ * @param input Value to check
+ * @returns true if an HTML element was passed in
+ */
+export function element<T=HTMLElement>(input: unknown): input is T {
+	return typeof input === 'object' && (input as any).nodeName;
 }
 
 /**
