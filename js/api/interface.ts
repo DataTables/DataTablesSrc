@@ -47,6 +47,7 @@ export type RowSelector<T> =
 	| JQuery
 	| ((idx: RowIdx, data: T, node: Node | null) => boolean)
 	| RowSelector<T>[]
+	| Api<number>
 	| null;
 
 export type ColumnIdx = number;
@@ -57,6 +58,7 @@ export type ColumnSelector =
 	| JQuery
 	| ((idx: ColumnIdx, data: any, node: Node) => boolean)
 	| ColumnSelector[]
+	| Api<number>
 	| null;
 
 export type CellIdx = {
@@ -229,7 +231,7 @@ export interface ApiScopeable<T, S> {
 	 * instance result set. The callback is called with three parameters
 	 * @returns Original API instance that was used. For chaining.
 	 */
-	each(fn: (value: any, index: number, dt: Api<any>) => void): Api<any>;
+	each(fn: (value: any, index: number, dt: Api<any>) => void): Api<T>;
 
 	/**
 	 * Reduce an Api instance to a single context and result set.
@@ -239,7 +241,7 @@ export interface ApiScopeable<T, S> {
 	 * containing the table and data for the index specified, or null if no
 	 * matching index was available.
 	 */
-	eq(this: S, idx: number): Api<any>;
+	eq(this: S, idx: number): Api<T>;
 
 	/**
 	 * Show an error message to the end user / developer through the DataTables
@@ -260,7 +262,7 @@ export interface ApiScopeable<T, S> {
 	 */
 	filter(
 		fn: (value: any, index: number, dt: Api<any>) => boolean
-	): Api<Array<any>>;
+	): Api<T>;
 
 	/**
 	 * Flatten a 2D array structured API instance to a 1D array structure.
@@ -595,7 +597,7 @@ export interface ApiScopeable<T, S> {
 	 * @returns Item removed form the result set (was previously the last item
 	 * in the result set).
 	 */
-	pop(): any;
+	pop(): T;
 
 	/**
 	 * Show / hide the processing indicator for the table
@@ -672,7 +674,7 @@ export interface ApiScopeable<T, S> {
 	 *
 	 * @returns The original API instance with the result set in reversed order.
 	 */
-	reverse(): Api<any>;
+	reverse(): Api<T>;
 
 	/**
 	 * Row Methods / object
@@ -717,14 +719,14 @@ export interface ApiScopeable<T, S> {
 	 * @returns Item removed form the result set (was previously the first item
 	 * in the result set).
 	 */
-	shift(): any;
+	shift(): T;
 
 	/**
 	 * Create an independent copy of the API instance.
 	 *
 	 * @returns DataTables API instance
 	 */
-	slice(): Api<any>;
+	slice(): Api<T>;
 
 	/**
 	 * Sort the elements of the API instance's result set.
@@ -734,7 +736,7 @@ export interface ApiScopeable<T, S> {
 	 * @returns The original API instance with the result set sorted as defined
 	 * by the sorting conditions used.
 	 */
-	sort(fn?: (value1: any, value2: any) => number): Api<Array<any>>;
+	sort(fn?: (value1: any, value2: any) => number): Api<T>;
 
 	/**
 	 * Modify the contents of an Api instance's result set, adding or removing
@@ -753,7 +755,7 @@ export interface ApiScopeable<T, S> {
 		howMany: number,
 		value_1?: any,
 		...value_2: any[]
-	): any[];
+	): T[];
 
 	/**
 	 * State methods / object
@@ -1478,7 +1480,7 @@ export interface ApiCellsMethods<T=any>
 	every(
 		this: ApiCellsMethods<T>,
 		fn: (
-			this: ApiCellsMethods<T>,
+			this: ApiCellMethods<T>,
 			cellRowIdx: number,
 			cellColIdx: number,
 			tableLoop: number,
@@ -1913,7 +1915,7 @@ export interface ApiColumnsMethods<T=any>
 	 * @returns DataTables API instance with selected columns' indexes in the
 	 * result set.
 	 */
-	indexes(this: ApiColumnsMethods<T>, type?: string): Api<Array<number>>;
+	indexes(this: ApiColumnsMethods<T>, type?: string): Api<number>;
 
 	/**
 	 * Get the initialisation objects used for the selected columns.
@@ -1936,7 +1938,7 @@ export interface ApiColumnsMethods<T=any>
 	 * columns in the result set. This is a 2D array with the top level array
 	 * entries for each column matched by the columns() selector.
 	 */
-	nodes(this: ApiColumnsMethods<T>): Api<Array<Array<HTMLTableCellElement>>>;
+	nodes(this: ApiColumnsMethods<T>): Api<Array<HTMLTableCellElement>>;
 
 	/**
 	 * Order the table, in the direction specified, by the columns selected by
@@ -1958,7 +1960,7 @@ export interface ApiColumnsMethods<T=any>
 	 * Get a list of the column ordering directions (from
 	 * `columns.orderSequence`).
 	 */
-	orderable(this: ApiColumnsMethods<T>, directions: true): Api<Array<string>>;
+	orderable(this: ApiColumnsMethods<T>, directions: true): Api<string>;
 
 	/**
 	 * Get rendered data for the selected columns.
@@ -2372,7 +2374,7 @@ export interface ApiRowsMethods<T=any>
 	 * @returns Api instance with the selected rows in its result set. If a row
 	 * does not have an id available 'undefined' will be returned as the value.
 	 */
-	ids(this: ApiRowsMethods<T>, hash?: boolean): Api<Array<any>>;
+	ids(this: ApiRowsMethods<T>, hash?: boolean): Api<any>;
 
 	/**
 	 * Get the row indexes of the selected rows.
@@ -2388,7 +2390,7 @@ export interface ApiRowsMethods<T=any>
 	 * @param source Data source to read the new data from. Values: 'auto',
 	 * 'data', 'dom'
 	 */
-	invalidate(this: ApiRowsMethods<T>, source?: string): Api<Array<any>>;
+	invalidate(this: ApiRowsMethods<T>, source?: string): Api<Array<number>>;
 
 	/**
 	 * Obtain the tr nodes for the selected rows
