@@ -751,6 +751,20 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Determine if the first element in the result set is in the document or
+	 * not
+	 *
+	 * @returns true if is, false if detached
+	 */
+	isAttached() {
+		if (this.count() === 0) {
+			return false;
+		}
+
+		return document.body.contains(this._store[0]);
+	}
+
+	/**
 	 * Determine if the first element in the result set is visible or not.
 	 *
 	 * @returns Visibility flag
