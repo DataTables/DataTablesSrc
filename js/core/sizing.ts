@@ -58,7 +58,7 @@ export function calculateColumnWidths(settings: Context) {
 		settings,
 		null,
 		'column-calc',
-		{ visible: visibleColumns },
+		[{ visible: visibleColumns }],
 		false
 	);
 
