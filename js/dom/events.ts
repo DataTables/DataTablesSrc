@@ -111,7 +111,7 @@ function parseEventName(original: string | null) {
 	if (!original) {
 		return {
 			eventName: null,
-			namespaces: []
+			namespaces: [] as string[]
 		};
 	}
 
@@ -325,7 +325,13 @@ export function remove(
 	// handlers which have the given namespaces
 	if (namespaces.length) {
 		removeEvents = removeEvents.filter(
-			ev => array.intersection(ev.namespaces, namespaces).length
+			// The event needs to match all of the namespaces given in order to
+			// be removed - this matches jQuery's behaviour. The event could
+			// have other namespaces. Do this by filtering to just the filtering
+			// namespaces and check that the length matches
+			ev =>
+				ev.namespaces.filter(ns => namespaces.includes(ns)).length ===
+				namespaces.length
 		);
 	}
 
