@@ -61,10 +61,10 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			if (typeof selector === 'string') {
 				let elements = Array.from(document.querySelectorAll(selector));
 
-				this.add(elements as T[]);
+				this.add(elements as T[], false);
 			}
 			else if (selector instanceof Dom) {
-				this.add(selector.get());
+				this.add(selector.get(), false);
 			}
 			else if (
 				typeof selector === 'object' &&
@@ -76,12 +76,14 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 				let arrayLike = selector as any[];
 
 				for (let i = 0; i < arrayLike.length; i++) {
-					this.add(arrayLike[i]);
+					this.add(arrayLike[i], false);
 				}
 			}
 			else {
-				this.add(selector as T);
+				this.add(selector as T, false);
 			}
+
+			this._store.sort(documentOrder);
 		}
 	}
 
@@ -89,9 +91,10 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * Add an element (or multiple) to the instance. Will ensure uniqueness.
 	 *
 	 * @param el Element(s) to add
+	 * @param sort Indicate if the element should be added in document order.
 	 * @returns Self for chaining
 	 */
-	add(el: T | Array<T> | null) {
+	add(el: T | Array<T> | null, sort = true) {
 		if (Array.isArray(el)) {
 			el.forEach(e => {
 				if (e !== null && e !== undefined) {
@@ -103,7 +106,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			this._store.push(el);
 		}
 
-		this._store.sort(documentOrder);
+		if (sort) {
+			this._store.sort(documentOrder);
+		}
 
 		return this;
 	}
