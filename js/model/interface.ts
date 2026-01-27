@@ -303,7 +303,7 @@ export type FunctionInfoCallback = (
 	max: number,
 	total: number,
 	pre: string
-) => void;
+) => string;
 
 export type FunctionInitComplete = (
 	this: DataTableDom,
