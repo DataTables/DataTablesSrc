@@ -273,9 +273,14 @@ function ts_extension {
 	NAME=$(basename "$(pwd)")
 	FILENAME=$2
 	MODULE_NAME=$(echo "$FILENAME" | tr '[:upper:]' '[:lower:]')
+	SRCDIR="src"
+
+	if [ -d js ]; then
+		SRCDIR="js"
+	fi
 
 	# Get the version from the file
-	VERSION=$(grep "static version" src/dataTables.$FILENAME.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*)?}')
+	VERSION=$(grep "static version" ${SRCDIR}/dataTables.$FILENAME.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*)?}')
 
 	# JS - compile and then copy into place
 	$DT_SRC/node_modules/typescript/bin/tsc -p ./tsconfig.json
@@ -300,12 +305,12 @@ function ts_extension {
 		rsync -r dist/integrations/$FILENAME.*.js $OUT_DIR/js/
 	fi
 
-	if [ -e src/integrations/*.js ]; then
-		rsync -r src/integrations/$FILENAME.*.js $OUT_DIR/js/
+	if [ -e ${SRCDIR}/integrations/$FILENAME.dataTables.js ]; then
+		rsync -r ${SRCDIR}/integrations/$FILENAME.*.js $OUT_DIR/js/
 	fi
 
 	js_frameworks $FILENAME $OUT_DIR/js "datatables.net-FW datatables.net-$MODULE_NAME"
-	js_wrap $OUT_DIR/js/dataTables.$FILENAME.js "datatables.net"
+	js_wrap $OUT_DIR/${SRCDIR}/dataTables.$FILENAME.js "datatables.net"
 
 	# Move types across, single file was built by rollup
 	if [ -d $OUT_DIR/types ]; then
