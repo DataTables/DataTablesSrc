@@ -1121,6 +1121,18 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Remove a property from all elements in the result set
+	 *
+	 * @param name Property name to remove
+	 * @returns Self for chaining
+	 */
+	propRemove(name: string) {
+		return this.each(el => {
+			delete (el as any)[name];
+		});
+	}
+
+	/**
 	 * Removed all nodes in the result set from the document
 	 *
 	 * @returns Self for chaining
