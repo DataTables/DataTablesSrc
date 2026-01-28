@@ -237,12 +237,12 @@ register<ApiType['i18n']>('i18n()', function (token, def, plural) {
 	}
 
 	if (util.is.plainObject(resolved)) {
-		resolved =
-			plural !== undefined && resolved[plural] !== undefined
-				? resolved[plural]
-				: (plural as any) === false
-				? resolved
-				: resolved._;
+		if (plural !== false) {
+			resolved =
+				plural !== undefined && resolved[plural] !== undefined
+					? resolved[plural]
+					: resolved._;
+		}
 	}
 
 	return typeof resolved === 'string'

@@ -279,6 +279,24 @@ export interface ApiScopeable<T, S> {
 	get(idx: number): T;
 
 	/**
+	 * Get a language object
+	 *
+	 * @param token The language token to lookup from the language object.
+	 * @param def The default value to use if the DataTables initialisation has
+	 * not specified a value. This can be a string for simple cases, or an
+	 * object for plurals.
+	 * @param resolve As `false` it indicates that an object should be returned.
+	 *
+	 * @returns i18n object
+	 */
+	i18n(
+		this: S,
+		token: string,
+		def: object | string,
+		resolve: false
+	): Record<string, any>;
+
+	/**
 	 * Look up a language token that was defined in the DataTables' language
 	 * initialisation object.
 	 *
