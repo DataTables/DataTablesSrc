@@ -215,6 +215,15 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Blur on the target elements
+	 *
+	 * @returns Self for chaining
+	 */
+	blur() {
+		return this.each(el => el.blur());
+	}
+
+	/**
 	 * Get the child from all elements in the result set
 	 *
 	 * @param selector Query string that the child much match to be selected
@@ -561,19 +570,37 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Call focus on the target elements
+	 *
+	 * @returns Self for chaining
+	 */
+	focus() {
+		return this.each(el => el.focus());
+	}
+
+	/**
 	 * Reduce the result set based on a given filter, which can be a CSS
 	 * selector, an element or array of elements.
 	 *
-	 * @param filter Optional selector that the result set element would need to
-	 *   match to be selected.
+	 * @param filter Optional selector or function that the result set element
+	 *   would need to match to be selected.
 	 * @returns New Dom instance containing the filters elements
 	 */
 	filter(
-		filter?: string | HTMLElement | HTMLElement[] | ArrayLike<HTMLElement>
+		filter?:
+			| string
+			| HTMLElement
+			| HTMLElement[]
+			| ArrayLike<HTMLElement>
+			| ((el: T) => boolean)
 	) {
 		return this.map(el => {
 			if (filter === undefined) {
 				return el;
+			}
+
+			if (typeof filter === 'function') {
+				return filter(el) ? el : null;
 			}
 
 			// Direct match - allows an element to be given as the filter
@@ -703,7 +730,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 					parseFloat(computed.borderBottomWidth)
 				);
 			}
-			else { // withMargin
+			else {
+				// withMargin
 				return (
 					el.offsetHeight +
 					parseFloat(computed.marginTop) +
@@ -753,6 +781,24 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		else {
 			return this.count() ? this._store[0].innerHTML : null;
 		}
+	}
+
+	/**
+	 * Boolean return check on if an item in the result set matches the selector
+	 * given. Only one need match.
+	 *
+	 * @param selector Selector to match against
+	 * @returns Boolean true if there is a match
+	 */
+	is(
+		selector:
+			| string
+			| HTMLElement
+			| HTMLElement[]
+			| ArrayLike<HTMLElement>
+			| ((el: T) => boolean)
+	) {
+		return this.filter(selector).count() > 0;
 	}
 
 	/**
@@ -1412,7 +1458,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 					parseFloat(computed.borderRightWidth)
 				);
 			}
-			else { // withMargin
+			else {
+				// withMargin
 				return (
 					el.offsetWidth +
 					parseFloat(computed.marginLeft) +
@@ -1500,8 +1547,8 @@ function elementArray(target: Element | Element[] | Dom): Element[] {
 	return is.dom(target)
 		? target.get()
 		: Array.isArray(target)
-			? target
-			: [target];
+		? target
+		: [target];
 }
 
 export default {
