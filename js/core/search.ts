@@ -67,7 +67,7 @@ export function filterComplete(settings: Context, input: SearchOptions) {
  * @param settings DataTables settings object
  */
 function filterCustom(settings: Context) {
-	let filters = ext.search as any[]; // TODO typing
+	let filters = ext.search;
 	let displayRows = settings.display;
 	let row, rowIdx;
 

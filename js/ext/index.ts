@@ -12,6 +12,152 @@ export interface ExtOrder {
 		| undefined;
 }
 
+export interface Ext {
+	builder: string;
+
+	/**
+	 * Buttons. For use with the Buttons extension for DataTables. This is
+	 * defined here so other extensions can define buttons regardless of load
+	 * order. It is _not_ used by DataTables core.
+	 */
+	buttons: Record<string, any>;
+
+	/**
+	 * ColumnControl buttons and content
+	 */
+	ccContent: Record<string, any>;
+
+	/**
+	 * Element class names
+	 */
+	classes: typeof classes;
+
+	/**
+	 * Error reporting.
+	 *
+	 * How should DataTables report an error. Can take the value 'alert',
+	 * 'throw', 'none' or a function.
+	 */
+	errMode:
+		| 'alert'
+		| 'throw'
+		| 'none'
+		| ((ctx: Context, tn: number | undefined, msg: string) => void);
+
+	/** HTML entity escaping */
+	escape: {
+		/** When reading data-* attributes for initialisation options */
+		attributes: boolean;
+	};
+
+	/**
+	 * Legacy so v1 plug-ins don't throw js errors on load
+	 */
+	feature: typeof featuresLegacy;
+
+	/**
+	 * Feature plug-ins.
+	 *
+	 * This is an object of callbacks which provide the features for DataTables
+	 * to be initialised via the `layout` option.
+	 */
+	features: typeof features;
+
+	/**
+	 * Row searching.
+	 *
+	 * This method of searching is complimentary to the default type based
+	 * searching, and a lot more comprehensive as it allows you complete control
+	 * over the searching logic. Each element in this array is a function
+	 * (parameters described below) that is called for every row in the table,
+	 * and your logic decides if it should be included in the searching data set
+	 * or not.
+	 */
+	search: Array<
+		(
+			ctx: Context,
+			cells: string[] | null,
+			rowIdx: number,
+			data: any,
+			displayIdx: number
+		) => boolean
+	>;
+
+	/**
+	 * Selector extensions
+	 *
+	 * The `selector` option can be used to extend the options available for the
+	 * selector modifier options (`selector-modifier` object data type) that
+	 * each of the three built in selector types offer (row, column and cell +
+	 * their plural counterparts). For example the Select extension uses this
+	 * mechanism to provide an option to select only rows, columns and cells
+	 * that have been marked as selected by the end user (`{selected: true}`),
+	 * which can be used in conjunction with the existing built in selector
+	 * options.
+	 */
+	selector: Record<string, Array<any>>;
+
+	settings: Context[];
+
+	/**
+	 * Legacy configuration options. Enable and disable legacy options that
+	 * are available in DataTables.
+	 */
+	legacy: {};
+
+	/**
+	 * Pagination plug-in methods.
+	 *
+	 * Each entry in this object is a function and defines which buttons should
+	 * be shown by the pagination rendering method that is used for the table.
+	 * The renderer addresses how the buttons are displayed in the document,
+	 * while the functions here tell it what buttons to display. This is done by
+	 * returning an array of button descriptions (what each button will do).
+	 */
+	pager: typeof pager;
+
+	renderer: renderers.IRenderers;
+
+	/**
+	 * Rendering helper function exposed for use by the styling integrations.
+	 */
+	rendererDisplayRowCells: typeof renderers.displayRowCells;
+
+	/**
+	 * Ordering plug-ins - custom data source
+	 *
+	 * The extension options for ordering of data available here is
+	 * complimentary to the default type based ordering that DataTables
+	 * typically uses. It allows much greater control over the data that is
+	 * being used to order a column, but is necessarily therefore more complex.
+	 */
+	order: ExtOrder;
+
+	/**
+	 * Type based plug-ins.
+	 *
+	 * Each column in DataTables has a type assigned to it, either by automatic
+	 * detection or by direct assignment using the `type` option for the column.
+	 * The type of a column will effect how it is ordering and search (plug-ins
+	 * can also make use of the column type if required).
+	 */
+	type: typeof store;
+
+	/**
+	 * Unique DataTables instance counter
+	 */
+	_unique: number;
+
+	//
+	// Depreciated
+	// The following properties are retained for backwards compatibility only.
+	// The should not be used in new projects and will be removed in a future
+	// version
+	//
+
+	version: string;
+}
+
 /**
  * DataTables extensions
  *
@@ -23,7 +169,7 @@ export interface ExtOrder {
  * Note that this namespace is aliased to `jQuery.fn.dataTableExt` for legacy
  * reasons
  */
-const ext = {
+const ext: Ext = {
 	/**
 	 * DataTables build type (expanded by the download builder)
 	 */
@@ -101,9 +247,9 @@ const ext = {
 		cell: [],
 		column: [],
 		row: []
-	} as Record<string, Array<any>>,
+	},
 
-	settings: [] as Context[],
+	settings: [],
 
 	/**
 	 * Legacy configuration options. Enable and disable legacy options that
@@ -146,7 +292,7 @@ const ext = {
 		pagingContainer: {
 			_: renderers.pagingContainer
 		}
-	} as renderers.IRenderers,
+	},
 
 	/**
 	 * Rendering helper function exposed for use by the styling integrations.
@@ -161,7 +307,7 @@ const ext = {
 	 * typically uses. It allows much greater control over the data that is
 	 * being used to order a column, but is necessarily therefore more complex.
 	 */
-	order: {} as ExtOrder,
+	order: {},
 
 	/**
 	 * Type based plug-ins.
@@ -189,20 +335,6 @@ const ext = {
 	//
 
 	/**
-	 * Version check function.
-	 *  @type function
-	 *  @depreciated Since 1.10
-	 */
-	fnVersionCheck: check,
-
-	/**
-	 * Index for what 'this' index API functions should use
-	 *  @type int
-	 *  @deprecated Since v1.10
-	 */
-	iApiIndex: 0,
-
-	/**
 	 * Software version
 	 *  @type string
 	 */
@@ -221,7 +353,8 @@ Object.assign(ext, {
 	aoFeatures: ext.feature,
 	oStdClasses: ext.classes,
 	oPagination: ext.pager,
-	sVersion: ext.version
+	sVersion: ext.version,
+	fnVersionCheck: check
 });
 
 export default ext;
