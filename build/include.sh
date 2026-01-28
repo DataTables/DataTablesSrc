@@ -310,7 +310,7 @@ function ts_extension {
 	fi
 
 	js_frameworks $FILENAME $OUT_DIR/js "datatables.net-FW datatables.net-$MODULE_NAME"
-	js_wrap $OUT_DIR/${SRCDIR}/dataTables.$FILENAME.js "datatables.net"
+	js_wrap $OUT_DIR/js/dataTables.$FILENAME.js "datatables.net"
 
 	# Move types across, single file was built by rollup
 	if [ -d $OUT_DIR/types ]; then
