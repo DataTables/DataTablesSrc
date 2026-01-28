@@ -809,10 +809,12 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param target Element after which the insert should happen
 	 * @returns Self for chaining
 	 */
-	insertAfter(target: Element) {
-		return this.eachReverse(el =>
-			target?.parentNode?.insertBefore(el, target.nextSibling)
-		);
+	insertAfter(target: Element | Element[] | Dom) {
+		let nodes = elementArray(target);
+
+		return this.eachReverse(el => {
+			nodes.forEach(n => n?.parentNode?.insertBefore(el, n.nextSibling));
+		});
 	}
 
 	/**
@@ -821,8 +823,12 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param target Element before which the insert should happen
 	 * @returns Self for chaining
 	 */
-	insertBefore(target: Element) {
-		return this.each(el => target?.parentNode?.insertBefore(el, target));
+	insertBefore(target: Element | Element[] | Dom) {
+		let nodes = elementArray(target);
+
+		return this.each(el => {
+			nodes.forEach(n => n?.parentNode?.insertBefore(el, n));
+		});
 	}
 
 	/**
@@ -1488,6 +1494,14 @@ function documentOrder(a: HTMLElement, b: HTMLElement) {
 	else {
 		return 0;
 	}
+}
+
+function elementArray(target: Element | Element[] | Dom): Element[] {
+	return is.dom(target)
+		? target.get()
+		: Array.isArray(target)
+			? target
+			: [target];
 }
 
 export default {
