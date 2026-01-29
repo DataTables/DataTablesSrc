@@ -3,12 +3,11 @@ import util from '../util';
 import { AjaxOptions, HttpMethod } from '../util/ajax';
 import { GetFunction, JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
-import { Options } from './defaults';
+import { ConfigLanguage, Options } from './defaults';
 import {
 	AjaxData,
 	DataTableDom,
 	FunctionFormatNumber,
-	FunctionInfoCallback,
 	Layout,
 	OrderState
 } from './interface';
@@ -359,41 +358,7 @@ export interface Context {
 	json: JSON;
 
 	/** Language information for the table. */
-	language: {
-		aria: {
-			orderable: string;
-			orderableRemove: string;
-			orderableReverse: string;
-			paginate: {
-				first: string;
-				last: string;
-				next: string;
-				number: string;
-				previous: string;
-			};
-		};
-		decimal: string;
-		emptyTable: string;
-		info: string;
-		infoCallback: null | FunctionInfoCallback;
-		infoEmpty: string;
-		infoFiltered: string;
-		infoPostFix: string;
-		lengthMenu: string;
-		loadingRecords: string;
-		paginate: {
-			first: string;
-			last: string;
-			next: string;
-			previous: string;
-		};
-		processing: string;
-		search: string;
-		searchPlaceholder: string;
-		thousands: string;
-		url: string;
-		zeroRecords: string;
-	};
+	language: ConfigLanguage;
 
 	/** Last applied sort */
 	lastOrder: any[];
@@ -638,12 +603,13 @@ const defaults: Partial<Context> = {
 		},
 		decimal: '',
 		emptyTable: '',
+		entries: {_: ''},
 		info: '',
-		infoCallback: null,
 		infoEmpty: '',
 		infoFiltered: '',
 		infoPostFix: '',
 		lengthMenu: '',
+		lengthLabels: {},
 		loadingRecords: '',
 		paginate: {
 			first: '',

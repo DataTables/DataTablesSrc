@@ -6,7 +6,7 @@ import { Api, DataTablesStatic } from '../dist/api/interface';
 import DataTable from '../dist/dataTable';
 import { Options as ConfigColumns } from '../dist/model/columns/defaults';
 import ColumnContext from '../dist/model/columns/settings';
-import { Defaults, Options } from '../dist/model/defaults';
+import { Defaults, ConfigLanguage as Language, Options } from '../dist/model/defaults';
 import { Row as RowContext } from '../dist/model/row';
 
 export * from '../dist/api/interface';
@@ -15,7 +15,7 @@ export { Ext } from '../dist/ext';
 export * from '../dist/ext/types';
 export { Context } from '../dist/model/settings';
 export * from '../dist/model/state';
-export { ColumnContext, ConfigColumns, Defaults, Options, RowContext };
+export { ColumnContext, ConfigColumns, Defaults, Language, Options, RowContext };
 
 export default DataTable;
 
