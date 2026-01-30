@@ -90,7 +90,7 @@ _buildInclude('api.core.js');
  *  @type string
  *  @default Version number
  */
-DataTable.version = "2.3.6";
+DataTable.version = "2.3.7";
 
 /**
  * Private data store, containing all of the settings objects that are
