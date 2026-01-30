@@ -382,6 +382,7 @@ if ( oLanguage.sUrl ) {
 	$.ajax( {
 		dataType: 'json',
 		url: oLanguage.sUrl,
+		xhrFields: oLanguage.xhrFields ?? {},
 		success: function ( json ) {
 			_fnCamelToHungarian( defaults.oLanguage, json );
 			$.extend( true, oLanguage, json, oSettings.oInit.oLanguage );
