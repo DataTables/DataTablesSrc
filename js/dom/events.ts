@@ -369,7 +369,7 @@ export function trigger(
 			setEventProp(ev, key, val);
 		});
 
-		jq(el)[method](ev, args);
+		jq(el)[method](ev, args || []);
 
 		// See note below regarding the inversion
 		return !ev.isDefaultPrevented();
