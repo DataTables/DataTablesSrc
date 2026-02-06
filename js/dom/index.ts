@@ -121,7 +121,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param content The content to append
 	 * @returns Self for chaining
 	 */
-	append<T extends Node>(content: T | T[] | Dom | null) {
+	append<T extends Node>(content: T | T[] | Dom | string | null) {
 		if (!content) {
 			return this;
 		}
@@ -137,6 +137,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 				content.each(item => {
 					el.append(item);
 				});
+			}
+			else if (typeof content === 'string') {
+				el.insertAdjacentHTML('beforeend', content);
 			}
 			else if (is.arrayLike(content)) {
 				// Allow for a jQuery object being passed
@@ -666,6 +669,17 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Get the last element in the result set
+	 *
+	 * @returns New instance with just the selected item
+	 */
+	first() {
+		let s = this._store;
+
+		return new Dom(s.length ? s[0] : null);
+	}
+
+	/**
 	 * Get the height for the first element in the result set. Whether this is
 	 * the inner or outer height depends on the box model for the element.
 	 *
@@ -875,6 +889,17 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		return this.each(el => {
 			nodes.forEach(n => n?.parentNode?.insertBefore(el, n));
 		});
+	}
+
+	/**
+	 * Get the last element in the result set
+	 *
+	 * @returns New instance with just the selected item
+	 */
+	last() {
+		let s = this._store;
+
+		return new Dom(s.length ? s[s.length - 1] : null);
 	}
 
 	/**
@@ -1116,10 +1141,13 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param content
 	 * @returns
 	 */
-	prepend(content: Element | Dom) {
+	prepend(content: Element | Dom | string) {
 		return this.each(el => {
 			if (content instanceof Dom) {
 				content.each(item => el.prepend(item));
+			}
+			else if (typeof content === 'string') {
+				el.insertAdjacentHTML('afterbegin', content);
 			}
 			else {
 				el.prepend(content);
