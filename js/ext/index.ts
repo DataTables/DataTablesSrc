@@ -12,6 +12,10 @@ export interface ExtOrder {
 		| undefined;
 }
 
+export interface ExtButtons {
+	[name: string]: any;
+}
+
 export interface Ext {
 	builder: string;
 
@@ -20,7 +24,7 @@ export interface Ext {
 	 * defined here so other extensions can define buttons regardless of load
 	 * order. It is _not_ used by DataTables core.
 	 */
-	buttons: Record<string, any>;
+	buttons: ExtButtons;
 
 	/**
 	 * ColumnControl buttons and content

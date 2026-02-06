@@ -231,7 +231,7 @@ export interface ApiScopeable<T, S> {
 	 * instance result set. The callback is called with three parameters
 	 * @returns Original API instance that was used. For chaining.
 	 */
-	each(fn: (value: any, index: number, dt: Api<any>) => void): Api<T>;
+	each(fn: (value: T, index: number, dt: Api<T>) => void): Api<T>;
 
 	/**
 	 * Reduce an Api instance to a single context and result set.
@@ -720,16 +720,7 @@ export interface ApiScopeable<T, S> {
 	/**
 	 * @ignore Internal
 	 */
-	selector: {
-		/** Row selector used in this instance (if any) */
-		rows: RowSelector<T> | undefined;
-
-		/** Column selector used in this instance (if any) */
-		cols: ColumnSelector | undefined;
-
-		/** Options modifier used in this instance (if any) */
-		opts: ApiSelectorModifier | undefined;
-	};
+	selector: ApiSelector<T>;
 
 	/**
 	 * Remove the first item from an API instance's result set.
@@ -883,6 +874,17 @@ export interface ApiCaption {
 	 * Get the HTML caption node for the table
 	 */
 	node(this: Api): HTMLElement | null;
+}
+
+export interface ApiSelector<T=any> {
+	/** Row selector used in this instance (if any) */
+	rows: RowSelector<T> | undefined;
+
+	/** Column selector used in this instance (if any) */
+	cols: ColumnSelector | undefined;
+
+	/** Options modifier used in this instance (if any) */
+	opts: ApiSelectorModifier | undefined;
 }
 
 export interface ApiSelectorModifier {
@@ -2771,7 +2773,7 @@ export interface ApiStatic {
 	 */
 	new (selector: string | Node | Node[] | JQuery | Context | Api): Api<any>;
 
-	register<T extends Function = Function>(name: string, fn: T): void;
+	register<T extends Function = Function>(name: string | string[], fn: T): void;
 	registerPlural<T extends Function = Function>(
 		pluralName: string,
 		singleName: string,

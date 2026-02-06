@@ -272,6 +272,7 @@ function examples_process {
 function ts_extension {
 	NAME=$(basename "$(pwd)")
 	FILENAME=$2
+	DONT_REMOVE=$3
 	MODULE_NAME=$(echo "$FILENAME" | tr '[:upper:]' '[:lower:]')
 	SRCDIR="src"
 
@@ -321,5 +322,7 @@ function ts_extension {
 	cp dist/types.d.ts $OUT_DIR/types
 	cp types/$FILENAME*.d.ts $OUT_DIR/types
 
-	rm -r dist
+	if [ -z "$DONT_REMOVE" ]; then
+		rm -r dist
+	fi
 }

@@ -11,7 +11,7 @@ import { Row as RowContext } from '../dist/model/row';
 
 export * from '../dist/api/interface';
 export { Dom } from '../dist/dom/index';
-export { Ext } from '../dist/ext';
+export { Ext, ExtButtons } from '../dist/ext';
 export * from '../dist/ext/types';
 export { Context } from '../dist/model/settings';
 export * from '../dist/model/state';
