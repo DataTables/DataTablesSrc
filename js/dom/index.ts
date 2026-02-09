@@ -1144,7 +1144,11 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	prepend(content: Element | Dom | string) {
 		return this.each(el => {
 			if (content instanceof Dom) {
+				// Reverse the array, so if there are multiple elements, they
+				// end up being added sequentially, just like jQuery
+				content._store.reverse();
 				content.each(item => el.prepend(item));
+				content._store.reverse();
 			}
 			else if (typeof content === 'string') {
 				el.insertAdjacentHTML('afterbegin', content);
@@ -1505,6 +1509,12 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		}
 	}
 }
+
+// Aliases for jQuery-likeness. Not exposed via Typescript, but that might
+// change.
+(Dom.prototype as any).addClass = Dom.prototype.classAdd;
+(Dom.prototype as any).hasClass = Dom.prototype.classHas;
+(Dom.prototype as any).removeClass = Dom.prototype.classRemove;
 
 /**
  * Convert a data value into a typed value
