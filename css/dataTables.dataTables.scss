@@ -30,23 +30,31 @@
 	--dt-paging-button_box-shadow-active: inset 0 0 3px #111;
 	--dt-paging-button_padding: 0.5em 1em;
 	--dt-paging-button_margin-left: 2px;
-	--dt-paging-button_border-radius: 2px;
+	--dt-paging-button_border-radius: 3px;
+
 	--dt-paging-button_background: transparent;
-	--dt-paging-button_background-current: rgba(0, 0, 0, 0.05);
-	--dt-paging-button_background-disabled: transparent;
-	--dt-paging-button_background-hover: #111;
 	--dt-paging-button_border: 1px solid transparent;
-	--dt-paging-button_border-current: 1px solid rgba(0, 0, 0, 0.3);
-	--dt-paging-button_border-disabled: 1px solid transparent;
-	--dt-paging-button_border-hover: 1px solid #111;
 	--dt-paging-button_color: var(--dt-control_color);
-	--dt-paging-button_color-current: var(--dt-control_color);
+
+	--dt-paging-button_background-disabled: transparent;
+	--dt-paging-button_border-disabled: 1px solid transparent;
 	--dt-paging-button_color-disabled: rgba(0, 0, 0, 0.5);
-	--dt-paging-button_color-hover: white;
+
+	--dt-paging-button_background-current: rgba(0, 0, 0, 0.05);
+	--dt-paging-button_border-current: 1px solid rgba(0, 0, 0, 0.3);
+	--dt-paging-button_color-current: var(--dt-control_color);
+
+	--dt-paging-button_background-current-hover: rgba(0, 0, 0, 0.1);
+	--dt-paging-button_border-current-hover: 1px solid rgba(0, 0, 0, 0.5);
+	--dt-paging-button_color-current-hover: var(--dt-control_color);
+
+	--dt-paging-button_background-hover: rgba(0, 0, 0, 0.1);
+	--dt-paging-button_border-hover: 1px solid transparent;
+	--dt-paging-button_color-hover: var(--dt-control_color);
 
 	--dt-input_border: 1px solid #aaa;
 	--dt-input_border-radius: 3px;
-	--dt-input_padding: 5px;
+	--dt-input_padding: 7px 5px;
 	--dt-input_background: transparent;
 	--dt-input_color: inherit;
 	
@@ -59,16 +67,21 @@
 		--dt-header_border: 1px solid rgb(89, 91, 94);
 		--dt-body_border: 1px solid rgb(64, 67, 70);
 
-		--dt-paging-button_background-current: rgba(255, 255, 255, 0.15);
-		--dt-paging-button_background-hover: rgb(53, 53, 53);
-		--dt-paging-button_border-current: 1px solid rgba(255, 255, 255, 0.1);
-		--dt-paging-button_border-hover: 1px solid transparent;
 		--dt-paging-button_color: var(--dt-control_color);
-		--dt-paging-button_color-current: var(--dt-control_color);
+	
+		--dt-paging-button_background-current: rgba(255, 255, 255, 0.05);
+		--dt-paging-button_border-current: 1px solid rgba(255, 255, 255, 0.1);
+
+		--dt-paging-button_background-current-hover: rgba(0, 0, 0, 0.1);
+		--dt-paging-button_border-current-hover: 1px solid rgba(255, 255, 255, 0.3);
+	
 		--dt-paging-button_color-disabled: rgba(255, 255, 255, 0.25);
-		--dt-paging-button_color-hover: white;
+	
+		--dt-paging-button_background-hover: rgba(0, 0, 0, 0.2);
+		--dt-paging-button_border-hover: 1px solid transparent;
 
 		--dt-input_border: 1px solid rgb(255, 255, 255, 0.2);
+		--dt-input_background: rgba(255, 255, 255, 0.05);
 	}
 }
 
@@ -325,11 +338,6 @@ div.dt-container {
 		@include table-input;
 	}
 
-	select.dt-input {
-		// 5px is 1px too much to equal the height of the input elements
-		padding: 4px;
-	}
-
 	// Paging
 	.dt-paging {
 		.dt-paging-button {
@@ -348,12 +356,16 @@ div.dt-container {
 			background: var(--dt-paging-button_background);
 			box-shadow: var(--dt-paging-button_box-shadow);
 
-			&.current,
-			&.current:hover {
+			&.current {
 				color: var(--dt-paging-button_color-current) !important;
 				border: var(--dt-paging-button_border-current);
 				background: var(--dt-paging-button_background-current);
-				box-shadow: var(--dt-paging-button_box-current);
+			}
+
+			&.current:hover {
+				color: var(--dt-paging-button_color-current-hover) !important;
+				border: var(--dt-paging-button_border-current-hover);
+				background: var(--dt-paging-button_background-current-hover);
 			}
 
 			&.disabled,
