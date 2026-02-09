@@ -253,7 +253,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			return this;
 		}
 
-		let names = Array.isArray(name) ? name : name.split(' ');
+		let names = stringArrays(name);
 
 		return this.each(el => {
 			names.filter(n => n).forEach(n => el.classList.add(n));
@@ -281,7 +281,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			return this;
 		}
 
-		let names = Array.isArray(name) ? name : name.split(' ');
+		let names = stringArrays(name);
 
 		return this.each(el => {
 			names.filter(n => n).forEach(n => el.classList.remove(n));
@@ -1577,6 +1577,22 @@ function elementArray(target: Element | Element[] | Dom): Element[] {
 		: Array.isArray(target)
 		? target
 		: [target];
+}
+
+function stringArrays(name: string | string[]) {
+	let names: string[] = [];
+	let add = function (n: string) {
+		names.push.apply(names, n.split(' '));
+	}
+
+	if (Array.isArray(name)) {
+		name.forEach(n => add(n));
+	}
+	else {
+		add(name);
+	}
+
+	return names;
 }
 
 export default {
