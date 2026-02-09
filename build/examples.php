@@ -1331,7 +1331,10 @@ function build_toc ( $examples, $example, $category )
 		$out = '';
 
 		for ( $i=0, $iLen=count($examples) ; $i<$iLen ; $i++ ) {
-			if ( $examples[$i]['type'] === 'dir' && $examples[$i]['name'] !== 'private' ) {
+			if (
+				$examples[$i]['type'] === 'dir' &&
+				$examples[$i]['name'] !== 'private'
+			) {
 				$out .= build_toc_category( $examples[$i], $example );
 			}
 		}
@@ -1348,6 +1351,10 @@ function build_toc_category ( $category, $current=null )
 
 	for ( $i=0, $iLen=count($category['files']) ; $i<$iLen ; $i++ ) {
 		$example = $category['files'][$i];
+
+		if ( $example['order'] == -1) {
+			continue;
+		}
 
 		if ( $example['name'] !== 'index' ) {
 			$class = '';
