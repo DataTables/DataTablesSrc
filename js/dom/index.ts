@@ -13,7 +13,9 @@ type DomSelector =
 	| HTMLElement
 	| Document
 	| Array<DomSelector>
-	| null;
+	| null
+	| JQuery
+	| Dom;
 type TDimensionInclude =
 	| 'outer' // alias to withBorder
 	| 'inner' // alias to withPadding
@@ -58,32 +60,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 */
 	constructor(selector?: DomSelector) {
 		if (selector) {
-			if (typeof selector === 'string') {
-				let elements = Array.from(document.querySelectorAll(selector));
-
-				this.add(elements as T[], false);
-			}
-			else if (selector instanceof Dom) {
-				this.add(selector.get(), false);
-			}
-			else if (
-				typeof selector === 'object' &&
-				!(selector as any).nodeName && // <select> has a length!
-				(selector as any[]).length !== undefined
-			) {
-				// Array-like - could be a jQuery instance or DataTables API
-				// instance
-				let arrayLike = selector as any[];
-
-				for (let i = 0; i < arrayLike.length; i++) {
-					this.add(arrayLike[i], false);
-				}
-			}
-			else {
-				this.add(selector as T, false);
-			}
-
-			this._store.sort(documentOrder);
+			this.add(selector);
 		}
 	}
 
@@ -94,16 +71,35 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param sort Indicate if the element should be added in document order.
 	 * @returns Self for chaining
 	 */
-	add(el: T | Array<T> | null, sort = true) {
-		if (Array.isArray(el)) {
-			el.forEach(e => {
-				if (e !== null && e !== undefined) {
-					this._store.push(e);
+	add(selector: DomSelector, sort = true) {
+		if (selector) {
+			if (typeof selector === 'string') {
+				let elements = Array.from(document.querySelectorAll(selector));
+
+				addArray(this._store, elements);
+			}
+			else if (selector instanceof Dom) {
+				addArray(this._store, selector.get());
+			}
+			else if (
+				typeof selector === 'object' &&
+				!(selector as any).nodeName && // <select> has a length!
+				(selector as any[]).length !== undefined
+			) {
+				// Array-like - could be a jQuery instance or DataTables API
+				// instance
+				addArray(this._store, selector);
+				let arrayLike = selector as any[];
+
+				for (let i = 0; i < arrayLike.length; i++) {
+					addArray(this._store, arrayLike[i]);
 				}
-			});
-		}
-		else if (el !== null && el !== undefined) {
-			this._store.push(el);
+			}
+			else {
+				addArray(this._store, selector);
+			}
+
+			this._store.sort(documentOrder);
 		}
 
 		if (sort) {
@@ -1587,6 +1583,19 @@ function elementArray(target: Element | Element[] | Dom): Element[] {
 		: Array.isArray(target)
 		? target
 		: [target];
+}
+
+function addArray(store: any[], el: any | any[]) {
+	if (Array.isArray(el)) {
+		el.forEach(e => {
+			if (e !== null && e !== undefined) {
+				this._store.push(e);
+			}
+		});
+	}
+	else if (el !== null && el !== undefined) {
+		this._store.push(el);
+	}
 }
 
 function stringArrays(name: string | string[]) {
