@@ -160,3 +160,23 @@ export function assignDeepObjects<T>(
 
 	return out as T;
 }
+
+/**
+ * Map entries to an array
+ *
+ * @param obj In object
+ * @param fn Map transform function. Same signature as `each`
+ * @returns Result
+ */
+export function map<TResult, TObj>(
+	obj: Record<string, TObj>,
+	fn: (key: string, val: TObj) => TResult
+) {
+	let out: TResult[] = [];
+
+	each(obj, (key, val) => {
+		out.push(fn(key, val));
+	});
+
+	return out;
+}
