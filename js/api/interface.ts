@@ -34,7 +34,7 @@ type Unpacked<T> = T extends (infer U)[]
   ? U
   : T;
 
-export type DomSelector = string | Node | HTMLElement | JQuery;
+export type DomSelector = string | Node | HTMLElement | JQuery | IDom;
 
 export type InstSelector = DomSelector | Context | Api | InstSelector[];
 
@@ -2771,7 +2771,7 @@ export interface ApiStatic {
 	 * Create a new API instance to an existing DataTable. Note that this
 	 * does not create a new DataTable.
 	 */
-	new (selector: string | Node | Node[] | JQuery | Context | Api): Api<any>;
+	new (selector: InstSelector): Api<any>;
 
 	register<T extends Function = Function>(name: string | string[], fn: T): void;
 	registerPlural<T extends Function = Function>(
