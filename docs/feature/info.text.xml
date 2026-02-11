@@ -23,7 +23,7 @@ new DataTable('#myTable', {
 	layout: {
 		bottomStart: {
 			info: {
-				info: 'Showing page _PAGE_ of _PAGES_'
+				text: 'Showing page _PAGE_ of _PAGES_'
 			}
 		}
 	}
