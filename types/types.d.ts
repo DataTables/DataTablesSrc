@@ -15,6 +15,7 @@ export { Ext, ExtButtons } from '../dist/ext';
 export * from '../dist/ext/types';
 export { Context } from '../dist/model/settings';
 export * from '../dist/model/state';
+export { AjaxOptions } from '../dist/util/ajax';
 export { ColumnContext, ConfigColumns, Defaults, Language, Options, RowContext };
 
 export default DataTable;
