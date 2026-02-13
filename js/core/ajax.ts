@@ -122,15 +122,6 @@ export function buildAjax(
 	// Allow plug-ins and external processes to modify the data
 	callbackFire(settings, null, 'preXhr', [settings, data, baseAjax], true);
 
-	// Custom Ajax option to submit the parameters as a JSON string
-	if ((baseAjax as any).submitAs === 'json' && typeof data === 'object') {
-		baseAjax.data = JSON.stringify(data) as any;
-
-		if (!baseAjax.contentType) {
-			baseAjax.contentType = 'application/json; charset=utf-8';
-		}
-	}
-
 	if (typeof ajaxConfig === 'function') {
 		// Is a function - let the caller define what needs to be done
 		settings.jqXHR = ajaxConfig.call(instance, data, callback, settings);

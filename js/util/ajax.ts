@@ -12,7 +12,7 @@ export type HttpMethod =
 	| 'DELETE';
 
 type AjaxComplete = (xhr: XMLHttpRequest, status: string) => void;
-type AjaxError = (xhr: XMLHttpRequest, errorState: string) => void;
+type AjaxError = (xhr: XMLHttpRequest, errorState: string, status: string) => void;
 type AjaxSuccess = (json: any) => void;
 
 export interface AjaxOptions {
@@ -22,11 +22,13 @@ export interface AjaxOptions {
 	contentType?: string;
 	data?: Record<string, any> | string | any[];
 	dataType?: 'json' | 'text';
+	deleteBody?: boolean;
 	error?: AjaxError | AjaxError[];
 	headers?: Record<string, string>;
 	method?: HttpMethod;
 	password?: string;
 	success?: AjaxSuccess | AjaxSuccess[];
+	submitAs?: 'json' | 'http';
 	traditional?: boolean;
 	type?: HttpMethod; // alias to `method`
 	url: string;
@@ -38,7 +40,7 @@ const defaults = {
 	contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 	headers: {},
 	traditional: false,
-	url: location.href,
+	url: location.href
 } as AjaxOptions;
 
 /**
@@ -54,6 +56,16 @@ function ajax(optionsIn: AjaxOptions) {
 	let urlParams = queryParams(options);
 	let method = httpMethod(options);
 	let sendData: string | null = null;
+
+	// Allow the data to be sent to the server as a simple JSON string -
+	// primarily to be used with POST / PUT
+	if (options.submitAs === 'json' && options.data) {
+		options.data = JSON.stringify(options.data);
+
+		if (!options.contentType) {
+			options.contentType = 'application/json; charset=utf-8';
+		}
+	}
 
 	xhr.open(
 		method,
@@ -119,7 +131,7 @@ function ajax(optionsIn: AjaxOptions) {
 			callback(options.success, responseData);
 		}
 		else {
-			callback(options.error, xhr, statusText);
+			callback(options.error, xhr, statusText, xhr.statusText);
 		}
 
 		callback(options.complete, xhr, statusText);
@@ -151,7 +163,8 @@ export default ajax;
 function callback(
 	fnIn: Function | Function[] | null | undefined,
 	arg1: any,
-	arg2?: any
+	arg2?: any,
+	arg3?: any
 ) {
 	if (!fnIn) {
 		return;
@@ -160,7 +173,7 @@ function callback(
 	let fnArr = Array.isArray(fnIn) ? fnIn : [fnIn];
 
 	for (let i = 0; i < fnArr.length; i++) {
-		fnArr[i](arg1, arg2);
+		fnArr[i](arg1, arg2, arg3);
 	}
 }
 
@@ -214,6 +227,20 @@ function queryParams(options: AjaxOptions) {
 	if (httpMethod(options) === 'GET') {
 		// Construct URL parameters string
 		requestParams.push(serialize(options.data, options.traditional));
+	}
+
+	// If a DELETE method is used there are a number of servers which will
+	// reject the request if it has a body. So we need to append to the URL.
+	//
+	// http://stackoverflow.com/questions/15088955
+	// http://bugs.jquery.com/ticket/11586
+	if (
+		httpMethod(options) === 'DELETE' &&
+		(options.deleteBody === undefined || options.deleteBody === true)
+	) {
+		requestParams.push(serialize(options.data, options.traditional));
+
+		delete options.data;
 	}
 
 	if (options.cache === false) {
