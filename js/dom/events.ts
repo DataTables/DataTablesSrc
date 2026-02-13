@@ -243,6 +243,8 @@ export function add(
 			event.preventDefault();
 			event.stopPropagation();
 		}
+
+		event.handlerReturn = retVal;
 	} as WrappedHandler;
 
 	wrapped.delegateSelector = selector;
@@ -350,15 +352,20 @@ export function remove(
  * @param bubbles If the event should bubble up through the DOM or not
  * @param args Array of arguments to pass to the event handler
  * @param eventProps Object of extra parameters to attach to the event object
- * @returns `true` if default was NOT prevents, `false` if default was prevented
+ * @param returnEvent Indicate if the return should be the event object (for
+ *   further processing) or the default prevented state.
+ * @returns `true` if default was NOT prevented, `false` if default was
+ *   prevented. If `returnEvent` is `true` then the return will be the event
+ *   object.
  */
 export function trigger(
 	el: Element,
 	nameFull: string,
 	bubbles: boolean = false,
 	args: unknown[] | null = [],
-	eventProps: PlainObject | null = null
-): boolean {
+	eventProps: PlainObject | null = null,
+	returnEvent = false
+): boolean | Event {
 	let jq = external('jq');
 
 	if (jq) {
@@ -372,7 +379,7 @@ export function trigger(
 		jq(el)[method](ev, args || []);
 
 		// See note below regarding the inversion
-		return !ev.isDefaultPrevented();
+		return returnEvent ? ev : !ev.isDefaultPrevented();
 	}
 
 	// No jQuery
@@ -397,5 +404,5 @@ export function trigger(
 	// A lot of the old DataTables stuff checks for a `false` return to prevent
 	// the default action. To maintain compatibility we return an inverted
 	// `defaultPrevented` here - i.e. it becomes `do default`.
-	return !event.defaultPrevented;
+	return returnEvent ? event : !event.defaultPrevented;
 }

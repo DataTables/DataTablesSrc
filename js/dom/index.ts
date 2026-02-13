@@ -117,7 +117,9 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @param content The content to append
 	 * @returns Self for chaining
 	 */
-	append<T extends Node>(content: T | T[] | Dom | string | null) {
+	append<T extends Node>(
+		content: T | Dom | string | null | Array<T | Dom | string | null>
+	) {
 		if (!content) {
 			return this;
 		}
@@ -1352,24 +1354,68 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 *   object, which is always the first parameter).
 	 * @param props An object of key/value pairs which should be added to the
 	 *   event object that is created and fired for the events.
-	 * @returns An array of do default results from the events. `true` indicates
-	 *   that the default action should happen, `false` means default was
-	 *   prevented.
+	 * @param returnEvent If not set or `false` the return array contains
+	 *   booleans.
+	 * @returns An array of do default results from the event `true` indicates
+	 *  that the default action should happen, `false` means default was
+	 *  prevented.
 	 */
+	trigger(
+		name: string,
+		bubbles?: boolean,
+		args?: any[] | null,
+		props?: PlainObject | null,
+		returnEvent?: false
+	): boolean[];
+
+	/**
+	 * Trigger an event on all of the elements in the result set. A different
+	 * event object is created per element.
+	 *
+	 * @param name Event name. This can optionally include period separated
+	 *   namespaces. Multiple events can be added by space separation of the
+	 *   names.
+	 * @param bubbles If the event should bubble up the DOM. Default, true.
+	 * @param args Arguments to pass to the event handlers (after the event
+	 *   object, which is always the first parameter).
+	 * @param props An object of key/value pairs which should be added to the
+	 *   event object that is created and fired for the events.
+	 * @param returnEvent When set to `true` the return will be an array of
+	 *  Event objects.
+	 * @returns An array of Event objects for further processing.
+	 */
+	trigger(
+		name: string,
+		bubbles: boolean,
+		args: any[] | null,
+		props: PlainObject | null,
+		returnEvent: true
+	): Event[];
+
 	trigger(
 		name: string,
 		bubbles: boolean = true,
 		args: any[] | null = null,
-		props: PlainObject | null = null
-	): boolean[] {
+		props: PlainObject | null = null,
+		returnEvent: boolean = false
+	): any[] {
 		let { names } = normaliseEventParams(name);
-		let ret: boolean[] = [];
+		let ret: Array<boolean | Event> = [];
 
 		this.each(el => {
 			names
 				.filter(n => n !== null)
 				.forEach(name => {
-					ret.push(events.trigger(el, name, bubbles, args, props));
+					ret.push(
+						events.trigger(
+							el,
+							name,
+							bubbles,
+							args,
+							props,
+							returnEvent
+						)
+					);
 				});
 		});
 
@@ -1602,7 +1648,7 @@ function stringArrays(name: string | string[]) {
 	let names: string[] = [];
 	let add = function (n: string) {
 		names.push.apply(names, n.split(' '));
-	}
+	};
 
 	if (Array.isArray(name)) {
 		name.forEach(n => add(n));
