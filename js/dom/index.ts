@@ -1635,12 +1635,12 @@ function addArray(store: any[], el: any | any[]) {
 	if (Array.isArray(el)) {
 		el.forEach(e => {
 			if (e !== null && e !== undefined) {
-				this._store.push(e);
+				store.push(e);
 			}
 		});
 	}
 	else if (el !== null && el !== undefined) {
-		this._store.push(el);
+		store.push(el);
 	}
 }
 
