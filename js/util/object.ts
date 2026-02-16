@@ -102,7 +102,7 @@ export function assignDeep<T>(
 
 				assignDeep(out[key], value);
 			}
-			else {
+			else if (input[key] !== undefined ) {
 				out[key] = input[key];
 			}
 		}
