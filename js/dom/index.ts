@@ -1,3 +1,4 @@
+import util from '../util';
 import * as is from '../util/is';
 import * as object from '../util/object';
 import { PlainObject } from '../util/types';
@@ -88,7 +89,6 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			) {
 				// Array-like - could be a jQuery instance or DataTables API
 				// instance
-				addArray(this._store, selector);
 				let arrayLike = selector as any[];
 
 				for (let i = 0; i < arrayLike.length; i++) {
@@ -1632,12 +1632,14 @@ function elementArray(target: Element | Element[] | Dom): Element[] {
 }
 
 function addArray(store: any[], el: any | any[]) {
-	if (Array.isArray(el)) {
-		el.forEach(e => {
+	if (util.is.arrayLike(el)) {
+		for (var i=0 ; i<el.length ; i++) {
+			let e = el[i];
+
 			if (e !== null && e !== undefined) {
 				store.push(e);
 			}
-		});
+		}
 	}
 	else if (el !== null && el !== undefined) {
 		store.push(el);
