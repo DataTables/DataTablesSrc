@@ -8,7 +8,6 @@ import * as object from './object';
 import * as regex from './regex';
 import * as string from './string';
 import * as timer from './timer';
-import * as types from './types';
 import * as version from './version';
 
 // Note that the aliased properties are for compatibility with DataTables 2-
@@ -53,7 +52,6 @@ export default {
 	throttle: timer.throttle,
 
 	timer,
-	types,
 
 	/** @see array.unique */
 	unique: array.unique,
