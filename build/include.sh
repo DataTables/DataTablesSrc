@@ -287,7 +287,7 @@ function ts_extension {
 	$DT_SRC/node_modules/typescript/bin/tsc -p ./tsconfig.json
 
 	## Remove the import - our wrapper does it for UMD as well as ESM
-	for filename in dist/*.js; do
+	for filename in $(find dist -name '*.js'); do
 		sed -i "s#import DataTable from 'datatables.net';##" $filename
 	done
 
