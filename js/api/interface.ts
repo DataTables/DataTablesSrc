@@ -2418,7 +2418,7 @@ export interface ApiRowsMethods<T=any>
 	 * @returns DataTables API instance with each row's node from the selected
 	 * rows in the result set.
 	 */
-	nodes(this: ApiRowsMethods<T>): Api<Array<HTMLTableRowElement>>;
+	nodes(this: ApiRowsMethods<T>): Api<HTMLTableRowElement>;
 
 	/**
 	 * Delete the selected rows from the DataTable.
