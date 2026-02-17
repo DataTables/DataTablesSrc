@@ -50,6 +50,12 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		return new Dom<R>(selector);
 	}
 
+	/**
+	 * Flag to indicate if transitions (animations) should be allowed. Set to
+	 * false to disable and have it jump to the end.
+	 */
+	static transitions = true;
+
 	private _store: T[] = [];
 	private _isDom = true;
 
@@ -1343,6 +1349,57 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Perform a CSS transition - i.e. an animation. Note this isn't nearly as
+	 * comprehensive as an animation library, nor is it meant to be. It is for
+	 * simple transitions such as fading in only.
+	 * 
+	 * To set up something like a fade in, do `dom.css({opacity:
+	 * 0}).transition({opacity: 1})`.
+	 *
+	 * @param css CSS properties to transition
+	 * @param duration Transition duration
+	 * @param ease CSS easing function name
+	 * @param cb Callback function
+	 * @returns Self for chaining
+	 */
+	transition(
+		css: Record<string, string>,
+		duration?: number | null,
+		ease?: string | null,
+		cb?: Function
+	) {
+		if (! duration) {
+			duration = 400;
+		}
+
+		if (! ease) {
+			ease = '';
+		}
+
+		if (! cb) {
+			cb = () => {};
+		}
+
+		if (Dom.transitions) {
+			this.css('transition', 'all ' + duration + 'ms ' + ease);
+
+			setTimeout(() => {
+				this.css(css);
+			}, 0);
+
+			setTimeout(() => {
+				cb.call(this);
+			}, duration);
+		}
+		else {
+			this.css(css);
+			cb.call(this);
+		}
+
+		return this;
+	}
+
+	/**
 	 * Trigger an event on all of the elements in the result set. A different
 	 * event object is created per element.
 	 *
@@ -1633,7 +1690,7 @@ function elementArray(target: Element | Element[] | Dom): Element[] {
 
 function addArray(store: any[], el: any | any[]) {
 	if (util.is.arrayLike(el)) {
-		for (var i=0 ; i<el.length ; i++) {
+		for (var i = 0; i < el.length; i++) {
 			let e = el[i];
 
 			if (e !== null && e !== undefined) {
