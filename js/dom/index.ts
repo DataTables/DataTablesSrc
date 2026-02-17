@@ -1016,6 +1016,19 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	}
 
 	/**
+	 * Get the offset parents of the elements in the result set.
+	 * 
+	 * Departure from jQuery - it won't go up to `html`
+	 *
+	 * @returns Instance with the result set as the offset parents
+	 */
+	offsetParent() {
+		return this.map(
+			el => (el.offsetParent as HTMLElement) || document.body
+		);
+	}
+
+	/**
 	 * Add an event listener to all elements in the result set.
 	 *
 	 * @param name Event name. This can optionally include period separated
@@ -1352,7 +1365,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * Perform a CSS transition - i.e. an animation. Note this isn't nearly as
 	 * comprehensive as an animation library, nor is it meant to be. It is for
 	 * simple transitions such as fading in only.
-	 * 
+	 *
 	 * To set up something like a fade in, do `dom.css({opacity:
 	 * 0}).transition({opacity: 1})`.
 	 *
@@ -1368,26 +1381,26 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		ease?: string | null,
 		cb?: Function
 	) {
-		if (! duration) {
+		if (!duration) {
 			duration = 400;
 		}
 
-		if (! ease) {
+		if (!ease) {
 			ease = '';
 		}
 
-		if (! cb) {
+		if (!cb) {
 			cb = () => {};
 		}
 
 		if (Dom.transitions) {
-			this.css('transition', 'all ' + duration + 'ms ' + ease);
-
 			setTimeout(() => {
+				this.css('transition', 'all ' + duration + 'ms ' + ease);
 				this.css(css);
 			}, 0);
 
 			setTimeout(() => {
+				this.css('transition', '');
 				cb.call(this);
 			}, duration);
 		}
