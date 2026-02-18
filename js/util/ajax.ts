@@ -12,7 +12,11 @@ export type HttpMethod =
 	| 'DELETE';
 
 type AjaxComplete = (xhr: XMLHttpRequest, status: string) => void;
-type AjaxError = (xhr: XMLHttpRequest, errorState: string, status: string) => void;
+type AjaxError = (
+	xhr: XMLHttpRequest,
+	errorState: string,
+	status: string
+) => void;
 type AjaxSuccess = (json: any) => void;
 
 export interface AjaxOptions {
@@ -284,19 +288,24 @@ function serializeNested(
 	traditional: boolean,
 	scope = ''
 ) {
-	var array = Array.isArray(obj);
+	let array = Array.isArray(obj);
 
-	for (var key in obj) {
-		var value = obj[key];
+	for (let key in obj) {
+		let value = obj[key];
+		let nestDown =
+			Array.isArray(value) || (!traditional && plainObject(value));
 
 		if (scope) {
-			key = traditional ? scope : scope + '[' + (array ? '' : key) + ']';
+			// Non-scalar values need the index set on the host
+			let index = !array || nestDown ? key : '';
+
+			key = traditional ? scope : scope + '[' + index + ']';
 		}
 
 		if (!scope && array) {
 			serializeAdd(params, value.name, value.value);
 		}
-		else if (Array.isArray(value) || (!traditional && plainObject(value))) {
+		else if (nestDown) {
 			// Nest down
 			serializeNested(params, value, traditional, key);
 		}
