@@ -508,7 +508,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		for (let i = 0; i < this._store.length; i++) {
 			let el = this._store[i];
 
-			callback(el, i);
+			callback.call(el, el, i);
 		}
 
 		return this;
@@ -524,7 +524,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		for (let i = this._store.length - 1; i >= 0; i--) {
 			let el = this._store[i];
 
-			callback(el, i);
+			callback.call(el, el, i);
 		}
 
 		return this;
@@ -1017,7 +1017,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 	/**
 	 * Get the offset parents of the elements in the result set.
-	 * 
+	 *
 	 * Departure from jQuery - it won't go up to `html`
 	 *
 	 * @returns Instance with the result set as the offset parents
