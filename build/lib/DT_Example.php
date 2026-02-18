@@ -1337,9 +1337,9 @@ DT_Example::$tables['todo'] = array(
 	'header'  => function () {
 		return '<thead>'.
 				'<tr>'.
-					'<th>Priority</th>'.
 					'<th>Item</th>'.
 					'<th>Status</th>'.
+					'<th>Priority</th>'.
 				'</tr>'.
 			'</thead>';
 	},
