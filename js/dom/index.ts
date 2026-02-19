@@ -1394,12 +1394,22 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		}
 
 		if (Dom.transitions) {
+			let first = this._store[0] as any;
+
+			// If there was an existing transition, cancel its callback
+			if (first._dom_tra) {
+				clearTimeout(first._dom_tra);
+				delete first._dom_tra;
+			}
+
 			setTimeout(() => {
 				this.css('transition', 'all ' + duration + 'ms ' + ease);
 				this.css(css);
 			}, 0);
 
-			setTimeout(() => {
+			first._dom_tra = setTimeout(() => {
+				delete first._dom_tra;
+
 				this.css('transition', '');
 				cb.call(this);
 			}, duration);
