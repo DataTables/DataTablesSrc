@@ -24,7 +24,7 @@ export interface AjaxOptions {
 	cache?: boolean;
 	complete?: AjaxComplete | AjaxComplete[];
 	contentType?: string;
-	data?: Record<string, any> | string | any[];
+	data?: Record<string, any> | string | any[] | FormData;
 	dataType?: 'json' | 'text';
 	deleteBody?: boolean;
 	error?: AjaxError | AjaxError[];
@@ -59,7 +59,7 @@ function ajax(optionsIn: AjaxOptions) {
 	let options = object.assign<AjaxOptions>({}, defaults, optionsIn);
 	let urlParams = queryParams(options);
 	let method = httpMethod(options);
-	let sendData: string | null = null;
+	let sendData: string | null | FormData = null;
 
 	// Allow the data to be sent to the server as a simple JSON string -
 	// primarily to be used with POST / PUT
@@ -79,7 +79,8 @@ function ajax(optionsIn: AjaxOptions) {
 		options.password || null
 	);
 
-	if (options.contentType) {
+	// Content type for FormData requests gets set by the browser.
+	if (options.contentType && !(options.data instanceof FormData)) {
 		xhr.setRequestHeader('Content-Type', options.contentType);
 	}
 
@@ -87,7 +88,10 @@ function ajax(optionsIn: AjaxOptions) {
 		xhr.setRequestHeader(key, val);
 	});
 
-	if (method !== 'GET' && options.data && typeof options.data !== 'string') {
+	if (options.data instanceof FormData) {
+		sendData = options.data;
+	}
+	else if (method !== 'GET' && options.data && typeof options.data !== 'string') {
 		sendData = serialize(options.data, options.traditional);
 		sendData = convertSpaces(sendData, options);
 
