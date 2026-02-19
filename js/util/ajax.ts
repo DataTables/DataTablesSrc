@@ -107,7 +107,10 @@ function ajax(optionsIn: AjaxOptions) {
 		let responseData = xhr.responseText;
 		let statusText = 'success';
 
-		if (xhr.status === 204 || method === 'HEAD') {
+		if (xhr.status === 0) {
+			return; // aborted
+		}
+		else if (xhr.status === 204 || method === 'HEAD') {
 			statusText = 'nocontent';
 		}
 		else if (xhr.status === 304) {
