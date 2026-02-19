@@ -251,7 +251,7 @@ function queryParams(options: AjaxOptions) {
 		requestParams.push(serialize({ _: +new Date() }));
 	}
 
-	return convertSpaces(requestParams.join('&'), options);
+	return convertSpaces(requestParams.filter(d => !!d).join('&'), options);
 }
 
 /**
