@@ -2562,6 +2562,11 @@ export interface DataTablesStatic {
 	Api: ApiStatic;
 
 	/**
+	 * Dom manipulation library
+	 */
+	Dom: typeof IDom;
+
+	/**
 	 * DataTable's Ajax library
 	 */
 	ajax: typeof ajax;

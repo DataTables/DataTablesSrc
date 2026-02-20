@@ -522,6 +522,7 @@ DataTable.Api = Api;
 DataTable.datetime = datetime;
 DataTable.__browser = browser;
 DataTable.dom = dom;
+DataTable.Dom = dom.Dom;
 DataTable.ajax = util.ajax;
 
 /**
