@@ -3,7 +3,7 @@ export interface DomEvent extends Event {
 	currentTarget: Element;
 	delegateTarget: Element;
 	relatedTarget: Element;
-	handlerReturn: any;
+	result: any;
 	_args: unknown[];
 }
 

@@ -244,7 +244,7 @@ export function add(
 			event.stopPropagation();
 		}
 
-		event.handlerReturn = retVal;
+		event.result = retVal;
 	} as WrappedHandler;
 
 	wrapped.delegateSelector = selector;
@@ -378,8 +378,13 @@ export function trigger(
 
 		jq(el)[method](ev, args || []);
 
+		if (returnEvent) {
+			ev.defaultPrevented = ev.isDefaultPrevented();
+			return ev;
+		}
+
 		// See note below regarding the inversion
-		return returnEvent ? ev : !ev.isDefaultPrevented();
+		return !ev.isDefaultPrevented();
 	}
 
 	// No jQuery
