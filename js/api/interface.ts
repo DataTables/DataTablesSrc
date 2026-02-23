@@ -1245,7 +1245,7 @@ export interface ApiPage extends Api<any> {
 	len(this: Api, length: number): Api<any>;
 }
 
-export interface ApiOrder {
+export interface ApiOrder extends Api<any> {
 	/**
 	 * Get the ordering applied to the table.
 	 *
