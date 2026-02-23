@@ -3,6 +3,8 @@
 
 <title>Layout</title>
 
+<js lib="datatables" />
+
 <info><![CDATA[
 
 The `-init layout` option in DataTables can be used to define where the table control elements should appear, and also to pass configuration options to them.

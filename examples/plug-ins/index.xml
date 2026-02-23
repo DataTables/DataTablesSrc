@@ -3,6 +3,8 @@
 
 <title>Plug-ins</title>
 
+<js lib="datatables" />
+
 <info><![CDATA[
 
 While DataTables has a wide range of options and data type support built in, it can never cater for every type of data out of the box. For this reason, DataTables exposes an extension API which allows you, the developers using DataTables, to add support for your own data types, searching, ordering and feature plug-ins.

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-example order="0">
 
+<js lib="datatables" />
+
 <title>Basic initialisation</title>
 
 <info><![CDATA[
