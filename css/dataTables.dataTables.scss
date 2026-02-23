@@ -110,10 +110,12 @@ table.dataTable {
 	/*
 	 * Header and footer styles
 	 */
-	thead,
-	tfoot {
-		th {
-			font-weight: bold;
+	@if not $jqueryui {
+		thead,
+		tfoot {
+			th {
+				font-weight: bold;
+			}
 		}
 	}
 
