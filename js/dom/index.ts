@@ -1390,7 +1390,11 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		ease?: string | null,
 		cb?: Function
 	) {
-		if (!duration) {
+		if (! this.count()) {
+			return this;
+		}
+
+		if (!duration && duration !== 0) {
 			duration = 400;
 		}
 
@@ -1402,7 +1406,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			cb = () => {};
 		}
 
-		if (Dom.transitions) {
+		if (Dom.transitions && duration !== 0) {
 			let first = this._store[0] as any;
 
 			// If there was an existing transition, cancel its callback
