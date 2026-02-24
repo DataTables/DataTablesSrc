@@ -846,7 +846,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		let el = this._store[0];
 
 		return !!(
-			el.Height		el.offsetHeight ||
+			el.offsetWidth ||
+			el.offsetHeight ||
 			el.getClientRects().length
 		);
 	}
