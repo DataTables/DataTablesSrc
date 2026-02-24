@@ -100,12 +100,12 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 				for (let i = 0; i < arrayLike.length; i++) {
 					addArray(this._store, arrayLike[i]);
 				}
+
+				sort = false;
 			}
 			else {
 				addArray(this._store, selector);
 			}
-
-			this._store.sort(documentOrder);
 		}
 
 		if (sort) {
@@ -917,7 +917,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		let next = new Dom<R>();
 
 		this.each(el => {
-			next.add(fn(el));
+			// Don't reorder the items
+			next.add(fn(el), false);
 		});
 
 		return next;
@@ -1686,7 +1687,18 @@ function documentOrder(a: HTMLElement, b: HTMLElement) {
 
 	let position = a.compareDocumentPosition(b);
 
-	if (
+	if (position & Node.DOCUMENT_POSITION_DISCONNECTED) {
+		// One is disconnected - find which
+		if (document.body.contains(a)) {
+			return -1;
+		}
+		else if (document.body.contains(b)) {
+			return 1;
+		}
+
+		return 0;
+	}
+	else if (
 		position & Node.DOCUMENT_POSITION_FOLLOWING ||
 		position & Node.DOCUMENT_POSITION_CONTAINED_BY
 	) {
