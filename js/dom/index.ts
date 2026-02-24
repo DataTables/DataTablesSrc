@@ -729,21 +729,29 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 			if (!include || include === 'content') {
 				// Content. Minus scrollbar if there is one. This is basically
-				// clientWidth minus padding, but that isn't fractional, so use
+				// clientHeight minus padding, but that isn't fractional, so use
 				// the bounding rect.
+				let barHeight =
+					el.offsetHeight -
+					parseFloat(computed.borderTop) -
+					parseFloat(computed.borderBottom) -
+					el.clientHeight;
+
 				return (
 					rectHeight -
 					parseFloat(computed.paddingTop) -
 					parseFloat(computed.paddingBottom) -
 					parseFloat(computed.borderTop) -
 					parseFloat(computed.borderBottom) -
-					(el.offsetHeight - el.clientHeight) // scrollbar
+					barHeight
 				);
 			}
 			else if (include === 'withPadding' || include === 'inner') {
-				return rectHeight -
+				return (
+					rectHeight -
 					parseFloat(computed.borderTop) -
-					parseFloat(computed.borderBottom);
+					parseFloat(computed.borderBottom)
+				);
 			}
 			else if (include === 'withBorder') {
 				return rectHeight;
@@ -1596,19 +1604,27 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 				// Content. Minus scrollbar if there is one. This is basically
 				// clientWidth minus padding, but that isn't fractional, so use
 				// the bounding rect.
+				let barWidth =
+					el.offsetWidth -
+					parseFloat(computed.borderLeft) -
+					parseFloat(computed.borderRight) -
+					el.clientWidth;
+
 				return (
 					rectWidth -
 					parseFloat(computed.paddingLeft) -
 					parseFloat(computed.paddingRight) -
 					parseFloat(computed.borderLeft) -
 					parseFloat(computed.borderRight) -
-					(el.offsetWidth - el.clientWidth) // scrollbar
+					barWidth
 				);
 			}
 			else if (include === 'withPadding' || include === 'inner') {
-				return rectWidth -
+				return (
+					rectWidth -
 					parseFloat(computed.borderLeft) -
-					parseFloat(computed.borderRight);
+					parseFloat(computed.borderRight)
+				);
 			}
 			else if (include === 'withBorder') {
 				return rectWidth;
