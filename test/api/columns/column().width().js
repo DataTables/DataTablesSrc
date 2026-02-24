@@ -1,3 +1,4 @@
+
 describe('columns- column().width()', function() {
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -20,37 +21,37 @@ describe('columns- column().width()', function() {
 		});
 
 		it('Column 1', function() {
-			let width = $('tbody tr:first-child td:nth-child(1)').outerWidth();
+			let width = DataTable.dom.s('tbody tr:first-child td:nth-child(1)').width('outer');
 
 			expect(table.column(0).width()).toBe(width);
 		});
 
 		it('Column 2', function() {
-			let width = $('tbody tr:first-child td:nth-child(2)').outerWidth();
+			let width = DataTable.dom.s('tbody tr:first-child td:nth-child(2)').width('outer');
 
 			expect(table.column(1).width()).toBe(width);
 		});
 
 		it('Column 3', function() {
-			let width = $('tbody tr:first-child td:nth-child(3)').outerWidth();
+			let width = DataTable.dom.s('tbody tr:first-child td:nth-child(3)').width('outer');
 
 			expect(table.column(2).width()).toBe(width);
 		});
 
 		it('Column 4', function() {
-			let width = $('tbody tr:first-child td:nth-child(4)').outerWidth();
+			let width = DataTable.dom.s('tbody tr:first-child td:nth-child(4)').width('outer');
 
 			expect(table.column(3).width()).toBe(width);
 		});
 
 		it('Column 5', function() {
-			let width = $('tbody tr:first-child td:nth-child(5)').outerWidth();
+			let width = DataTable.dom.s('tbody tr:first-child td:nth-child(5)').width('outer');
 
 			expect(table.column(4).width()).toBe(width);
 		});
 
 		it('Column 6', function() {
-			let width = $('tbody tr:first-child td:nth-child(6)').outerWidth();
+			let width = DataTable.dom.s('tbody tr:first-child td:nth-child(6)').width('outer');
 
 			expect(table.column(5).width()).toBe(width);
 		});

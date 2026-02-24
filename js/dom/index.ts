@@ -724,34 +724,34 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			include === 'outer'
 		) {
 			let el = this._store[0];
-
-			if (include === 'withBorder') {
-				return el.offsetHeight;
-			}
-
 			let computed = window.getComputedStyle(this._store[0]);
+			let rectHeight = el.getBoundingClientRect().height;
 
 			if (!include || include === 'content') {
-				// Content. Minus scrollbar if there is one
+				// Content. Minus scrollbar if there is one. This is basically
+				// clientWidth minus padding, but that isn't fractional, so use
+				// the bounding rect.
 				return (
-					el.clientHeight -
+					rectHeight -
 					parseFloat(computed.paddingTop) -
-					parseFloat(computed.paddingBottom)
+					parseFloat(computed.paddingBottom) -
+					parseFloat(computed.borderTop) -
+					parseFloat(computed.borderBottom) -
+					(el.offsetHeight - el.clientHeight) // scrollbar
 				);
 			}
 			else if (include === 'withPadding' || include === 'inner') {
-				// Can't use clientHeight and it removes the scrollbar if there
-				// is one.
-				return (
-					el.offsetHeight -
-					parseFloat(computed.borderTopWidth) -
-					parseFloat(computed.borderBottomWidth)
-				);
+				return rectHeight -
+					parseFloat(computed.borderTop) -
+					parseFloat(computed.borderBottom);
+			}
+			else if (include === 'withBorder') {
+				return rectHeight;
 			}
 			else {
 				// withMargin
 				return (
-					el.offsetHeight +
+					rectHeight +
 					parseFloat(computed.marginTop) +
 					parseFloat(computed.marginBottom)
 				);
@@ -846,8 +846,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		let el = this._store[0];
 
 		return !!(
-			el.offsetWidth ||
-			el.offsetHeight ||
+			el.Height		el.offsetHeight ||
 			el.getClientRects().length
 		);
 	}
@@ -1589,34 +1588,34 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			include === 'outer'
 		) {
 			let el = this._store[0];
-
-			if (include === 'withBorder') {
-				return el.offsetWidth;
-			}
-
-			let computed = window.getComputedStyle(this._store[0]);
+			let computed = window.getComputedStyle(el);
+			let rectWidth = el.getBoundingClientRect().width;
 
 			if (!include || include === 'content') {
-				// Content. Minus scrollbar if there is one
+				// Content. Minus scrollbar if there is one. This is basically
+				// clientWidth minus padding, but that isn't fractional, so use
+				// the bounding rect.
 				return (
-					el.clientWidth -
+					rectWidth -
 					parseFloat(computed.paddingLeft) -
-					parseFloat(computed.paddingRight)
+					parseFloat(computed.paddingRight) -
+					parseFloat(computed.borderLeft) -
+					parseFloat(computed.borderRight) -
+					(el.offsetWidth - el.clientWidth) // scrollbar
 				);
 			}
 			else if (include === 'withPadding' || include === 'inner') {
-				// Can't use clientWidth and it removes the scrollbar if there
-				// is one.
-				return (
-					el.offsetWidth -
-					parseFloat(computed.borderLeftWidth) -
-					parseFloat(computed.borderRightWidth)
-				);
+				return rectWidth -
+					parseFloat(computed.borderLeft) -
+					parseFloat(computed.borderRight);
+			}
+			else if (include === 'withBorder') {
+				return rectWidth;
 			}
 			else {
 				// withMargin
 				return (
-					el.offsetWidth +
+					rectWidth +
 					parseFloat(computed.marginLeft) +
 					parseFloat(computed.marginRight)
 				);
