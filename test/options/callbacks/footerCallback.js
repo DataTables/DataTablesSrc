@@ -97,7 +97,7 @@ describe('footerCallback Option', function() {
 
 		it('Correct number of hiding elements', function() {
 			table = new DataTable('#example',{
-				scrollY: 300,
+				scrollX: true,
 				footerCallback: function() {
 					let api = this.api();
 					api.column(0).footer().innerHTML = "duplicated";

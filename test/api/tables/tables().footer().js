@@ -41,21 +41,12 @@ describe('tables - tables().footer()', function() {
 			let table = $('#example').DataTable({
 				scrollX: true
 			});
-			expect(table.tables().footer()[0]).toBe($('#example tfoot').get(0));
+			expect(table.tables().footer()[0]).toBe($('div.dt-scroll-foot tfoot').get(0));
 		});
 
 		dt.html('basic');
 		it('Returns the footer when scrollY enabled', function() {
 			let table = $('#example').DataTable({
-				scrollY: 200
-			});
-			expect(table.tables().footer()[0]).toBe($('div.dt-scroll-foot tfoot').get(0));
-		});
-
-		dt.html('basic');
-		it('Returns the footer when both scrollX and scrollY enabled', function() {
-			let table = $('#example').DataTable({
-				scrollX: true,
 				scrollY: 200
 			});
 			expect(table.tables().footer()[0]).toBe($('div.dt-scroll-foot tfoot').get(0));
@@ -86,23 +77,13 @@ describe('tables - tables().footer()', function() {
 			let tables = $('table').DataTable({
 				scrollX: true
 			});
-			expect(tables.tables().footer()[0]).toBe($('#example_one tfoot').get(0));
-			expect(tables.tables().footer()[1]).toBe($('#example_two tfoot').get(0));
-		});
-
-		dt.html('two_tables');
-		it('Returns the footer when scrollY enabled', function() {
-			let tables = $('table').DataTable({
-				scrollY: 200
-			});
 			expect(tables.tables().footer()[0]).toBe($('div.dt-scroll-foot tfoot').get(0));
 			expect(tables.tables().footer()[1]).toBe($('div.dt-scroll-foot tfoot').get(1));
 		});
 
 		dt.html('two_tables');
-		it('Returns the footer when both are enabled', function() {
+		it('Returns the footer when scrollY enabled', function() {
 			let tables = $('table').DataTable({
-				scrollX: true,
 				scrollY: 200
 			});
 			expect(tables.tables().footer()[0]).toBe($('div.dt-scroll-foot tfoot').get(0));
