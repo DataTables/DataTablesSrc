@@ -155,7 +155,7 @@ export function adjustColumnSizing(settings: Context) {
 
 	let scroll = settings.scroll;
 
-	if (scroll.y !== '') {
+	if (scroll.y !== '' || scroll.x !== '') {
 		scrollDraw(settings);
 	}
 

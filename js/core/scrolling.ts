@@ -16,15 +16,8 @@ export function featureTable(settings: Context) {
 	let scrollX = scroll.x;
 	let scrollY = scroll.y;
 
-	// For x-scrolling we don't need to split the table up - we can just scroll
-	// the table container. Can't do this for x and y though, as we need the
-	// y-bar to be visible!
-	if (scrollX && scrollY === '') {
-		dom.s(settings.tableWrapper).classAdd('scrolling-x');
-	}
-
 	// No scrolling or x-scrolling only
-	if (scrollY === '') {
+	if (scrollY === '' && scrollX === '') {
 		return table.get(0);
 	}
 
@@ -330,7 +323,7 @@ export function scrollDraw(settings: Context) {
 	let paddingSide = 'padding' + (browser.scrollbarLeft ? 'Left' : 'Right');
 
 	// Set the width's of the header and footer tables
-	let outerWidth = table.width('outer');
+	let outerWidth = table.width('withPadding');
 
 	divHeaderTable.css('width', stringToCss(outerWidth));
 	divHeaderInner
