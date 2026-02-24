@@ -62,35 +62,35 @@ describe('Basic DataTables Test', function() {
 
 		it('Initial sort occurred //todo make sure this is correct', function() {
 			expect($('#example tbody td:eq(0)').html()).toBe('Airi Satou');
-			expect($('#example thead th span:last-child').eq(1).attr('aria-label')).toBe('Position: Activate to sort');
+			expect($('#example thead th div.dt-column-order').eq(1).attr('aria-label')).toBe('Position: Activate to sort');
 			expect($('#example thead th').eq(1).attr('aria-sort')).toBe(undefined);
 		});
 
 		it('Sorting (first click) on second column', async function() {
 			await dt.clickHeader(1);
 			expect($('#example tbody td:eq(1)').html()).toBe('Accountant');
-			expect($('#example thead th span:last-child').eq(1).attr('aria-label')).toBe('Position: Activate to invert sorting');
+			expect($('#example thead th div.dt-column-order').eq(1).attr('aria-label')).toBe('Position: Activate to invert sorting');
 			expect($('#example thead th').eq(1).attr('aria-sort')).toBe('ascending');
 		});
 
 		it('Sorting (second click) on second column', async function() {
 			await dt.clickHeader(1);
 			expect($('#example tbody td:eq(1)').html()).toBe('Technical Author');
-			expect($('#example thead th span:last-child').eq(1).attr('aria-label')).toBe('Position: Activate to remove sorting');
+			expect($('#example thead th div.dt-column-order').eq(1).attr('aria-label')).toBe('Position: Activate to remove sorting');
 			expect($('#example thead th').eq(1).attr('aria-sort')).toBe('descending');
 		});
 
 		it('Sorting (third click) on second column results in original data order', async function() {
 			await dt.clickHeader(1);
 			expect($('#example tbody td:eq(1)').html()).toBe('System Architect');
-			expect($('#example thead th span:last-child').eq(1).attr('aria-label')).toBe('Position: Activate to sort');
+			expect($('#example thead th div.dt-column-order').eq(1).attr('aria-label')).toBe('Position: Activate to sort');
 			expect($('#example thead th').eq(1).attr('aria-sort')).toBe(undefined);
 		});
 
 		it('Sorting (fourth click) on second column results in sorting asc again', async function() {
 			await dt.clickHeader(1);
 			expect($('#example tbody td:eq(1)').html()).toBe('Accountant');
-			expect($('#example thead th span:last-child').eq(1).attr('aria-label')).toBe('Position: Activate to invert sorting');
+			expect($('#example thead th div.dt-column-order').eq(1).attr('aria-label')).toBe('Position: Activate to invert sorting');
 			expect($('#example thead th').eq(1).attr('aria-sort')).toBe('ascending');
 		});
 
