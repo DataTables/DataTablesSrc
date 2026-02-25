@@ -429,9 +429,11 @@ export class Dom<T extends HTMLElement = HTMLElement> implements ArrayLike<T> {
 
 	/**
 	 * Get a data attribute's value from the first item in the result set. Can
-	 * be null.
+	 * be null. Please be aware that this uses the element's `dataset` property,
+	 * and so will do name conversion from dashed (in the element's attribute)
+	 * to camelCase in Javascript.
 	 *
-	 * @param name Data attribute name (don't include the `data` prefix)
+	 * @param name Data value name
 	 * @returns Read value
 	 */
 	data<T = AttributeTypes>(name: string): T;
@@ -439,7 +441,7 @@ export class Dom<T extends HTMLElement = HTMLElement> implements ArrayLike<T> {
 	/**
 	 * Set a data attribute's value for all items in the result set.
 	 *
-	 * @param name Attribute name (don't include the `data` prefix)
+	 * @param name Data value name
 	 * @param value Value to give the data attribute
 	 * @returns Self for chaining
 	 */
@@ -460,27 +462,23 @@ export class Dom<T extends HTMLElement = HTMLElement> implements ArrayLike<T> {
 				return out;
 			}
 
-			Array.from(this[0].attributes).forEach(attr => {
-				if (attr.name.startsWith('data-')) {
-					out[attr.name.replace('data-', '')] = dataConvert(
-						attr.value
-					);
-				}
+			util.object.each(this[0].dataset, (key, val) => {
+				out[key] = dataConvert(val);
 			});
 
 			return out;
 		}
 
 		if (typeof name === 'string' && value === undefined) {
-			return dataConvert(this.attr('data-' + name));
+			return this.length ? dataConvert(this[0].dataset[name]) : null;
 		}
 
 		if (typeof name === 'string') {
-			this.attr('data-' + name, value!);
+			this.each(el => el.dataset[name] = JSON.stringify(value));
 		}
 		else {
 			object.each<string>(name, (key, val) => {
-				this.attr('data-' + key, val);
+				this.each(el => el.dataset[key] = JSON.stringify(val));
 			});
 		}
 
@@ -1673,18 +1671,17 @@ export class Dom<T extends HTMLElement = HTMLElement> implements ArrayLike<T> {
  * @param val Data to convert
  * @returns Converted value
  */
-function dataConvert(val: string | null): AttributeTypes {
-	if (val === 'true') {
-		return true;
-	}
-	else if (val === 'false') {
-		return false;
-	}
-	else if (is.num(val)) {
-		return parseFloat(val!);
+function dataConvert(val: string | undefined): AttributeTypes {
+	if (val === undefined) {
+		return null;
 	}
 
-	return val;
+	try {
+		return JSON.parse(val);
+	}
+	catch (e) {
+		return val;
+	}
 }
 
 function normaliseEventParams(name?: string, arg2?: any, arg3?: any) {
