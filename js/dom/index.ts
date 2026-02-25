@@ -25,7 +25,11 @@ type TDimensionInclude =
 	| 'withPadding'
 	| 'withMargin';
 
-export class Dom<T extends HTMLElement = HTMLElement> {
+/**
+ * `Dom` is a class that provides a chaining UI for simple DOM manipulation and
+ * selection.
+ */
+export class Dom<T extends HTMLElement = HTMLElement> implements ArrayLike<T> {
 	/**
 	 * Create a new element and wrap in a `Dom` instance
 	 *
@@ -56,7 +60,13 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 */
 	static transitions = true;
 
-	private _store: T[] = [];
+	/** Index access for the elements in the result set of this instance */
+	[n: number]: T;
+
+	/** Number of elements in the array */
+	public length: number = 0;
+
+	/** Flag to indicate that this is a Dom instance */
 	private _isDom = true;
 
 	/**
@@ -83,10 +93,10 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			if (typeof selector === 'string') {
 				let elements = Array.from(document.querySelectorAll(selector));
 
-				addArray(this._store, elements);
+				addArray(this, elements);
 			}
 			else if (selector instanceof Dom) {
-				addArray(this._store, selector.get());
+				addArray(this, selector.get());
 			}
 			else if (
 				typeof selector === 'object' &&
@@ -98,18 +108,19 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 				let arrayLike = selector as any[];
 
 				for (let i = 0; i < arrayLike.length; i++) {
-					addArray(this._store, arrayLike[i]);
+					addArray(this, arrayLike[i]);
 				}
 
 				sort = false;
 			}
 			else {
-				addArray(this._store, selector);
+				addArray(this, selector);
 			}
 		}
 
 		if (sort) {
-			this._store.sort(documentOrder);
+			Array.prototype.sort.call(this, documentOrder);
+			// this.sort(documentOrder);
 		}
 
 		return this;
@@ -199,7 +210,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 	attr(name: any, value?: AttributeTypes) {
 		if (typeof name === 'string' && value === undefined) {
-			return this.count() ? this._store[0].getAttribute(name) : null;
+			return this.count() ? this[0].getAttribute(name) : null;
 		}
 
 		return this.each(el => {
@@ -271,7 +282,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @returns Self for chaining
 	 */
 	classHas(name: string) {
-		return this.count() ? this._store[0].classList.contains(name) : false;
+		return this.count() ? this[0].classList.contains(name) : false;
 	}
 
 	/**
@@ -362,7 +373,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @returns Number of elements
 	 */
 	count() {
-		return this._store.length;
+		return this.length;
 	}
 
 	/**
@@ -392,8 +403,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	css(rule: any, value?: string): any {
 		// String getter
 		if (typeof rule === 'string' && value === undefined) {
-			return this._store.length
-				? getComputedStyle(this._store[0])[rule as any]
+			return this.length
+				? getComputedStyle(this[0])[rule as any]
 				: null;
 		}
 
@@ -449,7 +460,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 				return out;
 			}
 
-			Array.from(this._store[0].attributes).forEach(attr => {
+			Array.from(this[0].attributes).forEach(attr => {
 				if (attr.name.startsWith('data-')) {
 					out[attr.name.replace('data-', '')] = dataConvert(
 						attr.value
@@ -505,8 +516,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @returns Self for chaining
 	 */
 	each(callback: (el: T, idx: number) => void) {
-		for (let i = 0; i < this._store.length; i++) {
-			let el = this._store[i];
+		for (let i = 0; i < this.length; i++) {
+			let el = this[i];
 
 			callback.call(el, el, i);
 		}
@@ -521,8 +532,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @returns Self for chaining
 	 */
 	eachReverse(callback: (el: T, idx: number) => void) {
-		for (let i = this._store.length - 1; i >= 0; i--) {
-			let el = this._store[i];
+		for (let i = this.length - 1; i >= 0; i--) {
+			let el = this[i];
 
 			callback.call(el, el, i);
 		}
@@ -573,7 +584,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	get<R = T>(idx: number): R;
 
 	get(idx?: number) {
-		return idx !== undefined ? this._store[idx] : this._store;
+		return idx !== undefined ? this[idx] : Array.from(this);
 	}
 
 	/**
@@ -678,9 +689,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @returns New instance with just the selected item
 	 */
 	first() {
-		let s = this._store;
-
-		return new Dom(s.length ? s[0] : null);
+		return new Dom(this.length ? this[0] : null);
 	}
 
 	/**
@@ -723,8 +732,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			include === 'inner' ||
 			include === 'outer'
 		) {
-			let el = this._store[0];
-			let computed = window.getComputedStyle(this._store[0]);
+			let el = this[0];
+			let computed = window.getComputedStyle(this[0]);
 			let rectHeight = el.getBoundingClientRect().height;
 
 			if (!include || include === 'content') {
@@ -805,7 +814,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			});
 		}
 		else {
-			return this.count() ? this._store[0].innerHTML : null;
+			return this.count() ? this[0].innerHTML : null;
 		}
 	}
 
@@ -838,7 +847,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			return false;
 		}
 
-		return document.body.contains(this._store[0]);
+		return document.body.contains(this[0]);
 	}
 
 	/**
@@ -851,7 +860,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			return false;
 		}
 
-		let el = this._store[0];
+		let el = this[0];
 
 		return !!(
 			el.offsetWidth ||
@@ -867,7 +876,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 */
 	index() {
 		if (this.count()) {
-			let el = this._store[0];
+			let el = this[0];
 
 			return Array.from(el.parentNode!.children).indexOf(el);
 		}
@@ -909,7 +918,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 	 * @returns New instance with just the selected item
 	 */
 	last() {
-		let s = this._store;
+		let s = this;
 
 		return new Dom(s.length ? s[s.length - 1] : null);
 	}
@@ -1015,7 +1024,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			};
 		}
 
-		let box = this._store[0].getBoundingClientRect();
+		let box = this[0].getBoundingClientRect();
 		let docElem = document.documentElement;
 
 		return {
@@ -1150,7 +1159,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			};
 		}
 
-		let el = this._store[0];
+		let el = this[0];
 		let { marginTop, marginLeft } = getComputedStyle(el);
 
 		return {
@@ -1172,9 +1181,8 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			if (content instanceof Dom) {
 				// Reverse the array, so if there are multiple elements, they
 				// end up being added sequentially, just like jQuery
-				content._store.reverse();
-				content.each(item => el.prepend(item));
-				content._store.reverse();
+				let itemsReversed = Array.from(content).reverse();
+				itemsReversed.forEach(item => el.prepend(item));
 			}
 			else if (typeof content === 'string') {
 				el.insertAdjacentHTML('afterbegin', content);
@@ -1222,7 +1230,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 	prop(name: any, value?: AttributeTypes) {
 		if (typeof name === 'string' && value === undefined) {
-			return this.count() ? (this._store[0] as any)[name] : null;
+			return this.count() ? (this[0] as any)[name] : null;
 		}
 
 		return this.each(el => {
@@ -1294,7 +1302,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 	scrollLeft(val?: number) {
 		if (val === undefined) {
-			return this.count() ? this._store[0].scrollLeft : 0;
+			return this.count() ? this[0].scrollLeft : 0;
 		}
 
 		return this.each(el => (el.scrollLeft = val));
@@ -1314,7 +1322,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 	scrollTop(val?: number) {
 		if (val === undefined) {
-			return this.count() ? this._store[0].scrollTop : 0;
+			return this.count() ? this[0].scrollTop : 0;
 		}
 
 		return this.each(el => (el.scrollTop = val));
@@ -1362,7 +1370,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 
 	text(txt?: string): any {
 		if (txt === undefined) {
-			return this.count() ? this._store[0].textContent : null;
+			return this.count() ? this[0].textContent : null;
 		}
 
 		return this.each(el => {
@@ -1407,7 +1415,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 		}
 
 		if (Dom.transitions && duration !== 0) {
-			let first = this._store[0] as any;
+			let first = this[0] as any;
 
 			// If there was an existing transition, cancel its callback
 			if (first._dom_tra) {
@@ -1534,7 +1542,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 				return null;
 			}
 
-			let el = this._store[0] as any;
+			let el = this[0] as any;
 
 			if (el.options && el.multiple) {
 				return Array.from((el as HTMLSelectElement).options)
@@ -1600,7 +1608,7 @@ export class Dom<T extends HTMLElement = HTMLElement> {
 			include === 'inner' ||
 			include === 'outer'
 		) {
-			let el = this._store[0];
+			let el = this[0];
 			let computed = window.getComputedStyle(el);
 			let rectWidth = el.getBoundingClientRect().width;
 
@@ -1743,18 +1751,20 @@ function elementArray(target: Element | Element[] | Dom): Element[] {
 		: [target];
 }
 
-function addArray(store: any[], el: any | any[]) {
+function addArray(store: any, el: any | any[]) {
 	if (util.is.arrayLike(el)) {
 		for (var i = 0; i < el.length; i++) {
 			let e = el[i];
 
 			if (e !== null && e !== undefined) {
-				store.push(e);
+				store[store.length] = e;
+				store.length++;
 			}
 		}
 	}
 	else if (el !== null && el !== undefined) {
-		store.push(el);
+		store[store.length] = el;
+		store.length++;
 	}
 }
 
