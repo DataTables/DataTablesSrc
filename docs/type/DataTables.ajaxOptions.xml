@@ -128,7 +128,48 @@ This option can be used to specify HTTP headers to use in the request. This can 
 * Default: `{}`
 
 
+## method
 
+This option defines the HTTP method (i.e. the "verb") that the request will use. It will typically be one of `GET`, `PUT`, `POST` or `DELETE`. Case insensitive.
+
+* Optional
+* Type: `-type string`
+* Default: `-string GET`
+
+
+## password
+
+If the request route requires HTTP Basic or Digest authentication, the password can be set using this parameter.
+
+* Optional
+* Type: `-type string`
+* Default: unset
+
+
+## success
+
+
+## submitAs
+
+
+## traditional
+
+
+## type
+
+
+## url
+
+
+
+
+## username
+
+If the request route requires HTTP Basic or Digest authentication, the username can be set using this parameter.
+
+* Optional
+* Type: `-type string`
+* Default: unset
 
 
 	]]>
