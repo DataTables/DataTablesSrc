@@ -4,7 +4,7 @@
 <css lib="datatables" />
 <js lib="datatables" />
 
-<title>DOM / jQuery events</title>
+<title>DOM and custom events</title>
 <js><![CDATA[
 var table = $('#example').DataTable();
 
@@ -26,9 +26,11 @@ table.on('click', 'tbody tr', function () {
 
 <info><![CDATA[
 
-Events assigned to the table can be exceptionally useful for user interaction, however you must be aware that DataTables will add and remove rows from the DOM as they are needed (i.e. when paging only the visible elements are actually available in the DOM). As such, this can lead to the odd hiccup when working with events.
+Events assigned to the table can be exceptionally useful for user interaction, however you must be aware that DataTables will add and remove rows from the DOM as they are needed (i.e. when paging only the visible elements are actually available in the DOM). As such, this can lead to some elements having events attached and others, which are shown at a later time, not!
 
-One of the best ways of dealing with this is through the use of delegated events with jQuery's `on` method, as shown in this example. This example also uses the DataTables `dt-api row().data()` method to retrieve information about the selected row - the row's data so we can show it in the `alert` message in this case.
+The way to deal with this is with delegated events - specifically use DataTables' `-api on()` method, as shown in this example. With it, DOM events (e.g. `click`, `mouseover`, etc) can be listened for in the table, and also for the custom events that DataTables can trigger. For more information about events in DataTables, [please refer to the events manual page](https://datatables.net/manual/events).
+
+This example also uses the DataTables `dt-api row().data()` API method to retrieve information about the selected row - the row's data so we can show it in the `alert` message in this case.
 
 ]]></info>
 

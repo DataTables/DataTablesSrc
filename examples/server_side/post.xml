@@ -49,9 +49,7 @@ new DataTable('#example', {
 
 By default, the Ajax request that DataTables makes to obtain server-side processing data is an HTTP GET request. However, there are times when you might wish to use POST. This is very easily done by using the `type` option of the `dt-init ajax` initialisation option.
 
-When given as an object, the `dt-init ajax` option maps directly onto the [jQuery ajax](https://api.jquery.com/jQuery.ajax/) options (i.e. any option that can be used in jQuery's Ajax function can also be used in DataTable's `dt-init ajax` option).
-
-The example below shows `dt-init ajax` being used with the `type` option set to `string POST` to make a POST request.
+When given as an object, the `dt-init ajax` provides a range of options, including `type` which can be used to change the HTTP request type. The example below shows `dt-init ajax` being used with the `type` option set to `string POST` to make a POST request.
 
 ]]></info>
 

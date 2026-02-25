@@ -7,7 +7,7 @@
 
 <info><![CDATA[
 
-DataTables is a simple-to-use jQuery plug-in with a huge range of customisable options. The examples in this section demonstrate basic initialisation of DataTables and how it can be easily customised by passing an object with the options you want.
+DataTables is a simple-to-use, dependency free, Javascript library with a huge range of customisable options. The examples in this section demonstrate basic initialisation of DataTables and how it can be easily customised by passing an object with the options you want.
 
 ]]></info>
 

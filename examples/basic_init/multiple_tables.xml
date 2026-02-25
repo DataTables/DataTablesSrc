@@ -20,7 +20,7 @@ new DataTable('table.display');
 
 <info><![CDATA[
 
-Often you might wish to initialise multiple tables with a single statement. This is trivially done by using a jQuery selector which will pick up multiple tables.
+Often you might wish to initialise multiple tables with a single statement. This is trivially done by using a CSS selector which will pick up multiple tables.
 
 The tables are independent for user control (i.e. user controlled paging on one table does not effect the others), but they do share the initialisation parameters given (for example if you specific the Spanish language file, all tables will be shown in Spanish). Additionally, the API can be used to manipulate both together, or independently.
 

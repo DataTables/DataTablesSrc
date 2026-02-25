@@ -49,8 +49,6 @@ table.on('page', () => eventFired('Page'));
 
 DataTables fires [a number of custom events](https://datatables.net/reference/event/) which you can bind to using the `-init on` initialisation property (since v2.3) and the `-api on()` API method. The advantage of the initialisation property is that it will listen for events during initialisation - this is useful for events such as `-event preXhr` and `-event xhr` which you might want to operate on before the table has completed its initial data load.
 
-It is worth noting that you can also use jQuery's `$().on()` method with the `dt` namespace) to listen for events if you are using jQuery.
-
 This example shows the use of the `-event order`and `-event search` events being listened for through `-init on`, and `-event page` being listened for through the API. The action for each event is to show a small notification in the document that the event has indeed been fired.
 
 ]]></info>
