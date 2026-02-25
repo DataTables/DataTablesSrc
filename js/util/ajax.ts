@@ -23,7 +23,7 @@ export interface AjaxOptions {
 	beforeSend?: (xhr: XMLHttpRequest, options: AjaxOptions) => void | false;
 	cache?: boolean;
 	complete?: AjaxComplete | AjaxComplete[];
-	contentType?: string;
+	contentType?: string | false;
 	data?: Record<string, any> | string | any[] | FormData;
 	dataType?: 'json' | 'text';
 	deleteBody?: boolean;

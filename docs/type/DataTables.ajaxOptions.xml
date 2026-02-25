@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="dt">
+	<name>DataTables.ajaxOptions</name>
+	<summary>Options for configuring an Ajax request</summary>
+
+	<description>
+	<![CDATA[
+
+DataTables provides a `-api DataTable.ajax()` method which can be used to make Ajax calls, and makes use of it for its own Ajax calls when configured with `-init ajax` to load data. The Ajax call is configured through an object of parameters that is passed to it. The parameters for this object are documented here.
+
+
+## TypeScript
+
+This interface is available through the type definitions that DataTables makes available:
+
+```js
+// Import DataTables base and the type
+import DataTable, { AjaxOptions } from 'datatables.net';
+
+// Example use
+const options: AjaxOptions = {
+	url: '/api/data',
+	success: (json) => {
+		// Do something
+	}
+}
+
+// Make the Ajax call
+DataTable.ajax(options);
+```
+
+
+## Properties
+
+### beforeSend
+
+A function that is executed immediately prior to the Ajax call is triggered, providing an option to give additional and low level customisation.
+
+* Optional
+* Type: `-type function`
+* Default: unset
+* Parameters:
+  1. The `XMLHttpRequest` object, allowing it to be customised
+  2. `-type DataTables.ajaxOptions`: The Ajax options used to configure the request.
+* Return: No return is required, although `false` can be returned to cancel the request.
+
+
+### cache
+
+This option can be used to add a "cache busting" query parameter to the request URL. This is done, when set to `false` by adding a parameter with the name of `_` and a current time stamp value to the request to make sure that the response will not have been cached by the browser.
+
+* Optional
+* Type: `-type boolean`
+* Default: `true`
+
+
+### complete
+
+A function that will execute at the end of the response processing, regardless of whether the request was successful or not. This option can also be given as an array of functions that will be executed in sequence.
+
+* Optional
+* Type: `-type function`
+* Default: unset
+* Parameters:
+  1. The `XMLHttpRequest` object, allowing it to be customised
+  2. `-string string`: Status text of the response. This will be one of `success`, `nocontent`, `notmodified`, `error` or `parseerror`.
+* Return: No return
+
+
+## contentType
+
+The content type to use when sending data to the server. You can use an empty string or `false` to have no content type header sent in the request. Please note that if you use `FormData` for the `data` property, this option will be ignored and the browser will set the content type automatically based on the `FormData` object.
+
+* Optional
+* Type:
+  * `-type string` - Value to send
+  * `-type boolean` - false to disable the content type header
+* Default: `application/x-www-form-urlencoded; charset=UTF-8`
+
+
+## data
+
+The data to send to the server as part of the request. Depending on the `method` type, this will be used either as query parameters (GET) or body parameters (PUT / POST).
+
+* Optional
+* Type: `-type object`, `-type string` or [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData).
+* Default: unset
+
+
+## dataType
+
+This option defines how the data returned from the server should be processed - i.e. as plain text or as JSON data. If not set, the software will attempt to parse the returned value as JSON, and if that fails will give the response as plain text. It can take one of two values (or be left unset): `-string json` or `-string text`. In the case of `-string json`, if the response is not valid JSON, the status will be set to `parseerror`.
+
+* Optional
+* Type: `-string`
+* Default: unset
+
+
+## deleteBody
+
+Some HTTP servers will not accept body parameters as part of a DELETE request, blocking the request as invalid (support for body parameters in a DELETE is optional in the HTTP spec). If set to `true` (or undefined) the body parameters will be removed and appended as query parameters. Set to `false` to have the parameters sent in the request body.
+
+* Optional
+* Type: `-type boolean`
+* Default: `true`
+
+
+## error
+
+A callback function that will be executed on error. This option can also be given as an array of functions that will be executed in sequence.
+
+* Optional
+* Type: `-type function`
+* Default: unset
+* Parameters:
+  1. The `XMLHttpRequest` object, allowing it to be customised
+  2. `-string string`: Status text of the response. This will be one of `success`, `nocontent`, `notmodified`, `error` or `parseerror`.
+  2. `-string string`: The error from the XHR object
+* Return: No return
+
+
+## headers
+
+This option can be used to specify HTTP headers to use in the request. This can be useful for if your server requires a CSRF token to be added to all requests, amount other uses.
+
+* Optional
+* Type: `-type object` - A key / value set of values to add to the HTTP headers
+* Default: `{}`
+
+
+
+
+
+	]]>
+	</description>
+</dt-type>

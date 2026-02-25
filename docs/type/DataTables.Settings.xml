@@ -11,7 +11,7 @@ DataTables stores the configuration and data for each table in a _settings objec
 Based on the above warning you might be scared off from the object entirely, but actually it can be quite useful. As it contains the information needed to describe a DataTable fully, DataTables will often pass this object into callback methods to provide a description of the table in question which can then be used with an API constructor (see `dt-type DataTables.Api`) to create a new API object for the table. For example:
 
 ```js
-var api = new $.fn.dataTable.Api( settings );
+var api = new DataTable.Api( settings );
 ```
 
 The above will create an API instance for the table that is referenced by the `settings` object in question.
@@ -21,7 +21,7 @@ Consider a more complete example using `dt-init drawCallback`:
 ```js
 new DataTable('#myTable', {
 	"drawCallback": function( settings ) {
-		var api = new $.fn.dataTable.Api( settings );
+		var api = new DataTable.Api( settings );
 
 		// Output the data for the visible rows to the browser's console
 		// You might do something more useful with it!

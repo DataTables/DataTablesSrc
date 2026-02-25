@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.ajax()</name>
+	<summary>Make an Ajax call to a server</summary>
+	<since>3</since>
+
+	<type type="function">
+		<signature>ajax( options )</signature>
+		<description>
+			Make an Ajax request to send and get data to a server.
+		</description>
+		<parameter type="DataTables.ajaxOptions" name="options">
+			This object is used to configure how the Ajax request is made. Use the options to send data, change the HTTP request type, add response callbacks and more. Please see the `-type DataTables.ajaxOptions` documentation for full details of the options available.
+		</parameter>
+	</type>
+
+	<description>
+		DataTables makes it easy to fetch remote data through its `-init ajax` option. The Ajax call that it makes is done through this API method which is exposed so you can make use of the simple interface that it offers if you wish to make your own Ajax calls.
+
+		This static method is largely based on [jQuery's `ajax()`](https://api.jquery.com/jQuery.ajax/) method, but it does not implement as many options, only those most commonly used by DataTables. It also provides options that are useful for DataTables that jQuery does not provide.
+
+		Configuration of the Ajax request done through the object given to this object, which is of type `-type DataTables.ajaxOptions`. The most commonly used options will be:
+
+		* `url` - address to make the Ajax request to
+		* `data` - any data to send to the server
+		* `method` - The HTTP request type
+		* `success` - A callback function to execute when the request is complete.
+
+		For a complete list of the options that can be used and full details for each one, please refer to the `-type DataTables.ajaxOptions` documentation.
+	</description>
+
+	<example title="Make a simple GET request with no extra data"><![CDATA[
+DataTable.ajax({
+	success: (json) => {
+		// Do something with `json`
+	},
+	url: '/api/data'
+});
+]]></example>
+
+	<example title="Make a POST request with data"><![CDATA[
+DataTable.ajax({
+	data: {
+		userId: 1
+	},
+	method: 'POST',
+	success: (json) => {
+		// Do something with `json`
+	},
+	url: '/api/data'
+});
+]]></example>
+
+	<related>-api ajax</related>
+	<related>-api ajax.json()</related>
+	<related>-api ajax.params()</related>
+	<related>-api ajax.url()</related>
+	<related>-api ajax.url().load()</related>
+	<related>-api ajax.reload()</related>
+	<related>-event xhr</related>
+	<related>-type DataTables.ajaxOptions</related>
+</dt-api>
