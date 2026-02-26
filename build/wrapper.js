@@ -48,6 +48,8 @@ function main(args) {
 		}
 	}
 
+	deps = deps.filter(d => !!d);
+
 	let exp = exportFromPath(args[2]);
 	let scriptParts = breakScript(script);
 	let filename = fileFromPath(args[2]);
@@ -102,77 +104,81 @@ export default ${exp};
 `
 }
 
+/**
+ * Create an UMD loader wrapper - that is one which will work for AMD, CommonJS
+ * and directly in the browser.
+ *
+ * Note this this is DataTables specific. It will add a parameter to the AMD and
+ * CJS loaders for DataTables, but no other library.
+ */
 function umd(script, deps, exp, filename) {
-	let amd = deps.map(l => `'${l}'`).join(', ');
+	let amdLoad = [];
 	let commonjs = [];
-	let defineDataTable = '';
+	let requiresDT = false;
 
 	for (let dep of deps) {
-		if (dep === 'jquery') {
-			; // noop - always included below
-		}
-		else if (nameFromDependency(dep) === 'DataTable') {
-			defineDataTable = '\nvar DataTable = window.DataTable;';
+		amdLoad.push(`'${dep}'`);
+
+		if (nameFromDependency(dep) === 'DataTable') {
 			commonjs.push(`
-			if ( ! root.DataTable ) {
+			if (! root.DataTable) {
 				require('${dep}')(root);
 			}
 `);
+
+			requiresDT = true;
 		}
 		else {
 			let name = nameFromDependency(dep);
 
-			defineDataTable = '\nvar DataTable = window.DataTable;';
 			commonjs.push(`
-			if ( ! window.DataTable.${name} ) {
+			if (! window.DataTable.${name}) {
 				require('${dep}')(root);
 			}
 `);
 		}
 	}
 
-	let cjsSig = '';
-	let cjsParams = '';
 	let setDataTable = filename === 'datatables.js'
 		? 'window.DataTable = '
 		: '';
 
 	return `${script.header}
 
-(function( factory ){
-	if ( typeof define === 'function' && define.amd ) {
+(function(factory){
+	if (typeof define === 'function' && define.amd) {
 		// AMD
-		define( [${amd}], function () {
-			return factory( window, document );
-		} );
+		define([${amdLoad.join(', ')}], function (${requiresDT ? 'dt' : ''}) {
+			return factory(window, document${requiresDT ? ', dt' : ''});
+		});
 	}
-	else if ( typeof exports === 'object' ) {
+	else if (typeof exports === 'object') {
 		// CommonJS
 		var cjsRequires = function (root) {${commonjs.join('')}		};
 
 		if (typeof window === 'undefined') {
-			module.exports = function (root, $${cjsSig}) {
-				if ( ! root ) {
+			module.exports = function (root) {
+				if (! root) {
 					// CommonJS environments without a window global must pass a
 					// root. This will give an error otherwise
 					root = window;
 				}
 
-				cjsRequires( root );
-				return factory( root, root.document${cjsParams} );
+				cjsRequires(root);
+				return factory(root, root.document${requiresDT ? ', root.DataTable' : ''});
 			};
 		}
 		else {
-			cjsRequires( window );
-			module.exports = factory( window, window.document );
+			cjsRequires(window);
+			module.exports = factory(window, window.document${requiresDT ? ', window.DataTable' : ''});
 		}
 	}
 	else {
 		// Browser
-		${setDataTable}factory( window, document );
+		${setDataTable}factory(window, document${requiresDT ? ', window.DataTable' : ''});
 	}
-}(function( window, document${cjsParams} ) {
-'use strict';${defineDataTable}
+}(function(window, document${requiresDT ? ', DataTable' : ''}) {
+'use strict';
 
 ${script.main}
 
