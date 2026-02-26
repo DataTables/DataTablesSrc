@@ -139,7 +139,7 @@ function ajax(optionsIn: AjaxOptions) {
 		}
 
 		if (statusText === 'success') {
-			callback(options.success, responseData);
+			callback(options.success, responseData, statusText, xhr);
 		}
 		else {
 			callback(options.error, xhr, statusText, xhr.statusText);
