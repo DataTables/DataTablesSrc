@@ -16,7 +16,7 @@
 
     As of DataTables 2, the software will automatically wrap the column title in a `-tag span` element with a class of `dt-column-title`. This is done to ensure that the column title can be both read and written to, without interfering with other elements that might be in the column's header.
 
-    Please note that when constructing a header, DataTables can only construct a simple header with a single cell for each column. Complex headers with `colspan` and `rowspan` attributes must either already be defined in the document, or be constructed using standard DOM / jQuery methods. Furthermore, if you use this property with a multi-row header in the DOM, the title will be set for the first row in the header only.
+    Please note that when constructing a header, DataTables can only construct a simple header with a single cell for each column. Complex headers with `colspan` and `rowspan` attributes must either already be defined in the document, or be constructed using DOM methods. Furthermore, if you use this property with a multi-row header in the DOM, the title will be set for the first row in the header only.
 	</description>
 
 	<example title="Set the first column's title with `dt-init columnDefs`"><![CDATA[

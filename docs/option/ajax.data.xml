@@ -40,7 +40,7 @@
 
 		The `dt-init ajax.data` option provides the ability to add additional data to the request, or to modify the data object being submitted if required.
 
-		In principle it operates in exactly the same way as jQuery's `$.ajax.data` property, in that it can be given as an object with parameters and values to submit, but DataTables extends this by also providing it with the ability to be a function, to allow the data to be re-evaluated upon each Ajax request (see above).
+		This property makes use of `-api DataTable.ajax()` to make the Ajax call, and all options available in `-type DataTables.ajaxOptions` can be used in this object. Prior to DataTables 3, this property make use of [jQuery's `ajax()` method](https://api.jquery.com/jQuery.ajax/), and the options were mapped to that object.
 	</description>
 
 	<example title="Add an extra parameter (`user_id` in this case), of a static value to the data submitted"><![CDATA[
@@ -59,7 +59,7 @@ new DataTable('#myTable', {
 	ajax: {
 		url: 'data.json',
 		data: function (d) {
-			d.extra_search = $('#extra').val();
+			d.extra_search = document.querySelector('#extra').value;
 		}
 	}
 });
@@ -70,8 +70,8 @@ new DataTable('#myTable', {
 	ajax: {
 		url: 'data.json',
 		data: function (d) {
-			return $.extend({}, d, {
-				extra_search: $('#extra').val()
+			return Object.assign({}, d, {
+				extra_search: document.querySelector('#extra').value
 			});
 		}
 	}
@@ -83,4 +83,5 @@ new DataTable('#myTable', {
 	<related type="api">ajax.json()</related>
 	<related type="api">ajax.reload()</related>
 	<related type="api">ajax.url()</related>
+	<related type="api">DataTable.ajax</related>
 </dt-option>

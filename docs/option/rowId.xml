@@ -8,6 +8,7 @@
 	<default value="DT_RowId" />
 
 	<description>
+		<![CDATA[
 		It can often be useful to have a [`id` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id) on each `-tag tr` element in a DataTable for row selection and data source identification, particularly when using events.
 
 		DataTables will attempt to automatically read an id value from the data source for each row using the property defined by this option. By default it is `DT_RowId` but can be set to any other name. As with `dt-init columns.data` it can also read from a nested JSON data source by using JavaScript dotted object notation (e.g. `DT_RowId: 'image.id'`).
@@ -18,13 +19,14 @@
 
 		> The value must be unique amongst all the IDs in the element's home subtree and must contain at least one character. The value must not contain any space characters.
 
-		You may also wish to consider the [CSS 2.1 specification of an identifier](https://www.w3.org/TR/CSS21/syndata.html#value-def-identifier) which is more restrictive than HTML5's and will provide maximum compatibility with jQuery:
+		You may also wish to consider the [CSS 2.1 specification of an identifier](https://www.w3.org/TR/CSS21/syndata.html#value-def-identifier) which is more restrictive than HTML5's and will provide maximum compatibility:
 
 		> identifiers (including element names, classes, and IDs in selectors) can contain only the characters [a-zA-Z0-9] and ISO 10646 characters U+00A0 and higher, plus the hyphen (-) and the underscore (_); they cannot start with a digit, two hyphens, or a hyphen followed by a digit. Identifiers can also contain escaped characters and any ISO 10646 character as a numeric code.
+		]]>
 	</description>
 
 	<example title="Use the property `staffId` as the data source for the row id"><![CDATA[
-$('#myTable').DataTable({
+new DataTable('#myTable', {
 	ajax: '/api/staff',
 	rowId: 'staffId'
 });

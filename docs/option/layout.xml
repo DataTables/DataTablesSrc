@@ -143,10 +143,11 @@ The values of the parameters in `-init layout` can be any of:
   * `-feature div` - A simple placeholder element
 * `-type object` - A plain object where the parameter keys are the feature to be used (see the strings above and any plug-ins) and the value is passed to the feature ([example](/examples/layout/positioning-with-options.html)). This is normally an object with a list of options. Note that multiple features could be specified using a single object, but order is not guaranteed. Order will normally be important if you specify multiple controls in a single slot - in such cases, use an array of objects.
 * `-type object` - A plain object with a parameter named `features` for control of the `id` and `class` of the grid elements (since 2.1 - [example](/examples/layout/ids-and-classes.html)). Please see the _IDs and class names_ section below.
-* `-type jQuery` - A jQuery instance containing a node to insert.
+* `-type Dom` - A `DataTable.Dom` instance containing a node to insert
+* `-type jQuery` - A jQuery instance containing a node to insert (if using jQuery)
 * `-type node` - A DOM element ([example](/examples/layout/custom-nodes.html)).
-* `-type function` - A function that returns a DOM element or jQuery instance containing a node ([example](/examples/layout/custom-function.html)). The function will be passed in the DataTables settings object.
-* `-type object` - A class instance that provides a `node()` method and should return the node to be inserted (DOM or jQuery). As with the `-type function` option above, this method will be passed to the DataTables settings object for the table.
+* `-type function` - A function that returns a DOM element or array-like instance containing a node ([example](/examples/layout/custom-function.html)). The function will be passed in the DataTables settings object.
+* `-type object` - A class instance that provides a `node()` method and should return the node to be inserted (DOM or array-like). As with the `-type function` option above, this method will be passed to the DataTables settings object for the table.
 * `-type array` - An array of any of the above options, providing the ability to show multiple items next to each other ([example](/examples/layout/grid.html)).
 * `-type null` - Show nothing in this position
 
