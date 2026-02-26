@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings, el, str )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -27,7 +27,7 @@
 
 		Note that the `dt-event search` will be fired _after_ the information element has been written to by the built in display renderer. This means that writing to the info element will cause your own output to be displayed, rather than the DataTables created text.
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>
 
 	<related type="option">info</related>

@@ -18,7 +18,7 @@
 	</type>
 
 	<description>
-		This method provides access to the data that is contained within a DataTables API instance. The DataTables API is _array-like_ so it is possible to access the data using array notation, but it can also be useful to use the API to more explicitly state what is happening in the code (i.e. making it more readable). It is based upon the [jQuery method of the same name](https://api.jquery.com/get/).
+		This method provides access to the data that is contained within a DataTables API instance. The DataTables API is _array-like_ so it is possible to access the data using array notation, but it can also be useful to use the API to more explicitly state what is happening in the code (i.e. making it more readable).
 
 		Please note that initially this method may appear to be similar to the `-api eq()` method, but the data the two methods operate on is different:
 

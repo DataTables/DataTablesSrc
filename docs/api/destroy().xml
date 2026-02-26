@@ -10,7 +10,7 @@
 		<parameter type="boolean" name="remove" default="false">
 			Completely remove the table from the DOM (`true`) or leave it in the DOM in its original plain un-enhanced HTML state (default, `false`).
 
-			When set to `true`, as of v1.10.8, DataTables will use the [`jQuery .remove()` method](https://api.jquery.com/remove/) to remove the table from the page - this results in any events that are bound to the table elements being automatically removed by jQuery. If set to `false` custom events are not removed from the table - only the events that DataTables itself attached to the table.
+			When set to `true`, as of v1.10.8, DataTables will remove the table from the page - this results in any events that where bound to the table elements being automatically removed. If set to `false` custom events are not removed from the table - only the events that DataTables itself attached to the table.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>
 	</type>
@@ -26,20 +26,24 @@
 	<example title="Destroy an existing table on a button click"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#tableDestroy').on('click', function () {
-	table.destroy();
-});
+document
+	.querySelector('#tableDestroy')
+	.addEventListener('click', function () {
+		table.destroy();
+	});
 ]]></example>
 
 	<example title="Reload a full table description from the server, including columns"><![CDATA[
 var table = new DataTable('#myTable');
 
-$('#submit').on('click', function () {
-	$.getJSON('newTable', null, function (json) {
+// Use `DataTable.Dom` for easy event handling. Could also use `addEventListener`
+DataTable.dom.s('#submit').on('click', function () {
+	DataTable.ajax('newTable', null, function (json) {
 		table.destroy();
-		$('#myTable').empty(); // empty in case the columns change
+		
+		DataTable.dom.s('#myTable').empty(); // empty in case the columns change
 
-		table = $('#myTable').DataTable({
+		table = new DataTable('#myTable', {
 			columns: json.columns,
 			data: json.rows
 		});

@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings, data, xhr )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -27,17 +27,18 @@
 
 		The `dt-event preXhr` event is designed for use by plug-in authors who can listen for this event in their extension and send any additional data that might be required. It is very similar to the `dt-init ajax.data` in this ability, with that option typically being used by those writing initialisation code for their table, rather than plug-in authors.
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>
 
 	<example title="Send additional data to the server on an Ajax request using an event"><![CDATA[
-$('#example')
-	.on('preXhr.dt', function (e, settings, data) {
-		data.sessionId = $('#sessionId').val();
-	})
-	.DataTable({
-		ajax: 'data.json'
-	});
+new DataTable('#example', {
+	ajax: 'data.json',
+	on: {
+		preXhr: (e, settings, data) => {
+			data.sessionId = document.querySelector('#sessionId').value;
+		}
+	}
+});
 
 // Note that `ajax.data` could also be used to perform this action in this case
 ]]></example>

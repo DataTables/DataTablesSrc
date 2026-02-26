@@ -26,8 +26,8 @@ var table = new DataTable('#myTable');
 table
 	.column(-1)
 	.nodes()
-	.to$() // Convert to a jQuery object
-	.addClass('ready');
+	.toDom() // Convert to a `DataTable.Dom` object for easy manipulation
+	.classAdd('ready');
 ]]></example>
 
 	<related type="api">columns().nodes()</related>

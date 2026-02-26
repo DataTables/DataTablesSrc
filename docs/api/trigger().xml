@@ -24,7 +24,7 @@
 	<description>
 		This method is designed for use by DataTables extension authors to be able to trigger events in the same way that DataTables does internally. Events can be useful to let developers know that a certain action has happened and that they can perform some other operations. For example the Buttons extension triggers events when a button is processing an action or that an action has happened.
 
-		As with the other DataTables events, any event triggered with this method will have the `.dt` namespace appended to it (for jQuery name space handling). Additionally, event handlers are executed with the scope the `-tag table` element for the DataTable and the `event` object has a `dt` property appended to it containing a DataTables API instance.
+		As with the other DataTables events, any event triggered with this method will have the `.dt` namespace appended to it. Additionally, event handlers are executed with the scope the `-tag table` element for the DataTable and the `event` object has a `dt` property appended to it containing a DataTables API instance.
 
 		By default triggered events do not bubble up the document, as that operation has a performance impact. However, it is possible to enable bubbling with the optional third parameter. If enabled and the `-tag table` is not in the document, the event will still be triggered on the `-tag body` element.
 		

@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -21,7 +21,7 @@
 
 		This event can also be used to cancel the draw by returning `false` from the event handler. Please note that if you do this it can leave the table in an unpredictable state as any settings are not reset to their values from before the draw action - for example using `-api order()` to change the ordering of the table, but if the draw action is cancelled the data will still have been ordered internally in DataTables, but just not displayed.
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below. The listener should also be set before the table initialisation, otherwise when a state is attempting to load, the listener will not be set and the code will not run for the initial display of child rows.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>
 
 	<example title="Log time taken to draw the page"><![CDATA[
@@ -32,7 +32,7 @@ table
 	.on('preDraw', function () {
 		startTime = new Date().getTime();
 	})
-	.on('draw.dt', function () {
+	.on('draw', function () {
 		console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
 	});
 ]]></example>

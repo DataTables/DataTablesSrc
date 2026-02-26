@@ -14,11 +14,15 @@
 		This method, used in-combination with the `dt-api cells()` method (and therefore the various selector forms that it allows) will obtain the DOM nodes for the selected cells, allowing them to be directly manipulated - for example adding a class.
 	</description>
 
-	<example title="Find cells with a jQuery contains selector and add a class"><![CDATA[
+	<example title="Add a class to the selected cells"><![CDATA[
 var table = new DataTable('#myTable');
-var cells = table.cells(":contains('Not shipped')").nodes();
+var cells = table.cells().nodes();
 
-$(cells).addClass('warning');
+// Option 1, with `classList`
+cells.toArray().forEach(el => el.classList.add('warning'));
+
+// Option 2, using `DataTables.Dom`:
+cells.toDom().classAdd('warning');
 ]]></example>
 
 	<related type="api">cell().node()</related>

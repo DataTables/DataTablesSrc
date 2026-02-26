@@ -24,9 +24,8 @@ var table = new DataTable('#myTable');
 table
 	.columns('.ready')
 	.nodes()
-	.flatten() // Reduce to a 1D array
-	.to$() // Convert to a jQuery object
-	.addClass('highlight');
+	.toDom() // Convert to a DataTables.Dom object
+	.classAdd('highlight');
 ]]></example>
 
 	<related type="api">column().nodes()</related>

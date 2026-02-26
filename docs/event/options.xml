@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, options )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="object" name="options">
 			DataTables configuration options.
@@ -21,7 +21,7 @@
 
 		Unlike the other events triggered by DataTables there is no access to the DataTables API for the table when this event is fired as the API hasn't yet been initialised for the table.
 		
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>
 
 	<related>dt-init initComplete</related>

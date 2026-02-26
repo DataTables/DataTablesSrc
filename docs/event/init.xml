@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings, json )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -24,7 +24,7 @@
 
 		The `dt-event init` event is fired at the same point as `dt-init initComplete` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 
 		This event will bubble up the document, so you can add a listener for `init.dt` to the `-tag body` to capture all initialisation events triggered by DataTables.
 	</description>
@@ -32,14 +32,17 @@
 	<example title="Show information about the current sort using the API"><![CDATA[
 console.log('Table initialisation start: ' + new Date().getTime());
 
-$('#example')
-	.on('init.dt', function () {
-		console.log('Table initialisation complete: ' + new Date().getTime());
-	})
-	.DataTable();
+new DataTable('#myTable', {
+	on: {
+		init: () => {
+			console.log('Table initialisation complete: ' + new Date().getTime());
+		}
+	}
+});
 ]]></example>
 
 	<related>dt-init initComplete</related>
 	<related>dt-event preInit</related>
 	<related>dt-event options</related>
+	<related>dt-api ready()</related>
 </dt-event>

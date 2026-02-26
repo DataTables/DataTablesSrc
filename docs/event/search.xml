@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -21,14 +21,15 @@
 
 		Note that the `dt-event search` will be fired before the table has been redrawn with the updated filtered data, although the data will internally have been filtered.
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>
 
 	<example title="Update an external input with filtering information using the API"><![CDATA[
 var table = new DataTable('#myTable');
 
 table.on('search.dt', function () {
-	$('#filterInfo').html('Currently applied global search: ' + table.search());
+	document.querySelector('#filterInfo').textContent =
+		'Currently applied global search: ' + table.search());
 });
 ]]></example>
 

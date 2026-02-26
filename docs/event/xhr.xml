@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings, json, xhr )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -34,30 +34,32 @@
 
 		Additionally, as of DataTables 1.10.7 this event is triggered by both success and error conditions when the Ajax request completed (i.e. it is always triggered regardless of the outcome of the Ajax request). Prior to 1.10.7 it was only triggered by a successful request. The `json` parameter (3rd passed in) for the event handler will be `null` if an error has occurred and the `xhr` parameter (4th) can be used to determine the error details if required.
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>
 
 	<example title="Pre-process the data returned from the server"><![CDATA[
-$('#example')
-	.on('xhr.dt', function (e, settings, json, xhr) {
-		for (var i = 0, iLen = json.aaData.length; i < iLen; i++) {
-			json.aaData[i].sum = json.aaData[i].one + json.aaData[i].two;
+new DataTable('#example', {
+	ajax: 'data.json',
+	on: {
+		xhr:  (e, settings, json, xhr) {
+			for (var i = 0, iLen = json.data.length; i < iLen; i++) {
+				json.data[i].sum = json.data[i].one + json.data[i].two;
+			}
+			// Note no return - manipulate the data directly in the JSON object.
 		}
-		// Note no return - manipulate the data directly in the JSON object.
-	})
-	.DataTable({
-		ajax: 'data.json'
-	});
+	}
+});
 ]]></example>
 
 	<example title="Use a custom property returned from the server in another DOM element"><![CDATA[
-$('#example')
-	.on('xhr.dt', function (e, settings, json, xhr) {
-		$('#status').html(json.status);
-	})
-	.DataTable({
-		ajax: 'data.json'
-	});
+new DataTable('#example', {
+	ajax: 'data.json',
+	on: {
+		xhr:  (e, settings, json, xhr) {
+			document.querySelector('#status').textContent = json.status;
+		}
+	}
+});
 ]]></example>
 
 	<related type="option">ajax</related>

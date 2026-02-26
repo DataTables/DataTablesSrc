@@ -4,6 +4,10 @@
 	<summary>Convert the API instance to a jQuery object, with the objects from the instance's result set in the jQuery result set.</summary>
 	<since>1.10</since>
 
+	<deprecated since="3.0" removal="4.0">
+		Please note that as DataTables has no dependency on jQuery, as of v3, this method is now only relevant if you also load jQuery. Usage should be replaced with `-api toDom()` to create a `DataTable.Dom` object contains the nodes, or use standard DOM methods.
+	</deprecated>
+
 	<type type="function">
 		<signature>to$()</signature>
 		<description>Create a jQuery object from an API instance.</description>
@@ -24,6 +28,16 @@ table
 	.nodes()
 	.to$()
 	.addClass('ready');
+]]></example>
+
+	<example title="As above, but using `toDom()`"><![CDATA[
+var table = new DataTable('#myTable');
+
+table
+	.column(0)
+	.nodes()
+	.toDom()
+	.classAdd('ready');
 ]]></example>
 
 </dt-api>

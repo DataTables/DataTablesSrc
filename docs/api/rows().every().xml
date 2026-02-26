@@ -55,36 +55,26 @@
 		The other advantage is that the table context is automatically handled - in the first example above where `dt-api each()` is used, the `dt-api eq()` method is used to select the information from the first table in the API's context only, introducing complexity if multiple tables are used. In `dt-api rows().every()` the table context is automatically set to the appropriate table for each row that has been selected.
 	</description>
 
-	<example title="Add a child row to all rows, passing in a jQuery created `dt-tag tr` element and show all child rows"><![CDATA[
-var table = new DataTable('#myTable');
+	<example title="Add a child row to all rows, passing in a `dt-tag tr` element and show all child rows"><![CDATA[
+const table = new DataTable('#myTable');
 
 table.rows().every(function (rowIdx, tableLoop, rowLoop) {
-	this.child(
-		$(
-			'<tr>' +
-				'<td>' +
-				rowIdx +
-				'.1</td>' +
-				'<td>' +
-				rowIdx +
-				'.2</td>' +
-				'<td>' +
-				rowIdx +
-				'.3</td>' +
-				'<td>' +
-				rowIdx +
-				'.4</td>' +
-				'</tr>'
-		)
-	).show();
+	let tr = document.createElement('tr');
+
+	tr.innerHTML = '<td>' + rowIdx + '.1</td>' +
+		'<td>' + rowIdx + '.2</td>' +
+		'<td>' + rowIdx + '.3</td>' +
+		'<td>' + rowIdx + '.4</td>';
+
+	this.child(tr).show();
 });
 ]]></example>
 
 	<example title="Update all rows in the table, redrawing only when complete"><![CDATA[
-var table = new DataTable('#myTable');
+const table = new DataTable('#myTable');
 
 table.rows().every(function (rowIdx, tableLoop, rowLoop) {
-	var d = this.data();
+	let d = this.data();
 
 	d.counter++; // update data source for the row
 

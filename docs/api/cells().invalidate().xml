@@ -29,11 +29,16 @@
 		Prior to <span class="since">DataTables 1.10.4</span> this method actually invalidated the whole row for the selected cells. As of <span class="since">1.10.4</span> only the cells in question are invalidated.
 	</description>
 
-	<example title="Modify a cell's content using jQuery and then invalidate the data held by DataTables"><![CDATA[
+	<example title="Modify a cell's content and then invalidate the data held by DataTables"><![CDATA[
 var table = new DataTable('#myTable');
-var td = $('#example tbody td:eq(0)');
 
-td.html('Updated');
+// Get the cell to update
+var td = document.querySelectorAll('#example tbody td')[0];
+
+// Write new data to it
+td.innerHTML = 'Updated';
+
+// Tell DataTables to re-read data from the cell
 table
 	.cell(td)
 	.invalidate()

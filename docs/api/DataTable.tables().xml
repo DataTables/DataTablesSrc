@@ -21,23 +21,11 @@
 	<description>
 		It can be useful to be able to get a list of the existing DataTables on a page, particularly in situations where the table has scrolling enabled and needs to have its column widths adjusted when it is made visible. This method provides that ability.
 
-		Please note that this is a **static** function and is accessed through the `DataTable` or `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
-
-		Prior to DataTables 1.11 this method could be accessed through the `$.fn.dataTable` object only. As of 1.11, either `DataTable` or `$.fn.dataTable` can be used.
+		Please note that this is a **static** function and is accessed through the `DataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
 	</description>
 
-	<example title="Non-jQuery: Adjust the column widths of all visible tables"><![CDATA[
-DataTable.tables({ visible: true, api: true }).columns.adjust();
-]]></example>
-
 	<example title="Adjust the column widths of all visible tables"><![CDATA[
-$.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
-]]></example>
-
-	<example title="Adjust column widths when a table is made visible in a Bootstrap tab"><![CDATA[
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	$.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
-});
+DataTable.tables({ visible: true, api: true }).columns.adjust();
 ]]></example>
 
 </dt-api>

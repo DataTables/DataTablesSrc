@@ -4,6 +4,10 @@
 	<summary>Perform a jQuery selection action on the full table.</summary>
 	<since>1.10</since>
 
+	<deprecated since="3.0" removal="4.0">
+		Please note that as DataTables has no dependency on jQuery, as of v3, this method is now only relevant if you also load jQuery. Usage should be replaced with `-api dom()` or standard DOM methods.
+	</deprecated>
+
 	<type type="function">
 		<signature>$( selector [, modifier ] )</signature>
 		<description>Perform a jQuery selector on the rows and contents of the rows in the tables' `dt-tag tbody` elements.</description>
@@ -22,6 +26,8 @@
 		To provide an easy method to continue using jQuery on these elements, so you can select elements regardless of searching, paging or any other feature of DataTables this method is provided.
 
 		The selector given to the `dt-api $()` method will be run on all of the `dt-tag tr` elements in the table, and their descendent elements, with the found elements being returned as a jQuery object.
+
+		Please note that as of v3, this method will throw an error unless jQuery is available on the page (`window.jQuery`) or jQuery has been registered with DataTables (`-api DataTable.use()`).
 	</description>
 
 	<example title="Find all cells with content's 'High' and add a class"><![CDATA[
@@ -29,4 +35,6 @@ var table = new DataTable('#myTable');
 
 table.$(':contains("High")').addClass('important');
 ]]></example>
+
+	<related>-api dom()</related>
 </dt-api>

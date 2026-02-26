@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings, json )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -24,15 +24,17 @@
 
 		The `dt-event stateLoaded` event is the event compliment of the `dt-init stateLoaded` callback initialisation option. The event is fired at the same time as the callback (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>
 
 	<example title="Show custom saved data in an input element"><![CDATA[
-$('#example')
-	.on('stateLoaded.dt', function (e, settings, data) {
-		$('#myInput').val(data.myCustomValue);
-	})
-	.DataTable();
+new DataTable('#myTable', {
+	on: {
+		stateLoaded: (e, settings, data) => {
+			document.querySelector('#myInput').value = data.myCustomValue;
+		}
+	}
+});
 ]]></example>
 
 	<related type="api">state()</related>

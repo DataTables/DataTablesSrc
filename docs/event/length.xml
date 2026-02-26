@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings, len )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -22,13 +22,13 @@
 	<description>
 		The `dt-event length` event is fired whenever the table's page length is changed. This can be through user interaction with the built in page length control, or via the API.
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>
 
 	<example title="Write to console on page length change"><![CDATA[
 let table = new DataTable('#myTable');
 
-table.on('length.dt', function (e, settings, len) {
+table.on('length', function (e, settings, len) {
 	console.log('New page length: ' + len);
 });
 ]]></example>

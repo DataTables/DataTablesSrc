@@ -14,11 +14,11 @@
 		This method, used in-combination with the `dt-api cell()` method (and therefore the various selector forms that it allows) will obtain the DOM node for the selected cell, allowing it to be directly manipulated.
 	</description>
 
-	<example title="Select a single cell using a jQuery ID selector and add a class"><![CDATA[
+	<example title="Select a single cell using an ID selector and add a class"><![CDATA[
 var table = new DataTable('#myTable');
 var cell = table.cell('#importantCell').node();
 
-$(cell).addClass('warning');
+cell.classList.add('warning');
 ]]></example>
 
 	<related type="api">cells().nodes()</related>

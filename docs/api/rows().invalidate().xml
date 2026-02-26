@@ -27,11 +27,15 @@
 		This provides an alternative to using `dt-api row().data()` and `dt-api cell().data()` when changing cell values. Typically the `data` methods are preferred over the invalidation methods, as they use less code, but where the invalidation methods really shine is when the data source for the table are external objects which can be updated using that objects own methods.
 	</description>
 
-	<example title="Modify a cell's content using jQuery and then invalidate the row held by DataTables"><![CDATA[
+	<example title="Modify a cell's content and then invalidate the row held by DataTables"><![CDATA[
 var table = new DataTable('#myTable');
-var tr = $('#example tbody tr:eq(0)');
 
-tr.find('td:eq(0)').html('Updated');
+// Get the cell to modify
+var tr = document.querySelectorAll('#example tbody tr')[0];
+var td = tr.querySelectorAll('td')[0];
+
+td.textContent = 'Updated';
+
 table
 	.rows(tr)
 	.invalidate()

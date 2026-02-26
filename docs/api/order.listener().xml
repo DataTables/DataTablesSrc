@@ -7,8 +7,8 @@
 	<type type="function">
 		<signature>order.listener( node, column, callback )</signature>
 		<description>Attach an ordering listener to a specified element</description>
-		<parameter type="node|jQuery|string" name="node">
-			Selector / node to pick the elements on the page to which the ordering listener should be attached. This can be a DOM node, a jQuery collection of nodes or a jQuery selector string.
+		<parameter type="node|string|array" name="node">
+			Selector / node to pick the elements on the page to which the ordering listener should be attached. This can be a DOM node, an array (or array-like) collection of nodes or a CSS selector string.
 		</parameter>
 		<parameter type="number|array" name="column">
 			Column data index of the column that a click on this node will order the table upon. As of DataTables 2.3, this parameter can be given as an array to indicate ordering across multiple columns should be used when the listener is activated.

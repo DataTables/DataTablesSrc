@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, row )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables Api" name="row">
 			The parent row instance that the child row is attempting to display.
@@ -21,7 +21,7 @@
 
 		The function is passed the row that is being requested to show the child row. In order to identify the correct row, row ids must be set for the table.
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below. The listener must also be set before the table initialisation, otherwise when a state is attempting to load, the functionality to do so will not be available.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property. The listener must also be set before the table initialisation, otherwise when a state is attempting to load, the functionality to do so will not be available.
 	</description>
 
 	<example title="Notification of child row display request"><![CDATA[

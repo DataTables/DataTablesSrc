@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings, techNote, message )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -32,7 +32,7 @@
 		* `-string none` - Do nothing (you would want to use this `dt-event dt-error` in this case)
 		* `function` - A function common to all DataTables on the page that is called when an error occurs.
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 
 		This event will bubble up the document, so you can add a listener for `dt-error.dt` to the `-tag body` to capture all error events triggered by DataTables.
 
@@ -42,11 +42,13 @@
 	<example title="Use the event as a custom error handler"><![CDATA[
 DataTable.ext.errMode = 'none';
 
-$('#example')
-	.on('dt-error.dt', function (e, settings, techNote, message) {
-		console.log('An error has been reported by DataTables: ', message);
-	})
-	.DataTable();
+new DataTable('#myTable', {
+	on: {
+		init: (e, settings, techNote, message) => {
+			console.log('An error has been reported by DataTables: ', message);
+		}
+	}
+});
 ]]></example>
 
 	<related>dt-init DataTable.ext.errMode</related>

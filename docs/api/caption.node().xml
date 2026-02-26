@@ -14,11 +14,13 @@
 		This method provides direct access to the `-tag caption` element of the DataTable, if one has been set (`-api caption()`).
 	</description>
 
-	<example title="Add a data property to the caption using jQuery"><![CDATA[
-var table = new DataTable('#myTable');
+	<example title="Add a data property to the caption"><![CDATA[
+let table = new DataTable('#myTable');
 
 table.caption('Table 1: Year averages');
-$(table.caption.node()).data('total', 100);
+
+// Use `dataset` to set a `data-total` attribute
+table.caption.node().dataset.total = 100;
 ]]></example>
 
 	<related>-init caption</related>

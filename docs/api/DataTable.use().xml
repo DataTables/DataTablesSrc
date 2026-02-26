@@ -12,13 +12,13 @@
 		<parameter type="string" name="type">
 			The value given for this parameter tells DataTables what library it is you are setting. It can take one of the following parameters:
 
-			* `-string jq`: jQuery - used for DOM manipulation and events
 			* `-string win`: Global `window` object (which will also include the `document` as a property of the object)
 			* `-string luxon`: [Luxon](https://moment.github.io/luxon/#/) - optionally used for date time formatters
 			* `-string moment`: [Moment](https://momentjs.com/) - optionally used for date time formatters
 			* `-string datetime`: [DateTime picker](/extensions/datetime)
 			* `-string bootstrap`: [Bootstrap JS library](https://getbootstrap.com/) (since 2.1.9)
 			* `-string foundation`: [Foundation JS library](https://get.foundation/) (since 2.1.9)
+			* `-string jq`: jQuery. As of v3 this has limited utility since DataTables no longer has any dependencies.
 		</parameter>
 		<returns type="*">The library requested that is currently being used by DataTables will be returned.</returns>
 	</type>

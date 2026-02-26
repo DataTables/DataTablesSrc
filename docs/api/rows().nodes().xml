@@ -24,8 +24,8 @@ var table = new DataTable('#myTable');
 table
 	.rows('.ready')
 	.nodes()
-	.to$() // Convert to a jQuery object
-	.removeClass('ready');
+	.toDom() // Convert to a `DataTables.Dom` object
+	.classRemove('ready');
 ]]></example>
 
 	<related type="api">row().node()</related>

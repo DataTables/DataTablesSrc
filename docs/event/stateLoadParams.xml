@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings, json )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -24,15 +24,17 @@
 
 		The `dt-event stateLoadParams` event is fired at the same point as `dt-init stateLoadCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>
 
 	<example title="Remove a saved filter from the saved state data"><![CDATA[
-$('#example')
-	.on('stateLoadParams.dt', function (e, settings, data) {
-		data.search.search = '';
-	})
-	.DataTable();
+new DataTable('#myTable', {
+	on: {
+		stateLoadParams: (e, settings, data) => {
+			data.search.search = '';
+		}
+	}
+});
 ]]></example>
 
 	<related type="api">state()</related>

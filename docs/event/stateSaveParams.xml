@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings, data )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -26,17 +26,19 @@
 
 		The `dt-event stateSaveParams` event is fired at the same point as `dt-init stateSaveCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
 
-		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it (the first parameter). Additionally, the events are triggered with the `dt` namespace. As such, to listen for this event, you must also use the `dt` namespace by simply appending `.dt` to your event name, as shown in the example below.
+		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 
 		Note: As of 1.11.0 this event is triggered regardless of the `-init stateSave` option. This allows the most recent state to always be tracked and available to users.
 	</description>
 
 	<example title="Remove a saved filter, so filtering is never saved"><![CDATA[
-$('#example')
-	.on('stateSaveParams.dt', function (e, settings, data) {
-		data.search.search = '';
-	})
-	.DataTable();
+new DataTable('#myTable', {
+	on: {
+		stateSaveParams: (e, settings, data) => {
+			data.search.search = '';
+		}
+	}
+});
 ]]></example>
 
 	<related type="api">state()</related>

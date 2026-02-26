@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>function( e, settings )</signature>
 		<parameter type="object" name="e">
-			jQuery event object
+			Event object
 		</parameter>
 		<parameter type="DataTables.Settings" name="settings">
 			DataTables settings object
@@ -33,7 +33,7 @@ table.on('click', 'td', function () {
 	alert(this.innerHTML);
 });
 
-table.on('destroy.dt', function (e, settings) {
+table.on('destroy', function (e, settings) {
 	table.off('click', 'td');
 });
 

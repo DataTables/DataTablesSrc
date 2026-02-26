@@ -16,7 +16,7 @@
 	<description>
 		This method can be used to obtain (and therefore modify) the footer cells used for multiple columns. This may be made up of `dt-tag th` and / or `dt-tag td` elements depending on the HTML for your table.
 
-		The cells returned are the cells from the first row in the table `dt-tag tfoot` element relating to the selected columns. If you have multiple rows in the footer that you wish to manipulate you need to use the `dt-api table().footer()` method to obtain the table footer element and then use standard DOM / jQuery methods to manipulate the node.
+		The cells returned are the cells from the first row in the table `dt-tag tfoot` element relating to the selected columns. If you have multiple rows in the footer that you wish to manipulate you need to use the `dt-api table().footer()` method to obtain the table footer element and then use DOM methods to manipulate the node.
 
 		Furthermore, the cells in the `dt-tag tfoot` may span multiple columns using `colspan` (they can also use `rowspan`, but again, only the cells in the first row will be available using this method). As such, a cell which uses `colspan` may belong to multiple columns.
 
@@ -31,7 +31,7 @@ table.columns('.sum').every(function () {
 		return a + b;
 	});
 
-	$(this.footer()).html('Sum: ' + sum);
+	this.footer().textContent = 'Sum: ' + sum;
 });
 ]]></example>
 
