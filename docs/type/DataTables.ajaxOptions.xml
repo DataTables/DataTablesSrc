@@ -8,6 +8,8 @@
 
 DataTables provides a `-api DataTable.ajax()` method which can be used to make Ajax calls, and makes use of it for its own Ajax calls when configured with `-init ajax` to load data. The Ajax call is configured through an object of parameters that is passed to it. The parameters for this object are documented here.
 
+The options provided here are a _subset_ of those provided by [jQuery's `ajax()` method](https://api.jquery.com/jQuery.ajax/) and compatibility is an important characteristic in order to ensure easy porting from a jQuery based application to one which does require jQuery.
+
 
 ## TypeScript
 
@@ -63,7 +65,7 @@ A function that will execute at the end of the response processing, regardless o
 * Default: unset
 * Parameters:
   1. The `XMLHttpRequest` object, allowing it to be customised
-  2. `-string string`: Status text of the response. This will be one of `success`, `nocontent`, `notmodified`, `error` or `parseerror`.
+  2. `-type string`: Status text of the response. This will be one of `success`, `nocontent`, `notmodified`, `error` or `parseerror`.
 * Return: No return
 
 
@@ -114,8 +116,8 @@ A callback function that will be executed on error. This option can also be give
 * Default: unset
 * Parameters:
   1. The `XMLHttpRequest` object, allowing it to be customised
-  2. `-string string`: Status text of the response. This will be one of `success`, `nocontent`, `notmodified`, `error` or `parseerror`.
-  2. `-string string`: The error from the XHR object
+  2. `-type string`: Status text of the response. This will be one of `success`, `nocontent`, `notmodified`, `error` or `parseerror`.
+  3. `-type string`: The error from the XHR object
 * Return: No return
 
 
@@ -148,19 +150,38 @@ If the request route requires HTTP Basic or Digest authentication, the password 
 
 ## success
 
+Callback function that is executed when the Ajax request completes successfully (i.e. no error returned from the server, nor any errors in processing the returned data). This is where you handle the returned data and will almost always be set in the object, despite it being an optional parameter. This option can also be given as an array of functions that will be executed in sequence.
+
+* Optional
+* Type: `-type function`
+* Default: unset
+* Parameters:
+  1. `-type object` | `-type string`: The response from the server. If detected as JSON (see `dataType`), it will be an object, otherwise it will be a string.
+  2. `-type string`: Status text of the response. This will be `success` for this callback.
+  3. The `XMLHttpRequest` object
+* Return: No return
+
 
 ## submitAs
 
+Depending on how you process data at the server-side, you might wish for the data to be sent as regular HTTP parameters, or as a JSON string. This option provides an easy configuration value to trigger that. It can take two values: `-string http` whereby the values will be sent as HTTP parameters, or `-string json` which will cause the data to be parsed into a string by `JSON.stringify` and then used directly in the request body.
 
-## traditional
+* Optional
+* Type: `-type string`
+* Default: `-string http`
 
 
 ## type
 
+An alias of the `method` option. See that parameter for full details.
+
 
 ## url
 
+This is the parameter that tells the `ajax` function where to make the request to. It is the one required parameter in this object.
 
+* Required
+* Type: `-type string`
 
 
 ## username
