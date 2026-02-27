@@ -66,7 +66,7 @@
 
 		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term it a search to avoid a naming overlap with the `-api filter()` helper method.
 
-		**Please be aware that this method sets the search to apply to the table only - it does not actually perform the search**. In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api column().search()` method's returned object - for example `table.column( 0 ).search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
+		**Please be aware that this method sets the search to apply to the table only - it does not actually perform the search**. In order to have the search performed and the result shown, use the `-api draw()` method, which can be called simply as a chained method of the `-api column().search()` method's returned object - for example `table.column( 0 ).search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
 	</description>
 
 	<example title="Individual column search"><![CDATA[

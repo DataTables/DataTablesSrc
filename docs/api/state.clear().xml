@@ -11,7 +11,7 @@
 	</type>
 
 	<description>
-		This method provides the ability to destroy a DataTables saved state which can be useful during development, or potentially when logging a user out if you want to clear the saved state before the state expires (`dt-init stateDuration`).
+		This method provides the ability to destroy a DataTables saved state which can be useful during development, or potentially when logging a user out if you want to clear the saved state before the state expires (`-init stateDuration`).
 
 		This method will trigger a DataTables state save but with an empty object (i.e. `{}`), effectively erasing any existing state data.
 

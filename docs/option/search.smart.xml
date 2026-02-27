@@ -10,7 +10,7 @@
 	<description>
 		DataTables' built-in filtering is "smart" in that it breaks the user's input into individual words and then matches those words in any position and in any order in the table (rather than simple doing a simple string compare).
 
-		Although this can significantly enhance usability of the filtering feature, it uses a complex regular expression to perform this task, and as such it can interfere with a custom regular expression input if you enable that option (`dt-init search.regex`). As such, this option is provided to disable this smart filtering ability.
+		Although this can significantly enhance usability of the filtering feature, it uses a complex regular expression to perform this task, and as such it can interfere with a custom regular expression input if you enable that option (`-init search.regex`). As such, this option is provided to disable this smart filtering ability.
 	</description>
 
 	<example title="Disable smart filtering"><![CDATA[

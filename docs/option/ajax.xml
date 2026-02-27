@@ -6,7 +6,7 @@
 
 	<type type="string">
 		<description>
-			In its simplest form, `dt-init ajax`, when given as a string will simply load the data from the given remote file. Note that DataTables expects the table data to be an array of items in the `data` parameter of the object (use the `dt-init ajax.dataSrc` option of `dt-init ajax` as an object, if your data is formatted differently):
+			In its simplest form, `-init ajax`, when given as a string will simply load the data from the given remote file. Note that DataTables expects the table data to be an array of items in the `data` parameter of the object (use the `-init ajax.dataSrc` option of `-init ajax` as an object, if your data is formatted differently):
 
 			```js
 			{
@@ -18,7 +18,7 @@
 			}
 			```
 
-			DataTables can use objects or arrays in almost any format as the data source for each row through use of the `dt-init columns.data` option. The default is to use an array data source.
+			DataTables can use objects or arrays in almost any format as the data source for each row through use of the `-init columns.data` option. The default is to use an array data source.
 
 			Simple example:
 
@@ -34,14 +34,14 @@
 
 	<type type="object">
 		<description>
-			As an object, the `dt-init ajax` object is passed to `-api DataTable.ajax()` allowing fine control of the Ajax request. DataTables has a number of default parameters which you can override using this option. Please refer to `-type DataTables.ajaxOptions` for a full description of the options available. Additionally, the following parameters provide additional options when used through `-init ajax` or require special consideration:
+			As an object, the `-init ajax` object is passed to `-api DataTable.ajax()` allowing fine control of the Ajax request. DataTables has a number of default parameters which you can override using this option. Please refer to `-type DataTables.ajaxOptions` for a full description of the options available. Additionally, the following parameters provide additional options when used through `-init ajax` or require special consideration:
 
-			* `data` (`dt-init ajax.data`) - `data` can be provided as an object as normal, but as an extension, it can also be provided as a function to manipulate the data DataTables sends to the server. The function takes a single parameter, an object where the parameters are name / value pairs that DataTables has readied for sending. An object may be returned which will be use used as the data to send to the server (therefore, if you wish to use the DataTables set parameters, you must merge them in your function), or you can add the items to the object that was passed in and not return anything from the function. This supersedes `fnServerParams` from DataTables 1.9-.
-			* `dataSrc` (`dt-init ajax.dataSrc`) - By default DataTables will look for the property `data` (or `aaData` for compatibility with DataTables 1.9-) when obtaining data from an Ajax source or for server-side processing - this parameter allows that property to be changed, through two different forms:
+			* `data` (`-init ajax.data`) - `data` can be provided as an object as normal, but as an extension, it can also be provided as a function to manipulate the data DataTables sends to the server. The function takes a single parameter, an object where the parameters are name / value pairs that DataTables has readied for sending. An object may be returned which will be use used as the data to send to the server (therefore, if you wish to use the DataTables set parameters, you must merge them in your function), or you can add the items to the object that was passed in and not return anything from the function. This supersedes `fnServerParams` from DataTables 1.9-.
+			* `dataSrc` (`-init ajax.dataSrc`) - By default DataTables will look for the property `data` (or `aaData` for compatibility with DataTables 1.9-) when obtaining data from an Ajax source or for server-side processing - this parameter allows that property to be changed, through two different forms:
 			  * As a string - define the property from the object to read. Note that if your Ajax source simply returns an array of data to display, rather than an object, set this parameter to be an empty string. Additionally you can use JavaScript dotted object notation to get a data source for multiple levels of object / array nesting.
 			  * As a function - As a function it takes a single parameter, the JSON returned from the server, which can be manipulated as required. The returned value from the function is what will be used by DataTables as the data source for the table.
 			  * This supersedes `sAjaxDataProp` from DataTables 1.9-.
-			* `success` - **Must _not_ be overridden** as it is used internally in DataTables. To manipulate / transform the data returned by the server use `dt-init ajax.dataSrc` (above), or use `ajax` as a function (below).
+			* `success` - **Must _not_ be overridden** as it is used internally in DataTables. To manipulate / transform the data returned by the server use `-init ajax.dataSrc` (above), or use `ajax` as a function (below).
 
 			Simple example:
 
@@ -85,12 +85,12 @@
 			});
 			```
 
-			Note that as of DataTables 1.10.6 the `dt-event xhr` event will be triggered when a function is used for `dt-init ajax` (even if there is no Ajax request). Prior to 1.10.6 no event would have been triggered.
+			Note that as of DataTables 1.10.6 the `-event xhr` event will be triggered when a function is used for `-init ajax` (even if there is no Ajax request). Prior to 1.10.6 no event would have been triggered.
 		</description>
 	</type>
 
 	<description>
-		DataTables can obtain the data that it is to display in the table body from a number of sources, including from an Ajax data source, using this initialisation parameter. As with other dynamic data sources, arrays or objects can be used for the data source for each row, with `dt-init columns.data` employed to read from specific object properties.
+		DataTables can obtain the data that it is to display in the table body from a number of sources, including from an Ajax data source, using this initialisation parameter. As with other dynamic data sources, arrays or objects can be used for the data source for each row, with `-init columns.data` employed to read from specific object properties.
 
 		The `ajax` property has three different modes of operation, depending on how it is defined. These are:
 

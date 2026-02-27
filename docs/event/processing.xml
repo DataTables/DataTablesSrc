@@ -22,7 +22,7 @@
 	<description>
 		This event is fired when DataTables is doing some kind of processing - be it, sorting, filtering or any other kind of data processing. It can be used to indicate to the end user that there is something happening, or that something has finished.
 
-		Note that this event is used by DataTables' `dt-init processing` display option, and can be useful if you want to replace the DataTables built-in processing indicator with a custom indicator - one which is used in other parts of your application for example.
+		Note that this event is used by DataTables' `-init processing` display option, and can be useful if you want to replace the DataTables built-in processing indicator with a custom indicator - one which is used in other parts of your application for example.
 
 		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>

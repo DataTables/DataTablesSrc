@@ -13,11 +13,11 @@
 	<description>
 		This method is used to get the nodes of the table body cells (`dt-tag th` / `dt-tag td` elements) in the column matched by the selector.
 
-		Please note that the order of the nodes in the returned array and which rows the nodes are obtained from (searched rows, visible rows etc) is controlled by the `dt-type selector-modifier` option of the `dt-api columns()` selector used to get the selected columns.
+		Please note that the order of the nodes in the returned array and which rows the nodes are obtained from (searched rows, visible rows etc) is controlled by the `-type selector-modifier` option of the `-api columns()` selector used to get the selected columns.
 
-		Furthermore, please be aware that using `dt-init deferRender` will cause some nodes to be created only when they are required for display, so they might not be immediately available when this method is called.
+		Furthermore, please be aware that using `-init deferRender` will cause some nodes to be created only when they are required for display, so they might not be immediately available when this method is called.
 
-		Additionally, if the selector used in `dt-api column()` matches more than one column, the result set will be truncated to a single column - the first one in the result set.
+		Additionally, if the selector used in `-api column()` matches more than one column, the result set will be truncated to a single column - the first one in the result set.
 	</description>
 
 	<example title="Add a class to the right most column in the table"><![CDATA[

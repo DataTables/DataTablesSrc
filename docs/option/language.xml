@@ -40,7 +40,7 @@
 		}
 		```
 
-		As of DataTables 1.10.7 the new `dt-api i18n()` method can be used by plug-in authors to access language information from the `dt-init language` object. As such the list of parameters available here is not exhaustive - please refer to the documentation for the plug-in if it makes use of the `dt-api i18n()` method for full information about the parameters it can use.
+		As of DataTables 1.10.7 the new `-api i18n()` method can be used by plug-in authors to access language information from the `-init language` object. As such the list of parameters available here is not exhaustive - please refer to the documentation for the plug-in if it makes use of the `-api i18n()` method for full information about the parameters it can use.
 	</description>
 
 	<related type="option">language.decimal</related>

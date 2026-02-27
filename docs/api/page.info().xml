@@ -6,12 +6,12 @@
 
 	<type type="function">
 		<signature>page.info()</signature>
-		<description>Get information about the table's paging state. Note that if multiple tables are available in the API's context, the page length of the first table in the context will be used. Use `dt-api table()` if you are working with multiple tables in a single API context.</description>
+		<description>Get information about the table's paging state. Note that if multiple tables are available in the API's context, the page length of the first table in the context will be used. Use `-api table()` if you are working with multiple tables in a single API context.</description>
 		<returns type="object">Object (described below) with information about the table's paging state.</returns>
 	</type>
 
 	<description>
-		The paging state of the table can often be useful to understand what data is being displayed in a table at any given time - indeed it can even be useful when `dt-init paging` is disabled to get information about the number of records in the table.
+		The paging state of the table can often be useful to understand what data is being displayed in a table at any given time - indeed it can even be useful when `-init paging` is disabled to get information about the number of records in the table.
 
 		This method provides information about the table's paging state, and information about the number of records in the table (both total and in the search result set).
 
@@ -24,7 +24,7 @@
 		* `length` - Display length (number of records). Note that generally `start + length = end`, but this is not always true, for example if there are only 2 records to show on the final page, with a length of 10.
 		* `recordsTotal` - Full data set length
 		* `recordsDisplay` - Data set length once the current search criteria has been applied.
-		* `serverSide` - A boolean value that indicates if the table is operating in server-side processing mode or not (`dt-init serverSide`). This can be useful when working with paging and the API as index results can be offset by the display start point.
+		* `serverSide` - A boolean value that indicates if the table is operating in server-side processing mode or not (`-init serverSide`). This can be useful when working with paging and the API as index results can be offset by the display start point.
 
 		Example returned object:
 

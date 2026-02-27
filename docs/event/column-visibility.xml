@@ -19,16 +19,16 @@
 			Column visibility state: `false` if column now hidden, or `true` if visible
 		</parameter>
 		<parameter type="boolean|undefined" name="recalc" since="1.10.10">
-			Column width recalculation: `false` if no column width calculation was performed when the column was hidden (i.e. the second parameter of `dt-api column().visible()` was `false`), otherwise, `true` or `undefined` indicating that the column widths were recalculated.
+			Column width recalculation: `false` if no column width calculation was performed when the column was hidden (i.e. the second parameter of `-api column().visible()` was `false`), otherwise, `true` or `undefined` indicating that the column widths were recalculated.
 
-			This can be useful to improve performance when the visibility of multiple columns is modified. The `dt-api columns.adjust()` method should be called once all columns have had their visibility state set.
+			This can be useful to improve performance when the visibility of multiple columns is modified. The `-api columns.adjust()` method should be called once all columns have had their visibility state set.
 		</parameter>
 		<scope>HTML table element</scope>
 		<bubbles>No</bubbles>
 	</type>
 
 	<description>
-		This event is fired whenever a column's visibility is altered through the `dt-api column().visible()` method and can be useful for plug-ins which work with columns to identify changes in column visibility state and update their own state to take account of the change.
+		This event is fired whenever a column's visibility is altered through the `-api column().visible()` method and can be useful for plug-ins which work with columns to identify changes in column visibility state and update their own state to take account of the change.
 
 		**Responsive integration**: If you are using the [Responsive extension for DataTables](//datatables.net/extensions/responsive/) for DataTables, it will affect the visibility of columns, but it does not use the DataTables column visibility options, so this event will not be triggered by Responsive showing or hiding columns. Instead, use the `r-event responsive-resize` event.
 

@@ -24,7 +24,7 @@
 	<description>
 		This callback is executed when a `tag TR` element is created (and all `tag TD` child elements have been inserted), or registered if using a DOM source, allowing manipulation of the `tag TR` element.
 
-		This is particularly useful when using deferred rendering (`dt-init deferRender`) or server-side processing (`dt-init serverSide`) so you can add events, class name information or otherwise format the row when it is created.
+		This is particularly useful when using deferred rendering (`-init deferRender`) or server-side processing (`-init serverSide`) so you can add events, class name information or otherwise format the row when it is created.
 	</description>
 
 	<example title="Add a class to the row, conditionally based on the row's data"><![CDATA[

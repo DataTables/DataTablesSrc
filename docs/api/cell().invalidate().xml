@@ -25,7 +25,7 @@
 		<![CDATA[
 		DataTables holds cached information about the contents of each cell in the table to increase performance of table operations such as ordering and searching. If you were to modify the contents of a cell (for DOM data source tables) or the array / object values (for Ajax / JS source tables) DataTables wouldn't know that this has happened. This method can be used to tell DataTables to re-read the information from the data source for the row (be it from the DOM or objects / arrays - whatever the original data source was).
 
-		This provides an alternative to using `dt-api cell().data()` and `dt-api row().data()` when changing cell values. Typically the `data` methods are preferred over the invalidation methods, as they use less code, but where the invalidation methods really shine is when the data source for the table are external objects which can be updated using that objects' own methods.
+		This provides an alternative to using `-api cell().data()` and `-api row().data()` when changing cell values. Typically the `data` methods are preferred over the invalidation methods, as they use less code, but where the invalidation methods really shine is when the data source for the table are external objects which can be updated using that objects' own methods.
 
 		Prior to <span class="since">DataTables 1.10.4</span> this method actually invalidated the whole row. As of <span class="since">1.10.4</span> only the cell in question is invalidated.
 		]]>

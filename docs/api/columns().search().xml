@@ -35,7 +35,7 @@
 	<type type="function">
 		<signature>columns().search( input [, regex[ , smart[ , caseInsen ]]] )</signature>
 		<description>
-			Set the search term for the columns from the selector. Note this doesn't actually perform the search, but rather queues it up - use `dt-api draw()` to perform the search and display the result.
+			Set the search term for the columns from the selector. Note this doesn't actually perform the search, but rather queues it up - use `-api draw()` to perform the search and display the result.
 		</description>
 		<parameter type="string|RegExp|function" name="input">
 			The search term to apply. See the `input` parameter in the signature description above for details.
@@ -44,7 +44,7 @@
 			Treat as a regular expression (`true`) or not (default, `false`).
 		</parameter>
 		<parameter type="boolean" name="smart" default="true">
-			Perform smart search (default, `true`) or not (`false`). Please refer to `dt-api search()` for a full description of smart filtering.
+			Perform smart search (default, `true`) or not (`false`). Please refer to `-api search()` for a full description of smart filtering.
 
 			Note that to perform a smart search, DataTables uses regular expressions, so if enable regular expressions using the second parameter to this method, you will likely want to disable smart searching as the two regular expressions might otherwise conflict and cause unexpected results.
 		</parameter>
@@ -55,15 +55,15 @@
 	</type>
 
 	<description>
-		While `dt-api search()` provides the ability to search globally across the table, this method, and its singular counterpart, provide the ability to search for data on specific columns.
+		While `-api search()` provides the ability to search globally across the table, this method, and its singular counterpart, provide the ability to search for data on specific columns.
 
 		DataTables does not have any column search controls built-in as there are so many different ways that column specific data could be searched, but this method makes adding custom column search controls super easy. The examples below show how it may be used.
 
-		DataTables has a built in search algorithm referred to as "smart" searching and is designed to make searching the table data, easy to use for the end user. The smart search is performed using a regular expression and thus must be considered if you are using a regular expression search (second parameter of this method). For a full description of smart searching in DataTables, please refer to the documentation for `dt-api search()`.
+		DataTables has a built in search algorithm referred to as "smart" searching and is designed to make searching the table data, easy to use for the end user. The smart search is performed using a regular expression and thus must be considered if you are using a regular expression search (second parameter of this method). For a full description of smart searching in DataTables, please refer to the documentation for `-api search()`.
 
-		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term is a search to avoid naming overlap with the `dt-api filter()` helper method.
+		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term is a search to avoid naming overlap with the `-api filter()` helper method.
 
-		**Please be aware that this method sets the search to apply to the table only - it does not actually perform the search.** In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api columns().search()` method's returned object - for example `table.columns( [0, 1] ).search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
+		**Please be aware that this method sets the search to apply to the table only - it does not actually perform the search.** In order to have the search performed and the result shown, use the `-api draw()` method, which can be called simply as a chained method of the `-api columns().search()` method's returned object - for example `table.columns( [0, 1] ).search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
 	</description>
 
 	<example title="Apply a search to multiple columns"><![CDATA[
@@ -76,47 +76,60 @@ table
 ]]></example>
 
 	<example title="Build a text `-tag input` search for each column. Note that this example performs partial word matching and smart searching."><![CDATA[
-// Setup - add a text input to each footer cell
-$('#example tfoot th').each(function () {
-	var title = $('#example thead th')
-		.eq($(this).index())
-		.text();
-	$(this).html('<input type="text" placeholder="Search ' + title + '" />');
-});
-
-// DataTable
-var table = new DataTable('#myTable');
-
-// Apply the filter
-table.columns().every(function () {
-	var column = this;
-
-	$('input', this.footer()).on('keyup change', function () {
-		column.search(this.value).draw();
-	});
+new DataTable('#example', {
+    initComplete: function () {
+        this.api()
+            .columns()
+            .every(function () {
+                let column = this;
+                let title = column.footer().textContent;
+ 
+                // Create input element
+                let input = document.createElement('input');
+                input.placeholder = title;
+                column.footer().replaceChildren(input);
+ 
+                // Event listener for user input
+                input.addEventListener('keyup', () => {
+                    if (column.search() !== this.value) {
+                        column.search(input.value).draw();
+                    }
+                });
+            });
+    }
 });
 ]]></example>
 
 	<example title="Build a search for each column with a `select-filter` class."><![CDATA[
-var table = new DataTable('#myTable');
-
-table.columns('.select-filter').every(function () {
-	var that = this;
-
-	// Create the select list and search operation
-	var select = $('<select />')
-		.appendTo(this.footer())
-		.on('change', function () {
-			that.search($(this).val(), { exact: true }).draw();
-		});
-
-	// Get the search data for the first column and add to the select list
-	this.cache('search')
-		.sort()
-		.unique()
-		.each(function (d) {
-			select.append($('<option value="' + d + '">' + d + '</option>'));
-		});
+new DataTable('#example', {
+    initComplete: function () {
+        this.api()
+            .columns('.select-filter')
+            .every(function () {
+                let column = this;
+ 
+                // Create select element
+                let select = document.createElement('select');
+                select.add(new Option(''));
+                column.footer().replaceChildren(select);
+ 
+                // Apply listener for user change in value
+                select.addEventListener('change', function () {
+                    column
+                        .search(select.value, {exact: true})
+                        .draw();
+                });
+ 
+                // Add list of options
+                column
+                    .data()
+                    .unique()
+                    .sort()
+                    .each(function (d, j) {
+                        select.add(new Option(d));
+                    });
+            });
+    }
 });
 ]]></example>
 

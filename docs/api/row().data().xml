@@ -19,9 +19,9 @@
 	</type>
 
 	<description>
-		This method is used to work with the data in the row retrieved by the `dt-api row()` selector used. It can be used to get existing data, or set new data to be used for the row.
+		This method is used to work with the data in the row retrieved by the `-api row()` selector used. It can be used to get existing data, or set new data to be used for the row.
 
-		Note that when used as a setter, this method sets the data to apply to the table, but does not update the table's internal caches of data until the `dt-api draw()` method is called. This can be done simply as a chained method of the `dt-api row().data()` method's returned object - for example `table.row( 0 ).data( newData ).draw();`. This is done to allow easy optimisation of the table where successive updates can be applied before the table is redrawn.
+		Note that when used as a setter, this method sets the data to apply to the table, but does not update the table's internal caches of data until the `-api draw()` method is called. This can be done simply as a chained method of the `-api row().data()` method's returned object - for example `table.row( 0 ).data( newData ).draw();`. This is done to allow easy optimisation of the table where successive updates can be applied before the table is redrawn.
 	</description>
 
 	<example title="Get the data for a single row when clicked upon"><![CDATA[

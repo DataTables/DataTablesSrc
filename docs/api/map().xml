@@ -14,17 +14,17 @@
 			* The element index in the result set
 			* The API instance being traversed
 
-			The value returned by the callback will be added to the new API instance's result set, or `dt-type undefined` if no value is returned.
+			The value returned by the callback will be added to the new API instance's result set, or `-type undefined` if no value is returned.
 		</parameter>
 		<returns type="DataTables.Api">New API instance with the values in the result set as those returned by the callback.</returns>
 	</type>
 
 	<description>
-		The `dt-api map()` method is useful for traversing a result set and creating a new instance, whose result set is defined by the values returned. As such any logic condition can be applied to the values of the original result set, transforming the data as required.
+		The `-api map()` method is useful for traversing a result set and creating a new instance, whose result set is defined by the values returned. As such any logic condition can be applied to the values of the original result set, transforming the data as required.
 
 		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 
-		If you wish to remove items from the result set, use the `dt-api filter()` method.
+		If you wish to remove items from the result set, use the `-api filter()` method.
 
 		This method is a proxy for the JavaScript `Array.prototype.map` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map). In browsers which do not support `map` natively, a polyfill is provided to allow this DataTables method to operate as expected.
 	</description>

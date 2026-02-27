@@ -14,9 +14,9 @@
 
 		In legacy 1.x installs, the `-init dom` option can be used to position the element along with some CSS.
 
-		If this option is disabled (`false`) the length change input control is removed - although the `dt-api page.len()` method can still be used if you wish to programmatically change the page size and `dt-init pageLength` can be used to specify the initial page length. Paging itself is not affected.
+		If this option is disabled (`false`) the length change input control is removed - although the `-api page.len()` method can still be used if you wish to programmatically change the page size and `-init pageLength` can be used to specify the initial page length. Paging itself is not affected.
 
-		Additionally, if pagination is disabled using the `dt-init paging` option, this option is automatically disabled since it has no relevance when there is no pagination.
+		Additionally, if pagination is disabled using the `-init paging` option, this option is automatically disabled since it has no relevance when there is no pagination.
 	</description>
 
 	<example title="Disable user ability to change number of records per page"><![CDATA[

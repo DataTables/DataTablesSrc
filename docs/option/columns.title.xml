@@ -19,7 +19,7 @@
     Please note that when constructing a header, DataTables can only construct a simple header with a single cell for each column. Complex headers with `colspan` and `rowspan` attributes must either already be defined in the document, or be constructed using DOM methods. Furthermore, if you use this property with a multi-row header in the DOM, the title will be set for the first row in the header only.
 	</description>
 
-	<example title="Set the first column's title with `dt-init columnDefs`"><![CDATA[
+	<example title="Set the first column's title with `-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
 	columnDefs: [
 		{
@@ -30,7 +30,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Set the first column's title with `dt-init columns`"><![CDATA[
+	<example title="Set the first column's title with `-init columns`"><![CDATA[
 new DataTable('#myTable', {
 	columns: [{ title: 'My column title' }, null, null, null, null]
 });

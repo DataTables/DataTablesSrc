@@ -11,11 +11,11 @@
 	</type>
 
 	<description>
-		This method simply removes all rows from the DataTables, resulting in a data length set of 0. New data might then be added using the `dt-api rows.add()` method.
+		This method simply removes all rows from the DataTables, resulting in a data length set of 0. New data might then be added using the `-api rows.add()` method.
 
-		Please be aware that this method will not automatically redraw the table with an empty data set. In order to redraw the table use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api clear()` method's returned object - for example `table.clear().draw();`. This is useful for performance when you would want to immediately add new rows to the table - you would only call the `dt-api draw()` method once all required rows have been added to help improve performance.
+		Please be aware that this method will not automatically redraw the table with an empty data set. In order to redraw the table use the `-api draw()` method, which can be called simply as a chained method of the `-api clear()` method's returned object - for example `table.clear().draw();`. This is useful for performance when you would want to immediately add new rows to the table - you would only call the `-api draw()` method once all required rows have been added to help improve performance.
 
-		This method should not be used when `dt-init serverSide` is enabled. When server-side processing is enabled, the data should be deleted from the data store (i.e. an Ajax request to the server) and then `dt-api draw()` called. Deleting the client-side data will have no effect when server-side processing is enabled since the data would simply be restored on the next draw if the data is not removed from the server.
+		This method should not be used when `-init serverSide` is enabled. When server-side processing is enabled, the data should be deleted from the data store (i.e. an Ajax request to the server) and then `-api draw()` called. Deleting the client-side data will have no effect when server-side processing is enabled since the data would simply be restored on the next draw if the data is not removed from the server.
 	</description>
 
 	<example title="Clear the table of all data"><![CDATA[

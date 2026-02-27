@@ -27,7 +27,7 @@
 
 		To maintain backwards compatibility the state can still be returned synchronously. To use the callback method, simply don't return a value from your `-init stateLoadCallback` function. See below for examples of both use cases.
 
-		Note that this callback works hand-in-hand with `dt-init stateSaveCallback`. This callback loads the state from storage when the table is reloaded while `dt-init stateSaveCallback` saves it.
+		Note that this callback works hand-in-hand with `-init stateSaveCallback`. This callback loads the state from storage when the table is reloaded while `-init stateSaveCallback` saves it.
 	</description>
 
 	<example title="Load state from a server via Ajax (1.10.13 or newer)"><![CDATA[

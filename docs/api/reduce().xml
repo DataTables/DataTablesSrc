@@ -26,7 +26,7 @@
 	<description>
 		This method can be used to accumulate data from a result set into a single value. A good example is summing the values from a column of data. A more complete definition of the Array reduce method, which this method is based upon, can be found on the [Mozilla MDN documentation for `reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce).
 
-		Note that the traversal of the elements in the result set in this method is left-to-right (i.e. 0 to `length`). `dt-api reduceRight()` is available for transversal in the opposite direction.
+		Note that the traversal of the elements in the result set in this method is left-to-right (i.e. 0 to `length`). `-api reduceRight()` is available for transversal in the opposite direction.
 
 		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 

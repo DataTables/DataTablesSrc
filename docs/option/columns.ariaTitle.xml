@@ -15,7 +15,7 @@
 		Please note that the value given here will have `-init language.aria.sortAscending` or `-init language.aria.sortDescending` appended to it if the column can be ordered by the end user, to give an indication to screenreader users that this is the case. 
 	</description>
 
-	<example title="Set the first column's aria-label with `dt-init columnDefs`"><![CDATA[
+	<example title="Set the first column's aria-label with `-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
 	columnDefs: [
 		{
@@ -26,7 +26,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Set the first column's aria-label with `dt-init columns`"><![CDATA[
+	<example title="Set the first column's aria-label with `-init columns`"><![CDATA[
 new DataTable('#myTable', {
 	columns: [{ title: 'Screenreader title' }, null, null, null, null]
 });

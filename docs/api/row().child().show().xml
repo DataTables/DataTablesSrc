@@ -11,11 +11,11 @@
 	</type>
 
 	<description>
-		This method can be used to make the child rows of a parent row visible at any time. Child rows can be attached using `dt-api row().child()` but do not have to be made immediately visible. This method provides the option of making those child rows which have already been attached visible.
+		This method can be used to make the child rows of a parent row visible at any time. Child rows can be attached using `-api row().child()` but do not have to be made immediately visible. This method provides the option of making those child rows which have already been attached visible.
 
-		Please note that this method is only available when `dt-api row().child()` is called with a parameter set. This is because `dt-api row().child()` will return the child rows if called with no parameters, which is either a `-type Dom` object or `-type undefined` (prior to DataTables 3 a jQuery object would be returned). When called with a parameter `dt-api row().child()` returns a `-type DataTables.Api` instance. If you need to display a child row without any parameters being set use `dt-api row().child.show()`.
+		Please note that this method is only available when `-api row().child()` is called with a parameter set. This is because `-api row().child()` will return the child rows if called with no parameters, which is either a `-type Dom` object or `-type undefined` (prior to DataTables 3 a jQuery object would be returned). When called with a parameter `-api row().child()` returns a `-type DataTables.Api` instance. If you need to display a child row without any parameters being set use `-api row().child.show()`.
 
-		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called for the resulting change to be displayed. The child row(s) are inserted into the table without requiring that DataTables redraw.
+		Unlike many of the other methods which manipulate the DataTable, this method does not require `-api draw()` to be called for the resulting change to be displayed. The child row(s) are inserted into the table without requiring that DataTables redraw.
 	</description>
 
 	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[

@@ -15,11 +15,11 @@
 	</type>
 
 	<description>
-		Adding new data to a table is central to the concept of being able to dynamically control the content of a DataTable, and this method provides the ability to do exactly that, adding multiple new rows at a time. If you wish to add only a single row at a time, this method's singular counterpart, `dt-api row.add()` can be used.
+		Adding new data to a table is central to the concept of being able to dynamically control the content of a DataTable, and this method provides the ability to do exactly that, adding multiple new rows at a time. If you wish to add only a single row at a time, this method's singular counterpart, `-api row.add()` can be used.
 
 		The rows that are added are subjected to the ordering and search criteria that are applied to the table, which will determine the new row's position and visibility in the table.
 
-		This method will add the data to the table internally, but does not visually update the tables display to account for this new data. In order to have the table's display updated, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api row.add()` method's returned object - for example `table.row.add( [ 1, 2, 3, 4 ] ).draw();`. This is done to allow easy optimisation of the table where multiple rows can be added before the table is redrawn.
+		This method will add the data to the table internally, but does not visually update the tables display to account for this new data. In order to have the table's display updated, use the `-api draw()` method, which can be called simply as a chained method of the `-api row.add()` method's returned object - for example `table.row.add( [ 1, 2, 3, 4 ] ).draw();`. This is done to allow easy optimisation of the table where multiple rows can be added before the table is redrawn.
 	</description>
 
 	<example title="Add two new rows to the table and redraw"><![CDATA[

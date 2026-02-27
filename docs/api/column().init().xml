@@ -19,7 +19,7 @@
 
 		**Use only your own parameters**. Due to the way DataTables works internally for backwards compatibility, this object will likely contain both camelCase initialisation options and Hungarian notation versions of the same parameters as well as other internal properties. Use of those parameters is _not supported_.
 
-		This method is not multi-table aware - it will return the configuration object used for the first table in the context if there is more than one table - use the `dt-api iterator()` method if you require the configuration objects from all tables in a multi-table context.
+		This method is not multi-table aware - it will return the configuration object used for the first table in the context if there is more than one table - use the `-api iterator()` method if you require the configuration objects from all tables in a multi-table context.
 	</description>
 
 	<example title="Get a property from a column"><![CDATA[

@@ -6,26 +6,26 @@
 	<description>
 <![CDATA[
 
-The DataTables `dt-api cells()` and `dt-api cell()` methods provide the ability to select individual cells from the table. What cells are selected and how the selector actually operates is controlled by this `dt-type cell-selector` data type.
+The DataTables `-api cells()` and `-api cell()` methods provide the ability to select individual cells from the table. What cells are selected and how the selector actually operates is controlled by this `-type cell-selector` data type.
 
 ### Options
 
 The cell selector can be given in a number of different forms, to make it easy to apply to your data and use case:
 
 * No selector - Select all cells
-* `dt-type string` - CSS selector
-* `dt-type node` - This may be one of the following:
+* `-type string` - CSS selector
+* `-type node` - This may be one of the following:
   * `-tag td` / `-tag th` cell
   * Any element which has both a `data-dt-row` and `data-dt-column` attribute assigned to it, or a parent (<span class="since">Since: 1.10.11</span>). This can be used by extensions such as FixedColumns and Responsive to allow easy column selection.
-* `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
-* `dt-type object` - DataTables cell indexes (`row` and `column` properties)
-* `dt-type jQuery` - jQuery object of cell nodes
-* `dt-type array` - Array containing any combination of the above options
+* `-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
+* `-type object` - DataTables cell indexes (`row` and `column` properties)
+* `-type jQuery` - jQuery object of cell nodes
+* `-type array` - Array containing any combination of the above options
 
 
 ## No selector
 
-If no selector is given (more specifically `dt-type undefined`), then all cells are selected.
+If no selector is given (more specifically `-type undefined`), then all cells are selected.
 
 ###### Get the nodes for all cells in the table:
 
@@ -91,11 +91,11 @@ That can be particularly useful for finding cells based on the data they contain
 
 The function receives three parameters:
 
-1. Cell index - see `dt-api cell().index()`
-2. Cell data - see `dt-api cell().data()`. Note that this is the original data for the cell, not the rendered data if you are using `dt-init columns.render`
-3. Cell node - see `dt-api cell().node()`. Note that this may be `null` if you are using `dt-init deferRender`.
+1. Cell index - see `-api cell().index()`
+2. Cell data - see `-api cell().data()`. Note that this is the original data for the cell, not the rendered data if you are using `-init columns.render`
+3. Cell node - see `-api cell().node()`. Note that this may be `null` if you are using `-init deferRender`.
 
-The function is called once for every cell that can be selected, based on the `dt-type selector-modifier` options, which also defines the order of the cells for the called function.
+The function is called once for every cell that can be selected, based on the `-type selector-modifier` options, which also defines the order of the cells for the called function.
 
 ###### Get the nodes for all cells that contain `1`:
 
@@ -113,9 +113,9 @@ ones.toDom().classAdd('highlight');
 
 ## Object
 
-Similar to the `dt-type row-selector` and `dt-type column-selector`, `dt-type cell-selector` can also use indexes to select individual cells, but in this case an object is used which has `row` and `column` properties, each of which is set to the row and column index, respectively, for the cell to be selected.
+Similar to the `-type row-selector` and `-type column-selector`, `-type cell-selector` can also use indexes to select individual cells, but in this case an object is used which has `row` and `column` properties, each of which is set to the row and column index, respectively, for the cell to be selected.
 
-Although not particularly useful as a primary selector method, this can be very useful for selecting individual cells based on a `dt-api cells()` call - see the example below.
+Although not particularly useful as a primary selector method, this can be very useful for selecting individual cells based on a `-api cells()` call - see the example below.
 
 ###### Loop over all cells, adding a class if the data for the cell is greater than a given value.
 

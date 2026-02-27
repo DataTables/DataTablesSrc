@@ -6,30 +6,30 @@
 	<description>
 <![CDATA[
 
-The DataTables `dt-api rows()` and `dt-api row()` (also optionally `dt-api cells()` and `dt-api cell()`) methods provide the ability to select rows from the table. What rows are selected and how the selector actually operates is controlled by this `dt-type row-selector` data type.
+The DataTables `-api rows()` and `-api row()` (also optionally `-api cells()` and `-api cell()`) methods provide the ability to select rows from the table. What rows are selected and how the selector actually operates is controlled by this `-type row-selector` data type.
 
 ### Options
 
 The row selector can be given in a number of different forms, to make it easy to apply to your data and use case:
 
 * No selector - Select all rows
-* `dt-type integer` - Row index selector
+* `-type integer` - Row index selector
 * `dt-string *` - All rows selector (wildcard)
 * `dt-string #{string}` - ID selector
 * `dt-string :eq()` - Index selector
-* `dt-type string` - CSS selector
-* `dt-type node` - This may be one of the following:
+* `-type string` - CSS selector
+* `-type node` - This may be one of the following:
   * `-tag tr` - table row element
   * `-tag td` - table cell element (<span class="since">Since: 1.10.11</span>)
   * Any element which has a `data-dt-row` attribute assigned to it, or a parent (<span class="since">Since: 1.10.11</span>). This can be used by extensions such as FixedColumns and Responsive to allow easy row selection.
-* `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
-* `dt-type jQuery` - jQuery object of row nodes
-* `dt-type array` - Array containing any combination of the above options
+* `-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
+* `-type jQuery` - jQuery object of row nodes
+* `-type array` - Array containing any combination of the above options
 
 
 ## No selector
 
-If no selector is given (more specifically `dt-type undefined`), then all rows are selected.
+If no selector is given (more specifically `-type undefined`), then all rows are selected.
 
 ###### Get data for all rows in the table:
 
@@ -41,7 +41,7 @@ let allData = table.rows().data();
 
 ## integer
 
-DataTables stores each row internally with a row index for fast look up of row information. When the selector is given as an integer, this value represents a row index (`dt-api rows().indexes()` / `dt-api row().index()`).
+DataTables stores each row internally with a row index for fast look up of row information. When the selector is given as an integer, this value represents a row index (`-api rows().indexes()` / `-api row().index()`).
 
 ###### Row index 0 data:
 
@@ -86,9 +86,9 @@ let allData = table.rows('*').data();
 
 ## string - #ID
 
-DataTables row selector is optimised for IDs as it is natural to wish to select rows by unique information. This is distinct from a CSS selector as DataTables can optimise this selector type so as to not involve the DOM - also allowing an id row selector to operate on rows which have not yet had their DOM nodes created (when using `dt-init deferRender` for extra speed).
+DataTables row selector is optimised for IDs as it is natural to wish to select rows by unique information. This is distinct from a CSS selector as DataTables can optimise this selector type so as to not involve the DOM - also allowing an id row selector to operate on rows which have not yet had their DOM nodes created (when using `-init deferRender` for extra speed).
 
-With dynamically sourced data, the id assigned to the row is identifier using the `dt-init rowId` option. The data used as the id can be of any value, although it must be unique in the table.
+With dynamically sourced data, the id assigned to the row is identifier using the `-init rowId` option. The data used as the id can be of any value, although it must be unique in the table.
 
 To use an id selector, simply prefix the id value for the row you wish to select with a number sign: `#`. The value that follows is taken as the id. Unlike CSS this value does __not__ need to be escaped - although this means that an id selector must be used alone (e.g. a class name cannot also be used), it does make is much easier to use for complex data.
 
@@ -169,11 +169,11 @@ That can be particularly useful for finding rows based on the data contained in 
 
 The function receives three parameters:
 
-1. Row index - see `dt-api row().index()`
-2. Row data - see `dt-api row().data()`. Note that this is the original data object for the row, not the rendered data if you are using `dt-init columns.render`
-3. Row node - see `dt-api row().node()`. Note that this may be `null` if you are using `dt-init deferRender`.
+1. Row index - see `-api row().index()`
+2. Row data - see `-api row().data()`. Note that this is the original data object for the row, not the rendered data if you are using `-init columns.render`
+3. Row node - see `-api row().node()`. Note that this may be `null` if you are using `-init deferRender`.
 
-The function is called once for every row that can be selected, based on the `dt-type selector-modifier` options, which also defines the order of the rows for the called function.
+The function is called once for every row that can be selected, based on the `-type selector-modifier` options, which also defines the order of the rows for the called function.
 
 ###### Get the data for all rows that have a `first_name` starting with `A`:
 

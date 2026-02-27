@@ -20,9 +20,9 @@
 	</type>
 
 	<description>
-		The `dt-event stateLoaded` event differs from the `dt-event stateLoadParams` in that it is fired after the state has been loaded and applied to the table (internally - the effects will not yet have been drawn onto the page upon execution of this event). This this case, the state object cannot be modified, while with `dt-event stateLoadParams` it can be. This event is usual for custom or plug-in parameters being loaded and applied from the state storage.
+		The `-event stateLoaded` event differs from the `-event stateLoadParams` in that it is fired after the state has been loaded and applied to the table (internally - the effects will not yet have been drawn onto the page upon execution of this event). This this case, the state object cannot be modified, while with `-event stateLoadParams` it can be. This event is usual for custom or plug-in parameters being loaded and applied from the state storage.
 
-		The `dt-event stateLoaded` event is the event compliment of the `dt-init stateLoaded` callback initialisation option. The event is fired at the same time as the callback (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
+		The `-event stateLoaded` event is the event compliment of the `-init stateLoaded` callback initialisation option. The event is fired at the same time as the callback (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
 
 		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>

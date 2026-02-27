@@ -8,7 +8,7 @@
 		<signature>columns( [ modifier ] )</signature>
 		<description>Select all columns</description>
 		<parameter type="selector-modifier" name="modifier" default="">
-			Option used to specify how the content's of the selected columns should be ordered, and if paging or filtering in the table should be taken into account. This is only useful for operations which involve rows, such as `dt-api columns().nodes()` and `dt-api columns().data()`.
+			Option used to specify how the content's of the selected columns should be ordered, and if paging or filtering in the table should be taken into account. This is only useful for operations which involve rows, such as `-api columns().nodes()` and `-api columns().data()`.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with selected columns in the result set.</returns>
 	</type>
@@ -19,7 +19,7 @@
 			Column selector.
 		</parameter>
 		<parameter type="selector-modifier" name="modifier" default="">
-			Option used to specify how the content's of the selected columns should be ordered, and if paging or filtering in the table should be taken into account. This is only useful for operations which involve rows, such as `dt-api columns().nodes()` and `dt-api columns().data()`.
+			Option used to specify how the content's of the selected columns should be ordered, and if paging or filtering in the table should be taken into account. This is only useful for operations which involve rows, such as `-api columns().nodes()` and `-api columns().data()`.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance with selected columns</returns>
 	</type>
@@ -27,12 +27,12 @@
 	<description>
 		Often you will wish to work with one or more columns in a DataTables - this method provides the ability to select multiple columns from tables, with its chained methods providing the ability to get work with the column, such as getting its data or toggling its visibility.
 
-		While `dt-api column()` provides access to a single column, this `dt-api columns()` method is used to allow multiple columns to be manipulated or modified at the same time.
+		While `-api column()` provides access to a single column, this `-api columns()` method is used to allow multiple columns to be manipulated or modified at the same time.
 
 		The method has two forms, reflecting the fact the columns can be selected in multiple different ways as your implementation demands:
 
-		* All columns (no parameters, or just a `dt-type selector-modifier` option)
-		* Columns selector (and optional `dt-type selector-modifier`)
+		* All columns (no parameters, or just a `-type selector-modifier` option)
+		* Columns selector (and optional `-type selector-modifier`)
 
 		This method is a _top level_ selector. That means that, regardless of what might have already been selected by the API instance in the call chain, this method will always return the selected columns, without consideration for what might have been selected previously.
 	</description>

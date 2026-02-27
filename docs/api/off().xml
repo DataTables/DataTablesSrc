@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>off( event [, callback] )</signature>
-		<description>Remove event listeners that have previously been added with `dt-api on()`.</description>
+		<description>Remove event listeners that have previously been added with `-api on()`.</description>
 		<parameter type="string" name="event">
 			Event name to remove. Multiple events can be removed by using a space separator or namespaced events with a dot separator.
 		</parameter>
@@ -17,20 +17,20 @@
 	</type>
 
 	<description>
-		DataTables can trigger a number of events which can be useful for taking action when DataTables performs those events. For example, it is often useful to know when an Ajax event occurs (`dt-event xhr`), so you can add additional data to the JSON payload.
+		DataTables can trigger a number of events which can be useful for taking action when DataTables performs those events. For example, it is often useful to know when an Ajax event occurs (`-event xhr`), so you can add additional data to the JSON payload.
 
 		DataTables provides three methods for working with DataTables events:
 
-		* `dt-api on()` - Listen for events
-		* `dt-api off()` - Stop listening for events
-		* `dt-api one()` - Listen for a single event.
+		* `-api on()` - Listen for events
+		* `-api off()` - Stop listening for events
+		* `-api one()` - Listen for a single event.
 
-		This `dt-api off()` method is used to remove a listener that has already been attached to a DataTable. Simply pass in the event you wish to remove the listener for, and optionally the specific function if you want to remove only a single event listener.
+		This `-api off()` method is used to remove a listener that has already been attached to a DataTable. Simply pass in the event you wish to remove the listener for, and optionally the specific function if you want to remove only a single event listener.
 
 		Backwards compatibility note: if jQuery is loaded on your page, or registered with DataTables (`-api DataTable.use()`), DataTables will use jQuery for event handling. As of DataTables 3, if jQuery is not available, it will use its own event handling.
 	</description>
 
-	<example title="Listen for only the first `dt-event xhr` event from DataTables"><![CDATA[
+	<example title="Listen for only the first `-event xhr` event from DataTables"><![CDATA[
 var table = new DataTable('#myTable', {
 	ajax: '/data',
 	serverSide: true

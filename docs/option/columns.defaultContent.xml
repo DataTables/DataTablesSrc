@@ -42,7 +42,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Create an edit button in the last column with `dt-init columnDefs`"><![CDATA[
+	<example title="Create an edit button in the last column with `-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
 	columnDefs: [
 		{
@@ -54,7 +54,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Create an edit button in the last column with `dt-init columns`"><![CDATA[
+	<example title="Create an edit button in the last column with `-init columns`"><![CDATA[
 new DataTable('#myTable', {
 	columns: [
 		null,

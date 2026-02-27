@@ -17,9 +17,9 @@
 	</type>
 
 	<description>
-		The `dt-event search` event is fired whenever the table's searching is triggered by the global search or columns search options, including calls from the API (`dt-api search()` for example). Additionally, a full redraw (by calling the `dt-api draw()`) method will cause the table to be re-searched.
+		The `-event search` event is fired whenever the table's searching is triggered by the global search or columns search options, including calls from the API (`-api search()` for example). Additionally, a full redraw (by calling the `-api draw()`) method will cause the table to be re-searched.
 
-		Note that the `dt-event search` will be fired before the table has been redrawn with the updated filtered data, although the data will internally have been filtered.
+		Note that the `-event search` will be fired before the table has been redrawn with the updated filtered data, although the data will internally have been filtered.
 
 		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>

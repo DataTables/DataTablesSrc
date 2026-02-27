@@ -7,13 +7,13 @@
 	<type type="function">
 		<signature>state.loaded()</signature>
 		<description>Get the table state that was loaded during initialisation</description>
-		<returns type="object">State saved object. See `dt-api state()` for the object format.</returns>
+		<returns type="object">State saved object. See `-api state()` for the object format.</returns>
 	</type>
 
 	<description>
 		This method is primarily made available for plug-in authors who wish to get the state of a DataTable when it is initialised to restore state saved functionality of their own plug-in.
 
-		The structure of the object returned by this method matches the state object, as defined by `dt-api state()`.
+		The structure of the object returned by this method matches the state object, as defined by `-api state()`.
 	</description>
 
 	<example title="Listen for DataTables initialisation and get the state"><![CDATA[

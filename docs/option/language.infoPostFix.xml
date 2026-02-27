@@ -10,7 +10,7 @@
 	<description>
 		If can be useful to append extra information to the info string at times, and this variable does exactly that.
 
-		This string will be appended to the `dt-init language.info` (`dt-init language.infoEmpty` and `dt-init language.infoFiltered` in whatever combination they are being used) at all times.
+		This string will be appended to the `-init language.info` (`-init language.infoEmpty` and `-init language.infoFiltered` in whatever combination they are being used) at all times.
 	</description>
 
 	<example title="Postfix string to the information summary"><![CDATA[

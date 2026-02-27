@@ -19,16 +19,16 @@
 			[jQuery XHR](https://api.jquery.com/Types/#jqXHR) object that can be used to access the low level Ajax options.
 		</parameter>
 		<return type="boolean">
-			Since 1.10.7 you can return `true` to indicate to DataTables that it should not trigger its `dt-event dt-error` event if you have handled an error condition yourself.
+			Since 1.10.7 you can return `true` to indicate to DataTables that it should not trigger its `-event dt-error` event if you have handled an error condition yourself.
 		</return>
 		<scope>HTML table element</scope>
 		<bubbles>Yes</bubbles>
 	</type>
 
 	<description>
-		When working with Ajax data, it is often useful to know when DataTables has completed the loading of data, so you can either manipulate that data into the format DataTables expects based upon its configuration (`dt-init columns.data`) or so you can use the data contained in the JSON response from the server for other parts of the page.
+		When working with Ajax data, it is often useful to know when DataTables has completed the loading of data, so you can either manipulate that data into the format DataTables expects based upon its configuration (`-init columns.data`) or so you can use the data contained in the JSON response from the server for other parts of the page.
 
-		This event can be seen as the event complement to the `dt-init ajax.dataSrc` option (which can also be used to manipulate and intercept the data from the Ajax request). Generally you would want to do data manipulation in the `dataSrc` callback and use events for intercepting the data.
+		This event can be seen as the event complement to the `-init ajax.dataSrc` option (which can also be used to manipulate and intercept the data from the Ajax request). Generally you would want to do data manipulation in the `dataSrc` callback and use events for intercepting the data.
 
 		Note that this event is called before DataTables has processed the new data from the server, so the returned data will not have been drawn on page when this event fires.
 

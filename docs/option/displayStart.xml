@@ -8,7 +8,7 @@
 	<default value="0" />
 
 	<description>
-		Define the starting point for data display when using DataTables with pagination (`dt-init paging`).
+		Define the starting point for data display when using DataTables with pagination (`-init paging`).
 
 		Note that this parameter is the number of records (counting from 0), rather than the page number, so if you have 10 records per page and want to start on the third page, it should be `20` rather than 2 or 3.
 	</description>

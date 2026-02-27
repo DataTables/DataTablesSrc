@@ -10,7 +10,7 @@
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="data">
-			Data to save. The data comes from `dt-init stateSaveParams`
+			Data to save. The data comes from `-init stateSaveParams`
 		</parameter>
 		<scope>HTML table element</scope>
 	</type>
@@ -18,9 +18,9 @@
 	<description>
 		Callback which allows modification of the saved state prior to loading that state. This callback is called when the table is loading state from the stored data, but prior to the settings object being modified by the saved state.
 
-		Note that the `dt-init stateLoadCallback` option is used to define where and how to load the state, while this function is used to manipulate the data once it has been retrieved from storage.
+		Note that the `-init stateLoadCallback` option is used to define where and how to load the state, while this function is used to manipulate the data once it has been retrieved from storage.
 
-		Further note that for plug-in authors, you should use the `dt-event stateLoadParams` event to load parameters for a plug-in.
+		Further note that for plug-in authors, you should use the `-event stateLoadParams` event to load parameters for a plug-in.
 	</description>
 
 	<example title="Remove a saved filter, so saved filtering is never loaded"><![CDATA[

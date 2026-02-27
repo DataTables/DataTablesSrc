@@ -17,7 +17,7 @@
 
 		The page length values must always be integer values greater than 0, with the sole exception of `-1`. When `-1` is used as a value this tells DataTables to disable pagination (i.e. display all rows).
 
-		Note that the `dt-init pageLength` property will be automatically set to the first value given in this array, unless `dt-init pageLength` is also provided.
+		Note that the `-init pageLength` property will be automatically set to the first value given in this array, unless `-init pageLength` is also provided.
 
 		This option will default to the value given by `-init lengthMenu`, which should generally be preferred over this option as the language strings can be loaded by Ajax and shared for the whole table, but if needed, this option is available to override that.
 	</description>

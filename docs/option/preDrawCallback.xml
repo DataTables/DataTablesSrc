@@ -13,7 +13,7 @@
 	</type>
 
 	<description>
-		The partner of the `dt-init drawCallback` callback, this function is called at the very start of each table draw. It can therefore be used to update or clean the display before each draw (for example removing events), and additionally can be used to cancel the draw by returning `false`. Any other return (including `undefined`) results in the full draw occurring.
+		The partner of the `-init drawCallback` callback, this function is called at the very start of each table draw. It can therefore be used to update or clean the display before each draw (for example removing events), and additionally can be used to cancel the draw by returning `false`. Any other return (including `undefined`) results in the full draw occurring.
 	</description>
 
 	<example title="Remove bound events from cells in the table's body"><![CDATA[

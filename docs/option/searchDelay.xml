@@ -33,7 +33,7 @@
 
 		Prior to DataTables 2, this method used `-api DataTable.util.throttle()` and thus would trigger a search even if the user was still typing, just at a reduced call rate. As of DataTables 2 `-api DataTable.util.debounce()` is used to wait until the user has finished typing (more specifically until the given timeout has completed) before running the search.
 
-		Please note that this option effects only the built in global search box that DataTables provides. It does not effect the `dt-api search()` or `dt-api column().search()` methods at all. If you wish to be able to delay calls to those API methods use the utility method `dt-api DataTable.util.debounce()`.
+		Please note that this option effects only the built in global search box that DataTables provides. It does not effect the `-api search()` or `-api column().search()` methods at all. If you wish to be able to delay calls to those API methods use the utility method `-api DataTable.util.debounce()`.
 	</description>
 
 	<example title="Set a 350mS delay for searching"><![CDATA[

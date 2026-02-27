@@ -62,7 +62,7 @@
 
 		This interface is usually expected to be used by developers creating a custom search interface for DataTables.
 
-		Please be aware that this method sets the fixed search to apply to the table only - it does not actually perform the search. In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of this method.
+		Please be aware that this method sets the fixed search to apply to the table only - it does not actually perform the search. In order to have the search performed and the result shown, use the `-api draw()` method, which can be called simply as a chained method of this method.
 
 		When using server-side processing, additional logic must be added at the server-side to handle fixed search terms. Additionally, searching by functions is not possible, since the search function is client-side based.
 	</description>

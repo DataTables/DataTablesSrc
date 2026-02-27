@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>order.fixed()</signature>
-		<description>Get the fixed ordering that is applied to the table. If there is more than one table in the API's context, the ordering of the first table will be returned only (use `dt-api table()` if you require the ordering of a different table in the API's context).</description>
+		<description>Get the fixed ordering that is applied to the table. If there is more than one table in the API's context, the ordering of the first table will be returned only (use `-api table()` if you require the ordering of a different table in the API's context).</description>
 		<returns type="object">
 			The returned object may have two properties:
 
@@ -18,7 +18,7 @@
 	</type>
 	<type type="function">
 		<signature>order.fixed( order )</signature>
-		<description>Set the table's fixed ordering. Note this doesn't actually perform the order, but rather queues it up - use `dt-api draw()` to perform the ordering.</description>
+		<description>Set the table's fixed ordering. Note this doesn't actually perform the order, but rather queues it up - use `-api draw()` to perform the ordering.</description>
 		<parameter type="object" name="order">
 			An object which may have neither, one or both of the following properties:
 
@@ -29,7 +29,7 @@
 	</type>
 
 	<description>
-		This method provides the ability to control the fixed ordering that is applied to a DataTable. The "fixed" ordering is a column order that will be applied to a table's ordering before and / or after the user's ordering is applied. Consider for example a table which you wish to always order by column 0, this method (or `dt-init orderFixed`) could be used to apply that fixed order, while the end user would then be able to add their own ordering to the table thanks to DataTables' multi-column ordering.
+		This method provides the ability to control the fixed ordering that is applied to a DataTable. The "fixed" ordering is a column order that will be applied to a table's ordering before and / or after the user's ordering is applied. Consider for example a table which you wish to always order by column 0, this method (or `-init orderFixed`) could be used to apply that fixed order, while the end user would then be able to add their own ordering to the table thanks to DataTables' multi-column ordering.
 
 		The fixed ordering can be applied before (`pre`) or after (`post`) the user's own ordering criteria using the two different properties that can be given in the value for this method, when used as a setter.
 

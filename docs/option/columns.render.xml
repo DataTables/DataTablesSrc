@@ -17,14 +17,14 @@
 			
 			* `[]` - Array notation. DataTables can automatically combine data from an array source, joining the data with the characters provided between the two brackets. For example: `name[, ]` would provide a comma-space separated list from the source array. If no characters are provided between the brackets, the original array source is returned. See above for further information on array access.
 
-			* `()` - Function notation. Adding `()` to the end of a parameter will execute a function of the name given. For example: `browser()` for a simple function on the data source, `browser.version()` for a function in a nested property or even `browser().version` to get an object property if the function called returns an object. Note that function notation is recommended for use in `dt-init columns.render` rather than `dt-init columns.data` as it is much simpler to use as a renderer.
+			* `()` - Function notation. Adding `()` to the end of a parameter will execute a function of the name given. For example: `browser()` for a simple function on the data source, `browser.version()` for a function in a nested property or even `browser().version` to get an object property if the function called returns an object. Note that function notation is recommended for use in `-init columns.render` rather than `-init columns.data` as it is much simpler to use as a renderer.
 		</description>
 	</type>
 	<type type="object">
 		<description>
-			Use different data for the different data types requested by DataTables (`-string filter`, `-string display`, `-string type` or `-string sort`). The property names of the object is the data type the property refers to and the value can defined using an integer, string or function using the same rules as `dt-init columns.render` normally does.
+			Use different data for the different data types requested by DataTables (`-string filter`, `-string display`, `-string type` or `-string sort`). The property names of the object is the data type the property refers to and the value can defined using an integer, string or function using the same rules as `-init columns.render` normally does.
 
-			Note that an `-string _` option can optionally be specified. This is the default value to use if you haven't specified a value for the data type requested by DataTables. If there is no option for the data type requested that the `-string _` option has not been specified, the data pointed to by the `dt-init columns.data` option will be used.
+			Note that an `-string _` option can optionally be specified. This is the default value to use if you haven't specified a value for the data type requested by DataTables. If there is no option for the data type requested that the `-string _` option has not been specified, the data pointed to by the `-init columns.data` option will be used.
 
 			As an example you might use:
 
@@ -62,7 +62,7 @@
 	<type type="function">
 		<signature>render( data, type, row, meta )</signature>
 		<parameter type="*" name="data">
-			The data for the cell (based on `dt-init columns.data`)
+			The data for the cell (based on `-init columns.data`)
 		</parameter>
 		<parameter type="string" name="type">
 			The type call data requested. This is used for [DataTables' orthogonal data support](https://datatables.net/manual/data/orthogonal-data). This value will be one of:
@@ -77,14 +77,14 @@
 			See also the `-api cell().render()` method which can be used to execute the given rendering method at any arbitrary time.
 		</parameter>
 		<parameter type="*" name="row">
-			The full data source for the row (not based on `dt-init columns.data`)
+			The full data source for the row (not based on `-init columns.data`)
 		</parameter>
 		<parameter type="object" name="meta" since="1.10.1">
 			An object that contains additional information about the cell being requested. This object contains the following properties:
 
-			* `row` - The row index for the requested cell. See `dt-api row().index()`.
-			* `col` - The column index for the requested cell. See `dt-api column().index()`.
-			* `settings` - The `dt-type DataTables.Settings` object for the table in question. This can be used to obtain an API instance if required.
+			* `row` - The row index for the requested cell. See `-api row().index()`.
+			* `col` - The column index for the requested cell. See `-api column().index()`.
+			* `settings` - The `-type DataTables.Settings` object for the table in question. This can be used to obtain an API instance if required.
 		</parameter>
 		<returns>
 			The return value from the function is what will be used for the data requested.
@@ -101,14 +101,14 @@
 		<
 		< The documentation below is a technical reference (nitty-gritty details). For a more general overview of renderers in DataTables, including discussion of the built in renderers, please refer to the [DataTables manual on this topic](https://datatables.net/manual/data/renderers).
 
-		This property will modify the data that is used by DataTables for various operations as it is read from the data source. Like `dt-init columns.data` this option can be given in a number of different ways to affect its behaviour as described below.
+		This property will modify the data that is used by DataTables for various operations as it is read from the data source. Like `-init columns.data` this option can be given in a number of different ways to affect its behaviour as described below.
 
-		The data that is returned by the `dt-init columns.render` option (regardless of if it is used as a function, integer or string) is what DataTables will use for the requested data type (this is called the _resolved data_). DataTables ability to request different data for its different operations is referred to as [orthogonal data](//datatables.net/manual/orthogonal-data) and allows different forms of the same data to be used for different operations (for example, a date might be given formatted for an end user for display and search, but in an integer form for ordering).
+		The data that is returned by the `-init columns.render` option (regardless of if it is used as a function, integer or string) is what DataTables will use for the requested data type (this is called the _resolved data_). DataTables ability to request different data for its different operations is referred to as [orthogonal data](//datatables.net/manual/orthogonal-data) and allows different forms of the same data to be used for different operations (for example, a date might be given formatted for an end user for display and search, but in an integer form for ordering).
 
-		There are four special values that `dt-init columns.render` can resolve to:
+		There are four special values that `-init columns.render` can resolve to:
 
-		* `-type undefined` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, an error will be given.
-		* `-type null` - the `dt-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty string will be used. `-type null` will be used for all other data types.
+		* `-type undefined` - the `-init columns.defaultContent` value will be used. If there is no default content specified, an error will be given.
+		* `-type null` - the `-init columns.defaultContent` value will be used. If there is no default content specified, for display data an empty string will be used. `-type null` will be used for all other data types.
 		* `-type function` - the function will be executed and the returned value used. As of DataTables <span class="since">1.10.1</span> the function will be executed in the same scope as the data object for the row. The result of this is that an object instance can be used as the data source for a row. See the examples below for how to use an instance with DataTables.
 		* `-type node` <span class="since">2.0</span> - when requesting the `-string display` data type, you may return a DOM node to be displayed in the cell for the table. It is important to note that all other data types should return a string or numeric value so DataTables can operate on them (e.g. search, order and type detection need data other than a DOM node!).
 

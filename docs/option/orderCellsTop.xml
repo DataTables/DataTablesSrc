@@ -33,7 +33,7 @@
 			</thead>
 		```
 
-		In this case, when `dt-init orderCellsTop` is `false` the cells `-string 1` and `-string 2.2` will have the order event listener applied to them. If `dt-init orderCellsTop` is `true` then `-string 1` and `-string 2.1` will have the order event listeners applied to them. Finally, if the value is given is `null` (default), all cells will have the ordering event listeners attached.
+		In this case, when `-init orderCellsTop` is `false` the cells `-string 1` and `-string 2.2` will have the order event listener applied to them. If `-init orderCellsTop` is `true` then `-string 1` and `-string 2.1` will have the order event listeners applied to them. Finally, if the value is given is `null` (default), all cells will have the ordering event listeners attached.
 ]]></description>
 
 	<example title="Use the top cells in a complex header for ordering"><![CDATA[

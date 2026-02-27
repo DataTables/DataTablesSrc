@@ -7,14 +7,14 @@
 	<type type="function">
 		<signature>ajax.params()</signature>
 		<returns type="object|undefined">
-			Data submitted in the last Ajax request. If no Ajax request has been made, `dt-type undefined` is returned.
+			Data submitted in the last Ajax request. If no Ajax request has been made, `-type undefined` is returned.
 		</returns>
 	</type>
 
 	<description>
 		It can sometimes be useful to know what data was used in the last Ajax request submitted to the server. This method provides that ability by simply returning the data object that was used in the last Ajax request DataTables made.
 
-		The data object stored is the resulting object once the `dt-init ajax.data` option has been fully evaluated, so any custom parameters are also stored.
+		The data object stored is the resulting object once the `-init ajax.data` option has been fully evaluated, so any custom parameters are also stored.
 
 		This object is considered to be read-only, as writing values to it will have no impact upon any DataTables operation - it is provided solely for the use of the API.
 	</description>

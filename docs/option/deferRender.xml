@@ -17,7 +17,7 @@
 
 		As an example to help illustrate this, if you load a data set with 10,000 rows, but a paging display length of only 10 records, rather than create all 10,000 rows, when deferred rendering is enabled, DataTables will create only 10. When the end user then sorts, pages or filters the data the rows needed for the next display will be created automatically. This effectively spreads the load of creating the rows across the life time of the page.
 
-		Note that when enabled, it goes without saying that not all nodes will always be available in the table, so when working with API methods such as `dt-api columns().nodes()` you must take this into account. Below shows an example of how to use delegated events to handle such a situation.
+		Note that when enabled, it goes without saying that not all nodes will always be available in the table, so when working with API methods such as `-api columns().nodes()` you must take this into account. Below shows an example of how to use delegated events to handle such a situation.
 
 		The only reason to disable this option is if you must have all DOM elements available, even those currently not in the document.
 		]]>

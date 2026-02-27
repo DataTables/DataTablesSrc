@@ -8,7 +8,7 @@
 	<default>false</default>
 
 	<description>
-		When vertical (y) scrolling is enabled through the use of the `dt-init scrollY` option, DataTables will force the height of the table's viewport to the given height at all times (useful for layout). However, this can look odd when filtering data down to a small data set, and the footer is left "floating" further down. This parameter (when enabled) will cause DataTables to collapse the table's viewport when the result set fits within the given Y height.
+		When vertical (y) scrolling is enabled through the use of the `-init scrollY` option, DataTables will force the height of the table's viewport to the given height at all times (useful for layout). However, this can look odd when filtering data down to a small data set, and the footer is left "floating" further down. This parameter (when enabled) will cause DataTables to collapse the table's viewport when the result set fits within the given Y height.
 	</description>
 
 	<example title="Enable the automatic resize of the table container when scrolling enabled"><![CDATA[

@@ -13,11 +13,11 @@
 	<description>
 		This method can be used to make the child rows of a parent row hidden at any time. When child row(s) are set as hidden they are not detached from the parent row, but rather simply not drawn on the page. This method provides a way of hiding a row at any required time.
 
-		Please note that this method is only available when `dt-api row().child()` is called with a parameter set. This is because `dt-api row().child()` will return the child rows if called with no parameters, which is either a `-type jQuery` object or `-type undefined`. When called with a parameter `dt-api row().child()` returns a `-type DataTables.Api` instance. If you need to hide a child row without any parameters being set use `dt-api row().child.hide()`.
+		Please note that this method is only available when `-api row().child()` is called with a parameter set. This is because `-api row().child()` will return the child rows if called with no parameters, which is either a `-type jQuery` object or `-type undefined`. When called with a parameter `-api row().child()` returns a `-type DataTables.Api` instance. If you need to hide a child row without any parameters being set use `-api row().child.hide()`.
 
 		It is worth saying that this method is probably of limited use, but it is included in the API for completeness!
 
-		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called for the resulting change to be displayed. The child row(s) are inserted into the table without requiring that DataTables redraw.
+		Unlike many of the other methods which manipulate the DataTable, this method does not require `-api draw()` to be called for the resulting change to be displayed. The child row(s) are inserted into the table without requiring that DataTables redraw.
 	</description>
 
 	<example title="Hide a child row immediately after setting its value"><![CDATA[

@@ -21,9 +21,9 @@
 	<description>
 		This method provides access to the [orthogonal data](/manual/orthogonal-data) that DataTables uses for each cell (in this case, in the form of columns). This allows the same data to be used in different ways. A typical example of this is date / time data being used in numeric format (i.e. a timestamp) for sorting, but a complex formatted form for display.
 
-		The `dt-api column().data()` method provides access to the underlying raw data, while this method provides access to the rendered data for each type. It is provided to allow plug-in authors access to the orthogonal data available in the table.
+		The `-api column().data()` method provides access to the underlying raw data, while this method provides access to the rendered data for each type. It is provided to allow plug-in authors access to the orthogonal data available in the table.
 
-		Note that calling this method will evaluate the renderer for the cells in the column, rather than reading the information from cache (see `dt-api column().cache()` to read from cache and `dt-api column().invalidate()` to clear cache).
+		Note that calling this method will evaluate the renderer for the cells in the column, rather than reading the information from cache (see `-api column().cache()` to read from cache and `-api column().invalidate()` to clear cache).
 	</description>
 
 	<example title="Get the display information for a column"><![CDATA[

@@ -19,7 +19,7 @@
 	<description>
 		It can be useful to take an action on every draw event of the table - for example you might want to update an external control with the newly displayed data, or when server-side processing enabled you might want to assign events to the newly created elements. This event is available to give exactly this information.
 
-		The `dt-event draw` event is fired whenever the table is redrawn on the page, at the same point as `dt-init drawCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
+		The `-event draw` event is fired whenever the table is redrawn on the page, at the same point as `-init drawCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
 
 		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 

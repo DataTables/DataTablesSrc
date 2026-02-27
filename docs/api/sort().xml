@@ -19,7 +19,7 @@
 	</type>
 
 	<description>
-		The `dt-api sort()` method provides a way of sorted the data in an API instance's result set, which can be particularly useful if you then want to use that data for displaying to the end user - for example as a `dt-tag select` list for a search input. This method should not be confused with `dt-api order()` which is used to order for records in the DataTable.
+		The `-api sort()` method provides a way of sorted the data in an API instance's result set, which can be particularly useful if you then want to use that data for displaying to the end user - for example as a `dt-tag select` list for a search input. This method should not be confused with `-api order()` which is used to order for records in the DataTable.
 
 		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 

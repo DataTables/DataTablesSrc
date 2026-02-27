@@ -10,7 +10,7 @@
 	<description>
 		Initialise a new DataTable as usual, but if there is an existing DataTable which matches the selector, it will be destroyed and replaced with the new table. This can be useful if you want to change a property of the table which cannot be altered through the API.
 
-		Note that if you are not changing the configuration of the table, but just altering the data displayed by the table, it is far more efficient to use the `dt-api ajax.reload()` method (or `dt-api rows.add()` etc).
+		Note that if you are not changing the configuration of the table, but just altering the data displayed by the table, it is far more efficient to use the `-api ajax.reload()` method (or `-api rows.add()` etc).
 	</description>
 
 

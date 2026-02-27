@@ -18,7 +18,7 @@
 	</type>
 
 	<description>
-		In an environment where the data shown in the table can be updated at the server-side, it is often useful to be able to reload the table, showing the latest data. This method provides exactly that ability, making an Ajax request to the already defined URL (use `dt-api ajax.url()` if you need to alter the URL).
+		In an environment where the data shown in the table can be updated at the server-side, it is often useful to be able to reload the table, showing the latest data. This method provides exactly that ability, making an Ajax request to the already defined URL (use `-api ajax.url()` if you need to alter the URL).
 	</description>
 
 	<example title="Reload the table data every 30 seconds (paging reset)"><![CDATA[

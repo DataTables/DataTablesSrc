@@ -17,7 +17,7 @@
 	</type>
 
 	<description>
-		Just as with JavaScript arrays', since the DataTables API object is "array like", items can be added to a result set using this method. *Pushing* an item onto an API instance adds it to the end of the result set. Items can be added at the start of the result set using `dt-api unshift()` if required.
+		Just as with JavaScript arrays', since the DataTables API object is "array like", items can be added to a result set using this method. *Pushing* an item onto an API instance adds it to the end of the result set. Items can be added at the start of the result set using `-api unshift()` if required.
 
 		This method is a proxy for the JavaScript `Array.prototype.push` method and is provided as a utility method for the DataTables API. For more information about the original method, please refer to the [Mozilla MDN documentation for `push`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push).
 	</description>

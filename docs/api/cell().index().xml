@@ -11,11 +11,11 @@
 	</type>
 
 	<description>
-		DataTables stores the data for rows and columns in internal indexes for fast ordering, searching etc. It can be useful at times to know what these indexes are, as they can be used for efficient selectors in the `dt-api row()`, `dt-api column()` and other API methods which use selectors.
+		DataTables stores the data for rows and columns in internal indexes for fast ordering, searching etc. It can be useful at times to know what these indexes are, as they can be used for efficient selectors in the `-api row()`, `-api column()` and other API methods which use selectors.
 
 		Usefully, this method also provides the visible column index as well as the column data index, as columns can be added and removed from the document dynamically.
 
-		The data structure returned for the cell in the result set, selected by `dt-api cell()` is:
+		The data structure returned for the cell in the result set, selected by `-api cell()` is:
 
 		```js
 		{

@@ -7,9 +7,9 @@
 	<type type="array|string|integer" />
 
 	<description>
-		The `dt-init columnDefs` option allows a column definition object to be defined and then assigned to one or more columns in a DataTable, regardless of the order of the column definitions array, or the order of the columns in the table.
+		The `-init columnDefs` option allows a column definition object to be defined and then assigned to one or more columns in a DataTable, regardless of the order of the column definitions array, or the order of the columns in the table.
 
-		This `dt-init columnDefs.targets` option provides the information required by DataTables for which columns in the table the column definition object should be applied.
+		This `-init columnDefs.targets` option provides the information required by DataTables for which columns in the table the column definition object should be applied.
 
 		It can be:
 
@@ -22,7 +22,7 @@
 
 		Additionally, `targets` can be either a single option from the list above, or an array of options (the different types can be mixed in the array if required). For example `targets: [ -1, -2 ]` would target the last and second last columns in the table.
 
-		Please note that unlike all other column configuration options which can be applied to be `dt-init columns` and `dt-init columnDefs`, the `dt-init columnDefs.targets` option can only be used in `dt-init columnDefs`.
+		Please note that unlike all other column configuration options which can be applied to be `-init columns` and `-init columnDefs`, the `-init columnDefs.targets` option can only be used in `-init columnDefs`.
 	</description>
 
 	<example title="Disable filtering on the first column"><![CDATA[

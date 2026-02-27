@@ -13,7 +13,7 @@ A detailed description of the `Number` type is available on the [Mozilla Develop
 
 ## Use in DataTables
 
-Where a parameter is shown as accepting a number type, or a method returning a number type, it indicates that a numeric value is accepted / returned. We define a special type of `dt-type integer` as a sub-set of `number`s which accept only integer values. As such `number` types can be either integers or floating point numbers.
+Where a parameter is shown as accepting a number type, or a method returning a number type, it indicates that a numeric value is accepted / returned. We define a special type of `-type integer` as a sub-set of `number`s which accept only integer values. As such `number` types can be either integers or floating point numbers.
 
 	]]>
 	</description>

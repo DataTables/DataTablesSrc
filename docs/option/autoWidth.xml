@@ -8,7 +8,7 @@
 	<default value="true" />
 
 	<description>
-		Enable or disable automatic column width calculation. This can be disabled as an optimisation (it takes a finite amount of time to calculate the widths) if the tables widths are passed in using `dt-init columns.width`.
+		Enable or disable automatic column width calculation. This can be disabled as an optimisation (it takes a finite amount of time to calculate the widths) if the tables widths are passed in using `-init columns.width`.
 	</description>
 
 	<example title="Disable smart width calculations"><![CDATA[

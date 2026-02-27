@@ -20,11 +20,11 @@
 	</type>
 
 	<description>
-		The `dt-event stateSaveParams` event is the event compliment of the `dt-init stateSaveParams` initialisation option. As with the callback, the event is fired when the table has changed state a new state save is required. For the format of the data that is stored, please refer to the `dt-init stateSaveCallback` documentation.
+		The `-event stateSaveParams` event is the event compliment of the `-init stateSaveParams` initialisation option. As with the callback, the event is fired when the table has changed state a new state save is required. For the format of the data that is stored, please refer to the `-init stateSaveCallback` documentation.
 
 		This event allows modification of the state saving object prior to actually doing the save, including addition or other state properties (for plug-ins) or modification of a DataTables core property.
 
-		The `dt-event stateSaveParams` event is fired at the same point as `dt-init stateSaveCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
+		The `-event stateSaveParams` event is fired at the same point as `-init stateSaveCallback` (technically the callback fires before the event, but they occur sequentially and thus either can be used to achieve the same effect).
 
 		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 

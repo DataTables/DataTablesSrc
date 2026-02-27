@@ -11,7 +11,7 @@
 	</type>
 
 	<description>
-		DataTables stores the data for rows and columns in internal indexes for fast ordering, searching etc. It can be useful at times to know what these indexes are, as they can be used for efficient selectors in the `dt-api row()`, `dt-api column()` and other API methods which use selectors.
+		DataTables stores the data for rows and columns in internal indexes for fast ordering, searching etc. It can be useful at times to know what these indexes are, as they can be used for efficient selectors in the `-api row()`, `-api column()` and other API methods which use selectors.
 
 		This method is used to retrieve the indexes of the selected rows which can then be used as part of a selector to update data.
 	</description>

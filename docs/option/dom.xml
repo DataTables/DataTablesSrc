@@ -19,7 +19,7 @@
     <![CDATA[
     DataTables will add a number of elements around the table to both control the table and show additional information about it. The position of these elements on screen are controlled by a combination of their order in the document (DOM) and the CSS applied to the elements. This parameter is used to control their ordering and additional mark-up surrounding them in the DOM.
 
-    Each table control element in DataTables has a single letter associated with it, and that letter it used in this `dt-init dom` configuration option to indicate where that element will appear in the document order.
+    Each table control element in DataTables has a single letter associated with it, and that letter it used in this `-init dom` configuration option to indicate where that element will appear in the document order.
 
     ### Options
 
@@ -45,11 +45,11 @@
 
     ### Styling
 
-    The styling libraries that DataTables supports will override the default value of the `dt-init dom` parameter and replace it with a value that is suitable for their layout system. For example the Bootstrap integration makes use of Bootstrap's grid layout.
+    The styling libraries that DataTables supports will override the default value of the `-init dom` parameter and replace it with a value that is suitable for their layout system. For example the Bootstrap integration makes use of Bootstrap's grid layout.
 
     ### Plug-ins
 
-    DataTables feature plug-ins can be developed to add additional features to DataTables and often will make use of this option, adding new letters to the DataTables core features. For example [Buttons](//datatables.net/extensions/buttons) adds the `B` option to `dt-init dom` to specify where table control buttons should be inserted into the table.
+    DataTables feature plug-ins can be developed to add additional features to DataTables and often will make use of this option, adding new letters to the DataTables core features. For example [Buttons](//datatables.net/extensions/buttons) adds the `B` option to `-init dom` to specify where table control buttons should be inserted into the table.
 
     The following [extensions](/extensions) can be initialised through the `-init dom` option:
 

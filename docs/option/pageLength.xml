@@ -10,7 +10,7 @@
 	<description>
 		Number of rows to display on a single page when using pagination.
 
-		If `dt-init lengthChange` is feature enabled (it is by default) then the end user will be able to override the value set here to a custom setting using a pop-up menu (see `dt-init lengthMenu`).
+		If `-init lengthChange` is feature enabled (it is by default) then the end user will be able to override the value set here to a custom setting using a pop-up menu (see `-init lengthMenu`).
 	</description>
 
 	<example title="Show 50 records per page"><![CDATA[

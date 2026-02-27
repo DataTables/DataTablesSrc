@@ -23,9 +23,9 @@
 	</type>
 
 	<description>
-		The `dt-event info` event is fired every table the table is drawn. It is used to display information about the table, such as the paging state (although other information could also be shown). Use the API to get details about the current paging state, if required for your information display (e.g. `-api page.info()` would be appropriate here).
+		The `-event info` event is fired every table the table is drawn. It is used to display information about the table, such as the paging state (although other information could also be shown). Use the API to get details about the current paging state, if required for your information display (e.g. `-api page.info()` would be appropriate here).
 
-		Note that the `dt-event search` will be fired _after_ the information element has been written to by the built in display renderer. This means that writing to the info element will cause your own output to be displayed, rather than the DataTables created text.
+		Note that the `-event search` will be fired _after_ the information element has been written to by the built in display renderer. This means that writing to the info element will cause your own output to be displayed, rather than the DataTables created text.
 
 		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>

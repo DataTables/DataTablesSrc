@@ -15,7 +15,7 @@ A detailed description of the `Function` type is available on the [Mozilla Devel
 
 Where a parameter is shown as accepting a function type, or a method returning a function type, it indicates that a function can be passed in (be it as a function assigned to a variable, or an anonymous function) / returned.
 
-Functions in DataTables are frequently used for callbacks. For example, using an anonymous function which is executed whenever DataTables performs a draw action (`dt-init drawCallback`):
+Functions in DataTables are frequently used for callbacks. For example, using an anonymous function which is executed whenever DataTables performs a draw action (`-init drawCallback`):
 
 ```js
 new DataTable('#myTable', {

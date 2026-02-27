@@ -14,7 +14,7 @@
 	</type>
 
 	<description>
-		It is often very useful to know if a value is in a result set, and further, what its position is in the result set if it is present. This method provides exactly that ability, searching for the value given, starting from index 0 (see `dt-api lastIndexOf()` for starting at the end of the array) and giving its position in the result set.
+		It is often very useful to know if a value is in a result set, and further, what its position is in the result set if it is present. This method provides exactly that ability, searching for the value given, starting from index 0 (see `-api lastIndexOf()` for starting at the end of the array) and giving its position in the result set.
 
 		This method makes use of the fact that DataTables API objects are "array like", in that they inherit a lot of the abilities and methods of the JavaScript `Array` type.
 

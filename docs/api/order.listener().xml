@@ -22,9 +22,9 @@
 	<description>
 		This method provides the ability to attach ordering listeners to any DOM element on the page. This is the same method as DataTables uses internally for the ordering listeners which are attached to the header cells for each column, and as such provides the same functionality (i.e. click to order, shift click to multi-column order etc).
 
-		Although not a common method to be used, it can be useful for allowing sorting to be triggered externally from the table (equally `dt-api order()` and its columns counterparts could also be used).
+		Although not a common method to be used, it can be useful for allowing sorting to be triggered externally from the table (equally `-api order()` and its columns counterparts could also be used).
 
-		Note that unlike `dt-api order()` and `dt-api columns().order()` when the ordering listener attached by this function is activated, it will cause the table to redraw automatically - i.e. there is no need to call `dt-api draw()`.
+		Note that unlike `-api order()` and `-api columns().order()` when the ordering listener attached by this function is activated, it will cause the table to redraw automatically - i.e. there is no need to call `-api draw()`.
 	</description>
 
 	<example title="Sort on column 1, when '#sorter' element is clicked upon"><![CDATA[

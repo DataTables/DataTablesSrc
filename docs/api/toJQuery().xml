@@ -15,9 +15,9 @@
 	</type>
 
 	<description>
-		This method will create a jQuery object from the contents of the API instance's result set. This is primarily of use when working with the `nodes()` functions of the API such as `dt-api rows().nodes()`, `dt-api column().nodes()` and  `dt-api cells().nodes()`, where it can be useful to easily convert the API instance into a jQuery object, working with the nodes using the chaining methods provided by jQuery.
+		This method will create a jQuery object from the contents of the API instance's result set. This is primarily of use when working with the `nodes()` functions of the API such as `-api rows().nodes()`, `-api column().nodes()` and  `-api cells().nodes()`, where it can be useful to easily convert the API instance into a jQuery object, working with the nodes using the chaining methods provided by jQuery.
 
-		Please note that `dt-api to$()` and `dt-api toJQuery()` are identical in functionality. Both methods are provided to cater for the two common forms of how jQuery is used.
+		Please note that `-api to$()` and `-api toJQuery()` are identical in functionality. Both methods are provided to cater for the two common forms of how jQuery is used.
 	</description>
 
 	<example title="Add a class to a specific column in the DataTable"><![CDATA[

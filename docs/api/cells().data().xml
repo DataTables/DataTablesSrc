@@ -11,9 +11,9 @@
 	</type>
 
 	<description>
-		This method is used to obtain the data from the cells retrieved by the selector used in the `dt-api cells()` call.
+		This method is used to obtain the data from the cells retrieved by the selector used in the `-api cells()` call.
 
-		Note that unlike its singular counter part (`dt-api cell().data()`) this method does not have a 'set' form. It can only be used to retrieve data.
+		Note that unlike its singular counter part (`-api cell().data()`) this method does not have a 'set' form. It can only be used to retrieve data.
 	</description>
 
 	<example title="Get the data for all cells which have a class of 'info'"><![CDATA[

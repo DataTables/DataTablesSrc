@@ -41,7 +41,7 @@
 	<description>
 		Select an individual cell to work with from a DataTable, with its chained methods providing the ability to get / set the data in the cell, work with it node directly and other actions.
 
-		Note that this method selects a single cell. If the selectors provided resolve to multiple cells in this method, the result will be truncated to just a single cell - the first one found. If you need to work with multiple cells, the `dt-api cells()` method is available with the same selection options.
+		Note that this method selects a single cell. If the selectors provided resolve to multiple cells in this method, the result will be truncated to just a single cell - the first one found. If you need to work with multiple cells, the `-api cells()` method is available with the same selection options.
 
 		The method has two forms, reflecting the fact the cells can be selected in multiple different ways as your implementation demands:
 

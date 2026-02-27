@@ -7,14 +7,14 @@
 	<type type="function">
 		<signature>order()</signature>
 		<description>
-			Get the current ordering of the table. If there is more than one table in the API's context, the ordering of the first table will be returned. Use `dt-api table()` if you require the ordering of a different table in the API's context.
+			Get the current ordering of the table. If there is more than one table in the API's context, the ordering of the first table will be returned. Use `-api table()` if you require the ordering of a different table in the API's context.
 		</description>
 		<returns type="array">Array of arrays (tuples) containing information about the currently applied sort in the format `[columnIndex, direction]`. See below and `-type DataTable.Order`'s _Return Types_ for more information.</returns>
 	</type>
 	<type type="function">
 		<signature>order( order [, ...] )</signature>
 		<description>
-			Set the ordering to apply to the table using 1D ordering arrays. Note this doesn't actually perform the order, but rather queues it up - use `dt-api draw()` to perform the ordering.
+			Set the ordering to apply to the table using 1D ordering arrays. Note this doesn't actually perform the order, but rather queues it up - use `-api draw()` to perform the ordering.
 		</description>
 		<parameter type="DataTables.Order" name="order">
 			An array (tuple) or object to describe the ordering to apply.
@@ -27,7 +27,7 @@
 	<type type="function">
 		<signature>order( order )</signature>
 		<description>
-			Set the ordering to apply to the table using a 2D ordering array. Note this doesn't actually perform the order, but rather queues it up - use `dt-api draw()` to perform the ordering.
+			Set the ordering to apply to the table using a 2D ordering array. Note this doesn't actually perform the order, but rather queues it up - use `-api draw()` to perform the ordering.
 		</description>
 		<parameter type="DataTables.Order" name="order">
 			An array in the same format as the 1D options for this method above, but with multiple entries in the top level array, allowing multi-column sorting to be defined.
@@ -55,7 +55,7 @@
 
 		Using this format, DataTables can achieve single column ordering (i.e. just use one entry in the top level array), or multi-column ordering to the *n*th column (multiple entries in the array).
 
-		Please be aware that this method sets the ordering to apply to the table - it does not actually perform the order. In order to have the order performed, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api order()` method's returned object - for example `table.order([0, 'desc']).draw();`.
+		Please be aware that this method sets the ordering to apply to the table - it does not actually perform the order. In order to have the order performed, use the `-api draw()` method, which can be called simply as a chained method of the `-api order()` method's returned object - for example `table.order([0, 'desc']).draw();`.
 	</description>
 
 	<example title="Get the current ordering of the table"><![CDATA[

@@ -25,13 +25,13 @@
 	<description>
 		An often used operation with the DataTable API is to perform an operation on a collection of cells - a common action is performed on each cell, such as adding event handlers, updating data, etc. This iteration of the cells can be performed a number of ways in DataTables, each with its own advantages:
 
-		* `dt-api cells().every()`
-		* `dt-api iterator()`
-		* `dt-api each()`
+		* `-api cells().every()`
+		* `-api iterator()`
+		* `-api each()`
 
-		This `dt-api cells().every()` method is likely to be the most useful in the majority of cases as it sets the context of the callback function to be the `dt-api cell()` instance for the cell in question (normally a callback in the DataTables API has its context set to be at the top level API hierarchy). In simple terms this means you have the methods such as `dt-api cell().data()` available as `this.data()` in the callback given to this method.
+		This `-api cells().every()` method is likely to be the most useful in the majority of cases as it sets the context of the callback function to be the `-api cell()` instance for the cell in question (normally a callback in the DataTables API has its context set to be at the top level API hierarchy). In simple terms this means you have the methods such as `-api cell().data()` available as `this.data()` in the callback given to this method.
 
-		Consider the following example using `dt-api each()`, which iterates over the cell indexes that have been selected - we are required to get the `dt-api cell()` object for each cell to be able to work with it directly:
+		Consider the following example using `-api each()`, which iterates over the cell indexes that have been selected - we are required to get the `-api cell()` object for each cell to be able to work with it directly:
 
 		```js
 		table.cells().eq(0).each( function ( index ) {
@@ -42,7 +42,7 @@
 		} );
 		```
 
-		Using `dt-api cells().every()` this can be rewritten as:
+		Using `-api cells().every()` this can be rewritten as:
 
 		```js
 		table.cells().every( function () {
@@ -53,7 +53,7 @@
 
 		Although a relatively simple optimisation in terms of code presentation, it can make the code much more readable and intuitive. It is also significantly more performant as of DataTables 2, as API instances do not need to create created every time around the loop.
 
-		The other advantage is that the table context is automatically handled - in the first example above where `dt-api each()` is used, the `dt-api eq()` method is used to select the information from the first table in the API's context only, introducing complexity if multiple tables are used. In `dt-api cells().every()` the table context is automatically set to the appropriate table for each cell that has been selected.
+		The other advantage is that the table context is automatically handled - in the first example above where `-api each()` is used, the `-api eq()` method is used to select the information from the first table in the API's context only, introducing complexity if multiple tables are used. In `-api cells().every()` the table context is automatically set to the appropriate table for each cell that has been selected.
 	</description>
 
 	<example title="Add a class to cells which meet a logical requirement in the source data"><![CDATA[

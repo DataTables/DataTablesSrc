@@ -6,16 +6,16 @@
 	<description>
 	<![CDATA[
 
-When working with the selectors in `dt-api rows()`, `dt-api columns()` and `dt-api cells()` (and their singular counterparts) you will want to know, and be able to control, basic aspects of how DataTables treats the rows, such as the order they are processed in, and what set of rows the selector should act upon. This `dt-type selector-modifier` type provides exactly that ability and can optionally be used in any of the functions that uses a selector.
+When working with the selectors in `-api rows()`, `-api columns()` and `-api cells()` (and their singular counterparts) you will want to know, and be able to control, basic aspects of how DataTables treats the rows, such as the order they are processed in, and what set of rows the selector should act upon. This `-type selector-modifier` type provides exactly that ability and can optionally be used in any of the functions that uses a selector.
 
 ### Server-side processing
 
-Special note on server-side processing: When using DataTables in server-side processing mode (`dt-init serverSide`) the `dt-type selector-modifier` has very little effect on the rows selected since all processing (ordering, search etc) is performed at the server. Therefore, the only rows that exist on the client-side are those shown in the table at any one time, and the selector can only select those rows which are on the current page.
+Special note on server-side processing: When using DataTables in server-side processing mode (`-init serverSide`) the `-type selector-modifier` has very little effect on the rows selected since all processing (ordering, search etc) is performed at the server. Therefore, the only rows that exist on the client-side are those shown in the table at any one time, and the selector can only select those rows which are on the current page.
 
 
 ### Options
 
-Fundamentally `dt-type selector-modifier` is an object with three built-in properties that can be used, and this can be extended by extensions such as [Select](/extensions/select). These properties, including their default values are:
+Fundamentally `-type selector-modifier` is an object with three built-in properties that can be used, and this can be extended by extensions such as [Select](/extensions/select). These properties, including their default values are:
 
 ```js
 {
@@ -54,7 +54,7 @@ The resulting API instance will have the columns in the order `[3, 4, 5]`. Witho
 
 ### order
 
-The `order` modifier provides the ability to control which order the rows are processed in. This can have an effect on the return from chained functions - for example `dt-api column().data()` can return the data for the column in the order that the table currently shows the data, or in the original data order.
+The `order` modifier provides the ability to control which order the rows are processed in. This can have an effect on the return from chained functions - for example `-api column().data()` can return the data for the column in the order that the table currently shows the data, or in the original data order.
 
 * `dt-string current` (default) - Process the rows in the order currently applied to the table.
 * `dt-string index` - Process the rows in their data index order (the order the data was originally read into the table).
@@ -64,7 +64,7 @@ The `order` modifier provides the ability to control which order the rows are pr
 
 ###### Get the data from a column in the applied order:
 
-Note that since the `dt-type selector-modifier` is optional, and `dt-string applied` is the default value for the column, the example below is the same as: `table.column( 3 ).data();` - it just sets the `order` parameter explicitly.
+Note that since the `-type selector-modifier` is optional, and `dt-string applied` is the default value for the column, the example below is the same as: `table.column( 3 ).data();` - it just sets the `order` parameter explicitly.
 
 ```js
 let table = new DataTable('#myTable');
@@ -141,7 +141,7 @@ The following options describe behaviour that can be added to DataTables core th
 
 [KeyTable](/extensions/keytable) provides the ability to focus on a particular cell in the DataTable, and as such it can often be useful to know which cell is focused, and equally which cells do not have focus.
 
-Please note that this option can only be used in conjunction with the `dt-api cells()` and `dt-api cell()` methods. Using it with the row or column selectors will have no effect.
+Please note that this option can only be used in conjunction with the `-api cells()` and `-api cell()` methods. Using it with the row or column selectors will have no effect.
 
 This option takes a boolean value, although it can also be `undefined`, which it is by default:
 

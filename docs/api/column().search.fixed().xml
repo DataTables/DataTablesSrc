@@ -56,7 +56,7 @@
 
 		The fixed search (which might also be termed _sticky_ or _named_ searches) provides a way to easily add cumulative search terms to the table. You can add multiple independent search terms, and DataTables will combine them (AND logic) displaying the result of all search terms that have been applied.
 
-		Please be aware that this method sets the fixed search to apply to the column only - it does not actually perform the search. In order to have the search performed and the result shown, use the `dt-api draw()` method, which can be called simply as a chained method of this method.
+		Please be aware that this method sets the fixed search to apply to the column only - it does not actually perform the search. In order to have the search performed and the result shown, use the `-api draw()` method, which can be called simply as a chained method of this method.
 	</description>
 
 	<example title="Get an array of current search names"><![CDATA[

@@ -10,7 +10,7 @@
 			The `tag TD` node that has been created
 		</parameter>
 		<parameter type="*" name="cellData">
-			Cell data. If you use `dt-init columns.render` to modify the data, use `$(cell).html()` to get and modify the rendered data. The information given here is the original and unmodified data from the data source.
+			Cell data. If you use `-init columns.render` to modify the data, use `$(cell).html()` to get and modify the rendered data. The information given here is the original and unmodified data from the data source.
 		</parameter>
 		<parameter type="*" name="rowData">
 			Data source object / array for the whole row
@@ -25,12 +25,12 @@
 	</type>
 
 	<description>
-		This is a callback function that is executed whenever a cell is created (Ajax source, etc) or read from a DOM source. It can be used as a complement to `dt-init columns.render` allowing modification of the cell's DOM element (add background colour for example) when the element is created (cells may not be immediately created on table initialisation if `dt-init deferRender` is enabled, or if rows are dynamically added using the API (`dt-api rows.add()`).
+		This is a callback function that is executed whenever a cell is created (Ajax source, etc) or read from a DOM source. It can be used as a complement to `-init columns.render` allowing modification of the cell's DOM element (add background colour for example) when the element is created (cells may not be immediately created on table initialisation if `-init deferRender` is enabled, or if rows are dynamically added using the API (`-api rows.add()`).
 
-		This is the counterpart callback for rows, which use the `dt-init createdRow` option.
+		This is the counterpart callback for rows, which use the `-init createdRow` option.
 	</description>
 
-	<example title="Using `createdCell` manipulate the DOM with `dt-init columnDefs`"><![CDATA[
+	<example title="Using `createdCell` manipulate the DOM with `-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
 	columnDefs: [
 		{

@@ -12,7 +12,7 @@ When working with the DOM, as is typical in a web-browser using JavaScript(!), y
 var node = document.getElementById('example');
 ```
 
-Technically this is an `dt-type object` primitive, but defining such objects as a `node` allows the documentation to be much more succinct.
+Technically this is an `-type object` primitive, but defining such objects as a `node` allows the documentation to be much more succinct.
 
 
 ## Use in DataTables

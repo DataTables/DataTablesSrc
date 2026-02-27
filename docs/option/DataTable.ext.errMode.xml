@@ -10,14 +10,14 @@
 
 			* `-string alert` (default) - Alert the error
 			* `-string throw` - Throw a JavaScript error
-			* `-string none` - Do nothing (you would want to use this `dt-event dt-error` in this case)
+			* `-string none` - Do nothing (you would want to use this `-event dt-error` in this case)
 		</description>
 	</type>
 
 	<type type="function">
 		<signature>DataTable.ext.errMode( settings, techNote, message )</signature>
 		<parameter type="DataTables.Settings" name="settings">
-			DataTables settings object (`dt-type DataTables.Settings`).
+			DataTables settings object (`-type DataTables.Settings`).
 		</parameter>
 		<parameter type="integer" name="techNote">
 			Technical note reference which contains detailed information about the error that has occurred - this can be found at `https://datatables.net/tn/{techNote}`.

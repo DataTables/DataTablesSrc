@@ -12,7 +12,7 @@
 
 	<type type="function">
 		<signature>columns().order( direction )</signature>
-		<description>Order the table, in the direction specified, by the columns selected by the `dt-api columns()` selector.</description>
+		<description>Order the table, in the direction specified, by the columns selected by the `-api columns()` selector.</description>
 		<parameter type="string" name="direction">
 			Direction of sort to apply to the selected columns - `dt-string desc` (descending) or `dt-string asc` (ascending). Note this one direction is applied to all columns from the selector.
 		</parameter>
@@ -20,11 +20,11 @@
 	</type>
 
 	<description>
-		This method provides a useful alternative to the `dt-api order()` method, allowing you to select the columns that you want to be ordered using the flexible `dt-api columns()` selector and having them ordered in the direction specified. As of v2 it also allows you to obtain ordering information about the selected columns - determining if they are used in the current order of the table and what ordering direction.
+		This method provides a useful alternative to the `-api order()` method, allowing you to select the columns that you want to be ordered using the flexible `-api columns()` selector and having them ordered in the direction specified. As of v2 it also allows you to obtain ordering information about the selected columns - determining if they are used in the current order of the table and what ordering direction.
 
-		Multi-column ordering is achieved by ensuring that the column selector matches multiple columns (single column ordering is performed if only one column is matched, or by using the `dt-api column().order()` method). The order of the matched columns defines the priority sequence in which the ordering of the table is applied.
+		Multi-column ordering is achieved by ensuring that the column selector matches multiple columns (single column ordering is performed if only one column is matched, or by using the `-api column().order()` method). The order of the matched columns defines the priority sequence in which the ordering of the table is applied.
 
-		Please be aware that when used as a setter this method sets the ordering to apply to the table - it does not actually perform the order. To have the ordering performed, use the `dt-api draw()` method, which can be called simply as a chained method of the `dt-api order()` method's returned object - for example `table.order([0, 'desc']).draw();`.
+		Please be aware that when used as a setter this method sets the ordering to apply to the table - it does not actually perform the order. To have the ordering performed, use the `-api draw()` method, which can be called simply as a chained method of the `-api order()` method's returned object - for example `table.order([0, 'desc']).draw();`.
 	</description>
 
 	<example title="Sort by all columns with the class '.status'"><![CDATA[

@@ -8,7 +8,7 @@
 	<default value="_MENU_ _ENTRIES_ per page" />
 
 	<description>
-		Detail the action that will be taken when the drop down menu for the pagination length option is changed. The token `string _MENU_` is replaced with a default select list of 10, 25, 50 and 100 (or any other value specified by `dt-init lengthMenu`), and can be replaced with a custom select list if required. This option is a per-table setting for `-feature pageLength.text` which can be used to override this option (for example if two or more page length controls were available for a table).
+		Detail the action that will be taken when the drop down menu for the pagination length option is changed. The token `string _MENU_` is replaced with a default select list of 10, 25, 50 and 100 (or any other value specified by `-init lengthMenu`), and can be replaced with a custom select list if required. This option is a per-table setting for `-feature pageLength.text` which can be used to override this option (for example if two or more page length controls were available for a table).
 
 		As of DataTables 2 the DOM structure that is generated can change based on the location of the `_MENU_` token in the string. If the token is at the start or the end of the string, the generated DOM will have the `-tag select` outside of the `-tag label`. This is done for accessability to allow an _explicit_ link between the `-tag select` and `-tag label` (see [this article for more details](https://css-tricks.com/html-inputs-and-labels-a-love-story/#aa-how-to-pair-a-label-and-an-input)).
 

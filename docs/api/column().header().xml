@@ -16,9 +16,9 @@
 	<description>
 		This method can be used to obtain (and therefore modify) the header cell used for a column. This may be a `dt-tag th` or `dt-tag td` element depending on the HTML for your table.
 
-		The cell return is the one used by DataTables for adding the ordering click listener. If you have multiple cells in a header (i.e. multiple rows), which one DataTables uses as the primary header cell is defined by the `dt-init orderCellsTop` option.
+		The cell return is the one used by DataTables for adding the ordering click listener. If you have multiple cells in a header (i.e. multiple rows), which one DataTables uses as the primary header cell is defined by the `-init orderCellsTop` option.
 
-		Note that if the selector used in `dt-api column()` matches more than one column, the result set will be truncated to a single column - the first one in the result set.
+		Note that if the selector used in `-api column()` matches more than one column, the result set will be truncated to a single column - the first one in the result set.
 	</description>
 
 	<example title="Alert the name of the column for a cell that was clicked on"><![CDATA[

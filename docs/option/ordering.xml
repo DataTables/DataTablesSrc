@@ -16,7 +16,7 @@
 	<description>
 		This option sets whether columns can be ordered or not in DataTables. By default, DataTables allows end users to click on the header cell for each column, ordering the table by the data in that column. The ability to order data can be disabled using this option.
 
-		Note that the ability to add or remove sorting of individual columns can be disabled by the `dt-init columns.orderable` option for each column. This parameter is a global option - when disabled, there are no sorting actions applied by DataTables at all.
+		Note that the ability to add or remove sorting of individual columns can be disabled by the `-init columns.orderable` option for each column. This parameter is a global option - when disabled, there are no sorting actions applied by DataTables at all.
 
 		As of DataTables 2.3 this option can also be given as an object to allow more nuanced customisation of the ordering controls that DataTables adds to the table. This is particularly of interest if you are using an extension such as [ColumnControl](https://datatables.net/extensions/columncontrol) to control column ordering. If given as an object, ordering is enabled in the table.
 	</description>

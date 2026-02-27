@@ -8,9 +8,9 @@
 	<default>true</default>
 
 	<description>
-		When ordering is enabled (`dt-init ordering`), by default DataTables allows users to sort multiple columns by shift clicking upon the header cell for each column. Although this can be quite useful for users, it can also increase the complexity of the order, potentiality increasing the processing time of ordering the data. Therefore, this option is provided to allow this shift-click multiple column ability.
+		When ordering is enabled (`-init ordering`), by default DataTables allows users to sort multiple columns by shift clicking upon the header cell for each column. Although this can be quite useful for users, it can also increase the complexity of the order, potentiality increasing the processing time of ordering the data. Therefore, this option is provided to allow this shift-click multiple column ability.
 
-		Note that disabling this ability does not impede your ability as a developer to do multiple column ordering using `dt-init columns.orderData`, `dt-init order` or `dt-api order()`, it just disallows the user from performing their own multi-column order.
+		Note that disabling this ability does not impede your ability as a developer to do multiple column ordering using `-init columns.orderData`, `-init order` or `-api order()`, it just disallows the user from performing their own multi-column order.
 	</description>
 
 	<example title="Disable multiple column ordering ability"><![CDATA[

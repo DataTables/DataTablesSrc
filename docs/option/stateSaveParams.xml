@@ -10,17 +10,17 @@
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="data">
-			Data to save. The data comes from `dt-init stateSaveParams`
+			Data to save. The data comes from `-init stateSaveParams`
 		</parameter>
 		<scope>HTML table element</scope>
 	</type>
 
 	<description>
-		Callback which allows modification of the parameters to be saved for the DataTables state saving prior to the data actually being saved. This callback is called every time DataTables requests that the state be saved. As of 1.11.0 this occurs regardless of the value of `-init stateSave` so that the state is always being tracked. The state is only reloaded if this option is activated. For the format of the data that is stored, please refer to the `dt-init stateSaveCallback` documentation.
+		Callback which allows modification of the parameters to be saved for the DataTables state saving prior to the data actually being saved. This callback is called every time DataTables requests that the state be saved. As of 1.11.0 this occurs regardless of the value of `-init stateSave` so that the state is always being tracked. The state is only reloaded if this option is activated. For the format of the data that is stored, please refer to the `-init stateSaveCallback` documentation.
 
-		Note that the `dt-init stateSaveCallback` option is used to define where and how to store the state, while this function is used to manipulate the data before it is entered into storage. This will only be available when `-init stateSave` is active.
+		Note that the `-init stateSaveCallback` option is used to define where and how to store the state, while this function is used to manipulate the data before it is entered into storage. This will only be available when `-init stateSave` is active.
 
-		Further note that for plug-in authors, you should use the `dt-event stateSaveParams` event to add extra parameters to the state storage object if required.
+		Further note that for plug-in authors, you should use the `-event stateSaveParams` event to add extra parameters to the state storage object if required.
 	</description>
 
 	<example title="Remove a saved filter, so filtering is never saved"><![CDATA[

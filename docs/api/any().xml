@@ -15,7 +15,7 @@
 
 		While with a standard JavaScript `-type array` you can simply test for the `length` property being 0, that isn't always true with the DataTables API object as it is multi-table aware. This means that it can contain arrays of information from multiple tables, which may themselves be empty.
 
-		This method provides a quick test to see if there are any results available in the API instance. Its result could also be determined by using the `dt-api flatten()` method and then checking the resulting length (i.e. `api.flatten().length !== 0`).
+		This method provides a quick test to see if there are any results available in the API instance. Its result could also be determined by using the `-api flatten()` method and then checking the resulting length (i.e. `api.flatten().length !== 0`).
 	</description>
 
 	<example title="Check if there are any rows with the class `selected`"><![CDATA[

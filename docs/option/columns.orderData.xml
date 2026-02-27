@@ -22,7 +22,7 @@
 		Another example is the case where the data shown to the end user is not directly sortable itself (e.g. a column with images in it), but there is some meta data than can be sorted (e.g. a file name) which is present in a different (perhaps hidden) column. This option can be used to instruct DataTables to order the image column based on the hidden column's data. It is worth noting that if you do this, you will likely want to include the visible column in the `orderData` array, so the ordering indicator at the top of the column shows the ordering that is applied to the end user. Furthermore, [orthogonal data](/manual/data/orthogonal-data) is an alternative method that can be used for separating display and ordering data.
 	</description>
 
-	<example title="Using `orderData` to define multi-column sorting with `dt-init columnDefs`"><![CDATA[
+	<example title="Using `orderData` to define multi-column sorting with `-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
 	columnDefs: [
 		{ orderData: [0, 1], targets: 0 },
@@ -32,7 +32,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Using `orderData` to define multi-column sorting with `dt-init columns`"><![CDATA[
+	<example title="Using `orderData` to define multi-column sorting with `-init columns`"><![CDATA[
 new DataTable('#myTable', {
 	columns: [
 		{ orderData: [0, 1] },

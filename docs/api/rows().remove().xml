@@ -11,9 +11,9 @@
 	</type>
 
 	<description>
-		This method (and its singular counterpart, `dt-api row().remove()`) removes the selected rows from the DataTable completely, deleting the allocated memory for data and nodes from the browser.
+		This method (and its singular counterpart, `-api row().remove()`) removes the selected rows from the DataTable completely, deleting the allocated memory for data and nodes from the browser.
 
-		Please be aware that this method removes the data from the table internally but that action won't be visually shown until the  `dt-api draw()` method is called to update the display. This method can called simply as a chained method of the `dt-api rows().remove()` method's returned object - for example `table.rows().remove().draw();`. This method is used to reduce the number of draws required if multiple rows are being deleted for optimisation.
+		Please be aware that this method removes the data from the table internally but that action won't be visually shown until the  `-api draw()` method is called to update the display. This method can called simply as a chained method of the `-api rows().remove()` method's returned object - for example `table.rows().remove().draw();`. This method is used to reduce the number of draws required if multiple rows are being deleted for optimisation.
 	</description>
 
 	<example title="Delete all rows with the class `selected` from the table"><![CDATA[
@@ -25,7 +25,7 @@ var rows = table
 	.draw();
 ]]></example>
 
-	<example title="Remove all rows from a table (this is the same effect as using `dt-api clear()`"><![CDATA[
+	<example title="Remove all rows from a table (this is the same effect as using `-api clear()`"><![CDATA[
 var table = new DataTable('#myTable');
 
 var rows = table

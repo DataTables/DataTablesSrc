@@ -8,7 +8,7 @@
 	<default value="[[0, 'asc']]" />
 
 	<description>
-		If ordering is enabled (`dt-init ordering`), then DataTables will perform a first pass order during initialisation. Using this parameter you can define which column(s) the order is performed upon, and the ordering direction. The `dt-init order` can be defined in a number of different ways as defined by `-type DataTables.Order`.
+		If ordering is enabled (`-init ordering`), then DataTables will perform a first pass order during initialisation. Using this parameter you can define which column(s) the order is performed upon, and the ordering direction. The `-init order` can be defined in a number of different ways as defined by `-type DataTables.Order`.
 	</description>
 
 	<example title="No ordering applied by DataTables during initialisation. The rows are shown in the order they are read by DataTables (i.e. the original order from the DOM if DOM sourced, or the array of data if Ajax / data sourced)"><![CDATA[

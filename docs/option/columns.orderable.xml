@@ -10,7 +10,7 @@
 	<description>
 		Using this parameter, you can remove the end user's ability to order upon a column. This might be useful for generated content columns, for example if you have 'Edit' or 'Delete' buttons in the table.
 
-		Note that this option only affects the end user's ability to order a column. Developers are still able to order a column using the `dt-init order` option at initialisation time or the `dt-api order()` method if required. In such cases, as of DataTables 2, the icon for the column ordering in the header will be shown, but the end user cannot click on it to trigger ordering.
+		Note that this option only affects the end user's ability to order a column. Developers are still able to order a column using the `-init order` option at initialisation time or the `-api order()` method if required. In such cases, as of DataTables 2, the icon for the column ordering in the header will be shown, but the end user cannot click on it to trigger ordering.
 
 		DataTables 2 introduced improved support for complex headers (multiple rows and cells with `colspan` and `rowspan`). This option is still applicable in such cases, but it doesn't offer the fine-grained control that you might wish to have to determine which cells will have ordering listeners and ordering icons.
 
@@ -33,13 +33,13 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Disable ordering on the first column with `dt-init columnDefs`"><![CDATA[
+	<example title="Disable ordering on the first column with `-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
 	columnDefs: [{ orderable: false, targets: 0 }]
 });
 ]]></example>
 
-	<example title="Disable ordering on the first column with `dt-init columns`"><![CDATA[
+	<example title="Disable ordering on the first column with `-init columns`"><![CDATA[
 new DataTable('#myTable', {
 	columns: [{ orderable: false }, null, null, null, null]
 });

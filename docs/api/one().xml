@@ -17,20 +17,20 @@
 	</type>
 
 	<description>
-		DataTables can trigger a number of events which can be useful for taking action when DataTables performs those events. For example, it is often useful to know when an Ajax event occurs (`dt-event xhr`), so you can add additional data to the JSON payload.
+		DataTables can trigger a number of events which can be useful for taking action when DataTables performs those events. For example, it is often useful to know when an Ajax event occurs (`-event xhr`), so you can add additional data to the JSON payload.
 
 		DataTables provides three methods for working with DataTables events:
 
-		* `dt-api on()` - Listen for events
-		* `dt-api off()` - Stop listening for events
-		* `dt-api one()` - Listen for a single event.
+		* `-api on()` - Listen for events
+		* `-api off()` - Stop listening for events
+		* `-api one()` - Listen for a single event.
 
-		This `dt-api one()` method is used to listen for DataTables an event from DataTables and then immediately remove that event once it has fired for the first time. Simply pass in the event you wish to listen for and provide a callback function which will be activated, and then removed, when the event is triggered by DataTables.
+		This `-api one()` method is used to listen for DataTables an event from DataTables and then immediately remove that event once it has fired for the first time. Simply pass in the event you wish to listen for and provide a callback function which will be activated, and then removed, when the event is triggered by DataTables.
 
 		Backwards compatibility note: if jQuery is loaded on your page, or registered with DataTables (`-api DataTable.use()`), DataTables will use jQuery for event handling. As of DataTables 3, if jQuery is not available, it will use its own event handling.
 	</description>
 
-	<example title="Listen for only the first `dt-event xhr` event from DataTables"><![CDATA[
+	<example title="Listen for only the first `-event xhr` event from DataTables"><![CDATA[
 var table = new DataTable('#myTable', {
 	ajax: '/data',
 	serverSide: true

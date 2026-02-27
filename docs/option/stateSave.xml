@@ -10,11 +10,11 @@
 	<description>
 		Enable or disable state saving. DataTables stores state information such as pagination position, display length, filtering and sorting. When this initialisation option is active and the end user reloads the page the table's state will be altered to match what they had previously set up.
 
-		Data storage for the state information in the browser is performed by use of the `localStorage` or `sessionStorage` HTML5 APIs. The `dt-init stateDuration` parameter is used to indicate to DataTables which API should be used (`localStorage`: 0 or greater, or `sessionStorage`: -1). The `-init stateDuration` parameter can also be used to indicate how long a saved state should be considered valid for. Please refer to `-init stateDuration` for additional details.
+		Data storage for the state information in the browser is performed by use of the `localStorage` or `sessionStorage` HTML5 APIs. The `-init stateDuration` parameter is used to indicate to DataTables which API should be used (`localStorage`: 0 or greater, or `sessionStorage`: -1). The `-init stateDuration` parameter can also be used to indicate how long a saved state should be considered valid for. Please refer to `-init stateDuration` for additional details.
 
 		To be able to uniquely identify each table's state data, information is stored using a combination of the table's DOM `id` and the current page's pathname.  If the table's `id` changes, or the page URL changes, the state information will be lost.
 
-		If you do not wish to use `localStorage` or `sessionStorage`, alternative options such as saving the state on a server through Ajax can be used through the `dt-init stateSaveCallback` and `dt-init stateLoadCallback` options.
+		If you do not wish to use `localStorage` or `sessionStorage`, alternative options such as saving the state on a server through Ajax can be used through the `-init stateSaveCallback` and `-init stateLoadCallback` options.
 
 		Each individual part of the state object is optional (see `-init stateSaveCallback` for details of the JSON state structure) and can be removed by the state saving process (typically this would be done in `-init stateSaveParams`). Futhermore, as of DataTables 2.2, column state can be restored, even if columns are reordered, added or removed through use of the `-init columns.name` parameter. The `name` is a unique identifier for each column and the state will include that information and restore based on it.
 

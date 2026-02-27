@@ -10,7 +10,7 @@
 	<description>
 		Text shown inside the table records when the is no information to be displayed after filtering.
 
-		Note that `dt-init language.emptyTable` is shown when there is simply no information in the table at all (regardless of filtering), while this parameter is used for when the table is empty due to filtering.
+		Note that `-init language.emptyTable` is shown when there is simply no information in the table at all (regardless of filtering), while this parameter is used for when the table is empty due to filtering.
 	</description>
 
 	<example title="Set zero records string"><![CDATA[

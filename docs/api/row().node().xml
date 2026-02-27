@@ -11,11 +11,11 @@
 	</type>
 
 	<description>
-		This method is used to get the `dt-tag tr` node of row matched by the `dt-api row()` selector used.
+		This method is used to get the `dt-tag tr` node of row matched by the `-api row()` selector used.
 
-		Please be aware that using `dt-init deferRender` will cause some nodes to be created only when they are required for display, so they might not be immediately available when this method is called.
+		Please be aware that using `-init deferRender` will cause some nodes to be created only when they are required for display, so they might not be immediately available when this method is called.
 
-		As a singular function, `dt-api row().node()` operates on only a single row and will truncate other rows if more than one is found to match the selector used. Use `dt-api rows().nodes()` if you require to work with multiple rows.
+		As a singular function, `-api row().node()` operates on only a single row and will truncate other rows if more than one is found to match the selector used. Use `-api rows().nodes()` if you require to work with multiple rows.
 	</description>
 
 	<example title="Add a class to a specific row"><![CDATA[

@@ -15,7 +15,7 @@
 			[jQuery selector](https://api.jquery.com/jQuery/#jQuery1) to perform on the nodes inside the table's tbody tag.
 		</parameter>
 		<parameter type="selector-modifier" name="modifier" default="">
-			Option used to specify how the content's of the selected columns should be ordered, and if paging or filtering in the table should be taken into account. This is only useful for operations which involve rows, such as `dt-api column().nodes()` and `dt-api column().data()`.
+			Option used to specify how the content's of the selected columns should be ordered, and if paging or filtering in the table should be taken into account. This is only useful for operations which involve rows, such as `-api column().nodes()` and `-api column().data()`.
 		</parameter>
 		<returns type="jQuery">jQuery object with the matched elements in its result set.</returns>
 	</type>
@@ -25,7 +25,7 @@
 
 		To provide an easy method to continue using jQuery on these elements, so you can select elements regardless of searching, paging or any other feature of DataTables this method is provided.
 
-		The selector given to the `dt-api $()` method will be run on all of the `dt-tag tr` elements in the table, and their descendent elements, with the found elements being returned as a jQuery object.
+		The selector given to the `-api $()` method will be run on all of the `dt-tag tr` elements in the table, and their descendent elements, with the found elements being returned as a jQuery object.
 
 		Please note that as of v3, this method will throw an error unless jQuery is available on the page (`window.jQuery`) or jQuery has been registered with DataTables (`-api DataTable.use()`).
 	</description>

@@ -18,9 +18,9 @@
 	</type>
 
 	<description>
-		Trigger a load of an Ajax data source when a URL has been set using the `dt-api ajax.url()` method.
+		Trigger a load of an Ajax data source when a URL has been set using the `-api ajax.url()` method.
 
-		Note `dt-api ajax.url()` must be used as a setter to set the URL for the `load()` method to be available in the returned object.
+		Note `-api ajax.url()` must be used as a setter to set the URL for the `load()` method to be available in the returned object.
 	</description>
 
 	<example title="Set the Ajax URL and load the data from the new source immediately"><![CDATA[

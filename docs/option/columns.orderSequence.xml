@@ -23,7 +23,7 @@
 		```
 	</description>
 
-	<example title="Using `orderSequence` to define the applied order sequence with `dt-init columnDefs`"><![CDATA[
+	<example title="Using `orderSequence` to define the applied order sequence with `-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
 	columnDefs: [
 		{ orderSequence: ['asc'], targets: [1] },
@@ -33,7 +33,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<example title="Using `orderSequence` to define the applied order sequence with `dt-init columns`"><![CDATA[
+	<example title="Using `orderSequence` to define the applied order sequence with `-init columns`"><![CDATA[
 new DataTable('#myTable', {
 	columns: [
 		null,

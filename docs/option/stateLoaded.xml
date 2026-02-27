@@ -10,13 +10,13 @@
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="data">
-			Data to save. The data comes from `dt-init stateSaveParams`
+			Data to save. The data comes from `-init stateSaveParams`
 		</parameter>
 		<scope>HTML table element</scope>
 	</type>
 
 	<description>
-		Callback that is fired once the state has been loaded (`dt-init stateLoadCallback`) and the saved data manipulated (if required - `dt-init stateLoadParams`).
+		Callback that is fired once the state has been loaded (`-init stateLoadCallback`) and the saved data manipulated (if required - `-init stateLoadParams`).
 
 		This callback is useful if you simply wish to know information from the saved state, without getting into the inner workings of where and how the state information has been saved. For example it can be useful for populating custom filter inputs.
 	</description>

@@ -47,7 +47,7 @@
 	</type>
 
 	<description>
-		The `dt-init ajax` option basically inherits all of the options made available by `-api DataTable.ajax()`, but in addition `-init ajax` provides the extra option of `dataSrc` to provide the ability to alter what data DataTables will read from the JSON returned from the server, or to manipulate the data from one form into another (be it JSON to another form of JSON, XML, YAML etc). This is done because the `success` option of `dt-init ajax` **should not** be altered - DataTables uses it internally to execute the table draw when the data load is complete.
+		The `-init ajax` option basically inherits all of the options made available by `-api DataTable.ajax()`, but in addition `-init ajax` provides the extra option of `dataSrc` to provide the ability to alter what data DataTables will read from the JSON returned from the server, or to manipulate the data from one form into another (be it JSON to another form of JSON, XML, YAML etc). This is done because the `success` option of `-init ajax` **should not** be altered - DataTables uses it internally to execute the table draw when the data load is complete.
 	</description>
 
 	<default>`dt-string data` property of the data source object (or `dt-string aaData` if `dt-string data` is not present for backwards compatibility).</default>

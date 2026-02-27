@@ -27,7 +27,7 @@
 	</type>
 
 	<description>
-		Identical to `dt-init headerCallback` but for the table footer this function allows you to modify the table footer on every 'draw' event.
+		Identical to `-init headerCallback` but for the table footer this function allows you to modify the table footer on every 'draw' event.
 
 		Note that if the table does not have a `-tag tfoot` element, it this callback will not be fired.
 	</description>

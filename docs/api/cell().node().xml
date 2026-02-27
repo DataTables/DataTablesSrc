@@ -11,7 +11,7 @@
 	</type>
 
 	<description>
-		This method, used in-combination with the `dt-api cell()` method (and therefore the various selector forms that it allows) will obtain the DOM node for the selected cell, allowing it to be directly manipulated.
+		This method, used in-combination with the `-api cell()` method (and therefore the various selector forms that it allows) will obtain the DOM node for the selected cell, allowing it to be directly manipulated.
 	</description>
 
 	<example title="Select a single cell using an ID selector and add a class"><![CDATA[

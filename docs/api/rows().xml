@@ -25,13 +25,13 @@
 	</type>
 
 	<description>
-		Working with rows is a fundamental part of DataTables, and you want to be able to easily select the rows that you want from the table. This method is the row counterpart to the `dt-api columns()` and `dt-api cells()` methods for working with columns and cells in the table, respectively. Using a selector and the `dt-type selector-modifier` option the rows at the table can be obtained with this method's own chained methods providing the ability to get the data from the rows, the row nodes and to invalidate the data, among other actions.
+		Working with rows is a fundamental part of DataTables, and you want to be able to easily select the rows that you want from the table. This method is the row counterpart to the `-api columns()` and `-api cells()` methods for working with columns and cells in the table, respectively. Using a selector and the `-type selector-modifier` option the rows at the table can be obtained with this method's own chained methods providing the ability to get the data from the rows, the row nodes and to invalidate the data, among other actions.
 
-		While this `dt-api rows()` method provides access to multiple rows with a single call, its singular counterpart `dt-api row()` is used to select and manipulate a single row at a time, allowing finer gain control and additional methods not available in the plural method such as updating data and working with child rows.
+		While this `-api rows()` method provides access to multiple rows with a single call, its singular counterpart `-api row()` is used to select and manipulate a single row at a time, allowing finer gain control and additional methods not available in the plural method such as updating data and working with child rows.
 
 		The method has two forms, reflecting the fact the rows can be selected in multiple different ways as your implementation demands:
 
-		* All rows (no parameters, or just a `dt-type selector-modifier` option)
+		* All rows (no parameters, or just a `-type selector-modifier` option)
 		* Row selector
 
 		This method is a _top level_ selector. That means that, regardless of what might have already been selected by the API instance in the call chain, this method will always return the selected rows, without consideration for what might have been selected previously.

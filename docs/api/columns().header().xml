@@ -16,7 +16,7 @@
 	<description>
 		This method can be used to obtain (and therefore modify) the header cells used for multiple columns. This may be made up of `dt-tag th` and / or `dt-tag td` elements depending on the HTML for your table.
 
-		The cells returned are the ones used by DataTables for adding the ordering click listener - i.e. one cell for each column that was matched by the selector. If you have multiple cells in a header (i.e. multiple rows), which one DataTables uses as the primary header cell is defined by the `dt-init orderCellsTop` option.
+		The cells returned are the ones used by DataTables for adding the ordering click listener - i.e. one cell for each column that was matched by the selector. If you have multiple cells in a header (i.e. multiple rows), which one DataTables uses as the primary header cell is defined by the `-init orderCellsTop` option.
 	</description>
 
 	<example title="Remove a class from columns with that class"><![CDATA[

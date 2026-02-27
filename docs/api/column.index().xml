@@ -20,7 +20,7 @@
 	</type>
 
 	<description>
-		When working with the DOM you will typically be using the visible indexes of columns, since that is the information available in the DOM (when a column is hidden by DataTables, it is removed completely from the DOM, to be re-inserted in future if required to become visible again by `dt-api column().visible()`). However, when working with the raw data of the table, you will typically want to work with the column data index. This method is provided to convert between the two formats.
+		When working with the DOM you will typically be using the visible indexes of columns, since that is the information available in the DOM (when a column is hidden by DataTables, it is removed completely from the DOM, to be re-inserted in future if required to become visible again by `-api column().visible()`). However, when working with the raw data of the table, you will typically want to work with the column data index. This method is provided to convert between the two formats.
 	</description>
 
 	<example title="Show column index information about a clicked upon column"><![CDATA[

@@ -23,9 +23,9 @@
 	</type>
 
 	<description>
-		This event is triggered _prior_ to DataTables making an Ajax request to the server for data, and is thus the counterpart to the `dt-event xhr` event which is triggered _after_ the Ajax request has successfully returned data from the server.
+		This event is triggered _prior_ to DataTables making an Ajax request to the server for data, and is thus the counterpart to the `-event xhr` event which is triggered _after_ the Ajax request has successfully returned data from the server.
 
-		The `dt-event preXhr` event is designed for use by plug-in authors who can listen for this event in their extension and send any additional data that might be required. It is very similar to the `dt-init ajax.data` in this ability, with that option typically being used by those writing initialisation code for their table, rather than plug-in authors.
+		The `-event preXhr` event is designed for use by plug-in authors who can listen for this event in their extension and send any additional data that might be required. It is very similar to the `-init ajax.data` in this ability, with that option typically being used by those writing initialisation code for their table, rather than plug-in authors.
 
 		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>

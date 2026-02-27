@@ -8,9 +8,9 @@
 	<default value="," />
 
 	<description>
-		DataTables' built in number formatter (`dt-init formatNumber`) is used to format large numbers that are used in the table information. By default a comma is used, but this can be trivially changed to any other character you wish with this parameter, suitable for any locality, or set to an empty string if you do not which to have a thousands separator character.
+		DataTables' built in number formatter (`-init formatNumber`) is used to format large numbers that are used in the table information. By default a comma is used, but this can be trivially changed to any other character you wish with this parameter, suitable for any locality, or set to an empty string if you do not which to have a thousands separator character.
 
-		Please note that unlike the `dt-init language.decimal` option, the thousands separator option is used for output of information only (specifically the `dt-init info` option). Changing it does not effect how DataTables reads numeric data.
+		Please note that unlike the `-init language.decimal` option, the thousands separator option is used for output of information only (specifically the `-init info` option). Changing it does not effect how DataTables reads numeric data.
 	</description>
 
 	<example title="Set thousands separator to be a quote mark"><![CDATA[

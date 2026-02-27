@@ -6,34 +6,34 @@
 	<description>
 <![CDATA[
 
-The DataTables `dt-api columns()` and `dt-api column()` (also optionally `dt-api cells()` and `dt-api cell()`) methods provide the ability to select columns from the table. Which columns are selected and how the selector actually operates is controlled by this `dt-type column-selector` data type.
+The DataTables `-api columns()` and `-api column()` (also optionally `-api cells()` and `-api cell()`) methods provide the ability to select columns from the table. Which columns are selected and how the selector actually operates is controlled by this `-type column-selector` data type.
 
 ### Options
 
 The column selector can be given in a number of different forms, to make it easy to apply to your data and use case:
 
 * No selector - Select all columns
-* `dt-type integer` - Column index selector
+* `-type integer` - Column index selector
 * `dt-string {integer}:visIdx` - Column visible index selector (e.g. `3:visIdx`)
 * `dt-string {integer}:visible` - Alias of `dt-string {integer}:visIdx`. Note that as of 2.1.4 it is possible to use a regular DOM selector in front of `:visible` to select visible columns that match the given selector. The prefixed number is a special case.
-* `dt-string {string}:name` - Column name selector, from `dt-init columns.name` (e.g. `salary:name`)
+* `dt-string {string}:name` - Column name selector, from `-init columns.name` (e.g. `salary:name`)
 * `dt-string {string}:title` - Column title selector - select based on the title text for the column (e.g. `My\ Column:title`)
 * `dt-string *` - All columns selector (wildcard)
-* `dt-type string` - CSS selector
-* `dt-type node` - This may be one of the following:
+* `-type string` - CSS selector
+* `-type node` - This may be one of the following:
   * `-tag th` / `-tag td` cell from the column headers
   * `-tag td` / `-tag td` cell from the table body (<span class="since">Since: 1.10.11</span>)
   * Any element which has a `data-dt-column` attribute assigned to it, or a parent (<span class="since">Since: 1.10.11</span>). This can be used by extensions such as FixedColumns and Responsive to allow easy column selection.
-* `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
-* `dt-type jQuery` - jQuery object of the column header nodes
-* `dt-type array` - Array containing any combination of the above options
+* `-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
+* `-type jQuery` - jQuery object of the column header nodes
+* `-type array` - Array containing any combination of the above options
 
 To combine selectors to select multiple columns on different criteria, use an array of the options above. The order of the columns selected will match the order that the array resolves to. In the case of a selector that resolves to multiple columns (e.g. a CSS selector) the order will be in index order.
 
 
 ## No selector
 
-If no selector is given (more specifically `dt-type undefined`), then all columns are selected.
+If no selector is given (more specifically `-type undefined`), then all columns are selected.
 
 ###### Get data for all columns in the table:
 
@@ -45,7 +45,7 @@ let allData = table.columns().data();
 
 ## integer
 
-DataTables stores each column internally with a column index for fast look up of column information. When the selector is given as an integer, this value represents a column data index (`dt-api columns().indexes()` / `dt-api column().index()`).
+DataTables stores each column internally with a column index for fast look up of column information. When the selector is given as an integer, this value represents a column data index (`-api columns().indexes()` / `-api column().index()`).
 
 Note that this is the column _data index_ and not the _visible index_. The _data index_ is fixed regardless of column visibility, while the _visible index_ will change as the visibility of columns are changed (see below for a visible index selector).
 
@@ -90,7 +90,7 @@ table.columns(':visible')
 
 ## {string}:name
 
-DataTables provides the ability to assign a name to columns through the `dt-init columns.name` option, which can be very useful for giving columns a human readable representation. The `:name` selector provides the ability to selector columns based on the assigned name.
+DataTables provides the ability to assign a name to columns through the `-init columns.name` option, which can be very useful for giving columns a human readable representation. The `:name` selector provides the ability to selector columns based on the assigned name.
 
 This selector is simply a string (the column name) with `dt-string :name` postfixed. For example `salary:name`.
 
@@ -130,7 +130,7 @@ let allData = table.columns('*').data();
 
 When the selector is given as a string, it is treated as a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors) that operates on the `dt-tag th` and `dt-tag td` elements of the column headers in the table.
 
-Each column has only one cell which is used as the column header - see `dt-init titleRow` for information on how DataTables selected the cells to use for the column headers, if there is more than one possible cell for each column header in the table's `dt-tag thead` element.
+Each column has only one cell which is used as the column header - see `-init titleRow` for information on how DataTables selected the cells to use for the column headers, if there is more than one possible cell for each column header in the table's `dt-tag thead` element.
 
 Note that just like a CSS selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
 
@@ -177,11 +177,11 @@ For complete control over which columns are selected, it is possible to provide 
 
 The function receives three parameters:
 
-1. Column index - see `dt-api column().index()`
-2. Column data - see `dt-api column().data()`. Note that this is an array of data with one entry for each cell in the selected column. The data uses is the original data for the cells, not the rendered data if you are using `dt-init columns.render`
-3. Column node - see `dt-api column().header()`. Note that this is not the cells in the table body. Use `dt-api column().nodes()` if you require that information.
+1. Column index - see `-api column().index()`
+2. Column data - see `-api column().data()`. Note that this is an array of data with one entry for each cell in the selected column. The data uses is the original data for the cells, not the rendered data if you are using `-init columns.render`
+3. Column node - see `-api column().header()`. Note that this is not the cells in the table body. Use `-api column().nodes()` if you require that information.
 
-The function is called once for every column that can be selected, based on the `dt-type selector-modifier` options, which also defines the order of the data passed in as the second argument for the called function.
+The function is called once for every column that can be selected, based on the `-type selector-modifier` options, which also defines the order of the data passed in as the second argument for the called function.
 
 ###### Get the data for all columns that contain the string `Active`:
 

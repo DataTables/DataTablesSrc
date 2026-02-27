@@ -8,7 +8,7 @@
 		<description>
 			Prefix ordering.
 
-			When given as an array, the ordering specified by `dt-init orderFixed` will be applied as a prefix order. The format of the array is described above.
+			When given as an array, the ordering specified by `-init orderFixed` will be applied as a prefix order. The format of the array is described above.
 		</description>
 	</type>
 	<type type="object">
@@ -22,7 +22,7 @@
 	</type>
 
 	<description>
-		The option works in tandem with the `dt-init order` option which provides an initial ordering state for the table which can then be modified by the user clicking on column headings, while the ordering specified by this option will always be applied to the table, regardless of user interaction.
+		The option works in tandem with the `-init order` option which provides an initial ordering state for the table which can then be modified by the user clicking on column headings, while the ordering specified by this option will always be applied to the table, regardless of user interaction.
 
 		This fixed ordering can be applied before (`pre`) or after (`post`) the user's own ordering criteria using the two different forms of this option (array or object) described below.
 

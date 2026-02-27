@@ -7,11 +7,11 @@
 	<type type="array" />
 
 	<description>
-		Very similar to `dt-init columns`, this parameter allows you to assign specific options to columns in the table, although in this case the column options defined can be applied to one or more columns. Additionally, not every column need be specified, unlike `dt-init columns`.
+		Very similar to `-init columns`, this parameter allows you to assign specific options to columns in the table, although in this case the column options defined can be applied to one or more columns. Additionally, not every column need be specified, unlike `-init columns`.
 
-		This parameter is an array of column definition objects, where the options available exactly match those for `dt-init columns` (see below for list of options in the related links).
+		This parameter is an array of column definition objects, where the options available exactly match those for `-init columns` (see below for list of options in the related links).
 
-		In addition to the column property options, `dt-init columnDefs` requires a `targets` property to be set in each definition object (`dt-init columnDefs.targets`). This `targets` property tells DataTables which column(s) the definition should be applied to. It can be:
+		In addition to the column property options, `-init columnDefs` requires a `targets` property to be set in each definition object (`-init columnDefs.targets`). This `targets` property tells DataTables which column(s) the definition should be applied to. It can be:
 
 		* 0 or a positive integer - column index counting from the left
 		* A negative integer - column index counting from the right
@@ -23,10 +23,10 @@
 
 		### Conflict resolution
 
-		As `dt-init columnDefs` allows columns to be defined one or more times in different column definition objects (typically to define different aspects of the columns) conflicts can arise whereby a single property might be defined with different values for the same column. Likewise, this situation could also occur when `dt-init columns` is used at the same time. DataTables uses the following rules to resolve such conflicts:
+		As `-init columnDefs` allows columns to be defined one or more times in different column definition objects (typically to define different aspects of the columns) conflicts can arise whereby a single property might be defined with different values for the same column. Likewise, this situation could also occur when `-init columns` is used at the same time. DataTables uses the following rules to resolve such conflicts:
 
-		1. A property defined in `dt-init columns` will _always_ take priority over any value for that property defined in `dt-init columnDefs`.
-		2. Properties which are higher in the `dt-init columnDefs` array will take priority over those below.
+		1. A property defined in `-init columns` will _always_ take priority over any value for that property defined in `-init columnDefs`.
+		2. Properties which are higher in the `-init columnDefs` array will take priority over those below.
 
 		Consider for example the following table:
 

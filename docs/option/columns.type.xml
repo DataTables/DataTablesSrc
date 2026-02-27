@@ -55,16 +55,16 @@
 
     As an optimisation, if you know the column type in advance, you can set the value using this option, saving DataTables from running its auto detection routine.
 
-    Please note that if you are using server-side processing (`dt-init serverSide`) this option has no effect since the ordering and search actions are performed by a server-side script.
+    Please note that if you are using server-side processing (`-init serverSide`) this option has no effect since the ordering and search actions are performed by a server-side script.
 	</description>
 
-	<example title="Set the first column's type manually with `dt-init columnDefs`"><![CDATA[
+	<example title="Set the first column's type manually with `-init columnDefs`"><![CDATA[
 new DataTable('#myTable', {
 	columnDefs: [{ type: 'html', targets: 0 }]
 });
 ]]></example>
 
-	<example title="Set the first column's type manually with `dt-init columns`"><![CDATA[
+	<example title="Set the first column's type manually with `-init columns`"><![CDATA[
 new DataTable('#myTable', {
 	columns: [{ type: 'html' }, null, null, null, null]
 });

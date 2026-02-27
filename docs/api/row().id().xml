@@ -15,9 +15,9 @@
 	</type>
 
 	<description>
-		This method can be used to get a row's id, as specified by the row's data and the `dt-init rowId` option. Optionally it can also prepend a hash (`#`) to the row id allowing it to then easily be used as a selector.
+		This method can be used to get a row's id, as specified by the row's data and the `-init rowId` option. Optionally it can also prepend a hash (`#`) to the row id allowing it to then easily be used as a selector.
 
-		**Important** This method does not read the DOM id for the `-tag tr` element, but rather gets the row id from the row's data source (location specified by `dt-init rowId`).
+		**Important** This method does not read the DOM id for the `-tag tr` element, but rather gets the row id from the row's data source (location specified by `-init rowId`).
 	</description>
 
 	<example title="Click handler that shows row id"><![CDATA[

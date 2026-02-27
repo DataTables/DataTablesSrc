@@ -10,13 +10,13 @@
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="data">
-			Data to save. The data comes from `dt-init stateSaveParams`
+			Data to save. The data comes from `-init stateSaveParams`
 		</parameter>
 		<scope>HTML table element</scope>
 	</type>
 
 	<description>
-		DataTables saves the state of the table (paging, filtering etc) and by default it will use HTML5's `localStorage` to save the state into. When the `dt-init stateSave` option is enabled, this callback method allows you to change where the state is saved (for example you might wish to use a server-side database or cookies).
+		DataTables saves the state of the table (paging, filtering etc) and by default it will use HTML5's `localStorage` to save the state into. When the `-init stateSave` option is enabled, this callback method allows you to change where the state is saved (for example you might wish to use a server-side database or cookies).
 
 		The data given to the function is an object which has the following structure:
 
@@ -42,11 +42,11 @@
 		}
 		```
 
-		Note that additional extensions can add extra information to this structure, or you may use `dt-init stateSaveParams` or `dt-event stateSaveParams` to add your own parameters. Also the information stored is type sensitive - that is, the data type of the data given by DataTables must be preserved. For example the `start` parameter must be a `-type number` data type.
+		Note that additional extensions can add extra information to this structure, or you may use `-init stateSaveParams` or `-event stateSaveParams` to add your own parameters. Also the information stored is type sensitive - that is, the data type of the data given by DataTables must be preserved. For example the `start` parameter must be a `-type number` data type.
 
-		This method is required only to store the data given to it. The `dt-init stateSaveParams` method is used to manipulate the data that is to actually be saved.
+		This method is required only to store the data given to it. The `-init stateSaveParams` method is used to manipulate the data that is to actually be saved.
 
-		This callback works hand-in-hand with `dt-init stateLoadCallback`. This method saves the state while `dt-init stateSaveCallback` will load it from where this callback has saved it.
+		This callback works hand-in-hand with `-init stateLoadCallback`. This method saves the state while `-init stateSaveCallback` will load it from where this callback has saved it.
 	</description>
 
 	<example title="Save state on a server with Ajax"><![CDATA[

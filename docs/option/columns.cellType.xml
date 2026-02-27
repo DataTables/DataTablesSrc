@@ -10,7 +10,7 @@
 	<description>
 		Change the cell type created for the column - either `tag TD` cells or `tag TH` cells.
 
-		This can be useful as `tag TH` cells have semantic meaning in the table body, allowing them to act as a header for a row (you may wish to add `scope='row'` to the `tag TH` elements using `dt-init columns.createdCell` option).
+		This can be useful as `tag TH` cells have semantic meaning in the table body, allowing them to act as a header for a row (you may wish to add `scope='row'` to the `tag TH` elements using `-init columns.createdCell` option).
 	</description>
 
 	<example title="Have the first column use TH cells`"><![CDATA[

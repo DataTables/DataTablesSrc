@@ -21,8 +21,8 @@
 		<parameter type="boolean" name="showRemove">
 			This parameter can be given as `true` or `false`:
 
-			* `true`: Any child rows attached to the parent will be immediately made visible. This is the equivalent of using `dt-api row().child.show()`.
-			* `false`: If the parent row has any children currently attached to it (whether shown or not) this method will destroy those child rows, removing them from the DOM if appropriate. Unlike with the `dt-api row().child.hide()` method, this option removes the rows from DataTables held memory completely. This is the equivalent of using `dt-api row().child.remove()`.
+			* `true`: Any child rows attached to the parent will be immediately made visible. This is the equivalent of using `-api row().child.show()`.
+			* `false`: If the parent row has any children currently attached to it (whether shown or not) this method will destroy those child rows, removing them from the DOM if appropriate. Unlike with the `-api row().child.hide()` method, this option removes the rows from DataTables held memory completely. This is the equivalent of using `-api row().child.remove()`.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>
 	</type>
@@ -50,15 +50,15 @@
 	</type>
 
 	<description>
-		DataTables has the ability to show child rows for each row (termed a "parent row" in this documentation to distinguish from the child rows). This child rows are attached to each parent row, and can be used, for example, to provide extra information about the parent row, or an editing form. The child rows will always be placed immediately after a parent row (if the child rows are designated to be visible, using the `dt-api row().child.show()` method), regardless of ordering, search terms applied to the table etc. If a parent row is not available in the DataTables' current view, the child rows will not be visible either.
+		DataTables has the ability to show child rows for each row (termed a "parent row" in this documentation to distinguish from the child rows). This child rows are attached to each parent row, and can be used, for example, to provide extra information about the parent row, or an editing form. The child rows will always be placed immediately after a parent row (if the child rows are designated to be visible, using the `-api row().child.show()` method), regardless of ordering, search terms applied to the table etc. If a parent row is not available in the DataTables' current view, the child rows will not be visible either.
 
 		The contents of the child rows are entirely independent of the main table (other than their position in the document). Ordering, searching etc applied to the table has no effect on the order of the child rows. Each child row is typically contains a single cell, which has a `colspan` attribute set to span the full table width, so the content of the cell covers the full table width. However, it is also possible to pass in a `dt-tag tr` element which has multiple cells (one for each column in the table) to show the child row data in the same column structure as the main table.
 
 		A parent row can have one or more child rows attached to it at a time. However, child rows are treated as one entity by the API, which is to say that they can either all be shown, or all hidden.
 
-		Additionally, a child row can persist after they have been hidden, allowing them to quickly and easily be shown again in future if required. The act of hiding a row is performed using `dt-api row().child.hide()`. A Child row can also be destroyed (hidden and its allocated memory released) using `dt-api row().child.remove()` or this method with `false` as the only parameter, if the child row is no longer required.
+		Additionally, a child row can persist after they have been hidden, allowing them to quickly and easily be shown again in future if required. The act of hiding a row is performed using `-api row().child.hide()`. A Child row can also be destroyed (hidden and its allocated memory released) using `-api row().child.remove()` or this method with `false` as the only parameter, if the child row is no longer required.
 
-		Note that this method does not automatically make the added child row visible when creating a child row. Use the `dt-api row().child().show()` chained method (or `dt-api row().child.show()` as required).
+		Note that this method does not automatically make the added child row visible when creating a child row. Use the `-api row().child().show()` chained method (or `-api row().child.show()` as required).
 	</description>
 
 	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[
