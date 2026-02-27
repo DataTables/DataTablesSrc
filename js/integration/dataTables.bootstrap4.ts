@@ -49,8 +49,8 @@ DataTable.ext.renderer.pagingButton.bootstrap = function (
 		btnClasses.push('disabled');
 	}
 
-	var li = DataTable.dom.c('li').classAdd(btnClasses.join(' '));
-	var a = DataTable.dom
+	var li = DataTable.Dom.c('li').classAdd(btnClasses.join(' '));
+	var a = DataTable.Dom
 		.c('a')
 		.attr('href', disabled ? null : '#')
 		.classAdd('page-link')
@@ -67,7 +67,7 @@ DataTable.ext.renderer.pagingContainer.bootstrap = function (
 	settings,
 	buttonEls
 ) {
-	return DataTable.dom
+	return DataTable.Dom
 		.c('ul')
 		.classAdd('pagination')
 		.append(buttonEls)

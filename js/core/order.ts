@@ -1,5 +1,5 @@
 import { bindAction, callbackFire, dataSource } from '../api/support';
-import dom from '../dom';
+import Dom from '../dom';
 import ext from '../ext/index';
 import {
 	Order,
@@ -536,7 +536,7 @@ export function sortingClasses(settings: Context) {
 			colIdx = oldSort[i].src;
 
 			// Remove column sorting
-			dom.s(pluck(settings.data, 'cells', colIdx)).classRemove(
+			Dom.s(pluck(settings.data, 'cells', colIdx)).classRemove(
 				sortClass + (i < 2 ? i + 1 : 3)
 			);
 		}
@@ -545,7 +545,7 @@ export function sortingClasses(settings: Context) {
 		for (i = 0, iLen = sortFlat.length; i < iLen; i++) {
 			colIdx = sortFlat[i].src;
 
-			dom.s(pluck(settings.data, 'cells', colIdx)).classAdd(
+			Dom.s(pluck(settings.data, 'cells', colIdx)).classAdd(
 				sortClass + (i < 2 ? i + 1 : 3)
 			);
 		}

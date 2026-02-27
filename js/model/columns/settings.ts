@@ -1,4 +1,4 @@
-import { Dom } from '../../dom';
+import Dom from '../../dom';
 import { GetFunction, SetFunction } from '../../util/types';
 import { SearchInput } from '../search';
 

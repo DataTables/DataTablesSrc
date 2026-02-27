@@ -1,4 +1,4 @@
-import { Dom } from '../dom';
+import Dom from '../dom';
 import util from '../util';
 import { AjaxOptions, HttpMethod } from '../util/ajax';
 import { GetFunction, JSON } from '../util/types';

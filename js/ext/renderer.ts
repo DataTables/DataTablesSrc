@@ -1,5 +1,5 @@
 import { ILayoutCell, ILayoutRow } from '../core/layout';
-import dom, { Dom } from '../dom';
+import Dom from '../dom';
 import { Context } from '../model/settings';
 import { pluck } from '../util/array';
 import classes from './classes';
@@ -92,7 +92,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 	// - note that using the `DT` namespace will allow the event to be removed
 	// automatically on destroy, while the `dt` namespaced event is the one we
 	// are listening for
-	dom.s(settings.table).on(
+	Dom.s(settings.table).on(
 		'order.dt.DT column-visibility.dt.DT',
 		function (e, ctx, column) {
 			if (settings !== ctx) {
@@ -220,7 +220,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 
 export const layout: IRendererLayout = (settings, container, items) => {
 	let classes = settings.classes.layout;
-	let row = dom
+	let row = Dom
 		.c('div')
 		.attr('id', items.id || null)
 		.classAdd(items.className || classes.row)
@@ -244,7 +244,7 @@ export const layout: IRendererLayout = (settings, container, items) => {
 			klass += classes.full;
 		}
 
-		dom.c('div')
+		Dom.c('div')
 			.attr({
 				id: val.id || null,
 				class: val.className
@@ -276,10 +276,10 @@ export const pagingButton: IRendererPagingButton = (
 	}
 
 	if (buttonType === 'ellipsis') {
-		btn = dom.c('span').classAdd('ellipsis').html(content).get(0);
+		btn = Dom.c('span').classAdd('ellipsis').html(content).get(0);
 	}
 	else {
-		btn = dom
+		btn = Dom
 			.c('button')
 			.classAdd(btnClasses.join(' '))
 			.attr('role', 'link')

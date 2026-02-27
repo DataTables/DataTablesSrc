@@ -37,7 +37,7 @@ DataTable.ext.renderer.pagingButton.foundation = function (
 
 	if (buttonType === 'ellipsis') {
 		// No `a` tag for ellipsis
-		li = DataTable.dom.c('li').classAdd('ellipsis');
+		li = DataTable.Dom.c('li').classAdd('ellipsis');
 
 		return {
 			display: li.get(0),
@@ -46,7 +46,7 @@ DataTable.ext.renderer.pagingButton.foundation = function (
 	}
 	else if (active || disabled) {
 		// No `a` tag for current or disabled
-		li = DataTable.dom
+		li = DataTable.Dom
 			.c('li')
 			.classAdd(active ? 'current' : 'disabled ' + btnClasses.join(' '))
 			.html(content);
@@ -57,8 +57,8 @@ DataTable.ext.renderer.pagingButton.foundation = function (
 		};
 	}
 
-	li = DataTable.dom.c('li').classAdd(btnClasses.join(' '));
-	var a = DataTable.dom.c('a').attr('href', '#').html(content).appendTo(li);
+	li = DataTable.Dom.c('li').classAdd(btnClasses.join(' '));
+	var a = DataTable.Dom.c('a').attr('href', '#').html(content).appendTo(li);
 
 	return {
 		display: li.get(0),
@@ -70,7 +70,7 @@ DataTable.ext.renderer.pagingContainer.foundation = function (
 	settings,
 	buttonEls
 ) {
-	return DataTable.dom
+	return DataTable.Dom
 		.c('ul')
 		.classAdd('pagination')
 		.append(buttonEls)
@@ -83,7 +83,7 @@ DataTable.ext.renderer.layout.foundation = function (
 	items
 ) {
 	var classes = settings.classes.layout;
-	var row = DataTable.dom
+	var row = DataTable.Dom
 		.c('div')
 		.attr('id', items.id || null)
 		.classAdd(items.className || classes.row)
@@ -109,7 +109,7 @@ DataTable.ext.renderer.layout.foundation = function (
 			klass += classes.full;
 		}
 
-		DataTable.dom
+		DataTable.Dom
 			.c('div')
 			.attr({
 				id: val.id || null,

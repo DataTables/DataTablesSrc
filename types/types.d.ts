@@ -4,19 +4,19 @@
 
 import { Api, DataTablesStatic } from '../dist/api/interface';
 import DataTable from '../dist/dataTable';
+import Dom from '../dist/dom/index';
 import { Options as ConfigColumns } from '../dist/model/columns/defaults';
 import ColumnContext from '../dist/model/columns/settings';
 import { Defaults, ConfigLanguage as Language, Options } from '../dist/model/defaults';
 import { Row as RowContext } from '../dist/model/row';
 
 export * from '../dist/api/interface';
-export { Dom } from '../dist/dom/index';
 export { Ext, ExtButtons } from '../dist/ext';
 export * from '../dist/ext/types';
 export { Context } from '../dist/model/settings';
 export * from '../dist/model/state';
 export { AjaxOptions } from '../dist/util/ajax';
-export { ColumnContext, ConfigColumns, Defaults, Language, Options, RowContext };
+export { ColumnContext, ConfigColumns, Defaults, Dom, Language, Options, RowContext };
 
 export default DataTable;
 

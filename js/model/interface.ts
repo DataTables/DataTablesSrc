@@ -1,5 +1,5 @@
 import { Api } from '../api/interface';
-import { Dom } from '../dom';
+import Dom from '../dom';
 import { IFeatureDivOptions } from '../features/div';
 import { IFeatureInfoOptions } from '../features/info';
 import { IFeaturePagingOptions } from '../features/page';

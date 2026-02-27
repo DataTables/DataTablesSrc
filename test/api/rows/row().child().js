@@ -49,7 +49,7 @@ describe('rows - row().child()', function() {
 		});
 		it('Returns jQuery object if child row', function() {
 			$('#example tbody tr:eq(2) td:eq(0)').click();
-			expect(table.row(2).child() instanceof $).toBe(true);
+			expect(table.row(2).child() instanceof DataTable.Dom).toBe(true);
 		});
 		it('Returns jQuery object for expected row', function() {
 			expect(

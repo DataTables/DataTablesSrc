@@ -1,4 +1,4 @@
-import { Dom } from '../dom';
+import Dom from '../dom';
 import { numToDecimal } from './conv';
 import { reFormattedNumeric } from './regex';
 import { stripHtml } from './string';

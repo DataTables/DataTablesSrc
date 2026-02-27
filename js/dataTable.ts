@@ -23,7 +23,7 @@ import { detectHeader } from './core/draw';
 import { initialise } from './core/init';
 import { sortingClasses } from './core/order';
 import { saveState } from './core/state';
-import dom from './dom';
+import Dom from './dom';
 import ext from './ext';
 import helpers, { datetime } from './ext/helpers';
 import { register as registerType, types } from './ext/types';
@@ -58,7 +58,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 	}
 
 	var emptyInit = options === undefined;
-	let tableEls = dom.s(selector);
+	let tableEls = Dom.s(selector);
 	let len = tableEls.count();
 
 	if (emptyInit) {
@@ -77,7 +77,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		var i = 0,
 			iLen;
 		var id = tableEl.getAttribute('id');
-		var table = dom.s(tableEl);
+		var table = Dom.s(tableEl);
 
 		// Sanity check
 		if (tableEl.nodeName.toLowerCase() != 'table') {
@@ -163,7 +163,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			destroyWidth: table.width(),
 			unique: id,
 			tableId: id,
-			colgroup: dom.c('colgroup'),
+			colgroup: Dom.c('colgroup'),
 			fastData: function (row, column, type) {
 				return getCellData(settings, row, column, type);
 			}
@@ -180,7 +180,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		// Need to add the instance after the instance after the settings object
 		// has been added to the settings array, so we can self reference the
 		// table instance if more than one
-		settings.instance = dom.s(tableEl) as any; // any until we add the api
+		settings.instance = Dom.s(tableEl) as any; // any until we add the api
 		settings.instance.api = () => settings.api;
 
 		// If the length menu is given, but the init display length is not, use
@@ -418,7 +418,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 
 		if (settings.caption) {
 			if (caption.count() === 0) {
-				caption = dom.c('caption').prependTo(table);
+				caption = Dom.c('caption').prependTo(table);
 			}
 
 			caption.html(settings.caption);
@@ -441,13 +441,13 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		}
 
 		if (thead.count() === 0) {
-			thead = dom.c('thead').appendTo(table) as any;
+			thead = Dom.c('thead').appendTo(table) as any;
 		}
 		settings.thead = thead.get(0);
 
 		var tbody = table.children('tbody');
 		if (tbody.count() === 0) {
-			tbody = dom.c('tbody').insertAfter(thead.get(0));
+			tbody = Dom.c('tbody').insertAfter(thead.get(0));
 		}
 		settings.tbody = tbody.get(0);
 
@@ -456,7 +456,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			// If we are a scrolling table, and no footer has been given, then
 			// we need to create a tfoot element for the caption element to be
 			// appended to
-			tfoot = dom.c('tfoot').appendTo(tableEl);
+			tfoot = Dom.c('tfoot').appendTo(tableEl);
 		}
 		settings.tfoot = tfoot.get(0);
 
@@ -521,8 +521,7 @@ DataTable.util = util;
 DataTable.Api = Api;
 DataTable.datetime = datetime;
 DataTable.__browser = browser;
-DataTable.dom = dom;
-DataTable.Dom = dom.Dom;
+DataTable.Dom = Dom;
 DataTable.ajax = util.ajax;
 
 /**

@@ -1,6 +1,6 @@
 import { clearTable } from '../core/data';
 import { sortingClasses } from '../core/order';
-import dom from '../dom';
+import Dom from '../dom';
 import ext from '../ext/index';
 import util from '../util';
 import Api, { register } from './Api';
@@ -42,7 +42,7 @@ register<ApiType['$']>('$()', function (selector, opts) {
 			})
 			.join(' ');
 
-		var inst = dom.s(this.tables().nodes());
+		var inst = Dom.s(this.tables().nodes());
 		inst[key as 'on' | 'one' | 'off'].apply(inst, args);
 
 		return this;
@@ -120,9 +120,9 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 		var tbody = settings.tbody;
 		var thead = settings.thead;
 		var tfoot = settings.tfoot;
-		var jqTable = dom.s(table);
-		var jqTbody = dom.s(tbody);
-		var jqWrapper = dom.s(settings.tableWrapper);
+		var jqTable = Dom.s(table);
+		var jqTbody = Dom.s(tbody);
+		var jqWrapper = Dom.s(settings.tableWrapper);
 		var rows = settings.data
 			.map(function (r) {
 				return r ? r.tr : null;
@@ -180,7 +180,7 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 			.find('th, td')
 			.classRemove(Object.values(ext.type.className).join(' '));
 
-		dom.s(thead)
+		Dom.s(thead)
 			.find('th, td')
 			.classRemove(
 				orderClasses.none +
@@ -252,11 +252,11 @@ register<ApiType['i18n']>('i18n()', function (token, def, plural) {
 
 // Needed for header and footer, so pulled into its own function
 function cleanHeader(node: HTMLElement, className: string) {
-	let headerCell = dom.s(node);
+	let headerCell = Dom.s(node);
 
 	headerCell.find('.dt-column-order').remove();
 	headerCell.find('.dt-column-title').each(function (el) {
-		let cell = dom.s(el);
+		let cell = Dom.s(el);
 		var title = cell.html();
 
 		cell.parent().parent().html(title);

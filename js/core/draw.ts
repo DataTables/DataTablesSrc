@@ -1,5 +1,5 @@
 import { callbackFire, dataSource, escapeObject, log } from '../api/support';
-import dom, { Dom } from '../dom';
+import Dom from '../dom';
 import ext from '../ext/index';
 import Settings from '../model/columns/settings';
 import { Row, TableCellElement, TableRowElement } from '../model/row';
@@ -85,7 +85,7 @@ export function createTr(
 		row.tr = tr;
 		row.cells = cells;
 
-		dom.s(tr).classAdd(trClass);
+		Dom.s(tr).classAdd(trClass);
 
 		// Use a private property on the node to allow reserve mapping from the node
 		// to the aoData array for fast look up
@@ -132,7 +132,7 @@ export function createTr(
 			}
 
 			// column class
-			dom.s(td).classAdd(column.className);
+			Dom.s(td).classAdd(column.className);
 
 			// Visibility - add or remove as required
 			if (column.visible && create) {
@@ -162,7 +162,7 @@ export function createTr(
 		]);
 	}
 	else if (row) {
-		dom.s(row.tr).classAdd(trClass);
+		Dom.s(row.tr).classAdd(trClass);
 	}
 }
 
@@ -191,17 +191,17 @@ export function rowAttributes(settings: Context, row: Row) {
 				? util.unique(row.addedClasses.concat(a))
 				: a;
 
-			dom.s(tr)
+			Dom.s(tr)
 				.classRemove(row.addedClasses.join(' '))
 				.classAdd(data.DT_RowClass);
 		}
 
 		if (data.DT_RowAttr) {
-			dom.s(tr).attr(data.DT_RowAttr);
+			Dom.s(tr).attr(data.DT_RowAttr);
 		}
 
 		if (data.DT_RowData) {
-			dom.s(tr).data(data.DT_RowData);
+			Dom.s(tr).data(data.DT_RowData);
 		}
 	}
 }
@@ -217,7 +217,7 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 	let classes = settings.classes;
 	let columns = settings.columns;
 	let i, iLen, row: Dom;
-	let target = dom.s(side === 'header' ? settings.thead : settings.tfoot);
+	let target = Dom.s(side === 'header' ? settings.thead : settings.tfoot);
 	let titleProp: 'title' | 'footer' = side === 'header' ? 'title' : side;
 
 	// Footer might be defined
@@ -234,7 +234,7 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 
 		// Add a row if needed
 		if (!row.count()) {
-			row = dom.c('tr').appendTo(target);
+			row = Dom.c('tr').appendTo(target);
 		}
 
 		// Add the number of cells needed to make up to the number of columns
@@ -246,7 +246,7 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 			});
 
 			for (i = cellCount, iLen = columns.length; i < iLen; i++) {
-				dom.c('th')
+				Dom.c('th')
 					.html(columns[i][titleProp] || '')
 					.appendTo(row);
 			}
@@ -276,7 +276,7 @@ export function buildHead(settings: Context, side: 'header' | 'footer') {
 					? renderer(settings, 'header')
 					: renderer(settings, 'footer');
 
-			runner(settings, dom.s(el), classes);
+			runner(settings, Dom.s(el), classes);
 		});
 }
 
@@ -355,7 +355,7 @@ export function headerLayout(
 					colspan++;
 				}
 
-				var titleSpan = dom.s(cell).find('.dt-column-title');
+				var titleSpan = Dom.s(cell).find('.dt-column-title');
 
 				structure[row][column] = {
 					cell: cell,
@@ -363,7 +363,7 @@ export function headerLayout(
 					rowspan: rowspan,
 					title: titleSpan.count()
 						? titleSpan.html()
-						: dom.s(cell).html()
+						: Dom.s(cell).html()
 				};
 			}
 		}
@@ -391,14 +391,14 @@ export function drawHead(settings: Context, source: HeaderStructure[]) {
 
 		// All cells are going to be replaced, so empty out the row
 		if (tr) {
-			dom.s(tr).detachChildren();
+			Dom.s(tr).detachChildren();
 		}
 
 		for (let column = 0; column < layout[row].length; column++) {
 			let point = layout[row][column];
 
 			if (point) {
-				dom.s(point.cell)
+				Dom.s(point.cell)
 					.appendTo(tr)
 					.attr('rowspan', point.rowspan)
 					.attr('colspan', point.colspan);
@@ -433,7 +433,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	var start = settings.displayStart;
 	var end = displayEnd(settings);
 	var columns = settings.columns;
-	var body = dom.s(settings.tbody);
+	var body = Dom.s(settings.tbody);
 
 	settings.doingDraw = true;
 
@@ -481,7 +481,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 				var col = columns[i];
 				var td = data.cells[i];
 
-				dom.s(td)
+				Dom.s(td)
 					.classAdd(col.type ? ext.type.className[col.type] : null) // auto class
 					.classAdd(settings.classes.tbody.cell); // all cells
 			}
@@ -507,7 +507,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 
 	/* Header and footer callbacks */
 	callbackFire(settings, 'header', 'header', [
-		dom.s(settings.thead).children('tr').get(0),
+		Dom.s(settings.thead).children('tr').get(0),
 		getDataMaster(settings),
 		start,
 		end,
@@ -515,7 +515,7 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	]);
 
 	callbackFire(settings, 'footer', 'footer', [
-		dom.s(settings.tfoot).children('tr').get(0),
+		Dom.s(settings.tfoot).children('tr').get(0),
 		getDataMaster(settings),
 		start,
 		end,
@@ -525,9 +525,9 @@ export function draw(settings: Context, ajaxComplete?: boolean) {
 	body.detachChildren().append(rowEls);
 
 	// Empty table needs a specific class
-	dom.s(settings.tableWrapper).classToggle(
+	Dom.s(settings.tableWrapper).classToggle(
 		'dt-empty-footer',
-		dom.s(settings.tfoot).find('tr').count() === 0
+		Dom.s(settings.tfoot).find('tr').count() === 0
 	);
 
 	// Call all required callback functions for the end of a draw
@@ -608,10 +608,10 @@ function _emptyRow(settings: Context) {
 		zero = lang.emptyTable;
 	}
 
-	return dom
+	return Dom
 		.c<HTMLTableRowElement>('tr')
 		.append(
-			dom
+			Dom
 				.c('td')
 				.attr('colSpan', visibleColumns(settings))
 				.classAdd(settings.classes.empty.row)
@@ -637,7 +637,7 @@ export function detectHeader(
 	write: boolean
 ) {
 	let columns = settings.columns;
-	let rows = dom.s(thead).children('tr');
+	let rows = Dom.s(thead).children('tr');
 	let row, loopCell: ChildNode | null;
 	let i: number,
 		k: number,
@@ -678,7 +678,7 @@ export function detectHeader(
 				loopCell.nodeName.toUpperCase() == 'TD' ||
 				loopCell.nodeName.toUpperCase() == 'TH'
 			) {
-				let cell = dom.s(loopCell as HTMLTableCellElement);
+				let cell = Dom.s(loopCell as HTMLTableCellElement);
 				let cols: any[] = [];
 
 				// Get the col and rowspan attributes from the DOM and sanitise
@@ -770,7 +770,7 @@ export function detectHeader(
 
 					// Wrap the column title so we can write to it in future
 					if (cell.find('div.dt-column-title').count() === 0) {
-						dom.c('div')
+						Dom.c('div')
 							.classAdd('dt-column-title')
 							.append(Array.from(cell.get(0).childNodes))
 							.appendTo(cell);
@@ -785,7 +785,7 @@ export function detectHeader(
 							0 &&
 						cell.find('div.dt-column-order').count() === 0
 					) {
-						dom.c('div')
+						Dom.c('div')
 							.classAdd('dt-column-order')
 							.appendTo(cell);
 					}
@@ -798,7 +798,7 @@ export function detectHeader(
 						cell.find('div.dt-column-' + headerFooter).count() ===
 						0
 					) {
-						dom.c('div')
+						Dom.c('div')
 							.classAdd('dt-column-' + headerFooter)
 							.append(Array.from(cell.get(0).childNodes))
 							.appendTo(cell);

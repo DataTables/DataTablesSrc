@@ -72,7 +72,7 @@ let cells = table.cells('.important, .intermediate');
 ```js
 let table = new DataTable('#myTable');
 
-DataTable.dom.s('#example tbody').on('click', 'td', function () {
+DataTable.Dom.s('#example tbody').on('click', 'td', function () {
 	let cellData = table.cell(this).data();
 	// ... do something with `cellData`
 });

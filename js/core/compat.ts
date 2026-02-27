@@ -1,4 +1,4 @@
-import dom from '../dom';
+import Dom from '../dom';
 import { Context } from '../model/settings';
 import util from '../util';
 
@@ -185,7 +185,7 @@ export function browserDetect(ctx: Context) {
 	// don't expect to change between initialisations
 	if (browser.barWidth === -1) {
 		// Scrolling feature / quirks detection
-		var n = dom
+		var n = Dom
 			.c('div')
 			.css({
 				position: 'fixed',
@@ -196,7 +196,7 @@ export function browserDetect(ctx: Context) {
 				overflow: 'hidden'
 			})
 			.append(
-				dom
+				Dom
 					.c('div')
 					.css({
 						position: 'absolute',
@@ -206,7 +206,7 @@ export function browserDetect(ctx: Context) {
 						overflow: 'scroll'
 					})
 					.append(
-						dom.c('div').css({
+						Dom.c('div').css({
 							width: '100%',
 							height: '10px'
 						})

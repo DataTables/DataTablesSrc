@@ -1,4 +1,4 @@
-import dom, { Dom } from '../dom';
+import Dom from '../dom';
 import ext from '../ext/index';
 import { Context } from '../model/settings';
 import util from '../util';
@@ -564,7 +564,7 @@ function toContext(mixedIn: InstSelector) {
 	}
 	else if (typeof mixed === 'string') {
 		// jQuery selector
-		nodes = dom.s(mixed).get();
+		nodes = Dom.s(mixed).get();
 	}
 	else if (util.is.jquery(mixed)) {
 		// jQuery object

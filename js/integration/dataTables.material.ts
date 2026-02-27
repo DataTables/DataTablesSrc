@@ -58,7 +58,7 @@ DataTable.ext.renderer.pagingButton.material = function (
 		btnClasses.push('disabled');
 	}
 
-	var btn = DataTable.dom
+	var btn = DataTable.Dom
 		.c('button')
 		.classAdd(btnClasses.join(' '))
 		.attr('disabled', disabled)
@@ -74,7 +74,7 @@ DataTable.ext.renderer.pagingContainer.material = function (
 	settings,
 	buttonEls
 ) {
-	return DataTable.dom
+	return DataTable.Dom
 		.c('div')
 		.classAdd('pagination')
 		.append(buttonEls)
@@ -82,12 +82,12 @@ DataTable.ext.renderer.pagingContainer.material = function (
 };
 
 DataTable.ext.renderer.layout.material = function (settings, container, items) {
-	var grid = DataTable.dom
+	var grid = DataTable.Dom
 		.c('div')
 		.classAdd('mdc-layout-grid')
 		.appendTo(container);
 
-	var gridInner = DataTable.dom
+	var gridInner = DataTable.Dom
 		.c('div')
 		.classAdd('mdc-layout-grid__inner')
 		.appendTo(grid);
@@ -111,7 +111,7 @@ DataTable.ext.renderer.layout.material = function (settings, container, items) {
 			}
 		}
 
-		DataTable.dom
+		DataTable.Dom
 			.c('div')
 			.attr('id', val.id || null)
 			.classAdd(klass + ' ' + (val.className || ''))

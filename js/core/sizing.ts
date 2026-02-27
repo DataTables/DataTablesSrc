@@ -1,5 +1,5 @@
 import { callbackFire } from '../api/support';
-import dom from '../dom';
+import Dom from '../dom';
 import ext from '../ext/index';
 import { Context } from '../model/settings';
 import util from '../util';
@@ -65,14 +65,14 @@ export function calculateColumnWidths(settings: Context) {
 	// Construct a worst case table with the widest, assign any user defined
 	// widths, then insert it into  the DOM and allow the browser to do all
 	// the hard work of calculating table widths
-	var tmpTable = dom
+	var tmpTable = Dom
 		.s(table.cloneNode())
 		.css('visibility', 'hidden')
 		.css('margin', '0')
 		.removeAttr('id');
 
 	// Clean up the table body
-	tmpTable.append(dom.c('tbody'));
+	tmpTable.append(Dom.c('tbody'));
 
 	// Clone the table header and footer - we can't use the header / footer
 	// from the cloned table, since if scrolling is active, the table's
@@ -98,8 +98,8 @@ export function calculateColumnWidths(settings: Context) {
 			if (scrollX) {
 				cell.style.minWidth = width;
 
-				dom.s(cell).append(
-					dom.c('div').css({
+				Dom.s(cell).append(
+					Dom.c('div').css({
 						width: width,
 						margin: '0',
 						padding: '0',
@@ -124,7 +124,7 @@ export function calculateColumnWidths(settings: Context) {
 
 	if (longestData.length) {
 		for (i = 0; i < longestData[0].length; i++) {
-			var tr = dom.c('tr').appendTo(tmpTable.find('tbody'));
+			var tr = Dom.c('tr').appendTo(tmpTable.find('tbody'));
 
 			for (j = 0; j < visibleColumns.length; j++) {
 				columnIdx = visibleColumns[j];
@@ -135,7 +135,7 @@ export function calculateColumnWidths(settings: Context) {
 				var padding = column.contentPadding || (scrollX ? '-' : '');
 				var text = longest + padding;
 
-				var cell = dom
+				var cell = Dom
 					.c('td')
 					.classAdd(autoClass)
 					.classAdd(column.className)
@@ -163,7 +163,7 @@ export function calculateColumnWidths(settings: Context) {
 	// with minimal height, so it has no effect on if the container scrolls
 	// or not. Otherwise it might trigger scrolling when it actually isn't
 	// needed
-	var holder = dom
+	var holder = Dom
 		.c('div')
 		.css(
 			scrollX || scrollY
@@ -246,10 +246,10 @@ export function calculateColumnWidths(settings: Context) {
 			// then the callback is immediately run. Which we don't want. If the element isn't
 			// visible, then it isn't run, but we want it to run when it is then made visible.
 			// This flag allows the above to be satisfied.
-			var first = dom.s(settings.tableWrapper).isVisible();
+			var first = Dom.s(settings.tableWrapper).isVisible();
 
 			// Use an empty div to attach the observer so it isn't impacted by height changes
-			var resizer = dom
+			var resizer = Dom
 				.c('div')
 				.css({
 					width: '100%',
@@ -287,7 +287,7 @@ export function calculateColumnWidths(settings: Context) {
  * @returns Width
  */
 function wrapperWidth(settings: Context): number {
-	let wrapper = dom.s(settings.tableWrapper);
+	let wrapper = Dom.s(settings.tableWrapper);
 
 	return wrapper.isVisible() ? wrapper.width() : 0;
 }

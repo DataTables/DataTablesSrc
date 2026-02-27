@@ -10,7 +10,7 @@ import { getCellData } from '../core/data';
 import { drawHead } from '../core/draw';
 import { colGroup } from '../core/sizing';
 import { saveState } from '../core/state';
-import dom from '../dom';
+import Dom from '../dom';
 import { Context, HeaderStructure } from '../model/settings';
 import { pluck, pluckOrder, range, removeEmpty } from '../util/array';
 import { intVal } from '../util/conv';
@@ -91,7 +91,7 @@ function columnHeader(settings: Context, column: number, row?: number) {
 		for (var i = 0; i < header.length; i++) {
 			if (
 				header[i][column].unique &&
-				dom
+				Dom
 					.s(header[i][column].cell)
 					.find('.dt-column-title')
 					.text()
@@ -201,7 +201,7 @@ function selectColumns(
 
 						// Selector
 						if (match && match[1]) {
-							return dom
+							return Dom
 								.s(nodes[mapIdx])
 								.filter(match[1])
 								.count() > 0
@@ -246,7 +246,7 @@ function selectColumns(
 		}
 
 		// Selector on the TH elements for the columns
-		var result = dom
+		var result = Dom
 			.s(nodes)
 			.filter(s)
 			.mapTo(el => {
@@ -263,7 +263,7 @@ function selectColumns(
 
 		// Otherwise a node which might have a `dt-column` data attribute, or be
 		// a child or such an element
-		var host = dom.s(s).closest('*[data-dt-column]');
+		var host = Dom.s(s).closest('*[data-dt-column]');
 		return host.count() ? [host.data('dt-column')] : [];
 	};
 
@@ -317,7 +317,7 @@ function setColumnVis(settings: Context, column: number, vis: boolean) {
 	}
 	else {
 		// Remove column
-		dom.s(removeEmpty(pluck(settings.data, 'cells', column))).detach();
+		Dom.s(removeEmpty(pluck(settings.data, 'cells', column))).detach();
 	}
 
 	// Common actions
@@ -531,7 +531,7 @@ registerPlural<ApiColumnsTitleOverload>(
 					title = undefined;
 				}
 
-				var span = dom
+				var span = Dom
 					.s(this.column(column).header(row))
 					.find('.dt-column-title');
 
@@ -606,7 +606,7 @@ registerPlural<ApiColumnsVisibleOverload>(
 				// extensions will use their own listeners to do this - only
 				// need to update the empty table item here
 				if (!settings.display.length) {
-					dom.s(settings.tbody)
+					Dom.s(settings.tbody)
 						.find('td[colspan]')
 						.attr('colspan', visibleColumns(settings));
 				}
@@ -643,14 +643,14 @@ registerPlural<ApiColumnsMethods<any>['widths']>(
 		// be read, regardless of colspan in the header and rows being present
 		// in the body
 		var columns = this.columns(':visible').count();
-		var row = dom
+		var row = Dom
 			.c('tr')
 			.html('<td>' + Array(columns).join('</td><td>') + '</td>');
 
-		dom.s(this.table().body()).append(row);
+		Dom.s(this.table().body()).append(row);
 
 		var widths = row.children().mapTo(el => {
-			return dom.s(el).width('outer');
+			return Dom.s(el).width('outer');
 		});
 
 		row.remove();

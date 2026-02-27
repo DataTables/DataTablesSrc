@@ -25,40 +25,67 @@ type TDimensionInclude =
 	| 'withPadding'
 	| 'withMargin';
 
+
+function create<R extends HTMLElement = HTMLElement>(name: string) {
+	let el = document.createElement(name);
+
+	return new Dom<R>(el);
+}
+
+function select<R extends HTMLElement = HTMLElement>(selector: DomSelector) {
+	return new Dom<R>(selector);
+}
+
 /**
  * `Dom` is a class that provides a chaining UI for simple DOM manipulation and
  * selection.
  */
-export class Dom<T extends HTMLElement = HTMLElement> implements ArrayLike<T> {
+export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLike<T> {
 	/**
-	 * Create a new element and wrap in a `Dom` instance
+	 * Create a new element and wrap in a `Dom` instance (alias of `create`)
 	 *
 	 * @param name Element name to create
 	 * @returns Dom instance for manipulating the new element
 	 */
-	static create<R extends HTMLElement = HTMLElement>(name: string) {
-		let el = document.createElement(name);
 
-		return new Dom<R>(el);
-	}
+	static c = create;
 
 	/**
-	 * Select items from the document and wrap in a `Dom` instance
+	 * Create a new element and wrap in a `Dom` instance (alias of `c`)
+	 *
+	 * @param name Element name to create
+	 * @returns Dom instance for manipulating the new element
+	 */
+	static create = create;
+
+	/**
+	 * Select items from the document and wrap in a `Dom` instance (alias of
+	 * `select`)
 	 *
 	 * @param selector Items to select
 	 * @returns Dom instance for manipulating the selected items
 	 */
-	static selector<R extends HTMLElement = HTMLElement>(
-		selector: DomSelector
-	) {
-		return new Dom<R>(selector);
-	}
+	static s = select;
+
+	/**
+	 * Select items from the document and wrap in a `Dom` instance (alias of
+	 * `s`)
+	 *
+	 * @param selector Items to select
+	 * @returns Dom instance for manipulating the selected items
+	 */
+	static select = select;
 
 	/**
 	 * Flag to indicate if transitions (animations) should be allowed. Set to
 	 * false to disable and have it jump to the end.
 	 */
 	static transitions = true;
+
+	/**
+	 * Window object methods
+	 */
+	static w = win;
 
 	/** Index access for the elements in the result set of this instance */
 	[n: number]: T;
@@ -1780,10 +1807,3 @@ function stringArrays(name: string | string[]) {
 
 	return names;
 }
-
-export default {
-	c: Dom.create,
-	Dom,
-	s: Dom.selector,
-	w: win
-};

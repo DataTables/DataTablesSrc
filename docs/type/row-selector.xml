@@ -150,7 +150,7 @@ let rows = table.rows('.important, .intermediate');
 ```js
 let table = new DataTable('#myTable');
 
-DataTable.dom.s('#example tbody').on('click', 'tr', function () {
+DataTable.Dom.s('#example tbody').on('click', 'tr', function () {
 	let rowData = table.row(this).data();
 	// ... do something with `rowData`
 });

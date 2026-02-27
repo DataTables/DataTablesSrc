@@ -1,5 +1,5 @@
 import { headerLayout } from '../core/draw';
-import dom from '../dom';
+import Dom from '../dom';
 import { Context } from '../model/settings';
 import { register, registerPlural } from './Api';
 import {
@@ -46,7 +46,7 @@ function table_selector(
 		return el.table;
 	});
 
-	return dom
+	return Dom
 		.s(nodes)
 		.filter(selector)
 		.mapTo(el => {
@@ -152,13 +152,13 @@ register<ApiCaptionOverload>('caption()', function (value?, side?) {
 	return this.iterator(
 		'table',
 		function (ctx) {
-			var table = dom.s(ctx.table);
-			var caption = dom.s(ctx.captionNode);
-			var container = dom.s(ctx.tableWrapper);
+			var table = Dom.s(ctx.table);
+			var caption = Dom.s(ctx.captionNode);
+			var container = Dom.s(ctx.tableWrapper);
 
 			// Create the node if it doesn't exist yet
 			if (!caption.count()) {
-				caption = dom.c('caption').html(value);
+				caption = Dom.c('caption').html(value);
 				ctx.captionNode = caption.get<HTMLTableCaptionElement>(0);
 
 				// If side isn't set, we need to insert into the document to let

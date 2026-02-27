@@ -1,5 +1,5 @@
 import { callbackFire, dataSource } from '../api/support';
-import dom from '../dom';
+import Dom from '../dom';
 import { Context } from '../model/settings';
 import { ajaxDataSrc, buildAjax } from './ajax';
 import { adjustColumnSizing } from './columns';
@@ -52,7 +52,7 @@ export function initialise(settings: Context) {
 		}
 		else if (deferLoading || dataSrc == 'dom') {
 			// Grab the data from the page
-			addTr(settings, dom.s(settings.tbody).children('tr'));
+			addTr(settings, Dom.s(settings.tbody).children('tr'));
 		}
 
 		// Filter not yet applied - copy the display master

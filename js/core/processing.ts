@@ -1,5 +1,5 @@
 import { callbackFire } from '../api/support';
-import dom from '../dom';
+import Dom from '../dom';
 import { Context } from '../model/settings';
 
 /**
@@ -12,30 +12,30 @@ export function processingHtml(ctx: Context) {
 	var scrolling = ctx.scroll.x !== '' || ctx.scroll.y !== '';
 
 	if (ctx.features.processing) {
-		var n = dom
+		var n = Dom
 			.c('div')
 			.attr('id', ctx.tableId + '_processing')
 			.attr('role', 'status')
 			.classAdd(ctx.classes.processing.container)
 			.html(ctx.language.processing)
 			.append(
-				dom
+				Dom
 					.c('div')
-					.append(dom.c('div'))
-					.append(dom.c('div'))
-					.append(dom.c('div'))
-					.append(dom.c('div'))
+					.append(Dom.c('div'))
+					.append(Dom.c('div'))
+					.append(Dom.c('div'))
+					.append(Dom.c('div'))
 			);
 
 		// Different positioning depending on if scrolling is enabled or not
 		if (scrolling) {
-			n.prependTo(dom.s(ctx.tableWrapper).find('div.dt-scroll').get(0));
+			n.prependTo(Dom.s(ctx.tableWrapper).find('div.dt-scroll').get(0));
 		}
 		else {
 			n.insertBefore(table);
 		}
 
-		dom.s(table).on('processing.dt.DT', (e, s, show) => {
+		Dom.s(table).on('processing.dt.DT', (e, s, show) => {
 			n.css('display', show ? 'block' : 'none');
 		});
 	}

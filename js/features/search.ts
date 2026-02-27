@@ -2,7 +2,7 @@ import { macros } from '../api/support';
 import { draw } from '../core/draw';
 import { processingRun } from '../core/processing';
 import { filterComplete } from '../core/search';
-import dom from '../dom';
+import Dom from '../dom';
 import { SearchInput } from '../model/search';
 import util from '../util';
 import register from './register';
@@ -68,7 +68,7 @@ register<Partial<IFeatureSearchOptions>>(
 			str = '<label>' + removed + '</label>_INPUT_';
 		}
 
-		let filter = dom
+		let filter = Dom
 			.c('div')
 			.classAdd(classes.container)
 			.html(str.replace(/_INPUT_/, input));
@@ -126,7 +126,7 @@ register<Partial<IFeatureSearchOptions>>(
 			.attr('aria-controls', tableId);
 
 		// Update the input elements whenever the table is filtered
-		dom.s(settings.table).on('search.dt.DT', function (ev, s) {
+		Dom.s(settings.table).on('search.dt.DT', function (ev, s) {
 			if (settings === s && filterEl.get(0) !== document.activeElement) {
 				filterEl.val(textValue(previousSearch.search));
 			}

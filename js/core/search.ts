@@ -1,12 +1,12 @@
 import { arrayApply, callbackFire, dataSource } from '../api/support';
-import dom from '../dom';
+import Dom from '../dom';
 import ext from '../ext/index';
 import { SearchInput, SearchOptions } from '../model/search';
 import { Context } from '../model/settings';
 import util from '../util';
 import { getCellData } from './data';
 
-const __filter_div = dom.c('div').get(0);
+const __filter_div = Dom.c('div').get(0);
 const __filter_div_textContent = __filter_div.textContent !== undefined;
 
 /**

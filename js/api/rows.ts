@@ -1,6 +1,6 @@
 import { addData, addTr, invalidate } from '../core/data';
 import { sortDisplay } from '../core/order';
-import dom from '../dom';
+import Dom from '../dom';
 import { Context } from '../model/settings';
 import util from '../util';
 import { register, registerPlural } from './Api';
@@ -88,7 +88,7 @@ function selectRows(
 				return row && row.tr === sel.parentNode ? [cellIdx.row] : [];
 			}
 			else {
-				var host = dom.s(sel).closest('*[data-dt-row]');
+				var host = Dom.s(sel).closest('*[data-dt-row]');
 				return host.count() ? [host.data('dt-row')] : [];
 			}
 		}
@@ -127,7 +127,7 @@ function selectRows(
 		);
 
 		// Selector - selector string, array of nodes or jQuery object.
-		return dom
+		return Dom
 			.s(nodes)
 			.filter(sel)
 			.mapTo((el: any) => el._DT_RowIndex);
@@ -323,7 +323,7 @@ register<ApiRows<any>['add']>('rows.add()', function (this: Api, rows) {
 				row = rows[i];
 
 				if (row.nodeName && row.nodeName.toUpperCase() === 'TR') {
-					out.push(addTr(settings, dom.s(row))[0]);
+					out.push(addTr(settings, Dom.s(row))[0]);
 				}
 				else {
 					out.push(addData(settings, row));
@@ -401,7 +401,7 @@ register<ApiRow<any>['add']>('row.add()', function (this: Api, row: any) {
 
 	var rows = this.iterator('table', function (settings) {
 		if (row.nodeName && row.nodeName.toUpperCase() === 'TR') {
-			return addTr(settings, dom.s(row))[0];
+			return addTr(settings, Dom.s(row))[0];
 		}
 		return addData(settings, row);
 	});

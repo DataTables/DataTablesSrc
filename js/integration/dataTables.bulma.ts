@@ -48,8 +48,8 @@ DataTable.ext.renderer.pagingButton.bulma = function (
 		btnClasses.push('is-current');
 	}
 
-	var li = DataTable.dom.c('li');
-	var a = DataTable.dom
+	var li = DataTable.Dom.c('li');
+	var a = DataTable.Dom
 		.c('a')
 		.classAdd(btnClasses.join(' '))
 		.attr('href', disabled ? null : '#')
@@ -64,7 +64,7 @@ DataTable.ext.renderer.pagingButton.bulma = function (
 };
 
 DataTable.ext.renderer.pagingContainer.bulma = function (settings, buttonEls) {
-	return DataTable.dom
+	return DataTable.Dom
 		.c('ul')
 		.classAdd('pagination-list')
 		.append(buttonEls)
@@ -73,7 +73,7 @@ DataTable.ext.renderer.pagingContainer.bulma = function (settings, buttonEls) {
 
 DataTable.ext.renderer.layout.bulma = function (settings, container, items) {
 	var classes = settings.classes.layout;
-	var row = DataTable.dom
+	var row = DataTable.Dom
 		.c('div')
 		.attr('id', items.id || null)
 		.classAdd(items.className || classes.row)
@@ -99,7 +99,7 @@ DataTable.ext.renderer.layout.bulma = function (settings, container, items) {
 			klass += classes.full;
 		}
 
-		DataTable.dom
+		DataTable.Dom
 			.c('div')
 			.attr({
 				id: val.id || null,
@@ -114,7 +114,7 @@ DataTable.ext.renderer.layout.bulma = function (settings, container, items) {
 };
 
 // JavaScript enhancements on table initialisation
-DataTable.dom.s(document).on('init.dt', function (e, ctx) {
+DataTable.Dom.s(document).on('init.dt', function (e, ctx) {
 	if (e.namespace !== 'dt') {
 		return;
 	}
@@ -122,11 +122,11 @@ DataTable.dom.s(document).on('init.dt', function (e, ctx) {
 	var api = new DataTable.Api(ctx);
 
 	// Length menu drop down - needs to be wrapped with a div
-	DataTable.dom
+	DataTable.Dom
 		.s(api.table().container())
 		.find('div.dt-length select')
 		.each(el => {
-			let wrapper = DataTable.dom.c('div').classAdd('select');
+			let wrapper = DataTable.Dom.c('div').classAdd('select');
 
 			el.replaceWith(wrapper.get(0));
 			wrapper.append(el);

@@ -5,7 +5,7 @@ var escapeHtml = function (str) {
 	return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 };
 
-var dom = null;
+var Dom = null;
 
 window.dt_demo = {
 	/**
@@ -109,15 +109,15 @@ window.dt_demo = {
 
 	_tabs: function () {
 		if (
-			dom.s('body').classHas('example') ||
-			dom.s('body').classHas('dt-example')
+			Dom.s('body').classHas('example') ||
+			Dom.s('body').classHas('dt-example')
 		) {
 			// js
 			dt_demo._displayFiles('#js-lib-files', dt_demo._loaded.js);
 			dt_demo._displayFiles('#css-lib-files', dt_demo._loaded.css);
 
 			// css
-			var cssContainer = dom.s('div.dt-tabs div.css');
+			var cssContainer = Dom.s('div.dt-tabs div.css');
 			if (cssContainer.find('code').text() === '') {
 				cssContainer.find('code, div').css('display', 'none');
 				cssContainer.find('p').eq(0).css('display', 'none');
@@ -125,13 +125,13 @@ window.dt_demo = {
 
 			// This can really slow things down
 			setTimeout(function () {
-				SyntaxHighlighter.highlight({}, dom.s('div.table code').get(0));
+				SyntaxHighlighter.highlight({}, Dom.s('div.table code').get(0));
 			}, 1000);
 
 			// json
-			var ajaxTab = dom.s('ul.dt-tabs li').eq(3).css('display', 'none');
+			var ajaxTab = Dom.s('ul.dt-tabs li').eq(3).css('display', 'none');
 
-			dom.s(document).on('init.dt', function (e, settings) {
+			Dom.s(document).on('init.dt', function (e, settings) {
 				if (e.namespace !== 'dt') {
 					return;
 				}
@@ -140,8 +140,8 @@ window.dt_demo = {
 
 				var show = function (str) {
 					ajaxTab.css('display', 'block');
-					dom.s('div.dt-tabs div.ajax code').remove();
-					dom.s('div.dt-tabs div.ajax div.syntaxhighlighter').remove();
+					Dom.s('div.dt-tabs div.ajax code').remove();
+					Dom.s('div.dt-tabs div.ajax div.syntaxhighlighter').remove();
 
 					// Old IE :-|
 					try {
@@ -159,15 +159,15 @@ window.dt_demo = {
 						str = first.concat(second).join('\n');
 					}
 
-					dom
+					Dom
 						.s('div.dt-tabs div.ajax')
-						.append(dom.c('code').classAdd('multiline language-js').text(str));
+						.append(Dom.c('code').classAdd('multiline language-js').text(str));
 
 					// This can be really slow for large builds
 					setTimeout(function () {
 						SyntaxHighlighter.highlight(
 							{},
-							dom.s('div.dt-tabs div.ajax code').get(0)
+							Dom.s('div.dt-tabs div.ajax code').get(0)
 						);
 					}, 500);
 				};
@@ -185,9 +185,9 @@ window.dt_demo = {
 			});
 
 			// php
-			var phpTab = dom.s('ul.dt-tabs li').eq(4).css('display', 'none');
+			var phpTab = Dom.s('ul.dt-tabs li').eq(4).css('display', 'none');
 
-			dom.s(document).on('init.dt.demoSSP', function (e, settings) {
+			Dom.s(document).on('init.dt.demoSSP', function (e, settings) {
 				if (e.namespace !== 'dt') {
 					return;
 				}
@@ -211,14 +211,14 @@ window.dt_demo = {
 						type: 'post',
 						success: function (txt) {
 							phpTab.css('display', 'block');
-							dom
+							Dom
 								.s('div.dt-tabs div.php')
 								.append(
-									dom.c('code').classAdd('multiline language-php').text(txt)
+									Dom.c('code').classAdd('multiline language-php').text(txt)
 								);
 							SyntaxHighlighter.highlight(
 								{},
-								dom.s('div.dt-tabs div.php code').get(0)
+								Dom.s('div.dt-tabs div.php code').get(0)
 							);
 						}
 					});
@@ -227,17 +227,17 @@ window.dt_demo = {
 		}
 
 		// Tabs
-		dom.s('ul.dt-tabs').on('click', 'li:not(.disabled)', function () {
-			dom.s('ul.dt-tabs li.active').classRemove('active');
-			dom.s(this).classAdd('active');
+		Dom.s('ul.dt-tabs').on('click', 'li:not(.disabled)', function () {
+			Dom.s('ul.dt-tabs li.active').classRemove('active');
+			Dom.s(this).classAdd('active');
 
-			dom
+			Dom
 				.s('div.dt-tabs>div')
 				.css('display', 'none')
-				.eq(dom.s(this).index())
+				.eq(Dom.s(this).index())
 				.css('display', 'block');
 		});
-		dom.s('ul.dt-tabs li.active').trigger('click');
+		Dom.s('ul.dt-tabs li.active').trigger('click');
 	},
 
 	_appendFileName: function (name, src, type, framework) {
@@ -411,7 +411,7 @@ window.dt_demo = {
 			return;
 		}
 
-		dom = DataTable.dom;
+		Dom = DataTable.Dom;
 
 		// init html
 		var types = dt_demo._struct;
@@ -420,29 +420,29 @@ window.dt_demo = {
 		var event = new Event('dt-demo-run');
 		document.dispatchEvent(event);
 
-		if (dom.s('div.demo-html').count()) {
-			demoHtml = dom.s('div.demo-html').html().trim();
+		if (Dom.s('div.demo-html').count()) {
+			demoHtml = Dom.s('div.demo-html').html().trim();
 
 			if (demoHtml) {
 				demoHtml = demoHtml + '\n\n';
 			}
 		}
 
-		let code = dom
+		let code = Dom
 			.c('code')
 			.classAdd('multiline language-html')
 			.text('\t\t\t\t' + demoHtml);
-		dom.s('div.dt-tabs div.table').append(code);
+		Dom.s('div.dt-tabs div.table').append(code);
 
 		dt_demo._tabs();
 
-		var optionsContainer = dom.s('div.dt-demo-options');
+		var optionsContainer = Dom.s('div.dt-demo-options');
 
 		if (!optionsContainer.count()) {
-			optionsContainer = dom
+			optionsContainer = Dom
 				.c('div')
 				.classAdd('dt-demo-options')
-				.insertBefore(dom.s('h1').get(0));
+				.insertBefore(Dom.s('h1').get(0));
 		}
 
 		// jQuery / Vanilla selector
@@ -497,13 +497,13 @@ window.dt_demo = {
 					finish = function () {
 						types.jquery();
 					};
-					dom.s('#js-vanilla').css('display', 'none');
+					Dom.s('#js-vanilla').css('display', 'none');
 				}
 				else {
 					finish = function () {
 						types.vanilla();
 					};
-					dom.s('#js-jquery').css('display', 'none');
+					Dom.s('#js-jquery').css('display', 'none');
 				}
 			}
 
@@ -597,11 +597,11 @@ window.dt_demo = {
 
 	_optionsWarning: function (selector, msg) {
 		// Remove message
-		dom
+		Dom
 			.s(selector)
 			.find('div.dt-demo-selector__current i.dt-demo-icon.warning')
 			.remove();
-		dom
+		Dom
 			.s(selector)
 			.find('div.dt-demo-selector__options p.dt-demo-warning')
 			.remove();
@@ -610,21 +610,21 @@ window.dt_demo = {
 			return;
 		}
 
-		dom
+		Dom
 			.s(selector)
 			.find('div.dt-demo-selector__current')
 			.prepend(
-				dom
+				Dom
 					.c('i')
 					.classAdd('dt-demo-icon warning')
 					.css('margin-right', '0.75em')
 			);
 
-		dom
+		Dom
 			.s(selector)
 			.find('div.dt-demo-selector__title')
 			.append(
-				dom
+				Dom
 					.c('p')
 					.classAdd('dt-demo-warning')
 					.html('<i class="dt-demo-icon warning"></i> ' + msg)
@@ -633,14 +633,14 @@ window.dt_demo = {
 
 	_options: function (title, container, options, initVal, cb, info) {
 		var initChange = true;
-		var selector = dom
+		var selector = Dom
 			.c('div')
 			.classAdd('dt-demo-selector')
-			.append(dom.c('div').classAdd('dt-demo-selector__current'))
-			.append(dom.c('div').classAdd('dt-demo-selector__options'))
+			.append(Dom.c('div').classAdd('dt-demo-selector__current'))
+			.append(Dom.c('div').classAdd('dt-demo-selector__options'))
 			.appendTo(container)
 			.on('click', '.dt-demo-selector__option', function () {
-				var val = dom.s(this).data('val');
+				var val = Dom.s(this).data('val');
 				var option = options.find(o => o.val == val);
 
 				selector
@@ -662,15 +662,15 @@ window.dt_demo = {
 		// Add the options
 		for (var i = 0; i < options.length; i++) {
 			var option = options[i];
-			var optionEl = dom
+			var optionEl = Dom
 				.c('div')
 				.classAdd('dt-demo-selector__option')
 				.attr('data-val', option.val)
-				.append(dom.c('span').text(option.label))
+				.append(Dom.c('span').text(option.label))
 				.appendTo(optionsEl);
 
 			if (option.icon) {
-				dom
+				Dom
 					.c('i')
 					.classAdd('dt-demo-icon')
 					.classAdd(option.icon)
@@ -681,7 +681,7 @@ window.dt_demo = {
 		}
 
 		optionsEl.prepend(
-			dom
+			Dom
 				.c('div')
 				.classAdd('dt-demo-selector__title')
 				.html(title + info)
@@ -692,14 +692,14 @@ window.dt_demo = {
 			if (optionsEl.css('display') === 'block') {
 				optionsEl.css('display', 'none');
 
-				dom.s('body').off('click.dt-theme-selector');
+				Dom.s('body').off('click.dt-theme-selector');
 			}
 			else {
 				optionsEl.css('display', 'block');
 
 				setTimeout(function () {
-					dom.s('body').on('click.dt-theme-selector', function (e) {
-						if (dom.s(e.target).closest(optionsEl).filter(selector).count()) {
+					Dom.s('body').on('click.dt-theme-selector', function (e) {
+						if (Dom.s(e.target).closest(optionsEl).filter(selector).count()) {
 							return;
 						}
 
@@ -710,7 +710,7 @@ window.dt_demo = {
 		});
 
 		// Trigger initial selection
-		dom
+		Dom
 			.s(selector)
 			.find('div.dt-demo-selector__option')
 			.filter('[data-val="' + initVal + '"]')
@@ -725,7 +725,7 @@ window.dt_demo = {
 			window.location.reload();
 		}
 
-		dom.s(selector).find('div.dt-demo-selector__current').text(option.label);
+		Dom.s(selector).find('div.dt-demo-selector__current').text(option.label);
 	},
 
 	_changeStyle: function (option, selector, initChange) {
@@ -735,7 +735,7 @@ window.dt_demo = {
 			return;
 		}
 
-		dom.s(selector).find('div.dt-demo-selector__current').text(option.label);
+		Dom.s(selector).find('div.dt-demo-selector__current').text(option.label);
 
 		var target = dt_demo._struct.libs.targetFramework;
 		var applied = option.val;
@@ -791,35 +791,35 @@ window.dt_demo = {
 		}
 
 		if (val === 'dark') {
-			dom
+			Dom
 				.s('html')
 				.classRemove('light') // DataTables
 				.classAdd('dark')
 				.attr('data-bs-theme', 'dark') // Bootstrap
 				.attr('data-theme', 'dark'); // Bulma
-			dom
+			Dom
 				.s('div.chart-display')
 				.classRemove('highcharts-light')
 				.classAdd('highcharts-dark');
 		}
 		else if (val === 'light') {
-			dom
+			Dom
 				.s('html')
 				.classRemove('dark') // DataTables
 				.classAdd('light')
 				.attr('data-bs-theme', 'light') // Bootstrap
 				.attr('data-theme', 'light'); // Bulma
-			dom
+			Dom
 				.s('div.chart-display')
 				.classRemove('highcharts-dark')
 				.classAdd('highcharts-light');
 		}
 
 		// Update the current element
-		var current = dom.s(selector).find('div.dt-demo-selector__current');
+		var current = Dom.s(selector).find('div.dt-demo-selector__current');
 
 		if (!current.children('i.theme').count()) {
-			current.append(dom.c('i').classAdd('dt-demo-icon theme'));
+			current.append(Dom.c('i').classAdd('dt-demo-icon theme'));
 		}
 
 		current
@@ -829,7 +829,7 @@ window.dt_demo = {
 	},
 
 	_setPageStyling: function (styling) {
-		var body = dom.s('body');
+		var body = Dom.s('body');
 
 		if (styling === 'bootstrap') {
 			body.classAdd('dt-example-bootstrap');
@@ -935,7 +935,7 @@ window.dt_demo = {
 	},
 
 	_tableClass: function (fw) {
-		var table = dom.s('table');
+		var table = Dom.s('table');
 
 		switch (fw) {
 			case 'bootstrap':
@@ -977,10 +977,10 @@ window.dt_demo = {
 	},
 
 	_displayFiles: function (sel, files) {
-		var ul = dom.s(sel);
+		var ul = Dom.s(sel);
 
 		files.forEach(function (src) {
-			ul.append(dom.c('li').append(dom.c('a').attr('href', src).html(src)));
+			ul.append(Dom.c('li').append(Dom.c('a').attr('href', src).html(src)));
 		});
 	}
 };

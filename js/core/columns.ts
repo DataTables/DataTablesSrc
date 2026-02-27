@@ -1,5 +1,5 @@
 import { callbackFire, map } from '../api/support';
-import dom from '../dom';
+import Dom from '../dom';
 import helpers from '../ext/helpers';
 import ext from '../ext/index';
 import columnDefaults, { ConfigColumnDefs } from '../model/columns/defaults';
@@ -31,7 +31,7 @@ export function addColumn(settings: Context) {
 			data: columnDefaults.data ? columnDefaults.data : columnIdx,
 			idx: columnIdx,
 			searchFixed: {},
-			colEl: dom
+			colEl: Dom
 				.c<HTMLTableColElement>('col')
 				.attr('data-dt-column', columnIdx)
 		}
@@ -227,7 +227,7 @@ export function visibleColumns(settings: Context) {
 		for (let i = 0, iLen = layout[0].length; i < iLen; i++) {
 			if (
 				columns[i].visible &&
-				dom.s(layout[0][i].cell).css('display') !== 'none'
+				Dom.s(layout[0][i].cell).css('display') !== 'none'
 			) {
 				vis++;
 			}
@@ -447,7 +447,7 @@ function _columnAutoClass(
 ) {
 	container.forEach(function (row) {
 		if (row[colIdx] && row[colIdx].unique) {
-			dom.s(row[colIdx].cell).classAdd(className);
+			Dom.s(row[colIdx].cell).classAdd(className);
 		}
 	});
 }
@@ -624,7 +624,7 @@ export function columnsSumWidth(
  * @returns An array of column indexes
  */
 export function columnsFromHeader(cell: HTMLElement) {
-	let attr = dom.s(cell).closest('[data-dt-column]').attr('data-dt-column');
+	let attr = Dom.s(cell).closest('[data-dt-column]').attr('data-dt-column');
 
 	if (!attr) {
 		return [];

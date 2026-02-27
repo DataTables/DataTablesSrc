@@ -1,5 +1,5 @@
 import { log } from '../api/support';
-import dom, { Dom } from '../dom';
+import Dom from '../dom';
 import ext from '../ext/index';
 import createRow, { Row } from '../model/row';
 import { Context } from '../model/settings';
@@ -211,7 +211,7 @@ export function setCellData(
  * @param val Value
  */
 export function writeCell(td: HTMLTableCellElement, val: string | HTMLElement) {
-	let cell = dom.s(td);
+	let cell = Dom.s(td);
 
 	if (val && typeof val === 'object' && val.nodeName) {
 		cell.empty().append(val);
@@ -326,7 +326,7 @@ export function getRowElementsFromNode(
 	row: HTMLTableRowElement
 ) {
 	let data = settings.rowReadObject ? {} : [];
-	let cells = dom.s(row).children<HTMLTableCellElement>('th, td');
+	let cells = Dom.s(row).children<HTMLTableCellElement>('th, td');
 	let id = row.getAttribute('id');
 
 	cells.each((el, idx) => {

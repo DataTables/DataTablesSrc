@@ -2,7 +2,7 @@ import { bindAction } from '../api/support';
 import { recordsDisplay } from '../core/draw';
 import { pageChange } from '../core/page';
 import { renderer } from '../core/render';
-import dom, { Dom } from '../dom';
+import Dom from '../dom';
 import ext from '../ext';
 import { pagingNumbers } from '../ext/paging';
 import { Context } from '../model/settings';
@@ -57,14 +57,14 @@ register<Partial<IFeaturePagingOptions>>(
 			optsIn
 		);
 
-		let host = dom
+		let host = Dom
 			.c('div')
 			.classAdd(
 				settings.classes.paging.container +
 					(opts.type ? ' paging_' + opts.type : '')
 			)
 			.append(
-				dom
+				Dom
 					.c('nav')
 					.attr('aria-label', 'pagination')
 					.classAdd(settings.classes.paging.nav)
@@ -77,7 +77,7 @@ register<Partial<IFeaturePagingOptions>>(
 		settings.callbacks.draw.push(draw);
 
 		// Responsive redraw of paging control
-		dom.s(settings.table).on('column-sizing.dt.DT', draw);
+		Dom.s(settings.table).on('column-sizing.dt.DT', draw);
 
 		return host;
 	},
@@ -156,7 +156,7 @@ function _pagingDraw(
 				: null;
 
 		// Common attributes
-		dom.s(btn.clicker).attr({
+		Dom.s(btn.clicker).attr({
 			'aria-controls': settings.tableId,
 			'aria-disabled': btnInfo.disabled ? 'true' : null,
 			'aria-current': btnInfo.active ? 'page' : null,
@@ -171,7 +171,7 @@ function _pagingDraw(
 		});
 
 		if (typeof button !== 'number') {
-			dom.s(btn.clicker).classAdd(button);
+			Dom.s(btn.clicker).classAdd(button);
 		}
 
 		bindAction(btn.clicker, '', function (e) {
@@ -195,7 +195,7 @@ function _pagingDraw(
 	// Responsive - check if the buttons are over two lines based on the
 	// height of the buttons and the container.
 	if (buttonEls.length) {
-		let outerHeight = dom.s(buttonEls[0]).height('withBorder');
+		let outerHeight = Dom.s(buttonEls[0]).height('withBorder');
 
 		if (
 			opts.buttons > 1 && // prevent infinite

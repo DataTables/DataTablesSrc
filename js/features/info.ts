@@ -1,6 +1,6 @@
 import { callbackFire, macros } from '../api/support';
 import { displayEnd, recordsDisplay, recordsTotal } from '../core/draw';
-import dom, { Dom } from '../dom';
+import Dom from '../dom';
 import { Context } from '../model/settings';
 import register from './register';
 
@@ -38,7 +38,7 @@ register<Partial<IFeatureInfoOptions>>(
 
 		let lang = settings.language,
 			tid = settings.tableId,
-			n = dom.c('div').classAdd(settings.classes.info.container);
+			n = Dom.c('div').classAdd(settings.classes.info.container);
 
 		let opts = Object.assign(
 			{
@@ -66,7 +66,7 @@ register<Partial<IFeatureInfoOptions>>(
 			});
 
 			// Table is described by our info div
-			dom.s(settings.table).attr('aria-describedby', tid + '_info');
+			Dom.s(settings.table).attr('aria-describedby', tid + '_info');
 
 			settings.infoEl = n;
 		}

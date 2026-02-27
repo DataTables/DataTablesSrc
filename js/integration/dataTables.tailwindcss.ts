@@ -62,7 +62,7 @@ DataTable.ext.renderer.pagingButton.tailwindcss = function (
 	btnClasses.push(active ? classes.active : classes.notActive);
 	btnClasses.push(disabled ? classes.notEnabled : classes.enabled);
 
-	var a = DataTable.dom
+	var a = DataTable.Dom
 		.c('a')
 		.attr('href', disabled ? null : '#')
 		.classAdd(btnClasses.join(' '))
@@ -80,10 +80,10 @@ DataTable.ext.renderer.pagingContainer.tailwindcss = function (
 ) {
 	var classes = settings.classes.paging;
 
-	DataTable.dom.s(buttonEls[0]).classAdd(classes.first);
-	DataTable.dom.s(buttonEls[buttonEls.length - 1]).classAdd(classes.last);
+	DataTable.Dom.s(buttonEls[0]).classAdd(classes.first);
+	DataTable.Dom.s(buttonEls[buttonEls.length - 1]).classAdd(classes.last);
 
-	return DataTable.dom
+	return DataTable.Dom
 		.c('ul')
 		.classAdd('pagination')
 		.append(buttonEls)
@@ -95,7 +95,7 @@ DataTable.ext.renderer.layout.tailwindcss = function (
 	container,
 	items
 ) {
-	var row = DataTable.dom
+	var row = DataTable.Dom
 		.c('div')
 		.classAdd(
 			items.full
@@ -121,7 +121,7 @@ DataTable.ext.renderer.layout.tailwindcss = function (
 			klass = 'col-span-2 justify-self-center';
 		}
 
-		DataTable.dom
+		DataTable.Dom
 			.c('div')
 			.attr('id', val.id || null)
 			.classAdd(klass + ' ' + (val.className || ''))

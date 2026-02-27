@@ -47,7 +47,7 @@ DataTable.ext.renderer.pagingButton.semanticUI = function (
 		btnClasses.push('disabled');
 	}
 
-	var a = DataTable.dom
+	var a = DataTable.Dom
 		.c(disabled ? 'div' : 'a')
 		.attr('href', disabled ? null : '#')
 		.classAdd('page-link')
@@ -64,7 +64,7 @@ DataTable.ext.renderer.pagingContainer.semanticUI = function (
 	settings,
 	buttonEls
 ) {
-	return DataTable.dom
+	return DataTable.Dom
 		.c('div')
 		.classAdd('ui unstackable pagination menu')
 		.append(buttonEls)
@@ -72,7 +72,7 @@ DataTable.ext.renderer.pagingContainer.semanticUI = function (
 };
 
 // JavaScript enhancements on table initialisation
-DataTable.dom.s(document).on('init.dt', function (e, ctx) {
+DataTable.Dom.s(document).on('init.dt', function (e, ctx) {
 	if (e.namespace !== 'dt') {
 		return;
 	}
@@ -86,17 +86,17 @@ DataTable.dom.s(document).on('init.dt', function (e, ctx) {
 	}
 
 	// Filtering input
-	DataTable.dom
+	DataTable.Dom
 		.s(api.table().container())
 		.find('div.dt-search.ui.input')
 		.classRemove('input')
 		.classAdd('form');
 
-	DataTable.dom
+	DataTable.Dom
 		.s(api.table().container())
 		.find('div.dt-search input')
 		.each(el => {
-			let wrapper = DataTable.dom.c('span').classAdd('ui input');
+			let wrapper = DataTable.Dom.c('span').classAdd('ui input');
 
 			el.replaceWith(wrapper.get(0));
 			wrapper.append(el);

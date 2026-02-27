@@ -1,6 +1,6 @@
 describe('core - events - childRow', function () {
 	const barWidth = 15;
-	let dom;
+	let Dom;
 
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -10,7 +10,7 @@ describe('core - events - childRow', function () {
 	dt.html('empty');
 
 	it('Setup', function () {
-		dom = DataTable.dom;
+		Dom = DataTable.Dom;
 
 		$(`<div>
 			<div id="content-box-no-scroll" style="box-sizing: content-box; width: 200px; height: 200px; padding: 25px; border: 50px solid red;  margin: 30px; background: green">
@@ -41,10 +41,10 @@ describe('core - events - childRow', function () {
 	});
 
 	it('Dom.height - content only', function () {
-		expect(dom.s('#content-box-no-scroll').height()).toBe(200);
-		expect(dom.s('#border-box-no-scroll').height()).toBe(50);
-		expect(dom.s('#content-box-scroll').height()).toBe(200 - barWidth);
-		expect(dom.s('#border-box-scroll').height()).toBe(50 - barWidth); // Different from jQuery!
+		expect(Dom.s('#content-box-no-scroll').height()).toBe(200);
+		expect(Dom.s('#border-box-no-scroll').height()).toBe(50);
+		expect(Dom.s('#content-box-scroll').height()).toBe(200 - barWidth);
+		expect(Dom.s('#border-box-scroll').height()).toBe(50 - barWidth); // Different from jQuery!
 	});
 
 	it('$.innerHeight - content + padding', function () {
@@ -55,10 +55,10 @@ describe('core - events - childRow', function () {
 	});
 
 	it('Dom.height(withPadding | inner) - content + padding', function () {
-		expect(dom.s('#content-box-no-scroll').height('withPadding')).toBe(250);
-		expect(dom.s('#border-box-no-scroll').height('withPadding')).toBe(100);
-		expect(dom.s('#content-box-scroll').height('withPadding')).toBe(250);
-		expect(dom.s('#border-box-scroll').height('withPadding')).toBe(100);
+		expect(Dom.s('#content-box-no-scroll').height('withPadding')).toBe(250);
+		expect(Dom.s('#border-box-no-scroll').height('withPadding')).toBe(100);
+		expect(Dom.s('#content-box-scroll').height('withPadding')).toBe(250);
+		expect(Dom.s('#border-box-scroll').height('withPadding')).toBe(100);
 	});
 
 	it('$.outerHeight - content + padding + border', function () {
@@ -69,10 +69,10 @@ describe('core - events - childRow', function () {
 	});
 
 	it('Dom.height(withBorder | outer) - content + padding + border', function () {
-		expect(dom.s('#content-box-no-scroll').height('withBorder')).toBe(350);
-		expect(dom.s('#border-box-no-scroll').height('withBorder')).toBe(200);
-		expect(dom.s('#content-box-scroll').height('withBorder')).toBe(350);
-		expect(dom.s('#border-box-scroll').height('withBorder')).toBe(200);
+		expect(Dom.s('#content-box-no-scroll').height('withBorder')).toBe(350);
+		expect(Dom.s('#border-box-no-scroll').height('withBorder')).toBe(200);
+		expect(Dom.s('#content-box-scroll').height('withBorder')).toBe(350);
+		expect(Dom.s('#border-box-scroll').height('withBorder')).toBe(200);
 	});
 
 	it('$.outerHeight(true) - content + padding + border', function () {
@@ -83,9 +83,9 @@ describe('core - events - childRow', function () {
 	});
 
 	it('Dom.height(withMargin) - content + padding + border', function () {
-		expect(dom.s('#content-box-no-scroll').height('withMargin')).toBe(410);
-		expect(dom.s('#border-box-no-scroll').height('withMargin')).toBe(260);
-		expect(dom.s('#content-box-scroll').height('withMargin')).toBe(410);
-		expect(dom.s('#border-box-scroll').height('withMargin')).toBe(260);
+		expect(Dom.s('#content-box-no-scroll').height('withMargin')).toBe(410);
+		expect(Dom.s('#border-box-no-scroll').height('withMargin')).toBe(260);
+		expect(Dom.s('#content-box-scroll').height('withMargin')).toBe(410);
+		expect(Dom.s('#border-box-scroll').height('withMargin')).toBe(260);
 	});
 });

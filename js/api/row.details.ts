@@ -1,6 +1,6 @@
 import { visibleColumns } from '../core/columns';
 import { saveState } from '../core/state';
-import dom from '../dom';
+import Dom from '../dom';
 import { Row } from '../model/row';
 import { Context } from '../model/settings';
 import { StateLoad } from '../model/state';
@@ -9,7 +9,7 @@ import Api from './Api';
 import { ApiRowMethods, Api as ApiType } from './interface';
 import { callbackFire } from './support';
 
-dom.s(document).on('plugin-init.dt', function (e, context) {
+Dom.s(document).on('plugin-init.dt', function (e, context) {
 	var api = new Api(context);
 
 	api.on('stateSaveParams.DT', function (ev, settings, d) {
@@ -78,8 +78,8 @@ function detailsAdd(ctx: Context, row: Row | null, data: any, klass: string) {
 		}
 		else {
 			// Otherwise create a row with a wrapper
-			let td = dom.c('td').classAdd(k);
-			let created = dom
+			let td = Dom.c('td').classAdd(k);
+			let created = Dom
 				.c('tr')
 				.append(td)
 				.attr('data-dt-row', row.idx)
@@ -104,7 +104,7 @@ function detailsAdd(ctx: Context, row: Row | null, data: any, klass: string) {
 		row.details.detach();
 	}
 
-	row.details = dom.s(rows);
+	row.details = Dom.s(rows);
 
 	// If the children were already shown, that state should be retained
 	if (row.detailsShow && row.tr) {
@@ -129,7 +129,7 @@ function detailsRemove(api: ApiType, idx?: number) {
 
 			row.detailsShow = undefined;
 			row.details = undefined;
-			dom.s(row.tr).classRemove('dt-hasChild');
+			Dom.s(row.tr).classRemove('dt-hasChild');
 			detailsState(ctx);
 		}
 	}
@@ -146,11 +146,11 @@ function detailsDisplay(api: ApiType, show: boolean) {
 
 			if (show && row.tr) {
 				row.details.insertAfter(row.tr);
-				dom.s(row.tr).classAdd('dt-hasChild');
+				Dom.s(row.tr).classAdd('dt-hasChild');
 			}
 			else if (!show) {
 				row.details.detach();
-				dom.s(row.tr).classRemove('dt-hasChild');
+				Dom.s(row.tr).classRemove('dt-hasChild');
 			}
 
 			callbackFire(ctx[0], null, 'childRow', [show, api.row(api[0])]);
@@ -205,7 +205,7 @@ function detailsEvents(settings: Context) {
 
 				if (row && row.details) {
 					row.details.each(function (el) {
-						var td = dom.s(el).children('td');
+						var td = Dom.s(el).children('td');
 
 						if (td.count() == 1) {
 							td.attr('colspan', visible);

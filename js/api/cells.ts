@@ -1,6 +1,6 @@
 import { columnIndexToVisible } from '../core/columns';
 import { getCellData, invalidate, setCellData } from '../core/data';
-import dom, { Dom } from '../dom';
+import Dom from '../dom';
 import { Context } from '../model/settings';
 import { flatten, pluckOrder, removeEmpty } from '../util/array';
 import * as is from '../util/is';
@@ -90,7 +90,7 @@ function selectCells(
 		if (!allCells) {
 			let cells = removeEmpty(pluckOrder(data, rows, 'cells'));
 
-			allCells = dom.s(flatten([], cells));
+			allCells = Dom.s(flatten([], cells));
 		}
 
 		// Selector - jQuery filtered cells
@@ -109,7 +109,7 @@ function selectCells(
 		// Otherwise the selector is a node, and there is one last option - the
 		// element might be a child of an element which has dt-row and dt-column
 		// data attributes
-		host = dom.s(s).closest('*[data-dt-row]');
+		host = Dom.s(s).closest('*[data-dt-row]');
 		return host.count()
 			? [
 					{

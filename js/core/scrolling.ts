@@ -1,5 +1,5 @@
 import { dataSource } from '../api/support';
-import dom from '../dom';
+import Dom from '../dom';
 import { Context } from '../model/settings';
 import { adjustColumnSizing, visibleToColumnIndex } from './columns';
 import { stringToCss } from './sizing';
@@ -11,7 +11,7 @@ import { stringToCss } from './sizing';
  * @returns Node to add to the DOM
  */
 export function featureTable(settings: Context) {
-	let table = dom.s(settings.table);
+	let table = Dom.s(settings.table);
 	let scroll = settings.scroll;
 	let scrollX = scroll.x;
 	let scrollY = scroll.y;
@@ -49,11 +49,11 @@ export function featureTable(settings: Context) {
 	 *        table - scroll foot table
 	 *          tfoot - tfoot
 	 */
-	let scroller = dom
+	let scroller = Dom
 		.c('div')
 		.classAdd(classes.container)
 		.append(
-			dom
+			Dom
 				.c('div')
 				.classAdd(classes.header.self)
 				.css({
@@ -63,7 +63,7 @@ export function featureTable(settings: Context) {
 					width: scrollX ? size(scrollX) : '100%'
 				})
 				.append(
-					dom
+					Dom
 						.c('div')
 						.classAdd(classes.header.inner)
 						.css({
@@ -80,7 +80,7 @@ export function featureTable(settings: Context) {
 				)
 		)
 		.append(
-			dom
+			Dom
 				.c('div')
 				.classAdd(classes.body)
 				.css({
@@ -93,7 +93,7 @@ export function featureTable(settings: Context) {
 
 	if (footer.count()) {
 		scroller.append(
-			dom
+			Dom
 				.c('div')
 				.classAdd(classes.footer.self)
 				.css({
@@ -102,7 +102,7 @@ export function featureTable(settings: Context) {
 					width: scrollX ? size(scrollX) : '100%'
 				})
 				.append(
-					dom
+					Dom
 						.c('div')
 						.classAdd(classes.footer.inner)
 						.append(
@@ -190,9 +190,9 @@ export function scrollDraw(settings: Context) {
 		divFooter = settings.scrollFoot,
 		divFooterInner = divFooter.children('div'),
 		divFooterTable = divFooterInner.children('table'),
-		header = dom.s(settings.thead),
-		table = dom.s(settings.table),
-		footer = dom.s(settings.tfoot),
+		header = Dom.s(settings.thead),
+		table = Dom.s(settings.table),
+		footer = Dom.s(settings.tfoot),
 		browser = settings.browser,
 		headerCopy,
 		footerCopy;
@@ -260,13 +260,13 @@ export function scrollDraw(settings: Context) {
 		}
 
 		if (firstTr) {
-			let colSizes = dom
+			let colSizes = Dom
 				.s(firstTr)
 				.children('th, td')
 				.mapTo(function (cell, idx) {
 					return {
 						idx: visibleToColumnIndex(settings, idx)!,
-						width: dom.s(cell).width('outer')
+						width: Dom.s(cell).width('outer')
 					};
 				});
 
@@ -299,7 +299,7 @@ export function scrollDraw(settings: Context) {
 	// the content of the cell so that the width applied to the header and body
 	// both match, but we want to hide it completely.
 	headerCopy.find('th, td').each(function (el) {
-		dom.c('div')
+		Dom.c('div')
 			.classAdd('dt-scroll-sizing')
 			.append(Array.from(el.childNodes))
 			.appendTo(el);
@@ -307,7 +307,7 @@ export function scrollDraw(settings: Context) {
 
 	if (footerCopy) {
 		footerCopy.find('th, td').each(function (el) {
-			dom.c('div')
+			Dom.c('div')
 				.classAdd('dt-scroll-sizing')
 				.append(Array.from(el.childNodes))
 				.appendTo(el);

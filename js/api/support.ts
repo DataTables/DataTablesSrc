@@ -1,5 +1,5 @@
 import { displayEnd, recordsDisplay, recordsTotal } from '../core/draw';
-import dom, { Dom } from '../dom';
+import Dom from '../dom';
 import ext from '../ext/index';
 import { Context } from '../model/settings';
 import * as object from '../util/object';
@@ -108,7 +108,7 @@ export function bindAction(
 	selector: string,
 	fn: (e: MouseEvent | KeyboardEvent) => any
 ) {
-	dom.s(n)
+	Dom.s(n)
 		.on('click.DT', selector, function (e: MouseEvent) {
 			fn(e);
 		})
@@ -174,7 +174,7 @@ export function callbackFire(
 	}
 
 	if (eventName !== null) {
-		let table = dom.s(ctx.table);
+		let table = Dom.s(ctx.table);
 		let result = table.trigger(eventName + '.dt', bubbles, args, {
 			dt: ctx.api
 		});
@@ -182,7 +182,7 @@ export function callbackFire(
 		// If not yet attached to the document, trigger the event
 		// on the body directly to sort of simulate the bubble
 		if (bubbles && table.closest('body').count() === 0) {
-			dom.s('body').trigger(eventName + '.dt', bubbles, args, {
+			Dom.s('body').trigger(eventName + '.dt', bubbles, args, {
 				dt: ctx.api
 			});
 		}

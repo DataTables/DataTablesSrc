@@ -1,7 +1,7 @@
 import { macros } from '../api/support';
 import { draw } from '../core/draw';
 import { lengthChange } from '../core/length';
-import dom from '../dom';
+import Dom from '../dom';
 import * as is from '../util/is';
 import register from './register';
 
@@ -81,7 +81,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 
 		// Wrapper element - use a span as a holder for where the select will go
 		var tmpId = 'tmp-' + +new Date();
-		var div = dom
+		var div = Dom
 			.c('div')
 			.classAdd(classes.container)
 			.html(str.replace('_MENU_', '<span id="' + tmpId + '"></span>'));
@@ -107,7 +107,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 		};
 
 		// Next, the select itself, along with the options
-		var select = dom
+		var select = Dom
 			.c<HTMLSelectElement>('select')
 			.attr('aria-controls', tableId)
 			.classAdd(classes.select);
@@ -145,7 +145,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 		__lengthCounter++;
 
 		// Update node value whenever anything changes the table's length
-		dom.s(settings.table).on('length.dt.DT', function (e, s, len) {
+		Dom.s(settings.table).on('length.dt.DT', function (e, s, len) {
 			if (settings === s) {
 				div.find('select').val(len);
 

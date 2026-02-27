@@ -37,11 +37,11 @@ document
 var table = new DataTable('#myTable');
 
 // Use `DataTable.Dom` for easy event handling. Could also use `addEventListener`
-DataTable.dom.s('#submit').on('click', function () {
+DataTable.Dom.s('#submit').on('click', function () {
 	DataTable.ajax('newTable', null, function (json) {
 		table.destroy();
 		
-		DataTable.dom.s('#myTable').empty(); // empty in case the columns change
+		DataTable.Dom.s('#myTable').empty(); // empty in case the columns change
 
 		table = new DataTable('#myTable', {
 			columns: json.columns,

@@ -43,8 +43,8 @@ DataTable.ext.renderer.pagingButton.uikit = function (
 		btnClasses.push('uk-disabled');
 	}
 
-	var li = DataTable.dom.c('li').classAdd(btnClasses.join(' '));
-	var a = DataTable.dom
+	var li = DataTable.Dom.c('li').classAdd(btnClasses.join(' '));
+	var a = DataTable.Dom
 		.c(disabled ? 'span' : 'a')
 		.attr('href', disabled ? null : '#')
 		.html(content)
@@ -57,7 +57,7 @@ DataTable.ext.renderer.pagingButton.uikit = function (
 };
 
 DataTable.ext.renderer.pagingContainer.uikit = function (settings, buttonEls) {
-	return DataTable.dom
+	return DataTable.Dom
 		.c('ul')
 		.classAdd('uk-pagination uk-pagination-right uk-flex-right')
 		.append(buttonEls)
@@ -65,7 +65,7 @@ DataTable.ext.renderer.pagingContainer.uikit = function (settings, buttonEls) {
 };
 
 DataTable.ext.renderer.layout.uikit = function (settings, container, items) {
-	var row = DataTable.dom
+	var row = DataTable.Dom
 		.c('div')
 		.classAdd('uk-flex uk-flex-between')
 		.appendTo(container);
@@ -87,7 +87,7 @@ DataTable.ext.renderer.layout.uikit = function (settings, container, items) {
 			}
 		}
 
-		DataTable.dom
+		DataTable.Dom
 			.c('div')
 			.attr('id', val.id || null)
 			.classAdd(klass + ' ' + (val.className || ''))

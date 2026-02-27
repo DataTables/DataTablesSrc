@@ -1,4 +1,4 @@
-import dom from '../dom';
+import Dom from '../dom';
 import ext from '../ext/index';
 import { arrayLike } from '../util/is';
 import Api from './Api';
@@ -45,7 +45,7 @@ export const isDataTable: DataTablesStatic['isDataTable'] = function (table) {
 		table = Array.from(table as any) as any;
 	}
 
-	var t = dom.s(table as any).get(0);
+	var t = Dom.s(table as any).get(0);
 	var is = false;
 
 	for (let i = 0; i < ext.settings.length; i++) {
@@ -81,7 +81,7 @@ export const tables: DataTablesStatic['tables'] = function (visible) {
 
 	var a = ext.settings
 		.filter(function (o) {
-			return !visible || (visible && dom.s(o.table).isVisible())
+			return !visible || (visible && Dom.s(o.table).isVisible())
 				? true
 				: false;
 		})

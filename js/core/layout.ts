@@ -1,5 +1,5 @@
 import { log } from '../api/support';
-import dom, { Dom } from '../dom';
+import Dom from '../dom';
 import ext from '../ext';
 import { Layout, LayoutComponent, LayoutElement } from '../model/interface';
 import { Context } from '../model/settings';
@@ -34,7 +34,7 @@ export function createLayout(ctx: Context) {
 	var classes = ctx.classes;
 
 	// Wrapper div around everything DataTables controls
-	var insert = dom
+	var insert = Dom
 		.c('div')
 		.attr('id', ctx.tableId + '_wrapper')
 		.classAdd(classes.container)
@@ -331,7 +331,7 @@ function legacyDom(settings: Context, layout: string, insert: Dom) {
 
 		if (option == '<') {
 			// New container div
-			newNode = dom.c('div');
+			newNode = Dom.c('div');
 
 			// Check to see if we should append an id and/or a class name to the container
 			next = parts[i + 1];

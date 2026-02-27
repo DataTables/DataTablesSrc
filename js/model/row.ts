@@ -1,4 +1,4 @@
-import { Dom } from '../dom';
+import Dom from '../dom';
 import util from '../util';
 
 /**

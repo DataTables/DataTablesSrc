@@ -1,5 +1,5 @@
 import { BrowserInfo } from '../core/compat';
-import Dom, { Dom as IDom } from '../dom';
+import Dom from '../dom';
 import ext from '../ext';
 import {
 	datetime,
@@ -34,7 +34,7 @@ type Unpacked<T> = T extends (infer U)[]
   ? U
   : T;
 
-export type DomSelector = string | Node | HTMLElement | JQuery | IDom;
+export type DomSelector = string | Node | HTMLElement | JQuery | Dom;
 
 export type InstSelector = DomSelector | Context | Api | InstSelector[];
 
@@ -43,7 +43,7 @@ export type RowSelector<T> =
 	| RowIdx
 	| string
 	| Node
-	| IDom
+	| Dom
 	| JQuery
 	| ((idx: RowIdx, data: T, node: Node | null) => boolean)
 	| RowSelector<T>[]
@@ -802,7 +802,7 @@ export interface ApiScopeable<T, S> {
 	 *
 	 * @returns DataTables Dom object
 	 */
-	toDom(): IDom;
+	toDom(): Dom;
 
 	/**
 	 * Create a native JavaScript array object from an API instance.
@@ -2562,9 +2562,9 @@ export interface DataTablesStatic {
 	Api: ApiStatic;
 
 	/**
-	 * Dom manipulation library
+	 * DataTable's DOM library.
 	 */
-	Dom: typeof IDom;
+	Dom: typeof Dom;
 
 	/**
 	 * DataTable's Ajax library
@@ -2585,11 +2585,6 @@ export interface DataTablesStatic {
 	 * Default Settings
 	 */
 	defaults: Defaults;
-
-	/**
-	 * DataTable's DOM library.
-	 */
-	dom: typeof Dom;
 
 	/**
 	 * Default Settings

@@ -1,6 +1,6 @@
 import { displayEnd } from '../core/draw';
 import { sort } from '../core/order';
-import { Dom } from '../dom';
+import Dom from '../dom';
 import ext from '../ext/index';
 import { Context } from '../model/settings';
 import { range, unique } from '../util/array';
