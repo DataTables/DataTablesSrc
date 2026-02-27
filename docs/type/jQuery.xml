@@ -15,7 +15,9 @@ A full description of the `jQuery` type is available in the [jQuery documentatio
 
 ## Use in DataTables
 
-Where a parameter is shown as accepting a jQuery type, or a method returning a jQuery type, it indicates that a jQuery value is accepted / returned.
+As of DataTables 3, jQuery is not required to run (while in previous versions it was a hard dependency), DataTables 3 still supports the use of jQuery for backwards compatibility.
+
+Where a parameter is shown as accepting a jQuery type, or a method returning a jQuery type, it indicates that a jQuery value is accepted / returned. It should be noted as well that if a method accepts an array of nodes, a jQuery object could be given, since it is _array-like_.
 
 
 	]]>

@@ -47,7 +47,7 @@ DataTables stores each row internally with a row index for fast look up of row i
 
 ```js
 let table = new DataTable('#myTable');
-let data = table.row( 0 ).data();
+let data = table.row(0).data();
 ```
 
 ###### Find data using row indexes:
@@ -56,15 +56,19 @@ let data = table.row( 0 ).data();
 let table = new DataTable('#myTable');
 
 // Find indexes of rows which have `Yes` in the second column
-let indexes = table.rows().eq( 0 ).filter( function (rowIdx) {
-	return table.cell( rowIdx, 1 ).data() === 'Yes' ? true : false;
-} );
+let indexes = table
+	.rows()
+	.eq(0)
+	.filter(function (rowIdx) {
+		return table.cell(rowIdx, 1).data() === 'Yes' ? true : false;
+	});
 
 // Add a class to those rows using an index selector
-table.rows( indexes )
+table
+	.rows(indexes)
 	.nodes()
-	.to$()
-	.addClass( 'highlight' );
+	.toDom()
+	.classAdd('highlight');
 ```
 
 
@@ -82,11 +86,11 @@ let allData = table.rows('*').data();
 
 ## string - #ID
 
-DataTables row selector is optimised for IDs as it is natural to wish to select rows by unique information. This is distinct from a jQuery selector as DataTables can optimise this selector type so as to not involve the DOM - also allowing an id row selector to operate on rows which have not yet had their DOM nodes created (when using `dt-init deferRender` for extra speed).
+DataTables row selector is optimised for IDs as it is natural to wish to select rows by unique information. This is distinct from a CSS selector as DataTables can optimise this selector type so as to not involve the DOM - also allowing an id row selector to operate on rows which have not yet had their DOM nodes created (when using `dt-init deferRender` for extra speed).
 
 With dynamically sourced data, the id assigned to the row is identifier using the `dt-init rowId` option. The data used as the id can be of any value, although it must be unique in the table.
 
-To use an id selector, simply prefix the id value for the row you wish to select with a number sign: `#`. The value that follows is taken as the id. Unlike jQuery this value does __not__ need to be escaped - although this means that an id selector must be used alone (e.g. a class name cannot also be used), it does make is much easier to use for complex data.
+To use an id selector, simply prefix the id value for the row you wish to select with a number sign: `#`. The value that follows is taken as the id. Unlike CSS this value does __not__ need to be escaped - although this means that an id selector must be used alone (e.g. a class name cannot also be used), it does make is much easier to use for complex data.
 
 ###### Select a single row by id:
 
@@ -99,7 +103,7 @@ let row = table.row('#row-42');
 
 ```js
 let table = new DataTable('#myTable');
-let rows = table.rows( [ '#row-42', '#row-51' ] );
+let rows = table.rows(['#row-42', '#row-51']);
 ```
 
 
@@ -118,9 +122,9 @@ let row = table.row(':eq(0)');
 
 ## string
 
-When the selector is given as a string, it is treated as a CSS selector, [using jQuery's selector engine](https://api.jquery.com/category/selectors/) that operates on the `-tag tr` elements in the table. For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](https://api.jquery.com/category/selectors/).
+When the selector is given as a string, it is treated as a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors) that operates on the `-tag tr` elements in the table.
 
-Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
+Note that just like CSS selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
 
 ###### Select rows by class name:
 
@@ -146,10 +150,10 @@ let rows = table.rows('.important, .intermediate');
 ```js
 let table = new DataTable('#myTable');
 
-$('#example tbody').on( 'click', 'tr', function () {
-  let rowData = table.row( this ).data();
-  // ... do something with `rowData`
-} );
+DataTable.dom.s('#example tbody').on('click', 'tr', function () {
+	let rowData = table.row(this).data();
+	// ... do something with `rowData`
+});
 ```
 
 
@@ -177,17 +181,14 @@ The function is called once for every row that can be selected, based on the `dt
 let table = new DataTable('#myTable');
 
 let names = table
-	.rows( function ( idx, data, node ) {
-		return data.first_name.charAt(0) === 'A' ?
-			true : false;
-	} )
+	.rows((idx, data, node) => data.first_name.charAt(0) === 'A')
 	.data();
 ```
 
 
 ## jQuery
 
-Very similar to the above `node` type (since a jQuery object is an _array-like_ list of DOM nodes), a jQuery instance can be given as a row selector, with any nodes which are selected by jQuery and match those available in the table selected.
+If you are using jQuery, then very similar to the above `node` type (since a jQuery object is an _array-like_ list of DOM nodes), a jQuery instance can be given as a row selector, with any nodes which are selected by jQuery and match those available in the table selected.
 
 ###### Get data from rows in a jQuery instance:
 
@@ -195,14 +196,14 @@ Very similar to the above `node` type (since a jQuery object is an _array-like_ 
 let rows = $('tr.immediate');
 let table = new DataTable('#myTable');
 
-let rowData = table.rows( rows ).data();
+let rowData = table.rows(rows).data();
 ```
 
 ###### Use jQuery selectors to get the data in the fifth row of the table:
 
 ```js
-let rowData1 = table.rows( ':nth-child(5)' ).data();
-let rowData2 = table.rows( ':eq(4)' ).data();
+let rowData1 = table.rows(':nth-child(5)').data();
+let rowData2 = table.rows(':eq(4)').data();
 ```
 
 ## array
@@ -213,14 +214,14 @@ Any combination of the above options can be given as selector together, providin
 
 ```js
 let table = new DataTable('#myTable');
-let data = table.rows( ['#row-42', '#row-91'] ).data();
+let data = table.rows(['#row-42', '#row-91']).data();
 ```
 
 ###### Mix `row-selector` types - id and class selector
 
 ```js
 let table = new DataTable('#myTable');
-let data = table.rows( ['#row-42', '.important'] ).data();
+let data = table.rows(['#row-42', '.important']).data();
 ```
 
 

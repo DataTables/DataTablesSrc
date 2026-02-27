@@ -248,18 +248,11 @@ Api.register(
 
 		if (data === undefined) {
 			// get
-			let jq = util.external('jq');
 			let details =
 				ctx.length && this.length && ctx[0].data[this[0]]
 					? ctx[0].data[this[0]]?.details
 					: undefined;
 
-			if (!details) {
-				return;
-			}
-			else if (jq) {
-				return jq(details.get());
-			}
 			return details;
 		}
 		else if (data === true) {

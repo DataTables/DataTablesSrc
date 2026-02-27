@@ -13,27 +13,27 @@
 	<description>
 		This method is used to remove child row(s) from a parent row, removing them from the displayed table (if they are currently displayed) and releasing the memory allocated for these rows.
 
-		Please note that this method is only available when `dt-api row().child()` is called with a parameter set. This is because `dt-api row().child()` will return the child rows if called with no parameters, which is either a `-type jQuery` object or `-type undefined`. When called with a parameter `dt-api row().child()` returns a `-type DataTables.Api` instance. If you need to display a child row without any parameters being set use `dt-api row().child.show()`.
+		Please note that this method is only available when `dt-api row().child()` is called with a parameter set. This is because `dt-api row().child()` will return the child rows if called with no parameters, which is either a `-type Dom` object or `-type undefined` (prior to DataTables 3, `-type jQuery` would be returned). When called with a parameter `dt-api row().child()` returns a `-type DataTables.Api` instance. If you need to display a child row without any parameters being set use `dt-api row().child.show()`.
 
 		Unlike many of the other methods which manipulate the DataTable, this method does not require `dt-api draw()` to be called immediately after. The child row(s) are removed from table without requiring that DataTables redraw.
 	</description>
 
 	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 
-$('#example tbody').on('click', 'td.details-control', function () {
-	var tr = $(this).parents('tr');
-	var row = table.row(tr);
+table.on('click', 'td.details-control', function () {
+	let tr = this.closest('tr');
+	let row = table.row(tr);
 
 	if (row.child.isShown()) {
-		// This row is already open - remove it
-		row.child(false).remove();
-		tr.removeClass('shown');
+		// This row is already open - close it
+		row.child.hide();
+		tr.classList.remove('shown');
 	}
 	else {
 		// Open this row (the format() function would return the data to be shown)
 		row.child(format(row.data())).show();
-		tr.addClass('shown');
+		tr.classList.add('shown');
 	}
 });
 ]]></example>

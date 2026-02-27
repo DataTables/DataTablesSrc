@@ -11,48 +11,45 @@ The DataTables API provides the ability to programmatically control one or more 
 
 ## API structure
 
-The API object is _array-like_, in that it has a `length` property, elements in its result set can be accessed using JavaScript array notation (`[]`) and it provides many (although not all) of the same methods as an `dt-type array` (for example `dt-api push()` and `dt-api indexOf()`).
+The API object is _array-like_, in that it has a `length` property, elements in its result set can be accessed using JavaScript array notation (`[]`) and it provides many (although not all) of the same methods as an `dt-type array` (for example `dt-api push()` and `dt-api indexOf()`). Please see [the API manual page](/manual/api) for an overview of using the DataTables API.
 
 
 ## Accessing the API
 
-New API instances can be created in one of three ways:
+New API instances can be created by:
 
-* `$( selector ).DataTable();` - DataTables constructor
-* `$( selector ).dataTable().api();` - DataTables jQuery constructor
-* `new $.fn.dataTable.Api( selector );` - Direct initialisation
+* `new DataTable( selector, options );` - Initialise a new DataTable and return an API instance
+* `new DataTable.Api( selector );` - Create a new API instance for an existing DataTable
 
-The result from each is an instance of the DataTables API object which has the tables found by the selector in its context. In all three cases `selector` is a [jQuery selector](https://api.jquery.com/category/selectors/).
 
-It is important to note the difference between `$( selector ).DataTable()` and `$( selector ).dataTable()`. The former returns a DataTables API instance, while the latter returns a `dt-type jQuery` object. An `api()` method is added to the jQuery object so you can easily access the API, but the jQuery object can be useful for manipulating the table node, as you would with any other jQuery instance (such as using `addClass()` etc).
+The result from each is an instance of the DataTables API object which has the tables found by the selector in its context. In all three cases `selector` is a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors).
 
-###### $( selector ).DataTable(); example
+As an example, the following will initially get an API instance to the DataTable `#myTable`, and then use the API to get some data from it:
 
 ```js
-var table = new DataTable('#myTable');
-
-// Search for a data point
-table.search( 'Fiona' ).draw();
-```
-
-
-###### $( selector ).dataTable(); example
-
-```js
-var table = new DataTable('#myTable').api();
-
-// Jump to the next page of data
-table.page('next').draw(false);
-```
-
-
-###### new $.fn.dataTable.Api( selector );
-
-```js
-var table = new $.fn.dataTable.Api( '#myTable' );
+var table = new DataTable.Api( '#myTable' );
 
 // Get data from the first row
 var data = table.rows().data()[0]; // same as row(0).data()
+```
+
+
+### Legacy jQuery API
+
+If you are using DataTables with jQuery, you can access the DataTables API through:
+
+* `$( selector ).DataTable();` - Create a new DataTable or fetch existing tables and return a DataTables API instance.
+* `$( selector ).dataTable().api();` - DataTables jQuery constructor
+
+It is important to note the difference between `$( selector ).DataTable()` and `$( selector ).dataTable()`. The former returns a DataTables API instance, while the latter returns a `dt-type jQuery` object. An `api()` method is added to the jQuery object so you can easily access the API, but the jQuery object can be useful for manipulating the table node, as you would with any other jQuery instance (such as using `addClass()` etc).
+
+As an example, the following uses jQuery to select `#myTable` and then uses the returned DataTables API instance to perform a search on the table.
+
+```js
+var table = $('#myTable').DataTable();
+
+// Search for a data point
+table.search( 'Fiona' ).draw();
 ```
 
 

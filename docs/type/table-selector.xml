@@ -16,7 +16,7 @@ The table selector can be given in a number of different forms, to make it easy 
 
 * No selector - Select all tables
 * `dt-type integer` - Table index selector
-* `dt-type string` - jQuery selector
+* `dt-type string` - CSS selector
 * `dt-type node` - `dt-tag table` element selector
 * `dt-type jQuery` - jQuery object of table nodes
 * `dt-type array` - Array containing any combination of the above options
@@ -47,15 +47,15 @@ If an integer is given for the table selector, then the table with that index in
 
 ```js
 var tables = new DataTable('.dataTable');
-var data = tables.table( 0 ).data();
+var data = tables.table(0).data();
 ```
 
 
 ## string
 
-When the selector is given as a string, it is treated as a [jQuery selector](https://api.jquery.com/category/selectors/) that operates on the `dt-tag table` elements themselves. For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](https://api.jquery.com/category/selectors/).
+When the selector is given as a string, it is treated as a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors) that operates on the `dt-tag table` elements themselves.
 
-Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
+Note that just like a CSS selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
 
 ###### Select tables by class name:
 
@@ -63,8 +63,8 @@ Note that just like jQuery selector, is it possible to supply multiple selectors
 var tables = new DataTable('.dataTable');
 tables
 	.tables('.cell-selector')
-	.page( 'next' )
-	.draw( false );
+	.page('next')
+	.draw(false);
 ```
 
 ###### Select table by ID:
@@ -91,26 +91,26 @@ tables.tables('#clients, #owners');
 ```js
 var tables = new DataTable('.dataTable');
 
-$('.dataTable tbody').on( 'click', 'tr', function () {
-	var tableData = tables.table( this.parentNode.parentNode );
+$('.dataTable tbody').on('click', 'tr', function () {
+	var tableData = tables.table(this.parentNode.parentNode);
 	// ... do something with `tableData`
-} );
+});
 ```
 
 
 ## jQuery
 
-Very similar to the above `node` type (since a jQuery object is an _array-like_ list of DOM nodes), a jQuery instance can be given as a table selector, with any nodes which are selected by jQuery and match those available in the API instance's context.
+If you are using jQuery, then very similar to the above `node` type (since a jQuery object is an _array-like_ list of DOM nodes), a jQuery instance can be given as a table selector, with any nodes which are selected by jQuery and match those available in the API instance's context.
 
 ###### Get the data for the table that was clicked upon:
 
 ```js
 var tables = new DataTable('.dataTable');
 
-$('.dataTable tbody').on( 'click', 'tr', function () {
-	var tableData = tables.table( $(this).parents('table') );
-  // ... do something with `tableData`
-} );
+$('.dataTable tbody').on('click', 'tr', function () {
+	var tableData = tables.table($(this).parents('table'));
+	// ... do something with `tableData`
+});
 ```
 
 
@@ -122,14 +122,14 @@ Any combination of the above options can be given as selector together, providin
 
 ```js
 var tables = new DataTable('.dataTable');
-var data = tables.tables( ['#table-1', '#table-3'] ).data();
+var data = tables.tables(['#table-1', '#table-3']).data();
 ```
 
 ###### Mix `table-selector` types - id and class selector
 
 ```js
 var tables = new DataTable('.dataTable');
-var data = table.tables( ['#table-1', '.important'] ).data();
+var data = table.tables(['#table-1', '.important']).data();
 ```
 
 	]]>

@@ -7,7 +7,11 @@
 	<type type="function">
 		<signature>row().child()</signature>
 		<description>Get the child row(s) that have been set for a parent row</description>
-		<returns type="jQuery|undefined">jQuery object with the child rows for the parent row in its result set, or `undefined` if there are no child rows set for the parent yet.</returns>
+		<returns type="Dom|undefined">
+			Dom object with the child rows for the parent row in its result set, or `undefined` if there are no child rows set for the parent yet.
+
+			Please note that prior to DataTables 3, this method would return a jQuery instance.
+		</returns>
 	</type>
 
 	<type type="function">
@@ -26,12 +30,13 @@
 	<type type="function">
 		<signature>row().child( data [, className ] )</signature>
 		<description>Set the data to show in the child row(s). Note that calling this method will replace any child rows which are already attached to the parent row.</description>
-		<parameter type="string|node|jQuery|array" name="data">
+		<parameter type="string|node|Dom|jQuery|array" name="data">
 			The data to be shown in the child row can be given in multiple different ways:
 
 			* `string` - As a string, a single child row is create and the data is inserted into a single cell in that child row.
 			* `node` - As a `dt-tag tr` element, the `dt-tag tr` element is used as the child row. This can be useful it you wish to define multiple columns in the child row.
-			* `jQuery` - A jQuery object with nodes to be added. If there are multiple elements in the jQuery result set, they are added as multiple rows. If the node is `dt-tag tr` element it is treated as the child row, otherwise a row and cell are automatically created and the node from the jQuery result set inserted into it.
+			* `Dom` - A `Dom` instance with nodes to be added. If there are multiple elements in the `Dom` result set, they are added as multiple rows. If the node is `dt-tag tr` element it is treated as the child row, otherwise a row and cell are automatically created and the node from the `Dom` result set inserted into it.
+			* `jQuery` - Treated the same way as `Dom` above.
 			* `array` - Multiple child rows can be added at a single time by passing any of the above options in as an array. For example you might pass in an array with two string elements in it to create two child rows with the string content used for each.
 		</parameter>
 		<parameter type="string" name="className" default="">
@@ -39,7 +44,7 @@
 
 			This is useful to add additional styling information to the child row to indicate that while it is part of the table's data, it is additional information beyond what is normally shown.
 
-			Please note that if a `-type node`, or jQuery object that contains nodes, is given in the first parameter the class name is not automatically added - it is assumed that the existing row is already configured as required.
+			Please note that if a `-type node`, or array-like object that contains nodes, is given in the first parameter the class name is not automatically added - it is assumed that the existing row is already configured as required.
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>
 	</type>
@@ -57,27 +62,27 @@
 	</description>
 
 	<example title="Show / hide a row based on its current state, adding the row content as needed."><![CDATA[
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 
-$('#example tbody').on('click', 'td.details-control', function () {
-	var tr = $(this).parents('tr');
-	var row = table.row(tr);
+table.on('click', 'td.details-control', function () {
+	let tr = this.closest('tr');
+	let row = table.row(tr);
 
 	if (row.child.isShown()) {
 		// This row is already open - close it
 		row.child.hide();
-		tr.removeClass('shown');
+		tr.classList.remove('shown');
 	}
 	else {
 		// Open this row (the format() function would return the data to be shown)
 		row.child(format(row.data())).show();
-		tr.addClass('shown');
+		tr.classList.add('shown');
 	}
 });
 ]]></example>
 
 	<example title="Create multiple child rows for a single row in the table - the first visible row."><![CDATA[
-var table = new DataTable('#myTable');
+let table = new DataTable('#myTable');
 
 table
 	.row(':eq(0)')
@@ -85,28 +90,19 @@ table
 	.show();
 ]]></example>
 
-	<example title="Add a child row to all rows, passing in a jQuery created `dt-tag tr` element and show all child rows"><![CDATA[
-var table = new DataTable('#myTable');
+	<example title="Add a child row to all rows, passing in a `dt-tag tr` element and show all child rows"><![CDATA[
+let table = new DataTable('#myTable');
 
 table.rows().every(function () {
-	this.child(
-		$(
-			'<tr>' +
-				'<td>' +
-				rowIdx +
-				'.1</td>' +
-				'<td>' +
-				rowIdx +
-				'.2</td>' +
-				'<td>' +
-				rowIdx +
-				'.3</td>' +
-				'<td>' +
-				rowIdx +
-				'.4</td>' +
-				'</tr>'
-		)
-	).show();
+	let tr = document.createElement('tr');
+
+	tr.innerHTML =
+		'<td>' + rowIdx + '.1</td>' +
+		'<td>' + rowIdx + '.2</td>' +
+		'<td>' + rowIdx + '.3</td>' +
+		'<td>' + rowIdx + '.4</td>';
+
+	this.child(tr).show();
 });
 ]]></example>
 

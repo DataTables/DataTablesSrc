@@ -125,5 +125,5 @@ table.columns('.select-filter').every(function () {
 	<related type="option">columns.searchable</related>
 	<related type="api">search()</related>
 	<related type="api">column().search()</related>
-	<related type="api">$.fn.dataTable.util.escapeRegex()</related>
+	<related type="api">DataTable.util.escapeRegex()</related>
 </dt-api>

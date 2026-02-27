@@ -18,37 +18,40 @@
 
 		This is a utility method that is provided for use by extension and plug-in authors. Its use does not directly effect a DataTable or DataTables configuration. It is used internally by DataTables and is made available in the public API to help promote code reuse for extension authors.
 
-		Please note that this is a **static** function and is accessed through the `DataTable` or `$.fn.dataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
-
-		Prior to DataTables 1.11 this method could be accessed through the `$.fn.dataTable` object only. As of 1.11, either `DataTable` or `$.fn.dataTable` can be used.
+		Please note that this is a **static** function and is accessed through the `DataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
 	</description>
 
-	<example title="Perform an escape match search using `-tag select` elements"><![CDATA[
-var table = new DataTable('#myTable');
-
-table
-	.columns()
-	.indexes()
-	.flatten()
-	.each(function (i) {
-		var column = table.column(i);
-		var select = $('<select><option value=""></option></select>')
-			.appendTo($(column.footer()).empty())
-			.on('change', function () {
-				// Escape the expression so we can perform a regex match
-				var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-				column.search(val ? '^' + val + '$' : '', true, false).draw();
-			});
-
-		column
-			.data()
-			.unique()
-			.sort()
-			.each(function (d, j) {
-				select.append('<option value="' + d + '">' + d + '</option>');
-			});
-	});
+	<example title="Perform an exact match search using `-tag select` elements"><![CDATA[
+new DataTable('#example', {
+    initComplete: function () {
+        this.api()
+            .columns()
+            .every(function () {
+                let column = this;
+ 
+                // Create select element
+                let select = document.createElement('select');
+                select.add(new Option(''));
+                column.footer().replaceChildren(select);
+ 
+                // Apply listener for user change in value
+                select.addEventListener('change', function () {
+                    column
+                        .search(select.value, {exact: true})
+                        .draw();
+                });
+ 
+                // Add list of options
+                column
+                    .data()
+                    .unique()
+                    .sort()
+                    .each(function (d, j) {
+                        select.add(new Option(d));
+                    });
+            });
+    }
+});
 ]]></example>
 
 	<related type="option">searching</related>

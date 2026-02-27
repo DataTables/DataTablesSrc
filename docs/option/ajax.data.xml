@@ -40,7 +40,7 @@
 
 		The `dt-init ajax.data` option provides the ability to add additional data to the request, or to modify the data object being submitted if required.
 
-		This property makes use of `-api DataTable.ajax()` to make the Ajax call, and all options available in `-type DataTables.ajaxOptions` can be used in this object. Prior to DataTables 3, this property make use of [jQuery's `ajax()` method](https://api.jquery.com/jQuery.ajax/), and the options were mapped to that object.
+		This property makes use of `-api DataTable.ajax()` to make the Ajax call, and all options available in `-type DataTables.ajaxOptions` can be used in this object. Prior to DataTables 3, this property made use of [jQuery's `ajax()` method](https://api.jquery.com/jQuery.ajax/), and the options were mapped to that object.
 	</description>
 
 	<example title="Add an extra parameter (`user_id` in this case), of a static value to the data submitted"><![CDATA[

@@ -22,8 +22,6 @@
 		It can also be useful for plug-ins to ensure that any other version dependencies are met.
 
 		Please note that this is a **static** function and is accessed through the `DataTable` object, not an API instance. It can be accessed at any time, even before any DataTables have been created on the page.
-
-		Prior to DataTables 1.11 this method could be accessed through the `$.fn.dataTable` object only. As of 1.11, either `DataTable` or `$.fn.dataTable` can be used.
 	</description>
 
 	<example title="Check minor compatibility of DataTables"><![CDATA[

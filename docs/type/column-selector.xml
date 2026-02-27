@@ -128,13 +128,11 @@ let allData = table.columns('*').data();
 
 ## string
 
-When the selector is given as a string, it is treated as a [jQuery selector](https://api.jquery.com/category/selectors/) that operates on the `dt-tag th` and `dt-tag td` elements of the column headers in the table.
+When the selector is given as a string, it is treated as a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors) that operates on the `dt-tag th` and `dt-tag td` elements of the column headers in the table.
 
-Each column has only one cell which is used as the column header - see `dt-init orderCellsTop` for information on how DataTables selected the cells to use for the column headers, if there is more than one possible cell for each column header in the table's `dt-tag thead` element.
+Each column has only one cell which is used as the column header - see `dt-init titleRow` for information on how DataTables selected the cells to use for the column headers, if there is more than one possible cell for each column header in the table's `dt-tag thead` element.
 
-For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](https://api.jquery.com/category/selectors/).
-
-Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
+Note that just like a CSS selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
 
 ###### Select a single column by id:
 
@@ -150,13 +148,6 @@ let table = new DataTable('#myTable');
 let columns = table.columns('.priority');
 ```
 
-###### Select column by contents:
-
-```js
-let table = new DataTable('#myTable');
-let column = table.column(':contains(Salary)');
-```
-
 
 ## node
 
@@ -169,10 +160,10 @@ This can be useful for getting data from a column, or performing other column ba
 ```js
 let table = new DataTable('#myTable');
 
-$('#example thead').on( 'click', 'th', function () {
-  let columnData = table.column( this ).data();
-  // ... do something with `columnData`
-} );
+$('#example thead').on('click', 'th', function () {
+	let columnData = table.column(this).data();
+	// ... do something with `columnData`
+});
 ```
 
 
@@ -198,17 +189,14 @@ The function is called once for every column that can be selected, based on the 
 let table = new DataTable('#myTable');
 
 let active = table
-	.columns( function ( idx, data, node ) {
-		return $.inArray( 'Active', data ) !== -1 ?
-			true : false;
-	} )
+	.columns((idx, data, node) => data.includes('Active'))
 	.data();
 ```
 
 
 ## jQuery
 
-Very similar to the above `node` type (since a jQuery object is an _array-like_ list of DOM nodes), a jQuery instance can be given as a column selector, with any nodes which are selected by jQuery and match those available in the table's header cells.
+If you are using DataTables with jQuery, DataTables supports the use of a jQuery object being used to select column based on selected header cells. This is very similar to the `array` type (since a jQuery object is an _array-like_ list of DOM nodes).
 
 Please note that when working with a jQuery selected set of columns and hidden columns, jQuery itself will not select the column header cells which have been hidden (as DataTables removes them from the document when the column is hidden). To overcome this is problem, use the `string` option above which does not suffer from this issue and allows a jQuery selector to be used.
 
@@ -218,7 +206,7 @@ Please note that when working with a jQuery selected set of columns and hidden c
 let columns = $('#example thead th.immediate');
 let table = new DataTable('#myTable');
 
-let columnData = table.columns( columns ).data();
+let columnData = table.columns(columns).data();
 ```
 
 
@@ -230,14 +218,14 @@ Any combination of the above options can be given as selector together, providin
 
 ```js
 let table = new DataTable('#myTable');
-let data = table.columns( [0, 1] ).data();
+let data = table.columns([0, 1]).data();
 ```
 
 ###### Mix `column-selector` types - index and class selector
 
 ```js
 let table = new DataTable('#myTable');
-let data = table.columns( [0, '.important'] ).data();
+let data = table.columns([0, '.important']).data();
 ```
 
 

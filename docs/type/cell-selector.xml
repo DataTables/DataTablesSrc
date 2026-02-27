@@ -13,13 +13,13 @@ The DataTables `dt-api cells()` and `dt-api cell()` methods provide the ability 
 The cell selector can be given in a number of different forms, to make it easy to apply to your data and use case:
 
 * No selector - Select all cells
-* `dt-type string` - jQuery selector
+* `dt-type string` - CSS selector
 * `dt-type node` - This may be one of the following:
   * `-tag td` / `-tag th` cell
   * Any element which has both a `data-dt-row` and `data-dt-column` attribute assigned to it, or a parent (<span class="since">Since: 1.10.11</span>). This can be used by extensions such as FixedColumns and Responsive to allow easy column selection.
 * `dt-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
-* `dt-type jQuery` - jQuery object of cell nodes
 * `dt-type object` - DataTables cell indexes (`row` and `column` properties)
+* `dt-type jQuery` - jQuery object of cell nodes
 * `dt-type array` - Array containing any combination of the above options
 
 
@@ -37,9 +37,9 @@ let cells = table.cells().nodes();
 
 ## string
 
-When the selector is given as a string, it is treated as a [jQuery selector](https://api.jquery.com/category/selectors/) that operates on the `dt-tag td` and `dt-tag th` elements in the table's `dt-tag tbody`. For full information about the options available for jQuery selectors, please refer to the [jQuery selector documentation](https://api.jquery.com/category/selectors/).
+When the selector is given as a string, it is treated as a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors) that operates on the `dt-tag td` and `dt-tag th` elements in the table's `dt-tag tbody`.
 
-Note that just like jQuery selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
+Note that just like a CSS selector, is it possible to supply multiple selectors using comma separated notation (i.e. just separate by a comma) when the selector is provided as a string.
 
 ###### Get data from a single cell by id:
 
@@ -72,10 +72,10 @@ let cells = table.cells('.important, .intermediate');
 ```js
 let table = new DataTable('#myTable');
 
-$('#example tbody').on( 'click', 'td', function () {
-  let cellData = table.cell( this ).data();
-  // ... do something with `cellData`
-} );
+DataTable.dom.s('#example tbody').on('click', 'td', function () {
+	let cellData = table.cell(this).data();
+	// ... do something with `cellData`
+});
 ```
 
 
@@ -103,28 +103,12 @@ The function is called once for every cell that can be selected, based on the `d
 let table = new DataTable('#myTable');
 
 let ones = table
-	.cells( function ( idx, data, node ) {
-		return data == 1 ?
-			true : false;
-	} )
+	.cells((idx, data, node) => data == 1 ? true : false)
 	.nodes();
 
 // Add a class to the cells
-ones.to$().addClass('highlight');
+ones.toDom().classAdd('highlight');
 ```
-
-
-## jQuery
-
-Very similar to the above `node` type (since a jQuery object is an _array-like_ list of DOM nodes), a jQuery instance can be given as a cell selector, with any nodes which are selected by jQuery and match those available in the table's `dt-tag tbody` selected.
-
-###### Get data from cells in a jQuery instance:
-
-```js
-let cells = $('td.immediate');
-let table = new DataTable('#myTable');
-
-let cellData = table.cells( cells ).data();
 
 
 ## Object
@@ -136,13 +120,26 @@ Although not particularly useful as a primary selector method, this can be very 
 ###### Loop over all cells, adding a class if the data for the cell is greater than a given value.
 
 ```js
-table.cells().every( function () {
-	if ( this.data() > 10 ) {
-		$(this.node()).addClass( 'important' );
+table.cells().every(function () {
+	if (this.data() > 10) {
+		this.node().classList.add('important');
 	}
-} );
+});
 ```
 
+
+## jQuery
+
+If you are using jQuery, DataTables supports passing a jQuery object to select cell, as jQuery is an _array-like_ list of DOM nodes. Any nodes which are selected by jQuery and match those available in the table's `dt-tag tbody` will be selected.
+
+###### Get data from cells in a jQuery instance:
+
+```js
+let cells = $('td.immediate');
+let table = new DataTable('#myTable');
+
+let cellData = table.cells(cells).data();
+```
 
 ## array
 
@@ -152,14 +149,14 @@ Any combination of the above options can be given as selector together, providin
 
 ```js
 let table = new DataTable('#myTable');
-let data = table.cells( ['#cell-1-42', '#cell-1-91'] ).data();
+let data = table.cells(['#cell-1-42', '#cell-1-91']).data();
 ```
 
 ###### Mix `cell-selector` types - id and class selector
 
 ```js
 let table = new DataTable('#myTable');
-let data = table.cells( ['#cell-1-42', '.important'] ).data();
+let data = table.cells(['#cell-1-42', '.important']).data();
 ```
 
 	]]>
