@@ -18,5 +18,5 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">scrollY</related>
+	<related>-init scrollY</related>
 </dt-option>

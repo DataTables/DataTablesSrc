@@ -51,5 +51,5 @@ DataTable.dom.s('#submit').on('click', function () {
 });
 ]]></example>
 
-	<related type="init">destroy</related>
+	<related>-init destroy</related>
 </dt-api>

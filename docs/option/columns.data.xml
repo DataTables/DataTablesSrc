@@ -204,5 +204,5 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">columns.render</related>
+	<related>-init columns.render</related>
 </dt-option>

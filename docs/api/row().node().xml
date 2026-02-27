@@ -26,5 +26,5 @@ var row = table.row('#row-4').node();
 $(row).addClass('ready');
 ]]></example>
 
-	<related type="api">rows().nodes()</related>
+	<related>-api rows().nodes()</related>
 </dt-api>

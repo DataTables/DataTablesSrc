@@ -22,5 +22,5 @@ var table = new DataTable('#myTable', {
 $(table.table().node()).addClass('highlight');
 ]]></example>
 
-	<related type="api">tables().nodes()</related>
+	<related>-api tables().nodes()</related>
 </dt-api>

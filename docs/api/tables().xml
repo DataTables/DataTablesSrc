@@ -50,5 +50,5 @@ tables
 // would also have achieved the same effect
 ]]></example>
 
-	<related type="api">table()</related>
+	<related>-api table()</related>
 </dt-api>

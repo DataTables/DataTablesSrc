@@ -47,5 +47,5 @@ else {
 }
 ]]></example>
 
-	<related type="api">column().data()</related>
+	<related>-api column().data()</related>
 </dt-api>

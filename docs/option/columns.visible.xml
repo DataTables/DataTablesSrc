@@ -25,7 +25,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">scrollX</related>
-	<related type="api">column().visible()</related>
-	<related type="api">columns().visible()</related>
+	<related>-init scrollX</related>
+	<related>-api column().visible()</related>
+	<related>-api columns().visible()</related>
 </dt-option>

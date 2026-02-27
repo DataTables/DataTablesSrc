@@ -45,10 +45,10 @@ table
 	.draw();
 ]]></example>
 
-	<related type="api">cells().data()</related>
-	<related type="api">cells().render()</related>
-	<related type="api">cell().data()</related>
-	<related type="api">cell().invalidate()</related>
-	<related type="api">cell().render()</related>
-	<related type="api">rows().invalidate()</related>
+	<related>-api cells().data()</related>
+	<related>-api cells().render()</related>
+	<related>-api cell().data()</related>
+	<related>-api cell().invalidate()</related>
+	<related>-api cell().render()</related>
+	<related>-api rows().invalidate()</related>
 </dt-api>

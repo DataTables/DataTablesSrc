@@ -37,5 +37,5 @@ $('#example tbody').on('click', 'tr', function () {
 });
 ]]></example>
 
-	<related type="api">rows().indexes()</related>
+	<related>-api rows().indexes()</related>
 </dt-api>

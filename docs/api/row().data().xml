@@ -65,6 +65,6 @@ table.draw();
 ]]></example>
 
 
-	<related type="api">rows().data()</related>
-	<related type="api">cell().data()</related>
+	<related>-api rows().data()</related>
+	<related>-api cell().data()</related>
 </dt-api>

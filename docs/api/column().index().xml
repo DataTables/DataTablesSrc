@@ -28,5 +28,5 @@ var idx = table.column(1).index('visible');
 alert(idx); // will show 0
 ]]></example>
 
-	<related type="api">columns().indexes()</related>
+	<related>-api columns().indexes()</related>
 </dt-api>

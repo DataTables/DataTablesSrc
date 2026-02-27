@@ -24,7 +24,7 @@ var table = new DataTable('#myTable');
 table.clear().draw();
 ]]></example>
 
-	<related type="api">data()</related>
-	<related type="api">row.add()</related>
-	<related type="api">rows.add()</related>
+	<related>-api data()</related>
+	<related>-api row.add()</related>
+	<related>-api rows.add()</related>
 </dt-api>

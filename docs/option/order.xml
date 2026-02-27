@@ -51,10 +51,10 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">ordering</related>
-	<related type="option">orderFixed</related>
-	<related type="option">columns.orderable</related>
-	<related type="option">columns.orderData</related>
-	<related type="option">columns.orderSequence</related>
-	<related type="api">order()</related>
+	<related>-init ordering</related>
+	<related>-init orderFixed</related>
+	<related>-init columns.orderable</related>
+	<related>-init columns.orderData</related>
+	<related>-init columns.orderSequence</related>
+	<related>-api order()</related>
 </dt-option>

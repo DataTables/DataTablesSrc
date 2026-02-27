@@ -86,8 +86,8 @@ table.draw();
 ]]></example>
 
 
-	<related type="api">columns().every()</related>
-	<related type="api">cells().every()</related>
-	<related type="api">each()</related>
-	<related type="api">iterator()</related>
+	<related>-api columns().every()</related>
+	<related>-api cells().every()</related>
+	<related>-api each()</related>
+	<related>-api iterator()</related>
 </dt-api>

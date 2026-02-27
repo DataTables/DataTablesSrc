@@ -40,5 +40,5 @@ $('#example tbody').on('click', 'td', function () {
 });
 ]]></example>
 
-	<related type="api">column().header()</related>
+	<related>-api column().header()</related>
 </dt-api>

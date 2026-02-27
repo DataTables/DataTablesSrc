@@ -51,8 +51,8 @@ table.on('click', 'tbody td', function () {
 });
 ]]></example>
 
-	<related type="api">cells().indexes()</related>
-	<related type="api">row().index()</related>
-	<related type="api">column().index()</related>
-	<related type="api">column.index()</related>
+	<related>-api cells().indexes()</related>
+	<related>-api row().index()</related>
+	<related>-api column().index()</related>
+	<related>-api column.index()</related>
 </dt-api>

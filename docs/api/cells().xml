@@ -52,5 +52,5 @@
 		This method is a _top level_ selector. That means that, regardless of what might have already been selected by the API instance in the call chain, this method will always return the selected cells, without consideration for what might have been selected previously.
 	</description>
 
-	<related type="api">cell()</related>
+	<related>-api cell()</related>
 </dt-api>

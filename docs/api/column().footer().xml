@@ -34,5 +34,5 @@ column.footer().textContent = column.data().reduce(function (a, b) {
 });
 ]]></example>
 
-	<related type="api">column().footer()</related>
+	<related>-api column().footer()</related>
 </dt-api>

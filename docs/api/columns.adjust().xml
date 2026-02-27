@@ -27,6 +27,6 @@ $('#container').css('display', 'block');
 table.columns.adjust().draw();
 ]]></example>
 
-	<related type="init">columns.width</related>
-	<related type="init">autoWidth</related>
+	<related>-init columns.width</related>
+	<related>-init autoWidth</related>
 </dt-api>

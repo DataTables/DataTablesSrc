@@ -32,16 +32,16 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="api">state()</related>
-	<related type="api">state.clear()</related>
-	<related type="api">state.loaded()</related>
-	<related type="api">state.save()</related>
-	<related type="option">stateSave</related>
-	<related type="option">stateSaveCallback</related>
-	<related type="option">stateLoadCallback</related>
-	<related type="option">stateLoadParams</related>
-	<related type="option">stateLoaded</related>
-	<related type="event">stateLoaded</related>
-	<related type="event">stateLoadParams</related>
-	<related type="event">stateSaveParams</related>
+	<related>-api state()</related>
+	<related>-api state.clear()</related>
+	<related>-api state.loaded()</related>
+	<related>-api state.save()</related>
+	<related>-init stateSave</related>
+	<related>-init stateSaveCallback</related>
+	<related>-init stateLoadCallback</related>
+	<related>-init stateLoadParams</related>
+	<related>-init stateLoaded</related>
+	<related>-event stateLoaded</related>
+	<related>-event stateLoadParams</related>
+	<related>-event stateSaveParams</related>
 </dt-option>

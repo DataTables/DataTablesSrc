@@ -36,8 +36,8 @@ table
 	.draw();
 ]]></example>
 
-	<related type="option">order</related>
-	<related type="option">ordering</related>
-	<related type="api">order()</related>
-	<related type="api">column().order()</related>
+	<related>-init order</related>
+	<related>-init ordering</related>
+	<related>-api order()</related>
+	<related>-api column().order()</related>
 </dt-api>

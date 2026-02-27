@@ -25,9 +25,9 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">dom</related>
-	<related type="option">paging</related>
-	<related type="api">page()</related>
+	<related>-init dom</related>
+	<related>-init paging</related>
+	<related>-api page()</related>
 	<related>-feature paging</related>
 	<related>-feature paging.type</related>
 </dt-option>

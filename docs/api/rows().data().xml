@@ -39,5 +39,5 @@ var rows = table.rows(0).data();
 alert('Pupil name in the first row is: ' + rows[0].name());
 ]]></example>
 
-	<related type="api">row().data()</related>
+	<related>-api row().data()</related>
 </dt-api>

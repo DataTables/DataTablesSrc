@@ -10,9 +10,9 @@
 		Pagination string used by DataTables for the built-in pagination control types.
 	</description>
 
-	<related type="option">language</related>
-	<related type="option">language.paginate.first</related>
-	<related type="option">language.paginate.last</related>
-	<related type="option">language.paginate.next</related>
-	<related type="option">language.paginate.previous</related>
+	<related>-init language</related>
+	<related>-init language.paginate.first</related>
+	<related>-init language.paginate.last</related>
+	<related>-init language.paginate.next</related>
+	<related>-init language.paginate.previous</related>
 </dt-option>

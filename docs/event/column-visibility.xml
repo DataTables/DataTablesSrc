@@ -45,7 +45,7 @@ table.on('column-visibility', function (e, settings, column, state) {
 });
 ]]></example>
 
-	<related type="option">columns.visible</related>
-	<related type="api">column().visible()</related>
-	<related type="api">columns().visible()</related>
+	<related>-init columns.visible</related>
+	<related>-api column().visible()</related>
+	<related>-api columns().visible()</related>
 </dt-event>

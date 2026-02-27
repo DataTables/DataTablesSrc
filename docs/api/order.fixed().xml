@@ -49,7 +49,7 @@ table.order.fixed({
 });
 ]]></example>
 
-	<related type="option">ordering</related>
-	<related type="option">order</related>
-	<related type="api">order()</related>
+	<related>-init ordering</related>
+	<related>-init order</related>
+	<related>-api order()</related>
 </dt-api>

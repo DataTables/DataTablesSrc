@@ -54,5 +54,5 @@ $(rowNode)
 	.animate({ color: 'black' });
 ]]></example>
 
-	<related type="api">rows.add()</related>
+	<related>-api rows.add()</related>
 </dt-api>

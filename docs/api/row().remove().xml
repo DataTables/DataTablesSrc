@@ -40,6 +40,6 @@ $('#example tbody').on('click', 'img.icon-transfer', function () {
 });
 ]]></example>
 
-	<related type="api">rows().remove()</related>
-	<related type="api">clear()</related>
+	<related>-api rows().remove()</related>
+	<related>-api clear()</related>
 </dt-api>

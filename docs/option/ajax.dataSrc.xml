@@ -100,9 +100,9 @@ $('#example').DataTable({
 });
 ]]></example>
 
-	<related type="option">ajax</related>
-	<related type="api">ajax.json()</related>
-	<related type="api">ajax.reload()</related>
-	<related type="api">ajax.url()</related>
+	<related>-init ajax</related>
+	<related>-api ajax.json()</related>
+	<related>-api ajax.reload()</related>
+	<related>-api ajax.url()</related>
 	<related>-init serverSide</related>
 </dt-option>

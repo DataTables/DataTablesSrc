@@ -25,8 +25,8 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="init">retrieve</related>
-	<related type="api">destroy</related>
-	<related type="api">ajax.reload()</related>
-	<related type="event">destroy</related>
+	<related>-init retrieve</related>
+	<related>-api destroy</related>
+	<related>-api ajax.reload()</related>
+	<related>-event destroy</related>
 </dt-option>

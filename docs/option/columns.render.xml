@@ -257,5 +257,5 @@ $(document).ready(function () {
 });
 ]]></example>
 
-	<related type="option">columns.data</related>
+	<related>-init columns.data</related>
 </dt-option>

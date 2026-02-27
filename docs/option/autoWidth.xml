@@ -17,7 +17,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">columns.width</related>
-	<related type="api">columns.adjust()</related>
-	<related type="event">column-sizing</related>
+	<related>-init columns.width</related>
+	<related>-api columns.adjust()</related>
+	<related>-event column-sizing</related>
 </dt-option>

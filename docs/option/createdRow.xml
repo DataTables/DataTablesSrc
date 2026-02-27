@@ -37,8 +37,8 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">data</related>
-	<related type="option">deferRender</related>
-	<related type="option">serverSide</related>
-	<related type="option">columns.createdCell</related>
+	<related>-init data</related>
+	<related>-init deferRender</related>
+	<related>-init serverSide</related>
+	<related>-init columns.createdCell</related>
 </dt-option>

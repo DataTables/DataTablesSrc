@@ -54,5 +54,5 @@ table.columns([0, 1, 2, 3]).visible(false, false);
 table.columns.adjust().draw(false); // adjust column sizing and redraw
 ]]></example>
 
-	<related type="api">column().visible()</related>
+	<related>-api column().visible()</related>
 </dt-api>

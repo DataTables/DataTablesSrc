@@ -35,6 +35,6 @@ function tableActions() {
 }
 ]]></example>
 
-	<related type="option">destroy</related>
-	<related type="api">destroy()</related>
+	<related>-init destroy</related>
+	<related>-api destroy()</related>
 </dt-option>

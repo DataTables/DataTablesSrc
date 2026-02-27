@@ -90,12 +90,12 @@ table.column(-1).search.fixed('myFunc', (cell, data) => {
 table.column(0).search.fixed('mySearch', null);
 ]]></example>
 
-	<related type="option">searching</related>
-	<related type="option">columns.searchable</related>
-	<related type="api">search()</related>
-	<related type="api">search.fixed()</related>
-	<related type="api">column().search()</related>
-	<related type="api">column().search.fixed()</related>
-	<related type="api">columns().search()</related>
-	<related type="api">columns().search.fixed()</related>
+	<related>-init searching</related>
+	<related>-init columns.searchable</related>
+	<related>-api search()</related>
+	<related>-api search.fixed()</related>
+	<related>-api column().search()</related>
+	<related>-api column().search.fixed()</related>
+	<related>-api columns().search()</related>
+	<related>-api columns().search.fixed()</related>
 </dt-api>

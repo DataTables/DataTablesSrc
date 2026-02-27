@@ -50,6 +50,6 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">drawCallback</related>
-	<related type="option">createdRow</related>
+	<related>-init drawCallback</related>
+	<related>-init createdRow</related>
 </dt-option>

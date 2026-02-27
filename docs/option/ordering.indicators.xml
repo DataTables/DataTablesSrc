@@ -26,8 +26,8 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">order</related>
-	<related type="option">ordering</related>
-	<related type="option">ordering.handler</related>
-	<related type="option">ordering.indicators</related>
+	<related>-init order</related>
+	<related>-init ordering</related>
+	<related>-init ordering.handler</related>
+	<related>-init ordering.indicators</related>
 </dt-option>

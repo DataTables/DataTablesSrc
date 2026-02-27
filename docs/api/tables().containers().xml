@@ -28,5 +28,5 @@ tables
 	.addClass('selectable');
 ]]></example>
 
-	<related type="api">table().container()</related>
+	<related>-api table().container()</related>
 </dt-api>

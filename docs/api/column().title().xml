@@ -53,6 +53,6 @@ var table = new DataTable('#myTable');
 table.column(0).title('New title', 1);
 ]]></example>
 
-	<related type="api">columns().titles()</related>
-	<related type="init">columns.title</related>
+	<related>-api columns().titles()</related>
+	<related>-init columns.title</related>
 </dt-api>

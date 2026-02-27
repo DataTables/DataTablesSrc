@@ -28,5 +28,5 @@ tables
 	.addClass('highlight');
 ]]></example>
 
-	<related type="api">table().body()</related>
+	<related>-api table().body()</related>
 </dt-api>

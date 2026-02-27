@@ -28,5 +28,5 @@ table
 	.classRemove('ready');
 ]]></example>
 
-	<related type="api">row().node()</related>
+	<related>-api row().node()</related>
 </dt-api>

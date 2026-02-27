@@ -23,9 +23,9 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">language</related>
-	<related type="option">language.aria</related>
-	<related type="option">language.aria.orderable</related>
-	<related type="option">language.aria.orderableReverse</related>
-	<related type="option">language.aria.orderableRemove</related>
+	<related>-init language</related>
+	<related>-init language.aria</related>
+	<related>-init language.aria.orderable</related>
+	<related>-init language.aria.orderableReverse</related>
+	<related>-init language.aria.orderableRemove</related>
 </dt-option>

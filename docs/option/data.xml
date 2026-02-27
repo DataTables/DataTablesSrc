@@ -63,8 +63,8 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">ajax</related>
-	<related type="option">columns.data</related>
-	<related type="api">row.add()</related>
-	<related type="api">rows.add()</related>
+	<related>-init ajax</related>
+	<related>-init columns.data</related>
+	<related>-api row.add()</related>
+	<related>-api rows.add()</related>
 </dt-option>

@@ -47,6 +47,6 @@ $('#previous').on('click', function () {
 });
 ]]></example>
 
-	<related type="init">paging</related>
-	<related type="api">page.len()</related>
+	<related>-init paging</related>
+	<related>-api page.len()</related>
 </dt-api>

@@ -22,6 +22,6 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">scrollY</related>
-	<related type="option">scrollCollapse</related>
+	<related>-init scrollY</related>
+	<related>-init scrollCollapse</related>
 </dt-option>

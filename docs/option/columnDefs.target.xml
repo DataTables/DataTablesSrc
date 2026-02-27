@@ -21,6 +21,6 @@ $('#example').DataTable({
 });
 ]]></example>
 
-	<related type="option">columnDefs</related>
-	<related type="option">columnDefs.targets</related>
+	<related>-init columnDefs</related>
+	<related>-init columnDefs.targets</related>
 </dt-option>

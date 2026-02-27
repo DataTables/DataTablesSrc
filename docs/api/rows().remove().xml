@@ -34,6 +34,6 @@ var rows = table
 	.draw();
 ]]></example>
 
-	<related type="api">row().remove()</related>
-	<related type="api">clear()</related>
+	<related>-api row().remove()</related>
+	<related>-api clear()</related>
 </dt-api>

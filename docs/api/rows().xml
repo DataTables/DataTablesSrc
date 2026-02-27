@@ -65,5 +65,5 @@ let rows = table.rows({
 });
 ]]></example>
 
-	<related type="api">row()</related>
+	<related>-api row()</related>
 </dt-api>

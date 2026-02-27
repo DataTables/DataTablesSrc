@@ -19,7 +19,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">ordering</related>
-	<related type="option">paging</related>
-	<related type="option">searching</related>
+	<related>-init ordering</related>
+	<related>-init paging</related>
+	<related>-init searching</related>
 </dt-option>

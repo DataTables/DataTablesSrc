@@ -50,5 +50,5 @@ for (var i = 0; i < 4; i++) {
 table.columns.adjust().draw(false); // adjust column sizing and redraw
 ]]></example>
 
-	<related type="api">columns().visible()</related>
+	<related>-api columns().visible()</related>
 </dt-api>

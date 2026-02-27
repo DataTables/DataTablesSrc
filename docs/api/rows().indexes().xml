@@ -26,5 +26,5 @@ var data = table.rows(rows).data();
 // This is just an example showing how indexes can be used!
 ]]></example>
 
-	<related type="api">row().index()</related>
+	<related>-api row().index()</related>
 </dt-api>

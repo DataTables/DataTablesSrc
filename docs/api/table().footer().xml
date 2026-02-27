@@ -24,6 +24,6 @@ var table = new DataTable('#myTable', {
 $(table.table().footer()).addClass('highlight');
 ]]></example>
 
-	<related type="api">tables().footer()</related>
-	<related type="api">table().header()</related>
+	<related>-api tables().footer()</related>
+	<related>-api table().header()</related>
 </dt-api>

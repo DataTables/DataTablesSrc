@@ -52,5 +52,5 @@ table.columns('.select-filter').every(function () {
 });
 ]]></example>
 
-	<related type="api">column().cache()</related>
+	<related>-api column().cache()</related>
 </dt-api>

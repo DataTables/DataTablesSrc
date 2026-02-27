@@ -104,8 +104,8 @@ table.columns('.sum').every(function () {
 
 
 
-	<related type="api">cells().every()</related>
-	<related type="api">each()</related>
-	<related type="api">iterator()</related>
-	<related type="api">rows().every()</related>
+	<related>-api cells().every()</related>
+	<related>-api each()</related>
+	<related>-api iterator()</related>
+	<related>-api rows().every()</related>
 </dt-api>

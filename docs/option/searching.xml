@@ -21,10 +21,10 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">columns.searchable</related>
-	<related type="option">search</related>
-	<related type="option">searchCols</related>
-	<related type="api">search()</related>
-	<related type="api">column().search()</related>
+	<related>-init columns.searchable</related>
+	<related>-init search</related>
+	<related>-init searchCols</related>
+	<related>-api search()</related>
+	<related>-api column().search()</related>
 	<related>-feature search</related>
 </dt-option>

@@ -39,6 +39,6 @@ var titles = table.columns().titles();
 // Do something with titles...
 ]]></example>
 
-	<related type="api">column().title()</related>
-	<related type="init">columns.title</related>
+	<related>-api column().title()</related>
+	<related>-init columns.title</related>
 </dt-api>

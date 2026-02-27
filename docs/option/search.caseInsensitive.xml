@@ -19,13 +19,13 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">search</related>
-	<related type="option">searchCols</related>
-	<related type="option">search</related>
-	<related type="option">search.search</related>
-	<related type="option">search.regex</related>
-	<related type="option">search.smart</related>
-	<related type="option">search.return</related>
-	<related type="api">search()</related>
-	<related type="api">columns().search()</related>
+	<related>-init search</related>
+	<related>-init searchCols</related>
+	<related>-init search</related>
+	<related>-init search.search</related>
+	<related>-init search.regex</related>
+	<related>-init search.smart</related>
+	<related>-init search.return</related>
+	<related>-api search()</related>
+	<related>-api columns().search()</related>
 </dt-option>

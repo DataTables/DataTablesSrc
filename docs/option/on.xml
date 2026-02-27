@@ -67,7 +67,7 @@ new DataTable('#example', {
 });
 ]]></example>
 
-	<related type="api">on()</related>
-	<related type="api">one()</related>
-	<related type="api">off()</related>
+	<related>-api on()</related>
+	<related>-api one()</related>
+	<related>-api off()</related>
 </dt-option>

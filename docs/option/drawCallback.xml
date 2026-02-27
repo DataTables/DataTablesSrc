@@ -35,6 +35,6 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="api">draw()</related>
-	<related type="event">draw</related>
+	<related>-api draw()</related>
+	<related>-event draw</related>
 </dt-option>

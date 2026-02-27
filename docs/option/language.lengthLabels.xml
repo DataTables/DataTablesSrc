@@ -45,5 +45,5 @@ new DataTable('#myTable', {
 
 	<related>-init lengthMenu</related>
 	<related>-init language.lengthMenu</related>
-	<related type="api">i18n()</related>
+	<related>-api i18n()</related>
 </dt-option>

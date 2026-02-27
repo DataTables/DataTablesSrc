@@ -25,5 +25,5 @@ cells.toArray().forEach(el => el.classList.add('warning'));
 cells.toDom().classAdd('warning');
 ]]></example>
 
-	<related type="api">cell().node()</related>
+	<related>-api cell().node()</related>
 </dt-api>

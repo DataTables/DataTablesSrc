@@ -34,6 +34,6 @@ table.on('draw', function () {
 });
 ]]></example>
 
-	<related type="option">drawCallback</related>
-	<related type="api">draw()</related>
+	<related>-init drawCallback</related>
+	<related>-api draw()</related>
 </dt-event>

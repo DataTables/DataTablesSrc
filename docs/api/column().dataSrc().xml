@@ -27,7 +27,7 @@ $('#example').on('click', 'tbody td', function () {
 });
 ]]></example>
 
-	<related type="api">columns().data()</related>
-	<related type="api">columns().dataSrc()</related>
-	<related type="api">column().data()</related>
+	<related>-api columns().data()</related>
+	<related>-api columns().dataSrc()</related>
+	<related>-api column().data()</related>
 </dt-api>

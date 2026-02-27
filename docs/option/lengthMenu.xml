@@ -39,13 +39,13 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">paging</related>
-	<related type="option">lengthChange</related>
-	<related type="option">pageLength</related>
-	<related type="option">language.lengthLabels</related>
-	<related type="api">page()</related>
-	<related type="api">page.info()</related>
-	<related type="api">page.len()</related>
+	<related>-init paging</related>
+	<related>-init lengthChange</related>
+	<related>-init pageLength</related>
+	<related>-init language.lengthLabels</related>
+	<related>-api page()</related>
+	<related>-api page.info()</related>
+	<related>-api page.len()</related>
 	<related>-feature pageLength</related>
 	<related>-feature pageLength.menu</related>
 </dt-option>

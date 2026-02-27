@@ -26,5 +26,5 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">ajax</related>
+	<related>-init ajax</related>
 </dt-option>

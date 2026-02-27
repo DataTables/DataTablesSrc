@@ -23,6 +23,6 @@ var data = table.cells('.info').data();
 console.log(data);
 ]]></example>
 
-	<related type="api">cell().data()</related>
-	<related type="api">cells().render()</related>
+	<related>-api cell().data()</related>
+	<related>-api cells().render()</related>
 </dt-api>

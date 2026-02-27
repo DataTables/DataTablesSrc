@@ -39,7 +39,7 @@ table
 	.draw();
 ]]></example>
 
-	<related type="api">clear()</related>
-	<related type="api">row.add()</related>
-	<related type="api">rows.add()</related>
+	<related>-api clear()</related>
+	<related>-api row.add()</related>
+	<related>-api rows.add()</related>
 </dt-api>

@@ -47,5 +47,5 @@ tables
 // would also have achieved the same effect
 ]]></example>
 
-	<related type="api">tables()</related>
+	<related>-api tables()</related>
 </dt-api>

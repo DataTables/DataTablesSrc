@@ -31,5 +31,5 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">stateSave</related>
+	<related>-init stateSave</related>
 </dt-option>

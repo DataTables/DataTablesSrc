@@ -54,8 +54,8 @@ new DataTable('#example', {
 });
 ]]></example>
 
-	<related type="option">searching</related>
-	<related type="option">columns.searchable</related>
-	<related type="api">search()</related>
-	<related type="api">column().search()</related>
+	<related>-init searching</related>
+	<related>-init columns.searchable</related>
+	<related>-api search()</related>
+	<related>-api column().search()</related>
 </dt-api>

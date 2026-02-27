@@ -114,9 +114,9 @@ table
 	.draw();
 ]]></example>
 
-	<related type="option">searching</related>
-	<related type="option">columns.searchable</related>
-	<related type="api">search()</related>
-	<related type="api">columns().search()</related>
-	<related type="api">DataTable.util.escapeRegex()</related>
+	<related>-init searching</related>
+	<related>-init columns.searchable</related>
+	<related>-api search()</related>
+	<related>-api columns().search()</related>
+	<related>-api DataTable.util.escapeRegex()</related>
 </dt-api>

@@ -43,25 +43,25 @@
 		As of DataTables 1.10.7 the new `-api i18n()` method can be used by plug-in authors to access language information from the `-init language` object. As such the list of parameters available here is not exhaustive - please refer to the documentation for the plug-in if it makes use of the `-api i18n()` method for full information about the parameters it can use.
 	</description>
 
-	<related type="option">language.decimal</related>
-	<related type="option">language.emptyTable</related>
-	<related type="option">language.info</related>
-	<related type="option">language.infoEmpty</related>
-	<related type="option">language.infoFiltered</related>
-	<related type="option">language.infoPostFix</related>
-	<related type="option">language.thousands</related>
-	<related type="option">language.lengthMenu</related>
-	<related type="option">language.loadingRecords</related>
-	<related type="option">language.processing</related>
-	<related type="option">language.search</related>
-	<related type="option">language.zeroRecords</related>
-	<related type="option">language.paginate</related>
-	<related type="option">language.paginate.first</related>
-	<related type="option">language.paginate.last</related>
-	<related type="option">language.paginate.next</related>
-	<related type="option">language.paginate.previous</related>
-	<related type="option">language.aria</related>
-	<related type="option">language.aria.orderable</related>
-	<related type="option">language.aria.orderableReverse</related>
-	<related type="api">i18n()</related>
+	<related>-init language.decimal</related>
+	<related>-init language.emptyTable</related>
+	<related>-init language.info</related>
+	<related>-init language.infoEmpty</related>
+	<related>-init language.infoFiltered</related>
+	<related>-init language.infoPostFix</related>
+	<related>-init language.thousands</related>
+	<related>-init language.lengthMenu</related>
+	<related>-init language.loadingRecords</related>
+	<related>-init language.processing</related>
+	<related>-init language.search</related>
+	<related>-init language.zeroRecords</related>
+	<related>-init language.paginate</related>
+	<related>-init language.paginate.first</related>
+	<related>-init language.paginate.last</related>
+	<related>-init language.paginate.next</related>
+	<related>-init language.paginate.previous</related>
+	<related>-init language.aria</related>
+	<related>-init language.aria.orderable</related>
+	<related>-init language.aria.orderableReverse</related>
+	<related>-api i18n()</related>
 </dt-option>

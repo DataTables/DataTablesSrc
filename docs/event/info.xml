@@ -30,6 +30,6 @@
 		Please note that, as with all DataTables emitted events, the event object has a DataTables API instance available on it in the `dt` property.
 	</description>
 
-	<related type="option">info</related>
-	<related type="api">page.info()</related>
+	<related>-init info</related>
+	<related>-api page.info()</related>
 </dt-event>

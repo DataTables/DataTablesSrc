@@ -27,6 +27,6 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-  <related type="option">autoWidth</related>
-  <related type="api">columns.adjust()</related>
+  <related>-init autoWidth</related>
+  <related>-api columns.adjust()</related>
 </dt-option>

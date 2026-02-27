@@ -40,7 +40,7 @@ table.on('xhr', function (e, settings, json) {
 });
 ]]></example>
 
-	<related type="api">off()</related>
-	<related type="api">one()</related>
-	<related type="api">trigger()</related>
+	<related>-api off()</related>
+	<related>-api one()</related>
+	<related>-api trigger()</related>
 </dt-api>

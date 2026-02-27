@@ -54,6 +54,6 @@ $('#example').dataTable({
 });
 ]]></example>
 
-	<related type="option">language</related>
-	<related type="option">initComplete</related>
+	<related>-init language</related>
+	<related>-init initComplete</related>
 </dt-option>

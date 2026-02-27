@@ -35,12 +35,12 @@ if (
 }
 ]]></example>
 
-	<related type="option">order</related>
-	<related type="option">ordering</related>
-	<related type="option">columns.orderSequence</related>
-	<related type="api">order()</related>
-	<related type="api">column().order()</related>
-	<related type="api">columns().order()</related>
-	<related type="api">column().orderable()</related>
-	<related type="api">columns().orderable()</related>
+	<related>-init order</related>
+	<related>-init ordering</related>
+	<related>-init columns.orderSequence</related>
+	<related>-api order()</related>
+	<related>-api column().order()</related>
+	<related>-api columns().order()</related>
+	<related>-api column().orderable()</related>
+	<related>-api columns().orderable()</related>
 </dt-api>

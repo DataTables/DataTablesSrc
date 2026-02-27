@@ -134,10 +134,10 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">searching</related>
-	<related type="option">info</related>
-	<related type="option">ordering</related>
-	<related type="option">processing</related>
-  <related type="option">paging</related>
-  <related type="option">lengthChange</related>
+	<related>-init searching</related>
+	<related>-init info</related>
+	<related>-init ordering</related>
+	<related>-init processing</related>
+  <related>-init paging</related>
+  <related>-init lengthChange</related>
 </dt-option>

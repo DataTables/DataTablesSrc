@@ -49,10 +49,10 @@ table.ajax.reload(function (json) {
 });
 ]]></example>
 
-	<related type="option">ajax</related>
-	<related type="api">ajax.json()</related>
-	<related type="api">ajax.url()</related>
-	<related type="api">ajax.url().load()</related>
-	<related type="api">ajax.reload()</related>
-	<related type="event">xhr</related>
+	<related>-init ajax</related>
+	<related>-api ajax.json()</related>
+	<related>-api ajax.url()</related>
+	<related>-api ajax.url().load()</related>
+	<related>-api ajax.reload()</related>
+	<related>-event xhr</related>
 </dt-api>

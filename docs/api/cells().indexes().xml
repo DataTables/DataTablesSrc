@@ -39,8 +39,8 @@ var columns = table
 alert('Columns containing 21: ' + columns.join(', '));
 ]]></example>
 
-	<related type="api">cell().index()</related>
-	<related type="api">rows().indexes()</related>
-	<related type="api">columns().indexes()</related>
-	<related type="api">column.index()</related>
+	<related>-api cell().index()</related>
+	<related>-api rows().indexes()</related>
+	<related>-api columns().indexes()</related>
+	<related>-api column.index()</related>
 </dt-api>

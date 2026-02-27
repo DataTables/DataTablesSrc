@@ -43,8 +43,8 @@ new DataTable('#example', {
 // Note that `ajax.data` could also be used to perform this action in this case
 ]]></example>
 
-	<related type="option">ajax</related>
-	<related type="option">ajax.data</related>
-	<related type="api">ajax.json()</related>
-	<related type="event">xhr</related>
+	<related>-init ajax</related>
+	<related>-init ajax.data</related>
+	<related>-api ajax.json()</related>
+	<related>-event xhr</related>
 </dt-event>

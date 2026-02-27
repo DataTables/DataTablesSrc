@@ -33,9 +33,9 @@ var table = new DataTable('#myTable');
 table.order.listener('#sorter', 1);
 ]]></example>
 
-	<related type="option">order</related>
-	<related type="option">ordering</related>
-	<related type="api">order()</related>
-	<related type="api">column().order()</related>
-	<related type="api">columns().order()</related>
+	<related>-init order</related>
+	<related>-init ordering</related>
+	<related>-api order()</related>
+	<related>-api column().order()</related>
+	<related>-api columns().order()</related>
 </dt-api>

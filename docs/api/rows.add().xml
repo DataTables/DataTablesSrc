@@ -58,5 +58,5 @@ table.rows
 	.addClass('new');
 ]]></example>
 
-	<related type="api">row.add()</related>
+	<related>-api row.add()</related>
 </dt-api>

@@ -36,5 +36,5 @@ let row = table.row(1);
 let row = table.row((idx, data) => data.location === 'Edinburgh');
 ]]></example>
 
-	<related type="api">rows()</related>
+	<related>-api rows()</related>
 </dt-api>

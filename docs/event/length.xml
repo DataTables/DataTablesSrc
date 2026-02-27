@@ -33,10 +33,10 @@ table.on('length', function (e, settings, len) {
 });
 ]]></example>
 
-	<related type="option">paging</related>
-	<related type="option">pagingType</related>
-	<related type="api">page()</related>
-	<related type="api">page.info()</related>
-	<related type="api">page.len()</related>
-	<related type="event">page</related>
+	<related>-init paging</related>
+	<related>-init pagingType</related>
+	<related>-api page()</related>
+	<related>-api page.info()</related>
+	<related>-api page.len()</related>
+	<related>-event page</related>
 </dt-event>

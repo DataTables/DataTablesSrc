@@ -22,5 +22,5 @@ var table = new DataTable('#myTable');
 $(table.table().container()).addClass('selectable');
 ]]></example>
 
-	<related type="api">tables().containers()</related>
+	<related>-api tables().containers()</related>
 </dt-api>

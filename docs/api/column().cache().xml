@@ -29,5 +29,5 @@
 		Additionally, if the selector used in `-api column()` matches more than one column, the result set will be truncated to a single column - the first one in the result set.
 	</description>
 
-	<related type="api">columns().cache()</related>
+	<related>-api columns().cache()</related>
 </dt-api>

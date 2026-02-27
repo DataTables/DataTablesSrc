@@ -30,5 +30,5 @@ table
 	.classAdd('ready');
 ]]></example>
 
-	<related type="api">columns().nodes()</related>
+	<related>-api columns().nodes()</related>
 </dt-api>

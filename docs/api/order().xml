@@ -109,6 +109,6 @@ table
 	.draw();
 ]]></example>
 
-	<related type="option">order</related>
-	<related type="option">ordering</related>
+	<related>-init order</related>
+	<related>-init ordering</related>
 </dt-api>

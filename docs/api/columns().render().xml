@@ -33,12 +33,12 @@ var rendered = table.columns(1).render();
 console.log(rendered);
 ]]></example>
 
-	<related type="option">columns.data</related>
-	<related type="option">columns.render</related>
-	<related type="api">cells().data()</related>
-	<related type="api">cell().data()</related>
-	<related type="api">cell().render()</related>
-	<related type="api">cell().invalidate()</related>
-	<related type="api">column().render()</related>
-	<related type="api">columns().render()</related>
+	<related>-init columns.data</related>
+	<related>-init columns.render</related>
+	<related>-api cells().data()</related>
+	<related>-api cell().data()</related>
+	<related>-api cell().render()</related>
+	<related>-api cell().invalidate()</related>
+	<related>-api column().render()</related>
+	<related>-api columns().render()</related>
 </dt-api>

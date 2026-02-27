@@ -155,5 +155,5 @@ alert(
 );
 ]]></example>
 
-	<related type="option">language</related>
+	<related>-init language</related>
 </dt-api>

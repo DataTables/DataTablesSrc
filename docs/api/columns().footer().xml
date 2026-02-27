@@ -35,5 +35,5 @@ table.columns('.sum').every(function () {
 });
 ]]></example>
 
-	<related type="api">column().footer()</related>
+	<related>-api column().footer()</related>
 </dt-api>

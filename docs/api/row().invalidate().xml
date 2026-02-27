@@ -63,6 +63,6 @@ table
 	.draw();
 ]]></example>
 
-	<related type="api">cells().invalidate()</related>
-	<related type="api">rows().invalidate()</related>
+	<related>-api cells().invalidate()</related>
+	<related>-api rows().invalidate()</related>
 </dt-api>

@@ -17,9 +17,9 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">info</related>
-	<related type="option">lengthChange</related>
-	<related type="option">lengthMenu</related>
-	<related type="option">pagingType</related>
-	<related type="api">page()</related>
+	<related>-init info</related>
+	<related>-init lengthChange</related>
+	<related>-init lengthMenu</related>
+	<related>-init pagingType</related>
+	<related>-api page()</related>
 </dt-option>

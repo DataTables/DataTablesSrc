@@ -29,8 +29,8 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">search</related>
-	<related type="option">searchCols</related>
-	<related type="api">search()</related>
-	<related type="api">columns().search()</related>
+	<related>-init search</related>
+	<related>-init searchCols</related>
+	<related>-api search()</related>
+	<related>-api columns().search()</related>
 </dt-option>

@@ -37,7 +37,7 @@ table
 	});
 ]]></example>
 
-	<related type="option">drawCallback</related>
-	<related type="api">draw()</related>
-	<related type="event">draw</related>
+	<related>-init drawCallback</related>
+	<related>-api draw()</related>
+	<related>-event draw</related>
 </dt-event>

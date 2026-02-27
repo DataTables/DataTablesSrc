@@ -36,6 +36,6 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">ajax</related>
-	<related type="option">ajax.data</related>
+	<related>-init ajax</related>
+	<related>-init ajax.data</related>
 </dt-option>

@@ -61,6 +61,6 @@ table
 	.draw();
 ]]></example>
 
-	<related type="api">cells().invalidate()</related>
-	<related type="api">row().invalidate()</related>
+	<related>-api cells().invalidate()</related>
+	<related>-api row().invalidate()</related>
 </dt-api>

@@ -34,5 +34,5 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">drawCallback</related>
+	<related>-init drawCallback</related>
 </dt-option>

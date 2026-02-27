@@ -21,5 +21,5 @@ var cell = table.cell('#importantCell').node();
 cell.classList.add('warning');
 ]]></example>
 
-	<related type="api">cells().nodes()</related>
+	<related>-api cells().nodes()</related>
 </dt-api>

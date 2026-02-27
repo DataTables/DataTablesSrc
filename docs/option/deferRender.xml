@@ -40,6 +40,6 @@ table.on('click', 'tbody td', function () {
 });
 ]]></example>
 
-	<related type="option">ajax</related>
-	<related type="option">data</related>
+	<related>-init ajax</related>
+	<related>-init data</related>
 </dt-option>

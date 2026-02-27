@@ -20,7 +20,7 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">paging</related>
-	<related type="option">scrollX</related>
-	<related type="option">scrollCollapse</related>
+	<related>-init paging</related>
+	<related>-init scrollX</related>
+	<related>-init scrollCollapse</related>
 </dt-option>

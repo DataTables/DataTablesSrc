@@ -27,5 +27,5 @@
 		Please note that the order of the data in the returned array and which rows the data is obtained from (searched rows, visible rows etc) is controlled by the `-type selector-modifier` option of the `-api rows()` selector used to get the selected rows.
 	</description>
 
-	<related type="api">row().cache()</related>
+	<related>-api row().cache()</related>
 </dt-api>

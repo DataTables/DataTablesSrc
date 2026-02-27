@@ -32,5 +32,5 @@ alert(
 );
 ]]></example>
 
-	<related type="api">columns().data()</related>
+	<related>-api columns().data()</related>
 </dt-api>

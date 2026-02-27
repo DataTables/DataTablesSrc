@@ -39,10 +39,10 @@ table.on('order', function () {
 });
 ]]></example>
 
-	<related type="option">ordering</related>
-	<related type="option">columns.orderable</related>
-	<related type="api">draw()</related>
-	<related type="api">order()</related>
-	<related type="api">column().order()</related>
-	<related type="api">columns().order()</related>
+	<related>-init ordering</related>
+	<related>-init columns.orderable</related>
+	<related>-api draw()</related>
+	<related>-api order()</related>
+	<related>-api column().order()</related>
+	<related>-api columns().order()</related>
 </dt-event>

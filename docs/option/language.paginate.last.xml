@@ -29,11 +29,11 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">language</related>
-	<related type="option">language.paginate</related>
-	<related type="option">language.paginate.first</related>
-	<related type="option">language.paginate.next</related>
-	<related type="option">language.paginate.previous</related>
-	<related type="option">language.aria.paginate</related>
-	<related type="option">language.aria.paginate.last</related>
+	<related>-init language</related>
+	<related>-init language.paginate</related>
+	<related>-init language.paginate.first</related>
+	<related>-init language.paginate.next</related>
+	<related>-init language.paginate.previous</related>
+	<related>-init language.aria.paginate</related>
+	<related>-init language.aria.paginate.last</related>
 </dt-option>

@@ -53,24 +53,24 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
-	<related type="option">columnDefs.targets</related>
-	<related type="option">columns</related>
-	<related type="option">columns.cellType</related>
-	<related type="option">columns.className</related>
-	<related type="option">columns.contentPadding</related>
-	<related type="option">columns.createdCell</related>
-	<related type="option">columns.data</related>
-	<related type="option">columns.defaultContent</related>
-	<related type="option">columns.name</related>
-	<related type="option">columns.orderable</related>
-	<related type="option">columns.orderData</related>
-	<related type="option">columns.orderDataType</related>
-	<related type="option">columns.render</related>
-	<related type="option">columns.searchable</related>
-	<related type="option">columns.title</related>
-	<related type="option">columns.type</related>
-	<related type="option">columns.visible</related>
-	<related type="option">columns.width</related>
-	<related type="api">column()</related>
-	<related type="api">columns()</related>
+	<related>-init columnDefs.targets</related>
+	<related>-init columns</related>
+	<related>-init columns.cellType</related>
+	<related>-init columns.className</related>
+	<related>-init columns.contentPadding</related>
+	<related>-init columns.createdCell</related>
+	<related>-init columns.data</related>
+	<related>-init columns.defaultContent</related>
+	<related>-init columns.name</related>
+	<related>-init columns.orderable</related>
+	<related>-init columns.orderData</related>
+	<related>-init columns.orderDataType</related>
+	<related>-init columns.render</related>
+	<related>-init columns.searchable</related>
+	<related>-init columns.title</related>
+	<related>-init columns.type</related>
+	<related>-init columns.visible</related>
+	<related>-init columns.width</related>
+	<related>-api column()</related>
+	<related>-api columns()</related>
 </dt-option>

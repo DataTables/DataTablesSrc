@@ -50,5 +50,5 @@ var table = new DataTable('#myTable');
 table.page('next').draw('page');
 ]]></example>
 
-	<related type="option">drawCallback</related>
+	<related>-init drawCallback</related>
 </dt-api>

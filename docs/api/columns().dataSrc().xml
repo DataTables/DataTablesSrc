@@ -30,7 +30,7 @@ alert(
 );
 ]]></example>
 
-	<related type="api">columns().data()</related>
-	<related type="api">column().data()</related>
-	<related type="api">column().dataSrc()</related>
+	<related>-api columns().data()</related>
+	<related>-api column().data()</related>
+	<related>-api column().dataSrc()</related>
 </dt-api>
