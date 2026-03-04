@@ -2,7 +2,7 @@ import Dom from '../dom';
 import ext from '../ext/index';
 import { Context } from '../model/settings';
 import util from '../util';
-import { Api as ApiType, InstSelector } from './interface';
+import { ApiConstructor, Api as ApiType, InstSelector } from './interface';
 import { selectorRowIndexes } from './selectors';
 import { arrayApply } from './support';
 
@@ -12,21 +12,6 @@ import { arrayApply } from './support';
  */
 const __arrayProto = Array.prototype;
 
-export interface ApiConstructor {
-	new (content: InstSelector, data?: any): ApiType;
-	(content: InstSelector, data?: any): ApiType;
-
-	register<T extends Function = Function>(
-		name: string | string[],
-		fn: T
-	): void;
-
-	registerPlural<T extends Function = any>(
-		pluralName: string,
-		singleName: string,
-		fn: T
-	): void;
-}
 
 const Api = function (context, data?) {
 	// Allow the API to be initialised without specifying `new`

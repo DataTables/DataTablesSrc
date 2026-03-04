@@ -3,15 +3,19 @@
  */
 const fs = require('fs');
 
-
 function usage() {
 	console.log(`
 JS wrapper script - to create a UMD or ES loader for DataTables and its extensions
 Use:
-  node wrapper.js inputFile es|umd outputFile dependency1 dependency2 ...
+  node wrapper.js \
+  	inputFile \
+	es|umd \
+	datatables|extension \
+	version \
+	outputFile \
+	dependency1 dependency2 ...
 `);
 }
-
 
 function main(args) {
 	if (args.length < 5) {
@@ -20,20 +24,25 @@ function main(args) {
 	}
 
 	let file = '';
-	let script  = '';
+	let script = '';
 	let deps = [];
 	let modType = '';
 	let extn = '';
-	let framework = frameworkFromPath(args[2]);
-	
+	let fileIn = args[2];
+	let framework = frameworkFromPath(fileIn);
+	let type = args[4];
+	let version = args[5];
+	let output = args[6];
+
 	try {
-		script = fs.readFileSync(args[2], 'utf8');
+		script = fs.readFileSync(fileIn, 'utf8');
 	} catch (e) {
-		console.error('File ' + args[2] + ' does not exist');
+		console.error('File ' + fileIn + ' does not exist');
 		return;
 	}
 
-	for (let i=5 ; i<args.length ; i++) {
+	// Add any dependencies
+	for (let i = 7; i < args.length; i++) {
 		if (args[i].includes(' ')) {
 			deps.push.apply(deps, args[i].split(' '));
 		}
@@ -42,7 +51,7 @@ function main(args) {
 		}
 	}
 
-	for (let i=0 ; i<deps.length ; i++) {
+	for (let i = 0; i < deps.length; i++) {
 		if (deps[i].includes('FW')) {
 			deps[i] = deps[i].replace('FW', framework);
 		}
@@ -50,12 +59,12 @@ function main(args) {
 
 	deps = deps.filter(d => !!d);
 
-	let exp = exportFromPath(args[2]);
-	let scriptParts = breakScript(script);
-	let filename = fileFromPath(args[2]);
+	let exp = exportFromPath(fileIn);
+	let scriptParts = breakScript(script, version);
+	let filename = fileFromPath(fileIn);
 
 	if (args[3] === 'es') {
-		file = es(scriptParts, deps, exp, filename);
+		file = es(scriptParts, deps, exp, filename, type);
 		modType = 'ES module';
 		extn = '.mjs';
 	}
@@ -69,39 +78,70 @@ function main(args) {
 		return;
 	}
 
-	// arg4 write to file
-	// console.log(file);
-	fs.writeFileSync(args[4] + extn, file);
-	// console.log('Written ' + modType + ' loader to file ' + args[4] + extn);
+	fs.writeFileSync(output + extn, file);
 }
 
-
-function es(script, deps, exp, filename) {
+function es(script, deps, exp, filename, type) {
 	let imports = [];
 	let importNames = [];
+	let exportProps = '';
 
-	for (let dep of deps) {
-		let alias = nameFromDependency(dep);
+	// The host file can import from datatables.net, which we need to keep. It
+	// is a cheeky way of doing it, but take the original import out of the
+	// script
+	let match = script.main.match(
+		/import DataTable(.*?) from 'datatables.net';\n/
+	);
 
-		if (importNames.includes(alias)) {
-			imports.push(`import '${dep}';`);
+	script.main = script.main.replace(/import .*?\n/, '');
+
+	// Special case for DataTables core as it can export values as well
+	if (type === 'datatables') {
+		// DataTables core and its styling files will all export properties as
+		// well
+		exportProps = 'export { Api, DataTable, Dom, util };';
+
+		// And the styling files need to import them
+		if (deps.length) {
+			imports.push(
+				`import DataTable, {Api, Dom, util} from 'datatables.net';`
+			);
 		}
-		else {
-			imports.push(`import ${alias} from '${dep}';`);
-			importNames.push(alias);
+	}
+	else {
+		// Then we can create the dependencies we know we'll need from the arguments
+		for (let dep of deps) {
+			let alias = nameFromDependency(dep);
+
+			if (importNames.includes(alias)) {
+				imports.push(`import '${dep}';`);
+			}
+			else {
+				imports.push(`import ${alias} from '${dep}';`);
+				importNames.push(alias);
+			}
 		}
 	}
 
-	// For testing uncomment to see the basic structure of the generated file
-	// script.main = '';
-	
-	return `${script.header}
+	let result = `${script.header}
 
 ${imports.join('\n')}
 ${script.main}
 
 export default ${exp};
-`
+${exportProps}
+`;
+
+	// If there was a DataTables import with properties, then reinsert them into
+	// our generated imports
+	if (match && match.length >= 1) {
+		result = result.replace(
+			"import DataTable from 'datatables.net';",
+			'import DataTable' + match[1] + " from 'datatables.net';"
+		);
+	}
+
+	return result;
 }
 
 /**
@@ -139,9 +179,25 @@ function umd(script, deps, exp, filename) {
 		}
 	}
 
-	let setDataTable = filename === 'datatables.js'
-		? 'window.DataTable = '
-		: '';
+	let setDataTable =
+		filename === 'datatables.js' ? 'window.DataTable = ' : '';
+
+	// Resolve imports from DataTables - there is a very limited set of "value"
+	// imports that can be made, so for the moment this is just a simple list
+	if (script.main.match(/import .*util.*datatables\.net/)) {
+		script.main = 'var util = DataTable.util;\n' + script.main;
+	}
+
+	if (script.main.match(/import .*Api.*datatables\.net/)) {
+		script.main = 'var Api = DataTable.Api;\n' + script.main;
+	}
+
+	if (script.main.match(/import .*Dom.*datatables\.net/)) {
+		script.main = 'var Dom = DataTable.Dom;\n' + script.main;
+	}
+
+	// Then strip the import statements out
+	script.main = script.main.replace(/import .*?\n/, '');
 
 	return `${script.header}
 
@@ -170,12 +226,16 @@ function umd(script, deps, exp, filename) {
 		}
 		else {
 			cjsRequires(window);
-			module.exports = factory(window, window.document${requiresDT ? ', window.DataTable' : ''});
+			module.exports = factory(window, window.document${
+				requiresDT ? ', window.DataTable' : ''
+			});
 		}
 	}
 	else {
 		// Browser
-		${setDataTable}factory(window, document${requiresDT ? ', window.DataTable' : ''});
+		${setDataTable}factory(window, document${
+		requiresDT ? ', window.DataTable' : ''
+	});
 	}
 }(function(window, document${requiresDT ? ', DataTable' : ''}) {
 'use strict';
@@ -186,7 +246,6 @@ return ${exp};
 }));
 `;
 }
-
 
 function nameFromDependency(dep) {
 	let name = dep.toLowerCase();
@@ -297,21 +356,26 @@ function frameworkFromPath(path) {
 	}
 }
 
-function breakScript(script) {
+function breakScript(script, version) {
 	let match = script.match(/\/\*![\s\S]+?\*\//);
 	let parts = {
 		header: match ? match[0] : '',
 		main: match ? script.replace(match[0], '') : script
 	};
 
-	// Remove any import statements from the dev files. Any needed for the the
-	// final file will be inserted by this script. The dev files include local
-	// imports rather than the npm package name imports to allow development
-	// with local imports.
-	parts.main = parts.main.replace(/\nimport .*\n/, '\n');
+	// Add the version into the banner
+	if (parts.header.match(/ for /)) {
+		parts.header = parts.header.replace(/ for /, ` ${version} for `);
+	}
+	else {
+		let lines = parts.header.split('\n');
+
+		lines[0] = lines[0] + ' ' + version;
+
+		parts.header = lines.join('\n');
+	}
 
 	return parts;
 }
-
 
 main(process.argv);

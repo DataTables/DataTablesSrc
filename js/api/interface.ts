@@ -99,6 +99,25 @@ export type HeaderStructure = {
 
 export interface Api<T = any> extends ApiScopeable<T, Api> {}
 
+export interface ApiConstructor {
+	new (content: InstSelector, data?: any): Api;
+	(content: InstSelector, data?: any): Api;
+
+	register<T extends Function = Function>(
+		name: string | string[],
+		fn: T
+	): void;
+
+	registerPlural<T extends Function = any>(
+		pluralName: string,
+		singleName: string,
+		fn: T
+	): void;
+}
+
+export declare const Api: ApiConstructor;
+
+
 export interface ApiScopeable<T, S> {
 	/**
 	 * @internal

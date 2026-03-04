@@ -1,8 +1,5 @@
-
-//
 // A collection of the regular expressions used throughout the code base. Not all are here
 // just the ones that need to be reused - no need to dump single use expressions here.
-//
 
 // https://en.wikipedia.org/wiki/Foreign_exchange_market
 // - \u20BD - Russian ruble.

@@ -101,15 +101,17 @@ function css_frameworks {
 #
 # $1 string - Extension name (camelCase)
 # $2 string - Build directory where the JS min files should be created
-# $3 string - Require libs `FW` will be replaced with the framework code
+# $3 string - Version
+# $4 string - Require libs `FW` will be replaced with the framework code
 function js_frameworks {
 	local EXTN=$1
 	local DIR=$2
-	local REQUIRE=$3
+	local VERSION=$3
+	local REQUIRE=$4
 
 	for FRAMEWORK in ${FRAMEWORKS[*]}; do
 		if [ -e $DIR/$1.$FRAMEWORK.js ]; then
-			js_wrap $DIR/$EXTN.$FRAMEWORK.js "$REQUIRE"
+			js_wrap $DIR/$EXTN.$FRAMEWORK.js "$VERSION" "$REQUIRE"
 		fi
 	done
 }
@@ -119,41 +121,36 @@ function js_frameworks {
 # (although the styling frameworks do).
 #
 # $1 - string - Full path to the file to wrap
-# $2 - string - Require libs
+# $2 - string - Version
+# $3 - string - Require libs
 function js_wrap {
 	local FULL=$1
-	local REQUIRE=$2
+	local VERSION=$2
+	local REQUIRE=$3
 
 	local EXTN="${FULL##*.}"
 	local FILE=$(basename $1 ".${EXTN}")
 	local DIR=$(dirname $1)
 	local WRAPPER="${SCRIPT_DIR}/wrapper.js"
+	local TYPE="extension"
 
 	if [ ! -z "$DT_DIR" ]; then
 		WRAPPER="$DT_DIR/build/wrapper.js"
 	fi
 
+	if [ $IS_DATATABLE_BUILD ]; then
+		TYPE="datatables"
+	fi
+
 	echo_msg "JS processing $FILE"
 
 	echo_msg "  Creating ES module"
-	node $WRAPPER $FULL es $DIR/$FILE "$REQUIRE"
+	node $WRAPPER $FULL es $TYPE $VERSION $DIR/$FILE "$REQUIRE"
 	js_compress "$DIR/$FILE.mjs"
 
 	echo_msg "  Creating UMD"
-	node $WRAPPER $FULL umd $DIR/$FILE "$REQUIRE"
+	node $WRAPPER $FULL umd $TYPE $VERSION $DIR/$FILE "$REQUIRE"
 	js_compress "$DIR/$FILE.js"
-
-	# if [[ $FILE == *"searchPanes"* ]]; then
-	# 	echo_msg "  Skipping lint of SearchPanes"
-	# else
-	# 	if [ -f $ESLINT ]; then
-	# 		echo_msg "  Linting UMD"
-
-	# 		$ESLINT "$DIR/$FILE.js"
-	# 	else
-	# 		echo "No ESLint"
-	# 	fi
-	# fi
 }
 
 
@@ -269,8 +266,13 @@ function examples_process {
 		-l "css:syntax css:demo js:syntax js:demo"
 }
 
+# Standard build process for DataTable's extensions
+#
+# $1 - string - Extension name (currently unused)
+# $2 - string - File name
+# $3 - boolean - Flag to indicate if the built `dist` should be removed or not
 function ts_extension {
-	NAME=$(basename "$(pwd)")
+	NAME=$1
 	FILENAME=$2
 	DONT_REMOVE=$3
 	MODULE_NAME=$(echo "$FILENAME" | tr '[:upper:]' '[:lower:]')
@@ -281,22 +283,12 @@ function ts_extension {
 	fi
 
 	# Get the version from the file
-	VERSION=$(grep "static version" ${SRCDIR}/dataTables.$FILENAME.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*)?}')
+	VERSION=$(grep "version.*[0-9]\+[.][0-9]\+[.][0-9]" ${SRCDIR}/dataTables.$FILENAME.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*(\-\d+)?)?}')
 
 	# JS - compile and then copy into place
 	$DT_SRC/node_modules/typescript/bin/tsc -p ./tsconfig.json
 
-	## Remove the import - our wrapper does it for UMD as well as ESM
-	for filename in $(find dist -name '*.js'); do
-		sed -i "s#import DataTable from 'datatables.net';##" $filename
-	done
-
-	HEADER="/*! $NAME $VERSION
-* Copyright (c) SpryMedia Ltd - datatables.net/license
-*/
-	"
 	$DT_SRC/node_modules/rollup/dist/bin/rollup \
-		--banner "$HEADER" \
 		--config rollup.config.mjs
 
 	rsync -r dist/dataTables.$FILENAME.js $OUT_DIR/js/
@@ -310,8 +302,8 @@ function ts_extension {
 		rsync -r ${SRCDIR}/integrations/$FILENAME.*.js $OUT_DIR/js/
 	fi
 
-	js_frameworks $FILENAME $OUT_DIR/js "datatables.net-FW datatables.net-$MODULE_NAME"
-	js_wrap $OUT_DIR/js/dataTables.$FILENAME.js "datatables.net"
+	js_frameworks $FILENAME $OUT_DIR/js $VERSION "datatables.net-FW datatables.net-$MODULE_NAME"
+	js_wrap $OUT_DIR/js/dataTables.$FILENAME.js $VERSION "datatables.net"
 
 	# Move types across, single file was built by rollup
 	if [ -d $OUT_DIR/types ]; then

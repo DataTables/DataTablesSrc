@@ -12,7 +12,7 @@ CMD=$1
 SUBCMD=$2
 
 # Get the version from the file
-VERSION=$(grep "DataTable.version =" $BASE_DIR/js/dataTable.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*)?}')
+VERSION=$(grep "version: '" $BASE_DIR/js/ext/index.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*)?}')
 
 DEBUG=""
 if [ "$SUBCMD" = "debug" -o "$3" = "debug" ]; then
@@ -38,15 +38,23 @@ function build_js {
 	# Typescript
 	node_modules/typescript/bin/tsc -p ./tsconfig.json
 
+HEADER="/*! DataTables $VERSION
+ * Copyright (c) SpryMedia Ltd - datatables.net/license
+ */
+"
 	# And rollup into a single file
 	node_modules/rollup/dist/bin/rollup \
+    	--banner "$HEADER" \
 		--config rollup.config.mjs
 
+	# Tell the wrapper that we need to include the full header and export
+	IS_DATATABLE_BUILD=true
+
 	rsync -r dist/dataTables.js $OUT_DIR
-	js_wrap $OUT_DIR/dataTables.js
+	js_wrap $OUT_DIR/dataTables.js $VERSION
 
 	rsync -r dist/integration/dataTables.*.js $OUT_DIR
-	js_frameworks dataTables $OUT_DIR "datatables.net"
+	js_frameworks dataTables $OUT_DIR $VERSION "datatables.net"
 
 	rm -r dist
 }
