@@ -39,8 +39,8 @@ import util from '../dist/util/index';
 
 // Value and type combo exports
 export {
-	// Api - from the export * above
-	DataTable,
+	// Api - Exported above in the * from the API
+	// DataTable - Exported above
 	Dom,
 	util
 };
