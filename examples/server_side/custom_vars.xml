@@ -5,27 +5,7 @@
 <js lib="datatables" />
 
 <title>Custom HTTP variables</title>
-<js><![CDATA[
-var table = $('#example').DataTable({
-	ajax: {
-		url: 'scripts/custom_vars.php',
-		data: function (d) {
-			d.officeFilter = $('#officeFilter').val();
-			
-			// Add additional parameters as needed
-			// d.myKey = 'myValue';
-		}
-	},
-	processing: true,
-	serverSide: true
-});
-
-$('#officeFilter').on('keyup', function () {
-	table.draw();
-});
-
-]]></js>
-<js-vanilla>
+<js>
 <![CDATA[
 let table = new DataTable('#example', {
 	ajax: {
@@ -47,7 +27,7 @@ document
 		table.draw();
 	});
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

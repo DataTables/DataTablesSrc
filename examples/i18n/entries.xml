@@ -4,18 +4,6 @@
 <css lib="datatables" />
 <js lib="datatables">
 <![CDATA[
-$('#example').DataTable({
-	language: {
-		entries: {
-			_: 'people',
-			1: 'person'
-		}
-	}
-});
-]]>
-</js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	language: {
 		entries: {
@@ -25,7 +13,7 @@ new DataTable('#example', {
 	}
 });
 ]]>
-</js-vanilla>
+</js>
 
 <title>Language - display data type</title>
 

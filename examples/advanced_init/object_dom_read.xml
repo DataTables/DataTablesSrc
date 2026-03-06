@@ -4,19 +4,6 @@
 <css lib="datatables" />
 <js lib="datatables">
 <![CDATA[
-$('#example').DataTable({
-	columns: [
-		{ data: 'name' },
-		{ data: 'position' },
-		{ data: 'office' },
-		{ data: 'age' },
-		{ data: 'start_date' },
-		{ data: 'salary' }
-	]
-});
-]]>
-</js>
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	columns: [
 		{ data: 'name' },
@@ -28,7 +15,7 @@ new DataTable('#example', {
 	]
 });
 ]]>
-</js-vanilla>
+</js>
 
 <title>Read HTML to data objects</title>
 

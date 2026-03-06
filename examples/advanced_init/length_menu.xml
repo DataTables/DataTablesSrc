@@ -6,15 +6,10 @@
 
 <title>Page length options</title>
 <js><![CDATA[
-$('#example').DataTable({
-	lengthMenu: [10, 25, 50, -1]
-});
-]]></js>
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	lengthMenu: [10, 25, 50, -1]
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

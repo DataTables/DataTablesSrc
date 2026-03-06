@@ -6,21 +6,13 @@
 
 <title>Scroll - vertical</title>
 <js><![CDATA[
-$('#example').DataTable({
-	paging: false,
-	scrollCollapse: true,
-	scrollY: '200px'
-});
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	paging: false,
 	scrollCollapse: true,
 	scrollY: '200px'
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

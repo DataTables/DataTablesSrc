@@ -12,17 +12,11 @@
 
 <title>Scroll - horizontal</title>
 <js><![CDATA[
-$('#example').DataTable({
-	scrollX: true
-});
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	scrollX: true
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

@@ -10,39 +10,6 @@ table.inputs td {
 
 <title>Custom filtering - range search</title>
 <js><![CDATA[
-var minEl = $('#min');
-var maxEl = $('#max');
-
-var table = $('#example').DataTable();
-
-// Custom range filtering function
-table.search.fixed('range', function (searchStr, data, index) {
-	var min = parseInt(minEl.val(), 10);
-	var max = parseInt(maxEl.val(), 10);
-	var age = parseFloat(data[3]) || 0; // use data for the age column
-
-	if (
-		(isNaN(min) && isNaN(max)) ||
-		(isNaN(min) && age <= max) ||
-		(min <= age && isNaN(max)) ||
-		(min <= age && age <= max)
-	) {
-		return true;
-	}
-
-	return false;
-});
-
-// Changes to the inputs will trigger a redraw to update the table
-minEl.on('input', function () {
-	table.draw();
-});
-maxEl.on('input', function () {
-	table.draw();
-});
-
-]]></js>
-<js-vanilla><![CDATA[
 const minEl = document.querySelector('#min');
 const maxEl = document.querySelector('#max');
 
@@ -74,7 +41,7 @@ maxEl.addEventListener('input', function () {
 	table.draw();
 });
 
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

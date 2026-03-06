@@ -6,20 +6,6 @@
 
 <title>Ajax data source (objects)</title>
 <js><![CDATA[
-$('#example').DataTable({
-	ajax: 'data/objects.txt',
-	columns: [
-		{ data: 'name' },
-		{ data: 'position' },
-		{ data: 'office' },
-		{ data: 'extn' },
-		{ data: 'start_date' },
-		{ data: 'salary' }
-	]
-});
-]]></js>
-
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	ajax: 'data/objects.txt',
 	columns: [
@@ -32,7 +18,7 @@ new DataTable('#example', {
 	]
 });
 
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

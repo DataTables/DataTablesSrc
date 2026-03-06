@@ -6,19 +6,12 @@
 
 <title>Enter Key to Search</title>
 <js><![CDATA[
-$('#example').DataTable({
-	search: {
-		return: true
-	}
-});
-]]></js>
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	search: {
 		return: true
 	}
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

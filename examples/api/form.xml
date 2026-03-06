@@ -7,7 +7,7 @@
 <title>Form inputs</title>
 
 <js><![CDATA[
-var table = $('#example').DataTable({
+var table = new DataTable('#example', {
 	columnDefs: [
 		{
 			orderable: false,
@@ -16,10 +16,14 @@ var table = $('#example').DataTable({
 	]
 });
 
-$('#submit').on('click', function (e) {
+DataTable.Dom.s('#submit').on('click', function (e) {
 	e.preventDefault();
 
-	var data = table.$('input, select').serialize();
+	var data = {};
+
+	table.dom('input, select').each(el => {
+		data[el.name] = DataTable.Dom.s(el).val();
+	});
 
 	alert(
 		'The following data would have been submitted to the server: \n\n' +
@@ -33,7 +37,7 @@ $('#submit').on('click', function (e) {
 
 In order to perform paging, ordering, searching etc, DataTables can remove rows and cells from the document (i.e. those rows / cells which are not needed are not inserted into the document). This increases performance and compatibility, however, it means that submitting forms which span multiple pages requires a little bit of additional work to get the information that is not in the document any longer.
 
-The `dt-api $()` method can be used to get nodes from the document regardless of paging, ordering etc. This example shows `dt-api $()` being used to get all `tag input` elements from the table. In the example a simple `alert()` is used to show the information from the form, but an Ajax call to the server with the form data could easily be performed.
+The `-api dom()` method can be used to get nodes from the document regardless of paging, ordering etc. This example shows `-api dom()` being used to get all `-tag input` elements from the table. In the example a simple `alert()` is used to show the information from the form, but an Ajax call to the server with the form data could easily be performed.
 
 If you are interested in a complete CRUD editing suit for DataTables have a look at the [Editor extension](//editor.datatables.net) which provides simple setup and complete integration with DataTables.
 

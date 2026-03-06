@@ -14,17 +14,6 @@ td.highlight {
 <title>Highlighting rows and columns</title>
 
 <js><![CDATA[
-var table = $('#example').DataTable();
-
-$('#example tbody').on('mouseenter', 'td', function () {
-	var colIdx = table.cell(this).index().column;
-
-	$(table.cells().nodes()).removeClass('highlight');
-	$(table.column(colIdx).nodes()).addClass('highlight');
-});
-]]></js>
-
-<js-vanilla><![CDATA[
 const table = new DataTable('#example');
 
 table.on('mouseenter', 'td', function () {
@@ -41,7 +30,7 @@ table.on('mouseenter', 'td', function () {
 		.each((el) => el.classList.add('highlight'));
 });
 
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

@@ -6,21 +6,6 @@
 
 <title>Scrolling and Bootstrap tabs</title>
 <js><![CDATA[
-
-$('table.table').DataTable({
-	ajax: '../ajax/data/arrays.txt',
-	paging: false,
-	scrollCollapse: true,
-	scrollY: 200
-});
-
-// Apply a search to the second table for the demo
-$('#myTable2').DataTable().search('New York').draw();
-
-]]></js>
-
-<js-vanilla><![CDATA[
-
 new DataTable('table.table', {
 	ajax: '../ajax/data/arrays.txt',
 	paging: false,
@@ -31,7 +16,7 @@ new DataTable('table.table', {
 // Apply a search to the second table for the demo
 new DataTable.Api('#myTable2').search('New York').draw();
 
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

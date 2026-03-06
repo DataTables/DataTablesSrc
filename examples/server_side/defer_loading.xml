@@ -5,15 +5,7 @@
 <js lib="datatables" />
 
 <title>Deferred loading of data</title>
-<js><![CDATA[
-$('#example').DataTable({
-	ajax: 'scripts/server_processing.php',
-	deferLoading: 57,
-	processing: true,
-	serverSide: true
-});
-]]></js>
-<js-vanilla>
+<js>
 <![CDATA[
 new DataTable('#example', {
 	ajax: 'scripts/server_processing.php',
@@ -22,7 +14,7 @@ new DataTable('#example', {
 	serverSide: true
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

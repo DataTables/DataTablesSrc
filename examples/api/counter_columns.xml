@@ -7,30 +7,6 @@
 <title>Index column</title>
 
 <js><![CDATA[
-var table = $('#example').DataTable({
-	columnDefs: [
-		{
-			searchable: false,
-			orderable: false,
-			targets: 0
-		}
-	],
-	order: [[1, 'asc']],
-	on: {
-		draw: function (e) {
-			let start = e.dt.page.info().start;
-
-			e.dt.column(0, {page: 'current'})
-				.nodes()
-				.each(function (cell, i) {
-					cell.textContent = start + i + 1;
-				});
-		}
-	}
-});
-]]></js>
-
-<js-vanilla><![CDATA[
 const table = new DataTable('#example', {
 	columnDefs: [
 		{
@@ -52,7 +28,7 @@ const table = new DataTable('#example', {
 		}
 	}
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

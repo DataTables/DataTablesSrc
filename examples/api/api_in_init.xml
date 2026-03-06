@@ -7,18 +7,6 @@
 <title>Using API in callbacks</title>
 
 <js><![CDATA[
-$('#example').DataTable({
-	initComplete: function () {
-		var api = this.api();
-
-		api.$('td').on('click', function () {
-			api.search(this.innerHTML).draw();
-		});
-	}
-});
-]]></js>
-
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	initComplete: function () {
 		let api = this.api();
@@ -28,7 +16,7 @@ new DataTable('#example', {
 		});
 	}
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

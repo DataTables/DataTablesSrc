@@ -6,18 +6,12 @@
 
 <title>Right-to-left language support</title>
 <js><![CDATA[
-$('div.demo-html').attr('dir', 'rtl'); // Demo only
-
-$('#example').DataTable();
-]]></js>
-<js-vanilla>
-<![CDATA[
 document.querySelector('div.demo-html')
 	.setAttribute('dir', 'rtl'); // Demo only
 
 new DataTable('#example');
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

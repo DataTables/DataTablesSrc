@@ -5,18 +5,7 @@
 <js lib="datatables" />
 
 <title>Return key to search</title>
-<js><![CDATA[
-$('#example').DataTable({
-	ajax: 'scripts/server_processing.php',
-	processing: true,
-	search: {
-		return: true
-	},
-	serverSide: true
-});
-
-]]></js>
-<js-vanilla>
+<js>
 <![CDATA[
 new DataTable('#example', {
 	ajax: 'scripts/server_processing.php',
@@ -27,7 +16,7 @@ new DataTable('#example', {
 	serverSide: true
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

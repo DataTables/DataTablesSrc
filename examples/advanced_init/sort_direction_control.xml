@@ -6,18 +6,6 @@
 
 <title>Order direction sequence control</title>
 <js><![CDATA[
-$('#example').DataTable({
-	columns: [
-		null,
-		null,
-		{ orderSequence: ['asc', ''] },
-		{ orderSequence: ['desc', 'asc', ''] },
-		{ orderSequence: ['desc'] },
-		null
-	]
-});
-]]></js>
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	columns: [
 		null,
@@ -28,7 +16,7 @@ new DataTable('#example', {
 		null
 	]
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

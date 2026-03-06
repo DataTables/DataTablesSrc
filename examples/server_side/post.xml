@@ -5,26 +5,7 @@
 <js lib="datatables" />
 
 <title>POST data</title>
-<js><![CDATA[
-$('#example').DataTable({
-	ajax: {
-		url: 'scripts/post.php',
-		type: 'POST'
-	},
-	columns: [
-		{ data: 'first_name' },
-		{ data: 'last_name' },
-		{ data: 'position' },
-		{ data: 'office' },
-		{ data: 'start_date' },
-		{ data: 'salary' }
-	],
-	processing: true,
-	serverSide: true
-});
-
-]]></js>
-<js-vanilla>
+<js>
 <![CDATA[
 new DataTable('#example', {
 	ajax: {
@@ -43,7 +24,7 @@ new DataTable('#example', {
 	serverSide: true
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

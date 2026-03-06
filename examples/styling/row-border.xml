@@ -6,14 +6,9 @@
 <title>Base style - row borders</title>
 <js lib="datatables">
 <![CDATA[
-$('#example').DataTable();
-]]>
-</js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example');
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

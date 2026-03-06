@@ -12,19 +12,12 @@
 
 <title>Scroll - horizontal and vertical</title>
 <js><![CDATA[
-$('#example').DataTable({
-	scrollX: true,
-	scrollY: 200
-});
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	scrollX: true,
 	scrollY: 200
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

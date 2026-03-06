@@ -6,11 +6,8 @@
 
 <title>HTML5 data-* attributes - table options</title>
 <js><![CDATA[
-$('#example').DataTable();
-]]></js>
-<js-vanilla><![CDATA[
 new DataTable('#example');
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

@@ -13,28 +13,6 @@
 <title>Individual column searching (text inputs)</title>
 
 <js><![CDATA[
-$('#example').DataTable({
-	initComplete: function () {
-		this.api()
-			.columns()
-			.every(function () {
-				var column = this;
-				var title = column.footer().textContent;
-
-				// Create input element and add event listener
-				$('<input type="text" placeholder="Search ' + title + '" />')
-					.appendTo($(column.footer()).empty())
-					.on('keyup change clear', function () {
-						if (column.search() !== this.value) {
-							column.search(this.value).draw();
-						}
-					});
-			});
-	}
-});
-]]></js>
-
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	initComplete: function () {
 		this.api()
@@ -57,7 +35,7 @@ new DataTable('#example', {
 			});
 	}
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

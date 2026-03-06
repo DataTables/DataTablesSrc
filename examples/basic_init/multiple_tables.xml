@@ -10,13 +10,9 @@
 
 <title>Multiple tables</title>
 <js><![CDATA[
-$('table.display').DataTable();
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('table.display');
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

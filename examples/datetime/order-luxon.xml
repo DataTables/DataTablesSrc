@@ -6,16 +6,9 @@
 <![CDATA[
 DataTable.datetime('d MMM yyyy');
 
-$('#example').DataTable();
-]]>
-</js>
-<js-vanilla>
-<![CDATA[
-DataTable.datetime('d MMM yyyy');
-
 new DataTable('#example');
 ]]>
-</js-vanilla>
+</js>
 
 <title>Ordering formatted dates (Luxon)</title>
 

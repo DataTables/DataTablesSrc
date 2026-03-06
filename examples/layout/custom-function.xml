@@ -6,16 +6,6 @@
 
 <title>Custom controls - defined by functions</title>
 <js><![CDATA[
-$('#example').DataTable({
-	layout: {
-		topStart: function () {
-			return $('<div class="toolbar"><b>Custom tool bar! Text/images etc.</b></div>');
-		}
-	}
-});
-]]></js>
-<js-vanilla><![CDATA[
-
 new DataTable('#example', {
 	layout: {
 		topStart: function () {
@@ -27,7 +17,7 @@ new DataTable('#example', {
 	}
 });
 
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

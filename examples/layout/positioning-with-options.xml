@@ -6,28 +6,6 @@
 
 <title>Table controls positioning with options</title>
 <js><![CDATA[
-$('#example').DataTable({
-	layout: {
-		topStart: {
-			pageLength: {
-				menu: [ 10, 25, 50, 100 ]
-			}
-		},
-		topEnd: {
-			search: {
-				placeholder: 'Type search here'
-			}
-		},
-		bottomEnd: {
-			paging: {
-				buttons: 3
-			}
-		}
-	}
-});
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	layout: {
 		topStart: {
@@ -48,7 +26,7 @@ new DataTable('#example', {
 	}
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

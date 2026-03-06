@@ -6,22 +6,6 @@
 
 <title>Multiple table control elements</title>
 <js><![CDATA[
-
-$('#example').DataTable({
-	layout: {
-		top2Start: 'pageLength',
-		top2End: 'search',
-		topStart: 'info',
-		topEnd: 'paging',
-		bottomStart: 'pageLength',
-		bottomEnd: 'search',
-		bottom2Start: 'info',
-		bottom2End: 'paging'
-	}
-});
-
-]]></js>
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	layout: {
 		top2Start: 'pageLength',
@@ -34,7 +18,7 @@ new DataTable('#example', {
 		bottom2End: 'paging'
 	}
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

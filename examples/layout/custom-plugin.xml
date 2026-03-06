@@ -6,26 +6,6 @@
 
 <title>Custom controls - plug-ins</title>
 <js><![CDATA[
-
-DataTable.feature.register('toolbar', function (settings, opts) {
-	var el = $('<div>').html(opts.text);
-
-	return el;
-});
-
-$('#example').DataTable({
-	layout: {
-		topStart: {
-			toolbar: {
-				text: 'My custom toolbar!'
-			}
-		}
-	}
-});
-
-]]></js>
-<js-vanilla><![CDATA[
-
 DataTable.feature.register('toolbar', function (settings, opts) {
 	let toolbar = document.createElement('div');
 	toolbar.innerHTML = opts.text;
@@ -43,7 +23,7 @@ new DataTable('#example', {
 	}
 });
 
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

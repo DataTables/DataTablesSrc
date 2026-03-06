@@ -11,7 +11,7 @@ window.dt_demo = {
 	/**
 	 * Initialise the example
 	 *
-	 * @param types jQuery and Vanilla init code
+	 * @param types Init code
 	 */
 	init: function (types) {
 		if (types) {
@@ -24,7 +24,6 @@ window.dt_demo = {
 	},
 
 	_prepLibs: function () {
-		var initType = dt_demo.storage.get('dt-demo-runtime') || 'vanilla-js';
 		var initStyle = dt_demo.storage.get('dt-demo-style') || 'datatables';
 		var libs = dt_demo._struct.libs;
 		var framework = initStyle;
@@ -46,11 +45,9 @@ window.dt_demo = {
 			dt_demo._addLib(libs.css[i], 'css', framework);
 		}
 
-		// If using jQuery run time then we need to add jQuery. We also need it
-		// if we are using a styling framework that has it as a dependency for
-		// them, and it needs to load before them.
+		// We need to load jQuery if we are using a styling framework that has
+		// it as a dependency for them, and it needs to load before them.
 		if (
-			initType === 'jquery' ||
 			initStyle === 'bootstrap' ||
 			initStyle === 'bootstrap4' ||
 			initStyle === 'foundation' ||
@@ -445,68 +442,11 @@ window.dt_demo = {
 				.insertBefore(Dom.s('h1').get(0));
 		}
 
-		// jQuery / Vanilla selector
-		var initType = dt_demo.storage.get('dt-demo-runtime') || 'vanilla-js';
+		// Style selector
 		var initStyle = dt_demo.storage.get('dt-demo-style') || 'datatables';
-		var finish;
 
 		// Show a warning if there is no script for this version
 		if (types) {
-			var canjQuery = dt_demo._functionHasBody(types.jquery);
-			var canVanilla = dt_demo._functionHasBody(types.vanilla);
-
-			if (canjQuery || canVanilla) {
-				var runtimeSelector = dt_demo._options(
-					'Initialisation code',
-					optionsContainer,
-					[
-						{
-							label: 'jQuery',
-							val: 'jquery'
-						},
-						{
-							label: 'Vanilla JS',
-							val: 'vanilla-js'
-						}
-					],
-					initType,
-					function (option, container, initChange) {
-						dt_demo.storage.set('dt-demo-runtime', option.val);
-						dt_demo._changeRuntime(option, container, initChange);
-					},
-					'<p><a href="https://datatables.net/tn/20#Initialisation-target">What is this?</a></p>'
-				);
-
-				if (initType === 'jquery' && !canjQuery) {
-					initType = 'vanilla-js';
-					dt_demo._optionsWarning(
-						runtimeSelector,
-						'This example does not yet have jQuery initialisation available. Vanilla JS is being used instead.'
-					);
-				}
-				else if (initType === 'vanilla-js' && !canVanilla) {
-					initType = 'jquery';
-					dt_demo._optionsWarning(
-						runtimeSelector,
-						'This example does not yet have vanilla JS initialisation available. jQuery is being used instead.'
-					);
-				}
-
-				// Hide the code block that isn't being run
-				if (initType === 'jquery') {
-					finish = function () {
-						types.jquery();
-					};
-					Dom.s('#js-vanilla').css('display', 'none');
-				}
-				else {
-					finish = function () {
-						types.vanilla();
-					};
-					Dom.s('#js-jquery').css('display', 'none');
-				}
-			}
-
 			// Style library selector options
 			dt_demo._options(
 				'Styling framework',
@@ -583,8 +523,8 @@ window.dt_demo = {
 			'<p><a href="https://datatables.net/tn/20#Theme">What is this?</a></p>'
 		);
 
-		if (finish) {
-			finish();
+		if (types && types.run) {
+			types.run();
 		}
 	},
 
@@ -717,15 +657,6 @@ window.dt_demo = {
 			.trigger('click');
 
 		return selector;
-	},
-
-	_changeRuntime: function (option, selector, initChange) {
-		if (!initChange) {
-			// Reload - localStorage on next load will select the correct run code
-			window.location.reload();
-		}
-
-		Dom.s(selector).find('div.dt-demo-selector__current').text(option.label);
 	},
 
 	_changeStyle: function (option, selector, initChange) {

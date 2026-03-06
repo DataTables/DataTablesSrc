@@ -24,30 +24,9 @@ DataTable.ext.type.order['salary-grade-pre'] = function (d) {
 	return 0;
 };
 
-$('#example').DataTable();
-]]></js>
-<js-vanilla><![CDATA[
-DataTable.ext.type.detect.unshift(function (d) {
-	return d === 'Low' || d === 'Medium' || d === 'High'
-		? 'salary-grade'
-		: null;
-});
-
-DataTable.ext.type.order['salary-grade-pre'] = function (d) {
-	switch (d) {
-		case 'Low':
-			return 1;
-		case 'Medium':
-			return 2;
-		case 'High':
-			return 3;
-	}
-	return 0;
-};
-
 new DataTable('#example');
 
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

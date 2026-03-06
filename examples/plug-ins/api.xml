@@ -6,34 +6,6 @@
 
 <title>API plug-in methods</title>
 <js><![CDATA[
-// Register a `sum` API method with DataTables
-DataTable.Api.register('column().data().sum()', function () {
-	return this.reduce(function (a, b) {
-		var x = parseFloat(a) || 0;
-		var y = parseFloat(b) || 0;
-		return x + y;
-	});
-});
-
-// Init the table and fire off a call to get the hidden nodes.
-var table = $('#example').DataTable();
-
-$('#sum-all').on('click', function () {
-	let text = 'Column sum is: ' + table.column(3).data().sum();
-
-	$('#demo-output').append($('<div>').text(text));
-});
-
-$('#sum-visible').on('click', function () {
-	let text =
-		'Column sum is: ' + table.column(3, { page: 'current' }).data().sum();
-
-	$('#demo-output').append($('<div>').text(text));
-});
-
-]]></js>
-
-<js-vanilla><![CDATA[
 // For demo - adds text to the output box
 function addOutput(text) {
 	let newEl = document.createElement('div');
@@ -64,7 +36,7 @@ document.querySelector('#sum-visible').addEventListener('click', function () {
 	);
 });
 
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

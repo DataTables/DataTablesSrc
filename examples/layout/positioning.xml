@@ -6,17 +6,6 @@
 
 <title>Table controls positioning</title>
 <js><![CDATA[
-$('#example').DataTable({
-	layout: {
-		topStart: 'info',
-		bottom: 'paging',
-		bottomStart: null,
-		bottomEnd: null
-	}
-});
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	layout: {
 		topStart: 'info',
@@ -26,7 +15,7 @@ new DataTable('#example', {
 	}
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

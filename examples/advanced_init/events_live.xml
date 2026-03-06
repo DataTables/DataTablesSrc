@@ -6,15 +6,6 @@
 
 <title>DOM and custom events</title>
 <js><![CDATA[
-var table = $('#example').DataTable();
-
-$('#example tbody').on('click', 'tr', function () {
-	var data = table.row(this).data();
-
-	alert('You clicked on ' + data[0] + "'s row");
-});
-]]></js>
-<js-vanilla><![CDATA[
 let table = new DataTable('#example');
 
 table.on('click', 'tbody tr', function () {
@@ -22,7 +13,7 @@ table.on('click', 'tbody tr', function () {
 
 	alert('You clicked on ' + data[0] + "'s row");
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

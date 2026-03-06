@@ -6,25 +6,6 @@
 
 <title>Orthogonal data</title>
 <js><![CDATA[
-$('#example').DataTable({
-	ajax: 'data/orthogonal.txt',
-	columns: [
-		{ data: 'name' },
-		{ data: 'position' },
-		{ data: 'office' },
-		{ data: 'extn' },
-		{
-			data: {
-				_: 'start_date.display',
-				sort: 'start_date.timestamp'
-			}
-		},
-		{ data: 'salary' }
-	]
-});
-]]></js>
-
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	ajax: 'data/orthogonal.txt',
 	columns: [
@@ -41,7 +22,7 @@ new DataTable('#example', {
 		{ data: 'salary' }
 	]
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

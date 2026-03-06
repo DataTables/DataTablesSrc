@@ -5,22 +5,7 @@
 <js lib="datatables" />
 
 <title>Object data source</title>
-<js><![CDATA[
-$('#example').DataTable({
-	ajax: 'scripts/objects.php',
-	columns: [
-		{ data: 'first_name' },
-		{ data: 'last_name' },
-		{ data: 'position' },
-		{ data: 'office' },
-		{ data: 'start_date' },
-		{ data: 'salary' }
-	],
-	processing: true,
-	serverSide: true
-});
-]]></js>
-<js-vanilla>
+<js>
 <![CDATA[
 new DataTable('#example', {
 	ajax: 'scripts/objects.php',
@@ -36,7 +21,7 @@ new DataTable('#example', {
 	serverSide: true
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

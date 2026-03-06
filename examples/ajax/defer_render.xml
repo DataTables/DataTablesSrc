@@ -6,18 +6,11 @@
 
 <title>Deferred rendering feature</title>
 <js><![CDATA[
-$('#example').DataTable({
-	ajax: 'data/arrays.txt',
-	deferRender: false
-});
-]]></js>
-
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	ajax: 'data/arrays.txt',
 	deferRender: false
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

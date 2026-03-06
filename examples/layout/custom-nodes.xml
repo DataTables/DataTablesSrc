@@ -6,14 +6,6 @@
 
 <title>Custom controls - nodes</title>
 <js><![CDATA[
-$('#example').DataTable({
-	layout: {
-		topStart: $('<div class="toolbar"><b>Custom tool bar! Text/images etc.</b></div>')
-	}
-});
-]]></js>
-<js-vanilla><![CDATA[
-
 let toolbar = document.createElement('div');
 toolbar.innerHTML = '<b>Custom tool bar! Text/images etc.</b>';
 
@@ -23,7 +15,7 @@ new DataTable('#example', {
 	}
 });
 
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

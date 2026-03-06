@@ -7,18 +7,6 @@
 <title>Row selection (multiple rows)</title>
 
 <js><![CDATA[
-var table = $('#example').DataTable();
-
-$('#example tbody').on('click', 'tr', function () {
-	$(this).toggleClass('selected');
-});
-
-$('#button').click(function () {
-	alert(table.rows('.selected').data().length + ' row(s) selected');
-});
-]]></js>
-
-<js-vanilla><![CDATA[
 const table = new DataTable('#example');
 
 table.on('click', 'tbody tr', function (e) {
@@ -28,7 +16,7 @@ table.on('click', 'tbody tr', function (e) {
 document.querySelector('#button').addEventListener('click', function () {
 	alert(table.rows('.selected').data().length + ' row(s) selected');
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

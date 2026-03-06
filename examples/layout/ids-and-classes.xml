@@ -46,31 +46,6 @@ body.dt-example-foundation div.cell-class {
 
 <title>Element IDs and classes</title>
 <js><![CDATA[
-$('#example').DataTable({
-	layout: {
-		top2: {
-			rowId: 'row-id',
-			rowClass: 'row-class',
-			features: [{
-				div: {
-					text: 'top2 row'
-				}
-			}]
-		},
-		top1: {
-			id: 'cell-id',
-			className: 'cell-class',
-			features: [{
-				div: {
-					text: 'top1 row'
-				}
-			}]
-		}
-	}
-});
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	layout: {
 		top2: {
@@ -94,7 +69,7 @@ new DataTable('#example', {
 	}
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

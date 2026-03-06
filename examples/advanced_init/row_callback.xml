@@ -15,15 +15,6 @@
 
 <title>Row created callback</title>
 <js><![CDATA[
-$('#example').DataTable({
-	createdRow: function (row, data, index) {
-		if (data[5].replace(/[\$,]/g, '') * 1 > 150000) {
-			$('td', row).eq(5).addClass('highlight');
-		}
-	}
-});
-]]></js>
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	createdRow: (row, data, index) => {
 		if (data[5].replace(/[\$,]/g, '') * 1 > 150000) {
@@ -31,7 +22,7 @@ new DataTable('#example', {
 		}
 	}
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

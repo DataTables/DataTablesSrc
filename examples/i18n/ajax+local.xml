@@ -6,25 +6,14 @@
 
 <title>Remote language file + local definitions</title>
 <js><![CDATA[
-
-$('#example').DataTable({
-	language: {
-		search: 'In der Tabelle finden',
-		url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/de-DE.json'
-	}
-});
-
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	language: {
 		search: 'In der Tabelle finden',
-		url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/de-DE.json'
+		url: 'https://cdn.datatables.net/plug-ins/2.3.7/i18n/de-DE.json'
 	}
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

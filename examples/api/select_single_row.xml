@@ -7,24 +7,6 @@
 <title>Row selection and deletion (single row)</title>
 
 <js><![CDATA[
-var table = $('#example').DataTable();
-
-$('#example tbody').on('click', 'tr', function () {
-	if ($(this).hasClass('selected')) {
-		$(this).removeClass('selected');
-	}
-	else {
-		table.$('tr.selected').removeClass('selected');
-		$(this).addClass('selected');
-	}
-});
-
-$('#button').click(function () {
-	table.row('.selected').remove().draw(false);
-});
-]]></js>
-
-<js-vanilla><![CDATA[
 const table = new DataTable('#example');
 
 table.on('click', 'tbody tr', (e) => {
@@ -42,7 +24,7 @@ table.on('click', 'tbody tr', (e) => {
 document.querySelector('#button').addEventListener('click', function () {
 	table.row('.selected').remove().draw(false);
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

@@ -6,14 +6,9 @@
 <title>Tailwind CSS (Tech. preview)</title>
 <js lib="datatables tailwindcss">
 <![CDATA[
-$('#example').DataTable();
-]]>
-</js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example');
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

@@ -10,57 +10,6 @@
 <css lib="//code.highcharts.com/css/highcharts.css"/>
 <js><![CDATA[
 // Create DataTable
-var table = $('#example').DataTable();
-
-// Create chart
-var chart = Highcharts.chart('demo-output', {
-	chart: {
-		type: 'pie',
-		styledMode: true
-	},
-	title: {
-		text: 'Staff Count Per Position'
-	},
-	series: [
-		{
-			data: chartData(table)
-		}
-	]
-});
-
-// On each draw, update the data in the chart
-table.on('draw', function () {
-	chart.series[0].setData(chartData(table));
-});
-
-function chartData(table) {
-	var counts = {};
-
-	// Count the number of entries for each position
-	table
-		.column(1, { search: 'applied' })
-		.data()
-		.each(function (val) {
-			if (counts[val]) {
-				counts[val] += 1;
-			}
-			else {
-				counts[val] = 1;
-			}
-		});
-
-	// And map it to the format highcharts uses
-	return $.map(counts, function (val, key) {
-		return {
-			name: key,
-			y: val
-		};
-	});
-}
-]]></js>
-
-<js-vanilla><![CDATA[
-// Create DataTable
 const table = new DataTable('#example');
 
 // Create chart
@@ -105,7 +54,7 @@ function chartData(table) {
 		y: e[1]
 	}));
 }
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

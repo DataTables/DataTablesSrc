@@ -25,19 +25,11 @@ div.dt-paging {
 
 <title>Legacy dom option</title>
 <js><![CDATA[
-
-$('#example').DataTable({
-    dom: '<"top"i>rt<"bottom"flp><"clear">'
-});
-
-]]></js>
-<js-vanilla><![CDATA[
-
 new DataTable('#example', {
     dom: '<"top"i>rt<"bottom"flp><"clear">'
 });
 
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

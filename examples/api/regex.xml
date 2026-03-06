@@ -8,39 +8,6 @@
 
 <js><![CDATA[
 function filterGlobal(table) {
-	table
-		.search(
-			$('#global_filter').val(),
-			$('#global_regex').prop('checked'),
-			$('#global_smart').prop('checked')
-		)
-		.draw();
-}
-
-function filterColumn(table, i) {
-	table
-		.column(i)
-		.search(
-			$('#col' + i + '_filter').val(),
-			$('#col' + i + '_regex').prop('checked'),
-			$('#col' + i + '_smart').prop('checked')
-		)
-		.draw();
-}
-
-var table = $('#example').DataTable();
-
-$('input.global_filter').on('keyup click', function () {
-	filterGlobal(table);
-});
-
-$('input.column_filter').on('keyup click', function () {
-	filterColumn(table, $(this).parents('tr').attr('data-column'));
-});
-]]></js>
-
-<js-vanilla><![CDATA[
-function filterGlobal(table) {
 	let filter = document.querySelector('#global_filter');
 	let regex = document.querySelector('#global_regex');
 	let smart = document.querySelector('#global_smart');
@@ -72,7 +39,7 @@ document.querySelectorAll('input.column_filter').forEach((el) => {
 		filterColumn(table, columnIndex)
 	);
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

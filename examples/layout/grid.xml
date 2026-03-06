@@ -26,135 +26,6 @@ div.layout-full {
 
 <title>Grid layout</title>
 <js><![CDATA[
-$('#example').DataTable({
-	layout: {
-		top9Start: {
-			div: {
-				className: 'layout-start',
-				text: 'top9Start'
-			}
-		},
-		top8Start: [
-			{
-				div: {
-					className: 'layout-start',
-					text: 'top8Start A'
-				}
-			},
-			{
-				div: {
-					className: 'layout-start',
-					text: 'top8Start B'
-				}
-			}
-		],
-		top7Start: [
-			{
-				div: {
-					className: 'layout-start',
-					text: 'top7Start A'
-				}
-			},
-			{
-				div: {
-					className: 'layout-start',
-					text: 'top7Start B'
-				}
-			},
-			{
-				div: {
-					className: 'layout-start',
-					text: 'top7Start C'
-				}
-			}
-		],
-
-		top6End: {
-			div: {
-				className: 'layout-end',
-				text: 'top6End'
-			}
-		},
-		top5End: [
-			{
-				div: {
-					className: 'layout-end',
-					text: 'top5End A'
-				}
-			},
-			{
-				div: {
-					className: 'layout-end',
-					text: 'top5End B'
-				}
-			}
-		],
-		top4End: [
-			{
-				div: {
-					className: 'layout-end',
-					text: 'top4End A'
-				}
-			},
-			{
-				div: {
-					className: 'layout-end',
-					text: 'top4End B'
-				}
-			},
-			{
-				div: {
-					className: 'layout-end',
-					text: 'top4End C'
-				}
-			}
-		],
-
-		top3: {
-			div: {
-				className: 'layout-full',
-				text: 'top3'
-			}
-		},
-		top2: [
-			{
-				div: {
-					className: 'layout-full',
-					text: 'top2 A'
-				}
-			},
-			{
-				div: {
-					className: 'layout-full',
-					text: 'top2 B'
-				}
-			}
-		],
-		top1: [
-			{
-				div: {
-					className: 'layout-full',
-					text: 'top1 A'
-				}
-			},
-			{
-				div: {
-					className: 'layout-full',
-					text: 'top1 B'
-				}
-			},
-			{
-				div: {
-					className: 'layout-full',
-					text: 'top1 C'
-				}
-			}
-		]
-	}
-});
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	layout: {
 		top9Start: {
@@ -283,7 +154,7 @@ new DataTable('#example', {
 });
 
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

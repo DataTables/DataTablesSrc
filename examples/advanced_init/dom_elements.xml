@@ -42,92 +42,6 @@ var stock_data = [
 	}
 ];
 
-var table = $('#example').DataTable({
-	data: stock_data,
-	columns: [
-		{ data: 'name' },
-		{ data: 'symbol' },
-		{
-			data: 'values',
-			render: function (data) {
-				return data[data.length - 1].toFixed(2);
-			}
-		},
-		{
-			data: 'values',
-			render: function (data, type) {
-				// Calculate the different between the last two values
-				var val = (
-					data[data.length - 1] -
-					data[data.length - 2]
-				).toFixed(2);
-
-				var colour = val < 0 ? 'red' : 'green';
-
-				return type === 'display'
-					? '<span style="color:' + colour + '">' + val + '</span>'
-					: val;
-			}
-		},
-		{
-			data: 'values',
-			render: function (data, type) {
-				if (type === 'display') {
-					// Create the SVG element the spark line will live in (needs the correct name space)
-					var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-
-					$(svg)
-						.addClass('sparkline')
-						.attr({
-							width: 250,
-							height: 17,
-							'stroke-width': 3
-						});
-
-					// Use the plug-in to create the lines
-					sparkline.default(svg, data);
-
-					return svg;
-				}
-
-				// Otherwise give the last value
-				return data[data.length-1];
-			}
-		}
-	]
-});
-
-]]></js>
-
-<js-vanilla><![CDATA[
-var stock_data = [
-	{
-		name: 'ACME Gadgets',
-		symbol: 'AGDTS',
-		values: [ 42, 20, 30, 35, 9, 48, 12, 5]
-	},
-	{
-		name: 'Spry Media Productions',
-		symbol: 'SPMP',
-		values: [40, 37, 16, 43, 13, 18, 19]
-	},
-	{
-		name: 'Widget Emporium',
-		symbol: 'WDEMP',
-		values: [35, 40, 6, 15, 48, 16, 44, 49]
-	},
-	{
-		name: 'Sole Goodman',
-		symbol: 'SGMAN',
-		values: [25, 27, 4, 40, 7, 8, 18, 16]
-	},
-	{
-		name: 'Stanler Bits and Bobs',
-		symbol: 'SBIBO',
-		values: [13, 25, 13, 38, 40, 34, 40, 47]
-	}
-];
-
 let table = new DataTable('#example', {
 	data: stock_data,
 	columns: [
@@ -178,7 +92,7 @@ let table = new DataTable('#example', {
 	]
 });
 
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

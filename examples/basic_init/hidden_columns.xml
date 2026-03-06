@@ -6,22 +6,6 @@
 
 <title>Hidden columns</title>
 <js><![CDATA[
-$('#example').DataTable({
-	columnDefs: [
-		{
-			target: 2,
-			visible: false,
-			searchable: false
-		},
-		{
-			target: 3,
-			visible: false
-		}
-	]
-});
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	columnDefs: [
 		{
@@ -36,7 +20,7 @@ new DataTable('#example', {
 	]
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

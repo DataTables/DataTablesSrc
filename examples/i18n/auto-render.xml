@@ -7,17 +7,9 @@
 DataTable.type('date', 'render', DataTable.render.date());
 DataTable.type('num', 'render', DataTable.render.number());
 
-$('#example').DataTable();
-]]>
-</js>
-<js-vanilla>
-<![CDATA[
-DataTable.type('date', 'render', DataTable.render.date());
-DataTable.type('num', 'render', DataTable.render.number());
-
 new DataTable('#example');
 ]]>
-</js-vanilla>
+</js>
 
 <title>Language - auto render</title>
 

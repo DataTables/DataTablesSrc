@@ -6,23 +6,6 @@
 
 <title>Flat array data source</title>
 <js><![CDATA[
-$('#example').DataTable({
-	ajax: {
-		url: 'data/objects_root_array.txt',
-		dataSrc: ''
-	},
-	columns: [
-		{ data: 'name' },
-		{ data: 'position' },
-		{ data: 'office' },
-		{ data: 'extn' },
-		{ data: 'start_date' },
-		{ data: 'salary' }
-	]
-});
-]]></js>
-
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	ajax: {
 		url: 'data/objects_root_array.txt',
@@ -37,7 +20,7 @@ new DataTable('#example', {
 		{ data: 'salary' }
 	]
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 

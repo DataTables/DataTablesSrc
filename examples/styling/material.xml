@@ -5,14 +5,11 @@
 <js lib="datatables" />
 
 <title>Material Design (Tech. preview)</title>
-<js><![CDATA[
-$('#example').DataTable();
-]]></js>
-<js-vanilla>
+<js>
 <![CDATA[
 new DataTable('#example');
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

@@ -11,14 +11,9 @@ div.dt-container {
 <title>Flexible table width</title>
 <js lib="datatables">
 <![CDATA[
-$('#example').DataTable();
-]]>
-</js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example');
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

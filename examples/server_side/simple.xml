@@ -5,14 +5,7 @@
 <js lib="datatables" />
 
 <title>Server-side processing</title>
-<js><![CDATA[
-$('#example').DataTable({
-	ajax: 'scripts/server_processing.php',
-	processing: true,
-	serverSide: true
-});
-]]></js>
-<js-vanilla>
+<js>
 <![CDATA[
 new DataTable('#example', {
 	ajax: 'scripts/server_processing.php',
@@ -20,7 +13,7 @@ new DataTable('#example', {
 	serverSide: true
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

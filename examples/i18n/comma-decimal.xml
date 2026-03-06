@@ -6,15 +6,6 @@
 
 <title>Language - Comma decimal place</title>
 <js><![CDATA[
-$('#example').DataTable({
-	language: {
-		decimal: ',',
-		thousands: '.'
-	}
-});
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	language: {
 		decimal: ',',
@@ -22,7 +13,7 @@ new DataTable('#example', {
 	}
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

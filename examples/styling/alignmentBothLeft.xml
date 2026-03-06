@@ -9,22 +9,10 @@ DataTable.type('num', 'className', 'dt-left');
 DataTable.type('num-fmt', 'className', 'dt-left');
 DataTable.type('date', 'className', 'dt-left');
 
-$('#example').DataTable();
-
-]]>
-</js>
-
-<js-vanilla>
-<![CDATA[
-
-DataTable.type('num', 'className', 'dt-left');
-DataTable.type('num-fmt', 'className', 'dt-left');
-DataTable.type('date', 'className', 'dt-left');
-
 new DataTable('#example');
 
 ]]>
-</js-vanilla>
+</js>
 
 <title>Text Alignment: Header and Body Left</title>
 

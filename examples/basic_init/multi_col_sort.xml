@@ -6,25 +6,6 @@
 
 <title>Multi-column ordering</title>
 <js><![CDATA[
-$('#example').DataTable({
-	columnDefs: [
-		{
-			targets: [0],
-			orderData: [0, 1]
-		},
-		{
-			targets: [1],
-			orderData: [1, 0]
-		},
-		{
-			targets: [4],
-			orderData: [4, 0]
-		}
-	]
-});
-]]></js>
-<js-vanilla>
-<![CDATA[
 new DataTable('#example', {
 	columnDefs: [
 		{
@@ -42,7 +23,7 @@ new DataTable('#example', {
 	]
 });
 ]]>
-</js-vanilla>
+</js>
 
 <info><![CDATA[
 

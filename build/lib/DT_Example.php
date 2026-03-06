@@ -173,9 +173,7 @@ class DT_Example
 		$template = str_replace( '{css}', $this->_plain( 'css' ), $template );
 		$template = str_replace( '{css-esc}', htmlspecialchars( trim($this->_plain( 'css' )) ), $template );
 		$template = str_replace( '{js}', $this->_plain( 'js' ),  $template );
-		$template = str_replace( '{js-vanilla}', $this->_plain( 'js-vanilla' ),  $template );
 		$template = str_replace( '{js-esc}', htmlspecialchars( trim($this->_plain( 'js' )) ),  $template );
-		$template = str_replace( '{js-vanilla-esc}', htmlspecialchars( trim($this->_plain( 'js-vanilla' )) ),  $template );
 		$template = str_replace( '{libs}', $this->_libs(), $template);
 
 		$template = preg_replace( '/\t<style type="text\/css">\n\n\t<\/style>/m', "", $template );

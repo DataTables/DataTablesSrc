@@ -6,21 +6,6 @@
 
 <title>Nested object data (objects)</title>
 <js><![CDATA[
-$('#example').DataTable({
-	ajax: 'data/objects_deep.txt',
-	columns: [
-		{ data: 'name' },
-		{ data: 'hr.position' },
-		{ data: 'contact.0' },
-		{ data: 'contact.1' },
-		{ data: 'hr.start_date' },
-		{ data: 'hr.salary' }
-	],
-	processing: true
-});
-]]></js>
-
-<js-vanilla><![CDATA[
 new DataTable('#example', {
 	ajax: 'data/objects_deep.txt',
 	columns: [
@@ -33,7 +18,7 @@ new DataTable('#example', {
 	],
 	processing: true
 });
-]]></js-vanilla>
+]]></js>
 
 <info><![CDATA[
 
