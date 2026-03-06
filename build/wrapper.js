@@ -34,6 +34,11 @@ function main(args) {
 	let version = args[5];
 	let output = args[6];
 
+	if (!version.match(/\d+\.\d+\.\d/)) {
+		console.error('Error in arguments - no version given');
+		return;
+	}
+
 	try {
 		script = fs.readFileSync(fileIn, 'utf8');
 	} catch (e) {
@@ -90,7 +95,7 @@ function es(script, deps, exp, filename, type) {
 	// is a cheeky way of doing it, but take the original import out of the
 	// script
 	let match = script.main.match(
-		/import DataTable(.*?) from 'datatables.net';\n/
+		/import (DataTable)?(,?)(.*?) ?from 'datatables.net';\n/
 	);
 
 	script.main = script.main.replace(/import .*?\n/, '');
@@ -134,10 +139,10 @@ ${exportProps}
 
 	// If there was a DataTables import with properties, then reinsert them into
 	// our generated imports
-	if (match && match.length >= 1) {
+	if (match && match.length >= 3) {
 		result = result.replace(
 			"import DataTable from 'datatables.net';",
-			'import DataTable' + match[1] + " from 'datatables.net';"
+			'import DataTable,' + match[3] + " from 'datatables.net';"
 		);
 	}
 

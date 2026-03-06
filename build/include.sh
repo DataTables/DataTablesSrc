@@ -282,14 +282,14 @@ function ts_extension {
 		SRCDIR="js"
 	fi
 
-	# Get the version from the file
-	VERSION=$(grep "version.*[0-9]\+[.][0-9]\+[.][0-9]" ${SRCDIR}/dataTables.$FILENAME.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*(\-\d+)?)?}')
-
 	# JS - compile and then copy into place
 	$DT_SRC/node_modules/typescript/bin/tsc -p ./tsconfig.json
 
 	$DT_SRC/node_modules/rollup/dist/bin/rollup \
 		--config rollup.config.mjs
+
+	# Get the version from the file
+	VERSION=$(grep "version.*[0-9]\+[.][0-9]\+[.][0-9]" dist/dataTables.$FILENAME.js | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*(\-\d+)?)?}')
 
 	rsync -r dist/dataTables.$FILENAME.js $OUT_DIR/js/
 
