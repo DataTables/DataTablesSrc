@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example order="0">
+
+<js lib="jquery datatables" />
+
+<title>jQuery integration</title>
+
+<info><![CDATA[
+
+DataTables has a long history of integration with jQuery, having it as a dependency until v3 to provide DOM, event and Ajax utilities. DataTables no longer requires jQuery, however, it still integrates seamlessly with it if you wish to use the two together.
+
+The set of examples in this section demonstrate how to use DataTables with jQuery, using an example that has existed since the very first versions of DataTables, in order to ensure backwards compatibility and easy upgrading!
+
+]]></info>
+
+</dt-example>

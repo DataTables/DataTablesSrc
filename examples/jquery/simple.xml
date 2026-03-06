@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="1">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+$('#example').DataTable();
+]]>
+</js>
+
+<title>Basic initialisation</title>
+
+<info><![CDATA[
+
+To initialise DataTables through a jQuery instance, select the table (or multiple tables if required) using `$()` as normal, and then call `DataTable()` on the jQuery chain. DataTables will automatically add this method to jQuery.
+
+This will immediately add searching, ordering and paging to the table. This initialisation matches the [zero configuration example](../basic_init/zero_configuration.html) when no additional configuration options are given.
+
+]]></info>
+
+</dt-example>

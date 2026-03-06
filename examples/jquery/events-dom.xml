@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="3">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+var table = $('#example').DataTable();
+ 
+$('#example tbody').on('click', 'tr', function () {
+    var data = table.row(this).data();
+ 
+    alert('You clicked on ' + data[0] + "'s row");
+});
+]]>
+</js>
+
+<title>Events - DOM</title>
+
+<info><![CDATA[
+
+When creating an interactive DataTable, you might well wish to have controls inside the table, which will respond when activated. This is done through an event handler, and elements in the DataTable will seamlessly work [with jQuery events](https://api.jquery.com/on/).
+
+Please note that you will most likely wish to use a delegated event handler to ensure that the event handler will be run for events, even if some elements aren't on the page when it is initialise loaded (i.e. they might be hidden due to paging or search).
+
+This example shows a simple `click` event listener that will use the [DataTables API](https://datatables.net/manual/api) to get the data from the first cell in the row that was clicked on and display it with an `alert()`.
+
+]]></info>
+
+</dt-example>

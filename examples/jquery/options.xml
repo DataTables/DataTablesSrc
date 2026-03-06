@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="2">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+$('#example').DataTable({
+	scrollY: 300,
+	paging: false
+});
+]]>
+</js>
+
+<title>Configuration options</title>
+
+<info><![CDATA[
+
+Once you've initialised a DataTable, you'll most likely want to customise it to suit your needs. This can be done with one of [the many options](https://datatables.net/reference/option/) that DataTables and its extensions provide.
+
+When using jQuery, initialisation options are passed through to DataTables as an object given to the `.DataTable()` method on the jQuery chain. In this example `-init scrollY` and `-init paging` are used to create a vertically scrolling table.
+
+]]></info>
+
+</dt-example>

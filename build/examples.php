@@ -19,11 +19,12 @@ $dir_order = array(
 	'i18n',
 	'datetime',
 	'plug-ins',
-	'styling',
+	'jquery',
 	'layout',
 	'api',
 	'ajax',
-	'server_side'
+	'server_side',
+	'styling',
 );
 
 $dir_names = array(
@@ -38,7 +39,8 @@ $dir_names = array(
 	'api'           => "API",
 	'ajax'          => "Ajax",
 	'server_side'   => "Server-side",
-	'plug-ins'      => "Plug-ins"
+	'plug-ins'      => "Plug-ins",
+	'jquery'        => "jQuery"
 ); // for extensions example ordering, see below
 
 

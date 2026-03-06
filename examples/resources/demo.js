@@ -62,10 +62,6 @@ window.dt_demo = {
 		}
 
 		for (var i = 0; i < libs.js.length; i++) {
-			if (libs.js[i] === 'jquery') {
-				continue;
-			}
-
 			dt_demo._addLib(libs.js[i], 'js', framework);
 		}
 	},

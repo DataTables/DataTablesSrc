@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html-add-api" order="5">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+var table = $('#example').DataTable();
+var counter = 1;
+ 
+$('#addRow').on('click', function () {
+    table.row
+        .add([
+            counter + '.1',
+            counter + '.2',
+            counter + '.3',
+            counter + '.4',
+            counter + '.5'
+        ])
+        .draw(false);
+ 
+    counter++;
+});
+ 
+// Automatically add a first row of data
+$('#addRow').trigger('click');
+]]>
+</js>
+
+<title>API</title>
+
+<info><![CDATA[
+
+When you use `$().DataTable()`, the returned object is a [DataTables API instance](https://datatables.net/manual/api), which can be used to control the DataTable. This example matches the [row adding example](../api/add_row.html), using jQuery for the initialisation and event handling.
+
+It is worth noting that DataTables will also add a `$().dataTable()` (lower case `d`) method to jQuery, which will initialise a DataTable the same way as `$().DataTable()` but will return a jQuery instance, allowing chaining of jQuery methods if you require.
+
+]]></info>
+
+<demo-html>
+	<p>
+		<button id="addRow">Add new row</button>
+	</p>
+</demo-html>
+
+</dt-example>

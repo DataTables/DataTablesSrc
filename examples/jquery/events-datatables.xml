@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="4">
+
+<css lib="datatables" />
+<js lib="jquery datatables">
+<![CDATA[
+function eventFired(type) {
+    $('#demo_info')
+        .prepend('<div>' + type + ' event - ' + new Date().toLocaleString() + '</div>')
+        .scrollTop(0);
+}
+ 
+// Adding events during initialisation
+let table = $('#example').DataTable({
+    on: {
+        order: () => eventFired('Order'),
+        search: () => eventFired('Search')
+    }
+});
+ 
+// Adding event using API
+$('#example').on('page.dt', () => eventFired('Page'));
+]]>
+</js>
+
+<title>Events - DataTables</title>
+
+<info><![CDATA[
+
+DataTables fires [a number of custom events](https://datatables.net/reference/event/) which you can bind to using either the `-init on` initialisation property and / or the `-api on()` API method.
+
+This example shows the use of the `-event order`and `-event search` events being listened for through `-init on`, and `-event page` being listened for through jQuery. The action for each event is to show a small notification in the document that the event has indeed been fired.
+
+Please note, if you to listen for a DataTables event using [`$().on()`](https://api.jquery.com/on/) (rather than using the DataTables `-api on()` method), you need to add the `.dt` namespace to the event name. This is shown on the `-event page` in this example.
+
+]]></info>
+
+<demo-html>
+	<div id="demo_info" class="box"> </div>
+</demo-html>
+
+</dt-example>

@@ -9,7 +9,7 @@
 function eventFired(type) {
 	let n = document.querySelector('#demo_info');
 	n.innerHTML +=
-		'<div>' + type + ' event - ' + new Date().getTime() + '</div>';
+		'<div>' + type + ' event - ' + new Date().toLocaleString() + '</div>';
 	n.scrollTop = n.scrollHeight;
 }
 
