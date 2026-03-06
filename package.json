@@ -56,7 +56,7 @@
     "prettier-plugin-css-order": "^2.1.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "rollup": "^4.52.4",
+    "rollup": "^4.59.0",
     "sass": "^1.97.0",
     "sinon": "^21.0.0",
     "tsd": "^0.33.0",

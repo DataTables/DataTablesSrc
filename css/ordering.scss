@@ -1,20 +1,25 @@
 @use "common";
 
 :root {
-	--dt-order-arrow_color: inherit;
-	--dt-order-arrow_color-current: inherit;
-	--dt-order-arrow_content-asc: #{common.unicode("25B2")};
-	--dt-order-arrow_content-desc: #{common.unicode("25BC")};
-	--dt-order-arrow_font-size: 0.6em;
-	--dt-order-arrow_line-height: 9px;
+	// The icons that indicate ordering in DataTables are created by using CSS
+	// "triangles" (borders). The following variables set the properties for
+	// them.
+	--dt-order-arrow_color: rgb(51, 51, 51);
+	--dt-order-arrow_color-current: rgb(51, 51, 51);
+	--dt-order-arrow-height: 7px;
 	--dt-order-arrow_opacity: 0.125;
 	--dt-order-arrow_opacity-current: 0.65;
+	--dt-order-arrow-width: 8px;
+	--dt-order-arrow-gap: 1px; // Note this is applied to both elements, so is effectively doubled
 
 	--dt-order-header_outline-hover: 2px solid rgba(0, 0, 0, 0.05);
 
 	&.dark,
 	&[data-bs-theme="dark"],
 	&[data-theme="dark"] {
+		--dt-order-arrow_color: rgb(229, 233, 238);
+		--dt-order-arrow_color-current: rgb(229, 233, 238);
+
 		--dt-order-header_outline-hover: 2px solid rgba(255, 255, 255, 0.05);
 	}
 }
@@ -33,22 +38,24 @@ table.dataTable thead {
 		&.dt-orderable-asc,
 		&.dt-ordering-asc {
 			.dt-column-order:before {
-				position: absolute;
-				display: block;
-				bottom: 50%;
-				content: var(--dt-order-arrow_content-asc); // up arrow - ascending
-				content: var(--dt-order-arrow_content-asc) / "";
+				bottom: calc(50% + var(--dt-order-arrow-gap));
+
+				// Create a triangle pointing up
+				border-bottom: var(--dt-order-arrow-height) solid var(--dt-order-arrow_color);
+				border-left: calc(var(--dt-order-arrow-width) / 2) solid transparent;
+				border-right: calc(var(--dt-order-arrow-width) / 2) solid transparent;
 			}
 		}
 
 		&.dt-orderable-desc,
 		&.dt-ordering-desc {
 			.dt-column-order:after {
-				position: absolute;
-				display: block;
-				top: 50%;
-				content: var(--dt-order-arrow_content-desc); // down arrow - descending
-				content: var(--dt-order-arrow_content-desc) / "";
+				top: calc(50% + 1px);
+
+				// Create a triangle pointing down
+				border-top: var(--dt-order-arrow-height) solid var(--dt-order-arrow_color);
+				border-left: calc(var(--dt-order-arrow-width) / 2) solid transparent;
+				border-right: calc(var(--dt-order-arrow-width) / 2) solid transparent;
 			}
 		}
 
@@ -59,16 +66,19 @@ table.dataTable thead {
 		&.dt-ordering-desc {
 			.dt-column-order {
 				position: relative;
-				width: 10px;
+				width: var(--dt-order-arrow-width);
 				align-self: stretch;
 
 				&:before,
 				&:after {
+					position: absolute;
+					display: block;
+					content: ' ';
+					height: 0;
+					width: 0;
 					left: 0;
 					color: var(--dt-order-arrow_color);
 					opacity: var(--dt-order-arrow_opacity);
-					line-height: var(--dt-order-arrow_line-height);
-					font-size: var(--dt-order-arrow_font-size);
 				}
 			}
 		}
@@ -83,9 +93,13 @@ table.dataTable thead {
 			}
 		}
 
-		&.dt-ordering-asc .dt-column-order:before,
+		&.dt-ordering-asc .dt-column-order:before {
+			border-bottom-color: var(--dt-order-arrow_color-current);
+			opacity: var(--dt-order-arrow_opacity-current);
+		}
+
 		&.dt-ordering-desc .dt-column-order:after {
-			color: var(--dt-order-arrow_color-current);
+			border-top-color: var(--dt-order-arrow_color-current);
 			opacity: var(--dt-order-arrow_opacity-current);
 		}
 
