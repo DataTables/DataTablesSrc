@@ -59,7 +59,8 @@ table.dataTable thead {
 		&.dt-ordering-desc {
 			.dt-column-order {
 				position: relative;
-				width: 12px;
+				width: 10px;
+				align-self: stretch;
 
 				&:before,
 				&:after {
