@@ -27,6 +27,8 @@
 		* `success` - A callback function to execute when the request is complete.
 
 		For a complete list of the options that can be used and full details for each one, please refer to the `-type DataTables.ajaxOptions` documentation.
+
+		Please be aware that this method is an alias to `DataTable.util.ajax`, which can be imported using ES modules (see example below).
 	</description>
 
 	<example title="Make a simple GET request with no extra data"><![CDATA[
@@ -44,6 +46,30 @@ DataTable.ajax({
 		userId: 1
 	},
 	method: 'POST',
+	success: (json) => {
+		// Do something with `json`
+	},
+	url: '/api/data'
+});
+]]></example>
+
+	<example title="Make a POST request with data"><![CDATA[
+DataTable.ajax({
+	data: {
+		userId: 1
+	},
+	method: 'POST',
+	success: (json) => {
+		// Do something with `json`
+	},
+	url: '/api/data'
+});
+]]></example>
+
+	<example title="ES module use"><![CDATA[
+import { util } from 'datatables.net';
+
+util.ajax({
 	success: (json) => {
 		// Do something with `json`
 	},

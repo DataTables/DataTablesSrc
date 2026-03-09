@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="dt">
+	<name>DataTables.Dom</name>
+	<summary>DataTables DOM manipulation library</summary>
+	<since>3.0</since>
+
+	<description>
+	<![CDATA[
+
+DataTables performs a lot of [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) queries and modifications in order to present the interactive table that it does to the end user. To help keep the code size small and manageable it has a library to perform common actions, simply called `Dom`. This library is publicly accessible through the `DataTable.Dom` property, and can be used for extensions, or just general use of DataTables.
+
+
+## Use
+
+`Dom` is a class (or more technically a _new-able function_) that holds the elements that it is operating on in an array-like (`-type arrayLike`) object with a chainable interface (this is know as the "result set"). The manipulation methods that are part of that interface operate on all of the elements that are in the result set (or in some cases, such as for getting data, just the first item in a result set).
+
+To create a new `Dom` instance, you will typically use one of two static methods (see below for further details of both):
+
+* `-api DataTable.Dom.c()` - Create a new element and add it to the result set
+* `-api DataTable.Dom.s()` - Select existing elements from the document (or from elements passed in as a selector).
+
+
+### Access
+
+The `Dom` class can be accessed as the `Dom` property from the main `DataTable` object, or if you are using ES imports, as the `Dom` named export - e.g.:
+
+As a property:
+
+```js
+// Create new div element
+let newElement = DataTable.Dom.c('div');
+
+// Select all input elements
+let inputs = DataTable.Dom.s('input');
+```
+
+From an ES import:
+
+```js
+import { Dom } from 'datatables.net';
+
+// Create new div element
+let newElement = Dom.c('div');
+
+// Select all input elements
+let inputs = Dom.s('input');
+```
+
+If you are using TypeScript an want to make use of `Dom` as a library, it is recommended that you use the `import` method, as it provides the fully typed class.
+
+
+## Transition from jQuery
+
+If you have used jQuery before, you'll notice that `Dom` takes a lot of design ques from it and the API will immediately be familiar. It is important to note, although there are strong similarities and the goals of the libraries are largely the same, `Dom` is not jQuery! jQuery is a larger library, providing a wider range of methods and options (e.g. animation, enhanced Ajax options, custom selectors, plugins and more) and deeper documentation - `Dom` however has the specific goals of providing the DOM tools needed for DataTables and its extensions. If DataTables or its extensions doesn't need a particular method or DOM manipulation technique, then it will not be available in `Dom`.
+
+As a result, if you are transitioning from jQuery to a jQuery-less environment, you will find that `Dom` can be very useful, but it is possible you might run into some limitations - particularly in the area of selectors as `Dom` strictly makes use of [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors) only. That said, as both libraries provide an array-like interface, you can readily transition between them (`Dom.s( jQuery('#myElement') )` for example is the same as `Dom.s('#myElement'))`).
+
+It is strongly recommended that you use TypeScript if you are going to make heavy use of `Dom` as it is fully typed.
+
+
+## Statics
+
+The following static methods and properties are available on the `Dom` class:
+
+### `c()` - Create element
+
+This method is used to create a new DOM element and then return it in a new `-type DataTables.Dom` instance's result set. This method on its own simply provides the ability to create a new element, once created, the main utility comes from the `Dom` object which has methods to manipulate the new element, insert it into the document and more.
+
+* Parameters:
+  1. `-type string` - The HTML element name for the new element to be created.
+* Return: `-type DataTables.Dom` - A `Dom` instance that contains the new element in its result set.
+
+Example: create a new element, set a class and append it to the document:
+
+```js
+DataTable.Dom
+	.c('div')
+	.classAdd('notice')
+	.appendTo('body');
+```
+
+Example: Using an ES import:
+
+```js
+import { Dom } from 'datatables.net';
+
+Dom
+	.c('input')
+	.attr('name', 'formInput')
+	.appendTo('#form');
+```
+
+
+### `s()` - Select elements
+
+This method is a cornerstone for using the `-type DataTables.Dom` object to manipulate DOM elements. It is used to select the elements that are to be operated on.
+
+It is important to note that if you are transitioning from jQuery that the string selector for this method is strictly a CSS one. jQuery provides a range of custom additions such as `:eq()`, `:contains()` and more. If you are using such selectors, you will need to update them.
+
+Elements selected by a CSS selector string will be added to the result set in document order. Elements added as nodes will retain the order they are added in.
+
+* Parameters:
+  1. Selector. This parameter is used to define the filter that is used to match elements. It can be given in the following forms:
+	* `-type string` - When given as a string, the selector is passed to [`querySelectorAll`](https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelectorAll) and therefore must be [a valid CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors). All elements found to match the selector given will be in the result set of the returned instance.
+	* `-type node` - If an HTML element is passed in, it will be added to the result set directly.
+	* `-type array` | `-type arrayLike` - As an array (or array-like object), the selector can contain multiple of the previous selectors allowing multiple nodes or CSS selectors to be used.
+	* `-type null` | `-type undefined` - It is safe to pass in `null` or `undefined` as values to this parameter (or as part of the selector array). In such a case nothing will be added to the `Dom` instance's result set.
+* Returns: `-type DataTables.Dom` - A `Dom` instance that contains the new element in its result set.
+
+Example - Select all `table` elements on a page and add a class:
+
+```js
+DataTable.Dom
+	.s('table')
+	.classAdd('enhancedTables');
+```
+
+Example - Using an ES import:
+
+```js
+import { Dom } from 'datatables.net';
+
+Dom
+	.s('#submit')
+	.on('click', () => {
+		// Perform validation
+	});
+```
+
+
+### `transitions` - Enable / disable transitions
+
+This option is a boolean flag which allows global disabling of transitions (in effect animations) created using the `transition()` method. Set to `false` to have the properties set immediately, `true` (default) to allow transitions.
+
+
+
+## Methods
+
+The following methods are available on the `Dom` instance to manipulate or get data from the items in the result set.
+
+
+### `add( el )`
+
+Add an element (or multiple elements) to the instance. Will ensure uniqueness.
+
+* Parameters:
+  1. `el` - Element(s) to add
+* Returns: `-type DataTable.Dom` - Self for chaining
+
+
+### `append( content )`
+
+Insert the given content to each item in the result set.
+
+Limit your result set to a single item!
+
+* Parameters:
+  1. `content` The content to append
+* Returns: `-type DataTable.Dom` - Self for chaining
+
+
+### `appendTo( selector )`
+
+Append the current result set items to the element from the selector.
+
+* Parameters:
+  1. `selector` - Target item to append the result set to
+* Returns: `-type DataTable.Dom` - Self for chaining
+
+
+### `attr( name )`
+
+Get an attribute's value from the first item in the result set. Can be
+null.
+
+* Parameters:
+  1. `name` - Attribute name
+* Read value
+
+### `attr( name, value )`
+
+Set an attribute's value for all items in the result set.
+
+* Parameters:
+  1. `name` - Attribute name
+  * `value` Value to give the attribute
+* Returns: Self for chaining
+
+### `attr( attributes )`
+
+Set multiple attributes of the elements in the result set
+
+* Parameters:
+  1. `attributes` - Plain object of attributes to be assigned
+
+
+### `blur()`
+
+Blur on the target elements
+
+* Returns: Self for chaining
+
+
+### `children( [selector] )`
+
+Get the child from all elements in the result set
+
+* Parameters:
+  1. `selector` - Query string that the child much match to be selected
+* New Dom instance with children as the result set
+
+
+### `classAdd( name )`
+
+Add one or more class names to the result set
+
+* Parameters:
+  1. `name` - Class name(s) to set
+* Returns: Self for chaining
+
+
+### `classHas( name )`
+
+Check if the first element in the result set has the given class
+
+* Parameters:
+  1. `name` - Class name to check for
+* Returns: Self for chaining
+
+
+### `classRemove( name )`
+
+Remove the given class(s) from all elements in the result set
+
+* Parameters:
+  1. `name` - Class name to remove
+* Returns: Self for chaining
+
+
+### `classToggle( name, toggle )`
+
+Toggle a class on all elements in the result set
+
+* Parameters:
+  1. `name` - Class name(s) to toggle - space separated
+  * `toggle` Toggle on or off
+* Returns: Self for chaining
+
+
+### `clone( [deep] )`
+
+Clone the nodes in the result set and return a new instance
+
+* Parameters:
+  1. `deep` - Include the subtree (`true`) or not (`false` - default)
+* Returns: New Dom instance with new elements
+
+
+### `closest( selector )`
+
+Find the closest ancestor for each element in the result set
+
+* Parameters:
+  1. `selector` -
+* Returns: New Dom instance when the matching ancestors
+
+
+### `contains( input )`
+
+Determine if the result set contains the element specified. Shorthand for
+.find().count()
+
+* Parameters:
+  1. `input` - Element / selector to look for
+* Returns: true if it does contain, false otherwise
+
+
+### `count()`
+
+Get the number of elements in the current result set
+
+* Returns: Number of elements
+
+
+### `css( rule )`
+
+Get a CSS computed value (first item in the result set only)
+
+* Parameters:
+  1. `rule` - The CSS property to get
+* Returns: Read value
+
+
+### `css( rule, value )`
+
+Set a CSS value
+
+* Parameters:
+  1. `rule` - CSS property to set
+  * `value` Value to set it to
+* Returns: Self for chaining
+
+
+### `css( rules )`
+
+Set multiple CSS properties for all items in the result set
+
+* Parameters:
+  1. `rules` - Plain object of rules to assign to the elements
+* Returns: Self for chaining
+
+
+### `data()`
+
+Get all the data attributes for an element
+
+* Returns: Read values
+
+
+### `data( name )`
+
+Get a data attribute's value from the first item in the result set. Can
+be null. Please be aware that this uses the element's `dataset` property,
+and so will do name conversion from dashed (in the element's attribute)
+to camelCase in Javascript.
+
+* Parameters:
+  1. `name` - Data value name
+* Returns: Read value
+
+
+### `data( name, value )`
+
+Set a data attribute's value for all items in the result set.
+
+* Parameters:
+  1. `name` - Data value name
+  * `value` Value to give the data attribute
+* Returns: Self for chaining
+
+
+### `data( attributes )`
+
+Set multiple data attributes of the elements in the result set
+
+* Parameters:
+  1. `attributes` - Plain object of data attributes to be assigned
+* Returns: Self for chaining
+
+
+### `detach()`
+
+Remove the elements in the result set from the document. Does not remove
+event listeners.
+
+* Returns: Self for chaining
+
+
+### `detachChildren()`
+
+Remove the child elements from each element in the result set from the
+document. Does not remove event listeners.
+
+* Returns: Self for chaining
+
+
+### `each( callback )`
+
+Iterate over each item in the result set and perform an action
+
+* Parameters:
+  1. `callback` - Callback function
+* Returns: Self for chaining
+
+
+### `eachReverse( callback )`
+
+Inverse iteration over each item in the result set and perform an action
+
+* Parameters:
+  1. `callback` - Callback function
+* Returns: Self for chaining
+
+
+### `empty()`
+
+Remove all children
+
+* Returns: Self for chaining
+
+
+### `eq( idx )`
+
+Get a new Dom instance with just a specific element from the result set
+
+* Parameters:
+  1. `idx` - The element to use
+* Returns: New Dom instance
+
+
+### `get()`
+
+Get all elements in the result set
+
+
+### `get( idx )`
+
+Get a specific element from the result set
+
+* Parameters:
+  1. `idx` - Element index
+
+
+### `focus()`
+
+Call focus on the target elements
+
+* Returns: Self for chaining
+
+
+### `filter( filter )`
+
+Reduce the result set based on a given filter, which can be a CSS
+selector, an element or array of elements.
+
+* Parameters:
+  1. `filter` - Optional selector or function that the result set element
+  would need to match to be selected.
+* New Dom instance containing the filters elements
+
+
+### `find( input )`
+
+Get all matching descendants
+
+* Parameters:
+  1. `selector` - Elements to find
+
+
+### `first()`
+
+Get the last element in the result set
+
+* Returns: New instance with just the selected item
+
+
+### `height()`
+
+Get the height for the first element in the result set. Whether this is
+the inner or outer height depends on the box model for the element.
+
+* Returns: Element's height
+
+
+### `height( include )`
+
+Get the height of the first element in the result set, with specific
+parts included in the result.
+
+* Parameters:
+  1. `include` - Parts of the box model to include
+* Returns: Element's height
+
+
+### `height( set )`
+
+Set the height for all elements in the result set,
+
+* Parameters:
+  1. `set` - Value to set as the height. As a number it will be treated as
+  a pixel value, while as a string, it must have a CSS unit already on
+  it.
+* Returns: Self for chaining
+
+
+### `hide()`
+
+Hide an element by setting it to `display: none`
+
+* Returns: Self for chaining
+
+
+### `html()`
+
+Get the HTML from the first element in the result set
+
+
+### `html( data )`
+
+Set the HTML for all elements in the result set
+
+* Parameters:
+  1. `data` Value to set as the HTML
+* Returns: Self for chaining
+
+
+### `is( selector )`
+
+Boolean return check on if an item in the result set matches the selector
+given. Only one need match.
+
+* Parameters:
+  1. `selector` - Selector to match against
+* Returns: Boolean true if there is a match
+
+
+### `isAttached()`
+
+Determine if the first element in the result set is in the document or
+not
+
+* Returns: true if is, false if detached
+
+
+### `isVisible()`
+
+Determine if the first element in the result set is visible or not.
+
+* Returns: Visibility flag
+
+
+### `index()`
+
+Get the index of an element from among its siblings
+
+* Returns: Element index
+
+
+### `insertAfter( target )`
+
+Insert each element in the result set after a target node
+
+* Parameters:
+  1. `target` - Element after which the insert should happen
+* Returns: Self for chaining
+
+
+### `insertBefore( target )`
+
+Insert each element in the result set before a target node
+
+* Parameters:
+  1. `target` - Element before which the insert should happen
+* Returns: Self for chaining
+
+
+### `last()`
+
+Get the last element in the result set
+
+* Returns: New instance with just the selected item
+
+
+### `map( fn )`
+
+Create a new Dom instance based on the results from a callback function
+which is executed per element in the result set.
+
+* Parameters:
+  1. `fn` - Function to get the elements to add to the new instance
+* Returns: New Dom instance with the results from the callback
+
+
+### `mapTo( fn )`
+
+Create an array of any data type based on a function returning a value
+from each element in the result set.
+
+* Parameters:
+  1. `fn` - Mapping function
+* Returns: Array of returned objects.
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+### ``
+
+
+
+
+	]]>
+	</description>
+</dt-type>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type group="js">
+	<name>arrayLike</name>
+	<summary>Can be read as if it were an array</summary>
+
+	<description>
+	<![CDATA[
+
+An "array-like" object in Javascript, is one which can be read like an array (using `.length` and `[]` indexing), but is not actually an array - i.e. it might not have methods such as `.push()`, `.pop()` etc. Array-like objects can be useful to provide a simple and common interface for an object that can hold multiple values. A well known example of this type of object is jQuery.
+
+
+## Use in DataTables
+
+Many of the `-type DataTables.Dom` methods, including its `-api DataTable.Dom.s()` selector can make use of array-like objects, allowing seamless interoperability with libraries such as jQuery.
+
+
+	]]>
+	</description>
+</dt-type>

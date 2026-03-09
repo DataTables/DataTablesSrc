@@ -11,7 +11,7 @@ The DataTables API provides the ability to programmatically control one or more 
 
 ## API structure
 
-The API object is _array-like_, in that it has a `length` property, elements in its result set can be accessed using JavaScript array notation (`[]`) and it provides many (although not all) of the same methods as an `-type array` (for example `-api push()` and `-api indexOf()`). Please see [the API manual page](/manual/api) for an overview of using the DataTables API.
+The API object is _array-like_ (`-type arrayLike`) - i.e. it has a `length` property and elements in its result set can be accessed using JavaScript array notation (`[]`). In addition, it provides many (although not all) of the same methods as an `-type array` (for example `-api push()` and `-api indexOf()` are available). Please see [the API manual page](/manual/api) for an overview of using the DataTables API.
 
 
 ## Accessing the API
@@ -27,11 +27,26 @@ The result from each is an instance of the DataTables API object which has the t
 As an example, the following will initially get an API instance to the DataTable `#myTable`, and then use the API to get some data from it:
 
 ```js
-var table = new DataTable.Api( '#myTable' );
+const table = new DataTable.Api( '#myTable' );
 
 // Get data from the first row
-var data = table.rows().data()[0]; // same as row(0).data()
+const data = table.rows().data()[0]; // same as row(0).data()
 ```
+
+
+### ES module
+
+The API object is exported by DataTables and can be referenced as a named import (as of DataTables 3.0):
+
+```js
+import { Api } from 'datatables.net';
+
+const table = new DataTable.Api( '#myTable' );
+// ...
+```
+
+If you are using TypeScript, the exported `Api` can also be used purely as a type if required.
+
 
 
 ### Legacy jQuery API
