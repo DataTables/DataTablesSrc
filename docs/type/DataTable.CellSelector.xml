@@ -6,6 +6,8 @@
 	<description>
 <![CDATA[
 
+< `DataTable.CellSelector` is a type only. It defines an object's structure.
+
 The DataTables `-api cells()` and `-api cell()` methods provide the ability to select individual cells from the table. What cells are selected and how the selector actually operates is controlled by this `-type DataTable.CellSelector` data type.
 
 ### Options

@@ -6,6 +6,8 @@
 	<description>
 	<![CDATA[
 
+< `DataTable.TableSelector` is a type only. It defines an object's structure.
+
 The DataTables `-api tables()` and `-api table()` methods provide the ability to select the full set, or a subset, of the tables that are held in an API instance's context. The context of an API instance is the DataTables that the instance will act upon when an operation is performed using the methods available (for example, a page can be changed for multiple tables with a single call). For more information about how the API operates, please refer to the [API manual](/manual/api).
 
 Most API calls will operate on all tables in the API's context automatically, but the `-api tables()` and `-api table()` methods can be used to select a subset of those tables. What are selected and how the selector actually operates is controlled by this `-type DataTable.TableSelector` data type.

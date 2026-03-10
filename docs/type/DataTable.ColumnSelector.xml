@@ -6,6 +6,8 @@
 	<description>
 <![CDATA[
 
+< `DataTable.ColumnSelector` is a type only. It defines an object's structure.
+
 The DataTables `-api columns()` and `-api column()` (also optionally `-api cells()` and `-api cell()`) methods provide the ability to select columns from the table. Which columns are selected and how the selector actually operates is controlled by this `-type DataTable.ColumnSelector` data type.
 
 ### Options
