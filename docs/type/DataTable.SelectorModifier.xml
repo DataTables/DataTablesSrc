@@ -37,7 +37,7 @@ Fundamentally `-type DataTable.SelectorModifier` is an object with three built-i
 
 ### TypeScript
 
-The column selector type is exported as `ApiSelectorModifier` from the `datatables.net` package.
+The column selector type is exported as `SelectorModifier` from the `datatables.net` package.
 
 
 ## Built-in options
