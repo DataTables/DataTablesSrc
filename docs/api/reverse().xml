@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>reverse()</signature>
 		<description>Reverse the result set of the API instance and return the original array.</description>
-		<returns type="DataTables.Api">The original API instance with the result set in reversed order.</returns>
+		<returns type="DataTable.Api">The original API instance with the result set in reversed order.</returns>
 	</type>
 
 	<description>

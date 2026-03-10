@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>columns().types()</signature>
 		<description>Get the configured or automatically detected data type for selected columns.</description>
-		<returns type="DataTables.Api">API instance whose data set is the data types for the selected columns (will be strings).</returns>
+		<returns type="DataTable.Api">API instance whose data set is the data types for the selected columns (will be strings).</returns>
 	</type>
 
 	<description>

@@ -16,7 +16,7 @@
 
 			The value returned by the callback will be added to the new API instance's result set, or `-type undefined` if no value is returned.
 		</parameter>
-		<returns type="DataTables.Api">New API instance with the values in the result set as those returned by the callback.</returns>
+		<returns type="DataTable.Api">New API instance with the values in the result set as those returned by the callback.</returns>
 	</type>
 
 	<description>

@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>stateLoadCallback( settings, callback )</signature>
-		<parameter type="DataTables.Settings" name="settings">
+		<parameter type="DataTable.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="function" name="callback" since="1.10.13">

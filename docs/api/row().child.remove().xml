@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>row().child.remove()</signature>
 		<description>Remove child row(s) from display and release any allocated memory</description>
-		<returns type="DataTables.Api">DataTables API instance.</returns>
+		<returns type="DataTable.Api">DataTables API instance.</returns>
 	</type>
 
 	<description>

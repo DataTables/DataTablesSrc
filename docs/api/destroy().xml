@@ -12,7 +12,7 @@
 
 			When set to `true`, as of v1.10.8, DataTables will remove the table from the page - this results in any events that where bound to the table elements being automatically removed. If set to `false` custom events are not removed from the table - only the events that DataTables itself attached to the table.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>

@@ -9,7 +9,7 @@
 		<description>
 			Get a list of the names of searches applied to the column.
 		</description>
-		<returns type="DataTables.Api">
+		<returns type="DataTable.Api">
 			An API instance that contains the names of the search terms applied to the column.
 		</returns>
 	</type>
@@ -48,7 +48,7 @@
 			
 			A boolean value should be returned: `true` to keep the row, `false` to filter it out.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>

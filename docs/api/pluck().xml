@@ -12,7 +12,7 @@
 
 			As of DataTables 1.12 JavaScript dot notation can also be used to read nested JSON data. All of the options offered by `-api DataTable.util.get()` can get used.
 		</parameter>
-		<returns type="DataTables.Api">New API instance with the values in the result retrieved from the source object properties defined by the property being plucked.</returns>
+		<returns type="DataTable.Api">New API instance with the values in the result retrieved from the source object properties defined by the property being plucked.</returns>
 	</type>
 
 	<description>

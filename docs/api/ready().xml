@@ -18,7 +18,7 @@
 		<parameter type="function" name="fn">
 			Function to execute. Scope is set to an API instance for the DataTable in question. No parameters are passed in, nor is any return value expected.
 		</parameter>
-		<returns type="DataTables.Api">API instance for chaining.</returns>
+		<returns type="DataTable.Api">API instance for chaining.</returns>
 	</type>
 
 	<description>

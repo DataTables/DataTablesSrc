@@ -15,7 +15,7 @@
 		<parameter type="*" name="set">
 			Value to assign to the data for the cell
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with selected cell as the result set</returns>
+		<returns type="DataTable.Api">DataTables API instance with selected cell as the result set</returns>
 	</type>
 
 	<description>

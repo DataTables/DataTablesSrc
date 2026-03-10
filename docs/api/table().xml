@@ -7,10 +7,10 @@
 	<type type="function">
 		<signature>table( selector )</signature>
 		<description>Select a table based on the given selector</description>
-		<parameter type="table-selector" name="selector">
+		<parameter type="DataTable.TableSelector" name="selector">
 			Table selector to select which table you want to operate on.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with selected table in its context.</returns>
+		<returns type="DataTable.Api">DataTables API instance with selected table in its context.</returns>
 	</type>
 
 	<description>

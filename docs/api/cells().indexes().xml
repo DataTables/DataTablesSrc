@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>cells().indexes()</signature>
 		<description>Get row, column and visible column index information</description>
-		<returns type="DataTables.Api">DataTables API instance with cell index information in the result set</returns>
+		<returns type="DataTable.Api">DataTables API instance with cell index information in the result set</returns>
 	</type>
 
 	<description>

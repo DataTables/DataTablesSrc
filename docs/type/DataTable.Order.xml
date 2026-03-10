@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
-	<name>DataTables.Order</name>
+	<name>DataTable.Order</name>
 	<summary>DataTables ordering object</summary>
 
 	<description>
 	<![CDATA[
 
-< `DataTables.Order` is a type only. It defines an object's structure.
+< `DataTable.Order` is a type only. It defines an object's structure.
 
 Ordering in DataTables can be set with `-init order` or the `-api order()` method. Each can accept various forms of input, and selecting which is easiest for you to use will depend upon the configuration of your DataTable.
 

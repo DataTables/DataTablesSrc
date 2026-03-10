@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>cells().nodes()</signature>
 		<description>Get the DOM elements for the selected cells</description>
-		<returns type="DataTables.Api">DataTables API instance with the `dt-tag TD` / `dt-tag TH` cell elements in the set</returns>
+		<returns type="DataTable.Api">DataTables API instance with the `dt-tag TD` / `dt-tag TH` cell elements in the set</returns>
 	</type>
 
 	<description>
@@ -21,7 +21,7 @@ var cells = table.cells().nodes();
 // Option 1, with `classList`
 cells.toArray().forEach(el => el.classList.add('warning'));
 
-// Option 2, using `DataTables.Dom`:
+// Option 2, using `DataTable.Dom`:
 cells.toDom().classAdd('warning');
 ]]></example>
 

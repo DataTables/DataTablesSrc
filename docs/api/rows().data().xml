@@ -7,13 +7,13 @@
 	<type type="function">
 		<signature>rows().data()</signature>
 		<description>Get the data for the rows from the selector</description>
-		<returns type="DataTables.Api">DataTables API instance with data for each row from the selector in the result set. Each entry is the original data source object for that row, be it an array, object or JavaScript object instance.</returns>
+		<returns type="DataTable.Api">DataTables API instance with data for each row from the selector in the result set. Each entry is the original data source object for that row, be it an array, object or JavaScript object instance.</returns>
 	</type>
 
 	<description>
 		This method is used to get the data used for the cells in the rows matched by the selector from DataTables.
 
-		The order of the data in the returned array and which rows the data is obtained from (searched rows, visible rows etc) is controlled by the `-type selector-modifier` option of the `-api rows()` selector used to get the selected rows.
+		The order of the data in the returned array and which rows the data is obtained from (searched rows, visible rows etc) is controlled by the `-type DataTable.SelectorModifier` option of the `-api rows()` selector used to get the selected rows.
 
 		This method cannot be used to modify data in the table, only to retrieve it. Use the `-api row().data()` method instead which can be used as a setter.
 	</description>

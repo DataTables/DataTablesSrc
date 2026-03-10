@@ -25,7 +25,7 @@
 			* `pre` - Ordering to be applied _before_ the user's own ordering
 			* `post` - Ordering to be applied _after_ the user's own ordering
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>

@@ -16,7 +16,7 @@
 		<parameter type="boolean" name="bubbles" default="false">
 			Indicate if the event should bubble up the document in the same way that DOM events usually do, or not. There is a performance impact for bubbling events.
 		</parameter>
-		<returns type="DataTables.Api">
+		<returns type="DataTable.Api">
 			A result set that contains a boolean indicating if the default action for the event should be prevented (i.e. if `e.preventDefault()` was called in an event handler). A value of `true` will be present if `preventDefault` was called, `false` otherwise.
 		</returns>
 	</type>

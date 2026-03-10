@@ -7,17 +7,17 @@
 	<type type="function">
 		<signature>row( rowSelector [, modifier ] )</signature>
 		<description>Select a row found by a row selector</description>
-		<parameter type="row-selector" name="rowSelector">
+		<parameter type="DataTable.RowSelector" name="rowSelector">
 			Row selector.
 		</parameter>
-		<parameter type="selector-modifier" name="modifier" default="">
+		<parameter type="DataTable.SelectorModifier" name="modifier" default="">
 			Option used to specify how the rows should be ordered, and if paging or search options in the table should be taken into account.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with selected row in the result set</returns>
+		<returns type="DataTable.Api">DataTables API instance with selected row in the result set</returns>
 	</type>
 
 	<description>
-		Working with rows is a fundamental part of DataTables, and you want to be able to easily select the rows that you want from the table. This method is the row counterpart to the `-api columns()` and `-api cells()` methods for working with columns and cells in the table, respectively. Using a selector and the `-type selector-modifier` option the rows at the table can be obtained with this method's own chained methods providing the ability to get the data from the rows, the row nodes and to invalidate the data, among other actions.
+		Working with rows is a fundamental part of DataTables, and you want to be able to easily select the rows that you want from the table. This method is the row counterpart to the `-api columns()` and `-api cells()` methods for working with columns and cells in the table, respectively. Using a selector and the `-type DataTable.SelectorModifier` option the rows at the table can be obtained with this method's own chained methods providing the ability to get the data from the rows, the row nodes and to invalidate the data, among other actions.
 
 		Note that if the selector used matches multiple rows, this method will truncate the result to contain just one row, the first matched one. If you require to work with multiple rows at the same time for group manipulation, please use this method's plural counterpart `-api rows()` which can select and manipulate multiple rows. 
 

@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>settings()</signature>
 		<description>Get the settings object for the table's in the API instance's context.</description>
-		<returns type="DataTables.Api">DataTables API instance with the settings objects for the tables in the context in the result set</returns>
+		<returns type="DataTable.Api">DataTables API instance with the settings objects for the tables in the context in the result set</returns>
 	</type>
 
 	<description>

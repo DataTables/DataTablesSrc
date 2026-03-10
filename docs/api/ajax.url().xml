@@ -18,8 +18,8 @@
 		<parameter type="string" name="url">
 			URL to set to be the Ajax data source for the table.
 		</parameter>
-		<returns type="DataTables.Api">
-			DataTables.Api instance
+		<returns type="DataTable.Api">
+			DataTable.Api instance
 		</returns>
 	</type>
 

@@ -13,7 +13,7 @@
 		<parameter type="function" name="callback" default="">
 			Specific callback function to remove if you want to unbind a single event listener. If not given, all events which match the event name / namespace given in the first parameter will be removed.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>

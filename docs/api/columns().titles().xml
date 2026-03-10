@@ -10,7 +10,7 @@
 		<parameter type="number" name="row" default="undefined">
 			This parameter can be used to control which row in the `-tag thead` the title will be read from. The parameter is passed on to `-api column().header()` to determine which header row is to be used.
 		</parameter>
-		<returns type="DataTables.Api">The titles for the selected columns.</returns>
+		<returns type="DataTable.Api">The titles for the selected columns.</returns>
 	</type>
 
 	<type type="function">
@@ -22,7 +22,7 @@
 		<parameter type="number" name="row" default="undefined">
 			This parameter can be used to control which row in the `-tag thead` the title will be read from. The parameter is passed on to `-api column().header()` to determine which header row is to be used.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance for chaining.</returns>
+		<returns type="DataTable.Api">DataTables API instance for chaining.</returns>
 	</type>
 
 	<description>

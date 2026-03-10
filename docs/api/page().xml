@@ -22,7 +22,7 @@
 			  * `previous` - Jump to previous page
 			  * `last` - Jump to the last page.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>

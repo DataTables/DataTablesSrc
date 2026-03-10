@@ -12,7 +12,7 @@
 		<parameter type="integer" name="idx">
 			Index to select
 		</parameter>
-		<returns type="DataTables.Api">
+		<returns type="DataTable.Api">
 			New DataTables API instance with the context and result set containing the table and data for the index specified. An empty API instance will be returned if there was not matching context.
 		</returns>
 	</type>

@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>infoCallback( settings, start, end, max, total, pre )</signature>
-		<parameter type="DataTables.Settings" name="settings">
+		<parameter type="DataTable.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="integer" name="start">

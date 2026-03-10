@@ -34,7 +34,7 @@
 
 	<type type="object">
 		<description>
-			As an object, the `-init ajax` object is passed to `-api DataTable.ajax()` allowing fine control of the Ajax request. DataTables has a number of default parameters which you can override using this option. Please refer to `-type DataTables.ajaxOptions` for a full description of the options available. Additionally, the following parameters provide additional options when used through `-init ajax` or require special consideration:
+			As an object, the `-init ajax` object is passed to `-api DataTable.ajax()` allowing fine control of the Ajax request. DataTables has a number of default parameters which you can override using this option. Please refer to `-type DataTable.ajaxOptions` for a full description of the options available. Additionally, the following parameters provide additional options when used through `-init ajax` or require special consideration:
 
 			* `data` (`-init ajax.data`) - `data` can be provided as an object as normal, but as an extension, it can also be provided as a function to manipulate the data DataTables sends to the server. The function takes a single parameter, an object where the parameters are name / value pairs that DataTables has readied for sending. An object may be returned which will be use used as the data to send to the server (therefore, if you wish to use the DataTables set parameters, you must merge them in your function), or you can add the items to the object that was passed in and not return anything from the function. This supersedes `fnServerParams` from DataTables 1.9-.
 			* `dataSrc` (`-init ajax.dataSrc`) - By default DataTables will look for the property `data` (or `aaData` for compatibility with DataTables 1.9-) when obtaining data from an Ajax source or for server-side processing - this parameter allows that property to be changed, through two different forms:
@@ -64,7 +64,7 @@
 		<parameter type="function" name="callback">
 			Callback function that must be executed when the required data has been obtained. That data should be passed into the callback as the only parameter
 		</parameter>
-		<parameter type="DataTables.Settings" name="settings">
+		<parameter type="DataTable.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<scope>HTML table element</scope>
@@ -95,7 +95,7 @@
 		The `ajax` property has three different modes of operation, depending on how it is defined. These are:
 
 		* `string` - Set the URL from where the data should be loaded from.
-		* `object` - Define properties for `-type DataTables.ajaxOptions`.
+		* `object` - Define properties for `-type DataTable.ajaxOptions`.
 		* `function` - Custom data get function
 
 		### .NET
@@ -190,5 +190,5 @@ new DataTable('#myTable', {
 	<related>-init ajax.data</related>
 	<related>-init ajax.dataSrc</related>
 	<related>-init ajax.submitAs</related>
-	<related>-type DataTables.ajaxOptions()</related>
+	<related>-type DataTable.ajaxOptions()</related>
 </dt-option>

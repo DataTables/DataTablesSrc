@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
-	<name>DataTables.ajaxOptions</name>
+	<name>DataTable.ajaxOptions</name>
 	<summary>Options for configuring an Ajax request</summary>
 
 	<description>
 	<![CDATA[
 
-< `DataTables.AjaxOptions` is a type only. It defines an object's structure.
+< `DataTable.AjaxOptions` is a type only. It defines an object's structure.
 
 DataTables provides a `-api DataTable.ajax()` method which can be used to make Ajax calls, and makes use of it for its own Ajax calls when configured with `-init ajax` to load data. The Ajax call is configured through an object of parameters that is passed to it. The parameters for this object are documented here.
 
@@ -45,7 +45,7 @@ A function that is executed immediately prior to the Ajax call is triggered, pro
 * Default: unset
 * Parameters:
   1. The `XMLHttpRequest` object, allowing it to be customised
-  2. `-type DataTables.ajaxOptions`: The Ajax options used to configure the request.
+  2. `-type DataTable.ajaxOptions`: The Ajax options used to configure the request.
 * Return: No return is required, although `false` can be returned to cancel the request.
 
 

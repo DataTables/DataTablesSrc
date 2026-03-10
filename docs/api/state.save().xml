@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>state.save()</signature>
 		<description>Trigger a state save</description>
-		<returns type="DataTables.Api">The API instance that was used, available for chaining.</returns>
+		<returns type="DataTable.Api">The API instance that was used, available for chaining.</returns>
 	</type>
 
 	<description>

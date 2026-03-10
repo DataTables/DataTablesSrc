@@ -19,7 +19,7 @@
 		<parameter type="boolean" name="redrawCalculations" default="true">
 			Indicate if DataTables should recalculate the column layout (`true` - default) or not (`false`). Typically this would be left as the default value, but it can be useful to disable when using the method in a loop - so the calculations are performed on every call as they can hamper performance.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with selected column in the result set.</returns>
+		<returns type="DataTable.Api">DataTables API instance with selected column in the result set.</returns>
 	</type>
 
 	<description>

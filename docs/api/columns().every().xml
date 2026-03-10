@@ -18,7 +18,7 @@
 
 			No return value is expected or acted upon.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance of the selected columns.</returns>
+		<returns type="DataTable.Api">DataTables API instance of the selected columns.</returns>
 	</type>
 
 	<description>

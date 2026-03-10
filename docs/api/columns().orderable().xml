@@ -10,7 +10,7 @@
 		<parameter type="boolean" name="directions" default="false">
 			Controls the information that is returned - see below for details. Can be not given (undefined), `false` or `true`.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance containing `true` or `false` for each selected column, depending on the orderable state and if `directions` is undefined or false. If the parameter passed in is `true` the method will return information about what ordering directions the columns can take (see `-init columns.orderSequence`).</returns>
+		<returns type="DataTable.Api">DataTables API instance containing `true` or `false` for each selected column, depending on the orderable state and if `directions` is undefined or false. If the parameter passed in is `true` the method will return information about what ordering directions the columns can take (see `-init columns.orderSequence`).</returns>
 	</type>
 
 	<description>

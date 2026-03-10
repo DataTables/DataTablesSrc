@@ -11,7 +11,7 @@ An "array-like" object in Javascript, is one which can be read like an array (us
 
 ## Use in DataTables
 
-Many of the `-type DataTables.Dom` methods, including its `-api DataTable.Dom.s()` selector can make use of array-like objects, allowing seamless interoperability with libraries such as jQuery.
+Many of the `-type DataTable.Dom` methods, including its `-api DataTable.Dom.s()` selector can make use of array-like objects, allowing seamless interoperability with libraries such as jQuery.
 
 
 	]]>

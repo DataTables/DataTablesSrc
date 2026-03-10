@@ -10,7 +10,7 @@
 		<parameter type="string" name="msg">
 			Error message to show.
 		</parameter>
-		<returns type="DataTables.Api">API instance for chaining.</returns>
+		<returns type="DataTable.Api">API instance for chaining.</returns>
 	</type>
 
 	<description>

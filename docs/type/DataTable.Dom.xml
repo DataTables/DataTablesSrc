@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
-	<name>DataTables.Dom</name>
+	<name>DataTable.Dom</name>
 	<summary>DataTables DOM manipulation library</summary>
 	<since>3.0</since>
 
 	<description>
 	<![CDATA[
 
-< `DataTables.Dom` is both a value and a type. It can be imported directly using ES modules, or accessed using `DataTable.Dom` (see the access section).
+< `DataTable.Dom` is both a value and a type. It can be imported directly using ES modules, or accessed using `DataTable.Dom` (see the access section).
 
 DataTables performs a lot of [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) queries and modifications in order to present the interactive table that it does to the end user. To help keep the code size small and manageable it has a library to perform common actions, simply called `Dom`. This library is publicly accessible through the `DataTable.Dom` property, and can be used for extensions, or just general use of DataTables.
 
@@ -66,11 +66,11 @@ The following static methods and properties are available on the `Dom` class:
 
 ### `c()` - Create element
 
-This method is used to create a new DOM element and then return it in a new `-type DataTables.Dom` instance's result set. This method on its own simply provides the ability to create a new element, once created, the main utility comes from the `Dom` object which has methods to manipulate the new element, insert it into the document and more.
+This method is used to create a new DOM element and then return it in a new `-type DataTable.Dom` instance's result set. This method on its own simply provides the ability to create a new element, once created, the main utility comes from the `Dom` object which has methods to manipulate the new element, insert it into the document and more.
 
 * Parameters:
   1. `-type string` - The HTML element name for the new element to be created.
-* Return: `-type DataTables.Dom` - A `Dom` instance that contains the new element in its result set.
+* Return: `-type DataTable.Dom` - A `Dom` instance that contains the new element in its result set.
 
 Example: create a new element, set a class and append it to the document:
 
@@ -95,7 +95,7 @@ Dom
 
 ### `s()` - Select elements
 
-This method is a cornerstone for using the `-type DataTables.Dom` object to manipulate DOM elements. It is used to select the elements that are to be operated on.
+This method is a cornerstone for using the `-type DataTable.Dom` object to manipulate DOM elements. It is used to select the elements that are to be operated on.
 
 It is important to note that if you are transitioning from jQuery that the string selector for this method is strictly a CSS one. jQuery provides a range of custom additions such as `:eq()`, `:contains()` and more. If you are using such selectors, you will need to update them.
 
@@ -107,7 +107,7 @@ Elements selected by a CSS selector string will be added to the result set in do
 	* `-type node` - If an HTML element is passed in, it will be added to the result set directly.
 	* `-type array` | `-type arrayLike` - As an array (or array-like object), the selector can contain multiple of the previous selectors allowing multiple nodes or CSS selectors to be used.
 	* `-type null` | `-type undefined` - It is safe to pass in `null` or `undefined` as values to this parameter (or as part of the selector array). In such a case nothing will be added to the `Dom` instance's result set.
-* Returns: `-type DataTables.Dom` - A `Dom` instance that contains the new element in its result set.
+* Returns: `-type DataTable.Dom` - A `Dom` instance that contains the new element in its result set.
 
 Example - Select all `table` elements on a page and add a class:
 

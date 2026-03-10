@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>flatten()</signature>
 		<description>Reduce a 2D array structured API instance to a 1D array structure.</description>
-		<returns type="DataTables.Api">New API instance with the 2D array values reduced to a 1D array.</returns>
+		<returns type="DataTable.Api">New API instance with the 2D array values reduced to a 1D array.</returns>
 	</type>
 
 	<description>

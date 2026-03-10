@@ -7,15 +7,15 @@
 	<type type="function">
 		<signature>tables()</signature>
 		<description>Select all tables</description>
-		<returns type="DataTables.Api">DataTables API instance with all tables in the current context.</returns>
+		<returns type="DataTable.Api">DataTables API instance with all tables in the current context.</returns>
 	</type>
 	<type type="function">
 		<signature>tables( selector )</signature>
 		<description>Select tables based on the given selector</description>
-		<parameter type="table-selector" name="selector">
+		<parameter type="DataTable.TableSelector" name="selector">
 			Table selector to select which tables you want to operate on.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with selected tables in its context.</returns>
+		<returns type="DataTable.Api">DataTables API instance with selected tables in its context.</returns>
 	</type>
 
 	<description>

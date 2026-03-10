@@ -9,8 +9,8 @@
 		<description>
 			Make an Ajax request to send and get data to a server.
 		</description>
-		<parameter type="DataTables.ajaxOptions" name="options">
-			This object is used to configure how the Ajax request is made. Use the options to send data, change the HTTP request type, add response callbacks and more. Please see the `-type DataTables.ajaxOptions` documentation for full details of the options available.
+		<parameter type="DataTable.ajaxOptions" name="options">
+			This object is used to configure how the Ajax request is made. Use the options to send data, change the HTTP request type, add response callbacks and more. Please see the `-type DataTable.ajaxOptions` documentation for full details of the options available.
 		</parameter>
 	</type>
 
@@ -19,14 +19,14 @@
 
 		This static method is largely based on [jQuery's `ajax()`](https://api.jquery.com/jQuery.ajax/) method, but it does not implement as many options, only those most commonly used by DataTables. It also provides options that are useful for DataTables that jQuery does not provide.
 
-		Configuration of the Ajax request done through the object given to this object, which is of type `-type DataTables.ajaxOptions`. The most commonly used options will be:
+		Configuration of the Ajax request done through the object given to this object, which is of type `-type DataTable.ajaxOptions`. The most commonly used options will be:
 
 		* `url` - address to make the Ajax request to
 		* `data` - any data to send to the server
 		* `method` - The HTTP request type
 		* `success` - A callback function to execute when the request is complete.
 
-		For a complete list of the options that can be used and full details for each one, please refer to the `-type DataTables.ajaxOptions` documentation.
+		For a complete list of the options that can be used and full details for each one, please refer to the `-type DataTable.ajaxOptions` documentation.
 
 		Please be aware that this method is an alias to `DataTable.util.ajax`, which can be imported using ES modules (see example below).
 	</description>
@@ -84,5 +84,5 @@ util.ajax({
 	<related>-api ajax.url().load()</related>
 	<related>-api ajax.reload()</related>
 	<related>-event xhr</related>
-	<related>-type DataTables.ajaxOptions</related>
+	<related>-type DataTable.ajaxOptions</related>
 </dt-api>

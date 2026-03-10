@@ -16,7 +16,7 @@
 
 			The callback should return `true` if the value is to be included in the new instance's own result set, and false otherwise.
 		</parameter>
-		<returns type="DataTables.Api">New API instance with the values from the result set which passed the test in the callback.</returns>
+		<returns type="DataTable.Api">New API instance with the values from the result set which passed the test in the callback.</returns>
 	</type>
 
 	<description>

@@ -15,7 +15,7 @@
 
 			And expects a return which indicated the sorted position of the two values. Less that 0 indicates that the first value comes before the second, greater than 0 indicates that the first value comes after the second and a return of 0 indicates that they are identical.
 		</parameter>
-		<returns type="DataTables.Api">The original API instance with the result set sorted as defined by the sorting conditions used.</returns>
+		<returns type="DataTable.Api">The original API instance with the result set sorted as defined by the sorting conditions used.</returns>
 	</type>
 
 	<description>

@@ -7,7 +7,7 @@
 	<type type="function" since="2.0.0">
 		<signature>column().order()</signature>
 		<description>Determine if the table is being ordered by this column.</description>
-		<returns type="DataTables.Api">DataTables API instance containing `-string asc`, `-string desc` or an empty string (indicating index data order) for the possible ordering applied to a column. If a column is not being ordered on, `null` is given.</returns>
+		<returns type="DataTable.Api">DataTables API instance containing `-string asc`, `-string desc` or an empty string (indicating index data order) for the possible ordering applied to a column. If a column is not being ordered on, `null` is given.</returns>
 	</type>
 
 	<type type="function">
@@ -16,7 +16,7 @@
 		<parameter type="string" name="direction">
 			Direction of sort to apply to the selected column - `dt-string desc` (descending) or `dt-string asc` (ascending).
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>

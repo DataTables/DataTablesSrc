@@ -9,7 +9,7 @@
 		<parameter type="object" name="e">
 			Event object
 		</parameter>
-		<parameter type="DataTables.Settings" name="settings">
+		<parameter type="DataTable.Settings" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="number" name="column">

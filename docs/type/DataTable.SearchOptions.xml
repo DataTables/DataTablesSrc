@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
-	<name>DataTables.SearchOptions</name>
+	<name>DataTable.SearchOptions</name>
 	<summary>DataTables search options object</summary>
 
 	<description>
 	<![CDATA[
 
-< `DataTables.SearchOptions` is a type only. It defines an object's structure.
+< `DataTable.SearchOptions` is a type only. It defines an object's structure.
 
 The search feature built into DataTables is configurable to fine tune how a search is performed. This object describes the options that can perform that fine tuning. It is used for the `-init search` and `-init searchCols` initialisation options, plus the `-api search()` and `-api column().search()` API methods.
 

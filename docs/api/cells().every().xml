@@ -19,7 +19,7 @@
 
 			No return value is expected or acted upon.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance of the selected cells.</returns>
+		<returns type="DataTable.Api">DataTables API instance of the selected cells.</returns>
 	</type>
 
 	<description>

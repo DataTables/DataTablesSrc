@@ -18,7 +18,7 @@
 			Please note that the string options require <span class="since">DataTables 1.10.8</span> or newer. Previous versions support only the boolean option.
 			]]>
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>

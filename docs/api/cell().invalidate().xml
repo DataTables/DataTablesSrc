@@ -18,7 +18,7 @@
 			* `-string data` - use the JavaScript data structure
 			* `-string dom` - use the data currently held in the DOM
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with selected cell reference in the result set</returns>
+		<returns type="DataTable.Api">DataTables API instance with selected cell reference in the result set</returns>
 	</type>
 
 	<description>

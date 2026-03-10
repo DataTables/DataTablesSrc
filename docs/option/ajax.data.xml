@@ -16,7 +16,7 @@
 			Data that DataTables has constructed for the request. This will include server-side processing parameters if you are using the `-init serverSide` option.
 		</parameter>
 		<parameter type="object" name="settings" since="1.10.6">
-			DataTables settings object (`-type DataTables.Settings`).
+			DataTables settings object (`-type DataTable.Settings`).
 		</parameter>
 		<returns type="object|undefined">
 			If there is no return value from the function (i.e. `-type undefined`) then the original data object passed into the function by DataTables will be used for the request (the function may have manipulated its values).
@@ -40,7 +40,7 @@
 
 		The `-init ajax.data` option provides the ability to add additional data to the request, or to modify the data object being submitted if required.
 
-		This property makes use of `-api DataTable.ajax()` to make the Ajax call, and all options available in `-type DataTables.ajaxOptions` can be used in this object. Prior to DataTables 3, this property made use of [jQuery's `ajax()` method](https://api.jquery.com/jQuery.ajax/), and the options were mapped to that object.
+		This property makes use of `-api DataTable.ajax()` to make the Ajax call, and all options available in `-type DataTable.ajaxOptions` can be used in this object. Prior to DataTables 3, this property made use of [jQuery's `ajax()` method](https://api.jquery.com/jQuery.ajax/), and the options were mapped to that object.
 	</description>
 
 	<example title="Add an extra parameter (`user_id` in this case), of a static value to the data submitted"><![CDATA[

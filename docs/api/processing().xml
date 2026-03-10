@@ -10,7 +10,7 @@
 		<parameter type="boolean" name="show">
 			Specify if the indicator should be visible (`true`) or not (`false`).
 		</parameter>
-		<returns type="DataTables.Api">API instance.</returns>
+		<returns type="DataTable.Api">API instance.</returns>
 	</type>
 
 	<description>

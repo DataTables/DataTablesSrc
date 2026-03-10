@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
-	<name>cell-selector</name>
+	<name>DataTable.CellSelector</name>
 	<summary>Selector options for cells.</summary>
 
 	<description>
 <![CDATA[
 
-The DataTables `-api cells()` and `-api cell()` methods provide the ability to select individual cells from the table. What cells are selected and how the selector actually operates is controlled by this `-type cell-selector` data type.
+The DataTables `-api cells()` and `-api cell()` methods provide the ability to select individual cells from the table. What cells are selected and how the selector actually operates is controlled by this `-type DataTable.CellSelector` data type.
 
 ### Options
 
@@ -99,7 +99,7 @@ The function receives three parameters:
 2. Cell data - see `-api cell().data()`. Note that this is the original data for the cell, not the rendered data if you are using `-init columns.render`
 3. Cell node - see `-api cell().node()`. Note that this may be `null` if you are using `-init deferRender`.
 
-The function is called once for every cell that can be selected, based on the `-type selector-modifier` options, which also defines the order of the cells for the called function.
+The function is called once for every cell that can be selected, based on the `-type DataTable.SelectorModifier` options, which also defines the order of the cells for the called function.
 
 ###### Get the nodes for all cells that contain `1`:
 
@@ -117,7 +117,7 @@ ones.toDom().classAdd('highlight');
 
 ## Object
 
-Similar to the `-type row-selector` and `-type column-selector`, `-type cell-selector` can also use indexes to select individual cells, but in this case an object is used which has `row` and `column` properties, each of which is set to the row and column index, respectively, for the cell to be selected.
+Similar to the `-type DataTable.RowSelector` and `-type DataTable.ColumnSelector`, `-type DataTable.CellSelector` can also use indexes to select individual cells, but in this case an object is used which has `row` and `column` properties, each of which is set to the row and column index, respectively, for the cell to be selected.
 
 Although not particularly useful as a primary selector method, this can be very useful for selecting individual cells based on a `-api cells()` call - see the example below.
 
@@ -156,7 +156,7 @@ let table = new DataTable('#myTable');
 let data = table.cells(['#cell-1-42', '#cell-1-91']).data();
 ```
 
-###### Mix `cell-selector` types - id and class selector
+###### Mix `DataTable.CellSelector` types - id and class selector
 
 ```js
 let table = new DataTable('#myTable');

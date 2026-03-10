@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
-	<name>selector-modifier</name>
+	<name>DataTable.SelectorModifier</name>
 	<summary>Options for how the row, column and cell selector should operate on rows.</summary>
 
 	<description>
 	<![CDATA[
 
-When working with the selectors in `-api rows()`, `-api columns()` and `-api cells()` (and their singular counterparts) you will want to know, and be able to control, basic aspects of how DataTables treats the rows, such as the order they are processed in, and what set of rows the selector should act upon. This `-type selector-modifier` type provides exactly that ability and can optionally be used in any of the functions that uses a selector.
+When working with the selectors in `-api rows()`, `-api columns()` and `-api cells()` (and their singular counterparts) you will want to know, and be able to control, basic aspects of how DataTables treats the rows, such as the order they are processed in, and what set of rows the selector should act upon. This `-type DataTable.SelectorModifier` type provides exactly that ability and can optionally be used in any of the functions that uses a selector.
 
 ### Server-side processing
 
-Special note on server-side processing: When using DataTables in server-side processing mode (`-init serverSide`) the `-type selector-modifier` has very little effect on the rows selected since all processing (ordering, search etc) is performed at the server. Therefore, the only rows that exist on the client-side are those shown in the table at any one time, and the selector can only select those rows which are on the current page.
+Special note on server-side processing: When using DataTables in server-side processing mode (`-init serverSide`) the `-type DataTable.SelectorModifier` has very little effect on the rows selected since all processing (ordering, search etc) is performed at the server. Therefore, the only rows that exist on the client-side are those shown in the table at any one time, and the selector can only select those rows which are on the current page.
 
 
 ### Options
 
-Fundamentally `-type selector-modifier` is an object with three built-in properties that can be used, and this can be extended by extensions such as [Select](/extensions/select). These properties, including their default values are:
+Fundamentally `-type DataTable.SelectorModifier` is an object with three built-in properties that can be used, and this can be extended by extensions such as [Select](/extensions/select). These properties, including their default values are:
 
 ```js
 {
@@ -69,7 +69,7 @@ The `order` modifier provides the ability to control which order the rows are pr
 
 ###### Get the data from a column in the applied order:
 
-Note that since the `-type selector-modifier` is optional, and `dt-string applied` is the default value for the column, the example below is the same as: `table.column( 3 ).data();` - it just sets the `order` parameter explicitly.
+Note that since the `-type DataTable.SelectorModifier` is optional, and `dt-string applied` is the default value for the column, the example below is the same as: `table.column( 3 ).data();` - it just sets the `order` parameter explicitly.
 
 ```js
 let table = new DataTable('#myTable');

@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>row().child.show()</signature>
 		<description>Show the child row(s) of a parent row</description>
-		<returns type="DataTables.Api">DataTables API instance.</returns>
+		<returns type="DataTable.Api">DataTables API instance.</returns>
 	</type>
 
 	<description>

@@ -24,7 +24,7 @@
 			* `true`: Any child rows attached to the parent will be immediately made visible. This is the equivalent of using `-api row().child.show()`.
 			* `false`: If the parent row has any children currently attached to it (whether shown or not) this method will destroy those child rows, removing them from the DOM if appropriate. Unlike with the `-api row().child.hide()` method, this option removes the rows from DataTables held memory completely. This is the equivalent of using `-api row().child.remove()`.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<type type="function">
@@ -46,7 +46,7 @@
 
 			Please note that if a `-type node`, or array-like object that contains nodes, is given in the first parameter the class name is not automatically added - it is assumed that the existing row is already configured as required.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>

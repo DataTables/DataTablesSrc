@@ -16,29 +16,29 @@
 		<description>
 			Set the ordering to apply to the table using 1D ordering arrays. Note this doesn't actually perform the order, but rather queues it up - use `-api draw()` to perform the ordering.
 		</description>
-		<parameter type="DataTables.Order" name="order">
+		<parameter type="DataTable.Order" name="order">
 			An array (tuple) or object to describe the ordering to apply.
 		</parameter>
-		<parameter type="DataTables.Order" name="..." default="">
+		<parameter type="DataTable.Order" name="..." default="">
 			Additional arrays / objects in the same format as the first parameter, allowing multi-column sorting. As many or as few additional arrays can be added as additional parameters, as your requirements demand.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 	<type type="function">
 		<signature>order( order )</signature>
 		<description>
 			Set the ordering to apply to the table using a 2D ordering array. Note this doesn't actually perform the order, but rather queues it up - use `-api draw()` to perform the ordering.
 		</description>
-		<parameter type="DataTables.Order" name="order">
+		<parameter type="DataTable.Order" name="order">
 			An array in the same format as the 1D options for this method above, but with multiple entries in the top level array, allowing multi-column sorting to be defined.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>
 		This method provides information and control over the ordering that has been applied to the DataTables in the API's context.
 
-		The column ordering input parameter format is defined by `-type DataTables.Order` which can accept column index objects, column name objects or tuples to define the order to apply. An array of those options can also be used to define multi-column ordering.
+		The column ordering input parameter format is defined by `-type DataTable.Order` which can accept column index objects, column name objects or tuples to define the order to apply. An array of those options can also be used to define multi-column ordering.
 
 		The return format used is a 2D array:
 

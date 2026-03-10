@@ -15,7 +15,7 @@
 
 		This method provides a method to get a list of the data types that have been registered with DataTables. Its companion method `-api DataTable.type()` can be used to obtain details about and set options for each data type.
 
-		For more details about the data type system in DataTables please refer to the [documentation on DataTables.net](https://datatables.net/manual/data/types). 
+		For more details about the data type system in DataTables please refer to the [documentation on DataTable.net](https://datatables.net/manual/data/types). 
 	</description>
 
 	<example title="Get a list of the registered types"><![CDATA[

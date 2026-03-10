@@ -11,7 +11,7 @@
 		<parameter name="type" type="string">Iterator type - see above for the options</parameter>
 		<parameter name="callback" type="function">Callback function that is executed on each iteration. For the parameters passed to the function, please refer to the documentation above. As of <span class="since">1.10.3</span> this is executed in the scope of an API instance which has its context set to only the table in question.</parameter>
 		<parameter name="returns" type="boolean" default="false"><span class="since">1.10.4</span>. Indicate if the callback function will return values or not. If set to `true` a new API instance will be returns with the return values from the callback function in its result set. If not set, or `false` the original instance will be returned for chaining, if no values are returned by the callback method.</parameter>
-		<returns type="DataTables.Api">Original API instance if the callback returns no result (i.e. `undefined`) or a new API instance with the result set being the results from the callback, in order of execution.</returns>
+		<returns type="DataTable.Api">Original API instance if the callback returns no result (i.e. `undefined`) or a new API instance with the result set being the results from the callback, in order of execution.</returns>
 	</type>
 
 	<description>
@@ -33,7 +33,7 @@
 		  2. Column index
 		  3. Table counter (outer)
 		  4. Column counter (inner)
-		* `column-rows` - loop over each table, column and row in the result set applying `-type selector-modifier`.
+		* `column-rows` - loop over each table, column and row in the result set applying `-type DataTable.SelectorModifier`.
 		  1. Table settings object
 		  2. Column index
 		  3. Table counter (outer)

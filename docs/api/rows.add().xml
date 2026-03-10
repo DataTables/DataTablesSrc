@@ -11,7 +11,7 @@
 		<parameter type="array" name="data">
 			Array of data elements, with each one describing a new row to be added to the table (i.e. `data.length` is the number of new rows that will be added to the table). Each data element may be an array, object, JavaScript object instance or a `-tag tr` element. The data structure given must be in the same format as the other data in the table (i.e. if your table uses objects, pass in an object here!).
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with the newly added rows in its result set.</returns>
+		<returns type="DataTable.Api">DataTables API instance with the newly added rows in its result set.</returns>
 	</type>
 
 	<description>

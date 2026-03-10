@@ -16,7 +16,7 @@
 		<parameter type="function" name="callback" default="">
 			Callback function that is executed whenever the ordering performed by the listener is completed, when the listener is activated. No parameters are passed in and no return is expected.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with the current order in the result set</returns>
+		<returns type="DataTable.Api">DataTables API instance with the current order in the result set</returns>
 	</type>
 
 	<description>

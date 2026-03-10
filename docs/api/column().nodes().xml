@@ -7,13 +7,13 @@
 	<type type="function">
 		<signature>column().nodes()</signature>
 		<description>Obtain the `dt-tag th` / `dt-tag td` nodes for the selected column</description>
-		<returns type="DataTables.Api">DataTables API instance with each cell's node from the selected columns in the result set. This is a 1D array with each entry being the node for the cells from the selected column.</returns>
+		<returns type="DataTable.Api">DataTables API instance with each cell's node from the selected columns in the result set. This is a 1D array with each entry being the node for the cells from the selected column.</returns>
 	</type>
 
 	<description>
 		This method is used to get the nodes of the table body cells (`dt-tag th` / `dt-tag td` elements) in the column matched by the selector.
 
-		Please note that the order of the nodes in the returned array and which rows the nodes are obtained from (searched rows, visible rows etc) is controlled by the `-type selector-modifier` option of the `-api columns()` selector used to get the selected columns.
+		Please note that the order of the nodes in the returned array and which rows the nodes are obtained from (searched rows, visible rows etc) is controlled by the `-type DataTable.SelectorModifier` option of the `-api columns()` selector used to get the selected columns.
 
 		Furthermore, please be aware that using `-init deferRender` will cause some nodes to be created only when they are required for display, so they might not be immediately available when this method is called.
 

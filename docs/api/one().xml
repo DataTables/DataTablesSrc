@@ -13,7 +13,7 @@
 		<parameter type="function" name="callback">
 			Event callback handler. For the argument list passed in, please refer to the documentation for the event that you are using.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>

@@ -19,7 +19,7 @@
 		<parameter type="boolean" name="ignoreTime" default="true">
 			Disregard checks for the timestamp for when the state object was created (`true`).
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>

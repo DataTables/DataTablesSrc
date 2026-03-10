@@ -15,7 +15,7 @@
 		<parameter type="integer" name="set">
 			Page length to set. Use `-1` to show all records, effectively disabling paging.
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>

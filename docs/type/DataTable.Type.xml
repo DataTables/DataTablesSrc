@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
-	<name>DataTables.Type</name>
+	<name>DataTable.Type</name>
 	<summary>DataTables data type object</summary>
 
 	<description>

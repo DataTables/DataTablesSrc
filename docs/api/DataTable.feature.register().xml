@@ -15,7 +15,7 @@
 		<param type="function" name="construct">
 			A function that will create the elements and event listeners for the feature being added. The function takes two parameters:
 
-			1. A `-type DataTables.Settings` object
+			1. A `-type DataTable.Settings` object
 			2. The options object for the feature used in `-init layout`. This will be `null` if no value was given.
 
 			The function should return a DOM node, which will be inserted into the document as defined by the layout positioning.

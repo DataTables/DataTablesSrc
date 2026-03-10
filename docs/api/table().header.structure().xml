@@ -9,7 +9,7 @@
 		<description>
 			Get the structure of the table header
 		</description>
-		<parameter name="columns" type="column-selector" default="undefined">
+		<parameter name="columns" type="DataTable.ColumnSelector" default="undefined">
 			Select which columns to get the header cells for. By default all columns in the table (regardless of visibility) will be retrieved.
 		</parameter>
 		<returns type="array">

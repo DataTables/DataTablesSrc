@@ -8,7 +8,7 @@
 	<description>
 		The `-init search` option allows the way DataTables performs filtering to be set during the initialisation, and to set an initial global filter.
 
-		The options that control how the search operates are defined by the `-type DataTables.SearchOptions` object type. You can pass in an object with any or all of the options described by that parameter.
+		The options that control how the search operates are defined by the `-type DataTable.SearchOptions` object type. You can pass in an object with any or all of the options described by that parameter.
 
 		Additionally, to set an initial search term use the parameter `search` in this object.
 	</description>

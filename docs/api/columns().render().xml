@@ -15,7 +15,7 @@
 			* `-string sort`
 			* `-string type`
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance with the data for each selected column in the result set</returns>
+		<returns type="DataTable.Api">DataTables API instance with the data for each selected column in the result set</returns>
 	</type>
 
 	<description>
