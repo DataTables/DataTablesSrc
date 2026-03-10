@@ -141,7 +141,7 @@ export interface ApiScopeable<T, S> {
 	 */
 	$(
 		selector: string | Node | Node[] | JQuery,
-		modifier?: ApiSelectorModifier
+		modifier?: SelectorModifier
 	): JQuery;
 
 	/**
@@ -903,10 +903,10 @@ export interface ApiSelector<T=any> {
 	cols: ColumnSelector | undefined;
 
 	/** Options modifier used in this instance (if any) */
-	opts: ApiSelectorModifier | undefined;
+	opts: SelectorModifier | undefined;
 }
 
-export interface ApiSelectorModifier {
+export interface SelectorModifier {
 	/**
 	 * The order in which the resolved columns should be returned in.
 	 *
@@ -1366,7 +1366,7 @@ export interface ApiCell<T> {
 	 */
 	(
 		cellSelector: CellSelector,
-		modifier?: ApiSelectorModifier | null
+		modifier?: SelectorModifier | null
 	): ApiCellMethods<T>;
 
 	/**
@@ -1381,7 +1381,7 @@ export interface ApiCell<T> {
 	(
 		rowSelector: RowSelector<T>,
 		columnSelector: ColumnSelector,
-		modifier?: ApiSelectorModifier | null
+		modifier?: SelectorModifier | null
 	): ApiCellMethods<T>;
 }
 
@@ -1453,7 +1453,7 @@ export interface ApiCells<T> {
 	 * and if paging or filtering
 	 * @returns DataTables API instance with selected cells
 	 */
-	(this: Api<T>, modifier?: ApiSelectorModifier): ApiCellsMethods<T>;
+	(this: Api<T>, modifier?: SelectorModifier): ApiCellsMethods<T>;
 
 	/**
 	 * Select cells found by a cell selector
@@ -1466,7 +1466,7 @@ export interface ApiCells<T> {
 	(
 		this: Api<T>,
 		cellSelector: CellSelector,
-		modifier?: ApiSelectorModifier
+		modifier?: SelectorModifier
 	): ApiCellsMethods<T>;
 
 	/**
@@ -1482,7 +1482,7 @@ export interface ApiCells<T> {
 		this: Api<T>,
 		rowSelector: RowSelector<T>,
 		columnSelector: ColumnSelector,
-		modifier?: ApiSelectorModifier
+		modifier?: SelectorModifier
 	): ApiCellsMethods<T>;
 }
 
@@ -1600,7 +1600,7 @@ export interface ApiColumn<T> {
 	 */
 	(
 		columnSelector: ColumnSelector,
-		modifier?: ApiSelectorModifier | null
+		modifier?: SelectorModifier | null
 	): ApiColumnMethods<T>;
 
 	/**
@@ -1856,7 +1856,7 @@ export interface ApiColumns<T> extends Api<T> {
 	 * and if paging or filtering in the table should be taken into account.
 	 * @returns DataTables API instance with selected columns in the result set.
 	 */
-	(modifier?: ApiSelectorModifier): ApiColumnsMethods<T>;
+	(modifier?: SelectorModifier): ApiColumnsMethods<T>;
 
 	/**
 	 * Select columns found by a cell selector
@@ -1868,7 +1868,7 @@ export interface ApiColumns<T> extends Api<T> {
 	 */
 	(
 		columnSelector?: ColumnSelector,
-		modifier?: ApiSelectorModifier
+		modifier?: SelectorModifier
 	): ApiColumnsMethods<T>;
 
 	/**
@@ -2231,7 +2231,7 @@ export interface ApiRow<T> {
 	(
 		this: Api,
 		rowSelector: RowSelector<T>,
-		modifier?: ApiSelectorModifier
+		modifier?: SelectorModifier
 	): ApiRowMethods<T>;
 
 	/**
@@ -2336,7 +2336,7 @@ export interface ApiRows<T> {
 	 * and if paging or filtering in the table should be taken into account.
 	 * @returns DataTables API instance with selected rows
 	 */
-	(this: Api, modifier?: ApiSelectorModifier): ApiRowsMethods<T>;
+	(this: Api, modifier?: SelectorModifier): ApiRowsMethods<T>;
 
 	/**
 	 * Select rows found by a row selector
@@ -2349,7 +2349,7 @@ export interface ApiRows<T> {
 	(
 		this: Api,
 		rowSelector?: RowSelector<T>,
-		modifier?: ApiSelectorModifier
+		modifier?: SelectorModifier
 	): ApiRowsMethods<T>;
 
 	/**

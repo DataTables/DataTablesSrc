@@ -6,6 +6,8 @@
 	<description>
 	<![CDATA[
 
+< `DataTable.SelectorModifier` is a type only. It defines an object's structure.
+
 When working with the selectors in `-api rows()`, `-api columns()` and `-api cells()` (and their singular counterparts) you will want to know, and be able to control, basic aspects of how DataTables treats the rows, such as the order they are processed in, and what set of rows the selector should act upon. This `-type DataTable.SelectorModifier` type provides exactly that ability and can optionally be used in any of the functions that uses a selector.
 
 ### Server-side processing

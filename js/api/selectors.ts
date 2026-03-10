@@ -5,7 +5,7 @@ import ext from '../ext/index';
 import { Context } from '../model/settings';
 import { range, unique } from '../util/array';
 import * as object from '../util/object';
-import { ApiSelectorModifier, Api as ApiType } from './interface';
+import { Api as ApiType, SelectorModifier } from './interface';
 import { dataSource } from './support';
 
 /**
@@ -16,7 +16,7 @@ export function selectorRun<T = any>(
 	selector: any,
 	selectFn: (s: any) => T[],
 	settings: Context,
-	opts: ApiSelectorModifier
+	opts: SelectorModifier
 ): T[] {
 	var out: T[] = [],
 		res,
@@ -66,7 +66,7 @@ export function selectorRun<T = any>(
 	return unique(out);
 }
 
-export function selectorOpts(opts?: ApiSelectorModifier): ApiSelectorModifier {
+export function selectorOpts(opts?: SelectorModifier): SelectorModifier {
 	if (!opts) {
 		opts = {};
 	}
@@ -117,7 +117,7 @@ export function selectorFirst<R extends ApiType>(old: ApiType) {
 
 export function selectorRowIndexes(
 	settings: Context,
-	opts: ApiSelectorModifier
+	opts: SelectorModifier
 ) {
 	var i,
 		iLen,

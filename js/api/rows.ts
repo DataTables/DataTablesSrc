@@ -5,20 +5,20 @@ import { Context } from '../model/settings';
 import util from '../util';
 import { register, registerPlural } from './Api';
 import {
-	Api,
-	ApiRow,
-	ApiRowMethods,
-	ApiRows,
-	ApiRowsMethods,
-	ApiSelectorModifier,
-	Api as ApiType,
-	RowSelector
+    Api,
+    ApiRow,
+    ApiRowMethods,
+    ApiRows,
+    ApiRowsMethods,
+    Api as ApiType,
+    RowSelector,
+    SelectorModifier
 } from './interface';
 import {
-	selectorFirst,
-	selectorOpts,
-	selectorRowIndexes,
-	selectorRun
+    selectorFirst,
+    selectorOpts,
+    selectorRowIndexes,
+    selectorRun
 } from './selectors';
 import { arrayApply, lengthOverflow } from './support';
 
@@ -35,7 +35,7 @@ import { arrayApply, lengthOverflow } from './support';
 function selectRows(
 	settings: Context,
 	selector: RowSelector<any>,
-	opts: ApiSelectorModifier
+	opts: SelectorModifier
 ) {
 	var rows: number[];
 	var run = function (sel: any) {
@@ -144,12 +144,12 @@ function selectRows(
 
 type ApiRowsOverload = (
 	this: Api,
-	arg1?: RowSelector<any> | ApiSelectorModifier,
-	arg2?: ApiSelectorModifier
+	arg1?: RowSelector<any> | SelectorModifier,
+	arg2?: SelectorModifier
 ) => ApiRowsMethods<any>;
 
 register<ApiRowsOverload>('rows()', function (arg1, arg2) {
-	let opts: ApiSelectorModifier;
+	let opts: SelectorModifier;
 	let selector: RowSelector<any>;
 
 	// argument shifting
@@ -160,7 +160,7 @@ register<ApiRowsOverload>('rows()', function (arg1, arg2) {
 	else if (util.is.plainObject(arg1)) {
 		// Arg1 is modifier overload
 		selector = '';
-		opts = arg1 as ApiSelectorModifier;
+		opts = arg1 as SelectorModifier;
 	}
 	else {
 		selector = arg1 as RowSelector<any>;
@@ -346,7 +346,7 @@ register<ApiRows<any>['add']>('rows.add()', function (this: Api, rows) {
 type ApiRowOverload = (
 	this: ApiType,
 	selector?: RowSelector<any>,
-	modifier?: ApiSelectorModifier
+	modifier?: SelectorModifier
 ) => ApiRowMethods<any>;
 
 register<ApiRowOverload>('row()', function (selector?, opts?) {

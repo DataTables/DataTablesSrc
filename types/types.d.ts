@@ -50,13 +50,14 @@ export {
 		AjaxOptions,
 		ColumnContext,
 		ColumnsConfig,
-		Context,
+		Context, // Legacy support
 		Defaults,
 		Ext,
 		ExtButtons,
 		Language,
 		Options,
 		RowContext,
+		Context as Settings,
 		State,
 		StateLoad
 	};

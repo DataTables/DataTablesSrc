@@ -7,26 +7,26 @@ import * as is from '../util/is';
 import * as object from '../util/object';
 import { register, registerPlural } from './Api';
 import {
-	Api,
-	ApiCellMethods,
-	ApiCellsMethods,
-	ApiSelectorModifier,
-	CellIdx,
-	CellSelector,
-	ColumnSelector,
-	RowSelector
+    Api,
+    ApiCellMethods,
+    ApiCellsMethods,
+    CellIdx,
+    CellSelector,
+    ColumnSelector,
+    RowSelector,
+    SelectorModifier
 } from './interface';
 import {
-	selectorFirst,
-	selectorOpts,
-	selectorRowIndexes,
-	selectorRun
+    selectorFirst,
+    selectorOpts,
+    selectorRowIndexes,
+    selectorRun
 } from './selectors';
 
 function selectCells(
 	settings: Context,
 	selector: CellSelector,
-	opts: ApiSelectorModifier
+	opts: SelectorModifier
 ) {
 	var data = settings.data;
 	var rows = selectorRowIndexes(settings, opts);
@@ -125,9 +125,9 @@ function selectCells(
 
 type ApiCellsOverload<T = any> = (
 	this: Api,
-	rowSelector?: ApiSelectorModifier | CellSelector | RowSelector<T>,
-	columnSelector?: ApiSelectorModifier | ColumnSelector,
-	modifier?: ApiSelectorModifier
+	rowSelector?: SelectorModifier | CellSelector | RowSelector<T>,
+	columnSelector?: SelectorModifier | ColumnSelector,
+	modifier?: SelectorModifier
 ) => ApiCellsMethods<T>;
 
 register<ApiCellsOverload>('cells()', function (arg1?, arg2?, arg3?) {
@@ -135,24 +135,24 @@ register<ApiCellsOverload>('cells()', function (arg1?, arg2?, arg3?) {
 	let rowSelector: RowSelector<any> = null;
 	let columnSelector: ColumnSelector = null;
 	let cellSelector: CellSelector;
-	let opts: ApiSelectorModifier | undefined;
+	let opts: SelectorModifier | undefined;
 
 	// Argument shifting
 	if (is.plainObject(arg1)) {
 		if ((arg1 as any).row === undefined) {
 			// Selector modifier only overload
-			opts = arg1 as ApiSelectorModifier;
+			opts = arg1 as SelectorModifier;
 		}
 		else {
 			// Cell selector as an index object
 			cellSelector = arg1 as CellSelector;
-			opts = arg2 as ApiSelectorModifier;
+			opts = arg2 as SelectorModifier;
 		}
 	}
 	else if (is.plainObject(arg2) || arg2 === undefined) {
 		// Cell selector overload
 		cellSelector = arg1 as CellSelector;
-		opts = arg2 as ApiSelectorModifier;
+		opts = arg2 as SelectorModifier;
 	}
 	else if (arg1 !== undefined) {
 		// Row + column selector overload
@@ -320,9 +320,9 @@ registerPlural<ApiCellsMethods<any>['invalidate']>(
 
 type APiCellOverload = (
 	this: Api,
-	rowSelector?: ApiSelectorModifier | CellSelector | RowSelector<any>,
-	columnSelector?: ApiSelectorModifier | ColumnSelector,
-	modifier?: ApiSelectorModifier
+	rowSelector?: SelectorModifier | CellSelector | RowSelector<any>,
+	columnSelector?: SelectorModifier | ColumnSelector,
+	modifier?: SelectorModifier
 ) => ApiCellMethods<any>;
 
 register<APiCellOverload>(

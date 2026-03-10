@@ -1,10 +1,10 @@
 import {
-	adjustColumnSizing,
-	columnIndexToVisible,
-	columnsFromHeader,
-	columnTypes,
-	visibleColumns,
-	visibleToColumnIndex
+    adjustColumnSizing,
+    columnIndexToVisible,
+    columnsFromHeader,
+    columnTypes,
+    visibleColumns,
+    visibleToColumnIndex
 } from '../core/columns';
 import { getCellData } from '../core/data';
 import { drawHead } from '../core/draw';
@@ -17,18 +17,18 @@ import { intVal } from '../util/conv';
 import * as is from '../util/is';
 import { register, registerPlural } from './Api';
 import {
-	Api,
-	ApiColumn,
-	ApiColumns,
-	ApiColumnsMethods,
-	ApiSelectorModifier,
-	ColumnSelector
+    Api,
+    ApiColumn,
+    ApiColumns,
+    ApiColumnsMethods,
+    ColumnSelector,
+    SelectorModifier
 } from './interface';
 import {
-	selectorFirst,
-	selectorOpts,
-	selectorRowIndexes,
-	selectorRun
+    selectorFirst,
+    selectorOpts,
+    selectorRowIndexes,
+    selectorRun
 } from './selectors';
 import { callbackFire } from './support';
 
@@ -127,7 +127,7 @@ function columnHeaderCells(header: HeaderStructure[]) {
 function selectColumns(
 	settings: Context,
 	selector: ColumnSelector,
-	opts: ApiSelectorModifier
+	opts: SelectorModifier
 ) {
 	var columns = settings.columns,
 		names: string[],
@@ -330,13 +330,13 @@ function setColumnVis(settings: Context, column: number, vis: boolean) {
 
 type ApiColumnsOverload = (
 	this: Api,
-	selector?: ColumnSelector | ApiSelectorModifier,
-	modifier?: ApiSelectorModifier
+	selector?: ColumnSelector | SelectorModifier,
+	modifier?: SelectorModifier
 ) => Api;
 
 register<ApiColumnsOverload>('columns()', function (arg1?, arg2?) {
 	let selector: ColumnSelector;
-	let opts: ApiSelectorModifier;
+	let opts: SelectorModifier;
 
 	// argument shifting
 	if (arg1 === undefined) {
@@ -344,7 +344,7 @@ register<ApiColumnsOverload>('columns()', function (arg1?, arg2?) {
 	}
 	else if (is.plainObject(arg1)) {
 		selector = '';
-		arg2 = arg1 as ApiSelectorModifier;
+		arg2 = arg1 as SelectorModifier;
 	}
 	else {
 		selector = arg1 as ColumnSelector;
@@ -715,7 +715,7 @@ register<ApiColumn<any>['index']>('column.index()', function (type, idx) {
 type ApiColumnOverload = (
 	this: Api,
 	selector: ColumnSelector,
-	opts?: ApiSelectorModifier
+	opts?: SelectorModifier
 ) => Api<any>;
 
 register<ApiColumnOverload>('column()', function (selector, opts?) {
