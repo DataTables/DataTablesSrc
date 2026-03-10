@@ -72,7 +72,7 @@ export function featureTable(settings: Context) {
 						})
 						.append(
 							headerClone
-								.removeAttr('id')
+								.attrRemove('id')
 								.css('margin-left', '0')
 								.append(captionSide === 'top' ? caption : null)
 								.append(table.children('thead'))
@@ -107,7 +107,7 @@ export function featureTable(settings: Context) {
 						.classAdd(classes.footer.inner)
 						.append(
 							footerClone
-								.removeAttr('id')
+								.attrRemove('id')
 								.css('margin-left', '0')
 								.append(
 									captionSide === 'bottom' ? caption : null
@@ -221,12 +221,12 @@ export function scrollDraw(settings: Context) {
 
 	// Clone the current header and footer elements and then place it into the inner table
 	headerCopy = header.clone(true).prependTo(table);
-	headerCopy.find('th, td').removeAttr('tabindex');
-	headerCopy.find('[id]').removeAttr('id');
+	headerCopy.find('th, td').attrRemove('tabindex');
+	headerCopy.find('[id]').attrRemove('id');
 
 	if (footer.count()) {
 		footerCopy = footer.clone(true).prependTo(table);
-		footerCopy.find('[id]').removeAttr('id');
+		footerCopy.find('[id]').attrRemove('id');
 	}
 
 	// 2. Correct colgroup > col values if needed

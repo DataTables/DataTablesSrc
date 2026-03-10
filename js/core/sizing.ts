@@ -69,7 +69,7 @@ export function calculateColumnWidths(settings: Context) {
 		.s(table.cloneNode())
 		.css('visibility', 'hidden')
 		.css('margin', '0')
-		.removeAttr('id');
+		.attrRemove('id');
 
 	// Clean up the table body
 	tmpTable.append(Dom.c('tbody'));
@@ -156,7 +156,7 @@ export function calculateColumnWidths(settings: Context) {
 
 	// Tidy the temporary table - remove name attributes so there aren't
 	// duplicated in the dom (radio elements for example)
-	tmpTable.find('[name]').removeAttr('name');
+	tmpTable.find('[name]').attrRemove('name');
 
 	// Table has been built, attach to the document so we can work with it.
 	// A holding element is used, positioned at the top of the container
@@ -184,7 +184,7 @@ export function calculateColumnWidths(settings: Context) {
 	// appropriate. However, when not scrolling leave the table width as it
 	// is. This results in slightly different, but I think correct behaviour
 	if (scrollX) {
-		tmpTable.css('width', 'auto').removeAttr('width');
+		tmpTable.css('width', 'auto').attrRemove('width');
 
 		// If there is no width attribute or style, then allow the table to
 		// collapse

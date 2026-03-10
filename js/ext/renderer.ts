@@ -193,7 +193,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 						: 'Reverse';
 			}
 			else {
-				cell.removeAttr('aria-sort');
+				cell.attrRemove('aria-sort');
 			}
 
 			// Make the headers tab-able for keyboard navigation

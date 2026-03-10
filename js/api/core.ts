@@ -194,7 +194,7 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 					orderClasses.isDesc
 			)
 			.css('width', '')
-			.removeAttr('aria-sort');
+			.attrRemove('aria-sort');
 
 		// Add the TR elements back into the table in their original order
 		jqTbody.children().detach();
@@ -264,5 +264,5 @@ function cleanHeader(node: HTMLElement, className: string) {
 	});
 
 	headerCell.find('div.dt-column-' + className).remove();
-	headerCell.find('th, td').removeAttr('data-dt-column');
+	headerCell.find('th, td').attrRemove('data-dt-column');
 }

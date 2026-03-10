@@ -195,6 +195,15 @@ Set multiple attributes of the elements in the result set
   1. `attributes` - Plain object of attributes to be assigned
 
 
+### `attrRemove( name )`
+
+Remove an attribute on each element in the result set
+
+* Parameters:
+  1. `attr` - Attribute to remove
+* Returns: Self for chaining
+
+
 ### `blur()`
 
 Blur on the target elements

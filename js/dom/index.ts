@@ -260,6 +260,16 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 	}
 
 	/**
+	 * Remove an attribute on each element in the result set
+	 *
+	 * @param attr Attribute to remove
+	 * @returns Self for chaining
+	 */
+	attrRemove(attr: string) {
+		return this.each(el => el.removeAttribute(attr));
+	}
+
+	/**
 	 * Blur on the target elements
 	 *
 	 * @returns Self for chaining
@@ -1291,16 +1301,6 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 		// TODO this should remove event listeners
 
 		return this.each(el => el.remove());
-	}
-
-	/**
-	 * Remove an attribute on each element in the result set
-	 *
-	 * @param attr Attribute to remove
-	 * @returns Self for chaining
-	 */
-	removeAttr(attr: string) {
-		return this.each(el => el.removeAttribute(attr));
 	}
 
 	/**
