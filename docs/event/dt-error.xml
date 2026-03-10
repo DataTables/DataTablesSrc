@@ -9,7 +9,7 @@
 		<parameter type="object" name="e">
 			Event object
 		</parameter>
-		<parameter type="DataTable.Settings" name="settings">
+		<parameter type="DataTable.Context" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="integer" name="techNote">

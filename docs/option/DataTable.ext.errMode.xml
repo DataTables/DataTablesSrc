@@ -16,8 +16,8 @@
 
 	<type type="function">
 		<signature>DataTable.ext.errMode( settings, techNote, message )</signature>
-		<parameter type="DataTable.Settings" name="settings">
-			DataTables settings object (`-type DataTable.Settings`).
+		<parameter type="DataTable.Context" name="settings">
+			DataTables settings object (`-type DataTable.Context`).
 		</parameter>
 		<parameter type="integer" name="techNote">
 			Technical note reference which contains detailed information about the error that has occurred - this can be found at `https://datatables.net/tn/{techNote}`.

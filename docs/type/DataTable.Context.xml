@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-type group="dt">
-	<name>DataTable.Settings</name>
+	<name>DataTable.Context</name>
 	<summary>DataTables settings object</summary>
 
 	<description>
 	<![CDATA[
 
-< `DataTable.Settings` is a type only. It defines an object's structure.
+< `DataTable.Context` is a type only. It defines an object's structure.
 
 DataTables stores the configuration and data for each table in a _context object_. The structure of this object is considered to be **private** in terms of the DataTables API and reading or writing to the values in the object is **not supported**. The property names and values contained within the object can, will and do change between versions!
 

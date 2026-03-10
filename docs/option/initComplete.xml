@@ -6,7 +6,7 @@
 
 	<type type="function">
 		<signature>initComplete( settings, json )</signature>
-		<parameter type="DataTable.Settings" name="settings">
+		<parameter type="DataTable.Context" name="settings">
 			DataTables settings object
 		</parameter>
 		<parameter type="object" name="json">
