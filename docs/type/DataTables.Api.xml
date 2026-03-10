@@ -6,6 +6,8 @@
 	<description>
 	<![CDATA[
 
+< `DataTables.Api` is both a value and a type. It can be imported directly using ES modules, or accessed using `DataTable.Api` (see the access section).
+
 The DataTables API provides the ability to programmatically control one or more DataTable tables through the extensive array of methods that it implements. Many methods the API implements return an API instance themselves, providing the ability to [chain](https://en.wikipedia.org/wiki/Method_chaining) methods, thus allowing the API to be both compact and very expressive. As such, we define this `-type DataTables.Api` data type to be clear when a method provides an API instance as its return value.
 
 

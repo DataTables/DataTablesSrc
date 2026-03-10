@@ -456,9 +456,9 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 
 	/**
 	 * Get a data attribute's value from the first item in the result set. Can
-	 * be null. Please be aware that this uses the element's `dataset` property,
-	 * and so will do name conversion from dashed (in the element's attribute)
-	 * to camelCase in Javascript.
+	 * be `null`. Please be aware that this uses the element's `dataset`
+	 * property, and so will do name conversion from dashed (in the element's
+	 * attribute) to camelCase in Javascript.
 	 *
 	 * @param name Data value name
 	 * @returns Read value
@@ -679,6 +679,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 	 * Get all matching descendants
 	 *
 	 * @param selector Elements to find
+	 * @returns A new Dom instance with all matching elements
 	 */
 	find<R extends HTMLElement = T>(
 		input: Dom | string | HTMLElement | Element | null
@@ -983,6 +984,8 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 
 	/**
 	 * Remove all events attached to this element
+	 *
+	 * @returns Self for chaining.
 	 */
 	off(): this;
 
@@ -993,6 +996,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 	 * @param name Event name. This can optionally include period separated
 	 *   namespaces. Multiple events can be removed by space separation of the
 	 *   names.
+	 * @returns Self for chaining.
 	 */
 	off(name: string): this;
 
@@ -1004,6 +1008,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 	 *   namespaces. Multiple events can be removed by space separation of the
 	 *   names.
 	 * @param handler Callback to remove
+	 * @returns Self for chaining.
 	 */
 	off(name: string, handler: Function): this;
 
@@ -1018,6 +1023,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 	 * @param selector CSS style selector to use to match elements from the
 	 *   parent.
 	 * @param handler Callback to remove
+	 * @returns Self for chaining.
 	 */
 	off(name: string, selector: string, handler?: Function): this;
 
@@ -1198,8 +1204,8 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 	 *
 	 * You should limit your result set to a single item!
 	 *
-	 * @param content
-	 * @returns
+	 * @param content Item(s) to prepend
+	 * @returns Self for chaining
 	 */
 	prepend(content: Element | Dom | string) {
 		return this.each(el => {
@@ -1221,7 +1227,8 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 	/**
 	 * Append the current data set items to the element from the selector
 	 *
-	 * @param selector
+	 * @param selector Select item to insert result sets into
+	 * @returns Self for chaining
 	 */
 	prependTo(selector: DomSelector | Dom) {
 		if (selector instanceof Dom) {
@@ -1315,6 +1322,8 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 
 	/**
 	 * Get the scrollLeft property of the first element in the result set
+	 * 
+	 * @returns Current scroll left value
 	 */
 	scrollLeft(): number;
 
@@ -1322,6 +1331,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 	 * Set the scrollLeft property for all elements in the result set
 	 *
 	 * @param val Value to set
+	 * @returns Self for chaining
 	 */
 	scrollLeft(val: number): this;
 
@@ -1335,6 +1345,8 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 
 	/**
 	 * Get the scrollTop property of the first element in the result set
+	 *
+	 * @returns Current scroll top value
 	 */
 	scrollTop(): number;
 
@@ -1342,6 +1354,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 	 * Set the scrollTop property for all elements in the result set
 	 *
 	 * @param val Value to set
+	 * @returns Self for chaining
 	 */
 	scrollTop(val: number): this;
 
@@ -1355,7 +1368,8 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 
 	/**
 	 * Get the siblings of all elements in the result set
-	 * @returns
+	 *
+	 * @returns New Dom instance containing the sibling elements
 	 */
 	siblings() {
 		return this.map(el => {
@@ -1382,6 +1396,8 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 
 	/**
 	 * Get the text content for the first item in the result set
+	 * 
+	 * @returns Text content of the element
 	 */
 	text(): string;
 
@@ -1550,6 +1566,8 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 
 	/**
 	 * Get the value from the first item in the result set
+	 * 
+	 * @returns Current value
 	 */
 	val(): string;
 
@@ -1557,6 +1575,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 	 * Set the value for all elements in the result set
 	 *
 	 * @param value Value to set
+	 * @returns Self for chaining
 	 */
 	val(value: string | number): this;
 

@@ -6,6 +6,8 @@
 	<description>
 	<![CDATA[
 
+< `DataTables.AjaxOptions` is a type only. It defines an object's structure.
+
 DataTables provides a `-api DataTable.ajax()` method which can be used to make Ajax calls, and makes use of it for its own Ajax calls when configured with `-init ajax` to load data. The Ajax call is configured through an object of parameters that is passed to it. The parameters for this object are documented here.
 
 The options provided here are a _subset_ of those provided by [jQuery's `ajax()` method](https://api.jquery.com/jQuery.ajax/) and compatibility is an important characteristic in order to ensure easy porting from a jQuery based application to one which does require jQuery.

@@ -33,6 +33,11 @@ Fundamentally `-type selector-modifier` is an object with three built-in propert
 }
 ```
 
+### TypeScript
+
+The column selector type is exported as `ApiSelectorModifier` from the `datatables.net` package.
+
+
 ## Built-in options
 
 ### columnOrder

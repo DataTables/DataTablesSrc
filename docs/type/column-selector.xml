@@ -30,6 +30,10 @@ The column selector can be given in a number of different forms, to make it easy
 
 To combine selectors to select multiple columns on different criteria, use an array of the options above. The order of the columns selected will match the order that the array resolves to. In the case of a selector that resolves to multiple columns (e.g. a CSS selector) the order will be in index order.
 
+### TypeScript
+
+The column selector type is exported as `ColumnSelector` from the `datatables.net` package.
+
 
 ## No selector
 

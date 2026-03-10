@@ -21,6 +21,9 @@ The table selector can be given in a number of different forms, to make it easy 
 * `-type jQuery` - jQuery object of table nodes
 * `-type array` - Array containing any combination of the above options
 
+### TypeScript
+
+The column selector type is exported as `TableSelector` from the `datatables.net` package.
 
 
 ## No selector

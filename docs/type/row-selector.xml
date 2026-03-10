@@ -26,6 +26,10 @@ The row selector can be given in a number of different forms, to make it easy to
 * `-type jQuery` - jQuery object of row nodes
 * `-type array` - Array containing any combination of the above options
 
+### TypeScript
+
+The column selector type is exported as `RowSelector` from the `datatables.net` package.
+
 
 ## No selector
 

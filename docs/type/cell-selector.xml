@@ -22,6 +22,10 @@ The cell selector can be given in a number of different forms, to make it easy t
 * `-type jQuery` - jQuery object of cell nodes
 * `-type array` - Array containing any combination of the above options
 
+### TypeScript
+
+The column selector type is exported as `CellSelector` from the `datatables.net` package.
+
 
 ## No selector
 

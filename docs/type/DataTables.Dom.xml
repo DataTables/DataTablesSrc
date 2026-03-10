@@ -7,6 +7,8 @@
 	<description>
 	<![CDATA[
 
+< `DataTables.Dom` is both a value and a type. It can be imported directly using ES modules, or accessed using `DataTable.Dom` (see the access section).
+
 DataTables performs a lot of [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) queries and modifications in order to present the interactive table that it does to the end user. To help keep the code size small and manageable it has a library to perform common actions, simply called `Dom`. This library is publicly accessible through the `DataTable.Dom` property, and can be used for extensions, or just general use of DataTables.
 
 
@@ -170,8 +172,7 @@ Append the current result set items to the element from the selector.
 
 ### `attr( name )`
 
-Get an attribute's value from the first item in the result set. Can be
-null.
+Get an attribute's value from the first item in the result set. Can be null.
 
 * Parameters:
   1. `name` - Attribute name
@@ -183,7 +184,7 @@ Set an attribute's value for all items in the result set.
 
 * Parameters:
   1. `name` - Attribute name
-  * `value` Value to give the attribute
+  1. `value` Value to give the attribute
 * Returns: Self for chaining
 
 ### `attr( attributes )`
@@ -243,7 +244,7 @@ Toggle a class on all elements in the result set
 
 * Parameters:
   1. `name` - Class name(s) to toggle - space separated
-  * `toggle` Toggle on or off
+  1. `toggle` Toggle on or off
 * Returns: Self for chaining
 
 
@@ -267,8 +268,7 @@ Find the closest ancestor for each element in the result set
 
 ### `contains( input )`
 
-Determine if the result set contains the element specified. Shorthand for
-.find().count()
+Determine if the result set contains the element specified. Shorthand for `.find().count()`.
 
 * Parameters:
   1. `input` - Element / selector to look for
@@ -297,7 +297,7 @@ Set a CSS value
 
 * Parameters:
   1. `rule` - CSS property to set
-  * `value` Value to set it to
+  1. `value` Value to set it to
 * Returns: Self for chaining
 
 
@@ -319,10 +319,7 @@ Get all the data attributes for an element
 
 ### `data( name )`
 
-Get a data attribute's value from the first item in the result set. Can
-be null. Please be aware that this uses the element's `dataset` property,
-and so will do name conversion from dashed (in the element's attribute)
-to camelCase in Javascript.
+Get a data attribute's value from the first item in the result set. Can be `null`. Please be aware that this uses the element's `dataset` property, and so will do name conversion from dashed (in the element's attribute) to camelCase in Javascript.
 
 * Parameters:
   1. `name` - Data value name
@@ -335,7 +332,7 @@ Set a data attribute's value for all items in the result set.
 
 * Parameters:
   1. `name` - Data value name
-  * `value` Value to give the data attribute
+  1. `value` Value to give the data attribute
 * Returns: Self for chaining
 
 
@@ -350,16 +347,14 @@ Set multiple data attributes of the elements in the result set
 
 ### `detach()`
 
-Remove the elements in the result set from the document. Does not remove
-event listeners.
+Remove the elements in the result set from the document. Does not remove event listeners.
 
 * Returns: Self for chaining
 
 
 ### `detachChildren()`
 
-Remove the child elements from each element in the result set from the
-document. Does not remove event listeners.
+Remove the child elements from each element in the result set from the document. Does not remove event listeners.
 
 * Returns: Self for chaining
 
@@ -420,12 +415,10 @@ Call focus on the target elements
 
 ### `filter( filter )`
 
-Reduce the result set based on a given filter, which can be a CSS
-selector, an element or array of elements.
+Reduce the result set based on a given filter, which can be a CSS selector, an element or array of elements.
 
 * Parameters:
-  1. `filter` - Optional selector or function that the result set element
-  would need to match to be selected.
+  1. `filter` - Optional selector or function that the result set element would need to match to be selected.
 * New Dom instance containing the filters elements
 
 
@@ -435,6 +428,7 @@ Get all matching descendants
 
 * Parameters:
   1. `selector` - Elements to find
+* Returns: A new Dom instance with all matching elements
 
 
 ### `first()`
@@ -446,16 +440,14 @@ Get the last element in the result set
 
 ### `height()`
 
-Get the height for the first element in the result set. Whether this is
-the inner or outer height depends on the box model for the element.
+Get the height for the first element in the result set. Whether this is the inner or outer height depends on the box model for the element.
 
 * Returns: Element's height
 
 
 ### `height( include )`
 
-Get the height of the first element in the result set, with specific
-parts included in the result.
+Get the height of the first element in the result set, with specific parts included in the result.
 
 * Parameters:
   1. `include` - Parts of the box model to include
@@ -467,9 +459,7 @@ parts included in the result.
 Set the height for all elements in the result set,
 
 * Parameters:
-  1. `set` - Value to set as the height. As a number it will be treated as
-  a pixel value, while as a string, it must have a CSS unit already on
-  it.
+  1. `set` - Value to set as the height. As a number it will be treated as a pixel value, while as a string, it must have a CSS unit already on it.
 * Returns: Self for chaining
 
 
@@ -496,8 +486,7 @@ Set the HTML for all elements in the result set
 
 ### `is( selector )`
 
-Boolean return check on if an item in the result set matches the selector
-given. Only one need match.
+Boolean return check on if an item in the result set matches the selector given. Only one need match.
 
 * Parameters:
   1. `selector` - Selector to match against
@@ -506,8 +495,7 @@ given. Only one need match.
 
 ### `isAttached()`
 
-Determine if the first element in the result set is in the document or
-not
+Determine if the first element in the result set is in the document or not.
 
 * Returns: true if is, false if detached
 
@@ -553,8 +541,7 @@ Get the last element in the result set
 
 ### `map( fn )`
 
-Create a new Dom instance based on the results from a callback function
-which is executed per element in the result set.
+Create a new Dom instance based on the results from a callback function which is executed per element in the result set.
 
 * Parameters:
   1. `fn` - Function to get the elements to add to the new instance
@@ -563,82 +550,319 @@ which is executed per element in the result set.
 
 ### `mapTo( fn )`
 
-Create an array of any data type based on a function returning a value
-from each element in the result set.
+Create an array of any data type based on a function returning a value from each element in the result set.
 
 * Parameters:
   1. `fn` - Mapping function
 * Returns: Array of returned objects.
 
 
-### ``
+### `off()`
+
+Remove all events attached to this element
+
+* Returns: Self for chaining.
+
+
+### `off( name )`
+
+Remove all events attached to this element that match the given event name or any of the namespaces (if given).
+
+* Parameters:
+  1. name Event name. This can optionally include period separated namespaces. Multiple events can be removed by space separation of the names.
+* Returns: Self for chaining.
 
 
 
+### `off( name, handler )`
 
-### ``
+Remove all events attached to this element that match the given event name or any of the namespaces (if given) and the event handler
 
-
-
-
-### ``
-
-
-
-
-### ``
+* Parameters:
+  1. name Event name. This can optionally include period separated namespaces. Multiple events can be removed by space separation of the names.
+  1. handler Callback to remove
+* Returns: Self for chaining.
 
 
+### `off( name, selector, handler )`
+
+Remove all delegated events attached to this element that match the given event name or any of the namespaces (if given), the delegate selector and (optionally) the event handler
+
+* Parameters:
+  1. name Event name. This can optionally include period separated namespaces. Multiple events can be removed by space separation of the names.
+  1. selector CSS style selector to use to match elements from the parent.
+  1. handler Callback to remove
+* Returns: Self for chaining.
 
 
-### ``
+### `offset()`
+
+Get the offset of the first element in the result set. The offset is the coordinates of the element relative to the document.
+
+* Returns: Object with top and left offset
 
 
+### `offsetParent()`
+
+Get the offset parents of the elements in the result set.
+
+Departure from jQuery - it won't go up to `html`
+
+* Returns: Instance with the result set as the offset parents
 
 
-### ``
+### `on( name, handler )`
+
+Add an event listener to all elements in the result set.
+
+* Parameters:
+  1. name Event name. This can optionally include period separated namespaces. Multiple events can be added by space separation of the names.
+  1. handler Callback when the event happens.
+@return Self for chaining
 
 
+### `on( name, selector, handler )`
+
+Add a delegated event listener to all elements in the result set.
+
+* Parameters:
+  1. name Event name. This can optionally include period separated namespaces. Multiple events can be added by space separation of the names.
+  1. selector CSS style selector to use to match elements from the parent.
+  1. handler Callback when the event happens.
+@return Self for chaining
 
 
-### ``
+### `one( name, handler )`
+
+Add a one-time event listener to all elements in the result set.
+
+* Parameters:
+  1. name Event name. This can optionally include period separated namespaces. Multiple events can be added by space separation of the names.
+  1. handler Callback when the event happens.
+@return Self for chaining
 
 
+### `one( name, selector, handler )`
+
+Add a one-time event listener to all elements in the result set.
+
+* Parameters:
+  1. name Event name. This can optionally include period separated namespaces. Multiple events can be added by space separation of the names.
+  1. selector CSS style selector to use to match elements from the parent.
+  1. handler Callback when the event happens.
+@return Self for chaining
 
 
-### ``
+### `parent( [filter] )`
+
+Get the parent element for each element in the result set
+
+* Parameters:
+  1. filter Optional selector that the parent element would need to match to be selected.
+* Returns: New Dom instance containing the parent elements
 
 
+### `position()`
+
+Get the position of the first element in the result set. The position is the coordinates relative to the offset parent.
+
+* Returns: Object with top and left position coordinates
 
 
-### ``
+### `prepend( content )`
+
+Prepend the given content to each item in the result set.
+
+You should limit your result set to a single item!
+
+* Parameters:
+  1. content Item(s) to prepend
+* Returns: Self for chaining
 
 
+### `prependTo( selector )`
+
+Append the current data set items to the element from the selector
+
+* Parameters:
+  1. selector Select item to insert result sets into
+* Returns: Self for chaining
 
 
-### ``
+### `prop( name )`
+
+Get an property value from the first item in the result set. Can be undefined. Note this is not the same as an attribute, although they could be!
+
+* Parameters:
+  1. name Property name
+* Returns: Read value
 
 
+### `prop( name, value )`
+
+Set an property value for all items in the result set.
+
+* Parameters:
+  1. name Property name
+  1. value Value to give the property
+* Returns: Self for chaining
 
 
-### ``
+### `propRemove( name )`
+
+Remove a property from all elements in the result set
+
+* Parameters:
+  1. name Property name to remove
+* Returns: Self for chaining
 
 
+### `remove()`
+
+Removed all nodes in the result set from the document
+
+* Returns: Self for chaining
 
 
-### ``
+### `replaceWith( replacer )`
+
+Replace the elements in the result set with those given.
+
+* Parameters:
+  1. replacer Element(s) to insert in place of the originals
+* Returns: Self
 
 
+### `scrollLeft()`
+
+Get the scrollLeft property of the first element in the result set
+
+* Returns: Current scroll left value
 
 
-### ``
+### `scrollLeft( val )`
+
+Set the scrollLeft property for all elements in the result set
+
+* Parameters:
+  1. val Value to set
+* Returns: Self for chaining
 
 
+### `scrollTop()`
+
+Get the scrollTop property of the first element in the result set
+
+* Returns: Current scroll top value
 
 
-### ``
+### `scrollTop( val )`
+
+Set the scrollTop property for all elements in the result set
+
+* Parameters:
+  1. val Value to set
+* Returns: Self for chaining
 
 
+### `siblings()`
+
+Get the siblings of all elements in the result set
+
+* Returns: New Dom instance containing the sibling elements
+
+
+### `show()`
+
+Set the elements in the result set to display as blocks
+
+* Returns: Self for chaining
+
+
+### `text()`
+
+Get the text content for the first item in the result set
+
+* Returns: Text content of the element
+
+
+### `text( txt )`
+
+Set the text content for the items in the result set
+
+* Parameters:
+  1. txt Text value to set
+* Returns: Self for chaining
+
+
+### `transition( css, duration, ease, cb )`
+
+Perform a CSS transition - i.e. an animation. Note this isn't nearly as comprehensive as an animation library, nor is it meant to be. It is for simple transitions such as fading in only.
+
+To set up something like a fade in, do `dom.css({opacity: 0}).transition({opacity: 1})`.
+
+* Parameters:
+  1. css CSS properties to transition
+  1. duration Transition duration
+  1. ease CSS easing function name
+  1. cb Callback function
+* Returns: Self for chaining
+
+
+### `trigger( name, [ bubbles, [ args, [ props, [ returnEvent ]]]])`
+
+Trigger an event on all of the elements in the result set. A different event object is created per element.
+
+* Parameters:
+  1. name Event name. This can optionally include period separated namespaces. Multiple events can be added by space separation of the names.
+  1. bubbles If the event should bubble up the DOM. Default, true.
+  1. args Arguments to pass to the event handlers (after the event object, which is always the first parameter).
+  1. props An object of key/value pairs which should be added to the event object that is created and fired for the events.
+  1. returnEvent If not set or `false` the return array contains booleans.
+* Returns: An array of do default results from the event `true` indicates
+ that the default action should happen, `false` means default was
+ prevented.
+
+
+### `val()`
+
+Get the value from the first item in the result set
+
+* Returns: Current value
+
+
+### `val( value )`
+
+Set the value for all elements in the result set
+
+* Parameters:
+  1. value Value to set
+* Returns: Self for chaining
+
+
+### `width()`
+
+Get the content width for the first element in the result set (i.e. no padding, border or margin), regardless of the box model type.
+
+* Returns: Element's width
+
+
+### `width( include )`
+
+Get the width of the first element in the result set, with specific parts included in the result.
+
+* Parameters:
+  1. include Parts of the box model to include
+* Returns: Element's width
+
+
+### `width( set )`
+
+Set the width for all elements in the result set,
+
+* Parameters:
+  1. set Value to set as the width. As a number it will be treated as a pixel value, while as a string, it must have a CSS unit already on it.
+* Returns: Self
 
 
 	]]>
