@@ -6,7 +6,6 @@
 
 <title>Ajax sourced data</title>
 <js><![CDATA[
-<![CDATA[
 new DataTable('#example', {
 	ajax: '../ajax/data/arrays.txt'
 });

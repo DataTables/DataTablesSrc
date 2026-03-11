@@ -137,7 +137,7 @@ DataTable.Api.register('clearPipeline()', function () {
 //
 // DataTables initialisation
 //
-$('#example').DataTable({
+new DataTable('#example', {
 	ajax: DataTable.pipeline({
 		url: 'scripts/server_processing.php',
 		pages: 5 // number of pages to cache
