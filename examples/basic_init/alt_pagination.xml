@@ -6,7 +6,6 @@
 
 <title>Alternative pagination</title>
 <js><![CDATA[
-<![CDATA[
 new DataTable('#example', {
 	layout: {
 		bottomEnd: {

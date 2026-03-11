@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="15">
+
+<css lib="datatables">
+#demo-chart {
+	max-height: 300px;
+	margin-bottom: 2em;
+}
+</css>
+<js lib="datatables" />
+
+<title>Charts Integration</title>
+
+<js lib="//cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.js"/>
+<js><![CDATA[
+// Create DataTable
+const table = new DataTable('#example');
+
+// Create chart
+let chartData = getChartData(table);
+const chart = new Chart('demo-chart', {
+	type: 'doughnut',
+	title: {
+		text: 'Staff Count Per Office'
+	},
+	data: {
+		labels: Object.keys(chartData),
+		datasets: [
+			{
+				data: Object.values(chartData)
+			}
+		]
+	},
+	options: {
+		plugins: {
+			legend: {
+				position: 'right'
+			}
+		}
+	}
+});
+
+// On each draw, update the data in the chart
+table.on('draw', function () {
+	chartData = getChartData(table);
+
+	chart.data.labels = Object.keys(chartData);
+	chart.data.datasets[0].data = Object.values(chartData);
+	chart.update();
+});
+
+function getChartData(table) {
+	var counts = {};
+
+	// Count the number of entries for each position
+	table
+		.column(2, {search: 'applied'})
+		.data()
+		.each(function (val) {
+			if (counts[val]) {
+				counts[val] += 1;
+			}
+			else {
+				counts[val] = 1;
+			}
+		});
+
+	return counts;
+}
+]]></js>
+
+<info><![CDATA[
+
+This example shows how the excellent open source [Chart.js](https://www.chartjs.org) library can be integrated into your project along-side DataTables. In this case a [simple doughnut chart](https://www.chartjs.org/docs/latest/charts/doughnut.html) is used to show the proportion of people in a specific office for the data in the table.
+
+Furthermore, as you modify the table by filtering it, the chart is updated automatically to reflect the state of the table.
+
+The data is obtained from the table using DataTables' `-api column().data()` method, combined with a search applied search modifier (`-type DataTable.SelectorModifier`) to ensure that only data from the currently filtered data is read.
+
+]]></info>
+
+<demo-html>
+	<canvas id="demo-chart"></canvas>
+</demo-html>
+
+</dt-example>
