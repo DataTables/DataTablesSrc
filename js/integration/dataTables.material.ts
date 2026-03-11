@@ -20,7 +20,7 @@ DataTable.util.object.assignDeep(DataTable.defaults, {
 /* Default class modification */
 DataTable.util.object.assignDeep(DataTable.ext.classes, {
 	container: 'dt-container dt-material',
-	table: 'mdc-data-table__table',
+	table: 'dataTable mdc-data-table__table',
 	thead: {
 		cell: 'mdc-data-table__header-cell',
 		row: 'mdc-data-table__header-row'

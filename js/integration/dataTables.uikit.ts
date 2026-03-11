@@ -14,7 +14,7 @@ DataTable.util.object.assignDeep(DataTable.defaults, {
 
 /* Default class modification */
 DataTable.util.object.assignDeep(DataTable.ext.classes, {
-	table: 'dt-container uk-form dt-uikit',
+	table: 'dataTable uk-form dt-uikit',
 	search: {
 		input: 'uk-form-small uk-input'
 	},
