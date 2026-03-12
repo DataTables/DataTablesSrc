@@ -11,7 +11,7 @@ var __reload = function ( settings, holdPosition, callback ) {
 	}
 
 	if ( _fnDataSource( settings ) == 'ssp' ) {
-		_fnReDraw( settings, holdPosition );
+		_fnReDraw( settings, holdPosition, undefined, true );
 	}
 	else {
 		_fnProcessingDisplay( settings, true );
@@ -31,7 +31,7 @@ var __reload = function ( settings, holdPosition, callback ) {
 				_fnAddData( settings, data[i] );
 			}
 
-			_fnReDraw( settings, holdPosition );
+			_fnReDraw( settings, holdPosition, undefined, true );
 			_fnInitComplete( settings );
 			_fnProcessingDisplay( settings, false );
 		} );

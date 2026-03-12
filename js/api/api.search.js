@@ -20,7 +20,7 @@ _api_register( 'search()', function ( input, regex, smart, caseInsen ) {
 			// New style options to pass to the search builder
 			_fnFilterComplete( settings, $.extend( settings.oPreviousSearch, regex, {
 				search: input
-			} ) );
+			} ), true );
 		}
 		else {
 			// Compat for the old options
@@ -29,7 +29,7 @@ _api_register( 'search()', function ( input, regex, smart, caseInsen ) {
 				regex:  regex === null ? false : regex,
 				smart:  smart === null ? true  : smart,
 				caseInsensitive: caseInsen === null ? true : caseInsen
-			} ) );
+			} ), true );
 		}
 	} );
 } );
@@ -92,7 +92,7 @@ _api_registerPlural(
 				} );
 			}
 
-			_fnFilterComplete( settings, settings.oPreviousSearch );
+			_fnFilterComplete( settings, settings.oPreviousSearch, true );
 		} );
 	}
 );

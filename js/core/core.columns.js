@@ -30,7 +30,7 @@ function _fnAddColumn( oSettings )
  * Apply options for a column
  *  @param {object} oSettings dataTables settings object
  *  @param {int} iCol column index to consider
- *  @param {object} oOptions object with sType, bVisible and bSearchable etc
+ *  @param {object} oOptions object with sType, bVisible and bsSearchable etc
  *  @memberof DataTable#oApi
  */
 function _fnColumnOptions( oSettings, iCol, oOptions )
@@ -236,7 +236,7 @@ function _fnVisibleColumns( settings )
  * Get an array of column indexes that match a given property
  *  @param {object} oSettings dataTables settings object
  *  @param {string} sParam Parameter in aoColumns to look for - typically
- *    bVisible or bSearchable
+ *  bVisible or bsSearchable
  *  @returns {array} Array of indexes with matched properties
  *  @memberof DataTable#oApi
  */

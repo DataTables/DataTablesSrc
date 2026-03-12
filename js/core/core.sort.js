@@ -66,7 +66,7 @@ function _fnSortAttachListener(settings, node, selector, column, callback) {
 					_fnSort( settings );
 					_fnSortDisplay( settings, settings.aiDisplay );
 
-					_fnReDraw( settings, false, false );
+					_fnReDraw( settings, false, false, true );
 
 					if (callback) {
 						callback();

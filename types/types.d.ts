@@ -744,9 +744,9 @@ export interface ConfigColumns {
     render?: number | string | ObjectColumnData | FunctionColumnRender | ObjectColumnRender;
 
     /**
-     * Enable or disable filtering on the data in this column.
+     * Enable, disable or set API-only filtering on the data in this column.
      */
-    searchable?: boolean;
+    searchable?: boolean | string;
 
     /**
      * Set the column title.
@@ -3086,7 +3086,7 @@ export interface AjaxDataOrder {
 export interface AjaxDataColumn {
     data: string | number;
     name: string;
-    searchable: boolean;
+    searchable: boolean | string;
     orderable: boolean;
     search: AjaxDataSearch;
 }

@@ -32,9 +32,10 @@ DataTable.defaults.column = {
 
 
 	/**
-	 * Enable or disable filtering on the data in this column.
+	 * Enable or disable filtering on the data in this column. A value of
+	 * "api" enables this column to be searched via the API only.
 	 */
-	"bSearchable": true,
+	"bsSearchable": true,
 
 
 	/**

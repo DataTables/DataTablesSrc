@@ -41,9 +41,22 @@ DataTable.models.oRow = {
 
 	/**
 	 * Per cell filtering data cache. As per the sort data cache, used to
-	 * increase the performance of the filtering in DataTables
+	 * increase the performance of the filtering in DataTables. The data
+	 * added to this filter can be searched by the search feature as well
+	 * as the API
 	 */
 	"_aFilterData": null,
+
+	/**
+	 * Per cell filtering data cache. As per the sort data cache, used to
+	 * increase the performance of the filtering in DataTables. Unlike
+	 * _aFilterData, the data in this filter is only visible to the
+	 * search feature
+	 *  @type array
+	 *  @default null
+	 *  @private
+	 */
+	"_aFilterDataWithoutApi": null,
 
 	/**
 	 * Filtering data cache. This is the same as the cell filtering cache, but
@@ -52,6 +65,16 @@ DataTable.models.oRow = {
 	 * needed on every search (memory traded for performance)
 	 */
 	"_sFilterRow": null,
+
+	/**
+	 * Filtering data cache. This is the same as the cell filtering cache, but
+	 * in this case a string rather than an array. This is easily computed with
+	 * a join on `_aFilterDataWithoutApi`, but is provided as a cache so the
+	 * join isn't needed on every search (memory traded for performance). This
+	 * contains filter data from columns that can only be searched by the search
+	 * feature
+	 */
+	"_sFilterRowWithoutApi": null,
 
 	/**
 	 * Denote if the original data source was from the DOM, or the data source

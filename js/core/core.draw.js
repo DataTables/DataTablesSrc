@@ -488,9 +488,10 @@ function _fnDraw( oSettings, ajaxComplete )
  *  @param {object} oSettings dataTables settings object
  *  @param {boolean} [holdPosition] Keep the current paging position. By default
  *    the paging is reset to the first page
+ *  @param {bool} fromApi Whether this function was invoked by the API
  *  @memberof DataTable#oApi
  */
-function _fnReDraw( settings, holdPosition, recompute )
+function _fnReDraw( settings, holdPosition, recompute, fromApi )
 {
 	var
 		features = settings.oFeatures,
@@ -506,7 +507,7 @@ function _fnReDraw( settings, holdPosition, recompute )
 		}
 
 		if ( filter ) {
-			_fnFilterComplete( settings, settings.oPreviousSearch );
+			_fnFilterComplete( settings, settings.oPreviousSearch, fromApi );
 		}
 		else {
 			// No filtering, so we want to just use the display master

@@ -165,7 +165,7 @@ function _fnAjaxParameters(settings) {
 			return {
 				data: colData(i, 'mData'),
 				name: column.sName,
-				searchable: column.bSearchable,
+				searchable: column.bsSearchable,
 				orderable: column.bSortable,
 				search: {
 					value: preColSearch[i].search,

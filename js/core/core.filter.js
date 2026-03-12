@@ -4,9 +4,10 @@
  * Filter the table using both the global filter and column based filtering
  *  @param {object} settings dataTables settings object
  *  @param {object} input search information
+ *  @param {bool} fromApi Whether this function was invoked by the API
  *  @memberof DataTable#oApi
  */
-function _fnFilterComplete ( settings, input )
+function _fnFilterComplete ( settings, input, fromApi )
 {
 	var columnsSearch = settings.aoPreSearchCols;
 
@@ -20,10 +21,10 @@ function _fnFilterComplete ( settings, input )
 		settings.aiDisplay = settings.aiDisplayMaster.slice();
 
 		// Global filter first
-		_fnFilter( settings.aiDisplay, settings, input.search, input );
+		_fnFilter( settings.aiDisplay, settings, input.search, input, undefined, fromApi );
 
 		$.each(settings.searchFixed, function (name, term) {
-			_fnFilter(settings.aiDisplay, settings, term, {});
+			_fnFilter(settings.aiDisplay, settings, term, {}, undefined, fromApi );
 		});
 
 		// Then individual column filters
@@ -36,11 +37,12 @@ function _fnFilterComplete ( settings, input )
 				settings,
 				col.search,
 				col,
-				i
+				i,
+				fromApi
 			);
 
 			$.each(settings.aoColumns[i].searchFixed, function (name, term) {
-				_fnFilter(settings.aiDisplay, settings, term, {}, i);
+				_fnFilter(settings.aiDisplay, settings, term, {}, i, fromApi);
 			});
 		}
 
@@ -93,7 +95,7 @@ function _fnFilterCustom( settings )
 /**
  * Filter the data table based on user input and draw the table
  */
-function _fnFilter( searchRows, settings, input, options, column )
+function _fnFilter( searchRows, settings, input, options, column, fromApi )
 {
 	if ( input === '' ) {
 		return;
@@ -115,8 +117,10 @@ function _fnFilter( searchRows, settings, input, options, column )
 	for (i=0 ; i<searchRows.length ; i++) {
 		var row = settings.aoData[ searchRows[i] ];
 		var data = column === undefined
-			? row._sFilterRow
-			: row._aFilterData[ column ];
+			? fromApi ? row._sFilterRow
+				: row._sFilterRowWithoutApi
+			: fromApi ? row._aFilterData[ column ]
+				: row._aFilterDataWithoutApi[ column ];
 
 		if ( (searchFunc && searchFunc(data, row._aData, searchRows[i], column)) || (rpSearch && rpSearch.test(data)) ) {
 			matched.push(searchRows[i]);
@@ -247,7 +251,7 @@ function _fnFilterData ( settings )
 	var columns = settings.aoColumns;
 	var data = settings.aoData;
 	var column;
-	var j, jen, filterData, cellData, row;
+	var j, jen, filterData, filterDataWithoutApi, cellData, row;
 	var wasInvalidated = false;
 
 	for ( var rowIdx=0 ; rowIdx<data.length ; rowIdx++ ) {
@@ -257,13 +261,14 @@ function _fnFilterData ( settings )
 
 		row = data[rowIdx];
 
-		if ( ! row._aFilterData ) {
+		if ( ! row._aFilterData || ! row._aFilterDataWithoutApi) {
 			filterData = [];
+			filterDataWithoutApi = [];
 
 			for ( j=0, jen=columns.length ; j<jen ; j++ ) {
 				column = columns[j];
 
-				if ( column.bSearchable ) {
+				if ( column.bsSearchable === true || column.bsSearchable === "api" ) {
 					cellData = _fnGetCellData( settings, rowIdx, j, 'filter' );
 
 					// Search in DataTables is string based
@@ -295,10 +300,22 @@ function _fnFilterData ( settings )
 				}
 
 				filterData.push( cellData );
+
+				// If this column is searchable by the API only, push
+				// a blank string to preserve array indexing.
+				if ( column.bsSearchable === 'api' ) {
+					filterDataWithoutApi.push( '' );
+				} else {
+					filterDataWithoutApi.push( cellData );
+				}
 			}
 
 			row._aFilterData = filterData;
 			row._sFilterRow = filterData.join('  ');
+
+			row._aFilterDataWithoutApi = filterDataWithoutApi;
+			row._sFilterRowWithoutApi = filterDataWithoutApi.join('  ');
+
 			wasInvalidated = true;
 		}
 	}

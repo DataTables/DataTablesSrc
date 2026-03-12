@@ -65,7 +65,7 @@ DataTable.feature.register( 'search', function ( settings, opts ) {
 			_fnProcessingRun(settings, opts.processing, function () {
 				previousSearch.search = val;
 		
-				_fnFilterComplete( settings, previousSearch );
+				_fnFilterComplete( settings, previousSearch, false );
 		
 				// Need to redraw, without resorting
 				settings._iDisplayStart = 0;

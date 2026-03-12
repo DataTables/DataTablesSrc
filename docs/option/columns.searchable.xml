@@ -4,11 +4,11 @@
 	<summary>Enable or disable search on the data in this column</summary>
 	<since>1.10</since>
 
-	<type type="boolean" />
+	<type type="boolean|string" />
 	<default value="true" />
 
 	<description>
-		Using this parameter, you can define if DataTables should include this column in the filterable data in the table. You may want to use this option to disable search on generated columns such as 'Edit' and 'Delete' buttons for example.
+		Using this parameter, you can define if DataTables should include this column in the filterable data in the table. You may want to use this option to disable search on generated columns such as 'Edit' and 'Delete' buttons for example. A value of 'api' will configure the column to be searchable by the API only. This is useful in situations where a button is used to apply a filter on a certain column, however searching this column using the search input is not desired.
 	</description>
 
 	<example title="Disable search on the first column with `dt-init columnDefs`"><![CDATA[
@@ -17,11 +17,23 @@ new DataTable('#myTable', {
 });
 ]]></example>
 
+	<example title="Enable filtering on the first column for the API only with `dt-init columnDefs`"><![CDATA[
+new DataTable('#myTable', {
+	columnDefs: [{ searchable: 'api', target: 0 }]
+});
+]]></example>
+
 	<example title="Disable search on the first column with `dt-init columns`"><![CDATA[
 new DataTable('#myTable', {
 	columns: [{ searchable: false }, null, null, null, null]
 });
 ]]></example>
+
+<example title="Enable search on the first column with the API only, with `dt-init columns`"><![CDATA[
+	new DataTable('#myTable', {
+		columns: [{ searchable: 'api' }, null, null, null, null]
+	});
+	]]></example>
 
 	<related type="option">search</related>
 	<related type="api">search()</related>

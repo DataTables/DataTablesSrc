@@ -15,7 +15,7 @@ _api_register( 'draw()', function ( paging ) {
 					true;
 			}
 
-			_fnReDraw( settings, paging===false );
+			_fnReDraw( settings, paging===false, undefined, true );
 		}
 	} );
 } );

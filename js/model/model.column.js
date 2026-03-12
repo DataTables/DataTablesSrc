@@ -37,10 +37,11 @@ DataTable.models.oColumn = {
 	"asSorting": null,
 
 	/**
-	 * Flag to indicate if the column is searchable, and thus should be included
-	 * in the filtering or not.
+	 * Indicates if the column is searchable, and thus should be included
+	 * in the filtering or not. Possible values are true, false or 'api'.
+	 * If the value is 'api', this column can only be searched by the API.
 	 */
-	"bSearchable": null,
+	"bsSearchable": null,
 
 	/**
 	 * Flag to indicate if the column is sortable or not.

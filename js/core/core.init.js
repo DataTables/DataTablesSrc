@@ -61,7 +61,7 @@ function _fnInitialise ( settings )
 		// will do the drawing for us. Otherwise we draw the table regardless of the
 		// Ajax source - this allows the table to look initialised for Ajax sourcing
 		// data (show 'loading' message possibly)
-		_fnReDraw( settings );
+		_fnReDraw( settings, undefined, undefined, true );
 
 		// Server-side processing init complete is done by _fnAjaxUpdateDraw
 		if ( dataSrc != 'ssp' || deferLoading ) {
@@ -80,7 +80,7 @@ function _fnInitialise ( settings )
 					// it appear 'fresh'
 					settings.iInitDisplayStart = iAjaxStart;
 
-					_fnReDraw( settings );
+					_fnReDraw( settings, undefined, undefined, true );
 					_fnProcessingDisplay( settings, false );
 					_fnInitComplete( settings );
 				}, settings );
