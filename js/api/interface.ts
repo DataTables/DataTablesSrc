@@ -10,7 +10,7 @@ import {
 import { DataTypeDetect, register as registerType } from '../ext/types';
 import registerFeature from '../features';
 import model from '../model';
-import { ConfigColumnDefs } from '../model/columns/defaults';
+import ColumnContext from '../model/columns/settings';
 import { Defaults, Options } from '../model/defaults';
 import {
 	CellMetaSettings,
@@ -1677,7 +1677,7 @@ export interface ApiColumnMethods<T=any>
 	 *
 	 * @returns Column configuration object
 	 */
-	init(this: ApiColumnMethods<T>): ConfigColumnDefs;
+	init(this: ApiColumnMethods<T>): ColumnContext;
 
 	/**
 	 * Get the name for the selected column (set by `columns.name`).
@@ -1961,7 +1961,7 @@ export interface ApiColumnsMethods<T=any>
 	 *
 	 * @returns Api instance of column configuration objects
 	 */
-	init(this: ApiColumnsMethods<T>): Api<any>; // TODO ConfigColumns
+	init(this: ApiColumnsMethods<T>): Api<ColumnContext>;
 
 	/**
 	 * Get the names for the selected columns (set by `columns.name`).
