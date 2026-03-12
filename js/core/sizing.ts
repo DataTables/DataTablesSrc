@@ -331,11 +331,12 @@ function getWideStrings(settings: Context, colIdx: number) {
 				.replace(/id=".*?"/g, '')
 				.replace(/name=".*?"/g, '');
 
-			// Don't want script or dialog tags in the width calculations as
-			// they are hidden content
+			// Don't want script, dialog or template tags in the width
+			// calculations as they are hidden content
 			cellString = cellString
 				.replace(/<script.*?<\/script>/gi, ' ')
-				.replace(/<dialog.*?<\/dialog>/gi, ' ');
+				.replace(/<dialog.*?<\/dialog>/gi, ' ')
+				.replace(/<template.*?<\/template>/gi, ' ');
 
 			var noHtml = util.string
 				.stripHtml(cellString, ' ')
