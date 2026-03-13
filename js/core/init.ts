@@ -119,6 +119,12 @@ export function initComplete(settings: Context) {
 
 	settings.initDone = true;
 
+	// If the footer element is empty after initialisation, then remove it
+	let tfoot = Dom.s(settings.tfoot);
+	if (tfoot.children().count() === 0) {
+		tfoot.remove();
+	}
+
 	// Table is fully set up and we have data, so calculate the
 	// column widths
 	adjustColumnSizing(settings);

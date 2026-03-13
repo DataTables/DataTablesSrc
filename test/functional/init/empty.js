@@ -16,9 +16,9 @@ describe('Empty DataTable', function() {
 	it('Node order is correct', function() {
 		let nodes = $('#test').children();
 
+		expect(nodes.length).toBe(3);
 		expect(nodes[0].nodeName.toLowerCase()).toBe('colgroup');
 		expect(nodes[1].nodeName.toLowerCase()).toBe('thead');
 		expect(nodes[2].nodeName.toLowerCase()).toBe('tbody');
-		expect(nodes[3].nodeName.toLowerCase()).toBe('tfoot');
 	});
 });
