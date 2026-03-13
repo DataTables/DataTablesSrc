@@ -107,6 +107,12 @@ function _fnInitComplete ( settings )
 
 	var args = [settings, settings.json];
 
+	// If the footer element is empty after initialisation, then remove it
+	let tfoot = $(settings.tfoot);
+	if (tfoot.children().length === 0) {
+		tfoot.remove();
+	}
+
 	settings._bInitComplete = true;
 
 	// Table is fully set up and we have data, so calculate the
