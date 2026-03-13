@@ -665,7 +665,7 @@ html.dark .syntaxhighlighter table caption {
   color: black !important;
 }
 html.dark .syntaxhighlighter .gutter div {
-  color: #c4c4c4 !important;
+  color: #d5d5d5 !important;
 }
 html.dark .syntaxhighlighter .gutter .line {
   border-right: 3px solid #1a1a1a !important;
