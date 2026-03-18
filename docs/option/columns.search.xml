@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.search</name>
+	<summary>Per column initial search configuration</summary>
+	<since>3.0</since>
+
+	<type type="DataTable.SearchOptions" />
+	<default value="undefined" />
+
+	<description>
+		This option can be used to set a search term for a column during initialisation. The search term can then be retrieved or updated via the `-api column().search()` API.
+
+		Please note that the value given for this option is an object, as defined by `-type DataTable.SearchOptions` to provide the full range of search options. As such the actual value to search on is given by the `search` property in the object.
+	</description>
+
+	<example title="Apply a search on the first column during initialisation"><![CDATA[
+new DataTable('#myTable', {
+	columnDefs: [{
+		search: {
+			search: 'My filter'
+		},
+		targets: 0
+	}]
+});
+]]></example>
+
+	<example title="Applying a regex search on a column during initialisation"><![CDATA[
+new DataTable('#myTable', {
+	columnDefs: [{
+		{
+			search: '^[0-9]+$',
+			regex: true
+		},
+		targets: 4
+	}]
+});
+]]></example>
+
+	<related>-init search</related>
+	<related>-api search()</related>
+	<related>-api column().search()</related>
+	<related>-api columns().search()</related>
+</dt-option>

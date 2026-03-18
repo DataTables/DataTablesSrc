@@ -1,5 +1,5 @@
 import { filterComplete } from '../core/search';
-import { SearchInput, SearchOptions } from '../model/search';
+import createSearch, { SearchInput, SearchOptions } from '../model/search';
 import * as object from '../util/object';
 import { register, registerPlural } from './Api';
 import { Api } from './interface';
@@ -15,40 +15,46 @@ type ApiSearchOverload = (
 register<ApiSearchOverload>(
 	'search()',
 	function (input?, regex?, smart?, caseInsen?) {
-		var ctx = this.context;
-
 		if (input === undefined) {
-			// get
-			return ctx.length !== 0 ? ctx[0].previousSearch.search : undefined;
-		}
+			let ctx = this.context;
 
-		// set
-		return this.iterator('table', function (settings) {
-			if (!settings.features.searching) {
+			// get
+			if (ctx.length === 0) {
 				return;
 			}
 
+			return ctx[0].searches['*']!.search;
+		}
+
+		// set
+		return this.iterator('table', function (ctx) {
+			if (!ctx.features.searching) {
+				return;
+			}
+
+			let target = ctx.searches['*'];
+
+			if (! target) {
+				target = createSearch();
+			}
+
 			if (typeof regex === 'object') {
-				// New style options to pass to the search builder
-				filterComplete(
-					settings,
-					object.assign(settings.previousSearch, regex, {
-						search: input
-					})
-				);
+				// New style object of options
+				object.assign(target, regex);
 			}
 			else {
 				// Compat for the old options
-				filterComplete(
-					settings,
-					object.assign(settings.previousSearch, {
-						search: input,
-						regex: regex === null ? false : regex,
-						smart: smart === null ? true : smart,
-						caseInsensitive: caseInsen === null ? true : caseInsen
-					})
-				);
+				object.assign(target, {
+					regex: regex === null ? false : regex,
+					smart: smart === null ? true : smart,
+					caseInsensitive: caseInsen === null ? true : caseInsen
+				})
 			}
+
+			target.search = input;
+			ctx.searches['*'] = target;
+
+			filterComplete(ctx);
 		});
 	}
 );
@@ -86,36 +92,36 @@ registerPlural<ApiSearchOverload>(
 	'columns().search()',
 	'column().search()',
 	function (input, regex, smart, caseInsen) {
-		return this.iterator('column', function (settings, column) {
-			var preSearch = settings.preSearchCols;
+		return this.iterator('columns', function (ctx, columns) {
+			let colIdxs = columns.join(',');
+			let target = ctx.searches[colIdxs];
 
 			if (input === undefined) {
-				// get
-				return preSearch[column].search;
+				return target?.search;
 			}
 
-			// set
-			if (!settings.features.searching) {
-				return;
+			if (! target) {
+				target = createSearch();
 			}
 
 			if (typeof regex === 'object') {
-				// New style options to pass to the search builder
-				object.assign(preSearch[column], regex, {
-					search: input
-				});
+				// New style object of options
+				object.assign(target, regex);
 			}
 			else {
-				// Old style (with not all options available)
-				object.assign(preSearch[column], {
-					search: input,
+				// Compat for the old options
+				object.assign(target, {
 					regex: regex === null ? false : regex,
 					smart: smart === null ? true : smart,
 					caseInsensitive: caseInsen === null ? true : caseInsen
-				});
+				})
 			}
 
-			filterComplete(settings, settings.previousSearch);
+			target.search = input;
+			target.columns = columns.slice();
+			ctx.searches[colIdxs] = target;
+
+			filterComplete(ctx);
 		});
 	}
 );

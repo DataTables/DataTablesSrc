@@ -5,6 +5,7 @@ import {
 	ObjectColumnData,
 	ObjectColumnRender
 } from '../interface';
+import { SearchOptions } from '../search';
 
 export interface ConfigColumnDefs extends Options {
 	/**
@@ -96,6 +97,8 @@ export interface Defaults {
 		| ObjectColumnRender
 		| null;
 
+	search: SearchOptions | null;
+
 	/**
 	 * Enable or disable filtering on the data in this column.
 	 */
@@ -140,6 +143,7 @@ const defaults: Defaults = {
 	orderDataType: 'std',
 	orderSequence: ['asc', 'desc', ''],
 	render: null,
+	search: null,
 	searchable: true,
 	title: null,
 	type: null,

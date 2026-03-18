@@ -302,7 +302,7 @@ export interface Defaults {
 	/**
 	 * Set an initial filter in DataTables and / or filtering options.
 	 */
-	search: Partial<SearchOptions> | boolean;
+	search: Partial<SearchOptions>;
 
 	/**
 	 * Define an initial search for individual columns.

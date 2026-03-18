@@ -2,7 +2,7 @@ import { callbackFire, map } from '../api/support';
 import Dom from '../dom';
 import helpers from '../ext/helpers';
 import ext from '../ext/index';
-import columnDefaults, { ConfigColumnDefs } from '../model/columns/defaults';
+import columnDefaults, { Options as ColumnOptions, ConfigColumnDefs } from '../model/columns/defaults';
 import ColumnModel from '../model/columns/settings';
 import createSearch from '../model/search';
 import { Context, HeaderStructure } from '../model/settings';
@@ -39,15 +39,15 @@ export function addColumn(settings: Context) {
 
 	settings.columns.push(column);
 
-	// Add search object for column specific search. Note that the `searchCols[
-	// iCol ]` passed into extend can be undefined. This allows the user to give
-	// a default with only some of the parameters defined, and also not give a
-	// default
-	let searchCols = settings.preSearchCols;
+	// Legacy support for `searchCols` property. If set, and there is a value
+	// for this column, then it should be applied to the search.
+	let searchCols = settings.searchCols;
 
-	searchCols[columnIdx] = createSearch(
-		hungarianToCamel(searchCols[columnIdx])
-	);
+	if (searchCols[columnIdx]) {
+		settings.searches[columnIdx] = createSearch(
+			hungarianToCamel(searchCols[columnIdx])
+		);
+	}
 }
 
 /**
@@ -60,7 +60,7 @@ export function addColumn(settings: Context) {
 export function columnOptions(
 	settings: Context,
 	colIdx: number,
-	options?: Partial<ColumnModel>
+	options?: Partial<ColumnOptions>
 ) {
 	var column = settings.columns[colIdx];
 
@@ -91,6 +91,15 @@ export function columnOptions(
 		}
 
 		map(column, options, 'orderData');
+
+		// Search term specifically for this column
+		if (options.search) {
+			if (! settings.searches[colIdx]) {
+				settings.searches[colIdx] = createSearch();
+			}
+
+			util.object.assign(settings.searches[colIdx], options.search);
+		}
 	}
 
 	/* Cache the data get and set functions for speed */
@@ -137,7 +146,7 @@ export function columnOptions(
 		settings.rowReadObject = true;
 	}
 
-	/* Feature sorting overrides column specific when off */
+	// Feature sorting overrides column specific when off
 	if (!settings.features.ordering) {
 		column.orderable = false;
 	}

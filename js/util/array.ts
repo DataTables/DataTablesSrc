@@ -181,6 +181,34 @@ export function removeEmpty(a: any[]) {
 }
 
 /**
+ * Join data from an array, but only for specific columns.
+ *
+ * Performance testing for this available here:
+ * https://jsperf.app/vejijo/2/preview.
+ *
+ * @param src Data source array to pick from
+ * @param use Indexes we want from the array
+ * @returns Joined string
+ */
+export function selectiveJoin(src: string[], use: number[] | number) {
+	if (typeof use === 'number') {
+		return '' + src[use];
+	}
+
+	if (use.length === 0) {
+		return '';
+	}
+
+	let result = '' + src[use[0]];
+
+	for (let i=1 ; i<use.length ; i++) {
+		result += '  ' + src[use[i]];
+	}
+
+	return result;
+}
+
+/**
  * Find the unique elements in a source array.
  *
  * @param src Source array

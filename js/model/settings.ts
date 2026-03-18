@@ -12,7 +12,7 @@ import {
 	OrderState
 } from './interface';
 import { Row } from './row';
-import createSearch, { SearchInput, SearchOptions } from './search';
+import { SearchInput, SearchOptions } from './search';
 import { State, StateLoad } from './state';
 
 type FunctionDrawCallback = (this: DataTableDom, settings: Context) => void;
@@ -410,12 +410,6 @@ export interface Context {
 	 */
 	pagingType: string;
 
-	/** Store the applied search for each column */
-	preSearchCols: SearchOptions[];
-
-	/** Store the applied global search information. */
-	previousSearch: SearchOptions;
-
 	/**
 	 * Server-side processing - records in the current display set (after
 	 * filtering).
@@ -449,6 +443,12 @@ export interface Context {
 
 	/** DIV container for the body scrolling table if scrolling */
 	scrollBody: Dom;
+
+	/** Store for default api searches */
+	searches: { [name: string]: SearchOptions };
+
+	/** Initialisation search options - legacy config support only */
+	searchCols: SearchOptions[];
 
 	/** Search delay (in mS) */
 	searchDelay: number;
@@ -636,8 +636,7 @@ const defaults: Partial<Context> = {
 	pageLength: 10,
 	pagingControls: 0,
 	pagingType: 'two_button',
-	preSearchCols: [],
-	previousSearch: createSearch(),
+	searchCols: [],
 	recordsDisplay: 0,
 	recordsTotal: 0,
 	renderer: null,
@@ -654,6 +653,7 @@ const defaults: Partial<Context> = {
 	},
 	scrollBarVis: false,
 	searchDelay: 0,
+	searches: {},
 	searchFixed: {},
 	serverMethod: null,
 	sortDetails: [],

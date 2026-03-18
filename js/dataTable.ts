@@ -31,6 +31,7 @@ import registerFeature from './features';
 import models from './model';
 import columnDefaults from './model/columns/defaults';
 import defaults, { Defaults, Options } from './model/defaults';
+import createSearch from './model/search';
 import createContext from './model/settings';
 import util from './util';
 
@@ -240,8 +241,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			'titleRow',
 			'typeDetect',
 			'pageLength',
-			['search', 'previousSearch'],
-			['searchCols', 'preSearchCols']
+			'searchCols'
 		]);
 		map(settings.scroll, config, [
 			['scrollX', 'x'],
@@ -249,6 +249,9 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			['scrollCollapse', 'collapse']
 		]);
 		map(settings.language, config, 'infoCallback');
+
+		// Setup global search
+		settings.searches['*'] = createSearch(config.search);
 
 		/* Callback functions which are array driven */
 		callbackReg(settings, 'draw', config.drawCallback);

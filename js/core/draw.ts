@@ -566,7 +566,7 @@ export function reDraw(
 		}
 
 		if (doFilter) {
-			filterComplete(settings, settings.previousSearch);
+			filterComplete(settings);
 		}
 		else {
 			// No filtering, so we want to just use the display master

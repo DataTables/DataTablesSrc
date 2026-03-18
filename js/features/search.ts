@@ -1,13 +1,17 @@
+import { ColumnSelector } from '../api/interface';
 import { macros } from '../api/support';
 import { draw } from '../core/draw';
 import { processingRun } from '../core/processing';
 import { filterComplete } from '../core/search';
 import Dom from '../dom';
-import { SearchInput } from '../model/search';
+import createSearch, { SearchInput } from '../model/search';
 import util from '../util';
 import register from './register';
 
 export interface IFeatureSearchOptions {
+	/** Columns the search should apply to */
+	columns: ColumnSelector;
+
 	/** Placeholder for the input element */
 	placeholder: string;
 
@@ -20,9 +24,6 @@ export interface IFeatureSearchOptions {
 
 let __searchCounter = 0;
 
-// opts
-// - text
-// - placeholder
 register<Partial<IFeatureSearchOptions>>(
 	'search',
 	function (settings, optsIn) {
@@ -34,11 +35,11 @@ register<Partial<IFeatureSearchOptions>>(
 		let classes = settings.classes.search;
 		let tableId = settings.tableId;
 		let language = settings.language;
-		let previousSearch = settings.previousSearch;
 		let input = '<input type="search" class="' + classes.input + '"/>';
 
-		let opts: IFeatureSearchOptions = Object.assign(
+		let opts: IFeatureSearchOptions = util.object.assignDeep(
 			{
+				columns: '*',
 				placeholder: language.searchPlaceholder,
 				processing: false,
 				text: language.search
@@ -52,6 +53,12 @@ register<Partial<IFeatureSearchOptions>>(
 		}
 
 		opts.text = macros(settings, opts.text);
+
+		let indexes = settings.api.columns(opts.columns).indexes().toArray();
+		let appliedSearch = createSearch();
+
+		appliedSearch.columns = indexes;
+		settings.searches[indexes.join(',')] = appliedSearch;
 
 		// We can put the <input> outside of the label if it is at the start or
 		// end which helps improve accessability (not all screen readers like
@@ -81,16 +88,16 @@ register<Partial<IFeatureSearchOptions>>(
 		let searchFn = function (this: HTMLElement, event: KeyboardEvent) {
 			let val = (this as HTMLInputElement).value;
 
-			if (previousSearch.return && event.key !== 'Enter') {
+			if (appliedSearch.return && event.key !== 'Enter') {
 				return;
 			}
 
 			/* Now do the filter */
-			if (val != previousSearch.search) {
+			if (val != appliedSearch.search) {
 				processingRun(settings, opts.processing, function () {
-					previousSearch.search = val;
+					appliedSearch.search = val;
 
-					filterComplete(settings, previousSearch);
+					filterComplete(settings);
 
 					// Need to redraw, without resorting
 					settings.displayStart = 0;
@@ -102,7 +109,7 @@ register<Partial<IFeatureSearchOptions>>(
 		let searchDelay = settings.searchDelay;
 		let filterEl = filter
 			.find('input')
-			.val(textValue(previousSearch.search))
+			.val(textValue(appliedSearch.search))
 			.attr('placeholder', opts.placeholder)
 			.on(
 				'keyup.DT search.DT input.DT paste.DT cut.DT',
@@ -128,7 +135,7 @@ register<Partial<IFeatureSearchOptions>>(
 		// Update the input elements whenever the table is filtered
 		Dom.s(settings.table).on('search.dt.DT', function (ev, s) {
 			if (settings === s && filterEl.get(0) !== document.activeElement) {
-				filterEl.val(textValue(previousSearch.search));
+				filterEl.val(textValue(appliedSearch.search));
 			}
 		});
 

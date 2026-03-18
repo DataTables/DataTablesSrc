@@ -15,8 +15,8 @@ const __filter_div_textContent = __filter_div.textContent !== undefined;
  * @param settings DataTables settings object
  * @param input search information
  */
-export function filterComplete(settings: Context, input: SearchOptions) {
-	let columnsSearch = settings.preSearchCols;
+export function filterComplete(settings: Context) {
+	// let columnsSearch = settings.preSearchCols;
 
 	// In server-side processing all filtering is done by the server, so no
 	// point hanging around here
@@ -28,25 +28,28 @@ export function filterComplete(settings: Context, input: SearchOptions) {
 		settings.display = settings.displayMaster.slice();
 
 		// Global filter first
-		filter(settings.display, settings, input.search, input);
+		util.object.each(settings.searches, (key, s) => {
+			filter(settings.display, settings, s.search, s);
+		});
 
 		util.object.each(settings.searchFixed, function (name, term) {
 			filter(settings.display, settings, term, {});
 		});
 
+		// TODO Need this loop, but for fixed only?
 		// Then individual column filters
-		for (let i = 0; i < columnsSearch.length; i++) {
-			let col = columnsSearch[i];
+		// for (let i = 0; i < columnsSearch.length; i++) {
+		// 	let col = columnsSearch[i];
 
-			filter(settings.display, settings, col.search, col, i);
+		// 	filter(settings.display, settings, col.search, col);
 
-			util.object.each(
-				settings.columns[i].searchFixed,
-				function (name, term) {
-					filter(settings.display, settings, term, {}, i);
-				}
-			);
-		}
+		// 	util.object.each(
+		// 		settings.columns[i].searchFixed,
+		// 		function (name, term) {
+		// 			filter(settings.display, settings, term, {});
+		// 		}
+		// 	);
+		// }
 
 		// And finally global filtering
 		filterCustom(settings);
@@ -108,8 +111,7 @@ function filter(
 	searchRows: number[],
 	settings: Context,
 	input: SearchInput,
-	options: Partial<SearchOptions>,
-	column?: number
+	options: Partial<SearchOptions>
 ) {
 	if (input === '') {
 		return;
@@ -133,14 +135,22 @@ function filter(
 		let row = settings.data[searchRows[i]];
 
 		if (row) {
-			let data =
-				column === undefined
-					? row.searchRowCache
-					: row.searchCellCache![column];
+			// Get the data array based on the columns to include in the search
+			let columns = options.columns
+				? options.columns
+				: util.array.range(settings.columns.length);
 
+			let data = util.array.selectiveJoin(row.searchCellCache!, columns);
+
+			// Run the search action
 			if (
 				(searchFunc &&
-					searchFunc(data, row.data, searchRows[i], column)) ||
+					searchFunc(
+						data,
+						row.data,
+						searchRows[i],
+						columns.length === 1 ? columns[0] : columns // compat
+					)) ||
 				(rpSearch && data && rpSearch.test(data))
 			) {
 				matched.push(searchRows[i]);

@@ -7,7 +7,7 @@ export type SearchInput<T = any> =
 			data: string | null,
 			rowData: T,
 			rowIdx: number,
-			columnIdx: number | undefined
+			columnIdx: number[] | number
 	  ) => boolean);
 
 export interface SearchOptions {
@@ -21,6 +21,11 @@ export interface SearchOptions {
 	 * Flag to whether or not the filtering should be case-insensitive
 	 */
 	caseInsensitive: boolean;
+
+	/**
+	 * List of columns that should be included in the search.
+	 */
+	columns: number[] | null;
 
 	/**
 	 * This option modifies the search to perform an exact match (string based)
@@ -55,6 +60,7 @@ export interface SearchOptions {
 export const defaults: SearchOptions = {
 	boundary: false,
 	caseInsensitive: true,
+	columns: null,
 	exact: false,
 	regex: false,
 	return: false,

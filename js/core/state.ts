@@ -1,5 +1,6 @@
 import Api from '../api/Api';
 import { callbackFire } from '../api/support';
+import createSearch from '../model/search';
 import { Context } from '../model/settings';
 import { State, StateLoad } from '../model/state';
 import { pluck } from '../util/array';
@@ -33,13 +34,13 @@ export function saveState(settings: Context) {
 				? [columns[sort[0]].name, sort[1]]
 				: sort.slice();
 		}),
-		search: Object.assign({}, settings.previousSearch),
+		search: Object.assign({}, settings.searches['*']),
 		columns: settings.columns.map(function (col, i) {
 			return {
 				name: col.name,
 				visible: col.visible,
-				search: Object.assign({}, settings.preSearchCols[i])
-			};
+				search: Object.assign({}, settings.searches[i])
+			} as any;
 		})
 	};
 
@@ -189,7 +190,7 @@ export function implementState(
 
 	// Search
 	if (s.search !== undefined) {
-		Object.assign(settings.previousSearch, s.search);
+		Object.assign(settings.searches['*'], s.search);
 	}
 
 	// Columns
@@ -253,7 +254,7 @@ export function implementState(
 
 				// Search
 				if (col.search !== undefined) {
-					Object.assign(settings.preSearchCols[i], col.search);
+					settings.searches[i] = createSearch(col.search);
 				}
 			}
 

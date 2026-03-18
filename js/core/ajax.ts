@@ -174,8 +174,7 @@ export function ajaxUpdate(settings: Context) {
 export function ajaxParameters(settings: Context): AjaxData {
 	var columns = settings.columns,
 		features = settings.features,
-		preSearch = settings.previousSearch,
-		preColSearch = settings.preSearchCols,
+		searches = settings.searches,
 		colData = function (idx: number, prop: 'name' | 'data') {
 			return typeof columns[idx][prop] === 'function'
 				? 'function'
@@ -191,8 +190,8 @@ export function ajaxParameters(settings: Context): AjaxData {
 				searchable: column.searchable,
 				orderable: column.orderable,
 				search: {
-					value: preColSearch[i].search.toString(),
-					regex: preColSearch[i].regex,
+					value: searches[i].search.toString(),
+					regex: searches[i].regex,
 					fixed: Object.keys(column.searchFixed).map(function (name) {
 						return {
 							name: name,
@@ -215,8 +214,8 @@ export function ajaxParameters(settings: Context): AjaxData {
 		start: settings.displayStart,
 		length: features.paging ? settings.pageLength : -1,
 		search: {
-			value: preSearch.search.toString(),
-			regex: preSearch.regex,
+			value: searches['*'].search.toString(),
+			regex: searches['*'].regex,
 			fixed: Object.keys(settings.searchFixed).map(function (name) {
 				return {
 					name: name,
