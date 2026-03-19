@@ -130,15 +130,16 @@ function filter(
 			? null
 			: filterCreateSearch(input as string, options);
 
+	let columns = options.columns
+		? options.columns
+		: util.array.range(settings.columns.length);
+
 	// Then for each row, does the test pass. If not, lop the row from the array
 	for (i = 0; i < searchRows.length; i++) {
 		let row = settings.data[searchRows[i]];
 
 		if (row) {
 			// Get the data array based on the columns to include in the search
-			let columns = options.columns
-				? options.columns
-				: util.array.range(settings.columns.length);
 
 			let data = util.array.selectiveJoin(row.searchCellCache!, columns);
 
