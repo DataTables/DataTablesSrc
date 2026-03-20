@@ -1,7 +1,7 @@
 import { filterComplete } from '../core/search';
 import createSearch, { SearchInput, SearchOptions } from '../model/search';
 import * as object from '../util/object';
-import { register, registerPlural } from './Api';
+import { register } from './Api';
 import { Api } from './interface';
 
 type ApiSearchOverload = (
@@ -34,7 +34,7 @@ register<ApiSearchOverload>(
 
 			let target = ctx.searches['*'];
 
-			if (! target) {
+			if (!target) {
 				target = createSearch();
 			}
 
@@ -48,7 +48,7 @@ register<ApiSearchOverload>(
 					regex: regex === null ? false : regex,
 					smart: smart === null ? true : smart,
 					caseInsensitive: caseInsen === null ? true : caseInsen
-				})
+				});
 			}
 
 			target.search = input;
@@ -88,10 +88,17 @@ register<ApiSearchFixedOverload>('search.fixed()', function (name, search) {
 	return name !== undefined && search === undefined ? ret[0] : ret;
 });
 
-registerPlural<ApiSearchOverload>(
-	'columns().search()',
-	'column().search()',
+register<ApiSearchOverload>(
+	['columns().search()', 'column().search()'],
 	function (input, regex, smart, caseInsen) {
+		if (input === undefined) {
+			let name = this[0].join(',');
+
+			return this.context.length
+				? this.context[0].searches[name]?.search || ''
+				: '';
+		}
+
 		return this.iterator('columns', function (ctx, columns) {
 			let colIdxs = columns.join(',');
 			let target = ctx.searches[colIdxs];
@@ -100,7 +107,7 @@ registerPlural<ApiSearchOverload>(
 				return target?.search;
 			}
 
-			if (! target) {
+			if (!target) {
 				target = createSearch();
 			}
 
@@ -114,7 +121,7 @@ registerPlural<ApiSearchOverload>(
 					regex: regex === null ? false : regex,
 					smart: smart === null ? true : smart,
 					caseInsensitive: caseInsen === null ? true : caseInsen
-				})
+				});
 			}
 
 			target.search = input;

@@ -7,7 +7,11 @@
 	<type type="function">
 		<signature>columns().search()</signature>
 		<description>Get the currently applied column search.</description>
-		<returns type="DataTable.Api">Api instance with the applied search terms for the selected columns in the result set.</returns>
+		<returns type="string">
+			Api instance with the applied search terms for the selected columns in the result set.
+
+			Please note that prior to DataTables 3, this method would return a DataTables Api instance containing the search term for each of the selected columns. As the search is now shared over the selected columns, just the search value is returned.
+		</returns>
 	</type>
 
 	<type type="function" since="2.0">

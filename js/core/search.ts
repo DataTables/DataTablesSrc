@@ -140,7 +140,6 @@ function filter(
 
 		if (row) {
 			// Get the data array based on the columns to include in the search
-
 			let data = util.array.selectiveJoin(row.searchCellCache!, columns);
 
 			// Run the search action

@@ -47,6 +47,7 @@ export function addColumn(settings: Context) {
 		settings.searches[columnIdx] = createSearch(
 			hungarianToCamel(searchCols[columnIdx])
 		);
+		settings.searches[columnIdx].columns = [columnIdx];
 	}
 }
 
@@ -95,7 +96,9 @@ export function columnOptions(
 		// Search term specifically for this column
 		if (options.search) {
 			if (! settings.searches[colIdx]) {
-				settings.searches[colIdx] = createSearch();
+				settings.searches[colIdx] = createSearch({
+					columns: [colIdx]
+				});
 			}
 
 			util.object.assign(settings.searches[colIdx], options.search);

@@ -55,10 +55,15 @@ register<Partial<IFeatureSearchOptions>>(
 		opts.text = macros(settings, opts.text);
 
 		let indexes = settings.api.columns(opts.columns).indexes().toArray();
-		let appliedSearch = createSearch();
+		let searchName = opts.columns === '*' ? '*' : indexes.join(',');
+		let appliedSearch = settings.searches[searchName];
+		
+		if (! appliedSearch) {
+			appliedSearch = createSearch();
+			settings.searches[searchName] = appliedSearch;
+		}
 
 		appliedSearch.columns = indexes;
-		settings.searches[indexes.join(',')] = appliedSearch;
 
 		// We can put the <input> outside of the label if it is at the start or
 		// end which helps improve accessability (not all screen readers like
@@ -75,8 +80,7 @@ register<Partial<IFeatureSearchOptions>>(
 			str = '<label>' + removed + '</label>_INPUT_';
 		}
 
-		let filter = Dom
-			.c('div')
+		let filter = Dom.c('div')
 			.classAdd(classes.container)
 			.html(str.replace(/_INPUT_/, input));
 
@@ -135,7 +139,9 @@ register<Partial<IFeatureSearchOptions>>(
 		// Update the input elements whenever the table is filtered
 		Dom.s(settings.table).on('search.dt.DT', function (ev, s) {
 			if (settings === s && filterEl.get(0) !== document.activeElement) {
-				filterEl.val(textValue(appliedSearch.search));
+				let host = settings.searches[searchName];
+
+				filterEl.val(textValue(host.search));
 			}
 		});
 
