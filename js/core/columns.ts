@@ -40,15 +40,17 @@ export function addColumn(settings: Context) {
 	settings.columns.push(column);
 
 	// Legacy support for `searchCols` property. If set, and there is a value
-	// for this column, then it should be applied to the search.
+	// for this column, then it should be applied to the search. The new, column
+	// specific `search` option is applied in `columnOptions`, but we always
+	// want the search object for the column to exist.
 	let searchCols = settings.searchCols;
 
-	if (searchCols[columnIdx]) {
-		settings.searches[columnIdx] = createSearch(
-			hungarianToCamel(searchCols[columnIdx])
-		);
-		settings.searches[columnIdx].columns = [columnIdx];
-	}
+	settings.searches[columnIdx] = createSearch(
+		searchCols[columnIdx]
+			? hungarianToCamel(searchCols[columnIdx])
+			: {}
+	);
+	settings.searches[columnIdx].columns = [columnIdx];
 }
 
 /**
@@ -95,12 +97,6 @@ export function columnOptions(
 
 		// Search term specifically for this column
 		if (options.search) {
-			if (! settings.searches[colIdx]) {
-				settings.searches[colIdx] = createSearch({
-					columns: [colIdx]
-				});
-			}
-
 			util.object.assign(settings.searches[colIdx], options.search);
 		}
 	}

@@ -1,6 +1,5 @@
 import Api from '../api/Api';
 import { callbackFire } from '../api/support';
-import createSearch from '../model/search';
 import { Context } from '../model/settings';
 import { State, StateLoad } from '../model/state';
 import { pluck } from '../util/array';
@@ -254,7 +253,11 @@ export function implementState(
 
 				// Search
 				if (col.search !== undefined) {
-					settings.searches[i] = createSearch(col.search);
+					Object.assign(settings.searches[i], col.search);
+
+					// If out of order due to a change in order from named
+					// columns we need to make sure the index is correct
+					settings.searches[i].columns = [i];
 				}
 			}
 

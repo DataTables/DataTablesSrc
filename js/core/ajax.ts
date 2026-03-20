@@ -190,8 +190,8 @@ export function ajaxParameters(settings: Context): AjaxData {
 				searchable: column.searchable,
 				orderable: column.orderable,
 				search: {
-					value: searches[i].search.toString(),
-					regex: searches[i].regex,
+					value: searches[i] ? searches[i].search.toString() : '',
+					regex: searches[i] ? searches[i].regex : false,
 					fixed: Object.keys(column.searchFixed).map(function (name) {
 						return {
 							name: name,
