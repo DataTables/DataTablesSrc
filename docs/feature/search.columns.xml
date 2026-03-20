@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="search">
+	<name>search.search</name>
+	<summary>Limit the search to a specific subset of columns</summary>
+	<since>3.0</since>
+
+	<type type="DataTable.ColumnSelector" />
+	<default value="*">
+		Select all columns.
+	</default>
+
+	<description>
+		It can sometimes be desirable to limit the search input for the table to a specific subset of columns. This option provides that ability.
+
+		Please note that there is some overlap with `-init columns.searchable` here - that option can be used to disable search completely for a column. This option, and the search APIs provides more nuance. For example, you might wish to have the main search input operate on a particular set of columns, but also allow a custom API search of a column not included in that set. That isn't possible with `-init columns.searchable`, but can be achieved here.
+
+		This option accepts all of the options available through `-type DataTable.ColumnSelector`. It is important to note that the selection of columns is performed when the `-feature search` feature is initialised. If DOM properties change at a later time (e.g. a class selector is used), the columns selected for this control will not be updated.
+
+		Furthermore, this feature uses shares the same methods as `-api columns().search()`. As such, while it is possible to have multiple instances of this feature, if you want them to search independently of each other, you must select a different set of columns for each control. If the control selects the same columns as another, they will be kept in-sync. Moreover, use of the `-api columns().search()` method will effect this control if the selected columns match.
+	</description>
+
+	<example title="Show the processing indicator when searching large data sets"><![CDATA[
+new DataTable('#myTable', {
+	layout: {
+		topEnd: {
+			search: {
+				columns: [0,1]
+			}
+		}
+	}
+});
+]]></example>
+
+	<related>-init search</related>
+	<related>-api search()</related>
+	<related>-api columns().search()</related>
+</dt-option>

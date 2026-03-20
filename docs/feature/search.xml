@@ -8,6 +8,8 @@
 		This feature displays a global search input next to a DataTable, letting the end user enter simple text search terms. The search behaviour can be customized with the `-init search` object.
 
 		The `-feature search` feature can be disabled completely using the `-init searching` option or by excluding it from the `-init layout` options (which is the preferred method as of DataTables 2).
+
+		Multiple instances of this feature can be used on a single table. The inputs will be kept in-sync when the columns used for search match (`-feature search.columns`) - i.e. a value from one will propagate to another - this can be useful if you wish to display a search input both at the top and the bottom of a table.
 	</description>
 
 	<example title="Disable search input with default layout"><![CDATA[
@@ -42,6 +44,7 @@ new DataTable('#myTable', {
 	<related>-init search</related>
 	<related>-init searching</related>
 	<related>-feature search</related>
+	<related>-feature search.columns</related>
 	<related>-feature search.text</related>
 	<related>-feature search.placeholder</related>
 	<related>-feature search.processing</related>
