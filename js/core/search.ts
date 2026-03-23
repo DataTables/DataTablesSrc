@@ -16,7 +16,7 @@ const __filter_div_textContent = __filter_div.textContent !== undefined;
  * @param input search information
  */
 export function filterComplete(settings: Context) {
-	// let columnsSearch = settings.preSearchCols;
+	let columns = settings.columns;
 
 	// In server-side processing all filtering is done by the server, so no
 	// point hanging around here
@@ -27,31 +27,19 @@ export function filterComplete(settings: Context) {
 		// Start from the full data set
 		settings.display = settings.displayMaster.slice();
 
-		// Global filter first
+		// Column set filters first
 		util.object.each(settings.searches, (key, s) => {
 			filter(settings.display, settings, s.search, s);
 		});
 
-		util.object.each(settings.searchFixed, function (name, term) {
-			filter(settings.display, settings, term, {});
+		// Fixed (named) filters next
+		util.object.each(settings.searchesFixed, function (columns) {
+			util.object.each(settings.searchesFixed[columns], function (name, s) {
+				filter(settings.display, settings, s.search, s);
+			});
 		});
 
-		// TODO Need this loop, but for fixed only?
-		// Then individual column filters
-		// for (let i = 0; i < columnsSearch.length; i++) {
-		// 	let col = columnsSearch[i];
-
-		// 	filter(settings.display, settings, col.search, col);
-
-		// 	util.object.each(
-		// 		settings.columns[i].searchFixed,
-		// 		function (name, term) {
-		// 			filter(settings.display, settings, term, {});
-		// 		}
-		// 	);
-		// }
-
-		// And finally global filtering
+		// And finally legacy global filtering
 		filterCustom(settings);
 	}
 

@@ -80,8 +80,8 @@ describe('core - search.fixed()', function() {
 			expect(table.column(1).search.fixed('test')).toBe('t2');
 		});
 
-		it('Returns null if getting a named search which does not exist', function() {
-			expect(table.column(0).search.fixed('notHere')).toBe(null);
+		it('Returns undefined if getting a named search which does not exist', function() {
+			expect(table.column(0).search.fixed('notHere')).toBe(undefined);
 		});
 	});
 

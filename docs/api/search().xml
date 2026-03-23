@@ -15,7 +15,7 @@
 		<description>
 			Set the global search to use on the table with configuration options. Call `-api draw()` to update the table's view once the search term has been setup.
 		</description>
-		<parameter type="input" name="string|RegExp|function">
+		<parameter type="string|RegExp|function" name="input">
 			Search to apply to the table.
 			
 			As of DataTables 2, this parameter can be given as a regular expression or a function.
@@ -29,11 +29,11 @@
 			3. The row's data index
 			
 			A boolean value should be returned: `true` to keep the row, `false` to filter it out.
-
-			Note that if a regex or function is provided for this parameter, the following parameters are ignored.
 		</parameter>
-		<parameter type="DataTable.SearchOptions" name="options">
-			Configuration options for how the search will be performed. See `-type DataTable.SearchOptions` for a description of all options. If an option is not given here, the value that it was set to for the previous search will be used.
+		<parameter type="DataTable.SearchOptions" name="options" default="{}">
+			Configuration options for how the search will be performed. See `-type DataTable.SearchOptions` for a description of all options. If an option is not given here, the value that it was set to for the previous search will be used, or the defaults is no previous search.
+
+			The value of this parameter is used only when a string based search is provided for the previous parameter. This value is ignored if a regular expression or function is provided.
 		</parameter>
 		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>

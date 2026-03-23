@@ -1,6 +1,5 @@
 import Dom from '../../dom';
 import { GetFunction, SetFunction } from '../../util/types';
-import { SearchInput } from '../search';
 
 /**
  * Internal settings object used for individual columns. Instances are held in
@@ -164,11 +163,6 @@ export default class Settings {
 	 * in the filtering or not.
 	 */
 	public searchable: boolean;
-
-	/**
-	 * Store for named searches
-	 */
-	public searchFixed: { [name: string]: SearchInput } = {};
 
 	public setter: SetFunction | null;
 

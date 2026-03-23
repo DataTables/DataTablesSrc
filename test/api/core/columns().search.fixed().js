@@ -31,13 +31,11 @@ describe('core - search.fixed()', function() {
 			table.columns().search.fixed('test', () => true);
 			table.columns().search.fixed('test2', () => true);
 
-			expect(table.column(0).search.fixed() instanceof DataTable.Api).toBe(true);
-			expect(table.column(0).search.fixed().toArray()).toEqual(['test', 'test2']);
+			expect(table.columns(0).search.fixed() instanceof DataTable.Api).toBe(true);
+			expect(table.columns().search.fixed().toArray()).toEqual(['test', 'test2']);
 		});
 	});
 
-	// Limited tests, since is it just the same as `column().search.fixed()` it
-	// just applies the search to multiple columns
 	describe('Set', function() {
 		let table;
 
@@ -46,22 +44,23 @@ describe('core - search.fixed()', function() {
 		it('Returns term that was set - string', function() {
 			table = $('#example').DataTable();
 
-			table.columns([0,1]).search.fixed('test', 'n').draw();
+			table.columns([0,1]).search.fixed('test', 'x').draw();
 
-			expect($('#example tbody td').eq(0).text()).toBe('Ashton Cox');
-			expect(table.page.info().recordsDisplay).toBe(25);
+			expect($('#example tbody td').eq(0).text()).toBe('Angelica Ramos');
+			expect(table.page.info().recordsDisplay).toBe(4);
 		});
 
 		it('Was set on both columns', function() {
-			expect(table.column(0).search.fixed('test')).toBe('n');
-			expect(table.column(1).search.fixed('test')).toBe('n');
+			expect(table.columns([0, 1]).search.fixed('test')).toBe('x');
+			expect(table.column(0).search.fixed('test')).toBe(undefined);
+			expect(table.column(1).search.fixed('test')).toBe(undefined);
 		});
 
-		it('Can remove just one', function() {
-			table.columns(0).search.fixed('test', null).draw();
+		it('Can remove', function() {
+			table.columns([0, 1]).search.fixed('test', null).draw();
 
 			expect($('#example tbody td').eq(0).text()).toBe('Airi Satou');
-			expect(table.page.info().recordsDisplay).toBe(42);
+			expect(table.page.info().recordsDisplay).toBe(57);
 		});
 	});
 });

@@ -175,6 +175,7 @@ export function ajaxParameters(settings: Context): AjaxData {
 	var columns = settings.columns,
 		features = settings.features,
 		searches = settings.searches,
+		searchesFixed = settings.searchesFixed,
 		colData = function (idx: number, prop: 'name' | 'data') {
 			return typeof columns[idx][prop] === 'function'
 				? 'function'
@@ -192,15 +193,17 @@ export function ajaxParameters(settings: Context): AjaxData {
 				search: {
 					value: searches[i] ? searches[i].search.toString() : '',
 					regex: searches[i] ? searches[i].regex : false,
-					fixed: Object.keys(column.searchFixed).map(function (name) {
-						return {
-							name: name,
-							term:
-								typeof column.searchFixed[name] !== 'function'
-									? column.searchFixed[name].toString()
-									: 'function'
-						};
-					})
+					fixed: searchesFixed[i]
+						? Object.keys(searchesFixed[i]).map(function (name) {
+							return {
+								name: name,
+								term:
+									typeof searchesFixed[i][name] !== 'function'
+										? searchesFixed[i][name].toString()
+										: 'function'
+							};
+						})
+						: []
 				}
 			};
 		}),
@@ -216,12 +219,12 @@ export function ajaxParameters(settings: Context): AjaxData {
 		search: {
 			value: searches['*'].search.toString(),
 			regex: searches['*'].regex,
-			fixed: Object.keys(settings.searchFixed).map(function (name) {
+			fixed: Object.keys(settings.searchesFixed).map(function (name) {
 				return {
 					name: name,
 					term:
-						typeof settings.searchFixed[name] !== 'function'
-							? settings.searchFixed[name].toString()
+						typeof settings.searchesFixed[name] !== 'function'
+							? settings.searchesFixed[name].toString()
 							: 'function'
 				};
 			})

@@ -1,5 +1,6 @@
 import { filterComplete } from '../core/search';
 import createSearch, { SearchInput, SearchOptions } from '../model/search';
+import util from '../util';
 import * as object from '../util/object';
 import { register } from './Api';
 import { Api } from './interface';
@@ -62,24 +63,36 @@ register<ApiSearchOverload>(
 type ApiSearchFixedOverload = (
 	this: Api,
 	name?: string,
-	search?: SearchInput
+	search?: SearchInput,
+	options?: SearchOptions
 ) => Api | SearchInput | undefined;
 
-register<ApiSearchFixedOverload>('search.fixed()', function (name, search) {
+register<ApiSearchFixedOverload>('search.fixed()', function (name, search, options) {
 	var ret = this.iterator(true, 'table', function (settings) {
-		var fixed = settings.searchFixed;
+		var fixed = settings.searchesFixed['*'];
 
 		if (!name) {
 			return Object.keys(fixed);
 		}
 		else if (search === undefined) {
-			return fixed[name];
+			return fixed[name]?.search;
 		}
 		else if (search === null) {
 			delete fixed[name];
 		}
 		else {
-			fixed[name] = search;
+			let target = fixed[name];
+
+			if (!target || !util.is.plainObject(target)) {
+				target = createSearch();
+			}
+
+			if (options) {
+				object.assign(target, options);
+			}
+	
+			target.search = search;
+			fixed[name] = target;
 		}
 
 		return this;
@@ -135,26 +148,61 @@ register<ApiSearchOverload>(
 
 register<ApiSearchFixedOverload>(
 	['columns().search.fixed()', 'column().search.fixed()'],
-	function (name, search) {
-		var ret = this.iterator(true, 'column', function (settings, colIdx) {
-			var fixed = settings.columns[colIdx].searchFixed;
+	function (name, search, options) {
+		// No name, just return the names of the fixed searches applied to these
+		// columns
+		if (! name) {
+			return this.iterator(true, 'columns', function (settings, columns) {
+				let colIdxs = columns.join(',');
+				let fixed = settings.searchesFixed[colIdxs];
 
-			if (!name) {
-				return Object.keys(fixed);
+				return fixed ? Object.keys(fixed) : [];
+			});
+		}
+
+		// Get the value from an existing search
+		if (search === undefined) {
+			if (! this.context.length) {
+				return undefined;
 			}
-			else if (search === undefined) {
-				return fixed[name] || null;
+			else {
+				let colIdxs = this[0].join(',');
+				let fixed = this.context[0].searchesFixed[colIdxs];
+
+				return fixed && fixed[name] ? fixed[name].search : undefined;
 			}
-			else if (search === null) {
+		}
+
+		// Set a search, possibly with options
+		return this.iterator(true, 'columns', function (settings, columns) {
+			let colIdxs = columns.join(',');
+			let fixed = settings.searchesFixed[colIdxs];
+
+			if (! fixed) {
+				fixed = {};
+				settings.searchesFixed[colIdxs] = fixed;
+			}
+
+			if (search === null) {
 				delete fixed[name];
 			}
 			else {
-				fixed[name] = search;
+				let target = fixed[name];
+	
+				if (!target || !util.is.plainObject(target)) {
+					target = createSearch();
+				}
+	
+				if (options) {
+					object.assign(target, options);
+				}
+		
+				target.search = search;
+				target.columns = columns;
+				fixed[name] = target;
 			}
 
 			return this;
 		});
-
-		return name !== undefined && search === undefined ? ret[0] : ret;
 	}
 );

@@ -150,9 +150,9 @@ describe('core - search.fixed()', function() {
 			expect(args[2]).toEqual(48);
 		});
 
-		it('Fourth parameter is undefined', function() {
+		it('Fourth parameter gives all columns', function() {
 			// Test for last iteration only
-			expect(args[3]).toEqual(undefined);
+			expect(args[3]).toEqual([0, 1, 2, 3, 4, 5]);
 		});
 
 		it('Multiple search', function() {

@@ -12,7 +12,7 @@ import {
 	OrderState
 } from './interface';
 import { Row } from './row';
-import { SearchInput, SearchOptions } from './search';
+import { SearchOptions } from './search';
 import { State, StateLoad } from './state';
 
 type FunctionDrawCallback = (this: DataTableDom, settings: Context) => void;
@@ -454,7 +454,11 @@ export interface Context {
 	searchDelay: number;
 
 	/** Store for named searches */
-	searchFixed: { [name: string]: SearchInput };
+	searchesFixed: {
+		[columns: string]: {
+			[name: string]: SearchOptions
+		}
+	};
 
 	/** DIV container for the footer scrolling table if scrolling */
 	scrollFoot: Dom;
@@ -654,7 +658,9 @@ const defaults: Partial<Context> = {
 	scrollBarVis: false,
 	searchDelay: 0,
 	searches: {},
-	searchFixed: {},
+	searchesFixed: {
+		'*': {}
+	},
 	serverMethod: null,
 	sortDetails: [],
 	stateDuration: 0,
