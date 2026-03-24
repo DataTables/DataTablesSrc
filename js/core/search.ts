@@ -29,13 +29,13 @@ export function filterComplete(settings: Context) {
 
 		// Column set filters first
 		util.object.each(settings.searches, (key, s) => {
-			filter(settings.display, settings, s.term, s);
+			filter(settings.display, settings, s.search, s);
 		});
 
 		// Fixed (named) filters next
 		util.object.each(settings.searchesFixed, function (columns) {
 			util.object.each(settings.searchesFixed[columns], function (name, s) {
-				filter(settings.display, settings, s.term, s);
+				filter(settings.display, settings, s.search, s);
 			});
 		});
 

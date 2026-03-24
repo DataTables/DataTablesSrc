@@ -97,9 +97,9 @@ register<Partial<IFeatureSearchOptions>>(
 			}
 
 			/* Now do the filter */
-			if (val != appliedSearch.term) {
+			if (val != appliedSearch.search) {
 				processingRun(settings, opts.processing, function () {
-					appliedSearch.term = val;
+					appliedSearch.search = val;
 
 					filterComplete(settings);
 
@@ -113,7 +113,7 @@ register<Partial<IFeatureSearchOptions>>(
 		let searchDelay = settings.searchDelay;
 		let filterEl = filter
 			.find('input')
-			.val(textValue(appliedSearch.term))
+			.val(textValue(appliedSearch.search))
 			.attr('placeholder', opts.placeholder)
 			.on(
 				'keyup.DT search.DT input.DT paste.DT cut.DT',
@@ -141,7 +141,7 @@ register<Partial<IFeatureSearchOptions>>(
 			if (settings === s && filterEl.get(0) !== document.activeElement) {
 				let host = settings.searches[searchName];
 
-				filterEl.val(textValue(host.term));
+				filterEl.val(textValue(host.search));
 			}
 		});
 

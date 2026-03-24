@@ -191,7 +191,7 @@ export function ajaxParameters(settings: Context): AjaxData {
 				searchable: column.searchable,
 				orderable: column.orderable,
 				search: {
-					value: searches[i] ? searches[i].term.toString() : '',
+					value: searches[i] ? searches[i].search.toString() : '',
 					regex: searches[i] ? searches[i].regex : false,
 					fixed: searchesFixed[i]
 						? Object.keys(searchesFixed[i]).map(function (name) {
@@ -217,7 +217,7 @@ export function ajaxParameters(settings: Context): AjaxData {
 		start: settings.displayStart,
 		length: features.paging ? settings.pageLength : -1,
 		search: {
-			value: searches['*'].term.toString(),
+			value: searches['*'].search.toString(),
 			regex: searches['*'].regex,
 			fixed: Object.keys(settings.searchesFixed).map(function (name) {
 				return {

@@ -59,7 +59,7 @@ export interface SearchObject extends SearchOptions {
 	/**
 	 * Applied search term
 	 */
-	term: SearchInput;
+	search: SearchInput;
 }
 
 export const defaults: SearchObject = {
@@ -69,7 +69,7 @@ export const defaults: SearchObject = {
 	exact: false,
 	regex: false,
 	return: false,
-	term: '',
+	search: '',
 	smart: true
 };
 

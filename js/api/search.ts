@@ -24,7 +24,7 @@ register<ApiSearchOverload>(
 				return;
 			}
 
-			return ctx[0].searches['*']!.term;
+			return ctx[0].searches['*']!.search;
 		}
 
 		// set
@@ -52,7 +52,7 @@ register<ApiSearchOverload>(
 				});
 			}
 
-			target.term = input;
+			target.search = input;
 			ctx.searches['*'] = target;
 
 			filterComplete(ctx);
@@ -75,7 +75,7 @@ register<ApiSearchFixedOverload>('search.fixed()', function (name, search, optio
 			return Object.keys(fixed);
 		}
 		else if (search === undefined) {
-			return fixed[name]?.term;
+			return fixed[name]?.search;
 		}
 		else if (search === null) {
 			delete fixed[name];
@@ -91,7 +91,7 @@ register<ApiSearchFixedOverload>('search.fixed()', function (name, search, optio
 				object.assign(target, options);
 			}
 	
-			target.term = search;
+			target.search = search;
 			fixed[name] = target;
 		}
 
@@ -108,7 +108,7 @@ register<ApiSearchOverload>(
 			let name = this[0].join(',');
 
 			return this.context.length
-				? this.context[0].searches[name]?.term || ''
+				? this.context[0].searches[name]?.search || ''
 				: '';
 		}
 
@@ -117,7 +117,7 @@ register<ApiSearchOverload>(
 			let target = ctx.searches[colIdxs];
 
 			if (input === undefined) {
-				return target?.term;
+				return target?.search;
 			}
 
 			if (!target) {
@@ -137,7 +137,7 @@ register<ApiSearchOverload>(
 				});
 			}
 
-			target.term = input;
+			target.search = input;
 			target.columns = columns.slice();
 			ctx.searches[colIdxs] = target;
 
@@ -169,7 +169,7 @@ register<ApiSearchFixedOverload>(
 				let colIdxs = this[0].join(',');
 				let fixed = this.context[0].searchesFixed[colIdxs];
 
-				return fixed && fixed[name] ? fixed[name].term : undefined;
+				return fixed && fixed[name] ? fixed[name].search : undefined;
 			}
 		}
 
@@ -197,7 +197,7 @@ register<ApiSearchFixedOverload>(
 					object.assign(target, options);
 				}
 		
-				target.term = search;
+				target.search = search;
 				target.columns = columns;
 				fixed[name] = target;
 			}
