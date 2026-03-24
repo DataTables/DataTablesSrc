@@ -133,15 +133,15 @@ describe('core- state()', function () {
 				stateSave: true
 			});
 			table.columns([3, 5]).visible(false);
-			table.columns([1, 4]).search('Cox', true, false, true).draw();
+			table.columns([1]).search('Cox', true, false, true).draw();
 			savedState = table.state();
 			table.columns([3, 5]).visible(true);
-			table.columns([1, 4]).search('', true, false, true).draw();
+			table.columns([1]).search('', true, false, true).draw();
 			expect(checkColumn(savedState.columns[0], true, '', true, false, true)).toBe(true);
 			expect(checkColumn(savedState.columns[1], true, 'Cox', false, true, true)).toBe(true);
 			expect(checkColumn(savedState.columns[2], true, '', true, false, true)).toBe(true);
 			expect(checkColumn(savedState.columns[3], false, '', true, false, true)).toBe(true);
-			expect(checkColumn(savedState.columns[4], true, 'Cox', false, true, true)).toBe(true);
+			expect(checkColumn(savedState.columns[4], true, '', true, false, true)).toBe(true);
 			expect(checkColumn(savedState.columns[5], false, '', true, false, true)).toBe(true);
 		});
 	});

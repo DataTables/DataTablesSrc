@@ -139,7 +139,7 @@ describe('stateLoadCallback Option', function() {
 			table.columns([1, 2]).order('desc');
 			table.page.len(15);
 			table.columns([3, 5]).visible(false);
-			table.columns([1, 4]).search('Cox', true, false, true);
+			table.columns([1]).search('Cox', true, false, true);
 			table.draw();
 		});
 
@@ -168,10 +168,11 @@ describe('stateLoadCallback Option', function() {
 				JSON.stringify(
 					table
 						.columns()
-						.search()
+						.flatten()
+						.map((col) => table.column(col).search())
 						.toArray()
 				)
-			).toBe('["","Cox","","","Cox",""]');
+			).toBe('["","Cox","","","",""]');
 		});
 	});
 

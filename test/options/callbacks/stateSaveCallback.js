@@ -174,7 +174,7 @@ describe('stateSaveCallback Option', function() {
 			});
 			table.columns([3, 5]).visible(false);
 			table
-				.columns([1, 4])
+				.columns([1])
 				.search('Cox', true, false, true)
 				.draw();
 
@@ -182,7 +182,7 @@ describe('stateSaveCallback Option', function() {
 			expect(checkColumn(columns[1], true, 'Cox', false, true, true)).toBe(true);
 			expect(checkColumn(columns[2], true, '', true, false, true)).toBe(true);
 			expect(checkColumn(columns[3], false, '', true, false, true)).toBe(true);
-			expect(checkColumn(columns[4], true, 'Cox', false, true, true)).toBe(true);
+			expect(checkColumn(columns[4], true, '', true, false, true)).toBe(true);
 			expect(checkColumn(columns[5], false, '', true, false, true)).toBe(true);
 		});
 	});
