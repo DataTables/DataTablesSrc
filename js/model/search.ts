@@ -23,11 +23,6 @@ export interface SearchOptions {
 	caseInsensitive: boolean;
 
 	/**
-	 * List of columns that should be included in the search.
-	 */
-	columns: number[] | null;
-
-	/**
 	 * This option modifies the search to perform an exact match (string based)
 	 * on the values in the table
 	 */
@@ -47,24 +42,34 @@ export interface SearchOptions {
 	return: boolean;
 
 	/**
-	 * Applied search term
-	 */
-	search: SearchInput;
-
-	/**
 	 * Flag to indicate if DataTables is to use its smart filtering or not.
 	 */
 	smart: boolean;
 }
 
-export const defaults: SearchOptions = {
+/**
+ * Internal object 
+ */
+export interface SearchObject extends SearchOptions {
+	/**
+	 * List of columns that should be included in the search.
+	 */
+	columns: number[] | null;
+
+	/**
+	 * Applied search term
+	 */
+	term: SearchInput;
+}
+
+export const defaults: SearchObject = {
 	boundary: false,
 	caseInsensitive: true,
 	columns: null,
 	exact: false,
 	regex: false,
 	return: false,
-	search: '',
+	term: '',
 	smart: true
 };
 
@@ -76,6 +81,6 @@ export const defaults: SearchOptions = {
  */
 export default function create(
 	parts: Partial<SearchOptions> = {}
-): SearchOptions {
+): SearchObject {
 	return util.object.assignDeep({}, defaults, parts);
 }

@@ -12,7 +12,7 @@ import {
 	OrderState
 } from './interface';
 import { Row } from './row';
-import { SearchOptions } from './search';
+import { SearchObject, SearchOptions } from './search';
 import { State, StateLoad } from './state';
 
 type FunctionDrawCallback = (this: DataTableDom, settings: Context) => void;
@@ -445,7 +445,7 @@ export interface Context {
 	scrollBody: Dom;
 
 	/** Store for default api searches */
-	searches: { [name: string]: SearchOptions };
+	searches: { [name: string]: SearchObject };
 
 	/** Initialisation search options - legacy config support only */
 	searchCols: SearchOptions[];
@@ -456,7 +456,7 @@ export interface Context {
 	/** Store for named searches */
 	searchesFixed: {
 		[columns: string]: {
-			[name: string]: SearchOptions
+			[name: string]: SearchObject
 		}
 	};
 

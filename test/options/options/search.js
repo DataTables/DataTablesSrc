@@ -10,6 +10,7 @@ describe('Search option', function() {
 			expect(DataTable.defaults.search).toEqual({
 				boundary: false,
 				caseInsensitive: true,
+				columns: null,
 				exact: false,
 				regex: false,
 				return: false,
