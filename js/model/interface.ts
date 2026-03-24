@@ -200,6 +200,8 @@ export interface AjaxDataSearch {
 	value: string;
 	regex: boolean;
 	fixed: { name: string; term: string }[];
+	groups: { columns: number[], term: string}[],
+	groupsFixed: { name: string; columns: number[], term: string}[];
 }
 
 export interface AjaxDataOrder {
@@ -207,12 +209,18 @@ export interface AjaxDataOrder {
 	dir: string;
 }
 
+export interface AjaxDataColumnSearch {
+	value: string;
+	regex: boolean;
+	fixed: { name: string; term: string }[];
+}
+
 export interface AjaxDataColumn {
 	data: string | number;
 	name: string | null;
 	searchable: boolean;
 	orderable: boolean;
-	search: AjaxDataSearch;
+	search: AjaxDataColumnSearch;
 }
 
 export interface AjaxResponse {

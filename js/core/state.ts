@@ -24,8 +24,13 @@ export function saveState(settings: Context) {
 	/* Store the interesting variables */
 	var columns = settings.columns;
 	var state: State = {
-		time: +new Date(),
-		start: settings.displayStart,
+		columns: settings.columns.map(function (col, i) {
+			return {
+				name: col.name,
+				visible: col.visible,
+				search: Object.assign({}, settings.searches[i])
+			} as any;
+		}),
 		length: settings.pageLength,
 		order: sorting.map(function (sort) {
 			// If a column name is available, use it
@@ -34,13 +39,11 @@ export function saveState(settings: Context) {
 				: sort.slice();
 		}),
 		search: Object.assign({}, settings.searches['*']),
-		columns: settings.columns.map(function (col, i) {
-			return {
-				name: col.name,
-				visible: col.visible,
-				search: Object.assign({}, settings.searches[i])
-			} as any;
-		})
+		searchGroups: Object.keys(settings.searches)
+			.filter(c => c.includes(',')) // Limit to only multi-column subsets
+			.map(c => Object.assign({}, settings.searches[c])),
+		start: settings.displayStart,
+		time: +new Date()
 	};
 
 	settings.stateSaved = state;

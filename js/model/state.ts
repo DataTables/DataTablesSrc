@@ -11,6 +11,7 @@ export interface State {
 	length: number;
 	order: Array<Array<string | number>>;
 	search: SearchOptions;
+	searchGroups: SearchOptions[];
 	start: number;
 	time: number;
 }

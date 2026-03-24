@@ -164,6 +164,10 @@ export function ajaxUpdate(settings: Context) {
 	});
 }
 
+function functionOrValue(val: any) {
+	return typeof val === 'function' ? 'function' : val.toString();
+}
+
 /**
  * Build up the parameters in an object needed for a server-side processing
  * request.
@@ -194,15 +198,12 @@ export function ajaxParameters(settings: Context): AjaxData {
 					value: searches[i] ? searches[i].search.toString() : '',
 					regex: searches[i] ? searches[i].regex : false,
 					fixed: searchesFixed[i]
-						? Object.keys(searchesFixed[i]).map(function (name) {
-							return {
+						? Object.keys(searchesFixed[i]).map(name => ({
 								name: name,
-								term:
-									typeof searchesFixed[i][name] !== 'function'
-										? searchesFixed[i][name].toString()
-										: 'function'
-							};
-						})
+								term: functionOrValue(
+									searchesFixed[i][name].search
+								)
+						  }))
 						: []
 				}
 			};
@@ -217,17 +218,30 @@ export function ajaxParameters(settings: Context): AjaxData {
 		start: settings.displayStart,
 		length: features.paging ? settings.pageLength : -1,
 		search: {
-			value: searches['*'].search.toString(),
+			value: functionOrValue(searches['*'].search),
 			regex: searches['*'].regex,
-			fixed: Object.keys(settings.searchesFixed).map(function (name) {
-				return {
-					name: name,
-					term:
-						typeof settings.searchesFixed[name] !== 'function'
-							? settings.searchesFixed[name].toString()
-							: 'function'
-				};
-			})
+			fixed: Object.keys(settings.searchesFixed).map(name => ({
+				name: name,
+				term: functionOrValue(settings.searchesFixed[name])
+			})),
+			groups: Object.keys(settings.searches)
+				.filter(c => c.includes(',')) // Limit to only multi-column subsets
+				.map(c => ({
+					columns: settings.searches[c].columns || [],
+					term: functionOrValue(settings.searches[c].search)
+				})),
+			groupsFixed: Object.keys(settings.searchesFixed)
+				.filter(c => c.includes(',')) // Limit to only multi-column subsets
+				.map(c => {
+					let searches = settings.searchesFixed[c];
+
+					return Object.keys(searches).map(n => ({
+						columns: searches[n].columns || [],
+						name: n,
+						term: functionOrValue(searches[n].search)
+					}));
+				})
+				.flat()
 		}
 	};
 }
