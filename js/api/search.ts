@@ -116,12 +116,14 @@ register<ApiSearchOverload>(
 			let colIdxs = columns.join(',');
 			let target = ctx.searches[colIdxs];
 
-			if (input === undefined) {
-				return target?.search;
-			}
-
 			if (!target) {
 				target = createSearch();
+			}
+
+			// Delete the search for custom grouping types if removing
+			if ((input === '' || input === null) && columns.length > 1) {
+				delete ctx.searches[colIdxs];
+				return;
 			}
 
 			if (typeof regex === 'object') {

@@ -708,5 +708,236 @@ describe('serverSide option', function () {
 				})
 				.draw();
 		});
+
+		it('grouped search - empty', function (done) {
+			test = data => {
+				expect(data.search.groups).toEqual([]);
+			};
+
+			table
+				.one('draw', () => {
+					done();
+				})
+				.draw();
+		});
+
+		it('grouped search - one group', function (done) {
+			test = data => {
+				expect(data.search.groups).toEqual([
+					{
+						columns: [0, 1],
+						term: 'test'
+					}
+				]);
+			};
+
+			table
+				.columns([0, 1])
+				.search('test')
+				.one('draw', () => {
+					done();
+				})
+				.draw();
+		});
+
+		it('grouped search - one group - replaced', function (done) {
+			test = data => {
+				expect(data.search.groups).toEqual([
+					{
+						columns: [0, 1],
+						term: 'test - A'
+					}
+				]);
+			};
+
+			table
+				.columns([0, 1])
+				.search('test - A')
+				.one('draw', () => {
+					done();
+				})
+				.draw();
+		});
+
+		it('grouped search - two groups', function (done) {
+			test = data => {
+				expect(data.search.groups).toEqual([
+					{
+						columns: [0, 1],
+						term: 'test - A'
+					},
+					{
+						columns: [1, 3, 4],
+						term: 'test - B'
+					}
+				]);
+			};
+
+			table
+				.columns([1, 3, 4])
+				.search('test - B')
+				.one('draw', () => {
+					done();
+				})
+				.draw();
+		});
+
+		it('grouped search - remove search', function (done) {
+			test = data => {
+				expect(data.search.groups).toEqual([]);
+			};
+
+			table
+				.columns([0, 1])
+				.search('')
+				.columns([1, 3, 4])
+				.search('')
+				.one('draw', () => {
+					done();
+				})
+				.draw();
+		});
+
+		it('grouped fixed search - empty to start', function (done) {
+			test = data => {
+				expect(data.search.groupsFixed).toEqual([]);
+			};
+
+			table
+				.one('draw', () => {
+					done();
+				})
+				.draw();
+		});
+
+		it('grouped fixed search - single term', function (done) {
+			test = data => {
+				expect(data.search.groupsFixed).toEqual([
+					{
+						columns: [1, 2],
+						name: 'D',
+						term: 'test-D'
+					}
+				]);
+			};
+
+			table
+				.columns([1, 2])
+				.search.fixed('D', 'test-D')
+				.one('draw', () => {
+					done();
+				})
+				.draw();
+		});
+
+		it('grouped fixed search - two terms, same columns', function (done) {
+			test = data => {
+				expect(data.search.groupsFixed).toEqual([
+					{
+						columns: [1, 2],
+						name: 'D',
+						term: 'test-D'
+					},
+					{
+						columns: [1, 2],
+						name: 'E',
+						term: 'test-E'
+					}
+				]);
+			};
+
+			table
+				.columns([1, 2])
+				.search.fixed('E', 'test-E')
+				.one('draw', () => {
+					done();
+				})
+				.draw();
+		});
+
+		it('grouped fixed search - three terms, different columns', function (done) {
+			test = data => {
+				expect(data.search.groupsFixed).toEqual([
+					{
+						columns: [1, 2],
+						name: 'D',
+						term: 'test-D'
+					},
+					{
+						columns: [1, 2],
+						name: 'E',
+						term: 'test-E'
+					},
+					{
+						columns: [1, 2, 3],
+						name: 'F',
+						term: 'test-F'
+					}
+				]);
+			};
+
+			table
+				.columns([1, 2, 3])
+				.search.fixed('F', 'test-F')
+				.one('draw', () => {
+					done();
+				})
+				.draw();
+		});
+
+		it('grouped fixed search - four terms, with function', function (done) {
+			test = data => {
+				expect(data.search.groupsFixed).toEqual([
+					{
+						columns: [1, 2],
+						name: 'D',
+						term: 'test-D'
+					},
+					{
+						columns: [1, 2],
+						name: 'E',
+						term: 'test-E'
+					},
+					{
+						columns: [1, 2, 3],
+						name: 'F',
+						term: 'test-F'
+					},
+					{
+						columns: [4, 5],
+						name: 'G',
+						term: 'function'
+					}
+				]);
+			};
+
+			table
+				.columns([4, 5])
+				.search.fixed('G', () => true)
+				.one('draw', () => {
+					done();
+				})
+				.draw();
+		});
+
+		it('grouped fixed search - cleared', function (done) {
+			test = data => {
+				expect(data.search.groupsFixed).toEqual([]);
+			};
+
+			table
+				.columns([1, 2])
+				.search.fixed('D', null)
+				.columns([1, 2])
+				.search.fixed('E', null)
+				.columns([1, 2, 3])
+				.search.fixed('F', null)
+				.columns([4, 5])
+				.search.fixed('G', null)
+				.one('draw', () => {
+					done();
+				})
+				.draw();
+		});
 	});
 });
