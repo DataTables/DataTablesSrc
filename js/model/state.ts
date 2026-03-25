@@ -1,17 +1,17 @@
-import { SearchOptions } from './search';
+import { SearchObject } from './search';
 
 /** State object */
 export interface State {
 	childRows?: string[];
 	columns: Array<{
 		name: string | null;
-		search: SearchOptions;
+		search: SearchObject;
 		visible: boolean;
 	}>;
 	length: number;
 	order: Array<Array<string | number>>;
-	search: SearchOptions;
-	searchGroups: SearchOptions[];
+	search: SearchObject;
+	searchGroups: SearchObject[];
 	start: number;
 	time: number;
 }
@@ -21,12 +21,13 @@ export interface StateLoad {
 	childRows?: string[];
 	columns?: Array<{
 		name?: string | null;
-		search?: SearchOptions;
+		search?: SearchObject;
 		visible?: boolean;
 	}>;
 	length?: number;
 	order?: Array<Array<string | number>>;
-	search?: SearchOptions;
+	search?: SearchObject;
+	searchGroups?: SearchObject[];
 	start?: number;
 	time?: number;
 }

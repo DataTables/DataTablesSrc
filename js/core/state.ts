@@ -1,5 +1,6 @@
 import Api from '../api/Api';
 import { callbackFire } from '../api/support';
+import createSearch from '../model/search';
 import { Context } from '../model/settings';
 import { State, StateLoad } from '../model/state';
 import { pluck } from '../util/array';
@@ -193,6 +194,16 @@ export function implementState(
 	// Search
 	if (s.search !== undefined) {
 		Object.assign(settings.searches['*'], s.search);
+	}
+
+	if (s.searchGroups) {
+		s.searchGroups.forEach(group => {
+			if (group.columns) {
+				let index = group.columns.join(',');
+
+				settings.searches[index] = createSearch(group);
+			}
+		});
 	}
 
 	// Columns
