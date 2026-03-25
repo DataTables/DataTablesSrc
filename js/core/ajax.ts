@@ -195,7 +195,9 @@ export function ajaxParameters(settings: Context): AjaxData {
 				searchable: column.searchable,
 				orderable: column.orderable,
 				search: {
-					value: searches[i] ? searches[i].search.toString() : '',
+					value: searches[i]
+						? functionOrValue(searches[i].search)
+						: '',
 					regex: searches[i] ? searches[i].regex : false,
 					fixed: searchesFixed[i]
 						? Object.keys(searchesFixed[i]).map(name => ({
@@ -220,9 +222,9 @@ export function ajaxParameters(settings: Context): AjaxData {
 		search: {
 			value: functionOrValue(searches['*'].search),
 			regex: searches['*'].regex,
-			fixed: Object.keys(settings.searchesFixed).map(name => ({
+			fixed: Object.keys(settings.searchesFixed['*']).map(name => ({
 				name: name,
-				term: functionOrValue(settings.searchesFixed[name])
+				term: functionOrValue(settings.searchesFixed['*'][name].search)
 			})),
 			groups: Object.keys(settings.searches)
 				.filter(c => c.includes(',')) // Limit to only multi-column subsets
