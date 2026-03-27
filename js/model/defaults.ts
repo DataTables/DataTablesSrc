@@ -388,9 +388,19 @@ type LanguageOption =
 	| {
 			[key: string | number]: LanguageOption;
 	  };
+
 export interface ConfigLanguage {
 	// External options can be added and used through `i18n()`
-	[key: string]: LanguageOption;
+	[key: string]: LanguageOption | any;
+
+	/**
+	 * Remote language loading
+	 */
+	ajax:
+		| null
+		| string
+		| DtAjaxOptions
+		| ((settings: Context, callback: (language: JSON) => void) => void);
 
 	/**
 	 * Strings that are used for WAI-ARIA labels and controls only.
@@ -525,7 +535,9 @@ export interface ConfigLanguage {
 	thousands: string;
 
 	/**
-	 * URL from which to get a JSON language file
+	 * URL, Ajax options  from which to get a JSON language file
+	 * 
+	 * @deprecated Prefer `language.ajax` option.
 	 */
 	url: string;
 
@@ -566,6 +578,7 @@ const defaults: Defaults = {
 	infoCallback: null,
 	initComplete: null,
 	language: {
+		ajax: '',
 		aria: {
 			orderable: ': Activate to sort',
 			orderableRemove: ': Activate to remove sorting',
@@ -677,4 +690,4 @@ const defaults: Defaults = {
 
 export default defaults;
 
-export interface Options extends DeepPartial<Defaults> {};
+export interface Options extends DeepPartial<Defaults> {}

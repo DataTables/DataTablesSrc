@@ -4,7 +4,13 @@
 	<summary>Load language information from remote file</summary>
 	<since>1.10</since>
 
-	<type type="string" />
+	<type type="string">
+
+	<deprecated since="3.0.0">
+		<description>
+			As of DataTables 3 the `-init language.ajax` option is preferred over this option as it provides the same ability plus additional options. However, this option is still fully supported and will continue to be so.
+		</description>
+	</deprecated>
 
 	<description>
 		All of the language options DataTables provides can be stored in a file on the server, which DataTables will look up if this parameter is passed. The file must be a valid JSON file, and the object it contains has the same properties as the `-init language` object in the initialiser object (a subset of those properties is also valid).
@@ -17,7 +23,7 @@
 	</description>
 
 	<example title="Load language information from a remote file"><![CDATA[
-$('#example').DataTable({
+new DataTable('#myTable', {
 	language: {
 		url: '/dataTables/i18n/de_de.lang'
 	}
@@ -25,31 +31,10 @@ $('#example').DataTable({
 ]]></example>
 
 	<example title="Remote file and local string override"><![CDATA[
-$('#example').DataTable({
+new DataTable('#myTable', {
 	language: {
 		search: 'In der Tabelle finden',
 		url: '/dataTables/i18n/de_de.lang'
-	}
-});
-]]></example>
-
-	<example title="Performing an action after Ajax loading language strings"><![CDATA[
-$('#example').dataTable({
-	language: {
-		url: '/dataTables/i18n/de_de.lang'
-	},
-	initComplete: function () {
-		var api = this.api();
-
-		// Put the sum of column 5 into the footer cell
-		$(api.column(5).footer()).html(
-			api
-				.column(5)
-				.data()
-				.reduce(function (a, b) {
-					return a + b;
-				})
-		);
 	}
 });
 ]]></example>

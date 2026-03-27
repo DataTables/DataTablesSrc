@@ -593,6 +593,7 @@ const defaults: Partial<Context> = {
 	initDone: false,
 	initialised: false,
 	language: {
+		ajax: '',
 		aria: {
 			orderable: '',
 			orderableRemove: '',

@@ -34,6 +34,7 @@ import defaults, { Defaults, Options } from './model/defaults';
 import createSearch from './model/search';
 import createContext from './model/settings';
 import util from './util';
+import { AjaxOptions } from './util/ajax';
 
 const DataTable = function (selector: string | HTMLElement, options: Options) {
 	// Check if called with a window or jQuery object for DOM less applications
@@ -191,7 +192,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 				typeof init.lengthMenu[0] === 'number'
 					? init.lengthMenu[0]
 					: Array.isArray(init.lengthMenu[0])
-					? init.lengthMenu[0][0] as number
+					? (init.lengthMenu[0][0] as number)
 					: init.lengthMenu[0].value;
 		}
 
@@ -367,9 +368,18 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 						if (sort !== null || filter !== null) {
 							col.data = {
 								_: loop + '.display',
-								sort: sort !== null ? loop + '.@data-' + sort : undefined,
-								type: sort !== null ? loop + '.@data-' + sort : undefined,
-								filter: filter !== null ? loop + '.@data-' + filter : undefined
+								sort:
+									sort !== null
+										? loop + '.@data-' + sort
+										: undefined,
+								type:
+									sort !== null
+										? loop + '.@data-' + sort
+										: undefined,
+								filter:
+									filter !== null
+										? loop + '.@data-' + filter
+										: undefined
 							};
 							col._isArrayHost = true;
 
@@ -476,26 +486,46 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			util.object.assignDeep(language, config.language);
 		}
 
-		if (language.url) {
-			// Get the language definitions from a file
-			util.ajax({
-				dataType: 'json',
-				url: language.url,
-				success: function (json) {
-					hungarianToCamel(json);
-					util.object.assignDeep(language, json, settings.init.language as any);
+		if (language.ajax) {
+			let languageLoaded = function (json: any) {
+				hungarianToCamel(json);
+				util.object.assignDeep(
+					language,
+					json,
+					settings.init.language as any
+				);
 
-					callbackFire(settings, null, 'i18n', [settings], true);
-					initialise(settings);
-				},
-				error: function () {
-					// Error occurred loading language file
-					log(settings, 0, 'i18n file loading error', 21);
+				callbackFire(settings, null, 'i18n', [settings], true);
+				initialise(settings);
+			};
 
-					// Continue on as best we can
-					initialise(settings);
+			// Get the language definitions from a remote
+			if (typeof language.ajax === 'function') {
+				language.ajax(settings, languageLoaded);
+			}
+			else {
+				let ajaxBase: AjaxOptions = {
+					dataType: 'json',
+					url: '',
+					success: languageLoaded,
+					error: function () {
+						// Error occurred loading language file
+						log(settings, 0, 'i18n file loading error', 21);
+
+						// Continue on as best we can
+						initialise(settings);
+					}
+				};
+
+				if (typeof language.ajax === 'string') {
+					ajaxBase.url = language.ajax;
 				}
-			});
+				else {
+					ajaxBase = util.object.assign(ajaxBase, language.ajax);
+				}
+
+				util.ajax(ajaxBase);
+			}
 		}
 		else {
 			callbackFire(settings, null, 'i18n', [settings], true);

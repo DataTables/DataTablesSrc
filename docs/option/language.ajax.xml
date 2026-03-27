@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="i18n">
+	<name>language.ajax</name>
+	<summary>Load language information from remote locations</summary>
+	<since>3.0</since>
+
+	<type type="string">
+		<description>
+			When used as a string, this parameter will designate a URL that DataTables should use to load a language definition file.
+		</description>
+	</type>
+
+	<type type="DataTable.ajaxOptions">
+		<description>
+			As an object, this parameter will cause DataTables to make an Ajax request to get the language data, but it provides the ability to control the parameters of that Ajax request - e.g. adding request headers, data or controlling the HTTP method. Please see `-type DataTable.ajaxOptions` for the options available for this object, but note that you _must_ supply a `url` parameter so it knows where to make the Ajax request to!
+
+			Furthermore, do not provide a `success` option. DataTables makes use of this parameter for its own callback.
+		</description>
+	</type>
+
+	<type type="function">
+		<signature>ajax( settings, callback )</signature>
+		<parameter type="DataTable.Context" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="function" name="callback">
+			Callback function that must be executed when the required data has been obtained. That data should be passed into the callback as the only parameter.
+		</parameter>
+		<description>
+			As a function, getting the language data is up to you. You can use a custom Ajax call, web-sockets, localStorage or anything else. The key is to make sure that you call the `callback` function, passing in the language object once it has been obtained. An empty object can be used if needed, in which case the default language strings would be used.
+		</description>
+	</type>
+
+	<description>
+		All of the language options DataTables provides can be stored in a file on the server, which DataTables will look up if this parameter is passed. The file must be a valid JSON file, and the object it contains has the same properties as the `-init language` object in the initialiser object (a subset of those properties is also valid).
+
+		Note that you can use a remote language file as well as local language options, and the local options will take priority.
+
+		There are a wide range of translations readily available on this site, in the [internationalisation plug-ins](//datatables.net/plug-ins/i18n).
+
+		Note that when this parameter is set, DataTables' initialisation will be asynchronous due to the Ajax data load. That is to say that the table will not be drawn until the Ajax request has completed. As such, any actions that require the table to have completed its initialisation should be placed into the `-init initComplete` callback.
+	</description>
+
+	<example title="Load language information from a remote file"><![CDATA[
+new DataTable('#myTable', {
+	language: {
+		ajax: '/dataTables/i18n/de_DE.lang'
+	}
+});
+]]></example>
+
+	<example title="Remote file and local string override"><![CDATA[
+new DataTable('#myTable', {
+	language: {
+		search: 'Buscar en la tabla:',
+		ajax: '/dataTables/i18n/es_ES.lang'
+	}
+});
+]]></example>
+
+	<example title="Ajax headers - sending a CSRF token"><![CDATA[
+new DataTable('#myTable', {
+	language: {
+		ajax: {
+			url: '//cdn.datatables.net/plug-ins/2.3.7/i18n/fr-FR.json',
+			headers: {
+				csrf: 'token-value'
+			}
+		}
+	}
+});
+]]></example>
+
+	<example title="Custom function"><![CDATA[
+new DataTable('#myTable', {
+	language: {
+		ajax: function (settings, callback) {
+			// Get language tokens that have previously been loaded
+			let lang = JSON.parse(localStorage.getItem('dt-language'));
+
+			callback(lang);
+		}
+	}
+});
+]]></example>
+
+	<related>-init language</related>
+	<related>-init initComplete</related>
+</dt-option>

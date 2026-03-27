@@ -137,6 +137,11 @@ export function compatOpts(init: Record<string, any>) {
 	if (init.serverSide && !init.searchDelay) {
 		init.searchDelay = 400;
 	}
+
+	// Language
+	if (init.language && init.language.url && ! init.language.ajax) {
+		init.language.ajax = init.language.url;
+	}
 }
 
 /**

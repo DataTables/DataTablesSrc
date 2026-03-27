@@ -8,7 +8,7 @@
 <js><![CDATA[
 new DataTable('#example', {
 	language: {
-		url: 'https://cdn.datatables.net/plug-ins/2.3.7/i18n/de-DE.json'
+		ajax: 'https://cdn.datatables.net/plug-ins/2.3.7/i18n/de-DE.json'
 	}
 });
 ]]>
@@ -16,7 +16,7 @@ new DataTable('#example', {
 
 <info><![CDATA[
 
-As well as being able to pass language information to DataTables through the `-init language` initialisation option, you can also store the language information in a file, which DataTables can load by Ajax using the `-init language.url` option.
+As well as being able to pass language information to DataTables through the `-init language` initialisation option, you can also store the language information in a file, which DataTables can load by Ajax using the `-init language.ajax` option.
 
 The following example shows DataTables reading a German language file which is hosted on the [DataTables CDN](https://cdn.datatables.net). We have a [wide range of translations provided by the community](https://datatables.net/plug-ins/i18n/) for you to use and additional contributions are very welcome.
 

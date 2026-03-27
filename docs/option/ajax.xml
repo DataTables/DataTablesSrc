@@ -32,7 +32,7 @@
 		</description>
 	</type>
 
-	<type type="object">
+	<type type="DataTable.ajaxOptions">
 		<description>
 			As an object, the `-init ajax` object is passed to `-api DataTable.ajax()` allowing fine control of the Ajax request. DataTables has a number of default parameters which you can override using this option. Please refer to `-type DataTable.ajaxOptions` for a full description of the options available. Additionally, the following parameters provide additional options when used through `-init ajax` or require special consideration:
 
@@ -62,7 +62,7 @@
 			Data to send to the server
 		</parameter>
 		<parameter type="function" name="callback">
-			Callback function that must be executed when the required data has been obtained. That data should be passed into the callback as the only parameter
+			Callback function that must be executed when the required data has been obtained. That data should be passed into the callback as the only parameter.
 		</parameter>
 		<parameter type="DataTable.Context" name="settings">
 			DataTables settings object
