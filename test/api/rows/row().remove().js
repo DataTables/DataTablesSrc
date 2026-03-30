@@ -44,15 +44,6 @@ describe('rows - row().remove()', function() {
 		});
 
 		dt.html('basic');
-		it('Deleted row removed from cache before the draw', function() {
-			let table = $('#example').DataTable();
-			expect(table.row(2).cache()[0]).toBe('ashton cox');
-			table.row(2).remove();
-			expect(table.row(2).cache()).toBe(undefined);
-			expect(table.row(3).cache()[0]).toBe('cedric kelly');
-		});
-
-		dt.html('basic');
 		it('Row index is not altered on delete', function() {
 			let table = $('#example').DataTable();
 			let myRow = table.row(10);

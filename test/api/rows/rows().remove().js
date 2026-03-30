@@ -77,15 +77,6 @@ describe('rows - rows().remove()', function() {
 			expect($('#example tbody tr:eq(2) td:eq(0)').text()).toBe('Bradley Greer');
 		});
 
-		dt.html('basic');
-		it('Deleted row removed from cache before the draw', function() {
-			let table = $('#example').DataTable();
-			expect(table.row(2).cache()[0]).toBe('ashton cox');
-			table.rows([2]).remove();
-			expect(table.row(2).cache()).toBe(undefined);
-			expect(table.row(3).cache()[0]).toBe('cedric kelly');
-		});
-
 		function isRemoved(toRemove) {
 			let table = $('#example').DataTable();
 			let expectedText = 'Showing 0 to 0 of 0 entries (filtered from ' + (57 - toRemove.length) + ' total entries)';

@@ -1,10 +1,10 @@
 import {
-    adjustColumnSizing,
-    columnIndexToVisible,
-    columnsFromHeader,
-    columnTypes,
-    visibleColumns,
-    visibleToColumnIndex
+	adjustColumnSizing,
+	columnIndexToVisible,
+	columnsFromHeader,
+	columnTypes,
+	visibleColumns,
+	visibleToColumnIndex
 } from '../core/columns';
 import { getCellData } from '../core/data';
 import { drawHead } from '../core/draw';
@@ -17,18 +17,18 @@ import { intVal } from '../util/conv';
 import * as is from '../util/is';
 import { register, registerPlural } from './Api';
 import {
-    Api,
-    ApiColumn,
-    ApiColumns,
-    ApiColumnsMethods,
-    ColumnSelector,
-    SelectorModifier
+	Api,
+	ApiColumn,
+	ApiColumns,
+	ApiColumnsMethods,
+	ColumnSelector,
+	SelectorModifier
 } from './interface';
 import {
-    selectorFirst,
-    selectorOpts,
-    selectorRowIndexes,
-    selectorRun
+	selectorFirst,
+	selectorOpts,
+	selectorRowIndexes,
+	selectorRun
 } from './selectors';
 import { callbackFire } from './support';
 
@@ -443,25 +443,6 @@ registerPlural<ApiColumnsMethods<any>['dataSrc']>(
 			'column',
 			function (settings, column) {
 				return settings.columns[column].data;
-			},
-			true
-		);
-	}
-);
-
-registerPlural<ApiColumnsMethods<any>['cache']>(
-	'columns().cache()',
-	'column().cache()',
-	function (type) {
-		return this.iterator(
-			'column-rows',
-			function (settings, column, i, j, rows) {
-				return pluckOrder(
-					settings.data,
-					rows,
-					type === 'search' ? 'searchCellCache' : 'orderCache',
-					column
-				);
 			},
 			true
 		);

@@ -7,20 +7,20 @@ import * as is from '../util/is';
 import * as object from '../util/object';
 import { register, registerPlural } from './Api';
 import {
-    Api,
-    ApiCellMethods,
-    ApiCellsMethods,
-    CellIdx,
-    CellSelector,
-    ColumnSelector,
-    RowSelector,
-    SelectorModifier
+	Api,
+	ApiCellMethods,
+	ApiCellsMethods,
+	CellIdx,
+	CellSelector,
+	ColumnSelector,
+	RowSelector,
+	SelectorModifier
 } from './interface';
 import {
-    selectorFirst,
-    selectorOpts,
-    selectorRowIndexes,
-    selectorRun
+	selectorFirst,
+	selectorOpts,
+	selectorRowIndexes,
+	selectorRun
 } from './selectors';
 
 function selectCells(
@@ -256,25 +256,6 @@ register<ApiCellsMethods<any>['data']>('cells().data()', function () {
 		true
 	);
 });
-
-registerPlural<ApiCellsMethods<any>['cache']>(
-	'cells().cache()',
-	'cell().cache()',
-	function (type) {
-		let prop: 'searchCellCache' | 'orderCache' =
-			type === 'search' ? 'searchCellCache' : 'orderCache';
-
-		return this.iterator(
-			'cell',
-			function (settings, row, column) {
-				let rowData = settings.data[row];
-
-				return rowData && rowData[prop] ? rowData[prop][column] : null;
-			},
-			true
-		);
-	}
-);
 
 registerPlural<ApiCellsMethods<any>['render']>(
 	'cells().render()',
