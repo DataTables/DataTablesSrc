@@ -124,7 +124,7 @@ function _pagingDraw(
 		visRecords = recordsDisplay(settings),
 		all = len === -1,
 		page = all ? 0 : Math.ceil(start / len),
-		pages = all ? 1 : Math.ceil(visRecords / len),
+		pages = Math.ceil(visRecords / (all ? 1 : len)),
 		buttons: any[] = [],
 		buttonEls: Element[] = [],
 		buttonsNested = plugin(opts).map(function (val) {

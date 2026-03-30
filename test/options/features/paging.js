@@ -107,4 +107,28 @@ describe('Paging option', function() {
 			expect($('#example tbody tr').length).toBe(10);
 		});
 	});
+
+	describe('DD-2400', function() {
+		let table;
+
+		dt.html('basic');
+
+		it('Paging buttons shown immediately', () => {
+			table = new DataTable('#example');
+
+			expect($('div.dt-paging button').length).toBe(10);
+		});
+
+		it('No number buttons shown on search with no records', () => {
+			table.search('thereisnothinghere').draw();
+
+			expect($('div.dt-paging button').length).toBe(4);
+		});
+
+		it('And still none shown when set to show all records', () => {
+			table.page.len(-1).draw();
+
+			expect($('div.dt-paging button').length).toBe(4);
+		});
+	});
 });
