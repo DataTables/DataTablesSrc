@@ -38,7 +38,7 @@ function build_js {
 	# Typescript
 	node_modules/typescript/bin/tsc -p ./tsconfig.json
 
-HEADER="/*! DataTables $VERSION
+HEADER="/*! DataTables
  * Copyright (c) SpryMedia Ltd - datatables.net/license
  */
 "
