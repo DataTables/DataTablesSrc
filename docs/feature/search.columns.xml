@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option group="search">
-	<name>search.search</name>
+	<name>search.columns</name>
 	<summary>Limit the search to a specific subset of columns</summary>
 	<since>3.0</since>
 

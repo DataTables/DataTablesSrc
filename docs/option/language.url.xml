@@ -4,7 +4,7 @@
 	<summary>Load language information from remote file</summary>
 	<since>1.10</since>
 
-	<type type="string">
+	<type type="string" />
 
 	<deprecated since="3.0.0">
 		<description>
