@@ -12,7 +12,7 @@ CMD=$1
 SUBCMD=$2
 
 # Get the version from the file
-VERSION=$(grep "version: '" $BASE_DIR/js/ext/index.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*)?}')
+VERSION=$(grep "version: '" $BASE_DIR/js/ext/index.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*(\.\d)?)?}')
 
 DEBUG=""
 if [ "$SUBCMD" = "debug" -o "$3" = "debug" ]; then

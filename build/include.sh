@@ -289,7 +289,7 @@ function ts_extension {
 		--config rollup.config.mjs
 
 	# Get the version from the file
-	VERSION=$(grep "version.*[0-9]\+[.][0-9]\+[.][0-9]" dist/dataTables.$FILENAME.js | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*(\-\d+)?)?}')
+	VERSION=$(grep "version.*[0-9]\+[.][0-9]\+[.][0-9]" dist/dataTables.$FILENAME.js | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*(\.\d+)?)?}')
 
 	rsync -r dist/dataTables.$FILENAME.js $OUT_DIR/js/
 
