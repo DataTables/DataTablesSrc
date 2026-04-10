@@ -26,8 +26,8 @@ export function featureTable(settings: Context) {
 	let captionSide: string | null = caption
 		? (caption as any)._captionSide
 		: null;
-	let headerClone = table.clone(false);
-	let footerClone = table.clone(false);
+	let tableCloneHeader = table.clone(false);
+	let tableCloneFooter = table.clone(false);
 	let footer = table.children('tfoot');
 	let size = function (s: string | number | null) {
 		return !s ? '100%' : stringToCss(s);
@@ -49,12 +49,11 @@ export function featureTable(settings: Context) {
 	 *        table - scroll foot table
 	 *          tfoot - tfoot
 	 */
-	let scroller = Dom
-		.c('div')
+	let scroller = Dom.c('div')
 		.classAdd(classes.container)
+		.attr('role', 'table')
 		.append(
-			Dom
-				.c('div')
+			Dom.c('div')
 				.classAdd(classes.header.self)
 				.css({
 					overflow: 'hidden',
@@ -62,16 +61,17 @@ export function featureTable(settings: Context) {
 					border: '0',
 					width: scrollX ? size(scrollX) : '100%'
 				})
+				.attr('role', 'none')
 				.append(
-					Dom
-						.c('div')
+					Dom.c('div')
 						.classAdd(classes.header.inner)
 						.css({
 							'box-sizing': 'content-box',
 							width: scroll.xInner || '100%'
 						})
+						.attr('role', 'none')
 						.append(
-							headerClone
+							tableCloneHeader
 								.attrRemove('id')
 								.css('margin-left', '0')
 								.append(captionSide === 'top' ? caption : null)
@@ -80,33 +80,33 @@ export function featureTable(settings: Context) {
 				)
 		)
 		.append(
-			Dom
-				.c('div')
+			Dom.c('div')
 				.classAdd(classes.body)
 				.css({
 					position: 'relative',
 					overflow: 'auto',
 					width: size(scrollX)
 				})
+				.attr('role', 'none')
 				.append(table)
 		);
 
 	if (footer.count()) {
 		scroller.append(
-			Dom
-				.c('div')
+			Dom.c('div')
 				.classAdd(classes.footer.self)
 				.css({
 					overflow: 'hidden',
 					border: '0',
 					width: scrollX ? size(scrollX) : '100%'
 				})
+				.attr('role', 'none')
 				.append(
-					Dom
-						.c('div')
+					Dom.c('div')
 						.classAdd(classes.footer.inner)
+						.attr('role', 'none')
 						.append(
-							footerClone
+							tableCloneFooter
 								.attrRemove('id')
 								.css('margin-left', '0')
 								.append(
@@ -160,6 +160,25 @@ export function featureTable(settings: Context) {
 
 	// On redraw - align columns
 	settings.callbacks.draw.push(scrollDraw);
+
+	// Aria roles - because we break the table up into parts we need to be very
+	// explicit with the roles to create the accessability tree for the table,
+	// otherwise browser's attempt to "fix" the tree by filling in what it
+	// thinks are gaps. The static elements that we can assign roles to are done
+	// here. Dynamic ones are done in the draw function below.
+	table.attr('role', 'none');
+	table.find('tbody').attr('role', 'rowgroup');
+	tableCloneHeader.attr('role', 'none');
+	tableCloneFooter.attr('role', 'none');
+	settings.colgroup.find('colgroup').attr('role', 'none');
+
+	// Move the info feature's aria desc by to the new "table"
+	let describedBy = table.attr('aria-describedby');
+
+	if (describedBy) {
+		scroller.attr('aria-describedby', describedBy);
+		table.attrRemove('aria-describedby');
+	}
 
 	return scroller.get(0);
 }
@@ -215,11 +234,15 @@ export function scrollDraw(settings: Context) {
 		settings.scrollBarVis = scrollBarVis;
 	}
 
+	header.find('thead').attr('role', 'rowgroup');
+	footer.find('tfoot').attr('role', 'rowgroup');
+
 	// 1. Re-create the table inside the scrolling div
 	// Remove the old minimised thead and tfoot elements in the inner table
 	table.children('thead, tfoot').remove();
 
-	// Clone the current header and footer elements and then place it into the inner table
+	// Clone the current header and footer elements and then place it into the
+	// inner table
 	headerCopy = header.clone(true).prependTo(table);
 	headerCopy.find('th, td').attrRemove('tabindex');
 	headerCopy.find('[id]').attrRemove('id');
@@ -260,8 +283,7 @@ export function scrollDraw(settings: Context) {
 		}
 
 		if (firstTr) {
-			let colSizes = Dom
-				.s(firstTr)
+			let colSizes = Dom.s(firstTr)
 				.children('th, td')
 				.mapTo(function (cell, idx) {
 					return {
@@ -340,6 +362,21 @@ export function scrollDraw(settings: Context) {
 	// Correct DOM ordering for colgroup - comes before the thead
 	table.children('colgroup').prependTo(table);
 
+	// Remove tabindex from the hidden row elements
+	table.find('thead, tfoot').find('[tabindex]').attrRemove('tabindex');
+
+	// Dynamic ARIA roles - see setup for details on why this is needed
+	table
+		.find('thead, tfoot')
+		.attr('role', 'none')
+		.find('[role]')
+		.attrRemove('role');
+	table.find('tbody tr:not([role])').attr('role', 'row');
+	table.find('tbody td:not([role]), tbody th:not([role])').attr('role', 'cell');
+
+	scrollAria(headerCopy);
+	scrollAria(footerCopy);
+
 	// Adjust the position of the header in case we loose the y-scrollbar
 	divBody.trigger('scroll');
 
@@ -347,5 +384,18 @@ export function scrollDraw(settings: Context) {
 	// only if we aren't holding the position
 	if ((settings.wasOrdered || settings.wasFiltered) && !settings.drawHold) {
 		divBodyEl.scrollTop(0);
+	}
+}
+
+/**
+ * Apply ARIA roles for the header / footer of a scrolling table
+ * @param element 
+ */
+function scrollAria(element?: Dom) {
+	if (element) {
+		element.find('tfoot:not([role])').attr('role', 'rowgroup');
+		element.find('tr:not([role])').attr('role', 'row');
+		element.find('th:not([role])').attr('role', 'columnheader');
+		element.find('td:not([role])').attr('role', 'cell');
 	}
 }
