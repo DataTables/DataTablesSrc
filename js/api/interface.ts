@@ -1388,16 +1388,6 @@ export interface ApiCell<T> {
 export interface ApiCellMethods<T=any>
 	extends Omit<ApiScopeable<T, ApiCellMethods<T>>, 'render' | 'select'> {
 	/**
-	 * Get the DataTables cached data for the selected cell
-	 *
-	 * @param type Specify which cache the data should be read from. Can take
-	 * one of two values: search or order
-	 * @returns DataTables API instance with the cached data for each selected
-	 * cell in the result set
-	 */
-	cache(type: string): Api<T>;
-
-	/**
 	 * Get data for the selected cell
 	 *
 	 * @returns the data from the cell
@@ -1491,16 +1481,6 @@ export interface ApiCellsMethods<T=any>
 		ApiScopeable<T, ApiCellsMethods<T>>,
 		'data' | 'render' | 'select'
 	> {
-	/**
-	 * Get the DataTables cached data for the selected cells
-	 *
-	 * @param type Specify which cache the data should be read from. Can take
-	 * one of two values: search or order
-	 * @returns DataTables API instance with the cached data for each selected
-	 * cell in the result set
-	 */
-	cache(this: ApiCellsMethods<T>, type: string): Api<T>;
-
 	/**
 	 * Get data for the selected cells
 	 *
@@ -1619,16 +1599,6 @@ export interface ApiColumnMethods<T=any>
 		ApiScopeable<T, ApiColumnMethods<T>>,
 		'init' | 'data' | 'order' | 'render' | 'search'
 	> {
-	/**
-	 * Get the DataTables cached data for the selected column(s)
-	 *
-	 * @param type Specify which cache the data should be read from. Can take
-	 * one of two values: search or order
-	 * @return DataTables Api instance with an caches data for the selected
-	 * column(s)
-	 */
-	cache(this: ApiColumnMethods<T>, type: string): Api<any>;
-
 	/**
 	 * Get the data for the cells in the selected column.
 	 *
@@ -1884,16 +1854,6 @@ export interface ApiColumnsMethods<T=any>
 		ApiScopeable<T, ApiColumnsMethods<T>>,
 		'init' | 'data' | 'order' | 'render' | 'search'
 	> {
-	/**
-	 * Get the DataTables cached data for the selected columns
-	 *
-	 * @param type Specify which cache the data should be read from. Can take
-	 * one of two values: search or order
-	 * @return DataTables Api instance with an caches data for the selected
-	 * columns
-	 */
-	cache(this: ApiColumnsMethods<T>, type: string): Api<any>;
-
 	/**
 	 * Obtain the data for the columns from the selector
 	 *
@@ -2251,20 +2211,6 @@ export interface ApiRow<T> {
 export interface ApiRowMethods<T=any>
 	extends Omit<ApiScopeable<T, ApiRowMethods<T>>, 'data' | 'select'> {
 	/**
-	 * Get the DataTables cached data for the selected row(s)
-	 *
-	 * @param type Specify which cache the data should be read from. Can take
-	 * one of two values: search or order
-	 * @returns DataTables API instance with data for each cell in the selected
-	 * row in the result set. This is a 1D array with each entry being the data
-	 * for the cells from the selected row.
-	 */
-	cache(
-		this: ApiRowMethods<T>,
-		type: string
-	): Api<Array<any>> | Api<Array<Array<any>>>;
-
-	/**
 	 * Order Methods / object
 	 */
 	child: ApiRowChildMethods<T>;
@@ -2365,20 +2311,6 @@ export interface ApiRows<T> {
 
 export interface ApiRowsMethods<T=any>
 	extends Omit<ApiScopeable<T, ApiRowsMethods<T>>, 'select'> {
-	/**
-	 * Get the DataTables cached data for the selected row(s)
-	 *
-	 * @param type Specify which cache the data should be read from. Can take
-	 * one of two values: search or order
-	 * @returns DataTables API instance with data for each cell in the selected
-	 * row in the result set. This is a 1D array with each entry being the data
-	 * for the cells from the selected row.
-	 */
-	cache(
-		this: ApiRowsMethods<T>,
-		type: string
-	): Api<Array<any>> | Api<Array<Array<any>>>;
-
 	/**
 	 * Get the data for the selected rows
 	 *

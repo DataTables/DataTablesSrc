@@ -43,11 +43,9 @@ $('#example tbody').on('click', 'td', function () {
 });
 ]]></example>
 
-	<related>-api cells().cache()</related>
 	<related>-api cells().data()</related>
 	<related>-api cells().render()</related>
 	<related>-api cells().invalidate()</related>
-	<related>-api cell().cache()</related>
 	<related>-api cell().data()</related>
 	<related>-api cell().render()</related>
 	<related>-api row().invalidate()</related>

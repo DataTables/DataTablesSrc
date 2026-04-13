@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
-        "target": "ES5",
+        "target": "ES6",
         "module": "ES6",
-		"moduleResolution": "node10",
+		"moduleResolution": "bundler",
         "lib": ["es2017", "es2016", "dom"],
         "allowUnreachableCode": true,
         "allowSyntheticDefaultImports": true,
@@ -12,7 +12,9 @@
 		"strictNullChecks": true,
 		"strictFunctionTypes": true,
 		"skipLibCheck": true,
-		"outDir": "dist"
+		"outDir": "dist",
+		"strict": false,
+        "noImplicitThis": false
 	},
     "include": [
         "js/index.ts",

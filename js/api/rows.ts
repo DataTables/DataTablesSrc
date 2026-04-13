@@ -5,20 +5,20 @@ import { Context } from '../model/settings';
 import util from '../util';
 import { register, registerPlural } from './Api';
 import {
-    Api,
-    ApiRow,
-    ApiRowMethods,
-    ApiRows,
-    ApiRowsMethods,
-    Api as ApiType,
-    RowSelector,
-    SelectorModifier
+	Api,
+	ApiRow,
+	ApiRowMethods,
+	ApiRows,
+	ApiRowsMethods,
+	Api as ApiType,
+	RowSelector,
+	SelectorModifier
 } from './interface';
 import {
-    selectorFirst,
-    selectorOpts,
-    selectorRowIndexes,
-    selectorRun
+	selectorFirst,
+	selectorOpts,
+	selectorRowIndexes,
+	selectorRun
 } from './selectors';
 import { arrayApply, lengthOverflow } from './support';
 
@@ -217,21 +217,6 @@ register<ApiRowsMethods<any>['data']>('rows().data()', function () {
 		true
 	);
 });
-
-registerPlural<ApiRowsMethods<any>['cache']>(
-	'rows().cache()',
-	'row().cache()',
-	function (type) {
-		return this.iterator(
-			'row',
-			function (settings, row) {
-				var r = settings.data[row];
-				return type === 'search' ? r?.searchCellCache : r?.orderCache;
-			},
-			true
-		);
-	}
-);
 
 registerPlural<ApiRowsMethods<any>['invalidate']>(
 	'rows().invalidate()',

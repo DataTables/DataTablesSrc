@@ -342,7 +342,7 @@ const ext: Ext = {
 	 * Software version
 	 *  @type string
 	 */
-	version: '3.0.0-dev'
+	version: '3.0.0-beta.1'
 };
 
 //
