@@ -57,7 +57,7 @@ function __mldObj(d: string, format?: string | null, locale?: string) {
 	resolveWindowLibs();
 
 	if (__moment) {
-		dt = __moment.utc(d, format, locale, true);
+		dt = __moment(d, format, locale, true);
 
 		if (!dt.isValid()) {
 			return null;
@@ -191,6 +191,8 @@ function __mlHelper(localeString: string) {
 				return d;
 			}
 
+			// Get a Date object - note that we use Zulu time if no timezone is
+			// given in the source value
 			var dt = __mldObj(d, from, locale);
 
 			if (dt === null) {
@@ -204,8 +206,7 @@ function __mlHelper(localeString: string) {
 			var formatted =
 				to === null
 					? __mld(dt, 'toDate', 'toJSDate', '')[localeString](
-							navigator.language,
-							{ timeZone: 'UTC' }
+							navigator.language
 					  )
 					: __mld(dt, 'format', 'toFormat', 'toISOString', to);
 
