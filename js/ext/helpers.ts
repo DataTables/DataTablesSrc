@@ -191,8 +191,7 @@ function __mlHelper(localeString: string) {
 				return d;
 			}
 
-			// Get a Date object - note that we use Zulu time if no timezone is
-			// given in the source value
+			// Get a Date object (Luxon, moment or Date)
 			var dt = __mldObj(d, from, locale);
 
 			if (dt === null) {
