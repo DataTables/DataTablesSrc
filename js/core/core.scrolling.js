@@ -318,6 +318,10 @@ function _fnScrollDraw ( settings )
 	// Correct DOM ordering for colgroup - comes before the thead
 	table.children('colgroup').prependTo(table);
 
+	// Remove tabindex from the hidden row elements
+	table.find('thead, tfoot').find('[tabindex]').removeAttr('tabindex');
+	table.find('thead, tfoot').find('role').removeAttr('role');
+
 	// Adjust the position of the header in case we loose the y-scrollbar
 	divBody.trigger('scroll');
 

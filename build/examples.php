@@ -94,7 +94,7 @@ else if ( isset( $options['media'] ) ) {
 $versions = json_decode(
 	is_file('/tmp/dt-versions')
 		? file_get_contents('/tmp/dt-versions')
-		: file_get_contents_curl('https://api.datatables.net/versions/pre-release'),
+		: file_get_contents_curl('https://api.datatables.net/versions/feed'),
 	true
 );
 $pluginsHash = $versions['DataTables']['release']['version'];
