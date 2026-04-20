@@ -84,6 +84,16 @@ function ajax(optionsIn: AjaxOptions) {
 		xhr.setRequestHeader('Content-Type', options.contentType);
 	}
 
+	// Add a X-Request-With header, as jQuery does so and some server-side
+	// platforms look for it. Only for same domain though.
+	if (
+		options.headers &&
+		!options.headers['X-Requested-With'] &&
+		!isCrossDomain(options.url)
+	) {
+		options.headers['X-Requested-With'] = 'XMLHttpRequest';
+	}
+
 	object.each(options.headers, (key, val) => {
 		xhr.setRequestHeader(key, val);
 	});
@@ -203,6 +213,19 @@ function convertSpaces(sendData: string, options: AjaxOptions) {
 	) === 0
 		? sendData.replace(/%20/g, '+')
 		: sendData;
+}
+
+/**
+ * Determine if a url is a cross domain request or not
+ * 
+ * @param url URL to check
+ * @returns True if cross domain, false otherwise
+ */
+function isCrossDomain(url: string) {
+	// Use the current page as the base to handle relative URLs correctly
+	const target = new URL(url, window.location.origin);
+	
+	return target.origin !== window.location.origin;
 }
 
 /**
