@@ -4,11 +4,11 @@ import { register as registerType, store as typeStore } from './types';
 export type DateTimeRenderer = (d: any, type: string) => any;
 export type NumberRenderer = {
 	display: (d: unknown) => unknown;
-}
+};
 export type TextRenderer = {
 	display: (d: any) => string;
 	filter: (d: any) => string;
-}
+};
 
 /*
  * Public helper functions. These aren't used internally by DataTables, or
@@ -191,6 +191,17 @@ function __mlHelper(localeString: string) {
 				return d;
 			}
 
+			// Determine if there is a timezone. If there is, we want to reuse
+			// it for the output, so the timezone doesn't change between the
+			// input and output.
+			let options: Intl.DateTimeFormatOptions = {};
+			let tzMatch =
+				typeof d === 'string' ? d.match(util.regex.isoTimezone) : null;
+
+			if (tzMatch) {
+				options.timeZone = tzMatch[1] === 'Z' ? 'UTC' : tzMatch[1];
+			}
+
 			// Get a Date object (Luxon, moment or Date)
 			var dt = __mldObj(d, from, locale);
 
@@ -205,7 +216,8 @@ function __mlHelper(localeString: string) {
 			var formatted =
 				to === null
 					? __mld(dt, 'toDate', 'toJSDate', '')[localeString](
-							navigator.language
+							navigator.language,
+							options
 					  )
 					: __mld(dt, 'format', 'toFormat', 'toISOString', to);
 

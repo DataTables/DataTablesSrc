@@ -48,3 +48,5 @@ export const reRegexCharacters = new RegExp(
 export const reDate = /^\d{2,4}[./-]\d{1,2}[./-]\d{1,2}([T ]{1}\d{1,2}[:.]\d{2}([.:]\d{2})?)?$/;
 
 export const reNewLines = /[\r\n\u2028]/g;
+
+export const isoTimezone = /[T\s]\d{2}.*?(Z|[+-]\d{2}(?::?\d{2})?)$/;
