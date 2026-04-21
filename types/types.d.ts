@@ -64,39 +64,3 @@ export {
 
 // Default Export (merged DataTablesStatic and value)
 export default DataTable;
-
-// jQuery integration for legacy support
-interface JQueryDataTables extends JQuery {
-	/**
-	 * Returns DataTables API instance
-	 * Usage:
-	 * $( selector ).dataTable().api();
-	 */
-	api(): Api<any>;
-}
-
-declare global {
-	interface JQueryDataTableApi extends DataTablesStatic {
-		<T = any>(opts?: Options): Api<T>;
-	}
-
-	interface JQueryDataTableJq extends DataTablesStatic {
-		(opts?: Options): JQueryDataTables;
-	}
-
-	interface JQuery {
-		/**
-		 * Create a new DataTable, returning a DataTables API instance.
-		 * @param opts Configuration settings
-		 */
-		DataTable: JQueryDataTableApi;
-
-		/**
-		 * Create a new DataTable, returning a jQuery object, extended
-		 * with an `api()` method which can be used to access the
-		 * DataTables API.
-		 * @param opts Configuration settings
-		 */
-		dataTable: JQueryDataTableJq;
-	}
-}

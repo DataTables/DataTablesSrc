@@ -2876,3 +2876,42 @@ type FunctionColumnRender = (
 	row: any,
 	meta: CellMetaSettings
 ) => any;
+
+
+
+// jQuery integration for legacy support
+interface JQueryDataTables extends JQuery {
+	/**
+	 * Returns DataTables API instance
+	 * Usage:
+	 * $( selector ).dataTable().api();
+	 */
+	api(): Api<any>;
+}
+
+declare global {
+	interface JQueryDataTableApi extends DataTablesStatic {
+		<T = any>(opts?: Options): Api<T>;
+	}
+
+	interface JQueryDataTableJq extends DataTablesStatic {
+		(opts?: Options): JQueryDataTables;
+	}
+
+	/* Extend jQuery's interface with the DataTable's properties */
+	interface JQuery {
+		/**
+		 * Create a new DataTable, returning a DataTables API instance.
+		 * @param opts Configuration settings
+		 */
+		DataTable: JQueryDataTableApi;
+
+		/**
+		 * Create a new DataTable, returning a jQuery object, extended
+		 * with an `api()` method which can be used to access the
+		 * DataTables API.
+		 * @param opts Configuration settings
+		 */
+		dataTable: JQueryDataTableJq;
+	}
+}
