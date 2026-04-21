@@ -146,8 +146,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 		}
 
 		if (sort) {
-			Array.prototype.sort.call(this, documentOrder);
-			// this.sort(documentOrder);
+			this.sort();
 		}
 
 		return this;
@@ -1392,6 +1391,20 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 		return this.each(el => {
 			el.style.display = 'block';
 		});
+	}
+
+	/**
+	 * Sort the DOM elements into document order.
+	 *
+	 * This is normally not needed as elements selected with a DOM selector are
+	 * automatically sorted in document order. However, in the case of elements
+	 * being added as an array, their order will be retained. In such as case
+	 * you might wish to sort them in document order.
+	 */
+	sort() {
+		Array.prototype.sort.call(this, documentOrder);
+
+		return this;
 	}
 
 	/**
