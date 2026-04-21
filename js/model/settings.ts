@@ -7,6 +7,7 @@ import { ConfigLanguage, Options } from './defaults';
 import {
 	AjaxData,
 	DataTableDom,
+	FunctionDrawCallback,
 	FunctionFormatNumber,
 	Layout,
 	OrderState
@@ -14,8 +15,6 @@ import {
 import { Row } from './row';
 import { SearchObject, SearchOptions } from './search';
 import { State, StateLoad } from './state';
-
-type FunctionDrawCallback = (this: DataTableDom, settings: Context) => void;
 
 interface IScroll {
 	/**

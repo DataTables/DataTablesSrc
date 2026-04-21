@@ -8,13 +8,16 @@ import { IFeatureSearchOptions } from '../features/search';
 import { Context } from './settings';
 import { State } from './state';
 
-export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends Array<infer U>
-    ? Array<DeepPartial<U>>
-    : T[P] extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : DeepPartial<T[P]>
-};
+// Multi layer optional properties (i.e. a nested `Partial<>`)
+export type DeepPartial<T> = T extends (...args: any[]) => any
+	? T // functions - Preserves call signatures
+	: T extends (infer U)[]
+	? Array<DeepPartial<U>> // Standard arrays
+	: T extends ReadonlyArray<infer U>
+	? ReadonlyArray<DeepPartial<U>> // Readonly arrays
+	: T extends object
+	? { [K in keyof T]?: DeepPartial<T[K]> } // Recurse into objects
+	: T; // Primitives
 
 /**
  * Execution scope for the callbacks
@@ -200,8 +203,8 @@ export interface AjaxDataSearch {
 	value: string;
 	regex: boolean;
 	fixed: { name: string; term: string }[];
-	groups: { columns: number[], term: string}[],
-	groupsFixed: { name: string; columns: number[], term: string}[];
+	groups: { columns: number[]; term: string }[];
+	groupsFixed: { name: string; columns: number[]; term: string }[];
 }
 
 export interface AjaxDataOrder {
@@ -278,7 +281,10 @@ export type FunctionCreateRow = (
 	cells: HTMLTableCellElement[]
 ) => void;
 
-export type FunctionDrawCallback = (settings: Context) => void;
+export type FunctionDrawCallback = (
+	this: DataTableDom,
+	settings: Context
+) => void;
 
 export type FunctionFooterCallback = (
 	this: DataTableDom,
