@@ -73,7 +73,7 @@ describe('cells - cells().invalidate()', function() {
 		it('After the draw', function() {
 			table.page(1).draw(false);
 			expect(table.cell(2, 0).data()).toBe('Fred');
-			expect(table.cell(2, 0).cache('search')).toBe('FRED');
+			expect(table.cell(2, 0).render('search')).toBe('FRED');
 		});
 		it('Displayed in table correctly', function() {
 			expect($('#example tbody tr:eq(6) td:eq(0)').text()).toBe('Fred');

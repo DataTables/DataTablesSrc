@@ -68,7 +68,7 @@ describe('cells - cell().invalidate()', function() {
 		it('After the draw', function() {
 			table.draw();
 			expect(table.cell(2, 0).data()).toBe('Fred');
-			expect(table.cell(2, 0).cache('search')).toBe('FRED');
+			expect(table.cell(2, 0).render('search')).toBe('FRED');
 		});
 
 		dt.html('basic');
