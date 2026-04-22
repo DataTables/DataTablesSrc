@@ -1,4 +1,4 @@
-import { callbackFire, dataSource, escapeObject, log } from '../api/support';
+import { callbackFire, dataSource, escapeObject, lengthOverflow, log } from '../api/support';
 import Dom from '../dom';
 import ext from '../ext/index';
 import Settings from '../model/columns/settings';
@@ -576,6 +576,11 @@ export function reDraw(
 
 	if (holdPosition !== true) {
 		settings.displayStart = 0;
+	}
+	else {
+		// Keep position, but make sure that there is actually data to display,
+		// otherwise we need to rewind a bit (e.g. if rows were deleted)
+		lengthOverflow(settings);
 	}
 
 	// Let any modules know about the draw hold position state (used by

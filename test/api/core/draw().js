@@ -4,81 +4,85 @@ describe('core - draw()', function () {
 		css: ['datatables']
 	});
 
-	describe('Check the defaults', function() {
-		it('Exists and is a function', function() {
+	describe('Check the defaults', function () {
+		it('Exists and is a function', function () {
 			expect(typeof $('#example').DataTable().draw).toBe('function');
 		});
 
-		it('Returns an API instance', function() {
+		it('Returns an API instance', function () {
 			expect(
-				$('#example')
-					.DataTable()
-					.draw() instanceof $.fn.dataTable.Api
+				$('#example').DataTable().draw() instanceof $.fn.dataTable.Api
 			).toBe(true);
 		});
 	});
 
-	describe('Basic tests', function() {
+	describe('Basic tests', function () {
 		dt.html('basic');
-		it('Table only updates after a draw', function() {
+		it('Table only updates after a draw', function () {
 			let table = $('#example').DataTable();
 
 			table.page(1);
 			expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou')).toBe(true);
 			table.draw(false);
-			expect(dt.isColumnHBFExpected(0, 'Name', 'Charde Marshall')).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Charde Marshall')).toBe(
+				true
+			);
 		});
 
-		it('Without paging option, then table full reorder/search applied', function() {
+		it('Without paging option, then table full reorder/search applied', function () {
 			let table = $('#example').DataTable();
 
-			table
-				.column(0)
-				.order('desc')
-				.page(1)
-				.draw(false);
+			table.column(0).order('desc').page(1).draw(false);
 			expect(dt.isColumnHBFExpected(0, 'Name', 'Sonya Frost')).toBe(true);
 
 			table.draw();
-			expect(dt.isColumnHBFExpected(0, 'Name', 'Zorita Serrano')).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Zorita Serrano')).toBe(
+				true
+			);
 		});
 	});
 
-	describe('Test parameter combinations', function() {
+	describe('Test parameter combinations', function () {
 		dt.html('basic');
-		it('Paging = true (default)', function() {
+		it('Paging = true (default)', function () {
 			let table = $('#example').DataTable();
 
 			table.page(1).draw(true);
 			expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou')).toBe(true);
 		});
 
-		it('Paging = false', function() {
+		it('Paging = false', function () {
 			let table = $('#example').DataTable();
 
 			table.page(1).draw(false);
-			expect(dt.isColumnHBFExpected(0, 'Name', 'Charde Marshall')).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Charde Marshall')).toBe(
+				true
+			);
 		});
 
-		it('Paging = full-reset (default)', function() {
+		it('Paging = full-reset (default)', function () {
 			let table = $('#example').DataTable();
 
 			table.page(1).draw('full-reset');
 			expect(dt.isColumnHBFExpected(0, 'Name', 'Airi Satou')).toBe(true);
 		});
 
-		it('Paging = full-hold', function() {
+		it('Paging = full-hold', function () {
 			let table = $('#example').DataTable();
 
 			table.page(1).draw('full-hold');
-			expect(dt.isColumnHBFExpected(0, 'Name', 'Charde Marshall')).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Charde Marshall')).toBe(
+				true
+			);
 		});
 
-		it('Paging = page', function() {
+		it('Paging = page', function () {
 			let table = $('#example').DataTable();
 
 			table.page(1).draw('page');
-			expect(dt.isColumnHBFExpected(0, 'Name', 'Charde Marshall')).toBe(true);
+			expect(dt.isColumnHBFExpected(0, 'Name', 'Charde Marshall')).toBe(
+				true
+			);
 		});
 	});
 
@@ -121,9 +125,54 @@ describe('core - draw()', function () {
 			table.search('Cox');
 			table.draw(false);
 
-			// Fix test once case DD-122 resolved
-			// expect($('.dt-info').text()).toBe('Showing 1 to 1 of 1 entries (filtered from 57 total entries)');
-			expect($('.dt-info').text()).toBe('Showing 11 to 1 of 1 entry (filtered from 57 total entries)');
+			expect($('.dt-info').text()).toBe('Showing 1 to 1 of 1 entry (filtered from 57 total entries)');
+		});
+	});
+
+	describe('Overflow after delete - forum 81741', function () {
+		let table;
+
+		dt.html('basic');
+
+		it('Init the table', function () {
+			table = new DataTable('#example');
+
+			expect($('.dt-info').text()).toBe('Showing 1 to 10 of 57 entries');
+		});
+
+		it('Jump to last page', function () {
+			table.page('last').draw(false);
+
+			expect($('.dt-info').text()).toBe('Showing 51 to 57 of 57 entries');
+		});
+
+		it('Delete the rows on the current page and hold position in draw - paging rewinds', function () {
+			table.rows({ page: 'current' }).remove().draw(false);
+
+			expect($('.dt-info').text()).toBe('Showing 41 to 50 of 50 entries');
+		});
+
+		// Same again - with scrolling enabled
+		dt.html('basic');
+
+		it('Init the table - scrolling', function () {
+			table = new DataTable('#example', {
+				scrollX: true
+			});
+
+			expect($('.dt-info').text()).toBe('Showing 1 to 10 of 57 entries');
+		});
+
+		it('Jump to last page - scrolling', function () {
+			table.page('last').draw(false);
+
+			expect($('.dt-info').text()).toBe('Showing 51 to 57 of 57 entries');
+		});
+
+		it('Delete the rows on the current page and hold position in draw - paging rewinds - scrolling', function () {
+			table.rows({ page: 'current' }).remove().draw(false);
+
+			expect($('.dt-info').text()).toBe('Showing 41 to 50 of 50 entries');
 		});
 	});
 });
