@@ -12,16 +12,16 @@ UGLIFY="${INCLUDE_SCRIPT_DIR}/../node_modules/.bin/uglifyjs"
 # CSS styling frameworks that DataTables supports
 FRAMEWORKS=(
 	'bootstrap5'
-	'bootstrap4'
-	'bootstrap'
-	'bulma'
-	'foundation'
-	'jqueryui'
-	'semanticui'
-	'material'
-	'uikit'
-	'dataTables'
-	'tailwindcss'
+	#'bootstrap4'
+	#'bootstrap'
+	#'bulma'
+	#'foundation'
+	#'jqueryui'
+	#'semanticui'
+	#'material'
+	#'uikit'
+	#'dataTables'
+	#'tailwindcss'
 )
 
 
