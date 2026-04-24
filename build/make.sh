@@ -300,8 +300,10 @@ function requirements {
 
 	if ! [ -x "$(command -v chromium)" ]; then
 		if ! [ -x "$(command -v google-chrome)" ]; then
-			echo "Warning: Neither Chrome nor Chromium is installed, and is used for the unit tests."
-			echo "  Install with 'sudo apt install chromium-browser' or similar for your platform"
+			if ! [ -x "$(command -v chrome)" ]; then
+				echo "Warning: Neither Chrome nor Chromium is installed, and is used for the unit tests."
+				echo "  Install with 'sudo apt install chromium-browser' or similar for your platform"
+			fi
 		fi
 	fi
 
