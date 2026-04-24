@@ -1,0 +1,1 @@
+cd build && ./make.sh build
