@@ -365,32 +365,6 @@ div.dt-container {
 		color: common.$table-control-color;
 	}
 
-	// Scrolling
-	.dataTables_scroll {
-		clear: both;
-
-		div.dt-scroll-body {
-			-webkit-overflow-scrolling: touch;
-
-			> table > thead > tr, > table > tbody > tr {
-				> th, > td {
-					// Setting v-align baseline can cause the headers to be visible
-					vertical-align: middle;
-				}
-
-				> th > div.dataTables_sizing,
-				> td > div.dataTables_sizing {
-					// Hide the element used to wrap the content in the header for
-					// the body scrolling table
-					height: 0;
-					overflow: hidden;
-					margin: 0 !important;
-					padding: 0 !important;
-				}
-			}
-		}
-	}
-
 	// Tables with an empty footer need special consideration for styling at the end of the table
 	&.dt-empty-footer {
 		// Show the boundary on the last row
