@@ -172,10 +172,12 @@ _api_register( 'caption()', function ( value, side ) {
 			caption[0]._captionSide = side;
 		}
 
-		if (container.find('div.dataTables_scroll').length) {
-			var selector = (side === 'top' ? 'Head' : 'Foot');
+		if (container.find('div.dt-scroll').length) {
+			var selector = side === 'top' ? 'head' : 'foot';
 
-			container.find('div.dataTables_scroll'+ selector +' table').prepend(caption);
+			container
+				.find('div.dt-scroll-' + selector + ' table')
+				.prepend(caption);
 		}
 		else {
 			table.prepend(caption);
