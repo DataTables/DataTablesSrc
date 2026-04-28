@@ -179,11 +179,11 @@ register<ApiCaptionOverload>('caption()', function (value?, side?) {
 				(caption.get(0) as any)._captionSide = side;
 			}
 
-			if (container.find('div.dataTables_scroll').count()) {
-				var selector = side === 'top' ? 'Head' : 'Foot';
+			if (container.find('div.dt-scroll').count()) {
+				var selector = side === 'top' ? 'head' : 'foot';
 
 				container
-					.find('div.dataTables_scroll' + selector + ' table')
+					.find('div.dt-scroll-' + selector + ' table')
 					.prepend(caption);
 			}
 			else {
