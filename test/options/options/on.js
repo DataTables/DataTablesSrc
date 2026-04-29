@@ -1,24 +1,24 @@
-describe('on', function() {
+describe('on', function () {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
 	});
 
-	describe('Check the defaults', function() {
+	describe('Check the defaults', function () {
 		dt.html('basic');
 
-		it('There is no default', function() {
+		it('There is no default', function () {
 			expect(DataTable.defaults.on).toEqual({});
 		});
 	});
 
-	describe('Operation', function() {
+	describe('Operation', function () {
 		var drawCounter = 0;
 		var table;
 
 		dt.html('basic');
 
-		it('Can get a draw event', function() {
+		it('Can get a draw event', function () {
 			table = $('table').DataTable({
 				on: {
 					draw: () => {
@@ -37,7 +37,7 @@ describe('on', function() {
 
 		dt.html('basic');
 
-		it('Can add multiple listeners for a single event via an array', function() {
+		it('Can add multiple listeners for a single event via an array', function () {
 			var drawCounter1 = 0;
 			var drawCounter2 = 0;
 
@@ -60,7 +60,7 @@ describe('on', function() {
 
 		dt.html('basic');
 
-		it('Can add multiple events', function() {
+		it('Can add multiple events', function () {
 			var drawCounter = 0;
 			var orderCounter = 0;
 			var searchCounter = 0;
@@ -85,7 +85,7 @@ describe('on', function() {
 
 		dt.html('basic');
 
-		it('Event arguments are as expected', function() {
+		it('Event arguments are as expected', function () {
 			var args;
 			var table = $('table').DataTable({
 				on: {
@@ -101,6 +101,33 @@ describe('on', function() {
 			expect(args[0].type).toBe('length');
 			expect(args[1]).toBe(table.settings()[0]);
 			expect(args[2]).toBe(25);
+		});
+
+		dt.html('basic');
+
+		it('Events are automatically removed after a destroy', function () {
+			let count = 0;
+			let table = new DataTable('#example', {
+				on: {
+					draw: () => {
+						count++;
+					}
+				}
+			});
+
+			expect(count).toBe(1);
+
+			table.destroy();
+
+			table = new DataTable('#example', {
+				on: {
+					draw: () => {
+						count++;
+					}
+				}
+			});
+
+			expect(count).toBe(2);
 		});
 	});
 });

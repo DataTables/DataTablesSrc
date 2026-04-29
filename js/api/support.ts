@@ -295,7 +295,7 @@ export function listener(that: Dom, name: string, src: Function | Function[]) {
 	let srcArr = Array.isArray(src) ? src : [src];
 
 	for (var i = 0; i < srcArr.length; i++) {
-		that.on(name + '.dt', srcArr[i] as any);
+		that.on(name + '.dt.DT', srcArr[i] as any);
 	}
 }
 

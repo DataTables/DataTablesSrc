@@ -16,6 +16,8 @@
 		Any event name that is given in the list of events can be used as the object property name, while the value may take a callback function as the event handler, or an array of functions if you wish to listen with more than one event handler.
 
 		The arguments passed to the event handlers are identical to those for the event identified by the property name.
+
+		As of DataTables 3, events that are listened for using this property are automatically removed if the table is destroyed (`-api destroy()`) to prevent memory leaks.
 	</description>
 
 	<example title="Listen for the draw event"><![CDATA[
