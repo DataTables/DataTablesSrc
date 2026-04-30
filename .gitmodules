@@ -1,0 +1,48 @@
+[submodule "extensions/AutoFill"]
+	path = extensions/AutoFill
+	url = git@github.com-datatilla:Datatilla/AutoFill.git
+[submodule "extensions/Buttons"]
+	path = extensions/Buttons
+	url = git@github.com-datatilla:Datatilla/Buttons.git
+[submodule "extensions/ColReorder"]
+	path = extensions/ColReorder
+	url = git@github.com-datatilla:Datatilla/ColReorder.git
+[submodule "extensions/ColumnControl"]
+	path = extensions/ColumnControl
+	url = git@github.com-datatilla:Datatilla/ColumnControl.git
+[submodule "extensions/DateTime"]
+	path = extensions/DateTime
+	url = git@github.com-datatilla:Datatilla/DateTime.git
+[submodule "extensions/FixedColumns"]
+	path = extensions/FixedColumns
+	url = git@github.com-datatilla:Datatilla/FixedColumns.git
+[submodule "extensions/FixedHeader"]
+	path = extensions/FixedHeader
+	url = git@github.com-datatilla:Datatilla/FixedHeader.git
+[submodule "extensions/KeyTable"]
+	path = extensions/KeyTable
+	url = git@github.com-datatilla:Datatilla/KeyTable.git
+[submodule "extensions/Responsive"]
+	path = extensions/Responsive
+	url = git@github.com-datatilla:Datatilla/Responsive.git
+[submodule "extensions/RowGroup"]
+	path = extensions/RowGroup
+	url = git@github.com-datatilla:Datatilla/RowGroup.git
+[submodule "extensions/RowReorder"]
+	path = extensions/RowReorder
+	url = git@github.com-datatilla:Datatilla/RowReorder.git
+[submodule "extensions/Scroller"]
+	path = extensions/Scroller
+	url = git@github.com-datatilla:Datatilla/Scroller.git
+[submodule "extensions/SearchBuilder"]
+	path = extensions/SearchBuilder
+	url = git@github.com-datatilla:Datatilla/SearchBuilder.git
+[submodule "extensions/SearchPanes"]
+	path = extensions/SearchPanes
+	url = git@github.com-datatilla:Datatilla/SearchPanes.git
+[submodule "extensions/Select"]
+	path = extensions/Select
+	url = git@github.com-datatilla:Datatilla/Select.git
+[submodule "extensions/StateRestore"]
+	path = extensions/StateRestore
+	url = git@github.com-datatilla:Datatilla/StateRestore.git

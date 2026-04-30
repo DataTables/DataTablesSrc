@@ -102,7 +102,7 @@ function build_css {
 function build_types {
 	echo_section "Types"
 	if [ -d $BUILD_DIR/types ]; then
-		rm -r $BUILD_DIR/types		
+		rm -r $BUILD_DIR/types
 	fi
 	mkdir $BUILD_DIR/types
 
@@ -142,7 +142,6 @@ function build_examples {
 		-m "${BUILD_DIR}" \
 		-l "css:syntax css:demo js:syntax js:demo"
 }
-
 
 function build_lint {
 	echo_section "Lint"
@@ -244,23 +243,19 @@ function build_extension {
 	extensions_dirs
 	cd ${BASE_DIR}/extensions
 
-	if [ ! -d ${BASE_DIR}/extensions/${EXTENSION} ]; then
-		echo_msg "Cloning $EXTENSION from GitHub" 
-		git clone git@github.com-datatilla:DataTilla/${EXTENSION}.git
-		#git clone https://github.com/DataTables/${EXTENSION}.git
-	fi
-
-	if [ -e ${BASE_DIR}/extensions/${EXTENSION}/make.sh ]; then
-		# If there is a make file, then leave it to the extension to do its own
-		# build and copy files into place
-		echo_msg "Running $EXTENSION build script"
-		bash ${BASE_DIR}/extensions/${EXTENSION}/make.sh \
-			${BUILD_DIR}/DataTables/extensions/${EXTENSION} $DEBUG
+	if [ -d ${BASE_DIR}/extensions/${EXTENSION} ]; then
+		if [ -e ${BASE_DIR}/extensions/${EXTENSION}/make.sh ]; then
+			# If there is a make file, then leave it to the extension to do its own
+			# build and copy files into place
+			echo_msg "Running $EXTENSION build script"
+			bash ${BASE_DIR}/extensions/${EXTENSION}/make.sh ${BUILD_DIR}/DataTables/extensions/${EXTENSION} $DEBUG
+		else
+			# Otherwise, just copy the whole lot over
+			echo_msg "Copying $EXTENSION files into place"
+			rsync -r ${BASE_DIR}/extensions/${EXTENSION} ${BUILD_DIR}/DataTables/extensions
+		fi
 	else
-		# Otherwise, just copy the whole lot over
-		echo_msg "Copying $EXTENSION files into place"
-		rsync -r ${BASE_DIR}/extensions/${EXTENSION} \
-			${BUILD_DIR}/DataTables/extensions
+		echo_error "Extension $EXTENSION not found"
 	fi
 }
 
@@ -398,12 +393,10 @@ case "$1" in
 		build_extension RowReorder
 		build_extension Scroller
 		build_extension SearchBuilder
-		build_extension SearchPanes
+		#build_extension SearchPanes
 		build_extension Select
-		build_extension StateRestore
-		if [ -d ../extensions/Editor ]; then
-			build_extension Editor
-		fi
+		#build_extension StateRestore
+		build_extension Editor
 		;;
 
 	"examples")

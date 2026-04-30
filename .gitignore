@@ -1,6 +1,7 @@
 .DS_Store
 /built
 /css/.sass-cache
-/extensions
 /node_modules
 yarn.lock
+launch.json
+package-lock.json
