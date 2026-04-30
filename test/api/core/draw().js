@@ -122,8 +122,54 @@ describe('core - draw()', function () {
 			table.draw(false);
 
 			// Fix test once case DD-122 resolved
-			// expect($('.dt-info').text()).toBe('Showing 1 to 1 of 1 entries (filtered from 57 total entries)');
-			expect($('.dt-info').text()).toBe('Showing 11 to 1 of 1 entry (filtered from 57 total entries)');
+			expect($('.dt-info').text()).toBe('Showing 1 to 1 of 1 entry (filtered from 57 total entries)');
+		});
+	});
+
+	describe('Overflow after delete - forum 81741', function () {
+		let table;
+
+		dt.html('basic');
+
+		it('Init the table', function () {
+			table = new DataTable('#example');
+
+			expect($('.dt-info').text()).toBe('Showing 1 to 10 of 57 entries');
+		});
+
+		it('Jump to last page', function () {
+			table.page('last').draw(false);
+
+			expect($('.dt-info').text()).toBe('Showing 51 to 57 of 57 entries');
+		});
+
+		it('Delete the rows on the current page and hold position in draw - paging rewinds', function () {
+			table.rows({ page: 'current' }).remove().draw(false);
+
+			expect($('.dt-info').text()).toBe('Showing 41 to 50 of 50 entries');
+		});
+
+		// Same again - with scrolling enabled
+		dt.html('basic');
+
+		it('Init the table - scrolling', function () {
+			table = new DataTable('#example', {
+				scrollX: true
+			});
+
+			expect($('.dt-info').text()).toBe('Showing 1 to 10 of 57 entries');
+		});
+
+		it('Jump to last page - scrolling', function () {
+			table.page('last').draw(false);
+
+			expect($('.dt-info').text()).toBe('Showing 51 to 57 of 57 entries');
+		});
+
+		it('Delete the rows on the current page and hold position in draw - paging rewinds - scrolling', function () {
+			table.rows({ page: 'current' }).remove().draw(false);
+
+			expect($('.dt-info').text()).toBe('Showing 41 to 50 of 50 entries');
 		});
 	});
 });
