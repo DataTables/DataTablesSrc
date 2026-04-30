@@ -43,3 +43,6 @@
 [submodule "extensions/StateRestore"]
 	path = extensions/StateRestore
 	url = git@github.com-datatilla:Datatilla/StateRestore.git
+[submodule "extensions/ColumnControl"]
+	path = extensions/ColumnControl
+	url = git@github.com-datatilla:Datatilla/ColumnControl.git
