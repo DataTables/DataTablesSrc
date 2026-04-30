@@ -7,9 +7,6 @@
 [submodule "extensions/ColReorder"]
 	path = extensions/ColReorder
 	url = git@github.com-datatilla:Datatilla/ColReorder.git
-[submodule "extensions/ColumnControl"]
-	path = extensions/ColumnControl
-	url = git@github.com-datatilla:Datatilla/ColumnControl.git
 [submodule "extensions/DateTime"]
 	path = extensions/DateTime
 	url = git@github.com-datatilla:Datatilla/DateTime.git
