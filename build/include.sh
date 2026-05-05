@@ -27,7 +27,8 @@ FRAMEWORKS=(
 
 # $1 - string - file to get the version from
 function version_from_file {
-	echo $(grep " * @version     " $1 | awk -F" " '{ print $3 }')
+	VERSION=$(grep "version.*[0-9]\+[.][0-9]\+[.][0-9]" $1 | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*(\.\d+)?)?}')
+	echo -e "$VERSION"
 }
 
 # $1 - string - section name to echo
