@@ -375,7 +375,12 @@ function breakScript(script, version) {
 	else {
 		let lines = parts.header.split('\n');
 
-		lines[0] = lines[0] + ' ' + version;
+		if (lines[0].match(/\*\//)) {
+			lines[0] = lines[0].replace(/ \*\//, ` - ${version} */`);
+		}
+		else {
+			lines[0] = lines[0] + ' ' + version;
+		}
 
 		parts.header = lines.join('\n');
 	}

@@ -31,6 +31,11 @@ function version_from_file {
 	echo -e "$VERSION"
 }
 
+function dt_version {
+	VERSION=$(version_from_file ~/DataTablesSrc/js/ext/index.ts)
+	echo -e "$VERSION"
+}
+
 # $1 - string - section name to echo
 function echo_section {
 	# Cyan
