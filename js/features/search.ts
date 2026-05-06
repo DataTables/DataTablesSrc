@@ -35,7 +35,10 @@ register<Partial<IFeatureSearchOptions>>(
 		let classes = settings.classes.search;
 		let tableId = settings.tableId;
 		let language = settings.language;
-		let input = '<input type="search" class="' + classes.input + '"/>';
+		let input =
+			'<input type="search" class="' +
+			classes.input +
+			'" autocomplete="off"/>';
 
 		let opts: IFeatureSearchOptions = util.object.assignDeep(
 			{
@@ -57,8 +60,8 @@ register<Partial<IFeatureSearchOptions>>(
 		let indexes = settings.api.columns(opts.columns).indexes().toArray();
 		let searchName = opts.columns === '*' ? '*' : indexes.join(',');
 		let appliedSearch = settings.searches[searchName];
-		
-		if (! appliedSearch) {
+
+		if (!appliedSearch) {
 			appliedSearch = createSearch();
 			settings.searches[searchName] = appliedSearch;
 		}

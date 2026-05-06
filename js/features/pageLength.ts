@@ -110,6 +110,7 @@ register<Partial<IFeaturePageLengthOptions>>(
 		var select = Dom
 			.c<HTMLSelectElement>('select')
 			.attr('aria-controls', tableId)
+			.attr('autocomplete', 'off')
 			.classAdd(classes.select);
 
 		for (i = 0; i < lengths.length; i++) {
