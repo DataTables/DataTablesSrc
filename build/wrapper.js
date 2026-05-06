@@ -139,7 +139,7 @@ ${exportProps}
 
 	// If there was a DataTables import with properties, then reinsert them into
 	// our generated imports
-	if (match && match.length >= 3) {
+	if (match && match.length >= 3 && match[3]) {
 		result = result.replace(
 			"import DataTable from 'datatables.net';",
 			'import DataTable,' + match[3] + " from 'datatables.net';"
