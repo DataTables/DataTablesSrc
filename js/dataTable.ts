@@ -1,5 +1,6 @@
 import Api from './api/index';
 import { DataTablesStatic } from './api/interface';
+import plus, { key } from './api/plus';
 import * as apiStatic from './api/static';
 import {
 	callbackFire,
@@ -556,6 +557,9 @@ DataTable.datetime = datetime;
 DataTable.__browser = browser;
 DataTable.Dom = Dom;
 DataTable.ajax = util.ajax;
+DataTable.key = key;
+
+plus(DataTable);
 
 /**
  * Private data store, containing all of the settings objects that are created

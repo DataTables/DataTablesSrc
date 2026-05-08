@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="static">
+	<name>DataTable.key()</name>
+	<summary>Set a license key</summary>
+	<since>3</since>
+
+	<type type="function">
+		<signature>key(value)</signature>
+		<description>
+			Set the license key for DataTables Plus usage.
+		</description>
+		<parameter type="string" name="value">
+			Your license key for DataTables Plus. This can be found on [the download page](/download) and your [account information](/account).
+		</parameter>
+		<returns type="void">No value is returned.</returns>
+	</type>
+
+	<description>
+		Starting with DataTables 3, there is a DataTables Plus purchase option which had extensions such as Editor available as part of it. When you purchase DataTables Plus you will receive a license key. To use the extensions that are part of DataTables Plus you must register this key with your DataTables install.
+
+		Please note that DataTables core does not require "DataTables Plus" for any build in features. The "Plus" plan is for the commercial extensions, but this method provides a central location for registering your license key.
+	</description>
+
+	<example title="Use a license key (ESM)"><![CDATA[
+import DataTable from 'datatables.net';
+import 'datatables.net-editor';
+
+DataTable.key('__YOUR_LICENSE_KEY__');
+
+// Initialise Editor (a "Plus" extension)
+new DataTable.Editor({
+	// ...
+});
+
+// Initialise DataTables
+new DataTable('#example');
+
+]]></example>
+
+	<example title="Use a license key (CDN) loaded files)"><![CDATA[
+DataTable.key('__YOUR_LICENSE_KEY__');
+
+// Initialise Editor (a "Plus" extension)
+new DataTable.Editor({
+	// ...
+});
+
+// Initialise DataTables
+new DataTable('#example');
+]]></example>
+</dt-api>

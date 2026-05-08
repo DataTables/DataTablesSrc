@@ -12,7 +12,7 @@ import { DataTablesStatic } from './interface';
  * @param jq jQuery
  * @returns Indicator
  */
-export function factory(root: Window & typeof globalThis, jq: JQueryStatic) {
+export function factory(root: Window & typeof globalThis, jq: any) {
 	var is = false;
 
 	// Test if the first parameter is a window object

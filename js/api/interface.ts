@@ -2572,6 +2572,13 @@ export interface DataTablesStatic {
 	isDataTable(table: string | Node | JQuery | Api<any>): boolean;
 
 	/**
+	 * Set the DataTables Plus license key.
+	 *
+	 * @param key Your DataTables Plus license key
+	 */
+	key(key: string): void;
+
+	/**
 	 * The models that DataTables uses for data storage.
 	 *
 	 * @ignore
