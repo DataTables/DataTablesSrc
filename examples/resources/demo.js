@@ -1,5 +1,3 @@
-/*global SyntaxHighlighter*/
-SyntaxHighlighter.config.tagName = 'code';
 
 var escapeHtml = function (str) {
 	return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -109,6 +107,8 @@ window.dt_demo = {
 			dt_demo._displayFiles('#js-lib-files', dt_demo._loaded.js);
 			dt_demo._displayFiles('#css-lib-files', dt_demo._loaded.css);
 
+			hljs.highlightElement(Dom.s('div.js code').get(0));
+
 			// css
 			var cssContainer = Dom.s('div.dt-tabs div.css');
 			if (cssContainer.find('code').text() === '') {
@@ -116,9 +116,11 @@ window.dt_demo = {
 				cssContainer.find('p').eq(0).css('display', 'none');
 			}
 
+			hljs.highlightElement(Dom.s('div.css code').get(0));
+
 			// This can really slow things down
 			setTimeout(function () {
-				SyntaxHighlighter.highlight({}, Dom.s('div.table code').get(0));
+				hljs.highlightElement(Dom.s('div.table code').get(0));
 			}, 1000);
 
 			// json
@@ -134,7 +136,7 @@ window.dt_demo = {
 				var show = function (str) {
 					ajaxTab.css('display', 'block');
 					Dom.s('div.dt-tabs div.ajax code').remove();
-					Dom.s('div.dt-tabs div.ajax div.syntaxhighlighter').remove();
+					// Dom.s('div.dt-tabs div.ajax div.syntaxhighlighter').remove();
 
 					// Old IE :-|
 					try {
@@ -158,11 +160,10 @@ window.dt_demo = {
 
 					// This can be really slow for large builds
 					setTimeout(function () {
-						SyntaxHighlighter.highlight(
-							{},
+						hljs.highlightElement(
 							Dom.s('div.dt-tabs div.ajax code').get(0)
 						);
-					}, 500);
+					}, 10);
 				};
 
 				// First draw
@@ -209,8 +210,7 @@ window.dt_demo = {
 								.append(
 									Dom.c('code').classAdd('multiline language-php').text(txt)
 								);
-							SyntaxHighlighter.highlight(
-								{},
+							hljs.highlightElement(
 								Dom.s('div.dt-tabs div.php code').get(0)
 							);
 						}

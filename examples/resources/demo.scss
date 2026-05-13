@@ -194,7 +194,7 @@ div {
 }
   
 code {
-	font-family: "Source Code Pro", Consolas, Menlo, Monaco, "Courier New", monospace;
+	font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
 	padding: 1px 4px;
 	font-size: 0.8em;
 	color: #444;
@@ -365,17 +365,12 @@ code {
 	}
   
 	&.multiline {
-		display: inline-block;
-		width: 95%;
-	}
-}
-  
-div.syntaxhighlighter {
-	padding: 20px 20px 8px 3px;
-	border-radius: 5px;
-  
-	code:after {
-		display: none;
+		border-radius: 6px;
+		border: 1px solid #d3d3d3;
+		white-space: pre;
+		font-size: 0.9em;
+		line-height: 1.45em;
+		tab-size: 2em;
 	}
 }
   
