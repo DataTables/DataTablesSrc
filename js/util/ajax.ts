@@ -101,12 +101,17 @@ function ajax(optionsIn: AjaxOptions) {
 	if (options.data instanceof FormData) {
 		sendData = options.data;
 	}
-	else if (method !== 'GET' && options.data && typeof options.data !== 'string') {
-		sendData = serialize(options.data, options.traditional);
-		sendData = convertSpaces(sendData, options);
+	else if (method !== 'GET' && options.data) {
+		if (typeof options.data === 'string') {
+			sendData = options.data;
+		}
+		else {
+			sendData = serialize(options.data, options.traditional);
+			sendData = convertSpaces(sendData, options);
 
-		// So beforeSend matches how jQuery behaves
-		options.data = sendData;
+			// So beforeSend matches how jQuery behaves
+			options.data = sendData;
+		}
 	}
 
 	xhr.onreadystatechange = function () {
@@ -217,14 +222,14 @@ function convertSpaces(sendData: string, options: AjaxOptions) {
 
 /**
  * Determine if a url is a cross domain request or not
- * 
+ *
  * @param url URL to check
  * @returns True if cross domain, false otherwise
  */
 function isCrossDomain(url: string) {
 	// Use the current page as the base to handle relative URLs correctly
 	const target = new URL(url, window.location.origin);
-	
+
 	return target.origin !== window.location.origin;
 }
 
