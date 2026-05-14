@@ -1,0 +1,241 @@
+
+@use "sass:color";
+
+@mixin code-dark-tint ($color) {
+	color: $color;
+	background-color: color.mix($color, rgb(33, 37, 41), 10%);
+	border: 1px solid color.mix($color, rgb(33, 37, 41), 5%);
+}
+
+code {
+	font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+	padding: 1px 4px;
+	font-size: 0.8em;
+	color: #444;
+	background-color: #fcfcfc;
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+
+	&:after {
+		display: inline-block;
+		border-left: 1px solid rgba(0, 0, 0, 0.2);
+		margin-left: 4px;
+		padding-left: 4px;
+		opacity: 0.5;
+	}
+}
+  
+a code {
+	text-decoration: underline;
+	height: auto !important; // Bulma
+	padding: 1px 4px !important; // Bulma
+	margin-bottom: 0 !important; // Foundation
+}
+
+code {
+	&.option {
+		color: #D14;
+
+		/* red */
+		background-color: #fcf6f8;
+		border: 1px solid #f7d6df;
+		white-space: nowrap;
+
+		&:after {
+			content: 'Option';
+		}
+	}
+  
+	&.path {
+		color: #095c05;
+
+		/* dark green */
+		background-color: #eef7ed;
+		border: 1px solid #8ccb89;
+		white-space: nowrap;
+
+		&:after {
+			content: 'Path';
+		}
+	}
+  
+	&.tag {
+		color: #c29f00;
+
+		/* yellow */
+		background-color: #fff9d7;
+		border: 1px solid #ffe700;
+		white-space: nowrap;
+
+		&:after {
+			content: 'Tag';
+		}
+	}
+  
+	&.api {
+		color: #0c199c;
+
+		/* dark blue */
+		background-color: #f4f5fc;
+		border: 1px solid #c6cbe9;
+		white-space: nowrap;
+
+		&:after {
+			content: 'API';
+		}
+	}
+  
+	&.type {
+		color: #d119cf;
+
+		/* pink */
+		background-color: #faebfa;
+		border: 1px solid #f3aef2;
+		white-space: nowrap;
+
+		&:after {
+			content: 'Type';
+		}
+	}
+  
+	&.event {
+		color: #2a839e;
+
+		/* deep aqua */
+		background-color: #f5fafb;
+		border: 1px solid #a8ddec;
+		white-space: nowrap;
+
+		&:after {
+			content: 'Event';
+		}
+	}
+  
+	&.string {
+		color: #c05f1d;
+
+		/* brown */
+		background-color: #f5eee9;
+		border: 1px solid #dfc4b2;
+		white-space: nowrap;
+
+		&:after {
+			content: 'String';
+		}
+	}
+  
+	&.field {
+		color: #ad1ee8;
+
+		/* purple */
+		background-color: #f9f1fc;
+		border: 1px solid #ebc9f7;
+		white-space: nowrap;
+
+		&:after {
+			content: 'Field';
+		}
+	}
+  
+	&.button {
+		color: #464e50;
+
+		/* grey */
+		background-color: #f2f7f9;
+		border: 1px solid #b8c3c5;
+		white-space: nowrap;
+
+		&:after {
+			content: 'Button';
+		}
+	}
+  
+	&.feature {
+		color: rgb(221, 109, 17);
+
+		/* orange */
+		background-color: #fcf9f6;
+		border: 1px solid #f7e5d6;
+		white-space: nowrap;
+
+		&:after {
+			content: 'Feature';
+		}
+	}
+  
+	&.content {
+		color: rgb(12, 143, 99);
+
+		/* mint green */
+		background-color: #f6fcfa;
+		border: 1px solid #b4f5d9;
+		white-space: nowrap;
+
+		&:after {
+			content: 'Content';
+		}
+	}
+  
+	&.multiline {
+		border-radius: 6px;
+		border: 1px solid #d3d3d3;
+		white-space: pre;
+		font-size: 0.9em;
+		line-height: 1.45em;
+		tab-size: 2em;
+	}
+}
+
+:root.dark {
+	code {
+		color: rgb(228, 228, 228);
+		background-color: rgb(28, 30, 31);
+		border: 1px solid rgb(5, 5, 5);
+	}
+
+	code {
+		&.option {
+			@include code-dark-tint(#f7d6df);
+		}
+	  
+		&.path {
+			@include code-dark-tint(#8ccb89);
+		}
+	  
+		&.tag {
+			@include code-dark-tint(#fff9d7);
+		}
+	  
+		&.api {
+			@include code-dark-tint(#c6cbe9);
+		}
+	  
+		&.type {
+			@include code-dark-tint(#faebfa);
+		}
+	  
+		&.event {
+			@include code-dark-tint(#c7edf5);
+		}
+	  
+		&.string {
+			@include code-dark-tint(#f5eee9);
+		}
+	  
+		&.field {
+			@include code-dark-tint(#f9f1fc);
+		}
+	  
+		&.button {
+			@include code-dark-tint(#f2f7f9);
+		}
+	  
+		&.feature {
+			@include code-dark-tint(#f7e2d6);
+		}
+	  
+		&.content {
+			@include code-dark-tint(#d6f7e0);
+		}
+	}
+}

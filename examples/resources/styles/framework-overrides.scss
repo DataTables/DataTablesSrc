@@ -1,0 +1,56 @@
+
+body {
+	// Overrides for styling frameworks with CSS variables
+	&.dt-example-bootstrap5 {
+		background-color: var(--bs-body-bg);
+		color: var(--bs-body-color);
+	}
+
+	&.dt-example-bulma {
+		background-color: var(--bulma-body-background-color);
+		color: var(--bulma-body-color);
+	}
+}
+
+body.dt-example-foundation {
+	table.dataTable {
+		input,
+		select {
+			margin-bottom: 0;
+		}
+	}
+
+	.button {
+		color: white;
+	}
+}
+
+body.dt-example-tailwindcss {
+	h1 {
+		font-size: 3em;
+		margin: 0.8em 0;
+	}
+
+	h2 {
+		margin: 0.5em 0;
+		font-size: 1.75em;
+	}
+
+	h3 {
+		margin: 0.5em 0;
+		font-size: 1.2em;
+		font-weight: bold;
+	}
+
+	div.info,
+	div.dt-tabs,
+	div.footer {
+		a {
+			color: #3174c7;
+		}
+	}
+
+	p {
+		margin: 0.5em 0;
+	}
+}
