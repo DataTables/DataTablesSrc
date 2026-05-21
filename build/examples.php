@@ -1302,6 +1302,11 @@ function process_structure ( &$examples, $toc='', $cat='' )
 
 function process_example ( &$examples, $example, $category=null )
 {
+	if (! $example || ! isset($example['data'])) {
+		echo 'EMPTY DATA: '.$category['name'].'/'.$example['name']."\n";
+		return;
+	}
+
 	try {
 		// echo 'Want to write '.$example['name'].' to '.$example['path']."\n";
 

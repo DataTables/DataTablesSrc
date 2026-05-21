@@ -266,8 +266,8 @@ function examples_process {
 		-t ${DT_SRC}/build/templates/example.html \
 		-c "demo:${DT_BUILT}/examples/resources/demo.css" \
 		-j "demo:${DT_BUILT}/examples/resources/demo.js" \
-		-c "syntax:${DT_BUILT}/examples/resources/syntax/shCore.css" \
-		-j "syntax:${DT_BUILT}/examples/resources/syntax/shCore.js" \
+		-c "syntax:${DT_BUILT}/examples/resources/styles/syntax.css" \
+		-j "syntax:${DT_BUILT}/examples/resources/syntax.js" \
 		-m "${DT_BUILT}" \
 		-l "css:syntax css:demo js:syntax js:demo"
 }
