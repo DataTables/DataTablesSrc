@@ -105,7 +105,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 
 	function _docLink ( $software, $type, $item, $html )
 	{
-		$host = '//datatables.net/reference';
+		$host = '//datatables.net/ref/core';
 		$lang = '';
 
 		if ( strpos($item, '|') !== false ) {
@@ -171,12 +171,12 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				break;
 
 			case 'de':
-				$host = '//datatables.net/extensions/datetime';
+				$host = '//datatables.net/ref/datetime';
 				$lang = 'DateTime';
 				break;
 
 			case 'e':
-				$host = '//editor.datatables.net/reference';
+				$host = '//datatables.net/ref/editor';
 				$lang = 'Editor';
 				break;
 
