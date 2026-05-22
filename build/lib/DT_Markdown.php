@@ -127,19 +127,19 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 					'button-options',
 					'form-options',
 					'field-options',
-					'DataTables.Editor',
-					'DataTables.Editor.Field'
+					'DataTable.Editor',
+					'DataTable.Editor.Field'
 				) ) !== false )
 			{
 				$software = 'e';
 			}
 			else if ( in_array( $item, array(
-					'cell-selector',
-					'row-selector',
-					'column-selector',
-					'table-selector',
-					'DataTables.Api',
-					'selector-modifier',
+					'DataTable.CellSelector',
+					'DataTable.RowSelector',
+					'DataTable.ColumnSelector',
+					'DataTable.TableSelector',
+					'DataTable.Api',
+					'DataTable.SelectorModifier',
 				) ) !== false )
 			{
 				$software = 'dt';
