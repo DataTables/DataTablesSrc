@@ -437,21 +437,22 @@ _api_registerPlural( 'columns().widths()', 'column().width()', function () {
 	// Injects a fake row into the table for just a moment so the widths can
 	// be read, regardless of colspan in the header and rows being present in
 	// the body
-	var columns = this.columns(':visible').count();
-	var row = $('<tr>').html('<td>' + Array(columns).join('</td><td>') + '</td>');
+	var columns = this.columns(':visible');
+	var row = $('<tr>').html('<td>' + Array(columns.count()).join('</td><td>') + '</td>');
 
 	$(this.table().body()).append(row);
 
-	var widths = row.children().map(function () {
-		return $(this).outerWidth();
+	var widths = [];
+	var indexes = columns.indexes();
+
+	row.children().each((idx, el) => {
+		widths[indexes[idx]] = $(el).outerWidth();
 	});
 
 	row.remove();
 	
 	return this.iterator( 'column', function ( settings, column ) {
-		var visIdx = _fnColumnIndexToVisible( settings, column );
-
-		return visIdx !== null ? widths[visIdx] : 0;
+		return widths[column] || 0;
 	}, 1);
 } );
 
