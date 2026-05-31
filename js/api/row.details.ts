@@ -48,6 +48,10 @@ function detailsStateLoad(api: ApiType, state: StateLoad | null) {
 				// already escaped characters.
 				return id.replace(/([^:\\]*(?:\\.[^:\\]*)*):/g, '$1\\:');
 			})
+			.map(function (id) {
+				// Unescape escaped colons for the selector
+				return id.replace(/\\:/g, ':');
+			})
 		).every(function () {
 			callbackFire(api.settings()[0], null, 'requestChild', [this]);
 		});
