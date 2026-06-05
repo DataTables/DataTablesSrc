@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-type group="js">
+<dt-type>
 	<name>string</name>
 	<summary>JavaScript `String` type</summary>
 

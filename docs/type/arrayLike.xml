@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-type group="js">
+<dt-type>
 	<name>arrayLike</name>
 	<summary>Can be read as if it were an array</summary>
 
