@@ -1,0 +1,39 @@
+
+div {
+	&.box {
+		overflow: auto;
+		height: 8em;
+		padding: 1em;
+		color: #444;
+		background-color: #fcfcfc;
+		border: 1px solid #e0e0e0;
+		margin-bottom: 2em;
+	}
+  
+	&.box-highlight {
+		overflow: auto;
+		padding: 1em;
+		color: #444;
+		background-color: #fcfcfc;
+		border: 1px solid #e0e0e0;
+		margin-bottom: 2em;
+		border-radius: 4px;
+		text-align: center;
+	}
+}
+
+html.dark {
+	div {
+		&.box {
+			color: rgb(228, 228, 228);
+			background-color: rgb(52, 54, 55);
+			border: 1px solid rgb(87, 87, 87);
+		}
+
+		&.box-highlight {
+			color: rgb(228, 228, 228);
+			background-color: rgb(52, 54, 55);
+			border: 1px solid rgb(87, 87, 87);
+		}
+	}
+}

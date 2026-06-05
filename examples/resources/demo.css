@@ -58,13 +58,9 @@ div.toc ul {
 div.toc li {
   padding: 0.2em 1em;
   border-left: 4px solid transparent;
-  border-bottom: 1px solid #e6e6e6;
 }
 div.toc li.active {
   border-left: 4px solid #458ae0;
-}
-div.toc li:first-child {
-  border-top: 1px solid #efefef;
 }
 div.epilogue {
   text-align: center;
@@ -83,21 +79,6 @@ p.copyright {
   height: 0;
 }
 
-div.info {
-  margin-bottom: 2em;
-  column-count: 2;
-  column-rule: 1px solid #F3F3F3;
-}
-div.info > * {
-  -webkit-column-break-inside: avoid;
-  break-inside: avoid;
-}
-div.info li {
-  margin-top: 0.75em;
-}
-div.info p:first-child {
-  margin-top: 0;
-}
 div.footer {
   position: relative;
   margin-top: 3em;
@@ -117,32 +98,6 @@ div.footer > div.gradient {
   height: 6px;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
   /* W3C */
-}
-div.toc {
-  column-count: 2;
-}
-div.toc-group {
-  display: inline-block;
-  width: 100%;
-}
-div.box {
-  overflow: auto;
-  height: 8em;
-  padding: 1em;
-  color: #444;
-  background-color: #fcfcfc;
-  border: 1px solid #e0e0e0;
-  margin-bottom: 2em;
-}
-div.box-highlight {
-  overflow: auto;
-  padding: 1em;
-  color: #444;
-  background-color: #fcfcfc;
-  border: 1px solid #e0e0e0;
-  margin-bottom: 2em;
-  border-radius: 4px;
-  text-align: center;
 }
 
 div.column_half {
@@ -164,15 +119,6 @@ div.column_half {
     width: fit-content;
   }
 }
-@media screen and (max-width: 767px), screen and (max-width: 768px) and (orientation: portrait) {
-  div.info, div.toc {
-    -webkit-column-count: 1;
-    -moz-column-count: 1;
-    -ms-column-count: 1;
-    -o-column-count: 1;
-    column-count: 1;
-  }
-}
 html.dark body {
   background-color: rgb(33, 37, 41);
   color: rgb(229, 233, 238);
@@ -190,31 +136,9 @@ html.dark div.dt-tabs a,
 html.dark div.footer a {
   color: rgb(110, 168, 254);
 }
-html.dark div.toc li {
-  border-bottom: 1px solid rgb(73, 80, 87);
-}
-html.dark div.toc li:first-child {
-  border-top: 1px solid rgb(73, 80, 87);
-}
-html.dark div.toc li.active {
-  border-left: 4px solid rgb(110, 168, 254);
-}
-html.dark div.info {
-  column-rule-color: rgb(73, 80, 87);
-}
 html.dark div.footer {
   border-top-color: rgb(26, 27, 27);
   background-color: rgb(31, 34, 36);
-}
-html.dark div.box {
-  color: rgb(228, 228, 228);
-  background-color: rgb(52, 54, 55);
-  border: 1px solid rgb(87, 87, 87);
-}
-html.dark div.box-highlight {
-  color: rgb(228, 228, 228);
-  background-color: rgb(52, 54, 55);
-  border: 1px solid rgb(87, 87, 87);
 }
 html.dark input,
 html.dark select {
@@ -229,6 +153,80 @@ html.dark select {
   html.light body {
     background-color: #fff;
     color: #333;
+  }
+}
+div.box {
+  overflow: auto;
+  height: 8em;
+  padding: 1em;
+  color: #444;
+  background-color: #fcfcfc;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 2em;
+}
+
+div.box-highlight {
+  overflow: auto;
+  padding: 1em;
+  color: #444;
+  background-color: #fcfcfc;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 2em;
+  border-radius: 4px;
+  text-align: center;
+}
+
+html.dark div.box {
+  color: rgb(228, 228, 228);
+  background-color: rgb(52, 54, 55);
+  border: 1px solid rgb(87, 87, 87);
+}
+
+html.dark div.box-highlight {
+  color: rgb(228, 228, 228);
+  background-color: rgb(52, 54, 55);
+  border: 1px solid rgb(87, 87, 87);
+}
+
+:root {
+  --dt-demo-column_column-rule: 1px solid #F3F3F3;
+}
+
+:root.dark {
+  --dt-demo-column_column-rule: 1px solid rgb(73, 80, 87);
+}
+
+div.info {
+  margin-bottom: 2em;
+  column-count: 2;
+  column-rule: var(--dt-demo-column_column-rule);
+}
+
+div.info > * {
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+}
+
+div.info li {
+  margin-top: 0.75em;
+}
+
+div.info p:first-child {
+  margin-top: 0;
+}
+
+div.toc {
+  column-count: 2;
+}
+
+div.toc-group {
+  display: inline-block;
+  width: 100%;
+}
+
+@media screen and (max-width: 767px), screen and (max-width: 768px) and (orientation: portrait) {
+  div.info, div.toc {
+    column-count: 1;
   }
 }
 code {
@@ -653,6 +651,10 @@ ul.dt-tabs li.active {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   background-color: white;
+}
+
+ul.dt-tabs li::before {
+  display: none !important;
 }
 
 div.dt-tabs {

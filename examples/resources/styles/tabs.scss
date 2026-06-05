@@ -30,6 +30,10 @@ ul.dt-tabs {
 			border-top-right-radius: 5px;
 			background-color: white;
 		}
+
+		&::before {
+			display: none !important;
+		}
 	}
 }
   
@@ -71,12 +75,7 @@ div {
 		
 				> li {
 					display: list-item;
-					border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 					padding: 0.2em 1em;
-
-					&:first-child {
-						border-top: 1px solid rgba(0, 0, 0, 0.1);	
-					}
 		
 					> a {
 						border-bottom-width: 0px;
@@ -105,18 +104,6 @@ html.dark {
 			background-color: rgb(28, 30, 31);
 			border: 1px solid rgb(73, 80, 87);
 			box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
-  
-			> {
-				ul {
-					> li {
-						border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
-						&:first-child {
-							border-top: 1px solid rgba(255, 255, 255, 0.1);	
-						}
-					}
-				}
-			}
 		}
 	}
 }

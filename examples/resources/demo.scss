@@ -69,14 +69,9 @@ div {
 		li {
 			padding: 0.2em 1em;
 			border-left: 4px solid transparent;
-			border-bottom: 1px solid #e6e6e6;
 
 			&.active {
 				border-left: 4px solid #458ae0;
-			}
-
-			&:first-child {
-				border-top: 1px solid #efefef;
 			}
 		}
 	}
@@ -100,25 +95,6 @@ p.copyright {
 }
   
 div {
-	&.info {
-		margin-bottom: 2em;
-		column-count: 2;
-		column-rule: 1px solid #F3F3F3;
-  
-		> * {
-			-webkit-column-break-inside: avoid;
-			break-inside: avoid;
-		}
-  
-		li {
-			margin-top: 0.75em;
-		}
-  
-		p:first-child {
-			margin-top: 0;
-		}
-	}
-  
 	&.footer {
 		position: relative;
 		margin-top: 3em;
@@ -143,36 +119,6 @@ div {
 				/* W3C */
 			}
 		}
-	}
-  
-	&.toc {
-		column-count: 2;
-	}
-
-	&.toc-group {
-		display: inline-block;
-		width: 100%;
-	}
-  
-	&.box {
-		overflow: auto;
-		height: 8em;
-		padding: 1em;
-		color: #444;
-		background-color: #fcfcfc;
-		border: 1px solid #e0e0e0;
-		margin-bottom: 2em;
-	}
-  
-	&.box-highlight {
-		overflow: auto;
-		padding: 1em;
-		color: #444;
-		background-color: #fcfcfc;
-		border: 1px solid #e0e0e0;
-		margin-bottom: 2em;
-		border-radius: 4px;
-		text-align: center;
 	}
 }
 
@@ -200,18 +146,6 @@ div.column_half {
 		width: fit-content;
 	}
 }
-  
-@media screen and (max-width: 767px), screen and (max-width: 768px) and (orientation: portrait) {
-	div {
-		&.info, &.toc {
-			-webkit-column-count: 1;
-			-moz-column-count: 1;
-			-ms-column-count: 1;
-			-o-column-count: 1;
-			column-count: 1;
-		}
-	}
-}
 
 html.dark {
 	body {
@@ -236,37 +170,9 @@ html.dark {
 	}
   
 	div {
-		&.toc li {
-			border-bottom: 1px solid rgb(73, 80, 87);
-	
-			&:first-child {
-				border-top: 1px solid rgb(73, 80, 87);
-			}
-	
-			&.active {
-				border-left: 4px solid rgb(110, 168, 254);
-			}
-		}
-	
-		&.info {
-			column-rule-color: rgb(73, 80, 87);
-		}
-	
 		&.footer {
 			border-top-color: rgb(26, 27, 27);
 			background-color: rgb(31, 34, 36);
-		}
-
-		&.box {
-			color: rgb(228, 228, 228);
-			background-color: rgb(52, 54, 55);
-			border: 1px solid rgb(87, 87, 87);
-		}
-
-		&.box-highlight {
-			color: rgb(228, 228, 228);
-			background-color: rgb(52, 54, 55);
-			border: 1px solid rgb(87, 87, 87);
 		}
 	}
 
@@ -292,6 +198,8 @@ html.dark {
 	}
 }
 
+@include meta.load-css('styles/box.scss');
+@include meta.load-css('styles/columns.scss');
 @include meta.load-css('styles/code.scss');
 @include meta.load-css('styles/selector.scss');
 @include meta.load-css('styles/tabs.scss');

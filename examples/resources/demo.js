@@ -98,16 +98,27 @@ window.dt_demo = {
 		}
 	},
 
+	_highlightElement: function (selector) {
+		let el = Dom.s('div.js code');
+
+		if (el.length) {
+			hljs.highlightElement(el.get(0));
+		}
+	},
+
 	_tabs: function () {
 		if (
-			Dom.s('body').classHas('example') ||
-			Dom.s('body').classHas('dt-example')
+			Dom.s('div.dt-tabs').length &&
+			(
+				Dom.s('body').classHas('example') ||
+				Dom.s('body').classHas('dt-example')
+			)
 		) {
 			// js
 			dt_demo._displayFiles('#js-lib-files', dt_demo._loaded.js);
 			dt_demo._displayFiles('#css-lib-files', dt_demo._loaded.css);
 
-			hljs.highlightElement(Dom.s('div.js code').get(0));
+			dt_demo._highlightElement('div.js code');
 
 			// css
 			var cssContainer = Dom.s('div.dt-tabs div.css');
@@ -116,11 +127,11 @@ window.dt_demo = {
 				cssContainer.find('p').eq(0).css('display', 'none');
 			}
 
-			hljs.highlightElement(Dom.s('div.css code').get(0));
+			dt_demo._highlightElement('div.css code');
 
 			// This can really slow things down
 			setTimeout(function () {
-				hljs.highlightElement(Dom.s('div.table code').get(0));
+				dt_demo._highlightElement('div.table code');
 			}, 1000);
 
 			// json
@@ -160,9 +171,7 @@ window.dt_demo = {
 
 					// This can be really slow for large builds
 					setTimeout(function () {
-						hljs.highlightElement(
-							Dom.s('div.dt-tabs div.ajax code').get(0)
-						);
+						dt_demo._highlightElement('div.dt-tabs div.ajax code');
 					}, 10);
 				};
 
@@ -210,9 +219,8 @@ window.dt_demo = {
 								.append(
 									Dom.c('code').classAdd('multiline language-php').text(txt)
 								);
-							hljs.highlightElement(
-								Dom.s('div.dt-tabs div.php code').get(0)
-							);
+
+							dt_demo._highlightElement('div.dt-tabs div.php code');
 						}
 					});
 				}
