@@ -101,7 +101,7 @@ window.dt_demo = {
 	_highlightElement: function (selector) {
 		let el = Dom.s('div.js code');
 
-		if (el.length) {
+		if (el.length && el.attr('data-highlighted') !== 'yes') {
 			hljs.highlightElement(el.get(0));
 		}
 	},

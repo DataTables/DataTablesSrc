@@ -695,12 +695,7 @@ div.dt-tabs > div > ul {
 
 div.dt-tabs > div > ul > li {
   display: list-item;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0.2em 1em;
-}
-
-div.dt-tabs > div > ul > li:first-child {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 div.dt-tabs > div > ul > li > a {
@@ -723,14 +718,6 @@ html.dark div.dt-tabs > div {
   background-color: rgb(28, 30, 31);
   border: 1px solid rgb(73, 80, 87);
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
-}
-
-html.dark div.dt-tabs > div > ul > li {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-html.dark div.dt-tabs > div > ul > li:first-child {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 body.dt-example-bootstrap5 {
