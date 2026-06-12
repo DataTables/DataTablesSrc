@@ -27,6 +27,8 @@ function DT_Markdown($text, $default_classes=array(), $truncateWhiteSpace=false)
 class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 	private $extended_hardbreaks;
 
+	public static $relativeCodeLinks = false;
+
 	// If the first line has white space, then remove that amount of white space
 	// from all lines
 	static function truncateWhiteSpace ( $str )
@@ -105,7 +107,9 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 
 	function _docLink ( $software, $type, $item, $html )
 	{
-		$host = '//datatables.net/ref/core';
+		$host = DT_Markdown_Parser::$relativeCodeLinks
+			? '/ref/core'
+			: '//datatables.net/ref/core';
 		$lang = '';
 
 		if ( strpos($item, '|') !== false ) {
@@ -171,12 +175,16 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				break;
 
 			case 'de':
-				$host = '//datatables.net/ref/datetime';
+				$host = DT_Markdown_Parser::$relativeCodeLinks
+					? '/ref/datetime'
+					: '//datatables.net/ref/datetime';
 				$lang = 'DateTime';
 				break;
 
 			case 'e':
-				$host = '//datatables.net/ref/editor';
+				$host = DT_Markdown_Parser::$relativeCodeLinks
+					? '/ref/editor'
+					: '//datatables.net/ref/editor';
 				$lang = 'Editor';
 				break;
 
