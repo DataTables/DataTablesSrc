@@ -2586,6 +2586,11 @@ export interface DataTablesStatic {
 	models: typeof model;
 
 	/**
+	 * Validate a "Plus" extensions
+	 */
+	plus(date: string): boolean;
+
+	/**
 	 * Helpers for `columns.render`.
 	 *
 	 * The options defined here can be used with the `columns.render`

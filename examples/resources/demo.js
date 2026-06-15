@@ -831,6 +831,8 @@ window.dt_demo = {
 		switch (ext) {
 			case 'autofill':
 				return 'autoFill';
+			case 'cardview':
+				return 'cardView';
 			case 'colreorder':
 				return 'colReorder';
 			case 'columncontrol':

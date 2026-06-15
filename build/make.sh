@@ -353,6 +353,9 @@ case "$1" in
 		build_repo
 		build_extension AutoFill
 		build_extension Buttons
+		if [ -d ../extensions/CardView ]; then
+			build_extension CardView
+		fi
 		build_extension ColReorder
 		build_extension ColumnControl
 		build_extension DateTime

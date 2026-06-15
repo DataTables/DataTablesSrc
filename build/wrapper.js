@@ -261,6 +261,9 @@ function nameFromDependency(dep) {
 	else if (name.includes('buttons')) {
 		return 'Buttons';
 	}
+	else if (name.includes('cardview')) {
+		return 'CardView';
+	}
 	else if (name.includes('colreorder')) {
 		return 'ColReorder';
 	}
