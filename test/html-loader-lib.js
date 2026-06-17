@@ -50,11 +50,13 @@
 		// CHeck if everything is loaded
 		if (queue.length === 0) {
 			// Add a jQuery function to trigger native event handlers
-			window.$.fn.triggerNative = function (type) {
-				return this.each(function() {
-					this.dispatchEvent(new CustomEvent(type));
-				});
-			};
+			if (window.$) {
+				window.$.fn.triggerNative = function (type) {
+					return this.each(function() {
+						this.dispatchEvent(new CustomEvent(type));
+					});
+				};
+			}
 
 			done();
 		} else {
@@ -190,6 +192,15 @@
 		xhr.send();
 	}
 
+	function _removeElement(el) {
+		if (window.$) {
+			$(el).remove();
+		}
+		else {
+			el.remove();
+		}
+	}
+
 	// Publicly exposed method
 	window.dt = {
 		libs: function (obj) {
@@ -228,7 +239,7 @@
 		},
 
 		clean: function () {
-			if (window.$ && $.fn.dataTableSettings) {
+			if (window.DataTable && DataTable.settings) {
 				// If there are any DataTables, destroy them.
 				while(DataTable.settings.length) {
 					new DataTable.Api(DataTable.settings[0]).destroy();
@@ -236,29 +247,23 @@
 			}
 
 			var el = document.getElementById('dt-test-loader-container');
-			if (el && window.$) {
-				$(el).remove(); // jQuery to nuke events
-			} else if (el) {
-				document.body.removeChild(el);
+			if (el) {
+				_removeElement(el);
 			}
 
 			// Tidy up FixedHeader since it inserts elements into the body, rather than the container element
 			document.querySelectorAll('table.fixedHeader-floating').forEach((el) => {
-				el.parentNode.removeChild(el);
+				_removeElement(el);
 			});
 
 			// Tidy up DateTime elements as it inserts elements into the body, rather than the container element
 			document.querySelectorAll('div.dt-datetime').forEach((el) => {
-				document.body.removeChild(el);
+				_removeElement(el);
 			});
 
-			if (window.$ && $.fn.dataTableSettings && $.fn.dataTableSettings.length) {
-				$.fn.dataTableSettings.length = 0;
-			}
-
 			// Remove the detected browser settings so they can be recomputed
-			if (window.$ && $.fn.dataTable) {
-				$.fn.dataTable.__browser.barWidth = -1;
+			if (window.DataTable) {
+				DataTable.__browser.barWidth = -1;
 			}
 
 			dt.scrollTop(0);
@@ -267,7 +272,7 @@
 		},
 
 		container: function () {
-			return $('#dt-test-loader-container');
+			return DataTable.Dom.s('#dt-test-loader-container');
 		},
 
 		/*

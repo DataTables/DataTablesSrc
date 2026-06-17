@@ -1,7 +1,13 @@
 describe('nonjQuery - events', function () {
 	dt.libs({
-		js: ['jquery', 'datatables'],
+		js: ['datatables'],
 		css: ['datatables']
+	});
+
+	it('Runs without jQuery', function () {
+		expect(window.jQuery).toBeUndefined();
+		expect(window.$).toBeUndefined();
+		expect(DataTable.use('jq')).toBe(null);
 	});
 
 	let event = '';
