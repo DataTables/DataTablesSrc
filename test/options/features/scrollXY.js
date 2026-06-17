@@ -13,7 +13,7 @@ describe('scrollY / X option', function() {
 
 		it('Header follows x-scrolling', function() {
 			$('body').css('white-space', 'nowrap');
-			dt.container().css('width', 400);
+			dt.container().css('width', '400px');
 			$('#example').dataTable({
 				scrollX: true,
 				scrollY: '200px',
@@ -96,7 +96,7 @@ describe('scrollY / X option', function() {
 		dt.html('basic');
 
 		it('Width of container 800px on init with scroll', function() {
-			dt.container().css('width', 800);
+			dt.container().css('width', '800px');
 			$('#example').dataTable({
 				scrollY: '300px',
 				paginate: false

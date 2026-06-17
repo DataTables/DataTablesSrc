@@ -1,7 +1,13 @@
 describe('nonjQuery - ajax', function () {
 	dt.libs({
-		js: ['jquery', 'datatables'],
+		js: ['datatables'],
 		css: ['datatables']
+	});
+
+	it('Runs without jQuery', function () {
+		expect(window.jQuery).toBeUndefined();
+		expect(window.$).toBeUndefined();
+		expect(DataTable.use('jq')).toBe(null);
 	});
 
 	dt.html('basic');
@@ -22,7 +28,7 @@ describe('nonjQuery - ajax', function () {
 			],
 			initComplete: function() {
 				expect(table.rows().count()).toBe(57);
-				expect($('tbody tr').length).toBe(10);
+				expect(DataTable.Dom.s('#example tbody tr').length).toBe(10);
 				done();
 			}
 		});
@@ -47,7 +53,7 @@ describe('nonjQuery - ajax', function () {
 			paging: false,
 			initComplete: function() {
 				expect(table.rows().count()).toBe(57);
-				expect($('tbody tr').length).toBe(57);
+				expect(DataTable.Dom.s('#example tbody tr').length).toBe(57);
 				done();
 			}
 		});
