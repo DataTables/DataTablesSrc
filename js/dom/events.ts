@@ -136,7 +136,7 @@ function parseEventName(original: string | null) {
 		isFocus = true;
 	}
 	else if (name === 'blur') {
-		name = 'blurout';
+		name = 'focusout';
 		isFocus = true;
 	}
 

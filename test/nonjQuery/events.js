@@ -50,4 +50,31 @@ describe('nonjQuery - events', function () {
 		expect(page).toBe(1);
 		expect(event).toBe('Page');
 	});
+
+	it('Can delegate blur events without jQuery', function () {
+		let container = document.createElement('div');
+		let input = document.createElement('input');
+		let called = 0;
+
+		container.appendChild(input);
+		document.body.appendChild(container);
+
+		try {
+			DataTable.Dom.s(container).on('blur', 'input', function (e) {
+				called++;
+				expect(this).toBe(input);
+				expect(e.currentTarget).toBe(input);
+				expect(e.delegateTarget).toBe(container);
+			});
+
+			input.dispatchEvent(new FocusEvent('focusout', { bubbles: true }));
+
+			DataTable.Dom.s(container).off('blur');
+		}
+		finally {
+			container.remove();
+		}
+
+		expect(called).toBe(1);
+	});
 });
