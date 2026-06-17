@@ -327,9 +327,9 @@ export default function (DataTable: DataTablesStatic) {
 				host.endsWith('.datatables.net') ||
 				host === 'datatables.net';
 
-			// if (isDev) {
-			// 	return true;
-			// }
+			if (isDev) {
+				return true;
+			}
 
 			if (_processingKey) {
 				// The validation of the key is async, so there is a chance that
