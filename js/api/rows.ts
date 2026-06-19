@@ -358,7 +358,7 @@ register<ApiRowMethods<any>['data']>('row().data()', function (data?) {
 	}
 
 	// Automatically invalidate
-	invalidate(ctx[0], this[0], 'data');
+	invalidate(ctx[0], this[0][0], 'data');
 
 	return this;
 });
