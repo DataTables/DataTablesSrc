@@ -313,7 +313,13 @@ export function invalidate(
 		rowAttributes(settings, row);
 	}
 
-	callbackFire(settings, null, 'rowInvalidate', [settings, rowIdx, colIdx], false);
+	callbackFire(
+		settings,
+		null,
+		'rowInvalidate',
+		[settings, rowIdx, colIdx],
+		false
+	);
 }
 
 /**
