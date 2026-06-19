@@ -7,8 +7,8 @@
 	<type type="string" />
 	<default value="full_numbers" />
 
-	<deprecated since="2.1" removal="3.0">
-		Please note that this option has been deprecated in favour of `-feature paging.numbers`, `-feature paging.firstLast` and `-feature paging.previousNext` to improve compartmentalisation of the features in DataTables. It will be removed in DataTables 3 and it is recommended no longer to use this feature in preparation for that change.
+	<deprecated since="2.1">
+		Please note that this option has been deprecated in favour of `-feature paging.numbers`, `-feature paging.firstLast` and `-feature paging.previousNext` to improve compartmentalisation of the features in DataTables.
 	</deprecated>
 
 	<description>
