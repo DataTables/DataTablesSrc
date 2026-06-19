@@ -302,7 +302,7 @@ export function remove(
 				wrapped.original === handler
 		);
 	}
-	if (eventName && selector) {
+	else if (eventName && selector) {
 		removeEvents = stored.filter(
 			wrapped =>
 				wrapped.type === eventName &&

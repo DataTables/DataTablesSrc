@@ -77,4 +77,38 @@ describe('nonjQuery - events', function () {
 
 		expect(called).toBe(1);
 	});
+
+	it('Removes only matching delegated event handlers without jQuery', function () {
+		let container = document.createElement('div');
+		let button = document.createElement('button');
+		let first = 0;
+		let second = 0;
+		let firstHandler = function () {
+			first++;
+		};
+		let secondHandler = function () {
+			second++;
+		};
+
+		container.appendChild(button);
+		document.body.appendChild(container);
+
+		try {
+			DataTable.Dom.s(container)
+				.on('click', 'button', firstHandler)
+				.on('click', 'button', secondHandler);
+
+			DataTable.Dom.s(container).off('click', 'button', firstHandler);
+
+			button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+
+			DataTable.Dom.s(container).off('click');
+		}
+		finally {
+			container.remove();
+		}
+
+		expect(first).toBe(0);
+		expect(second).toBe(1);
+	});
 });
