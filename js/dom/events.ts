@@ -223,6 +223,14 @@ export function add(
 				return;
 			}
 
+			if (
+				isHover &&
+				event.relatedTarget &&
+				(dTarget as Element).contains(event.relatedTarget)
+			) {
+				return;
+			}
+
 			callScope = dTarget;
 		}
 
