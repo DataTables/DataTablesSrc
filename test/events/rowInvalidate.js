@@ -64,6 +64,5 @@ describe('core - events - info', function () {
 			expect(params[3]).toBe(2);
 			expect(count).toBe(4);
 		});
-		
 	});
 });
