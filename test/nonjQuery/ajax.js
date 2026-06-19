@@ -10,6 +10,43 @@ describe('nonjQuery - ajax', function () {
 		expect(DataTable.use('jq')).toBe(null);
 	});
 
+	it('Does not send when beforeSend returns false', function () {
+		let originalXhr = window.XMLHttpRequest;
+		let aborted = 0;
+		let sent = 0;
+		let FakeXhr = function () {
+			this.headers = {};
+		};
+
+		FakeXhr.prototype.open = function () {};
+		FakeXhr.prototype.setRequestHeader = function (key, value) {
+			this.headers[key] = value;
+		};
+		FakeXhr.prototype.abort = function () {
+			aborted++;
+		};
+		FakeXhr.prototype.send = function () {
+			sent++;
+		};
+
+		window.XMLHttpRequest = FakeXhr;
+
+		try {
+			DataTable.ajax({
+				url: '/base/test/data/data.txt',
+				beforeSend: function () {
+					return false;
+				}
+			});
+		}
+		finally {
+			window.XMLHttpRequest = originalXhr;
+		}
+
+		expect(aborted).toBe(1);
+		expect(sent).toBe(0);
+	});
+
 	dt.html('basic');
 	it('No options', function (done) {
 		let table = new DataTable('#example', {

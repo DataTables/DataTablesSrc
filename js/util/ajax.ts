@@ -166,6 +166,7 @@ function ajax(optionsIn: AjaxOptions) {
 	if (options.beforeSend) {
 		if (options.beforeSend.call(options, xhr, options) === false) {
 			xhr.abort();
+			return xhr;
 		}
 	}
 
