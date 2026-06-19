@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event>
+	<name>rowInvalidate</name>
+	<summary>Triggered when the data in a row is updated.</summary>
+	<since>3.0</since>
+
+	<type type="function">
+		<signature>function( e, settings, rowIndex, colIndex )</signature>
+		<parameter type="object" name="e">
+			Event object
+		</parameter>
+		<parameter type="DataTable.Context" name="settings">
+			DataTables settings object
+		</parameter>
+		<parameter type="number" name="rowIndex">
+			The data index for the row that was updated (for use with `-api row()`).
+		</parameter>
+		<parameter type="number|undefined" name="colIndex">
+			Column index, if it was the data in a specific column that was updated (e.g. using `-api cell().data()`). Will be undefined if a general row data update.
+		</parameter>
+		<scope>HTML table element</scope>
+		<bubbles>No</bubbles>
+	</type>
+
+	<description>
+		It can be useful to know if the data in a row has been updated. You might wish to know this if some other component needs to be updated, or events changed. This event provides exactly that ability.
+	</description>
+
+	<example title="Record a message whenever data in a row is updated"><![CDATA[
+let table = new DataTable('#myTable');
+
+table.on('rowInvalidate', function (e, settings, rowIndex) {
+	console.log('Row data updated for row index', rowIndex);
+});
+
+table.cell(0, 0).data('My new data').draw();
+
+]]></example>
+</dt-event>

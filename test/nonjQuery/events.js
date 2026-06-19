@@ -111,4 +111,36 @@ describe('nonjQuery - events', function () {
 		expect(first).toBe(0);
 		expect(second).toBe(1);
 	});
+
+	it('Does not fire delegated mouseenter when moving inside the matched element', function () {
+		let container = document.createElement('div');
+		let cell = document.createElement('div');
+		let child = document.createElement('span');
+		let called = 0;
+
+		cell.className = 'cell';
+		cell.appendChild(child);
+		container.appendChild(cell);
+		document.body.appendChild(container);
+
+		try {
+			DataTable.Dom.s(container).on('mouseenter', '.cell', function () {
+				called++;
+			});
+
+			child.dispatchEvent(
+				new MouseEvent('mouseover', {
+					bubbles: true,
+					relatedTarget: cell
+				})
+			);
+
+			DataTable.Dom.s(container).off('mouseenter');
+		}
+		finally {
+			container.remove();
+		}
+
+		expect(called).toBe(0);
+	});
 });

@@ -1,4 +1,4 @@
-import { log } from '../api/support';
+import { callbackFire, log } from '../api/support';
 import Dom from '../dom';
 import ext from '../ext/index';
 import createRow, { Row } from '../model/row';
@@ -312,6 +312,14 @@ export function invalidate(
 		// Update DataTables special `DT_*` attributes for the row
 		rowAttributes(settings, row);
 	}
+
+	callbackFire(
+		settings,
+		null,
+		'rowInvalidate',
+		[settings, rowIdx, colIdx],
+		false
+	);
 }
 
 /**

@@ -3,7 +3,7 @@
 	<name>orderCellsTop</name>
 	<summary>Control which cell the order event handler will be applied to in a column</summary>
 	<since>1.10</since>
-	<deprecated since="2.0.0" removal="3.0.0">
+	<deprecated since="2.0.0">
 		<description>
 			As of DataTables 2 the default option for this parameter has changed to `null` rather than the previous `false` in 1.x. The result is that all cells in the header will have a sort listener attached and icons shown. You can set this value to `false` to have the same behaviour as v1.x.
 

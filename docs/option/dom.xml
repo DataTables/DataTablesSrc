@@ -9,7 +9,7 @@
     The default value was `lfrtip` in DataTables 1.x. Styling integrations would set a custom value. As of DataTables 2, with this `-init layout` option replacing this one, its default value is `null`.
 ]]></default>
 
-  <deprecated since="2.0" removal="3.0">
+  <deprecated since="2.0">
     <description>
       This option is superseded by the `-init layout` option in DataTables 2, which is far more flexible, intuitive and styling framework independent. **Do not use this option** for new projects, and actively update older projects to use `-init layout` rather than this option.
     </description>
