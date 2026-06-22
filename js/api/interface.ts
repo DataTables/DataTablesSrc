@@ -2587,8 +2587,11 @@ export interface DataTablesStatic {
 
 	/**
 	 * Validate a "Plus" extensions
+	 * 
+	 * @param date The release date of the software. ISO8601 date only format.
+	 * @param software Optional the extension name
 	 */
-	plus(date: string): boolean;
+	plus(date: string, software?: string): boolean;
 
 	/**
 	 * Helpers for `columns.render`.

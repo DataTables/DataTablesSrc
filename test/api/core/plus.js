@@ -1,11 +1,15 @@
 describe('core - plus / key', function() {
-	const trial_2026_01_01 = 'trial_20260101:req4jCwiUD+EljtqCBxbluc0DWCW7hJEbAfBKSTgdIlvMb0+53cTwnNcyv7YDjK2zgrQT4/83HMKyjh0QQg4DQ==';
+	const trial_1_2026_01_01 = 'trial_1_20260101:JOoVGEmhAPDq7jIP17WTp1Hrkb5qj4unG3B2Lk60hLgNOqdZRhl0DYTqk31TYd98jfoYxtxksKN7oUtigIwdsA==';
 
-	const trial_2035_12_31 = 'trial_20351231:A0OjqeJ+SobZtiA5r0sIfQHhwp8gUQwC3GPsNvUyTf11fq16izTkPisNXNx7bLpPhvVmbfQmOUt4yusIs3766Q==';
+	const trial_1_2035_12_31 = 'trial_1_20351231:zpR3zRfG0iDV2ji/FYfOCrdygQBMNbmbDpBsbrYPPPRHrWPVm4MvtkdXHun0uGqXgQpSseJSXqjF2oYPsH2lRw==';
 
-	const plus_2027_01_01 = 'plus_20270101:jd2m3FxB4BRQ5pqwo7iq3kYh0bIpcoAVk/q+NrjxO1k3WyEJnIzlPuS3y/dLFO9Yj5nX11itFlB5LEAqRKHALg==';
+	const plus_1_2027_01_01 = 'plus_1_20270101:lJ4LY6sywowXkM1KGx6VplwCnzq2BRhfimhdduGLs6O8R0OYrxmyAfo7JJakMxyASeRZsy7Ub/p+wgDlQWH5Ug==';
 
-	const plus_2026_01_01 = 'plus_20260101:f+Vz9qaKpSMFHo4Wv3c14xku95ZoOPKR2DbEH+p+Y44j5kHHaei7BGPXySI57d9V8KCPN8Qvd5DK2TNyBWRbIA==';
+	const plus_1_2026_01_01 = 'plus_1_20260101:uSEXVS1LEvuCXGFcEAnbiBxlkMHATgNPoSzaGz/sXQc7cXSHyizNBEI6D4hG7FnG5bHX0jyHzrzJ8xGFOeneWQ==';
+
+	const editor_1_2026_01_01 = 'editor_1_20260101:GL6ZSk1KdScK+TbrnGkAsJ+jS5ZAwqotAYNMBbJuLKrVXV9KoK/BoNF2E1HSjqE/fC8gBkEle5oEBjeaxQ4k4A==';
+
+	const editor_1_2027_01_01 = 'editor_1_20270101:8+7F6snAPA39VC5vFd+6ac63GCDcRJJ/LtfeHSmdOxvnwTue1KGCA81nlTJC3FH9IC/ZuCr+UeI8hKstNK7o1Q==';
 
 	dt.libs({
 		js: ['jquery', 'datatables'],
@@ -23,7 +27,7 @@ describe('core - plus / key', function() {
 	});
 
 	it('Trial expired key', async function() {
-		DataTable.key(trial_2026_01_01);
+		DataTable.key(trial_1_2026_01_01);
 
 		await dt.sleep(100);
 
@@ -31,7 +35,7 @@ describe('core - plus / key', function() {
 	});
 
 	it('Trial not expired key', async function() {
-		DataTable.key(trial_2035_12_31);
+		DataTable.key(trial_1_2035_12_31);
 
 		await dt.sleep(100);
 
@@ -39,7 +43,7 @@ describe('core - plus / key', function() {
 	});
 
 	it('Plus - before expires date', async function() {
-		DataTable.key(plus_2027_01_01);
+		DataTable.key(plus_1_2027_01_01);
 
 		await dt.sleep(100);
 
@@ -47,7 +51,7 @@ describe('core - plus / key', function() {
 	});
 
 	it('Plus - after expires date', async function() {
-		DataTable.key(plus_2027_01_01);
+		DataTable.key(plus_1_2027_01_01);
 
 		await dt.sleep(100);
 
@@ -55,7 +59,7 @@ describe('core - plus / key', function() {
 	});
 
 	it('Plus - long before expires date', async function() {
-		DataTable.key(plus_2026_01_01);
+		DataTable.key(plus_1_2026_01_01);
 
 		await dt.sleep(100);
 
@@ -63,16 +67,56 @@ describe('core - plus / key', function() {
 	});
 
 	it('Plus - long after expires date', async function() {
-		DataTable.key(plus_2027_01_01);
+		DataTable.key(plus_1_2027_01_01);
 
 		await dt.sleep(100);
 
 		expect(DataTable.plus('2034-01-01')).toBe(false);
 	});
 
+	it('Plus - key is valid for Editor as well', async function() {
+		DataTable.key(plus_1_2027_01_01);
+
+		await dt.sleep(100);
+
+		expect(DataTable.plus('2026-01-01', 'editor')).toBe(true);
+	});
+
+	it('Editor - expired', async function() {
+		DataTable.key(editor_1_2026_01_01);
+
+		await dt.sleep(100);
+
+		expect(DataTable.plus('2026-02-01', 'editor')).toBe(false);
+	});
+
+	it('Editor - not expired', async function() {
+		DataTable.key(editor_1_2027_01_01);
+
+		await dt.sleep(100);
+
+		expect(DataTable.plus('2026-02-01', 'editor')).toBe(true);
+	});
+
+	it('Editor - expired key for non-editor plus extension not expired', async function() {
+		DataTable.key(editor_1_2026_01_01);
+
+		await dt.sleep(100);
+
+		expect(DataTable.plus('2026-01-01')).toBe(false);
+	});
+
+	it('Editor - not expired key for non-editor plus extension not expired', async function() {
+		DataTable.key(editor_1_2027_01_01);
+
+		await dt.sleep(100);
+
+		expect(DataTable.plus('2026-02-01')).toBe(false);
+	});
+
 	it('Trial - change the target date', async function() {
 		// Date was changed
-		DataTable.key('trial_20310101:req4jCwiUD+EljtqCBxbluc0DWCW7hJEbAfBKSTgdIlvMb0+53cTwnNcyv7YDjK2zgrQT4/83HMKyjh0QQg4DQ==');
+		DataTable.key('trial_1_20311231:zpR3zRfG0iDV2ji/FYfOCrdygQBMNbmbDpBsbrYPPPRHrWPVm4MvtkdXHun0uGqXgQpSseJSXqjF2oYPsH2lRw==');
 
 		await dt.sleep(100);
 
@@ -81,7 +125,7 @@ describe('core - plus / key', function() {
 
 	it('Plus - attempted to changed expiry date in payload to make it valid', async function() {
 		// Date was changed
-		DataTable.key('trial_20270101:req4jCwiUD+EljtqCBxbluc0DWCW7hJEbAfBKSTgdIlvMb0+53cTwnNcyv7YDjK2zgrQT4/83HMKyjh0QQg4DQ==');
+		DataTable.key('trial_1_20270101:JOoVGEmhAPDq7jIP17WTp1Hrkb5qj4unG3B2Lk60hLgNOqdZRhl0DYTqk31TYd98jfoYxtxksKN7oUtigIwdsA==');
 
 		await dt.sleep(100);
 
@@ -89,7 +133,7 @@ describe('core - plus / key', function() {
 	});
 
 	it('Payload modified', async function() {
-		DataTable.key('pls_20270101:jd2m3FxB4BRQ5pqwo7iq3kYh0bIpcoAVk/q+NrjxO1k3WyEJnIzlPuS3y/dLFO9Yj5nX11itFlB5LEAqRKHALg==');
+		DataTable.key('lus_1_20270101:lJ4LY6sywowXkM1KGx6VplwCnzq2BRhfimhdduGLs6O8R0OYrxmyAfo7JJakMxyASeRZsy7Ub/p+wgDlQWH5Ug==');
 
 		await dt.sleep(100);
 
@@ -97,7 +141,7 @@ describe('core - plus / key', function() {
 	});
 
 	it('Signed key changed', async function() {
-		DataTable.key('plus_20270101:Jd2m3FxB4BRQ5pqwo7iq3kYh0bIpcoAVk/q+NrjxO1k3WyEJnIzlPuS3y/dLFO9Yj5nX11itFlB5LEAqRKHALg==');
+		DataTable.key('plus_1_20270101:kJ4LY6sywowXkM1KGx6VplwCnzq2BRhfimhdduGLs6O8R0OYrxmyAfo7JJakMxyASeRZsy7Ub/p+wgDlQWH5Ug==');
 
 		await dt.sleep(100);
 
