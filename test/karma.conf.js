@@ -25,6 +25,10 @@ module.exports = function(config) {
 			case 'buttons':
 				extensionFiles = 'extensions/Buttons/test/**/*.js';
 				break;
+			case 'CardView':
+			case 'cardview':
+				extensionFiles = 'extensions/CardView/test/**/*.js';
+				break;
 			case 'ColReorder':
 			case 'colreorder':
 				extensionFiles = 'extensions/ColReorder/test/**/*.js';
@@ -158,6 +162,12 @@ module.exports = function(config) {
 				buttons: {
 					pathName: 'Buttons',
 					fileName: 'buttons',
+					js: true,
+					css: true
+				},
+				cardview: {
+					pathName: 'CardView',
+					fileName: 'cardView',
 					js: true,
 					css: true
 				},
