@@ -98,8 +98,15 @@ window.dt_demo = {
 		}
 	},
 
-	_highlightElement: function (selector) {
-		let el = Dom.s('div.js code');
+	_highlightElement: function (selector, text) {
+		let el = Dom.s(selector);
+
+		if (el.length && text) {
+			el
+				.empty()
+				.attrRemove('data-highlighted')
+				.text(text);
+		}
 
 		if (el.length && el.attr('data-highlighted') !== 'yes') {
 			hljs.highlightElement(el.get(0));
