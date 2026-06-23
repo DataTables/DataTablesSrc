@@ -89,7 +89,7 @@ function selectRows(
 			}
 			else {
 				var host = Dom.s(sel).closest('*[data-dt-row]');
-				return host.count() ? [host.data('dt-row')] : [];
+				return host.count() ? [parseInt(host.attr('data-dt-row'))] : [];
 			}
 		}
 
@@ -127,8 +127,7 @@ function selectRows(
 		);
 
 		// Selector - selector string, array of nodes or jQuery object.
-		return Dom
-			.s(nodes)
+		return Dom.s(nodes)
 			.filter(sel)
 			.mapTo((el: any) => el._DT_RowIndex);
 	};

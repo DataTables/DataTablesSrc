@@ -109,12 +109,14 @@ function selectCells(
 		// Otherwise the selector is a node, and there is one last option - the
 		// element might be a child of an element which has dt-row and dt-column
 		// data attributes
-		host = Dom.s(s).closest('*[data-dt-row]');
-		return host.count()
+		let rowHost = Dom.s(s).closest('*[data-dt-row]');
+		let columnHost = Dom.s(s).closest('*[data-dt-column]');
+
+		return rowHost.count()
 			? [
 					{
-						row: host.data('dt-row'),
-						column: host.data('dt-column')
+						row: parseInt(rowHost.attr('data-dt-row')),
+						column: parseInt(columnHost.attr('data-dt-column'))
 					}
 			  ]
 			: [];
