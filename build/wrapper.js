@@ -47,7 +47,7 @@ function main(args) {
 	}
 
 	// Replace build date string with the actual date
-	script = script.replace(
+	script = script.replaceAll(
 		'__BUILD_DATE__',
 		new Date().toISOString().substring(0, 10)
 	);
