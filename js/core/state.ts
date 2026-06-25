@@ -177,14 +177,14 @@ export function implementState(
 
 				if (idx < 0) {
 					// If the column was not found ignore it and continue
-					return;
+					continue;
 				}
 
 				set[0] = idx;
 			}
 			else if ((set[0] as number) >= columns.length) {
 				// If the column index is out of bounds ignore it and continue
-				return;
+				continue;
 			}
 
 			settings.order.push(set as any);
