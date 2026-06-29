@@ -46,6 +46,12 @@ function main(args) {
 		return;
 	}
 
+	// Replace build date string with the actual date
+	script = script.replaceAll(
+		'__BUILD_DATE__',
+		new Date().toISOString().substring(0, 10)
+	);
+
 	// Add any dependencies
 	for (let i = 7; i < args.length; i++) {
 		if (args[i].includes(' ')) {

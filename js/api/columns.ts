@@ -264,7 +264,7 @@ function selectColumns(
 		// Otherwise a node which might have a `dt-column` data attribute, or be
 		// a child or such an element
 		var host = Dom.s(s).closest('*[data-dt-column]');
-		return host.count() ? [host.data('dt-column')] : [];
+		return host.count() ? [parseInt(host.attr('data-dt-column'))] : [];
 	};
 
 	var selected = selectorRun('column', selector, run, settings, opts);

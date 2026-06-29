@@ -98,8 +98,15 @@ window.dt_demo = {
 		}
 	},
 
-	_highlightElement: function (selector) {
-		let el = Dom.s('div.js code');
+	_highlightElement: function (selector, text) {
+		let el = Dom.s(selector);
+
+		if (el.length && text) {
+			el
+				.empty()
+				.attrRemove('data-highlighted')
+				.text(text);
+		}
 
 		if (el.length && el.attr('data-highlighted') !== 'yes') {
 			hljs.highlightElement(el.get(0));
@@ -421,6 +428,8 @@ window.dt_demo = {
 		var event = new Event('dt-demo-run');
 		document.dispatchEvent(event);
 
+		dt_demo._editorExamples();
+
 		if (Dom.s('div.demo-html').count()) {
 			demoHtml = Dom.s('div.demo-html').html().trim();
 
@@ -530,6 +539,112 @@ window.dt_demo = {
 		if (types && types.run) {
 			types.run();
 		}
+	},
+
+	_editorExamples: function () {
+		Dom.s(document).on('initEditor', function (e, editor) {
+			// Show and syntax highlight submit and return data
+			editor.on('preSubmit', function (e, data) {
+				dt_demo._highlightElement(
+					'div.ajax-data-send code',
+					decodeURI(
+						DataTable.ajax
+							.serialize(data)
+							.replace(/&/g, '\n')
+							.replace(/\+/g, ' ')
+					)
+				);
+			});
+
+			editor.on('postSubmit', function (e, json, data) {
+				dt_demo._highlightElement(
+					'div.ajax-data-receive code',
+					JSON.stringify(json, null, 2)
+				);
+			});
+
+			// Server-side script - replace the DataTables script display with
+			// one customised for Editor. This is actually tab index 4 from the
+			// DT tabs, but due to the reorder above it gets moved down one
+			var server = Dom.s('div.dt-tabs > div').eq(3);
+
+			//
+			// Modify the tabs from the DataTables default examples to show the
+			// extras information we want for Editor
+			//
+
+			// Ajax load data - rename and move to the end
+			Dom.s('ul.dt-tabs li').eq(3).html('Ajax load').appendTo('ul.dt-tabs');
+			Dom.s('div.dt-tabs > div').eq(3).appendTo('div.dt-tabs');
+
+			// Ajax data interchange between Editor and the server
+			Dom.s('ul.dt-tabs').append(Dom.c('li').text('Ajax data'));
+			Dom.c('div')
+				.classAdd('ajax-data')
+				.html(
+					'<p>Editor submits and retrieves information by Ajax requests. The two blocks below show the data that Editor submits and receives, to and from the server. This is updated live as you interact with Editor so you can see what is submitted.</p>' +
+						'<div class="column_half ajax-data-send">' +
+						'<h3>Submitted data:</h3>' +
+						'<p>The following shows the data that has been submitted to the server when a request is made by Editor to add, edit or delete data from the table.</p>' +
+						'<code class="multiline language-js">// No data yet submitted</code>' +
+						'</div>' +
+						'<div class="column_half ajax-data-receive">' +
+						'<h3>Server response:</h3>' +
+						'<p>The following shows the data that has been returned by the server in response to the data submitted on the left and is then acted upon.</p>' +
+						'<code class="multiline language-js">// No data yet received</code>' +
+						'</div>' +
+						'<div class="clear"></div>'
+				)
+				.appendTo('div.dt-tabs');
+
+			var ssFetched = false;
+
+			Dom.s('#example').on('preXhr.dt', function () {
+				if (ssFetched) {
+					return;
+				}
+
+				var table = new DataTable.Api('#example');
+				var url = table.ajax.url();
+
+				if (url && url.indexOf('php') !== -1) {
+					Dom.s('ul.dt-tabs li')
+						.eq(3)
+						.html('Server script')
+						.css('display', 'block');
+
+					server
+						.find('p')
+						.eq(0)
+						.html(
+							'The following script is used by DataTables and Editor to process the data requests sent by the client on the server-side.'
+						);
+
+					DataTable.ajax({
+						url: '../resources/examples.php',
+						data: {
+							src: table.ajax.url()
+						},
+						dataType: 'text',
+						type: 'post',
+						success: function (txt) {
+							Dom.s('div.dt-tabs > div.php').append(
+								Dom
+									.c('code')
+									.classAdd('multiline language-php')
+									.text(txt)
+							);
+
+							dt_demo._highlightElement('div.dt-tabs div.php code');
+							ssFetched = true;
+						}
+					});
+				}
+			});
+
+			// Expose so we can access it externally
+			dt_demo.editor = editor;
+		});
 	},
 
 	_functionHasBody: function (fn) {
