@@ -1,3 +1,5 @@
+import { arrayLike } from "./is";
+
 /**
  * Determine if all values in the array are unique. This means we can short
  * cut the _unique method at the cost of a single loop. A sorted array is used
@@ -36,7 +38,7 @@ function allUnique(src: any[]) {
  * @returns Flattened array
  */
 export function flatten(out: any[], val: any) {
-	if (Array.isArray(val)) {
+	if (Array.isArray(val) || arrayLike(val)) {
 		for (var i = 0; i < val.length; i++) {
 			flatten(out, val[i]);
 		}
