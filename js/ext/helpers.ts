@@ -138,9 +138,12 @@ function __mlHelper(localeString: string) {
 						// gives milliseconds epoch
 						return d.valueOf();
 					}
-				},
-				className: 'dt-right'
+				}
 			});
+		}
+
+		if (!typeStore.className[typeName]) {
+			typeStore.className[typeName] = 'dt-right';
 		}
 
 		return function (d: any, type: string) {
@@ -274,9 +277,12 @@ export function datetime(format: string, locale?: string) {
 				pre: function (d) {
 					return __mldObj(d, format, locale) || 0;
 				}
-			},
-			className: 'dt-right'
+			}
 		});
+	}
+
+	if (!typeStore.className[typeName]) {
+		typeStore.className[typeName] = 'dt-right';
 	}
 }
 
