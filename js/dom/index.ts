@@ -25,7 +25,6 @@ type TDimensionInclude =
 	| 'withPadding'
 	| 'withMargin';
 
-
 function create<R extends HTMLElement = HTMLElement>(name: string) {
 	let el = document.createElement(name);
 
@@ -40,7 +39,9 @@ function select<R extends HTMLElement = HTMLElement>(selector: DomSelector) {
  * `Dom` is a class that provides a chaining UI for simple DOM manipulation and
  * selection.
  */
-export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLike<T> {
+export default class Dom<T extends HTMLElement = HTMLElement>
+	implements ArrayLike<T>
+{
 	/**
 	 * Create a new element and wrap in a `Dom` instance (alias of `create`)
 	 *
@@ -167,32 +168,41 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 			return this;
 		}
 
+		let fragment = new DocumentFragment();
+		let append = (node: Node) => {
+			fragment.append(node);
+		};
+
 		if (Array.isArray(content)) {
 			content.forEach(c => this.append(c));
 
 			return this;
 		}
 
-		return this.each(el => {
-			if (content instanceof Dom) {
-				content.each(item => {
-					el.append(item);
-				});
-			}
-			else if (typeof content === 'string') {
+		if (content instanceof Dom) {
+			content.each(item => {
+				append(item);
+			});
+		}
+		else if (typeof content === 'string') {
+			return this.each(el => {
 				el.insertAdjacentHTML('beforeend', content);
-			}
-			else if (is.arrayLike(content)) {
-				// Allow for a jQuery object being passed
-				let arrayLike = content as any;
+			});
+		}
+		else if (is.arrayLike(content)) {
+			// Allow for a jQuery-like object being passed
+			let arrayLike = content as any;
 
-				for (let i = 0; i < arrayLike.length; i++) {
-					el.append(arrayLike[i]);
-				}
+			for (let i = 0; i < arrayLike.length; i++) {
+				append(arrayLike[i]);
 			}
-			else {
-				el.append(content);
-			}
+		}
+		else {
+			append(content);
+		}
+
+		return this.each(el => {
+			el.append(fragment);
 		});
 	}
 
@@ -439,9 +449,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 	css(rule: any, value?: string): any {
 		// String getter
 		if (typeof rule === 'string' && value === undefined) {
-			return this.length
-				? getComputedStyle(this[0])[rule as any]
-				: null;
+			return this.length ? getComputedStyle(this[0])[rule as any] : null;
 		}
 
 		return this.each(el => {
@@ -510,11 +518,11 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 		}
 
 		if (typeof name === 'string') {
-			this.each(el => el.dataset[name] = JSON.stringify(value));
+			this.each(el => (el.dataset[name] = JSON.stringify(value)));
 		}
 		else {
 			object.each<string>(name, (key, val) => {
-				this.each(el => el.dataset[key] = JSON.stringify(val));
+				this.each(el => (el.dataset[key] = JSON.stringify(val)));
 			});
 		}
 
@@ -1321,7 +1329,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 
 	/**
 	 * Get the scrollLeft property of the first element in the result set
-	 * 
+	 *
 	 * @returns Current scroll left value
 	 */
 	scrollLeft(): number;
@@ -1409,7 +1417,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 
 	/**
 	 * Get the text content for the first item in the result set
-	 * 
+	 *
 	 * @returns Text content of the element
 	 */
 	text(): string;
@@ -1452,7 +1460,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 		ease?: string | null,
 		cb?: Function
 	) {
-		if (! this.count()) {
+		if (!this.count()) {
 			return this;
 		}
 
@@ -1579,7 +1587,7 @@ export default class Dom<T extends HTMLElement = HTMLElement> implements ArrayLi
 
 	/**
 	 * Get the value from the first item in the result set
-	 * 
+	 *
 	 * @returns Current value
 	 */
 	val(): string;
@@ -1737,8 +1745,7 @@ function dataConvert(val: string | undefined): AttributeTypes {
 
 	try {
 		return JSON.parse(val);
-	}
-	catch (e) {
+	} catch (e) {
 		return val;
 	}
 }
