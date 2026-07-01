@@ -388,7 +388,7 @@ function breakScript(script, version) {
 			lines[0] = lines[0].replace(/ \*\//, ` - ${version} */`);
 		}
 		else {
-			lines[0] = lines[0] + ' ' + version;
+			// lines[0] = lines[0] + ' ' + version;
 		}
 
 		parts.header = lines.join('\n');
