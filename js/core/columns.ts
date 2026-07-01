@@ -288,6 +288,7 @@ export function columnTypes(settings: Context) {
 	var types = ext.type.detect;
 	var i, iLen, j, jen, k, ken;
 	var col, detectedType, cache;
+	var originalTypes = columns.map(c => c.type).join(',');
 
 	// For each column, spin over the data type detection functions, seeing if
 	// one matches
@@ -415,6 +416,12 @@ export function columnTypes(settings: Context) {
 
 			_columnAutoRender(settings, i);
 		}
+	}
+
+	var newTypes = columns.map(c => c.type).join(',');
+
+	if (newTypes !== originalTypes) {
+		callbackFire(settings, null, 'columnTypes', [settings], false);
 	}
 }
 
