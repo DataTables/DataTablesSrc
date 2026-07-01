@@ -1,9 +1,17 @@
 
+(function() {
+
 var escapeHtml = function (str) {
 	return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 };
 
 var Dom = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+	if (window.DataTable) {
+		Dom = DataTable.Dom;
+	}
+});
 
 window.dt_demo = {
 	/**
@@ -1036,3 +1044,5 @@ window.dt_demo = {
 		});
 	}
 };
+
+}());
