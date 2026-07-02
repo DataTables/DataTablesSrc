@@ -156,6 +156,13 @@ class DT_Example
 		$template = str_replace( '{table-class}',   $software,                       $template );
 		$template = str_replace( '{body-class}',    $bodyClass ? $bodyClass : '',    $template );
 
+		$webPath = str_replace('/home/vagrant/www/datatables.local/', '', $this->_file);
+		$template = str_replace(
+			'{comments-page}',
+			'?comments-page=' . urlencode(str_replace('.xml', '', $webPath)),
+			$template
+		);
+
 		if ( isset( $xml->{'demo-html'} ) ) {
 			$template = str_replace( '{demo-html}', $this->innerXML($xml->{'demo-html'}), $template );
 		}
