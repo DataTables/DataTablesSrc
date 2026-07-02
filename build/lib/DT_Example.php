@@ -655,7 +655,7 @@ class DT_Example
 		$path = $component['path'];
 		$filename = $component['filename'];
 
-		if ( DT_Example::$components_cdn && $lib !== 'editor' ) {
+		if ( DT_Example::$components_cdn ) {
 			$path = 'https://cdn.datatables.net';
 
 			if ( $lib === 'datatables' ) {
@@ -724,12 +724,7 @@ class DT_Example
 				$path = 'https://cdn.datatables.net/' . $component .'/'. $opts['release'];
 			}
 
-			// Editor always uses relative paths and with the current example structure it is
-			// always two up to the base
-			if ($component === 'editor') {
-				$path = '../../';
-			}
-			else if (! $cdn) {
+			if (! $cdn) {
 				// Non-release builds
 				$path = call_user_func( $this->_path_resolver, $opts['path']);
 			}
