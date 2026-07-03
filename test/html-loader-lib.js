@@ -143,6 +143,19 @@
 			i,
 			iLen;
 
+		if (window.DataTable) {
+			window.DataTable = undefined;
+		}
+
+		if (window.jQuery) {
+			window.jQuery = undefined;
+		}
+		
+		if (window.$) {
+			window.$ = undefined;
+		}
+
+
 		// CSS
 		if (obj.css) {
 			for (i = 0, iLen = obj.css.length; i < iLen; i++) {
