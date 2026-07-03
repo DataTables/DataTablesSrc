@@ -629,6 +629,8 @@ Add an event listener to all elements in the result set.
   1. handler Callback when the event happens.
 @return Self for chaining
 
+Event names can be any [DOM event](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Events), or a custom event - e.g. those triggered by DataTables and its extensions. A special case is made on the `document` element to allow a `ready` event to be listened for - this is a convenience rather than needing to listen for `DOMContentLoaded` and take account of if the document is already ready or not. If the `DOMContentLoaded` event has already triggered, the event handler for the `ready` event will trigger immediately.
+
 
 ### `on( name, selector, handler )`
 

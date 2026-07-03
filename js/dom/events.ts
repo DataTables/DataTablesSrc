@@ -139,6 +139,9 @@ function parseEventName(original: string | null) {
 		name = 'focusout';
 		isFocus = true;
 	}
+	else if (name === 'ready') {
+		name = 'DOMContentLoaded';
+	}
 
 	return {
 		eventName: name,
@@ -161,7 +164,7 @@ function parseEventName(original: string | null) {
  *   removed.
  */
 export function add(
-	el: Element | Window,
+	el: Element | Window | Document,
 	nameFull: string,
 	handler: EventListener,
 	selector: string | null,
@@ -187,6 +190,15 @@ export function add(
 
 	if (!eventName) {
 		return;
+	}
+
+	// Special handling for the "ready" event - it will trigger when the content
+	// is ready, but also if it is already ready, when added.
+	if (el === document && eventName === 'DOMContentLoaded' && nameFull.includes('ready')) {
+		if (document.readyState === 'complete') {
+			handler(new Event('DOMContentLoaded'));
+			return;
+		}
 	}
 
 	// Create a function that will be the actual event handler, and performs any
@@ -275,7 +287,7 @@ export function add(
  * @param selector Delegate selector (optional)
  */
 export function remove(
-	el: Element | Window,
+	el: Element | Window | Document,
 	nameFull: string | null,
 	handler: EventListener | null,
 	selector: string | null

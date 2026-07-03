@@ -16,6 +16,7 @@ describe('nonjQuery - events', function () {
 	let page = 0;
 
 	dt.html('basic');
+
 	it('No options', function () {
 		table = new DataTable('#example');
 
@@ -34,16 +35,19 @@ describe('nonjQuery - events', function () {
 
 		expect(event).toBe('');
 	});
+
 	it('Order', function () {
 		// A draw will trigger a search as well
 		table.order(1).draw();
 		expect(event).toBe('Search');
 		expect(order).toBe(1);
 	});
+
 	it('Search', function () {
 		table.search('a');
 		expect(event).toBe('Search');
 	});
+
 	it('Page', function () {
 		table.search('').draw();
 		table.page(2);
@@ -70,8 +74,7 @@ describe('nonjQuery - events', function () {
 			input.dispatchEvent(new FocusEvent('focusout', { bubbles: true }));
 
 			DataTable.Dom.s(container).off('blur');
-		}
-		finally {
+		} finally {
 			container.remove();
 		}
 
@@ -103,8 +106,7 @@ describe('nonjQuery - events', function () {
 			button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
 			DataTable.Dom.s(container).off('click');
-		}
-		finally {
+		} finally {
 			container.remove();
 		}
 
@@ -136,11 +138,16 @@ describe('nonjQuery - events', function () {
 			);
 
 			DataTable.Dom.s(container).off('mouseenter');
-		}
-		finally {
+		} finally {
 			container.remove();
 		}
 
 		expect(called).toBe(0);
+	});
+
+	it('Ready event will be called if the document is already loaded', function () {
+		DataTable.Dom.s(document).on('ready', function () {
+			expect(true).toBe(true);
+		});
 	});
 });
