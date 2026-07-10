@@ -445,7 +445,10 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 					\|{3,} # Marker: three or more pipes
 				)
 
-				# 2: Content
+				# 2: Count class
+				[ ]?(.*?) [ ]* \n # Whitespace and newline following marker.
+
+				# 3: Content
 				(
 					(?>
 						(?!\1 [ ]* \n)	# Not a closing marker.
@@ -457,7 +460,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				\1 [ ]* \n
 			}xm',
 			function ($matches) use ($that) {
-				$grid = '<div class="grid">'.$this->runBlockGamut($matches[2]).'</div>';
+				$grid = '<div class="dt-site-grid dt-site-grid_'.$matches[2].'">'.$this->runBlockGamut($matches[3]).'</div>';
 				return "\n\n".$that->hashBlock($grid)."\n\n";
 			},
 			$text
@@ -476,11 +479,8 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				(
 					\|{2} # Marker: two pipes
 				)
-
-				# 2: Column class
-				[ ]?(.*?) [ ]* \n # Whitespace and newline following marker.
 				
-				# 3: Content
+				# 2: Content
 				(
 					(?>
 						(?!\1 [ ]* \n)	# Not a closing marker.
@@ -492,7 +492,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 				\1 [ ]* \n
 			}xm',
 			function ($matches) use ($that) {
-				$column = '<div class="unit w-'.$matches[2].'">'.$this->runBlockGamut($matches[3]).'</div>';
+				$column = '<div>'.$this->runBlockGamut($matches[2]).'</div>';
 				return "\n\n".$that->hashBlock($column)."\n\n";
 			},
 			$text
