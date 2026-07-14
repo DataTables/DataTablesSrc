@@ -13,6 +13,7 @@ class DT_Example
 	static $lookup_libraries = array();
 	static $components = array();
 	static $components_cdn = false;
+	static $minified = false;
 
 	private $_file = null;
 
@@ -151,6 +152,7 @@ class DT_Example
 		$template = str_replace( '{info}',          DT_Markdown( $xml->info ),       $template );
 		$template = str_replace( '{css-libs}',      $this->_format_libs('css'),      $template );
 		$template = str_replace( '{js-libs}',       $this->_format_libs('js'),       $template );
+		$template = str_replace( '{minified}',      DT_Example::$minified ? 1 : 0,   $template );
 		$template = str_replace( '{table}',         $tableHtml,                      $template );
 		$template = str_replace( '{year}',          date('Y'),                       $template );
 		$template = str_replace( '{table-class}',   $software,                       $template );
@@ -673,7 +675,7 @@ class DT_Example
 			}
 		}
 
-		$min = DT_Example::$components_cdn ?
+		$min = DT_Example::$components_cdn || DT_Example::$minified ?
 			'.min' :
 			'';
 

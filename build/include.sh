@@ -265,6 +265,12 @@ function examples_process {
 		CDN=""
 	fi
 
+	if [ "$DT_DEBUG" ]; then
+		MIN=""
+	else
+		MIN="--minified"
+	fi
+
 	echo_msg "  Examples"
 
 	php ${DT_SRC}/build/examples.php \
@@ -278,7 +284,7 @@ function examples_process {
 		-j "syntax:${DT_BUILT}/examples/resources/syntax.js" \
 		-m "${DT_BUILT}" \
 		-l "css:syntax css:demo js:syntax js:demo" \
-		$CDN
+		$CDN $MIN
 }
 
 # Standard build process for DataTable's extensions

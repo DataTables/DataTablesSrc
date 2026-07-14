@@ -108,6 +108,12 @@ function build_examples {
 
 	$SASS --stop-on-error --style expanded $SRC_DIR/resources/demo.scss > $SRC_DIR/resources/demo.css
 
+	if [ "$DT_DEBUG" ]; then
+		MIN=""
+	else
+		MIN="--minified"
+	fi
+
 	# Transform in place
 	cp -r $SRC_DIR $OUT_DIR
 	php ${BASE_DIR}/build/examples.php \
@@ -119,7 +125,8 @@ function build_examples {
 		-c "syntax:${OUT_DIR}/resources/styles/syntax.css" \
 		-j "syntax:${OUT_DIR}/resources/syntax.js" \
 		-m "${BUILD_DIR}" \
-		-l "css:syntax css:demo js:syntax js:demo"
+		-l "css:syntax css:demo js:syntax js:demo" \
+		$MIN
 }
 
 

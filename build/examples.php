@@ -67,6 +67,7 @@ $longopts  = array(
 	"template:",
 	"index-template:",
 	"no-data-files",
+	"minified",
 	"order:"
 );
 
@@ -103,6 +104,7 @@ $pluginsHash = $versions['DataTables']['release']['version'];
 
 
 DT_Example::$components_cdn = isset( $options['cdn'] );
+DT_Example::$minified = isset( $options['minified'] );
 
 DT_Example::$components['datatables'] = [
 	'path' => path_simplify( $dir_media ),

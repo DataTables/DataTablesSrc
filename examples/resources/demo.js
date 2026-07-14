@@ -260,14 +260,15 @@ window.dt_demo = {
 		var out = [];
 		var fileName = dt_demo._getFileName(name);
 		var fwFile = dt_demo._getFrameworkFile(framework);
+		var min = dt_demo._struct.min ? 'min.' : '';
 
 		// Plugins use a relative path, and don't separate by styling framework
 		if (type === 'js' || src === '..') {
 			if (name === 'datatables') {
-				out.push(src + '/dataTables.' + type);
+				out.push(src + '/dataTables.' + min + type);
 			}
 			else {
-				out.push(src + '/dataTables.' + fileName + '.' + type);
+				out.push(src + '/dataTables.' + fileName + '.' + min + type);
 			}
 		}
 
@@ -278,7 +279,7 @@ window.dt_demo = {
 			// noop
 		}
 		else {
-			out.push(src + '/' + fileName + '.' + fwFile + '.' + type);
+			out.push(src + '/' + fileName + '.' + fwFile + '.' + min + type);
 		}
 
 		return out.join('|');
