@@ -60,7 +60,7 @@ function echo_error {
 # $1 - string - Full path to the file to compress
 function css_compress {
 	# Only compresses CSS at the moment
-	if [ -z "$DEBUG" ]; then
+	if [ -z "$DT_DEBUG" ]; then
 		local FILE=$(basename $1 .css)
 		local DIR=$(dirname $1)
 
@@ -169,7 +169,7 @@ function js_wrap {
 function js_compress {
 	local LOG=$2
 
-	if [ -z "$DEBUG" ]; then
+	if [ -z "$DT_DEBUG" ]; then
 		local FULL=$1
 		local COMP_EXTN="${FULL##*.}"
 		local FILE=$(basename $1 ".${COMP_EXTN}")
@@ -259,6 +259,14 @@ function js_hint {
 # $1 - string - Path to the examples to processing - note that /examples is
 #               added automatically
 function examples_process {
+	if [ "$BUILD_TYPE" = "release" ]; then
+		CDN="--cdn"
+	else
+		CDN=""
+	fi
+
+	echo_msg "  Examples"
+
 	php ${DT_SRC}/build/examples.php \
 		-d \
 		-o $1 \
@@ -269,7 +277,8 @@ function examples_process {
 		-c "syntax:${DT_BUILT}/examples/resources/styles/syntax.css" \
 		-j "syntax:${DT_BUILT}/examples/resources/syntax.js" \
 		-m "${DT_BUILT}" \
-		-l "css:syntax css:demo js:syntax js:demo"
+		-l "css:syntax css:demo js:syntax js:demo" \
+		$CDN
 }
 
 # Standard build process for DataTable's extensions

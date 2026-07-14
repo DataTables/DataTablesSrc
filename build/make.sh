@@ -14,9 +14,14 @@ SUBCMD=$2
 # Get the version from the file
 VERSION=$(grep "version: '" $BASE_DIR/js/ext/index.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*(\.\d)?)?}')
 
-DEBUG=""
+export DT_DEBUG=""
+export BUILD_TYPE=""
+
 if [ "$SUBCMD" = "debug" -o "$3" = "debug" ]; then
-	DEBUG=1
+	export DT_DEBUG=1
+	export BUILD_TYPE="debug"
+elif [ "$SUBCMD" = "release" -o "$3" = "release" ]; then
+	export BUILD_TYPE="release"
 fi
 
 

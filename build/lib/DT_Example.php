@@ -716,7 +716,7 @@ class DT_Example
 			"js" => $this->_xml_libs[ 'js' ],
 			"css" => $this->_xml_libs[ 'css' ],
 			"components" => $this->_libs_for_js()
-		]);
+		], JSON_UNESCAPED_SLASHES);
 	}
 
 	private function _libs_for_js () {
