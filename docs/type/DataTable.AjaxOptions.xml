@@ -13,6 +13,16 @@ DataTables provides a `-api DataTable.ajax()` method which can be used to make A
 The options provided here are a _subset_ of those provided by [jQuery's `ajax()` method](https://api.jquery.com/jQuery.ajax/) and compatibility is an important characteristic in order to ensure easy porting from a jQuery based application to one which does require jQuery.
 
 
+## Defaults
+
+The default values for the properties that this object makes available can be accessed using `DataTable.ajax.defaults`. You can use this to modify the defaults, allowing a global setting for Ajax configuration on a page, and easy addition of data such as a CSRF token in the headers. For example:
+
+```js
+DataTable.ajax.defaults.headers._csrf = '... token ...';
+```
+
+
+
 ## TypeScript
 
 This interface is available through the type definitions that DataTables makes available:
@@ -45,7 +55,7 @@ A function that is executed immediately prior to the Ajax call is triggered, pro
 * Default: unset
 * Parameters:
   1. The `XMLHttpRequest` object, allowing it to be customised
-  2. `-type DataTable.ajaxOptions`: The Ajax options used to configure the request.
+  2. `-type DataTable.AjaxOptions`: The Ajax options used to configure the request.
 * Return: No return is required, although `false` can be returned to cancel the request.
 
 

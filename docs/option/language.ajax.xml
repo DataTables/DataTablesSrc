@@ -10,9 +10,9 @@
 		</description>
 	</type>
 
-	<type type="DataTable.ajaxOptions">
+	<type type="DataTable.AjaxOptions">
 		<description>
-			As an object, this parameter will cause DataTables to make an Ajax request to get the language data, but it provides the ability to control the parameters of that Ajax request - e.g. adding request headers, data or controlling the HTTP method. Please see `-type DataTable.ajaxOptions` for the options available for this object, but note that you _must_ supply a `url` parameter so it knows where to make the Ajax request to!
+			As an object, this parameter will cause DataTables to make an Ajax request to get the language data, but it provides the ability to control the parameters of that Ajax request - e.g. adding request headers, data or controlling the HTTP method. Please see `-type DataTable.AjaxOptions` for the options available for this object, but note that you _must_ supply a `url` parameter so it knows where to make the Ajax request to!
 
 			Furthermore, do not provide a `success` option. DataTables makes use of this parameter for its own callback.
 		</description>

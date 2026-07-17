@@ -68,10 +68,15 @@ $longopts  = array(
 	"index-template:",
 	"no-data-files",
 	"minified",
-	"order:"
+	"order:",
+	'relative-code-links'
 );
 
 $options = getopt( $shortopts, $longopts );
+
+if (isset($options['relative-code-links'])) {
+	DT_Markdown_Parser::$relativeCodeLinks = true;
+}
 
 /*
  * Initial settings
