@@ -37,7 +37,7 @@ new DataTable('#example');
 
 ]]></example>
 
-	<example title="Use a license key (CDN) loaded files)"><![CDATA[
+	<example title="Use a license key (CDN loaded files)"><![CDATA[
 DataTable.key('__YOUR_LICENSE_KEY__');
 
 // Initialise Editor (a "Plus" extension)
