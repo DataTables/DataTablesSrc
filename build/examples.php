@@ -143,7 +143,7 @@ DT_Example::$components['buttons'] = [
 
 DT_Example::$components['cardview'] = [
 	'path' => path_simplify( $dir_media.'/../extensions/CardView' ),
-	'release' => '0.0.1', // TODO $versions['CardView']['release']['version'],
+	'release' => $versions['CardView']['release']['version'],
 	'filename' => 'cardView',
 	'framework' => [
 		'css' => true,
