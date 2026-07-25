@@ -53,12 +53,12 @@ new DataTable('#myTable', {
 	stateSave: true,
 	stateSaveCallback: function (settings, data) {
 		localStorage.setItem(
-			'DataTables_' + settings.sInstance,
+			'DataTables_' + settings.unique,
 			JSON.stringify(data)
 		);
 	},
 	stateLoadCallback: function (settings) {
-		return JSON.parse(localStorage.getItem('DataTables_' + settings.sInstance));
+		return JSON.parse(localStorage.getItem('DataTables_' + settings.unique));
 	}
 });
 ]]></example>
