@@ -370,7 +370,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		$anchor = $this->_doHeaderAnchor( $matches[1] );
 		$block =
 			"<h$level$attr data-anchor=\"".$anchor."\">".
-				'<a name="'.$anchor.'" href="#'.$anchor.'"></a>'.
+				'<a id="'.$anchor.'" href="#'.$anchor.'"></a>'.
 				$text.
 			"</h$level>";
 		return "\n" . $this->hashBlock($block) . "\n\n";
@@ -385,7 +385,7 @@ class DT_Markdown_Parser extends MarkdownExtraExtended_Parser {
 		if ( $level <= 3 ) {
 			$anchor = $this->_doHeaderAnchor( $matches[2] );
 			$block = "<h$level$attr data-anchor=\"".$anchor."\">".
-					'<a name="'.$anchor.'" href="#'.$anchor.'"></a>'.
+					'<a id="'.$anchor.'" href="#'.$anchor.'"></a>'.
 					$text.
 				"</h$level>";
 		}

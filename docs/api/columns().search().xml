@@ -68,7 +68,7 @@
 
 		Note that this search ability in DataTables is actually technically a filter since it is subtractive. However, we term is a search to avoid naming overlap with the `-api filter()` helper method.
 
-		Furthermore, each subset of columns can have a single search term applied only when using this method or `-api column().search()`. For example, if the selector used for this method picks a single column, it would overlap with any search applied by the singular method (i.e. `.columns(1).search(...)` and `.column(1).search(...)` share the same search). If you wish to layer multiple search terms on the same subset of columns, please use `-api column().fixed.search()` / `-api columns().fixed.search()`.
+		Furthermore, each subset of columns can have a single search term applied only when using this method or `-api column().search()`. For example, if the selector used for this method picks a single column, it would overlap with any search applied by the singular method (i.e. `.columns(1).search(...)` and `.column(1).search(...)` share the same search). If you wish to layer multiple search terms on the same subset of columns, please use `-api column().search.fixed()` / `-api columns().search.fixed()`.
 
 		**Please be aware that this method sets the search to apply to the table only - it does not actually perform the search.** In order to have the search performed and the result shown, use the `-api draw()` method, which can be called simply as a chained method of the `-api columns().search()` method's returned object - for example `table.columns( [0, 1] ).search( 'Fred' ).draw();`. This is to provide the ability to queue multiple changes before performing a draw.
 		]]>

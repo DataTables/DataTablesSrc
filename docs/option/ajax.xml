@@ -190,5 +190,5 @@ new DataTable('#myTable', {
 	<related>-init ajax.data</related>
 	<related>-init ajax.dataSrc</related>
 	<related>-init ajax.submitAs</related>
-	<related>-type DataTable.AjaxOptions()</related>
+	<related>-type DataTable.AjaxOptions</related>
 </dt-option>
