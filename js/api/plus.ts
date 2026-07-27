@@ -354,7 +354,7 @@ export default function (DataTable: DataTablesStatic) {
 				host === 'datatables.net';
 
 			if (isDev) {
-				// return true;
+				return true;
 			}
 
 			if (_processingKey) {
