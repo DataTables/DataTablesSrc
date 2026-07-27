@@ -116,7 +116,13 @@ function check(releaseDate: string, software: string | null) {
 			return true;
 		}
 	}
+	else if (software === null) {
+		// Validating the key only - there hasn't been any specific software
+		// calling the `plus` parameter yet. The key is good, so carry on.
+		return true;
+	}
 	else if (
+		// Checking if the build version can be used with this key
 		_licenseInfo.type === 'plus' ||
 		(_licenseInfo.type === 'editor' && software === 'editor')
 	) {
@@ -130,6 +136,7 @@ function check(releaseDate: string, software: string | null) {
 		return true;
 	}
 	else if (_licenseInfo.type === 'editor' && software !== 'editor') {
+		// Editor specific license
 		noticePrep('License for Editor only. Upgrade for Plus');
 		noticeDisplay();
 
@@ -337,7 +344,7 @@ function verify(licenseString: string): Promise<void> {
  */
 export default function (DataTable: DataTablesStatic) {
 	Object.defineProperty(DataTable, 'plus', {
-		value: function (releaseDate: string, software: string | null = null) {
+		value: function (releaseDate: string, software: string = '') {
 			// Unsecure sites are only useful for development, so allow there
 			// and on the site.
 			let host = window.location.hostname;
@@ -347,7 +354,7 @@ export default function (DataTable: DataTablesStatic) {
 				host === 'datatables.net';
 
 			if (isDev) {
-				return true;
+				// return true;
 			}
 
 			if (_processingKey) {
