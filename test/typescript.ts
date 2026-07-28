@@ -129,6 +129,7 @@ let table = new DataTable('#myTable', {
 		indicators: true,
 		handler: true
 	},
+	typeDetect: true,
 	deferLoading: [ 1, 10 ],
 });
 

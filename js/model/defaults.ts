@@ -381,6 +381,9 @@ export interface Defaults {
 
 	/** Specify which row is the title row in the header. */
 	titleRow: null | number | boolean;
+
+	/** Ability to enable / disable auto type detection. */
+	typeDetect: boolean;
 }
 
 type LanguageOption =
@@ -685,7 +688,8 @@ const defaults: Defaults = {
 	},
 	stateSaveParams: null,
 	tabIndex: 0,
-	titleRow: null
+	titleRow: null,
+	typeDetect: true
 };
 
 export default defaults;
