@@ -9,7 +9,7 @@
 		<parameter type="object" name="e">
 			Event object
 		</parameter>
-		<parameter type="DataTables Api" name="row">
+		<parameter type="DataTable.Api" name="row">
 			The parent row instance that the child row is attempting to display.
 		</parameter>
 		<scope>HTML table element</scope>
