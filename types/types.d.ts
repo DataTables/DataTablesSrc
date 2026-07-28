@@ -31,6 +31,7 @@ import {
 	ConfigLanguage as Language,
 	Options
 } from '../dist/model/defaults';
+import { CellMeta, ColumnRenderFunction } from '../dist/model/interface';
 import { Row as RowContext } from '../dist/model/row';
 import { Context } from '../dist/model/settings';
 import { State, StateLoad } from '../dist/model/state';
@@ -47,10 +48,9 @@ export {
 
 // Types
 	export {
-		AjaxOptions,
-		ColumnContext,
-		ColumnsConfig,
-		Context, // Legacy support
+		AjaxOptions, CellMeta, ColumnContext,
+		ColumnRenderFunction,
+		ColumnsConfig, Context, // Legacy support
 		Defaults,
 		Ext,
 		ExtButtons,

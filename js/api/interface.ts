@@ -13,7 +13,6 @@ import model from '../model';
 import ColumnContext from '../model/columns/settings';
 import { Defaults, Options } from '../model/defaults';
 import {
-	CellMetaSettings,
 	Order,
 	OrderArray,
 	OrderFixed
@@ -2884,15 +2883,6 @@ export interface ExtTypeSettings {
 	 */
 	search: any;
 }
-
-type FunctionColumnRender = (
-	data: any,
-	type: any,
-	row: any,
-	meta: CellMetaSettings
-) => any;
-
-
 
 // jQuery integration for legacy support
 interface JQueryDataTables extends JQuery {

@@ -1,7 +1,7 @@
 import {
+	ColumnRenderFunction,
 	FunctionColumnCreatedCell,
 	FunctionColumnData,
-	FunctionColumnRender,
 	ObjectColumnData,
 	ObjectColumnRender
 } from '../interface';
@@ -93,7 +93,7 @@ export interface Defaults {
 		| number
 		| string
 		| ObjectColumnData
-		| FunctionColumnRender
+		| ColumnRenderFunction
 		| ObjectColumnRender
 		| null;
 

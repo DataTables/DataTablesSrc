@@ -36,6 +36,14 @@ let table = new DataTable('#myTable', {
 			footer: 'footer text',
 			target: 1,
 			orderSequence: ['asc', 'desc', '']
+		},
+		{
+			data: 0,
+			render(data, type, row, meta) {
+				meta.col;
+				meta.row;
+				meta.settings;
+			},
 		}
 	],
 	language: {

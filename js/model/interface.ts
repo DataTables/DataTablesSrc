@@ -90,12 +90,12 @@ export type LayoutComponent =
 
 export type Layout = Partial<Record<LayoutKeys, LayoutComponent>>;
 
-export type FunctionColumnRender = (
+export type ColumnRenderFunction = (
 	this: DataTableDom,
 	data: any,
 	type: any,
 	row: any,
-	meta: CellMetaSettings
+	meta: CellMeta
 ) => any;
 
 export type FunctionColumnCreatedCell = (
@@ -107,7 +107,7 @@ export type FunctionColumnCreatedCell = (
 	col: number
 ) => void;
 
-export interface CellMetaSettings {
+export interface CellMeta {
 	row: number;
 	col: number;
 	settings: Context;
@@ -134,12 +134,12 @@ export interface OrderFixed {
 }
 
 export interface FunctionColumnData {
-	(row: any, type: 'set', s: any, meta: CellMetaSettings): void;
+	(row: any, type: 'set', s: any, meta: CellMeta): void;
 	(
 		row: any,
 		type: 'display' | 'sort' | 'filter' | 'type',
 		s: undefined,
-		meta: CellMetaSettings
+		meta: CellMeta
 	): any;
 }
 
@@ -152,11 +152,11 @@ export interface ObjectColumnData {
 }
 
 export interface ObjectColumnRender {
-	_?: string | number | FunctionColumnRender;
-	filter?: string | number | FunctionColumnRender;
-	display?: string | number | FunctionColumnRender;
-	type?: string | number | FunctionColumnRender;
-	sort?: string | number | FunctionColumnRender;
+	_?: string | number | ColumnRenderFunction;
+	filter?: string | number | ColumnRenderFunction;
+	display?: string | number | ColumnRenderFunction;
+	type?: string | number | ColumnRenderFunction;
+	sort?: string | number | ColumnRenderFunction;
 }
 
 export type AjaxDataSrc = string | ((data: any) => any[]);
