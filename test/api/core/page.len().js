@@ -136,6 +136,11 @@ describe('core - page.len()', function() {
 				.draw();
 			checkTableLength(-1, -1, 57);
 		});
+
+		it('And the paging control only has one page button', function () {
+			expect($('div.dt-paging button.dt-paging-button').length).toBe(5);
+			expect($('div.dt-paging button.dt-paging-button')[2].textContent).toBe('1');
+		});
 	});
 
 	describe('Advanced behaviour', function() {
