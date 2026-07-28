@@ -185,7 +185,9 @@ export default ajax;
  * Run callback functions (allowing for none, one or array)
  *
  * @param fnIn Function(s) to run
- * @param parameters Parameters to pass to the function(s)
+ * @param arg1 Parameters to pass to the function(s)
+ * @param arg2 Parameters to pass to the function(s)
+ * @param arg3 Parameters to pass to the function(s)
  */
 function callback(
 	fnIn: Function | Function[] | null | undefined,

@@ -387,7 +387,7 @@ function getWideStrings(settings: Context, colIdx: number) {
 /**
  * Append a CSS unit (only if required) to a string
  *
- * @param value to css-ify
+ * @param s Value to css-ify
  * @returns Value with css unit
  */
 export function stringToCss(s: number | null | string) {

@@ -17,6 +17,7 @@ type RegisterCallback<T> = (
  * @param name The name of the new feature.
  * @param cb A function that will create the elements and event listeners for
  * the feature being added.
+ * @param legacyChar
  */
 export default function register<T>(
 	name: string,

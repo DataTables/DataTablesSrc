@@ -2,7 +2,7 @@
  * Debounce a function
  *
  * @param fn Function to be called
- * @param timeout Call frequency in mS
+ * @param freq Call frequency in mS
  * @returns Wrapped function
  */
 export function debounce(fn: () => void, freq?: number): () => void;

@@ -515,7 +515,7 @@ function getPrototypeNames(name: string) {
  * Each of the input parameter types will be converted to a DataTables settings
  * object where possible.
  *
- * @param mixed DataTable identifier. Can be one of:
+ * @param mixedIn DataTable identifier. Can be one of:
  *   * `string` - jQuery selector. Any DataTables' matching the given selector
  *     with be found and used.
  *   * `node` - `TABLE` node which has already been formed into a DataTable.

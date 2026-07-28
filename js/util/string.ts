@@ -75,7 +75,7 @@ let _stripHtml: TStripHtml = function <T>(input: T, replacement: string='') {
  * This function is replaceable if the user wishes to use a different library
  * for escaping HTML entities in a string.
  *
- * @param d Value to escape HTML in
+ * @param val Value to escape HTML in
  * @returns Escaped value
  */
 let _escapeHtml: TEscapeHtml = function <T>(val: T) {
@@ -110,7 +110,7 @@ export function escapeHtml<T>(mixed: T): T;
 /**
  * Set the function to use for HTML entity encoding from a string
  *
- * @param fn HTML escape function
+ * @param mixed HTML escape function
  */
 export function escapeHtml<T = TEscapeHtml>(mixed: T): void;
 export function escapeHtml<T>(mixed: T) {
@@ -140,7 +140,7 @@ export function normalize(mixed: string, both?: boolean): string;
 /**
  * Set the function to use for string normalisation
  *
- * @param mixed Normalisation function
+ * @param fn Normalisation function
  */
 export function normalize<T = TNormalize>(fn: T): void;
 
@@ -158,6 +158,7 @@ export function normalize(mixed: unknown, both?: boolean) {
  * Strip HTML from a string, if a string is given, otherwise no action
  *
  * @param mixed Value to remove HTML from
+ * @param replacement
  * @returns The stripped value (or original if not a string)
  */
 export function stripHtml<T>(mixed: T, replacement?: string): T;
