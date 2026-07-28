@@ -96,6 +96,7 @@ export function pluck(
  * as the indexes to pick from the source array
  *
  * @param a Array to get values from
+ * @param order Indexes to pick
  * @param prop Property to read values from
  * @param prop2 Inner property to get values from if a 2D array
  * @returns Array of read values

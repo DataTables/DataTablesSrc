@@ -646,6 +646,7 @@ export interface ApiScopeable<T, S> {
 	 * Add one or more items to the end of an API instance's result set.
 	 *
 	 * @param value_1 Item to add to the API instance's result set.
+	 * @param value_2 Additional items to add.
 	 * @returns The length of the modified API instance
 	 */
 	push(value_1: any, ...value_2: any[]): number;
@@ -664,7 +665,7 @@ export interface ApiScopeable<T, S> {
 	ready(this: S, fn: (this: Api<T>) => void): Api<T>;
 
 	/**
-	 * Apply a callback function against and accumulator and each element in the
+	 * Apply a callback function against an accumulator and each element in the
 	 * Api's result set (left-to-right).
 	 *
 	 * @param fn Callback function which is called for each item in the API
@@ -774,6 +775,7 @@ export interface ApiScopeable<T, S> {
 	 * @param howMany Number of elements to remove from the result set.
 	 * @param value_1 Item to add to the result set at the index specified by
 	 * the first parameter.
+	 * @param value_2 Additional items to add.
 	 * @returns An array of the items which were removed. If no elements were
 	 * removed, an empty array is returned.
 	 */
@@ -865,6 +867,7 @@ export interface ApiScopeable<T, S> {
 	 * Add one or more items to the start of an API instance's result set.
 	 *
 	 * @param value_1 Item to add to the API instance's result set.
+	 * @param value_2 Additional items to add.
 	 * @returns The length of the modified API instance
 	 */
 	unshift(value_1: any, ...value_2: any[]): number;
@@ -880,7 +883,7 @@ export interface ApiCaption {
 	 * Set the contents of the `-tag caption` element. If the table doesn't have
 	 * a `-tag caption` element, one will be created automatically.
 	 *
-	 * @param string The value to show in the table's `caption` tag.
+	 * @param set The value to show in the table's `caption` tag.
 	 * @param side `top` or `bottom` to set where the table will be shown on the
 	 *   table. If not given the previous value will be used (can also be set in
 	 *   CSS).
@@ -1785,7 +1788,7 @@ export interface ApiColumnSearch<T> {
 	 * Set the search term for the matched column.
 	 *
 	 * @param input Search to apply.
-	 * @param Search Search configuration options
+	 * @param options Search configuration options
 	 * @returns DataTables API instance
 	 */
 	(input: SearchInput<T>, options: Partial<SearchOptions>): Api<any>;
@@ -2060,7 +2063,7 @@ export interface ApiColumnsSearch<T> {
 	 * Set the search term for the matched columns.
 	 *
 	 * @param input Search to apply.
-	 * @param Search Search configuration options
+	 * @param options Search configuration options
 	 * @returns DataTables API instance
 	 */
 	(input: SearchInput<T>, options: Partial<SearchOptions>): Api<any>;
@@ -2651,7 +2654,7 @@ export interface DataTablesStatic {
 	/**
 	 * Get all DataTable tables that have been initialised - as HTML elements
 	 *
-	 * @param options Indicate if you want all tables on the page should be
+	 * @param visible Indicate if you want all tables on the page should be
 	 * returned (false), or visible tables only (true).
 	 * @returns Array of HTML table Elements
 	 */
@@ -2760,7 +2763,6 @@ export interface DataTablesStaticRender {
 	 * Format an ISO8061 date value using the specified format
 	 * @param to Display format
 	 * @param locale Locale
-	 * @param def Default value if empty
 	 */
 	date(to: string, locale?: string): DateTimeRenderer;
 
@@ -2787,7 +2789,6 @@ export interface DataTablesStaticRender {
 	 * Format an ISO8061 datetime value using the specified format
 	 * @param to Display format
 	 * @param locale Locale
-	 * @param def Default value if empty
 	 */
 	datetime(to: string, locale?: string): DateTimeRenderer;
 
@@ -2842,7 +2843,6 @@ export interface DataTablesStaticRender {
 	 * Format an ISO8061 time value using the specified format
 	 * @param to Display format
 	 * @param locale Locale
-	 * @param def Default value if empty
 	 */
 	time(to: string, locale?: string): DateTimeRenderer;
 

@@ -13,7 +13,6 @@ const __filter_div_textContent = __filter_div.textContent !== undefined;
  * Filter the table using both the global filter and column based filtering
  *
  * @param settings DataTables settings object
- * @param input search information
  */
 export function filterComplete(settings: Context) {
 	let columns = settings.columns;
@@ -92,7 +91,6 @@ function filterCustom(settings: Context) {
  * @param settings
  * @param input
  * @param options
- * @param column
  * @returns
  */
 function filter(

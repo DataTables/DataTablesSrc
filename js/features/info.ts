@@ -79,6 +79,8 @@ register<Partial<IFeatureInfoOptions>>(
 /**
  * Update the information elements in the display
  *  @param settings DataTables settings object
+ *  @param opts
+ *  @param node
  */
 function updateInfo(settings: Context, opts: IFeatureInfoOptions, node: Dom) {
 	var start = settings.displayStart + 1,
