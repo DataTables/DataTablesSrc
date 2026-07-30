@@ -310,6 +310,13 @@ expectType<Api<any>>(table.on('click', 'tbody td', function () {}));
 expectType<Api<any>>(table.one('draw', function () {}));
 expectType<Api<any>>(table.one('click', 'tbody td', function () {}));
 
+table.on('draw', function(e) {
+	expectType<number>(e.dt.page.len());
+	expectType<EventTarget | null>(e.target);
+	expectType<boolean>(e.bubbles);
+	expectType<string>(typeof e.stopPropagation);
+});
+
 table.order.listener(document.querySelector('button')!, 1, () => {});
 
 // Check `this` is an HTMLElement

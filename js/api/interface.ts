@@ -92,6 +92,10 @@ export type HeaderStructure = {
 	title: string;
 };
 
+export interface DataTableEvent<T=any> extends Event {
+	dt: Api<T>;
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * API
  */
@@ -534,7 +538,7 @@ export interface ApiScopeable<T, S> {
 	 */
 	off(
 		event: string,
-		callback?: (this: HTMLElement, e: Event, ...args: any[]) => void
+		callback?: (this: HTMLElement, e: DataTableEvent, ...args: any[]) => void
 	): Api<T>;
 
 	/**
@@ -549,7 +553,7 @@ export interface ApiScopeable<T, S> {
 	off(
 		event: string,
 		selector: string,
-		callback?: (this: HTMLElement, e: Event, ...args: any[]) => void
+		callback?: (this: HTMLElement, e: DataTableEvent, ...args: any[]) => void
 	): Api<T>;
 
 	/**
@@ -561,7 +565,7 @@ export interface ApiScopeable<T, S> {
 	 */
 	on(
 		event: string,
-		callback: (this: HTMLElement, e: Event, ...args: any[]) => void
+		callback: (this: HTMLElement, e: DataTableEvent, ...args: any[]) => void
 	): Api<T>;
 
 	/**
@@ -575,7 +579,7 @@ export interface ApiScopeable<T, S> {
 	on(
 		event: string,
 		selector: string,
-		callback: (this: HTMLElement, e: Event, ...args: any[]) => void
+		callback: (this: HTMLElement, e: DataTableEvent, ...args: any[]) => void
 	): Api<T>;
 
 	/**
@@ -588,7 +592,7 @@ export interface ApiScopeable<T, S> {
 	 */
 	one(
 		event: string,
-		callback: (this: HTMLElement, e: Event, ...args: any[]) => void
+		callback: (this: HTMLElement, e: DataTableEvent, ...args: any[]) => void
 	): Api<T>;
 
 	/**
@@ -603,7 +607,7 @@ export interface ApiScopeable<T, S> {
 	one(
 		event: string,
 		selector: string,
-		callback: (this: HTMLElement, e: Event, ...args: any[]) => void
+		callback: (this: HTMLElement, e: DataTableEvent, ...args: any[]) => void
 	): Api<T>;
 
 	/**
