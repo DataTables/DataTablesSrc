@@ -2103,26 +2103,19 @@ export interface ApiRowChildMethods<T> {
 	(): Dom;
 
 	/**
-	 * Get the child row(s) that have been set for a parent row
-	 *
-	 * @param showRemove This parameter can be given as true or false
-	 * @returns DataTables Api instance.
-	 */
-	(showRemove: boolean): RowChildMethods<T>;
-
-	/**
 	 * Set the data to show in the child row(s). Note that calling this method
 	 * will replace any child rows which are already attached to the parent row.
 	 *
 	 * @param data The data to be shown in the child row can be given in
-	 * multiple different ways.
+	 * multiple different ways. Can be set to boolean `false` to hide an
+	 * existing child row, or boolean `true` to show an existing child row.
 	 * @param className Class name that is added to the td cell node(s) of the
 	 * child row(s). As of 1.10.1 it is also added to the tr row node of the
 	 * child row(s).
 	 * @returns DataTables Api instance
 	 */
 	(
-		data: (string | Node | JQuery) | Array<string | number | JQuery>,
+		data: (boolean | string | Node | JQuery) | Array<string | number | JQuery>,
 		className?: string
 	): RowChildMethods<T>;
 
