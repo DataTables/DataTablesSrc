@@ -2100,7 +2100,7 @@ export interface ApiRowChildMethods<T> {
 	 * result set, or undefined if there are no child rows set for the parent
 	 * yet.
 	 */
-	(): JQuery;
+	(): Dom;
 
 	/**
 	 * Get the child row(s) that have been set for a parent row
