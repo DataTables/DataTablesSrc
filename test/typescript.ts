@@ -5,7 +5,7 @@ import DataTable, {
 	ApiColumnMethods,
 	ApiRowMethods,
 	ApiTableMethods,
-	ConfigColumns,
+	ColumnContext,
 	DataType,
 	DataTypeDetect,
 	HeaderStructure
@@ -207,8 +207,8 @@ table.columns(1, {
 table.columns([1, '.test']);
 table.columns(':visible').count();
 
-expectType<ConfigColumns>(table.column(0).init());
-expectType<Api<ConfigColumns>>(table.columns().init());
+expectType<ColumnContext>(table.column(0).init());
+expectType<Api<ColumnContext>>(table.columns().init());
 
 expectType<string>(table.column(0).title());
 expectType<string>(table.column(0).title(1));
