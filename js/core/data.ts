@@ -12,7 +12,7 @@ import { createTr, getRowDisplay, rowAttributes } from './draw';
  * DOM source.
  *
  * @param settings DataTables settings object
- * @param data data array to be added
+ * @param dataIn data array to be added
  * @param tr TR element to add to the table - optional. If not given, DataTables
  *   will create a row automatically
  * @param tds Array of TD|TH elements for the row - must be given if tr is.
@@ -64,7 +64,7 @@ export function addData(
  * it is not cloned).
  *
  * @param settings DataTables settings object
- * @param trs The TR element(s) to add to the table
+ * @param rows The TR element(s) to add to the table
  * @returns Array of indexes for the added rows
  */
 export function addTr(settings: Context, rows: Dom<HTMLTableRowElement>) {

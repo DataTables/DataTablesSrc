@@ -113,7 +113,7 @@ export default class Dom<T extends HTMLElement = HTMLElement>
 	/**
 	 * Add an element (or multiple) to the instance. Will ensure uniqueness.
 	 *
-	 * @param el Element(s) to add
+	 * @param selector Element(s) to add
 	 * @param sort Indicate if the element should be added in document order.
 	 * @returns Self for chaining
 	 */
@@ -693,7 +693,7 @@ export default class Dom<T extends HTMLElement = HTMLElement>
 	/**
 	 * Get all matching descendants
 	 *
-	 * @param selector Elements to find
+	 * @param input Elements to find
 	 * @returns A new Dom instance with all matching elements
 	 */
 	find<R extends HTMLElement = T>(

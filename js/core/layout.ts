@@ -28,7 +28,7 @@ export interface ILayoutCell {
 /**
  * Add the options to the page HTML for the table
  *
- * @param settings DataTables settings object
+ * @param ctx DataTables context
  */
 export function createLayout(ctx: Context) {
 	var classes = ctx.classes;

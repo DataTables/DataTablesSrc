@@ -130,6 +130,7 @@ export function sortAttachListener(
  * Sort the display array to match the master's order
  *
  * @param settings DataTables context
+ * @param display The display array
  */
 export function sortDisplay(settings: Context, display: number[]) {
 	if (display.length < 2) {
@@ -427,7 +428,6 @@ export function sort(ctx: Context, col?: number, dir?: string) {
  * Function to run on user sort request
  *
  * @param settings dataTables settings object
- * @param attachTo node to attach the handler to
  * @param colIdx column sorting index
  * @param addIndex Counter
  * @param shift Shift click add

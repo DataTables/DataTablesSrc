@@ -4,7 +4,7 @@ import { Context } from '../model/settings';
 /**
  * Set the page length
  *
- * @param settings DataTables context
+ * @param ctx DataTables context
  * @param val Value to change to
  */
 export function lengthChange(ctx: Context, val: string | number) {
