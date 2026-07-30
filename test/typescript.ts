@@ -334,7 +334,7 @@ table.on('click', 'tbody td', function () {
 expectType<Node | null>(table.row.add(['a', 'b', 'c']).node());
 
 expectType<Api<any>>(table.rows({order: 1}).data());
-expectType<Api<HTMLTableRowElement[]>>(table.rows.add([['a', 'b', 'c']]).nodes());
+expectType<Array<HTMLTableRowElement>>(table.rows.add([['a', 'b', 'c']]).nodes().toArray());
 
 tableRowType.rows().every(function () {
 	expectType<ApiRowMethods<any>>(this);
@@ -400,7 +400,7 @@ expectType<any>(DataTable.util.get('hello'));
 expectType<any>(DataTable.util.set('hello'));
 
 
-var res = DataTable.Api.register('apiMethod()', function (from, to) {
+var res = DataTable.Api.register('apiMethod()', function (this: Api, from: number, to: string) {
 	expectType<Api<any>>(this);
 	expectType<Api<any>>(this.draw());
 	expectType<Api<any>>(this.draw(false));
