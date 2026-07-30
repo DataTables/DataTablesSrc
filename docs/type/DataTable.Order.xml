@@ -78,7 +78,7 @@ Multi-column ordering is defined by providing an array of the above options. You
 
 ## Return types
 
-Please note that the `-init order()` method will always return an array of single dimension arrays (tuples) which contain the column index and direction. This is the representation that DataTables uses internally and the other forms are converted to the tuple array when DataTables performs ordering operations.
+Please note that the `-api order()` method will always return an array of single dimension arrays (tuples) which contain the column index and direction. This is the representation that DataTables uses internally and the other forms are converted to the tuple array when DataTables performs ordering operations.
 
 	]]>
 	</description>

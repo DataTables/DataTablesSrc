@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type>
+	<name>Date</name>
+	<summary>JavaScript `Date` type</summary>
+
+	<description>
+	<![CDATA[
+
+JavaScript's native `Date` object is used to create and manipulate Date objects.
+
+A detailed description of the `Date` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting a `Date` type, or a method returning a `Date` type, it indicates that a native `Date` object is expected / returned.
+
+	]]>
+	</description>
+</dt-type>

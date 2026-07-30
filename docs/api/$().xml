@@ -5,7 +5,7 @@
 	<since>1.10</since>
 
 	<deprecated since="3.0" removal="4.0">
-		Please note that as DataTables has no dependency on jQuery, as of v3, this method is now only relevant if you also load jQuery. Usage should be replaced with `-api dom()` or standard DOM methods.
+		Please note that as DataTables has no dependency on jQuery, as of v3, this method is now only relevant if you also load jQuery. Usage should be replaced with `-type DataTable.Dom` or standard DOM methods.
 	</deprecated>
 
 	<type type="function">
