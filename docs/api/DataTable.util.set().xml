@@ -10,7 +10,7 @@
 		<param type="string|function|null" name="descriptor">
 			A descriptor that is used to define how to write data to a source object. See above for full details of the options that this can be used as.
 		</param>
-		<returns type="Function">A write function that will be used to set data into the given object.</returns>
+		<returns type="function">A write function that will be used to set data into the given object.</returns>
 	</type>
 
 	<description>

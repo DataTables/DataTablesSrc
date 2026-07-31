@@ -10,7 +10,7 @@
 		<param type="string|object|function|null" name="descriptor">
 			A descriptor that is used to define how to read the data from the source object. See above for full details of the options that this can be used as.
 		</param>
-		<returns type="Function">An accessor function that will be used to read data from a given object</returns>
+		<returns type="function">An accessor function that will be used to read data from a given object</returns>
 	</type>
 
 	<description>

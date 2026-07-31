@@ -16,5 +16,5 @@
 
 	<related>-api columns().dataSrc()</related>
 	<related>-api column().dataSrc()</related>
-	<related>-api columns().name()</related>
+	<related>-api columns().names()</related>
 </dt-api>

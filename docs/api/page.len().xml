@@ -23,7 +23,7 @@
 
 		The special number `-1` can be used as a set parameter, and then returned by the get format of this method, to indicate that all rows in the DataTable will be displayed.
 
-		Please be aware that this method sets the page to be shown - it does not actually perform the re-display of the table. In order to have the newly set page shown use the `-api draw()` method, which can be called simply as a chained method of the `-api len()` method's returned object - for example `table.page.len( 25 ).draw();`.
+		Please be aware that this method sets the page to be shown - it does not actually perform the re-display of the table. In order to have the newly set page shown use the `-api draw()` method, which can be called simply as a chained method of the `-api page.len()` method's returned object - for example `table.page.len( 25 ).draw();`.
 	</description>
 
 	<example title="Allow user to click on two elements to select if all records should be shown or just 10"><![CDATA[

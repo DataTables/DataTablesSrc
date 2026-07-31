@@ -18,8 +18,8 @@ DataTables performs a lot of [DOM](https://developer.mozilla.org/en-US/docs/Web/
 
 To create a new `Dom` instance, you will typically use one of two static methods (see below for further details of both):
 
-* `-api DataTable.Dom.c()` - Create a new element and add it to the result set
-* `-api DataTable.Dom.s()` - Select existing elements from the document (or from elements passed in as a selector).
+* `DataTable.Dom.c()` - Create a new element and add it to the result set
+* `DataTable.Dom.s()` - Select existing elements from the document (or from elements passed in as a selector).
 
 
 ### Access
