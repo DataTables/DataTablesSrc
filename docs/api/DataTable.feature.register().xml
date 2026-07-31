@@ -20,7 +20,7 @@
 
 			The function should return a DOM node, which will be inserted into the document as defined by the layout positioning.
 		</param>
-		<returns type="void">No value is returned.</returns>
+		<returns type="undefined">No value is returned.</returns>
 	</type>
 
 	<description>

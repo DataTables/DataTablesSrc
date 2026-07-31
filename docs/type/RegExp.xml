@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type>
+	<name>RegExp</name>
+	<summary>JavaScript `RegExp` type</summary>
+
+	<description>
+	<![CDATA[
+
+JavaScript's native `RegExp` object is used to create and manipulate regular expression objects.
+
+A detailed description of the `RegExp` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting a `RegExp` type, or a method returning a `RegExp` type, it indicates that a native `RegExp` object is expected / returned.
+
+	]]>
+	</description>
+</dt-type>

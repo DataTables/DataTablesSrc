@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type>
+	<name>Promise</name>
+	<summary>JavaScript `Promise` type</summary>
+
+	<description>
+	<![CDATA[
+
+JavaScript's native `Promise` object is used to aid async programming and is always what is returned from an `async` function. A `Promise` can be used to tell the program to wait until an asynchronous action has completed.
+
+A detailed description of the `Promise` type is available on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+
+
+## Use in DataTables
+
+Where a parameter is shown as accepting a `Promise` type, or a method returning a `Promise` type, it indicates that a native `Promise` object is expected / returned.
+
+	]]>
+	</description>
+</dt-type>

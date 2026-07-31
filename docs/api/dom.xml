@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api group="core">
+	<name>dom()</name>
+	<summary>Perform a query selection action on the full table.</summary>
+	<since>3</since>
+
+	<type type="function">
+		<signature>$( selector [, modifier ] )</signature>
+		<description>Perform a CSS query selection on the rows and contents of the rows in the tables' `-tag tbody` elements.</description>
+		<parameter type="node|DataTable.Dom|string" name="selector">
+			[CSS query selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors) to perform on the nodes inside the table's `-tag tbody` tag.
+		</parameter>
+		<parameter type="DataTable.SelectorModifier" name="modifier" default="">
+			Option used to specify how the content's of the selected columns should be ordered, and if paging or filtering in the table should be taken into account. This is only useful for operations which involve rows, such as `-api column().nodes()` and `-api column().data()`.
+		</parameter>
+		<returns type="DataTable.Dom">`Dom` object with the matched elements in its result set.</returns>
+	</type>
+
+	<description>
+		DataTables makes heavy use of DOM manipulation, removing rows from the document for paging and searching, and removing columns from the document for column visibility, among other actions. As such, simply using [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to pick elements will not find these removed DOM elements.
+
+		To provide an easy method to perform selectors on these elements, so you can select elements regardless of searching, paging or any other feature of DataTables this method is provided.
+
+		The selector given to the `-api dom()` method will be run on all of the `-tag tr` elements in the table, and their descendent elements, with the found elements being returned as a `-type DataTable.Dom` object.
+	</description>
+
+	<example title="Find all cells with a specific class and add another class"><![CDATA[
+var table = new DataTable('#myTable');
+
+table.dom('.myClass').classAdd('important');
+]]></example>
+</dt-api>

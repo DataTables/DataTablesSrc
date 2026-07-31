@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>row().child()</signature>
 		<description>Get the child row(s) that have been set for a parent row</description>
-		<returns type="Dom|undefined">
+		<returns type="DataTable.Dom|undefined">
 			Dom object with the child rows for the parent row in its result set, or `undefined` if there are no child rows set for the parent yet.
 
 			Please note that prior to DataTables 3, this method would return a jQuery instance.

@@ -31,7 +31,7 @@
 		<parameter type="*" name="library">
 			This should be the library, or object that is being set.
 		</parameter>
-		<returns type="void">No value is returned.</returns>
+		<returns type="undefined">No value is returned.</returns>
 	</type>
 
 	<type type="function">
@@ -45,7 +45,7 @@
 		<parameter type="string" name="type">
 			The value given for this parameter tells DataTables what library it is you are setting. See the parameters for the _getter_ overload above for the values this can take.
 		</parameter>
-		<returns type="void">No value is returned.</returns>
+		<returns type="undefined">No value is returned.</returns>
 	</type>
 
 	<description>
