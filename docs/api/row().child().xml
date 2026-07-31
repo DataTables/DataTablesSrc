@@ -30,7 +30,7 @@
 	<type type="function">
 		<signature>row().child( data [, className ] )</signature>
 		<description>Set the data to show in the child row(s). Note that calling this method will replace any child rows which are already attached to the parent row.</description>
-		<parameter type="string|node|Dom|jQuery|array" name="data">
+		<parameter type="string|node|DataTable.Dom|jQuery|array" name="data">
 			The data to be shown in the child row can be given in multiple different ways:
 
 			* `string` - As a string, a single child row is create and the data is inserted into a single cell in that child row.

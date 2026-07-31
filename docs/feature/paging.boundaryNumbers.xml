@@ -13,7 +13,7 @@
 
 		> 1 ... 5 **6** 7 ... 23
 
-		The first and last numbered buttons could be considered redundant if you have the first / last icon buttons also enabled, which they are by default. This option (`-init paging.boundaryNumbers`) of the paging control provides the ability to disable the first and last numbers buttons. When disabled, the above example would display as:
+		The first and last numbered buttons could be considered redundant if you have the first / last icon buttons also enabled, which they are by default. This option, of the paging control, provides the ability to disable the first and last numbers buttons. When disabled, the above example would display as:
 
 		> ... 5 **6** 7 ...
 

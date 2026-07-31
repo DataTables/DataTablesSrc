@@ -36,7 +36,7 @@ new DataTable('#myTable', {
 	<related>-init language.infoFiltered</related>
 	<related>-init language.infoPostFix</related>
 	<related>-init language.thousands</related>
-	<related>-init language.entities</related>
+	<related>-init language.entries</related>
 	<related>-feature info</related>
 	<related>-feature info.text</related>
 </dt-option>
