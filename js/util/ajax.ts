@@ -73,7 +73,10 @@ function ajax(optionsIn: AjaxOptions) {
 
 	xhr.open(
 		method,
-		options.url + (options.url.includes('?') ? '&' : '?') + urlParams,
+		options.url +
+			(urlParams
+				? (options.url.includes('?') ? '&' : '?') + urlParams
+				: ''),
 		true,
 		options.username || null,
 		options.password || null
