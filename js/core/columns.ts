@@ -282,13 +282,16 @@ function _typeResult(typeDetect: any, res: boolean | string | null) {
  * Calculate the 'type' of a column
  * @param settings DataTables settings object
  */
-export function columnTypes(settings: Context) {
+export function columnTypes(settings: Context, originalTypes: string = '') {
 	var columns = settings.columns;
 	var data = settings.data;
 	var types = ext.type.detect;
 	var i, iLen, j, jen, k, ken;
 	var col, detectedType, cache;
-	var originalTypes = columns.map(c => c.type).join(',');
+
+	if (!originalTypes) {
+		originalTypes = columns.map(c => c.type).join(',');
+	}
 
 	// For each column, spin over the data type detection functions, seeing if
 	// one matches

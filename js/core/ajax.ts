@@ -259,6 +259,7 @@ export function ajaxUpdateDraw(settings: Context, json: JSON) {
 	var drawUnique = ajaxDataSrcParam(settings, 'draw', json);
 	var recordsTotal = ajaxDataSrcParam(settings, 'recordsTotal', json);
 	var recordsFiltered = ajaxDataSrcParam(settings, 'recordsFiltered', json);
+	var existingTypes = settings.columns.map(c => c.type).join(',');
 
 	if (drawUnique !== undefined) {
 		// Protect against out of sequence returns
@@ -283,7 +284,7 @@ export function ajaxUpdateDraw(settings: Context, json: JSON) {
 	}
 	settings.display = settings.displayMaster.slice();
 
-	columnTypes(settings);
+	columnTypes(settings, existingTypes);
 	draw(settings, true);
 	initComplete(settings);
 	processingDisplay(settings, false);
