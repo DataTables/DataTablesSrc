@@ -123,8 +123,8 @@ let table = new DataTable('#myTable', {
 		// top2Start: $('#test')
 	},
 	on: {
-		draw: () => {
-
+		draw: (event) => {
+			event.dt.draw();
 		}
 	},
 	order: [

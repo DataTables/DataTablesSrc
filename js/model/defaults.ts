@@ -1,3 +1,4 @@
+import { DataTableEvent } from '../api/interface';
 import classes from '../ext/classes';
 import columnDefaults, {
 	Defaults as ColumnDefaults,
@@ -175,7 +176,7 @@ export interface Defaults {
 	 * Add event listeners during the DataTables startup
 	 */
 	on: {
-		[name: string]: (this: HTMLElement, e: Event, ...args: any[]) => void;
+		[name: string]: (this: HTMLElement, e: DataTableEvent, ...args: any[]) => void;
 	};
 
 	/**
