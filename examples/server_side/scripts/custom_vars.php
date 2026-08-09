@@ -69,9 +69,9 @@ require('ssp.class.php');
 echo json_encode(
 	SSP::complex($_GET, $sql_details, $table, $primaryKey, $columns, [
 		'condition' => 'office LIKE :office',
-		'bindings' => [
+		'bindings' => isset($_GET['officeFilter']) ? [
 			'office' => '%' . $_GET['officeFilter'] . '%'
-		]
+		] : []
 	])
 );
 
