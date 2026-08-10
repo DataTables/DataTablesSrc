@@ -209,16 +209,16 @@ class SSP
 					isset($requestColumn['search']['value'])
 				) {
 					$str = $requestColumn['search']['value'];
-				}
 
-				if (
-					isset($requestColumn['searchable']) &&
-					$requestColumn['searchable'] == 'true' &&
-					$str != '' && is_string(($str))
-				) {
-					if (!empty($column['db'])) {
-						$binding = self::bind($bindings, '%' . $str . '%', PDO::PARAM_STR);
-						$columnSearch[] = "`" . $column['db'] . "` LIKE " . $binding;
+					if (
+						isset($requestColumn['searchable']) &&
+						$requestColumn['searchable'] == 'true' &&
+						$str != '' && is_string(($str))
+					) {
+						if (!empty($column['db'])) {
+							$binding = self::bind($bindings, '%' . $str . '%', PDO::PARAM_STR);
+							$columnSearch[] = "`" . $column['db'] . "` LIKE " . $binding;
+						}
 					}
 				}
 			}
