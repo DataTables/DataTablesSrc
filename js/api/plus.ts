@@ -238,7 +238,7 @@ function noticePrep(text?: string) {
  * Display the license notice
  */
 function noticeDisplay() {
-	if (!_processingKey && !document.body.contains(_wm[0])) {
+	if (!_processingKey && document.body && !document.body.contains(_wm[0])) {
 		document.body.appendChild(_wm[0]);
 	}
 }
@@ -354,7 +354,7 @@ export default function (DataTable: DataTablesStatic) {
 				host === 'datatables.net';
 
 			if (isDev) {
-				return true;
+				// return true;
 			}
 
 			if (_processingKey) {
