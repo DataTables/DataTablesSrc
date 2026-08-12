@@ -265,6 +265,22 @@ function verify(licenseString: string): Promise<void> {
 			var payload = parts[0];
 			var signatureB64 = parts[1];
 
+			// Extract the payload to be useful
+			var payloadParts = payload.match(
+				/(plus|trial|editor)_(\d+)_(\d{4})(\d{2})(\d{2})/
+			);
+
+			if (!payloadParts || payloadParts.length !== 6) {
+				_licenseInfo.valid = false;
+				return resolve();
+			}
+
+			_licenseInfo.type = payloadParts[1] as 'trial' | 'plus' | 'editor';
+			_licenseInfo.developers = parseInt(payloadParts[2]);
+			_licenseInfo.expires = new Date(
+				payloadParts[3] + '-' + payloadParts[4] + '-' + payloadParts[5]
+			);
+
 			// Backwards compat for old browsers
 			var cryptoObj = window.crypto || (window as any).msCrypto;
 			var subtle = cryptoObj.subtle || (cryptoObj as any).webkitSubtle;
@@ -272,6 +288,15 @@ function verify(licenseString: string): Promise<void> {
 			var rawKey = b64ToBuf(_publicKey);
 			var rawSig = b64ToBuf(signatureB64);
 			var data = new TextEncoder().encode(payload);
+
+			if (!subtle) {
+				// Non-secure environments don't have cryptographic verification
+				// available.
+				_licenseInfo.valid = true;
+
+				resolve();
+				return;
+			}
 
 			subtle
 				.importKey(
@@ -290,34 +315,7 @@ function verify(licenseString: string): Promise<void> {
 					);
 				})
 				.then(function (isValid) {
-					if (!isValid) {
-						_licenseInfo.valid = false;
-						return resolve();
-					}
-
-					// Extract the payload to be useful
-					var payloadParts = payload.match(
-						/(plus|trial|editor)_(\d+)_(\d{4})(\d{2})(\d{2})/
-					);
-
-					if (!payloadParts || payloadParts.length !== 6) {
-						_licenseInfo.valid = false;
-						return resolve();
-					}
-
-					_licenseInfo.valid = true;
-					_licenseInfo.type = payloadParts[1] as
-						| 'trial'
-						| 'plus'
-						| 'editor';
-					_licenseInfo.developers = parseInt(payloadParts[2]);
-					_licenseInfo.expires = new Date(
-						payloadParts[3] +
-							'-' +
-							payloadParts[4] +
-							'-' +
-							payloadParts[5]
-					);
+					_licenseInfo.valid = isValid;
 
 					resolve();
 				})
@@ -354,7 +352,7 @@ export default function (DataTable: DataTablesStatic) {
 				host === 'datatables.net';
 
 			if (isDev) {
-				// return true;
+				return true;
 			}
 
 			if (_processingKey) {
