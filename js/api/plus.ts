@@ -81,7 +81,11 @@ function b64ToBuf(b64: string) {
 function check(releaseDate: string, software: string | null) {
 	let expires = _licenseInfo.expires;
 
-	if (_licenseInfo.valid === false) {
+	if (!getSubtle()) {
+		noticePrep('Unable to validate license key');
+		noticeDisplay();
+	}
+	else if (_licenseInfo.valid === false) {
 		noticePrep('License key invalid');
 		noticeDisplay();
 	}
@@ -281,18 +285,15 @@ function verify(licenseString: string): Promise<void> {
 				payloadParts[3] + '-' + payloadParts[4] + '-' + payloadParts[5]
 			);
 
-			// Backwards compat for old browsers
-			var cryptoObj = window.crypto || (window as any).msCrypto;
-			var subtle = cryptoObj.subtle || (cryptoObj as any).webkitSubtle;
-
+			var subtle = getSubtle();
 			var rawKey = b64ToBuf(_publicKey);
 			var rawSig = b64ToBuf(signatureB64);
 			var data = new TextEncoder().encode(payload);
 
+			// Non-secure environments don't have cryptographic verification
+			// available.
 			if (!subtle) {
-				// Non-secure environments don't have cryptographic verification
-				// available.
-				_licenseInfo.valid = true;
+				_licenseInfo.valid = false;
 
 				resolve();
 				return;
@@ -371,4 +372,12 @@ export default function (DataTable: DataTablesStatic) {
 		enumerable: false,
 		writable: false
 	});
+}
+
+function getSubtle() {
+	// Backwards compat for old browsers
+	let cryptoObj = window.crypto || (window as any).msCrypto;
+	let subtle = cryptoObj.subtle || (cryptoObj as any).webkitSubtle;
+
+	return subtle;
 }
