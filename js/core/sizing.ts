@@ -7,9 +7,21 @@ import { adjustColumnSizing, columnsSumWidth, getColumns } from './columns';
 import { getRowDisplay } from './draw';
 
 /**
+ * Recalculate the column widths, if needed (by a column having been
+ * invalidated)
+ *
+ * @param settings DataTables settings object
+ */
+export function columnWidths(settings: Context) {
+	if (settings.columns.map(c => c.wideStrings).includes(null)) {
+		calculateColumnWidths(settings);
+	}
+}
+
+/**
  * Calculate the width of columns for the table
  *
- * @param settings dataTables settings object
+ * @param settings DataTables settings object
  */
 export function calculateColumnWidths(settings: Context) {
 	// Not interested in doing column width calculation if auto-width is disabled

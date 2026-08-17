@@ -253,7 +253,7 @@ export function clearTable(settings: Context) {
  * @param colIdx Column index to invalidate. If undefined the whole row will be
  *    invalidated
  */
-export function invalidate(
+export function invalidateRow(
 	settings: Context,
 	rowIdx: number,
 	src?: string,
@@ -293,8 +293,30 @@ export function invalidate(
 		}
 	}
 
+	invalidColumn(settings, colIdx);
+
+	// Update DataTables special `DT_*` attributes for the row
+	rowAttributes(settings, row);
+
+	callbackFire(
+		settings,
+		null,
+		'rowInvalidate',
+		[settings, rowIdx, colIdx],
+		false
+	);
+}
+
+/**
+ * Column specific invalidation
+ *
+ * @param settings DataTables settings object
+ * @param colIdx Column index to invalidate, or all columns if not given
+ */
+export function invalidColumn(settings: Context, colIdx?: number) {
 	// Column specific invalidation
 	var cols = settings.columns;
+
 	if (colIdx !== undefined) {
 		// Type - the data might have changed
 		cols[colIdx].type = null;
@@ -304,22 +326,13 @@ export function invalidate(
 		cols[colIdx].wideStrings = null;
 	}
 	else {
-		for (i = 0, iLen = cols.length; i < iLen; i++) {
+		for (let i = 0, iLen = cols.length; i < iLen; i++) {
 			cols[i].type = null;
 			cols[i].wideStrings = null;
 		}
-
-		// Update DataTables special `DT_*` attributes for the row
-		rowAttributes(settings, row);
 	}
 
-	callbackFire(
-		settings,
-		null,
-		'rowInvalidate',
-		[settings, rowIdx, colIdx],
-		false
-	);
+	settings.containerWidth = -1;
 }
 
 /**

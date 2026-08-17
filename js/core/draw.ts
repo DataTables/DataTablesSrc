@@ -16,6 +16,7 @@ import { sort } from './order';
 import { processingDisplay } from './processing';
 import { renderer } from './render';
 import { filterComplete } from './search';
+import { columnWidths } from './sizing';
 
 interface HeaderLayoutCell {
 	cell: HTMLElement;
@@ -560,6 +561,8 @@ export function reDraw(
 		// Resolve any column types that are unknown due to addition or
 		// invalidation
 		columnTypes(settings);
+
+		columnWidths(settings);
 
 		if (doSort) {
 			sort(settings);

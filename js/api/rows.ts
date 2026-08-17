@@ -1,4 +1,4 @@
-import { addData, addTr, invalidate } from '../core/data';
+import { addData, addTr, invalidateRow, invalidColumn } from '../core/data';
 import { sortDisplay } from '../core/order';
 import Dom from '../dom';
 import { Context } from '../model/settings';
@@ -222,7 +222,7 @@ registerPlural<ApiRowsMethods<any>['invalidate']>(
 	'row().invalidate()',
 	function (src) {
 		return this.iterator('row', function (settings, row) {
-			invalidate(settings, row, src);
+			invalidateRow(settings, row, src);
 		});
 	}
 );
@@ -357,7 +357,7 @@ register<ApiRowMethods<any>['data']>('row().data()', function (data?) {
 	}
 
 	// Automatically invalidate
-	invalidate(ctx[0], this[0][0], 'data');
+	invalidateRow(ctx[0], this[0][0], 'data');
 
 	return this;
 });
@@ -377,13 +377,17 @@ register<ApiRowMethods<any>['node']>('row().node()', function () {
 });
 
 register<ApiRow<any>['add']>('row.add()', function (this: Api, row: any) {
-	// Allow a jQuery object to be passed in - only a single row is added from
-	// it though - the first element in the set
+	// Allow an array-like object to be passed in - only a single row is added
+	// from it though - the first element in the set
 	if (row && row.fn && row.length) {
 		row = row[0];
 	}
 
 	var rows = this.iterator('table', function (settings) {
+		// New column could cause a change in the cached column properties such
+		// as type and width.
+		invalidColumn(settings);
+
 		if (row.nodeName && row.nodeName.toUpperCase() === 'TR') {
 			return addTr(settings, Dom.s(row))[0];
 		}

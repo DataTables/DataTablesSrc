@@ -1,5 +1,5 @@
 import { columnIndexToVisible } from '../core/columns';
-import { getCellData, invalidate, setCellData } from '../core/data';
+import { getCellData, invalidateRow, setCellData } from '../core/data';
 import Dom from '../dom';
 import { Context } from '../model/settings';
 import { flatten, pluckOrder, removeEmpty } from '../util/array';
@@ -7,20 +7,20 @@ import * as is from '../util/is';
 import * as object from '../util/object';
 import { register, registerPlural } from './Api';
 import {
-	Api,
-	ApiCellMethods,
-	ApiCellsMethods,
-	CellIdx,
-	CellSelector,
-	ColumnSelector,
-	RowSelector,
-	SelectorModifier
+    Api,
+    ApiCellMethods,
+    ApiCellsMethods,
+    CellIdx,
+    CellSelector,
+    ColumnSelector,
+    RowSelector,
+    SelectorModifier
 } from './interface';
 import {
-	selectorFirst,
-	selectorOpts,
-	selectorRowIndexes,
-	selectorRun
+    selectorFirst,
+    selectorOpts,
+    selectorRowIndexes,
+    selectorRun
 } from './selectors';
 
 function selectCells(
@@ -296,7 +296,7 @@ registerPlural<ApiCellsMethods<any>['invalidate']>(
 	'cell().invalidate()',
 	function (src) {
 		return this.iterator('cell', function (settings, row, column) {
-			invalidate(settings, row, src!, column);
+			invalidateRow(settings, row, src!, column);
 		});
 	}
 );
@@ -330,7 +330,7 @@ register<ApiCellMethods<any>['data']>('cell().data()', function (data?) {
 
 	// Set
 	setCellData(ctx[0], cell[0].row, cell[0].column, data);
-	invalidate(ctx[0], cell[0].row, 'data', cell[0].column);
+	invalidateRow(ctx[0], cell[0].row, 'data', cell[0].column);
 
 	return this;
 });
