@@ -111,6 +111,13 @@ describe('columns- columns() -solo', function() {
 			columns = table.columns(['0:visible', '1:visible']);
 			expect(columns[0]).toEqual([0, 2]);
 		});
+		it('Can select visible columns with a DOM string', function() {
+			expect(table.columns('th:visible').count()).toBe(5);
+			expect(table.columns('td:visible').count()).toBe(0);
+			expect(table.columns('.dt-ordering-asc:visible').count()).toBe(1);
+			expect(table.columns(':not(.label):visible').count()).toBe(5);
+			expect(table.columns('.label:visible').count()).toBe(0);
+		});
 		it("Can select a column 'jQuery' classname selector", function() {
 			table.order([[0, 'asc'], [2, 'asc']]).draw();
 			columns = table.columns('.dt-ordering-asc');

@@ -46,7 +46,7 @@ import { callbackFire } from './support';
 // can be an array of these items, comma separated list, or an array of comma
 // separated lists
 
-const __re_column_selector = /^([^:]+)?:(name|title|visIdx|visible)$/;
+const __re_column_selector = /^(.*?):(name|title|visIdx|visible)$/;
 
 // r1 and r2 are redundant - but it means that the parameters match for the
 // iterator callback in columns().data()

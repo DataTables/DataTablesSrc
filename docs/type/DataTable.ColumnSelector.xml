@@ -16,8 +16,7 @@ The column selector can be given in a number of different forms, to make it easy
 
 * No selector - Select all columns
 * `-type integer` - Column index selector
-* `dt-string {integer}:visIdx` - Column visible index selector (e.g. `3:visIdx`)
-* `dt-string {integer}:visible` - Alias of `dt-string {integer}:visIdx`. Note that as of 2.1.4 it is possible to use a regular DOM selector in front of `:visible` to select visible columns that match the given selector. The prefixed number is a special case.
+* `dt-string {*}:visible` - Column visibility selector.
 * `dt-string {string}:name` - Column name selector, from `-init columns.name` (e.g. `salary:name`)
 * `dt-string {string}:title` - Column title selector - select based on the title text for the column (e.g. `My\ Column:title`)
 * `dt-string *` - All columns selector (wildcard)
@@ -27,6 +26,7 @@ The column selector can be given in a number of different forms, to make it easy
   * `-tag td` / `-tag td` cell from the table body (<span class="since">Since: 1.10.11</span>)
   * Any element which has a `data-dt-column` attribute assigned to it, or a parent (<span class="since">Since: 1.10.11</span>). This can be used by extensions such as FixedColumns and Responsive to allow easy column selection.
 * `-type function` - Function selector (<span class="since">Since: 1.10.3</span>)
+* `-type DataTable.Dom` - jQuery object of the column header nodes
 * `-type jQuery` - jQuery object of the column header nodes
 * `-type array` - Array containing any combination of the above options
 
@@ -63,32 +63,51 @@ let data = table.column( 0 ).data();
 ```
 
 
-## {integer}:visible
+## {*}:visible
 
-The visible index of a column is the index when hidden columns are taken into account. This can be useful when working with event handlers and some columns are hidden, or can be hidden by the end user. This selector is simply a modification of the above `integer` type with the string `dt-string :visible` (or `dt-string :visIdx`) postfixed. For example: `3:visIdx`.
+< For backwards compatibility, this option can also be used as `:visIdx`, which is simply an alias to `:visible`.
 
-###### Get the data for a column that was clicked on:
+When working with DOM elements, you will often need to take account of column visibility (controlled by `-init columns.visible` and `-api column().visible()`). This custom pseudo selector provides the ability to do that. It can be provided in one of three ways:
+
+* `-string {integer}:visible` - Column visibility index selector
+* `-string {string}:visible` - DOM selector for visible columns
+* `-string :visible` - Select all visible columns
+
+
+### Column visibility selector
+
+The visible index of a column is the index when hidden columns are taken into account. This can be useful when working with event handlers and some columns are hidden, or can be hidden by the end user. For example, the following will get the data for a column that was clicked on (note that you could just use `this` as the column selector, but this is just an example!):
 
 ```js
 let table = new DataTable('#myTable', {
 	columnDefs: [
 		{ visible: false, targets: 1 }
 	]
-} );
+});
 
-$('#example tbody').on( 'click', 'td', function () {
+table.on('click', 'tbody td', function () {
 	let columnData = table
-		.column( $(this).index()+':visIdx' )
+		.column( DataTable.Dom.s(this).index() + ':visible' )
 		.data();
-} );
+});
 ```
 
-As of DataTables 2.1.4 this option has been extended to support a regular DOM selector in front of `:visible` to allow you to select only visible columns. You can also not include a selector to select only visible columns:
+
+### DOM selector for visible columns
+
+As of DataTables 2.1.4 you can use a regular DOM selector string in front of `:visible` to allow you to select from only visible.
 
 ```js
 // Select columns that are visible and have a class of `important`
 table.columns('.important:visible')
+```
 
+
+### Select all visible columns
+
+If you wish to just select all visible columns, use `:visible` without giving a prefix. This is often useful for use with [the export buttons](/manual/extensions/buttons). For example, to select all visible columns:
+
+```js
 // Select all visible columns
 table.columns(':visible')
 ```
@@ -166,8 +185,9 @@ This can be useful for getting data from a column, or performing other column ba
 ```js
 let table = new DataTable('#myTable');
 
-$('#example thead').on('click', 'th', function () {
+table.on('click', 'thead th', function () {
 	let columnData = table.column(this).data();
+
 	// ... do something with `columnData`
 });
 ```
@@ -200,16 +220,16 @@ let active = table
 ```
 
 
-## jQuery
+## DataTable.Dom or jQuery
 
-If you are using DataTables with jQuery, DataTables supports the use of a jQuery object being used to select column based on selected header cells. This is very similar to the `array` type (since a jQuery object is an _array-like_ list of DOM nodes).
+The columns selector works with array-like data sources, which contain DOM elements - for example `-type DataTable.Dom` or jQuery result sets.
 
-Please note that when working with a jQuery selected set of columns and hidden columns, jQuery itself will not select the column header cells which have been hidden (as DataTables removes them from the document when the column is hidden). To overcome this is problem, use the `string` option above which does not suffer from this issue and allows a jQuery selector to be used.
+Please note that when working with a DOM selected set of columns and hidden columns, the column header cells which have been hidden will not be selected as DataTables removes them from the document when the column is hidden. To overcome this is problem, use the `string` option above which does not suffer from this issue and allows a DOM selector to be used.
 
-###### Get data from columns in a jQuery instance:
+###### Get data from columns in a DataTable.Dom instance:
 
 ```js
-let columns = $('#example thead th.immediate');
+let columns = DataTable.Dom.s('#example thead th.immediate');
 let table = new DataTable('#myTable');
 
 let columnData = table.columns(columns).data();
