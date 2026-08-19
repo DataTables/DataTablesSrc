@@ -210,4 +210,32 @@ describe( "number rendering helper", function() {
 	it( 'Non-numeric HTML data is escaped', function () {
 		expect( numberRenderer(',', '.', 1, 'a', 'b').display('<span>1</span>') ).toBe( '&lt;span&gt;1&lt;/span&gt;' );
 	} );
+
+	it( 'Positive number', function () {
+		expect( numberRenderer(null, null, 2).display(123.4) ).toBe( '123.40' );
+	} );
+
+	it( 'Positive string', function () {
+		expect( numberRenderer(null, null, 2).display('123.4') ).toBe( '123.40' );
+	} );
+
+	it( 'Negative number', function () {
+		expect( numberRenderer(null, null, 2).display(-123.4) ).toBe( '-123.40' );
+	} );
+
+	it( 'Negative string', function () {
+		expect( numberRenderer(null, null, 2).display('-123.4') ).toBe( '-123.40' );
+	} );
+
+	it( 'Negative string', function () {
+		expect( numberRenderer(null, null, 2).display('-123.4') ).toBe( '-123.40' );
+	} );
+
+	it( 'Negative with decimal - number', function () {
+		expect( numberRenderer(null, '>', 2).display(-123.4) ).toBe( '-123>40' );
+	} );
+
+	it( 'Negative with decimal - string', function () {
+		expect( numberRenderer(null, '>', 2).display('-123.4') ).toBe( '-123>40' );
+	} );
 } );
