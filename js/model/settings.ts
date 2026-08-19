@@ -9,6 +9,7 @@ import {
 	DataTableDom,
 	FunctionDrawCallback,
 	FunctionFormatNumber,
+	FunctionStateLoadCallback,
 	Layout,
 	OrderState
 } from './interface';
@@ -476,7 +477,7 @@ export interface Context {
 	/** The state duration (for `stateSave`) in seconds. */
 	stateDuration: number;
 
-	stateLoadCallback: (ctx: Context) => Partial<State>;
+	stateLoadCallback: FunctionStateLoadCallback;
 
 	/** State that was loaded. Useful for back reference */
 	stateLoaded: StateLoad | null;

@@ -25,7 +25,10 @@ export * from '../dist/api/interface';
 import Dom from '../dist/dom/index';
 import { Ext, ExtButtons } from '../dist/ext';
 import { DataType, DataTypeDetect } from '../dist/ext/types';
-import { Options as ColumnsConfig } from '../dist/model/columns/defaults';
+import {
+	Defaults as ColumnDefaults,
+	Options as ColumnOptions
+} from '../dist/model/columns/defaults';
 import ColumnContext from '../dist/model/columns/settings';
 import {
 	Defaults,
@@ -49,9 +52,15 @@ export {
 
 // Types
 	export {
-		AjaxOptions, CellMeta, ColumnContext,
+		AjaxOptions,
+		CellMeta,
+		ColumnContext,
+		ColumnDefaults,
+		ColumnOptions,
 		ColumnRenderFunction,
-		ColumnsConfig, Context, // Legacy support
+		ColumnOptions as ColumnsConfig, // legacy
+		Options as Config, // legacy
+		Context,
 		DataType,
 		DataTypeDetect,
 		Defaults,

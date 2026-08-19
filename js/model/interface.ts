@@ -341,7 +341,7 @@ export type FunctionStateLoadCallback = (
 	this: DataTableDom,
 	settings: Context,
 	callback: (state: State) => void
-) => undefined | null | object;
+) => undefined | null | Partial<State>;
 
 export type FunctionStateLoaded = (
 	this: DataTableDom,

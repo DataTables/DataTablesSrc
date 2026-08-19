@@ -2,6 +2,7 @@ import { DataTableEvent } from '../api/interface';
 import classes from '../ext/classes';
 import columnDefaults, {
 	Defaults as ColumnDefaults,
+	Options as ColumnOptions,
 	ConfigColumnDefs
 } from './columns/defaults';
 import {
@@ -695,4 +696,6 @@ const defaults: Defaults = {
 
 export default defaults;
 
-export interface Options extends DeepPartial<Defaults> {}
+export interface Options extends DeepPartial<Omit<Defaults, 'columns'>> {
+	columns?: ColumnOptions[];
+}
