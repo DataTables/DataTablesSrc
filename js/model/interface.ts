@@ -340,8 +340,8 @@ export type FunctionRowCallback = (
 export type FunctionStateLoadCallback = (
 	this: DataTableDom,
 	settings: Context,
-	callback: (state: State) => void
-) => undefined | null | Partial<State>;
+	callback: (state: Partial<State>, ignoreTime?: boolean) => void
+) => undefined | void | Partial<State>;
 
 export type FunctionStateLoaded = (
 	this: DataTableDom,

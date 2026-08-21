@@ -10,23 +10,22 @@ type ApiStateOverload = (
 	ignoreTime?: boolean
 ) => State | null | Api;
 
-register<ApiStateOverload>('state()', function (set?: StateLoad, ignoreTime?) {
-	// getter
-	if (!set) {
-		return this.context.length ? this.context[0].stateSaved : null;
-	}
-
-	let setMutate = object.assignDeep<StateLoad>({}, set);
-
-	// setter
-	return this.iterator('table', function (settings) {
-		if (ignoreTime !== false) {
-			setMutate.time = +new Date() + 100;
+register<ApiStateOverload>(
+	'state()',
+	function (set?: StateLoad, ignoreTime = true) {
+		// getter
+		if (!set) {
+			return this.context.length ? this.context[0].stateSaved : null;
 		}
 
-		implementState(settings, setMutate, function () {});
-	});
-});
+		let setMutate = object.assignDeep<StateLoad>({}, set);
+
+		// setter
+		return this.iterator('table', function (settings) {
+			implementState(settings, setMutate, ignoreTime, function () {});
+		});
+	}
+);
 
 register<ApiState<any>['clear']>('state.clear()', function () {
 	return this.iterator('table', function (settings) {

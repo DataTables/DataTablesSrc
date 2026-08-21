@@ -70,8 +70,8 @@ export function loadState(settings: Context, callback: () => void) {
 		return;
 	}
 
-	var loaded = function (state: StateLoad) {
-		implementState(settings, state, callback);
+	var loaded = function (state: StateLoad, ignoreTime: boolean = false) {
+		implementState(settings, state, ignoreTime, callback);
 	};
 
 	var state = settings.stateLoadCallback.call(
@@ -81,7 +81,7 @@ export function loadState(settings: Context, callback: () => void) {
 	);
 
 	if (state !== undefined) {
-		implementState(settings, state, callback);
+		implementState(settings, state, false, callback);
 	}
 	// otherwise, wait for the loaded callback to be executed
 
@@ -91,6 +91,7 @@ export function loadState(settings: Context, callback: () => void) {
 export function implementState(
 	settings: Context,
 	s: StateLoad,
+	ignoreTime: boolean,
 	callback: () => void
 ) {
 	var i, iLen;
@@ -104,18 +105,20 @@ export function implementState(
 	// in some places
 	var api = settings.initDone ? new Api(settings) : null;
 
-	if (!s || !s.time) {
-		settings.loadingState = false;
-		callback();
-		return;
-	}
+	if (!ignoreTime) {
+		if (!s || !s.time) {
+			settings.loadingState = false;
+			callback();
+			return;
+		}
 
-	// Reject old data
-	var duration = settings.stateDuration;
-	if (duration > 0 && s.time < +new Date() - duration * 1000) {
-		settings.loadingState = false;
-		callback();
-		return;
+		// Reject old data
+		var duration = settings.stateDuration;
+		if (duration > 0 && s.time < +new Date() - duration * 1000) {
+			settings.loadingState = false;
+			callback();
+			return;
+		}
 	}
 
 	// Allow custom and plug-in manipulation functions to alter the saved data

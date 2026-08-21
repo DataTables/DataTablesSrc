@@ -11,6 +11,11 @@
 		</parameter>
 		<parameter type="function" name="callback" since="1.10.13">
 			Callback function that should be executed when the state data is ready if loaded by Ajax or some other asynchronous method. If this option is to be used the `stateLoadCallback` method must return `-type undefined` (i.e. just don't return anything)!
+
+			The callback function will accept two parameters:
+
+			1. The state object to load
+			2. An optional boolean value indicating if the `time` parameter in the state object should be ignored (`true`), or not (`false` - default). Since 3.0.3.
 		</parameter>
 		<returns type="object|undefined">
 			If the data is loaded synchronously the return value should be the loaded state (or `null` if no data was loaded). However, if the data will be loaded asynchronously (e.g. via Ajax), `-type undefined` should be returned (just don't use a return statement!) and the callback function called when the state has been loaded. Please note that this option required DataTables 1.10.13 or newer.
