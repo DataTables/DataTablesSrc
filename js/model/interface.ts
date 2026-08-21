@@ -6,7 +6,7 @@ import { IFeaturePagingOptions } from '../features/page';
 import { IFeaturePageLengthOptions } from '../features/pageLength';
 import { IFeatureSearchOptions } from '../features/search';
 import { Context } from './settings';
-import { State } from './state';
+import { StateLoad } from './state';
 
 // Multi layer optional properties (i.e. a nested `Partial<>`)
 export type DeepPartial<T> = T extends (...args: any[]) => any
@@ -340,8 +340,8 @@ export type FunctionRowCallback = (
 export type FunctionStateLoadCallback = (
 	this: DataTableDom,
 	settings: Context,
-	callback: (state: Partial<State>, ignoreTime?: boolean) => void
-) => undefined | void | Partial<State>;
+	callback: (state: StateLoad, ignoreTime?: boolean) => void
+) => undefined | void | StateLoad;
 
 export type FunctionStateLoaded = (
 	this: DataTableDom,
