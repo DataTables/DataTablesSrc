@@ -9,7 +9,7 @@ import Api from './Api';
 import { ApiRowMethods, Api as ApiType } from './interface';
 import { callbackFire } from './support';
 
-Dom.s(document).on('plugin-init.dt', function (e, context) {
+Dom.s(document).on('preInit.dt', function (e, context) {
 	var api = new Api(context);
 
 	api.on('stateSaveParams.DT', function (ev, settings, d) {
