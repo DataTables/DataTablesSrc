@@ -9,7 +9,7 @@
 		<parameter type="DataTable.Context" name="settings">
 			DataTables settings object
 		</parameter>
-		<parameter type="object" name="data">
+		<parameter type="DataTable.State" name="data">
 			Data to save. The data comes from `-init stateSaveParams`
 		</parameter>
 		<scope>HTML table element</scope>

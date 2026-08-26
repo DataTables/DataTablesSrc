@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-type>
+	<name>DataTable.State</name>
+	<summary>DataTables state object</summary>
+
+	<description>
+	<![CDATA[
+
+< `DataTable.State` is a type only. It defines an object's structure.
+
+DataTables has the ability to get and set its _state_ - i.e. the properties of the table at any specific point, such as paging, filtering and order. With this information it provides that `-init stateSave` ability and also the [StateRestore extension](https://datatables.net/manual/extensions/staterestore).
+
+The state object has the following structure:
+
+```js
+{
+	"time":   {number}               // Time stamp of when the object was created
+	"start":  {number}               // Display start point
+	"length": {number}               // Page length
+	"order":  {array}                // 2D array of column ordering information (see `order` option)
+	"search": {
+		"search":          {string}  // Search term
+		"regex":           {boolean} // Indicate if the search term should be treated as regex or not
+		"smart":           {boolean} // Flag to enable DataTables smart search
+		"caseInsensitive": {boolean} // Case insensitive flag
+	},
+	"columns" [
+		{
+			"name":    {string}      // Column name (since 2.2)
+			"visible": {boolean}     // Column visibility
+			"search":  {}            // Object containing column search information. Same structure as `search` above
+		}
+	]
+}
+```
+
+Please note that extensions and plug-ins, plus custom callbacks (e.g. via `-event stateSaveParams`) can be used to add to this object, so the above is just the basic state.
+
+
+## TypeScript
+
+This interface is available through the type definitions that DataTables makes available. Please note that there are two related interfaces that are exported:
+
+* `State` - The full state object returned by `-api state()`
+* `StateLoad` - A partial object (`Partial<State>`) that is accepted by `-api state()` when used as a setter.
+
+```js
+// Import DataTables base and the type
+import DataTable, { State, StateLoad } from 'datatables.net';
+
+// Example use
+const options: StateLoad = {
+	search: {
+		search: "Edinburgh"
+	}
+};
+
+const table = new DataTable('#myTable');
+
+table.state(options);
+```
+
+	]]>
+	</description>
+</dt-type>
