@@ -7,7 +7,7 @@
 	<type type="function">
 		<signature>state.loaded()</signature>
 		<description>Get the table state that was loaded during initialisation</description>
-		<returns type="object">State saved object. See `-api state()` for the object format.</returns>
+		<returns type="DataTable.State">State saved object. See `-api state()` for the object format.</returns>
 	</type>
 
 	<description>

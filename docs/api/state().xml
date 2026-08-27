@@ -7,14 +7,14 @@
 	<type type="function">
 		<signature>state()</signature>
 		<description>Get the state of the DataTables</description>
-		<returns type="object">State saved object</returns>
+		<returns type="DataTable.State">State saved object</returns>
 	</type>
 
 	<type type="function" since="2.0.0">
 		<signature>state( set [, ignoreTime ] )</signature>
 		<description>Set the state of the DataTables</description>
-		<parameter type="object" name="set">
-			A state object that will restore a given state. Note that not all parameters for the state object are required.
+		<parameter type="DataTable.State" name="set">
+			A state object that will restore a given state. Note that this can be a partial state object, not all parameters for the state object are required.
 		</parameter>
 		<parameter type="boolean" name="ignoreTime" default="true">
 			Disregard checks for the timestamp for when the state object was created (`true`).
@@ -25,28 +25,7 @@
 	<description>
 		The "state" of a DataTable refers to properties that define its current display, such as pagination parameters, ordering and filtering. While you can use individual API methods to get and set properties (e.g. `-api order()`) this method provides a collected API that will give and take information about the table as a whole. Please note also that it __does__ work without `-init stateSave` being enabled.
 
-		The data object has the following format, but please be aware that plug-ins and extensions to DataTables can modify this structure by adding data as they require for their own state information.
-		
-		```js
-		{
-			"time":   {number}               // Time stamp of when the object was created
-			"start":  {number}               // Display start point
-			"length": {number}               // Page length
-			"order":  {array}                // 2D array of column ordering information (see `order` option)
-			"search": {
-				"search":          {string}  // Search term
-				"regex":           {boolean} // Indicate if the search term should be treated as regex or not
-				"smart":           {boolean} // Flag to enable DataTables smart search
-				"caseInsensitive": {boolean} // Case insensitive flag
-			},
-			"columns" [
-				{
-					"visible": {boolean}     // Column visibility
-					"search":  {}            // Object containing column search information. Same structure as `search` above
-				}
-			]
-		}
-		```
+		The state object has the properties and structure described by `-type DataTable.State`, noting also that plug-ins and extensions to DataTables can modify this structure by adding data as they require for their own state information.
 		
 		If using this method as a setter, you will very likely want to call `-api draw()`, passing in `false` to the method, to ensure that the table is redrawn with the new state (and that the correct paging is shown).
 	</description>

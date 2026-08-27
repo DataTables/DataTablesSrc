@@ -4,7 +4,13 @@
 	<summary>Vertical scrolling</summary>
 	<since>1.10</since>
 
-	<type type="string" />
+	<type type="string">
+		A CSS measurement for the scrolling height, including the units (e.g. `em`, `px`, `vh`, etc).
+	</type>
+
+	<type type="number">
+		Scrolling height in pixels.
+	</type>
 
 	<description>
 		Enable vertical scrolling. Vertical scrolling will constrain the DataTable to the given height, and enable scrolling for any data which overflows the current viewport. This can be used as an alternative to paging to display a lot of data in a small area (although paging and scrolling can both be enabled at the same time if desired).
