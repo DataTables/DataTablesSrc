@@ -97,6 +97,17 @@ function ajax(optionsIn: AjaxOptions) {
 		options.headers['X-Requested-With'] = 'XMLHttpRequest';
 	}
 
+	// Add an accept header specifically for JSON data types, again to match
+	// how jQuery operates for this.
+	if (
+		options.dataType === 'json' &&
+		options.headers &&
+		!options.headers['accepts']
+	) {
+		options.headers['Accept'] =
+			'application/json, text/javascript, */*; q=0.01';
+	}
+
 	object.each(options.headers, (key, val) => {
 		xhr.setRequestHeader(key, val);
 	});
