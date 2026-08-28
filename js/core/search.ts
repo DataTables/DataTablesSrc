@@ -137,7 +137,7 @@ function filter(
 						searchRows[i],
 						columns.length === 1 ? columns[0] : columns // compat
 					)) ||
-				(rpSearch && data && rpSearch.test(data))
+				(rpSearch && typeof data === 'string' && rpSearch.test(data))
 			) {
 				matched.push(searchRows[i]);
 			}
