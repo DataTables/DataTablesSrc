@@ -44,7 +44,7 @@ const defaults = {
 	contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 	headers: {},
 	traditional: false,
-	url: location.href
+	url: window.location.href
 } as AjaxOptions;
 
 /**
