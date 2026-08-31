@@ -395,4 +395,77 @@ describe('columns- columns() -solo', function() {
 			expect(test).toEqual([1, 2, 4]);
 		});
 	});
+
+	// https://datatables.net/forums/discussion/81903/
+	describe('complex header selection with :visible', function() {
+		dt.html( 'basic' );
+
+		it('Can exclude based on class', function () {
+			$('#example').html(`
+				<thead>
+				<tr>
+					<th rowspan="2">ID</th>
+					<th colspan="2">FullName</th>
+					<th rowspan="2">Age</th>
+					<th rowspan="2">Action</th>
+				</tr>
+				<tr>
+					<th>FirsName</th>
+					<th>LastName</th>
+				</tr>
+				</thead>
+			`);
+
+			table = $('#example').DataTable({
+				columns: [
+					{
+						data: 'id',
+						className: 'dt-no-colvis'
+					},
+					{
+						data: 'firstname'
+					},
+					{
+						data: 'lastname'
+					},
+					{
+						data: 'age'
+					},
+					{
+						data: null,
+						className: 'dt-no-colvis dt-no-export',
+						render: function (data, type, row) {
+							return '<a href="#">Edit</a>';
+						}
+					}
+				]
+			});
+
+
+			let test = table
+				.columns(':not(.dt-no-export):visible')
+				.flatten()
+				.toArray();
+
+			expect(test).toEqual([0, 1, 2, 3]);
+		});
+
+		it('Can include based on class', function () {
+			let test = table
+				.columns('.dt-no-export:visible')
+				.flatten()
+				.toArray();
+
+			expect(test).toEqual([4]);
+		});
+
+		it('Exclude multiple classes', function () {
+			let test = table
+				.columns(':not(.dt-no-colvis, .dt-no-export):visible')
+				.flatten()
+				.toArray();
+
+			expect(test).toEqual([1, 2, 3]);
+		});
+	});
 });
