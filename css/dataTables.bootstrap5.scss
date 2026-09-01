@@ -184,6 +184,22 @@ table.dataTable.table-sm > thead > tr {
 				left: 0.25rem;
 			}
 		}
+
+		&.dt-left,
+		&.dt-head-left {
+			.dt-column-order {
+				left: auto;
+				right: 0.25rem;
+			}
+		}
+
+		&.dt-right,
+		&.dt-head-right {
+			.dt-column-order {
+				left: 0.25rem;
+				right: auto;
+			}
+		}
 	}
 }
 
