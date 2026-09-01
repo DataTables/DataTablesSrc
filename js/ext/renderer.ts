@@ -1,3 +1,4 @@
+import { columnOrderingCells } from '../core/columns';
 import { ILayoutCell, ILayoutRow } from '../core/layout';
 import Dom from '../dom';
 import { Context } from '../model/settings';
@@ -71,19 +72,11 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 		cell.classAdd(classes.order.none);
 	}
 
-	var titleRow = settings.titleRow;
-	var headerRows = cell.closest('thead').find('tr');
-	var rowIdx = cell.parent().index();
-
 	// Conditions to not apply the ordering icons
 	if (
-		// Cells and rows which have the attribute to disable the icons
-		cell.attr('data-dt-order') === 'disable' ||
-		cell.parent().attr('data-dt-order') === 'disable' ||
-		// titleRow support, for defining a specific row in the header
-		(titleRow === true && rowIdx !== 0) ||
-		(titleRow === false && rowIdx !== headerRows.count() - 1) ||
-		(typeof titleRow === 'number' && rowIdx !== titleRow)
+		!columnOrderingCells(settings, ':not([data-dt-order="disable"])')
+			.get()
+			.includes(cell[0])
 	) {
 		return;
 	}
@@ -220,8 +213,7 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 
 export const layout: IRendererLayout = (settings, container, items) => {
 	let classes = settings.classes.layout;
-	let row = Dom
-		.c('div')
+	let row = Dom.c('div')
 		.attr('id', items.id || null)
 		.classAdd(items.className || classes.row)
 		.appendTo(container);
@@ -279,8 +271,7 @@ export const pagingButton: IRendererPagingButton = (
 		btn = Dom.c('span').classAdd('ellipsis').html(content).get(0);
 	}
 	else {
-		btn = Dom
-			.c('button')
+		btn = Dom.c('button')
 			.classAdd(btnClasses.join(' '))
 			.attr('role', 'link')
 			.attr('type', 'button')

@@ -238,4 +238,62 @@ describe('titleRow', function () {
 			expect($('#example thead tr:eq(2) th:eq(0)').text()).toBe('Name2');
 		});
 	});
+
+	describe('Complex header', function () {
+		dt.html('complex-header-footer');
+
+		it('Default - all header cells are orderable', function () {
+			// For these tests, want just a clean header with no attribute
+			// overrides. They are tested elsewhere.
+			$('th[data-dt-order="disable"]').removeAttr('data-dt-order');
+
+			table = new DataTable('#example');
+
+			expect($('#example thead .dt-orderable-asc').length).toBe(5);
+		});
+
+		it('Default - top row only', function () {
+			table.destroy();
+			table = new DataTable('#example', {
+				titleRow: 0
+			});
+
+			expect($('#example thead .dt-orderable-asc').length).toBe(3);
+			expect($('#example thead tr:eq(0) .dt-orderable-asc').length).toBe(3);
+			expect($('#example thead tr:eq(1) .dt-orderable-asc').length).toBe(0);
+		});
+
+		it('Default - top row only (legacy)', function () {
+			table.destroy();
+			table = new DataTable('#example', {
+				titleRow: true
+			});
+
+			expect($('#example thead .dt-orderable-asc').length).toBe(3);
+			expect($('#example thead tr:eq(0) .dt-orderable-asc').length).toBe(3);
+			expect($('#example thead tr:eq(1) .dt-orderable-asc').length).toBe(0);
+		});
+
+		it('Default - bottom row only', function () {
+			table.destroy();
+			table = new DataTable('#example', {
+				titleRow: 1
+			});
+
+			expect($('#example thead .dt-orderable-asc').length).toBe(3);
+			expect($('#example thead tr:eq(0) .dt-orderable-asc').length).toBe(1);
+			expect($('#example thead tr:eq(1) .dt-orderable-asc').length).toBe(2);
+		});
+
+		it('Default - bottom row only (legacy)', function () {
+			table.destroy();
+			table = new DataTable('#example', {
+				titleRow: false
+			});
+
+			expect($('#example thead .dt-orderable-asc').length).toBe(3);
+			expect($('#example thead tr:eq(0) .dt-orderable-asc').length).toBe(1);
+			expect($('#example thead tr:eq(1) .dt-orderable-asc').length).toBe(2);
+		});
+	});
 });

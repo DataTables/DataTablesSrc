@@ -1,5 +1,6 @@
 import {
 	adjustColumnSizing,
+	columnCells,
 	columnIndexToVisible,
 	columnsFromHeader,
 	columnTypes,
@@ -11,7 +12,7 @@ import { drawHead } from '../core/draw';
 import { colGroup } from '../core/sizing';
 import { saveState } from '../core/state';
 import Dom from '../dom';
-import { Context, HeaderStructure } from '../model/settings';
+import { Context } from '../model/settings';
 import { pluck, pluckOrder, range, removeEmpty } from '../util/array';
 import { intVal } from '../util/conv';
 import * as is from '../util/is';
@@ -105,25 +106,6 @@ function columnHeader(settings: Context, column: number, row?: number) {
 	return header[target][column].cell;
 }
 
-function columnHeaderCells(
-	header: HeaderStructure[],
-	column: number | null = null
-) {
-	var out: any[] = [];
-
-	for (var i = 0; i < header.length; i++) {
-		for (var j = 0; j < header[i].length; j++) {
-			var cell = header[i][j].cell;
-
-			if ((column === null || column === j) && !out.includes(cell)) {
-				out.push(cell);
-			}
-		}
-	}
-
-	return out;
-}
-
 function selectColumns(
 	settings: Context,
 	selector: ColumnSelector,
@@ -200,8 +182,9 @@ function selectColumns(
 
 						// Selector
 						if (match && match[1]) {
-							let columnElements = columnHeaderCells(
+							let columnElements = columnCells(
 								settings.header,
+								null,
 								col.idx
 							);
 
@@ -249,7 +232,7 @@ function selectColumns(
 		}
 
 		// Selector on the TH elements for the columns
-		var result = Dom.s(columnHeaderCells(settings.header))
+		var result = Dom.s(columnCells(settings.header))
 			.filter(s)
 			.mapTo(el => {
 				return columnsFromHeader(el);

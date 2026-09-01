@@ -4,11 +4,28 @@
 	<summary>Control which row in the header is the title row</summary>
 	<since>2.3</since>
 
-	<type type="boolean|number|null" />
+	<type type="null">
+		<description>
+			All cells in the header will be treated as title cells, with each receiving ordering icons and click to order actions (dependent on `-init columns.orderable`), unless the cell has the attribute `data-dt-order="disable"`.
+		</description>
+	</type>
+
+	<type type="number">
+		<description>
+			Specify the row index (i.e. the `-tag tr` index in the `-tag thead`) that will be used for the title row.
+		</description>
+	</type>
+
+	<type type="boolean">
+		<description>
+			If `true` the first row in the header will be treated as the title row. If `false` the bottom row in the header will be treated as the title row.
+		</description>
+	</type>
+
 	<default>null</default>
 
 	<description><![CDATA[
-		This option can be used to control how DataTables which cells in a table header are treated as a "title cell".
+		This option can be used to control how DataTables which cells in a table header are treated as a "title cell". This is relevant when multiple rows are used in the table header, particularly with `colspan` and `rowspan` 
 
 		Title cells are used for the following in DataTables:
 
@@ -21,7 +38,7 @@
 		* A `-type number` - this will specify the row index in the header that is used for the above.
 		* `true` - the cells in the top row (index 0) will be used for the title cells
 		* `false` - the cells in the bottom row will be used for the title cells
-		* `null` (default) - all cells will be used for ordering operations, and the first unique cell (i.e. colspan=1) will be used for the column title.
+		* `null` (default) - all cells will be used for ordering operations, and the first unique cell (i.e. `colspan=1`) will be used for the column title.
 ]]></description>
 
 	<example title="Use the first row in the header as the title row"><![CDATA[

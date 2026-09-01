@@ -14,6 +14,7 @@ import { pluck } from '../util/array';
 import * as is from '../util/is';
 import {
 	columnIndexToVisible,
+	columnOrderingCells,
 	columnTypes,
 	columnsFromHeader
 } from './columns';
@@ -22,39 +23,14 @@ import { reDraw } from './draw';
 import { processingRun } from './processing';
 
 export function sortInit(settings: Context) {
-	var target = settings.thead;
-	var headerRows = target.querySelectorAll('tr');
-	var titleRow = settings.titleRow;
 	var notSelector =
 		':not([data-dt-order="disable"]):not([data-dt-order="icon-only"])';
 
-	// Legacy support for `orderCellsTop`
-	if (titleRow === true) {
-		target = headerRows[0];
-	}
-	else if (titleRow === false) {
-		target = headerRows[headerRows.length - 1];
-	}
-	else if (titleRow !== null) {
-		target = headerRows[titleRow];
-	}
-	// else - all rows
-
 	if (settings.orderHandler) {
-		sortAttachListener(
-			settings,
-			target,
-			target === settings.thead
-				? 'tr' +
-						notSelector +
-						' th' +
-						notSelector +
-						', tr' +
-						notSelector +
-						' td' +
-						notSelector
-				: 'th' + notSelector + ', td' + notSelector
-		);
+		columnOrderingCells(settings, notSelector)
+			.each(el => {
+				sortAttachListener(settings, el, '');
+			});
 	}
 
 	// Need to resolve the user input array into our internal structure

@@ -652,3 +652,73 @@ export function columnsFromHeader(cell: HTMLElement) {
 		return parseInt(val);
 	});
 }
+
+/**
+ * Get cells from the header or footer, including a specific row and / or cell
+ *
+ * @param header The header or footer strcture
+ * @param row A specific row, or null
+ * @param column A specific column, or null
+ * @returns An array of all matching cells
+ */
+export function columnCells(
+	header: HeaderStructure[],
+	row: number | null = null,
+	column: number | null = null
+) {
+	var out: HTMLElement[] = [];
+
+	for (var i = 0; i < header.length; i++) {
+		if (row === null || row === i) {
+			for (var j = 0; j < header[i].length; j++) {
+				var cell = header[i][j].cell;
+
+				if ((column === null || column === j) && !out.includes(cell)) {
+					out.push(cell);
+				}
+			}
+		}
+	}
+
+	return out;
+}
+
+/**
+ * Get cells that apply for ordering handler or icons
+ *
+ * @param settings Context
+ * @param notSelector DOM selector to exclude elements
+ * @returns Array of selected elements
+ */
+export function columnOrderingCells(settings: Context, notSelector: string) {
+	var cells: HTMLElement[] = [];
+	var titleRow = settings.titleRow;
+
+	if (titleRow === true) {
+		// Top row (legacy `orderCellsTop`)
+		cells = columnCells(settings.header, 0);
+	}
+	else if (titleRow === false) {
+		// Bottom row (legacy `orderCellsTop`)
+		cells = columnCells(settings.header, settings.header.length - 1);
+	}
+	else if (titleRow !== null) {
+		// Specific row
+		cells = columnCells(settings.header, titleRow);
+	}
+	else {
+		// All
+		cells = columnCells(settings.header);
+	}
+
+	return Dom.s(cells)
+		.filter('th' + notSelector + ', td' + notSelector)
+		.filter(el => {
+			return (
+				Dom.s(el)
+					.parent()
+					.filter(notSelector)
+					.length !== 0
+			);
+		});
+}
