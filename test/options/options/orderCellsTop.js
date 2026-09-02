@@ -172,7 +172,7 @@ describe('orderCellsTop option (legacy)', function() {
 		});
 
 		dt.html('basic');
-		it('Disabled when using RowSpan (first column, 2 rows)', function() {
+		it('Enabled when using RowSpan (first column, 2 rows)', function() {
 			$('#example thead').prepend(
 				'<tr><th rowspan="2">Name</th><th>Position</th><th>Office</th><th>Age</th><th>Start date</th><th>Salary</th></tr>'
 			);
@@ -184,7 +184,7 @@ describe('orderCellsTop option (legacy)', function() {
 				orderCellsTop: false
 			});
 
-			expect($('#example thead tr:eq(0) th').hasClass('dt-ordering-asc')).toBe(false);
+			expect($('#example thead tr:eq(0) th').hasClass('dt-ordering-asc')).toBe(true);
 			expect($(table.column(0).header()).text()).toBe('Name');
 		});
 
