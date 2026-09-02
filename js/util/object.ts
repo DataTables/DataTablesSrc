@@ -115,7 +115,7 @@ export function assignDeep<T>(
  * Deep merge objects, but shallow copy arrays. The reason we need to do this,
  * is that we don't want to deep copy array init values (such as aaSorting)
  * since the dev wouldn't be able to override them, but we do want to deep copy
- * arrays.
+ * objects.
  *
  * @param out Object to extend
  * @param extender Object from which the properties will be applied to out
@@ -124,7 +124,6 @@ export function assignDeep<T>(
  *   present. This is so you can pass in a collection to DataTables and have
  *   that used as your data source without breaking the references
  * @returns out Reference, just for convenience - out === the return.
- * @todo This doesn't take account of arrays inside the deep copied objects.
  */
 export function assignDeepObjects<T>(
 	out: Record<string, any>,
@@ -142,7 +141,7 @@ export function assignDeepObjects<T>(
 					out[prop] = {};
 				}
 
-				assignDeep(out[prop], val);
+				assignDeepObjects(out[prop], val, breakRefs);
 			}
 			else if (
 				breakRefs &&
