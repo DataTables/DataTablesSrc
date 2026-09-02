@@ -638,22 +638,16 @@ else if ( stripos( $dir_input, 'SearchPanes' ) ) {
 else if ( stripos( $dir_input, 'StateRestore' ) ) {
 	$dir_order = array(
 		'initialisation',
-		'advanced',
-		'customisation',
+		'predefined',
 		'integration',
-		'customFiltering',
-		'styling',
-		'performance'
+		'styling'
 	);
 
 	$dir_names = array(
 		'initialisation' => 'Initialisation and options',
-		'advanced' => 'Advanced initialisation',
-		'customisation' => 'Customisation',
-		'integration' => 'Integration with other DataTables extensions',
-		'customFiltering' => 'Creation of custom panes',
-		'styling' => 'Styling',
-		'performance' => 'Performance'
+		'customisation' => 'Predefined states',
+		'integration' => 'DataTables extensions',
+		'styling' => 'Styling'
 	);
 }
 
