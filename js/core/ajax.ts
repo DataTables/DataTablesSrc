@@ -5,7 +5,7 @@ import { AjaxOptions } from '../util/ajax';
 import util from '../util/index';
 import { GetFunction, JSON } from '../util/types';
 import { columnTypes } from './columns';
-import { addData, clearTable } from './data';
+import { addData, clearTable, invalidColumn } from './data';
 import { draw } from './draw';
 import { initComplete } from './init';
 import { sortFlatten } from './order';
@@ -52,6 +52,10 @@ export function buildAjax(
 		}
 
 		settings.json = json;
+
+		for (let i=0 ; i<settings.columns.length ; i++) {
+			invalidColumn(settings, i);
+		}
 
 		callbackFire(
 			settings,
