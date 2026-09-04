@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="2">
+
+<css lib="datatables" />
+<js lib="datatables">
+<![CDATA[
+new DataTable('#example', {
+	columnDefs: [
+		{
+			targets: 4,
+			render: DataTable.render.date()
+		}
+	]
+});
+]]>
+</js>
+
+<title>Auto-locale display (Intl)</title>
+
+<info><![CDATA[
+
+DataTables' [build in `datetime` renderer](https://datatables.net/manual/core/data/renderers#Built-in-helpers) can be used to provide locale specific output rendering for a date / time. This is done using the [`Intl.DateTimeFormat` object that is built into modern browsers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) so no external dependencies are required.
+
+In this example, the data loaded contains an ISO8601 data point, which we use `DataTable.render.date()` on to provide a locale specific output - i.e. the date shown will be in the format that the end user expects to see, regardless of where they are in the world. No extra configuration or server-side detection is needed by you, it is all done client-side based on the browser's settings.
+
+]]></info>
+
+</dt-example>
