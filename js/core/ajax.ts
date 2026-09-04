@@ -53,9 +53,7 @@ export function buildAjax(
 
 		settings.json = json;
 
-		for (let i=0 ; i<settings.columns.length ; i++) {
-			invalidColumn(settings, i);
-		}
+		invalidColumn(settings);
 
 		callbackFire(
 			settings,
