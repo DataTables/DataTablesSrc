@@ -53,4 +53,30 @@ describe('Empty DataTable', function () {
 		await dt.clickHeader(3);
 		expect($('#example tbody td:eq(3)').html()).toBe('19');
 	});
+
+	dt.html('two_tables');
+
+	it('Using ordering as an object for the default has no impact on a second table', function () {
+		DataTable.util.object.assignDeepObjects(DataTable.defaults, {
+			ordering: {
+				handler: false,
+				indicators: false,
+			}
+		});
+
+		const table = new DataTable('#example_one');
+		const table2 = new DataTable('#example_two');
+
+		expect($('div.dt-column-order').length).toBe(0);
+	});
+
+	it('No sorting on first table', async function () {
+		await dt.clickHeader('#example_one thead th', 3);
+		expect($('#example_one tbody td:eq(3)').html()).toBe('33');
+	});
+
+	it('No sorting on second table', async function () {
+		await dt.clickHeader('#example_two thead th', 1);
+		expect($('#example_two tbody td:eq(0)').html()).toBe('Boston');
+	});
 });

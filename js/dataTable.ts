@@ -101,7 +101,7 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 		table.trigger('options.dt', true, [init]);
 
 		// Backwards compatibility parameter mapping
-		compatOpts(defaults);
+		compatOpts(defaults, true);
 		compatCols(columnDefaults);
 
 		// Allow data properties on the table element to be used as

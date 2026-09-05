@@ -74,8 +74,9 @@ export function compatMap(
  * change only.
  *
  * @param init Object to map
+ * @param defaults Indicate if the object is the defaults object or not
  */
-export function compatOpts(init: Record<string, any>) {
+export function compatOpts(init: Record<string, any>, defaults=false) {
 	// Convert any old style parameters to camelCase
 	hungarianToCamel(init);
 
@@ -105,7 +106,10 @@ export function compatOpts(init: Record<string, any>) {
 				: true;
 		init.orderHandler =
 			init.ordering.handler !== undefined ? init.ordering.handler : true;
-		init.ordering = true;
+		
+		if (!defaults) {
+			init.ordering = true;
+		}
 	}
 	else if (init.ordering === false) {
 		init.orderIndicators = false;
