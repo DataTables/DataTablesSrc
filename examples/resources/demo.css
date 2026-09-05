@@ -653,6 +653,10 @@ ul.dt-tabs li.active {
   background-color: white;
 }
 
+ul.dt-tabs li.disabled {
+  opacity: 0.5;
+}
+
 ul.dt-tabs li::before {
   display: none !important;
 }
