@@ -165,15 +165,19 @@ ${exportProps}
 function umd(script, deps, exp, filename) {
 	let amdLoad = [];
 	let commonjs = [];
+	let commonjsrequires = "";
 	let requiresDT = false;
 
+	commonjsmodules = "{" + deps.map((dep) => {
+		return `'${dep}': require('${dep}')`;
+	}).join(",") + "}";
 	for (let dep of deps) {
 		amdLoad.push(`'${dep}'`);
 
 		if (nameFromDependency(dep) === 'DataTable') {
 			commonjs.push(`
 			if (! root.DataTable) {
-				require('${dep}')(root);
+				root.DataTable = cjsModules['${dep}'](root);
 			}
 `);
 
@@ -183,8 +187,9 @@ function umd(script, deps, exp, filename) {
 			let name = nameFromDependency(dep);
 
 			commonjs.push(`
-			if (! window.DataTable.${name}) {
-				require('${dep}')(root);
+			baseModule['${dep}'] = require('${dep}');
+			if (! root.DataTable.${name}) {
+				root.DataTable.${name} = cjsModules['${dep}'](root);
 			}
 `);
 		}
@@ -221,6 +226,7 @@ function umd(script, deps, exp, filename) {
 	}
 	else if (typeof exports === 'object') {
 		// CommonJS
+		var cjsModules = ${commonjsmodules};
 		var cjsRequires = function (root) {${commonjs.join('')}		};
 
 		if (typeof window === 'undefined') {
