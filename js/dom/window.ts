@@ -1,4 +1,5 @@
 // Window level functions
+import external from '../util/external';
 import * as events from './events';
 import { EventHandler } from './events';
 
@@ -10,7 +11,7 @@ export default {
 	 * @returns Height in pixels
 	 */
 	height() {
-		return document.querySelector('html')?.clientHeight || 0;
+		return external('doc').querySelector('html')?.clientHeight || 0;
 	},
 
 	/**
@@ -78,6 +79,6 @@ export default {
 	 * @returns Width in pixels
 	 */
 	width() {
-		return document.querySelector('html')?.clientWidth || 0;
+		return external('doc').querySelector('html')?.clientWidth || 0;
 	}
 }

@@ -9,6 +9,7 @@ import {
 	HeaderStructureCell
 } from '../model/settings';
 import util from '../util';
+import external from '../util/external';
 import { ajaxUpdate } from './ajax';
 import { columnOptions, columnTypes, visibleColumns } from './columns';
 import { getCellData, getDataMaster, writeCell } from './data';
@@ -77,12 +78,13 @@ export function createTr(
 		i,
 		iLen,
 		create,
-		trClass = settings.classes.tbody.row;
+		trClass = settings.classes.tbody.row,
+		doc = external('doc');
 
 	if (row && row.tr === null) {
 		let rowData = row.data;
 
-		tr = trIn || document.createElement('tr');
+		tr = trIn || doc.createElement('tr');
 		row.tr = tr;
 		row.cells = cells;
 
@@ -102,7 +104,7 @@ export function createTr(
 			create = trIn && tds && tds[i] ? false : true;
 
 			td = create
-				? (document.createElement(
+				? (doc.createElement(
 						column.cellType
 				  ) as HTMLTableCellElement)
 				: tds![i];

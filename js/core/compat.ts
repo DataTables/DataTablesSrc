@@ -1,6 +1,7 @@
 import Dom from '../dom';
 import { Context } from '../model/settings';
 import util from '../util';
+import external from '../util/external';
 
 interface HungarianMap {
 	[key: string]: string;
@@ -199,7 +200,7 @@ export function browserDetect(ctx: Context) {
 			.css({
 				position: 'fixed',
 				top: '0',
-				left: -1 * window.pageXOffset + 'px', // allow for scrolling
+				left: -1 * external('win').pageXOffset + 'px', // allow for scrolling
 				height: '1px',
 				width: '1px',
 				overflow: 'hidden'

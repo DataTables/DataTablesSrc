@@ -582,7 +582,9 @@ DataTable.feature = {
 // Register the libraries
 util.external(DataTable);
 
-if ((window as any).jQuery) {
+// If jQuery is present on the global, let DataTables know about it. This is
+// required as it registers the plugin functions on the .fn object.
+if (typeof window !== 'undefined' && (window as any).jQuery) {
 	util.external((window as any).jQuery);
 }
 

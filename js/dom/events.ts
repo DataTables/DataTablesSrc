@@ -164,15 +164,16 @@ function parseEventName(original: string | null) {
  *   removed.
  */
 export function add(
-	el: Element | Window | Document,
+	el: Element | Window | Document | EventTarget,
 	nameFull: string,
 	handler: EventListener,
 	selector: string | null,
 	one: boolean
 ) {
 	let jq = external('jq');
+	let doc = external('doc');
 
-	if (jq) {
+	if (jq && !(el instanceof EventTarget)) {
 		let method = one ? 'one' : 'on';
 
 		if (selector) {
@@ -194,8 +195,8 @@ export function add(
 
 	// Special handling for the "ready" event - it will trigger when the content
 	// is ready, but also if it is already ready, when added.
-	if (el === document && eventName === 'DOMContentLoaded' && nameFull.includes('ready')) {
-		if (document.readyState === 'complete') {
+	if (el === doc && eventName === 'DOMContentLoaded' && nameFull.includes('ready')) {
+		if (doc.readyState === 'complete') {
 			handler(new Event('DOMContentLoaded'));
 			return;
 		}
@@ -287,14 +288,14 @@ export function add(
  * @param selector Delegate selector (optional)
  */
 export function remove(
-	el: Element | Window | Document,
+	el: Element | Window | Document | EventTarget,
 	nameFull: string | null,
 	handler: EventListener | null,
 	selector: string | null
 ) {
 	let jq = external('jq');
 
-	if (jq) {
+	if (jq && !(el instanceof EventTarget)) {
 		if (selector) {
 			jq(el).off(nameFull, selector, handler);
 		}
@@ -379,7 +380,7 @@ export function remove(
  *   object.
  */
 export function trigger(
-	el: Element,
+	el: Element | EventTarget,
 	nameFull: string,
 	bubbles: boolean = false,
 	args: unknown[] | null = [],
@@ -387,8 +388,9 @@ export function trigger(
 	returnEvent = false
 ): boolean | Event {
 	let jq = external('jq');
+	let win = external('win');
 
-	if (jq) {
+	if (jq && !(el instanceof EventTarget)) {
 		let method = bubbles ? 'trigger' : 'triggerHandler';
 		let ev = jq.Event(nameFull);
 
@@ -414,10 +416,21 @@ export function trigger(
 		return false;
 	}
 
-	let isMouseEvent = _mouseEvents.includes(eventName.toLowerCase());
-	let event = isMouseEvent
-		? new MouseEvent(eventName, { bubbles, cancelable: true })
-		: new Event(eventName, { bubbles, cancelable: true });
+	let event: Event;
+
+	// If running in Node, we might be using JSDom which has its own event
+	// classes. The EventTarget is always the global, separate from the window
+	// events. 99% of the time, they will be the same.
+	if (el instanceof EventTarget) {
+		event = new Event(eventName, { bubbles, cancelable: true });
+	}
+	else {
+		let isMouseEvent = _mouseEvents.includes(eventName.toLowerCase());
+
+		event = isMouseEvent
+			? new win.MouseEvent(eventName, { bubbles, cancelable: true })
+			: new win.Event(eventName, { bubbles, cancelable: true });
+	}
 
 	// Set the extra properties for the event
 	setEventProp(event, 'namespace', namespaces.join('.'));

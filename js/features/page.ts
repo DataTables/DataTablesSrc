@@ -6,6 +6,7 @@ import Dom from '../dom';
 import ext from '../ext';
 import { pagingNumbers } from '../ext/paging';
 import { Context } from '../model/settings';
+import external from '../util/external';
 import register from './register';
 
 export interface IFeaturePagingOptions {
@@ -184,7 +185,7 @@ function _pagingDraw(
 	}
 
 	let wrapped = renderer(settings, 'pagingContainer')(settings, buttonEls);
-	let activeEl = host.find(document.activeElement).attr('data-dt-idx');
+	let activeEl = host.find(external('doc').activeElement).attr('data-dt-idx');
 
 	host.empty().append(wrapped);
 

@@ -174,6 +174,13 @@ export function callbackFire(
 	}
 
 	if (eventName !== null) {
+		// Non-DOM events
+		if (bubbles) {
+			Dom.trigger(eventName + '.dt', args, {
+				dt: ctx.api
+			});
+		}
+
 		let table = Dom.s(ctx.table);
 		let result = table.trigger(eventName + '.dt', bubbles, args, {
 			dt: ctx.api

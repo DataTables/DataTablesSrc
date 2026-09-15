@@ -1,5 +1,6 @@
 import { DataTableEvent } from '../api/interface';
 import classes from '../ext/classes';
+import external from '../util/external';
 import columnDefaults, {
 	Defaults as ColumnDefaults,
 	Options as ColumnOptions,
@@ -177,7 +178,11 @@ export interface Defaults {
 	 * Add event listeners during the DataTables startup
 	 */
 	on: {
-		[name: string]: (this: HTMLElement, e: DataTableEvent, ...args: any[]) => void;
+		[name: string]: (
+			this: HTMLElement,
+			e: DataTableEvent,
+			...args: any[]
+		) => void;
 	};
 
 	/**
@@ -541,7 +546,7 @@ export interface ConfigLanguage {
 
 	/**
 	 * URL, Ajax options  from which to get a JSON language file
-	 * 
+	 *
 	 * @deprecated Prefer `language.ajax` option.
 	 */
 	url: string;
@@ -664,7 +669,10 @@ const defaults: Defaults = {
 			const state = (
 				settings.stateDuration === -1 ? sessionStorage : localStorage
 			).getItem(
-				'DataTables_' + settings.unique + '_' + location.pathname
+				'DataTables_' +
+					settings.unique +
+					'_' +
+					external('win').location.pathname
 			);
 
 			return state ? JSON.parse(state) : {};
@@ -681,7 +689,10 @@ const defaults: Defaults = {
 				? sessionStorage
 				: localStorage
 			).setItem(
-				'DataTables_' + settings.unique + '_' + location.pathname,
+				'DataTables_' +
+					settings.unique +
+					'_' +
+					external('win').location.pathname,
 				JSON.stringify(data)
 			);
 		} catch (e) {

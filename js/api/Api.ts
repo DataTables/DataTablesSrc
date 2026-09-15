@@ -374,10 +374,6 @@ const classes: Record<string, any> = {
 	Api
 };
 
-// TODO debug
-(window as any).classes = classes;
-(window as any).properties = properties;
-
 /**
  * Create a new API "class" (function), used for nested levels of the API - e.g.
  * `ApiRows` and `ApiColumn`.

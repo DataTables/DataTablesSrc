@@ -1,3 +1,4 @@
+import DataTable from '../dataTable';
 import util from '../util';
 import { register as registerType, store as typeStore } from './types';
 
@@ -230,25 +231,32 @@ function __mlHelper(localeString: string) {
 	};
 }
 
-// Based on locale, determine standard number formatting
-// Fallback for legacy browsers is US English
-var __thousands = ',';
-var __decimal = '.';
+var __thousands: string;
+var __decimal: string;
 
-if (window.Intl !== undefined) {
-	try {
-		var num = new Intl.NumberFormat().formatToParts(100000.1);
+function detectIntl () {
+	let win = DataTable.use('win');
 
-		for (var i = 0; i < num.length; i++) {
-			if (num[i].type === 'group') {
-				__thousands = num[i].value;
+	// Based on locale, determine standard number formatting
+	// Fallback for legacy browsers is US English
+	__thousands = ',';
+	__decimal = '.';
+
+	if (win.Intl !== undefined) {
+		try {
+			var num = new Intl.NumberFormat().formatToParts(100000.1);
+
+			for (var i = 0; i < num.length; i++) {
+				if (num[i].type === 'group') {
+					__thousands = num[i].value;
+				}
+				else if (num[i].type === 'decimal') {
+					__decimal = num[i].value;
+				}
 			}
-			else if (num[i].type === 'decimal') {
-				__decimal = num[i].value;
-			}
+		} catch (e) {
+			// noop
 		}
-	} catch (e) {
-		// noop
 	}
 }
 
@@ -300,6 +308,10 @@ export default {
 		prefix?: string,
 		postfix?: string
 	): NumberRenderer {
+		if (!__thousands && !__decimal) {
+			detectIntl();
+		}
+
 		// Auto locale detection
 		if (thousands === null || thousands === undefined) {
 			thousands = __thousands;

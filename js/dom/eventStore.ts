@@ -29,7 +29,7 @@ function getUid(el: any) {
  * @param el Element
  * @returns Array of functions
  */
-export function get(el: Element | Window | Document) {
+export function get(el: Element | Window | Document | EventTarget) {
 	let uid = (el as any)._event_uid;
 
 	if (!uid || !_eventStore[uid]) {
@@ -45,7 +45,10 @@ export function get(el: Element | Window | Document) {
  * @param el Element
  * @param wrapper Function to set
  */
-export function set(el: Element | Window | Document, wrapper: WrappedHandler) {
+export function set(
+	el: Element | Window | Document | EventTarget,
+	wrapper: WrappedHandler
+) {
 	let uid = getUid(el);
 
 	if (_eventStore[uid] === undefined) {
@@ -62,7 +65,10 @@ export function set(el: Element | Window | Document, wrapper: WrappedHandler) {
  * @param wrapper Function to set
  * @returns void
  */
-export function remove(el: Element | Window | Document, wrapper: WrappedHandler) {
+export function remove(
+	el: Element | Window | Document | EventTarget,
+	wrapper: WrappedHandler
+) {
 	let store = get(el);
 
 	if (!store) {

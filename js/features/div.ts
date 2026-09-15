@@ -1,3 +1,4 @@
+import Dom from '../dom';
 import register from './register';
 
 export interface IFeatureDivOptions {
@@ -25,7 +26,7 @@ function _divProp<T extends HTMLElement, K extends keyof T>(
 }
 
 register<Partial<IFeatureDivOptions>>('div', function (settings, opts) {
-	var n = document.createElement('div');
+	var n = Dom.c('div').get(0);
 
 	if (opts) {
 		_divProp(n, 'className', opts.className);

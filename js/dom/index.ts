@@ -1,5 +1,6 @@
 import util from '../util';
 import { flatten } from '../util/array';
+import external from '../util/external';
 import * as is from '../util/is';
 import * as object from '../util/object';
 import { PlainObject } from '../util/types';
@@ -27,7 +28,7 @@ type TDimensionInclude =
 	| 'withMargin';
 
 function create<R extends HTMLElement = HTMLElement>(name: string) {
-	let el = document.createElement(name);
+	let el = external('doc').createElement(name);
 
 	return new Dom<R>(el);
 }
@@ -35,6 +36,11 @@ function create<R extends HTMLElement = HTMLElement>(name: string) {
 function select<R extends HTMLElement = HTMLElement>(selector: DomSelector) {
 	return new Dom<R>(selector);
 }
+
+/**
+ * Event target for events which don't use the document
+ */
+const _staticEventTarget = new EventTarget();
 
 /**
  * `Dom` is a class that provides a chaining UI for simple DOM manipulation and
@@ -61,6 +67,16 @@ export default class Dom<T extends HTMLElement = HTMLElement>
 	static create = create;
 
 	/**
+	 * Non-DOM event listener. Add an event listener with no document.
+	 *
+	 * @param name Event name
+	 * @param fn Event callback
+	 */
+	static on = function (name: string, fn: EventHandler) {
+		events.add(_staticEventTarget, name, fn, null, false);
+	};
+
+	/**
 	 * Select items from the document and wrap in a `Dom` instance (alias of
 	 * `select`)
 	 *
@@ -83,6 +99,25 @@ export default class Dom<T extends HTMLElement = HTMLElement>
 	 * false to disable and have it jump to the end.
 	 */
 	static transitions = true;
+
+	/**
+	 * Trigger an event non-DOM events.
+	 *
+	 * @param name Event name. This can optionally include period separated
+	 *   namespaces. Multiple events can be added by space separation of the
+	 *   names.
+	 * @param args Arguments to pass to the event handlers (after the event
+	 *   object, which is always the first parameter).
+	 * @param props An object of key/value pairs which should be added to the
+	 *   event object that is created and fired for the events.
+	 */
+	static trigger = function (
+		name: string,
+		args?: any[] | null,
+		props?: PlainObject | null
+	) {
+		events.trigger(_staticEventTarget, name, true, args, props);
+	};
 
 	/**
 	 * Window object methods
@@ -120,7 +155,9 @@ export default class Dom<T extends HTMLElement = HTMLElement>
 	add(selector: DomSelector, sort = true) {
 		if (selector) {
 			if (typeof selector === 'string') {
-				let elements = Array.from(document.querySelectorAll(selector));
+				let elements = Array.from(
+					external('doc').querySelectorAll(selector)
+				);
 
 				addArray(this, elements);
 			}
@@ -774,7 +811,7 @@ export default class Dom<T extends HTMLElement = HTMLElement>
 			include === 'outer'
 		) {
 			let el = this[0];
-			let computed = window.getComputedStyle(this[0]);
+			let computed = external('win').getComputedStyle(this[0]);
 			let rectHeight = el.getBoundingClientRect().height;
 
 			if (!include || include === 'content') {
@@ -888,7 +925,7 @@ export default class Dom<T extends HTMLElement = HTMLElement>
 			return false;
 		}
 
-		return document.body.contains(this[0]);
+		return external('doc').body.contains(this[0]);
 	}
 
 	/**
@@ -1071,11 +1108,11 @@ export default class Dom<T extends HTMLElement = HTMLElement>
 		}
 
 		let box = this[0].getBoundingClientRect();
-		let docElem = document.documentElement;
+		let docElem = external('doc').documentElement;
 
 		return {
-			top: box.top + window.pageYOffset - docElem.clientTop,
-			left: box.left + window.pageXOffset - docElem.clientLeft
+			top: box.top + external('win').pageYOffset - docElem.clientTop,
+			left: box.left + external('win').pageXOffset - docElem.clientLeft
 		};
 	}
 
@@ -1088,7 +1125,7 @@ export default class Dom<T extends HTMLElement = HTMLElement>
 	 */
 	offsetParent() {
 		return this.map(
-			el => (el.offsetParent as HTMLElement) || document.body
+			el => (el.offsetParent as HTMLElement) || external('doc').body
 		);
 	}
 
@@ -1672,7 +1709,7 @@ export default class Dom<T extends HTMLElement = HTMLElement>
 			include === 'outer'
 		) {
 			let el = this[0];
-			let computed = window.getComputedStyle(el);
+			let computed = external('win').getComputedStyle(el);
 			let rectWidth = el.getBoundingClientRect().width;
 
 			if (!include || include === 'content') {
@@ -1778,10 +1815,10 @@ function documentOrder(a: HTMLElement, b: HTMLElement) {
 
 	if (position & Node.DOCUMENT_POSITION_DISCONNECTED) {
 		// One is disconnected - find which
-		if (document.body.contains(a)) {
+		if (external('doc').body.contains(a)) {
 			return -1;
 		}
-		else if (document.body.contains(b)) {
+		else if (external('doc').body.contains(b)) {
 			return 1;
 		}
 

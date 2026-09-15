@@ -3,6 +3,8 @@ import defaults from '../model/defaults';
 import * as object from './object';
 
 // Can be assigned in DateTable.use()
+var __win: any;
+var __doc: any;
 var __bootstrap: any;
 var __foundation: any;
 var __luxon: any;
@@ -10,6 +12,22 @@ var __moment: any;
 var __dateTime: any;
 var __dataTable: any;
 var __jquery: any;
+
+function getWin() {
+	if (__win) {
+		return __win;
+	}
+
+	if (typeof globalThis !== 'undefined' && globalThis.window) {
+		return globalThis.window;
+	}
+
+	if (typeof window !== 'undefined') {
+		return window;
+	}
+
+	return {};
+}
 
 /**
  * Set the libraries that DataTables uses, or the global objects.
@@ -26,10 +44,13 @@ export default function (arg1: any, arg2?: any) {
 		switch (type) {
 			case 'lib':
 			case 'jq':
-				return __jquery !== undefined ? __jquery : (window as any).jQuery || null;
+				return __jquery !== undefined ? __jquery : getWin().jQuery || null;
 
 			case 'win':
-				return window;
+				return getWin();
+
+			case 'doc':
+				return getWin().document;
 
 			case 'datatable':
 				return __dataTable;
@@ -38,18 +59,18 @@ export default function (arg1: any, arg2?: any) {
 				return __dateTime;
 
 			case 'luxon':
-				return __luxon || (window as any).luxon || null;
+				return __luxon || getWin().luxon || null;
 
 			case 'moment':
-				return __moment || (window as any).moment || null;
+				return __moment || getWin().moment || null;
 
 			case 'bootstrap':
 				// Use local if set, otherwise try window, which could be undefined
-				return __bootstrap || (window as any).bootstrap || null;
+				return __bootstrap || getWin().bootstrap || null;
 
 			case 'foundation':
 				// Ditto
-				return __foundation || (window as any).Foundation || null;
+				return __foundation || getWin().Foundation || null;
 
 			default:
 				return null;
@@ -69,8 +90,7 @@ export default function (arg1: any, arg2?: any) {
 		__dataTable = module;
 	}
 	else if (type === 'win' || (module && module.document)) {
-		window = module;
-		document = module.document;
+		__win = module;
 	}
 	else if (type === 'datetime' || (module && module.type === 'DateTime')) {
 		__dateTime = module;

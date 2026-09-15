@@ -10,7 +10,7 @@ import { ApiRowMethods, Api as ApiType } from './interface';
 import { callbackFire } from './support';
 
 // Add the state event handler in time for the initial draw to save state
-Dom.s(document).on('preInit.dt', function (e, context) {
+Dom.on('preInit.dt', function (e, context) {
 	var api = new Api(context);
 
 	api.on('stateSaveParams.DT', function (ev, settings, d) {
@@ -39,7 +39,7 @@ Dom.s(document).on('preInit.dt', function (e, context) {
 });
 
 // But initial details can wait until the end
-Dom.s(document).on('plugin-init.dt', function (e, context) {
+Dom.on('plugin-init.dt', function (e, context) {
 	var api = context.api;
 
 	// And the initial load state

@@ -6,8 +6,13 @@ import { Context } from '../model/settings';
 import util from '../util';
 import { getCellData } from './data';
 
-const __filter_div = Dom.c('div').get(0);
-const __filter_div_textContent = __filter_div.textContent !== undefined;
+let __filter_div: HTMLDivElement;
+let __filter_div_textContent: boolean;
+
+function createFilterDiv () {
+	__filter_div = Dom.c('div').get(0);
+	__filter_div_textContent = __filter_div.textContent !== undefined;
+}
 
 /**
  * Filter the table using both the global filter and column based filtering
@@ -257,6 +262,10 @@ function filterData(settings: Context) {
 	let column;
 	let j, jen, cellData, row;
 	let wasInvalidated = false;
+
+	if (!__filter_div) {
+		createFilterDiv();
+	}
 
 	for (let rowIdx = 0; rowIdx < data.length; rowIdx++) {
 		if (!data[rowIdx]) {

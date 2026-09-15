@@ -11,6 +11,7 @@
  */
 
 import Dom from '../dom';
+import external from '../util/external';
 import { DataTablesStatic } from './interface';
 
 interface Payload {
@@ -53,7 +54,7 @@ const _licenseInfo: LicenseInfo = {
 	expires: null,
 	valid: null
 };
-const _wm = Dom.c('div');
+let _wm: Dom;
 const _publicKey =
 	'BE1A9w9D9U/4s4/TogY+1sW/dLJ8IquzK1PmV70J93ZTIvXMZ0eV2NAb52ntpgwVFySSB2fOI7geLNO737rQAyo=';
 
@@ -196,6 +197,10 @@ export const key: DataTablesStatic['key'] = function (key) {
  */
 function noticePrep(text?: string) {
 	if (!_ready) {
+		if (!_wm) {
+			_wm = Dom.c('div');
+		}
+
 		let shadow = _wm[0].attachShadow({ mode: 'closed' });
 		let notice = Dom.c('div').css({
 			position: 'fixed',
@@ -242,8 +247,10 @@ function noticePrep(text?: string) {
  * Display the license notice
  */
 function noticeDisplay() {
-	if (!_processingKey && document.body && !document.body.contains(_wm[0])) {
-		document.body.appendChild(_wm[0]);
+	let doc = external('doc');
+
+	if (!_processingKey && doc.body && !doc.body.contains(_wm[0])) {
+		doc.body.appendChild(_wm[0]);
 	}
 }
 
@@ -307,7 +314,7 @@ function verify(licenseString: string): Promise<void> {
 					false,
 					['verify']
 				)
-				.then(function (key) {
+				.then(function (key: string) {
 					return subtle.verify(
 						{ name: 'ECDSA', hash: { name: 'SHA-256' } },
 						key,
@@ -315,7 +322,7 @@ function verify(licenseString: string): Promise<void> {
 						data
 					);
 				})
-				.then(function (isValid) {
+				.then(function (isValid: boolean) {
 					_licenseInfo.valid = isValid;
 
 					resolve();
@@ -346,7 +353,7 @@ export default function (DataTable: DataTablesStatic) {
 		value: function (releaseDate: string, software: string = '') {
 			// Unsecure sites are only useful for development, so allow there
 			// and on the site.
-			let host = window.location.hostname;
+			let host = external('win').location.hostname;
 			let isDev =
 				host === '192.168.234.234' ||
 				host.endsWith('.datatables.net') ||
@@ -376,7 +383,8 @@ export default function (DataTable: DataTablesStatic) {
 
 function getSubtle() {
 	// Backwards compat for old browsers
-	let cryptoObj = window.crypto || (window as any).msCrypto;
+	let win = external('win');
+	let cryptoObj = win.crypto || win.msCrypto;
 	let subtle = cryptoObj.subtle || (cryptoObj as any).webkitSubtle;
 
 	return subtle;

@@ -1,3 +1,4 @@
+import external from './external';
 import { plainObject } from './is';
 import * as object from './object';
 
@@ -44,7 +45,7 @@ const defaults = {
 	contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 	headers: {},
 	traditional: false,
-	url: location.href
+	url: ''
 } as AjaxOptions;
 
 /**
@@ -245,9 +246,10 @@ function convertSpaces(sendData: string, options: AjaxOptions) {
  */
 function isCrossDomain(url: string) {
 	// Use the current page as the base to handle relative URLs correctly
-	const target = new URL(url, window.location.origin);
+	const win = external('win');
+	const target = new URL(url, win.location.origin);
 
-	return target.origin !== window.location.origin;
+	return target.origin !== win.location.origin;
 }
 
 /**
