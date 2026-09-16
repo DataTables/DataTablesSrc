@@ -93,6 +93,19 @@ Dom
 ```
 
 
+### `on()` - window-less event listener
+
+DataTables (since 3.1) can be loaded in an environment which doesn't have `window` or `document` globals, which makes it easy to use in environments such as Next.js routers and React Server Components. Plug-ins for DataTables often need to know when a DataTable is initialised, which was traditionally done by listening for a bubbling event on the `-tag body` or document. While that is still possible in 3.1, it is also possible to listen for these events though this method, which doesn't use a DOM. All events that DataTables triggers which bubble can be listened for with this listener.
+
+Example: Listening for the `init` event to know when a DataTable has been initialised (note that the namespace is required, unlike with `-api on()`:
+
+```js
+DataTable.Dom.on('init.dt', (e, context) => {
+  console.log('New DataTable created!');
+});
+```
+
+
 ### `s()` - Select elements
 
 This method is a cornerstone for using the `-type DataTable.Dom` object to manipulate DOM elements. It is used to select the elements that are to be operated on.
