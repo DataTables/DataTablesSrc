@@ -295,7 +295,7 @@ export function remove(
 ) {
 	let jq = external('jq');
 
-	if (jq && !(el instanceof EventTarget)) {
+	if (jq && el.constructor !== EventTarget) {
 		if (selector) {
 			jq(el).off(nameFull, selector, handler);
 		}
@@ -421,7 +421,7 @@ export function trigger(
 	// If running in Node, we might be using JSDom which has its own event
 	// classes. The EventTarget is always the global, separate from the window
 	// events. 99% of the time, they will be the same.
-	if (el instanceof EventTarget) {
+	if (el.constructor === EventTarget) {
 		event = new Event(eventName, { bubbles, cancelable: true });
 	}
 	else {
