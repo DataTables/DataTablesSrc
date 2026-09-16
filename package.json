@@ -42,7 +42,6 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/jquery": "^4.0.0",
     "@types/node": "^25.4.0",
-    "datatables.net": "^2.3.7",
     "eslint": "^10.0.3",
     "eslint-plugin-compat": "^7.0.1",
     "globals": "^17.4.0",
@@ -68,5 +67,8 @@
   },
   "browserslist": [
     "> 0.1%, last 10 versions, Firefox ESR, Safari > 8, not dead"
-  ]
+  ],
+  "dependencies": {
+    "datatables.net": "^3.0.4"
+  }
 }
