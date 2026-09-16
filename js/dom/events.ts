@@ -173,7 +173,7 @@ export function add(
 	let jq = external('jq');
 	let doc = external('doc');
 
-	if (jq && !(el instanceof EventTarget)) {
+	if (jq && el.constructor !== EventTarget) {
 		let method = one ? 'one' : 'on';
 
 		if (selector) {
@@ -390,7 +390,7 @@ export function trigger(
 	let jq = external('jq');
 	let win = external('win');
 
-	if (jq && !(el instanceof EventTarget)) {
+	if (jq && el.constructor !== EventTarget) {
 		let method = bubbles ? 'trigger' : 'triggerHandler';
 		let ev = jq.Event(nameFull);
 
