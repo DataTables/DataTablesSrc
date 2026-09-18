@@ -61,6 +61,12 @@ HEADER="/*! DataTables $VERSION
 	rsync -r dist/integration/dataTables.*.js $OUT_DIR
 	js_frameworks dataTables $OUT_DIR $VERSION "datatables.net"
 
+	# Copy the built files to the package for testing
+	cp $BUILD_DIR/js/dataTables.js $BASE_DIR/node_modules/datatables.net/js/
+	cp $BUILD_DIR/js/dataTables.min.js $BASE_DIR/node_modules/datatables.net/js/
+	cp $BUILD_DIR/js/dataTables.mjs $BASE_DIR/node_modules/datatables.net/js/
+	cp $BUILD_DIR/js/dataTables.min.mjs $BASE_DIR/node_modules/datatables.net/js/
+
 	rm -r dist
 }
 

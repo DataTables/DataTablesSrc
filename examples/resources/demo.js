@@ -142,7 +142,7 @@ window.dt_demo = {
 
 			// This can really slow things down
 			setTimeout(function () {
-				dt_demo._highlightElement('div.table code');
+				dt_demo._highlightElement('div.html code');
 			}, 1000);
 
 			// json
@@ -447,7 +447,7 @@ window.dt_demo = {
 			.c('code')
 			.classAdd('multiline language-html')
 			.text('\t\t\t\t' + demoHtml);
-		Dom.s('div.dt-tabs div.table').append(code);
+		Dom.s('div.dt-tabs div.html').append(code);
 
 		dt_demo._tabs();
 
