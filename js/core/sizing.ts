@@ -136,7 +136,7 @@ export function calculateColumnWidths(settings: Context) {
 
 	if (longestData.length) {
 		for (i = 0; i < longestData[0].length; i++) {
-			var tr = Dom.c('tr').appendTo(tmpTable.find('tbody'));
+			var tr = Dom.c('tr').appendTo(tmpTable.children('tbody'));
 
 			for (j = 0; j < visibleColumns.length; j++) {
 				columnIdx = visibleColumns[j];
