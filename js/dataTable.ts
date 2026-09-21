@@ -98,6 +98,8 @@ const DataTable = function (selector: string | HTMLElement, options: Options) {
 			listener(table, 'options', init.on.options as any);
 		}
 
+		// Don't have the settings object here, so can't use `callbackFire`
+		Dom.trigger('options.dt', [init]);
 		table.trigger('options.dt', true, [init]);
 
 		// Backwards compatibility parameter mapping
