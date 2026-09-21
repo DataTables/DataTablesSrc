@@ -44,7 +44,17 @@ export default function (arg1: any, arg2?: any) {
 		switch (type) {
 			case 'lib':
 			case 'jq':
-				return __jquery !== undefined ? __jquery : getWin().jQuery || null;
+				if (__jquery) {
+					return __jquery;
+				}
+
+				let local = getWin().jQuery;
+
+				if (local && local.fn) {
+					return local;
+				}
+
+				return null;
 
 			case 'win':
 				return getWin();
