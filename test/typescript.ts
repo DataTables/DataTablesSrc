@@ -274,6 +274,9 @@ expectType<Api<string>>(table.columns().types());
 expectType<number | null>(table.column(0).width());
 expectType<Api<number | null>>(table.columns().widths());
 
+expectType<HTMLTableCellElement[]>(table.column(0).nodes().toArray());
+expectType<HTMLTableCellElement[][]>(table.columns(0).nodes().toArray());
+
 expectType<HeaderStructure>(table.table().header.structure()[0][0]);
 expectType<HeaderStructure>(table.table().footer.structure()[0][0]);
 

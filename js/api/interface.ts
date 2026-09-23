@@ -1669,7 +1669,7 @@ export interface ApiColumnMethods<T=any>
 	 * columns in the result set. This is a 1D array with each entry being the
 	 * node for the cells from the selected column.
 	 */
-	nodes(this: ApiColumnMethods<T>): Api<Array<HTMLTableCellElement>>;
+	nodes(this: ApiColumnMethods<T>): Api<HTMLTableCellElement>;
 
 	/**
 	 * Order the table, in the direction specified, by the column selected by
