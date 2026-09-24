@@ -8,7 +8,8 @@ import DataTable, {
 	ColumnContext,
 	DataType,
 	DataTypeDetect,
-	HeaderStructure
+	HeaderStructure,
+	State
 } from "datatables.net";
 import { expectType } from 'tsd';
 
@@ -416,3 +417,11 @@ expectType<string>(DataTable.ext.classes.container);
 expectType<string>(DataTable.ext.classes.table);
 expectType<string>(DataTable.ext.classes.tbody.row);
 expectType<string>(DataTable.ext.classes.tbody.cell);
+
+
+/*
+ * States
+ */
+
+expectType<State>(table.state());
+expectType<Api<any>>(table.state({length: 10}));

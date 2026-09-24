@@ -1337,7 +1337,7 @@ export interface ApiState<T> extends Api<T> {
 	 *
 	 * @returns API instance, for chaining
 	 */
-	(this: Api, set: State, ignoreTime?: boolean): Api;
+	(this: Api, set: StateLoad, ignoreTime?: boolean): Api;
 
 	/**
 	 * Clear the saved state of the table.

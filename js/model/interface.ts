@@ -6,7 +6,7 @@ import { IFeaturePagingOptions } from '../features/page';
 import { IFeaturePageLengthOptions } from '../features/pageLength';
 import { IFeatureSearchOptions } from '../features/search';
 import { Context } from './settings';
-import { StateLoad } from './state';
+import { State, StateLoad } from './state';
 
 // Multi layer optional properties (i.e. a nested `Partial<>`)
 export type DeepPartial<T> = T extends (...args: any[]) => any
@@ -346,23 +346,23 @@ export type FunctionStateLoadCallback = (
 export type FunctionStateLoaded = (
 	this: DataTableDom,
 	settings: Context,
-	data: object
+	data: StateLoad
 ) => void;
 
 export type FunctionStateLoadParams = (
 	this: DataTableDom,
 	settings: Context,
-	data: object
+	data: StateLoad
 ) => void;
 
 export type FunctionStateSaveCallback = (
 	this: DataTableDom,
 	settings: Context,
-	data: object
+	data: State
 ) => void;
 
 export type FunctionStateSaveParams = (
 	this: DataTableDom,
 	settings: Context,
-	data: object
+	data: State
 ) => void;
