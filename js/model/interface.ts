@@ -234,10 +234,12 @@ export interface AjaxResponse {
 	error?: string;
 }
 
-export type FunctionAjax = (
+export type AjaxCallback = (data: any) => void;
+
+export type AjaxFunction = (
 	this: DataTableDom,
-	data: object,
-	callback: (data: any) => void,
+	data: AjaxData,
+	callback: AjaxCallback,
 	settings: Context
 ) => void;
 

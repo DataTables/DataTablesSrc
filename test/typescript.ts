@@ -1,11 +1,14 @@
 
 import DataTable, {
+	AjaxCallback,
+	AjaxData,
 	Api,
 	ApiCellsMethods,
 	ApiColumnMethods,
 	ApiRowMethods,
 	ApiTableMethods,
 	ColumnContext,
+	Context,
 	DataType,
 	DataTypeDetect,
 	HeaderStructure,
@@ -422,6 +425,18 @@ expectType<string>(DataTable.ext.classes.tbody.cell);
 /*
  * States
  */
-
 expectType<State>(table.state());
 expectType<Api<any>>(table.state({length: 10}));
+
+
+/*
+ * Ajax
+ */
+new DataTable('#1', {
+	ajax: (data, cb, settings) => {
+		expectType<AjaxData>(data);
+		expectType<AjaxCallback>(cb);
+		expectType<Context>(settings);
+	}
+});
+

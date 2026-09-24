@@ -2,30 +2,30 @@ import { DataTableEvent } from '../api/interface';
 import classes from '../ext/classes';
 import external from '../util/external';
 import columnDefaults, {
-	Defaults as ColumnDefaults,
-	Options as ColumnOptions,
-	ConfigColumnDefs
+    Defaults as ColumnDefaults,
+    Options as ColumnOptions,
+    ConfigColumnDefs
 } from './columns/defaults';
 import {
-	ConfigRenderer,
-	DeepPartial,
-	FunctionAjax,
-	FunctionCreateRow,
-	FunctionDrawCallback,
-	FunctionFooterCallback,
-	FunctionFormatNumber,
-	FunctionHeaderCallback,
-	FunctionInfoCallback,
-	FunctionInitComplete,
-	FunctionPreDrawCallback,
-	FunctionRowCallback,
-	FunctionStateLoadCallback,
-	FunctionStateLoaded,
-	FunctionStateLoadParams,
-	FunctionStateSaveCallback,
-	FunctionStateSaveParams,
-	Layout,
-	Order
+    AjaxFunction,
+    ConfigRenderer,
+    DeepPartial,
+    FunctionCreateRow,
+    FunctionDrawCallback,
+    FunctionFooterCallback,
+    FunctionFormatNumber,
+    FunctionHeaderCallback,
+    FunctionInfoCallback,
+    FunctionInitComplete,
+    FunctionPreDrawCallback,
+    FunctionRowCallback,
+    FunctionStateLoadCallback,
+    FunctionStateLoaded,
+    FunctionStateLoadParams,
+    FunctionStateSaveCallback,
+    FunctionStateSaveParams,
+    Layout,
+    Order
 } from './interface';
 import { defaults as searchDefaults, SearchOptions } from './search';
 import { Context, DtAjaxOptions } from './settings';
@@ -33,7 +33,7 @@ export interface Defaults {
 	/**
 	 * Load data for the table's content from an Ajax source.
 	 */
-	ajax: null | string | DtAjaxOptions | FunctionAjax;
+	ajax: null | string | DtAjaxOptions | AjaxFunction;
 
 	/**
 	 * Feature control DataTables' smart column width handling.

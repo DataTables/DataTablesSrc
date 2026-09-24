@@ -35,7 +35,7 @@ import {
 	ConfigLanguage as Language,
 	Options
 } from '../dist/model/defaults';
-import { CellMeta, ColumnRenderFunction } from '../dist/model/interface';
+import { AjaxCallback, AjaxData, AjaxFunction, CellMeta, ColumnRenderFunction } from '../dist/model/interface';
 import { Row as RowContext } from '../dist/model/row';
 import { Context } from '../dist/model/settings';
 import { State, StateLoad } from '../dist/model/state';
@@ -52,6 +52,9 @@ export {
 
 // Types
 	export {
+		AjaxCallback,
+		AjaxData,
+		AjaxFunction,
 		AjaxOptions,
 		CellMeta,
 		ColumnContext,
