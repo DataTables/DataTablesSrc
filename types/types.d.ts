@@ -38,7 +38,12 @@ import {
 import {
 	AjaxCallback,
 	AjaxData,
+	AjaxDataColumn,
+	AjaxDataColumnSearch,
+	AjaxDataOrder,
+	AjaxDataSearch,
 	AjaxFunction,
+	AjaxResponse,
 	CellMeta,
 	ColumnRenderFunction,
 	Order,
@@ -63,9 +68,10 @@ export {
 // Types
 	export {
 		AjaxCallback,
-		AjaxData,
-		AjaxFunction,
-		AjaxOptions,
+		AjaxData, AjaxDataColumn,
+		AjaxDataColumnSearch,
+		AjaxDataOrder, AjaxDataSearch, AjaxFunction,
+		AjaxOptions, AjaxResponse,
 		CellMeta,
 		ColumnContext,
 		ColumnDefaults,
