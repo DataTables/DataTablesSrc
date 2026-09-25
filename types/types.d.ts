@@ -35,7 +35,17 @@ import {
 	ConfigLanguage as Language,
 	Options
 } from '../dist/model/defaults';
-import { AjaxCallback, AjaxData, AjaxFunction, CellMeta, ColumnRenderFunction } from '../dist/model/interface';
+import {
+	AjaxCallback,
+	AjaxData,
+	AjaxFunction,
+	CellMeta,
+	ColumnRenderFunction,
+	Order,
+	OrderArray,
+	OrderColumn,
+	OrderCombined
+} from '../dist/model/interface';
 import { Row as RowContext } from '../dist/model/row';
 import { Context } from '../dist/model/settings';
 import { State, StateLoad } from '../dist/model/state';
@@ -63,15 +73,13 @@ export {
 		ColumnRenderFunction,
 		ColumnOptions as ColumnsConfig, // legacy
 		Options as Config, // legacy
-		Context,
-		DataType,
+		Context, DataType,
 		DataTypeDetect,
 		Defaults,
 		Ext,
 		ExtButtons,
 		Language,
-		Options,
-		RowContext,
+		Options, Order, OrderArray, OrderColumn, OrderCombined, RowContext,
 		Context as Settings,
 		State,
 		StateLoad

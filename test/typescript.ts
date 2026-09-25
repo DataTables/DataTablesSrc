@@ -439,4 +439,3 @@ new DataTable('#1', {
 		expectType<Context>(settings);
 	}
 });
-
