@@ -186,7 +186,7 @@ function selectColumns(
 								settings.header,
 								null,
 								col.idx
-							);
+							).map(c => c.cell);
 
 							return Dom.s(columnElements)
 								.filter(match[1])
@@ -232,7 +232,7 @@ function selectColumns(
 		}
 
 		// Selector on the TH elements for the columns
-		var result = Dom.s(columnCells(settings.header))
+		var result = Dom.s(columnCells(settings.header).map(c => c.cell))
 			.filter(s)
 			.mapTo(el => {
 				return columnsFromHeader(el);

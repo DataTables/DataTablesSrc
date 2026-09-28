@@ -1,129 +1,184 @@
-describe('columns.orderable option', function() {
+describe('columns.orderable option', function () {
 	dt.libs({
 		js: ['jquery', 'datatables'],
 		css: ['datatables']
 	});
 
-	describe('Check the defaults', function() {
+	describe('Check the defaults', function () {
 		dt.html('basic');
 
 		it('Default is enabled', function () {
 			expect(DataTable.defaults.column.orderable).toBe(true);
 		});
 
-		it('Columns are searchable by default', async function() {
+		it('Columns are searchable by default', async function () {
 			$('#example').dataTable();
 			await dt.clickHeader(2);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tiger Nixon');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe(
+				'Tiger Nixon'
+			);
 		});
 
 		dt.html('basic');
-		it('Can disable sorting for one column', function() {
+		it('Can disable sorting for one column', function () {
 			$('#example').dataTable({
 				columns: [null, null, { orderable: false }, null, null, null]
 			});
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe(
+				'Airi Satou'
+			);
 		});
 
-		it('Disabled column has no sorting class', function() {
-			expect($('#example thead th:eq(2)').hasClass('dt-orderable-none')).toBe(true);
+		it('Disabled column has no sorting class', function () {
+			expect(
+				$('#example thead th:eq(2)').hasClass('dt-orderable-none')
+			).toBe(true);
 		});
 
-		it('Not disabled columns do not have disabled class', function() {
-			expect($('#example thead th:eq(1)').hasClass('dt-orderable-none')).toBe(false);
+		it('Not disabled columns do not have disabled class', function () {
+			expect(
+				$('#example thead th:eq(1)').hasClass('dt-orderable-none')
+			).toBe(false);
 		});
 
-		it('clicking on non-orderable column does nothing', async function() {
+		it('clicking on non-orderable column does nothing', async function () {
 			await dt.clickHeader(2);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe(
+				'Airi Satou'
+			);
 		});
 
-		it('Other columns can still sort', async function() {
+		it('Other columns can still sort', async function () {
 			await dt.clickHeader(3);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tatyana Fitzpatrick');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe(
+				'Tatyana Fitzpatrick'
+			);
 		});
 	});
 
-	describe('Check multiple columns', function() {
+	describe('Check multiple columns', function () {
 		dt.html('basic');
-		it('Disable sorting on multiple columns - no sorting classes', function() {
+		it('Disable sorting on multiple columns - no sorting classes', function () {
 			$('#example').dataTable({
-				columns: [null, { orderable: false }, { orderable: false }, null, null, null]
+				columns: [
+					null,
+					{ orderable: false },
+					{ orderable: false },
+					null,
+					null,
+					null
+				]
 			});
-			expect($('#example thead th:eq(1)').hasClass('dt-orderable-none')).toBe(true);
-			expect($('#example thead th:eq(2)').hasClass('dt-orderable-none')).toBe(true);
+			expect(
+				$('#example thead th:eq(1)').hasClass('dt-orderable-none')
+			).toBe(true);
+			expect(
+				$('#example thead th:eq(2)').hasClass('dt-orderable-none')
+			).toBe(true);
 
-			expect($('example thead th:eq(1)').hasClass('dt-ordering-desc')).toBe(false);
-			expect($('example thead th:eq(1)').hasClass('dt-ordering-asc')).toBe(false);
+			expect(
+				$('example thead th:eq(1)').hasClass('dt-ordering-desc')
+			).toBe(false);
+			expect(
+				$('example thead th:eq(1)').hasClass('dt-ordering-asc')
+			).toBe(false);
 		});
 
-		it('Sorting on disabled column 1 has no effect', async function() {
+		it('Sorting on disabled column 1 has no effect', async function () {
 			await dt.clickHeader(1);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe(
+				'Airi Satou'
+			);
 		});
-		it('Second sort on disabled column 2 has no effect', async function() {
+		it('Second sort on disabled column 2 has no effect', async function () {
 			await dt.clickHeader(2);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe(
+				'Airi Satou'
+			);
 		});
-		it('Sorting still works on other columns', async function() {
+		it('Sorting still works on other columns', async function () {
 			await dt.clickHeader(3);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tatyana Fitzpatrick');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe(
+				'Tatyana Fitzpatrick'
+			);
 		});
 	});
 
-	describe('Check columnDefs', function() {
+	describe('Check columnDefs', function () {
 		dt.html('basic');
-		it('Can set with columnDefs', function() {
+		it('Can set with columnDefs', function () {
 			$('#example').dataTable({
 				columnDefs: [{ orderable: false, targets: 2 }]
 			});
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe(
+				'Airi Satou'
+			);
 		});
 
-		it('clicking on non-orderable column does nothing', async function() {
+		it('clicking on non-orderable column does nothing', async function () {
 			await dt.clickHeader(2);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Airi Satou');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe(
+				'Airi Satou'
+			);
 		});
 
-		it('Other columns can still sort', async function() {
+		it('Other columns can still sort', async function () {
 			await dt.clickHeader(3);
-			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe('Tatyana Fitzpatrick');
+			expect($('#example tbody tr:eq(0) td:eq(0)').text()).toBe(
+				'Tatyana Fitzpatrick'
+			);
 		});
 	});
 
-	describe('Icons shown with user ordering disabled', function() {
+	describe('Icons shown with user ordering disabled', function () {
 		dt.html('basic');
 
-		it('First column has icon', function() {
+		it('First column has icon', function () {
 			$('#example').dataTable({
 				columnDefs: [{ orderable: false, targets: '_all' }]
 			});
-			expect($('#example thead th').eq(0).hasClass('dt-ordering-asc')).toBe(true);
+			expect(
+				$('#example thead th').eq(0).hasClass('dt-ordering-asc')
+			).toBe(true);
 		});
 
-		it('And "none" orderable class', function() {
-			expect($('#example thead th').eq(0).hasClass('dt-orderable-none')).toBe(true);
+		it('And "none" orderable class', function () {
+			expect(
+				$('#example thead th').eq(0).hasClass('dt-orderable-none')
+			).toBe(true);
 		});
 
-		it('And does not have orderable class', function() {
-			expect($('#example thead th').eq(0).hasClass('dt-orderable-asc')).toBe(false);
+		it('And does not have orderable class', function () {
+			expect(
+				$('#example thead th').eq(0).hasClass('dt-orderable-asc')
+			).toBe(false);
 		});
 
-		it('Second column has only none class', function() {
-			expect($('#example thead th').eq(1).hasClass('dt-orderable-asc')).toBe(false);
-			expect($('#example thead th').eq(1).hasClass('dt-orderable-none')).toBe(true);
+		it('Second column has only none class', function () {
+			expect(
+				$('#example thead th').eq(1).hasClass('dt-orderable-asc')
+			).toBe(false);
+			expect(
+				$('#example thead th').eq(1).hasClass('dt-orderable-none')
+			).toBe(true);
 		});
 
-		it('Changing sort moves the icon', function() {
+		it('Changing sort moves the icon', function () {
 			let table = $('#example').DataTable();
 			table.column(3).order('asc').draw();
 
-			expect($('#example thead th').eq(0).hasClass('dt-ordering-asc')).toBe(false);
-			expect($('#example thead th').eq(3).hasClass('dt-ordering-asc')).toBe(true);
-			expect($('#example thead th').eq(3).hasClass('dt-orderable-none')).toBe(true);
+			expect(
+				$('#example thead th').eq(0).hasClass('dt-ordering-asc')
+			).toBe(false);
+			expect(
+				$('#example thead th').eq(3).hasClass('dt-ordering-asc')
+			).toBe(true);
+			expect(
+				$('#example thead th').eq(3).hasClass('dt-orderable-none')
+			).toBe(true);
 		});
 
-		it('Does not draw if order disables', async function() {
+		it('Does not draw if order disables', async function () {
 			let table = $('#example').DataTable();
 			let drawn = false;
 
@@ -134,6 +189,60 @@ describe('columns.orderable option', function() {
 			await dt.clickHeader(2);
 
 			expect(drawn).toBe(false);
+		});
+	});
+
+	// https://github.com/DataTables/DataTablesSrc/issues/406
+	describe('Initially hidden column can be sorted when made visible', function () {
+		let table;
+
+		dt.html('basic');
+
+		it('Init the table', function () {
+			table = new DataTable('#example', {
+				columnDefs: [
+					{
+						visible: false,
+						target: -1
+					}
+				]
+			});
+
+			expect($('thead th').length).toBe(5);
+		});
+
+		it('Make hidden column visible', function () {
+			table.column(-1).visible(true);
+
+			expect($('thead th').length).toBe(6);
+		});
+
+		it('Sort the now visible column', async function () {
+			await dt.clickHeader(5);
+
+			expect($('tbody tr:first-child td:last-child').text()).toBe(
+				'$75,650'
+			);
+		});
+
+		it('Hide a column', function () {
+			table.column(-2).visible(false);
+
+			expect($('thead th').length).toBe(5);
+		});
+
+		it('Make it visible again', function () {
+			table.column(-2).visible(true);
+
+			expect($('thead th').length).toBe(6);
+		});
+
+		it('Sort the hidden and then shown column', async function () {
+			await dt.clickHeader(4);
+
+			expect($('tbody tr:first-child td:first-child').text()).toBe(
+				'Jackson Bradshaw'
+			);
 		});
 	});
 });

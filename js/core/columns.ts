@@ -2,7 +2,10 @@ import { callbackFire, map } from '../api/support';
 import Dom from '../dom';
 import helpers from '../ext/helpers';
 import ext from '../ext/index';
-import columnDefaults, { Options as ColumnOptions, ConfigColumnDefs } from '../model/columns/defaults';
+import columnDefaults, {
+	Options as ColumnOptions,
+	ConfigColumnDefs
+} from '../model/columns/defaults';
 import ColumnModel from '../model/columns/settings';
 import createSearch from '../model/search';
 import { Context, HeaderStructure } from '../model/settings';
@@ -11,6 +14,11 @@ import { compatCols, hungarianToCamel } from './compat';
 import { getCellData, writeCell } from './data';
 import { scrollDraw } from './scrolling';
 import { calculateColumnWidths } from './sizing';
+
+interface ColumnCell {
+	cell: HTMLElement;
+	row: HTMLElement;
+}
 
 /**
  * Add a column to the list used for the table with default values
@@ -31,9 +39,10 @@ export function addColumn(settings: Context) {
 			data: columnDefaults.data ? columnDefaults.data : columnIdx,
 			idx: columnIdx,
 			searchFixed: {},
-			colEl: Dom
-				.c<HTMLTableColElement>('col')
-				.attr('data-dt-column', columnIdx)
+			colEl: Dom.c<HTMLTableColElement>('col').attr(
+				'data-dt-column',
+				columnIdx
+			)
 		}
 	);
 
@@ -46,9 +55,7 @@ export function addColumn(settings: Context) {
 	let searchCols = settings.searchCols;
 
 	settings.searches[columnIdx] = createSearch(
-		searchCols[columnIdx]
-			? hungarianToCamel(searchCols[columnIdx])
-			: {}
+		searchCols[columnIdx] ? hungarianToCamel(searchCols[columnIdx]) : {}
 	);
 	settings.searches[columnIdx].columns = [columnIdx];
 }
@@ -666,15 +673,23 @@ export function columnCells(
 	row: number | null = null,
 	column: number | null = null
 ) {
-	var out: HTMLElement[] = [];
+	var out: Array<ColumnCell> = [];
+	var included: HTMLElement[] = [];
 
 	for (var i = 0; i < header.length; i++) {
 		if (row === null || row === i) {
 			for (var j = 0; j < header[i].length; j++) {
 				var cell = header[i][j].cell;
 
-				if ((column === null || column === j) && !out.includes(cell)) {
-					out.push(cell);
+				if (
+					(column === null || column === j) &&
+					!included.includes(cell)
+				) {
+					included.push(cell);
+					out.push({
+						cell,
+						row: header[i].row
+					});
 				}
 			}
 		}
@@ -691,34 +706,39 @@ export function columnCells(
  * @returns Array of selected elements
  */
 export function columnOrderingCells(settings: Context, notSelector: string) {
-	var cells: HTMLElement[] = [];
-	var titleRow = settings.titleRow;
+	let combined: ColumnCell[] = [];
+	let titleRow = settings.titleRow;
 
 	if (titleRow === true) {
 		// Top row (legacy `orderCellsTop`)
-		cells = columnCells(settings.header, 0);
+		combined = columnCells(settings.header, 0);
 	}
 	else if (titleRow === false) {
 		// Bottom row (legacy `orderCellsTop`)
-		cells = columnCells(settings.header, settings.header.length - 1);
+		combined = columnCells(settings.header, settings.header.length - 1);
 	}
 	else if (titleRow !== null) {
 		// Specific row
-		cells = columnCells(settings.header, titleRow);
+		combined = columnCells(settings.header, titleRow);
 	}
 	else {
 		// All
-		cells = columnCells(settings.header);
+		combined = columnCells(settings.header);
 	}
+
+	let cells = combined.map(c => c.cell);
+	let rows = combined.map(c => c.row);
 
 	return Dom.s(cells)
 		.filter('th' + notSelector + ', td' + notSelector)
 		.filter(el => {
-			return (
-				Dom.s(el)
-					.parent()
-					.filter(notSelector)
-					.length !== 0
-			);
+			let idx = cells.indexOf(el);
+
+			if (idx >= 0) {
+				return Dom.s(rows[idx]).filter(notSelector).length !== 0;
+			}
+
+			// Shouldn't be able to get here!
+			return true;
 		});
 }
