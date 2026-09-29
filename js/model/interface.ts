@@ -133,7 +133,14 @@ export interface OrderFixed {
 	post?: any[];
 }
 
-export interface FunctionColumnData {
+export type ColumnData =
+	| number
+	| string
+	| ColumnDataObject
+	| ColumnDataFunction
+	| null;
+
+export interface ColumnDataFunction {
 	(row: any, type: 'set', s: any, meta: CellMeta): void;
 	(
 		row: any,
@@ -143,15 +150,23 @@ export interface FunctionColumnData {
 	): any;
 }
 
-export interface ObjectColumnData {
-	_: string | number | FunctionColumnData;
-	filter?: string | number | FunctionColumnData;
-	display?: string | number | FunctionColumnData;
-	type?: string | number | FunctionColumnData;
-	sort?: string | number | FunctionColumnData;
+export interface ColumnDataObject {
+	_: string | number | ColumnDataFunction;
+	filter?: string | number | ColumnDataFunction;
+	display?: string | number | ColumnDataFunction;
+	type?: string | number | ColumnDataFunction;
+	sort?: string | number | ColumnDataFunction;
 }
 
-export interface ObjectColumnRender {
+export type ColumnRender =
+	| number
+	| string
+	| ColumnDataObject
+	| ColumnRenderFunction
+	| ColumnRenderObject
+	| null;
+
+export interface ColumnRenderObject {
 	_?: string | number | ColumnRenderFunction;
 	filter?: string | number | ColumnRenderFunction;
 	display?: string | number | ColumnRenderFunction;

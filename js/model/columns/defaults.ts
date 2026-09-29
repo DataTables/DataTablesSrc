@@ -1,9 +1,7 @@
 import {
-	ColumnRenderFunction,
-	FunctionColumnCreatedCell,
-	FunctionColumnData,
-	ObjectColumnData,
-	ObjectColumnRender
+	ColumnData,
+	ColumnRender,
+	FunctionColumnCreatedCell
 } from '../interface';
 import { SearchOptions } from '../search';
 
@@ -49,7 +47,7 @@ export interface Defaults {
 	/**
 	 * Class to assign to each cell in the column.
 	 */
-	data: number | string | ObjectColumnData | FunctionColumnData | null;
+	data: ColumnData;
 
 	/**
 	 * Set default, static, content for a column.
@@ -89,13 +87,7 @@ export interface Defaults {
 	/**
 	 * Render (process) the data for use in the table.
 	 */
-	render:
-		| number
-		| string
-		| ObjectColumnData
-		| ColumnRenderFunction
-		| ObjectColumnRender
-		| null;
+	render: ColumnRender;
 
 	search: SearchOptions | null;
 
@@ -153,4 +145,4 @@ const defaults: Defaults = {
 
 export default defaults;
 
-export interface Options extends Partial<Defaults> {};
+export interface Options extends Partial<Defaults> {}
