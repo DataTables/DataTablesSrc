@@ -2,30 +2,30 @@ import { DataTableEvent } from '../api/interface';
 import classes from '../ext/classes';
 import external from '../util/external';
 import columnDefaults, {
-    Defaults as ColumnDefaults,
-    Options as ColumnOptions,
-    ConfigColumnDefs
+	Defaults as ColumnDefaults,
+	Options as ColumnOptions,
+	ConfigColumnDefs
 } from './columns/defaults';
 import {
-    AjaxFunction,
-    ConfigRenderer,
-    DeepPartial,
-    FunctionCreateRow,
-    FunctionDrawCallback,
-    FunctionFooterCallback,
-    FunctionFormatNumber,
-    FunctionHeaderCallback,
-    FunctionInfoCallback,
-    FunctionInitComplete,
-    FunctionPreDrawCallback,
-    FunctionRowCallback,
-    FunctionStateLoadCallback,
-    FunctionStateLoaded,
-    FunctionStateLoadParams,
-    FunctionStateSaveCallback,
-    FunctionStateSaveParams,
-    Layout,
-    Order
+	AjaxFunction,
+	ConfigRenderer,
+	DeepPartial,
+	FunctionCreateRow,
+	FunctionDrawCallback,
+	FunctionFooterCallback,
+	FunctionFormatNumber,
+	FunctionHeaderCallback,
+	FunctionInfoCallback,
+	FunctionInitComplete,
+	FunctionPreDrawCallback,
+	FunctionRowCallback,
+	FunctionStateLoadCallback,
+	FunctionStateLoaded,
+	FunctionStateLoadParams,
+	FunctionStateSaveCallback,
+	FunctionStateSaveParams,
+	Layout,
+	Order
 } from './interface';
 import { defaults as searchDefaults, SearchOptions } from './search';
 import { Context, DtAjaxOptions } from './settings';
@@ -708,5 +708,5 @@ const defaults: Defaults = {
 export default defaults;
 
 export interface Options extends DeepPartial<Omit<Defaults, 'columns'>> {
-	columns?: ColumnOptions[];
+	columns?: Array<ColumnOptions | null>;
 }

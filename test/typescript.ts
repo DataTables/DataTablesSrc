@@ -35,6 +35,11 @@ let table = new DataTable('#myTable', {
 		}
 	},
 	caption: 'Table caption',
+	columns: [
+		null,
+		{ data: 1 },
+		{ title: 'Col 2' }
+	],
 	columnDefs: [
 		{
 			footer: 'footer text',
