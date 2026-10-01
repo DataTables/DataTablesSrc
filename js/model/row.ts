@@ -1,6 +1,10 @@
 import Dom from '../dom';
 import util from '../util';
 
+export interface RowDisplayData extends Array<HTMLElement | string | number> {
+	_complete?: boolean;
+}
+
 /**
  * Structure used to store information about each individual row in DataTables
  */
@@ -27,7 +31,7 @@ export interface Row {
 	detailsShow: undefined | boolean;
 
 	/** Cached display value */
-	displayData: Array<any> | null;
+	displayData: RowDisplayData | null;
 
 	/**
 	 * Index in the data array. This saves an indexOf lookup when we have the

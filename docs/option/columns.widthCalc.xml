@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option group="columns">
+	<name>columns.widthCalc</name>
+	<summary>Column width assignment</summary>
+	<since>3.1.3</since>
+
+	<type type="string">
+		Can take the values:
+
+		* `-string all` - Use the data from all rows
+		* `-string display` - Use the data from only the currently displayed rows.
+	</type>
+
+	<default value="all">
+		Use all records from the column to determine the optimal column widths.
+	</default>
+
+	<description>
+		DataTables column width calculations will use data from all rows in the table by default, which is normally a fast scan operation to find the longest strings and words. However, if the display data type (see `-init columns.render` and [the orthogonal data manual](https://datatables.net/manual/core/data/orthogonal-data)) involves a processor intensive operation (e.g. rendering DOM elements), it can cause performance issues.
+
+		This option provides a way to limit the rows used for the column width calculations to just the rows in the current display. Typically you will not need to set this manually, but it is utilised by the React and Vue integrations for DataTables to improve performance where child components might need to be rendered into a cell.
+
+		If you do use this option, it is best to do so on columns that have consistent data width - e.g. control buttons or a link, rather than in a column with string information that can vary in width significantly.
+	</description>
+
+	<example title="Limit the column width calculation to just the rows currently being displayed"><![CDATA[
+new DataTable('#myTable', {
+	columnDefs: [{
+		widthCalc: 'display',
+		targets: 0
+	}]
+});
+]]></example>
+
+	<related>-init autoWidth</related>
+	<related>-init columns.width</related>
+</dt-option>

@@ -115,6 +115,14 @@ export interface Defaults {
 	 * Column width assignment.
 	 */
 	width: string | null;
+
+	/**
+	 * Determine which rows should be used from the column for the column width
+	 * calculations. It can be beneficial to performance to limit this to the
+	 * currently displayed rows if the display of the data requires significant
+	 * calculation (e.g. using a React or Vue component).
+	 */
+	widthCalc: 'display' | 'all'
 }
 
 /**
@@ -140,7 +148,8 @@ const defaults: Defaults = {
 	title: null,
 	type: null,
 	visible: true,
-	width: null
+	width: null,
+	widthCalc: 'all'
 };
 
 export default defaults;

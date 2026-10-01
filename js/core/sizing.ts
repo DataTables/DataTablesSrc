@@ -4,7 +4,7 @@ import ext from '../ext/index';
 import { Context } from '../model/settings';
 import util from '../util';
 import { adjustColumnSizing, columnsSumWidth, getColumns } from './columns';
-import { getRowDisplay } from './draw';
+import { getDisplay } from './draw';
 
 /**
  * Recalculate the column widths, if needed (by a column having been
@@ -77,8 +77,7 @@ export function calculateColumnWidths(settings: Context) {
 	// Construct a worst case table with the widest, assign any user defined
 	// widths, then insert it into  the DOM and allow the browser to do all
 	// the hard work of calculating table widths
-	var tmpTable = Dom
-		.s(table.cloneNode())
+	var tmpTable = Dom.s(table.cloneNode())
 		.css('visibility', 'hidden')
 		.css('margin', '0')
 		.attrRemove('id');
@@ -147,8 +146,7 @@ export function calculateColumnWidths(settings: Context) {
 				var padding = column.contentPadding || (scrollX ? '-' : '');
 				var text = longest + padding;
 
-				var cell = Dom
-					.c('td')
+				var cell = Dom.c('td')
 					.classAdd(autoClass)
 					.classAdd(column.className)
 					.appendTo(tr);
@@ -175,8 +173,7 @@ export function calculateColumnWidths(settings: Context) {
 	// with minimal height, so it has no effect on if the container scrolls
 	// or not. Otherwise it might trigger scrolling when it actually isn't
 	// needed
-	var holder = Dom
-		.c('div')
+	var holder = Dom.c('div')
 		.css(
 			scrollX || scrollY
 				? {
@@ -261,8 +258,7 @@ export function calculateColumnWidths(settings: Context) {
 			var first = Dom.s(settings.tableWrapper).isVisible();
 
 			// Use an empty div to attach the observer so it isn't impacted by height changes
-			var resizer = Dom
-				.c('div')
+			var resizer = Dom.c('div')
 				.css({
 					width: '100%',
 					height: '0'
@@ -322,15 +318,24 @@ function wrapperWidth(settings: Context): number {
 function getWideStrings(settings: Context, colIdx: number) {
 	var column = settings.columns[colIdx];
 
-	// Do we need to recalculate (i.e. was invalidated), or just use the cached data?
-	if (!column.wideStrings) {
+	// Do we need to recalculate (i.e. was invalidated), or just use the cached
+	// data? Recalculate if display based for the column.
+	if (!column.wideStrings || column.widthCalc === 'display') {
 		var allStrings: string[] = [];
 		var collection: any[] = [];
+		let rows = settings.displayMaster;
+
+		if (column.widthCalc === 'display') {
+			rows = settings.display.slice(
+				settings.displayStart,
+				settings.displayStart + settings.pageLength
+			);
+		}
 
 		// Create an array with the string information for the column
-		for (var i = 0, iLen = settings.displayMaster.length; i < iLen; i++) {
-			var rowIdx = settings.displayMaster[i];
-			var data = getRowDisplay(settings, rowIdx)[colIdx];
+		for (var i = 0, len = rows.length; i < len; i++) {
+			var rowIdx = rows[i];
+			var data = getDisplay(settings, rowIdx, colIdx);
 
 			var cellString =
 				data && typeof data === 'object' && data.nodeType

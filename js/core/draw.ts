@@ -1,8 +1,14 @@
-import { callbackFire, dataSource, escapeObject, lengthOverflow, log } from '../api/support';
+import {
+	callbackFire,
+	dataSource,
+	escapeObject,
+	lengthOverflow,
+	log
+} from '../api/support';
 import Dom from '../dom';
 import ext from '../ext/index';
 import Settings from '../model/columns/settings';
-import { Row, TableCellElement, TableRowElement } from '../model/row';
+import { Row, RowDisplayData, TableCellElement, TableRowElement } from '../model/row';
 import {
 	Context,
 	HeaderStructure,
@@ -27,13 +33,38 @@ interface HeaderLayoutCell {
 }
 
 /**
- * Render and cache a row's display data for the columns, if required
+ * Get the display data / nodes for a whole row, creating the display data if
+ * required.
  *
  * @param settings DataTables settings object
  * @param rowIdx Row index
  * @returns Array with display information
  */
-export function getRowDisplay(settings: Context, rowIdx: number) {
+export function getDisplay(
+	settings: Context,
+	rowIdx: number
+): RowDisplayData;
+
+/**
+ * Get the display data / node for a specific cell, creating the display data
+ * if required.
+ *
+ * @param settings DataTables settings object
+ * @param rowIdx Row index
+ * @param colIdx Column index
+ * @returns Display value
+ */
+export function getDisplay(
+	settings: Context,
+	rowIdx: number,
+	colIdx: number | null
+): HTMLElement | string | number;
+
+export function getDisplay(
+	settings: Context,
+	rowIdx: number,
+	colIdx: number | null = null
+) {
 	var rowModal = settings.data[rowIdx];
 	var columns = settings.columns;
 
@@ -44,15 +75,43 @@ export function getRowDisplay(settings: Context, rowIdx: number) {
 	if (!rowModal.displayData) {
 		// Need to render and cache
 		rowModal.displayData = [];
+	}
 
-		for (var colIdx = 0, len = columns.length; colIdx < len; colIdx++) {
-			rowModal.displayData.push(
-				getCellData(settings, rowIdx, colIdx, 'display')
-			);
+	const displayData = rowModal.displayData;
+
+	// Check if we need to actually perform the render to get the display data
+	if (!displayData._complete) {
+		if (colIdx !== null) {
+			// Single cell
+			if (!displayData[colIdx]) {
+				displayData[colIdx] = getCellData(
+					settings,
+					rowIdx,
+					colIdx,
+					'display'
+				);
+			}
+		}
+		else {
+			// Whole row
+			for (var i = 0, len = columns.length; i < len; i++) {
+				if (!displayData[i]) {
+					displayData[i] = getCellData(
+						settings,
+						rowIdx,
+						i,
+						'display'
+					);
+
+					displayData._complete = true;
+				}
+			}
 		}
 	}
 
-	return rowModal.displayData;
+	// At this point the item(s) we want will have been created - possibly all,
+	// but that doesn't matter, as long as we've got the one we want.
+	return colIdx !== null ? displayData[colIdx] : displayData;
 }
 
 /**
@@ -104,9 +163,7 @@ export function createTr(
 			create = trIn && tds && tds[i] ? false : true;
 
 			td = create
-				? (doc.createElement(
-						column.cellType
-				  ) as HTMLTableCellElement)
+				? (doc.createElement(column.cellType) as HTMLTableCellElement)
 				: tds![i];
 
 			if (!td) {
@@ -120,7 +177,7 @@ export function createTr(
 
 			cells.push(td);
 
-			var display = getRowDisplay(settings, rowIdx);
+			var display = getDisplay(settings, rowIdx);
 
 			// Need to create the HTML if new, or if a rendering function is
 			// defined
@@ -618,11 +675,9 @@ function _emptyRow(settings: Context) {
 		zero = lang.emptyTable;
 	}
 
-	return Dom
-		.c<HTMLTableRowElement>('tr')
+	return Dom.c<HTMLTableRowElement>('tr')
 		.append(
-			Dom
-				.c('td')
+			Dom.c('td')
 				.attr('colSpan', visibleColumns(settings))
 				.classAdd(settings.classes.empty.row)
 				.html(zero)
@@ -795,9 +850,7 @@ export function detectHeader(
 							0 &&
 						cell.find('div.dt-column-order').count() === 0
 					) {
-						Dom.c('div')
-							.classAdd('dt-column-order')
-							.appendTo(cell);
+						Dom.c('div').classAdd('dt-column-order').appendTo(cell);
 					}
 
 					// We need to wrap the elements in the header in another
@@ -805,8 +858,7 @@ export function detectHeader(
 					var headerFooter = isHeader ? 'header' : 'footer';
 
 					if (
-						cell.find('div.dt-column-' + headerFooter).count() ===
-						0
+						cell.find('div.dt-column-' + headerFooter).count() === 0
 					) {
 						Dom.c('div')
 							.classAdd('dt-column-' + headerFooter)

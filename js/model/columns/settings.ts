@@ -196,6 +196,11 @@ export default class Settings {
 	public width: string | null = null;
 
 	/**
+	 * Which cells to use when calculating the column width
+	 */
+	public widthCalc: 'display' | 'all' = 'all';
+
+	/**
 	 * Width of the column when it was first "encountered"
 	 */
 	public widthOrig: string | null = null;

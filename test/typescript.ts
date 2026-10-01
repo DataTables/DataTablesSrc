@@ -53,6 +53,7 @@ let table = new DataTable('#myTable', {
 				meta.row;
 				meta.settings;
 			},
+			widthCalc: 'display'
 		}
 	],
 	language: {

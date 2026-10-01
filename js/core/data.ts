@@ -4,7 +4,7 @@ import ext from '../ext/index';
 import createRow, { Row } from '../model/row';
 import { Context } from '../model/settings';
 import util from '../util';
-import { createTr, getRowDisplay, rowAttributes } from './draw';
+import { createTr, getDisplay, rowAttributes } from './draw';
 
 /**
  * Add a data array to the table, creating DOM node etc. This is the parallel to
@@ -210,7 +210,10 @@ export function setCellData(
  * @param td Cell
  * @param val Value
  */
-export function writeCell(td: HTMLTableCellElement, val: string | HTMLElement) {
+export function writeCell(
+	td: HTMLTableCellElement,
+	val: number | string | HTMLElement
+) {
 	let cell = Dom.s(td);
 
 	if (val && typeof val === 'object' && val.nodeName) {
@@ -279,7 +282,7 @@ export function invalidateRow(
 	else {
 		// Reading from data object, update the DOM
 		var cells = row.cells;
-		var display = getRowDisplay(settings, rowIdx);
+		var display = getDisplay(settings, rowIdx);
 
 		if (cells.length) {
 			if (colIdx !== undefined) {
