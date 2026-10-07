@@ -5,6 +5,7 @@ import { IFeatureInfoOptions } from '../features/info';
 import { IFeaturePagingOptions } from '../features/page';
 import { IFeaturePageLengthOptions } from '../features/pageLength';
 import { IFeatureSearchOptions } from '../features/search';
+import { AjaxOptions } from '../util/ajax';
 import { Context } from './settings';
 import { State, StateLoad } from './state';
 
@@ -176,7 +177,7 @@ export interface ColumnRenderObject {
 
 export type AjaxDataSrc = string | ((data: any) => any[]);
 
-export interface AjaxSettings extends JQueryAjaxSettings {
+export interface AjaxSettings extends AjaxOptions {
 	/**
 	 * Add or modify data submitted to the server upon an Ajax request.
 	 */

@@ -2901,7 +2901,7 @@ declare global {
 	}
 
 	/* Extend jQuery's interface with the DataTable's properties */
-	interface JQuery {
+	interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
 		/**
 		 * Create a new DataTable, returning a DataTables API instance.
 		 * @param opts Configuration settings
