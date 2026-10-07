@@ -139,7 +139,7 @@ register<ApiType['destroy']>('destroy()', function (remove) {
 
 		// If not being removed from the document, make all columns visible
 		if (!remove) {
-			new Api(settings).columns().visible();
+			new Api(settings).columns().visible(true);
 		}
 
 		// Container width change listener

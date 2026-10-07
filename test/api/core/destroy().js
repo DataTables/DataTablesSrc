@@ -110,4 +110,40 @@ describe('core - destroy()', function() {
 			expect($('#example tbody tr.selected').length).toBe(0);
 		});
 	});
+
+	describe('Hidden columns', function() {
+		dt.html('basic');
+
+		it('Initialise with hidden column', function() {
+			table = $('#example').DataTable({
+				columnDefs: [
+					{target: 0, visible: false}
+				]
+			});
+
+			expect($('#example thead th').length).toBe(5);
+		});
+
+		it('Will restore hidden columns on destroy', function() {
+			table.destroy();
+			
+			expect($('#example thead th').length).toBe(6);
+		});
+
+		it('Multiple hidden', function() {
+			table = $('#example').DataTable({
+				columnDefs: [
+					{targets: [0, 1, 4], visible: false}
+				]
+			});
+
+			expect($('#example thead th').length).toBe(3);
+		});
+
+		it('Will restore multiple hidden columns on destroy', function() {
+			table.destroy();
+			
+			expect($('#example thead th').length).toBe(6);
+		});
+	});
 });
