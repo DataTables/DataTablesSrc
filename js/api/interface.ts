@@ -2891,15 +2891,15 @@ interface JQueryDataTables extends JQuery {
 	api(): Api<any>;
 }
 
+interface JQueryDataTableApi extends DataTablesStatic {
+	<T = any>(opts?: Options): Api<T>;
+}
+
+interface JQueryDataTableJq extends DataTablesStatic {
+	(opts?: Options): JQueryDataTables;
+}
+
 declare global {
-	interface JQueryDataTableApi extends DataTablesStatic {
-		<T = any>(opts?: Options): Api<T>;
-	}
-
-	interface JQueryDataTableJq extends DataTablesStatic {
-		(opts?: Options): JQueryDataTables;
-	}
-
 	/* Extend jQuery's interface with the DataTable's properties */
 	interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
 		/**
