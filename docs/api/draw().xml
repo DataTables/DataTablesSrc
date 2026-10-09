@@ -26,26 +26,26 @@
 
 		A draw is not performed automatically by most DataTables API actions to allow grouping of actions (for example adding multiple rows is more efficient if you group them). Keep in mind that due to the chaining nature of the DataTables API, calling the `-api draw()` method is just a case of adding `.draw()` to your other API method calls, as shown in the examples below.
 
-		Note that calling `-api draw()` with any option other than the first parameter being `-string page` will result in a full re-order and re-search of the table being performed. The `-string page` option is provided when you wish the table to be updated but for these actions not to occur (for example, a page change does not require a full re-order / re-search).
+		Note that calling `-api draw()` with any option other than the first parameter being `-string page` will result in a full re-order and re-search of the table being performed. The `-string page` option is provided when you wish the table to be updated but for these actions not to occur (for example, a page change does not require a full re-order / re-search). If `-string page` is given as the parameter, rows and cells will _not_ be checked for any data that has been invalidated.
 	</description>
 
 	<example title="Filter the table based on a custom input and redraw"><![CDATA[
-var table = new DataTable('#myTable');
+const table = new DataTable('#myTable');
 
-$('#myFilter').on('keyup', function () {
+DataTable.Dom.s('#myFilter').on('keyup', function () {
 	table.search(this.value).draw();
 });
 ]]></example>
 
 	<example title="Sort and then redraw the table maintaining current paging position"><![CDATA[
-var table = new DataTable('#myTable');
+const table = new DataTable('#myTable');
 
 // Sort by column 1 and then re-draw
 table.order([[1, 'asc']]).draw(false);
 ]]></example>
 
 	<example title="Change the table's page and then redraw (using the `-string page` option)"><![CDATA[
-var table = new DataTable('#myTable');
+const table = new DataTable('#myTable');
 
 table.page('next').draw('page');
 ]]></example>
