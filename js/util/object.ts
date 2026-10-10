@@ -88,6 +88,10 @@ export function assignDeep<T>(
 		}
 
 		for (const [key, value] of Object.entries(input)) {
+			if (key === '__proto__') {
+				continue;
+			}
+
 			if (Array.isArray(value)) {
 				if (!Array.isArray(out[key])) {
 					out[key] = [];
@@ -133,6 +137,10 @@ export function assignDeepObjects<T>(
 	let val;
 
 	for (let prop in extender) {
+		if (prop === '__proto__') {
+			continue;
+		}
+
 		if (Object.prototype.hasOwnProperty.call(extender, prop)) {
 			val = extender[prop];
 
