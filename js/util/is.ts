@@ -3,7 +3,7 @@ import { numToDecimal } from './conv';
 import { reFormattedNumeric } from './regex';
 import { stripHtml } from './string';
 
-export function arrayLike(test: any) {
+export function arrayLike<T=any>(test: any): test is T[] {
 	return (
 		test && // Exists
 		typeof test !== 'string' && // Is not a string

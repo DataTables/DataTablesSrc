@@ -1259,9 +1259,9 @@ export default class Dom<T extends HTMLElement = HTMLElement>
 	 * @param content Item(s) to prepend
 	 * @returns Self for chaining
 	 */
-	prepend(content: Element | Dom | string) {
+	prepend(content: Element | Element[] | Dom | string) {
 		return this.each(el => {
-			if (content instanceof Dom) {
+			if (is.arrayLike(content) || is.dom(content)) {
 				// Reverse the array, so if there are multiple elements, they
 				// end up being added sequentially, just like jQuery
 				let itemsReversed = Array.from(content).reverse();
