@@ -60,7 +60,7 @@ type LayoutKeys =
 export type LayoutFeatures =
 	| keyof Feature
 	| Feature
-	| Array<keyof Feature>
+	| Array<keyof Feature | Feature>
 	| Feature[];
 
 export type LayoutElement = {

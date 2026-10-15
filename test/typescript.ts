@@ -76,6 +76,9 @@ let table = new DataTable('#myTable', {
 				text: '_START_ to _END_'
 			}
 		},
+		top1: {
+			features: ['search', { div: {} }],
+		},
 		bottomEnd: [ 'pageLength', 'paging' ],
 		bottom1End: [
 			{
