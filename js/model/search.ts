@@ -47,6 +47,13 @@ export interface SearchOptions {
 	smart: boolean;
 }
 
+export interface SearchConfig extends SearchOptions {
+	/**
+	 * Applied search term
+	 */
+	search: SearchInput;
+}
+
 /**
  * Internal object 
  */

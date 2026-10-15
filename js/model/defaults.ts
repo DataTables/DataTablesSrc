@@ -27,7 +27,7 @@ import {
 	Layout,
 	Order
 } from './interface';
-import { defaults as searchDefaults, SearchOptions } from './search';
+import { SearchConfig, defaults as searchDefaults } from './search';
 import { Context, DtAjaxOptions } from './settings';
 export interface Defaults {
 	/**
@@ -309,12 +309,12 @@ export interface Defaults {
 	/**
 	 * Set an initial filter in DataTables and / or filtering options.
 	 */
-	search: Partial<SearchOptions>;
+	search: Partial<SearchConfig>;
 
 	/**
 	 * Define an initial search for individual columns.
 	 */
-	searchCols: Partial<SearchOptions>[];
+	searchCols: Partial<SearchConfig>[];
 
 	/**
 	 * Set a throttle frequency for searching.

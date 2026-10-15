@@ -38,7 +38,9 @@ let table = new DataTable('#myTable', {
 	columns: [
 		null,
 		{ data: 1 },
-		{ title: 'Col 2' }
+		{ title: 'Col 2' },
+		{ search: { search: 'test' } },
+		{ search: { search: () => true } }
 	],
 	columnDefs: [
 		{
@@ -54,7 +56,7 @@ let table = new DataTable('#myTable', {
 				meta.settings;
 			},
 			widthCalc: 'display'
-		}
+		}, 
 	],
 	language: {
 		entries: {
@@ -147,6 +149,7 @@ let table = new DataTable('#myTable', {
 		indicators: true,
 		handler: true
 	},
+	search: { search: 'test' },
 	typeDetect: true,
 	deferLoading: [ 1, 10 ],
 });

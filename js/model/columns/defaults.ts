@@ -1,9 +1,10 @@
 import {
 	ColumnData,
 	ColumnRender,
+	DeepPartial,
 	FunctionColumnCreatedCell
 } from '../interface';
-import { SearchOptions } from '../search';
+import { SearchConfig } from '../search';
 
 export interface ConfigColumnDefs extends Options {
 	/**
@@ -89,7 +90,10 @@ export interface Defaults {
 	 */
 	render: ColumnRender;
 
-	search: SearchOptions | null;
+	/**
+	 * Column search configuration
+	 */
+	search: SearchConfig | null;
 
 	/**
 	 * Enable or disable filtering on the data in this column.
@@ -154,4 +158,4 @@ const defaults: Defaults = {
 
 export default defaults;
 
-export interface Options extends Partial<Defaults> {}
+export interface Options extends DeepPartial<Defaults> {}
