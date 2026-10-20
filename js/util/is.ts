@@ -29,7 +29,7 @@ export function dom<T=Dom>(input: unknown): input is T {
  * @returns true if an HTML element was passed in
  */
 export function element<T=HTMLElement>(input: unknown): input is T {
-	return typeof input === 'object' && (input as any).nodeName;
+	return input && typeof input === 'object' && (input as any).nodeName;
 }
 
 /**
