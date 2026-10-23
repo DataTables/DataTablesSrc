@@ -498,3 +498,34 @@ register('num', {
 		}
 	}
 });
+
+register('bool', {
+	className: 'dt-type-boolean',
+	detect: {
+		allOf: function (d, settings) {
+			return d === true ||
+				d === false ||
+				d === 't' ||
+				d === 'f' ||
+				d === 'true' ||
+				d === 'false' ||
+				d === '1' ||
+				d === '0' || 
+				d === 1 ||
+				d === 0 ||
+				d === '' ||
+				d === null
+				? true
+				: null;
+
+			var decimal = settings.language.decimal;
+			return util.is.num(d, decimal, false, true);
+		}
+	},
+	order: {
+		pre: function (d, s) {
+			var dp = s.language.decimal;
+			return __numericReplace(d, dp);
+		}
+	}
+});

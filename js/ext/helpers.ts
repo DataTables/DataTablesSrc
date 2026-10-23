@@ -1,8 +1,9 @@
+import { ColumnRenderFunction } from 'datatables.net';
 import DataTable from '../dataTable';
 import util from '../util';
 import { register as registerType, store as typeStore } from './types';
 
-export type DateTimeRenderer = (d: any, type: string) => any;
+export type DateTimeRenderer = (d: any, type: string) => ColumnRenderFunction;
 export type NumberRenderer = {
 	display: (d: unknown) => unknown;
 };
@@ -10,6 +11,7 @@ export type TextRenderer = {
 	display: (d: any) => string;
 	filter: (d: any) => string;
 };
+export type BooleanRenderer = ColumnRenderFunction;
 
 /*
  * Public helper functions. These aren't used internally by DataTables, or
@@ -234,7 +236,7 @@ function __mlHelper(localeString: string) {
 var __thousands: string;
 var __decimal: string;
 
-function detectIntl () {
+function detectIntl() {
 	let win = DataTable.use('win');
 
 	// Based on locale, determine standard number formatting
@@ -298,9 +300,37 @@ export function datetime(format: string, locale?: string) {
  * Helpers for `columns.render`.
  */
 export default {
+	boolean: function (
+		t: string = '\u2713',
+		f: string = '\u2717',
+		n: string = ''
+	): BooleanRenderer {
+		return (data: any) => {
+			if (
+				data === true ||
+				data === 't' ||
+				data === 'true' ||
+				data === '1'
+			) {
+				return t;
+			}
+			else if (
+				data === false ||
+				data === 'f' ||
+				data === 'false' ||
+				data === '0'
+			) {
+				return f;
+			}
+
+			return n;
+		};
+	},
+
 	date: __mlHelper('toLocaleDateString'),
 	datetime: __mlHelper('toLocaleString'),
 	time: __mlHelper('toLocaleTimeString'),
+
 	number: function (
 		thousands?: string | null,
 		decimal?: string | null,

@@ -22,6 +22,10 @@ table.dataTable#{$table-typography-selector} {
 			}
 		}
 
+		&.dt-type-boolean {
+			text-align: center;
+		}
+
 		&.dt-left {
 			text-align: left;
 
