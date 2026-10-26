@@ -1,5 +1,5 @@
 
-import defaults from '../model/defaults';
+import { Options } from '../model/defaults';
 import * as object from './object';
 
 // Can be assigned in DateTable.use()
@@ -138,7 +138,7 @@ export function jQuerySetup() {
 	__jquery.fn.dataTable = __dataTable;
 
 	// jQuery wrapper - returning a DataTable instance
-	__jquery.fn.DataTable = function (options: Partial<typeof defaults>) {
+	__jquery.fn.DataTable = function (options: Options) {
 		let table = new __dataTable(this.toArray(), options);
 
 		return table;
