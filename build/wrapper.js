@@ -164,17 +164,24 @@ ${exportProps}
  */
 function umd(script, deps, exp, filename) {
 	let amdLoad = [];
-	let commonjs = [];
+	let commonjsWin = [];
+	let commonjsNoWin = [];
 	let requiresDT = false;
 
 	for (let dep of deps) {
 		amdLoad.push(`'${dep}'`);
 
 		if (nameFromDependency(dep) === 'DataTable') {
-			commonjs.push(`
-			if (! root.DataTable) {
-				require('${dep}')(root);
-			}
+			commonjsWin.push(`
+			var DataTable = window.DataTable ?
+				window.DataTable :
+				require('${dep}');
+`);
+
+			commonjsNoWin.push(`
+				var DataTable = root.DataTable ?
+					root.DataTable :
+					require('${dep}')(root);
 `);
 
 			requiresDT = true;
@@ -182,16 +189,22 @@ function umd(script, deps, exp, filename) {
 		else {
 			let name = nameFromDependency(dep);
 
-			commonjs.push(`
+			commonjsWin.push(`
 			if (! window.DataTable.${name}) {
-				require('${dep}')(root);
+				require('${dep}');
 			}
+`);
+
+			commonjsNoWin.push(`
+				if (! root.DataTable.${name}) {
+					require('${dep}')(root);
+				}
 `);
 		}
 	}
 
-	let setDataTable =
-		filename === 'datatables.js' ? 'window.DataTable = ' : '';
+	let setBrowserDataTable = filename === 'datatables.js' ?
+		'window.DataTable = DataTable;' : '';
 
 	// Resolve imports from DataTables - there is a very limited set of "value"
 	// imports that can be made, so for the moment this is just a simple list
@@ -220,9 +233,6 @@ function umd(script, deps, exp, filename) {
 		});
 	}
 	else if (typeof exports === 'object') {
-		// CommonJS
-		var cjsRequires = function (root) {${commonjs.join('')}		};
-
 		if (typeof window === 'undefined') {
 			module.exports = function (root) {
 				if (! root) {
@@ -230,21 +240,19 @@ function umd(script, deps, exp, filename) {
 					// root. This will give an error otherwise
 					root = window;
 				}
-
-				cjsRequires(root);
-				return factory(root, root.document${requiresDT ? ', root.DataTable' : ''});
+				${commonjsNoWin.join('')}
+				return factory(root, root.document${requiresDT ? ', DataTable' : ''});
 			};
 		}
-		else {
-			cjsRequires(window);
+		else {${commonjsWin.join('')}
 			module.exports = factory(window, window.document${
-				requiresDT ? ', window.DataTable' : ''
+				requiresDT ? ', DataTable' : ''
 			});
 		}
 	}
 	else {
 		// Browser
-		${setDataTable}factory(window, document${
+		${setBrowserDataTable}factory(window, document${
 		requiresDT ? ', window.DataTable' : ''
 	});
 	}
