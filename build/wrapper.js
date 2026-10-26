@@ -204,7 +204,7 @@ function umd(script, deps, exp, filename) {
 	}
 
 	let setBrowserDataTable = filename === 'datatables.js' ?
-		'window.DataTable = DataTable;' : '';
+		'window.DataTable = ' : '';
 
 	// Resolve imports from DataTables - there is a very limited set of "value"
 	// imports that can be made, so for the moment this is just a simple list
