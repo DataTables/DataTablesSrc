@@ -94,20 +94,26 @@ function selectRows(
 		}
 
 		// ID selector. Want to always be able to select rows by id, regardless
-		// of if the tr element has been created or not, so can't rely upon
-		// jQuery here - hence a custom implementation. This does not match
-		// Sizzle's fast selector or HTML4 - in HTML5 the ID can be anything,
-		// but to select it using a CSS selector engine (like Sizzle or
-		// querySelect) it would need to need to be escaped for some characters.
-		// DataTables simplifies this for row selectors since you can select
-		// only a row. A # indicates an id any anything that follows is the id -
-		// unescaped.
+		// of if the tr element has been created or not, so can't rely upon the
+		// DOM here - hence a custom implementation. In HTML5 the ID can be
+		// anything, but to select it using a CSS selector engine it would need
+		// to need to be escaped for some characters. DataTables simplifies this
+		// for row selectors since you can select only a row. A # indicates an
+		// id any anything that follows is the id - unescaped.
 		if (typeof sel === 'string') {
 			if (sel.charAt(0) === '#') {
 				// get row index from id
 				var rowObj = settings.ids[sel.replace(/^#/, '')];
 				if (rowObj !== undefined) {
 					return [rowObj.idx];
+				}
+
+				// If it was a basic ID selector, and it didn't match, in the
+				// above, then return here, as it won't match at all. Note that
+				// this check is slightly less restrictive than CSS IDs, in that
+				// it allows a leading digit or dash to be used.
+				if (sel.match(/^#[a-zA-Z0-9_-]*$/)) {
+					return [];
 				}
 
 				// need to fall through to selector in case there is DOM id that

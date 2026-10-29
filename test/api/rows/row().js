@@ -130,4 +130,36 @@ describe('rows - row()', function() {
 			expect(table.row($('tbody tr:eq(2) td:eq(1)')).data()[0]).toBe('Ashton Cox');
 		});
 	});
+
+	describe('UUIDs', function() {
+		dt.html('basic');
+
+		it('Init the DataTable', () => {
+			let rows = $('#example tbody tr');
+			
+			rows.eq(0).attr('id', '14c503bc-d2d0-4847-9559-973ebc65c696');
+			rows.eq(1).attr('id', 'e4c503bc-d2d0-4847-9559-973ebc65c696');
+
+			table = $('#example').DataTable();
+			expect(1).toBe(1);
+		});
+
+		it('Can select a UUID with a leading letter', () => {
+			let d = table.row('#e4c503bc-d2d0-4847-9559-973ebc65c696').data();
+
+			expect(d[0]).toBe('Garrett Winters');
+		});
+
+		it('Can select a UUID with a leading number', () => {
+			let d = table.row('#14c503bc-d2d0-4847-9559-973ebc65c696').data();
+
+			expect(d[0]).toBe('Tiger Nixon');
+		});
+
+		it('Unknown ID does not throw an error', () => {
+			let d = table.row('#14d5d3bc-d2d0-4847-9559-973ebc65c696').data();
+
+			expect(d).toBeUndefined();
+		});
+	});
 });
