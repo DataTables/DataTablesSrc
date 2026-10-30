@@ -639,6 +639,7 @@ else if ( stripos( $dir_input, 'StateRestore' ) ) {
 	$dir_order = array(
 		'initialisation',
 		'predefined',
+		'bookmarks',
 		'integration',
 		'styling'
 	);
@@ -646,6 +647,7 @@ else if ( stripos( $dir_input, 'StateRestore' ) ) {
 	$dir_names = array(
 		'initialisation' => 'Initialisation and options',
 		'customisation' => 'Predefined states',
+		'bookmarks' => 'Bookmarking',
 		'integration' => 'DataTables extensions',
 		'styling' => 'Styling'
 	);
