@@ -413,7 +413,7 @@ register('html-num-fmt', {
 	detect: {
 		allOf: function (d, settings) {
 			var decimal = settings.language.decimal;
-			return util.is.htmlNum(d, decimal, true, false);
+			return util.is.htmlNum(d, decimal, true, true);
 		},
 		oneOf: function (d, settings) {
 			// At least one data point must contain a numeric value
