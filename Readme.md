@@ -58,9 +58,9 @@ DataTables is release under the [MIT license](//datatables.net/license). You are
 
 DataTables is supported by:
 
-<p>
+<p align="center">
 	<a href="https://www.herodevs.com/">
-		<img src="https://cdn.prod.website-files.com/62876589ec366575fa309b1e/667d34cdc5ba5c764c7a18c6_HeroDevs-Gradient-Light%20Mode.svg" alt="HeroDevs" style="max-width: 300px; background-color: white; border-radius: 0.5em; margin: 0 auto; display: block;">
+		<img src="https://cdn.prod.website-files.com/62865614b39c464b76d339aa/668c0ec8bc50d24d58a40475_Logo%20Gradient%20Darkmode.svg" alt="HeroDevs" style="max-width: 300px;">
 	</a>
 </p>
 
