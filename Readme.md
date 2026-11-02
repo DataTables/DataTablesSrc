@@ -64,4 +64,4 @@ DataTables is supported by:
 	</a>
 </p>
 
-If you are interested in joining us as a project partner or sponsor, please [get in touch](https://datatables.net/support/contact).
+If you are interested in joining as a project partner or sponsor, please [get in touch](https://datatables.net/support/contact).
