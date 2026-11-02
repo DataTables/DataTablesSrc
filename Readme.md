@@ -60,7 +60,7 @@ DataTables is supported by:
 
 <p>
 	<a href="https://www.herodevs.com/">
-		<img src="https://cdn.prod.website-files.com/62876589ec366575fa309b1e/667d34cdc5ba5c764c7a18c6_HeroDevs-Gradient-Light%20Mode.svg" alt="HeroDevs" style="max-width: 300px">
+		<img src="https://cdn.prod.website-files.com/62876589ec366575fa309b1e/667d34cdc5ba5c764c7a18c6_HeroDevs-Gradient-Light%20Mode.svg" alt="HeroDevs" style="max-width: 300px; background-color: white; border-radius: 0.5em; margin: 0 auto; display: block;">
 	</a>
 </p>
 
