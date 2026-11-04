@@ -52,3 +52,16 @@ Support for DataTables is available through the [DataTables forums](//datatables
 ## License
 
 DataTables is release under the [MIT license](//datatables.net/license). You are free to use, modify and distribute this software, but all copyright information must remain.
+
+
+## Project partners
+
+DataTables is supported by:
+
+<p align="center">
+	<a href="https://www.herodevs.com/">
+		<img src="https://cdn.prod.website-files.com/62865614b39c464b76d339aa/668c0ec8bc50d24d58a40475_Logo%20Gradient%20Darkmode.svg" alt="HeroDevs" style="max-width: 300px;">
+	</a>
+</p>
+
+If you are interested in joining as a project partner or sponsor, please [get in touch](https://datatables.net/support/contact).
