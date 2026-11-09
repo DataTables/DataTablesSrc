@@ -1,4 +1,4 @@
-import { arrayApply, callbackFire, dataSource } from '../api/support';
+import { arrayApply, callbackFire, dataSource, log } from '../api/support';
 import Dom from '../dom';
 import ext from '../ext/index';
 import { SearchInput, SearchObject, SearchOptions } from '../model/search';
@@ -251,7 +251,14 @@ function filterCreateSearch(
 			'.)*$';
 	}
 
-	return new RegExp(search, options.caseInsensitive ? 'i' : '');
+	try {
+		return new RegExp(search, options.caseInsensitive ? 'i' : '');
+	}
+	catch (e) {
+		log(null, 1, 'Invalid regular expression for search: ' + search);
+	}
+
+	return null;
 }
 
 // Update the filtering data for each row if needed (by invalidation or first
