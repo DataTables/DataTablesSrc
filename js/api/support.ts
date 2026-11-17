@@ -2,6 +2,7 @@ import { displayEnd, recordsDisplay, recordsTotal } from '../core/draw';
 import Dom from '../dom';
 import ext from '../ext/index';
 import { Context } from '../model/settings';
+import util from '../util';
 import * as object from '../util/object';
 import { escapeHtml } from '../util/string';
 import { Api } from './interface';
@@ -312,7 +313,12 @@ export function listener(that: Dom, name: string, src: Function | Function[]) {
 export function escapeObject(obj: Record<string, any>) {
 	if (ext.escape.attributes) {
 		object.each(obj, function (key, val) {
-			obj[key] = escapeHtml(val);
+			if (util.is.plainObject(val) || util.is.arrayLike(val)) {
+				escapeObject(obj[key]);
+			}
+			else {
+				obj[key] = escapeHtml(val);
+			}
 		});
 	}
 
