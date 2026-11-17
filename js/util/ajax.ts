@@ -138,7 +138,7 @@ function ajax(optionsIn: AjaxOptions) {
 		let statusText = 'success';
 
 		if (xhr.status === 0) {
-			return; // aborted
+			statusText = 'error'; // Network error
 		}
 		else if (xhr.status === 204 || method === 'HEAD') {
 			statusText = 'nocontent';
