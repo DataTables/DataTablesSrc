@@ -362,6 +362,12 @@ export function scrollDraw(settings: Context) {
 	// Remove tabindex from the hidden row elements
 	table.find('thead, tfoot').find('[tabindex]').attrRemove('tabindex');
 
+	// And make form elements in the clones inaccessible by tabbing
+	table
+		.find('thead, tfoot')
+		.find('input, select, button')
+		.attr('tabindex', -1);
+
 	// Dynamic ARIA roles - see setup for details on why this is needed
 	table
 		.find('thead, tfoot')
