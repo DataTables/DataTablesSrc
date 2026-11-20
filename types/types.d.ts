@@ -31,9 +31,11 @@ import {
 } from '../dist/model/columns/defaults';
 import ColumnContext from '../dist/model/columns/settings';
 import {
+	OptionsLanguage as ConfigLanguage, // Legacy
 	Defaults,
-	ConfigLanguage as Language,
-	Options
+	Language,
+	Options,
+	OptionsLanguage
 } from '../dist/model/defaults';
 import {
 	AjaxCallback,
@@ -86,7 +88,7 @@ export {
 		ColumnRenderFunction,
 		ColumnRenderObject,
 		ColumnOptions as ColumnsConfig, // legacy
-		Options as Config, // legacy
+		Options as Config, ConfigLanguage,
 		Context, DataType,
 		DataTypeDetect,
 		Defaults,
@@ -94,7 +96,8 @@ export {
 		ExtButtons,
 		Feature,
 		Language,
-		Options, Order, OrderArray, OrderColumn, OrderCombined, RowContext,
+		Options, // legacy
+		OptionsLanguage, Order, OrderArray, OrderColumn, OrderCombined, RowContext,
 		Context as Settings,
 		State,
 		StateLoad

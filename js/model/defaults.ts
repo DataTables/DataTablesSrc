@@ -152,7 +152,7 @@ export interface Defaults {
 	/**
 	 * Language configuration object
 	 */
-	language: ConfigLanguage;
+	language: Language;
 
 	/**
 	 * Table and control layout. This replaces the legacy `dom` option.
@@ -399,7 +399,7 @@ type LanguageOption =
 			[key: string | number]: LanguageOption;
 	  };
 
-export interface ConfigLanguage {
+export interface Language {
 	// External options can be added and used through `i18n()`
 	[key: string]: LanguageOption | any;
 
@@ -556,6 +556,8 @@ export interface ConfigLanguage {
 	 */
 	zeroRecords: string;
 }
+
+export interface OptionsLanguage extends DeepPartial<Language> {}
 
 /**
  * Initialisation options that can be given to DataTables at initialisation

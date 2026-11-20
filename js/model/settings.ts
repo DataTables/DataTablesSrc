@@ -3,15 +3,15 @@ import util from '../util';
 import { AjaxOptions, HttpMethod } from '../util/ajax';
 import { GetFunction, JSON } from '../util/types';
 import ColumnSettings from './columns/settings';
-import { ConfigLanguage, Options } from './defaults';
+import { Language, Options } from './defaults';
 import {
-	AjaxData,
-	DataTableDom,
-	FunctionDrawCallback,
-	FunctionFormatNumber,
-	FunctionStateLoadCallback,
-	Layout,
-	OrderState
+    AjaxData,
+    DataTableDom,
+    FunctionDrawCallback,
+    FunctionFormatNumber,
+    FunctionStateLoadCallback,
+    Layout,
+    OrderState
 } from './interface';
 import { Row } from './row';
 import { SearchObject, SearchOptions } from './search';
@@ -358,7 +358,7 @@ export interface Context {
 	json: JSON;
 
 	/** Language information for the table. */
-	language: ConfigLanguage;
+	language: Language;
 
 	/** Last applied sort */
 	lastOrder: any[];
