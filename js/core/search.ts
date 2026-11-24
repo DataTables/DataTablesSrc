@@ -4,6 +4,7 @@ import ext from '../ext/index';
 import { SearchInput, SearchObject, SearchOptions } from '../model/search';
 import { Context } from '../model/settings';
 import util from '../util';
+import { columnTypes } from './columns';
 import { getCellData } from './data';
 
 let __filter_div: HTMLDivElement;
@@ -283,6 +284,9 @@ function filterData(settings: Context) {
 
 		if (row && !row.searchCellCache) {
 			const rowFilterData: string[] = [];
+
+			// Check if the column type was invalidated
+			columnTypes(settings);
 
 			for (j = 0, jen = columns.length; j < jen; j++) {
 				column = columns[j];

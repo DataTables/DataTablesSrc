@@ -166,4 +166,27 @@ describe('rows- row().invalidate()', function() {
 			expect(table.row(2).data()[0]).toBe('Fred');
 		});
 	});
+
+	describe('Search and column type after invalidation (thread 82021)', function() {
+		dt.html('basic');
+
+		it('Column type detected immediately', function() {
+			table = new DataTable('#example');
+
+			expect(table.column(0).type() === 'string');
+		});
+
+		it('Column type is invalidated after a row is invalidated', function() {
+			table.row(0).invalidate();
+
+			expect(table.column(0).type() === null);
+		});
+
+		it('Column type is calculated when a search is performed', function() {
+			table.search('airi').draw();
+
+			expect(table.column(0).type() === 'string');
+		});
+	});
 });
+
