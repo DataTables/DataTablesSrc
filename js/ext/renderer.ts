@@ -197,10 +197,8 @@ export const header: IRendererHeader = (settings, cell, classes) => {
 					.attr('role', 'button')
 					.attr(
 						'aria-label',
-						orderable
-							? col.ariaTitle +
-									ctx.api.i18n('aria.orderable' + ariaType)
-							: col.ariaTitle
+						col.ariaTitle +
+							ctx.api.i18n('aria.orderable' + ariaType)
 					);
 
 				if (tabIndex !== -1) {
